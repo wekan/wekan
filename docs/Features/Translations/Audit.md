@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Bosnian planning and settings — 2026-10-08
+
+Translate 51 remaining English fill-list entries into Bosnian, covering planning,
+imports, link rules, settings and Scrum recovery. Preserve source variables,
+import syntax, environment names and examples. Check retention, nonduplicating
+imports, conflict recovery and read-only settings. The current Bosnian fill list
+is empty. Other languages and vocabulary review remain unfinished; no browser
+or screen-reader session was run.
+
 ## Bosnian interrupted board imports — 2026-10-08
 
 Translate 25 English import recovery messages into Bosnian, preserving exact

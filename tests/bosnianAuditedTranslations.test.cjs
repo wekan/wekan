@@ -438,3 +438,26 @@ assert.match(data['interrupted-import-keep-confirm'], /Ništa se ne uklanja/);
 assert.match(data['interrupted-import-foreign-board'], /nije promijenjena/);
 assert.match(data['interrupted-import-truncated'], /50 najstarijih/);
 assert.match(data['interrupted-import-scrum-busy'], /još se upisuje ili oporavlja/);
+
+const translatedPlanningControls = ["board-announcement", "board-announcement-enabled", "cards-use-list-color", "import-board-instruction-opml", "import-board-instruction-orgmode", "import-board-instruction-todoist", "external-link-rules", "external-link-rules-description", "external-link-identifier-aliases", "read-only-field", "r-moved-forward", "r-moved-back", "r-assignee", "r-add-actinguser-assignee", "r-remove-all-assignees", "ldap-sync-now", "ldap-sync-now-done", "ldap-sync-now-error", "ldap-sync-now-nothing", "oauth-providers-allowed-email-domains", "login-origin-mismatch", "scrum-release-scope", "scrum-releases-select-help", "scrum-import-into-board", "scrum-import-into-board-hint", "scrum-import-preview", "scrum-import-choose-file", "scrum-import-invalid-file", "scrum-import-preview-sprints", "scrum-import-preview-releases", "scrum-import-preview-cards", "scrum-import-preview-nothing", "scrum-import-into-board-done", "scrum-import-card-not-matched", "scrum-import-card-ambiguous", "scrum-import-card-on-another-board", "scrum-import-record-ambiguous", "scrum-import-record-not-imported", "scrum-import-sprint-finished", "sync-planning-sprint", "sync-planning-releases", "sync-planning-fields", "sync-planning-hint", "scrum-history-checkpoint-stuck", "scrum-history-checkpoint-counts", "scrum-history-checkpoint-hint", "scrum-history-checkpoint-rollback", "scrum-history-checkpoint-discard", "scrum-history-checkpoint-discard-confirm", "scrum-history-checkpoint-ask-admin", "login-setting-env-only"];
+for (const key of translatedPlanningControls) {
+  assert.notEqual(data[key], englishRecoverySource[key], key);
+  assert.deepEqual(translationTokens(data[key]), translationTokens(englishRecoverySource[key]), key);
+}
+for (const literal of ['TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED']) {
+  assert.ok(data['import-board-instruction-orgmode'].includes(literal), literal);
+}
+for (const literal of ['@labels', 'p1', 'p3', 'CSV']) {
+  assert.ok(data['import-board-instruction-todoist'].includes(literal), literal);
+}
+assert.ok(data['external-link-rules-description'].includes('[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
+assert.ok(data['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+for (const literal of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS', 'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) {
+  assert.ok(data['ldap-sync-now-nothing'].includes(literal), literal);
+}
+assert.match(data['login-origin-mismatch'], /ROOT_URL/);
+assert.match(data['sync-planning-hint'], /prva sinhronizacija nikada ne uklanja/);
+assert.match(data['scrum-import-into-board-hint'], /nikada se ne dupliraju/);
+assert.match(data['scrum-history-checkpoint-hint'], /niko drugi.*nije promijenio/);
+assert.match(data['scrum-history-checkpoint-hint'], /ne mijenja zapise/);
+assert.match(data['login-setting-env-only'], /samo za čitanje/);
