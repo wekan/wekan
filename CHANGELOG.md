@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a79b9f811a">Translate seven import formats in Wu, Papiamento and Yiddish</a>. Thanks to xet7.</summary>
+
+Translate 21 instructions for Quire, Wrike, Teamwork.com, Businessmap, Redmine,
+Notion and Plane. Preserve commands, column names, hierarchy markers, file
+extensions and warnings about omitted data. All three failures from the 332-suite
+translation run pass on targeted rerun, as do the expanded import-instruction
+suite, placeholder suite and all 21 preservation checks. Native review, browser
+checks and the wider all-language backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/73622c9539">Translate eight Finnish import instructions</a>. Thanks to xet7.</summary>
 
 Translate instructions for Planner, MeisterTask, Obsidian, Linear, TickTick,
