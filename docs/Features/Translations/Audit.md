@@ -8630,6 +8630,17 @@ formats and selection restrictions alongside key order and placeholder inventori
 Technical wording remains low confidence pending speaker review. Browser checks
 were not run; the broader language audit continues.
 
+## Tatar WIP and flow report label corrections
+
+Corrected 37 WIP group and flow report values containing wrong-language text or
+incomplete substitutes for the English labels. Preserved XmR, the 85th percentile
+and day units. Restored distinctions between target and finish dates, mean and
+moving range, and the minimum capacity wording. Neighboring two-factor, list-sync
+and map translations were retained. Statistical terminology remains low confidence
+pending speaker review. Regression coverage checks key order, tokens and important
+label distinctions. Browser checks were not run; flow report explanations and the
+broader language audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
