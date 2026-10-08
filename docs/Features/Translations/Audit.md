@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Bengali, Kannada and Nepali short interface labels — 2026-10-08
+
+Translate 12 English values: sort criterion, rule actor, email recipient and the
+current-user due-card filter. The rule templates confirm that the two English by
+labels have different roles; use explicit field labels rather than a shared
+preposition. Preserve exact token inventories. Composed interface wording needs
+native review, and browser checks and the wider backlog remain unfinished.
+
 ## Mongolian short Blockly labels — 2026-10-08
 
 Translate 14 short English values using Mongolian control and pixel-state vocabulary

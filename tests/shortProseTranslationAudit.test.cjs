@@ -149,3 +149,23 @@ test('Mongolian short labels preserve argument roles, list positions and control
   assert.notEqual(locale['blockly-FIELD_BITMAP_PIXEL_ON'], locale['blockly-FIELD_BITMAP_PIXEL_OFF']);
   assert.ok(locale['blockly-FIELD_BITMAP_ARIA_VALUE'].includes(locale['blockly-FIELD_BITMAP_PIXEL_ON']));
 });
+
+test('Bengali, Kannada and Nepali field labels distinguish criterion, actor and recipient', async () => {
+  const fs = require('node:fs');
+  const path = require('node:path');
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', code + '.i18n.json'), 'utf8'));
+  const source = read('en');
+  const expected = {
+    bn: ['সাজানোর মানদণ্ড:', 'ব্যবহারকারী:', 'প্রাপক', 'আমি'],
+    kn: ['ವಿಂಗಡಣೆಯ ಮಾನದಂಡ:', 'ಬಳಕೆದಾರ:', 'ಸ್ವೀಕರಿಸುವವರು', 'ನಾನು'],
+    ne: ['क्रमबद्ध गर्ने आधार:', 'प्रयोगकर्ता:', 'प्राप्तकर्ता', 'म'],
+  };
+  for (const [code, values] of Object.entries(expected)) {
+    const locale = read(code);
+    const keys = ['r-sort-by', 'r-by', 'r-to', 'dueCardsViewChange-choice-me'];
+    assert.deepEqual(keys.map(key => locale[key]), values, code);
+    assert.notEqual(locale['r-sort-by'], locale['r-by'], code);
+    for (const key of keys) assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), code + ': ' + key);
+  }
+});

@@ -170763,5 +170763,89 @@
     "before": "to",
     "after": "тодорхойлох",
     "reason": "Replace short English Blockly prose with Mongolian; preserve movement roles, list position and on/off distinctions."
+  },
+  {
+    "locale": "bn",
+    "key": "r-sort-by",
+    "before": "by",
+    "after": "সাজানোর মানদণ্ড:",
+    "reason": "Translate short English labels by their rule-editor or due-card context, distinguishing sort criterion from actor."
+  },
+  {
+    "locale": "bn",
+    "key": "r-to",
+    "before": "to",
+    "after": "প্রাপক",
+    "reason": "Translate short English labels by their rule-editor or due-card context, distinguishing sort criterion from actor."
+  },
+  {
+    "locale": "bn",
+    "key": "r-by",
+    "before": "by",
+    "after": "ব্যবহারকারী:",
+    "reason": "Translate short English labels by their rule-editor or due-card context, distinguishing sort criterion from actor."
+  },
+  {
+    "locale": "bn",
+    "key": "dueCardsViewChange-choice-me",
+    "before": "Me",
+    "after": "আমি",
+    "reason": "Translate short English labels by their rule-editor or due-card context, distinguishing sort criterion from actor."
+  },
+  {
+    "locale": "kn",
+    "key": "r-sort-by",
+    "before": "by",
+    "after": "ವಿಂಗಡಣೆಯ ಮಾನದಂಡ:",
+    "reason": "Translate short English labels by their rule-editor or due-card context, distinguishing sort criterion from actor."
+  },
+  {
+    "locale": "kn",
+    "key": "r-to",
+    "before": "to",
+    "after": "ಸ್ವೀಕರಿಸುವವರು",
+    "reason": "Translate short English labels by their rule-editor or due-card context, distinguishing sort criterion from actor."
+  },
+  {
+    "locale": "kn",
+    "key": "r-by",
+    "before": "by",
+    "after": "ಬಳಕೆದಾರ:",
+    "reason": "Translate short English labels by their rule-editor or due-card context, distinguishing sort criterion from actor."
+  },
+  {
+    "locale": "kn",
+    "key": "dueCardsViewChange-choice-me",
+    "before": "Me",
+    "after": "ನಾನು",
+    "reason": "Translate short English labels by their rule-editor or due-card context, distinguishing sort criterion from actor."
+  },
+  {
+    "locale": "ne",
+    "key": "r-sort-by",
+    "before": "by",
+    "after": "क्रमबद्ध गर्ने आधार:",
+    "reason": "Translate short English labels by their rule-editor or due-card context, distinguishing sort criterion from actor."
+  },
+  {
+    "locale": "ne",
+    "key": "r-to",
+    "before": "to",
+    "after": "प्राप्तकर्ता",
+    "reason": "Translate short English labels by their rule-editor or due-card context, distinguishing sort criterion from actor."
+  },
+  {
+    "locale": "ne",
+    "key": "r-by",
+    "before": "by",
+    "after": "प्रयोगकर्ता:",
+    "reason": "Translate short English labels by their rule-editor or due-card context, distinguishing sort criterion from actor."
+  },
+  {
+    "locale": "ne",
+    "key": "dueCardsViewChange-choice-me",
+    "before": "Me",
+    "after": "म",
+    "reason": "Translate short English labels by their rule-editor or due-card context, distinguishing sort criterion from actor."
   }
 ]
