@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/49412e659e4382931b7858aed698212e8f89089a">Translate Odia variable warnings and workspace counts</a></summary>
+
+- Fill 19 Odia variable and workspace placeholders, preserving existing translations,
+  variable references, count distinctions and comment suffix spacing.
+- Technical wording remains low confidence pending speaker review.
+- All 60 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Odia translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/bfd3deea1f2895094e935147527d8c8185b9d2d0">Translate Odia text replacement and whitespace messages</a></summary>
 
 - Fill 21 Odia text-processing placeholders, preserving existing translations,
