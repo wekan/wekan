@@ -6,6 +6,22 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 (async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   const en = read('en'), bg = read('bg');
+  for (const key of Object.keys(en).filter(key => /^(interrupted-import-|stuck-sync-operation-)/.test(key))) {
+    assert.notEqual(bg[key], en[key], key);
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.match(bg[key], /[А-Яа-я]/, key);
+    assert.doesNotMatch(bg[key], /[јћђљњџЈЋЂЉЊЏ]/, key);
+  }
+  assert.match(bg['interrupted-import-description'], /не може да продължи/);
+  assert.match(bg['interrupted-import-description'], /включително всичко добавено оттогава/);
+  assert.match(bg['interrupted-import-keep-confirm'], /Нищо не се премахва/);
+  assert.match(bg['interrupted-import-discard-confirm'], /премахват окончателно/);
+  assert.match(bg['interrupted-import-foreign-board'], /не е променено/);
+  assert.match(bg['interrupted-import-truncated'], /50-те най-стари/);
+  assert.match(bg['stuck-sync-operation-description'], /вече приложените промени се запазват/);
+  assert.match(bg['stuck-sync-operation-description'], /никога не се записват/);
+  assert.match(bg['stuck-sync-operation-replayable-now'], /не може да бъде отхвърлена/);
+  assert.match(bg['stuck-sync-operation-replayable'], /не беше отхвърлена/);
   const keys = ['act-createSwimlane', 'act-archivedSwimlane', 'setSwimlaneHeightPopup-title',
     'set-swimlane-height', 'set-swimlane-height-value', 'swimlane-height-error-message',
     'swimlaneActionPopup-title', 'swimlaneAddPopup-title', 'welcome-swimlane',

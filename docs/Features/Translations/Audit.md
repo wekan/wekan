@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Bulgarian import and synchronization recovery — 2026-10-08
+
+Translate 48 messages for interrupted imports and stalled synchronization.
+Preserve existing translations and every source variable. Extend the Bulgarian
+suite with recovery decisions and native prose checks, including permanent
+deletion, retention of applied changes and protection of unrelated boards.
+No browser or screen-reader session was run; remaining Bulgarian messages,
+other languages and broader linguistic review remain unfinished.
+
 ## Lithuanian controls and planning — 2026-10-08
 
 Translate 51 messages for controls, import guidance, LDAP, login settings, planning
