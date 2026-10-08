@@ -229,9 +229,9 @@ ENV \
     WAIT_SPINNER="" \
     WRITABLE_PATH=/data \
     S3="" \
-    MAIL_SERVICE_PASSWORD_FILE="" \
-    MONGO_PASSWORD_FILE="" \
-    S3_SECRET_FILE=""
+    MAIL_URL_FILE="" \
+    MONGO_URL_FILE="" \
+    S3_SECRET_KEY_FILE=""
 
 # Where this image's Node.js comes from is decided by the SAME script the .zip
 # bundles and the snap use - official nodejs.org, then unofficial-builds, then

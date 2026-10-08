@@ -362,6 +362,22 @@ elif [ "true" != "${DISABLE_MONGODB}" ]; then
 fi
 
 export NODE_PATH=$SNAP/bin
+# MONGO_URL_FILE (#5724): a file holding the whole MongoDB URL, password
+# included (Docker / Kubernetes secrets). Read here because Meteor connects
+# with MONGO_URL before any WeKan code runs. MONGO_URL wins when both are set.
+if [ -z "${MONGO_URL:-}" ] && [ -n "${MONGO_URL_FILE:-}" ]; then
+  if [ ! -r "$MONGO_URL_FILE" ]; then
+    echo "ERROR: MONGO_URL_FILE=$MONGO_URL_FILE cannot be read." >&2
+    exit 1
+  fi
+  MONGO_URL="$(cat "$MONGO_URL_FILE")"
+  if [ -z "$MONGO_URL" ]; then
+    echo "ERROR: MONGO_URL_FILE=$MONGO_URL_FILE is empty." >&2
+    exit 1
+  fi
+  export MONGO_URL
+  echo "Using MONGO_URL from MONGO_URL_FILE"
+fi
 # Use user-provided MONGO_URL if set, otherwise build from components
 if [ -n "$MONGO_URL" ]; then
     echo "Using user-provided MONGO_URL"
@@ -458,7 +474,9 @@ mkdir -p "$WRITABLE_PATH/attachments"
 mkdir -p "$WRITABLE_PATH/avatars"
 echo -e "Using WRITABLE_PATH: $WRITABLE_PATH"
 
-echo -e "MONGO_URL=$MONGO_URL"
+# Never print a password: one written in MONGO_URL (or read from MONGO_URL_FILE)
+# is masked in the log.
+echo -e "MONGO_URL=$(printf '%s' "$MONGO_URL" | sed -E 's#(://[^:/@]*):[^@/]*@#\1:***@#')"
 
 # #6546: WeKan listens where BIND_IP says. Meteor reads BIND_IP itself, so this
 # only has to pass it on - and only when it is set, so the default (0.0.0.0, IPv4)

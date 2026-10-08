@@ -84,9 +84,10 @@ SET WRITABLE_PATH=..
 
 REM # MongoDB database URL required
 SET MONGO_URL=mongodb://127.0.0.1:27017/wekan
-REM # MONGO_PASSWORD_FILE : MongoDB password file (Docker secrets)
-REM # example : SET MONGO_PASSWORD_FILE=/run/secrets/mongo_password
-REM SET MONGO_PASSWORD_FILE=
+REM # MONGO_URL_FILE : a file holding the whole MongoDB URL, password included
+REM # (Docker secrets). Comment out MONGO_URL above to use it.
+REM # example : SET MONGO_URL_FILE=C:\secrets\mongo_url.txt
+REM SET MONGO_URL_FILE=
 
 REM # MONGO_OPLOG_URL: MongoDB oplog connection for real-time reactivity
 REM # Required for Change Streams and OpLog tailing to work.
@@ -121,9 +122,9 @@ REM #   eu-west-1,eu-central-1,
 REM #   ap-southeast-1,ap-northeast-1,sa-east-1
 REM #
 REM SET S3='{"s3":{"key": "xxx", "secret": "xxx", "bucket": "xxx", "region": "eu-west-1"}}'
-REM # S3_SECRET_FILE : S3 secret file (Docker secrets)
-REM # example : SET S3_SECRET_FILE=/run/secrets/s3_secret
-REM SET S3_SECRET_FILE=
+REM # S3_SECRET_KEY_FILE : a file holding S3_SECRET_KEY, the S3 secret access key (Docker secrets)
+REM # example : SET S3_SECRET_KEY_FILE=C:\secrets\s3_secret_key.txt
+REM SET S3_SECRET_KEY_FILE=
 
 REM # https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
 REM # In Admin Panel / People / Email, enable "Enable below email settings"
@@ -134,9 +135,9 @@ REM # Currently MAIL_SERVICE is not in use.
 REM SET MAIL_SERVICE=Outlook365
 REM SET MAIL_SERVICE_USER=firstname.lastname@hotmail.com
 REM SET MAIL_SERVICE_PASSWORD=SecretPassword
-REM # MAIL_SERVICE_PASSWORD_FILE : Password file for mail service (Docker secrets)
-REM # example : SET MAIL_SERVICE_PASSWORD_FILE=/run/secrets/mail_service_password
-REM SET MAIL_SERVICE_PASSWORD_FILE=
+REM # MAIL_URL_FILE : a file holding the whole MAIL_URL, password included (Docker secrets)
+REM # example : SET MAIL_URL_FILE=C:\secrets\mail_url.txt
+REM SET MAIL_URL_FILE=
 
 REM # ==== NUMBER OF SEARCH RESULTS PER PAGE BY DEFAULT ====
 REM SET RESULTS_PER_PAGE=20
@@ -994,6 +995,15 @@ if not defined WEKAN_MEMORY_MB set "WEKAN_MEMORY_MB=2048"
 set /a WEKAN_RUNTIME_HEAP_MB=WEKAN_MEMORY_MB*3/5
 if %WEKAN_RUNTIME_HEAP_MB% GTR 4096 set "WEKAN_RUNTIME_HEAP_MB=4096"
 if not defined NODE_OPTIONS set "NODE_OPTIONS=--max-old-space-size=%WEKAN_RUNTIME_HEAP_MB%"
+REM # MONGO_URL_FILE (#5724): read before node starts, because Meteor connects
+REM # with MONGO_URL before any WeKan code runs. MONGO_URL wins when both are set.
+if not defined MONGO_URL if defined MONGO_URL_FILE (
+  if not exist "%MONGO_URL_FILE%" (
+    ECHO ERROR: MONGO_URL_FILE=%MONGO_URL_FILE% cannot be read.
+    exit /b 1
+  )
+  set /p MONGO_URL=<"%MONGO_URL_FILE%"
+)
 ECHO Starting Wekan in a persistent cmd loop...
 
 :start_wekan

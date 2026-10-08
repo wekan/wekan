@@ -125,7 +125,7 @@ function isEmpty(value) {
 
 /**
  * Read one environment variable, honouring its `<NAME>_FILE` variant the way
- * OAUTH2_SECRET_FILE / MONGO_PASSWORD_FILE are documented: when `<NAME>` is
+ * OAUTH2_SECRET_FILE / MONGO_URL_FILE are documented: when `<NAME>` is
  * empty and `<NAME>_FILE` names a readable file, the trimmed file content is
  * the value (Docker/Kubernetes secrets mounted as files). `env` and `readFile`
  * are injectable so the decision is testable without touching the real

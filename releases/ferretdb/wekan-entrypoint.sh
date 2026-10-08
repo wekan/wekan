@@ -56,6 +56,23 @@ if [ -z "${NODE_OPTIONS:-}" ] || [ -z "${GOMEMLIMIT:-}" ]; then
   fi
 fi
 
+# MONGO_URL_FILE (#5724): a file holding the whole MongoDB URL, password
+# included (Docker / Kubernetes secrets). Read here because Meteor connects
+# with MONGO_URL before any WeKan code runs. MONGO_URL wins when both are set.
+if [ -z "${MONGO_URL:-}" ] && [ -n "${MONGO_URL_FILE:-}" ]; then
+  if [ ! -r "$MONGO_URL_FILE" ]; then
+    echo "ERROR: MONGO_URL_FILE=$MONGO_URL_FILE cannot be read." >&2
+    exit 1
+  fi
+  MONGO_URL="$(cat "$MONGO_URL_FILE")"
+  if [ -z "$MONGO_URL" ]; then
+    echo "ERROR: MONGO_URL_FILE=$MONGO_URL_FILE is empty." >&2
+    exit 1
+  fi
+  export MONGO_URL
+  echo "Using MONGO_URL from MONGO_URL_FILE"
+fi
+
 FERRETDB_BIN="/build/ferretdb"
 FERRETDB_MARKER="/build/.ferretdb-default"
 FERRETDB_LISTEN_ADDR="${FERRETDB_LISTEN_ADDR:-127.0.0.1:27017}"

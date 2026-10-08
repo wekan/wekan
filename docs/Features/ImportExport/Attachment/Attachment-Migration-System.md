@@ -73,8 +73,8 @@ WRITABLE_PATH=/data
 # S3 configuration (JSON format)
 S3='{"s3":{"key":"access-key","secret":"secret-key","bucket":"bucket-name","endPoint":"s3.amazonaws.com","port":443,"sslEnabled":true,"region":"us-east-1"}}'
 
-# Alternative: S3 secret file (Docker secrets)
-S3_SECRET_FILE=/run/secrets/s3_secret
+# The S3 secret access key (S3_SECRET_KEY) can come from a file (Docker secrets)
+S3_SECRET_KEY_FILE=/run/secrets/s3_secret_key
 ```
 
 ### Migration Settings

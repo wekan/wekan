@@ -116,12 +116,12 @@ services:
       #   ap-southeast-1,ap-northeast-1,sa-east-1
       #
       #- S3='{"s3":{"key": "xxx", "secret": "xxx", "bucket": "xxx", "region": "xxx"}}'
-      #- S3_SECRET_FILE=/run/secrets/s3_secret
+      #- S3_SECRET_KEY_FILE=/run/secrets/s3_secret_key
       #-----------------------------------------------------------------
       # ==== MONGO_URL — points to FerretDB (MongoDB-compatible) ====
       #- MONGO_URL=mongodb://wekan-ferretdb:27017/wekan
       - MONGO_URL=mongodb://ferretdb:${FERRETDB_POSTGRES_PASSWORD:-ferretdb_secret}@ferretdb:27017/wekan?authMechanism=PLAIN
-      #- MONGO_PASSWORD_FILE=/run/secrets/mongo_password
+      #- MONGO_URL_FILE=/run/secrets/mongo_url
       #---------------------------------------------------------------
       # ==== ROOT_URL SETTING ====
       # Change ROOT_URL to your real Wekan URL, for example:
@@ -150,7 +150,7 @@ services:
       #- MAIL_SERVICE=Outlook365
       #- MAIL_SERVICE_USER=firstname.lastname@hotmail.com
       #- MAIL_SERVICE_PASSWORD=SecretPassword
-      #- MAIL_SERVICE_PASSWORD_FILE=/run/secrets/mail_service_password
+      #- MAIL_URL_FILE=/run/secrets/mail_url
       #---------------------------------------------------------------
       # https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132
       # Add more Node heap, this is done by default at Dockerfile:
