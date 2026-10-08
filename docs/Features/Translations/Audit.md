@@ -9681,6 +9681,17 @@ other locales lack custom-colors-in-use. All 21 human-preference checks passed.
 Technical wording remains low confidence pending speaker review. Browser
 checks were not run; further translations and the broader audit remain unfinished.
 
+## Turkmen Sync conflicts
+
+Filled 23 English placeholders for Sync conflicts and initial preview controls.
+Existing translations were retained. Coverage checks no writes to the source,
+local-content retention, unchanged subcards, replacement reuse and partial
+review, plus key order and tokens. Of 60 checks, 58 passed; two repository-wide
+checks still fail because other locales lack custom-colors-in-use. All 21
+human-preference checks passed. Technical wording remains low confidence
+pending speaker review. Browser checks were not run; further translations
+and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
