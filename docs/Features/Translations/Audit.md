@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu Blockly number properties and statistics — 2026-10-08
+
+Translate 30 number-property and statistics messages. Preserve variables and the
+division symbol; check inclusive bounds, odd/even and positive/negative numbers,
+mean/median/mode, list-valued mode results and minimum/maximum. Wu wording is lower
+confidence and needs native review. No browser or screen-reader session was run.
+Remaining translations and older Mandarin-like passages require work.
+
 ## Wu Blockly logic and arithmetic — 2026-10-08
 
 Translate 30 logic, arithmetic and constant messages. Preserve variables, null,

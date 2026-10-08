@@ -177,3 +177,18 @@ assert.match(wu['blockly-MATH_ATAN2_TITLE'], /X:%1 Y:%2.*atan2/);
 assert.match(wu['blockly-MATH_ATAN2_TOOLTIP'], /-180 到 180 度/);
 for (const literal of ['π', '3.141…', 'e', '2.718…', 'φ', '1.618…', 'sqrt(2)', '1.414…', 'sqrt(½)', '0.707…', '∞']) assert.ok(wu['blockly-MATH_CONSTANT_TOOLTIP'].includes(literal));
 assert.match(wu['blockly-MATH_CONSTRAIN_TITLE'], /下限 %2.*上限 %3/);
+
+const statistics = ["blockly-MATH_CONSTRAIN_TOOLTIP", "blockly-MATH_DIVISION_SYMBOL_ARIA", "blockly-MATH_IS_DIVISIBLE_BY", "blockly-MATH_IS_EVEN", "blockly-MATH_IS_NEGATIVE", "blockly-MATH_IS_ODD", "blockly-MATH_IS_POSITIVE", "blockly-MATH_IS_PRIME", "blockly-MATH_IS_TOOLTIP", "blockly-MATH_IS_WHOLE", "blockly-MATH_MODULO_TITLE", "blockly-MATH_MODULO_TOOLTIP", "blockly-MATH_MULTIPLICATION_SYMBOL_ARIA", "blockly-MATH_NUMBER_TOOLTIP", "blockly-MATH_ONLIST_OPERATOR_AVERAGE", "blockly-MATH_ONLIST_OPERATOR_MAX", "blockly-MATH_ONLIST_OPERATOR_MAX_ARIA", "blockly-MATH_ONLIST_OPERATOR_MEDIAN", "blockly-MATH_ONLIST_OPERATOR_MIN", "blockly-MATH_ONLIST_OPERATOR_MIN_ARIA", "blockly-MATH_ONLIST_OPERATOR_MODE", "blockly-MATH_ONLIST_OPERATOR_RANDOM", "blockly-MATH_ONLIST_OPERATOR_STD_DEV", "blockly-MATH_ONLIST_OPERATOR_SUM", "blockly-MATH_ONLIST_TOOLTIP_AVERAGE", "blockly-MATH_ONLIST_TOOLTIP_MAX", "blockly-MATH_ONLIST_TOOLTIP_MEDIAN", "blockly-MATH_ONLIST_TOOLTIP_MIN", "blockly-MATH_ONLIST_TOOLTIP_MODE", "blockly-MATH_ONLIST_TOOLTIP_RANDOM"];
+for (const key of statistics) {
+  assert.notEqual(wu[key], english[key], key);
+  assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+}
+assert.match(wu['blockly-MATH_CONSTRAIN_TOOLTIP'], /包括上下限/);
+for (const [kind, word] of Object.entries({ EVEN: '偶数', ODD: '奇数', POSITIVE: '正数', NEGATIVE: '负数', PRIME: '质数', WHOLE: '整数' })) assert.ok(wu[`blockly-MATH_IS_${kind}`].includes(word));
+assert.match(wu['blockly-MATH_MODULO_TITLE'], /%1 ÷ %2.*余数/);
+for (const [kind, word] of Object.entries({ AVERAGE: '平均数', MEDIAN: '中位数', MODE: '众数', STD_DEV: '标准差', SUM: '总和' })) assert.ok(wu[`blockly-MATH_ONLIST_OPERATOR_${kind}`].includes(word));
+assert.match(wu['blockly-MATH_ONLIST_TOOLTIP_MODE'], /列表.*出现最多/);
+assert.match(wu['blockly-MATH_ONLIST_TOOLTIP_MAX'], /最大/);
+assert.match(wu['blockly-MATH_ONLIST_TOOLTIP_MIN'], /最小/);
+assert.match(wu['blockly-MATH_ONLIST_TOOLTIP_AVERAGE'], /算术平均数/);
+assert.notEqual(wu['blockly-MATH_DIVISION_SYMBOL_ARIA'], wu['blockly-MATH_MULTIPLICATION_SYMBOL_ARIA']);
