@@ -12,9 +12,7 @@ const readLocale = code => JSON.parse(fs.readFileSync(
 ));
 const english = readLocale('en');
 const aromanian = readLocale('rup');
-const tokens = value => [...value.matchAll(
-  /__[A-Za-z0-9_]+__|%[A-Za-z]|%\d+\$[A-Za-z]|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g,
-)].map(([token]) => token).sort();
+const { translationTokens: tokens } = require('../releases/translations/placeholder-tokens.mjs');
 const tags = value => [...value.matchAll(/<\/?[A-Za-z][^>]*>/g)]
   .map(([tag]) => tag).sort();
 
@@ -25,7 +23,7 @@ const fillResult = spawnSync(process.execPath, [
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
 assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 0,
-  'Aromanian has no remaining English placeholders');
+  'Aromanian completed baseline has no regressed English placeholders');
 assert.deepEqual(Object.keys(aromanian), Object.keys(english),
   'Aromanian keys retain English source order');
 
@@ -48,7 +46,7 @@ assert.equal(aromanian.password, 'Zbor di intrari');
 assert.deepEqual(tokens(aromanian['act-deleteCard']),
   ['__board__', '__card__', '__list__', '__swimlane__']);
 
-console.log('aromanianTranslationProgress: complete locale passed');
+console.log('aromanianTranslationProgress: historical baseline and source inventories passed');
 
 assert.equal(aromanian['color-magenta'], 'arosh-vinjit',
   'magenta uses the locale-established Aromanian red-violet components');
@@ -57,3 +55,95 @@ assert.notEqual(aromanian['color-magenta'], english['color-magenta'],
 assert.match(aromanian['color-magenta'], new RegExp(
   `^${aromanian['color-red']}-${aromanian['color-purple']}$`),
   'magenta stays composed from the current red and purple labels');
+
+const scrumLabelBatch = [
+  "board-view-product-backlog",
+  "board-view-sprints",
+  "board-view-sprint-report",
+  "board-view-velocity",
+  "scrum-settings",
+  "scrum-product-owner",
+  "scrum-master",
+  "scrum-developers",
+  "scrum-working-days",
+  "scrum-enabled",
+  "scrum-product-goal",
+  "scrum-definition-of-done",
+  "scrum-estimate-source",
+  "scrum-estimate-unit",
+  "scrum-completion-policy",
+  "scrum-source-poker",
+  "scrum-source-customField",
+  "scrum-policy-dueComplete",
+  "scrum-policy-doneLists",
+  "scrum-sprints",
+  "scrum-sprint",
+  "scrum-start-sprint",
+  "scrum-close-sprint",
+  "scrum-cancel-sprint",
+  "scrum-rollover-sprint",
+  "scrum-cancel-reason",
+  "scrum-product-backlog",
+  "scrum-edit-sprint",
+  "scrum-sprint-goal",
+  "scrum-capacity",
+  "scrum-new-sprint",
+  "scrum-releases",
+  "scrum-release",
+  "scrum-release-scope",
+  "scrum-select-sprint",
+  "scrum-backlog",
+  "scrum-estimate",
+  "scrum-backlog-rank",
+  "scrum-issue-type",
+  "scrum-acceptance-criteria",
+  "scrum-events",
+  "scrum-event-kind",
+  "scrum-timebox",
+  "scrum-notes",
+  "scrum-event-planning",
+  "scrum-event-daily",
+  "scrum-event-review",
+  "scrum-event-retrospective",
+  "scrum-committed",
+  "scrum-completed",
+  "scrum-added",
+  "scrum-removed",
+  "scrum-incomplete",
+  "scrum-total",
+  "scrum-state-planned",
+  "scrum-state-active",
+  "scrum-state-closed",
+  "scrum-state-cancelled",
+  "scrum-unknown-estimate",
+  "scrum-past-sprints",
+  "scrum-list-category",
+  "scrum-swimlane-purpose",
+  "scrum-category-backlog",
+  "scrum-category-todo",
+  "scrum-category-doing",
+  "scrum-category-done",
+  "scrum-state-released",
+  "scrum-released-at",
+  "scrum-follow-up-cards",
+  "scrum-import-reference-omitted",
+  "scrum-resume-close",
+  "scrum-daily-truncated",
+  "scrum-observed-scope"
+];
+for (const key of scrumLabelBatch) {
+  assert.ok(aromanian[key]?.trim(), key);
+  assert.notEqual(aromanian[key], english[key], key);
+  assert.ok(!/[\u0400-\u04ff]/u.test(aromanian[key]), `${key}: no Cyrillic lookalikes`);
+}
+assert.equal(aromanian['board-view-product-backlog'], aromanian['scrum-product-backlog']);
+assert.equal(aromanian['board-view-sprints'], aromanian['scrum-sprints']);
+assert.equal(aromanian['scrum-category-done'], aromanian['scrum-completed']);
+assert.notEqual(aromanian['scrum-completed'], aromanian['scrum-incomplete']);
+assert.equal(new Set(['planned','active','closed','cancelled','released']
+  .map(state => aromanian[`scrum-state-${state}`])).size, 5);
+assert.equal(new Set(['start','close','cancel']
+  .map(action => aromanian[`scrum-${action}-sprint`])).size, 3);
+assert.match(aromanian['scrum-total'], /__count__.*__estimate__.*__unknown__/);
+assert.match(aromanian['scrum-daily-truncated'], /366/);
+assert.match(aromanian['scrum-timebox'], /minuti/);

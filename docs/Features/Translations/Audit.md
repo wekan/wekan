@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Aromanian Scrum labels — 2026-10-08
+
+Translate 73 Scrum labels, actions, states and short reporting messages.
+Keep shared labels consistent and preserve the estimate counters, reference
+variable, minute unit and 366-observation limit. Replace the Aromanian test's
+older ASCII-only token scanner with the shared Unicode-aware scanner; extend
+coverage for the new batch and distinct lifecycle states/actions.
+
+Wording follows existing Aromanian catalog forms and the
+[Farsharotu English–Aromanian dictionary](https://farsharotu.org/an-english-aromanian-macedo-romanian-dictionary/).
+Its speed entry supports curundeatsã; full software phrases, modern terms and
+grammar remain low-confidence pending fluent review. Existing Italian-seeded
+values and other untranslated messages still require work. No browser or
+screen-reader session was run.
+
 ## Remaining Scrum test failures — 2026-10-08
 
 Translate the nine new release-selection and recovery messages in Māori,
