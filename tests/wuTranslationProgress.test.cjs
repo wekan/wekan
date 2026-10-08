@@ -1142,3 +1142,14 @@ assert.match(wu['export-monitoring'], /^导出/);
 assert.match(wu['force-board-scan'], /强制扫描看板/);
 assert.match(wu['conversion-info-text'], /每只看板只做一趟.*继续正常使用看板/);
 assert.match(wu['step-ensure-per-swimlane-lists'], /每条泳道.*自家个列表/);
+
+const jobControlsWu = ["job-description", "job-details", "job-name", "job-queue", "last-run", "migrate-all-to-s3", "migrated-attachments", "migration-batch-size-description", "migration-cpu-threshold-description", "migration-delay-ms-description", "migration-info-text", "migration-resume-failed", "migration-resumed", "migration-warning-text", "next-run", "overall-progress", "previous", "run-once", "s3-size", "search-boards-or-operations", "show-list-on-minicard", "showChecklistAtMinicard", "step-progress", "total-operations", "total-size", "unmigrated-boards"];
+for (const key of jobControlsWu) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+for (const key of ['migration-batch-size-description', 'migration-cpu-threshold-description', 'migration-delay-ms-description']) assert.deepEqual(wu[key].match(/\d+-\d+/g), english[key].match(/\d+-\d+/g), key);
+assert.match(wu['migration-cpu-threshold-description'], /CPU 使用率超过.*暂停迁移/);
+assert.match(wu['migration-delay-ms-description'], /毫秒/);
+assert.match(wu['migration-info-text'], /只做一趟.*关脱浏览器.*后台继续/);
+assert.match(wu['migration-warning-text'], /勿要关脱浏览器.*后台继续.*更长辰光/);
+for (const key of ['job-description', 'job-details', 'job-name', 'job-queue']) assert.match(wu[key], /^任务/);
+assert.match(wu['unmigrated-boards'], /还朆迁移个看板/);
+assert.equal(wu['total-operations'], '操作总数');

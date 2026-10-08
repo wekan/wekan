@@ -168691,5 +168691,187 @@
     "before": "隐藏迷你卡上的列表",
     "after": "隐藏迷你卡片浪个列表",
     "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "job-description",
+    "before": "职位描述",
+    "after": "任务描述",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "job-details",
+    "before": "职位详情",
+    "after": "任务详情",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "job-name",
+    "before": "职位名称",
+    "after": "任务名称",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "job-queue",
+    "before": "作业队列",
+    "after": "任务队列",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "last-run",
+    "before": "最后一次运行",
+    "after": "上一趟运行",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migrate-all-to-s3",
+    "before": "全部迁移到S3",
+    "after": "全部迁移到 S3",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migrated-attachments",
+    "before": "迁移的附件",
+    "after": "迁移好个附件",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-batch-size-description",
+    "before": "每批次要处理的附件数量（1-100）",
+    "after": "每批要处理个附件数量（1-100）",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-cpu-threshold-description",
+    "before": "当 CPU 使用率超过此百分比 (10-90) 时暂停迁移",
+    "after": "CPU 使用率超过搿只百分比（10-90）个辰光，暂停迁移",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-delay-ms-description",
+    "before": "批次之间的延迟（以毫秒为单位）（100-10000）",
+    "after": "批次之间个延迟，单位是毫秒（100-10000）",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-info-text",
+    "before": "数据库迁移只需执行一次即可提高系统性能。即使您关闭浏览器，该过程也会在后台继续进行。",
+    "after": "数据库迁移只做一趟，来提高系统性能。就算侬关脱浏览器，迁移也会勒后台继续。",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-resume-failed",
+    "before": "无法恢复迁移",
+    "after": "恢复迁移失败仔",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-resumed",
+    "before": "迁移已恢复",
+    "after": "迁移已经恢复仔",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-warning-text",
+    "before": "迁移期间请不要关闭浏览器。该过程将在后台继续，但可能需要更长时间才能完成。",
+    "after": "迁移个辰光请勿要关脱浏览器。迁移会勒后台继续，但是可能要更长辰光才完成。",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "next-run",
+    "before": "下一次运行",
+    "after": "下一趟运行",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "overall-progress",
+    "before": "总体进展",
+    "after": "总体进度",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "previous",
+    "before": "以前的",
+    "after": "上一个",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "run-once",
+    "before": "运行一次",
+    "after": "运行一趟",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "s3-size",
+    "before": "S3尺寸",
+    "after": "S3 大小",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "search-boards-or-operations",
+    "before": "搜索板或操作...",
+    "after": "搜索看板或者操作…",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "show-list-on-minicard",
+    "before": "在迷你卡上显示列表",
+    "after": "勒迷你卡片浪显示列表",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "showChecklistAtMinicard",
+    "before": "在 Minicard 上显示清单",
+    "after": "勒迷你卡片浪显示清单",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "step-progress",
+    "before": "步骤进展",
+    "after": "步骤进度",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "total-operations",
+    "before": "总运营",
+    "after": "操作总数",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "total-size",
+    "before": "总尺寸",
+    "after": "总大小",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "unmigrated-boards",
+    "before": "未迁移的主板",
+    "after": "还朆迁移个看板",
+    "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
   }
 ]
