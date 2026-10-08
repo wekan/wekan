@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/22c4f03f82">Translate first Catalan and Valencian import instructions</a>. Thanks to xet7.</summary>
+
+Translate eight instructions in three catalogs, replacing 24 English values.
+Preserve commands, extensions, variables and regional wording. Regression checks
+cover first-board selection, completion dates, archives and swimlane mappings.
+Import and placeholder suites and all 21 preservation checks pass. Remaining
+instructions, browser review and the wider translation backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/260875da30">Translate remaining Russian import instructions</a>. Thanks to xet7.</summary>
 
 Translate the remaining 13 instructions across four Russian locale paths,
