@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Estonian controls and recovery — 2026-10-08
+
+Translate 70 current messages in et-EE, covering controls, import guidance, LDAP,
+login settings, stalled synchronization and interrupted imports. Preserve existing
+translations, source variables and literal syntax. Extend the existing suite with
+Estonian recovery decisions, source order and complete variable inventories.
+No browser or screen-reader session was run; other translations and broader
+linguistic review remain unfinished.
+
 ## Russian controls and recovery — 2026-10-08
 
 Translate 69 current messages in each of three Russian catalogs, and reuse 29
