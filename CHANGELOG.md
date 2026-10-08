@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2c491f18bb">Translate Catalan and Valencian recovery controls</a>. Thanks to xet7.</summary>
+
+Translate 66 values across three catalogs for stalled-sync reasons and controls
+and the interrupted-import explanation. Preserve variables and regional wording.
+Regression checks cover access and discard restrictions, retained applied changes,
+unwritten pending changes and deletion of partial boards including later additions.
+Four relevant suites and all 21 preservation checks pass. Browser review and the
+wider translation backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/47b7094306">Translate Catalan and Valencian planning results</a>. Thanks to xet7.</summary>
 
 Translate 60 values across three catalogs for Scrum import results, reference
