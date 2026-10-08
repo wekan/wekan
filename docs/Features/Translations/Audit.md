@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Swedish import formats and stuck Sync recovery — 2026-10-08
+
+Translate 36 current Swedish values for import formats, assignment actions,
+LDAP, OAuth, release selection and stuck Sync recovery. Preserve existing
+localized values. Extend the existing suite with full source-key and token
+checks, format literals, configuration names, retained applied changes and
+unwritten pending changes. Distinguish cannot discard from was not discarded.
+No browser or screen-reader session was run; other untranslated messages and
+broader linguistic review remain open.
+
 ## Dutch planning and import recovery messages — 2026-10-08
 
 Translate 61 further current values in each Dutch catalog (nl and nl-NL),
