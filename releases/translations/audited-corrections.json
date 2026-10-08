@@ -164785,5 +164785,145 @@
     "before": "在列表中",
     "after": "勒列表里向",
     "reason": "2026-10-08: Correct Wu rule checking and movement actions, preserving current-versus-selected list scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-in-swimlane",
+    "before": "在泳道中",
+    "after": "勒泳道里向",
+    "reason": "2026-10-08: Correct Wu rule-field actions and configuration prose, preserving delimiter and environment-variable literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-d-add-member",
+    "before": "添加会员",
+    "after": "添加成员",
+    "reason": "2026-10-08: Correct Wu rule-field actions and configuration prose, preserving delimiter and environment-variable literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-d-remove-member",
+    "before": "删除成员",
+    "after": "移脱成员",
+    "reason": "2026-10-08: Correct Wu rule-field actions and configuration prose, preserving delimiter and environment-variable literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-d-remove-all-member",
+    "before": "删除所有成员",
+    "after": "移脱所有成员",
+    "reason": "2026-10-08: Correct Wu rule-field actions and configuration prose, preserving delimiter and environment-variable literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-d-check-all",
+    "before": "检查列表中的所有项目",
+    "after": "勾选清单里向所有项目",
+    "reason": "2026-10-08: Correct Wu rule-field actions and configuration prose, preserving delimiter and environment-variable literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-d-uncheck-all",
+    "before": "取消选中列表中的所有项目",
+    "after": "取消勾选清单里向所有项目",
+    "reason": "2026-10-08: Correct Wu rule-field actions and configuration prose, preserving delimiter and environment-variable literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-d-check-one",
+    "before": "检查项目",
+    "after": "勾选项目",
+    "reason": "2026-10-08: Correct Wu rule-field actions and configuration prose, preserving delimiter and environment-variable literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-d-uncheck-one",
+    "before": "取消选中项目",
+    "after": "取消勾选项目",
+    "reason": "2026-10-08: Correct Wu rule-field actions and configuration prose, preserving delimiter and environment-variable literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-d-check-of-list",
+    "before": "清单的",
+    "after": "清单个",
+    "reason": "2026-10-08: Correct Wu rule-field actions and configuration prose, preserving delimiter and environment-variable literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-by",
+    "before": "经过",
+    "after": "由",
+    "reason": "2026-10-08: Correct Wu rule-field actions and configuration prose, preserving delimiter and environment-variable literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-with-items",
+    "before": "与物品",
+    "after": "包含项目",
+    "reason": "2026-10-08: Correct Wu rule-field actions and configuration prose, preserving delimiter and environment-variable literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-board-note",
+    "before": "注意：将字段留空以匹配每个可能的值。",
+    "after": "注意：字段留空就匹配所有可能个值。",
+    "reason": "2026-10-08: Correct Wu rule-field actions and configuration prose, preserving delimiter and environment-variable literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-checklist-note",
+    "before": "注意：清单的项目必须写为逗号分隔值。",
+    "after": "注意：清单项目一定要用逗号分隔。",
+    "reason": "2026-10-08: Correct Wu rule-field actions and configuration prose, preserving delimiter and environment-variable literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-when-a-card-is-moved",
+    "before": "当卡片移动到另一个列表时",
+    "after": "当卡片移到另外一只列表个辰光",
+    "reason": "2026-10-08: Correct Wu rule-field actions and configuration prose, preserving delimiter and environment-variable literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-set",
+    "before": "放",
+    "after": "设置",
+    "reason": "2026-10-08: Correct Wu rule-field actions and configuration prose, preserving delimiter and environment-variable literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-df-due-at",
+    "before": "到期的",
+    "after": "到期",
+    "reason": "2026-10-08: Correct Wu rule-field actions and configuration prose, preserving delimiter and environment-variable literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-df-end-at",
+    "before": "结尾",
+    "after": "结束",
+    "reason": "2026-10-08: Correct Wu rule-field actions and configuration prose, preserving delimiter and environment-variable literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-to-current-datetime",
+    "before": "到当前日期/时间",
+    "after": "到当前日期／时间",
+    "reason": "2026-10-08: Correct Wu rule-field actions and configuration prose, preserving delimiter and environment-variable literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-link-card",
+    "before": "将卡链接至",
+    "after": "拿卡片关联到",
+    "reason": "2026-10-08: Correct Wu rule-field actions and configuration prose, preserving delimiter and environment-variable literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "oauth-providers-hint",
+    "before": "每个提供方都可以在此处或通过其 OAUTH_*_ENABLED 环境变量启用；此处设置的值会覆盖环境变量。密钥保存在服务器上，永不显示。",
+    "after": "每个提供方侪可以勒搿搭启用，或者用伊个 OAUTH_*_ENABLED 环境变量启用；搿搭设置个值会覆盖环境变量。密钥保存在服务器浪，绝勿会显示。",
+    "reason": "2026-10-08: Correct Wu rule-field actions and configuration prose, preserving delimiter and environment-variable literals; lower-confidence prose needs native review."
   }
 ]

@@ -839,3 +839,16 @@ for (const position of ['top', 'bottom']) {
 assert.match(wu['r-d-move-to-top-gen'], /顶浪/);
 assert.match(wu['r-d-move-to-bottom-gen'], /底下/);
 for (const key of ['r-email-vars-hint', 'r-trigger-vars-hint', 'r-vars-people-hint']) assert.deepEqual(wu[key].match(/\{[^}]+\}/g), english[key].match(/\{[^}]+\}/g));
+
+const ruleFieldActions = ["r-in-swimlane", "r-d-add-member", "r-d-remove-member", "r-d-remove-all-member", "r-d-check-all", "r-d-uncheck-all", "r-d-check-one", "r-d-uncheck-one", "r-d-check-of-list", "r-by", "r-with-items", "r-board-note", "r-checklist-note", "r-when-a-card-is-moved", "r-set", "r-df-due-at", "r-df-end-at", "r-to-current-datetime", "r-link-card", "oauth-providers-hint"];
+for (const key of ruleFieldActions) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.equal(wu['r-set'], '设置');
+assert.match(wu['r-d-check-all'], /^勾选.*所有项目/);
+assert.match(wu['r-d-uncheck-all'], /^取消勾选.*所有项目/);
+assert.equal(wu['r-d-check-one'], '勾选项目');
+assert.equal(wu['r-d-uncheck-one'], '取消勾选项目');
+assert.match(wu['r-board-note'], /留空.*所有可能个值/);
+assert.match(wu['r-checklist-note'], /逗号分隔/);
+assert.equal(wu['r-items-list'].split(',').length, 3);
+assert.ok(wu['oauth-providers-hint'].includes('OAUTH_*_ENABLED'));
+assert.match(wu['oauth-providers-hint'], /搿搭设置个值会覆盖环境变量.*服务器.*绝勿会显示/);
