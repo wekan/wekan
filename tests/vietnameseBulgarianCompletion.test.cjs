@@ -13896,3 +13896,12 @@ for (const code of ['hi', 'hi-IN']) {
   assert.notEqual(locale['scrum-history-checkpoint-rollback'], locale['scrum-history-checkpoint-discard']);
   assert.ok(locale['scrum-history-checkpoint-counts'].replace('__total__', '10').replace('__applied__', '3').startsWith('10 ಬದಲಾವಣೆಗಳಲ್ಲಿ 3'));
 }
+
+{
+  const locale = read('ga');
+  for (const token of ['Ctrl', 'Cmd', 'Mac']) assert.ok(locale['scrum-releases-select-help'].includes(token), `ga: ${token}`);
+  assert.match(locale['sync-planning-hint'], /ní bhaineann an chéad sioncronú pleanáil riamh/);
+  assert.match(locale['scrum-history-checkpoint-hint'], /ní athraítear aon taifead/);
+  assert.notEqual(locale['scrum-history-checkpoint-rollback'], locale['scrum-history-checkpoint-discard']);
+  assert.ok(locale['scrum-history-checkpoint-counts'].replace('__total__', '10').replace('__applied__', '3').includes('3 as 10'));
+}

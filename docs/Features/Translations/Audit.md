@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Irish Scrum planning and recovery — 2026-10-08
+
+Translate 31 planning, import and recovery values. Preserve exact placeholders,
+keyboard names and count roles; distinguish rollback from preserving records.
+Use existing ráib/eisiúint terminology and Foclóir's computing preview term:
+https://www.focloir.ie/en/dictionary/ei/preview
+Focused Irish, placeholder and language-wiring checks pass, as do all 21 preservation
+checks. The large completion suite now reaches an untranslated Corsican release label.
+Recovery wording has lower confidence and needs native review. Browser checks
+and the wider all-language backlog remain unfinished.
+
 ## Kannada Scrum planning and recovery — 2026-10-08
 
 Translate 31 planning, import and recovery values using existing terminology.
