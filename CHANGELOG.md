@@ -1055,6 +1055,18 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e4dfedb616">Translate Yiddish Blockly navigation and list messages</a>. Thanks to xet7.</summary>
+
+Translate 50 English text-input, keyboard-navigation and list messages. Preserve
+variables and position markers; distinguish retrieval, removal and combined
+operations, first/last positions and copy/cut hints. Four focused translation
+suites and 21 human-preference checks pass. Specialized programming wording is
+lower confidence and needs native review. No browser or screen-reader session
+was run. Remaining translation work is unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c1e46548b2">Translate Yiddish Blockly field and input labels</a>. Thanks to xet7.</summary>
 
 Translate 65 English field, input, keyboard and icon labels. Preserve variables,
