@@ -17,3 +17,22 @@ for (const language of ['af', 'af_ZA']) {
   assert.match(locale['office-report-desc'], /IPv4.*IPv6/);
   assert.match(locale['api-no-calls'], /REST API.*WITH_API=true/);
 }
+
+const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
+const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
+const recoveryKeys = Object.keys(english).filter(key => key.startsWith('stuck-sync-operation-'));
+assert.equal(recoveryKeys.length, 23);
+for (const language of ['af', 'af_ZA']) {
+  const locale = JSON.parse(fs.readFileSync(path.join(root, `imports/i18n/data/${language}.i18n.json`), 'utf8'));
+  for (const key of recoveryKeys) {
+    assert.notEqual(locale[key], english[key], key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), key);
+  }
+  assert.match(locale['stuck-sync-operation-description'], /veranderinge wat reeds toegepas is, bly behoue/);
+  assert.match(locale['stuck-sync-operation-description'], /oorblywende gestoorde veranderinge word nooit geskryf nie/);
+  assert.match(locale['stuck-sync-operation-reason-access-denied'], /skryftoegang tot die hele lys nie/);
+  assert.match(locale['stuck-sync-operation-replayable-now'], /kan dit nie weggegooi word nie/);
+  assert.match(locale['stuck-sync-operation-not-stuck'], /kan dit nie weggegooi word nie/);
+  assert.match(locale['stuck-sync-operation-truncated'], /50 oudste/);
+  assert.match(locale['stuck-sync-operation-busy'], /sinchroniseer tans/);
+}

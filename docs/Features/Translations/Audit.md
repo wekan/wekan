@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Afrikaans List Sync recovery — 2026-10-08
+
+Translate 23 English recovery messages in each of af and af_ZA (46 values),
+preserving source counters and existing terminology. Check retained changes,
+unwritten changes, revoked access, replayable operations and the oldest-50 limit.
+No browser or screen-reader session was run; remaining translations and broader
+vocabulary review are unfinished.
+
 ## Icelandic planning and settings — 2026-10-08
 
 Translate 51 remaining English fill-list entries into Icelandic, covering
