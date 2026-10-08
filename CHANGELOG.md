@@ -1785,6 +1785,18 @@ implemented.
 This release hardens the login settings:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d4607ee49c">Correct Bislama navigation, diagnostics and rule labels</a>. Thanks to xet7.</summary>
+
+- Replace 145 artificial English wrappers and translate new Todoist import
+  guidance. Preserve runtime identifiers, units, protocol names, scheduling
+  directions, check states and source variables. 388 older wrappers remain.
+- Three relevant suites pass, including the catalog-wide placeholder inventory.
+  Full software compounds remain provisional pending fluent review. Browser
+  and screen-reader sessions were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e882ed8901">Correct 120 Bislama entries containing English wrappers</a>. Thanks to xet7.</summary>
 
 - Replace artificial English wrappers in board, font, color, voting and filter
