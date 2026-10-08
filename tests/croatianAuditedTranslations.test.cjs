@@ -128,6 +128,25 @@ assert.match(data['mark-all-as-read'], /Označi.*pročitano/);
 assert.match(data['remove-all-read'], /Ukloni.*pročitano/);
 assert.equal(data['wednesday'], 'Srijeda');
 assert.equal(data['myCardsViewChange-choice-table'], 'Tablica');
+const correctedPredicates = ["operator-attachment-text", "operator-checklist-text", "predicate-archived", "predicate-open", "predicate-ended", "predicate-all", "predicate-overdue", "predicate-week", "predicate-month", "predicate-quarter", "predicate-year", "predicate-due", "predicate-modified", "predicate-created", "predicate-attachment", "predicate-description", "predicate-checklist", "predicate-start", "predicate-end", "predicate-assignee", "predicate-member", "predicate-public", "predicate-private", "predicate-selector", "predicate-projection", "operator-unknown-error", "operator-status-invalid", "next-page", "previous-page", "heading-notes", "globalSearch-instructions-status-archived", "link-to-search", "excel-font", "label-colors", "label-names", "archived-at", "sort-cards", "sort-is-on", "cardsSortPopup-title", "due-date", "server-error", "title-alphabetically", "links-heading", "move-swimlane", "moveSwimlanePopup-title", "custom-field-stringtemplate", "creator", "creator-on-minicard", "reports", "boardsReportTitle", "office-people", "copy-swimlane", "copySwimlanePopup-title", "wait-spinner", "Bounce", "Cube", "Dot", "Scaleout", "Wave", "maximize-card", "minimize-card", "subject", "details", "carbon-copy", "ticket"];
+for (const key of correctedPredicates) {
+  assert.doesNotMatch(data[key], /[\p{Script=Cyrillic}]/u, key);
+  assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), key);
+}
+for (const key of correctedPredicates.filter(key => key.startsWith('predicate-') || key.endsWith('-text'))) {
+  assert.match(data[key], /^[\p{Letter}\p{Mark}]+$/u, key + ': searchable token syntax');
+}
+assert.equal(data['excel-font'], 'Arial');
+assert.match(data['carbon-copy'], /Cc:/);
+assert.equal(data['predicate-public'], 'javno');
+assert.equal(data['predicate-private'], 'privatno');
+assert.equal(data['predicate-quarter'], 'tromjesečje');
+assert.match(data['move-swimlane'], /Premjesti/);
+assert.match(data['copy-swimlane'], /Kopiraj/);
+assert.match(data['maximize-card'], /Povećaj/);
+assert.match(data['minimize-card'], /Smanji/);
+assert.match(data['next-page'], /Sljedeća/);
+assert.match(data['previous-page'], /Prethodna/);
 assert.equal(data.board, 'Ploča');
 assert.equal(data.swimlane, 'Traka');
 assert.deepEqual(Object.keys(data), Object.keys(english));

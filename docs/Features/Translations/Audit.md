@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Croatian search predicates and reports — 2026-10-08
+
+Replace 65 Serbian values with Croatian or the required technical literal,
+covering search predicates, pagination, reports, sorting and wait indicators.
+Restore Arial and preserve Cc and source variables. Check searchable token syntax,
+public/private states, move/copy actions and size controls. No browser or
+screen-reader session was run; further language review and translations remain.
+
 ## Croatian search and notification controls — 2026-10-08
 
 Replace 80 Serbian values with Croatian, covering search operators, notifications,
