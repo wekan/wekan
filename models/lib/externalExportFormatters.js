@@ -17,6 +17,7 @@ import { formatTaskwarrior } from './taskwarriorFormat.js';
 import { formatFocalboard } from './focalboardFormat.js';
 import { formatTodoistCsv } from './todoistCsvFormat.js';
 import { formatOpml } from './opmlOutlineFormat.js';
+import { formatOrgMode } from './orgModeFormat.js';
 
 // A WeKan list maps to a "closed" issue state when its name looks terminal.
 function isClosed(listTitle) {
@@ -255,6 +256,8 @@ export const formatters = {
   todoist: formatTodoistCsv,
   // An OPML outline; round-trips with parseOpml (opmlOutline.js, server-only).
   opml: formatOpml,
+  // An Org mode outline; round-trips with parseOrgMode (orgModeFormat.js).
+  orgmode: formatOrgMode,
 };
 
 export const EXTERNAL_EXPORT_FORMATS = Object.keys(formatters);

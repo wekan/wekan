@@ -781,6 +781,7 @@
   "import-board-instruction-markdown": "貼上一份 markdown 任務清單（像 Obsidian Kanban 這類 markdown-kanban 工具使用的慣例）：「## 清單名稱」標題，下方接著「- [ ]」/「- [x]」項目。標題會變成清單，項目會變成卡片；沒有核取方塊的一般項目符號清單也會匯入，成為開放卡片。",
   "import-board-instruction-leo": "粘贴 Leo 大纲（.leo 文件）。顶层节点会成为列表，其子节点会成为卡片，并以节点正文作为描述；更深层的节点会成为检查清单。已标记的节点会以已完成状态导入。",
   "import-board-instruction-opml": "Paste an OPML outline, as Workflowy, Dynalist, OmniOutliner, Logseq and other outliners export it. Top-level items become lists, their children become cards with the note as the description, and deeper items become checklists. Completed items import as done.",
+  "import-board-instruction-orgmode": "Paste an Org mode file, as Emacs, Orgzly or Beorg write it. Top-level headings become lists and second-level headings become cards. TODO and DONE, priorities, tags, SCHEDULED, DEADLINE and CLOSED are kept, and checkboxes and deeper headings become checklists.",
   "import-board-instruction-todotxt": "粘贴 todo.txt 文件：每行一个任务，采用 todo.txt 应用及兼容应用写出的格式。已完成的任务（\"x\"）归入已完成，+project 和 @context 转为标签，(A) 转为优先级标签，due: 和 t: 转为截止日期和开始日期。",
   "import-board-instruction-taskwarrior": "粘贴 task export 的输出：JSON 数组，或每行一个任务。已完成的任务进入 Done，project 和 priority 转换为标签，annotations 转换为评论，depends 转换为对阻塞任务的依赖关系。",
   "import-board-instruction-focalboard": "解压 .boardarchive 文件并粘贴看板的 board.jsonl 内容，可以包含或省略版本行。看板视图的分组属性转换为列表，其他选择属性转换为标签，文本和复选框区块转换为描述和检查清单，评论会保留。图片和附件不会导入。",

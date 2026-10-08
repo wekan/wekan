@@ -631,6 +631,10 @@
     {
       "key": "import-board-instruction-opml",
       "since": "2026-10-08"
+    },
+    {
+      "key": "import-board-instruction-orgmode",
+      "since": "2026-10-08"
     }
   ]
 }
