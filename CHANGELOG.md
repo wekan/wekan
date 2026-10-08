@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9b0069f35356793e48702c5f373fe2a7350d78d1">Correct Tatar storage repair and default destination</a></summary>
+
+- Correct 19 storage values, preserving identifiers, read eligibility,
+  attachment-and-avatar repair scope and distinct progress states.
+- Technical wording remains low confidence pending speaker review.
+- All 123 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d75430578086762d25248f0b35259e927b460523">Correct Tatar checklist copying and attachment storage</a></summary>
 
 - Correct 22 checklist and attachment values, preserving storage names,
