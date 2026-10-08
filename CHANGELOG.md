@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b781aadd36134d2f37460432d3cc2063809e4de3">Correct Tatar ZenKit import instruction</a></summary>
+
+- Correct the missed wrong-language ZenKit instruction and restore literal JSON
+  field names in its example.
+- Technical wording remains low confidence pending speaker review.
+- All 151 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8368b6d1ebdbdd72a7f72327808d4452893aefdb">Correct Tatar flow report explanations</a></summary>
 
 - Replace nine incomplete or wrong-language explanations with full translations,
