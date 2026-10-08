@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Pending French messages — 2026-10-08
+
+Translate 36 pending messages in each of the five French catalogs (180 values),
+covering imports, assignment rules, LDAP, login, release selection and stuck
+List Sync recovery. Existing translated values are protected by the fill merge.
+Preserve source variables, import syntax, configuration identifiers and the
+consequences of abandoning a saved operation. Extend the shared French suite
+for retained changes, unwritten remainder, replay eligibility, oldest-first
+ordering and membership in multiple releases. No browser or screen-reader
+session was run. The broader linguistic audit remains open.
+
 ## Pending Finnish messages — 2026-10-08
 
 Translate 36 pending import, assignment, LDAP, login, release-selection and
