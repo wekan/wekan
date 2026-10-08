@@ -1448,3 +1448,48 @@ for (const code of ['gl', 'gl-ES']) {
   assert.match(locale['import-board-instruction-redmine'], /voor uitvoer.*My account na English/);
   assert.match(locale['import-board-instruction-teamwork'], /een vlak dieper/);
 }
+
+{
+  const locale = read('sq');
+  const literals = {
+    planner: ['Microsoft Planner', 'Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By'],
+    meistertask: ['MeisterTask', 'Export project', 'CSV'],
+    ...Object.fromEntries(['obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri'].map(format => [format, importLiterals[format]])),
+  };
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), key);
+    for (const value of values) assert.ok(locale[key].includes(value), key + ': ' + value);
+  }
+  for (const format of ['nullboard', 'kanri']) {
+    assert.match(locale['import-board-instruction-' + format], /importohet vetëm tabela e parë/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /importohen të gjitha tabelat/);
+  }
+  assert.match(locale['import-board-instruction-meistertask'], /detyrat e përfunduara ruajnë datën e përfundimit/);
+  assert.match(locale['import-board-instruction-obsidian'], /arkivi shndërrohet në karta të arkivuara/);
+  assert.match(locale['import-board-instruction-ticktick'], /listë TickTick bëhet një korsi/);
+}
+
+{
+  const locale = read('sq');
+  const literals = {...Object.fromEntries(['pivotal', 'tasksorg', 'monday', 'superproductivity', 'taiga', 'vikunja'].map(format => [format, importLiterals[format]])), ...newerImportLiterals};
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), key);
+    for (const value of values) assert.ok(locale[key].includes(value), key + ': ' + value);
+  }
+  for (const format of ['taiga', 'vikunja']) {
+    assert.match(locale['import-board-instruction-' + format], /Bashkëngjitjet nuk importohen/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /Bashkëngjitjet importohen/);
+  }
+  assert.match(locale['import-board-instruction-quire'], /Komentet dhe bashkëngjitjet nuk përfshihen/);
+  assert.match(locale['import-board-instruction-notion'], /Marrëdhëniet, imazhet dhe bashkëngjitjet nuk importohen/);
+  assert.match(locale['import-board-instruction-plane'], /nuk përmban përshkrime ose bashkëngjitje.*nuk importohen/);
+  assert.match(locale['import-board-instruction-businessmap'], /fillimisht ndryshoni emrat e rreshtit të titujve në anglisht/);
+  assert.match(locale['import-board-instruction-redmine'], /English te My account përpara eksportimit/);
+  assert.match(locale['import-board-instruction-teamwork'], /një nivel më thellë/);
+  assert.match(locale['import-board-instruction-tasksorg'], /detyrat e përfunduara ruajnë datën e përfundimit/);
+  assert.match(locale['import-board-instruction-superproductivity'], /detyrat e arkivuara bëhen karta të arkivuara/);
+}

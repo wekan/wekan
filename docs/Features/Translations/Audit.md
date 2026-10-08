@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Albanian import instructions — 2026-10-09
+
+Translate all 21 newer import instructions in sq. Preserve export commands,
+column names, file extensions, hierarchy markers and variables. Regression
+checks cover first-board selection, archived and completed tasks, unsupported
+attachments, English headers and task hierarchy. Import-instruction and
+whole-catalog placeholder suites pass, as do all 21 preservation checks.
+Language auditing, browser review and the wider translation backlog remain
+outstanding.
+
 ## Afrikaans import instructions, final group — 2026-10-09
 
 Translate seven instructions in af: Quire, Wrike, Teamwork.com, Businessmap,
