@@ -8364,6 +8364,15 @@ Existing correct-language history actions remain. Technical wording remains low
 confidence pending speaker review. Focused tests cover key order, source tokens,
 state distinctions and deletion constraints; browser checks were not run.
 
+## Tatar team invitation and heap-metric corrections
+
+Corrected 16 wrong-language card detail, team invitation and memory metric values.
+Preserved the disabled-self-registration condition, board-scoped team removal,
+invitation success/error distinction and literal Node name. Existing correct-language
+saved-filter text remains. Technical wording remains low confidence pending speaker
+review. Focused tests cover key order, tokens, invitation conditions and distinct
+heap metrics; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
