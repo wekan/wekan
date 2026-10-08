@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1795e650a1">Correct Wu rule-condition translations</a>. Thanks to xet7.</summary>
+
+Correct twenty-four Wu rule-condition and action fragments. Preserve variables,
+date-set/change alternatives, opposite checklist actions and membership scope.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5bf8f7493b">Correct Wu rule movement and completion translations</a>. Thanks to xet7.</summary>
 
 Correct eighteen Wu rule fragments. Preserve variables, movement and completion
