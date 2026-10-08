@@ -1675,54 +1675,9 @@ licence and about 16 GB of memory.
 <details>
 <summary>Feature requests / behaviour-by-design rather than bugs.</summary>
 
-Fixed in Upcoming and removed from this list:
-[#5323](https://github.com/wekan/wekan/issues/5323),
-[#4278](https://github.com/wekan/wekan/issues/4278),
-[#4294](https://github.com/wekan/wekan/issues/4294),
-[#2953](https://github.com/wekan/wekan/issues/2953),
-[#572](https://github.com/wekan/wekan/issues/572) and
-[#3195](https://github.com/wekan/wekan/issues/3195). The #4790 split is prepared
-and waits for the maintainer to file it (see "Waiting on the maintainer" above).
+The #4790 split is prepared and waits for the maintainer to file it (see
+"Waiting on the maintainer" above).
 
-[#2713](https://github.com/wekan/wekan/issues/2713) (email rules now offer
-optional live-card attachments, with source-access rechecks and verified
-filesystem/GridFS SMTP delivery. The original request also asks for all card
-content: live checklists and public comments now have an independent opt-in
-mail action choice with SMTP coverage. Details now includes dates, placement,
-labels/people, custom-field display values, notes and authorized relationships.
-Ordinary email rules now resolve live linked-card content across all selected
-sections and linked-board display fields with source-access rechecks. Stored
-Sync commands now persist and verify their source chain before dispatch;
-legacy unbound commands are reviewed in Recovery (2026-09-30). Details also
-includes persisted Flowtime/Pomodoro sessions and recurrence fields. Voting
-counts, public voter names and completed Poker results now follow disclosure
-settings, including persisted checks for stored commands. Linked-board voting
-now uses current target results and both boards' visibility settings. The six
-visible Scrum card fields are included with same-board name resolution and
-persisted visibility checks. The
-[content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md) now tracks
-all 71 top-level card fields. Target-board discussion now checks each owner
-card and retains source evidence. Offline full-acceptance confirmation is now
-implemented, and online resolution is built (2026-09-30).
-Target archive/time state and active
-member names are now included, along with local recurrence. Linked-board
-wrapper content now uses local field and related-source policies. Local
-archive state and lifecycle timestamps now complete the placement audit.
-Timer session reads and writes now agree;
-completed work uses the current source total. Local placement,
-timers and visible Scrum now have a separate linked-card section. Moved-card
-SMTP now
-passes with all three content choices for filesystem and GridFS. Canonical
-and legacy Gantt references now share readable target titles with distinct
-type labels.
-Attachment manifests now identify the cover, upload metadata and actual sizes.
-Creator,
-stickers, checklist schedules, public comment authors and scoped reaction
-summaries are now included. Stored Details now binds related-source chains,
-admin access and custom-field definition fingerprints; older Details snapshots
-are reviewed in Recovery (2026-09-30). Converted checklist subtasks now use
-readable live titles and persisted reference evidence, including without
-Details),
 [#2698](https://github.com/wekan/wekan/issues/2698) (GitLab integration: one-way
 List Sync from GitLab issues existed, and on 2026-09-30 the GitLab importer and
 Sync source reached the format contract - assignees, dates, milestone,
@@ -1749,10 +1704,6 @@ hangs.
 <details>
 <summary>Needs a maintainer decision on the intended contract (partly already works).</summary>
 
-Durable rule moves out of the card's list were decided on 2026-10-02 (the
-guard follows only a move the same rule plan saved) and are built, to other
-boards too (see Upcoming); they are no longer waiting here.
-
 [#2460](https://github.com/wekan/wekan/issues/2460) (SQRL login - the
 report is a single comment-free link to https://www.grc.com/sqrl from 2019.
 SQRL has no official Meteor/Node package, unlike accounts-2fa (#3058);
@@ -1767,47 +1718,7 @@ security-critical work that should not be freshly written without extensive
 review. SQRL's real-world adoption peaked around 2013-2016 and has not grown
 since this issue was filed; WebAuthn/FIDO2 passkeys are the passwordless
 standard that gained the adoption SQRL did not. Decided on 2026-10-03: kept
-open as it is, with no implementation attempted.),
-
-[#2713](https://github.com/wekan/wekan/issues/2713) (the attachment send path
-now works: a native form checkbox enables authorized live-card file reads,
-immutable byte snapshots and mailer propagation. Filesystem and GridFS delivery
-pass local SMTP tests; live cloud-account validation remains unperformed.
-The bounded snapshot and durable-command checks remain in place. Checklists
-and public comments can now be included independently, with private webhook
-state excluded. Details now covers ordinary card metadata, custom fields,
-notes and authorized relationships. Ordinary rules now send authorized live
-linked-source content. Stored Sync commands now persist and revalidate their
-source chain; legacy unbound-command recovery remains pending. Specialized
-Timer and recurrence snapshots now have Details and SMTP coverage. Card voting
-and completed Poker results also have disclosure checks and SMTP coverage;
-Linked-board voting now follows target policy with stored checks. Visible
-Scrum card metadata now has same-board reference and SMTP coverage. Final
-[content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md) records concrete
-the 71-field inventory. Target-board discussion now uses per-card access and
-stored source evidence. Target archive/time state, active member names and local
-recurrence are now included. Linked-board wrapper content now uses local
-field and related-source policies. Local archive/lifecycle fields complete
-the placement audit. Timer reads and writes
-now agree, and
-completed work uses the current source total. Local placement,
-timers and visible Scrum now have a separate section. Moved-card SMTP passes
-for filesystem and
-GridFS with all three choices. Offline full-acceptance confirmation is now
-implemented; legacy commands and partial/unknown acceptance still need recovery.
-Creator/stickers and checklist/comment metadata gaps are now fixed.
-Canonical and legacy Gantt targets now use grouped, authorized titles.).
-
-</details>
-
-<details>
-<summary>Deferred pending a security decision.</summary>
-
-Both items that waited here were decided on 2026-09-29 and are built in
-Upcoming: custom URL schemes ([#3218](https://github.com/wekan/wekan/issues/3218))
-link only when an administrator lists them, and fenced code blocks are coloured
-by highlight.js with a tight class allowlist inside `pre` only. Nothing is
-waiting on a security decision now.
+open as it is, with no implementation attempted.).
 
 </details>
 
