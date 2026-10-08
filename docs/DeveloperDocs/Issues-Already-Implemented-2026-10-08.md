@@ -30,3 +30,11 @@ checks the right to change both boards (server/models/lists.js,
 requireBoardMutation for source and destination). Multi-Selection can move or
 copy several lists to another board
 (client/components/sidebar/sidebarFilters.jade).
+
+## [#1758](https://github.com/wekan/wekan/issues/1758) Use the EXIF orientation
+of uploaded pictures
+
+Thumbnails and covers are rotated from EXIF on the server with sharp's
+`.rotate()` (server/lib/imageThumbnail.js, server/lib/imageGif.js). Full-size
+originals are shown by the browser, which applies EXIF orientation by default,
+and no WeKan CSS overrides `image-orientation`.
