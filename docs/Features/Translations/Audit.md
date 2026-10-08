@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Punjabi, Swahili and Latin-script Uzbek short labels — 2026-10-08
+
+Translate 62 English Blockly labels across five catalogs. Preserve movement input
+and context arguments, list position markers, matching procedure aliases and distinct
+pixel states. Reuse conditional and execution terms from existing tooltips. Composed
+labels need native review; browser/screen-reader checks were not run. This batch does
+not finish the remaining translation backlog.
+
 ## Marathi, Malayalam and Telugu short Blockly labels — 2026-10-08
 
 Translate 31 short English labels across three catalogs. Match existing conditional

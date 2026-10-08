@@ -103,3 +103,28 @@ test('Marathi, Malayalam and Telugu short labels retain indexed roles and contro
     }
   }
 });
+
+test('Punjabi, Swahili and Latin Uzbek labels preserve movement roles and block distinctions', async () => {
+  const fs = require('node:fs');
+  const path = require('node:path');
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', code + '.i18n.json'), 'utf8'));
+  const source = read('en');
+  for (const code of ['pa', 'sw', 'uz', 'uz-LA', 'uz-UZ']) {
+    const locale = read(code);
+    const keys = ['ANNOUNCE_MOVE_OF', 'FIELD_BITMAP_PIXEL_ON', 'LISTS_GET_SUBLIST_END_FROM_START', 'LISTS_SET_INDEX_INPUT_TO', 'PROCEDURES_DEFNORETURN_TITLE', 'PROCEDURES_DEFRETURN_TITLE'];
+    if (code !== 'pa') keys.push('CONTROLS_IF_MSG_IF', 'CONTROLS_REPEAT_INPUT_DO', 'LOGIC_OPERATION_OR', 'CONTROLS_FOREACH_INPUT_DO', 'CONTROLS_FOR_INPUT_DO', 'CONTROLS_IF_IF_TITLE_IF', 'CONTROLS_IF_MSG_THEN', 'CONTROLS_WHILEUNTIL_INPUT_DO');
+    for (const suffix of keys) {
+      const key = 'blockly-' + suffix;
+      assert.notEqual(locale[key], source[key], code + ': ' + key);
+      assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), code + ': ' + key);
+    }
+    const expected = code === 'pa' ? 'BLOCK ਦਾ INPUT' : code === 'sw' ? 'INPUT ya BLOCK' : 'BLOCK ichidagi INPUT';
+    assert.equal(locale['blockly-ANNOUNCE_MOVE_OF'].replace('%1', 'INPUT').replace('%2', 'BLOCK'), expected, code);
+    assert.equal((locale['blockly-LISTS_GET_SUBLIST_END_FROM_START'].match(/#/g) || []).length, 1, code);
+    assert.notEqual(locale['blockly-FIELD_BITMAP_PIXEL_ON'], locale['blockly-FIELD_BITMAP_PIXEL_OFF'], code);
+    assert.equal(locale['blockly-PROCEDURES_DEFNORETURN_TITLE'], locale['blockly-PROCEDURES_DEFRETURN_TITLE'], code);
+    assert.equal(locale['blockly-CONTROLS_IF_MSG_IF'], locale['blockly-CONTROLS_IF_IF_TITLE_IF'], code);
+    assert.notEqual(locale['blockly-LOGIC_OPERATION_OR'], locale['blockly-LOGIC_OPERATION_AND'], code);
+  }
+});

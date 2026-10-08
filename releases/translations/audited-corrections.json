@@ -170231,5 +170231,439 @@
     "before": "on",
     "after": "ఆన్",
     "reason": "Translate a short English Blockly label while preserving indexed argument roles and control terminology."
+  },
+  {
+    "locale": "sw",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%1 ya %2",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "sw",
+    "key": "blockly-CONTROLS_IF_MSG_IF",
+    "before": "if",
+    "after": "ikiwa",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "sw",
+    "key": "blockly-CONTROLS_REPEAT_INPUT_DO",
+    "before": "do",
+    "after": "tekeleza",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "sw",
+    "key": "blockly-FIELD_BITMAP_PIXEL_ON",
+    "before": "on",
+    "after": "imewashwa",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "sw",
+    "key": "blockly-LISTS_GET_SUBLIST_END_FROM_START",
+    "before": "to #",
+    "after": "hadi #",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "sw",
+    "key": "blockly-LISTS_SET_INDEX_INPUT_TO",
+    "before": "as",
+    "after": "kuwa",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "sw",
+    "key": "blockly-LOGIC_OPERATION_OR",
+    "before": "or",
+    "after": "au",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "sw",
+    "key": "blockly-PROCEDURES_DEFNORETURN_TITLE",
+    "before": "to",
+    "after": "fafanua",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "sw",
+    "key": "blockly-CONTROLS_FOREACH_INPUT_DO",
+    "before": "do",
+    "after": "tekeleza",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "sw",
+    "key": "blockly-CONTROLS_FOR_INPUT_DO",
+    "before": "do",
+    "after": "tekeleza",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "sw",
+    "key": "blockly-CONTROLS_IF_IF_TITLE_IF",
+    "before": "if",
+    "after": "ikiwa",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "sw",
+    "key": "blockly-CONTROLS_IF_MSG_THEN",
+    "before": "do",
+    "after": "tekeleza",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "sw",
+    "key": "blockly-CONTROLS_WHILEUNTIL_INPUT_DO",
+    "before": "do",
+    "after": "tekeleza",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "sw",
+    "key": "blockly-PROCEDURES_DEFRETURN_TITLE",
+    "before": "to",
+    "after": "fafanua",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%2 ichidagi %1",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz",
+    "key": "blockly-CONTROLS_IF_MSG_IF",
+    "before": "if",
+    "after": "agar",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz",
+    "key": "blockly-CONTROLS_REPEAT_INPUT_DO",
+    "before": "do",
+    "after": "bajarish",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz",
+    "key": "blockly-FIELD_BITMAP_PIXEL_ON",
+    "before": "on",
+    "after": "yoqilgan",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz",
+    "key": "blockly-LISTS_GET_SUBLIST_END_FROM_START",
+    "before": "to #",
+    "after": "# gacha",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz",
+    "key": "blockly-LISTS_SET_INDEX_INPUT_TO",
+    "before": "as",
+    "after": "qiymati",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz",
+    "key": "blockly-LOGIC_OPERATION_OR",
+    "before": "or",
+    "after": "yoki",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz",
+    "key": "blockly-PROCEDURES_DEFNORETURN_TITLE",
+    "before": "to",
+    "after": "taʼriflash",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz",
+    "key": "blockly-CONTROLS_FOREACH_INPUT_DO",
+    "before": "do",
+    "after": "bajarish",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz",
+    "key": "blockly-CONTROLS_FOR_INPUT_DO",
+    "before": "do",
+    "after": "bajarish",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz",
+    "key": "blockly-CONTROLS_IF_IF_TITLE_IF",
+    "before": "if",
+    "after": "agar",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz",
+    "key": "blockly-CONTROLS_IF_MSG_THEN",
+    "before": "do",
+    "after": "bajarish",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz",
+    "key": "blockly-CONTROLS_WHILEUNTIL_INPUT_DO",
+    "before": "do",
+    "after": "bajarish",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz",
+    "key": "blockly-PROCEDURES_DEFRETURN_TITLE",
+    "before": "to",
+    "after": "taʼriflash",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%2 ichidagi %1",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "blockly-CONTROLS_IF_MSG_IF",
+    "before": "if",
+    "after": "agar",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "blockly-CONTROLS_REPEAT_INPUT_DO",
+    "before": "do",
+    "after": "bajarish",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "blockly-FIELD_BITMAP_PIXEL_ON",
+    "before": "on",
+    "after": "yoqilgan",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "blockly-LISTS_GET_SUBLIST_END_FROM_START",
+    "before": "to #",
+    "after": "# gacha",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "blockly-LISTS_SET_INDEX_INPUT_TO",
+    "before": "as",
+    "after": "qiymati",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "blockly-LOGIC_OPERATION_OR",
+    "before": "or",
+    "after": "yoki",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "blockly-PROCEDURES_DEFNORETURN_TITLE",
+    "before": "to",
+    "after": "taʼriflash",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "blockly-CONTROLS_FOREACH_INPUT_DO",
+    "before": "do",
+    "after": "bajarish",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "blockly-CONTROLS_FOR_INPUT_DO",
+    "before": "do",
+    "after": "bajarish",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "blockly-CONTROLS_IF_IF_TITLE_IF",
+    "before": "if",
+    "after": "agar",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "blockly-CONTROLS_IF_MSG_THEN",
+    "before": "do",
+    "after": "bajarish",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "blockly-CONTROLS_WHILEUNTIL_INPUT_DO",
+    "before": "do",
+    "after": "bajarish",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "blockly-PROCEDURES_DEFRETURN_TITLE",
+    "before": "to",
+    "after": "taʼriflash",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%2 ichidagi %1",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "blockly-CONTROLS_IF_MSG_IF",
+    "before": "if",
+    "after": "agar",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "blockly-CONTROLS_REPEAT_INPUT_DO",
+    "before": "do",
+    "after": "bajarish",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "blockly-FIELD_BITMAP_PIXEL_ON",
+    "before": "on",
+    "after": "yoqilgan",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "blockly-LISTS_GET_SUBLIST_END_FROM_START",
+    "before": "to #",
+    "after": "# gacha",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "blockly-LISTS_SET_INDEX_INPUT_TO",
+    "before": "as",
+    "after": "qiymati",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "blockly-LOGIC_OPERATION_OR",
+    "before": "or",
+    "after": "yoki",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "blockly-PROCEDURES_DEFNORETURN_TITLE",
+    "before": "to",
+    "after": "taʼriflash",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "blockly-CONTROLS_FOREACH_INPUT_DO",
+    "before": "do",
+    "after": "bajarish",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "blockly-CONTROLS_FOR_INPUT_DO",
+    "before": "do",
+    "after": "bajarish",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "blockly-CONTROLS_IF_IF_TITLE_IF",
+    "before": "if",
+    "after": "agar",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "blockly-CONTROLS_IF_MSG_THEN",
+    "before": "do",
+    "after": "bajarish",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "blockly-CONTROLS_WHILEUNTIL_INPUT_DO",
+    "before": "do",
+    "after": "bajarish",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "blockly-PROCEDURES_DEFRETURN_TITLE",
+    "before": "to",
+    "after": "taʼriflash",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "pa",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%2 ਦਾ %1",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "pa",
+    "key": "blockly-FIELD_BITMAP_PIXEL_ON",
+    "before": "on",
+    "after": "ਚਾਲੂ",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "pa",
+    "key": "blockly-LISTS_GET_SUBLIST_END_FROM_START",
+    "before": "to #",
+    "after": "# ਤੱਕ",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "pa",
+    "key": "blockly-LISTS_SET_INDEX_INPUT_TO",
+    "before": "as",
+    "after": "ਮੁੱਲ",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "pa",
+    "key": "blockly-PROCEDURES_DEFNORETURN_TITLE",
+    "before": "to",
+    "after": "ਪਰਿਭਾਸ਼ਿਤ ਕਰੋ",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "pa",
+    "key": "blockly-PROCEDURES_DEFRETURN_TITLE",
+    "before": "to",
+    "after": "ਪਰਿਭਾਸ਼ਿਤ ਕਰੋ",
+    "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
   }
 ]
