@@ -58,6 +58,26 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.equal(data['previous-page'], 'Prejšnja stran');
   assert.equal(data['excel-font'], 'Arial');
   assert.equal(data['server-error'], 'Napaka strežnika');
+  const correctedDetails = ["moveSwimlanePopup-title", "custom-field-stringtemplate", "creator", "creator-on-minicard", "reports", "boardsReportTitle", "copy-swimlane", "copySwimlanePopup-title", "wait-spinner", "Bounce", "Cube", "Dot", "Scaleout", "Wave", "maximize-card", "minimize-card", "subject", "details", "carbon-copy", "ticket", "tickets", "ticket-number", "open", "pending", "closed", "resolved", "cancelled", "history", "request", "requests", "help-request", "cardDetailsPopup-title", "add-teams", "confirm-btn", "add-organizations", "legalNotice", "copied", "moveChecklist", "moveChecklistPopup-title", "newLineNewItem", "originOrder", "copyChecklist", "copyChecklistPopup-title", "copyChecklistFromTemplate", "copyChecklistFromTemplatePopup-title", "card-show-lists", "attachment-move", "move-progress-pause", "path", "version-name", "size", "storage", "action", "board-title", "uploading", "remaining_time", "speed", "progress", "password-again", "register", "forgot-password", "minicardDetailsActionsPopup-title", "Mongo_sessions_count", "allowed-avatar-filetypes", "drag-board", "newTranslationPopup-title", "editTranslationPopup-title", "translation", "translation-text", "uncollapse"];
+  for (const key of correctedDetails) {
+    assert.doesNotMatch(data[key], /[\u0400-\u04ff]/, `${locale}:${key}`);
+    assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), `${locale}:${key}`);
+  }
+  assert.equal(data.creator, 'Ustvarjalec');
+  assert.equal(data.reports, 'Poročila');
+  assert.match(data['copy-swimlane'], /Kopiraj plavalno stezo/);
+  assert.match(data['moveSwimlanePopup-title'], /Premakni plavalno stezo/);
+  assert.equal(data.closed, 'Zaprto');
+  assert.equal(data.resolved, 'Rešeno');
+  assert.equal(data.cancelled, 'Preklicano');
+  assert.equal(data['carbon-copy'], 'Kopija (Cc:)');
+  assert.match(data.moveChecklist, /Premakni kontrolni seznam/);
+  assert.match(data.copyChecklist, /Kopiraj kontrolni seznam/);
+  assert.match(data.copyChecklistFromTemplate, /iz predloge/);
+  assert.match(data['password-again'], /Geslo/);
+  assert.equal(data.Mongo_sessions_count, 'Število sej Mongo');
+  assert.match(data.Bounce, /odskakovanjem/);
+  assert.match(data.Wave, /valovanjem/);
   assert.equal(data.board, 'Tabla');
   assert.equal(data.swimlane, 'Plavalna steza');
   for (const key of Object.keys(english).filter(key => key.startsWith('interrupted-import-'))) {

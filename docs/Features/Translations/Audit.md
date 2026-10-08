@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Slovenian card details and uploads — 2026-10-08
+
+Replace 70 Serbian values in each Slovenian catalog, for 140 corrections.
+Cover card details, ticket states, checklists, uploads and translation controls.
+Preserve source tokens and the Cc header notation. Extend native-vocabulary
+checks and distinctions between copying, moving, closing and resolving.
+No browser or screen-reader session was run; further wrong-language review and
+remaining translations are unfinished.
+
 ## Slovenian search and card views — 2026-10-08
 
 Replace 75 Serbian values in each Slovenian catalog, for 150 corrections.
