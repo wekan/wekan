@@ -9771,6 +9771,19 @@ passed. Technical Darija wording remains low confidence pending speaker review.
 Browser, RTL and screen-reader checks were not run. Further placeholders and
 the broader dialect and semantic audit remain unfinished.
 
+## Moroccan Arabic numeric inputs and keyboard navigation
+
+Filled 52 placeholders covering numeric/text input roles, keyboard hints and
+initial list controls, without replacing existing translations. Tests check
+source order, Arabic script, placeholder inventories, dividend/divisor roles,
+minimum/maximum, x/y coordinates, loop bounds, append-at-end, held-key and
+position-acceptance arguments, empty-list length and indexing from the end.
+Of 43 checks, 41 passed; two repository-wide checks still fail because other
+locales lack the new card-field-visibility keys. All 21 human-preference checks
+passed. Technical Darija wording remains low confidence pending speaker review.
+Browser, RTL and screen-reader checks were not run. Remaining placeholders and
+the broader dialect and semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
