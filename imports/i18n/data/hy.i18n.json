@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Այս էլ. փոստով հաշիվ արդեն կա, և այն այս մուտքի եղանակով չի ստեղծվել",
   "sign-in-with": "Մուտք գործել %s-ով",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "Մուտք առանց գաղտնաբառի",
   "passwordless-enabled": "Գաղտնաբառի փոխարեն էլ. փոստով ուղարկել մեկանգամյա մուտքի կոդ",
   "passwordless-hint": "Անհրաժեշտ է ելքային էլ. փոստ (MAIL_URL)։ Նաև PASSWORDLESS_ENABLED։",

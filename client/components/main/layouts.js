@@ -1,6 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 const { OAUTH_PROVIDERS, providerByKey } = require('/models/lib/oauthProviders');
+const { loginOriginMismatch, offersProviderLogin } = require('/models/lib/loginOriginMismatch');
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import Users from '/models/users';
 import { EscapeActions } from '/client/lib/escapeActions';
@@ -40,6 +41,9 @@ Template.userFormsLayout.onCreated(function () {
   // the getAuthenticationsEnabled call in onRendered.
   templateInstance.enabledOauthProviders = new ReactiveVar([]);
   templateInstance.passwordlessEnabled = new ReactiveVar(false);
+  // The ROOT_URL origin and this page's, when they differ and a provider
+  // login is offered (models/lib/loginOriginMismatch.js).
+  templateInstance.loginOriginMismatch = new ReactiveVar(null);
   // 'email' while asking for an address, 'code' once the code was sent.
   templateInstance.passwordlessStep = new ReactiveVar('email');
   templateInstance.passwordlessEmail = new ReactiveVar('');
@@ -81,6 +85,15 @@ Template.userFormsLayout.onRendered(function () {
 
   Meteor.call('getAuthenticationsEnabled', (_, result) => {
     let enabledAuthenticationMethods = ['password']; // we show/hide this based on isPasswordLoginEnabled
+
+    // A provider login opened at another address than ROOT_URL returns to
+    // ROOT_URL and never completes here; say so instead of looping.
+    if (offersProviderLogin(result)) {
+      instance.loginOriginMismatch.set(loginOriginMismatch(
+        window.__meteor_runtime_config__ && window.__meteor_runtime_config__.ROOT_URL,
+        window.location.href,
+      ));
+    }
 
     if (result) {
       Object.keys(result).forEach((m) => {
@@ -281,6 +294,10 @@ Template.userFormsLayout.helpers({
 
   passwordlessEnabled() {
     return Template.instance().passwordlessEnabled.get();
+  },
+
+  loginOriginMismatch() {
+    return Template.instance().loginOriginMismatch.get();
   },
 
   passwordlessCodeStep() {

@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "ဤအီးမေးလ်ဖြင့် အကောင့်ရှိပြီးဖြစ်ပြီး ၎င်းကို ဤအကောင့်ဝင်နည်းလမ်းဖြင့် ဖန်တီးထားခြင်းမဟုတ်ပါ",
   "sign-in-with": "%s ဖြင့် ဝင်ရန်",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "စကားဝှက်မလိုသော အကောင့်ဝင်ခြင်း",
   "passwordless-enabled": "စကားဝှက်အစား တစ်ကြိမ်သုံး အကောင့်ဝင်ကုဒ်ကို အီးမေးလ်ဖြင့် ပို့ရန်",
   "passwordless-hint": "အပြင်ထွက်အီးမေးလ် လိုအပ်သည် (MAIL_URL)။ PASSWORDLESS_ENABLED လည်း လိုအပ်သည်။",

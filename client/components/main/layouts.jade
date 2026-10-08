@@ -69,6 +69,11 @@ template(name="userFormsLayout")
           div.buttonsContainer
             input.primary(type="submit" value="{{_ 'twoFactorCode-submit'}}")
             button#two-factor-code-cancel.js-two-factor-code-cancel(type="button") {{_ 'twoFactorCode-cancel'}}
+        //- Google and the other providers return to ROOT_URL; at any other
+          address the login cannot finish (models/lib/loginOriginMismatch.js).
+        if loginOriginMismatch
+          p.login-origin-mismatch.js-login-origin-mismatch(role="alert")
+            | {{_ 'login-origin-mismatch' expected=loginOriginMismatch.expected actual=loginOriginMismatch.actual}}
         +Template.dynamic(template=content)
         button#at-saml.primary.hide(type="button")
           i.fa.fa-key

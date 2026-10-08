@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Oĩma peteĩ cuenta ko ñanduti veve reheve ha ndojejapói ko jeike reko rupive",
   "sign-in-with": "Eike %s rupive",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "Jeike ñe'ẽñemi'ỹre",
   "passwordless-enabled": "Emondo ñanduti veve rupive peteĩ jeike kódigo peteĩ jey guarã ñe'ẽñemi rangue",
   "passwordless-hint": "Oikotevẽ ñanduti veve osẽva (MAIL_URL). Avei PASSWORDLESS_ENABLED.",

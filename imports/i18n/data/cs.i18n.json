@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Přes tyto poskytovatele se mohou přihlásit pouze tyto e-mailové domény (oddělené čárkami; prázdné pole povoluje všechny)",
   "oauth-account-conflict": "Účet s tímto e-mailem již existuje a nebyl vytvořen touto metodou přihlášení",
   "sign-in-with": "Přihlásit přes %s",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "Přihlášení bez hesla",
   "passwordless-enabled": "Místo hesla poslat e-mailem jednorázový přihlašovací kód",
   "passwordless-hint": "Vyžaduje odchozí e-mail (MAIL_URL). Také PASSWORDLESS_ENABLED.",

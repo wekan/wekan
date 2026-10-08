@@ -142,6 +142,16 @@ see [REST API](../../API/REST-API.md#admin-panel-oauth-login-providers-and-passw
 - *"redirect_uri_mismatch"* or *"The redirect URI is not registered"*: the
   callback URL at the provider is not exactly `<ROOT_URL>/_oauth/<service>`.
   Check `ROOT_URL` (scheme, host, port, no trailing path) and register that.
+- After signing in at the provider, the browser is back on WeKan's sign-in
+  page, every time, with no error: WeKan was opened at another address than
+  `ROOT_URL` - `http` where it says `https`, `www.` or not, an IP address,
+  another port, or a snap still on its `http://127.0.0.1` default. The
+  provider returns to `ROOT_URL`, and the login secret is left in that
+  address's browser storage, where this page cannot read it. Open WeKan at
+  `ROOT_URL`, or set `ROOT_URL` to the address people use (snap:
+  `sudo snap set wekan root-url='https://wekan.example.com'`) and register
+  `<ROOT_URL>/_oauth/<service>` at the provider. The sign-in page says this,
+  naming both addresses, when it happens.
 - The popup closes and nothing happens: the browser blocked third-party
   cookies for the popup, or WeKan is inside an iframe. Set
   `OAUTH_PROVIDERS_LOGIN_STYLE=redirect`.

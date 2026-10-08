@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "ብዚ ኢመይል እዚ ሕሳብ ድሮ ኣሎ እሞ ብዚ ኣገባብ መእተዊ እዚ ኣይተፈጥረን",
   "sign-in-with": "ብ%s እቶ",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "ብዘይ መሕለፊ ቃል መእተዊ",
   "passwordless-enabled": "ኣብ ክንዲ መሕለፊ ቃል ናይ ሓደ ግዜ መእተዊ ኮድ ብኢመይል ስደድ",
   "passwordless-hint": "ወጻኢ ኢመይል የድሊ (MAIL_URL)። ከምኡ'ውን PASSWORDLESS_ENABLED።",

@@ -1127,6 +1127,16 @@ a:not(.disabled).is-active i.fa {
 .auth-layout .auth-dialog {
   margin: 0 !important;
 }
+/* A provider login cannot finish at this address (loginOriginMismatch.js). */
+.auth-dialog .login-origin-mismatch {
+  color: #b71c1c;
+  background: #fdecea;
+  border: 1px solid #f5c2c0;
+  border-radius: 4px;
+  padding: 0.6em 0.8em;
+  margin: 0 0 1em;
+  overflow-wrap: anywhere;
+}
 .loadingText {
   text-align: center;
 }

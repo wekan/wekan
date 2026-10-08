@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Ha iimeeliyaara akkawuntee kase de'ees, qassi ha gelidi ogiyan medhettibeenna",
   "sign-in-with": "%s-n gelite",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "Geeman qaali baynna gelidi",
   "passwordless-enabled": "Geeman qaalaa sohuwan issi wode gelidi koodiyaa iimeeliyan kiittite",
   "passwordless-hint": "Kiyiya iimeelee koshshees (MAIL_URL). Qassi PASSWORDLESS_ENABLED.",

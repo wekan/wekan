@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "இந்த மின் அஞ்சலுடன் ஒரு கணக்கு ஏற்கனவே உள்ளது, அது இந்த உள்நுழைவு முறையால் உருவாக்கப்படவில்லை",
   "sign-in-with": "%s மூலம் உள்நுழை",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "கடவுச்சொல் இல்லாத உள்நுழைவு",
   "passwordless-enabled": "கடவுச்சொல்லுக்குப் பதிலாக ஒருமுறை பயன்படுத்தும் உள்நுழைவுக் குறியீட்டை மின் அஞ்சலில் அனுப்பு",
   "passwordless-hint": "வெளிச்செல்லும் மின் அஞ்சல் தேவை (MAIL_URL). மேலும் PASSWORDLESS_ENABLED.",

@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "ഈ ഇമെയിലുള്ള അക്കൗണ്ട് ഇതിനകം നിലവിലുണ്ട്, അത് ഈ ലോഗിൻ രീതി ഉപയോഗിച്ച് സൃഷ്ടിച്ചതല്ല",
   "sign-in-with": "%s ഉപയോഗിച്ച് ലോഗിൻ ചെയ്യുക",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "പാസ്‌വേഡ് ഇല്ലാത്ത ലോഗിൻ",
   "passwordless-enabled": "പാസ്‌വേഡിന് പകരം ഇമെയിൽ വഴി ഒറ്റത്തവണ ലോഗിൻ കോഡ് അയയ്ക്കുക",
   "passwordless-hint": "പുറത്തേക്കുള്ള ഇമെയിൽ ആവശ്യമാണ് (MAIL_URL). കൂടാതെ PASSWORDLESS_ENABLED.",

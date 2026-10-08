@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Bare disse e-postdomenene kan logge inn med disse leverandørene (kommaseparert; tomt tillater alle)",
   "oauth-account-conflict": "En konto med denne e-posten finnes allerede og ble ikke opprettet med denne innloggingsmetoden",
   "sign-in-with": "Logg inn med %s",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "Passordløs innlogging",
   "passwordless-enabled": "Send en engangskode for innlogging på e-post i stedet for et passord",
   "passwordless-hint": "Krever utgående e-post (MAIL_URL). Også PASSWORDLESS_ENABLED.",

@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "આ ઈમેલ સાથેનું ખાતું પહેલેથી અસ્તિત્વમાં છે અને તે આ લોગિન પદ્ધતિથી બનાવવામાં આવ્યું નહોતું",
   "sign-in-with": "%s વડે લોગ ઇન કરો",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "પાસવર્ડ વગર લોગિન",
   "passwordless-enabled": "પાસવર્ડને બદલે ઈમેલ દ્વારા એક વખતનો લોગિન કોડ મોકલો",
   "passwordless-hint": "આઉટગોઇંગ ઈમેલ જરૂરી છે (MAIL_URL). સાથે PASSWORDLESS_ENABLED.",

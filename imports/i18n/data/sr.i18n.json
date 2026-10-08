@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Налог са овом е-поштом већ постоји и није направљен овим начином пријаве",
   "sign-in-with": "Пријави се преко %s",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "Пријава без лозинке",
   "passwordless-enabled": "Уместо лозинке пошаљи е-поштом једнократни код за пријаву",
   "passwordless-hint": "Захтева одлазну е-пошту (MAIL_URL). Такође PASSWORDLESS_ENABLED.",

@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Akoon leh iimaylkan ayaa horey u jiray, laguma abuurin habkan galitaanka",
   "sign-in-with": "Ku gal %s",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "Galitaan aan furaha sirta lahayn",
   "passwordless-enabled": "Iimayl ku dir koodh galitaan hal mar ah halkii furaha sirta",
   "passwordless-hint": "Wuxuu u baahan yahay iimayl baxaya (MAIL_URL). Sidoo kale PASSWORDLESS_ENABLED.",

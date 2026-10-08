@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "මෙම විද්‍යුත් තැපෑල සහිත ගිණුමක් දැනටමත් පවතින අතර එය මෙම පිවිසුම් ක්‍රමයෙන් සාදා නැත",
   "sign-in-with": "%s මගින් පිවිසෙන්න",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "මුරපදය රහිත පිවිසුම",
   "passwordless-enabled": "මුරපදයක් වෙනුවට එක් වරක් භාවිත කළ හැකි පිවිසුම් කේතයක් විද්‍යුත් තැපෑලෙන් යවන්න",
   "passwordless-hint": "පිටතට යන විද්‍යුත් තැපෑල අවශ්‍යයි (MAIL_URL). PASSWORDLESS_ENABLED ද අවශ්‍යයි.",

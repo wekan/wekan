@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Ya tin un kuenta ku e e-mail aki i e no a wòrdu kreá ku e método di login aki",
   "sign-in-with": "Drenta ku %s",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "Login sin kontraseña",
   "passwordless-enabled": "Manda un kódigo di login di un solo biaha pa e-mail na lugá di un kontraseña",
   "passwordless-hint": "Mester di e-mail saliente (MAIL_URL). Tambe PASSWORDLESS_ENABLED.",

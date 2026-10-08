@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Akawunti erina imeyilo eno emaze okubaawo era teyatondebwa n'enkola y'okuyingira eno",
   "sign-in-with": "Yingira ne %s",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "Okuyingira awatali kigambo ekyekusifu",
   "passwordless-enabled": "Sindika koodi y'okuyingira ey'omulundi gumu ku imeyilo mu kifo ky'ekigambo ekyekusifu",
   "passwordless-hint": "Kyetaaga imeyilo efuluma (MAIL_URL). Era ne PASSWORDLESS_ENABLED.",

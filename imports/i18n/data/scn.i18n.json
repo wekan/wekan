@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Nu cuntu cu sta posta elettronica già esisti e nun fu criatu cu stu mètudu d’accessu",
   "sign-in-with": "Trasi cu %s",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "Accessu senza palora d’ordini",
   "passwordless-enabled": "Manna pi posta elettronica nu còdici d’accessu d’usu ùnicu ô postu di na palora d’ordini",
   "passwordless-hint": "Havi bisognu dâ posta chi nesci (MAIL_URL). Puru PASSWORDLESS_ENABLED.",

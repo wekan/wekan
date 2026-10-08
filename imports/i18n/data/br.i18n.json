@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Ur gont gant an e-mail-mañ a zo dija ha n’eo ket bet krouet gant an doare kennaskañ-mañ",
   "sign-in-with": "Kennaskañ gant %s",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "Kennaskañ hep ger-tremen",
   "passwordless-enabled": "Kas dre e-mail ur c’hod kennaskañ un-implij e-lec’h ur ger-tremen",
   "passwordless-hint": "Ezhomm a zo eus ar posteloù o vont er-maez (MAIL_URL). Ha PASSWORDLESS_ENABLED ivez.",

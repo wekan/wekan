@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Bu e-poçt ilə hesab artıq mövcuddur və bu giriş üsulu ilə yaradılmayıb",
   "sign-in-with": "%s ilə daxil ol",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "Parolsuz giriş",
   "passwordless-enabled": "Parol əvəzinə e-poçtla birdəfəlik giriş kodu göndər",
   "passwordless-hint": "Gedən e-poçt tələb olunur (MAIL_URL). Həmçinin PASSWORDLESS_ENABLED.",

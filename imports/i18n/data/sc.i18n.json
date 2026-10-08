@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Unu contu cun custa posta elettronica esistit giai e no est istadu creadu cun custu mètodu de intrada",
   "sign-in-with": "Intra cun %s",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "Intrada sena crae",
   "passwordless-enabled": "Imbia pro posta elettronica unu còdighe de intrada de usu ùnicu in logu de una crae",
   "passwordless-hint": "Rechedet sa posta in essida (MAIL_URL). Fintzas PASSWORDLESS_ENABLED.",

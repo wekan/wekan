@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Der bestiet al in akkount mei dit e-mailadres dat net mei dizze oanmeldmetoade oanmakke is",
   "sign-in-with": "Oanmelde mei %s",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "Oanmelde sûnder wachtwurd",
   "passwordless-enabled": "Stjoer in ienmalige oanmeldkoade per e-mail yn stee fan in wachtwurd",
   "passwordless-hint": "Fereasket útgeande e-mail (MAIL_URL). Ek PASSWORDLESS_ENABLED.",

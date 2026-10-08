@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "یَتھ ای میلٕچ اکاؤنٹ چھُ پہلےٕ موجود تہٕ سُہ آو نہٕ یَتھ لاگ اِن طریقہٕ سٟتؠ بناونہٕ",
   "sign-in-with": "%s سٟتؠ لاگ اِن کریو",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "پاس ورڈ بغٲر لاگ اِن",
   "passwordless-enabled": "پاس ورڈ بدلہٕ ای میل ذریعہٕ اکہِ لٹہِ ہُند لاگ اِن کوڈ سوزیو",
   "passwordless-hint": "نیبر گژھن وٲلؠ ای میل چھُ ضروری (MAIL_URL)۔ تہٕ PASSWORDLESS_ENABLED۔",

@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Akaunti yenye barua pepe hii tayari ipo na haikuundwa kwa njia hii ya kuingia",
   "sign-in-with": "Ingia kwa %s",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "Kuingia bila nenosiri",
   "passwordless-enabled": "Tuma kwa barua pepe msimbo wa kuingia wa mara moja badala ya nenosiri",
   "passwordless-hint": "Inahitaji barua pepe inayotoka (MAIL_URL). Pia PASSWORDLESS_ENABLED.",

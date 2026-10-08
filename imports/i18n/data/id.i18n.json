@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Akun dengan email ini sudah ada dan tidak dibuat dengan metode login ini",
   "sign-in-with": "Masuk dengan %s",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "Login tanpa kata sandi",
   "passwordless-enabled": "Kirim kode masuk sekali pakai lewat email alih-alih kata sandi",
   "passwordless-hint": "Memerlukan email keluar (MAIL_URL). Juga PASSWORDLESS_ENABLED.",

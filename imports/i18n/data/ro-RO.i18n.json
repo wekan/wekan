@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Numai aceste domenii de email se pot autentifica prin acești furnizori (separate prin virgulă; câmpul gol permite toate domeniile)",
   "oauth-account-conflict": "Există deja un cont cu acest e-mail și nu a fost creat cu această metodă de autentificare",
   "sign-in-with": "Autentificare cu %s",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "Autentificare fără parolă",
   "passwordless-enabled": "Trimite prin e-mail un cod de autentificare de unică folosință în locul unei parole",
   "passwordless-hint": "Necesită e-mail de ieșire (MAIL_URL). De asemenea PASSWORDLESS_ENABLED.",

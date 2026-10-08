@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "An account with this email already exists and was not created with this login method",
   "sign-in-with": "Sign in with %s",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "Passwordless login",
   "passwordless-enabled": "Email a one-time sign-in code instead of a password",
   "passwordless-hint": "Needs outgoing email (MAIL_URL). Also PASSWORDLESS_ENABLED.",

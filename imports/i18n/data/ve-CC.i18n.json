@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Un conto co sta posta eletronica el ghe xe za e no'l xe stà creà co sto metodo de aceso",
   "sign-in-with": "Entra co %s",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "Aceso sensa parola d'ordine",
   "passwordless-enabled": "Manda par posta eletronica un codise de aceso da doparar na volta sola invese de na parola d'ordine",
   "passwordless-hint": "Ghe vol la posta in usìa (MAIL_URL). Anca PASSWORDLESS_ENABLED.",

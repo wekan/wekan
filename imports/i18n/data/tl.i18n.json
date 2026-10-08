@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Mayroon nang account na may e-liham na ito at hindi ito ginawa gamit ang paraan ng pag-login na ito",
   "sign-in-with": "Mag-sign in gamit ang %s",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "Pag-login na walang password",
   "passwordless-enabled": "Mag-email ng isang beses na code sa pag-sign in sa halip na password",
   "passwordless-hint": "Nangangailangan ng papalabas na e-liham (MAIL_URL). Pati na rin ang PASSWORDLESS_ENABLED.",

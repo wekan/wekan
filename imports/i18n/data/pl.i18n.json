@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Tylko te domeny poczty mogą logować się przez tych dostawców (rozdzielone przecinkami; puste pole zezwala na wszystkie)",
   "oauth-account-conflict": "Konto z tym adresem e-mail już istnieje i nie zostało utworzone tą metodą logowania",
   "sign-in-with": "Zaloguj przez %s",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "Logowanie bez hasła",
   "passwordless-enabled": "Wyślij e-mailem jednorazowy kod logowania zamiast hasła",
   "passwordless-hint": "Wymaga poczty wychodzącej (MAIL_URL). Także PASSWORDLESS_ENABLED.",

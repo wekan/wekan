@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Akhaonto e nang le imeile ena e se e le teng mme ha ea etsoa ka mokhoa ona oa ho kena",
   "sign-in-with": "Kena ka %s",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "Ho kena ntle le phasewete",
   "passwordless-enabled": "Romela khoutu ea ho kena ea hang ka imeile sebakeng sa phasewete",
   "passwordless-hint": "E hloka imeile e tsoang (MAIL_URL). Le PASSWORDLESS_ENABLED.",

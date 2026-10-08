@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "使用此邮箱的账户已存在，且不是通过此登录方式创建的",
   "sign-in-with": "使用 %s 登录",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "免密码登录",
   "passwordless-enabled": "通过邮箱发送一次性登录码，代替密码",
   "passwordless-hint": "需要外发邮件 (MAIL_URL)，以及 PASSWORDLESS_ENABLED。",

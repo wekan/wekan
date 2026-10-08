@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Só estes domínios de email podem iniciar sessão com estes fornecedores (separados por vírgulas; vazio permite todos)",
   "oauth-account-conflict": "Já existe uma conta com este e-mail e não foi criada com este método de início de sessão",
   "sign-in-with": "Entrar com %s",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "Início de sessão sem senha",
   "passwordless-enabled": "Enviar por e-mail um código de acesso único em vez de uma senha",
   "passwordless-hint": "Requer e-mail de saída (MAIL_URL). Também PASSWORDLESS_ENABLED.",

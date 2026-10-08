@@ -1530,6 +1530,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Xa existe unha conta con este correo electrónico e non se creou con este método de acceso",
   "sign-in-with": "Acceder con %s",
+  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
   "passwordless-title": "Acceso sen contrasinal",
   "passwordless-enabled": "Enviar por correo un código de acceso dun só uso en lugar dun contrasinal",
   "passwordless-hint": "Require correo saínte (MAIL_URL). Tamén PASSWORDLESS_ENABLED.",

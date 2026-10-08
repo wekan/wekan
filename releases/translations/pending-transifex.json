@@ -995,6 +995,10 @@
     {
       "key": "interrupted-import-failed",
       "since": "2026-10-08"
+    },
+    {
+      "key": "login-origin-mismatch",
+      "since": "2026-10-08"
     }
   ]
 }
