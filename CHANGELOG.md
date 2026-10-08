@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/90a32cfb935842538c9d7983ccb3c39663aa615e">Correct Tatar sidebar shortcuts and board opening text</a></summary>
+
+- Correct 20 shortcut, sidebar and time strings, preserving source tokens,
+  sidebar targets, automatic-opening states and hour units.
+- Technical wording remains low confidence pending speaker review.
+- All 97 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/cd64ce968bf8800ebfde862e3f969fe83ee92ef6">Correct Tatar member removal and search controls</a></summary>
 
 - Correct 22 removal, rescue and search strings, preserving placeholders,
