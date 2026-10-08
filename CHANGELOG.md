@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b8d6041ca4">Correct Wu dependency, map and server instructions</a>. Thanks to xet7.</summary>
+
+Correct 17 Wu values, preserving dependency counts, background size and log commands.
+Restore Snap as the installation product name. Add regression checks and refresh audit records.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/df966f107c">Correct Wu search-logic help translations</a>. Thanks to xet7.</summary>
 
 Correct fifteen Wu search-help values. Preserve predicate variables, code examples,
