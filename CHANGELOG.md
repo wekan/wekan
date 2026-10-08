@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cd9c4a3e3bf906151d6706071e1411329723e1b8">Translate Odia sync preview guidance</a></summary>
+
+- Fill 18 Odia sync-preview placeholders, preserving existing translations,
+  replacement reuse, preview limits and parser omission caveats.
+- Technical wording remains low confidence pending speaker review.
+- All 69 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Odia translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1039789a4b67ccdff50bf199069fcc3eb733011b">Translate Odia sync conflict guidance</a></summary>
 
 - Fill 16 Odia Scrum-import and sync-conflict placeholders, preserving existing
