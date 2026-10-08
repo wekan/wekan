@@ -111,3 +111,21 @@ assert.match(papiamento['blockly-INPUT_LABEL_NUMBER_ATAN2_Y'], / y$/);
 assert.match(papiamento['blockly-INPUT_LABEL_MATH_DIVIDEND'], /ta wordu dividí/);
 assert.match(papiamento['blockly-INPUT_LABEL_MATH_DIVISOR'], /dor di dje/);
 assert.equal(papiamento['blockly-INPUT_LABEL_LISTS_REPEAT_NUM'], papiamento['blockly-INPUT_LABEL_LOOP_TIMES']);
+
+const blocklyRetrieval = ["blockly-INSERT_KEY", "blockly-KEYBOARD_NAV_BLOCK_NAVIGATION_HINT", "blockly-KEYBOARD_NAV_CONSTRAINED_MOVE_HINT", "blockly-KEYBOARD_NAV_COPIED_HINT", "blockly-KEYBOARD_NAV_CUT_HINT", "blockly-KEYBOARD_NAV_FLYOUT_LABEL_HINT", "blockly-KEYBOARD_NAV_UNCONSTRAINED_MOVE_HINT", "blockly-KEYBOARD_NAV_WORKSPACE_NAVIGATION_HINT", "blockly-LISTS_CREATE_EMPTY_TITLE", "blockly-LISTS_CREATE_EMPTY_TOOLTIP", "blockly-LISTS_CREATE_WITH_CONTAINER_TITLE_ADD", "blockly-LISTS_CREATE_WITH_CONTAINER_TOOLTIP", "blockly-LISTS_CREATE_WITH_INPUT_WITH", "blockly-LISTS_CREATE_WITH_ITEM_TOOLTIP", "blockly-LISTS_CREATE_WITH_TOOLTIP", "blockly-LISTS_GET_INDEX_FIRST", "blockly-LISTS_GET_INDEX_FROM_END", "blockly-LISTS_GET_INDEX_GET", "blockly-LISTS_GET_INDEX_GET_REMOVE", "blockly-LISTS_GET_INDEX_LAST", "blockly-LISTS_GET_INDEX_RANDOM", "blockly-LISTS_GET_INDEX_REMOVE", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_FIRST", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_FROM", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_LAST", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_RANDOM", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_FIRST", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_FROM", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_LAST", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_RANDOM", "blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_FIRST", "blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_FROM", "blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_LAST", "blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_RANDOM"];
+for (const key of blocklyRetrieval) {
+  assert.notEqual(papiamento[key], english[key], key);
+  assert.deepEqual(tokens(papiamento[key]), tokens(english[key]), key);
+}
+for (const position of ['FIRST', 'FROM', 'LAST', 'RANDOM']) {
+  const prefix = 'blockly-LISTS_GET_INDEX_TOOLTIP_';
+  assert.match(papiamento[`${prefix}GET_${position}`], /^Duna bèk/);
+  assert.doesNotMatch(papiamento[`${prefix}GET_${position}`], /[Kk]ita/);
+  assert.match(papiamento[`${prefix}GET_REMOVE_${position}`], /^Kita i duna bèk/);
+  assert.match(papiamento[`${prefix}REMOVE_${position}`], /^Kita/);
+  assert.doesNotMatch(papiamento[`${prefix}REMOVE_${position}`], /duna bèk/);
+}
+assert.match(papiamento['blockly-LISTS_CREATE_EMPTY_TOOLTIP'], /largura 0.*sin niun/);
+assert.match(papiamento['blockly-KEYBOARD_NAV_UNCONSTRAINED_MOVE_HINT'], /Tene %1 primí.*%2 pa aseptá/);
+assert.match(papiamento['blockly-KEYBOARD_NAV_COPIED_HINT'], /^Kopiá/);
+assert.match(papiamento['blockly-KEYBOARD_NAV_CUT_HINT'], /^Kortá/);

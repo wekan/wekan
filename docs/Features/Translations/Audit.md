@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Papiamento Blockly navigation and retrieval — 2026-10-08
+
+Translate 34 English navigation and list messages. Preserve variables and index
+markers; check retrieval versus removal, combined operations, empty-list length,
+copy/cut hints and movement confirmation. Specialized wording is lower confidence
+and needs native review. No browser or screen-reader session was run. Remaining
+translations are unfinished.
+
 ## Papiamento Blockly input roles — 2026-10-08
 
 Translate 44 English list, numeric and text input labels. Preserve variables and
