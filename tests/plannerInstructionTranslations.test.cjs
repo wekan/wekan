@@ -359,3 +359,28 @@ for (const code of ['nl', 'nl-NL']) {
   assert.match(locale['import-board-instruction-superproductivity'], /gearchiveerde taken worden gearchiveerde kaarten/);
   assert.match(locale['import-board-instruction-meistertask'], /voltooide taken behouden hun voltooiingsdatum/);
 }
+
+{
+  const locale = read('sv');
+  const literals = {...importLiterals, ...newerImportLiterals,
+    planner: ['Microsoft Planner', 'Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By'],
+    meistertask: ['MeisterTask', 'Export project', 'CSV']};
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), key);
+    for (const value of values) assert.ok(locale[key].includes(value), key + ': ' + value);
+  }
+  for (const format of ['nullboard', 'kanri']) {
+    assert.match(locale['import-board-instruction-' + format], /importeras bara den första tavlan/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /alla tavlor importeras/);
+  }
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /Bilagor importeras inte/);
+  assert.match(locale['import-board-instruction-notion'], /Relationer, bilder och bilagor importeras inte/);
+  assert.match(locale['import-board-instruction-plane'], /inga beskrivningar eller bilagor.*importeras inte/);
+  assert.match(locale['import-board-instruction-businessmap'], /först ändra rubrikraden till engelska/);
+  assert.match(locale['import-board-instruction-redmine'], /English i My account före exporten/);
+  assert.match(locale['import-board-instruction-teamwork'], /en nivå djupare/);
+  assert.match(locale['import-board-instruction-superproductivity'], /arkiverade uppgifter blir arkiverade kort/);
+  assert.match(locale['import-board-instruction-meistertask'], /slutförda uppgifter behåller sitt slutdatum/);
+}
