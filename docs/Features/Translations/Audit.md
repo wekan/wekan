@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Yiddish rule validation and Scrum settings — 2026-10-08
+
+Translate 30 English rule-editor and Scrum labels. Preserve source variables and
+check exact trigger/action limits, reload-before-save conflicts, administrator
+permissions and distinct completion policies. Specialized Scrum wording is lower
+confidence and needs native review. No browser or screen-reader session was run.
+Remaining translations are unfinished.
+
 ## Yiddish imports and settings — 2026-10-08
 
 Translate 23 English board, import, link-rule, LDAP and login messages. Preserve

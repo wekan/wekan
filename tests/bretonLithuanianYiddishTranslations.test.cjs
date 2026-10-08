@@ -613,3 +613,19 @@ assert.match(locales.yi['r-moved-forward'], /פֿאָרויס.*שפּעטערד�
 assert.match(locales.yi['r-moved-back'], /צוריק.*פֿריִערדיקער/);
 assert.match(locales.yi['read-only-field'], /נאָר ברעט־אַדמיניסטראַטאָרן ענדערן/);
 assert.match(locales.yi['oauth-providers-allowed-email-domains'], /ליידיק דערלויבט אַלע/);
+
+const yiddishRulesScrum = ["r-blocks-discard", "r-blocks-unavailable", "r-blocks-invalid", "r-blocks-conflict", "r-blocks-permission", "r-blocks-unsaved", "r-blocks-saved", "r-blocks-reload", "board-view-product-backlog", "board-view-sprints", "board-view-sprint-report", "board-view-velocity", "scrum-settings", "scrum-product-owner", "scrum-master", "scrum-developers", "scrum-working-days", "scrum-enabled", "scrum-product-goal", "scrum-definition-of-done", "scrum-estimate-source", "scrum-estimate-unit", "scrum-completion-policy", "scrum-source-poker", "scrum-source-customField", "scrum-policy-dueComplete", "scrum-policy-doneLists", "scrum-sprints", "scrum-sprint", "scrum-start-sprint"];
+for (const key of yiddishRulesScrum) {
+  assert.notEqual(locales.yi[key], english[key], key);
+  assert.match(locales.yi[key], /[\u0590-\u05ff]/, key);
+  assert.deepEqual(translationTokens(locales.yi[key]), translationTokens(english[key]), key);
+}
+assert.match(locales.yi['r-blocks-invalid'], /פּונקט איין אויסלייזער מיט איין אַקציע/);
+assert.match(locales.yi['r-blocks-conflict'], /לאָדט ווידער דעם געהיטן כּלל איידער איר היט/);
+assert.match(locales.yi['r-blocks-permission'], /ברעט־אַדמיניסטראַטאָר־רעכט/);
+assert.match(locales.yi['r-blocks-discard'], /נישט־געהיטע/);
+assert.equal(locales.yi['board-view-sprints'], locales.yi['scrum-sprints']);
+assert.match(locales.yi['scrum-source-customField'], /פֿאַר צאָלן/);
+assert.doesNotMatch(locales.yi['scrum-source-customField'], /מנהג/);
+assert.match(locales.yi['scrum-policy-dueComplete'], /אָנגעצייכנט ווי פֿאַרענדיקט/);
+assert.match(locales.yi['scrum-policy-doneLists'], /רשימה.*קאַטעגאָריע/);
