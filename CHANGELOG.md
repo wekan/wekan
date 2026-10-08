@@ -442,6 +442,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c07736a824">Translate short Blockly labels in Yiddish and Papiamento</a>. Thanks to xet7.</summary>
+
+Translate 29 labels, preserving indexed movement roles and equivalent control-flow
+and procedure forms. Four focused suites and 21 human-preference checks pass.
+Papiamento wording needs native review; browser/screen-reader tests were not run,
+and all-language translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7b7f419f00">Translate short Blockly labels in Finnish, German and French</a>. Thanks to xet7.</summary>
 
 Translate 20 movement-announcement and pixel-state values across ten locale paths.
