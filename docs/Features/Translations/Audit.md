@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Romanian import instructions — 2026-10-09
+
+Translate all 21 import instructions in ro and ro-RO (42 values), preserving
+commands, columns, extensions, hierarchy markers and variables. Regression checks
+cover first-board selection, excluded data, English headers, completion dates and
+archived tasks. Import-instruction and placeholder suites and all 21 preservation
+checks pass. Browser review and the wider translation backlog remain outstanding.
+
 ## Slovak import instructions — 2026-10-09
 
 Translate all 21 import instructions in sk, preserving commands, columns,

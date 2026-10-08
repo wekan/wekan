@@ -509,3 +509,28 @@ for (const code of ['cs', 'cs-CZ']) {
   assert.match(locale['import-board-instruction-superproductivity'], /archivované úlohy sa zmenia na archivované karty/);
   assert.match(locale['import-board-instruction-meistertask'], /dokončené úlohy si zachovajú dátum dokončenia/);
 }
+
+for (const code of ['ro', 'ro-RO']) {
+  const locale = read(code);
+  const literals = {...importLiterals, ...newerImportLiterals,
+    planner: ['Microsoft Planner', 'Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By'],
+    meistertask: ['MeisterTask', 'Export project', 'CSV']};
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), code + ': ' + key);
+    for (const value of values) assert.ok(locale[key].includes(value), code + ': ' + value);
+  }
+  for (const format of ['nullboard', 'kanri']) {
+    assert.match(locale['import-board-instruction-' + format], /se importă doar primul panou/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /se importă toate panourile/);
+  }
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /Atașamentele nu sunt importate/);
+  assert.match(locale['import-board-instruction-notion'], /Relațiile, imaginile și atașamentele nu sunt importate/);
+  assert.match(locale['import-board-instruction-plane'], /nu conține descrieri sau atașamente.*nu sunt importate/);
+  assert.match(locale['import-board-instruction-businessmap'], /redenumește mai întâi anteturile în engleză/);
+  assert.match(locale['import-board-instruction-redmine'], /înainte de export.*English în My account/);
+  assert.match(locale['import-board-instruction-teamwork'], /un nivel mai adânc/);
+  assert.match(locale['import-board-instruction-superproductivity'], /sarcinile arhivate devin carduri arhivate/);
+  assert.match(locale['import-board-instruction-meistertask'], /sarcinile finalizate își păstrează data finalizării/);
+}
