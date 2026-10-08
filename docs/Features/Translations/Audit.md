@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Yiddish activity notification recovery — 2026-10-08
+
+Translate 23 English activity-recovery and rule-email messages. Preserve source
+variables; check retained pending work, unavailable source activities, revoked
+access and permanent cancellation without recalling queued mail or delivered
+notifications. Specialized wording is lower confidence and needs native review.
+No browser or screen-reader session was run. Remaining translations are unfinished.
+
 ## Yiddish Sync planning and notification diagnostics — 2026-10-08
 
 Translate 30 English Sync, mail-failure and activity-recovery messages. Preserve
