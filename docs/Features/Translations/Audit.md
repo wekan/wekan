@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Additional sign-in warning languages and Chinese variants — 2026-10-08
+
+Translate 15 values covering Catalan and Valencian, Galician, Basque, Esperanto,
+Thai, Swahili, Tagalog, remaining Mandarin/Chinese variants and Cantonese. Use
+separate Valencian and Cantonese wording. The warning regression suite now checks
+86 catalogs for exact repeated address variables, rendering order and ROOT_URL.
+The warning and placeholder suites and all 21 preservation checks pass. Native
+and browser review and the wider all-language backlog remain outstanding.
+
 ## South Asian sign-in address warnings — 2026-10-08
 
 Translate the warning in Hindi and its Indian variant, Bengali, Tamil, Telugu,

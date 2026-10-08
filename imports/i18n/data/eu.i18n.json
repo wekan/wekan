@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Badago e-posta hau duen kontu bat eta ez zen saio-hasiera metodo honekin sortu",
   "sign-in-with": "Hasi saioa %s bidez",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Ezin da beste zerbitzu baten bidezko saio-hasiera helbide honetan osatu. WeKan __expected__ helbiderako konfiguratuta dago, baina orri hau __actual__ helbidean ireki da. Ireki WeKan __expected__ helbidean, edo eskatu administratzaileari ROOT_URL balioa __actual__ gisa ezartzeko.",
   "passwordless-title": "Pasahitzik gabeko saio-hasiera",
   "passwordless-enabled": "Bidali e-postaz erabilera bakarreko saio-hasiera kodea pasahitzaren ordez",
   "passwordless-hint": "Irteerako e-posta behar du (MAIL_URL). Baita PASSWORDLESS_ENABLED ere.",

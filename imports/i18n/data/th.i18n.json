@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "มีบัญชีที่ใช้อีเมล์นี้อยู่แล้ว และไม่ได้สร้างด้วยวิธีเข้าสู่ระบบนี้",
   "sign-in-with": "เข้าสู่ระบบด้วย %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "ไม่สามารถเข้าสู่ระบบผ่านบริการอื่นให้เสร็จสมบูรณ์ที่ที่อยู่นี้ได้ WeKan ถูกตั้งค่าไว้สำหรับ __expected__ แต่หน้านี้เปิดที่ __actual__ โปรดเปิด WeKan ที่ __expected__ หรือขอให้ผู้ดูแลระบบตั้งค่า ROOT_URL เป็น __actual__",
   "passwordless-title": "เข้าสู่ระบบโดยไม่ใช้รหัสผ่าน",
   "passwordless-enabled": "ส่งรหัสเข้าสู่ระบบแบบใช้ครั้งเดียวทางอีเมล์แทนรหัสผ่าน",
   "passwordless-hint": "ต้องมีอีเมล์ขาออก (MAIL_URL) และ PASSWORDLESS_ENABLED ด้วย",
