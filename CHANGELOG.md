@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4b2c47268a">Translate Italian import instructions</a>. Thanks to xet7.</summary>
+
+Translate all 21 Italian import instructions, preserving commands, column names,
+extensions, hierarchy markers and variables. Regression checks cover first-board
+selection, excluded data, English headers and archived tasks. Translation and
+placeholder suites pass; browser review and the wider translation backlog remain
+outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a846a7961f">Finish import instructions in four Portuguese catalogs</a>. Thanks to xet7.</summary>
 
 Translate 52 more values, completing all 21 import instructions in these catalogs.
