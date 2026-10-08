@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/71d5e27802">Translate Zulu Blockly logic and basic arithmetic</a>. Thanks to xet7.</summary>
+
+Fill 59 strings per Zulu catalog, preserving variables and mathematical symbols.
+Tests cover logic distinctions, numeric bounds, ternary labels and rendered
+substitutions. Both targeted suites and all 21 preservation checks pass.
+Specialized terminology needs speaker review; browser execution and remaining
+translations are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ab1a7a8171">Translate Zulu Blockly list operations</a>. Thanks to xet7.</summary>
 
 Fill 75 list-operation strings in each Zulu catalog. Preserve numbered variables
