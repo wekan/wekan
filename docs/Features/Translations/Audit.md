@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Croatian rule actions and triggers — 2026-10-08
+
+Replace 80 Serbian values with Croatian, covering rule triggers, actions,
+checklists, dates and layout controls. Preserve variables and comma-separated
+checklist examples. Check opposite actions, archive directions, list positions
+and date meanings. No browser or screen-reader session was run; further
+wrong-language review and remaining translations are unfinished.
+
 ## Croatian card settings and rules — 2026-10-08
 
 Replace 70 Serbian values with Croatian, covering system labels, card settings,

@@ -93,6 +93,22 @@ assert.match(data['prefix-with-full-path'], /punom putanjom/);
 assert.match(data['prefix-with-parent'], /nadređenom karticom/);
 assert.equal(data['r-trigger'], 'Okidač');
 assert.equal(data['r-action'], 'Radnja');
+const correctedRuleActions = ["r-when-a-card", "set-filter", "r-moved-to", "r-moved-from", "r-archived", "r-unarchived", "r-when-the-label", "r-when-a-member", "r-when-the-member", "r-when-a-assignee", "r-when-the-assignee", "r-when-a-attach", "r-when-a-end-date-changed", "r-when-a-received-date-changed", "r-when-a-checklist", "r-when-the-checklist", "r-completed", "r-made-incomplete", "r-when-a-item", "r-when-the-item", "r-move-card-to", "r-top-of", "r-bottom-of", "r-its-list", "r-unarchive", "r-card", "r-label", "r-member", "r-remove-all", "r-set-color", "r-checklist", "r-check-all", "r-uncheck-all", "r-items-check", "r-item", "r-of-checklist", "r-send-email", "r-rule-details", "r-d-send-email", "r-d-archive", "r-d-unarchive", "r-d-add-label", "r-d-remove-label", "r-create-card", "r-in-list", "r-in-swimlane", "r-d-add-member", "r-d-remove-member", "r-d-remove-all-member", "r-d-check-one", "r-d-uncheck-one", "r-d-check-of-list", "r-d-add-checklist", "r-d-remove-checklist", "r-by", "r-add-checklist", "r-with-items", "r-items-list", "r-add-swimlane", "r-swimlane-name", "r-set", "r-update", "r-df-start-at", "r-df-due-at", "r-df-end-at", "r-df-received-at", "custom-product-name", "layout", "hide-logo", "error-undefined", "duplicate-board", "team-number", "restore-all", "delete-all", "previous_as", "a-dueAt", "a-endAt", "a-startAt", "a-receivedAt", "above-selected-card"];
+for (const key of correctedRuleActions) {
+  assert.doesNotMatch(data[key], /[\p{Script=Cyrillic}]/u, key);
+  assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), key);
+}
+assert.match(data['r-d-archive'], /u arhivu/);
+assert.match(data['r-d-unarchive'], /iz arhive/);
+assert.match(data['r-d-add-member'], /Dodaj/);
+assert.match(data['r-d-remove-member'], /Ukloni/);
+assert.match(data['r-check-all'], /Označi sve/);
+assert.match(data['r-uncheck-all'], /Poništi/);
+assert.equal(data['r-top-of'], 'Vrh');
+assert.equal(data['r-bottom-of'], 'Dno');
+assert.equal(data['r-items-list'].split(',').length, 3);
+assert.match(data['r-when-a-end-date-changed'], /završetka/);
+assert.match(data['r-when-a-received-date-changed'], /primitka/);
 assert.equal(data.board, 'Ploča');
 assert.equal(data.swimlane, 'Traka');
 assert.deepEqual(Object.keys(data), Object.keys(english));
