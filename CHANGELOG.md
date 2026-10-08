@@ -671,6 +671,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/02850b72df">Translate Zulu Blockly input accessibility labels</a>. Thanks to xet7.</summary>
+
+Translate 51 labels per Zulu catalog. Preserve variables and coordinate names.
+Tests cover paired input distinctions and rendered input numbers. Both targeted
+suites and all 21 preservation checks pass. Specialized terminology needs
+speaker review; browser execution and remaining translations are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/abe868f48b">Translate Zulu variable and workspace messages</a>. Thanks to xet7.</summary>
 
 Fill 58 strings per Zulu catalog. Preserve variables, shortcuts and joined-phrase
