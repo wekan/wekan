@@ -35,6 +35,8 @@ assert.match(read('yi')[meisterKey], /פֿאַרענדיקטע אויפֿגאַ�
 // Source-product commands and file extensions must remain usable when following
 // a translated import instruction. These are literals, not placeholder variables.
 const importLiterals = {
+  tasksorg: ['Tasks.org', 'Settings', 'Backups', 'Export tasks', '.json'],
+  monday: ['monday.com', 'More actions', 'Export board to Excel', '.xlsx', 'Status'],
   pivotal: ['Pivotal Tracker', 'MORE', 'Export CSV', 'Bulk Actions', 'Estimate'],
   obsidian: ['Obsidian', 'Markdown', '.md'],
   linear: ['Linear', 'CSV', 'Settings', 'Import / Export', 'Export data'],
@@ -62,4 +64,11 @@ for (const format of ['nullboard', 'kanri']) {
 assert.match(read('wuu-Hans')['import-board-instruction-obsidian'], /归档区变成归档卡片/);
 assert.match(read('pap')['import-board-instruction-obsidian'], /karchinan archivá/);
 assert.match(read('yi')['import-board-instruction-obsidian'], /אַרכיווירטע קאַרטן/);
-console.log('Seven further import formats: literals, tokens, first-board and archive semantics passed');
+console.log('Additional import formats: literals, tokens, first-board and archive semantics passed');
+
+assert.match(read('wuu-Hans')['import-board-instruction-tasksorg'], /保留完成日期，优先级变成自定义字段/);
+assert.match(read('pap')['import-board-instruction-tasksorg'], /fecha di terminashon, i prioridat ta bira un kampo personalisá/);
+assert.match(read('yi')['import-board-instruction-tasksorg'], /פֿאַרענדיקונג־דאַטע, און פּריאָריטעט ווערט אַ אייגענער פֿעלד/);
+assert.match(read('wuu-Hans')['import-board-instruction-monday'], /更新变成评论/);
+assert.match(read('pap')['import-board-instruction-monday'], /aktualisashonnan ta bira komentarionan/);
+assert.match(read('yi')['import-board-instruction-monday'], /דערהײַנטיקונגען ווערן באַמערקונגען/);

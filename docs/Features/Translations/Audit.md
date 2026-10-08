@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Remaining-work snapshot — 2026-10-08
+
+The standard missing report still counts 32,567 values across 46 languages, excluding
+261 pending-Transifex source keys. The separate short-prose audit finds 1,751 review
+candidates across 185 locales; shared native words can equal English, so these are
+not all confirmed missing translations. Neither report establishes linguistic
+completeness. The full Node suite is being checked after the latest import fills.
+
+## Tasks.org and monday.com import instructions — 2026-10-08
+
+Translate six instructions in Wu Chinese, Papiamento and Yiddish. Preserve source
+menu commands, file extensions, completion dates, priority-to-custom-field mapping
+and updates-to-comments mapping. Regression checks cover these details and exact
+placeholder inventories. Native review and browser checks remain outstanding, as
+does the broader all-language translation backlog.
+
 ## Seven new import instructions in three languages — 2026-10-08
 
 Translate 21 new instructions for Obsidian, Linear, TickTick, ClickUp, Nullboard,
