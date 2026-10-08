@@ -7469,6 +7469,15 @@ and path limits, shared labels, source-system non-writing and unchanged subcards
 Technical wording remains low confidence pending speaker review. Browser checks were
 not run; remaining Sync and recovery translations and the broader audit continue.
 
+### Bhojpuri Sync diagnostics and notification recovery
+
+Filled 49 English placeholders for retained Sync reports, Jira estimate fields,
+mail failures and activity notification recovery. Existing translations and source
+tokens are preserved. Regression checks cover key order, placeholders, report retention,
+explicit null handling, distinct delivery states and non-recreation guidance.
+Technical wording remains low confidence pending speaker review. Browser checks were
+not run; remaining recovery strings and the broader language audit continue.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
