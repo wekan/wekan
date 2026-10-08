@@ -8060,6 +8060,15 @@ email labels remain. Technical wording remains low confidence pending speaker
 review. Browser and email-delivery checks were not run. Further wrong-language
 corrections and the broader audit remain unfinished.
 
+### Tatar export controls and account-conflict messages
+
+Corrected 29 account-conflict, export and attachment-metadata values. Preserved
+correct board-export labels, source tokens and PDF/Excel/iCal names. Regression
+coverage checks inability and disk-space conditions, free/needed distinctions,
+uploader versus upload time, subtask aliases and distinct account-name conflicts.
+Technical wording remains low confidence pending speaker review. Browser and
+export-runtime checks were not run. Further corrections and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
