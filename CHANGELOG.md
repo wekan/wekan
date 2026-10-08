@@ -487,6 +487,16 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/211c99607d">Translate Wu Blockly number properties and statistics</a>. Thanks to xet7.</summary>
+
+Translate 30 number-property and statistics messages, preserving variables and
+checking inclusive bounds and distinct statistical terms. Four focused suites and
+21 human-preference checks pass. Wu wording is lower confidence and needs native
+review. No browser or screen-reader session was run. Work remains unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9e7b39e89a">Translate Wu Blockly logic and arithmetic</a>. Thanks to xet7.</summary>
 
 Translate 30 logic, arithmetic and constant messages, preserving variables and
