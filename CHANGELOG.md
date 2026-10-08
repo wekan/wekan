@@ -1006,6 +1006,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/16bfc9ebab">Translate Turkish interrupted import recovery</a>. Thanks to xet7.</summary>
+
+Fill 25 interrupted-import messages. Preserve source variables, permanent
+removal warnings, retention without deletion, the separate Scrum recovery
+checkpoint and protection of unrelated boards.
+
+Turkish, global placeholder and translation audit suites pass, together
+with 21 human-preference checks. No browser or screen-reader session was run.
+Other translations and broader linguistic review remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e3ae95014">Translate Romanian planning imports and history recovery</a>. Thanks to xet7.</summary>
 
 Fill 29 messages in each Romanian catalog for release selection, planning
