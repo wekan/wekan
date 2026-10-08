@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Planner instruction translations — 2026-10-08
+
+The Planner source instruction has landed in 7ef5b875fa. Finalize its Wu, Papiamento
+and Yiddish translations and the regression test, preserving the export menu label,
+.xlsx extension and Progress/Priority/Completed By field names. Clarify that Planner
+buckets are task groups, not storage buckets. The three previously failing suites
+passed before the next source addition. The Planner-specific regression still passes;
+the latest rerun finds the new MeisterTask instruction in those three completeness
+checks. Wording, particularly Papiamento technical vocabulary, needs native review. Browser tests and wider translation work remain
+unfinished. The earlier pending-commit note is historical and is resolved by this batch.
+
 ## Short source-prose audit — 2026-10-08
 
 Add `node releases/translations/audit-short-prose.mjs`, a read-only report for English
