@@ -7822,6 +7822,17 @@ Technical terminology remains low confidence pending speaker review. Browser
 checks were not run. Further Tatar translations and wrong-language corrections,
 and the broader language audit, remain unfinished.
 
+### Tatar synchronization diagnostics and notification recovery
+
+Filled 56 English placeholders for source-field diagnostics, retained run reports,
+Jira estimate fields, mail failures and activity-notification recovery. Preserved
+source tokens, numeric retention limits, Jira/SMTP names and explicit null wording.
+Regression coverage checks missing-source versus null handling, mail failure and
+recovery-state distinctions, and the promise that retries do not recreate activities.
+Technical terminology remains low confidence pending speaker review. Browser checks
+were not run. Further Tatar translations and wrong-language corrections, and the
+broader language audit, remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
