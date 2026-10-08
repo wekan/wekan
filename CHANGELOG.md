@@ -2173,6 +2173,20 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/caf9ebdfe4092f6675dc8ee92033cade4441f28a">Correct wrong-language Tatar rule editor strings</a></summary>
+
+- Correct 46 rule, trigger and import/export strings, preserving correct existing
+  translations and source placeholders. Regression checks cover vocabulary and
+  event polarity as well as script.
+- Technical wording remains low confidence pending speaker review.
+- All 64 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e18f43bd5e00ed3549b8eff0aa50d903f9ad7350">Translate Tatar keyboard labels and recovery controls</a></summary>
 
 - Fill 28 keyboard and recovery placeholders, preserving key-cap names and
