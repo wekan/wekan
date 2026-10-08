@@ -9565,6 +9565,16 @@ and tokens. Technical wording remains low confidence pending speaker review.
 Browser checks were not run; further Turkmen translations and the broader
 audit remain unfinished.
 
+## Turkmen arithmetic and number properties
+
+Filled 29 English placeholders for arithmetic, constants, number properties
+and initial aggregate labels. The placeholder-only merge retained existing
+translations. Coverage checks mathematical notation, angle units, inclusive
+bounds, remainder operands and distinct number properties, plus key order
+and tokens. Mathematical terminology remains low confidence pending speaker
+review. Browser checks were not run; further Turkmen translations and the
+broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
