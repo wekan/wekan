@@ -7629,6 +7629,15 @@ subcards, preview limits and shared labels. Technical wording remains low confid
 pending speaker review. Browser and right-to-left layout checks were not run. The
 broader translation audit continues.
 
+### Central Kurdish Sync diagnostics and mail failures
+
+Filled 37 English placeholders for source omissions, retained Sync reports, estimate
+mapping, mail failures and initial activity-recovery guidance. Existing translations
+and source placeholders are preserved. Regression checks cover key order, script,
+tokens, retention and path limits, explicit null handling and delivery distinctions.
+Technical wording remains low confidence pending speaker review. Browser and
+right-to-left layout checks were not run. The broader translation audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
