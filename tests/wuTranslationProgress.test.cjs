@@ -953,3 +953,16 @@ assert.match(wu['globalSearch-instructions-operator-user'], /成员.*或者.*负
 for (const kind of ['created', 'modified']) assert.match(wu['globalSearch-instructions-operator-' + kind], /最近.*<n>.*天里向/);
 assert.match(wu['globalSearch-instructions-operator-org'], /看板分配畀组织/);
 assert.match(wu['globalSearch-instructions-operator-team'], /看板分配畀团队/);
+
+const searchLogicHelpWu = ["globalSearch-instructions-status-archived", "globalSearch-instructions-status-all", "globalSearch-instructions-status-ended", "globalSearch-instructions-status-public", "globalSearch-instructions-status-private", "globalSearch-instructions-operator-has", "globalSearch-instructions-operator-sort", "globalSearch-instructions-operator-limit", "globalSearch-instructions-notes-1", "globalSearch-instructions-notes-2", "globalSearch-instructions-notes-3", "globalSearch-instructions-notes-3-2", "globalSearch-instructions-notes-4", "globalSearch-instructions-notes-5", "link-to-search"];
+for (const key of searchLogicHelpWu) {
+  assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+  assert.deepEqual(wu[key].match(/`[^`]+`/g), english[key].match(/`[^`]+`/g), key + ' examples');
+}
+assert.match(wu['globalSearch-instructions-notes-2'], /OR.*任意一只条件/s);
+assert.match(wu['globalSearch-instructions-notes-3'], /AND.*满足所有.*\*Available\*.*\*red\*/s);
+assert.match(wu['globalSearch-instructions-operator-has'], /加 `-`.*呒没值/);
+assert.match(wu['globalSearch-instructions-operator-sort'], /降序.*加 `-`/);
+assert.match(wu['globalSearch-instructions-operator-limit'], /正整数.*每页/);
+assert.match(wu['globalSearch-instructions-notes-4'], /勿区分大小写/);
+assert.match(wu['globalSearch-instructions-notes-5'], /默认勿搜索归档/);

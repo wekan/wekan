@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu search-logic help corrections — 2026-10-08
+
+Correct 15 search-help values. Preserve predicate variables, code examples, OR/AND
+semantics, missing-field negation, descending-sort syntax and positive page limits.
+Restore Available/red example names in the explanation so they match the query.
+Refresh exact-value audit records. Wu prose needs native review; browser tests were
+not run and all-language work remains unfinished.
+
 ## Wu search-help corrections — 2026-10-08
 
 Correct 16 search-help values. Preserve operator placeholders, angle-bracket arguments,
@@ -12796,7 +12804,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,725** exact before/after values, including unflagged
+records contain **23,740** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

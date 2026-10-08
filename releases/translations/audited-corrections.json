@@ -166073,5 +166073,110 @@
     "before": "`__operator_modified__:<n>` - 修改过的卡*<n>* 天前或更少",
     "after": "`__operator_modified__:<n>` - 勒最近 *<n>* 天里向修改过个卡片",
     "reason": "2026-10-08: Correct Wu search help prose while preserving operator placeholders and literal examples; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "globalSearch-instructions-status-archived",
+    "before": "`__predicate_archived__` - 存档卡片",
+    "after": "`__predicate_archived__` - 归档好个卡片",
+    "reason": "2026-10-08: Correct Wu search logic help, preserving OR/AND examples, predicate variables and negation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "globalSearch-instructions-status-all",
+    "before": "`__predicate_all__` - 所有存档和未存档的卡片",
+    "after": "`__predicate_all__` - 所有归档搭呒没归档个卡片",
+    "reason": "2026-10-08: Correct Wu search logic help, preserving OR/AND examples, predicate variables and negation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "globalSearch-instructions-status-ended",
+    "before": "`__predicate_ended__` - 带有结束日期的卡片",
+    "after": "`__predicate_ended__` - 有结束日期个卡片",
+    "reason": "2026-10-08: Correct Wu search logic help, preserving OR/AND examples, predicate variables and negation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "globalSearch-instructions-status-public",
+    "before": "`__predicate_public__` - 仅在公共板上的卡片",
+    "after": "`__predicate_public__` - 只勒公开看板浪个卡片",
+    "reason": "2026-10-08: Correct Wu search logic help, preserving OR/AND examples, predicate variables and negation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "globalSearch-instructions-status-private",
+    "before": "`__predicate_private__` - 仅在私人板上的卡片",
+    "after": "`__predicate_private__` - 只勒私有看板浪个卡片",
+    "reason": "2026-10-08: Correct Wu search logic help, preserving OR/AND examples, predicate variables and negation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "globalSearch-instructions-operator-has",
+    "before": "`__operator_has__:<field>` - 其中 *<field>* 是 `__predicate_attachment__`、`__predicate_checklist__`、`__predicate_description__`、`__predicate_start__`、`__predicate_due__`、`__predicate_end__`、`__predicate_assignee__` 或 `__predicate_member__` 之一。  将 `-` 放在 *<field>* 前面会搜索该字段中是否缺少值（例如 `has:-due` 会搜索没有截止日期的卡片）。",
+    "after": "`__operator_has__:<field>` - *<field>* 是 `__predicate_attachment__`、`__predicate_checklist__`、`__predicate_description__`、`__predicate_start__`、`__predicate_due__`、`__predicate_end__`、`__predicate_assignee__` 或者 `__predicate_member__` 里向个一只。勒 *<field>* 前头加 `-`，就搜索搿只字段呒没值个卡片（比方讲 `has:-due` 搜索呒没截止日期个卡片）。",
+    "reason": "2026-10-08: Correct Wu search logic help, preserving OR/AND examples, predicate variables and negation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "globalSearch-instructions-operator-sort",
+    "before": "`__operator_sort__:<sort-name>` - 其中 *<sort-name>* 是 `__predicate_due__`、`__predicate_created__` 或 `__predicate_modified__` 之一。  对于降序排序，请在排序名称前面放置 `-`。",
+    "after": "`__operator_sort__:<sort-name>` - *<sort-name>* 是 `__predicate_due__`、`__predicate_created__` 或者 `__predicate_modified__` 里向个一只。要降序排列，就勒排序名字前头加 `-`。",
+    "reason": "2026-10-08: Correct Wu search logic help, preserving OR/AND examples, predicate variables and negation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "globalSearch-instructions-operator-limit",
+    "before": "`__operator_limit__:<n>` - 其中 *<n>* 是一个正整数，表示每页要显示的卡片数量。",
+    "after": "`__operator_limit__:<n>` - *<n>* 是正整数，表示每页显示几张卡片。",
+    "reason": "2026-10-08: Correct Wu search logic help, preserving OR/AND examples, predicate variables and negation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "globalSearch-instructions-notes-1",
+    "before": "可以指定多个运算符。",
+    "after": "可以指定多只运算符。",
+    "reason": "2026-10-08: Correct Wu search logic help, preserving OR/AND examples, predicate variables and negation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "globalSearch-instructions-notes-2",
+    "before": "类似的运算符通过 *OR* 组合在一起。  符合任何条件的卡将被退回。\n`__operator_list__:Available __operator_list__:Blocked` 将返回任何名为 *Blocked* 或 *Available* 的列表中包含的卡。",
+    "after": "同类运算符用 *OR* 组合。满足任意一只条件个卡片侪会返回。\n`__operator_list__:Available __operator_list__:Blocked` 会返回名字是 *Blocked* 或者 *Available* 个任何列表里向个卡片。",
+    "reason": "2026-10-08: Correct Wu search logic help, preserving OR/AND examples, predicate variables and negation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "globalSearch-instructions-notes-3",
+    "before": "不同的运算符通过 *AND* 组合在一起。  仅返回与所有不同运算符匹配的卡。  `__operator_list__:Available __operator_label__:red` 仅返回列表*可用*中带有*红色*标签的卡。",
+    "after": "勿同类个运算符用 *AND* 组合。只有满足所有勿同运算符个卡片才会返回。`__operator_list__:Available __operator_label__:red` 只返回 *Available* 列表里向带 *red* 标签个卡片。",
+    "reason": "2026-10-08: Correct Wu search logic help, preserving OR/AND examples, predicate variables and negation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "globalSearch-instructions-notes-3-2",
+    "before": "天数可以指定为正整数或负整数，或者使用`__predicate_week__`、`__predicate_month__`、`__predicate_quarter__` 或`__predicate_year__` 表示当前期间。",
+    "after": "天数可以用正整数或者负整数，也可以用 `__predicate_week__`、`__predicate_month__`、`__predicate_quarter__` 或者 `__predicate_year__` 表示当前搿段期间。",
+    "reason": "2026-10-08: Correct Wu search logic help, preserving OR/AND examples, predicate variables and negation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "globalSearch-instructions-notes-4",
+    "before": "文本搜索不区分大小写。",
+    "after": "文本搜索勿区分大小写。",
+    "reason": "2026-10-08: Correct Wu search logic help, preserving OR/AND examples, predicate variables and negation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "globalSearch-instructions-notes-5",
+    "before": "默认情况下，不搜索存档的卡片。",
+    "after": "默认勿搜索归档个卡片。",
+    "reason": "2026-10-08: Correct Wu search logic help, preserving OR/AND examples, predicate variables and negation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "link-to-search",
+    "before": "链接到此搜索",
+    "after": "搿趟搜索个链接",
+    "reason": "2026-10-08: Correct Wu search logic help, preserving OR/AND examples, predicate variables and negation; lower-confidence prose needs native review."
   }
 ]
