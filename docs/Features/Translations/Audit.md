@@ -9670,6 +9670,17 @@ human-preference checks passed. Technical wording remains low confidence
 pending speaker review. Browser checks were not run; further translations
 and the broader audit remain unfinished.
 
+## Turkmen daily observations and import status
+
+Filled 13 English placeholders for daily observations, partial snapshots and
+import status. Existing translations were retained. Coverage checks UTC
+sampling, missing days, unknown-versus-zero estimates, export destinations,
+the 366-observation limit and unavailable import actions, plus key order and
+tokens. Of 58 checks, 56 passed; two repository-wide checks still fail because
+other locales lack custom-colors-in-use. All 21 human-preference checks passed.
+Technical wording remains low confidence pending speaker review. Browser
+checks were not run; further translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
