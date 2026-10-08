@@ -617,6 +617,58 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
   "scrum-close-sprint",
   "scrum-cancel-sprint"
 ]);
+  keys.push(...[
+  "scrum-rollover-sprint",
+  "scrum-cancel-reason",
+  "scrum-product-backlog",
+  "scrum-edit-sprint",
+  "scrum-sprint-goal",
+  "scrum-capacity",
+  "scrum-new-sprint",
+  "scrum-releases",
+  "scrum-release",
+  "scrum-release-scope",
+  "scrum-releases-select-help",
+  "scrum-select-sprint",
+  "scrum-backlog",
+  "scrum-backlog-help",
+  "scrum-estimate",
+  "scrum-backlog-rank",
+  "scrum-issue-type",
+  "scrum-acceptance-criteria",
+  "scrum-events",
+  "scrum-event-kind",
+  "scrum-timebox",
+  "scrum-notes",
+  "scrum-event-planning",
+  "scrum-event-daily",
+  "scrum-event-review",
+  "scrum-event-retrospective",
+  "scrum-committed",
+  "scrum-completed",
+  "scrum-added",
+  "scrum-removed",
+  "scrum-incomplete",
+  "scrum-no-closed-sprints",
+  "scrum-report-help",
+  "scrum-total",
+  "scrum-state-planned",
+  "scrum-state-active",
+  "scrum-state-closed",
+  "scrum-state-cancelled",
+  "scrum-unknown-estimate",
+  "scrum-confirm-close",
+  "scrum-confirm-cancel",
+  "scrum-past-sprints",
+  "scrum-list-category",
+  "scrum-swimlane-purpose",
+  "scrum-category-backlog",
+  "scrum-category-todo",
+  "scrum-category-doing",
+  "scrum-category-done",
+  "scrum-partial-report",
+  "scrum-state-released"
+]);
   for (const language of ['zu', 'zu-ZA']) {
     const locale = read(language);
     for (const key of keys) {
@@ -740,6 +792,15 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
     assert.match(locale['r-blocks-conflict'], /Layisha kabusha.*ngaphambi kokulondoloza/);
     assert.match(locale['scrum-close-sprint'], /^Vala/);
     assert.match(locale['scrum-cancel-sprint'], /^Khansela/);
+    for (const key of ['Ctrl', 'Cmd', 'Mac']) assert.ok(locale['scrum-releases-select-help'].includes(key));
+    assert.match(locale['scrum-report-help'], /akuzona izilinganiso zikaziro/);
+    assert.match(locale['scrum-partial-report'], /kuphela amakhadi owabelwe wona/);
+    assert.match(locale['scrum-confirm-close'], /azothuthelwa endaweni ekhethiwe/);
+    assert.match(locale['scrum-confirm-cancel'], /ahlala eyingxenye yayo aze abelwe/);
+    const totals = locale['scrum-total'].replace('__count__', '4').replace('__estimate__', '12').replace('__unknown__', '1');
+    assert.match(totals, /4.*12.*1/);
+    assert.doesNotMatch(totals, /__\w+__/);
+    assert.notStrictEqual(locale['scrum-state-closed'], locale['scrum-state-cancelled']);
     const failure = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
     assert.ok(failure.includes('E_LDAP'));
     assert.ok(!failure.includes('%s'));

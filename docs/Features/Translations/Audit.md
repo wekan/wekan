@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Zulu sprint planning and reports — 2026-10-09
+
+Translate 50 sprint and reporting messages per Zulu catalog (100 values).
+Preserve underscore variables and keyboard names. Regression checks render
+summary totals, distinguish closed/cancelled states, retain membership and
+rollover behavior, and keep unknown estimates distinct from zero. Both targeted
+suites and all 21 preservation checks pass. Specialized terminology remains
+low confidence pending speaker review. Browser execution and remaining
+translations are outstanding.
+
 ## Zulu link, rule-editor and Scrum settings — 2026-10-09
 
 Translate 38 application messages per Zulu catalog (76 values): link rules,
