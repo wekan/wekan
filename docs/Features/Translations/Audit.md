@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Tibetan, Dzongkha and Tigrinya warnings — 2026-10-08
+
+Translate three warnings with exact repeated address variables and ROOT_URL,
+using separate Tibetan and Dzongkha prose. Warning coverage includes 195 paths;
+warning and placeholder suites and all 21 preservation checks pass. Dzongkha
+address terminology was checked against the [Dzongkha Development Commission](https://www.dzongkha.gov.bt/).
+These translations have lower confidence and need native review. This warning
+still has 12 English paths; browser review and the wider translation backlog
+remain outstanding.
+
 ## Bambara, Ewe and Fulah warnings — 2026-10-08
 
 Translate three warnings with exact repeated address variables and ROOT_URL.
