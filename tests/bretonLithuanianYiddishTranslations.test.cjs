@@ -5,6 +5,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 
+const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
+
 const root = path.resolve(__dirname, '..');
 const fillScript = path.join(root, 'releases/translations/fill-translations.mjs');
 const locales = {};
@@ -86,7 +88,6 @@ assert.match(lt['r-moved-back'], /atgal/);
 assert.match(lt['login-origin-mismatch'], /ROOT_URL/);
 assert.match(lt['login-setting-env-only'], /tik serverio aplinka/);
 (async () => {
-  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   assert.deepEqual(Object.keys(lt), Object.keys(english));
   for (const key of Object.keys(english)) {
     assert.deepEqual(translationTokens(lt[key]), translationTokens(english[key]), key);
@@ -377,3 +378,21 @@ assert.notEqual(locales.br['custom-field-currency'], locales.br['custom-field-cu
 assert.equal(locales.br['custom-field-stringtemplate'], 'Patrom chadenn');
 assert.doesNotMatch(locales.br['custom-field-stringtemplate'], /Modèle|chaîne/);
 assert.notEqual(locales.br['custom-field-stringtemplate'], locales.br['custom-field-text']);
+
+const yiddishBlocklyControls = ["blockly-ALT_KEY", "blockly-BACKSPACE_KEY", "blockly-CANNOT_DELETE_VARIABLE_PROCEDURE", "blockly-CAPS_LOCK_KEY", "blockly-CHANGE_VALUE_TITLE", "blockly-CLEAN_UP", "blockly-CLOSE_BACKPACK", "blockly-COLLAPSED_WARNINGS_WARNING", "blockly-COLLAPSE_ALL", "blockly-COLLAPSE_BLOCK", "blockly-COLOUR_BLEND_COLOUR1", "blockly-COLOUR_BLEND_COLOUR2", "blockly-COLOUR_BLEND_RATIO", "blockly-COLOUR_BLEND_TITLE", "blockly-COLOUR_BLEND_TOOLTIP", "blockly-COLOUR_PICKER_TOOLTIP", "blockly-COLOUR_RANDOM_TITLE", "blockly-COLOUR_RANDOM_TOOLTIP", "blockly-COLOUR_RGB_BLUE", "blockly-COLOUR_RGB_GREEN", "blockly-COLOUR_RGB_RED", "blockly-COLOUR_RGB_TITLE", "blockly-COLOUR_RGB_TOOLTIP", "blockly-COMMAND_KEY", "blockly-CONTEXT_MENU_KEY", "blockly-CONTROLS_FLOW_STATEMENTS_OPERATOR_BREAK", "blockly-CONTROLS_FLOW_STATEMENTS_OPERATOR_CONTINUE", "blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_BREAK", "blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_CONTINUE", "blockly-CONTROLS_FLOW_STATEMENTS_WARNING", "blockly-CONTROLS_FOREACH_TITLE", "blockly-CONTROLS_FOREACH_TOOLTIP", "blockly-CONTROLS_FOR_TITLE", "blockly-CONTROLS_FOR_TOOLTIP", "blockly-CONTROLS_IF_ELSEIF_TOOLTIP", "blockly-CONTROLS_IF_ELSE_TOOLTIP", "blockly-CONTROLS_IF_IF_TOOLTIP", "blockly-CONTROLS_IF_MSG_ELSE", "blockly-CONTROLS_IF_MSG_ELSEIF", "blockly-CONTROLS_IF_TOOLTIP_1", "blockly-CONTROLS_IF_TOOLTIP_2", "blockly-CONTROLS_IF_TOOLTIP_3", "blockly-CONTROLS_IF_TOOLTIP_4", "blockly-CONTROLS_REPEAT_TITLE", "blockly-CONTROLS_REPEAT_TOOLTIP", "blockly-CONTROLS_WHILEUNTIL_OPERATOR_UNTIL", "blockly-CONTROLS_WHILEUNTIL_OPERATOR_WHILE", "blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL", "blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE", "blockly-CONTROL_KEY", "blockly-COPY_ALL_TO_BACKPACK", "blockly-COPY_SHORTCUT", "blockly-COPY_TO_BACKPACK", "blockly-CURRENT_BLOCK_ANNOUNCEMENT", "blockly-CUT_SHORTCUT", "blockly-DELETE_ALL_BLOCKS", "blockly-DELETE_BLOCK", "blockly-DELETE_VARIABLE", "blockly-DELETE_VARIABLE_CONFIRMATION", "blockly-DELETE_X_BLOCKS", "blockly-DISABLE_BLOCK", "blockly-DUPLICATE_BLOCK", "blockly-DUPLICATE_COMMENT", "blockly-EDIT_BLOCK_CONTENTS", "blockly-EMPTY_BACKPACK"];
+for (const key of yiddishBlocklyControls) {
+  assert.notEqual(locales.yi[key], english[key], key);
+  assert.match(locales.yi[key], /[\u0590-\u05ff]/, key);
+  assert.deepEqual(translationTokens(locales.yi[key]), translationTokens(english[key]), key);
+}
+assert.equal(locales.yi['blockly-COLOUR_RGB_BLUE'], 'בלוי');
+assert.equal(locales.yi['blockly-COLOUR_RGB_GREEN'], 'גרין');
+assert.equal(locales.yi['blockly-COLOUR_RGB_RED'], 'רויט');
+assert.match(locales.yi['blockly-COLOUR_BLEND_TOOLTIP'], /0\.0 - 1\.0/);
+assert.match(locales.yi['blockly-COLOUR_RGB_TOOLTIP'], /צווישן 0 און 100/);
+assert.match(locales.yi['blockly-CANNOT_DELETE_VARIABLE_PROCEDURE'], /קען נישט אויסמעקן/);
+assert.match(locales.yi['blockly-CONTROLS_FLOW_STATEMENTS_WARNING'], /נאָר אינעווייניק אין אַ שלייף/);
+assert.match(locales.yi['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL'], /פֿאַלש/);
+assert.match(locales.yi['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE'], /אמת/);
+assert.notEqual(locales.yi['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL'], locales.yi['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE']);
+assert.match(locales.yi['blockly-CONTROLS_IF_TOOLTIP_4'], /אויב קיין ווערט איז נישט אמת/);

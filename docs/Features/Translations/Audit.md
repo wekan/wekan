@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Yiddish Blockly controls — 2026-10-08
+
+Translate 65 English Blockly messages, including colors, loops, conditions,
+keyboard labels and deletion prompts. Preserve numbered variables and numeric
+bounds; test opposite loop conditions, forbidden deletion and loop-only use.
+Color vocabulary checked against [Wiktionary's Yiddish color table](https://en.wiktionary.org/wiki/Template:table:colors/yi).
+Specialized programming wording remains lower confidence and needs native review.
+No browser or screen-reader session was run. The Yiddish backlog and translation
+work in other languages remain unfinished.
+
 ## Afrikaans planning and settings — 2026-10-08
 
 Translate 51 remaining English fill-list entries in each Afrikaans catalog
