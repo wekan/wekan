@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b66f0cbc4016e75b4d5545702bf8905d8821639f">Correct Tatar import export and anonymization guidance</a></summary>
+
+- Correct 14 import/export values and replace incorrect account-anonymization
+  guidance with its actual irreversible consequences; restore service identifiers.
+- Technical wording remains low confidence pending speaker review.
+- All 135 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/df2ed8af6e390a01a3ed1a611221b1d5c9ace7f5">Correct Tatar loading and text rendering guidance</a></summary>
 
 - Correct 12 loading and rendering values, aligning automatic-loading guidance
