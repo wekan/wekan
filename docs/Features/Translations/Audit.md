@@ -7430,6 +7430,16 @@ and scrolling directions, next/previous targets, and inverse screen-reader toggl
 actions. Accessibility terminology remains low confidence pending speaker review.
 Browser and screen-reader checks were not run; the broader audit continues.
 
+### Bhojpuri text operations and variable controls
+
+Filled 71 English placeholders for text extraction, joining, searching, replacement,
+case conversion, trimming, input prompts, variable controls and remaining shortcut
+actions. Existing translations and source token inventories are preserved. Regression
+coverage includes first/last positions, whitespace counting, replacement argument
+order, trim sides and number/text prompts. Technical wording remains low confidence
+pending speaker review. Browser and screen-reader checks were not run; the broader
+translation audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
