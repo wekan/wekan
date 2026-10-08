@@ -54,6 +54,22 @@ https://wekan.fi/status/
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/58ce223329">Translate more card-field help and Bislama blocks</a>. Thanks to xet7.</summary>
+
+- Add 74 translations across 16 locales and correct three Bislama color
+  wrappers. Preserve field hiding/restoration semantics, color ranges,
+  variable-deletion restrictions and Blockly loop/conditional behavior.
+- Preserve exact placeholders, including numbered Blockly arguments. Keep
+  Bislama's native red label without exempting English sentences or other
+  locales. Tests cover both valid terms and changed-source rejection.
+- The 37 relevant suites, the additional invariant suite and 21 human-preference
+  checks pass. Script and translated rendering checks cover the card fields.
+  Browser and screen-reader sessions were not run. Provisional wording and the
+  remaining mixed-language/translation audit stay open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3ec8138130">Translate remaining keyboard labels in six locales</a>. Thanks to xet7.</summary>
 
 - Fill 119 keyboard and card-field strings in Akan, Māori, Northern Sotho,
@@ -415,14 +431,14 @@ Status checked on 2026-10-08. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **35,628 untranslated locale/string values in 54 languages**.
+  report counts **35,585 untranslated locale/string values in 54 languages**.
   It excludes **151 source keys tracked separately as pending Transifex**.
   Exact Blockly OS brands and compact math/code symbols no longer inflate
   the prose backlog. Counts are a snapshot; they do not establish the quality
   or language of other values.
 - Placeholder inventories match English across all 246 locale paths. Fill now
   rejects damaged token batches before writing. Both card-field visibility
-  keys are translated in 159 non-English paths; 75 paths still need them.
+  keys are translated in 175 non-English paths; 59 paths still need them.
   Catalog key order, all 321 translation/i18n suites and 21 human-preference
   checks pass. Browser execution and the remaining translation work are open.
 - The 13 activity-notification preference keys have no empty or exact
@@ -1963,18 +1979,20 @@ more translated help text and refreshed translation audit checks.
 This release improves translations and their validation:
 
 **Languages updated:** Afrikaans, Akan, Albanian, Amharic, Arabic, Aragonese,
-Armenian, Asturian, Azerbaijani, Basque, Belarusian, Bengali, Bosnian, Breton,
-Bulgarian, Burmese, Catalan, Chinese, Corsican, Croatian, Czech, Danish, Dutch,
-Esperanto, Estonian, Faroese, French, Galician, Georgian, German, Greek,
-Gujarati, Haitian Creole, Hausa, Hebrew, Hindi, Hungarian, Icelandic, Igbo,
-Indonesian, Irish, Japanese, Kannada, Kazakh, Khmer, Korean, Kyrgyz, Latin,
-Latvian, Lithuanian, Luxembourgish, Macedonian, Malagasy, Malay, Malayalam,
-Maltese, Marathi, Mongolian, Māori, Nepali, Northern Sotho, Norwegian Bokmål,
-Occitan, Persian, Polish, Portuguese, Punjabi, Romanian, Romansh, Russian,
-Sardinian, Scottish Gaelic, Serbian, Sicilian, Sinhala, Slovak, Slovenian,
-Somali, Spanish, Swahili, Tagalog, Tajik, Tamil, Tatar, Telugu, Thai, Tok
-Pisin, Turkish, Turkmen, Ukrainian, Urdu, Uzbek, Vietnamese, Waray, Welsh, West
-Frisian, Yoruba.
+Armenian, Assamese, Asturian, Azerbaijani, Bashkir, Basque, Belarusian,
+Bengali, Bhojpuri, Bislama, Bosnian, Breton, Bulgarian, Burmese, Cantonese,
+Catalan, Chinese, Corsican, Croatian, Czech, Danish, Dutch, Esperanto,
+Estonian, Faroese, French, Galician, Georgian, German, Greek, Gujarati, Haitian
+Creole, Hausa, Hebrew, Hindi, Hungarian, Icelandic, Igbo, Indonesian, Irish,
+Japanese, Javanese, Kannada, Kazakh, Khmer, Konkani, Korean, Kurmanji Kurdish,
+Kyrgyz, Latin, Latvian, Lithuanian, Luxembourgish, Macedonian, Maithili,
+Malagasy, Malay, Malayalam, Maltese, Marathi, Mongolian, Māori, Nepali,
+Northern Sotho, Norwegian Bokmål, Occitan, Odia, Pashto, Persian, Polish,
+Portuguese, Punjabi, Romanian, Romansh, Russian, Sardinian, Scottish Gaelic,
+Serbian, Sicilian, Sindhi, Sinhala, Slovak, Slovenian, Somali, Sorani Kurdish,
+Spanish, Swahili, Tagalog, Tajik, Tamil, Tatar, Telugu, Thai, Tok Pisin,
+Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
+West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5ce7549bcf">Translate more card-field visibility help</a>. Thanks to xet7.</summary>
