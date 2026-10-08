@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu Blockly logic and arithmetic — 2026-10-08
+
+Translate 30 logic, arithmetic and constant messages. Preserve variables, null,
+coordinate labels, mathematical examples and degree limits. Check negation, both
+versus at-least-one conditions, ternary labels, arithmetic results and bounds.
+Wu wording is lower confidence and needs native review. No browser or screen-reader
+session was run. Remaining translations and older Mandarin-like passages require work.
+
 ## Wu Blockly sorting and logic — 2026-10-08
 
 Translate 30 insertion, replacement, sorting, split/join and comparison messages.
