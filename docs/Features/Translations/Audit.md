@@ -9054,6 +9054,16 @@ checks these details, script, key order and token inventories. Technical wording
 remains low confidence pending speaker review. Browser checks were not run;
 further Maithili translations and the broader audit remain unfinished.
 
+## Maithili statistical functions
+
+Filled 24 English placeholders for remainders, statistical functions and spoken
+mathematical operators. The placeholder-only merge retained existing translations.
+Preserved division tokens and distinctions between mean, median, modes and standard
+deviation, including the list returned for modes. Regression coverage checks those
+details, script, key order and token inventories. Statistical terminology remains
+low confidence pending speaker review. Browser checks were not run; further
+Maithili translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
