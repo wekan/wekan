@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Papiamento Sync outcomes and mail failures — 2026-10-08
+
+Translate 35 Sync outcome, estimate, planning, mail-failure and activity messages.
+Preserve variables and technical literals; check temporary/permanent rejection,
+unknown outcomes, partial changes, missing-versus-null values, first-Sync planning
+retention and notification retries without activity recreation. Specialized wording
+is lower confidence and needs native review. No browser session was run. Work remains unfinished.
+
 ## Papiamento Sync previews and source reports — 2026-10-08
 
 Translate 30 replacement, preview and source-report messages. Preserve variables

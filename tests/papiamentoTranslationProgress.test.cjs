@@ -384,3 +384,25 @@ assert.match(papiamento['sync-source-fallback'], /no a usa/);
 assert.match(papiamento['sync-preview-truncated'], /promé 100/);
 assert.match(papiamento['sync-source-truncated'], /100 ruta/);
 assert.match(papiamento['sync-report-retention'], /20 ehekushon.*30 dia/);
+
+const syncMail = ["sync-report-partial", "sync-report-unfinished", "sync-report-failed", "sync-report-completed", "sync-report-completed-with-warnings", "sync-report-skipped", "sync-report-review-only", "sync-report-unavailable", "sync-report-empty", "sync-recovery-heading", "sync-recovery-description", "sync-recovery-unavailable", "sync-recovery-all", "sync-estimate-field", "sync-estimate-field-hint", "email-failure-smtp-temporary", "email-failure-smtp-rejected", "email-failure-smtp-authentication", "email-failure-smtp-configuration", "email-failure-recipient-unavailable", "email-failure-delivery-unconfirmed", "email-failure-acknowledgement-failed", "email-failure-delivery-failed", "email-failure-retry-limit", "sync-original-time", "sync-remaining-time", "sync-time-estimate-hint", "sync-planning-sprint", "sync-planning-releases", "sync-planning-fields", "sync-planning-hint", "activity-recovery-heading", "activity-recovery-description", "activity-recovery-empty", "activity-recovery-unavailable"];
+for (const key of syncMail) {
+  assert.notEqual(papiamento[key], english[key], key);
+  assert.deepEqual(tokens(papiamento[key]), tokens(english[key]), key);
+}
+assert.match(papiamento['sync-report-partial'], /no ta kontinuá ni deshasé/);
+assert.match(papiamento['sync-report-failed'], /kambionan parsial/);
+assert.match(papiamento['sync-recovery-description'], /30 dia.*ID/);
+for (const key of ['sync-estimate-field-hint', 'sync-time-estimate-hint']) {
+  assert.match(papiamento[key], /Jira/);
+  assert.match(papiamento[key], /falta.*ignorá.*null eksplísito ta kita/);
+}
+assert.match(papiamento['sync-time-estimate-hint'], /eksaktamente un kampo/);
+assert.match(papiamento['email-failure-smtp-temporary'], /temporal.*SMTP/);
+assert.match(papiamento['email-failure-smtp-rejected'], /permanente.*SMTP/);
+assert.match(papiamento['email-failure-delivery-unconfirmed'], /revisá promé ku purba/);
+assert.match(papiamento['sync-original-time'], /original/);
+assert.match(papiamento['sync-remaining-time'], /restante/);
+assert.match(papiamento['sync-planning-hint'], /promé pa su ID.*despues pa nòmber/);
+assert.match(papiamento['sync-planning-hint'], /promé sinkronisashon nunka ta kita/);
+assert.match(papiamento['activity-recovery-description'], /nunka ta krea un aktividat di nobo/);
