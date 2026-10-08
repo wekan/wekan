@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d1e2652cf8">Translate first Hiragana import instructions</a>. Thanks to xet7.</summary>
+
+Translate eight instructions in ja-HI, preserving commands, extensions and
+variables. Regression checks enforce Hiragana prose and cover first-board
+selection, completion dates and archived cards. Translation, placeholder and
+preservation checks pass; remaining Hiragana instructions, browser review and the
+wider translation backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/80b30b3b13">Translate remaining Japanese import instructions</a>. Thanks to xet7.</summary>
 
 Translate the remaining 13 instructions in ja and ja-JP, completing all 21 import
