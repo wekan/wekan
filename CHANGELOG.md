@@ -1773,16 +1773,180 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** Translation filling now protects interpolation variables before
-writing a batch. Locale catalogs include the new card-field settings, with
-more translated help text and refreshed translation audit checks.
-The login settings left open in October are done: **header login** is
-environment-only, **automatic logout** works again, **LDAP** gains an honest
-Test connection and a Sync now button, and **secrets from files** cover the
-database, mail and S3 URLs. Sixteen long-open requests were closed as already
-implemented.
+**In short:** The login settings left open in October are finished:
+**header login** is environment-only, **automatic logout** works again,
+**LDAP** gets an honest Test connection and a Sync now button, and **secrets
+from files** cover the database, mail and S3. Boards now import and export as
+**Todoist**, **OPML** and **Org mode**. Seventeen long-open requests were
+closed as already implemented, and translation filling protects interpolation
+variables, with more translated help text.
 
-This release hardens the login settings:
+This release adds the following new features:
+
+**Import and export** - three more formats, each a round trip with a loss
+report for what the other tool has no place for.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1eabb367e7">Boards import and export as Todoist project templates (CSV)</a>. Thanks to xet7.</summary>
+
+Sections become lists, tasks cards, indented sub-tasks a checklist and notes
+comments. `@label` words and priorities p1-p3 become labels, RESPONSIBLE the
+owner, and DATE and DEADLINE the start and due dates. Recurring dates in
+words, durations and orphan rows are reported. Export writes Todoist's own
+columns and `view_style=board` row. `tests/todoistCsv.test.cjs` covers quoted
+fields, the round trip and the negatives; a Playwright case imports through
+the page.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e6c8f85518">Boards import and export as OPML outlines from Workflowy, Dynalist, Logseq and others</a>. Thanks to xet7.</summary>
+
+Top-level outlines become lists, their children cards with `_note` as the
+description, and deeper outlines checklists; a completed item is marked done.
+Like the Leo outline the XML is parsed on the server only, never resolving
+DTDs or external entities. `tests/opmlOutline.test.cjs` includes an external
+entity and a node bomb among its negatives; a Playwright case imports through
+the page.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/711303af32">Boards import and export as Org mode outlines</a>. Thanks to xet7.</summary>
+
+Level-1 headings become lists and level-2 headings cards, keeping TODO
+keywords (including custom `#+TODO` ones), priorities, tags, SCHEDULED,
+DEADLINE and CLOSED, and turning checkboxes and deeper headings into
+checklists. Timestamps have no zone in Org and are read as UTC; repeaters are
+reported. `tests/orgMode.test.cjs` covers custom keywords, localized day names
+and the round trip; a Playwright case imports through the page.
+
+</details>
+
+and hardens the login settings:
+
+**Admin Panel / People** - the login settings the 2026-10-05 work left open,
+each now doing what its name says.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a7628504f1">Header login is set by the environment only, and shown read-only in the Admin Panel</a>. Thanks to xet7.</summary>
+
+With `HEADER_LOGIN_ID` and `HEADER_LOGIN_TRUSTED_IPS` set, a proxy at a
+trusted address signs in as anyone it names. Since the 2026-10-05 Admin Panel
+work a site administrator could switch that on from People / Header login, so
+a stolen administrator session was enough to open every account. The six
+`HEADER_LOGIN_*` settings now come from the environment only: a value stored
+in the Admin Panel by an earlier version is ignored, the pane shows the values
+in effect read-only with no Save button, and a save sent by hand is refused
+and shown in Admin Panel → Problems as ProxyBleed. Every other login section
+stays overridable. `tests/authConfigCatalog.test.cjs` pins the resolution, the
+refusal and that only this section is environment-only; the Playwright spec
+`admin-login-env-overrides` drives the read-only pane and the refused save.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9d27f4be4d">LDAP Test connection without a service account searches the base DN before saying success</a>. Thanks to xet7.</summary>
+
+ldapts opens its socket lazily, and Test connection bound only when
+`LDAP_AUTHENTIFICATION` was set, so without a service account no operation
+ran and it reported success even for a host that does not resolve. It now
+does an anonymous base-scope search of `LDAP_BASEDN`, reading no attributes,
+and shows the directory's own error when that fails; without a base DN it says
+nothing could be tested. `tests/ldapTestConnectionProbe.test.cjs` pins the
+decision and runs the search with the shipped ldapts against a port where
+nothing listens. A login against a real directory was not run here.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/95147fc999">LDAP has a Sync now button that runs the background sync once</a>. Thanks to xet7.</summary>
+
+`ldap_sync_now` was never loaded, so no button could call it, and it imported
+every directory user regardless of the sync settings. It now runs the
+background sync once with `LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS` and
+`LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED` as they are set, for an
+active site administrator only, and shares one run at a time with the
+scheduled job. `tests/ldapSyncNow.test.cjs` pins it and fails when any other
+wekan-ldap methods file is left unloaded; the Playwright spec
+`admin-login-env-overrides` drives the button. A sync against a real directory
+was not run here.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c1d1a04790">Automatic logout with LOGOUT_WITH_TIMER and the LOGOUT_* settings works again</a>. Thanks to xet7.</summary>
+
+The platforms offered `LOGOUT_WITH_TIMER`, `LOGOUT_IN`, `LOGOUT_ON_HOURS` and
+`LOGOUT_ON_MINUTES` since 2018, but the code that read them went with the job
+queue it ran on. A login now ends `LOGOUT_IN` days after it was made, or at
+`LOGOUT_ON_HOURS`:`LOGOUT_ON_MINUTES` server time; once a minute the server
+removes the expired login tokens in one query and the browsers using them are
+signed out. All four are overridable in Admin Panel / People / Login. An
+unusable combination signs nobody out and the log says why.
+`tests/logoutTimer.test.cjs` checks the one-query cutoff against each login's
+deadline over two years of logins in three time zones; the Playwright spec
+`admin-login-env-overrides` drives it from the Admin Panel.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/71cd2aed05">MONGO_URL_FILE, MAIL_URL_FILE and S3_SECRET_KEY_FILE replace three secret files nothing read</a>. Thanks to xet7.</summary>
+
+`MAIL_SERVICE_PASSWORD_FILE`, `MONGO_PASSWORD_FILE` and `S3_SECRET_FILE` were
+offered on every platform and read by nothing ([#5724](https://github.com/wekan/wekan/issues/5724)).
+`MONGO_URL_FILE` holds the whole database URL and is read by the Docker
+entrypoint, the snap and both start scripts, because Meteor connects before
+WeKan's code runs; an unreadable file stops the start rather than falling back
+to a default database, and the snap log no longer prints a password written
+in `MONGO_URL`. `MAIL_URL_FILE` and `S3_SECRET_KEY_FILE` are read by the
+server at start. The dead names are gone from every platform, and a warning
+names the replacement when one is still set. `tests/envSecretFiles.test.cjs`
+runs the entrypoint's block for real and fails if any platform offers a
+retired name again.
+
+</details>
+
+and closes these issues, which were already implemented:
+
+Where each one is in the code:
+[Issues-Already-Implemented-2026-10-08.md](docs/DeveloperDocs/Issues-Already-Implemented-2026-10-08.md).
+
+- [Auto add user name to a moved card, done by a rule](https://github.com/wekan/wekan/commit/e27ca445d5). Thanks to xet7.
+- [Receive notifications from other users only](https://github.com/wekan/wekan/commit/595f6aaed6). Thanks to gpelouze and xet7.
+- [Move lists to a different board](https://github.com/wekan/wekan/commit/f7879e95e6). Thanks to h0jeZvgoxFepBQ2C and xet7.
+- [Use the EXIF orientation of uploaded pictures](https://github.com/wekan/wekan/commit/1fbb9f4011). Thanks to CWempe and xet7.
+- [Smart search of cards](https://github.com/wekan/wekan/commit/f94cb41c00). Thanks to usmcamp0811 and xet7.
+- [Resend verification or change the verified flag](https://github.com/wekan/wekan/commit/0f85328f15). Thanks to lucg71 and xet7.
+- [Hide subtask boards on All Boards](https://github.com/wekan/wekan/commit/78899b673f). Thanks to nmd3 and xet7.
+- [Progress charts and work statistics for each board](https://github.com/wekan/wekan/commit/939aa8a95e). Thanks to xet7.
+- [Mini date field](https://github.com/wekan/wekan/commit/fcbd268d43). Thanks to gerroon and xet7.
+- [Edit rules, and send a card with its content and attachments by email](https://github.com/wekan/wekan/commit/054c6e091d). Thanks to kabi178 and xet7.
+- [Notification mail template](https://github.com/wekan/wekan/commit/dd410a3a8b). Thanks to hingerlanton and xet7.
+- [Auth0 redirect to the full-screen login page](https://github.com/wekan/wekan/commit/948020275b). Thanks to xet7.
+- [Common WIP limit for several columns](https://github.com/wekan/wekan/commit/61ad1272bb). Thanks to aviertio and xet7.
+- [All Boards drag and drop, and colour](https://github.com/wekan/wekan/commit/0a8c38f395). Thanks to compumatter and xet7.
+- [Master dashboard like Kanboard's Bigboard plugin](https://github.com/wekan/wekan/commit/d10fe621be). Thanks to Jieiku and xet7.
+- [Move a checklist from one card to another card](https://github.com/wekan/wekan/commit/9158772a61). Thanks to qiutian00 and xet7.
+- [Restrict the WeKan port to loopback](https://github.com/wekan/wekan/commit/68bdd70a51). Thanks to galletl and xet7.
+
+and improves translations and their validation:
+
+**Languages updated:** Afrikaans, Akan, Albanian, Amharic, Arabic, Aragonese,
+Armenian, Assamese, Asturian, Azerbaijani, Bashkir, Basque, Belarusian,
+Bengali, Bhojpuri, Bislama, Bosnian, Breton, Bulgarian, Burmese, Cantonese,
+Catalan, Chinese, Corsican, Croatian, Czech, Danish, Dutch, Esperanto,
+Estonian, Faroese, French, Galician, Georgian, German, Greek, Gujarati, Haitian
+Creole, Hausa, Hebrew, Hindi, Hungarian, Icelandic, Igbo, Indonesian, Irish,
+Japanese, Javanese, Kannada, Kazakh, Khmer, Konkani, Korean, Kurmanji Kurdish,
+Kyrgyz, Latin, Latvian, Lithuanian, Luxembourgish, Macedonian, Maithili,
+Malagasy, Malay, Malayalam, Maltese, Marathi, Mongolian, Māori, Nepali,
+Northern Sotho, Norwegian Bokmål, Occitan, Odia, Pashto, Persian, Polish,
+Portuguese, Punjabi, Romanian, Romansh, Russian, Sardinian, Scottish Gaelic,
+Serbian, Sicilian, Sindhi, Sinhala, Slovak, Slovenian, Somali, Sorani Kurdish,
+Spanish, Swahili, Tagalog, Tajik, Tamil, Tatar, Telugu, Thai, Tok Pisin,
+Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
+West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5e00df9be7">Correct Bislama display, weekday and report translations</a>. Thanks to xet7.</summary>
@@ -1917,125 +2081,6 @@ Validation: all six language-wiring checks pass. The other 21 additional
 locale, notification-language and Transifex suites passed in the related run.
 
 </details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/a7628504f1">Header login is set by the environment only, and shown read-only in the Admin Panel</a>. Thanks to xet7.</summary>
-
-With `HEADER_LOGIN_ID` and `HEADER_LOGIN_TRUSTED_IPS` set, a proxy at a
-trusted address signs in as anyone it names. Since the 2026-10-05 Admin Panel
-work a site administrator could switch that on from People / Header login, so
-a stolen administrator session was enough to open every account. The six
-`HEADER_LOGIN_*` settings now come from the environment only: a value stored
-in the Admin Panel by an earlier version is ignored, the pane shows the values
-in effect read-only with no Save button, and a save sent by hand is refused
-and shown in Admin Panel → Problems as ProxyBleed. Every other login section
-stays overridable. `tests/authConfigCatalog.test.cjs` pins the resolution, the
-refusal and that only this section is environment-only; the Playwright spec
-`admin-login-env-overrides` drives the read-only pane and the refused save.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/9d27f4be4d">LDAP Test connection without a service account searches the base DN before saying success</a>. Thanks to xet7.</summary>
-
-ldapts opens its socket lazily, and Test connection bound only when
-`LDAP_AUTHENTIFICATION` was set, so without a service account no operation
-ran and it reported success even for a host that does not resolve. It now
-does an anonymous base-scope search of `LDAP_BASEDN`, reading no attributes,
-and shows the directory's own error when that fails; without a base DN it says
-nothing could be tested. `tests/ldapTestConnectionProbe.test.cjs` pins the
-decision and runs the search with the shipped ldapts against a port where
-nothing listens. A login against a real directory was not run here.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/95147fc999">LDAP has a Sync now button that runs the background sync once</a>. Thanks to xet7.</summary>
-
-`ldap_sync_now` was never loaded, so no button could call it, and it imported
-every directory user regardless of the sync settings. It now runs the
-background sync once with `LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS` and
-`LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED` as they are set, for an
-active site administrator only, and shares one run at a time with the
-scheduled job. `tests/ldapSyncNow.test.cjs` pins it and fails when any other
-wekan-ldap methods file is left unloaded; the Playwright spec
-`admin-login-env-overrides` drives the button. A sync against a real directory
-was not run here.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/c1d1a04790">Automatic logout with LOGOUT_WITH_TIMER and the LOGOUT_* settings works again</a>. Thanks to xet7.</summary>
-
-The platforms offered `LOGOUT_WITH_TIMER`, `LOGOUT_IN`, `LOGOUT_ON_HOURS` and
-`LOGOUT_ON_MINUTES` since 2018, but the code that read them went with the job
-queue it ran on. A login now ends `LOGOUT_IN` days after it was made, or at
-`LOGOUT_ON_HOURS`:`LOGOUT_ON_MINUTES` server time; once a minute the server
-removes the expired login tokens in one query and the browsers using them are
-signed out. All four are overridable in Admin Panel / People / Login. An
-unusable combination signs nobody out and the log says why.
-`tests/logoutTimer.test.cjs` checks the one-query cutoff against each login's
-deadline over two years of logins in three time zones; the Playwright spec
-`admin-login-env-overrides` drives it from the Admin Panel.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/71cd2aed05">MONGO_URL_FILE, MAIL_URL_FILE and S3_SECRET_KEY_FILE replace three secret files nothing read</a>. Thanks to xet7.</summary>
-
-`MAIL_SERVICE_PASSWORD_FILE`, `MONGO_PASSWORD_FILE` and `S3_SECRET_FILE` were
-offered on every platform and read by nothing ([#5724](https://github.com/wekan/wekan/issues/5724)).
-`MONGO_URL_FILE` holds the whole database URL and is read by the Docker
-entrypoint, the snap and both start scripts, because Meteor connects before
-WeKan's code runs; an unreadable file stops the start rather than falling back
-to a default database, and the snap log no longer prints a password written
-in `MONGO_URL`. `MAIL_URL_FILE` and `S3_SECRET_KEY_FILE` are read by the
-server at start. The dead names are gone from every platform, and a warning
-names the replacement when one is still set. `tests/envSecretFiles.test.cjs`
-runs the entrypoint's block for real and fails if any platform offers a
-retired name again.
-
-</details>
-
-and closes these issues, which were already implemented:
-
-Where each one is in the code:
-[Issues-Already-Implemented-2026-10-08.md](docs/DeveloperDocs/Issues-Already-Implemented-2026-10-08.md).
-
-- [Auto add user name to a moved card, done by a rule](https://github.com/wekan/wekan/commit/e27ca445d5). Thanks to xet7.
-- [Receive notifications from other users only](https://github.com/wekan/wekan/commit/595f6aaed6). Thanks to gpelouze and xet7.
-- [Move lists to a different board](https://github.com/wekan/wekan/commit/f7879e95e6). Thanks to h0jeZvgoxFepBQ2C and xet7.
-- [Use the EXIF orientation of uploaded pictures](https://github.com/wekan/wekan/commit/1fbb9f4011). Thanks to CWempe and xet7.
-- [Smart search of cards](https://github.com/wekan/wekan/commit/f94cb41c00). Thanks to usmcamp0811 and xet7.
-- [Resend verification or change the verified flag](https://github.com/wekan/wekan/commit/0f85328f15). Thanks to lucg71 and xet7.
-- [Hide subtask boards on All Boards](https://github.com/wekan/wekan/commit/78899b673f). Thanks to nmd3 and xet7.
-- [Progress charts and work statistics for each board](https://github.com/wekan/wekan/commit/939aa8a95e). Thanks to xet7.
-- [Mini date field](https://github.com/wekan/wekan/commit/fcbd268d43). Thanks to gerroon and xet7.
-- [Notification mail template](https://github.com/wekan/wekan/commit/dd410a3a8b). Thanks to hingerlanton and xet7.
-- [Auth0 redirect to the full-screen login page](https://github.com/wekan/wekan/commit/948020275b). Thanks to xet7.
-- [Common WIP limit for several columns](https://github.com/wekan/wekan/commit/61ad1272bb). Thanks to aviertio and xet7.
-- [All Boards drag and drop, and colour](https://github.com/wekan/wekan/commit/0a8c38f395). Thanks to compumatter and xet7.
-- [Master dashboard like Kanboard's Bigboard plugin](https://github.com/wekan/wekan/commit/d10fe621be). Thanks to Jieiku and xet7.
-- [Move a checklist from one card to another card](https://github.com/wekan/wekan/commit/9158772a61). Thanks to qiutian00 and xet7.
-- [Restrict the WeKan port to loopback](https://github.com/wekan/wekan/commit/68bdd70a51). Thanks to galletl and xet7.
-
-and improves translations and their validation:
-
-**Languages updated:** Afrikaans, Akan, Albanian, Amharic, Arabic, Aragonese,
-Armenian, Assamese, Asturian, Azerbaijani, Bashkir, Basque, Belarusian,
-Bengali, Bhojpuri, Bislama, Bosnian, Breton, Bulgarian, Burmese, Cantonese,
-Catalan, Chinese, Corsican, Croatian, Czech, Danish, Dutch, Esperanto,
-Estonian, Faroese, French, Galician, Georgian, German, Greek, Gujarati, Haitian
-Creole, Hausa, Hebrew, Hindi, Hungarian, Icelandic, Igbo, Indonesian, Irish,
-Japanese, Javanese, Kannada, Kazakh, Khmer, Konkani, Korean, Kurmanji Kurdish,
-Kyrgyz, Latin, Latvian, Lithuanian, Luxembourgish, Macedonian, Maithili,
-Malagasy, Malay, Malayalam, Maltese, Marathi, Mongolian, Māori, Nepali,
-Northern Sotho, Norwegian Bokmål, Occitan, Odia, Pashto, Persian, Polish,
-Portuguese, Punjabi, Romanian, Romansh, Russian, Sardinian, Scottish Gaelic,
-Serbian, Sicilian, Sindhi, Sinhala, Slovak, Slovenian, Somali, Sorani Kurdish,
-Spanish, Swahili, Tagalog, Tajik, Tamil, Tatar, Telugu, Thai, Tok Pisin,
-Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
-West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5ce7549bcf">Translate more card-field visibility help</a>. Thanks to xet7.</summary>
