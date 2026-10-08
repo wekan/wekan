@@ -484,3 +484,28 @@ for (const code of ['cs', 'cs-CZ']) {
   assert.match(locale['import-board-instruction-superproductivity'], /archivované úkoly se převedou na archivované karty/);
   assert.match(locale['import-board-instruction-meistertask'], /dokončené úkoly si zachovají datum dokončení/);
 }
+
+{
+  const locale = read('sk');
+  const literals = {...importLiterals, ...newerImportLiterals,
+    planner: ['Microsoft Planner', 'Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By'],
+    meistertask: ['MeisterTask', 'Export project', 'CSV']};
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), key);
+    for (const value of values) assert.ok(locale[key].includes(value), key + ': ' + value);
+  }
+  for (const format of ['nullboard', 'kanri']) {
+    assert.match(locale['import-board-instruction-' + format], /importuje iba prvá nástenka/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /importujú všetky nástenky/);
+  }
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /Prílohy sa neimportujú/);
+  assert.match(locale['import-board-instruction-notion'], /Vzťahy, obrázky a prílohy sa neimportujú/);
+  assert.match(locale['import-board-instruction-plane'], /neobsahuje popisy ani prílohy.*neimportujú/);
+  assert.match(locale['import-board-instruction-businessmap'], /najprv premenujte hlavičky stĺpcov na anglické názvy/);
+  assert.match(locale['import-board-instruction-redmine'], /pred exportom.*English v My account/);
+  assert.match(locale['import-board-instruction-teamwork'], /o úroveň hlbšie/);
+  assert.match(locale['import-board-instruction-superproductivity'], /archivované úlohy sa zmenia na archivované karty/);
+  assert.match(locale['import-board-instruction-meistertask'], /dokončené úlohy si zachovajú dátum dokončenia/);
+}

@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Slovak import instructions — 2026-10-09
+
+Translate all 21 import instructions in sk, preserving commands, columns,
+extensions, hierarchy markers and variables. Regression checks cover first-board
+selection, excluded data, English headers, completion dates and archived tasks.
+Import-instruction and placeholder suites and all 21 preservation checks pass.
+Browser review and the wider all-language translation backlog remain outstanding.
+
 ## Czech import instructions — 2026-10-09
 
 Translate all 21 import instructions in cs and cs-CZ (42 values), preserving
