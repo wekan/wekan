@@ -8210,6 +8210,16 @@ Existing correct-language translations were retained. Technical wording remains
 low confidence pending speaker review. Focused checks cover tokens, key order,
 domain syntax and administration restrictions; browser checks were not run.
 
+## Tatar deletion and subtask settings corrections
+
+Corrected 33 wrong-language date, color, deletion and subtask settings values.
+Preserved irreversible deletion warnings, the requirement that duplicate lists
+have the same name and contain no cards, and the board placeholder. Corrected the
+board-deletion warning to refer to the board rather than a card. Existing valid
+translations remain. Technical wording remains low confidence pending speaker
+review. Focused checks cover tokens, key order, deletion scope and matching popup
+labels; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
