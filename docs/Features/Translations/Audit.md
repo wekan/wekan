@@ -8127,6 +8127,15 @@ calendar/Gantt/login aliases and Excel CSV/TSV naming. Technical wording remains
 low confidence pending speaker review. Browser checks were not run. Further
 wrong-language corrections and the broader audit remain unfinished.
 
+### Tatar selection, notification and normal-role corrections
+
+Corrected 25 selection, empty-archive, notification and role values. Preserved
+correct adjacent labels and source tokens. Regression coverage checks copy/move
+aliases, top/bottom distinctions, empty archives, normal-role settings restrictions,
+assigned-only visibility and muted/unaccepted negation. Technical wording remains
+low confidence pending speaker review. Browser checks were not run. Further
+wrong-language corrections and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
