@@ -1494,6 +1494,10 @@
   "ldap-test-connection": "Testaa LDAP-yhteys",
   "ldap-test-connection-success": "Yhteys onnistui",
   "ldap-test-connection-error": "Yhteys epäonnistui: %s",
+  "ldap-sync-now": "Sync LDAP users now",
+  "ldap-sync-now-done": "LDAP sync finished",
+  "ldap-sync-now-error": "LDAP sync failed: %s",
+  "ldap-sync-now-nothing": "Nothing to sync: turn on LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS or LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED first.",
   "oauth-providers-title": "OAuth-kirjautumispalvelut",
   "oauth-providers-hint": "Jokaisen palvelun voi ottaa käyttöön tässä tai sen OAUTH_*_ENABLED-ympäristömuuttujalla; tässä asetettu arvo ohittaa ympäristömuuttujan. Salaisuus tallennetaan palvelimelle eikä sitä näytetä koskaan.",
   "oauth-provider-google": "Google",
@@ -3899,5 +3903,5 @@
   "header-login": "Kirjautuminen HTTP-otsakkeilla",
   "login-setting-clear-secret": "Poista hallintapaneeliin tallennettu arvo",
   "login-setting-after-restart": "Tulee voimaan WeKanin uudelleenkäynnistyksen jälkeen",
-  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
+  "login-setting-env-only": "Vain palvelimen ympäristö määrittää nämä asetukset. Ne näytetään tässä vain luettavina."
 }

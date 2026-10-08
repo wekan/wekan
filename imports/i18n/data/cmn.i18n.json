@@ -1494,6 +1494,10 @@
   "ldap-test-connection": "测试 LDAP 连接",
   "ldap-test-connection-success": "连接成功",
   "ldap-test-connection-error": "连接失败：%s",
+  "ldap-sync-now": "Sync LDAP users now",
+  "ldap-sync-now-done": "LDAP sync finished",
+  "ldap-sync-now-error": "LDAP sync failed: %s",
+  "ldap-sync-now-nothing": "Nothing to sync: turn on LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS or LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED first.",
   "oauth-providers-title": "OAuth 登录提供方",
   "oauth-providers-hint": "每个提供方都可以在此处或通过其 OAUTH_*_ENABLED 环境变量启用；此处设置的值会覆盖环境变量。密钥保存在服务器上，永不显示。",
   "oauth-provider-google": "Google",
@@ -3899,5 +3903,5 @@
   "header-login": "通过 HTTP 标头登录",
   "login-setting-clear-secret": "移除管理面板中保存的值",
   "login-setting-after-restart": "重启 WeKan 后生效",
-  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
+  "login-setting-env-only": "这些设置只能通过服务器环境指定。此处仅以只读方式显示。"
 }

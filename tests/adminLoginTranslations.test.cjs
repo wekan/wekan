@@ -51,3 +51,25 @@ assert.match(menu, /id: 'header-login-setting'[^}]*labelKey: 'header-login'/);
 const form = fs.readFileSync(path.join(root, 'client/components/settings/authProviderSettings.jade'), 'utf8');
 for (const key of keys.slice(1)) assert.ok(form.includes(`{{_ '${key}'}}`), `${key}: rendered by the provider form`);
 console.log(`adminLoginTranslations: ${locales.length} locales passed`);
+
+// Environment-only controls are displayed read-only; translating this notice
+// must not suggest that an administrator can edit them through the UI.
+const environmentNoticeLocales = ["ar-DZ","ar-EG","ar","bi","cmn","cs-CZ","cs","da","de-AT","de-CH","de","de_DE","el-GR","el","es-AR","es-CL","es-CO","es-LA","es-MX","es-PE","es-PY","es","es_CO","fi","fr-BE","fr-CA","fr-CH","fr-FR","fr","he-IL","he","it","ja-HI","ja-JP","ja","ko-KR","ko","nb","nl-NL","nl","pl-PL","pl","pt-BR","pt-PT","pt","pt_PT","ru-RU","ru-UA","ru","ru_RU","sk","sv","tr","uk-UA","uk","zh-CN","zh-GB","zh-HK","zh-Hans","zh-Hant","zh-TW","zh","zh_SG"];
+for (const code of environmentNoticeLocales) {
+  const value = read(code)['login-setting-env-only'];
+  assert.ok(value?.trim(), code);
+  assert.notEqual(value, english['login-setting-env-only'], code);
+  assert.deepEqual(translationTokens(value), translationTokens(english['login-setting-env-only']), code);
+}
+for (const [code, environment, readOnly] of [
+  ['fi', /palvelimen ympäristö/, /vain luettavina/],
+  ['de', /Serverumgebung/, /schreibgeschützt/],
+  ['fr', /environnement du serveur/, /lecture seule/],
+  ['ru', /окружением сервера/, /только для чтения/],
+  ['ja', /サーバー環境/, /読み取り専用/],
+  ['ar', /بيئة الخادم/, /للقراءة فقط/],
+  ['bi', /Envaeromen blong seva nomo/, /no save jenisim/],
+]) {
+  assert.match(read(code)['login-setting-env-only'], environment, code);
+  assert.match(read(code)['login-setting-env-only'], readOnly, code);
+}

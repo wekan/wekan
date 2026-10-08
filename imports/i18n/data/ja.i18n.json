@@ -1494,6 +1494,10 @@
   "ldap-test-connection": "LDAP 接続をテスト",
   "ldap-test-connection-success": "接続に成功しました",
   "ldap-test-connection-error": "接続に失敗しました: %s",
+  "ldap-sync-now": "Sync LDAP users now",
+  "ldap-sync-now-done": "LDAP sync finished",
+  "ldap-sync-now-error": "LDAP sync failed: %s",
+  "ldap-sync-now-nothing": "Nothing to sync: turn on LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS or LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED first.",
   "oauth-providers-title": "OAuth ログインプロバイダー",
   "oauth-providers-hint": "各プロバイダーはここで、または環境変数 OAUTH_*_ENABLED で有効にできます。ここで設定した値は環境変数より優先されます。シークレットはサーバーに保存され、表示されることはありません。",
   "oauth-provider-google": "Google",
@@ -3899,5 +3903,5 @@
   "header-login": "HTTPヘッダーによるログイン",
   "login-setting-clear-secret": "管理パネルに保存された値を削除",
   "login-setting-after-restart": "WeKanの再起動後に有効になります",
-  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
+  "login-setting-env-only": "これらの設定はサーバー環境でのみ指定できます。ここでは読み取り専用で表示されます。"
 }

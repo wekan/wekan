@@ -1494,6 +1494,10 @@
   "ldap-test-connection": "Test LDAP-tilkobling",
   "ldap-test-connection-success": "Tilkobling vellykket",
   "ldap-test-connection-error": "Tilkoblingen mislyktes: %s",
+  "ldap-sync-now": "Sync LDAP users now",
+  "ldap-sync-now-done": "LDAP sync finished",
+  "ldap-sync-now-error": "LDAP sync failed: %s",
+  "ldap-sync-now-nothing": "Nothing to sync: turn on LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS or LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED first.",
   "oauth-providers-title": "OAuth-innloggingsleverandører",
   "oauth-providers-hint": "Hver leverandør kan slås på her eller med miljøvariabelen OAUTH_*_ENABLED; en verdi satt her overstyrer miljøvariabelen. Hemmeligheten lagres på tjeneren og vises aldri.",
   "oauth-provider-google": "Google",
@@ -3899,5 +3903,5 @@
   "header-login": "Innlogging via HTTP-hoder",
   "login-setting-clear-secret": "Fjern verdien som er lagret i administrasjonspanelet",
   "login-setting-after-restart": "Trer i kraft etter at WeKan startes på nytt",
-  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
+  "login-setting-env-only": "Disse innstillingene angis bare via servermiljøet. De vises her som skrivebeskyttet."
 }

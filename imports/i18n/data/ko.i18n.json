@@ -1494,6 +1494,10 @@
   "ldap-test-connection": "LDAP 연결 테스트",
   "ldap-test-connection-success": "연결 성공",
   "ldap-test-connection-error": "연결 실패: %s",
+  "ldap-sync-now": "Sync LDAP users now",
+  "ldap-sync-now-done": "LDAP sync finished",
+  "ldap-sync-now-error": "LDAP sync failed: %s",
+  "ldap-sync-now-nothing": "Nothing to sync: turn on LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS or LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED first.",
   "oauth-providers-title": "OAuth 로그인 제공자",
   "oauth-providers-hint": "각 제공자는 여기에서 또는 해당 OAUTH_*_ENABLED 환경 변수로 켤 수 있습니다. 여기에서 설정한 값이 환경 변수보다 우선합니다. 비밀 키는 서버에 저장되며 절대 표시되지 않습니다.",
   "oauth-provider-google": "Google",
@@ -3899,5 +3903,5 @@
   "header-login": "HTTP 헤더를 통한 로그인",
   "login-setting-clear-secret": "관리자 패널에 저장된 값 제거",
   "login-setting-after-restart": "WeKan을 다시 시작한 후 적용됩니다",
-  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
+  "login-setting-env-only": "이 설정은 서버 환경에서만 지정할 수 있습니다. 여기에는 읽기 전용으로 표시됩니다."
 }

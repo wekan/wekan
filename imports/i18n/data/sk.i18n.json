@@ -1494,6 +1494,10 @@
   "ldap-test-connection": "Otestovať pripojenie LDAP",
   "ldap-test-connection-success": "Pripojenie úspešné",
   "ldap-test-connection-error": "Pripojenie zlyhalo: %s",
+  "ldap-sync-now": "Sync LDAP users now",
+  "ldap-sync-now-done": "LDAP sync finished",
+  "ldap-sync-now-error": "LDAP sync failed: %s",
+  "ldap-sync-now-nothing": "Nothing to sync: turn on LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS or LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED first.",
   "oauth-providers-title": "Poskytovatelia prihlásenia OAuth",
   "oauth-providers-hint": "Každého poskytovateľa možno zapnúť tu alebo premennou prostredia OAUTH_*_ENABLED; hodnota nastavená tu má prednosť pred premennou prostredia. Tajný kľúč je uložený na serveri a nikdy sa nezobrazuje.",
   "oauth-provider-google": "Google",
@@ -3899,5 +3903,5 @@
   "header-login": "Prihlásenie pomocou hlavičiek HTTP",
   "login-setting-clear-secret": "Odstrániť hodnotu uloženú v paneli správcu",
   "login-setting-after-restart": "Prejaví sa po reštartovaní WeKan",
-  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
+  "login-setting-env-only": "Tieto nastavenia určuje iba prostredie servera. Tu sa zobrazujú len na čítanie."
 }

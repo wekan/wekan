@@ -2,6 +2,34 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Bislama block controls and read-only login notice — 2026-10-08
+
+Fill 115 Bislama Blockly values and directly translate the short bitmap-on
+label skipped by the fill helper's short-string exemption. The bitmap states
+remain opposite; row/column and value substitutions keep their argument order.
+Loop tests distinguish true/false conditions, and input labels distinguish
+start/end, dividend/divisor, append/replace and list/text operations. Existing
+translations remain intact. The broader short-string heuristic still needs
+review: this explicit bitmap correction does not certify all skipped prose.
+
+Translate the new environment-only login notice in 62 locale files, visible
+through 63 non-English paths including the Russian symlink. It explains both
+that the server environment is the only configuration source and that the
+Admin Panel displays these controls read-only. Other ongoing implementation
+work added the source text; its code and unrelated catalog additions are kept
+outside this translation batch.
+
+The ordinary backlog is 35,470 values in 54 locales, including 550 Bislama
+values. Pending keys are changing as other features are implemented and must
+be recounted before completion. Existing Bislama dictionary references above
+support the drafted vocabulary; full software wording remains provisional.
+The bitmap-on repair also demonstrates why a zero missing-value count alone
+would not prove that every source message was translated.
+
+Regression coverage extends the existing Bislama and login-setting suites,
+including the complete source token inventory and representative server-only /
+read-only clauses. Browser and screen-reader sessions were not run.
+
 ## Additional card-field locales and Bislama Blockly — 2026-10-08
 
 Add 30 card-field values across Assamese, Bashkir, Bhojpuri, Cantonese, Javanese,

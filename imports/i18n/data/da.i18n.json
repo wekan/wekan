@@ -1494,6 +1494,10 @@
   "ldap-test-connection": "Test LDAP-forbindelse",
   "ldap-test-connection-success": "Forbindelsen blev oprettet",
   "ldap-test-connection-error": "Forbindelsen mislykkedes: %s",
+  "ldap-sync-now": "Sync LDAP users now",
+  "ldap-sync-now-done": "LDAP sync finished",
+  "ldap-sync-now-error": "LDAP sync failed: %s",
+  "ldap-sync-now-nothing": "Nothing to sync: turn on LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS or LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED first.",
   "oauth-providers-title": "OAuth-loginudbydere",
   "oauth-providers-hint": "Hver udbyder kan slås til her eller med sin miljøvariabel OAUTH_*_ENABLED; en værdi sat her tilsidesætter miljøvariablen. Hemmeligheden gemmes på serveren og vises aldrig.",
   "oauth-provider-google": "Google",
@@ -3899,5 +3903,5 @@
   "header-login": "Login via HTTP-headere",
   "login-setting-clear-secret": "Fjern værdien gemt i administrationspanelet",
   "login-setting-after-restart": "Træder i kraft, når WeKan genstartes",
-  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
+  "login-setting-env-only": "Disse indstillinger angives kun via servermiljøet. De vises her som skrivebeskyttede."
 }

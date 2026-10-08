@@ -3899,5 +3899,5 @@
   "header-login": "HTTP üst bilgileriyle giriş",
   "login-setting-clear-secret": "Yönetici panelinde saklanan değeri kaldır",
   "login-setting-after-restart": "WeKan yeniden başlatıldıktan sonra geçerli olur",
-  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
+  "login-setting-env-only": "Bu ayarlar yalnızca sunucu ortamı tarafından belirlenir. Burada salt okunur olarak gösterilir."
 }

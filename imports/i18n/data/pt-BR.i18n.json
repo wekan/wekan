@@ -1494,6 +1494,10 @@
   "ldap-test-connection": "Testar ligação LDAP",
   "ldap-test-connection-success": "Conexão bem-sucedida",
   "ldap-test-connection-error": "Falha na ligação: %s",
+  "ldap-sync-now": "Sync LDAP users now",
+  "ldap-sync-now-done": "LDAP sync finished",
+  "ldap-sync-now-error": "LDAP sync failed: %s",
+  "ldap-sync-now-nothing": "Nothing to sync: turn on LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS or LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED first.",
   "oauth-providers-title": "Provedores de login OAuth",
   "oauth-providers-hint": "Cada provedor pode ser ativado aqui ou com sua variável de ambiente OAUTH_*_ENABLED; um valor definido aqui substitui a variável de ambiente. O segredo é armazenado no servidor e nunca é exibido.",
   "oauth-provider-google": "Google",
@@ -3899,5 +3903,5 @@
   "header-login": "Login por cabeçalhos HTTP",
   "login-setting-clear-secret": "Remover o valor salvo no Painel Administrativo",
   "login-setting-after-restart": "Entra em vigor após reiniciar o WeKan",
-  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
+  "login-setting-env-only": "Estas configurações são definidas apenas pelo ambiente do servidor. Elas são exibidas aqui somente para leitura."
 }

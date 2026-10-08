@@ -1494,6 +1494,10 @@
   "ldap-test-connection": "בדיקת חיבור LDAP",
   "ldap-test-connection-success": "החיבור הצליח",
   "ldap-test-connection-error": "החיבור נכשל: %s",
+  "ldap-sync-now": "Sync LDAP users now",
+  "ldap-sync-now-done": "LDAP sync finished",
+  "ldap-sync-now-error": "LDAP sync failed: %s",
+  "ldap-sync-now-nothing": "Nothing to sync: turn on LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS or LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED first.",
   "oauth-providers-title": "ספקי כניסה OAuth",
   "oauth-providers-hint": "ניתן להפעיל כל ספק כאן או באמצעות משתנה הסביבה OAUTH_*_ENABLED שלו; ערך שהוגדר כאן גובר על משתנה הסביבה. הסוד נשמר בשרת ולעולם אינו מוצג.",
   "oauth-provider-google": "Google",
@@ -3899,5 +3903,5 @@
   "header-login": "כניסה באמצעות כותרות HTTP",
   "login-setting-clear-secret": "הסרת הערך השמור בלוח הניהול",
   "login-setting-after-restart": "ייכנס לתוקף לאחר הפעלה מחדש של WeKan",
-  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
+  "login-setting-env-only": "הגדרות אלה נקבעות רק בסביבת השרת. הן מוצגות כאן לקריאה בלבד."
 }

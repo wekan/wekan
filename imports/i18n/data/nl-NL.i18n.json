@@ -1494,6 +1494,10 @@
   "ldap-test-connection": "LDAP-verbinding testen",
   "ldap-test-connection-success": "Verbinding geslaagd",
   "ldap-test-connection-error": "Verbinding mislukt: %s",
+  "ldap-sync-now": "Sync LDAP users now",
+  "ldap-sync-now-done": "LDAP sync finished",
+  "ldap-sync-now-error": "LDAP sync failed: %s",
+  "ldap-sync-now-nothing": "Nothing to sync: turn on LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS or LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED first.",
   "oauth-providers-title": "OAuth-aanmeldproviders",
   "oauth-providers-hint": "Elke provider kan hier of met de omgevingsvariabele OAUTH_*_ENABLED worden ingeschakeld; een waarde die hier is ingesteld heeft voorrang op de omgevingsvariabele. Het geheim wordt op de server bewaard en nooit getoond.",
   "oauth-provider-google": "Google",
@@ -3899,5 +3903,5 @@
   "header-login": "Aanmelden via HTTP-headers",
   "login-setting-clear-secret": "Verwijder de waarde die in het beheerpaneel is opgeslagen",
   "login-setting-after-restart": "Wordt van kracht nadat WeKan opnieuw is gestart",
-  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
+  "login-setting-env-only": "Deze instellingen worden alleen door de serveromgeving bepaald. Ze worden hier alleen-lezen weergegeven."
 }

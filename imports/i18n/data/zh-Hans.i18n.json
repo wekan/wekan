@@ -3899,5 +3899,5 @@
   "header-login": "通过 HTTP 标头登录",
   "login-setting-clear-secret": "移除管理面板中保存的值",
   "login-setting-after-restart": "重启 WeKan 后生效",
-  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
+  "login-setting-env-only": "这些设置只能通过服务器环境指定。此处仅以只读方式显示。"
 }
