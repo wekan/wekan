@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bdff13b866">Correct Wu animation and invitation wording</a>. Thanks to xet7.</summary>
+
+Correct 18 Wu values, checking animation meanings against their CSS. Clarify team
+removal and invitation permissions; preserve placeholders and the Cc abbreviation.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4b4fd5d9f6">Correct Wu report, template and creator wording</a>. Thanks to xet7.</summary>
 
 Correct 21 Wu values, including administrator and card-creator roles. Preserve template
