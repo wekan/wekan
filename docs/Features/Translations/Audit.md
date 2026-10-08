@@ -8382,6 +8382,15 @@ Technical wording remains low confidence pending speaker review. Focused tests
 cover key order, source tokens, technical identifiers and checklist distinctions;
 browser checks were not run.
 
+## Tatar checklist copying and attachment-storage corrections
+
+Corrected 22 wrong-language checklist and attachment controls, including two
+literal storage product labels. Restored GridFS, S3, CollectionFS and Meteor-Files
+names; preserved single-attachment, all-attachment and board-only scopes. Existing
+correct-language text-editing labels remain. Technical wording remains low confidence
+pending speaker review. Focused tests cover tokens, key order, storage names and
+operation scopes; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
