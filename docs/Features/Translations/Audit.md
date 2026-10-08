@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Oromo, Luganda, Wolof and Akan warnings — 2026-10-08
+
+Translate four warnings with unchanged address variables and ROOT_URL. Warning
+coverage includes 182 paths; warning and placeholder suites and all 21 preservation
+checks pass. Wolof page terminology was checked against the
+[Senegal education terminology list](https://senprof.education.sn/PROGRAMME%20LECTURE%20POUR%20TOUS/documentation/Terminologies/Terminologie%20wolof%20fusion.pdf).
+These translations have lower confidence and need native review. The warning still
+has 25 English paths. The missing-string report continues to list 46 languages and
+271 deferred source keys; the deferred keys remain in the translation task's scope.
+Browser review and the wider all-language backlog remain outstanding.
+
 ## Flemish, Northern Sámi, Manx and Cornish warnings — 2026-10-08
 
 Translate four warnings, preserving repeated address variables and ROOT_URL.

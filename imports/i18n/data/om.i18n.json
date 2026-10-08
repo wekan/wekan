@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Herregni imeelii kanaan duraan jira, mala seensa kanaan hin uumamne",
   "sign-in-with": "%s tiin seeni",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Tajaajila biraatiin seenuun teessoo kana irratti xumuramuu hin danda’u. WeKan teessoo __expected__ tiif qindaa’eera, garuu fuulli kun teessoo __actual__ irratti baname. WeKan teessoo __expected__ irratti bani, yookaan bulchaan ROOT_URL gara __actual__ akka jijjiiru gaafadhu.",
   "passwordless-title": "Seensa jecha darbii malee",
   "passwordless-enabled": "Jecha darbii bakka bu'ee koodii seensaa al tokkoo imeeliidhaan ergi",
   "passwordless-hint": "Imeelii ba'u barbaachisa (MAIL_URL). Akkasumas PASSWORDLESS_ENABLED.",
