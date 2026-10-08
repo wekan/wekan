@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Slovenian workspace and board controls — 2026-10-08
+
+Replace 65 Serbian values in each Slovenian catalog, for 130 corrections.
+Cover workspaces, board controls, views, voting, comments, export and date filters.
+Preserve variables and the numeric zoom range. Extend regression checks with the
+corrected key inventory and Slovenian vocabulary, not just script detection.
+No browser or screen-reader session was run; further wrong-language review and
+remaining translations are unfinished.
+
 ## Slovenian interrupted imports and core nouns — 2026-10-08
 
 Translate 25 interrupted-import messages in each Slovenian catalog and replace

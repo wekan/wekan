@@ -4,6 +4,23 @@ for (const locale of ['sl', 'sl_SI']) {
   const data = require(`../imports/i18n/data/${locale}.i18n.json`);
   const english = require('../imports/i18n/data/en.i18n.json');
   const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
+  const correctedControls = ["allboards.starred", "allboards.remaining", "allboards.workspaces", "allboards.add-workspace", "allboards.add-workspace-prompt", "allboards.add-subworkspace", "allboards.add-subworkspace-prompt", "allboards.edit-workspace-name", "addWorkspacePopup-title", "add-template", "add-card-to-top-of-list", "add-card-to-bottom-of-list", "convertChecklistItemToCardPopup-title", "add-cover", "add-after-list", "template-container", "board-change-background-image", "board-background-image-url", "remove-background-image", "board_members", "allBoardsChangeBackgroundImagePopup-title", "zoom-level", "enter-zoom-level", "board-view-gantt", "board-view-table", "calendar-previous-month-label", "calendar-next-month-label", "due-today", "positiveVoteMembersPopup-title", "negativeVoteMembersPopup-title", "vote-question", "card-edit-planning-poker", "poker-question", "poker-finish", "poker-result-votes", "poker-result-who", "poker-replay", "set-estimation", "cardArchivePopup-title", "deleteAvatarPopup-title", "close-card", "color-indigo", "color-magenta", "comments", "comment-assigned-only", "deleteCommentPopup-title", "read-only", "read-assigned-only", "copy-text-to-clipboard", "copyManyCardsPopup-title", "custom-field-currency-option", "date-format", "addReactionPopup-title", "email-address", "export-card", "export-card-attachment-size", "exportCardPopup-title", "sorted", "remove-sort", "filter-dates-label", "filter-no-due-date", "filter-overdue", "filter-due-today", "filter-due-tomorrow", "filter-labels-label"];
+  for (const key of correctedControls) {
+    assert.doesNotMatch(data[key], /[\u0400-\u04ff]/, `${locale}:${key}`);
+    assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), `${locale}:${key}`);
+  }
+  assert.match(data['allboards.workspaces'], /Delovni prostori/);
+  assert.match(data['allboards.add-subworkspace'], /podrejeni delovni prostor/);
+  assert.match(data['add-card-to-top-of-list'], /vrh seznama/);
+  assert.match(data['add-card-to-bottom-of-list'], /dno seznama/);
+  assert.equal(data['board-view-table'], 'Tabela');
+  assert.equal(data['board-view-gantt'], 'Ganttov diagram');
+  assert.match(data['comment-assigned-only'], /Komentirajo.*samo dodeljeni/);
+  assert.match(data['read-assigned-only'], /Berejo.*samo dodeljeni/);
+  assert.equal(data['email-address'], 'E-poštni naslov');
+  assert.equal(data['filter-due-today'], 'Rok danes');
+  assert.equal(data['filter-due-tomorrow'], 'Rok jutri');
+  assert.match(data['enter-zoom-level'], /50-300%/);
   assert.equal(data.board, 'Tabla');
   assert.equal(data.swimlane, 'Plavalna steza');
   for (const key of Object.keys(english).filter(key => key.startsWith('interrupted-import-'))) {
