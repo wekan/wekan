@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/47b7094306">Translate Catalan and Valencian planning results</a>. Thanks to xet7.</summary>
+
+Translate 60 values across three catalogs for Scrum import results, reference
+warnings, planning synchronization and initial stalled-sync recovery text.
+Preserve counters and reference variables. Regression checks cover matching,
+unchanged cards, first-sync behavior and applied versus pending changes. Four
+relevant suites and all 21 preservation checks pass. Browser review and the wider
+translation backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/dca5008ba9">Translate Catalan and Valencian settings and planning</a>. Thanks to xet7.</summary>
 
 Translate 75 values across three catalogs for board settings, link rules,
