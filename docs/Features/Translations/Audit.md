@@ -7742,6 +7742,15 @@ exclusive random bounds, logarithm bases and rounding/negation distinctions. Tec
 wording remains low confidence pending speaker review. Browser checks were not run.
 Further Tatar corrections and the broader language audit continue.
 
+### Tatar trigonometry and workspace controls
+
+Filled 24 English placeholders for trigonometric labels and explanations, workspace
+movement, typed variables and backpack actions. Existing translations, standard
+mathematical symbols and source tokens are preserved. Regression checks cover key
+order, placeholders, degree-versus-radian wording, inverse functions and variable types.
+Technical wording remains low confidence pending speaker review. Browser and
+screen-reader checks were not run. Further Tatar corrections and the broader audit continue.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
