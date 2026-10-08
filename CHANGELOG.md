@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/23319c3f962668e39e0fec620fddee1c3ebd33d4">Translate Odia statistics and random fraction messages</a></summary>
+
+- Fill 21 Odia statistical placeholders, preserving existing translations,
+  distinct statistical operations, list-valued modes and random bounds.
+- Statistical wording remains low confidence pending speaker review.
+- All 51 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Odia translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/760a3877c115be47c2a00d56c9ebe3557964f037">Translate Odia constants and number properties</a></summary>
 
 - Fill 22 Odia mathematical placeholders, preserving existing translations,
