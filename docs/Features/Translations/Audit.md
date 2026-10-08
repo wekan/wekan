@@ -8846,6 +8846,15 @@ checks these details alongside script, key order and token inventories. Technica
 wording remains low confidence pending speaker review. Browser checks were not
 run; further Odia translations remain.
 
+## Odia variable warnings and workspace counts
+
+Filled 19 English placeholders for variables and workspace announcements. Preserved
+variable/type/procedure references, zero/one/many stack counts, comment suffix
+spacing and indexed tokens. Existing translations were retained by the placeholder-only
+merge. Regression coverage checks those details alongside script and key order.
+Technical wording remains low confidence pending speaker review. Browser checks
+were not run; further Odia translations remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
