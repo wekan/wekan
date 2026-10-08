@@ -484,6 +484,18 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/80fdbfff7a">Translate Yiddish activity notification recovery</a>. Thanks to xet7.</summary>
+
+Translate 23 English activity-recovery and rule-email messages. Check retained
+work, unavailable source activities, revoked access and permanent cancellation
+without recalling queued mail or delivered notifications. Three focused translation
+suites and 21 human-preference checks pass. Specialized wording is lower confidence
+and needs native review. No browser or screen-reader session was run. Remaining
+translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0d02ac276a">Translate Yiddish Sync planning and notification diagnostics</a>. Thanks to xet7.</summary>
 
 Translate 30 English Sync, mail-failure and activity-recovery messages. Preserve
