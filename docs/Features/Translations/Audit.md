@@ -7751,6 +7751,15 @@ order, placeholders, degree-versus-radian wording, inverse functions and variabl
 Technical wording remains low confidence pending speaker review. Browser and
 screen-reader checks were not run. Further Tatar corrections and the broader audit continue.
 
+### Tatar function controls
+
+Filled 27 English placeholders for function definitions and calls, variables, zoom
+and screen-reader guidance. Existing translations and source tokens are preserved.
+Regression checks cover source order, placeholders, return/no-return distinctions,
+named invocations and function-only return restrictions. Technical wording remains
+low confidence pending speaker review. Browser and screen-reader checks were not run.
+Further Tatar corrections and the broader language audit continue.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
