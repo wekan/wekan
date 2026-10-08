@@ -261,6 +261,7 @@ const EXPORT_FORMAT_GROUPS = [
       { key: 'teamwork', icon: 'fa-table', label: 'Teamwork.com', path: 'export/teamwork', ext: 'xlsx', scopes: BOARD_ONLY },
       { key: 'businessmap', icon: 'fa-table', label: 'Businessmap (Kanbanize)', path: 'export/businessmap', ext: 'xlsx', scopes: BOARD_ONLY },
       { key: 'quire', icon: 'fa-sitemap', label: 'Quire', path: 'export/quire', ext: 'csv', scopes: BOARD_ONLY },
+      { key: 'notion', icon: 'fa-table', label: 'Notion', path: 'export/notion', ext: 'csv', scopes: BOARD_ONLY },
       ...[
         ['trello', 'Trello'], ['jira', 'Jira'], ['deck', 'NextCloud Deck'],
         ['openproject', 'OpenProject'], ['github', 'GitHub'], ['gitlab', 'GitLab'],

@@ -260,6 +260,31 @@ Template.import.onCreated(function () {
       await this.finishImport();
       return;
     }
+    // Notion: the Markdown & CSV export .zip, sent as base64 and opened on the
+    // server (server/lib/notionArchive.js), or one database CSV - chosen as a
+    // file or pasted - sent as text. Notion's people are not mapped here
+    // either; members can be mapped later.
+    if (dataSource === 'notion') {
+      const el = this.find('.js-import-notion-file');
+      const file = el && el.files && el.files[0];
+      let input;
+      if (file && !/\.csv$/i.test(file.name || '')) {
+        const bytes = new Uint8Array(await file.arrayBuffer());
+        let binary = '';
+        for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+        input = { zipBase64: window.btoa(binary) };
+      } else {
+        input = file ? await file.text() : this.find('.js-import-json').value;
+        if (!input || !input.trim()) {
+          this.setError('error-json-malformed');
+          return;
+        }
+      }
+      this.importedData.set(input);
+      this.membersToMap.set([]);
+      await this.finishImport();
+      return;
+    }
     // Markdown: the "task list" convention several markdown-kanban tools use
     // (Obsidian Kanban and similar) - `## List name` headings, `- [ ]`/`- [x]`
     // items underneath. It is plain text, not JSON, so it is sent as-is rather
@@ -513,6 +538,7 @@ const IMPORT_SOURCES = [
   { key: 'teamwork', name: 'Teamwork.com' },
   { key: 'businessmap', name: 'Businessmap (Kanbanize)' },
   { key: 'quire', name: 'Quire' },
+  { key: 'notion', name: 'Notion' },
 ];
 
 Template.import.helpers({
@@ -626,6 +652,8 @@ Template.importTextarea.helpers({
   },
   // Vikunja's export .zip, or its data.json, beside the textarea.
   isVikunjaImport() { return Session.get('importSource') === 'vikunja'; },
+  // Notion's Markdown & CSV export .zip, or one database CSV, beside the textarea.
+  isNotionImport() { return Session.get('importSource') === 'notion'; },
   isJiraImport() { return Session.get('importSource') === 'jira'; },
   // The numeric fields the pasted Jira export declares, to pick the estimate.
   jiraEstimateCandidates() { return Template.instance().jiraCandidates.get(); },

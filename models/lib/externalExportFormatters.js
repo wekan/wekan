@@ -35,6 +35,7 @@ import { formatVikunja } from './vikunjaFormat.js';
 import { formatWrikeRows } from './wrikeFormat.js';
 import { formatTeamworkSheet } from './teamworkFormat.js';
 import { formatQuireCsv } from './quireCsvFormat.js';
+import { formatNotionCsv } from './notionFormat.js';
 import { formatOpml } from './opmlOutlineFormat.js';
 import { formatOrgMode } from './orgModeFormat.js';
 
@@ -371,6 +372,8 @@ export const formatters = {
   teamwork: formatTeamworkSheet,
   // The CSV Quire's Import CSV reads; round-trips with parseQuireCsv (quireCsvFormat.js).
   quire: formatQuireCsv,
+  // The CSV Notion's CSV import reads; round-trips with parseNotionExport (notionFormat.js).
+  notion: formatNotionCsv,
   // An OPML outline; round-trips with parseOpml (opmlOutline.js, server-only).
   opml: formatOpml,
   // An Org mode outline; round-trips with parseOrgMode (orgModeFormat.js).

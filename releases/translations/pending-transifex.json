@@ -1075,6 +1075,10 @@
     {
       "key": "import-board-instruction-redmine",
       "since": "2026-10-08"
+    },
+    {
+      "key": "import-board-instruction-notion",
+      "since": "2026-10-08"
     }
   ]
 }

@@ -19,6 +19,8 @@ export function validateImportSourceShape(source, value) {
     case 'taiga': valid = arrayAt(value, 'user_stories'); break;
     case 'kanri': valid = arrayAt(value, 'columns') || arrayAt(value, 'boards'); break;
     // Vikunja: the export .zip as { zipBase64 }, or the text of its data.json.
+    // Notion: the Markdown & CSV export .zip as { zipBase64 }, or one database CSV.
+    case 'notion':
     case 'vikunja': valid = (typeof value?.zipBase64 === 'string' && value.zipBase64.length > 0)
       || (typeof value === 'string' && value.trim().length > 0); break;
     case 'excel': case 'planner': case 'monday': case 'wrike': case 'teamwork': case 'businessmap': valid = typeof value?.excelBase64 === 'string' && value.excelBase64.length > 0; break;

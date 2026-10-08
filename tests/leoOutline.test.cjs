@@ -129,7 +129,8 @@ Body &amp; more</t>
     // OPML is XML too, and is parsed first the same way (tests/opmlOutline.test.cjs).
     // So is a Vikunja export: its data.json carries HTML inside JSON strings,
     // which sanitizing the raw text as markup would break (tests/vikunjaFormat.test.cjs).
-    assert.match(src, /importSource === 'leo' \|\| importSource === 'opml' \|\| importSource === 'vikunja' \? board\s*: sanitizeImported\(board, importSource, this\)/);
+    // And a Notion export, whose zip is opened on the server (tests/notionFormat.test.cjs).
+    assert.match(src, /importSource === 'leo' \|\| importSource === 'opml' \|\| importSource === 'vikunja' \|\| importSource === 'notion' \? board\s*: sanitizeImported\(board, importSource, this\)/);
     const leoCase = src.slice(src.indexOf("case 'leo':"), src.indexOf('default:', src.indexOf("case 'leo':")));
     assert.match(leoCase, /check\(board, String\)/);
     assert.match(leoCase, /if \(!Meteor\.isServer\) return undefined;/);

@@ -77,6 +77,12 @@ template(name="importTextarea")
       p.import-file-row
         label(for='import-vikunja-file') {{_ 'import-wekan-file'}}
         input.js-import-vikunja-file(id='import-vikunja-file' type="file" accept=".zip,.json,application/zip,application/json")
+    if isNotionImport
+      //- Notion's Markdown & CSV export .zip, opened on the server, or one
+        database CSV from it; pasting the CSV into the textarea works too.
+      p.import-file-row
+        label(for='import-notion-file') {{_ 'import-wekan-file'}}
+        input.js-import-notion-file(id='import-notion-file' type="file" accept=".zip,.csv,application/zip,text/csv")
     if isWekanImport
       //- #1173: a WeKan export can be a .json or a .zip - the .zip is the one to
         use when a board's attachments are too large to sit inside one JSON

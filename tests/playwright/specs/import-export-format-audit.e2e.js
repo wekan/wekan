@@ -337,7 +337,7 @@ test('every external export menu link returns text and refuses an unrelated user
   // Include description through the actual shared selection controls.
   const details = page.locator('.js-export-card-details-toggle');
   if (await details.getAttribute('aria-checked') !== 'true') await details.click();
-  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri', 'pivotal', 'redmine', 'tasksorg', 'superproductivity', 'taiga', 'quire', 'opml', 'orgmode']) {
+  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri', 'pivotal', 'redmine', 'tasksorg', 'superproductivity', 'taiga', 'quire', 'notion', 'opml', 'orgmode']) {
     await test.step(format, async () => {
       const anchor = page.locator(`.js-pop-over a[href*="/export/${format}?"]`);
       await expect(anchor).toBeVisible();
@@ -1136,6 +1136,68 @@ test('Vikunja: a pasted data.json imports, and a broken one or an unrelated zip 
     boardId = page.url().match(/\/b\/([^/]+)/)[1];
     expect(db.findOne('boards', { _id: boardId }).title).toBe('Pasted Vikunja');
     expect(db.find('cards', { boardId }).map(card => card.title)).toEqual([expected.title]);
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});
+
+// Notion's Markdown & CSV export (models/lib/notionFormat.js,
+// server/lib/notionArchive.js): a database CSV with its _all.csv, and the row
+// pages whose body becomes the description. File names end in the page id.
+function notionExportZip() {
+  const { zipSync, strToU8 } = require('../../../node_modules/fflate');
+  const id = '1a2b3c4d5e6f47a8b9c0d1e2f3a4b5c6';
+  const csv = [
+    'Name,Status,Assignee,Due,Tags,Approved',
+    `${expected.title},In progress,ann,"October 8, 2026","${expected.label}, docs",Yes`,
+    'Second page,Done,,,,No',
+  ].join('\r\n');
+  return Buffer.from(zipSync({
+    [`Notion Tasks ${id}.csv`]: strToU8(csv.split('\r\n').slice(0, 2).join('\r\n')),
+    [`Notion Tasks ${id}_all.csv`]: strToU8(csv),
+    [`Notion Tasks ${id}/${expected.title.replace(/[\\/:*?"<>|]/g, ' ')} 0f1e2d3c4b5a49687766554433221100.md`]:
+      strToU8(`# ${expected.title}\n\nStatus: In progress\nAssignee: ann\n\nBody of the page.\n`),
+  }));
+}
+
+test('Notion: an export .zip imports through the page with its status lists, page body, labels, date and checkbox', async ({ loggedInPage: page }) => {
+  let boardId;
+  try {
+    await navigateInApp(page, '/import/notion');
+    await page.locator('.js-import-notion-file').setInputFiles({ name: 'notion-export.zip', mimeType: 'application/zip', buffer: notionExportZip() });
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    expect(db.findOne('boards', { _id: boardId }).title).toBe('Notion Tasks');
+    const cards = db.find('cards', { boardId });
+    expect(cards).toHaveLength(2);
+    const open = cards.find(card => card.title === expected.title);
+    const done = cards.find(card => card.title === 'Second page');
+    const lists = db.find('lists', { boardId });
+    expect(lists.find(list => list._id === open.listId).title).toBe('In progress');
+    expect(lists.find(list => list._id === done.listId).title).toBe('Done');
+    expect(open.description).toBe('Body of the page.');
+    expect(new Date(open.dueAt).toISOString().slice(0, 10)).toBe('2026-10-08');
+    const board = db.findOne('boards', { _id: boardId });
+    expect(open.labelIds.map(id => board.labels.find(l => l._id === id).name).sort()).toEqual([expected.label, 'docs'].sort());
+    expect(db.find('customFields', { boardIds: boardId }).map(field => [field.name, field.type])).toEqual([['Approved', 'checkbox']]);
+    await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});
+
+test('Notion: a pasted database CSV imports, and a zip without a database is refused', async ({ loggedInPage: page }) => {
+  let boardId;
+  try {
+    await navigateInApp(page, '/import/notion');
+    const refused = await page.evaluate(async zipBase64 => {
+      try { await Meteor.callAsync('importBoard', { zipBase64 }, {}, 'notion'); return 'allowed'; }
+      catch (e) { return `${e.error} ${e.reason}`; }
+    }, Buffer.from(require('../../../node_modules/fflate').zipSync({ 'page.md': new Uint8Array([35, 32, 104, 105]) })).toString('base64'));
+    expect(refused).toMatch(/^invalid-import-format .*no database CSV/);
+    await page.locator('#import-textarea').fill(`Name,Stage\n${expected.title},Doing\nOther,Review\n`);
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    expect(db.find('lists', { boardId }).map(list => list.title).sort()).toEqual(expect.arrayContaining(['Doing', 'Review']));
+    expect(db.find('cards', { boardId }).map(card => card.title).sort()).toEqual([expected.title, 'Other'].sort());
   } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
 });
 

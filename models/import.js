@@ -105,7 +105,9 @@ Meteor.methods({
     // A Vikunja export is a zip, or the text of its data.json, whose HTML
     // descriptions sit inside JSON strings: sanitizing that text as markup
     // would break the JSON. It is parsed first as well.
-    let importedBoard = importSource === 'leo' || importSource === 'opml' || importSource === 'vikunja' ? board
+    // So is a Notion export: a .zip whose pages are read on the server, or a
+    // database CSV; the parsed board is sanitized.
+    let importedBoard = importSource === 'leo' || importSource === 'opml' || importSource === 'vikunja' || importSource === 'notion' ? board
       : sanitizeImported(board, importSource, this);
     switch (importSource) {
       case 'trello':
@@ -386,6 +388,22 @@ Meteor.methods({
         }
         importedBoard = sanitizeImported(importedBoard, 'businessmap', this);
         creator = new KanboardCreator(data, 'businessmap');
+        break;
+      case 'notion':
+        // Notion's Markdown & CSV export - see models/lib/notionFormat.js. The
+        // import page sends the .zip as { zipBase64 }, or the text of one
+        // database CSV; server/lib/notionArchive.js opens the zip under size
+        // limits, and the parsed board is sanitized below.
+        check(board, Match.OneOf(Object, String));
+        if (!Meteor.isServer) return undefined;
+        try {
+          importedBoard = await require('/server/lib/notionArchive').readNotionImport(importedBoard);
+          importedBoard = EXTERNAL_PARSERS.notion(importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        importedBoard = sanitizeImported(importedBoard, 'notion', this);
+        creator = new KanboardCreator(data, 'notion');
         break;
       case 'planner':
         // Microsoft Planner's "Export plan to Excel" workbook - see
