@@ -174,3 +174,39 @@ for (const [prefix, order] of [['','asc'],['-','des']]) {
   assert.equal(parsed.hasErrors(), false);
   assert.deepEqual(JSON.parse(JSON.stringify(parsed.getQueryParams().getPredicate('sort'))), {name: 'modifiedAt', order});
 }
+
+// Bislama search terms must be usable query syntax, not prose wrappers.
+labels = JSON.parse(read('imports/i18n/data/bi.i18n.json'));
+for (const [key, field] of [
+  ['operator-board', 'board'], ['operator-swimlane', 'swimlane'],
+  ['operator-list', 'list'], ['operator-assignee', 'assignees'],
+  ['operator-creator', 'userId'], ['operator-customfield', 'customfield'],
+  ['operator-attachment-text', 'attachment-text'],
+]) {
+  const parsed = query(`${labels[key]}:"two words"`);
+  assert.equal(parsed.hasErrors(), false, key);
+  assert.equal(parsed.getQueryParams().getPredicate(field), 'two words', key);
+}
+for (const key of ['operator-board-abbrev', 'operator-swimlane-abbrev', 'operator-list-abbrev', 'operator-label-abbrev', 'operator-user-abbrev', 'operator-member-abbrev']) {
+  assert.equal(labels[key], en[key], key);
+}
+for (const [key, field] of [['predicate-attachment', 'attachment'], ['predicate-assignee', 'assignees']]) {
+  for (const absent of [false, true]) {
+    const parsed = query(`${labels['operator-has']}:${absent ? '-' : ''}${labels[key]}`);
+    assert.equal(parsed.hasErrors(), false, key);
+    assert.deepEqual(JSON.parse(JSON.stringify(parsed.getQueryParams().getPredicate('has'))), { field, exists: !absent });
+  }
+}
+assert.equal(query('unknownoperator:Demo').hasErrors(), true);
+assert.equal(query(`${labels['operator-limit']}:12`).getQueryParams().getPredicate('limit'), 12);
+assert.equal(query(`${labels['operator-limit']}:invalid`).hasErrors(), true);
+const bislamaOverdue = query(`${labels['operator-due']}:${labels['predicate-overdue']}`);
+assert.equal(bislamaOverdue.hasErrors(), false);
+assert.equal(bislamaOverdue.getQueryParams().getPredicate('dueAt').operator, '$lt');
+const bislamaOperators = [...read('config/query-classes.js').matchAll(/'(operator-[^']+)':\s*OPERATOR_/g)]
+  .map(([, key]) => labels[key].toLowerCase());
+for (const operator of bislamaOperators) {
+  assert.match(operator, /^(?:[\p{Letter}\p{Mark}'’]+|[#@])$/u, operator);
+}
+assert.equal(new Set(bislamaOperators).size, bislamaOperators.length,
+  'every registered Bislama operator has an unambiguous name');

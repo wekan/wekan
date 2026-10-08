@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Bislama search syntax, support and memory reports — 2026-10-08
+
+Correct 76 artificial wrappers in search terms, support tickets, loading indicators
+and memory reports, leaving 236 wrappers. Correct another 12 search values:
+three operator names containing spaces, matching predicate labels and mixed-English
+error messages. The production parser accepts translated one-word names and
+portable abbreviations; it does not accept spaced operator labels. Native display
+prose remains separate from compact query syntax.
+
+Extend the existing runtime parser suite with Bislama quoted-value searches,
+missing/present attachment and assignee checks, overdue dates, invalid operators
+and invalid limits. All registered operator names are checked for lexical validity
+and collisions. The catalog-wide placeholder and HTML inventory remains covered.
+Technical compounds and full prose remain provisional pending fluent review;
+no browser session was run. Vocabulary follows the references below.
+
 ## Bislama display, weekdays and report labels — 2026-10-08
 
 Correct 76 artificial English wrappers in display settings, weekdays,
