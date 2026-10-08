@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Zulu link, rule-editor and Scrum settings — 2026-10-09
+
+Translate 38 application messages per Zulu catalog (76 values): link rules,
+card-field visibility, rule editing and Scrum settings. Preserve brace variables,
+URL examples and alias mappings. Regression checks retain permission and conflict
+instructions, one-trigger/one-action restrictions, hidden-field data preservation
+and close/cancel distinctions. Both targeted suites and all 21 preservation
+checks pass. Specialized terminology remains low confidence pending speaker
+review. Browser execution and remaining translations are outstanding.
+
 ## Zulu statistics and trigonometry — 2026-10-09
 
 Translate 27 mathematical messages per Zulu catalog (54 values), retaining

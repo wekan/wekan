@@ -577,6 +577,46 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
   "blockly-MATH_TRIG_TOOLTIP_SIN",
   "blockly-MATH_TRIG_TOOLTIP_TAN"
 ]);
+  keys.push(...[
+  "external-link-rules",
+  "external-link-rules-description",
+  "external-link-identifier-aliases",
+  "card-field-visibility-desc",
+  "r-blocks-view",
+  "r-blocks-help",
+  "r-blocks-discard",
+  "r-blocks-unavailable",
+  "r-blocks-invalid",
+  "r-blocks-conflict",
+  "r-blocks-permission",
+  "r-blocks-unsaved",
+  "r-blocks-saved",
+  "r-blocks-reload",
+  "board-view-product-backlog",
+  "board-view-sprints",
+  "board-view-sprint-report",
+  "board-view-velocity",
+  "scrum-settings",
+  "scrum-product-owner",
+  "scrum-master",
+  "scrum-developers",
+  "scrum-working-days",
+  "scrum-enabled",
+  "scrum-product-goal",
+  "scrum-definition-of-done",
+  "scrum-estimate-source",
+  "scrum-estimate-unit",
+  "scrum-completion-policy",
+  "scrum-source-poker",
+  "scrum-source-customField",
+  "scrum-policy-dueComplete",
+  "scrum-policy-doneLists",
+  "scrum-sprints",
+  "scrum-sprint",
+  "scrum-start-sprint",
+  "scrum-close-sprint",
+  "scrum-cancel-sprint"
+]);
   for (const language of ['zu', 'zu-ZA']) {
     const locale = read(language);
     for (const key of keys) {
@@ -690,6 +730,16 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
     const point = locale['blockly-MATH_ATAN2_TITLE'].replace('%1', '3').replace('%2', '4');
     assert.match(point, /atan2.*X:3 Y:4/);
     assert.doesNotMatch(point, /%[12]/);
+    const linkKey = 'external-link-rules-description';
+    assert.deepStrictEqual(locale[linkKey].match(/\{(?:identifier|number)\}/g), source[linkKey].match(/\{(?:identifier|number)\}/g));
+    assert.ok(locale[linkKey].includes('[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
+    for (const literal of ['{identifier}', 'TK=Task', 'IN=Incident']) assert.ok(locale['external-link-identifier-aliases'].includes(literal));
+    assert.match(locale['card-field-visibility-desc'], /Ayikho idatha yekhadi.*esishintshayo/);
+    assert.match(locale['r-blocks-invalid'], /esisodwa kuphela.*esisodwa/);
+    assert.match(locale['r-blocks-permission'], /imvume yomphathi webhodi/);
+    assert.match(locale['r-blocks-conflict'], /Layisha kabusha.*ngaphambi kokulondoloza/);
+    assert.match(locale['scrum-close-sprint'], /^Vala/);
+    assert.match(locale['scrum-cancel-sprint'], /^Khansela/);
     const failure = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
     assert.ok(failure.includes('E_LDAP'));
     assert.ok(!failure.includes('%s'));
