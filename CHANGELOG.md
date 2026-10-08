@@ -1055,6 +1055,18 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c3e393860a">Translate Yiddish Blockly control messages</a>. Thanks to xet7.</summary>
+
+Translate 65 English Blockly messages for colors, loops, conditions, keyboard
+labels and deletion prompts. Preserve numbered variables and numeric bounds;
+check forbidden deletion, loop-only use and opposite loop conditions. Four
+focused translation suites and 21 human-preference checks pass. Specialized
+programming wording is lower confidence and needs native review. No browser or
+screen-reader session was run. Remaining translation work is unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/798aab05fd">Translate Afrikaans planning and settings messages</a>. Thanks to xet7.</summary>
 
 Translate 51 English messages in each Afrikaans catalog (102 values), covering
