@@ -87,6 +87,8 @@ const LOCALE_INVARIANTS = {
   // Silesian emoji vocabulary both name these operators plus/minus.
   // Scope by locale, key AND exact source value so later prose is not hidden.
   hsb: new Set(Object.entries({
+    'blockly-INPUT_LABEL_NUMBER_MIN': 'minimum',
+    'blockly-MATH_ONLIST_OPERATOR_MIN_ARIA': 'minimum',
     'blockly-MATH_ADDITION_SYMBOL_ARIA': 'plus',
     'blockly-MATH_SUBTRACTION_SYMBOL_ARIA': 'minus',
   }).filter(([key, value]) => en[key] === value).map(([key]) => key)),

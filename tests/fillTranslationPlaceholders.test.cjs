@@ -98,6 +98,7 @@ test('shared Sorbian and Silesian math words are scoped to exact labels and sour
       'blockly-MATH_ADDITION_SYMBOL_ARIA': 'plus',
       'blockly-MATH_SUBTRACTION_SYMBOL_ARIA': 'minus',
       'blockly-INPUT_LABEL_NUMBER_MIN': 'minimum',
+      'blockly-MATH_ONLIST_OPERATOR_MIN_ARIA': 'minimum',
       ordinary: 'plus',
       tooltip: 'Add the numbers',
     };
@@ -108,10 +109,11 @@ test('shared Sorbian and Silesian math words are scoped to exact labels and sour
       assert.equal(result.status, 0, result.stderr);
       return JSON.parse(result.stdout);
     };
-    for (const code of ['hsb', 'szl']) {
-      assert.deepEqual(list(code), Object.fromEntries(Object.entries(source).slice(2)));
-    }
+    assert.deepEqual(list('hsb'), Object.fromEntries(Object.entries(source).slice(4)));
+    assert.deepEqual(list('szl'), Object.fromEntries(Object.entries(source).slice(2)));
     assert.deepEqual(list('xx'), source, 'other languages still need their own translations');
+    source['blockly-INPUT_LABEL_NUMBER_MIN'] = 'Minimum allowed number';
+    source['blockly-MATH_ONLIST_OPERATOR_MIN_ARIA'] = 'Smallest number in the list';
     source['blockly-MATH_ADDITION_SYMBOL_ARIA'] = 'Add these numbers';
     source['blockly-MATH_SUBTRACTION_SYMBOL_ARIA'] = 'Subtract these numbers';
     for (const code of ['en', 'hsb', 'szl']) write(code);

@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Upper Sorbian minimum labels — 2026-10-08
+
+Retain the existing minimum labels for the numeric lower bound and minimum-list
+operator. Upper Sorbian numerical usage is documented in
+[Magiske ličby zwonka serbskeje reality](https://piwarc.wordpress.com/2012/04/11/magiske-licby-zwonka-serbskeje-reality/).
+Recognize only these two exact keys and source values in Upper Sorbian. Tests
+keep minimum reportable in other locales and detect later English prose in both
+keys. No screen-reader session was run; newer messages and other languages remain.
+
 ## Shared Silesian and Upper Sorbian mathematical labels — 2026-10-08
 
 Keep the existing plus/minus accessibility labels: these are valid native terms,
