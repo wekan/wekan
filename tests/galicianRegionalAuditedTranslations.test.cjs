@@ -501,3 +501,72 @@ assert.match(data['r-mark-incomplete'], /como incompleta/);
 assert.match(data['above-selected-card'], /Enriba/);
 assert.match(data['below-selected-card'], /Debaixo/);
 assert.match(data['password-mismatch'], /non coinciden/);
+
+const sharedRepairs = {
+  "act-deleteCard": "eliminou a tarxeta __card__ da lista __list__ no carril __swimlane__ do taboleiro __board__",
+  "act-removeBoard": "eliminou o taboleiro __board__",
+  "act-removeList": "eliminou a lista __list__ do taboleiro __board__",
+  "act-removeSwimlane": "eliminou o carril __swimlane__ do taboleiro __board__",
+  "set-selected-starred": "Marcar como favoritos os taboleiros seleccionados",
+  "set-selected-home": "Definir como taboleiro de inicio (ábrese despois de iniciar sesión)",
+  "home-board-badge": "Taboleiro de inicio (ábrese despois de iniciar sesión)",
+  "home-board-empty": "Arrastra aquí só un taboleiro para abrilo despois de iniciar sesión",
+  "home-board-remove-confirm": "Quitar este taboleiro do Inicio? O taboleiro non se elimina.",
+  "list-width-shared-note": "Esta anchura compártese con todas as persoas deste taboleiro.",
+  "boardBackgroundsPopup-title": "Fondos do taboleiro",
+  "restoreArchivedCardToListPopup-title": "Restaurar a tarxeta na lista",
+  "card-aging": "Envellecemento das tarxetas (esvaecer as tarxetas antigas)",
+  "move-card-up": "Mover a tarxeta cara arriba",
+  "move-card-down": "Mover a tarxeta cara abaixo",
+  "confirm-move-list-to-swimlane": "Mover esta lista e todas as súas tarxetas ao outro carril?",
+  "error-notAllowed": "O teu rol no taboleiro non permite facer iso",
+  "import-trello-zip-no-boards": "Non se atoparon ficheiros .json de taboleiros de Trello no .zip.",
+  "import-trello-zip-progress": "Importando taboleiros do .zip, agarda…",
+  "import-trello-workspace-placeholder": "O taboleiro importado colócase neste espazo de traballo, que se crea se non existe",
+  "trello-import-selected": "Importar os taboleiros seleccionados",
+  "trello-importing": "Importando taboleiros…",
+  "trello-select-boards": "Selecciona polo menos un taboleiro para importar.",
+  "trello-import-more": "Importar máis taboleiros",
+  "trello-delete-imported": "Eliminar os taboleiros importados",
+  "set-default-board-title": "Preme para abrir este taboleiro automaticamente despois de iniciar sesión.",
+  "org-propagate-members-to-boards": "Propagar os membros aos taboleiros",
+  "team-propagate-members-to-boards": "Propagar os membros aos taboleiros",
+  "checklist-count-on-minicard": "Reconto de elementos da lista de verificación (0/0) na minitarxeta",
+  "r-w-card-created": "Créase unha tarxeta",
+  "r-w-card-archived": "Arquívase unha tarxeta",
+  "r-w-card-unarchived": "Desarquívase unha tarxeta",
+  "r-of-cards-in-list": "para as tarxetas da lista",
+  "r-when-due": "Cando a data de vencemento dunha tarxeta",
+  "r-when-card-in-list": "Cando unha tarxeta leva na lista",
+  "r-card-button": "Botón de tarxeta",
+  "r-board-button": "Botón de taboleiro",
+  "allow-invite-to-board": "Permitir convidar ao taboleiro",
+  "drag-template-here-to-share": "Arrastra aquí un taboleiro modelo para compartilo",
+  "remove-domain-from-board": "Seguro que queres quitar este dominio deste taboleiro?",
+  "search-boards": "Buscar taboleiros",
+  "drag-to-connect": "Arrastra para conectar con outra tarxeta",
+  "import-dependencies-empty": "Selecciona un taboleiro e proporciona polo menos unha liña de dependencia",
+  "board-backgrounds": "Fondos do taboleiro",
+  "boardBackgrounds-title": "Fondos do taboleiro",
+  "set-as-active": "Establecer como fondo do taboleiro",
+  "board-status-loading-mode": "Carga de tarxetas",
+  "board-status-overtime-cards": "Tarxetas con horas extra",
+  "cards-loading": "Carga de tarxetas",
+  "cards-loading-auto": "Automática (baixo demanda só para taboleiros grandes)",
+  "cards-loading-all": "Todas as tarxetas",
+  "cards-loading-lazy": "Baixo demanda (só as tarxetas visibles)",
+  "board-view-aging-wip": "Envellecemento do traballo en curso"
+};
+for (const code of ['gl', 'gl-ES']) {
+  const catalog = require('../imports/i18n/data/' + code + '.i18n.json');
+  for (const [key, value] of Object.entries(sharedRepairs)) {
+    assert.equal(catalog[key], value, code + ': ' + key);
+    assert.deepEqual(translationTokens(catalog[key]), translationTokens(englishLabels[key]), key);
+    assert.doesNotMatch(catalog[key], /cartão|cartões|quadro|preguiçoso/i, key);
+  }
+  assert.match(catalog['home-board-empty'], /só un taboleiro/);
+  assert.match(catalog['home-board-remove-confirm'], /non se elimina/);
+  assert.match(catalog['cards-loading-lazy'], /só as tarxetas visibles/);
+  assert.doesNotMatch(catalog['cards-loading-all'], /predeterminado/);
+  for (const literal of ['.json', 'Trello', '.zip']) assert.ok(catalog['import-trello-zip-no-boards'].includes(literal));
+}

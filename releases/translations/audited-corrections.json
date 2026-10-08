@@ -171827,5 +171827,747 @@
     "before": "O usuário já existe",
     "after": "O usuario xa existe",
     "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl",
+    "key": "act-deleteCard",
+    "before": "eliminou o cartão __card__ da lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "eliminou a tarxeta __card__ da lista __list__ no carril __swimlane__ do taboleiro __board__",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "act-removeBoard",
+    "before": "eliminou o quadro __board__",
+    "after": "eliminou o taboleiro __board__",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "act-removeList",
+    "before": "eliminou a lista __list__ no quadro __board__",
+    "after": "eliminou a lista __list__ do taboleiro __board__",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "act-removeSwimlane",
+    "before": "eliminou a pista __swimlane__ no quadro __board__",
+    "after": "eliminou o carril __swimlane__ do taboleiro __board__",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "set-selected-starred",
+    "before": "Marcar como favoritos os quadros seleccionados",
+    "after": "Marcar como favoritos os taboleiros seleccionados",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "set-selected-home",
+    "before": "Definir como quadro de inicio (ábrese despois de iniciar sesión)",
+    "after": "Definir como taboleiro de inicio (ábrese despois de iniciar sesión)",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "home-board-badge",
+    "before": "Quadro de inicio (ábrese despois de iniciar sesión)",
+    "after": "Taboleiro de inicio (ábrese despois de iniciar sesión)",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "home-board-empty",
+    "before": "Arrastra aquí un quadro para abrilo despois de iniciar sesión",
+    "after": "Arrastra aquí só un taboleiro para abrilo despois de iniciar sesión",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "home-board-remove-confirm",
+    "before": "Quitar este quadro do Inicio? O quadro non se elimina.",
+    "after": "Quitar este taboleiro do Inicio? O taboleiro non se elimina.",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "list-width-shared-note",
+    "before": "Esta largura compártese con todos neste quadro.",
+    "after": "Esta anchura compártese con todas as persoas deste taboleiro.",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "boardBackgroundsPopup-title",
+    "before": "Fondos do quadro",
+    "after": "Fondos do taboleiro",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "restoreArchivedCardToListPopup-title",
+    "before": "Restaurar cartão á lista",
+    "after": "Restaurar a tarxeta na lista",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "card-aging",
+    "before": "Envellecemento de cartões (esvaecer cartões antigos)",
+    "after": "Envellecemento das tarxetas (esvaecer as tarxetas antigas)",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "move-card-up",
+    "before": "Mover o cartão arriba",
+    "after": "Mover a tarxeta cara arriba",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "move-card-down",
+    "before": "Mover o cartão abaixo",
+    "after": "Mover a tarxeta cara abaixo",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "confirm-move-list-to-swimlane",
+    "before": "Mover esta lista e todos os seus cartões á outra pista?",
+    "after": "Mover esta lista e todas as súas tarxetas ao outro carril?",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "error-notAllowed",
+    "before": "O teu rol no quadro non permite facer iso",
+    "after": "O teu rol no taboleiro non permite facer iso",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "import-trello-zip-no-boards",
+    "before": "Non se atoparon ficheiros .json de quadros de Trello no .zip.",
+    "after": "Non se atoparon ficheiros .json de taboleiros de Trello no .zip.",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "import-trello-zip-progress",
+    "before": "Importando quadros do .zip, agarda…",
+    "after": "Importando taboleiros do .zip, agarda…",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "import-trello-workspace-placeholder",
+    "before": "O quadro importado colócase baixo este espazo de traballo, creado se non existe",
+    "after": "O taboleiro importado colócase neste espazo de traballo, que se crea se non existe",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "trello-import-selected",
+    "before": "Importar os quadros seleccionados",
+    "after": "Importar os taboleiros seleccionados",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "trello-importing",
+    "before": "Importando quadros…",
+    "after": "Importando taboleiros…",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "trello-select-boards",
+    "before": "Selecciona polo menos un quadro para importar.",
+    "after": "Selecciona polo menos un taboleiro para importar.",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "trello-import-more",
+    "before": "Importar máis quadros",
+    "after": "Importar máis taboleiros",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "trello-delete-imported",
+    "before": "Eliminar os quadros importados",
+    "after": "Eliminar os taboleiros importados",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "set-default-board-title",
+    "before": "Fai clic para abrir este quadro automaticamente despois de iniciar sesión.",
+    "after": "Preme para abrir este taboleiro automaticamente despois de iniciar sesión.",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "org-propagate-members-to-boards",
+    "before": "Propagar membros aos quadros",
+    "after": "Propagar os membros aos taboleiros",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "team-propagate-members-to-boards",
+    "before": "Propagar membros aos quadros",
+    "after": "Propagar os membros aos taboleiros",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "checklist-count-on-minicard",
+    "before": "Reconto de elementos da lista de verificación (0/0) no minicartão",
+    "after": "Reconto de elementos da lista de verificación (0/0) na minitarxeta",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "r-w-card-created",
+    "before": "Créase un cartão",
+    "after": "Créase unha tarxeta",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "r-w-card-archived",
+    "before": "Arquívase un cartão",
+    "after": "Arquívase unha tarxeta",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "r-w-card-unarchived",
+    "before": "Desarquívase un cartão",
+    "after": "Desarquívase unha tarxeta",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "r-of-cards-in-list",
+    "before": "para os cartões da lista",
+    "after": "para as tarxetas da lista",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "r-when-due",
+    "before": "Cando a data límite dun cartão",
+    "after": "Cando a data de vencemento dunha tarxeta",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "r-when-card-in-list",
+    "before": "Cando un cartão leva na lista",
+    "after": "Cando unha tarxeta leva na lista",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "r-card-button",
+    "before": "Botón de cartão",
+    "after": "Botón de tarxeta",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "r-board-button",
+    "before": "Botón de quadro",
+    "after": "Botón de taboleiro",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "allow-invite-to-board",
+    "before": "Permitir convidar ao quadro",
+    "after": "Permitir convidar ao taboleiro",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "drag-template-here-to-share",
+    "before": "Arrastra aquí un quadro modelo para compartilo",
+    "after": "Arrastra aquí un taboleiro modelo para compartilo",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "remove-domain-from-board",
+    "before": "Seguro que queres quitar este dominio deste quadro?",
+    "after": "Seguro que queres quitar este dominio deste taboleiro?",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "search-boards",
+    "before": "Buscar quadros",
+    "after": "Buscar taboleiros",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "drag-to-connect",
+    "before": "Arrastra para conectar con outro cartão",
+    "after": "Arrastra para conectar con outra tarxeta",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "import-dependencies-empty",
+    "before": "Selecciona un quadro e proporciona polo menos unha liña de dependencia",
+    "after": "Selecciona un taboleiro e proporciona polo menos unha liña de dependencia",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "board-backgrounds",
+    "before": "Fondos do quadro",
+    "after": "Fondos do taboleiro",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "boardBackgrounds-title",
+    "before": "Fondos do quadro",
+    "after": "Fondos do taboleiro",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "set-as-active",
+    "before": "Establecer como fondo do quadro",
+    "after": "Establecer como fondo do taboleiro",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "board-status-loading-mode",
+    "before": "Carregamento dos cartões",
+    "after": "Carga de tarxetas",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "board-status-overtime-cards",
+    "before": "Cartões com horas extra",
+    "after": "Tarxetas con horas extra",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "cards-loading",
+    "before": "Carga de cartões",
+    "after": "Carga de tarxetas",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "cards-loading-auto",
+    "before": "Automático (preguiçoso só para quadros grandes)",
+    "after": "Automática (baixo demanda só para taboleiros grandes)",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "cards-loading-all",
+    "before": "Todos os cartões (predeterminado)",
+    "after": "Todas as tarxetas",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "cards-loading-lazy",
+    "before": "Perezosa (só os cartões visibles)",
+    "after": "Baixo demanda (só as tarxetas visibles)",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl",
+    "key": "board-view-aging-wip",
+    "before": "Envellecemento de cartões — Lista",
+    "after": "Envellecemento do traballo en curso",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-deleteCard",
+    "before": "eliminou o cartão __card__ da lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "eliminou a tarxeta __card__ da lista __list__ no carril __swimlane__ do taboleiro __board__",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-removeBoard",
+    "before": "eliminou o quadro __board__",
+    "after": "eliminou o taboleiro __board__",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-removeList",
+    "before": "eliminou a lista __list__ no quadro __board__",
+    "after": "eliminou a lista __list__ do taboleiro __board__",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-removeSwimlane",
+    "before": "eliminou a pista __swimlane__ no quadro __board__",
+    "after": "eliminou o carril __swimlane__ do taboleiro __board__",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "set-selected-starred",
+    "before": "Marcar como favoritos os quadros seleccionados",
+    "after": "Marcar como favoritos os taboleiros seleccionados",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "set-selected-home",
+    "before": "Definir como quadro de inicio (ábrese despois de iniciar sesión)",
+    "after": "Definir como taboleiro de inicio (ábrese despois de iniciar sesión)",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "home-board-badge",
+    "before": "Quadro de inicio (ábrese despois de iniciar sesión)",
+    "after": "Taboleiro de inicio (ábrese despois de iniciar sesión)",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "home-board-empty",
+    "before": "Arrastra aquí un quadro para abrilo despois de iniciar sesión",
+    "after": "Arrastra aquí só un taboleiro para abrilo despois de iniciar sesión",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "home-board-remove-confirm",
+    "before": "Quitar este quadro do Inicio? O quadro non se elimina.",
+    "after": "Quitar este taboleiro do Inicio? O taboleiro non se elimina.",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "list-width-shared-note",
+    "before": "Esta largura compártese con todos neste quadro.",
+    "after": "Esta anchura compártese con todas as persoas deste taboleiro.",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "boardBackgroundsPopup-title",
+    "before": "Fondos do quadro",
+    "after": "Fondos do taboleiro",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "restoreArchivedCardToListPopup-title",
+    "before": "Restaurar cartão á lista",
+    "after": "Restaurar a tarxeta na lista",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "card-aging",
+    "before": "Envellecemento de cartões (esvaecer cartões antigos)",
+    "after": "Envellecemento das tarxetas (esvaecer as tarxetas antigas)",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "move-card-up",
+    "before": "Mover o cartão arriba",
+    "after": "Mover a tarxeta cara arriba",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "move-card-down",
+    "before": "Mover o cartão abaixo",
+    "after": "Mover a tarxeta cara abaixo",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "confirm-move-list-to-swimlane",
+    "before": "Mover esta lista e todos os seus cartões á outra pista?",
+    "after": "Mover esta lista e todas as súas tarxetas ao outro carril?",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "error-notAllowed",
+    "before": "O teu rol no quadro non permite facer iso",
+    "after": "O teu rol no taboleiro non permite facer iso",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "import-trello-zip-no-boards",
+    "before": "Non se atoparon ficheiros .json de quadros de Trello no .zip.",
+    "after": "Non se atoparon ficheiros .json de taboleiros de Trello no .zip.",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "import-trello-zip-progress",
+    "before": "Importando quadros do .zip, agarda…",
+    "after": "Importando taboleiros do .zip, agarda…",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "import-trello-workspace-placeholder",
+    "before": "O quadro importado colócase baixo este espazo de traballo, creado se non existe",
+    "after": "O taboleiro importado colócase neste espazo de traballo, que se crea se non existe",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "trello-import-selected",
+    "before": "Importar os quadros seleccionados",
+    "after": "Importar os taboleiros seleccionados",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "trello-importing",
+    "before": "Importando quadros…",
+    "after": "Importando taboleiros…",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "trello-select-boards",
+    "before": "Selecciona polo menos un quadro para importar.",
+    "after": "Selecciona polo menos un taboleiro para importar.",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "trello-import-more",
+    "before": "Importar máis quadros",
+    "after": "Importar máis taboleiros",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "trello-delete-imported",
+    "before": "Eliminar os quadros importados",
+    "after": "Eliminar os taboleiros importados",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "set-default-board-title",
+    "before": "Fai clic para abrir este quadro automaticamente despois de iniciar sesión.",
+    "after": "Preme para abrir este taboleiro automaticamente despois de iniciar sesión.",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "org-propagate-members-to-boards",
+    "before": "Propagar membros aos quadros",
+    "after": "Propagar os membros aos taboleiros",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "team-propagate-members-to-boards",
+    "before": "Propagar membros aos quadros",
+    "after": "Propagar os membros aos taboleiros",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "checklist-count-on-minicard",
+    "before": "Reconto de elementos da lista de verificación (0/0) no minicartão",
+    "after": "Reconto de elementos da lista de verificación (0/0) na minitarxeta",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-w-card-created",
+    "before": "Créase un cartão",
+    "after": "Créase unha tarxeta",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-w-card-archived",
+    "before": "Arquívase un cartão",
+    "after": "Arquívase unha tarxeta",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-w-card-unarchived",
+    "before": "Desarquívase un cartão",
+    "after": "Desarquívase unha tarxeta",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-of-cards-in-list",
+    "before": "para os cartões da lista",
+    "after": "para as tarxetas da lista",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-when-due",
+    "before": "Cando a data límite dun cartão",
+    "after": "Cando a data de vencemento dunha tarxeta",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-when-card-in-list",
+    "before": "Cando un cartão leva na lista",
+    "after": "Cando unha tarxeta leva na lista",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-card-button",
+    "before": "Botón de cartão",
+    "after": "Botón de tarxeta",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-board-button",
+    "before": "Botón de quadro",
+    "after": "Botón de taboleiro",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "allow-invite-to-board",
+    "before": "Permitir convidar ao quadro",
+    "after": "Permitir convidar ao taboleiro",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "drag-template-here-to-share",
+    "before": "Arrastra aquí un quadro modelo para compartilo",
+    "after": "Arrastra aquí un taboleiro modelo para compartilo",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "remove-domain-from-board",
+    "before": "Seguro que queres quitar este dominio deste quadro?",
+    "after": "Seguro que queres quitar este dominio deste taboleiro?",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "search-boards",
+    "before": "Buscar quadros",
+    "after": "Buscar taboleiros",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "drag-to-connect",
+    "before": "Arrastra para conectar con outro cartão",
+    "after": "Arrastra para conectar con outra tarxeta",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "import-dependencies-empty",
+    "before": "Selecciona un quadro e proporciona polo menos unha liña de dependencia",
+    "after": "Selecciona un taboleiro e proporciona polo menos unha liña de dependencia",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-backgrounds",
+    "before": "Fondos do quadro",
+    "after": "Fondos do taboleiro",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "boardBackgrounds-title",
+    "before": "Fondos do quadro",
+    "after": "Fondos do taboleiro",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "set-as-active",
+    "before": "Establecer como fondo do quadro",
+    "after": "Establecer como fondo do taboleiro",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-status-loading-mode",
+    "before": "Carregamento dos cartões",
+    "after": "Carga de tarxetas",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-status-overtime-cards",
+    "before": "Cartões com horas extra",
+    "after": "Tarxetas con horas extra",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cards-loading",
+    "before": "Carga de cartões",
+    "after": "Carga de tarxetas",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cards-loading-auto",
+    "before": "Automático (preguiçoso só para quadros grandes)",
+    "after": "Automática (baixo demanda só para taboleiros grandes)",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cards-loading-all",
+    "before": "Todos os cartões (predeterminado)",
+    "after": "Todas as tarxetas",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cards-loading-lazy",
+    "before": "Perezosa (só os cartões visibles)",
+    "after": "Baixo demanda (só as tarxetas visibles)",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-view-aging-wip",
+    "before": "Envellecemento de cartões — Lista",
+    "after": "Envellecemento do traballo en curso",
+    "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
   }
 ]

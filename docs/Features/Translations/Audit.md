@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Shared Galician terminology corrections — 2026-10-09
+
+Correct 53 mixed-language messages in each of gl and gl-ES: 106 values covering
+activity messages, Home, board backgrounds, card actions, Trello, automation and
+loading. Preserve exact variables and format literals. Restore the single-board
+Home limit, keep the no-deletion warning, and remove the unsupported default claim
+from the all-cards loading label. Record every correction in the audited ledger.
+Three relevant suites and all 21 preservation checks pass. More language auditing,
+remaining translations and browser review are outstanding.
+
 ## Further Galician regional terminology corrections — 2026-10-09
 
 Replace 93 additional Portuguese values in gl-ES with reviewed Galician wording
