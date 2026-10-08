@@ -9202,6 +9202,15 @@ coverage checks those details, repeated labels, script, key order and tokens.
 Technical wording remains low confidence pending speaker review. Browser checks
 were not run; further Maithili translations and the broader audit remain.
 
+## Maithili sync reports and diagnostics
+
+Filled 21 English placeholders for sync reports, diagnostics and estimate mapping.
+The placeholder-only merge retained existing translations. Preserved report limits,
+retention, partial-change caveats, write-access requirements and missing-versus-null
+behavior. Regression coverage checks those details, script, key order and tokens.
+Technical wording remains low confidence pending speaker review. Browser checks
+were not run; further Maithili translations and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

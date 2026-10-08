@@ -4,7 +4,7 @@ const assert=require('node:assert/strict');
 const english=require('../imports/i18n/data/en.i18n.json');
 const locale=require('../imports/i18n/data/mai.i18n.json');
 const {translationTokens}=require('../releases/translations/placeholder-tokens.mjs');
-const keys=["scrum-observed-scope", "scrum-daily-observations-export-help", "scrum-import-pending", "sync-conflict-heading", "sync-conflict-hint", "sync-conflict-local", "sync-conflict-keep-local", "sync-conflict-use-source", "sync-conflict-refresh", "sync-conflict-review-complete", "sync-conflict-duplicate", "sync-conflict-keep-mapping", "sync-conflict-detach", "sync-conflict-detach-hint", "sync-conflict-archive", "sync-conflict-archive-hint", "sync-conflict-keep-card-local", "sync-conflict-creation", "sync-conflict-creation-hint", "sync-conflict-create-replacement", "sync-preview-button", "sync-preview-heading", "sync-preview-saved", "sync-preview-unavailable", "sync-preview-blocked", "sync-preview-create", "sync-preview-update", "sync-preview-archive", "sync-preview-baseline", "sync-preview-truncated", "sync-preview-omissions", "sync-preview-scope", "sync-preview-excluded", "sync-preview-unmapped", "sync-preview-parser-warnings", "sync-preview-parser-unsupported", "sync-source-heading", "sync-source-scope", "sync-source-unmapped", "sync-source-excluded", "sync-source-converted", "sync-source-fallback", "sync-source-excluded-item"];
+const keys=["scrum-observed-scope", "scrum-daily-observations-export-help", "scrum-import-pending", "sync-conflict-heading", "sync-conflict-hint", "sync-conflict-local", "sync-conflict-keep-local", "sync-conflict-use-source", "sync-conflict-refresh", "sync-conflict-review-complete", "sync-conflict-duplicate", "sync-conflict-keep-mapping", "sync-conflict-detach", "sync-conflict-detach-hint", "sync-conflict-archive", "sync-conflict-archive-hint", "sync-conflict-keep-card-local", "sync-conflict-creation", "sync-conflict-creation-hint", "sync-conflict-create-replacement", "sync-preview-button", "sync-preview-heading", "sync-preview-saved", "sync-preview-unavailable", "sync-preview-blocked", "sync-preview-create", "sync-preview-update", "sync-preview-archive", "sync-preview-baseline", "sync-preview-truncated", "sync-preview-omissions", "sync-preview-scope", "sync-preview-excluded", "sync-preview-unmapped", "sync-preview-parser-warnings", "sync-preview-parser-unsupported", "sync-source-heading", "sync-source-scope", "sync-source-unmapped", "sync-source-excluded", "sync-source-converted", "sync-source-fallback", "sync-source-excluded-item", "sync-source-occurrences", "sync-source-truncated", "sync-source-omitted", "sync-report-button", "sync-report-retention", "sync-report-partial", "sync-report-unfinished", "sync-report-failed", "sync-report-completed", "sync-report-completed-with-warnings", "sync-report-skipped", "sync-report-review-only", "sync-report-unavailable", "sync-report-empty", "sync-recovery-heading", "sync-recovery-description", "sync-recovery-unavailable", "sync-recovery-all", "sync-estimate-field", "sync-estimate-field-hint", "sync-original-time"];
 test('Maithili sync translations preserve order, script and tokens',()=>{
  assert.deepEqual(Object.keys(locale),Object.keys(english));
  for(const key of keys){
@@ -32,4 +32,15 @@ test('Maithili sync previews preserve limits and omitted data caveats',()=>{
  for(const suffix of ['unmapped','excluded']) assert.equal(locale['sync-source-'+suffix],locale['sync-preview-'+suffix]);
  assert.equal(new Set(['create','update','archive'].map(k=>locale['sync-preview-'+k])).size,3);
  assert.notEqual(locale['sync-preview-excluded'],locale['sync-preview-unmapped']);
+});
+
+test('Maithili sync reports preserve retention and partial-change caveats',()=>{
+ assert.ok(locale['sync-source-truncated'].includes('100'));
+ for(const n of ['20','30']) assert.ok(locale['sync-report-retention'].includes(n));
+ assert.ok(locale['sync-report-partial'].includes('\u092a\u0942\u0930\u094d\u0935\u0935\u0924 \u0928\u0939\u093f'));
+ assert.ok(locale['sync-report-unavailable'].includes('\u0932\u093f\u0916\u092c\u093e\u0915 \u0905\u0927\u093f\u0915\u093e\u0930'));
+ for(const term of ['30','ID']) assert.ok(locale['sync-recovery-description'].includes(term));
+ for(const term of ['Jira','ID','null','\u091b\u094b\u0921\u093c\u0932','\u0938\u093e\u092b']) assert.ok(locale['sync-estimate-field-hint'].includes(term));
+ assert.ok(locale['sync-original-time'].includes('\u0918\u0902\u091f\u093e'));
+ assert.equal(new Set(['failed','unfinished','completed','completed-with-warnings','skipped'].map(k=>locale['sync-report-'+k])).size,5);
 });
