@@ -49,3 +49,8 @@ test('Tok Pisin estimate mappings distinguish missing values from explicit null'
  for(const key of ['sync-original-time','sync-remaining-time']) assert.match(data[key],/\(aua\)/);
  assert.notEqual(data['sync-original-time'],data['sync-remaining-time']);
 });
+
+test('Tok Pisin planning Sync retains source identity and first-run protection',()=>{
+ assert.match(data['sync-planning-hint'],/ID bilong sos pastaim, na bihain long nem/);
+ assert.match(data['sync-planning-hint'],/Fes Sync i no rausim plen/);
+});

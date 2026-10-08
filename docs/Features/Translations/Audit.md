@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Tok Pisin planning import regressions — 2026-10-08
+
+Translate 20 new Scrum import and Sync planning messages. Update the Scrum
+inventory from 111 to 127 while retaining every per-key translation/token
+check. Preserve non-duplication, unchanged foreign-board cards, matching
+priority and first-sync protection of planning. Extend both existing suites
+for these consequences. Full new wording follows the existing catalog and
+remains low-confidence pending fluent review. No browser or screen-reader
+session was run; six failures from the latest broad run remain to repair.
+
 ## Ukrainian planning import regressions — 2026-10-08
 
 Translate 20 new Scrum import and Sync planning messages. Preserve counters,

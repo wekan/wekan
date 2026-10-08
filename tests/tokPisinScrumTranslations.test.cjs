@@ -7,7 +7,7 @@ const {translationTokens}=require('../releases/translations/placeholder-tokens.m
 const keys=Object.keys(english).filter(k=>k.startsWith('scrum-')||['board-view-product-backlog','board-view-sprints','board-view-sprint-report','board-view-velocity'].includes(k));
 
 test('Tok Pisin Scrum messages preserve coverage, tokens and shared labels',()=>{
- assert.equal(keys.length,111);
+ assert.equal(keys.length,127);
  for(const key of keys){
   assert.ok(data[key].trim(),key);
   assert.notEqual(data[key],english[key],key);
@@ -51,4 +51,10 @@ test('release selection and recovery distinguish retaining records from rollback
  assert.notEqual(data['scrum-history-checkpoint-rollback'],data['scrum-history-checkpoint-discard']);
  assert.deepEqual(translationTokens(data['scrum-history-checkpoint-counts']),
    ['__applied__','__conflicted__','__pending__','__total__']);
+});
+
+test('Tok Pisin import keeps unmatched cards and avoids duplicates',()=>{
+ assert.match(data['scrum-import-into-board-hint'],/ol i no wokim kopi bilong ol/);
+ assert.match(data['scrum-import-card-on-another-board'],/narapela bot na ol i no senisim/);
+ assert.match(data['scrum-import-sprint-finished'],/Ol i no muvim/);
 });
