@@ -9384,6 +9384,16 @@ distinct variable types, script, key order and tokens. Technical terminology
 remains low confidence pending speaker review. Browser checks were not run;
 further Konkani translations and the broader audit remain unfinished.
 
+## Konkani accessibility shortcuts and text controls
+
+Filled 67 English placeholders for accessibility announcements, navigation
+shortcuts and text operations. The placeholder-only merge retained existing
+translations. Regression coverage checks mode-state reversals, move-versus-scroll
+actions, navigation endpoints, letter-case forms and text operand roles, plus
+script, key order and tokens. Technical wording remains low confidence pending
+speaker review. Browser and screen-reader checks were not run; further Konkani
+translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
