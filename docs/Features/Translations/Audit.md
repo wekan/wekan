@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu Blockly text values and variables — 2026-10-08
+
+Translate 35 text-value, trimming and variable messages. Preserve exact variables;
+check replacement source/destination, all occurrences, whitespace counting,
+left/right/both trimming, copied text and variable-type conflicts. Wu wording is
+lower confidence and needs native review. No browser or screen-reader session
+was run. Remaining translations and older Mandarin-like passages require work.
+
 ## Wu Blockly text positions — 2026-10-08
 
 Translate 30 text append, case, counting and substring messages. Preserve exact

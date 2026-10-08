@@ -277,3 +277,20 @@ for (const prefix of ['TEXT_CHARAT', 'TEXT_GET_SUBSTRING_START', 'TEXT_GET_SUBST
 assert.match(wu['blockly-TEXT_INDEXOF_OPERATOR_FIRST'], /头一趟/);
 assert.match(wu['blockly-TEXT_INDEXOF_OPERATOR_LAST'], /最后一趟/);
 assert.match(wu['blockly-TEXT_COUNT_MESSAGE0'], /%1.*%2.*几趟/);
+
+const textValues = ["blockly-TEXT_INDEXOF_TITLE", "blockly-TEXT_INDEXOF_TOOLTIP", "blockly-TEXT_ISEMPTY_TITLE", "blockly-TEXT_ISEMPTY_TOOLTIP", "blockly-TEXT_JOIN_TITLE_CREATEWITH", "blockly-TEXT_JOIN_TOOLTIP", "blockly-TEXT_LENGTH_TITLE", "blockly-TEXT_LENGTH_TOOLTIP", "blockly-TEXT_PRINT_TITLE", "blockly-TEXT_PRINT_TOOLTIP", "blockly-TEXT_PROMPT_TOOLTIP_NUMBER", "blockly-TEXT_PROMPT_TOOLTIP_TEXT", "blockly-TEXT_PROMPT_TYPE_NUMBER", "blockly-TEXT_PROMPT_TYPE_TEXT", "blockly-TEXT_REPLACE_MESSAGE0", "blockly-TEXT_REPLACE_TOOLTIP", "blockly-TEXT_REVERSE_MESSAGE0", "blockly-TEXT_REVERSE_TOOLTIP", "blockly-TEXT_TEXT_TOOLTIP", "blockly-TEXT_TRIM_OPERATOR_BOTH", "blockly-TEXT_TRIM_OPERATOR_LEFT", "blockly-TEXT_TRIM_OPERATOR_RIGHT", "blockly-TEXT_TRIM_TOOLTIP", "blockly-TODAY", "blockly-UNDO", "blockly-UNKNOWN", "blockly-UNNAMED_KEY", "blockly-VARIABLES_DEFAULT_NAME", "blockly-VARIABLES_GET_CREATE_SET", "blockly-VARIABLES_GET_TOOLTIP", "blockly-VARIABLES_SET", "blockly-VARIABLES_SET_CREATE_GET", "blockly-VARIABLES_SET_TOOLTIP", "blockly-VARIABLE_ALREADY_EXISTS", "blockly-VARIABLE_ALREADY_EXISTS_FOR_ANOTHER_TYPE"];
+for (const key of textValues) {
+  assert.notEqual(wu[key], english[key], key);
+  assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+}
+assert.match(wu['blockly-TEXT_INDEXOF_TOOLTIP'], /寻勿着就返回 %1/);
+assert.match(wu['blockly-TEXT_LENGTH_TOOLTIP'], /包括空格/);
+assert.match(wu['blockly-TEXT_REPLACE_MESSAGE0'], /%3.*%1 换成 %2/);
+assert.match(wu['blockly-TEXT_REPLACE_TOOLTIP'], /侪替换脱/);
+for (const [side, word] of Object.entries({ BOTH: '两爿', LEFT: '左爿', RIGHT: '右爿' })) assert.ok(wu[`blockly-TEXT_TRIM_OPERATOR_${side}`].includes(word));
+assert.match(wu['blockly-TEXT_TRIM_TOOLTIP'], /副本/);
+assert.match(wu['blockly-TEXT_PROMPT_TYPE_NUMBER'], /数字/);
+assert.match(wu['blockly-TEXT_PROMPT_TYPE_TEXT'], /文字/);
+assert.match(wu['blockly-VARIABLE_ALREADY_EXISTS_FOR_ANOTHER_TYPE'], /别个类型：'%2'/);
+assert.match(wu['blockly-VARIABLES_SET'], /%1 设成 %2/);
+assert.notEqual(wu['blockly-UNDO'], wu['blockly-REDO']);
