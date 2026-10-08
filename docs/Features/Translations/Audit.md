@@ -8163,6 +8163,15 @@ states, assigned-card scope, greater-than count wording and hour units. Technica
 wording remains low confidence pending speaker review. Browser checks were not run.
 Further wrong-language corrections and the broader audit remain unfinished.
 
+### Tatar tracking, upload and shortcut-range corrections
+
+Corrected 18 time, tracking, upload and logo-setting values while preserving correct
+Pomodoro and nearby labels. Source placeholders, 1-9 shortcut ranges and URL naming
+remain intact. Regression coverage checks adding/removing labels, upload states,
+spent/overtime distinctions, unsaved text and image/link URL differences. Technical
+wording remains low confidence pending speaker review. Browser and upload-runtime
+checks were not run. Further corrections and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
