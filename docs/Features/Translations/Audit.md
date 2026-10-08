@@ -9625,6 +9625,17 @@ tokens. Technical wording remains low confidence pending speaker review.
 Browser checks were not run; further Turkmen translations and the broader
 audit remain unfinished.
 
+## Turkmen text values and variable assignments
+
+Filled 31 placeholders, including the concurrently added custom-colors-in-use
+label. Existing translations were retained. Coverage checks replacement roles,
+whitespace boundaries, assignment operands and variable-collision contexts,
+plus key order and tokens. Of 53 checks, 51 passed; two repository-wide checks
+failed because other locales lack the new English custom-colors-in-use key.
+All 21 human-preference checks passed. Technical wording remains low confidence
+pending speaker review. Browser checks were not run; further translations
+and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
