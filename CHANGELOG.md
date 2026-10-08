@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/84180373a0">Correct Wu parent-card and positional activity translations</a>. Thanks to xet7.</summary>
+
+Correct twenty-two Wu minicard, parent-card and activity values. Restore positional
+label, field, value and owner roles while preserving source token inventories.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3a35c59529">Correct Wu organization and deletion translations</a>. Thanks to xet7.</summary>
 
 Correct twenty-two Wu organization, deletion and subtask-setting values. Preserve
