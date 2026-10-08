@@ -9784,6 +9784,18 @@ passed. Technical Darija wording remains low confidence pending speaker review.
 Browser, RTL and screen-reader checks were not run. Remaining placeholders and
 the broader dialect and semantic audit remain open.
 
+## Moroccan Arabic list retrieval and removal
+
+Filled 42 English placeholders without replacing existing translations. Tests
+check source order, Arabic script, tokens, retrieval without removal, removal
+without a return value, combined retrieval/removal, first/last positions, copied
+sublists and reversal, not-found results, repetition arguments and insertion
+bounds. Of 44 checks, 42 passed; two repository-wide checks still fail because
+other locales lack the new card-field-visibility keys. All 21 human-preference
+checks passed. Technical Darija wording remains low confidence pending speaker
+review. Browser, RTL and screen-reader checks were not run. Further placeholders
+and the broader dialect and semantic audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
