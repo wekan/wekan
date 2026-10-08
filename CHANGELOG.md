@@ -487,6 +487,16 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bb5ad6de61">Translate Wu Blockly trigonometry and workspace</a>. Thanks to xet7.</summary>
+
+Translate 30 trigonometry, workspace and key messages, preserving variables and
+checking angle units, inverse functions and variable types. Four focused suites
+and 21 human-preference checks pass. Wu wording is lower confidence and needs
+native review. No browser or screen-reader session was run. Work is unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e25c024618">Translate Wu Blockly rounding and unary math</a>. Thanks to xet7.</summary>
 
 Translate 30 math messages, preserving variables and literals and checking random
