@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/67f7566e819540791b4a35fdeeee1c691cd1f418">Correct Tatar copying and restricted role controls</a></summary>
+
+- Correct 30 copying, permission and custom-field strings, preserving source
+  tokens, valid embedded JSON and restricted-role meanings.
+- Technical wording remains low confidence pending speaker review.
+- All 84 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/015aa9a3d96c0281ef60c9cdfed7b4e3eff913c1">Correct Tatar colors and comment permission text</a></summary>
 
 - Correct 36 color and permission strings and restore the blank comment
