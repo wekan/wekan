@@ -8346,6 +8346,15 @@ Existing correct-language labels remain. Technical wording remains low confidenc
 pending speaker review. Focused tests cover key order, tokens, protocol names and
 reporting distinctions; browser checks were not run.
 
+## Tatar API recovery and waiting-animation corrections
+
+Corrected 25 wrong-language API, recovery, copying and waiting-animation values.
+Restored literal REST API and WITH_API=true syntax, preserved MongoDB, first/last
+call distinctions and automatic continuation after recovery. Technical wording
+remains low confidence pending speaker review. Focused tests cover key order,
+source tokens, runtime identifiers and distinct animation names; browser checks
+were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
