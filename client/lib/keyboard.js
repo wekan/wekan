@@ -65,16 +65,26 @@ window.addEventListener('keydown', (e) => {
   // Only handle event if coming from body
   if (e.target !== document.body) return;
 
-  // Only handle event if it's in another language
-  if (String.fromCharCode(e.which).toLowerCase() === e.key) return;
+  // Only a character typed on a non-Latin layout: one non-ASCII character.
+  // Comparing it with the key code's lowercase letter also matched every
+  // SHIFTED Latin key ('D', '!', and 'Shift' itself), and re-dispatched it, so
+  // each Shift shortcut ran twice: Shift+D opened the due date editor and the
+  // copy clicked the same control again, closing it (#6750).
+  if (typeof e.key !== 'string' || e.key.length !== 1 || e.key.charCodeAt(0) < 128) return;
 
   // Trigger the corresponding action by dispatching a new event with the ASCII key
   const key = String.fromCharCode(e.which).toLowerCase();
-  // Create a synthetic event for hotkeys to handle
+  if (!/^[a-z0-9]$/.test(key)) return;
+  // Create a synthetic event for hotkeys to handle, with the same modifiers,
+  // so Shift shortcuts keep working on non-Latin layouts.
   const syntheticEvent = new KeyboardEvent('keydown', {
     key: key,
     keyCode: e.which,
     which: e.which,
+    shiftKey: e.shiftKey,
+    ctrlKey: e.ctrlKey,
+    altKey: e.altKey,
+    metaKey: e.metaKey,
     bubbles: true,
     cancelable: true,
   });
