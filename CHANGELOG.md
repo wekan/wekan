@@ -2173,6 +2173,20 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/dd19d28474693171688ab18f6625df5009cb322d">Translate Central Kurdish recovery controls</a></summary>
+
+- Fill 25 Sorani recovery strings, preserving existing translations and placeholders.
+  The default inventory now retains only product names and mathematical symbols;
+  none of the 149 pending-Transifex keys remain identical to English in this locale.
+- Technical wording remains low confidence pending speaker review.
+- All 59 focused checks and 21 human-preference checks pass. Browser and
+  right-to-left layout checks were not run. The broader audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2535250fc60ee0540af9d487bb9a87e73f8dfbe0">Translate Central Kurdish diagnostics and mail failures</a></summary>
 
 - Fill 37 Sorani diagnostic and mail-failure strings, preserving existing
