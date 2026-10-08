@@ -671,6 +671,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/dbb9c5e5b1">Translate Zulu recovery decisions and history checkpoints</a>. Thanks to xet7.</summary>
+
+Fill 22 messages per Zulu catalog. Tests preserve checkpoint variables, deletion
+warnings, foreign-board protection, rollback restrictions and read-only semantics.
+Both targeted suites and all 21 preservation checks pass. Specialized terminology
+needs speaker review; browser execution and remaining translations are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6e019d9299">Translate Zulu interrupted-import messages</a>. Thanks to xet7.</summary>
 
 Fill 25 messages per Zulu catalog. Tests retain count and stage variables,
