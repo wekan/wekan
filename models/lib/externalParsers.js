@@ -9,6 +9,7 @@ import { parseObsidianKanban } from './obsidianKanbanFormat.js';
 import { parseLinearCsv } from './linearCsvFormat.js';
 import { parseTickTickCsv } from './ticktickCsvFormat.js';
 import { parseClickUpCsv } from './clickupCsvFormat.js';
+import { parseNullboard } from './nullboardFormat.js';
 import { parseOrgMode } from './orgModeFormat.js';
 import {
   gitlabScrumPlanning, openProjectScrumPlanning, asanaScrumPlanning, STORY_POINTS_FIELD,
@@ -975,6 +976,8 @@ export const EXTERNAL_PARSERS = {
   ticktick: parseTickTickCsv,
   // ClickUp's task CSV, export or importer shape (clickupCsvFormat.js).
   clickup: parseClickUpCsv,
+  // A Nullboard .nbx board file, JSON text (nullboardFormat.js).
+  nullboard: parseNullboard,
   orgmode: parseOrgMode,
   jira: parseJira,
 };

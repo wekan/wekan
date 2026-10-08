@@ -249,6 +249,7 @@ const EXPORT_FORMAT_GROUPS = [
       { key: 'linear', icon: 'fa-bars', label: 'Linear', path: 'export/linear', ext: 'csv', scopes: BOARD_ONLY },
       { key: 'ticktick', icon: 'fa-check-circle-o', label: 'TickTick', path: 'export/ticktick', ext: 'csv', scopes: BOARD_ONLY },
       { key: 'clickup', icon: 'fa-check-square', label: 'ClickUp', path: 'export/clickup', ext: 'csv', scopes: BOARD_ONLY },
+      { key: 'nullboard', icon: 'fa-sticky-note-o', label: 'Nullboard', path: 'export/nullboard', ext: 'nbx', scopes: BOARD_ONLY },
       ...[
         ['trello', 'Trello'], ['jira', 'Jira'], ['deck', 'NextCloud Deck'],
         ['openproject', 'OpenProject'], ['github', 'GitHub'], ['gitlab', 'GitLab'],

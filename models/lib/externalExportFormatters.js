@@ -22,6 +22,7 @@ import { formatObsidianKanban } from './obsidianKanbanFormat.js';
 import { formatLinearCsv } from './linearCsvFormat.js';
 import { formatTickTickCsv } from './ticktickCsvFormat.js';
 import { formatClickUpCsv } from './clickupCsvFormat.js';
+import { formatNullboard } from './nullboardFormat.js';
 import { formatOpml } from './opmlOutlineFormat.js';
 import { formatOrgMode } from './orgModeFormat.js';
 
@@ -326,6 +327,8 @@ export const formatters = {
   ticktick: formatTickTickCsv,
   // ClickUp's workspace export columns; round-trips with parseClickUpCsv.
   clickup: formatClickUpCsv,
+  // A Nullboard .nbx board file; round-trips with parseNullboard.
+  nullboard: formatNullboard,
   // An OPML outline; round-trips with parseOpml (opmlOutline.js, server-only).
   opml: formatOpml,
   // An Org mode outline; round-trips with parseOrgMode (orgModeFormat.js).

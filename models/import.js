@@ -236,6 +236,16 @@ Meteor.methods({
         }
         creator = new KanboardCreator(data, 'clickup');
         break;
+      case 'nullboard':
+        // A Nullboard .nbx board file (JSON text) - see models/lib/nullboardFormat.js.
+        check(board, String);
+        try {
+          importedBoard = EXTERNAL_PARSERS.nullboard(importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        creator = new KanboardCreator(data, 'nullboard');
+        break;
       case 'planner':
         // Microsoft Planner's "Export plan to Excel" workbook - see
         // models/lib/plannerFormat.js. It arrives like the Excel import, as

@@ -337,7 +337,7 @@ test('every external export menu link returns text and refuses an unrelated user
   // Include description through the actual shared selection controls.
   const details = page.locator('.js-export-card-details-toggle');
   if (await details.getAttribute('aria-checked') !== 'true') await details.click();
-  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'opml', 'orgmode']) {
+  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'opml', 'orgmode']) {
     await test.step(format, async () => {
       const anchor = page.locator(`.js-pop-over a[href*="/export/${format}?"]`);
       await expect(anchor).toBeVisible();
@@ -485,6 +485,37 @@ test('MeisterTask: a project CSV imports with its sections, notes, due date and 
     expect(new Date(open.dueAt).toISOString()).toBe('2026-10-10T08:00:00.000Z');
     const lists = db.find('lists', { boardId });
     expect(lists.find(list => list._id === open.listId).title).toBe('Doing');
+    await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});
+
+// A Nullboard .nbx board: notes split into title and description, a raw note.
+test('Nullboard: a .nbx board imports with its lists, notes and raw note', async ({ loggedInPage: page }) => {
+  let boardId;
+  try {
+    await navigateInApp(page, '/import/nullboard');
+    await page.locator('#import-textarea').fill(JSON.stringify({
+      format: 20190412, id: 1791100000000, revision: 3, title: 'From Nullboard', lists: [
+        { title: 'Doing', notes: [
+          { text: 'Backend', raw: true, min: false },
+          { text: `${expected.title}\nTwo of them, DN50`, raw: false, min: false },
+        ] },
+        { title: 'Done', notes: [{ text: 'Finished note', raw: false, min: true }] },
+      ],
+    }));
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    const board = db.findOne('boards', { _id: boardId });
+    expect(board.title).toBe('From Nullboard');
+    const cards = db.find('cards', { boardId });
+    expect(cards).toHaveLength(3);
+    const note = cards.find(card => card.title === expected.title);
+    expect(note.description).toBe('Two of them, DN50');
+    const heading = cards.find(card => card.title === 'Backend');
+    expect(heading.labelIds.map(id => board.labels.find(l => l._id === id).name)).toEqual(['raw']);
+    const lists = db.find('lists', { boardId });
+    expect(lists.find(list => list._id === note.listId).title).toBe('Doing');
     await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
   } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
 });
