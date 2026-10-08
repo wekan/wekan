@@ -7811,6 +7811,17 @@ Technical Scrum terminology remains low confidence pending speaker review.
 Browser checks were not run. Further Tatar translations and wrong-language
 corrections, and the broader language audit, remain unfinished.
 
+### Tatar observations, synchronization conflicts and previews
+
+Filled 56 English placeholders for remaining sprint controls, daily observations,
+synchronization conflict choices and change previews. Preserved source tokens,
+UTC notation, numeric limits and locale key order. Regression coverage checks
+unknown-versus-zero estimate wording, source-write negation, unchanged subcards,
+and distinct local/source, detach/replacement and create/update/archive choices.
+Technical terminology remains low confidence pending speaker review. Browser
+checks were not run. Further Tatar translations and wrong-language corrections,
+and the broader language audit, remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
