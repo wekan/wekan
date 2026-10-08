@@ -9615,6 +9615,16 @@ key order and tokens. Technical wording remains low confidence pending
 speaker review. Browser and screen-reader checks were not run; further
 Turkmen translations and the broader audit remain unfinished.
 
+## Turkmen text operations and search
+
+Filled 37 English placeholders for text creation, letter case, character
+positions, substrings and search. The placeholder-only merge retained
+existing translations. Coverage checks case forms, copied text, operand
+roles, indexing from the end and not-found results, plus key order and
+tokens. Technical wording remains low confidence pending speaker review.
+Browser checks were not run; further Turkmen translations and the broader
+audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
