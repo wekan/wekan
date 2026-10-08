@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/fa722a2cc954429ce554943d1a9500591fc09e1d">Correct Tatar search operators and predicates</a></summary>
+
+- Correct 38 search aliases and predicates, restoring shorthand symbols and
+  distinct single-word aliases accepted by the search parser.
+- Technical wording remains low confidence pending speaker review.
+- All 111 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d802535c04d50100489f6ebf0fc9305562a5c856">Correct Tatar search views and result messages</a></summary>
 
 - Correct 34 search-view and due-card values, preserving permission scope,
