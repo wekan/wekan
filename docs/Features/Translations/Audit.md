@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Aromanian imports and controls — 2026-10-08
+
+Translate 47 import instructions, account settings, card-field controls,
+assignment/movement rules, keyboard labels and mathematical spoken labels.
+Preserve Org mode syntax, Todoist markers, environment identifiers and the
+link-rule placeholders {number}/{identifier}, their example URL and aliases.
+Extend tests for these examples, read-only scope, unchanged card data and
+opposite movement/page directions. Physical key legends remain recognizable.
+Also translate four newly added Sync planning messages, preserving source-ID
+matching priority and the first-Sync prohibition on removing planning.
+
+Use existing catalog vocabulary and the Farsharotu dictionary linked below;
+new terminology and complete grammar remain low-confidence pending fluent
+review. No browser or screen-reader session was run. Stuck Sync messages and
+older linguistic defects remain to be addressed.
+
 ## Aromanian Sync choices and diagnostics — 2026-10-08
 
 Translate 63 conflict-resolution, preview, source-field, report, diagnostic

@@ -239,3 +239,72 @@ for (const key of ['sync-estimate-field-hint','sync-time-estimate-hint']) {
 }
 assert.match(aromanian['sync-time-estimate-hint'], /exact un cãmpu/);
 assert.equal(aromanian['sync-report-completed'], aromanian['scrum-completed']);
+
+const controlsBatch = [
+  "board-announcement",
+  "board-announcement-enabled",
+  "cards-use-list-color",
+  "import-board-instruction-opml",
+  "import-board-instruction-orgmode",
+  "import-board-instruction-todoist",
+  "external-link-rules",
+  "external-link-rules-description",
+  "external-link-identifier-aliases",
+  "read-only-field",
+  "r-moved-forward",
+  "r-moved-back",
+  "r-assignee",
+  "r-add-actinguser-assignee",
+  "r-remove-all-assignees",
+  "ldap-sync-now",
+  "ldap-sync-now-done",
+  "ldap-sync-now-error",
+  "ldap-sync-now-nothing",
+  "oauth-providers-allowed-email-domains",
+  "card-field-visibility",
+  "card-field-visibility-desc",
+  "blockly-ALT_KEY",
+  "blockly-BACKSPACE_KEY",
+  "blockly-CAPS_LOCK_KEY",
+  "blockly-COMMAND_KEY",
+  "blockly-CONTROL_KEY",
+  "blockly-END_KEY",
+  "blockly-ENTER_KEY",
+  "blockly-ESCAPE",
+  "blockly-HOME_KEY",
+  "blockly-INSERT_KEY",
+  "blockly-LISTS_SORT_TYPE_NUMERIC",
+  "blockly-MATH_ADDITION_SYMBOL_ARIA",
+  "blockly-MATH_SUBTRACTION_SYMBOL_ARIA",
+  "blockly-OPTION_KEY",
+  "blockly-PAGE_DOWN_KEY",
+  "blockly-PAGE_UP_KEY",
+  "blockly-PAUSE_KEY",
+  "blockly-SHIFT_KEY",
+  "blockly-TAB_KEY",
+  "blockly-UNNAMED_KEY",
+  "login-setting-env-only"
+];
+for (const key of controlsBatch) {
+  assert.ok(aromanian[key]?.trim(), key);
+  assert.notEqual(aromanian[key], english[key], key);
+}
+for (const key of ['external-link-rules-description','external-link-identifier-aliases']) {
+  assert.deepEqual(aromanian[key].match(/\{(?:number|identifier)\}/g),
+    english[key].match(/\{(?:number|identifier)\}/g), key);
+}
+assert.ok(aromanian['external-link-rules-description'].includes(
+  '[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
+assert.ok(aromanian['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+for (const name of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS',
+  'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) {
+  assert.ok(aromanian['ldap-sync-now-nothing'].includes(name), name);
+}
+assert.notEqual(aromanian['r-moved-forward'], aromanian['r-moved-back']);
+assert.notEqual(aromanian['blockly-PAGE_UP_KEY'], aromanian['blockly-PAGE_DOWN_KEY']);
+assert.match(aromanian['read-only-field'], /cafi membru vidi.*mash administratorlji/);
+assert.match(aromanian['card-field-visibility-desc'], /Nu s-alãxescu dati di cartã/);
+assert.match(aromanian['login-setting-env-only'], /Mash mediul a serverului/);
+
+assert.match(aromanian['sync-planning-hint'], /ninti dupã ID-lu di sursã, dapoi dupã numã/);
+assert.match(aromanian['sync-planning-hint'], /prota Sync nu scoati vãrnãoarã planificarea/);
