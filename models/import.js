@@ -102,7 +102,10 @@ Meteor.methods({
     // A .leo or OPML outline is XML: sanitizing the raw text would strip its
     // tags as markup. It is parsed first and the parsed tasks are sanitized
     // instead.
-    let importedBoard = importSource === 'leo' || importSource === 'opml' ? board
+    // A Vikunja export is a zip, or the text of its data.json, whose HTML
+    // descriptions sit inside JSON strings: sanitizing that text as markup
+    // would break the JSON. It is parsed first as well.
+    let importedBoard = importSource === 'leo' || importSource === 'opml' || importSource === 'vikunja' ? board
       : sanitizeImported(board, importSource, this);
     switch (importSource) {
       case 'trello':
@@ -302,6 +305,22 @@ Meteor.methods({
           throw new Meteor.Error('invalid-import-format', error.message);
         }
         creator = new KanboardCreator(data, 'taiga');
+        break;
+      case 'vikunja':
+        // Vikunja's user data export - see models/lib/vikunjaFormat.js. The
+        // import page sends the .zip as { zipBase64 }, or the text of its
+        // data.json; server/lib/vikunjaArchive.js opens the zip under size
+        // limits, and the parsed tasks are sanitized below.
+        check(board, Match.OneOf(Object, String));
+        if (!Meteor.isServer) return undefined;
+        try {
+          importedBoard = await require('/server/lib/vikunjaArchive').readVikunjaImport(importedBoard);
+          importedBoard = EXTERNAL_PARSERS.vikunja(importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        importedBoard = sanitizeImported(importedBoard, 'vikunja', this);
+        creator = new KanboardCreator(data, 'vikunja');
         break;
       case 'planner':
         // Microsoft Planner's "Export plan to Excel" workbook - see

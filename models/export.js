@@ -362,6 +362,16 @@ if (Meteor.isServer) {
         res.end(String(built == null ? '' : built));
         return;
       }
+      // Vikunja's export is a .zip of data.json, filters.json and VERSION
+      // (models/lib/vikunjaFormat.js); the HTML is made after the export
+      // boundary has checked the text it is made from.
+      if (format === 'vikunja') {
+        const { vikunjaArchiveFiles } = require('/models/lib/vikunjaFormat');
+        const archive = require('/server/lib/vikunjaArchive').writeVikunjaArchive(vikunjaArchiveFiles(built));
+        res.writeHead(200, { 'Content-Type': 'application/zip' });
+        res.end(archive);
+        return;
+      }
       // monday.com's import table is an Excel workbook (models/lib/mondayFormat.js).
       if (format === 'monday') {
         const workbook = await require('/server/lib/mondayWorkbook').writeMondayWorkbook(built);

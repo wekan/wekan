@@ -863,6 +863,115 @@ test('Microsoft Planner: an exported plan imports through the page', async ({ lo
   } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
 });
 
+// Vikunja's export is a .zip of data.json, filters.json and VERSION
+// (models/lib/vikunjaFormat.js, server/lib/vikunjaArchive.js): its own case.
+test('Vikunja: the export menu link returns a Vikunja export zip and refuses an unrelated user', async ({ boardPage: page, user2 }) => {
+  const { unzipSync, strFromU8 } = require('../../../node_modules/fflate');
+  const bp = new BoardPage(page);
+  await bp.openSidebar();
+  await page.locator('.board-sidebar .js-open-board-menu').click();
+  await page.locator('.js-pop-over .js-export-board').click();
+  const anchor = page.locator('.js-pop-over a[href*="/export/vikunja?"]');
+  await expect(anchor).toBeVisible();
+  const href = await anchor.getAttribute('href');
+  const response = await page.request.get(href);
+  expect(response.status()).toBe(200);
+  expect(response.headers()['content-type']).toContain('application/zip');
+  const files = unzipSync(new Uint8Array(await response.body()));
+  expect(Object.keys(files).sort()).toEqual(['VERSION', 'data.json', 'filters.json']);
+  expect(strFromU8(files.VERSION)).toBe('v1.0.0');
+  const projects = JSON.parse(strFromU8(files['data.json']));
+  const tasks = projects.flatMap(project => project.tasks);
+  expect(tasks.map(task => task.title)).toContain('Alpha Card');
+  const kanban = projects.flatMap(project => project.views).find(view => view.view_kind === 'kanban');
+  expect(kanban.bucket_configuration_mode).toBe('manual');
+  const unauthorized = new URL(href, page.url());
+  unauthorized.searchParams.set('authToken', user2.token);
+  expect([401, 403]).toContain((await page.request.get(unauthorized.toString())).status());
+});
+
+// A Vikunja export in the current layout, built from the structure Vikunja's
+// pkg/models/export.go writes: a kanban view with two buckets, a task with a
+// TipTap task list, labels, a due date, priority, a comment and a done task.
+function vikunjaExportZip() {
+  const { zipSync, strToU8 } = require('../../../node_modules/fflate');
+  const T = '2026-10-01T10:00:00Z';
+  const ZERO = '0001-01-01T00:00:00Z';
+  const project = {
+    id: 3, title: 'Vikunja Website', description: '', hex_color: '', parent_project_id: 0, is_archived: false, position: 65536,
+    views: [{ id: 12, title: 'Kanban', project_id: 3, view_kind: 'kanban', position: 400, bucket_configuration_mode: 'manual',
+      default_bucket_id: 20, done_bucket_id: 21 }],
+    tasks: [
+      { id: 101, title: expected.title, description: '<p>Two of them</p><ul data-type="taskList"><li data-checked="true" data-type="taskItem"><p>Quote</p></li><li data-checked="false" data-type="taskItem"><p>Order</p></li></ul>',
+        done: false, done_at: ZERO, due_date: '2026-09-30T12:00:00Z', start_date: ZERO, end_date: ZERO, priority: 4, hex_color: '',
+        percent_done: 0.5, labels: [{ id: 4, title: expected.label, hex_color: '' }], assignees: [], related_tasks: {},
+        attachments: [], created: T, updated: T,
+        comments: [{ id: 5, comment: '<p>Looks good</p>', author: { id: 1, username: 'ann' }, created: T, updated: T }] },
+      { id: 102, title: 'Finished task', description: '', done: true, done_at: '2026-10-02T09:00:00Z', due_date: ZERO, priority: 0,
+        related_tasks: { parenttask: [{ id: 101 }] }, created: T, updated: T },
+    ],
+    buckets: [
+      { id: 20, title: 'Doing', project_view_id: 12, limit: 0, position: 65536 },
+      { id: 21, title: 'Done', project_view_id: 12, limit: 0, position: 131072 },
+    ],
+    task_buckets: [{ bucket_id: 20, task_id: 101, project_view_id: 12 }, { bucket_id: 21, task_id: 102, project_view_id: 12 }],
+    positions: [],
+  };
+  return Buffer.from(zipSync({ 'data.json': strToU8(JSON.stringify([project])), 'filters.json': strToU8('[]'), VERSION: strToU8('v1.0.0') }));
+}
+
+test('Vikunja: an export .zip imports through the page with its buckets, checklist, comment, fields and parent', async ({ loggedInPage: page }) => {
+  let boardId;
+  try {
+    await navigateInApp(page, '/import/vikunja');
+    await page.locator('.js-import-vikunja-file').setInputFiles({ name: 'vikunja-export.zip', mimeType: 'application/zip', buffer: vikunjaExportZip() });
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    expect(db.findOne('boards', { _id: boardId }).title).toBe('Vikunja Website');
+    const cards = db.find('cards', { boardId });
+    expect(cards).toHaveLength(2);
+    const open = cards.find(card => card.title === expected.title);
+    const done = cards.find(card => card.title === 'Finished task');
+    const lists = db.find('lists', { boardId });
+    expect(lists.find(list => list._id === open.listId).title).toBe('Doing');
+    expect(lists.find(list => list._id === done.listId).title).toBe('Done');
+    expect(open.description).toBe('Two of them');
+    expect(new Date(open.dueAt).toISOString().slice(0, 10)).toBe('2026-09-30');
+    expect(new Date(done.endAt).toISOString().slice(0, 10)).toBe('2026-10-02');
+    expect(done.parentId).toBe(open._id);
+    const board = db.findOne('boards', { _id: boardId });
+    expect(open.labelIds.map(id => board.labels.find(l => l._id === id).name)).toEqual([expected.label]);
+    expect(db.find('checklistItems', { cardId: open._id }).map(item => [item.title, item.isFinished])).toEqual([['Quote', true], ['Order', false]]);
+    expect(db.find('card_comments', { cardId: open._id }).map(comment => comment.text)).toEqual(['ann: Looks good']);
+    const fields = db.find('customFields', { boardIds: boardId }).map(field => field.name).sort();
+    expect(fields).toEqual(['Done', 'Percent Done', 'Priority']);
+    await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});
+
+test('Vikunja: a pasted data.json imports, and a broken one or an unrelated zip is refused', async ({ loggedInPage: page }) => {
+  let boardId;
+  try {
+    await navigateInApp(page, '/import/vikunja');
+    await page.locator('#import-textarea').fill('{broken');
+    await page.locator('.js-import-without-mapping').click();
+    await expect(page.locator('.warning').first()).toBeVisible();
+    const refused = await page.evaluate(async zipBase64 => {
+      try { await Meteor.callAsync('importBoard', { zipBase64 }, {}, 'vikunja'); return 'allowed'; }
+      catch (e) { return `${e.error} ${e.reason}`; }
+    }, Buffer.from(require('../../../node_modules/fflate').zipSync({ 'readme.txt': new Uint8Array([104, 105]) })).toString('base64'));
+    expect(refused).toMatch(/^invalid-import-format .*no data\.json/);
+    await expect(page).toHaveURL(/\/import\/vikunja$/);
+    await page.locator('#import-textarea').fill(JSON.stringify([{ id: 1, title: 'Pasted Vikunja', tasks: [{ id: 1, title: expected.title }] }]));
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    expect(db.findOne('boards', { _id: boardId }).title).toBe('Pasted Vikunja');
+    expect(db.find('cards', { boardId }).map(card => card.title)).toEqual([expected.title]);
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});
+
 // Focalboard's board.jsonl: the group-by property's lists, labels, dates, the
 // card's text, checklist and comments (models/lib/focalboardFormat.js).
 test('Focalboard: a board.jsonl imports with its lists, labels, description, checklist and comments', async ({ loggedInPage: page }) => {

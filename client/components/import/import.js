@@ -234,6 +234,31 @@ Template.import.onCreated(function () {
       await this.finishImport();
       return;
     }
+    // Vikunja: the user data export .zip (Settings > Data Export), sent as
+    // base64 and opened on the server (server/lib/vikunjaArchive.js), or its
+    // data.json - chosen as a file or pasted - sent as text. Vikunja's users
+    // are not mapped here either; members can be mapped later.
+    if (dataSource === 'vikunja') {
+      const el = this.find('.js-import-vikunja-file');
+      const file = el && el.files && el.files[0];
+      let input;
+      if (file && !/\.json$/i.test(file.name || '')) {
+        const bytes = new Uint8Array(await file.arrayBuffer());
+        let binary = '';
+        for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+        input = { zipBase64: window.btoa(binary) };
+      } else {
+        input = file ? await file.text() : this.find('.js-import-json').value;
+        if (!input || !input.trim()) {
+          this.setError('error-json-malformed');
+          return;
+        }
+      }
+      this.importedData.set(input);
+      this.membersToMap.set([]);
+      await this.finishImport();
+      return;
+    }
     // Markdown: the "task list" convention several markdown-kanban tools use
     // (Obsidian Kanban and similar) - `## List name` headings, `- [ ]`/`- [x]`
     // items underneath. It is plain text, not JSON, so it is sent as-is rather
@@ -481,6 +506,7 @@ const IMPORT_SOURCES = [
   { key: 'monday', name: 'monday.com' },
   { key: 'superproductivity', name: 'Super Productivity' },
   { key: 'taiga', name: 'Taiga' },
+  { key: 'vikunja', name: 'Vikunja' },
 ];
 
 Template.import.helpers({
@@ -592,6 +618,8 @@ Template.importTextarea.helpers({
   isExcelImport() {
     return ['excel', 'planner', 'monday'].includes(Session.get('importSource'));
   },
+  // Vikunja's export .zip, or its data.json, beside the textarea.
+  isVikunjaImport() { return Session.get('importSource') === 'vikunja'; },
   isJiraImport() { return Session.get('importSource') === 'jira'; },
   // The numeric fields the pasted Jira export declares, to pick the estimate.
   jiraEstimateCandidates() { return Template.instance().jiraCandidates.get(); },

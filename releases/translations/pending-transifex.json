@@ -1051,6 +1051,10 @@
     {
       "key": "import-board-instruction-taiga",
       "since": "2026-10-08"
+    },
+    {
+      "key": "import-board-instruction-vikunja",
+      "since": "2026-10-08"
     }
   ]
 }

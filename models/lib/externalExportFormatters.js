@@ -29,6 +29,7 @@ import { formatTasksOrgBackup } from './tasksorgFormat.js';
 import { formatMondaySheets } from './mondayFormat.js';
 import { formatSuperProductivity } from './superProductivityFormat.js';
 import { formatTaiga } from './taigaFormat.js';
+import { formatVikunja } from './vikunjaFormat.js';
 import { formatOpml } from './opmlOutlineFormat.js';
 import { formatOrgMode } from './orgModeFormat.js';
 
@@ -349,6 +350,9 @@ export const formatters = {
   superproductivity: collected => formatSuperProductivity(collected),
   // A Taiga project dump that Taiga's load_dump reads; round-trips with parseTaiga (taigaFormat.js).
   taiga: data => formatTaiga(data),
+  // Vikunja's data export: projects that models/export.js writes as the .zip
+  // (vikunjaArchiveFiles, server/lib/vikunjaArchive.js); round-trips with parseVikunjaExport.
+  vikunja: data => formatVikunja(data),
   // An OPML outline; round-trips with parseOpml (opmlOutline.js, server-only).
   opml: formatOpml,
   // An Org mode outline; round-trips with parseOrgMode (orgModeFormat.js).
