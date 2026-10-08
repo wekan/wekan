@@ -33,6 +33,7 @@ codes.push('bua', 'cv', 'sah');
 codes.push('ace', 'ay', 'gn', 'qu');
 codes.push('bm', 'ee', 'ff');
 codes.push('bo', 'dz', 'ti');
+codes.push('uz-AR', 'ks');
 for (const code of codes) {
   const value = read(code)[key];
   assert.notEqual(value, source, code);
@@ -52,7 +53,7 @@ assert.match(read('es')[key], /No se puede completar/);
 assert.match(read('ja')[key], /ログインを完了できません/);
 assert.match(read('zh-CN')[key], /无法在此地址完成/);
 assert.match(read('zh-TW')[key], /無法在此位址完成/);
-console.log('Sign-in origin warning: 195 catalog paths, repeated address roles and literal configuration key pass');
+console.log('Sign-in origin warning: 197 catalog paths, repeated address roles and literal configuration key pass');
 
 assert.match(read('ar')[key], /لا يمكن إكمال تسجيل الدخول/);
 assert.match(read('fa')[key], /تکمیل نمی‌شود/);
@@ -214,3 +215,15 @@ assert.match(read('bo')[key], /མཇུག་སྒྲིལ་མི་ཐུ�
 assert.match(read('dz')[key], /མཇུག་བསྡུ་མི་ཚུགས/);
 assert.match(read('ti')[key], /ክዛዘም ኣይክእልን/);
 assert.notEqual(read('bo')[key], read('dz')[key]);
+
+assert.match(read('uz-AR')[key], /یکونلب بولمیدی/);
+assert.match(read('ks')[key], /ہؠکِہ نہٕ/);
+for (const code of ['uz-AR', 'ks']) {
+  const prose = read(code)[key].replaceAll('WeKan', '').replaceAll('ROOT_URL', '').replace(/__(?:expected|actual)__/g, '');
+  assert.match(prose, /\p{Script=Arabic}/u, code);
+  assert.doesNotMatch(prose, /[A-Za-z]/, code);
+}
+for (const key of ['login', 'error', 'admin-panel']) {
+  assert.match(read('uz-AR')[key], /\p{Script=Arabic}/u, key);
+  assert.doesNotMatch(read('uz-AR')[key], /[A-Za-z]/, key);
+}

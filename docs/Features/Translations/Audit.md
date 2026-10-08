@@ -2,6 +2,18 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Arabic-script Uzbek and Kashmiri warnings — 2026-10-08
+
+Translate two warnings with exact repeated address variables and ROOT_URL.
+Correct three Latin-script Uzbek labels in the explicitly Arabic-script catalog,
+recording them in the ledger. Tests reject Latin letters in these labels and in
+warning prose after removing literal code names. Warning coverage includes 197
+paths; warning, placeholder and correction-ledger suites and all 21 preservation
+checks pass. Script reference: [Eski o‘zbek yozuvi](https://n.ziyouz.com/books/eski_uzbek_yozuvi/Eski%20o%27zbek%20yozuvi%20%28M.Hamidova%2C%20N.Sulaymonova%29.pdf).
+These direct translations have lower confidence and need native review. This
+warning still has 10 English paths. Other Latin-script Uzbek values, browser
+review and the wider translation backlog remain outstanding.
+
 ## Tibetan, Dzongkha and Tigrinya warnings — 2026-10-08
 
 Translate three warnings with exact repeated address variables and ROOT_URL,

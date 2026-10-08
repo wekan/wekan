@@ -170903,5 +170903,26 @@
     "before": "Kay willaymi: Pageta",
     "after": "P’anqa",
     "reason": "Remove a language-name prefix and replace untranslated label text with the declared language."
+  },
+  {
+    "locale": "uz-AR",
+    "key": "login",
+    "before": "Tizimga kirish",
+    "after": "تیزیمگه کیریش",
+    "reason": "Use Arabic-script Uzbek in the explicitly Arabic-script locale."
+  },
+  {
+    "locale": "uz-AR",
+    "key": "error",
+    "before": "Xato",
+    "after": "خطا",
+    "reason": "Use Arabic-script Uzbek in the explicitly Arabic-script locale."
+  },
+  {
+    "locale": "uz-AR",
+    "key": "admin-panel",
+    "before": "Administrator paneli",
+    "after": "اداره‌چی پنلی",
+    "reason": "Use Arabic-script Uzbek in the explicitly Arabic-script locale."
   }
 ]
