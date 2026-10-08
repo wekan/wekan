@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Aromanian board-control language corrections — 2026-10-08
+
+Replace 35 further clearly Italian values in board/member actions, movement,
+selection, validation and keyboard help with Aromanian. Preserve the %s label
+variable and Excel CSV/TSV name. Regression checks reject the old Italian
+values and English substitutions and distinguish card/board removal and
+opposite movement directions. Full new phrasing remains low-confidence
+pending fluent review, following the existing catalog terminology.
+No browser or screen-reader session was run; the larger review continues.
+
 ## Aromanian Italian-seed review — 2026-10-08
 
 A vocabulary review found 304 longer non-English values identical to the

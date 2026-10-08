@@ -379,3 +379,50 @@ assert.deepEqual(tokens(aromanian['email-invite-subject']), ['__inviter__']);
 assert.match(aromanian['export-card-pdf'], /PDF/);
 assert.match(aromanian['export-ical-feed'], /iCal/);
 assert.notEqual(aromanian['filter-show-archive'], aromanian['filter-hide-empty']);
+
+const repairedItalianBoardControls = {
+  "import-map-members": "Mappatura dei membri",
+  "importMapMembersAddPopup-title": "Scegli membro",
+  "invalid-date": "Data non valida",
+  "invalid-time": "Tempo non valido",
+  "invalid-user": "Utente non valido",
+  "label-create": "Crea etichetta",
+  "label-default": "%s etichetta (default)",
+  "leave-board": "Abbandona bacheca",
+  "leaveBoardPopup-title": "Abbandonare la bacheca?",
+  "link-card": "Link a questa scheda",
+  "set-color-list": "Imposta colore",
+  "settingsUserPopup-title": "Impostazioni utente",
+  "settingsTeamPopup-title": "Impostazioni team",
+  "swimlaneActionPopup-title": "Azioni swimlane",
+  "swimlaneAddPopup-title": "Aggiungi swimlane sotto",
+  "listImportCardsTsvPopup-title": "Importa CSV/TSV di Excel",
+  "link-list": "Link a questa lista",
+  "moveCardToBottom-title": "Sposta in fondo",
+  "moveCardToTop-title": "Sposta in cima",
+  "multi-selection": "Selezione multipla",
+  "multi-selection-label": "Selezionare etichetta",
+  "multi-selection-member": "Selezionare membro",
+  "my-boards": "Le mie bacheche",
+  "page-not-found": "Pagina non trovata.",
+  "remove-from-board": "Rimuovi dalla bacheca",
+  "remove-label": "Rimuovi etichetta",
+  "listDeletePopup-title": "Eliminare lista?",
+  "remove-member": "Rimuovi utente",
+  "remove-member-from-card": "Rimuovi dalla scheda",
+  "removeMemberPopup-title": "Rimuovere membro?",
+  "select-color": "Scegli un colore",
+  "select-board": "Seleziona bacheca",
+  "shortcut-autocomplete-emoji": "Autocompletamento emoji",
+  "shortcut-autocomplete-members": "Autocompletamento membri",
+  "shortcut-clear-filters": "Pulisci tutti i filtri"
+};
+for (const [key, italian] of Object.entries(repairedItalianBoardControls)) {
+  assert.notEqual(aromanian[key], italian, `${key}: Italian seed must not return`);
+  assert.notEqual(aromanian[key], english[key], `${key}: English is not a correction`);
+}
+assert.deepEqual(tokens(aromanian['label-default']), ['%s']);
+assert.match(aromanian['listImportCardsTsvPopup-title'], /Excel CSV\/TSV/);
+assert.notEqual(aromanian['moveCardToBottom-title'], aromanian['moveCardToTop-title']);
+assert.notEqual(aromanian['remove-member-from-card'], aromanian['remove-from-board']);
+assert.match(aromanian['listDeletePopup-title'], /Ashteardzi/);
