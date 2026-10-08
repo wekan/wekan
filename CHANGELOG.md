@@ -54,6 +54,21 @@ https://wekan.fi/status/
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3ec8138130">Translate remaining keyboard labels in six locales</a>. Thanks to xet7.</summary>
+
+- Fill 119 keyboard and card-field strings in Akan, Māori, Northern Sotho,
+  Somali, Tok Pisin and Waray. Their full fill reports now contain no remaining
+  placeholders; this measures coverage rather than fluency.
+- Preserve recognizable physical keys, opposite navigation directions,
+  card-field hiding scope and exact source variables. Existing translations
+  are retained. All 31 relevant suites and 21 human-preference checks pass.
+- New software wording is provisional, especially in Akan, Northern Sotho and
+  Waray. Terminology sources are recorded in the translation audit. Browser
+  and screen-reader sessions were not run; the broader translation work remains.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e503945ef1">Report locale text coverage accurately</a>. Thanks to xet7.</summary>
 
 The README now reports 182 of 234 locale catalogs with non-English text for
@@ -400,14 +415,14 @@ Status checked on 2026-10-08. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **35,735 untranslated locale/string values in 60 languages**.
+  report counts **35,628 untranslated locale/string values in 54 languages**.
   It excludes **151 source keys tracked separately as pending Transifex**.
   Exact Blockly OS brands and compact math/code symbols no longer inflate
   the prose backlog. Counts are a snapshot; they do not establish the quality
   or language of other values.
 - Placeholder inventories match English across all 246 locale paths. Fill now
   rejects damaged token batches before writing. Both card-field visibility
-  keys are translated in 153 non-English paths; 81 paths still need them.
+  keys are translated in 159 non-English paths; 75 paths still need them.
   Catalog key order, all 321 translation/i18n suites and 21 human-preference
   checks pass. Browser execution and the remaining translation work are open.
 - The 13 activity-notification preference keys have no empty or exact
@@ -1920,18 +1935,19 @@ more translated help text and refreshed translation audit checks.
 
 This release improves translations and their validation:
 
-**Languages updated:** Afrikaans, Albanian, Amharic, Arabic, Aragonese,
+**Languages updated:** Afrikaans, Akan, Albanian, Amharic, Arabic, Aragonese,
 Armenian, Asturian, Azerbaijani, Basque, Belarusian, Bengali, Bosnian, Breton,
 Bulgarian, Burmese, Catalan, Chinese, Corsican, Croatian, Czech, Danish, Dutch,
 Esperanto, Estonian, Faroese, French, Galician, Georgian, German, Greek,
 Gujarati, Haitian Creole, Hausa, Hebrew, Hindi, Hungarian, Icelandic, Igbo,
 Indonesian, Irish, Japanese, Kannada, Kazakh, Khmer, Korean, Kyrgyz, Latin,
 Latvian, Lithuanian, Luxembourgish, Macedonian, Malagasy, Malay, Malayalam,
-Maltese, Marathi, Mongolian, Nepali, Norwegian Bokmål, Occitan, Persian,
-Polish, Portuguese, Punjabi, Romanian, Romansh, Russian, Sardinian, Scottish
-Gaelic, Serbian, Sicilian, Sinhala, Slovak, Slovenian, Spanish, Swahili,
-Tagalog, Tajik, Tamil, Tatar, Telugu, Thai, Turkish, Turkmen, Ukrainian, Urdu,
-Uzbek, Vietnamese, Welsh, West Frisian, Yoruba.
+Maltese, Marathi, Mongolian, Māori, Nepali, Northern Sotho, Norwegian Bokmål,
+Occitan, Persian, Polish, Portuguese, Punjabi, Romanian, Romansh, Russian,
+Sardinian, Scottish Gaelic, Serbian, Sicilian, Sinhala, Slovak, Slovenian,
+Somali, Spanish, Swahili, Tagalog, Tajik, Tamil, Tatar, Telugu, Thai, Tok
+Pisin, Turkish, Turkmen, Ukrainian, Urdu, Uzbek, Vietnamese, Waray, Welsh, West
+Frisian, Yoruba.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5ce7549bcf">Translate more card-field visibility help</a>. Thanks to xet7.</summary>
