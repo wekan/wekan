@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Belarusian List Sync recovery — 2026-10-08
+
+Translate 23 English recovery messages into Belarusian, preserving source
+counters and existing board/list terminology. Check retained changes, unwritten
+changes, revoked access, replayable operations and the oldest-50 limit. No browser
+or screen-reader session was run; remaining translations and vocabulary review
+are unfinished.
+
 ## Upper Sorbian minimum labels — 2026-10-08
 
 Retain the existing minimum labels for the numeric lower bound and minimum-list

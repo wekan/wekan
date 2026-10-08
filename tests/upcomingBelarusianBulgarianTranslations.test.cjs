@@ -63,3 +63,19 @@ test('universal API labels remain unchanged', () => {
 });
 
 console.log('\nupcomingBelarusianBulgarianTranslations: ' + passed + ' tests passed');
+
+const belarusianRecovery = read('be');
+const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
+const recoveryKeys = Object.keys(en).filter(key => key.startsWith('stuck-sync-operation-'));
+assert.equal(recoveryKeys.length, 23);
+for (const key of recoveryKeys) {
+  assert.notEqual(belarusianRecovery[key], en[key], key);
+  assert.deepEqual(translationTokens(belarusianRecovery[key]), translationTokens(en[key]), key);
+}
+assert.match(belarusianRecovery['stuck-sync-operation-description'], /ужо ўжытыя змены застаюцца/);
+assert.match(belarusianRecovery['stuck-sync-operation-description'], /астатнія захаваныя змены ніколі не запісваюцца/);
+assert.match(belarusianRecovery['stuck-sync-operation-reason-access-denied'], /права запісу ва ўсім спісе/);
+assert.match(belarusianRecovery['stuck-sync-operation-replayable-now'], /нельга адкінуць/);
+assert.match(belarusianRecovery['stuck-sync-operation-not-stuck'], /нельга адкінуць/);
+assert.match(belarusianRecovery['stuck-sync-operation-truncated'], /50 найстарэйшых/);
+assert.match(belarusianRecovery['stuck-sync-operation-busy'], /зараз сінхранізуецца/);
