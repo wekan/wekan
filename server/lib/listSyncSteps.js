@@ -28,7 +28,7 @@ const { syncValueChanges } = require('../../models/lib/listSyncTimeEstimates');
 // server/lib/syncRuleChecklistLifecycleCommand.js.
 const DURABLE_RULE_ACTIONS = new Set(['sendEmail', 'archive', 'unarchive', 'setColor', 'addLabel', 'removeLabel',
   'removeAllLabels', 'markCardComplete', 'markCardIncomplete', 'setDate', 'updateDate', 'setDateRelative', 'removeDate',
-  'addMember', 'removeMember', 'checkAll', 'uncheckAll', 'checkItem', 'uncheckItem', 'moveCardToTop', 'moveCardToBottom',
+  'addMember', 'removeMember', 'addAssignee', 'removeAssignee', 'checkAll', 'uncheckAll', 'checkItem', 'uncheckItem', 'moveCardToTop', 'moveCardToBottom',
   'addChecklist', 'addChecklistWithItems', 'removeChecklist', 'sortList', 'createCard',
   'copyCard', 'linkCard', 'addSwimlane', 'moveAllCardsInList']);
 // Rule actions whose variant on ANOTHER board has a durable adapter too.

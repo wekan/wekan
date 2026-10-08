@@ -10,6 +10,7 @@
 //   markCardComplete / -Incomplete  dueComplete
 //   addMember / removeMember members    (the people are resolved at capture,
 //                            as performAction resolves them, and saved)
+//   addAssignee / removeAssignee assignees (the same way)
 //   setDate / updateDate / setDateRelative / removeDate
 //                            the action's dateField (startAt, endAt, dueAt,
 //                            receivedAt); setDate only fills an unset date,
@@ -40,8 +41,15 @@ const text = value => typeof value === 'string' && value.length > 0;
 const RULE_CARD_ACTIONS = { setColor: 'color', addLabel: 'labelIds', removeLabel: 'labelIds', removeAllLabels: 'labelIds',
   markCardComplete: 'dueComplete', markCardIncomplete: 'dueComplete',
   setDate: 'date', updateDate: 'date', setDateRelative: 'date', removeDate: 'date',
-  addMember: 'members', removeMember: 'members' };
-const MEMBER_ACTIONS = ['addMember', 'removeMember'];
+  addMember: 'members', removeMember: 'members', addAssignee: 'assignees', removeAssignee: 'assignees' };
+const MEMBER_ACTIONS = ['addMember', 'removeMember', 'addAssignee', 'removeAssignee'];
+// Per action: the card field, whether it adds, and the activity the hooks write.
+const PEOPLE = {
+  addMember: { field: 'members', join: true, activity: 'joinMember', idKey: 'memberId' },
+  removeMember: { field: 'members', join: false, activity: 'unjoinMember', idKey: 'memberId' },
+  addAssignee: { field: 'assignees', join: true, activity: 'joinAssignee', idKey: 'assigneeId' },
+  removeAssignee: { field: 'assignees', join: false, activity: 'unjoinAssignee', idKey: 'assigneeId' },
+};
 function validTargets(targets) {
   return Array.isArray(targets) && targets.length <= 1000 && targets.every(target => target &&
     Object.keys(target).sort().join(',') === 'userId,username' && text(target.userId) &&
@@ -74,15 +82,17 @@ function targetFields(action, before, field, now, targets = []) {
   const has = Object.hasOwn(before, field), value = before[field];
   switch (action.actionType) {
     // One $addToSet / $pull per person, in order; nothing to do leaves the field as it is.
-    case 'addMember': {
-      const members = Array.isArray(value) ? [...value] : [];
-      for (const { userId } of targets) if (!members.includes(userId)) members.push(userId);
-      return has || targets.length ? { members } : {};
+    case 'addMember':
+    case 'addAssignee': {
+      const people = Array.isArray(value) ? [...value] : [];
+      for (const { userId } of targets) if (!people.includes(userId)) people.push(userId);
+      return has || targets.length ? { [field]: people } : {};
     }
-    case 'removeMember': {
+    case 'removeMember':
+    case 'removeAssignee': {
       if (!has) return {};
       const removed = new Set(targets.map(target => target.userId));
-      return { members: (Array.isArray(value) ? value : []).filter(id => !removed.has(id)) };
+      return { [field]: (Array.isArray(value) ? value : []).filter(id => !removed.has(id)) };
     }
     case 'setColor': return { color: action.selectedColor === 'white' ? null : (action.selectedColor ?? null) };
     case 'addLabel': {
@@ -110,16 +120,17 @@ function targetFields(action, before, field, now, targets = []) {
 function activitiesFor({ base, action, before, after, effectId, createdAt, username, cardTitle, targets = [] }) {
   const receipt = () => sha256(canonical([effectId, 'activity']));
   if (MEMBER_ACTIONS.includes(action.actionType)) {
-    // What the members hook writes for each person who really joined or left.
-    const had = new Set(before.members || []), rows = [], seen = new Set();
+    // What the members (or assignees) hook writes for each person who really
+    // joined or left.
+    const people = PEOPLE[action.actionType];
+    const had = new Set(before[people.field] || []), rows = [], seen = new Set();
     for (const { userId, username: name } of targets) {
       if (seen.has(userId)) continue;
       seen.add(userId);
-      const join = action.actionType === 'addMember';
-      if (join === had.has(userId)) continue;
+      if (people.join === had.has(userId)) continue;
       const receiptId = sha256(canonical([effectId, 'activity', userId]));
       rows.push({ receiptId, activity: { _id: `sync-rule-card-${receiptId}`, userId: base.actorId, username: name,
-        activityType: join ? 'joinMember' : 'unjoinMember', boardId: base.boardId, cardId: base.cardId, memberId: userId,
+        activityType: people.activity, boardId: base.boardId, cardId: base.cardId, [people.idKey]: userId,
         listId: base.listId, swimlaneId: base.swimlaneId, createdAt, modifiedAt: createdAt } });
     }
     return rows;

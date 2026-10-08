@@ -11,6 +11,7 @@ import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { tripCanary } from '/server/lib/canary';
 import { requireButtonRuleContext } from '/models/lib/buttonRulePermission';
 import { ruleActionIds, MAX_EXTRA_RULE_PARTS } from '/models/lib/ruleParts';
+import { generateDefaultRuleTitle } from '/models/lib/generateDefaultRuleTitle';
 
 // Button rules are manual: a user clicks a card/board button and we run the
 // rule's action immediately. This method runs one button rule on demand.
@@ -107,8 +108,11 @@ Meteor.methods({
     }
     const triggerId = await Triggers.insertAsync({ ...clean(trigger), boardId });
     const actionId = await Actions.insertAsync(actionDoc);
+    // #4294: a rule added without a title is named after what it does
+    // ("When ..., then ..."), and renamed in place from the rules list.
+    const ruleTitle = (title || '').trim() || generateDefaultRuleTitle(trigger && trigger.desc, actionDoc.desc);
     const ruleDoc = {
-      title: title || 'Rule',
+      title: ruleTitle,
       triggerId,
       actionId,
       boardId,

@@ -288,23 +288,21 @@ test('negative: no raw un-normalized trigger insert remains in the rules API', (
 
 // --- the removeMember/addMember actions no longer crash silently ---------------
 
-test('removeMember "*" iterates the assignees, and tolerates a card with none', () => {
-  // It used to read `card.members`, which is not what addMember writes
-  // (card.assignMember -> assignees), so "remove every member" removed nobody.
-  // The guard used to pin the old `card.members || []` line; what matters is
-  // that the list it iterates is the ASSIGNEES and that a card with none is
-  // still an empty array rather than undefined.
+test('removeMember "*" iterates the collection addMember writes, and tolerates a card with none', () => {
+  // addMember calls card.assignMember, which writes card.MEMBERS
+  // (models/cards.js - checked below, so this guard cannot drift from the
+  // model again). An earlier version of this guard pinned card.assignees on
+  // the belief that assignMember wrote assignees; "remove all" then removed
+  // only members who were also assignees.
+  const cards = fs.readFileSync(path.join(__dirname, '..', 'models', 'cards.js'), 'utf8');
+  assert.match(cards, /assignMember\(memberId\) \{\s*return Cards\.updateAsync\(this\.getRealId\(\), \{ \$addToSet: \{ members: memberId \} \}\);/);
   const block = rulesHelperSrc.slice(rulesHelperSrc.indexOf("actionType === 'removeMember'"));
-  assert.ok(/card\.getAssignees\(\) : card\.assignees\) \|\| \[\]/.test(block),
-    'the assignees are read defensively - a card with none is an empty array');
-  assert.ok(/await card\.unassignMember\(assignees\[i\]\);/.test(block),
+  assert.ok(/const members = \[\.\.\.\(card\.members \|\| \[\]\)\];/.test(block),
+    'the members are read defensively - a card with none is an empty array');
+  assert.ok(/await card\.unassignMember\(members\[i\]\);/.test(block),
     'and every one of them is unassigned, the way addMember assigned them');
-  // Comments stripped first: the comment above the fix NAMES card.members to say
-  // what was wrong, and a guard that reads comments as code fails on its own
-  // explanation.
-  const code = block.slice(0, block.indexOf('checkAll')).replace(/\/\/[^\n]*/g, '');
-  assert.ok(!/card\.members/.test(code),
-    'the members array it used to read is not consulted here any more');
+  const code = block.slice(0, block.indexOf("actionType === 'addAssignee'")).replace(/\/\/[^\n]*/g, '');
+  assert.ok(!/card\.(getAssignees|assignees)/.test(code), 'remove-all members does not read the assignees');
 });
 
 test('member actions resolve the user defensively and await the card writes', () => {

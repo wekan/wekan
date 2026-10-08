@@ -57,7 +57,8 @@ source list's title) and leave `listName` as `'*'`.
 
 `moveCardToTop`, `moveCardToBottom`, `sendEmail`, `setDate`, `updateDate`,
 `removeDate`, `setDateRelative`, `archive`, `unarchive`, `setColor`,
-`addLabel`, `removeLabel`, `addMember`, `removeMember`, `checkAll`,
+`addLabel`, `removeLabel`, `addMember`, `removeMember`, `addAssignee`,
+`removeAssignee`, `checkAll`,
 `uncheckAll`, `checkItem`, `uncheckItem`, `addChecklist`, `removeChecklist`,
 `addChecklistWithItems`, `addSwimlane`, `createCard`, `linkCard`,
 `markCardComplete`, `markCardIncomplete`, `sortList`, `moveAllCardsInList`.
@@ -67,6 +68,13 @@ The member actions take a `username`:
 * `{"actionType": "addMember", "username": "someuser"}` — add the user to the card
 * `{"actionType": "removeMember", "username": "someuser"}` — remove the user from the card
 * `{"actionType": "removeMember", "username": "*"}` — remove **all** members from the card
+
+The assignee actions take the same `username` and act on the card's
+assignees instead of its members:
+
+* `{"actionType": "addAssignee", "username": "{creator}"}` — make the card's
+  creator its assignee; `{assignees}`, `{members}` and a username work too
+* `{"actionType": "removeAssignee", "username": "*"}` — remove **all** assignees
 
 ## List rules
 

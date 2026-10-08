@@ -635,6 +635,18 @@
     {
       "key": "import-board-instruction-orgmode",
       "since": "2026-10-08"
+    },
+    {
+      "key": "r-assignee",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "r-add-actinguser-assignee",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "r-remove-all-assignees",
+      "since": "2026-10-08"
     }
   ]
 }

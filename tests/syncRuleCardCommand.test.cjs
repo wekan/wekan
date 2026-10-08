@@ -83,8 +83,9 @@ test('tampering, linked cards and other action types are refused (negative)', as
   assert.throws(() => f.prepare({ card: { ...f.card, boardId: 'other' } }), /card-invalid/);
   const other = await fixture({ actionType: 'moveCardToTop' });
   assert.throws(() => other.prepare(), /sync-rule-card-invalid/);
-  assert.deepEqual(Object.keys(C.RULE_CARD_ACTIONS).sort(), ['addLabel', 'addMember', 'markCardComplete', 'markCardIncomplete',
-    'removeAllLabels', 'removeDate', 'removeLabel', 'removeMember', 'setColor', 'setDate', 'setDateRelative', 'updateDate']);
+  assert.deepEqual(Object.keys(C.RULE_CARD_ACTIONS).sort(), ['addAssignee', 'addLabel', 'addMember', 'markCardComplete',
+    'markCardIncomplete', 'removeAllLabels', 'removeAssignee', 'removeDate', 'removeLabel', 'removeMember', 'setColor', 'setDate',
+    'setDateRelative', 'updateDate']);
   const badDate = await fixture({ actionType: 'updateDate', dateField: 'createdAt' });
   assert.throws(() => badDate.prepare(), /sync-rule-card-invalid/, 'only the four card dates');
 });
@@ -145,6 +146,26 @@ test('member actions add and remove the resolved people, one activity per real c
   const { checksum, ...content } = { ...added, targets: [...people, { userId: 'u9', username: 'nine' }] };
   assert.throws(() => C.validateRuleCardCommand({ ...content, checksum: sha256(canonical(content)) },
     { plan: add.plan, activity: add.activity, effectId: add.effectId, index: 0 }), /command-invalid/);
+});
+
+// #4294: the assignee actions are the member actions on card.assignees, with
+// the activities the assignees hook writes (joinAssignee / unjoinAssignee).
+test('assignee actions add and remove the resolved people on assignees, not members', async () => {
+  const people = [{ userId: 'u1', username: 'one' }, { userId: 'u2', username: 'two' }];
+  const add = await fixture({ actionType: 'addAssignee', username: '{creator}' });
+  add.card.assignees = ['u1'];
+  add.card.members = ['m1'];
+  const added = add.prepare({ targets: people });
+  assert.deepEqual(added.after, { assignees: ['u1', 'u2'] });
+  assert.deepEqual(added.before, { assignees: ['u1'] }, 'only the assignees field is read and written');
+  assert.deepEqual(added.effects.activities.map(row => [row.activity.activityType, row.activity.assigneeId, row.activity.memberId]),
+    [['joinAssignee', 'u2', undefined]]);
+  assert.deepEqual(added.effects.history.rows.map(row => row.group), ['assignees']);
+  const remove = await fixture({ actionType: 'removeAssignee', username: '*' });
+  remove.card.assignees = ['u1', 'u3'];
+  const removed = remove.prepare({ targets: people });
+  assert.deepEqual(removed.after, { assignees: ['u3'] });
+  assert.deepEqual(removed.effects.activities.map(row => row.activity.activityType), ['unjoinAssignee']);
 });
 
 // The ordinary setters write a linked card's field on the card it links to

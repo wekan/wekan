@@ -41,7 +41,7 @@ function redoTarget(row) {
 // The card fields a planned History row may record: Sync's own, and the ones
 // durable rule card actions change (server/lib/syncRuleCardCommand.js).
 const SYNC_FIELDS = ['title', 'description', 'spentTime', 'customFields', 'archived'];
-const RULE_CARD_FIELDS = ['labelIds', 'color', 'dueComplete', 'startAt', 'endAt', 'dueAt', 'receivedAt', 'members'];
+const RULE_CARD_FIELDS = ['labelIds', 'color', 'dueComplete', 'startAt', 'endAt', 'dueAt', 'receivedAt', 'members', 'assignees'];
 // ...and the checklist item field durable rule checklist actions change
 // (server/lib/syncRuleChecklistCommand.js), recorded on the item.
 const RULE_CHECKLIST_ITEM_FIELDS = ['isFinished'];

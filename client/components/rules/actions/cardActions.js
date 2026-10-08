@@ -151,6 +151,39 @@ Template.cardActions.events({
       desc,
     });
   },
+  // #4294: assignee actions, the member actions' twins on card.assignees.
+  'click .js-add-assignee-action'(event, tpl) {
+    const data = Template.currentData();
+    const actionSelected = tpl.find('#assignee-action').value;
+    const boardId = Session.get('currentBoard');
+    saveRuleTriggerAction(boardId, data.ruleId, data.ruleName.get(), data.triggerVar.get(), {
+      actionType: actionSelected === 'remove' ? 'removeAssignee' : 'addAssignee',
+      username: tpl.find('#assignee-name').value,
+      boardId,
+      desc: Utils.getTriggerActionDesc(event, tpl),
+    });
+  },
+  'click .js-add-actinguser-assignee-action'(event, tpl) {
+    const data = Template.currentData();
+    const boardId = Session.get('currentBoard');
+    saveRuleTriggerAction(boardId, data.ruleId, data.ruleName.get(), data.triggerVar.get(), {
+      actionType: 'addAssignee',
+      username: RULE_ACTING_USER_SENTINEL,
+      boardId,
+      desc: Utils.getTriggerActionDesc(event, tpl),
+    });
+  },
+  'click .js-add-removeall-assignees-action'(event, tpl) {
+    const data = Template.currentData();
+    const boardId = Session.get('currentBoard');
+    saveRuleTriggerAction(boardId, data.ruleId, data.ruleName.get(), data.triggerVar.get(), {
+      actionType: 'removeAssignee',
+      //  deepcode ignore NoHardcodedCredentials: it's no credential
+      username: '*',
+      boardId,
+      desc: Utils.getTriggerActionDesc(event, tpl),
+    });
+  },
   'click .js-add-removealllabels-action'(event, tpl) {
     const data = Template.currentData();
     const ruleName = data.ruleName.get();

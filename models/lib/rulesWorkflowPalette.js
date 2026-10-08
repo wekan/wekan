@@ -23,5 +23,6 @@ export const ACTION_PALETTE = [
   { labelKey: 'r-mark-complete', doc: { actionType: 'markCardComplete' } },
   { labelKey: 'r-mark-incomplete', doc: { actionType: 'markCardIncomplete' } },
   { labelKey: 'r-remove-all', doc: { actionType: 'removeMember', username: '*' } },
+  { labelKey: 'r-remove-all-assignees', doc: { actionType: 'removeAssignee', username: '*' } },
   { labelKey: 'r-w-set-received-now', doc: { actionType: 'setDate', dateField: 'receivedAt' } },
 ];

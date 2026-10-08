@@ -352,6 +352,14 @@ export const RulesHelper = {
         if (memberId) ids.push(memberId);
       } else await byUsername();
     } else if (type === 'removeMember') {
+      if (action.username === '*') ids.push(...(card.members || []));
+      else await byUsername();
+    } else if (type === 'addAssignee') {
+      if (action.username === RULE_ACTING_USER_SENTINEL) {
+        const assigneeId = resolveActingUserId(activity);
+        if (assigneeId) ids.push(assigneeId);
+      } else await byUsername();
+    } else if (type === 'removeAssignee') {
       if (action.username === '*') ids.push(...(card.assignees || []));
       else await byUsername();
     }
@@ -923,15 +931,15 @@ export const RulesHelper = {
     }
     if (action.actionType === 'removeMember') {
       if (action.username === '*') {
-        // #2674: "remove every member" must iterate the card's ASSIGNEES — the
-        // same collection assignMember/unassignMember act on (addMember above
-        // uses card.assignMember). It previously read card.members, so it never
-        // removed anyone the rule had added and "remove all" appeared to do
-        // nothing. Snapshot the ids first: unassignMember $pulls from assignees.
-        const assignees =
-          (typeof card.getAssignees === 'function' ? card.getAssignees() : card.assignees) || [];
-        for (let i = 0; i < assignees.length; i++) {
-          await card.unassignMember(assignees[i]);
+        // #2674: "remove every member" iterates the collection
+        // assignMember/unassignMember write, which is card.MEMBERS
+        // (models/cards.js). An earlier fix read card.assignees here on the
+        // belief that assignMember wrote assignees; it does not, so "remove
+        // all" only removed members who happened to be assignees as well.
+        // Snapshot the ids first: unassignMember $pulls from members.
+        const members = [...(card.members || [])];
+        for (let i = 0; i < members.length; i++) {
+          await card.unassignMember(members[i]);
         }
       } else {
         for (const username of ruleUsernames(action.username, ruleVars)) {
@@ -943,6 +951,36 @@ export const RulesHelper = {
               `WeKan rule action removeMember: user "${username}" not found; skipping.`,
             );
           }
+        }
+      }
+    }
+    // #4294: "when creating a card, I want the assignee to be the creator".
+    // The same people as addMember/removeMember - a username, a {creator}
+    // style token, or the acting user - written to card.ASSIGNEES.
+    if (action.actionType === 'addAssignee') {
+      if (action.username === RULE_ACTING_USER_SENTINEL) {
+        const assigneeId = resolveActingUserId(activity);
+        if (assigneeId) await card.assignAssignee(assigneeId);
+        else console.warn('WeKan rule action addAssignee: no acting user available for this activity; skipping.');
+      } else {
+        for (const username of ruleUsernames(action.username, ruleVars)) {
+          const assignee = await ReactiveCache.getUser({ username });
+          if (assignee) await card.assignAssignee(assignee._id);
+          else console.warn(`WeKan rule action addAssignee: user "${username}" not found; skipping.`);
+        }
+      }
+    }
+    if (action.actionType === 'removeAssignee') {
+      if (action.username === '*') {
+        const assignees = [...(card.assignees || [])];
+        for (let i = 0; i < assignees.length; i++) {
+          await card.unassignAssignee(assignees[i]);
+        }
+      } else {
+        for (const username of ruleUsernames(action.username, ruleVars)) {
+          const assignee = await ReactiveCache.getUser({ username });
+          if (assignee) await card.unassignAssignee(assignee._id);
+          else console.warn(`WeKan rule action removeAssignee: user "${username}" not found; skipping.`);
         }
       }
     }

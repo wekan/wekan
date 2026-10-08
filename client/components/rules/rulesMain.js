@@ -93,27 +93,10 @@ Template.rulesMain.events({
   'click .js-goto-trigger'(event, tpl) {
     event.preventDefault();
     const input = tpl.find('#ruleTitle');
+    // #4294: a title is optional. Left empty, the server names the rule after
+    // its trigger and action ("When ..., then ...", rules.createRule), and the
+    // rules list renames it in place.
     const ruleTitle = (input.value || '').trim();
-    // #4294: clicking "Add Rule" with an empty title used to just do
-    // nothing — no error, no explanation, and the button visibly reacted to
-    // the click. Show a validation message and highlight the field instead
-    // of the silent no-op.
-    if (ruleTitle === '') {
-      input.classList.add('rules-field-error');
-      input.setAttribute('aria-invalid', 'true');
-      input.focus();
-      $(input)
-        .closest('.rules-add')
-        .find('.js-rule-title-error')
-        .removeClass('hide-element');
-      return;
-    }
-    input.classList.remove('rules-field-error');
-    input.removeAttribute('aria-invalid');
-    $(input)
-      .closest('.rules-add')
-      .find('.js-rule-title-error')
-      .addClass('hide-element');
     input.value = '';
     tpl.ruleName.set(ruleTitle);
     // A fresh "Add Rule" always creates - clear any leftover edit target.

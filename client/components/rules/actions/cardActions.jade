@@ -75,6 +75,35 @@ template(name="cardActions")
     button.trigger-button.js-add-removeall-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
       i.fa.fa-plus(aria-hidden="true")
 
+  //- #4294: the same for assignees - a name, a {creator} style token, the
+  //- user who triggered the rule, or every assignee.
+  div.trigger-item
+    div.trigger-content
+      div.trigger-dropdown
+        select(id="assignee-action")
+          option(value="add") {{_'r-add'}}
+          option(value="remove") {{_'r-remove'}}
+      div.trigger-text
+        | {{_'r-assignee'}}
+      div.trigger-dropdown
+        input(id="assignee-name",type=text,placeholder="{{_'r-name'}}")
+    button.trigger-button.js-add-assignee-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text
+        | {{_'r-add-actinguser-assignee'}}
+    button.trigger-button.js-add-actinguser-assignee-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text
+        | {{_'r-remove-all-assignees'}}
+    button.trigger-button.js-add-removeall-assignees-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")
+
   div.trigger-item
     div.trigger-content
       div.trigger-text
