@@ -52,5 +52,16 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
     { cwd: path.resolve(__dirname, '..'), encoding: 'utf8' });
   assert.equal(inventory.status, 0, inventory.stderr);
   assert.deepEqual(JSON.parse(inventory.stdout), {});
+  for (const key of Object.keys(en).filter(key => key.startsWith('interrupted-import-'))) {
+    assert.ok(cs[key]?.trim(), key);
+    assert.notEqual(cs[key], en[key], `${key}: translate import recovery`);
+  }
+  assert.match(cs['interrupted-import-description'], /nelze pokračovat/);
+  assert.match(cs['interrupted-import-description'], /včetně všeho, co bylo přidáno později/);
+  assert.match(cs['interrupted-import-keep-confirm'], /Nic se neodstraní/);
+  assert.match(cs['interrupted-import-discard-confirm'], /trvale odstraněny/);
+  assert.match(cs['interrupted-import-truncated'], /50 nejstarších/);
+  assert.match(cs['interrupted-import-foreign-board'], /nebylo změněno/);
+  assert.match(cs['interrupted-import-state-discarding'], /opětovným odstraněním/);
   console.log('Czech source keys, tokens, planning and recovery warning meanings verified');
 })().catch(error => { console.error(error); process.exitCode = 1; });
