@@ -169468,5 +169468,110 @@
     "before": "历史: Δ 小时; 用户名 ≠ 受让人.",
     "after": "记录小时数个改动，按修改总数个人分组。搿些勿是单独个工作时段。负数是修正。以前呒没记录个时间归勿到具体个人。",
     "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%2 个 %1",
+    "reason": "2026-10-08: Translate remaining English Wu Blockly labels; preserve indexed announcement roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "blockly-CONTROLS_IF_MSG_IF",
+    "before": "if",
+    "after": "假使",
+    "reason": "2026-10-08: Translate remaining English Wu Blockly labels; preserve indexed announcement roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "blockly-CONTROLS_REPEAT_INPUT_DO",
+    "before": "do",
+    "after": "执行",
+    "reason": "2026-10-08: Translate remaining English Wu Blockly labels; preserve indexed announcement roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "blockly-DIALOG_OK",
+    "before": "OK",
+    "after": "确定",
+    "reason": "2026-10-08: Translate remaining English Wu Blockly labels; preserve indexed announcement roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "blockly-FIELD_BITMAP_PIXEL_ON",
+    "before": "on",
+    "after": "亮",
+    "reason": "2026-10-08: Translate remaining English Wu Blockly labels; preserve indexed announcement roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "blockly-LISTS_GET_SUBLIST_END_FROM_START",
+    "before": "to #",
+    "after": "到第 # 项",
+    "reason": "2026-10-08: Translate remaining English Wu Blockly labels; preserve indexed announcement roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "blockly-LISTS_SET_INDEX_INPUT_TO",
+    "before": "as",
+    "after": "设成",
+    "reason": "2026-10-08: Translate remaining English Wu Blockly labels; preserve indexed announcement roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "blockly-LOGIC_OPERATION_OR",
+    "before": "or",
+    "after": "或者",
+    "reason": "2026-10-08: Translate remaining English Wu Blockly labels; preserve indexed announcement roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "blockly-PROCEDURES_DEFNORETURN_TITLE",
+    "before": "to",
+    "after": "定义",
+    "reason": "2026-10-08: Translate remaining English Wu Blockly labels; preserve indexed announcement roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "blockly-CONTROLS_FOREACH_INPUT_DO",
+    "before": "do",
+    "after": "执行",
+    "reason": "2026-10-08: Translate remaining English Wu Blockly labels; preserve indexed announcement roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "blockly-CONTROLS_FOR_INPUT_DO",
+    "before": "do",
+    "after": "执行",
+    "reason": "2026-10-08: Translate remaining English Wu Blockly labels; preserve indexed announcement roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "blockly-CONTROLS_IF_IF_TITLE_IF",
+    "before": "if",
+    "after": "假使",
+    "reason": "2026-10-08: Translate remaining English Wu Blockly labels; preserve indexed announcement roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "blockly-CONTROLS_IF_MSG_THEN",
+    "before": "do",
+    "after": "执行",
+    "reason": "2026-10-08: Translate remaining English Wu Blockly labels; preserve indexed announcement roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "blockly-CONTROLS_WHILEUNTIL_INPUT_DO",
+    "before": "do",
+    "after": "执行",
+    "reason": "2026-10-08: Translate remaining English Wu Blockly labels; preserve indexed announcement roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "blockly-PROCEDURES_DEFRETURN_TITLE",
+    "before": "to",
+    "after": "定义",
+    "reason": "2026-10-08: Translate remaining English Wu Blockly labels; preserve indexed announcement roles; lower-confidence prose needs native review."
   }
 ]

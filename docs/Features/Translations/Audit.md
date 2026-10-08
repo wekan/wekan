@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu Blockly-label corrections — 2026-10-08
+
+Translate 15 remaining English Blockly labels, including control-flow words, procedure
+headings, list assignment and a movement announcement. The local Blockly caller uses
+%1 for an input label and %2 for its enclosing context; preserve those roles when
+reordering the Wu possessive phrase. These labels were absent from the missing-string
+report, so an empty report alone does not prove completion. Refresh exact-value audit
+records. Wu wording needs native review; screen-reader/browser tests were not run and
+the wider translation work remains unfinished.
+
 ## Wu flow-report corrections — 2026-10-08
 
 Correct 39 analytics and time-adjustment values, replacing abbreviated fragments
@@ -12954,7 +12964,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **24,210** exact before/after values, including unflagged
+records contain **24,225** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

@@ -1185,3 +1185,14 @@ assert.match(wu['flow-note-processBehavior'], /呒没就用创建时间.*呒没�
 assert.match(wu['flow-note-sizeCycleTime'], /缺少估算值搭日期无效个记录跳过/);
 assert.match(wu['time-adjustment-note'], /勿是单独个工作时段.*负数是修正.*归勿到具体个人/);
 assert.match(wu['flow-error'], /检查数值，再试/);
+
+const blocklyLabelsWu = ["blockly-ANNOUNCE_MOVE_OF", "blockly-CONTROLS_IF_MSG_IF", "blockly-CONTROLS_REPEAT_INPUT_DO", "blockly-DIALOG_OK", "blockly-FIELD_BITMAP_PIXEL_ON", "blockly-LISTS_GET_SUBLIST_END_FROM_START", "blockly-LISTS_SET_INDEX_INPUT_TO", "blockly-LOGIC_OPERATION_OR", "blockly-PROCEDURES_DEFNORETURN_TITLE", "blockly-CONTROLS_FOREACH_INPUT_DO", "blockly-CONTROLS_FOR_INPUT_DO", "blockly-CONTROLS_IF_IF_TITLE_IF", "blockly-CONTROLS_IF_MSG_THEN", "blockly-CONTROLS_WHILEUNTIL_INPUT_DO", "blockly-PROCEDURES_DEFRETURN_TITLE"];
+for (const key of blocklyLabelsWu) {
+  assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+  assert.notEqual(wu[key], english[key], key);
+}
+assert.equal(wu['blockly-ANNOUNCE_MOVE_OF'].replace('%1', '输入').replace('%2', '积木'), '积木 个 输入');
+assert.equal(wu['blockly-CONTROLS_IF_MSG_IF'], wu['blockly-CONTROLS_IF_IF_TITLE_IF']);
+assert.equal(wu['blockly-PROCEDURES_DEFNORETURN_TITLE'], wu['blockly-PROCEDURES_DEFRETURN_TITLE']);
+for (const key of ['CONTROLS_REPEAT_INPUT_DO', 'CONTROLS_FOREACH_INPUT_DO', 'CONTROLS_FOR_INPUT_DO', 'CONTROLS_IF_MSG_THEN', 'CONTROLS_WHILEUNTIL_INPUT_DO']) assert.equal(wu['blockly-' + key], '执行');
+assert.match(wu['blockly-LISTS_GET_SUBLIST_END_FROM_START'], /#/);
