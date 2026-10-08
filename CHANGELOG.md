@@ -495,6 +495,18 @@ This release adds the following new features:
 report for what the other tool has no place for.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/416aedc706">Restore import example identifiers across locales</a>. Thanks to xet7.</summary>
+
+- Repair 73 Kanboard, Deck, ZenKit and Jira import messages in 25 locale files.
+  Restore case-sensitive field names and API paths, preserving surrounding
+  prose and valid quotation styles. Test these literals across every locale.
+- All 322 translation/i18n suites pass, including positive and negative checks
+  for localized typography and damaged identifiers. Other import formats and
+  mixed-language prose remain under review. Browser sessions were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e33df4be4c">Repair Bislama import instructions and literal examples</a>. Thanks to xet7.</summary>
 
 - Correct 13 mixed-language import instructions and translate OPML and Org mode
