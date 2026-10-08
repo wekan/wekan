@@ -442,6 +442,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3e3a2a4f4c">Restore complete Wu flow report explanations</a>. Thanks to xet7.</summary>
+
+Correct 39 Wu values, replacing abbreviated analytics fragments with complete wording.
+Preserve forecast limitations, missing-history behavior, date fallbacks and correction scope.
+Three focused suites and all 21 human-preference checks pass. Statistical wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/72b11e7fe2">Correct Wu import, WIP group and sync instructions</a>. Thanks to xet7.</summary>
 
 Correct 24 Wu values, restoring WIP group meanings and project examples. Preserve
