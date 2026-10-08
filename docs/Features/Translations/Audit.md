@@ -8743,6 +8743,16 @@ alongside script, key order and token inventories. Technical wording remains low
 confidence pending speaker review. Browser checks were not run; further translations
 remain.
 
+## Odia Boolean logic and arithmetic
+
+Filled 21 English placeholders for logic, conditional values and arithmetic.
+Preserved null, atan2, coordinate placeholders and the signed degree range.
+Conditional help uses the translated branch labels. Existing translations were
+retained by the placeholder-only merge. Regression coverage checks these details
+and Boolean distinctions alongside script, key order and token inventories.
+Technical wording remains low confidence pending speaker review. Browser checks
+were not run; further Odia translations remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
