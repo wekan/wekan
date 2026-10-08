@@ -7981,6 +7981,16 @@ deletion, overdue meaning, date distinctions and editing targets. Technical word
 remains low confidence pending speaker review. Browser checks were not run.
 Further wrong-language corrections and the broader audit remain unfinished.
 
+### Tatar voting and planning-poker corrections
+
+Corrected 27 wrong-language voting and card-action strings and restored ten poker
+number/question-mark labels that had inappropriate prose appended. Numeric options
+now match the source exactly; they are symbols, not untranslated prose. Preserved
+correct adjacent translations and source placeholders. Regression coverage checks
+exact options, support/opposition, logged-in access and permanent-deletion wording.
+Technical terminology remains low confidence pending speaker review. Browser checks
+were not run. Further corrections and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
