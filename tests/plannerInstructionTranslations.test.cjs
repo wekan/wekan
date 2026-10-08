@@ -1198,3 +1198,24 @@ for (const code of ['uk', 'uk-UA']) {
   assert.match(locale['import-board-instruction-teamwork'], /на один рівень глибше/);
   assert.match(locale['import-board-instruction-superproductivity'], /архівовані завдання стають архівованими картками/);
 }
+
+{
+  const locale = read('uk-UA');
+  const literals = {
+    opml: ['OPML', 'Workflowy', 'Dynalist', 'OmniOutliner', 'Logseq'],
+    orgmode: ['Org mode', 'Emacs', 'Orgzly', 'Beorg', 'TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED'],
+    todoist: ['Todoist', 'Export as a template', 'CSV', '@labels', 'p1', 'p3'],
+  };
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), key);
+    for (const value of values) assert.ok(locale[key].includes(value), key + ': ' + value);
+  }
+  assert.match(locale['import-board-instruction-opml'], /Завершені елементи імпортуються як виконані/);
+  assert.match(locale['import-board-instruction-opml'], /глибші елементи — контрольними списками/);
+  assert.match(locale['import-board-instruction-orgmode'], /другого рівня — картками/);
+  assert.match(locale['import-board-instruction-todoist'], /підзавдання — контрольним списком/);
+  assert.doesNotMatch(locale['import-board-instruction-todoist'], /підзавдання — картками/);
+  assert.match(locale['import-board-instruction-todoist'], /примітки — коментарями/);
+}

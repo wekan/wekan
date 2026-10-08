@@ -2,6 +2,20 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Ukrainian regional outline imports — 2026-10-09
+
+Fill the three older English import instructions in uk-UA: OPML, Org mode and
+Todoist, using the existing Ukrainian translations and retaining the Todoist
+export command. Check exact placeholders, application and format names, Org mode
+keywords, hierarchy, completion state and note-to-comment mapping. Both Ukrainian
+catalogs now have no exact English import-instruction values. All 333 translation-related suites pass in 128 seconds, and all 21 preservation
+checks pass; browser and language review remain outstanding.
+
+The current ordinary fill report still counts 32,567 untranslated values in 46
+locales, excluding 271 deferred source keys. Those deferred keys remain within the
+translation task. A further 94 regional English values already have Ukrainian
+translations available for review and reuse; the wider task is not complete.
+
 ## Ukrainian import instructions, remaining group — 2026-10-09
 
 Translate the remaining 13 instructions in uk and uk-UA, replacing 26 English
