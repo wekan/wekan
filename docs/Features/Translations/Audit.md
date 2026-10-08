@@ -9270,6 +9270,16 @@ those details, script, key order and tokens. Technical terminology remains low
 confidence pending speaker review. Browser checks were not run; further Konkani
 translations and the broader audit remain unfinished.
 
+## Konkani block editing and bitmap controls
+
+Filled 25 English values for editing, deletion and bitmap controls. Existing
+translations were retained; filter-excluded short labels were filled directly
+after verifying equality with English. Preserved deletion counts, variable names,
+bitmap dimensions and row/column roles. Regression coverage checks those details,
+opposite actions, script, key order and tokens. Technical wording remains low
+confidence pending speaker review. Browser checks were not run; further Konkani
+translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
