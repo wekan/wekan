@@ -687,3 +687,23 @@ for (const code of ['ja', 'ja-JP']) {
   assert.match(locale['import-board-instruction-meistertask'], /かんりょうした たすくの かんりょうびは のこります/);
   assert.match(locale['import-board-instruction-obsidian'], /ああかいぶは ああかいぶずみの かあどに なります/);
 }
+
+{
+  const locale = read('ja-HI');
+  const literals = {...newerImportLiterals, ...Object.fromEntries(['pivotal', 'tasksorg', 'monday', 'superproductivity', 'taiga', 'vikunja'].map(format => [format, importLiterals[format]]))};
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), key);
+    assert.match(locale[key], /\p{Script=Hiragana}/u, key);
+    assert.doesNotMatch(locale[key], /[\p{Script=Han}\p{Script=Katakana}]/u, key);
+    for (const value of values) assert.ok(locale[key].includes(value), key + ': ' + value);
+  }
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /てんぷふぁいるは いんぽおとされません/);
+  assert.match(locale['import-board-instruction-notion'], /りれえしょん、がぞう、てんぷふぁいるは いんぽおとされません/);
+  assert.match(locale['import-board-instruction-plane'], /せつめいと てんぷふぁいるが ふくまれない.*いんぽおとされません/);
+  assert.match(locale['import-board-instruction-businessmap'], /さきに へっだあぎょうを えいごの なまえに かえて/);
+  assert.match(locale['import-board-instruction-redmine'], /えくすぽおとの まえに My account.*English/);
+  assert.match(locale['import-board-instruction-teamwork'], /さらに ひとつ かいそうが ふかく/);
+  assert.match(locale['import-board-instruction-superproductivity'], /ああかいぶずみの たすくは ああかいぶずみの かあどに なります/);
+}

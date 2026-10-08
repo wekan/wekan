@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Hiragana import instructions, remaining group — 2026-10-09
+
+Translate the remaining 13 instructions in ja-HI, completing all 21 import
+instructions there. Preserve commands, columns, extensions, hierarchy markers and
+variables while writing prose in Hiragana. Regression checks reject Kanji and
+Katakana and cover excluded data, English headers, task hierarchy and archived
+tasks. Import-instruction and placeholder suites and all 21 preservation checks
+pass. Browser review and the wider translation backlog remain outstanding.
+
 ## Hiragana import instructions, first group — 2026-10-09
 
 Translate eight instructions in ja-HI: Planner, MeisterTask, Obsidian, Linear,
