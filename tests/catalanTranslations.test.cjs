@@ -36,3 +36,21 @@ for (const code of ['ca', 'ca_ES', 'ca@valencia']) {
   assert.deepEqual(data['external-link-rules-description'].match(/\{[^{}]+\}/g), english['external-link-rules-description'].match(/\{[^{}]+\}/g));
   assert.ok(data['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
 }
+
+const planningKeys = ["scrum-import-preview-releases", "scrum-import-preview-cards", "scrum-import-preview-nothing", "scrum-import-into-board-done", "scrum-import-card-not-matched", "scrum-import-card-ambiguous", "scrum-import-card-on-another-board", "scrum-import-record-ambiguous", "scrum-import-record-not-imported", "scrum-import-sprint-finished", "sync-planning-sprint", "sync-planning-releases", "sync-planning-fields", "sync-planning-hint", "stuck-sync-operation-heading", "stuck-sync-operation-description", "stuck-sync-operation-list", "stuck-sync-operation-progress", "stuck-sync-operation-reason", "stuck-sync-operation-applied"];
+for (const code of ['ca', 'ca_ES', 'ca@valencia']) {
+  const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data', code + '.i18n.json'), 'utf8'));
+  for (const key of planningKeys) {
+    assert.ok(data[key]?.trim(), key);
+    assert.notEqual(data[key], english[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), code + ': ' + key);
+  }
+  assert.match(data['scrum-import-card-on-another-board'], /altre tauler.*sense canvis/);
+  assert.match(data['scrum-import-sprint-finished'], /No s’ha mogut.*esprint finalitzat/);
+  assert.match(data['sync-planning-hint'], /primer per l’ID de la font i després pel nom/);
+  assert.match(data['sync-planning-hint'], /primera sincronització mai no elimina la planificació/);
+  assert.match(data['sync-planning-hint'], /canvi local.*es manté fins que la font canvia/);
+  assert.match(data['stuck-sync-operation-description'], /els canvis ja aplicats es conserven/);
+  assert.match(data['stuck-sync-operation-description'], /canvis desats pendents mai no s’escriuen/);
+  assert.doesNotMatch(data['stuck-sync-operation-description'], /els canvis ja aplicats s’eliminen/);
+}

@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Catalan and Valencian planning results — 2026-10-09
+
+Translate 20 messages in ca, ca_ES and ca@valencia, replacing 60 English values:
+Scrum import results, reference warnings, planning synchronization and initial
+stalled-sync recovery text. Preserve all counters and reference variables.
+Regression checks cover unchanged foreign-board cards, finished sprints, matching
+order, retained local changes, first-sync behavior and applied versus pending
+recovery changes. Four relevant suites and all 21 preservation checks pass.
+Browser review and the wider translation backlog remain outstanding.
+
 ## Catalan and Valencian settings and planning — 2026-10-09
 
 Translate 25 messages in ca, ca_ES and ca@valencia, replacing 75 English values:
