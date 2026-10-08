@@ -1006,6 +1006,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c458610f62">Translate Greek controls and planning recovery</a>. Thanks to xet7.</summary>
+
+Fill 98 messages in each Greek catalog, for 196 values. Cover controls,
+import guidance, LDAP, login address errors, Scrum planning and recovery.
+Preserve variables, literal examples, matching priority and recovery choices.
+
+Five focused translation suites and 21 human-preference checks pass.
+Both current Greek fill lists are empty. No browser or screen-reader
+session was run; other languages and linguistic review remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/02ee6a37c9">Translate Turkish planning imports and history recovery</a>. Thanks to xet7.</summary>
 
 Fill 29 messages covering release selection, planning imports, planning
