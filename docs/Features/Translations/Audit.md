@@ -8310,6 +8310,15 @@ and retained valid neighboring text. Technical wording remains low confidence
 pending speaker review. Focused tests cover tokens, key order, query examples and
 search logic; browser checks were not run.
 
+## Tatar card sorting and dependency-label corrections
+
+Corrected 18 wrong-language sorting, completion, sticker and dependency labels.
+Restored literal A/Z sort indicators and preserved opposing completion, visibility,
+addition and removal actions. Existing correct-language dependency permissions and
+import/export messages remain. Technical wording remains low confidence pending
+speaker review. Focused tests cover key order, source tokens, sort directions and
+action distinctions; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
