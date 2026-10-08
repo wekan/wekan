@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/21248c01f1675095dc40012dc2a8d4e502578384">Translate Turkmen Blockly colours and controls</a></summary>
+
+- Fill 24 Turkmen placeholders, preserving existing translations, colour
+  ranges, deletion restrictions, warnings and loop-control distinctions.
+- Technical wording remains low confidence pending speaker review.
+- All 40 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Turkmen translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f0282acf1e40cbbc50d1ff05d90631aa7755092f">Translate Konkani short rule and board labels</a></summary>
 
 - Fill nine English-identical labels, preserving existing translations and
