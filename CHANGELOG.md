@@ -487,6 +487,16 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e25c024618">Translate Wu Blockly rounding and unary math</a>. Thanks to xet7.</summary>
+
+Translate 30 math messages, preserving variables and literals and checking random
+bounds, rounding directions and logarithm bases. Four focused translation suites
+and 21 human-preference checks pass. Wu wording is lower confidence and needs
+native review. No browser or screen-reader session was run. Work is unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/211c99607d">Translate Wu Blockly number properties and statistics</a>. Thanks to xet7.</summary>
 
 Translate 30 number-property and statistics messages, preserving variables and
