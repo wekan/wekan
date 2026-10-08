@@ -70,8 +70,6 @@ that used to sit here are in git history.
   Problems → Recovery needs a list of them and a discard action.
 - A Scrum History undo or redo that hits a conflict leaves a checkpoint that
   blocks Scrum edits and cannot be discarded, online or offline.
-- More than one release per card (a card has one `releaseId`), with copy,
-  transfer, reports, the card UI and Jira fix versions.
 - Scrum planning from importers other than Jira: GitLab milestones and
   iterations, OpenProject versions, Asana and Trello.
 - Planning Sync: sprints and releases through List Sync. Verifying it live
@@ -635,6 +633,23 @@ assignees while removing members, so it removed only people who were both;
 its guards now read `models/cards.js` instead of assuming the field. A
 Playwright case creates an untitled rule and a card that gets its creator as
 assignee.
+
+</details>
+
+**Scrum** - planning a card across releases.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/727ceedd01">A card can be in more than one release</a>. Thanks to xet7.</summary>
+
+A card had one release, so Jira import kept only an issue's first fix version
+and Jira export wrote none. Releases are now a list, with the old single
+field kept as its first entry so older readers still see one; existing cards
+are read the same way and move to the list on their next Scrum save. Every
+release must belong to the board. Copies and moves link each release by name,
+the native transfer and Jira import and export carry them all, Board View /
+Sprints shows each release's cards and progress, and the Product Backlog and
+card details pick several. `tests/scrumMultipleReleases.test.cjs` fails if any
+code reads the single field directly.
 
 </details>
 
