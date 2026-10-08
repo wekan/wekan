@@ -487,6 +487,16 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7410bfc2db">Translate Wu imports and Blockly controls</a>. Thanks to xet7.</summary>
+
+Translate 35 import, login, keyboard, color and control-flow messages, preserving
+variables, literal names and numeric limits. Five focused translation suites and
+21 human-preference checks pass. Wu wording is lower confidence and needs native
+review. No browser session was run. Remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1dfef78d90">Translate Wu board and LDAP settings</a>. Thanks to xet7.</summary>
 
 Translate 17 settings and rule strings, preserving variables, link templates and
