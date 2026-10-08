@@ -9954,6 +9954,20 @@ passed. Technical Darija wording remains low confidence pending speaker review.
 Browser, RTL and screen-reader checks were not run. Remaining placeholders and
 the broader language audit stay open.
 
+## Moroccan Arabic recovery completion and short-label audit
+
+Filled 44 English-identical values: ten recovery messages, eighteen keyboard
+names with printed key text retained, and sixteen short labels skipped by the
+ordinary fill filter. Direct writes were limited to values still equal to English.
+Tests check source order, script, tokens, permanent cancellation, no recall of
+queued mail or delivered notifications, retained pending work, temporary pause,
+keyboard names and matching Blockly aliases. Of 60 checks, 58 passed; two
+repository-wide checks still fail because other locales lack the new card-field-
+visibility keys. All 21 human-preference checks passed. The ordinary placeholder
+list now retains technical names and notation. This does not complete the older
+catalog's dialect or semantic audit. Technical wording remains low confidence;
+speaker, browser, RTL and screen-reader review remain pending.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
