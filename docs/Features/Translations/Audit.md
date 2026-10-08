@@ -9133,6 +9133,16 @@ details, script, key order and tokens. Technical wording remains low confidence
 pending speaker review. Browser checks were not run; further Maithili translations
 and the broader audit remain unfinished.
 
+## Maithili variable warnings and workspace search
+
+Filled 28 English values for variable warnings, workspace counts and search.
+Existing translations were retained; short control aliases excluded by the filter
+were filled directly after verifying equality with English. Preserved name/type
+roles, count and comment tokens, search-key names and match tokens. Regression
+coverage checks those details, script, key order and token inventories. Technical
+wording remains low confidence pending speaker review. Browser and screen-reader
+checks were not run; further Maithili translations and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
