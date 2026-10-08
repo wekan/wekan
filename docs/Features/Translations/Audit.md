@@ -9595,6 +9595,16 @@ Mathematical terminology remains low confidence pending speaker review.
 Browser checks were not run; further Turkmen translations and the broader
 audit remain unfinished.
 
+## Turkmen variables and function controls
+
+Filled 36 English placeholders for variables, function definitions and workspace
+actions. The placeholder-only merge retained existing translations. Coverage
+checks return-value distinctions, disabled definitions, scope restrictions,
+conditional returns, variable types and accessibility shortcuts, plus key
+order and tokens. Technical wording remains low confidence pending speaker
+review. Browser and screen-reader checks were not run; further Turkmen
+translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
