@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu limits and mail-setting corrections — 2026-10-08
+
+Correct 24 task-limit, transfer-limit, invitation and mail-setting values. Preserve
+WIP alternatives, separate API buffering caps, avatar defaults and named invitation
+variables. Restore board destination and sender meanings; retain template brace
+variables unchanged. Refresh exact-value audit records. Wu prose needs native review;
+browser tests were not run and all-language work remains unfinished.
+
 ## Wu tracking and link corrections — 2026-10-08
 
 Correct 18 time-tracking, shortcut, watching and link values. Replace wristwatch and
@@ -12642,7 +12650,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,358** exact before/after values, including unflagged
+records contain **23,382** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

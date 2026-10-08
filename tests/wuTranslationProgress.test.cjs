@@ -728,3 +728,14 @@ assert.match(wu['tracking-info'], /创建者或者成员.*卡片.*任何改动/)
 assert.match(wu['watching-info'], /看板.*任何改动/);
 assert.match(wu['external-link-pattern-description'], /#1234.*随便留空一只.*关脱/);
 assert.match(wu['automatic-linked-url-schemes'], /每行一只 URL 协议/);
+
+const limitsMail = ["what-to-do", "wipLimitErrorPopup-dialog-pt1", "wipLimitErrorPopup-dialog-pt2", "attachment-transfer-limits-description", "attachment-transfer-limits-saved", "attachment-transfer-limits-save-failed", "attachment-transfer-limits-invalid-value", "avatars-upload-blocked-description", "people", "registration", "invite-people", "to-boards", "smtp-host-description", "smtp-port-description", "send-from", "send-smtp-test", "email-templates-title", "email-templates-invite-subject", "email-templates-invite-body", "email-templates-activity-subject", "email-templates-activity-body", "email-invite-register-subject", "email-invite-register-text", "email-smtp-test-text"];
+for (const key of limitsMail) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.match(wu['wipLimitErrorPopup-dialog-pt2'], /任务.*移出去.*或者.*更高个 WIP 上限/);
+assert.match(wu['attachment-transfer-limits-description'], /上传搭下载.*API.*另外.*服务器端/);
+assert.match(wu['avatars-upload-blocked-description'], /勿许.*新头像.*默认.*启用/);
+assert.equal(wu['to-boards'], '到看板');
+assert.equal(wu['send-from'], '发件人');
+assert.match(wu['email-invite-register-text'], /__inviter__.*邀请侬.*__icode__/s);
+assert.equal(wu['email-invite-register-subject'], wu['email-invite-subject']);
+for (const key of ['email-templates-invite-vars-hint', 'email-templates-activity-vars-hint']) assert.deepEqual(wu[key].match(/\{[^}]+\}/g), english[key].match(/\{[^}]+\}/g));

@@ -163504,5 +163504,173 @@
     "before": "先进的",
     "after": "进阶",
     "reason": "2026-10-08: Correct Wu tracking and link prose, preserving shortcut ranges and disable conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "what-to-do",
+    "before": "你想让我做什么？",
+    "after": "侬想做啥？",
+    "reason": "2026-10-08: Correct Wu limits and mail settings, preserving invitation variables, technical names and separate safety caps; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "wipLimitErrorPopup-dialog-pt1",
+    "before": "此列表中的任务数量高于您定义的 WIP 限制。",
+    "after": "搿只列表里向个任务数量超过侬设定个 WIP 上限仔。",
+    "reason": "2026-10-08: Correct Wu limits and mail settings, preserving invitation variables, technical names and separate safety caps; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "wipLimitErrorPopup-dialog-pt2",
+    "before": "请将某些任务移出此列表，或设置更高的 WIP 限制。",
+    "after": "请拿一眼任务从搿只列表移出去，或者设一只更高个 WIP 上限。",
+    "reason": "2026-10-08: Correct Wu limits and mail settings, preserving invitation variables, technical names and separate safety caps; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "attachment-transfer-limits-description",
+    "before": "配置上传和下载的最大文件大小限制。API 传输缓冲有单独的服务器端安全上限。",
+    "after": "设置上传搭下载个最大文件大小。API 传输缓冲另外有服务器端个安全上限。",
+    "reason": "2026-10-08: Correct Wu limits and mail settings, preserving invitation variables, technical names and separate safety caps; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "attachment-transfer-limits-saved",
+    "before": "附件传输限制已保存。",
+    "after": "附件传输限制保存好仔。",
+    "reason": "2026-10-08: Correct Wu limits and mail settings, preserving invitation variables, technical names and separate safety caps; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "attachment-transfer-limits-save-failed",
+    "before": "保存附件传输限制失败",
+    "after": "附件传输限制保存失败仔",
+    "reason": "2026-10-08: Correct Wu limits and mail settings, preserving invitation variables, technical names and separate safety caps; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "attachment-transfer-limits-invalid-value",
+    "before": "请输入有效的正数限制值",
+    "after": "请输入有效个正数限制值",
+    "reason": "2026-10-08: Correct Wu limits and mail settings, preserving invitation variables, technical names and separate safety caps; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "avatars-upload-blocked-description",
+    "before": "禁止用户上传新头像（当头像从其他来源同步时很有用）。头像默认启用。",
+    "after": "勿许用户上传新头像（头像从别个来源同步个辰光有用）。头像默认是启用个。",
+    "reason": "2026-10-08: Correct Wu limits and mail settings, preserving invitation variables, technical names and separate safety caps; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "people",
+    "before": "人们",
+    "after": "人员",
+    "reason": "2026-10-08: Correct Wu limits and mail settings, preserving invitation variables, technical names and separate safety caps; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "registration",
+    "before": "登记",
+    "after": "注册",
+    "reason": "2026-10-08: Correct Wu limits and mail settings, preserving invitation variables, technical names and separate safety caps; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "invite-people",
+    "before": "邀请人们",
+    "after": "邀请人员",
+    "reason": "2026-10-08: Correct Wu limits and mail settings, preserving invitation variables, technical names and separate safety caps; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "to-boards",
+    "before": "前往登机口",
+    "after": "到看板",
+    "reason": "2026-10-08: Correct Wu limits and mail settings, preserving invitation variables, technical names and separate safety caps; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "smtp-host-description",
+    "before": "处理您的电子邮件的 SMTP 服务器的地址。",
+    "after": "处理侬个电子邮件个 SMTP 服务器地址。",
+    "reason": "2026-10-08: Correct Wu limits and mail settings, preserving invitation variables, technical names and separate safety caps; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "smtp-port-description",
+    "before": "您的 SMTP 服务器用于发送电子邮件的端口。",
+    "after": "侬个 SMTP 服务器发送电子邮件用个端口。",
+    "reason": "2026-10-08: Correct Wu limits and mail settings, preserving invitation variables, technical names and separate safety caps; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "send-from",
+    "before": "从",
+    "after": "发件人",
+    "reason": "2026-10-08: Correct Wu limits and mail settings, preserving invitation variables, technical names and separate safety caps; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "send-smtp-test",
+    "before": "给自己发送一封测试电子邮件",
+    "after": "畀自家发一封测试电子邮件",
+    "reason": "2026-10-08: Correct Wu limits and mail settings, preserving invitation variables, technical names and separate safety caps; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "email-templates-title",
+    "before": "电子邮件 模板",
+    "after": "电子邮件模板",
+    "reason": "2026-10-08: Correct Wu limits and mail settings, preserving invitation variables, technical names and separate safety caps; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "email-templates-invite-subject",
+    "before": "邀请 电子邮件 主题",
+    "after": "邀请邮件主题",
+    "reason": "2026-10-08: Correct Wu limits and mail settings, preserving invitation variables, technical names and separate safety caps; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "email-templates-invite-body",
+    "before": "邀请 电子邮件 文本",
+    "after": "邀请邮件正文",
+    "reason": "2026-10-08: Correct Wu limits and mail settings, preserving invitation variables, technical names and separate safety caps; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "email-templates-activity-subject",
+    "before": "活动 电子邮件 主题",
+    "after": "活动通知邮件主题",
+    "reason": "2026-10-08: Correct Wu limits and mail settings, preserving invitation variables, technical names and separate safety caps; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "email-templates-activity-body",
+    "before": "活动 电子邮件 文本",
+    "after": "活动通知邮件正文",
+    "reason": "2026-10-08: Correct Wu limits and mail settings, preserving invitation variables, technical names and separate safety caps; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "email-invite-register-subject",
+    "before": "__inviter__ 向您发送了邀请",
+    "after": "__inviter__ 畀侬发来仔邀请",
+    "reason": "2026-10-08: Correct Wu limits and mail settings, preserving invitation variables, technical names and separate safety caps; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "email-invite-register-text",
+    "before": "亲爱的__user__，\n\n__inviter__ 邀请您加入看板进行合作。\n\n请点击以下链接：\n__url__\n\n您的邀请码是：__icode__\n\n谢谢。",
+    "after": "__user__，侬好：\n\n__inviter__ 邀请侬加入看板一淘协作。\n\n请点下头个链接：\n__url__\n\n侬个邀请码是：__icode__\n\n谢谢。",
+    "reason": "2026-10-08: Correct Wu limits and mail settings, preserving invitation variables, technical names and separate safety caps; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "email-smtp-test-text",
+    "before": "您已成功发送电子邮件",
+    "after": "侬成功发出一封电子邮件仔",
+    "reason": "2026-10-08: Correct Wu limits and mail settings, preserving invitation variables, technical names and separate safety caps; lower-confidence prose needs native review."
   }
 ]
