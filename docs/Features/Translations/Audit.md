@@ -8808,6 +8808,15 @@ the placeholder-only merge. Regression coverage checks state/action distinctions
 script, key order and token inventories. Technical wording remains low confidence
 pending speaker review. Browser checks were not run; further translations remain.
 
+## Odia directional keyboard shortcuts
+
+Filled 22 English placeholders for directional movement, scrolling, stack and page
+navigation. Preserved opposing directions and distinctions between movement and
+scrolling. Existing translations were retained by the placeholder-only merge.
+Regression coverage checks directional consistency, distinct navigation targets,
+script, key order and token inventories. Technical wording remains low confidence
+pending speaker review. Browser checks were not run; further translations remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
