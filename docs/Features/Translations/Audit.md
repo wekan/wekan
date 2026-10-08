@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Yiddish Blockly text values and workspace counts — 2026-10-08
+
+Translate 45 English text, variable and workspace messages. Preserve variables
+and leading spaces in joined announcements. Check trimming directions, copied
+results, replacing all occurrences, counted spaces and zero/one/many messages.
+Specialized wording is lower confidence and needs native review. No browser or
+screen-reader session was run. Remaining translations are unfinished.
+
 ## Yiddish Blockly text positions — 2026-10-08
 
 Translate 45 English text and navigation messages. Preserve variables and index

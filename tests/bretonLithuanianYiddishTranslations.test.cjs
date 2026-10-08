@@ -560,3 +560,22 @@ assert.match(locales.yi['blockly-TEXT_CHARAT_FROM_END'], /# פֿונעם סוף/
 assert.doesNotMatch(locales.yi['blockly-TEXT_CHARAT_FROM_START'], /פֿונעם סוף/);
 assert.match(locales.yi['blockly-TEXT_INDEXOF_TOOLTIP'], /%1 אויב דער טעקסט ווערט נישט געפֿונען/);
 assert.match(locales.yi['blockly-TEXT_APPEND_TOOLTIP'], /צום סוף/);
+
+const yiddishBlocklyValues = ["blockly-TEXT_ISEMPTY_TITLE", "blockly-TEXT_ISEMPTY_TOOLTIP", "blockly-TEXT_JOIN_TITLE_CREATEWITH", "blockly-TEXT_JOIN_TOOLTIP", "blockly-TEXT_LENGTH_TITLE", "blockly-TEXT_LENGTH_TOOLTIP", "blockly-TEXT_PRINT_TITLE", "blockly-TEXT_PRINT_TOOLTIP", "blockly-TEXT_PROMPT_TOOLTIP_NUMBER", "blockly-TEXT_PROMPT_TOOLTIP_TEXT", "blockly-TEXT_PROMPT_TYPE_NUMBER", "blockly-TEXT_PROMPT_TYPE_TEXT", "blockly-TEXT_REPLACE_MESSAGE0", "blockly-TEXT_REPLACE_TOOLTIP", "blockly-TEXT_REVERSE_MESSAGE0", "blockly-TEXT_REVERSE_TOOLTIP", "blockly-TEXT_TEXT_TOOLTIP", "blockly-TEXT_TRIM_OPERATOR_BOTH", "blockly-TEXT_TRIM_OPERATOR_LEFT", "blockly-TEXT_TRIM_OPERATOR_RIGHT", "blockly-TEXT_TRIM_TOOLTIP", "blockly-TODAY", "blockly-UNDO", "blockly-UNKNOWN", "blockly-UNNAMED_KEY", "blockly-VARIABLES_DEFAULT_NAME", "blockly-VARIABLES_GET_CREATE_SET", "blockly-VARIABLES_GET_TOOLTIP", "blockly-VARIABLES_SET", "blockly-VARIABLES_SET_CREATE_GET", "blockly-VARIABLES_SET_TOOLTIP", "blockly-VARIABLE_ALREADY_EXISTS", "blockly-VARIABLE_ALREADY_EXISTS_FOR_ANOTHER_TYPE", "blockly-VARIABLE_ALREADY_EXISTS_FOR_A_PARAMETER", "blockly-WORKSPACE_COMMENT_DEFAULT_TEXT", "blockly-WORKSPACE_CONTENTS_BLOCKS_MANY", "blockly-WORKSPACE_CONTENTS_BLOCKS_ONE", "blockly-WORKSPACE_CONTENTS_BLOCKS_ZERO", "blockly-WORKSPACE_CONTENTS_COMMENTS_MANY", "blockly-WORKSPACE_CONTENTS_COMMENTS_ONE", "blockly-WORKSPACE_LABEL_1_STACK", "blockly-WORKSPACE_LABEL_FLYOUT_WORKSPACE", "blockly-WORKSPACE_LABEL_MANY_STACKS", "blockly-WORKSPACE_LABEL_MUTATOR_WORKSPACE", "blockly-WORKSPACE_LABEL_PLAIN"];
+for (const key of yiddishBlocklyValues) {
+  assert.notEqual(locales.yi[key], english[key], key);
+  assert.match(locales.yi[key], /[\u0590-\u05ff]/, key);
+  assert.deepEqual(translationTokens(locales.yi[key]), translationTokens(english[key]), key);
+}
+assert.match(locales.yi['blockly-TEXT_LENGTH_TOOLTIP'], /אַרײַנגערעכנט רווחים/);
+assert.match(locales.yi['blockly-TEXT_REPLACE_TOOLTIP'], /אַלע אויפֿטרעטונגען/);
+assert.match(locales.yi['blockly-TEXT_TRIM_OPERATOR_BOTH'], /ביידע/);
+assert.match(locales.yi['blockly-TEXT_TRIM_OPERATOR_LEFT'], /לינקער/);
+assert.match(locales.yi['blockly-TEXT_TRIM_OPERATOR_RIGHT'], /רעכטער/);
+assert.match(locales.yi['blockly-TEXT_TRIM_TOOLTIP'], /קאָפּיע/);
+assert.match(locales.yi['blockly-VARIABLES_GET_TOOLTIP'], /גיט צוריק/);
+assert.match(locales.yi['blockly-VARIABLES_SET_TOOLTIP'], /שטעלט דעם ווערט/);
+assert.match(locales.yi['blockly-WORKSPACE_CONTENTS_BLOCKS_ZERO'], /^קיין בלאָקן%2/);
+assert.match(locales.yi['blockly-WORKSPACE_CONTENTS_BLOCKS_ONE'], /^איין בלאָקן־שטאַפּל%2/);
+assert.match(locales.yi['blockly-WORKSPACE_CONTENTS_COMMENTS_ONE'], /^ און איין/);
+assert.match(locales.yi['blockly-WORKSPACE_CONTENTS_COMMENTS_MANY'], /^ און %1/);
