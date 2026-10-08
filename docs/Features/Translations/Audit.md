@@ -7574,6 +7574,15 @@ and without return values, named invocations and function-only return restrictio
 Technical wording remains low confidence pending speaker review. Browser, screen-reader
 and right-to-left layout checks were not run. The broader translation audit continues.
 
+### Central Kurdish keyboard shortcuts
+
+Filled 39 English placeholders for editing, focus, movement, scrolling and accessible
+navigation shortcuts. Existing translations and source tokens are preserved. Regression
+coverage checks key order, script, placeholder inventories, physical left/right directions,
+next/previous targets and distinct move/focus actions. Technical wording remains low
+confidence pending speaker review. Browser, screen-reader and right-to-left layout
+checks were not run. The broader translation audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
