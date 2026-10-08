@@ -2173,6 +2173,20 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7904a3b4dcac36331b4c234993e4df71dcec4b8c">Correct Tatar trigger events and date-change wording</a></summary>
+
+- Correct 37 trigger, movement and checklist strings, preserving source tokens
+  and distinguishing date types, setting versus changing dates, and archive states.
+- Technical wording and composed fragments remain low confidence pending
+  speaker review.
+- All 66 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7b778d93e4c50f84d951dbac618328417eeef83c">Correct Tatar scheduled rules and workflow controls</a></summary>
 
 - Correct 43 workflow, schedule, date-trigger and button strings, preserving
