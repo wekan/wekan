@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/065fd8de29eed6f5df8456d43e4c1921cea3d7ac">Translate Tatar function controls</a></summary>
+
+- Fill 27 function and workspace strings, preserving existing translations
+  and source placeholders.
+- Technical wording remains low confidence pending speaker review.
+- All 52 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. Further Tatar corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c0acf256e61db202f5755fcdfd791188e960e780">Translate Tatar trigonometry and workspace controls</a></summary>
 
 - Fill 24 trigonometry and workspace strings, preserving existing translations,
