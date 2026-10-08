@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/48ce6a9d50eb69ef68f16ee0f52c9d09621737ab">Correct Tatar cloud status and migration controls</a></summary>
+
+- Correct 23 cloud and migration values, preserving provider names,
+  credential states and pause versus stop distinctions.
+- Technical wording remains low confidence pending speaker review.
+- All 139 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0cf1c99b06d668eb93d3e9f83f9f7e280edc9259">Correct Tatar cloud credentials and console paths</a></summary>
 
 - Correct 22 cloud-credential values, restoring console labels, credential fields
