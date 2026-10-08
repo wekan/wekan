@@ -8391,6 +8391,14 @@ correct-language text-editing labels remain. Technical wording remains low confi
 pending speaker review. Focused tests cover tokens, key order, storage names and
 operation scopes; browser checks were not run.
 
+## Tatar storage repair and default-destination corrections
+
+Corrected 19 wrong-language storage values, including the literal S3/MinIO label.
+Preserved read-enabled storage eligibility, attachment-and-avatar repair scope,
+new-upload destination semantics and distinct repair/save states. Technical wording
+remains low confidence pending speaker review. Focused tests cover tokens, key
+order, identifiers and state distinctions; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
