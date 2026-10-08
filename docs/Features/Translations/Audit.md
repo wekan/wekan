@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Kinyarwanda, Kirundi, Chichewa, Sesotho and Setswana warnings — 2026-10-08
+
+Translate five sign-in warning values using existing catalog terminology.
+Warning coverage now includes 139 paths with exact repeated address variables,
+rendering order and ROOT_URL checked. Warning and placeholder suites and all 21
+preservation checks pass. These translations have lower confidence and require
+native review. Browser review and the wider all-language backlog remain open.
+
 ## Further African sign-in warnings — 2026-10-08
 
 Translate six values for Yoruba, Igbo, Shona, Zulu and its South African variant,

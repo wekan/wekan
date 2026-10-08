@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Konti ifise iyi imeyili isanzwe ihari kandi ntiyaremwe n'ubu buryo bwo kwinjira",
   "sign-in-with": "Injira ukoresheje %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Kwinjira ukoresheje iyindi serivisi ntibishobora guhera kuri iyi aderese. WeKan yatunganijwe kuri __expected__, ariko uru rupapuro rwuguruwe kuri __actual__. Ugurura WeKan kuri __expected__, canke usabe umuyobozi gushira ROOT_URL kuri __actual__.",
   "passwordless-title": "Kwinjira ata jambo ry'ibanga",
   "passwordless-enabled": "Rungika kuri imeyili kode yo kwinjira y'incuro imwe aho gukoresha ijambo ry'ibanga",
   "passwordless-hint": "Bisaba imeyili isohoka (MAIL_URL). Na PASSWORDLESS_ENABLED.",
