@@ -997,3 +997,20 @@ assert.match(wu.Scaleout, /放大淡出/);
 assert.match(wu['carbon-copy'], /Cc:/);
 assert.match(wu['remove-team-from-table'], /团队从看板里向移脱/);
 assert.match(wu['email-domain-allowed-to-invite'], /自助注册关脱.*允许邀请.*电子邮件域名/);
+
+const diagnosticsStorageWu = ["Node_heap_total_heap_size", "Node_heap_total_heap_size_executable", "Node_heap_total_physical_size", "Node_heap_total_available_size", "Node_heap_used_heap_size", "Node_heap_heap_size_limit", "Node_heap_malloced_memory", "Node_heap_peak_malloced_memory", "Node_heap_does_zap_garbage", "Node_heap_number_of_native_contexts", "Node_heap_number_of_detached_contexts", "Node_memory_usage_rss", "Node_memory_usage_heap_total", "Node_memory_usage_heap_used", "Node_memory_usage_external", "add-organizations-label", "remove-organization-from-board", "acceptance_of_our_legalNotice", "copied", "checklistActionsPopup-title", "moveChecklist", "moveChecklistPopup-title", "newlineBecomesNewChecklistItem", "newlineBecomesNewChecklistItemOriginOrder", "originOrder", "copyChecklistFromTemplate", "copyChecklistFromTemplatePopup-title", "edit-checklist-items-as-text", "editChecklistItemsAsTextPopup-title", "attachment-move-storage-fs", "attachment-move-storage-gridfs", "attachment-move-storage-s3", "move-all-attachments-to-fs", "move-all-attachments-to-gridfs", "move-all-attachments-to-s3", "move-all-attachments-of-board-to-fs", "move-all-attachments-of-board-to-gridfs", "move-all-attachments-of-board-to-s3", "move-attachments-none-found", "attachment-repair-locations-description", "attachment-repair-running", "attachment-repair-done", "attachment-repair-broken", "move-scope-both", "move-storage-all"];
+for (const key of diagnosticsStorageWu) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+for (const key of diagnosticsStorageWu.filter(key => key.startsWith('Node_'))) {
+  assert.match(wu[key], /^Node /);
+  assert.doesNotMatch(wu[key], /节点/);
+}
+assert.match(wu['remove-organization-from-board'], /组织从搿只看板里向移脱/);
+assert.equal(wu.moveChecklist, wu['moveChecklistPopup-title']);
+assert.doesNotMatch(wu.moveChecklist, /搬家/);
+assert.match(wu.originOrder, /顺序/);
+assert.doesNotMatch(wu.originOrder, /订单/);
+for (const storage of ['fs', 'gridfs', 's3']) assert.match(wu['move-all-attachments-of-board-to-' + storage], /看板个全部附件/);
+for (const [suffix, product] of [['gridfs', 'GridFS'], ['s3', 'S3']]) {
+  for (const prefix of ['attachment-move-storage-', 'move-all-attachments-to-', 'move-all-attachments-of-board-to-']) assert.ok(wu[prefix + suffix].endsWith(product));
+}
+assert.match(wu['attachment-repair-locations-description'], /附件搭头像.*修复数据库.*实际位置/);
