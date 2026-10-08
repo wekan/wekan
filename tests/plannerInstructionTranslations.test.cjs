@@ -35,6 +35,9 @@ assert.match(read('yi')[meisterKey], /פֿאַרענדיקטע אויפֿגאַ�
 // Source-product commands and file extensions must remain usable when following
 // a translated import instruction. These are literals, not placeholder variables.
 const importLiterals = {
+  superproductivity: ['Super Productivity', 'Settings', 'Sync & Backup', 'Export Data', 'sp-backup', '.json', 'To Do', 'In Progress', 'Backlog', 'Done'],
+  taiga: ['Taiga', 'Admin > Project > Export', '.json.gz', 'JSON'],
+  vikunja: ['Vikunja', 'Settings', 'Data Export', '.zip', 'data.json'],
   tasksorg: ['Tasks.org', 'Settings', 'Backups', 'Export tasks', '.json'],
   monday: ['monday.com', 'More actions', 'Export board to Excel', '.xlsx', 'Status'],
   pivotal: ['Pivotal Tracker', 'MORE', 'Export CSV', 'Bulk Actions', 'Estimate'],
@@ -72,3 +75,13 @@ assert.match(read('yi')['import-board-instruction-tasksorg'], /פֿאַרענד�
 assert.match(read('wuu-Hans')['import-board-instruction-monday'], /更新变成评论/);
 assert.match(read('pap')['import-board-instruction-monday'], /aktualisashonnan ta bira komentarionan/);
 assert.match(read('yi')['import-board-instruction-monday'], /דערהײַנטיקונגען ווערן באַמערקונגען/);
+
+for (const format of ['taiga', 'vikunja']) {
+  const key = 'import-board-instruction-' + format;
+  assert.match(read('wuu-Hans')[key], /附件勿导入/);
+  assert.match(read('pap')[key], /No ta importá atachimentunan/);
+  assert.match(read('yi')[key], /בײַלאַגעס ווערן נישט אימפּאָרטירט/);
+}
+assert.match(read('wuu-Hans')['import-board-instruction-superproductivity'], /归档任务变成归档卡片/);
+assert.match(read('pap')['import-board-instruction-superproductivity'], /tareanan archivá ta bira karchinan archivá/);
+assert.match(read('yi')['import-board-instruction-superproductivity'], /אַרכיווירטע אויפֿגאַבעס ווערן אַרכיווירטע קאַרטן/);

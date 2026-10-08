@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Super Productivity, Taiga and Vikunja import instructions — 2026-10-08
+
+Translate nine new instructions in Wu Chinese, Papiamento and Yiddish. Retain menu
+commands, filenames and status names; preserve archive behavior, subtask mapping,
+custom fields and explicit attachment exclusions. Tests cover literals, placeholders
+and archive/exclusion meanings. Native review, browser validation and the broader
+all-language backlog remain unfinished.
+
 ## Bengali, Kannada and Nepali short interface labels — 2026-10-08
 
 Translate 12 English values: sort criterion, rule actor, email recipient and the
