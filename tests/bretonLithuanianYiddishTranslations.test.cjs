@@ -418,3 +418,25 @@ assert.match(locales.yi['blockly-INPUT_LABEL_NUMBER_ATAN2_X'], /^x/);
 assert.match(locales.yi['blockly-INPUT_LABEL_NUMBER_ATAN2_Y'], /^y/);
 assert.notEqual(locales.yi['blockly-INPUT_LABEL_MATH_DIVIDEND'], locales.yi['blockly-INPUT_LABEL_MATH_DIVISOR']);
 assert.match(locales.yi['blockly-FIELD_BITMAP_PIXEL_LABEL'], /שורה %2, זייַל %3/);
+
+const yiddishBlocklyLists = ["blockly-INPUT_LABEL_TEXT_APPEND", "blockly-INPUT_LABEL_TEXT_END_POSITION", "blockly-INPUT_LABEL_TEXT_JOIN_ITEM", "blockly-INPUT_LABEL_TEXT_POSITION", "blockly-INPUT_LABEL_TEXT_PROMPT_MESSAGE", "blockly-INPUT_LABEL_TEXT_START_POSITION", "blockly-INPUT_LABEL_TEXT_TO_CHANGE", "blockly-INPUT_LABEL_TEXT_TO_CHECK", "blockly-INPUT_LABEL_TEXT_TO_FIND", "blockly-INPUT_LABEL_TEXT_TO_REPLACE", "blockly-INPUT_LABEL_VALUE", "blockly-INPUT_LABEL_VALUE_A", "blockly-INPUT_LABEL_VALUE_B", "blockly-INPUT_LABEL_VARIABLES_SET", "blockly-INSERT_KEY", "blockly-KEYBOARD_NAV_BLOCK_NAVIGATION_HINT", "blockly-KEYBOARD_NAV_CONSTRAINED_MOVE_HINT", "blockly-KEYBOARD_NAV_COPIED_HINT", "blockly-KEYBOARD_NAV_CUT_HINT", "blockly-KEYBOARD_NAV_FLYOUT_LABEL_HINT", "blockly-KEYBOARD_NAV_UNCONSTRAINED_MOVE_HINT", "blockly-KEYBOARD_NAV_WORKSPACE_NAVIGATION_HINT", "blockly-LISTS_CREATE_EMPTY_TITLE", "blockly-LISTS_CREATE_EMPTY_TOOLTIP", "blockly-LISTS_CREATE_WITH_CONTAINER_TITLE_ADD", "blockly-LISTS_CREATE_WITH_CONTAINER_TOOLTIP", "blockly-LISTS_CREATE_WITH_INPUT_WITH", "blockly-LISTS_CREATE_WITH_ITEM_TOOLTIP", "blockly-LISTS_CREATE_WITH_TOOLTIP", "blockly-LISTS_GET_INDEX_FIRST", "blockly-LISTS_GET_INDEX_FROM_END", "blockly-LISTS_GET_INDEX_GET", "blockly-LISTS_GET_INDEX_GET_REMOVE", "blockly-LISTS_GET_INDEX_LAST", "blockly-LISTS_GET_INDEX_RANDOM", "blockly-LISTS_GET_INDEX_REMOVE", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_FIRST", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_FROM", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_LAST", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_RANDOM", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_FIRST", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_FROM", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_LAST", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_RANDOM", "blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_FIRST", "blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_FROM", "blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_LAST", "blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_RANDOM", "blockly-LISTS_GET_SUBLIST_END_FROM_END", "blockly-LISTS_GET_SUBLIST_END_LAST"];
+for (const key of yiddishBlocklyLists) {
+  assert.notEqual(locales.yi[key], english[key], key);
+  assert.match(locales.yi[key], /[\u0590-\u05ff]/, key);
+  assert.deepEqual(translationTokens(locales.yi[key]), translationTokens(english[key]), key);
+}
+for (const position of ['FIRST', 'FROM', 'LAST', 'RANDOM']) {
+  const prefix = 'blockly-LISTS_GET_INDEX_TOOLTIP_';
+  assert.match(locales.yi[`${prefix}GET_${position}`], /גיט צוריק/);
+  assert.doesNotMatch(locales.yi[`${prefix}GET_${position}`], /נעמט אַוועק/);
+  assert.match(locales.yi[`${prefix}GET_REMOVE_${position}`], /נעמט אַוועק און גיט צוריק/);
+  assert.match(locales.yi[`${prefix}REMOVE_${position}`], /נעמט אַוועק/);
+  assert.doesNotMatch(locales.yi[`${prefix}REMOVE_${position}`], /גיט צוריק/);
+}
+assert.match(locales.yi['blockly-LISTS_GET_INDEX_TOOLTIP_GET_FIRST'], /ערשטן/);
+assert.match(locales.yi['blockly-LISTS_GET_INDEX_TOOLTIP_GET_LAST'], /לעצטן/);
+assert.match(locales.yi['blockly-LISTS_CREATE_EMPTY_TOOLTIP'], /לענג 0/);
+assert.match(locales.yi['blockly-LISTS_GET_INDEX_FROM_END'], /# פֿונעם סוף/);
+assert.match(locales.yi['blockly-KEYBOARD_NAV_COPIED_HINT'], /^קאָפּירט/);
+assert.match(locales.yi['blockly-KEYBOARD_NAV_CUT_HINT'], /^אויסגעשניטן/);
+assert.match(locales.yi['blockly-KEYBOARD_NAV_UNCONSTRAINED_MOVE_HINT'], /האַלט %1 געדריקט.*%2 צו באַשטעטיקן/);

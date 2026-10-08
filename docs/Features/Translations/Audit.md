@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Yiddish Blockly navigation and lists — 2026-10-08
+
+Translate 50 English text-input, keyboard-navigation and list messages. Preserve
+numbered variables, the zero-length boundary and position markers. Check that
+retrieving, removing and retrieving-with-removal remain distinct, with separate
+first/last positions and copy/cut hints. Specialized programming wording is lower
+confidence and needs native review. No browser or screen-reader session was run.
+Remaining translations are unfinished.
+
 ## Yiddish Blockly fields — 2026-10-08
 
 Translate 65 English field, input, keyboard and icon labels. Preserve numbered
