@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu board activity corrections — 2026-10-08
+
+Replace 24 Mandarin-like or malformed comment, creation, archive, import, movement
+and membership messages with Wu wording. Preserve exact source tokens and record
+the updated values in the correction ledger. Check distinct actions, archive versus
+removal, old/new board roles and import terminology. Wording is lower confidence
+and needs native review. No browser session was run. The language audit is unfinished.
+
 ## Wu activity language corrections — 2026-10-08
 
 Replace 26 Mandarin-like activity and permission messages directly with Wu wording.
@@ -12433,7 +12441,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,857** exact before/after values, including unflagged
+records contain **22,871** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

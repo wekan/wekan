@@ -619,8 +619,8 @@
     "locale": "wuu-Hans",
     "key": "act-addBoardMember",
     "before": "将成员 __member__ 添加到董事会 __board__",
-    "after": "将成员 __member__ 添加到看板 __board__",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "拿成员 __member__ 加到看板 __board__ 仔",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Replace Mandarin-like or malformed activity prose with Wu wording; preserve action, location and exact source tokens. Low-confidence wording needs native review."
   },
   {
     "locale": "wuu-Hans",
@@ -633,8 +633,8 @@
     "locale": "wuu-Hans",
     "key": "act-addComment",
     "before": "对卡 __card__ 发表评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__",
-    "after": "对卡 __card__ 发表评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "畀卡片 __card__ 写评论仔：__comment__，勒列表 __list__、泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Replace Mandarin-like or malformed activity prose with Wu wording; preserve action, location and exact source tokens. Low-confidence wording needs native review."
   },
   {
     "locale": "wuu-Hans",
@@ -654,8 +654,8 @@
     "locale": "wuu-Hans",
     "key": "act-archivedCard",
     "before": "卡片 __card__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__ 已移至存档",
-    "after": "卡片 __card__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__ 已移至存档",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "卡片 __card__ 移到归档里向仔，原来勒列表 __list__、泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Replace Mandarin-like or malformed activity prose with Wu wording; preserve action, location and exact source tokens. Low-confidence wording needs native review."
   },
   {
     "locale": "wuu-Hans",
@@ -668,43 +668,43 @@
     "locale": "wuu-Hans",
     "key": "act-createCustomField",
     "before": "在董事会__board__创建了自定义字段__customField__",
-    "after": "在看板__board__创建了自定义字段__customField__",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "勒看板 __board__ 里向建立自定义字段 __customField__ 仔",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Replace Mandarin-like or malformed activity prose with Wu wording; preserve action, location and exact source tokens. Low-confidence wording needs native review."
   },
   {
     "locale": "wuu-Hans",
     "key": "act-createList",
     "before": "添加列表__list__至董事会__board__",
-    "after": "添加列表__list__至看板__board__",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "畀看板 __board__ 加列表 __list__ 仔",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Replace Mandarin-like or malformed activity prose with Wu wording; preserve action, location and exact source tokens. Low-confidence wording needs native review."
   },
   {
     "locale": "wuu-Hans",
     "key": "act-deleteComment",
     "before": "已删除卡片 __card__ 上的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__",
-    "after": "已删除卡片 __card__ 上的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "删脱卡片 __card__ 个评论仔：__comment__，勒列表 __list__、泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Replace Mandarin-like or malformed activity prose with Wu wording; preserve action, location and exact source tokens. Low-confidence wording needs native review."
   },
   {
     "locale": "wuu-Hans",
     "key": "act-editComment",
     "before": "卡片__card__ 上已编辑的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__",
-    "after": "卡片__card__ 上已编辑的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "改过卡片 __card__ 个评论仔：__comment__，勒列表 __list__、泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Replace Mandarin-like or malformed activity prose with Wu wording; preserve action, location and exact source tokens. Low-confidence wording needs native review."
   },
   {
     "locale": "wuu-Hans",
     "key": "act-joinMember",
     "before": "将成员 __member__ 添加到卡片 __card__ 列表 __list__ 泳道 __swimlane__ 董事会 __board__",
-    "after": "将成员 __member__ 添加到卡片 __card__ 列表 __list__ 泳道 __swimlane__ 看板 __board__",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "拿成员 __member__ 加到卡片 __card__ 仔，勒列表 __list__、泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Replace Mandarin-like or malformed activity prose with Wu wording; preserve action, location and exact source tokens. Low-confidence wording needs native review."
   },
   {
     "locale": "wuu-Hans",
     "key": "act-removeBoardMember",
     "before": "从董事会 __board__ 中删除成员 __member__",
-    "after": "从看板 __board__ 中删除成员 __member__",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "从看板 __board__ 移脱成员 __member__ 仔",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Replace Mandarin-like or malformed activity prose with Wu wording; preserve action, location and exact source tokens. Low-confidence wording needs native review."
   },
   {
     "locale": "wuu-Hans",
@@ -724,8 +724,8 @@
     "locale": "wuu-Hans",
     "key": "act-unjoinMember",
     "before": "从卡__card__、列表__list__、泳道__swimlane__、董事会__board__ 删除成员__member__",
-    "after": "从卡__card__、列表__list__、泳道__swimlane__、看板__board__ 删除成员__member__",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "从卡片 __card__ 移脱成员 __member__ 仔，勒列表 __list__、泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Replace Mandarin-like or malformed activity prose with Wu wording; preserve action, location and exact source tokens. Low-confidence wording needs native review."
   },
   {
     "locale": "wuu-Hans",
@@ -159997,5 +159997,103 @@
     "before": "未完成的清单 __checklist__ 在卡 __card__ 在列表 __list__ 在泳道 __swimlane__ 在板 __board__",
     "after": "拿检查清单 __checklist__ 改回还朆完成仔，勒卡片 __card__、列表 __list__、泳道 __swimlane__、看板 __board__ 里向",
     "reason": "2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-createBoard",
+    "before": "创建板__board__",
+    "after": "建立看板 __board__ 仔",
+    "reason": "2026-10-08: Replace Mandarin-like or malformed activity prose with Wu wording; preserve action, location and exact source tokens. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-createSwimlane",
+    "before": "创建了泳道__swimlane__以登上__board__",
+    "after": "勒看板 __board__ 里向建立泳道 __swimlane__ 仔",
+    "reason": "2026-10-08: Replace Mandarin-like or malformed activity prose with Wu wording; preserve action, location and exact source tokens. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-createCard",
+    "before": "创建了卡片__card__以列出__list__在泳道__swimlane__在板__board__",
+    "after": "勒看板 __board__、泳道 __swimlane__ 个列表 __list__ 里向建立卡片 __card__ 仔",
+    "reason": "2026-10-08: Replace Mandarin-like or malformed activity prose with Wu wording; preserve action, location and exact source tokens. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-deleteCustomField",
+    "before": "已删除板 __board__ 上的自定义字段 __customField__",
+    "after": "删脱看板 __board__ 里向个自定义字段 __customField__ 仔",
+    "reason": "2026-10-08: Replace Mandarin-like or malformed activity prose with Wu wording; preserve action, location and exact source tokens. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-setCustomField",
+    "before": "已编辑的自定义字段__customField__： __customFieldValue__ 在卡 __card__ 在列表 __list__ 在泳道 __swimlane__ 在板 __board__",
+    "after": "改过自定义字段 __customField__ 仔：__customFieldValue__，勒卡片 __card__、列表 __list__、泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "2026-10-08: Replace Mandarin-like or malformed activity prose with Wu wording; preserve action, location and exact source tokens. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-archivedBoard",
+    "before": "板 __board__ 已移至存档",
+    "after": "看板 __board__ 移到归档里向仔",
+    "reason": "2026-10-08: Replace Mandarin-like or malformed activity prose with Wu wording; preserve action, location and exact source tokens. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-archivedList",
+    "before": "泳道上的列表 __list__ __swimlane__ 板上的 __board__ 已移至存档",
+    "after": "列表 __list__ 移到归档里向仔，原来勒泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "2026-10-08: Replace Mandarin-like or malformed activity prose with Wu wording; preserve action, location and exact source tokens. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-archivedSwimlane",
+    "before": "__board__ 板上的泳道__swimlane__ 已移至存档",
+    "after": "泳道 __swimlane__ 移到归档里向仔，原来勒看板 __board__ 里向",
+    "reason": "2026-10-08: Replace Mandarin-like or malformed activity prose with Wu wording; preserve action, location and exact source tokens. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-importBoard",
+    "before": "进口板__board__",
+    "after": "导入看板 __board__ 仔",
+    "reason": "2026-10-08: Replace Mandarin-like or malformed activity prose with Wu wording; preserve action, location and exact source tokens. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-importCard",
+    "before": "导入卡 __card__ 至泳道 __swimlane__ 板上 __board__ 列出 __list__",
+    "after": "拿卡片 __card__ 导入列表 __list__ 仔，勒泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "2026-10-08: Replace Mandarin-like or malformed activity prose with Wu wording; preserve action, location and exact source tokens. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-importList",
+    "before": "将列表 __list__ 导入到泳道 __swimlane__ 板上 __board__",
+    "after": "拿列表 __list__ 导入泳道 __swimlane__ 仔，勒看板 __board__ 里向",
+    "reason": "2026-10-08: Replace Mandarin-like or malformed activity prose with Wu wording; preserve action, location and exact source tokens. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-moveCard",
+    "before": "将板__board__ 处的卡片__card__ 从泳道__oldSwimlane__ 的列表__oldList__ 移至泳道__swimlane__ 的列表__list__",
+    "after": "勒看板 __board__ 里向，拿卡片 __card__ 从泳道 __oldSwimlane__ 个列表 __oldList__ 移到泳道 __swimlane__ 个列表 __list__ 仔",
+    "reason": "2026-10-08: Replace Mandarin-like or malformed activity prose with Wu wording; preserve action, location and exact source tokens. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-moveCardToOtherBoard",
+    "before": "将卡 __card__ 从泳道 __oldSwimlane__ 板上 __oldBoard__ 的列表 __oldList__ 移至泳道 __swimlane__ 板上 __board__ 的列表 __list__",
+    "after": "拿卡片 __card__ 从看板 __oldBoard__、泳道 __oldSwimlane__ 个列表 __oldList__ 移到看板 __board__、泳道 __swimlane__ 个列表 __list__ 仔",
+    "reason": "2026-10-08: Replace Mandarin-like or malformed activity prose with Wu wording; preserve action, location and exact source tokens. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-restoredCard",
+    "before": "恢复卡__card__以列出__list__在泳道__swimlane__在板__board__",
+    "after": "拿卡片 __card__ 恢复到列表 __list__ 仔，勒泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "2026-10-08: Replace Mandarin-like or malformed activity prose with Wu wording; preserve action, location and exact source tokens. Low-confidence wording needs native review."
   }
 ]

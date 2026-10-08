@@ -374,3 +374,19 @@ assert.equal(wu['act-addLabel'], wu['act-addedLabel']);
 assert.equal(wu['act-removeLabel'], wu['act-removedLabel']);
 assert.match(wu['act-removeChecklistItem'], /__checkList__/);
 assert.match(wu['restrict-comment-editing'], /勿准.*别个用户个评论/);
+
+const boardActivities = ["act-addComment", "act-editComment", "act-deleteComment", "act-createBoard", "act-createSwimlane", "act-createCard", "act-createCustomField", "act-deleteCustomField", "act-setCustomField", "act-createList", "act-addBoardMember", "act-archivedBoard", "act-archivedCard", "act-archivedList", "act-archivedSwimlane", "act-importBoard", "act-importCard", "act-importList", "act-joinMember", "act-moveCard", "act-moveCardToOtherBoard", "act-removeBoardMember", "act-restoredCard", "act-unjoinMember"];
+for (const key of boardActivities) {
+  assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+  assert.match(wu[key], /仔/, `${key}: Wu completed-action wording`);
+}
+assert.match(wu['act-addComment'], /写评论/);
+assert.match(wu['act-editComment'], /改过.*评论/);
+assert.match(wu['act-deleteComment'], /删脱.*评论/);
+for (const kind of ['Board', 'Card', 'List', 'Swimlane']) assert.match(wu[`act-archived${kind}`], /移到归档/);
+assert.match(wu['act-importBoard'], /导入看板/);
+assert.doesNotMatch(wu['act-importBoard'], /进口/);
+assert.match(wu['act-moveCardToOtherBoard'], /从看板 __oldBoard__.*移到看板 __board__/);
+assert.match(wu['act-joinMember'], /加到卡片/);
+assert.match(wu['act-unjoinMember'], /移脱成员/);
+assert.match(wu['act-restoredCard'], /恢复到列表/);
