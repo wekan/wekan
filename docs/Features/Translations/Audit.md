@@ -9221,6 +9221,16 @@ Regression coverage checks those details, script, key order and tokens. Technica
 wording remains low confidence pending speaker review. Browser checks were not
 run; the broader translation audit remains unfinished.
 
+## Maithili storage settings omitted by the fill filter
+
+Filled 29 English-identical storage and general labels found by comparing the
+complete locale with English, including product-prefixed descriptions omitted by
+the usual missing-string filter. Direct edits first verified equality with English
+and retained existing translations. Preserved service names, protocol identifiers
+and endpoint examples. Regression coverage checks these details, script, key order
+and tokens. Technical wording remains low confidence pending speaker review.
+Browser checks were not run; the broader translation audit remains unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
