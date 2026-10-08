@@ -12,6 +12,7 @@ import { parseClickUpCsv } from './clickupCsvFormat.js';
 import { parseNullboard } from './nullboardFormat.js';
 import { parseKanri } from './kanriFormat.js';
 import { parsePivotalCsv } from './pivotalCsvFormat.js';
+import { parseRedmineCsv } from './redmineCsvFormat.js';
 import { parseTasksOrgBackup } from './tasksorgFormat.js';
 import { parseMondaySheets } from './mondayFormat.js';
 import { parseBusinessmapSheets } from './businessmapFormat.js';
@@ -993,6 +994,8 @@ export const EXTERNAL_PARSERS = {
   kanri: parseKanri,
   // Pivotal Tracker's stories CSV, columns matched by name (pivotalCsvFormat.js).
   pivotal: parsePivotalCsv,
+  // Redmine's issues CSV, English column names (redmineCsvFormat.js).
+  redmine: parseRedmineCsv,
   // A Tasks.org backup JSON (tasksorgFormat.js).
   tasksorg: parseTasksOrgBackup,
   // monday.com's Excel export, as sheets of rows (server/lib/mondayWorkbook.js).

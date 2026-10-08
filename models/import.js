@@ -259,6 +259,16 @@ Meteor.methods({
         }
         creator = new KanboardCreator(data, 'pivotal');
         break;
+      case 'redmine':
+        // Redmine's issues CSV - see models/lib/redmineCsvFormat.js.
+        check(board, String);
+        try {
+          importedBoard = EXTERNAL_PARSERS.redmine(importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        creator = new KanboardCreator(data, 'redmine');
+        break;
       case 'tasksorg':
         // A Tasks.org backup (JSON) - see models/lib/tasksorgFormat.js.
         check(board, Object);

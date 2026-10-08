@@ -25,6 +25,7 @@ import { formatClickUpCsv } from './clickupCsvFormat.js';
 import { formatNullboard } from './nullboardFormat.js';
 import { formatKanri } from './kanriFormat.js';
 import { formatPivotalCsv } from './pivotalCsvFormat.js';
+import { formatRedmineCsv } from './redmineCsvFormat.js';
 import { formatTasksOrgBackup } from './tasksorgFormat.js';
 import { formatMondaySheets } from './mondayFormat.js';
 import { formatBusinessmapSheets } from './businessmapFormat.js';
@@ -344,6 +345,8 @@ export const formatters = {
   kanri: formatKanri,
   // The stories CSV Pivotal Tracker's import reads; round-trips with parsePivotalCsv.
   pivotal: formatPivotalCsv,
+  // The English CSV Redmine's issue import maps; round-trips with parseRedmineCsv.
+  redmine: formatRedmineCsv,
   // A Tasks.org backup that its Import backup reads; round-trips with parseTasksOrgBackup.
   tasksorg: formatTasksOrgBackup,
   // monday.com's Excel import table: sheets models/export.js writes as .xlsx

@@ -37,7 +37,9 @@ const LABEL = /(^|\s)@([^\s@]+)/g;
 
 // RFC 4180: quoted fields may hold commas, line breaks and doubled quotes.
 // `name` is the format named in its errors; MeisterTask's CSV reuses this.
-export function readCsv(text, name = 'Todoist') {
+// `separator` is the field separator: ',' unless a format writes another
+// (Redmine's CSV uses ';' in locales whose decimal separator is a comma).
+export function readCsv(text, name = 'Todoist', separator = ',') {
   const source = String(text == null ? '' : text).replace(/^﻿/, '');
   const rows = [];
   let row = [];
@@ -51,7 +53,7 @@ export function readCsv(text, name = 'Todoist') {
       continue;
     }
     if (ch === '"' && field === '') quoted = true;
-    else if (ch === ',') { row.push(field); field = ''; } else if (ch === '\n' || ch === '\r') {
+    else if (ch === separator) { row.push(field); field = ''; } else if (ch === '\n' || ch === '\r') {
       if (ch === '\r' && source[i + 1] === '\n') i += 1;
       row.push(field); rows.push(row); row = []; field = '';
     } else field += ch;

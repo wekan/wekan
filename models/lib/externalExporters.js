@@ -123,6 +123,10 @@ async function collect(boardId, fields, format) {
         owner: people[0], assignees: people.slice(1), creator: username(c.userId), requestedBy: c.requestedBy || undefined,
       } : {}),
       ...(want('subtasks') && c.parentId ? { parentCardId: c.parentId } : {}),
+      // Card dependencies, for formats with relations of their own (Redmine).
+      ...(want('dependencies') && Array.isArray(c.cardDependencies) && c.cardDependencies.length ? {
+        dependencies: c.cardDependencies.filter(dep => dep && dep.cardId).map(dep => ({ cardId: dep.cardId, type: dep.type })),
+      } : {}),
       // Hours spent, for formats with a place for tracked time (Super Productivity).
       ...(want('dates') && Number(c.spentTime) > 0 ? { spentTime: Number(c.spentTime) } : {}),
       ...(comments.length ? { comments: comments.filter(cm => cm.cardId === c._id)

@@ -337,7 +337,7 @@ test('every external export menu link returns text and refuses an unrelated user
   // Include description through the actual shared selection controls.
   const details = page.locator('.js-export-card-details-toggle');
   if (await details.getAttribute('aria-checked') !== 'true') await details.click();
-  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri', 'pivotal', 'tasksorg', 'superproductivity', 'taiga', 'quire', 'opml', 'orgmode']) {
+  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri', 'pivotal', 'redmine', 'tasksorg', 'superproductivity', 'taiga', 'quire', 'opml', 'orgmode']) {
     await test.step(format, async () => {
       const anchor = page.locator(`.js-pop-over a[href*="/export/${format}?"]`);
       await expect(anchor).toBeVisible();
@@ -460,6 +460,40 @@ test('Pivotal Tracker: a stories CSV imports with its states, labels, comments a
     expect(db.find('card_comments', { cardId: open._id }).map(c => c.text)).toEqual(['Ana Lee: Looks good']);
     const items = db.find('checklistItems', { cardId: open._id });
     expect(items.map(item => [item.title, item.isFinished]).sort()).toEqual([['Call', true], ['Pay', false]]);
+    await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});
+
+// Redmine's issues CSV in a ';' locale with its byte order mark: statuses as
+// lists, the tracker as a label, the parent id and "Related issues".
+test('Redmine: an issues CSV imports with its statuses, tracker, parent task and relations', async ({ loggedInPage: page }) => {
+  let boardId;
+  try {
+    await navigateInApp(page, '/import/redmine');
+    await page.locator('#import-textarea').fill('﻿' + [
+      '#;Tracker;Status;Priority;Subject;Assignee;Due date;Estimated time;Parent task;Related issues;Description',
+      `42;Bug;In Progress;High;${expected.title};;10/05/2026;3,00;;Blocked by #41;"Two of them; DN50"`,
+      '41;Feature;New;Normal;Footer;;;;;Blocks #42;',
+      '43;Support;New;Low;Child task;;;;42;;',
+    ].join('\r\n'));
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    const board = db.findOne('boards', { _id: boardId });
+    const cards = db.find('cards', { boardId });
+    expect(cards).toHaveLength(3);
+    const open = cards.find(card => card.title === expected.title);
+    const footer = cards.find(card => card.title === 'Footer');
+    const child = cards.find(card => card.title === 'Child task');
+    expect(open.description).toBe('Two of them; DN50');
+    expect(open.labelIds.map(id => board.labels.find(l => l._id === id).name)).toEqual(['Bug']);
+    expect(new Date(open.dueAt).toISOString()).toBe('2026-10-05T00:00:00.000Z');
+    expect(child.parentId).toBe(open._id);
+    expect((open.cardDependencies || []).map(dep => [dep.cardId, dep.type])).toEqual([[footer._id, 'is-blocked-by']]);
+    expect(footer.cardDependencies || []).toEqual([]);
+    const lists = db.find('lists', { boardId });
+    expect(lists.find(list => list._id === open.listId).title).toBe('In Progress');
+    expect(db.find('customFields', { boardIds: boardId }).map(field => field.name).sort()).toEqual(['Estimated time', 'Priority']);
     await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
   } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
 });
