@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d2e49f8871">Translate Ukrainian regional outline import instructions</a>. Thanks to xet7.</summary>
+
+Fill the remaining OPML, Org mode and Todoist instructions in uk-UA using the
+existing Ukrainian translations, preserving commands, variables and format names.
+Regression checks cover hierarchy, completion and note-to-comment mappings.
+All 333 translation-related suites pass in 128 seconds, and all 21 preservation
+checks pass. Both Ukrainian catalogs have no exact English import instructions;
+the wider translation backlog and browser review remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b0f492ce1e">Translate remaining Ukrainian import instructions</a>. Thanks to xet7.</summary>
 
 Translate the remaining 13 instructions in both Ukrainian catalogs, replacing
