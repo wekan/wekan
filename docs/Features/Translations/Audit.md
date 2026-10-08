@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Papiamento final Blockly messages — 2026-10-08
+
+Translate 44 variable, workspace, search and alias messages. The full current
+fill list now contains no Blockly entries. Preserve variables and keyboard names;
+check next/previous search, zero/one/many composition, variable conflicts and shared
+procedure aliases. Specialized wording is lower confidence and needs native review.
+No browser or screen-reader session was run. Other translations remain unfinished.
+
 ## Papiamento Blockly text operations — 2026-10-08
 
 Translate 53 text-operation labels and explanations. Preserve exact source

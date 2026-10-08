@@ -258,3 +258,24 @@ for (const [side, word] of Object.entries({ BOTH: 'tur dos', LEFT: 'robes', RIGH
 assert.match(papiamento['blockly-TEXT_LENGTH_TOOLTIP'], /inklusivo espasio/);
 assert.match(papiamento['blockly-TEXT_INDEXOF_TOOLTIP'], /%1 si no haña/);
 assert.match(papiamento['blockly-TEXT_REPLACE_TOOLTIP'], /tur aparishon/);
+
+const blocklyFinal = ["blockly-TODAY", "blockly-UNDO", "blockly-UNKNOWN", "blockly-UNNAMED_KEY", "blockly-VARIABLES_DEFAULT_NAME", "blockly-VARIABLES_GET_CREATE_SET", "blockly-VARIABLES_GET_TOOLTIP", "blockly-VARIABLES_SET", "blockly-VARIABLES_SET_CREATE_GET", "blockly-VARIABLES_SET_TOOLTIP", "blockly-VARIABLE_ALREADY_EXISTS", "blockly-VARIABLE_ALREADY_EXISTS_FOR_ANOTHER_TYPE", "blockly-VARIABLE_ALREADY_EXISTS_FOR_A_PARAMETER", "blockly-WORKSPACE_COMMENT_DEFAULT_TEXT", "blockly-WORKSPACE_CONTENTS_BLOCKS_MANY", "blockly-WORKSPACE_CONTENTS_BLOCKS_ONE", "blockly-WORKSPACE_CONTENTS_BLOCKS_ZERO", "blockly-WORKSPACE_CONTENTS_COMMENTS_MANY", "blockly-WORKSPACE_CONTENTS_COMMENTS_ONE", "blockly-WORKSPACE_LABEL_1_STACK", "blockly-WORKSPACE_LABEL_FLYOUT_WORKSPACE", "blockly-WORKSPACE_LABEL_MANY_STACKS", "blockly-WORKSPACE_LABEL_MUTATOR_WORKSPACE", "blockly-WORKSPACE_LABEL_PLAIN", "blockly-WORKSPACE_SEARCH_CLOSE", "blockly-WORKSPACE_SEARCH_FIND_NEXT", "blockly-WORKSPACE_SEARCH_FIND_PREVIOUS", "blockly-WORKSPACE_SEARCH_INPUT_LABEL", "blockly-WORKSPACE_SEARCH_MATCH", "blockly-WORKSPACE_SEARCH_NO_MATCHES", "blockly-WORKSPACE_SEARCH_PLACEHOLDER", "blockly-ZOOM_TO_FIT_ARIA_LABEL", "blockly-CONTROLS_IF_ELSEIF_TITLE_ELSEIF", "blockly-CONTROLS_IF_ELSE_TITLE_ELSE", "blockly-LISTS_CREATE_WITH_ITEM_TITLE", "blockly-LISTS_GET_INDEX_INPUT_IN_LIST", "blockly-LISTS_GET_SUBLIST_INPUT_IN_LIST", "blockly-LISTS_INDEX_OF_INPUT_IN_LIST", "blockly-LISTS_SET_INDEX_INPUT_IN_LIST", "blockly-MATH_CHANGE_TITLE_ITEM", "blockly-PROCEDURES_DEFRETURN_COMMENT", "blockly-PROCEDURES_DEFRETURN_PROCEDURE", "blockly-TEXT_APPEND_VARIABLE", "blockly-TEXT_CREATE_JOIN_ITEM_TITLE_ITEM"];
+for (const key of blocklyFinal) {
+  assert.notEqual(papiamento[key], english[key], key);
+  assert.deepEqual(tokens(papiamento[key]), tokens(english[key]), key);
+}
+assert.match(papiamento['blockly-WORKSPACE_SEARCH_FIND_NEXT'], /siguiente/);
+assert.match(papiamento['blockly-WORKSPACE_SEARCH_FIND_PREVIOUS'], /anterior/);
+assert.match(papiamento['blockly-WORKSPACE_SEARCH_INPUT_LABEL'], /Enter.*siguiente.*Shift\+Enter.*anterior.*Escape.*sera/);
+assert.match(papiamento['blockly-WORKSPACE_CONTENTS_BLOCKS_ZERO'], /^Ningun/);
+assert.match(papiamento['blockly-WORKSPACE_CONTENTS_BLOCKS_ONE'], /^Un /);
+for (const key of ['MANY', 'ONE']) assert.match(papiamento[`blockly-WORKSPACE_CONTENTS_COMMENTS_${key}`], /^ i /);
+assert.match(papiamento['blockly-VARIABLE_ALREADY_EXISTS_FOR_ANOTHER_TYPE'], /otro tipo: '%2'/);
+assert.match(papiamento['blockly-VARIABLE_ALREADY_EXISTS_FOR_A_PARAMETER'], /parámetro.*'%2'/);
+for (const key of ['COMMENT', 'PROCEDURE']) assert.equal(papiamento[`blockly-PROCEDURES_DEFRETURN_${key}`], papiamento[`blockly-PROCEDURES_DEFNORETURN_${key}`]);
+assert.notEqual(papiamento['blockly-CONTROLS_IF_ELSEIF_TITLE_ELSEIF'], papiamento['blockly-CONTROLS_IF_ELSE_TITLE_ELSE']);
+const remainingPapiamento = spawnSync(process.execPath, [
+  path.join(root, 'releases/translations/fill-translations.mjs'), '--list', 'pap',
+], { cwd: root, encoding: 'utf8' });
+assert.equal(remainingPapiamento.status, 0, remainingPapiamento.stderr);
+assert.deepEqual(Object.keys(JSON.parse(remainingPapiamento.stdout)).filter(key => key.startsWith('blockly-')), [], 'all current Blockly messages are translated');
