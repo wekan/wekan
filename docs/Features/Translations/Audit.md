@@ -2,6 +2,29 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu catalog review checkpoint — 2026-10-08
+
+Run `node tests/run-node-suites.cjs Translation translation`: 299 suites selected,
+296 passed and three failed in 107 seconds. All three failures were the newly added
+Microsoft Planner instruction in Wu, Papiamento and Yiddish. Translate that instruction
+in those catalogs and add a literal/mapping regression test: the three failed suites
+plus the new test pass (four suites). Do not describe the original broad run as green.
+The Planner wording needs native review, particularly Papiamento technical vocabulary.
+The source key belongs to concurrent staged Planner work; dependent locale/test edits
+remain uncommitted until that source change is committed.
+
+Continue the source comparison through the remaining Blockly, Scrum, sync and recovery
+entries to the end of the current catalog. Retain the existing Wu prose reviewed in
+this pass; technical brands, URLs, empty Blockly suffixes and mathematical symbols
+remain unchanged. This is a source review, not native-speaker or screen-reader validation.
+
+The missing report still counts 32,567 values across 46 languages, excluding 251 source
+keys pending Transifex. Its invariant detector treats source strings with fewer than
+three letters as complete, which hid translatable Blockly labels such as if, do and
+%1 of %2. Those Wu labels were translated in the preceding batch. The detector's broad
+short-string exemption remains a follow-up for all languages; an empty fill list must
+not be used as proof that every visible label is translated.
+
 ## Wu Blockly-label corrections — 2026-10-08
 
 Translate 15 remaining English Blockly labels, including control-flow words, procedure
