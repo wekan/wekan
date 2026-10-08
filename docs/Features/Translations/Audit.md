@@ -9445,6 +9445,16 @@ key order and tokens. Technical wording remains low confidence pending speaker
 review. Browser checks were not run; further Konkani translations and the
 broader audit remain unfinished.
 
+## Konkani Sync reports, estimates and mail diagnostics
+
+Filled 31 English placeholders for run reports, estimate mappings and mail
+failures. The placeholder-only merge retained existing translations. Regression
+coverage checks retention limits, uncertain outcomes, lack of resume/undo,
+write-access requirements, missing-versus-null estimates, hour units and
+delivery uncertainty, plus script, key order and tokens. Technical wording
+remains low confidence pending speaker review. Browser checks were not run;
+further Konkani translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
