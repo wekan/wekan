@@ -936,6 +936,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cfc5edcbdb">Correct Italian-seeded Aromanian board controls</a>. Thanks to xet7.</summary>
+
+Replace 35 wrong-language values in board/member actions, movement, selection,
+validation and keyboard help. Preserve the label variable and Excel CSV/TSV
+name; cover opposite movement directions and card/board removal scope.
+Full new wording remains low-confidence pending fluent review.
+
+Aromanian, global placeholder and translation audit suites pass. No browser
+or screen-reader session was run. Further language review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d7ff39eba6">Replace Italian-seeded Aromanian dialogs and filters</a>. Thanks to xet7.</summary>
 
 Correct 47 wrong-language values in dialogs, invitations, export controls and
