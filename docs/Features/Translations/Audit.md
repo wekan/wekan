@@ -9725,6 +9725,17 @@ All 64 translation checks and 21 human-preference checks pass. Technical
 wording remains low confidence pending speaker review. Browser checks were
 not run; the excluded-English audit and broader translation work remain unfinished.
 
+## Turkmen excluded-English labels and keyboard names
+
+Filled 38 English-identical labels, including short controls excluded by the
+fill tool, after asserting each value still matched English. Existing
+translations were retained. Keyboard names retain their printed markings.
+Coverage checks ordinal roles, on/off states, consistent control clauses,
+procedure labels, key order and tokens. All 65 translation checks and 21
+human-preference checks pass. Technical wording remains low confidence pending
+speaker review. Browser and screen-reader checks were not run; the broader
+language and fluency audit remains unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
