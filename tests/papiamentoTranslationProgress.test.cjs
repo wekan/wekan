@@ -177,3 +177,20 @@ assert.equal(papiamento['blockly-MATH_IS_EVEN'], 'ta par');
 assert.equal(papiamento['blockly-MATH_IS_ODD'], 'ta impar');
 assert.match(papiamento['blockly-MATH_IS_NEGATIVE'], /negativo/);
 assert.match(papiamento['blockly-MATH_IS_POSITIVE'], /positivo/);
+
+const blocklyStatistics = ["blockly-MATH_ONLIST_OPERATOR_AVERAGE", "blockly-MATH_ONLIST_OPERATOR_MAX", "blockly-MATH_ONLIST_OPERATOR_MAX_ARIA", "blockly-MATH_ONLIST_OPERATOR_MEDIAN", "blockly-MATH_ONLIST_OPERATOR_MIN", "blockly-MATH_ONLIST_OPERATOR_MIN_ARIA", "blockly-MATH_ONLIST_OPERATOR_MODE", "blockly-MATH_ONLIST_OPERATOR_RANDOM", "blockly-MATH_ONLIST_OPERATOR_STD_DEV", "blockly-MATH_ONLIST_OPERATOR_SUM", "blockly-MATH_ONLIST_TOOLTIP_AVERAGE", "blockly-MATH_ONLIST_TOOLTIP_MAX", "blockly-MATH_ONLIST_TOOLTIP_MEDIAN", "blockly-MATH_ONLIST_TOOLTIP_MIN", "blockly-MATH_ONLIST_TOOLTIP_MODE", "blockly-MATH_ONLIST_TOOLTIP_RANDOM", "blockly-MATH_ONLIST_TOOLTIP_STD_DEV", "blockly-MATH_ONLIST_TOOLTIP_SUM", "blockly-MATH_POWER_SYMBOL_ARIA", "blockly-MATH_RANDOM_FLOAT_TITLE_RANDOM", "blockly-MATH_RANDOM_FLOAT_TOOLTIP", "blockly-MATH_RANDOM_INT_TITLE", "blockly-MATH_RANDOM_INT_TOOLTIP", "blockly-MATH_ROUND_OPERATOR_ROUND", "blockly-MATH_ROUND_OPERATOR_ROUNDDOWN", "blockly-MATH_ROUND_OPERATOR_ROUNDUP", "blockly-MATH_ROUND_TOOLTIP", "blockly-MATH_SINGLE_OP_ABSOLUTE", "blockly-MATH_SINGLE_OP_ABSOLUTE_ARIA", "blockly-MATH_SINGLE_OP_EXP_ARIA", "blockly-MATH_SINGLE_OP_LN_ARIA", "blockly-MATH_SINGLE_OP_LOG10_ARIA"];
+for (const key of blocklyStatistics) {
+  assert.notEqual(papiamento[key], english[key], key);
+  assert.deepEqual(tokens(papiamento[key]), tokens(english[key]), key);
+}
+assert.match(papiamento['blockly-MATH_RANDOM_FLOAT_TOOLTIP'], /0\.0 \(inkluí\).*1\.0 \(ekskluí\)/);
+assert.match(papiamento['blockly-MATH_RANDOM_INT_TOOLTIP'], /inkluyendo tur dos límite/);
+assert.match(papiamento['blockly-MATH_ROUND_OPERATOR_ROUNDDOWN'], /pa abou/);
+assert.match(papiamento['blockly-MATH_ROUND_OPERATOR_ROUNDUP'], /pa ariba/);
+assert.match(papiamento['blockly-MATH_ONLIST_TOOLTIP_MAX'], /mas grandi/);
+assert.match(papiamento['blockly-MATH_ONLIST_TOOLTIP_MIN'], /mas chikí/);
+assert.match(papiamento['blockly-MATH_ONLIST_TOOLTIP_MODE'], /un lista.*mas frekuentemente/);
+assert.match(papiamento['blockly-MATH_ONLIST_TOOLTIP_AVERAGE'], /media aritmétiko/);
+assert.match(papiamento['blockly-MATH_ONLIST_TOOLTIP_MEDIAN'], /mediana/);
+assert.match(papiamento['blockly-MATH_SINGLE_OP_LOG10_ARIA'], /base 10/);
+assert.match(papiamento['blockly-MATH_SINGLE_OP_EXP_ARIA'], /^e /);

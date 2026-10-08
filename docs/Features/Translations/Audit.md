@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Papiamento Blockly statistics and rounding — 2026-10-08
+
+Translate 32 English math messages. Preserve variables and numeric bases; check
+random-number endpoint inclusion, rounding directions, minimum/maximum and
+mean/median/mode distinctions. Specialized mathematical wording is lower confidence
+and needs native review. No browser or screen-reader session was run. Remaining
+translations are unfinished.
+
 ## Papiamento Blockly arithmetic — 2026-10-08
 
 Translate 30 English arithmetic messages. Preserve variables, constants, numeric
