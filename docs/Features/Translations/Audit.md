@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu Blockly fields and accessibility — 2026-10-08
+
+Translate 30 field, key, icon and input messages. Preserve exact variables and
+keyboard names; check bitmap row/column roles, lit/off states, opposite icon actions
+and first/second conditions. Wu wording is lower confidence and needs native
+review. No browser or screen-reader session was run. Remaining English strings
+and older Mandarin-like passages still require work.
+
 ## Wu Blockly loops and editing — 2026-10-08
 
 Translate 35 loop, condition, copy, deletion and enable/disable messages. Preserve
