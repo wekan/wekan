@@ -170868,5 +170868,40 @@
     "before": "Ngena ngemvume",
     "after": "U dzhena",
     "reason": "Replace a Zulu sign-in label with Venda; keep legacy Venetian and Veps catalogs separate."
+  },
+  {
+    "locale": "ay",
+    "key": "login",
+    "before": "Aymar aruna: Login",
+    "after": "Mantaña",
+    "reason": "Remove a language-name prefix and replace untranslated label text with the declared language."
+  },
+  {
+    "locale": "ay",
+    "key": "page",
+    "before": "Aymar aruna: Page",
+    "after": "Laphi",
+    "reason": "Remove a language-name prefix and replace untranslated label text with the declared language."
+  },
+  {
+    "locale": "qu",
+    "key": "login",
+    "before": "Kay willaymi: Yaykuy",
+    "after": "Yaykuy",
+    "reason": "Remove a language-name prefix and replace untranslated label text with the declared language."
+  },
+  {
+    "locale": "qu",
+    "key": "open",
+    "before": "Kay willaymi: Kichay",
+    "after": "Kichay",
+    "reason": "Remove a language-name prefix and replace untranslated label text with the declared language."
+  },
+  {
+    "locale": "qu",
+    "key": "page",
+    "before": "Kay willaymi: Pageta",
+    "after": "P’anqa",
+    "reason": "Remove a language-name prefix and replace untranslated label text with the declared language."
   }
 ]

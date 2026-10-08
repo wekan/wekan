@@ -2,6 +2,19 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Acehnese, Aymara, Guarani and Quechua warnings — 2026-10-08
+
+Translate four warnings with unchanged repeated address variables and ROOT_URL.
+Correct five Aymara/Quechua labels that had language-name prefixes or English
+text, recording the replacements in the correction ledger. Warning coverage
+includes 189 paths. Warning, placeholder and audited-correction suites and all
+21 preservation checks pass. Guarani web terminology was checked against
+[Mozilla usage](https://www.mozilla.org/gn/privacy/faq/), and Andean terminology
+against [ARUSIMIÑEE](https://www.illaa.org/pirwa/diccionarios/arusiminee.html).
+These direct translations have lower confidence and need native review. This
+warning still has 18 English paths; browser review and the wider translation
+backlog remain outstanding.
+
 ## Buryat, Chuvash and Sakha warnings — 2026-10-08
 
 Translate three warnings with exact repeated address variables and ROOT_URL.

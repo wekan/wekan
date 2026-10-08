@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Akun ngon emel nyoe ka na dan hana dipeugöt ngon cara login nyoe",
   "sign-in-with": "Tamong ngon %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Tamong meulalui layanan laén hana jeuet lheuh bak alamat nyoe. WeKan ka geuatô keu __expected__, teuma ôn nyoe geupeuhah bak __actual__. Peuhah WeKan bak __expected__, atawa lakee bak administrator mangat geuatô ROOT_URL u __actual__.",
   "passwordless-title": "Login hana kata sandi",
   "passwordless-enabled": "Kirém kode tamong sigo pakek rot emel seubagoe gantoe kata sandi",
   "passwordless-hint": "Peureulée emel teubiet (MAIL_URL). Meunan cit PASSWORDLESS_ENABLED.",

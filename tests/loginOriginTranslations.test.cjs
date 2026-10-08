@@ -30,6 +30,7 @@ codes.push('ary', 'ja-HI', 'wa', 'wa-RR', 've-CC');
 codes.push('vl-SS', 'se', 'gv', 'kw');
 codes.push('om', 'lg', 'wo', 'ak');
 codes.push('bua', 'cv', 'sah');
+codes.push('ace', 'ay', 'gn', 'qu');
 for (const code of codes) {
   const value = read(code)[key];
   assert.notEqual(value, source, code);
@@ -49,7 +50,7 @@ assert.match(read('es')[key], /No se puede completar/);
 assert.match(read('ja')[key], /ログインを完了できません/);
 assert.match(read('zh-CN')[key], /无法在此地址完成/);
 assert.match(read('zh-TW')[key], /無法在此位址完成/);
-console.log('Sign-in origin warning: 185 catalog paths, repeated address roles and literal configuration key pass');
+console.log('Sign-in origin warning: 189 catalog paths, repeated address roles and literal configuration key pass');
 
 assert.match(read('ar')[key], /لا يمكن إكمال تسجيل الدخول/);
 assert.match(read('fa')[key], /تکمیل نمی‌شود/);
@@ -192,3 +193,13 @@ assert.match(read('ak')[key], /Worentumi/);
 assert.match(read('bua')[key], /дүүргэхэ аргагүй/);
 assert.match(read('cv')[key], /вӗҫлеме май ҫук/);
 assert.match(read('sah')[key], /түмүктүүр кыах суох/);
+
+assert.match(read('ace')[key], /hana jeuet lheuh/);
+assert.match(read('ay')[key], /janiw tukuyaskaspati/);
+assert.match(read('gn')[key], /Ndaikatúi oñemohu’ã/);
+assert.match(read('qu')[key], /manam tukuyta atinkichu/);
+assert.equal(read('ay')['login'], 'Mantaña');
+assert.equal(read('ay')['page'], 'Laphi');
+assert.equal(read('qu')['login'], 'Yaykuy');
+assert.equal(read('qu')['open'], 'Kichay');
+assert.equal(read('qu')['page'], 'P’anqa');
