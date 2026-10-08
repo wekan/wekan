@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Croatian planning and settings — 2026-10-08
+
+Translate the remaining 51 English fill-list entries into Croatian: planning,
+imports, link rules, settings and Scrum recovery. Preserve source variables,
+import syntax, configuration names and examples. Check first-sync retention,
+nonduplicating imports, recovery conflicts and read-only settings. The current
+Croatian fill list is empty. Vocabulary review and other languages remain;
+no browser or screen-reader session was run.
+
 ## Croatian List Sync recovery — 2026-10-08
 
 Translate all 23 remaining English List Sync recovery messages into Croatian.
