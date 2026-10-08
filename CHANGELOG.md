@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8484038c8c">Translate Croatian import instructions</a>. Thanks to xet7.</summary>
+
+Translate 21 Croatian import instructions, preserving commands, columns, variables
+and import limitations. Regression checks cover first-board selection, completion
+dates, excluded data, English headers, hierarchy and archived cards. Focused checks
+and the broader selection of 333 translation suites pass. The refreshed audit
+records the remaining translation backlog; browser review remains outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f92c673b11">Translate remaining Bulgarian import instructions</a>. Thanks to xet7.</summary>
 
 Translate the remaining 13 Bulgarian instructions, completing all 21 import
