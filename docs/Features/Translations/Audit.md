@@ -9466,6 +9466,16 @@ key order and tokens. Technical wording remains low confidence pending
 speaker review. Browser checks were not run; the excluded-English audit,
 further Konkani translations and the broader audit remain unfinished.
 
+## Konkani excluded-English storage and system labels
+
+The full English-identical audit found prose omitted by the fill tool.
+Filled 33 storage, system and general labels directly after asserting each
+value still matched English; existing translations were retained. Coverage
+checks service names, endpoint examples, configuration distinctions, script,
+key order and tokens. Technical wording remains low confidence pending
+speaker review. Browser checks were not run. Short labels and keyboard
+names still need work; the wider language audit remains unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
