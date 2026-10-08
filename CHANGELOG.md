@@ -469,6 +469,22 @@ used.
 
 # Upcoming WeKan ® release
 
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bffc32f899">Translate pending Finnish import and Sync recovery messages</a>. Thanks to xet7.</summary>
+
+Translate 36 pending messages for imports, assignment rules, LDAP, login,
+release selection and stuck List Sync operations. Preserve variables,
+configuration names and import syntax. Recovery warnings retain applied
+changes and explain that remaining saved changes are never written.
+
+The Finnish regression suite, catalog-wide placeholder and import literal
+checks, translation audit suite and 21 human-preference checks pass.
+No browser or screen-reader session was run. Translation work for other
+languages and review of older linguistic defects continue.
+
+</details>
+
 **In short:** The login settings left open in October are finished:
 **header login** is environment-only, **automatic logout** works again,
 **LDAP** gets an honest Test connection and Sync now, and **secrets from
@@ -716,6 +732,7 @@ avatar always wins, and the initials come back when the image does not load.
 </details>
 
 - [Accounts created by an OAuth2/OIDC login can join a default organization, OAUTH2_DEFAULT_ORGANIZATION](https://github.com/wekan/wekan/commit/dfcd115ff3). Thanks to vasyugan and xet7.
+- [A card moved or copied to another board brings its labels, created there when the mover is that board's admin](https://github.com/wekan/wekan/commit/125e0960eb). Thanks to d3dbit and xet7.
 - [Lists can be archived and restored through the REST API](https://github.com/wekan/wekan/commit/0a80496acf). Thanks to stevekiss and xet7.
 
 and hardens the login settings:
