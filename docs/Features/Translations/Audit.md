@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Ukrainian regional planning and recovery — 2026-10-09
+
+Fill 94 English values in uk-UA from reviewed existing Ukrainian translations:
+board announcements, link rules, read-only fields, automation actions, LDAP,
+Scrum planning and history, stalled synchronization and interrupted imports.
+Preserve existing regional translations, exact variables, configuration names and
+link-rule examples. Extend regional regression coverage for non-destructive and
+destructive recovery meanings, access restrictions and planning behavior.
+Four relevant suites and all 21 preservation checks pass. Browser review and the
+wider all-language translation backlog remain outstanding.
+
 ## Ukrainian regional outline imports — 2026-10-09
 
 Fill the three older English import instructions in uk-UA: OPML, Org mode and
