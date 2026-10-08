@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Greek planning and import recovery — 2026-10-08
+
+Translate 98 messages in each Greek catalog, for 196 filled values, preserving
+existing translations. Cover release selection, planning imports, synchronization,
+interrupted board imports, history recovery, controls, import formats, LDAP,
+login address errors and stalled synchronization. Extend the existing Greek suite
+with source order, complete token inventories, Greek prose and positive/negative
+recovery-decision checks. No browser or screen-reader session was run; other
+translations and broader linguistic review remain unfinished.
+
 ## Turkish planning imports and history recovery — 2026-10-08
 
 Translate 29 current messages for release selection, planning imports,
