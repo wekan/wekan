@@ -715,6 +715,7 @@ avatar always wins, and the initials come back when the image does not load.
 
 </details>
 
+- [Accounts created by an OAuth2/OIDC login can join a default organization, OAUTH2_DEFAULT_ORGANIZATION](https://github.com/wekan/wekan/commit/dfcd115ff3). Thanks to vasyugan and xet7.
 - [Lists can be archived and restored through the REST API](https://github.com/wekan/wekan/commit/0a80496acf). Thanks to stevekiss and xet7.
 
 and hardens the login settings:
