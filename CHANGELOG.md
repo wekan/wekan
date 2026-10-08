@@ -2173,6 +2173,20 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c58ae5f9d57f6d0afd0de128686c86a9a9317271">Translate Turkmen Scrum planning</a></summary>
+
+- Fill 36 Turkmen placeholders, preserving existing translations, completion
+  policies, sprint actions, estimate sources and units.
+- Technical wording remains low confidence pending speaker review.
+- 54 checks and 21 human-preference checks pass. Two repository-wide checks
+  fail because other locales lack the new custom-colors-in-use source key.
+  Browser checks were not run. Further translations and the audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9df0ea9aa949c810d3075f51949a9cd8c3e1231e">Translate Turkmen workspace announcements and rule editor</a></summary>
 
 - Fill 40 Turkmen placeholders, preserving existing translations, composed
