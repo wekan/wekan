@@ -7733,6 +7733,15 @@ remainder notation and shared minimum/maximum labels. Technical wording remains 
 confidence pending speaker review. Browser checks were not run. Further Tatar
 mixed-language corrections and the broader translation audit continue.
 
+### Tatar random numbers and mathematical functions
+
+Filled 28 English placeholders for sums, random numbers, rounding, logarithms, powers
+and initial inverse-trigonometric labels. Existing translations, standard symbols and
+source placeholders are preserved. Regression coverage checks key order, tokens,
+exclusive random bounds, logarithm bases and rounding/negation distinctions. Technical
+wording remains low confidence pending speaker review. Browser checks were not run.
+Further Tatar corrections and the broader language audit continue.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
