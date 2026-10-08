@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Italian current planning and recovery messages — 2026-10-08
+
+Translate 97 current English values, preserving existing localized values.
+Cover board controls, link-rule syntax, import formats, assignment actions,
+LDAP, OAuth, Scrum planning and release selection, Sync planning, interrupted
+imports, stuck Sync and conflicted history recovery. Extend the Italian suite
+with per-key prose checks and assertions for matching priority, non-duplication,
+permanent removal, preserved applied changes, recovery decisions and literal
+syntax. No browser or screen-reader session was run; other locales remain
+unfinished.
+
 ## German planning and recovery messages — 2026-10-08
 
 Translate 61 current English values in each of the four German catalogs
