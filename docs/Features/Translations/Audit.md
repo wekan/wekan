@@ -9844,6 +9844,18 @@ passed. Technical Darija wording remains low confidence pending speaker review.
 Browser, RTL and screen-reader checks were not run. Remaining placeholders and
 the broader language audit stay open.
 
+## Moroccan Arabic navigation shortcuts and letter case
+
+Filled 37 placeholders without replacing existing translations. Stack top/bottom
+means the beginning/end of the block sequence. Tests check source order, script,
+tokens, move/scroll directions, next/previous pages, append text/target arguments,
+lower/upper/title case and copying text while changing letter case.
+Of 49 checks, 47 passed; two repository-wide checks still fail because other
+locales lack the new card-field-visibility keys. All 21 human-preference checks
+passed. Technical Darija wording remains low confidence pending speaker review.
+Browser, RTL and screen-reader checks were not run. Remaining placeholders and
+the broader language audit stay open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
