@@ -487,6 +487,17 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/09ca8d5909">Translate Papiamento Blockly arithmetic messages</a>. Thanks to xet7.</summary>
+
+Translate 30 English arithmetic messages. Preserve variables, constants, numeric
+bounds and notation; check inclusive limits, angle units and number properties.
+Four focused translation suites and 21 human-preference checks pass. Specialized
+wording is lower confidence and needs native review. No browser or screen-reader
+session was run. Remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9b83235800">Translate Papiamento Blockly logic messages</a>. Thanks to xet7.</summary>
 
 Translate 25 English logic messages. Preserve variables and null; check comparison
