@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Dutch planning and import recovery messages — 2026-10-08
+
+Translate 61 further current values in each Dutch catalog (nl and nl-NL),
+for 122 filled values. Preserve existing localized values. Cover board
+controls, link rules, planning imports, Sync and import/history recovery.
+Extend the existing suite with checks for matching order, non-duplication,
+unchanged cards, permanent removal, recovery choices and literal examples.
+No browser or screen-reader session was run; broader translation and
+linguistic review remain open.
+
 ## Dutch import formats and stuck Sync recovery — 2026-10-08
 
 Translate 36 current values in each of the two Dutch catalogs (nl and nl-NL),
