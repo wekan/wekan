@@ -7592,6 +7592,16 @@ first/last distinctions, whitespace counting and replacement argument order. Tec
 wording remains low confidence pending speaker review. Browser, screen-reader and
 right-to-left layout checks were not run. The broader translation audit continues.
 
+### Central Kurdish workspace and variable messages
+
+Filled 69 English placeholders for keyboard labels, text trimming, variables,
+workspace search and counts, and shared block labels. Physical key inscriptions,
+existing translations and source tokens are preserved. Regression checks cover key
+order, script, placeholder inventories, search shortcuts, count-fragment spacing and
+trim directions. Technical wording remains low confidence pending speaker review.
+Browser, screen-reader and right-to-left layout checks were not run. The broader
+translation audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
