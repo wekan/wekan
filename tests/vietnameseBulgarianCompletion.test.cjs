@@ -13842,3 +13842,12 @@ for (const code of ['hi', 'hi-IN']) {
   assert.notEqual(locale['scrum-history-checkpoint-rollback'], locale['scrum-history-checkpoint-discard']);
   assert.ok(locale['scrum-history-checkpoint-counts'].replace('__total__', '10').replace('__applied__', '3').startsWith('10টি পরিবর্তনের মধ্যে 3টি'));
 }
+
+{
+  const locale = read('ta');
+  for (const token of ['Ctrl', 'Cmd', 'Mac']) assert.ok(locale['scrum-releases-select-help'].includes(token), `ta: ${token}`);
+  assert.match(locale['sync-planning-hint'], /முதல் ஒத்திசைவு ஒருபோதும் திட்டமிடலை அகற்றாது/);
+  assert.match(locale['scrum-history-checkpoint-hint'], /எந்தப் பதிவையும் மாற்றாது/);
+  assert.notEqual(locale['scrum-history-checkpoint-rollback'], locale['scrum-history-checkpoint-discard']);
+  assert.ok(locale['scrum-history-checkpoint-counts'].replace('__total__', '10').replace('__applied__', '3').startsWith('10 மாற்றங்களில் 3'));
+}

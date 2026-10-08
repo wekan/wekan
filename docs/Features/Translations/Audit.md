@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Tamil Scrum planning and recovery — 2026-10-08
+
+Translate 31 planning, import and recovery values. Preserve all placeholders,
+keyboard names and count roles, along with the first-sync no-removal rule and the
+distinction between rollback and keeping records unchanged. Focused Tamil, placeholder
+and language-wiring checks pass, as do all 21 preservation checks. The large completion
+suite now reaches an untranslated Nepali release label. Native review, browser checks
+and the wider all-language backlog remain unfinished.
+
 ## Bengali Scrum planning and recovery — 2026-10-08
 
 Translate 31 planning, import and recovery values, preserving exact placeholders,
