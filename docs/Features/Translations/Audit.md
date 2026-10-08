@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Yiddish Blockly statistics and rounding — 2026-10-08
+
+Translate 45 English math messages, preserving variables, division notation and
+logarithm bases. Check random-number endpoint inclusion, rounding directions,
+minimum/maximum, mean/median/mode and sign inversion. Specialized mathematical
+wording is lower confidence and needs native review. No browser or screen-reader
+session was run. Remaining translations are unfinished.
+
 ## Yiddish Blockly comparisons and arithmetic — 2026-10-08
 
 Translate 45 English logic and arithmetic messages. Preserve variables, null,

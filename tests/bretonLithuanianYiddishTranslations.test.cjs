@@ -485,3 +485,23 @@ for (const literal of ['π (3.141…)', 'e (2.718…)', 'φ (1.618…)', 'sqrt(2
 for (const label of ['LOGIC_TERNARY_CONDITION', 'LOGIC_TERNARY_IF_TRUE', 'LOGIC_TERNARY_IF_FALSE']) {
   assert.ok(locales.yi['blockly-LOGIC_TERNARY_TOOLTIP'].includes(locales.yi[`blockly-${label}`]));
 }
+
+const yiddishBlocklyStatistics = ["blockly-MATH_IS_WHOLE", "blockly-MATH_MODULO_TITLE", "blockly-MATH_MODULO_TOOLTIP", "blockly-MATH_MULTIPLICATION_SYMBOL_ARIA", "blockly-MATH_NUMBER_TOOLTIP", "blockly-MATH_ONLIST_OPERATOR_AVERAGE", "blockly-MATH_ONLIST_OPERATOR_MAX", "blockly-MATH_ONLIST_OPERATOR_MAX_ARIA", "blockly-MATH_ONLIST_OPERATOR_MEDIAN", "blockly-MATH_ONLIST_OPERATOR_MIN", "blockly-MATH_ONLIST_OPERATOR_MIN_ARIA", "blockly-MATH_ONLIST_OPERATOR_MODE", "blockly-MATH_ONLIST_OPERATOR_RANDOM", "blockly-MATH_ONLIST_OPERATOR_STD_DEV", "blockly-MATH_ONLIST_OPERATOR_SUM", "blockly-MATH_ONLIST_TOOLTIP_AVERAGE", "blockly-MATH_ONLIST_TOOLTIP_MAX", "blockly-MATH_ONLIST_TOOLTIP_MEDIAN", "blockly-MATH_ONLIST_TOOLTIP_MIN", "blockly-MATH_ONLIST_TOOLTIP_MODE", "blockly-MATH_ONLIST_TOOLTIP_RANDOM", "blockly-MATH_ONLIST_TOOLTIP_STD_DEV", "blockly-MATH_ONLIST_TOOLTIP_SUM", "blockly-MATH_POWER_SYMBOL_ARIA", "blockly-MATH_RANDOM_FLOAT_TITLE_RANDOM", "blockly-MATH_RANDOM_FLOAT_TOOLTIP", "blockly-MATH_RANDOM_INT_TITLE", "blockly-MATH_RANDOM_INT_TOOLTIP", "blockly-MATH_ROUND_OPERATOR_ROUND", "blockly-MATH_ROUND_OPERATOR_ROUNDDOWN", "blockly-MATH_ROUND_OPERATOR_ROUNDUP", "blockly-MATH_ROUND_TOOLTIP", "blockly-MATH_SINGLE_OP_ABSOLUTE", "blockly-MATH_SINGLE_OP_ABSOLUTE_ARIA", "blockly-MATH_SINGLE_OP_EXP_ARIA", "blockly-MATH_SINGLE_OP_LN_ARIA", "blockly-MATH_SINGLE_OP_LOG10_ARIA", "blockly-MATH_SINGLE_OP_NEG_ARIA", "blockly-MATH_SINGLE_OP_POW10_ARIA", "blockly-MATH_SINGLE_OP_ROOT", "blockly-MATH_SINGLE_TOOLTIP_ABS", "blockly-MATH_SINGLE_TOOLTIP_EXP", "blockly-MATH_SINGLE_TOOLTIP_LN", "blockly-MATH_SINGLE_TOOLTIP_LOG10", "blockly-MATH_SINGLE_TOOLTIP_NEG"];
+for (const key of yiddishBlocklyStatistics) {
+  assert.notEqual(locales.yi[key], english[key], key);
+  assert.match(locales.yi[key], /[\u0590-\u05ff]/, key);
+  assert.deepEqual(translationTokens(locales.yi[key]), translationTokens(english[key]), key);
+}
+assert.match(locales.yi['blockly-MATH_RANDOM_FLOAT_TOOLTIP'], /0\.0 \(אַרײַנגערעכנט\).*1\.0 \(נישט אַרײַנגערעכנט\)/);
+assert.match(locales.yi['blockly-MATH_RANDOM_INT_TOOLTIP'], /אַרײַנגערעכנט ביידע גרענעצן/);
+assert.match(locales.yi['blockly-MATH_ROUND_OPERATOR_ROUNDDOWN'], /אַראָפּ/);
+assert.match(locales.yi['blockly-MATH_ROUND_OPERATOR_ROUNDUP'], /אַרויף/);
+assert.match(locales.yi['blockly-MATH_ONLIST_TOOLTIP_MAX'], /גרעסטע/);
+assert.match(locales.yi['blockly-MATH_ONLIST_TOOLTIP_MIN'], /קלענסטע/);
+assert.match(locales.yi['blockly-MATH_ONLIST_TOOLTIP_MODE'], /אַ רשימה.*אָפֿטסטע/);
+assert.match(locales.yi['blockly-MATH_ONLIST_TOOLTIP_AVERAGE'], /אַריטמעטישן מיטל/);
+assert.match(locales.yi['blockly-MATH_ONLIST_TOOLTIP_MEDIAN'], /מעדיאַן/);
+assert.match(locales.yi['blockly-MATH_MODULO_TITLE'], /%1 ÷ %2/);
+assert.match(locales.yi['blockly-MATH_SINGLE_TOOLTIP_EXP'], / e /);
+assert.match(locales.yi['blockly-MATH_SINGLE_TOOLTIP_LOG10'], /באַזע 10/);
+assert.match(locales.yi['blockly-MATH_SINGLE_TOOLTIP_NEG'], /פֿאַרקערטן סימן/);
