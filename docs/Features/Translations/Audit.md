@@ -8535,6 +8535,14 @@ revalidated. Technical wording remains low confidence pending speaker review.
 Focused tests cover tokens, key order, UI labels and navigation steps; browser
 checks were not run.
 
+## Tatar cloud status and migration-control corrections
+
+Corrected 23 wrong-language cloud status and migration-control values, including
+two literal provider labels. Restored GridFS and S3/MinIO names and preserved
+credential state, connection/save outcomes and pause/stop distinctions. Technical
+wording remains low confidence pending speaker review. Focused tests cover tokens,
+key order, provider names and opposing states; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
