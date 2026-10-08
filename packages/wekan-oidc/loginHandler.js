@@ -182,7 +182,14 @@ addGroupsWithAttributes: async function (user, groups){
   // E.g. Admin rights will be withdrawn if no group in oidc provider has isAdmin set to true
 
   await Meteor.users.updateAsync({ _id: user._id }, { $set:  {isAdmin: isAdmin.some(i => (i === true))}});
+  const teamsBefore = (await Meteor.users.findOneAsync({ _id: user._id }, { fields: { teams: 1 } }))?.teams || [];
   await Meteor.users.updateAsync({ _id: user._id }, { $push:  {'teams': {'$each': teamArray}}});
+  // #4178 / #4593: a team member is a member of the team's boards, as when an
+  // admin adds the user to the team (server/models/users.js, reached through a
+  // global because a package cannot import app code).
+  if (teamArray.length && typeof globalThis.__wekanAddUserToTeamBoards === 'function') {
+    await globalThis.__wekanAddUserToTeamBoards(user._id, teamsBefore, [...teamsBefore, ...teamArray]);
+  }
   await Meteor.users.updateAsync({ _id: user._id }, { $push:  {'orgs': {'$each': orgArray}}});
   // remove temporary oidc data from user collection
   await Meteor.users.updateAsync({ _id: user._id }, { $unset:  {"services.oidc.groups": []}});

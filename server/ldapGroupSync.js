@@ -3,6 +3,7 @@ import { check } from 'meteor/check';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Org from '/models/org';
 import Team from '/models/team';
+import { addUserToTeamBoards } from '/server/models/users';
 
 // #4737: helper that syncs a user's LDAP groups into Wekan Organizations or
 // Teams. It is called server-to-server from the wekan-ldap package via
@@ -79,10 +80,12 @@ Meteor.methods({
         }
         const alreadyMember = (user.teams || []).some(t => t.teamId === team._id);
         if (!alreadyMember) {
-          await Meteor.users.updateAsync(
-            { _id: userId },
-            { $push: { teams: { teamId: team._id, teamDisplayName: name } } },
-          );
+          const entry = { teamId: team._id, teamDisplayName: name };
+          await Meteor.users.updateAsync({ _id: userId }, { $push: { teams: entry } });
+          // #4178 / #4593: a team member is a member of the team's boards, as
+          // when an admin adds the user to the team; the plain $push skipped it.
+          await addUserToTeamBoards(userId, user.teams || [], [...(user.teams || []), entry]);
+          user.teams = [...(user.teams || []), entry];
         }
       }
     }

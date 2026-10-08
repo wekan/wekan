@@ -121,6 +121,11 @@ global.Meteor = {
       (updatesByUser[selector._id] = updatesByUser[selector._id] || [])
         .push(modifier);
     },
+    // The teams before the push, for the team-board sync (#4178).
+    async findOneAsync(selector) {
+      await tick();
+      return { _id: selector._id, teams: [] };
+    },
   },
   async callAsync() {
     await tick();
@@ -138,6 +143,13 @@ global.Team = {
     return { _id: 'team-' + sel.teamDisplayName };
   },
 };
+// #4178: the app's team-board sync, reached through a global by the package.
+const boardSyncCalls = [];
+global.__wekanAddUserToTeamBoards = async (userId, before, after) => {
+  await tick();
+  boardSyncCalls.push({ userId, before, after: after.map(t => t.teamId) });
+};
+
 // Deliberately NO global.users: before the fix loginHandler depended on the
 // caller leaking `users = Meteor.users` into the global scope, so calling any
 // updater here would throw ReferenceError.
@@ -167,6 +179,10 @@ const {
     // logins pushed each other's teams and admin flags onto the same arrays.
     assert.deepStrictEqual(teamsPushedTo('userA'), ['team-alpha']);
     assert.deepStrictEqual(teamsPushedTo('userB'), ['team-beta']);
+    // ...and each login's new team is followed by ITS boards (#4178).
+    const synced = id => boardSyncCalls.filter(call => call.userId === id).map(call => call.after);
+    assert.deepStrictEqual(synced('userA'), [['team-alpha']]);
+    assert.deepStrictEqual(synced('userB'), [['team-beta']]);
 
     const isAdminSet = (id) => {
       const set = updatesByUser[id].find(

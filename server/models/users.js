@@ -161,6 +161,12 @@ const addUserToTeamBoards = async (userId, oldTeams, newTeams) => {
     console.error('addUserToTeamBoards failed:', error);
   }
 };
+// The LDAP group sync (server/ldapGroupSync.js) imports it; the wekan-oidc
+// package cannot import app code and reaches it through this global, the way
+// it reaches authEnv (#4178: users added to a team by a login provider were
+// never made members of the team's boards).
+export { addUserToTeamBoards };
+globalThis.__wekanAddUserToTeamBoards = addUserToTeamBoards;
 
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 const isSandstorm =
