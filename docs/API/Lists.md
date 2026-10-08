@@ -87,3 +87,17 @@ wekan/models/lists.js at bottom:
     }
   });
 ```
+
+## Archive and restore a list
+
+`POST /api/boards/:boardId/lists/:listId/archive` moves a live list to the
+archive, and `POST /api/boards/:boardId/lists/:listId/unarchive` restores an
+archived one, as the board's list menu does (#2906). Both need write access to
+the board and answer `404` when the list is not in the expected state.
+
+```bash
+curl -X POST -H "Authorization: Bearer $TOKEN" \
+  https://wekan.example.com/api/boards/$BOARD/lists/$LIST/archive
+curl -X POST -H "Authorization: Bearer $TOKEN" \
+  https://wekan.example.com/api/boards/$BOARD/lists/$LIST/unarchive
+```

@@ -947,6 +947,42 @@ WebApp.handlers.delete('/api/boards/:boardId/lists/:listId', async function(req,
   }
 });
 
+// #2906: archive and restore a list by script, as the board does (models/lists.js
+// archive/restore). The PUT above edits only live lists and cannot archive.
+WebApp.handlers.post('/api/boards/:boardId/lists/:listId/archive', async function(req, res) {
+  try {
+    const paramBoardId = req.params.boardId;
+    const paramListId = req.params.listId;
+    await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+    const list = await ReactiveCache.getList({ _id: paramListId, boardId: paramBoardId, archived: false });
+    if (!list) {
+      sendJsonResult(res, { code: 404, data: { error: 'List not found' } });
+      return;
+    }
+    await list.archive();
+    sendJsonResult(res, { code: 200, data: { _id: paramListId, archived: true } });
+  } catch (error) {
+    sendJsonResult(res, publicErrorData(error));
+  }
+});
+
+WebApp.handlers.post('/api/boards/:boardId/lists/:listId/unarchive', async function(req, res) {
+  try {
+    const paramBoardId = req.params.boardId;
+    const paramListId = req.params.listId;
+    await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+    const list = await ReactiveCache.getList({ _id: paramListId, boardId: paramBoardId, archived: true });
+    if (!list) {
+      sendJsonResult(res, { code: 404, data: { error: 'List not found' } });
+      return;
+    }
+    await list.restore();
+    sendJsonResult(res, { code: 200, data: { _id: paramListId, archived: false } });
+  } catch (error) {
+    sendJsonResult(res, publicErrorData(error));
+  }
+});
+
 // Reposition a list at a 0-based `position` counted from the left of the
 // destination board, by setting its sort between siblings.
 async function repositionList(listId, toBoardId, position) {
