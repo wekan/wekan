@@ -53,3 +53,11 @@ An administrator can mark an email address verified in Admin Panel / People /
 edit user (client/components/settings/peopleBody.jade, setEmailVerified in
 server/models/users.js), and the verify-email and resend-verification routes
 exist (config/accounts.js).
+
+## [#1990](https://github.com/wekan/wekan/issues/1990) Hide subtask boards on
+All Boards
+
+Subtask helper boards (titles wrapped in ^...^) are filtered out of All Boards,
+the board publications, Bigboard and the multi-board calendar by
+notHelperBoardTitle() (models/lib/helperBoards.js), tested by
+tests/helperBoards.test.cjs.
