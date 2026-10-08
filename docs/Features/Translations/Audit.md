@@ -7583,6 +7583,15 @@ next/previous targets and distinct move/focus actions. Technical wording remains
 confidence pending speaker review. Browser, screen-reader and right-to-left layout
 checks were not run. The broader translation audit continues.
 
+### Central Kurdish text operations
+
+Filled 47 English placeholders for text joining, case conversion, character positions,
+substrings, search, length, prompts and replacement. Existing translations and source
+tokens are preserved. Regression checks cover key order, script, token inventories,
+first/last distinctions, whitespace counting and replacement argument order. Technical
+wording remains low confidence pending speaker review. Browser, screen-reader and
+right-to-left layout checks were not run. The broader translation audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
