@@ -77,6 +77,15 @@ TOTP error preservation and lockout limits, and existing provider contracts.
 The FerretDB executable reported `v1.80.0-2-g5b3e3402-dirty`; these results do
 not claim a separately rebuilt database or validation against MongoDB.
 
+On 2026-10-08, with every provider login switched to a full-page redirect by
+default (no `*_LOGIN_STYLE`, `SAML_LOGIN_FLOW` or CAS `popup` set by the
+runner), a freshly built and prepared macOS ARM64 bundle passed all 31 checks
+with Chromium: OIDC, SAML, CAS and the seven Meteor providers each logged in
+by redirect, and each refusal was shown on the sign-in page the browser came
+back to. The popup paths are covered by the Node suites
+(`tests/oauth2LoginStyle.test.cjs`, `tests/samlPopupErrors.test.cjs`,
+`tests/loginRedirectDefault.test.cjs`), not by this run.
+
 The final local runs are recorded in `.tools/tmp/login-providers/final.log`
 and `.tools/tmp/login-providers/sandstorm-final.log`. Their artifact directories
 are printed at the beginning of each log. Earlier diagnostic runs are retained
