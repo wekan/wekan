@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/14cbd1404fa81f6af1f2a60ad6e12d7f81a673c0">Correct Tatar popup and account action labels</a></summary>
+
+- Correct 30 dependency, account, import and restoration labels, preserving
+  source tokens and distinctions between account actions and restoration targets.
+- Technical wording remains low confidence pending speaker review.
+- All 80 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a9a2e710aba4fb936165d6186efe2ca8df88c334">Correct Tatar voting controls and poker symbols</a></summary>
 
 - Correct 27 voting and card-action strings and restore ten poker number/symbol
