@@ -8274,6 +8274,15 @@ Existing correct-language table-view and calendar values remain. Technical wordi
 remains low confidence pending speaker review. Focused checks cover key order,
 source tokens, domain syntax and sharing scope; browser checks were not run.
 
+## Tatar search views and result-message corrections
+
+Corrected 34 search-view, due-card and result messages, including the literal slash
+separator. Preserved permission-limited scope, member-or-assignee filtering,
+incomplete-card criteria and result placeholders. Existing correct-language labels
+remain. Technical wording remains low confidence pending speaker review. Focused
+tests check key order, source tokens, filter semantics and matching view labels;
+browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
