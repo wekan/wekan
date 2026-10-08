@@ -9123,6 +9123,16 @@ Regression coverage checks those details, script, key order and token inventorie
 Technical wording remains low confidence pending speaker review. Browser checks
 were not run; further Maithili translations and the broader audit remain.
 
+## Maithili text processing and input prompts
+
+Filled 25 English placeholders for text processing, input prompts and basic
+variable controls. The placeholder-only merge retained existing translations.
+Preserved replacement-token roles, all-occurrence behavior, spaces in length
+counts and trimming from one or both ends. Regression coverage checks these
+details, script, key order and tokens. Technical wording remains low confidence
+pending speaker review. Browser checks were not run; further Maithili translations
+and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
