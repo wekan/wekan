@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/28c61baefc">Translate regional Romance sign-in warnings</a>. Thanks to xet7.</summary>
+
+Add Aragonese, Asturian, Sardinian, Sicilian and Neapolitan warning translations.
+Tests now cover 144 paths, checking repeated variables, address order and ROOT_URL.
+Warning and placeholder suites and all 21 preservation checks pass. These
+translations have lower confidence and need native review. This warning still
+has 63 English catalog paths; browser review and the wider backlog remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c0e538a582">Translate five additional African sign-in warnings</a>. Thanks to xet7.</summary>
 
 Add Kinyarwanda, Kirundi, Chichewa, Sesotho and Setswana warning translations.
