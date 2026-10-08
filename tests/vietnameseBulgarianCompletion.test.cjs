@@ -9757,6 +9757,10 @@ for (const code of ['he', 'he-IL']) {
     assert.match(locale[key], /\p{Script=Hebrew}/u, `${code}:${key}: Hebrew text`);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
   }
+  for (const keyName of ['Ctrl', 'Cmd', 'Mac']) assert.ok(locale['scrum-releases-select-help'].includes(keyName), `${code}: preserve ${keyName}`);
+  assert.match(locale['scrum-releases-select-help'], /להסיר את הכרטיס מכל הגרסאות/);
+  assert.match(locale['scrum-history-checkpoint-hint'], /אינה משנה רשומות/);
+  assert.notEqual(locale['scrum-history-checkpoint-rollback'], locale['scrum-history-checkpoint-discard']);
   assert.match(locale['scrum-report-help'], /אינן הערכות אפס/);
   assert.match(locale['scrum-partial-report'], /רק כרטיסים שמשויכים אליך כעת/);
   assert.match(locale['scrum-daily-observations-help'], /אינן מתעדות כל שינוי/);

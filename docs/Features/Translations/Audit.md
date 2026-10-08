@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Hebrew Scrum import/recovery and coverage count — 2026-10-08
+
+Translate 56 values in both Hebrew catalogs: release scope, multi-release selection,
+Scrum import previews/errors and interrupted-operation recovery. Preserve exact
+placeholder counts, Ctrl/Cmd/Mac names and the effect of clearing every selection.
+Keep rollback distinct from preserving already-written records. The existing
+Hebrew regression block checks every Scrum string; extend it for keyboard names and
+removal from all releases. Recompute the README's mechanical coverage count as 188
+of 234 non-English catalogs above 90 percent. This count does not certify quality.
+The language-wiring and catalog-wide placeholder suites pass; the large completion
+suite now reaches the next untranslated Persian release label after the Hebrew block.
+A focused check of all 56 Hebrew values and recovery semantics passes, as do all
+21 human-translation preservation checks.
+The preceding broad run reported 27 failures in 1,736 suites over 503 seconds while
+concurrent files were changing; its Papiamento missing-import failure has since passed
+a focused rerun. Native review, browser checks and remaining translations are unfinished.
+
 ## Super Productivity, Taiga and Vikunja import instructions — 2026-10-08
 
 Translate nine new instructions in Wu Chinese, Papiamento and Yiddish. Retain menu
