@@ -1858,47 +1858,6 @@ tests ran in Chromium and WebKit; Firefox cannot launch on the macOS machine
 used.
 
 </details>
-
-<details>
-<summary>Login settings and secrets: what the 2026-10-05 Admin Panel work left open.</summary>
-
-Every login environment variable is overridable in Admin Panel / People, and
-the LDAP and OAuth2 passwords can come from files (see Upcoming). Left open,
-each for the reason given:
-
-- [#5724](https://github.com/wekan/wekan/issues/5724) (closed, but only partly
-  done): `MAIL_SERVICE_PASSWORD_FILE`, `MONGO_PASSWORD_FILE` and
-  `S3_SECRET_FILE` are listed on every platform and still read by nothing;
-  `secrets/README.md` says so. Not login settings, and each needs a design
-  choice: Meteor connects with `MONGO_URL` before any application code runs, so
-  a Mongo password from a file could only be put into `MONGO_URL` by the
-  launcher - into the environment, which is what the file was meant to avoid;
-  `MAIL_SERVICE_PASSWORD` itself is read by nothing either (mail is configured
-  by `MAIL_URL` or the Admin Panel mail settings), and S3 reads
-  `S3_SECRET_KEY`, not `S3_SECRET`.
-- `LOGOUT_WITH_TIMER`, `LOGOUT_IN`, `LOGOUT_ON_HOURS` and `LOGOUT_ON_MINUTES`
-  are offered by the snap and the start scripts, but no code reads them, so
-  they do nothing. Implement them or remove them from the platforms - a
-  maintainer decision.
-
-Maintainer decisions of 2026-10-08 for the items above (header login, LDAP
-Test connection and LDAP Sync now, decided the same day, are built and in
-Upcoming):
-
-- **Automatic logout: implement it.** `LOGOUT_WITH_TIMER=true` signs a user
-  out after `LOGOUT_IN` days, or daily at `LOGOUT_ON_HOURS`:`LOGOUT_ON_MINUTES`,
-  and the four become overridable in Admin Panel / People like the other login
-  variables.
-- **[#5724](https://github.com/wekan/wekan/issues/5724) secrets from files:**
-  `MONGO_PASSWORD_FILE` is replaced by `MONGO_URL_FILE`, which the launchers
-  (start scripts, snap, Docker entrypoint) read and pass only to the node
-  process, because Meteor connects before application code runs.
-  `MAIL_SERVICE_PASSWORD_FILE` and `S3_SECRET_FILE` are replaced by
-  `MAIL_URL_FILE` and `S3_SECRET_KEY_FILE`, read through the same `*_FILE`
-  helper as LDAP and OAuth2; the dead names are removed from every platform
-  and `secrets/README.md`.
-
-</details>
 </details>
 
 # Upcoming WeKan ® release
@@ -1906,9 +1865,11 @@ Upcoming):
 **In short:** Translation filling now protects interpolation variables before
 writing a batch. Locale catalogs include the new card-field settings, with
 more translated help text and refreshed translation audit checks.
-**Header login** is now set by the server environment only, **LDAP Test
-connection** reports success only when the directory answered, and **LDAP Sync
-now** runs the background sync on demand.
+The login settings left open in October are done: **header login** is
+environment-only, **automatic logout** works again, **LDAP** gains an honest
+Test connection and a Sync now button, and **secrets from files** cover the
+database, mail and S3 URLs. Sixteen long-open requests were closed as already
+implemented.
 
 This release hardens the login settings:
 
@@ -2042,6 +2003,61 @@ wekan-ldap methods file is left unloaded; the Playwright spec
 was not run here.
 
 </details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c1d1a04790">Automatic logout with LOGOUT_WITH_TIMER and the LOGOUT_* settings works again</a>. Thanks to xet7.</summary>
+
+The platforms offered `LOGOUT_WITH_TIMER`, `LOGOUT_IN`, `LOGOUT_ON_HOURS` and
+`LOGOUT_ON_MINUTES` since 2018, but the code that read them went with the job
+queue it ran on. A login now ends `LOGOUT_IN` days after it was made, or at
+`LOGOUT_ON_HOURS`:`LOGOUT_ON_MINUTES` server time; once a minute the server
+removes the expired login tokens in one query and the browsers using them are
+signed out. All four are overridable in Admin Panel / People / Login. An
+unusable combination signs nobody out and the log says why.
+`tests/logoutTimer.test.cjs` checks the one-query cutoff against each login's
+deadline over two years of logins in three time zones; the Playwright spec
+`admin-login-env-overrides` drives it from the Admin Panel.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/71cd2aed05">MONGO_URL_FILE, MAIL_URL_FILE and S3_SECRET_KEY_FILE replace three secret files nothing read</a>. Thanks to xet7.</summary>
+
+`MAIL_SERVICE_PASSWORD_FILE`, `MONGO_PASSWORD_FILE` and `S3_SECRET_FILE` were
+offered on every platform and read by nothing ([#5724](https://github.com/wekan/wekan/issues/5724)).
+`MONGO_URL_FILE` holds the whole database URL and is read by the Docker
+entrypoint, the snap and both start scripts, because Meteor connects before
+WeKan's code runs; an unreadable file stops the start rather than falling back
+to a default database, and the snap log no longer prints a password written
+in `MONGO_URL`. `MAIL_URL_FILE` and `S3_SECRET_KEY_FILE` are read by the
+server at start. The dead names are gone from every platform, and a warning
+names the replacement when one is still set. `tests/envSecretFiles.test.cjs`
+runs the entrypoint's block for real and fails if any platform offers a
+retired name again.
+
+</details>
+
+and closes these issues, which were already implemented:
+
+Where each one is in the code:
+[Issues-Already-Implemented-2026-10-08.md](docs/DeveloperDocs/Issues-Already-Implemented-2026-10-08.md).
+
+- [Auto add user name to a moved card, done by a rule](https://github.com/wekan/wekan/commit/e27ca445d5). Thanks to xet7.
+- [Receive notifications from other users only](https://github.com/wekan/wekan/commit/595f6aaed6). Thanks to gpelouze and xet7.
+- [Move lists to a different board](https://github.com/wekan/wekan/commit/f7879e95e6). Thanks to h0jeZvgoxFepBQ2C and xet7.
+- [Use the EXIF orientation of uploaded pictures](https://github.com/wekan/wekan/commit/1fbb9f4011). Thanks to CWempe and xet7.
+- [Smart search of cards](https://github.com/wekan/wekan/commit/f94cb41c00). Thanks to usmcamp0811 and xet7.
+- [Resend verification or change the verified flag](https://github.com/wekan/wekan/commit/0f85328f15). Thanks to lucg71 and xet7.
+- [Hide subtask boards on All Boards](https://github.com/wekan/wekan/commit/78899b673f). Thanks to nmd3 and xet7.
+- [Progress charts and work statistics for each board](https://github.com/wekan/wekan/commit/939aa8a95e). Thanks to xet7.
+- [Mini date field](https://github.com/wekan/wekan/commit/fcbd268d43). Thanks to gerroon and xet7.
+- [Notification mail template](https://github.com/wekan/wekan/commit/dd410a3a8b). Thanks to hingerlanton and xet7.
+- [Auth0 redirect to the full-screen login page](https://github.com/wekan/wekan/commit/948020275b). Thanks to xet7.
+- [Common WIP limit for several columns](https://github.com/wekan/wekan/commit/61ad1272bb). Thanks to aviertio and xet7.
+- [All Boards drag and drop, and colour](https://github.com/wekan/wekan/commit/0a8c38f395). Thanks to compumatter and xet7.
+- [Master dashboard like Kanboard's Bigboard plugin](https://github.com/wekan/wekan/commit/d10fe621be). Thanks to Jieiku and xet7.
+- [Move a checklist from one card to another card](https://github.com/wekan/wekan/commit/9158772a61). Thanks to qiutian00 and xet7.
+- [Restrict the WeKan port to loopback](https://github.com/wekan/wekan/commit/68bdd70a51). Thanks to galletl and xet7.
 
 and improves translations and their validation:
 
