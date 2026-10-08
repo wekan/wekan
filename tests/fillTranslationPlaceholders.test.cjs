@@ -88,3 +88,33 @@ test('technical symbols do not hide adjacent Blockly prose or changed source tex
       'a native shared color word never exempts a later English sentence');
   } finally { fs.rmSync(fixture, { recursive: true, force: true }); }
 });
+
+test('shared Sorbian and Silesian math words are scoped to exact labels and source values', () => {
+  const fixture = fs.mkdtempSync(path.join(root, '.tools/tmp/shared-math-'));
+  try {
+    const directory = path.join(fixture, 'imports/i18n/data');
+    fs.mkdirSync(directory, { recursive: true });
+    const source = {
+      'blockly-MATH_ADDITION_SYMBOL_ARIA': 'plus',
+      'blockly-MATH_SUBTRACTION_SYMBOL_ARIA': 'minus',
+      'blockly-INPUT_LABEL_NUMBER_MIN': 'minimum',
+      ordinary: 'plus',
+      tooltip: 'Add the numbers',
+    };
+    const write = code => fs.writeFileSync(path.join(directory, code + '.i18n.json'), JSON.stringify(source));
+    for (const code of ['en', 'hsb', 'szl', 'xx']) write(code);
+    const list = code => {
+      const result = spawnSync(process.execPath, [script, '--list', code], { cwd: fixture, encoding: 'utf8' });
+      assert.equal(result.status, 0, result.stderr);
+      return JSON.parse(result.stdout);
+    };
+    for (const code of ['hsb', 'szl']) {
+      assert.deepEqual(list(code), Object.fromEntries(Object.entries(source).slice(2)));
+    }
+    assert.deepEqual(list('xx'), source, 'other languages still need their own translations');
+    source['blockly-MATH_ADDITION_SYMBOL_ARIA'] = 'Add these numbers';
+    source['blockly-MATH_SUBTRACTION_SYMBOL_ARIA'] = 'Subtract these numbers';
+    for (const code of ['en', 'hsb', 'szl']) write(code);
+    for (const code of ['hsb', 'szl']) assert.deepEqual(list(code), source);
+  } finally { fs.rmSync(fixture, { recursive: true, force: true }); }
+});

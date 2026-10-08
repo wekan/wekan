@@ -83,6 +83,17 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // needs a different word. Keep those exceptions per locale; putting them in the
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
+  // Native mathematical labels: CLDR Upper Sorbian annotations and the
+  // Silesian emoji vocabulary both name these operators plus/minus.
+  // Scope by locale, key AND exact source value so later prose is not hidden.
+  hsb: new Set(Object.entries({
+    'blockly-MATH_ADDITION_SYMBOL_ARIA': 'plus',
+    'blockly-MATH_SUBTRACTION_SYMBOL_ARIA': 'minus',
+  }).filter(([key, value]) => en[key] === value).map(([key]) => key)),
+  szl: new Set(Object.entries({
+    'blockly-MATH_ADDITION_SYMBOL_ARIA': 'plus',
+    'blockly-MATH_SUBTRACTION_SYMBOL_ARIA': 'minus',
+  }).filter(([key, value]) => en[key] === value).map(([key]) => key)),
   // Bislama's native color term is also "red". Exempt only these labels and
   // this exact source value; changed source prose still needs translation.
   bi: new Set(['color-red', 'blockly-COLOUR_RGB_RED'].filter(key => en[key] === 'red')),

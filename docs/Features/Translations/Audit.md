@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Shared Silesian and Upper Sorbian mathematical labels — 2026-10-08
+
+Keep the existing plus/minus accessibility labels: these are valid native terms,
+not English gaps. Evidence: [Upper Sorbian CLDR annotations](https://unicode.org/cldr/charts/44/delta/hsb.html)
+and [Silesian emoji vocabulary](https://www.sweasy26.com/silesian/).
+The fill checker now recognizes only the two exact keys and source values in
+these two locales. Regression checks keep other keys, other locales, changed
+source prose and unverified minimum labels visible. No screen-reader session
+was run; remaining translations and vocabulary review are unfinished.
+
 ## Serbian planning and settings — 2026-10-08
 
 Translate 51 remaining English fill-list entries into Serbian, covering planning,
