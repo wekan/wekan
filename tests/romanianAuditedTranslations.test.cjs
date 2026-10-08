@@ -16,6 +16,18 @@ const records = read('releases/translations/audited-corrections.json');
   for (const locale of ['ro', 'ro-RO']) {
     const data = read(`imports/i18n/data/${locale}.i18n.json`);
     assert.deepEqual(Object.keys(data), Object.keys(english), locale);
+    for (const key of Object.keys(english).filter(key => key.startsWith('interrupted-import-'))) {
+      assert.ok(data[key]?.trim(), key);
+      assert.notEqual(data[key], english[key], `${locale}:${key}: translate import recovery`);
+    }
+    assert.match(data['interrupted-import-description'], /nu poate fi reluat/);
+    assert.match(data['interrupted-import-description'], /inclusiv elementele adăugate ulterior/);
+    assert.match(data['interrupted-import-keep-confirm'], /Nu se elimină nimic/);
+    assert.match(data['interrupted-import-discard-confirm'], /eliminate definitiv/);
+    assert.match(data['interrupted-import-truncated'], /cele mai vechi 50/);
+    assert.match(data['interrupted-import-foreign-board'], /nu a fost modificat/);
+    assert.match(data['interrupted-import-state-discarding'], /ștergeți din nou/);
+
     for (const key of Object.keys(english)) {
       assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), `${locale}:${key}`);
     }

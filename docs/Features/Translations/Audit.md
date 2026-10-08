@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Romanian interrupted import recovery — 2026-10-08
+
+Translate 25 messages in each Romanian catalog (ro and ro-RO), for 50 filled
+values, preserving existing translations. Retain the inability to resume
+without the source file, permanent removal including later additions,
+retention without deletion, the separate Scrum recovery checkpoint and
+protection of unrelated boards. Extend the existing Romanian suite with
+per-key prose and recovery-decision checks. No browser or screen-reader
+session was run; other translations and linguistic review remain open.
+
 ## Hungarian controls, import guidance and stuck Sync recovery — 2026-10-08
 
 Translate 44 further current Hungarian values for board controls, link rules,
