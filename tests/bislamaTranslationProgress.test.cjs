@@ -221,3 +221,27 @@ assert.match(bislama['flow-note-agingWip'], /pesentael namba 85.*faef taem o moa
 assert.match(bislama['flow-note-blockerAnalysis'], /kaontem seperet.*semtaem/);
 assert.match(bislama['flow-note-sizeCycleTime'], /Stat.*taem blong mekem.*En.*akaev/);
 assert.match(bislama['time-adjustment-note'], /no ol wanwan sesen.*negativ.*stretem/);
+
+const importRepairs = ["import-board-instruction-kanboard", "import-board-instruction-deck", "import-board-instruction-openproject", "import-board-instruction-issues", "import-board-instruction-asana", "import-board-instruction-zenkit", "import-board-instruction-markdown", "import-board-instruction-opml", "import-board-instruction-orgmode", "import-board-instruction-trello", "import-board-instruction-csv", "import-board-instruction-jira", "import-board-instruction-excel", "import-board-instruction-wekan", "import-board-instruction-about-errors"];
+for (const key of importRepairs) assert.notEqual(bislama[key], english[key], key);
+const importLiterals = {
+  kanboard: ['"columns"', '"tasks"', 'title', 'description', 'column_name', 'swimlane_name', 'date_due', 'owner', 'tags'],
+  deck: ['"stacks"', '"cards"'],
+  openproject: ['GET /api/v3/work_packages'],
+  asana: ['{ "data": [...] }', 'GET /tasks', 'memberships'],
+  zenkit: ['{ "title", "stages":[...], "items":[...] }'],
+  jira: ['GET /rest/api/2/search', '{ "issues": [...] }', '"automationRules"'],
+  markdown: ['## List name', '- [ ]', '- [x]'],
+  orgmode: ['TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED'],
+  excel: ['.xlsx', 'Title', 'Description', 'Status/List', 'Members', 'Labels'],
+};
+for (const [format, literals] of Object.entries(importLiterals)) {
+  for (const literal of literals) {
+    assert.ok(english['import-board-instruction-' + format].includes(literal));
+    assert.ok(bislama['import-board-instruction-' + format].includes(literal), format + ': ' + literal);
+  }
+}
+assert.doesNotMatch(bislama['import-board-instruction-kanboard'], /column_nem|swimlane_nem|deit_mas/);
+assert.doesNotMatch(bislama['import-board-instruction-jira'], /api\/2\/lukaotem/);
+assert.deepEqual(tokens(bislama['import-board-instruction-issues']), ['__endpoint__', '__sourceName__']);
+assert.match(bislama['import-board-instruction-opml'], /moa daon.*lis blong jekem/);

@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Bislama import prose and literal examples — 2026-10-08
+
+Correct 13 mixed-language import instructions and translate the two new OPML
+and Org mode instructions. Restore Kanboard field identifiers, Deck's cards
+property, ZenKit's title property and Jira's /rest/api/2/search endpoint.
+Keep menu labels, JSON examples, named placeholders, Org status keywords,
+Markdown checkbox syntax and documented spreadsheet columns literal.
+
+Regression coverage checks these strings against their English-source literals,
+rejects known damaged field/path spellings and verifies import mappings.
+This extends the token audit beyond percent/underscore interpolation: JSON field
+names and endpoints are also code. Existing fully translated instructions remain
+unchanged. Complete prose remains provisional pending fluent review; no browser
+session was run. Vocabulary follows the existing references below.
+
 ## Bislama storage, lockout and backup controls — 2026-10-08
 
 Correct 236 artificial English wrappers in storage moves, attachment repair,
