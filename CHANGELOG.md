@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b87568cd434fa104ad6cc2c7ee75b9812f468bb0">Translate Odia Boolean logic and arithmetic messages</a></summary>
+
+- Fill 21 Odia logic and arithmetic placeholders, preserving existing translations,
+  conditional labels, coordinate references and numeric domains.
+- Technical wording remains low confidence pending speaker review.
+- All 49 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Odia translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2c12e8cb4539aebefd02e47f5007752a0708b916">Translate Odia sorting and comparison messages</a></summary>
 
 - Fill 25 Odia sorting and logic placeholders, preserving existing translations,
