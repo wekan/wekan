@@ -9336,6 +9336,16 @@ Regression coverage checks those details, script, key order and token inventorie
 Technical wording remains low confidence pending speaker review. Browser checks
 were not run; further Konkani translations and the broader audit remain.
 
+## Konkani logic and arithmetic controls
+
+Filled 22 English values for Boolean conditions, arithmetic and spoken constants.
+Existing translations were retained; filter-excluded short labels were filled
+directly after checking equality with English. Preserved null, atan2, coordinate
+roles, angle bounds and both-versus-at-least-one conditions. Regression coverage
+checks those details, script, key order and tokens. Technical wording remains low
+confidence pending speaker review. Browser checks were not run; further Konkani
+translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
