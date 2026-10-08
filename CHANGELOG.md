@@ -1785,6 +1785,18 @@ implemented.
 This release hardens the login settings:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5e00df9be7">Correct Bislama display, weekday and report translations</a>. Thanks to xet7.</summary>
+
+- Replace 76 artificial English wrappers while preserving template variables,
+  import counts, separators and font names. 312 older wrappers remain;
+  search operators still require a parser-aware review.
+- Three relevant suites pass, including the catalog-wide placeholder check.
+  Software compounds remain provisional pending fluent review. Browser and
+  screen-reader sessions were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d4607ee49c">Correct Bislama navigation, diagnostics and rule labels</a>. Thanks to xet7.</summary>
 
 - Replace 145 artificial English wrappers and translate new Todoist import
