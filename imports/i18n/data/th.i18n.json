@@ -214,6 +214,8 @@
   "avatar-too-big": "รูปประจำตัวมีขนาดใหญ่เกินไป (สูงสุด __size__)",
   "back": "ย้อนกลับ",
   "board-change-color": "เปลี่ยนสี",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "เปลี่ยนภาพพื้นหลัง",
   "board-background-image-url": "URL ของภาพพื้นหลัง",
   "add-background-image": "เพิ่มภาพพื้นหลัง",

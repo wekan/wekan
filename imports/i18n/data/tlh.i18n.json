@@ -214,6 +214,8 @@
   "avatar-too-big": "tInqu' lo'wI' Degh (__size__ 'aqroS)",
   "back": "chegh",
   "board-change-color": "nguv choH",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "'em mIllogh choH",
   "board-background-image-url": "'em mIllogh URL",
   "add-background-image": "raS 'em mIllogh yIchel",

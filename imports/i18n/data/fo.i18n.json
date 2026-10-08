@@ -214,6 +214,8 @@
   "avatar-too-big": "Vangamyndin er ov stór (__size__ í mesta lagi)",
   "back": "Aftur",
   "board-change-color": "Broyt lit",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Broyt bakgrundsmynd",
   "board-background-image-url": "URL til bakgrundsmynd",
   "add-background-image": "Legg bakgrundsmynd afturat",

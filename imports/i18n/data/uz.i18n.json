@@ -214,6 +214,8 @@
   "avatar-too-big": "Avatar juda katta (__size__ maksimal)",
   "back": "Orqaga",
   "board-change-color": "Rangni o'zgartirish",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Fon rasmini o'zgartirish",
   "board-background-image-url": "Fon rasmi URL manzili",
   "add-background-image": "Fon rasmini qo'shish",

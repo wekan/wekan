@@ -214,6 +214,8 @@
   "avatar-too-big": "Tá an abhatár rómhór (uasmhéid __size__)",
   "back": "Ar ais",
   "board-change-color": "Athraigh dath",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Athraigh Íomhá Chúlra",
   "board-background-image-url": "URL na hÍomhá Cúlra",
   "add-background-image": "Cuir Íomhá Chúlra Leis",

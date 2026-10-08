@@ -214,6 +214,8 @@
   "avatar-too-big": "Avatar je příliš velký (__size__ max)",
   "back": "Zpět",
   "board-change-color": "Změnit barvu",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Změnit obrázek na pozadí",
   "board-background-image-url": "URL obrázku na pozadí",
   "add-background-image": "Přidat obrázek na pozadí",

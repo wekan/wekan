@@ -214,6 +214,8 @@
   "avatar-too-big": "Suuraan eenyummaa baay'ee guddaa dha (guddaan __size__)",
   "back": "Duubatti",
   "board-change-color": "Halluu jijjiiri",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Suuraa duubbee jijjiiri",
   "board-background-image-url": "URL suuraa duubbee",
   "add-background-image": "Suuraa duubbee dabali",

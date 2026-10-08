@@ -214,6 +214,8 @@
   "avatar-too-big": "Avatar ahụ buru oke ibu (__size__ max)",
   "back": "Azu",
   "board-change-color": "Gbanwee agba",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Gbanwee onyogho ndabere",
   "board-background-image-url": "URL ndabere",
   "add-background-image": "Tinye onyonyo ndabere",

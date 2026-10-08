@@ -214,6 +214,8 @@
   "avatar-too-big": "Avataren er for stor (maks __size__)",
   "back": "Tilbake",
   "board-change-color": "Endre farge",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Endre bakgrunnsbilde",
   "board-background-image-url": "URL til bakgrunnsbilde",
   "add-background-image": "Legg til bakgrunnsbilde",

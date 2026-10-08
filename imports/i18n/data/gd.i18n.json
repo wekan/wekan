@@ -214,6 +214,8 @@
   "avatar-too-big": "Tha an t-abhatàr ro mhòr (__size__ aig a' char as motha)",
   "back": "Air ais",
   "board-change-color": "Atharraich dath",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Atharraich Dealbh a' Chùlaibh",
   "board-background-image-url": "URL Dealbh a' Chùlaibh",
   "add-background-image": "Cuir Dealbh Cùlaibh Ris",

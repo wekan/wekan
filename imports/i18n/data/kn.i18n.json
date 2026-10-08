@@ -214,6 +214,8 @@
   "avatar-too-big": "ಅವತಾರ ತುಂಬಾ ದೊಡ್ಡದಾಗಿದೆ (ಗರಿಷ್ಠ __size__)",
   "back": "ಹಿಂದೆ",
   "board-change-color": "ಬಣ್ಣ ಬದಲಾಯಿಸಿ",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "ಹಿನ್ನೆಲೆ ಚಿತ್ರ ಬದಲಾಯಿಸಿ",
   "board-background-image-url": "ಹಿನ್ನೆಲೆ ಚಿತ್ರದ URL",
   "add-background-image": "ಹಿನ್ನೆಲೆ ಚಿತ್ರ ಸೇರಿಸಿ",

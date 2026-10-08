@@ -214,6 +214,8 @@
   "avatar-too-big": "Аватар өтө чоң (эң көбү __size__)",
   "back": "Артка",
   "board-change-color": "Түстү өзгөртүү",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Фон сүрөтүн өзгөртүү",
   "board-background-image-url": "Фон сүрөтүнүн URL дареги",
   "add-background-image": "Фон сүрөтүн кошуу",

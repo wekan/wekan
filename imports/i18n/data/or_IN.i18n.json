@@ -214,6 +214,8 @@
   "avatar-too-big": "ଅବତାର ବହୁତ ବଡ (__size__ ସର୍ବାଧିକ)",
   "back": "ପଛକୁ",
   "board-change-color": "ରଙ୍ଗ ପରିବର୍ତ୍ତନ କରନ୍ତୁ |",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "ପୃଷ୍ଠଭୂମି ପ୍ରତିଛବି ପରିବର୍ତ୍ତନ କରନ୍ତୁ |",
   "board-background-image-url": "ପୃଷ୍ଠଭୂମି ପ୍ରତିଛବି URL |",
   "add-background-image": "ପୃଷ୍ଠଭୂମି ପ୍ରତିଛବି ଯୋଡନ୍ତୁ |",

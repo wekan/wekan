@@ -214,6 +214,8 @@
   "avatar-too-big": "Аватар занадта вялікі (максімум __size__)",
   "back": "Назад",
   "board-change-color": "Змяніць колер",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Змяніць фонавы малюнак",
   "board-background-image-url": "URL фонавага малюнка",
   "add-background-image": "Дадаць фонавы малюнак",

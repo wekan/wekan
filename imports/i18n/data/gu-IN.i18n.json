@@ -214,6 +214,8 @@
   "avatar-too-big": "અવતાર ખૂબ મોટો છે (__size__ મહત્તમ)",
   "back": "પાછળ",
   "board-change-color": "રંગ બદલો",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "પૃષ્ઠભૂમિ છબી બદલો",
   "board-background-image-url": "પૃષ્ઠભૂમિ છબી URL",
   "add-background-image": "પૃષ્ઠભૂમિ છબી ઉમેરો",

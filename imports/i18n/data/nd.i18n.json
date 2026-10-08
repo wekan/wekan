@@ -214,6 +214,8 @@
   "avatar-too-big": "Isithombe somsebenzisi sikhulu kakhulu (__size__ ubukhulu obuphezulu)",
   "back": "Buyela",
   "board-change-color": "Tshintsha umbala",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Tshintsha isithombe sangemuva",
   "board-background-image-url": "URL yesithombe sangemuva",
   "add-background-image": "Engeza isithombe sangemuva",

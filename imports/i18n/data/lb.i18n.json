@@ -214,6 +214,8 @@
   "avatar-too-big": "Das Profilbild ass zu groß (__size__ max)",
   "back": "Zréck",
   "board-change-color": "Faarf änneren",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Hannergrondbild änneren",
   "board-background-image-url": "Hannergrondbild URL",
   "add-background-image": "Hannergrondbild derbäisetzen",

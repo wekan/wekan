@@ -1,5 +1,7 @@
 import '/client/components/boards/boardArchive.jade';
 import '/client/components/boards/boardBody.jade';
+// #1566: the board's own announcement.
+import '/client/components/boards/boardAnnouncement.jade';
 import '/client/components/boards/dependencyOverlay.jade';
 import '/client/components/boards/boardHeader.jade';
 import '/client/components/boards/boardsList.jade';
@@ -24,6 +26,7 @@ import '/client/components/boards/multiboardCalendarView.jade';
 
 import '/client/components/boards/boardArchive.js';
 import '/client/components/boards/boardBody.js';
+import '/client/components/boards/boardAnnouncement.js';
 import '/client/components/boards/dependencyOverlay.js';
 import '/client/components/boards/boardHeader.js';
 import '/client/lib/allBoardsView';

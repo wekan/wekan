@@ -214,6 +214,8 @@
   "avatar-too-big": "头像尺寸过大 (__size__ 最大)",
   "back": "返回",
   "board-change-color": "更改颜色",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "修改背景图片",
   "board-background-image-url": "背景图片网址",
   "add-background-image": "新增背景图片",

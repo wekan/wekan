@@ -214,6 +214,8 @@
   "avatar-too-big": "Hình đại diện quá dung lượng (__size__ max)",
   "back": "Trở Lại",
   "board-change-color": "Đổi màu",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Ubah latar belakang gambar",
   "board-background-image-url": "Latar belakang gambar URL",
   "add-background-image": "Tambah latar belakang gambar",

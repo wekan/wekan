@@ -214,6 +214,8 @@
   "avatar-too-big": "L'avatar al è masse grant (__size__ max)",
   "back": "Indaûr",
   "board-change-color": "Cambia colôr",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Modifichere immagine di sfondo",
   "board-background-image-url": "URL de imagjin di fonts",
   "add-background-image": "Zonte imagjin di fonts",

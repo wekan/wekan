@@ -214,6 +214,8 @@
   "avatar-too-big": "L’avatar ye masiau gran (__size__ como maximo)",
   "back": "Dezaga",
   "board-change-color": "Cambiar el color",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Cambiar imagen de fondo",
   "board-background-image-url": "URL d’a imachen de fondo",
   "add-background-image": "Adhibir imagen de fondo",

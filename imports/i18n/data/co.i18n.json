@@ -214,6 +214,8 @@
   "avatar-too-big": "L’avatar hè troppu grande (__size__ massimu)",
   "back": "Indietru",
   "board-change-color": "Cambia culore",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Cambià l’imagine di fondu",
   "board-background-image-url": "URL di l’imagine di fondu",
   "add-background-image": "Aghjunghje un’imagine di fondu",

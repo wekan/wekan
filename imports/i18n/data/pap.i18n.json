@@ -214,6 +214,8 @@
   "avatar-too-big": "E abatar ta demasiado grande (__size__ máx)",
   "back": "Bai bèk",
   "board-change-color": "Kambia e koló",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Kambia imagen di fondo",
   "board-background-image-url": "URL di e imagen di fondo",
   "add-background-image": "Agregá imagen di fondo",

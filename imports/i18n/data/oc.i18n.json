@@ -214,6 +214,8 @@
   "avatar-too-big": "L’avatar es tròp grand (__size__ al maximum)",
   "back": "Tornar",
   "board-change-color": "Cambiar de color",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Cambiar l'imatge de fons",
   "board-background-image-url": "URL de l'imatge de fons",
   "add-background-image": "Apondre un imatge de fons",

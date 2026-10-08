@@ -214,6 +214,8 @@
   "avatar-too-big": "Chithunzi cha mbiri ndi chachikulu kwambiri (__size__ kwambiri)",
   "back": "Bwererani",
   "board-change-color": "Sinthani mtundu",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Sinthani Chithunzi Chakumbuyo",
   "board-background-image-url": "URL ya Chithunzi Chakumbuyo",
   "add-background-image": "Onjezani Chithunzi Chakumbuyo",

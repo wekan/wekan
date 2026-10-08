@@ -214,6 +214,8 @@
   "avatar-too-big": "Das Profilbild ist zu groß (__size__ max)",
   "back": "Zurück",
   "board-change-color": "Farbe ändern",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Hintergrundbild ändern",
   "board-background-image-url": "Hintergrundbild URL",
   "add-background-image": "Hintergrundbild hinzufügen",

@@ -214,6 +214,8 @@
   "avatar-too-big": "اوتار چھُ واریاہ بوٚڑ (__size__ زیادٕ کھۄتہٕ زیادٕ)",
   "back": "پھِرِتھ",
   "board-change-color": "رنگ بدلٲویو",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "پس منظر تصویر بدلٲویو",
   "board-background-image-url": "پس منظر تصویر URL",
   "add-background-image": "پس منظر تصویر شامل کریو",

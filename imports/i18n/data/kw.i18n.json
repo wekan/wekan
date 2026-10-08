@@ -214,6 +214,8 @@
   "avatar-too-big": "An avatar yw re vras (__size__ moyha)",
   "back": "Dhelergh",
   "board-change-color": "Chanjya liw",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Chanjya skeusen kilva",
   "board-background-image-url": "URL skeusen kilva",
   "add-background-image": "Keworra skeusen kilva",

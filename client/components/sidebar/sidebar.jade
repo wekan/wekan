@@ -556,6 +556,11 @@ template(name="boardMenuPopup")
         a.js-change-board-color
           i.fa.fa-paint-brush
           | {{_ 'board-change-color'}}
+      //- #1566: the board's own announcement, shown to every member.
+      li
+        a.js-open-board-announcement
+          i.fa.fa-bullhorn
+          | {{_ 'board-announcement'}}
       li
         a.js-change-background-image
           i.fa.fa-picture-o

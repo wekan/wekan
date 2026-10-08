@@ -214,6 +214,8 @@
   "avatar-too-big": "Tshifanyiso tsha mushumisi ndi tshihulwane nga maanḓa (mukano ndi __size__)",
   "back": "Emuva",
   "board-change-color": "Shintsha umbala",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Shandula tshifanyiso tsha murahu",
   "board-background-image-url": "URL ya tshifanyiso tsha murahu",
   "add-background-image": "Engedza tshifanyiso tsha murahu",

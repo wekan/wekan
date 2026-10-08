@@ -214,6 +214,8 @@
   "avatar-too-big": "Mfonini no sõ dodo (ɛnsɛ sɛ ɛboro __size__)",
   "back": "San kɔ",
   "board-change-color": "Sesa kɔla",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Sesa akyi mfonini",
   "board-background-image-url": "Akyi mfonini no URL",
   "add-background-image": "Fa akyi mfonini ka ho",

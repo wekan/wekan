@@ -214,6 +214,8 @@
   "avatar-too-big": "Avatar terlalu besar (maksimum __size__)",
   "back": "Kembali",
   "board-change-color": "Ubah warna",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Ubah latar belakang gambar",
   "board-background-image-url": "Latar belakang gambar URL",
   "add-background-image": "Tambah latar belakang gambar",

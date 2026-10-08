@@ -1,0 +1,21 @@
+//- #1566: the board's own announcement (models/lib/boardAnnouncement.js),
+  in the site announcement's style. Plain text: Blaze escapes it.
+template(name="boardAnnouncement")
+  if showBoardAnnouncement
+    .announcement.board-announcement.js-board-announcement(role="status" aria-live="polite")
+      ul
+        li
+          i.fa.fa-bullhorn(aria-hidden="true")
+          | #{boardAnnouncementBody}
+          a.js-close-board-announcement(aria-label="{{_ 'close'}}" title="{{_ 'close'}}")
+            i.fa.fa-times-thin(aria-hidden="true")
+
+//- Board menu / Board announcement, for a board admin.
+template(name="boardAnnouncementPopup")
+  form.js-board-announcement-form
+    label(for="board-announcement-text") {{_ 'board-announcement'}}
+    textarea.js-board-announcement-text#board-announcement-text(rows="5" maxlength="2000")= announcementBody
+    a.flex.js-board-announcement-enabled(class="{{#if announcementEnabled.get}}is-checked{{/if}}")
+      .materialCheckBox(class="{{#if announcementEnabled.get}}is-checked{{/if}}")
+      span {{_ 'board-announcement-enabled'}}
+    button.primary.wide.js-board-announcement-save(type="submit") {{_ 'save'}}

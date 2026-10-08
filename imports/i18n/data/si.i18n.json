@@ -214,6 +214,8 @@
   "avatar-too-big": "අවතාරය විශාල වැඩියි (උපරිම __size__)",
   "back": "ආපසු",
   "board-change-color": "වර්ණය වෙනස් කරන්න",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "පසුබිම් රූපය වෙනස් කරන්න",
   "board-background-image-url": "පසුබිම් රූප URL",
   "add-background-image": "පසුබිම් රූපයක් එක් කරන්න",

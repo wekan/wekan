@@ -214,6 +214,8 @@
   "avatar-too-big": "Isithombe sikhulu kakhulu (__size__ ubuningi)",
   "back": "Emuva",
   "board-change-color": "Shintsha umbala",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Shintsha Isithombe Sangemuva",
   "board-background-image-url": "I-URL yesithombe sangemuva",
   "add-background-image": "Engeza isithombe sangemuva",

@@ -214,6 +214,8 @@
   "avatar-too-big": "Avatar çox böyükdür (__size__ maks.)",
   "back": "Geri",
   "board-change-color": "Rəng dəyişdirin",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Fon şəklini dəyişdirin",
   "board-background-image-url": "Arxa fon şəklinin URL-i",
   "add-background-image": "Fon şəkli əlavə edin",

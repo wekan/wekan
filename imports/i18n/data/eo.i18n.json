@@ -214,6 +214,8 @@
   "avatar-too-big": "La avataro estas tro granda (maks. __size__)",
   "back": "Reen",
   "board-change-color": "Ŝanĝi koloron",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Ŝanĝi fonbildon",
   "board-background-image-url": "URL de fonbildo",
   "add-background-image": "Aldoni fonbildon",

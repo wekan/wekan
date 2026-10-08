@@ -214,6 +214,8 @@
   "avatar-too-big": "അവതാർ വളരെ വലുതാണ് (പരമാവധി __size__)",
   "back": "തിരികെ",
   "board-change-color": "നിറം മാറ്റുക",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "പശ്ചാത്തല ചിത്രം മാറ്റുക",
   "board-background-image-url": "പശ്ചാത്തല ചിത്രത്തിന്റെ URL",
   "add-background-image": "പശ്ചാത്തല ചിത്രം ചേർക്കുക",

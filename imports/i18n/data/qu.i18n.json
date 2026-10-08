@@ -214,6 +214,8 @@
   "avatar-too-big": "Kay willaymi: Theta avatarta ista toota largeta (__size__ maxta)",
   "back": "Kutiy",
   "board-change-color": "Kay willaymi: Tikray colorta",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Kay willaymi: Tikray Backgroundta Imageta",
   "board-background-image-url": "Kay willaymi: Backgroundta Imageta URLta",
   "add-background-image": "Kay willaymi: Yapay Backgroundta Imageta",

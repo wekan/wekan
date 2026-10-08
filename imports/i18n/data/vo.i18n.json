@@ -214,6 +214,8 @@
   "avatar-too-big": "Avatar binon tu gretik (no plu ka __size__).",
   "back": "Reen",
   "board-change-color": "Ŝanĝi koloron",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Votükön magodi pödagluna",
   "board-background-image-url": "URL magodi pödagluna",
   "add-background-image": "Lüükön magodi pödagluna",

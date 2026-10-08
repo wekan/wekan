@@ -214,6 +214,8 @@
   "avatar-too-big": "اوتار تمام وڏو آهي (وڌ ۾ وڌ __size__)",
   "back": "واپس",
   "board-change-color": "رنگ تبديل ڪريو",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "پسمنظر جي تصوير تبديل ڪريو",
   "board-background-image-url": "پسمنظر تصوير جو URL",
   "add-background-image": "پسمنظر تصوير شامل ڪريو",

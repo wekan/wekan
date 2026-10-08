@@ -214,6 +214,8 @@
   "avatar-too-big": "অবতারটি খুব বড় (সর্বোচ্চ __size__)",
   "back": "পিছনে",
   "board-change-color": "রং পরিবর্তন করুন",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "পটভূমির ছবি পরিবর্তন করুন",
   "board-background-image-url": "পটভূমির ছবির URL",
   "add-background-image": "পটভূমির ছবি যোগ করুন",

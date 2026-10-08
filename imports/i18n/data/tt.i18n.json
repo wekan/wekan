@@ -214,6 +214,8 @@
   "avatar-too-big": "Аватар артык зур (иң күбе __size__)",
   "back": "Артка",
   "board-change-color": "Төсне үзгәртү",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Фон рәсемен үзгәртү",
   "board-background-image-url": "Фон рәсеменең URL адресы",
   "add-background-image": "Фон рәсеме өстәү",

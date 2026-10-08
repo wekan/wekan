@@ -214,6 +214,8 @@
   "avatar-too-big": "Wolayttatto: The avatar is too large (__size__ max)",
   "back": "Guyye",
   "board-change-color": "Wolayttatto: Laamma color",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Wolayttatto: Laamma Background Image",
   "board-background-image-url": "Wolayttatto: Background Image URL",
   "add-background-image": "Wolayttatto: Gujja Background Image",

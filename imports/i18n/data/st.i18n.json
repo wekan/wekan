@@ -214,6 +214,8 @@
   "avatar-too-big": "Setshwantsho sa mosebedisi se seholo haholo (boholo ke __size__)",
   "back": "Morao",
   "board-change-color": "Fetola mmala",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Fetola setshwantsho sa bokamorao",
   "board-background-image-url": "URL ya setshwantsho sa bokamorao",
   "add-background-image": "Eketsa setshwantsho sa bokamorao",

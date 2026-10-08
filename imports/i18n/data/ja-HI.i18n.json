@@ -214,6 +214,8 @@
   "avatar-too-big": "アバターがおおきすぎます（さいだい __size__）",
   "back": "戻る",
   "board-change-color": "色の変更",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "背景画像を変更",
   "board-background-image-url": "背景画像のURL",
   "add-background-image": "背景画像を追加",

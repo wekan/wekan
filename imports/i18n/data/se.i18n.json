@@ -214,6 +214,8 @@
   "avatar-too-big": "Govva lea menddo stuoris (eanemusat __size__)",
   "back": "Ruovttoluotta",
   "board-change-color": "Rievdat ivnni",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Rievdat duogášgova",
   "board-background-image-url": "Duogášgova URL",
   "add-background-image": "Lasit duogášgova",

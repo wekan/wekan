@@ -214,6 +214,8 @@
   "avatar-too-big": "ავატარი ძალიან დიდია (მაქსიმუმ __size__)",
   "back": "უკან",
   "board-change-color": "ფერის შეცვლა",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "ფონის სურათის შეცვლა",
   "board-background-image-url": "ფონის სურათის URL",
   "add-background-image": "ფონის სურათის დამატება",

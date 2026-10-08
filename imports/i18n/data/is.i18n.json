@@ -214,6 +214,8 @@
   "avatar-too-big": "Notandamyndin er of stór (__size__ hámark)",
   "back": "Til baka",
   "board-change-color": "Breyta lit",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Breyta bakgrunnsmynd",
   "board-background-image-url": "Vefslóð bakgrunnsmyndar",
   "add-background-image": "Bæta við bakgrunnsmynd",

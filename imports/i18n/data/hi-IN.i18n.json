@@ -214,6 +214,8 @@
   "avatar-too-big": "अवतार बहुत बड़ा है (अधिकतम __size__)",
   "back": "वापस",
   "board-change-color": "रंग बदलना",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "पृष्ठभूमि छवि बदलें",
   "board-background-image-url": "पृष्ठभूमि छवि URL",
   "add-background-image": "पृष्ठभूमि छवि जोड़ें ",

@@ -79,6 +79,8 @@ const EXPECTED = [
   'js-open-board-scrum-settings',
   'hr',
   'js-change-board-color',
+  // #1566: the board's own announcement.
+  'js-open-board-announcement',
   'js-change-background-image',
   'js-open-board-date-settings',
   'hr',
@@ -132,6 +134,7 @@ test('the reorder kept every guard (negative: nothing became visible to more peo
   assert.deepStrictEqual(guardsOf('js-open-rules-view'), [admin]);
   for (const cls of RULES_VIEWS) assert.deepStrictEqual(guardsOf(cls), [admin], `${cls} is board-admin only, like Rules`);
   assert.deepStrictEqual(guardsOf('js-change-board-color'), [admin]);
+  assert.deepStrictEqual(guardsOf('js-open-board-announcement'), [admin]);
   assert.deepStrictEqual(guardsOf('js-change-background-image'), [admin]);
   assert.deepStrictEqual(guardsOf('js-open-board-view-settings'), ['if currentUser', admin]);
   assert.deepStrictEqual(guardsOf('js-open-board-swimlane-settings'), ['if currentUser', admin]);

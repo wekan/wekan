@@ -214,6 +214,8 @@
   "avatar-too-big": "Avatar boyutu çok yüksek (__size__max)",
   "back": "Geri",
   "board-change-color": "Renk değiştir",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Arkaplan Resmini Değiştir",
   "board-background-image-url": "Arkaplan Resmi URL",
   "add-background-image": "Arkaplan Resmi Ekle",

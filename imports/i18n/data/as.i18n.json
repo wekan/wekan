@@ -214,6 +214,8 @@
   "avatar-too-big": "অৱতাৰটো অতি ডাঙৰ (__size__ সৰ্বাধিক)",
   "back": "উভতি যাওক",
   "board-change-color": "ৰং সলনি কৰক",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "পৃষ্ঠভূমিৰ ছবি সলনি কৰক",
   "board-background-image-url": "পৃষ্ঠভূমিৰ ছবিৰ URL",
   "add-background-image": "পৃষ্ঠভূমিৰ ছবি যোগ কৰক",

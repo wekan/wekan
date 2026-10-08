@@ -214,6 +214,8 @@
   "avatar-too-big": "Avataren er for stor (__size__ max)",
   "back": "Tilbage",
   "board-change-color": "Skift farve",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Skift baggrundsbillede",
   "board-background-image-url": "Baggrundsbilledets URL",
   "add-background-image": "Tilføj baggrundsbillede",

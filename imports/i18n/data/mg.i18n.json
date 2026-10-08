@@ -214,6 +214,8 @@
   "avatar-too-big": "Lehibe loatra ny sarin'ny mpampiasa (__size__ fara-fahabetsany)",
   "back": "Hiverina",
   "board-change-color": "Ovay ny loko",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Ovay ny sary afara",
   "board-background-image-url": "URL-n'ny sary afara",
   "add-background-image": "Ampio sary afara",

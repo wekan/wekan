@@ -214,6 +214,8 @@
   "avatar-too-big": "He nui rawa te whakaahua kaiwhakamahi (__size__ te mōrahi)",
   "back": "Hoki",
   "board-change-color": "Huri tae",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Huri Atahanga Papamuri",
   "board-background-image-url": "URL Atahanga Papamuri",
   "add-background-image": "Tāpiri Atahanga Papamuri",

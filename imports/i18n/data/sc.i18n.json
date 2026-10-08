@@ -214,6 +214,8 @@
   "avatar-too-big": "S'avatar est tropu mannu (màssimu __size__)",
   "back": "In segus",
   "board-change-color": "Càmbia su colore",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Càmbia s'immàgine de isfundu",
   "board-background-image-url": "URL de s'immàgine de isfundu",
   "add-background-image": "Agiunghe un'immàgine de isfundu",

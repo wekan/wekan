@@ -214,6 +214,8 @@
   "avatar-too-big": "תמונת המשתמש גדולה מדי (__size__ ק״ב לכל היותר)",
   "back": "חזרה",
   "board-change-color": "שינוי צבע",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "החלפת תמונת רקע",
   "board-background-image-url": "כתובת תמונת רקע",
   "add-background-image": "הוספת תמונת רקע",

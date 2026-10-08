@@ -214,6 +214,8 @@
   "avatar-too-big": "Аватар тым үлкен (ең көбі __size__)",
   "back": "Артқа",
   "board-change-color": "Түсті өзгерту",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Фондық суретті өзгерту",
   "board-background-image-url": "Фондық суреттің URL мекенжайы",
   "add-background-image": "Фондық сурет қосу",

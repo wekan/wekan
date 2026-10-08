@@ -214,6 +214,8 @@
   "avatar-too-big": "அவதாரம் மிகப் பெரியது (அதிகபட்சம் __size__)",
   "back": "பின்செல்",
   "board-change-color": "நிறம் மாற்று",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "பின்னணிப் படத்தை மாற்று",
   "board-background-image-url": "பின்னணிப் படத்தின் URL",
   "add-background-image": "பின்னணிப் படத்தைச் சேர்",

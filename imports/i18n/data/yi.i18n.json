@@ -214,6 +214,8 @@
   "avatar-too-big": "דער אַוואַטאַר איז צו גרויס (__size__ מאַקס)",
   "back": "צוריק",
   "board-change-color": "טוישן קאָלירן",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "טוישן הינטערגרונט בילד",
   "board-background-image-url": "הינטערגרונט בילד URL",
   "add-background-image": "לייג הינטערגרונט בילד",

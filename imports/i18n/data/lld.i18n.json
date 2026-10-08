@@ -214,6 +214,8 @@
   "avatar-too-big": "L'avatar ie troppo grande (__size__ max)",
   "back": "Zeruch",
   "board-change-color": "Cambia culer",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Mudare immagine di sfondo",
   "board-background-image-url": "URL dl imagine de sfond",
   "add-background-image": "Ajonté n imagine de sfond",

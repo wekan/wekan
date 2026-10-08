@@ -214,6 +214,8 @@
   "avatar-too-big": "Аватарът е твърде голям (максимум __size__)",
   "back": "Назад",
   "board-change-color": "Промени цвета",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Промяна на фоновото изображение",
   "board-background-image-url": "URL на фоновото изображение",
   "add-background-image": "Добавяне на фоново изображение",

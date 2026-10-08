@@ -214,6 +214,8 @@
   "avatar-too-big": "Imaj pwofil la twò gwo (__size__ maksimòm)",
   "back": "Tounen",
   "board-change-color": "Chanje koulè",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Chanje imaj fon",
   "board-background-image-url": "URL imaj fon",
   "add-background-image": "Ajoute imaj fon",

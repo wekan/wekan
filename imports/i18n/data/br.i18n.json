@@ -214,6 +214,8 @@
   "avatar-too-big": "Re vras eo ar skeudennig (__size__ d’ar muiañ)",
   "back": "Distreiñ",
   "board-change-color": "Kemmañ al liv",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Kemm ar slika dorn",
   "board-background-image-url": "URL slika dorn",
   "add-background-image": "Ouzhpennañ ur skeudenn drekleur",

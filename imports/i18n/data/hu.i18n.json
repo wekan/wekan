@@ -214,6 +214,8 @@
   "avatar-too-big": "Az avatár túl nagy (legfeljebb __size__)",
   "back": "Vissza",
   "board-change-color": "Szín megváltoztatása",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Háttérkép módosítása",
   "board-background-image-url": "Háttérkép URL-je",
   "add-background-image": "Háttérkép hozzáadása",

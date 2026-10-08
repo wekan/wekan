@@ -214,6 +214,8 @@
   "avatar-too-big": "L’avatar è memia grond (maximum __size__)",
   "back": "Enavos",
   "board-change-color": "Midar la colur",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Midar il maletg da fund",
   "board-background-image-url": "URL dal maletg da fund",
   "add-background-image": "Agiuntar in maletg da fund",

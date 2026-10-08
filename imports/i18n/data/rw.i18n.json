@@ -214,6 +214,8 @@
   "avatar-too-big": "Ishusho y'ukoresha ni nini cyane (ntarengwa __size__)",
   "back": "Subira inyuma",
   "board-change-color": "Hindura ibara",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Hindura Ishusho y'Inyuma",
   "board-background-image-url": "URL y'Ishusho y'Inyuma",
   "add-background-image": "Ongeraho Ishusho y'Inyuma",

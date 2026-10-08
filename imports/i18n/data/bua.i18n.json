@@ -214,6 +214,8 @@
   "avatar-too-big": "Хэрэглэгшын зураг хэтэрхы ехэ (__size__ дээдэ хэмжээн)",
   "back": "Хойшоо",
   "board-change-color": "Үнгэ хубилгаха",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Арын зураг хубилгаха",
   "board-background-image-url": "Арын зурагай URL",
   "add-background-image": "Арын зураг нэмэхэ",

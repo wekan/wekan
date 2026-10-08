@@ -214,6 +214,8 @@
   "avatar-too-big": "Ishara ni kubwa mno (__size__ max)",
   "back": "Rudi",
   "board-change-color": "Badilisha rangi",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Badilisha Picha ya Mandharinyuma",
   "board-background-image-url": "URL ya Picha ya Mandharinyuma",
   "add-background-image": "Ongeza Picha ya Mandharinyuma",

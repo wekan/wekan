@@ -214,6 +214,8 @@
   "avatar-too-big": "ئاۋاتلىقى بەك چوڭ (__size__ max)",
   "back": "قايتىش",
   "board-change-color": "رەڭنى ئۆزگەرتىش",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "تەگلىك سۈرىتىنى ئۆزگەرتىش",
   "board-background-image-url": "تەگلىك رەسىم URL",
   "add-background-image": "تەگلىك رەسىمىنى قوشۇڭ",

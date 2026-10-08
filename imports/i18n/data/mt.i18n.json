@@ -214,6 +214,8 @@
   "avatar-too-big": "The avatar huwa too large (__size__ max)",
   "back": "Lura",
   "board-change-color": "Ibdel color",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Ibdel Background Immaġni",
   "board-background-image-url": "Background Immaġni URL",
   "add-background-image": "Żid Background Immaġni",

@@ -214,6 +214,8 @@
   "avatar-too-big": "Avataren för för stor (__size__ max)",
   "back": "Tillbaka",
   "board-change-color": "Ändra färg",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Ändra bakgrundsbild",
   "board-background-image-url": "Bakgrundsbildens URL",
   "add-background-image": "Lägg till bakgrundsbild",

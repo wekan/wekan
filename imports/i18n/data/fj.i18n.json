@@ -214,6 +214,8 @@
   "avatar-too-big": "Sa rui levu na iyaloyalo ni vakayagataka (__size__ levu duadua)",
   "back": "Lesu tale",
   "board-change-color": "Veisautaka na roka",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Veisautaka na iYaloyalo ni Dakuna",
   "board-background-image-url": "URL ni iYaloyalo ni Dakuna",
   "add-background-image": "Kuria na iYaloyalo ni Dakuna",

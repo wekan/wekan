@@ -214,6 +214,8 @@
   "avatar-too-big": "Avatari është shumë i madh (maksimumi __size__)",
   "back": "Prapa",
   "board-change-color": "Ndrysho ngjyrën",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Ndrysho imazhin e sfondit",
   "board-background-image-url": "URL-ja e imazhit të sfondit",
   "add-background-image": "Shto imazh sfondi",

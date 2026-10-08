@@ -214,6 +214,8 @@
   "avatar-too-big": "ᎤᏟᎶᏍᏙᏗ ᎤᏣᏘ ᎡᏆ (__size__ ᎤᏟ ᎢᎦᎢ)",
   "back": "ᎣᏂᏗᏢ",
   "board-change-color": "ᎤᏑᏰᏍᏗ ᎦᏁᏟᏴᏍᏗ",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "ᎣᏂᏗᏢ ᎤᏟᎶᏍᏙᏗ ᎦᏁᏟᏴᏍᏗ",
   "board-background-image-url": "ᎣᏂᏗᏢ ᎤᏟᎶᏍᏙᏗ URL",
   "add-background-image": "ᎣᏂᏗᏢ ᎤᏟᎶᏍᏙᏗ ᎧᏁᏉᏗ",

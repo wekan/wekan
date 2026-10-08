@@ -214,6 +214,8 @@
   "avatar-too-big": "تہے اواتار ہے توو لارگے (__size__ ماکس)",
   "back": "واپس",
   "board-change-color": "تبدیل رنگ",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "تبدیل باککگرووند یماگے",
   "board-background-image-url": "باککگرووند یماگے URL",
   "add-background-image": "شامل باککگرووند یماگے",

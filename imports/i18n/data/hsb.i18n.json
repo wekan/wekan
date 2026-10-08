@@ -214,6 +214,8 @@
   "avatar-too-big": "WeKan: Avatar je příliš velký (__size__ max)",
   "back": "Wróćo",
   "board-change-color": "Změnić barvu",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Změnić obrázek na pozadí",
   "board-background-image-url": "WeKan: URL obrázku na pozadí",
   "add-background-image": "Přidać obrázek na pozadí",

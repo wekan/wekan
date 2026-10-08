@@ -214,6 +214,8 @@
   "avatar-too-big": "Ta'n jalloo persoonagh ro vooar (__size__ er-y-skyn)",
   "back": "Erash",
   "board-change-color": "Caghlaa daah",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Caghlaa jalloo cooylrey",
   "board-background-image-url": "URL jalloo cooylrey",
   "add-background-image": "Cur jalloo cooylrey",

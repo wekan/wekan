@@ -214,6 +214,8 @@
   "avatar-too-big": "Аватар хэт том байна (дээд тал нь __size__)",
   "back": "Буцах",
   "board-change-color": "Өнгө өөрчлөх",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Дэвсгэр зураг өөрчлөх",
   "board-background-image-url": "Дэвсгэр зургийн URL",
   "add-background-image": "Дэвсгэр зураг нэмэх",

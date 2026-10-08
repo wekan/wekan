@@ -521,6 +521,15 @@ Users.attachSchema(
         return /^#[0-9a-fA-F]{6}$/.test(this.value) ? undefined : 'notAHexColor';
       },
     },
+    'profile.dismissedBoardAnnouncements': {
+      /**
+       * #1566: { [boardId]: version } of the board announcements this user
+       * dismissed; an edited announcement has a new version and shows again.
+       */
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
     'profile.dismissedAnnouncementVersion': {
       /**
        * version string of the global announcement the user has permanently
@@ -2962,6 +2971,24 @@ if (Meteor.isServer) {
       await Users.updateAsync(this.userId, {
         $set: { 'profile.dismissedAnnouncementVersion': version },
       });
+      return version;
+    },
+
+    // #1566: dismiss a board's announcement, at the version it has now - the
+    // server reads it, so a client cannot dismiss a future edit in advance.
+    async dismissBoardAnnouncement(boardId) {
+      check(boardId, String);
+      if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+      assertSafeMapKey(boardId);
+      const Boards = require('/models/boards').default;
+      const board = await Boards.findOneAsync({ _id: boardId }, { fields: { announcement: 1, members: 1, permission: 1 } });
+      if (!board || !board.isVisibleBy || !(await board.isVisibleBy(await Meteor.users.findOneAsync(this.userId)))) {
+        throw new Meteor.Error('not-found', 'Board not found');
+      }
+      const { boardAnnouncementVersion } = require('/models/lib/boardAnnouncement');
+      const version = boardAnnouncementVersion(board);
+      if (!version) return null;
+      await Users.updateAsync(this.userId, { $set: { [`profile.dismissedBoardAnnouncements.${boardId}`]: version } });
       return version;
     },
   });

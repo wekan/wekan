@@ -214,6 +214,8 @@
   "avatar-too-big": "avatar i too large (__size__ max)",
   "back": "Gobak",
   "board-change-color": "Jenisim kala",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Jenisim Background Pikja",
   "board-background-image-url": "Background Pikja URL",
   "add-background-image": "Adem Background Pikja",

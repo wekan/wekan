@@ -214,6 +214,8 @@
   "avatar-too-big": "ka kiʻi helehelena he koo lalake (__size__ maka)",
   "back": "Hoʻi",
   "board-change-color": "hoʻololi waihoʻoluʻu",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "hoʻololi kāʻei kua kiʻi",
   "board-background-image-url": "kāʻei kua kiʻi URL",
   "add-background-image": "hoʻohui kāʻei kua kiʻi",

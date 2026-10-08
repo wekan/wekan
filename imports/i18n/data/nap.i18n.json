@@ -214,6 +214,8 @@
   "avatar-too-big": "Ll'avatar è troppo gruosso (__size__ max)",
   "back": "Arreto",
   "board-change-color": "Cambia colore",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Cagna ll'immaggine 'e sfondo",
   "board-background-image-url": "URL 'e ll'immaggine 'e sfondo",
   "add-background-image": "Aggiunge 'n'immaggine 'e sfondo",

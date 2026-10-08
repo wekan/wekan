@@ -440,6 +440,18 @@ Boards.attachSchema(
     'importUsernames.$': {
       type: String,
     },
+    announcement: {
+      /**
+       * #1566: the board's own announcement - { enabled, body, updatedAt } -
+       * written by a board admin, shown to every member until dismissed
+       * (models/lib/boardAnnouncement.js).
+       */
+      type: Object,
+      optional: true,
+    },
+    'announcement.enabled': { type: Boolean, optional: true },
+    'announcement.body': { type: String, optional: true, max: 2000 },
+    'announcement.updatedAt': { type: Date, optional: true },
     color: {
       /**
        * The color of the board.
@@ -2649,6 +2661,12 @@ Boards.helpers({
 
   async setDescription(description) {
     return await Boards.updateAsync(this._id, { $set: { description } });
+  },
+
+  // #1566: the board admin's announcement (Boards.allow limits it to admins).
+  async setAnnouncement(enabled, body) {
+    const { cleanBoardAnnouncement } = require('/models/lib/boardAnnouncement');
+    return await Boards.updateAsync(this._id, { $set: { announcement: cleanBoardAnnouncement(enabled, body) } });
   },
 
   async setColor(color, customThemeColors) {

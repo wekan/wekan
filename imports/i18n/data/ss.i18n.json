@@ -214,6 +214,8 @@
   "avatar-too-big": "Sitfombe semsebentisi sikhulu kakhulu (bungako lobukhulu __size__)",
   "back": "Buyela",
   "board-change-color": "Shintja umbala",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Shintja Sitfombe Sangemuva",
   "board-background-image-url": "I-URL Yesitfombe Sangemuva",
   "add-background-image": "Engeta Sitfombe Sangemuva",

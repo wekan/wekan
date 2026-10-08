@@ -214,6 +214,8 @@
   "avatar-too-big": "Seswantšho sa profaele ke se segolo kudu (bogolo bja godimo ke __size__)",
   "back": "Morago",
   "board-change-color": "Fetoša mmala",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Fetoša seswantšho sa bokamorago",
   "board-background-image-url": "URL ya seswantšho sa bokamorago",
   "add-background-image": "Oketša seswantšho sa bokamorago",

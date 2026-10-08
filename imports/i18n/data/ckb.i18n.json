@@ -214,6 +214,8 @@
   "avatar-too-big": "وێنۆچکەکە زۆر گەورەیە (زۆرترین __size__)",
   "back": "گەڕانەوە",
   "board-change-color": "ڕەنگ بگۆڕە",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "وێنەی پاشبنەما بگۆڕە",
   "board-background-image-url": "URLی وێنەی پاشبنەما",
   "add-background-image": "وێنەی پاشبنەما زیاد بکە",

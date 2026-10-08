@@ -214,6 +214,8 @@
   "avatar-too-big": "د کارن انځور ډېر لوی دی (تر ټولو ډېر __size__)",
   "back": "شاته",
   "board-change-color": "رنګ بدل کړئ",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "د شاليد انځور بدل کړئ",
   "board-background-image-url": "د شاليد انځور URL",
   "add-background-image": "د شاليد انځور زيات کړئ",

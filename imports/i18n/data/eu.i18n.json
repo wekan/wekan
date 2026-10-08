@@ -214,6 +214,8 @@
   "avatar-too-big": "Avatarra handiegia da (__size__ gehienez)",
   "back": "Atzera",
   "board-change-color": "Aldatu kolorea",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Aldatu atzeko planoko irudia",
   "board-background-image-url": "Atzeko planoko irudiaren URLa",
   "add-background-image": "Gehitu atzeko planoko irudia",

@@ -214,6 +214,8 @@
   "avatar-too-big": "I-avatar inkulu kakhulu (__size__ max)",
   "back": "Emva",
   "board-change-color": "Guqula umbala",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Guqula umfanekiso ongasemva",
   "board-background-image-url": "I-URL yomfanekiso ongasemva",
   "add-background-image": "Yongeza umfanekiso ongasemva",

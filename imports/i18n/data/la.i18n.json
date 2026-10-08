@@ -214,6 +214,8 @@
   "avatar-too-big": "Latine: The imago est too large (__size__ max)",
   "back": "Retro",
   "board-change-color": "Latine: Muta color",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Latine: Muta Background Imago",
   "board-background-image-url": "Latine: Background Imago URL",
   "add-background-image": "Latine: Adde Background Imago",

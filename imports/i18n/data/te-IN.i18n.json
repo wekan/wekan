@@ -214,6 +214,8 @@
   "avatar-too-big": "అవతార్ చాలా పెద్దది (__size__ గరిష్టంగా)",
   "back": "వెనుకకు",
   "board-change-color": "రంగు మార్చండి",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "నేపథ్య చిత్రాన్ని మార్చండి",
   "board-background-image-url": "నేపథ్య చిత్రం URL",
   "add-background-image": "నేపథ్య చిత్రాన్ని జోడించండి",

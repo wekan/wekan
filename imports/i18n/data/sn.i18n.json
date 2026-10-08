@@ -214,6 +214,8 @@
   "avatar-too-big": "The avatar iri too large (__size__ max)",
   "back": "Dzokera",
   "board-change-color": "chinja ruvara",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "chinja kumashure Image",
   "board-background-image-url": "kumashure Image URL",
   "add-background-image": "wedzera kumashure Image",

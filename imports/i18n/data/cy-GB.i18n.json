@@ -214,6 +214,8 @@
   "avatar-too-big": "Mae'r avatar yn rhy fawr (__size__ max)",
   "back": "Yn ol",
   "board-change-color": "Newid lliw",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Newid Delwedd Gefndir",
   "board-background-image-url": "URL Delwedd Gefndir",
   "add-background-image": "Ychwanegu Delwedd Gefndir",

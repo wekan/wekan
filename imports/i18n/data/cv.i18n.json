@@ -214,6 +214,8 @@
   "avatar-too-big": "Аватар питӗ пысӑк (__size__ чикӗ)",
   "back": "Каялла",
   "board-change-color": "Тӗсе улӑштарас",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Фон ӳкерчӗкне улӑштарас",
   "board-background-image-url": "Фон ӳкерчӗкӗн URLӗ",
   "add-background-image": "Фон ӳкерчӗкӗ хушас",

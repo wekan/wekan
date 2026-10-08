@@ -214,6 +214,8 @@
   "avatar-too-big": "ਅਵਤਾਰ ਬਹੁਤ ਵੱਡਾ ਹੈ (__size__ ਅਧਿਕਤਮ)",
   "back": "ਪਿੱਛੇ",
   "board-change-color": "ਰੰਗ ਬਦਲੋ",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "ਬੈਕਗ੍ਰਾਊਂਡ ਚਿੱਤਰ ਬਦਲੋ",
   "board-background-image-url": "ਬੈਕਗ੍ਰਾਊਂਡ ਚਿੱਤਰ URL",
   "add-background-image": "ਬੈਕਗ੍ਰਾਊਂਡ ਚਿੱਤਰ ਸ਼ਾਮਲ ਕਰੋ",

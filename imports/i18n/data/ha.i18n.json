@@ -214,6 +214,8 @@
   "avatar-too-big": "Hoton bayanin martaba ya yi girma sosai (iyakar __size__)",
   "back": "Koma baya",
   "board-change-color": "Sauya launi",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Sauya hoton bango",
   "board-background-image-url": "URL na hoton bango",
   "add-background-image": "Ƙara hoton bango",

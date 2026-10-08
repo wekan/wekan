@@ -214,6 +214,8 @@
   "avatar-too-big": "Setshwantsho sa motho se segolo thata (bogolo __size__)",
   "back": "Morago",
   "board-change-color": "Fetola mmala",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Fetola setshwantsho sa lemorago",
   "board-background-image-url": "URL ya setshwantsho sa lemorago",
   "add-background-image": "Tsenya setshwantsho sa lemorago",

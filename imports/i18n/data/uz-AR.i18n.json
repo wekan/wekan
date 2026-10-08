@@ -214,6 +214,8 @@
   "avatar-too-big": "اواتار جوده کتّه (اېنگ کۉپی __size__)",
   "back": "آرقه‌گه",
   "board-change-color": "رنگنی اۉزگرتیریش",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "فان رسمینی اۉزگرتیریش",
   "board-background-image-url": "فان رسمی URL منزلی",
   "add-background-image": "فان رسمی قۉشیش",

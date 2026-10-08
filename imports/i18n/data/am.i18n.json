@@ -214,6 +214,8 @@
   "avatar-too-big": "የመገለጫ ምስሉ በጣም ትልቅ ነው (ከፍተኛው __size__)",
   "back": "ተመለስ",
   "board-change-color": "ቀለም ቀይር",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "የበስተጀርባ ምስል ቀይር",
   "board-background-image-url": "የበስተጀርባ ምስል URL",
   "add-background-image": "የበስተጀርባ ምስል ጨምር",

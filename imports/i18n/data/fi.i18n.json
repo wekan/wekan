@@ -214,6 +214,8 @@
   "avatar-too-big": "Profiilikuva on liian suuri (enintään __size__)",
   "back": "Takaisin",
   "board-change-color": "Muokkaa väriä",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Vaihda taustakuva",
   "board-background-image-url": "Taustakuvan URL",
   "add-background-image": "Lisää taustakuva",

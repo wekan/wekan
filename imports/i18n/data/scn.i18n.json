@@ -214,6 +214,8 @@
   "avatar-too-big": "L'avatar è troppo grande (__size__ max)",
   "back": "Narrè",
   "board-change-color": "Cambia culuri",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Canciare immagine di sfondo",
   "board-background-image-url": "URL dell'immagine di sfondo",
   "add-background-image": "Aggiungere immagine di sfondo",

@@ -214,6 +214,8 @@
   "avatar-too-big": "Kävutajan kuva om lujas sur' (maksimaline __size__)",
   "back": "Tagaze",
   "board-change-color": "Vajehta muju",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Vajehta tagakuva",
   "board-background-image-url": "Tagakuvan URL",
   "add-background-image": "Ližada tagakuva",

@@ -214,6 +214,8 @@
   "avatar-too-big": "མགོ་པར་ཆེ་དྲགས་འདུག (__size__ མཐོ་ཚད)",
   "back": "ཕྱིར་ལོག",
   "board-change-color": "ཁ་དོག་བསྒྱུར།",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "རྒྱབ་ལྗོངས་ཀྱི་པར་བསྒྱུར།",
   "board-background-image-url": "རྒྱབ་ལྗོངས་པར་གྱི་ URL",
   "add-background-image": "རྒྱབ་ལྗོངས་པར་ཁ་སྣོན།",

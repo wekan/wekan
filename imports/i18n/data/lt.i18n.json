@@ -214,6 +214,8 @@
   "avatar-too-big": "Avataras per didelis (__size__ max)",
   "back": "Atgal",
   "board-change-color": "Keisti spalvą",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Keisti fono vaizdą",
   "board-background-image-url": "Fono vaizdo URL",
   "add-background-image": "Pridėti fono paveikslėlį",

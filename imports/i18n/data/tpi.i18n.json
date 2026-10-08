@@ -214,6 +214,8 @@
   "avatar-too-big": "Avatar i bikpela tumas (__size__ em i mak antap)",
   "back": "Go bek",
   "board-change-color": "Senisim kala",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Senisim piksa bilong baksait",
   "board-background-image-url": "URL bilong piksa bilong baksait",
   "add-background-image": "Putim piksa bilong baksait",

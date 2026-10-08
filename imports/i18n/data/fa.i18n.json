@@ -214,6 +214,8 @@
   "avatar-too-big": "عکس آواتار خیلی بزرگ است (حداکثر __size__)",
   "back": "بازگشت",
   "board-change-color": "تغییر رنگ",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "تغییر تصویر پس زمینه",
   "board-background-image-url": "لینک تصویر پس زمینه",
   "add-background-image": "اضافه کردن تصویر پس زمینه",

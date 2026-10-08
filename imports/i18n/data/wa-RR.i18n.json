@@ -214,6 +214,8 @@
   "avatar-too-big": "Sobra kadaku an avatar (__size__ an pinakadaku)",
   "back": "Balik",
   "board-change-color": "Igliwat an kolor",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Igliwat an Background nga Imahe",
   "board-background-image-url": "URL han Background nga Imahe",
   "add-background-image": "Idugang an Background nga Imahe",

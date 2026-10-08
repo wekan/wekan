@@ -214,6 +214,8 @@
   "avatar-too-big": "La taille du fichier de l'avatar est trop importante (__size__ au maximum)",
   "back": "Retour",
   "board-change-color": "Changer la couleur",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Changer l'image de fond",
   "board-background-image-url": "URL de l'image de fond",
   "add-background-image": "Ajouter une image de fond",

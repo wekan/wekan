@@ -214,6 +214,8 @@
   "avatar-too-big": "अवतार खूब व्हड आसा (चडांत चड __size__)",
   "back": "फाटीं",
   "board-change-color": "रंग बदलात",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "फाटभूंय चित्र बदलात",
   "board-background-image-url": "फाटभूंय चित्र URL",
   "add-background-image": "फाटभूंय चित्र जोडात",

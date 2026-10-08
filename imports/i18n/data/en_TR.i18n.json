@@ -214,6 +214,8 @@
   "avatar-too-big": "The avatar is too large (__size__ max)",
   "back": "Back",
   "board-change-color": "Change color",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Change Background Image",
   "board-background-image-url": "Background Image URL",
   "add-background-image": "Add Background Image",

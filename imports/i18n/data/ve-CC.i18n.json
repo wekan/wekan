@@ -214,6 +214,8 @@
   "avatar-too-big": "El avatar el xe massa grando (__size__ al màsimo)",
   "back": "Indietro",
   "board-change-color": "Cambia colore",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Canbia ła imàjine de sfondo",
   "board-background-image-url": "URL de ła imàjine de sfondo",
   "add-background-image": "Zonta na imàjine de sfondo",

@@ -214,6 +214,8 @@
   "avatar-too-big": "እቲ ኣቫታር ኣዝዩ ዓቢ እዩ (እንተበዝሐ __size__)",
   "back": "ንድሕሪት",
   "board-change-color": "ሕብሪ ቀይር",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "ስእሊ ድሕረ ባይታ ቀይር",
   "board-background-image-url": "URL ስእሊ ድሕረ ባይታ",
   "add-background-image": "ስእሊ ድሕረ ባይታ ወስኽ",

@@ -214,6 +214,8 @@
   "avatar-too-big": "De avatar is te groot (__size__ max)",
   "back": "Terug",
   "board-change-color": "Wijzig kleur",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Wijzig Achtergrond Afbeelding",
   "board-background-image-url": "URL Achtergrond Afbeelding",
   "add-background-image": "Voeg Achtergrondafbeelding Toe",

@@ -214,6 +214,8 @@
   "avatar-too-big": "Avatarip assinga angivallaarpoq (annerpaamik __size__)",
   "back": "Uterit",
   "board-change-color": "Qalipaat allanngortiguk",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Tunuliaqutap assinga allanngortiguk",
   "board-background-image-url": "Tunuliaqutap assingata URL-ia",
   "add-background-image": "Tunuliaqutap assinga ilannguguk",

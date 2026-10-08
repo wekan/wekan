@@ -214,6 +214,8 @@
   "avatar-too-big": "ကိုယ်ပွားပုံ ကြီးလွန်းသည် (အများဆုံး __size__)",
   "back": "နောက်သို့",
   "board-change-color": "အရောင် ပြောင်းရန်",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "နောက်ခံပုံ ပြောင်းရန်",
   "board-background-image-url": "နောက်ခံပုံ URL",
   "add-background-image": "နောက်ခံပုံ ထည့်ရန်",

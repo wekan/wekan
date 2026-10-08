@@ -214,6 +214,8 @@
   "avatar-too-big": "Avatar on liiga suur (__size__ max)",
   "back": "Tagasi",
   "board-change-color": "Värvi muutmine",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Muuda taustapilti",
   "board-background-image-url": "Taustapildi URL",
   "add-background-image": "Lisa taustapilt",

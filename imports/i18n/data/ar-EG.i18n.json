@@ -214,6 +214,8 @@
   "avatar-too-big": "الصورة الرمزية كبيرة جدًا (الحد الأقصى __size__)",
   "back": "رجوع",
   "board-change-color": "تغيير اللومr",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "تغيير صورة الخلفية",
   "board-background-image-url": "عنوان URL لصورة الخلفية",
   "add-background-image": "إضافة صورة الخلفية",

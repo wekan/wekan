@@ -787,6 +787,14 @@
     {
       "key": "cards-use-list-color",
       "since": "2026-10-08"
+    },
+    {
+      "key": "board-announcement",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "board-announcement-enabled",
+      "since": "2026-10-08"
     }
   ]
 }

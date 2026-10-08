@@ -214,6 +214,8 @@
   "avatar-too-big": "Бэйэ ойуута наһаа улахан (улаханнааҕа __size__)",
   "back": "Төттөрү",
   "board-change-color": "Өҥү уларыт",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Кэннин ойуутун уларыт",
   "board-background-image-url": "Кэннин ойуутун URL-а",
   "add-background-image": "Кэннин ойуутун эп",

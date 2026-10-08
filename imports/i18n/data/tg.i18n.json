@@ -214,6 +214,8 @@
   "avatar-too-big": "Аватар аз ҳад калон аст (ҳадди аксар __size__)",
   "back": "Бозгашт",
   "board-change-color": "Тағйир додани ранг",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Тағйир додани тасвири замина",
   "board-background-image-url": "URL-и тасвири замина",
   "add-background-image": "Илова кардани тасвири замина",

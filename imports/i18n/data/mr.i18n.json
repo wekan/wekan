@@ -214,6 +214,8 @@
   "avatar-too-big": "अवतार खूप मोठा आहे (कमाल __size__)",
   "back": "मागे",
   "board-change-color": "रंग बदला",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "पार्श्वभूमी प्रतिमा बदला",
   "board-background-image-url": "पार्श्वभूमी प्रतिमेचा URL",
   "add-background-image": "पार्श्वभूमी प्रतिमा जोडा",

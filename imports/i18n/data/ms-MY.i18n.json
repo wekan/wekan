@@ -214,6 +214,8 @@
   "avatar-too-big": "Saiz Avatar terlalu besar (__size__max)",
   "back": "Kembali",
   "board-change-color": "Ubah Warna",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Ubah imej latar",
   "board-background-image-url": "URL imej latar",
   "add-background-image": "Tambah imej latar",

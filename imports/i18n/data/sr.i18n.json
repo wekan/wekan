@@ -214,6 +214,8 @@
   "avatar-too-big": "Слика је превелика (__size__ max)",
   "back": "Назад",
   "board-change-color": "Боја омота списа",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Подлога списа",
   "board-background-image-url": "Веза до слике",
   "add-background-image": "Искористи слику као мотив за подлогу",

@@ -24,6 +24,8 @@ template(name="boardBody")
       .debug-info(style="position: fixed; top: 0; inset-inline-start: 0; background: rgba(0,0,0,0.8); color: white; padding: 10px; z-index: 9999; font-size: 12px;")
         | {{_ 'board'}}: {{currentBoard.title}} | {{_ 'view'}}: {{boardView}} | {{_ 'has-swimlanes'}}: {{hasSwimlanes}} | {{_ 'swimlanes'}}: {{currentBoard.swimlanes.length}}
     .board-wrapper(class="{{themeColorClass}}" class="{{#if isMiniScreen}}mobile-view{{/if}}")
+      //- #1566: the board's own announcement.
+      +boardAnnouncement
       .board-canvas.js-swimlanes.dragscroll(
         class="{{#if Sidebar.isOpen}}is-sibling-sidebar-open{{/if}}"
         class="{{#if MultiSelection.isActive}}is-multiselection-active{{/if}}"

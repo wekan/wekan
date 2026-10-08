@@ -214,6 +214,8 @@
   "avatar-too-big": "La mida de l'avatar és massa gran (__size__ max)",
   "back": "Enrere",
   "board-change-color": "Canvia el color",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Canvia la imatge de fons",
   "board-background-image-url": "URL de la imatge de fons",
   "add-background-image": "Afegeix una imatge de fons",

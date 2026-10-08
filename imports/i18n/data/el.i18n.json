@@ -214,6 +214,8 @@
   "avatar-too-big": "Το άβαταρ είναι πολύ μεγάλο (μέγιστο __size__)",
   "back": "Πίσω",
   "board-change-color": "Αλλαγή χρώματος",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Αλλαγή εικόνας φόντου",
   "board-background-image-url": "URL εικόνας φόντου",
   "add-background-image": "Προσθήκη εικόνας φόντου",

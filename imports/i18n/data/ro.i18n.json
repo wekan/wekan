@@ -214,6 +214,8 @@
   "avatar-too-big": "Avatarul este prea mare (maximum __size__)",
   "back": "Înapoi",
   "board-change-color": "Schimbă culoare",
+  "board-announcement": "Board announcement",
+  "board-announcement-enabled": "Show it to everyone on this board",
   "board-change-background-image": "Schimbă imaginea de fundal",
   "board-background-image-url": "URL-ul imaginii de fundal",
   "add-background-image": "Adaugă o imagine de fundal",
