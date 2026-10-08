@@ -9585,6 +9585,16 @@ bases, plus key order and tokens. Mathematical terminology remains low
 confidence pending speaker review. Browser checks were not run; further
 Turkmen translations and the broader audit remain unfinished.
 
+## Turkmen mathematical functions and initial workspace controls
+
+Filled 27 English placeholders for powers, logarithms, trigonometry and
+workspace controls. The placeholder-only merge retained existing translations.
+Coverage checks logarithm bases, sign reversal, degree-versus-radian caveats,
+inverse functions and variable-type distinctions, plus key order and tokens.
+Mathematical terminology remains low confidence pending speaker review.
+Browser checks were not run; further Turkmen translations and the broader
+audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
