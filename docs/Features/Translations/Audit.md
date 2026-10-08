@@ -8933,6 +8933,16 @@ alongside script, key order and token inventories. Technical wording remains low
 confidence pending speaker review. Browser checks were not run; further translations
 remain.
 
+## Odia sync diagnostics and estimate mapping
+
+Filled 12 English placeholders for diagnostics, report access and Jira estimate
+mapping. Preserved the 30-day period, ID/Jira/null identifiers, hour units,
+exactly-one-field requirement and missing-versus-null distinction. Existing
+translations were retained by the placeholder-only merge. Regression coverage
+checks those details alongside script, key order and token inventories. Technical
+wording remains low confidence pending speaker review. Browser checks were not
+run; further Odia translations remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

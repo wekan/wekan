@@ -4,7 +4,7 @@ const assert=require('node:assert/strict');
 const english=require('../imports/i18n/data/en.i18n.json');
 const locale=require('../imports/i18n/data/or_IN.i18n.json');
 const {translationTokens}=require('../releases/translations/placeholder-tokens.mjs');
-const keys=["scrum-import-pending", "sync-conflict-heading", "sync-conflict-hint", "sync-conflict-local", "sync-conflict-keep-local", "sync-conflict-use-source", "sync-conflict-refresh", "sync-conflict-review-complete", "sync-conflict-duplicate", "sync-conflict-keep-mapping", "sync-conflict-detach", "sync-conflict-detach-hint", "sync-conflict-archive", "sync-conflict-archive-hint", "sync-conflict-keep-card-local", "sync-conflict-creation", "sync-conflict-creation-hint", "sync-conflict-create-replacement", "sync-preview-button", "sync-preview-heading", "sync-preview-saved", "sync-preview-unavailable", "sync-preview-blocked", "sync-preview-create", "sync-preview-update", "sync-preview-archive", "sync-preview-baseline", "sync-preview-truncated", "sync-preview-omissions", "sync-preview-scope", "sync-preview-excluded", "sync-preview-unmapped", "sync-preview-parser-warnings", "sync-preview-parser-unsupported", "sync-source-heading", "sync-source-scope", "sync-source-unmapped", "sync-source-excluded", "sync-source-converted", "sync-source-fallback", "sync-source-excluded-item", "sync-source-occurrences", "sync-source-truncated", "sync-source-omitted", "sync-report-button", "sync-report-retention", "sync-report-partial", "sync-report-unfinished", "sync-report-failed", "sync-report-completed", "sync-report-completed-with-warnings", "sync-report-skipped"];
+const keys=["scrum-import-pending", "sync-conflict-heading", "sync-conflict-hint", "sync-conflict-local", "sync-conflict-keep-local", "sync-conflict-use-source", "sync-conflict-refresh", "sync-conflict-review-complete", "sync-conflict-duplicate", "sync-conflict-keep-mapping", "sync-conflict-detach", "sync-conflict-detach-hint", "sync-conflict-archive", "sync-conflict-archive-hint", "sync-conflict-keep-card-local", "sync-conflict-creation", "sync-conflict-creation-hint", "sync-conflict-create-replacement", "sync-preview-button", "sync-preview-heading", "sync-preview-saved", "sync-preview-unavailable", "sync-preview-blocked", "sync-preview-create", "sync-preview-update", "sync-preview-archive", "sync-preview-baseline", "sync-preview-truncated", "sync-preview-omissions", "sync-preview-scope", "sync-preview-excluded", "sync-preview-unmapped", "sync-preview-parser-warnings", "sync-preview-parser-unsupported", "sync-source-heading", "sync-source-scope", "sync-source-unmapped", "sync-source-excluded", "sync-source-converted", "sync-source-fallback", "sync-source-excluded-item", "sync-source-occurrences", "sync-source-truncated", "sync-source-omitted", "sync-report-button", "sync-report-retention", "sync-report-partial", "sync-report-unfinished", "sync-report-failed", "sync-report-completed", "sync-report-completed-with-warnings", "sync-report-skipped", "sync-report-review-only", "sync-report-unavailable", "sync-report-empty", "sync-recovery-heading", "sync-recovery-description", "sync-recovery-unavailable", "sync-recovery-all", "sync-estimate-field", "sync-estimate-field-hint", "sync-original-time", "sync-remaining-time", "sync-time-estimate-hint"];
 test('Odia sync translations preserve key order, script and tokens',()=>{
  assert.deepEqual(Object.keys(locale),Object.keys(english));
  for(const key of keys){
@@ -40,4 +40,18 @@ test('Odia sync reports retain limits, hidden values and partial-change caveats'
  assert.ok(locale['sync-report-partial'].includes('\u0b2a\u0b42\u0b30\u0b4d\u0b2c\u0b2c\u0b24\u0b4d \u0b15\u0b30\u0b47 \u0b28\u0b3e\u0b39\u0b3f\u0b01'));
  for(const suffix of ['unmapped','excluded']) assert.equal(locale['sync-source-'+suffix],locale['sync-preview-'+suffix]);
  assert.equal(new Set(['failed','unfinished','completed','completed-with-warnings','skipped'].map(state=>locale['sync-report-'+state])).size,5);
+});
+
+test('Odia diagnostics and estimates retain access and data-handling requirements',()=>{
+ for(const term of ['30','ID']) assert.ok(locale['sync-recovery-description'].includes(term));
+ assert.ok(locale['sync-report-unavailable'].includes('\u0b32\u0b47\u0b16\u0b3f\u0b2c\u0b3e \u0b05\u0b27\u0b3f\u0b15\u0b3e\u0b30'));
+ assert.ok(locale['sync-recovery-description'].includes('\u0b15\u0b30\u0b3f\u0b2a\u0b3e\u0b30\u0b3f\u0b2c \u0b28\u0b3e\u0b39\u0b3f\u0b01'));
+ for(const key of ['sync-estimate-field-hint','sync-time-estimate-hint']){
+  assert.ok(locale[key].includes('Jira'));
+  assert.ok(locale[key].includes('null'));
+  assert.ok(locale[key].includes('\u0b05\u0b23\u0b26\u0b47\u0b16\u0b3e'));
+  assert.ok(locale[key].includes('\u0b38\u0b2b\u0b3e'));
+ }
+ assert.ok(locale['sync-time-estimate-hint'].includes('\u0b20\u0b3f\u0b15\u0b4d \u0b17\u0b4b\u0b1f\u0b3f\u0b0f'));
+ for(const key of ['sync-original-time','sync-remaining-time']) assert.ok(locale[key].includes('\u0b18\u0b23\u0b4d\u0b1f\u0b3e'));
 });
