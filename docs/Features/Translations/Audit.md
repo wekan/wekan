@@ -9658,6 +9658,18 @@ other locales lack custom-colors-in-use. All 21 human-preference checks passed.
 Technical wording remains low confidence pending speaker review. Browser
 checks were not run; further translations and the broader audit remain unfinished.
 
+## Turkmen sprint events and reports
+
+Filled 35 English placeholders for sprint events, reports and lifecycle states.
+The placeholder-only merge retained existing translations. Coverage checks
+unknown-versus-zero estimates, comparable units and policies, retained
+membership, partial-report scope, lifecycle states and minute units, plus
+key order and tokens. Of 57 checks, 55 passed; two repository-wide checks
+still fail because other locales lack custom-colors-in-use. All 21
+human-preference checks passed. Technical wording remains low confidence
+pending speaker review. Browser checks were not run; further translations
+and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
