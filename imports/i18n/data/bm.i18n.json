@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Jatebɔ dɔ bɛ yen ka ban ni nin imɛli ye, a ma dilan ni nin donni cogo ye",
   "sign-in-with": "Don ni %s ye",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Donni tɛ se ka ban ni sɛriwusi wɛrɛ ye adrɛsi nin na. WeKan labɛnnen don __expected__ kama, nka sɛbɛnɲɛ nin dayɛlɛla __actual__ la. WeKan dayɛlɛ __expected__ la, walima i ka ɲɛmɔgɔ deli a ka ROOT_URL kɛ __actual__ ye.",
   "passwordless-title": "Donni ni gundo daɲɛ tɛ",
   "passwordless-enabled": "Donni kode siɲɛ kelen ci imɛli fɛ gundo daɲɛ nɔ na",
   "passwordless-hint": "Imɛli bɔli ka kan ka kɛ (MAIL_URL). PASSWORDLESS_ENABLED fana.",

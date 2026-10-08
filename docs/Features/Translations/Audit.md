@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Bambara, Ewe and Fulah warnings — 2026-10-08
+
+Translate three warnings with exact repeated address variables and ROOT_URL.
+Warning coverage includes 192 paths; warning and placeholder suites and all 21
+preservation checks pass. Bambara service terminology was checked against
+[Bamadaba](https://bamadaba.coastsystems.net/lexicon/s/), alongside existing catalog
+terminology. These translations have lower confidence and need native review.
+This warning still has 15 English paths; browser review and the wider translation
+backlog remain outstanding.
+
 ## Acehnese, Aymara, Guarani and Quechua warnings — 2026-10-08
 
 Translate four warnings with unchanged repeated address variables and ROOT_URL.
