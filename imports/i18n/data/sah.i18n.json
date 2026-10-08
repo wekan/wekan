@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Бу электроннай почталаах аккаунт номнуо баар уонна бу киирии ньыматынан оҥоһуллубатах",
   "sign-in-with": "%s нөҥүө киир",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Атын өҥө нөҥүө киириини бу аадырыска түмүктүүр кыах суох. WeKan __expected__ аадырыска үлэлиир гына туруоруллубут, ол эрээри бу сирэй __actual__ аадырыска аһыллыбыт. WeKan-ы __expected__ аадырыска ас, эбэтэр салайааччыттан ROOT_URL суолтатын __actual__ гына туруорарын көрдөс.",
   "passwordless-title": "Кистэлэҥ тыла суох киирии",
   "passwordless-enabled": "Кистэлэҥ тыл оннугар электроннай почтанан биир кэмнээх киирии кодун ыыт",
   "passwordless-hint": "Тахсар почта наада (MAIL_URL). Эмиэ PASSWORDLESS_ENABLED.",

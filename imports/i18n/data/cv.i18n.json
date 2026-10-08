@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Ку электронлӑ почтӑллӑ аккаунт пур ӗнтӗ, ӑна ку кӗмелли меслетпе туман",
   "sign-in-with": "%s урлӑ кӗр",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Урӑх сервис урлӑ кӗнине ку адресра вӗҫлеме май ҫук. WeKan __expected__ валли ҫирӗплетнӗ, анчах ку страница __actual__ адресра уҫӑлнӑ. WeKan-а __expected__ адресра уҫӑр е администратортан ROOT_URL пӗлтерӗшне __actual__ туса лартма ыйтӑр.",
   "passwordless-title": "Вӑрттӑн сӑмахсӑр кӗни",
   "passwordless-enabled": "Вӑрттӑн сӑмах вырӑнне электронлӑ почтӑпа пӗр хутлӑх кӗмелли код яр",
   "passwordless-hint": "Тухакан почта кирлӗ (MAIL_URL). Тата PASSWORDLESS_ENABLED.",

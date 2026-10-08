@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Buryat, Chuvash and Sakha warnings — 2026-10-08
+
+Translate three warnings with exact repeated address variables and ROOT_URL.
+Warning coverage includes 185 catalog paths; warning and placeholder suites and
+all 21 preservation checks pass. Buryat page terminology was checked against the
+[Buryat explanatory dictionary](https://edbl.ru/d/dutaha/) and Sakha address
+terminology against [Wiktionary](https://en.wiktionary.org/wiki/аадырыс).
+These translations have lower confidence and need native review. This warning
+still has 22 English paths; browser review and the wider translation backlog
+remain outstanding.
+
 ## Oromo, Luganda, Wolof and Akan warnings — 2026-10-08
 
 Translate four warnings with unchanged address variables and ROOT_URL. Warning

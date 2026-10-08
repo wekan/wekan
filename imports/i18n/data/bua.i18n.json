@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Энэ сахим захидалтай бүридхэл хэзээнэй байна, энэ нэбтэрхэ аргаар бүтээгдээгүй",
   "sign-in-with": "%s-ээр нэбтэрхэ",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Ондоо үйлэшэлгөөр энэ хаягта нэбтэрэлгэ дүүргэхэ аргагүй. WeKan __expected__ хаягта тааруулагданхай, харин энэ хуудаһан __actual__ хаягта нээгдээ. WeKan-иие __expected__ хаягта нээгты, али хүтэлбэрилэгшэһөө ROOT_URL-ые __actual__ болгожо тааруулхыень гуйгты.",
   "passwordless-title": "Нюуса үгэгүй нэбтэрхэ",
   "passwordless-enabled": "Нюуса үгын орондо нэгэ удаагай нэбтэрхэ кодые сахим захидалаар эльгээхэ",
   "passwordless-hint": "Гараха сахим захидал хэрэгтэй (MAIL_URL). Мүн PASSWORDLESS_ENABLED.",
