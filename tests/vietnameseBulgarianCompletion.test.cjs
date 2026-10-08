@@ -13833,3 +13833,12 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['scrum-history-checkpoint-hint'], /कोई रिकॉर्ड नहीं बदलता/);
   assert.notEqual(locale['scrum-history-checkpoint-rollback'], locale['scrum-history-checkpoint-discard']);
 }
+
+{
+  const locale = read('bn');
+  for (const token of ['Ctrl', 'Cmd', 'Mac']) assert.ok(locale['scrum-releases-select-help'].includes(token), `bn: ${token}`);
+  assert.match(locale['sync-planning-hint'], /প্রথম সমন্বয় কখনো পরিকল্পনা সরিয়ে দেয় না/);
+  assert.match(locale['scrum-history-checkpoint-hint'], /কোনো রেকর্ড বদলায় না/);
+  assert.notEqual(locale['scrum-history-checkpoint-rollback'], locale['scrum-history-checkpoint-discard']);
+  assert.ok(locale['scrum-history-checkpoint-counts'].replace('__total__', '10').replace('__applied__', '3').startsWith('10টি পরিবর্তনের মধ্যে 3টি'));
+}
