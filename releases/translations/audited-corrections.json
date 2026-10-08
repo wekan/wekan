@@ -161656,5 +161656,166 @@
     "before": "看不到评论。",
     "after": "看勿见评论。",
     "reason": "2026-10-08: Correct Wu color and comment-role meanings and restore current archive navigation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "read-only-desc",
+    "before": "只能查看卡片。无法编辑。",
+    "after": "只可以查看卡片。勿能修改。",
+    "reason": "2026-10-08: Correct Wu permission and copy/import meanings, preserving JSON keys and deletion scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "read-assigned-only",
+    "before": "仅指定读取",
+    "after": "只许看分配畀自家个卡片",
+    "reason": "2026-10-08: Correct Wu permission and copy/import meanings, preserving JSON keys and deletion scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "read-assigned-only-desc",
+    "before": "仅指定的卡可见。无法编辑。",
+    "after": "只看得见分配畀自家个卡片。勿能修改。",
+    "reason": "2026-10-08: Correct Wu permission and copy/import meanings, preserving JSON keys and deletion scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "worker-desc",
+    "before": "只能移动卡片、将自己分配给卡片和评论。",
+    "after": "只可以移动卡片、拿自家分配到卡片浪搭发表评论。",
+    "reason": "2026-10-08: Correct Wu permission and copy/import meanings, preserving JSON keys and deletion scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "confirm-subtask-delete-popup",
+    "before": "您确定要删除子任务吗？",
+    "after": "侬确定要删脱子任务伐？",
+    "reason": "2026-10-08: Correct Wu permission and copy/import meanings, preserving JSON keys and deletion scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "confirm-checklist-delete-popup",
+    "before": "您确定要删除清单吗？",
+    "after": "侬确定要删脱搿只清单伐？",
+    "reason": "2026-10-08: Correct Wu permission and copy/import meanings, preserving JSON keys and deletion scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "confirm-checklist-item-delete-popup",
+    "before": "您确定要删除清单项目吗？",
+    "after": "侬确定要删脱搿只清单项目伐？",
+    "reason": "2026-10-08: Correct Wu permission and copy/import meanings, preserving JSON keys and deletion scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "confirm-move-list-to-swimlane",
+    "before": "将此列表及其所有卡片移动到另一个泳道？",
+    "after": "要拿搿只列表搭伊里向所有卡片移到另外一条泳道伐？",
+    "reason": "2026-10-08: Correct Wu permission and copy/import meanings, preserving JSON keys and deletion scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "subtaskDeletePopup-title",
+    "before": "删除子任务？",
+    "after": "要删脱子任务伐？",
+    "reason": "2026-10-08: Correct Wu permission and copy/import meanings, preserving JSON keys and deletion scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "checklistDeletePopup-title",
+    "before": "删除清单？",
+    "after": "要删脱清单伐？",
+    "reason": "2026-10-08: Correct Wu permission and copy/import meanings, preserving JSON keys and deletion scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "checklistItemDeletePopup-title",
+    "before": "删除清单项目？",
+    "after": "要删脱清单项目伐？",
+    "reason": "2026-10-08: Correct Wu permission and copy/import meanings, preserving JSON keys and deletion scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "copy-card-link-to-clipboard",
+    "before": "将卡片链接复制到剪贴板",
+    "after": "拿卡片链接复制到剪贴板里向",
+    "reason": "2026-10-08: Correct Wu permission and copy/import meanings, preserving JSON keys and deletion scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "copy-link-to-clipboard",
+    "before": "复制链接到剪贴板",
+    "after": "拿链接复制到剪贴板里向",
+    "reason": "2026-10-08: Correct Wu permission and copy/import meanings, preserving JSON keys and deletion scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "copy-text-to-clipboard",
+    "before": "将文本复制到剪贴板",
+    "after": "拿文本复制到剪贴板里向",
+    "reason": "2026-10-08: Correct Wu permission and copy/import meanings, preserving JSON keys and deletion scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "linkCardPopup-title",
+    "before": "链接卡",
+    "after": "关联卡片",
+    "reason": "2026-10-08: Correct Wu permission and copy/import meanings, preserving JSON keys and deletion scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "copyCardPopup-title",
+    "before": "复印卡",
+    "after": "复制卡片",
+    "reason": "2026-10-08: Correct Wu permission and copy/import meanings, preserving JSON keys and deletion scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "copyManyCardsPopup-title",
+    "before": "将模板复制到多张卡片",
+    "after": "拿模板复制成多张卡片",
+    "reason": "2026-10-08: Correct Wu permission and copy/import meanings, preserving JSON keys and deletion scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "copyManyCardsPopup-instructions",
+    "before": "此 JSON 格式的目标卡标题和描述",
+    "after": "按搿个 JSON 格式填写目标卡片个标题搭描述",
+    "reason": "2026-10-08: Correct Wu permission and copy/import meanings, preserving JSON keys and deletion scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"第一张卡片标题\", \"description\":\"第一张卡片描述\"}, {\"title\":\"第二张卡片标题\",\"description\":\"第二张卡片描述\"},{\"title\":\"最后一张卡片标题\",\"description\":\"最后一张卡片描述\"} ]",
+    "after": "[ {\"title\": \"第一张卡片个标题\", \"description\":\"第一张卡片个描述\"}, {\"title\":\"第二张卡片个标题\",\"description\":\"第二张卡片个描述\"},{\"title\":\"最后一张卡片个标题\",\"description\":\"最后一张卡片个描述\"} ]",
+    "reason": "2026-10-08: Correct Wu permission and copy/import meanings, preserving JSON keys and deletion scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "create",
+    "before": "创造",
+    "after": "创建",
+    "reason": "2026-10-08: Correct Wu permission and copy/import meanings, preserving JSON keys and deletion scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "createBoardPopup-title",
+    "before": "创建板",
+    "after": "创建看板",
+    "reason": "2026-10-08: Correct Wu permission and copy/import meanings, preserving JSON keys and deletion scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "chooseBoardSourcePopup-title",
+    "before": "进口板",
+    "after": "导入看板",
+    "reason": "2026-10-08: Correct Wu permission and copy/import meanings, preserving JSON keys and deletion scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "custom-field-delete-pop",
+    "before": "无法撤消。这将从所有卡中删除此自定义字段并销毁其历史记录。",
+    "after": "搿个操作勿能撤销。会从所有卡片浪删脱搿只自定义字段，连伊个历史记录也一淘删脱。",
+    "reason": "2026-10-08: Correct Wu permission and copy/import meanings, preserving JSON keys and deletion scope; lower-confidence prose needs native review."
   }
 ]

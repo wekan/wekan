@@ -556,3 +556,20 @@ assert.match(wu['comment-only-desc'], /只可以.*发表评论/);
 assert.match(wu['no-comments'], /勿许看评论/);
 assert.doesNotMatch(wu['no-comments'], /暂无/);
 assert.match(wu['no-comments-desc'], /看勿见/);
+
+const permissionsCopy = ["read-only-desc", "read-assigned-only", "read-assigned-only-desc", "worker-desc", "confirm-subtask-delete-popup", "confirm-checklist-delete-popup", "confirm-checklist-item-delete-popup", "confirm-move-list-to-swimlane", "subtaskDeletePopup-title", "checklistDeletePopup-title", "checklistItemDeletePopup-title", "copy-card-link-to-clipboard", "copy-link-to-clipboard", "copy-text-to-clipboard", "linkCardPopup-title", "copyCardPopup-title", "copyManyCardsPopup-title", "copyManyCardsPopup-instructions", "copyManyCardsPopup-format", "create", "createBoardPopup-title", "chooseBoardSourcePopup-title", "custom-field-delete-pop"];
+for (const key of permissionsCopy) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.match(wu['read-assigned-only-desc'], /只看得见分配畀自家个卡片.*勿能修改/);
+assert.match(wu['read-only-desc'], /只可以查看.*勿能修改/);
+assert.match(wu['worker-desc'], /只可以移动卡片.*自家分配.*发表评论/);
+assert.match(wu['confirm-move-list-to-swimlane'], /列表.*所有卡片.*另外一条泳道/);
+assert.match(wu['custom-field-delete-pop'], /勿能撤销.*所有卡片.*自定义字段.*历史记录.*删脱/);
+assert.equal(wu['chooseBoardSourcePopup-title'], '导入看板');
+assert.equal(wu['copyCardPopup-title'], '复制卡片');
+const wuCopyExample = JSON.parse(wu['copyManyCardsPopup-format']);
+const sourceCopyExample = JSON.parse(english['copyManyCardsPopup-format']);
+assert.equal(wuCopyExample.length, sourceCopyExample.length);
+wuCopyExample.forEach((entry, index) => {
+  assert.deepEqual(Object.keys(entry), Object.keys(sourceCopyExample[index]));
+  for (const value of Object.values(entry)) assert.match(value, /卡片个/);
+});
