@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3a09261d220f7d4c7908ae2caaa22f0635d368ff">Translate Bhojpuri Sync diagnostics and notification recovery</a></summary>
+
+- Fill 49 Sync diagnostic, mail failure and notification recovery strings,
+  preserving existing translations and source placeholders.
+- Technical wording remains low confidence pending speaker review.
+- All 42 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6758bca71563ca208665b0cb755d0f6bd4574f18">Translate Bhojpuri observations and Sync conflicts</a></summary>
 
 - Fill 54 daily observation, Sync conflict and preview strings, preserving
