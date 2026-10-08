@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Bulgarian import instructions, first group — 2026-10-09
+
+Translate eight instructions in bg: Planner, MeisterTask, Obsidian, Linear,
+TickTick, ClickUp, Nullboard and Kanri. Preserve commands, extensions and variables.
+Regression checks cover completed-task dates, archived cards, first-board selection
+and swimlane mappings. Import-instruction, placeholder and Vietnamese/Bulgarian
+completion suites and all 21 preservation checks pass. Remaining Bulgarian
+instructions, browser review and the wider translation backlog remain outstanding.
+
 ## Vietnamese import instructions, remaining group — 2026-10-09
 
 Translate the remaining 13 instructions in vi and vi-VN (26 values), completing
