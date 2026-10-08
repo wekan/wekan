@@ -9034,6 +9034,16 @@ Regression coverage checks those details, script, key order and token inventorie
 Technical wording remains low confidence pending speaker review. Browser checks
 were not run; further Maithili translations and the broader audit remain.
 
+## Maithili logic controls and comparisons
+
+Filled 25 English values for Boolean operations, comparisons, negation and
+conditional values. Existing translations were retained; filter-excluded short
+labels were filled directly only after checking equality with English. Preserved
+null, indexed tokens, inclusive comparisons and both-versus-at-least-one meaning.
+Regression coverage checks those distinctions, script, key order and tokens.
+Technical wording remains low confidence pending speaker review. Browser checks
+were not run; further Maithili translations and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
