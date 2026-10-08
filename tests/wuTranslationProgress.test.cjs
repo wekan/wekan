@@ -773,3 +773,18 @@ assert.match(fillWuActivity('activity-removed-label', ['LABEL', 'CARD']), /标�
 assert.match(fillWuActivity('activity-set-customfield', ['FIELD', 'VALUE', 'CARD']), /字段“FIELD”设成“VALUE”.*所属项目是 CARD/);
 assert.match(fillWuActivity('activity-unset-customfield', ['FIELD', 'CARD']), /字段“FIELD”个设置.*所属项目是 CARD/);
 assert.match(fillWuActivity('activity-added-label', ['LABEL', 'CARD']), /标签“LABEL”.*加到 CARD/);
+
+const ruleTriggers = ["r-export-selected", "r-edit-rule-trigger-action", "r-toggle-rule-enabled", "r-workflow-help", "r-drop-trigger", "r-drop-action", "r-w-card-created", "r-w-card-archived", "r-w-card-unarchived", "r-w-label-added", "r-w-label-removed", "r-w-member-added", "r-w-member-removed", "r-w-assignee-added", "r-w-assignee-removed", "r-w-checklist-added", "r-w-attachment-added", "r-w-every-day-at", "r-w-set-received-now", "r-export-json", "r-export-csv"];
+for (const key of ruleTriggers) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.match(wu['r-edit-rule-trigger-action'], /触发器/);
+assert.doesNotMatch(wu['r-edit-rule-trigger-action'], /扳机/);
+assert.match(wu['r-workflow-help'], /触发器.*操作.*添加规则.*现有规则.*修改/);
+for (const entity of ['label', 'member', 'assignee']) {
+  assert.match(wu['r-w-' + entity + '-added'], /添加仔/);
+  assert.match(wu['r-w-' + entity + '-removed'], /移脱仔/);
+}
+assert.match(wu['r-w-assignee-added'], /负责人/);
+assert.match(wu['r-w-card-unarchived'], /归档里向恢复/);
+assert.match(wu['r-w-every-day-at'], /每天.*__time__/);
+assert.match(wu['r-export-json'], /JSON/);
+assert.match(wu['r-export-csv'], /CSV/);

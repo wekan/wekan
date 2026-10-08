@@ -164092,5 +164092,152 @@
     "before": "删除所选",
     "after": "删脱选中个规则",
     "reason": "2026-10-08: Correct Wu parent/minicard meanings and restore positional label/field/value/owner roles; preserve source tokens. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-export-selected",
+    "before": "导出所选",
+    "after": "导出选中个规则",
+    "reason": "2026-10-08: Correct Wu rule triggers and workflow instructions, preserving time variables and opposite events; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-edit-rule-trigger-action",
+    "before": "编辑规则 (扳机/行动)",
+    "after": "修改触发器／操作",
+    "reason": "2026-10-08: Correct Wu rule triggers and workflow instructions, preserving time variables and opposite events; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-toggle-rule-enabled",
+    "before": "启用或者禁用该规则",
+    "after": "启用或者禁用搿条规则",
+    "reason": "2026-10-08: Correct Wu rule triggers and workflow instructions, preserving time variables and opposite events; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-workflow-help",
+    "before": "将一个触发器和一个动作拖入构建器，然后添加规则。将动作拖到现有规则上可更改其行为。",
+    "after": "拿一只触发器搭一只操作拖进构建器，再添加规则。拿操作拖到现有规则浪，就可以修改伊做啥。",
+    "reason": "2026-10-08: Correct Wu rule triggers and workflow instructions, preserving time variables and opposite events; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-drop-trigger",
+    "before": "将触发器拖放到此处",
+    "after": "拿触发器拖放到搿搭",
+    "reason": "2026-10-08: Correct Wu rule triggers and workflow instructions, preserving time variables and opposite events; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-drop-action",
+    "before": "将动作拖放到此处",
+    "after": "拿操作拖放到搿搭",
+    "reason": "2026-10-08: Correct Wu rule triggers and workflow instructions, preserving time variables and opposite events; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-w-card-created",
+    "before": "卡片被创建",
+    "after": "卡片创建好仔",
+    "reason": "2026-10-08: Correct Wu rule triggers and workflow instructions, preserving time variables and opposite events; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-w-card-archived",
+    "before": "卡片被归档",
+    "after": "卡片归档仔",
+    "reason": "2026-10-08: Correct Wu rule triggers and workflow instructions, preserving time variables and opposite events; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-w-card-unarchived",
+    "before": "卡片被取消归档",
+    "after": "卡片从归档里向恢复仔",
+    "reason": "2026-10-08: Correct Wu rule triggers and workflow instructions, preserving time variables and opposite events; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-w-label-added",
+    "before": "添加了任何标签",
+    "after": "添加仔任意标签",
+    "reason": "2026-10-08: Correct Wu rule triggers and workflow instructions, preserving time variables and opposite events; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-w-label-removed",
+    "before": "移除了任何标签",
+    "after": "移脱仔任意标签",
+    "reason": "2026-10-08: Correct Wu rule triggers and workflow instructions, preserving time variables and opposite events; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-w-member-added",
+    "before": "添加了成员",
+    "after": "添加仔一位成员",
+    "reason": "2026-10-08: Correct Wu rule triggers and workflow instructions, preserving time variables and opposite events; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-w-member-removed",
+    "before": "移除了成员",
+    "after": "移脱仔一位成员",
+    "reason": "2026-10-08: Correct Wu rule triggers and workflow instructions, preserving time variables and opposite events; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-w-assignee-added",
+    "before": "添加受让人",
+    "after": "添加仔一位负责人",
+    "reason": "2026-10-08: Correct Wu rule triggers and workflow instructions, preserving time variables and opposite events; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-w-assignee-removed",
+    "before": "移除受让人",
+    "after": "移脱仔一位负责人",
+    "reason": "2026-10-08: Correct Wu rule triggers and workflow instructions, preserving time variables and opposite events; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-w-checklist-added",
+    "before": "添加了清单",
+    "after": "添加仔一只清单",
+    "reason": "2026-10-08: Correct Wu rule triggers and workflow instructions, preserving time variables and opposite events; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-w-attachment-added",
+    "before": "添加了附件",
+    "after": "添加仔一只附件",
+    "reason": "2026-10-08: Correct Wu rule triggers and workflow instructions, preserving time variables and opposite events; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-w-every-day-at",
+    "before": "每天于 __time__",
+    "after": "每天个 __time__",
+    "reason": "2026-10-08: Correct Wu rule triggers and workflow instructions, preserving time variables and opposite events; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-w-set-received-now",
+    "before": "将接收日期设为现在",
+    "after": "拿接收日期设成现在",
+    "reason": "2026-10-08: Correct Wu rule triggers and workflow instructions, preserving time variables and opposite events; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-export-json",
+    "before": "将规则导出为 JSON",
+    "after": "拿规则导出成 JSON",
+    "reason": "2026-10-08: Correct Wu rule triggers and workflow instructions, preserving time variables and opposite events; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-export-csv",
+    "before": "将规则导出为 CSV",
+    "after": "拿规则导出成 CSV",
+    "reason": "2026-10-08: Correct Wu rule triggers and workflow instructions, preserving time variables and opposite events; lower-confidence prose needs native review."
   }
 ]

@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu rule-trigger corrections — 2026-10-08
+
+Correct 21 rule-trigger and workflow values. Replace firearm-trigger and assignee
+mistranslations; preserve added/removed and archived/restored event distinctions,
+the named time variable and JSON/CSV literals. Refresh exact-value audit records.
+Wu prose needs native review; browser tests were not run and all-language work remains
+unfinished.
+
 ## Wu parent-card and activity corrections — 2026-10-08
 
 Correct 22 minicard, parent-card and activity values. Restore positional roles:
@@ -12676,7 +12684,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,442** exact before/after values, including unflagged
+records contain **23,463** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
