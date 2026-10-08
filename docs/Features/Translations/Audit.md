@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Tamazight and Inuktitut warnings — 2026-10-08
+
+Translate two warnings with exact repeated address variables and ROOT_URL.
+Verify Tifinagh and Canadian Aboriginal syllabics and reject Latin letters in
+prose after removing literal code names. Warning coverage includes 206 paths;
+warning and placeholder suites and all 21 preservation checks pass. Terminology
+was checked against [Tamazight government usage](https://mjcc.gov.ma/zgh/)
+and existing Inuktitut catalog terms. These direct translations have lower
+confidence and need native review. Cherokee remains the only English warning
+path. Browser review and the wider translation backlog remain outstanding.
+
 ## Tigre and Wolaytta warnings and labels — 2026-10-08
 
 Translate two warnings with exact repeated address variables and ROOT_URL.

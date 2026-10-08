@@ -37,6 +37,7 @@ codes.push('uz-AR', 'ks');
 codes.push('ve-PP', 'vo', 'tlh');
 codes.push('kl', 'nah');
 codes.push('tig', 'wal');
+codes.push('zgh', 'iu');
 for (const code of codes) {
   const value = read(code)[key];
   assert.notEqual(value, source, code);
@@ -56,7 +57,7 @@ assert.match(read('es')[key], /No se puede completar/);
 assert.match(read('ja')[key], /ログインを完了できません/);
 assert.match(read('zh-CN')[key], /无法在此地址完成/);
 assert.match(read('zh-TW')[key], /無法在此位址完成/);
-console.log('Sign-in origin warning: 204 catalog paths, repeated address roles and literal configuration key pass');
+console.log('Sign-in origin warning: 206 catalog paths, repeated address roles and literal configuration key pass');
 
 assert.match(read('ar')[key], /لا يمكن إكمال تسجيل الدخول/);
 assert.match(read('fa')[key], /تکمیل نمی‌شود/);
@@ -243,3 +244,11 @@ assert.match(read('wal')[key], /polanau danddayettenna/);
 assert.equal(read('wal').login, 'Geliyoogaa');
 assert.equal(read('wal').open, 'Dooya');
 assert.equal(read('wal').page, 'Sinttaa');
+
+assert.match(read('zgh')[key], /ⵓⵔ ⵉⵣⵎⵉⵔ/);
+assert.match(read('iu')[key], /ᐱᔭᕇᖅᑕᐅᔪᓐᓇᙱᓚᖅ/);
+for (const [code, script] of [['zgh', /\p{Script=Tifinagh}/u], ['iu', /\p{Script=Canadian_Aboriginal}/u]]) {
+  const prose = read(code)[key].replaceAll('WeKan', '').replaceAll('ROOT_URL', '').replace(/__(?:expected|actual)__/g, '');
+  assert.match(prose, script, code);
+  assert.doesNotMatch(prose, /[A-Za-z]/, code);
+}
