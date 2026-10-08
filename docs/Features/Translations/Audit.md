@@ -8247,6 +8247,15 @@ loading and card-edit messages. Technical wording remains low confidence pending
 speaker review. Focused tests check key order, placeholder inventories, reminder
 states and deletion warnings; browser checks were not run.
 
+## Tatar editor preferences and administration popup corrections
+
+Corrected 17 wrong-language or incomplete display, editor and administration
+values. Restored literal Enter, Shift+Enter and Ctrl/Cmd+Enter shortcuts, retained
+both save/newline modes and the multiple-card window behavior, and kept create
+and edit actions distinct. Existing valid neighboring translations remain.
+Technical wording remains low confidence pending speaker review. Focused tests
+cover key order, source tokens and editor behavior; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
