@@ -987,3 +987,26 @@ for (const code of ['sl', 'sl_SI']) {
   assert.match(locale['import-board-instruction-teamwork'], /eno raven globlje/);
   assert.match(locale['import-board-instruction-superproductivity'], /arhivirane naloge postanejo arhivirane kartice/);
 }
+
+{
+  const locale = read('sr');
+  const literals = {
+    planner: ['Microsoft Planner', 'Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By'],
+    meistertask: ['MeisterTask', 'Export project', 'CSV'],
+    ...Object.fromEntries(['obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri'].map(format => [format, importLiterals[format]])),
+  };
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), key);
+    assert.match(locale[key], /\p{Script=Cyrillic}/u, key);
+    for (const value of values) assert.ok(locale[key].includes(value), key + ': ' + value);
+  }
+  for (const format of ['nullboard', 'kanri']) {
+    assert.match(locale['import-board-instruction-' + format], /увози се само прва табла/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /увозе се све табле/);
+  }
+  assert.match(locale['import-board-instruction-meistertask'], /завршени задаци задржавају датум завршетка/);
+  assert.match(locale['import-board-instruction-obsidian'], /архива се претвара у архивиране картице/);
+  assert.match(locale['import-board-instruction-ticktick'], /TickTick листа постаје трака/);
+}
