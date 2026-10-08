@@ -7724,6 +7724,15 @@ conditional label references and logical distinctions. Technical wording remains
 confidence pending speaker review. Browser checks were not run. Further Tatar
 mixed-language corrections and the broader translation audit continue.
 
+### Tatar number tests and statistics
+
+Filled 30 English placeholders for divisibility, number tests, remainder and list
+statistics. Existing translations and source tokens are preserved. Regression coverage
+checks key order, placeholders, distinct statistical operations, number polarity,
+remainder notation and shared minimum/maximum labels. Technical wording remains low
+confidence pending speaker review. Browser checks were not run. Further Tatar
+mixed-language corrections and the broader translation audit continue.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
