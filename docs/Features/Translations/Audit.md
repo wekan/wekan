@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Zulu Blockly text operations — 2026-10-09
+
+Translate 55 text-operation values in each Zulu catalog (110 values). Preserve
+numbered variables, position markers and empty grammar suffixes. Regression
+checks cover rendered replacement order, left/right trimming, all-occurrence
+replacement, not-found values and spaces counted in text length. Both targeted
+suites and all 21 preservation checks pass. Specialized terminology remains
+low confidence pending speaker review. Browser execution and remaining
+translations are outstanding.
+
 ## Zulu procedure controls and broad verification — 2026-10-09
 
 The broad translation run passed all 333 selected suites in 128 seconds after
