@@ -487,6 +487,17 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/eff57a7ea0">Translate Papiamento Scrum reports and observations</a>. Thanks to xet7.</summary>
+
+Translate 45 Scrum event, state, report and daily-observation messages, preserving
+variables, UTC and observation limits and checking report and sprint semantics.
+Three focused translation suites and 21 human-preference checks pass.
+Specialized wording is lower confidence and needs native review. No browser
+session was run. Remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5f64302d59">Translate Papiamento imports and Scrum planning</a>. Thanks to xet7.</summary>
 
 Translate 45 import instructions and Scrum planning labels, preserving format
