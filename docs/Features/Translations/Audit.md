@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Serbian planning and settings — 2026-10-08
+
+Translate 51 remaining English fill-list entries into Serbian, covering planning,
+imports, link rules, settings and Scrum recovery. Preserve variables, technical
+examples and existing legal-workflow terminology. Check first-sync retention,
+nonduplicating imports, conflict recovery and read-only settings. The current
+Serbian fill list is empty. Other languages and vocabulary review remain;
+no browser or screen-reader session was run.
+
 ## Serbian interrupted board imports — 2026-10-08
 
 Translate 25 English import recovery messages into Serbian, preserving source
