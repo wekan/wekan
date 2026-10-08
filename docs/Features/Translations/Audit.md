@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## French import instructions, remaining group — 2026-10-08
+
+Translate the remaining 13 import instructions in fr, fr-BE, fr-CA, fr-CH and
+fr-FR (65 values), completing all 21 instructions in those catalogs. Preserve
+commands, columns, extensions and hierarchy markers. Regression checks cover
+excluded data, English header requirements and archived tasks. Import-instruction
+and placeholder suites and all 21 preservation checks pass. Browser review and
+the wider all-language translation backlog remain outstanding.
+
 ## French import instructions, first group — 2026-10-08
 
 Translate eight instructions in fr, fr-BE, fr-CA, fr-CH and fr-FR (40 values):

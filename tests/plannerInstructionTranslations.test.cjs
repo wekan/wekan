@@ -211,3 +211,21 @@ for (const code of ['fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR']) {
   assert.match(locale['import-board-instruction-obsidian'], /archives deviennent des cartes archivées/);
   assert.match(locale['import-board-instruction-planner'], /compartiments deviennent des listes et les tâches deviennent des cartes/);
 }
+
+for (const code of ['fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR']) {
+  const locale = read(code);
+  const literals = {...newerImportLiterals, ...Object.fromEntries(['pivotal', 'tasksorg', 'monday', 'superproductivity', 'taiga', 'vikunja'].map(format => [format, importLiterals[format]]))};
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), code + ': ' + key);
+    for (const value of values) assert.ok(locale[key].includes(value), code + ': ' + value);
+  }
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /pièces jointes ne sont pas importées/);
+  assert.match(locale['import-board-instruction-notion'], /relations, images et pièces jointes ne sont pas importées/);
+  assert.match(locale['import-board-instruction-plane'], /ne contient ni descriptions ni pièces jointes.*pas importées/);
+  assert.match(locale['import-board-instruction-businessmap'], /renommez d’abord la ligne d’en-tête en anglais/);
+  assert.match(locale['import-board-instruction-redmine'], /English dans My account avant l’exportation/);
+  assert.match(locale['import-board-instruction-teamwork'], /un niveau supplémentaire/);
+  assert.match(locale['import-board-instruction-superproductivity'], /tâches archivées deviennent des cartes archivées/);
+}
