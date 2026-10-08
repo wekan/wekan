@@ -8283,6 +8283,15 @@ remain. Technical wording remains low confidence pending speaker review. Focused
 tests check key order, source tokens, filter semantics and matching view labels;
 browser checks were not run.
 
+## Tatar search operator and predicate corrections
+
+Corrected 38 wrong-language search aliases, predicates and the unknown-operator
+error. Restored literal # and @ shorthand. Full aliases use single words accepted
+by the production parser, including previously spaced debug/checklist aliases.
+Existing correct-language aliases remain. Technical wording remains low confidence
+pending speaker review. Focused tests cover tokens, key order, parser-compatible
+characters and alias uniqueness; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
