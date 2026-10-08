@@ -1006,6 +1006,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2c55b838ac">Correct Slovenian workspace and board controls</a>. Thanks to xet7.</summary>
+
+Replace 65 Serbian values in each Slovenian catalog, for 130 corrections.
+Cover workspaces, board controls, views, voting, comments, export and date
+filters while preserving variables and the zoom range.
+
+Four focused translation suites and 21 human-preference checks pass.
+No browser or screen-reader session was run. Further wrong-language review
+and remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/841a5aaeda">Translate Slovenian import recovery and correct core labels</a>. Thanks to xet7.</summary>
 
 Fill 25 interrupted-import messages in each Slovenian catalog and replace
