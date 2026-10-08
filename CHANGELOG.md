@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d80d26740e">Correct Wu storage and scheduled task meanings</a>. Thanks to xet7.</summary>
+
+Correct 32 Wu values, preserving storage examples and scheduled board-operation scope.
+Clarify both conditions required for removing duplicate empty lists.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/881899ee4a">Correct Wu cloud setup and migration statuses</a>. Thanks to xet7.</summary>
 
 Correct 24 Wu values, preserving cloud menu paths, product names and credential
