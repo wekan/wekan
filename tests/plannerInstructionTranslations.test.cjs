@@ -849,3 +849,21 @@ for (const code of ['vi', 'vi-VN']) {
   assert.match(locale['import-board-instruction-obsidian'], /phần lưu trữ trở thành các thẻ đã lưu trữ/);
   assert.match(locale['import-board-instruction-ticktick'], /danh sách TickTick trở thành một làn ngang/);
 }
+
+for (const code of ['vi', 'vi-VN']) {
+  const locale = read(code);
+  const literals = {...newerImportLiterals, ...Object.fromEntries(['pivotal', 'tasksorg', 'monday', 'superproductivity', 'taiga', 'vikunja'].map(format => [format, importLiterals[format]]))};
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), code + ': ' + key);
+    for (const value of values) assert.ok(locale[key].includes(value), code + ': ' + value);
+  }
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /Tệp đính kèm không được nhập/);
+  assert.match(locale['import-board-instruction-notion'], /Quan hệ, hình ảnh và tệp đính kèm không được nhập/);
+  assert.match(locale['import-board-instruction-plane'], /không chứa mô tả hoặc tệp đính kèm.*không được nhập/);
+  assert.match(locale['import-board-instruction-businessmap'], /trước tiên hãy đổi tên trong hàng tiêu đề sang tiếng Anh/);
+  assert.match(locale['import-board-instruction-redmine'], /trước khi xuất.*English trong My account/);
+  assert.match(locale['import-board-instruction-teamwork'], /sâu hơn một cấp/);
+  assert.match(locale['import-board-instruction-superproductivity'], /nhiệm vụ đã lưu trữ trở thành thẻ đã lưu trữ/);
+}
