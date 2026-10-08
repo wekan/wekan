@@ -8600,6 +8600,16 @@ processing notices. Regression coverage checks these details alongside key order
 and placeholder inventories. Technical wording remains low confidence pending
 speaker review. Browser checks were not run; the broader audit continues.
 
+## Tatar repository access corrections
+
+Corrected 31 wrong-language resource status, repository and account access
+strings. Retained the correct start-time label and restored the literal Cron
+name. Preserved OTP/API identifiers, byte units, temporary account lockout
+and distinct pause/stop actions. Regression coverage checks these details
+alongside key order and placeholder inventories. Technical wording remains
+low confidence pending speaker review. Browser checks were not run; the
+broader language audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
