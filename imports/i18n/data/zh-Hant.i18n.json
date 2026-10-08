@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "使用此電子郵件的帳號已存在，且並非以此登入方式建立",
   "sign-in-with": "使用 %s 登入",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "無法在此位址完成透過其他服務登入。WeKan 設定的位址是 __expected__，但此頁面是在 __actual__ 開啟的。請透過 __expected__ 開啟 WeKan，或請管理員將 ROOT_URL 設為 __actual__。",
   "passwordless-title": "免密碼登入",
   "passwordless-enabled": "以電子郵件寄送拋棄式登入碼，取代密碼",
   "passwordless-hint": "需要外寄電子郵件 (MAIL_URL)，以及 PASSWORDLESS_ENABLED。",

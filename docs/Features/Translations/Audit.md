@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Sign-in warning regional and additional language coverage — 2026-10-08
+
+Fill the warning in 24 additional regional catalogs using their corresponding
+language translations. Add Arabic, Persian, Hebrew and Ukrainian wording across
+eight catalogs, for 32 new values. The regression suite now checks 58 catalogs
+for exact repeated address variables, rendering order and the ROOT_URL literal.
+The warning and placeholder suites and all 21 preservation checks pass. Native
+review, right-to-left browser rendering and the wider all-language backlog remain
+outstanding.
+
 ## Sign-in address warning in 26 locales — 2026-10-08
 
 Translate the origin mismatch warning in German (including Austrian and Swiss),

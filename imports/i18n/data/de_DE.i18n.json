@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Nur Adressen dieser E-Mail-Domains dürfen sich über diese Anbieter anmelden (durch Kommas getrennt; leer lassen, um alle zuzulassen)",
   "oauth-account-conflict": "Ein Konto mit dieser E-Mail-Adresse existiert bereits und wurde nicht mit dieser Anmeldemethode erstellt",
   "sign-in-with": "Mit %s anmelden",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Die Anmeldung über einen anderen Dienst kann unter dieser Adresse nicht abgeschlossen werden. WeKan ist für __expected__ eingerichtet, aber diese Seite wurde unter __actual__ geöffnet. Öffnen Sie WeKan unter __expected__ oder bitten Sie den Administrator, ROOT_URL auf __actual__ zu setzen.",
   "passwordless-title": "Passwortlose Anmeldung",
   "passwordless-enabled": "Statt eines Passworts einen einmaligen Anmeldecode per E-Mail senden",
   "passwordless-hint": "Benötigt ausgehende E-Mail (MAIL_URL). Auch PASSWORDLESS_ENABLED.",
