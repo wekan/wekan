@@ -362,6 +362,13 @@ if (Meteor.isServer) {
         res.end(String(built == null ? '' : built));
         return;
       }
+      // Microsoft Planner's export is an Excel workbook (models/lib/plannerFormat.js).
+      if (format === 'planner') {
+        const workbook = await require('/server/lib/plannerWorkbook').writePlannerWorkbook(built);
+        res.writeHead(200, { 'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        res.end(workbook);
+        return;
+      }
       sendJsonResult(res, { code: 200, data: built });
     };
     if (board.isPublic()) {

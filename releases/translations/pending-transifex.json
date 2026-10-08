@@ -999,6 +999,10 @@
     {
       "key": "login-origin-mismatch",
       "since": "2026-10-08"
+    },
+    {
+      "key": "import-board-instruction-planner",
+      "since": "2026-10-08"
     }
   ]
 }

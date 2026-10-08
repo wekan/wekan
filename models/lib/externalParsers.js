@@ -3,6 +3,7 @@ import { parseTodoTxt } from './todoTxtFormat.js';
 import { parseTaskwarrior } from './taskwarriorFormat.js';
 import { parseFocalboard } from './focalboardFormat.js';
 import { parseTodoistCsv } from './todoistCsvFormat.js';
+import { parsePlannerRows } from './plannerFormat.js';
 import { parseOrgMode } from './orgModeFormat.js';
 import {
   gitlabScrumPlanning, openProjectScrumPlanning, asanaScrumPlanning, STORY_POINTS_FIELD,
@@ -956,6 +957,8 @@ export const EXTERNAL_PARSERS = {
   taskwarrior: parseTaskwarrior,
   focalboard: parseFocalboard,
   todoist: parseTodoistCsv,
+  // Microsoft Planner's Excel export, as rows of cells (server/lib/plannerWorkbook.js).
+  planner: parsePlannerRows,
   orgmode: parseOrgMode,
   jira: parseJira,
 };

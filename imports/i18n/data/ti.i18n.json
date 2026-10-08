@@ -789,6 +789,7 @@
   "import-board-instruction-taskwarrior": "ውጽኢት task export ለጥፍ፦ ናይ JSON ድርድር፣ ወይ ኣብ ነፍሲ ወከፍ መስመር ሓደ ዕማም። ዝተዛዘሙ ዕማማት ናብ Done ይኸዱ፣ project ን priority ን ምልክታት ይኾኑ፣ annotations ርእይቶታት ይኸውን፣ depends ድማ ኣብ ዝዓግቱ ዕማማት ዝምርኮስ ርክብ ይኸውን።",
   "import-board-instruction-focalboard": ".boardarchive ፋይል ፍታሕ እሞ board.jsonl ናይ ሰሌዳ ለጥፍ፣ ምስ መስመር ስሪቱ ወይ ብዘይ ብእኡ። ኣብ ትርኢት ሰሌዳ ዘሎ ብጉጅለ ናይ ምክፍፋል ባህሪ ዝርዝራት ይኸውን፣ ካልኦት ናይ ምምራጽ ባህርያት ምልክታት ይኾኑ፣ ናይ ጽሑፍን ናይ ምልክት ሳጹንን ክፍልታት መግለጽን ናይ ምርመራ ዝርዝርን ይኾኑ፣ ርእይቶታት ድማ ይዕቀቡ። ስእልታትን ተወሰኽቲ ፋይላትን ኣይኣትዉን።",
   "import-board-instruction-todoist": "In Todoist, open the project menu and choose Export as a template, then paste the CSV file. Sections become lists, tasks become cards, sub-tasks become a checklist, notes become comments, and @labels and priorities p1 to p3 become labels.",
+  "import-board-instruction-planner": "In Microsoft Planner, open the plan's menu and choose Export plan to Excel, then choose that .xlsx file. Buckets become lists and tasks become cards, with their assignees, dates, labels, checklist and description; Progress, Priority and Completed By become custom fields.",
   "import-board-instruction-trello": "ኣብ ሰሌዳ Trello፣ ናብ 'Menu'፣ ድሕሪኡ 'More'፣ 'Print and Export'፣ 'Export JSON' ኪድ፣ ነቲ ዝተረኽበ ጽሑፍ ድማ ቅዳሕ።",
   "import-board-instruction-csv": "ናይ ብኮማ ዝተፈላለዩ ክብርታት (CSV)/ብትር ዝተፈላለዩ ክብርታት (TSV) ኣብዚ ለጥፍ።",
   "import-board-instruction-jira": "ካብ Jira Cloud REST API ምድላይ ጉዳይ (GET /rest/api/2/search) JSON፣ ወይ ተመጣጣኒ { \"issues\": [...] } ነገር ለጥፍ። ኩነታት Jira ዝርዝራት፣ ጉዳያት ድማ ካርድታት ይኾኑ። ሕግታት ንምእታው \"automationRules\" ድርድር ብኣማራጺ ኣካትት።",

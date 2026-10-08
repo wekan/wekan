@@ -789,6 +789,7 @@
   "import-board-instruction-taskwarrior": "የ task export ውጤትን ይለጥፉ፦ የJSON ድርድር ወይም በእያንዳንዱ መስመር አንድ ተግባር። የተጠናቀቁ ተግባራት ወደ Done ይሄዳሉ፣ project እና priority መለያዎች፣ annotations አስተያየቶች፣ depends ደግሞ በሚያግዱ ተግባራት ላይ ጥገኛ ግንኙነቶች ይሆናሉ።",
   "import-board-instruction-focalboard": "የ .boardarchive ፋይሉን ከመጭመቂያው ያውጡና የሰሌዳውን board.jsonl ይዘት ከስሪት መስመሩ ጋር ወይም ያለ እሱ ይለጥፉ። የሰሌዳ እይታው የመቧደኛ ባህሪ ዝርዝሮች፣ ሌሎች የምርጫ ባህሪያት መለያዎች፣ የጽሑፍና የምልክት ማድረጊያ ሳጥን ክፍሎች መግለጫና የማረጋገጫ ዝርዝር ይሆናሉ፣ አስተያየቶችም ይቀመጣሉ። ምስሎችና አባሪዎች አይመጡም።",
   "import-board-instruction-todoist": "In Todoist, open the project menu and choose Export as a template, then paste the CSV file. Sections become lists, tasks become cards, sub-tasks become a checklist, notes become comments, and @labels and priorities p1 to p3 become labels.",
+  "import-board-instruction-planner": "In Microsoft Planner, open the plan's menu and choose Export plan to Excel, then choose that .xlsx file. Buckets become lists and tasks become cards, with their assignees, dates, labels, checklist and description; Progress, Priority and Completed By become custom fields.",
   "import-board-instruction-trello": "በTrello ሰሌዳዎ ውስጥ ወደ 'Menu'፣ ከዚያ 'More'፣ 'Print and Export'፣ 'Export JSON' ይሂዱና የተገኘውን ጽሑፍ ይቅዱ።",
   "import-board-instruction-csv": "በነጠላ ሰረዝ የተለዩ እሴቶች (CSV)/በትር የተለዩ እሴቶች (TSV) ይለጥፉ።",
   "import-board-instruction-jira": "ከJira Cloud REST API የጉዳይ ፍለጋ (GET /rest/api/2/search) የተገኘውን JSON ወይም ተመጣጣኝ { \"issues\": [...] } ነገር ይለጥፉ። የJira ሁኔታዎች ዝርዝሮች ይሆናሉ፣ ጉዳዮችም ካርዶች ይሆናሉ። ደንቦችን ለማስመጣት የ\"automationRules\" ድርድር በአማራጭ ያካትቱ።",

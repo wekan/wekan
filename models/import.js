@@ -186,6 +186,22 @@ Meteor.methods({
         }
         creator = new KanboardCreator(data, 'todoist');
         break;
+      case 'planner':
+        // Microsoft Planner's "Export plan to Excel" workbook - see
+        // models/lib/plannerFormat.js. It arrives like the Excel import, as
+        // { excelBase64 }; the cells are only text once the workbook is
+        // opened, so the parsed tasks are sanitized again below.
+        check(board, Object);
+        if (!Meteor.isServer) return undefined;
+        try {
+          importedBoard = await require('/server/lib/plannerWorkbook').readPlannerWorkbook(importedBoard.excelBase64);
+          importedBoard = EXTERNAL_PARSERS.planner(importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        importedBoard = sanitizeImported(importedBoard, 'planner', this);
+        creator = new KanboardCreator(data, 'planner');
+        break;
       case 'orgmode':
         // An Org mode outline (Emacs, Orgzly, Beorg) - see models/lib/orgModeFormat.js.
         check(board, String);

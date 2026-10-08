@@ -353,6 +353,56 @@ test('every external export menu link returns text and refuses an unrelated user
   }
 });
 
+// Microsoft Planner's export is an Excel workbook, not text: its own case.
+test('Microsoft Planner: the export menu link returns a Planner workbook and refuses an unrelated user', async ({ boardPage: page, user2 }) => {
+  const ExcelJS = require('../../../node_modules/@wekanteam/exceljs');
+  const bp = new BoardPage(page);
+  await bp.openSidebar();
+  await page.locator('.board-sidebar .js-open-board-menu').click();
+  await page.locator('.js-pop-over .js-export-board').click();
+  const anchor = page.locator('.js-pop-over a[href*="/export/planner?"]');
+  await expect(anchor).toBeVisible();
+  const href = await anchor.getAttribute('href');
+  const response = await page.request.get(href);
+  expect(response.status()).toBe(200);
+  expect(response.headers()['content-type']).toContain('spreadsheetml.sheet');
+  const workbook = new ExcelJS.Workbook();
+  await workbook.xlsx.load(await response.body());
+  const sheet = workbook.getWorksheet('Tasks');
+  expect(sheet.getRow(1).values.slice(1)).toEqual(['Plan name', expect.any(String)]);
+  expect(sheet.getRow(5).values.slice(1, 4)).toEqual(['Task ID', 'Task Name', 'Bucket Name']);
+  const titles = [];
+  sheet.eachRow((row, number) => { if (number > 5) titles.push(row.getCell(2).value); });
+  expect(titles).toContain('Alpha Card');
+  const unauthorized = new URL(href, page.url());
+  unauthorized.searchParams.set('authToken', user2.token);
+  expect([401, 403]).toContain((await page.request.get(unauthorized.toString())).status());
+});
+
+// A real Planner export (tests/fixtures/planner/, from the plannr package):
+// buckets, tasks, the owner, dates, the checklist and the custom fields.
+test('Microsoft Planner: an exported plan imports through the page', async ({ loggedInPage: page }) => {
+  let boardId;
+  try {
+    await navigateInApp(page, '/import/planner');
+    await page.locator('.js-import-excel-file').setInputFiles(path.resolve(__dirname, '../../fixtures/planner/plannr-test_plan.xlsx'));
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    expect(db.findOne('boards', { _id: boardId }).title).toBe('Test Plan');
+    const cards = db.find('cards', { boardId });
+    expect(cards).toHaveLength(32);
+    const task2 = cards.find(card => card.title === 'Task 2');
+    expect(db.find('lists', { boardId }).find(list => list._id === task2.listId).title).toBe('Bucket 2');
+    expect(new Date(task2.endAt).toISOString().slice(0, 10)).toBe('2020-10-07');
+    expect(db.find('checklistItems', { cardId: task2._id }).map(item => item.title).sort())
+      .toEqual(['Important Task 1', 'Important Task 2', 'Important Task 4']);
+    const fields = db.find('customFields', { boardIds: boardId }).map(field => field.name).sort();
+    expect(fields).toEqual(['Completed By', 'Priority', 'Progress']);
+    await expect(page.locator('.minicard-title', { hasText: 'Task 2' })).toBeVisible();
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});
+
 // Focalboard's board.jsonl: the group-by property's lists, labels, dates, the
 // card's text, checklist and comments (models/lib/focalboardFormat.js).
 test('Focalboard: a board.jsonl imports with its lists, labels, description, checklist and comments', async ({ loggedInPage: page }) => {

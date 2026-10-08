@@ -217,7 +217,8 @@ Template.import.onCreated(function () {
     // Excel (.xlsx): the file is parsed on the server (with exceljs) into rows
     // and imported through the CSV creator. Member mapping is skipped (members
     // can be mapped later), so we read the file to base64 and import directly.
-    if (dataSource === 'excel') {
+    // Microsoft Planner's "Export plan to Excel" file is read the same way.
+    if (dataSource === 'excel' || dataSource === 'planner') {
       const el = this.find('.js-import-excel-file');
       if (!el || !el.files || !el.files[0]) {
         this.setError('error-json-malformed');
@@ -463,6 +464,7 @@ const IMPORT_SOURCES = [
   { key: 'taskwarrior', name: 'Taskwarrior' },
   { key: 'focalboard', name: 'Focalboard' },
   { key: 'todoist', name: 'Todoist' },
+  { key: 'planner', name: 'Microsoft Planner' },
 ];
 
 Template.import.helpers({
@@ -572,7 +574,7 @@ Template.importTextarea.helpers({
     return Session.get('importSource') === 'wekan';
   },
   isExcelImport() {
-    return Session.get('importSource') === 'excel';
+    return ['excel', 'planner'].includes(Session.get('importSource'));
   },
   isJiraImport() { return Session.get('importSource') === 'jira'; },
   // The numeric fields the pasted Jira export declares, to pick the estimate.
