@@ -8408,6 +8408,15 @@ by the source text. Technical wording remains low confidence pending speaker
 review. Focused checks cover key order, tokens, identifiers and prerequisites;
 browser checks were not run.
 
+## Tatar board status and transfer-progress corrections
+
+Corrected 18 wrong-language board status, transfer progress and general labels.
+Preserved distinct spent, overtime and remaining-time concepts, the compaction
+error prefix and repeated-password prompt. Existing correct-language neighboring
+values remain. Technical wording remains low confidence pending speaker review.
+Focused tests cover key order, tokens and status distinctions; browser checks
+were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
