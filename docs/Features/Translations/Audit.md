@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Zulu procedure controls and broad verification — 2026-10-09
+
+The broad translation run passed all 333 selected suites in 128 seconds after
+the Zulu logic batch. Then translate 24 procedure strings in each Zulu catalog
+(48 values), preserving function-name variables and empty grammar suffixes.
+Regression checks cover output/no-output distinctions, disabled functions,
+function-only restrictions and rendered calls. Both targeted suites and all
+21 preservation checks pass after the edits. Specialized programming terminology
+remains low confidence pending speaker review; browser execution and the
+remaining translations are outstanding.
+
 ## Zulu Blockly logic and basic arithmetic — 2026-10-09
 
 Translate 59 strings per Zulu catalog (118 values) for logic, comparisons,

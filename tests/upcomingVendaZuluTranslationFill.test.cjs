@@ -272,6 +272,32 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
   "blockly-MATH_SUBTRACTION_SYMBOL_ARIA",
   "blockly-MATH_CHANGE_TITLE_ITEM"
 ]);
+  keys.push(...[
+  "blockly-PROCEDURES_ALLOW_STATEMENTS",
+  "blockly-PROCEDURES_BEFORE_PARAMS",
+  "blockly-PROCEDURES_CALLNORETURN_TOOLTIP",
+  "blockly-PROCEDURES_CALLRETURN_TOOLTIP",
+  "blockly-PROCEDURES_CALL_BEFORE_PARAMS",
+  "blockly-PROCEDURES_CALL_DISABLED_DEF_WARNING",
+  "blockly-PROCEDURES_CREATE_DO",
+  "blockly-PROCEDURES_DEFNORETURN_COMMENT",
+  "blockly-PROCEDURES_DEFNORETURN_PROCEDURE",
+  "blockly-PROCEDURES_DEFNORETURN_TITLE",
+  "blockly-PROCEDURES_DEFNORETURN_TOOLTIP",
+  "blockly-PROCEDURES_DEFRETURN_RETURN",
+  "blockly-PROCEDURES_DEFRETURN_TOOLTIP",
+  "blockly-PROCEDURES_DEF_DUPLICATE_WARNING",
+  "blockly-PROCEDURES_HIGHLIGHT_DEF",
+  "blockly-PROCEDURES_IFRETURN_TOOLTIP",
+  "blockly-PROCEDURES_IFRETURN_WARNING",
+  "blockly-PROCEDURES_MUTATORARG_TITLE",
+  "blockly-PROCEDURES_MUTATORARG_TOOLTIP",
+  "blockly-PROCEDURES_MUTATORCONTAINER_TITLE",
+  "blockly-PROCEDURES_MUTATORCONTAINER_TOOLTIP",
+  "blockly-PROCEDURES_DEFRETURN_COMMENT",
+  "blockly-PROCEDURES_DEFRETURN_PROCEDURE",
+  "blockly-PROCEDURES_DEFRETURN_TITLE"
+]);
   for (const language of ['zu', 'zu-ZA']) {
     const locale = read(language);
     for (const key of keys) {
@@ -321,6 +347,14 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
     for (const key of ['LOGIC_NULL', 'MATH_ADDITION_SYMBOL', 'MATH_DIVISION_SYMBOL', 'MATH_MULTIPLICATION_SYMBOL', 'MATH_SUBTRACTION_SYMBOL']) {
       assert.strictEqual(locale['blockly-' + key], source['blockly-' + key]);
     }
+    assert.match(locale['blockly-PROCEDURES_DEFNORETURN_TOOLTIP'], /ongabuyisi mphumela/);
+    assert.match(locale['blockly-PROCEDURES_DEFRETURN_TOOLTIP'], /obuyisa umphumela/);
+    assert.match(locale['blockly-PROCEDURES_IFRETURN_WARNING'], /kuphela ngaphakathi kwencazelo yomsebenzi/);
+    assert.match(locale['blockly-PROCEDURES_CALL_DISABLED_DEF_WARNING'], /likhutshaziwe/);
+    const call = locale['blockly-PROCEDURES_CALLRETURN_TOOLTIP'].replace('%1', 'calculate');
+    assert.match(call, /'calculate'.*umphumela wawo/);
+    assert.doesNotMatch(call, /%1/);
+    for (const key of ['blockly-PROCEDURES_DEFNORETURN_DO', 'blockly-PROCEDURES_DEFRETURN_DO']) assert.strictEqual(locale[key], '');
     const failure = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
     assert.ok(failure.includes('E_LDAP'));
     assert.ok(!failure.includes('%s'));
