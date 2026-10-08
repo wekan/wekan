@@ -9857,8 +9857,21 @@ for (const code of ['fa', 'fa-IR']) {
   assert.match(locale['email-recovery-confirm-cancel'], /قابل بازیابی نیست/);
   assert.match(locale['history-request-hint'], /هرگز نمی‌تواند تغییر دیگری را برگرداند/);
 }
+for (const code of ['ms', 'ms-MY', 'id']) {
+  const locale = read(code);
+  for (const key of ['sync-planning-sprint', 'sync-planning-fields', 'sync-planning-hint', 'sync-planning-releases', 'scrum-history-checkpoint-hint', 'scrum-releases-select-help']) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  for (const token of ['Ctrl', 'Cmd', 'Mac']) assert.ok(locale['scrum-releases-select-help'].includes(token), `${code}: ${token}`);
+  assert.notEqual(locale['scrum-history-checkpoint-rollback'], locale['scrum-history-checkpoint-discard']);
+  assert.match(locale['sync-planning-hint'], code === 'id' ? /pertama tidak pernah menghapus perencanaan/ : /pertama tidak pernah membuang perancangan/);
+}
 for (const code of ['ms', 'ms-MY']) {
   const locale = read(code);
+  for (const keyName of ['Ctrl', 'Cmd', 'Mac']) assert.ok(locale['scrum-releases-select-help'].includes(keyName), `${code}: preserve ${keyName}`);
+  assert.match(locale['scrum-history-checkpoint-hint'], /tanpa mengubah sebarang rekod/);
+  assert.notEqual(locale['scrum-history-checkpoint-rollback'], locale['scrum-history-checkpoint-discard']);
   for (const key of hiraganaBatchKeys) {
     assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);

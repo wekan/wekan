@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Malay and Indonesian Scrum import and recovery — 2026-10-08
+
+Translate 93 values across both Malay catalogs and Indonesian, using each locale’s
+existing sprint/release terminology. Preserve exact placeholders, keyboard names, matching failures and
+rollback versus keeping already-written records. Extend the existing Malay checks
+for these recovery and keyboard details, and verify that the first sync never removes
+planning. Placeholder and language-wiring suites pass. The large completion suite
+advances past Malay to an untranslated Hindi planning label. Native review, browser checks and the
+remaining all-language backlog are unfinished.
+
 ## Persian Scrum import and recovery — 2026-10-08
 
 Translate 56 values in both Persian catalogs: release selection, import previews,
