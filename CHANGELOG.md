@@ -1055,6 +1055,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/32a1670b03">Translate Macedonian List Sync recovery messages</a>. Thanks to xet7.</summary>
+
+Translate 23 English recovery messages into Macedonian. Preserve counters and
+board/list terminology, with checks for retained changes, unwritten changes,
+revoked access, replayable operations and the oldest-50 display limit.
+
+Three focused translation suites and 21 human-preference checks pass.
+No browser or screen-reader session was run. Further vocabulary review
+and remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5ff83bf51d">Translate Macedonian interrupted import recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 25 English import recovery messages into Macedonian. Preserve variables
