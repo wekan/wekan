@@ -398,7 +398,21 @@ Meteor.methods({
       recordSubtaskDepositDenial('addSubtaskCard');
       throw new Meteor.Error('not-authorized');
     }
-    const targetList = await targetBoard.getDefaultSubtasksListAsync();
+    // #1781: the landing list - the main board's own choice on a shared
+    // deposit board, else the deposit board's - and never a list of a third
+    // board (models/lib/subtaskLandingList.js).
+    const { chooseSubtaskLandingList } = require('/models/lib/subtaskLandingList');
+    const landing = chooseSubtaskLandingList({ parentBoard, targetBoard,
+      lists: await Lists.find({ boardId: targetBoard._id, archived: { $ne: true } }, { sort: { sort: 1 } }).fetchAsync() });
+    let targetList = null;
+    if (landing.listId) targetList = await Lists.findOneAsync(landing.listId);
+    else if (landing.create === 'store') targetList = await targetBoard.getDefaultSubtasksListAsync();
+    else {
+      const swimlane = await targetBoard.getDefaultSwimlineAsync();
+      const listId = await Lists.insertAsync({ title: getTranslatedString('queue', 'Queue'), boardId: targetBoard._id,
+        swimlaneId: swimlane ? swimlane._id : undefined });
+      targetList = await Lists.findOneAsync(listId);
+    }
     if (!targetList) return undefined;
 
     // Reuse a swimlane on the destination board: prefer one whose title matches
