@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu member search and toggle corrections — 2026-10-08
+
+Correct 20 member-search, font, avatar, toggle and card-aging values. Preserve
+opposite toggle actions, matching-user scope, all ten font-preview digits and three
+idle-day fading levels. Retain existing Wu auto-archive safeguards and text-note
+confirmation. Refresh exact-value audit records. Wu prose needs native review;
+browser tests were not run and the all-language work remains unfinished.
+
 ## Wu planning and card dialog corrections — 2026-10-08
 
 Correct 19 planning, card and account dialog values. Replace the English WHO,
@@ -12532,7 +12540,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,054** exact before/after values, including unflagged
+records contain **23,074** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

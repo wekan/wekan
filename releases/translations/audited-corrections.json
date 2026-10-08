@@ -161376,5 +161376,145 @@
     "before": "选择这位导入的（虚拟）成员实际对应的真实用户。他的卡片、评论和活动都会转移到该用户。搜索即可找到任何人；尚未在此看板上的用户会以导入成员本身的角色被加入，因此这一对应关系永远不会授予比导入更多的权限。",
     "after": "选出搿位导入个（虚拟）成员实际对应个真实用户。伊个卡片、评论搭活动侪会转到搿位用户名下。搜索可以寻着任何人；假使用户还朆加入搿块看板，就按导入成员原来个角色加入，所以映射绝勿会授予比导入辰光更多个权限。",
     "reason": "2026-10-08: Correct Wu planning/card dialog meanings and preserve imported-member permission limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "map-to-existing-user-search",
+    "before": "按姓名、用户名或电子邮件搜索全部用户",
+    "after": "按姓名、用户名或者电子邮件搜索所有用户",
+    "reason": "2026-10-08: Correct Wu member search, opposite toggles and idle-day messages while preserving variables and digits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "map-to-existing-user-not-member",
+    "before": "尚不是看板成员",
+    "after": "还朆成为看板成员",
+    "reason": "2026-10-08: Correct Wu member search, opposite toggles and idle-day messages while preserving variables and digits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "map-to-existing-user-none",
+    "before": "此看板上还没有其他真实成员。请在上方搜索以找到任意用户。",
+    "after": "搿块看板浪还呒没别个真实成员。请勒上头搜索来寻用户。",
+    "reason": "2026-10-08: Correct Wu member search, opposite toggles and idle-day messages while preserving variables and digits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "map-to-existing-user-no-results",
+    "before": "未找到匹配的用户。",
+    "after": "呒没寻着匹配个用户。",
+    "reason": "2026-10-08: Correct Wu member search, opposite toggles and idle-day messages while preserving variables and digits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "theme-default",
+    "before": "默认（不覆盖）",
+    "after": "默认（勿覆盖）",
+    "reason": "2026-10-08: Correct Wu member search, opposite toggles and idle-day messages while preserving variables and digits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "font-default",
+    "before": "默认（无自定义字体）",
+    "after": "默认（呒没自定义字体）",
+    "reason": "2026-10-08: Correct Wu member search, opposite toggles and idle-day messages while preserving variables and digits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "font-preview-text",
+    "before": "敏捷的棕色狐狸跳过懒狗 0123456789",
+    "after": "动作快个棕色狐狸跳过懒狗 0123456789",
+    "reason": "2026-10-08: Correct Wu member search, opposite toggles and idle-day messages while preserving variables and digits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "delete-avatar-confirm",
+    "before": "您确定要删除此头像吗？",
+    "after": "侬确定要删脱搿只头像伐？",
+    "reason": "2026-10-08: Correct Wu member search, opposite toggles and idle-day messages while preserving variables and digits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "deleteAvatarPopup-title",
+    "before": "删除头像？",
+    "after": "要删脱头像伐？",
+    "reason": "2026-10-08: Correct Wu member search, opposite toggles and idle-day messages while preserving variables and digits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "click-to-star",
+    "before": "单击为此板加注星标。",
+    "after": "点一下拿搿块看板加星标。",
+    "reason": "2026-10-08: Correct Wu member search, opposite toggles and idle-day messages while preserving variables and digits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "click-to-unstar",
+    "before": "单击可取消该图板的星标。",
+    "after": "点一下取消搿块看板个星标。",
+    "reason": "2026-10-08: Correct Wu member search, opposite toggles and idle-day messages while preserving variables and digits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "click-to-star-page",
+    "before": "点击收藏此页面。",
+    "after": "点一下拿搿个页面加星标。",
+    "reason": "2026-10-08: Correct Wu member search, opposite toggles and idle-day messages while preserving variables and digits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "click-to-unstar-page",
+    "before": "点击取消收藏此页面。",
+    "after": "点一下取消搿个页面个星标。",
+    "reason": "2026-10-08: Correct Wu member search, opposite toggles and idle-day messages while preserving variables and digits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "click-to-enable-auto-width",
+    "before": "自动列表宽度已禁用。单击以启用。",
+    "after": "自动列表宽度关脱仔。点一下打开。",
+    "reason": "2026-10-08: Correct Wu member search, opposite toggles and idle-day messages while preserving variables and digits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "click-to-disable-auto-width",
+    "before": "启用自动列表宽度。单击以禁用。",
+    "after": "自动列表宽度打开仔。点一下关脱。",
+    "reason": "2026-10-08: Correct Wu member search, opposite toggles and idle-day messages while preserving variables and digits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card-aging-days",
+    "before": "多少天后淡化（3 个等级）：",
+    "after": "呒没活动几天以后淡化（3 个等级）：",
+    "reason": "2026-10-08: Correct Wu member search, opposite toggles and idle-day messages while preserving variables and digits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card-aging-tier1",
+    "before": "闲置这么多天后进入第 1 级（轻度淡化）",
+    "after": "呒没活动搿能多天以后进入第 1 级（轻度淡化）",
+    "reason": "2026-10-08: Correct Wu member search, opposite toggles and idle-day messages while preserving variables and digits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card-aging-tier2",
+    "before": "闲置这么多天后进入第 2 级（中度淡化）",
+    "after": "呒没活动搿能多天以后进入第 2 级（中度淡化）",
+    "reason": "2026-10-08: Correct Wu member search, opposite toggles and idle-day messages while preserving variables and digits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card-aging-tier3",
+    "before": "闲置这么多天后进入第 3 级（重度淡化）",
+    "after": "呒没活动搿能多天以后进入第 3 级（重度淡化）",
+    "reason": "2026-10-08: Correct Wu member search, opposite toggles and idle-day messages while preserving variables and digits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "close-board",
+    "before": "关闭板",
+    "after": "关脱看板",
+    "reason": "2026-10-08: Correct Wu member search, opposite toggles and idle-day messages while preserving variables and digits; lower-confidence prose needs native review."
   }
 ]

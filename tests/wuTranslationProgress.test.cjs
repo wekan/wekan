@@ -524,3 +524,22 @@ assert.equal(wu['cards-count'], wu.cards);
 assert.equal(wu['cardAssigneePopup-title'], '负责人');
 assert.match(wu['map-to-existing-user-desc'], /卡片、评论搭活动.*还朆加入.*原来个角色.*绝勿会授予.*更多个权限/);
 for (const key of Object.keys(english).filter(key => key.startsWith('poker-') && /^\d+$/.test(english[key]))) assert.equal(wu[key], english[key]);
+
+const mappingToggles = ["map-to-existing-user-search", "map-to-existing-user-not-member", "map-to-existing-user-none", "map-to-existing-user-no-results", "theme-default", "font-default", "font-preview-text", "delete-avatar-confirm", "deleteAvatarPopup-title", "click-to-star", "click-to-unstar", "click-to-star-page", "click-to-unstar-page", "click-to-enable-auto-width", "click-to-disable-auto-width", "card-aging-days", "card-aging-tier1", "card-aging-tier2", "card-aging-tier3", "close-board"];
+for (const key of mappingToggles) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.match(wu['map-to-existing-user-no-results'], /呒没.*匹配.*用户/);
+assert.match(wu['map-to-existing-user-not-member'], /还朆/);
+assert.match(wu['font-preview-text'], /0123456789$/);
+assert.match(wu['click-to-enable-auto-width'], /关脱仔.*打开/);
+assert.match(wu['click-to-disable-auto-width'], /打开仔.*关脱/);
+for (const suffix of ['', '-page']) {
+  assert.match(wu['click-to-star' + suffix], /加星标/);
+  assert.match(wu['click-to-unstar' + suffix], /取消.*星标/);
+}
+for (const tier of [1, 2, 3]) {
+  assert.match(wu['card-aging-tier' + tier], /呒没活动.*天以后/);
+  assert.ok(wu['card-aging-tier' + tier].includes('第 ' + tier + ' 级'));
+}
+assert.match(wu['card-aging-tier1'], /轻度/);
+assert.match(wu['card-aging-tier2'], /中度/);
+assert.match(wu['card-aging-tier3'], /重度/);
