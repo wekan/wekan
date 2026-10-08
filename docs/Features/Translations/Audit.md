@@ -7510,6 +7510,15 @@ variable-deletion references. Technical wording remains low confidence pending s
 review. Browser, screen-reader and right-to-left layout checks were not run. The
 remaining translation inventory and broader language audit are unfinished.
 
+### Central Kurdish input labels and keyboard navigation
+
+Filled 48 English placeholders for list, number, text and value input labels and
+keyboard navigation instructions. Existing translations and source tokens are preserved.
+Regression checks cover script and token inventories, dividend/divisor distinctions,
+minimum/maximum, start/end positions, coordinates and copy/cut announcements. Technical
+wording remains low confidence pending speaker review. Browser, screen-reader and
+right-to-left layout checks were not run. The broader translation audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
