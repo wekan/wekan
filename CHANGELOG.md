@@ -413,12 +413,14 @@ Problems → Recovery and on the import page. Left open:
   Zenkit, GitHub/GitLab): their exports carry attachment metadata only, so the
   bytes need live API connectors with credentials.
 - Zenkit's native single-file export is unverified: Zenkit publishes no schema.
-- Formats WeKan does not read or write yet. Todoist, OPML and Org mode were
-  added on 2026-10-08. Microsoft Planner is next (maintainer decision of
-  2026-10-08); Vikunja, Planka, Taiga and Notion are not researched yet. Each
-  costs what todo.txt cost - a parser, a formatter, tests, the picker and menu
-  wiring and one instruction string in English pending Transifex - and is
-  taken one at a time.
+- Formats WeKan does not read or write yet. On 2026-10-08 fourteen tools were
+  added (see Upcoming) and the export formats of about forty were researched.
+  Left: tools with no export file, only an API - Planka (its JSON export was
+  never merged), Microsoft To Do, KanbanFlow, Basecamp, Taskcafe - which need
+  live credentials to build and verify an importer against; Restyaboard, whose
+  CSV export is a closed paid app with undocumented columns; YouTrack, Airtable
+  and Leantime, whose CSV headers are undocumented or localized; and Things 3,
+  whose export is its SQLite database. Each is taken one at a time.
 
 Deck sharing rules are not imported by design: an import never grants access.
 
