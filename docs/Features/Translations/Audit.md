@@ -8914,6 +8914,15 @@ alongside script, key order and token inventories. Technical wording remains low
 confidence pending speaker review. Browser checks were not run; further sync
 translations and the broader language audit remain unfinished.
 
+## Odia sync preview guidance
+
+Filled 18 English placeholders for replacement cards, sync previews and omitted
+fields. Preserved unchanged previous cards, replacement reuse, the 100-entry
+limit and parser omission caveats. Existing translations were retained by the
+placeholder-only merge. Regression coverage checks these details alongside script,
+key order and token inventories. Technical wording remains low confidence pending
+speaker review. Browser checks were not run; further sync translations remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
