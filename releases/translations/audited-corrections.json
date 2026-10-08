@@ -167921,5 +167921,173 @@
     "before": "Azure Portal → Storage accounts → 你的账户 → Security + networking → Access keys → key1 → Show → Key。",
     "after": "Azure Portal → Storage accounts → 侬个账户 → Security + networking → Access keys → key1 → Show → Key。",
     "reason": "2026-10-08: Correct Wu anonymization and cloud-storage help, preserving field and console labels; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "azure-connection-string-menu-path",
+    "before": "Azure Portal → Storage accounts → 你的账户 → Security + networking → Access keys → key1 → Connection string → Show。",
+    "after": "Azure Portal → Storage accounts → 侬个账户 → Security + networking → Access keys → key1 → Connection string → Show。",
+    "reason": "2026-10-08: Correct Wu cloud setup and migration status wording; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "azure-container-menu-path",
+    "before": "Azure Portal → Storage accounts → 你的账户 → Data storage → Containers → 你的容器（或 + Container 创建一个）。",
+    "after": "Azure Portal → Storage accounts → 侬个账户 → Data storage → Containers → 侬个容器（或者用 + Container 创建一只）。",
+    "reason": "2026-10-08: Correct Wu cloud setup and migration status wording; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "gcs-project-id-menu-path",
+    "before": "Google Cloud Console → 顶部的项目选择器 → 你项目的 ID（Cloud overview → Dashboard → Project info → Project ID）。",
+    "after": "Google Cloud Console → 顶浪个项目选择器 → 侬个项目 ID（Cloud overview → Dashboard → Project info → Project ID）。",
+    "reason": "2026-10-08: Correct Wu cloud setup and migration status wording; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "gcs-bucket-menu-path",
+    "before": "Google Cloud Console → Cloud Storage → Buckets → 你的存储桶名称（或 Create 创建一个）。",
+    "after": "Google Cloud Console → Cloud Storage → Buckets → 侬个存储桶名字（或者用 Create 创建一只）。",
+    "reason": "2026-10-08: Correct Wu cloud setup and migration status wording; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "gcs-key-filename-menu-path",
+    "before": "WeKan 服务器上下载的服务账户 JSON 密钥文件的路径（在下方创建）。使用此项，或将 JSON 粘贴到下方字段中。",
+    "after": "下载好个服务账户 JSON 密钥文件勒 WeKan 服务器浪个路径（勒下头创建）。用搿项，或者拿 JSON 粘贴到下头个字段里向。",
+    "reason": "2026-10-08: Correct Wu cloud setup and migration status wording; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "gcs-credentials-menu-path",
+    "before": "Google Cloud Console → IAM & Admin → Service accounts → 你的服务账户 → Keys → Add key → Create new key → JSON → Create（下载文件）。将其内容粘贴到此处，或保存该文件并在上方设置其路径。",
+    "after": "Google Cloud Console → IAM & Admin → Service accounts → 侬个服务账户 → Keys → Add key → Create new key → JSON → Create（下载文件）。拿内容粘贴勒搿搭，或者保存文件，再勒上头设置伊个路径。",
+    "reason": "2026-10-08: Correct Wu cloud setup and migration status wording; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cloud-secret-set",
+    "before": "（已保存 — 留空以保留）",
+    "after": "（保存好仔，留空就保留）",
+    "reason": "2026-10-08: Correct Wu cloud setup and migration status wording; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cloud-secret-none",
+    "before": "（未设置）",
+    "after": "（还朆设置）",
+    "reason": "2026-10-08: Correct Wu cloud setup and migration status wording; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cloud-settings-saved",
+    "before": "存储设置已保存",
+    "after": "存储设置保存好仔",
+    "reason": "2026-10-08: Correct Wu cloud setup and migration status wording; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "attachment-move-storage-azure",
+    "before": "将附件移动到 Azure Blob Storage",
+    "after": "拿附件移到 Azure Blob Storage",
+    "reason": "2026-10-08: Correct Wu cloud setup and migration status wording; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "attachment-move-storage-gcs",
+    "before": "将附件移动到 Google Cloud Storage",
+    "after": "拿附件移到 Google Cloud Storage",
+    "reason": "2026-10-08: Correct Wu cloud setup and migration status wording; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "gridfs-enabled",
+    "before": "启用 GridFS",
+    "after": "GridFS 已启用",
+    "reason": "2026-10-08: Correct Wu cloud setup and migration status wording; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "gridfs-enabled-description",
+    "before": "使用MongoDB GridFS进行文件存储",
+    "after": "用 MongoDB GridFS 来存文件",
+    "reason": "2026-10-08: Correct Wu cloud setup and migration status wording; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-starting",
+    "before": "开始迁移...",
+    "after": "正在启动迁移…",
+    "reason": "2026-10-08: Correct Wu cloud setup and migration status wording; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-pausing",
+    "before": "暂停迁移...",
+    "after": "正在暂停迁移…",
+    "reason": "2026-10-08: Correct Wu cloud setup and migration status wording; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-stopping",
+    "before": "停止迁移...",
+    "after": "正在停止迁移…",
+    "reason": "2026-10-08: Correct Wu cloud setup and migration status wording; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-pause-failed",
+    "before": "无法暂停迁移",
+    "after": "暂停迁移失败仔",
+    "reason": "2026-10-08: Correct Wu cloud setup and migration status wording; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-paused",
+    "before": "迁移已成功暂停",
+    "after": "迁移已经暂停成功仔",
+    "reason": "2026-10-08: Correct Wu cloud setup and migration status wording; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-start-failed",
+    "before": "无法启动迁移",
+    "after": "启动迁移失败仔",
+    "reason": "2026-10-08: Correct Wu cloud setup and migration status wording; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-started",
+    "before": "迁移成功开始",
+    "after": "迁移已经启动成功仔",
+    "reason": "2026-10-08: Correct Wu cloud setup and migration status wording; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-not-needed",
+    "before": "无需迁移",
+    "after": "勿需要迁移",
+    "reason": "2026-10-08: Correct Wu cloud setup and migration status wording; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-stop-confirm",
+    "before": "您确定要停止所有迁移吗？",
+    "after": "侬确定要停止全部迁移伐？",
+    "reason": "2026-10-08: Correct Wu cloud setup and migration status wording; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-stop-failed",
+    "before": "无法停止迁移",
+    "after": "停止迁移失败仔",
+    "reason": "2026-10-08: Correct Wu cloud setup and migration status wording; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-stopped",
+    "before": "迁移已成功停止",
+    "after": "迁移已经停止成功仔",
+    "reason": "2026-10-08: Correct Wu cloud setup and migration status wording; lower-confidence prose needs native review."
   }
 ]

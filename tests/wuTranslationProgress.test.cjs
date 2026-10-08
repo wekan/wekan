@@ -1091,3 +1091,15 @@ assert.match(wu['s3-secret-key-menu-path'], /创建密钥个辰光显示一趟.*
 assert.match(wu['gcs-credentials-description'], /留空就用密钥文件或者默认凭据/);
 assert.match(wu['cloud-secret-keep-blank'], /留空就保留现在个值/);
 assert.match(wu['azure-account-key-menu-path'], /key1 → Show → Key/);
+
+const cloudMigrationsWu = ["azure-connection-string-menu-path", "azure-container-menu-path", "gcs-project-id-menu-path", "gcs-bucket-menu-path", "gcs-key-filename-menu-path", "gcs-credentials-menu-path", "cloud-secret-set", "cloud-secret-none", "cloud-settings-saved", "attachment-move-storage-azure", "attachment-move-storage-gcs", "gridfs-enabled", "gridfs-enabled-description", "migration-starting", "migration-pausing", "migration-stopping", "migration-pause-failed", "migration-paused", "migration-start-failed", "migration-started", "migration-not-needed", "migration-stop-confirm", "migration-stop-failed", "migration-stopped"];
+for (const key of cloudMigrationsWu) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.match(wu['azure-connection-string-menu-path'], /key1 → Connection string → Show/);
+assert.match(wu['gcs-credentials-menu-path'], /Keys → Add key → Create new key → JSON → Create/);
+assert.match(wu['gcs-key-filename-menu-path'], /或者拿 JSON 粘贴/);
+assert.match(wu['cloud-secret-set'], /留空就保留/);
+assert.match(wu['attachment-move-storage-azure'], /Azure Blob Storage$/);
+assert.match(wu['attachment-move-storage-gcs'], /Google Cloud Storage$/);
+for (const action of ['starting', 'pausing', 'stopping']) assert.match(wu['migration-' + action], /^正在/);
+for (const action of ['start', 'pause', 'stop']) assert.match(wu['migration-' + action + '-failed'], /失败/);
+assert.match(wu['migration-stop-confirm'], /停止全部迁移/);
