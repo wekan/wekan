@@ -9004,6 +9004,16 @@ maximum and start/end positions. Regression coverage checks these details, scrip
 key order and token inventories. Technical wording remains low confidence pending
 speaker review. Browser checks were not run; the broader audit remains unfinished.
 
+## Maithili list creation and keyboard navigation
+
+Filled 29 English placeholders for value inputs, keyboard navigation and list
+creation/retrieval. The placeholder-only merge preserved existing translations.
+Preserved indexed key roles, empty-list length, index marker and distinct get,
+remove and get-and-remove actions. Regression coverage checks those distinctions,
+script, key order and token inventories. Technical wording remains low confidence
+pending speaker review. Browser and screen-reader checks were not run; further
+Maithili translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
