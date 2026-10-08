@@ -9143,6 +9143,16 @@ coverage checks those details, script, key order and token inventories. Technica
 wording remains low confidence pending speaker review. Browser and screen-reader
 checks were not run; further Maithili translations and the broader audit remain.
 
+## Maithili Blockly aliases and rule editor
+
+Filled 25 English values for repeated Blockly labels and rule-editor messages.
+Existing translations were retained; short aliases excluded by the filter were
+filled directly after verifying equality with English. Preserved one-trigger/
+one-action validation, permission requirements and reload-before-save guidance.
+Regression coverage checks those details, alias consistency, script, key order
+and token inventories. Technical wording remains low confidence pending speaker
+review. Browser checks were not run; the broader translation audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
