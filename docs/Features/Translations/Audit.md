@@ -9747,6 +9747,18 @@ Technical wording remains low confidence pending speaker review. The older
 catalog also needs dialect review. Browser and RTL checks were not run;
 further translations and the broader audit remain unfinished.
 
+## Moroccan Arabic Blockly loops and conditions
+
+Filled 24 English placeholders without replacing existing translations. Regression
+coverage checks source key order, Arabic script, placeholder inventories, break
+versus continue, loop-only restrictions, true versus false conditions, the final
+else branch and count-variable/bound/step ordering. Of 41 checks, 39 passed;
+two repository-wide checks still fail because other locales lack the recently
+added card-field-visibility keys. All 21 human-preference checks passed.
+Technical Darija wording remains low confidence pending speaker review. Browser,
+RTL and screen-reader checks were not run. Remaining placeholders and the older
+catalog's dialect and semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
