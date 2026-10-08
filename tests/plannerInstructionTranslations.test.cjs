@@ -1261,3 +1261,26 @@ for (const code of ['ru', 'ru-RU', 'ru_RU', 'ru-UA']) {
   assert.match(locale['import-board-instruction-teamwork'], /на один уровень глубже/);
   assert.match(locale['import-board-instruction-superproductivity'], /архивированные задачи становятся архивированными карточками/);
 }
+
+for (const code of ['ca', 'ca_ES', 'ca@valencia']) {
+  const locale = read(code);
+  const literals = {
+    planner: ['Microsoft Planner', 'Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By'],
+    meistertask: ['MeisterTask', 'Export project', 'CSV'],
+    ...Object.fromEntries(['obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri'].map(format => [format, importLiterals[format]])),
+  };
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), code + ': ' + key);
+    for (const value of values) assert.ok(locale[key].includes(value), code + ': ' + key + ': ' + value);
+  }
+  for (const format of ['nullboard', 'kanri']) {
+    assert.match(locale['import-board-instruction-' + format], /només s’importa el primer tauler/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /s’importen tots els taulers/);
+  }
+  assert.match(locale['import-board-instruction-meistertask'], /les tasques completades conserven la data de finalització/);
+  assert.match(locale['import-board-instruction-obsidian'], /l’arxiu es converteix en fitxes arxivades/);
+  assert.match(locale['import-board-instruction-ticktick'], /llista de TickTick esdevé un carril/);
+}
+assert.match(read('ca@valencia')['import-board-instruction-ticktick'], /les seues columnes/);

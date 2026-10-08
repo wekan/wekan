@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Catalan and Valencian import instructions, first group — 2026-10-09
+
+Translate eight instructions in ca, ca_ES and ca@valencia, replacing 24 English
+values. Preserve commands, extensions and variables, with Valencian regional
+wording. Regression checks cover first-board selection, completed-task dates,
+archived cards and swimlane mappings. Import-instruction and placeholder suites
+and all 21 preservation checks pass. Remaining instructions, browser review and
+the wider translation backlog remain outstanding.
+
 ## Russian import instructions, remaining group — 2026-10-09
 
 Translate the remaining 13 instructions in ru, ru_RU and ru-UA, also serving the
