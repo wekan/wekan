@@ -434,7 +434,7 @@ used.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.24 2026-10-08 WeKan ® release
 
 **In short:** The login settings left open in October are finished:
 **header login** is environment-only, **automatic logout** works again,
