@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Hungarian controls, import guidance and stuck Sync recovery — 2026-10-08
+
+Translate 44 further current Hungarian values for board controls, link rules,
+import formats, assignment actions, LDAP, OAuth and stuck Sync recovery.
+Include the server-only login-setting explanation. Preserve existing localized
+values. Extend the existing suite with format literals, configuration names,
+retained applied changes, unwritten pending changes and opposite movement
+directions. No browser or screen-reader session was run; other translations
+and linguistic review remain open.
+
 ## Hungarian interrupted import recovery — 2026-10-08
 
 Translate 25 current Hungarian interrupted-import messages, preserving existing
