@@ -606,3 +606,21 @@ for (const code of ['el', 'el-GR']) {
   assert.match(locale['import-board-instruction-obsidian'], /μετατρέπεται σε αρχειοθετημένες κάρτες/);
   assert.match(locale['import-board-instruction-ticktick'], /γίνεται διάδρομος/);
 }
+
+for (const code of ['el', 'el-GR']) {
+  const locale = read(code);
+  const literals = {...newerImportLiterals, ...Object.fromEntries(['pivotal', 'tasksorg', 'monday', 'superproductivity', 'taiga', 'vikunja'].map(format => [format, importLiterals[format]]))};
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), code + ': ' + key);
+    for (const value of values) assert.ok(locale[key].includes(value), code + ': ' + value);
+  }
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /Τα συνημμένα δεν εισάγονται/);
+  assert.match(locale['import-board-instruction-notion'], /Οι σχέσεις, οι εικόνες και τα συνημμένα δεν εισάγονται/);
+  assert.match(locale['import-board-instruction-plane'], /δεν περιέχει περιγραφές ή συνημμένα.*δεν εισάγονται/);
+  assert.match(locale['import-board-instruction-businessmap'], /μετονομάστε πρώτα τη γραμμή επικεφαλίδων στα αγγλικά/);
+  assert.match(locale['import-board-instruction-redmine'], /πριν από την εξαγωγή.*English στο My account/);
+  assert.match(locale['import-board-instruction-teamwork'], /ένα επίπεδο βαθύτερα/);
+  assert.match(locale['import-board-instruction-superproductivity'], /αρχειοθετημένες εργασίες γίνονται αρχειοθετημένες κάρτες/);
+}
