@@ -1898,7 +1898,9 @@ each for the reason given:
 **In short:** Two **GitHub CodeQL** code-scanning alerts in the test suite are
 fixed: tests no longer build `bash -c` scripts from absolute paths, and a guard
 keeps that shape out of every test. A **minicard comment** is readable again
-beside many assignees. **Multi-Selection** can set a custom card color.
+beside many assignees. **Multi-Selection** can set a custom card color, and
+**Admin Panel / Settings / Visibility / Features** chooses which card fields
+every board shows.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
@@ -1918,6 +1920,8 @@ Panel -> Problems.
 </details>
 
 and adds the following new features:
+
+**Multi-Selection** - custom card colors for every selected card at once.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fdfa94321278b7d46eacec54340c7845d7efbd1e">Multi-Selection can put a custom color on all selected cards, and offers the board's custom colors</a>. Thanks to xet7.</summary>
@@ -1939,6 +1943,33 @@ vulnerability stands behind it. `tests/multiSelectionCustomColor.test.cjs` pins
 the rule, the swatch list and the wiring;
 `tests/playwright/specs/multiselection-custom-color.e2e.js` colors two cards
 light yellow and checks a comment-only linked card stays unchanged.
+
+</details>
+
+**The Admin Panel** - install-wide visibility of the card fields of Board
+Settings / Card.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/03975e7d3108433cd222645e8bdc181978d7dd70">Settings / Visibility / Features chooses which card fields every board shows</a>. Thanks to xet7.</summary>
+
+Above the Features Save there is one tick per field type of the board sidebar's
+Board Settings / Card, with the same icons and names, all ticked by default.
+Unticking one, for example Pomodoro, removes its row from every board's Board
+Settings / Card and hides it on every opened card and minicard, whatever the
+board chose. It is visibility only: no card data and no board setting is
+written, so ticking it again shows every board as it was set, and a
+whole-column tick in Board Settings / Card leaves the hidden fields alone.
+There is no ordering here; the order stays each board's own. The setting is
+`cardFieldStates` on the settings document (missing means shown), saved by the
+site-admin-only Features save, which refuses unknown field keys. The client's
+one board read returns the board with the hidden fields' flags off, so every
+card and minicard template follows without a second condition; the server's
+reads, publications and REST API are unchanged.
+`tests/cardFieldVisibility.test.cjs` pins the catalog, the default, hiding and
+restoring, the untouched data and the admin-only save;
+`tests/playwright/specs/admin-card-field-visibility.e2e.js` unticks Pomodoro as
+the admin and checks Board Settings / Card, the card and the minicard. See
+[Visibility](docs/Features/Admin-Panel/Settings/Visibility.md).
 
 </details>
 
