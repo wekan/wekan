@@ -7856,6 +7856,16 @@ wrong-language terms, alongside event polarity and import/export distinctions.
 Technical wording remains low confidence pending speaker review. Browser checks
 were not run. Further wrong-language corrections and the broader audit remain.
 
+### Tatar scheduled rules and workflow import corrections
+
+Corrected 43 wrong-language workflow, schedule, date-trigger, button and sorting
+values. Retained the correct board label and card-date fragment. Preserved source
+placeholders, product names and the literal N in the duration label. Regression
+coverage checks Tatar recurrence and button vocabulary, distinct date directions,
+completion polarity and workflow import names, alongside full token inventories.
+Technical wording remains low confidence pending speaker review. Browser checks
+were not run. Further wrong-language corrections and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
