@@ -311,3 +311,21 @@ for (const key of ['GET_INDEX', 'GET_SUBLIST', 'INDEX_OF', 'SET_INDEX']) assert.
 const remainingWu = require('node:child_process').spawnSync(process.execPath, [path.join(__dirname, '../releases/translations/fill-translations.mjs'), '--list', 'wuu-Hans'], { encoding: 'utf8' });
 assert.equal(remainingWu.status, 0, remainingWu.stderr);
 assert.deepEqual(Object.keys(JSON.parse(remainingWu.stdout)).filter(key => key.startsWith('blockly-')), [], 'all current Wu Blockly fill entries are translated');
+
+const rulesAndImports = ["r-blocks-view", "r-blocks-help", "r-blocks-discard", "r-blocks-unavailable", "r-blocks-invalid", "r-blocks-conflict", "r-blocks-permission", "r-blocks-unsaved", "r-blocks-saved", "r-blocks-reload", "scrum-release-scope", "scrum-releases-select-help", "scrum-import-into-board", "scrum-import-into-board-hint", "scrum-import-preview", "scrum-import-choose-file", "scrum-import-invalid-file", "scrum-import-preview-sprints", "scrum-import-preview-releases", "scrum-import-preview-cards", "scrum-import-preview-nothing", "scrum-import-into-board-done", "scrum-import-card-not-matched", "scrum-import-card-ambiguous", "scrum-import-card-on-another-board", "scrum-import-record-ambiguous", "scrum-import-record-not-imported", "scrum-import-sprint-finished", "sync-planning-sprint", "sync-planning-releases"];
+for (const key of rulesAndImports) {
+  assert.notEqual(wu[key], english[key], key);
+  assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+}
+assert.match(wu['r-blocks-invalid'], /一个触发器连到一个动作/);
+assert.match(wu['r-blocks-permission'], /看板管理员权限/);
+assert.match(wu['r-blocks-unsaved'], /还朆保存/);
+assert.doesNotMatch(wu['r-blocks-saved'], /还朆/);
+for (const literal of ['Ctrl', 'Cmd', 'Mac']) assert.ok(wu['scrum-releases-select-help'].includes(literal));
+assert.match(wu['scrum-releases-select-help'], /选择侪清脱.*所有发布版本/);
+assert.match(wu['scrum-import-into-board-hint'], /绝勿重复建立/);
+assert.match(wu['scrum-import-into-board-hint'], /ID/);
+assert.match(wu['scrum-import-invalid-file'], /勿是.*JSON/);
+assert.match(wu['scrum-import-card-ambiguous'], /多张卡片侪匹配/);
+assert.match(wu['scrum-import-card-on-another-board'], /别块看板.*保持原样/);
+assert.match(wu['scrum-import-sprint-finished'], /呒没移到.*结束/);

@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu rules and Scrum imports — 2026-10-08
+
+Translate 30 rule-editor and Scrum import messages. Preserve exact source tokens,
+JSON, ID and keyboard names; check permissions, saved/unsaved state, nonduplicating
+imports, ambiguous matches and unchanged foreign-board cards. Wu wording is lower
+confidence and needs native review. No browser session was run. Remaining English
+strings and older Mandarin-like passages require work.
+
 ## Wu current Blockly fill list completed — 2026-10-08
 
 Translate 32 workspace, search, variable and alias messages. The full current Wu
