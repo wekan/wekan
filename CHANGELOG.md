@@ -1006,6 +1006,20 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1b3ea17c28">Translate Ukrainian controls and import recovery</a>. Thanks to xet7.</summary>
+
+Fill 69 messages covering controls, import guidance, LDAP, login address
+errors, stalled synchronization and interrupted imports. Preserve variables,
+literal examples and the distinction between deletion and retaining applied
+changes when discarding a synchronization operation.
+
+Four focused translation suites and 21 human-preference checks pass.
+The current Ukrainian fill list is empty. No browser or screen-reader
+session was run; other languages and linguistic review remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c458610f62">Translate Greek controls and planning recovery</a>. Thanks to xet7.</summary>
 
 Fill 98 messages in each Greek catalog, for 196 values. Cover controls,
