@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Catalan and Valencian import instructions, remaining group — 2026-10-09
+
+Translate the remaining 13 instructions in ca, ca_ES and ca@valencia, replacing
+39 English values and completing this group of 21 in all three catalogs. Preserve
+commands, column names, extensions, hierarchy markers, variables and regional
+wording. Regression checks cover excluded data, English headers, task hierarchy
+and archived tasks. Import-instruction and placeholder suites and all 21
+preservation checks pass. Three older import instructions in each catalog,
+browser review and the wider translation backlog remain outstanding.
+
 ## Catalan and Valencian import instructions, first group — 2026-10-09
 
 Translate eight instructions in ca, ca_ES and ca@valencia, replacing 24 English

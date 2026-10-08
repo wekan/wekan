@@ -1284,3 +1284,22 @@ for (const code of ['ca', 'ca_ES', 'ca@valencia']) {
   assert.match(locale['import-board-instruction-ticktick'], /llista de TickTick esdevé un carril/);
 }
 assert.match(read('ca@valencia')['import-board-instruction-ticktick'], /les seues columnes/);
+
+for (const code of ['ca', 'ca_ES', 'ca@valencia']) {
+  const locale = read(code);
+  const literals = {...newerImportLiterals, ...Object.fromEntries(['pivotal', 'tasksorg', 'monday', 'superproductivity', 'taiga', 'vikunja'].map(format => [format, importLiterals[format]]))};
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), code + ': ' + key);
+    for (const value of values) assert.ok(locale[key].includes(value), code + ': ' + key + ': ' + value);
+  }
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /Els fitxers adjunts no s’importen/);
+  assert.match(locale['import-board-instruction-notion'], /Les relacions, imatges i fitxers adjunts no s’importen/);
+  assert.match(locale['import-board-instruction-plane'], /no conté descripcions ni fitxers adjunts.*no s’importen/);
+  assert.match(locale['import-board-instruction-businessmap'], /primer canvieu els noms de la fila de capçalera a l’anglès/);
+  assert.match(locale['import-board-instruction-redmine'], /abans d’exportar.*English a My account/);
+  assert.match(locale['import-board-instruction-teamwork'], /un nivell més avall/);
+  assert.match(locale['import-board-instruction-superproductivity'], /les tasques arxivades esdevenen fitxes arxivades/);
+}
+assert.match(read('ca@valencia')['import-board-instruction-taiga'], /les seues tasques/);
