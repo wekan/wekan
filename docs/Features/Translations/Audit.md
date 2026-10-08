@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Aragonese Scrum planning and recovery — 2026-10-08
+
+Translate 31 planning, import and recovery values using existing terminology.
+Preserve exact variables, keyboard names and count roles, and distinguish rollback
+from keeping records. Check cambiar/cambiau vocabulary against
+https://en.wiktionary.org/wiki/cambiar#Aragonese . Recovery prose has lower confidence
+and needs native review. Focused Aragonese, placeholder and language-wiring checks
+pass, as do all 21 preservation checks. The large completion suite now reaches an
+untranslated Asturian release label. Browser checks and the wider backlog remain
+unfinished.
+
 ## Neapolitan Scrum planning and recovery — 2026-10-08
 
 Translate 31 planning, import and recovery values using existing terminology.
