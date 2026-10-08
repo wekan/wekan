@@ -593,6 +593,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/85621c368c">Translate Sicilian Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
+
+Translate 31 values, preserving placeholders, count roles, keyboard names and
+recovery choices. Placeholder and language-wiring suites, focused Sicilian checks
+and all 21 preservation checks pass. The large completion suite now reaches
+untranslated Neapolitan release text. Recovery prose has lower confidence and needs
+native review; browser checks and the remaining backlog are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/157995c7d5">Translate Sardinian Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 31 values, preserving placeholders, count roles, keyboard names and
