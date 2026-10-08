@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu storage and progress corrections — 2026-10-08
+
+Correct 25 storage, progress and workspace values. Restore filesystem path, upload
+progress and board-ID meanings. Preserve the workspace variable, database product
+names and compaction instructions, including secondary-before-primary order and the
+single-node case. Refresh exact-value audit records. Wu prose needs native review;
+browser tests were not run and all-language work remains unfinished.
+
 ## Wu diagnostics and storage corrections — 2026-10-08
 
 Correct 45 diagnostic, organization, checklist and storage values. Restore Node
@@ -12837,7 +12845,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,840** exact before/after values, including unflagged
+records contain **23,865** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

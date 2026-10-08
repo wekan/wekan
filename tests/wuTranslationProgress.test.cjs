@@ -1014,3 +1014,15 @@ for (const [suffix, product] of [['gridfs', 'GridFS'], ['s3', 'S3']]) {
   for (const prefix of ['attachment-move-storage-', 'move-all-attachments-to-', 'move-all-attachments-of-board-to-']) assert.ok(wu[prefix + suffix].endsWith(product));
 }
 assert.match(wu['attachment-repair-locations-description'], /附件搭头像.*修复数据库.*实际位置/);
+
+const storageProgressWu = ["default-save-storage-description", "default-save-storage-saved", "board-id", "mongodb-compact-description", "mongodb-compact-warning", "mongodb-compact-running", "mongodb-compact-success", "path", "size", "storage", "action", "board-status-cards-with-time", "remaining_time", "progress", "password-again", "if-you-already-have-an-account", "register", "minicardDetailsActionsPopup-title", "allowed-upload-filetypes", "allowed-avatar-filetypes", "invalid-file", "preview-pdf-not-supported", "drag-board", "drag-board-to-workspace", "translation-number"];
+for (const key of storageProgressWu) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.equal(wu.path, '路径');
+assert.equal(wu.progress, '进度');
+assert.equal(wu['board-id'], '看板 ID');
+assert.match(wu['drag-board-to-workspace'], /分配畀 __workspaces__.*侧栏.*工作区/);
+assert.match(wu['mongodb-compact-description'], /MongoDB GridFS.*勿会自动缩小.*批量文件移动完成/s);
+assert.match(wu['mongodb-compact-warning'], /先自动整理全部从节点，再整理主节点/);
+assert.match(wu['mongodb-compact-warning'], /oplog.*单节点副本集.*只整理主节点/);
+assert.match(wu['invalid-file'], /文件名无效.*上传或者重命名.*取消/);
+assert.match(wu['preview-pdf-not-supported'], /勿支持预览 PDF.*下载/);

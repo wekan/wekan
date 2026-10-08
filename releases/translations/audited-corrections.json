@@ -166878,5 +166878,180 @@
     "before": "所有已启用读取的存储",
     "after": "所有启用读取个存储",
     "reason": "2026-10-08: Correct Wu diagnostic product names, checklist order and storage instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "default-save-storage-description",
+    "before": "选择新上传的附件保存到的存储后端。",
+    "after": "选新上传个附件要保存到个存储后端。",
+    "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "default-save-storage-saved",
+    "before": "默认保存存储已保存",
+    "after": "默认保存存储已经保存仔",
+    "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-id",
+    "before": "板卡ID",
+    "after": "看板 ID",
+    "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "mongodb-compact-description",
+    "before": "在将文件移出 MongoDB GridFS 后，磁盘上的数据库文件不会自动缩小。运行压缩会通过重写集合数据来回收已释放的空间。仅在批量文件移动完成后运行此操作。",
+    "after": "拿文件从 MongoDB GridFS 移出去以后，磁盘浪个数据库文件勿会自动缩小。运行 Compact 会重写集合数据，收回释放出来个空间。只有等批量文件移动完成仔，才运行搿项操作。",
+    "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "mongodb-compact-warning",
+    "before": "警告：压缩是一项阻塞操作，在大型数据库上可能需要几分钟。在副本集上，会先（自动）压缩所有从节点，然后是主节点。在用于 oplog 的单节点副本集（常见的 Meteor 设置）上，只会压缩主节点。",
+    "after": "警告：Compact 是阻塞操作，大数据库浪可能要几分钟。副本集会先自动整理全部从节点，再整理主节点。用作 oplog 个单节点副本集（常见个 Meteor 设置）只整理主节点。",
+    "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "mongodb-compact-running",
+    "before": "正在运行压缩，这可能需要几分钟...",
+    "after": "正在运行 Compact，可能要几分钟…",
+    "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "mongodb-compact-success",
+    "before": "压缩完成。已压缩的集合：",
+    "after": "Compact 完成仔。整理好个集合：",
+    "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "path",
+    "before": "小路",
+    "after": "路径",
+    "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "size",
+    "before": "尺寸",
+    "after": "大小",
+    "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "storage",
+    "before": "贮存",
+    "after": "存储",
+    "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "action",
+    "before": "行动",
+    "after": "操作",
+    "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-status-cards-with-time",
+    "before": "有花费时间的卡片",
+    "after": "有花费时间个卡片",
+    "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "remaining_time",
+    "before": "剩余时间",
+    "after": "剩下个辰光",
+    "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "progress",
+    "before": "进步",
+    "after": "进度",
+    "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "password-again",
+    "before": "密码（再次）",
+    "after": "密码（再输一趟）",
+    "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "if-you-already-have-an-account",
+    "before": "如果您已经有帐户",
+    "after": "假使侬已经有账户",
+    "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "register",
+    "before": "登记",
+    "after": "注册",
+    "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "minicardDetailsActionsPopup-title",
+    "before": "卡详情",
+    "after": "卡片详情",
+    "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "allowed-upload-filetypes",
+    "before": "允许上传的文件类型：",
+    "after": "允许上传个文件类型：",
+    "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "allowed-avatar-filetypes",
+    "before": "允许的头像文件类型：",
+    "after": "允许个头像文件类型：",
+    "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "invalid-file",
+    "before": "如果文件名无效，上传或重命名将被取消。",
+    "after": "假使文件名无效，上传或者重命名就取消。",
+    "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "preview-pdf-not-supported",
+    "before": "您的设备不支持预览 PDF。尝试下载。",
+    "after": "侬个设备勿支持预览 PDF。试试看下载。",
+    "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "drag-board",
+    "before": "拖板",
+    "after": "拖动看板",
+    "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "drag-board-to-workspace",
+    "before": "拖动板以分配给__workspaces__（放在侧边栏中的工作区上）",
+    "after": "拖动看板来分配畀 __workspaces__（放到侧栏里向个工作区浪）",
+    "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "translation-number",
+    "before": "自定义翻译字符串的数量为：",
+    "after": "自定义翻译字符串个数量是：",
+    "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
   }
 ]
