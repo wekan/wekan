@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/49e95666ee">Translate first Greek import instructions</a>. Thanks to xet7.</summary>
+
+Translate eight import instructions in both Greek catalogs, preserving commands,
+extensions and variables. Regression checks cover first-board selection, completion
+dates, archived cards and swimlane mappings. Translation, placeholder and
+preservation checks pass; remaining Greek instructions, browser review and the
+wider translation backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4399632332">Translate Turkish import instructions</a>. Thanks to xet7.</summary>
 
 Translate 21 Turkish import instructions, preserving commands, column names,
