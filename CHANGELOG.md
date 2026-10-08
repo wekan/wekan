@@ -487,6 +487,17 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/684a5cdb00">Translate Papiamento Blockly list mutation and sorting</a>. Thanks to xet7.</summary>
+
+Translate 42 English list messages. Preserve variables and index markers; check
+insertion versus replacement, copies, missing-item results, positions and sorting.
+Four focused translation suites and 21 human-preference checks pass. Specialized
+wording is lower confidence and needs native review. No browser or screen-reader
+session was run. Remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/30e950f79c">Translate Papiamento Blockly navigation and retrieval</a>. Thanks to xet7.</summary>
 
 Translate 34 English navigation and list messages. Preserve variables; check
