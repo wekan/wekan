@@ -8507,6 +8507,15 @@ Technical wording remains low confidence pending speaker review. Focused tests
 cover tokens, key order, literal identifiers and account consequences; browser
 checks were not run.
 
+## Tatar notification controls and backup-scope corrections
+
+Corrected 18 wrong-language notification and backup values. Preserved the difference
+between disabling activity recording, notifications and subscriptions, plus the
+organization-backup exclusions and restore ownership boundary. Kept the existing
+correct-language backup-path description. Technical wording remains low confidence
+pending speaker review. Focused checks cover tokens, key order and scope semantics;
+browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
