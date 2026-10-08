@@ -487,6 +487,16 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ccf7625d38">Translate Wu rule editor and Scrum imports</a>. Thanks to xet7.</summary>
+
+Translate 30 rule and import messages, preserving placeholders and checking
+permissions, matching and unchanged cards. Three focused translation suites and
+21 human-preference checks pass. Wu wording is lower confidence and needs native
+review. No browser session was run. Remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/76a45e9ce5">Complete current Wu Blockly translation fill list</a>. Thanks to xet7.</summary>
 
 Translate 32 workspace and alias messages. The full current Wu fill list has no
