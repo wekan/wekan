@@ -7546,6 +7546,15 @@ referenced conditional labels, constant notation, coordinates and operator disti
 Technical wording remains low confidence pending speaker review. Browser, screen-reader
 and right-to-left layout checks were not run. The broader translation audit continues.
 
+### Central Kurdish statistics and number tests
+
+Filled 35 English placeholders for number tests, remainder, list statistics, random
+numbers and rounding. Existing translations and source placeholders are preserved.
+Regression coverage checks key order, script, token inventories, distinct statistical
+operations, number polarity, rounding directions and exclusive random-fraction bounds.
+Technical wording remains low confidence pending speaker review. Browser, screen-reader
+and right-to-left layout checks were not run. The broader translation audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
