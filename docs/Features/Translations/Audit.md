@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Corsican Scrum planning and recovery — 2026-10-08
+
+Translate 31 planning, import and recovery values using the existing iterazione,
+versione and tavula terminology. Preserve placeholders, keyboard names, count roles
+and the distinction between rollback and preserving records. Focused Corsican,
+placeholder and language-wiring checks pass, as do all 21 preservation checks. The
+large completion suite now reaches an untranslated Sardinian release label. Recovery prose has
+lower confidence and needs native review. Browser checks and the wider all-language
+backlog remain unfinished.
+
 ## Irish Scrum planning and recovery — 2026-10-08
 
 Translate 31 planning, import and recovery values. Preserve exact placeholders,
