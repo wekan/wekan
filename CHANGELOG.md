@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a0310aaa4b">Translate remaining Vietnamese import instructions</a>. Thanks to xet7.</summary>
+
+Translate the remaining 13 instructions in both Vietnamese catalogs, completing
+all 21 import instructions there. Preserve commands, columns, variables and import
+limitations. Regression checks cover excluded data, English headers, hierarchy and
+archived tasks. Translation, placeholder, completion and preservation checks pass;
+browser review and the wider translation backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9331c78da8">Translate first Vietnamese import instructions</a>. Thanks to xet7.</summary>
 
 Translate eight instructions in both Vietnamese catalogs, preserving commands,
