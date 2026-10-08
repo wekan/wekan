@@ -1394,6 +1394,8 @@
   "set-filter": "Atur Saringan",
   "r-moved-to": "Dipindahkan ke",
   "r-moved-from": "Dipindahkan dari",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Dipindahkan ke Arsip",
   "r-unarchived": "Dipulihkan dari Arsip",
   "r-a-card": "satu kartu",

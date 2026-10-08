@@ -1394,6 +1394,8 @@
   "set-filter": "Nustatyti filtrą",
   "r-moved-to": "Perkelta į",
   "r-moved-from": "Perkeltas iš",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Perkelta į archyvą",
   "r-unarchived": "Atkurta iš archyvo",
   "r-a-card": "kortelę",

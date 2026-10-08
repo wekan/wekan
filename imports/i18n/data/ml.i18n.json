@@ -1394,6 +1394,8 @@
   "set-filter": "ഫിൽട്ടർ സജ്ജമാക്കുക",
   "r-moved-to": "ഇതിലേക്ക് മാറ്റി",
   "r-moved-from": "ഇതിൽ നിന്ന് മാറ്റി",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "ആർക്കൈവിലേക്ക് മാറ്റി",
   "r-unarchived": "ആർക്കൈവിൽ നിന്ന് പുനഃസ്ഥാപിച്ചു",
   "r-a-card": "ഒരു കാർഡ്",

@@ -1394,6 +1394,8 @@
   "set-filter": "Gena umuyungururo",
   "r-moved-to": "Vyimuriwe kuri",
   "r-moved-from": "Vyimuwe kuri",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Vyajanywe mu bubiko",
   "r-unarchived": "Vyagaruwe mu bubiko",
   "r-a-card": "ikarata",

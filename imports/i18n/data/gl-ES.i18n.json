@@ -1394,6 +1394,8 @@
   "set-filter": "Definir Filtro",
   "r-moved-to": "Movido para",
   "r-moved-from": "Movido de",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Movido para o Arquivo",
   "r-unarchived": "Restaurado do Arquivo",
   "r-a-card": "unha tarxeta",

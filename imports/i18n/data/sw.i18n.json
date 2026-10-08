@@ -1394,6 +1394,8 @@
   "set-filter": "Weka Kichujio",
   "r-moved-to": "Imehamishwa hadi",
   "r-moved-from": "Imehamishwa kutoka",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Imehamishwa hadi kwenye Kumbukumbu",
   "r-unarchived": "Imerejeshwa kutoka kwenye Kumbukumbu",
   "r-a-card": "kadi",

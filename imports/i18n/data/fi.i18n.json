@@ -1394,6 +1394,8 @@
   "set-filter": "Aseta suodatin",
   "r-moved-to": "Siirretty kohteeseen",
   "r-moved-from": "Siirretty kohteesta",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Siirretty arkistoon",
   "r-unarchived": "Palautettu arkistosta",
   "r-a-card": "kortti",

@@ -1394,6 +1394,8 @@
   "set-filter": "Шүүлтэ тогтоохо",
   "r-moved-to": "Эндэ зөөгдэбэ",
   "r-moved-from": "Эндэһээ зөөгдэбэ",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Архивта оруулагдаба",
   "r-unarchived": "Архивһаа һэргээгдэбэ",
   "r-a-card": "карта",

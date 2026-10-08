@@ -1394,6 +1394,8 @@
   "set-filter": "Wolayttatto: Set Piltterissa",
   "r-moved-to": "Wolayttatto: Laamettiis kko",
   "r-moved-from": "Wolayttatto: Laamettiis ppe",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Wolayttatto: Laamettiis kko Naago sohuwaa",
   "r-unarchived": "Wolayttatto: Restored ppe Naago sohuwaa",
   "r-a-card": "Wolayttatto: a kaardiya",

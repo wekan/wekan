@@ -1394,6 +1394,8 @@
   "set-filter": "Uzstādīt filtru",
   "r-moved-to": "Pārvietots uz",
   "r-moved-from": "Pārvietots no",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Pārvietots uz arhīvu",
   "r-unarchived": "Atjaunots no arhīva",
   "r-a-card": "kartiņa",

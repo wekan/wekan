@@ -1394,6 +1394,8 @@
   "set-filter": "Emoĩ mboguaha",
   "r-moved-to": "Oñemongu'e ko'ápe",
   "r-moved-from": "Oñemongu'e ko'águi",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Oñemongu'e Ñongatupyre-pe",
   "r-unarchived": "Oñemoĩjey Ñongatupyre-gui",
   "r-a-card": "peteĩ kuatia'i",

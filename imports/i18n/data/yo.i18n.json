@@ -1394,6 +1394,8 @@
   "set-filter": "Ṣeto Ajọ",
   "r-moved-to": "Ti gbe si",
   "r-moved-from": "Ti gbe lati",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Ti gbe si Ile ifipamọ",
   "r-unarchived": "Pada lati Ile-ipamọ",
   "r-a-card": "kaadi",

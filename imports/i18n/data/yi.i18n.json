@@ -1394,6 +1394,8 @@
   "set-filter": "שטעלן פילטער",
   "r-moved-to": "אריבערגעפארן צו",
   "r-moved-from": "אריבערגעפארן פון",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "אריבערגעפארן צו אַרטשיווע",
   "r-unarchived": "רעסטאָרירט פֿון אַרטשיווע",
   "r-a-card": "אַ קאָרט",

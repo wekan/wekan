@@ -1394,6 +1394,8 @@
   "set-filter": "Kay willaymi: Setta Ch'uyanchay",
   "r-moved-to": "Kay willaymi: Movedta man",
   "r-moved-from": "Kay willaymi: Movedta manta",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Kay willaymi: Movedta man Waqaychana",
   "r-unarchived": "Kay willaymi: Restoredta manta Waqaychana",
   "r-a-card": "Kay willaymi: ata Tarjeta",

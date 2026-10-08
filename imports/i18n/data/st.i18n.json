@@ -1394,6 +1394,8 @@
   "set-filter": "Beha sefe",
   "r-moved-to": "E falliseditswe ho",
   "r-moved-from": "E fallisitswe ho tswa ho",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "E isitswe Polokelong",
   "r-unarchived": "E buseditswe ho tswa Polokelong",
   "r-a-card": "karete",

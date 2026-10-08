@@ -1394,6 +1394,8 @@
   "set-filter": "Definir lo filtre",
   "r-moved-to": "es movida a",
   "r-moved-from": "es movida de",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "es movida a l'archiu",
   "r-unarchived": "Restablit dempuèi los archius",
   "r-a-card": "una carta",

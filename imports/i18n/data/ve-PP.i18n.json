@@ -1394,6 +1394,8 @@
   "set-filter": "Pane puhtastim",
   "r-moved-to": "Sirttud sijaha",
   "r-moved-from": "Sirttud sijašpäi",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Sirttud arhivaha",
   "r-unarchived": "Endištadud arhivaspäi",
   "r-a-card": "kart",

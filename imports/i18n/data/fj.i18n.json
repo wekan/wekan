@@ -1394,6 +1394,8 @@
   "set-filter": "Lesia na Vakatautaki",
   "r-moved-to": "Toso ki na",
   "r-moved-from": "Toso mai na",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Toso ki na iVola ni Maroroi",
   "r-unarchived": "Vakalesui mai na iVola ni Maroroi",
   "r-a-card": "e dua na kadi",

@@ -1394,6 +1394,8 @@
   "set-filter": "Áset sálding",
   "r-moved-to": "Flutt til",
   "r-moved-from": "Flutt úr",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Flutt í goymsluna",
   "r-unarchived": "Endurstovnað úr goymsluni",
   "r-a-card": "eitt kort",

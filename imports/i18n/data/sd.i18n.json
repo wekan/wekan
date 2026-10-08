@@ -1394,6 +1394,8 @@
   "set-filter": "ڇاڻ مقرر ڪريو",
   "r-moved-to": "هن ڏانهن منتقل ٿيو",
   "r-moved-from": "هن مان منتقل ٿيو",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "آرڪائيو ۾ منتقل ٿيو",
   "r-unarchived": "آرڪائيو مان بحال ٿيو",
   "r-a-card": "هڪ ڪارڊ",

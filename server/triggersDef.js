@@ -9,6 +9,9 @@
 //     either - server/rulesHelper.js re-reads the card's current state and
 //     evaluates them directly (see cardMatchesAdvancedFilter /
 //     cardTextContainsMatch) on createCard/a-changedTitle/a-changedDescription.
+//   - 'moveCardDirection' (#2076 "a card is moved forward / back") compares
+//     the old and new list's order on each moveCard activity
+//     (models/lib/ruleMoveDirection.js), so it is matched directly as well.
 export const TriggersDef = {
   createCard: {
     matchingFields: [

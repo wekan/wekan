@@ -1394,6 +1394,8 @@
   "set-filter": "ফিল্টাৰ স্থিৰ কৰক",
   "r-moved-to": "ইয়ালৈ স্থানান্তৰ কৰা",
   "r-moved-from": "ইয়াৰ পৰা স্থানান্তৰ কৰা",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "সংৰক্ষণাগাৰলৈ নিয়া",
   "r-unarchived": "সংৰক্ষণাগাৰৰ পৰা পুনৰুদ্ধাৰ কৰা",
   "r-a-card": "এখন কাৰ্ড",

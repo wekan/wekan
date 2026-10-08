@@ -114,7 +114,8 @@ test('rules are matched to a trigger on the activity\'s own board, never whichev
   const helper = read('server/rulesHelper.js');
   const body = helper.slice(helper.indexOf('async findMatchingRules('), helper.indexOf('async findMatchingRules(') + 8000);
   assert.doesNotMatch(body, /trigger\.getRule\(\)/);
-  assert.equal((body.match(/ruleOnBoard\(trigger, activity\.boardId\)/g) || []).length, 4);
+  // #2076 added the move-direction triggers: five matching paths, each on the activity's own board.
+  assert.equal((body.match(/ruleOnBoard\(trigger, activity\.boardId\)/g) || []).length, 5);
   assert.match(read('server/permissions/rules.js'), /Rules\.deny\(denyForeignRuleTriggers\(/);
 });
 

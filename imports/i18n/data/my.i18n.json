@@ -1394,6 +1394,8 @@
   "set-filter": "စစ်ထုတ်မှု သတ်မှတ်ရန်",
   "r-moved-to": "ရွှေ့သည့်နေရာ",
   "r-moved-from": "ရွှေ့လာသည့်နေရာ",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "မှတ်တမ်းသို့ ရွှေ့ပြီး",
   "r-unarchived": "မှတ်တမ်းမှ ပြန်ယူပြီး",
   "r-a-card": "ကတ်တစ်ခု",

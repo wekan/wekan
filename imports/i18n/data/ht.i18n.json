@@ -1394,6 +1394,8 @@
   "set-filter": "Defini filtè",
   "r-moved-to": "Deplase nan",
   "r-moved-from": "Deplase soti nan",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Deplase nan Achiv",
   "r-unarchived": "Retabli soti nan Achiv",
   "r-a-card": "yon kat",

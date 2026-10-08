@@ -76,6 +76,18 @@ Template.boardTriggers.events({
       desc,
     });
   },
+  // #2076: moved forward or back, matched by list order on the server.
+  'click .js-add-move-direction-trigger'(event, tpl) {
+    const datas = Template.currentData();
+    const direction = tpl.find('#move-direction').value === 'back' ? 'back' : 'forward';
+    datas.triggerVar.set({
+      activityType: 'moveCardDirection',
+      boardId: Session.get('currentBoard'),
+      direction,
+      cardTitle: '*',
+      desc: Utils.getTriggerActionDesc(event, tpl),
+    });
+  },
   'click .js-add-moved-trigger'(event, tpl) {
     const datas = Template.currentData();
     const swimlaneName = tpl.find('#create-swimlane-name-2').value;

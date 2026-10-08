@@ -1394,6 +1394,8 @@
   "set-filter": "Kön filütön",
   "r-moved-to": "Mufön de",
   "r-moved-from": "Mufön eli",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Pefimekon",
   "r-unarchived": "Ragivam pesädunon",
   "r-a-card": "kadi",

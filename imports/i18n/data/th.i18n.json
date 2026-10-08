@@ -1394,6 +1394,8 @@
   "set-filter": "ตั้งค่าตัวกรอง",
   "r-moved-to": "ถูกย้ายไปยัง",
   "r-moved-from": "ถูกย้ายมาจาก",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "ถูกย้ายไปยังคลังเก็บ",
   "r-unarchived": "ถูกกู้คืนจากคลังเก็บ",
   "r-a-card": "การ์ด",

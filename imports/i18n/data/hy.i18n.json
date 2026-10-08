@@ -1394,6 +1394,8 @@
   "set-filter": "Սահմանել զտիչը",
   "r-moved-to": "Տեղափոխվել է",
   "r-moved-from": "Տեղափոխվել է",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Տեղափոխվել է Արխիվ",
   "r-unarchived": "Վերականգնվել է արխիվից",
   "r-a-card": "քարտ",

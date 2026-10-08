@@ -1394,6 +1394,8 @@
   "set-filter": "Termeniñ ur sil",
   "r-moved-to": "Diganet da",
   "r-moved-from": "Kaset da",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Diganet da an dielloù",
   "r-unarchived": "Adsevet eus an dielloù",
   "r-a-card": "ur gartenn",

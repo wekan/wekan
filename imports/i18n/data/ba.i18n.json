@@ -1394,6 +1394,8 @@
   "set-filter": "Фильтр билдәләргә",
   "r-moved-to": "Күсерелгән урын",
   "r-moved-from": "Күсереп алынған урын",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Архивҡа күсерелде",
   "r-unarchived": "Архивтан тергеҙелде",
   "r-a-card": "карточка",

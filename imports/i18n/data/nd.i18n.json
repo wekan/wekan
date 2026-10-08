@@ -1394,6 +1394,8 @@
   "set-filter": "Misa isihlungi",
   "r-moved-to": "Kuhanjiswe ku",
   "r-moved-from": "Kuhanjiswe kusuka ku",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Kuhanjiswe eNgobweni yomlando",
   "r-unarchived": "Kubuyiselwe kusuka eNgobweni yomlando",
   "r-a-card": "ikhadi",

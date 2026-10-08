@@ -1394,6 +1394,8 @@
   "set-filter": "ᓱᖑᐃᔾᔪᑎ ᐋᖅᑭᓪᓗᒍ",
   "r-moved-to": "ᐆᒧᖓ ᓅᑕᐅᔪᖅ",
   "r-moved-from": "ᐆᒥᙵᑦ ᓅᑕᐅᔪᖅ",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "ᑐᖅᑯᖅᓯᕕᒻᒧᑦ ᓅᑕᐅᔪᖅ",
   "r-unarchived": "ᑐᖅᑯᖅᓯᕕᒻᒥᑦ ᐅᑎᖅᑎᑕᐅᔪᖅ",
   "r-a-card": "ᐊᓪᓚᖅᓯᒪᔪᖅ",

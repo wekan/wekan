@@ -1394,6 +1394,8 @@
   "set-filter": "Nastavit filtr",
   "r-moved-to": "Přesunuto do",
   "r-moved-from": "Přesunuto z",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Přesunuto do archivu",
   "r-unarchived": "Obnoveno z archivu",
   "r-a-card": "karta",

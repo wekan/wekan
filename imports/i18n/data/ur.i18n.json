@@ -1394,6 +1394,8 @@
   "set-filter": "سےت فلٹر",
   "r-moved-to": "منتقل کیا کو",
   "r-moved-from": "منتقل کیا سے",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "منتقل کیا کو محفوظ خانہ",
   "r-unarchived": "بحال کیا سے محفوظ خانہ",
   "r-a-card": "ا کارڈ",

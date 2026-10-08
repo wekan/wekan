@@ -1394,6 +1394,8 @@
   "set-filter": "Чыпканы коюу",
   "r-moved-to": "Бул жерге жылдырылды",
   "r-moved-from": "Бул жерден жылдырылды",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Архивге жылдырылды",
   "r-unarchived": "Архивден калыбына келтирилди",
   "r-a-card": "карточка",

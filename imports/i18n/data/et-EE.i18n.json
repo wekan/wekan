@@ -1394,6 +1394,8 @@
   "set-filter": "Filtri määramine",
   "r-moved-to": "Ümber viidud",
   "r-moved-from": "Ümberpaigutatud alates",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Viidud arhiivi",
   "r-unarchived": "Taastatud arhiivist",
   "r-a-card": "kaart",

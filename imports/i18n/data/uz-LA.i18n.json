@@ -1394,6 +1394,8 @@
   "set-filter": "Filtrni o'rnatish",
   "r-moved-to": "ga koʻchirildi",
   "r-moved-from": "dan ko'chirildi",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Arxivga koʻchirildi",
   "r-unarchived": "Arxivdan tiklandi",
   "r-a-card": "karta",

@@ -1394,6 +1394,8 @@
   "set-filter": "Socraigh Scagaire",
   "r-moved-to": "Bogtha chuig",
   "r-moved-from": "Bogtha ó",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Bogtha chuig an gCartlann",
   "r-unarchived": "Athchóirithe ón gCartlann",
   "r-a-card": "cárta",

@@ -1394,6 +1394,8 @@
   "set-filter": "Impueste un filtri",
   "r-moved-to": "Sposteto/a a",
   "r-moved-from": "Sposteto/a da",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Sposteto/a nell'archivi",
   "r-unarchived": "Ripristinato/a dall'archivi",
   "r-a-card": "una cjarte",

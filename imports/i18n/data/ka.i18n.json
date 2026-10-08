@@ -1394,6 +1394,8 @@
   "set-filter": "ფილტრის დაყენება",
   "r-moved-to": "გადატანილია აქ",
   "r-moved-from": "გადმოტანილია აქედან",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "გადატანილია არქივში",
   "r-unarchived": "აღდგენილია არქივიდან",
   "r-a-card": "ბარათი",

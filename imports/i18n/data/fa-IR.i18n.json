@@ -1394,6 +1394,8 @@
   "set-filter": "اضافه کردن فیلتر",
   "r-moved-to": "انتقال به",
   "r-moved-from": "انتقال از",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "انتقال به آرشیو",
   "r-unarchived": "بازگردانی از آرشیو",
   "r-a-card": "کارت",

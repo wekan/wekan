@@ -1394,6 +1394,8 @@
   "set-filter": "Settya hidla",
   "r-moved-to": "Gwayhes dhe",
   "r-moved-from": "Gwayhes dhyworth",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Gwayhes dhe'n kovskrifva",
   "r-unarchived": "Daskorres dhyworth an kovskrifva",
   "r-a-card": "karten",

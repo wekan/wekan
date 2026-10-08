@@ -1394,6 +1394,8 @@
   "set-filter": "Filtr təyin edin",
   "r-moved-to": "Köçürüldü",
   "r-moved-from": "dən köçürülüb",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Arxivə köçürüldü",
   "r-unarchived": "Arxivdən bərpa edilib",
   "r-a-card": "bir kart",

@@ -1394,6 +1394,8 @@
   "set-filter": "फिल्टर सेट करा",
   "r-moved-to": "यात हलवले",
   "r-moved-from": "यातून हलवले",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "संग्रहात हलवले",
   "r-unarchived": "संग्रहातून पुनर्संचयित केले",
   "r-a-card": "एक कार्ड",

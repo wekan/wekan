@@ -1394,6 +1394,8 @@
   "set-filter": "Filter ynstelle",
   "r-moved-to": "Ferpleatst nei",
   "r-moved-from": "Ferpleatst fan",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Ferpleatst nei Argyf",
   "r-unarchived": "Restaurearre út Argyf",
   "r-a-card": "in kaartsje",

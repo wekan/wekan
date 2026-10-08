@@ -1394,6 +1394,8 @@
   "set-filter": "Set tapisan",
   "r-moved-to": "Dipindah ke",
   "r-moved-from": "Dipindah daripada",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Dipindah ke Arkib",
   "r-unarchived": "Dipulih daripada Arki",
   "r-a-card": "kad",

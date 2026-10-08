@@ -1394,6 +1394,8 @@
   "set-filter": "Сүзгіні орнату",
   "r-moved-to": "мына жерге жылжытылғанда",
   "r-moved-from": "мына жерден жылжытылғанда",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "мұрағатқа жылжытылғанда",
   "r-unarchived": "мұрағаттан қалпына келтірілгенде",
   "r-a-card": "карточка",

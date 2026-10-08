@@ -1394,6 +1394,8 @@
   "set-filter": "Шүүлтүүр тохируулах",
   "r-moved-to": "руу зөөгдөхөд",
   "r-moved-from": "-аас зөөгдөхөд",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Архивт шилжихэд",
   "r-unarchived": "Архиваас сэргээгдэхэд",
   "r-a-card": "карт",

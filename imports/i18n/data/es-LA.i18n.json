@@ -1394,6 +1394,8 @@
   "set-filter": "Filtrar",
   "r-moved-to": "Movido a",
   "r-moved-from": "Movido desde",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Se archivó",
   "r-unarchived": "Restaurado del archivo",
   "r-a-card": "una tarjeta",

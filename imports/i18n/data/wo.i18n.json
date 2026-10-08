@@ -1394,6 +1394,8 @@
   "set-filter": "Tànn",
   "r-moved-to": "Toxal nañu ko ci",
   "r-moved-from": "Toxal ci",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Yóbbu ci àrsiw bi",
   "r-unarchived": "Delloo nañu ko jóge ci àrsiw",
   "r-a-card": "karta bi",

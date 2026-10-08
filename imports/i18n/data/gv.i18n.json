@@ -1394,6 +1394,8 @@
   "set-filter": "Cur screeu",
   "r-moved-to": "Gleashit gys",
   "r-moved-from": "Gleashit veih",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Gleashit gys y tashtey",
   "r-unarchived": "Currit er ash veih'n tashtey",
   "r-a-card": "kaart",

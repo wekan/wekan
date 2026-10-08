@@ -1394,6 +1394,8 @@
   "set-filter": "Beakanya Setlhotlhi",
   "r-moved-to": "E sutisitswe go",
   "r-moved-from": "E sutisitswe go tswa",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "E sutisitswe go Polokelo",
   "r-unarchived": "E buseditswe go tswa Polokelo",
   "r-a-card": "e karata",

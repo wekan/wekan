@@ -1394,6 +1394,8 @@
   "set-filter": "Gena Akayunguruzo",
   "r-moved-to": "Yimuriwe kuri",
   "r-moved-from": "Yimuwe kuri",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Yimuriwe mu Bubiko",
   "r-unarchived": "Yagaruwe mu Bubiko",
   "r-a-card": "ikarita",

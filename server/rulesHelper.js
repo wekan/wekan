@@ -494,6 +494,28 @@ export const RulesHelper = {
         }
       }
     }
+    // #2076: "a card is moved forward / back" - to a later or earlier list
+    // in the board's list order (models/lib/ruleMoveDirection.js).
+    if (activityType === 'moveCard' && activity.boardId && activity.oldListId && activity.listId &&
+        activity.oldListId !== activity.listId) {
+      const directionTriggers = await ReactiveCache.getTriggers({
+        boardId: activity.boardId,
+        activityType: 'moveCardDirection',
+      });
+      if (directionTriggers.length) {
+        const { moveDirection, directionTriggerMatches } = require('/models/lib/ruleMoveDirection');
+        const direction = moveDirection(await ReactiveCache.getList(activity.oldListId),
+          await ReactiveCache.getList(activity.listId));
+        const card = direction && activity.cardId ? await ReactiveCache.getCard(activity.cardId) : null;
+        for (const trigger of directionTriggers) {
+          if (!directionTriggerMatches(trigger, direction)) continue;
+          if (!cardTitleFilterMatches(trigger.cardTitle || '*', card ? card.title : undefined)) continue;
+          // eslint-disable-next-line no-await-in-loop
+          const rule = await ruleOnBoard(trigger, activity.boardId);
+          if (rule !== undefined) matchingRules.push(rule);
+        }
+      }
+    }
     // #2194: "card title/description contains {value}" trigger. Like the
     // advancedFilterTrigger block above, this is not one of the simple
     // exact/wildcard TriggersDef matches - it re-reads the card's CURRENT

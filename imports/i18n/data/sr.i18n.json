@@ -1394,6 +1394,8 @@
   "set-filter": "Правило издвајања",
   "r-moved-to": "премештен у",
   "r-moved-from": "премештен из",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Премештен у архиву",
   "r-unarchived": "Извучен из архиве",
   "r-a-card": "предмет",

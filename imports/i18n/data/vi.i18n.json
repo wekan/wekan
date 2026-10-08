@@ -1394,6 +1394,8 @@
   "set-filter": "Đặt bộ lọc",
   "r-moved-to": "Chuyển đến",
   "r-moved-from": "Đã di chuyển từ",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Đã chuyển đến Lưu trữ",
   "r-unarchived": "Đã khôi phục từ lưu trữ",
   "r-a-card": "thẻ",

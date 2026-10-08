@@ -1394,6 +1394,8 @@
   "set-filter": "Таъин кардани полоиш",
   "r-moved-to": "Кӯчонида шуд ба",
   "r-moved-from": "Кӯчонида шуд аз",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Ба бойгонӣ кӯчонида шуд",
   "r-unarchived": "Аз бойгонӣ барқарор шуд",
   "r-a-card": "корт",

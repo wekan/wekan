@@ -1394,6 +1394,8 @@
   "set-filter": "Beakanya Sehlodi",
   "r-moved-to": "E šuthišeditšwe go",
   "r-moved-from": "E šuthišitšwe go tšwa go",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "E šuthišeditšwe Polokelong",
   "r-unarchived": "E bušeditšwe go tšwa Polokelong",
   "r-a-card": "karata",

@@ -1394,6 +1394,8 @@
   "set-filter": "Defini l' passete",
   "r-moved-to": "Déplacé a",
   "r-moved-from": "Déplacé de",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Déplacé a l'årtchive",
   "r-unarchived": "Rimetou di l' årtchive",
   "r-a-card": "on tåvlea",

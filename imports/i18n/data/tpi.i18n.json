@@ -1394,6 +1394,8 @@
   "set-filter": "Makim ol samting bilong sivim",
   "r-moved-to": "Movim pinis long",
   "r-moved-from": "Movim pinis long",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Movim pinis long akaiv",
   "r-unarchived": "Bringim bek pinis long akaiv",
   "r-a-card": "Wanpela kat",

@@ -1394,6 +1394,8 @@
   "set-filter": "Set susuña",
   "r-moved-to": "unxtayata ukaru",
   "r-moved-from": "unxtayata ukata",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "unxtayata ukaru Archive",
   "r-unarchived": "Restored ukata Archive",
   "r-a-card": "a tarjeta",

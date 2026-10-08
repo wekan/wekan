@@ -1394,6 +1394,8 @@
   "set-filter": "Gosod Hidlydd",
   "r-moved-to": "Wedi symud i",
   "r-moved-from": "Wedi symud o",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Wedi symud i'r Archif",
   "r-unarchived": "Wedi'i adfer o'r Archif",
   "r-a-card": "cerdyn",

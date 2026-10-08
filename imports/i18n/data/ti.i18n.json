@@ -1394,6 +1394,8 @@
   "set-filter": "መጻረዪ ኣቐምጥ",
   "r-moved-to": "ናብዚ ተዛዊሩ",
   "r-moved-from": "ካብዚ ተዛዊሩ",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "ናብ መዝገብ ተዛዊሩ",
   "r-unarchived": "ካብ መዝገብ ተመሊሱ",
   "r-a-card": "ካርድ",

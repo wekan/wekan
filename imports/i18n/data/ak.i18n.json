@@ -1394,6 +1394,8 @@
   "set-filter": "Hyɛ nea wɔde yiyi mu",
   "r-moved-to": "Wɔde kɔɔ",
   "r-moved-from": "Wɔde fii",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Wɔde akɔ adekorabea",
   "r-unarchived": "Wɔasan de afi adekorabea aba",
   "r-a-card": "a kaad",

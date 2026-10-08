@@ -1394,6 +1394,8 @@
   "set-filter": "keka kānana",
   "r-moved-to": "neʻe ʻia i",
   "r-moved-from": "neʻe ʻia mai",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "neʻe ʻia i waihona",
   "r-unarchived": "hoʻihoʻi ʻia mai waihona",
   "r-a-card": "he kāleka",

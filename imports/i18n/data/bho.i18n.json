@@ -1394,6 +1394,8 @@
   "set-filter": "छँटाई तय करीं",
   "r-moved-to": "एहमें सरकावल",
   "r-moved-from": "एहसे सरकावल",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "संग्रह में भेजल",
   "r-unarchived": "संग्रह से वापस लावल",
   "r-a-card": "एगो कार्ड",

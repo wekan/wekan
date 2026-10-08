@@ -1394,6 +1394,8 @@
   "set-filter": "Filtrele",
   "r-moved-to": "Şuraya taşındı:",
   "r-moved-from": "Şuradan taşındı:",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Arşive taşındı",
   "r-unarchived": "Arşivden geri çıkarıldı",
   "r-a-card": "Kart",

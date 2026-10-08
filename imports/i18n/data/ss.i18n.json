@@ -1394,6 +1394,8 @@
   "set-filter": "Setha Sihlungi",
   "r-moved-to": "Kuyiswe ku",
   "r-moved-from": "Kususwe ku",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Kuyiswe Engobolweni",
   "r-unarchived": "Kubuyiselwe kusuka Engobolweni",
   "r-a-card": "likhadi",

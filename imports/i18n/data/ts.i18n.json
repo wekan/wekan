@@ -1394,6 +1394,8 @@
   "set-filter": "mhaka sefa",
   "r-moved-to": "susiwile yi yisiwa eka",
   "r-moved-from": "susiwile yi yisiwa ku suka",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "susiwile yi yisiwa eka vuhlayiselo",
   "r-unarchived": "mhaka ku suka vuhlayiselo",
   "r-a-card": "a khadi",

@@ -1394,6 +1394,8 @@
   "set-filter": "Stilla síu",
   "r-moved-to": "Fært í",
   "r-moved-from": "Fært úr",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Fært í safn",
   "r-unarchived": "Endurheimt úr safni",
   "r-a-card": "spjald",

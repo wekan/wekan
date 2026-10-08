@@ -1394,6 +1394,8 @@
   "set-filter": "ಶೋಧಕ ಹೊಂದಿಸಿ",
   "r-moved-to": "ಇದಕ್ಕೆ ಸರಿಸಲಾಗಿದೆ",
   "r-moved-from": "ಇದರಿಂದ ಸರಿಸಲಾಗಿದೆ",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "ಸಂಗ್ರಹಕ್ಕೆ ಸರಿಸಲಾಗಿದೆ",
   "r-unarchived": "ಸಂಗ್ರಹದಿಂದ ಮರುಸ್ಥಾಪಿಸಲಾಗಿದೆ",
   "r-a-card": "ಒಂದು ಕಾರ್ಡ್",

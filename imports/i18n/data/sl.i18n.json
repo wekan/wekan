@@ -1394,6 +1394,8 @@
   "set-filter": "Nastavi filter",
   "r-moved-to": "premaknjena v",
   "r-moved-from": "premaknjena iz",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "premaknjena v arhiv",
   "r-unarchived": "obnovljena iz arhiva",
   "r-a-card": "kartico",

@@ -1394,6 +1394,8 @@
   "set-filter": "Mearrit silli",
   "r-moved-to": "Sirdojuvvon deike",
   "r-moved-from": "Sirdojuvvon eret dás",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Sirdojuvvon vuorkái",
   "r-unarchived": "Máhcahuvvon vuorkás",
   "r-a-card": "goarta",

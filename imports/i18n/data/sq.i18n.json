@@ -1394,6 +1394,8 @@
   "set-filter": "Cakto filtrin",
   "r-moved-to": "Zhvendosur te",
   "r-moved-from": "Zhvendosur nga",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Zhvendosur në arkiv",
   "r-unarchived": "Rikthyer nga arkivi",
   "r-a-card": "një kartë",

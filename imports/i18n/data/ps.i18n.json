@@ -1394,6 +1394,8 @@
   "set-filter": "چاڼ وټاکئ",
   "r-moved-to": "ولېږدول شو دې ته",
   "r-moved-from": "ولېږدول شو له",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "ارشيف ته ولېږدول شو",
   "r-unarchived": "له ارشيف څخه بېرته راوستل شو",
   "r-a-card": "يو کارت",

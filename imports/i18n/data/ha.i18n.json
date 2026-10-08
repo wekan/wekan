@@ -1394,6 +1394,8 @@
   "set-filter": "Saita matata",
   "r-moved-to": "An matsar zuwa",
   "r-moved-from": "An matsar daga",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "An matsar zuwa ma'ajiya",
   "r-unarchived": "An dawo da shi daga ma'ajiya",
   "r-a-card": "wani kati",

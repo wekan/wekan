@@ -1394,6 +1394,8 @@
   "set-filter": "Faka-Tonga: Set Filter",
   "r-moved-to": "Faka-Tonga: Moved to",
   "r-moved-from": "Faka-Tonga: Moved from",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Faka-Tonga: Moved to Archive",
   "r-unarchived": "Faka-Tonga: Restored from Archive",
   "r-a-card": "Faka-Tonga: a kaati",

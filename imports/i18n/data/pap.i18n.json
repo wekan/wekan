@@ -1394,6 +1394,8 @@
   "set-filter": "Filtrar",
   "r-moved-to": "Mobido na",
   "r-moved-from": "Mobido desde",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Se archibó",
   "r-unarchived": "Restaurado di e archibo",
   "r-a-card": "un karchi",

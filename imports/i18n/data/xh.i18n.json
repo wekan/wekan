@@ -1394,6 +1394,8 @@
   "set-filter": "Seta Isihluzi",
   "r-moved-to": "Ihanjisiwe ukuya",
   "r-moved-from": "Isusiwe",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Ihanjisiwe kwindawo yokugcina",
   "r-unarchived": "Ibuyiselwe kuVimba",
   "r-a-card": "ikhadi",

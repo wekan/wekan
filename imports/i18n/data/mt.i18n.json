@@ -1394,6 +1394,8 @@
   "set-filter": "Issettja Iffiltra",
   "r-moved-to": "Moved għal",
   "r-moved-from": "Moved minn",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Moved għal Arkivju",
   "r-unarchived": "Restored minn Arkivju",
   "r-a-card": "a kard",

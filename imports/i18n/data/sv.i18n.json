@@ -1394,6 +1394,8 @@
   "set-filter": "Ställ in filter",
   "r-moved-to": "Flyttat till",
   "r-moved-from": "Flyttad från",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Flyttad till Arkiv",
   "r-unarchived": "Återställd från Arkiv",
   "r-a-card": "ett kort",

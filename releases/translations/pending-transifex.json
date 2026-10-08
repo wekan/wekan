@@ -807,6 +807,14 @@
     {
       "key": "external-link-identifier-aliases",
       "since": "2026-10-08"
+    },
+    {
+      "key": "r-moved-forward",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "r-moved-back",
+      "since": "2026-10-08"
     }
   ]
 }

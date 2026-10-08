@@ -1394,6 +1394,8 @@
   "set-filter": "Deji Shaandhaynta",
   "r-moved-to": "Loo raray",
   "r-moved-from": "Laga raray",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Loo raray Kaydka",
   "r-unarchived": "Laga soo celiyay Kaydka",
   "r-a-card": "kaar",

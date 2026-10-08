@@ -1394,6 +1394,8 @@
   "set-filter": "سۈزگۈچ بەلگىلەڭ",
   "r-moved-to": "يۆتكەلدى",
   "r-moved-from": "يۆتكەلدى",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "ئارخىپقا يۆتكەلدى",
   "r-unarchived": "ئارخىپتىن ئەسلىگە كەلتۈرۈلدى",
   "r-a-card": "كارتا",

@@ -1394,6 +1394,8 @@
   "set-filter": "गाळण थारायात",
   "r-moved-to": "हांगा व्हेलें",
   "r-moved-from": "हांगाच्यान व्हेलें",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "संग्रहांत व्हेलें",
   "r-unarchived": "संग्रहांतल्यान परत हाडलें",
   "r-a-card": "एक कार्ड",

@@ -1394,6 +1394,8 @@
   "set-filter": "Xiclalili tlachipahualiztli",
   "r-moved-to": "Ocuicac ipan",
   "r-moved-from": "Ocuicac itech",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Ocuicac pixcalco",
   "r-unarchived": "Ocuepac itech pixcalli",
   "r-a-card": "ce amatlapalli",

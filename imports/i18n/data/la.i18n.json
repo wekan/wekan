@@ -1394,6 +1394,8 @@
   "set-filter": "Latine: Set Filtrum",
   "r-moved-to": "Latine: Motum ad",
   "r-moved-from": "Latine: Motum ex",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Latine: Motum ad Archivum",
   "r-unarchived": "Latine: Restitutum ex Archivum",
   "r-a-card": "Latine: a scheda",

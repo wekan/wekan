@@ -1394,6 +1394,8 @@
   "set-filter": "छन्ना निर्धारित करू",
   "r-moved-to": "एतय लऽ जाएल",
   "r-moved-from": "एतयसँ लऽ जाएल",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "संग्रहमे पठाओल",
   "r-unarchived": "संग्रह सँ पुनर्स्थापित",
   "r-a-card": "एक कार्ड",

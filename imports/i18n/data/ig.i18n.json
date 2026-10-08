@@ -1394,6 +1394,8 @@
   "set-filter": "Tọọ nzacha",
   "r-moved-to": "Akwagara na",
   "r-moved-from": "E si na",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Abugara na ebe nchekwa",
   "r-unarchived": "Eweghachitere na ebe nchekwa",
   "r-a-card": "kaadị",

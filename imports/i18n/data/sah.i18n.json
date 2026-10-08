@@ -1394,6 +1394,8 @@
   "set-filter": "Сүүрдэһини туруор",
   "r-moved-to": "Манна көһөрүлүннэ",
   "r-moved-from": "Мантан көһөрүлүннэ",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Арһыыпка көһөрүлүннэ",
   "r-unarchived": "Арһыыптан төннөрүлүннэ",
   "r-a-card": "карточка",

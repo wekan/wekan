@@ -1394,6 +1394,8 @@
   "set-filter": "Stel Filter In",
   "r-moved-to": "verplaatst naar",
   "r-moved-from": "verplaatst van",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Verplaatst naar Archief",
   "r-unarchived": "Teruggehaald uit Archief",
   "r-a-card": "een kaart",

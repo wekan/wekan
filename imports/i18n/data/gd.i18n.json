@@ -1394,6 +1394,8 @@
   "set-filter": "Suidhich Criathrag",
   "r-moved-to": "Air a ghluasad gu",
   "r-moved-from": "Air a ghluasad bho",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Air a ghluasad dhan Tasglann",
   "r-unarchived": "Air aisig bhon Tasglann",
   "r-a-card": "cairt",

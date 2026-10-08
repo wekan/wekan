@@ -1394,6 +1394,8 @@
   "set-filter": "Setel Saringan",
   "r-moved-to": "Dipindhah menyang",
   "r-moved-from": "Dipindhah saka",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Dipindhah menyang Arsip",
   "r-unarchived": "Dibalekake saka Arsip",
   "r-a-card": "siji kertu",

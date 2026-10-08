@@ -1394,6 +1394,8 @@
   "set-filter": "Igtakda an Filter",
   "r-moved-to": "Ginbalhin ngadto ha",
   "r-moved-from": "Ginbalhin tikang ha",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Ginbalhin ngadto ha Arkibo",
   "r-unarchived": "Ginbalik tikang ha Arkibo",
   "r-a-card": "usa nga card",

@@ -1394,6 +1394,8 @@
   "set-filter": "வடிகட்டியை அமை",
   "r-moved-to": "இதற்கு நகர்த்தப்பட்டது",
   "r-moved-from": "இதிலிருந்து நகர்த்தப்பட்டது",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "காப்பகத்திற்கு நகர்த்தப்பட்டது",
   "r-unarchived": "காப்பகத்திலிருந்து மீட்டெடுக்கப்பட்டது",
   "r-a-card": "ஓர் அட்டை",

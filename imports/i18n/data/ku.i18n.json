@@ -1394,6 +1394,8 @@
   "set-filter": "Parzûnê saz bike",
   "r-moved-to": "Hat barkirin bo",
   "r-moved-from": "Hat barkirin ji",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Bir arşîvê",
   "r-unarchived": "Ji arşîvê vegerand",
   "r-a-card": "kartek",

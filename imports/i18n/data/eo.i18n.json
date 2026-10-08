@@ -1394,6 +1394,8 @@
   "set-filter": "Agordi filtrilon",
   "r-moved-to": "Movita al",
   "r-moved-from": "Movita el",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Movita al Arkivo",
   "r-unarchived": "Restarigita el Arkivo",
   "r-a-card": "karto",

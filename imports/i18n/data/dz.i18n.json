@@ -1394,6 +1394,8 @@
   "set-filter": "ཚགས་མ་སྒྲིག",
   "r-moved-to": "སྤོས་པའི་ཡུལ།",
   "r-moved-from": "སྤོས་པའི་ཁུངས།",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "ཡིག་མཛོད་དུ་སྤོས།",
   "r-unarchived": "ཡིག་མཛོད་ནས་སླར་གསོ་བྱས།",
   "r-a-card": "ཤོག་བྱང་ཞིག",

@@ -1394,6 +1394,8 @@
   "set-filter": "Ustaw filtr",
   "r-moved-to": "przenoszona do",
   "r-moved-from": "przenoszona z",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "zarchiwizowana",
   "r-unarchived": "przywrócona z archiwum",
   "r-a-card": "karta",

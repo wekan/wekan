@@ -1394,6 +1394,8 @@
   "set-filter": "ማጣሪያ አዘጋጅ",
   "r-moved-to": "ወደዚህ ተንቀሳቅሷል",
   "r-moved-from": "ከዚህ ተንቀሳቅሷል",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "ወደ ማህደር ተንቀሳቅሷል",
   "r-unarchived": "ከማህደር ተመልሷል",
   "r-a-card": "አንድ ካርድ",

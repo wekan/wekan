@@ -1394,6 +1394,8 @@
   "set-filter": "フィルタを設定",
   "r-moved-to": "次に移動した時",
   "r-moved-from": "次から移動された時",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "アーカイブされた時",
   "r-unarchived": "アーカイブから復元された時",
   "r-a-card": "カード",

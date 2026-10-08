@@ -1394,6 +1394,8 @@
   "set-filter": "Seti le Faamama",
   "r-moved-to": "Sii i",
   "r-moved-from": "Sii mai",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Sii i le Teuina",
   "r-unarchived": "Toe faafoi mai le Teuina",
   "r-a-card": "se pepa",

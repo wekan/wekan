@@ -1394,6 +1394,8 @@
   "set-filter": "Setha Isihlungi",
   "r-moved-to": "Kuhanjiswe ku",
   "r-moved-from": "Kususwe",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Kuhanjiswe kungobo yomlando",
   "r-unarchived": "Kubuyiselwe kusukela kungobo yomlando",
   "r-a-card": "ikhadi",

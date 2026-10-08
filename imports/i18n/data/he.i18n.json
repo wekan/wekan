@@ -1394,6 +1394,8 @@
   "set-filter": "הגדרת מסנן",
   "r-moved-to": "מועבר אל",
   "r-moved-from": "מועבר מ־",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "הועבר לארכיון",
   "r-unarchived": "הוחזר מהארכיון",
   "r-a-card": "כרטיס",

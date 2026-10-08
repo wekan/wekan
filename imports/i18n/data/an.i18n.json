@@ -1394,6 +1394,8 @@
   "set-filter": "Filtrar",
   "r-moved-to": "Movido a",
   "r-moved-from": "Movido dende",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Se archivó",
   "r-unarchived": "Restaurado d'o fichero",
   "r-a-card": "una tarcheta",

@@ -1394,6 +1394,8 @@
   "set-filter": "Suɓo siiwtorɗe",
   "r-moved-to": "Dirtinaama to",
   "r-moved-from": "Dirtinaama iwde e",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Dirtinaama to Mooftol",
   "r-unarchived": "Ruttinaama iwde e Mooftol",
   "r-a-card": "kartal",

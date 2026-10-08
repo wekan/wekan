@@ -1394,6 +1394,8 @@
   "set-filter": "កំណត់តម្រង",
   "r-moved-to": "បានផ្លាស់ទីទៅ",
   "r-moved-from": "បានផ្លាស់ប្តូរពី",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "បានផ្លាស់ទីទៅបណ្ណសារ",
   "r-unarchived": "បានស្ដារពីបណ្ណសារ",
   "r-a-card": "កាតមួយ។",

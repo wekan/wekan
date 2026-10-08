@@ -1394,6 +1394,8 @@
   "set-filter": "Farito ny sivana",
   "r-moved-to": "Nafindra ho amin'ny",
   "r-moved-from": "Nafindra avy amin'ny",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Nafindra any amin'ny arisiva",
   "r-unarchived": "Naverina avy amin'ny arisiva",
   "r-a-card": "karatra iray",

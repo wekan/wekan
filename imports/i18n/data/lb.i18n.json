@@ -1394,6 +1394,8 @@
   "set-filter": "Setze Filter",
   "r-moved-to": "verréckelt no",
   "r-moved-from": "verréckelt vun",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "an den Archiv verréckelt",
   "r-unarchived": "aus dem Archiv restauréiert",
   "r-a-card": "einer Kaart",

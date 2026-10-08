@@ -1394,6 +1394,8 @@
   "set-filter": "Szűrő beállítása",
   "r-moved-to": "Áttették ide:",
   "r-moved-from": "Áttették innen:",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Archívumba helyezték",
   "r-unarchived": "Helyreállították az archívumból",
   "r-a-card": "egy Kártya",

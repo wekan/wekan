@@ -1394,6 +1394,8 @@
   "set-filter": "Setem filta",
   "r-moved-to": "Movem finis long",
   "r-moved-from": "Movem finis long",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Movem finis long Akaev",
   "r-unarchived": "Restored long Akaev",
   "r-a-card": "wan kad",

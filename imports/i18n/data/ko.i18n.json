@@ -1394,6 +1394,8 @@
   "set-filter": "필터 설정",
   "r-moved-to": "이동한 곳",
   "r-moved-from": "이동해 온 곳",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "저장소로 이동",
   "r-unarchived": "저장소에서 복원",
   "r-a-card": "카드",

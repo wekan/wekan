@@ -1394,6 +1394,8 @@
   "set-filter": "Immikkoortiterineq inissiguk",
   "r-moved-to": "Uunga nuunneqarpoq",
   "r-moved-from": "Uannga nuunneqarpoq",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Toqqorsivimmut nuunneqarpoq",
   "r-unarchived": "Toqqorsivimmit utertinneqarpoq",
   "r-a-card": "kortsi",

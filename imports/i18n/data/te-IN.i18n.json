@@ -1394,6 +1394,8 @@
   "set-filter": "ఫిల్టర్‌ని సెట్ చేయండి",
   "r-moved-to": "కు తరలించబడింది",
   "r-moved-from": "నుండి తరలించబడింది",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "ఆర్కైవ్‌కి తరలించబడింది",
   "r-unarchived": "ఆర్కైవ్ నుండి పునరుద్ధరించబడింది",
   "r-a-card": "ఒక కార్డు",

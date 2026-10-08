@@ -1394,6 +1394,8 @@
   "set-filter": "设置过滤器",
   "r-moved-to": "移至",
   "r-moved-from": "已移动",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "已移动到归档",
   "r-unarchived": "已从归档中恢复",
   "r-a-card": "一个卡片",

@@ -1394,6 +1394,8 @@
   "set-filter": "Задаць фільтр",
   "r-moved-to": "Перамешчана ў",
   "r-moved-from": "Перамешчана з",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Перамешчана ў архіў",
   "r-unarchived": "Аднолена з архіва",
   "r-a-card": "картка",

@@ -75,6 +75,21 @@ template(name="boardTriggers")
     button.trigger-button.js-add-moved-trigger.js-goto-action(type="button" aria-label="{{_ 'r-add-trigger'}}")
       i.fa.fa-plus(aria-hidden="true")
 
+  //- #2076: a card moved forward (to a later list) or back (to an earlier
+    one), in the board's list order (models/lib/ruleMoveDirection.js).
+  div.trigger-item#trigger-move-direction
+    div.trigger-content
+      div.trigger-text
+        | {{_'r-when-a-card'}}
+      div.trigger-text
+        | {{ruleTriggerCopula}}
+      div.trigger-dropdown
+        select(id="move-direction")
+          option(value="forward") {{_'r-moved-forward'}}
+          option(value="back") {{_'r-moved-back'}}
+    button.trigger-button.js-add-move-direction-trigger.js-goto-action(type="button" aria-label="{{_ 'r-add-trigger'}}")
+      i.fa.fa-plus(aria-hidden="true")
+
   div.trigger-item#trigger-five
     div.trigger-content
       div.trigger-text

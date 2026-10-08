@@ -1394,6 +1394,8 @@
   "set-filter": "پاڵێو دابنێ",
   "r-moved-to": "گوازرایەوە بۆ",
   "r-moved-from": "گوازرایەوە لە",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "گوازرایەوە بۆ ئەرشیف",
   "r-unarchived": "لە ئەرشیف گەڕێندرایەوە",
   "r-a-card": "کارتێک",

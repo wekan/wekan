@@ -1394,6 +1394,8 @@
   "set-filter": "Angiv filter",
   "r-moved-to": "Flyttet til",
   "r-moved-from": "Flyttet fra",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Flyttet fra arkiv",
   "r-unarchived": "Genskabt fra Arkiv",
   "r-a-card": "et kort",

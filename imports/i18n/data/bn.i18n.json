@@ -1394,6 +1394,8 @@
   "set-filter": "ছাঁকনি নির্ধারণ করুন",
   "r-moved-to": "সরানো হয়েছে",
   "r-moved-from": "যেখান থেকে সরানো হয়েছে",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "সংরক্ষণাগারে নেওয়া হয়েছে",
   "r-unarchived": "সংরক্ষণাগার থেকে পুনরুদ্ধার হয়েছে",
   "r-a-card": "একটি কার্ড",

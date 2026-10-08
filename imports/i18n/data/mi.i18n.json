@@ -1394,6 +1394,8 @@
   "set-filter": "Tautuhi Tātari",
   "r-moved-to": "Kua nekehia ki",
   "r-moved-from": "Kua nekehia mai i",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Kua nekehia ki te Pūranga",
   "r-unarchived": "Kua whakahokia mai i te Pūranga",
   "r-a-card": "he kāri",

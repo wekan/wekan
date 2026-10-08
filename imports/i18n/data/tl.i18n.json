@@ -1394,6 +1394,8 @@
   "set-filter": "Itakda Salain",
   "r-moved-to": "Inilipat sa",
   "r-moved-from": "Inilipat mula sa",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Inilipat sa Arkibo",
   "r-unarchived": "Ibinalik mula sa Arkibo",
   "r-a-card": "a kard",

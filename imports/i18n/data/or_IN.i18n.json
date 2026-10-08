@@ -1394,6 +1394,8 @@
   "set-filter": "ଫିଲ୍ଟର୍ ସେଟ୍ କରନ୍ତୁ |",
   "r-moved-to": "କୁ ଘୁଞ୍ଚିଗଲା |",
   "r-moved-from": "ରୁ ଘୁଞ୍ଚିଗଲା |",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "ଅଭିଲେଖାଗାରକୁ ସ୍ଥାନାନ୍ତରିତ |",
   "r-unarchived": "ଅଭିଲେଖାଗାରରୁ ପୁନ ored ସ୍ଥାପିତ |",
   "r-a-card": "ଏକ କାର୍ଡ",

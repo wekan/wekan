@@ -1394,6 +1394,8 @@
   "set-filter": "Nastawi filter",
   "r-moved-to": "Przeniesóné do",
   "r-moved-from": "Przeniesóné z",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Przeniesóné do archiwùm",
   "r-unarchived": "przywròcona z archiwùm",
   "r-a-card": "kôrta",

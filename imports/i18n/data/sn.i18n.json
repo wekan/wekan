@@ -1394,6 +1394,8 @@
   "set-filter": "Set sefa",
   "r-moved-to": "zvafambiswa ku",
   "r-moved-from": "zvafambiswa kubva",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "zvafambiswa ku dura",
   "r-unarchived": "Restored kubva dura",
   "r-a-card": "a kadhi",

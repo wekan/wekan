@@ -1394,6 +1394,8 @@
   "set-filter": "Filtri düzüň",
   "r-moved-to": "Göçürildi",
   "r-moved-from": "Göçürildi",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Arhiwine geçirildi",
   "r-unarchived": "Arhiwden dikeldildi",
   "r-a-card": "kartoçka",

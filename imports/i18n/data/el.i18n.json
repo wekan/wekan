@@ -1394,6 +1394,8 @@
   "set-filter": "Καθορισμός Φίλτρου",
   "r-moved-to": "Μετακινήθηκε σε",
   "r-moved-from": "Μετακινήθηκε από",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Μετακινήθηκε στο Αρχείο",
   "r-unarchived": "Επαναφέρθηκε από το Αρχείο",
   "r-a-card": "μία κάρτα",

@@ -1394,6 +1394,8 @@
   "set-filter": "Calaltuu Murteessi",
   "r-moved-to": "Gara itti siqfame",
   "r-moved-from": "Irraa siqfame",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Gara Kuusaatti siqfame",
   "r-unarchived": "Kuusaa keessaa deebifame",
   "r-a-card": "kaardii",

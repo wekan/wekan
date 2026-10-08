@@ -1394,6 +1394,8 @@
   "set-filter": "Ezarri iragazkia",
   "r-moved-to": "Eramaten denean hona:",
   "r-moved-from": "Eramaten denean hemendik:",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Artxibora eraman da",
   "r-unarchived": "Artxibotik berreskuratu da",
   "r-a-card": "txartel bat",

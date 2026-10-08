@@ -1394,6 +1394,8 @@
   "set-filter": "Estableix el filtre",
   "r-moved-to": "Traslladat a",
   "r-moved-from": "Mogut de",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "S'ha mogut a l'arxiu",
   "r-unarchived": "Restaurat des de l'Arxiu",
   "r-a-card": "una fitxa",

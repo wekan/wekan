@@ -1394,6 +1394,8 @@
   "set-filter": "Setha Isihlungi",
   "r-moved-to": "Kuhanjiswe ku",
   "r-moved-from": "Kususwe",
+  "r-moved-forward": "moved forward to a later list",
+  "r-moved-back": "moved back to an earlier list",
   "r-archived": "Yo iswa fhethu ha u vhulunga",
   "r-unarchived": "Yo vhuyedzedzwa u bva fhethu ha u vhulunga",
   "r-a-card": "ikhadi",
