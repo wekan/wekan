@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4b4fd5d9f6">Correct Wu report, template and creator wording</a>. Thanks to xet7.</summary>
+
+Correct 21 Wu values, including administrator and card-creator roles. Preserve template
+variables, HTML space entities, API configuration and report aggregation meanings.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b8d6041ca4">Correct Wu dependency, map and server instructions</a>. Thanks to xet7.</summary>
 
 Correct 17 Wu values, preserving dependency counts, background size and log commands.
