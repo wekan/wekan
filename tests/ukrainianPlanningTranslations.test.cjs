@@ -9,6 +9,10 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 (async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   const en = read('en'), uk = read('uk');
+  assert.match(uk['scrum-import-into-board-hint'], /не дублюються/);
+  assert.match(uk['scrum-import-card-on-another-board'], /залишена без змін/);
+  assert.match(uk['sync-planning-hint'], /спочатку за ID у джерелі, потім за назвою/);
+  assert.match(uk['sync-planning-hint'], /Перша синхронізація ніколи не видаляє планування/);
   assert.deepEqual(Object.keys(uk), Object.keys(en));
   for (const key of Object.keys(en)) {
     assert.deepEqual(translationTokens(uk[key]), translationTokens(en[key]), key);

@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Ukrainian planning import regressions — 2026-10-08
+
+Translate 20 new Scrum import and Sync planning messages. Preserve counters,
+reference variables, non-duplication, unchanged foreign-board cards, source-ID
+matching priority and first-sync protection of existing planning. Extend the
+existing Ukrainian suite for these consequences. Its tests and global token
+checks pass. No browser or screen-reader session was run; eight failures from
+the latest broad run remain to repair.
+
 ## Estonian planning import regressions — 2026-10-08
 
 Translate 20 new Scrum import and Sync planning messages. Preserve counters,
