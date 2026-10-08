@@ -9211,6 +9211,16 @@ behavior. Regression coverage checks those details, script, key order and tokens
 Technical wording remains low confidence pending speaker review. Browser checks
 were not run; further Maithili translations and the broader audit remain.
 
+## Maithili email failures and notification recovery
+
+Filled 38 English placeholders for email failures, notification recovery and the
+remaining sync time-estimate guidance. The placeholder-only merge retained existing
+translations. Preserved SMTP/Jira/null identifiers, hour units, exactly-one-field
+requirements, retained pending work and irreversible cancellation caveats.
+Regression coverage checks those details, script, key order and tokens. Technical
+wording remains low confidence pending speaker review. Browser checks were not
+run; the broader translation audit remains unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
