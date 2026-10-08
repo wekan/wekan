@@ -1055,6 +1055,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e9a0ddb5d7">Recognize native Silesian and Upper Sorbian mathematical labels</a>. Thanks to xet7.</summary>
+
+Recognize the existing plus/minus accessibility labels as native words in
+Silesian and Upper Sorbian. Scope the exception to exact locale, key and source
+value; other locales, prose and unverified minimum labels remain reportable.
+
+Four focused translation suites and 21 human-preference checks pass.
+Language references are recorded in the translation audit. No screen-reader
+session was run; remaining translations and vocabulary review are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/04ebc07f34">Translate Serbian planning and settings messages</a>. Thanks to xet7.</summary>
 
 Translate 51 English messages for planning, imports, link rules, settings and
