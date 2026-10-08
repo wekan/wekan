@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Galician synchronization recovery — 2026-10-09
+
+Translate 21 messages in gl and gl-ES, replacing 42 English values: stalled-sync
+explanations, reasons, counters and controls. Preserve exact variables. Regression
+checks cover retained applied changes, unwritten pending changes, access loss,
+operations that cannot be discarded and oldest-first limits. Both relevant suites
+and all 21 preservation checks pass. Remaining translations, language auditing
+and browser review are outstanding.
+
 ## Galician planning results — 2026-10-09
 
 Translate 17 messages in gl and gl-ES, replacing 34 English values: Scrum import

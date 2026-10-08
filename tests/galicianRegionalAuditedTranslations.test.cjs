@@ -607,3 +607,22 @@ for (const code of ['gl', 'gl-ES']) {
   assert.match(catalog['sync-planning-hint'], /cambio local.*mantense ata que a fonte cambia/);
   assert.doesNotMatch(catalog['sync-planning-hint'], /primeira sincronización elimina/);
 }
+
+const syncRecoveryKeys = ["stuck-sync-operation-description", "stuck-sync-operation-list", "stuck-sync-operation-progress", "stuck-sync-operation-reason", "stuck-sync-operation-applied", "stuck-sync-operation-reason-scope-changed", "stuck-sync-operation-reason-access-denied", "stuck-sync-operation-reason-trigger-unknown", "stuck-sync-operation-reason-intent-missing", "stuck-sync-operation-reason-unknown", "stuck-sync-operation-replayable-now", "stuck-sync-operation-discard", "stuck-sync-operation-discard-confirm", "stuck-sync-operation-refresh", "stuck-sync-operation-empty", "stuck-sync-operation-truncated", "stuck-sync-operation-unavailable", "stuck-sync-operation-missing", "stuck-sync-operation-not-stuck", "stuck-sync-operation-replayable", "stuck-sync-operation-busy"];
+for (const code of ['gl', 'gl-ES']) {
+  const catalog = require('../imports/i18n/data/' + code + '.i18n.json');
+  for (const key of syncRecoveryKeys) {
+    assert.ok(catalog[key]?.trim(), key);
+    assert.notEqual(catalog[key], englishLabels[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(catalog[key]), translationTokens(englishLabels[key]), key);
+  }
+  assert.match(catalog['stuck-sync-operation-description'], /cambios xa aplicados mantéñense/);
+  assert.match(catalog['stuck-sync-operation-description'], /cambios gardados pendentes nunca se escriben/);
+  assert.match(catalog['stuck-sync-operation-discard-confirm'], /cambios que xa aplicou mantéñense/);
+  assert.doesNotMatch(catalog['stuck-sync-operation-discard-confirm'], /cambios que xa aplicou elimínanse/);
+  assert.match(catalog['stuck-sync-operation-reason-access-denied'], /xa non ten acceso de escritura a toda a lista/);
+  assert.match(catalog['stuck-sync-operation-replayable-now'], /non se pode descartar/);
+  assert.match(catalog['stuck-sync-operation-not-stuck'], /non se pode descartar/);
+  assert.match(catalog['stuck-sync-operation-replayable'], /non se descartou/);
+  assert.match(catalog['stuck-sync-operation-truncated'], /50 máis antigas/);
+}
