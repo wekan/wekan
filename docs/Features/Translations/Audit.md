@@ -8985,6 +8985,16 @@ script, key order, token inventories and these semantic distinctions. Technical
 wording remains low confidence pending speaker review. Browser checks were not
 run; further Maithili translations and the broader audit remain unfinished.
 
+## Maithili input and accessibility labels
+
+Filled 34 English values for bitmap controls, accessible field announcements and
+list inputs. Filter-excluded short labels were changed directly only after checking
+that they matched English. Preserved indexed row/column roles, repeated-value
+versus repetition-count labels and open/close actions. Regression coverage checks
+script, key order, token inventories and those distinctions. Technical wording
+remains low confidence pending speaker review. Browser and screen-reader checks
+were not run; further Maithili translations and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
