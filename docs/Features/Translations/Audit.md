@@ -8145,6 +8145,15 @@ default guidance, preview aliases and image-only paste wording. Technical wordin
 remains low confidence pending speaker review. Browser checks were not run.
 Further wrong-language corrections and the broader audit remain unfinished.
 
+### Tatar member removal, rescue and search controls
+
+Corrected 22 removal, unsaved-description, search and shortcut values. Preserved
+correct adjacent text, including the Sandstorm access warning, and all source
+placeholders. Regression coverage checks removal from all cards and notification,
+replace-description wording, equivalent rename/close labels and self-membership
+versus self-assignment. Technical wording remains low confidence pending speaker
+review. Browser checks were not run. Further corrections and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
