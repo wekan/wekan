@@ -1055,6 +1055,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bda123a348">Recognize native Upper Sorbian minimum labels</a>. Thanks to xet7.</summary>
+
+Recognize the existing minimum labels for numeric bounds and the list operator
+as native Upper Sorbian. Scope the exception to exact locale, key and source
+value; other locales and later English prose remain reportable.
+
+Four focused translation suites and 21 human-preference checks pass.
+Language evidence is recorded in the translation audit. No screen-reader
+session was run; remaining translations and vocabulary review are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e9a0ddb5d7">Recognize native Silesian and Upper Sorbian mathematical labels</a>. Thanks to xet7.</summary>
 
 Recognize the existing plus/minus accessibility labels as native words in
