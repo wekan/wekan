@@ -487,6 +487,17 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5a53247e68">Translate Papiamento notification recovery</a>. Thanks to xet7.</summary>
+
+Translate 30 notification-recovery and interrupted-Sync messages, preserving
+variables and checking recovery states, cancellation and retained changes.
+Three focused translation suites and 21 human-preference checks pass.
+Specialized wording is lower confidence and needs native review. No browser
+session was run. Remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7b62fbbdd6">Translate Papiamento Sync outcomes and mail failures</a>. Thanks to xet7.</summary>
 
 Translate 35 Sync, estimate, planning, mail-failure and activity messages,
