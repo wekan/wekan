@@ -27,6 +27,7 @@ import { formatKanri } from './kanriFormat.js';
 import { formatPivotalCsv } from './pivotalCsvFormat.js';
 import { formatTasksOrgBackup } from './tasksorgFormat.js';
 import { formatMondaySheets } from './mondayFormat.js';
+import { formatSuperProductivity } from './superProductivityFormat.js';
 import { formatOpml } from './opmlOutlineFormat.js';
 import { formatOrgMode } from './orgModeFormat.js';
 
@@ -342,6 +343,9 @@ export const formatters = {
   // monday.com's Excel import table: sheets models/export.js writes as .xlsx
   // (server/lib/mondayWorkbook.js); round-trips with parseMondaySheets.
   monday: formatMondaySheets,
+  // A Super Productivity backup its "Import from File" reads; round-trips
+  // with parseSuperProductivity.
+  superproductivity: collected => formatSuperProductivity(collected),
   // An OPML outline; round-trips with parseOpml (opmlOutline.js, server-only).
   opml: formatOpml,
   // An Org mode outline; round-trips with parseOrgMode (orgModeFormat.js).

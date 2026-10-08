@@ -14,6 +14,7 @@ import { parseKanri } from './kanriFormat.js';
 import { parsePivotalCsv } from './pivotalCsvFormat.js';
 import { parseTasksOrgBackup } from './tasksorgFormat.js';
 import { parseMondaySheets } from './mondayFormat.js';
+import { parseSuperProductivity } from './superProductivityFormat.js';
 import { parseOrgMode } from './orgModeFormat.js';
 import {
   gitlabScrumPlanning, openProjectScrumPlanning, asanaScrumPlanning, STORY_POINTS_FIELD,
@@ -990,6 +991,8 @@ export const EXTERNAL_PARSERS = {
   tasksorg: parseTasksOrgBackup,
   // monday.com's Excel export, as sheets of rows (server/lib/mondayWorkbook.js).
   monday: parseMondaySheets,
+  // A Super Productivity backup, as JSON text (superProductivityFormat.js).
+  superproductivity: parseSuperProductivity,
   orgmode: parseOrgMode,
   jira: parseJira,
 };

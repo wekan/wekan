@@ -337,7 +337,7 @@ test('every external export menu link returns text and refuses an unrelated user
   // Include description through the actual shared selection controls.
   const details = page.locator('.js-export-card-details-toggle');
   if (await details.getAttribute('aria-checked') !== 'true') await details.click();
-  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri', 'pivotal', 'tasksorg', 'opml', 'orgmode']) {
+  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri', 'pivotal', 'tasksorg', 'superproductivity', 'opml', 'orgmode']) {
     await test.step(format, async () => {
       const anchor = page.locator(`.js-pop-over a[href*="/export/${format}?"]`);
       await expect(anchor).toBeVisible();
@@ -502,6 +502,53 @@ test('Tasks.org: a backup imports with its lists, notes, tags, priority, due dat
     expect(open.customFields.find(value => value._id === priority._id).value).toBe('High');
     const lists = db.find('lists', { boardId });
     expect(lists.find(list => list._id === open.listId).title).toBe('Doing');
+    await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});
+
+// A Super Productivity backup: projects as swimlanes, done state and the
+// in-progress tag as lists, tags as labels, a sub-task as a sub-task card.
+test('Super Productivity: a backup imports with its projects, lists, labels and sub-tasks', async ({ loggedInPage: page }) => {
+  let boardId;
+  const advancedCfg = { worklogExportSettings: { cols: ['DATE'], roundWorkTimeTo: null, roundStartTimeTo: null, roundEndTimeTo: null, groupBy: 'DATE', separateTasksBy: '' } };
+  const task = (id, fields) => ({ id, subTaskIds: [], timeSpentOnDay: {}, timeSpent: 0, timeEstimate: 0, isDone: false, notes: '', tagIds: [], created: 1733000000000, attachments: [], projectId: 'p1', ...fields });
+  const backup = {
+    timestamp: 1733100000000, lastUpdate: 1733100000000, crossModelVersion: 4.5,
+    data: {
+      project: { ids: ['p1'], entities: { p1: { id: 'p1', title: 'From Super Productivity', taskIds: ['t1', 't2'], backlogTaskIds: [], noteIds: [], theme: {}, advancedCfg } } },
+      tag: { ids: ['l1', 'KANBAN_IN_PROGRESS'], entities: {
+        l1: { id: 'l1', title: expected.label, taskIds: ['t1'], created: 1, theme: {}, advancedCfg },
+        KANBAN_IN_PROGRESS: { id: 'KANBAN_IN_PROGRESS', title: 'in-progress', taskIds: ['t2'], created: 1, theme: {}, advancedCfg } } },
+      task: { ids: ['t1', 't1a', 't2'], entities: {
+        t1: task('t1', { title: expected.title, notes: 'Two of them, DN50', tagIds: ['l1'], subTaskIds: ['t1a'], dueDay: '2026-10-10', timeSpent: 1800000, timeSpentOnDay: { '2026-10-01': 1800000 } }),
+        t1a: task('t1a', { title: 'Sub-task from Super Productivity', parentId: 't1', isDone: true, doneOn: 1733050000000 }),
+        t2: task('t2', { title: 'Started task', tagIds: ['KANBAN_IN_PROGRESS'] }) },
+        currentTaskId: null, selectedTaskId: null, lastCurrentTaskId: null, isDataLoaded: false },
+    },
+  };
+  try {
+    await navigateInApp(page, '/import/superproductivity');
+    await page.locator('#import-textarea').fill(JSON.stringify(backup));
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    const board = db.findOne('boards', { _id: boardId });
+    expect(board.title).toBe('From Super Productivity');
+    const cards = db.find('cards', { boardId });
+    expect(cards).toHaveLength(3);
+    const lists = db.find('lists', { boardId });
+    const listOf = card => lists.find(list => list._id === card.listId).title;
+    const open = cards.find(card => card.title === expected.title);
+    expect(open.labelIds.map(id => board.labels.find(l => l._id === id).name)).toEqual([expected.label]);
+    expect(open.description).toBe('Two of them, DN50');
+    expect(new Date(open.dueAt).toISOString()).toBe('2026-10-10T00:00:00.000Z');
+    expect(open.spentTime).toBe(0.5);
+    expect(listOf(open)).toBe('To Do');
+    expect(listOf(cards.find(card => card.title === 'Started task'))).toBe('In Progress');
+    const sub = cards.find(card => card.title === 'Sub-task from Super Productivity');
+    expect(listOf(sub)).toBe('Done');
+    expect(sub.parentId).toBe(open._id);
+    expect(db.find('swimlanes', { boardId }).map(lane => lane.title)).toContain('From Super Productivity');
     await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
   } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
 });

@@ -254,6 +254,7 @@ const EXPORT_FORMAT_GROUPS = [
       { key: 'pivotal', icon: 'fa-flag', label: 'Pivotal Tracker', path: 'export/pivotal', ext: 'csv', scopes: BOARD_ONLY },
       { key: 'tasksorg', icon: 'fa-check-circle-o', label: 'Tasks.org', path: 'export/tasksorg', ext: 'json', scopes: BOARD_ONLY },
       { key: 'monday', icon: 'fa-table', label: 'monday.com', path: 'export/monday', ext: 'xlsx', scopes: BOARD_ONLY },
+      { key: 'superproductivity', icon: 'fa-check-circle-o', label: 'Super Productivity', path: 'export/superproductivity', ext: 'json', scopes: BOARD_ONLY },
       ...[
         ['trello', 'Trello'], ['jira', 'Jira'], ['deck', 'NextCloud Deck'],
         ['openproject', 'OpenProject'], ['github', 'GitHub'], ['gitlab', 'GitLab'],

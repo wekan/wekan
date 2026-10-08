@@ -281,6 +281,17 @@ Meteor.methods({
         importedBoard = sanitizeImported(importedBoard, 'monday', this);
         creator = new KanboardCreator(data, 'monday');
         break;
+      case 'superproductivity':
+        // A Super Productivity backup (sp-backup_*.json), sent as text - see
+        // models/lib/superProductivityFormat.js.
+        check(board, String);
+        try {
+          importedBoard = EXTERNAL_PARSERS.superproductivity(importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        creator = new KanboardCreator(data, 'superproductivity');
+        break;
       case 'planner':
         // Microsoft Planner's "Export plan to Excel" workbook - see
         // models/lib/plannerFormat.js. It arrives like the Excel import, as

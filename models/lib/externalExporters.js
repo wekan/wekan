@@ -122,6 +122,8 @@ async function collect(boardId, fields, format) {
         owner: people[0], assignees: people.slice(1), creator: username(c.userId), requestedBy: c.requestedBy || undefined,
       } : {}),
       ...(want('subtasks') && c.parentId ? { parentCardId: c.parentId } : {}),
+      // Hours spent, for formats with a place for tracked time (Super Productivity).
+      ...(want('dates') && Number(c.spentTime) > 0 ? { spentTime: Number(c.spentTime) } : {}),
       ...(comments.length ? { comments: comments.filter(cm => cm.cardId === c._id)
         .map(cm => ({ text: cm.text, author: username(cm.userId), date: iso(cm.createdAt) })) } : {}),
       ...(cardChecklists.length ? { checklists: cardChecklists } : {}),
