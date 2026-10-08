@@ -8136,6 +8136,15 @@ assigned-only visibility and muted/unaccepted negation. Technical wording remain
 low confidence pending speaker review. Browser checks were not run. Further
 wrong-language corrections and the broader audit remain unfinished.
 
+### Tatar visibility, previews and notification scope
+
+Corrected 17 notification, visibility, preview and removal values. Preserved correct
+signed-in-user visibility text and source placeholders. Regression coverage checks
+login-link markup, membership-only editing, public search visibility, blank-field
+default guidance, preview aliases and image-only paste wording. Technical wording
+remains low confidence pending speaker review. Browser checks were not run.
+Further wrong-language corrections and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
