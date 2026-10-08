@@ -1059,6 +1059,10 @@
     {
       "key": "import-board-instruction-quire",
       "since": "2026-10-08"
+    },
+    {
+      "key": "import-board-instruction-wrike",
+      "since": "2026-10-08"
     }
   ]
 }

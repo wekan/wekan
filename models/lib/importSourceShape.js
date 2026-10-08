@@ -21,7 +21,7 @@ export function validateImportSourceShape(source, value) {
     // Vikunja: the export .zip as { zipBase64 }, or the text of its data.json.
     case 'vikunja': valid = (typeof value?.zipBase64 === 'string' && value.zipBase64.length > 0)
       || (typeof value === 'string' && value.trim().length > 0); break;
-    case 'excel': case 'planner': case 'monday': valid = typeof value?.excelBase64 === 'string' && value.excelBase64.length > 0; break;
+    case 'excel': case 'planner': case 'monday': case 'wrike': valid = typeof value?.excelBase64 === 'string' && value.excelBase64.length > 0; break;
     case 'markdown': case 'todotxt': case 'taskwarrior': case 'focalboard': case 'todoist': case 'meistertask': case 'obsidian': case 'linear': case 'ticktick': case 'clickup': case 'nullboard': case 'pivotal': case 'superproductivity': case 'quire': case 'orgmode': valid = typeof value === 'string' && value.trim().length > 0; break;
     case 'leo': valid = typeof value === 'string' && /<leo_file[\s>]/.test(value); break;
     case 'opml': valid = typeof value === 'string' && /<opml[\s>]/.test(value); break;

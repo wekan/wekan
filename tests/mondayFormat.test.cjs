@@ -155,7 +155,8 @@ async function main() {
     const page = read('client/components/import/import.js');
     assert.match(page, /\{ key: 'monday', name: 'monday\.com' \}/);
     assert.match(page, /dataSource === 'planner' \|\| dataSource === 'monday'/);
-    assert.match(page, /\['excel', 'planner', 'monday'\]\.includes/);
+    // Later workbook sources (Wrike) share the file input after these three.
+    assert.match(page, /\['excel', 'planner', 'monday'(, '[a-z]+')*\]\.includes/);
     assert.match(read('client/components/boards/exportScope.js'), /key: 'monday'[^}]*path: 'export\/monday', ext: 'xlsx'/);
     assert.match(JSON.parse(read('imports/i18n/data/en.i18n.json'))['import-board-instruction-monday'], /Export board to Excel/);
   });

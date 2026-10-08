@@ -372,6 +372,13 @@ if (Meteor.isServer) {
         res.end(archive);
         return;
       }
+      // Wrike's import template is an Excel workbook (models/lib/wrikeFormat.js).
+      if (format === 'wrike') {
+        const workbook = await require('/server/lib/wrikeWorkbook').writeWrikeWorkbook(built);
+        res.writeHead(200, { 'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        res.end(workbook);
+        return;
+      }
       // monday.com's import table is an Excel workbook (models/lib/mondayFormat.js).
       if (format === 'monday') {
         const workbook = await require('/server/lib/mondayWorkbook').writeMondayWorkbook(built);

@@ -332,6 +332,21 @@ Meteor.methods({
         }
         creator = new KanboardCreator(data, 'quire');
         break;
+      case 'wrike':
+        // Wrike's Excel import template - see models/lib/wrikeFormat.js. Like
+        // Planner and monday.com, { excelBase64 }; the parsed tasks are
+        // sanitized again below.
+        check(board, Object);
+        if (!Meteor.isServer) return undefined;
+        try {
+          importedBoard = await require('/server/lib/wrikeWorkbook').readWrikeWorkbook(importedBoard.excelBase64);
+          importedBoard = EXTERNAL_PARSERS.wrike(importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        importedBoard = sanitizeImported(importedBoard, 'wrike', this);
+        creator = new KanboardCreator(data, 'wrike');
+        break;
       case 'planner':
         // Microsoft Planner's "Export plan to Excel" workbook - see
         // models/lib/plannerFormat.js. It arrives like the Excel import, as

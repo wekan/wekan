@@ -843,6 +843,39 @@ test('monday.com: a board export imports with its group, status, person, date an
   } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
 });
 
+// Wrike's Excel import template, as in its official sample: a folder row,
+// Key, Status, Assigned To "Name <email>", date cells and a 13FS dependency.
+test('Wrike: an import template imports with its folder, status, dates and dependency', async ({ loggedInPage: page }) => {
+  const ExcelJS = require('../../../node_modules/@wekanteam/exceljs');
+  let boardId;
+  try {
+    const workbook = new ExcelJS.Workbook();
+    const sheet = workbook.addWorksheet('Tasks');
+    [['Key', 'Title', 'Status', 'Priority', 'Assigned To', 'Start Date', 'Duration', 'End Date', 'Depends On', 'Start Date Constraint', 'Description'],
+      [1, '/Folder 1/'],
+      [13, 'Task 9', 'Active', 'High', '', new Date(Date.UTC(2026, 9, 1)), '1 day', new Date(Date.UTC(2026, 9, 2)), '', '', ''],
+      [14, expected.title, 'Active', 'Normal', 'Name Surname <name@company.com>', new Date(Date.UTC(2026, 9, 3)), '4 days', new Date(Date.UTC(2026, 9, 10)), '13FS', '', 'task description'],
+    ].forEach(row => sheet.addRow(row));
+    await navigateInApp(page, '/import/wrike');
+    await page.locator('.js-import-excel-file').setInputFiles({
+      name: 'wrike.xlsx', mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      buffer: Buffer.from(await workbook.xlsx.writeBuffer()),
+    });
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    const cards = db.find('cards', { boardId });
+    const card = cards.find(c => c.title === expected.title);
+    expect(card.description).toBe('task description');
+    expect(new Date(card.dueAt).toISOString().slice(0, 10)).toBe('2026-10-10');
+    expect(new Date(card.startAt).toISOString().slice(0, 10)).toBe('2026-10-03');
+    expect(db.find('lists', { boardId }).find(list => list._id === card.listId).title).toBe('Active');
+    expect(db.find('swimlanes', { boardId }).map(lane => lane.title)).toContain('Folder 1');
+    expect(db.find('customFields', { boardIds: boardId }).map(field => field.name).sort()).toEqual(['Duration', 'Priority']);
+    await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});
+
 // Microsoft Planner's export is an Excel workbook, not text: its own case.
 test('Microsoft Planner: the export menu link returns a Planner workbook and refuses an unrelated user', async ({ boardPage: page, user2 }) => {
   const ExcelJS = require('../../../node_modules/@wekanteam/exceljs');
