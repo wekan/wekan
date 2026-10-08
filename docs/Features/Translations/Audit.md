@@ -9535,6 +9535,16 @@ order and tokens. Technical wording remains low confidence pending speaker
 review. Browser and screen-reader checks were not run; further Turkmen
 translations and the broader audit remain unfinished.
 
+## Turkmen list retrieval and removal
+
+Filled 33 English placeholders for list creation, retrieval, removal and sublists.
+The placeholder-only merge retained existing translations. Coverage checks
+retrieval versus removal, combined operations, empty-list length, copied
+sublists and indexing from the end, plus key order and token inventories.
+Technical wording remains low confidence pending speaker review. Browser
+checks were not run; further Turkmen translations and the broader audit
+remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
