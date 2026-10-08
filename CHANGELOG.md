@@ -63,15 +63,6 @@ What is not done yet, and why, checked against the code on 2026-10-08.
 Finished work is in Upcoming and old-CHANGELOG/; the dated development logs
 that used to sit here are in git history.
 
-**Can be built here** - Scrum, Sync and retention:
-
-- Planning Sync: sprints and releases through List Sync. Verifying it live
-  needs Jira or GitLab credentials.
-- Importing Scrum data into an existing board; every import creates a new one.
-- An interrupted import outside its Scrum stage has no checkpoint for cards,
-  lists and attachments, and one whose plan was never saved cannot be rebuilt,
-  as the source file is not kept.
-
 **Needs infrastructure or credentials:** Jira closed sprints and their
 commitment snapshots (the Jira Software sprint report API); live SMTP
 interoperability with external mail providers (rule email was tested against
@@ -451,7 +442,9 @@ used.
 files** cover database, mail and S3. Boards import and export as **Todoist**,
 **OPML** and **Org mode**, **rules** can set assignees, **webhooks** name the
 people they are about, and **OAuth providers** can be limited to email
-domains. Seventeen long-open requests were closed as already implemented.
+domains. **Scrum** planning syncs from Jira and GitLab and imports into an
+existing board, and an **interrupted import** can be kept or discarded.
+Seventeen long-open requests were closed as already implemented.
 
 This release adds the following new features:
 
@@ -633,7 +626,8 @@ assignee.
 
 - [A rule can fire when a card moves forward to a later list or back to an earlier one](https://github.com/wekan/wekan/commit/eac524380f). Thanks to rlach and xet7.
 
-**Scrum** - planning a card across releases.
+**Scrum** - planning a card across releases, and bringing planning in from
+elsewhere.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/958e9e13f3">GitLab, OpenProject and Asana imports bring their sprints and releases</a>. Thanks to xet7.</summary>
@@ -666,7 +660,52 @@ code reads the single field directly.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c06bf8d0e9">List Sync brings an issue's sprint and releases into Scrum planning</a>. Thanks to xet7.</summary>
+
+While Scrum is enabled on the board, List Sync from Jira or GitLab carries an
+issue's sprint and fix versions or milestones into the card's planning. A
+missing sprint or release is created with the source's dates; an existing one
+is matched by its source ID, then by name. A local planning change stays until
+the source changes that issue's planning, and a first Sync never removes
+planning. The writes go through the durable Sync journal.
+`tests/listSyncPlanning.test.cjs` covers matching, creation and the
+negatives; a Meteor test and a Playwright spec drive it end to end. It has not
+been verified against live Jira or GitLab.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ef54907836">Scrum planning can be imported into a board that already exists</a>. Thanks to xet7.</summary>
+
+Every Scrum import created a new board. A board administrator can now import
+a wekan-scrum-2 transfer or a WeKan board export into the current board from
+the Sprints view, with a Preview that writes nothing. Sprints and releases are
+matched by ID, then provenance, then a name unique on both sides, and the rest
+are created once, so a second import of the same file changes nothing. Cards
+are only matched, never created; unmatched, ambiguous and other boards' cards
+are reported. The writes use the journaled Scrum import stage and are one
+Scrum History change. `tests/scrumTransferMerge.test.cjs` covers it.
+
+</details>
+
 **Sync and recovery** - what an administrator can do about a stuck Sync.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e8fac5e85c">An interrupted board import can be kept or discarded in Recovery</a>. Thanks to xet7.</summary>
+
+An import that stopped halfway left a partial board nothing recorded. Every
+board import, copy, Trello zip and Trello API import now records its run,
+with the new board's id, before the first write, and the board carries the
+run's id. A heartbeat keeps the run alive; a scan flags a stopped or failed
+run once in Admin Panel → Problems → Recovery, where an administrator keeps
+the partial board or discards it. Discard removes only the board stamped with
+that run, through the board's own removal, and is refused while its Scrum
+stage is busy. Resume is deliberately not offered, because the source file is
+not kept: import it again. `tests/importRuns.test.cjs` covers both decisions
+and the refusals.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cb69750b17">A List Sync operation that can never be replayed can be discarded in Recovery</a>. Thanks to xet7.</summary>
@@ -934,6 +973,21 @@ Serbian, Sicilian, Sindhi, Sinhala, Slovak, Slovenian, Somali, Sorani Kurdish,
 Spanish, Swahili, Tagalog, Tajik, Tamil, Tatar, Telugu, Thai, Tok Pisin,
 Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3ae3852099">Repair planning translations and Aromanian system labels</a>. Thanks to xet7.</summary>
+
+Translate 116 planning messages across Aromanian, Czech, Slovak, Hungarian
+and two Russian catalogs; correct 34 Italian-seeded Aromanian system and rule
+labels. Preserve counters, matching priority, non-duplication and protection
+of existing planning. New Aromanian wording remains low-confidence pending
+fluent review.
+
+Seven targeted translation suites pass, including global placeholder checks.
+Ten failures from the latest broad run still need repair. No browser or
+screen-reader session was run; the all-language work remains open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/94209a2764">Correct Italian-seeded Aromanian account and webhook labels</a>. Thanks to xet7.</summary>
