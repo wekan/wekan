@@ -161243,5 +161243,138 @@
     "before": "更改计划扑克投票结束日期",
     "after": "修改规划扑克投票结束日期",
     "reason": "2026-10-08: Correct Wu archive and voting meanings, preserving variables and member scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "poker-result-who",
+    "before": "WHO",
+    "after": "啥人",
+    "reason": "2026-10-08: Correct Wu planning/card dialog meanings and preserve imported-member permission limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "poker-replay",
+    "before": "重播",
+    "after": "重新来一趟",
+    "reason": "2026-10-08: Correct Wu planning/card dialog meanings and preserve imported-member permission limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "deletePokerPopup-title",
+    "before": "删除计划扑克？",
+    "after": "要删脱规划扑克伐？",
+    "reason": "2026-10-08: Correct Wu planning/card dialog meanings and preserve imported-member permission limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "poker-delete-pop",
+    "before": "删除是永久性的。您将失去与此计划扑克相关的所有操作。",
+    "after": "删脱就是永久删脱。侬会失去搭搿趟规划扑克有关个所有操作记录。",
+    "reason": "2026-10-08: Correct Wu planning/card dialog meanings and preserve imported-member permission limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cardDeletePopup-title",
+    "before": "删除卡？",
+    "after": "要删脱卡片伐？",
+    "reason": "2026-10-08: Correct Wu planning/card dialog meanings and preserve imported-member permission limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cardArchivePopup-title",
+    "before": "存档卡？",
+    "after": "要拿卡片归档伐？",
+    "reason": "2026-10-08: Correct Wu planning/card dialog meanings and preserve imported-member permission limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cardDetailsActionsPopup-title",
+    "before": "卡牌行动",
+    "after": "卡片操作",
+    "reason": "2026-10-08: Correct Wu planning/card dialog meanings and preserve imported-member permission limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "userAnonymizePopup-title",
+    "before": "匿名化导入用户",
+    "after": "拿账户匿名化",
+    "reason": "2026-10-08: Correct Wu planning/card dialog meanings and preserve imported-member permission limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cardAssigneePopup-title",
+    "before": "受让人",
+    "after": "负责人",
+    "reason": "2026-10-08: Correct Wu planning/card dialog meanings and preserve imported-member permission limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "restoreArchivedCardToListPopup-title",
+    "before": "将卡片还原到列表",
+    "after": "拿卡片恢复到列表里向",
+    "reason": "2026-10-08: Correct Wu planning/card dialog meanings and preserve imported-member permission limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "restoreArchivedListToSwimlanePopup-title",
+    "before": "将列表还原到泳道",
+    "after": "拿列表恢复到泳道里向",
+    "reason": "2026-10-08: Correct Wu planning/card dialog meanings and preserve imported-member permission limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "bookmarksPopup-title",
+    "before": "已加星标的看板",
+    "after": "加过星标个看板",
+    "reason": "2026-10-08: Correct Wu planning/card dialog meanings and preserve imported-member permission limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cardMembersPopup-title",
+    "before": "会员",
+    "after": "成员",
+    "reason": "2026-10-08: Correct Wu planning/card dialog meanings and preserve imported-member permission limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cardMorePopup-title",
+    "before": "更多的",
+    "after": "更多",
+    "reason": "2026-10-08: Correct Wu planning/card dialog meanings and preserve imported-member permission limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cards",
+    "before": "牌",
+    "after": "卡片",
+    "reason": "2026-10-08: Correct Wu planning/card dialog meanings and preserve imported-member permission limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cards-count",
+    "before": "牌",
+    "after": "卡片",
+    "reason": "2026-10-08: Correct Wu planning/card dialog meanings and preserve imported-member permission limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cardType-linkedCard",
+    "before": "联动卡",
+    "after": "关联卡片",
+    "reason": "2026-10-08: Correct Wu planning/card dialog meanings and preserve imported-member permission limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cardType-linkedBoard",
+    "before": "链接板",
+    "after": "关联看板",
+    "reason": "2026-10-08: Correct Wu planning/card dialog meanings and preserve imported-member permission limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "map-to-existing-user-desc",
+    "before": "选择这位导入的（虚拟）成员实际对应的真实用户。他的卡片、评论和活动都会转移到该用户。搜索即可找到任何人；尚未在此看板上的用户会以导入成员本身的角色被加入，因此这一对应关系永远不会授予比导入更多的权限。",
+    "after": "选出搿位导入个（虚拟）成员实际对应个真实用户。伊个卡片、评论搭活动侪会转到搿位用户名下。搜索可以寻着任何人；假使用户还朆加入搿块看板，就按导入成员原来个角色加入，所以映射绝勿会授予比导入辰光更多个权限。",
+    "reason": "2026-10-08: Correct Wu planning/card dialog meanings and preserve imported-member permission limits; lower-confidence prose needs native review."
   }
 ]

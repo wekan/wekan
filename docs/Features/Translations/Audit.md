@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu planning and card dialog corrections — 2026-10-08
+
+Correct 19 planning, card and account dialog values. Replace the English WHO,
+playing-card and assignee mistranslations; retain archive/delete distinctions.
+Restore anonymization scope to accounts and preserve the imported-member role limit
+in account mapping. Preserve source variables and numeric planning choices. Refresh
+exact-value audit records. Wu prose needs native review; browser tests were not run
+and the all-language work remains unfinished.
+
 ## Wu voting and archive corrections — 2026-10-08
 
 Correct 17 archive, card and voting values. Preserve overdue-day variables,
@@ -12523,7 +12532,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,035** exact before/after values, including unflagged
+records contain **23,054** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

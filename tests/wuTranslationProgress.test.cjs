@@ -509,3 +509,18 @@ assert.notEqual(wu['vote-for-it'], wu['vote-against']);
 assert.match(wu['vote-public'], /啥人.*啥选项/);
 assert.match(wu['vote-delete-pop'], /永久删脱.*投票.*所有操作记录/);
 for (const key of ['cardStartPlanningPokerPopup-title', 'editPokerEndDatePopup-title', 'card-edit-planning-poker', 'poker-question']) assert.match(wu[key], /规划扑克/);
+
+const cardDialogs = ["poker-result-who", "poker-replay", "deletePokerPopup-title", "poker-delete-pop", "cardDeletePopup-title", "cardArchivePopup-title", "cardDetailsActionsPopup-title", "userAnonymizePopup-title", "cardAssigneePopup-title", "restoreArchivedCardToListPopup-title", "restoreArchivedListToSwimlanePopup-title", "bookmarksPopup-title", "cardMembersPopup-title", "cardMorePopup-title", "cards", "cards-count", "cardType-linkedCard", "cardType-linkedBoard", "map-to-existing-user-desc"];
+for (const key of cardDialogs) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.equal(wu['poker-result-who'], '啥人');
+assert.match(wu['poker-replay'], /重新/);
+assert.match(wu['poker-delete-pop'], /永久删脱.*规划扑克.*所有操作记录/);
+assert.match(wu['cardArchivePopup-title'], /归档/);
+assert.doesNotMatch(wu['cardArchivePopup-title'], /删脱/);
+assert.match(wu['userAnonymizePopup-title'], /账户匿名化/);
+assert.doesNotMatch(wu['userAnonymizePopup-title'], /导入/);
+assert.equal(wu.cards, wu['cards-count-one']);
+assert.equal(wu['cards-count'], wu.cards);
+assert.equal(wu['cardAssigneePopup-title'], '负责人');
+assert.match(wu['map-to-existing-user-desc'], /卡片、评论搭活动.*还朆加入.*原来个角色.*绝勿会授予.*更多个权限/);
+for (const key of Object.keys(english).filter(key => key.startsWith('poker-') && /^\d+$/.test(english[key]))) assert.equal(wu[key], english[key]);
