@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3e9d44d72916178e90ec65cb8393add1475d1ae4">Translate Maithili short rule and count fragments</a></summary>
+
+- Fill seven English-identical labels omitted by the missing-string filter,
+  preserving existing translations and recipient/count alias consistency.
+- Assembled fragment wording remains low confidence pending speaker review.
+- All 73 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b634313d8d2098e4fc2dad4df62d3b32c3074c1e">Translate Maithili keyboard announcements and short labels</a></summary>
 
 - Fill 21 Maithili values, preserving existing translations, indexed announcement
