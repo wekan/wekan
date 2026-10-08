@@ -38,3 +38,10 @@ Thumbnails and covers are rotated from EXIF on the server with sharp's
 `.rotate()` (server/lib/imageThumbnail.js, server/lib/imageGif.js). Full-size
 originals are shown by the browser, which applies EXIF orientation by default,
 and no WeKan CSS overrides `image-orientation`.
+
+## [#1844](https://github.com/wekan/wekan/issues/1844) Smart search of cards
+
+Global Search (/global-search, config/router.js) matches free text in titles,
+descriptions, comments, custom fields, checklists and attachments
+(server/publications/cards.js), and finds archived cards with `status:archived`
+/ `status:all` (config/search-const.js).
