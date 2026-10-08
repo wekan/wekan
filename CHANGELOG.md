@@ -437,6 +437,20 @@ used.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7564f2a073">Translate Wu Sync planning and interrupted operations</a>. Thanks to xet7.</summary>
+
+Translate 25 planning and recovery messages, preserving variables and checking
+matching order, retained changes and replayability. Three focused suites and
+21 human-preference checks pass. Wu wording is lower confidence and needs native
+review. No browser session was run. Remaining translations are unfinished.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.25 2026-10-08 WeKan ® release
 
 **In short:** Sign-in through **Google**, **OAuth2/OIDC**, **SAML** and **CAS**
