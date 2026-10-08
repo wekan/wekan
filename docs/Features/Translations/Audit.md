@@ -8461,6 +8461,14 @@ coming-soon qualification. Technical wording remains low confidence pending
 speaker review. Focused tests cover tokens, key order, outcome distinctions and
 separate attachment/avatar paths; browser checks were not run.
 
+## Tatar migration errors and filesystem-state corrections
+
+Corrected 23 wrong-language migration and filesystem values. Preserved error versus
+warning distinctions, retry versus resume actions, empty-state explanations and
+opposing filesystem states. Retained the valid time label. Technical wording remains
+low confidence pending speaker review. Focused tests cover tokens, key order and
+status/action distinctions; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
