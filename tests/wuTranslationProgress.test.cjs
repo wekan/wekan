@@ -976,3 +976,14 @@ assert.doesNotMatch(wu['server-error-troubleshooting'], /快照/);
 assert.match(wu['import-dependencies-done'], /__imported__ 条线.*__unmatched__ 条配勿上/);
 assert.match(wu['import-dependencies-empty'], /一只看板.*至少一条/);
 assert.match(wu['now-activities-of-all-boards-are-hidden'], /所有看板.*全部动态/);
+
+const reportsTemplatesWu = ["custom-field-stringtemplate-format", "custom-field-stringtemplate-separator", "custom-field-stringtemplate-item-placeholder", "creator", "creator-on-minicard", "securityReportTitle", "impersonation-admin", "impersonation-user", "office-report-desc", "office-people", "office-no-results", "api-report-desc", "api-no-calls", "recovery-report-desc", "recovery-no-events", "recovery-maintenance-title", "recovery-maintenance-note", "display-card-creator", "minimize-card", "delete-org-warning-message", "delete-team-warning-message"];
+for (const key of reportsTemplatesWu) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.deepEqual(wu['custom-field-stringtemplate-separator'].match(/&(?:#32|nbsp);/g), english['custom-field-stringtemplate-separator'].match(/&(?:#32|nbsp);/g));
+assert.match(wu['api-no-calls'], /只有.*WITH_API=true.*才开启/);
+assert.match(wu['api-report-desc'], /账户搭端点配对列一行.*时间范围.*勿会每趟请求/);
+assert.equal(wu['impersonation-admin'], '管理员');
+assert.equal(wu['display-card-creator'], '显示卡片' + wu.creator);
+assert.doesNotMatch(wu['display-card-creator'], /创建器/);
+for (const entity of ['org', 'team']) assert.match(wu['delete-' + entity + '-warning-message'], /删勿脱.*至少还有一只用户属于/);
+assert.match(wu['recovery-report-desc'], /MongoDB/);

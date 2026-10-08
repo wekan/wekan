@@ -166297,5 +166297,152 @@
     "before": "现在所有面板的所有活动都被隐藏",
     "after": "现在所有看板个全部动态侪隐藏仔",
     "reason": "2026-10-08: Correct Wu dependency, map and server instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "custom-field-stringtemplate-format",
+    "before": "格式（使用 %{value} 作为占位符）",
+    "after": "格式（用 %{value} 当占位符）",
+    "reason": "2026-10-08: Correct Wu report and template instructions and creator/admin roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "custom-field-stringtemplate-separator",
+    "before": "分隔符（使用 &#32; 或 &nbsp; 表示空格）",
+    "after": "分隔符（用 &#32; 或者 &nbsp; 表示空格）",
+    "reason": "2026-10-08: Correct Wu report and template instructions and creator/admin roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "before": "按 Enter 添加更多项目",
+    "after": "按 Enter 来添加更多项目",
+    "reason": "2026-10-08: Correct Wu report and template instructions and creator/admin roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "creator",
+    "before": "创作者",
+    "after": "创建者",
+    "reason": "2026-10-08: Correct Wu report and template instructions and creator/admin roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "creator-on-minicard",
+    "before": "迷你卡上的创作者",
+    "after": "迷你卡片浪个创建者",
+    "reason": "2026-10-08: Correct Wu report and template instructions and creator/admin roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "securityReportTitle",
+    "before": "安全",
+    "after": "安全报告",
+    "reason": "2026-10-08: Correct Wu report and template instructions and creator/admin roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "impersonation-admin",
+    "before": "行政",
+    "after": "管理员",
+    "reason": "2026-10-08: Correct Wu report and template instructions and creator/admin roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "impersonation-user",
+    "before": "被模拟的用户",
+    "after": "身份畀模拟个用户",
+    "reason": "2026-10-08: Correct Wu report and template instructions and creator/admin roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "office-report-desc",
+    "before": "用户从何处登录，按用户分组。每个 IPv4 或 IPv6 地址会显示可用的国家、城市和成功登录次数。",
+    "after": "用户从啥地方登录，按人分组。每只 IPv4 或者 IPv6 地址侪显示查得到个国家、城市搭成功登录次数。",
+    "reason": "2026-10-08: Correct Wu report and template instructions and creator/admin roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "office-people",
+    "before": "人们",
+    "after": "人员",
+    "reason": "2026-10-08: Correct Wu report and template instructions and creator/admin roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "office-no-results",
+    "before": "尚无人登录，或尚未记录任何登录。",
+    "after": "还朆有人登录，或者还朆记录过登录。",
+    "reason": "2026-10-08: Correct Wu report and template instructions and creator/admin roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "api-report-desc",
+    "before": "使用了哪些 REST API 端点、由谁使用以及使用频率。每个账户和端点一行，并显示其涵盖的时间范围——绝不会为每个请求单独列一行。",
+    "after": "哪些 REST API 端点畀啥人用过、用仔几趟。每只账户搭端点配对列一行，显示涵盖个时间范围，勿会每趟请求侪单独列一行。",
+    "reason": "2026-10-08: Correct Wu report and template instructions and creator/admin roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "api-no-calls",
+    "before": "尚未记录任何 REST API 调用。除非 WITH_API=true，否则 API 处于关闭状态。",
+    "after": "还朆记录过 REST API 调用。只有设成 WITH_API=true，API 才开启。",
+    "reason": "2026-10-08: Correct Wu report and template instructions and creator/admin roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "recovery-report-desc",
+    "before": "自动的数据安全与修复操作：损坏检测、文本数据备份、还原、从 MongoDB 重新迁移，以及自动修复膨胀的数据库。",
+    "after": "自动保护数据搭修复个操作：检测损坏、备份文本数据、恢复、从 MongoDB 重新迁移，搭自动修复膨胀个数据库。",
+    "reason": "2026-10-08: Correct Wu report and template instructions and creator/admin roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "recovery-no-events",
+    "before": "没有记录到恢复事件。数据库状况良好。",
+    "after": "呒没记录到恢复事件。数据库状态正常。",
+    "reason": "2026-10-08: Correct Wu report and template instructions and creator/admin roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "recovery-maintenance-title",
+    "before": "正在恢复您的数据",
+    "after": "正在恢复侬个数据",
+    "reason": "2026-10-08: Correct Wu report and template instructions and creator/admin roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "recovery-maintenance-note",
+    "before": "请稍候 — 恢复完成后本页面会自动继续。",
+    "after": "请等一歇，恢复完成仔，搿页会自动继续。",
+    "reason": "2026-10-08: Correct Wu report and template instructions and creator/admin roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "display-card-creator",
+    "before": "显示卡创建器",
+    "after": "显示卡片创建者",
+    "reason": "2026-10-08: Correct Wu report and template instructions and creator/admin roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "minimize-card",
+    "before": "最小化卡",
+    "after": "最小化卡片",
+    "reason": "2026-10-08: Correct Wu report and template instructions and creator/admin roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "delete-org-warning-message",
+    "before": "无法删除该组织，至少有一个用户属于该组织",
+    "after": "删勿脱搿只组织，至少还有一只用户属于搿只组织",
+    "reason": "2026-10-08: Correct Wu report and template instructions and creator/admin roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "delete-team-warning-message",
+    "before": "无法删除该团队，至少有一个用户属于该团队",
+    "after": "删勿脱搿只团队，至少还有一只用户属于搿只团队",
+    "reason": "2026-10-08: Correct Wu report and template instructions and creator/admin roles; lower-confidence prose needs native review."
   }
 ]
