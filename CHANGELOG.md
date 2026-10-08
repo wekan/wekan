@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/de8392bd1fdcc4b4fde92b3260baab04b9671a53">Correct Tatar selection notification and role text</a></summary>
+
+- Correct 25 selection, notification and role strings, preserving source tokens,
+  action aliases, assigned-only visibility and settings restrictions.
+- Technical wording remains low confidence pending speaker review.
+- All 94 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/626802e5fa7aa2de626f294c67ca646acfee2866">Correct Tatar list actions and settings text</a></summary>
 
 - Correct 21 list, settings and login strings, preserving source tokens,
