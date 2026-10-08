@@ -8040,6 +8040,16 @@ targets and field-label aliases. Correct adjacent translations and source tokens
 were retained. Technical wording remains low confidence pending speaker review.
 Browser checks were not run. Further corrections and the broader audit remain.
 
+### Tatar field options and date-format notation
+
+Corrected 22 wrong-language field and editing strings and restored three date-format
+labels to their source notation (YYYY, MM, DD). Preserved correct adjacent values,
+including permanent-deletion guidance. Regression coverage checks exact format
+notation, none/unknown distinctions, Enter guidance, field-type vocabulary and
+start/due date differences. Source token inventories and key order remain intact.
+Technical wording remains low confidence pending speaker review. Browser checks
+were not run. Further corrections and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
