@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/df966f107c">Correct Wu search-logic help translations</a>. Thanks to xet7.</summary>
+
+Correct fifteen Wu search-help values. Preserve predicate variables, code examples,
+OR/AND semantics, negation, descending-sort syntax and positive page limits.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0ea8f7c6fd">Correct Wu search-help translations</a>. Thanks to xet7.</summary>
 
 Correct sixteen Wu search-help values. Preserve operator placeholders, literal
