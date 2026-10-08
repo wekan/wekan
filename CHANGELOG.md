@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1dbf7a2f2e">Translate Acehnese, Aymara, Guarani and Quechua warnings and correct five labels</a>. Thanks to xet7.</summary>
+
+Preserve repeated address variables and ROOT_URL in four warnings. Remove language
+prefixes and English text from five Aymara/Quechua labels. Warning coverage includes
+189 paths; warning, placeholder and correction-ledger suites and all 21 preservation
+checks pass. These translations have lower confidence and need native review.
+There are 18 English warning paths and a wider unfinished translation backlog.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4fd868561d">Translate Buryat, Chuvash and Sakha sign-in warnings</a>. Thanks to xet7.</summary>
 
 Preserve repeated address variables and ROOT_URL in three more warnings. Warning
