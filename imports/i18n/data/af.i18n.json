@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Wys veldetiket op minikaart",
   "showSum-field-on-list": "Wys som van velde boaan lys",
   "admin-only-field": "Slegs sigbaar vir bordadmins",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ja",
   "no": "Nee",
   "accounts": "Rekeninge",

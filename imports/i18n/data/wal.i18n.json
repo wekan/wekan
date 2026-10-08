@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Wolayttatto: Show sohuwaa malaataa bolla minicard",
   "showSum-field-on-list": "Wolayttatto: Show sum iya sohota at top iya mazgabaa",
   "admin-only-field": "Kaalluwaa halaqatuu xalaalu bettees",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ee",
   "no": "No",
   "accounts": "Akkawuntta",

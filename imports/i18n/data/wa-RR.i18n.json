@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Ipakita an label han field ha minicard",
   "showSum-field-on-list": "Ipakita an sumada han mga field ha igbaw han lista",
   "admin-only-field": "Nakikita la han mga administrador han board",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Oo",
   "no": "Diri",
   "accounts": "Mga Account",

@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Amosar la etiqueta del campu na minitarxeta",
   "showSum-field-on-list": "Mostra la suma de camps a la part superior de la llista",
   "admin-only-field": "Visible namás pa los alministradores del tableru",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Sí",
   "no": "No",
   "accounts": "Cuentas",

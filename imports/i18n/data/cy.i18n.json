@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Dangos label maes ar minicard",
   "showSum-field-on-list": "Dangos swm y meysydd ar frig y rhestr",
   "admin-only-field": "Gweladwy i weinyddwyr y bwrdd yn unig",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Oes",
   "no": "Nac ydw",
   "accounts": "Cyfrifon",

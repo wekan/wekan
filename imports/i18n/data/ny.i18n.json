@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Onetsani chizindikiro cha malo pa khadi laling'ono",
   "showSum-field-on-list": "Onetsani chiwerengero chonse cha malo pamwamba pa mndandanda",
   "admin-only-field": "Kuwoneka kwa oyang'anira bolodi okha",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Inde",
   "no": "Ayi",
   "accounts": "Maakaunti",

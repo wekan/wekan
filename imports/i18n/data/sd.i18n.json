@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "خاني جو ليبل ننڍي ڪارڊ تي ڏيکاريو",
   "showSum-field-on-list": "خانن جو مجموعو فهرست جي مٿي ڏيکاريو",
   "admin-only-field": "صرف بورڊ ايڊمنن لاءِ نظر ايندڙ",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "ها",
   "no": "نه",
   "accounts": "کاتا",

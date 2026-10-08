@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "دکھائیں خانہ لیبل پر مینیکارد",
   "showSum-field-on-list": "دکھائیں سوم کا فیےلدس ات توپ کا فہرست",
   "admin-only-field": "صرف بورڈ ایڈمنز کو نظر آتا ہے",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "ہاں",
   "no": "نہیں",
   "accounts": "اکاؤنٹس",

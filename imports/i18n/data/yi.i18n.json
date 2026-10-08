@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "ווייַזן פעלד פירמע אויף מיניקאַרד",
   "showSum-field-on-list": "ווייַזן סאַכאַקל פון פעלדער אין שפּיץ פון רשימה",
   "admin-only-field": "זעפֿטבאר נאָר פֿאַר באָרד־אַדמינען",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "יא",
   "no": "ניין",
   "accounts": "אַקאַונץ",

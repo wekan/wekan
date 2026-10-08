@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Nuna sunan fili a ƙaramin kati",
   "showSum-field-on-list": "Nuna jimillar filaye a saman jeri",
   "admin-only-field": "Ana gani ga masu gudanar da allo kawai",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ee",
   "no": "A'a",
   "accounts": "Asusu",

@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "ველის სახელის ჩვენება მინიბარათზე",
   "showSum-field-on-list": "ველების ჯამის ჩვენება სიის თავში",
   "admin-only-field": "ჩანს მხოლოდ დაფის ადმინისტრატორებისთვის",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "დიახ",
   "no": "არა",
   "accounts": "ანგარიშები",

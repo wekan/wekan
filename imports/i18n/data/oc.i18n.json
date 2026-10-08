@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Mostrar l’etiqueta del camp sus la minicarta",
   "showSum-field-on-list": "Mostrar la soma dels camps en naut de la lista",
   "admin-only-field": "Visible sonque pels administrators del tablèu",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Òc",
   "no": "Non",
   "accounts": "Comptes",

@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Mostrar a etiqueta do campo na minitarxeta",
   "showSum-field-on-list": "Mostrar a suma dos campos na parte superior da lista",
   "admin-only-field": "Visible só para os administradores do taboleiro",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Sim",
   "no": "Não",
   "accounts": "Contas",

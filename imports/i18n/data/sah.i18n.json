@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Паалата бэлиэтин кыра карточкаҕа көрдөр",
   "showSum-field-on-list": "Паалаталар сомаларын испииһэк үрдүгэр көрдөр",
   "admin-only-field": "Тик самбар администратордарыгар көстөр",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Сөп",
   "no": "Суох",
   "accounts": "Ааҕыылар",

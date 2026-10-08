@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "सानो कार्डमा फिल्ड लेबल देखाउनुहोस्",
   "showSum-field-on-list": "सूचीको माथि फिल्डहरूको योग देखाउनुहोस्",
   "admin-only-field": "केवल बोर्ड एडमिनहरूलाई देखिन्छ",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "हो",
   "no": "होइन",
   "accounts": "खाताहरू",

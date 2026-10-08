@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Khombisa ilebula yendzawo ekhadini lelincane",
   "showSum-field-on-list": "Khombisa samba setindzawo etulu kweluhlu",
   "admin-only-field": "Kuboniwa kuphela ngu-admin webhodi",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Yebo",
   "no": "Cha",
   "accounts": "Ema-akhawunti",

@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "عرض تسمية الحقل على البطاقة المصغرة",
   "showSum-field-on-list": "عرض مجموع الحقول أعلى القائمة",
   "admin-only-field": "مرئي لمسؤولي اللوحة فقط",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "نعم",
   "no": "لا",
   "accounts": "الحسابات",

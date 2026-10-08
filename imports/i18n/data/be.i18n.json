@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Паказваць метку поля на мінікартцы",
   "showSum-field-on-list": "Паказваць суму палёў уверсе спіса",
   "admin-only-field": "Бачна толькі адміністратарам дошкі",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Так",
   "no": "No",
   "accounts": "Акаўнты",

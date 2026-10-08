@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Minikardda meýdan belligini görkeziň",
   "showSum-field-on-list": "Sanawyň başynda meýdanlaryň jemini görkeziň",
   "admin-only-field": "Diňe tagta administratorlaryna görünýär",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Hawa",
   "no": ".Ok",
   "accounts": "Hasaplar",

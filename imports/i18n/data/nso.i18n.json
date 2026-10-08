@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Bontšha leina la lebala karataneng",
   "showSum-field-on-list": "Bontšha palomoka ya mabala godimo ga lenaneo",
   "admin-only-field": "E bonagala feela go batsamaiši ba board",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ee",
   "no": "Aowa",
   "accounts": "Diakhaonto",

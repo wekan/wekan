@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Erakutsi eremuen etiketa minitxateletan",
   "showSum-field-on-list": "Mostra la suma de camps a la part superior de la llista",
   "admin-only-field": "Taulako administratzaileentzat bakarrik ikusgai",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Bai",
   "no": "Ez",
   "accounts": "Kontuak",

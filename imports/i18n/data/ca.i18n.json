@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Mostra l'etiqueta del camp a la minifitxa",
   "showSum-field-on-list": "Mostra la suma de camps a la part superior de la llista",
   "admin-only-field": "Només visible per als administradors del tauler",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Si",
   "no": "No",
   "accounts": "Comptes",

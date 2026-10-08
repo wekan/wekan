@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Нишон додани барчаспи майдон дар корти хурд",
   "showSum-field-on-list": "Нишон додани ҷамъи майдонҳо дар болои рӯйхат",
   "admin-only-field": "Танҳо ба маъмурони тахта намоён аст",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ҳа",
   "no": "Не",
   "accounts": "Ҳисобҳо",

@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "uñachtʼayaña field chimpuncha patana minicard",
   "showSum-field-on-list": "uñachtʼayaña sum -na fields ukana top -na lista",
   "admin-only-field": "Tablero admin nayraqatakiw uñjasi",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Jisa",
   "no": "Janiwa",
   "accounts": "Jakhuwinaka",

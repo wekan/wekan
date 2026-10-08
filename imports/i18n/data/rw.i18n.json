@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Erekana akamenyetso k'umurima ku ikarita ntoyi",
   "showSum-field-on-list": "Erekana igiteranyo cy'imirima hejuru y'urutonde",
   "admin-only-field": "Bigaragara gusa ku banyamuryango bakuru b'ikibaho",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Yego",
   "no": "Oya",
   "accounts": "Konti",

@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Mostra ła eticheta del canpo so ła scheda picenina",
   "showSum-field-on-list": "Mostra la soma dei campi in cima a la lista",
   "admin-only-field": "Zwi vhonala nga vhalanguli vha bodo fhedzi",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Sì",
   "no": "Cha",
   "accounts": "Profili",

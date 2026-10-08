@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Sumbedza dzina ḽa fhethu ha data kha khadi ḽiṱuku",
   "showSum-field-on-list": "Sumbedza ṱhanganyelo ya fhethu ha data mathomoni a mutevhe",
   "admin-only-field": "Zwi vhonala nga vhalanguli vha bodo fhedzi",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Yebo",
   "no": "Cha",
   "accounts": "Ama-akhawunti",

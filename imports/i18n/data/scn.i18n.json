@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Mostra l'etichetta di campo su minicarta",
   "showSum-field-on-list": "Mostra la somma dei campi in cima alla lista",
   "admin-only-field": "Vìsibbili sulu pi l'amministraturi dâ tavula",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Sì",
   "no": "Nonzi",
   "accounts": "Cunti",

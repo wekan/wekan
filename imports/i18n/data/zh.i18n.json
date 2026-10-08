@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "在迷你卡片上显示字段标签",
   "showSum-field-on-list": "在列表顶部显示字段总和",
   "admin-only-field": "仅看板管理员可见",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "是",
   "no": "否",
   "accounts": "账号",

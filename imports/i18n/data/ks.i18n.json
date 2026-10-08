@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "لۄکٹس کارڈس پؠٹھ خانہٕ لیبل ہٲویو",
   "showSum-field-on-list": "فہرستِ ہنزِ سرس پؠٹھ خانن ہُنٛد جمع ہٲویو",
   "admin-only-field": "صرف بورڈ منتظمن ہِنٛدِس واسطہٕ منظُر",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "آں",
   "no": "نہ",
   "accounts": "کھاتہ",

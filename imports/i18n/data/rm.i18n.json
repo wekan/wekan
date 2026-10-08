@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Mussar l'eticheta di campo su minicarta",
   "showSum-field-on-list": "Mussar la somma di campi in cima ala glista",
   "admin-only-field": "Vesair mo per administraturs da la maisa",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Gea",
   "no": "Na",
   "accounts": "Contos",

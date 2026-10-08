@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "ratidza ndima chiratidzo pa minicard",
   "showSum-field-on-list": "ratidza sum ye ndima pa top ye rondedzero",
   "admin-only-field": "Inooneka nevatariri vebhodhi chete",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Hongu",
   "no": "Kwete",
   "accounts": "Maakaundi",

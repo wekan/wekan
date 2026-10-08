@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "WeKan: Ukázat štítek pole na minikartě",
   "showSum-field-on-list": "Pokazać zoučet polí v horní čázti lizćinau",
   "admin-only-field": "Widźomne jenož za administratorow tafle",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Haj",
   "no": "Ně",
   "accounts": "Konta",

@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "ମିନିକାର୍ଡରେ ଫିଲ୍ଡ ଲେବଲ୍ ଦେଖାନ୍ତୁ |",
   "showSum-field-on-list": "ତାଲିକାର ଶୀର୍ଷରେ କ୍ଷେତ୍ରଗୁଡିକର ସମଷ୍ଟି ଦେଖାନ୍ତୁ |",
   "admin-only-field": "କେବଳ ବୋର୍ଡ ଆଡମିନମାନଙ୍କ ପାଇଁ ଦୃଶ୍ୟମାନ",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "ହଁ",
   "no": "ନା",
   "accounts": "ଖାତା",

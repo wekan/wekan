@@ -279,6 +279,14 @@ Template.createCustomFieldPopup.events({
     $target.find('.materialCheckBox').toggleClass('is-checked');
     $target.toggleClass('is-checked');
   },
+  'click .js-field-read-only'(evt) {
+    let $target = $(evt.target);
+    if (!$target.hasClass('js-field-read-only')) {
+      $target = $target.parent();
+    }
+    $target.find('.materialCheckBox').toggleClass('is-checked');
+    $target.toggleClass('is-checked');
+  },
   'click .js-field-admin-only'(evt) {
     let $target = $(evt.target);
     if (!$target.hasClass('js-field-admin-only')) {
@@ -312,6 +320,10 @@ Template.createCustomFieldPopup.events({
     // them via a non-admin's save of the same field.
     if (tpl.find('.js-field-admin-only')) {
       data.adminOnly = tpl.find('.js-field-admin-only.is-checked') !== null;
+    }
+    // #3143: the same rule for read-only - only an admin's form carries it.
+    if (tpl.find('.js-field-read-only')) {
+      data.readOnly = tpl.find('.js-field-read-only.is-checked') !== null;
     }
 
     const currentData = Template.currentData();

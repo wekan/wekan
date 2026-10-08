@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Čájet gietti mearkka unni goartas",
   "showSum-field-on-list": "Čájet giettuid supmi listtu bajimusas",
   "admin-only-field": "Oidno dušše fáddásiiddu hálddašeddjiide",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Juo",
   "no": "Ii",
   "accounts": "Kontut",

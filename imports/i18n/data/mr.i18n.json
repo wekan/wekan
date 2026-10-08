@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "मिनिकार्डावर क्षेत्र लेबल दाखवा",
   "showSum-field-on-list": "यादीच्या शीर्षस्थानी क्षेत्रांची बेरीज दाखवा",
   "admin-only-field": "केवळ बोर्ड प्रशासकांना दृश्यमान",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "होय",
   "no": "नाही",
   "accounts": "खाती",

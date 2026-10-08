@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Visa fältetikett på minikort",
   "showSum-field-on-list": "Visa summan av alla fält i toppen av listan",
   "admin-only-field": "Endast synligt för tavleadministratörer",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ja",
   "no": "Nej",
   "accounts": "Konton",

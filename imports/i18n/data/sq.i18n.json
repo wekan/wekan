@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Shfaq etiketën e fushës në minikartë",
   "showSum-field-on-list": "Shfaq shumën e fushave në krye të listës",
   "admin-only-field": "Dukshëm vetëm për administratorët e tabelës",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Po",
   "no": "Jo",
   "accounts": "Llogaritë",

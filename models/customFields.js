@@ -121,6 +121,17 @@ CustomFields.attachSchema(
       type: Boolean,
       defaultValue: false,
     },
+    readOnly: {
+      /**
+       * #3143: when true, every board member SEES this custom field's value,
+       * but only a board admin can set or change it - a "display-only" field
+       * for a score or a computed value. Set through the REST API, a rule or
+       * by an admin. Enforced on the server with adminOnly's write guard
+       * (models/lib/adminOnlyCustomFields.js mayWriteField). Defaults to false.
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
     adminOnly: {
       /**
        * #3141: when true, this custom field's VALUE is hidden from - and

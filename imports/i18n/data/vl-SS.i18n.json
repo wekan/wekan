@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Toon veldnaam op minikaart",
   "showSum-field-on-list": "Toon totaal van velden bovenaan lijst",
   "admin-only-field": "Visibli sol par i aministradôrs dal tâblo",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ja",
   "no": "Nee",
   "accounts": "Gebruikersrekeningen",

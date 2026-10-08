@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Уй паллине кӗске карточка ҫинче кӑтартас",
   "showSum-field-on-list": "Уйсен суммине список пуҫӗнче кӑтартас",
   "admin-only-field": "Тухтармӑш администраторӗсемшӗн ҫеҫ курӑнать",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ҫапла",
   "no": "Ҫук",
   "accounts": "Аккаунтсем",

@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Sýna heiti reits á smáspjaldi",
   "showSum-field-on-list": "Sýna summu reita efst á lista",
   "admin-only-field": "Aðeins sýnilegt stjórnendum spjaldsins",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Já",
   "no": "Nei",
   "accounts": "Reikningar",

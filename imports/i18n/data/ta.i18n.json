@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "சிற்றட்டையில் புலத்தின் லேபிளைக் காட்டு",
   "showSum-field-on-list": "பட்டியலின் மேலே புலங்களின் கூட்டுத்தொகையைக் காட்டு",
   "admin-only-field": "போர்டு நிர்வாகிகளுக்கு மட்டுமே தெரியும்",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "ஆம்",
   "no": "இல்லை",
   "accounts": "கணக்குகள்",

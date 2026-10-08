@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Hollu maantorol gallal e kartal pamarel",
   "showSum-field-on-list": "Hollu renndo galle dow doggol",
   "admin-only-field": "Yiylotoo ko ngonaa admin táabalu",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Eey",
   "no": "Alaa",
   "accounts": "Konte",

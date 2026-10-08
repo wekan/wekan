@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Mustra etikètnan di campos den e minikarchi.",
   "showSum-field-on-list": "Mustra e suma di e campos den e parte superior di e lista",
   "admin-only-field": "Solamente ta bishibel pa e administradónan di e bòrchi",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Sí",
   "no": "Nò",
   "accounts": "Kuentanan",

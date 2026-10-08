@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Ялан тамғаһын мини-карточкала күрһәтергә",
   "showSum-field-on-list": "Яландар суммаһын исемлек өҫтөндә күрһәтергә",
   "admin-only-field": "Тик таҡта админдарына күренә",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Эйе",
   "no": "Юҡ",
   "accounts": "Иҫәп яҙмалары",

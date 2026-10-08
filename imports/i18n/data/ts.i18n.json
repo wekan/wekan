@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "komba nsimu mhaka eka mhaka",
   "showSum-field-on-list": "komba mhaka ya mhaka mhaka mhaka ya nxaxamelo",
   "admin-only-field": "Ku voneka ntsena eka vafambisi va bodo",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ina",
   "no": "E-e",
   "accounts": "Tiakhawunti",

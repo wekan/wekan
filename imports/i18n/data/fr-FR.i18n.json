@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Indiquer l'étiquette du champ sur la mini-carte",
   "showSum-field-on-list": "Afficher le total des champs en haut de liste",
   "admin-only-field": "Visible uniquement par les administrateurs du tableau",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Oui",
   "no": "Non",
   "accounts": "Comptes",

@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "نمایش لیبل فیلد در کارت‌های کوچک",
   "showSum-field-on-list": "نمایش مجموع فیلدها در بالای لیست",
   "admin-only-field": "فقط برای مدیران تخته قابل مشاهده است",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "بله",
   "no": "خیر",
   "accounts": "حساب‌ها",

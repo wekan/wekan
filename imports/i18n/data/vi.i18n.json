@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Hiển thị nhãn trường trên minicard",
   "showSum-field-on-list": "Papar jumlah ruang pada atas senarai",
   "admin-only-field": "Chỉ hiển thị với quản trị viên của bảng",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Có",
   "no": "Không",
   "accounts": "Tài khoản",

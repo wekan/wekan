@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Vís økismerki á smákortinum",
   "showSum-field-on-list": "Vís økissamlagið ovast í listanum",
   "admin-only-field": "Bert sjónlig fyri stjórnarfólk hjá tavluni",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ja",
   "no": "Nei",
   "accounts": "Kontur",

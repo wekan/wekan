@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Minicard دا مەيدان بەلگىسىنى كۆرسەت",
   "showSum-field-on-list": "تىزىملىكنىڭ ئۈستىدىكى بۆلەكلەرنىڭ يىغىندىسىنى كۆرسىتىڭ",
   "admin-only-field": "پەقەت تاختا باشقۇرغۇچىلىرىغىلا كۆرۈنىدۇ",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "ھەئە",
   "no": "ياق",
   "accounts": "ھېسابات",

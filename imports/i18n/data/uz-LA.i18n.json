@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Minikartada maydon yorlig'ini ko'rsatish",
   "showSum-field-on-list": "Roʻyxatning yuqori qismidagi maydonlar yigʻindisini koʻrsatish",
   "admin-only-field": "Faqat doska administratorlariga koʻrinadi",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ha",
   "no": "Yo'q",
   "accounts": "Hisoblar",

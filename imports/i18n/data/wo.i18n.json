@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Wone etiket bu wàllu dugal bi ci karta bu ndaw",
   "showSum-field-on-list": "Wone boolebu dayo yi ci wàllu dugal yi ci kaw limu bi",
   "admin-only-field": "Wonewul rekk ci admin bord bi",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Waaw",
   "no": "Déedéet",
   "accounts": "Kont",

@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Toan fjild label op minicard",
   "showSum-field-on-list": "Toan som fan fjilden boppe oan list",
   "admin-only-field": "Allinnich sichtber foar boerdbehearders",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ja",
   "no": "Nee",
   "accounts": "Akkounts",

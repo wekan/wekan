@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Seall leubail an raoin air a' mhion-chairt",
   "showSum-field-on-list": "Seall suim nan raointean aig barr na liosta",
   "admin-only-field": "Chan fhaic ach rianairean a' bhùird e",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Tha",
   "no": "Chan eil",
   "accounts": "Cunntasan",

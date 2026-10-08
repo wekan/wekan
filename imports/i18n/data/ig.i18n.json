@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Gosi akara ubi na minikaadị",
   "showSum-field-on-list": "Gosi mkpokọta mpaghara n'elu ndepụta",
   "admin-only-field": "Ọ na-apụta naanị maka ndị nchịkwa bọọdụ",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ee",
   "no": "Mba",
   "accounts": "Akaụntụ",

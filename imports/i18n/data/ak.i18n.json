@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Kyerɛ afã no agyiraehyɛde wɔ kaad ketewa so",
   "showSum-field-on-list": "Kyerɛ afã botae a wɔaka abom wɔ din a wɔahyehyɛ no atifi",
   "admin-only-field": "Bɔɔd sohwɛfo nkutoo na wohu",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Aane",
   "no": "Daabi",
   "accounts": "Akontaa",

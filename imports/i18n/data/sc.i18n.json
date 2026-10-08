@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Mostra l'eticheta di campo su minischeda",
   "showSum-field-on-list": "Mostra la somma dei campi in cima a sa lista",
   "admin-only-field": "Visibile isceti pro is amministradoris de sa taula",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Eja",
   "no": "Nono",
   "accounts": "Contos",

@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Soim mak bilong fil long liklik kat",
   "showSum-field-on-list": "Soim sum bilong fields long top bilong lis",
   "admin-only-field": "Ol admin bilong bod tasol i ken lukim",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Em nau",
   "no": "Nogat",
   "accounts": "Ol akaun",

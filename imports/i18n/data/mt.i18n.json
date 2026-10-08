@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Uri field label fuq minicard",
   "showSum-field-on-list": "Uri sum ta’ fields fi top ta’ lista",
   "admin-only-field": "Viżibbli biss għall-amministraturi tal-bord",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Iva",
   "no": "Le",
   "accounts": "Kontijiet",

@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Өріс белгісін шағын карточкада көрсету",
   "showSum-field-on-list": "Өрістер қосындысын тізімнің жоғарғы жағында көрсету",
   "admin-only-field": "Тек тақта әкімшілеріне көрінеді",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Иә",
   "no": "Жоқ",
   "accounts": "Тіркелгілер",

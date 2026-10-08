@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Vakaraitaka na ivakatakilakila ni vanua ena kadi lailai",
   "showSum-field-on-list": "Vakaraitaka na isoqoni ni vanua ena ulu ni lisi",
   "admin-only-field": "Rai wale ga na turaga ni veiliutaki ni bod",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Io",
   "no": "Sega",
   "accounts": "Na akaudi",

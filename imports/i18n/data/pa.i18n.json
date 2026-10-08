@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "ਮਿਨੀਕਾਰਡ 'ਤੇ ਫੀਲਡ ਲੇਬਲ ਦਿਖਾਓ",
   "showSum-field-on-list": "ਸੂਚੀ ਦੇ ਸਿਖਰ 'ਤੇ ਖੇਤਰਾਂ ਦਾ ਜੋੜ ਦਿਖਾਓ",
   "admin-only-field": "ਸਿਰਫ਼ ਬੋਰਡ ਐਡਮਿਨਾਂ ਨੂੰ ਦਿਖਾਈ ਦਿੰਦਾ ਹੈ",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "ਹਾਂ",
   "no": "ਨੰ",
   "accounts": "ਖਾਤੇ",

@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Прикажи натпис ове рубрике на омоту предмета",
   "showSum-field-on-list": "Prikaži zbir vrijednosti polja na vrhu liste",
   "admin-only-field": "Vidljivo samo administratorima table",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Da",
   "no": "Ne",
   "accounts": "Nalozi",

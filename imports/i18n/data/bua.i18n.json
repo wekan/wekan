@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Бишыхан картада талбарай тэмдэг харуулха",
   "showSum-field-on-list": "Жагсаалтын эхиндэ талбарнуудай ниилбэри харуулха",
   "admin-only-field": "Зүвхэн самбарай админуудта харагдана",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Тиимэ",
   "no": "Үгы",
   "accounts": "Дансанууд",

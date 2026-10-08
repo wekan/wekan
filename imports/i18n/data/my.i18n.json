@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "ကတ်ငယ်ပေါ်တွင် အကွက်အညွှန်း ပြရန်",
   "showSum-field-on-list": "စာရင်းထိပ်တွင် အကွက်များ၏ စုစုပေါင်း ပြရန်",
   "admin-only-field": "ဘုတ်အဖွဲ့ အက်ဒမင်များအတွက်သာ မြင်ရသည်",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "ဟုတ်ကဲ့",
   "no": "မဟုတ်ပါ",
   "accounts": "အကောင့်များ",

@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "在迷你卡片中顯示欄位標籤",
   "showSum-field-on-list": "在清單頂端顯示欄位總合",
   "admin-only-field": "僅看板管理員可見",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "是",
   "no": "否",
   "accounts": "帳號",

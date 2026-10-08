@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Ipakita field etiketa sa minikard",
   "showSum-field-on-list": "Ipakita sum of fields sa itaas of listahan",
   "admin-only-field": "Nakikita lamang ng mga admin ng board",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Oo",
   "no": "Hindi",
   "accounts": "Mga account",

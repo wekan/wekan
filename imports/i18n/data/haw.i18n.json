@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "hōʻike pielaka lepili ma minikalaka",
   "showSum-field-on-list": "hōʻike kuma o pielakaka ma kopa o papa inoa",
   "admin-only-field": "ʻIke ʻia e nā luna hoʻomalu papa wale nō",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "ʻAe",
   "no": "ʻAʻole",
   "accounts": "Nā moʻokāki",

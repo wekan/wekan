@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Zobraziť štítok poľa na minikarte",
   "showSum-field-on-list": "Pokaż sumę pól na górze listy",
   "admin-only-field": "Viditeľné iba pre administrátorov nástenky",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ano",
   "no": "Ne",
   "accounts": "Účty",

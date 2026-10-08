@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Mostra l'eticheta di campo su miniciarta",
   "showSum-field-on-list": "Mostra la somma di campi in cima ala lista",
   "admin-only-field": "Visibl mo per i aministradus dl liber",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Sci",
   "no": "No, nia",
   "accounts": "Cunć",

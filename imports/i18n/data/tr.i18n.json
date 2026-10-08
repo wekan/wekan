@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Minikard üzerindeki alan etiketini göster",
   "showSum-field-on-list": "Toplan alan sayısını listenin üstünde göster",
   "admin-only-field": "Yalnızca pano yöneticileri tarafından görülebilir",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Evet",
   "no": "Hayır",
   "accounts": "Hesaplar",

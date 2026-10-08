@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Taishbyn cowrey magher er kaart veg",
   "showSum-field-on-list": "Taishbyn sym magheryn er mullagh y rolley",
   "admin-only-field": "Ry akin lught-reill y voayrd",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ta",
   "no": "Cha nel",
   "accounts": "Coontyssyn",

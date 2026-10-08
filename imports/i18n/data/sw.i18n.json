@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Onyesha lebo ya sehemu kwenye kadi ndogo",
   "showSum-field-on-list": "Onyesha jumla ya sehemu juu ya orodha",
   "admin-only-field": "Inaonekana kwa wasimamizi wa bodi pekee",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ndiyo",
   "no": "Hapana",
   "accounts": "Hesabu",

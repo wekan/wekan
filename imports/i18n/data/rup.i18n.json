@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Aratã eticheta a cãmpului pi minicartã",
   "showSum-field-on-list": "Afficher le total des champs en haut di liste",
   "admin-only-field": "Vizibil mash trâ administratorlji a bordului",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Da",
   "no": "Nu",
   "accounts": "Conturi",

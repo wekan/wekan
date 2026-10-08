@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "সৰু কাৰ্ডত ক্ষেত্ৰৰ লেবেল দেখুৱাওক",
   "showSum-field-on-list": "তালিকাৰ ওপৰত ক্ষেত্ৰসমূহৰ যোগফল দেখুৱাওক",
   "admin-only-field": "কেৱল ব'ৰ্ড এডমিনসকলৰ বাবে দৃশ্যমান",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "হয়",
   "no": "নহয়",
   "accounts": "একাউণ্ট",

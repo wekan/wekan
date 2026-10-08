@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Papar label ruang pada kad mini",
   "showSum-field-on-list": "Papar jumlah ruang pada atas senarai",
   "admin-only-field": "Hanya kelihatan kepada pentadbir papan",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ya",
   "no": "Tidak",
   "accounts": "Akau",

@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Fia agble ƒe dzesi le kaɖivi dzi",
   "showSum-field-on-list": "Fia agblewo ƒe agbɔsɔsɔ le xexlẽdzesi tame",
   "admin-only-field": "Ele nyanyui ɖeɖeko na board admin",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ɛ̃",
   "no": "Ao",
   "accounts": "Akɔntawo",

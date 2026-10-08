@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Montri kampan etikedon sur minikarto",
   "showSum-field-on-list": "Montri sumon de kampoj supre de listo",
   "admin-only-field": "Videbla nur al la administrantoj de la tabulo",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Jes",
   "no": "Ne",
   "accounts": "Kontoj",

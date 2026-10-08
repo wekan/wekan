@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "කුඩා කාඩ්පතේ ක්ෂේත්‍ර ලේබලය පෙන්වන්න",
   "showSum-field-on-list": "ලැයිස්තුවේ ඉහළින් ක්ෂේත්‍රවල එකතුව පෙන්වන්න",
   "admin-only-field": "පුවරු පරිපාලකයින්ට පමණක් පෙනේ",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "ඔව්",
   "no": "නැහැ",
   "accounts": "ගිණුම්",

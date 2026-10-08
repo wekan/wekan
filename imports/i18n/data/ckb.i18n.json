@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "ناونیشانی خانە لە کارتی بچووک پیشان بدە",
   "showSum-field-on-list": "کۆی خانەکان لە سەرەوەی لیست پیشان بدە",
   "admin-only-field": "تەنها بۆ بەڕێوەبەرانی بۆرد دیارە",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "بەڵێ",
   "no": "نەخێر",
   "accounts": "هەژمارەکان",

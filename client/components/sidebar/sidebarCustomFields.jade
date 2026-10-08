@@ -101,6 +101,10 @@ template(name="createCustomFieldPopup")
             a.flex.js-field-admin-only(class="{{#if adminOnly}}is-checked{{/if}}")
                 .materialCheckBox(class="{{#if adminOnly}}is-checked{{/if}}")
                 span {{_ 'admin-only-field'}}
+            //- #3143: every member sees the value; only a board admin sets it.
+            a.flex.js-field-read-only(class="{{#if readOnly}}is-checked{{/if}}")
+                .materialCheckBox(class="{{#if readOnly}}is-checked{{/if}}")
+                span {{_ 'read-only-field'}}
 
         button.primary.wide.left(type="button")
             | {{_ 'save'}}

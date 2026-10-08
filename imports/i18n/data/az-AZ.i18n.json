@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Minikartda sahə etiketini göstərin",
   "showSum-field-on-list": "Siyahının yuxarısında sahələrin cəmini göstərin",
   "admin-only-field": "Yalnız lövhə adminlərinə görünür",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Bəli",
   "no": "yox",
   "accounts": "Hesablar",

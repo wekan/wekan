@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Xicnexti tlalli imachiouh ipan amatlapaltontli",
   "showSum-field-on-list": "Xicnexti tlaltin nechicoliztli tlacpac ipan tocatlahtolli",
   "admin-only-field": "Zan monextia intech tlapachoanih",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Quema",
   "no": "Ahmo",
   "accounts": "Tlapohualiztli",

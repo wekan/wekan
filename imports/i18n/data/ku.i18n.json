@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Etîketa qadê li kartika biçûk nîşan bide",
   "showSum-field-on-list": "Koma qadan li serê lîsteyê nîşan bide",
   "admin-only-field": "Tenê ji rêveberên texte re xuya ye",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Erê",
   "no": "Na",
   "accounts": "Hesab",

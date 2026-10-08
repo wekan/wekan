@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Foroba taamasiyɛn jira minikarata kan",
   "showSum-field-on-list": "Forobaw lajɛlen jira lisiti sanfɛ",
   "admin-only-field": "Kunnafoni in ye a to admin kelenpe ye",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Awɔ",
   "no": "Ayi",
   "accounts": "Jatebɔw",

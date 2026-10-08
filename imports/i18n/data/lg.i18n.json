@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Laga nnimiro kabonero ku minicard",
   "showSum-field-on-list": "Laga sum lya nnimiro ku waggulu lya lukalala",
   "admin-only-field": "Kirabika eri baamalamu ba bbodi bokka",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Yee",
   "no": "Nedda",
   "accounts": "Akkawunti",

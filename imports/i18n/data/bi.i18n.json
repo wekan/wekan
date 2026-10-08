@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Show field mak long minicard",
   "showSum-field-on-list": "Show sum blong fields long top blong lis",
   "admin-only-field": "Admin blong bod nomo i save luk",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Yo",
   "no": "Nogat",
   "accounts": "Ol akaon",

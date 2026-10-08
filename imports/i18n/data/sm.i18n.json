@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Faaali le igoa o le fanua i le pepa laitiiti",
   "showSum-field-on-list": "Faaali le aofaiga o fanua i le pito i luga o le lisi",
   "admin-only-field": "E vaaia e le au pule laupapa e toatasi",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ioe",
   "no": "Leai",
   "accounts": "Akaunia",

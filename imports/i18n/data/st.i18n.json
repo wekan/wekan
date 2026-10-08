@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Bontsha leibole ya sebaka kareteng e nyenyane",
   "showSum-field-on-list": "Bontsha kakaretso ya dibaka hodimo lenaneng",
   "admin-only-field": "E bonahala feela ho batsamaisi ba boto",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "E",
   "no": "Che",
   "accounts": "Diakhaonto",

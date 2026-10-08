@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Mustrà l'etichetta di campo su minischeda",
   "showSum-field-on-list": "Mustrà la somma dei campi in cima alla lista",
   "admin-only-field": "Visibile solu da l'amministratori di a tavula",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Iè",
   "no": "Innò",
   "accounts": "Conti",

@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Whakaatu tapanga āpure ki te kāri iti",
   "showSum-field-on-list": "Whakaatu tapeke āpure ki runga o te rārangi",
   "admin-only-field": "Ka kitea e ngā kaiwhakahaere papa anake",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Āe",
   "no": "Kāo",
   "accounts": "Ngā pūkete",

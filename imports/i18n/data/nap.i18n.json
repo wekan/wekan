@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Mostra ll'etichetta d'o campo ncopp'a minicarta",
   "showSum-field-on-list": "Mostra 'a somma d'e campe ncopp'a lista",
   "admin-only-field": "Visibbele sulamente pe ll'amministrature d''a bacheca",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Sì",
   "no": "No",
   "accounts": "Cunte",

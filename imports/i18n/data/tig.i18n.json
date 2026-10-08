@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "ስም ሜዳ ኣብ ንኡስ ካርድ ኣርኢ",
   "showSum-field-on-list": "ድምር ሜዳታት ኣብ ላዕሊ ዝርዝር ኣርኢ",
   "admin-only-field": "ንኣመሓደርቲ ቦርድ ጥራይ ይረአ",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "አይወ",
   "no": "ኣይ",
   "accounts": "ሕሳባት",

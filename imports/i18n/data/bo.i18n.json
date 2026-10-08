@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "བྱང་བུ་ཆུང་བར་ས་ཁོངས་རྟགས་སྟོན།",
   "showSum-field-on-list": "ཐོ་གཞུང་གི་སྟེང་དུ་ས་ཁོངས་བསྡོམས་སྟོན།",
   "admin-only-field": "Board admin ལ་མཐོང་རྒྱུ།",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "ཡིན།",
   "no": "མིན།",
   "accounts": "རྩིས་ཐོ།",

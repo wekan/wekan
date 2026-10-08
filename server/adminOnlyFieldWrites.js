@@ -67,7 +67,8 @@ for (const operation of ['updateAsync', 'upsertAsync', 'removeAsync']) {
       }
       for (const row of rows) {
         const after = operation === 'removeAsync' ? null : modifiedCard(row, modifier);
-        if (row.adminOnly || after?.adminOnly) {
+        // #3143: turning readOnly on or off is an admin's change, like adminOnly.
+        if (row.adminOnly || after?.adminOnly || row.readOnly || after?.readOnly) {
           const boardIds = new Set([...(row.boardIds || []), ...(after?.boardIds || [])]);
           if (!boardIds.size || [...boardIds].some(id => !policy.adminBoards.has(id))) fieldWriteDenied(userId, 'customFields.definition');
         }

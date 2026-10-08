@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "បង្ហាញស្លាកវាលនៅលើកាតតូច",
   "showSum-field-on-list": "បង្ហាញផលបូកនៃវាលនៅផ្នែកខាងលើនៃបញ្ជី",
   "admin-only-field": "មើលឃើញសម្រាប់តែអ្នកគ្រប់គ្រងក្តារប៉ុណ្ណោះ",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "បាទ",
   "no": "ទេ",
   "accounts": "គណនី",

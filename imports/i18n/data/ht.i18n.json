@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Montre etikèt chan an sou mini-kat",
   "showSum-field-on-list": "Montre total chan yo anlè lis la",
   "admin-only-field": "Vizib sèlman pou admin tablo a",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Wi",
   "no": "Non",
   "accounts": "Kont",

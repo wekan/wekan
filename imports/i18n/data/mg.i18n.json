@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Asehoy amin'ny karatra kely ny mariky ny saha",
   "showSum-field-on-list": "Asehoy eo an-tampon'ny lisitra ny fitambaran'ny saha",
   "admin-only-field": "Hita fotsiny amin'ny mpitantana ny fikambanana",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Eny",
   "no": "Tsia",
   "accounts": "Kaonty",

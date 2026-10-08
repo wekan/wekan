@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Tampilkan label kolom pada kartu mini",
   "showSum-field-on-list": "Tampilkan jumlah nilai kolom di bagian atas daftar",
   "admin-only-field": "Hanya terlihat oleh admin board",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ya",
   "no": "Tidak",
   "accounts": "Akun",

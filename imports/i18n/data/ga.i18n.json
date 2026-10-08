@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Taispeáin lipéad réimse ar mhionchárta",
   "showSum-field-on-list": "Taispeáin suim réimsí ag barr an liosta",
   "admin-only-field": "Ní fheiceann ach riarthóirí an chláir é",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Tá",
   "no": "Níl",
   "accounts": "Cuntais",

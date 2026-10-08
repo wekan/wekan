@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "ಮಿನಿಕಾರ್ಡ್‌ನಲ್ಲಿ ಕ್ಷೇತ್ರದ ಲೇಬಲ್ ತೋರಿಸಿ",
   "showSum-field-on-list": "ಪಟ್ಟಿಯ ಮೇಲ್ಭಾಗದಲ್ಲಿ ಕ್ಷೇತ್ರಗಳ ಮೊತ್ತ ತೋರಿಸಿ",
   "admin-only-field": "ಬೋರ್ಡ್ ನಿರ್ವಾಹಕರಿಗೆ ಮಾತ್ರ ಗೋಚರಿಸುತ್ತದೆ",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "ಹೌದು",
   "no": "ಇಲ್ಲ",
   "accounts": "ಖಾತೆಗಳು",

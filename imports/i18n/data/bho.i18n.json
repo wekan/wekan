@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "छोट कार्ड पर खेत के लेबल देखाईं",
   "showSum-field-on-list": "सूची के ऊपर खेतन के जोड़ देखाईं",
   "admin-only-field": "खाली बोर्ड एडमिन खातिर देखाई द ई",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "हँ",
   "no": "ना",
   "accounts": "खाता",

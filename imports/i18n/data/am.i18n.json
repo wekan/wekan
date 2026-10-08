@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "የመስክ መለያን በትንሽ ካርድ ላይ አሳይ",
   "showSum-field-on-list": "የመስኮችን ድምር ከዝርዝሩ ላይ አሳይ",
   "admin-only-field": "ለቦርድ አስተዳዳሪዎች ብቻ ይታያል",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "አዎ",
   "no": "አይ",
   "accounts": "መለያዎች",

@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "মিনিকার্ডে ক্ষেত্রের লেবেল দেখান",
   "showSum-field-on-list": "তালিকার শীর্ষে ক্ষেত্রগুলোর যোগফল দেখান",
   "admin-only-field": "শুধুমাত্র বোর্ড অ্যাডমিনদের জন্য দৃশ্যমান",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "হ্যাঁ",
   "no": "না",
   "accounts": "অ্যাকাউন্ট",

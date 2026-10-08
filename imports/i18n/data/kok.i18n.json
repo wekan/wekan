@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "ल्हानकार्डाचेर क्षेत्र लेबल दाखयात",
   "showSum-field-on-list": "वळेरीच्या माथ्यार क्षेत्रांची बेरीज दाखयात",
   "admin-only-field": "फकत बोर्ड प्रशासकांक दिसता",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "हंय",
   "no": "ना",
   "accounts": "खातीं",

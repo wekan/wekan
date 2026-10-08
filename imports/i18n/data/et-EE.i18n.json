@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Välja sildi kuvamine minikaardil",
   "showSum-field-on-list": "Näita väljade summat nimekirja ülaosas",
   "admin-only-field": "Nähtav ainult tahvli administraatoritele",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Jah",
   "no": "Ei",
   "accounts": "Kontod",

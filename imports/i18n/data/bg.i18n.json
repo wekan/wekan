@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Покажи име на поле на мини-картата",
   "showSum-field-on-list": "Показване на сумата на полетата в началото на списъка",
   "admin-only-field": "Видимо само за администраторите на дъската",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Да",
   "no": "Не",
   "accounts": "Профили",

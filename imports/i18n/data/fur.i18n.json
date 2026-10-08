@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Mostre l'etichete di campo su minicjarte",
   "showSum-field-on-list": "Mostre la somma dai campi in cima alla lista",
   "admin-only-field": "Visibil dome pai aministradôrs de bachede",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Sì",
   "no": "Par furlan: No",
   "accounts": "Conts",

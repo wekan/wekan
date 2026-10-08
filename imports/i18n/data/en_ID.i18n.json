@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Show field label on minicard",
   "showSum-field-on-list": "Show sum of fields at top of list",
   "admin-only-field": "Visible only to board admins",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Yes",
   "no": "No",
   "accounts": "Accounts",

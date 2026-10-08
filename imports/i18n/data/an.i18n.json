@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Amostrar a etiqueta d’o campo en a minitarcheta",
   "showSum-field-on-list": "Mostrar la suma de os campos en la parte superior de la lista",
   "admin-only-field": "Visible nomás ta ra almins d'o tablero",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Sí",
   "no": "En aragonés: No",
   "accounts": "Cuentas",

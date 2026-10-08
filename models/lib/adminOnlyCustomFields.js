@@ -38,13 +38,31 @@ function containsFields(value, seen = new WeakSet()) {
     Object.hasOwn(value, 'previousHash') || value.field === 'customFields' ||
     Object.values(value).some(child => containsFields(child, seen));
 }
+// #3143: a read-only field is readable by every member, writable only by an
+// admin of every board it belongs to (like reading an adminOnly one).
+function mayWriteField(definition, boardId, adminBoards) {
+  if (!mayReadField(definition, boardId, adminBoards)) return false;
+  if (!definition.readOnly) return true;
+  const boards = boardId ? [boardId] : definition.boardIds;
+  return !!boards?.length && boards.every(id => adminBoards.has(id));
+}
+// The values of the read-only fields this user may not write, empty ones
+// included as null: setting an empty read-only field is a write too.
+function writeProtectedValues(card, definitions, adminBoards) {
+  return (card?.customFields || []).filter(field => field && definitions.get(field._id)?.readOnly &&
+    mayReadField(definitions.get(field._id), card.boardId, adminBoards) &&
+    !mayWriteField(definitions.get(field._id), card.boardId, adminBoards))
+    .map(field => ({ _id: field._id, value: field.value === undefined ? null : field.value }))
+    .filter(field => field.value !== null)
+    .sort((a, b) => (a._id < b._id ? -1 : a._id > b._id ? 1 : 0));
+}
 // Compare ALL protected values, including deletion, reindexing, whole-array and
 // non-$set updates. The caller applies the modifier with Meteor's own engine.
 function protectedValues(card, definitions, adminBoards) {
   return (card?.customFields || []).filter(field => field && field.value !== null && field.value !== undefined &&
     !mayReadField(definitions.get(field._id), card.boardId, adminBoards));
 }
-module.exports = { mayReadField, redact, containsFields, protectedValues };
+module.exports = { mayReadField, mayWriteField, redact, containsFields, protectedValues, writeProtectedValues };
 
 // Value searches must not become an oracle for a value hidden in the response.
 // Bind every value predicate to a readable field ID, including lazy-window

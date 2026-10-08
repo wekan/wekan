@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Миникарточкада кыр тамгасын күрсәтү",
   "showSum-field-on-list": "Исемлек өстендә кырларның суммасын күрсәтү",
   "admin-only-field": "Тик такта администраторларына күренә",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Әйе",
   "no": "Юк",
   "accounts": "Хисаплар",

@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Bonisa ileyibhile yendawo kwikhadi elincinci",
   "showSum-field-on-list": "Bonisa isixa semihlaba phezulu kuluhlu",
   "admin-only-field": "Ibonakala kubalawuli beblodi kuphela",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ewe",
   "no": "Hayi",
   "accounts": "Iiakhawunti",

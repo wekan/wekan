@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "મિનીકાર્ડ પર ફીલ્ડ લેબલ બતાવો",
   "showSum-field-on-list": "સૂચિની ટોચ પર ફીલ્ડનો સરવાળો બતાવો",
   "admin-only-field": "ફક્ત બોર્ડ એડમિન માટે દૃશ્યમાન",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "હા",
   "no": "ના",
   "accounts": "એકાઉન્ટ્સ",

@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Ցույց տալ դաշտի պիտակը մինի քարտի վրա",
   "showSum-field-on-list": "Ցուցադրել ցուցակի վերևում գտնվող դաշտերի գումարը",
   "admin-only-field": "Տեսանելի է միայն տախտակի ադմինիստրատորներին",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Այո՛",
   "no": "Ոչ",
   "accounts": "Հաշիվներ",

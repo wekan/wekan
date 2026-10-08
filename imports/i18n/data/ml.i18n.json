@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "മിനികാർഡിൽ ഫീൽഡ് ലേബൽ കാണിക്കുക",
   "showSum-field-on-list": "പട്ടികയുടെ മുകളിൽ ഫീൽഡുകളുടെ ആകെത്തുക കാണിക്കുക",
   "admin-only-field": "ബോർഡ് അഡ്മിനുകൾക്ക് മാത്രം ദൃശ്യമാണ്",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "അതെ",
   "no": "അല്ല",
   "accounts": "അക്കൗണ്ടുകൾ",

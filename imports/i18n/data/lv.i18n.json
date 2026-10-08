@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Rādīt lauku nosaukumus mini kartiņā",
   "showSum-field-on-list": "Rādīt lauku summu saraksta augšdaļā",
   "admin-only-field": "Redzams tikai dēļa administratoriem",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Jā",
   "no": "Nē",
   "accounts": "Konti",

@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "మినీకార్డ్‌పై ఫీల్డ్ లేబుల్‌ని చూపండి",
   "showSum-field-on-list": "జాబితా ఎగువన ఫీల్డ్‌ల మొత్తాన్ని చూపండి",
   "admin-only-field": "బోర్డు నిర్వాహకులకు మాత్రమే కనిపిస్తుంది",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "అవును",
   "no": "నం",
   "accounts": "ఖాతాలు",

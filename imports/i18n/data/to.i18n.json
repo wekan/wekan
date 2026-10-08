@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Faka-Tonga: Show field label on minicard",
   "showSum-field-on-list": "Faka-Tonga: Show sum of fields at top of lisi",
   "admin-only-field": "Hā mai pe ki he kau pule pea pooti",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "ʻIo",
   "no": "ʻIkai",
   "accounts": "Ngaahi ʻakauni",

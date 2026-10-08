@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "ᒥᑭᔪᒥ ᐊᓪᓚᖅᓯᒪᔪᒥ ᐃᓂᐅᑉ ᓇᓗᓇᐃᒃᑯᑖ ᑕᑯᑎᓪᓗᒍ",
   "showSum-field-on-list": "ᑎᑎᖅᑲᓕᐊᐅᑉ ᖁᓛᓂ ᐃᓃᑦ ᑲᑎᓐᓂᖏᑦ ᑕᑯᑎᓪᓗᒋᑦ",
   "admin-only-field": "ᐊᒥᓲᖅ ᑐᙵᓴᖅᑎᓄᑦ ᑕᑯᓐᓇᖅᑐᖅ",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "ᐄ",
   "no": "ᐋᒃᑲ",
   "accounts": "ᐊᑯᐊᓐᑏᑦ",

@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "แสดงป้ายกำกับของฟิลด์บนมินิการ์ด",
   "showSum-field-on-list": "แสดงผลรวมของฟิลด์ที่ด้านบนของรายการ",
   "admin-only-field": "มองเห็นได้เฉพาะผู้ดูแลบอร์ดเท่านั้น",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "ใช่",
   "no": "ไม่",
   "accounts": "บัญชี",

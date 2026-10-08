@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Показать имя поля на карточке",
   "showSum-field-on-list": "Показать итоги полей сверху списка",
   "admin-only-field": "Видно только администраторам доски",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Да",
   "no": "Нет",
   "accounts": "Учетные записи",

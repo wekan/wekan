@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "ምልክት ዓውዲ ኣብ ንኡስ ካርድ ኣርኢ",
   "showSum-field-on-list": "ድምር ዓውድታት ኣብ ላዕሊ ዝርዝር ኣርኢ",
   "admin-only-field": "ንኣመሓደርቲ ቦርድ ጥራይ ይረአ",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "እወ",
   "no": "ኣይፋል",
   "accounts": "ሕሳባት",

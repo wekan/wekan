@@ -152,7 +152,14 @@ Blaze.registerHelper('displayDate', (...args) => {
 });
 
 Blaze.registerHelper('canModifyCard', function canModifyCard() {
-  return Utils.canModifyCard(this);
+  if (!Utils.canModifyCard(this)) return false;
+  // #3143: a read-only custom field is shown to every member, but only a board
+  // admin edits it; the server refuses anybody else (adminOnlyFieldWrites.js).
+  if (this && this.definition && this.definition.readOnly) {
+    const user = ReactiveCache.getCurrentUser();
+    return !!(user && typeof user.isBoardAdmin === 'function' && user.isBoardAdmin());
+  }
+  return true;
 });
 
 Blaze.registerHelper('canMoveCard', () => Utils.canMoveCard());

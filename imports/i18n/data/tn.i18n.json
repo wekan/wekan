@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Bontsha lefelo letshwao mo karata e nnye",
   "showSum-field-on-list": "Bontsha sum ya mafelo kwa godimo ya lenaane",
   "admin-only-field": "E bonala fela mo balaodi ba board",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ee",
   "no": "Nnyaa",
   "accounts": "Diakhaonto",

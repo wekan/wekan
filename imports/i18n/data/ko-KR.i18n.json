@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "미니카드에 필드 이름 표시",
   "showSum-field-on-list": "리스트 상단에 필드 합계 표시",
   "admin-only-field": "보드 관리자에게만 표시됩니다",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "예",
   "no": "아니오",
   "accounts": "계정",

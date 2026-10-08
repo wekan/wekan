@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Kay willaymi: Rikuchiy K'ancha Unancha Kawsachisqa minicardta",
   "showSum-field-on-list": "Kay willaymi: Rikuchiy sumta pa K'anchakuna atta topta pa Sinri",
   "admin-only-field": "Tablakuna kamachiqkunallapaq rikuchikun",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Arí",
   "no": "Manam",
   "accounts": "Cuentakuna",

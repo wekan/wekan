@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Pokoż pole etykiety we minikarcie",
   "showSum-field-on-list": "Pokoż sumę pól na górze listy",
   "admin-only-field": "Widoczne yno dlŏ administratorōw tabule",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ja",
   "no": "Niy",
   "accounts": "Kōnta",

@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "ミニカード上のフィールドラベル表示",
   "showSum-field-on-list": "リストの先頭にフィールドの合計を表示",
   "admin-only-field": "ボード管理者にのみ表示されます",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "はい",
   "no": "いいえ",
   "accounts": "アカウント",

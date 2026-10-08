@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Ehechauka tenda techaukaha kuatia'i michĩme",
   "showSum-field-on-list": "Ehechauka tendakuéra ñembyaty ysaja yvate",
   "admin-only-field": "Ojekuaa ha umi tabla rembiguái apytépe",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Heẽ",
   "no": "Nahániri",
   "accounts": "Mba'ete",

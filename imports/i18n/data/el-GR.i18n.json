@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Εμφάνιση ετικέτας πεδίου στη μίνι κάρτα",
   "showSum-field-on-list": "Εμφάνιση αθροίσματος πεδίων στην κορυφή της λίστας",
   "admin-only-field": "Ορατό μόνο στους διαχειριστές του πίνακα",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ναι",
   "no": "Όχι",
   "accounts": "Λογαριασμοί",

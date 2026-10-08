@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "लघुकार्ड पर क्षेत्र लेबल देखाउ",
   "showSum-field-on-list": "सूचीक ऊपर क्षेत्रक योग देखाउ",
   "admin-only-field": "केवल बोर्ड एडमिनक लेल देखाइत अछि",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "हँ",
   "no": "नै",
   "accounts": "खाता",

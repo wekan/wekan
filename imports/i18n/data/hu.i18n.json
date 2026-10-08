@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Mutassa a Címkék nevét a mini Kártyákon is",
   "showSum-field-on-list": "Mutassa a mezők összegét a lista tetején",
   "admin-only-field": "Csak a tábla adminisztrátorai láthatják",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Igen",
   "no": "Nem",
   "accounts": "Fiókok",

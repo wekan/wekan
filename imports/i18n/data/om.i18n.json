@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Asxaa dirree kaardii xiqqaa irratti agarsiisi",
   "showSum-field-on-list": "Ida'ama dirreewwanii gubbaa tarree irratti agarsiisi",
   "admin-only-field": "Bulchitoota boordichaa qofaaf mul'ata",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Eeyyee",
   "no": "Lakki",
   "accounts": "Herregaalee",

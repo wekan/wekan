@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Tampilake label kolom ing kertu cilik",
   "showSum-field-on-list": "Tampilake gunggung kolom ing ndhuwur dhaptar",
   "admin-only-field": "Mung katon kanggo admin papan",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ya",
   "no": "Ora",
   "accounts": "Akun",

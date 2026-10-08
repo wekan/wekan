@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { EJSON } from 'meteor/ejson';
 import { LocalCollection } from 'meteor/minimongo';
 import { fieldReadContext } from '/server/lib/adminFieldReadContext';
-const { redact, containsFields, protectedValues, mayReadField } = require('/models/lib/adminOnlyCustomFields');
+const { redact, containsFields, protectedValues, writeProtectedValues, mayReadField } = require('/models/lib/adminOnlyCustomFields');
 // Lazy imports avoid a cycle while the shared collections are being registered.
 const collections = () => ({
   Boards: require('/models/boards').default,
@@ -11,7 +11,7 @@ const collections = () => ({
 export async function fieldPolicy(userId) {
   const { Boards, CustomFields } = collections();
   const [fields, boards] = await Promise.all([
-    CustomFields.find({}, { fields: { adminOnly: 1, boardIds: 1 } }).fetchAsync(),
+    CustomFields.find({}, { fields: { adminOnly: 1, readOnly: 1, boardIds: 1 } }).fetchAsync(),
     userId ? Boards.find({ members: { $elemMatch: { userId, isActive: true, isAdmin: true } } }, { fields: { _id: 1 } }).fetchAsync() : [],
   ]);
   return { definitions: new Map(fields.map(f => [f._id, f])), adminBoards: new Set(boards.map(b => b._id)) };
@@ -33,6 +33,10 @@ export async function assertFieldWrite(userId, before, after, source) {
   const oldValues = protectedValues(before, definitions, adminBoards);
   const newValues = protectedValues(after, definitions, adminBoards);
   if (!EJSON.equals(oldValues, newValues)) fieldWriteDenied(userId, source);
+  // #3143: a read-only field's value, set or cleared, changes only for an admin.
+  if (!EJSON.equals(writeProtectedValues(before, definitions, adminBoards), writeProtectedValues(after, definitions, adminBoards))) {
+    fieldWriteDenied(userId, source);
+  }
 }
 export function modifiedCard(doc, modifier) {
   const after = EJSON.clone(doc);

@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Pokaż pole etykiety w minikarcie",
   "showSum-field-on-list": "Pokaż sumę pól na górze listy",
   "admin-only-field": "Widoczne tylko dla administratorów tablicy",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Tak",
   "no": "Nie",
   "accounts": "Konto",

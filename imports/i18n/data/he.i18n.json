@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "הצגת תווית של השדה בכרטיסון",
   "showSum-field-on-list": "הצגת סכום השדות בראש הרשימה",
   "admin-only-field": "גלוי רק למנהלי הלוח",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "כן",
   "no": "לא",
   "accounts": "חשבונות",

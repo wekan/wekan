@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Diskwedhes arwodh maes war garten vyghan",
   "showSum-field-on-list": "Diskwedhes somm an meys war benn an rol",
   "admin-only-field": "Hewel dhe wonesygoryon an bord",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Ea",
   "no": "Na",
   "accounts": "Akontow",

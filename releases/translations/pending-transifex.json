@@ -751,6 +751,10 @@
     {
       "key": "stuck-sync-operation-failed",
       "since": "2026-10-08"
+    },
+    {
+      "key": "read-only-field",
+      "since": "2026-10-08"
     }
   ]
 }

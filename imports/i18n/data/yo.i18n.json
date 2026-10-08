@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Ṣe afihan aami aaye lori minicard",
   "showSum-field-on-list": "Ṣe afihan apao awọn aaye ni oke akojọ",
   "admin-only-field": "Ó hàn fún àwọn alábòójútó pátákó nìkan",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Bẹẹni",
   "no": "Rara",
   "accounts": "Awọn iroyin",

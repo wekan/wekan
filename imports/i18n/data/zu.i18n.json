@@ -1178,6 +1178,7 @@
   "showLabel-field-on-card": "Bonisa ilebula yenkundla ekhadini elincane",
   "showSum-field-on-list": "Bonisa isamba sezinkambu phezulu ohlwini",
   "admin-only-field": "Kubonakala kuphela kubaphathi bebhodi",
+  "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "Yebo",
   "no": "Cha",
   "accounts": "Ama-akhawunti",
