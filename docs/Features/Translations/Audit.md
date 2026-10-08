@@ -9356,6 +9356,16 @@ script, key order and tokens. Mathematical terminology remains low confidence
 pending speaker review. Browser checks were not run; further Konkani translations
 and the broader audit remain unfinished.
 
+## Konkani statistics and random-number bounds
+
+Filled 24 English placeholders for statistical functions, random numbers and
+rounding. The placeholder-only merge retained existing translations. Preserved
+mean/median/mode distinctions, the list returned for modes, inclusive/exclusive
+bounds and separate rounding directions. Regression coverage checks those details,
+script, key order and tokens. Statistical terminology remains low confidence
+pending speaker review. Browser checks were not run; further Konkani translations
+and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
