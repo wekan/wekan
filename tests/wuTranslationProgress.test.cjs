@@ -586,3 +586,18 @@ assert.equal(wu['email-invite-text'], wu['push-invite-text']);
 assert.equal(wu['email-invite-subject'], wu['push-invite-title']);
 for (const key of ['email-enrollAccount-text', 'email-invite-text', 'email-resetPassword-text', 'email-verifyEmail-text']) assert.match(wu[key], /\n\n__url__\n\n/);
 assert.match(wu['email-verifyEmail-subject'], /__siteName__.*电子邮件地址/);
+
+const errorsExport = ["error-json-schema", "error-csv-schema", "error-import-empty-board", "error-list-doesNotExist", "error-linked-card-not-allowed", "error-user-disabled", "error-user-doesNotExist", "error-user-notAllowSelf", "error-user-notCreated", "error-username-taken", "error-orgname-taken", "error-teamname-taken", "error-email-taken", "export-board", "export-board-without-attachments", "export-ical-feed", "user-can-not-export-excel", "export-card", "export-card-pdf", "export-card-excel", "export-card-excel-fields", "export-card-field-people", "export-card-attachment-size", "export-card-excel-no-disk-space", "export-card-excel-free", "export-card-excel-needed", "user-can-not-export-card-to-pdf", "user-can-not-export-card-to-excel", "exportBoardPopup-title", "exportCardPopup-title"];
+for (const key of errorsExport) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.match(wu['error-import-empty-board'], /呒没泳道、列表或者卡片.*老版本 WeKan.*当前版本重新导出.*导入新文件/);
+assert.match(wu['error-linked-card-not-allowed'], /只可以关联普通卡片.*勿能关联另外个关联卡片.*也勿能关联.*反过来.*无法访问/);
+assert.match(wu['error-user-notAllowSelf'], /勿能邀请自家/);
+assert.match(wu['error-csv-schema'], /CSV.*TSV/);
+assert.equal(wu['export-board'], wu['exportBoardPopup-title']);
+assert.equal(wu['export-card'], wu['exportCardPopup-title']);
+assert.equal(wu['export-card-excel-free'], '可用');
+assert.equal(wu['export-card-attachment-size'], '大小');
+assert.match(wu['export-card-excel-no-disk-space'], /Excel.*磁盘空间勿够/);
+assert.match(wu['user-can-not-export-excel'], /Excel/);
+assert.doesNotMatch(wu['user-can-not-export-excel'], /[\u200b-\u200f]/);
+assert.match(wu['export-card-field-people'], /创建者、所有者、成员、负责人/);

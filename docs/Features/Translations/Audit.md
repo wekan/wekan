@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu errors and export corrections — 2026-10-08
+
+Correct 30 import-error, account and export values. Preserve technical literals,
+linked-card restrictions and the recovery instruction to re-export an empty board.
+Restore disk-space and file-size meanings; remove hidden characters inside Excel.
+Refresh exact-value audit records and check token preservation. Wu prose needs native
+review; browser tests were not run and all-language work remains unfinished.
+
 ## Wu email and field-message corrections — 2026-10-08
 
 Correct 25 field, email, invitation and access messages. Preserve all named template
@@ -12566,7 +12574,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,140** exact before/after values, including unflagged
+records contain **23,170** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

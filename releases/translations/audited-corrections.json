@@ -161978,5 +161978,215 @@
     "before": "您的文本不是有效的 JSON",
     "after": "侬个文本勿是有效个 JSON",
     "reason": "2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "error-json-schema",
+    "before": "您的 JSON 数据未包含正确格式的正确信息",
+    "after": "侬个 JSON 数据呒没按正确格式包含所需个信息",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "error-csv-schema",
+    "before": "您的 CSV（逗号分隔值）/TSV（制表符分隔值）未包含格式正确的正确信息",
+    "after": "侬个 CSV（逗号分隔值）/TSV（制表符分隔值）呒没按正确格式包含所需个信息",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "error-import-empty-board",
+    "before": "此导出不包含任何看板内容（无泳道、列表或卡片）。它可能是由存在已知导出缺陷的旧版 WeKan 创建的。请使用当前版本重新导出看板并导入新文件。",
+    "after": "搿份导出文件呒没看板内容（呒没泳道、列表或者卡片）。可能是有已知导出缺陷个老版本 WeKan 创建个。请用当前版本重新导出看板，再导入新文件。",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "error-list-doesNotExist",
+    "before": "该列表不存在",
+    "after": "搿只列表勿存在",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "error-linked-card-not-allowed",
+    "before": "你只能链接到普通卡片。链接到另一张已链接的卡片，或链接到会反向链接回本看板的卡片是不允许的，因为这会使卡片无法访问。",
+    "after": "侬只可以关联普通卡片。勿能关联另外个关联卡片，也勿能关联会反过来连到搿块看板个卡片，因为搿能会让卡片无法访问。",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "error-user-disabled",
+    "before": "此用户账户已被禁用",
+    "after": "搿只用户账户禁用仔",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "error-user-doesNotExist",
+    "before": "该用户不存在",
+    "after": "搿个用户勿存在",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "error-user-notAllowSelf",
+    "before": "您不能邀请自己",
+    "after": "侬勿能邀请自家",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "error-user-notCreated",
+    "before": "该用户尚未创建",
+    "after": "搿个用户还朆创建",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "error-username-taken",
+    "before": "该用户名已被占用",
+    "after": "搿个用户名已经畀人用脱仔",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "error-orgname-taken",
+    "before": "该组织名称已被占用",
+    "after": "搿个组织名字已经畀人用脱仔",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "error-teamname-taken",
+    "before": "该队名已被占用",
+    "after": "搿个团队名字已经畀人用脱仔",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "error-email-taken",
+    "before": "电子邮件已被占用",
+    "after": "搿个电子邮件地址已经畀人用脱仔",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "export-board",
+    "before": "出口板",
+    "after": "导出看板",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "export-board-without-attachments",
+    "before": "不含附件",
+    "after": "勿含附件",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "export-ical-feed",
+    "before": "日历 (iCal)",
+    "after": "日历订阅（iCal）",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "user-can-not-export-excel",
+    "before": "用户无法导出 E​​xcel",
+    "after": "用户勿能导出 Excel",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "export-card",
+    "before": "出口卡",
+    "after": "导出卡片",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "export-card-pdf",
+    "before": "将卡片导出为 PDF",
+    "after": "拿卡片导出成 PDF",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "export-card-excel",
+    "before": "将卡片导出至 Excel",
+    "after": "拿卡片导出成 Excel",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "export-card-excel-fields",
+    "before": "选择要包含在 Excel 导出中的字段：",
+    "after": "选出要包含勒 Excel 导出里向个字段：",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "export-card-field-people",
+    "before": "人员（创建者、所有者、成员、受让人）",
+    "after": "人员（创建者、所有者、成员、负责人）",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "export-card-attachment-size",
+    "before": "尺寸",
+    "after": "大小",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "export-card-excel-no-disk-space",
+    "before": "无法导出到 Excel：可用磁盘空间不足",
+    "after": "勿能导出成 Excel：可用磁盘空间勿够",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "export-card-excel-free",
+    "before": "自由的",
+    "after": "可用",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "export-card-excel-needed",
+    "before": "需要的",
+    "after": "需要",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "user-can-not-export-card-to-pdf",
+    "before": "用户无法将卡片导出为 PDF",
+    "after": "用户勿能拿卡片导出成 PDF",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "user-can-not-export-card-to-excel",
+    "before": "用户无法将卡片导出到 Excel",
+    "after": "用户勿能拿卡片导出成 Excel",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "exportBoardPopup-title",
+    "before": "出口板",
+    "after": "导出看板",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "exportCardPopup-title",
+    "before": "出口卡",
+    "after": "导出卡片",
+    "reason": "2026-10-08: Correct Wu import errors and export meanings, preserving technical literals and linked-card restrictions; lower-confidence prose needs native review."
   }
 ]
