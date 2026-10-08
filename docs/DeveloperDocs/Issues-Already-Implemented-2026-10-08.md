@@ -20,3 +20,13 @@ from other users only
 The person who made a change is never notified of it, except when they @mention
 themselves: server/models/activities.js filters `user._id !== userId` from the
 recipients. The requested behaviour is the fixed default.
+
+## [#1704](https://github.com/wekan/wekan/issues/1704) Move list(s) to a
+different board
+
+The list menu has Move and Copy with a board picker
+(client/components/lists/listHeader.jade, listHeader.js), and the server move
+checks the right to change both boards (server/models/lists.js,
+requireBoardMutation for source and destination). Multi-Selection can move or
+copy several lists to another board
+(client/components/sidebar/sidebarFilters.jade).
