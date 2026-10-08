@@ -2947,7 +2947,7 @@
   "blockly-ANNOUNCE_MOVE_BEFORE": "正在将 %1 移到 %2 之前。",
   "blockly-ANNOUNCE_MOVE_CANCELED": "已取消移动。",
   "blockly-ANNOUNCE_MOVE_INSIDE": "正在将 %1 移到 %2 内部。",
-  "blockly-ANNOUNCE_MOVE_OF": "%1 of %2",
+  "blockly-ANNOUNCE_MOVE_OF": "%2 的 %1",
   "blockly-ANNOUNCE_MOVE_TO": "正在将 %1 移到 %2。",
   "blockly-ANNOUNCE_MOVE_WORKSPACE": "正在工作区中移动 %1。",
   "blockly-ANNOUNCE_SCROLLED_DOWN": "已向下滚动。",

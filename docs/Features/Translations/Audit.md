@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Czech, Japanese and Chinese short labels — 2026-10-08
+
+Translate 14 English values across 12 locale paths. Distinguish Czech sort-criterion
+and rule-actor labels using the rule templates, translate Japanese or, and reorder
+Chinese movement announcements while preserving %1 input and %2 context roles.
+Only exact English values are changed. Regression coverage includes argument roles
+and the existing Chinese human-translation protection suite. Browser/screen-reader
+validation and wider translation work remain unfinished.
+
 ## Yiddish and Papiamento short Blockly labels — 2026-10-08
 
 Translate 29 short English labels: movement context, conditional/execution words,

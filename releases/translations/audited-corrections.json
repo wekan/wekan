@@ -169916,5 +169916,103 @@
     "before": "to",
     "after": "definí",
     "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "cmn",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%2 的 %1",
+    "reason": "2026-10-08: Translate short English UI prose; preserve input/context roles and distinguish rule actor from sort criterion."
+  },
+  {
+    "locale": "zh",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%2 的 %1",
+    "reason": "2026-10-08: Translate short English UI prose; preserve input/context roles and distinguish rule actor from sort criterion."
+  },
+  {
+    "locale": "zh_SG",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%2 的 %1",
+    "reason": "2026-10-08: Translate short English UI prose; preserve input/context roles and distinguish rule actor from sort criterion."
+  },
+  {
+    "locale": "zh-Hans",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%2 的 %1",
+    "reason": "2026-10-08: Translate short English UI prose; preserve input/context roles and distinguish rule actor from sort criterion."
+  },
+  {
+    "locale": "zh-Hant",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%2 的 %1",
+    "reason": "2026-10-08: Translate short English UI prose; preserve input/context roles and distinguish rule actor from sort criterion."
+  },
+  {
+    "locale": "zh-GB",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%2 的 %1",
+    "reason": "2026-10-08: Translate short English UI prose; preserve input/context roles and distinguish rule actor from sort criterion."
+  },
+  {
+    "locale": "zh-TW",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%2 的 %1",
+    "reason": "2026-10-08: Translate short English UI prose; preserve input/context roles and distinguish rule actor from sort criterion."
+  },
+  {
+    "locale": "zh-HK",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%2 的 %1",
+    "reason": "2026-10-08: Translate short English UI prose; preserve input/context roles and distinguish rule actor from sort criterion."
+  },
+  {
+    "locale": "zh-CN",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%2 的 %1",
+    "reason": "2026-10-08: Translate short English UI prose; preserve input/context roles and distinguish rule actor from sort criterion."
+  },
+  {
+    "locale": "cs",
+    "key": "r-sort-by",
+    "before": "by",
+    "after": "podle",
+    "reason": "2026-10-08: Translate short English UI prose; preserve input/context roles and distinguish rule actor from sort criterion."
+  },
+  {
+    "locale": "cs",
+    "key": "r-by",
+    "before": "by",
+    "after": "uživatel:",
+    "reason": "2026-10-08: Translate short English UI prose; preserve input/context roles and distinguish rule actor from sort criterion."
+  },
+  {
+    "locale": "cs-CZ",
+    "key": "r-sort-by",
+    "before": "by",
+    "after": "podle",
+    "reason": "2026-10-08: Translate short English UI prose; preserve input/context roles and distinguish rule actor from sort criterion."
+  },
+  {
+    "locale": "cs-CZ",
+    "key": "r-by",
+    "before": "by",
+    "after": "uživatel:",
+    "reason": "2026-10-08: Translate short English UI prose; preserve input/context roles and distinguish rule actor from sort criterion."
+  },
+  {
+    "locale": "ja",
+    "key": "or",
+    "before": "or",
+    "after": "または",
+    "reason": "2026-10-08: Translate short English UI prose; preserve input/context roles and distinguish rule actor from sort criterion."
   }
 ]

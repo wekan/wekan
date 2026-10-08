@@ -943,7 +943,7 @@
   "notify-participate": "作成した、またはメンバーとなったカードの更新情報を受け取る",
   "notify-watch": "ウォッチしているすべてのボード、リスト、カードの更新情報を受け取る",
   "optional": "任意",
-  "or": "or",
+  "or": "または",
   "page-maybe-private": "このページはプライベートです。<a href='%s'>ログイン</a>して見てください。",
   "page-not-found": "ページが見つかりません。",
   "password": "パスワード",

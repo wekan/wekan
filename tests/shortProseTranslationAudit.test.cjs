@@ -58,3 +58,23 @@ test('Yiddish and Papiamento control labels preserve roles and equivalent forms'
     assert.notEqual(locale['blockly-LOGIC_OPERATION_OR'], locale['blockly-LOGIC_OPERATION_AND']);
   }
 });
+
+test('Czech rule labels distinguish criterion and actor; Chinese preserves context roles', async () => {
+  const fs = require('node:fs');
+  const path = require('node:path');
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', code + '.i18n.json'), 'utf8'));
+  const source = read('en');
+  for (const code of ['cmn', 'zh', 'zh_SG', 'zh-Hans', 'zh-Hant', 'zh-GB', 'zh-TW', 'zh-HK', 'zh-CN']) {
+    const value = read(code)['blockly-ANNOUNCE_MOVE_OF'];
+    assert.deepEqual(translationTokens(value), translationTokens(source['blockly-ANNOUNCE_MOVE_OF']), code);
+    assert.equal(value.replace('%1', '输入').replace('%2', '积木'), '积木 的 输入', code);
+  }
+  for (const code of ['cs', 'cs-CZ']) {
+    const locale = read(code);
+    assert.equal(locale['r-sort-by'], 'podle');
+    assert.equal(locale['r-by'], 'uživatel:');
+    for (const key of ['r-sort-by', 'r-by']) assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), code + ': ' + key);
+  }
+  assert.equal(read('ja').or, 'または');
+});
