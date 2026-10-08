@@ -7,7 +7,7 @@ const {translationTokens}=require('../releases/translations/placeholder-tokens.m
 const keys=Object.keys(english).filter(k=>k.startsWith('scrum-')||['board-view-product-backlog','board-view-sprints','board-view-sprint-report','board-view-velocity'].includes(k));
 
 test('Māori Scrum messages preserve coverage, tokens and shared labels',()=>{
- assert.equal(keys.length,102);
+ assert.equal(keys.length,111);
  for(const key of keys){
   assert.ok(data[key].trim(),key);
   assert.notEqual(data[key],english[key],key);
@@ -43,4 +43,11 @@ test('Māori report caveats preserve unknown estimates and daily sampling limits
  assert.match(data['scrum-daily-truncated'],/366/);
  assert.ok(data['scrum-daily-observations-help'].includes('mahi '+data.export));
  assert.match(data['scrum-daily-observations-help'],/tēnei wāhanga.*paeutauta/);
+});
+
+test('release selection and recovery distinguish retaining records from rollback',()=>{
+ assert.match(data['scrum-releases-select-help'],/Ctrl.*Cmd/);
+ assert.notEqual(data['scrum-history-checkpoint-rollback'],data['scrum-history-checkpoint-discard']);
+ assert.deepEqual(translationTokens(data['scrum-history-checkpoint-counts']),
+   ['__applied__','__conflicted__','__pending__','__total__']);
 });

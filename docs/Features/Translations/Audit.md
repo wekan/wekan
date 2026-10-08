@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Remaining Scrum test failures — 2026-10-08
+
+Translate the nine new release-selection and recovery messages in Māori,
+Northern Sotho, Somali and Tok Pisin (36 values). Update their expected Scrum
+inventories from 102 to 111 while retaining the per-key translation and token
+checks. Add checks for keyboard legends, distinct rollback/retain actions and
+all four recovery counters. Full wording remains low-confidence pending fluent
+review; dictionary evidence supports vocabulary, not every software phrase.
+
+Vocabulary references: [Te Aka, whakahoki](https://maoridictionary.co.nz/search?keywords=whakahoki),
+[Department of Basic Education Northern Sotho wordlist](https://www.education.gov.za/LinkClick.aspx?fileticket=AZf94H84go4%3D&mid=4487&portalid=0&tabid=642),
+[Zorc Somali dictionary](https://zorc.net/RDZorc/SOMALI/SOMALI-ENGLISH%3DDICTIONARY.pdf),
+and [Tok Pisin senis](https://tokpisin.info/senis/).
+No browser or screen-reader session was run. Broader translation work remains.
+
 ## Planning regressions exposed by new source keys — 2026-10-08
 
 A full 322-suite translation run found ten failing suites after new release

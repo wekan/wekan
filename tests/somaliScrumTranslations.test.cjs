@@ -9,7 +9,7 @@ const keys = Object.keys(english).filter(key => key.startsWith('scrum-') || [
 ].includes(key));
 
 test('Somali Scrum messages cover planning and reports without losing interpolation tokens', () => {
-  assert.equal(keys.length, 102);
+  assert.equal(keys.length, 111);
   for (const key of keys) {
     assert.ok(data[key].trim(), key);
     assert.notEqual(data[key], english[key], key);
@@ -47,4 +47,11 @@ test('Somali daily reports preserve observation limits and distinguish unknown f
   assert.match(data['scrum-timebox'], /daqiiqado/);
   assert.ok(data['scrum-daily-observations-help'].includes('amarka '+data.export));
   assert.match(data['scrum-daily-observations-help'], /qaybtan.*qaybta qalabku/);
+});
+
+test('release selection and recovery distinguish retaining records from rollback',()=>{
+ assert.match(data['scrum-releases-select-help'],/Ctrl.*Cmd/);
+ assert.notEqual(data['scrum-history-checkpoint-rollback'],data['scrum-history-checkpoint-discard']);
+ assert.deepEqual(translationTokens(data['scrum-history-checkpoint-counts']),
+   ['__applied__','__conflicted__','__pending__','__total__']);
 });
