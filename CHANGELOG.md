@@ -1998,6 +1998,22 @@ report with seven assignees and asserts no avatar overlaps the comment.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/10be25a37d848b03722354af8ec2163ee1acf7de">Translate Moroccan Arabic math and statistics</a></summary>
+
+- Fill 50 placeholders, retaining existing translations. Check random bounds,
+  constraint arguments, angle units, exponent roles, remainder, statistics and
+  constant formulas, together with script, source order and placeholders.
+- Validation: 44 translation checks and 21 human-preference checks pass. Two
+  repository-wide checks fail on new card-field-visibility keys missing from
+  other locales. Browser, RTL and screen-reader checks were not run.
+- Technical Darija wording remains low confidence pending speaker review;
+  remaining placeholders and the broader language audit stay open.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f215e0c16b9044d15260f766fd551db2a7661cd6">Translate Moroccan Arabic sorting and logic</a></summary>
 
 - Fill 46 placeholders, retaining existing translations. Check comparison
