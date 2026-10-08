@@ -440,6 +440,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c5c1884f3c">Correct Wu archive and attachment translations</a>. Thanks to xet7.</summary>
+
+Correct thirty Wu archive, attachment, loading and board-setting values. Preserve
+count and size variables, recoverable removal and permanent-deletion meanings.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/00c07df43e">Correct Wu checklist and member translations</a>. Thanks to xet7.</summary>
 
 Correct eighteen Wu checklist, membership and administrator strings, including
