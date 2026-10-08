@@ -65,11 +65,6 @@ that used to sit here are in git history.
 
 **Can be built here** - Scrum, Sync and retention:
 
-- 90-day compaction for the receipts the 2026-09-30 retention decision covers
-  but that have none yet: `scrumHistoryCompletions` and `scrumHistoryRequests`
-  (server/lib/scrumHistoryPending.js), `listSyncOperationIntents` and
-  `listSyncOperationCompletions` (server/lib/listSyncOperations.js) and
-  `notificationTrayReceipts` (server/notifications/trayQueue.js).
 - A stored List Sync operation that can no longer be replayed (its scope or
   access went stale) blocks that list's Sync, with a console line only;
   Problems → Recovery needs a list of them and a discard action.
@@ -692,6 +687,7 @@ through the hooks and then returns it.
 
 and has the following developer-facing fixes:
 
+- [The receipt collections are pinned to the minimal form the 90-day retention decision asks for](https://github.com/wekan/wekan/commit/c0c424657e). Thanks to xet7.
 - [The card-field visibility writer guard counts only writes, not a read projection](https://github.com/wekan/wekan/commit/a9dc8faa98). Thanks to xet7.
 - [The release risk baseline knows the format specification links](https://github.com/wekan/wekan/commit/49353db813). Thanks to xet7.
 
