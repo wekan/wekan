@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/848345e329">Translate remaining Bosnian import instructions</a>. Thanks to xet7.</summary>
+
+Translate the remaining 13 Bosnian import instructions, completing all 21 in
+this group. Preserve commands, column names, extensions, hierarchy markers and
+variables. Regression checks cover excluded data, English headers, task hierarchy
+and archived tasks. Import-instruction and placeholder suites and all 21
+translation-preservation checks pass. Browser review and the wider translation
+backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/515b7d85ed">Translate first Bosnian import instructions</a>. Thanks to xet7.</summary>
 
 Translate eight Bosnian import instructions, preserving commands, extensions and
