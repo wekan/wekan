@@ -8099,6 +8099,15 @@ and distinct archive-size, file-count, inner-file-size and unsafe-path failures.
 Technical wording remains low confidence pending speaker review. Browser and
 import-runtime checks were not run. Further corrections and the broader audit remain.
 
+### Tatar import progress and member-mapping corrections
+
+Corrected 23 import-progress, cancellation and member-mapping values. Preserved
+correct selection text, source placeholders and Trello API naming. Regression
+coverage checks cancel versus cancel-and-delete, resume and running/paused states,
+permanent-deletion warning, minimum selection and current-user mapping fallback.
+Technical wording remains low confidence pending speaker review. Browser and
+import-runtime checks were not run. Further corrections and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
