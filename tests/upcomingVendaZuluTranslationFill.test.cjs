@@ -415,6 +415,59 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
   "blockly-CONTROLS_IF_MSG_THEN",
   "blockly-CONTROLS_WHILEUNTIL_INPUT_DO"
 ]);
+  keys.push(...[
+  "blockly-INPUT_LABEL_CONDITION",
+  "blockly-INPUT_LABEL_CONDITION_A",
+  "blockly-INPUT_LABEL_CONDITION_B",
+  "blockly-INPUT_LABEL_EMPTY",
+  "blockly-INPUT_LABEL_END_STATEMENT",
+  "blockly-INPUT_LABEL_INDEX",
+  "blockly-INPUT_LABEL_LISTS_CREATE_WITH_ITEM",
+  "blockly-INPUT_LABEL_LISTS_DELIMITER",
+  "blockly-INPUT_LABEL_LISTS_END_POSITION",
+  "blockly-INPUT_LABEL_LISTS_LIST_FROM_TEXT",
+  "blockly-INPUT_LABEL_LISTS_POSITION",
+  "blockly-INPUT_LABEL_LISTS_REPEAT_ITEM",
+  "blockly-INPUT_LABEL_LISTS_REPEAT_NUM",
+  "blockly-INPUT_LABEL_LISTS_START_POSITION",
+  "blockly-INPUT_LABEL_LISTS_TEXT_FROM_LIST",
+  "blockly-INPUT_LABEL_LISTS_TO_CHANGE",
+  "blockly-INPUT_LABEL_LISTS_TO_CHECK",
+  "blockly-INPUT_LABEL_LISTS_VALUE_TO_SET",
+  "blockly-INPUT_LABEL_LOOP_BY",
+  "blockly-INPUT_LABEL_LOOP_FROM",
+  "blockly-INPUT_LABEL_LOOP_LIST",
+  "blockly-INPUT_LABEL_LOOP_TIMES",
+  "blockly-INPUT_LABEL_LOOP_TO",
+  "blockly-INPUT_LABEL_MATH_CHANGE_BY",
+  "blockly-INPUT_LABEL_MATH_CONSTRAIN_VALUE",
+  "blockly-INPUT_LABEL_MATH_DIVIDEND",
+  "blockly-INPUT_LABEL_MATH_DIVISOR",
+  "blockly-INPUT_LABEL_NUMBER",
+  "blockly-INPUT_LABEL_NUMBER_A",
+  "blockly-INPUT_LABEL_NUMBER_ATAN2_X",
+  "blockly-INPUT_LABEL_NUMBER_ATAN2_Y",
+  "blockly-INPUT_LABEL_NUMBER_B",
+  "blockly-INPUT_LABEL_NUMBER_LIST",
+  "blockly-INPUT_LABEL_NUMBER_MAX",
+  "blockly-INPUT_LABEL_NUMBER_MIN",
+  "blockly-INPUT_LABEL_NUMBER_TO_CHECK",
+  "blockly-INPUT_LABEL_STATEMENT",
+  "blockly-INPUT_LABEL_TEXT_APPEND",
+  "blockly-INPUT_LABEL_TEXT_END_POSITION",
+  "blockly-INPUT_LABEL_TEXT_JOIN_ITEM",
+  "blockly-INPUT_LABEL_TEXT_POSITION",
+  "blockly-INPUT_LABEL_TEXT_PROMPT_MESSAGE",
+  "blockly-INPUT_LABEL_TEXT_START_POSITION",
+  "blockly-INPUT_LABEL_TEXT_TO_CHANGE",
+  "blockly-INPUT_LABEL_TEXT_TO_CHECK",
+  "blockly-INPUT_LABEL_TEXT_TO_FIND",
+  "blockly-INPUT_LABEL_TEXT_TO_REPLACE",
+  "blockly-INPUT_LABEL_VALUE",
+  "blockly-INPUT_LABEL_VALUE_A",
+  "blockly-INPUT_LABEL_VALUE_B",
+  "blockly-INPUT_LABEL_VARIABLES_SET"
+]);
   for (const language of ['zu', 'zu-ZA']) {
     const locale = read(language);
     for (const key of keys) {
@@ -493,6 +546,16 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
     assert.match(locale['blockly-WORKSPACE_SEARCH_NO_MATCHES'], /^Awekho/);
     assert.strictEqual(locale['blockly-CONTROLS_IF_IF_TITLE_IF'], locale['blockly-CONTROLS_IF_MSG_IF']);
     assert.strictEqual(locale['blockly-CONTROLS_IF_ELSE_TITLE_ELSE'], locale['blockly-CONTROLS_IF_MSG_ELSE']);
+    for (const [first, second] of [['CONDITION_A', 'CONDITION_B'], ['LISTS_START_POSITION', 'LISTS_END_POSITION'], ['NUMBER_MIN', 'NUMBER_MAX'], ['MATH_DIVIDEND', 'MATH_DIVISOR'], ['TEXT_TO_FIND', 'TEXT_TO_REPLACE']]) {
+      assert.notStrictEqual(locale['blockly-INPUT_LABEL_' + first], locale['blockly-INPUT_LABEL_' + second]);
+    }
+    assert.match(locale['blockly-INPUT_LABEL_MATH_DIVIDEND'], /ehlukaniswayo/);
+    assert.match(locale['blockly-INPUT_LABEL_MATH_DIVISOR'], /okuhlukaniswa ngayo/);
+    assert.match(locale['blockly-INPUT_LABEL_NUMBER_ATAN2_X'], /ka-x$/);
+    assert.match(locale['blockly-INPUT_LABEL_NUMBER_ATAN2_Y'], /ka-y$/);
+    const input = locale['blockly-INPUT_LABEL_INDEX'].replace('%1', '7');
+    assert.match(input, /7$/);
+    assert.doesNotMatch(input, /%1/);
     const failure = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
     assert.ok(failure.includes('E_LDAP'));
     assert.ok(!failure.includes('%s'));

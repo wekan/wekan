@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Zulu Blockly input accessibility labels — 2026-10-09
+
+Translate 51 input labels per Zulu catalog (102 values), preserving numbered
+variables and coordinate names. Regression checks distinguish start/end,
+minimum/maximum, dividend/divisor and find/replace inputs, and render an input
+number. Both targeted suites and all 21 preservation checks pass. Specialized
+terminology remains low confidence pending speaker review. Browser execution
+and remaining translations are outstanding.
+
 ## Zulu variable and workspace messages — 2026-10-09
 
 Translate 58 values per Zulu catalog (116 values) for variables, workspace
