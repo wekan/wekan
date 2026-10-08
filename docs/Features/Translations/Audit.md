@@ -8011,6 +8011,15 @@ Tatar preview vocabulary and CAS/SAML names. Technical wording remains low confi
 pending speaker review. Browser checks were not run. Further wrong-language
 corrections and the broader audit remain unfinished.
 
+### Tatar navigation, starring and card-aging corrections
+
+Corrected 31 wrong-language navigation, preference, starring and aging values.
+Preserved correct text-note and auto-archive translations. Source placeholders
+and key order remain intact. Regression coverage checks direction and toggle
+pairs, three numbered fading tiers, equivalent preference labels and archive
+restoration guidance. Technical wording remains low confidence pending speaker
+review. Browser checks were not run. Further corrections and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
