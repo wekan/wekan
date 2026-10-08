@@ -7991,6 +7991,16 @@ exact options, support/opposition, logged-in access and permanent-deletion wordi
 Technical terminology remains low confidence pending speaker review. Browser checks
 were not run. Further corrections and the broader audit remain unfinished.
 
+### Tatar popup, dependency and account-action corrections
+
+Corrected 30 popup labels for dependencies, organizations, accounts, imports,
+restoration and dimensions. Correct adjacent member and export labels remain.
+Regression coverage checks Tatar organization vocabulary, deletion versus
+anonymization, distinct restoration/import targets, equivalent sorting/background
+actions and width/height distinctions. Source tokens and key order remain intact.
+Technical wording remains low confidence pending speaker review. Browser checks
+were not run. Further wrong-language corrections and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
