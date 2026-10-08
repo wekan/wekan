@@ -8172,6 +8172,16 @@ spent/overtime distinctions, unsaved text and image/link URL differences. Techni
 wording remains low confidence pending speaker review. Browser and upload-runtime
 checks were not run. Further corrections and the broader audit remain unfinished.
 
+## Tatar settings and transfer-limit corrections
+
+Corrected 33 wrong-language or incomplete values for custom branding, watching,
+welcome content, WIP validation and attachment/API transfer limits. Preserved the
+logo default of 27, milestone 1, URL scheme examples and WIP identifier. Clarified
+that either empty autolink field disables linking, and kept upload/download limits
+and successful/failed saves distinct. Existing correct-language neighbors remain.
+Technical wording remains low confidence pending speaker review. Focused tests
+cover key order, source tokens and these distinctions; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
