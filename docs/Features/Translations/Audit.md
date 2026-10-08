@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Ukrainian import instructions, first group — 2026-10-09
+
+Translate eight instructions in uk and uk-UA: Planner, MeisterTask, Obsidian,
+Linear, TickTick, ClickUp, Nullboard and Kanri, replacing 16 English values.
+Preserve commands, extensions and variables. Regression checks cover first-board
+selection, completed-task dates, archived cards and swimlane mappings.
+Import-instruction and placeholder suites and all 21 preservation checks pass.
+The remaining 13 instructions in this group in each catalog, browser review and
+the wider all-language translation backlog remain outstanding.
+
 ## Lithuanian import instructions — 2026-10-09
 
 Translate all 21 instructions in this group in lt. Preserve commands, column

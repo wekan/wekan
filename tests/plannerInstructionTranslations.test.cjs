@@ -1156,3 +1156,26 @@ for (const code of ['sl', 'sl_SI']) {
   assert.match(locale['import-board-instruction-teamwork'], /vienu lygiu giliau/);
   assert.match(locale['import-board-instruction-superproductivity'], /archyvuotos užduotys tampa archyvuotomis kortelėmis/);
 }
+
+for (const code of ['uk', 'uk-UA']) {
+  const locale = read(code);
+  const literals = {
+    planner: ['Microsoft Planner', 'Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By'],
+    meistertask: ['MeisterTask', 'Export project', 'CSV'],
+    ...Object.fromEntries(['obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri'].map(format => [format, importLiterals[format]])),
+  };
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), code + ': ' + key);
+    assert.match(locale[key], /\p{Script=Cyrillic}/u, key);
+    for (const value of values) assert.ok(locale[key].includes(value), code + ': ' + key + ': ' + value);
+  }
+  for (const format of ['nullboard', 'kanri']) {
+    assert.match(locale['import-board-instruction-' + format], /імпортується лише перша дошка/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /імпортуються всі дошки/);
+  }
+  assert.match(locale['import-board-instruction-meistertask'], /завершені завдання зберігають дату завершення/);
+  assert.match(locale['import-board-instruction-obsidian'], /архів перетворюється на архівовані картки/);
+  assert.match(locale['import-board-instruction-ticktick'], /список TickTick стає лінією/);
+}
