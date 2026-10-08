@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Papiamento import preview and Sync conflicts — 2026-10-08
+
+Translate 30 Scrum import-preview and Sync-conflict messages. Preserve source
+variables, ID and JSON; check ambiguity, unchanged cards on other boards, local
+versus source choices, retained duplicate content and unchanged subcards. Verify
+that warnings retain the absence of source writes and full-list synchronization.
+Specialized wording needs native review. No browser session was run. Work remains unfinished.
+
 ## Papiamento Scrum reports and observations — 2026-10-08
 
 Translate 45 Scrum event, state, report and daily-observation messages. Preserve

@@ -349,3 +349,22 @@ for (const suffix of ['help', 'export-help']) {
 assert.match(papiamento['scrum-daily-truncated'], /366/);
 assert.match(papiamento['scrum-import-pending'], /inkompleto.*No por editá Scrum ni eksportá rapòrt/);
 assert.equal(papiamento['scrum-category-backlog'], papiamento['scrum-backlog']);
+
+const importConflicts = ["scrum-import-into-board-hint", "scrum-import-preview", "scrum-import-choose-file", "scrum-import-invalid-file", "scrum-import-preview-sprints", "scrum-import-preview-releases", "scrum-import-preview-cards", "scrum-import-preview-nothing", "scrum-import-into-board-done", "scrum-import-card-not-matched", "scrum-import-card-ambiguous", "scrum-import-card-on-another-board", "scrum-import-record-ambiguous", "scrum-import-record-not-imported", "scrum-import-sprint-finished", "sync-conflict-heading", "sync-conflict-hint", "sync-conflict-local", "sync-conflict-keep-local", "sync-conflict-use-source", "sync-conflict-refresh", "sync-conflict-review-complete", "sync-conflict-duplicate", "sync-conflict-keep-mapping", "sync-conflict-detach", "sync-conflict-detach-hint", "sync-conflict-archive", "sync-conflict-archive-hint", "sync-conflict-keep-card-local", "sync-conflict-creation"];
+for (const key of importConflicts) {
+  assert.notEqual(papiamento[key], english[key], key);
+  assert.deepEqual(tokens(papiamento[key]), tokens(english[key]), key);
+}
+assert.match(papiamento['scrum-import-into-board-hint'], /nunka dupliká/);
+assert.match(papiamento['scrum-import-into-board-hint'], /ID/);
+assert.match(papiamento['scrum-import-invalid-file'], /no ta JSON válido/);
+assert.match(papiamento['scrum-import-card-ambiguous'], /mas ku un karchi/);
+assert.match(papiamento['scrum-import-card-on-another-board'], /otro tabla.*sin kambio/);
+assert.match(papiamento['scrum-import-sprint-finished'], /No a move.*sprint terminá/);
+assert.match(papiamento['sync-conflict-hint'], /No ta manda nada na e sistema di fuente/);
+assert.match(papiamento['sync-conflict-review-complete'], /No a ehekutá.*lista kompleto/);
+assert.match(papiamento['sync-conflict-detach-hint'], /Kita solamente.*kontenido ta keda den WeKan/);
+assert.match(papiamento['sync-conflict-archive-hint'], /Subkarchinan no ta kambia/);
+assert.match(papiamento['sync-conflict-keep-local'], /WeKan/);
+assert.match(papiamento['sync-conflict-use-source'], /fuente/);
+assert.notEqual(papiamento['sync-conflict-keep-local'], papiamento['sync-conflict-use-source']);
