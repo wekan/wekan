@@ -263,8 +263,15 @@ export const TAPi18n = {
       try {
         return this.i18n.t(key, opts);
       } catch (e) {
+        // The retry must really switch sprintf off: i18next treats
+        // `postProcess: false` as "not set" and runs the global sprintf again,
+        // and the `sprintf` option (the Blaze `_` helper always passes one)
+        // triggers it as well - so the retry threw too and the UI showed the
+        // raw key, e.g. custom-field-stringtemplate-context-hint and its
+        // literal "%{card.title}". An explicit empty list disables it.
+        const { sprintf: _positional, ...literal } = opts;
         try {
-          return this.i18n.t(key, { ...opts, postProcess: false });
+          return this.i18n.t(key, { ...literal, postProcess: [] });
         } catch (e2) {
           return key;
         }
