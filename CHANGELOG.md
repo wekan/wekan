@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d3f1bb708b7b2dc56b729231d58304727609f4c0">Translate Odia procedure definitions and calls</a></summary>
+
+- Fill 22 Odia procedure and paste-action placeholders, preserving existing
+  translations, function names, output distinctions and procedure restrictions.
+- Technical wording remains low confidence pending speaker review.
+- All 54 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Odia translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/bbe0210801b035a0a2bdb535ff2342bdac3c3d9d">Translate Odia trigonometry and variable creation</a></summary>
 
 - Fill 22 Odia trigonometry and workspace placeholders, preserving existing
