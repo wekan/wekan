@@ -227,3 +227,21 @@ assert.match(wu['blockly-NO_PARENT_ANNOUNCEMENT'], /呒没父块/);
 assert.match(wu['blockly-PASTE_ALL_FROM_BACKPACK'], /所有积木块侪/);
 for (const [kind, word] of Object.entries({ COLOUR: '颜色', NUMBER: '数字', STRING: '字符串' })) assert.ok(wu[`blockly-NEW_${kind}_VARIABLE`].includes(word));
 assert.notEqual(wu['blockly-NEW_VARIABLE_TITLE'], wu['blockly-NEW_VARIABLE_TYPE_TITLE']);
+
+const procedures = ["blockly-PROCEDURES_CALLRETURN_TOOLTIP", "blockly-PROCEDURES_CALL_BEFORE_PARAMS", "blockly-PROCEDURES_CALL_DISABLED_DEF_WARNING", "blockly-PROCEDURES_CREATE_DO", "blockly-PROCEDURES_DEFNORETURN_COMMENT", "blockly-PROCEDURES_DEFNORETURN_PROCEDURE", "blockly-PROCEDURES_DEFNORETURN_TOOLTIP", "blockly-PROCEDURES_DEFRETURN_RETURN", "blockly-PROCEDURES_DEFRETURN_TOOLTIP", "blockly-PROCEDURES_DEF_DUPLICATE_WARNING", "blockly-PROCEDURES_HIGHLIGHT_DEF", "blockly-PROCEDURES_IFRETURN_TOOLTIP", "blockly-PROCEDURES_IFRETURN_WARNING", "blockly-PROCEDURES_MUTATORARG_TITLE", "blockly-PROCEDURES_MUTATORARG_TOOLTIP", "blockly-PROCEDURES_MUTATORCONTAINER_TITLE", "blockly-PROCEDURES_MUTATORCONTAINER_TOOLTIP", "blockly-REDO", "blockly-REMOVE_FROM_BACKPACK", "blockly-RENAME_VARIABLE", "blockly-RENAME_VARIABLE_TITLE", "blockly-RESET_ZOOM", "blockly-SCREENREADER_HINT", "blockly-SCREENREADER_MODE_DISABLED", "blockly-SCREENREADER_MODE_ENABLED", "blockly-SHIFT_KEY", "blockly-SHORTCUTS_ABORT_MOVE", "blockly-SHORTCUTS_CLEANUP", "blockly-SHORTCUTS_CODE_NAVIGATION", "blockly-SHORTCUTS_DISCONNECT"];
+for (const key of procedures) {
+  assert.notEqual(wu[key], english[key], key);
+  assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+}
+assert.match(wu['blockly-PROCEDURES_CALLRETURN_TOOLTIP'], /再用伊个输出/);
+assert.doesNotMatch(wu['blockly-PROCEDURES_CALLNORETURN_TOOLTIP'], /输出/);
+assert.match(wu['blockly-PROCEDURES_DEFNORETURN_TOOLTIP'], /呒没输出/);
+assert.match(wu['blockly-PROCEDURES_DEFRETURN_TOOLTIP'], /有输出/);
+assert.match(wu['blockly-PROCEDURES_CALL_DISABLED_DEF_WARNING'], /运行勿了.*停用仔/);
+assert.match(wu['blockly-PROCEDURES_IFRETURN_WARNING'], /只好勒函数定义里向用/);
+assert.match(wu['blockly-PROCEDURES_IFRETURN_TOOLTIP'], /是真.*第二只值/);
+assert.match(wu['blockly-RENAME_VARIABLE_TITLE'], /所有 '%1' 变量侪/);
+assert.match(wu['blockly-SCREENREADER_MODE_DISABLED'], /关脱仔.*%1 打开/);
+assert.match(wu['blockly-SCREENREADER_MODE_ENABLED'], /打开仔.*%1 关脱/);
+assert.match(wu['blockly-SHIFT_KEY'], /Shift/);
+assert.equal(wu['blockly-PROCEDURES_CALL_BEFORE_PARAMS'], wu['blockly-PROCEDURES_BEFORE_PARAMS']);
