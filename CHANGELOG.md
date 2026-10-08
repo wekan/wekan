@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/df2ed8af6e390a01a3ed1a611221b1d5c9ace7f5">Correct Tatar loading and text rendering guidance</a></summary>
+
+- Correct 12 loading and rendering values, aligning automatic-loading guidance
+  with English and restoring configuration names and code examples.
+- Technical wording remains low confidence pending speaker review.
+- All 134 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d2e92c0d4018caccec49ac5499017c4d776eaef9">Correct Tatar Sandstorm migration cleanup</a></summary>
 
 - Correct 11 migration-cleanup and feature values, preserving successful
