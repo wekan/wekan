@@ -8030,6 +8030,16 @@ comment/read-only restrictions. Specialized color wording remains low confidence
 pending speaker review. Browser checks were not run. Further wrong-language
 corrections and the broader audit remain unfinished.
 
+### Tatar copying, restricted roles and custom-field controls
+
+Corrected 30 permission, deletion, clipboard, copying and custom-field values.
+Translated the embedded multi-card JSON example while preserving its title and
+description property names and valid syntax. Regression coverage parses that
+example and checks restricted-role wording, deletion permanence, distinct copy
+targets and field-label aliases. Correct adjacent translations and source tokens
+were retained. Technical wording remains low confidence pending speaker review.
+Browser checks were not run. Further corrections and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
