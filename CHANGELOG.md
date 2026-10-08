@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/881899ee4a">Correct Wu cloud setup and migration statuses</a>. Thanks to xet7.</summary>
+
+Correct 24 Wu values, preserving cloud menu paths, product names and credential
+alternatives. Distinguish migration progress, success, failure and stop scope.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7a0460e755">Correct Wu anonymization and cloud storage help</a>. Thanks to xet7.</summary>
 
 Correct 19 Wu values, preserving anonymization examples, field names, cloud console
