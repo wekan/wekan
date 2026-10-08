@@ -7500,6 +7500,16 @@ loop-control distinctions. Script checks do not establish fluency; technical wor
 remains low confidence pending speaker review. Browser and right-to-left layout checks
 were not run. Remaining Central Kurdish strings and the broader audit continue.
 
+### Central Kurdish Blockly editing and accessibility
+
+Filled 54 English placeholders for loop conditions, editing actions, deletion
+confirmations, bitmap fields, input labels and accessibility announcements. Existing
+translations and source tokens are preserved. Regression checks cover source key order,
+script and token inventories, true/false conditions, opposite editing states and
+variable-deletion references. Technical wording remains low confidence pending speaker
+review. Browser, screen-reader and right-to-left layout checks were not run. The
+remaining translation inventory and broader language audit are unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
