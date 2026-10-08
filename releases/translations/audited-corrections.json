@@ -169713,5 +169713,208 @@
     "before": "on",
     "after": "allumé",
     "reason": "2026-10-08: Translate short English Blockly announcement and pixel state; preserve input/context argument roles."
+  },
+  {
+    "locale": "yi",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%1 פֿון %2",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "yi",
+    "key": "blockly-CONTROLS_IF_MSG_IF",
+    "before": "if",
+    "after": "אויב",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "yi",
+    "key": "blockly-CONTROLS_REPEAT_INPUT_DO",
+    "before": "do",
+    "after": "אויספֿירן",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "yi",
+    "key": "blockly-FIELD_BITMAP_PIXEL_ON",
+    "before": "on",
+    "after": "אָנגעצונדן",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "yi",
+    "key": "blockly-LISTS_GET_SUBLIST_END_FROM_START",
+    "before": "to #",
+    "after": "ביז #",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "yi",
+    "key": "blockly-LISTS_SET_INDEX_INPUT_TO",
+    "before": "as",
+    "after": "צו",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "yi",
+    "key": "blockly-LOGIC_OPERATION_OR",
+    "before": "or",
+    "after": "אָדער",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "yi",
+    "key": "blockly-PROCEDURES_DEFNORETURN_TITLE",
+    "before": "to",
+    "after": "דעפֿינירן",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "yi",
+    "key": "blockly-CONTROLS_FOREACH_INPUT_DO",
+    "before": "do",
+    "after": "אויספֿירן",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "yi",
+    "key": "blockly-CONTROLS_FOR_INPUT_DO",
+    "before": "do",
+    "after": "אויספֿירן",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "yi",
+    "key": "blockly-CONTROLS_IF_IF_TITLE_IF",
+    "before": "if",
+    "after": "אויב",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "yi",
+    "key": "blockly-CONTROLS_IF_MSG_THEN",
+    "before": "do",
+    "after": "אויספֿירן",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "yi",
+    "key": "blockly-CONTROLS_WHILEUNTIL_INPUT_DO",
+    "before": "do",
+    "after": "אויספֿירן",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "yi",
+    "key": "blockly-PROCEDURES_DEFRETURN_TITLE",
+    "before": "to",
+    "after": "דעפֿינירן",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "yi",
+    "key": "blockly-DIALOG_OK",
+    "before": "OK",
+    "after": "באַשטעטיקן",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "pap",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%1 di %2",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "pap",
+    "key": "blockly-CONTROLS_IF_MSG_IF",
+    "before": "if",
+    "after": "si",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "pap",
+    "key": "blockly-CONTROLS_REPEAT_INPUT_DO",
+    "before": "do",
+    "after": "ehekutá",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "pap",
+    "key": "blockly-FIELD_BITMAP_PIXEL_ON",
+    "before": "on",
+    "after": "sendé",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "pap",
+    "key": "blockly-LISTS_GET_SUBLIST_END_FROM_START",
+    "before": "to #",
+    "after": "te #",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "pap",
+    "key": "blockly-LISTS_SET_INDEX_INPUT_TO",
+    "before": "as",
+    "after": "na",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "pap",
+    "key": "blockly-LOGIC_OPERATION_OR",
+    "before": "or",
+    "after": "òf",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "pap",
+    "key": "blockly-PROCEDURES_DEFNORETURN_TITLE",
+    "before": "to",
+    "after": "definí",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "pap",
+    "key": "blockly-CONTROLS_FOREACH_INPUT_DO",
+    "before": "do",
+    "after": "ehekutá",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "pap",
+    "key": "blockly-CONTROLS_FOR_INPUT_DO",
+    "before": "do",
+    "after": "ehekutá",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "pap",
+    "key": "blockly-CONTROLS_IF_IF_TITLE_IF",
+    "before": "if",
+    "after": "si",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "pap",
+    "key": "blockly-CONTROLS_IF_MSG_THEN",
+    "before": "do",
+    "after": "ehekutá",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "pap",
+    "key": "blockly-CONTROLS_WHILEUNTIL_INPUT_DO",
+    "before": "do",
+    "after": "ehekutá",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
+  },
+  {
+    "locale": "pap",
+    "key": "blockly-PROCEDURES_DEFRETURN_TITLE",
+    "before": "to",
+    "after": "definí",
+    "reason": "2026-10-08: Translate short English Blockly labels, preserving indexed arguments; lower-confidence Papiamento terminology needs native review."
   }
 ]

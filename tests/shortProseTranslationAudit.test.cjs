@@ -37,3 +37,24 @@ test('Finnish, German and French short labels preserve input/context roles and p
     assert.notEqual(locale['blockly-FIELD_BITMAP_PIXEL_ON'], locale['blockly-FIELD_BITMAP_PIXEL_OFF'], code);
   }
 });
+
+test('Yiddish and Papiamento control labels preserve roles and equivalent forms', async () => {
+  const fs = require('node:fs');
+  const path = require('node:path');
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', code + '.i18n.json'), 'utf8'));
+  const source = read('en');
+  for (const code of ['yi', 'pap']) {
+    const locale = read(code);
+    for (const suffix of ['ANNOUNCE_MOVE_OF', 'CONTROLS_IF_MSG_IF', 'CONTROLS_REPEAT_INPUT_DO', 'FIELD_BITMAP_PIXEL_ON', 'LISTS_GET_SUBLIST_END_FROM_START', 'LISTS_SET_INDEX_INPUT_TO', 'LOGIC_OPERATION_OR', 'PROCEDURES_DEFNORETURN_TITLE', 'CONTROLS_FOREACH_INPUT_DO', 'CONTROLS_FOR_INPUT_DO', 'CONTROLS_IF_IF_TITLE_IF', 'CONTROLS_IF_MSG_THEN', 'CONTROLS_WHILEUNTIL_INPUT_DO', 'PROCEDURES_DEFRETURN_TITLE']) {
+      const key = 'blockly-' + suffix;
+      assert.notEqual(locale[key], source[key], code + ': ' + key);
+      assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), code + ': ' + key);
+    }
+    assert.equal(locale['blockly-ANNOUNCE_MOVE_OF'].replace('%1', 'INPUT').replace('%2', 'BLOCK'), code === 'yi' ? 'INPUT פֿון BLOCK' : 'INPUT di BLOCK');
+    assert.equal(locale['blockly-CONTROLS_IF_MSG_IF'], locale['blockly-CONTROLS_IF_IF_TITLE_IF']);
+    assert.equal(locale['blockly-PROCEDURES_DEFNORETURN_TITLE'], locale['blockly-PROCEDURES_DEFRETURN_TITLE']);
+    assert.notEqual(locale['blockly-FIELD_BITMAP_PIXEL_ON'], locale['blockly-FIELD_BITMAP_PIXEL_OFF']);
+    assert.notEqual(locale['blockly-LOGIC_OPERATION_OR'], locale['blockly-LOGIC_OPERATION_AND']);
+  }
+});

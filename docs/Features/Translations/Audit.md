@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Yiddish and Papiamento short Blockly labels — 2026-10-08
+
+Translate 29 short English labels: movement context, conditional/execution words,
+list ranges and assignment, procedure headings and lit pixel state. Retain Papiamento
+OK as a shared label. Preserve indexed arguments and consistency between modern and
+legacy Blockly labels. Papiamento wording needs native review; browser/screen-reader
+tests and wider translation work remain unfinished.
+
 ## Finnish, German and French short Blockly labels — 2026-10-08
 
 Translate 20 English values across Finnish, four German and five French locale paths:
