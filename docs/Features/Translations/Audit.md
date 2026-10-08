@@ -8154,6 +8154,15 @@ replace-description wording, equivalent rename/close labels and self-membership
 versus self-assignment. Technical wording remains low confidence pending speaker
 review. Browser checks were not run. Further corrections and the broader audit remain.
 
+### Tatar sidebar shortcuts and automatic board opening
+
+Corrected 20 shortcut, sidebar, starring and time labels while preserving correct
+adjacent starred-item translations. Source tokens and key order remain intact.
+Regression coverage checks distinct sidebar targets, open/close and automatic-open
+states, assigned-card scope, greater-than count wording and hour units. Technical
+wording remains low confidence pending speaker review. Browser checks were not run.
+Further wrong-language corrections and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
