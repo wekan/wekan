@@ -975,6 +975,21 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9687307660">Translate Italian planning and recovery messages</a>. Thanks to xet7.</summary>
+
+Fill 97 current messages for board controls, import formats, LDAP, OAuth,
+planning and recovery. Preserve existing localized values, source variables,
+literal examples, matching priority and distinctions between retaining
+applied changes and discarding pending ones.
+
+Italian, global placeholder, import-format and translation audit suites pass,
+together with 21 human-preference checks. The fill tool reports no remaining
+English placeholders in Italian. No browser or screen-reader session was run;
+other locales and broader linguistic review remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d9b585135d">Translate German planning imports and recovery messages</a>. Thanks to xet7.</summary>
 
 Fill 61 messages in each of four German catalogs, preserving existing
