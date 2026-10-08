@@ -689,3 +689,16 @@ assert.match(wu['normal-assigned-only-desc'], /只看得见分配畀自家个卡
 assert.match(wu['notify-participate'], /创建者或者成员.*任何卡片.*接收通知/);
 assert.match(wu['notify-watch'], /关注.*看板、列表或者卡片.*接收通知/);
 assert.equal(wu.optional, '可选');
+
+const visibilityRemoval = ["page-maybe-private", "page-not-found", "paste-or-dragdrop", "private", "private-desc", "profile", "public", "public-desc", "custom-private-desc", "custom-private-desc-placeholder", "custom-public-desc", "custom-public-desc-placeholder", "quick-access-description", "remove-cover", "remove-from-board", "listDeletePopup-title", "remove-member", "remove-member-from-card", "remove-member-pop", "removeMemberPopup-title", "rename-board", "rescue-card-description", "rescue-card-description-dialogue", "search-cards"];
+for (const key of visibilityRemoval) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.ok(wu['page-maybe-private'].includes("<a href='%s'>登录</a>"));
+assert.match(wu['private-desc'], /只有加入看板个人.*查看搭修改/);
+assert.match(wu['public-desc'], /任何有链接个人.*Google.*只有加入看板个人.*修改/);
+assert.equal(wu.public, '公开');
+assert.equal(wu.profile, '个人资料');
+assert.match(wu['remove-member-pop'], /__name__.*__username__.*__boardTitle__.*所有卡片个成员.*移脱.*收到通知/);
+assert.doesNotMatch(wu['remove-member-pop'], /删脱/);
+for (const key of ['custom-private-desc-placeholder', 'custom-public-desc-placeholder']) assert.match(wu[key], /留空就用默认/);
+assert.match(wu['rescue-card-description'], /还朆保存.*关闭以前/);
+assert.match(wu['rescue-card-description-dialogue'], /侬个修改覆盖当前卡片描述/);

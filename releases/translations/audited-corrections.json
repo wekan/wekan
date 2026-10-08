@@ -163042,5 +163042,173 @@
     "before": "选修的",
     "after": "可选",
     "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "page-maybe-private",
+    "before": "此页面可能是私人的。您可以通过<a href='%s'>登录</a>来查看。",
+    "after": "搿个页面可能是私有个。侬可以试试看<a href='%s'>登录</a>以后能勿能看。",
+    "reason": "2026-10-08: Correct Wu visibility and member-removal meanings, preserving variables and access scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "page-not-found",
+    "before": "找不到页面。",
+    "after": "呒没寻着页面。",
+    "reason": "2026-10-08: Correct Wu visibility and member-removal meanings, preserving variables and access scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "paste-or-dragdrop",
+    "before": "粘贴或拖放图像文件到其中（仅限图像）",
+    "after": "来粘贴，或者拿图片文件拖放到里向（只限图片）",
+    "reason": "2026-10-08: Correct Wu visibility and member-removal meanings, preserving variables and access scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "private",
+    "before": "私人的",
+    "after": "私有",
+    "reason": "2026-10-08: Correct Wu visibility and member-removal meanings, preserving variables and access scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "private-desc",
+    "before": "该委员会是私人的。只有添加到图板的人员才能查看和编辑它。",
+    "after": "搿块看板是私有个。只有加入看板个人才可以查看搭修改伊。",
+    "reason": "2026-10-08: Correct Wu visibility and member-removal meanings, preserving variables and access scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "profile",
+    "before": "轮廓",
+    "after": "个人资料",
+    "reason": "2026-10-08: Correct Wu visibility and member-removal meanings, preserving variables and access scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "public",
+    "before": "民众",
+    "after": "公开",
+    "reason": "2026-10-08: Correct Wu visibility and member-removal meanings, preserving variables and access scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "public-desc",
+    "before": "该委员会是公开的。任何知道该链接的人都可以看到它，并且会显示在 Google 等搜索引擎中。只有添加到论坛的人员才能编辑。",
+    "after": "搿块看板是公开个。任何有链接个人侪可以看，Google 等搜索引擎里向也会显示。只有加入看板个人才可以修改。",
+    "reason": "2026-10-08: Correct Wu visibility and member-removal meanings, preserving variables and access scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "custom-private-desc",
+    "before": "自定义 私人的 描述",
+    "after": "自定义私有看板描述",
+    "reason": "2026-10-08: Correct Wu visibility and member-removal meanings, preserving variables and access scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "custom-private-desc-placeholder",
+    "before": "留空以使用默认 私人的 看板描述",
+    "after": "留空就用默认个私有看板描述",
+    "reason": "2026-10-08: Correct Wu visibility and member-removal meanings, preserving variables and access scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "custom-public-desc",
+    "before": "自定义 民众 描述",
+    "after": "自定义公开看板描述",
+    "reason": "2026-10-08: Correct Wu visibility and member-removal meanings, preserving variables and access scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "custom-public-desc-placeholder",
+    "before": "留空以使用默认 民众 看板描述",
+    "after": "留空就用默认个公开看板描述",
+    "reason": "2026-10-08: Correct Wu visibility and member-removal meanings, preserving variables and access scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "quick-access-description",
+    "before": "给看板加注星标以在此栏中添加快捷方式。",
+    "after": "畀看板加星标，就会勒搿条栏浪加一只快捷入口。",
+    "reason": "2026-10-08: Correct Wu visibility and member-removal meanings, preserving variables and access scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "remove-cover",
+    "before": "从迷你卡中删除封面图像",
+    "after": "从迷你卡片浪移脱封面图片",
+    "reason": "2026-10-08: Correct Wu visibility and member-removal meanings, preserving variables and access scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "remove-from-board",
+    "before": "从板上删除",
+    "after": "从看板浪移脱",
+    "reason": "2026-10-08: Correct Wu visibility and member-removal meanings, preserving variables and access scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "listDeletePopup-title",
+    "before": "删除列表？",
+    "after": "要删脱列表伐？",
+    "reason": "2026-10-08: Correct Wu visibility and member-removal meanings, preserving variables and access scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "remove-member",
+    "before": "删除会员",
+    "after": "移脱成员",
+    "reason": "2026-10-08: Correct Wu visibility and member-removal meanings, preserving variables and access scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "remove-member-from-card",
+    "before": "从卡中删除",
+    "after": "从卡片浪移脱",
+    "reason": "2026-10-08: Correct Wu visibility and member-removal meanings, preserving variables and access scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "remove-member-pop",
+    "before": "从__boardTitle__ 中删除__name__ (__username__) 吗？该成员将从该板上的所有卡中删除。他们将收到通知。",
+    "after": "要拿 __name__（__username__）从 __boardTitle__ 移脱伐？搿位成员会从搿块看板浪所有卡片个成员里向移脱。伊会收到通知。",
+    "reason": "2026-10-08: Correct Wu visibility and member-removal meanings, preserving variables and access scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "removeMemberPopup-title",
+    "before": "删除会员？",
+    "after": "要移脱成员伐？",
+    "reason": "2026-10-08: Correct Wu visibility and member-removal meanings, preserving variables and access scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "rename-board",
+    "before": "重命名板",
+    "after": "修改看板名字",
+    "reason": "2026-10-08: Correct Wu visibility and member-removal meanings, preserving variables and access scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "rescue-card-description",
+    "before": "在关闭之前显示救援对话以获取未保存的卡牌描述",
+    "after": "卡片描述还朆保存个辰光，关闭以前显示挽回修改个对话框",
+    "reason": "2026-10-08: Correct Wu visibility and member-removal meanings, preserving variables and access scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "rescue-card-description-dialogue",
+    "before": "用您的更改覆盖当前卡描述？",
+    "after": "要用侬个修改覆盖当前卡片描述伐？",
+    "reason": "2026-10-08: Correct Wu visibility and member-removal meanings, preserving variables and access scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "search-cards",
+    "before": "从此板上的卡片/列表标题、描述和自定义字段中搜索",
+    "after": "搜索搿块看板浪卡片／列表个标题、描述搭自定义字段",
+    "reason": "2026-10-08: Correct Wu visibility and member-removal meanings, preserving variables and access scope; lower-confidence prose needs native review."
   }
 ]
