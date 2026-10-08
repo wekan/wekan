@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Dutch import formats and stuck Sync recovery — 2026-10-08
+
+Translate 36 current values in each of the two Dutch catalogs (nl and nl-NL),
+for 72 filled values. Preserve existing localized values. Cover import
+formats, assignment actions, LDAP, OAuth, release selection and stuck Sync
+recovery. Extend the existing suite to preserve format literals, configuration
+names, retained applied changes, unwritten pending changes and the difference
+between cannot discard and was not discarded. No browser or screen-reader
+session was run; other untranslated messages remain open.
+
 ## Portuguese import formats and stuck Sync recovery — 2026-10-08
 
 Translate 36 more current values in each of four Portuguese catalogs, for
