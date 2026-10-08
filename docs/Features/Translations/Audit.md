@@ -9796,6 +9796,18 @@ checks passed. Technical Darija wording remains low confidence pending speaker
 review. Browser, RTL and screen-reader checks were not run. Further placeholders
 and the broader dialect and semantic audit remain unfinished.
 
+## Moroccan Arabic list sorting and logic
+
+Filled 45 ordinary placeholders and the short logical-or label, retaining
+existing translations. Tests cover source order, script, tokens, strict versus
+inclusive comparisons, inequality, negation, both versus at-least-one inputs,
+conditional branch labels, sorting a copy, case-insensitive ordering and
+joining versus splitting. Of 45 checks, 43 passed; two repository-wide checks
+still fail because other locales lack the new card-field-visibility keys.
+All 21 human-preference checks passed. Technical Darija wording remains low
+confidence pending speaker review. Browser, RTL and screen-reader checks were
+not run. Remaining placeholders and the broader language audit stay open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
