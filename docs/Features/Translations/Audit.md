@@ -2,6 +2,18 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Maori planning import regressions — 2026-10-08
+
+Translate 20 new Scrum import and Sync planning messages. Extend the Scrum
+inventory from 111 to 127 while retaining per-key prose and token checks.
+Preserve non-duplication, unchanged foreign-board cards, source-ID matching
+priority and first-sync protection of planning. Full wording remains
+low-confidence pending fluent review. Vocabulary follows the catalog,
+[Te Aka tukutahi](https://maoridictionary.co.nz/word/45002) and
+[NZQA science and technology terms](https://www2.nzqa.govt.nz/assets/NCEA/Subject-pages/Chemistry/NZQASci-TechTermsMao-Eng.pdf).
+No browser or screen-reader session was run; two failures from the latest
+broad run remain to repair.
+
 ## Somali planning import regressions — 2026-10-08
 
 Translate 20 new Scrum import and Sync planning messages. Update the Scrum

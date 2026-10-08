@@ -3,6 +3,10 @@ const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const english=require('../imports/i18n/data/en.i18n.json');
 const data=require('../imports/i18n/data/mi.i18n.json');
+test('Māori planning Sync retains matching priority and existing plans',()=>{
+ assert.match(data['sync-planning-hint'],/ID pūtake i te tuatahi, kātahi mā te ingoa/);
+ assert.match(data['sync-planning-hint'],/E kore te tukutahi tuatahi e tango i te whakamahere/);
+});
 const {translationTokens}=require('../releases/translations/placeholder-tokens.mjs');
 
 test('Māori Sync messages preserve source tokens and shared labels',()=>{
