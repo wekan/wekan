@@ -108,8 +108,8 @@ Status checked on 2026-10-08. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **34,920 untranslated locale/string values in 53 languages**.
-  It excludes **159 source keys tracked separately as pending Transifex**.
+  report counts **34,849 untranslated locale/string values in 53 languages**.
+  It excludes **162 source keys tracked separately as pending Transifex**.
   Exact Blockly OS brands and compact math/code symbols no longer inflate
   the prose backlog. Counts are a snapshot; they do not establish the quality
   or language of other values.
@@ -487,6 +487,17 @@ This release adds the following new features:
 
 **Import and export** - three more formats, each a round trip with a loss
 report for what the other tool has no place for.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e54ad20004">Translate Manx Scrum planning labels and states</a>. Thanks to xet7.</summary>
+
+- Translate 71 planning, estimate, event, state and report labels/messages.
+  Preserve named variables, time units and distinct completion/cancellation
+  states. Extend the Manx suite to use the shared placeholder scanner.
+- Three relevant suites pass. Scrum terminology and grammar remain low-confidence
+  pending fluent review. Browser and screen-reader sessions were not run.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c1d3de6691">Restore Asana and OpenProject import literals</a>. Thanks to xet7.</summary>
