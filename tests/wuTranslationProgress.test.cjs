@@ -405,3 +405,13 @@ assert.match(wu['activity-unchecked-item'], /取消 %s.*检查清单 %s.*所属�
 assert.match(wu['activity-checklist-completed'], /检查清单 %s.*所属卡片是 %s/);
 assert.match(wu['activity-checklist-uncompleted'], /还朆完成/);
 assert.match(wu['activity-unjoined'], /退出/);
+
+const checklistDates = ["activity-unchecked-item-card", "activity-checklist-completed-card", "activity-checklist-uncompleted-card", "activity-editComment", "activity-deleteComment", "activity-receivedDate", "activity-startDate", "allboards.edit-workspace-icon"];
+for (const key of checklistDates) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.match(wu['activity-unchecked-item-card'], /取消 %s.*检查清单 %s/);
+assert.match(wu['activity-checklist-uncompleted-card'], /还朆完成/);
+for (const key of ['activity-receivedDate', 'activity-startDate']) assert.match(wu[key], /日期改成 %s.*所属项目是 %s/);
+assert.match(wu['activity-editComment'], /改过评论/);
+assert.match(wu['activity-deleteComment'], /删脱评论/);
+assert.match(wu['allboards.edit-workspace-icon'], /Markdown/);
+assert.doesNotMatch(wu['allboards.edit-workspace-icon'], /降价/);

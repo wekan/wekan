@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu checklist dates and Markdown correction — 2026-10-08
+
+Correct eight checklist, comment, date and workspace-icon values. Restore item
+before checklist and date before owner in positional messages; express cancelling
+completion as an action. Restore Markdown's format name instead of the unrelated
+price-reduction wording. Preserve exact tokens and refresh audit evidence. Wu prose
+needs native review. No browser session was run. The broader audit is unfinished.
+
 ## Wu activity-summary argument order — 2026-10-08
 
 Correct 25 activity summaries to Wu wording. Repair reversed positional `%s` roles
@@ -12449,7 +12457,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,896** exact before/after values, including unflagged
+records contain **22,904** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

@@ -160270,5 +160270,61 @@
     "before": "在清单%s中检查了%s",
     "after": "勾选 %s 仔，勒检查清单 %s 里向",
     "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-unchecked-item-card",
+    "before": "清单%s 中未选中%s",
+    "after": "取消 %s 个勾选仔，勒检查清单 %s 里向",
+    "reason": "2026-10-08: Correct Wu activity wording and positional roles; restore Markdown format name instead of price-reduction mistranslation. Wu prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-checklist-completed-card",
+    "before": "已完成的检查表 __checklist__ 在卡 __card__ 在列表 __list__ 在泳道 __swimlane__ 在板 __board__",
+    "after": "完成检查清单 __checklist__ 仔，勒卡片 __card__、列表 __list__、泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "2026-10-08: Correct Wu activity wording and positional roles; restore Markdown format name instead of price-reduction mistranslation. Wu prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-checklist-uncompleted-card",
+    "before": "未完成清单%s",
+    "after": "拿检查清单 %s 改回还朆完成仔",
+    "reason": "2026-10-08: Correct Wu activity wording and positional roles; restore Markdown format name instead of price-reduction mistranslation. Wu prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-editComment",
+    "before": "编辑评论%s",
+    "after": "改过评论 %s 仔",
+    "reason": "2026-10-08: Correct Wu activity wording and positional roles; restore Markdown format name instead of price-reduction mistranslation. Wu prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-deleteComment",
+    "before": "已删除评论%s",
+    "after": "删脱评论 %s 仔",
+    "reason": "2026-10-08: Correct Wu activity wording and positional roles; restore Markdown format name instead of price-reduction mistranslation. Wu prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-receivedDate",
+    "before": "将接收日期编辑为 %s 的 %s",
+    "after": "接收日期改成 %s 仔，所属项目是 %s",
+    "reason": "2026-10-08: Correct Wu activity wording and positional roles; restore Markdown format name instead of price-reduction mistranslation. Wu prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-startDate",
+    "before": "将开始日期编辑为 %s 的 %s",
+    "after": "开始日期改成 %s 仔，所属项目是 %s",
+    "reason": "2026-10-08: Correct Wu activity wording and positional roles; restore Markdown format name instead of price-reduction mistranslation. Wu prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "allboards.edit-workspace-icon",
+    "before": "工作区图标（降价）",
+    "after": "工作区图标（Markdown）",
+    "reason": "2026-10-08: Correct Wu activity wording and positional roles; restore Markdown format name instead of price-reduction mistranslation. Wu prose is lower confidence and needs native review."
   }
 ]
