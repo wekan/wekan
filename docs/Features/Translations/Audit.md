@@ -7519,6 +7519,15 @@ minimum/maximum, start/end positions, coordinates and copy/cut announcements. Te
 wording remains low confidence pending speaker review. Browser, screen-reader and
 right-to-left layout checks were not run. The broader translation audit continues.
 
+### Central Kurdish list retrieval and removal
+
+Filled 42 English placeholders for list construction, retrieval, removal, sublists,
+search, emptiness and length. Existing translations and source placeholders are
+preserved. Regression checks cover key order, script and token inventories, retrieval
+versus removal wording, first/last occurrences and empty-list length. Technical wording
+remains low confidence pending speaker review. Browser, screen-reader and right-to-left
+layout checks were not run. Remaining strings and the broader audit continue.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
