@@ -7460,6 +7460,15 @@ sprint states, shared navigation labels, minute units and unknown-versus-zero es
 wording. Scrum terminology remains low confidence pending speaker review. Browser
 checks were not run; remaining feature strings and the broader audit are unfinished.
 
+### Bhojpuri daily observations and Sync conflicts
+
+Filled 54 English placeholders for Scrum daily observations, import status, Sync
+conflicts, preview and source omissions. Existing translations and source placeholders
+are preserved. Regression checks cover token inventories, UTC references, observation
+and path limits, shared labels, source-system non-writing and unchanged subcards.
+Technical wording remains low confidence pending speaker review. Browser checks were
+not run; remaining Sync and recovery translations and the broader audit continue.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
