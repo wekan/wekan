@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Romanian controls, import guidance and stuck Sync recovery — 2026-10-08
+
+Translate 44 messages in each Romanian catalog, for 88 filled values.
+Cover board controls, link rules, import formats, assignment actions, LDAP,
+OAuth, server-only login settings and stuck Sync recovery. Preserve existing
+localized values. Extend the existing suite with literal syntax, configuration
+names, retained applied changes, unwritten pending changes and opposite movement
+directions. No browser or screen-reader session was run; other translations
+and linguistic review remain open.
+
 ## Romanian interrupted import recovery — 2026-10-08
 
 Translate 25 messages in each Romanian catalog (ro and ro-RO), for 50 filled
