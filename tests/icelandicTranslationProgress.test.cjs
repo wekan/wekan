@@ -198,3 +198,18 @@ assert.match(icelandic['stuck-sync-operation-replayable-now'], /ekki er hægt a�
 assert.match(icelandic['stuck-sync-operation-not-stuck'], /ekki er hægt að farga/);
 assert.match(icelandic['stuck-sync-operation-truncated'], /50 elstu/);
 assert.match(icelandic['stuck-sync-operation-busy'], /samstilla þennan lista núna/);
+
+const interruptedImportKeys = Object.keys(english).filter(key => key.startsWith('interrupted-import-'));
+assert.equal(interruptedImportKeys.length, 25);
+for (const key of interruptedImportKeys) {
+  assert.notEqual(icelandic[key], english[key], key);
+  assert.deepEqual(translationTokens(icelandic[key]), translationTokens(english[key]), key);
+}
+assert.match(icelandic['interrupted-import-description'], /upprunaskráin er ekki varðveitt/);
+assert.match(icelandic['interrupted-import-description'], /allt sem hefur verið bætt við síðan/);
+assert.match(icelandic['interrupted-import-counts'], /__swimlanes__ sundbrautir/);
+assert.match(icelandic['interrupted-import-discard-confirm'], /fjarlægt varanlega/);
+assert.match(icelandic['interrupted-import-keep-confirm'], /Ekkert er fjarlægt/);
+assert.match(icelandic['interrupted-import-foreign-board'], /var því ekki breytt/);
+assert.match(icelandic['interrupted-import-truncated'], /50 elstu/);
+assert.match(icelandic['interrupted-import-scrum-busy'], /Enn er verið að skrifa eða endurheimta/);
