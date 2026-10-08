@@ -2011,6 +2011,21 @@ report with seven assignees and asserts no avatar overlaps the comment.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a30eaaf22f69c65a3f6dbde318c87589380f9d7c">Translate card-field visibility in eight languages</a></summary>
+
+- Add 16 missing translations in Finnish, Swedish, German, French, Spanish,
+  Portuguese, Italian and Dutch. Preserve existing strings, key order and tokens;
+  check unchanged card data/settings, re-enabling fields and per-board ordering.
+- Validation: 38 translation checks and 21 human-preference checks pass. Two
+  repository-wide checks still fail on these keys missing from other locales.
+  Browser checks were not run; menu wording remains open to speaker review.
+- The remaining catalogs and broader language audit are unfinished.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/486d6229475adb3265e29f94b5108014b21334a3">Translate Moroccan Arabic recovery and short labels</a></summary>
 
 - Fill 44 placeholders, including keyboard names and short labels omitted by the
