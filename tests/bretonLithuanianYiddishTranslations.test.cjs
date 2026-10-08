@@ -505,3 +505,23 @@ assert.match(locales.yi['blockly-MATH_MODULO_TITLE'], /%1 ÷ %2/);
 assert.match(locales.yi['blockly-MATH_SINGLE_TOOLTIP_EXP'], / e /);
 assert.match(locales.yi['blockly-MATH_SINGLE_TOOLTIP_LOG10'], /באַזע 10/);
 assert.match(locales.yi['blockly-MATH_SINGLE_TOOLTIP_NEG'], /פֿאַרקערטן סימן/);
+
+const yiddishBlocklyFunctions = ["blockly-MATH_SINGLE_TOOLTIP_POW10", "blockly-MATH_SINGLE_TOOLTIP_ROOT", "blockly-MATH_SUBTRACTION_SYMBOL_ARIA", "blockly-MATH_TRIG_ACOS_ARIA", "blockly-MATH_TRIG_ASIN_ARIA", "blockly-MATH_TRIG_ATAN_ARIA", "blockly-MATH_TRIG_COS_ARIA", "blockly-MATH_TRIG_SIN_ARIA", "blockly-MATH_TRIG_TAN_ARIA", "blockly-MATH_TRIG_TOOLTIP_ACOS", "blockly-MATH_TRIG_TOOLTIP_ASIN", "blockly-MATH_TRIG_TOOLTIP_ATAN", "blockly-MATH_TRIG_TOOLTIP_COS", "blockly-MATH_TRIG_TOOLTIP_SIN", "blockly-MATH_TRIG_TOOLTIP_TAN", "blockly-MINIMAP_ARIA_LABEL", "blockly-MOVE_BLOCK", "blockly-NEW_COLOUR_VARIABLE", "blockly-NEW_NUMBER_VARIABLE", "blockly-NEW_STRING_VARIABLE", "blockly-NEW_VARIABLE", "blockly-NEW_VARIABLE_TITLE", "blockly-NEW_VARIABLE_TYPE_TITLE", "blockly-NO_PARENT_ANNOUNCEMENT", "blockly-OPEN_BACKPACK", "blockly-OPEN_TRASH", "blockly-OPTION_KEY", "blockly-PAGE_DOWN_KEY", "blockly-PAGE_UP_KEY", "blockly-PARENT_BLOCKS_ANNOUNCEMENT", "blockly-PASTE_ALL_FROM_BACKPACK", "blockly-PASTE_SHORTCUT", "blockly-PAUSE_KEY", "blockly-PROCEDURES_ALLOW_STATEMENTS", "blockly-PROCEDURES_BEFORE_PARAMS", "blockly-PROCEDURES_CALLNORETURN_TOOLTIP", "blockly-PROCEDURES_CALLRETURN_TOOLTIP", "blockly-PROCEDURES_CALL_BEFORE_PARAMS", "blockly-PROCEDURES_CALL_DISABLED_DEF_WARNING", "blockly-PROCEDURES_CREATE_DO", "blockly-PROCEDURES_DEFNORETURN_COMMENT", "blockly-PROCEDURES_DEFNORETURN_PROCEDURE", "blockly-PROCEDURES_DEFNORETURN_TOOLTIP", "blockly-PROCEDURES_DEFRETURN_RETURN", "blockly-PROCEDURES_DEFRETURN_TOOLTIP"];
+for (const key of yiddishBlocklyFunctions) {
+  assert.notEqual(locales.yi[key], english[key], key);
+  assert.match(locales.yi[key], /[\u0590-\u05ff]/, key);
+  assert.deepEqual(translationTokens(locales.yi[key]), translationTokens(english[key]), key);
+}
+for (const operation of ['COS', 'SIN', 'TAN']) {
+  assert.match(locales.yi[`blockly-MATH_TRIG_TOOLTIP_${operation}`], /גראַדן \(נישט ראַדיאַנען\)/);
+  assert.notEqual(locales.yi[`blockly-MATH_TRIG_${operation}_ARIA`], locales.yi[`blockly-MATH_TRIG_A${operation}_ARIA`]);
+}
+assert.match(locales.yi['blockly-PROCEDURES_DEFNORETURN_TOOLTIP'], /אָן אַ רעזולטאַט/);
+assert.match(locales.yi['blockly-PROCEDURES_DEFRETURN_TOOLTIP'], /מיט אַ רעזולטאַט/);
+assert.match(locales.yi['blockly-PROCEDURES_CALLRETURN_TOOLTIP'], /ניצט איר רעזולטאַט/);
+assert.doesNotMatch(locales.yi['blockly-PROCEDURES_CALLNORETURN_TOOLTIP'], /ניצט איר רעזולטאַט/);
+assert.match(locales.yi['blockly-PROCEDURES_CALL_DISABLED_DEF_WARNING'], /קען נישט.*אויסגעשלאָסן/);
+assert.match(locales.yi['blockly-NO_PARENT_ANNOUNCEMENT'], /נישט קיין עלטערן/);
+assert.match(locales.yi['blockly-PAGE_DOWN_KEY'], /אַראָפּ.*Page Down/);
+assert.match(locales.yi['blockly-PAGE_UP_KEY'], /אַרויף.*Page Up/);
+assert.match(locales.yi['blockly-MATH_SINGLE_TOOLTIP_POW10'], /10/);

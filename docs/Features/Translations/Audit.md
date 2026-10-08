@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Yiddish Blockly functions and trigonometry — 2026-10-08
+
+Translate 45 English function, variable, navigation and trigonometry messages.
+Preserve variables and key names; check degrees versus radians, inverse functions,
+returning versus non-returning functions, disabled definitions and page direction.
+Specialized wording is lower confidence and needs native review. No browser or
+screen-reader session was run. Remaining translations are unfinished.
+
 ## Yiddish Blockly statistics and rounding — 2026-10-08
 
 Translate 45 English math messages, preserving variables, division notation and
