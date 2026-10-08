@@ -21,6 +21,7 @@ import { formatMeisterTaskCsv } from './meistertaskCsvFormat.js';
 import { formatObsidianKanban } from './obsidianKanbanFormat.js';
 import { formatLinearCsv } from './linearCsvFormat.js';
 import { formatTickTickCsv } from './ticktickCsvFormat.js';
+import { formatClickUpCsv } from './clickupCsvFormat.js';
 import { formatOpml } from './opmlOutlineFormat.js';
 import { formatOrgMode } from './orgModeFormat.js';
 
@@ -323,6 +324,8 @@ export const formatters = {
   linear: formatLinearCsv,
   // TickTick's backup CSV; round-trips with parseTickTickCsv.
   ticktick: formatTickTickCsv,
+  // ClickUp's workspace export columns; round-trips with parseClickUpCsv.
+  clickup: formatClickUpCsv,
   // An OPML outline; round-trips with parseOpml (opmlOutline.js, server-only).
   opml: formatOpml,
   // An Org mode outline; round-trips with parseOrgMode (orgModeFormat.js).

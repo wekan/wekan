@@ -226,6 +226,16 @@ Meteor.methods({
         }
         creator = new KanboardCreator(data, 'ticktick');
         break;
+      case 'clickup':
+        // A ClickUp task CSV - see models/lib/clickupCsvFormat.js.
+        check(board, String);
+        try {
+          importedBoard = EXTERNAL_PARSERS.clickup(importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        creator = new KanboardCreator(data, 'clickup');
+        break;
       case 'planner':
         // Microsoft Planner's "Export plan to Excel" workbook - see
         // models/lib/plannerFormat.js. It arrives like the Excel import, as

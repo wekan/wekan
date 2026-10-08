@@ -8,6 +8,7 @@ import { parseMeisterTaskCsv } from './meistertaskCsvFormat.js';
 import { parseObsidianKanban } from './obsidianKanbanFormat.js';
 import { parseLinearCsv } from './linearCsvFormat.js';
 import { parseTickTickCsv } from './ticktickCsvFormat.js';
+import { parseClickUpCsv } from './clickupCsvFormat.js';
 import { parseOrgMode } from './orgModeFormat.js';
 import {
   gitlabScrumPlanning, openProjectScrumPlanning, asanaScrumPlanning, STORY_POINTS_FIELD,
@@ -972,6 +973,8 @@ export const EXTERNAL_PARSERS = {
   linear: parseLinearCsv,
   // TickTick's backup CSV (ticktickCsvFormat.js).
   ticktick: parseTickTickCsv,
+  // ClickUp's task CSV, export or importer shape (clickupCsvFormat.js).
+  clickup: parseClickUpCsv,
   orgmode: parseOrgMode,
   jira: parseJira,
 };

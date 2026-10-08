@@ -1019,6 +1019,10 @@
     {
       "key": "import-board-instruction-ticktick",
       "since": "2026-10-08"
+    },
+    {
+      "key": "import-board-instruction-clickup",
+      "since": "2026-10-08"
     }
   ]
 }

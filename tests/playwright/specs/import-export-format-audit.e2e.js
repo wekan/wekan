@@ -337,7 +337,7 @@ test('every external export menu link returns text and refuses an unrelated user
   // Include description through the actual shared selection controls.
   const details = page.locator('.js-export-card-details-toggle');
   if (await details.getAttribute('aria-checked') !== 'true') await details.click();
-  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian', 'linear', 'ticktick', 'opml', 'orgmode']) {
+  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'opml', 'orgmode']) {
     await test.step(format, async () => {
       const anchor = page.locator(`.js-pop-over a[href*="/export/${format}?"]`);
       await expect(anchor).toBeVisible();
@@ -351,6 +351,32 @@ test('every external export menu link returns text and refuses an unrelated user
       expect([401, 403]).toContain(refused.status());
     });
   }
+});
+
+// A ClickUp workspace export: status, list, assignee, tags, a due date in milliseconds and a subtask.
+test('ClickUp: a task export imports with its status, list, tags, due date and subtask', async ({ loggedInPage: page }) => {
+  let boardId;
+  try {
+    await navigateInApp(page, '/import/clickup');
+    await page.locator('#import-textarea').fill([
+      'Task ID,Task Name,Task Content,Status,Due date,Parent ID,Subtask IDs,Tags,Priority,List Name,Space Name',
+      `t1,${expected.title},"Two of them, DN50",in progress,${Date.UTC(2026, 9, 10)},,[t2],[${expected.label},web],high,Website,From ClickUp`,
+      't2,Child task,,to do,,t1,,[],,Website,From ClickUp',
+    ].join('\r\n'));
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    expect(db.findOne('boards', { _id: boardId }).title).toBe('From ClickUp');
+    const cards = db.find('cards', { boardId });
+    const open = cards.find(card => card.title === expected.title);
+    expect(open.description).toBe('Two of them, DN50');
+    expect(new Date(open.dueAt).toISOString().slice(0, 10)).toBe('2026-10-10');
+    expect(cards.find(card => card.title === 'Child task').parentId).toBe(open._id);
+    const board = db.findOne('boards', { _id: boardId });
+    expect(open.labelIds.map(id => board.labels.find(l => l._id === id).name).sort()).toEqual([expected.label, 'web'].sort());
+    expect(db.find('swimlanes', { boardId }).map(lane => lane.title)).toContain('Website');
+    await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
 });
 
 // A TickTick backup: the preamble, a list as swimlane, a column, tags, a due date and a checklist.
