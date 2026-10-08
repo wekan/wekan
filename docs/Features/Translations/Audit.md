@@ -8497,6 +8497,16 @@ remain. Technical wording remains low confidence pending speaker review. Focused
 tests cover tokens, key order and literal configuration syntax; browser checks
 were not run.
 
+## Tatar import/export and anonymization corrections
+
+Corrected 14 wrong-language import/export and anonymization values. Replaced the
+incorrect export description in the account-anonymization confirmation with its
+actual consequences: permanent identity replacement, avatar removal, disabled
+login, retained history and no undo. Restored service names and field identifiers.
+Technical wording remains low confidence pending speaker review. Focused tests
+cover tokens, key order, literal identifiers and account consequences; browser
+checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
