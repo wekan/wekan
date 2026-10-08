@@ -444,6 +444,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/42797d6418">Translate Super Productivity, Taiga and Vikunja imports</a>. Thanks to xet7.</summary>
+
+Translate nine instructions in Wu Chinese, Papiamento and Yiddish. Preserve menu
+commands, filenames, archive behavior and attachment exclusions. All five affected
+Node suites and 21 human-translation preservation checks pass. Native review,
+browser validation and the remaining all-language translation backlog are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/68601cb89f">Translate Bengali, Kannada and Nepali short interface labels</a>. Thanks to xet7.</summary>
 
 Translate 12 labels for sort criteria, rule actors, email recipients and the
