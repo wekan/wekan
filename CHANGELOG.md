@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ab1a7a8171">Translate Zulu Blockly list operations</a>. Thanks to xet7.</summary>
+
+Fill 75 list-operation strings in each Zulu catalog. Preserve numbered variables
+and configuration values. Tests cover retrieval/removal distinctions, sorting
+and rendered substitutions. Both targeted suites and all 21 preservation checks
+pass. Specialized terminology needs speaker review; browser execution and the
+remaining translations are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ccd6277314">Translate Zulu Blockly editor and accessibility labels</a>. Thanks to xet7.</summary>
 
 Translate 50 more strings in each Zulu catalog, preserving percent variables.
