@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Zulu Blockly logic and basic arithmetic — 2026-10-09
+
+Translate 59 strings per Zulu catalog (118 values) for logic, comparisons,
+basic arithmetic, bounds and random numbers. Retain numbered variables, null
+and mathematical symbols. Regression checks distinguish AND from OR, positive
+from negative, inclusive from exclusive bounds, and verify ternary labels and
+rendered bound variables. Both targeted suites and all 21 preservation checks
+pass. Specialized terminology remains low confidence pending speaker review.
+Browser execution and remaining translations are outstanding.
+
 ## Zulu Blockly list operations — 2026-10-09
 
 Translate 75 list-operation strings in each of zu and zu-ZA (150 values),

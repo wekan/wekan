@@ -211,6 +211,67 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
   "blockly-LISTS_INDEX_OF_INPUT_IN_LIST",
   "blockly-LISTS_SET_INDEX_INPUT_IN_LIST"
 ]);
+  keys.push(...[
+  "blockly-LOGIC_BOOLEAN_FALSE",
+  "blockly-LOGIC_BOOLEAN_TOOLTIP",
+  "blockly-LOGIC_BOOLEAN_TRUE",
+  "blockly-LOGIC_COMPARE_EQ_ARIA",
+  "blockly-LOGIC_COMPARE_GTE_ARIA",
+  "blockly-LOGIC_COMPARE_GT_ARIA",
+  "blockly-LOGIC_COMPARE_LTE_ARIA",
+  "blockly-LOGIC_COMPARE_LT_ARIA",
+  "blockly-LOGIC_COMPARE_NEQ_ARIA",
+  "blockly-LOGIC_COMPARE_TOOLTIP_EQ",
+  "blockly-LOGIC_COMPARE_TOOLTIP_GT",
+  "blockly-LOGIC_COMPARE_TOOLTIP_GTE",
+  "blockly-LOGIC_COMPARE_TOOLTIP_LT",
+  "blockly-LOGIC_COMPARE_TOOLTIP_LTE",
+  "blockly-LOGIC_COMPARE_TOOLTIP_NEQ",
+  "blockly-LOGIC_NEGATE_TITLE",
+  "blockly-LOGIC_NEGATE_TOOLTIP",
+  "blockly-LOGIC_NULL_TOOLTIP",
+  "blockly-LOGIC_OPERATION_AND",
+  "blockly-LOGIC_OPERATION_OR",
+  "blockly-LOGIC_OPERATION_TOOLTIP_AND",
+  "blockly-LOGIC_OPERATION_TOOLTIP_OR",
+  "blockly-LOGIC_TERNARY_CONDITION",
+  "blockly-LOGIC_TERNARY_IF_FALSE",
+  "blockly-LOGIC_TERNARY_IF_TRUE",
+  "blockly-LOGIC_TERNARY_TOOLTIP",
+  "blockly-MATH_ADDITION_SYMBOL_ARIA",
+  "blockly-MATH_ARITHMETIC_TOOLTIP_ADD",
+  "blockly-MATH_ARITHMETIC_TOOLTIP_DIVIDE",
+  "blockly-MATH_ARITHMETIC_TOOLTIP_MINUS",
+  "blockly-MATH_ARITHMETIC_TOOLTIP_MULTIPLY",
+  "blockly-MATH_CHANGE_TITLE",
+  "blockly-MATH_CHANGE_TOOLTIP",
+  "blockly-MATH_CONSTRAIN_TITLE",
+  "blockly-MATH_CONSTRAIN_TOOLTIP",
+  "blockly-MATH_DIVISION_SYMBOL_ARIA",
+  "blockly-MATH_IS_DIVISIBLE_BY",
+  "blockly-MATH_IS_NEGATIVE",
+  "blockly-MATH_IS_POSITIVE",
+  "blockly-MATH_MODULO_TITLE",
+  "blockly-MATH_MODULO_TOOLTIP",
+  "blockly-MATH_MULTIPLICATION_SYMBOL_ARIA",
+  "blockly-MATH_NUMBER_TOOLTIP",
+  "blockly-MATH_ONLIST_OPERATOR_MAX",
+  "blockly-MATH_ONLIST_OPERATOR_MAX_ARIA",
+  "blockly-MATH_ONLIST_OPERATOR_MIN",
+  "blockly-MATH_ONLIST_OPERATOR_MIN_ARIA",
+  "blockly-MATH_ONLIST_OPERATOR_RANDOM",
+  "blockly-MATH_ONLIST_OPERATOR_SUM",
+  "blockly-MATH_ONLIST_TOOLTIP_MAX",
+  "blockly-MATH_ONLIST_TOOLTIP_MIN",
+  "blockly-MATH_ONLIST_TOOLTIP_RANDOM",
+  "blockly-MATH_ONLIST_TOOLTIP_SUM",
+  "blockly-MATH_RANDOM_FLOAT_TITLE_RANDOM",
+  "blockly-MATH_RANDOM_FLOAT_TOOLTIP",
+  "blockly-MATH_RANDOM_INT_TITLE",
+  "blockly-MATH_RANDOM_INT_TOOLTIP",
+  "blockly-MATH_SUBTRACTION_SYMBOL_ARIA",
+  "blockly-MATH_CHANGE_TITLE_ITEM"
+]);
   for (const language of ['zu', 'zu-ZA']) {
     const locale = read(language);
     for (const key of keys) {
@@ -244,6 +305,21 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
     assert.doesNotMatch(repeat, /%[12]/);
     for (const key of ['blockly-LISTS_GET_INDEX_FROM_START', 'blockly-LISTS_GET_INDEX_TAIL', 'blockly-LISTS_GET_SUBLIST_TAIL', 'blockly-LISTS_HUE']) {
       assert.strictEqual(locale[key], source[key], key + ': retain non-prose configuration');
+    }
+    assert.match(locale['blockly-LOGIC_OPERATION_TOOLTIP_AND'], /kokubili/);
+    assert.match(locale['blockly-LOGIC_OPERATION_TOOLTIP_OR'], /okungenani okukodwa/);
+    for (const suffix of ['CONDITION', 'IF_FALSE', 'IF_TRUE']) {
+      assert.ok(locale['blockly-LOGIC_TERNARY_TOOLTIP'].includes("'" + locale['blockly-LOGIC_TERNARY_' + suffix] + "'"));
+    }
+    assert.match(locale['blockly-MATH_RANDOM_FLOAT_TOOLTIP'], /0\.0 \(efakiwe\).*1\.0 \(ongafakiwe\)/);
+    assert.match(locale['blockly-MATH_RANDOM_INT_TOOLTIP'], /kufaka nemikhawulo uqobo/);
+    assert.match(locale['blockly-MATH_IS_NEGATIVE'], /ingaphansi/);
+    assert.match(locale['blockly-MATH_IS_POSITIVE'], /ingaphezu/);
+    const constrain = locale['blockly-MATH_CONSTRAIN_TITLE'].replace('%1', 'value').replace('%2', '2').replace('%3', '8');
+    assert.match(constrain, /value.*2.*8/);
+    assert.doesNotMatch(constrain, /%[123]/);
+    for (const key of ['LOGIC_NULL', 'MATH_ADDITION_SYMBOL', 'MATH_DIVISION_SYMBOL', 'MATH_MULTIPLICATION_SYMBOL', 'MATH_SUBTRACTION_SYMBOL']) {
+      assert.strictEqual(locale['blockly-' + key], source['blockly-' + key]);
     }
     const failure = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
     assert.ok(failure.includes('E_LDAP'));
