@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/53273cb4d3">Correct Wu import-instruction translations</a>. Thanks to xet7.</summary>
+
+Correct nineteen Wu import labels and instructions. Preserve API paths, schema
+keys, variables, Markdown examples, spreadsheet headers and mapping behavior.
+Four focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/74ea292fc6">Correct Wu sorting and filter translations</a>. Thanks to xet7.</summary>
 
 Correct twenty-seven Wu sorting, filtering and navigation values. Preserve literal
