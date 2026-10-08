@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2e922f7828">Translate Galician planning results</a>. Thanks to xet7.</summary>
+
+Translate 34 values across two catalogs for Scrum import results, reference
+warnings, planning synchronization and the stalled-sync heading. Preserve counters
+and reference variables. Regression checks cover invalid JSON, unchanged cards,
+source matching and first-sync behavior. Both relevant suites and all 21
+preservation checks pass. Remaining translations, language auditing and browser
+review are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1643efb120">Translate Galician settings and planning controls</a>. Thanks to xet7.</summary>
 
 Translate 40 values across two catalogs for link rules, read-only fields,
