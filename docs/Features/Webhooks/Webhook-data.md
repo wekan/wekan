@@ -15,6 +15,35 @@ attributes a regular outgoing webhook includes. Two-way webhooks retain the
 complete activity parameters. The notification parameter builder follows the
 same value-preservation rule.
 
+Beside the ids, a regular outgoing webhook carries by default the names
+behind them - `card`, `list`, `board` and `swimlane` - the acting user as
+`user` (display name) and `username` (login name), the link to the card as
+`url`, and for an event about another person that person too: `member` and
+`memberUsername` for joining or leaving a card, `assignee`, `assigneeUsername`
+and `assigneeId` for an assignment (#3297). A receiver can write its own
+message from these, in its own language, and address the person by username.
+
+```json
+{
+  "text": "{{wekan-username}} act-joinAssignee\nhttp://{{wekan-host}}/b/{{board-id}}/{{board-name}}/{{card-id}}",
+  "cardId": "{{card-id}}",
+  "card": "{{card-title}}",
+  "listId": "{{list-id}}",
+  "list": "{{list-name}}",
+  "boardId": "{{board-id}}",
+  "board": "{{board-name}}",
+  "swimlaneId": "{{swimlane-id}}",
+  "swimlane": "{{swimlane-name}}",
+  "user": "{{wekan-fullname}}",
+  "username": "{{wekan-username}}",
+  "assigneeId": "{{assignee-id}}",
+  "assignee": "{{assignee-fullname}}",
+  "assigneeUsername": "{{assignee-username}}",
+  "url": "http://{{wekan-host}}/b/{{board-id}}/{{board-name}}/{{card-id}}",
+  "description": "act-joinAssignee"
+}
+```
+
 ## Cards
 
 ### Creation

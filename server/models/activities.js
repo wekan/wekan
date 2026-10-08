@@ -142,7 +142,20 @@ export async function prepareActivityNotification(userId, doc) {
 
   if (activity.memberId) {
     participants = [...new Set([...participants, activity.memberId])];
-    params.member = getActivityUserName(await activity.member(), activity.memberId);
+    const member = await activity.member();
+    params.member = getActivityUserName(member, activity.memberId);
+    // #3297: the login name too - a full name is not unique, and a chat
+    // integration addresses the person by username.
+    params.memberUsername = (member && member.username) || '';
+  }
+
+  // #3297: who was assigned or unassigned (joinAssignee / unjoinAssignee),
+  // which the payload never carried.
+  if (activity.assigneeId) {
+    const assignee = await ReactiveCache.getUser(activity.assigneeId);
+    params.assigneeId = activity.assigneeId;
+    params.assignee = getActivityUserName(assignee, activity.assigneeId);
+    params.assigneeUsername = (assignee && assignee.username) || '';
   }
 
   if (activity.listId) {

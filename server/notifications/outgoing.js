@@ -67,6 +67,18 @@ const Lock = {
     'labelId',
     'label',
     'attachmentId',
+    // #3297: the names behind the ids, the person a join or assignment is
+    // about, and the link - so a receiver can write its own message, in its
+    // own language, and address that person.
+    'list',
+    'board',
+    'swimlane',
+    'member',
+    'memberUsername',
+    'assigneeId',
+    'assignee',
+    'assigneeUsername',
+    'url',
   ];
   const responseFunc = async (data, integration) => {
     const paramCommentId = data.commentId;
