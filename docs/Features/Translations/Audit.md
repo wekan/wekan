@@ -8641,6 +8641,16 @@ pending speaker review. Regression coverage checks key order, tokens and importa
 label distinctions. Browser checks were not run; flow report explanations and the
 broader language audit remain unfinished.
 
+## Tatar flow report explanation corrections
+
+Replaced nine incomplete or wrong-language flow report, move-reason and time
+adjustment values with full translations. Preserved sampling counts, forecast
+limits, no-guarantee wording, date fallbacks, missing-history restrictions and
+negative time corrections. Regression checks cover these constraints as well as
+key order and placeholder inventories. Statistical terminology remains low
+confidence pending speaker review. Browser checks were not run; the broader
+language audit remains unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
