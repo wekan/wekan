@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Croatian migrations and storage — 2026-10-08
+
+Replace 80 Serbian values with Croatian, covering migrations, S3 storage,
+monitoring and schedules. Preserve source variables and storage product names.
+Check access versus secret keys, required credentials, failure versus completion,
+start/pause/stop and schedule intervals. No browser or screen-reader session was
+run; further wrong-language review and remaining translations are unfinished.
+
 ## Croatian administration and support — 2026-10-08
 
 Replace 75 Serbian values with Croatian, covering request states, checklists,
