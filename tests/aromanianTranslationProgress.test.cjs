@@ -308,3 +308,14 @@ assert.match(aromanian['login-setting-env-only'], /Mash mediul a serverului/);
 
 assert.match(aromanian['sync-planning-hint'], /ninti dupã ID-lu di sursã, dapoi dupã numã/);
 assert.match(aromanian['sync-planning-hint'], /prota Sync nu scoati vãrnãoarã planificarea/);
+
+for (const key of Object.keys(english).filter(key => key.startsWith('stuck-sync-operation-'))) {
+  assert.ok(aromanian[key]?.trim(), key);
+  assert.notEqual(aromanian[key], english[key], key);
+}
+assert.match(aromanian['stuck-sync-operation-description'], /Sync tsi yini comparã lista cu sursa a ei iara/);
+assert.match(aromanian['stuck-sync-operation-discard-confirm'], /Alãxirili aplicati dza armãn/);
+assert.match(aromanian['stuck-sync-operation-discard-confirm'], /nu s-scriu vãrnãoarã/);
+assert.match(aromanian['stuck-sync-operation-replayable-now'], /nu poati s-hibã scoasã/);
+assert.match(aromanian['stuck-sync-operation-replayable'], /nu fu scoasã/);
+assert.match(aromanian['stuck-sync-operation-truncated'], /50 cama veclji/);

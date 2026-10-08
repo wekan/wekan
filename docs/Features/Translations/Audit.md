@@ -2,6 +2,19 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Aromanian stuck Sync recovery — 2026-10-08
+
+Translate 23 remaining reported messages for saved List Sync operations that
+cannot finish. Preserve applied changes, never write the saved remainder,
+and permit a fresh source comparison. Cover discard eligibility, the distinction
+between a refusal and an operation not discarded, oldest-50 ordering and the
+applied/total variables. All existing translated values remain untouched.
+
+Complete wording remains low-confidence pending fluent review, following the
+existing catalog and Farsharotu reference below. Clearing reported English
+placeholders does not resolve older mixed-language values or skipped short
+strings. No browser or screen-reader session was run.
+
 ## Aromanian imports and controls — 2026-10-08
 
 Translate 47 import instructions, account settings, card-field controls,
