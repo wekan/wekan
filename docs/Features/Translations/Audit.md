@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Remaining Finnish import and sign-in prose — 2026-10-08
+
+Translate 13 remaining import instructions and the sign-in origin mismatch
+warning. The fill tool now reports zero Finnish placeholders, including deferred
+keys listed by its --list mode. Its invariant exclusions still apply; this is not
+a claim of native review or exhaustive short-word review. Import regression tests,
+placeholder tests and all 21 preservation checks pass. Coverage checks literal
+commands, file extensions, hierarchy depth, omitted data, archive mappings and
+the repeated expected/actual address variables. Native and browser review remain
+outstanding, as does the wider all-language backlog.
+
 ## Seven additional import formats in three locales — 2026-10-08
 
 Translate 21 instructions in Wu, Papiamento and Yiddish for Quire, Wrike,

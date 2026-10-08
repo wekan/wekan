@@ -142,3 +142,23 @@ assert.match(read('yi')['import-board-instruction-notion'], /בײַלאַגעס 
 assert.match(read('yi')['import-board-instruction-plane'], /האָט נישט קיין באַשרײַבונגען.*ווערן זיי נישט אימפּאָרטירט/);
 assert.match(read('yi')['import-board-instruction-businessmap'], /בײַט ערשט די קעפּל־שורה אויף ענגליש/);
 assert.match(read('yi')['import-board-instruction-teamwork'], /איין ניוואָ טיפֿער/);
+
+{
+  const locale = read('fi');
+  for (const [format, literals] of Object.entries({...newerImportLiterals, ...Object.fromEntries(['pivotal', 'tasksorg', 'monday', 'superproductivity', 'taiga', 'vikunja'].map(format => [format, importLiterals[format]]))})) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), key);
+    for (const literal of literals) assert.ok(locale[key].includes(literal), key + ': ' + literal);
+  }
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /Liitteitä ei tuoda/);
+  assert.match(locale['import-board-instruction-notion'], /Relaatioita, kuvia ja liitteitä ei tuoda/);
+  assert.match(locale['import-board-instruction-plane'], /ei sisällä kuvauksia eikä liitteitä/);
+  assert.match(locale['import-board-instruction-businessmap'], /muuta otsikkorivi ensin englanninkieliseksi/);
+  assert.match(locale['import-board-instruction-teamwork'], /yhtä tasoa syvempää/);
+  assert.match(locale['import-board-instruction-monday'], /päivityksistä kommentteja/);
+  assert.match(locale['import-board-instruction-superproductivity'], /Arkistoiduista tehtävistä tulee arkistoituja kortteja/);
+  assert.deepEqual(translationTokens(locale['login-origin-mismatch']), translationTokens(read('en')['login-origin-mismatch']));
+  assert.ok(locale['login-origin-mismatch'].includes('ROOT_URL'));
+  assert.match(locale['login-origin-mismatch'], /määritetty osoitteelle __expected__.*avattiin osoitteessa __actual__/);
+}
