@@ -9,12 +9,43 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 (async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   const en = read('en'), ru = read('ru');
-  for (const code of ['ru', 'ru_RU']) {
+  for (const code of ['ru', 'ru_RU', 'ru-UA']) {
+    const data = read(code);
+    assert.deepEqual(Object.keys(data), Object.keys(en), code);
+    for (const key of Object.keys(en)) {
+      assert.deepEqual(translationTokens(data[key]), translationTokens(en[key]), `${code}:${key}`);
+      if (/^(interrupted-import-|stuck-sync-operation-|ldap-sync-now)/.test(key)) {
+        assert.notEqual(data[key], en[key], `${code}:${key}`);
+        assert.match(data[key], /[А-Яа-яЁё]/, `${code}:${key}`);
+      }
+    }
+    assert.match(data['interrupted-import-description'], /невозможно продолжить/);
+    assert.match(data['interrupted-import-description'], /включая всё добавленное с тех пор/);
+    assert.match(data['interrupted-import-keep-confirm'], /Ничего не удаляется/);
+    assert.match(data['interrupted-import-discard-confirm'], /удалены навсегда/);
+    assert.match(data['interrupted-import-foreign-board'], /она не изменена/);
+    assert.match(data['interrupted-import-truncated'], /50 самых старых/);
+    assert.match(data['stuck-sync-operation-description'], /уже применённые изменения сохраняются/);
+    assert.match(data['stuck-sync-operation-description'], /никогда не записываются/);
+    assert.match(data['stuck-sync-operation-replayable-now'], /нельзя отбросить/);
+    assert.match(data['stuck-sync-operation-replayable'], /не была отброшена/);
+    assert.match(data['ldap-sync-now-nothing'], /LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS/);
+    assert.match(data['ldap-sync-now-nothing'], /LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED/);
+    assert.ok(data['external-link-rules-description'].includes('[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
+    assert.ok(data['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+    assert.match(data['r-moved-forward'], /вперёд/);
+    assert.match(data['r-moved-back'], /назад/);
+    assert.match(data['login-origin-mismatch'], /ROOT_URL/);
+  }
+  for (const code of ['ru', 'ru_RU', 'ru-UA']) {
     const data = read(code);
     assert.match(data['scrum-import-into-board-hint'], /не дублируются/);
     assert.match(data['scrum-import-card-on-another-board'], /оставлена без изменений/);
     assert.match(data['sync-planning-hint'], /сначала по ID в источнике, затем по названию/);
     assert.match(data['sync-planning-hint'], /Первая синхронизация никогда не удаляет планирование/);
+    assert.match(data['scrum-history-checkpoint-hint'], /не менял никто другой/);
+    assert.match(data['scrum-history-checkpoint-hint'], /не меняет записи/);
+    assert.match(data['scrum-history-checkpoint-discard-confirm'], /уже записала/);
     for (const key of Object.keys(en).filter(key => key.startsWith('scrum-import-') || key.startsWith('sync-planning-'))) {
       assert.notEqual(data[key], en[key], `${code}:${key}`);
       assert.deepEqual(translationTokens(data[key]), translationTokens(en[key]), `${code}:${key}`);

@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Russian controls and recovery — 2026-10-08
+
+Translate 69 current messages in each of three Russian catalogs, and reuse 29
+reviewed Russian planning translations in ru-UA, for 236 filled values.
+Cover controls, import guidance, LDAP, login address errors, stalled synchronization
+and interrupted imports. Preserve existing translations, variables and literal
+examples. Extend the Russian suite with all three source inventories and recovery
+decisions. No browser or screen-reader session was run; other translations and
+broader linguistic review remain unfinished.
+
 ## Ukrainian controls and recovery — 2026-10-08
 
 Translate 69 current messages for controls, import guidance, LDAP, login address
