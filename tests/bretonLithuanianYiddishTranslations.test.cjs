@@ -665,3 +665,17 @@ assert.match(locales.yi['scrum-import-card-on-another-board'], /געבליבן �
 assert.match(locales.yi['scrum-import-sprint-finished'], /נישט אַריבערגעפֿירט/);
 assert.match(locales.yi['scrum-import-invalid-file'], /JSON/);
 assert.match(locales.yi['scrum-partial-report'], /נאָר קאָרטן.*צוגעטיילט צו אײַך/);
+
+const yiddishSyncConflicts = ["sync-conflict-heading", "sync-conflict-hint", "sync-conflict-local", "sync-conflict-keep-local", "sync-conflict-use-source", "sync-conflict-refresh", "sync-conflict-review-complete", "sync-conflict-duplicate", "sync-conflict-keep-mapping", "sync-conflict-detach", "sync-conflict-detach-hint", "sync-conflict-archive", "sync-conflict-archive-hint", "sync-conflict-keep-card-local", "sync-conflict-creation", "sync-conflict-creation-hint", "sync-conflict-create-replacement", "sync-preview-button", "sync-preview-heading", "sync-preview-saved", "sync-preview-unavailable", "sync-preview-blocked", "sync-preview-create", "sync-preview-update", "sync-preview-archive"];
+for (const key of yiddishSyncConflicts) {
+  assert.notEqual(locales.yi[key], english[key], key);
+  assert.match(locales.yi[key], /[\u0590-\u05ff]/, key);
+  assert.deepEqual(translationTokens(locales.yi[key]), translationTokens(english[key]), key);
+}
+assert.match(locales.yi['sync-conflict-hint'], /גאָרנישט ווערט געשיקט צום מקור/);
+assert.match(locales.yi['sync-conflict-review-complete'], /גאַנצער רשימה איז נישט דורכגעפֿירט/);
+assert.match(locales.yi['sync-conflict-detach-hint'], /אינהאַלט בלײַבט אין WeKan/);
+assert.match(locales.yi['sync-conflict-archive-hint'], /אונטערקאָרטן ווערן נישט געענדערט/);
+assert.match(locales.yi['sync-conflict-creation-hint'], /פֿריִערדיקן קאָרט אומגעענדערט/);
+assert.match(locales.yi['sync-conflict-creation-hint'], /דער זעלבער פֿאַרבײַט־קאָרט/);
+assert.match(locales.yi['sync-preview-saved'], /קאָנטראָלירט ווידער דעם מקור/);

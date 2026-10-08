@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Yiddish Sync conflicts and preview — 2026-10-08
+
+Translate 25 English conflict and preview messages. Check that no changes are
+sent to the source, limited review does not imply full-list synchronization,
+detaching retains content, subcards remain unchanged and retries reuse replacement
+cards. Preserve source variables. Specialized wording is lower confidence and
+needs native review. No browser or screen-reader session was run. Remaining
+translations are unfinished.
+
 ## Yiddish Scrum imports and observations — 2026-10-08
 
 Translate 35 English Scrum import, observation and partial-report messages.
