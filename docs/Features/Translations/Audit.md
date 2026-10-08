@@ -7933,6 +7933,15 @@ retained. Source placeholders and key order remain intact. Technical wording
 remains low confidence pending speaker review. Browser checks were not run.
 Further wrong-language corrections and the broader audit remain unfinished.
 
+### Tatar board selection and layout corrections
+
+Corrected 33 board selection, home-board, date activity and layout strings.
+Preserved correct adjacent translations and source placeholders. Regression
+coverage checks Tatar width/height vocabulary, personal versus shared settings,
+switch distinctions, home removal without board deletion and date argument order.
+Technical wording remains low confidence pending speaker review. Browser checks
+were not run. Further wrong-language corrections and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
