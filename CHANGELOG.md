@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/63c0ad6116e53d8ed0fe1c3dd6a6ad616f829260">Translate Maithili rounding and random numbers</a></summary>
+
+- Fill 24 Maithili placeholders, preserving existing translations, random bounds,
+  indexed limits, logarithm bases and rounding directions.
+- Mathematical terminology remains low confidence pending speaker review.
+- All 51 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Maithili translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/51478845345a7c81003c0f9f4c7c7c319c1fb8c1">Translate Maithili statistical functions</a></summary>
 
 - Fill 24 Maithili placeholders, preserving existing translations, remainder
