@@ -1893,7 +1893,7 @@ each for the reason given:
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.23 2026-10-08 WeKan ® release
 
 **In short:** Two **GitHub CodeQL** code-scanning alerts in the test suite are
 fixed: tests no longer build `bash -c` scripts from absolute paths, and a guard
