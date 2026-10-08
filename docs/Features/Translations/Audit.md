@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Catalan and Valencian outline imports — 2026-10-09
+
+Translate OPML, Org mode and Todoist instructions in ca, ca_ES and ca@valencia,
+replacing nine English values. Preserve application names, format keywords,
+commands, variables, label syntax and priority identifiers. Regression checks
+cover completed items, hierarchy, subtasks and note-to-comment mapping.
+Import-instruction and placeholder suites and all 21 preservation checks pass.
+Browser review and the wider translation backlog remain outstanding.
+
 ## Catalan and Valencian import instructions, remaining group — 2026-10-09
 
 Translate the remaining 13 instructions in ca, ca_ES and ca@valencia, replacing

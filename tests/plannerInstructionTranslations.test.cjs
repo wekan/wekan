@@ -1303,3 +1303,24 @@ for (const code of ['ca', 'ca_ES', 'ca@valencia']) {
   assert.match(locale['import-board-instruction-superproductivity'], /les tasques arxivades esdevenen fitxes arxivades/);
 }
 assert.match(read('ca@valencia')['import-board-instruction-taiga'], /les seues tasques/);
+
+for (const code of ['ca', 'ca_ES', 'ca@valencia']) {
+  const locale = read(code);
+  const literals = {
+    opml: ['OPML', 'Workflowy', 'Dynalist', 'OmniOutliner', 'Logseq'],
+    orgmode: ['Org mode', 'Emacs', 'Orgzly', 'Beorg', 'TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED'],
+    todoist: ['Todoist', 'Export as a template', 'CSV', '@labels', 'p1', 'p3'],
+  };
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), key);
+    for (const value of values) assert.ok(locale[key].includes(value), key + ': ' + value);
+  }
+  assert.match(locale['import-board-instruction-opml'], /Els elements completats s’importen com a fets/);
+  assert.match(locale['import-board-instruction-opml'], /nivells inferiors esdevenen llistes de comprovació/);
+  assert.match(locale['import-board-instruction-orgmode'], /segon nivell esdevenen fitxes/);
+  assert.match(locale['import-board-instruction-todoist'], /les subtasques esdevenen una llista de comprovació/);
+  assert.doesNotMatch(locale['import-board-instruction-todoist'], /les subtasques esdevenen fitxes/);
+  assert.match(locale['import-board-instruction-todoist'], /les notes esdevenen comentaris/);
+}
