@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/521cb051f5">Translate Galician announcements and initial imports</a>. Thanks to xet7.</summary>
+
+Translate 28 values across two catalogs for announcements, list colors, outline
+imports and eight newer import instructions. Preserve commands, format keywords,
+extensions and variables. Regression checks cover hierarchy, completion,
+first-board selection, archives and swimlane mappings. Three relevant suites and
+all 21 preservation checks pass. Remaining translations, wrong-language regional
+labels and browser review remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e65c495bc9">Translate Catalan and Valencian recovery results</a>. Thanks to xet7.</summary>
 
 Translate 84 values across three catalogs for interrupted-import results, Scrum
