@@ -8678,6 +8678,15 @@ existing translations. Regression coverage checks script, key order, tokens and
 condition polarity. Technical wording remains low confidence pending speaker
 review. Browser checks were not run; further Odia translations remain.
 
+## Odia Blockly editing and bitmap labels
+
+Filled 30 English placeholders for editing commands, variable deletion, bitmap
+accessibility and field labels. Preserved indexed count, variable, row and column
+references. Existing translations were retained by the placeholder-only merge.
+Regression coverage checks key order, script, tokens and distinct opposing actions.
+Technical wording remains low confidence pending speaker review. Browser checks
+were not run; further Odia translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
