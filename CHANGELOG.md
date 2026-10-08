@@ -593,6 +593,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b1156bcefa">Translate Aragonese Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
+
+Translate 31 values, preserving placeholders, count roles, keyboard names and
+recovery choices. Placeholder and language-wiring suites, focused Aragonese checks
+and all 21 preservation checks pass. The large completion suite now reaches
+untranslated Asturian release text. Recovery prose has lower confidence and needs
+native review; browser checks and the remaining backlog are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/07341319f3">Translate Neapolitan Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 31 values, preserving placeholders, count roles, keyboard names and
