@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c1fc0c0fd22be5b2d94179a3c5b5172d641b24b1">Translate Odia sprint lifecycle and observations</a></summary>
+
+- Fill 25 Odia sprint and observation placeholders, preserving existing translations,
+  partial-report restrictions, UTC days, observation limits and unknown estimates.
+- Technical wording remains low confidence pending speaker review.
+- All 66 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Odia translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/843339b916a2d5e483bfc7cf9cd8493b0bb00c4b">Translate Odia sprint reports and events</a></summary>
 
 - Fill 30 Odia sprint-report and event placeholders, preserving existing translations,
