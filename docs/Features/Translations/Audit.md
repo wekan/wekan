@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu migration-help corrections — 2026-10-08
+
+Correct 17 storage and migration-help values. Preserve database URLs, environment
+variables, Snap commands, Sandstorm file paths and the target-database placeholder.
+Keep migration prerequisites, attachment/avatar exclusions and irreversible-deletion
+warnings. Refresh exact-value audit records. Wu prose needs native review; browser
+tests were not run and all-language work remains unfinished.
+
 ## Wu account and scheduled-job corrections — 2026-10-08
 
 Correct 43 account and scheduled-job values. Check peopleBody.jade to distinguish
@@ -12863,7 +12871,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,933** exact before/after values, including unflagged
+records contain **23,950** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

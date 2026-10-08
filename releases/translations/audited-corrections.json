@@ -167529,5 +167529,124 @@
     "before": "完全的",
     "after": "完成",
     "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "idle",
+    "before": "闲置的",
+    "after": "空闲",
+    "reason": "2026-10-08: Correct Wu storage and database-migration help while preserving configuration literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "filesystem-path-description",
+    "before": "文件存储的基本路径",
+    "after": "文件存储个基础路径",
+    "reason": "2026-10-08: Correct Wu storage and database-migration help while preserving configuration literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "filesystem-enabled-description",
+    "before": "使用本地文件系统进行文件存储",
+    "after": "用本地文件系统来存文件",
+    "reason": "2026-10-08: Correct Wu storage and database-migration help while preserving configuration literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "s3-minio-storage-description",
+    "before": "S3 兼容对象存储：AWS S3、MinIO、Cloudflare R2、Backblaze B2、Wasabi、DigitalOcean Spaces 等。",
+    "after": "兼容 S3 个对象存储：AWS S3、MinIO、Cloudflare R2、Backblaze B2、Wasabi、DigitalOcean Spaces 等。",
+    "reason": "2026-10-08: Correct Wu storage and database-migration help while preserving configuration literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "s3-force-path-style-description",
+    "before": "MinIO 和大多数非 AWS 的 S3 兼容服务器需要此选项。",
+    "after": "MinIO 搭大多数非 AWS 个 S3 兼容服务器需要搿只选项。",
+    "reason": "2026-10-08: Correct Wu storage and database-migration help while preserving configuration literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "azure-connection-string-description",
+    "before": "可选：使用完整的连接字符串代替账户名称和密钥。",
+    "after": "可选：用完整个连接字符串来代替账户名称搭密钥。",
+    "reason": "2026-10-08: Correct Wu storage and database-migration help while preserving configuration literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "database-migration-description",
+    "before": "在 MongoDB 与 FerretDB v1（SQLite）之间迁移基于文本的数据（除附件和头像外的所有内容，附件和头像仍保留在文件系统上）。另一个数据库必须正在运行且可访问（默认端口：FerretDB mongodb://127.0.0.1:27018，MongoDB mongodb://127.0.0.1:27019；可用 WEKAN_FERRETDB_URL / WEKAN_MONGODB_URL 覆盖）。完成后，将 MONGO_URL 指向另一个数据库并重启 WeKan（在 Snap 上：snap set wekan database=ferretdb 或 =mongodb）。",
+    "after": "勒 MongoDB 搭 FerretDB v1（SQLite）之间迁移文本数据（除脱附件搭头像个全部内容，附件搭头像留勒文件系统浪）。另外一只数据库必须正在运行、而且连得上（默认端口：FerretDB mongodb://127.0.0.1:27018，MongoDB mongodb://127.0.0.1:27019；用 WEKAN_FERRETDB_URL / WEKAN_MONGODB_URL 好覆盖）。完成以后，拿 MONGO_URL 指向另外一只数据库，再重启 WeKan（Snap 浪：snap set wekan database=ferretdb 或者 =mongodb）。",
+    "reason": "2026-10-08: Correct Wu storage and database-migration help while preserving configuration literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "database-migrate-to-ferretdb",
+    "before": "将文本数据迁移到 FerretDB v1（SQLite）",
+    "after": "拿文本数据迁移到 FerretDB v1（SQLite）",
+    "reason": "2026-10-08: Correct Wu storage and database-migration help while preserving configuration literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "database-migrate-to-mongodb",
+    "before": "将文本数据迁移到 MongoDB",
+    "after": "拿文本数据迁移到 MongoDB",
+    "reason": "2026-10-08: Correct Wu storage and database-migration help while preserving configuration literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "database-migration-confirm",
+    "before": "将所有基于文本的集合复制到 __db__？文件系统上的附件和头像不受影响。目标数据库必须正在运行。",
+    "after": "要拿全部文本集合复制到 __db__ 伐？文件系统浪个附件搭头像勿受影响。目标数据库必须正在运行。",
+    "reason": "2026-10-08: Correct Wu storage and database-migration help while preserving configuration literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "database-migration-done",
+    "before": "文本数据迁移已完成。",
+    "after": "文本数据迁移完成仔。",
+    "reason": "2026-10-08: Correct Wu storage and database-migration help while preserving configuration literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "sandstorm-migration-description",
+    "before": "当 WeKan 在 Sandstorm grain 内运行时，其旧的 MongoDB 3 数据库会在首次启动时迁移到 FerretDB v1（SQLite），附件和头像会从数据库移动到 grain 的 files/attachments 和 files/avatars 目录。此处显示该迁移是否成功、旧的原始 MongoDB 数据库文件在 grain 中仍占用多少磁盘空间，并允许你删除这些原始文件以释放空间。",
+    "after": "WeKan 勒 Sandstorm grain 里向运行个辰光，旧个 MongoDB 3 数据库会勒第一趟启动个辰光迁移到 FerretDB v1（SQLite），附件搭头像从数据库移到 grain 个 files/attachments 搭 files/avatars 目录。搿搭显示迁移成功仔伐、旧个原始 MongoDB 数据库文件勒 grain 里向还占多少磁盘空间，也好拿搿些原始文件删脱来腾空间。",
+    "reason": "2026-10-08: Correct Wu storage and database-migration help while preserving configuration literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "sandstorm-migration-pending",
+    "before": "尚未迁移",
+    "after": "还朆迁移",
+    "reason": "2026-10-08: Correct Wu storage and database-migration help while preserving configuration literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "sandstorm-storage-item",
+    "before": "贮存",
+    "after": "存储",
+    "reason": "2026-10-08: Correct Wu storage and database-migration help while preserving configuration literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "sandstorm-delete-raw-mongodb-description",
+    "before": "迁移成功后，数据存在于 FerretDB 和文件系统中，因此可以删除旧的原始 MongoDB 3 数据库文件以释放 grain 磁盘空间。此操作无法撤销。",
+    "after": "迁移成功以后，数据存勒 FerretDB 搭文件系统里向，所以好删脱旧个原始 MongoDB 3 数据库文件，腾出 grain 个磁盘空间。搿项操作撤销勿了。",
+    "reason": "2026-10-08: Correct Wu storage and database-migration help while preserving configuration literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "sandstorm-delete-raw-mongodb-confirm",
+    "before": "删除原始 MongoDB 3 数据库文件以释放磁盘空间？数据已迁移到 FerretDB 和文件系统。此操作无法撤销。",
+    "after": "要删脱原始 MongoDB 3 数据库文件来腾磁盘空间伐？数据已经迁移到 FerretDB 搭文件系统仔。搿项操作撤销勿了。",
+    "reason": "2026-10-08: Correct Wu storage and database-migration help while preserving configuration literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "sandstorm-raw-mongodb-deleted",
+    "before": "原始 MongoDB 数据库文件已删除，已释放",
+    "after": "原始 MongoDB 数据库文件已经删脱仔，释放出来个空间",
+    "reason": "2026-10-08: Correct Wu storage and database-migration help while preserving configuration literals; lower-confidence prose needs native review."
   }
 ]

@@ -1055,3 +1055,14 @@ for (const operation of ['archive', 'backup', 'cleanup']) {
 assert.match(wu['cron-no-paused-migrations'], /呒没暂停个迁移好恢复/);
 assert.doesNotMatch(wu['cron-no-paused-migrations'], /无法恢复/);
 assert.match(wu['cron-no-failed-migrations'], /呒没失败个迁移好重试/);
+
+const migrationHelpWu = ["idle", "filesystem-path-description", "filesystem-enabled-description", "s3-minio-storage-description", "s3-force-path-style-description", "azure-connection-string-description", "database-migration-description", "database-migrate-to-ferretdb", "database-migrate-to-mongodb", "database-migration-confirm", "database-migration-done", "sandstorm-migration-description", "sandstorm-migration-pending", "sandstorm-storage-item", "sandstorm-delete-raw-mongodb-description", "sandstorm-delete-raw-mongodb-confirm", "sandstorm-raw-mongodb-deleted"];
+for (const key of migrationHelpWu) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+for (const literal of ['mongodb://127.0.0.1:27018', 'mongodb://127.0.0.1:27019', 'WEKAN_FERRETDB_URL', 'WEKAN_MONGODB_URL', 'MONGO_URL', 'snap set wekan database=ferretdb', '=mongodb']) {
+  assert.ok(wu['database-migration-description'].includes(literal), literal);
+}
+for (const literal of ['files/attachments', 'files/avatars', 'MongoDB 3', 'FerretDB v1', 'SQLite']) assert.ok(wu['sandstorm-migration-description'].includes(literal), literal);
+assert.match(wu['database-migration-confirm'], /__db__.*附件搭头像勿受影响.*目标数据库必须正在运行/);
+for (const suffix of ['description', 'confirm']) assert.match(wu['sandstorm-delete-raw-mongodb-' + suffix], /撤销勿了/);
+assert.match(wu['sandstorm-delete-raw-mongodb-description'], /迁移成功以后/);
+assert.match(wu['database-migration-description'], /MONGO_URL.*再重启 WeKan/);
