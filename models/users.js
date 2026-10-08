@@ -820,6 +820,16 @@ Users.attachSchema(
       type: String,
       optional: true,
     },
+    'profile.boardViews': {
+      /**
+       * #4906 / #4256: the view chosen on each board, { [boardId]: view }.
+       * A board without its own entry uses profile.boardView (the choice
+       * every board shared before), then the board's default view.
+       */
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
     'profile.boardView': {
       /**
        * boardView field of the user
@@ -2811,7 +2821,15 @@ Users.helpers({
     return await Users.updateAsync(this._id, { $set: { 'profile.calendarSystem': calendarSystem } });
   },
 
-  async setBoardView(view) {
+  // #4906 / #4256: with a board, the view is that board's only; without one
+  // (no board open), it is the shared fallback it always was.
+  async setBoardView(view, boardId) {
+    if (boardId) {
+      assertSafeMapKey(boardId);
+      const { isKnownBoardView } = require('/models/lib/boardViewSettings');
+      if (!isKnownBoardView(view)) throw new Meteor.Error('invalid-board-view', 'Unknown board view');
+      return await Users.updateAsync(this._id, { $set: { [`profile.boardViews.${boardId}`]: view } });
+    }
     return await Users.updateAsync(this._id, { $set: { 'profile.boardView': view } });
   },
 

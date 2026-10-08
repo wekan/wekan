@@ -339,7 +339,8 @@ test('moveBoardView moves one step, and the first up / last down / unknown are n
 
 test('Utils.boardView() resolves the stored choice through the current board', () => {
   assert.ok(/boardView\(\) \{\s*const stored = Utils\.storedBoardView\(\);\s*const board = Utils\.getCurrentBoard\(\);\s*return board \? resolveBoardView\(board, stored, allowBoardView\) : stored;/.test(utilsJs), 'a view the instance disabled falls back too (#6736)');
-  assert.ok(/storedBoardView\(\) \{\s*const pending = pendingBoardView\.get\(\);/.test(utilsJs), 'the previous body is the stored choice');
+  // #4906 / #4256: the stored choice is this board's own, else the shared one.
+  assert.ok(/storedBoardView\(\) \{\s*const pendingChoice = pendingBoardView\.get\(\);/.test(utilsJs), 'the previous body is the stored choice');
   assert.ok(utilsJs.includes("require('/models/lib/boardViewSettings')"));
 });
 

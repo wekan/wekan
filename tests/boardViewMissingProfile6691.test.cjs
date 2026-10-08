@@ -37,18 +37,19 @@ assert.equal(Utils.boardView(), 'board-view-lists', 'published preference wins')
 user.boardViewPreference = 'board-view-swimlanes';
 assert.equal(Utils.boardView(), 'board-view-swimlanes', 'private preference survives a competing partial profile');
 user.boardViewPreference = 'board-view-lists';
-pending = 'board-view-cal';
-user.profile.boardView = pending;
+// #4906 / #4256: a pending choice remembers the board it was made on (none here).
+pending = { view: 'board-view-cal', boardId: null };
+user.profile.boardView = 'board-view-cal';
 assert.equal(Utils.boardView(), 'board-view-cal');
-assert.equal(pending, 'board-view-cal', 'stale private preference cannot acknowledge a pending choice');
-user.boardViewPreference = pending;
+assert.deepEqual(pending, { view: 'board-view-cal', boardId: null }, 'stale private preference cannot acknowledge a pending choice');
+user.boardViewPreference = 'board-view-cal';
 assert.equal(Utils.boardView(), 'board-view-cal');
 assert.equal(pending, null);
 delete user.boardViewPreference;
 
-pending = 'board-view-swimlanes';
-assert.equal(Utils.boardView(), pending, 'pending choice wins until publication catches up');
-user.profile.boardView = pending;
+pending = { view: 'board-view-swimlanes', boardId: null };
+assert.equal(Utils.boardView(), 'board-view-swimlanes', 'pending choice wins until publication catches up');
+user.profile.boardView = 'board-view-swimlanes';
 assert.equal(Utils.boardView(), 'board-view-swimlanes');
 assert.equal(pending, null);
 user = { profile: {} }; browserView = null;
@@ -90,8 +91,9 @@ assert.equal(context.instance.idOrNull('lane-A'), undefined);
       ready: () => messages.push(['ready']),
     }, 'victim');
     assert.deepEqual(selector, { _id: id }, 'client-supplied IDs cannot select another user');
-    assert.deepEqual(options, { fields: { 'profile.boardView': 1 } });
-    assert.deepEqual(messages, [['added', 'users', id, { boardViewPreference: 'board-view-swimlanes' }], ['ready']]);
+    assert.deepEqual(options, { fields: { 'profile.boardView': 1, 'profile.boardViews': 1 } });
+    // #4906 / #4256: the per-board choices travel beside the shared one.
+    assert.deepEqual(messages, [['added', 'users', id, { boardViewPreference: 'board-view-swimlanes', boardViewPreferences: {} }], ['ready']]);
     observer.changed(id, { profile: { boardView: 'board-view-lists' } });
     observer.changed(id, {});
     observer.removed(id);

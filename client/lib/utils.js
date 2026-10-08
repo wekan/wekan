@@ -291,12 +291,15 @@ export const Utils = {
     const currentUser = ReactiveCache.getCurrentUser();
 
     if (currentUser) {
-      // Update localStorage first
-      window.localStorage.setItem('boardView', view);
-      pendingBoardView.set(view);
+      // #4906 / #4256: on a board, the choice is that board's own. The
+      // browser's stored view is the shared fallback, so only a choice made
+      // off any board updates it.
+      const boardId = (Utils.getCurrentBoardId && Utils.getCurrentBoardId()) || null;
+      if (!boardId) window.localStorage.setItem('boardView', view);
+      pendingBoardView.set({ view, boardId });
 
       // Update user profile via Meteor method
-      Meteor.call('setBoardView', view, (error) => {
+      Meteor.call('setBoardView', view, boardId, (error) => {
         if (error) {
           console.error('[setBoardView] Update failed:', error);
           pendingBoardView.set(null);
@@ -378,15 +381,24 @@ export const Utils = {
   },
 
   storedBoardView() {
-    const pending = pendingBoardView.get();
-    // #6745: only the two view fields. boardView() is read by every list's card
+    const pendingChoice = pendingBoardView.get();
+    // #6745: only the view fields. boardView() is read by every list's card
     // loop (listBody's idOrNull/containerSwimlaneId); reading the whole user here
     // re-ran every list on each user write - a card open is one - and Blaze then
     // re-evaluated every minicard (~37,000 computations on a 40-card board).
-    const currentUser = currentUserWith(['boardViewPreference', 'profile.boardView']);
+    const currentUser = currentUserWith(['boardViewPreference', 'boardViewPreferences', 'profile.boardView', 'profile.boardViews']);
+    // #4906 / #4256: the view chosen on THIS board wins; a board without its
+    // own choice falls back to the one every board shared before.
+    const boardId = (Utils.getCurrentBoardId && Utils.getCurrentBoardId()) || null;
+    const perBoard = boardId
+      ? ((currentUser?.boardViewPreferences || (currentUser?.profile || {}).boardViews || {})[boardId]) : undefined;
     const publishedView = currentUser?.boardViewPreference;
-    const profileView = isKnownBoardView(publishedView)
+    const sharedView = isKnownBoardView(publishedView)
       ? publishedView : (currentUser?.profile || {}).boardView;
+    const profileView = isKnownBoardView(perBoard) ? perBoard : sharedView;
+    // A pending choice applies to the board it was made on (or, made off any
+    // board, to the shared view).
+    const pending = pendingChoice && pendingChoice.boardId === boardId ? pendingChoice.view : null;
     if (pending) {
       // #6659: a successful method callback can run before the reactive user
       // document carries the persisted profile value. Keep rendering the

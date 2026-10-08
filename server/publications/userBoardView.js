@@ -15,13 +15,16 @@ Meteor.publish('userBoardView', async function() {
     if (handle) handle.stop();
   });
   handle = await Meteor.users.find({ _id: this.userId }, {
-    fields: { 'profile.boardView': 1 },
+    fields: { 'profile.boardView': 1, 'profile.boardViews': 1 },
   }).observeChangesAsync({
     added: (id, fields) => {
-      if (!stopped) this.added('users', id, { boardViewPreference: fields.profile?.boardView });
+      // #4906 / #4256: and the view chosen on each board.
+      if (!stopped) this.added('users', id, { boardViewPreference: fields.profile?.boardView,
+        boardViewPreferences: fields.profile?.boardViews || {} });
     },
     changed: (id, fields) => {
-      if (!stopped) this.changed('users', id, { boardViewPreference: fields.profile?.boardView });
+      if (!stopped) this.changed('users', id, { boardViewPreference: fields.profile?.boardView,
+        boardViewPreferences: fields.profile?.boardViews || {} });
     },
     removed: id => {
       if (!stopped) this.removed('users', id);

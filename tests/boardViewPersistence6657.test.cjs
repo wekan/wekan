@@ -9,7 +9,8 @@ const block = utils.slice(utils.indexOf('setBoardView(view) {'),
 const authenticated = block.slice(0,
   block.indexOf("} else if (view === 'board-view-swimlanes')"));
 
-assert.match(authenticated, /pendingBoardView\.set\(view\)/,
+// #4906 / #4256: the pending choice carries the board it was made on.
+assert.match(authenticated, /pendingBoardView\.set\(\{ view, boardId \}\)/,
   'Calendar/Gantt must become reactive immediately');
 assert.match(authenticated, /Meteor\.call\('setBoardView', view/,
   'the chosen view must remain persisted');
