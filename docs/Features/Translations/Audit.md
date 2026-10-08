@@ -8,9 +8,13 @@ Translate 20 new Scrum import and Sync planning messages. Extend the Scrum
 inventory from 111 to 127 while retaining per-key prose and token checks.
 Preserve non-duplication, unchanged foreign-board cards, source-ID matching
 priority and first-sync protection of planning. Both focused suites and
-global placeholder checks pass. Full wording follows existing terminology
+global placeholder checks pass. The full 322-suite translation run passes
+with no failures (101 seconds), as do 21 human-preference checks.
+Full wording follows existing terminology
 and remains low-confidence pending fluent review. No browser or screen-reader
 session was run; broader translation and linguistic review remain open.
+The current ordinary backlog is 34,514 values in 51 locales, excluding 249
+source keys tracked separately as pending.
 
 ## Maori planning import regressions — 2026-10-08
 

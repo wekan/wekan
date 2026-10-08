@@ -975,6 +975,20 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6f4a96b8c0">Translate Northern Sotho planning imports and repair locale suites</a>. Thanks to xet7.</summary>
+
+Translate 20 messages and extend the Scrum inventory to 127 while retaining
+per-key translation and token checks. Preserve matching priority,
+non-duplication and first-sync protection of planning. Full new wording
+remains low-confidence pending fluent review.
+
+All 322 translation suites pass after these repairs, including global
+placeholder checks. All 21 human-preference checks also pass. No browser or screen-reader session was run; the all-language
+translation and linguistic review work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/38e8f1d4bc">Translate Maori planning imports and repair locale suites</a>. Thanks to xet7.</summary>
 
 Translate 20 messages and extend the Scrum inventory to 127 while retaining
