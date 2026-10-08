@@ -2011,6 +2011,22 @@ report with seven assignees and asserts no avatar overlaps the comment.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2e9243f3c88b0fcacdeed0c5dd3537c54e5db761">Translate Moroccan Arabic observations and Sync conflicts</a></summary>
+
+- Fill 36 placeholders, retaining existing translations. Check observation limits,
+  import restrictions, no source writes, mapping-only removal, unchanged subcards
+  and replacement reuse, together with script, source order and placeholders.
+- Validation: 54 translation checks and 21 human-preference checks pass. Two
+  repository-wide checks fail on new card-field-visibility keys missing from
+  other locales. Browser, RTL and screen-reader checks were not run.
+- Technical Darija wording remains low confidence pending speaker review;
+  remaining placeholders and the broader language audit stay open.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/263d3ff9e6cf4532c990e6b4a6d2ddddc5a465d2">Translate Moroccan Arabic sprint reports and events</a></summary>
 
 - Fill 36 placeholders, retaining existing translations. Check estimate semantics,
