@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bafb8ec764">Translate first Slovenian import instructions</a>. Thanks to xet7.</summary>
+
+Translate eight import instructions in both Slovenian catalogs, preserving
+commands, extensions and variables. Regression checks cover first-board selection,
+completion dates, archived cards and swimlane mappings. Translation, placeholder
+and preservation checks pass; remaining Slovenian instructions, browser review and
+the wider translation backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8484038c8c">Translate Croatian import instructions</a>. Thanks to xet7.</summary>
 
 Translate 21 Croatian import instructions, preserving commands, columns, variables
