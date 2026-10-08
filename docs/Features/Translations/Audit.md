@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Japanese import instructions, first group — 2026-10-09
+
+Translate eight instructions in ja and ja-JP (16 values): Planner, MeisterTask,
+Obsidian, Linear, TickTick, ClickUp, Nullboard and Kanri. Preserve commands,
+extensions and variables. Regression checks cover completed-task dates, archived
+cards, first-board selection and swimlane mappings. Import-instruction and
+placeholder suites and all 21 preservation checks pass. The remaining Japanese
+instructions, separate Hiragana wording, browser review and the wider translation
+backlog remain outstanding.
+
 ## Greek import instructions, remaining group — 2026-10-09
 
 Translate the remaining 13 instructions in el and el-GR (26 values), completing
