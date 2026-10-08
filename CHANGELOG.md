@@ -386,11 +386,16 @@ Status checked on 2026-10-08. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **42,838 untranslated locale/string values in 70 languages**. It
-  excludes **149 source keys tracked separately as pending Transifex**: 148
-  have non-English values requiring wording review; the newly added
-  `shortcut-edit-due-date` still needs translations. Counts are a snapshot;
-  they do not establish the quality or language of other values.
+  report counts **35,735 untranslated locale/string values in 60 languages**.
+  It excludes **151 source keys tracked separately as pending Transifex**.
+  Exact Blockly OS brands and compact math/code symbols no longer inflate
+  the prose backlog. Counts are a snapshot; they do not establish the quality
+  or language of other values.
+- Placeholder inventories match English across all 246 locale paths. Fill now
+  rejects damaged token batches before writing. Both card-field visibility
+  keys are translated in 131 non-English paths; 103 paths still need them.
+  Catalog key order, all 321 translation/i18n suites and 21 human-preference
+  checks pass. Browser execution and the remaining translation work are open.
 - The 13 activity-notification preference keys have no empty or exact
   English-placeholder values in all 234 non-English locale paths and have left
   the pending queue. Provisional wording still needs language review.
@@ -1892,6 +1897,44 @@ each for the reason given:
 
 </details>
 </details>
+
+# Upcoming WeKan ® release
+
+**In short:** Translation filling now protects interpolation variables before
+writing a batch. Locale catalogs include the new card-field settings, with
+more translated help text and refreshed translation audit checks.
+
+This release improves translations and their validation:
+
+**Languages updated:** Afrikaans, Albanian, Arabic, Armenian, Azerbaijani,
+Bengali, Basque, Belarusian, Bosnian, Bulgarian, Burmese, Catalan, Chinese,
+Croatian, Czech, Danish, Dutch, Esperanto, Estonian, Tagalog, French, Galician,
+Georgian, German, Greek, Gujarati, Hebrew, Hindi, Hungarian, Icelandic,
+Indonesian, Irish, Japanese, Kannada, Kazakh, Khmer, Korean, Kyrgyz, Latvian,
+Lithuanian, Macedonian, Malay, Malayalam, Marathi, Mongolian, Nepali, Norwegian
+Bokmål, Persian, Polish, Portuguese, Punjabi, Romanian, Russian, Serbian,
+Sinhala, Slovak, Slovenian, Spanish, Swahili, Tajik, Tamil, Tatar, Telugu,
+Thai, Turkish, Turkmen, Ukrainian, Urdu, Uzbek, Vietnamese, Welsh.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/07a33f5d5f">Protect translation variables and restore catalog coverage</a>. Thanks to xet7.</summary>
+
+- Verify the English token inventory across all 246 locale paths, including
+  non-Latin renamed tokens, positional arguments and repeated variables.
+  Reject invalid fill batches atomically while preserving existing translations.
+- Restore the two missing card-field settings keys in source order and add
+  240 translated values. English fallback remains visible for unfinished locales.
+- Keep exact OS brands and compact Blockly math/code symbols out of the prose
+  backlog without exempting help text or accessibility labels.
+- Reconcile four superseded audit records and accept the Akan organization noun
+  in its current sentence case. Preserve literal JSON example property names.
+- Validation: 321 translation/i18n suites and 21 human-preference checks pass,
+  including catalog rendering and negative fill fixtures. Browser tests were
+  not run. Remaining translation work and fluent-speaker review stay open.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.23 2026-10-08 WeKan ® release
 
