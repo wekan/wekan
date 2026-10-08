@@ -2,6 +2,13 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu checklist and member corrections — 2026-10-08
+
+Correct 18 checklist, card, membership and administrator strings. Restore matching
+cards, completed addition, administrator role and placement after a list. Preserve
+source tokens and refresh exact-value audit records. Wu prose is lower confidence
+and needs native review. Browser tests were not run; the wider audit is unfinished.
+
 ## Wu width and shortcut setting corrections — 2026-10-08
 
 Correct 11 list-placement, width and shortcut messages to Wu. Preserve source
@@ -12473,7 +12480,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,930** exact before/after values, including unflagged
+records contain **22,948** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

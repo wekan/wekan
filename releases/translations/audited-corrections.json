@@ -160508,5 +160508,131 @@
     "before": "键盘快捷键已禁用。单击以启用。",
     "after": "键盘快捷键关脱仔。点一下打开。",
     "reason": "2026-10-08: Replace Mandarin-like width and shortcut instructions with Wu wording; preserve shared/personal scope and opposite toggle actions. Low-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "swimlane-height-error-message",
+    "before": "泳道高度必须是正整数",
+    "after": "泳道高度一定要是正整数",
+    "reason": "2026-10-08: Restore Wu checklist, member and administrator meanings; prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "add-existing-card-as-subtask-empty",
+    "before": "未找到卡片",
+    "after": "呒没寻着匹配个卡片",
+    "reason": "2026-10-08: Restore Wu checklist, member and administrator meanings; prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "add-checklist-item",
+    "before": "将项目添加到清单中",
+    "after": "拿项目加到清单里向",
+    "reason": "2026-10-08: Restore Wu checklist, member and administrator meanings; prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "close-add-checklist-item",
+    "before": "关闭 将项目添加到清单表单",
+    "after": "关脱往清单里向加项目个表单",
+    "reason": "2026-10-08: Restore Wu checklist, member and administrator meanings; prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "close-edit-checklist-item",
+    "before": "关闭将项目编辑为清单表单",
+    "after": "关脱修改清单项目个表单",
+    "reason": "2026-10-08: Restore Wu checklist, member and administrator meanings; prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "convertChecklistItemToCardPopup-title",
+    "before": "转换为卡",
+    "after": "转成卡片",
+    "reason": "2026-10-08: Restore Wu checklist, member and administrator meanings; prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "convertChecklistItemToSubtask-title",
+    "before": "转换为子任务",
+    "after": "转成子任务",
+    "reason": "2026-10-08: Restore Wu checklist, member and administrator meanings; prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "checklistItem-linked-subtask",
+    "before": "关联的子任务",
+    "after": "关联个子任务",
+    "reason": "2026-10-08: Restore Wu checklist, member and administrator meanings; prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "add-cover",
+    "before": "将封面图像添加到迷你卡",
+    "after": "拿封面图片加到迷你卡片浪",
+    "reason": "2026-10-08: Restore Wu checklist, member and administrator meanings; prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "add-after-list",
+    "before": "添加后列表",
+    "after": "勒搿只列表后头添加",
+    "reason": "2026-10-08: Restore Wu checklist, member and administrator meanings; prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "add-members",
+    "before": "添加会员",
+    "after": "添加成员",
+    "reason": "2026-10-08: Restore Wu checklist, member and administrator meanings; prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "added",
+    "before": "额外",
+    "after": "加好仔",
+    "reason": "2026-10-08: Restore Wu checklist, member and administrator meanings; prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "addMemberPopup-title",
+    "before": "添加会员",
+    "after": "添加成员",
+    "reason": "2026-10-08: Restore Wu checklist, member and administrator meanings; prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "memberPopup-title",
+    "before": "会员设置",
+    "after": "成员设置",
+    "reason": "2026-10-08: Restore Wu checklist, member and administrator meanings; prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "admin",
+    "before": "行政",
+    "after": "管理员",
+    "reason": "2026-10-08: Restore Wu checklist, member and administrator meanings; prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "admin-desc",
+    "before": "可以查看和编辑卡片、删除成员以及更改讨论区的设置。可以查看活动。",
+    "after": "可以查看搭修改卡片、移脱成员、修改看板设置，也可以查看活动。",
+    "reason": "2026-10-08: Restore Wu checklist, member and administrator meanings; prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "admin-announcement-active",
+    "before": "主动全系统公告",
+    "after": "启用全系统公告",
+    "reason": "2026-10-08: Restore Wu checklist, member and administrator meanings; prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "all-boards",
+    "before": "所有板",
+    "after": "所有看板",
+    "reason": "2026-10-08: Restore Wu checklist, member and administrator meanings; prose is lower confidence and needs native review."
   }
 ]

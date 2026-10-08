@@ -440,3 +440,15 @@ assert.match(wu['keyboard-shortcuts-enabled'], /打开仔.*关脱/);
 assert.match(wu['keyboard-shortcuts-disabled'], /关脱仔.*打开/);
 assert.match(wu['add-card-to-top-of-list'], /顶浪/);
 assert.match(wu['add-card-to-bottom-of-list'], /底下/);
+
+const checklistMembers = ["swimlane-height-error-message", "add-existing-card-as-subtask-empty", "add-checklist-item", "close-add-checklist-item", "close-edit-checklist-item", "convertChecklistItemToCardPopup-title", "convertChecklistItemToSubtask-title", "checklistItem-linked-subtask", "add-cover", "add-after-list", "add-members", "added", "addMemberPopup-title", "memberPopup-title", "admin", "admin-desc", "admin-announcement-active", "all-boards"];
+for (const key of checklistMembers) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.match(wu['add-existing-card-as-subtask-empty'], /呒没.*匹配.*卡片/);
+assert.match(wu['close-add-checklist-item'], /关脱.*加项目.*表单/);
+assert.match(wu['close-edit-checklist-item'], /关脱.*修改清单项目.*表单/);
+assert.match(wu['add-after-list'], /列表后头/);
+assert.match(wu.added, /加好仔/);
+assert.doesNotMatch(wu.added, /额外/);
+assert.equal(wu.admin, '管理员');
+assert.match(wu['admin-desc'], /查看搭修改卡片.*移脱成员.*修改看板设置.*查看活动/);
+assert.equal(wu['add-members'], wu['addMemberPopup-title']);
