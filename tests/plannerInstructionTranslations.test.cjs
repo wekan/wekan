@@ -559,3 +559,28 @@ for (const code of ['ro', 'ro-RO']) {
   assert.match(locale['import-board-instruction-superproductivity'], /archivált feladatokból archivált kártyák lesznek/);
   assert.match(locale['import-board-instruction-meistertask'], /befejezett feladatok megőrzik a befejezés dátumát/);
 }
+
+{
+  const locale = read('tr');
+  const literals = {...importLiterals, ...newerImportLiterals,
+    planner: ['Microsoft Planner', 'Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By'],
+    meistertask: ['MeisterTask', 'Export project', 'CSV']};
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), key);
+    for (const value of values) assert.ok(locale[key].includes(value), key + ': ' + value);
+  }
+  for (const format of ['nullboard', 'kanri']) {
+    assert.match(locale['import-board-instruction-' + format], /yalnızca ilk pano içe aktarılır/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /tüm panolar içe aktarılır/);
+  }
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /Ekler içe aktarılmaz/);
+  assert.match(locale['import-board-instruction-notion'], /İlişkiler, resimler ve ekler içe aktarılmaz/);
+  assert.match(locale['import-board-instruction-plane'], /açıklama veya ek içermez.*içe aktarılmaz/);
+  assert.match(locale['import-board-instruction-businessmap'], /önce başlık satırını İngilizce olarak yeniden adlandırın/);
+  assert.match(locale['import-board-instruction-redmine'], /dışa aktarmadan önce My account.*English/);
+  assert.match(locale['import-board-instruction-teamwork'], /bir seviye daha derini/);
+  assert.match(locale['import-board-instruction-superproductivity'], /arşivlenmiş görevler arşivlenmiş kartlara dönüşür/);
+  assert.match(locale['import-board-instruction-meistertask'], /tamamlanan görevlerin tamamlanma tarihleri korunur/);
+}
