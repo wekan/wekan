@@ -8660,6 +8660,15 @@ name alongside placeholder and key-order checks. Technical wording remains low
 confidence pending speaker review. Browser checks were not run. Vocabulary scans
 are not proof of complete language correctness; the broader audit continues.
 
+## Odia Blockly controls and colours
+
+Filled 24 English placeholders in the Odia catalog for Blockly colour controls,
+block operations and loop actions. Applied through the placeholder-only merge,
+preserving existing translations. Tests compare key order, Odia script and exact
+placeholder inventories, and check colour bounds and distinct loop actions.
+Technical wording remains low confidence pending speaker review. Browser checks
+were not run. Further Odia placeholders and the broader language audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
