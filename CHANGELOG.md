@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f73ae5a179">Translate Dutch import instructions</a>. Thanks to xet7.</summary>
+
+Translate 21 import instructions in both Dutch catalogs, preserving literal
+commands, variables, column names and import limitations. Regression coverage
+checks first-board selection, excluded data, English headers, completed-task dates
+and archived tasks. Translation, placeholder and preservation checks pass; browser
+review and the wider translation backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4b2c47268a">Translate Italian import instructions</a>. Thanks to xet7.</summary>
 
 Translate all 21 Italian import instructions, preserving commands, column names,
