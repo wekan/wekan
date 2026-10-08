@@ -706,6 +706,33 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
   "sync-conflict-refresh",
   "sync-conflict-review-complete"
 ]);
+  keys.push(...[
+  "sync-conflict-duplicate",
+  "sync-conflict-keep-mapping",
+  "sync-conflict-detach",
+  "sync-conflict-detach-hint",
+  "sync-conflict-archive",
+  "sync-conflict-archive-hint",
+  "sync-conflict-keep-card-local",
+  "sync-conflict-creation",
+  "sync-conflict-creation-hint",
+  "sync-conflict-create-replacement",
+  "sync-preview-button",
+  "sync-preview-heading",
+  "sync-preview-saved",
+  "sync-preview-unavailable",
+  "sync-preview-blocked",
+  "sync-preview-create",
+  "sync-preview-update",
+  "sync-preview-archive",
+  "sync-preview-baseline",
+  "sync-preview-truncated",
+  "sync-preview-omissions",
+  "sync-preview-scope",
+  "sync-preview-excluded",
+  "sync-preview-unmapped",
+  "sync-preview-parser-warnings"
+]);
   for (const language of ['zu', 'zu-ZA']) {
     const locale = read(language);
     for (const key of keys) {
@@ -851,6 +878,13 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
     const preview = locale['scrum-import-preview-cards'].replace('__updated__', '2').replace('__unchanged__', '3').replace('__unmatched__', '4');
     assert.match(preview, /2.*3.*4/);
     assert.doesNotMatch(preview, /__\w+__/);
+    assert.match(locale['sync-conflict-detach-hint'], /Susa kuphela.*kuhlala ku-WeKan/);
+    assert.match(locale['sync-conflict-archive-hint'], /Amakhadi angaphansi awashintshwa/);
+    assert.match(locale['sync-conflict-creation-hint'], /langaphambili lingashintshiwe.*Ukuzama futhi kusebenzisa/);
+    assert.match(locale['sync-preview-unavailable'], /Londoloza.*ngaphambi/);
+    assert.match(locale['sync-preview-blocked'], /Xazulula ukungqubuzana.*ngaphambi/);
+    assert.match(locale['sync-preview-truncated'], /kokuqala okungu-100/);
+    assert.match(locale['sync-preview-scope'], /ingase ingafakwa/);
     const failure = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
     assert.ok(failure.includes('E_LDAP'));
     assert.ok(!failure.includes('%s'));

@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Zulu sync recovery and previews — 2026-10-09
+
+Translate 25 sync messages per Zulu catalog (50 values). Tests preserve local
+content and subcard guarantees, replacement reuse, saved-source and conflict
+prerequisites, the first-100 limit and parser omission caveats. Both targeted
+suites and all 21 preservation checks pass. Specialized terminology remains
+low confidence pending speaker review. Browser execution and remaining
+translations are outstanding.
+
 ## Zulu planning imports and daily observations — 2026-10-09
 
 Translate 35 messages per Zulu catalog (70 values) for planning imports,
