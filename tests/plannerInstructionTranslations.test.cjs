@@ -1413,3 +1413,21 @@ for (const code of ['gl', 'gl-ES']) {
   assert.match(locale['import-board-instruction-obsidian'], /argief word geargiveerde kaarte/);
   assert.match(locale['import-board-instruction-ticktick'], /TickTick-lys word ’n swembaan/);
 }
+
+{
+  const locale = read('af');
+  for (const format of ['pivotal', 'tasksorg', 'monday', 'superproductivity', 'taiga', 'vikunja']) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), key);
+    for (const value of importLiterals[format]) assert.ok(locale[key].includes(value), key + ': ' + value);
+  }
+  for (const format of ['taiga', 'vikunja']) {
+    assert.match(locale['import-board-instruction-' + format], /Aanhegsels word nie ingevoer nie/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /Aanhegsels word ingevoer/);
+  }
+  assert.match(locale['import-board-instruction-tasksorg'], /voltooide take behou hul voltooiingsdatum/);
+  assert.match(locale['import-board-instruction-monday'], /opdaterings word opmerkings/);
+  assert.match(locale['import-board-instruction-superproductivity'], /geargiveerde take word geargiveerde kaarte/);
+  assert.match(locale['import-board-instruction-pivotal'], /iterasies word naellope/);
+}

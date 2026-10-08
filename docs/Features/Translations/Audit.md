@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Afrikaans import instructions, middle group — 2026-10-09
+
+Translate six instructions in af: Pivotal Tracker, Tasks.org, monday.com,
+Super Productivity, Taiga and Vikunja. Preserve commands, extensions and variables.
+Regression checks cover excluded attachments, completion dates, update-to-comment
+mapping, archived tasks and iterations as sprints. Import-instruction and
+placeholder suites and all 21 preservation checks pass. Remaining translations,
+language auditing and browser review are outstanding.
+
 ## Afrikaans import instructions, first group — 2026-10-09
 
 The broad run after the Galician corrections passed all 333 translation-related
