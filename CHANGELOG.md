@@ -1777,9 +1777,10 @@ used.
 **header login** is environment-only, **automatic logout** works again,
 **LDAP** gets an honest Test connection and a Sync now button, and **secrets
 from files** cover the database, mail and S3. Boards now import and export as
-**Todoist**, **OPML** and **Org mode**. Seventeen long-open requests were
-closed as already implemented, and translation filling protects interpolation
-variables, with more translated help text.
+**Todoist**, **OPML** and **Org mode**, **rules** can set assignees, and a
+merged login keeps its boards. Seventeen long-open requests were closed as
+already implemented, and translation filling protects interpolation variables,
+with more translated help text.
 
 This release adds the following new features:
 
@@ -1846,6 +1847,24 @@ DEADLINE and CLOSED, and turning checkboxes and deeper headings into
 checklists. Timestamps have no zone in Org and are read as UTC; repeaters are
 reported. `tests/orgMode.test.cjs` covers custom keywords, localized day names
 and the round trip; a Playwright case imports through the page.
+
+</details>
+
+**Rules** - the two parts of making rules less clunky that were still open.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f735eba194">A rule can set and clear assignees, and needs no title</a>. Thanks to xeruf and xet7.</summary>
+
+Add and Remove assignee actions take a username, a `{creator}` style token,
+the user who triggered the rule, or every assignee, and are durable through
+Sync like the member actions - so a new card can be assigned to its creator,
+as [#4294](https://github.com/wekan/wekan/issues/4294) asked. A rule added
+without a title is named after its trigger and action and renamed in place.
+This also fixed "Remove all members from the card", which iterated the
+assignees while removing members, so it removed only people who were both;
+its guards now read `models/cards.js` instead of assuming the field. A
+Playwright case creates an untitled rule and a card that gets its creator as
+assignee.
 
 </details>
 
@@ -1932,6 +1951,25 @@ runs the entrypoint's block for real and fails if any platform offers a
 retired name again.
 
 </details>
+
+and fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/29bca6f757">A login merged into an existing account keeps that account's boards</a>. Thanks to xet7.</summary>
+
+Merging an OIDC or OAuth login into an existing account removes that user
+and lets Meteor insert it again under the same id. The removal ran the
+account-deletion cleanup, which took the user off every board, card and team
+and deleted their avatar. It now removes without the hooks.
+`tests/mergedUserKeepsBoards.test.cjs` fails if any code removes an account
+through the hooks and then returns it.
+
+</details>
+
+and has the following developer-facing fixes:
+
+- [The card-field visibility writer guard counts only writes, not a read projection](https://github.com/wekan/wekan/commit/a9dc8faa98). Thanks to xet7.
+- [The release risk baseline knows the format specification links](https://github.com/wekan/wekan/commit/49353db813). Thanks to xet7.
 
 and closes these issues, which were already implemented:
 
