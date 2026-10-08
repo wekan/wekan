@@ -9260,6 +9260,16 @@ script, key order and token inventories. Technical terminology remains low
 confidence pending speaker review. Browser checks were not run; further Konkani
 translations and the broader audit remain unfinished.
 
+## Konkani loops and conditional controls
+
+Filled 27 English values for loop execution, conditional branches and block copying.
+Existing translations were retained; short labels excluded by the filter were
+filled directly after verifying equality with English. Preserved indexed loop
+roles, true/false conditions and fallback branches. Regression coverage checks
+those details, script, key order and tokens. Technical terminology remains low
+confidence pending speaker review. Browser checks were not run; further Konkani
+translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
