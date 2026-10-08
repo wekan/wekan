@@ -205,6 +205,9 @@
       #export AVATARS_UPLOAD_EXTERNAL_PROGRAM="/usr/local/bin/avscan {file}"
       #export AVATARS_UPLOAD_MIME_TYPES="image/*"
       #export AVATARS_UPLOAD_MAX_SIZE=500000
+      # DEFAULT_AVATAR_URL : avatar of users who have not set one, a URL with {username},
+      # {userId}, {emailMd5} or {emailSha256} replaced. Example: http://192.168.1.200/avatars/{username}.png
+      #export DEFAULT_AVATAR_URL=
       #---------------------------------------------------------------
       #---------------------------------------------------------------
       # ==== CARD OPENED, SEND WEBHOOK MESSAGE ====

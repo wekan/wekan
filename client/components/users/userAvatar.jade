@@ -3,6 +3,9 @@ template(name="userAvatar")
     if userData
       if userData.profile.avatarUrl
         img.avatar.avatar-image(src="{{avatarUrl}}" alt="")
+      else if defaultAvatarUrl
+        //- #824: DEFAULT_AVATAR_URL; initials again if that image fails.
+        img.avatar.avatar-image.js-default-avatar(src="{{defaultAvatarUrl}}" alt="")
       else
         +userAvatarInitials(userId=userData._id)
     else

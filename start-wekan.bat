@@ -180,6 +180,9 @@ REM # ==== Allow configuration to validate uploaded avatars ====
 REM SET AVATARS_UPLOAD_EXTERNAL_PROGRAM="avscan {file}"
 REM SET AVATARS_UPLOAD_MIME_TYPES="image/*"
 REM SET AVATARS_UPLOAD_MAX_SIZE=500000
+REM # DEFAULT_AVATAR_URL : avatar of users who have not set one, a URL with {username},
+REM # {userId}, {emailMd5} or {emailSha256} replaced. Example: http://192.168.1.200/avatars/{username}.png
+REM SET DEFAULT_AVATAR_URL=
 
 REM # ==== NOTIFICATION TRAY AFTER READ DAYS BEFORE REMOVE =====
 REM # Number of days after a notification is read before we remove it.

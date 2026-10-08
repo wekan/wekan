@@ -408,6 +408,8 @@ import '/server/methods/loginOffices';
 import '/server/lastActiveOnLogin';
 // Automatic logout: LOGOUT_WITH_TIMER and the LOGOUT_* settings.
 import '/server/logoutTimer';
+// #824: DEFAULT_AVATAR_URL for users without an avatar of their own.
+import '/server/defaultAvatar';
 import '/server/methods/lastActiveHeartbeat';
 import '/server/importedUserReconciliation';
 

@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { avatarUpdateCounter } from '/client/components/users/avatarUpdateCounter';
@@ -5,7 +6,26 @@ import Avatars from '/models/avatars';
 import Presences from '/models/presences';
 import { Utils } from '/client/lib/utils';
 
+// #824: the default avatar (DEFAULT_AVATAR_URL, server/defaultAvatar.js) for a
+// user with none of their own; an image that does not load is remembered, per
+// user, so the initials are shown instead of a broken image.
+const failedDefaultAvatars = new ReactiveVar(new Set());
+Template.userAvatar.events({
+  'error img.js-default-avatar'(event) {
+    const userId = Template.currentData() && Template.currentData().userId;
+    if (!userId || failedDefaultAvatars.get().has(userId)) return;
+    failedDefaultAvatars.set(new Set([...failedDefaultAvatars.get(), userId]));
+  },
+});
+
 Template.userAvatar.helpers({
+  defaultAvatarUrl() {
+    if (!(Meteor.settings.public && Meteor.settings.public.defaultAvatar)) return '';
+    const userId = this.userId;
+    if (!userId || failedDefaultAvatars.get().has(userId)) return '';
+    return `/avatar-default/${encodeURIComponent(userId)}`;
+  },
+
   userData() {
     const user = ReactiveCache.getUser(this.userId, {
       fields: {
