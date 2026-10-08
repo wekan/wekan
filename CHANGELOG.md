@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2a862f73645381e1dba30897cf86afdef04114fd">Correct Tatar navigation and card aging text</a></summary>
+
+- Correct 31 navigation, starring and aging strings, preserving source tokens,
+  movement directions, toggle states and three fading levels.
+- Technical wording remains low confidence pending speaker review.
+- All 82 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/eb43ced15b00e2e5270490231dd5f06159a4cbeb">Correct Tatar user mapping and appearance text</a></summary>
 
 - Correct 32 login, mapping, theme and font strings, preserving source tokens,
