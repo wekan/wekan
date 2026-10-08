@@ -442,6 +442,17 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/85fad588e2">Translate short Punjabi, Swahili and Uzbek Blockly labels</a>. Thanks to xet7.</summary>
+
+Translate 62 English values across five catalogs, retaining indexed movement
+arguments, list position markers, equivalent procedure labels and distinct pixel
+states. Four focused Node suites and 21 human-translation preservation checks pass.
+Composed labels need native review; browser/screen-reader tests were not run.
+The remaining all-language translation backlog is still unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8be1815560">Translate short Marathi, Malayalam and Telugu Blockly labels</a>. Thanks to xet7.</summary>
 
 Translate 31 English labels while preserving indexed input/context arguments,
