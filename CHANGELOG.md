@@ -691,6 +691,21 @@ can message that person. `WEBHOOKS_ATTRIBUTES` still replaces the list.
 
 </details>
 
+**People and lists** - two small requests that only needed doing.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b426f9cfa8">A user without an avatar can be shown one from DEFAULT_AVATAR_URL</a>. Thanks to jLouzado and xet7.</summary>
+
+An environment-only URL template - an intranet photo server or a
+Gravatar-style service - with `{username}`, `{userId}`, `{emailMd5}` or
+`{emailSha256}` replaced ([#824](https://github.com/wekan/wekan/issues/824)).
+The browser is redirected there; the server fetches nothing. An uploaded
+avatar always wins, and the initials come back when the image does not load.
+
+</details>
+
+- [Lists can be archived and restored through the REST API](https://github.com/wekan/wekan/commit/0a80496acf). Thanks to stevekiss and xet7.
+
 and hardens the login settings:
 
 **Admin Panel / People** - the login settings the 2026-10-05 work left open,
