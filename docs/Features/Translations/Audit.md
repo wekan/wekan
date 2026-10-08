@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu shortcuts and starred-item corrections — 2026-10-08
+
+Correct 25 shortcut, threshold and starred-item values. Distinguish card membership
+from assignment and cards assigned to the current user from cards assigned by them.
+Preserve opposite default-board actions, top-of-list placement, Enter and hour units.
+Refresh exact-value audit records and check source tokens. Wu prose needs native
+review; browser tests were not run and all-language work remains unfinished.
+
 ## Wu visibility and member-removal corrections — 2026-10-08
 
 Correct 24 visibility, profile, removal and unsaved-description values. Preserve
@@ -12625,7 +12633,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,316** exact before/after values, including unflagged
+records contain **23,341** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

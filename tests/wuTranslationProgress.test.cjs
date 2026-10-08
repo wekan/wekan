@@ -702,3 +702,16 @@ assert.doesNotMatch(wu['remove-member-pop'], /删脱/);
 for (const key of ['custom-private-desc-placeholder', 'custom-public-desc-placeholder']) assert.match(wu[key], /留空就用默认/);
 assert.match(wu['rescue-card-description'], /还朆保存.*关闭以前/);
 assert.match(wu['rescue-card-description-dialogue'], /侬个修改覆盖当前卡片描述/);
+
+const shortcutsStars = ["search-example", "select-board", "set-wip-limit-value", "shortcut-add-self", "shortcut-assign-self", "shortcut-clear-filters", "shortcut-filter-my-cards", "shortcut-filter-my-assigned-cards", "shortcut-show-shortcuts", "shortcut-toggle-filterbar", "shortcut-toggle-searchbar", "shortcut-toggle-sidebar", "show-cards-minimum-count", "star-board-title", "set-default-board-title", "unset-default-board-title", "starred-boards", "starred-pages", "starred-boards-description", "starred-swimlanes", "starred-lists", "starred-cards", "this-board", "this-card", "spent-time-hours"];
+for (const key of shortcutsStars) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.match(wu['search-example'], /Enter/);
+assert.match(wu['shortcut-add-self'], /卡片个成员/);
+assert.match(wu['shortcut-assign-self'], /卡片分配畀自家/);
+assert.match(wu['shortcut-filter-my-assigned-cards'], /分配畀我/);
+assert.match(wu['show-cards-minimum-count'], /超过.*才显示数量/);
+assert.match(wu['set-default-board-title'], /登录以后.*自动打开/);
+assert.match(wu['unset-default-board-title'], /点一下.*勿再自动打开/);
+assert.match(wu['star-board-title'], /看板列表顶浪/);
+assert.match(wu['starred-lists'], /列表/);
+assert.match(wu['spent-time-hours'], /小时/);

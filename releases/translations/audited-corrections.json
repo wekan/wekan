@@ -163210,5 +163210,180 @@
     "before": "从此板上的卡片/列表标题、描述和自定义字段中搜索",
     "after": "搜索搿块看板浪卡片／列表个标题、描述搭自定义字段",
     "reason": "2026-10-08: Correct Wu visibility and member-removal meanings, preserving variables and access scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "search-example",
+    "before": "输入您要搜索的文本并按 Enter 键",
+    "after": "输入侬要搜索个文本，再按 Enter 键",
+    "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "select-board",
+    "before": "选择主板",
+    "after": "选择看板",
+    "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "set-wip-limit-value",
+    "before": "设置此列表中任务的最大数量限制",
+    "after": "设置搿只列表里向任务数量个上限",
+    "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "shortcut-add-self",
+    "before": "将您自己添加到当前卡中",
+    "after": "拿自家加到当前卡片个成员里向",
+    "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "shortcut-assign-self",
+    "before": "将自己分配给当前卡",
+    "after": "拿当前卡片分配畀自家",
+    "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "shortcut-clear-filters",
+    "before": "清除所有过滤器",
+    "after": "清除所有筛选条件",
+    "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "shortcut-filter-my-cards",
+    "before": "过滤我的卡片",
+    "after": "筛选我个卡片",
+    "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "shortcut-filter-my-assigned-cards",
+    "before": "过滤我分配的卡片",
+    "after": "筛选分配畀我个卡片",
+    "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "shortcut-show-shortcuts",
+    "before": "调出此快捷方式列表",
+    "after": "显示搿份快捷键列表",
+    "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "shortcut-toggle-filterbar",
+    "before": "切换过滤器侧边栏",
+    "after": "切换筛选侧栏",
+    "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "shortcut-toggle-searchbar",
+    "before": "切换搜索侧边栏",
+    "after": "切换搜索侧栏",
+    "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "shortcut-toggle-sidebar",
+    "before": "切换板侧边栏",
+    "after": "切换看板侧栏",
+    "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "show-cards-minimum-count",
+    "before": "如果列表包含多于则显示卡片数量",
+    "after": "列表里向卡片数量超过搿个值才显示数量",
+    "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "star-board-title",
+    "before": "单击为此板加注星标。它将显示在您的图板列表的顶部。",
+    "after": "点一下畀搿块看板加星标。伊会显示勒侬个看板列表顶浪。",
+    "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "set-default-board-title",
+    "before": "点击后，登录时将自动打开此看板。",
+    "after": "点一下，侬登录以后就会自动打开搿块看板。",
+    "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "unset-default-board-title",
+    "before": "此看板会在你登录后打开。点击可停止自动打开。",
+    "after": "搿块看板勒侬登录以后会打开。点一下就勿再自动打开伊。",
+    "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "starred-boards",
+    "before": "加星标的图板",
+    "after": "加过星标个看板",
+    "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "starred-pages",
+    "before": "收藏的页面",
+    "after": "加过星标个页面",
+    "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "starred-boards-description",
+    "before": "加星标的图板显示在图板列表的顶部。",
+    "after": "加过星标个看板显示勒侬个看板列表顶浪。",
+    "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "starred-swimlanes",
+    "before": "已加星标的泳道",
+    "after": "加过星标个泳道",
+    "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "starred-lists",
+    "before": "已加星标的清单",
+    "after": "加过星标个列表",
+    "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "starred-cards",
+    "before": "已加星标的卡片",
+    "after": "加过星标个卡片",
+    "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "this-board",
+    "before": "这个板",
+    "after": "搿块看板",
+    "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "this-card",
+    "before": "这张卡",
+    "after": "搿张卡片",
+    "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "spent-time-hours",
+    "before": "花费时间（小时）",
+    "after": "花脱个辰光（小时）",
+    "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
   }
 ]
