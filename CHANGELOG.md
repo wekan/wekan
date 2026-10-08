@@ -2022,7 +2022,8 @@ West Frisian, Wu Chinese, Yiddish, Yoruba.
   non-Latin renamed tokens, positional arguments and repeated variables.
   Reject invalid fill batches atomically while preserving existing translations.
 - Restore the two missing card-field settings keys in source order and add
-  240 translated values. English fallback remains visible for unfinished locales.
+  240 translated values. English fallback remains visible for unfinished
+  locales.
 - Keep exact OS brands and compact Blockly math/code symbols out of the prose
   backlog without exempting help text or accessibility labels.
 - Reconcile four superseded audit records and accept the Akan organization noun
@@ -2156,7 +2157,8 @@ report with seven assignees and asserts no avatar overlaps the comment.
 <summary><a href="https://github.com/wekan/wekan/commit/a30eaaf22f69c65a3f6dbde318c87589380f9d7c">Translate card-field visibility in eight languages</a></summary>
 
 - Add 16 missing translations in Finnish, Swedish, German, French, Spanish,
-  Portuguese, Italian and Dutch. Preserve existing strings, key order and tokens;
+  Portuguese, Italian and Dutch. Preserve existing strings, key order and
+  tokens;
   check unchanged card data/settings, re-enabling fields and per-board ordering.
 - Validation: 38 translation checks and 21 human-preference checks pass. Two
   repository-wide checks still fail on these keys missing from other locales.
@@ -2219,8 +2221,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2e9243f3c88b0fcacdeed0c5dd3537c54e5db761">Translate Moroccan Arabic observations and Sync conflicts</a></summary>
 
-- Fill 36 placeholders, retaining existing translations. Check observation limits,
-  import restrictions, no source writes, mapping-only removal, unchanged subcards
+- Fill 36 placeholders, retaining existing translations. Check observation
+  limits,
+  import restrictions, no source writes, mapping-only removal, unchanged
+  subcards
   and replacement reuse, together with script, source order and placeholders.
 - Validation: 54 translation checks and 21 human-preference checks pass. Two
   repository-wide checks fail on new card-field-visibility keys missing from
@@ -2235,7 +2239,8 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/263d3ff9e6cf4532c990e6b4a6d2ddddc5a465d2">Translate Moroccan Arabic sprint reports and events</a></summary>
 
-- Fill 36 placeholders, retaining existing translations. Check estimate semantics,
+- Fill 36 placeholders, retaining existing translations. Check estimate
+  semantics,
   cancellation membership, unfinished-work destinations, partial reports and
   event distinctions, together with script, source order and placeholders.
 - Validation: 53 translation checks and 21 human-preference checks pass. Two
@@ -2299,8 +2304,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/14c765311b05d4421fc70829ec1ad5e2845b9f16">Translate Moroccan Arabic text processing</a></summary>
 
-- Fill 42 placeholders, retaining existing translations. Check character positions,
-  search roles, replacement arguments and scope, counted spaces and prompt types,
+- Fill 42 placeholders, retaining existing translations. Check character
+  positions,
+  search roles, replacement arguments and scope, counted spaces and prompt
+  types,
   together with script, source order and placeholders.
 - Validation: 48 translation checks and 21 human-preference checks pass. Two
   repository-wide checks fail on new card-field-visibility keys missing from
@@ -2332,7 +2339,8 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/5b7f2d18d89c4d2ed35f6a607def4cdf96c9bdfe">Translate Moroccan Arabic procedures and accessibility controls</a></summary>
 
 - Fill 39 placeholders, retaining existing translations. Check return values,
-  disabled definitions, duplicate parameters, function-only blocks, screen-reader
+  disabled definitions, duplicate parameters, function-only blocks,
+  screen-reader
   toggles and rename scope, together with script, source order and placeholders.
 - Validation: 46 translation checks and 21 human-preference checks pass. Two
   repository-wide checks fail on new card-field-visibility keys missing from
@@ -2488,7 +2496,8 @@ Thanks to xet7 !
 
 - Fill 27 Turkmen placeholders, preserving existing translations, retry
   boundaries, pending work and irreversible cancellation warnings.
-- Remove the obsolete custom-colors-in-use entry after its English source was removed.
+- Remove the obsolete custom-colors-in-use entry after its English source was
+  removed.
 - Technical wording remains low confidence pending speaker review.
 - All 64 translation checks and 21 human-preference checks pass. Browser
   checks were not run. Further translations and the audit continue.
