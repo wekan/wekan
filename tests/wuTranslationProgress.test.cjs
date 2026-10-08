@@ -799,3 +799,16 @@ assert.match(wu['r-import-trello-note'], /呒没 Butler 规则.*支持个部分.
 assert.match(wu['r-import-workflow-note'], /n8n.*Node-RED.*WeKan.*映射勿到个节点.*报告/);
 assert.match(wu['r-schedule-weekday'], /礼拜一到礼拜五/);
 assert.notEqual(wu['r-schedule-once'], wu['r-schedule-weekly']);
+
+const ruleMovement = ["r-due-is-set", "r-due-soon", "r-when-card-in-list", "r-for-n-days", "r-sort-by", "r-sort-name", "r-mark-complete", "r-mark-incomplete", "r-move-all-cards", "r-set-date-relative", "r-unit-weeks", "r-trigger", "r-action", "r-when-a-card", "r-is-moved", "r-removed-from", "r-attachment-removed-from", "r-moved-from"];
+for (const key of ruleMovement) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.equal(wu['r-trigger'], '触发器');
+assert.equal(wu['r-is-moved'], '移动仔');
+assert.doesNotMatch(wu['r-is-moved'], /感动/);
+assert.equal(wu['r-sort-by'], '按');
+assert.match(wu['r-mark-complete'], /标记成完成/);
+assert.match(wu['r-mark-incomplete'], /还朆完成/);
+assert.match(wu['r-move-all-cards'], /所有卡片/);
+assert.match(wu['r-for-n-days'], /N 天/);
+assert.match(wu['r-set-date-relative'], /现在为基准/);
+assert.equal(wu['r-removed-from'], wu['r-attachment-removed-from']);

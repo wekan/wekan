@@ -164365,5 +164365,131 @@
     "before": "当卡片的截止日期",
     "after": "当卡片个截止日期",
     "reason": "2026-10-08: Correct Wu rule import and schedule prose, preserving count variables and supported-subset limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-due-is-set",
+    "before": "被设置",
+    "after": "设定好仔",
+    "reason": "2026-10-08: Correct Wu rule fragments, preserving movement, completion and relative-date meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-due-soon",
+    "before": "即将到来",
+    "after": "快到仔",
+    "reason": "2026-10-08: Correct Wu rule fragments, preserving movement, completion and relative-date meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-when-card-in-list",
+    "before": "当卡片已在列表中",
+    "after": "当卡片已经勒搿只列表里向",
+    "reason": "2026-10-08: Correct Wu rule fragments, preserving movement, completion and relative-date meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-for-n-days",
+    "before": "达 N 天",
+    "after": "有 N 天仔",
+    "reason": "2026-10-08: Correct Wu rule fragments, preserving movement, completion and relative-date meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-sort-by",
+    "before": "经过",
+    "after": "按",
+    "reason": "2026-10-08: Correct Wu rule fragments, preserving movement, completion and relative-date meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-sort-name",
+    "before": "姓名",
+    "after": "名字",
+    "reason": "2026-10-08: Correct Wu rule fragments, preserving movement, completion and relative-date meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-mark-complete",
+    "before": "将卡片标记为完成",
+    "after": "拿卡片标记成完成",
+    "reason": "2026-10-08: Correct Wu rule fragments, preserving movement, completion and relative-date meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-mark-incomplete",
+    "before": "将卡片标记为未完成",
+    "after": "拿卡片标记成还朆完成",
+    "reason": "2026-10-08: Correct Wu rule fragments, preserving movement, completion and relative-date meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-move-all-cards",
+    "before": "移动列表中的所有卡片",
+    "after": "移动列表里向所有卡片",
+    "reason": "2026-10-08: Correct Wu rule fragments, preserving movement, completion and relative-date meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-set-date-relative",
+    "before": "设置相对于现在的日期",
+    "after": "以现在为基准设置日期",
+    "reason": "2026-10-08: Correct Wu rule fragments, preserving movement, completion and relative-date meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-unit-weeks",
+    "before": "周",
+    "after": "礼拜",
+    "reason": "2026-10-08: Correct Wu rule fragments, preserving movement, completion and relative-date meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-trigger",
+    "before": "扳机",
+    "after": "触发器",
+    "reason": "2026-10-08: Correct Wu rule fragments, preserving movement, completion and relative-date meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-action",
+    "before": "行动",
+    "after": "操作",
+    "reason": "2026-10-08: Correct Wu rule fragments, preserving movement, completion and relative-date meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-when-a-card",
+    "before": "当一张卡",
+    "after": "当一张卡片",
+    "reason": "2026-10-08: Correct Wu rule fragments, preserving movement, completion and relative-date meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-is-moved",
+    "before": "被感动了",
+    "after": "移动仔",
+    "reason": "2026-10-08: Correct Wu rule fragments, preserving movement, completion and relative-date meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-removed-from",
+    "before": "已删除自",
+    "after": "从搿搭移脱",
+    "reason": "2026-10-08: Correct Wu rule fragments, preserving movement, completion and relative-date meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-attachment-removed-from",
+    "before": "已删除自",
+    "after": "从搿搭移脱",
+    "reason": "2026-10-08: Correct Wu rule fragments, preserving movement, completion and relative-date meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-moved-from",
+    "before": "搬自",
+    "after": "从搿搭移来",
+    "reason": "2026-10-08: Correct Wu rule fragments, preserving movement, completion and relative-date meanings; lower-confidence prose needs native review."
   }
 ]
