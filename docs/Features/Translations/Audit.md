@@ -9435,6 +9435,16 @@ plus script, key order and tokens. Technical wording remains low confidence
 pending speaker review. Browser checks were not run; further Konkani
 translations and the broader audit remain unfinished.
 
+## Konkani Sync conflicts and previews
+
+Filled 41 English placeholders for Sync conflicts, previews and source omissions.
+The placeholder-only merge retained existing translations. Regression coverage
+checks local-content retention, unchanged subcards, replacement reuse, no writes
+to the source, partial review, preview limits and hidden values, plus script,
+key order and tokens. Technical wording remains low confidence pending speaker
+review. Browser checks were not run; further Konkani translations and the
+broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
