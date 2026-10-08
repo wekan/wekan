@@ -729,3 +729,21 @@ for (const code of ['ko', 'ko-KR']) {
   assert.match(locale['import-board-instruction-obsidian'], /아카이브는 보관된 카드로 변환됩니다/);
   assert.match(locale['import-board-instruction-ticktick'], /목록은 스윔레인으로/);
 }
+
+for (const code of ['ko', 'ko-KR']) {
+  const locale = read(code);
+  const literals = {...newerImportLiterals, ...Object.fromEntries(['pivotal', 'tasksorg', 'monday', 'superproductivity', 'taiga', 'vikunja'].map(format => [format, importLiterals[format]]))};
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), code + ': ' + key);
+    for (const value of values) assert.ok(locale[key].includes(value), code + ': ' + value);
+  }
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /첨부 파일은 가져오지 않습니다/);
+  assert.match(locale['import-board-instruction-notion'], /관계, 이미지, 첨부 파일은 가져오지 않습니다/);
+  assert.match(locale['import-board-instruction-plane'], /설명과 첨부 파일이 없으므로.*가져오지 않습니다/);
+  assert.match(locale['import-board-instruction-businessmap'], /먼저 머리글 행을 영어 이름으로 바꾸세요/);
+  assert.match(locale['import-board-instruction-redmine'], /내보내기 전에 My account.*English/);
+  assert.match(locale['import-board-instruction-teamwork'], /한 단계 더 깊은 계층/);
+  assert.match(locale['import-board-instruction-superproductivity'], /보관된 작업은 보관된 카드로 변환됩니다/);
+}

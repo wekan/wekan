@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Korean import instructions, remaining group — 2026-10-09
+
+Translate the remaining 13 instructions in ko and ko-KR (26 values), completing
+all 21 import instructions in those catalogs. Preserve commands, columns,
+extensions, hierarchy markers and variables. Regression checks cover excluded
+data, English headers, task hierarchy and archived tasks. Import-instruction and
+placeholder suites and all 21 preservation checks pass. Browser review and the
+wider all-language translation backlog remain outstanding.
+
 ## Korean import instructions, first group — 2026-10-09
 
 Translate eight instructions in ko and ko-KR (16 values): Planner, MeisterTask,
