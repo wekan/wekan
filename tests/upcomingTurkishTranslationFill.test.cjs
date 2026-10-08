@@ -31,6 +31,17 @@ console.log('upcomingTurkishTranslationFill: 5 tests passed');
     assert.ok(translated[key]?.trim(), key);
     assert.notStrictEqual(translated[key], en[key], `${key} must not remain English`);
   }
+  for (const key of Object.keys(en).filter(key => key.startsWith('interrupted-import-'))) {
+    assert.ok(translated[key]?.trim(), key);
+    assert.notStrictEqual(translated[key], en[key], `${key}: translate import recovery`);
+  }
+  assert.match(translated['interrupted-import-description'], /devam edilemez/);
+  assert.match(translated['interrupted-import-description'], /sonradan eklenenler dahil/);
+  assert.match(translated['interrupted-import-keep-confirm'], /Hiçbir şey kaldırılmaz/);
+  assert.match(translated['interrupted-import-discard-confirm'], /kalıcı olarak kaldırılır/);
+  assert.match(translated['interrupted-import-truncated'], /en eski 50/);
+  assert.match(translated['interrupted-import-foreign-board'], /değiştirilmedi/);
+  assert.match(translated['interrupted-import-state-discarding'], /yeniden silin/);
   assert.strictEqual(translated['scrum-product-backlog'], 'Ürün İş Listesi');
   assert.strictEqual(translated['scrum-sprint'], 'Sprint', 'established Turkish Scrum vocabulary');
   assert.strictEqual(translated['blockly-ENTER_KEY'], 'Enter', 'keyboard legend');
