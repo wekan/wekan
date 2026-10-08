@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/34e568ba07d41cd5072570f315d49afa46e8361d">Correct Tatar custom fields and organization settings</a></summary>
+
+- Correct 33 custom-field, time-unit and organization settings values, restoring
+  domain syntax and preserving administrator restrictions and field-sum semantics.
+- Technical wording remains low confidence pending speaker review.
+- All 102 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f61ff8138223ab485a3b8559177c632d030becc4">Correct Tatar webhooks and system information</a></summary>
 
 - Correct 35 webhook and system-information values, restoring literal runtime
