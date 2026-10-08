@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Yiddish Blockly comparisons and arithmetic — 2026-10-08
+
+Translate 45 English logic and arithmetic messages. Preserve variables, null,
+coordinate names, constants and mathematical notation. Check strict/inclusive
+comparisons, both/either conditions, inclusive bounds, angle units and matching
+conditional labels. Specialized mathematical wording is lower confidence and
+needs native review. No browser or screen-reader session was run. Remaining
+translations are unfinished.
+
 ## Yiddish Blockly list mutation and logic — 2026-10-08
 
 Translate 45 English list and logic messages, preserving variables and index

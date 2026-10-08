@@ -462,3 +462,26 @@ assert.match(locales.yi['blockly-LISTS_SORT_TYPE_IGNORECASE'], /גרויסע א�
 assert.equal(locales.yi['blockly-LOGIC_BOOLEAN_FALSE'], 'פֿאַלש');
 assert.equal(locales.yi['blockly-LOGIC_BOOLEAN_TRUE'], 'אמת');
 assert.match(locales.yi['blockly-LOGIC_COMPARE_GTE_ARIA'], /גרעסער ווי אָדער גלײַך צו/);
+
+const yiddishBlocklyArithmetic = ["blockly-LOGIC_COMPARE_GT_ARIA", "blockly-LOGIC_COMPARE_LTE_ARIA", "blockly-LOGIC_COMPARE_LT_ARIA", "blockly-LOGIC_COMPARE_NEQ_ARIA", "blockly-LOGIC_COMPARE_TOOLTIP_EQ", "blockly-LOGIC_COMPARE_TOOLTIP_GT", "blockly-LOGIC_COMPARE_TOOLTIP_GTE", "blockly-LOGIC_COMPARE_TOOLTIP_LT", "blockly-LOGIC_COMPARE_TOOLTIP_LTE", "blockly-LOGIC_COMPARE_TOOLTIP_NEQ", "blockly-LOGIC_NEGATE_TITLE", "blockly-LOGIC_NEGATE_TOOLTIP", "blockly-LOGIC_NULL_TOOLTIP", "blockly-LOGIC_OPERATION_AND", "blockly-LOGIC_OPERATION_TOOLTIP_AND", "blockly-LOGIC_OPERATION_TOOLTIP_OR", "blockly-LOGIC_TERNARY_CONDITION", "blockly-LOGIC_TERNARY_IF_FALSE", "blockly-LOGIC_TERNARY_IF_TRUE", "blockly-LOGIC_TERNARY_TOOLTIP", "blockly-MATH_ADDITION_SYMBOL_ARIA", "blockly-MATH_ARITHMETIC_TOOLTIP_ADD", "blockly-MATH_ARITHMETIC_TOOLTIP_DIVIDE", "blockly-MATH_ARITHMETIC_TOOLTIP_MINUS", "blockly-MATH_ARITHMETIC_TOOLTIP_MULTIPLY", "blockly-MATH_ARITHMETIC_TOOLTIP_POWER", "blockly-MATH_ATAN2_TITLE", "blockly-MATH_ATAN2_TOOLTIP", "blockly-MATH_CHANGE_TITLE", "blockly-MATH_CHANGE_TOOLTIP", "blockly-MATH_CONSTANT_GOLDEN_RATIO_ARIA", "blockly-MATH_CONSTANT_INFINITY_ARIA", "blockly-MATH_CONSTANT_SQRT1_2_ARIA", "blockly-MATH_CONSTANT_SQRT2_ARIA", "blockly-MATH_CONSTANT_TOOLTIP", "blockly-MATH_CONSTRAIN_TITLE", "blockly-MATH_CONSTRAIN_TOOLTIP", "blockly-MATH_DIVISION_SYMBOL_ARIA", "blockly-MATH_IS_DIVISIBLE_BY", "blockly-MATH_IS_EVEN", "blockly-MATH_IS_NEGATIVE", "blockly-MATH_IS_ODD", "blockly-MATH_IS_POSITIVE", "blockly-MATH_IS_PRIME", "blockly-MATH_IS_TOOLTIP"];
+for (const key of yiddishBlocklyArithmetic) {
+  assert.notEqual(locales.yi[key], english[key], key);
+  assert.match(locales.yi[key], /[\u0590-\u05ff]/, key);
+  assert.deepEqual(translationTokens(locales.yi[key]), translationTokens(english[key]), key);
+}
+for (const comparison of ['GT', 'LT']) {
+  assert.doesNotMatch(locales.yi[`blockly-LOGIC_COMPARE_TOOLTIP_${comparison}`], /אָדער גלײַך/);
+  assert.match(locales.yi[`blockly-LOGIC_COMPARE_TOOLTIP_${comparison}E`], /אָדער גלײַך/);
+}
+assert.match(locales.yi['blockly-LOGIC_OPERATION_TOOLTIP_AND'], /ביידע/);
+assert.match(locales.yi['blockly-LOGIC_OPERATION_TOOLTIP_OR'], /כאָטש איינע/);
+assert.match(locales.yi['blockly-MATH_CONSTRAIN_TOOLTIP'], /אַרײַנגערעכנט די גרענעצן אַליין/);
+assert.match(locales.yi['blockly-LOGIC_NULL_TOOLTIP'], /null/);
+assert.match(locales.yi['blockly-MATH_ATAN2_TITLE'], /atan2.*X:%1 Y:%2/);
+assert.match(locales.yi['blockly-MATH_ATAN2_TOOLTIP'], /\(X, Y\).*גראַדן פֿון -180 ביז 180/);
+for (const literal of ['π (3.141…)', 'e (2.718…)', 'φ (1.618…)', 'sqrt(2) (1.414…)', 'sqrt(½) (0.707…)', '∞']) {
+  assert.ok(locales.yi['blockly-MATH_CONSTANT_TOOLTIP'].includes(literal));
+}
+for (const label of ['LOGIC_TERNARY_CONDITION', 'LOGIC_TERNARY_IF_TRUE', 'LOGIC_TERNARY_IF_FALSE']) {
+  assert.ok(locales.yi['blockly-LOGIC_TERNARY_TOOLTIP'].includes(locales.yi[`blockly-${label}`]));
+}
