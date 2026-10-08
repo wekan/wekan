@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/26c37ae023db7cae73c82e2a6a6b95c757a332a1">Correct Tatar minicards and label activity</a></summary>
+
+- Correct 23 minicard and activity values, preserving checklist counters and
+  sequential label/card and field/value/card arguments verified from source.
+- Technical wording remains low confidence pending speaker review.
+- All 104 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/96c33af8937a50cf5f1b88df04c845ab8a42ea19">Correct Tatar deletion and subtask settings</a></summary>
 
 - Correct 33 date, color, deletion and subtask values, preserving irreversible
