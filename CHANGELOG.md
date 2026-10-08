@@ -936,6 +936,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/94209a2764">Correct Italian-seeded Aromanian account and webhook labels</a>. Thanks to xet7.</summary>
+
+Replace 35 wrong-language values in account, invitation, template, time and
+webhook controls. Preserve overtime meaning, hour units, invitation variables
+and technical names; distinguish outgoing and two-way webhooks. Full new
+wording remains low-confidence pending fluent review.
+
+Aromanian, global placeholder and translation audit suites pass. No browser
+or screen-reader session was run. Further language review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/cfc5edcbdb">Correct Italian-seeded Aromanian board controls</a>. Thanks to xet7.</summary>
 
 Replace 35 wrong-language values in board/member actions, movement, selection,
