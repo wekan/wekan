@@ -9318,6 +9318,15 @@ details, script, key order and tokens. Technical wording remains low confidence
 pending speaker review. Browser checks were not run; further Konkani translations
 and the broader audit remain unfinished.
 
+## Konkani list search, editing and sorting
+
+Filled 27 English placeholders for list search, repetition, editing and sorting.
+The placeholder-only merge retained existing translations. Preserved missing-item
+return tokens, item/count roles, copy behavior and distinct insertion/replacement
+actions. Regression coverage checks those details, script, key order and tokens.
+Technical wording remains low confidence pending speaker review. Browser checks
+were not run; further Konkani translations and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
