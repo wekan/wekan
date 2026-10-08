@@ -219,3 +219,23 @@ assert.match(aromanian['activity-recovery-cancel-confirm'], /nu poati s-continue
 assert.match(aromanian['activity-recovery-cancel-confirm'], /nu s-toarnã nãpoi/);
 assert.equal(new Set(['pause','resume','cancel'].map(action =>
   aromanian[`activity-recovery-${action}`])).size, 3);
+
+for (const key of Object.keys(english).filter(key => key.startsWith('sync-'))) {
+  assert.ok(aromanian[key]?.trim(), key);
+  assert.notEqual(aromanian[key], english[key], `${key}: Sync prose remains English`);
+}
+assert.match(aromanian['sync-conflict-hint'], /Nu s-trimeati nitsiva la sistemul di sursã/);
+assert.match(aromanian['sync-conflict-review-complete'], /lista întreagã nu fu pornit/);
+assert.match(aromanian['sync-conflict-archive-hint'], /Subcartili nu s-alãxescu/);
+assert.match(aromanian['sync-conflict-creation-hint'], /uzeadzã idhea cartã di înlocuiri/);
+assert.match(aromanian['sync-preview-truncated'], /100/);
+assert.match(aromanian['sync-source-truncated'], /100 cãlji/);
+assert.match(aromanian['sync-report-retention'], /20.*30 dzãli/);
+assert.match(aromanian['sync-report-partial'], /nu continuã sh-nu disfacu/);
+assert.match(aromanian['sync-recovery-description'], /nu potu s-continuã icã s-disfacã/);
+for (const key of ['sync-estimate-field-hint','sync-time-estimate-hint']) {
+  assert.match(aromanian[key], /lipsescu nu s-liau în seamã/);
+  assert.match(aromanian[key], /null explicit scoati/);
+}
+assert.match(aromanian['sync-time-estimate-hint'], /exact un cãmpu/);
+assert.equal(aromanian['sync-report-completed'], aromanian['scrum-completed']);

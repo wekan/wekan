@@ -2,6 +2,19 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Aromanian Sync choices and diagnostics — 2026-10-08
+
+Translate 63 conflict-resolution, preview, source-field, report, diagnostic
+and estimate messages. Preserve local/source scope, unchanged subcards,
+replacement-card reuse, 100-entry/path limits, 20-run/30-day retention and the
+inability of reports to resume or undo changes. Keep missing-versus-null
+semantics and the requirement for exactly one matching time field.
+
+Extend the Aromanian suite for all current Sync keys and these distinctions.
+Vocabulary follows the existing catalog and Farsharotu reference below;
+full new wording remains low-confidence pending fluent review. No browser
+or screen-reader session was run. Other translation work remains open.
+
 ## Aromanian notification recovery — 2026-10-08
 
 Translate 36 mail failure and activity-notification recovery messages.
