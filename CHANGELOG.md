@@ -1055,6 +1055,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/26554c3975">Translate Macedonian planning and settings messages</a>. Thanks to xet7.</summary>
+
+Translate 51 English messages for planning, imports, link rules, settings and
+Scrum recovery. Preserve variables, import syntax and configuration literals;
+check retention, conflict recovery and read-only settings. The fill list is empty.
+
+Four focused translation suites and 21 human-preference checks pass.
+No browser or screen-reader session was run. Further vocabulary review
+and translations in other languages are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/32a1670b03">Translate Macedonian List Sync recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 23 English recovery messages into Macedonian. Preserve counters and
