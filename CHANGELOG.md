@@ -86,20 +86,21 @@ a publishing step.
 <details>
 <summary>Translation work in progress: remaining new strings in all languages.</summary>
 
-Status checked on 2026-10-08. Translation work has resumed, including keys
+Status checked on 2026-10-09. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **32,567 untranslated locale/string values in 46 languages**.
-  It excludes **261 source keys tracked separately as pending Transifex**.
+  report counts **32,095 untranslated locale/string values in 46 languages**.
+  It excludes **271 source keys tracked separately as pending Transifex**.
   A separate short-prose audit flags 1,751 candidates across 185 locales;
   shared native words may equal English, so these require individual review.
   Exact Blockly OS brands and compact math/code symbols no longer inflate
   the prose backlog. Counts are a snapshot; they do not establish the quality
   or language of other values.
-  After the Wu archive corrections, all 299 suites selected by the `Translation`
-  and `translation` filename filters passed in 100 seconds. The full Wu and
-  Papiamento fill lists are empty; this does not establish linguistic completeness
+  After the Zulu logic batch, all 333 suites selected by the translation,
+  placeholder, language and completion filename filters passed in 128 seconds.
+  The subsequent Zulu procedure batch passed both targeted suites and all 21
+  preservation checks. Empty fill lists do not establish linguistic completeness
   or fluency.
 - Placeholder inventories match English across all 246 locale paths. Fill now
   rejects damaged token batches before writing. Both card-field visibility
@@ -668,6 +669,17 @@ rather than guessed at. Plane has no file import to export to.
 and improves translations:
 
 **Translations** - continued language coverage and corrections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ca55854277">Translate Zulu Blockly procedure controls</a>. Thanks to xet7.</summary>
+
+Translate 24 strings per Zulu catalog. Check function output, disabled definitions,
+function-only restrictions and rendered variables. The preceding broad run passed
+333 suites; both targeted suites and all 21 preservation checks pass after this
+batch. Refresh the TODO backlog counts. Specialized terms need speaker review;
+browser execution and the remaining translations are outstanding.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/71d5e27802">Translate Zulu Blockly logic and basic arithmetic</a>. Thanks to xet7.</summary>
