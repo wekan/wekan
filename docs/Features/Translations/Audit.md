@@ -8923,6 +8923,16 @@ placeholder-only merge. Regression coverage checks these details alongside scrip
 key order and token inventories. Technical wording remains low confidence pending
 speaker review. Browser checks were not run; further sync translations remain.
 
+## Odia source omissions and sync reports
+
+Filled 18 English placeholders for source-field omissions and sync run reports.
+Preserved hidden object values, the 100-path limit, 20-run/30-day retention and
+partial-change warnings. Existing translations were retained by the placeholder-only
+merge. Regression coverage checks report limits and the no-resume/no-undo caveat
+alongside script, key order and token inventories. Technical wording remains low
+confidence pending speaker review. Browser checks were not run; further translations
+remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
