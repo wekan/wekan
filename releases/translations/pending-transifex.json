@@ -795,6 +795,18 @@
     {
       "key": "board-announcement-enabled",
       "since": "2026-10-08"
+    },
+    {
+      "key": "external-link-rules",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "external-link-rules-description",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "external-link-identifier-aliases",
+      "since": "2026-10-08"
     }
   ]
 }

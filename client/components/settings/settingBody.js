@@ -1118,6 +1118,8 @@ Template.tableVisibilityModeSettings.events({
     saveVisibilitySettings(visibilityTextFields([
       ['#external-link-pattern-prefix', 'externalLinkPatternPrefix'],
       ['#external-link-pattern-url', 'externalLinkPatternUrl'],
+      ['#external-link-rules', 'externalLinkRules'],
+      ['#external-link-identifier-aliases', 'externalLinkIdentifierAliases'],
     ]));
   },
 

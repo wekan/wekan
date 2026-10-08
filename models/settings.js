@@ -63,6 +63,19 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
+    // #1463: further autolink rules, one "<token> = <url>" per line with
+    // {number} and {identifier}, and identifier abbreviations "TK=Task".
+    // See models/lib/externalLinkRules.js.
+    externalLinkRules: {
+      type: String,
+      optional: true,
+      max: 20000,
+    },
+    externalLinkIdentifierAliases: {
+      type: String,
+      optional: true,
+      max: 5000,
+    },
     // Admin Panel / Features / Notifications (issue #5820).
     // disableActivities: stop recording AND showing all activity-feed entries.
     // disableNotifications: never send watch notifications.

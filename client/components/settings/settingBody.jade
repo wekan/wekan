@@ -474,6 +474,16 @@ template(name='tableVisibilityModeSettings')
         .title {{_ 'external-link-pattern-url'}}
         .form-group
           input.wekan-form-control#external-link-pattern-url(type="text", placeholder="https://issues.example.com/browse/PROJ-{number}" value="{{currentSetting.externalLinkPatternUrl}}")
+      //- #1463: more rules, with {identifier}, and abbreviations for it.
+      li.tableVisibilityMode-form
+        .title {{_ 'external-link-rules'}}
+        p.description {{_ 'external-link-rules-description'}}
+        .form-group
+          textarea.wekan-form-control#external-link-rules(rows="4" placeholder="[{identifier}:{number}] = https://spirateam.example.com/SpiraTeam/{identifier}/{number}.aspx")= currentSetting.externalLinkRules
+      li.tableVisibilityMode-form
+        .title {{_ 'external-link-identifier-aliases'}}
+        .form-group
+          input.wekan-form-control#external-link-identifier-aliases(type="text", placeholder="TK=Task, IN=Incident" value="{{currentSetting.externalLinkIdentifierAliases}}")
       li
         button.js-visibility-external-link-pattern-save.primary {{_ 'save'}}
 

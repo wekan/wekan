@@ -21,6 +21,13 @@ function syncMarkdownExternalLinkPattern(setting) {
   if (current?.prefix !== pattern.prefix || current?.urlTemplate !== pattern.urlTemplate) {
     Markdown.externalLinkPattern.set(pattern);
   }
+  // #1463: the further rules and abbreviations, by the same identity rule.
+  const rules = (setting && setting.externalLinkRules) || '';
+  const aliases = (setting && setting.externalLinkIdentifierAliases) || '';
+  const currentRules = Markdown.externalLinkRules.get();
+  if (currentRules?.rules !== rules || currentRules?.aliases !== aliases) {
+    Markdown.externalLinkRules.set({ rules, aliases });
+  }
 }
 
 // wekan/wekan#3218: the custom URL schemes the administrator allows as links,

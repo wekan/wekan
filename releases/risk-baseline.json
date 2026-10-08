@@ -1673,9 +1673,10 @@
       "keywords": {}
     },
     "client/components/settings/settingBody.jade": {
-      "sha256": "1eaf2f3029926e7fae6e3b4d737297fee878bedc0de42df3d136b1d39ab31f01",
+      "sha256": "eaab0debccfc254a33c2b484aeac04629fb086fda10e90f1690c65316dd9f30b",
       "urls": [
-        "https://issues.example.com/browse/PROJ-{number"
+        "https://issues.example.com/browse/PROJ-{number",
+        "https://spirateam.example.com/SpiraTeam/{identifier"
       ],
       "keywords": {}
     },
@@ -7075,6 +7076,22 @@
       "sha256": "9e646274bff4982c75cace40e58f1d24343cd9a9b46b7fa56f1aa2b4e5637d0e",
       "urls": [
         "https://todoist.com/help/articles/360000748525"
+      ],
+      "keywords": {}
+    },
+    "models/lib/defaultAvatarUrl.js": {
+      "sha256": "6e99a6de18425581c67590ed8cd57d5041e06a7606ad3e85873c457998a24528",
+      "urls": [
+        "http://192.168.1.200/avatars/{username"
+      ],
+      "keywords": {}
+    },
+    "models/lib/externalLinkRules.js": {
+      "sha256": "0cbded87b96995485f43efd7d9ec0865a2676e8921e4250b56b24c1a41cf505d",
+      "urls": [
+        "https://jira.example.com/browse/PROJ-{number",
+        "https://spirateam.com/SpiraTeam/Task/3384.aspx",
+        "https://spirateam.com/SpiraTeam/{identifier"
       ],
       "keywords": {}
     }

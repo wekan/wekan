@@ -49,6 +49,94 @@ Markdown.alwaysShowCodeAsText = new ReactiveVar(false);
 // externalLinkAutolinkAndaSummary below, which mirrors the pure, unit-tested
 // algorithm in models/lib/externalLinkAutolink.js (keep the two in sync).
 Markdown.externalLinkPattern = new ReactiveVar({ prefix: '', urlTemplate: '' });
+// #1463: the further rules and abbreviations (externalLinkRules /
+// externalLinkIdentifierAliases), written by client/components/main/editor.js.
+Markdown.externalLinkRules = new ReactiveVar({ rules: '', aliases: '' });
+
+// #1463: a copy of models/lib/externalLinkRules.js between the markers, kept
+// identical by tests/externalLinkRules.test.cjs.
+// BEGIN externalLinkRules
+const EXTERNAL_LINK_RULES_MAX = 50;
+const EXTERNAL_LINK_IDENTIFIER = '([A-Za-z][A-Za-z0-9_-]{0,31})';
+
+function externalLinkRuleEscape(text) {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function parseExternalLinkAliases(text) {
+  const aliases = {};
+  for (const part of String(text || '').split(/[,\n]/)) {
+    const match = /^\s*([A-Za-z][A-Za-z0-9_-]{0,31})\s*=\s*([A-Za-z][A-Za-z0-9_-]{0,31})\s*$/.exec(part);
+    if (match) aliases[match[1]] = match[2];
+  }
+  return aliases;
+}
+
+function parseExternalLinkRules(rulesText, aliasesText) {
+  const aliases = parseExternalLinkAliases(aliasesText);
+  const rules = [];
+  for (const line of String(rulesText || '').split(/\r?\n/)) {
+    const split = /\s=\s/.exec(line);
+    if (!split) continue;
+    const token = line.slice(0, split.index).trim();
+    const url = line.slice(split.index + split[0].length).trim();
+    const numbers = token.split('{number}').length - 1;
+    const identifiers = token.split('{identifier}').length - 1;
+    if (numbers !== 1 || identifiers > 1 || !/^https?:\/\/[^\s]+$/i.test(url)) continue;
+    if (/\{identifier\}/.test(url) && !identifiers) continue;
+    const source = token.split(/(\{number\}|\{identifier\})/).map(part => (part === '{number}' ? '(\\d+)'
+      : part === '{identifier}' ? EXTERNAL_LINK_IDENTIFIER : externalLinkRuleEscape(part))).join('');
+    const order = [...token.matchAll(/\{(number|identifier)\}/g)].map(m => m[1]);
+    rules.push({ source, order, url, aliases });
+    if (rules.length >= EXTERNAL_LINK_RULES_MAX) break;
+  }
+  return rules;
+}
+
+// The spans of existing markdown links and href values, never rewritten.
+function externalLinkProtectedSpans(text) {
+  const spans = [];
+  for (const re of [/\[[^\]\n]*\]\([^)\n]*\)/g, /href\s*=\s*("[^"]*"|'[^']*')/gi]) {
+    let match;
+    while ((match = re.exec(text)) !== null) spans.push([match.index, match.index + match[0].length]);
+  }
+  return spans;
+}
+
+function applyExternalLinkRules(text, rules) {
+  if (typeof text !== 'string' || !text || !Array.isArray(rules) || !rules.length) return text;
+  const spans = externalLinkProtectedSpans(text);
+  const found = [];
+  for (const rule of rules) {
+    const re = new RegExp(rule.source, 'g');
+    let match;
+    while ((match = re.exec(text)) !== null) {
+      if (!match[0]) { re.lastIndex += 1; continue; }
+      const start = match.index, end = start + match[0].length;
+      if (spans.some(([a, b]) => start < b && end > a)) continue;
+      const values = {};
+      rule.order.forEach((name, i) => { values[name] = match[i + 1]; });
+      if (values.identifier !== undefined && Object.prototype.hasOwnProperty.call(rule.aliases, values.identifier)) {
+        values.identifier = rule.aliases[values.identifier];
+      }
+      const url = rule.url.replace(/\{(number|identifier)\}/g, (all, name) =>
+        (values[name] === undefined ? all : encodeURIComponent(values[name])));
+      const label = /^\[.*\]$/.test(match[0]) ? match[0].slice(1, -1) : match[0];
+      found.push({ start, end, link: `[${label}](${url})` });
+    }
+  }
+  if (!found.length) return text;
+  found.sort((a, b) => a.start - b.start || b.end - a.end);
+  let result = '';
+  let last = 0;
+  for (const item of found) {
+    if (item.start < last) continue;
+    result += text.slice(last, item.start) + item.link;
+    last = item.end;
+  }
+  return result + text.slice(last);
+}
+// END externalLinkRules
 
 // wekan/wekan#2453: same app/package bridge as externalLinkPattern above, for
 // resolving a pasted WeKan card URL's cardId to its CURRENT title. This
@@ -552,11 +640,15 @@ Blaze.Template.registerHelper('markdown', new Template('markdown', function () {
     let sanitized;
     try {
       const externalLinkPattern = Markdown.externalLinkPattern.get();
-      const textWithExternalLinks = autolinkExternalIssueReferences(
+      const externalLinkRuleText = Markdown.externalLinkRules.get();
+      // #1463: the further rules after the #3069 pattern; both skip text that
+      // is already a link, so the second never rewrites the first's links.
+      const textWithExternalLinks = applyExternalLinkRules(autolinkExternalIssueReferences(
         text,
         externalLinkPattern && externalLinkPattern.prefix,
         externalLinkPattern && externalLinkPattern.urlTemplate,
-      );
+      ), parseExternalLinkRules(externalLinkRuleText && externalLinkRuleText.rules,
+        externalLinkRuleText && externalLinkRuleText.aliases));
       // wekan/wekan#2453: relabel a pasted WeKan card URL with the target
       // card's current title, before markdown-it turns bare URLs into plain
       // autolinks. Runs unconditionally (Markdown.resolveCardTitle is null

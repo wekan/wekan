@@ -85,6 +85,8 @@ const SETTING_FIELDS = {
   automaticLinkedUrlSchemes: 1,
   externalLinkPatternPrefix: 1,
   externalLinkPatternUrl: 1,
+  externalLinkRules: 1,
+  externalLinkIdentifierAliases: 1,
   customTopLeftCornerLogoImageUrl: 1,
   customTopLeftCornerLogoLinkUrl: 1,
   customTopLeftCornerLogoHeight: 1,
