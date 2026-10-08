@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu monitoring-label corrections — 2026-10-08
+
+Correct 30 repair, monitoring and interval values. Restore elapsed-day, completion,
+export-monitoring and board-scan meanings; retain GridFS as a product name and numeric
+repeat intervals. Clarify per-swimlane lists and once-per-board conversion without
+interrupting board use. Refresh exact-value audit records. Wu prose needs native review;
+browser tests were not run and all-language work remains unfinished.
+
 ## Wu repair-prompt corrections — 2026-10-08
 
 Correct 28 repair and migration values. Restore exact swimlaneId spelling, running
@@ -12913,7 +12921,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **24,069** exact before/after values, including unflagged
+records contain **24,099** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

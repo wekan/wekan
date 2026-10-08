@@ -1128,3 +1128,17 @@ assert.match(wu['migration-running'], /运行/);
 assert.doesNotMatch(wu['migration-running'], /跑步/);
 assert.match(wu['migrations-admin-only'], /只有看板管理员才好/);
 assert.equal(wu['migration-progress-status'], '状态');
+
+const monitoringLabelsWu = ["step-fix-orphaned-cards", "step-ensure-per-swimlane-lists", "step-update-cards", "step-finalize", "step-delete-duplicate-empty-lists", "step-ensure-lost-cards-swimlane", "step-restore-cards", "step-fix-missing-ids", "step-scan-files", "cleanup-old-jobs", "completed", "conversion-info-text", "converting-board", "converting-board-description", "cpu-cores", "cpu-usage", "current-action", "days-old", "duration", "estimated-time-remaining", "every-1-hour", "every-1-minute", "every-10-minutes", "every-30-minutes", "every-5-minutes", "every-6-hours", "export-monitoring", "force-board-scan", "gridfs-storage", "hide-list-on-minicard"];
+for (const key of monitoringLabelsWu) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+for (const key of monitoringLabelsWu.filter(key => key.startsWith('every-'))) {
+  assert.deepEqual(wu[key].match(/\d+/g), english[key].match(/\d+/g), key);
+  assert.doesNotMatch(wu[key], /班/);
+}
+assert.equal(wu['gridfs-storage'], english['gridfs-storage']);
+assert.equal(wu['days-old'], '经过天数');
+assert.equal(wu.completed, '已完成');
+assert.match(wu['export-monitoring'], /^导出/);
+assert.match(wu['force-board-scan'], /强制扫描看板/);
+assert.match(wu['conversion-info-text'], /每只看板只做一趟.*继续正常使用看板/);
+assert.match(wu['step-ensure-per-swimlane-lists'], /每条泳道.*自家个列表/);

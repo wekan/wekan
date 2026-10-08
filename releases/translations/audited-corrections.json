@@ -168481,5 +168481,215 @@
     "before": "看法",
     "after": "查看",
     "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "step-fix-orphaned-cards",
+    "before": "修复孤立卡",
+    "after": "修复孤立卡片",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "step-ensure-per-swimlane-lists",
+    "before": "确保每个泳道列表",
+    "after": "确保每条泳道有自家个列表",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "step-update-cards",
+    "before": "更新卡",
+    "after": "更新卡片",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "step-finalize",
+    "before": "最终确定",
+    "after": "完成处理",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "step-delete-duplicate-empty-lists",
+    "before": "删除重复的空列表",
+    "after": "删脱重复个空列表",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "step-ensure-lost-cards-swimlane",
+    "before": "确保丢失卡泳道",
+    "after": "确保有遗失卡片泳道",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "step-restore-cards",
+    "before": "恢复卡",
+    "after": "恢复卡片",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "step-fix-missing-ids",
+    "before": "修复丢失的 ID",
+    "after": "修复缺少个 ID",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "step-scan-files",
+    "before": "检查板文件附件",
+    "after": "检查看板文件附件",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cleanup-old-jobs",
+    "before": "清理旧工作",
+    "after": "清理旧任务",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "completed",
+    "before": "完全的",
+    "after": "已完成",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "conversion-info-text",
+    "before": "这种转换每块板执行一次并提高性能。您可以继续正常使用该板。",
+    "after": "每只看板只做一趟搿种转换，来提高性能。侬好继续正常使用看板。",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "converting-board",
+    "before": "转换板",
+    "after": "正在转换看板",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "converting-board-description",
+    "before": "转换板结构以改进功能。这可能需要一些时间。",
+    "after": "正在转换看板结构来改进功能。可能要等一歇。",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cpu-cores",
+    "before": "CPU核心",
+    "after": "CPU 核心数",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cpu-usage",
+    "before": "中央处理器使用率",
+    "after": "CPU 使用率",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "current-action",
+    "before": "当前行动",
+    "after": "当前操作",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "days-old",
+    "before": "岁月如梭",
+    "after": "经过天数",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "duration",
+    "before": "期间",
+    "after": "持续时间",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "estimated-time-remaining",
+    "before": "预计剩余时间",
+    "after": "估计还要个辰光",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "every-1-hour",
+    "before": "每1小时一次",
+    "after": "每 1 小时一趟",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "every-1-minute",
+    "before": "每1分钟一次",
+    "after": "每 1 分钟一趟",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "every-10-minutes",
+    "before": "每10分钟一班",
+    "after": "每 10 分钟一趟",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "every-30-minutes",
+    "before": "每30分钟一班",
+    "after": "每 30 分钟一趟",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "every-5-minutes",
+    "before": "每5分钟一班",
+    "after": "每 5 分钟一趟",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "every-6-hours",
+    "before": "每 6 小时",
+    "after": "每 6 小时一趟",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "export-monitoring",
+    "before": "出口监控",
+    "after": "导出监控",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "force-board-scan",
+    "before": "力板扫描",
+    "after": "强制扫描看板",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "gridfs-storage",
+    "before": "网格文件系统",
+    "after": "GridFS",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "hide-list-on-minicard",
+    "before": "隐藏迷你卡上的列表",
+    "after": "隐藏迷你卡片浪个列表",
+    "reason": "2026-10-08: Correct Wu repair, monitoring and interval meanings; lower-confidence prose needs native review."
   }
 ]
