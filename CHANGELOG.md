@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6c9916945105ac1a8213081079c7e1df5970b5df">Translate Odia rounding and mathematical functions</a></summary>
+
+- Fill 23 Odia mathematical placeholders, preserving existing translations,
+  inclusive bounds, rounding directions and function bases.
+- Technical wording remains low confidence pending speaker review.
+- All 52 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Odia translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/23319c3f962668e39e0fec620fddee1c3ebd33d4">Translate Odia statistics and random fraction messages</a></summary>
 
 - Fill 21 Odia statistical placeholders, preserving existing translations,
