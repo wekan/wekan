@@ -41,6 +41,26 @@ assert.match(data['email-fail'], /nije uspjelo/);
 assert.match(data['error-json-malformed'], /JSON/);
 assert.match(data['list-label-modifiedAt'], /posljednjeg pristupa/);
 assert.equal(data['filter-no-due-date'], 'Bez roka');
+const correctedFilters = ["filter-overdue", "filter-due-today", "filter-due-tomorrow", "filter-clear", "filter-labels-label", "filter-assignee-label", "filter-creator-label", "filter-no-assignee", "filter-custom-fields-label", "filter-no-custom-fields", "filter-hide-empty", "filter-on-desc", "filter-to-selection", "other-filters-label", "advanced-filter-label", "fullname", "header-logo-title", "show-activities", "import-board", "import-json-placeholder", "import-map-members", "invalid-date", "invalid-time", "invalid-user", "joined", "just-invited", "keyboard-shortcuts", "label-default", "link-card", "list-archive-cards", "list-archive-cards-pop", "list-move-cards", "set-color-list", "settingsUserPopup-title", "settingsTeamPopup-title", "settingsOrgPopup-title", "listImportCardPopup-title", "listImportCardsTsvPopup-title", "link-list", "list-delete-suggest-archive", "gantt", "log-out", "log-in", "loginPopup-title", "memberMenuPopup-title", "menu", "move-selection", "copy-selection", "moveCardPopup-title", "moveCardToBottom-title", "moveCardToTop-title", "moveSelectionPopup-title", "copySelectionPopup-title", "selection-color", "multi-selection", "multi-selection-member", "multi-selection-on", "normal-assigned-only", "notify-watch", "participating", "remove-cover", "search-example", "select-color", "select-board", "setWipLimitPopup-title", "shortcut-add-self", "shortcut-assign-self", "shortcut-autocomplete-emoji", "shortcut-autocomplete-members", "shortcut-clear-filters"];
+for (const key of correctedFilters) {
+  assert.doesNotMatch(data[key], /[\p{Script=Cyrillic}]/u, key);
+  assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), key);
+}
+assert.equal(data['filter-due-today'], 'Rok danas');
+assert.equal(data['filter-due-tomorrow'], 'Rok sutra');
+assert.match(data['filter-hide-empty'], /prazne popise/);
+assert.match(data['list-archive-cards-pop'], /povratak na ploču/);
+assert.match(data['list-delete-suggest-archive'], /sačuvali aktivnosti/);
+assert.equal(data['move-selection'], 'Premjesti odabir');
+assert.equal(data['copy-selection'], 'Kopiraj odabir');
+assert.match(data['moveCardToBottom-title'], /na dno/);
+assert.match(data['moveCardToTop-title'], /na vrh/);
+assert.equal(data['log-in'], 'Prijava');
+assert.equal(data['log-out'], 'Odjava');
+assert.match(data['shortcut-add-self'], /Dodaj sebe/);
+assert.match(data['shortcut-assign-self'], /Dodijeli sebe/);
+assert.match(data['search-example'], /Enter/);
+assert.match(data['listImportCardsTsvPopup-title'], /Excel CSV\/TSV/);
 assert.equal(data.board, 'Ploča');
 assert.equal(data.swimlane, 'Traka');
 assert.deepEqual(Object.keys(data), Object.keys(english));

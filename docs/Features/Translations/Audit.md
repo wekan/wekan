@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Croatian filters, archives and selection — 2026-10-08
+
+Replace 70 Serbian values with Croatian, covering filters, imports, archive
+guidance, settings, selection controls and keyboard shortcuts. Preserve variables,
+format names and the Enter key name. Extend vocabulary and semantic checks for
+restoring archived cards, copying versus moving, and membership versus assignment.
+No browser or screen-reader session was run; further wrong-language review and
+remaining translations are unfinished.
+
 ## Croatian permissions, email and exports — 2026-10-08
 
 Replace 65 Serbian values with Croatian, covering permissions, email, errors,
