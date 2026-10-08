@@ -8,9 +8,9 @@ Translate five warning values. Terminology was checked against the existing
 catalogs, [ARLeF usage](https://arlef.it/privacy/) and [Micurá de Rü usage](https://www.micura.it/la/privacy-policy).
 Warning coverage now includes 159 paths; warning and placeholder suites and all
 21 preservation checks pass. This prose has lower confidence and needs native
-review. The warning still has 48 English catalog paths. Separately, inspection
-found the Aromanian login label still says French “Connexion” and the Latin label
-has a “Latine:” prefix; those labels need correction. Browser review and the wider
+review. The warning still has 48 English catalog paths. Also correct the Aromanian login label from French “Connexion” to “Intrari” and
+remove the “Latine:” prefix from the Latin label, recording both corrections in
+the audit ledger with regression checks. Browser review and the wider
 all-language backlog remain outstanding.
 
 ## Assamese, Odia, Maithili, Bhojpuri and Konkani warnings — 2026-10-08

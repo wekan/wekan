@@ -170847,5 +170847,19 @@
     "before": "Me",
     "after": "म",
     "reason": "Translate short English labels by their rule-editor or due-card context, distinguishing sort criterion from actor."
+  },
+  {
+    "locale": "rup",
+    "key": "login",
+    "before": "Connexion",
+    "after": "Intrari",
+    "reason": "Use native sign-in label; remove foreign-language wording or language-name prefix."
+  },
+  {
+    "locale": "la",
+    "key": "login",
+    "before": "Latine: Introitus",
+    "after": "Introitus",
+    "reason": "Use native sign-in label; remove foreign-language wording or language-name prefix."
   }
 ]

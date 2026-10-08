@@ -143,3 +143,8 @@ assert.match(read('rm')[key], /na po betg vegnir terminada/);
 assert.match(read('lld')[key], /ne possa nia unì stlut ju/);
 assert.match(read('rup')[key], /nu s-poati bitisi/);
 assert.match(read('la')[key], /perfici non potest/);
+
+assert.equal(read('rup').login, 'Intrari');
+assert.equal(read('la').login, 'Introitus');
+assert.doesNotMatch(read('rup').login, /Connexion/);
+assert.doesNotMatch(read('la').login, /Latine:/);
