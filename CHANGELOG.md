@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5bf865dd39">Correct Wu storage, progress and workspace wording</a>. Thanks to xet7.</summary>
+
+Correct 25 Wu values, restoring path, upload-progress and board-ID meanings. Preserve
+workspace variables, storage product names and compaction instruction order.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f136811382">Correct Wu diagnostics, checklist and storage meanings</a>. Thanks to xet7.</summary>
 
 Correct 45 Wu values, restoring Node, board and checklist-order meanings. Preserve
