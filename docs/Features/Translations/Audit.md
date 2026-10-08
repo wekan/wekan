@@ -9545,6 +9545,16 @@ Technical wording remains low confidence pending speaker review. Browser
 checks were not run; further Turkmen translations and the broader audit
 remain unfinished.
 
+## Turkmen list search, updates and sorting
+
+Filled 31 English placeholders for list search, insertion, replacement and
+sorting. The placeholder-only merge retained existing translations. Coverage
+checks not-found results, repetition operands, insertion versus assignment,
+copied lists, sort directions and letter-case handling, plus key order and
+tokens. Technical wording remains low confidence pending speaker review.
+Browser checks were not run; further Turkmen translations and the broader
+audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
