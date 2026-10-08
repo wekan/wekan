@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/92c494d492">Correct Wu monitoring and repeat interval labels</a>. Thanks to xet7.</summary>
+
+Correct 30 Wu values, restoring elapsed-day, completion and monitoring meanings.
+Preserve numeric intervals, GridFS and once-per-board conversion instructions.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3d7d096229">Correct Wu repair prompts and migration field names</a>. Thanks to xet7.</summary>
 
 Correct 28 Wu values, restoring exact field-name case and migration status meanings.
