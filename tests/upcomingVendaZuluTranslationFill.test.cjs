@@ -669,6 +669,43 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
   "scrum-partial-report",
   "scrum-state-released"
 ]);
+  keys.push(...[
+  "scrum-released-at",
+  "scrum-follow-up-cards",
+  "scrum-import-reference-omitted",
+  "scrum-partial-snapshot",
+  "scrum-resume-close",
+  "scrum-daily-observations",
+  "scrum-daily-observations-help",
+  "scrum-daily-truncated",
+  "scrum-daily-empty",
+  "scrum-observed-scope",
+  "scrum-daily-observations-export-help",
+  "scrum-import-pending",
+  "scrum-import-into-board",
+  "scrum-import-into-board-hint",
+  "scrum-import-preview",
+  "scrum-import-choose-file",
+  "scrum-import-invalid-file",
+  "scrum-import-preview-sprints",
+  "scrum-import-preview-releases",
+  "scrum-import-preview-cards",
+  "scrum-import-preview-nothing",
+  "scrum-import-into-board-done",
+  "scrum-import-card-not-matched",
+  "scrum-import-card-ambiguous",
+  "scrum-import-card-on-another-board",
+  "scrum-import-record-ambiguous",
+  "scrum-import-record-not-imported",
+  "scrum-import-sprint-finished",
+  "sync-conflict-heading",
+  "sync-conflict-hint",
+  "sync-conflict-local",
+  "sync-conflict-keep-local",
+  "sync-conflict-use-source",
+  "sync-conflict-refresh",
+  "sync-conflict-review-complete"
+]);
   for (const language of ['zu', 'zu-ZA']) {
     const locale = read(language);
     for (const key of keys) {
@@ -801,6 +838,19 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
     assert.match(totals, /4.*12.*1/);
     assert.doesNotMatch(totals, /__\w+__/);
     assert.notStrictEqual(locale['scrum-state-closed'], locale['scrum-state-cancelled']);
+    for (const key of ['scrum-daily-observations-help', 'scrum-daily-observations-export-help']) {
+      assert.ok(locale[key].includes('UTC'));
+      assert.match(locale[key], /azizona uziro/);
+      assert.match(locale[key], /izinsuku ezingekho azifakwa/i);
+    }
+    assert.match(locale['scrum-daily-truncated'], /366/);
+    assert.match(locale['scrum-import-into-board-hint'], /akuphindwa/);
+    assert.match(locale['scrum-import-card-on-another-board'], /lishiywe lingashintshiwe/);
+    assert.match(locale['sync-conflict-hint'], /Akukho okuthunyelwa kusistimu yomthombo/);
+    assert.match(locale['sync-conflict-review-complete'], /uhlu lonke akuzange kuqaliswe/);
+    const preview = locale['scrum-import-preview-cards'].replace('__updated__', '2').replace('__unchanged__', '3').replace('__unmatched__', '4');
+    assert.match(preview, /2.*3.*4/);
+    assert.doesNotMatch(preview, /__\w+__/);
     const failure = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
     assert.ok(failure.includes('E_LDAP'));
     assert.ok(!failure.includes('%s'));

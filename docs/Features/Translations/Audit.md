@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Zulu planning imports and daily observations — 2026-10-09
+
+Translate 35 messages per Zulu catalog (70 values) for planning imports,
+daily observations and sync conflicts. Preserve reference/count variables,
+UTC, JSON and technical identifiers. Regression checks render preview counts,
+retain omitted-day and unknown-estimate caveats, prevent duplicate records and
+keep unchanged-card and no-source-write instructions. Both targeted suites and
+all 21 preservation checks pass. Specialized terminology remains low confidence
+pending speaker review. Browser execution and remaining translations are outstanding.
+
 ## Zulu sprint planning and reports — 2026-10-09
 
 Translate 50 sprint and reporting messages per Zulu catalog (100 values).
