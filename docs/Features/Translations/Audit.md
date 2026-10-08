@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu Blockly input roles — 2026-10-08
+
+Translate 40 input labels. Preserve variables and coordinate names; check start/end
+positions, split/join sources, repeated value/count, dividend/divisor, minimum/maximum
+and first/second numbers. Wu wording is lower confidence and needs native review.
+No browser or screen-reader session was run. Remaining English strings and older
+Mandarin-like passages still require work.
+
 ## Wu Blockly fields and accessibility — 2026-10-08
 
 Translate 30 field, key, icon and input messages. Preserve exact variables and
