@@ -487,6 +487,16 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1dfef78d90">Translate Wu board and LDAP settings</a>. Thanks to xet7.</summary>
+
+Translate 17 settings and rule strings, preserving variables, link templates and
+configuration names. Three focused suites and 21 human-preference checks pass.
+Wu wording is lower confidence and needs native review; older Mandarin-like
+passages still need auditing. No browser session was run. Work remains unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/dc7ff85bfa">Complete current Papiamento translation fill list</a>. Thanks to xet7.</summary>
 
 Translate the final 49 recovery, import, history and environment-setting strings.
