@@ -9636,6 +9636,17 @@ All 21 human-preference checks passed. Technical wording remains low confidence
 pending speaker review. Browser checks were not run; further translations
 and the broader audit remain unfinished.
 
+## Turkmen workspace announcements and rule editor
+
+Filled 40 English placeholders for workspace counts, search and rule editing.
+The placeholder-only merge retained existing translations. Coverage checks
+composed counts, keyboard instructions, invalid connections, conflicts and
+administrator permissions, plus key order and tokens. Of 54 checks, 52 passed;
+two repository-wide checks still fail because other locales lack the new
+custom-colors-in-use key. All 21 human-preference checks passed. Technical
+wording remains low confidence pending speaker review. Browser and screen-reader
+checks were not run; further translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
