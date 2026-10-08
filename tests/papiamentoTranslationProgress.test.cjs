@@ -304,3 +304,26 @@ assert.doesNotMatch(papiamento['r-blocks-saved'], /no ta/);
 assert.match(papiamento['ldap-sync-now-done'], /terminá/);
 assert.match(papiamento['ldap-sync-now-error'], /faya: %s/);
 assert.match(papiamento['oauth-providers-allowed-email-domains'], /bashí ta permití tur/);
+
+const importsAndScrum = ["import-board-instruction-opml", "import-board-instruction-orgmode", "import-board-instruction-todoist", "board-view-product-backlog", "board-view-sprints", "board-view-sprint-report", "board-view-velocity", "scrum-settings", "scrum-product-owner", "scrum-master", "scrum-developers", "scrum-working-days", "scrum-enabled", "scrum-product-goal", "scrum-definition-of-done", "scrum-estimate-source", "scrum-estimate-unit", "scrum-completion-policy", "scrum-source-poker", "scrum-source-customField", "scrum-policy-dueComplete", "scrum-policy-doneLists", "scrum-sprints", "scrum-sprint", "scrum-start-sprint", "scrum-close-sprint", "scrum-cancel-sprint", "scrum-rollover-sprint", "scrum-cancel-reason", "scrum-product-backlog", "scrum-edit-sprint", "scrum-sprint-goal", "scrum-capacity", "scrum-new-sprint", "scrum-releases", "scrum-release", "scrum-release-scope", "scrum-releases-select-help", "scrum-select-sprint", "scrum-backlog", "scrum-backlog-help", "scrum-estimate", "scrum-backlog-rank", "scrum-issue-type", "scrum-acceptance-criteria"];
+for (const key of importsAndScrum) {
+  assert.notEqual(papiamento[key], english[key], key);
+  assert.deepEqual(tokens(papiamento[key]), tokens(english[key]), key);
+}
+for (const [format, literals] of Object.entries({
+  opml: ['OPML', 'Workflowy', 'Dynalist', 'OmniOutliner', 'Logseq'],
+  orgmode: ['Org mode', 'Emacs', 'Orgzly', 'Beorg', 'TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED'],
+  todoist: ['Todoist', 'CSV', '@labels', 'p1', 'p3'],
+})) for (const literal of literals) assert.ok(papiamento[`import-board-instruction-${format}`].includes(literal), literal);
+assert.match(papiamento['import-board-instruction-opml'], /nota komo deskripshon/);
+assert.match(papiamento['import-board-instruction-todoist'], /notanan ta bira komentario/);
+assert.equal(papiamento['board-view-product-backlog'], papiamento['scrum-product-backlog']);
+assert.equal(papiamento['board-view-sprints'], papiamento['scrum-sprints']);
+assert.match(papiamento['scrum-start-sprint'], /Kuminsá/);
+assert.match(papiamento['scrum-close-sprint'], /Sera/);
+assert.match(papiamento['scrum-cancel-sprint'], /Kanselá/);
+assert.match(papiamento['scrum-rollover-sprint'], /sin terminá/);
+assert.match(papiamento['scrum-policy-dueComplete'], /marká komo kompletá/);
+assert.match(papiamento['scrum-policy-doneLists'], /lista.*kategoria/);
+for (const literal of ['Ctrl', 'Cmd', 'Mac']) assert.ok(papiamento['scrum-releases-select-help'].includes(literal));
+assert.match(papiamento['scrum-releases-select-help'], /kita tur selekshon.*tur vershon/);

@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Papiamento imports and Scrum planning — 2026-10-08
+
+Translate 45 import instructions and Scrum planning labels. Preserve format and
+application names, Org keywords, priority syntax and keyboard names. Check import
+mappings, shared view labels, start/close/cancel actions, unfinished-work rollover
+and distinct completion policies. Specialized wording is lower confidence and
+needs native review. No browser session was run. Other translations remain unfinished.
+
 ## Papiamento board settings and rules — 2026-10-08
 
 Translate 30 board, link-rule, assignment, LDAP, login and block-editor strings.
