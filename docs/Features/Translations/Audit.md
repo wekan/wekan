@@ -8001,6 +8001,16 @@ actions and width/height distinctions. Source tokens and key order remain intact
 Technical wording remains low confidence pending speaker review. Browser checks
 were not run. Further wrong-language corrections and the broader audit remain.
 
+### Tatar user mapping and appearance corrections
+
+Corrected 32 login, user-mapping, theme and font values. Replaced the Turkish font
+preview with Tatar prose while retaining all sample digits. Preserved correct
+adjacent labels and placeholders. Regression coverage checks the mapping permission
+ceiling, no-results negation, equivalent action labels, five distinct font sizes,
+Tatar preview vocabulary and CAS/SAML names. Technical wording remains low confidence
+pending speaker review. Browser checks were not run. Further wrong-language
+corrections and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
