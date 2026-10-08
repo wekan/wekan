@@ -7890,6 +7890,17 @@ Source token inventories and key order remain intact. Technical wording and
 composed fragments remain low confidence pending speaker review. Browser checks
 were not run. Further wrong-language corrections and the broader audit remain.
 
+### Tatar rule action descriptions and checklist guidance
+
+Corrected 31 wrong-language rule descriptions and instructions for archives,
+checklists, swimlanes, dates and card links. Kept correct existing member and label
+commands and the start/received date labels. Preserved comma-separated example
+syntax, source placeholders and locale key order. Regression coverage checks
+check/uncheck and archive polarity, checklist aliases, due/end date distinctions,
+and the instructions for comma separation and matching all values with an empty field.
+Technical wording and composed fragments remain low confidence pending speaker
+review. Browser checks were not run. Further corrections and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
