@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e9f5e08aae">Translate remaining Finnish import and sign-in prose</a>. Thanks to xet7.</summary>
+
+Translate 13 import instructions and the sign-in origin mismatch warning.
+Preserve commands, hierarchy markers, omitted-data warnings and repeated address
+variables. The fill tool now reports zero Finnish placeholders within its scope.
+Import regression tests, placeholder tests and all 21 preservation checks pass.
+Native review, browser checks, short-word review and the wider all-language
+translation backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a79b9f811a">Translate seven import formats in Wu, Papiamento and Yiddish</a>. Thanks to xet7.</summary>
 
 Translate 21 instructions for Quire, Wrike, Teamwork.com, Businessmap, Redmine,
