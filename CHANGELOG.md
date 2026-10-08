@@ -1055,6 +1055,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/dbc4bdb2ce">Translate Serbian interrupted import recovery messages</a>. Thanks to xet7.</summary>
+
+Translate 25 English import recovery messages into Serbian. Preserve variables
+and existing terminology; check deletion of later additions, retaining partial
+data, foreign-board protection, Scrum recovery and the oldest-50 limit.
+
+Three focused translation suites and 21 human-preference checks pass.
+No browser or screen-reader session was run. Further vocabulary review
+and remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/29285219e6">Translate Serbian List Sync recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 23 English recovery messages into Serbian. Preserve counters and
