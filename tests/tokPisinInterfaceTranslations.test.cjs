@@ -2450,7 +2450,9 @@ test('Tok Pisin import controls preserve tokens and replace mixed English prose'
 test('Tok Pisin import help retains file types, external tool name and selection minimum',()=>{
  assert.ok(data['import-attachments-zip'].includes('Trello Card Attachments Downloader'));
  assert.match(data['import-attachments-zip'],/sapos yu laik/);
- assert.ok(data['trello-api-key'].includes('https://trello.com/app-key'));
+ // CodeQL js/incomplete-url-substring-sanitization (#553): parse the link.
+  assert.ok((String(data['trello-api-key']).match(/https?:\/\/[^\s"'<>)\]]+/g) || [])
+    .some(link => { const url = new URL(link.replace(/[.,;:]+$/, '')); return url.hostname === 'trello.com' && url.pathname === '/app-key'; }));
  assert.match(data['trello-api-token'],/yu wokim yet aninit long ki bilong API/);
  assert.match(data['import-trello-json-file'],/\.json/);
  assert.match(data['import-trello-zip-file'],/\.zip/);

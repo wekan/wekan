@@ -231,7 +231,10 @@ test('Tatar import guidance preserves executable examples and field identifiers'
 test('Tatar Trello import preserves extensions, URL and archive failure distinctions',()=>{
  for(const key of ['import-trello-json-file','import-trello-json-file-hint','import-trello-zip-no-boards']) assert.ok(locale[key].includes('.json'));
  for(const suffix of ['file','file-hint','no-boards','progress','failed','read-failed','too-large','too-many-files','file-too-large','unsafe-path']) assert.ok(locale['import-trello-zip-'+suffix].includes('.zip'));
- assert.ok(locale['trello-api-key'].includes('https://trello.com/app-key'));
+ // CodeQL js/incomplete-url-substring-sanitization (#551): parse the link and
+  // require the real host and path, not a substring.
+  assert.ok((String(locale['trello-api-key']).match(/https?:\/\/[^\s"'<>)\]]+/g) || [])
+    .some(link => { const url = new URL(link.replace(/[.,;:]+$/, '')); return url.hostname === 'trello.com' && url.pathname === '/app-key'; }));
  assert.equal(new Set(['too-large','too-many-files','file-too-large','unsafe-path'].map(suffix=>locale['import-trello-zip-'+suffix])).size,4);
  assert.match(locale['import-trello-zip-unsafe-path'],/\u043a\u0438\u0440\u0435 \u043a\u0430\u0433\u044b\u043b\u0434\u044b/);
  assert.match(locale['import-trello-workspace'],/\u043c\u04d9\u0497\u0431\u04af\u0440\u0438 \u0442\u04af\u0433\u0435\u043b/);
@@ -464,7 +467,8 @@ test('Tatar roles and weekdays preserve permissions and read-state distinctions'
 });
 
 test('Tatar shared templates preserve domain validation and nonempty-board scope',()=>{
- assert.ok(locale['invalid-domain'].includes('example.com'));
+ // CodeQL #552: the example domain is a whole word of the text, not part of a host.
+  assert.ok(locale['invalid-domain'].split(/\s+/).some(word => word === 'example.com'));
  assert.ok(locale['invalid-domain'].includes('@'));
  assert.ok(locale['invalid-domain'].includes('\u0431\u0443\u0448\u043b\u044b\u043a\u043b\u0430\u0440\u0441\u044b\u0437'));
  assert.ok(locale['shared-templates-info'].includes('\u0431\u0435\u0440 \u044f\u043a\u0438 \u0431\u0435\u0440\u043d\u0438\u0447\u04d9'));
