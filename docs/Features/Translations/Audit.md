@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu email and field-message corrections — 2026-10-08
+
+Correct 25 field, email, invitation and access messages. Preserve all named template
+variables, Enter and JSON literals. Retain role restrictions and the guarantee that
+enabling permanent deletion does not itself delete content. Correct decline from
+economic decline to refusal. Refresh exact-value audit records. Wu prose needs native
+review; browser tests were not run and all-language work remains unfinished.
+
 ## Wu permissions and copying corrections — 2026-10-08
 
 Correct 23 permissions, confirmation, clipboard and import values. Preserve assigned
@@ -12558,7 +12566,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,117** exact before/after values, including unflagged
+records contain **23,140** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

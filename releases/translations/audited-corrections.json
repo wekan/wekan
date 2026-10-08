@@ -808,8 +808,8 @@
     "locale": "wuu-Hans",
     "key": "email-invite-text",
     "before": "亲爱的__user__，\n\n__inviter__邀请您加入董事会“__board__”进行合作。\n\n请点击以下链接：\n\n__url__\n\n谢谢。",
-    "after": "亲爱的__user__，\n\n__inviter__邀请您加入看板“__board__”进行合作。\n\n请点击以下链接：\n\n__url__\n\n谢谢。",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "__user__，侬好：\n\n__inviter__ 邀请侬加入看板“__board__”一淘协作。\n\n请点下头个链接：\n\n__url__\n\n谢谢。",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
   },
   {
     "locale": "wuu-Hans",
@@ -885,8 +885,8 @@
     "locale": "wuu-Hans",
     "key": "push-invite-text",
     "before": "亲爱的__user__，\n\n__inviter__邀请您加入董事会“__board__”进行合作。\n\n请点击以下链接：\n\n__url__\n\n谢谢。",
-    "after": "亲爱的__user__，\n\n__inviter__邀请您加入看板“__board__”进行合作。\n\n请点击以下链接：\n\n__url__\n\n谢谢。",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "__user__，侬好：\n\n__inviter__ 邀请侬加入看板“__board__”一淘协作。\n\n请点下头个链接：\n\n__url__\n\n谢谢。",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
   },
   {
     "locale": "wuu-Hans",
@@ -161817,5 +161817,166 @@
     "before": "无法撤消。这将从所有卡中删除此自定义字段并销毁其历史记录。",
     "after": "搿个操作勿能撤销。会从所有卡片浪删脱搿只自定义字段，连伊个历史记录也一淘删脱。",
     "reason": "2026-10-08: Correct Wu permission and copy/import meanings, preserving JSON keys and deletion scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "custom-field-dropdown-none",
+    "before": "（没有任何）",
+    "after": "（呒没）",
+    "reason": "2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "custom-field-dropdown-options-placeholder",
+    "before": "按 Enter 添加更多选项",
+    "after": "按 Enter 键添加更多选项",
+    "reason": "2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "date-format-for-everyone",
+    "before": "所有人的日期格式",
+    "after": "所有人个日期格式",
+    "reason": "2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "decline",
+    "before": "衰退",
+    "after": "拒绝",
+    "reason": "2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "enable-permanent-delete-description",
+    "before": "允许全局管理员永久删除已软删除的内容。启用此设置本身不会删除任何内容。",
+    "after": "允许全局管理员永久删脱已经软删除个内容。打开搿个设置本身勿会删脱任何内容。",
+    "reason": "2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "deleteCustomFieldPopup-title",
+    "before": "删除自定义字段？",
+    "after": "要删脱自定义字段伐？",
+    "reason": "2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "deleteLabelPopup-title",
+    "before": "删除标签？",
+    "after": "要删脱标签伐？",
+    "reason": "2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "editCardSpentTimePopup-title",
+    "before": "改变花费的时间",
+    "after": "修改花脱个辰光",
+    "reason": "2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "email-address",
+    "before": "电子邮件",
+    "after": "电子邮件地址",
+    "reason": "2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "email-enrollAccount-subject",
+    "before": "在 __siteName__ 上为您创建的帐户",
+    "after": "勒 __siteName__ 浪替侬创建仔账户",
+    "reason": "2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "email-enrollAccount-text",
+    "before": "你好__user__，\n\n要开始使用该服务，只需单击下面的链接即可。\n\n__url__\n\n谢谢。",
+    "after": "__user__，侬好：\n\n要开始用搿项服务，点下头个链接就可以仔。\n\n__url__\n\n谢谢。",
+    "reason": "2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "email-invite-subject",
+    "before": "__inviter__ 向您发送了邀请",
+    "after": "__inviter__ 畀侬发来仔邀请",
+    "reason": "2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "push-invite-title",
+    "before": "__inviter__ 向您发送了邀请",
+    "after": "__inviter__ 畀侬发来仔邀请",
+    "reason": "2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "email-resetPassword-subject",
+    "before": "在 __siteName__ 上重置您的密码",
+    "after": "重设侬勒 __siteName__ 浪个密码",
+    "reason": "2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "email-resetPassword-text",
+    "before": "你好__user__，\n\n要重置您的密码，只需点击下面的链接即可。\n\n__url__\n\n谢谢。",
+    "after": "__user__，侬好：\n\n要重设侬个密码，点下头个链接就可以仔。\n\n__url__\n\n谢谢。",
+    "reason": "2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "email-verifyEmail-subject",
+    "before": "验证您的电子邮件地址 __siteName__",
+    "after": "验证侬勒 __siteName__ 浪个电子邮件地址",
+    "reason": "2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "email-verifyEmail-text",
+    "before": "你好__user__，\n\n要验证您的帐户电子邮件，只需单击下面的链接。\n\n__url__\n\n谢谢。",
+    "after": "__user__，侬好：\n\n要验证侬个账户电子邮件地址，点下头个链接就可以仔。\n\n__url__\n\n谢谢。",
+    "reason": "2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "error-board-doesNotExist",
+    "before": "该板块不存在",
+    "after": "搿块看板勿存在",
+    "reason": "2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "error-board-notAdmin",
+    "before": "您需要成为该委员会的管理员才能执行此操作",
+    "after": "侬要是搿块看板个管理员，才可以做搿个操作",
+    "reason": "2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "error-board-notAMember",
+    "before": "您需要成为该委员会的成员才能执行此操作",
+    "after": "侬要是搿块看板个成员，才可以做搿个操作",
+    "reason": "2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "error-watch-disabled",
+    "before": "管理员已关闭对版块和卡片的关注",
+    "after": "管理员关脱仔看板搭卡片个关注功能",
+    "reason": "2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "error-notAllowed",
+    "before": "你的看板角色无权执行此操作",
+    "after": "侬个看板角色呒没权限做搿个操作",
+    "reason": "2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "error-json-malformed",
+    "before": "您的文本不是有效的 JSON",
+    "after": "侬个文本勿是有效个 JSON",
+    "reason": "2026-10-08: Correct Wu email, field and access messages, preserving template variables, Enter and JSON; lower-confidence prose needs native review."
   }
 ]

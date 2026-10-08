@@ -573,3 +573,16 @@ wuCopyExample.forEach((entry, index) => {
   assert.deepEqual(Object.keys(entry), Object.keys(sourceCopyExample[index]));
   for (const value of Object.values(entry)) assert.match(value, /卡片个/);
 });
+
+const emailFields = ["custom-field-dropdown-none", "custom-field-dropdown-options-placeholder", "date-format-for-everyone", "decline", "enable-permanent-delete-description", "deleteCustomFieldPopup-title", "deleteLabelPopup-title", "editCardSpentTimePopup-title", "email-address", "email-enrollAccount-subject", "email-enrollAccount-text", "email-invite-subject", "email-invite-text", "push-invite-title", "push-invite-text", "email-resetPassword-subject", "email-resetPassword-text", "email-verifyEmail-subject", "email-verifyEmail-text", "error-board-doesNotExist", "error-board-notAdmin", "error-board-notAMember", "error-watch-disabled", "error-notAllowed", "error-json-malformed"];
+for (const key of emailFields) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.equal(wu.decline, '拒绝');
+assert.match(wu['enable-permanent-delete-description'], /全局管理员.*永久删脱.*软删除.*本身勿会删脱任何内容/);
+assert.match(wu['custom-field-dropdown-options-placeholder'], /Enter/);
+assert.match(wu['error-json-malformed'], /勿是有效个 JSON/);
+assert.match(wu['error-board-notAdmin'], /管理员.*才可以/);
+assert.match(wu['error-board-notAMember'], /成员.*才可以/);
+assert.equal(wu['email-invite-text'], wu['push-invite-text']);
+assert.equal(wu['email-invite-subject'], wu['push-invite-title']);
+for (const key of ['email-enrollAccount-text', 'email-invite-text', 'email-resetPassword-text', 'email-verifyEmail-text']) assert.match(wu[key], /\n\n__url__\n\n/);
+assert.match(wu['email-verifyEmail-subject'], /__siteName__.*电子邮件地址/);
