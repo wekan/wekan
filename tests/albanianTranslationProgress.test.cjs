@@ -307,3 +307,18 @@ assert.match(albanian['stuck-sync-operation-replayable-now'], /nuk mund të hidh
 assert.match(albanian['stuck-sync-operation-not-stuck'], /nuk mund të hidhet poshtë/);
 assert.match(albanian['stuck-sync-operation-truncated'], /50 veprimet më të vjetra/);
 assert.match(albanian['stuck-sync-operation-busy'], /po sinkronizohet tani/);
+
+const interruptedImportKeys = Object.keys(english).filter(key => key.startsWith('interrupted-import-'));
+assert.equal(interruptedImportKeys.length, 25);
+for (const key of interruptedImportKeys) {
+  assert.notEqual(albanian[key], english[key], key);
+  assert.deepEqual(translationTokens(albanian[key]), translationTokens(english[key]), key);
+}
+assert.match(albanian['interrupted-import-description'], /skedari burimor nuk ruhet/);
+assert.match(albanian['interrupted-import-description'], /gjithçka të shtuar më pas/);
+assert.match(albanian['interrupted-import-counts'], /__swimlanes__ korsi/);
+assert.match(albanian['interrupted-import-discard-confirm'], /hiqen përgjithmonë/);
+assert.match(albanian['interrupted-import-keep-confirm'], /Asgjë nuk hiqet/);
+assert.match(albanian['interrupted-import-foreign-board'], /nuk u ndryshua/);
+assert.match(albanian['interrupted-import-truncated'], /50 importet më të vjetra/);
+assert.match(albanian['interrupted-import-scrum-busy'], /ende po shkruhet ose po rikuperohet/);
