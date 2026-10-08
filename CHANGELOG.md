@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/17ba35125774d597acdaf39f0068dbd9a71870ae">Translate Odia Blockly colours and controls</a></summary>
+
+- Fill 24 Odia placeholders for Blockly colours, block operations and loop controls,
+  preserving existing translations, format tokens and numeric bounds.
+- Technical wording remains low confidence pending speaker review.
+- All 40 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Odia translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b781aadd36134d2f37460432d3cc2063809e4de3">Correct Tatar ZenKit import instruction</a></summary>
 
 - Correct the missed wrong-language ZenKit instruction and restore literal JSON
