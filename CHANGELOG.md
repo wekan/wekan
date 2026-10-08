@@ -440,6 +440,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5f41d4ca7a">Correct Wu board activity wording</a>. Thanks to xet7.</summary>
+
+Replace 24 Mandarin-like or malformed activity messages with Wu wording, preserving
+source tokens and updating exact-value audit records. Three focused suites and
+21 human-preference checks pass. Wording is lower confidence and needs native
+review. No browser session was run. The broader language audit remains unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5f5c1697d6">Correct Wu activity language and title argument order</a>. Thanks to xet7.</summary>
 
 Replace 26 Mandarin-like activity and permission messages with Wu wording,
