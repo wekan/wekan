@@ -1021,6 +1021,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/552c154307">Correct Slovenian monitoring and flow translations</a>. Thanks to xet7.</summary>
+
+Replace 81 Serbian values in each Slovenian catalog, for 162 corrections.
+Cover monitoring, migrations and flow-analysis explanations. Preserve variables,
+time units, numeric limits and caveats about history and forecasts.
+
+Four focused translation suites and 21 human-preference checks pass.
+No browser or screen-reader session was run. Remaining translations and
+linguistic review of Latin-script text are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/04e6c6f0b2">Correct Slovenian administration and migration translations</a>. Thanks to xet7.</summary>
 
 Replace 80 Serbian values in each Slovenian catalog, for 160 corrections.
