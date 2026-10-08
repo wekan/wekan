@@ -487,6 +487,16 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1d7bf4d56b">Translate Wu Blockly input roles</a>. Thanks to xet7.</summary>
+
+Translate 40 input labels, preserving variables and checking input positions,
+arithmetic operands and count versus value. Four focused translation suites and
+21 human-preference checks pass. Wu wording is lower confidence and needs native
+review. No browser or screen-reader session was run. Work remains unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/31b86d4178">Translate Wu Blockly fields and accessibility</a>. Thanks to xet7.</summary>
 
 Translate 30 field, key, icon and input messages, preserving variables and key
