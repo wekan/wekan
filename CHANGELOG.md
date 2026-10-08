@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9309fddbf65dc5e2a67c5254ada90344617c09a2">Translate Odia list search and insertion messages</a></summary>
+
+- Fill 22 Odia list-search and insertion placeholders, preserving existing
+  translations, not-found return values and operations on copied lists.
+- Technical wording remains low confidence pending speaker review.
+- All 47 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Odia translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9fd3f94aba8969b5c2805e5c7330734086e6990f">Translate Odia list retrieval and removal tooltips</a></summary>
 
 - Fill 20 Odia list-item and sublist placeholders, preserving existing translations,
