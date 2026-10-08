@@ -167,3 +167,55 @@ assert.notEqual(aromanian['scrum-history-checkpoint-rollback'],
   aromanian['scrum-history-checkpoint-discard']);
 assert.deepEqual(tokens(aromanian['scrum-history-checkpoint-counts']),
   ['__applied__','__conflicted__','__pending__','__total__']);
+
+const recoveryBatch = [
+  "email-failure-smtp-temporary",
+  "email-failure-smtp-rejected",
+  "email-failure-smtp-authentication",
+  "email-failure-smtp-configuration",
+  "email-failure-recipient-unavailable",
+  "email-failure-delivery-unconfirmed",
+  "email-failure-acknowledgement-failed",
+  "email-failure-delivery-failed",
+  "email-failure-retry-limit",
+  "activity-recovery-heading",
+  "activity-recovery-description",
+  "activity-recovery-empty",
+  "activity-recovery-unavailable",
+  "activity-recovery-retry",
+  "activity-recovery-retrying",
+  "activity-recovery-status-pending",
+  "activity-recovery-status-preparing",
+  "activity-recovery-status-processing",
+  "activity-recovery-status-missing",
+  "activity-recovery-status-changed",
+  "activity-recovery-status-invalid",
+  "activity-recovery-status-inconsistent",
+  "activity-recovery-busy",
+  "activity-recovery-denied",
+  "activity-recovery-source-unavailable",
+  "activity-recovery-disabled",
+  "activity-recovery-failed",
+  "activity-recovery-pause",
+  "activity-recovery-resume",
+  "activity-recovery-paused",
+  "activity-recovery-control-conflict",
+  "activity-recovery-control-failed",
+  "activity-recovery-status-cancelled",
+  "activity-recovery-cancel",
+  "activity-recovery-cancel-confirm",
+  "rule-email-recovery-unavailable"
+];
+for (const key of recoveryBatch) {
+  assert.ok(aromanian[key]?.trim(), key);
+  assert.notEqual(aromanian[key], english[key], key);
+}
+assert.match(aromanian['email-failure-smtp-temporary'], /temporar/);
+assert.match(aromanian['email-failure-smtp-rejected'], /permanent/);
+assert.match(aromanian['activity-recovery-description'], /nu adarã vãrnãoarã iara/);
+assert.match(aromanian['activity-recovery-source-unavailable'], /Nu s-adarã iara nitsiva/);
+assert.match(aromanian['activity-recovery-failed'], /Lucrul tsi ashteaptã fu pãstrat/);
+assert.match(aromanian['activity-recovery-cancel-confirm'], /nu poati s-continueadzã iara/);
+assert.match(aromanian['activity-recovery-cancel-confirm'], /nu s-toarnã nãpoi/);
+assert.equal(new Set(['pause','resume','cancel'].map(action =>
+  aromanian[`activity-recovery-${action}`])).size, 3);

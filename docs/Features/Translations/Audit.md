@@ -2,6 +2,19 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Aromanian notification recovery — 2026-10-08
+
+Translate 36 mail failure and activity-notification recovery messages.
+Preserve temporary/permanent rejection, the prohibition on recreating an
+activity, retained pending work, irreversible cancellation and the inability
+to recall queued email or delivered notifications. Extend regression checks
+for these distinctions alongside the complete source-token inventory.
+
+Vocabulary follows existing catalog forms and the Farsharotu reference below.
+Full terminology and grammar remain low-confidence pending fluent review.
+No browser or screen-reader session was run. Other pending translations and
+older wrong-language values remain under review.
+
 ## Aromanian Scrum instructions — 2026-10-08
 
 Translate 20 remaining Scrum instructions and recovery messages. Preserve
