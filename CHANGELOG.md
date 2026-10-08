@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9008e2674d">Translate Sindhi, Pashto, Kurdish and Uyghur sign-in warnings</a>. Thanks to xet7.</summary>
+
+Add five warning translations with their locale scripts preserved. Warning tests
+now cover 124 catalog paths, checking repeated variables, address order and
+ROOT_URL. Warning and placeholder suites and all 21 preservation checks pass.
+These translations have lower confidence and need native review. Right-to-left
+browser rendering and the wider all-language backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b5d08b94b2">Translate Amharic, Burmese, Khmer and Pacific sign-in warnings</a>. Thanks to xet7.</summary>
 
 Translate six physical catalog values covering seven paths through the preserved
