@@ -209,3 +209,21 @@ assert.match(wu['blockly-MATH_SINGLE_TOOLTIP_LOG10'], /10 为底/);
 assert.match(wu['blockly-MATH_SINGLE_TOOLTIP_LN'], /自然对数/);
 assert.match(wu['blockly-MATH_SINGLE_TOOLTIP_NEG'], /相反数/);
 for (const [op, word] of Object.entries({ ACOS: '反余弦', ASIN: '反正弦', ATAN: '反正切' })) assert.equal(wu[`blockly-MATH_TRIG_${op}_ARIA`], word);
+
+const trigonometry = ["blockly-MATH_TRIG_COS_ARIA", "blockly-MATH_TRIG_SIN_ARIA", "blockly-MATH_TRIG_TAN_ARIA", "blockly-MATH_TRIG_TOOLTIP_ACOS", "blockly-MATH_TRIG_TOOLTIP_ASIN", "blockly-MATH_TRIG_TOOLTIP_ATAN", "blockly-MATH_TRIG_TOOLTIP_COS", "blockly-MATH_TRIG_TOOLTIP_SIN", "blockly-MATH_TRIG_TOOLTIP_TAN", "blockly-MINIMAP_ARIA_LABEL", "blockly-MOVE_BLOCK", "blockly-NEW_COLOUR_VARIABLE", "blockly-NEW_NUMBER_VARIABLE", "blockly-NEW_STRING_VARIABLE", "blockly-NEW_VARIABLE", "blockly-NEW_VARIABLE_TITLE", "blockly-NEW_VARIABLE_TYPE_TITLE", "blockly-NO_PARENT_ANNOUNCEMENT", "blockly-OPEN_BACKPACK", "blockly-OPEN_TRASH", "blockly-OPTION_KEY", "blockly-PAGE_DOWN_KEY", "blockly-PAGE_UP_KEY", "blockly-PARENT_BLOCKS_ANNOUNCEMENT", "blockly-PASTE_ALL_FROM_BACKPACK", "blockly-PASTE_SHORTCUT", "blockly-PAUSE_KEY", "blockly-PROCEDURES_ALLOW_STATEMENTS", "blockly-PROCEDURES_BEFORE_PARAMS", "blockly-PROCEDURES_CALLNORETURN_TOOLTIP"];
+for (const key of trigonometry) {
+  assert.notEqual(wu[key], english[key], key);
+  assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+}
+for (const [op, name] of Object.entries({ COS: '余弦', SIN: '正弦', TAN: '正切' })) {
+  assert.equal(wu[`blockly-MATH_TRIG_${op}_ARIA`], name);
+  assert.ok(wu[`blockly-MATH_TRIG_TOOLTIP_A${op}`].includes(`反${name}`));
+  assert.match(wu[`blockly-MATH_TRIG_TOOLTIP_${op}`], /单位用度（勿是弧度）/);
+}
+for (const [key, name] of Object.entries({ OPTION: 'Option', PAGE_DOWN: 'Page Down', PAGE_UP: 'Page Up', PAUSE: 'Pause' })) assert.ok(wu[`blockly-${key}_KEY`].includes(name));
+assert.match(wu['blockly-PAGE_DOWN_KEY'], /下翻页/);
+assert.match(wu['blockly-PAGE_UP_KEY'], /上翻页/);
+assert.match(wu['blockly-NO_PARENT_ANNOUNCEMENT'], /呒没父块/);
+assert.match(wu['blockly-PASTE_ALL_FROM_BACKPACK'], /所有积木块侪/);
+for (const [kind, word] of Object.entries({ COLOUR: '颜色', NUMBER: '数字', STRING: '字符串' })) assert.ok(wu[`blockly-NEW_${kind}_VARIABLE`].includes(word));
+assert.notEqual(wu['blockly-NEW_VARIABLE_TITLE'], wu['blockly-NEW_VARIABLE_TYPE_TITLE']);

@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu Blockly trigonometry and workspace — 2026-10-08
+
+Translate 30 trigonometry, workspace, variable and keyboard messages. Preserve
+variables and key names; check inverse functions, degrees rather than radians,
+page directions, absent parent blocks and variable types. Wu wording is lower
+confidence and needs native review. No browser or screen-reader session was run.
+Remaining translations and older Mandarin-like passages require work.
+
 ## Wu Blockly rounding and unary math — 2026-10-08
 
 Translate 30 random-number, rounding, unary-math and inverse-trigonometry messages.
