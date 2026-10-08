@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Catalan and Valencian settings and planning — 2026-10-09
+
+Translate 25 messages in ca, ca_ES and ca@valencia, replacing 75 English values:
+board announcements, link rules, read-only fields, automation actions, LDAP,
+provider restrictions and initial Scrum import controls. Preserve percent and
+underscore variables, brace tokens, link examples and configuration names.
+Regression checks cover administrator-only edits, unchanged unmatched cards,
+non-duplicating imports, direction and unrestricted empty domain settings.
+Four relevant suites and all 21 preservation checks pass. Browser review and the
+wider translation backlog remain outstanding.
+
 ## Catalan and Valencian outline imports — 2026-10-09
 
 Translate OPML, Org mode and Todoist instructions in ca, ca_ES and ca@valencia,
