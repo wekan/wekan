@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Aromanian card actions and account lockout corrections — 2026-10-08
+
+Replace 64 Italian values and a Spanish overtime label with Aromanian card,
+checklist, attachment, board and account controls. Preserve shared dialog
+labels, copy/move and maximize/minimize distinctions, the locked-users-only
+filter, S3, Cc and atan2 argument syntax. New phrasing remains low-confidence
+pending fluent review. Focused regression checks reject the old text and
+English fallbacks while comparing source token inventories. No browser or
+screen-reader session was run; broader linguistic work remains open.
+
+Also translate 25 interrupted-import messages, preserving the inability to
+resume without the source file, retention without removal, permanent discard
+of all board contents, the separate Scrum checkpoint, the oldest-50 limit,
+and protection of unrelated boards. Per-key tests retain every source token
+and guard these distinctions. This new wording is also provisional.
+
+
 ## Aromanian search and organization language corrections — 2026-10-08
 
 Replace 48 Italian values in search, organization dialogs, rule actions and

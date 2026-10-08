@@ -642,3 +642,109 @@ assert.notEqual(aromanian['restore-all'], aromanian['delete-all']);
 assert.notEqual(aromanian['next-page'], aromanian['previous-page']);
 assert.match(aromanian['act-newDue'], /prota/);
 assert.match(aromanian['globalSearch-instructions-status-archived'], /`__predicate_archived__`/);
+
+const repairedMixedLanguageActions = {
+  "myCardsSortChange-title": "Ordina le mie schede...",
+  "myCardsSortChangePopup-title": "Ordina le mie schede...",
+  "myCardsSortChange-choice-dueat": "Per data di scadenza",
+  "dueCards-title": "Schede in scadenza",
+  "dueCardsViewChange-choice-all": "Tutti gli utenti",
+  "label-colors": "Colori etichette",
+  "label-names": "Nomi etichette",
+  "archived-at": "archiviata il",
+  "sort-cards": "Ordina schede",
+  "sort-is-on": "Ordinamento attivo",
+  "cardsSortPopup-title": "Ordina schede",
+  "server-error": "Errore server",
+  "move-swimlane": "Sposta swimlane",
+  "moveSwimlanePopup-title": "Sposta swimlane",
+  "creator-on-minicard": "Creatore su minicard",
+  "impersonation-admin": "Amministratore",
+  "copy-swimlane": "Copia swimlane",
+  "copySwimlanePopup-title": "Copia swimlane",
+  "maximize-card": "Massimizza scheda",
+  "minimize-card": "Minimizza scheda",
+  "carbon-copy": "Copia Conoscenza (Cc:)",
+  "ticket-number": "Numero ticket",
+  "help-request": "Richiesta aiuto",
+  "editCardSortOrderPopup-title": "Modifica ordinamento",
+  "cardDetailsPopup-title": "Dettagli scheda",
+  "add-teams": "Aggiungi team",
+  "filter-card-title-label": "Filtra per titolo scheda",
+  "add-organizations": "Aggiunta organizzazioni",
+  "legalNotice": "Informazioni legali",
+  "checklistActionsPopup-title": "Azioni checklist",
+  "moveChecklist": "Sposta checklist",
+  "moveChecklistPopup-title": "Sposta checklist",
+  "originOrder": "ordine originale",
+  "copyChecklist": "Copia checklist",
+  "copyChecklistPopup-title": "Copia checklist",
+  "attachmentActionsPopup-title": "Azioni allegato",
+  "attachment-move-storage-s3": "Sposta allegato su S3",
+  "attachment-move": "Muovi allegato",
+  "version-name": "Versione-Nome",
+  "board-title": "Titolo bacheca",
+  "board-status": "Stato della bacheca",
+  "board-status-time-spent-total": "Tempo totale impiegato",
+  "board-status-overtime-cards": "Schede in straordinario",
+  "uploading": "Caricamento in corso",
+  "remaining_time": "Tempo rimanente",
+  "password-again": "Password (di nuovo)",
+  "if-you-already-have-an-account": "Se hai già un account",
+  "minicardDetailsActionsPopup-title": "Dettagli scheda",
+  "Mongo_sessions_count": "Numero sessioni Mongo",
+  "drag-board": "Muovi la bacheca",
+  "translation-text": "Testo della traduzione",
+  "convert-to-markdown": "Converti in markdown",
+  "uncollapse": "Non collassare",
+  "accessibility": "Accessibilità",
+  "accessibility-title": "Titolo di accessibilità",
+  "accounts-lockout-locked-users": "Utenti bloccati",
+  "accounts-lockout-failed-attempts": "Tentativi Falliti",
+  "accounts-lockout-remaining-time": "Tempo Rimanente",
+  "accounts-lockout-user-locked": "L'utente è bloccato",
+  "admin-people-filter-all": "Tutti gli utenti",
+  "admin-people-filter-locked": "Solo utenti bloccati",
+  "admin-people-active-status": "Status Attivo",
+  "accounts-lockout-unlock-all": "Sblocca Tutti",
+  "blockly-MATH_ATAN2_TITLE": "atan2 di X:%1 Y:%2",
+  "overtime": "Tiempo excesivo"
+};
+for (const [key, previous] of Object.entries(repairedMixedLanguageActions)) {
+  assert.notEqual(aromanian[key], previous, `${key}: wrong-language seed must not return`);
+  assert.notEqual(aromanian[key], english[key], `${key}: English is not a correction`);
+  assert.deepEqual(tokens(aromanian[key]), tokens(english[key]), `${key}: preserve variables`);
+}
+for (const [action, popup] of [
+  ['myCardsSortChange-title', 'myCardsSortChangePopup-title'],
+  ['sort-cards', 'cardsSortPopup-title'],
+  ['move-swimlane', 'moveSwimlanePopup-title'],
+  ['copy-swimlane', 'copySwimlanePopup-title'],
+  ['moveChecklist', 'moveChecklistPopup-title'],
+  ['copyChecklist', 'copyChecklistPopup-title'],
+  ['cardDetailsPopup-title', 'minicardDetailsActionsPopup-title'],
+  ['remaining_time', 'accounts-lockout-remaining-time'],
+  ['dueCardsViewChange-choice-all', 'admin-people-filter-all'],
+]) assert.equal(aromanian[action], aromanian[popup], `${action}: consistent shared label`);
+assert.notEqual(aromanian['maximize-card'], aromanian['minimize-card']);
+assert.notEqual(aromanian['copyChecklist'], aromanian['moveChecklist']);
+assert.notEqual(aromanian['copy-swimlane'], aromanian['move-swimlane']);
+assert.match(aromanian['admin-people-filter-locked'], /^Mash /);
+assert.match(aromanian['accounts-lockout-unlock-all'], /tuts$/);
+assert.match(aromanian['attachment-move-storage-s3'], /S3$/);
+assert.match(aromanian['carbon-copy'], /\(Cc:\)/);
+assert.match(aromanian['blockly-MATH_ATAN2_TITLE'], /^atan2 .*X:%1 .*Y:%2$/);
+
+const interruptedImportKeys = Object.keys(english).filter(key => key.startsWith('interrupted-import-'));
+assert.equal(interruptedImportKeys.length, 25);
+for (const key of interruptedImportKeys) {
+  assert.notEqual(aromanian[key], english[key], `${key}: translate recovery prose`);
+  assert.deepEqual(tokens(aromanian[key]), tokens(english[key]), `${key}: retain recovery variables`);
+}
+assert.match(aromanian['interrupted-import-description'], /nu poati s-continueadz/);
+assert.match(aromanian['interrupted-import-description'], /fisierlu di surs/);
+assert.match(aromanian['interrupted-import-keep-confirm'], /Nu s-scoati tsiva/);
+assert.match(aromanian['interrupted-import-discard-confirm'], /ti totna/);
+assert.match(aromanian['interrupted-import-truncated'], /mash atseali 50 ma veclji/);
+assert.match(aromanian['interrupted-import-foreign-board'], /nu fu al/);
+assert.match(aromanian['interrupted-import-state-discarding'], /di nao/);
