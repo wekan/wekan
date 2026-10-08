@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a9a2e710aba4fb936165d6186efe2ca8df88c334">Correct Tatar voting controls and poker symbols</a></summary>
+
+- Correct 27 voting and card-action strings and restore ten poker number/symbol
+  labels with inappropriate prose appended. Preserve source placeholders.
+- Technical terminology remains low confidence pending speaker review.
+- All 79 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/66c6211e8af3d3dd179264c42789d60df951db3c">Correct Tatar card archival and editing guidance</a></summary>
 
 - Correct 29 calendar and card-control strings, preserving placeholders and
