@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Aromanian Italian-seed review — 2026-10-08
+
+A vocabulary review found 304 longer non-English values identical to the
+Italian catalog. Treat this as a candidate list, not automatic proof: shared
+words and technical terms may be valid. Correct 45 clearly Italian dialog,
+invitation, export and filter strings plus the previously identified completed
+and keyboard-shortcut labels (47 values). These wrong-language values are
+corrected directly, preserving source order and invitation variables.
+
+Regression checks reject the old Italian values and English replacements,
+retain invitation-counterpart equality and preserve PDF/iCal names. New
+Aromanian phrasing follows existing catalog terminology and remains
+low-confidence pending fluent review. The remaining candidates still need
+review. No browser or screen-reader session was run.
+
 ## Aromanian stuck Sync recovery — 2026-10-08
 
 Translate 23 remaining reported messages for saved List Sync operations that

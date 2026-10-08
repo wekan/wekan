@@ -319,3 +319,63 @@ assert.match(aromanian['stuck-sync-operation-discard-confirm'], /nu s-scriu vãr
 assert.match(aromanian['stuck-sync-operation-replayable-now'], /nu poati s-hibã scoasã/);
 assert.match(aromanian['stuck-sync-operation-replayable'], /nu fu scoasã/);
 assert.match(aromanian['stuck-sync-operation-truncated'], /50 cama veclji/);
+
+const repairedItalianValues = {
+  "editCardStartDatePopup-title": "Cambia data di inizio",
+  "editCardDueDatePopup-title": "Cambia data di scadenza",
+  "editCustomFieldPopup-title": "Modifica campo",
+  "addReactionPopup-title": "Aggiungi reazione",
+  "editCardSpentTimePopup-title": "Cambia tempo trascorso",
+  "editLabelPopup-title": "Modifica etichetta",
+  "editNotificationPopup-title": "Modifica notifiche",
+  "editProfilePopup-title": "Modifica profilo",
+  "email-invalid": "Email non valida",
+  "email-invite": "Invita via email",
+  "email-invite-subject": "__inviter__ ti ha inviato un invito",
+  "push-invite-title": "__inviter__ ti ha inviato un invito",
+  "error-list-doesNotExist": "Questa lista non esiste",
+  "error-user-doesNotExist": "Questo utente non esiste",
+  "export-ical-feed": "Calendario (iCal)",
+  "export-card": "Esporta scheda",
+  "export-card-pdf": "Esporta scheda in PDF",
+  "export-card-subtasks": "Sotto-compiti",
+  "exportCardPopup-title": "Esporta scheda",
+  "remove-sort": "Rimuovi l'ordinamento",
+  "list-sort-by": "Ordina lista per:",
+  "list-label-modifiedAt": "Orario ultimo accesso",
+  "list-label-title": "Nome della lista",
+  "list-label-sort": "Il tuo ordine manuale",
+  "filter-cards": "Filtra schede o liste",
+  "filter-dates-label": "Filtra per data",
+  "filter-no-due-date": "Senza data scadenza",
+  "filter-due-this-week": "Scade questa settimana",
+  "list-filter-label": "Filtra lista per titolo",
+  "filter-clear": "Pulisci filtri",
+  "filter-no-label": "Nessuna etichetta",
+  "filter-member-label": "Filtra secondo il membro",
+  "filter-no-member": "Nessun membro",
+  "filter-creator-label": "Filtra secondo Creatore",
+  "filter-no-assignee": "Nessun assegnatario",
+  "filter-show-archive": "Mostra liste archiviate",
+  "filter-hide-empty": "Nascondi liste vuote",
+  "filter-on": "Il filtro è attivo",
+  "filter-to-selection": "Filtra selezione",
+  "advanced-filter-label": "Filtro avanzato",
+  "fullname": "Nome completo",
+  "show-activities": "Mostra Attività",
+  "impersonate-user": "Impersona utente",
+  "import-board": "Importa bacheca",
+  "import-board-c": "Importa bacheca",
+  "completed": "Completato/a",
+  "keyboard-shortcuts": "Scorciatoie da tastiera"
+};
+for (const [key, italian] of Object.entries(repairedItalianValues)) {
+  assert.notEqual(aromanian[key], italian, `${key}: Italian seed must not return`);
+  assert.notEqual(aromanian[key], english[key], `${key}: do not replace Italian with English`);
+}
+assert.equal(aromanian.completed, aromanian['scrum-completed']);
+assert.equal(aromanian['email-invite-subject'], aromanian['push-invite-title']);
+assert.deepEqual(tokens(aromanian['email-invite-subject']), ['__inviter__']);
+assert.match(aromanian['export-card-pdf'], /PDF/);
+assert.match(aromanian['export-ical-feed'], /iCal/);
+assert.notEqual(aromanian['filter-show-archive'], aromanian['filter-hide-empty']);
