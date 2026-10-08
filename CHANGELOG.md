@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/80f851eaac3029366d22d87ebd510066de77c25d">Correct Tatar card sorting and dependency labels</a></summary>
+
+- Correct 18 sorting, completion, sticker and dependency labels, preserving
+  sort direction and opposing visibility, addition and removal actions.
+- Technical wording remains low confidence pending speaker review.
+- All 114 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b1007d158f6d5acce6f53625dd8b592b77c1cf49">Correct Tatar search logic and export labels</a></summary>
 
 - Correct 19 search-help and export-label values, preserving query examples,
