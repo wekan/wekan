@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Papiamento Blockly arithmetic — 2026-10-08
+
+Translate 30 English arithmetic messages. Preserve variables, constants, numeric
+bounds and mathematical notation; check inclusive limits, angle units, parity
+and positive/negative distinctions. Specialized mathematical wording is lower
+confidence and needs native review. No browser or screen-reader session was run.
+Remaining translations are unfinished.
+
 ## Papiamento Blockly logic — 2026-10-08
 
 Translate 25 English logic messages. Preserve variables and null; check strict

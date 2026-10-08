@@ -162,3 +162,18 @@ assert.match(papiamento['blockly-LOGIC_OPERATION_TOOLTIP_OR'], /por lo ménos un
 assert.match(papiamento['blockly-LOGIC_NEGATE_TOOLTIP'], /berdat si e entrada ta falsu.*falsu si e entrada ta berdat/);
 assert.match(papiamento['blockly-LOGIC_NULL_TOOLTIP'], /null/);
 for (const label of ['CONDITION', 'IF_FALSE', 'IF_TRUE']) assert.ok(papiamento['blockly-LOGIC_TERNARY_TOOLTIP'].includes(papiamento[`blockly-LOGIC_TERNARY_${label}`]));
+
+const blocklyArithmetic = ["blockly-MATH_ADDITION_SYMBOL_ARIA", "blockly-MATH_ARITHMETIC_TOOLTIP_ADD", "blockly-MATH_ARITHMETIC_TOOLTIP_DIVIDE", "blockly-MATH_ARITHMETIC_TOOLTIP_MINUS", "blockly-MATH_ARITHMETIC_TOOLTIP_MULTIPLY", "blockly-MATH_ARITHMETIC_TOOLTIP_POWER", "blockly-MATH_ATAN2_TITLE", "blockly-MATH_ATAN2_TOOLTIP", "blockly-MATH_CHANGE_TITLE", "blockly-MATH_CHANGE_TOOLTIP", "blockly-MATH_CONSTANT_GOLDEN_RATIO_ARIA", "blockly-MATH_CONSTANT_INFINITY_ARIA", "blockly-MATH_CONSTANT_SQRT1_2_ARIA", "blockly-MATH_CONSTANT_SQRT2_ARIA", "blockly-MATH_CONSTANT_TOOLTIP", "blockly-MATH_CONSTRAIN_TITLE", "blockly-MATH_CONSTRAIN_TOOLTIP", "blockly-MATH_DIVISION_SYMBOL_ARIA", "blockly-MATH_IS_DIVISIBLE_BY", "blockly-MATH_IS_EVEN", "blockly-MATH_IS_NEGATIVE", "blockly-MATH_IS_ODD", "blockly-MATH_IS_POSITIVE", "blockly-MATH_IS_PRIME", "blockly-MATH_IS_TOOLTIP", "blockly-MATH_IS_WHOLE", "blockly-MATH_MODULO_TITLE", "blockly-MATH_MODULO_TOOLTIP", "blockly-MATH_MULTIPLICATION_SYMBOL_ARIA", "blockly-MATH_NUMBER_TOOLTIP"];
+for (const key of blocklyArithmetic) {
+  assert.notEqual(papiamento[key], english[key], key);
+  assert.deepEqual(tokens(papiamento[key]), tokens(english[key]), key);
+}
+for (const literal of ['π (3.141…)', 'e (2.718…)', 'φ (1.618…)', 'sqrt(2) (1.414…)', 'sqrt(½) (0.707…)', '∞']) assert.ok(papiamento['blockly-MATH_CONSTANT_TOOLTIP'].includes(literal));
+assert.match(papiamento['blockly-MATH_ATAN2_TITLE'], /atan2.*X:%1 Y:%2/);
+assert.match(papiamento['blockly-MATH_ATAN2_TOOLTIP'], /\(X, Y\).*grado.*-180 te 180/);
+assert.match(papiamento['blockly-MATH_CONSTRAIN_TOOLTIP'], /inkluyendo e límitenan mes/);
+assert.match(papiamento['blockly-MATH_MODULO_TITLE'], /%1 ÷ %2/);
+assert.equal(papiamento['blockly-MATH_IS_EVEN'], 'ta par');
+assert.equal(papiamento['blockly-MATH_IS_ODD'], 'ta impar');
+assert.match(papiamento['blockly-MATH_IS_NEGATIVE'], /negativo/);
+assert.match(papiamento['blockly-MATH_IS_POSITIVE'], /positivo/);
