@@ -593,6 +593,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f0c89ad318">Translate Persian Scrum import and recovery messages</a>. Thanks to xet7.</summary>
+
+Translate 56 values across both Persian catalogs, preserving variable inventories,
+keyboard names, matching failures and rollback/keep-board distinctions. Placeholder
+and language-wiring suites plus all 21 preservation checks pass. The large completion
+suite advances beyond Persian to untranslated Malay release text. Native review,
+browser checks and the remaining all-language translation backlog are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e39aa19360">Translate Hebrew Scrum imports and recovery; refresh coverage count</a>. Thanks to xet7.</summary>
 
 Translate 56 values across both Hebrew catalogs, preserving variables, keyboard
