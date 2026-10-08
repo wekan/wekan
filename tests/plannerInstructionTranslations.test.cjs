@@ -229,3 +229,25 @@ for (const code of ['fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR']) {
   assert.match(locale['import-board-instruction-teamwork'], /un niveau supplémentaire/);
   assert.match(locale['import-board-instruction-superproductivity'], /tâches archivées deviennent des cartes archivées/);
 }
+
+for (const code of ['es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO']) {
+  const locale = read(code);
+  const literals = {
+    planner: ['Microsoft Planner', 'Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By'],
+    meistertask: ['MeisterTask', 'Export project', 'CSV'],
+    ...Object.fromEntries(['obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri'].map(format => [format, importLiterals[format]])),
+  };
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), code + ': ' + key);
+    for (const value of values) assert.ok(locale[key].includes(value), code + ': ' + value);
+  }
+  for (const format of ['nullboard', 'kanri']) {
+    assert.match(locale['import-board-instruction-' + format], /solo se importa el primer tablero/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /se importan todos los tableros/);
+  }
+  assert.match(locale['import-board-instruction-meistertask'], /tareas completadas conservan su fecha de finalización/);
+  assert.match(locale['import-board-instruction-obsidian'], /archivo se convierte en tarjetas archivadas/);
+  assert.match(locale['import-board-instruction-planner'], /depósitos se convierten en listas y las tareas en tarjetas/);
+}

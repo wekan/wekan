@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Spanish import instructions, first group — 2026-10-08
+
+Translate eight instructions in nine Spanish catalogs (72 values): Planner,
+MeisterTask, Obsidian, Linear, TickTick, ClickUp, Nullboard and Kanri. Preserve
+commands, extensions and variables. Regression checks cover first-board selection,
+completed-task dates, archived cards and import mappings. Import-instruction and
+placeholder suites and all 21 preservation checks pass. The remaining Spanish
+instructions, browser review and the wider translation backlog remain outstanding.
+
 ## French import instructions, remaining group — 2026-10-08
 
 Translate the remaining 13 import instructions in fr, fr-BE, fr-CA, fr-CH and
