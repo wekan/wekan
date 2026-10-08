@@ -13,3 +13,10 @@ A rule does it: trigger "card moved to" a list
 acting user as member" (client/components/rules/actions/cardActions.jade,
 models/lib/ruleActingUser.js, server/rulesHelper.js). The mover is added to the
 card's members, shown on the minicard, and can be removed.
+
+## [#1631](https://github.com/wekan/wekan/issues/1631) Receive notifications
+from other users only
+
+The person who made a change is never notified of it, except when they @mention
+themselves: server/models/activities.js filters `user._id !== userId` from the
+recipients. The requested behaviour is the fixed default.
