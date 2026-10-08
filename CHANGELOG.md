@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2f47eebcc4">Translate sign-in warnings in Moroccan Arabic, Hiragana, Walloon, Waray and Venetian</a>. Thanks to xet7.</summary>
+
+Preserve both address variables and ROOT_URL in five more warnings, using the
+registered languages of legacy locale identifiers. Warning coverage includes 174
+catalog paths and checks Hiragana script. Warning and placeholder suites and all
+21 preservation checks pass. These translations have lower confidence and need
+native review; 33 warning paths and the wider translation backlog remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/efcdceb0b2">Translate southern African warnings and correct the Venda sign-in label</a>. Thanks to xet7.</summary>
 
 Add Northern Sotho, Ndebele, Swati, Tsonga and Venda warnings. Replace the Zulu
