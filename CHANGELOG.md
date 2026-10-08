@@ -440,6 +440,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/fc8a66d6ab">Correct Wu activity summary argument roles</a>. Thanks to xet7.</summary>
+
+Correct 25 activity summaries to Wu, repairing positional placeholder roles in
+import, removal and checklist messages. Update audit records. Three focused suites
+and 21 human-preference checks pass. Wording is lower confidence and needs native
+review. No browser session was run. The broader language audit remains unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5f41d4ca7a">Correct Wu board activity wording</a>. Thanks to xet7.</summary>
 
 Replace 24 Mandarin-like or malformed activity messages with Wu wording, preserving
