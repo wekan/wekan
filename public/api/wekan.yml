@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.23
+  version: v12.24
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2865,6 +2865,33 @@ paths:
         '200':
           description: |-
             200 response
+  /api/boards/{board}/lists/{list}/archive:
+    post:
+      operationId: post_board_list_archive
+      tags:
+        - Lists
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: the list value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
   /api/boards/{board}/lists/{list}/cards:
     get:
       operationId: get_board_list_cards
@@ -3595,6 +3622,33 @@ paths:
           description: the toSwimlaneId value
           type: string
           required: true
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: the list value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/lists/{list}/unarchive:
+    post:
+      operationId: post_board_list_unarchive
+      tags:
+        - Lists
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
         - name: board
           in: path
           description: the board value
@@ -5318,6 +5372,13 @@ definitions:
         items:
           $ref: "#/definitions/BoardsDomains"
         x-nullable: true
+      importRunId:
+        description: |
+           The import run that created this board (server/lib/importRuns.js).
+           An interrupted import is discarded only from the board that carries
+           its run's id.
+        type: string
+        x-nullable: true
       importUsernames:
         description: |
            Usernames of imported (e.g. Trello) board members that were not mapped
@@ -5328,6 +5389,13 @@ definitions:
         items:
           type: string
           x-nullable: true
+        x-nullable: true
+      announcement:
+        description: |
+           #1566: the board's own announcement - { enabled, body, updatedAt } -
+           written by a board admin, shown to every member until dismissed
+           (models/lib/boardAnnouncement.js).
+        $ref: "#/definitions/BoardsAnnouncement"
         x-nullable: true
       color:
         description: |
@@ -6111,6 +6179,15 @@ definitions:
       - type
       - sort
       - showActivities
+  BoardsAnnouncement:
+    type: object
+    properties:
+      enabled:
+        type: boolean
+      body:
+        type: string
+      updatedAt:
+        type: string
   BoardsScrumimportlosses:
     type: object
   BoardsLabels:
@@ -6848,6 +6925,13 @@ definitions:
         type: string
       spentTime:
         type: number
+      sprint:
+        type: string
+      releases:
+        type: array
+        items:
+          type: string
+          x-nullable: true
   CardsVote:
     type: object
     properties:
@@ -7081,6 +7165,14 @@ definitions:
         description: |
            should the sum of the custom fields be shown at top of list?
         type: boolean
+      readOnly:
+        description: |
+           #3143: when true, every board member SEES this custom field's value,
+           but only a board admin can set or change it - a "display-only" field
+           for a score or a computed value. Set through the REST API, a rule or
+           by an admin. Enforced on the server with adminOnly's write guard
+           (models/lib/adminOnlyCustomFields.js mayWriteField). Defaults to false.
+        type: boolean
       adminOnly:
         description: |
            #3141: when true, this custom field's VALUE is hidden from - and
@@ -7115,6 +7207,7 @@ definitions:
       - alwaysOnCard
       - showLabelOnMiniCard
       - showSumAtTopOfList
+      - readOnly
       - adminOnly
       - modifiedAt
   CustomFieldsSettings:
@@ -7358,6 +7451,12 @@ definitions:
         description: |
            WIP object, see below
         $ref: "#/definitions/ListsWiplimit"
+        x-nullable: true
+      cardsUseListColor:
+        description: |
+           #4756: cards without a colour of their own are shown in this list's
+           colour (models/lib/cardDisplayColor.js); nothing is written to them.
+        type: boolean
         x-nullable: true
       color:
         description: |
@@ -7652,6 +7751,12 @@ definitions:
       externalLinkPatternUrl:
         type: string
         x-nullable: true
+      externalLinkRules:
+        type: string
+        x-nullable: true
+      externalLinkIdentifierAliases:
+        type: string
+        x-nullable: true
       disableActivities:
         type: boolean
         x-nullable: true
@@ -7906,6 +8011,9 @@ definitions:
         x-nullable: true
       oauthProvidersMergeExistingUsers:
         type: boolean
+        x-nullable: true
+      oauthProvidersAllowedEmailDomains:
+        type: string
         x-nullable: true
       passwordlessEnabled:
         type: boolean
@@ -8316,6 +8424,11 @@ definitions:
            schema does not know is rejected, which would leave exactly those
            profiles unable to be cleaned.
         type: string
+      dismissedBoardAnnouncements:
+        description: |
+           #1566: { [boardId]: version } of the board announcements this user
+           dismissed; an edited announcement has a new version and shows again.
+        type: object
       dismissedAnnouncementVersion:
         description: |
            version string of the global announcement the user has permanently
@@ -8489,6 +8602,12 @@ definitions:
         description: |
            icode
         type: string
+      boardViews:
+        description: |
+           #4906 / #4256: the view chosen on each board, { [boardId]: view }.
+           A board without its own entry uses profile.boardView (the choice
+           every board shared before), then the board's default view.
+        type: object
       boardView:
         description: |
            boardView field of the user
