@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bcdd7f3f1c">Correct Wu tracking and link translations</a>. Thanks to xet7.</summary>
+
+Correct eighteen Wu time-tracking, shortcut, watching and link values. Preserve
+variables, shortcut ranges, opposite label actions and link-disable conditions.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8077105cbd">Correct Wu shortcuts and starred-item translations</a>. Thanks to xet7.</summary>
 
 Correct twenty-five Wu shortcut, threshold and starred-item values. Preserve
