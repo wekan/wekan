@@ -8301,6 +8301,15 @@ due-date and label help. Technical wording remains low confidence pending speake
 review. Focused tests cover key order, tokens, syntax markers and balanced inline
 code; browser checks were not run.
 
+## Tatar search logic and export-label corrections
+
+Corrected 19 search-help and label values, including the literal Arial font name.
+Preserved OR/AND distinctions, negation and descending-sort syntax, positive page
+limits and the archived-card exclusion default. Restored literal query examples
+and retained valid neighboring text. Technical wording remains low confidence
+pending speaker review. Focused tests cover tokens, key order, query examples and
+search logic; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
