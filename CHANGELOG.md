@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9df171db32">Translate Arabic-script Uzbek and Kashmiri warnings and correct three Uzbek labels</a>. Thanks to xet7.</summary>
+
+Preserve address variables and ROOT_URL in two warnings, and replace Latin-script
+text in three Arabic-script Uzbek labels. Warning coverage includes 197 paths;
+warning, placeholder and correction-ledger suites and all 21 preservation checks
+pass. These translations have lower confidence and need native review. Ten English
+warning paths and the wider translation backlog remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7acb9ad77f">Translate Tibetan, Dzongkha and Tigrinya sign-in warnings</a>. Thanks to xet7.</summary>
 
 Preserve repeated address variables and ROOT_URL in three warnings, with separate
