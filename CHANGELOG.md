@@ -1055,6 +1055,18 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/fe18e6aaeb">Translate Yiddish Scrum imports and observations</a>. Thanks to xet7.</summary>
+
+Translate 35 English Scrum import, observation and partial-report messages.
+Preserve counters and references; check observation limits, unknown estimates,
+duplicate prevention and unchanged foreign-board cards. Three focused translation
+suites and 21 human-preference checks pass. Specialized wording is lower confidence
+and needs native review. No browser or screen-reader session was run. Remaining
+translation work is unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b51991d93b">Translate Yiddish sprint planning and reports</a>. Thanks to xet7.</summary>
 
 Translate 45 English Scrum planning, release and reporting messages. Preserve
