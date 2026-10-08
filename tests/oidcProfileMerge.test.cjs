@@ -66,8 +66,15 @@ function buildHook(env) {
         }
       },
       users: {
-        removeAsync: async selector => {
-          removed.push(selector);
+        // The merge must remove the account WITHOUT the hooks: Users.after.remove
+        // is the account-deletion cleanup (tests/mergedUserKeepsBoards.test.cjs).
+        removeAsync: async () => {
+          throw new Error('a merged account was removed through the deletion hooks');
+        },
+        direct: {
+          removeAsync: async selector => {
+            removed.push(selector);
+          },
         },
       },
       setTimeout: () => {},

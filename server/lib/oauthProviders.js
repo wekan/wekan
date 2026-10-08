@@ -250,8 +250,12 @@ export async function onCreateProviderUser(options, user, provider) {
   if (decision === 'merge') {
     existingUser.authenticationMethod = provider.key;
   }
-  await Meteor.users.removeAsync({ _id: user._id });
-  await Meteor.users.removeAsync({ _id: existingUser._id });
+  // Meteor inserts the returned existingUser again, under the same _id. Remove
+  // it without the hooks: Users.after.remove is the account-deletion cleanup,
+  // and it would take this user off every board, card and team just before
+  // the account comes back, so a merged login lost all of its boards.
+  await Meteor.users.direct.removeAsync({ _id: user._id });
+  await Meteor.users.direct.removeAsync({ _id: existingUser._id });
   return { user: existingUser, existing: true };
 }
 
