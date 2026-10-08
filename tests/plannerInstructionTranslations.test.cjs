@@ -534,3 +534,28 @@ for (const code of ['ro', 'ro-RO']) {
   assert.match(locale['import-board-instruction-superproductivity'], /sarcinile arhivate devin carduri arhivate/);
   assert.match(locale['import-board-instruction-meistertask'], /sarcinile finalizate își păstrează data finalizării/);
 }
+
+{
+  const locale = read('hu');
+  const literals = {...importLiterals, ...newerImportLiterals,
+    planner: ['Microsoft Planner', 'Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By'],
+    meistertask: ['MeisterTask', 'Export project', 'CSV']};
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), key);
+    for (const value of values) assert.ok(locale[key].includes(value), key + ': ' + value);
+  }
+  for (const format of ['nullboard', 'kanri']) {
+    assert.match(locale['import-board-instruction-' + format], /csak az első tábla kerül importálásra/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /minden tábla importálásra kerül/);
+  }
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /mellékletek nem kerülnek importálásra/);
+  assert.match(locale['import-board-instruction-notion'], /kapcsolatok, képek és mellékletek nem kerülnek importálásra/);
+  assert.match(locale['import-board-instruction-plane'], /nem tartalmaz leírásokat vagy mellékleteket.*nem kerülnek importálásra/);
+  assert.match(locale['import-board-instruction-businessmap'], /előbb nevezze át a fejlécsor mezőit angolra/);
+  assert.match(locale['import-board-instruction-redmine'], /exportálás előtt.*English.*My account/);
+  assert.match(locale['import-board-instruction-teamwork'], /egy szinttel mélyebbet/);
+  assert.match(locale['import-board-instruction-superproductivity'], /archivált feladatokból archivált kártyák lesznek/);
+  assert.match(locale['import-board-instruction-meistertask'], /befejezett feladatok megőrzik a befejezés dátumát/);
+}
