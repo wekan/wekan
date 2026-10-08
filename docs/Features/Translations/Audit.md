@@ -7661,6 +7661,15 @@ Technical wording remains low confidence pending speaker review. Script checks a
 are not a language audit. Browser checks were not run; further mixed-language entries
 and English placeholders remain in this locale.
 
+### Tatar loop and editing controls
+
+Filled 33 English placeholders for loops, conditions, copy/cut and deletion actions.
+Existing translations and source placeholders are preserved. Regression checks cover
+key order, token inventories, true/false loop conditions, loop-only restrictions,
+variable references and count parameters. Technical wording remains low confidence
+pending speaker review. Browser checks were not run. Further Tatar mixed-language
+corrections and English placeholders remain; the broader audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
