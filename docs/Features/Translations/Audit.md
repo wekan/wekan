@@ -7555,6 +7555,16 @@ operations, number polarity, rounding directions and exclusive random-fraction b
 Technical wording remains low confidence pending speaker review. Browser, screen-reader
 and right-to-left layout checks were not run. The broader translation audit continues.
 
+### Central Kurdish logarithms and trigonometry
+
+Filled 34 English placeholders for mathematical functions, accessible trigonometric
+labels, workspace movement and typed variables. Existing translations, standard
+mathematical symbols and source tokens are preserved. Regression checks cover key
+order, script, token inventories, logarithm bases, direct/inverse functions and degree
+rather than radian units. Technical wording remains low confidence pending speaker
+review. Browser, screen-reader and right-to-left layout checks were not run. The
+broader translation audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
