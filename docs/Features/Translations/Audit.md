@@ -8417,6 +8417,15 @@ values remain. Technical wording remains low confidence pending speaker review.
 Focused tests cover key order, tokens and status distinctions; browser checks
 were not run.
 
+## Tatar upload validation and custom-translation corrections
+
+Corrected 21 wrong-language upload, workspace and custom-translation values.
+Preserved byte units, the workspace placeholder, PDF/Mongo/ISO 8601 identifiers,
+and irreversible deletion wording. Existing valid account labels remain.
+Technical wording remains low confidence pending speaker review. Focused tests
+cover key order, source tokens, units and validation distinctions; browser checks
+were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
