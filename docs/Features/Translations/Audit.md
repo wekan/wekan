@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Somali planning import regressions — 2026-10-08
+
+Translate 20 new Scrum import and Sync planning messages. Update the Scrum
+inventory from 111 to 127 while retaining per-key prose and token checks.
+Preserve non-duplication, unchanged foreign-board cards, matching priority
+and first-sync protection of planning. Extend both suites for these meanings.
+Full wording follows existing terminology and remains low-confidence pending
+fluent review. No browser or screen-reader session was run; four failures
+from the latest broad run remain to repair.
+
 ## Tok Pisin planning import regressions — 2026-10-08
 
 Translate 20 new Scrum import and Sync planning messages. Update the Scrum

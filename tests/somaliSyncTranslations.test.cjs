@@ -50,3 +50,8 @@ test('Somali estimate mapping distinguishes missing values from explicit null an
   for(const key of ['sync-original-time','sync-remaining-time']) assert.match(data[key],/\(saacado\)/);
   assert.notEqual(data['sync-original-time'],data['sync-remaining-time']);
 });
+
+test('Somali planning Sync preserves matching priority and existing plans',()=>{
+ assert.match(data['sync-planning-hint'],/aqoonsiga ID ee isha, ka dibna magaca/);
+ assert.match(data['sync-planning-hint'],/koowaad marna ma tirtirto qorshaynta/);
+});
