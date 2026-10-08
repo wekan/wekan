@@ -164491,5 +164491,173 @@
     "before": "搬自",
     "after": "从搿搭移来",
     "reason": "2026-10-08: Correct Wu rule fragments, preserving movement, completion and relative-date meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-archived",
+    "before": "移至存档",
+    "after": "移到归档里向仔",
+    "reason": "2026-10-08: Correct Wu rule conditions, preserving set-or-change alternatives and opposite checklist actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-unarchived",
+    "before": "从存档中恢复",
+    "after": "从归档里向恢复仔",
+    "reason": "2026-10-08: Correct Wu rule conditions, preserving set-or-change alternatives and opposite checklist actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-a-card",
+    "before": "一张卡",
+    "after": "一张卡片",
+    "reason": "2026-10-08: Correct Wu rule conditions, preserving set-or-change alternatives and opposite checklist actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-when-a-member",
+    "before": "当会员是",
+    "after": "当一位成员",
+    "reason": "2026-10-08: Correct Wu rule conditions, preserving set-or-change alternatives and opposite checklist actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-when-the-member",
+    "before": "当会员",
+    "after": "当搿位成员",
+    "reason": "2026-10-08: Correct Wu rule conditions, preserving set-or-change alternatives and opposite checklist actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-when-a-assignee",
+    "before": "受让人是",
+    "after": "当一位负责人",
+    "reason": "2026-10-08: Correct Wu rule conditions, preserving set-or-change alternatives and opposite checklist actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-when-the-assignee",
+    "before": "受让人",
+    "after": "当搿位负责人",
+    "reason": "2026-10-08: Correct Wu rule conditions, preserving set-or-change alternatives and opposite checklist actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-name",
+    "before": "姓名",
+    "after": "名字",
+    "reason": "2026-10-08: Correct Wu rule conditions, preserving set-or-change alternatives and opposite checklist actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-when-a-card-title-or-description-contains",
+    "before": "当卡片标题或描述包含",
+    "after": "当卡片个标题或者描述包含",
+    "reason": "2026-10-08: Correct Wu rule conditions, preserving set-or-change alternatives and opposite checklist actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-when-a-due-date-changed",
+    "before": "到期的: 日脚改脱勒哉",
+    "after": "当截止日期设定或者修改个辰光",
+    "reason": "2026-10-08: Correct Wu rule conditions, preserving set-or-change alternatives and opposite checklist actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-when-a-start-date-changed",
+    "before": "开始: 日脚改脱勒哉",
+    "after": "当开始日期设定或者修改个辰光",
+    "reason": "2026-10-08: Correct Wu rule conditions, preserving set-or-change alternatives and opposite checklist actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-when-a-end-date-changed",
+    "before": "结尾: 日脚改脱勒哉",
+    "after": "当结束日期设定或者修改个辰光",
+    "reason": "2026-10-08: Correct Wu rule conditions, preserving set-or-change alternatives and opposite checklist actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-when-a-received-date-changed",
+    "before": "已收到: 日脚改脱勒哉",
+    "after": "当接收日期设定或者修改个辰光",
+    "reason": "2026-10-08: Correct Wu rule conditions, preserving set-or-change alternatives and opposite checklist actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-completed",
+    "before": "完全的",
+    "after": "完成仔",
+    "reason": "2026-10-08: Correct Wu rule conditions, preserving set-or-change alternatives and opposite checklist actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-made-incomplete",
+    "before": "制作不完整",
+    "after": "改成还朆完成",
+    "reason": "2026-10-08: Correct Wu rule conditions, preserving set-or-change alternatives and opposite checklist actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-checked",
+    "before": "已检查",
+    "after": "勾选仔",
+    "reason": "2026-10-08: Correct Wu rule conditions, preserving set-or-change alternatives and opposite checklist actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-unchecked",
+    "before": "未选中",
+    "after": "取消勾选仔",
+    "reason": "2026-10-08: Correct Wu rule conditions, preserving set-or-change alternatives and opposite checklist actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-move-card-to",
+    "before": "将卡移至",
+    "after": "拿卡片移到",
+    "reason": "2026-10-08: Correct Wu rule conditions, preserving set-or-change alternatives and opposite checklist actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-its-list",
+    "before": "它的清单",
+    "after": "伊所属个列表",
+    "reason": "2026-10-08: Correct Wu rule conditions, preserving set-or-change alternatives and opposite checklist actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-archive",
+    "before": "移至存档",
+    "after": "移到归档里向",
+    "reason": "2026-10-08: Correct Wu rule conditions, preserving set-or-change alternatives and opposite checklist actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-unarchive",
+    "before": "从存档恢复",
+    "after": "从归档里向恢复",
+    "reason": "2026-10-08: Correct Wu rule conditions, preserving set-or-change alternatives and opposite checklist actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-remove",
+    "before": "消除",
+    "after": "移脱",
+    "reason": "2026-10-08: Correct Wu rule conditions, preserving set-or-change alternatives and opposite checklist actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-add-actinguser-member",
+    "before": "拿激发个规则个用户添加做成员",
+    "after": "拿触发搿条规则个用户加做成员",
+    "reason": "2026-10-08: Correct Wu rule conditions, preserving set-or-change alternatives and opposite checklist actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-remove-all",
+    "before": "从卡中删除所有成员",
+    "after": "从卡片浪移脱所有成员",
+    "reason": "2026-10-08: Correct Wu rule conditions, preserving set-or-change alternatives and opposite checklist actions; lower-confidence prose needs native review."
   }
 ]

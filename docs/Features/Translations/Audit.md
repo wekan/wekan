@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu rule-condition corrections — 2026-10-08
+
+Correct 24 rule-condition and action fragments. Restore date-set as well as date-change
+triggers, completion/checking distinctions and the acting-user membership action.
+Preserve source tokens and all-member removal scope. Retain existing forward/backward
+movement wording. Refresh exact-value audit records. Wu prose needs native review;
+browser tests were not run and all-language work remains unfinished.
+
 ## Wu rule movement and completion corrections — 2026-10-08
 
 Correct 18 rule fragments. Replace emotional-movement and firearm-trigger meanings;
@@ -12699,7 +12707,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,499** exact before/after values, including unflagged
+records contain **23,523** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

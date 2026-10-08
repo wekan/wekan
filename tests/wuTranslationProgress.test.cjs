@@ -812,3 +812,15 @@ assert.match(wu['r-move-all-cards'], /所有卡片/);
 assert.match(wu['r-for-n-days'], /N 天/);
 assert.match(wu['r-set-date-relative'], /现在为基准/);
 assert.equal(wu['r-removed-from'], wu['r-attachment-removed-from']);
+
+const ruleConditions = ["r-archived", "r-unarchived", "r-a-card", "r-when-a-member", "r-when-the-member", "r-when-a-assignee", "r-when-the-assignee", "r-name", "r-when-a-card-title-or-description-contains", "r-when-a-due-date-changed", "r-when-a-start-date-changed", "r-when-a-end-date-changed", "r-when-a-received-date-changed", "r-completed", "r-made-incomplete", "r-checked", "r-unchecked", "r-move-card-to", "r-its-list", "r-archive", "r-unarchive", "r-remove", "r-add-actinguser-member", "r-remove-all"];
+for (const key of ruleConditions) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+for (const kind of ['due', 'start', 'end', 'received']) assert.match(wu['r-when-a-' + kind + '-date-changed'], /设定或者修改/);
+assert.match(wu['r-completed'], /完成仔/);
+assert.match(wu['r-made-incomplete'], /还朆完成/);
+assert.equal(wu['r-checked'], '勾选仔');
+assert.equal(wu['r-unchecked'], '取消勾选仔');
+assert.match(wu['r-add-actinguser-member'], /触发搿条规则个用户.*成员/);
+assert.match(wu['r-remove-all'], /卡片.*所有成员/);
+assert.doesNotMatch(wu['r-remove-all'], /删脱卡片/);
+assert.match(wu['r-unarchive'], /从归档.*恢复/);
