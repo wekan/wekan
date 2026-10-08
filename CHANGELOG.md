@@ -487,6 +487,16 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/76a45e9ce5">Complete current Wu Blockly translation fill list</a>. Thanks to xet7.</summary>
+
+Translate 32 workspace and alias messages. The full current Wu fill list has no
+Blockly entries. Four focused suites and 21 human-preference checks pass.
+Wu wording is lower confidence and needs native review. No browser or screen-reader
+session was run. Other strings and older Mandarin-like passages remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ea7eaa769d">Translate Wu Blockly text values and variables</a>. Thanks to xet7.</summary>
 
 Translate 35 text and variable messages, preserving placeholders and checking
