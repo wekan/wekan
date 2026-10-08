@@ -61,3 +61,11 @@ Subtask helper boards (titles wrapped in ^...^) are filtered out of All Boards,
 the board publications, Bigboard and the multi-board calendar by
 notHelperBoardTitle() (models/lib/helperBoards.js), tested by
 tests/helperBoards.test.cjs.
+
+## [#2043](https://github.com/wekan/wekan/issues/2043) Progress charts and work
+statistics for each board
+
+Board reports have ten charts - dashboard, burndown, burnup, cumulative flow,
+control chart, cycle time, flow efficiency, lead time, throughput and WIP run
+(client/components/boards/charts/, server/lib/boardChartData.js) - with PDF and
+Excel export (models/server/ExporterChartPDF.js, ExporterChartExcel.js).
