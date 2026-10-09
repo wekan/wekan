@@ -1,0 +1,10 @@
+{
+  "extends": "../.eslintrc",
+  "rules": {
+    "no-new": ["off"],
+    "max-len": ["off"],
+    "no-console": ["off"],
+    "no-underscore-dangle": ["off"],
+    "spaced-comment": ["off"]
+  }
+}

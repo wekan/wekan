@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Browserify</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
+  <script src="exceljs.min.js"></script>
+  <script>
+    function go() {
+      var wb = new ExcelJS.Workbook();
+      var ws = wb.addWorksheet('blort');
+
+      ws.getCell('A1').value = document.getElementById('A1').value;
+      ws.getCell('A2').value = document.getElementById('A2').value;
+
+      wb.xlsx.writeBuffer()
+        .then(function(buffer) {
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', '/api/upload');
+          xhr.onload = function(e) {
+            console.log(e);
+            if(xhr.status === 200) {
+              var wb2 = new ExcelJS.Workbook();
+              wb2.xlsx.load(xhr.response, {base64: true})
+                .then(function() {
+                  var ws2 = wb2.getWorksheet('blort');
+                  document.getElementById('A1').value = ws2.getCell('A1').value.toString();
+                  document.getElementById('A2').value = ws2.getCell('A2').value.toString();
+                });
+            }
+          };
+          xhr.send(buffer.toString('base64'));
+        });
+    }
+  </script>
+</head>
+<body>
+  <button onclick="go()">Go!</button><br />
+  A1: <input id="A1" type="text" title="A1" /><br />
+  A2: <input id="A2" type="text" title="A2" />
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "values": [
+    {
+      "richText": [
+        { "font": { "size": 11, "bold": true, "color": { "theme": 1}, "name": "Calibri", "family": 2, "scheme": "minor" }, "text": "Bold," },
+        { "font": { "size": 11, "color": { "theme": 1}, "name": "Calibri", "family": 2, "scheme": "minor" }, "text": " " },
+        { "font": { "size": 11, "italic": true, "color": { "theme": 1}, "name": "Calibri", "family": 2, "scheme": "minor" }, "text": "italic," },
+        { "font": { "size": 11, "color": { "theme": 1}, "name": "Calibri", "family": 2, "scheme": "minor" }, "text": " " },
+        { "font": { "size": 11, "underline": true, "color": { "theme": 1}, "name": "Calibri", "family": 2, "scheme": "minor" }, "text": "underline," },
+        { "font": { "size": 11, "color": { "theme": 1}, "name": "Calibri", "family": 2, "scheme": "minor" }, "text": " " },
+        { "font": { "size": 11, "color": { "argb": "FFFF0000"}, "name": "Calibri", "family": 2, "scheme": "minor" }, "text": "red," },
+        { "font": { "size": 11, "color": { "theme": 1}, "name": "Calibri", "family": 2, "scheme": "minor" }, "text": " " },
+        { "font": { "size": 11, "color": { "argb": "FF00B050"}, "name": "Calibri", "family": 2, "scheme": "minor" }, "text": "green," },
+        { "font": { "size": 11, "color": { "theme": 1}, "name": "Calibri", "family": 2, "scheme": "minor" }, "text": " " },
+        { "font": { "size": 11, "color": { "argb": "FF0070C0"}, "name": "Calibri", "family": 2, "scheme": "minor" }, "text": "blue" }
+      ]
+    },
+    "plain text",
+    {
+      "richText": [
+        { "text": "This " },
+        { "font": { "size": 11, "color": { "argb": "FF6C6C98"}, "name": "Calibri", "family": 2, "scheme": "minor" }, "text": "color" },
+        { "font": { "size": 11, "color": { "theme": 1}, "name": "Calibri", "family": 2, "scheme": "minor" }, "text": " is " },
+        { "font": { "size": 11, "color": { "argb": "FF009900"}, "name": "Calibri", "family": 2, "scheme": "minor" }, "text": "diff" },
+        { "font": { "size": 11, "color": { "theme": 1}, "name": "Calibri", "family": 2, "scheme": "minor" }, "text": "erent" }
+      ]
+    }
+  ],
+  "count": 3
+}

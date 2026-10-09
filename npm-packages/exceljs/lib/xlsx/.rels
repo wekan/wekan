@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+<%relationships.forEach(function(r) {%>
+    <Relationship
+            Id="<%=r.rId%>"
+            Type="<%=r.type%>"
+            Target="<%=r.target%>" <% if (r.targetMode) {%>
+            TargetMode="<%=r.targetMode%>"<%}%>
+    />
+<%});%>
+</Relationships>

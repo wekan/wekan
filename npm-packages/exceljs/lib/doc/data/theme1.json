@@ -1,0 +1,234 @@
+{
+  "TODO:": "This file is for analysis only. Not ready for release",
+  "name": "Office Theme",
+  "themeElements": {
+    "colorScheme": {
+      "name": "Office",
+      "dk1": { "type": "sys", "val": "windowText", "lastClr": "000000" },
+      "lt1": { "type": "sys", "val": "window", "lastClr": "FFFFFF" },
+      "dk2": { "type": "srgb", "val": "44546A" },
+      "lt2": { "type": "srgb", "val": "E7E6E6" },
+      "accent1": { "type": "srgb", "val": "5B9BD5" },
+      "accent2": { "type": "srgb", "val": "ED7D31" },
+      "accent3": { "type": "srgb", "val": "A5A5A5" },
+      "accent4": { "type": "srgb", "val": "FFC000" },
+      "accent5": { "type": "srgb", "val": "4472C4" },
+      "accent6": { "type": "srgb", "val": "70AD47" },
+      "hlink": { "type": "srgb", "val": "0563C1" },
+      "folHlink": { "type": "srgb", "val": "954F72" }
+    },
+    "fontScheme": {
+      "name": "Office",
+      "majorFont": {
+        "latin": { "typeface": "Calibri Light", "panose": "020F0302020204030204" },
+        "ea": { "typeface": "" },
+        "cs": { "typeface": "" },
+        "fonts": [
+          { "script": "Jpan", "typeface": "游ゴシック Light" },
+          { "script": "Hang", "typeface": "맑은 고딕" },
+          { "script": "Hans", "typeface": "等线 Light" },
+          { "script": "Hant", "typeface": "新細明體" },
+          { "script": "Arab", "typeface": "Times New Roman" },
+          { "script": "Hebr", "typeface": "Times New Roman" },
+          { "script": "Thai", "typeface": "Tahoma" },
+          { "script": "Ethi", "typeface": "Nyala" },
+          { "script": "Beng", "typeface": "Vrinda" },
+          { "script": "Gujr", "typeface": "Shruti" },
+          { "script": "Khmr", "typeface": "MoolBoran" },
+          { "script": "Knda", "typeface": "Tunga" },
+          { "script": "Guru", "typeface": "Raavi" },
+          { "script": "Cans", "typeface": "Euphemia" },
+          { "script": "Cher", "typeface": "Plantagenet Cherokee" },
+          { "script": "Yiii", "typeface": "Microsoft Yi Baiti" },
+          { "script": "Tibt", "typeface": "Microsoft Himalaya" },
+          { "script": "Thaa", "typeface": "MV Boli" },
+          { "script": "Deva", "typeface": "Mangal" },
+          { "script": "Telu", "typeface": "Gautami" },
+          { "script": "Taml", "typeface": "Latha" },
+          { "script": "Syrc", "typeface": "Estrangelo Edessa" },
+          { "script": "Orya", "typeface": "Kalinga" },
+          { "script": "Mlym", "typeface": "Kartika" },
+          { "script": "Laoo", "typeface": "DokChampa" },
+          { "script": "Sinh", "typeface": "Iskoola Pota" },
+          { "script": "Mong", "typeface": "Mongolian Baiti" },
+          { "script": "Viet", "typeface": "Times New Roman" },
+          { "script": "Uigh", "typeface": "Microsoft Uighur" },
+          { "script": "Geor", "typeface": "Sylfaen" }
+        ]
+      },
+      "minorFont": {
+        "latin": { "typeface": "Calibri Light", "panose": "020F0302020204030204" },
+        "ea": { "typeface": "" },
+        "cs": { "typeface": "" },
+        "fonts": [
+          { "script":"Jpan", "typeface": "游ゴシック" },
+          { "script":"Hang", "typeface": "맑은 고딕" },
+          { "script":"Hans", "typeface": "等线" },
+          { "script":"Hant", "typeface": "新細明體" },
+          { "script":"Arab", "typeface": "Arial" },
+          { "script":"Hebr", "typeface": "Arial" },
+          { "script":"Thai", "typeface": "Tahoma" },
+          { "script":"Ethi", "typeface": "Nyala" },
+          { "script":"Beng", "typeface": "Vrinda" },
+          { "script":"Gujr", "typeface": "Shruti" },
+          { "script":"Khmr", "typeface": "DaunPenh" },
+          { "script":"Knda", "typeface": "Tunga" },
+          { "script":"Guru", "typeface": "Raavi" },
+          { "script":"Cans", "typeface": "Euphemia" },
+          { "script":"Cher", "typeface": "Plantagenet Cherokee" },
+          { "script":"Yiii", "typeface": "Microsoft Yi Baiti" },
+          { "script":"Tibt", "typeface": "Microsoft Himalaya" },
+          { "script":"Thaa", "typeface": "MV Boli" },
+          { "script":"Deva", "typeface": "Mangal" },
+          { "script":"Telu", "typeface": "Gautami" },
+          { "script":"Taml", "typeface": "Latha" },
+          { "script":"Syrc", "typeface": "Estrangelo Edessa" },
+          { "script":"Orya", "typeface": "Kalinga" },
+          { "script":"Mlym", "typeface": "Kartika" },
+          { "script":"Laoo", "typeface": "DokChampa" },
+          { "script":"Sinh", "typeface": "Iskoola Pota" },
+          { "script":"Mong", "typeface": "Mongolian Baiti" },
+          { "script":"Viet", "typeface": "Arial" },
+          { "script":"Uigh", "typeface": "Microsoft Uighur" },
+          { "script":"Geor", "typeface": "Sylfaen" }
+        ]
+      }
+    },
+    "fmtScheme": {
+      "name": "Office",
+      "fillStyleLst": [
+        { "type": "solidFill", "val": "phClr" },
+        {
+          "type": "gradFill",
+          "rotWithShape": true,
+          "gsLst": [
+            { "pos":0,      "schemeClr": { "val": "phClr", "lumMod": 110000, "satMod": 105000, "tint": 67000 } },
+            { "pos":50000,  "schemeClr": { "val": "phClr", "lumMod": 105000, "satMod": 103000, "tint": 73000 } },
+            { "pos":100000, "schemeClr": { "val": "phClr", "lumMod": 105000, "satMod": 109000, "tint": 81000 } }
+          ],
+          "lin": { "ang": 5400000, "scaled": false }
+        },
+        {
+          "type": "gradFill",
+          "rotWithShape": true,
+          "gsLst": [
+            { "pos":0,      "schemeClr": { "val": "phClr", "satMod": 103000, "lumMod": 102000, "tint":  94000 } },
+            { "pos":50000,  "schemeClr": { "val": "phClr", "satMod": 110000, "lumMod": 100000, "shade": 100000 } },
+            { "pos":100000, "schemeClr": { "val": "phClr", "lumMod": 99000,  "satMod": 120000, "tint":  78000 } }
+          ],
+          "lin": { "ang": 5400000, "scaled": false }
+        }
+      ],
+      "lnStyleLst": [
+        {
+          "w": 6350, "cap": "flat", "cmpd": "sng", "algn": "ctr",
+          "solidFill": { "schemeClr": { "val": "phClr" } },
+          "prstDash": { "val": "solid" },
+          "miter": { "lim": 800000 }
+        },
+        {
+          "w": 12700, "cap": "flat", "cmpd": "sng", "algn": "ctr",
+          "solidFill": { "schemeClr": { "val": "phClr" } },
+          "prstDash": { "val": "solid" },
+          "miter": { "lim": 800000 }
+        },
+        {
+          "w": 19050, "cap": "flat", "cmpd": "sng", "algn": "ctr",
+          "solidFill": { "schemeClr": { "val": "phClr" } },
+          "prstDash": { "val": "solid" },
+          "miter": { "lim": 800000 }
+        }
+      ],
+      "effectStyleLst": [
+        { "effectLst": [] },
+        { "effectLst": [] },
+        {
+          "effectLst": [
+            {
+              "type": "outerShdw",
+              "blurRad": 57150, "dist": 19050, "dir": 5400000, "algn": "ctr", "rotWithShape": false,
+              "srgbClr": {
+                "val": "000000",
+                "alpha": {"val": 63000 }
+              }
+            }
+          ]
+        }
+      ],
+      "bgFillStyleLst": [
+        { "type": "solidFill", "schemeClr": { "val": "phClr" } },
+        { "type": "solidFill", "schemeClr": { "val": "phClr", "tint": 95000, "satMod": 170000 } },
+        {
+          "type": "gradFill",
+          "rotWithShape": true,
+          "gsLst": [
+            { "pos":0,      "schemeClr": { "val": "phClr", "tint": 93000, "satMod": 150000, "shade": 90000, "lumMod": 102000 } },
+            { "pos":50000,  "schemeClr": { "val": "phClr", "tint": 98000, "satMod": 130000, "shade": 73000, "lumMod": 103000 } },
+            { "pos":100000, "schemeClr": { "val": "phClr", "shade": 63000, "satMod": 120000 } }
+          ],
+          "lin": { "ang": 5400000, "scaled": false }
+        }
+      ]
+    }
+  },
+  "objectDefaults": {
+    "spDef": {
+      "spPr": {},
+      "bodyPr": {},
+      "lstStyle": {},
+      "style": {
+        "lnRef": {
+          "idx": 1,
+          "schemeClr": "accent1"
+        },
+        "effectRef": {
+          "idx": 2,
+          "schemeClr": "accent1"
+        },
+        "fillRef": {
+          "idx": 3,
+          "schemeClr": "accent1"
+        },
+        "fontRef": {
+          "idx": "minor",
+          "schemeClr": "lt1"
+        }
+      }
+    },
+    "lnDef": {
+      "spPr": {},
+      "bodyPr": {},
+      "lstStyle": {},
+      "style": {
+        "lnRef": {
+          "idx": 2,
+          "schemeClr": "accent1"
+        },
+        "effectRef": {
+          "idx": 0,
+          "schemeClr": "accent1"
+        },
+        "fillRef": {
+          "idx": 1,
+          "schemeClr": "accent1"
+        },
+        "fontRef": {
+          "idx": "minor",
+          "schemeClr": "tx1"
+        }
+      }
+    }
+  },
+  "extraClrSchemeLst": [],
+  "extLst": [
+    {
+      "uri": "{05A4C25C-085E-4340-85A3-A5531E510DB2}",
+      "themeFamily": {
+        "name": "Office Theme",
+        "id": "{62F939B6-93AF-4DB8-9C6B-D6C7DFDC589F}",
+        "vid": "{4A3C46E8-61CC-4603-A589-7422A47A8E4A}",
+        "thm15": "http://schemas.microsoft.com/office/thememl/2012/main"
+      }
+    }
+  ]
+}

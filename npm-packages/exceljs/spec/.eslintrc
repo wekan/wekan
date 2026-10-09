@@ -1,0 +1,23 @@
+{
+  "extends": "../.eslintrc",
+  "rules": {
+    "no-new": ["off"],
+    "max-len": ["off"],
+    "brace-style": ["off"],
+    "array-bracket-spacing": ["off"],
+    "no-sparse-arrays": ["off"],
+    "object-property-newline": ["off"],
+    "prefer-object-spread": ["off"],
+    "no-underscore-dangle": ["off"]
+  },
+  "globals": {
+    "verquire": true,
+    "describe": true,
+    "expect": true,
+    "before": true,
+    "after": true,
+    "beforeEach": true,
+    "afterEach": true,
+    "it": true
+  }
+}

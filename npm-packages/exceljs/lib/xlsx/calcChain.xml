@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<calcChain xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+    <% formulae.forEach(function(formula) { %>
+    <c r="<%=formula.address%>" i="<%=formula.i%>" <% if(formula.l) { %>l="<%=formula.l%>"<% } %>/>
+    <% }); %>
+</calcChain>

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="x14ac x16r2"
+            xmlns:x14ac="http://schemas.microsoft.com/office/spreadsheetml/2009/9/ac"
+            xmlns:x16r2="http://schemas.microsoft.com/office/spreadsheetml/2015/02/main">
+    <numFmts count="5">
+        <numFmt numFmtId="8" formatCode="&quot;£&quot;#,##0.00;[Red]-&quot;£&quot;#,##0.00"/>
+        <numFmt numFmtId="164" formatCode="d-mmm-yyyy"/>
+        <numFmt numFmtId="165" formatCode="[Green]#,##0 ;[Red](#,##0)"/>
+        <numFmt numFmtId="166" formatCode="#0.000"/>
+        <numFmt numFmtId="167" formatCode="# ?/?%"/>
+    </numFmts>
+    <fonts count="3" x14ac:knownFonts="1">
+        <font>
+            <color theme="1"/>
+            <family val="5"/>
+            <sz val="18"/>
+            <name val="Bauhaus 93"/>
+            <scheme val="minor"/>
+        </font>
+        <font>
+            <b/>
+            <u val="double"/>
+            <sz val="16"/>
+            <name val="Comic Sans MS"/>
+            <family val="4"/>
+        </font>
+        <font>
+            <i/>
+            <u/>
+            <sz val="14"/>
+            <name val="Arial Black"/>
+            <family val="2"/>
+        </font>
+    </fonts>
+    <fills count="6">
+        <fill>
+            <patternFill patternType="none"/>
+        </fill>
+        <fill>
+            <patternFill patternType="gray125"/>
+        </fill>
+        <fill>
+            <gradientFill>
+                <stop position="0">
+                    <color rgb="FF0000FF"/>
+                </stop>
+                <stop position="1">
+                    <color rgb="FFFFFFFF"/>
+                </stop>
+            </gradientFill>
+        </fill>
+        <fill>
+            <patternFill patternType="darkVertical">
+                <fgColor rgb="FFFF0000"/>
+            </patternFill>
+        </fill>
+        <fill>
+            <patternFill patternType="darkTrellis">
+                <fgColor rgb="FFFF0000"/>
+                <bgColor rgb="FF00FF00"/>
+            </patternFill>
+        </fill>
+        <fill>
+            <gradientFill type="path" left="0.5" right="0.5" top="0.5" bottom="0.5">
+                <stop position="0">
+                    <color rgb="FFFF0000"/>
+                </stop>
+                <stop position="0.5">
+                    <color rgb="FF00FF00"/>
+                </stop>
+                <stop position="1">
+                    <color rgb="FF0000FF"/>
+                </stop>
+            </gradientFill>
+        </fill>
+    </fills>
+    <borders count="4">
+        <border>
+            <left/>
+            <right/>
+            <top/>
+            <bottom/>
+            <diagonal/>
+        </border>
+        <border>
+            <left style="thin"/>
+            <right style="thin"/>
+            <top style="thin"/>
+            <bottom style="thin"/>
+            <diagonal/>
+        </border>
+        <border>
+            <left style="double">
+                <color rgb="FFFF0000"/>
+            </left>
+            <right style="double">
+                <color rgb="FFFF0000"/>
+            </right>
+            <top style="double">
+                <color rgb="FFFF0000"/>
+            </top>
+            <bottom style="double">
+                <color rgb="FFFF0000"/>
+            </bottom>
+            <diagonal/>
+        </border>
+        <border diagonalUp="1" diagonalDown="1">
+            <left style="double">
+                <color rgb="FF00FFFF"/>
+            </left>
+            <right style="double">
+                <color rgb="FFFF00FF"/>
+            </right>
+            <top style="double">
+                <color rgb="FFFF00FF"/>
+            </top>
+            <bottom style="double">
+                <color rgb="FF00FF00"/>
+            </bottom>
+            <diagonal style="double">
+                <color rgb="FFFFFF00"/>
+            </diagonal>
+        </border>
+    </borders>
+    <cellStyleXfs count="1">
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="0"/>
+    </cellStyleXfs>
+    <cellXfs count="40">
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>
+        <xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1" applyAlignment="1" applyProtection="1">
+            <alignment horizontal="center" vertical="center"/>
+            <protection locked="0" />
+        </xf>
+        <xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1" applyAlignment="1">
+            <alignment horizontal="center" vertical="center"/>
+        </xf>
+        <xf numFmtId="0" fontId="1" fillId="0" borderId="1" xfId="0" applyFont="1" applyBorder="1"/>
+        <xf numFmtId="8" fontId="2" fillId="0" borderId="0" xfId="0" applyNumberFormat="1" applyFont="1"/>
+        <xf numFmtId="164" fontId="1" fillId="0" borderId="2" xfId="0" applyNumberFormat="1" applyFont="1"
+            applyBorder="1"/>
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="3" xfId="0" applyBorder="1"/>
+        <xf numFmtId="14" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>
+        <xf numFmtId="12" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>
+        <xf numFmtId="21" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>
+        <xf numFmtId="10" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>
+        <xf numFmtId="165" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>
+        <xf numFmtId="166" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>
+        <xf numFmtId="167" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1">
+            <alignment horizontal="left" vertical="top"/>
+        </xf>
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1">
+            <alignment horizontal="center" vertical="center"/>
+        </xf>
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1">
+            <alignment horizontal="right"/>
+        </xf>
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1">
+            <alignment wrapText="1"/>
+        </xf>
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1">
+            <alignment indent="1"/>
+        </xf>
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1">
+            <alignment indent="2"/>
+        </xf>
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1">
+            <alignment horizontal="right" textRotation="15"/>
+        </xf>
+        <xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1" applyAlignment="1">
+            <alignment horizontal="right" textRotation="30"/>
+        </xf>
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1">
+            <alignment horizontal="right" textRotation="45"/>
+        </xf>
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1">
+            <alignment horizontal="right" textRotation="60"/>
+        </xf>
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1">
+            <alignment horizontal="right" textRotation="75"/>
+        </xf>
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1">
+            <alignment horizontal="right" textRotation="90"/>
+        </xf>
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1">
+            <alignment horizontal="right" textRotation="145"/>
+        </xf>
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1">
+            <alignment horizontal="right" textRotation="120"/>
+        </xf>
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1">
+            <alignment horizontal="right" textRotation="135"/>
+        </xf>
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1">
+            <alignment horizontal="right" textRotation="150"/>
+        </xf>
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1">
+            <alignment horizontal="right" textRotation="165"/>
+        </xf>
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1">
+            <alignment horizontal="right" textRotation="180"/>
+        </xf>
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1">
+            <alignment horizontal="right" textRotation="255"/>
+        </xf>
+        <xf numFmtId="0" fontId="0" fillId="2" borderId="0" xfId="0" applyFill="1"/>
+        <xf numFmtId="0" fontId="0" fillId="3" borderId="0" xfId="0" applyFill="1"/>
+        <xf numFmtId="0" fontId="0" fillId="4" borderId="0" xfId="0" applyFill="1"/>
+        <xf numFmtId="0" fontId="0" fillId="5" borderId="0" xfId="0" applyFill="1"/>
+        <xf numFmtId="0" fontId="2" fillId="0" borderId="0" xfId="0" applyFont="1"/>
+        <xf numFmtId="0" fontId="2" fillId="0" borderId="0" xfId="0" applyFont="1" applyAlignment="1">
+            <alignment horizontal="center" vertical="center"/>
+        </xf>
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1">
+            <alignment shrinkToFit="1"/>
+        </xf>
+    </cellXfs>
+    <cellStyles count="1">
+        <cellStyle name="Normal" xfId="0" builtinId="0"/>
+    </cellStyles>
+    <dxfs count="0"/>
+    <tableStyles count="0" defaultTableStyle="TableStyleMedium2" defaultPivotStyle="PivotStyleLight16"/>
+    <extLst>
+        <ext uri="{EB79DEF2-80B8-43e5-95BD-54CBDDF9020C}"
+             xmlns:x14="http://schemas.microsoft.com/office/spreadsheetml/2009/9/main">
+            <x14:slicerStyles defaultSlicerStyle="SlicerStyleLight1"/>
+        </ext>
+        <ext uri="{9260A510-F301-46a8-8635-F512D64BE5F5}"
+             xmlns:x15="http://schemas.microsoft.com/office/spreadsheetml/2010/11/main">
+            <x15:timelineStyles defaultTimelineStyle="TimeSlicerStyleLight1"/>
+        </ext>
+    </extLst>
+</styleSheet>

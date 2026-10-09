@@ -1,0 +1,493 @@
+
+TODO:
+
+On the way to the impossible we might find something eminently doable
+
+========================================================================================================================
+Tables
+sheet
+* add <tableParts>
+sheet.rels
+* add ref to ../../tables/table1.xml
+table1.xml
+* define the table
+Content_Types
+* add table1
+
+Notes:
+* in table1.xml, the tableColumns can define a dataDxfId (rel to styles.xml)
+  that specifies default format of new data
+* in table1.xml, the tableColumn name property must match the value in the
+  cell where the column header goes
+
+Table Properties:
+* ref: Top Left of table
+* name table.name
+* displayName: table.displayName
+* range - range of data cells (not including headers/footers)
+  => table.ref includes headers/footers
+  => autoFilter.ref includes headers only
+* headerRow - table.headerRowCount
+  * default: true, show/hide the headers
+* totalsRow - table.totalsRowShown="0" or table.totalsRowCount="1"
+  * default: false show/hide totals rows
+* columns - tableColumns[n]
+  * id - sequential number
+  * name - must correspond to top cell's value
+  * style -> dataDxfId
+    * inserts inline style into dxfs in styles.xml
+  * filterButton - autoFilter[n].hiddenButton="1"
+    * shows or hides the filter (default: true)
+  * totalsRowLabel - for column1
+  * totalsRowFunction - name of function, one of [none, count, etc]
+  * totalsRowFormula - if function is 'custom', a formula
+  * totalsRowResult - the value to show
+* style
+  * name - tableStyleInfo.name
+  * showFirstColumn - tableStyleInfo.showFirstColumn
+  * showLastColumn - tableStyleInfo.showLastColumn
+  * showRowStripes - tableStyleInfo.showRowStripes
+  * showColumnStripes - tableStyleInfo.showColumnStripes
+
+========================================================================================================================
+
+Page Setup
+
+Themes:
+  Not supported
+
+Margins
+    Inches?
+	<pageMargins left="0.25" right="0.25" top="0.75" bottom="0.75" header="0.3" footer="0.3"/>
+
+========================================================================================================================
+Page Setup
+    <pageSetup paperSize="9" orientation="portrait" horizontalDpi="4294967295" verticalDpi="4294967295" r:id="rId1"/>
+	<pageSetup paperSize="119" pageOrder="overThenDown" orientation="portrait" blackAndWhite="1"
+	    draft="1" cellComments="atEnd" errors="dash" horizontalDpi="4294967295" verticalDpi="4294967295" r:id="rId1"/>
+	<pageSetup paperSize="119" orientation="portrait" blackAndWhite="1" draft="1" cellComments="asDisplayed"
+	    errors="blank" horizontalDpi="4294967295" verticalDpi="4294967295" r:id="rId1"/>
+	<pageSetup paperSize="119" orientation="portrait" errors="NA" horizontalDpi="4294967295" verticalDpi="4294967295" r:id="rId1"/>
+	<pageSetup paperSize="119" scale="95" fitToWidth="2" fitToHeight="3" orientation="landscape" r:id="rId1"/>
+
+orientation: portrait, landscape
+pageOrder: overThenDown, downThenOver(*)
+blackAndWhite: true, false(*)
+draft: true, false(*)
+cellComments: atEnd, asDisplayed, (None)(*)
+errors: dash, blank, NA, displayed(*)
+scale: #
+fitToWidth: num pages wide
+fitToHeight: num pages high
+horizontalDpi: 4294967295 (-1?)
+verticalDpi: 4294967295
+
+How to determine between scale and fit to page(s)
+	<sheetPr>
+		<pageSetUpPr fitToPage="1"/>
+	</sheetPr>
+
+paperSize:
+| Letter (*)  |  -  |
+| Legal  |  5  |
+| Executive  |  7  |
+| A4  |  9  |
+| A5  |  11  |
+| B5 (JIS)  |  13  |
+| Envelope #10  |  20  |
+| Envelope DL  |  27  |
+| Envelope C5  |  28  |
+| Envelope B5  |  34  |
+| Envelope Monarch  |  37  |
+| Double Japan Postcard Rotated  |  82  |
+| 16K 197x273 mm  |  119  |
+
+
+========================================================================================================================
+Print Options:
+	<printOptions headings="1" gridLines="1"/>
+    <printOptions horizontalCentered="1" verticalCentered="1"/>
+
+headings: true, false(*)
+gridLines: true, false(*)
+horizontalCentered: true, false(*)
+verticalCentered: true, false(*)
+
+========================================================================================================================
+Print Area
+In workbook.xml
+	<definedNames>
+		<definedName name="_xlnm.Print_Area" localSheetId="0">Sheet1!$A$1:$C$11</definedName>
+	</definedNames>
+In app.xml ?
+	<TitlesOfParts>
+		<vt:vector size="2" baseType="lpstr">
+			<vt:lpstr>Sheet1</vt:lpstr>
+			<vt:lpstr>Sheet1!Print_Area</vt:lpstr>
+		</vt:vector>
+	</TitlesOfParts>
+
+Manual Page Breaks
+In sheet.xml
+	<rowBreaks count="2" manualBreakCount="2">
+		<brk id="5" max="16383" man="1"/>  // id="5" means underneath row 5 max & man??? is that a spelling error?
+		<brk id="7" max="16383" man="1"/>
+	</rowBreaks>
+	<colBreaks count="3" manualBreakCount="3">
+		<brk id="3" max="1048575" man="1"/>
+		<brk id="6" max="1048575" man="1"/>
+		<brk id="9" max="1048575" man="1"/>
+	</colBreaks>
+
+Background Image
+In sheet.xml
+    <picture r:id="rId2"/>
+In sheet.xml.rels
+	<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/image2.png"/>
+
+Print Titles (rows and columns repeated on each page)
+In workbook.xml
+		<definedName name="_xlnm.Print_Titles" localSheetId="0">Sheet1!$A:$B,Sheet1!$1:$2</definedName>
+
+
+========================================================================================================================
+Headers and Footers
+	<headerFooter>
+		<oddHeader>Page &amp;P</oddHeader>
+		<oddFooter>Page &amp;P</oddFooter>
+	</headerFooter>
+	<headerFooter>
+		<oddHeader>Page &amp;P of &amp;N</oddHeader>
+		<oddFooter>&amp;A</oddFooter>
+	</headerFooter>
+	<headerFooter differentOddEven="1" differentFirst="1">
+		<oddHeader>&amp;L&amp;B Confidential&amp;B&amp;C&amp;D&amp;RPage &amp;P</oddHeader>
+		<oddFooter>&amp;F</oddFooter>
+	</headerFooter>
+	<headerFooter>
+		<oddHeader>&amp;Z&amp;F</oddHeader>
+		<oddFooter>Prepared by Guyon Roche &amp;D&amp;RPage &amp;P</oddFooter>
+	</headerFooter>
+	<headerFooter differentOddEven="1" differentFirst="1">
+		<oddHeader>&amp;L&amp;"Algerian,Italic"&amp;14&amp;S&amp;U&amp;X&amp;K05+000Formatted&amp;C&amp;Z&amp;F</oddHeader>
+		<oddFooter>Prepared by Guyon Roche &amp;D&amp;RPage &amp;P</oddFooter>
+		<evenHeader>&amp;C&amp;T</evenHeader>
+		<firstHeader>&amp;L&amp;P of &amp;N&amp;C&amp;D &amp;T
+&amp;Z&amp;F
+&amp;F
+&amp;A</firstHeader>
+	</headerFooter>
+	<headerFooter differentOddEven="1" differentFirst="1">
+		<oddHeader>&amp;L&amp;"Algerian,Italic"&amp;14&amp;S&amp;U&amp;X&amp;K05+000Formatted&amp;C&amp;K008000Colour Wheel</oddHeader>
+		<oddFooter>Prepared by Guyon Roche &amp;D&amp;RPage &amp;P</oddFooter>
+		<evenHeader>&amp;C&amp;T</evenHeader>
+		<firstHeader>&amp;L&amp;KAFD680RGB&amp;C&amp;KFF0000Std Colour&amp;R&amp;K09+059Purple Accent 6 60%</firstHeader>
+	</headerFooter>
+oddHeader is default for where there are no differences
+evenHeader & firstHeader used with appropriate options
+
+Codes
+    &P - &[Page]  - Page#
+    &N - &[Pages] - Page Count
+    &A - &[Tab]   - Sheet #
+    &D - &[Date]  - Date
+    &F - &[File]  - Filename
+    &Z - &[Path]  - Path
+    &L - Align Left
+    &C - Align Centre
+    &R - Align Right
+    &B - Bold Toggle
+    &"Font Name"
+    &14 - font size
+    &S - strikethrough
+    &U - underline
+    &X - superscript
+    &K05+000  colour?
+    &KFF0000 RGB, no alpha
+
+&[Page]&[Pages]&[Date]&[Time]&[Path]&[File]&[File]&[Tab]
+&[Picture]
+========================================================================================================================
+
+sheet.pageSetup = {
+    // in sheet
+    margins: {
+        left: 0.25, right: 0.25, top: 0.75, bottom: 0.75, header: 0.3, footer: 0.3
+    },
+    orientation: ['portrait(*)', 'landscape'],
+    pageOrder: ['overThenDown', 'downThenOver(*)'],
+    blackAndWhite: [true,  false(*)],
+    draft: [true,  false(*)],
+    cellComments: ['atEnd', 'asDisplayed', 'None(*)'',
+    errors: ['dash', 'blank', 'NA', 'displayed(*)''],
+    scale: 90(*),
+    fitToWidth: 2,
+    fitToHeight: 3,
+    paperSize: 9,
+    showRowColHeaders: [true, false(*)],
+    showGridLines: [true, false(*)],
+    horizontalCentered: [true, false(*)],
+    verticalCentered: [true, false(*)],
+
+    rowBreaks: [5,7],
+    colBreaks: [3,6,9],
+
+    // phase 2
+    header: {
+        odd: {
+            left: '',
+            center: '&[Page] of &[Pages]',
+            right: '',
+            raw: '&C&P of &N' // raw supercedes the others
+        },
+        even: {},  first: {}
+    },
+    footer: {}, // as per header
+
+    // defined names - phase 3
+    printArea: 'A1:D11',
+    printTitles: {
+        rows: '1:2' || '$1:$2' || 1 || '$1',
+        columns: 'B:C' || '$B:$C' | 'A' || '$A'
+    }
+}
+
+
+
+========================================================================================================================
+https://github.com/guyonroche/exceljs/pull/114
+
+<si>
+ <t>(a japanese text in KANJI)</t>
+ <rPh sb="0" eb="1">
+  <t>(its pronounciation in KATAKANA)</t>
+ </rPh>
+</si>
+<si>
+   <t>役割</t>  <!-- role  in English -->
+   <rPh sb="0" eb="2">
+      <t>ヤクワリ</t> <!-- Japanese phonic symbol called Katakana of role -->
+   </rPh>
+   <phoneticPr fontId="1" />
+</si>
+
+  parseSharedStrings: function (stream) {
+    return new Bluebird(function(resolve, reject) {
+      var parser = Sax.createStream(true, {});
+      var t = null;
+      var sharedStrings = [];
+      var rph = false;
+      parser.on('opentag', function (node) {
+        if (!rph && node.name === 't') {
+          t = '';
+        }
+        if (node.name === 'rPh') {
+          rph = true;
+        }
+      });
+      parser.on('closetag', function (name) {
+        if ((t !== null) && (name === 't')) {
+          sharedStrings.push(t);
+          t = null;
+        }
+        if (name === 'rPh') {
+          rph = false;
+        }
+      });
+      parser.on('text', function (text) {
+        if (t !== null) {
+          t += text;
+        }
+      });
+
+      parser.on('end', function () {
+        resolve(sharedStrings);
+      });
+      parser.on('error', function (error) {
+        reject(error);
+      });
+      stream.pipe(parser);
+    });
+  },
+
+
+
+========================================================================================================================
+Comments
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<comments xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+	<authors>
+		<author>Author</author>
+	</authors>
+	<commentList>
+		<comment ref="A1" authorId="0" shapeId="0">
+			<text>
+				<r>
+					<rPr>
+						<b/>
+						<sz val="9"/>
+						<color indexed="81"/>
+						<rFont val="Tahoma"/>
+						<charset val="1"/>
+					</rPr><t>Author:</t>
+				</r><r>
+					<rPr>
+						<sz val="9"/>
+						<color indexed="81"/>
+						<rFont val="Tahoma"/>
+						<charset val="1"/>
+					</rPr><t xml:space="preserve">
+Is it me you're looking for</t>
+				</r>
+			</text>
+		</comment>
+	</commentList>
+</comments>
+
+========================================================================================================================
+Charts
+
+New contents: Chart as sheet
+
+[Content_Types].xml
+  chartsheets, charts, drawings, etc
+
+app.xml
+  HeadingPairs
+    Charts: 1
+  TitleOfParts
+    Chart sheet
+
+/xl/charts/*
+/xl/chartsheets/*
+/xl/drawings/
+
+========================================================================================================================
+Conditional Formatting
+
+cell.conditionalFormatting: {
+  ref: cell-range
+  rules: [
+    {
+      type: expression | cellIs | top10 | aboveAverage | dataBar | colorScale | iconSet | containsText | timePeriod | etc
+      dxfId: styleId
+      priority: a number - typically last first (and unique within sheet)
+
+      // expression
+      formula: 'the-formula'
+
+      // cellIs
+      operator: ''
+      formulae: [formula, ...]
+
+      // top10
+      percent: true | false(*)
+      bottom: true | false(*)
+      rank: 10 (or other number)
+
+      // aboveAverage (why is this not top10 50% ?)
+      aboveAverage: true(*) | false
+
+      // dataBar
+      cfvo: [CFVO, ...]
+      color: Colour
+      showValue: true(*) | false
+      gradient: true(*) | false
+      border: true | false(*)
+      borderColour: Colour
+      axisColor: Colour
+      negativeFillColor: Colour
+      negativeBorderColor: Colour
+      negativeBarColorSameAsPositive: true | false(*)
+      negativeBarBorderColorSameAsPositive: true | false(*)
+      minLength: 0(*)..maxLength
+      maxLength: minLength..100(*)
+      axisPosition: middle | none | undefined (auto)
+      direction: rightToLeft | undefined (lToR)
+
+      // colorScale
+      cfvo: [CFVO, ...] # 2 or 3
+      color: [Colour]
+
+      // iconSet
+      iconSet: IconSetEnum
+      cfvo: [CFVO, ...] # 2..5
+      reverse: true | false(*)
+      showValue: true(*) | false
+      custom: true | false(*)
+      cfIcon: [{iconSet: IconSetEnum, iconId: 0..N}, ...]
+
+      // containsText
+      operator: 'containsText'
+      text: 'the text'
+      formulae: [<an actual formula>]
+    }
+  ]
+}
+
+Notes:
+* Formulae based on cell values use the top-left addr as this gets translated
+* Some iconSet types are 'natively' supported: (assumed)
+* Some iconSet types require extLst:
+  * 3Triangles | 3Stars | 5Boxes
+* extLst XML appears similar to native except that attributes are often shifted to element texts
+
+// Conditional Formatting Value Object
+type CFVO {
+  type: min | max | percentile | num | percent | formula | autoMin | autoMax
+  val: N
+}
+
+Types:
+  expression: the formula returns true or false
+  cellIs:
+    operator: greaterThan | lessThan | equal | between
+    formulae: [compare value(s)]
+  top10:
+    percent: 1 | undefined (false)
+    bottom: 1 | undefined (false)
+    rank: N
+  aboveAverage:
+    aboveAverage: 0 | undefined (true)
+  dataBar:
+    dataBar:
+      cfvo: [CFVO]
+      color: rgb="argb" | theme="n"
+      showValue: 0 | undefined (true)
+      borderColor: Colour
+      negativeFillColor: Colour
+      negativeBorderColor?: Colour
+      negativeBarColorSameAsPositive: 0 | undefined (true)
+      negativeBarBorderColorSameAsPositive: 0 | undefined (true)
+      axisColor: Colour
+      gradient: 0 | undefined (true)
+      border: 1 | undefined (false)
+      minLength: 0
+      maxLength: 100
+      axisPosition: middle | none | undefined (auto)
+      direction: rightToLeft | undefined (lToR)
+      # solid fill requires the exeLst bit
+  colorScale:
+    cfvo: [CFVO] # 2 or 3
+    color: [rgb="argb"]
+  iconSet:
+    iconSet
+      iconSet:
+        3Arrows | 4Arrows | 5Arrows | 3ArrowsGray | 4ArrowsGray | 5ArrowsGray | 3Triangles |
+        3TrafficLights (*) | 3Signs | 4RedToBlack | 3TrafficLights2 | 4TrafficLights
+        3Symbols3 | 3Flags | Symbols2 |
+        5Quarters | 4Rating | 5Rating | 3Stars | 5Boxes
+      cfvo: [CFVO] # 2, 3, 4, 5 cfvo points
+      reverse: 1 | undefined (false)
+      showValue: 0 | undefined (true)
+      custom: 1 | undefined (false) # meaning mixed icons
+      cfIcon: [{iconSet: "name", iconId: 0..N}]
+    # 3Stars is only in extLst because the stars are proportionately filled?
+  containsText:
+    type: containsText | containsBlanks | notContainsBlanks | containsErrors | notContainsErrors
+    operator: containsText
+    text: "the text"
+    formulae: An actual true/false formula
+  timePeriod:
+    timePeriod: thisWeek | lastWeek | nextWeek | yesterday | today | tomorrow | last7Days | lastMonth | nextMonth
+    formulae: An actual true/false formula

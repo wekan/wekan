@@ -1,0 +1,49 @@
+{
+  "parserOptions": {
+    "sourceType": "script"
+  },
+  "extends": [
+    "airbnb-base",
+    "prettier",
+    "plugin:node/recommended"
+  ],
+  "env": {
+    "es6": true,
+    "mocha": true,
+    "node": true
+  },
+  "rules": {
+    "arrow-parens": ["error", "as-needed"],
+    "class-methods-use-this": ["off"],
+    "comma-dangle": ["error", {"arrays": "always-multiline", "objects": "always-multiline", "imports": "always-multiline", "exports": "always-multiline", "functions": "never"}],
+    "default-case": ["off"],
+    "func-names": ["off", "never"],
+    "global-require": ["off"],
+    "max-len": ["error", {"code": 120, "ignoreComments": true, "ignoreStrings": true}],
+    "no-console": ["error", { "allow": ["warn"] }],
+    "no-continue": ["off"],
+    "no-mixed-operators": ["error", {"allowSamePrecedence": true}],
+    "no-multi-assign": ["off"],
+    "no-param-reassign": ["off"],
+    "no-path-concat": ["off"],
+    "no-plusplus": ["off"],
+    "no-prototype-builtins": ["off"],
+    "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
+    "no-return-assign": ["off"],
+    "no-trailing-spaces": ["error", { "skipBlankLines": true }],
+    "no-underscore-dangle": ["off", { "allowAfterThis": true, "allowAfterSuper": true }],
+    "no-unused-vars": ["error", {"vars": "all", "args": "none", "ignoreRestSiblings": true}],
+    "no-use-before-define": ["error", { "variables": false, "classes": false, "functions": false }],
+    "node/no-unsupported-features/es-syntax": ["error", {"version": ">=10.0.0","ignores": []}],
+    "node/process-exit-as-throw": ["off"],
+    "object-curly-spacing": ["error", "never"],
+    "object-property-newline": ["off", { "allowMultiplePropertiesPerLine": true }],
+    "prefer-destructuring": ["warn", {"array": false, "object": true}],
+    "prefer-object-spread": ["off"],
+    "prefer-rest-params": ["off"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
+    "space-before-function-paren": ["error", {"anonymous": "never", "named": "never", "asyncArrow": "always"}],
+    "strict": ["off"]
+  }
+}

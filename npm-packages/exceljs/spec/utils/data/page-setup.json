@@ -1,0 +1,23 @@
+{
+  "margins": {"left": 0.7, "right": 0.7, "top": 0.75, "bottom": 0.75, "header": 0.3, "footer": 0.3 },
+  "firstPageNumber": 5,
+  "useFirstPageNumber": true,
+  "usePrinterDefaults": true,
+  "copies": 3,
+  "paperSize": 9,
+  "orientation":"landscape",
+  "horizontalDpi": 300,
+  "verticalDpi": 300,
+  "fitToPage": true,
+  "fitToHeight": 5,
+  "fitToWidth": 7,
+  "pageOrder": "overThenDown",
+  "scale": 90,
+  "blackAndWhite": true,
+  "cellComments": "atEnd",
+  "draft": true,
+  "errors": "dash",
+  "printArea": "A2:D10",
+  "printTitlesRow": "2:2",
+  "printTitlesColumn": "A:A"
+}

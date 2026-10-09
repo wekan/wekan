@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<table xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"
+       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="xr xr3"
+       xmlns:xr="http://schemas.microsoft.com/office/spreadsheetml/2014/revision"
+       xmlns:xr3="http://schemas.microsoft.com/office/spreadsheetml/2016/revision3"
+       id="1" name="TestTable" displayName="TestTable" ref="A1:C16"
+       totalsRowCount="1" headerRowCount="1">
+    <autoFilter ref="A1:C15">
+        <filterColumn colId="0" hiddenButton="0"/>
+        <filterColumn colId="1" hiddenButton="0"/>
+        <filterColumn colId="2" hiddenButton="1"/>
+    </autoFilter>
+    <tableColumns count="3">
+        <tableColumn id="1" name="Date" totalsRowLabel="Totally"/>
+        <tableColumn id="2" name="Id" totalsRowFunction="max"/>
+        <tableColumn id="3" name="Word" totalsRowFunction="none"/>
+    </tableColumns>
+    <tableStyleInfo
+            name="TableStyleDark3"
+            showFirstColumn="0"
+            showLastColumn="0"
+            showRowStripes="1"
+            showColumnStripes="0"/>
+</table>

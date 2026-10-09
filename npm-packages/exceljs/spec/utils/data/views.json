@@ -1,0 +1,43 @@
+{
+  "book": {
+    "visible": {
+      "x": 0, "y": 0, "width": 10000, "height": 20000,
+      "firstSheet": 0, "activeTab": 1, "visibility": "visible"
+    },
+    "hidden": {
+      "x": 1, "y": 2, "width": 10001, "height": 20002,
+      "firstSheet": 1, "activeTab": 1, "visibility": "hidden"
+    }
+  },
+  "sheet": {
+    "frozen":         {
+      "workbookViewId": 0,
+      "rightToLeft": false,
+      "state": "frozen",
+      "xSplit": 2,
+      "ySplit": 3,
+      "topLeftCell": "C4",
+      "activeCell": "D5",
+      "showRuler": true,
+      "showGridLines": true,
+      "showRowColHeaders": true,
+      "zoomScale": 100,
+      "zoomScaleNormal": 100
+    },
+    "split":         {
+      "workbookViewId": 1,
+      "rightToLeft": false,
+      "state": "split",
+      "xSplit": 2000,
+      "ySplit": 3000,
+      "topLeftCell": "C4",
+      "activeCell": "D5",
+      "activePane": "bottomRight",
+      "showRuler": true,
+      "showGridLines": true,
+      "showRowColHeaders": true,
+      "zoomScale": 100,
+      "zoomScaleNormal": 100
+    }
+  }
+}

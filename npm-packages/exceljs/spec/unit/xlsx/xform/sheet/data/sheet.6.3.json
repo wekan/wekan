@@ -1,0 +1,28 @@
+{
+  "dimensions": "A1:B1",
+  "properties": {"defaultRowHeight": 14.4, "dyDescent": 0.55, "outlineLevelRow": 2, "outlineLevelCol": 0},
+  "pageSetup": {
+    "fitToPage": false,
+    "margins": null
+  },
+  "autoFilter": "A1:B1",
+  "rows": [
+    {
+      "number": 1, "min": 1, "max": 2,
+      "cells": [
+        {"address": "A1", "type": 2, "value": 1},
+        {"address": "B1", "type": 2, "value": 2}
+      ]
+    }
+  ],
+  "background": null,
+  "mergeCells": null,
+  "dataValidations": null,
+  "drawing": null,
+  "headerFooter": null,
+  "cols": null,
+  "hyperlinks": null,
+  "views": null,
+  "tables": null,
+  "conditionalFormattings": []
+}

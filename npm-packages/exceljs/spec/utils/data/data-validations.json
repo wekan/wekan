@@ -1,0 +1,82 @@
+{
+  "B1": {
+    "type": "list",
+    "allowBlank": true,
+    "formulae": ["Nephews"]
+  },
+
+  "B3": {
+    "type": "list",
+    "allowBlank": true,
+    "showInputMessage": true,
+    "showErrorMessage": true,
+    "formulae": ["\"One,Two,Three,Four\""]
+  },
+
+  "B5": {
+    "type": "list",
+    "allowBlank": true,
+    "showInputMessage": true,
+    "showErrorMessage": true,
+    "formulae": ["$D$5:$F$5"]
+  },
+
+  "B13": {
+    "type": "whole",
+    "operator": "equal",
+    "allowBlank": true,
+    "showInputMessage": true,
+    "showErrorMessage": true,
+    "formulae": [5],
+    "promptTitle": "Five",
+    "prompt": "The value must be Five"
+  },
+
+  "E13": {
+    "type": "whole",
+    "operator": "notEqual",
+    "allowBlank": true,
+    "showInputMessage": true,
+    "showErrorMessage": true,
+    "formulae": [5],
+    "errorStyle": "error",
+    "errorTitle": "Five",
+    "error": "The value must not be Five"
+  },
+
+  "B15": {
+    "type": "whole",
+    "operator": "notEqual",
+    "formulae": [5]
+  },
+
+  "B17": {
+    "type": "decimal",
+    "allowBlank": true,
+    "showInputMessage": true,
+    "promptTitle": "Decimal",
+    "prompt": "Value must be a decimal"
+  },
+
+  "B19": {
+    "type": "any",
+    "showInputMessage": true,
+    "promptTitle": "Any",
+    "prompt": "You can put any value here"
+  },
+
+  "shared": {
+    "type": "whole",
+    "operator": "greaterThanOrEqual",
+    "formulae": [10]
+  },
+
+  "types": ["whole", "decimal", "date", "textLength"],
+  "values": {
+    "whole": { "v1": 1, "v2": 10 },
+    "decimal": { "v1": 1.5, "v2": 10.2 },
+    "date": { "v1": "2015-01-01T00:00:00.000Z", "v2": "2016-01-01T00:00:00.000Z"},
+    "textLength": { "v1": 5, "v2": 15 }
+  },
+  "operators": ["between", "notBetween", "equal", "notEqual", "greaterThan", "lessThan", "greaterThanOrEqual", "lessThanOrEqual"]
+}

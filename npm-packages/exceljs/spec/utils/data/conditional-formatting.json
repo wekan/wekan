@@ -1,0 +1,103 @@
+{
+    "expression": {
+        "ref": "A1:E7",
+        "rules": [
+            {
+                "type": "expression",
+                "formulae": [
+                    "MOD(ROW()+COLUMN(),2)=0"
+                ],
+                "style": {
+                    "fill": {
+                        "type": "pattern",
+                        "pattern": "solid",
+                        "bgColor": {
+                            "argb": "FF00FF00"
+                        }
+                    }
+                }
+            },
+            {
+                "type": "expression",
+                "priority": 2,
+                "formulae": [
+                    "TRUE"
+                ],
+                "style": {
+                    "fill": {
+                        "type": "pattern",
+                        "pattern": "solid",
+                        "bgColor": {
+                            "argb": "FFFF0000"
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    "top10": {
+        "ref": "A8:E15",
+        "rules": [
+            {
+                "type": "top10",
+                "percent": true,
+                "rank": 10,
+                "style": {
+                    "font": {
+                        "bold": true
+                    }
+                }
+            },
+            {
+                "type": "top10",
+                "percent": true,
+                "bottom": true,
+                "rank": 10,
+                "style": {
+                    "font": {
+                        "italic": true
+                    }
+                }
+            }
+        ]
+    },
+    "abbreviation": {
+        "ref": "A:A",
+        "rules": [
+            {
+                "type": "cellIs",
+                "operator": "between",
+                "formulae": [1000, 1000000],
+                "style": { "numFmt": "#,##0.000,\\K;-#,##0.000,\\K" }
+            },
+            {
+                "type": "cellIs",
+                "operator": "between",
+                "formulae": [-1000, -1000000],
+                "style": { "numFmt": "#,##0.000,\\K;-#,##0.000,\\K" }
+            },
+            {
+                "type": "cellIs",
+                "operator": "greaterThan",
+                "formulae": [1000000],
+                "style": { "numFmt": "#,##0.000,,\\M;-#,##0.000,,\\M" }
+            },
+            {
+                "type": "cellIs",
+                "operator": "lessThan",
+                "formulae": [-1000000],
+                "style": { "numFmt": "#,##0.000,,\\M;-#,##0.000,,\\M" }
+            }
+        ]
+    },
+    "types": [
+        "expression",
+        "cellIs",
+        "top10",
+        "aboveAverage",
+        "colorScale",
+        "iconSet",
+        "containsText",
+        "timePeriod"
+    ]
+}

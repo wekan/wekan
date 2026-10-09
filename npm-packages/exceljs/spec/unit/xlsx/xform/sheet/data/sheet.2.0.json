@@ -1,0 +1,50 @@
+{
+  "dimensions": "A1:C7",
+  "properties": {"defaultRowHeight": 14.4, "dyDescent": 0.55, "outlineLevelRow": 2},
+  "views": [{"state": "normal", "workbookViewId": 0}],
+  "pageSetup": {
+    "margins": {"left": 0.7, "right": 0.7, "top": 0.75, "bottom": 0.75, "header": 0.3, "footer":  0.3 }
+  },
+  "rows": [
+    {
+      "number": 1, "min": 1, "max": 3,
+      "cells": [
+        {"address": "A1", "type": 3, "value": "Name"},
+        {"address": "C1", "type": 3, "value": "Tom"}
+      ]
+    },
+    {
+      "number": 2, "min": 1, "max": 3, "outlineLevel": 1,
+      "cells": [
+        {"address": "C2", "type": 3, "value": "Dick"}
+      ]
+    },
+    {
+      "number": 3, "min": 1, "max": 3, "outlineLevel": 2, "collapsed": true,
+      "cells": [
+        {"address": "C3", "type": 3, "value": "Harry"}
+      ]
+    },
+    {
+      "number": 5, "min": 1, "max": 3,
+      "cells": [
+        {"address": "A5", "type": 3, "value": "Inline"}
+      ]
+    },
+    {
+      "number": 7, "min": 1, "max": 3,
+      "cells": [
+        {"address": "A7", "type": 3, "value": "Between"},
+        {"address": "B7", "type": 2, "value": 5}
+      ]
+    }
+  ],
+  "dataValidations": {
+    "B1": { "type": "list", "allowBlank": true, "showInputMessage": true, "showErrorMessage": true, "formulae": ["$C$1:$C$3"]},
+    "B5": { "type": "list", "allowBlank": true, "showInputMessage": true, "showErrorMessage": true, "formulae": ["\"value 1, value 2, value 3\""]},
+    "B7": { "type": "whole", "allowBlank": true, "showInputMessage": true, "showErrorMessage": true, "operator": "between", "formulae": ["1", "10"]}
+  },
+  "media": [],
+  "tables": [],
+  "conditionalFormattings": []
+}

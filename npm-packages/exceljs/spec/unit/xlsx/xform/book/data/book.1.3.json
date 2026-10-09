@@ -1,0 +1,14 @@
+{
+  "views": [
+    {"visibility": "hidden", "x": 0, "y": 0, "width": 12000, "height": 24000}
+  ],
+  "sheets": [
+    {"name": "Visible", "id": 1, "rId": "rId1", "state": "visible"},
+    {"name": "Hidden", "id": 2, "rId": "rId2", "state": "hidden"},
+    {"name": "VeryHidden", "id": 3, "rId": "rId3", "state": "veryHidden"}
+  ],
+  "properties": {
+  	"date1904": true
+  },
+  "calcProperties": {}
+}

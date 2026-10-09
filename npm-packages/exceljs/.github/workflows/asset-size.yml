@@ -1,0 +1,19 @@
+name: Asset size
+
+on: [pull_request]
+
+jobs:
+  compare:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: chrysanthos/simple-asset-size-reporter@1.0.2
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          files: '["dist/*.js"]'
+          with-same: "false"
+          build-assets: "npm run install-build"

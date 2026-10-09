@@ -1,0 +1,92 @@
+{
+  "numFmts": [
+    {"id": 8, "formatCode": "\"£\"#,##0.00;[Red]-\"£\"#,##0.00"},
+    {"id": 164, "formatCode": "d-mmm-yyyy"},
+    {"id": 165, "formatCode": "[Green]#,##0 ;[Red](#,##0)"},
+    {"id": 166, "formatCode": "#0.000"},
+    {"id": 167, "formatCode": "# ?/?%"}
+  ],
+  "fonts": [
+    {"size": 18, "color": {"theme":1}, "name": "Bauhaus 93", "family": 5, "scheme": "minor"},
+    {"bold": true, "underline": "double", "size": 16, "name": "Comic Sans MS", "family": 4},
+    {"italic": true, "underline":  true, "size": 14, "name": "Arial Black", "family": 2}
+  ],
+  "fills": [
+    {"type": "pattern", "pattern": "none"},
+    {"type": "pattern", "pattern": "gray125"},
+    {"type": "gradient",
+      "stops": [
+        {"position":0, "color":{"argb":"FF0000FF"}},
+        {"position":1, "color":{"argb":"FFFFFFFF"}}
+      ]
+    },
+    {"type": "pattern", "pattern":"darkVertical", "fgColor":{"argb":"FFFF0000"}},
+    {"type": "pattern", "pattern":"darkTrellis", "fgColor":{"argb":"FFFF0000"}, "bgColor":{"argb":"FF00FF00"}},
+    {"type": "gradient", "gradient": "path", "center":{"left":0.5,"top":0.5},
+      "stops": [
+        {"position":0, "color":{"argb":"FFFF0000"}},
+        {"position":0.5, "color":{"argb":"FF00FF00"}},
+        {"position":1, "color":{"argb":"FF0000FF"}}
+      ]
+    }
+  ],
+  "borders": [
+    {},
+    {"left": {"style": "thin"},"right": {"style": "thin"},"top": {"style": "thin"},"bottom": {"style": "thin"}},
+    {
+      "left": { "color": {"argb":"FFFF0000"}, "style": "double" },
+      "right": { "color": {"argb":"FFFF0000"}, "style": "double" },
+      "top": { "color": {"argb":"FFFF0000"}, "style": "double" },
+      "bottom": { "color": {"argb":"FFFF0000"}, "style": "double" }
+    },
+    {
+      "left": { "color": {"argb":"FF00FFFF"}, "style": "double" },
+      "right": { "color": {"argb":"FFFF00FF"}, "style": "double" },
+      "top": { "color": {"argb":"FFFF00FF"}, "style": "double" },
+      "bottom": { "color": {"argb":"FF00FF00"}, "style": "double" },
+      "diagonal": { "up": true, "down": true, "color": {"argb":"FFFFFF00"}, "style": "double" }
+    }
+  ],
+  "styles": [
+    {"numFmtId": 0, "fontId": 0, "fillId": 0, "borderId": 0, "xfId": 0},
+    {"numFmtId": 0, "fontId": 1, "fillId": 0, "borderId": 0, "alignment": {"horizontal": "center", "vertical": "middle"}, "protection": {"locked": false, "hidden": false} ,"xfId": 0},
+    {"numFmtId": 0, "fontId": 1, "fillId": 0, "borderId": 0, "alignment": {"horizontal": "center", "vertical": "middle"}, "xfId": 0},
+    {"numFmtId": 0, "fontId": 1, "fillId": 0, "borderId": 1, "xfId": 0},
+    {"numFmtId": 8, "fontId": 2, "fillId": 0, "borderId": 0, "xfId": 0},
+    {"numFmtId": 164, "fontId": 1, "fillId": 0, "borderId": 2, "xfId": 0},
+    {"numFmtId": 0, "fontId": 0, "fillId": 0, "borderId": 3, "xfId": 0},
+    {"numFmtId": 14, "fontId": 0, "fillId": 0, "borderId": 0, "xfId": 0},
+    {"numFmtId": 12, "fontId": 0, "fillId": 0, "borderId": 0, "xfId": 0},
+    {"numFmtId": 21, "fontId": 0, "fillId": 0, "borderId": 0, "xfId": 0},
+    {"numFmtId": 10, "fontId": 0, "fillId": 0, "borderId": 0, "xfId": 0},
+    {"numFmtId": 165, "fontId": 0, "fillId": 0, "borderId": 0, "xfId": 0},
+    {"numFmtId": 166, "fontId": 0, "fillId": 0, "borderId": 0, "xfId": 0},
+    {"numFmtId": 167, "fontId": 0, "fillId": 0, "borderId": 0, "xfId": 0},
+    {"numFmtId": 0, "fontId": 0, "fillId": 0, "borderId": 0, "alignment": {"horizontal": "left", "vertical": "top"}, "xfId": 0},
+    {"numFmtId": 0, "fontId": 0, "fillId": 0, "borderId": 0, "alignment": {"horizontal": "center", "vertical": "middle"}, "xfId": 0},
+    {"numFmtId": 0, "fontId": 0, "fillId": 0, "borderId": 0, "alignment": {"horizontal": "right"}, "xfId": 0},
+    {"numFmtId": 0, "fontId": 0, "fillId": 0, "borderId": 0, "alignment": {"wrapText": true}, "xfId": 0},
+    {"numFmtId": 0, "fontId": 0, "fillId": 0, "borderId": 0, "alignment": {"indent": 1}, "xfId": 0},
+    {"numFmtId": 0, "fontId": 0, "fillId": 0, "borderId": 0, "alignment": {"indent": 2}, "xfId": 0},
+    {"numFmtId": 0, "fontId": 0, "fillId": 0, "borderId": 0, "alignment": {"horizontal": "right", "textRotation": 15}, "xfId": 0},
+    {"numFmtId": 0, "fontId": 1, "fillId": 0, "borderId": 0, "alignment": {"horizontal": "right", "textRotation": 30}, "xfId": 0},
+    {"numFmtId": 0, "fontId": 0, "fillId": 0, "borderId": 0, "alignment": {"horizontal": "right", "textRotation": 45}, "xfId": 0},
+    {"numFmtId": 0, "fontId": 0, "fillId": 0, "borderId": 0, "alignment": {"horizontal": "right", "textRotation": 60}, "xfId": 0},
+    {"numFmtId": 0, "fontId": 0, "fillId": 0, "borderId": 0, "alignment": {"horizontal": "right", "textRotation": 75}, "xfId": 0},
+    {"numFmtId": 0, "fontId": 0, "fillId": 0, "borderId": 0, "alignment": {"horizontal": "right", "textRotation": 90}, "xfId": 0},
+    {"numFmtId": 0, "fontId": 0, "fillId": 0, "borderId": 0, "alignment": {"horizontal": "right", "textRotation": -55}, "xfId": 0},
+    {"numFmtId": 0, "fontId": 0, "fillId": 0, "borderId": 0, "alignment": {"horizontal": "right", "textRotation": -30}, "xfId": 0},
+    {"numFmtId": 0, "fontId": 0, "fillId": 0, "borderId": 0, "alignment": {"horizontal": "right", "textRotation": -45}, "xfId": 0},
+    {"numFmtId": 0, "fontId": 0, "fillId": 0, "borderId": 0, "alignment": {"horizontal": "right", "textRotation": -60}, "xfId": 0},
+    {"numFmtId": 0, "fontId": 0, "fillId": 0, "borderId": 0, "alignment": {"horizontal": "right", "textRotation": -75}, "xfId": 0},
+    {"numFmtId": 0, "fontId": 0, "fillId": 0, "borderId": 0, "alignment": {"horizontal": "right", "textRotation": -90}, "xfId": 0},
+    {"numFmtId": 0, "fontId": 0, "fillId": 0, "borderId": 0, "alignment": {"horizontal": "right", "textRotation": "vertical"}, "xfId": 0},
+    {"numFmtId": 0, "fontId": 0, "fillId": 2, "borderId": 0, "xfId": 0},
+    {"numFmtId": 0, "fontId": 0, "fillId": 3, "borderId": 0, "xfId": 0},
+    {"numFmtId": 0, "fontId": 0, "fillId": 4, "borderId": 0, "xfId": 0},
+    {"numFmtId": 0, "fontId": 0, "fillId": 5, "borderId": 0, "xfId": 0},
+    {"numFmtId": 0, "fontId": 2, "fillId": 0, "borderId": 0, "xfId": 0},
+    {"numFmtId": 0, "fontId": 2, "fillId": 0, "borderId": 0, "alignment": {"horizontal": "center", "vertical": "middle"}, "xfId": 0},
+    {"numFmtId": 0, "fontId": 0, "fillId": 0, "borderId": 0, "alignment": {"shrinkToFit": true}, "xfId": 0}
+  ]
+}

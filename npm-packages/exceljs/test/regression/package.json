@@ -1,0 +1,29 @@
+{
+  "name": "exceljsRegressionTest",
+  "version": "0.2.9",
+  "description": "Test pack to compare against older versions of exceljs.",
+  "private": false,
+  "license": "MIT",
+  "author": {
+    "name": "Guyon Roche",
+    "email": "cyber.sapiens@hotmail.com",
+    "url": "https://github.com/guyonroche/exceljs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guyonroche/exceljs.git"
+  },
+  "keywords": [
+    "xlsx", "json", "csv", "excel", "font", "border", "fill", "number", "format", "number format", "alignment", "office", "spreadsheet", "workbook",
+    "defined names", "data validations", "rich text", "in-cell format"
+  ],
+  "dependencies": {
+    "exceljs": "^3.3.0"
+  },
+  "devDependencies": {
+    "jshint": "*",
+    "lodash": "*"
+  },
+  "scripts": {
+  }
+}

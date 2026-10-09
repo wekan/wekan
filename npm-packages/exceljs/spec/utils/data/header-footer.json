@@ -1,0 +1,10 @@
+{
+  "differentFirst": true,
+  "differentOddEven": true,
+  "firstHeader": "Hello Exceljs",
+  "firstFooter": "Hello World",
+  "oddHeader": "&C&KCCCCCC&\"Aril\"52 exceljs oddHeader",
+  "oddFooter": "&C&KCCCCCC&\"Aril\"52 exceljs oddFooter",
+  "evenHeader": "&C&KCCCCCC&\"Aril\"52 exceljs evenHeader",
+  "evenFooter": "&C&KCCCCCC&\"Aril\"52 exceljs evenFooter"
+}  

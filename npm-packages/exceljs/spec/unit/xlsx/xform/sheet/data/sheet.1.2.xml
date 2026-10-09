@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="x14ac" xmlns:x14ac="http://schemas.microsoft.com/office/spreadsheetml/2009/9/ac">
+    <dimension ref="A1:B6"/>
+    <sheetViews>
+        <sheetView workbookViewId="0"/>
+    </sheetViews>
+    <sheetFormatPr defaultRowHeight="15" x14ac:dyDescent="0.25"/>
+    <sheetPr>
+        <tabColor rgb="FF00FF00"/>
+        <pageSetUpPr fitToPage="1"/>
+    </sheetPr>
+    <cols>
+        <col min="2" max="2" width="10.15625" bestFit="1" customWidth="1"/>
+    </cols>
+    <sheetData>
+        <row r="1" spans="1:2" x14ac:dyDescent="0.25">
+            <c r="A1" t="s">
+                <v>0</v>
+            </c><c r="B1" t="s">
+            <v>1</v>
+        </c>
+        </row>
+        <row r="2" spans="1:2" x14ac:dyDescent="0.25">
+            <c r="A2" t="s">
+                <v>2</v>
+            </c><c r="B2">
+            <v>3.14</v>
+        </c>
+        </row>
+        <row r="3" spans="1:2" x14ac:dyDescent="0.25">
+            <c r="A3" t="s">
+                <v>3</v>
+            </c><c r="B3">
+            <v>5</v>
+        </c>
+        </row>
+        <row r="4" spans="1:2" x14ac:dyDescent="0.25">
+            <c r="A4" t="s">
+                <v>4</v>
+            </c><c r="B4" s="1">
+            <v>42507</v>
+        </c>
+        </row>
+        <row r="5" spans="1:2" x14ac:dyDescent="0.25">
+            <c r="A5" t="s">
+                <v>5</v>
+            </c><c r="B5" t="str">
+            <f>B1</f><v>I am Text</v>
+        </c>
+        </row>
+        <row r="6" spans="1:2" x14ac:dyDescent="0.25">
+            <c r="A6" t="s">
+                <v>6</v>
+            </c><c r="B6" s="2" t="s">
+            <v>7</v>
+        </c>
+        </row>
+    </sheetData>
+    <hyperlinks>
+        <hyperlink ref="B6" r:id="rId1"/>
+    </hyperlinks>
+    <printOptions horizontalCentered="1" verticalCentered="1" gridLines="1" headings="1" />
+    <pageMargins left="0.7" right="0.7" top="0.75" bottom="0.75" header="0.3" footer="0.3"/>
+    <pageSetup paperSize="9" pageOrder="overThenDown" orientation="landscape" horizontalDpi="300" verticalDpi="300"
+               firstPageNumber="5" useFirstPageNumber="1" usePrinterDefaults="1" copies="3"
+               fitToHeight="5" fitToWidth="7" scale="90" blackAndWhite="1" draft="1" cellComments="atEnd" errors="dash"/>
+    <headerFooter differentFirst="1" differentOddEven="1">
+        <oddHeader>&amp;C&amp;KCCCCCC&amp;&quot;Aril&quot;2 exceljs</oddHeader>
+        <oddFooter>&amp;Lexceljs&amp;C&amp;F&amp;RPage &amp;P</oddFooter>
+        <evenHeader>&amp;C&amp;KCCCCCC&amp;&quot;Aril&quot;3 exceljs evenHeader</evenHeader>
+        <evenFooter>&amp;Lexceljs&amp;C&amp;F&amp;RPage &amp;P evenHeader</evenFooter>
+        <firstHeader>Hello Exceljs</firstHeader>
+        <firstFooter>Hello World</firstFooter>
+    </headerFooter>           
+</worksheet>

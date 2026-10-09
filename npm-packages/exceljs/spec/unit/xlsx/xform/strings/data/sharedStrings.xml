@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sst xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" count="3" uniqueCount="3">
+    <si>
+        <r>
+            <rPr>
+                <b/>
+                <color theme="1"/>
+                <family val="2"/>
+                <scheme val="minor"/>
+                <sz val="11"/>
+                <rFont val="Calibri"/>
+            </rPr>
+            <t>Bold,</t>
+        </r>
+        <r>
+            <rPr>
+                <color theme="1"/>
+                <family val="2"/>
+                <scheme val="minor"/>
+                <sz val="11"/>
+                <rFont val="Calibri"/>
+            </rPr>
+            <t xml:space="preserve"> </t>
+        </r>
+        <r>
+            <rPr>
+                <i/>
+                <color theme="1"/>
+                <family val="2"/>
+                <scheme val="minor"/>
+                <sz val="11"/>
+                <rFont val="Calibri"/>
+            </rPr>
+            <t>italic,</t>
+        </r>
+        <r>
+            <rPr>
+                <color theme="1"/>
+                <family val="2"/>
+                <scheme val="minor"/>
+                <sz val="11"/>
+                <rFont val="Calibri"/>
+            </rPr>
+            <t xml:space="preserve"> </t>
+        </r>
+        <r>
+            <rPr>
+                <u/>
+                <color theme="1"/>
+                <family val="2"/>
+                <scheme val="minor"/>
+                <sz val="11"/>
+                <rFont val="Calibri"/>
+            </rPr>
+            <t>underline,</t>
+        </r>
+        <r>
+            <rPr>
+                <color theme="1"/>
+                <family val="2"/>
+                <scheme val="minor"/>
+                <sz val="11"/>
+                <rFont val="Calibri"/>
+            </rPr>
+            <t xml:space="preserve"> </t>
+        </r>
+        <r>
+            <rPr>
+                <color rgb="FFFF0000"/>
+                <family val="2"/>
+                <scheme val="minor"/>
+                <sz val="11"/>
+                <rFont val="Calibri"/>
+            </rPr>
+            <t>red,</t>
+        </r>
+        <r>
+            <rPr>
+                <color theme="1"/>
+                <family val="2"/>
+                <scheme val="minor"/>
+                <sz val="11"/>
+                <rFont val="Calibri"/>
+            </rPr>
+            <t xml:space="preserve"> </t>
+        </r>
+        <r>
+            <rPr>
+                <color rgb="FF00B050"/>
+                <family val="2"/>
+                <scheme val="minor"/>
+                <sz val="11"/>
+                <rFont val="Calibri"/>
+            </rPr>
+            <t>green,</t>
+        </r>
+        <r>
+            <rPr>
+                <color theme="1"/>
+                <family val="2"/>
+                <scheme val="minor"/>
+                <sz val="11"/>
+                <rFont val="Calibri"/>
+            </rPr>
+            <t xml:space="preserve"> </t>
+        </r>
+        <r>
+            <rPr>
+                <color rgb="FF0070C0"/>
+                <family val="2"/>
+                <scheme val="minor"/>
+                <sz val="11"/>
+                <rFont val="Calibri"/>
+            </rPr>
+            <t>blue</t>
+        </r>
+    </si>
+    <si>
+        <t>plain text</t>
+    </si>
+    <si>
+        <r>
+            <t xml:space="preserve">This </t>
+        </r>
+        <r>
+            <rPr>
+                <color rgb="FF6C6C98"/>
+                <family val="2"/>
+                <scheme val="minor"/>
+                <sz val="11"/>
+                <rFont val="Calibri"/>
+            </rPr>
+            <t>color</t>
+        </r>
+        <r>
+            <rPr>
+                <color theme="1"/>
+                <family val="2"/>
+                <scheme val="minor"/>
+                <sz val="11"/>
+                <rFont val="Calibri"/>
+            </rPr>
+            <t xml:space="preserve"> is </t>
+        </r>
+        <r>
+            <rPr>
+                <color rgb="FF009900"/>
+                <family val="2"/>
+                <scheme val="minor"/>
+                <sz val="11"/>
+                <rFont val="Calibri"/>
+            </rPr>
+            <t>diff</t>
+        </r>
+        <r>
+            <rPr>
+                <color theme="1"/>
+                <family val="2"/>
+                <scheme val="minor"/>
+                <sz val="11"/>
+                <rFont val="Calibri"/>
+            </rPr>
+            <t>erent</t>
+        </r>
+    </si>
+</sst>

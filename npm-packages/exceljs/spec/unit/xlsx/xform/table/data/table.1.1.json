@@ -1,0 +1,38 @@
+{
+  "id": 1,
+  "name": "TestTable",
+  "tableRef": "A1:C16",
+  "autoFilterRef": "A1:C15",
+  "totalsRow": true,
+  "headerRow": true,
+  "columns": [
+    {
+      "id": 1,
+      "colId": "0",
+      "filterButton": true,
+      "name": "Date",
+      "totalsRowLabel": "Totally"
+    },
+    {
+      "id": 2,
+      "colId": "1",
+      "filterButton": true,
+      "name": "Id",
+      "totalsRowFunction": "max"
+    },
+    {
+      "id": 3,
+      "colId": "2",
+      "filterButton": false,
+      "name": "Word",
+      "totalsRowFunction": "none"
+    }
+  ],
+  "style": {
+    "theme": "TableStyleDark3",
+    "showFirstColumn": false,
+    "showLastColumn": false,
+    "showRowStripes": true,
+    "showColumnStripes": false
+  }
+}

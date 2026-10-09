@@ -1,0 +1,94 @@
+{
+  "dimensions": "A1:B6",
+  "properties": {
+    "defaultRowHeight": 15, "dyDescent": 0.25,
+    "tabColor": {"argb": "FF00FF00"}
+  },
+  "views": [{"state": "normal", "workbookViewId": 0}],
+  "pageSetup": {
+    "margins": {"left": 0.7, "right": 0.7, "top": 0.75, "bottom": 0.75, "header": 0.3, "footer":  0.3 },
+    "firstPageNumber": 5, "useFirstPageNumber": true, "usePrinterDefaults": true, "copies": 3,
+    "paperSize": 9, "orientation":"landscape", "horizontalDpi": 300, "verticalDpi": 300,
+    "fitToPage": true, "fitToHeight": 5, "fitToWidth": 7, "pageOrder": "overThenDown", "scale": 90,
+    "blackAndWhite": true, "cellComments": "atEnd", "draft": true, "errors": "dash",
+    "horizontalCentered": true, "verticalCentered": true, "showGridLines": true, "showRowColHeaders": true
+  },
+  "cols": [{"min": 2, "max": 2, "width": 10.15625, "bestFit": true}],
+  "rows": [
+    {
+      "number": 1, "min": 1, "max": 2,
+      "cells": [
+        {"address": "A1", "type": 3, "value": "Text", "ssId": 0},
+        {"address": "B1", "type": 3, "value": "I am Text", "ssId": 1}
+      ]
+    },
+    {
+      "number": 2, "min": 1, "max": 2,
+      "cells": [
+        {"address": "A2", "type": 3, "value": "Number", "ssId": 2},
+        {"address": "B2", "type": 2, "value": 3.14}
+      ]
+    },
+    {
+      "number": 3, "min": 1, "max": 2,
+      "cells": [
+        {"address": "A3", "type": 3, "value": "Integer", "ssId": 3},
+        {"address": "B3", "type": 2, "value": 5}
+      ]
+    },
+    {
+      "number": 4, "min": 1, "max": 2,
+      "cells": [
+        {"address": "A4", "type": 3, "value": "Date", "ssId": 4},
+        {"address": "B4", "type": 4, "value": "2016-05-17T00:00:00.000Z", "styleId": 1}
+      ]
+    },
+    {
+      "number": 5, "min": 1, "max": 2,
+      "cells": [
+        {"address": "A5", "type": 3, "value": "Formula", "ssId": 5},
+        {"address": "B5", "type": 6, "formula": "B1", "result": "I am Text"}
+      ]
+    },
+    {
+      "number": 6, "min": 1, "max": 2,
+      "cells": [
+        {"address": "A6", "type": 3, "value": "Hyperlink", "ssId": 6},
+        {
+          "address": "B6", "type": 5, "hyperlink": "https://www.npmjs.com/package/exceljs", "text": "exceljs", "ssId": 7, "styleId": 2,
+          "style": {"font": {"underline": true, "size": 11, "color": {"theme":10}, "name": "Calibri", "family": 2, "scheme": "minor"} }
+        }
+      ]
+    }
+  ],
+  "mergeCells": [],
+  "hyperlinks": [
+    {
+      "address": "B6", "rId": "rId1",
+      "target": "https://www.npmjs.com/package/exceljs"
+    }
+  ],
+  "rels": [
+    {
+      "Id": "rId1",
+      "Target": "https://www.npmjs.com/package/exceljs",
+      "TargetMode": "External",
+      "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink"
+    }
+  ],
+  "comments": [],
+  "media": [],
+  "rowBreaks": [],
+  "tables": [],
+  "headerFooter": {
+    "oddHeader": "&C&KCCCCCC&\"Aril\"2 exceljs",
+    "oddFooter": "&Lexceljs&C&F&RPage &P",
+    "firstHeader": "Hello Exceljs",
+    "firstFooter": "Hello World",
+    "differentFirst": true,
+    "differentOddEven": true,
+    "evenHeader": "&C&KCCCCCC&\"Aril\"3 exceljs evenHeader",
+    "evenFooter": "&Lexceljs&C&F&RPage &P evenHeader"
+  },
+  "conditionalFormattings": []
+}

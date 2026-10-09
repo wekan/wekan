@@ -1,0 +1,10 @@
+{
+  "views": [
+    {"visibility": "hidden", "x": 0, "y": 0, "width": 12000, "height": 24000}
+  ],
+  "sheets": [
+    {"name": "Values", "id": 1, "rId": "rId1"}
+  ],
+  "properties": {},
+  "calcProperties": {}
+}

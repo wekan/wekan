@@ -1,0 +1,19 @@
+{
+  "dimensions": "A1:B1",
+  "properties": {"defaultRowHeight": 14.4, "dyDescent": 0.55, "outlineLevelRow": 2},
+  "autoFilter": "A1:B1",
+  "rows": [
+    {
+      "number": 1, "min": 1, "max": 2,
+      "cells": [
+        {"address": "A1", "type": 2, "value": 1},
+        {"address": "B1", "type": 2, "value": 2}
+      ]
+    }
+  ],
+  "comments": [],
+  "mergeCells": [],
+  "hyperlinks": [],
+  "tables": [],
+  "conditionalFormattings": []
+}

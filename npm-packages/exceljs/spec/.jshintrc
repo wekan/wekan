@@ -1,0 +1,10 @@
+{
+  "extends": "../.jshintrc",
+  "mocha": true,
+  "globals": {
+    "expect": true
+  },
+  "expr": true,
+  "elision": true,
+  "laxcomma": true
+}

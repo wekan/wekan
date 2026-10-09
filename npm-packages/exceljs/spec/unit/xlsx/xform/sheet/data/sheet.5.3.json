@@ -1,0 +1,27 @@
+{
+  "dimensions": "A1:B1",
+  "properties": {"defaultRowHeight": 14.4, "dyDescent": 0.55, "outlineLevelRow": 2, "outlineLevelCol": 0},
+  "pageSetup": {
+    "fitToPage": false,
+    "margins": null
+  },
+  "rows": [
+    {
+      "number": 1, "min": 1, "max": 3,
+      "cells": [
+        {"address": "A1", "type": 6, "shareType": "shared", "formula": "ROW()", "ref": "A1:B1", "result": 1, "si": "0"},
+        {"address": "B1", "type": 6, "shareType": "shared", "si": "0", "result": 1}
+      ]
+    }
+  ],
+  "background": null,
+  "mergeCells": null,
+  "dataValidations": null,
+  "drawing": null,
+  "headerFooter": null,
+  "cols": null,
+  "hyperlinks": null,
+  "views": null,
+  "tables": null,
+  "conditionalFormattings": []
+}
