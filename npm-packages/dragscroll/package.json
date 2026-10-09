@@ -1,0 +1,44 @@
+{
+  "name": "@wekanteam/dragscroll",
+  "description": "Tiny library for drag-n-drop scrolling style",
+  "version": "0.0.9",
+  "authors": "Dmitry Prokashev <heliosframework@gmail.com>",
+  "contributors": [
+    {
+      "name": "Martin Filser",
+      "url": "https://github.com/mfilser"
+    },
+    {
+      "name": "Lauri Ojansivu",
+      "url": "https://github.com/xet7"
+    }
+  ],
+  "keywords": [
+    "dragscroll",
+    "scroll",
+    "scrolling",
+    "mouse",
+    "hold",
+    "drag-n-drop",
+    "drag-and-drop",
+    "click-n-hold",
+    "click-and-hold",
+    "drag",
+    "viewport"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/wekan/dragscroll.git"
+  },
+  "browser": {
+    "fs": false,
+    "child_process": false
+  },
+  "main": "dragscroll.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}

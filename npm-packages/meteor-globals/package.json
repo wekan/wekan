@@ -1,0 +1,48 @@
+{
+  "name": "@wekanteam/meteor-globals",
+  "version": "1.1.6",
+  "description": "Allows getting meteor globals in npm packages",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wekan/meteor-globals.git"
+  },
+  "keywords": [
+    "meteor"
+  ],
+  "files": [
+    "dist"
+  ],
+  "ava": {
+    "files": [
+      "tests/index.js"
+    ],
+    "babel": {
+      "presets": [
+        "es2015",
+        "stage-0"
+      ]
+    },
+    "require": [
+      "babel-register",
+      "babel-polyfill"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ],
+    "plugins": [
+      "transform-async-to-generator"
+    ]
+  },
+  "author": "Max Nowack <max@unsou.de>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wekan/meteor-globals/issues"
+  },
+  "homepage": "https://github.com/wekan/meteor-globals#readme",
+  "dependencies": {
+    "semver": "^7.5.4"
+  }
+}

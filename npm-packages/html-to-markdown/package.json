@@ -1,0 +1,27 @@
+{
+  "name": "@wekanteam/html-to-markdown",
+  "version": "1.0.2",
+  "description": "html to markdown converter with zero dependencies",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "example": "node ./examples/index.js"
+  },
+  "keywords": [
+    "html-to-markdown",
+    "markdown"
+  ],
+  "author": "xet7",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wekan/html-to-markdown.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wekan/html-to-markdown/issues"
+  },
+  "homepage": "https://github.com/wekan/html-to-markdown#readme"
+}
