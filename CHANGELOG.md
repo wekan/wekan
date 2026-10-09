@@ -697,6 +697,45 @@ and exportallboards.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/73db241bd4">Every import asks who the file's people become: chosen users, placeholders or you</a>. Thanks to xet7.</summary>
+
+The import page asks once, for every source: pick an existing user for each
+person of the file, keep them as placeholder users that carry their own
+username and name and cannot log in, to map to real users later, or make them
+all the person importing. Every importer reads the same choice. The tools
+imported through the generalized importer used to drop people nobody mapped;
+they now get placeholders too, and their people are offered for mapping as
+the server's parser reads them. A WeKan .zip imported as a new board streams
+its attachments into storage instead of holding them in memory, held only to
+the Admin Panel's upload limit.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/86652c8718">CSV, TSV and Excel imports ask which column is which, and read WeKan's own Excel export</a>. Thanks to xet7.</summary>
+
+Before importing, the page shows each card field with the file's column for
+it, pre-filled from the header names in any language, and asks for what is
+missing: a file with no list column gets one named list instead of one list
+per row. Owner, swimlane, received date, parent card, spent time and archived
+are applied. A workbook is read sheet by sheet with its header found where
+WeKan's export puts it, so WeKan's own Excel export imports, and a workbook
+with a board per sheet imports as many boards.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c80a656901">One description of every import source, one file chooser and one way to read a file</a>. Thanks to xet7.</summary>
+
+models/lib/importSources.js describes each source once - its files, whether
+it can be pasted, what its file is sent as and which importer makes the
+board - and the import page, Import many boards and the tests of api.py read
+it. The page's branch per source and its four file choosers became one path
+and one chooser, so every source can be chosen as a file, not only pasted.
+
+</details>
+
 and fixes the following bugs:
 
 **Import and export** - faults found while documenting every format.
@@ -720,6 +759,28 @@ a list with capitals. The HTML export read the board JSON link off the export
 popup, which no longer has it, and stopped there. The Tasks.org export left
 out time spent, and a Nextcloud Deck card marked done through its API lost
 that. Each is pinned by tests/importExportCodeFixes.test.cjs.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/594867bab7">Kanboard task links import as parent cards and dependencies; GitHub comments as comments</a>. Thanks to xet7.</summary>
+
+Kanboard links were only reported as losses. Child and parent links now make
+the parent card, and blocks, duplicates, fixes and relates to make
+dependencies, the two rows Kanboard stores for one link becoming one; the
+export writes them back. GitHub, Gitea and Forgejo embedded comments went into
+the card description and now become card comments with their author and date.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/73db241bd4">The Jira, Todoist and Planner import instructions name the current API and menus</a>. Thanks to xet7.</summary>
+
+Jira's issue search is now GET /rest/api/3/search/jql with fields=*all, paged
+by nextPageToken; Todoist exports with Manage data > Export as CSV; Planner
+with Export as Excel. The endpoint is updated in every locale, as a code
+literal; the rest of the translated texts still name the old menus until
+they are translated again.
 
 </details>
 
