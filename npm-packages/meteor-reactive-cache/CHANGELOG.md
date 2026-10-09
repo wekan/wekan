@@ -1,5 +1,14 @@
 # ChangeLog
 
+# v1.0.9 2026-10-10 meteor-reactive-cache release
+
+This release adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/meteor-reactive-cache/commit/20d9fe9ea8b538e8e6a7010b4dbc503828931677).
+  Thanks to developers of dependencies.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v1.0.8 2026-02-19 meteor-reactive-cache release
 
 This release adds the following updates:
