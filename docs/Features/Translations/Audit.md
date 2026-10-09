@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Xhosa diagnostics and notification failures — 2026-10-09
+
+Translate 35 messages in xh for sync diagnostics, Jira estimates, planning and
+notification failures. Tests retain missing-versus-null behavior, field matching,
+planning restrictions, report access and notification retry warnings. Both targeted
+suites and all 21 preservation checks pass. Specialized wording remains low
+confidence pending speaker review. Browser execution and remaining translations
+are outstanding.
+
 ## Xhosa sync reports and omissions — 2026-10-09
 
 Translate 24 messages in xh for omitted fields, source comparisons and recent

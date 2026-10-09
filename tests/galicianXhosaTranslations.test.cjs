@@ -229,6 +229,43 @@ for (const locale of Object.values(locales)) {
   "sync-report-unfinished",
   "sync-report-failed"
 ]);
+  keys.push(...[
+  "sync-report-completed",
+  "sync-report-completed-with-warnings",
+  "sync-report-skipped",
+  "sync-report-review-only",
+  "sync-report-unavailable",
+  "sync-report-empty",
+  "sync-recovery-heading",
+  "sync-recovery-description",
+  "sync-recovery-unavailable",
+  "sync-recovery-all",
+  "sync-estimate-field",
+  "sync-estimate-field-hint",
+  "email-failure-smtp-temporary",
+  "email-failure-smtp-rejected",
+  "email-failure-smtp-authentication",
+  "email-failure-smtp-configuration",
+  "email-failure-recipient-unavailable",
+  "email-failure-delivery-unconfirmed",
+  "email-failure-acknowledgement-failed",
+  "email-failure-delivery-failed",
+  "email-failure-retry-limit",
+  "sync-original-time",
+  "sync-remaining-time",
+  "sync-time-estimate-hint",
+  "sync-planning-sprint",
+  "sync-planning-releases",
+  "sync-planning-fields",
+  "sync-planning-hint",
+  "activity-recovery-heading",
+  "activity-recovery-description",
+  "activity-recovery-empty",
+  "activity-recovery-unavailable",
+  "activity-recovery-retry",
+  "activity-recovery-retrying",
+  "activity-recovery-status-pending"
+]);
   for (const key of keys) {
     assert.notEqual(locale[key], source[key], key);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), key);
@@ -290,6 +327,21 @@ for (const locale of Object.values(locales)) {
   assert.match(locale['sync-report-failed'], /kusenokubakho utshintsho/);
   assert.equal(locale['sync-preview-unmapped'], locale['sync-source-unmapped']);
   assert.equal(locale['sync-preview-excluded'], locale['sync-source-excluded']);
+  assert.match(locale['sync-recovery-description'], /30.*ID/);
+  assert.match(locale['sync-recovery-description'], /azikwazi ukuqhubeka.*ukurhoxisa/);
+  assert.match(locale['sync-report-unavailable'], /imvume yokubhala kulo lonke uluhlu/);
+  for (const key of ['sync-estimate-field-hint', 'sync-time-estimate-hint']) {
+    assert.match(locale[key], /Jira/);
+    assert.match(locale[key], /angekhoyo.*awahoywa/);
+    assert.match(locale[key], /null.*licima/);
+  }
+  assert.match(locale['sync-time-estimate-hint'], /enye kuphela/);
+  assert.match(locale['sync-planning-hint'], /kuphela.*Scrum.*ivuliwe/);
+  assert.match(locale['sync-planning-hint'], /kuqala nge-ID.*emva koko.*ngegama/);
+  assert.match(locale['sync-planning-hint'], /lokuqala aluze lususe/);
+  assert.match(locale['activity-recovery-description'], /akuze kudale umsebenzi kwakhona/);
+  assert.match(locale['email-failure-delivery-unconfirmed'], /phonononga phambi/);
+  assert.notEqual(locale['email-failure-smtp-temporary'], locale['email-failure-smtp-rejected']);
   const error = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
   assert.ok(error.includes('E_LDAP'));
   assert.ok(!error.includes('%s'));
