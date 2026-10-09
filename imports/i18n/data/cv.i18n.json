@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Хӑмара 'Menu', унтан 'Export board' патне кайса тиесе антарнӑ файлри текста копилӗр.",
   "import-board-instruction-about-errors": "Хӑмана импортланӑ чухне йӑнӑшсем тухсан та импорт хӑш чухне ӗҫлет, тата хӑма Пур хӑма страницинче пулать.",
   "import-without-mapping-members": "Хутшӑнакансене ҫыхӑнтармасӑр импортлас (кайран ҫыхӑнтарас)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Тӗрӗс JSON информацине кунта вырнаҫтарӑр",
   "import-csv-placeholder": "Тӗрӗс CSV/TSV информацине кунта вырнаҫтарӑр",
   "import-json-file": "Е Trello JSON файлне суйлӑр",

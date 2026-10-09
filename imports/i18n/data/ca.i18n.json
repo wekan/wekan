@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Al vostre tauler, aneu a \"Menú\", després a \"Exporta el tauler\" i copieu el text al fitxer descarregat.",
   "import-board-instruction-about-errors": "Si obteniu errors en importar el tauler, de vegades la importació encara funciona, i el tauler es troba a la pàgina Tots els taulers.",
   "import-without-mapping-members": "Importa sense mapar membres (mapa'ls més tard)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Aferra codi JSON vàlid aquí",
   "import-csv-placeholder": "Enganxeu aquí les vostres dades CSV/TSV vàlides",
   "import-json-file": "O seleccioneu un fitxer JSON de Trello",

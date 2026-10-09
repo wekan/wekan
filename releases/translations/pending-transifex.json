@@ -1103,6 +1103,50 @@
     {
       "key": "r-import-wrike-workflow-done",
       "since": "2026-10-09"
+    },
+    {
+      "key": "import-many-boards",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "import-many-boards-hint",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "import-one-board-per-project",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "import-one-board-per-project-hint",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "import-many-progress",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "import-many-results-heading",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "import-many-imported",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "export-all-boards",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "export-selected-boards",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "export-all-boards-hint",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "exportAllBoardsPopup-title",
+      "since": "2026-10-09"
     }
   ]
 }

@@ -116,7 +116,7 @@ async function main() {
     assert.equal(EXTERNAL_PARSERS.ticktick, parseTickTickCsv);
     assert.equal(formatters.ticktick, formatTickTickCsv);
     assert.match(read('models/import.js'), /case 'ticktick':\s*\/\/[^\n]*\n\s*check\(board, String\);\s*try \{\s*importedBoard = EXTERNAL_PARSERS\.ticktick\(importedBoard\);/);
-    assert.match(read('models/export.js'), /ticktick: 'text\/csv'/);
+    assert.match(read('server/lib/renderExternalExport.js'), /ticktick: 'text\/csv'/);
     const page = read('client/components/import/import.js');
     assert.match(page, /\{ key: 'ticktick', name: 'TickTick' \}/);
     assert.match(page, /dataSource === 'ticktick'/);

@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Di papan Anda, buka 'Menu', lalu 'Ekspor papan', dan salin teks di file yang diunduh.",
   "import-board-instruction-about-errors": "Jika Anda mendapatkan kesalahan saat mengimpor papan, terkadang impor tetap berhasil, dan papan ada di halaman Semua Papan.",
   "import-without-mapping-members": "Impor tanpa memetakan anggota (petakan nanti)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Tempelkan data JSON yang sah disini",
   "import-csv-placeholder": "Tempelkan data CSV/TSV yang valid di sini",
   "import-json-file": "Atau pilih file JSON Trello",

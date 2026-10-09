@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "En tu tablero, vete a 'Menú', luego 'Exportar tablero', y copia el texto en el archivo descargado.",
   "import-board-instruction-about-errors": "Aunque obtengas errores cuando importes el tablero, a veces la importación funciona igualmente, y el tablero se encontrará en la página de tableros.",
   "import-without-mapping-members": "Importar sin asignar miembros (asignar más tarde)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Pegá tus datos JSON válidos acá",
   "import-csv-placeholder": "Pega tus datos CSV/TSV válidos aquí",
   "import-json-file": "O selecciona un archivo JSON de Trello",

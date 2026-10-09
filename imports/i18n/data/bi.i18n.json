@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Long bod blong yu, go long 'Menu', afta 'Export board', mo kopiem teks long fael we yu daonlodem.",
   "import-board-instruction-about-errors": "Sapos yu kasem ol era taem yu importem bod, samtaem import i wok yet, mo bod i stap long pej blong Olgeta Bod.",
   "import-without-mapping-members": "Karem i kam we i no gat mapping ol memba (map later)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Paste blong yu valid JSON data here",
   "import-csv-placeholder": "Paste blong yu valid CSV/TSV data here",
   "import-json-file": "Or jusum wan Trello JSON fael",

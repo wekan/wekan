@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "No teu taboleiro, vai a 'Menú', despois a 'Exportar taboleiro', e copia o texto do ficheiro descargado.",
   "import-board-instruction-about-errors": "Se recibes erros ao importar o taboleiro, ás veces a importación funciona igualmente e o taboleiro está na páxina Todos os taboleiros.",
   "import-without-mapping-members": "Importar sen asignar membros (asignar máis tarde)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Pega aquí os teus datos JSON válidos",
   "import-csv-placeholder": "Pega aquí os teus datos CSV/TSV válidos",
   "import-json-file": "Ou selecciona un ficheiro JSON de Trello",

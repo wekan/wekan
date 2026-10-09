@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Ilisarnaatini 'Menu'-mut, taava 'Export board'-imut ingerlaarit, filimilu aaneqarsimasumi allagaq kopieruk.",
   "import-board-instruction-about-errors": "Ilisarnaammik eqqussinermi kukkunerit takukkit, eqqussineq ilaannikkut suli iluatsissinnaavoq ilisarnaallu Ilisarnaatit tamarmik qupperneranniilluni.",
   "import-without-mapping-members": "Ilaasortat atassusernagit eqquguk (kingusinnerusukkut atassuserikkit)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "JSON-imi paasissutissat atuuttut maanga ikkukkit",
   "import-csv-placeholder": "CSV/TSV-mi paasissutissat atuuttut maanga ikkukkit",
   "import-json-file": "Immaqa Trello JSON-fil toqqaruk",

@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "E alluwal maa, yahu to 'Menu', rewtu 'Export board', kisa natto binndol nder fiilde aawtaande ndee.",
   "import-board-instruction-about-errors": "So a heɓii juume nde naatnataa alluwal, sahaaji naatnugol ngol ina golla tawo, tee alluwal ngal woni e hello Alluuje fof.",
   "import-without-mapping-members": "Naatnu tawa terɗe njokkaaka (jokku caggal)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Ɗakku keɓe JSON maa moƴƴe ɗoo",
   "import-csv-placeholder": "Ɗakku keɓe CSV/TSV maa moƴƴe ɗoo",
   "import-json-file": "Walla suɓo fiilde JSON Trello",

@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Mana távvalis 'Menu', de 'Export board', ja máŋge teavstta vižžojuvvon fiillas.",
   "import-board-instruction-about-errors": "Jos távvala sisafievrrideamis bohtet meattáhusat, sisafievrrideapmi sáhttá liikká lihkostuvvat ja távval lea Buot távvalat -siiddus.",
   "import-without-mapping-members": "Sisafievrrit lahtuid čatnama haga (čana maŋŋelis)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Liibme gustojeaddji JSON-dáhtat deike",
   "import-csv-placeholder": "Liibme gustojeaddji CSV/TSV-dáhtat deike",
   "import-json-file": "Dahje vállje Trello JSON-fiilla",

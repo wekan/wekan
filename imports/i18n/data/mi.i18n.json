@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "I tō papa, haere ki 'Menu', kātahi ki 'Export board', ā, tāruatia te kuputuhi i te kōnae i tikiakehia.",
   "import-board-instruction-about-errors": "Ki te puta he hapa i te kawemai papa, i ētahi wā ka mahi tonu te kawemai, ā, kei te whārangi Ngā Papa Katoa te papa.",
   "import-without-mapping-members": "Kawemai me te kore e mahere mema (mahere ā muri ake)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Whakapiri i ō raraunga JSON whaimana ki konei",
   "import-csv-placeholder": "Whakapiri i ō raraunga CSV/TSV whaimana ki konei",
   "import-json-file": "Tīpakohia rānei he kōnae JSON Trello",

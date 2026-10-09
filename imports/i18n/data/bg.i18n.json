@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "В таблото си отворете „Меню“, след това „Експортиране на табло“ и копирайте текста от изтегления файл.",
   "import-board-instruction-about-errors": "Ако получите грешки при импортиране на табло, понякога импортът все пак е успешен и таблото се намира на страницата с всички табла.",
   "import-without-mapping-members": "Импортирай без съпоставяне на членове (съпоставете по-късно)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Копирайте валидната Ви JSON информация тук",
   "import-csv-placeholder": "Поставете тук валидните си CSV/TSV данни",
   "import-json-file": "Или изберете Trello JSON файл",

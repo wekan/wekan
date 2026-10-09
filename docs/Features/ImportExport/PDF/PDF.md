@@ -1,25 +1,46 @@
-# PDF export
+# PDF
 
 WeKan exports a board, list, swimlane or single card as an A4 PDF. The related
 [Excel export](../Excel/Excel.md) offers the same card sections. Both formats
 build their content from the layout in
-[One Card Layout](../Excel/One-Card-Layout.md).
+[One Card Layout](../Excel/One-Card-Layout.md). PDF is export only.
 
-## Implementation
+## How to import
 
-- `models/exportPDF.js` authenticates and scopes the HTTP routes.
-- `models/server/ExporterCardPDF.js` loads board/card data, resolves users and
-  custom fields and reads attachment images.
-- `models/lib/cardExportDocument.js` maps those records into the shared card
-  document. Excel calls exactly the same adapter, so people, dates, checklist
-  items, comments, attachment details, sizes, voting and poker cannot be mapped
-  differently by the two formats.
-- `models/lib/cardDocument.js` decides which blocks exist and omits empty or
-  unselected sections.
-- `models/lib/pdfDocument.js` renders those blocks, paginates them, writes the
-  fallback PDF objects and embeds images.
-- `models/server/buildUnicodePdf.js` uses PDFKit to subset and embed the bundled
-  GNU Unifont fonts for the normal export path.
+There is no PDF import. A PDF is a printed page: it holds the text and images
+as they are laid out, not the lists, cards and fields they came from, so there
+is nothing WeKan could read back reliably. To move a board between WeKan
+servers, use the [WeKan JSON or .zip export](../WeKan/From-Previous-Export.md).
+
+## How to import many boards at once
+
+There is nothing to import: PDF has no import.
+
+## How to export
+
+1. In WeKan, open the menu of what to export: **Board Settings → Export** for
+   the board, or the hamburger menu of a swimlane, a list or a card.
+2. Under **Select what to include**, tick the sections you want.
+3. Choose **PDF**. The PDF downloads.
+4. Open it in any PDF reader, or print it.
+
+## How to export all boards at once
+
+This is not available for PDF. A PDF is a document of one board (or one
+swimlane, list or card), so **Export all boards** does not offer it. Export
+each board from its own menu, or use **Export all boards** with WeKan JSON or
+[Excel](../Excel/Excel.md) instead.
+
+## Format details
+
+From the [format coverage](../Format-Coverage.md) audit, for PDF, HTML and SVG:
+
+- **Authoritative shape:** export-only rendered views.
+- **Required coverage:** every selected visible section, Unicode, safe links
+  and images, pagination and deterministic filenames; these are
+  presentations, not lossless re-import formats.
+
+### Layout and fonts
 
 The board, swimlane, list and card hamburger menus do not have four PDF
 templates or a second set for Excel. They all include `exportScopeBody` from
@@ -50,6 +71,8 @@ some other Latin characters, and replaces unsupported scripts with `?`.
 Markdown headings, lists, emphasis, quotes and code are rendered as document
 structure instead of printing their Markdown punctuation.
 
+### Images and attachments
+
 JPEG attachments are embedded using their original `/DCTDecode` stream. PNG
 scanlines are decoded, PNG filters are removed, transparency is composited onto
 white, and the RGB pixels are embedded with `/FlateDecode`. Images are scaled
@@ -63,6 +86,8 @@ Before the previews, the attachment detail table includes every attachment and
 the same six fields as Excel: row number, filename, human-readable size, media
 type, upload date/time and uploader. Image details therefore remain complete
 without repeating size or other metadata in the preview caption.
+
+### Order and metadata
 
 Metadata uses three columns like the printable Excel card. A translated label
 and its value wrap onto additional lines inside that column instead of being
@@ -80,7 +105,7 @@ opened-card fields as detailed Excel, including stickers, dependencies, numeric
 sort position, and every location's place name, address, latitude and longitude.
 Legacy single-location fields remain visible too.
 
-## Current progress
+### Current progress
 
 Completed:
 
@@ -110,3 +135,69 @@ needed.
 
 The former TODO item said PDF still listed images only by name. That step is now
 implemented and guarded by positive and negative tests.
+
+## What is kept
+
+The PDF shows every ticked section of each card in scope:
+
+| WeKan | PDF |
+| --- | --- |
+| Board, swimlane, list | Headings, in board order |
+| Board name, members, created and modified dates | The board's opening block |
+| Card title, labels, stickers, locations, people, dates, time tracking | The card's metadata columns |
+| Description, comments, checklist items, custom fields | Rendered Markdown text |
+| Checklists, subtasks, dependencies, voting, planning poker | Their own sections |
+| Attachments | A six-column detail table, and previews of JPEG and PNG images |
+
+## What is not kept
+
+- GIF and BMP images are listed in the attachment table but not previewed.
+- When the embedded fonts cannot be used, the fallback writer replaces scripts
+  it cannot show with `?`.
+- A PDF cannot be imported, so nothing in it comes back into WeKan.
+
+## REST API
+
+```bash
+python3 api.py exportboardformat BOARDID pdf board.pdf  # GET /api/boards/BOARDID/exportPDF
+curl -o board.pdf "https://WEKAN-SERVER/api/boards/BOARDID/exportPDF?authToken=TOKEN"
+```
+
+- `GET /api/boards/BOARDID/exportPDF?authToken=TOKEN` exports a board, with
+  `fields` (the ticked parts), `swimlaneId` or `listId` to narrow it.
+- `GET /api/boards/BOARDID/lists/LISTID/cards/CARDID/exportPDF?authToken=TOKEN`
+  exports one card.
+
+There is no import route and no mass export route for PDF.
+
+## How it is built and tested
+
+- `models/exportPDF.js` authenticates and scopes the HTTP routes.
+- `models/server/ExporterCardPDF.js` loads board/card data, resolves users and
+  custom fields and reads attachment images.
+- `models/lib/cardExportDocument.js` maps those records into the shared card
+  document. Excel calls exactly the same adapter, so people, dates, checklist
+  items, comments, attachment details, sizes, voting and poker cannot be mapped
+  differently by the two formats.
+- `models/lib/cardDocument.js` decides which blocks exist and omits empty or
+  unselected sections.
+- `models/lib/pdfDocument.js` renders those blocks, paginates them, writes the
+  fallback PDF objects and embeds images.
+- `models/server/buildUnicodePdf.js` uses PDFKit to subset and embed the bundled
+  GNU Unifont fonts for the normal export path.
+- Unit tests: `tests/pdfExport.test.cjs`, `tests/pdfDrawsTheDocument.test.cjs`,
+  `tests/pdfkitEntryPatch.test.cjs`.
+- Playwright: `tests/playwright/specs/25-excel-pdf.e2e.js` (a board PDF export
+  returns a PDF document) and `tests/playwright/specs/export-access.e2e.js`
+  (an assigned-only member cannot export the whole board, or an unassigned
+  card).
+
+## Sources
+
+- [PDF 2.0, ISO 32000-2](https://pdfa.org/resource/iso-32000-2/): the PDF
+  format, including the `/DCTDecode` and `/FlateDecode` filters
+- [PDFKit](https://pdfkit.org/docs/text.html): font embedding and subsetting
+- [GNU Unifont](https://unifoundry.com/unifont/): the bundled fonts
+
+See also: [format coverage](../Format-Coverage.md),
+[all formats](../External-Tools.md).

@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "N'ime bọọdụ gị, gaa na 'NchNhr', wee 'Export Board', ma detuo ederede na faịlụ ebudatara.",
   "import-board-instruction-about-errors": "Ọ bụrụ na ịnweta mperi mgbe ị na-ebubata bọọdụ, mgbe ụfọdụ mbubata ka na-arụ ọrụ, bọọdụ dị na ibe bọọdụ niile.",
   "import-without-mapping-members": "Bubata n'enweghị imap ndị otu (map ya emesịa)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Tapawa data JSON gị bara uru ebe a",
   "import-csv-placeholder": "Tapawa data CSV/TSV gị bara uru ebe a",
   "import-json-file": "Ma ọ bụ họrọ faịlụ Trello JSON",

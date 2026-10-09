@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "raSlIjDaq 'Menu', 'Export board' je yI'uy; ghIq lI'lu'bogh teywI' ghItlh velqa' yIchenmoH.",
   "import-board-instruction-about-errors": "raS De' lI'lu'taHvIS QapHa'chugh je, chaq Qap De' lI'meH mIw; Hoch raSmey navDaq raS tu'lu'.",
   "import-without-mapping-members": "muvwI'mey rar pagh qem (tugh rar)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "JSON De' lugh yIlan",
   "import-csv-placeholder": "CSV/TSV De' lugh yIlan",
   "import-json-file": "pagh Trello JSON ghItlh wIv",

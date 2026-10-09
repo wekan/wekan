@@ -34,7 +34,14 @@ class ExporterExcel {
     this._swimlaneId = scope.swimlaneId || '';
   }
 
-  async build(res) {
+  // options, for "Export all boards" to Excel (server/lib/exportAllBoards.js):
+  //   workbook   - a streaming workbook shared by every board: this board adds
+  //                its sheet to it, and the caller sends and commits it;
+  //   sheetName  - the sheet's name (the board's title, made unique there);
+  //   activities - false leaves out this board's Activities sheet, so each
+  //                board is exactly one sheet.
+  async build(res, options = {}) {
+    const shared = options.workbook || null;
     await require('/server/lib/adminOnlyCustomFields').assertFieldExport(this._boardId, this._customFieldViewerId);
     // ─────────────────────────────────────────────────────────────────────────
     // Streaming Excel export. The previous version loaded the ENTIRE board
@@ -126,20 +133,22 @@ class ExporterExcel {
       : (this._swimlaneId ? swimlaneNumber : result.title);
     const filename = exportFilename(
       type, key => TAPi18n.__(key, '', this.userLanguage), identity || 1, 'xlsx');
-    res.setHeader('Content-Type',
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    res.setHeader('Content-Disposition', attachmentDisposition(filename));
+    if (!shared) {
+      res.setHeader('Content-Type',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      res.setHeader('Content-Disposition', attachmentDisposition(filename));
+    }
 
     //init exceljs streaming workbook (writes rows straight to res)
-    const workbook = createWorkbookWriter(res);
-    workbook.creator = TAPi18n.__('export-board','',this.userLanguage);
+    const workbook = shared || createWorkbookWriter(res);
+    if (!shared) workbook.creator = TAPi18n.__('export-board','',this.userLanguage);
     workbook.lastModifiedBy = TAPi18n.__('export-board','',this.userLanguage);
     workbook.created = new Date();
     workbook.modified = new Date();
     workbook.lastPrinted = new Date();
     //init worksheet
-    let worksheetTitle = result.title;
-    if (worksheetTitle.length > 31) {
+    let worksheetTitle = options.sheetName || result.title;
+    if (!options.sheetName && worksheetTitle.length > 31) {
       // MS Excel doesn't allow worksheet name longer than 31 chars
       // Exceljs truncate names to 31 chars
       let words = worksheetTitle.split(' ');
@@ -654,6 +663,7 @@ class ExporterExcel {
       }
     }
     ws.commit();
+    if (options.activities === false) return;
 
 
 
@@ -835,7 +845,7 @@ class ExporterExcel {
       }
     }
     ws2.commit();
-    await workbook.commit();
+    if (!shared) await workbook.commit();
   }
 
   async canExport(user) {

@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Le wò kpekpeɖeŋu me la, yi 'Menu', emegbe 'Export board', eye nàkɔ nuŋɔŋlɔ si le agbalẽ si wotsɔ ɖe anyi me.",
   "import-board-instruction-about-errors": "Ne vodadawo va le kpekpeɖeŋu tsɔtsɔ vavã me la, zi aɖewo dzi nu tsɔtsɔ vavã megbe dze edzi, eye kpekpeɖeŋu la le Kpekpeɖeŋuwo katã ƒe axa dzi.",
   "import-without-mapping-members": "Tsɔ va eme medodo dzolawo go o (do wo go emegbe)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Tsɔ wò JSON nyatakaka si sɔ la de afisia",
   "import-csv-placeholder": "Tsɔ wò CSV/TSV nyatakaka si sɔ la de afisia",
   "import-json-file": "Alo tia Trello JSON agbalẽ",

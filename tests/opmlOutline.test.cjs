@@ -83,7 +83,7 @@ async function main() {
     assert.doesNotMatch(read('models/lib/externalParsers.js'), /opmlOutline/);
     assert.match(read('client/components/import/import.js'), /\{ key: 'opml', name: 'OPML' \}/);
     assert.match(read('client/components/boards/exportScope.js'), /key: 'opml'[^\n]*path: 'export\/opml', ext: 'opml'/);
-    assert.match(read('models/export.js'), /opml: 'text\/x-opml'/);
+    assert.match(read('server/lib/renderExternalExport.js'), /opml: 'text\/x-opml'/);
     const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
     assert.match(en['import-board-instruction-opml'], /Workflowy/);
   });

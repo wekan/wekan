@@ -181,14 +181,17 @@ async function main() {
     assert.doesNotThrow(() => validateImportSourceShape('redmine', '#,Subject\n1,A'));
     assert.throws(() => validateImportSourceShape('redmine', '  '));
     assert.match(read('models/import.js'), /case 'redmine':\s*\/\/[^\n]*\n\s*check\(board, String\);\s*try \{\s*importedBoard = EXTERNAL_PARSERS\.redmine\(importedBoard\);[\s\S]*?new KanboardCreator\(data, 'redmine'\)/);
-    assert.match(read('models/export.js'), /redmine: 'text\/csv'/);
+    assert.match(read('server/lib/renderExternalExport.js'), /redmine: 'text\/csv'/);
     const page = read('client/components/import/import.js');
     assert.match(page, /\{ key: 'redmine', name: 'Redmine' \}/);
     assert.match(page, /dataSource === 'redmine'/);
     assert.match(read('client/components/boards/exportScope.js'), /key: 'redmine'[^}]*path: 'export\/redmine', ext: 'csv'/);
     // Card dependencies reach the export when the Dependencies part is selected.
     assert.match(read('models/lib/externalExporters.js'), /want\('dependencies'\)[\s\S]{0,120}dependencies: c\.cardDependencies/);
-    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /^\| Redmine \|/m);
+    // Its details are on its own page, which the coverage index links.
+    const docPage = read('docs/Features/ImportExport/Redmine/Redmine.md');
+    assert.match(docPage, /^## Format details$/m);
+    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /\]\(\.\/Redmine\/Redmine\.md\)/);
   });
 
   console.log(`\nredmineCsv: ${passed} checks passed`);

@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Botong ya hao, eya ho 'Menu', ebe 'Export board', mme o kopitse mongolo faeleng e jarollotsweng.",
   "import-board-instruction-about-errors": "Ha o fumana diphoso ha o kenya boto, ka dinako tse ding ho kenya ho ntse ho sebetsa mme boto e leqepheng la Diboto tsohle.",
   "import-without-mapping-members": "Kenya ntle le ho amahanya ditho (amahanya hamorao)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Kgomaretsa data ya hao ya JSON e nepahetseng mona",
   "import-csv-placeholder": "Kgomaretsa data ya hao ya CSV/TSV e nepahetseng mona",
   "import-json-file": "Kapa kgetha faele ya JSON ya Trello",

@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "នៅក្នុងក្តាររបស់អ្នក សូមចូលទៅកាន់ 'ម៉ឺនុយ' បន្ទាប់មក 'Export board' ហើយចម្លងអត្ថបទនៅក្នុងឯកសារដែលបានទាញយក។",
   "import-board-instruction-about-errors": "ប្រសិនបើអ្នកទទួលបានកំហុសនៅពេលនាំចូលក្តារ ជួនកាលការនាំចូលនៅតែដំណើរការ ហើយក្តារគឺនៅទំព័រក្រុមប្រឹក្សាទាំងអស់។",
   "import-without-mapping-members": "នាំចូលដោយមិនផ្គូផ្គងសមាជិក (ផ្គូផ្គងក្រោយ)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "បិទភ្ជាប់ទិន្នន័យ JSON ត្រឹមត្រូវរបស់អ្នកនៅទីនេះ",
   "import-csv-placeholder": "បិទភ្ជាប់ទិន្នន័យ CSV/TSV ត្រឹមត្រូវរបស់អ្នកនៅទីនេះ",
   "import-json-file": "ឬជ្រើសរើសឯកសារ Trello JSON",

@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "आपन बोर्ड में 'Menu', फेर 'Export board' पर जाईं आ डाउनलोड भइल फाइल के लिखाई नकल करीं।",
   "import-board-instruction-about-errors": "बोर्ड आयात में गलती मिले पर कबो-कबो आयात तबहूँ सफल होला आ बोर्ड All Boards पन्ना पर मिलेला।",
   "import-without-mapping-members": "सदस्यन के मेल बइठवले बिना आयात करीं (बाद में मेल बइठाईं)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "आपन मान्य JSON आँकड़ा इहाँ चिपकाईं",
   "import-csv-placeholder": "आपन मान्य CSV/TSV आँकड़ा इहाँ चिपकाईं",
   "import-json-file": "चाहे Trello JSON फाइल चुनीं",

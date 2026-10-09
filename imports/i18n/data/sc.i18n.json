@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Nella tua tàula vai su \"Menu\", poi \"Esporta tàula\" e copia il testo in su file scaricadu.",
   "import-board-instruction-about-errors": "Se hai de sos errori quando importi una tàula, qualche volta l'importatzione funziona comunque, e la tàula si trova in sa pagina \"Totu le tàulas\"",
   "import-without-mapping-members": "Importa chene mappare i sòtzios (mappa in seguito)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Incolla dei dados JSON validi qui",
   "import-csv-placeholder": "Incolla dei dados CSV/TSV validi qui",
   "import-json-file": "Oppure seletziona un file JSON di Trello",

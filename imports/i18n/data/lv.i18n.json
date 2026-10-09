@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Jūsu dēlī ejiet uz 'Menu', tālāk 'Export board' un nokopējiet tekstu no lejuplādētā faila.",
   "import-board-instruction-about-errors": "Ja importējot redzat kļūdu, imports tik un tā varēja nostrādāt. Pārbaudiet lapu Visi dēļi.",
   "import-without-mapping-members": "Importēt bez dalībnieku sasaistes (sasaistīt vēlāk)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Šeit ielīmējiet derīgu JSON tekstu",
   "import-csv-placeholder": "Šeit ielīmējiet derīgu CSV/TSV tekstu",
   "import-json-file": "Vai atlasiet Trello JSON failu",

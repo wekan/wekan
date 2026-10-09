@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "mu yako bhodhi, go ku 'menyu', then 'tumira kunze bhodhi', uye kopa the mashoko mu the downloaded faira.",
   "import-board-instruction-about-errors": "If you get errors when importing bhodhi, sometimes importing still works, uye bhodhi iri pa mabhodhi ose peji.",
   "import-without-mapping-members": "pinza pasina mapping nhengo (map later)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Paste yako valid JSON data here",
   "import-csv-placeholder": "Paste yako valid CSV/TSV data here",
   "import-json-file": "kana sarudza a Trello JSON faira",

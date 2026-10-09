@@ -113,7 +113,7 @@ async function main() {
     assert.equal(EXTERNAL_PARSERS.meistertask, parseMeisterTaskCsv);
     assert.equal(formatters.meistertask, formatMeisterTaskCsv);
     assert.match(read('models/import.js'), /case 'meistertask':\s*\/\/[^\n]*\n\s*check\(board, String\);\s*try \{\s*importedBoard = EXTERNAL_PARSERS\.meistertask\(importedBoard\);/);
-    assert.match(read('models/export.js'), /meistertask: 'text\/csv'/);
+    assert.match(read('server/lib/renderExternalExport.js'), /meistertask: 'text\/csv'/);
     const page = read('client/components/import/import.js');
     assert.match(page, /\{ key: 'meistertask', name: 'MeisterTask' \}/);
     assert.match(page, /dataSource === 'meistertask'/);

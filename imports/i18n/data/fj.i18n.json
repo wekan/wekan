@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Ena nomu vola, lako ki na 'Menu', qai 'Vakauta na vola', ka lavetaka na itukutuku ena faile sa lavetaki sobu.",
   "import-board-instruction-about-errors": "Kevaka o sotava na cala ni vakacuruma na vola, eso na gauna e cakacaka tiko ga na vakacurumi, ka tiko na vola ena tabana ni Vola Kece.",
   "import-without-mapping-members": "Vakacuruma ka kua ni veiganitaka na lewe ni soqosoqo (veiganitaka mai muri)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Vakabira eke na nomu itukutuku JSON vakabau",
   "import-csv-placeholder": "Vakabira eke na nomu itukutuku CSV/TSV vakabau",
   "import-json-file": "Se digitaka e dua na faile JSON Trello",

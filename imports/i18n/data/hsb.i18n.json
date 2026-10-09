@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Ve wašem tablu jděte do 'Menu', klikněte na 'Exportovat tablo' a zkopírujte text ze ztaženého zouboru.",
   "import-board-instruction-about-errors": "Někdy import funguje i přeztože doztáváte chyby při importování tabla, které ze zobrazí na ztránce Všechna tabla.",
   "import-without-mapping-members": "Importovat bjez mapování zobuztawů (namapovat později)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "WeKan: Sem vlož validní JSON data",
   "import-csv-placeholder": "Zde vložte waše platné CSV/TSV data",
   "import-json-file": "Něbo vyberte zoubor Trello JSON",

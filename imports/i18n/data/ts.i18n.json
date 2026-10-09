@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "eka ya wena bodo, famba eka 'menyu', mhaka 'humesa bodo', na kopisa mhaka tsalwa eka mhaka mhaka fayili.",
   "import-board-instruction-about-errors": "mhaka wena mhaka mhaka mhaka mhaka bodo, mhaka mhaka mhaka mhaka, na bodo mhaka mhaka hinkwavo tibodo mhaka.",
   "import-without-mapping-members": "nghenisa mhaka mhaka swirho (mhaka mhaka)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "mhaka ya wena mhaka mhaka mhaka mhaka",
   "import-csv-placeholder": "mhaka ya wena mhaka mhaka/mhaka mhaka mhaka",
   "import-json-file": "mhaka hlawula a mhaka mhaka fayili",

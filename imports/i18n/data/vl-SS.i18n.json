@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Ga op je bord naar 'Menu' en klik dan 'Export board' en kopieer de tekst in het gedownloade bestand.",
   "import-board-instruction-about-errors": "Als je tijdens de import van het bord foutmeldingen krijgt is de import soms toch gelukt en vind je het bord terug op de 'Alle borden' scherm.",
   "import-without-mapping-members": "Importeren zonder leden te koppelen (later koppelen)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Plak geldige JSON data hier",
   "import-csv-placeholder": "Plak hier je geldige CSV/TSV data",
   "import-json-file": "Of selecteer een Trello-JSON-bestand",

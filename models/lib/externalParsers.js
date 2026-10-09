@@ -215,8 +215,10 @@ export function parseNextcloudDeck(data) {
         swimlane_name: 'Default',
         date_due: card.duedate || card.dueDate,
         date_creation: card.createdAt,
-        // Deck 1.13+ marks a card done with a timestamp.
-        date_end: card.done || undefined,
+        // Deck 1.13+ marks a card done with a timestamp; its REST API answers
+        // with `done: true` instead, which is a done card with no date.
+        date_end: typeof card.done === 'string' ? card.done : undefined,
+        ...(card.done === true || (typeof card.done === 'string' && card.done) ? { due_complete: true } : {}),
         archived: card.archived === true,
         owner_username: people[0] || deckUser(card.owner),
         assignees: people.slice(1),

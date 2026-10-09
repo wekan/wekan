@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Em seu quadro vá para 'Menu', depois 'Exportar quadro' e copie o texto no arquivo baixado.",
   "import-board-instruction-about-errors": "Se você receber erros ao importar o quadro, às vezes a importação ainda funciona e o quadro está na página Todos os Quadros.",
   "import-without-mapping-members": "Importar sem mapear membros (mapear posteriormente)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Cole seus dados JSON válidos aqui",
   "import-csv-placeholder": "Cole aqui os dados válidos de seu CSV/TSV",
   "import-json-file": "Ou selecione um arquivo JSON do Trello.",

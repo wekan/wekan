@@ -413,24 +413,29 @@ test('Kanri: a board export imports with its columns, description, due date, tas
   } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
 });
 
-// Kanri's all-data export holds every board: one import makes one board, the
-// first, and the rest are reported rather than silently dropped.
-test('Kanri: an all-data export imports its first board; other documents are refused', async ({ loggedInPage: page }) => {
-  let boardId;
+// Kanri's all-data export holds every board. Each is read into a swimlane of
+// its own, and "One board per project" (models/lib/importSplit.js) makes each
+// its own WeKan board - the whole Kanri app in one import.
+test('Kanri: an all-data export imports every board, one board per project; other documents are refused', async ({ loggedInPage: page }) => {
+  const boardIds = [];
   const kanriBoard = (id, title, card) => ({ id, title, columns: [{ id: `${id}-c`, title: 'Todo', cards: [{ name: card }] }] });
   try {
     await navigateInApp(page, '/import/kanri');
     await page.locator('#import-textarea').fill(JSON.stringify({
       activeTheme: 'dark', colors: {}, pins: [],
-      boards: [kanriBoard('a', 'First Kanri board', expected.title), kanriBoard('b', 'Second Kanri board', 'Not imported')],
+      boards: [kanriBoard('a', 'First Kanri board', expected.title), kanriBoard('b', 'Second Kanri board', 'Second card')],
     }));
+    await page.locator('.js-import-split-toggle').click();
+    await expect(page.locator('.js-import-split-toggle .materialCheckBox')).toHaveClass(/is-checked/);
     await page.locator('.js-import-without-mapping').click();
     await waitForImportedBoard(page);
-    boardId = page.url().match(/\/b\/([^/]+)/)[1];
-    expect(db.findOne('boards', { _id: boardId }).title).toBe('First Kanri board');
-    expect(db.find('cards', { boardId }).map(card => card.title)).toEqual([expected.title]);
-    expect(db.find('boards', { title: 'Second Kanri board' })).toHaveLength(0);
-  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+    const first = db.findOne('boards', { title: 'First Kanri board' });
+    const second = db.findOne('boards', { title: 'Second Kanri board' });
+    boardIds.push(first._id, second._id);
+    expect(db.find('cards', { boardId: first._id }).map(card => card.title)).toEqual([expected.title]);
+    expect(db.find('cards', { boardId: second._id }).map(card => card.title)).toEqual(['Second card']);
+    await page.evaluate(() => Session.set('importSplitByProject', false));
+  } finally { db.cleanup({ boardIds }); }
   // Negative: malformed JSON, a document without columns or boards, and an
   // all-data file without boards create nothing.
   await navigateInApp(page, '/import/kanri');
@@ -445,6 +450,69 @@ test('Kanri: an all-data export imports its first board; other documents are ref
   });
   expect(results).toEqual(['invalid-import-format', 'invalid-import-format']);
   await expect(page).toHaveURL(/\/import\/kanri$/);
+});
+
+// "Import many boards" (models/lib/importManyFiles.js): several files, and a
+// .zip holding more, each its own board, with what each became listed.
+test('Import many boards: several files and a .zip of them become one board each', async ({ loggedInPage: page }) => {
+  const { zipSync, strToU8 } = require('../../../node_modules/fflate');
+  const titles = ['Many A', 'Many B', 'Many C'];
+  try {
+    await navigateInApp(page, '/import/markdown');
+    await page.locator('.js-import-many-files').setInputFiles([
+      { name: 'a.md', mimeType: 'text/markdown', buffer: Buffer.from(`# ${titles[0]}\n\n## To Do\n\n- [ ] ${expected.title}\n`) },
+      { name: 'more.zip', mimeType: 'application/zip', buffer: Buffer.from(zipSync({
+        'b.md': strToU8(`# ${titles[1]}\n\n## To Do\n\n- [ ] One\n`),
+        'c.md': strToU8(`# ${titles[2]}\n\n## Doing\n\n- [ ] Two\n`),
+        '__MACOSX/._b.md': strToU8('x'),
+      })) },
+      { name: 'broken.md', mimeType: 'text/markdown', buffer: Buffer.from('') },
+    ]);
+    await page.locator('.js-import-without-mapping').click();
+    const results = page.locator('.js-import-many-results li');
+    await expect(results).toHaveCount(4, { timeout: 60_000 });
+    await expect(page.locator('.js-import-many-results li.is-imported')).toHaveCount(3);
+    await expect(page.locator('.js-import-many-results li.is-failed')).toContainText('broken.md');
+    for (const title of titles) expect(db.find('boards', { title })).toHaveLength(1);
+    expect(db.find('cards', { boardId: db.findOne('boards', { title: titles[0] })._id }).map(c => c.title)).toEqual([expected.title]);
+    await page.locator('.js-import-many-all-boards').click();
+    await expect(page).toHaveURL(/\/$/);
+  } finally {
+    db.cleanup({ boardIds: titles.map(title => db.findOne('boards', { title })).filter(Boolean).map(board => board._id) });
+  }
+});
+
+// "Export all boards" (server/routes/exportAllBoards.js): Excel is one
+// workbook with a sheet per board named after it; another format is a .zip
+// with a file per board; another user's token gets none of them.
+test('Export all boards: one workbook with a sheet per board, or a .zip with a file per board', async ({ boardPage: page, board, user, user2 }) => {
+  const ExcelJS = require('../../../node_modules/@wekanteam/exceljs');
+  const { unzipSync } = require('../../../node_modules/fflate');
+  const extra = db.seedBoard({ ownerId: user.id, title: 'Second: board' });
+  try {
+    // The All Boards sidebar offers it, each format a download link.
+    await navigateInApp(page, '/');
+    const settings = page.locator('.js-export-all-boards');
+    if (!(await settings.isVisible().catch(() => false))) await page.locator('.js-toggle-page-sidebar').first().click();
+    await settings.click();
+    await expect(page.locator('.js-pop-over a.export-all-boards-format[href*="/api/export-all-boards/excel?"]')).toBeVisible();
+    await expect(page.locator('.js-pop-over a.export-all-boards-format[href*="/api/export-all-boards/wrike?"]')).toBeVisible();
+    const excel = await page.request.get(`/api/export-all-boards/excel?authToken=${encodeURIComponent(user.token)}`);
+    expect(excel.status()).toBe(200);
+    const workbook = new ExcelJS.Workbook();
+    await workbook.xlsx.load(await excel.body());
+    const sheets = workbook.worksheets.map(sheet => sheet.name);
+    expect(sheets).toEqual(expect.arrayContaining([db.findOne('boards', { _id: board.boardId }).title.slice(0, 31), 'Second board']));
+    expect(sheets).not.toContain('Activities');
+    const zip = await page.request.get(`/api/export-all-boards/markdown?authToken=${encodeURIComponent(user.token)}&boardIds=${board.boardId},${extra.boardId}`);
+    expect(zip.status()).toBe(200);
+    const files = Object.keys(unzipSync(new Uint8Array(await zip.body())));
+    expect(files).toHaveLength(2);
+    expect(files).toContain('Second-board.md');
+    const theirs = await page.request.get(`/api/export-all-boards/markdown?authToken=${encodeURIComponent(user2.token)}&boardIds=${extra.boardId}`);
+    expect(theirs.status()).toBe(404);
+    expect((await page.request.get(`/api/export-all-boards/pdf?authToken=${encodeURIComponent(user.token)}`)).status()).toBe(404);
+  } finally { db.cleanup({ boardIds: [extra.boardId] }); }
 });
 
 // Pivotal Tracker's stories CSV: states as lists, repeated Owned By, Comment

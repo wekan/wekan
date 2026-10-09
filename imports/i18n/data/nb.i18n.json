@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "I Tavlen din, gå til 'Meny' -> 'Eksport Tavle' og kopier teksten fra den nedlastede filen.",
   "import-board-instruction-about-errors": "Dersom du får feilmelding ved import av Tavle, vil importen noen ganger likevel være intakt og Tavlen finnes på 'Alle Tavler'-siden.",
   "import-without-mapping-members": "Importer uten å tilordne medlemmer (tilordne senere)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Lim inn gyldig JSON-datasett her",
   "import-csv-placeholder": "Lim inn gyldig CSV/TSV-data her",
   "import-json-file": "Eller velg en Trello-JSON-fil",

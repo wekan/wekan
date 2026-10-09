@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "In jou bord, gaan na 'Menu', dan 'Export board', en kopieer die teks in die afgelaaide lêer.",
   "import-board-instruction-about-errors": "As jy foute kry wanneer jy bord invoer, werk die invoer soms steeds, en bord is op Alle Borde-bladsy.",
   "import-without-mapping-members": "Voer in sonder om lede te koppel (koppel later)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Plak jou geldige JSON-data hier",
   "import-csv-placeholder": "Plak jou geldige CSV/TSV-data hier",
   "import-json-file": "Of kies 'n Trello JSON-lêer",

@@ -145,12 +145,15 @@ export function parseTrelloButler(text) {
   const rules = [];
   const unmapped = [];
   (text || '').split('\n').map(l => l.trim()).filter(Boolean).forEach(line => {
-    const added = line.toLowerCase().match(/when a card is added to list ["“](.+?)["”].*move the card to the (top|bottom)/);
+    // Matched without regard to case, but the list name is taken as written:
+    // a trigger matches its list by exact name, so a lowercased name would
+    // never fire for a list with capitals.
+    const added = line.match(/when a card is added to list ["“](.+?)["”].*move the card to the (top|bottom)/i);
     if (added) {
       rules.push({
         title: line,
         trigger: { activityType: 'createCard', listName: added[1], swimlaneName: '*', cardTitle: '*', userId: '*' },
-        action: { actionType: added[2] === 'top' ? 'moveCardToTop' : 'moveCardToBottom', listName: '*', swimlaneName: '*' },
+        action: { actionType: added[2].toLowerCase() === 'top' ? 'moveCardToTop' : 'moveCardToBottom', listName: '*', swimlaneName: '*' },
       });
       return;
     }

@@ -37,6 +37,8 @@ that by providing one-click installation on various platforms.
         Super Productivity, Taiga, Vikunja, Wrike (Excel and workflow), Quire, Teamwork.com, Businessmap, Notion, Plane
       - Kanboard, Nextcloud Deck, OpenProject, Taskwarrior
       - GitHub, GitLab, Gitea, Forgejo
+      - Import many boards at once: several export files, or a .zip of them, each its own board;
+        One board per project splits an export of a whole app into a board per project
   - Change Color: Board theme and background image, Swimlane, List, Card
     - Overrides: 1 Admin Panel, 2 Board Settings, 3 Member Settings
   - Drag drop reorder with one or Multi-Selection:
@@ -85,6 +87,8 @@ that by providing one-click installation on various platforms.
        Super Productivity, Taiga, Vikunja, Wrike (Excel and workflow), Quire, Teamwork.com, Businessmap, Notion,
        Trello, Jira, NextCloud Deck, OpenProject, GitHub, GitLab,
        Gitea, Forgejo, Asana, Zenkit
+     - Export all boards at once (All Boards sidebar, or Multi-Selection): Excel as one workbook
+       with a sheet per board, every other format as a .zip with a file per board
     - Scrum Settings
     - Change color theme, Change Background Image, Date settings
     - Settings:

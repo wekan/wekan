@@ -112,33 +112,77 @@ function readInput(input) {
   return input;
 }
 
-// input: the parsed JSON of a Kanri export (or its text).
+// input: the parsed JSON of a Kanri export (or its text). A board export is
+// one board. The all-data export holds every board: each is read into a
+// swimlane named after it, so "One board per project" on the import page
+// (models/lib/importSplit.js) makes each its own WeKan board again, with the
+// columns that board has (swimlane_columns).
 export function parseKanri(input) {
   const data = readInput(input);
   if (!isObject(data)) throw new Error('Kanri export must be a JSON object');
   const unsupported = [];
-  let board = data;
-  let at = '';
-  if (Array.isArray(data.boards)) {
-    // All data: app settings and every board.
-    if (!data.boards.length || !isObject(data.boards[0])) throw new Error('Kanri export has no boards');
-    board = data.boards[0];
-    at = '/boards/0';
-    data.boards.slice(1).forEach((other, index) => {
-      unsupported.push({ path: `/boards/${index + 1}`,
-        reason: `Kanri board "${text(other && other.title) || index + 2}" is not imported: one import makes one board; export it from Kanri on its own (Partial Export) to import it` });
-    });
-    const settings = ['activeTheme', 'colors', 'savedCustomTheme', 'pins', 'boardSortingOption', 'columnZoomLevel']
-      .filter(key => data[key] !== undefined && data[key] !== null && !(Array.isArray(data[key]) && !data[key].length));
-    if (settings.length) {
-      unsupported.push({ path: '/', reason: `Kanri app settings (${settings.join(', ')}) belong to the app, not to a board, and are not imported` });
-    }
+  if (!Array.isArray(data.boards)) {
+    const one = parseKanriBoard(data, '', DEFAULT_SWIMLANE, unsupported);
+    return {
+      board: { name: one.name },
+      columns: one.columns.map(name => ({ title: name })),
+      swimlanes: [{ name: DEFAULT_SWIMLANE }],
+      tasks: one.tasks,
+      warnings: [],
+      unsupported,
+    };
   }
+  // All data: app settings and every board.
+  if (!data.boards.length) throw new Error('Kanri export has no boards');
+  const settings = ['activeTheme', 'colors', 'savedCustomTheme', 'pins', 'boardSortingOption', 'columnZoomLevel']
+    .filter(key => data[key] !== undefined && data[key] !== null && !(Array.isArray(data[key]) && !data[key].length));
+  if (settings.length) {
+    unsupported.push({ path: '/', reason: `Kanri app settings (${settings.join(', ')}) belong to the app, not to a board, and are not imported` });
+  }
+  const columns = [];
+  const tasks = [];
+  const lanes = [];
+  const swimlaneColumns = {};
+  let cards = 0;
+  data.boards.forEach((board, index) => {
+    const at = `/boards/${index}`;
+    if (!isObject(board)) { unsupported.push({ path: at, reason: 'a Kanri board that is not an object is not imported' }); return; }
+    const base = text(board.title).trim() || `Kanri board ${index + 1}`;
+    let lane = base;
+    for (let n = 2; lanes.includes(lane); n += 1) lane = `${base} (${n})`;
+    const one = parseKanriBoard(board, at, lane, unsupported, MAX_KANRI_CARDS - cards);
+    cards += one.tasks.length;
+    lanes.push(lane);
+    swimlaneColumns[lane] = one.columns;
+    one.columns.forEach(name => { if (!columns.includes(name)) columns.push(name); });
+    tasks.push(...one.tasks);
+  });
+  if (!lanes.length) throw new Error('Kanri export has no boards');
+  if (lanes.length === 1) {
+    tasks.forEach(task => { task.swimlane_name = DEFAULT_SWIMLANE; });
+    return { board: { name: lanes[0] }, columns: columns.map(name => ({ title: name })),
+      swimlanes: [{ name: DEFAULT_SWIMLANE }], tasks, warnings: [], unsupported };
+  }
+  return {
+    board: { name: 'Kanri' },
+    columns: columns.map(name => ({ title: name })),
+    swimlanes: lanes.map(name => ({ name })),
+    swimlane_columns: swimlaneColumns,
+    tasks,
+    warnings: [],
+    unsupported,
+  };
+}
+
+// One Kanri board: its column titles, its cards as tasks in `lane`, and its
+// name. Losses go to `unsupported`; `cardLimit` is what is left of the
+// export's card limit.
+function parseKanriBoard(board, at, lane, unsupported, cardLimit = MAX_KANRI_CARDS) {
   // KanbanElectron, which Kanri also imports, calls the columns "lists".
   const columnsIn = Array.isArray(board.columns) ? board.columns : Array.isArray(board.lists) ? board.lists : null;
   if (!columnsIn) throw new Error('Kanri board needs a columns array');
   const cardCount = columnsIn.reduce((sum, column) => sum + (Array.isArray(column && column.cards) ? column.cards.length : 0), 0);
-  if (cardCount > MAX_KANRI_CARDS) throw new Error(`Kanri board has more than ${MAX_KANRI_CARDS} cards`);
+  if (cardCount > cardLimit) throw new Error(`Kanri export has more than ${MAX_KANRI_CARDS} cards`);
 
   const background = isObject(board.background) ? text(board.background.src).trim() : '';
   if (background) {
@@ -164,7 +208,7 @@ export function parseKanri(input) {
         title: text(card.name).trim(),
         description: text(card.description),
         column_name: title,
-        swimlane_name: DEFAULT_SWIMLANE,
+        swimlane_name: lane,
         tags: [],
       };
       if (text(card.id)) task.ref = text(card.id);
@@ -199,14 +243,7 @@ export function parseKanri(input) {
   if (unused.length) {
     unsupported.push({ path: `${at}/globalTags`, reason: `Kanri tags no card uses are not imported: ${[...new Set(unused)].join(', ')}` });
   }
-  return {
-    board: { name: text(board.title).trim() || 'Imported Kanri board' },
-    columns: columns.map(name => ({ title: name })),
-    swimlanes: [{ name: DEFAULT_SWIMLANE }],
-    tasks,
-    warnings: [],
-    unsupported,
-  };
+  return { name: text(board.title).trim() || 'Imported Kanri board', columns, tasks };
 }
 
 // A WeKan color as Kanri stores a card color: its palette class where Kanri

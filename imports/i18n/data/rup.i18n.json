@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Tu tabela a ta, du-ti la 'Meniu', dupã la 'Exportã tabela', shi copiadzã textul di fisierlu discãrcat.",
   "import-board-instruction-about-errors": "Dacã ari erori cãndu importi unã tabelã, cãteodatã importarea tot lucreadzã shi tabela easti tu pagina Tuti tabelili.",
   "import-without-mapping-members": "Importã fãrã a mapa membrii (mapeazã mai târziu)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Lipeshte aua datili JSON validi",
   "import-csv-placeholder": "Lipeshte aua datili CSV/TSV validi",
   "import-json-file": "Sau selecteazã un Fisier JSON di Trello",

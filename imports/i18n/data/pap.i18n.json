@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Den bo tabla, bete na 'Menú', luego 'Exportar tabla', i copia e teksto den e archibo descargado.",
   "import-board-instruction-about-errors": "Aunke obtengas erornan cuando importes e tabla, na beses e importashon funsiona igualmente, i e tabla se encontrará den e página di tablanan.",
   "import-without-mapping-members": "Importar sin asignar miembronan (asignar mas tarde)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Pega bo datonan HSON bálidos aki",
   "import-csv-placeholder": "Pega bo datonan CSB/TSB bálidos aki",
   "import-json-file": "Òf selecsiona un archibo HSON di Treyo",

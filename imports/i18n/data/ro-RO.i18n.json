@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "În panoul dumneavoastră, accesați «Meniu», apoi «Exportă panoul» și copiați textul din fișierul descărcat.",
   "import-board-instruction-about-errors": "Dacă apar erori la importarea unui panou, uneori importul reușește totuși, iar panoul se află pe pagina «Toate panourile».",
   "import-without-mapping-members": "Importă fără a mapa membrii (mapează mai târziu)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Lipiți aici datele JSON valide",
   "import-csv-placeholder": "Lipiți aici datele CSV/TSV valide",
   "import-json-file": "Sau selectează un fișier JSON de Trello",

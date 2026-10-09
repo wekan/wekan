@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Trong bảng của bạn, hãy chuyển đến \"Menu\", sau đó \"Xuất bảng\" và sao chép văn bản trong tệp đã tải xuống.",
   "import-board-instruction-about-errors": "Nếu bạn gặp lỗi khi nhập bảng, đôi khi quá trình nhập vẫn hoạt động và bảng ở trang Tất cả bảng.",
   "import-without-mapping-members": "Nhập mà không ánh xạ thành viên (ánh xạ sau)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Dán dữ liệu JSON hợp lệ của bạn vào đây",
   "import-csv-placeholder": "Dán dữ liệu CSV/TSV hợp lệ của bạn vào đây",
   "import-json-file": "Hoặc chọn một tệp JSON Trello",

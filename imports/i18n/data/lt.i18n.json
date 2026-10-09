@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Savo lentoje eikite į „Meniu“, tada „Eksportuoti lentą“ ir nukopijuokite tekstą atsisiųstame faile.",
   "import-board-instruction-about-errors": "Jei importuojant lentą atsiranda klaidų, kartais importavimas vis tiek veikia, o lenta yra puslapyje Visos lentos.",
   "import-without-mapping-members": "Importuoti nesusiejant narių (susieti vėliau)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Čia įklijuokite galiojančius JSON duomenis",
   "import-csv-placeholder": "Čia įklijuokite galiojančius CSV / TSV duomenis",
   "import-json-file": "Arba pasirinkite Trello JSON failą",

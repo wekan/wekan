@@ -114,7 +114,7 @@ async function main() {
     assert.match(read('models/import.js'), /case 'todoist':\s*\/\/[^\n]*\n\s*check\(board, String\);/);
     assert.match(read('models/import.js'), /new KanboardCreator\(data, 'todoist'\)/);
     assert.match(read('client/components/boards/exportScope.js'), /key: 'todoist'[^\n]*path: 'export\/todoist', ext: 'csv'/);
-    assert.match(read('models/export.js'), /todoist: 'text\/csv'/);
+    assert.match(read('server/lib/renderExternalExport.js'), /todoist: 'text\/csv'/);
     const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
     assert.match(en['import-board-instruction-todoist'], /Export as a template/);
   });

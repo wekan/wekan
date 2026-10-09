@@ -196,8 +196,10 @@ async function main() {
     assert.equal(typeof formatters.planner, 'function');
     const imp = read('models/import.js');
     assert.match(imp, /case 'planner':[\s\S]*?check\(board, Object\);[\s\S]*?readPlannerWorkbook\(importedBoard\.excelBase64\);\s*importedBoard = EXTERNAL_PARSERS\.planner\(importedBoard\);[\s\S]*?sanitizeImported\(importedBoard, 'planner', this\);\s*creator = new KanboardCreator\(data, 'planner'\);/);
-    const exp = read('models/export.js');
-    assert.match(exp, /if \(format === 'planner'\) \{\s*const workbook = await require\('\/server\/lib\/plannerWorkbook'\)\.writePlannerWorkbook\(built\);/);
+    // The bytes of each format are made in server/lib/renderExternalExport.js,
+    // shared by the board export route and "Export all boards".
+    const exp = read('server/lib/renderExternalExport.js');
+    assert.match(exp, /planner: \['\/server\/lib\/plannerWorkbook', 'writePlannerWorkbook'\]/);
     assert.match(exp, /spreadsheetml\.sheet/);
     const page = read('client/components/import/import.js');
     assert.match(page, /\{ key: 'planner', name: 'Microsoft Planner' \}/);

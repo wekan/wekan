@@ -23,46 +23,46 @@ sources of the format.
 
 | Tool | Import (the file you give WeKan) | Export (the file WeKan writes) |
 | --- | --- | --- |
-| Trello | Board JSON (Menu → More → Print and Export → Export JSON) | Trello board JSON |
-| Jira | Issue-search JSON (`GET /rest/api/2/search`) | Jira issues JSON |
-| Asana | Tasks export JSON | Asana tasks JSON |
-| Zenkit | List export JSON | Zenkit list JSON |
-| Microsoft Planner | The Excel workbook from *Export plan to Excel* | Planner Excel workbook (`.xlsx`) |
-| monday.com | The workbook from *Export board to Excel* | monday.com Excel import table (`.xlsx`) |
-| Wrike | Excel export, or Wrike's Excel import template; *Workflow* and *Custom Status* columns are read | Wrike Excel import template (`.xlsx`) with its *Workflow* / *Status* / *Custom Status* columns |
-| Wrike workflow | Paste the JSON of Wrike's `GET /workflows` in Rules → Import / Export: statuses become lists, and status groups become rules | The board's lists as a Wrike workflow JSON (Export menu, or Rules → Import / Export) |
-| Teamwork.com | The Excel template of its task import | Teamwork.com task import template (`.xlsx`) |
-| Businessmap (Kanbanize) | Advanced Search Excel export, or its import tool's workbook | Businessmap Excel workbook (`.xlsx`) |
-| ClickUp | Workspace export CSV, or its Spreadsheets importer CSV | ClickUp CSV |
-| Linear | Issues CSV export | Linear CSV |
-| Notion | *Markdown & CSV* export `.zip`, or one database CSV | Notion database CSV |
-| Redmine | Issues list *Also available in: CSV* | Redmine issues CSV |
-| Plane | Workspace Settings → Exports `.zip` (CSV, JSON or XLSX inside), or one file from it | — (Plane has no file import) |
-| Taiga | Project export (dump) JSON | Taiga project dump JSON, with sprints |
-| Pivotal Tracker | Stories CSV | Pivotal Tracker CSV |
-| MeisterTask | Project CSV | MeisterTask CSV |
-| Quire | Export CSV, or its Import CSV shape | Quire Import CSV |
-| Todoist | Project template CSV | Todoist CSV |
-| TickTick | Backup CSV | TickTick backup CSV |
-| Tasks.org | Backup JSON | Tasks.org backup JSON |
-| Super Productivity | Backup JSON | Super Productivity backup JSON |
-| Vikunja | Data export `.zip` | Vikunja data export `.zip` |
-| Kanboard | Project JSON | Kanboard JSON |
-| Nextcloud Deck | Board with `stacks` | Deck board JSON |
-| Focalboard | `board.jsonl` | Focalboard `.jsonl` |
-| Kanri | Board or all-data JSON export | Kanri board JSON |
-| Nullboard | `.nbx` board file | Nullboard `.nbx` |
-| Obsidian Kanban | The plugin's board Markdown file | Obsidian Kanban `.md` |
-| OpenProject | Work packages (`GET /api/v3/work_packages`) | OpenProject work packages JSON, with versions |
+| [Trello](./Trello/Trello.md) | Board JSON (Menu → More → Print and Export → Export JSON) | Trello board JSON |
+| [Jira](./Jira/Jira.md) | Issue-search JSON (`GET /rest/api/2/search`) | Jira issues JSON |
+| [Asana](./Asana/Asana.md) | Tasks export JSON | Asana tasks JSON |
+| [Zenkit](./ZenKit/ZenKit.md) | List export JSON | Zenkit list JSON |
+| [Microsoft Planner](./Microsoft-Planner/Microsoft-Planner.md) | The Excel workbook from *Export plan to Excel* | Planner Excel workbook (`.xlsx`) |
+| [monday.com](./monday-com/monday-com.md) | The workbook from *Export board to Excel* | monday.com Excel import table (`.xlsx`) |
+| [Wrike](./Wrike/Wrike.md) | Excel export, or Wrike's Excel import template; *Workflow* and *Custom Status* columns are read | Wrike Excel import template (`.xlsx`) with its *Workflow* / *Status* / *Custom Status* columns |
+| [Wrike workflow](./Wrike/Wrike.md) | Paste the JSON of Wrike's `GET /workflows` in Rules → Import / Export: statuses become lists, and status groups become rules | The board's lists as a Wrike workflow JSON (Export menu, or Rules → Import / Export) |
+| [Teamwork.com](./Teamwork/Teamwork.md) | The Excel template of its task import | Teamwork.com task import template (`.xlsx`) |
+| [Businessmap (Kanbanize)](./Businessmap/Businessmap.md) | Advanced Search Excel export, or its import tool's workbook | Businessmap Excel workbook (`.xlsx`) |
+| [ClickUp](./ClickUp/ClickUp.md) | Workspace export CSV, or its Spreadsheets importer CSV | ClickUp CSV |
+| [Linear](./Linear/Linear.md) | Issues CSV export | Linear CSV |
+| [Notion](./Notion/Notion.md) | *Markdown & CSV* export `.zip`, or one database CSV | Notion database CSV |
+| [Redmine](./Redmine/Redmine.md) | Issues list *Also available in: CSV* | Redmine issues CSV |
+| [Plane](./Plane/Plane.md) | Workspace Settings → Exports `.zip` (CSV, JSON or XLSX inside), or one file from it | — (Plane has no file import) |
+| [Taiga](./Taiga/Taiga.md) | Project export (dump) JSON | Taiga project dump JSON, with sprints |
+| [Pivotal Tracker](./Pivotal-Tracker/Pivotal-Tracker.md) | Stories CSV | Pivotal Tracker CSV |
+| [MeisterTask](./MeisterTask/MeisterTask.md) | Project CSV | MeisterTask CSV |
+| [Quire](./Quire/Quire.md) | Export CSV, or its Import CSV shape | Quire Import CSV |
+| [Todoist](./Todoist/Todoist.md) | Project template CSV | Todoist CSV |
+| [TickTick](./TickTick/TickTick.md) | Backup CSV | TickTick backup CSV |
+| [Tasks.org](./Tasks-org/Tasks-org.md) | Backup JSON | Tasks.org backup JSON |
+| [Super Productivity](./Super-Productivity/Super-Productivity.md) | Backup JSON | Super Productivity backup JSON |
+| [Vikunja](./Vikunja/Vikunja.md) | Data export `.zip` | Vikunja data export `.zip` |
+| [Kanboard](./Kanboard/Kanboard.md) | Project JSON | Kanboard JSON |
+| [Nextcloud Deck](./Nextcloud-Deck/Nextcloud-Deck.md) | Board with `stacks` | Deck board JSON |
+| [Focalboard](./Focalboard/Focalboard.md) | `board.jsonl` | Focalboard `.jsonl` |
+| [Kanri](./Kanri/Kanri.md) | Board or all-data JSON export | Kanri board JSON |
+| [Nullboard](./Nullboard/Nullboard.md) | `.nbx` board file | Nullboard `.nbx` |
+| [Obsidian Kanban](./Obsidian-Kanban/Obsidian-Kanban.md) | The plugin's board Markdown file | Obsidian Kanban `.md` |
+| [OpenProject](./OpenProject/OpenProject.md) | Work packages (`GET /api/v3/work_packages`) | OpenProject work packages JSON, with versions |
 
 ## Issue trackers and source code hosting
 
 | Tool | Import | Export |
 | --- | --- | --- |
-| GitHub | Issues array (`GET /repos/OWNER/REPO/issues`) | GitHub issues JSON |
-| GitLab | Issues array (`GET /projects/ID/issues`) | GitLab issues JSON, with milestones |
-| Gitea | Issues array (`GET /repos/OWNER/REPO/issues`) | Gitea issues JSON |
-| Forgejo | Issues array (the same API as Gitea) | Forgejo issues JSON |
+| [GitHub](./GitHub/GitHub.md) | Issues array (`GET /repos/OWNER/REPO/issues`) | GitHub issues JSON |
+| [GitLab](./GitLab/GitLab.md) | Issues array (`GET /projects/ID/issues`) | GitLab issues JSON, with milestones |
+| [Gitea](./Gitea/Gitea.md) | Issues array (`GET /repos/OWNER/REPO/issues`) | Gitea issues JSON |
+| [Forgejo](./Forgejo/Forgejo.md) | Issues array (the same API as Gitea) | Forgejo issues JSON |
 
 GitHub, GitLab, Gitea and Forgejo import their issues JSON only through their
 own API, so the exported file is for a script that calls it.
@@ -71,24 +71,45 @@ own API, so the exported file is for a script that calls it.
 
 | Format | Import | Export |
 | --- | --- | --- |
-| Markdown | Task list | Markdown (`.md`) |
-| todo.txt | `todo.txt` lines | `todo.txt` |
-| Taskwarrior | `task export` JSON | Taskwarrior JSON |
-| Org mode | `.org` file | Org mode (`.org`) |
-| OPML | Outline from Workflowy, Dynalist, OmniOutliner, Logseq and others | OPML (`.opml`) |
-| Leo | Leo outline (`.leo`) | Leo outline |
+| [Markdown](./Markdown/Markdown.md) | Task list | Markdown (`.md`) |
+| [todo.txt](./Todo-txt/Todo-txt.md) | `todo.txt` lines | `todo.txt` |
+| [Taskwarrior](./Taskwarrior/Taskwarrior.md) | `task export` JSON | Taskwarrior JSON |
+| [Org mode](./Org-mode/Org-mode.md) | `.org` file | Org mode (`.org`) |
+| [OPML](./OPML/OPML.md) | Outline from Workflowy, Dynalist, OmniOutliner, Logseq and others | OPML (`.opml`) |
+| [Leo](./Leo/Leo.md) | Leo outline (`.leo`) | Leo outline |
 
 ## WeKan's own formats and documents
 
 | Format | Import | Export |
 | --- | --- | --- |
-| WeKan JSON | Board export, with attachments, rules and everything else | JSON, with or without attachments, or `.zip` with attachment files |
-| CSV / TSV | Comma, semicolon or tab separated | CSV `,` / CSV `;` / TSV |
-| Excel | WeKan-style `.xlsx` | Excel (`.xlsx`) |
-| PDF, HTML | — | PDF and an HTML archive of the board |
-| iCalendar | — | Calendar feed of the board's dates |
-| Dependencies | — | Dependency graph as JSON or SVG |
-| Rules | WeKan rules JSON or CSV, Trello Butler text, n8n and Node-RED workflows, Wrike workflows | WeKan rules JSON or CSV, Wrike workflow |
+| [WeKan JSON](./WeKan/WeKan.md) | Board export, with attachments, rules and everything else | JSON, with or without attachments, or `.zip` with attachment files |
+| [CSV / TSV](./CSV/CSV.md) | Comma, semicolon or tab separated | CSV `,` / CSV `;` / TSV |
+| [Excel](./Excel/Excel.md) | WeKan-style `.xlsx` | Excel (`.xlsx`) |
+| [PDF](./PDF/PDF.md), [HTML](./HTML/HTML.md) | — | PDF and an HTML archive of the board |
+| [iCalendar](./iCalendar/iCalendar.md) | — | Calendar feed of the board's dates |
+| [Dependencies](./Dependencies/Dependencies.md) | — | Dependency graph as JSON or SVG |
+| [Rules](./Rules/Rules.md) | WeKan rules JSON or CSV, Trello Butler text, n8n and Node-RED workflows, Wrike workflows | WeKan rules JSON or CSV, Wrike workflow |
+
+## Many boards at once
+
+- **Import many boards**: on the import page of any tool, choose several of
+  its export files, or one `.zip` that holds them, under **Import many
+  boards**. Each file becomes its own board, and the page lists what each file
+  became. A `.zip` that is itself one export (Vikunja, Notion, Plane, WeKan
+  with attachments) is one board.
+- **One board per project**: for the tools imported through the generalized
+  importer (every tool but WeKan, Trello, CSV/TSV, Excel and Jira), this
+  checkbox makes each swimlane the import would create its own board. Which
+  swimlanes a tool makes - its projects, folders or lists - is on its page.
+  An export that holds a whole app (Vikunja, Plane, Kanri's all data, ...)
+  then imports as many boards, as a Trello `.zip` does.
+- **Export all boards**: **All Boards → sidebar → Export all boards**, then a
+  format, downloads every board you can export. Excel is one workbook with a
+  sheet per board, named after it; every other format is a `.zip` with one
+  file per board. **Multi-Selection → Export selected boards** does the same
+  for the boards you selected.
+- From a script: `python3 api.py importboardsfrom SOURCE [--split] FILES...`
+  and `python3 api.py exportallboards FORMAT OUTPUT [--boards ID1,ID2]`.
 
 ## Not supported yet
 
@@ -112,9 +133,16 @@ python3 api.py importboardfrom github issues.json
 #   → POST /api/boards/import/github   (body: the tool's export)
 
 # Export a board in a tool's format (FORMAT is a key from the export menu:
-# trello, jira, kanboard, planner, wrike, wrikeworkflow, notion, redmine, ...)
+# trello, jira, kanboard, planner, wrike, wrikeworkflow, notion, redmine, ...;
+# also wekan, csv, scsv, tsv, excel and pdf)
 python3 api.py exportboardformat BOARDID deck deck-board.json
 #   → GET  /api/boards/:boardId/export/deck?authToken=:token
+
+# Many boards: each file, or each file of a directory or .zip, as its own
+# board (--split: one board per project); and every board in one download
+python3 api.py importboardsfrom vikunja --split export1.zip export2.zip
+python3 api.py exportallboards excel all-boards.xlsx
+#   → GET  /api/export-all-boards/excel?authToken=:token[&boardIds=ID1,ID2]
 ```
 
 ## Related

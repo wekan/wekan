@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "لە تەختەکەت بچۆ بۆ 'Menu'، پاشان 'Export board' و دەقی ناو فایلە داگیراوەکە کۆپی بکە.",
   "import-board-instruction-about-errors": "ئەگەر لە هاوردەکردنی تەختە هەڵەت بینی، هەندێک جار هاوردەکردن هەر کار دەکات و تەختەکە لە پەڕەی هەموو تەختەکانە.",
   "import-without-mapping-members": "هاوردەکردن بەبێ هاوتاکردنی ئەندامان (دواتر هاوتا بکە)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "داتای JSONی دروستەکەت لێرە دابنێ",
   "import-csv-placeholder": "داتای CSV/TSVی دروستەکەت لێرە دابنێ",
   "import-json-file": "یان فایلێکی JSONی Trello هەڵبژێرە",

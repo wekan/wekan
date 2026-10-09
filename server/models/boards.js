@@ -1106,6 +1106,7 @@ WebApp.handlers.post('/api/boards/import', async function(req, res) {
  * @param {string} source the import source
  * @param {object} board the source export object (or send it as the body)
  * @param {object} [membersMapping] map of source user id -> local user id
+ * @param {string} [splitBy] "swimlane": one board per project (per swimlane)
  * @return_type {_id: string}
  */
 WebApp.handlers.post('/api/boards/import/:source', async function(req, res) {
@@ -1118,6 +1119,8 @@ WebApp.handlers.post('/api/boards/import/:source', async function(req, res) {
     if (body.membersMapping && typeof body.membersMapping === 'object') {
       additionalData.membersMapping = body.membersMapping;
     }
+    // "One board per project" (models/lib/importSplit.js).
+    if (body.splitBy === 'swimlane') additionalData.splitBy = 'swimlane';
     const boardId = await DDP._CurrentMethodInvocation.withValue(
       { userId: req.userId },
       async () => Meteor.callAsync('importBoard', board, additionalData, source, null),

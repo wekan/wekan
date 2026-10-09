@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Na swòji tôfli òtemkni 'Spis òpcjów', pòtem 'Ekspòrtowac tôflã', i skòpiérëjë tekst z pòbrónégò lopka.",
   "import-board-instruction-about-errors": "Czasami mimo komunikatu o błędzie importowanié tôblëcë przebiega poprawnié i jest ona widoczna na liście tôblëcòw (Wszëtczé tôblëce).",
   "import-without-mapping-members": "Importuj bez mapowania członkòw (mapuj pòźniej)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Wklej tu pòprawné dóné JSON",
   "import-csv-placeholder": "Wklej tu pòprawné dóné CSV/TSV",
   "import-json-file": "Abò wëbierzë lopk JSON Trello",

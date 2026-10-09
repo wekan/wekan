@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Taxtangizda \"Menyu\", so'ng \"Eksport taxtasi\" ga o'ting va yuklab olingan fayldagi matnni nusxalang.",
   "import-board-instruction-about-errors": "Agar platani import qilishda xatolik yuzaga kelsa, ba'zida import qilish hamon ishlaydi va taxta \"Barcha taxtalar\" sahifasida bo'ladi.",
   "import-without-mapping-members": "Aʼzolarni moslashtirmasdan import qilish (keyinroq moslashtirish)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Yaroqli JSON maʼlumotlaringizni shu yerga joylashtiring",
   "import-csv-placeholder": "Yaroqli CSV/TSV maʼlumotlaringizni shu yerga joylashtiring",
   "import-json-file": "Yoki Trello JSON faylini tanlang",

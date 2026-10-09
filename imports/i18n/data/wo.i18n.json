@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Ci sa tablo, demal ci «Limu tànneef», ba noppi «Génne tablo», te sotti mbind mi ci fiise bi nga yeb.",
   "import-board-instruction-about-errors": "Bu nga am ay njuumte bi ngay dugal tablo, yenn saa yi dugal gi dox na ba tey, te tablo bi nekk ci xët «Tablo yi yépp».",
   "import-without-mapping-members": "Dugal te du jëmale way-bokk yi (jëmale ci kanam)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Tafal sa done JSON yi jub fii",
   "import-csv-placeholder": "Tafal sa done CSV/TSV yi jub fii",
   "import-json-file": "Walla tànn benn fiise JSON bu Trello",

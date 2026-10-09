@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Air a' bhòrd agad, rach gu 'Menu', an uair sin 'Export board', agus dèan lethbhreac den teacsa san fhaidhle a chaidh a luchdadh a-nuas.",
   "import-board-instruction-about-errors": "Ma gheibh thu mearachdan nuair a dh'iom-phortaicheas tu bòrd, uaireannan obraichidh an t-iom-phortadh fhathast agus bidh am bòrd air duilleag nan Gach Bòrd.",
   "import-without-mapping-members": "Iom-phortaich gun bhuill a mhapadh (mapaich nas fhaide air adhart)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Cuir an dàta JSON dligheach agad an seo",
   "import-csv-placeholder": "Cuir an dàta CSV/TSV dligheach agad an seo",
   "import-json-file": "No tagh faidhle JSON Trello",

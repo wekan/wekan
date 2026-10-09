@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "I ka tabali la, taa 'Menu', o kɔ 'Export board', ka sɛbɛnni bɔ kopi dosiye lajiginnen kɔnɔ.",
   "import-board-instruction-about-errors": "Ni fili sɔrɔra tabali ladonni la, ladonni bɛ baara tuma dɔw la hali ni o ye, wa tabali bɛ Tabali Bɛɛ ɲɛ kan.",
   "import-without-mapping-members": "Ladon ka mɔgɔw ɲɔgɔnya bila (a kɛ kɔfɛ)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "I ka JSON kunnafoni tiɲɛnen nɔrɔ yan",
   "import-csv-placeholder": "I ka CSV/TSV kunnafoni tiɲɛnen nɔrɔ yan",
   "import-json-file": "Walima Trello JSON dosiye sugandi",

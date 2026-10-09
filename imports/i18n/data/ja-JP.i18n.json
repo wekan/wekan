@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "ボードの、 'メニュー' → 'ボードのエクスポート'を選択し、ダウンロードされたファイルの中のテキストをコピーしてください。",
   "import-board-instruction-about-errors": "ボードのインポート中にエラーが発生した場合、インポートがまだ進行中のまま、全てのボードページに表示されている場合があります。",
   "import-without-mapping-members": "メンバーをマッピングせずにインポート(後でマッピング)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "JSONデータをここに貼り付けする",
   "import-csv-placeholder": "CSV/TSVデータをここに貼り付けする",
   "import-json-file": "または Trello JSON ファイルを選択",

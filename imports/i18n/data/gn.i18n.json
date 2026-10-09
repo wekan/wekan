@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Ne peteĩchápe, tereho 'Menu'-pe, upéi 'Export board', ha emonguatia moñe'ẽrã marandurenda oñemboguejyva'ekuégui.",
   "import-board-instruction-about-errors": "Oĩramo jejavy regueru jave peteĩcha, sapy'ánte jegueru omba'apo gueteri ha peteĩcha oĩ Opa peteĩcha kuatiaroguépe.",
   "import-without-mapping-members": "Egueru rembojoaju'ỹre reheguakuéra (embojoaju uperire)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Emboja ne JSON marandu oikóva ápe",
   "import-csv-placeholder": "Emboja ne CSV/TSV marandu oikóva ápe",
   "import-json-file": "Térã eiporavo peteĩ Trello JSON marandurenda",

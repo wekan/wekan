@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Dins vosse tåvlea, alez a 'Menu', poy 'Export board', et copyîz l' tecse do fitchî aberweté.",
   "import-board-instruction-about-errors": "Si vos avoz des arokes å moumint d' abaguer on tåvlea, l' abagaedje pout tot l' minme aveur reüssi, eyet l' tåvlea esse sol pådje Tos les tåvleas.",
   "import-without-mapping-members": "Abaguer sins fé corespondance des mimbes (a fé pus tård)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Aclaper vos valåbes dnêyes JSON cial",
   "import-csv-placeholder": "Aclaper vos valåbes dnêyes CSV/TSV cial",
   "import-json-file": "Ou tchoezi on fitchî JSON Trello",

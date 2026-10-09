@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Mu kyo lubaawo, go eri 'Menu', olwo 'Fulumya board', ne koppa bigambo mu downloaded fayiro.",
   "import-board-instruction-about-errors": "Singa ggwe get errors nga importing lubaawo, sometimes importing still works, ne lubaawo kiri ku embaawo zonna muko.",
   "import-without-mapping-members": "Leeta awatali mapping bamemba (map later)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Teekamu kyo kikkirizibwa JSON mawulire here",
   "import-csv-placeholder": "Teekamu kyo kikkirizibwa CSV/TSV mawulire here",
   "import-json-file": "Oba londa Trello JSON fayiro",

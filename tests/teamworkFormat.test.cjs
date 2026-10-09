@@ -183,14 +183,17 @@ async function main() {
     assert.equal(EXTERNAL_PARSERS.teamwork, parseTeamworkSheet);
     assert.equal(formatters.teamwork, formatTeamworkSheet);
     assert.match(read('models/import.js'), /case 'teamwork':[\s\S]*?check\(board, Object\);[\s\S]*?readTeamworkWorkbook\(importedBoard\.excelBase64\);\s*importedBoard = EXTERNAL_PARSERS\.teamwork\(importedBoard\);[\s\S]*?sanitizeImported\(importedBoard, 'teamwork', this\);\s*creator = new KanboardCreator\(data, 'teamwork'\);/);
-    assert.match(read('models/export.js'), /if \(format === 'teamwork'\) \{\s*const workbook = await require\('\/server\/lib\/teamworkWorkbook'\)\.writeTeamworkWorkbook\(built\);/);
+    assert.match(read('server/lib/renderExternalExport.js'), /teamwork: \['\/server\/lib\/teamworkWorkbook', 'writeTeamworkWorkbook'\]/);
     const page = read('client/components/import/import.js');
     assert.match(page, /\{ key: 'teamwork', name: 'Teamwork\.com' \}/);
     // The workbook sources share one branch; their order there is not the point.
     assert.match(page, /if \(dataSource === 'excel'[^)]*\|\| dataSource === 'teamwork'/);
     assert.match(page, /isExcelImport\(\) \{\s*return \[[^\]]*'teamwork'[^\]]*\]\.includes/);
     assert.match(read('client/components/boards/exportScope.js'), /key: 'teamwork'[^}]*path: 'export\/teamwork', ext: 'xlsx'/);
-    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /^\| Teamwork\.com \|/m);
+    // Its details are on its own page, which the coverage index links.
+    const docPage = read('docs/Features/ImportExport/Teamwork/Teamwork.md');
+    assert.match(docPage, /^## Format details$/m);
+    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /\]\(\.\/Teamwork\/Teamwork\.md\)/);
   });
 
   console.log(`\nteamworkFormat: ${passed} checks passed`);

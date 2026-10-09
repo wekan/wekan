@@ -202,12 +202,15 @@ async function main() {
     assert.equal(EXTERNAL_PARSERS.pivotal, parsePivotalCsv);
     assert.equal(formatters.pivotal, formatPivotalCsv);
     assert.match(read('models/import.js'), /case 'pivotal':\s*\/\/[^\n]*\n\s*check\(board, String\);\s*try \{\s*importedBoard = EXTERNAL_PARSERS\.pivotal\(importedBoard\);[\s\S]*?new KanboardCreator\(data, 'pivotal'\)/);
-    assert.match(read('models/export.js'), /pivotal: 'text\/csv'/);
+    assert.match(read('server/lib/renderExternalExport.js'), /pivotal: 'text\/csv'/);
     const page = read('client/components/import/import.js');
     assert.match(page, /\{ key: 'pivotal', name: 'Pivotal Tracker' \}/);
     assert.match(page, /dataSource === 'pivotal'/);
     assert.match(read('client/components/boards/exportScope.js'), /key: 'pivotal'[^}]*path: 'export\/pivotal', ext: 'csv'/);
-    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /\| Pivotal Tracker \|/);
+    // Its details are on its own page, which the coverage index links.
+    const docPage = read('docs/Features/ImportExport/Pivotal-Tracker/Pivotal-Tracker.md');
+    assert.match(docPage, /^## Format details$/m);
+    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /\]\(\.\/Pivotal\-Tracker\/Pivotal\-Tracker\.md\)/);
   });
 
   console.log(`\npivotalCsv: ${passed} checks passed`);

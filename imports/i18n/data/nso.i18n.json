@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Botong ya gago, eya go 'Menu', ke moka 'Export board', gomme o kopolle sengwalwa sa faeleng ye e laollotšwego.",
   "import-board-instruction-about-errors": "Ge o hwetša diphošo ge o tliša boto, ka dinako tše dingwe go tliša go sa šoma, gomme boto e ba letlakaleng la Diboto ka moka.",
   "import-without-mapping-members": "Tliša ntle le go amanya maloko (a amanye ka morago)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Kgomaretša data ya gago ya JSON ya maleba mo",
   "import-csv-placeholder": "Kgomaretša data ya gago ya CSV/TSV ya maleba mo",
   "import-json-file": "Goba kgetha faele ya JSON ya Trello",

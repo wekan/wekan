@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Sabuuraddaada, aad 'Menu', dabadeed 'Export board', oo koobi qoraalka ku jira faylka la soo dejiyay.",
   "import-board-instruction-about-errors": "Haddii aad khaladaad hesho markaad sabuurad soo dejinayso, mararka qaar soo dejintu weli way shaqaysaa, sabuuradduna waxay ku taal bogga Dhammaan Sabuuradaha.",
   "import-without-mapping-members": "Soo deji adigoon xubnaha waafajin (mar dambe waafaji)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Halkan ku dheji xogtaada JSON ee saxda ah",
   "import-csv-placeholder": "Halkan ku dheji xogtaada CSV/TSV ee saxda ah",
   "import-json-file": "Ama dooro fayl Trello JSON ah",

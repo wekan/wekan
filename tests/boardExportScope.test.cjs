@@ -448,7 +448,9 @@ test('every downloadable format carries the selection, and the server reads it',
     assert.ok(/parseExportFields\(req\.query && req\.query\.fields/.test(read(file)),
       `${file} must read the selection from the query`);
   }
-  assert.ok(/buildExternalExport\(boardId, format,\s*\n\s*parseExportFields\(req\.query && req\.query\.fields, BOARD_EXPORT_FIELD_KEYS\)\)/
+  // The route hands the selection to the shared renderer
+  // (server/lib/renderExternalExport.js), which hands it to the collector.
+  assert.ok(/renderExternalExport\(boardId, format,\s*\n\s*parseExportFields\(req\.query && req\.query\.fields, BOARD_EXPORT_FIELD_KEYS\)\)/
     .test(read('models/export.js')),
     'and the external-tool exports (Trello, Jira, GitHub, Markdown, ...) must read it too');
 });

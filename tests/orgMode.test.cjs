@@ -115,7 +115,7 @@ async function main() {
     assert.match(read('models/import.js'), /case 'orgmode':\s*\/\/[^\n]*\n\s*check\(board, String\);/);
     assert.match(read('models/import.js'), /new KanboardCreator\(data, 'orgmode'\)/);
     assert.match(read('client/components/boards/exportScope.js'), /key: 'orgmode'[^\n]*path: 'export\/orgmode', ext: 'org'/);
-    assert.match(read('models/export.js'), /orgmode: 'text\/x-org'/);
+    assert.match(read('server/lib/renderExternalExport.js'), /orgmode: 'text\/x-org'/);
     const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
     assert.match(en['import-board-instruction-orgmode'], /Org mode/);
   });

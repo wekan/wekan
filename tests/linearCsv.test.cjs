@@ -104,7 +104,7 @@ async function main() {
     assert.equal(EXTERNAL_PARSERS.linear, parseLinearCsv);
     assert.equal(formatters.linear, formatLinearCsv);
     assert.match(read('models/import.js'), /case 'linear':\s*\/\/[^\n]*\n\s*check\(board, String\);\s*try \{\s*importedBoard = EXTERNAL_PARSERS\.linear\(importedBoard\);/);
-    assert.match(read('models/export.js'), /linear: 'text\/csv'/);
+    assert.match(read('server/lib/renderExternalExport.js'), /linear: 'text\/csv'/);
     const page = read('client/components/import/import.js');
     assert.match(page, /\{ key: 'linear', name: 'Linear' \}/);
     assert.match(page, /dataSource === 'linear'/);

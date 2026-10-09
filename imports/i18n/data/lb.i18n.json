@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Gehen Dir in Ihrem Board op 'Menü', danach op 'Board exportieren' un kopéieren Dir den Text aus den heruntergeladenen Datei.",
   "import-board-instruction-about-errors": "Treten beim importieren eines Board Feeler op, so kann den Import dennoch erfollegräich abgeschlossen sein un dat Board ass op den Seite \"All Boards\" zusehen.",
   "import-without-mapping-members": "Import ouni Zuordnung den Memberen (später zuordnen)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Fügen Dir déi korrekten JSON-Daten hei ein",
   "import-csv-placeholder": "Fügen Dir déi korrekten CSV/TSV-Daten hei ein",
   "import-json-file": "Oder wähle eng Trello JSON Datei",

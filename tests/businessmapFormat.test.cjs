@@ -204,14 +204,18 @@ async function main() {
     assert.equal(EXTERNAL_PARSERS.businessmap, parseBusinessmapSheets);
     assert.equal(formatters.businessmap, formatBusinessmapSheets);
     assert.match(read('models/import.js'), /case 'businessmap':[\s\S]*?readBusinessmapWorkbook\(importedBoard\.excelBase64\);\s*importedBoard = EXTERNAL_PARSERS\.businessmap\(importedBoard\);[\s\S]*?sanitizeImported\(importedBoard, 'businessmap', this\);\s*creator = new KanboardCreator\(data, 'businessmap'\);/);
-    assert.match(read('models/export.js'), /if \(format === 'businessmap'\) \{\s*const workbook = await require\('\/server\/lib\/businessmapWorkbook'\)\.writeBusinessmapWorkbook\(built\);/);
+    assert.match(read('server/lib/renderExternalExport.js'), /businessmap: \['\/server\/lib\/businessmapWorkbook', 'writeBusinessmapWorkbook'\]/);
     const page = read('client/components/import/import.js');
     assert.match(page, /\{ key: 'businessmap', name: 'Businessmap \(Kanbanize\)' \}/);
     // The workbook sources share one branch; their order there is not the point.
     assert.match(page, /if \(dataSource === 'excel'[^)]*\|\| dataSource === 'businessmap'/);
     assert.match(page, /isExcelImport\(\) \{\s*return \[[^\]]*'businessmap'[^\]]*\]\.includes/);
     assert.match(read('client/components/boards/exportScope.js'), /key: 'businessmap'[^}]*path: 'export\/businessmap', ext: 'xlsx'/);
-    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /\| Businessmap \(Kanbanize\) \|[^\n]*100 cards per run/);
+    // Its details are on its own page, which the coverage index links.
+    const docPage = read('docs/Features/ImportExport/Businessmap/Businessmap.md');
+    assert.match(docPage, /^## Format details$/m);
+    assert.match(docPage, /100 cards per run/);
+    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /\]\(\.\/Businessmap\/Businessmap\.md\)/);
     // No URLs in the module's comments (the docs carry the sources).
     assert.doesNotMatch(read('models/lib/businessmapFormat.js'), /https?:\/\//);
     assert.doesNotMatch(read('server/lib/businessmapWorkbook.js'), /https?:\/\//);

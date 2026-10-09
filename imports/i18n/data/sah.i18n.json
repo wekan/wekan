@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Дуоскаҕар 'Menu', онтон 'Export board' диэҥҥэ киирэн, хачайдаммыт билэ тиэкиһин төгүллээ.",
   "import-board-instruction-about-errors": "Дуосканы киллэрэргэ алҕас тахсыбытын да иһин, сорохто киллэрии үлэлиир уонна дуоска Бары дуоскалар сирэйигэр баар буолар.",
   "import-without-mapping-members": "Кыттыылаахтары дьүөрэлээбэккэ киллэр (кэлин дьүөрэлээ)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Сөптөөх JSON дааннайыгын манна ук",
   "import-csv-placeholder": "Сөптөөх CSV/TSV дааннайыгын манна ук",
   "import-json-file": "Эбэтэр Trello JSON билэтин тал",

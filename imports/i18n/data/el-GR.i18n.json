@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Στον πίνακά σας, πλοηγηθείτε στο 'Menu', έπειτα 'Export board' και αντιγράψετε το κείμενο στο ληφθένα αρχείο.",
   "import-board-instruction-about-errors": "Αν εμφανιστούν σφάλματα κατά την εισαγωγή πίνακα, μερικές φορές η εισαγωγή πετυχαίνει παρ' όλα αυτά, και ο πίνακας βρίσκεται στη σελίδα Όλοι οι πίνακες.",
   "import-without-mapping-members": "Εισαγωγή χωρίς αντιστοίχιση μελών (αντιστοίχιση αργότερα)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Επικολλήστε τα ορθά JSON δεδομένα σας εδώ",
   "import-csv-placeholder": "Επικολλήστε τα ορθά CSV/TSV δεδομένα σας εδώ",
   "import-json-file": "Ή επιλέξτε ένα αρχείο Trello JSON",

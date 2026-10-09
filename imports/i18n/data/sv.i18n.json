@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "På din tavla, gå till \"Meny\", sedan \"Exportera tavla\" och kopiera texten i den hämtade filen.",
   "import-board-instruction-about-errors": "Om du får ett fel vid import av tavlor kan importen ändå gått bra och tavlan finns på översiktssidan.",
   "import-without-mapping-members": "Importera utan att kartlägga medlemmar (kartlägg senare)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Klistra in giltigt JSON data här",
   "import-csv-placeholder": "Klistra in CSV/TSV data här",
   "import-json-file": "Eller välj en Trello JSON-fil",

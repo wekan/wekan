@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "A allonka, je zuwa 'Menu', sannan 'Export board', ka kwafi rubutun cikin fayil ɗin da aka sauke.",
   "import-board-instruction-about-errors": "Idan ka samu kurakurai yayin shigo da allo, wani lokaci shigowar tana aiki duk da haka, kuma allon yana shafin Duk Alluna.",
   "import-without-mapping-members": "Shigo ba tare da haɗa mambobi ba (haɗa daga baya)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Liƙa ingantattun bayanan JSON nan",
   "import-csv-placeholder": "Liƙa ingantattun bayanan CSV/TSV nan",
   "import-json-file": "Ko zaɓi fayil ɗin JSON na Trello",

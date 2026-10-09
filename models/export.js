@@ -1,6 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Exporter } from './exporter';
-import { buildExternalExport, EXTERNAL_EXPORT_FORMATS } from './lib/externalExporters';
+import { EXTERNAL_EXPORT_FORMATS } from './lib/externalExporters';
 import {
   BOARD_EXPORT_FIELD_KEYS,
   parseExportFields,
@@ -351,65 +351,16 @@ if (Meteor.isServer) {
     let user = null;
     const respond = async () => {
       await require('/server/lib/adminOnlyCustomFields').assertFieldExport(boardId, user?._id);
-      const built = await buildExternalExport(boardId, format,
+      // The bytes for this format (server/lib/renderExternalExport.js), shared
+      // with "Export all boards" (server/lib/exportAllBoards.js).
+      const rendered = await require('/server/lib/renderExternalExport').renderExternalExport(boardId, format,
         parseExportFields(req.query && req.query.fields, BOARD_EXPORT_FIELD_KEYS));
-      // Markdown, the Leo outline (XML), todo.txt and Taskwarrior's JSON are
-      // files of their own, sent as the formatter wrote them.
-      const textType = { markdown: 'text/markdown', leo: 'application/xml', todotxt: 'text/plain',
-        taskwarrior: 'application/json', focalboard: 'application/x-ndjson', todoist: 'text/csv', meistertask: 'text/csv', obsidian: 'text/markdown', linear: 'text/csv', ticktick: 'text/csv', clickup: 'text/csv', nullboard: 'application/json', pivotal: 'text/csv', redmine: 'text/csv', notion: 'text/csv', superproductivity: 'application/json', quire: 'text/csv', opml: 'text/x-opml', orgmode: 'text/x-org' }[format];
-      if (textType) {
-        res.writeHead(200, { 'Content-Type': `${textType}; charset=utf-8` });
-        res.end(String(built == null ? '' : built));
+      if (rendered.json !== undefined) {
+        sendJsonResult(res, { code: 200, data: rendered.json });
         return;
       }
-      // Vikunja's export is a .zip of data.json, filters.json and VERSION
-      // (models/lib/vikunjaFormat.js); the HTML is made after the export
-      // boundary has checked the text it is made from.
-      if (format === 'vikunja') {
-        const { vikunjaArchiveFiles } = require('/models/lib/vikunjaFormat');
-        const archive = require('/server/lib/vikunjaArchive').writeVikunjaArchive(vikunjaArchiveFiles(built));
-        res.writeHead(200, { 'Content-Type': 'application/zip' });
-        res.end(archive);
-        return;
-      }
-      // Wrike's import template is an Excel workbook (models/lib/wrikeFormat.js).
-      if (format === 'wrike') {
-        const workbook = await require('/server/lib/wrikeWorkbook').writeWrikeWorkbook(built);
-        res.writeHead(200, { 'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        res.end(workbook);
-        return;
-      }
-      // monday.com's import table is an Excel workbook (models/lib/mondayFormat.js).
-      if (format === 'monday') {
-        const workbook = await require('/server/lib/mondayWorkbook').writeMondayWorkbook(built);
-        res.writeHead(200, { 'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        res.end(workbook);
-        return;
-      }
-      // Teamwork.com's task import template is an Excel workbook (models/lib/teamworkFormat.js).
-      if (format === 'teamwork') {
-        const workbook = await require('/server/lib/teamworkWorkbook').writeTeamworkWorkbook(built);
-        res.writeHead(200, { 'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        res.end(workbook);
-        return;
-      }
-      // Businessmap's import file is an Excel workbook (models/lib/businessmapFormat.js).
-      if (format === 'businessmap') {
-        const workbook = await require('/server/lib/businessmapWorkbook').writeBusinessmapWorkbook(built);
-        res.writeHead(200, { 'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        res.end(workbook);
-        return;
-      }
-      // Microsoft Planner's export is an Excel workbook (models/lib/plannerFormat.js).
-      if (format === 'planner') {
-        const workbook = await require('/server/lib/plannerWorkbook').writePlannerWorkbook(built);
-        res.writeHead(200, { 'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        res.end(workbook);
-        return;
-      }
-      // Every other format is one JSON document - Kanri's board export
-      // (models/lib/kanriFormat.js) among them - sent as it is.
-      sendJsonResult(res, { code: 200, data: built });
+      res.writeHead(200, { 'Content-Type': rendered.contentType });
+      res.end(rendered.body);
     };
     if (board.isPublic()) {
       await respond();

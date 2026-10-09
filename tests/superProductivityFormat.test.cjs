@@ -303,13 +303,16 @@ async function main() {
     assertSuperProductivityAccepts(JSON.parse(formatters.superproductivity({ board: { title: 'B' }, lists: [], swimlanes: [], items: [] })));
     assert.match(read('models/import.js'), /case 'superproductivity':\s*(\/\/[^\n]*\n\s*)*check\(board, String\);\s*try \{\s*importedBoard = EXTERNAL_PARSERS\.superproductivity\(importedBoard\);/);
     assert.match(read('models/import.js'), /new KanboardCreator\(data, 'superproductivity'\)/);
-    assert.match(read('models/export.js'), /superproductivity: 'application\/json'/);
+    assert.match(read('server/lib/renderExternalExport.js'), /superproductivity: 'application\/json'/);
     assert.match(read('models/lib/externalExporters.js'), /spentTime: Number\(c\.spentTime\)/);
     const page = read('client/components/import/import.js');
     assert.match(page, /\{ key: 'superproductivity', name: 'Super Productivity' \}/);
     assert.match(page, /dataSource === 'superproductivity'/);
     assert.match(read('client/components/boards/exportScope.js'), /key: 'superproductivity'[^}]*path: 'export\/superproductivity', ext: 'json'/);
-    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /\| Super Productivity \|/);
+    // Its details are on its own page, which the coverage index links.
+    const docPage = read('docs/Features/ImportExport/Super-Productivity/Super-Productivity.md');
+    assert.match(docPage, /^## Format details$/m);
+    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /\]\(\.\/Super\-Productivity\/Super\-Productivity\.md\)/);
   });
 
   console.log(`\nsuperProductivityFormat: ${passed} checks passed`);

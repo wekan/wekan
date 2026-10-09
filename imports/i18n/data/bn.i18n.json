@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "আপনার বোর্ডে 'Menu', তারপর 'Export board'-এ যান এবং ডাউনলোড করা ফাইলের লেখা অনুলিপি করুন।",
   "import-board-instruction-about-errors": "বোর্ড আমদানিতে ত্রুটি হলেও কখনো আমদানি সফল হয় এবং বোর্ডটি সব বোর্ড পাতায় থাকে।",
   "import-without-mapping-members": "সদস্য না মিলিয়ে আমদানি করুন (পরে মিলান)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "আপনার বৈধ JSON ডেটা এখানে পেস্ট করুন",
   "import-csv-placeholder": "আপনার বৈধ CSV/TSV ডেটা এখানে পেস্ট করুন",
   "import-json-file": "অথবা একটি Trello JSON ফাইল নির্বাচন করুন",

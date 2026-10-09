@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "په خپلې تختې کې 'Menu' ته، بيا 'Export board' ته لاړ شئ او د ښکته شوي فايل متن کاپي کړئ.",
   "import-board-instruction-about-errors": "که د تختې د واردولو پر مهال تېروتنې ترلاسه کړئ، کله ناکله واردول بيا هم کار کوي او تخته د ټولو تختو په پاڼه کې وي.",
   "import-without-mapping-members": "پرته له غړو نښلولو وارد کړئ (وروسته يې ونښلوئ)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "خپل سم JSON معلومات دلته ونښلوئ",
   "import-csv-placeholder": "خپل سم CSV/TSV معلومات دلته ونښلوئ",
   "import-json-file": "يا د Trello JSON فايل وټاکئ",

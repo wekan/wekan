@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Dins vòstre tablèu, vos cal anar dins \"Menut\", puèi \"Exportar lo tablèu\", e de copiar lo tèxte del fichièr telecargat.",
   "import-board-instruction-about-errors": "Se avètz de errors al moment d'importar un tablèu, es possible que l'importacion as fonccionat, lo tablèu es belèu a la pagina \"Totes los tablèus\".",
   "import-without-mapping-members": "Importar sens associar los participants (associar mai tard)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Pegar las donadas del fichièr JSON aicí",
   "import-csv-placeholder": "Pegatz aicí vòstras donadas CSV/TSV validas",
   "import-json-file": "O seleccionatz un fichièr JSON Trello",

@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "ኣብ ሰሌዳኻ፣ ናብ 'Menu'፣ ድሕሪኡ 'Export board' ኪድ፣ ኣብቲ ዝወረደ ፋይል ዘሎ ጽሑፍ ድማ ቅዳሕ።",
   "import-board-instruction-about-errors": "ሰሌዳ ከተእቱ ከለኻ ጌጋታት እንተረኺብካ፣ ሓደ ሓደ ግዜ ምእታው ገና ይሰርሕ፣ እታ ሰሌዳ ድማ ኣብ ገጽ ኩለን ሰሌዳታት ትርከብ።",
   "import-without-mapping-members": "ኣባላት ከይተመዓራረዩ ኣእቱ (ደሓር ኣመዓራሪ)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "ቅቡል ዳታ JSON ኣብዚ ለጥፍ",
   "import-csv-placeholder": "ቅቡል ዳታ CSV/TSV ኣብዚ ለጥፍ",
   "import-json-file": "ወይ ፋይል Trello JSON ምረጽ",

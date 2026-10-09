@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Ao amin'ny solaitrao, mankanesa amin'ny 'Menu', avy eo 'Export board', ary adikao ny soratra ao amin'ny rakitra nampidinina.",
   "import-board-instruction-about-errors": "Raha misy hadisoana rehefa manafatra solaitra, indraindray mbola mandeha ny fanafarana ary hita ao amin'ny pejy Solaitra rehetra ny solaitra.",
   "import-without-mapping-members": "Manafatra nefa tsy mampifandray mpikambana (ampifandraiso any aoriana)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Apetaho eto ny angona JSON manan-kery",
   "import-csv-placeholder": "Apetaho eto ny angona CSV/TSV manan-kery",
   "import-json-file": "Na mifidiana rakitra JSON Trello",

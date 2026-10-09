@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Ipan mohuapalli, xiyauh 'Menu', niman 'Export board', ihuan xiccopina tlahtolli ipan archivo temohuiloc.",
   "import-board-instruction-about-errors": "Intla tiquittaz ahcuallotin ihcuac ticcalaquia huapalli, quemman calaquiliztli tequiti ihuan huapalli cah ipan Nochi Huapaltin amatl.",
   "import-without-mapping-members": "Xiccalaqui amo tiquinnamictis tlacah (satepan xiquinnamicti)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Xicpepecho nican mocualli JSON tlanextilli",
   "import-csv-placeholder": "Xicpepecho nican mocualli CSV/TSV tlanextilli",
   "import-json-file": "Noso xicpehpena ce Trello JSON archivo",

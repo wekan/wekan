@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "तुमच्या फळ्यांत 'Menu', मागीर 'Export board' हांगा वचून डाउनलोड केल्ल्या फायलींतलो मजकूर नकल करात.",
   "import-board-instruction-about-errors": "फळो आयात करतना चुक्यो आयल्यो तरी केन्ना केन्नाय आयात चालता आनी फळो सगळे फळे पानार दिसता.",
   "import-without-mapping-members": "वांगडी न जुळयता आयात करात (उपरांत जुळयात)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "तुमची वैध JSON म्हायती हांगा चिकटयात",
   "import-csv-placeholder": "तुमची वैध CSV/TSV म्हायती हांगा चिकटयात",
   "import-json-file": "वा Trello JSON फायल निवडात",

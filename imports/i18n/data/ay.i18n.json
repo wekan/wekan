@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "mana your pirqa, go ukaru 'Menu', then 'anqäxar apayaña board', ukat qillqaqaña the qillqa mana the downloaded qillqa-wayaqa.",
   "import-board-instruction-about-errors": "If you get errors when importing pirqa, sometimes importing still works, ukat pirqa awa ukana taqi pirqanaka page.",
   "import-without-mapping-members": "anqäxat apaniña jani mapping miembros (map later)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Aymar aruna: Paste your valid JSON data here",
   "import-csv-placeholder": "Aymar aruna: Paste your valid CSV/TSV data here",
   "import-json-file": "jan ukax ajlliña a Trello JSON qillqa-wayaqa",

@@ -514,6 +514,36 @@ Meteor.methods({
     // (server/importRuns.js), so one that stops halfway is listed in Admin
     // Panel -> Problems -> Recovery to keep or discard. When the deadline
     // answers the client, the writer is told to stop at its next stage.
+    // "One board per project" (the import page's checkbox, or splitBy in the
+    // REST body): a document of the generalized importer becomes one board per
+    // swimlane (models/lib/importSplit.js) - a tool's export that holds several
+    // projects then imports as several boards, as a Trello .zip does. Each part
+    // is its own tracked import run with its own deadline; the first board's
+    // id is returned, and every one is on All Boards.
+    if (Meteor.isServer && data.splitBy === 'swimlane' && creator instanceof KanboardCreator) {
+      const { splitBySwimlane } = require('./lib/importSplit');
+      let parts;
+      try {
+        parts = splitBySwimlane(importedBoard);
+      } catch (error) {
+        throw new Meteor.Error('invalid-import-format', error.message);
+      }
+      if (parts.length > 1) {
+        let firstBoardId = null;
+        for (const part of parts) {
+          const partCreator = new KanboardCreator(data, importSource);
+          const tracked = require('/server/importRuns').trackImport({ userId: this.userId, source: importSource,
+            creator: partCreator, execute: () => partCreator.create(part, null) });
+          const boardId = await withDeadline(
+            tracked.promise,
+            importDeadlineMs(),
+            () => { tracked.abort(); return new Meteor.Error('import-timeout', 'Import took too long and was aborted'); },
+          );
+          if (!firstBoardId) firstBoardId = boardId;
+        }
+        return firstBoardId;
+      }
+    }
     if (Meteor.isServer) {
       const replaceId = await replaceableBoardId(this.userId, currentBoard);
       const tracked = require('/server/importRuns').trackImport({ userId: this.userId, source: importSource, creator,

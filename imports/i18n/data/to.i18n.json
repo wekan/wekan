@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Faka-Tonga: In your palakipoe, go to 'Menu', then 'Export palakipoe', and copy the text in the downloaded faile.",
   "import-board-instruction-about-errors": "Faka-Tonga: If you get errors when importing palakipoe, sometimes importing still works, and palakipoe is at All palakipoe page.",
   "import-without-mapping-members": "Faka-Tonga: Import without mapping mēmipa (map later)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Faka-Tonga: Paste your valid JSON data here",
   "import-csv-placeholder": "Faka-Tonga: Paste your valid CSV/TSV data here",
   "import-json-file": "Faka-Tonga: Or select a Trello JSON faile",

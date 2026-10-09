@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "ในบอร์ดของคุณ ไปที่ 'เมนู' แล้วเลือก 'ส่งออกบอร์ด' จากนั้นคัดลอกข้อความในไฟล์ที่ดาวน์โหลดมา",
   "import-board-instruction-about-errors": "หากเกิดข้อผิดพลาดขณะนำเข้าบอร์ด บางครั้งการนำเข้าก็ยังสำเร็จ และบอร์ดจะอยู่ที่หน้าบอร์ดทั้งหมด",
   "import-without-mapping-members": "นำเข้าโดยไม่แมปสมาชิก (แมปภายหลัง)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "วางข้อมูล JSON ที่ถูกต้องของคุณที่นี่",
   "import-csv-placeholder": "วางข้อมูล CSV/TSV ที่ถูกต้องของคุณที่นี่",
   "import-json-file": "หรือเลือกไฟล์ Trello JSON",

@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "На вашій дошці перейдіть до 'Меню', потім 'Експорт дошки', і скопіюйте текст у завантаженому файлі.",
   "import-board-instruction-about-errors": "Якщо ви отримаєте помилки під час імпорту дошки, іноді імпорт все ще працює, і дошка з'явиться на сторінці всіх дошок.",
   "import-without-mapping-members": "Імпортувати без зіставлення учасників (зіставити пізніше)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Вставте ваші дійсні дані JSON тут",
   "import-csv-placeholder": "Вставте ваші дійсні дані CSV/TSV тут",
   "import-json-file": "Або виберіть файл JSON Trello",

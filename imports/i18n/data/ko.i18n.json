@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "보드에서 '메뉴', '보드 내보내기' 를 실행하고, 다운로드한 파일의 텍스트를 복사합니다.",
   "import-board-instruction-about-errors": "보드를 가져올 때 오류가 나더라도 가져오기가 성공하는 경우가 있으며, 그 보드는 전체 보드 페이지에 있습니다.",
   "import-without-mapping-members": "멤버 매핑 없이 가져오기 (나중에 매핑)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "유효한 JSON 데이터를 여기에 붙여 넣으십시오.",
   "import-csv-placeholder": "유효한 CSV/TSV 정보를 붙여 넣으십시오.",
   "import-json-file": "또는 Trello JSON 파일 선택",

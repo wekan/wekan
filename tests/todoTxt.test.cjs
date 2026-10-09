@@ -83,7 +83,7 @@ async function main() {
     assert.throws(() => validateImportSourceShape('todotxt', '  \n '), /Invalid todotxt/);
     assert.throws(() => validateImportSourceShape('todotxt', { tasks: [] }), /Invalid todotxt/);
     assert.match(read('models/import.js'), /case 'todotxt':[\s\S]*?check\(board, String\);[\s\S]*?EXTERNAL_PARSERS\.todotxt\(importedBoard\)/);
-    assert.match(read('models/export.js'), /todotxt: 'text\/plain'/);
+    assert.match(read('server/lib/renderExternalExport.js'), /todotxt: 'text\/plain'/);
     assert.match(read('client/components/import/import.js'), /\{ key: 'todotxt', name: 'todo\.txt' \}/);
     assert.match(read('client/components/boards/exportScope.js'), /key: 'todotxt'[^}]*path: 'export\/todotxt', ext: 'txt'/);
     assert.ok(JSON.parse(read('imports/i18n/data/en.i18n.json'))['import-board-instruction-todotxt']);

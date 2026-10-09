@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "אין דיין ברעט, גיין צו 'מעניו', דעמאָלט 'עקספּאָרט ברעט', און נאָכמאַכן די טעקסט אין די דאַונלאָודיד טעקע.",
   "import-board-instruction-about-errors": "אויב איר באַקומען ערראָרס ווען ימפּאָרטינג ברעט, מאל ימפּאָרטינג נאָך אַרבעט, און די ברעט איז אויף אַלע באָאַרדס בלאַט.",
   "import-without-mapping-members": "אַרייַנפיר אָן מאַפּירן מיטגלידער (מאַפּיר שפּעטער)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "פּאַפּ דיין גילטיק JSON דאַטן דאָ",
   "import-csv-placeholder": "פּאַפּ דיין גילטיק CSV / TSV דאַטן דאָ",
   "import-json-file": "אָדער קלייַבט אַ Trello JSON טעקע",

@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Long bot bilong yu, go long 'Menu', bihain 'Salim bot i go', na kisim kopi bilong rait insait long fail yu kisim i kam daun.",
   "import-board-instruction-about-errors": "Sapos yu kisim ol rong taim yu kisim bot i kam insait, sampela taim dispela wok i kamap gut yet, na bot i stap long pes bilong olgeta bot.",
   "import-without-mapping-members": "Kisim i kam insait na no linkim ol memba yet (linkim bihain)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Putim kopi bilong stretpela data JSON bilong yu long hia",
   "import-csv-placeholder": "Putim kopi bilong stretpela data CSV/TSV bilong yu long hia",
   "import-json-file": "O makim wanpela Trello JSON fail",

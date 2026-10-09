@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Mo botong ya gago, ya kwa 'Menu', morago 'Export board', mme o kopise mokwalo mo faeleng e e folotsweng.",
   "import-board-instruction-about-errors": "Fa o bona diphoso fa o tlisetsa boto, ka dinako dingwe tliso e sa ntse e dira mme boto e kwa tsebeng ya Diboto tsotlhe.",
   "import-without-mapping-members": "Tlisetsa ntle le go amanya maloko (amanya moragonyana)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Manega tshedimosetso ya gago ya JSON e e siameng fano",
   "import-csv-placeholder": "Manega tshedimosetso ya gago ya CSV/TSV e e siameng fano",
   "import-json-file": "Kgotsa tlhopha faele ya JSON ya Trello",

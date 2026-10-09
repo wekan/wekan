@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "پننِس بورڈس منٛز 'Menu'، پتہٕ 'Export board' کُن گژھیو تہٕ ڈاؤن لوڈ شُدٕ فائل منٛز متن نقل کریو۔",
   "import-board-instruction-about-errors": "اگر بورڈ درآمد کرنس منٛز غلطی یِیہِ، کُنہِ لٹہٕ چھُ درآمد تَمہِ باوجود تہِ چلان تہٕ بورڈ چھُ سٲری بورڈ صفحس پؠٹھ۔",
   "import-without-mapping-members": "ممبر ملاؤنہٕ بغیر درآمد کریو (پتہٕ ملٲویو)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "پنُن درست JSON ڈیٹا یَتھ چسپاں کریو",
   "import-csv-placeholder": "پنُن درست CSV/TSV ڈیٹا یَتھ چسپاں کریو",
   "import-json-file": "یا Trello JSON فائل ژٲریو",

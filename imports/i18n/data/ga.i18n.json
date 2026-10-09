@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "I do chlár, téigh chuig 'Menu', ansin 'Export board', agus cóipeáil an téacs sa chomhad íoslódáilte.",
   "import-board-instruction-about-errors": "Má fhaigheann tú earráidí agus clár á iompórtáil, uaireanta oibríonn an t-iompórtáil fós agus bíonn an clár ar leathanach Gach Clár.",
   "import-without-mapping-members": "Iompórtáil gan baill a mhapáil (mapáil níos déanaí)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Greamaigh do shonraí bailí JSON anseo",
   "import-csv-placeholder": "Greamaigh do shonraí bailí CSV/TSV anseo",
   "import-json-file": "Nó roghnaigh comhad JSON Trello",

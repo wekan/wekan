@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Në tabelën tënde shko te 'Menu', pastaj 'Export board' dhe kopjo tekstin nga skedari i shkarkuar.",
   "import-board-instruction-about-errors": "Nëse merr gabime gjatë importimit të tabelës, importimi ndonjëherë përsëri funksionon dhe tabela gjendet në faqen Të gjitha tabelat.",
   "import-without-mapping-members": "Importo pa lidhur anëtarët (lidhi më vonë)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Ngjit këtu të dhënat e vlefshme JSON",
   "import-csv-placeholder": "Ngjit këtu të dhënat e vlefshme CSV/TSV",
   "import-json-file": "Ose zgjidh një skedar JSON të Trello",

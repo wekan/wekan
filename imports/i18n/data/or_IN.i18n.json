@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "ଆପଣଙ୍କ ବୋର୍ଡରେ, 'ମେନୁ', ତାପରେ 'ରପ୍ତାନି ବୋର୍ଡ' କୁ ଯାଆନ୍ତୁ ଏବଂ ଡାଉନଲୋଡ୍ ହୋଇଥିବା ଫାଇଲରେ ପାଠ କପି କରନ୍ତୁ |",
   "import-board-instruction-about-errors": "ବୋର୍ଡ ଆମଦାନି କରିବାବେଳେ ଯଦି ତୁମେ ତ୍ରୁଟି ପାଇବ, ବେଳେବେଳେ ଆମଦାନି ତଥାପି କାମ କରେ, ଏବଂ ବୋର୍ଡ ସମସ୍ତ ବୋର୍ଡ ପୃଷ୍ଠାରେ ଅଛି |",
   "import-without-mapping-members": "ସଦସ୍ୟ ମ୍ୟାପିଂ ବିନା ଆମଦାନି କରନ୍ତୁ (ପରେ ମ୍ୟାପ୍ କରନ୍ତୁ)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "ଆପଣଙ୍କର ବ valid ଧ JSON ତଥ୍ୟ ଏଠାରେ ଲେପନ କରନ୍ତୁ |",
   "import-csv-placeholder": "ଆପଣଙ୍କର ବ valid ଧ CSV / TSV ତଥ୍ୟ ଏଠାରେ ଲେପନ କରନ୍ତୁ |",
   "import-json-file": "କିମ୍ବା ଏକ Trello JSON ଫାଇଲ୍ ଚୟନ କରନ୍ତୁ",

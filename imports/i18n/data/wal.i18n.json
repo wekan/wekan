@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Wolayttatto: Gidon ne bookkiya, go kko 'Menu', then 'Kessa bookkiya', and dammissa the text gidon the downloaded faayiliyaa.",
   "import-board-instruction-about-errors": "Wolayttatto: If ne get errors when gelissees bookkiya, sometimes gelissees still works, and bookkiya is at Ubba Bookkiyata page.",
   "import-without-mapping-members": "Wolayttatto: Gelissa without mapping yaraata (map later)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Wolayttatto: Paste ne valid JSON data here",
   "import-csv-placeholder": "Wolayttatto: Paste ne valid CSV/TSV data here",
   "import-json-file": "Wolayttatto: Woy doora a Trello JSON faayiliyaa",

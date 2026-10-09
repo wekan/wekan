@@ -148,12 +148,15 @@ async function main() {
     assert.equal(formatters.nullboard, formatNullboard);
     assert.match(read('models/import.js'), /case 'nullboard':\s*\/\/[^\n]*\n\s*check\(board, String\);\s*try \{\s*importedBoard = EXTERNAL_PARSERS\.nullboard\(importedBoard\);/);
     assert.match(read('models/import.js'), /new KanboardCreator\(data, 'nullboard'\)/);
-    assert.match(read('models/export.js'), /nullboard: 'application\/json'/);
+    assert.match(read('server/lib/renderExternalExport.js'), /nullboard: 'application\/json'/);
     const page = read('client/components/import/import.js');
     assert.match(page, /\{ key: 'nullboard', name: 'Nullboard' \}/);
     assert.match(page, /dataSource === 'nullboard'/);
     assert.match(read('client/components/boards/exportScope.js'), /key: 'nullboard'[^}]*path: 'export\/nullboard', ext: 'nbx'/);
-    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /^\| Nullboard \(`\.nbx`\) \|/m);
+    // Its details are on its own page, which the coverage index links.
+    const docPage = read('docs/Features/ImportExport/Nullboard/Nullboard.md');
+    assert.match(docPage, /^## Format details$/m);
+    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /\]\(\.\/Nullboard\/Nullboard\.md\)/);
   });
 
   console.log(`\nnullboardFormat: ${passed} checks passed`);

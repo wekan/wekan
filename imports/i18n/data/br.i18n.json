@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "En ho taolenn, kit da « Lañser », ha goude da « Ezporzhiañ an daolenn », ha kopiit an destenn er restr pellgarget.",
   "import-board-instruction-about-errors": "Ma c’hoarvez fazioù pa enporzhiit un daolenn, e c’hall an enporzhiañ bezañ deuet a-benn memes tra, hag e c’hall an daolenn bezañ war bajenn an holl daolennoù.",
   "import-without-mapping-members": "Enporzhiañ hep kartennaat an izili (kartennaat diwezhatoc'h)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Pegit ho roadennoù JSON talvoudek amañ",
   "import-csv-placeholder": "Pegit ho roadennoù CSV/TSV talvoudek amañ",
   "import-json-file": "Pe dibabit ur restr JSON Trello",

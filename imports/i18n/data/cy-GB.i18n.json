@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Yn eich bwrdd, ewch i 'Dewislen', yna 'Bwrdd Allforio', a chopïwch y testun yn y ffeil wedi'i lawrlwytho.",
   "import-board-instruction-about-errors": "Os cewch wallau wrth fewnforio bwrdd, weithiau mae mewnforio yn dal i weithio, ac mae bwrdd ar dudalen All Boards.",
   "import-without-mapping-members": "Mewnforio heb fapio aelodau (mapio'n ddiweddarach)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Gludwch eich data JSON dilys yma",
   "import-csv-placeholder": "Gludwch eich data CSV/TSV dilys yma",
   "import-json-file": "Neu dewiswch ffeil JSON Trello",

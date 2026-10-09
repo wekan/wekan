@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "ඔබගේ පුවරුවේ 'Menu', ඉන්පසු 'Export board' වෙත ගොස් බාගත් ගොනුවේ පෙළ පිටපත් කරන්න.",
   "import-board-instruction-about-errors": "පුවරුව ආයාත කිරීමේදී දෝෂ ලැබුණත් සමහරවිට ආයාතය ක්‍රියා කරන අතර පුවරුව All Boards පිටුවේ ඇත.",
   "import-without-mapping-members": "සාමාජිකයන් සිතියම්ගත නොකර ආයාත කරන්න (පසුව සිතියම්ගත කරන්න)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "ඔබගේ වලංගු JSON දත්ත මෙහි අලවන්න",
   "import-csv-placeholder": "ඔබගේ වලංගු CSV/TSV දත්ත මෙහි අලවන්න",
   "import-json-file": "නැතහොත් Trello JSON ගොනුවක් තෝරන්න",

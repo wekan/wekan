@@ -133,7 +133,10 @@ async function main() {
   }
   const route = read('models/export.js');
   assert.doesNotMatch(route, /buildKanboardExport|\/export\/kanboard', safeRoute/, 'one Kanboard route, the shared one');
-  assert.match(route, /await require\('\/server\/lib\/adminOnlyCustomFields'\)\.assertFieldExport\(boardId, user\?\._id\);\s*const built = await buildExternalExport/);
+  // The route checks the fields, then renders through the shared renderer
+  // (server/lib/renderExternalExport.js), which calls the collector.
+  assert.match(route, /await require\('\/server\/lib\/adminOnlyCustomFields'\)\.assertFieldExport\(boardId, user\?\._id\);[\s\S]{0,240}renderExternalExport\(boardId, format,/);
+  assert.match(read('server/lib/renderExternalExport.js'), /const built = await buildExternalExport\(boardId, format, fields\);/);
   console.log('  ok - extras are selected by the export selection; Kanboard uses the shared route');
 }
 

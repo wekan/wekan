@@ -175,7 +175,7 @@ async function main() {
     assert.doesNotThrow(() => validateImportSourceShape('quire', API));
     assert.throws(() => validateImportSourceShape('quire', '  '), /Invalid quire/);
     assert.match(read('models/import.js'), /case 'quire':\s*\/\/[^\n]*\n\s*check\(board, String\);\s*try \{\s*importedBoard = EXTERNAL_PARSERS\.quire\(importedBoard\);[\s\S]*?new KanboardCreator\(data, 'quire'\)/);
-    assert.match(read('models/export.js'), /quire: 'text\/csv'/);
+    assert.match(read('server/lib/renderExternalExport.js'), /quire: 'text\/csv'/);
     const page = read('client/components/import/import.js');
     assert.match(page, /\{ key: 'quire', name: 'Quire' \}/);
     assert.match(page, /dataSource === 'quire'/);

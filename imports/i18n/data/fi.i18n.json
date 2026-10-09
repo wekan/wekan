@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Taulullasi, mene 'Valikko', sitten 'Vie taulu', ja kopioi teksti ladatusta tiedostosta.",
   "import-board-instruction-about-errors": "Jos virheitä tulee taulua tuotaessa, joskus tuonti silti toimii, ja taulu on Kaikki taulut sivulla.",
   "import-without-mapping-members": "Tuo ilman jäsenten vastaavuuden määritystä (määritä myöhemmin)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Liitä kelvollinen JSON-tietosi tähän",
   "import-csv-placeholder": "Liitä kelvollinen CSV/TSV tietosi tähän",
   "import-json-file": "Tai valitse Trello JSON -tiedosto",

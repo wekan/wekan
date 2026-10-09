@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "میں یوور بورڈ, جائیں کو 'مینو', تہےن 'برآمد بورڈ', اور نقل تہے تےکست میں تہے دوونلوادےد فائل.",
   "import-board-instruction-about-errors": "یف آپ گےت ےررورس وہےن یمپورتینگ بورڈ, سومےتیمےس یمپورتینگ ستیلل وورکس, اور بورڈ ہے ات تمام بورڈز پاگے.",
   "import-without-mapping-members": "درآمد ویتہووت ماپپینگ ارکان (ماپ لاتےر)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "پاستے یوور والید JSON ڈیٹا ہےرے",
   "import-csv-placeholder": "پاستے یوور والید CSV/TSV ڈیٹا ہےرے",
   "import-json-file": "ور منتخب ا Trello JSON فائل",

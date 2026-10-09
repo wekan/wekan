@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Тақтаңызда 'Menu', содан кейін 'Export board' тармағына өтіп, жүктелген файлдағы мәтінді көшіріңіз.",
   "import-board-instruction-about-errors": "Тақтаны импорттау кезінде қателер шықса да, кейде импорттау жұмыс істейді және тақта Барлық тақталар бетінде болады.",
   "import-without-mapping-members": "Мүшелерді сәйкестендірмей импорттау (кейін сәйкестендіру)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Жарамды JSON деректеріңізді осында қойыңыз",
   "import-csv-placeholder": "Жарамды CSV/TSV деректеріңізді осында қойыңыз",
   "import-json-file": "Немесе Trello JSON файлын таңдаңыз",

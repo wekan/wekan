@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Ha imo board, kadto ha 'Menu', tapos 'Export board', ngan kopyaha an teksto ha gin-download nga file.",
   "import-board-instruction-about-errors": "Kon may makuha ka nga mga error ha pag-import han board, usahay naglalampos gihapon an pag-import, ngan an board aada ha pahina han Ngatanan nga Board.",
   "import-without-mapping-members": "I-import nga waray pag-map han mga membro (i-map ha urhi)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "I-paste an imo balido nga datos nga JSON dinhi",
   "import-csv-placeholder": "I-paste an imo balido nga datos nga CSV/TSV dinhi",
   "import-json-file": "O pili-a an usa nga Trello JSON nga file",

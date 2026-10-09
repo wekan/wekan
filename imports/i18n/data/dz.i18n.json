@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "ཁྱོད་ཀྱི་བྱང་གཞི་ནང་ 'Menu', 'Export board' ལུ་འགྱོ་ཞིནམ་ལས་ཕབ་ལེན་འབད་བའི་ཡིག་སྣོད་ཀྱི་ཚིག་ཡིག་འདྲ་བཤུས་འབད།",
   "import-board-instruction-about-errors": "བྱང་གཞི་ནང་འདྲེན་སྐབས་འཛོལ་བ་ཐོབ་རུང་ རེ་ཚེ་ནང་འདྲེན་ལཱ་འབད་འོང་། བྱང་གཞི་འདི་བྱང་གཞི་ཆ་མཉམ་གྱི་ཤོག་ལེབ་གུ་ཡོད།",
   "import-without-mapping-members": "འཐུས་མི་སྦྱོར་བ་མེད་པར་ནང་འདྲེན་འབད་ (ཤུལ་ལས་སྦྱོར།)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "ནུས་ལྡན་ JSON གནས་སྡུད་ནཱ་ལུ་སྦྱར།",
   "import-csv-placeholder": "ནུས་ལྡན་ CSV/TSV གནས་སྡུད་ནཱ་ལུ་སྦྱར།",
   "import-json-file": "ཡང་ན་ Trello JSON ཡིག་སྣོད་གདམ་ཁ་རྐྱབ།",

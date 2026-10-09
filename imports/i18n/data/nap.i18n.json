@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Nella tua tavula vai su \"Menu\", poi \"Esporta tavula\" e copia il testo int' 'o file scaricato.",
   "import-board-instruction-about-errors": "Se hai degli errori quanno importi una tavula, qualche volta l'importazione funziona comunque, e la tavula si trova int' 'a pagina \"Tutte le tavule\"",
   "import-without-mapping-members": "Importa senza assucià 'e membre (assòcia doppo)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Incolla dei dati JSON validi ccà",
   "import-csv-placeholder": "Incolla dei dati CSV/TSV validi ccà",
   "import-json-file": "Oppure sceglie un file JSON di Trello",

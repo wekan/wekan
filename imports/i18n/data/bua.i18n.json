@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Самбартаа 'Menu', удаань 'Export board' руу орожо, татагдаһан файлһаа бэшэг хуулжа абагты.",
   "import-board-instruction-about-errors": "Самбар оруулхада алдуу гарабашье, заримдаа оруулга ажаллажа, самбар Бүхы самбарнууд хуудаһанда байдаг.",
   "import-without-mapping-members": "Гишүүдые тааруулангүй оруулха (һүүлдэнь тааруулха)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Зүб JSON үгэгдэлөө эндэ оруулагты",
   "import-csv-placeholder": "Зүб CSV/TSV үгэгдэлөө эндэ оруулагты",
   "import-json-file": "Гү, али Trello JSON файл шэлэгты",

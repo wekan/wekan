@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "თქვენს დაფაზე გადადით „მენიუ“, შემდეგ „დაფის გატანა“, და დააკოპირეთ ჩამოტვირთული ფაილის ტექსტი.",
   "import-board-instruction-about-errors": "თუ დაფის შემოტანისას შეცდომებს იღებთ, ზოგჯერ შემოტანა მაინც მუშაობს და დაფა ყველა დაფის გვერდზეა.",
   "import-without-mapping-members": "იმპორტი წევრების შესაბამისობის გარეშე (მოგვიანებით დააკავშირეთ)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "მოათავსეთ თქვენი ვალიდური JSON მონაცემები აქ.",
   "import-csv-placeholder": "ჩასვით აქ თქვენი სწორი CSV/TSV მონაცემები",
   "import-json-file": "ან აირჩიეთ Trello JSON ფაილი",

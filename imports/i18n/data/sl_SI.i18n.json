@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "V vaši tabli pojdite na 'Meni', 'Izvozi tablo' in kopirajte besedilo iz prenesene datoteke.",
   "import-board-instruction-about-errors": "Pri napakah med uvozom table v nekaterih primerih uvažanje še deluje, uvožena tabla pa je na strani Vse Table.",
   "import-without-mapping-members": "Uvozi brez preslikave članov (preslikaj kasneje)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Tukaj prilepite veljavne JSON podatke",
   "import-csv-placeholder": "Tukaj prilepite veljavne podatke CSV/TSV",
   "import-json-file": "Ali izberite datoteko Trello JSON",

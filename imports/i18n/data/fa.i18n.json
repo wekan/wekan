@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "در هیئت مدیره خود، به 'Menu' بروید، سپس 'Export Board'، و متن را در فایل دانلود شده کپی کنید.",
   "import-board-instruction-about-errors": "اگر هنگام بازگردانی با خطا مواجه شدید بعضی اوقات بازگردانی انجام می شود و تمامی برد ها در داخل صفحه All Boards هستند",
   "import-without-mapping-members": "وارد کردن بدون نگاشت اعضا (بعداً نگاشت کنید)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "اطلاعات Json معتبر خود را اینجا وارد کنید.",
   "import-csv-placeholder": "اطلاعات CSV/TSV خود را اینجا پیست کنید.",
   "import-json-file": "یا یک فایل JSON از Trello انتخاب کنید",

@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Kha bodo yaṋu ya Kanban, iyani kha 'Menu', nga murahu 'Export board', ni kope maipfi a faela yo dauniloudiwaho.",
   "import-board-instruction-about-errors": "Arali ni wana vhukhakhi musi ni tshi dzhenisa bodo ya Kanban, nga zwiṅwe zwifhinga u dzhenisa hu kha ḓi shuma nahone bodo i vha kha siaṱari ḽa Bodo dzoṱhe.",
   "import-without-mapping-members": "Dzhenisa hu si na u mepa miraḓo (mepa nga murahu)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Nambatedzani data yaṋu yo teaho ya JSON afha",
   "import-csv-placeholder": "Nambatedzani data yaṋu yo teaho ya CSV/TSV afha",
   "import-json-file": "Kana khetha faela ya Trello JSON",

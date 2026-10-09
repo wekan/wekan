@@ -101,22 +101,37 @@ async function main() {
     assert.deepEqual(parseKanri(JSON.stringify(kanriBoard())), parseKanri(kanriBoard()));
   });
 
-  await test('all data: the first board is imported, the others and the app settings are reported', async () => {
+  // Every board of an all-data export is read, each into a swimlane named
+  // after it, so "One board per project" (models/lib/importSplit.js) gives
+  // each its own WeKan board - the mass import of a Kanri app, as a Trello
+  // .zip is of Trello. (It used to read the first board and report the rest.)
+  await test('all data: every board is read into its own swimlane, and splits into one board each', async () => {
+    const { splitBySwimlane } = await import('../models/lib/importSplit.js');
     const all = {
       activeTheme: 'dark',
       colors: { accent: '#fff' },
       pins: [{ id: 'p', title: 'Website' }],
       lastInstalledVersion: '0.8.1',
-      boards: [kanriBoard(), kanriBoard({ id: 'b2', title: 'Garden' }), kanriBoard({ id: 'b3', title: 'Taxes' })],
+      boards: [kanriBoard(), kanriBoard({ id: 'b2', title: 'Garden' }), kanriBoard({ id: 'b3', title: 'Website' })],
     };
     const board = parseKanri(all);
-    assert.equal(board.board.name, 'Website');
-    assert.equal(board.tasks.length, 3);
+    assert.equal(board.board.name, 'Kanri');
+    assert.deepEqual(board.swimlanes.map(s => s.name), ['Website', 'Garden', 'Website (2)'], 'two boards with one title stay two');
+    assert.equal(board.tasks.length, 9, 'every card of every board');
+    assert.deepEqual([...new Set(board.tasks.map(t => t.swimlane_name))], ['Website', 'Garden', 'Website (2)']);
     const reasons = board.unsupported.map(u => `${u.path} ${u.reason}`).join('\n');
-    assert.match(reasons, /\/boards\/1 Kanri board "Garden" is not imported: one import makes one board/);
-    assert.match(reasons, /\/boards\/2 Kanri board "Taxes" is not imported/);
+    assert.doesNotMatch(reasons, /is not imported: one import makes one board/);
     assert.match(reasons, /^\/ Kanri app settings \(activeTheme, colors, pins\)/m);
     assert.match(reasons, /\/boards\/0\/globalTags/);
+    const parts = splitBySwimlane(board);
+    assert.deepEqual(parts.map(p => p.board.name), ['Website', 'Garden', 'Website (2)']);
+    assert.ok(parts.every(p => p.tasks.length === 3 && p.swimlanes.length === 1));
+    assert.deepEqual(parts[1].columns, board.swimlane_columns.Garden.map(title => ({ title })), 'each board keeps its own columns');
+    assert.ok(parts.every(p => p.swimlane_columns === undefined));
+    // One board in the all-data export is one board, not one swimlane.
+    const single = parseKanri({ boards: [kanriBoard()] });
+    assert.equal(single.board.name, 'Website');
+    assert.deepEqual(single.swimlanes, [{ name: 'Default' }]);
   });
 
   await test('KanbanElectron\'s lists, which Kanri also imports, read as columns', async () => {
@@ -254,7 +269,10 @@ async function main() {
       /\{ key: 'kanri', icon: 'fa-columns', label: 'Kanri', path: 'export\/kanri', ext: 'json', scopes: BOARD_ONLY \}/);
     const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
     assert.match(en['import-board-instruction-kanri'], /Kanri/);
-    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /^\| Kanri \|/m);
+    // Its details are on its own page, which the coverage index links.
+    const docPage = read('docs/Features/ImportExport/Kanri/Kanri.md');
+    assert.match(docPage, /^## Format details$/m);
+    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /\]\(\.\/Kanri\/Kanri\.md\)/);
   });
 
   console.log(`\nkanriFormat: ${passed} checks passed`);

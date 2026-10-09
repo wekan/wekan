@@ -58,6 +58,11 @@ template(name="allBoardsHomeSidebar")
           i.fa.fa-check-square-o
           span.sidebar-list-item-description {{_ 'multi-selection'}}
   hr
+  //- "Export all boards" (server/routes/exportAllBoards.js): every board you
+    can export, in one format, in one download.
+  a.sidebar-btn.js-export-all-boards
+    i.fa.fa-download
+    span {{_ 'export-all-boards'}}
   //- Archived boards had a handler in the header bar and no button to reach it.
   a.sidebar-btn.js-open-archived-board
     i.fa.fa-archive
@@ -110,6 +115,9 @@ template(name="allBoardsMultiSelectionSidebar")
       a.sidebar-btn.js-duplicate-selected-boards
         i.fa.fa-clipboard
         span {{_ 'duplicate-board'}}
+      a.sidebar-btn.js-export-selected-boards
+        i.fa.fa-download
+        span {{_ 'export-selected-boards'}}
   hr
   a.sidebar-btn.js-multiselection-reset
     i.fa.fa-times-thin
@@ -130,3 +138,15 @@ template(name="duplicateSelectedBoardsPopup")
       p.warning(role="alert") {{copyError}}
     button.primary(type="submit" disabled=copyBusy) {{_ 'duplicate-board'}}
     button.js-copy-cancel(type="button" disabled=copyBusy) {{_ 'cancel'}}
+
+//- The formats "Export all boards" offers, each a download of every board (or
+//- of the selected ones): Excel as one workbook with a sheet per board, every
+//- other format as a .zip with a file per board.
+template(name="exportAllBoardsPopup")
+  p.quiet {{_ 'export-all-boards-hint'}}
+  ul.pop-over-list
+    each formats
+      li
+        a.export-all-boards-format(href="{{url}}" download="{{filename}}" rel="noopener")
+          i.fa.fa-download
+          |  {{label}}

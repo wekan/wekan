@@ -135,7 +135,7 @@ async function main() {
     assert.equal(EXTERNAL_PARSERS.obsidian, parseObsidianKanban);
     assert.equal(formatters.obsidian, formatObsidianKanban);
     assert.match(read('models/import.js'), /case 'obsidian':\s*\/\/[^\n]*\n\s*check\(board, String\);\s*try \{\s*importedBoard = EXTERNAL_PARSERS\.obsidian\(importedBoard\);/);
-    assert.match(read('models/export.js'), /obsidian: 'text\/markdown'/);
+    assert.match(read('server/lib/renderExternalExport.js'), /obsidian: 'text\/markdown'/);
     const page = read('client/components/import/import.js');
     assert.match(page, /\{ key: 'obsidian', name: 'Obsidian Kanban' \}/);
     assert.match(page, /dataSource === 'obsidian'/);

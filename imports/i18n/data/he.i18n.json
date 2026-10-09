@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "בלוח שלך עליך לגשת אל ‚תפריט’, לאחר מכן ‚ייצוא לוח’ ואז להעתיק את הטקסט מהקובץ שהתקבל.",
   "import-board-instruction-about-errors": "גם אם התקבלו שגיאות בעת יבוא לוח, ייתכן שהייבוא עבד. כדי לבדוק זאת, יש להיכנס ל„כל הלוחות”.",
   "import-without-mapping-members": "ייבוא ללא מיפוי חברים (אפשר למפות בהמשך)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "יש להדביק את נתוני ה־JSON התקינים לכאן",
   "import-csv-placeholder": "נא להדביק את נתוני ה־CSV/TSV התקינים שלך כאן",
   "import-json-file": "או לבחור קובץ JSON של Trello",

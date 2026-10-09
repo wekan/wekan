@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "在您的看板，點擊「選單」，然後「匯出看板」，複製下載檔案中的文字。",
   "import-board-instruction-about-errors": "如果在匯入看板時出現錯誤，匯入工作可能仍然在進行中，並且看板已經出現在全部看板頁。",
   "import-without-mapping-members": "在不建立成員對映的情況下匯入（稍後再建立對映）",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "貼上您有效的 JSON 資料至此",
   "import-csv-placeholder": "貼上您有效的 CSV/TSV 資料至此",
   "import-json-file": "選取 Trello JSON 檔案",

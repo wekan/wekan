@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "तुमच्या फलकात 'Menu', नंतर 'Export board' येथे जा आणि डाउनलोड केलेल्या फाइलमधील मजकूर कॉपी करा.",
   "import-board-instruction-about-errors": "फलक आयात करताना त्रुटी आल्या तरी कधीकधी आयात कार्य करते आणि फलक सर्व फलक पृष्ठावर दिसतो.",
   "import-without-mapping-members": "सदस्य न जुळवता आयात करा (नंतर जुळवा)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "तुमचा वैध JSON डेटा येथे ओटा",
   "import-csv-placeholder": "तुमचा वैध CSV/TSV डेटा येथे ओटा",
   "import-json-file": "किंवा Trello JSON फाइल निवडा",

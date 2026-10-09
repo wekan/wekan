@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "In tiegħek bord, go għal 'Menu', then 'Esporta bord', and copy il- text ġewwa il- downloaded file.",
   "import-board-instruction-about-errors": "If you get errors when importing bord, sometimes importing still works, and bord huwa fi Kollha Bordijiet page.",
   "import-without-mapping-members": "Importa without mapping membri (map later)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Paste tiegħek valid JSON data here",
   "import-csv-placeholder": "Paste tiegħek valid CSV/TSV data here",
   "import-json-file": "Jew agħżel fajl JSON ta’ Trello",

@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Nella tua bacheca vai su \"Menu\", poi \"Esporta bacheca\" e copia il testo nel file scaricato.",
   "import-board-instruction-about-errors": "Se hai degli errori quando importi una bacheca, qualche volta l'importazione funziona comunque, e la bacheca si trova nella pagina \"Tutte le bacheche\"",
   "import-without-mapping-members": "Importa senza mappare i membri (mappa in seguito)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Incolla dei dati JSON validi qui",
   "import-csv-placeholder": "Incolla dei dati CSV/TSV validi qui",
   "import-json-file": "Oppure seleziona un file JSON di Trello",

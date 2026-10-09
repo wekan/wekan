@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "अपने बोर्ड में 'मेन्यू' पर जाएँ, फिर 'बोर्ड निर्यात करें', और डाउनलोड की गई फ़ाइल का पाठ कॉपी करें।",
   "import-board-instruction-about-errors": "बोर्ड आयात करते समय त्रुटियाँ आने पर भी कभी-कभी आयात हो जाता है, और बोर्ड सभी बोर्ड पृष्ठ पर होता है।",
   "import-without-mapping-members": "सदस्यों को मैप किए बिना आयात करें (बाद में मैप करें)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "अपना मान्य JSON डेटा यहाँ चिपकाएँ",
   "import-csv-placeholder": "अपना वैध CSV / TSV सामग्री यहां पेस्ट करें",
   "import-json-file": "या एक Trello JSON फ़ाइल चुनें",

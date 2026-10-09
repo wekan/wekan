@@ -9,6 +9,7 @@ const {
 } = require('/models/lib/allBoardsUrls');
 import { TAPi18n } from '/imports/i18n';
 import { BoardMultiSelection } from '/client/lib/boardMultiSelection';
+import { massExportFormats, massExportUrl } from '/client/components/boards/exportScope';
 import { allBoardsSearchVar, allBoardsMenuVar } from '/client/lib/allBoardsView';
 import {
   allBoardsSidebarView,
@@ -90,6 +91,10 @@ Template.allBoardsHomeSidebar.events({
   // Boards in Archive is a page. This row had no handler at all: the one it
   // relied on lived in the header bar's events map and went when that map was
   // rewritten, so the button did nothing.
+  'click .js-export-all-boards'(evt) {
+    evt.preventDefault();
+    Popup.open('exportAllBoards').call({ boardIds: null }, evt);
+  },
   'click .js-open-archived-board'(evt) {
     evt.preventDefault();
     closeAllBoardsSidebar();
@@ -182,7 +187,24 @@ function selectedHomeBoardIdOrWarn() {
   return ids[0];
 }
 
+Template.exportAllBoardsPopup.helpers({
+  formats() {
+    const boardIds = (this && this.boardIds) || null;
+    return massExportFormats().map(format => ({
+      label: format.label,
+      url: massExportUrl(format.key, boardIds),
+      filename: format.key === 'excel' ? 'wekan-boards.xlsx' : `wekan-boards-${format.key}.zip`,
+    }));
+  },
+});
+
 Template.allBoardsMultiSelectionSidebar.events({
+  'click .js-export-selected-boards'(evt) {
+    evt.preventDefault();
+    const boardIds = selectedBoardIdsOrWarn();
+    if (!boardIds) return;
+    Popup.open('exportAllBoards', { titleKey: 'export-selected-boards' }).call({ boardIds }, evt);
+  },
   'click .js-delete-selected-boards'(evt) {
     evt.preventDefault();
     const ids = selectedBoardIdsOrWarn();

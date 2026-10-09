@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Mine oma tahvlisse 'Menu', seejärel 'Export board' ja kopeeri alla laetud faili tekst.",
   "import-board-instruction-about-errors": "Kui sa saad vigu importimisel pardal, mõnikord importimine ikka töötab, ja pardal on aadressil Kõik lauad lehekülg.",
   "import-without-mapping-members": "Impordi liikmeid vastendamata (vastenda hiljem)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Sisestage siia oma kehtivad JSON-andmed",
   "import-csv-placeholder": "Sisestage siia oma kehtivad CSV/TSV andmed.",
   "import-json-file": "Või vali Trello JSON-fail",

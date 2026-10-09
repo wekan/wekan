@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Far á 'Menu' á talvuni, síðan á 'Útflyt talvuna', og avrita tekstin í niðurtiknu fíluni.",
   "import-board-instruction-about-errors": "Um tú fært villur við innflyting av talvu, virkar innflytingin viðhvørt kortini, og talvan er á síðuni Allar talvur.",
   "import-without-mapping-members": "Innflyt uttan at knýta limir (knýt seinni)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Líma gildugu JSON-dáturnar hjá tær her",
   "import-csv-placeholder": "Líma gildugu CSV/TSV-dáturnar hjá tær her",
   "import-json-file": "Ella vel eina Trello JSON-fílu",

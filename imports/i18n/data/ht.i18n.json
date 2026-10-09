@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Nan tablo ou a, ale nan 'Meni', apre sa 'Ekspòte tablo', epi kopye tèks ki nan fichye telechaje a.",
   "import-board-instruction-about-errors": "Si ou jwenn erè pandan enpòtasyon tablo a, pafwa enpòtasyon an mache kanmenm epi tablo a sou paj Tout Tablo yo.",
   "import-without-mapping-members": "Enpòte san asosye manm yo (asosye pita)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Kole done JSON valab ou yo isit la",
   "import-csv-placeholder": "Kole done CSV/TSV valab ou yo isit la",
   "import-json-file": "Oswa chwazi yon fichye JSON Trello",

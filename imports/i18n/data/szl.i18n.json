@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Na Twojej tabule przejdź do 'Menu', a następnie ôbier 'Eksportuj tabula' i skopiyruj tekst we pobranym pliku.",
   "import-board-instruction-about-errors": "Czasami mimo komunikatu o błędzie importowanie tabule przebiega poprawnie i je ona widoczna na liście tabul (Wszyskie tabule).",
   "import-without-mapping-members": "Importuj bez mapowania czōnkōw (mapuj później)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Wklej Twoje dane JSON sam",
   "import-csv-placeholder": "Wklej swoje dane z pliku CSV/TSV sam",
   "import-json-file": "Abo ôbier plik JSON z Trello",

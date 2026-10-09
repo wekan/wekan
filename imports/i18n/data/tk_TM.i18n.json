@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Tagtanyňyzda 'Menýu', soňra 'Eksport tagtasy' -na gidiň we teksti göçürilen faýlda göçüriň.",
   "import-board-instruction-about-errors": "Tagtany import edeniňizde ýalňyşlyklar ýüze çyksa, käwagt import etmek henizem işleýär we tagtanyň hemmesi \"Tagtalar\" sahypasynda.",
   "import-without-mapping-members": "Agzalary kartalaşdyrman import ediň (soňra kartalaşdyryň)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Dogry JSON maglumatlaryňyzy şu ýere goýuň",
   "import-csv-placeholder": "Dogry CSV / TSV maglumatlaryňyzy şu ýere goýuň",
   "import-json-file": "Ýa-da Trello JSON faýlyny saýlaň",

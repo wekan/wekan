@@ -174,9 +174,12 @@ export default Popup => {
   };
 
   const addJsonExportToZip = async (zip, boardSlug, zipDirName) => {
-    const downloadJSONLink = document.querySelector('.download-json-link');
-    const downloadJSONURL = downloadJSONLink.href;
-    const response = await fetch(downloadJSONURL);
+    // The board's own JSON export. It used to be read off a .download-json-link
+    // in the export popup, which the one shared export popup no longer has, so
+    // the archive stopped here; the URL is built the way that link built it.
+    const boardId = Session.get('currentBoard');
+    const params = new URLSearchParams({ authToken: Accounts._storedLoginToken() || '' });
+    const response = await fetch(`/api/boards/${encodeURIComponent(boardId)}/export?${params.toString()}`);
     const responseBody = await response.text();
     zip.file(`${zipDirName}/data/${boardSlug}.json`, responseBody);
   };

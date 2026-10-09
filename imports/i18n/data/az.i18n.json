@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Lövhənizdə \"Menyu\"ya, sonra \"İxrac lövhəsinə\" keçin və endirilmiş fayldakı mətni kopyalayın.",
   "import-board-instruction-about-errors": "Lövhəni idxal edərkən səhvlər alsanız, bəzən idxal hələ də işləyir və lövhə Bütün Lövhələr səhifəsindədir.",
   "import-without-mapping-members": "Üzvləri uyğunlaşdırmadan idxal et (sonra uyğunlaşdır)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Etibarlı JSON datanızı bura yerləşdirin",
   "import-csv-placeholder": "Etibarlı CSV/TSV datanızı bura yerləşdirin",
   "import-json-file": "Və ya Trello JSON faylı seçin",

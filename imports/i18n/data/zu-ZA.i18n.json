@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Ebhodini lakho, hamba 'kumenyu', bese 'Khipha ibhodi', bese ukopisha umbhalo efayeleni elilandiwe.",
   "import-board-instruction-about-errors": "Uma uthola amaphutha lapho ungenisa ibhodi, ngezinye izikhathi ukungenisa kusasebenza, futhi ibhodi isekhasini Wonke Amabhodi.",
   "import-without-mapping-members": "Ngenisa ngaphandle kokumepha amalungu (mepha kamuva)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Namathisela idatha yakho evumelekile ye-JSON lapha",
   "import-csv-placeholder": "Namathisela idatha yakho evumelekile ye-CSV/TSV lapha",
   "import-json-file": "Noma khetha ifayela le-JSON le-Trello",

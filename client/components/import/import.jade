@@ -14,6 +14,16 @@ template(name="import")
         button.primary.js-open-imported-board(type="button") {{_ 'import-report-open-board'}}
     if zipImporting
       .warning {{_ 'import-trello-zip-progress'}}
+    if manyProgress
+      .warning.js-import-many-progress {{manyProgress}}
+    //- What "Import many boards" did, file by file.
+    if manyResults
+      .import-report.js-import-many-results
+        h2 {{_ 'import-many-results-heading'}}
+        ul
+          each manyResults
+            li.import-report-row(class="{{#if ok}}is-imported{{else}}is-failed{{/if}}") {{name}}: {{#if ok}}{{_ 'import-many-imported'}}{{else}}{{error}}{{/if}}
+        button.primary.js-import-many-all-boards(type="button") {{_ 'all-boards'}}
     //- #1173: ONE import page. Every source used to be its own address reached
       from its own link in the board sidebar, and the page never said which
       others existed - so "where do I import a Jira export" was answered by a
@@ -110,6 +120,22 @@ template(name="importTextarea")
       p.import-file-row
         label(for='import-workspace-name') {{_ 'import-trello-workspace'}}
         textarea.js-import-workspace-name(rows="2" id='import-workspace-name' placeholder="{{_ 'import-trello-workspace-placeholder'}}")
+    //- "Import many boards" (models/lib/importManyFiles.js): several export
+      files of this source, or one .zip holding them, each its own board -
+      what the Trello .zip does, for every source. When files are chosen here,
+      the Import buttons import them instead of the field above.
+    p.import-file-row.import-many
+      label(for='import-many-files') {{_ 'import-many-boards'}}
+      span.quiet.import-file-hint {{_ 'import-many-boards-hint'}}
+      input.js-import-many-files(id='import-many-files' type="file" multiple)
+    if isGeneralizedImport
+      //- "One board per project" (models/lib/importSplit.js): each swimlane the
+        import would make becomes its own board.
+      p.import-file-row
+        a.flex.js-import-split-toggle(href="#")
+          .materialCheckBox(class="{{#if splitByProject}}is-checked{{/if}}")
+          span {{_ 'import-one-board-per-project'}}
+        span.quiet.import-file-hint {{_ 'import-one-board-per-project-hint'}}
     input.primary.wide(type="submit" value="{{_ 'import'}}")
     button.primary.wide.js-import-without-mapping(type="button") {{_ 'import-without-mapping-members'}}
   if isTrelloImport

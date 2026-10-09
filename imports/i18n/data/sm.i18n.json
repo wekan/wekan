@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "I lau laupapa, alu i le 'Menu', sosoo ai ma le 'Export board', ma kopi le tusitusiga i le faila na sii mai.",
   "import-board-instruction-about-errors": "Afai e maua ni sese a o faaulu le laupapa, o nisi taimi e galue pea le faauluina, ma o loo iai le laupapa i le itulau Laupapa Uma.",
   "import-without-mapping-members": "Faaulufale e aunoa ma le fesootai o sui (fesootai mulimuli ane)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Faapipii au faamatalaga JSON aoga iinei",
   "import-csv-placeholder": "Faapipii au faamatalaga CSV/TSV aoga iinei",
   "import-json-file": "Po o le filifili se faila JSON a Trello",

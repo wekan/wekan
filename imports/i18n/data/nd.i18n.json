@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Ebhodini lakho, yana ku-'Menu', bese ku-'Export board', ukophele umbhalo osefayeleni elilandiweyo.",
   "import-board-instruction-about-errors": "Nxa uthola amaphutha ngesikhathi ungenisa ibhodi, kwesinye isikhathi ukungenisa kuyasebenza futhi ibhodi litholakala ekhasini lawo wonke amabhodi.",
   "import-without-mapping-members": "Ngenisa ngaphandle kokuxhumanisa amalunga (xhumanisa ngemva)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Namathisela idatha yakho ye-JSON esebenzayo lapha",
   "import-csv-placeholder": "Namathisela idatha yakho ye-CSV/TSV esebenzayo lapha",
   "import-json-file": "Loba khetha ifayela le-Trello JSON",

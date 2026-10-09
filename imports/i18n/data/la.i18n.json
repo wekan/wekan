@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Latine: In tuum tabula, i ad 'Tabula optionum', then 'Exporta tabula', et copia the textus in the depromptum fasciculus.",
   "import-board-instruction-about-errors": "Latine: Si tu get errors quando importing tabula, sometimes importing still works, et tabula est at Omnia Tabulae pagina.",
   "import-without-mapping-members": "Latine: Importa sine mapping sodales (map later)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Latine: Paste tuum validum JSON data here",
   "import-csv-placeholder": "Latine: Paste tuum validum CSV/TSV data here",
   "import-json-file": "Latine: Vel elige a Trello JSON fasciculus",

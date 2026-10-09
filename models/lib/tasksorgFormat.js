@@ -262,6 +262,8 @@ export function formatTasksOrgBackup({ board, lists, items }, now = new Date()) 
       ...(tasksorgMillis(item.endAt) ? { completionDate: tasksorgMillis(item.endAt) } : {}),
       ...(item.description ? { notes: item.description } : {}),
       ...(Number.isFinite(estimate) && estimate > 0 ? { estimatedSeconds: Math.round(estimate * 3600) } : {}),
+      // Time spent goes back as Tasks.org keeps it, so it survives the round trip.
+      ...(Number(item.spentTime) > 0 ? { elapsedSeconds: Math.round(Number(item.spentTime) * 3600) } : {}),
     };
     const comments = array(item.comments)
       .filter(comment => comment && String(comment.text || '').trim())

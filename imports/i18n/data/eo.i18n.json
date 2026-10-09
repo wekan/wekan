@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "En via tabulo, iru al 'Menuo', poste 'Eksporti tabulon', kaj kopiu la tekston el la elŝutita dosiero.",
   "import-board-instruction-about-errors": "Se vi ricevas erarojn dum importado de tabulo, la importado foje tamen funkcias, kaj la tabulo estas en la paĝo Ĉiuj tabuloj.",
   "import-without-mapping-members": "Importi sen mapi membrojn (mapi poste)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Algluu viajn validajn JSON-datumojn ĉi tie",
   "import-csv-placeholder": "Algluu viajn validajn CSV/TSV-datumojn ĉi tie",
   "import-json-file": "Aŭ elektu Trello JSON-dosieron",

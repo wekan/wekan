@@ -119,7 +119,7 @@ Body &amp; more</t>
     assert.match(importJs, /\{ key: 'leo', name: 'Leo' \}/);
     assert.match(importJs, /dataSource === 'markdown' \|\| dataSource === 'leo'/);
     assert.match(read('client/components/boards/exportScope.js'), /key: 'leo'.*path: 'export\/leo', ext: 'leo', scopes: BOARD_ONLY/);
-    assert.match(read('models/export.js'), /leo: 'application\/xml'/);
+    assert.match(read('server/lib/renderExternalExport.js'), /leo: 'application\/xml'/);
     const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
     const keys = Object.keys(en);
     assert.equal(keys[keys.indexOf('import-board-instruction-markdown') + 1], 'import-board-instruction-leo');

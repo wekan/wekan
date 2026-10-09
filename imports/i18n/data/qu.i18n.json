@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Kay willaymi: pi Qampa Pirqa, gota man 'Menu'ta, thenta 'Hawaman apachiy board'ta, andta Kikinchay theta textta pi theta downloadedta Qillqa-wayaqa.",
   "import-board-instruction-about-errors": "Kay willaymi: Ifta Qam getta errorsta whenta importingta Pirqa, sometimesta importingta stillta worksta, andta Pirqa ista atta Llapan Pirqakuna pageta.",
   "import-without-mapping-members": "Kay willaymi: Hawamanta apamuy withoutta mappingta Masikuna (mapta laterta)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Kay willaymi: Pasteta Qampa validta JSONta datata hereta",
   "import-csv-placeholder": "Kay willaymi: Pasteta Qampa validta CSVta/TSVta datata hereta",
   "import-json-file": "Kay willaymi: Orta Akllay ata Trellota JSONta Qillqa-wayaqa",

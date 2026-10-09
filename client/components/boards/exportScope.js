@@ -461,11 +461,35 @@ Template.exportScopeBody.events({
   },
 });
 
+// "Export all boards" (server/routes/exportAllBoards.js): the formats of this
+// menu that can be written for many boards at once - WeKan JSON, CSV/TSV,
+// Excel (one workbook, a sheet per board) and every tool format - with the
+// menu's own labels. PDF, HTML, iCalendar and the dependency graph are
+// documents of one board and are not among them.
+function massExportFormats() {
+  const out = [{ key: 'wekan', label: 'JSON' }];
+  EXPORT_FORMAT_GROUPS.forEach(group => group.entries.forEach(entry => {
+    if (entry.key === 'excel') out.push({ key: 'excel', label: 'Excel' });
+    else if (['csv', 'scsv', 'tsv'].includes(entry.key)) out.push({ key: entry.key, label: entry.key === 'tsv' ? 'TSV' : `CSV ${entry.label}` });
+    else if (/^export\/[a-z]+$/.test(entry.path || '') && entry.path !== 'export/csv') out.push({ key: entry.path.slice(7), label: entry.label });
+  }));
+  return out;
+}
+
+// The download of "Export all boards" in `format`; with `boardIds`, only those.
+function massExportUrl(format, boardIds) {
+  const params = new URLSearchParams({ authToken: Accounts._storedLoginToken() || '' });
+  if (Array.isArray(boardIds) && boardIds.length) params.set('boardIds', boardIds.join(','));
+  return `/api/export-all-boards/${format}?${params.toString()}`;
+}
+
 // `exportUrlFor` is what the board popup uses to build the same URLs with the
 // same selection - one query string, built in one place, whichever popup asks.
 export {
   selectedFields,
   selection,
   readExportFile,
+  massExportFormats,
+  massExportUrl,
   exportUrl as exportUrlFor,
 };

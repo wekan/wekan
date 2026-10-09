@@ -10,6 +10,9 @@ import { pruneImportDocument } from './lib/importParts';
 const { safeEntryPath } = require('./lib/backupPaths');
 // The wekan.json of an import zip inflates to at most this (ZipBombBleed).
 const MAX_IMPORT_DOCUMENT_BYTES = 256 * 1024 * 1024;
+// A .zip imported as a new board puts its attachment files inline, in memory
+// (see newBoard below): this much of them, at most.
+const MAX_NEW_BOARD_ATTACHMENT_BYTES = 512 * 1024 * 1024;
 
 runOnServer(function () {
   const fs = Npm.require('fs');
@@ -124,9 +127,14 @@ runOnServer(function () {
       user = await ReactiveCache.getUser({ _id: req.userId });
     }
 
+    // newBoard=1 (All Boards > Import, and "Import many boards"): the .zip
+    // becomes a NEW board through the full-board importer, as its .json would,
+    // with the attachment files put back on their rows as the .json carries
+    // them. Without it, the document is imported into the board named here.
+    const newBoard = req.query && req.query.newBoard === '1';
     const boardId = req.query && req.query.boardId;
     const board = boardId ? await ReactiveCache.getBoard(boardId) : null;
-    if (!board) {
+    if (!board && !newBoard) {
       answer(404, { error: 'Not found' });
       return;
     }
@@ -135,7 +143,7 @@ runOnServer(function () {
     // active membership (MutationBleed sibling, 2026-10-02 - read-only,
     // comment-only and worker members could import into a board).
     const { memberCan } = require('/models/lib/boardRoleCapabilities');
-    if (!board.isVisibleBy(user) || !memberCan(board.members || [], user._id, 'write')) {
+    if (board && (!board.isVisibleBy(user) || !memberCan(board.members || [], user._id, 'write'))) {
       answer(403, { error: 'Forbidden' });
       return;
     }
@@ -197,6 +205,29 @@ runOnServer(function () {
         return entry ? entry.stream() : null;
       };
 
+      if (newBoard) {
+        // The bytes go inline, as base64 under `file` - what a .json export
+        // carries and models/wekanCreator.js reads - within a budget, since
+        // they are held in memory; a larger export is imported into an
+        // existing board instead, which streams them.
+        const { readZipEntryBounded: readBounded } = require('/server/lib/boundedZipEntry');
+        let inlined = 0;
+        for (const attachment of Array.isArray(doc.attachments) ? doc.attachments : []) {
+          const entry = entriesById.get(attachment && attachment._id);
+          if (!entry || attachment.file) continue;
+          const bytes = await readBounded(entry, MAX_NEW_BOARD_ATTACHMENT_BYTES - inlined);
+          inlined += bytes.length;
+          attachment.file = bytes.toString('base64');
+        }
+        const { DDP } = require('meteor/ddp');
+        const newBoardId = await DDP._CurrentMethodInvocation.withValue(
+          { userId: user._id, isSimulation: false },
+          () => Meteor.callAsync('importBoard', doc, { membersMapping: {}, importFields: fields }, 'wekan', null),
+        );
+        answer(200, { ok: true, boardId: newBoardId });
+        return;
+      }
+
       const scope = parseExportScope(req.query);
       const { ScopedImporter } = require('./server/scopedImporter');
       const importer = new ScopedImporter(
@@ -207,7 +238,8 @@ runOnServer(function () {
       const counts = await importer.run();
       answer(200, { ok: true, counts });
     } catch (error) {
-      const message = error && error.message === 'import-zip-too-large'
+      // A new board's attachments past their budget are "too large" too.
+      const message = error && ['import-zip-too-large', 'zip-entry-too-large'].includes(error.message)
         ? 'import-zip-too-large'
         : 'import-failed';
       console.error('importZip failed', error);

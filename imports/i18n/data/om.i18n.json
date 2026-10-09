@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Gabatee kee keessatti gara 'Menu', achii 'Export board' deemii barruu faayila buufame keessaa waraabi.",
   "import-board-instruction-about-errors": "Yeroo gabatee galchitu dogoggora yoo argatte, yeroo tokko tokko galchi sun ni hojjeta; gabateenis fuula Gabateewwan Hunda irra jira.",
   "import-without-mapping-members": "Miseensota osoo hin walqabsiisin galchi (boodarra walqabsiisi)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Daataa JSON sirrii kee as maxxansi",
   "import-csv-placeholder": "Daataa CSV/TSV sirrii kee as maxxansi",
   "import-json-file": "Yookaan faayila JSON Trello fili",

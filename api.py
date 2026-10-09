@@ -77,8 +77,10 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py importboard EXPORT.json # Import a whole board (with rules/workflows) from a WeKan export
     python3 api.py migratefromwekan REMOTE_URL REMOTE_USER REMOTE_PASS # Import ALL boards+workflows+rules from another WeKan
     python3 api.py exportboardpdf BOARDID OUTPUT.pdf # Export a whole board to PDF
-    python3 api.py importboardfrom SOURCE EXPORT.json # Import from trello/wekan/csv/jira/kanboard/excel/deck/openproject/github/gitlab/gitea/forgejo/asana/zenkit
-    python3 api.py exportboardformat BOARDID FORMAT OUTPUT.json # Export to kanboard/trello/jira/deck/openproject/github/gitlab/gitea/forgejo/asana/zenkit
+    python3 api.py importboardfrom SOURCE FILE # Import a tool's export file; SOURCE is a key of the import page (trello, jira, csv, excel, planner, wrike, notion, ...), see docs/Features/ImportExport
+    python3 api.py exportboardformat BOARDID FORMAT OUTPUTFILE # Export to a tool's format; FORMAT is a key of the export menu (kanboard, trello, planner, wrike, wrikeworkflow, ...)
+    python3 api.py importboardsfrom SOURCE [--split] FILE_OR_DIR ... # Import many boards: each file (or each file of a directory or .zip) becomes a board; --split makes one board per project
+    python3 api.py exportallboards FORMAT OUTPUTFILE [--boards ID1,ID2] # Export all boards: Excel as one workbook with a sheet per board, other formats as a .zip with a file per board
     python3 api.py importics BOARDID SWIMLANEID LISTID CALENDAR.ics # Import an iCalendar (.ics) file into a board as cards (one card per VEVENT)
 
         Board Member API (Issue #5998):
@@ -2064,28 +2066,154 @@ if arguments >= 3 and sys.argv[1] == 'exportboardpdf':
 # JSON shape. Sources/formats: trello, wekan, csv, jira, kanboard, excel, deck,
 # openproject, github, gitlab, gitea, forgejo.
 #
-#   python3 api.py importboardfrom SOURCE EXPORT.json   # e.g. github issues.json  (SOURCE = deck/openproject/github/gitlab/gitea/forgejo/asana/zenkit/trello/jira/kanboard/csv/excel/wekan)
-#   python3 api.py exportboardformat BOARDID FORMAT OUTPUT.json  # FORMAT = trello/jira/deck/openproject/github/gitlab/gitea/forgejo/asana/zenkit/kanboard
+#   python3 api.py importboardfrom SOURCE FILE   # e.g. github issues.json, wrike board.xlsx, notion export.zip
+#   python3 api.py exportboardformat BOARDID FORMAT OUTPUTFILE  # e.g. BOARDID wrike board.xlsx
 
-if arguments >= 3 and sys.argv[1] == 'importboardfrom':
+# The document importBoard expects for SOURCE, built from the file as the
+# import page builds it (models/lib/importSourceShape.js): an Excel workbook as
+# { excelBase64 } (Plane's as { xlsxBase64 }), an export .zip as { zipBase64 },
+# a CSV/TSV file as rows, a text format as its text, and the rest as JSON.
+EXCEL_IMPORT_SOURCES = {'excel', 'planner', 'monday', 'wrike', 'teamwork', 'businessmap'}
+ZIP_IMPORT_SOURCES = {'vikunja', 'notion', 'plane'}
+TEXT_IMPORT_SOURCES = {'markdown', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian',
+                       'linear', 'ticktick', 'clickup', 'nullboard', 'pivotal', 'redmine', 'superproductivity',
+                       'quire', 'orgmode', 'leo', 'opml', 'vikunja', 'notion', 'plane'}
+
+def import_document(source, filepath):
+    import base64, csv, io, os
+    ext = os.path.splitext(filepath)[1].lower()
+    if source in EXCEL_IMPORT_SOURCES or (source == 'plane' and ext == '.xlsx'):
+        with open(filepath, 'rb') as f:
+            data = base64.b64encode(f.read()).decode('ascii')
+        return {'xlsxBase64': data} if source == 'plane' else {'excelBase64': data}
+    if source in ZIP_IMPORT_SOURCES and ext == '.zip':
+        with open(filepath, 'rb') as f:
+            return {'zipBase64': base64.b64encode(f.read()).decode('ascii')}
+    with open(filepath, encoding='utf-8-sig') as f:
+        text = f.read()
+    if source == 'csv':
+        # As the import page: a tab separated file is read as commas.
+        if '\t' in text:
+            text = text.replace('\t', ',')
+        try:
+            dialect = csv.Sniffer().sniff(text[:4096], delimiters=',;')
+        except csv.Error:
+            dialect = csv.excel
+        return [row for row in csv.reader(io.StringIO(text), dialect)]
+    if source in TEXT_IMPORT_SOURCES:
+        return text
+    return json.loads(text)
+
+# A WeKan .zip export (the document and its attachment files) is imported as
+# a new board by /api/import/zip?newBoard=1, which unpacks it on the server.
+def post_wekan_zip(filepath):
+    with open(filepath, 'rb') as f:
+        data = f.read()
+    headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/zip'}
+    return requests.post(wekanurl + 'api/import/zip', headers=headers, params={'newBoard': '1'}, data=data)
+
+if arguments >= 3 and sys.argv[1] == 'importboardfrom' and sys.argv[2] == 'wekan' and sys.argv[3].lower().endswith('.zip'):
+    print(post_wekan_zip(sys.argv[3]).text)
+elif arguments >= 3 and sys.argv[1] == 'importboardfrom':
     source = sys.argv[2]
     filepath = sys.argv[3]
-    with open(filepath) as f:
-        board = json.load(f)
+    board = import_document(source, filepath)
     headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
     url = wekanurl + apiboards + 'import/' + source
     response = requests.post(url, headers=headers, json={'board': board})
     print(response.text)
+
+# Import many boards: every FILE (a directory gives its files, a .zip that is
+# not itself one export of SOURCE gives the files inside it), each as its own
+# board - what the import page's "Import many boards" does. --split makes one
+# board per project (per swimlane) of each file, for the generalized importer.
+#   python3 api.py importboardsfrom SOURCE [--split] FILE_OR_DIR ...
+def many_import_files(source, paths):
+    import os, zipfile
+    files = []
+    for path in paths:
+        if os.path.isdir(path):
+            for root, _, names in os.walk(path):
+                files.extend(os.path.join(root, name) for name in sorted(names) if not name.startswith('.'))
+        elif path.lower().endswith('.zip') and source not in ZIP_IMPORT_SOURCES and source != 'wekan':
+            import tempfile
+            target = tempfile.mkdtemp(prefix='wekan-import-')
+            with zipfile.ZipFile(path) as archive:
+                for info in archive.infolist():
+                    name = info.filename
+                    if info.is_dir() or name.startswith('__MACOSX/') or os.path.basename(name).startswith('.'):
+                        continue
+                    if os.path.isabs(name) or '..' in name.split('/'):
+                        continue
+                    archive.extract(info, target)
+                    files.append(os.path.join(target, name))
+        else:
+            files.append(path)
+    return files
+
+if arguments >= 3 and sys.argv[1] == 'importboardsfrom':
+    source = sys.argv[2]
+    rest = sys.argv[3:]
+    split = '--split' in rest
+    paths = [path for path in rest if path != '--split']
+    headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
+    url = wekanurl + apiboards + 'import/' + source
+    for filepath in many_import_files(source, paths):
+        try:
+            if source == 'wekan' and filepath.lower().endswith('.zip'):
+                print('{}: {}'.format(filepath, post_wekan_zip(filepath).text))
+                continue
+            body = {'board': import_document(source, filepath)}
+            if split:
+                body['splitBy'] = 'swimlane'
+            response = requests.post(url, headers=headers, json=body)
+            print('{}: {}'.format(filepath, response.text))
+        except Exception as error:
+            print('{}: not imported: {}'.format(filepath, error))
+
+# Export all boards: every board the user can export, in FORMAT, in one
+# download - Excel as one workbook with a sheet per board, every other format
+# as a .zip with one file per board. --boards ID1,ID2 exports only those.
+#   python3 api.py exportallboards FORMAT OUTPUTFILE [--boards ID1,ID2]
+if arguments >= 3 and sys.argv[1] == 'exportallboards':
+    fmt = sys.argv[2]
+    outputpath = sys.argv[3]
+    params = {}
+    if '--boards' in sys.argv:
+        params['boardIds'] = sys.argv[sys.argv.index('--boards') + 1]
+    headers = {'Authorization': 'Bearer {}'.format(apikey)}
+    response = requests.get(wekanurl + 'api/export-all-boards/' + fmt, headers=headers, params=params)
+    if response.status_code != 200:
+        print('Export failed ({}): {}'.format(response.status_code, response.text))
+    else:
+        with open(outputpath, 'wb') as f:
+            f.write(response.content)
+        print('All boards exported ({}) to: {}'.format(fmt, outputpath))
 
 if arguments >= 4 and sys.argv[1] == 'exportboardformat':
     boardid = sys.argv[2]
     fmt = sys.argv[3]
     outputpath = sys.argv[4]
     headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
-    url = wekanurl + apiboards + boardid + s + 'export' + s + fmt
-    response = requests.get(url, headers=headers)
-    with open(outputpath, 'w') as f:
-        f.write(response.text)
+    # The formats with routes of their own; every tool format is export/FORMAT.
+    params = {}
+    if fmt in ('wekan', 'json'):
+        url = wekanurl + apiboards + boardid + s + 'export'
+    elif fmt == 'zip':
+        url = wekanurl + apiboards + boardid + s + 'exportZip'
+    elif fmt == 'excel':
+        url = wekanurl + apiboards + boardid + s + 'exportExcel'
+    elif fmt == 'pdf':
+        url = wekanurl + apiboards + boardid + s + 'exportPDF'
+    elif fmt in ('csv', 'scsv', 'tsv'):
+        url = wekanurl + apiboards + boardid + s + 'export' + s + 'csv'
+        params = {'delimiter': {'csv': ',', 'scsv': ';', 'tsv': '\t'}[fmt]}
+    else:
+        url = wekanurl + apiboards + boardid + s + 'export' + s + fmt
+    response = requests.get(url, headers=headers, params=params)
+    # Bytes, so an .xlsx or .zip export is written as it was sent.
+    with open(outputpath, 'wb') as f:
+        f.write(response.content)
     print('Board exported ({}) to: {}'.format(fmt, outputpath))
 
 if arguments >= 5 and sys.argv[1] == 'importics':

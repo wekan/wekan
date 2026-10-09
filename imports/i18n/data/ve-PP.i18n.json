@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Ičeze laudal mäne “Menülist”, siš “Vedä laud”, da kopirui sadud failan tekst.",
   "import-board-instruction-about-errors": "Ku laudan tomižen aigan oma vigad, tomine konz-se radab völ, da laud om “Kaik laudad” -lehtpolel.",
   "import-without-mapping-members": "Toda ilma ühtnikoiden ühtenzoitmata (ühtenzoita möhemba)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Pane tänna oiged JSON tedod",
   "import-csv-placeholder": "Pane tänna oiged CSV/TSV tedod",
   "import-json-file": "Vai vali Trello JSON-fail",

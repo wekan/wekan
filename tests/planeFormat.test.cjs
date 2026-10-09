@@ -352,9 +352,12 @@ async function main() {
     assert.match(page, /if \(dataSource === 'plane'\) \{[\s\S]*?xlsxBase64: window\.btoa\(binary\)[\s\S]*?zipBase64: window\.btoa\(binary\)/);
     assert.match(read('client/components/import/import.jade'), /input\.js-import-plane-file\(id='import-plane-file' type="file" accept="\.zip,\.json,\.csv,\.xlsx/);
     assert.doesNotMatch(read('client/components/boards/exportScope.js'), /key: 'plane'/);
-    assert.doesNotMatch(read('models/export.js'), /'plane'/);
+    assert.doesNotMatch(read('models/export.js') + read('server/lib/renderExternalExport.js'), /'plane'/);
     assert.match(read('README.md'), /Super Productivity, Taiga, Vikunja[^\n]*, Plane\n/);
-    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /^\| Plane \(import only\) \|/m);
+    // Its details are on its own page, which the coverage index links.
+    const docPage = read('docs/Features/ImportExport/Plane/Plane.md');
+    assert.match(docPage, /^## Format details$/m);
+    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /\]\(\.\/Plane\/Plane\.md\)/);
   });
 
   await test('the archive reader inflates only through the bounded reader and never uses entry names as paths', () => {

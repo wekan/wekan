@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Ninu igbimọ rẹ, lọ si 'Akojọ aṣyn', lẹhinna 'Igbimọ okeere', ki o daakọ ọrọ naa sinu faili ti a gbasile.",
   "import-board-instruction-about-errors": "Ti o ba gba awọn aṣiṣe nigba gbigbe wọle ọkọ, ma akowọle si tun ṣiṣẹ, ati awọn ọkọ wa ni Gbogbo Boards iwe.",
   "import-without-mapping-members": "Gbe wọle laisi ṣiṣe maapu awọn ọmọ ẹgbẹ (ṣe maapu nigbamii)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Lẹẹmọ data JSON rẹ to wulo nibi",
   "import-csv-placeholder": "Lẹẹmọ data CSV/TSV rẹ ti o wulo nibi",
   "import-json-file": "Tabi yan faili Trello JSON",

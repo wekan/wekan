@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Wɔ wo bɔɔd mu no, kɔ 'Nea wubetumi apaw', afei 'Fa bɔɔd no firi adi', na kɔpi nsɛm a ɛwɔ fael a woatwe aba no mu.",
   "import-board-instruction-about-errors": "Sɛ mfomso ba bere a wode bɔɔd ba mu a, ɛtɔ da a nsɛm no aba mu ara, na bɔɔd no wɔ Bɔɔd Nyinaa kratafa no so.",
   "import-without-mapping-members": "Fa bra neout mapping ɔmannifos (map later)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Fa wo JSON nsɛm a ɛfata bɔ ha",
   "import-csv-placeholder": "Fa wo CSV/TSV nsɛm a ɛfata bɔ ha",
   "import-json-file": "Fa nsɛm no bra",

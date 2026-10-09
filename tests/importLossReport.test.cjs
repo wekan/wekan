@@ -50,8 +50,8 @@ async function main() {
   const jira = read('models/jiraCreator.js');
   assert.match(jira, /await recordImportLosses\(\{\s*source: 'jira',\s*warnings: jiraPageWarnings\(board\)/);
   const importJs = read('models/import.js');
-  // kanboard, markdown, todotxt, taskwarrior, focalboard, todoist, planner (Microsoft Planner), meistertask, obsidian, linear, ticktick, clickup, nullboard, kanri, pivotal, redmine, tasksorg, monday, superproductivity, taiga, vikunja, wrike, teamwork, businessmap, quire, notion, plane, orgmode, leo (the Leo outline), opml and the shared default branch.
-  assert.equal((importJs.match(/new KanboardCreator\(data, /g) || []).length, 31, 'every KanboardCreator knows its source');
+  // kanboard, markdown, todotxt, taskwarrior, focalboard, todoist, planner (Microsoft Planner), meistertask, obsidian, linear, ticktick, clickup, nullboard, kanri, pivotal, redmine, tasksorg, monday, superproductivity, taiga, vikunja, wrike, teamwork, businessmap, quire, notion, plane, orgmode, leo (the Leo outline), opml, the shared default branch, and the parts of "One board per project" (models/lib/importSplit.js).
+  assert.equal((importJs.match(/new KanboardCreator\(data, /g) || []).length, 32, 'every KanboardCreator knows its source');
   assert.doesNotMatch(importJs, /new KanboardCreator\(data\)/);
   const children = read('models/lib/importedCardChildren.js');
   assert.match(children, /RecoveryEvents\.record\(report\.type/);

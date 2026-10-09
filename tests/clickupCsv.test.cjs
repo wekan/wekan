@@ -117,7 +117,7 @@ async function main() {
     assert.equal(EXTERNAL_PARSERS.clickup, parseClickUpCsv);
     assert.equal(formatters.clickup, formatClickUpCsv);
     assert.match(read('models/import.js'), /case 'clickup':\s*\/\/[^\n]*\n\s*check\(board, String\);\s*try \{\s*importedBoard = EXTERNAL_PARSERS\.clickup\(importedBoard\);/);
-    assert.match(read('models/export.js'), /clickup: 'text\/csv'/);
+    assert.match(read('server/lib/renderExternalExport.js'), /clickup: 'text\/csv'/);
     const page = read('client/components/import/import.js');
     assert.match(page, /\{ key: 'clickup', name: 'ClickUp' \}/);
     assert.match(page, /dataSource === 'clickup'/);

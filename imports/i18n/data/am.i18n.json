@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "በሰሌዳዎ ውስጥ ወደ 'Menu'፣ ከዚያ 'Export board' ይሂዱና በወረደው ፋይል ያለውን ጽሑፍ ይቅዱ።",
   "import-board-instruction-about-errors": "ሰሌዳ ሲያስመጡ ስህተቶች ቢያጋጥሙዎትም አንዳንድ ጊዜ ማስመጣቱ ይሰራል፣ ሰሌዳውም በሁሉም ሰሌዳዎች ገጽ ላይ ይገኛል።",
   "import-without-mapping-members": "አባላትን ሳያዛምዱ አስመጣ (በኋላ አዛምድ)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "ትክክለኛውን የJSON ውሂብዎን እዚህ ይለጥፉ",
   "import-csv-placeholder": "ትክክለኛውን የCSV/TSV ውሂብዎን እዚህ ይለጥፉ",
   "import-json-file": "ወይም የTrello JSON ፋይል ይምረጡ",

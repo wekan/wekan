@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Ku capa cawe, ja kuri 'Menu', hanyuma 'Export board', maze ukoporore inyandiko iri muri dosiye wamanuriye.",
   "import-board-instruction-about-errors": "Iyo habaye amakosa mu kwinjiza icapa, rimwe na rimwe kwinjiza birakora, kandi icapa kiba ku rupapuro rw'Ivyapa vyose.",
   "import-without-mapping-members": "Injiza utabanje guhuza abanywanyi (uzobahuza hanyuma)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Shiraho amakuru ya JSON abereye hano",
   "import-csv-placeholder": "Shiraho amakuru ya CSV/TSV abereye hano",
   "import-json-file": "Canke hitamwo dosiye ya JSON ya Trello",

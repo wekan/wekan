@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Bak papan droeneueh, jak u 'Menu', laju 'Ekspor papan', dan salen teks lam file nyang geuunggah.",
   "import-board-instruction-about-errors": "Meunyoe na error watee impor papan, kadang impor mantong jeuet, dan papan na bak halaman Mandum Papan.",
   "import-without-mapping-members": "Impor tanpa peucocok anggota (peucocok laju)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Tempel data JSON droeneueh nyang sah keunoe",
   "import-csv-placeholder": "Tempel data CSV/TSV droeneueh nyang sah keunoe",
   "import-json-file": "Atawa pileh file JSON Trello",

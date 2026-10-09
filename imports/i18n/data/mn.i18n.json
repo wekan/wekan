@@ -817,6 +817,7 @@
   "import-board-instruction-wekan": "Самбартаа «Цэс», дараа нь «Самбар экспортлох» руу орж, татаж авсан файлын текстийг хуулна уу.",
   "import-board-instruction-about-errors": "Самбар импортлоход алдаа гарсан ч заримдаа импорт амжилттай болж, самбар Бүх самбарын хуудсанд харагдана.",
   "import-without-mapping-members": "Гишүүдийг тохируулахгүйгээр импортлох (дараа нь тохируулах)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Зөв JSON өгөгдлөө энд буулгана уу",
   "import-csv-placeholder": "Зөв CSV/TSV өгөгдлөө энд буулгана уу",
   "import-json-file": "Эсвэл Trello JSON файл сонгоно уу",

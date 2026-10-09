@@ -375,8 +375,10 @@ async function main() {
     // Later formats parsed before sanitizing (Plane) follow in the same condition.
     assert.match(imp, /importSource === 'opml' \|\| importSource === 'vikunja'(?: \|\| importSource === '[a-z]+')* \? board/);
     assert.match(imp, /case 'vikunja':[\s\S]*?check\(board, Match\.OneOf\(Object, String\)\);[\s\S]*?readVikunjaImport\(importedBoard\);\s*importedBoard = EXTERNAL_PARSERS\.vikunja\(importedBoard\);[\s\S]*?sanitizeImported\(importedBoard, 'vikunja', this\);\s*creator = new KanboardCreator\(data, 'vikunja'\);/);
-    const exp = read('models/export.js');
-    assert.match(exp, /if \(format === 'vikunja'\) \{[\s\S]*?writeVikunjaArchive\(vikunjaArchiveFiles\(built\)\);[\s\S]*?'application\/zip'/);
+    // The bytes of each format are made in server/lib/renderExternalExport.js,
+    // shared by the board export route and "Export all boards".
+    const exp = read('server/lib/renderExternalExport.js');
+    assert.match(exp, /if \(format === 'vikunja'\) \{[\s\S]*?contentType: 'application\/zip', body: require\('\/server\/lib\/vikunjaArchive'\)\.writeVikunjaArchive\(vikunjaArchiveFiles\(built\)\)/);
     const page = read('client/components/import/import.js');
     assert.match(page, /\{ key: 'vikunja', name: 'Vikunja' \}/);
     assert.match(page, /if \(dataSource === 'vikunja'\) \{[\s\S]*?zipBase64: window\.btoa\(binary\)/);

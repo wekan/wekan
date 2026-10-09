@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Su tab olik, maifükolös «Lised välas», täno «Seveigön tabi», e kopiedolös vödemi in nüned pefeapladöl.",
   "import-board-instruction-about-errors": "If pöls jenons dü nüveigam taba, nüveigam sotimo nog plöpon, e tab binon su pad: «Tabs valik».",
   "import-without-mapping-members": "Nüveigön nen yümön limanis ko gebans (yümön poso)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Nüseitolös is nünädis lonöfik olik: JSON",
   "import-csv-placeholder": "Nüseitolös is nünädis lonöfik olik: CSV/TSV",
   "import-json-file": "U välolöd Trello JSON-fili",

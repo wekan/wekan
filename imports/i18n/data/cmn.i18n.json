@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "在您的板上，转到“菜单”，然后转到“导出板”，然后复制下载文件中的文本。",
   "import-board-instruction-about-errors": "如果导入板卡时出现错误，有时导入仍然有效，并且板卡位于“所有板卡”页面。",
   "import-without-mapping-members": "不映射成员直接导入（稍后再映射）",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "将有效的 JSON 数据粘贴到此处",
   "import-csv-placeholder": "在此处粘贴您的有效 CSV/TSV 数据",
   "import-json-file": "或选择一个 Trello JSON 文件",

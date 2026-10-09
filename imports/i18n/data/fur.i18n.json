@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "Nella tua taule vai su \"Menu\", poi \"Espuarte taule\" e copie il testo nel file discjameto.",
   "import-board-instruction-about-errors": "Se tu âs degli errori quando importi una taule, qualche volta l'impuartezione funziona comunque, e la taule si trova nella pagina \"Dutis le taulis\"",
   "import-without-mapping-members": "Impuarte senza mappare i membris (mappa in seguito)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "Incolla dai dati JSON validi qui",
   "import-csv-placeholder": "Incolla dai dati CSV/TSV validi qui",
   "import-json-file": "Oppure selezione un file JSON di Trello",

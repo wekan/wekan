@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "تاختىڭىزدا «تىزىملىك» ، ئاندىن «ئېكسپورت تاختىسى» غا كىرىپ ، چۈشۈرۈلگەن ھۆججەتتىكى تېكىستنى كۆچۈرۈڭ.",
   "import-board-instruction-about-errors": "ئەگەر تاختا ئەكىرىشتە خاتالىق كۆرۈلسە ، بەزىدە ئىمپورت قىلىش يەنىلا ئىشلەيدۇ ، تاختاي بارلىق تاختاي بېتىدە.",
   "import-without-mapping-members": "ئەزالارنى ماسلاشتۇرماي ئەكىرىش (كېيىن ماسلاشتۇرۇش)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "ئىناۋەتلىك JSON سانلىق مەلۇماتلىرىڭىزنى بۇ يەرگە چاپلاڭ",
   "import-csv-placeholder": "ئىناۋەتلىك CSV / TSV سانلىق مەلۇماتلىرىڭىزنى بۇ يەرگە چاپلاڭ",
   "import-json-file": "ياكى بىر Trello JSON ھۆججىتىنى تاللاڭ",

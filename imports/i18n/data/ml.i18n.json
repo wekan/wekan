@@ -818,6 +818,7 @@
   "import-board-instruction-wekan": "നിങ്ങളുടെ ബോർഡിൽ 'Menu', തുടർന്ന് 'Export board' എന്നതിലേക്ക് പോയി ഡൗൺലോഡ് ചെയ്ത ഫയലിലെ ടെക്സ്റ്റ് പകർത്തുക.",
   "import-board-instruction-about-errors": "ബോർഡ് ഇറക്കുമതി ചെയ്യുമ്പോൾ പിശകുകൾ ലഭിച്ചാലും ചിലപ്പോൾ ഇറക്കുമതി വിജയിച്ചിട്ടുണ്ടാകും; ബോർഡ് എല്ലാ ബോർഡുകളും പേജിൽ കാണാം.",
   "import-without-mapping-members": "അംഗങ്ങളെ പൊരുത്തപ്പെടുത്താതെ ഇറക്കുമതി ചെയ്യുക (പിന്നീട് പൊരുത്തപ്പെടുത്താം)",
+  "exportAllBoardsPopup-title": "Export all boards",
   "import-json-placeholder": "സാധുവായ JSON ഡാറ്റ ഇവിടെ ഒട്ടിക്കുക",
   "import-csv-placeholder": "സാധുവായ CSV/TSV ഡാറ്റ ഇവിടെ ഒട്ടിക്കുക",
   "import-json-file": "അല്ലെങ്കിൽ ഒരു Trello JSON ഫയൽ തിരഞ്ഞെടുക്കുക",
