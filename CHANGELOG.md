@@ -672,6 +672,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b67c91bde5">Translate Xhosa Blockly list retrieval and removal</a>. Thanks to xet7.</summary>
+
+Fill 40 Xhosa list-operation messages. Tests preserve variables, distinguish
+retrieval from removal and retain copy semantics. Both targeted suites and all
+21 preservation checks pass. Specialized wording needs speaker review; browser
+execution and remaining translations are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/86026ab08e">Translate Xhosa Blockly navigation and list creation</a>. Thanks to xet7.</summary>
 
 Fill 40 Xhosa input, navigation and list creation messages. Tests preserve
