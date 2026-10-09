@@ -3,7 +3,8 @@
 // (server/lib/plannerWorkbook.js); this module is plain JavaScript so
 // tests/plannerFormat.test.cjs runs the round trip in Node.
 //
-// The export (Planner: plan menu ... > Export plan to Excel) is one sheet,
+// The export (Planner: the plan's ... menu > Export as Excel; classic
+// Planner: Export plan to Excel) is one sheet,
 // "Tasks", laid out as Planner writes it:
 //
 //   Plan name       | Release plan

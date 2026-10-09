@@ -1,5 +1,6 @@
 // Todoist project CSV (https://todoist.com/help/articles/360000748525): what
-// Todoist's "Export as a template" writes and "Import from template" reads.
+// Todoist's Manage data > Export as CSV writes and Import from CSV reads (once
+// "Export as a template" and "Import from template").
 // Import and export live together so tests/todoistCsv.test.cjs runs the round
 // trip in plain Node - no Meteor import here.
 //

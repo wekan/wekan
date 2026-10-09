@@ -79,7 +79,7 @@ async function main() {
     assert.match(page, /const \{ files, skipped \} = expandFiles\(source, chosen\);/);
     assert.match(page, /await Meteor\.callAsync\('importBoard', pruneImportDocument\(doc, selectedFields\(\)\),/);
     assert.match(page, /if \(source === 'trello'\) \{\s*const result = await postTrelloImport\(/);
-    assert.match(page, /if \(source === 'wekan' && \/\\\.zip\$\/i\.test\(name\)\) \{[\s\S]*?await postWekanZipAsNewBoard\(bytes\);/);
+    assert.match(page, /if \(source === 'wekan' && \/\\\.zip\$\/i\.test\(name\)\) \{[\s\S]*?await postWekanZipAsNewBoard\(bytes, membersMode\);/);
     assert.match(read('client/components/import/import.jade'), /input\.js-import-many-files\(id='import-many-files' type="file" multiple\)/);
     const api = read('api.py');
     assert.match(api, /sys\.argv\[1\] == 'importboardsfrom'/);
@@ -89,15 +89,18 @@ async function main() {
     assert.ok(en['import-many-progress'].includes('__done__') && en['import-many-progress'].includes('__total__'));
   });
 
-  test('a WeKan .zip becomes a new board on the server, within an attachment budget', () => {
+  test('a WeKan .zip becomes a new board on the server, its attachments streamed', () => {
     const route = read('models/importZip.js');
     assert.match(route, /const newBoard = req\.query && req\.query\.newBoard === '1';/);
     assert.match(route, /if \(board && \(!board\.isVisibleBy\(user\) \|\| !memberCan\(board\.members \|\| \[\], user\._id, 'write'\)\)\) \{/,
       'an existing board still needs write access');
-    assert.match(route, /readBounded\(entry, MAX_NEW_BOARD_ATTACHMENT_BYTES - inlined\)/);
-    assert.match(route, /Meteor\.callAsync\('importBoard', doc, \{ membersMapping: \{\}, importFields: fields \}, 'wekan', null\)/);
+    // Each attachment streams from the archive into storage as the importer
+    // reaches it; nothing is put inline in memory.
+    assert.match(route, /creator\.attachmentStream = attachmentStream;/);
+    assert.doesNotMatch(route, /MAX_NEW_BOARD_ATTACHMENT_BYTES|toString\('base64'\)/);
+    assert.match(route, /validateImportSourceShape\('wekan', doc\);/);
     // Every check before it - login, the import switch - still runs first.
-    assert.ok(route.indexOf('await assertImportEnabled()') < route.indexOf("Meteor.callAsync('importBoard'"));
+    assert.ok(route.indexOf('await assertImportEnabled()') < route.indexOf('new WekanCreator('));
   });
 
   console.log(`\nimportManyFiles: ${passed} checks passed`);

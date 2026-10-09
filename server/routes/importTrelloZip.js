@@ -134,6 +134,9 @@ async function importSingleBoard(payload, userId) {
   validateImportSourceShape('trello', board);
   board = secureTransfer(board, { direction: 'import', source: 'import:trello-http', userId });
   const membersMapping = (payload && payload.membersMapping) || {};
+  // Who the file's people become: chosen users, placeholders or the person
+  // importing (models/lib/importMembersMode.js).
+  const membersMode = payload && payload.membersMode;
 
   // A .json export has no attachment bytes (and often no stickers). If the user
   // has saved Trello API credentials, use them to download the attachments,
@@ -163,7 +166,7 @@ async function importSingleBoard(payload, userId) {
     }
   }
 
-  const creator = new TrelloCreator({ membersMapping });
+  const creator = new TrelloCreator({ membersMapping, membersMode });
   const boardId = await runAsUser(userId, () => trackImport({ userId, source: 'trello-zip', creator,
     execute: () => creator.create(board, null) }).promise);
   return { boardIds: boardId ? [boardId] : [] };

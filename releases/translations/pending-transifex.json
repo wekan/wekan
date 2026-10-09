@@ -1147,6 +1147,22 @@
     {
       "key": "exportAllBoardsPopup-title",
       "since": "2026-10-09"
+    },
+    {
+      "key": "import-members-mode-heading",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "import-members-mode-map",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "import-members-mode-placeholder",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "import-members-mode-me",
+      "since": "2026-10-09"
     }
   ]
 }

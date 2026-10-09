@@ -116,7 +116,7 @@ async function main() {
     assert.match(read('client/components/boards/exportScope.js'), /key: 'todoist'[^\n]*path: 'export\/todoist', ext: 'csv'/);
     assert.match(read('server/lib/renderExternalExport.js'), /todoist: 'text\/csv'/);
     const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
-    assert.match(en['import-board-instruction-todoist'], /Export as a template/);
+    assert.match(en['import-board-instruction-todoist'], /Manage data > Export as CSV/);
   });
 
   console.log(`\ntodoistCsv: ${passed} tests passed`);

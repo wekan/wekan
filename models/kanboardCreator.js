@@ -1,3 +1,4 @@
+import { membersMode, membersMappingFor, importedPeople } from '/models/lib/importMembersMode';
 import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Activities from '/models/activities';
@@ -51,7 +52,10 @@ export class KanboardCreator {
     // Parser and planner losses, recorded once the board exists.
     this.losses = [];
     this._nowDate = new Date();
-    this.members = data && data.membersMapping ? data.membersMapping : {};
+    // Who the file's people become - chosen users, placeholders, or the
+    // person importing - the same for every source (models/lib/importMembersMode.js).
+    this.membersMode = membersMode(data);
+    this.members = membersMappingFor(data, () => Meteor.userId());
     this.lists = {};
     this.swimlanes = {};
     this.cardIds = [];
@@ -138,6 +142,12 @@ export class KanboardCreator {
       stars: 0,
       title,
     };
+    // Placeholders are members of the board, inactive and with no rights, so
+    // they show in its member list for an admin to map to real users.
+    for (const userId of this.placeholderIds || []) {
+      boardToCreate.members.push({ userId, wekanId: userId, isActive: false, isAdmin: false,
+        isNoComments: false, isCommentOnly: false, swimlaneId: false });
+    }
     // Tags -> board labels, black unless the source gives a color: on the tag
     // itself (Kanri), or in the board's `label_colors` { name: color } (Taiga's
     // tags_colors, already mapped to WeKan label colors).
@@ -319,6 +329,13 @@ export class KanboardCreator {
     if (isSandstorm && currentBoardId) {
       const currentBoard = await ReactiveCache.getBoard(currentBoardId);
       await currentBoard.archive();
+    }
+    // The people of the file nobody chose a user for become placeholders,
+    // unless everyone is the person importing (models/lib/importMembersMode.js).
+    this.placeholderIds = [];
+    if (Meteor.isServer && this.membersMode !== 'me') {
+      const { createImportPlaceholders } = require('/server/lib/importPlaceholderUsers');
+      this.placeholderIds = await createImportPlaceholders(importedPeople(this._tasks(board)), this.members, { source: this.source });
     }
     const boardId = await this.createBoard(board);
     await this.createSwimlanes(board, boardId);

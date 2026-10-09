@@ -29,8 +29,12 @@ mapped as described below.
 6. Read the loss report on the import page. It is also kept in **Admin Panel →
    Problems → Recovery**.
 
-The import page's instruction text still names the older
-`GET /rest/api/2/search`. Its `{ "issues": [...] }` with `startAt` and `total`
+The import page's instruction text names the current search,
+`GET /rest/api/3/search/jql` with `fields=*all&expand=names,schema`; without
+`fields` it returns only issue ids. A large project comes in pages, each with a
+`nextPageToken` for the next: join the pages' `issues` into one array, or
+import each page as its own board with **Import many boards**. The older
+`/rest/api/2/search` answer, `{ "issues": [...] }` with `startAt` and `total`,
 is read too. The file may also carry an `automationRules` array, which is
 imported as rules (see Format details).
 

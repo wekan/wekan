@@ -34,7 +34,7 @@ function parseNonNegativeInt(value, fallback = 0) {
   return parsed;
 }
 
-async function getAttachmentUploadMaxBytes() {
+export async function getAttachmentUploadMaxBytes() {
   try {
     const settings = await AttachmentStorageSettings.findOneAsync({});
     const configuredLimit = settings?.limitSettings?.attachmentsUploadMaxBytes;

@@ -29,10 +29,12 @@ example **WeKan**.
 
 A `.zip` with attachment files is sent to the server as it is
 (`POST /api/import/zip?newBoard=1`), which unpacks it and creates the board
-from it with its attachments; there is no member mapping step for it. Its
-attachment files are held in memory while the board is made, up to 512 MB of
-them: a larger `.zip` is refused as too large, and imports into an existing
-board instead (below), which streams them.
+from it. Each attachment file is streamed from the archive into the attachment
+storage as the board is made - never held in memory - so its size is limited
+only by the upload limit set in **Admin Panel → Attachments → Limits** (none,
+when none is set). The upload itself is capped at 5 GB unless
+`WEKAN_IMPORT_ZIP_MAX_BYTES` sets another cap. The `.zip` has no member mapping
+step; **People in the file** chooses placeholder users or you.
 
 An export that has no lists, swimlanes or cards (from a broken or very old
 export) is refused with a request to export the board again, rather than
@@ -47,8 +49,7 @@ creating an empty board.
 
 A `.zip` is sent to the server as a file (`POST /api/import/zip`) and its
 attachments are streamed into the attachment storage one at a time, so a board
-too large for one JSON document still imports. This is the way to import a
-`.zip` whose attachment files are larger than a new board's 512 MB.
+too large for one JSON document still imports.
 
 For pasting a very large JSON on Linux, see
 [From previous export](./From-Previous-Export.md).
@@ -133,9 +134,10 @@ What the current code does:
   temporary file, entries are opened one at a time, and each attachment is
   written to the default storage the Admin Panel configures. An entry's name
   is never used as a path. With `newBoard=1` (the import page, Import many
-  boards, `api.py importboardfrom wekan FILE.zip`) the attachment files are put
-  back on their rows as base64, as a `.json` export carries them, within a
-  512 MB budget, and the document goes to `importBoard` like a `.json`.
+  boards, `api.py importboardfrom wekan FILE.zip`) the whole document goes to
+  `models/wekanCreator.js`, which streams each attachment file from the
+  archive into storage (`server/lib/importAttachmentStream.js`), held to the
+  Admin Panel's upload limit.
 - `models/wekanCreator.js` creates the board. Members are mapped or brought in
   as placeholder users; then the board and labels, lists, swimlanes, custom
   fields, cards, subtasks, card dependencies, Scrum data, checklists and

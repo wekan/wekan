@@ -99,11 +99,11 @@ async function postTrelloImport(body, contentType) {
 // A WeKan .zip export (the document and its attachment files) imported as a
 // NEW board: posted as it is to /api/import/zip?newBoard=1 (models/importZip.js),
 // which opens it on the server under its limits. Returns the new board's id.
-async function postWekanZipAsNewBoard(body) {
+async function postWekanZipAsNewBoard(body, membersMode = 'placeholder') {
   const token =
     (window.localStorage && window.localStorage.getItem('Meteor.loginToken')) || '';
   const fields = selectedFields();
-  const query = new URLSearchParams({ newBoard: '1', ...(fields.length ? { fields: fields.join(',') } : {}) });
+  const query = new URLSearchParams({ newBoard: '1', membersMode, ...(fields.length ? { fields: fields.join(',') } : {}) });
   const resp = await fetch(`/api/import/zip?${query.toString()}`, {
     method: 'POST',
     credentials: 'same-origin',
@@ -241,6 +241,9 @@ Template.import.onCreated(function () {
   // members can be mapped later. This works for wekan, trello, csv and jira.
   this.importData = async (evt, dataSource, skipMapping = false) => {
     evt.preventDefault();
+    // Who the file's people become (models/lib/importMembersMode.js): the
+    // page's choice, or placeholders when the import skips the people step.
+    this.membersMode = chosenMembersMode(skipMapping);
     // "Import many boards": files chosen there are imported, each as its own
     // board, instead of the single file or text above.
     const manyEl = this.find('.js-import-many-files');
@@ -249,7 +252,7 @@ Template.import.onCreated(function () {
       return;
     }
     const advance = async () => {
-      if (skipMapping) {
+      if (skipMapping || this.membersMode !== 'map') {
         await this.finishImport();
       } else {
         this.nextStep();
@@ -271,8 +274,7 @@ Template.import.onCreated(function () {
       let binary = '';
       for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
       this.importedData.set({ excelBase64: window.btoa(binary) });
-      this.membersToMap.set([]);
-      await this.finishImport();
+      await this.mapPeopleOrImport(dataSource, skipMapping);
       return;
     }
     // Vikunja: the user data export .zip (Settings > Data Export), sent as
@@ -296,8 +298,7 @@ Template.import.onCreated(function () {
         }
       }
       this.importedData.set(input);
-      this.membersToMap.set([]);
-      await this.finishImport();
+      await this.mapPeopleOrImport(dataSource, skipMapping);
       return;
     }
     // Plane: the issue export .zip (Workspace Settings > Exports) or the .xlsx
@@ -321,8 +322,7 @@ Template.import.onCreated(function () {
         }
       }
       this.importedData.set(input);
-      this.membersToMap.set([]);
-      await this.finishImport();
+      await this.mapPeopleOrImport(dataSource, skipMapping);
       return;
     }
     // Notion: the Markdown & CSV export .zip, sent as base64 and opened on the
@@ -346,8 +346,7 @@ Template.import.onCreated(function () {
         }
       }
       this.importedData.set(input);
-      this.membersToMap.set([]);
-      await this.finishImport();
+      await this.mapPeopleOrImport(dataSource, skipMapping);
       return;
     }
     // Markdown: the "task list" convention several markdown-kanban tools use
@@ -367,8 +366,7 @@ Template.import.onCreated(function () {
         return;
       }
       this.importedData.set(input);
-      this.membersToMap.set([]);
-      await advance();
+      await this.mapPeopleOrImport(dataSource, skipMapping);
       return;
     }
     if (dataSource === 'csv') {
@@ -403,7 +401,7 @@ Template.import.onCreated(function () {
       if (chosenFile && this.importSource === 'wekan' && /\.zip$/i.test(chosenFile.name || '')) {
         let boardId;
         try {
-          boardId = await postWekanZipAsNewBoard(chosenFile);
+          boardId = await postWekanZipAsNewBoard(chosenFile, this.membersMode === 'me' ? 'me' : 'placeholder');
         } catch (e) {
           this.setError((e && e.message) || 'import-failed');
           return;
@@ -451,6 +449,12 @@ Template.import.onCreated(function () {
       // store members data and mapping in Session
       // (we go deep and 2-way, so storing in data context is not a viable option)
       this.membersToMap.set(membersToMap);
+      // A source of the generalized importer with no people step of its own
+      // gets its people from the file the way every such source does.
+      if (!membersToMap.length && isGeneralizedSource(dataSource)) {
+        await this.mapPeopleOrImport(dataSource, skipMapping);
+        return;
+      }
       await advance();
     } catch (e) {
       this.setError('error-json-malformed');
@@ -460,6 +464,35 @@ Template.import.onCreated(function () {
   // Upload a Trello .zip package to the server, which extracts it (with
   // zip-bomb / path-traversal guards), imports every board and streams each
   // attachment to the Default storage, then go to All Boards.
+  // The people step for every source of the generalized importer: when the
+  // person importing chose to pick existing users, the file's people are read
+  // by the server's parser (importBoard with previewPeople - nothing is
+  // created) and offered in the map-members step; otherwise it imports now.
+  this.mapPeopleOrImport = async (source, skipMapping) => {
+    this.membersToMap.set([]);
+    if (skipMapping || this.membersMode !== 'map') {
+      await this.finishImport();
+      return;
+    }
+    let people = [];
+    try {
+      people = await Meteor.callAsync('importBoard', pruneImportDocument(this.importedData.get(), selectedFields()),
+        { previewPeople: true, importFields: selectedFields() }, source, null);
+    } catch (e) {
+      this.setError((e && (e.reason || e.error)) || 'error-json-malformed');
+      return;
+    }
+    const members = (Array.isArray(people) ? people : []).map(person => ({
+      id: person.key, username: person.key, fullName: person.name, wekanId: null,
+    }));
+    if (!members.length) {
+      await this.finishImport();
+      return;
+    }
+    this.membersToMap.set(members);
+    this.nextStep();
+  };
+
   // "Import many boards" (models/lib/importManyFiles.js): every chosen file,
   // or every file of a chosen .zip that is not itself one export, imported as
   // its own board through the same path a single import of it takes, without
@@ -475,6 +508,9 @@ Template.import.onCreated(function () {
     const { files, skipped } = expandFiles(source, chosen);
     const results = skipped.map(reason => ({ name: reason, ok: false, error: '' }));
     const split = splitByProject(source);
+    // One person at a time cannot be chosen for many files: their people are
+    // placeholders, or all the person importing.
+    const membersMode = chosenMembersMode(false) === 'me' ? 'me' : 'placeholder';
     for (let i = 0; i < files.length; i += 1) {
       const { name, bytes } = files[i];
       this.manyProgress.set(TAPi18n.__('import-many-progress', { done: i + 1, total: files.length, name }));
@@ -482,7 +518,7 @@ Template.import.onCreated(function () {
         let doc;
         if (source === 'wekan' && /\.zip$/i.test(name)) {
           // Unpacked on the server, with its attachment files.
-          await postWekanZipAsNewBoard(bytes);
+          await postWekanZipAsNewBoard(bytes, membersMode);
           results.push({ name, ok: true, error: '' });
           continue;
         }
@@ -495,11 +531,11 @@ Template.import.onCreated(function () {
         if (source === 'taiga') doc = slimTaigaDump(doc);
         let boardId;
         if (source === 'trello') {
-          const result = await postTrelloImport(JSON.stringify({ board: doc, membersMapping: {} }), 'application/json');
+          const result = await postTrelloImport(JSON.stringify({ board: doc, membersMapping: {}, membersMode }), 'application/json');
           boardId = (result.boardIds || [])[0];
         } else {
           boardId = await Meteor.callAsync('importBoard', pruneImportDocument(doc, selectedFields()),
-            { membersMapping: {}, importFields: selectedFields(), ...(split ? { splitBy: 'swimlane' } : {}) }, source, null);
+            { membersMapping: {}, membersMode, importFields: selectedFields(), ...(split ? { splitBy: 'swimlane' } : {}) }, source, null);
         }
         results.push({ name, ok: !!boardId, error: boardId ? '' : TAPi18n.__('error-json-malformed') });
       } catch (e) {
@@ -561,7 +597,7 @@ Template.import.onCreated(function () {
       let result;
       try {
         result = await postTrelloImport(
-          JSON.stringify({ board: importedData, membersMapping: mappingById }),
+          JSON.stringify({ board: importedData, membersMapping: mappingById, membersMode: this.membersMode || 'map' }),
           'application/json',
         );
       } catch (e) {
@@ -602,7 +638,7 @@ Template.import.onCreated(function () {
       pruneImportDocument(importedData, selectedFields()),
       // The selection again, for the parts only a creator can leave out:
       // the Scrum planning external parsers find (models/kanboardCreator.js).
-      { membersMapping: mappingById, importFields: selectedFields(),
+      { membersMapping: mappingById, importFields: selectedFields(), membersMode: this.membersMode || 'map',
         ...(splitByProject(this.importSource) ? { splitBy: 'swimlane' } : {}) },
       this.importSource,
       Session.get('fromBoard'),
@@ -623,6 +659,14 @@ Template.import.onCreated(function () {
 
 // "One board per project" applies to the sources of the generalized
 // importer only (models/lib/importSplit.js).
+// The page's people choice (models/lib/importMembersMode.js); skipping the
+// people step means placeholders.
+function chosenMembersMode(skipMapping) {
+  if (skipMapping) return Session.get('importMembersMode') === 'me' ? 'me' : 'placeholder';
+  const mode = Session.get('importMembersMode');
+  return ['map', 'placeholder', 'me'].includes(mode) ? mode : 'map';
+}
+
 function splitByProject(source) {
   return !!Session.get('importSplitByProject') && isGeneralizedSource(source);
 }
@@ -751,6 +795,14 @@ Template.importTextarea.helpers({
   isGeneralizedImport() {
     return isGeneralizedSource(Session.get('importSource'));
   },
+  membersModes() {
+    const current = chosenMembersMode(false);
+    return [
+      { mode: 'map', label: 'import-members-mode-map' },
+      { mode: 'placeholder', label: 'import-members-mode-placeholder' },
+      { mode: 'me', label: 'import-members-mode-me' },
+    ].map(entry => ({ ...entry, checked: entry.mode === current }));
+  },
   splitByProject() {
     return !!Session.get('importSplitByProject');
   },
@@ -832,6 +884,10 @@ Template.importTextarea.events({
       const unit = tpl.find('.js-jira-estimate-unit');
       if (unit && !unit.value) unit.value = discovered.estimateUnit;
     }
+  },
+  'click .js-import-members-mode'(evt) {
+    evt.preventDefault();
+    Session.set('importMembersMode', evt.currentTarget.getAttribute('data-mode'));
   },
   'click .js-import-split-toggle'(evt) {
     evt.preventDefault();

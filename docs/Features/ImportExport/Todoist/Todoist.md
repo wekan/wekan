@@ -75,8 +75,9 @@ python3 api.py exportallboards todoist boards.zip
 What WeKan reads is a
 [Todoist project template](https://todoist.com/help/articles/360000748525)
 (CSV): the TYPE, CONTENT, DESCRIPTION, PRIORITY, INDENT, AUTHOR, RESPONSIBLE,
-DATE ... DEADLINE_LANG columns that *Export as a template* writes and *Import
-from template* reads.
+DATE ... DEADLINE_LANG columns that **Manage data → Export as CSV** writes and
+**Manage data → Import from CSV** reads (they were *Export as a template* and
+*Import from template* before).
 
 What the import covers:
 

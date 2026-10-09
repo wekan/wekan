@@ -1,3 +1,4 @@
+import { membersMode, membersMappingFor } from '/models/lib/importMembersMode';
 import { adfPlainText } from './lib/externalParsers';
 import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -53,7 +54,10 @@ import {
 export class JiraCreator {
   constructor(data) {
     this._nowDate = new Date();
-    this.members = data && data.membersMapping ? data.membersMapping : {};
+    // Who the file's people become - chosen users, placeholders, or the
+    // person importing - the same for every source (models/lib/importMembersMode.js).
+    this.membersMode = membersMode(data);
+    this.members = membersMappingFor(data, () => Meteor.userId());
     // Imported names are data, including names such as "constructor".
     this.lists = Object.create(null);
     this.swimlane = null;

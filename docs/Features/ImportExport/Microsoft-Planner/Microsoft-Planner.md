@@ -14,12 +14,13 @@ WeKan server does not have.
 
 ## How to import
 
-1. In Planner, open the plan, open the **...** menu in the plan header and
-   choose **Export plan to Excel** (newer Planner versions call it **Export as
+1. In Planner, open the plan, open the **...** menu next to the plan's name
+   and choose **Export as Excel** (classic Planner calls it **Export plan to
    Excel**). The `.xlsx` file downloads to your Downloads folder.
 2. In WeKan, go to **All Boards → New → Import → Microsoft Planner**.
-3. Choose the `.xlsx` file and click **Import**. Planner's people are not
-   mapped to WeKan users on this page.
+3. Choose the `.xlsx` file and click **Import**. Under **People in the file**, choose whether
+   Planner's people become existing users you pick, placeholder users with
+   their own names, or you.
 4. Read the loss report on the import page. It is also kept in **Admin Panel →
    Problems → Recovery**.
 

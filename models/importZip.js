@@ -7,12 +7,10 @@ import {
   parseExportScope,
 } from './lib/exportFields';
 import { pruneImportDocument } from './lib/importParts';
+import { validateImportSourceShape } from './lib/importSourceShape';
 const { safeEntryPath } = require('./lib/backupPaths');
 // The wekan.json of an import zip inflates to at most this (ZipBombBleed).
 const MAX_IMPORT_DOCUMENT_BYTES = 256 * 1024 * 1024;
-// A .zip imported as a new board puts its attachment files inline, in memory
-// (see newBoard below): this much of them, at most.
-const MAX_NEW_BOARD_ATTACHMENT_BYTES = 512 * 1024 * 1024;
 
 runOnServer(function () {
   const fs = Npm.require('fs');
@@ -206,23 +204,20 @@ runOnServer(function () {
       };
 
       if (newBoard) {
-        // The bytes go inline, as base64 under `file` - what a .json export
-        // carries and models/wekanCreator.js reads - within a budget, since
-        // they are held in memory; a larger export is imported into an
-        // existing board instead, which streams them.
-        const { readZipEntryBounded: readBounded } = require('/server/lib/boundedZipEntry');
-        let inlined = 0;
-        for (const attachment of Array.isArray(doc.attachments) ? doc.attachments : []) {
-          const entry = entriesById.get(attachment && attachment._id);
-          if (!entry || attachment.file) continue;
-          const bytes = await readBounded(entry, MAX_NEW_BOARD_ATTACHMENT_BYTES - inlined);
-          inlined += bytes.length;
-          attachment.file = bytes.toString('base64');
-        }
+        // A new board from the whole document, by the full-board importer,
+        // with each attachment file streamed from the archive into storage as
+        // the importer reaches it - never held in memory, whatever its size,
+        // within only the Admin Panel's upload limit.
+        validateImportSourceShape('wekan', doc);
+        const { WekanCreator } = require('./wekanCreator');
+        const creator = new WekanCreator({ membersMode: req.query && req.query.membersMode, importFields: fields });
+        creator.attachmentStream = attachmentStream;
         const { DDP } = require('meteor/ddp');
+        const tracked = require('/server/importRuns').trackImport({ userId: user._id, source: 'wekan-zip', creator,
+          execute: () => creator.create(doc, null) });
         const newBoardId = await DDP._CurrentMethodInvocation.withValue(
-          { userId: user._id, isSimulation: false },
-          () => Meteor.callAsync('importBoard', doc, { membersMapping: {}, importFields: fields }, 'wekan', null),
+          { userId: user._id, isSimulation: false, connection: null },
+          () => tracked.promise,
         );
         answer(200, { ok: true, boardId: newBoardId });
         return;
@@ -238,8 +233,7 @@ runOnServer(function () {
       const counts = await importer.run();
       answer(200, { ok: true, counts });
     } catch (error) {
-      // A new board's attachments past their budget are "too large" too.
-      const message = error && ['import-zip-too-large', 'zip-entry-too-large'].includes(error.message)
+      const message = error && error.message === 'import-zip-too-large'
         ? 'import-zip-too-large'
         : 'import-failed';
       console.error('importZip failed', error);

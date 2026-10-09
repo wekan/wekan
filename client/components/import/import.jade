@@ -120,6 +120,16 @@ template(name="importTextarea")
       p.import-file-row
         label(for='import-workspace-name') {{_ 'import-trello-workspace'}}
         textarea.js-import-workspace-name(rows="2" id='import-workspace-name' placeholder="{{_ 'import-trello-workspace-placeholder'}}")
+    //- Who the file's people become, the same for every source
+      (models/lib/importMembersMode.js): existing users chosen in the next
+      step, placeholder users keeping their names, or the person importing.
+    .import-members-mode
+      p
+        strong {{_ 'import-members-mode-heading'}}
+      each membersModes
+        a.flex.js-import-members-mode(data-mode="{{mode}}" href="#")
+          .materialCheckBox(class="{{#if checked}}is-checked{{/if}}")
+          span {{_ label}}
     //- "Import many boards" (models/lib/importManyFiles.js): several export
       files of this source, or one .zip holding them, each its own board -
       what the Trello .zip does, for every source. When files are chosen here,

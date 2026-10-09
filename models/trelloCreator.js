@@ -1,3 +1,4 @@
+import { membersMode, membersMappingFor } from '/models/lib/importMembersMode';
 import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
@@ -80,7 +81,10 @@ export class TrelloCreator {
     // The comments, indexed by Trello card id (to map when importing cards)
     this.comments = {};
     // the members, indexed by Trello member id => Wekan user ID
-    this.members = data.membersMapping ? data.membersMapping : {};
+    // Who the file's people become - chosen users, placeholders, or the
+    // person importing - the same for every source (models/lib/importMembersMode.js).
+    this.membersMode = membersMode(data);
+    this.members = membersMappingFor(data, () => Meteor.userId());
 
     // maps a trelloCardId to an array of trelloAttachments
     this.attachments = {};
@@ -642,7 +646,21 @@ export class TrelloCreator {
             }
           };
           try {
-            if (att.file) {
+            // The uploaded .zip's files are streamed into storage as they are
+            // read (server/routes/importTrelloZip.js sets attachmentStream),
+            // whatever their size, within only the Admin Panel's upload limit.
+            const stream = !att.file && this.attachmentStream ? this.attachmentStream(att) : null;
+            if (stream) {
+              const { writeImportedAttachment } = require('/server/lib/importAttachmentStream');
+              const fileRef = await writeImportedAttachment(stream, {
+                fileName: att.fileName || att.name || 'attachment',
+                type: att.type,
+                userId: this._user(att.userId),
+                meta,
+                declaredSize: att.bytes,
+              });
+              await setCover(fileRef && fileRef._id);
+            } else if (att.file) {
               // Bytes already provided from the uploaded attachments ZIP.
               // Insert them directly instead of downloading the
               // OAuth-protected Trello URL. writeAsync is the server-side

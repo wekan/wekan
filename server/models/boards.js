@@ -1121,6 +1121,8 @@ WebApp.handlers.post('/api/boards/import/:source', async function(req, res) {
     }
     // "One board per project" (models/lib/importSplit.js).
     if (body.splitBy === 'swimlane') additionalData.splitBy = 'swimlane';
+    // Who the file's people become: map, placeholder or me (models/lib/importMembersMode.js).
+    if (['map', 'placeholder', 'me'].includes(body.membersMode)) additionalData.membersMode = body.membersMode;
     const boardId = await DDP._CurrentMethodInvocation.withValue(
       { userId: req.userId },
       async () => Meteor.callAsync('importBoard', board, additionalData, source, null),

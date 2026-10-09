@@ -1,3 +1,4 @@
+import { membersMode, membersMappingFor } from '/models/lib/importMembersMode';
 import { Meteor } from 'meteor/meteor';
 import { importedTableRows } from './lib/importedTableRows';
 import { plannedBoardFields } from './lib/importPipeline';
@@ -18,7 +19,10 @@ export class CsvCreator {
     this.fieldIndex = {};
     this.lists = {};
     // Map of members using username => wekanid
-    this.members = data.membersMapping ? data.membersMapping : {};
+    // Who the file's people become - chosen users, placeholders, or the
+    // person importing - the same for every source (models/lib/importMembersMode.js).
+    this.membersMode = membersMode(data);
+    this.members = membersMappingFor(data, () => Meteor.userId());
     this.swimlane = null;
   }
 

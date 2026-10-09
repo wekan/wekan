@@ -514,6 +514,13 @@ Meteor.methods({
     // (server/importRuns.js), so one that stops halfway is listed in Admin
     // Panel -> Problems -> Recovery to keep or discard. When the deadline
     // answers the client, the writer is told to stop at its next stage.
+    // The people of the file, for the import page's map-members step, read by
+    // the same parser that imports it - nothing is created
+    // (models/lib/importMembersMode.js importedPeople).
+    if (data.previewPeople === true && creator instanceof KanboardCreator) {
+      const { importedPeople } = require('./lib/importMembersMode');
+      return importedPeople(Array.isArray(importedBoard) ? importedBoard : importedBoard.tasks);
+    }
     // "One board per project" (the import page's checkbox, or splitBy in the
     // REST body): a document of the generalized importer becomes one board per
     // swimlane (models/lib/importSplit.js) - a tool's export that holds several

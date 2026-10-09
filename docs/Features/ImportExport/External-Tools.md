@@ -24,10 +24,10 @@ sources of the format.
 | Tool | Import (the file you give WeKan) | Export (the file WeKan writes) |
 | --- | --- | --- |
 | [Trello](./Trello/Trello.md) | Board JSON (Menu → More → Print and Export → Export JSON) | Trello board JSON |
-| [Jira](./Jira/Jira.md) | Issue-search JSON (`GET /rest/api/2/search`) | Jira issues JSON |
+| [Jira](./Jira/Jira.md) | Issue-search JSON (`GET /rest/api/3/search/jql?fields=*all`) | Jira issues JSON |
 | [Asana](./Asana/Asana.md) | Tasks export JSON | Asana tasks JSON |
 | [Zenkit](./ZenKit/ZenKit.md) | List export JSON | Zenkit list JSON |
-| [Microsoft Planner](./Microsoft-Planner/Microsoft-Planner.md) | The Excel workbook from *Export plan to Excel* | Planner Excel workbook (`.xlsx`) |
+| [Microsoft Planner](./Microsoft-Planner/Microsoft-Planner.md) | The Excel workbook from *Export as Excel* (classic: *Export plan to Excel*) | Planner Excel workbook (`.xlsx`) |
 | [monday.com](./monday-com/monday-com.md) | The workbook from *Export board to Excel* | monday.com Excel import table (`.xlsx`) |
 | [Wrike](./Wrike/Wrike.md) | Excel export, or Wrike's Excel import template; *Workflow* and *Custom Status* columns are read | Wrike Excel import template (`.xlsx`) with its *Workflow* / *Status* / *Custom Status* columns |
 | [Wrike workflow](./Wrike/Wrike.md) | Paste the JSON of Wrike's `GET /workflows` in Rules → Import / Export: statuses become lists, and status groups become rules | The board's lists as a Wrike workflow JSON (Export menu, or Rules → Import / Export) |
@@ -89,6 +89,29 @@ own API, so the exported file is for a script that calls it.
 | [iCalendar](./iCalendar/iCalendar.md) | — | Calendar feed of the board's dates |
 | [Dependencies](./Dependencies/Dependencies.md) | — | Dependency graph as JSON or SVG |
 | [Rules](./Rules/Rules.md) | WeKan rules JSON or CSV, Trello Butler text, n8n and Node-RED workflows, Wrike workflows | WeKan rules JSON or CSV, Wrike workflow |
+
+## People in the file
+
+Every import asks once, under **People in the file**, what the people named in
+the file become (`models/lib/importMembersMode.js`):
+
+- **Choose an existing user for each of them**: the next step lists them, and
+  you pick a WeKan user for each. Anyone you leave out becomes a placeholder.
+- **Keep them as placeholder users**: each becomes an account that cannot log
+  in, carrying the original username and name, so the board keeps who did
+  what. A board admin maps it to a real user later. **Import without mapping
+  members** does the same.
+- **Make them all me**: every person becomes you.
+
+**Import many boards** offers placeholders or you, since one person at a time
+cannot be chosen across many files.
+
+## Attachments
+
+Attachments in an imported `.zip` are streamed into the attachment storage one
+at a time, never held whole in memory, and held to the upload limit set in
+**Admin Panel → Attachments → Limits**, if one is set
+(`server/lib/importAttachmentStream.js`).
 
 ## Many boards at once
 

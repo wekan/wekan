@@ -293,13 +293,14 @@ class ScopedImporter {
         if (this._attachmentStream) {
           const stream = this._attachmentStream(attachment);
           if (stream) {
-            const { addAttachmentFromStream } = require('/models/lib/fileStoreStrategy');
-            const { fileStoreStrategyFactory } = require('/models/attachments.server');
-            await addAttachmentFromStream(stream, {
+            // Held to the Admin Panel's upload limit, as every imported
+            // attachment is (server/lib/importAttachmentStream.js).
+            const { writeImportedAttachment } = require('/server/lib/importAttachmentStream');
+            const written = await writeImportedAttachment(stream, {
               fileName: attachment.name || 'attachment',
               type: attachment.type,
               userId: this._userId,
-              size: attachment.size,
+              declaredSize: attachment.size,
               meta: {
                 boardId: this._target.boardId,
                 cardId,
@@ -307,8 +308,8 @@ class ScopedImporter {
                 swimlaneId: this._cardSwimlaneId[cardId],
                 source: 'import',
               },
-            }, fileStoreStrategyFactory);
-            this._counts.attachments += 1;
+            });
+            if (written && !written.skipped) this._counts.attachments += 1;
             continue;
           }
         }
