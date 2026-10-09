@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Xhosa Blockly list retrieval and removal — 2026-10-09
+
+Translate 40 messages in xh for list retrieval, removal, sublists and repetition.
+Tests distinguish return/remove operations, retain copy semantics and missing-item
+variables, and render repetition counts. Both targeted suites and all 21
+preservation checks pass. Specialized wording remains low confidence pending
+speaker review. Browser execution and remaining translations are outstanding.
+
 ## Xhosa Blockly navigation and list creation — 2026-10-09
 
 Translate 40 messages in xh for numeric/text inputs, keyboard navigation and list

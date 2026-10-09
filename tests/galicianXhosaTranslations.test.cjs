@@ -514,6 +514,48 @@ for (const locale of Object.values(locales)) {
   "blockly-LISTS_CREATE_WITH_TOOLTIP",
   "blockly-LISTS_GET_INDEX_FIRST"
 ]);
+  keys.push(...[
+  "blockly-LISTS_GET_INDEX_FROM_END",
+  "blockly-LISTS_GET_INDEX_GET",
+  "blockly-LISTS_GET_INDEX_GET_REMOVE",
+  "blockly-LISTS_GET_INDEX_LAST",
+  "blockly-LISTS_GET_INDEX_RANDOM",
+  "blockly-LISTS_GET_INDEX_REMOVE",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_GET_FIRST",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_GET_FROM",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_GET_LAST",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_GET_RANDOM",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_FIRST",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_FROM",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_LAST",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_RANDOM",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_FIRST",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_FROM",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_LAST",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_RANDOM",
+  "blockly-LISTS_GET_SUBLIST_END_FROM_END",
+  "blockly-LISTS_GET_SUBLIST_END_LAST",
+  "blockly-LISTS_GET_SUBLIST_START_FIRST",
+  "blockly-LISTS_GET_SUBLIST_START_FROM_END",
+  "blockly-LISTS_GET_SUBLIST_START_FROM_START",
+  "blockly-LISTS_GET_SUBLIST_TOOLTIP",
+  "blockly-LISTS_INDEX_FROM_END_TOOLTIP",
+  "blockly-LISTS_INDEX_FROM_START_TOOLTIP",
+  "blockly-LISTS_INDEX_OF_FIRST",
+  "blockly-LISTS_INDEX_OF_LAST",
+  "blockly-LISTS_INDEX_OF_TOOLTIP",
+  "blockly-LISTS_INLIST",
+  "blockly-LISTS_ISEMPTY_TITLE",
+  "blockly-LISTS_ISEMPTY_TOOLTIP",
+  "blockly-LISTS_LENGTH_TITLE",
+  "blockly-LISTS_LENGTH_TOOLTIP",
+  "blockly-LISTS_REPEAT_TITLE",
+  "blockly-LISTS_REPEAT_TOOLTIP",
+  "blockly-LISTS_REVERSE_MESSAGE0",
+  "blockly-LISTS_REVERSE_TOOLTIP",
+  "blockly-LISTS_SET_INDEX_INSERT",
+  "blockly-LISTS_SET_INDEX_SET"
+]);
   for (const key of keys) {
     assert.notEqual(locale[key], source[key], key);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), key);
@@ -670,6 +712,18 @@ for (const locale of Object.values(locales)) {
     .replace('%1', 'Shift').replace('%2', 'Enter');
   assert.match(freeMovement, /Shift.*Enter/);
   assert.doesNotMatch(freeMovement, /%[12]/);
+  for (const position of ['FIRST', 'FROM', 'LAST', 'RANDOM']) {
+    assert.match(locale[`blockly-LISTS_GET_INDEX_TOOLTIP_GET_${position}`], /^Ibuyisela/);
+    assert.match(locale[`blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_${position}`], /^Isusa/);
+    assert.doesNotMatch(locale[`blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_${position}`], /ibuyisele/);
+    assert.match(locale[`blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_${position}`], /^Isusa ize ibuyisele/);
+  }
+  assert.match(locale['blockly-LISTS_GET_SUBLIST_TOOLTIP'], /ikopi/);
+  assert.match(locale['blockly-LISTS_REVERSE_TOOLTIP'], /lwekopi/);
+  assert.match(locale['blockly-LISTS_INDEX_OF_TOOLTIP'], /%1.*ayifunyanwanga/);
+  const repeatedItem = locale['blockly-LISTS_REPEAT_TITLE'].replace('%1', 'item').replace('%2', '5');
+  assert.match(repeatedItem, /item.*5/);
+  assert.doesNotMatch(repeatedItem, /%[12]/);
   const error = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
   assert.ok(error.includes('E_LDAP'));
   assert.ok(!error.includes('%s'));
