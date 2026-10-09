@@ -450,12 +450,11 @@ Found while making large boards fit 8 GB of RAM
 whole file, or every file of a board, in memory at once; each is removed from
 this list when it streams.
 
-- The Excel card export holds every image of the card, and every Excel export
-  holds the whole workbook: ExcelJS's streaming writer needs archiver 7's
-  factory, and with archiver 8 installed every Excel export takes the
-  in-memory writer, which reads all images at once
-  (models/server/createWorkbook.js; needs a fix in the @wekanteam/exceljs
-  fork's workbook-writer before images can stream).
+- The Excel exports stream only once a @wekanteam/exceljs release with the
+  fork's streaming writer fix (archiver 8, and pictures on a streaming sheet)
+  is published and installed; the installed 4.7.3 still takes the in-memory
+  writer, which holds every picture and the whole workbook
+  (models/server/createWorkbook.js recognises the fixed release by itself).
 
 </details>
 </details>
@@ -467,8 +466,9 @@ them **Microsoft Planner**, **monday.com**, **ClickUp**, **Linear**, **Notion**,
 **Redmine**, **Wrike**, **Taiga** and **Vikunja**, and import from **Plane**,
 each following that tool's documented or source-verified format, with a loss
 report for what WeKan has no place for. Every format now imports and exports
-**many boards at once**, and each has its own documentation page. Translation
-work continues.
+**many boards at once**, and each has its own documentation page. Imports,
+exports, clones and the REST API now **stream attachments** instead of holding
+them in memory. Translation work continues.
 
 This release adds the following new features:
 
@@ -772,6 +772,94 @@ cloud uploads stream. In the FerretDB fork, dotted-path filters such as
 meta.cardId reach SQLite instead of scanning whole collections. On the seeded
 board, loading went from 17.6 s to 6.2 s and FerretDB's memory from 724 MB to
 280 MB. See docs/Features/Admin-Panel/Problems/Large-Boards.md.
+
+</details>
+
+**Memory** - attachments and pictures stream instead of being held whole, so
+large boards fit a small server
+([#6745](https://github.com/wekan/wekan/issues/6745)).
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cd75f8c476">A Trello .zip import streams from a temporary file, and its attachments into storage</a>. Thanks to markusst1982 and xet7.</summary>
+
+The route read the whole upload into memory, opened the zip from that buffer
+and read each attachment whole to put it on the board JSON as base64. The
+upload is now written to a temporary file as it arrives, and each attachment
+streams from its entry into storage, counted against the same zip limits
+(server/lib/boundedZipEntry.js). Only the board JSON files are held in memory.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/627592cd7f">Export all boards as WeKan JSON writes each board into its zip entry piece by piece</a>. Thanks to markusst1982 and xet7.</summary>
+
+Every board was built whole, every attachment as base64 inside it, before it
+was added to the .zip. Each board is now written by the streaming exporter the
+single board export uses, paced by the response, so memory holds a chunk at a
+time instead of a board.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/719194741a">A cloned board's attachments stream from the source storage into the copy</a>. Thanks to markusst1982 and xet7.</summary>
+
+Cloning built the board's whole export with every attachment as base64. The
+export is now built without file data, and each attachment streams from the
+source board's storage when the importer reaches it, held to the upload limit.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ddc025c24d">Live Trello import streams each attachment from Trello into storage as its card is made</a>. Thanks to markusst1982 and xet7.</summary>
+
+Every uploaded attachment was downloaded first, each read whole, and kept on
+the board as base64. Each is now downloaded when its card is made and streamed
+into storage, through fetchSafe's new stream mode with the same URL, credential,
+redirect and size checks.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cd054f9964">Moving files to or from the old CollectionFS storage streams them</a>. Thanks to markusst1982 and xet7.</summary>
+
+Admin Panel > Attachments > Move read each file whole into memory in both
+directions. Both now pipe chunk by chunk, a failed copy leaves no half file,
+and a missing binary still names the attachment.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/85a226433c">The REST API uploads and downloads attachments and backgrounds as the file itself</a>. Thanks to markusst1982 and xet7.</summary>
+
+Every file was carried as base64 inside JSON, so the file and its base64 copy
+were in memory at once. An upload whose body is the file now streams into
+storage, and ?raw=1 on a download streams it out, with the same checks and the
+API limits counted as the bytes flow. api.py uses the raw form; see
+docs/API/Attachments.md.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/52b86ef753">The PDF exports read each picture when it is drawn and are written to disk, not memory</a>. Thanks to markusst1982 and xet7.</summary>
+
+The card and board PDF exports read every picture before making the document
+and built the whole PDF in memory. Each picture is now read when its row is
+drawn, and the document is written to a temporary file and sent from there;
+the base-font fallback still takes over when the Unicode PDF fails.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b1841b7525">The card and board Excel exports are written as they are drawn, each picture read when written</a>. Thanks to markusst1982 and xet7.</summary>
+
+Both read every picture into memory and wrote the workbook at the end. They
+now write to the response through createWorkbookWriter, and the board export
+writes each card's rows out once the card is drawn. With the fixed
+@wekanteam/exceljs streaming writer (archiver 8 support and pictures on a
+streaming sheet, made in the fork) each picture is opened only when it is
+written, one at a time; until that release is installed the buffered writer is
+used as before. tests/excelExport.test.cjs pins both paths and, when
+.tools/exceljs is checked out, runs the fork.
 
 </details>
 
