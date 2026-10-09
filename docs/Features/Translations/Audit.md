@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Xhosa Blockly accessibility and shortcuts — 2026-10-09
+
+Translate 40 messages in xh for procedure inputs, renaming, screen-reader controls
+and navigation shortcuts. Tests retain variables and keyboard labels, distinguish
+screen-reader states and navigation directions, and render the rename prompt.
+Both targeted suites and all 21 preservation checks pass. Specialized wording
+remains low confidence pending speaker review. Browser execution and remaining
+translations are outstanding.
+
 ## Xhosa Blockly editor and procedures — 2026-10-09
 
 Translate 35 messages in xh for editor navigation, variables and procedures.

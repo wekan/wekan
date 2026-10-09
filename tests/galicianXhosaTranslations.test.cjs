@@ -731,6 +731,48 @@ for (const locale of Object.values(locales)) {
   "blockly-PROCEDURES_IFRETURN_WARNING",
   "blockly-PROCEDURES_MUTATORARG_TITLE"
 ]);
+  keys.push(...[
+  "blockly-PROCEDURES_MUTATORARG_TOOLTIP",
+  "blockly-PROCEDURES_MUTATORCONTAINER_TITLE",
+  "blockly-PROCEDURES_MUTATORCONTAINER_TOOLTIP",
+  "blockly-REDO",
+  "blockly-REMOVE_FROM_BACKPACK",
+  "blockly-RENAME_VARIABLE",
+  "blockly-RENAME_VARIABLE_TITLE",
+  "blockly-RESET_ZOOM",
+  "blockly-SCREENREADER_HINT",
+  "blockly-SCREENREADER_MODE_DISABLED",
+  "blockly-SCREENREADER_MODE_ENABLED",
+  "blockly-SHIFT_KEY",
+  "blockly-SHORTCUTS_ABORT_MOVE",
+  "blockly-SHORTCUTS_CLEANUP",
+  "blockly-SHORTCUTS_CODE_NAVIGATION",
+  "blockly-SHORTCUTS_DISCONNECT",
+  "blockly-SHORTCUTS_DUPLICATE",
+  "blockly-SHORTCUTS_EDITING",
+  "blockly-SHORTCUTS_ESCAPE",
+  "blockly-SHORTCUTS_EXTENDED_INFORMATION",
+  "blockly-SHORTCUTS_FINISH_MOVE",
+  "blockly-SHORTCUTS_FOCUS_TOOLBOX",
+  "blockly-SHORTCUTS_FOCUS_WORKSPACE",
+  "blockly-SHORTCUTS_GENERAL",
+  "blockly-SHORTCUTS_INFORMATION",
+  "blockly-SHORTCUTS_JUMP_BLOCK_END",
+  "blockly-SHORTCUTS_JUMP_BLOCK_START",
+  "blockly-SHORTCUTS_JUMP_BOTTOM_STACK",
+  "blockly-SHORTCUTS_JUMP_FIRST_BLOCK",
+  "blockly-SHORTCUTS_JUMP_LAST_BLOCK",
+  "blockly-SHORTCUTS_JUMP_NEXT_PAGE",
+  "blockly-SHORTCUTS_JUMP_PREVIOUS_PAGE",
+  "blockly-SHORTCUTS_JUMP_TOP_STACK",
+  "blockly-SHORTCUTS_MOVE_DOWN",
+  "blockly-SHORTCUTS_MOVE_LEFT",
+  "blockly-SHORTCUTS_MOVE_RIGHT",
+  "blockly-SHORTCUTS_MOVE_UP",
+  "blockly-SHORTCUTS_NEXT_HEADING",
+  "blockly-SHORTCUTS_NEXT_STACK",
+  "blockly-SHORTCUTS_PERFORM_ACTION"
+]);
   for (const key of keys) {
     assert.notEqual(locale[key], source[key], key);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), key);
@@ -963,6 +1005,15 @@ for (const locale of Object.values(locales)) {
   const functionCall = locale['blockly-PROCEDURES_CALLRETURN_TOOLTIP'].replace('%1', 'calculateTotal');
   assert.match(functionCall, /calculateTotal/);
   assert.doesNotMatch(functionCall, /%1/);
+  assert.match(locale['blockly-SCREENREADER_MODE_DISABLED'], /ivaliwe.*uyivule/);
+  assert.match(locale['blockly-SCREENREADER_MODE_ENABLED'], /ivuliwe.*uyivale/);
+  assert.match(locale['blockly-SHIFT_KEY'], /Shift/);
+  for (const [left, right] of [['MOVE_DOWN', 'MOVE_UP'], ['MOVE_LEFT', 'MOVE_RIGHT'], ['JUMP_BLOCK_START', 'JUMP_BLOCK_END'], ['JUMP_NEXT_PAGE', 'JUMP_PREVIOUS_PAGE'], ['ABORT_MOVE', 'FINISH_MOVE']]) {
+    assert.notEqual(locale[`blockly-SHORTCUTS_${left}`], locale[`blockly-SHORTCUTS_${right}`]);
+  }
+  const renamePrompt = locale['blockly-RENAME_VARIABLE_TITLE'].replace('%1', 'counter');
+  assert.match(renamePrompt, /counter/);
+  assert.doesNotMatch(renamePrompt, /%1/);
   const error = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
   assert.ok(error.includes('E_LDAP'));
   assert.ok(!error.includes('%s'));
