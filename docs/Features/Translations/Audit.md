@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Xhosa sprint states and daily observations — 2026-10-09
+
+Translate 24 messages in xh, preserving references, UTC and the 366-observation
+limit. Tests retain close/cancel behavior, partial-report scope, omitted days,
+unknown estimates and rendered references. Both targeted suites and all 21
+preservation checks pass. Specialized wording remains low confidence pending
+speaker review. Browser execution and remaining translations are outstanding.
+
 ## Xhosa sprint reports and events — 2026-10-09
 
 Translate 30 messages in xh for releases, backlog ordering, sprint events,

@@ -131,6 +131,32 @@ for (const locale of Object.values(locales)) {
   "scrum-state-planned",
   "scrum-state-active"
 ]);
+  keys.push(...[
+  "scrum-state-closed",
+  "scrum-state-cancelled",
+  "scrum-unknown-estimate",
+  "scrum-confirm-close",
+  "scrum-confirm-cancel",
+  "scrum-past-sprints",
+  "scrum-list-category",
+  "scrum-swimlane-purpose",
+  "scrum-category-backlog",
+  "scrum-category-todo",
+  "scrum-category-doing",
+  "scrum-category-done",
+  "scrum-partial-report",
+  "scrum-state-released",
+  "scrum-released-at",
+  "scrum-follow-up-cards",
+  "scrum-import-reference-omitted",
+  "scrum-partial-snapshot",
+  "scrum-resume-close",
+  "scrum-daily-observations",
+  "scrum-daily-observations-help",
+  "scrum-daily-truncated",
+  "scrum-daily-empty",
+  "scrum-observed-scope"
+]);
   for (const key of keys) {
     assert.notEqual(locale[key], source[key], key);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), key);
@@ -157,6 +183,16 @@ for (const locale of Object.values(locales)) {
   const totals = locale['scrum-total'].replace('__count__', '3').replace('__estimate__', '8').replace('__unknown__', '1');
   assert.match(totals, /3.*8.*1/);
   assert.doesNotMatch(totals, /__\w+__/);
+  assert.match(locale['scrum-confirm-close'], /aya kuhanjiswa kwindawo ekhethiweyo/);
+  assert.match(locale['scrum-confirm-cancel'], /ahlala eyinxalenye yayo ade abelwe/);
+  assert.match(locale['scrum-partial-report'], /kuphela amakhadi owabelweyo ngoku/);
+  assert.match(locale['scrum-daily-observations-help'], /UTC.*Iintsuku ezingekhoyo azifakwa/);
+  assert.match(locale['scrum-daily-observations-help'], /akurekhodi lonke utshintsho/);
+  assert.match(locale['scrum-daily-observations-help'], /olungaziwayo alunguziro/);
+  assert.match(locale['scrum-daily-truncated'], /366/);
+  const reference = locale['scrum-import-reference-omitted'].replace('__reference__', 'CARD-7');
+  assert.ok(reference.includes('CARD-7'));
+  assert.ok(!reference.includes('__reference__'));
   const error = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
   assert.ok(error.includes('E_LDAP'));
   assert.ok(!error.includes('%s'));
