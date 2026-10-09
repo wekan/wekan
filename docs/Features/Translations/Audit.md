@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Xhosa sync conflicts and preview actions — 2026-10-09
+
+Translate 20 messages in xh for conflict resolution and preview actions. Tests
+retain partial-review scope, local content and unchanged-subcard guarantees,
+replacement reuse and preview prerequisites. Both targeted suites and all 21
+preservation checks pass. Specialized wording remains low confidence pending
+speaker review. Browser execution and remaining translations are outstanding.
+
 ## Xhosa planning imports and previews — 2026-10-09
 
 Translate 22 messages in xh for daily exports, planning imports and sync

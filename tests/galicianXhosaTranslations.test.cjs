@@ -181,6 +181,28 @@ for (const locale of Object.values(locales)) {
   "sync-conflict-local",
   "sync-conflict-keep-local"
 ]);
+  keys.push(...[
+  "sync-conflict-use-source",
+  "sync-conflict-refresh",
+  "sync-conflict-review-complete",
+  "sync-conflict-duplicate",
+  "sync-conflict-keep-mapping",
+  "sync-conflict-detach",
+  "sync-conflict-detach-hint",
+  "sync-conflict-archive",
+  "sync-conflict-archive-hint",
+  "sync-conflict-keep-card-local",
+  "sync-conflict-creation",
+  "sync-conflict-creation-hint",
+  "sync-conflict-create-replacement",
+  "sync-preview-button",
+  "sync-preview-heading",
+  "sync-preview-saved",
+  "sync-preview-unavailable",
+  "sync-preview-blocked",
+  "sync-preview-create",
+  "sync-preview-update"
+]);
   for (const key of keys) {
     assert.notEqual(locale[key], source[key], key);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), key);
@@ -225,6 +247,12 @@ for (const locale of Object.values(locales)) {
   const preview = locale['scrum-import-preview-cards'].replace('__updated__', '2').replace('__unchanged__', '3').replace('__unmatched__', '4');
   assert.match(preview, /2.*3.*4/);
   assert.doesNotMatch(preview, /__\w+__/);
+  assert.match(locale['sync-conflict-review-complete'], /loluhlu lonke aluqhutywanga/);
+  assert.match(locale['sync-conflict-detach-hint'], /Susa kuphela.*Umxholo wayo uhlala kwi-WeKan/);
+  assert.match(locale['sync-conflict-archive-hint'], /Amakhadi angaphantsi awatshintshwa/);
+  assert.match(locale['sync-conflict-creation-hint'], /lingatshintshwanga.*Ukuzama kwakhona kusebenzisa/);
+  assert.match(locale['sync-preview-unavailable'], /Gcina.*ngaphambi/);
+  assert.match(locale['sync-preview-blocked'], /Sombulula.*ngaphambi/);
   const error = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
   assert.ok(error.includes('E_LDAP'));
   assert.ok(!error.includes('%s'));
