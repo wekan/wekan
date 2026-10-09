@@ -10,6 +10,11 @@ Choose the scope and fields first, then the format. WeKan JSON and attachment
 ZIP options serve different purposes from CSV/TSV, Excel, PDF or external
 application formats. Consult the [format coverage table](../../ImportExport/Format-Coverage.md)
 for the fields and round-trip limits of each format.
+[Import / Export with other tools](../../ImportExport/External-Tools.md) lists
+every tool and file WeKan reads and writes. **Wrike workflow** exports the
+board's lists as a Wrike workflow. Create it in Wrike before importing the
+board's **Wrike** Excel export, so Wrike applies its statuses. A Wrike workflow
+is imported in [Rules → Import / Export](../../Automation/Rules/Rules.md#wrike-workflows).
 
 See the [illustrated backup/export guide](../../../Backup/Backup.md#export-and-import-selected-content).
 A board export is not a backup of all accounts, site configuration or databases.

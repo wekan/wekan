@@ -31,10 +31,10 @@ that by providing one-click installation on various platforms.
   - All Boards page, Drag drop reorder with one or Multi-Selection:
     - Board icons at Remaining, (Sub)Workspaces, Archive
     - Shared Templates: Boards, Lists, Cards
-    - Add Board / Import:
+    - Add Board / Import ([all import and export formats](docs/Features/ImportExport/External-Tools.md)):
       - WeKan JSON/.zip, CSV/TSV, Excel, Markdown, Obsidian Kanban, Leo, OPML, Org mode, todo.txt
       - Trello, Jira, Asana, Zenkit, Focalboard, Todoist, Microsoft Planner, MeisterTask, Linear, TickTick, ClickUp, Nullboard, Kanri, Pivotal Tracker, Redmine, Tasks.org, monday.com,
-        Super Productivity, Taiga, Vikunja, Wrike, Quire, Teamwork.com, Businessmap, Notion, Plane
+        Super Productivity, Taiga, Vikunja, Wrike (Excel and workflow), Quire, Teamwork.com, Businessmap, Notion, Plane
       - Kanboard, Nextcloud Deck, OpenProject, Taskwarrior
       - GitHub, GitLab, Gitea, Forgejo
   - Change Color: Board theme and background image, Swimlane, List, Card
@@ -75,14 +75,14 @@ that by providing one-click installation on various platforms.
       - Lists view for Rules
       - Workflow view: like Jira Workflows
       - Blocks: like Scratch or Jira AutoBlocks, shows same IFTTT Rules
-      - Import / Export IFTTT Rules
+      - Import / Export IFTTT Rules; import n8n, Node-RED and Trello Butler; import / export Wrike workflows
      - Export board :
        - Select what to include: Card details, Board, Activities, Labels, People (Creator, Owner, Members, Assignees), Board Info (Board, List, Swimlane), Dates (Created, Received, Start, Due, End), Description, Custom Fields, Checklists, Subtasks, Comments, Attachments, Votin, Plannin Poker, Stickers, Location (link to map based on coordinates), Dependencies, Sort, Scrum Settings
-      - Export to: PDF, Excel, HTML, Calendar feed (iCal), Dependencies JSON/SVG,
+      - Export to ([all formats](docs/Features/ImportExport/External-Tools.md)): PDF, Excel, HTML, Calendar feed (iCal), Dependencies JSON/SVG,
        CSV , ; TSV, JSON with/without attachmeents, .zip (Attachments),
        Kanboard, Markdown, Leo, OPML, Org mode, todo.txt, Taskwarrior, Focalboard, Todoist,
        Microsoft Planner, MeisterTask, Obsidian Kanban, Linear, TickTick, ClickUp, Nullboard, Kanri, Pivotal Tracker, Redmine, Tasks.org, monday.com,
-       Super Productivity, Taiga, Vikunja, Wrike, Quire, Teamwork.com, Businessmap, Notion,
+       Super Productivity, Taiga, Vikunja, Wrike (Excel and workflow), Quire, Teamwork.com, Businessmap, Notion,
        Trello, Jira, NextCloud Deck, OpenProject, GitHub, GitLab,
        Gitea, Forgejo, Asana, Zenkit
     - Scrum Settings

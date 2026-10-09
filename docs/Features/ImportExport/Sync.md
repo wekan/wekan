@@ -630,6 +630,12 @@ From | Import | Export | Sync | In Progress
 
 ## Wishes
 
+Done since these issues were opened: Focalboard, Todoist, Taskwarrior,
+todo.txt, Notion, Redmine, Leo, Org mode and Microsoft Planner import and
+export, and GitHub, GitLab and Gitea issues. See
+[Import / Export with other tools](./External-Tools.md) for every format
+supported now.
+
 ### Other Kanban
 
 From | Import | Export | Sync | In Progress
