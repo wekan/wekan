@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Хӑмана уҫас",
   "import-parts-instruction": "Паллӑ тунӑ пайсене ҫеҫ импортлаҫҫӗ. Экспортланӑ чухне те ҫав суйлава усӑ кураҫҫӗ.",
   "import-wekan-file": ".json е .zip экспорт файлӗнчен импортлас:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Списока тăрринче кăтартакан хисеплĕ хушма уй хирĕсен шучĕ",
   "date-range-of-fields": "Списока тӑрринче кӑтартма паллӑ тунӑ хӑйне уйрӑм дата уйӗсен дата тапхӑрӗ",
   "more-options": "Ытти суйлав",

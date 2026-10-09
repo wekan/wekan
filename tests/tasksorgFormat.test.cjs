@@ -199,7 +199,7 @@ async function main() {
     // JSON: the shared handler sends it, not a text type.
     assert.doesNotMatch(read('models/export.js') + read('server/lib/renderExternalExport.js'), /tasksorg: '/);
     const page = read('client/components/import/import.js');
-    assert.match(page, /\{ key: 'tasksorg', name: 'Tasks\.org' \}/);
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'tasksorg', name: 'Tasks\.org'[,}]/); // the one list of sources
     assert.doesNotMatch(page, /dataSource === 'tasksorg'/, 'a backup is JSON, parsed by the page like the other JSON sources');
     assert.match(read('client/components/boards/exportScope.js'), /key: 'tasksorg'[^}]*path: 'export\/tasksorg', ext: 'json'/);
     // Its details are on its own page, which the coverage index links.

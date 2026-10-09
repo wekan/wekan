@@ -245,9 +245,11 @@ async function main() {
     assert.match(imp, /case 'notion':[\s\S]*?check\(board, Match\.OneOf\(Object, String\)\);[\s\S]*?readNotionImport\(importedBoard\);\s*importedBoard = EXTERNAL_PARSERS\.notion\(importedBoard\);[\s\S]*?sanitizeImported\(importedBoard, 'notion', this\);\s*creator = new KanboardCreator\(data, 'notion'\);/);
     assert.match(read('server/lib/renderExternalExport.js'), /notion: 'text\/csv'/);
     const page = read('client/components/import/import.js');
-    assert.match(page, /\{ key: 'notion', name: 'Notion' \}/);
-    assert.match(page, /if \(dataSource === 'notion'\) \{[\s\S]*?zipBase64: window\.btoa\(binary\)/);
-    assert.match(read('client/components/import/import.jade'), /input\.js-import-notion-file\(id='import-notion-file' type="file" accept="\.zip,\.csv/);
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'notion', name: 'Notion'[,}]/); // the one list of sources
+    // The page reads every source through one path described in
+    // models/lib/importSources.js, not a branch of its own.
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'notion', name: '[^']+', \.\.\.TEXT, files: \[[^\]]*'\.zip'[^\]]*\], zipSend: 'zip' \}/, 'one export .zip, read by the one import path');
+    assert.match(read('client/components/import/import.jade'), /input\.js-import-file\(id='import-file' type="file" accept="\{\{importAccept\}\}"\)/, 'the one file chooser');
     assert.match(read('client/components/boards/exportScope.js'),
       /\{ key: 'notion', icon: 'fa-table', label: 'Notion', path: 'export\/notion', ext: 'csv', scopes: BOARD_ONLY \}/);
     // Its details are on its own page, which the coverage index links.

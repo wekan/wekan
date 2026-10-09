@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Ava tahvel",
   "import-parts-instruction": "Imporditakse ainult märgitud osad. Sama valikut kasutatakse eksportimisel.",
   "import-wekan-file": "Impordi .json- või .zip-ekspordifailist:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Loendi ülaosas kuvatavate arvuliste kohandatud väljade summa",
   "date-range-of-fields": "Loendi ülaosas kuvamiseks märgitud kuupäevatüüpi kohandatud väljade kuupäevavahemik",
   "more-options": "Rohkem valikuid",

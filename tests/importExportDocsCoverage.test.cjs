@@ -12,7 +12,8 @@ const path = require('node:path');
 const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
 
 const doc = read('docs/Features/ImportExport/External-Tools.md');
-const importPage = read('client/components/import/import.js');
+// The import page's sources are the one list it reads (models/lib/importSources.js).
+const importPage = read('models/lib/importSources.js');
 const exportMenu = read('client/components/boards/exportScope.js');
 let passed = 0;
 const test = (name, fn) => { fn(); passed += 1; console.log('  ok -', name); };
@@ -22,7 +23,7 @@ const ON_PAGE = { 'CSV / TSV': 'CSV / TSV', 'NextCloud Deck': 'Nextcloud Deck', 
 const named = name => doc.includes(ON_PAGE[name] || name);
 
 test('every import source is on the page', () => {
-  const sources = [...importPage.matchAll(/\{ key: '([a-z]+)', name: '([^']+)' \}/g)].map(m => m[2]);
+  const sources = [...importPage.matchAll(/\{ key: '([a-z]+)', name: '([^']+)'/g)].map(m => m[2]);
   assert.ok(sources.length >= 40, `the import sources are found (${sources.length})`);
   assert.deepEqual(sources.filter(name => !named(name)), []);
 });
@@ -62,7 +63,7 @@ const HEADINGS = ['How to import', 'How to import many boards at once', 'How to 
 
 test('every import source and export format has its own page, with the steps and details, linked from the index', () => {
   const keys = [
-    ...[...importPage.matchAll(/\{ key: '([a-z]+)', (?:name: '[^']+'|product: true) \}/g)].map(m => m[1]),
+    ...[...importPage.matchAll(/\{ key: '([a-z]+)', (?:name: '[^']+'|product: true)/g)].map(m => m[1]),
     ...[...exportMenu.matchAll(/\{ key: '([a-z-]+)', icon: '[^']+'/g)].map(m => m[1]),
     ...[...exportMenu.matchAll(/\['([a-z]+)', '[^']+'\]/g)].map(m => m[1]),
     ...[...exportMenu.matchAll(/^\s+key: '([a-z-]+)',$/gm)].map(m => m[1]).filter(key => !['files', 'calendar', 'dependencies', 'csv', 'json', 'tools'].includes(key) || key === 'zip'),

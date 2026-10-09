@@ -81,7 +81,7 @@ async function main() {
     assert.match(opmlCase, /require\('\/server\/lib\/opmlImport'\)\.parseOpml\(board\)[\s\S]*sanitizeImported\(importedBoard, 'opml', this\)/);
     assert.doesNotMatch(read('models/lib/opmlOutlineFormat.js'), /htmlparser2/);
     assert.doesNotMatch(read('models/lib/externalParsers.js'), /opmlOutline/);
-    assert.match(read('client/components/import/import.js'), /\{ key: 'opml', name: 'OPML' \}/);
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'opml', name: 'OPML'[,}]/); // the one list of sources
     assert.match(read('client/components/boards/exportScope.js'), /key: 'opml'[^\n]*path: 'export\/opml', ext: 'opml'/);
     assert.match(read('server/lib/renderExternalExport.js'), /opml: 'text\/x-opml'/);
     const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));

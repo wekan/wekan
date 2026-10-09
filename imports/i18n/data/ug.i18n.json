@@ -2877,6 +2877,7 @@
   "import-report-open-board": "تاختىنى ئېچىڭ",
   "import-parts-instruction": "پەقەت بەلگە قويۇلغان قىسىملارلا ئەكىرىلىدۇ. ئېكسپورت قىلغاندىمۇ شۇ تاللاش ئىشلىتىلىدۇ.",
   "import-wekan-file": ".json ياكى .zip ئېكسپورت ھۆججىتىدىن ئەكىرىش:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "تىزىملىكنىڭ ئۈستىدە كۆرسىتىلىدىغان سانلىق ئالاھىدە بۆلەكلەرنىڭ يىغىندىسى",
   "date-range-of-fields": "تىزىملىكنىڭ ئۈستىدە كۆرسىتىش بەلگىلەنگەن چېسلا تىپلىق ئۆزى بەلگىلىگەن رايونلارنىڭ چېسلا دائىرىسى",
   "more-options": "تېخىمۇ كۆپ تاللاش",

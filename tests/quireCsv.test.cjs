@@ -177,8 +177,10 @@ async function main() {
     assert.match(read('models/import.js'), /case 'quire':\s*\/\/[^\n]*\n\s*check\(board, String\);\s*try \{\s*importedBoard = EXTERNAL_PARSERS\.quire\(importedBoard\);[\s\S]*?new KanboardCreator\(data, 'quire'\)/);
     assert.match(read('server/lib/renderExternalExport.js'), /quire: 'text\/csv'/);
     const page = read('client/components/import/import.js');
-    assert.match(page, /\{ key: 'quire', name: 'Quire' \}/);
-    assert.match(page, /dataSource === 'quire'/);
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'quire', name: 'Quire'[,}]/); // the one list of sources
+    // The page reads every source through one path described in
+    // models/lib/importSources.js, not a branch of its own.
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'quire', name: '[^']+', \.\.\.TEXT/, 'read by the one import path');
     assert.match(read('client/components/boards/exportScope.js'), /key: 'quire'[^}]*path: 'export\/quire', ext: 'csv'/);
     // The instruction is English, pending Transifex; until it is merged into
     // en.i18n.json it waits in the pending-keys file.

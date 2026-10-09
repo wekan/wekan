@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Oscail an clár",
   "import-parts-instruction": "Ní iompórtáiltear ach na codanna ticáilte. Úsáidtear an rogha chéanna agus easpórtáil á déanamh.",
   "import-wekan-file": "Iompórtáil ó chomhad easpórtála .json nó .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Suim na réimsí uimhriúla saincheaptha a thaispeántar ag barr an liosta",
   "date-range-of-fields": "Raon dátaí de na réimsí saincheaptha de chineál dáta atá marcáilte le taispeáint ag barr an liosta",
   "more-options": "Tuilleadh roghanna",

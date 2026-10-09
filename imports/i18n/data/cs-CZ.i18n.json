@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Otevřít tablo",
   "import-parts-instruction": "Importují se pouze zaškrtnuté části. Stejná volba se použije při exportu.",
   "import-wekan-file": "Importovat ze souboru exportu .json nebo .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Součet číselných vlastních polí zobrazených nahoře seznamu",
   "date-range-of-fields": "Rozsah dat vlastních polí typu datum označených k zobrazení v horní části seznamu",
   "more-options": "Další možnosti",

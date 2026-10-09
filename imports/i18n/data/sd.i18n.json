@@ -2877,6 +2877,7 @@
   "import-report-open-board": "بورڊ کوليو",
   "import-parts-instruction": "رڳو نشان لڳل حصا درآمد ٿين ٿا. برآمد ڪندي به ساڳي چونڊ استعمال ٿئي ٿي.",
   "import-wekan-file": ".json يا .zip برآمد فائيل مان درآمد ڪريو:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "لسٽ جي مٿي تي ڏيکاريل عددي مخصوص فيلڊن جو جوڙ",
   "date-range-of-fields": "تاريخ ڪسٽم فيلڊز جي تاريخ جي حد جيڪا فهرست جي مٿان ڏيکارڻ لاءِ نشان لڳل آهي",
   "more-options": "وڌيڪ اختيار",

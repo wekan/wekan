@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Vula libhodi",
   "import-parts-instruction": "Kungeniswa kuphela tincenye letimakiwe. Kukhetsa lokufanako kusetjentiswa nakukhishwa.",
   "import-wekan-file": "Ngenisa kusuka efayeleni le-.json noma .zip lelikhishiwe:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Inhlanganisela yemasimu enombolo lahleliwe leyakhonjiswa etulu kwelusu",
   "date-range-of-fields": "Ibanga lelusuku lemasimu lolukhetsiwe lolusuku lolumakiwe kutsi liboniswe etulu kuluhla",
   "more-options": "Kukhetsa lokunyenti",

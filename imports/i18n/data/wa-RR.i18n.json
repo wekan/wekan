@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Abrihi an pisara",
   "import-parts-instruction": "An mga ginmarkahan la nga bahin an iginsusulod. Amo gihapon nga pagpili an ginagamit ha pag-export.",
   "import-wekan-file": "Igsulod tikang ha .json o .zip nga eksport nga payl:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Kabug-osan han mga pasadya nga kahon han numero nga ginmarkahan nga ipakita ha igbaw han lista",
   "date-range-of-fields": "Sakop han mga petsa han pasadya nga mga field han petsa nga gintigamnan nga ipakita ha igbaw han lista",
   "more-options": "Dugang nga mga kapilian",

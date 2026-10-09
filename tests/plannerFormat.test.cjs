@@ -202,10 +202,14 @@ async function main() {
     assert.match(exp, /planner: \['\/server\/lib\/plannerWorkbook', 'writePlannerWorkbook'\]/);
     assert.match(exp, /spreadsheetml\.sheet/);
     const page = read('client/components/import/import.js');
-    assert.match(page, /\{ key: 'planner', name: 'Microsoft Planner' \}/);
-    assert.match(page, /dataSource === 'excel' \|\| dataSource === 'planner'/);
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'planner', name: 'Microsoft Planner'[,}]/); // the one list of sources
+    // The page reads every source through one path described in
+    // models/lib/importSources.js, not a branch of its own.
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'planner', name: '[^']+', \.\.\.EXCEL/, 'read by the one import path');
     // Other workbook sources (monday.com) share the file input after these two.
-    assert.match(page, /isExcelImport\(\) \{\s*return \['excel', 'planner'(, '[a-z]+')*\]\.includes/);
+    // The page reads every source through one path described in
+    // models/lib/importSources.js, not a branch of its own.
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'planner', name: '[^']+', \.\.\.EXCEL/, 'read by the one import path');
     assert.match(read('client/components/boards/exportScope.js'),
       /\{ key: 'planner', icon: 'fa-th-list', label: 'Microsoft Planner', path: 'export\/planner', ext: 'xlsx', scopes: BOARD_ONLY \}/);
     const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));

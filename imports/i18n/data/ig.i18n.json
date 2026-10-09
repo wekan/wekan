@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Mepee bọọdụ ahụ",
   "import-parts-instruction": "Naanị akụkụ ndị e jiri akara họrọ ka a na-ebubata. Otu nhọrọ ahụ ka eji mgbe a na-ebupụ.",
   "import-wekan-file": "Bubata site na faịlụ mbupụ .json ma ọ bụ .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Nchikota nke ubi nọmba ndị e mere ka onwe eweta n'elu ndepụta",
   "date-range-of-fields": "Oge nke mpaghara ahaziri ahazi ụbọchị akara igosi n'elu ndepụta",
   "more-options": "Nhọrọ ndị ọzọ",

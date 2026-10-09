@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Բացել տախտակը",
   "import-parts-instruction": "Ներմուծվում են միայն նշված մասերը։ Նույն ընտրությունն օգտագործվում է արտահանելիս։",
   "import-wekan-file": "Ներմուծել .json կամ .zip արտահանման ֆայլից․",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Ցուցակի վերևում ցուցադրվող թվային հատուկ դաշտերի գումարը",
   "date-range-of-fields": "Ցանկի վերևում ցուցադրելու համար նշված ամսաթվի տեսակի հատուկ դաշտերի ամսաթվերի միջակայքը",
   "more-options": "Լրացուցիչ ընտրանքներ",

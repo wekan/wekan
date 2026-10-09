@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Foshil yn boayrd",
   "import-parts-instruction": "Cha nel agh ny ayrnyn scrutit er nyn gur stiagh. Ta'n un reih ymmydit tra ta cur magh jeant.",
   "import-wekan-file": "Cur stiagh veih coadan .json ny .zip currit magh:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Suim ny magheryn earrooagh sonraigit yeeit ec baare y rolley",
   "date-range-of-fields": "Reamys date ny magh sonrail date ta cowragh dy hoilshaghey ec baare yn rolley",
   "more-options": "Reihyn elley",

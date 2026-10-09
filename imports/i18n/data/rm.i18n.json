@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Avrir la tabella",
   "import-parts-instruction": "Mo las parts marcadas vegnan importadas. La medema selecziun vegn utilisada per exportar.",
   "import-wekan-file": "Importar d’ina datoteca d’export .json u .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Summa dals champs numerics persunalisads mussads sura la glista",
   "date-range-of-fields": "Period da datums dals champs persunalisads da data marcads per mussar amunt en la glista",
   "more-options": "Dapli opziuns",

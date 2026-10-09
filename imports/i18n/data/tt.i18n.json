@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Тактаны ачу",
   "import-parts-instruction": "Билгеләнгән өлешләр генә импортлана. Экспортлаганда да шул ук сайлау кулланыла.",
   "import-wekan-file": ".json яки .zip экспорт файлыннан импортлау:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Исемлек өстендә күрсәтелгән санлы махсус кырлар суммасы",
   "date-range-of-fields": "Исемлек өстендә күрсәтү өчен билгеләнгән дата махсус кырларының дата аралыгы",
   "more-options": "Күбрәк вариант",

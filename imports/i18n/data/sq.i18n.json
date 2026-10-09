@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Hap tabelën",
   "import-parts-instruction": "Importohen vetëm pjesët e shënuara. E njëjta zgjedhje përdoret gjatë eksportimit.",
   "import-wekan-file": "Importo nga një skedar eksporti .json ose .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Shuma e fushave numerike të personalizuara të shfaqura në krye të listës",
   "date-range-of-fields": "Diapazoni i datave i fushave të personalizuara të tipit datë të shënuara për t’u shfaqur në krye të listës",
   "more-options": "Më shumë opsione",

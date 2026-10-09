@@ -2877,6 +2877,7 @@
   "import-report-open-board": "بورڈ کھولیو",
   "import-parts-instruction": "صرف نشان لگاونہٕ آمژٕ حصہٕ درآمد گژھن۔ برآمد کرنہٕ وقت تہِ ہمان ژار استعمال گژھِ۔",
   "import-wekan-file": ".json یا .zip برآمد فایل پؠٹھ درآمد کریو:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "لِسٹَس ہیٚکہِ ہیٚشمَتؠ گژھنٕک خٲص عددی کھیٛتٕرَن ہُنٛد جوڑ",
   "date-range-of-fields": "تٲریخ کسٹم فیلڈُن ہنٛدِس رینج یُس فہرستچ سری تام ہاونہٕ خٲطرہٕ نِشان کرنہٕ آمُت چھُ",
   "more-options": "زیاد اختیار",

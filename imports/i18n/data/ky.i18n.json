@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Тактаны ачуу",
   "import-parts-instruction": "Белгиленген бөлүктөр гана импорттолот. Ушул эле тандоо экспорттоодо колдонулат.",
   "import-wekan-file": ".json же .zip экспорт файлынан импорттоо:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Тизменин үстүндө көрсөтүлгөн сандык атайын талаалардын суммасы",
   "date-range-of-fields": "Тизменин башында көрсөтүлүүчү дата ыңгайлаштырылган талааларынын дата аралыгы",
   "more-options": "Дагы да мүмкүнчүлүктөр",

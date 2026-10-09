@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Bookkiyaa dooy",
   "import-parts-instruction": "Wolayttatto: Only the ticked parts are gelissiis. The same choice is used when exporting.",
   "import-wekan-file": "Wolayttatto: Gelissa ppe a .json woy .zip kessa faayiliyaa:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Wodhihi bolla bessiya paydo giddo dumma qofa qoodaa woga",
   "date-range-of-fields": "Doomettida gallassaa dumma gam77e gallassaa doorettidoy gita mazgabaa bollan bessana",
   "more-options": "Hara doorsuwaa",

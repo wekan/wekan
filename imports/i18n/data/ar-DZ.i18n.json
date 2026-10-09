@@ -2877,6 +2877,7 @@
   "import-report-open-board": "فتح اللوحة",
   "import-parts-instruction": "لا يُستورد سوى الأجزاء المحددة. ويُستخدم الاختيار نفسه عند التصدير.",
   "import-wekan-file": "الاستيراد من ملف تصدير ‏.json أو ‏.zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "مجموع الحقول الرقمية المخصصة الظاهرة أعلى القائمة",
   "date-range-of-fields": "نطاق تاريخ الحقول المخصصة من نوع التاريخ المحددة للعرض أعلى القائمة",
   "more-options": "المزيد من الخيارات",

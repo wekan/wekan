@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Mở bảng",
   "import-parts-instruction": "Chỉ những phần được đánh dấu mới được nhập. Cùng lựa chọn đó được dùng khi xuất.",
   "import-wekan-file": "Nhập từ tệp xuất .json hoặc .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Tổng các trường tùy chỉnh dạng số được hiển thị ở đầu danh sách",
   "date-range-of-fields": "Phạm vi ngày của các trường tùy chỉnh kiểu ngày được đánh dấu hiển thị ở đầu danh sách",
   "more-options": "Tùy chọn khác",

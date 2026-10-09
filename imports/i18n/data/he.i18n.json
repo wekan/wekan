@@ -2877,6 +2877,7 @@
   "import-report-open-board": "פתיחת הלוח",
   "import-parts-instruction": "רק החלקים של הקריאה מיובאים. אותה הבחירה משמשת גם לייצוא.",
   "import-wekan-file": "ייבוא מקובץ ייצוא ‎.json או ‎.zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "סכום השדות המותאמים המספריים המוצגים בראש הרשימה",
   "date-range-of-fields": "טווח התאריכים של שדות מותאמים אישית מסוג תאריך שסומנו להצגה בראש הרשימה",
   "more-options": "אפשרויות נוספות",

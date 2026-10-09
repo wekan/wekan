@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Eipe'a tembiapo renda",
   "import-parts-instruction": "Pehẽ oñemohánga va'ekue añónte ojegueru. Pe poravo peteĩcha ojepuru oñeguenohẽ jave.",
   "import-wekan-file": "Egueru peteĩ .json térã .zip ñeguenohẽ marandurenda-gui:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Lista ru'ãme ojehechaukáva ñe'ẽndy jerure papapy rembiapokuéra ombyaty",
   "date-range-of-fields": "Ára jotopa umi ñemboheko arange oñemboheséva tenondegua lista-pe",
   "more-options": "Hetave jeporavopy",

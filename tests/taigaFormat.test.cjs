@@ -436,8 +436,8 @@ async function main() {
     const importJs = read('models/import.js');
     assert.match(importJs, /case 'taiga':[\s\S]*?check\(board, Object\);[\s\S]*?EXTERNAL_PARSERS\.taiga\(importedBoard\)[\s\S]*?new KanboardCreator\(data, 'taiga'\)/);
     const client = read('client/components/import/import.js');
-    assert.match(client, /\{ key: 'taiga', name: 'Taiga' \}/);
-    assert.match(client, /if \(dataSource === 'taiga'\) dataObject = slimTaigaDump\(dataObject\);/);
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'taiga', name: 'Taiga', \.\.\.JSON_SOURCE \}/); // the one list of sources
+    assert.match(client, /if \(dataSource === 'taiga'\) doc = slimTaigaDump\(doc\);/);
     assert.match(read('client/components/boards/exportScope.js'), /\['taiga', 'Taiga'\]/);
     assert.match(read('models/lib/externalExporters.js'), /SCRUM_FORMATS = new Set\(\[[^\]]*'taiga'/);
     const creator = read('models/kanboardCreator.js');

@@ -2877,6 +2877,7 @@
   "import-report-open-board": "עפֿענען דאָס ברעט",
   "import-parts-instruction": "בלויז די אָפּגעצייכנטע טיילן ווערן אימפּאָרטירט. די זעלבע אויסקלײַב ווערט גענוצט בײַם עקספּאָרטירן.",
   "import-wekan-file": "אימפּאָרטירן פֿון אַ .json אָדער .zip עקספּאָרט־טעקע:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "סומע פֿון נומעריק אָנגעפאַסטע פֿעלדער באַוויזן אויבן פֿון ליסטע",
   "date-range-of-fields": "דאַטע-שטח פֿון אײגענע דאַטע-פֿעלדער באַצײכנט צו ווײַזן אויבן אויפֿן ליסטע",
   "more-options": "מער אָפּציעס",

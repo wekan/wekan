@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Bula poto",
   "import-parts-instruction": "Go tsenywa feela dikarolo tše di swailwego. Kgetho ye e swanago e dirišwa ge go ntšhwa.",
   "import-wekan-file": "Tsenya go tšwa faeleng ya ntšho ya .json goba .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Kakaretšo ya masimo a dinomoro a tlwaetšego ao a bontšhwago godimo ga lenaneo",
   "date-range-of-fields": "Sebaka sa matšatši sa dikarolo tša tlwaelo tša letšatši tše di beetšwego go bontšhwa ka godimo ga lenaneo",
   "more-options": "Dikgetho tše dingwe",

@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Tsegulani bolodi",
   "import-parts-instruction": "Magawo osankhidwa okha ndi amene amalowetsedwa. Kusankha komweku kumagwiritsidwa ntchito potumiza.",
   "import-wekan-file": "Lowetsani kuchokera ku fayilo yotumizidwa ya .json kapena .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Chiwerengero cha minda ya manambala yosinthidwa yowonetsedwa pamwamba pa mndandanda",
   "date-range-of-fields": "Gawo la tsiku la minda yapadera yolembedwa kuti isonyezedwe pamwamba pa mndandanda",
   "more-options": "Zosankhulapo zambiri",

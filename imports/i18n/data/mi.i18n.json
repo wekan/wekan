@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Whakatuwheratia te papa",
   "import-parts-instruction": "Ko ngā wāhanga kua tohua anake ka kawemai. Ka whakamahia taua kōwhiringa anō ina kaweake.",
   "import-wekan-file": "Kawemai mai i tētahi kōnae kaweake .json, .zip rānei:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Te huinga o ngā āpure tau ā-ritenga e whakaatuhia ana i runga ake o te rārangi",
   "date-range-of-fields": "Te awhe rā o ngā āpure ritenga rā kua tohua kia whakaatuhia ki runga o te rārangi",
   "more-options": "He maha ake ngā kōwhiringa",

@@ -2877,6 +2877,7 @@
   "import-report-open-board": "დაფის გახსნა",
   "import-parts-instruction": "იმპორტირდება მხოლოდ მონიშნული ნაწილები. იგივე არჩევანი გამოიყენება ექსპორტისას.",
   "import-wekan-file": "იმპორტი .json ან .zip ექსპორტის ფაილიდან:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "სიის თავში ნაჩვენები რიცხვითი მორგებული ველების ჯამი",
   "date-range-of-fields": "თარიღის დიაპაზონი მორგებული თარიღის ტიპის ველებისთვის, რომლებიც მონიშნულია სიის თავში საჩვენებლად",
   "more-options": "მეტი ვარიანტი",

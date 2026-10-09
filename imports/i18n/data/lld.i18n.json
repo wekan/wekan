@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Vierjer la tofl",
   "import-parts-instruction": "Vengono importate mé le parti sielte. La stessa scelta ie usata durante l'esportazion.",
   "import-wekan-file": "Importa da un file di esportazion .json o .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Suma di i ciamps numerics personalisá mustrá insom la lista",
   "date-range-of-fields": "Distanza de data di ciamps personalisc de data marché per mostré sëura la lista",
   "more-options": "Plu opzions",

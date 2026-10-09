@@ -1211,6 +1211,10 @@
     {
       "key": "invalid-import-mapping",
       "since": "2026-10-09"
+    },
+    {
+      "key": "import-file-label",
+      "since": "2026-10-09"
     }
   ]
 }

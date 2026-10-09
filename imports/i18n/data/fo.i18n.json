@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Lat talvuna upp",
   "import-parts-instruction": "Bert avhakaðu partarnir verða fluttir inn. Sama val verður nýtt við útflutning.",
   "import-wekan-file": "Flyt inn úr einari .json- ella .zip-útflutningsfílu:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Summa av talkendum sernøktum feltum, sum vísast ovast á listanum",
   "date-range-of-fields": "Dagfestingarmanagement av serligum dagfestingarfeltum, ið eru merkt at vísast ovast í listanum",
   "more-options": "Fleiri valmøguleikar",

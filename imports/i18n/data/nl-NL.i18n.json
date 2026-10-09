@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Open het bord",
   "import-parts-instruction": "Alleen de aangevinkte onderdelen worden geïmporteerd. Dezelfde keuze geldt bij het exporteren.",
   "import-wekan-file": "Importeren uit een .json- of .zip-exportbestand:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Som van numerieke aangepaste velden die bovenaan de lijst worden weergegeven",
   "date-range-of-fields": "Datumbereik van aangepaste velden van het type datum die zijn gemarkeerd om boven aan de lijst te worden weergegeven",
   "more-options": "Meer opties",

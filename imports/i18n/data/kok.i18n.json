@@ -2877,6 +2877,7 @@
   "import-report-open-board": "फळो उगडात",
   "import-parts-instruction": "फकत खूण केल्ले भाग आयात जातात. निर्यात करतनाय तीच निवड वापरतात.",
   "import-wekan-file": ".json वा .zip निर्यात फायलींतल्यान आयात करात:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "यादिचे वयर दाखय्ता ती अंकीय स्वताकुशीक क्षेत्रांचें बेरीज",
   "date-range-of-fields": "वळेरेच्या वयर दाखोवपाक चिन्हांकित केल्ल्या तारीख सानुकूल क्षेत्रांची तारीख व्याप्ती",
   "more-options": "चड पर्याय",

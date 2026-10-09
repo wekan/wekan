@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Åbn tavlen",
   "import-parts-instruction": "Kun de afkrydsede dele importeres. Det samme valg bruges ved eksport.",
   "import-wekan-file": "Importér fra en .json- eller .zip-eksportfil:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Sum af numeriske brugerdefinerede felter vist øverst på listen",
   "date-range-of-fields": "Datointerval for tilpassede datofelter markeret til at blive vist øverst på listen",
   "more-options": "Flere valgmuligheder",

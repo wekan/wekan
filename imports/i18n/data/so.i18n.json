@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Fur sabuuradda",
   "import-parts-instruction": "Keliya qaybaha la calaamadeeyey ayaa la soo dejiyaa. Isla doorashada ayaa la adeegsadaa marka la dhoofinayo.",
   "import-wekan-file": "Ka soo deji fayl dhoofin .json ama .zip ah:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Isu-geynta beeraha tirooyinka ee la habeeyay ee lagu muujiyo sare ee liiska",
   "date-range-of-fields": "Xadka taariikhda goobaha gaarka ah ee taariikhda loo calaamadeeyay in lagu muujiyo sare liiska",
   "more-options": "Ikhtiyaaro dheeraad ah",

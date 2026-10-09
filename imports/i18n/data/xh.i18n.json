@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Vula ibhodi",
   "import-parts-instruction": "Kungeniswa kuphela iindawo ezikhethiweyo. Ukhetho olufanayo lusetyenziswa xa uthumela ngaphandle.",
   "import-wekan-file": "Ngenisa ukusuka kwifayile ye-.json okanye ye-.zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Isamba samabala amanani azenzelweyo aboniswa phezulu koluhlu",
   "date-range-of-fields": "Uluhlu lomhla lwamacandelo aziqhelanisayo ohlobo lomhla aphawulelwe ukuboniswa phezulu koluhlu",
   "more-options": "Ukhetho olungakumbi",

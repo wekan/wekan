@@ -2877,6 +2877,7 @@
   "import-report-open-board": "ਬੋਰਡ ਖੋਲ੍ਹੋ",
   "import-parts-instruction": "ਸਿਰਫ਼ ਨਿਸ਼ਾਨਬੱਧ ਹਿੱਸੇ ਹੀ ਆਯਾਤ ਹੁੰਦੇ ਹਨ। ਨਿਰਯਾਤ ਵੇਲੇ ਵੀ ਇਹੀ ਚੋਣ ਵਰਤੀ ਜਾਂਦੀ ਹੈ।",
   "import-wekan-file": ".json ਜਾਂ .zip ਨਿਰਯਾਤ ਫ਼ਾਈਲ ਤੋਂ ਆਯਾਤ ਕਰੋ:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "ਸੂਚੀ ਦੇ ਸਿਖਰ 'ਤੇ ਦਿਖਾਏ ਗਏ ਸੰਖਿਆਤਮਕ ਕਸਟਮ ਫੀਲਡਾਂ ਦਾ ਜੋੜ",
   "date-range-of-fields": "ਸੂਚੀ ਦੇ ਸਿਖਰ 'ਤੇ ਦਿਖਾਉਣ ਲਈ ਨਿਸ਼ਾਨਬੱਧ ਕੀਤੇ ਮਿਤੀ-ਕਿਸਮ ਦੇ ਕਸਟਮ ਖੇਤਰਾਂ ਦੀ ਮਿਤੀ ਸੀਮਾ",
   "more-options": "ਹੋਰ ਵਿਕਲਪ",

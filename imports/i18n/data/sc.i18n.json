@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Aberi sa tàula",
   "import-parts-instruction": "Vengono importadas solo le parti selezionadas. La stessa scelta è usada durante l'esportatzione.",
   "import-wekan-file": "Importa da un file di esportatzione .json o .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Sa summa de is campos numéricos personalizados ammostraos in punta a sa lista",
   "date-range-of-fields": "Intervallu de datas de is campos personalizados de data marcados pro ammustrare in artu de sa lista",
   "more-options": "Prus optziones",

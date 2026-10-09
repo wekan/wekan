@@ -2877,6 +2877,7 @@
   "import-report-open-board": "تخته پرانيزئ",
   "import-parts-instruction": "يوازې نښه شوې برخې واردېږي. د صادرولو پر مهال هماغه ټاکنه کارول کېږي.",
   "import-wekan-file": "له .json يا .zip صادرې شوې دوتنې څخه واردول:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "د لیست په سر کې ښودل شوي شمېریز دودیز ساحو مجموعه",
   "date-range-of-fields": "د لیست په سر کې ښودلو لپاره نښه شوي د نیټې ډول ځانګړي ساحو نیټه ساحه",
   "more-options": "نور اختیارونه",

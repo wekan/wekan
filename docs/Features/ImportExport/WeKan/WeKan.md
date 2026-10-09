@@ -18,7 +18,8 @@ example **WeKan**.
 
 1. In the WeKan that has the board, export it as JSON (see How to export).
 2. In this WeKan, go to **All Boards → New → Import → WeKan**.
-3. Choose the file under **Import from a .json or .zip export file:**, or paste
+3. Choose the `.json` or `.zip` file under **Choose the export file, or paste its text below:**, or
+   paste
    the JSON into the text box. Tick the parts to import.
 4. Click **Import**. WeKan then asks you to map the board's members to WeKan
    users. Map them and click **Done**, or click **Import without mapping

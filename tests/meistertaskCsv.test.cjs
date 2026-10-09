@@ -115,8 +115,10 @@ async function main() {
     assert.match(read('models/import.js'), /case 'meistertask':\s*\/\/[^\n]*\n\s*check\(board, String\);\s*try \{\s*importedBoard = EXTERNAL_PARSERS\.meistertask\(importedBoard\);/);
     assert.match(read('server/lib/renderExternalExport.js'), /meistertask: 'text\/csv'/);
     const page = read('client/components/import/import.js');
-    assert.match(page, /\{ key: 'meistertask', name: 'MeisterTask' \}/);
-    assert.match(page, /dataSource === 'meistertask'/);
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'meistertask', name: 'MeisterTask'[,}]/); // the one list of sources
+    // The page reads every source through one path described in
+    // models/lib/importSources.js, not a branch of its own.
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'meistertask', name: '[^']+', \.\.\.TEXT/, 'read by the one import path');
     assert.match(read('client/components/boards/exportScope.js'), /key: 'meistertask'[^}]*path: 'export\/meistertask', ext: 'csv'/);
     assert.match(JSON.parse(read('imports/i18n/data/en.i18n.json'))['import-board-instruction-meistertask'], /Export project/);
     // Todoist's reader is shared and still names Todoist in its own errors.

@@ -28,7 +28,7 @@ test.describe('Excel import & board PDF export', () => {
 
     await navigateInApp(loggedInPage, '/import/excel');
     await loggedInPage
-      .locator('.js-import-excel-file')
+      .locator('.js-import-file')
       .setInputFiles({ name: 'board.xlsx', mimeType: XLSX_MIME, buffer });
 
     // Submitting the form shows the column mapping step (Excel skips member

@@ -22,8 +22,8 @@ every key Taiga's own exporter writes, so Taiga can create a project from it.
 4. Under **Select what to include:** tick the parts to import. Tick **Scrum
    settings** to bring Taiga's sprints in as Scrum sprints. Without it the
    cards are imported, but no sprints, backlog ranks or Scrum estimate.
-5. Open the dump in a text editor and paste the whole JSON into the text box.
-   There is no file chooser for Taiga.
+5. Choose the dump under **Choose the export file, or paste its text below:**, or paste the whole
+   JSON into the text box.
 6. Click **Import** (or **Import without mapping members (map later)**). Taiga
    names people by email, and the page imports Taiga without member mapping.
 7. Read the loss report on the import page. It is also kept in **Admin Panel →

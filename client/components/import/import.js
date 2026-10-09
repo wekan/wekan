@@ -4,7 +4,6 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { wekanGetMembersToMap } from './wekanMembersMapper';
 import { csvGetMembersToMap } from './csvMembersMapper';
 import { jiraGetMembersToMap } from './jiraMembersMapper';
-import { kanboardGetMembersToMap } from './kanboardMembersMapper';
 import getSlug from 'limax';
 import { UserSearchIndex } from '/models/users';
 import { Utils } from '/client/lib/utils';
@@ -18,6 +17,7 @@ import {
 import { pruneImportDocument } from '/models/lib/importParts';
 import { slimTaigaDump } from '/models/lib/taigaFormat';
 import { expandFiles, documentForFile, isGeneralizedSource } from '/models/lib/importManyFiles';
+import { IMPORT_SOURCES, importSource as importSourceSpec, acceptFor } from '/models/lib/importSources';
 import { TAPi18n } from '/imports/i18n';
 import TrelloImportJobs from '/models/trelloImportJobs';
 import { csvMappingData, parseCsvImportText, startCsvMapping } from './csvMapping';
@@ -52,12 +52,9 @@ function _prepareAdditionalData(dataObject) {
     case 'jira':
       membersToMap = jiraGetMembersToMap(dataObject);
       break;
-    case 'kanboard':
-      membersToMap = kanboardGetMembersToMap(dataObject);
-      break;
     default:
-      // NextCloud Deck / OpenProject / GitHub / GitLab / Gitea / Forgejo:
-      // these are imported without member mapping (members can be mapped later).
+      // The generalized importer's sources get their people from the
+      // server's parser instead (mapPeopleOrImport).
       membersToMap = [];
       break;
   }
@@ -258,160 +255,31 @@ Template.import.onCreated(function () {
         this.nextStep();
       }
     };
-    // Excel (.xlsx): the file is parsed on the server (with exceljs) into rows
-    // and imported through the CSV creator. Member mapping is skipped (members
-    // can be mapped later), so we read the file to base64 and import directly.
-    // Microsoft Planner's "Export plan to Excel" file, monday.com's board
-    // export and Wrike's import template are read the same way.
-    if (dataSource === 'excel' || dataSource === 'planner' || dataSource === 'monday' || dataSource === 'wrike' || dataSource === 'teamwork' || dataSource === 'businessmap') {
-      const el = this.find('.js-import-excel-file');
-      if (!el || !el.files || !el.files[0]) {
-        this.setError('error-json-malformed');
-        return;
-      }
-      const buf = await el.files[0].arrayBuffer();
-      const bytes = new Uint8Array(buf);
-      let binary = '';
-      for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
-      this.importedData.set({ excelBase64: window.btoa(binary) });
-      // A WeKan-style workbook gets the column mapping step (csvMapping.js);
-      // the other workbook sources go on to the people step.
-      if (dataSource === 'excel') {
-        this.membersToMap.set([]);
-        this.setError('');
-        await startCsvMapping(this, { excelBase64: this.importedData.get().excelBase64 });
-        return;
-      }
-      await this.mapPeopleOrImport(dataSource, skipMapping);
-      return;
-    }
-    // Vikunja: the user data export .zip (Settings > Data Export), sent as
-    // base64 and opened on the server (server/lib/vikunjaArchive.js), or its
-    // data.json - chosen as a file or pasted - sent as text. Vikunja's users
-    // are not mapped here either; members can be mapped later.
-    if (dataSource === 'vikunja') {
-      const el = this.find('.js-import-vikunja-file');
-      const file = el && el.files && el.files[0];
-      let input;
-      if (file && !/\.json$/i.test(file.name || '')) {
-        const bytes = new Uint8Array(await file.arrayBuffer());
-        let binary = '';
-        for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
-        input = { zipBase64: window.btoa(binary) };
-      } else {
-        input = file ? await file.text() : this.find('.js-import-json').value;
-        if (!input || !input.trim()) {
-          this.setError('error-json-malformed');
-          return;
-        }
-      }
-      this.importedData.set(input);
-      await this.mapPeopleOrImport(dataSource, skipMapping);
-      return;
-    }
-    // Plane: the issue export .zip (Workspace Settings > Exports) or the .xlsx
-    // inside it, sent as base64 and opened on the server
-    // (server/lib/planeArchive.js), or its JSON or CSV file - chosen as a file
-    // or pasted - sent as text. Plane's people are names, not mapped here.
-    if (dataSource === 'plane') {
-      const el = this.find('.js-import-plane-file');
-      const file = el && el.files && el.files[0];
-      let input;
-      if (file && /\.(zip|xlsx)$/i.test(file.name || '')) {
-        const bytes = new Uint8Array(await file.arrayBuffer());
-        let binary = '';
-        for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
-        input = /\.xlsx$/i.test(file.name) ? { xlsxBase64: window.btoa(binary) } : { zipBase64: window.btoa(binary) };
-      } else {
-        input = file ? await file.text() : this.find('.js-import-json').value;
-        if (!input || !input.trim()) {
-          this.setError('error-json-malformed');
-          return;
-        }
-      }
-      this.importedData.set(input);
-      await this.mapPeopleOrImport(dataSource, skipMapping);
-      return;
-    }
-    // Notion: the Markdown & CSV export .zip, sent as base64 and opened on the
-    // server (server/lib/notionArchive.js), or one database CSV - chosen as a
-    // file or pasted - sent as text. Notion's people are not mapped here
-    // either; members can be mapped later.
-    if (dataSource === 'notion') {
-      const el = this.find('.js-import-notion-file');
-      const file = el && el.files && el.files[0];
-      let input;
-      if (file && !/\.csv$/i.test(file.name || '')) {
-        const bytes = new Uint8Array(await file.arrayBuffer());
-        let binary = '';
-        for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
-        input = { zipBase64: window.btoa(binary) };
-      } else {
-        input = file ? await file.text() : this.find('.js-import-json').value;
-        if (!input || !input.trim()) {
-          this.setError('error-json-malformed');
-          return;
-        }
-      }
-      this.importedData.set(input);
-      await this.mapPeopleOrImport(dataSource, skipMapping);
-      return;
-    }
-    // Markdown: the "task list" convention several markdown-kanban tools use
-    // (Obsidian Kanban and similar) - `## List name` headings, `- [ ]`/`- [x]`
-    // items underneath. It is plain text, not JSON, so it is sent as-is rather
-    // than parsed - models/lib/externalParsers.js does the parsing server-side.
-    // A Leo .leo outline is XML text and todo.txt is plain text; both are
-    // handled the same way. So is Taskwarrior's export: older versions write
-    // one JSON object per line, which is not one JSON document.
-    // Focalboard's board.jsonl is one JSON object per line too, and a Todoist
-    // template is CSV text with its own columns.
-    if (dataSource === 'markdown' || dataSource === 'leo' || dataSource === 'todotxt' || dataSource === 'taskwarrior' ||
-        dataSource === 'focalboard' || dataSource === 'todoist' || dataSource === 'meistertask' || dataSource === 'obsidian' || dataSource === 'linear' || dataSource === 'ticktick' || dataSource === 'clickup' || dataSource === 'nullboard' || dataSource === 'pivotal' || dataSource === 'redmine' || dataSource === 'superproductivity' || dataSource === 'quire' || dataSource === 'opml' || dataSource === 'orgmode') {
-      const input = this.find('.js-import-json').value;
-      if (!input || !input.trim()) {
-        this.setError('error-json-malformed');
-        return;
-      }
-      this.importedData.set(input);
-      await this.mapPeopleOrImport(dataSource, skipMapping);
-      return;
-    }
-    if (dataSource === 'csv') {
-      const rows = parseCsvImportText(this.find('.js-import-json').value);
-      if (!rows.length) {
-        this.setError('error-csv-schema');
-        return;
-      }
-      this.setError('');
-      this.importedData.set(rows);
-      this.membersToMap.set(_prepareAdditionalData(rows));
-      // The column mapping step (csvMapping.js) comes first; members after it.
-      await startCsvMapping(this, { rows, membersStep: !skipMapping });
-      return;
-    }
-    // Trello: a .zip package (one or more board .json files plus per-board
-    // attachment subdirectories from the Trello Attachments Downloader) imports
-    // all of its boards at once, through a separate field from the single .json.
-    if (dataSource === 'trello') {
+    // One way for every source (models/lib/importSources.js): the chosen
+    // file, read as that source's import sends it (models/lib/importManyFiles.js
+    // documentForFile, the same reader "Import many boards" uses), or else the
+    // pasted text; then the few steps a source has of its own; then the people
+    // step every source shares.
+    const spec = importSourceSpec(dataSource) || {};
+    this.setError('');
+    // Trello's .zip package of many boards and their files has a route of its own.
+    if (spec.package) {
       const zipEl = this.find('.js-import-zip-file');
       if (zipEl && zipEl.files && zipEl.files[0]) {
         await this.importTrelloZip(zipEl.files[0]);
         return;
       }
     }
+    const fileEl = this.find('.js-import-file');
+    const file = fileEl && fileEl.files && fileEl.files[0];
+    let doc;
     try {
-      // A single board: JSON may come from an uploaded .json file (large Trello
-      // exports are awkward to paste) or from the textarea.
-      let input = this.find('.js-import-json').value;
-      const jsonFileEl = this.find('.js-import-json-file');
-      let dataObject = null;
-      // A WeKan .zip becomes a new board on the server, which unpacks it.
-      const chosenFile = jsonFileEl && jsonFileEl.files && jsonFileEl.files[0];
-      if (chosenFile && this.importSource === 'wekan' && /\.zip$/i.test(chosenFile.name || '')) {
+      if (file && spec.zipSend === 'own' && /\.zip$/i.test(file.name || '')) {
+        // A WeKan .zip becomes a new board on the server, which unpacks it
+        // and streams its attachments into storage.
         let boardId;
         try {
-          boardId = await postWekanZipAsNewBoard(chosenFile, this.membersMode === 'me' ? 'me' : 'placeholder');
+          boardId = await postWekanZipAsNewBoard(file, this.membersMode === 'me' ? 'me' : 'placeholder');
         } catch (e) {
           this.setError((e && e.message) || 'import-failed');
           return;
@@ -420,55 +288,68 @@ Template.import.onCreated(function () {
         openOrReportImportedBoard(boardId, '');
         return;
       }
-      if (jsonFileEl && jsonFileEl.files && jsonFileEl.files[0]) {
-        // #1173: a .zip is read the same way the per-menu import reads one -
-        // the document out of `wekan.json`, and every file under `attachments/`
-        // put back on the metadata row it belongs to, so an export that was
-        // taken as a .zip imports with its files rather than without them.
-        // readExportFile handles a .json unchanged.
-        dataObject = await readExportFile(jsonFileEl.files[0]);
+      if (file) {
+        doc = documentForFile(dataSource, file.name || '', new Uint8Array(await file.arrayBuffer()));
       } else {
-        dataObject = JSON.parse(input);
+        const text = (this.find('.js-import-json') || {}).value || '';
+        if (!text.trim()) {
+          this.setError('error-json-malformed');
+          return;
+        }
+        doc = dataSource === 'csv' ? parseCsvImportText(text) : spec.send === 'text' ? text : JSON.parse(text);
       }
-      // Guard against importing a broken/old WeKan export that has no board
-      // content (see wekanExportIsEmpty): warn the user to re-export rather than
-      // silently creating an empty board with only a Default swimlane.
-      if (this.importSource === 'wekan' && wekanExportIsEmpty(dataObject)) {
-        this.setError('error-import-empty-board');
-        return;
-      }
-      this.setError('');
-
-      // Trello: remember the target personal-workspace name for finishImport.
-      if (dataSource === 'jira') {
-        const estimateFieldId = this.find('.js-jira-estimate-field')?.value.trim();
-        if (estimateFieldId) dataObject.wekanScrumMapping = { estimateFieldId,
-          estimateUnit: this.find('.js-jira-estimate-unit')?.value.trim() };
-      }
-      this.workspaceName = '';
-      if (dataSource === 'trello') {
-        const wsEl = this.find('.js-import-workspace-name');
-        this.workspaceName = wsEl && wsEl.value ? wsEl.value.trim() : '';
-      }
-
-      // A Taiga dump embeds every attachment as base64; they are not
-      // imported, so they are not sent (models/lib/taigaFormat.js).
-      if (dataSource === 'taiga') dataObject = slimTaigaDump(dataObject);
-      this.importedData.set(dataObject);
-      const membersToMap = _prepareAdditionalData(dataObject);
-      // store members data and mapping in Session
-      // (we go deep and 2-way, so storing in data context is not a viable option)
-      this.membersToMap.set(membersToMap);
-      // A source of the generalized importer with no people step of its own
-      // gets its people from the file the way every such source does.
-      if (!membersToMap.length && isGeneralizedSource(dataSource)) {
-        await this.mapPeopleOrImport(dataSource, skipMapping);
-        return;
-      }
-      await advance();
     } catch (e) {
       this.setError('error-json-malformed');
+      return;
     }
+
+    // CSV/TSV and Excel: which column is which field comes first
+    // (csvMapping.js), the people after it for CSV.
+    if (dataSource === 'csv') {
+      if (!Array.isArray(doc) || !doc.length) {
+        this.setError('error-csv-schema');
+        return;
+      }
+      this.importedData.set(doc);
+      this.membersToMap.set(_prepareAdditionalData(doc));
+      await startCsvMapping(this, { rows: doc, membersStep: !skipMapping });
+      return;
+    }
+    if (dataSource === 'excel') {
+      this.importedData.set(doc);
+      this.membersToMap.set([]);
+      await startCsvMapping(this, { excelBase64: doc.excelBase64 });
+      return;
+    }
+    // A broken or old WeKan export with no board content is refused rather
+    // than made into an empty board (see wekanExportIsEmpty).
+    if (dataSource === 'wekan' && wekanExportIsEmpty(doc)) {
+      this.setError('error-import-empty-board');
+      return;
+    }
+    if (dataSource === 'jira') {
+      const estimateFieldId = this.find('.js-jira-estimate-field')?.value.trim();
+      if (estimateFieldId) doc.wekanScrumMapping = { estimateFieldId,
+        estimateUnit: this.find('.js-jira-estimate-unit')?.value.trim() };
+    }
+    // Trello: remember the target personal-workspace name for finishImport.
+    this.workspaceName = '';
+    if (dataSource === 'trello') {
+      const wsEl = this.find('.js-import-workspace-name');
+      this.workspaceName = wsEl && wsEl.value ? wsEl.value.trim() : '';
+    }
+    // A Taiga dump embeds every attachment as base64; they are not imported,
+    // so they are not sent (models/lib/taigaFormat.js).
+    if (dataSource === 'taiga') doc = slimTaigaDump(doc);
+    this.importedData.set(doc);
+    // The people: the generalized importer's are read by the server's parser
+    // (mapPeopleOrImport); WeKan, Trello and Jira read their own.
+    if (spec.creator === 'generalized') {
+      await this.mapPeopleOrImport(dataSource, skipMapping);
+      return;
+    }
+    this.membersToMap.set(_prepareAdditionalData(doc));
+    await advance();
   };
 
   // Upload a Trello .zip package to the server, which extracts it (with
@@ -682,55 +563,11 @@ function splitByProject(source) {
 }
 
 // #1173: every import source, in one list, so the page says what it can read
-// instead of the answer living in a menu somewhere else. The order is the one
-// the board sidebar's links were in - the familiar one - and the WeKan entry is
-// named for the PRODUCT NAME this instance is branded with, because "a previous
-// export of ..." should say the name the person sees at the top of their screen.
-const IMPORT_SOURCES = [
-  { key: 'wekan', product: true },
-  { key: 'trello', name: 'Trello' },
-  { key: 'csv', name: 'CSV / TSV' },
-  { key: 'excel', name: 'Excel' },
-  { key: 'jira', name: 'Jira' },
-  { key: 'kanboard', name: 'Kanboard' },
-  { key: 'deck', name: 'NextCloud Deck' },
-  { key: 'openproject', name: 'OpenProject' },
-  { key: 'github', name: 'GitHub' },
-  { key: 'gitlab', name: 'GitLab' },
-  { key: 'gitea', name: 'Gitea' },
-  { key: 'forgejo', name: 'Forgejo' },
-  { key: 'asana', name: 'Asana' },
-  { key: 'zenkit', name: 'Zenkit' },
-  { key: 'markdown', name: 'Markdown' },
-  { key: 'leo', name: 'Leo' },
-  { key: 'opml', name: 'OPML' },
-  { key: 'orgmode', name: 'Org mode' },
-  { key: 'todotxt', name: 'todo.txt' },
-  { key: 'taskwarrior', name: 'Taskwarrior' },
-  { key: 'focalboard', name: 'Focalboard' },
-  { key: 'todoist', name: 'Todoist' },
-  { key: 'planner', name: 'Microsoft Planner' },
-  { key: 'meistertask', name: 'MeisterTask' },
-  { key: 'obsidian', name: 'Obsidian Kanban' },
-  { key: 'linear', name: 'Linear' },
-  { key: 'ticktick', name: 'TickTick' },
-  { key: 'clickup', name: 'ClickUp' },
-  { key: 'nullboard', name: 'Nullboard' },
-  { key: 'kanri', name: 'Kanri' },
-  { key: 'pivotal', name: 'Pivotal Tracker' },
-  { key: 'redmine', name: 'Redmine' },
-  { key: 'tasksorg', name: 'Tasks.org' },
-  { key: 'monday', name: 'monday.com' },
-  { key: 'superproductivity', name: 'Super Productivity' },
-  { key: 'taiga', name: 'Taiga' },
-  { key: 'vikunja', name: 'Vikunja' },
-  { key: 'wrike', name: 'Wrike' },
-  { key: 'teamwork', name: 'Teamwork.com' },
-  { key: 'businessmap', name: 'Businessmap (Kanbanize)' },
-  { key: 'quire', name: 'Quire' },
-  { key: 'notion', name: 'Notion' },
-  { key: 'plane', name: 'Plane' },
-];
+// instead of the answer living in a menu somewhere else. The list, its order
+// and what each source takes are models/lib/importSources.js; the WeKan entry
+// is named for the PRODUCT NAME this instance is branded with, because "a
+// previous export of ..." should say the name the person sees at the top of
+// their screen.
 
 Template.import.helpers({
   error() {
@@ -859,18 +696,10 @@ Template.importTextarea.helpers({
     return Session.get('importSource') === 'trello';
   },
   // #1173: a previous export of this WeKan, as a .json or as a .zip.
-  isWekanImport() {
-    return Session.get('importSource') === 'wekan';
-  },
-  isExcelImport() {
-    return ['excel', 'planner', 'monday', 'wrike', 'teamwork', 'businessmap'].includes(Session.get('importSource'));
-  },
-  // Vikunja's export .zip, or its data.json, beside the textarea.
-  isVikunjaImport() { return Session.get('importSource') === 'vikunja'; },
-  // Notion's Markdown & CSV export .zip, or one database CSV, beside the textarea.
-  isNotionImport() { return Session.get('importSource') === 'notion'; },
-  // Plane's export .zip, its .xlsx, or its JSON or CSV file, beside the textarea.
-  isPlaneImport() { return Session.get('importSource') === 'plane'; },
+  // What the one file chooser accepts for this source, and whether its
+  // export can be pasted (models/lib/importSources.js).
+  importAccept() { return acceptFor(Session.get('importSource')); },
+  importPaste() { return Boolean((importSourceSpec(Session.get('importSource')) || {}).paste); },
   isJiraImport() { return Session.get('importSource') === 'jira'; },
   // The numeric fields the pasted Jira export declares, to pick the estimate.
   jiraEstimateCandidates() { return Template.instance().jiraCandidates.get(); },

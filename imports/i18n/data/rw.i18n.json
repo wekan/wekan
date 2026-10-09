@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Fungura ikibaho",
   "import-parts-instruction": "Ibice byashyizweho akamenyetso gusa ni byo byinjizwa. Ihitamo rimwe rikoreshwa no mu gusohora.",
   "import-wekan-file": "Injiza bivuye muri dosiye y'isohora ya .json cyangwa .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Igiteranyo cy'imyanya y'imibare yihariye igaragazwa hejuru y'urutonde",
   "date-range-of-fields": "Igihe cy'itariki cy'imyanya yihariye y'itariki yashyizweho ikimenyetso ngo igaragazwe hejuru y'urutonde",
   "more-options": "Ubundi buryo",

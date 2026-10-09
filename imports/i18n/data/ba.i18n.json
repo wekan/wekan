@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Таҡтаны асырға",
   "import-parts-instruction": "Билдәләнгән өлөштәр генә импортлана. Экспортлағанда ла шул уҡ һайлау ҡулланыла.",
   "import-wekan-file": ".json йәки .zip экспорт файлынан импортларға:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Исемлек өҫтөндә күрһәтелгән һанлы ярҙамсы баҫмаларҙың йыйылмаһы",
   "date-range-of-fields": "Исемлектең өҫкө өлөшөндә күрһәтелергә тамғаланған дата ялдарының дата ара",
   "more-options": "Күбрәк вариант",

@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Vhura bhodhi",
   "import-parts-instruction": "chete the ticked parts vari zvapinzwa. The zvimwe chete choice iri used when exporting.",
   "import-wekan-file": "pinza kubva a .json kana .zip tumira kunze faira:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Wongororo yemipata yenhamba yakagadzirwa inoratidzwa pamusoro perondedzero",
   "date-range-of-fields": "Nguva yemazuva yeminda yakagadziridzwa yezuva yakanangwa kuti iratidzwe pamusoro pelisiti",
   "more-options": "Zvimwe zvekusarudza",

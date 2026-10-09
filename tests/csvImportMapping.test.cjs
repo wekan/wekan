@@ -278,8 +278,8 @@ async function main() {
 
   await test('the import page shows the mapping step for CSV/TSV and Excel', () => {
     const page = read('client/components/import/import.js');
-    assert.match(page, /await startCsvMapping\(this, \{ rows, membersStep: !skipMapping \}\);/);
-    assert.match(page, /await startCsvMapping\(this, \{ excelBase64: /);
+    assert.match(page, /await startCsvMapping\(this, \{ rows: doc, membersStep: !skipMapping \}\);/);
+    assert.match(page, /await startCsvMapping\(this, \{ excelBase64: doc\.excelBase64 \}\);/);
     assert.match(page, /\.\.\.csvMappingData\(this\)/);
     const jade = read('client/components/import/csvMapping.jade');
     assert.match(jade, /template\(name="importCsvMapping"\)/);

@@ -2877,6 +2877,7 @@
   "import-report-open-board": "ಫಲಕ ತೆರೆಯಿರಿ",
   "import-parts-instruction": "ಗುರುತಿಸಿದ ಭಾಗಗಳನ್ನು ಮಾತ್ರ ಆಮದು ಮಾಡಲಾಗುತ್ತದೆ. ರಫ್ತು ಮಾಡುವಾಗಲೂ ಅದೇ ಆಯ್ಕೆಯನ್ನು ಬಳಸಲಾಗುತ್ತದೆ.",
   "import-wekan-file": ".json ಅಥವಾ .zip ರಫ್ತು ಕಡತದಿಂದ ಆಮದು ಮಾಡಿ:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "ಪಟ್ಟಿಯ ಮೇಲ್ಭಾಗದಲ್ಲಿ ತೋರಿಸಲಾದ ಸಂಖ್ಯಾ ಕಸ್ಟಮ್ ಕ್ಷೇತ್ರಗಳ ಮೊತ್ತ",
   "date-range-of-fields": "ಪಟ್ಟಿಯ ಮೇಲ್ಭಾಗದಲ್ಲಿ ತೋರಿಸಲು ಗುರುತಿಸಲಾದ ದಿನಾಂಕ-ಪ್ರಕಾರದ ಕಸ್ಟಮ್ ಕ್ಷೇತ್ರಗಳ ದಿನಾಂಕ ವ್ಯಾಪ್ತಿ",
   "more-options": "ಹೆಚ್ಚಿನ ಆಯ್ಕೆಗಳು",

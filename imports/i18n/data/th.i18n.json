@@ -2877,6 +2877,7 @@
   "import-report-open-board": "เปิดบอร์ด",
   "import-parts-instruction": "จะนำเข้าเฉพาะส่วนที่ทำเครื่องหมายไว้ และใช้ตัวเลือกเดียวกันนี้เมื่อส่งออก",
   "import-wekan-file": "นำเข้าจากไฟล์ส่งออก .json หรือ .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "ผลรวมของฟิลด์แบบกำหนดเองที่เป็นตัวเลขซึ่งแสดงที่ด้านบนของรายการ",
   "date-range-of-fields": "ช่วงวันที่ของฟิลด์กำหนดเองประเภทวันที่ที่ทำเครื่องหมายให้แสดงที่ด้านบนของรายการ",
   "more-options": "ตัวเลือกเพิ่มเติม",

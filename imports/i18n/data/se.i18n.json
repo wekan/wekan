@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Raba távvala",
   "import-parts-instruction": "Dušše merkejuvvon oasit sisafievrriduvvojit. Seamma válljen geavahuvvo olggosfievrridettiin.",
   "import-wekan-file": "Fievrrit sisa .json- dahje .zip-olggosfievrridanfiillas:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Listtu bajás čájehuvvon logolaš heivehuvvon giettiid submi",
   "date-range-of-fields": "Beaivi gieddiid áigodat mii lea merkejuvvon čájehuvvot listtu bajimusas",
   "more-options": "Eanet válljenvejolašvuođat",

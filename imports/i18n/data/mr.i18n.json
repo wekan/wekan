@@ -2877,6 +2877,7 @@
   "import-report-open-board": "फलक उघडा",
   "import-parts-instruction": "फक्त निवडलेले भाग आयात केले जातात. निर्यात करतानाही हीच निवड वापरली जाते.",
   "import-wekan-file": ".json किंवा .zip निर्यात फाइलमधून आयात करा:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "यादीच्या वरच्या बाजूला दर्शवलेल्या संख्यात्मक सानुकूल फील्डांची बेरीज",
   "date-range-of-fields": "यादीच्या शीर्षस्थानी दाखवण्यासाठी चिन्हांकित केलेल्या तारीख-प्रकारच्या सानुकूल फील्डची तारीख श्रेणी",
   "more-options": "अधिक पर्याय",

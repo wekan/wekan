@@ -2877,6 +2877,7 @@
   "import-report-open-board": "ሰሌዳውን ክፈት",
   "import-parts-instruction": "ምልክት የተደረገባቸው ክፍሎች ብቻ ይመጣሉ። ተመሳሳይ ምርጫ ወደ ውጭ ሲላክም ይጠቀማል።",
   "import-wekan-file": "ከወደ ውጭ የተላከ .json ወይም .zip ፋይል አስመጣ፦",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "የዝርዝሩ ከላይ የሚታዩ የቁጥር ብጁ መስኮች ድምር",
   "date-range-of-fields": "ከዝርዝሩ ላይ ለማሳየት የተመረጡ የቀን ብጁ መስኮች የቀን ክልል",
   "more-options": "ተጨማሪ አማራጮች",

@@ -2877,6 +2877,7 @@
   "import-report-open-board": "बोर्ड खोल्नुहोस्",
   "import-parts-instruction": "चिन्ह लगाइएका भागहरू मात्र आयात हुन्छन्। निर्यात गर्दा पनि यही चयन प्रयोग हुन्छ।",
   "import-wekan-file": ".json वा .zip निर्यात फाइलबाट आयात गर्नुहोस्:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "सूचीको माथि देखाइने संख्यात्मक अनुकूलित फिल्डहरूको योग",
   "date-range-of-fields": "सूचीको माथि देखाउन चिन्ह लगाइएका मिति-प्रकारका अनुकूल फिल्डहरूको मिति सीमा",
   "more-options": "थप विकल्पहरू",

@@ -2877,6 +2877,7 @@
   "import-report-open-board": "બોર્ડ ખોલો",
   "import-parts-instruction": "ફક્ત ટિક કરેલા ભાગો આયાત થાય છે. નિકાસ વખતે પણ એ જ પસંદગી વપરાય છે.",
   "import-wekan-file": ".json અથવા .zip નિકાસ ફાઇલમાંથી આયાત કરો:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "યાદીની ટોચે બતાવેલા સંખ્યાત્મક કસ્ટમ ફીલ્ડોનો સરવાળો",
   "date-range-of-fields": "સૂચિની ટોચે બતાવવા માટે ચિહ્નિત તારીખ-પ્રકારના કસ્ટમ ફીલ્ડ્સની તારીખ શ્રેણી",
   "more-options": "વધુ વિકલ્પો",

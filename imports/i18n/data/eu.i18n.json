@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Ireki arbela",
   "import-parts-instruction": "Markatutako zatiak baino ez dira inportatzen. Aukera bera erabiltzen da esportatzean.",
   "import-wekan-file": "Inportatu .json edo .zip esportazio-fitxategi batetik:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Zerrendaren goialdean erakusten diren zenbakizko eremu pertsonalizatuen batura",
   "date-range-of-fields": "Zerrendaren goialdean erakusteko markatutako data motako eremu pertsonalizatuen data-tartea",
   "more-options": "Aukera gehiago",

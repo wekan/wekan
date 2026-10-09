@@ -943,7 +943,7 @@ test('monday.com: a board export imports with its group, status, person, date an
     [['From monday', 'Updates'], ['Item ID', 'Item Name', 'Content Type', 'Content Type', 'User', 'Created At', 'Update Content', 'Likes Count'],
       ['', expected.title, 'Update', '', 'Alice Example', '27/May/2025 03:26:42 PM', 'Ordered', 0]].forEach(row => updates.addRow(row));
     await navigateInApp(page, '/import/monday');
-    await page.locator('.js-import-excel-file').setInputFiles({
+    await page.locator('.js-import-file').setInputFiles({
       name: 'monday.xlsx', mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       buffer: Buffer.from(await workbook.xlsx.writeBuffer()),
     });
@@ -975,7 +975,7 @@ test('Wrike: an import template imports with its folder, status, dates and depen
       [14, expected.title, 'Active', 'Normal', 'Name Surname <name@company.com>', new Date(Date.UTC(2026, 9, 3)), '4 days', new Date(Date.UTC(2026, 9, 10)), '13FS', '', 'task description'],
     ].forEach(row => sheet.addRow(row));
     await navigateInApp(page, '/import/wrike');
-    await page.locator('.js-import-excel-file').setInputFiles({
+    await page.locator('.js-import-file').setInputFiles({
       name: 'wrike.xlsx', mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       buffer: Buffer.from(await workbook.xlsx.writeBuffer()),
     });
@@ -1009,7 +1009,7 @@ test('Wrike: custom statuses of a workflow import as lists, the workflow as the 
       [3, '', 'Second task', '', '', 'Delivery', 'Completed', 'Shipped', ''],
     ].forEach(row => sheet.addRow(row));
     await navigateInApp(page, '/import/wrike');
-    await page.locator('.js-import-excel-file').setInputFiles({
+    await page.locator('.js-import-file').setInputFiles({
       name: 'wrike-workflow.xlsx', mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       buffer: Buffer.from(await workbook.xlsx.writeBuffer()),
     });
@@ -1038,7 +1038,7 @@ test('Teamwork.com: an import template imports with its task list, fields and su
       ['Audit list', expected.title, expected.description, 'ann@example.com', '', '2026-10-10', 'high', '1h 30m', expected.label, 'Active'],
       ['', '-Audit child', '', '', '', '', '', '', '', 'Complete']].forEach(row => sheet.addRow(row));
     await navigateInApp(page, '/import/teamwork');
-    await page.locator('.js-import-excel-file').setInputFiles({
+    await page.locator('.js-import-file').setInputFiles({
       name: 'teamwork.xlsx', mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       buffer: Buffer.from(await workbook.xlsx.writeBuffer()),
     });
@@ -1073,7 +1073,7 @@ test('Businessmap: a workbook imports with its column, lane, deadline, priority,
       [101, expected.title, 'From Businessmap', 'Requested', 'Expedite', '10/28/2026', 'high', expected.label, '#067DB7', 'Ordered', 'Children: 102'],
       [102, 'Businessmap child', 'From Businessmap', 'Requested', 'Expedite', '', '', '', '', '', '']].forEach(row => sheet.addRow(row));
     await navigateInApp(page, '/import/businessmap');
-    await page.locator('.js-import-excel-file').setInputFiles({
+    await page.locator('.js-import-file').setInputFiles({
       name: 'businessmap.xlsx', mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       buffer: Buffer.from(await workbook.xlsx.writeBuffer()),
     });
@@ -1128,7 +1128,7 @@ test('Microsoft Planner: an exported plan imports through the page', async ({ lo
   let boardId;
   try {
     await navigateInApp(page, '/import/planner');
-    await page.locator('.js-import-excel-file').setInputFiles(path.resolve(__dirname, '../../fixtures/planner/plannr-test_plan.xlsx'));
+    await page.locator('.js-import-file').setInputFiles(path.resolve(__dirname, '../../fixtures/planner/plannr-test_plan.xlsx'));
     await page.locator('.js-import-without-mapping').click();
     await waitForImportedBoard(page);
     boardId = page.url().match(/\/b\/([^/]+)/)[1];
@@ -1207,7 +1207,7 @@ test('Vikunja: an export .zip imports through the page with its buckets, checkli
   let boardId;
   try {
     await navigateInApp(page, '/import/vikunja');
-    await page.locator('.js-import-vikunja-file').setInputFiles({ name: 'vikunja-export.zip', mimeType: 'application/zip', buffer: vikunjaExportZip() });
+    await page.locator('.js-import-file').setInputFiles({ name: 'vikunja-export.zip', mimeType: 'application/zip', buffer: vikunjaExportZip() });
     await page.locator('.js-import-without-mapping').click();
     await waitForImportedBoard(page);
     boardId = page.url().match(/\/b\/([^/]+)/)[1];
@@ -1278,7 +1278,7 @@ test('Notion: an export .zip imports through the page with its status lists, pag
   let boardId;
   try {
     await navigateInApp(page, '/import/notion');
-    await page.locator('.js-import-notion-file').setInputFiles({ name: 'notion-export.zip', mimeType: 'application/zip', buffer: notionExportZip() });
+    await page.locator('.js-import-file').setInputFiles({ name: 'notion-export.zip', mimeType: 'application/zip', buffer: notionExportZip() });
     await page.locator('.js-import-without-mapping').click();
     await waitForImportedBoard(page);
     boardId = page.url().match(/\/b\/([^/]+)/)[1];
@@ -1355,7 +1355,7 @@ test('Plane: an export .zip imports through the page with its states, projects, 
   let boardId;
   try {
     await navigateInApp(page, '/import/plane');
-    await page.locator('.js-import-plane-file').setInputFiles({ name: 'export-acme-abc123-2026-10-08.zip', mimeType: 'application/zip', buffer: planeExportZip() });
+    await page.locator('.js-import-file').setInputFiles({ name: 'export-acme-abc123-2026-10-08.zip', mimeType: 'application/zip', buffer: planeExportZip() });
     await page.locator('.js-import-without-mapping').click();
     await waitForImportedBoard(page);
     boardId = page.url().match(/\/b\/([^/]+)/)[1];
@@ -1615,7 +1615,7 @@ for (const source of ['csv', 'markdown', 'excel']) {
         const sheet = workbook.addWorksheet('Board');
         sheet.addRow(['Title', 'Description', 'Status']);
         sheet.addRow([expected.title, expected.description, 'Audit list']);
-        await page.locator('.js-import-excel-file').setInputFiles({
+        await page.locator('.js-import-file').setInputFiles({
           name: 'audit.xlsx', mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
           buffer: Buffer.from(await workbook.xlsx.writeBuffer()),
         });
@@ -1730,7 +1730,7 @@ test('Excel: a WeKan export workbook in Finnish with a sheet per board imports a
     activity.addRow(['']);
     activity.addRow([fi.number, fi.activity, fi.card, fi.owner, fi.createdAt, fi['last-modified-at']]);
     await navigateInApp(page, '/import/excel');
-    await page.locator('.js-import-excel-file').setInputFiles({
+    await page.locator('.js-import-file').setInputFiles({
       name: 'wekan-boards.xlsx', mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       buffer: Buffer.from(await workbook.xlsx.writeBuffer()),
     });

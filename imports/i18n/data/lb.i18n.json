@@ -2877,6 +2877,7 @@
   "import-report-open-board": "D’Tafel opmaachen",
   "import-parts-instruction": "Nur déi angehakten Teile ginn importéiert. Dieselbe Auswiel gilt beim Exportéieren.",
   "import-wekan-file": "Aus einer .json- oder .zip-Exportdatei importieren:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Zomm vun de numerëschen ugepassten Felder, déi uewe op der Lëscht ugewise ginn",
   "date-range-of-fields": "Datumsberäich vun de Datumfelder déi markéiert sinn fir uewe bei der Lëscht ugewisen ze ginn",
   "more-options": "Méi Optiounen",

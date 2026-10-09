@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Адкрыць дошку",
   "import-parts-instruction": "Імпартуюцца толькі адзначаныя часткі. Той самы выбар выкарыстоўваецца пры экспарце.",
   "import-wekan-file": "Імпартаваць з файла экспарту .json або .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Сума лікавых карыстальніцкіх палёў, паказаных зверху спіса",
   "date-range-of-fields": "Дыяпазон дат карыстальніцкіх палёў тыпу \"дата\", пазначаных для паказу ўверсе спіса",
   "more-options": "Больш варыянтаў",

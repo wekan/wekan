@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Discl'idi tabela",
   "import-parts-instruction": "Se importã doar pãrtsile bifate. Aceeashi alegere este folositã la export.",
   "import-wekan-file": "Importã dintr-un Fisier di export .json sau .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Suma di câmpurli numerici personalizati aspusi la nchisita di lista",
   "date-range-of-fields": "Intervalu di dati a câmpurilor personalizati marcati ta s'aspunã pi capu a listãljei",
   "more-options": "Ma multi opțiuni",

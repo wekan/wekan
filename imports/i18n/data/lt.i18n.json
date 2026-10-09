@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Atverti lentą",
   "import-parts-instruction": "Importuojamos tik pažymėtos dalys. Tas pats pasirinkimas naudojamas eksportuojant.",
   "import-wekan-file": "Importuoti iš .json arba .zip eksporto failo:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Skaitinių tinkintų laukų, rodomų sąrašo viršuje, suma",
   "date-range-of-fields": "Sąrašo viršuje rodyti pažymėtų datos tipo pasirinktinių laukų datų intervalas",
   "more-options": "Daugiau parinkčių",

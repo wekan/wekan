@@ -2877,6 +2877,7 @@
   "import-report-open-board": "បើកក្តារ",
   "import-parts-instruction": "មានតែផ្នែកដែលបានធីកប៉ុណ្ណោះដែលត្រូវបាននាំចូល។ ជម្រើសដដែលនេះត្រូវប្រើពេលនាំចេញ។",
   "import-wekan-file": "នាំចូលពីឯកសារនាំចេញ .json ឬ .zip៖",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "ផលបូកនៃវាលចំនួនផ្ទាល់ខ្លួនដែលបង្ហាញនៅផ្នែកខាងលើបញ្ជី",
   "date-range-of-fields": "ចន្លោះកាលបរិច្ឆេទនៃវាលផ្ទាល់ខ្លួនប្រភេទកាលបរិច្ឆេទដែលបានសម្គាល់ដើម្បីបង្ហាញនៅផ្នែកខាងលើនៃបញ្ជី",
   "more-options": "ជម្រើសបន្ថែម",

@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Dobrir lo tablèu",
   "import-parts-instruction": "Solas las partidas marcadas son importadas. La meteissa causida es utilizada a l'expòrt.",
   "import-wekan-file": "Importar dempuèi un fichièr d'expòrt .json o .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Soma dels camps numerics personalizats afichats amont de la lista",
   "date-range-of-fields": "Interval de datas dels camps personalizats de tipe data marcats per s'afichar amont de la lista",
   "more-options": "Mai d'opcions",

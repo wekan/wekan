@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Vulani bodo",
   "import-parts-instruction": "Hu dzheniswa fhedzi zwipiḓa zwo swayiwaho. Khetho yeneyo i shumiswa na musi hu tshi bviswa.",
   "import-wekan-file": "Dzhenisani u bva kha faela yo bviswaho ya .json kana .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Nzhengeledzo ya masia a khontḓo dza dziṅwalo dzi sumbedzwaho nṱha ha lushaka",
   "date-range-of-fields": "Tshifhinga tsha maḓuvha a mabammbiro o khetheaho u sumbedza nṱha ha bammbi",
   "more-options": "Khetho dzo engedzeaho",

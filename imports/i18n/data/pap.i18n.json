@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Habri e tabla",
   "import-parts-instruction": "Solamente se importan e partes markadas. E misma selekshon se usa na e exportar.",
   "import-wekan-file": "Importar desde un archibo di eksportashon .hson òf .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Suma di e kamponan numériko personalisá ku ta wòrdu mustra riba lista",
   "date-range-of-fields": "Rango di fecha di kamponan personalisá di fecha marká pa mustra na parti ariba di lista",
   "more-options": "Mas opshon",

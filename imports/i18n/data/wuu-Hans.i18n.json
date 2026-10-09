@@ -2877,6 +2877,7 @@
   "import-report-open-board": "打开搿个看板",
   "import-parts-instruction": "只导入打钩个部分。导出也用同样个选择。",
   "import-wekan-file": "从 .json 或者 .zip 导出文件导入：",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "标记成勒列表顶浪显示个数字自定义字段个总和",
   "date-range-of-fields": "标记成勒列表顶浪显示个日期自定义字段个日期范围",
   "more-options": "更多选项",

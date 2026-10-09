@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Opim bot",
   "import-parts-instruction": "Kisim ol hap i gat mak tik tasol i kam insait. Yusim wankain mak taim yu salim i go aut.",
   "import-wekan-file": "Kisim i kam insait long fail .json o .zip ol i salim i go aut:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Adijumap bilong ol namba fil we ol i kamapim antap long lista",
   "date-range-of-fields": "Rot bilong de bilong ol kastom fil we oli makim long soim antap long lis",
   "more-options": "Ol arapela opsen",

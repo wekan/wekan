@@ -137,8 +137,10 @@ async function main() {
     assert.match(read('models/import.js'), /case 'obsidian':\s*\/\/[^\n]*\n\s*check\(board, String\);\s*try \{\s*importedBoard = EXTERNAL_PARSERS\.obsidian\(importedBoard\);/);
     assert.match(read('server/lib/renderExternalExport.js'), /obsidian: 'text\/markdown'/);
     const page = read('client/components/import/import.js');
-    assert.match(page, /\{ key: 'obsidian', name: 'Obsidian Kanban' \}/);
-    assert.match(page, /dataSource === 'obsidian'/);
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'obsidian', name: 'Obsidian Kanban'[,}]/); // the one list of sources
+    // The page reads every source through one path described in
+    // models/lib/importSources.js, not a branch of its own.
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'obsidian', name: '[^']+', \.\.\.TEXT/, 'read by the one import path');
     assert.match(read('client/components/boards/exportScope.js'), /key: 'obsidian'[^}]*path: 'export\/obsidian', ext: 'md'/);
     assert.match(JSON.parse(read('imports/i18n/data/en.i18n.json'))['import-board-instruction-obsidian'], /Kanban board/);
     // KanboardCreator turns a column's wip_limit (or Kanboard's task_limit) into the list's WIP limit.

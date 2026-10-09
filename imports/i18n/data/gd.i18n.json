@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Fosgail am bòrd",
   "import-parts-instruction": "Cha tèid ach na pàirtean comharraichte iom-phortadh. Cleachdar an aon roghainn nuair a thèid às-phortadh.",
   "import-wekan-file": "Iom-phortaich bho fhaidhle às-phortaidh .json no .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Suim nan raointean àireamhach gnàthaichte a thèid a shealltainn aig mullach an liosta",
   "date-range-of-fields": "Rainse cheann-là de raointean gnàthaichte cinn-là a tha comharraichte airson taisbeanadh aig mullach na liosta",
   "more-options": "Barrachd roghainnean",

@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Buka papan",
   "import-parts-instruction": "Hanya bahagian yang ditanda diimport. Pilihan yang sama digunakan semasa mengeksport.",
   "import-wekan-file": "Import daripada fail eksport .json atau .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Jumlah medan tersuai berangka yang dipaparkan di bahagian atas senarai",
   "date-range-of-fields": "Julat tarikh medan tersuai jenis tarikh yang ditandakan untuk dipaparkan di bahagian atas senarai",
   "more-options": "Lagi pilihan",

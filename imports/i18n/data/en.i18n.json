@@ -2887,6 +2887,7 @@
   "import-report-open-board": "Open the board",
   "import-parts-instruction": "Only the ticked parts are imported. The same choice is used when exporting.",
   "import-wekan-file": "Import from a .json or .zip export file:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Sum of number custom fields marked to show at top of list",
   "date-range-of-fields": "Date range of date custom fields marked to show at top of list",
   "more-options": "More options",

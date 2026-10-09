@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Peuhah papan",
   "import-parts-instruction": "Bagian nyang geucek mantong geupeutamong. Pilehan nyang saban geungui watee ekspor.",
   "import-wekan-file": "Peutamong nibak fail ekspor .json atawa .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Jeumeulah gata angka nyang teuma peuduek di ateuh ka bak leumbah",
   "date-range-of-fields": "Rentang tanggai field khusus jinoe tanggai nyang teutanda keu geutunyok bak ateuh list",
   "more-options": "Leubèh pilihan",

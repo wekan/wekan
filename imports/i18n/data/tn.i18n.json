@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Bula boto",
   "import-parts-instruction": "Fela ticked parts di e tlisitswe. tshwana choice ke dirisitswe fa go romelela kwa ntle.",
   "import-wekan-file": "Tlisa go tswa e.json kgotsa.zip romelela kwa ntle faele:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Kakaretso ya masimo a dipalo tse di rulagantsweng tse di bontshiwang mo godimo ga lenaane",
   "date-range-of-fields": "Bogolo jwa letlha jwa dintlha tse di beetsweng go bonala mo godimo ga lenaane",
   "more-options": "Dikgetho tse dingwe",

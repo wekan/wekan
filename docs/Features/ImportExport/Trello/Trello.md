@@ -18,7 +18,8 @@ JSON, so that file is for WeKan and for other tools that read Trello exports.
    ([Trello's guide](https://support.atlassian.com/trello/docs/exporting-data-from-trello/)).
    Save the JSON.
 2. In WeKan, go to **All Boards → New → Import → Trello**.
-3. Choose the file under **Trello .json file**, or paste the JSON into the
+3. Choose the `.json` file under **Choose the export file, or paste its text below:**, or paste the
+   JSON into the
    text box. Optionally write a **Personal workspace name**: the board is
    placed under that workspace, which is created if it does not exist. Tick
    the parts to import.

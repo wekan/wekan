@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Avaida laud",
   "import-parts-instruction": "Kungeniswa kuphela izingxenye ezimakiwe. Ukukhetha okufanayo kusetshenziswa lapho uthumela ngaphandle.",
   "import-wekan-file": "Ngenisa kusuka efayeleni le-.json noma le-.zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Kävutajan märitud lugu-pöudoiden luguiden ližaduz, miččed oma märitud ozutada lugetižen ülähäl",
   "date-range-of-fields": "Päivmäriden keskust kävutajan märitud päivmär-pöudoiš, miččed oma märitud ozutada lugetižen ülähäl",
   "more-options": "Khetho dzo engedzeaho",

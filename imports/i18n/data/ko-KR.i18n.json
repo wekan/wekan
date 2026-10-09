@@ -2877,6 +2877,7 @@
   "import-report-open-board": "보드 열기",
   "import-parts-instruction": "선택한 부분만 가져옵니다. 내보낼 때도 같은 선택이 사용됩니다.",
   "import-wekan-file": ".json 또는 .zip 내보내기 파일에서 가져오기:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "목록 상단에 표시되는 숫자 사용자 지정 필드의 합계",
   "date-range-of-fields": "목록 상단에 표시하도록 표시된 날짜 유형 사용자 지정 필드의 날짜 범위",
   "more-options": "추가 옵션",

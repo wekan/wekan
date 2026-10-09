@@ -2877,6 +2877,7 @@
   "import-report-open-board": "བྱང་བུ་ཁ་ཕྱེ།",
   "import-parts-instruction": "རྟགས་བརྒྱབ་པའི་ཆ་ཤས་ཁོ་ན་ནང་འདྲེན་བྱེད། ཕྱིར་འདྲེན་སྐབས་ཀྱང་འདེམས་ཀ་གཅིག་པ་སྤྱོད།",
   "import-wekan-file": ".json ཡང་ན་ .zip ཕྱིར་འདྲེན་ཡིག་ཆ་ནས་ནང་འདྲེན།",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "ཐོ་གཞུང་གི་སྟེང་ཆར་བཀོད་པའི་གྲངས་ཀའི་ཁྱད་ཆོས་ལག་ཆའི་བསྡོམས།",
   "date-range-of-fields": "ཐོ་གཞུང་གི་སྟེང་དུ་བཀོད་སྟོན་བྱེད་རྒྱུར་རྟགས་བཀོད་པའི་ཚེས་གྲངས་སྒེར་གྱི་ཞིང་ཁག་གི་ཚེས་གྲངས་ཁྱོན་ཚད།",
   "more-options": "གདམ་ག་མང་བ།",

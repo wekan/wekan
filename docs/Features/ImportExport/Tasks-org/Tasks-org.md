@@ -14,8 +14,8 @@ backup that Tasks.org's **Import backup** reads.
    file is saved, and how to copy it off the device, is in
    [Tasks.org's backup documentation](https://tasks.org/docs/backups).
 2. In WeKan, go to **All Boards → New → Import → Tasks.org**.
-3. Open the `.json` file in a text editor and paste its whole contents into the
-   text box. This source has no file chooser on the import page.
+3. Choose the `.json` file under **Choose the export file, or paste its text below:**, or paste its
+   whole contents into the text box.
 4. Click **Import**. You can map Tasks.org's members to WeKan users, or import
    without mapping.
 5. Read the loss report on the import page. It is also kept in **Admin Panel →

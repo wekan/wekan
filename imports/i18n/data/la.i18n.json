@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Tabulam aperi",
   "import-parts-instruction": "Latine: Tantum the ticked parts sunt importatum. The idem choice est used quando exporting.",
   "import-wekan-file": "Latine: Importa ex a.json vel.zip exporta fasciculus:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Summa camporum numeralium propriorum in summo indicis ostensorum",
   "date-range-of-fields": "Spatium dierum camporum propriorum diei signatorum ut in summo indicis ostendantur",
   "more-options": "Plures optiones",

@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Отваряне на таблото",
   "import-parts-instruction": "Импортират се само отметнатите части. Същият избор се използва и при експортиране.",
   "import-wekan-file": "Импортиране от файл за експорт .json или .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Сума на числовите потребителски полета, показани в горната част на списъка",
   "date-range-of-fields": "Диапазон от дати на потребителски полета от тип дата, маркирани да се показват в горната част на списъка",
   "more-options": "Още опции",

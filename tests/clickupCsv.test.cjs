@@ -119,8 +119,10 @@ async function main() {
     assert.match(read('models/import.js'), /case 'clickup':\s*\/\/[^\n]*\n\s*check\(board, String\);\s*try \{\s*importedBoard = EXTERNAL_PARSERS\.clickup\(importedBoard\);/);
     assert.match(read('server/lib/renderExternalExport.js'), /clickup: 'text\/csv'/);
     const page = read('client/components/import/import.js');
-    assert.match(page, /\{ key: 'clickup', name: 'ClickUp' \}/);
-    assert.match(page, /dataSource === 'clickup'/);
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'clickup', name: 'ClickUp'[,}]/); // the one list of sources
+    // The page reads every source through one path described in
+    // models/lib/importSources.js, not a branch of its own.
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'clickup', name: '[^']+', \.\.\.TEXT/, 'read by the one import path');
     assert.match(read('client/components/boards/exportScope.js'), /key: 'clickup'[^}]*path: 'export\/clickup', ext: 'csv'/);
     assert.match(JSON.parse(read('imports/i18n/data/en.i18n.json'))['import-board-instruction-clickup'], /Export Items/);
   });

@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Ggulawo olubaawo",
   "import-parts-instruction": "Kyokka ticked parts biri yaleeta. kimu choice kiri kyakozesebwa nga exporting.",
   "import-wekan-file": "Leeta okuva.json oba.zip fulumya fayiro:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Omugabi gw'ebifo by'ennamba ebyekozesebwa ebiraga waggulu w'olukalala",
   "date-range-of-fields": "Ebbanga ly'ennaku ku bifo eby'ennaku ebyalondebwa okulabika waggulu w'olukalala",
   "more-options": "Ebisalibwaamu ebisingawo",

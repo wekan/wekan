@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Apre 'a tavula",
   "import-parts-instruction": "Vengono importate sulo le parti selezionate. La stessa scelta è usata durante l'esportazione.",
   "import-wekan-file": "Importa da 'n file 'e esportazzione .json o .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Somma d' 'e cambe numeriche pesunalizzate ammustate 'ncoppa a lista",
   "date-range-of-fields": "Ambito 'e date d' 'e campe personalizzate 'e data segnate pe' fà vedé ncoppa â lista",
   "more-options": "Cchiù opzione",

@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Open het bord",
   "import-parts-instruction": "Alleen de aangevinkte onderdelen worden geïmporteerd. Dezelfde keuze geldt bij het exporteren.",
   "import-wekan-file": "Importeren uit een .json- of .zip-exportbestand:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Somu di kampu numériku personalizadu mostradu na parti riba di lista",
   "date-range-of-fields": "Tshifhinga tsha ḓuvha tsha mishumo yo ṱoḓaho ḓuvha yo swaywaho u sumbedzwa nṱha ha lisiti",
   "more-options": "Mas opsion",

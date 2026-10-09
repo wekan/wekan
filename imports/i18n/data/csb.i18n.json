@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Òtemkni tôflã",
   "import-parts-instruction": "Importowane są tylko zaznaczone części. Ten sam wybòr jest używany przy eksporcie.",
   "import-wekan-file": "Impòrt z lopka ekspòrtu .json abò .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Sëma numerowëch swòjich pòlów pòkôzónëch na górze lëstë",
   "date-range-of-fields": "Zakres datów pòlów daty òznaczonëch do pòkazywaniô na górze lëstë",
   "more-options": "Wicy opcëji",

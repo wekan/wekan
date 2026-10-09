@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Allattarfik ammaruk",
   "import-parts-instruction": "Immikkoortut nalunaaqutserneqartut kisimik eqqunneqassapput. Annissinermi toqqagaq taanna aamma atorneqassaaq.",
   "import-wekan-file": ".json- imaluunniit .zip-annissinermut filimit eqquguk:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Summa naatsorsuutaasunik immikkoortitat tunngavigalugit qulaani takutinneqartartunut",
   "date-range-of-fields": "Ulloq immikkoortitat siullermik saqqummiussalluni nalunaarutigineqartut ullup silissuutaa",
   "more-options": "Sulinngutit amerlanerusut",

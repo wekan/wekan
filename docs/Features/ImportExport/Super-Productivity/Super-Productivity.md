@@ -14,8 +14,8 @@ Super Productivity's **Import from File** reads.
    backup as a plain JSON file.
 2. Open the file in a text editor and copy all of its text.
 3. In WeKan, go to **All Boards → New → Import → Super Productivity**.
-4. Paste the text into the text box. This source has no file chooser on the
-   import page; the backup is read as pasted text.
+4. Choose the backup under **Choose the export file, or paste its text below:**, or paste the text
+   into the text box. Either way it is read as text.
 5. Click **Import**, or **Import without mapping members (map later)**.
    Super Productivity has no users, so there are no members to map.
 6. Read the loss report on the import page. It is also kept in **Admin Panel →

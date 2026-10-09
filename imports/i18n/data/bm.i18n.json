@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Walan dayɛlɛ",
   "import-parts-instruction": "Yɔrɔ taamasiɲɛnenw dɔrɔn de bɛ don. Sugandili kelen bɛ kɛ bɔli fana na.",
   "import-wekan-file": "A don ka bɔ .json walima .zip bɔli dosye la:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Jatebilenw sɛgɛsɛgɛli minnu bɛ jira liste kunna sɔrɔ jɔ",
   "date-range-of-fields": "Don yɔrɔ kelen kelenw waati janya minnu sigilen bɛ ka jira lisi sanfɛ",
   "more-options": "Sugandi caman",

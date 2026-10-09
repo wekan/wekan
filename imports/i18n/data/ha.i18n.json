@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Buɗe allon",
   "import-parts-instruction": "Sassan da aka yi wa alama kawai ake shigowa da su. Ana amfani da wannan zaɓin lokacin fitarwa ma.",
   "import-wekan-file": "Shigo daga fayil ɗin fitarwa na .json ko .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Jimlar filayen lambobin da aka keɓance da aka nuna a saman jerin",
   "date-range-of-fields": "Kewayon kwanan wata na filayen kwanan wata keɓaɓɓu waɗanda aka yiwa alama don nunawa a saman jeri",
   "more-options": "Ƙarin zaɓuɓɓuka",

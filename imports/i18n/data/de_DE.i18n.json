@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Board öffnen",
   "import-parts-instruction": "Nur die angehakten Teile werden importiert. Dieselbe Auswahl gilt beim Exportieren.",
   "import-wekan-file": "Aus einer .json- oder .zip-Exportdatei importieren:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Summe der numerischen benutzerdefinierten Felder, die oben in der Liste angezeigt werden",
   "date-range-of-fields": "Datumsbereich der Datum-Benutzerdefinierten Felder, die oben in der Liste angezeigt werden sollen",
   "more-options": "Weitere Optionen",

@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Отвори таблу",
   "import-parts-instruction": "Увозе се само означени делови. Исти избор се користи и при извозу.",
   "import-wekan-file": "Увези из .json или .zip датотеке извоза:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Збир нумеричких прилагођених поља приказаних на врху листе",
   "date-range-of-fields": "Опсег датума прилагођених поља типа датум означених за приказ на врху листе",
   "more-options": "Више опција",

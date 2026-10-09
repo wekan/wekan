@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Odpri tablo",
   "import-parts-instruction": "Uvozijo se samo označeni deli. Enaka izbira se uporabi pri izvozu.",
   "import-wekan-file": "Uvozi iz datoteke izvoza .json ali .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Vsota številskih polj po meri, prikazanih na vrhu seznama",
   "date-range-of-fields": "Obseg datumov datumskih polj po meri, označenih za prikaz na vrhu seznama",
   "more-options": "Več možnosti",

@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Sokafy ny solaitra",
   "import-parts-instruction": "Ireo ampahany voamarika ihany no hafarana. Io safidy io ihany no ampiasaina rehefa manondrana.",
   "import-wekan-file": "Manafatra avy amin'ny rakitra fanondranana .json na .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Fitambaran'ny saha manokana isa aseho eo ambonin'ny lisitra",
   "date-range-of-fields": "Fe-potoana amin'ny saha manokana momba ny daty voamarika mba haseho eo ambonin'ny lisitra",
   "more-options": "Safidy bebe kokoa",

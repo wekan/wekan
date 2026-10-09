@@ -153,10 +153,14 @@ async function main() {
     assert.match(read('models/import.js'), /case 'monday':[\s\S]*?readMondayWorkbook\(importedBoard\.excelBase64\);\s*importedBoard = EXTERNAL_PARSERS\.monday\(importedBoard\);[\s\S]*?sanitizeImported\(importedBoard, 'monday', this\);\s*creator = new KanboardCreator\(data, 'monday'\);/);
     assert.match(read('server/lib/renderExternalExport.js'), /monday: \['\/server\/lib\/mondayWorkbook', 'writeMondayWorkbook'\]/);
     const page = read('client/components/import/import.js');
-    assert.match(page, /\{ key: 'monday', name: 'monday\.com' \}/);
-    assert.match(page, /dataSource === 'planner' \|\| dataSource === 'monday'/);
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'monday', name: 'monday\.com'[,}]/); // the one list of sources
+    // The page reads every source through one path described in
+    // models/lib/importSources.js, not a branch of its own.
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'monday', name: '[^']+', \.\.\.EXCEL/, 'read by the one import path');
     // Later workbook sources (Wrike) share the file input after these three.
-    assert.match(page, /\['excel', 'planner', 'monday'(, '[a-z]+')*\]\.includes/);
+    // The page reads every source through one path described in
+    // models/lib/importSources.js, not a branch of its own.
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'monday', name: '[^']+', \.\.\.EXCEL/, 'read by the one import path');
     assert.match(read('client/components/boards/exportScope.js'), /key: 'monday'[^}]*path: 'export\/monday', ext: 'xlsx'/);
     assert.match(JSON.parse(read('imports/i18n/data/en.i18n.json'))['import-board-instruction-monday'], /Export board to Excel/);
   });

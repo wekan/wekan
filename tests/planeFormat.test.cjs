@@ -348,9 +348,11 @@ async function main() {
     assert.match(imp, /importSource === 'vikunja'(?: \|\| importSource === '[a-z]+')* \|\| importSource === 'plane'(?: \|\| importSource === '[a-z]+')* \? board\s*: sanitizeImported\(board, importSource, this\)/);
     assert.match(imp, /case 'plane':[\s\S]*?check\(board, Match\.OneOf\(Object, String\)\);[\s\S]*?if \(!Meteor\.isServer\) return undefined;[\s\S]*?readPlaneImport\(importedBoard\);\s*importedBoard = EXTERNAL_PARSERS\.plane\(importedBoard\);[\s\S]*?sanitizeImported\(importedBoard, 'plane', this\);\s*creator = new KanboardCreator\(data, 'plane'\);/);
     const page = read('client/components/import/import.js');
-    assert.match(page, /\{ key: 'plane', name: 'Plane' \}/);
-    assert.match(page, /if \(dataSource === 'plane'\) \{[\s\S]*?xlsxBase64: window\.btoa\(binary\)[\s\S]*?zipBase64: window\.btoa\(binary\)/);
-    assert.match(read('client/components/import/import.jade'), /input\.js-import-plane-file\(id='import-plane-file' type="file" accept="\.zip,\.json,\.csv,\.xlsx/);
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'plane', name: 'Plane'[,}]/); // the one list of sources
+    // The page reads every source through one path described in
+    // models/lib/importSources.js, not a branch of its own.
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'plane', name: '[^']+', \.\.\.TEXT, files: \[[^\]]*'\.zip'[^\]]*\], zipSend: 'zip' \}/, 'one export .zip, read by the one import path');
+    assert.match(read('client/components/import/import.jade'), /input\.js-import-file\(id='import-file' type="file" accept="\{\{importAccept\}\}"\)/, 'the one file chooser');
     assert.doesNotMatch(read('client/components/boards/exportScope.js'), /key: 'plane'/);
     assert.doesNotMatch(read('models/export.js') + read('server/lib/renderExternalExport.js'), /'plane'/);
     assert.match(read('README.md'), /Super Productivity, Taiga, Vikunja[^\n]*, Plane\n/);

@@ -2877,6 +2877,7 @@
   "import-report-open-board": "బోర్డును తెరవండి",
   "import-parts-instruction": "టిక్ చేసిన భాగాలు మాత్రమే దిగుమతి అవుతాయి. ఎగుమతి చేసేటప్పుడూ అదే ఎంపిక వాడబడుతుంది.",
   "import-wekan-file": ".json లేదా .zip ఎగుమతి ఫైల్ నుండి దిగుమతి చేయి:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "జాబితా పైభాగంలో చూపించబడే సంఖ్యా అనుకూల ఫీల్డ్‌ల మొత్తం",
   "date-range-of-fields": "జాబితా పైభాగంలో చూపడానికి గుర్తించబడిన తేదీ-రకం అనుకూల ఫీల్డ్‌ల తేదీ పరిధి",
   "more-options": "మరిన్ని ఎంపికలు",

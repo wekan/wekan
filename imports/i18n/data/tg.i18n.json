@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Кушодани тахта",
   "import-parts-instruction": "Танҳо қисмҳои қайдшуда ворид мешаванд. Ҳангоми содирот низ ҳамин интихоб истифода мешавад.",
   "import-wekan-file": "Ворид кардан аз файли содиротии .json ё .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Ҷамъи майдонҳои раками фармоишии дар болои рӯйхат нишондодашуда",
   "date-range-of-fields": "Фосилаи санаи майдонҳои фармоишии сана, ки барои намоиш дар болои рӯйхат нишон дода шудаанд",
   "more-options": "Имконоти бештар",

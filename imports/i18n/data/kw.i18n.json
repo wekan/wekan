@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Ygeri an estyllen",
   "import-parts-instruction": "An rannow merkys hepken yw ynperthys. An keth dewis yw devnydhys pan wrir esperthi.",
   "import-wekan-file": "Ynperthi dhyworth restr esperthi .json po .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Sammans an parcow niveryek personal a wonyskwedhys yn top an rol",
   "date-range-of-fields": "Termyn dedh a'n mesyow dedh personek merkys dhe dhiskwedhes a-ugh an rol",
   "more-options": "Moy dewisow",

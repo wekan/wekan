@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Obre el tauler",
   "import-parts-instruction": "Només s'importen les parts marcades. La mateixa selecció s'usa en exportar.",
   "import-wekan-file": "Importa des d'un fitxer d'exportació .json o .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Suma dels camps numèrics personalitzats mostrats a la part superior de la llista",
   "date-range-of-fields": "Interval de dates dels camps personalitzats de tipus data marcats per mostrar a la part superior de la llista",
   "more-options": "Més opcions",

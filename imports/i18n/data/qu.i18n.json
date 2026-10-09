@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Pirqata kichay",
   "import-parts-instruction": "Kay willaymi: Onlyta theta tickedta partsta areta importedta. Theta sameta choiceta ista usedta whenta exportingta.",
   "import-wekan-file": "Kay willaymi: Hawamanta apamuy manta ata .jsonta orta .zipta Hawaman apachiy Qillqa-wayaqa:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Listap patan rikuchisqa yupay sapaq campokunapa tantasqan",
   "date-range-of-fields": "P'unchaykunapa kuska kikin-ruwasqa p'unchay fieluspa, listapa patanpi rikuchinankupaq churasqa",
   "more-options": "Aswan akllanakuna",

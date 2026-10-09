@@ -2876,6 +2876,7 @@
   "import-report-open-board": "Самбарыг нээх",
   "import-parts-instruction": "Зөвхөн тэмдэглэсэн хэсгүүд импортлогдоно. Экспортлохдоо мөн ижил сонголтыг ашиглана.",
   "import-wekan-file": ".json эсвэл .zip экспортын файлаас импортлох:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Жагсаалтын дээд хэсэгт харуулсан тоон захиалгат талбаруудын нийлбэр",
   "date-range-of-fields": "Жагсаалтын дээд хэсэгт харуулахаар тэмдэглэсэн огнооны төрлийн захиалгат талбаруудын огнооны хязгаар",
   "more-options": "Илүү сонголтууд",

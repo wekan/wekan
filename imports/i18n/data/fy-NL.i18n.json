@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Iepenje it boerd",
   "import-parts-instruction": "Allinne de oanfinke ûnderdielen wurde ymportearre. Deselde kar jildt by it eksportearjen.",
   "import-wekan-file": "Ymportearje út in .json- of .zip-eksportbestân:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Som fan numerike oanpaste fjilden dy't boppe oan de list werjûn wurde",
   "date-range-of-fields": "Datumberik fan datum-oanpaste fjilden markearre om boppe oan de list te sjen",
   "more-options": "Mear opsjes",

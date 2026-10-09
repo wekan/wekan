@@ -40,8 +40,9 @@ console.log('importPage:');
 // ── one page ────────────────────────────────────────────────────────────────
 
 test('the page lists every source it can read', () => {
-  const list = importJs.slice(importJs.indexOf('const IMPORT_SOURCES'),
-    importJs.indexOf('];', importJs.indexOf('const IMPORT_SOURCES')));
+  // The one description of every source, which the page reads.
+  const list = fs.readFileSync(path.join(__dirname, '..', 'models/lib/importSources.js'), 'utf8');
+  assert.ok(/import \{ IMPORT_SOURCES, importSource as importSourceSpec, acceptFor \} from '\/models\/lib\/importSources';/.test(importJs), 'the page reads it');
   for (const source of ['wekan', 'trello', 'csv', 'excel', 'jira', 'kanboard',
     'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit']) {
     assert.ok(new RegExp(`key: '${source}'`).test(list), `${source} is offered`);
@@ -53,7 +54,9 @@ test('the WeKan entry is named after the Product name of this instance', () => {
   // A rebranded WeKan should offer "a previous export of <its own name>", not of
   // a product the person has never seen.
   assert.ok(/productNameOrDefault/.test(importJs), 'the setting is read');
-  assert.ok(/product: true/.test(importJs), 'and the entry is marked as the branded one');
+  assert.ok(/source\.product \?/.test(importJs), 'the branded entry is named after it');
+  assert.ok(/key: 'wekan', product: true/.test(fs.readFileSync(path.join(__dirname, '..', 'models/lib/importSources.js'), 'utf8')),
+    'and the entry is marked as the branded one');
 });
 
 test('the fourteen per-source links are gone from the pop-over', () => {

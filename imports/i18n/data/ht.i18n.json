@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Ouvri tablo a",
   "import-parts-instruction": "Se sèlman pati ki tcheke yo ki enpòte. Yo itilize menm chwa a pandan ekspòtasyon.",
   "import-wekan-file": "Enpòte soti nan yon fichye ekspòtasyon .json oswa .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Total kantite chan nimewo pèsonalize ki montre anwo lis la",
   "date-range-of-fields": "Ranje dat pou chan pèsonalize dat ki make pou parèt anlè lis la",
   "more-options": "Plis opsyon",

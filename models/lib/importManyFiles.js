@@ -7,19 +7,21 @@
 import { unzipSync } from 'fflate';
 import { readCsv } from './todoistCsvFormat.js';
 import { csvSeparatorOf } from './csvImportMapping.js';
+import { IMPORT_SOURCES } from './importSources.js';
 
+// What each source's file is sent as comes from the one description of every
+// source (models/lib/importSources.js); these lists are read from it.
+const keysWhere = test => IMPORT_SOURCES.filter(test).map(source => source.key);
 // The import file is an Excel workbook: sent as { excelBase64 }.
-export const EXCEL_SOURCES = ['excel', 'planner', 'monday', 'wrike', 'teamwork', 'businessmap'];
+export const EXCEL_SOURCES = keysWhere(source => source.send === 'excel');
 // A .zip is ONE export of these tools (and of WeKan, with attachments): it is
 // a board, not a container of boards.
-export const ZIP_EXPORT_SOURCES = ['vikunja', 'notion', 'plane', 'wekan'];
+export const ZIP_EXPORT_SOURCES = keysWhere(source => Boolean(source.zipSend));
 // The import reads the file's text.
-export const TEXT_SOURCES = ['markdown', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian',
-  'linear', 'ticktick', 'clickup', 'nullboard', 'pivotal', 'redmine', 'superproductivity', 'quire', 'orgmode', 'leo',
-  'opml', 'vikunja', 'notion', 'plane'];
+export const TEXT_SOURCES = keysWhere(source => source.send === 'text');
 // Imported by their own creators, not the generalized importer: "One board
 // per project" does not apply to them.
-export const OWN_CREATOR_SOURCES = ['wekan', 'trello', 'csv', 'excel', 'jira'];
+export const OWN_CREATOR_SOURCES = keysWhere(source => source.creator !== 'generalized');
 export const isGeneralizedSource = source => !OWN_CREATOR_SOURCES.includes(source);
 
 export const MAX_MANY_FILES = 500;

@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Lövhəni aç",
   "import-parts-instruction": "Yalnız işarələnmiş hissələr idxal olunur. İxrac zamanı da eyni seçim istifadə olunur.",
   "import-wekan-file": ".json və ya .zip ixrac faylından idxal et:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Siyahının yuxarısında göstərilən ədədi xüsusi sahələrin cəmi",
   "date-range-of-fields": "Siyahının yuxarısında göstərilməsi üçün işarələnmiş tarix xüsusi sahələrinin tarix aralığı",
   "more-options": "Daha çox seçim",

@@ -150,8 +150,10 @@ async function main() {
     assert.match(read('models/import.js'), /new KanboardCreator\(data, 'nullboard'\)/);
     assert.match(read('server/lib/renderExternalExport.js'), /nullboard: 'application\/json'/);
     const page = read('client/components/import/import.js');
-    assert.match(page, /\{ key: 'nullboard', name: 'Nullboard' \}/);
-    assert.match(page, /dataSource === 'nullboard'/);
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'nullboard', name: 'Nullboard'[,}]/); // the one list of sources
+    // The page reads every source through one path described in
+    // models/lib/importSources.js, not a branch of its own.
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'nullboard', name: '[^']+', \.\.\.TEXT/, 'read by the one import path');
     assert.match(read('client/components/boards/exportScope.js'), /key: 'nullboard'[^}]*path: 'export\/nullboard', ext: 'nbx'/);
     // Its details are on its own page, which the coverage index links.
     const docPage = read('docs/Features/ImportExport/Nullboard/Nullboard.md');

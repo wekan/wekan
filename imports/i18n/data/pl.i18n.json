@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Otwórz tablicę",
   "import-parts-instruction": "Importowane są tylko zaznaczone części. Ten sam wybór jest używany przy eksporcie.",
   "import-wekan-file": "Importuj z pliku eksportu .json lub .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Suma liczbowych pól niestandardowych wyświetlanych na górze listy",
   "date-range-of-fields": "Zakres dat niestandardowych pól typu data oznaczonych do wyświetlania na górze listy",
   "more-options": "Więcej opcji",

@@ -11,8 +11,8 @@ Quire's Import CSV reads, so the file can be imported back into Quire.
 1. In Quire, open the project, click the dropdown menu icon next to the project
    name and choose **Export CSV**, then download the file.
 2. In WeKan, go to **All Boards → New → Import → Quire**.
-3. Open the CSV file in a text editor, copy all of it and paste it into the
-   text box. The Quire import reads pasted text; it has no file chooser.
+3. Choose the CSV file under **Choose the export file, or paste its text below:**, or paste its text
+   into the text box.
 4. Click **Import**, or **Import without mapping members (map later)**.
 5. Read the loss report on the import page. It is also kept in **Admin Panel →
    Problems → Recovery**.

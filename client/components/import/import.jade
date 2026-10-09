@@ -65,11 +65,16 @@ template(name="import")
 template(name="importTextarea")
   form
     p: label(for='import-textarea') {{instruction}} {{_ 'import-board-instruction-about-errors'}}
-    if isExcelImport
+    //- One file chooser and one text box for every source
+      (models/lib/importSources.js): the chooser accepts that source's
+      files, and the text box shows where its export can be pasted.
+    if importAccept
       p.import-file-row
-        label(for='import-excel-file') {{_ 'import-excel-file'}}
-        input.js-import-excel-file(id='import-excel-file' type="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-    else
+        label(for='import-file') {{_ 'import-file-label'}}
+        if isTrelloImport
+          span.quiet.import-file-hint {{_ 'import-trello-json-file-hint'}}
+        input.js-import-file(id='import-file' type="file" accept="{{importAccept}}")
+    if importPaste
       textarea.js-import-json(id='import-textarea' placeholder="{{_ importPlaceHolder}}" autofocus)
         | {{jsonText}}
     if isJiraImport
@@ -81,38 +86,7 @@ template(name="importTextarea")
           option(value=fieldId) {{name}}
       label(for='jira-estimate-unit') {{_ 'scrum-estimate-unit'}}
       input.js-jira-estimate-unit(id='jira-estimate-unit' type='text' maxlength='80')
-    if isVikunjaImport
-      //- Vikunja's Settings > Data Export .zip, opened on the server, or the
-        data.json inside it; pasting data.json into the textarea works too.
-      p.import-file-row
-        label(for='import-vikunja-file') {{_ 'import-wekan-file'}}
-        input.js-import-vikunja-file(id='import-vikunja-file' type="file" accept=".zip,.json,application/zip,application/json")
-    if isNotionImport
-      //- Notion's Markdown & CSV export .zip, opened on the server, or one
-        database CSV from it; pasting the CSV into the textarea works too.
-      p.import-file-row
-        label(for='import-notion-file') {{_ 'import-wekan-file'}}
-        input.js-import-notion-file(id='import-notion-file' type="file" accept=".zip,.csv,application/zip,text/csv")
-    if isPlaneImport
-      //- Plane's Workspace Settings > Exports .zip (CSV, JSON or XLSX inside),
-        opened on the server, or one file from it; pasting the JSON or CSV
-        into the textarea works too.
-      p.import-file-row
-        label(for='import-plane-file') {{_ 'import-wekan-file'}}
-        input.js-import-plane-file(id='import-plane-file' type="file" accept=".zip,.json,.csv,.xlsx,application/zip,application/json,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-    if isWekanImport
-      //- #1173: a WeKan export can be a .json or a .zip - the .zip is the one to
-        use when a board's attachments are too large to sit inside one JSON
-        string. Both land in the same place; the .zip is unpacked in the browser
-        and its files are put back on their metadata rows.
-      p.import-file-row
-        label(for='import-wekan-file') {{_ 'import-wekan-file'}}
-        input.js-import-json-file(id='import-wekan-file' type="file" accept=".json,.zip,application/json,application/zip")
     if isTrelloImport
-      p.import-file-row
-        label(for='import-json-file') {{_ 'import-trello-json-file'}}
-        span.quiet.import-file-hint {{_ 'import-trello-json-file-hint'}}
-        input.js-import-json-file(id='import-json-file' type="file" accept=".json,application/json")
       p.import-file-row
         label(for='import-zip-file') {{_ 'import-trello-zip-file'}}
         span.quiet.import-file-hint {{_ 'import-trello-zip-file-hint'}}

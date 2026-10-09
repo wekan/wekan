@@ -2877,6 +2877,7 @@
   "import-report-open-board": "開啟看板",
   "import-parts-instruction": "僅會匯入已勾選的部分。匯出時亦採用相同的設定。",
   "import-wekan-file": "從 .json 或 .zip 匯出檔匯入：",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "標記為「顯示於清單頂端」的自訂欄位數量總和",
   "date-range-of-fields": "標記為「顯示在清單頂端」的日期自訂欄位的日期範圍",
   "more-options": "更多選項",

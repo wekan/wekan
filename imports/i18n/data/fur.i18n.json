@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Vierç la taule",
   "import-parts-instruction": "Vengono impuartete solo le parti selezionete. La stessa scelta è usata durante l'espuartezione.",
   "import-wekan-file": "Impuarte da un file di espuartezione .json o .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Sume dai cjamps numerics personalizâts mostrâts in cime ae liste",
   "date-range-of-fields": "Interval di date dai cjamps personalizâts date segnâts par mostrâ insomp de liste",
   "more-options": "Plui oputis",

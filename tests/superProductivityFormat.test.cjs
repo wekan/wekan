@@ -306,8 +306,10 @@ async function main() {
     assert.match(read('server/lib/renderExternalExport.js'), /superproductivity: 'application\/json'/);
     assert.match(read('models/lib/externalExporters.js'), /spentTime: Number\(c\.spentTime\)/);
     const page = read('client/components/import/import.js');
-    assert.match(page, /\{ key: 'superproductivity', name: 'Super Productivity' \}/);
-    assert.match(page, /dataSource === 'superproductivity'/);
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'superproductivity', name: 'Super Productivity'[,}]/); // the one list of sources
+    // The page reads every source through one path described in
+    // models/lib/importSources.js, not a branch of its own.
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'superproductivity', name: '[^']+', \.\.\.TEXT/, 'read by the one import path');
     assert.match(read('client/components/boards/exportScope.js'), /key: 'superproductivity'[^}]*path: 'export\/superproductivity', ext: 'json'/);
     // Its details are on its own page, which the coverage index links.
     const docPage = read('docs/Features/ImportExport/Super-Productivity/Super-Productivity.md');

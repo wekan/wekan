@@ -183,8 +183,10 @@ async function main() {
     assert.match(read('models/import.js'), /case 'redmine':\s*\/\/[^\n]*\n\s*check\(board, String\);\s*try \{\s*importedBoard = EXTERNAL_PARSERS\.redmine\(importedBoard\);[\s\S]*?new KanboardCreator\(data, 'redmine'\)/);
     assert.match(read('server/lib/renderExternalExport.js'), /redmine: 'text\/csv'/);
     const page = read('client/components/import/import.js');
-    assert.match(page, /\{ key: 'redmine', name: 'Redmine' \}/);
-    assert.match(page, /dataSource === 'redmine'/);
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'redmine', name: 'Redmine'[,}]/); // the one list of sources
+    // The page reads every source through one path described in
+    // models/lib/importSources.js, not a branch of its own.
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'redmine', name: '[^']+', \.\.\.TEXT/, 'read by the one import path');
     assert.match(read('client/components/boards/exportScope.js'), /key: 'redmine'[^}]*path: 'export\/redmine', ext: 'csv'/);
     // Card dependencies reach the export when the Dependencies part is selected.
     assert.match(read('models/lib/externalExporters.js'), /want\('dependencies'\)[\s\S]{0,120}dependencies: c\.cardDependencies/);

@@ -2877,6 +2877,7 @@
   "import-report-open-board": "ፍታሕ ለምዱድ",
   "import-parts-instruction": "ዝተመርጹ ክፍልታት ጥራይ ይኣትዉ። ኣብ ምውጻእ እውን ተመሳሳሊ ምርጫ ይጥቀም።",
   "import-wekan-file": "ካብ .json ወይ .zip ፈይል ምውጻእ ኣእቱ፦",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "ድምር ናይ ቁጽሪ ፍሉይ ሜዳታት ኣብ ላዕሊ ዝርዝር ዚርአዩ",
   "date-range-of-fields": "ኣብ ላዕሊ ዝርዝር ንምርኣይ እተመልከተ ናይ ዕለት ናይ ገዛእ ርእሱ ሜዳታት ናይ ዕለት ደረጃ",
   "more-options": "ዚያደት ኣማራጺታት",

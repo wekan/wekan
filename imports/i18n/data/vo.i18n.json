@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Maifükön tabi",
   "import-parts-instruction": "Te pads pemakedöl peinkavons. Lek ot pegebon ven ekavöl.",
   "import-wekan-file": "Inkavön de fail-ekav .json u .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Sumam kelöfa somik geïks at soakonöls balid pö bäg leda",
   "date-range-of-fields": "Rand dato feli moldik dato, tabön kanön topo lised",
   "more-options": "Blomvotans",

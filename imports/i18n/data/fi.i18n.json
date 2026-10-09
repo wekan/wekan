@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Avaa taulu",
   "import-parts-instruction": "Vain valitut osat tuodaan. Samaa valintaa käytetään vietäessä.",
   "import-wekan-file": "Tuo .json- tai .zip-vientitiedostosta:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Listan yläreunassa näytettävien numeeristen mukautettujen kenttien summa",
   "date-range-of-fields": "Luettelon yläosassa näytettäväksi merkittyjen päivämäärätyyppisten mukautettujen kenttien päivämääräväli",
   "more-options": "Lisää valintoja",

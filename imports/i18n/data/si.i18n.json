@@ -2877,6 +2877,7 @@
   "import-report-open-board": "පුවරුව විවෘත කරන්න",
   "import-parts-instruction": "සලකුණු කළ කොටස් පමණක් ආයාත කරයි. නිර්යාත කිරීමේදීද එම තේරීමම භාවිත කරයි.",
   "import-wekan-file": ".json හෝ .zip නිර්යාත ගොනුවකින් ආයාත කරන්න:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "ලැයිස්තුවේ ඉහළින් පෙන්වන සංඛ්‍යාත්මක අභිරුචි ක්ෂේත්‍රවල එකතුව",
   "date-range-of-fields": "ලැයිස්තුවේ ඉහළින් පෙන්වීමට සලකුණු කර ඇති දින-වර්ගයේ අභිරුචි ක්ෂේත්‍රවල දින පරාසය",
   "more-options": "තවත් විකල්ප",

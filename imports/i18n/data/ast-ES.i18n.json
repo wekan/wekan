@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Abrir el tableru",
   "import-parts-instruction": "Namái s'importen les partes marcaes. La mesma esbilla úsase al esportar.",
   "import-wekan-file": "Importar dende un ficheru d'esportación .json o .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Suma de los campos numbéricos personalizaos amosaos enriba la llista",
   "date-range-of-fields": "Rangu de feches de los campos personalizaos de tipu fecha marcaos pa amosase enriba de la llista",
   "more-options": "Más opciones",

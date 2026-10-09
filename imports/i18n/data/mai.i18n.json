@@ -2877,6 +2877,7 @@
   "import-report-open-board": "पट्ट खोलू",
   "import-parts-instruction": "केवल चिह्नित भाग आयात कएल जाइत अछि। निर्यातक समय सेहो ओही चयनक उपयोग होइत अछि।",
   "import-wekan-file": ".json वा .zip निर्यात फाइलसँ आयात करू:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "सूची के ऊपर देखाओल गेल संख्यात्मक कस्टम क्षेत्रक जोड़",
   "date-range-of-fields": "सूचीक शीर्ष पर देखेबाक लेल चिह्नित तिथि कस्टम फील्डक तिथि सीमा",
   "more-options": "अउर विकल्प",

@@ -25,7 +25,8 @@ described in [Excel and VBA](Excel-and-VBA.md).
    as it is.
 2. In WeKan, go to **All Boards → New → Import → Excel**.
 3. Tick the parts to import (**Select what to include**).
-4. Under **Excel file (.xlsx)**, choose the file and click **Import**.
+4. Under **Choose the export file, or paste its text below:**, choose the `.xlsx` file and click
+   **Import**.
 5. **Which column is which?** The workbook is opened on the server, and the
    page shows each card field with a choice of the first board sheet's
    columns, matched from the column names - the same step as the

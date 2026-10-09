@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Taflu wočinić",
   "import-parts-instruction": "Importují ze pouze zaškrtnuté čázti. Stejná volba ze použije při exportu.",
   "import-wekan-file": "Importovat ze zouboru exportu .jzon abo .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Suma ličbnych swójskich polow, kotrež so horjeka lisćiny pokazuja",
   "date-range-of-fields": "Datumowy wobłuk datumowych swójskich polow, kotrež maja so horjeka lisćiny pokazać",
   "more-options": "Dalše nastajenja",

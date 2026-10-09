@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Gabatee bani",
   "import-parts-instruction": "Kutaaleen mallatteeffaman qofa galfamu. Filannoon wal fakkaataan yeroo erganis ni fayyada.",
   "import-wekan-file": "Faayila ergaa .json ykn .zip irraa galchi:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Waliigala qaamaawwan lakkoofsaa dhuunfaa gubbaa tarreeffamaa irratti agarsiifaman",
   "date-range-of-fields": "Yeroo dirree guyyaa dhuunfaa jalqabatti argamuuf mallatteeffame",
   "more-options": "Filannoo dabalataa",

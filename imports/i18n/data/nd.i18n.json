@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Vula ibhodi",
   "import-parts-instruction": "Izingxenye eziphawuliweyo kuphela ezingeniswayo. Ukukhetha okufanayo kuyasetshenziswa lapho kukhutshwa.",
   "import-wekan-file": "Ngenisa kusuka efayeleni lokukhitshwa le-.json loba le-.zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Inani lamasimu enombolo akhethiweyo aboniswa phezulu kohlu",
   "date-range-of-fields": "Isikhathi samalanga amasimu azenzelweyo ebekiweyo ukuthi abonakale phezulu kohlu",
   "more-options": "Ukhetho olunengi",

@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Dolava na vola",
   "import-parts-instruction": "Na iwase digitaki ga e vakacurumi. E vakayagataki na digidigi vata ni vakau.",
   "import-wekan-file": "Vakacuruma mai na dua na faile vakau .json se .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Isogo ni yavu ni wili tabulewa e vakaraitaki ena delana ni lisi",
   "date-range-of-fields": "Gauna ni yasana ni siga vakatabatabaki me vakaraitaki ena ulu ni ivakaro",
   "more-options": "So tale na veidigidigi",

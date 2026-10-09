@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Buksan ang pisara",
   "import-parts-instruction": "Lamang the ticked parts ay in-import. The pareho choice ay ginamit kapag exporting.",
   "import-wekan-file": "Mag-i-import mula sa a .json o .zip i-export talaksan:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Kabuuan ng mga numerikong custom na larangan na ipinapakita sa itaas ng listahan",
   "date-range-of-fields": "Saklaw ng petsa ng mga custom na field na uri ng petsa na minarkahan upang ipakita sa itaas ng listahan",
   "more-options": "Higit pang pagpipilian",

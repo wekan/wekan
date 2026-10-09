@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Apre a tavula",
   "import-parts-instruction": "Vengono importate solu le parti selezionate. La stessa scelta è usata durante l'esportazione.",
   "import-wekan-file": "Impurtà da un schedariu di esportazione .json o .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Summa di i campi numerichi persunalizati fatti vede in cima à a lista",
   "date-range-of-fields": "Periodu di i campi persunalizati di data marcati per esse mostrati in cima à a lista",
   "more-options": "Più opzioni",

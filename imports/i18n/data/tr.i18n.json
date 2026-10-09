@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Panoyu aç",
   "import-parts-instruction": "Yalnızca işaretlenen bölümler içe aktarılır. Dışa aktarırken de aynı seçim kullanılır.",
   "import-wekan-file": "Bir .json veya .zip dışa aktarma dosyasından içe aktar:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Listenin üst kısmında gösterilen sayısal özel alanların toplamı",
   "date-range-of-fields": "Listenin üstünde gösterilmek üzere işaretlenmiş tarih türündeki özel alanların tarih aralığı",
   "more-options": "Diğer seçenekler",

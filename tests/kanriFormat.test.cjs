@@ -264,7 +264,7 @@ async function main() {
     assert.match(collector, /c\.dueAt && c\.dueComplete \? \{ dueComplete: true \}/);
     assert.match(collector, /c\.color \? \{ color: c\.color \}/);
     const page = read('client/components/import/import.js');
-    assert.match(page, /\{ key: 'kanri', name: 'Kanri' \}/);
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'kanri', name: 'Kanri'[,}]/); // the one list of sources
     assert.match(read('client/components/boards/exportScope.js'),
       /\{ key: 'kanri', icon: 'fa-columns', label: 'Kanri', path: 'export\/kanri', ext: 'json', scopes: BOARD_ONLY \}/);
     const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));

@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Drovi li tåvlea",
   "import-parts-instruction": "Seulmint les pårteyes tchoezeyes sont abaguêyes. Li minme tchoes est eployî po l' ebagaedje.",
   "import-wekan-file": "Abaguer d' on fitchî d' ebagaedje .json ou .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Sômme des tchamps limerikes da vosse mostrés å dzeu del djivêye",
   "date-range-of-fields": "Sicåle di dates des tchamps da vosse a l' date, metous po esse håyné å dessus del djivêye",
   "more-options": "Pus di tchoezes",

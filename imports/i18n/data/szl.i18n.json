@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Ôtwōrz tabula",
   "import-parts-instruction": "Importowane sōm ino zaznaczone części. Ten sam wybór je używany przy eksporcie.",
   "import-wekan-file": "Importuj z pliku eksportu .json abo .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Suma liczbowych włosnych pól pokazowanych na gōrze wykazu",
   "date-range-of-fields": "Zakres dat włŏsnych pōl typu data, kere sōm zaznaczōne, coby pokazać na wiyrchu listy",
   "more-options": "Więcyj ôpcyji",

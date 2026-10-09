@@ -2877,6 +2877,7 @@
   "import-report-open-board": "ボードを開く",
   "import-parts-instruction": "チェックした部分だけがインポートされます。エクスポート時も同じ選択が使われます。",
   "import-wekan-file": ".json または .zip のエクスポートファイルからインポート:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "リストの上部に表示される数値カスタムフィールドの合計",
   "date-range-of-fields": "リストの上部に表示するようマークされた日付型カスタムフィールドの日付範囲",
   "more-options": "その他のオプション",

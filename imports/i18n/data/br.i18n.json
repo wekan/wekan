@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Digeriñ an daolenn",
   "import-parts-instruction": "N'eo enporzhiet nemet al lodennoù merket. An hevelep dibab a vez implijet en ur ezporzhiañ.",
   "import-wekan-file": "Enporzhiañ diouzh ur restr ezporzhiañ .json pe .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Sammad ar maeziennaet niverel personelaet diskouezet e krec'h al listenn",
   "date-range-of-fields": "Lijorenn deiziadoù ar maeziennoù personelaet doare-deiziad merket evit bezañ diskouezet e penn al listenn",
   "more-options": "Muioc'h a zibaboù",

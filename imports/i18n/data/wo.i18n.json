@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Ubbil tablo bi",
   "import-parts-instruction": "Ay pàcc yi ñu tànn rekk lañu dugal. Tànn boobu la ñu jëfandikoo bu ñu génnee.",
   "import-wekan-file": "Dugal ci fiiseg génne .json walla .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Limu i champ yu limu jëfandikoo di feeñu ci kaw lëkkalekaay bi",
   "date-range-of-fields": "Njëlbeen-bés bu tënk yu bindkat yi mar ngir wone ci kaw pàggu list bi",
   "more-options": "Yeneen tannéefi",

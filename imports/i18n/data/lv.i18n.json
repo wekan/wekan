@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Atvērt dēli",
   "import-parts-instruction": "Tiek importētas tikai atzīmētās daļas. Tā pati izvēle tiek izmantota eksportējot.",
   "import-wekan-file": "Importēt no .json vai .zip eksporta faila:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Skaitlisko pielāgoto lauku summa, kas tiek rādīta saraksta augšpusē",
   "date-range-of-fields": "Saraksta augšpusē rādāmo datuma tipa pielāgoto lauku datumu diapazons",
   "more-options": "Vairāk opciju",

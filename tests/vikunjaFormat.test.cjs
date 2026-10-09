@@ -380,9 +380,11 @@ async function main() {
     const exp = read('server/lib/renderExternalExport.js');
     assert.match(exp, /if \(format === 'vikunja'\) \{[\s\S]*?contentType: 'application\/zip', body: require\('\/server\/lib\/vikunjaArchive'\)\.writeVikunjaArchive\(vikunjaArchiveFiles\(built\)\)/);
     const page = read('client/components/import/import.js');
-    assert.match(page, /\{ key: 'vikunja', name: 'Vikunja' \}/);
-    assert.match(page, /if \(dataSource === 'vikunja'\) \{[\s\S]*?zipBase64: window\.btoa\(binary\)/);
-    assert.match(read('client/components/import/import.jade'), /input\.js-import-vikunja-file\(id='import-vikunja-file' type="file" accept="\.zip,\.json/);
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'vikunja', name: 'Vikunja'[,}]/); // the one list of sources
+    // The page reads every source through one path described in
+    // models/lib/importSources.js, not a branch of its own.
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'vikunja', name: '[^']+', \.\.\.TEXT, files: \[[^\]]*'\.zip'[^\]]*\], zipSend: 'zip' \}/, 'one export .zip, read by the one import path');
+    assert.match(read('client/components/import/import.jade'), /input\.js-import-file\(id='import-file' type="file" accept="\{\{importAccept\}\}"\)/, 'the one file chooser');
     assert.match(read('client/components/boards/exportScope.js'),
       /\{ key: 'vikunja', icon: 'fa-file-archive-o', label: 'Vikunja', path: 'export\/vikunja', ext: 'zip', scopes: BOARD_ONLY \}/);
   });

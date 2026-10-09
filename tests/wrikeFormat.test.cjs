@@ -211,10 +211,11 @@ async function main() {
     assert.match(read('models/import.js'), /case 'wrike':[\s\S]*?readWrikeWorkbook\(importedBoard\.excelBase64\);\s*importedBoard = EXTERNAL_PARSERS\.wrike\(importedBoard\);[\s\S]*?sanitizeImported\(importedBoard, 'wrike', this\);\s*creator = new KanboardCreator\(data, 'wrike'\);/);
     assert.match(read('server/lib/renderExternalExport.js'), /wrike: \['\/server\/lib\/wrikeWorkbook', 'writeWrikeWorkbook'\]/);
     const page = read('client/components/import/import.js');
-    assert.match(page, /\{ key: 'wrike', name: 'Wrike' \}/);
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'wrike', name: 'Wrike'[,}]/); // the one list of sources
     // The workbook sources share one branch and one list; later ones follow.
-    assert.match(page, /if \(dataSource === 'excel'[^)]*\|\| dataSource === 'wrike'/);
-    assert.match(page, /\['excel', 'planner', 'monday', 'wrike'(, '[a-z]+')*\]\.includes/);
+    // The page reads every source through one path described in
+    // models/lib/importSources.js, not a branch of its own.
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'wrike', name: '[^']+', \.\.\.EXCEL/, 'read by the one import path');
     assert.match(read('client/components/boards/exportScope.js'), /key: 'wrike'[^}]*path: 'export\/wrike', ext: 'xlsx'/);
     // The instruction is added to en.i18n.json in English, pending Transifex.
     const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));

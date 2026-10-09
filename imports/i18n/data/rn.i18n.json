@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Ugurura icapa",
   "import-parts-instruction": "Ibice vyashizweko ikimenyetso gusa ni vyo vyinjizwa. Ihitamwo rimwe rirakoreshwa no mu gusohora.",
   "import-wekan-file": "Injiza bivuye muri dosiye .json canke .zip yasohowe:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Igiteranyo c'ibipimo vy'imibare zihariye zerekanwa hejuru y'urutonde",
   "date-range-of-fields": "Igihe c'imirwi y'itariki yagenywe kugira ngo yerekanwe hejuru y'urutonde",
   "more-options": "Amahitamwo menshi",

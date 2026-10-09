@@ -204,8 +204,10 @@ async function main() {
     assert.match(read('models/import.js'), /case 'pivotal':\s*\/\/[^\n]*\n\s*check\(board, String\);\s*try \{\s*importedBoard = EXTERNAL_PARSERS\.pivotal\(importedBoard\);[\s\S]*?new KanboardCreator\(data, 'pivotal'\)/);
     assert.match(read('server/lib/renderExternalExport.js'), /pivotal: 'text\/csv'/);
     const page = read('client/components/import/import.js');
-    assert.match(page, /\{ key: 'pivotal', name: 'Pivotal Tracker' \}/);
-    assert.match(page, /dataSource === 'pivotal'/);
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'pivotal', name: 'Pivotal Tracker'[,}]/); // the one list of sources
+    // The page reads every source through one path described in
+    // models/lib/importSources.js, not a branch of its own.
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'pivotal', name: '[^']+', \.\.\.TEXT/, 'read by the one import path');
     assert.match(read('client/components/boards/exportScope.js'), /key: 'pivotal'[^}]*path: 'export\/pivotal', ext: 'csv'/);
     // Its details are on its own page, which the coverage index links.
     const docPage = read('docs/Features/ImportExport/Pivotal-Tracker/Pivotal-Tracker.md');

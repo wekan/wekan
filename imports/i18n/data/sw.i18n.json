@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Fungua bodi",
   "import-parts-instruction": "Sehemu zilizotiwa alama pekee ndizo huingizwa. Chaguo hilo hilo hutumika unapohamisha.",
   "import-wekan-file": "Ingiza kutoka faili la kuhamisha la .json au .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Jumla ya sehemu maalum za nambari zinazoonyeshwa juu ya orodha",
   "date-range-of-fields": "Wigo wa tarehe za sehemu maalum za aina ya tarehe zilizowekwa alama kuonyeshwa juu ya orodha",
   "more-options": "Chaguo zaidi",

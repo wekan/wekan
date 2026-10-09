@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Geňeşi açyň",
   "import-parts-instruction": "Diňe bellenen bölekler import edilýär. Eksport edilende hem şol saýlaw ulanylýar.",
   "import-wekan-file": ".json ýa-da .zip eksport faýlyndan import et:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Sanawyň ýokarsynda görkezilýän san görnüşli sazlanan meýdançalaryň jemi",
   "date-range-of-fields": "Sanawyň başynda görkezilmek üçin bellenen sene sazlanylýan meýdanlarynyň sene aralygy",
   "more-options": "Has köp saýlaw",

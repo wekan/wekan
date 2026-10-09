@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Depoyê veke",
   "import-parts-instruction": "Tenê beşên nîşankirî tên têxistin. Di derxistinê de jî heman hilbijartin tê bikaranîn.",
   "import-wekan-file": "Ji pela derxistinê ya .json an .zip têxe:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Berhevoka qadên hejmarî yên taybet ên ku li serê lîsteyê tê nîşandan",
   "date-range-of-fields": "Navbera dîrokên qadên taybet ên cureyê dîrokê yên ku ji bo li serê lîsteyê xuya bibin hatine nîşankirin",
   "more-options": "Vebijarkên din",

@@ -185,10 +185,11 @@ async function main() {
     assert.match(read('models/import.js'), /case 'teamwork':[\s\S]*?check\(board, Object\);[\s\S]*?readTeamworkWorkbook\(importedBoard\.excelBase64\);\s*importedBoard = EXTERNAL_PARSERS\.teamwork\(importedBoard\);[\s\S]*?sanitizeImported\(importedBoard, 'teamwork', this\);\s*creator = new KanboardCreator\(data, 'teamwork'\);/);
     assert.match(read('server/lib/renderExternalExport.js'), /teamwork: \['\/server\/lib\/teamworkWorkbook', 'writeTeamworkWorkbook'\]/);
     const page = read('client/components/import/import.js');
-    assert.match(page, /\{ key: 'teamwork', name: 'Teamwork\.com' \}/);
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'teamwork', name: 'Teamwork\.com'[,}]/); // the one list of sources
     // The workbook sources share one branch; their order there is not the point.
-    assert.match(page, /if \(dataSource === 'excel'[^)]*\|\| dataSource === 'teamwork'/);
-    assert.match(page, /isExcelImport\(\) \{\s*return \[[^\]]*'teamwork'[^\]]*\]\.includes/);
+    // The page reads every source through one path described in
+    // models/lib/importSources.js, not a branch of its own.
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'teamwork', name: '[^']+', \.\.\.EXCEL/, 'read by the one import path');
     assert.match(read('client/components/boards/exportScope.js'), /key: 'teamwork'[^}]*path: 'export\/teamwork', ext: 'xlsx'/);
     // Its details are on its own page, which the coverage index links.
     const docPage = read('docs/Features/ImportExport/Teamwork/Teamwork.md');

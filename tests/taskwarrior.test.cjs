@@ -98,8 +98,10 @@ async function main() {
     assert.equal(EXTERNAL_PARSERS.taskwarrior, parseTaskwarrior);
     assert.equal(validateImportSourceShape('taskwarrior', '[]'), undefined);
     assert.throws(() => validateImportSourceShape('taskwarrior', { tasks: [] }));
-    assert.match(read('client/components/import/import.js'), /\{ key: 'taskwarrior', name: 'Taskwarrior' \}/);
-    assert.match(read('client/components/import/import.js'), /dataSource === 'todotxt' \|\| dataSource === 'taskwarrior'/);
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'taskwarrior', name: 'Taskwarrior'[,}]/); // the one list of sources
+    // The page reads every source through one path described in
+    // models/lib/importSources.js, not a branch of its own.
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'taskwarrior', name: '[^']+', \.\.\.TEXT/, 'read by the one import path');
     assert.match(read('models/import.js'), /case 'taskwarrior':[\s\S]*?check\(board, String\);[\s\S]*?new KanboardCreator\(data, 'taskwarrior'\)/);
     assert.match(read('server/lib/renderExternalExport.js'), /taskwarrior: 'application\/json'/);
     assert.match(read('client/components/boards/exportScope.js'), /key: 'taskwarrior'.*path: 'export\/taskwarrior', ext: 'json'/);

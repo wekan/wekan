@@ -2877,6 +2877,7 @@
   "import-report-open-board": "تەختەکە بکەرەوە",
   "import-parts-instruction": "تەنها بەشە نیشانەکراوەکان هاوردە دەکرێن. هەمان هەڵبژاردە لە کاتی هەناردەکردندا بەکاردێت.",
   "import-wekan-file": "لە پەڕگەی هەناردەی .json یان .zip هاوردە بکە:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "کۆی خانە ژمارەییە دیاریکراوەکان کە لە سەرووی لیستەکەدا نیشان دەدرێن",
   "date-range-of-fields": "مەودای بەروار بۆ خانە تایبەتییەکانی بەروار کە نیشانە کراون بۆ پیشاندان لە سەرەوەی لیستەکە",
   "more-options": "بژاردەی زیاتر",

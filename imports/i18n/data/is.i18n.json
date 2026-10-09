@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Opna töfluna",
   "import-parts-instruction": "Aðeins merktu hlutarnir eru fluttir inn. Sama val er notað við útflutning.",
   "import-wekan-file": "Flytja inn úr .json- eða .zip-útflutningsskrá:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Summa talnasérsviða sem birt eru efst á listanum",
   "date-range-of-fields": "Dagsetningarbil sérsniðinna dagsetningarreita sem eru merktir til að birtast efst á listanum",
   "more-options": "Fleiri valkostir",

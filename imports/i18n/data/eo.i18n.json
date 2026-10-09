@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Malfermi la tabulon",
   "import-parts-instruction": "Nur la markitaj partoj estas importataj. La sama elekto uziĝas ĉe eksportado.",
   "import-wekan-file": "Importi el .json- aŭ .zip-eksportdosiero:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Sumo de la numeraj propraj kampoj montrataj supre de la listo",
   "date-range-of-fields": "Data intervalo de propraj kampoj de tipo dato markitaj por montriĝi supre de la listo",
   "more-options": "Pliaj opcioj",

@@ -116,8 +116,10 @@ Body &amp; more</t>
   // Wiring: the same places Markdown is registered.
   await test('Leo is offered on the import page and in the export menu, served as XML', () => {
     const importJs = read('client/components/import/import.js');
-    assert.match(importJs, /\{ key: 'leo', name: 'Leo' \}/);
-    assert.match(importJs, /dataSource === 'markdown' \|\| dataSource === 'leo'/);
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'leo', name: 'Leo'[,}]/); // the one list of sources
+    // The page reads every source through one path described in
+    // models/lib/importSources.js, not a branch of its own.
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'leo', name: '[^']+', \.\.\.TEXT/, 'read by the one import path');
     assert.match(read('client/components/boards/exportScope.js'), /key: 'leo'.*path: 'export\/leo', ext: 'leo', scopes: BOARD_ONLY/);
     assert.match(read('server/lib/renderExternalExport.js'), /leo: 'application\/xml'/);
     const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));

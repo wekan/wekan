@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Taxtani ochish",
   "import-parts-instruction": "Faqat belgilangan qismlar import qilinadi. Eksport qilishda ham xuddi shu tanlov ishlatiladi.",
   "import-wekan-file": ".json yoki .zip eksport faylidan import qilish:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Roʻyxat tepasida koʻrsatiladigan raqamli maxsus maydonlar yigʻindisi",
   "date-range-of-fields": "Roʻyxat yuqori qismida koʻrsatish uchun belgilangan sana turidagi moslashtirilgan maydonlarning sana oraligʻi",
   "more-options": "Ko'proq variantlar",

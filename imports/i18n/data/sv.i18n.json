@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Öppna tavlan",
   "import-parts-instruction": "Endast de ikryssade delarna importeras. Samma val används vid export.",
   "import-wekan-file": "Importera från en .json- eller .zip-exportfil:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Summan av numeriska anpassade fält som visas överst i listan",
   "date-range-of-fields": "Datumintervall för anpassade datumfält markerade att visas överst i listan",
   "more-options": "Fler alternativ",

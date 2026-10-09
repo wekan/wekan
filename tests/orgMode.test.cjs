@@ -110,8 +110,10 @@ async function main() {
   });
 
   test('wired in: import page, server import, export menu and route', () => {
-    assert.match(read('client/components/import/import.js'), /\{ key: 'orgmode', name: 'Org mode' \}/);
-    assert.match(read('client/components/import/import.js'), /\|\| dataSource === 'orgmode'\)/);
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'orgmode', name: 'Org mode'[,}]/); // the one list of sources
+    // The page reads every source through one path described in
+    // models/lib/importSources.js, not a branch of its own.
+    assert.match(read('models/lib/importSources.js'), /\{ key: 'orgmode', name: '[^']+', \.\.\.TEXT/, 'read by the one import path');
     assert.match(read('models/import.js'), /case 'orgmode':\s*\/\/[^\n]*\n\s*check\(board, String\);/);
     assert.match(read('models/import.js'), /new KanboardCreator\(data, 'orgmode'\)/);
     assert.match(read('client/components/boards/exportScope.js'), /key: 'orgmode'[^\n]*path: 'export\/orgmode', ext: 'org'/);

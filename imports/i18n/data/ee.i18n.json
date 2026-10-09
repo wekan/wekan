@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Ʋu ŋɔŋlɔkpea",
   "import-parts-instruction": "Akpa siwo wode dzesi ko woatsɔ ava eme. Wozãa tiatia ɖeka ne wotsɔ ɖe go.",
   "import-wekan-file": "Tsɔ va eme tso .json alo .zip nuɖeɖego agbalẽ me:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Xexlẽme dzesi tɔxɛwo ƒe sumi si wodena le nyatakakawo ƒe dzigbeta",
   "date-range-of-fields": "Ŋkeke ƒe didime na fefe tɔxɛ siwo wode dzesii be woafia ɖe xexlẽdzesiwo ƒe tame",
   "more-options": "Tiaŋtiaŋ bubuwo",

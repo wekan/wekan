@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Abrir el tablero",
   "import-parts-instruction": "Solo se importan las partes marcadas. La misma selección se usa al exportar.",
   "import-wekan-file": "Importar desde un archivo de exportación .json o .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Suma de los campos numéricos personalizados mostrados en la parte superior de la lista",
   "date-range-of-fields": "Rango de fechas de los campos personalizados de tipo fecha marcados para mostrarse en la parte superior de la lista",
   "more-options": "Más opciones",

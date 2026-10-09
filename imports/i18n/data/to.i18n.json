@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Fakaava ʻa e papá",
   "import-parts-instruction": "Faka-Tonga: Only the ticked parts are imported. The same choice is used when exporting.",
   "import-wekan-file": "Faka-Tonga: Import from a .json or .zip export faile:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Fakalukufua ʻo e ngaahi feituʻu fika fakafiemālie ʻoku fakahā ʻi ʻolunga ʻi he lisi",
   "date-range-of-fields": "Vaha ʻaho ʻo e ngaahi ngoue fakatāʻofi ʻaho ʻoku fakaʻilonga ke hā ʻi ʻolunga he lisi",
   "more-options": "Ngaahi filí lahi ange",

@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Openem bod",
   "import-parts-instruction": "Nomo ticked parts oli karem i kam finis. sem choice i used taem exporting.",
   "import-wekan-file": "Karem i kam long wan .json o .zip karem i go fael:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Sam blong ol namba kastom fil we oli soem antap long lis",
   "date-range-of-fields": "Denja blong deit long ol sipesol fil we oli makem blong soem long antap blong lis",
   "more-options": "Moa option",

@@ -2877,6 +2877,7 @@
   "import-report-open-board": "Ṣí pátákó náà",
   "import-parts-instruction": "Àwọn apá tí a yàn nìkan ni a ó gbé wọlé. Àṣàyàn kan náà ni a ó lò nígbà okeere.",
   "import-wekan-file": "Gbé wọlé láti inú fáìlì okeere .json tàbí .zip:",
+  "import-file-label": "Choose the export file, or paste its text below:",
   "sum-of-number-fields": "Àpapọ̀ àwọn àyè nọ́mbà àkànṣe tí a fihàn ní òkè àkọsílẹ̀",
   "date-range-of-fields": "Àkókò ọjọ́ ti àwọn pápá aṣàmúlò ọjọ́ tí a sàmì sí láti fi hàn lókè àkọsílẹ̀",
   "more-options": "Àwọn àṣàyàn síwájú sí i",
