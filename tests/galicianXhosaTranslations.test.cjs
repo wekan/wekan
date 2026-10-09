@@ -308,6 +308,43 @@ for (const locale of Object.values(locales)) {
   "stuck-sync-operation-missing",
   "stuck-sync-operation-not-stuck"
 ]);
+  keys.push(...[
+  "stuck-sync-operation-replayable",
+  "stuck-sync-operation-busy",
+  "stuck-sync-operation-failed",
+  "interrupted-import-heading",
+  "interrupted-import-description",
+  "interrupted-import-board",
+  "interrupted-import-progress",
+  "interrupted-import-created",
+  "interrupted-import-source",
+  "interrupted-import-state-stopped",
+  "interrupted-import-state-failed",
+  "interrupted-import-state-discarding",
+  "interrupted-import-scrum",
+  "interrupted-import-counts",
+  "interrupted-import-no-board",
+  "interrupted-import-keep",
+  "interrupted-import-discard",
+  "interrupted-import-keep-confirm",
+  "interrupted-import-discard-confirm",
+  "interrupted-import-refresh",
+  "interrupted-import-empty",
+  "interrupted-import-truncated",
+  "interrupted-import-unavailable",
+  "interrupted-import-missing",
+  "interrupted-import-not-interrupted",
+  "interrupted-import-foreign-board",
+  "interrupted-import-scrum-busy",
+  "interrupted-import-failed",
+  "scrum-history-checkpoint-stuck",
+  "scrum-history-checkpoint-counts",
+  "scrum-history-checkpoint-hint",
+  "scrum-history-checkpoint-rollback",
+  "scrum-history-checkpoint-discard",
+  "scrum-history-checkpoint-discard-confirm",
+  "scrum-history-checkpoint-ask-admin"
+]);
   for (const key of keys) {
     assert.notEqual(locale[key], source[key], key);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), key);
@@ -398,6 +435,21 @@ for (const locale of Object.values(locales)) {
     .replace('__applied__', '3').replace('__total__', '9');
   assert.match(appliedChanges, /3.*9/);
   assert.doesNotMatch(appliedChanges, /__/);
+  assert.match(locale['interrupted-import-description'], /akunakuqhubeka.*ayigcinwa/);
+  assert.match(locale['interrupted-import-description'], /nayo yonke into.*eyongezwe/);
+  assert.match(locale['interrupted-import-keep-confirm'], /Akukho nto isuswayo/);
+  assert.match(locale['interrupted-import-discard-confirm'], /nayo yonke into.*ngokusisigxina/);
+  assert.match(locale['interrupted-import-foreign-board'], /ayichukunyiswanga/);
+  assert.match(locale['interrupted-import-truncated'], /50/);
+  assert.match(locale['scrum-history-checkpoint-hint'], /kuphela.*kungekho mntu wumbi/);
+  assert.match(locale['scrum-history-checkpoint-hint'], /akutshintshi zingxelo/);
+  for (const key of ['interrupted-import-counts', 'interrupted-import-scrum', 'scrum-history-checkpoint-counts']) {
+    const tokens = translationTokens(source[key]);
+    let rendered = locale[key];
+    tokens.forEach((token, index) => { rendered = rendered.replace(token, String(index + 1)); });
+    assert.doesNotMatch(rendered, /__/);
+    tokens.forEach((token, index) => { assert.ok(rendered.includes(String(index + 1))); });
+  }
   const error = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
   assert.ok(error.includes('E_LDAP'));
   assert.ok(!error.includes('%s'));

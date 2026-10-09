@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Xhosa interrupted imports and history recovery — 2026-10-09
+
+Translate 35 messages in xh for interrupted board imports and Scrum history
+recovery. Tests preserve variables, render multi-count messages and retain
+permanent deletion, unchanged-board and conditional rollback warnings. Both
+targeted suites and all 21 preservation checks pass. Specialized wording remains
+low confidence pending speaker review. Browser execution and remaining
+translations are outstanding.
+
 ## Xhosa recovery controls and stuck sync operations — 2026-10-09
 
 Translate 40 messages in xh for notification delivery controls and stuck list
