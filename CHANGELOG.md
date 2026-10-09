@@ -462,8 +462,6 @@ this list when it streams.
   256 MB a file (server/trelloApiImport.js).
 - Cloning a board builds its whole export, every attachment as base64
   (cloneBoard, models/exporter.js build).
-- Export all boards as WeKan JSON holds each board's attachments as base64
-  while it writes that board (server/routes/exportAllBoards.js).
 
 </details>
 </details>

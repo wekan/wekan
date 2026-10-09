@@ -69,6 +69,12 @@ async function main() {
     assert.match(route, /redactFields\(data, user\._id, board\._id\)/, 'admin-only fields are redacted as in the JSON route');
     assert.match(route, /await exporter\.build\(res, \{ workbook, sheetName: names\[i\], activities: false \}\);/);
     assert.match(route, /if \(skipped\.length\) add\('skipped\.txt'/);
+    // A WeKan JSON board streams into its entry, paced by the response; no
+    // board is built whole in memory (the export's base64 attachments with it).
+    assert.match(route, /if \(format === 'wekan'\) await streamWekanBoard\(names\[i\], boards\[i\]\);/);
+    assert.match(route, /await exporter\.buildStream\(sink\);/);
+    assert.match(route, /return !res\.writableNeedDrain;/);
+    assert.doesNotMatch(route, /exporter\.build\(\)/, 'negative: no whole-board build');
     assert.match(read('server/imports.js'), /import '\/server\/routes\/exportAllBoards';/);
     // The Excel exporter adds one sheet to a shared workbook and leaves its
     // sending to the caller.

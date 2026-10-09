@@ -62,7 +62,7 @@ async function boardFile(board, format, user, req) {
     const { containsFields } = require('/models/lib/adminOnlyCustomFields');
     return containsFields(data) ? require('/server/lib/adminOnlyCustomFields').redactFields(data, user._id, board._id) : data;
   };
-  if (format === 'wekan' || format === 'csv' || format === 'scsv' || format === 'tsv') {
+  if (format === 'csv' || format === 'scsv' || format === 'tsv') {
     const { Exporter } = require('/models/exporter');
     const exporter = new Exporter(board._id, undefined, {
       excludeAttachments: req.query.attachments === 'false',
@@ -70,7 +70,6 @@ async function boardFile(board, format, user, req) {
       fields: parseExportFields(req.query && req.query.fields, BOARD_EXPORT_FIELD_KEYS),
     });
     exporter._customFieldViewerId = user._id;
-    if (format === 'wekan') return JSON.stringify(await redact(await exporter.build()));
     return exporter.buildCsv({ csv: ',', scsv: ';', tsv: '\t' }[format], language);
   }
   const rendered = await require('/server/lib/renderExternalExport').renderExternalExport(board._id, format,
@@ -140,11 +139,41 @@ WebApp.handlers.get('/api/export-all-boards/:format', safeRoute(async function (
       zip.add(entry);
       entry.push(typeof content === 'string' ? strToU8(content) : new Uint8Array(content), true);
     };
+    // A WeKan JSON board is written into its entry piece by piece by the same
+    // streaming exporter the single board export uses - attachments as base64
+    // in aligned chunks - so no board is ever held whole in memory. The
+    // response's backpressure paces it: a write waits while the response's
+    // buffer is full.
+    const streamWekanBoard = async (name, board) => {
+      const entry = new ZipDeflate(name, { level: 6 });
+      zip.add(entry);
+      const { Exporter } = require('/models/exporter');
+      const exporter = new Exporter(board._id, undefined, {
+        excludeAttachments: req.query.attachments === 'false',
+        userLanguage: (user.profile && user.profile.language) || 'en',
+        fields: parseExportFields(req.query && req.query.fields, BOARD_EXPORT_FIELD_KEYS),
+      });
+      exporter._customFieldViewerId = user._id;
+      const sink = {
+        write(text) {
+          entry.push(typeof text === 'string' ? strToU8(text) : new Uint8Array(text));
+          return !res.writableNeedDrain;
+        },
+        once: (event, fn) => res.once(event, fn),
+        removeListener: (event, fn) => res.removeListener(event, fn),
+      };
+      try {
+        await exporter.buildStream(sink);
+      } finally {
+        entry.push(new Uint8Array(0), true);
+      }
+    };
     (async () => {
       const names = uniqueFileNames(boards.map(board => board.title), extensionOf(format));
       for (let i = 0; i < boards.length; i += 1) {
         try {
-          add(names[i], await boardFile(boards[i], format, user, req));
+          if (format === 'wekan') await streamWekanBoard(names[i], boards[i]);
+          else add(names[i], await boardFile(boards[i], format, user, req));
         } catch (error) {
           skipped.push(`${boards[i].title} (${boards[i]._id}): ${(error && (error.reason || error.message)) || error}`);
         }
