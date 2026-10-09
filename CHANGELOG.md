@@ -672,6 +672,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c5ac9ced64">Translate Xhosa planning settings</a>. Thanks to xet7.</summary>
+
+Fill 30 Xhosa planning labels. Tests preserve sprint-action distinctions,
+unfinished-work wording and consistent view labels. Both targeted suites and
+all 21 preservation checks pass. Specialized terminology needs speaker review;
+browser execution and remaining translations are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7258355abf">Translate Xhosa board and rule settings</a>. Thanks to xet7.</summary>
 
 Fill 29 Xhosa placeholders. Tests preserve percent and brace variables, URL
