@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Xhosa recovery controls and stuck sync operations — 2026-10-09
+
+Translate 40 messages in xh for notification delivery controls and stuck list
+sync operations. Tests preserve applied/total variables, render their counts,
+distinguish pause from cancellation and retain discard consequences and the
+50-record limit. Both targeted suites and all 21 preservation checks pass.
+Specialized wording remains low confidence pending speaker review. Browser
+execution and remaining translations are outstanding.
+
 ## Xhosa diagnostics and notification failures — 2026-10-09
 
 Translate 35 messages in xh for sync diagnostics, Jira estimates, planning and

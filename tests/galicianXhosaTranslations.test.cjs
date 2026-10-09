@@ -266,6 +266,48 @@ for (const locale of Object.values(locales)) {
   "activity-recovery-retrying",
   "activity-recovery-status-pending"
 ]);
+  keys.push(...[
+  "activity-recovery-status-preparing",
+  "activity-recovery-status-processing",
+  "activity-recovery-status-missing",
+  "activity-recovery-status-changed",
+  "activity-recovery-status-invalid",
+  "activity-recovery-status-inconsistent",
+  "activity-recovery-busy",
+  "activity-recovery-denied",
+  "activity-recovery-source-unavailable",
+  "activity-recovery-disabled",
+  "activity-recovery-failed",
+  "activity-recovery-pause",
+  "activity-recovery-resume",
+  "activity-recovery-paused",
+  "activity-recovery-control-conflict",
+  "activity-recovery-control-failed",
+  "activity-recovery-status-cancelled",
+  "activity-recovery-cancel",
+  "activity-recovery-cancel-confirm",
+  "rule-email-recovery-unavailable",
+  "stuck-sync-operation-heading",
+  "stuck-sync-operation-description",
+  "stuck-sync-operation-list",
+  "stuck-sync-operation-progress",
+  "stuck-sync-operation-reason",
+  "stuck-sync-operation-applied",
+  "stuck-sync-operation-reason-scope-changed",
+  "stuck-sync-operation-reason-access-denied",
+  "stuck-sync-operation-reason-trigger-unknown",
+  "stuck-sync-operation-reason-intent-missing",
+  "stuck-sync-operation-reason-unknown",
+  "stuck-sync-operation-replayable-now",
+  "stuck-sync-operation-discard",
+  "stuck-sync-operation-discard-confirm",
+  "stuck-sync-operation-refresh",
+  "stuck-sync-operation-empty",
+  "stuck-sync-operation-truncated",
+  "stuck-sync-operation-unavailable",
+  "stuck-sync-operation-missing",
+  "stuck-sync-operation-not-stuck"
+]);
   for (const key of keys) {
     assert.notEqual(locale[key], source[key], key);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), key);
@@ -342,6 +384,20 @@ for (const locale of Object.values(locales)) {
   assert.match(locale['activity-recovery-description'], /akuze kudale umsebenzi kwakhona/);
   assert.match(locale['email-failure-delivery-unconfirmed'], /phonononga phambi/);
   assert.notEqual(locale['email-failure-smtp-temporary'], locale['email-failure-smtp-rejected']);
+  assert.match(locale['activity-recovery-source-unavailable'], /Akukho nto idalwe kwakhona/);
+  assert.match(locale['activity-recovery-failed'], /osalindileyo ugciniwe/);
+  assert.match(locale['activity-recovery-cancel-confirm'], /ngokusisigxina.*akunakuphinda.*azibuyiswa/);
+  assert.notEqual(locale['activity-recovery-pause'], locale['activity-recovery-cancel']);
+  assert.notEqual(locale['activity-recovery-pause'], locale['activity-recovery-resume']);
+  assert.match(locale['stuck-sync-operation-description'], /luyahlala.*aluze lubhalwe.*luthelekisa/);
+  assert.match(locale['stuck-sync-operation-discard-confirm'], /luyahlala.*aluze lubhalwe/);
+  assert.match(locale['stuck-sync-operation-replayable-now'], /kuzi?gqiba.*ayinakulahlwa/);
+  assert.match(locale['stuck-sync-operation-not-stuck'], /ayinakulahlwa/);
+  assert.match(locale['stuck-sync-operation-truncated'], /50/);
+  const appliedChanges = locale['stuck-sync-operation-applied']
+    .replace('__applied__', '3').replace('__total__', '9');
+  assert.match(appliedChanges, /3.*9/);
+  assert.doesNotMatch(appliedChanges, /__/);
   const error = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
   assert.ok(error.includes('E_LDAP'));
   assert.ok(!error.includes('%s'));
