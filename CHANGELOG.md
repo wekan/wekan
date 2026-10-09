@@ -812,6 +812,21 @@ and updates the following dependencies:
 
 and fixes the following bugs:
 
+**Card details** - the description and the code in it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0495b8729d">Copying a code block in a card description no longer opens a new tab</a>. Thanks to carl-unique and xet7.</summary>
+
+The copy button of a code block is a link inside the card viewer. It copied the
+text, but the click went on to the viewer's link handler, which opens every link
+in a new tab - here the board again. The button now keeps its click to itself,
+and the viewer no longer opens a link to a place on the page in a new tab.
+`tests/copyCodeBlock.test.cjs` pins both, and
+`tests/playwright/specs/viewer-copy-code.e2e.js` clicks the button and checks
+that no tab opens and the text is copied.
+
+</details>
+
 **Large boards** - a board of thousands of cards opens and closes cards fast
 on a server with 8 GB of RAM.
 
