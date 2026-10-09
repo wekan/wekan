@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
   "import-board-instruction-trello": "Di depoya xwe ya Trello de, here 'Menu', paşê 'More', 'Print and Export', 'Export JSON', û nivîsa encamê kopî bike.",
   "import-board-instruction-csv": "Daneya Nirxên bi Bêhnok Veqetandî (CSV)/Nirxên bi Tab Veqetandî (TSV) pê ve bike.",
-  "import-board-instruction-jira": "JSON-ê ji lêgerîna pirsgirêkên Jira Cloud REST API pê ve bike (GET /rest/api/2/search), an objeyeke hevwate { \"issues\": [...] }. Rewşên Jira dibin lîste û pirsgirêk dibin kart. Ji bo têxistina rêbazan dikarî rêza \"automationRules\" jî zêde bikî.",
+  "import-board-instruction-jira": "JSON-ê ji lêgerîna pirsgirêkên Jira Cloud REST API pê ve bike (GET /rest/api/3/search/jql), an objeyeke hevwate { \"issues\": [...] }. Rewşên Jira dibin lîste û pirsgirêk dibin kart. Ji bo têxistina rêbazan dikarî rêza \"automationRules\" jî zêde bikî.",
   "import-board-instruction-excel": "Pelgeha .xlsx ya bi şêwaza WeKan hilbijêre (heman stûnên derxistina Excel: Title, Description, Status/List, Members, Labels, dates, custom fields). Rêza yekem sernav e.",
   "import-excel-file": "Pela Excel (.xlsx)",
   "import-board-instruction-wekan": "Di depoya xwe de, here 'Menu', paşê 'Export board', û nivîsa di pela daxistî de kopî bike.",

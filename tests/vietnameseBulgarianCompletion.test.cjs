@@ -6228,7 +6228,7 @@ for (const code of ['uz', 'uz-LA', 'uz-UZ']) {
     assert.doesNotMatch(locale[key], /\b(ciartes|tabellai|utenc|injuntes|Incolla|Sposta)\b/, `rm:${key}: no mixed-language seed`);
   }
   assert.ok(locale['import-board-instruction-openproject'].includes('GET /api/v3/work_packages'));
-  for (const token of ['GET /rest/api/2/search', '"issues"', '"automationRules"']) assert.ok(locale['import-board-instruction-jira'].includes(token));
+  for (const token of ['GET /rest/api/3/search/jql', '"issues"', '"automationRules"']) assert.ok(locale['import-board-instruction-jira'].includes(token));
   for (const token of ['.zip', '.json', 'Trello Card Attachments Downloader']) assert.ok(locale['import-trello-zip-file-hint'].includes(token));
   assert.match(locale['label-delete-pop'], /na po betg vegnir fatg enavos.*cronologia vegn destruida/);
   assert.match(locale['normal-desc'], /Na po betg midar ils parameters/);
@@ -11333,7 +11333,7 @@ for (const code of ['hi', 'hi-IN']) {
   assert.ok(locale['import-board-instruction-openproject'].includes('GET /api/v3/work_packages'));
   assert.ok(locale['import-board-instruction-asana'].includes('GET /tasks'));
   assert.ok(locale['import-board-instruction-asana'].includes('memberships'));
-  assert.ok(locale['import-board-instruction-jira'].includes('GET /rest/api/2/search'));
+  assert.ok(locale['import-board-instruction-jira'].includes('GET /rest/api/3/search/jql'));
   assert.ok(locale['import-board-instruction-jira'].includes('automationRules'));
   for (const token of ['## ', '- [ ]', '- [x]']) {
     assert.ok(locale['import-board-instruction-markdown'].includes(token));
@@ -11443,7 +11443,7 @@ for (const code of ['hi', 'hi-IN']) {
   assert.ok(locale['import-board-instruction-openproject'].includes('GET /api/v3/work_packages'));
   assert.ok(locale['import-board-instruction-asana'].includes('GET /tasks'));
   assert.ok(locale['import-board-instruction-asana'].includes('memberships'));
-  assert.ok(locale['import-board-instruction-jira'].includes('GET /rest/api/2/search'));
+  assert.ok(locale['import-board-instruction-jira'].includes('GET /rest/api/3/search/jql'));
   assert.ok(locale['import-board-instruction-jira'].includes('automationRules'));
   assert.match(locale['email-recovery-confirm-cancel'], /nun se puen restaurar/);
   assert.match(locale['email-recovery-description'], /unvíu inciertu pue repetise/);
@@ -11530,7 +11530,7 @@ for (const code of ['hi', 'hi-IN']) {
   }
   assert.match(locale['import-board-instruction-openproject'], /paquets de trabalh/);
   assert.ok(locale['import-board-instruction-openproject'].includes('GET /api/v3/work_packages'));
-  assert.ok(locale['import-board-instruction-jira'].includes('GET /rest/api/2/search'));
+  assert.ok(locale['import-board-instruction-jira'].includes('GET /rest/api/3/search/jql'));
   for (const token of ['"issues"', '"automationRules"']) {
     assert.ok(locale['import-board-instruction-jira'].includes(token));
   }
@@ -12059,7 +12059,7 @@ for (const code of ['cy', 'cy-GB']) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
     assert.doesNotMatch(locale[key], /(?:Wklej |wyszukiwania|przypisane|Przejrzyj|Zaimportowana)/);
   }
-  for (const literal of ['GET /rest/api/2/search', '"issues"', '"automationRules"']) assert.ok(locale['import-board-instruction-jira'].includes(literal));
+  for (const literal of ['GET /rest/api/3/search/jql', '"issues"', '"automationRules"']) assert.ok(locale['import-board-instruction-jira'].includes(literal));
   assert.doesNotMatch(locale['import-board-instruction-jira'], /api\/2\/Szëkôj/);
   for (const literal of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) assert.ok(locale['import-board-instruction-todotxt'].includes(literal));
   assert.ok(locale['import-board-instruction-wekan'].includes(locale.menu));

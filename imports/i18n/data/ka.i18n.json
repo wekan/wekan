@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
   "import-board-instruction-trello": "თქვენს Trello დაფაზე, შედით \"მენიუ\"-ში, შემდეგ დააკლიკეთ \"მეტი\", \"ამოპრინტერება და ექსპორტი\",  \"JSON-ის ექსპორტი\" და დააკოპირეთ შედეგი.",
   "import-board-instruction-csv": "ჩასვით თქვენი CSV/TSV მონაცემები.",
-  "import-board-instruction-jira": "ჩასვით JSON Jira Cloud REST API-ის issue search-იდან (GET /rest/api/2/search), ან ეკვივალენტური { \"issues\": [...] } ობიექტი. Jira-ს სტატუსები ხდება სიები და issue-ები ხდება ბარათები. სურვილისამებრ, ჩართეთ „automationRules“ მასივი წესების იმპორტისთვის.",
+  "import-board-instruction-jira": "ჩასვით JSON Jira Cloud REST API-ის issue search-იდან (GET /rest/api/3/search/jql), ან ეკვივალენტური { \"issues\": [...] } ობიექტი. Jira-ს სტატუსები ხდება სიები და issue-ები ხდება ბარათები. სურვილისამებრ, ჩართეთ „automationRules“ მასივი წესების იმპორტისთვის.",
   "import-board-instruction-excel": "აირჩიეთ WeKan-სტილის .xlsx ცხრილი (იგივე სვეტებით, რაც Excel-ის ექსპორტში: Title, Description, Status/List, Members, Labels, თარიღები, მორგებული ველები). პირველი მწკრივი არის სათაური.",
   "import-excel-file": "Excel ფაილი (.xlsx)",
   "import-board-instruction-wekan": "თქვენს დაფაზე გადადით „მენიუ“, შემდეგ „დაფის გატანა“, და დააკოპირეთ ჩამოტვირთული ფაილის ტექსტი.",

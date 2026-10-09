@@ -216,7 +216,7 @@ test('Tatar import guidance preserves executable examples and field identifiers'
   'import-board-instruction-deck':['NextCloud Deck','stacks','cards'],
   'import-board-instruction-openproject':['GET /api/v3/work_packages'],
   'import-board-instruction-asana':['GET /tasks','"data"','memberships'],
-  'import-board-instruction-jira':['GET /rest/api/2/search','"issues"','"automationRules"'],
+  'import-board-instruction-jira':['GET /rest/api/3/search/jql','"issues"','"automationRules"'],
   'import-board-instruction-excel':['.xlsx'],
   'import-excel-file':['.xlsx'],
   'advanced-filter-description':['== != <= >= && || ( )',"'Field 1' == 'Value 1'",'F1 == V1 && ( F2 == V2 || F2 == V3 )','F1 == /Tes.*/i']

@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
   "import-board-instruction-trello": "ใน Trello ของคุณให้ไปที่ 'Menu' และไปที่ More -> Print and Export -> Export JSON และคัดลอกข้อความจากนั้น",
   "import-board-instruction-csv": "วางข้อมูล CSV (ค่าที่คั่นด้วยจุลภาค) / TSV (ค่าที่คั่นด้วยแท็บ) ของคุณ",
-  "import-board-instruction-jira": "วาง JSON จากการค้นหา issue ของ Jira Cloud REST API (GET /rest/api/2/search) หรืออ็อบเจกต์ { \"issues\": [...] } ที่เทียบเท่า สถานะ Jira จะกลายเป็นรายการและ issues จะกลายเป็นการ์ด สามารถรวมอาร์เรย์ \"automationRules\" เพื่อนำเข้ากฎได้",
+  "import-board-instruction-jira": "วาง JSON จากการค้นหา issue ของ Jira Cloud REST API (GET /rest/api/3/search/jql) หรืออ็อบเจกต์ { \"issues\": [...] } ที่เทียบเท่า สถานะ Jira จะกลายเป็นรายการและ issues จะกลายเป็นการ์ด สามารถรวมอาร์เรย์ \"automationRules\" เพื่อนำเข้ากฎได้",
   "import-board-instruction-excel": "เลือกสเปรดชีต .xlsx แบบ WeKan (คอลัมน์เดียวกับการส่งออก Excel: Title, Description, Status/List, Members, Labels, วันที่, ฟิลด์ที่กำหนดเอง) แถวแรกคือส่วนหัว",
   "import-excel-file": "ไฟล์ Excel (.xlsx)",
   "import-board-instruction-wekan": "ในบอร์ดของคุณ ไปที่ 'เมนู' แล้วเลือก 'ส่งออกบอร์ด' จากนั้นคัดลอกข้อความในไฟล์ที่ดาวน์โหลดมา",

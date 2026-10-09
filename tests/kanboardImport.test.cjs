@@ -7,8 +7,10 @@
 // only the fields Kanboard happens to spell like the shared task shape
 // survived: subtasks, comments, categories, colors, closed state, start dates
 // and time spent were dropped, and a task with only column_id landed in the
-// first list. Estimates, files and links have no WeKan equivalent here and
-// are listed in the `unsupported` loss report instead of vanishing.
+// first list. Estimates and files have no WeKan equivalent here and are
+// listed in the `unsupported` loss report instead of vanishing; task links
+// become parent cards and dependencies (tests/kanboardLinksGithubComments.test.cjs),
+// and a link to a task outside the file is reported.
 
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -45,7 +47,10 @@ async function main() {
   assert.deepEqual(plan.comments.map(c => c.text), [`kanboard-user: ${expected.comment}`]);
   assert.equal(planImportedTask(task, { members: { 'kanboard-user': 'uK' } }).comments[0].text, expected.comment);
 
-  assert.deepEqual(parsed.unsupported.map(u => u.path).sort(), ['/tasks/0/files', '/tasks/0/links', '/tasks/0/time_estimated']);
+  assert.deepEqual(parsed.unsupported.map(u => u.path).sort(), ['/tasks/0/files', '/tasks/0/links/0', '/tasks/0/time_estimated']);
+  assert.match(parsed.unsupported.find(u => u.path === '/tasks/0/links/0').reason, /linked task #2 is not part of this import/);
+  assert.equal(task.ref, '1');
+  assert.equal(task.dependencies, undefined, 'a link to a missing task is not emitted');
   assert.match(parsed.unsupported.find(u => u.path.endsWith('files')).reason, /1 file\(s\)/);
 
   // Ids resolve through the sibling arrays; getTaskTags' object form works.

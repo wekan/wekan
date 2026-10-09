@@ -39,8 +39,9 @@ lists.*
 
 Comments are not in the issue list. To keep them, a script can add to each
 issue a `comments_data` array with what the issue's comments endpoint
-(`GET /api/v1/repos/OWNER/REPO/issues/INDEX/comments`) returned. Without
-that, the number of comments is reported as not imported.
+(`GET /api/v1/repos/OWNER/REPO/issues/INDEX/comments`) returned. Each
+comment becomes a WeKan card comment. Comments the issue's `comments` count
+has but the file does not carry are reported as not imported.
 
 ## How to import many boards at once
 
@@ -109,14 +110,21 @@ What the current code does: Gitea and Forgejo share one parser,
   `assignee:<login>` labels and are reported.
 - The issue's author (`user.login`) is **Requested By**.
 - `Source: #NUMBER URL` is added at the end of the description.
-- Embedded `comments_data` is added to the description under **Comments:**.
+- Each embedded comment becomes a card comment: `body` is the text,
+  `user.login` (or `user.username`) the author and `created_at` the date. The
+  comments are read from `comments_data`, or from `comments` when it is an
+  array instead of the API's count. An entry without text is reported and
+  skipped. The description is not changed by comments.
+- A comment is posted by the importing user with the author's login leading
+  the text (`alice: ...`), because the import page has no member mapping for
+  Gitea. When a `membersMapping` maps the login, the comment is posted by
+  that WeKan user and the text is unchanged.
 - The issue number is kept as the card's sync key for
   [List Sync](../Sync.md).
 - Boards imported from Gitea are named **Imported Gitea/Forgejo issues**.
 
 The audit asks for more than the code reads: server-specific label and state
-metadata, label colors and comments as separate WeKan comments are not
-imported.
+metadata and label colors are not imported.
 
 The export (`gitea` in `models/lib/externalExportFormatters.js`) is the same
 as GitHub's: for each card that is not archived, `title`, `body`, `state`
@@ -138,14 +146,15 @@ finished, otherwise `open`), `labels` (as `{ "name": ... }`) and `due_date`.
 | Other assignees | Labels `assignee:...` |
 | `user.login` | Requested By |
 | `number`, `html_url` | `Source:` line in the description, and the sync key |
-| `comments_data` (added by your script) | Comment lines in the description |
+| `comments_data` (added by your script): `body`, `user.login`, `created_at` | Card comments, with their author and date |
 
 ## What is not kept
 
 The import reports these on the loss report:
 
 - assignees after the first (they are kept as labels);
-- comments that exist on Gitea but were not embedded in the file.
+- comments that exist on Gitea but were not embedded in the file;
+- embedded comments without text.
 
 These are not read and not reported: label colors, creation, update and close
 dates, the pinned and locked state, reactions, time tracking and dependencies.
@@ -176,7 +185,8 @@ takes an optional `&boardIds=ID1,ID2` to export only those boards.
 - `models/lib/externalExportFormatters.js` (`gitea`) writes the export;
   `models/lib/externalExporters.js` collects the board.
 - Unit tests: `tests/githubImport.test.cjs` (the shared GitHub, Gitea and
-  Forgejo parser), `tests/externalExportRoundTrip.test.cjs`,
+  Forgejo parser), `tests/kanboardLinksGithubComments.test.cjs` (embedded
+  comments, shared by the three), `tests/externalExportRoundTrip.test.cjs`,
   `tests/importFormatAudit.test.cjs`.
 - Playwright: `tests/playwright/specs/import-export-format-audit.e2e.js`
   (fixture import through the page, malformed JSON is rejected, the export

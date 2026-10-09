@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
   "import-board-instruction-trello": "پنهنجي Trello بورڊ ۾ 'Menu'، پوءِ 'More'، 'Print and Export'، 'Export JSON' ڏانهن وڃو ۽ نتيجي وارو متن نقل ڪريو.",
   "import-board-instruction-csv": "پنهنجا ڪاما سان جدا قدر (CSV)/ ٽيب سان جدا قدر (TSV) پيسٽ ڪريو.",
-  "import-board-instruction-jira": "Jira Cloud REST API مسئلو ڳولا (GET /rest/api/2/search) مان JSON، يا برابر { \"issues\": [...] } آبجڪٽ پيسٽ ڪريو. Jira حالتون فهرستون ۽ مسئلا ڪارڊ بڻبا. قاعدا درآمد ڪرڻ لاءِ اختياري \"automationRules\" ارَي شامل ڪريو.",
+  "import-board-instruction-jira": "Jira Cloud REST API مسئلو ڳولا (GET /rest/api/3/search/jql) مان JSON، يا برابر { \"issues\": [...] } آبجڪٽ پيسٽ ڪريو. Jira حالتون فهرستون ۽ مسئلا ڪارڊ بڻبا. قاعدا درآمد ڪرڻ لاءِ اختياري \"automationRules\" ارَي شامل ڪريو.",
   "import-board-instruction-excel": "WeKan نموني جي .xlsx اسپريڊ شيٽ چونڊيو (Excel برآمد وارا ساڳيا ڪالم: Title, Description, Status/List, Members, Labels, dates, custom fields). پهرين قطار سرخي آهي.",
   "import-excel-file": "Excel فائيل (.xlsx)",
   "import-board-instruction-wekan": "پنهنجي بورڊ ۾ 'Menu'، پوءِ 'Export board' ڏانهن وڃو ۽ لٿل فائيل جو متن نقل ڪريو.",

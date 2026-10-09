@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
   "import-board-instruction-trello": "Mu kyo Trello lubaawo, go eri 'Menu', olwo 'More', 'Print ne Export', 'Fulumya JSON', ne koppa resulting bigambo.",
   "import-board-instruction-csv": "Teekamu mu kyo Comma Separated Miwendo(CSV)/ Tab Separated Miwendo (TSV).",
-  "import-board-instruction-jira": "Teekamu JSON okuva Jira Cloud REST API issue noonya (GET /rest/api/2/search), oba equivalent { \"issues\": [...] } object. Jira statuses become nkalala ne issues become kaadi. Optionally include \"automationRules\" array eri leeta mateeka.",
+  "import-board-instruction-jira": "Teekamu JSON okuva Jira Cloud REST API issue noonya (GET /rest/api/3/search/jql), oba equivalent { \"issues\": [...] } object. Jira statuses become nkalala ne issues become kaadi. Optionally include \"automationRules\" array eri leeta mateeka.",
   "import-board-instruction-excel": "Londa WeKan-style.xlsx spreadsheet ( kimu columns nga Excel fulumya: Mutwe, Kunnyonnyola, Mbeera/Lukalala, Bamemba, Obubonero, dates, ennimiro ez'enjawulo). kisooka row kiri header.",
   "import-excel-file": "Excel fayiro (.xlsx)",
   "import-board-instruction-wekan": "Mu kyo lubaawo, go eri 'Menu', olwo 'Fulumya board', ne koppa bigambo mu downloaded fayiro.",

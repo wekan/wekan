@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
   "import-board-instruction-trello": "Trello-ᒥ ᐊᓪᓚᕕᓐᓂ, 'Menu'-ᒧᑦ ᐃᓯᕐᓗᑎᑦ, ᑭᖑᓂᐊᒍᑦ 'More', 'Print and Export', 'Export JSON' ᓂᕈᐊᕐᓗᒋᑦ, ᑎᑎᖅᑲᖅ ᓴᖅᑭᑦᑐᖅ ᐊᔾᔨᓕᐅᕐᓗᒍ.",
   "import-board-instruction-csv": "Comma Separated Values (CSV)/Tab Separated Values (TSV) ᐃᓕᓗᒍ.",
-  "import-board-instruction-jira": "Jira Cloud REST API-ᒥ issue-ᓂᒃ ᕿᓂᕐᓂᕐᒥᑦ JSON (GET /rest/api/2/search), ᐅᕝᕙᓘᓐᓃᑦ ᓇᓕᒧᑦᑐᖅ { \"issues\": [...] } ᐃᓕᓗᒍ. Jira statuses ᑎᑎᖅᑲᓕᐊᙳᖅᑐᑦ ᐊᒻᒪ issues ᐊᓪᓚᖅᓯᒪᔪᙳᖅᑐᑦ. \"automationRules\" ᑎᑎᖅᑲᓕᐊᖓ ᐃᓚᒍᓐᓇᕆᕙᐃᑦ ᒪᓕᒐᒃᓴᑦ ᐃᓯᖅᑎᓐᓂᐊᕐᓗᒋᑦ.",
+  "import-board-instruction-jira": "Jira Cloud REST API-ᒥ issue-ᓂᒃ ᕿᓂᕐᓂᕐᒥᑦ JSON (GET /rest/api/3/search/jql), ᐅᕝᕙᓘᓐᓃᑦ ᓇᓕᒧᑦᑐᖅ { \"issues\": [...] } ᐃᓕᓗᒍ. Jira statuses ᑎᑎᖅᑲᓕᐊᙳᖅᑐᑦ ᐊᒻᒪ issues ᐊᓪᓚᖅᓯᒪᔪᙳᖅᑐᑦ. \"automationRules\" ᑎᑎᖅᑲᓕᐊᖓ ᐃᓚᒍᓐᓇᕆᕙᐃᑦ ᒪᓕᒐᒃᓴᑦ ᐃᓯᖅᑎᓐᓂᐊᕐᓗᒋᑦ.",
   "import-board-instruction-excel": "WeKan-ᑎᑐᑦ .xlsx ᓈᓴᐅᓯᕆᔾᔪᑎ ᓂᕈᐊᕐᓗᒍ (Excel-ᒥᑦ ᐊᓂᑎᑕᐅᔫᑉ ᑎᑎᖅᑲᓕᐊᖏᑦ: Title, Description, Status/List, Members, Labels, dates, custom fields). ᓯᕗᓪᓕᖅ ᓴᓂᒧᑦ ᑎᑎᖅᑲᓕᐊᖅ ᑕᐃᒎᓯᐅᕗᖅ.",
   "import-excel-file": "Excel ᑎᑎᖅᑲᖓ (.xlsx)",
   "import-board-instruction-wekan": "ᐊᓪᓚᕕᓐᓂ, 'Menu'-ᒧᑦ ᐃᓯᕐᓗᑎᑦ, ᑭᖑᓂᐊᒍᑦ 'Export board' ᓂᕈᐊᕐᓗᒍ, ᖃᕆᑕᐅᔭᒧᑦ ᐱᔭᕐᓂ ᑎᑎᖅᑲᖅ ᐊᔾᔨᓕᐅᕐᓗᒍ.",

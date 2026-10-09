@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
   "import-board-instruction-trello": "Bak papan Trello droeneueh, buka 'Menu', lheueh nyan 'More', 'Print and Export', 'Export JSON', ngon salin teks hasil jih.",
   "import-board-instruction-csv": "Tempel Comma Separated Values(CSV)/ Tab Separated Values (TSV) droeneueh.",
-  "import-board-instruction-jira": "Tempel JSON nibak Jira Cloud REST API issue search (GET /rest/api/2/search), atawa objek { \"issues\": [...] } nyang saban. Status Jira jadi senarai dan issue jadi kad. Meunyoe hawa, geumasok array \"automationRules\" keu impor aturan.",
+  "import-board-instruction-jira": "Tempel JSON nibak Jira Cloud REST API issue search (GET /rest/api/3/search/jql), atawa objek { \"issues\": [...] } nyang saban. Status Jira jadi senarai dan issue jadi kad. Meunyoe hawa, geumasok array \"automationRules\" keu impor aturan.",
   "import-board-instruction-excel": "Pileh saboh spreadsheet .xlsx gaya WeKan (kolom saban ngon ekspor Excel: Title, Description, Status/List, Members, Labels, tanggal, ruang khusus). Baris phon jih tajuk.",
   "import-excel-file": "File Excel (.xlsx)",
   "import-board-instruction-wekan": "Bak papan droeneueh, jak u 'Menu', laju 'Ekspor papan', dan salen teks lam file nyang geuunggah.",

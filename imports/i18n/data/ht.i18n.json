@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
   "import-board-instruction-trello": "Nan tablo Trello ou a, ale nan 'Menu', apre sa 'More', 'Print and Export', 'Export JSON', epi kopye tèks ki parèt la.",
   "import-board-instruction-csv": "Kole Valè Separe ak Vigil (CSV) / Valè Separe ak Tab (TSV) ou yo.",
-  "import-board-instruction-jira": "Kole JSON rechèch pwoblèm ki soti nan Jira Cloud REST API (GET /rest/api/2/search), oswa yon objè ekivalan { \"issues\": [...] }. Estati Jira yo vin lis epi pwoblèm yo vin kat. Ou ka mete yon tablo \"automationRules\" pou enpòte règ yo tou.",
+  "import-board-instruction-jira": "Kole JSON rechèch pwoblèm ki soti nan Jira Cloud REST API (GET /rest/api/3/search/jql), oswa yon objè ekivalan { \"issues\": [...] }. Estati Jira yo vin lis epi pwoblèm yo vin kat. Ou ka mete yon tablo \"automationRules\" pou enpòte règ yo tou.",
   "import-board-instruction-excel": "Chwazi yon fèy kalkil .xlsx nan estil WeKan (menm kolòn ak ekspòtasyon Excel la: Tit, Deskripsyon, Estati/Lis, Manm, Etikèt, dat, chan pèsonalize). Premye ranje a se antèt la.",
   "import-excel-file": "Fichye Excel (.xlsx)",
   "import-board-instruction-wekan": "Nan tablo ou a, ale nan 'Meni', apre sa 'Ekspòte tablo', epi kopye tèks ki nan fichye telechaje a.",

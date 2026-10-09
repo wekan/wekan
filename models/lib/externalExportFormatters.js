@@ -84,6 +84,48 @@ function positions(items) {
   return new Map(ranked.map((item, index) => [item.cardId, index + 1]));
 }
 
+// Kanboard task links, as getAllTaskLinks returns them for each task: `task_id`
+// is the OTHER task and `label` the link type read from this task. Kanboard
+// keeps every link from both ends, so each parent card and each dependency is
+// written twice, the second time with the opposite label; the importer
+// (parseKanboard) folds the two back into one. A link to a card that is not in
+// the export has no task to point at and is left out.
+const KANBOARD_LINK_LABEL = {
+  'related-to': 'relates to', blocks: 'blocks', 'is-blocked-by': 'is blocked by',
+  duplicates: 'duplicates', 'is-duplicated-by': 'is duplicated by',
+  fixes: 'fixes', 'is-fixed-by': 'is fixed by',
+};
+const KANBOARD_OPPOSITE_LABEL = {
+  'relates to': 'relates to', blocks: 'is blocked by', 'is blocked by': 'blocks',
+  duplicates: 'is duplicated by', 'is duplicated by': 'duplicates',
+  fixes: 'is fixed by', 'is fixed by': 'fixes',
+  'is a child of': 'is a parent of', 'is a parent of': 'is a child of',
+};
+function kanboardTaskLinks(items) {
+  const number = new Map(items.map((item, index) => [item.cardId, index + 1]));
+  const links = items.map(() => []);
+  const written = new Set();
+  let id = 0;
+  const add = (from, to, label) => {
+    const key = `${from}>${to}:${label}`;
+    if (from === to || written.has(key)) return;
+    written.add(key);
+    written.add(`${to}>${from}:${KANBOARD_OPPOSITE_LABEL[label]}`);
+    links[from - 1].push({ id: id += 1, task_id: to, label });
+    links[to - 1].push({ id: id += 1, task_id: from, label: KANBOARD_OPPOSITE_LABEL[label] });
+  };
+  items.forEach((item, index) => {
+    const self = index + 1;
+    const parent = number.get(item.parentCardId);
+    if (parent) add(self, parent, 'is a child of');
+    list(item.dependencies).forEach(dep => {
+      const other = dep && number.get(dep.cardId);
+      if (other) add(self, other, KANBOARD_LINK_LABEL[dep.type] || 'relates to');
+    });
+  });
+  return links;
+}
+
 export const formatters = {
   // NextCloud Deck: board with stacks, each stack carrying its cards.
   deck: ({ board, lists, items }) => ({
@@ -109,27 +151,33 @@ export const formatters = {
     })),
   }),
   // Kanboard: columns, swimlanes and tasks, the shape the Kanboard importer reads.
-  kanboard: ({ board, lists, swimlanes, items }) => ({
-    board: { name: board.title },
-    columns: lists.map(l => ({ title: l.title })),
-    swimlanes: swimlanes.map(s => ({ name: s.title })),
-    tasks: items.map(i => ({
-      title: i.title,
-      description: i.description,
-      column_name: i.listTitle,
-      swimlane_name: i.swimlaneTitle,
-      date_due: i.dueAt,
-      ...(has(i.startAt) ? { date_started: i.startAt } : {}),
-      ...(has(i.endAt) ? { date_completed: i.endAt } : {}),
-      ...(has(i.createdAt) ? { date_creation: i.createdAt } : {}),
-      ...(has(i.owner) ? { owner_username: i.owner } : {}),
-      ...(has(i.creator) ? { creator_username: i.creator } : {}),
-      tags: i.labels,
-      ...(checklistItems(i).length ? { subtasks: checklistItems(i).map(x => ({ title: x.title, status: x.done ? 2 : 0 })) } : {}),
-      ...(list(i.comments).length ? { comments: i.comments.map(c => ({
-        comment: c.text, username: c.author, date_creation: c.date })) } : {}),
-    })),
-  }),
+  // Tasks are numbered 1..n; parent cards and dependencies become task links.
+  kanboard: ({ board, lists, swimlanes, items }) => {
+    const links = kanboardTaskLinks(items);
+    return {
+      board: { name: board.title },
+      columns: lists.map(l => ({ title: l.title })),
+      swimlanes: swimlanes.map(s => ({ name: s.title })),
+      tasks: items.map((i, index) => ({
+        id: index + 1,
+        title: i.title,
+        description: i.description,
+        column_name: i.listTitle,
+        swimlane_name: i.swimlaneTitle,
+        date_due: i.dueAt,
+        ...(has(i.startAt) ? { date_started: i.startAt } : {}),
+        ...(has(i.endAt) ? { date_completed: i.endAt } : {}),
+        ...(has(i.createdAt) ? { date_creation: i.createdAt } : {}),
+        ...(has(i.owner) ? { owner_username: i.owner } : {}),
+        ...(has(i.creator) ? { creator_username: i.creator } : {}),
+        tags: i.labels,
+        ...(checklistItems(i).length ? { subtasks: checklistItems(i).map(x => ({ title: x.title, status: x.done ? 2 : 0 })) } : {}),
+        ...(list(i.comments).length ? { comments: i.comments.map(c => ({
+          comment: c.text, username: c.author, date_creation: c.date })) } : {}),
+        ...(links[index].length ? { links: links[index] } : {}),
+      })),
+    };
+  },
   // OpenProject: a work-packages collection with HAL links.
   openproject: collected => {
     const { items } = collected;

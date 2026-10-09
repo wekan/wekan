@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
   "import-board-instruction-trello": "W twojej tôblëcë na Trello przejdź do 'Menu', następnié 'Więcej', 'Drukuj i eksportuj', 'Eksportuj jako JSON' i skopiuj wynik",
   "import-board-instruction-csv": "Wklej wôrtnotë òddzeloné przecënkama (CSV) abò tabùlatorama (TSV).",
-  "import-board-instruction-jira": "Wklejë JSON z szëkaniô zgłoszeniów w Jira Cloud REST API (GET /rest/api/2/search) abò równowôżny òbiekt { \"issues\": [...] }. Stónë Jira stôwają sã lëstama, a zgłoszenia kôrtama. Òpcjonalno dodôj tôbelã \"automationRules\", żebë zaimpòrtowac regle.",
+  "import-board-instruction-jira": "Wklejë JSON z szëkaniô zgłoszeniów w Jira Cloud REST API (GET /rest/api/3/search/jql) abò równowôżny òbiekt { \"issues\": [...] }. Stónë Jira stôwają sã lëstama, a zgłoszenia kôrtama. Òpcjonalno dodôj tôbelã \"automationRules\", żebë zaimpòrtowac regle.",
   "import-board-instruction-excel": "Wëbierzë arkùsz .xlsx w fòrmace WeKan (te samé kòlumnë co w ekspòrce Excel: Title, Description, Status/List, Members, Labels, datuma, swòjé pòla). Pierszô réza je nagłówkã.",
   "import-excel-file": "Lopk Excel (.xlsx)",
   "import-board-instruction-wekan": "Na swòji tôfli òtemkni 'Spis òpcjów', pòtem 'Ekspòrtowac tôflã', i skòpiérëjë tekst z pòbrónégò lopka.",

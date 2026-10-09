@@ -44,8 +44,15 @@ has a `pull_request` key, so only issues become cards.
 Comments are not in the issue list. To keep them, a script can add to each
 issue a `comments_data` array with what
 [List issue comments](https://docs.github.com/en/rest/issues/comments#list-issue-comments)
-returned for it. Without that, the number of comments is reported as not
-imported.
+returned for it, for example:
+
+```bash
+curl -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer TOKEN" \
+  "https://api.github.com/repos/OWNER/REPO/issues/NUMBER/comments?per_page=100" > comments-NUMBER.json
+```
+
+Each comment becomes a WeKan card comment. Comments the issue's `comments`
+count has but the file does not carry are reported as not imported.
 
 ## How to import many boards at once
 
@@ -116,14 +123,20 @@ What the current code does (`models/lib/externalParsers.js`,
 - The issue's author is the card's **Requested By**.
 - The issue number and its URL are added at the end of the description as
   `Source: #NUMBER URL`.
-- Embedded `comments_data` is added to the description under **Comments:**,
-  one line per comment. They are not separate WeKan comments.
+- Each embedded comment becomes a card comment: `body` is the text,
+  `user.login` (or `user.username`, `user.name`) the author and `created_at`
+  the date. The comments are read from `comments_data`, or from `comments`
+  when it is an array instead of the API's count. An entry without text is
+  reported and skipped. The description is not changed by comments.
+- A comment is posted by the importing user with the author's login leading
+  the text (`alice: ...`), because the import page has no member mapping for
+  GitHub. When a `membersMapping` maps the login, the comment is posted by
+  that WeKan user and the text is unchanged.
 - The issue number is kept as the card's sync key, so a list can be kept up to
   date with [List Sync](../Sync.md).
 
 The audit lists more than the code reads: the code does not read label colors,
-creation or close dates, relationships or events, and keeps comments in the
-description.
+creation or close dates, relationships or events.
 
 The export (`models/lib/externalExportFormatters.js`, `githubLike`) writes, for
 each card that is not archived: `title`, `body` (the description), `state`
@@ -147,17 +160,19 @@ again.
 | Other assignees | Labels `assignee:...` |
 | `user.login` | Requested By |
 | `number`, `html_url` | `Source:` line in the description, and the sync key |
-| `comments_data` (added by your script) | Comment lines in the description |
+| `comments_data` (added by your script): `body`, `user.login`, `created_at` | Card comments, with their author and date |
 
 ## What is not kept
 
 The import reports these on the loss report:
 
 - assignees after the first (they are kept as labels);
-- comments that exist on GitHub but were not embedded in the file.
+- comments that exist on GitHub but were not embedded in the file;
+- embedded comments without text.
 
 These are not read and not reported: label colors, creation, update and close
-dates, reactions, locked state, events and linked issues.
+dates, reactions (also on comments), comment edit dates, locked state, events
+and linked issues.
 
 The import page has no member mapping for GitHub, so the owner becomes a card
 member only when a `membersMapping` is sent through the REST API.
@@ -186,11 +201,13 @@ takes an optional `&boardIds=ID1,ID2` to export only those boards.
   `models/lib/externalExporters.js` collects the board; `models/export.js`
   serves `/api/boards/:boardId/export/github`.
 - Unit tests: `tests/githubImport.test.cjs`,
+  `tests/kanboardLinksGithubComments.test.cjs` (embedded comments),
   `tests/externalExportRoundTrip.test.cjs` (export read back by the parser),
   `tests/importFormatAudit.test.cjs` (document shape).
 - Playwright: `tests/playwright/specs/import-export-format-audit.e2e.js`
-  (the fixture imports through the page, malformed JSON is rejected, and the
-  export menu link returns the file and refuses an unrelated user).
+  (the fixture imports through the page, malformed JSON is rejected, an
+  embedded comment becomes a card comment, and the export menu link returns
+  the file and refuses an unrelated user).
 
 ## Sources
 

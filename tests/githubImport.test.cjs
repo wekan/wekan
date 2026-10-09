@@ -81,8 +81,9 @@ async function main() {
     assert.ok(out.unsupported.some(u => u.path === '/0/comments' && /3 comment/.test(u.reason)));
   });
 
-  test('comments that ARE embedded are rendered into the description', () => {
-    assert.match(out.tasks[1].description, /Comments:\n- dave: wontfix/);
+  test('comments that ARE embedded become card comments, not description text', () => {
+    assert.deepStrictEqual(out.tasks[1].comments, [{ text: 'wontfix', author: 'dave' }]);
+    assert.doesNotMatch(out.tasks[1].description, /wontfix|Comments:/);
   });
 
   test('a non-"completed" state reason is kept as a tag', () => {

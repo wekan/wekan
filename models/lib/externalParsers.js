@@ -63,7 +63,9 @@ function uniq(arr) {
 // { board, columns, swimlanes, categories, tasks }, each task carrying what
 // getAllSubtasks / getAllComments / getTaskTags / getAllTaskFiles /
 // getAllTaskLinks returned for it. Ids resolve through the sibling arrays so
-// a task with only column_id/swimlane_id/category_id still lands correctly.
+// a task with only column_id/swimlane_id/category_id still lands correctly,
+// and task links resolve through the tasks' own `id`s into parent cards and
+// dependencies.
 const KANBOARD_COLORS = {
   yellow: 'yellow', blue: 'blue', green: 'green', purple: 'purple', red: 'red',
   orange: 'orange', grey: 'gray', brown: 'saddlebrown', deep_orange: 'crimson',
@@ -88,12 +90,139 @@ function kanboardTags(tags) {
   return [];
 }
 
+// Kanboard's built-in link types (app/Schema/Sql: the `links` table), by id
+// and by label. Kanboard stores every link twice, once from each task, the
+// second with the opposite label, so each pair below is one relationship seen
+// from its two ends.
+//   1 relates to             - related-to, both ways
+//   2 blocks / 3 is blocked by
+//   4 duplicates / 5 is duplicated by
+//   6 is a child of / 7 is a parent of   - WeKan's parent card
+//   8 targets milestone / 9 is a milestone of
+//   10 fixes / 11 is fixed by
+const KANBOARD_LINK_IDS = {
+  1: 'relates to', 2: 'blocks', 3: 'is blocked by', 4: 'duplicates', 5: 'is duplicated by',
+  6: 'is a child of', 7: 'is a parent of', 8: 'targets milestone', 9: 'is a milestone of',
+  10: 'fixes', 11: 'is fixed by',
+};
+// label -> how WeKan keeps it. `dependency` is the WeKan dependency type seen
+// from the task the link is listed on; `milestone` has no WeKan equivalent
+// and is kept as related-to, which the loss report says.
+const KANBOARD_LINK_LABELS = {
+  'relates to': { dependency: 'related-to' },
+  blocks: { dependency: 'blocks' },
+  'is blocked by': { dependency: 'is-blocked-by' },
+  duplicates: { dependency: 'duplicates' },
+  'is duplicated by': { dependency: 'is-duplicated-by' },
+  fixes: { dependency: 'fixes' },
+  'is fixed by': { dependency: 'is-fixed-by' },
+  'targets milestone': { dependency: 'related-to', milestone: true },
+  'is a milestone of': { dependency: 'related-to', milestone: true },
+  'is a child of': { parent: 'other' },
+  'is a parent of': { parent: 'this' },
+};
+// The direction-free name of a dependency, so the two rows Kanboard keeps for
+// one link become one WeKan dependency: "A blocks B" and "B is blocked by A"
+// are both blocks:A>B.
+const DEPENDENCY_PAIR = {
+  'related-to': ['related', null], blocks: ['blocks', true], 'is-blocked-by': ['blocks', false],
+  duplicates: ['duplicates', true], 'is-duplicated-by': ['duplicates', false],
+  fixes: ['fixes', true], 'is-fixed-by': ['fixes', false],
+};
+
+const hasId = value => value !== undefined && value !== null && value !== '';
+
+// A task's links, as getAllTaskLinks returns them (an array of rows whose
+// `task_id` is the OTHER task - TaskLinkModel::getAll selects
+// `opposite_task_id AS task_id`), as getTaskLinkById returns one (`task_id`
+// this task, `opposite_task_id` the other, `link_id` the type), or grouped by
+// label as TaskLinkModel::getAllGroupedByLabel returns them, { label: [rows] }.
+function kanboardLinkRows(links) {
+  if (Array.isArray(links)) return links.map((row, index) => ({ row, index }));
+  if (links && typeof links === 'object') {
+    return Object.entries(links).flatMap(([label, rows]) => (Array.isArray(rows) ? rows : [])
+      .map((row, index) => ({ row: row && typeof row === 'object' ? { label, ...row } : row, index: `${label}/${index}` })));
+  }
+  return [];
+}
+
+// Parent links and dependencies from every task's Kanboard links, resolved
+// only between tasks of this file. Returns { parentRefs: Map(index -> ref),
+// dependencies: Map(index -> [{ ref, type }]) } and pushes what is not kept.
+function kanboardLinks(rawTasks, unsupported) {
+  const refs = rawTasks.map(task => (task && hasId(task.id) ? String(task.id) : undefined));
+  const indexOfRef = new Map();
+  refs.forEach((ref, index) => { if (ref !== undefined && !indexOfRef.has(ref)) indexOfRef.set(ref, index); });
+  const parentRefs = new Map();
+  const dependencies = new Map();
+  const seen = new Set();
+  rawTasks.forEach((task, index) => {
+    if (!task || !task.links) return;
+    kanboardLinkRows(task.links).forEach(({ row, index: rowIndex }) => {
+      const path = `/tasks/${index}/links/${rowIndex}`;
+      if (!row || typeof row !== 'object') {
+        unsupported.push({ path, reason: 'not a task link' });
+        return;
+      }
+      const label = String(row.label || KANBOARD_LINK_IDS[Number(row.link_id)] || '').trim().toLowerCase();
+      const kind = KANBOARD_LINK_LABELS[label];
+      if (!kind) {
+        unsupported.push({ path, reason: `link type "${row.label || row.link_id || ''}" has no WeKan equivalent; not imported` });
+        return;
+      }
+      const other = hasId(row.opposite_task_id) ? String(row.opposite_task_id) : hasId(row.task_id) ? String(row.task_id) : undefined;
+      const self = refs[index];
+      if (other === undefined || !indexOfRef.has(other)) {
+        unsupported.push({ path, reason: `linked task ${other === undefined ? '' : `#${other} `}is not part of this import` });
+        return;
+      }
+      if (other === self) return;
+      if (kind.parent) {
+        if (kind.parent === 'this' && self === undefined) {
+          unsupported.push({ path, reason: 'the task has no id, so its child cannot point at it' });
+          return;
+        }
+        const child = kind.parent === 'other' ? index : indexOfRef.get(other);
+        const parent = kind.parent === 'other' ? other : self;
+        if (parentRefs.has(child)) {
+          if (parentRefs.get(child) !== parent) {
+            unsupported.push({ path, reason: 'the child task already has a parent; a WeKan card has only one' });
+          }
+          return;
+        }
+        parentRefs.set(child, parent);
+        return;
+      }
+      // A task without an id cannot be the other end of a row, so its own
+      // position stands in for it.
+      const here = self === undefined ? `@${index}` : self;
+      const [family, forward] = DEPENDENCY_PAIR[kind.dependency];
+      const ends = forward === null ? [here, other].sort() : forward ? [here, other] : [other, here];
+      const key = `${family}:${ends.join('>')}`;
+      if (seen.has(key)) return;
+      seen.add(key);
+      const list = dependencies.get(index) || [];
+      if (list.some(dep => dep.ref === other)) {
+        unsupported.push({ path, reason: 'only one link between the same two tasks is kept' });
+        return;
+      }
+      list.push({ ref: other, type: kind.dependency });
+      dependencies.set(index, list);
+      if (kind.milestone) {
+        unsupported.push({ path, reason: `"${label}" has no WeKan equivalent; imported as "related to"` });
+      }
+    });
+  });
+  return { refs, parentRefs, dependencies };
+}
+
 export function parseKanboard(data) {
   const columnNames = byId(data.columns, ['title', 'name']);
   const swimlaneNames = byId(data.swimlanes, ['name', 'title']);
   const categoryNames = byId(data.categories, ['name']);
   const unsupported = [];
   const rawTasks = Array.isArray(data) ? data : Array.isArray(data.tasks) ? data.tasks : [];
+  const links = kanboardLinks(rawTasks, unsupported);
   const tasks = rawTasks.map((task, index) => {
     const at = `/tasks/${index}`;
     const tags = kanboardTags(task.tags);
@@ -106,18 +235,19 @@ export function parseKanboard(data) {
     if (Number.isFinite(estimated) && estimated > 0) {
       unsupported.push({ path: `${at}/time_estimated`, reason: 'WeKan cards have no estimate field; map it to a custom field by hand' });
     }
-    for (const key of ['files', 'links', 'external_links']) {
-      if (Array.isArray(task[key]) && task[key].length) {
-        unsupported.push({
-          path: `${at}/${key}`,
-          reason: key === 'files'
-            ? `${task[key].length} file(s): the API export carries metadata, not file contents`
-            : `${task[key].length} task link(s) are not imported`,
-        });
-      }
+    if (Array.isArray(task.files) && task.files.length) {
+      unsupported.push({ path: `${at}/files`, reason: `${task.files.length} file(s): the API export carries metadata, not file contents` });
+    }
+    if (Array.isArray(task.external_links) && task.external_links.length) {
+      unsupported.push({ path: `${at}/external_links`, reason: `${task.external_links.length} external link(s) are not imported` });
     }
     const footer = task.url ? `Source: ${task.url}` : '';
+    const parentRef = links.parentRefs.get(index);
+    const dependencies = links.dependencies.get(index);
     return {
+      ...(links.refs[index] !== undefined ? { ref: links.refs[index] } : {}),
+      ...(parentRef !== undefined ? { parent_ref: parentRef } : {}),
+      ...(dependencies ? { dependencies } : {}),
       title: task.title || 'Imported task',
       description: [task.description || '', footer].filter(Boolean).join('\n\n'),
       column_name: task.column_name || task.column_title || columnNames[String(task.column_id)],
@@ -395,6 +525,44 @@ export function parseOpenProject(data) {
 // unchanged): every caller that only reads board/columns/swimlanes/tasks is
 // unaffected, and Problems -> Recovery can still show what a full audit of
 // this parser would otherwise lose silently.
+// An issue's comments, when the export embeds them: `comments_data`, or
+// `comments` itself as an array, of REST comment objects (GitHub's
+// GET /repos/{o}/{r}/issues/{n}/comments and Gitea/Forgejo's equivalent:
+// body, user.login, created_at). Each becomes a card comment, attributed to
+// the mapped user or prefixed with the author's name (importedTaskPlan.js).
+// The API's own `comments` is a COUNT; comments it counts that the file does
+// not carry are reported.
+function issueComments(issue, path, unsupported) {
+  const embeddedKey = Array.isArray(issue.comments_data) ? 'comments_data'
+    : Array.isArray(issue.comments) ? 'comments' : null;
+  const embedded = embeddedKey ? issue[embeddedKey] : [];
+  const comments = [];
+  embedded.forEach((c, index) => {
+    const body = c && typeof c === 'object' && typeof c.body === 'string' ? c.body.trim() : '';
+    if (!body) {
+      unsupported.push({ path: `${path}/${embeddedKey}/${index}`, reason: 'comment has no text; not imported' });
+      return;
+    }
+    const user = (c.user && typeof c.user === 'object' && c.user) || (c.author && typeof c.author === 'object' && c.author) || {};
+    const author = user.login || user.username || user.name
+      || (typeof c.author === 'string' ? c.author : undefined);
+    comments.push({
+      text: body,
+      ...(author ? { author: String(author) } : {}),
+      ...(c.created_at || c.date ? { date: c.created_at || c.date } : {}),
+    });
+  });
+  const counted = Number(issue.comments);
+  if (!Array.isArray(issue.comments) && Number.isFinite(counted) && counted > embedded.length) {
+    const missing = counted - embedded.length;
+    unsupported.push({
+      path: `${path}/comments`,
+      reason: `${missing} comment(s) exist upstream but were not embedded in this export`,
+    });
+  }
+  return comments;
+}
+
 function parseIssuesArray(data, system) {
   const issues = Array.isArray(data) ? data : data.issues || [];
   const unsupported = [];
@@ -423,18 +591,8 @@ function parseIssuesArray(data, system) {
         issue.number != null ? `Source: #${issue.number}` : null,
         issue.html_url || issue.url || null,
       ].filter(Boolean).join(' ');
-      const commentsSection = Array.isArray(issue.comments_data) && issue.comments_data.length
-        ? `\n\nComments:\n${issue.comments_data
-            .map(c => `- ${(c.user && (c.user.login || c.user.name)) || 'unknown'}: ${c.body || ''}`)
-            .join('\n')}`
-        : '';
-      if (issue.comments && !Array.isArray(issue.comments_data) && issue.comments > 0) {
-        unsupported.push({
-          path: `${path}/comments`,
-          reason: `${issue.comments} comment(s) exist upstream but were not embedded in this export`,
-        });
-      }
-      const description = [issue.body || issue.description || '', commentsSection, footer]
+      const comments = issueComments(issue, path, unsupported);
+      const description = [issue.body || issue.description || '', footer]
         .filter(Boolean).join('\n\n').trim();
       return {
         // Sync match key (models/lib/listSyncReconcile.js): the issue number
@@ -456,6 +614,7 @@ function parseIssuesArray(data, system) {
           || (issue.author && (issue.author.login || issue.author.username || issue.author.name))
           || undefined,
         tags,
+        ...(comments.length ? { comments } : {}),
       };
     });
   return {

@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "Plane에서 Workspace Settings를 열고 Exports를 선택하여 프로젝트를 JSON, CSV 또는 Excel로 내보낸 뒤 .zip 파일을 다운로드하세요. 그런 다음 해당 파일이나 그 안의 파일 하나를 선택하거나 JSON 또는 CSV를 붙여넣으세요. 상태는 목록으로, 프로젝트는 스윔레인으로, 이슈는 식별자, 상위 이슈, 담당자, 라벨, 날짜, 링크, 댓글이 포함된 카드로 변환됩니다. 우선순위, 추정치, 주기, 모듈은 사용자 지정 필드가 됩니다. Plane의 내보내기에는 설명과 첨부 파일이 없으므로 이를 가져오지 않습니다.",
   "import-board-instruction-trello": "Trello 게시판에서 'Menu' -> 'More' -> 'Print and Export', 'Export JSON' 선택하여 텍스트 결과값 복사",
   "import-board-instruction-csv": "쉼표로 구분된 값(CSV)/탭으로 구분된 값(TSV) 븥여넣기.",
-  "import-board-instruction-jira": "Jira Cloud REST API 이슈 검색(GET /rest/api/2/search)의 JSON 또는 동등한 { \"issues\": [...] } 객체를 붙여넣으세요. Jira 상태는 목록이 되고 이슈는 카드가 됩니다. 선택적으로 \"automationRules\" 배열을 포함하여 규칙을 가져올 수 있습니다.",
+  "import-board-instruction-jira": "Jira Cloud REST API 이슈 검색(GET /rest/api/3/search/jql)의 JSON 또는 동등한 { \"issues\": [...] } 객체를 붙여넣으세요. Jira 상태는 목록이 되고 이슈는 카드가 됩니다. 선택적으로 \"automationRules\" 배열을 포함하여 규칙을 가져올 수 있습니다.",
   "import-board-instruction-excel": "WeKan 형식의 .xlsx 스프레드시트를 선택하세요 (Excel 내보내기와 동일한 열: Title, Description, Status/List, Members, Labels, 날짜, 사용자 지정 필드). 첫 번째 행은 머리글입니다.",
   "import-excel-file": "Excel 파일 (.xlsx)",
   "import-board-instruction-wekan": "보드에서 '메뉴', '보드 내보내기' 를 실행하고, 다운로드한 파일의 텍스트를 복사합니다.",

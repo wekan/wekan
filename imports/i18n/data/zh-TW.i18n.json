@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
   "import-board-instruction-trello": "在你的 Trello 看板中，點選「功能表」，然後選擇「更多」，「列印與匯出」，「匯出為 JSON」並複製結果文字。",
   "import-board-instruction-csv": "貼上您的 CSV（逗號分隔值）/TSV（Tab 分隔值）資料。",
-  "import-board-instruction-jira": "請貼上來自 Jira Cloud REST API 問題搜尋 (GET /rest/api/2/search) 的 JSON 內容，或等價的 { \"issues\": [...] } 物件。Jira 狀態將轉為清單，問題則轉為卡片。您亦可選擇性地包含一個「automationRules」陣列以匯入規則。",
+  "import-board-instruction-jira": "請貼上來自 Jira Cloud REST API 問題搜尋 (GET /rest/api/3/search/jql) 的 JSON 內容，或等價的 { \"issues\": [...] } 物件。Jira 狀態將轉為清單，問題則轉為卡片。您亦可選擇性地包含一個「automationRules」陣列以匯入規則。",
   "import-board-instruction-excel": "請選擇符合 WeKan 格式的 .xlsx 試算表（欄位與 Excel 匯出檔相同：標題、描述、狀態/清單、成員、標籤、日期、自訂欄位）。第一列為標題列。",
   "import-excel-file": "Excel 檔案 (.xlsx)",
   "import-board-instruction-wekan": "在您的看板，點擊「選單」，然後「匯出看板」，複製下載檔案中的文字。",

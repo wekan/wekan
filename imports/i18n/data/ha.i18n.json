@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
   "import-board-instruction-trello": "A allon Trello, je zuwa 'Menu', sannan 'More', 'Print and Export', 'Export JSON', ka kwafi rubutun da aka samar.",
   "import-board-instruction-csv": "Liƙa Ƙimomi Masu Rabuwar Waƙafi (CSV)/Ƙimomi Masu Rabuwar Tab (TSV).",
-  "import-board-instruction-jira": "Liƙa JSON daga binciken batu na Jira Cloud REST API (GET /rest/api/2/search), ko makamancin abu { \"issues\": [...] }. Matsayin Jira su zama jerin, batutuwa su zama katuna. Za ka iya haɗa jerin \"automationRules\" don shigo da dokoki.",
+  "import-board-instruction-jira": "Liƙa JSON daga binciken batu na Jira Cloud REST API (GET /rest/api/3/search/jql), ko makamancin abu { \"issues\": [...] }. Matsayin Jira su zama jerin, batutuwa su zama katuna. Za ka iya haɗa jerin \"automationRules\" don shigo da dokoki.",
   "import-board-instruction-excel": "Zaɓi takardar .xlsx irin ta WeKan (ginshiƙai iri ɗaya da fitarwar Excel: Take, Bayani, Matsayi/Jeri, Mambobi, Lakabai, kwanakin wata, filaye na musamman). Layi na farko shi ne take.",
   "import-excel-file": "Fayil ɗin Excel (.xlsx)",
   "import-board-instruction-wekan": "A allonka, je zuwa 'Menu', sannan 'Export board', ka kwafi rubutun cikin fayil ɗin da aka sauke.",

@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
   "import-board-instruction-trello": "በTrello ሰሌዳዎ ውስጥ ወደ 'Menu'፣ ከዚያ 'More'፣ 'Print and Export'፣ 'Export JSON' ይሂዱና የተገኘውን ጽሑፍ ይቅዱ።",
   "import-board-instruction-csv": "በነጠላ ሰረዝ የተለዩ እሴቶች (CSV)/በትር የተለዩ እሴቶች (TSV) ይለጥፉ።",
-  "import-board-instruction-jira": "ከJira Cloud REST API የጉዳይ ፍለጋ (GET /rest/api/2/search) የተገኘውን JSON ወይም ተመጣጣኝ { \"issues\": [...] } ነገር ይለጥፉ። የJira ሁኔታዎች ዝርዝሮች ይሆናሉ፣ ጉዳዮችም ካርዶች ይሆናሉ። ደንቦችን ለማስመጣት የ\"automationRules\" ድርድር በአማራጭ ያካትቱ።",
+  "import-board-instruction-jira": "ከJira Cloud REST API የጉዳይ ፍለጋ (GET /rest/api/3/search/jql) የተገኘውን JSON ወይም ተመጣጣኝ { \"issues\": [...] } ነገር ይለጥፉ። የJira ሁኔታዎች ዝርዝሮች ይሆናሉ፣ ጉዳዮችም ካርዶች ይሆናሉ። ደንቦችን ለማስመጣት የ\"automationRules\" ድርድር በአማራጭ ያካትቱ።",
   "import-board-instruction-excel": "የWeKan ቅርጽ ያለው .xlsx ሉህ ይምረጡ (እንደ Excel ወደ ውጭ መላኪያው ተመሳሳይ ዓምዶች፦ Title, Description, Status/List, Members, Labels, dates, custom fields)። የመጀመሪያው ረድፍ ራስጌ ነው።",
   "import-excel-file": "የExcel ፋይል (.xlsx)",
   "import-board-instruction-wekan": "በሰሌዳዎ ውስጥ ወደ 'Menu'፣ ከዚያ 'Export board' ይሂዱና በወረደው ፋይል ያለውን ጽሑፍ ይቅዱ።",

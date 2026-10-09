@@ -230,7 +230,7 @@ const importLiterals = {
   openproject: ['GET /api/v3/work_packages'],
   asana: ['{ "data": [...] }', 'GET /tasks', 'memberships'],
   zenkit: ['{ "title", "stages":[...], "items":[...] }'],
-  jira: ['GET /rest/api/2/search', '{ "issues": [...] }', '"automationRules"'],
+  jira: ['GET /rest/api/3/search/jql', '{ "issues": [...] }', '"automationRules"'],
   markdown: ['## List name', '- [ ]', '- [x]'],
   orgmode: ['TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED'],
   excel: ['.xlsx', 'Title', 'Description', 'Status/List', 'Members', 'Labels'],

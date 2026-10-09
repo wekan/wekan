@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
   "import-board-instruction-trello": "I ka Trello tabali la, taa 'Menu', o kɔ 'More', 'Print and Export', 'Export JSON', ka sɛbɛnni min bɔra, o bɔ kopi.",
   "import-board-instruction-csv": "I ka Comma Separated Values(CSV)/ Tab Separated Values (TSV) nɔrɔ yan.",
-  "import-board-instruction-jira": "Jira Cloud REST API issue search JSON nɔrɔ yan (GET /rest/api/2/search), walima { \"issues\": [...] } fɛn bɛnnen. Jira statuses bɛ kɛ lisitiw ye, issues bɛ kɛ karataw ye. I bɛ se ka \"automationRules\" lisiti fara a kan ka sariyaw ladon.",
+  "import-board-instruction-jira": "Jira Cloud REST API issue search JSON nɔrɔ yan (GET /rest/api/3/search/jql), walima { \"issues\": [...] } fɛn bɛnnen. Jira statuses bɛ kɛ lisitiw ye, issues bɛ kɛ karataw ye. I bɛ se ka \"automationRules\" lisiti fara a kan ka sariyaw ladon.",
   "import-board-instruction-excel": "WeKan cogoya .xlsx tabali sɛbɛn sugandi (columns kelen Excel labɔli ni: Title, Description, Status/List, Members, Labels, dates, custom fields). Sira fɔlɔ ye tɔgɔsiraw ye.",
   "import-excel-file": "Excel dosiye (.xlsx)",
   "import-board-instruction-wekan": "I ka tabali la, taa 'Menu', o kɔ 'Export board', ka sɛbɛnni bɔ kopi dosiye lajiginnen kɔnɔ.",

@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "Di Plane, buka Workspace Settings, pilih Exports, ekspor proyek sebagai JSON, CSV, atau Excel dan unduh berkas .zip, lalu pilih berkas tersebut atau satu berkas di dalamnya, atau tempelkan JSON atau CSV. Status menjadi daftar, proyek menjadi jalur, dan isu menjadi kartu beserta pengenal, isu induk, penerima tugas, label, tanggal, tautan, dan komentar; prioritas, estimasi, siklus, dan modul menjadi bidang khusus. Ekspor Plane tidak memuat deskripsi atau lampiran, sehingga keduanya tidak diimpor.",
   "import-board-instruction-trello": "Di panel Trello anda, ke 'Menu', terus 'More', 'Print and Export','Export JSON', dan salin hasilnya",
   "import-board-instruction-csv": "Tempel Comma Separated Values(CSV)/ Tab Separated Values (TSV) Anda .",
-  "import-board-instruction-jira": "Tempel JSON dari pencarian isu Jira Cloud REST API (GET /rest/api/2/search), atau objek { \"issues\": [...] } yang setara. Status Jira menjadi daftar dan isu menjadi kartu. Secara opsional sertakan array \"automationRules\" untuk mengimpor aturan.",
+  "import-board-instruction-jira": "Tempel JSON dari pencarian isu Jira Cloud REST API (GET /rest/api/3/search/jql), atau objek { \"issues\": [...] } yang setara. Status Jira menjadi daftar dan isu menjadi kartu. Secara opsional sertakan array \"automationRules\" untuk mengimpor aturan.",
   "import-board-instruction-excel": "Pilih spreadsheet .xlsx bergaya WeKan (kolom yang sama dengan ekspor Excel: Title, Description, Status/List, Members, Labels, tanggal, bidang khusus). Baris pertama adalah header.",
   "import-excel-file": "File Excel (.xlsx)",
   "import-board-instruction-wekan": "Di papan Anda, buka 'Menu', lalu 'Ekspor papan', dan salin teks di file yang diunduh.",

@@ -636,7 +636,7 @@ assert.ok(wu["import-board-instruction-kanboard"].includes("swimlane_name"));
 assert.ok(wu["import-board-instruction-kanboard"].includes("date_due"));
 assert.ok(wu["import-board-instruction-kanboard"].includes("owner"));
 assert.ok(wu["import-board-instruction-kanboard"].includes("tags"));
-assert.ok(wu["import-board-instruction-jira"].includes("GET /rest/api/2/search"));
+assert.ok(wu["import-board-instruction-jira"].includes("GET /rest/api/3/search/jql"));
 assert.ok(wu["import-board-instruction-jira"].includes("{ \"issues\": [...] }"));
 assert.ok(wu["import-board-instruction-openproject"].includes("GET /api/v3/work_packages"));
 assert.ok(wu["import-board-instruction-markdown"].includes("## List name"));

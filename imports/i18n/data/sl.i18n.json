@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "V Plane odprite Workspace Settings, izberite Exports, izvozite projekte kot JSON, CSV ali Excel in prenesite datoteko .zip, nato izberite to datoteko ali eno datoteko iz nje, ali prilepite JSON ali CSV. Stanja postanejo seznami, projekti plavalne steze, težave pa kartice z identifikatorjem, nadrejeno težavo, dodeljenimi osebami, oznakami, datumi, povezavami in komentarji; prednost, ocena, cikel in modul postanejo polja po meri. Izvoz iz Plane ne vsebuje opisov ali prilog, zato se ti ne uvozijo.",
   "import-board-instruction-trello": "V vaši Trello tabli pojdite na 'Meni', 'Več', 'Natisni in Izvozi', 'Izvozi JSON', in kopirajte prikazano besedilo.",
   "import-board-instruction-csv": "Prilepite podatke CSV (vrednosti, ločene z vejicami)/TSV (vrednosti, ločene s tabulatorji).",
-  "import-board-instruction-jira": "Prilepite JSON iz iskanja zadev v Jira Cloud REST API (GET /rest/api/2/search) ali enakovreden objekt { \"issues\": [...] }. Statusi Jira postanejo seznami, zadeve pa kartice. Po želji vključite polje »automationRules« za uvoz pravil.",
+  "import-board-instruction-jira": "Prilepite JSON iz iskanja zadev v Jira Cloud REST API (GET /rest/api/3/search/jql) ali enakovreden objekt { \"issues\": [...] }. Statusi Jira postanejo seznami, zadeve pa kartice. Po želji vključite polje »automationRules« za uvoz pravil.",
   "import-board-instruction-excel": "Izberite preglednico .xlsx v slogu WeKan (isti stolpci kot pri izvozu v Excel: Title, Description, Status/List, Members, Labels, datumi, polja po meri). Prva vrstica je glava.",
   "import-excel-file": "Datoteka Excel (.xlsx)",
   "import-board-instruction-wekan": "V vaši tabli pojdite na 'Meni', 'Izvozi tablo' in kopirajte besedilo iz prenesene datoteke.",

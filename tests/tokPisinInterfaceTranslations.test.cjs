@@ -1004,7 +1004,7 @@ test('Tok Pisin external export instructions retain actual menu names and API pa
  const keys=['import-board-instruction-trello','import-board-instruction-jira','import-board-instruction-wekan','import-trello-json-file-hint','import-trello-zip-file-hint','import-trello-zip-no-boards','import-trello-failed'];
  for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
  for(const literal of ['Menu','More','Print and Export','Export JSON']) assert.ok(data['import-board-instruction-trello'].includes(literal));
- for(const literal of ['GET /rest/api/2/search','"issues"','"automationRules"']) assert.ok(data['import-board-instruction-jira'].includes(literal));
+ for(const literal of ['GET /rest/api/3/search/jql','"issues"','"automationRules"']) assert.ok(data['import-board-instruction-jira'].includes(literal));
  assert.doesNotMatch(data['import-board-instruction-jira'],/\/api\/2\/painim/);
  assert.ok(data['import-board-instruction-wekan'].includes(data['export-board']));
  assert.match(data['import-trello-json-file-hint'],/Sapos.*ki na token.*tu bai kam daun/);

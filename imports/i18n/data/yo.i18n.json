@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
   "import-board-instruction-trello": "Ninu igbimọ Trello rẹ, lọ si 'Akojọ aṣyn', lẹhinna 'Die sii', 'Tẹjade ati Si ilẹ okeere', 'Jade okeere', ki o daakọ ọrọ ti o yọrisi.",
   "import-board-instruction-csv": "Lẹẹmọ sinu Awọn iye Iyasọtọ Koma (CSV)/ Awọn iye Iyasọtọ Taabu (TSV) .",
-  "import-board-instruction-jira": "Lẹẹmọ JSON lati Jira Cloud REST API issue search (GET /rest/api/2/search), tabi ohun kan { \"issues\": [...] } ti o dọgba. Awọn ipo Jira di awọn atokọ ati awọn ọran di awọn kaadi. Ni yiyan fi akojọ \"automationRules\" kun lati gbe awọn ofin wọle.",
+  "import-board-instruction-jira": "Lẹẹmọ JSON lati Jira Cloud REST API issue search (GET /rest/api/3/search/jql), tabi ohun kan { \"issues\": [...] } ti o dọgba. Awọn ipo Jira di awọn atokọ ati awọn ọran di awọn kaadi. Ni yiyan fi akojọ \"automationRules\" kun lati gbe awọn ofin wọle.",
   "import-board-instruction-excel": "Yan iwe kaunti .xlsx aṣa WeKan (awọn ọwọn kanna bi gbejade Excel: Title, Description, Status/List, Members, Labels, awọn ọjọ, awọn aaye aṣa). Ori akọkọ ni ori.",
   "import-excel-file": "Faili Excel (.xlsx)",
   "import-board-instruction-wekan": "Ninu igbimọ rẹ, lọ si 'Akojọ aṣyn', lẹhinna 'Igbimọ okeere', ki o daakọ ọrọ naa sinu faili ti a gbasile.",

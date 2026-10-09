@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
   "import-board-instruction-trello": "Á Trello-töflunni skaltu fara í „Menu“, síðan „More“, „Print and Export“, „Export JSON“ og afrita textann sem birtist.",
   "import-board-instruction-csv": "Límdu inn gildi aðskilin með kommum (CSV)/gildi aðskilin með dálklyklum (TSV).",
-  "import-board-instruction-jira": "Límdu inn JSON úr málaleit Jira Cloud REST API (GET /rest/api/2/search), eða samsvarandi hlut { \"issues\": [...] }. Jira-stöður verða að listum og mál að spjöldum. Valfrjálst er að hafa „automationRules“-fylki með til að flytja inn reglur.",
+  "import-board-instruction-jira": "Límdu inn JSON úr málaleit Jira Cloud REST API (GET /rest/api/3/search/jql), eða samsvarandi hlut { \"issues\": [...] }. Jira-stöður verða að listum og mál að spjöldum. Valfrjálst er að hafa „automationRules“-fylki með til að flytja inn reglur.",
   "import-board-instruction-excel": "Veldu .xlsx-töflureikni á WeKan-sniði (sömu dálkar og í Excel-útflutningi: Title, Description, Status/List, Members, Labels, dagsetningar, sérsniðnir reitir). Fyrsta röðin er fyrirsögn.",
   "import-excel-file": "Excel-skrá (.xlsx)",
   "import-board-instruction-wekan": "Á töflunni skaltu fara í „Valmynd“, síðan „Flytja töflu út“ og afrita textann úr sóttu skránni.",

@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
   "import-board-instruction-trello": "בלוח הטרלו שלך, עליך ללחוץ על ‚תפריט‘, ואז על ‚עוד‘, ‚הדפסה וייצוא‘, ‚יצוא JSON‘ ולהעתיק את הטקסט שנוצר.",
   "import-board-instruction-csv": "נא להדביק את הערכים מופרדים בפסיקים (CSV)/ערכים מופרדים בטאבים (TSV) שלך.",
-  "import-board-instruction-jira": "יש להדביק את ה־JSON מחיפוש issues ב־Jira Cloud REST API ‏(GET /rest/api/2/search), או אובייקט { \"issues\": [...] } שווה ערך. סטטוסים של Jira הופכים לרשימות וה־issues הופכים לכרטיסים. אפשר לכלול גם מערך \"automationRules\" כדי לייבא כללים.",
+  "import-board-instruction-jira": "יש להדביק את ה־JSON מחיפוש issues ב־Jira Cloud REST API ‏(GET /rest/api/3/search/jql), או אובייקט { \"issues\": [...] } שווה ערך. סטטוסים של Jira הופכים לרשימות וה־issues הופכים לכרטיסים. אפשר לכלול גם מערך \"automationRules\" כדי לייבא כללים.",
   "import-board-instruction-excel": "יש לבחור גיליון ‎.xlsx בסגנון WeKan (אותן עמודות כמו ייצוא Excel: Title, Description, Status/List, Members, Labels, תאריכים, שדות מותאמים אישית). השורה הראשונה היא הכותרת.",
   "import-excel-file": "קובץ Excel ‏(‎.xlsx)",
   "import-board-instruction-wekan": "בלוח שלך עליך לגשת אל ‚תפריט’, לאחר מכן ‚ייצוא לוח’ ואז להעתיק את הטקסט מהקובץ שהתקבל.",

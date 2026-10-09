@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
   "import-board-instruction-trello": "នៅក្នុងបន្ទះ Trello របស់អ្នក សូមចូលទៅកាន់ 'Menu' បន្ទាប់មក 'More', 'Print and Export', 'Export JSON' ហើយចម្លងអត្ថបទលទ្ធផល។",
   "import-board-instruction-csv": "បិទភ្ជាប់ក្នុងតម្លៃបំបែកដោយសញ្ញាក្បៀស (CSV)/Tab Separated Values ​​(TSV) របស់អ្នក។",
-  "import-board-instruction-jira": "បិទភ្ជាប់ JSON ពី Jira Cloud REST API issue search (GET /rest/api/2/search) ឬវត្ថុ { \"issues\": [...] } ដែលស្មើគ្នា។ Jira statuses ក្លាយជាបញ្ជី ហើយ issues ក្លាយជាកាត។ តាមជម្រើស អាចរួមបញ្ចូល \"automationRules\" array ដើម្បីនាំចូលច្បាប់។",
+  "import-board-instruction-jira": "បិទភ្ជាប់ JSON ពី Jira Cloud REST API issue search (GET /rest/api/3/search/jql) ឬវត្ថុ { \"issues\": [...] } ដែលស្មើគ្នា។ Jira statuses ក្លាយជាបញ្ជី ហើយ issues ក្លាយជាកាត។ តាមជម្រើស អាចរួមបញ្ចូល \"automationRules\" array ដើម្បីនាំចូលច្បាប់។",
   "import-board-instruction-excel": "ជ្រើសរើសសៀវភៅបញ្ជីរចនាបថ WeKan .xlsx (columns ដូចគ្នានឹង Excel export៖ Title, Description, Status/List, Members, Labels, dates, custom fields)។ ជួរដេកទីមួយគឺជាបឋមកថា។",
   "import-excel-file": "ឯកសារ Excel (.xlsx)",
   "import-board-instruction-wekan": "នៅក្នុងក្តាររបស់អ្នក សូមចូលទៅកាន់ 'ម៉ឺនុយ' បន្ទាប់មក 'Export board' ហើយចម្លងអត្ថបទនៅក្នុងឯកសារដែលបានទាញយក។",

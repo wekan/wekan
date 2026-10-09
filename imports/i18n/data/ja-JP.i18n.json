@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "Plane で Workspace Settings を開き、Exports を選択して、プロジェクトを JSON、CSV、Excel のいずれかでエクスポートし、.zip ファイルをダウンロードします。そのファイルや中のファイルを1つ選ぶか、JSON または CSV を貼り付けてください。状態はリストに、プロジェクトはスイムレーンに、課題は識別子、親課題、担当者、ラベル、日付、リンク、コメントを含むカードに変換されます。優先度、見積もり、サイクル、モジュールはカスタムフィールドになります。Plane のエクスポートには説明と添付ファイルが含まれないため、これらはインポートされません。",
   "import-board-instruction-trello": "Trelloボードの、 'Menu' → 'More' → 'Print and Export' → 'Export JSON'を選択し、テキストをコピーしてください。",
   "import-board-instruction-csv": "カンマ区切り（CSV） / タブ区切り（TSV） ファイルに貼り付けてください。",
-  "import-board-instruction-jira": "Jira Cloud REST API の issue 検索(GET /rest/api/2/search)の JSON、または同等の { \"issues\": [...] } オブジェクトを貼り付けてください。Jira のステータスはリストに、Issue はカードになります。任意で「automationRules」配列を含めるとルールもインポートされます。",
+  "import-board-instruction-jira": "Jira Cloud REST API の issue 検索(GET /rest/api/3/search/jql)の JSON、または同等の { \"issues\": [...] } オブジェクトを貼り付けてください。Jira のステータスはリストに、Issue はカードになります。任意で「automationRules」配列を含めるとルールもインポートされます。",
   "import-board-instruction-excel": "WeKan 形式の .xlsx スプレッドシート(Excel エクスポートと同じ列: Title、Description、Status/List、Members、Labels、日付、カスタムフィールド)を選択してください。1 行目はヘッダーです。",
   "import-excel-file": "Excel ファイル(.xlsx)",
   "import-board-instruction-wekan": "ボードの、 'メニュー' → 'ボードのエクスポート'を選択し、ダウンロードされたファイルの中のテキストをコピーしてください。",

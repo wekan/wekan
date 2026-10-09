@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
   "import-board-instruction-trello": "N'ime bọọdụ Trello gị, gaa na 'NchNhr', wee 'Ọzọ', 'Bipụta na Mbupụ', 'Bupụ JSON', ma detuo ederede ga-apụta.",
   "import-board-instruction-csv": "Tapawa n'ụkpụrụ nkewa nkewa (CSV)/ Tab kewara uru (TSV) .",
-  "import-board-instruction-jira": "Mado JSON site na Jira Cloud REST API issue search (GET /rest/api/2/search), ma ọ bụ ihe { \"issues\": [...] } dabara ya. Statuses Jira na-aghọ ndepụta, issues na-aghọ kaadị. Na nhọrọ, tinye uju \"automationRules\" iji bubata iwu.",
+  "import-board-instruction-jira": "Mado JSON site na Jira Cloud REST API issue search (GET /rest/api/3/search/jql), ma ọ bụ ihe { \"issues\": [...] } dabara ya. Statuses Jira na-aghọ ndepụta, issues na-aghọ kaadị. Na nhọrọ, tinye uju \"automationRules\" iji bubata iwu.",
   "import-board-instruction-excel": "Họrọ uju .xlsx ụdị WeKan (otu column dị ka mbupụ Excel: Title, Description, Status/List, Members, Labels, ụbọchị, ubi omenka). Ahịrị mbụ bụ isi.",
   "import-excel-file": "Faịlụ Excel (.xlsx)",
   "import-board-instruction-wekan": "N'ime bọọdụ gị, gaa na 'NchNhr', wee 'Export Board', ma detuo ederede na faịlụ ebudatara.",

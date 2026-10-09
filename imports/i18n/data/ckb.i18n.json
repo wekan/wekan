@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
   "import-board-instruction-trello": "لە تەختەی Trello، بچۆ بۆ 'Menu'، پاشان 'More'، 'Print and Export'، 'Export JSON' و دەقە ئەنجامدراوەکە کۆپی بکە.",
   "import-board-instruction-csv": "بەها جیاکراوەکان بە کۆما (CSV) / بەها جیاکراوەکان بە تاب (TSV) دابنێ.",
-  "import-board-instruction-jira": "JSONی گەڕانی کێشەی Jira Cloud REST API دابنێ (GET /rest/api/2/search)، یان ئۆبجێکتێکی هاوتای { \"issues\": [...] }. دۆخەکانی Jira دەبنە لیست و کێشەکان دەبنە کارت. بە ئارەزوو ڕیزبەندی \"automationRules\" زیاد بکە بۆ هاوردەکردنی یاساکان.",
+  "import-board-instruction-jira": "JSONی گەڕانی کێشەی Jira Cloud REST API دابنێ (GET /rest/api/3/search/jql)، یان ئۆبجێکتێکی هاوتای { \"issues\": [...] }. دۆخەکانی Jira دەبنە لیست و کێشەکان دەبنە کارت. بە ئارەزوو ڕیزبەندی \"automationRules\" زیاد بکە بۆ هاوردەکردنی یاساکان.",
   "import-board-instruction-excel": "خشتەیەکی .xlsx بە شێوازی WeKan هەڵبژێرە (هەمان ستوونەکانی هەناردەی Excel: Title, Description, Status/List, Members, Labels, dates, custom fields). ڕیزی یەکەم سەرپەڕەیە.",
   "import-excel-file": "فایلی Excel (.xlsx)",
   "import-board-instruction-wekan": "لە تەختەکەت بچۆ بۆ 'Menu'، پاشان 'Export board' و دەقی ناو فایلە داگیراوەکە کۆپی بکە.",

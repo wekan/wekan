@@ -311,7 +311,7 @@ test('Akan import and filter instructions preserve machine-readable examples', a
   'import-board-instruction-kanboard':['Kanboard','"columns"','"tasks"','title, description, column_name, swimlane_name, date_due, owner, tags'],
   'import-board-instruction-asana':['{ "data": [...] }','GET /tasks','memberships','Done'],
   'import-board-instruction-zenkit':['{ "title", "stages":[...], "items":[...] }'],
-  'import-board-instruction-jira':['GET /rest/api/2/search','{ "issues": [...] }','"automationRules"'],
+  'import-board-instruction-jira':['GET /rest/api/3/search/jql','{ "issues": [...] }','"automationRules"'],
   'import-board-instruction-excel':['.xlsx','Title, Description, Status/List, Members, Labels'],
   'import-trello-zip-file-hint':['.zip','.json','Trello Card Attachments Downloader'],
   'advanced-filter-description':['== != <= >= && || ( )','Field1 == Value1',"'Field 1' == 'Value 1'",'F1 == V1 || F1 == V2','F1 == V1 && ( F2 == V2 || F2 == V3 )','F1 == /Tes.*/i'],

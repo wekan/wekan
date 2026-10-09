@@ -15,7 +15,8 @@ const literals = {
   kanboard: ['columns', 'tasks', 'title', 'description', 'column_name', 'swimlane_name', 'date_due', 'owner', 'tags'],
   deck: ['stacks', 'cards'],
   zenkit: ['title', 'stages', 'items'],
-  jira: ['GET /rest/api/2/search', 'issues', 'automationRules'],
+  // Jira's current search (the older /rest/api/2/search was removed by Atlassian).
+  jira: ['GET /rest/api/3/search/jql', 'issues', 'automationRules'],
 };
 // Surrounding typography is language-specific; identifier spelling and case are not.
 function containsLiteral(text, literal) {
@@ -28,7 +29,7 @@ assert.equal(containsLiteral('« cards »', 'cards'), true);
 for (const bad of ['cardz', 'CardS', 'mycards', 'cards_name']) {
   assert.equal(containsLiteral(bad, 'cards'), false, bad);
 }
-assert.equal(containsLiteral('GET /rest/api/2/lukaotem', 'GET /rest/api/2/search'), false);
+assert.equal(containsLiteral('GET /rest/api/3/lukaotem/jql', 'GET /rest/api/3/search/jql'), false);
 // Names inside prose may have grammatical prefixes/suffixes. todo.txt and
 // its marked fields remain exact substrings, without requiring English spacing.
 function containsFormatLiteral(format, text, literal) {

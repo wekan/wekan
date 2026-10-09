@@ -1708,3 +1708,62 @@ for (const language of ['ary', 'ckb', 'ku', 'bho', 'mai', 'or_IN', 'kok', 'tk_TM
     } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
   });
 }
+
+test('kanboard: task links import as a parent card and one dependency per link', async ({ loggedInPage: page }) => {
+  // Kanboard keeps each link from both tasks; getAllTaskLinks lists the
+  // OTHER task as task_id. Both rows of a link make one parent or dependency.
+  const doc = {
+    board: { name: 'Kanboard links' },
+    columns: [{ id: 1, title: 'Backlog' }],
+    tasks: [
+      { id: 1, title: 'Kanboard epic', column_id: 1, links: [
+        { id: 1, task_id: 2, label: 'is a parent of' }, { id: 3, task_id: 3, label: 'blocks' }] },
+      { id: 2, title: 'Kanboard story', column_id: 1, links: [{ id: 2, task_id: 1, label: 'is a child of' }] },
+      { id: 3, title: 'Kanboard blocked', column_id: 1, links: [
+        { id: 4, task_id: 1, label: 'is blocked by' }, { id: 5, task_id: 404, label: 'relates to' }] },
+    ],
+  };
+  let boardId;
+  try {
+    await navigateInApp(page, '/import/kanboard');
+    await page.locator('#import-textarea').fill(JSON.stringify(doc));
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    const card = title => db.findOne('cards', { boardId, title });
+    const [epic, story, blocked] = ['Kanboard epic', 'Kanboard story', 'Kanboard blocked'].map(card);
+    expect(story.parentId).toBe(epic._id);
+    expect(epic.parentId || '').toBe('');
+    expect(blocked.parentId || '').toBe('');
+    expect(epic.cardDependencies.map(d => [d.cardId, d.type])).toEqual([[blocked._id, 'blocks']]);
+    expect(blocked.cardDependencies || []).toEqual([]);
+    expect(story.cardDependencies || []).toEqual([]);
+    // The link to task 404, which is not in the file, is in the loss report.
+    const events = db.find('recoveryEvents', { boardIds: boardId });
+    expect(events.map(e => e.detail).join('\n')).toContain('/tasks/2/links/1');
+    await expect(page.locator('.minicard')).toHaveCount(3);
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});
+
+test('github: an embedded issue comment becomes a card comment, not description text', async ({ loggedInPage: page }) => {
+  const issues = [{
+    number: 5, title: 'GitHub commented issue', body: 'Issue body only', state: 'open', comments: 1,
+    comments_data: [{ id: 50, body: 'Embedded GitHub reply', user: { login: 'gh-commenter' }, created_at: '2026-09-02T10:00:00Z' }],
+  }];
+  let boardId;
+  try {
+    await navigateInApp(page, '/import/github');
+    await page.locator('#import-textarea').fill(JSON.stringify(issues));
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    const card = db.findOne('cards', { boardId, title: 'GitHub commented issue' });
+    expect(card.description).not.toContain('Embedded GitHub reply');
+    expect(card.description).toContain('Issue body only');
+    const comments = db.find('card_comments', { boardId });
+    expect(comments.map(c => [c.text, c.cardId])).toEqual([['gh-commenter: Embedded GitHub reply', card._id]]);
+    expect(new Date(comments[0].createdAt).toISOString()).toBe('2026-09-02T10:00:00.000Z');
+    await page.locator('.minicard .minicard-title').first().click();
+    await expect(page.locator('.comment-text').first()).toContainText('Embedded GitHub reply');
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});

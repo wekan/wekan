@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
   "import-board-instruction-trello": "আপোনাৰ Trello ব'ৰ্ডত 'Menu', তাৰ পিছত 'More', 'Print and Export', 'Export JSON' লৈ গৈ পোৱা পাঠ প্ৰতিলিপি কৰক।",
   "import-board-instruction-csv": "আপোনাৰ কমাৰে পৃথক কৰা মান (CSV)/ টেবে পৃথক কৰা মান (TSV) পেষ্ট কৰক।",
-  "import-board-instruction-jira": "Jira Cloud REST API issue search (GET /rest/api/2/search) ৰ JSON বা সমতুল্য { \"issues\": [...] } অবজেক্ট পেষ্ট কৰক। Jira statuses তালিকা আৰু issues কাৰ্ড হয়। নিয়ম আমদানি কৰিবলৈ ইচ্ছা কৰিলে এটা \"automationRules\" এৰে অন্তৰ্ভুক্ত কৰক।",
+  "import-board-instruction-jira": "Jira Cloud REST API issue search (GET /rest/api/3/search/jql) ৰ JSON বা সমতুল্য { \"issues\": [...] } অবজেক্ট পেষ্ট কৰক। Jira statuses তালিকা আৰু issues কাৰ্ড হয়। নিয়ম আমদানি কৰিবলৈ ইচ্ছা কৰিলে এটা \"automationRules\" এৰে অন্তৰ্ভুক্ত কৰক।",
   "import-board-instruction-excel": "WeKan-শৈলীৰ .xlsx স্প্ৰেডশ্বীট বাছক (Excel ৰপ্তানিৰ একে স্তম্ভ: Title, Description, Status/List, Members, Labels, dates, custom fields)। প্ৰথম শাৰীটো শীৰ্ষক।",
   "import-excel-file": "Excel ফাইল (.xlsx)",
   "import-board-instruction-wekan": "আপোনাৰ ব'ৰ্ডত 'Menu', তাৰ পিছত 'Export board' লৈ গৈ ডাউনল'ড কৰা ফাইলৰ পাঠ প্ৰতিলিপি কৰক।",

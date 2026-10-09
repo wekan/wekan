@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
   "import-board-instruction-trello": "پننِس Trello بورڈس منٛز 'Menu'، پتہٕ 'More'، 'Print and Export'، 'Export JSON' کُن گژھیو تہٕ نتیجہٕ متن نقل کریو۔",
   "import-board-instruction-csv": "پنُن کاما سٕتۍ الگ قیمت (CSV) / ٹیب سٕتۍ الگ قیمت (TSV) یَتھ چسپاں کریو۔",
-  "import-board-instruction-jira": "Jira Cloud REST API مسئلہٕ تلاش (GET /rest/api/2/search) پؠٹھ JSON، یا ہمان { \"issues\": [...] } آبجیکٹ چسپاں کریو۔ Jira حالتہٕ گژھن فہرستہٕ تہٕ مسئلہٕ گژھن کارڈ۔ اصول درآمد کرنہٕ خٲطرٕ اختیاری \"automationRules\" ایرے شامل کریو۔",
+  "import-board-instruction-jira": "Jira Cloud REST API مسئلہٕ تلاش (GET /rest/api/3/search/jql) پؠٹھ JSON، یا ہمان { \"issues\": [...] } آبجیکٹ چسپاں کریو۔ Jira حالتہٕ گژھن فہرستہٕ تہٕ مسئلہٕ گژھن کارڈ۔ اصول درآمد کرنہٕ خٲطرٕ اختیاری \"automationRules\" ایرے شامل کریو۔",
   "import-board-instruction-excel": "WeKan طرزُک .xlsx سپریڈ شیٹ ژٲریو (Excel برآمد ہندۍ ہمان کالم: عنوان، تفصیل، حالت/فہرست، ممبر، لیبل، تٲریخہٕ، مخصوص خانہٕ)۔ گوڈنِچ قطار چھِ سرخی۔",
   "import-excel-file": "Excel فائل (.xlsx)",
   "import-board-instruction-wekan": "پننِس بورڈس منٛز 'Menu'، پتہٕ 'Export board' کُن گژھیو تہٕ ڈاؤن لوڈ شُدٕ فائل منٛز متن نقل کریو۔",

@@ -812,7 +812,7 @@
   "import-board-instruction-plane": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
   "import-board-instruction-trello": "Na zvém Trello tablu, otevři 'Menu', pak 'More', 'Print and Export', 'Export JSON', a zkopíruj výzledný text",
   "import-board-instruction-csv": "Vložit do wašeho Comma Separated Valuez (CSV)/ Tab Separated Valuez (TSV).",
-  "import-board-instruction-jira": "Vložte JSON z Jira Cloud REST API vyhledávání izzuez (GET /rest/api/2/search) abo ekvivalentní objekt { \"issues\": [...] }. Stavy Jira ze zthaju lizćiny a izzuez kartami. Volitelně zahrňte pole „automationRules“ za import pravidel.",
+  "import-board-instruction-jira": "Vložte JSON z Jira Cloud REST API vyhledávání izzuez (GET /rest/api/3/search/jql) abo ekvivalentní objekt { \"issues\": [...] }. Stavy Jira ze zthaju lizćiny a izzuez kartami. Volitelně zahrňte pole „automationRules“ za import pravidel.",
   "import-board-instruction-excel": "Vyberte tabulku .xlzx ve ztylu WeKan (ztejné zloupce jako export do Excelu: Title, Dezcription, Statuz/Lizt, Memberz, Labelz, data, vlaztní pole). První řádek je záhlaví.",
   "import-excel-file": "Soubor Excel (.xlzx)",
   "import-board-instruction-wekan": "Ve wašem tablu jděte do 'Menu', klikněte na 'Exportovat tablo' a zkopírujte text ze ztaženého zouboru.",
