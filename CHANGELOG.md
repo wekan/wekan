@@ -672,6 +672,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3a759d0927">Translate Xhosa Blockly input and accessibility labels</a>. Thanks to xet7.</summary>
+
+Fill 40 Xhosa input, keyboard help and accessibility labels. Tests retain
+variables and distinguish actions, positions and division operands. Both targeted
+suites and all 21 preservation checks pass. Specialized wording needs speaker
+review; browser execution and remaining translations are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1210db0bbc">Translate Xhosa Blockly conditions and editor actions</a>. Thanks to xet7.</summary>
 
 Fill 45 Xhosa messages for conditions, loops, editor actions and bitmap labels.
