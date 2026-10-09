@@ -672,6 +672,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/597a6a5ff4">Complete Xhosa Blockly text and workspace translations</a>. Thanks to xet7.</summary>
+
+Fill the remaining 70 Xhosa Blockly messages. Tests preserve count/search
+variables, composed-message whitespace and keyboard labels. Both targeted suites
+and all 21 preservation checks pass. Import instructions remain untranslated;
+specialized wording needs speaker review and browser execution is outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/200611eaac">Translate Xhosa Blockly shortcuts and text controls</a>. Thanks to xet7.</summary>
 
 Fill 40 Xhosa shortcut and text-control messages. Tests preserve variables,
