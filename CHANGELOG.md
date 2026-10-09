@@ -90,21 +90,22 @@ Status checked on 2026-10-09. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **32,095 untranslated locale/string values in 46 languages**.
+  report counts **31,151 untranslated locale/string values in 44 languages**.
   It excludes **271 source keys tracked separately as pending Transifex**.
   A separate short-prose audit flags 1,751 candidates across 185 locales;
   shared native words may equal English, so these require individual review.
   Exact Blockly OS brands and compact math/code symbols no longer inflate
   the prose backlog. Counts are a snapshot; they do not establish the quality
   or language of other values.
-  After the Zulu logic batch, all 333 suites selected by the translation,
-  placeholder, language and completion filename filters passed in 128 seconds.
-  The subsequent Zulu procedure batch passed both targeted suites and all 21
-  preservation checks. Empty fill lists do not establish linguistic completeness
-  or fluency.
+  After the Zulu fill, the broad run completed 333 suites in 128 seconds:
+  332 passed and one found a stale README coverage count. Correcting 188 to
+  the measured 190 catalogs over 90% non-English text fixed that suite; all
+  six language-wiring checks then passed. Three targeted suites and all 21
+  preservation checks pass. Both Zulu fill lists are empty, which does not
+  establish linguistic completeness or fluency.
 - Placeholder inventories match English across all 246 locale paths. Fill now
   rejects damaged token batches before writing. Both card-field visibility
-  keys are translated in 175 non-English paths; 59 paths still need them.
+  keys are translated in 180 non-English paths; 54 paths still need them.
   Catalog key order, all 321 translation/i18n suites and 21 human-preference
   checks pass. Browser execution and the remaining translation work are open.
 - The 13 activity-notification preference keys have no empty or exact
@@ -669,6 +670,17 @@ rather than guessed at. Plane has no file import to export to.
 and improves translations:
 
 **Translations** - continued language coverage and corrections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f2f8c08caa">Complete current Zulu fill and refresh coverage count</a>. Thanks to xet7.</summary>
+
+Translate keyboard labels while retaining key legends, correct the monday.com
+possessive and verify both Zulu fill lists are empty. Three targeted suites and
+21 preservation checks pass. The broad run found one stale README count among
+333 suites; update it to 190 and verify the failing suite passes. Refresh TODO
+backlog counts. Language quality, browser review and other locales remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/956932e01a">Translate final Zulu import instruction group</a>. Thanks to xet7.</summary>
