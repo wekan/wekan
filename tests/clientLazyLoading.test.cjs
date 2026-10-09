@@ -31,7 +31,9 @@ assert.doesNotMatch(`${uploads}\n${attachments}`, /from ['"]bson['"]/,
   'attachment UI does not load BSON merely to create or display an id');
 assert.doesNotMatch(trelloZip, /jszip|JSZip/i,
   'Trello import shares the existing streaming server ZIP reader');
-assert.match(trelloZip, /unzipper\.Open\.buffer\(buffer\)/,
+// The upload is written to a temporary file and opened from there, so the
+// package is not held in memory.
+assert.match(trelloZip, /unzipper\.Open\.file\(zipPath\)/,
   'Trello ZIP metadata and entries use the common server reader');
 
 console.log('clientLazyLoading: HTML export and its ZIP writer are action-loaded');

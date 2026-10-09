@@ -17,7 +17,7 @@ const path = require('node:path');
 
 const ROOT = path.join(__dirname, '..');
 const read = file => fs.readFileSync(path.join(ROOT, file), 'utf8');
-const { declaredZipEntrySize, readZipEntryBounded } = require('../server/lib/boundedZipEntry');
+const { declaredZipEntrySize, readZipEntryBounded, boundedZipEntryStream } = require('../server/lib/boundedZipEntry');
 
 async function bomb(bytes) {
   const { ZipArchive } = require(path.join(ROOT, 'node_modules', 'archiver'));
@@ -58,10 +58,35 @@ test('the reported shape: the declared size lives on the entry, not entry.vars',
   }
 });
 
+test('a streamed entry is bounded like a read one, without being held', async () => {
+  const { file, dir } = await bomb(8 * 1024 * 1024);
+  try {
+    const unzipper = require(path.join(ROOT, 'node_modules', 'unzipper'));
+    const drain = stream => new Promise((resolve, reject) => {
+      let n = 0;
+      stream.on('data', chunk => { n += chunk.length; });
+      stream.on('end', () => resolve(n));
+      stream.on('error', reject);
+    });
+    const [entry] = (await unzipper.Open.file(file)).files;
+    assert.equal(await drain(boundedZipEntryStream(entry, 16 * 1024 * 1024)), 8 * 1024 * 1024);
+    await assert.rejects(drain(boundedZipEntryStream(entry, 1024 * 1024)), /zip-entry-too-large/);
+    const budget = { remaining: 4 * 1024 * 1024 };
+    await assert.rejects(drain(boundedZipEntryStream(entry, 16 * 1024 * 1024, budget)), /zip-too-large/,
+      'the shared budget of everything inflated holds for streams too');
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test('both imports read entries only through the bounded reader', () => {
   const trello = read('server/routes/importTrelloZip.js');
   assert.match(trello, /const declared = declaredZipEntrySize\(entry\);/);
-  assert.equal((trello.match(/readZipEntryBounded\(/g) || []).length, 2);
+  // The board JSON files are read bounded; the attachments stream bounded,
+  // through the same budget, and nothing opens an entry's stream unbounded.
+  assert.equal((trello.match(/readZipEntryBounded\(/g) || []).length, 1);
+  assert.match(trello, /boundedZipEntryStream\(cand\.entry, MAX_FILE_BYTES, inflated\)/);
+  assert.doesNotMatch(trello, /\.entry\.stream\(\)|unzipper\.Open\.buffer/);
   assert.match(read('models/importZip.js'), /readZipEntryBounded\(documentEntry, MAX_IMPORT_DOCUMENT_BYTES\)/);
 });
 

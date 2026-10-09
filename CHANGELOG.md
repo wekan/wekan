@@ -462,8 +462,6 @@ this list when it streams.
   256 MB a file (server/trelloApiImport.js).
 - Cloning a board builds its whole export, every attachment as base64
   (cloneBoard, models/exporter.js build).
-- The Trello .zip import reads the whole upload into memory, up to its 200 MB
-  cap, and each attachment up to 100 MB (server/routes/importTrelloZip.js).
 - Export all boards as WeKan JSON holds each board's attachments as base64
   while it writes that board (server/routes/exportAllBoards.js).
 

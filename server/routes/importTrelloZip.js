@@ -1,5 +1,5 @@
 import { WebApp } from 'meteor/webapp';
-const { declaredZipEntrySize, readZipEntryBounded } = require('/server/lib/boundedZipEntry');
+const { declaredZipEntrySize, readZipEntryBounded, boundedZipEntryStream } = require('/server/lib/boundedZipEntry');
 import { Meteor } from 'meteor/meteor';
 import { DDP } from 'meteor/ddp';
 import { TrelloCreator } from '/models/trelloCreator';
@@ -19,8 +19,9 @@ import {
 // Attachments Downloader. The browser POSTs the raw .zip over HTTP (not over the
 // DDP WebSocket — embedding attachment bytes in a Meteor method overflows the
 // WebSocket frame, kills the connection and makes Meteor retry forever). Here we
-// extract the zip with zip-bomb guards and stream each attachment straight into
-// the Default storage via the existing TrelloCreator writeAsync path.
+// write the upload to a temporary file, open the zip from there with zip-bomb
+// guards, and stream each attachment from it into the Default storage - the
+// guards count what streams, so nothing is held in memory but the board JSON.
 
 // --- zip-bomb / abuse guards -------------------------------------------------
 const MAX_ZIP_BYTES = 200 * 1024 * 1024; // 200 MB compressed upload cap
@@ -172,10 +173,10 @@ async function importSingleBoard(payload, userId) {
   return { boardIds: boardId ? [boardId] : [] };
 }
 
-// Read and import every board in the zip buffer, returning { boardIds, errors }.
-async function importZipBuffer(buffer, userId) {
+// Read and import every board in the zip file, returning { boardIds, errors }.
+async function importZipFile(zipPath, userId, membersMode) {
   const unzipper = require('unzipper');
-  const zip = await unzipper.Open.buffer(buffer);
+  const zip = await unzipper.Open.file(zipPath);
 
   // Enumerate entries and apply zip-bomb guards before decompressing anything.
   const jsonEntries = [];
@@ -228,8 +229,10 @@ async function importZipBuffer(buffer, userId) {
     boards.push(secureTransfer(data, { direction: 'import', source: 'import:trello-zip', userId }));
   }
 
-  // Match each board's attachments from its board-name subfolder and inject the
-  // bytes (base64) so TrelloCreator writes them to the Default storage.
+  // Match each board's attachments from its board-name subfolder. Each is
+  // pointed at its zip entry, which TrelloCreator streams into storage through
+  // the same per-file and total bounds the JSON files were read with.
+  const entryByKey = new Map();
   for (const data of boards) {
     const sanitized = sanitizeBoardDirName(data.name);
     let scoped = fileEntries.filter(
@@ -253,12 +256,11 @@ async function importZipBuffer(buffer, userId) {
       const cand = findEntryFor(info.fileName);
       if (!cand) continue;
       cand.used = true;
-      // Decompress and enforce the per-file size cap on the real output too.
-      const bytes = await readZipEntryBounded(cand.entry, MAX_FILE_BYTES, inflated);
-      if (bytes.length > MAX_FILE_BYTES) continue;
-      const b64 = bytes.toString('base64');
+      const key = `e${entryByKey.size}`;
+      entryByKey.set(key, cand);
       info.occ.forEach(att => {
-        att.file = b64;
+        att.zipEntryKey = key;
+        if (!att.bytes) att.bytes = cand.declared;
       });
     }
   }
@@ -271,7 +273,11 @@ async function importZipBuffer(buffer, userId) {
   const errors = [];
   for (const board of boards) {
     try {
-      const creator = new TrelloCreator({});
+      const creator = new TrelloCreator({ membersMode });
+      creator.attachmentStream = att => {
+        const cand = att && att.zipEntryKey && entryByKey.get(att.zipEntryKey);
+        return cand ? boundedZipEntryStream(cand.entry, MAX_FILE_BYTES, inflated) : null;
+      };
       const boardId = await runAsUser(userId, () => trackImport({ userId, source: 'trello-zip', creator,
         execute: () => creator.create(board, null) }).promise);
       if (boardId) boardIds.push(boardId);
@@ -327,35 +333,45 @@ Meteor.startup(() => {
     }
 
     // A .zip package: the body-parser does not touch application/zip, so the
-    // raw stream is intact. Read it into memory with a hard cap (first zip-bomb
-    // guard: the compressed upload size).
-    const chunks = [];
+    // raw stream is intact. It is written to a temporary file as it arrives,
+    // under the same compressed-upload cap, and opened from there.
+    const fs = require('fs');
+    const os = require('os');
+    const path = require('path');
+    const { Random } = require('meteor/random');
+    const tempPath = path.join(os.tmpdir(), `wekan-trello-import-${Random.id()}.zip`);
+    const membersMode = (req.query && req.query.membersMode) || '';
     let total = 0;
     let aborted = false;
-    req.on('data', chunk => {
+    const out = fs.createWriteStream(tempPath);
+    const cleanup = () => fs.promises.unlink(tempPath).catch(() => {});
+    const fail = (code, error) => {
       if (aborted) return;
+      aborted = true;
+      try { req.unpipe(out); out.destroy(); } catch (e) { /* closed */ }
+      cleanup();
+      sendJson(code, { error });
+    };
+    req.on('data', chunk => {
       total += chunk.length;
       if (total > MAX_ZIP_BYTES) {
-        aborted = true;
-        sendJson(413, { error: 'import-trello-zip-too-large' });
+        fail(413, 'import-trello-zip-too-large');
         req.destroy();
-        return;
       }
-      chunks.push(chunk);
     });
-    req.on('error', () => {
-      if (!aborted) sendJson(400, { error: 'import-trello-zip-read-failed' });
-      aborted = true;
-    });
-    req.on('end', async () => {
+    req.on('error', () => fail(400, 'import-trello-zip-read-failed'));
+    out.on('error', () => fail(500, 'import-trello-zip-read-failed'));
+    out.on('finish', async () => {
       if (aborted) return;
       try {
-        const buffer = Buffer.concat(chunks);
-        const result = await importZipBuffer(buffer, userId);
+        const result = await importZipFile(tempPath, userId, membersMode);
         sendJson(200, result);
       } catch (e) {
         sendJson(400, { error: (e && e.message) || 'import-trello-zip-failed' });
+      } finally {
+        cleanup();
       }
     });
+    req.pipe(out);
   });
 });

@@ -45,4 +45,27 @@ function readZipEntryBounded(entry, maxBytes, budget) {
   });
 }
 
-module.exports = { declaredZipEntrySize, readZipEntryBounded };
+// The same bounds as readZipEntryBounded, for an entry that is streamed on -
+// into attachment storage - instead of read into memory: the stream fails as
+// soon as the entry passes maxBytes, or the shared budget of everything
+// inflated so far runs out (ZipBombBleed), so the guard holds without the
+// bytes being held.
+function boundedZipEntryStream(entry, maxBytes, budget) {
+  const { Transform } = require('stream');
+  let total = 0;
+  const source = entry.stream();
+  const guard = new Transform({
+    transform(chunk, encoding, done) {
+      total += chunk.length;
+      if (budget) budget.remaining -= chunk.length;
+      if (total > maxBytes) return done(new Error('zip-entry-too-large'));
+      if (budget && budget.remaining < 0) return done(new Error('zip-too-large'));
+      return done(null, chunk);
+    },
+  });
+  source.on('error', error => guard.destroy(error));
+  guard.on('close', () => { try { source.destroy(); } catch (e) { /* ended */ } });
+  return source.pipe(guard);
+}
+
+module.exports = { declaredZipEntrySize, readZipEntryBounded, boundedZipEntryStream };
