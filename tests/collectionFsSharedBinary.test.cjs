@@ -72,7 +72,7 @@ test('an unanswerable question keeps the binary (negative)', () => {
 // ── the missing binary ─────────────────────────────────────────────────────
 
 test('a missing binary names the attachment, not just a GridFS id', () => {
-  const reader = store.slice(store.indexOf('export async function readCollectionFsBuffer'));
+  const reader = store.slice(store.indexOf('export function openCollectionFsStream'));
   const body = reader.slice(0, reader.indexOf('\n}\n'));
   assert.ok(/isFileNotFound\(error\)/.test(body), 'the GridFS error is recognised');
   assert.ok(/'collectionfs-binary-missing'/.test(body), 'and given an error code of its own');

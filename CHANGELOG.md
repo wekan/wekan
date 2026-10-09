@@ -453,9 +453,6 @@ this list when it streams.
 - REST API and DDP attachment upload, download and board background travel as
   base64 JSON, up to 64 MB plus the base64 copy (needs a streaming route beside
   the JSON one, as the format is the API's).
-- Moving files to or from the old CollectionFS storage reads each whole file
-  (server/attachmentBulkMove.js readStrategyBuffer,
-  models/lib/collectionFsStore.js).
 - The PDF and Excel card exports hold every image of the card or board
   (models/server/ExporterCardPDF.js, models/server/ExporterExcelCard.js).
 

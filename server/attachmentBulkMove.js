@@ -42,7 +42,7 @@ import {
 } from '/models/lib/fileStoreConstants';
 import {
   listCollectionFsRecords,
-  readCollectionFsBuffer,
+  openCollectionFsStream,
   writeCollectionFsRecord,
   deleteCollectionFsRecord,
 } from '/models/lib/collectionFsStore';
@@ -151,17 +151,14 @@ function resolveDocStorage(cfg, doc) {
   }
 }
 
-async function readStrategyBuffer(strategy) {
+// The source file of a Meteor-Files version as a stream, for a move that
+// writes it elsewhere - never read whole into memory.
+function openStrategyStream(strategy) {
   const stream = strategy.getReadStream();
   if (!stream) {
     throw new Error('source file not found in storage');
   }
-  return await new Promise((resolve, reject) => {
-    const chunks = [];
-    stream.on('data', c => chunks.push(c));
-    stream.on('end', () => resolve(Buffer.concat(chunks)));
-    stream.on('error', reject);
-  });
+  return stream;
 }
 
 // Build the list of items to move for one collection, honoring the source
@@ -204,7 +201,7 @@ async function buildItems(cfg, source, settings) {
 
 // Create a Meteor-Files document on the filesystem from a buffer, in the exact
 // shape the app produces on upload. Returns the new _id.
-async function createMeteorFilesDocFromBuffer(cfg, info) {
+async function createMeteorFilesDocFromStream(cfg, info) {
   const { ObjectId } = MongoInternals.NpmModule;
   const newId = new ObjectId().toString();
   const name = info.name || newId;
@@ -213,10 +210,24 @@ async function createMeteorFilesDocFromBuffer(cfg, info) {
   const storagePath = cfg.factory.storagePath;
   const fileName = ext ? `${newId}.${ext}` : newId;
   const fullPath = path.join(storagePath, fileName);
-  fs.writeFileSync(fullPath, info.buffer);
+  // Piped to the file chunk by chunk; a failed copy leaves no half file.
+  let written = 0;
+  await new Promise((resolve, reject) => {
+    const out = fs.createWriteStream(fullPath);
+    const fail = error => {
+      out.destroy();
+      fs.promises.unlink(fullPath).catch(() => {});
+      reject(error);
+    };
+    info.stream.on('data', chunk => { written += chunk.length; });
+    info.stream.on('error', fail);
+    out.on('error', fail);
+    out.on('finish', resolve);
+    info.stream.pipe(out);
+  });
 
   const type = info.type || 'application/octet-stream';
-  const size = info.size || info.buffer.length;
+  const size = info.size || written;
   const doc = {
     _id: newId,
     size,
@@ -296,9 +307,8 @@ async function moveItem(item, dest) {
     if (dest === STORAGE_NAME_COLLECTIONFS) {
       return; // already there
     }
-    const buffer = await readCollectionFsBuffer(item);
-    const newId = await createMeteorFilesDocFromBuffer(cfg, {
-      buffer,
+    const newId = await createMeteorFilesDocFromStream(cfg, {
+      stream: openCollectionFsStream(item),
       name: item.name,
       type: item.type,
       size: item.size,
@@ -325,7 +335,6 @@ async function moveItem(item, dest) {
   // entry, then remove the Meteor-Files document and its binary.
   if (dest === STORAGE_NAME_COLLECTIONFS) {
     const strategy = cfg.factory.getFileStrategy(doc, 'original');
-    const buffer = await readStrategyBuffer(strategy);
     const written = await writeCollectionFsRecord(cfg.coll, {
       name: doc.name,
       type: doc.type,
@@ -333,7 +342,7 @@ async function moveItem(item, dest) {
       meta: doc.meta || {},
       userId: doc.userId,
       uploadedAt: doc.uploadedAtOstrio || new Date(),
-    }, buffer);
+    }, openStrategyStream(strategy));
     await remapReferences(cfg, doc._id, written.sourceId);
     try {
       strategy.unlink();

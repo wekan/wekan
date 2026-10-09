@@ -93,35 +93,34 @@ export async function countCollectionFsRecords(coll) {
   }
 }
 
-// Read the binary for a normalized CollectionFS record into a Buffer.
+// The binary of a normalized CollectionFS record as a stream - read from
+// GridFS chunk by chunk, never whole in memory.
 //
 // #6596: a filerecord can point at a GridFS file that is not there - a restore
 // that brought `cfs.<coll>.filerecord` without `cfs_gridfs.<coll>.chunks`, a
 // binary deleted by hand, or a record whose twin already took the binary with
 // it. GridFS answers that with `FileNotFound: file <id> was not found`, which
 // says nothing about WHICH attachment is affected or what to do. Say both.
-export async function readCollectionFsBuffer(item) {
+export function openCollectionFsStream(item) {
+  const { PassThrough } = require('stream');
   const db = getDb();
   const bucket = getBucket(db, item.coll);
   const gridFsId = toObjectId(item.gridFsKey);
-  return await new Promise((resolve, reject) => {
-    const chunks = [];
-    const stream = bucket.openDownloadStream(gridFsId);
-    stream.on('data', c => chunks.push(c));
-    stream.on('end', () => resolve(Buffer.concat(chunks)));
-    stream.on('error', error => {
-      if (isFileNotFound(error)) {
-        reject(new Meteor.Error(
-          'collectionfs-binary-missing',
-          `${item.name || item.sourceId}: its file is not in cfs_gridfs.${item.coll} ` +
-          `(record ${item.sourceId}, key ${item.gridFsKey}). The metadata was ` +
-          'restored without the binary, or the binary was removed. Nothing to move.',
-        ));
-        return;
-      }
-      reject(error);
-    });
+  const out = new PassThrough();
+  const stream = bucket.openDownloadStream(gridFsId);
+  stream.on('error', error => {
+    if (isFileNotFound(error)) {
+      out.destroy(new Meteor.Error(
+        'collectionfs-binary-missing',
+        `${item.name || item.sourceId}: its file is not in cfs_gridfs.${item.coll} ` +
+        `(record ${item.sourceId}, key ${item.gridFsKey}). The metadata was ` +
+        'restored without the binary, or the binary was removed. Nothing to move.',
+      ));
+      return;
+    }
+    out.destroy(error);
   });
+  return stream.pipe(out);
 }
 
 // GridFS reports a missing file as an error with this code/message shape.
@@ -131,22 +130,32 @@ export function isFileNotFound(error) {
   return /FileNotFound/i.test(error.message || '');
 }
 
-// Write a buffer into the CollectionFS layout (GridFS bucket + filerecord),
+// Write a file into the CollectionFS layout (GridFS bucket + filerecord),
 // reproducing the genuine old-WeKan structure. `info` carries the normalized
-// fields (name, type, size, meta{boardId,...}, userId, uploadedAt).
-export async function writeCollectionFsRecord(coll, info, buffer) {
+// fields (name, type, size, meta{boardId,...}, userId, uploadedAt); `source`
+// is a readable stream, piped into GridFS chunk by chunk, or a Buffer.
+export async function writeCollectionFsRecord(coll, info, source) {
   const db = getDb();
   const bucket = getBucket(db, coll);
 
   // 1. Write the binary; the GridFS file _id becomes the filerecord "key".
+  let written = 0;
   const gridFsId = await new Promise((resolve, reject) => {
     const uploadStream = bucket.openUploadStream(info.name, {
       contentType: info.type,
     });
     uploadStream.on('error', reject);
     uploadStream.on('finish', () => resolve(uploadStream.id));
-    uploadStream.end(buffer);
+    if (source && typeof source.pipe === 'function') {
+      source.on('data', chunk => { written += chunk.length; });
+      source.on('error', error => { uploadStream.abort().catch(() => {}); reject(error); });
+      source.pipe(uploadStream);
+    } else {
+      written = source ? source.length : 0;
+      uploadStream.end(source);
+    }
   });
+  const size = info.size || written;
 
   const now = info.uploadedAt || new Date();
   const recordId = Random.id();
@@ -154,7 +163,7 @@ export async function writeCollectionFsRecord(coll, info, buffer) {
     _id: recordId,
     original: {
       name: info.name,
-      size: info.size || (buffer ? buffer.length : 0),
+      size,
       type: info.type,
       updatedAt: now,
     },
@@ -168,7 +177,7 @@ export async function writeCollectionFsRecord(coll, info, buffer) {
       [coll]: {
         name: info.name,
         type: info.type,
-        size: info.size || (buffer ? buffer.length : 0),
+        size,
         key: gridFsId.toString(),
         updatedAt: now,
         createdAt: now,
