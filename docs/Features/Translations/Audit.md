@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Xhosa Blockly shortcuts and text controls — 2026-10-09
+
+Translate 40 messages in xh for shortcuts, text case, character positions and
+substring controls. Tests preserve variables and keyboard labels, retain indexing
+from the end and copy semantics, distinguish directions and render text counts.
+Both targeted suites and all 21 preservation checks pass. Specialized wording
+remains low confidence pending speaker review. Browser execution and remaining
+translations are outstanding.
+
 ## Xhosa Blockly accessibility and shortcuts — 2026-10-09
 
 Translate 40 messages in xh for procedure inputs, renaming, screen-reader controls
