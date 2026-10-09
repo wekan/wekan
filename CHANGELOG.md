@@ -460,8 +460,6 @@ this list when it streams.
   (models/server/ExporterCardPDF.js, models/server/ExporterExcelCard.js).
 - The live Trello API import holds every attachment as base64 at once, up to
   256 MB a file (server/trelloApiImport.js).
-- Cloning a board builds its whole export, every attachment as base64
-  (cloneBoard, models/exporter.js build).
 
 </details>
 </details>

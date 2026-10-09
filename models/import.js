@@ -642,7 +642,11 @@ Meteor.methods({
     if (!this.userId) {
       throw new Meteor.Error('error-notAuthorized');
     }
-    const exporter = new Exporter(sourceBoardId);
+    // The board's export without its file data: the attachments' rows only.
+    // Their files are streamed from the source board's own storage into the
+    // copy as the importer reaches them, one at a time, instead of every file
+    // of the board riding in the document as base64.
+    const exporter = new Exporter(sourceBoardId, undefined, { excludeAttachments: true });
     const user = await ReactiveCache.getUser(this.userId);
     if (!user || !(await exporter.canExport(user))) {
       throw new Meteor.Error('error-notAuthorized');
@@ -666,6 +670,23 @@ Meteor.methods({
     }
 
     const creator = new WekanCreator(additionalData);
+    if (Meteor.isServer) {
+      // The source files, found once: the importer asks for a stream as it
+      // reaches each attachment row.
+      const Attachments = require('/models/attachments').default;
+      const { fileStoreStrategyFactory } = require('/models/attachments.server');
+      const sources = new Map((await Attachments.collection.find({ 'meta.boardId': sourceBoardId }).fetchAsync())
+        .map(fileObj => [fileObj._id, fileObj]));
+      creator.attachmentStream = attachment => {
+        const fileObj = attachment && sources.get(attachment._id);
+        if (!fileObj) return null;
+        try {
+          return fileStoreStrategyFactory.getFileStrategy(fileObj, 'original').getReadStream() || null;
+        } catch (e) {
+          return null;
+        }
+      };
+    }
     //data.title = `${data.title  } - ${  TAPi18n.__('copyCardPopup-title')}`;
     data.title = `${data.title}`;
     const replaceId = await replaceableBoardId(this.userId, currentBoardId);
