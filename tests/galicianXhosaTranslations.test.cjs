@@ -472,6 +472,48 @@ for (const locale of Object.values(locales)) {
   "blockly-INPUT_LABEL_MATH_DIVIDEND",
   "blockly-INPUT_LABEL_MATH_DIVISOR"
 ]);
+  keys.push(...[
+  "blockly-INPUT_LABEL_NUMBER",
+  "blockly-INPUT_LABEL_NUMBER_A",
+  "blockly-INPUT_LABEL_NUMBER_ATAN2_X",
+  "blockly-INPUT_LABEL_NUMBER_ATAN2_Y",
+  "blockly-INPUT_LABEL_NUMBER_B",
+  "blockly-INPUT_LABEL_NUMBER_LIST",
+  "blockly-INPUT_LABEL_NUMBER_MAX",
+  "blockly-INPUT_LABEL_NUMBER_MIN",
+  "blockly-INPUT_LABEL_NUMBER_TO_CHECK",
+  "blockly-INPUT_LABEL_STATEMENT",
+  "blockly-INPUT_LABEL_TEXT_APPEND",
+  "blockly-INPUT_LABEL_TEXT_END_POSITION",
+  "blockly-INPUT_LABEL_TEXT_JOIN_ITEM",
+  "blockly-INPUT_LABEL_TEXT_POSITION",
+  "blockly-INPUT_LABEL_TEXT_PROMPT_MESSAGE",
+  "blockly-INPUT_LABEL_TEXT_START_POSITION",
+  "blockly-INPUT_LABEL_TEXT_TO_CHANGE",
+  "blockly-INPUT_LABEL_TEXT_TO_CHECK",
+  "blockly-INPUT_LABEL_TEXT_TO_FIND",
+  "blockly-INPUT_LABEL_TEXT_TO_REPLACE",
+  "blockly-INPUT_LABEL_VALUE",
+  "blockly-INPUT_LABEL_VALUE_A",
+  "blockly-INPUT_LABEL_VALUE_B",
+  "blockly-INPUT_LABEL_VARIABLES_SET",
+  "blockly-INSERT_KEY",
+  "blockly-KEYBOARD_NAV_BLOCK_NAVIGATION_HINT",
+  "blockly-KEYBOARD_NAV_CONSTRAINED_MOVE_HINT",
+  "blockly-KEYBOARD_NAV_COPIED_HINT",
+  "blockly-KEYBOARD_NAV_CUT_HINT",
+  "blockly-KEYBOARD_NAV_FLYOUT_LABEL_HINT",
+  "blockly-KEYBOARD_NAV_UNCONSTRAINED_MOVE_HINT",
+  "blockly-KEYBOARD_NAV_WORKSPACE_NAVIGATION_HINT",
+  "blockly-LISTS_CREATE_EMPTY_TITLE",
+  "blockly-LISTS_CREATE_EMPTY_TOOLTIP",
+  "blockly-LISTS_CREATE_WITH_CONTAINER_TITLE_ADD",
+  "blockly-LISTS_CREATE_WITH_CONTAINER_TOOLTIP",
+  "blockly-LISTS_CREATE_WITH_INPUT_WITH",
+  "blockly-LISTS_CREATE_WITH_ITEM_TOOLTIP",
+  "blockly-LISTS_CREATE_WITH_TOOLTIP",
+  "blockly-LISTS_GET_INDEX_FIRST"
+]);
   for (const key of keys) {
     assert.notEqual(locale[key], source[key], key);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), key);
@@ -616,6 +658,18 @@ for (const locale of Object.values(locales)) {
   const keyboardHelp = locale['blockly-HELP_PROMPT'].replace('%1', 'F1');
   assert.match(keyboardHelp, /F1/);
   assert.doesNotMatch(keyboardHelp, /%1/);
+  assert.match(locale['blockly-INPUT_LABEL_NUMBER_ATAN2_X'], /x$/);
+  assert.match(locale['blockly-INPUT_LABEL_NUMBER_ATAN2_Y'], /y$/);
+  assert.notEqual(locale['blockly-INPUT_LABEL_NUMBER_MAX'], locale['blockly-INPUT_LABEL_NUMBER_MIN']);
+  assert.notEqual(locale['blockly-KEYBOARD_NAV_COPIED_HINT'], locale['blockly-KEYBOARD_NAV_CUT_HINT']);
+  assert.equal(locale['blockly-INPUT_LABEL_TEXT_START_POSITION'], locale['blockly-INPUT_LABEL_LISTS_START_POSITION']);
+  assert.equal(locale['blockly-INPUT_LABEL_TEXT_END_POSITION'], locale['blockly-INPUT_LABEL_LISTS_END_POSITION']);
+  assert.match(locale['blockly-LISTS_CREATE_EMPTY_TOOLTIP'], /0.*olungenazingxelo/);
+  assert.match(locale['blockly-INSERT_KEY'], /Insert/);
+  const freeMovement = locale['blockly-KEYBOARD_NAV_UNCONSTRAINED_MOVE_HINT']
+    .replace('%1', 'Shift').replace('%2', 'Enter');
+  assert.match(freeMovement, /Shift.*Enter/);
+  assert.doesNotMatch(freeMovement, /%[12]/);
   const error = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
   assert.ok(error.includes('E_LDAP'));
   assert.ok(!error.includes('%s'));

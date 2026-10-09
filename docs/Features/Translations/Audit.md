@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Xhosa Blockly navigation and list creation — 2026-10-09
+
+Translate 40 messages in xh for numeric/text inputs, keyboard navigation and list
+creation. Tests retain coordinate names, keyboard variables and zero-length list
+semantics, distinguish copy/cut and minimum/maximum, and check shared position
+labels. Both targeted suites and all 21 preservation checks pass. Specialized
+wording remains low confidence pending speaker review. Browser execution and
+remaining translations are outstanding.
+
 ## Xhosa Blockly input and accessibility labels — 2026-10-09
 
 Translate 40 messages in xh for input labels, keyboard help and accessibility
