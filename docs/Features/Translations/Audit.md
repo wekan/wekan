@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Xhosa sync reports and omissions — 2026-10-09
+
+Translate 24 messages in xh for omitted fields, source comparisons and recent
+sync reports. Regression checks retain the 100-entry/path limits, 20-run and
+30-day retention, hidden values and partial-failure warnings. Both targeted
+suites and all 21 preservation checks pass. Specialized wording remains low
+confidence pending speaker review. Browser execution and remaining translations
+are outstanding.
+
 ## Xhosa sync conflicts and preview actions — 2026-10-09
 
 Translate 20 messages in xh for conflict resolution and preview actions. Tests

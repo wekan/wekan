@@ -203,6 +203,32 @@ for (const locale of Object.values(locales)) {
   "sync-preview-create",
   "sync-preview-update"
 ]);
+  keys.push(...[
+  "sync-preview-archive",
+  "sync-preview-baseline",
+  "sync-preview-truncated",
+  "sync-preview-omissions",
+  "sync-preview-scope",
+  "sync-preview-excluded",
+  "sync-preview-unmapped",
+  "sync-preview-parser-warnings",
+  "sync-preview-parser-unsupported",
+  "sync-source-heading",
+  "sync-source-scope",
+  "sync-source-unmapped",
+  "sync-source-excluded",
+  "sync-source-converted",
+  "sync-source-fallback",
+  "sync-source-excluded-item",
+  "sync-source-occurrences",
+  "sync-source-truncated",
+  "sync-source-omitted",
+  "sync-report-button",
+  "sync-report-retention",
+  "sync-report-partial",
+  "sync-report-unfinished",
+  "sync-report-failed"
+]);
   for (const key of keys) {
     assert.notEqual(locale[key], source[key], key);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), key);
@@ -253,6 +279,17 @@ for (const locale of Object.values(locales)) {
   assert.match(locale['sync-conflict-creation-hint'], /lingatshintshwanga.*Ukuzama kwakhona kusebenzisa/);
   assert.match(locale['sync-preview-unavailable'], /Gcina.*ngaphambi/);
   assert.match(locale['sync-preview-blocked'], /Sombulula.*ngaphambi/);
+  assert.match(locale['sync-preview-truncated'], /100/);
+  assert.match(locale['sync-source-truncated'], /100.*afinyeziweyo/);
+  assert.match(locale['sync-report-retention'], /20.*30/);
+  assert.match(locale['sync-preview-scope'], /zisenokushiywa/);
+  assert.match(locale['sync-source-scope'], /amaxabiso azo akaboniswa/);
+  assert.match(locale['sync-report-partial'], /lutshintshe amanye amakhadi/);
+  assert.match(locale['sync-report-partial'], /aziqhubeki.*zirhoxise/);
+  assert.match(locale['sync-report-unfinished'], /isiphumo asibhalwanga/);
+  assert.match(locale['sync-report-failed'], /kusenokubakho utshintsho/);
+  assert.equal(locale['sync-preview-unmapped'], locale['sync-source-unmapped']);
+  assert.equal(locale['sync-preview-excluded'], locale['sync-source-excluded']);
   const error = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
   assert.ok(error.includes('E_LDAP'));
   assert.ok(!error.includes('%s'));
