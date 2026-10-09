@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Xhosa Blockly logic and arithmetic — 2026-10-09
+
+Translate 30 messages in xh for Boolean logic, arithmetic and numeric bounds.
+Tests retain variables, mathematical constants, coordinate limits and inclusive
+bounds, distinguish both/at-least-one conditions and match ternary labels to their
+tooltip. Both targeted suites and all 21 preservation checks pass. Specialized
+wording remains low confidence pending speaker review. Browser execution and
+remaining translations are outstanding.
+
 ## Xhosa Blockly list editing and comparisons — 2026-10-09
 
 Translate 35 messages in xh for list editing, sorting, splitting and comparisons.

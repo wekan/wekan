@@ -593,6 +593,38 @@ for (const locale of Object.values(locales)) {
   "blockly-LOGIC_COMPARE_TOOLTIP_LTE",
   "blockly-LOGIC_COMPARE_TOOLTIP_NEQ"
 ]);
+  keys.push(...[
+  "blockly-LOGIC_NEGATE_TITLE",
+  "blockly-LOGIC_NEGATE_TOOLTIP",
+  "blockly-LOGIC_NULL_TOOLTIP",
+  "blockly-LOGIC_OPERATION_AND",
+  "blockly-LOGIC_OPERATION_TOOLTIP_AND",
+  "blockly-LOGIC_OPERATION_TOOLTIP_OR",
+  "blockly-LOGIC_TERNARY_CONDITION",
+  "blockly-LOGIC_TERNARY_IF_FALSE",
+  "blockly-LOGIC_TERNARY_IF_TRUE",
+  "blockly-LOGIC_TERNARY_TOOLTIP",
+  "blockly-MATH_ADDITION_SYMBOL_ARIA",
+  "blockly-MATH_ARITHMETIC_TOOLTIP_ADD",
+  "blockly-MATH_ARITHMETIC_TOOLTIP_DIVIDE",
+  "blockly-MATH_ARITHMETIC_TOOLTIP_MINUS",
+  "blockly-MATH_ARITHMETIC_TOOLTIP_MULTIPLY",
+  "blockly-MATH_ARITHMETIC_TOOLTIP_POWER",
+  "blockly-MATH_ATAN2_TITLE",
+  "blockly-MATH_ATAN2_TOOLTIP",
+  "blockly-MATH_CHANGE_TITLE",
+  "blockly-MATH_CHANGE_TOOLTIP",
+  "blockly-MATH_CONSTANT_GOLDEN_RATIO_ARIA",
+  "blockly-MATH_CONSTANT_INFINITY_ARIA",
+  "blockly-MATH_CONSTANT_SQRT1_2_ARIA",
+  "blockly-MATH_CONSTANT_SQRT2_ARIA",
+  "blockly-MATH_CONSTANT_TOOLTIP",
+  "blockly-MATH_CONSTRAIN_TITLE",
+  "blockly-MATH_CONSTRAIN_TOOLTIP",
+  "blockly-MATH_DIVISION_SYMBOL_ARIA",
+  "blockly-MATH_IS_DIVISIBLE_BY",
+  "blockly-MATH_IS_EVEN"
+]);
   for (const key of keys) {
     assert.notEqual(locale[key], source[key], key);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), key);
@@ -779,6 +811,20 @@ for (const locale of Object.values(locales)) {
   const sortTitle = locale['blockly-LISTS_SORT_TITLE'].replace('%1', 'numeric').replace('%2', 'ascending').replace('%3', 'items');
   assert.match(sortTitle, /numeric.*ascending.*items/);
   assert.doesNotMatch(sortTitle, /%[123]/);
+  assert.match(locale['blockly-LOGIC_OPERATION_TOOLTIP_AND'], /omabini/);
+  assert.match(locale['blockly-LOGIC_OPERATION_TOOLTIP_OR'], /ubuncinane elinye/);
+  for (const suffix of ['CONDITION', 'IF_TRUE', 'IF_FALSE']) {
+    assert.ok(locale['blockly-LOGIC_TERNARY_TOOLTIP'].includes(locale[`blockly-LOGIC_TERNARY_${suffix}`]));
+  }
+  assert.match(locale['blockly-LOGIC_NULL_TOOLTIP'], /null/);
+  assert.match(locale['blockly-MATH_ATAN2_TOOLTIP'], /\(X, Y\).* -180.* 180/);
+  assert.match(locale['blockly-MATH_CONSTRAIN_TOOLTIP'], /kuquka imida/);
+  for (const literal of ['π (3.141…)', 'e (2.718…)', 'φ (1.618…)', 'sqrt(2) (1.414…)', 'sqrt(½) (0.707…)', '∞']) {
+    assert.ok(locale['blockly-MATH_CONSTANT_TOOLTIP'].includes(literal));
+  }
+  const constrainedValue = locale['blockly-MATH_CONSTRAIN_TITLE'].replace('%1', 'value').replace('%2', '0').replace('%3', '10');
+  assert.match(constrainedValue, /value.*0.*10/);
+  assert.doesNotMatch(constrainedValue, /%[123]/);
   const error = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
   assert.ok(error.includes('E_LDAP'));
   assert.ok(!error.includes('%s'));
