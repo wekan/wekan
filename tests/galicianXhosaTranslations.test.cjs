@@ -383,6 +383,53 @@ for (const locale of Object.values(locales)) {
   "blockly-CONTROLS_FOR_TOOLTIP",
   "blockly-CONTROLS_IF_ELSEIF_TOOLTIP"
 ]);
+  keys.push(...[
+  "blockly-CONTROLS_IF_ELSE_TOOLTIP",
+  "blockly-CONTROLS_IF_IF_TOOLTIP",
+  "blockly-CONTROLS_IF_MSG_ELSE",
+  "blockly-CONTROLS_IF_MSG_ELSEIF",
+  "blockly-CONTROLS_IF_TOOLTIP_1",
+  "blockly-CONTROLS_IF_TOOLTIP_2",
+  "blockly-CONTROLS_IF_TOOLTIP_3",
+  "blockly-CONTROLS_IF_TOOLTIP_4",
+  "blockly-CONTROLS_REPEAT_TITLE",
+  "blockly-CONTROLS_REPEAT_TOOLTIP",
+  "blockly-CONTROLS_WHILEUNTIL_OPERATOR_UNTIL",
+  "blockly-CONTROLS_WHILEUNTIL_OPERATOR_WHILE",
+  "blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL",
+  "blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE",
+  "blockly-CONTROL_KEY",
+  "blockly-COPY_ALL_TO_BACKPACK",
+  "blockly-COPY_SHORTCUT",
+  "blockly-COPY_TO_BACKPACK",
+  "blockly-CURRENT_BLOCK_ANNOUNCEMENT",
+  "blockly-CUT_SHORTCUT",
+  "blockly-DELETE_ALL_BLOCKS",
+  "blockly-DELETE_BLOCK",
+  "blockly-DELETE_VARIABLE",
+  "blockly-DELETE_VARIABLE_CONFIRMATION",
+  "blockly-DELETE_X_BLOCKS",
+  "blockly-DISABLE_BLOCK",
+  "blockly-DUPLICATE_BLOCK",
+  "blockly-DUPLICATE_COMMENT",
+  "blockly-EDIT_BLOCK_CONTENTS",
+  "blockly-EMPTY_BACKPACK",
+  "blockly-ENABLE_BLOCK",
+  "blockly-END_KEY",
+  "blockly-ENTER_KEY",
+  "blockly-ESCAPE",
+  "blockly-EXPAND_ALL",
+  "blockly-EXPAND_BLOCK",
+  "blockly-EXTERNAL_INPUTS",
+  "blockly-FIELD_BITMAP_ARIA_VALUE",
+  "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR",
+  "blockly-FIELD_BITMAP_BUTTON_LABEL_RANDOMIZE",
+  "blockly-FIELD_BITMAP_PIXEL_LABEL",
+  "blockly-FIELD_BITMAP_PIXEL_OFF",
+  "blockly-FIELD_LABEL_EDIT_PREFIX",
+  "blockly-FIELD_LABEL_EMPTY",
+  "blockly-FIELD_LABEL_OPTION_INDEX"
+]);
   for (const key of keys) {
     assert.notEqual(locale[key], source[key], key);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), key);
@@ -500,6 +547,22 @@ for (const locale of Object.values(locales)) {
     .replace('%1', 'counter').replace('%2', '2').replace('%3', '8').replace('%4', '2');
   assert.match(loopTitle, /counter.*2.*8.*2/);
   assert.doesNotMatch(loopTitle, /%[1-4]/);
+  assert.match(locale['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL'], /libubuxoki/);
+  assert.match(locale['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE'], /liyinyaniso/);
+  assert.match(locale['blockly-CONTROLS_IF_TOOLTIP_4'], /akukho xabiso liyinyaniso.*yokugqibela/);
+  assert.notEqual(locale['blockly-DISABLE_BLOCK'], locale['blockly-ENABLE_BLOCK']);
+  assert.notEqual(locale['blockly-COPY_SHORTCUT'], locale['blockly-CUT_SHORTCUT']);
+  for (const key of ['blockly-CONTROL_KEY', 'blockly-END_KEY', 'blockly-ENTER_KEY', 'blockly-ESCAPE']) {
+    assert.ok(locale[key].includes(source[key]));
+  }
+  const bitmapLabel = locale['blockly-FIELD_BITMAP_PIXEL_LABEL']
+    .replace('%1', 'pixel').replace('%2', '4').replace('%3', '7');
+  assert.match(bitmapLabel, /pixel.*4.*7/);
+  assert.doesNotMatch(bitmapLabel, /%[123]/);
+  const deleteVariable = locale['blockly-DELETE_VARIABLE_CONFIRMATION']
+    .replace('%1', '6').replace('%2', 'counter');
+  assert.match(deleteVariable, /6.*counter/);
+  assert.doesNotMatch(deleteVariable, /%[12]/);
   const error = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
   assert.ok(error.includes('E_LDAP'));
   assert.ok(!error.includes('%s'));

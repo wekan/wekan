@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Xhosa Blockly conditions and editor actions — 2026-10-09
+
+Translate 45 messages in xh for conditions, loops, editor actions and bitmap
+accessibility labels. Tests distinguish true/false loop conditions, enable/disable
+and copy/cut actions, retain keyboard labels and render coordinates and deletion
+counts. Both targeted suites and all 21 preservation checks pass. Specialized
+wording remains low confidence pending speaker review. Browser execution and
+remaining translations are outstanding.
+
 ## Xhosa Blockly colors and loop controls — 2026-10-09
 
 Translate 36 messages in xh for Blockly controls, colors, loops and the read-only
