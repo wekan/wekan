@@ -662,6 +662,38 @@ for (const locale of Object.values(locales)) {
   "blockly-MATH_ROUND_OPERATOR_ROUND",
   "blockly-MATH_ROUND_OPERATOR_ROUNDDOWN"
 ]);
+  keys.push(...[
+  "blockly-MATH_ROUND_OPERATOR_ROUNDUP",
+  "blockly-MATH_ROUND_TOOLTIP",
+  "blockly-MATH_SINGLE_OP_ABSOLUTE",
+  "blockly-MATH_SINGLE_OP_ABSOLUTE_ARIA",
+  "blockly-MATH_SINGLE_OP_EXP_ARIA",
+  "blockly-MATH_SINGLE_OP_LN_ARIA",
+  "blockly-MATH_SINGLE_OP_LOG10_ARIA",
+  "blockly-MATH_SINGLE_OP_NEG_ARIA",
+  "blockly-MATH_SINGLE_OP_POW10_ARIA",
+  "blockly-MATH_SINGLE_OP_ROOT",
+  "blockly-MATH_SINGLE_TOOLTIP_ABS",
+  "blockly-MATH_SINGLE_TOOLTIP_EXP",
+  "blockly-MATH_SINGLE_TOOLTIP_LN",
+  "blockly-MATH_SINGLE_TOOLTIP_LOG10",
+  "blockly-MATH_SINGLE_TOOLTIP_NEG",
+  "blockly-MATH_SINGLE_TOOLTIP_POW10",
+  "blockly-MATH_SINGLE_TOOLTIP_ROOT",
+  "blockly-MATH_SUBTRACTION_SYMBOL_ARIA",
+  "blockly-MATH_TRIG_ACOS_ARIA",
+  "blockly-MATH_TRIG_ASIN_ARIA",
+  "blockly-MATH_TRIG_ATAN_ARIA",
+  "blockly-MATH_TRIG_COS_ARIA",
+  "blockly-MATH_TRIG_SIN_ARIA",
+  "blockly-MATH_TRIG_TAN_ARIA",
+  "blockly-MATH_TRIG_TOOLTIP_ACOS",
+  "blockly-MATH_TRIG_TOOLTIP_ASIN",
+  "blockly-MATH_TRIG_TOOLTIP_ATAN",
+  "blockly-MATH_TRIG_TOOLTIP_COS",
+  "blockly-MATH_TRIG_TOOLTIP_SIN",
+  "blockly-MATH_TRIG_TOOLTIP_TAN"
+]);
   for (const key of keys) {
     assert.notEqual(locale[key], source[key], key);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), key);
@@ -873,6 +905,15 @@ for (const locale of Object.values(locales)) {
   const remainderTitle = locale['blockly-MATH_MODULO_TITLE'].replace('%1', '7').replace('%2', '3');
   assert.match(remainderTitle, /7 ÷ 3/);
   assert.doesNotMatch(remainderTitle, /%[12]/);
+  assert.notEqual(locale['blockly-MATH_ROUND_OPERATOR_ROUNDUP'], locale['blockly-MATH_ROUND_OPERATOR_ROUNDDOWN']);
+  assert.match(locale['blockly-MATH_SINGLE_TOOLTIP_LOG10'], /esiseko esingu-10/);
+  assert.match(locale['blockly-MATH_SINGLE_TOOLTIP_EXP'], /u-e.*kwigunya/);
+  assert.match(locale['blockly-MATH_SINGLE_TOOLTIP_POW10'], /u-10.*kwigunya/);
+  assert.match(locale['blockly-MATH_SINGLE_TOOLTIP_NEG'], /oluchaseneyo/);
+  for (const operation of ['COS', 'SIN', 'TAN']) {
+    assert.match(locale[`blockly-MATH_TRIG_TOOLTIP_${operation}`], /ngeedigri \(hayi ngeeradiyani\)/);
+    assert.notEqual(locale[`blockly-MATH_TRIG_${operation}_ARIA`], locale[`blockly-MATH_TRIG_A${operation}_ARIA`]);
+  }
   const error = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
   assert.ok(error.includes('E_LDAP'));
   assert.ok(!error.includes('%s'));

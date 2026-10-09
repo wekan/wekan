@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Xhosa Blockly mathematical functions — 2026-10-09
+
+Translate 30 messages in xh for rounding, logarithms, roots and trigonometry.
+Tests preserve logarithm bases and exponent notation, distinguish rounding and
+inverse functions, and retain degrees-versus-radians instructions. Both targeted
+suites and all 21 preservation checks pass. Specialized wording remains low
+confidence pending speaker review. Browser execution and remaining translations
+are outstanding.
+
 ## Xhosa Blockly numeric tests and statistics — 2026-10-09
 
 Translate 35 messages in xh for numeric tests, statistics and random values.
