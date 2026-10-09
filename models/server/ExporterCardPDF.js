@@ -95,30 +95,75 @@ function streamToBuffer(stream) {
   });
 }
 
-// Read only image formats the dependency-free PDF writer can embed. A missing,
-// remote or corrupt object remains in the attachment list; it must never make
-// the rest of the card unexportable.
+// Only image formats the PDF writers can embed. Each picture is read when it
+// is drawn (`load`), not here: a board of pictures is then one picture in
+// memory at a time instead of all of them. A missing, remote or corrupt object
+// remains in the attachment list; it must never make the rest of the card
+// unexportable.
 async function attachmentImages(attachments) {
   const images = [];
   for (const attachment of attachments || []) {
     const type = String(attachment.type || '').toLowerCase();
     if (!PDF_IMAGE_TYPES.has(type)) continue;
-    try {
-      const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, 'original');
-      const stream = strategy && strategy.getReadStream();
-      if (!stream) continue;
-      const data = await streamToBuffer(stream);
-      if (data.length) images.push({
-        name: attachment.name || (attachment.meta && attachment.meta.name) || attachment._id,
-        size: formatExportFileSize(attachment.size),
-        type,
-        data,
-      });
-    } catch (error) {
-      console.warn(`ExporterCardPDF: could not read image ${attachment._id}: ${error.message}`);
-    }
+    images.push({
+      name: attachment.name || (attachment.meta && attachment.meta.name) || attachment._id,
+      size: formatExportFileSize(attachment.size),
+      type,
+      load: async () => {
+        try {
+          const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, 'original');
+          const stream = strategy && strategy.getReadStream();
+          return stream ? await streamToBuffer(stream) : null;
+        } catch (error) {
+          console.warn(`ExporterCardPDF: could not read image ${attachment._id}: ${error.message}`);
+          return null;
+        }
+      },
+    });
   }
   return images;
+}
+
+// Send a PDF made from `lines`. The Unicode PDF is written to a temporary file
+// as it is made - each picture read only when it is drawn - and sent from
+// there, so neither the pictures nor the document are held whole in memory;
+// if it fails, the base-font PDF is sent instead, which needs every picture's
+// bytes up front and so reads them only then.
+async function sendPdf(res, lines, headers, label) {
+  const fs = require('fs');
+  const os = require('os');
+  const path = require('path');
+  const { Random } = require('meteor/random');
+  const tempPath = path.join(os.tmpdir(), `wekan-pdf-${Random.id()}.pdf`);
+  try {
+    await buildUnicodePdf(lines, await unicodeFonts(), { output: fs.createWriteStream(tempPath) });
+    const { size } = await fs.promises.stat(tempPath);
+    res.writeHead(200, { ...headers, 'Content-Length': size });
+    await new Promise((resolve, reject) => {
+      const file = fs.createReadStream(tempPath);
+      file.on('error', reject);
+      res.on('finish', resolve);
+      res.on('close', resolve);
+      file.pipe(res);
+    });
+    return;
+  } catch (error) {
+    if (res.headersSent) {
+      res.destroy(error);
+      return;
+    }
+    console.error(`${label}: Unicode PDF failed, using base-font fallback: ${error.message}`);
+  } finally {
+    fs.promises.unlink(tempPath).catch(() => {});
+  }
+  for (const item of lines) {
+    for (const image of (item && item.imageRow) || []) {
+      if (!image.data && typeof image.load === 'function') image.data = await image.load();
+    }
+  }
+  const pdf = buildPdfBuffer(lines);
+  res.writeHead(200, { ...headers, 'Content-Length': pdf.length });
+  res.end(pdf);
 }
 
 // Shared by both exporters, so a label cannot say one thing on a card and another
@@ -381,20 +426,10 @@ class ExporterCardPDF extends PDFExporterBase {
     const lines = this.cardBlockLines(data);
     const filename = exportFilename(
       'card', key => this.__(key, key), data.card.cardNumber || 1, 'pdf');
-    let pdf;
-    try {
-      pdf = await buildUnicodePdf(lines, await unicodeFonts());
-    } catch (error) {
-      console.error(`ExporterCardPDF: Unicode PDF failed, using base-font fallback: ${error.message}`);
-      pdf = buildPdfBuffer(lines);
-    }
-
-    res.writeHead(200, {
+    await sendPdf(res, lines, {
       'Content-Type': 'application/pdf',
       'Content-Disposition': attachmentDisposition(filename),
-      'Content-Length': pdf.length,
-    });
-    res.end(pdf);
+    }, 'ExporterCardPDF');
   }
 
   async canExport(user) {
@@ -662,14 +697,7 @@ class ExporterBoardPDF extends PDFExporterBase {
       }
     }
 
-    let pdf;
-    try {
-      pdf = await buildUnicodePdf(lines, await unicodeFonts());
-    } catch (error) {
-      console.error(`ExporterBoardPDF: Unicode PDF failed, using base-font fallback: ${error.message}`);
-      pdf = buildPdfBuffer(lines);
-    }
-    res.writeHead(200, {
+    await sendPdf(res, lines, {
       'Content-Type': 'application/pdf',
       'Content-Disposition': attachmentDisposition(exportFilename(
         this._listId ? 'list' : (this._swimlaneId ? 'swimlane' : 'board'),
@@ -678,9 +706,7 @@ class ExporterBoardPDF extends PDFExporterBase {
           : (this._swimlaneId ? (data.swimlaneNumber || 1) : board.title),
         'pdf',
       )),
-      'Content-Length': pdf.length,
-    });
-    res.end(pdf);
+    }, 'ExporterBoardPDF');
   }
 
   async canExport(user) {

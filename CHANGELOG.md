@@ -450,8 +450,12 @@ Found while making large boards fit 8 GB of RAM
 whole file, or every file of a board, in memory at once; each is removed from
 this list when it streams.
 
-- The PDF and Excel card exports hold every image of the card or board
-  (models/server/ExporterCardPDF.js, models/server/ExporterExcelCard.js).
+- The Excel card export holds every image of the card, and every Excel export
+  holds the whole workbook: ExcelJS's streaming writer needs archiver 7's
+  factory, and with archiver 8 installed every Excel export takes the
+  in-memory writer, which reads all images at once
+  (models/server/createWorkbook.js; needs a fix in the @wekanteam/exceljs
+  fork's workbook-writer before images can stream).
 
 </details>
 </details>

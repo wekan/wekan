@@ -47,7 +47,14 @@ function unicodeRuns(text) {
 // PDFKit subsets the two bundled GNU Unifont OpenType files and embeds only the
 // glyphs this export uses. The BMP font covers U+0000-U+FFFF; the upper font is
 // the fallback for assigned characters in Unicode's supplementary planes.
-function buildUnicodePdf(rawLines, fonts) {
+//
+// An image row's picture is either its bytes (`data`) or a `load()` that reads
+// them: a loaded picture is read only when it is drawn, handed to PDFKit,
+// which writes it into the document and lets the bytes go, so one picture is
+// in memory at a time. With `output` (a writable stream) the document is
+// written there as it is made and the promise resolves when it is finished;
+// without, it resolves to the whole document as a Buffer.
+function buildUnicodePdf(rawLines, fonts, { output } = {}) {
   return new Promise((resolve, reject) => {
     const chunks = [];
     const mainFont = Buffer.from(fonts.main);
@@ -58,12 +65,19 @@ function buildUnicodePdf(rawLines, fonts) {
     // loaded Unicode font avoids any filesystem lookup for a base-14 font.
     const pdf = new PDFDocument({ autoFirstPage: false, compress: true,
       font: mainFont, margin: PAGE_MARGIN, size: [PAGE_WIDTH, PAGE_HEIGHT] });
-    pdf.on('data', chunk => chunks.push(chunk));
     pdf.on('error', reject);
-    pdf.on('end', () => resolve(Buffer.concat(chunks)));
+    if (output) {
+      output.on('error', reject);
+      output.on('finish', () => resolve(null));
+      pdf.pipe(output);
+    } else {
+      pdf.on('data', chunk => chunks.push(chunk));
+      pdf.on('end', () => resolve(Buffer.concat(chunks)));
+    }
     pdf.registerFont(MAIN_FONT, mainFont);
     pdf.registerFont(UPPER_FONT, upperFont);
 
+    (async () => {
     for (const lines of paginateLines(rawLines || [])) {
       pdf.addPage({ margin: PAGE_MARGIN, size: [PAGE_WIDTH, PAGE_HEIGHT] });
       const drawText = (text, x, y, options = {}) => {
@@ -76,7 +90,7 @@ function buildUnicodePdf(rawLines, fonts) {
           cursor += pdf.widthOfString(run.text);
         }
       };
-      lines.forEach((item, index) => {
+      for (const [index, item] of lines.entries()) {
         const y = PAGE_MARGIN + index * LINE_HEIGHT;
         if (item && item.bar) {
           pdf.save().fillColor('#d9d9d9')
@@ -95,7 +109,7 @@ function buildUnicodePdf(rawLines, fonts) {
               size: 8, color: contrastingText(color), width: cellWidth - 4,
             });
           });
-          return;
+          continue;
         }
         if (item && item.progress) {
           const total = Math.max(0, Number(item.progress.total) || 0);
@@ -110,7 +124,7 @@ function buildUnicodePdf(rawLines, fonts) {
             pdf.restore();
           }
           drawText(`${done}/${total}`, PAGE_MARGIN + 2, y, { size: 8 });
-          return;
+          continue;
         }
         if (item && item.tableCells) {
           // Chart table rows (models/lib/pdfDocument.js tableRow): measured
@@ -128,7 +142,7 @@ function buildUnicodePdf(rawLines, fonts) {
             });
             x += width;
           });
-          return;
+          continue;
         }
         if (item && item.attachmentCells) {
           const widths = [20, 120, 48, 72, 115, 120];
@@ -143,26 +157,31 @@ function buildUnicodePdf(rawLines, fonts) {
             drawText(String(cell ?? ''), x + 2, y, { size: 7, width: width - 4 });
             x += width;
           });
-          return;
+          continue;
         }
         if (item && item.imageRow) {
           const gap = 10;
           const width = (PAGE_WIDTH - PAGE_MARGIN * 2 - gap * 2) / 3;
-          item.imageRow.forEach((image, column) => {
+          for (const [column, image] of item.imageRow.entries()) {
             const x = PAGE_MARGIN + column * (width + gap);
-            if (Buffer.isBuffer(image.data)) {
+            let data = image.data;
+            if (!Buffer.isBuffer(data) && typeof image.load === 'function') {
+              try { data = await image.load(); } catch (error) { data = null; }
+            }
+            if (Buffer.isBuffer(data) && data.length) {
               try {
-                pdf.image(image.data, x, y, {
+                pdf.image(data, x, y, {
                   fit: [width, LINE_HEIGHT * 7], align: 'left', valign: 'top',
                 });
               } catch (error) {
                 // The attachment detail row still names an unreadable preview.
               }
             }
+            data = null;
             drawText((item.imageCaptions || [])[column] || '', x, y + LINE_HEIGHT * 7,
               { size: 8, width });
-          });
-          return;
+          }
+          continue;
         }
         const sourceRuns = item && item.runs
           ? item.runs
@@ -177,9 +196,10 @@ function buildUnicodePdf(rawLines, fonts) {
             x += pdf.widthOfString(run.text);
           }
         }
-      });
+      }
     }
     pdf.end();
+    })().catch(reject);
   });
 }
 
