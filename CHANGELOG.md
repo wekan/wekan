@@ -672,6 +672,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c7fad659b">Translate Xhosa interrupted imports and history recovery</a>. Thanks to xet7.</summary>
+
+Fill 35 Xhosa messages for interrupted imports and Scrum history recovery.
+Tests preserve variables, render counts and retain deletion and rollback warnings.
+Both targeted suites and all 21 preservation checks pass. Specialized wording
+needs speaker review; browser execution and remaining translations are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/84951459e6">Translate Xhosa recovery controls and stuck sync operations</a>. Thanks to xet7.</summary>
 
 Fill 40 Xhosa messages for notification controls and stuck list sync operations.
