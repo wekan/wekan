@@ -99,6 +99,38 @@ for (const locale of Object.values(locales)) {
   "scrum-sprint-goal",
   "scrum-capacity"
 ]);
+  keys.push(...[
+  "scrum-new-sprint",
+  "scrum-releases",
+  "scrum-release",
+  "scrum-release-scope",
+  "scrum-releases-select-help",
+  "scrum-select-sprint",
+  "scrum-backlog",
+  "scrum-backlog-help",
+  "scrum-estimate",
+  "scrum-backlog-rank",
+  "scrum-issue-type",
+  "scrum-acceptance-criteria",
+  "scrum-events",
+  "scrum-event-kind",
+  "scrum-timebox",
+  "scrum-notes",
+  "scrum-event-planning",
+  "scrum-event-daily",
+  "scrum-event-review",
+  "scrum-event-retrospective",
+  "scrum-committed",
+  "scrum-completed",
+  "scrum-added",
+  "scrum-removed",
+  "scrum-incomplete",
+  "scrum-no-closed-sprints",
+  "scrum-report-help",
+  "scrum-total",
+  "scrum-state-planned",
+  "scrum-state-active"
+]);
   for (const key of keys) {
     assert.notEqual(locale[key], source[key], key);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), key);
@@ -118,6 +150,13 @@ for (const locale of Object.values(locales)) {
   assert.equal(locale['board-view-product-backlog'], locale['scrum-product-backlog']);
   assert.equal(locale['board-view-sprints'], locale['scrum-sprints']);
   assert.notEqual(locale['scrum-policy-dueComplete'], locale['scrum-policy-doneLists']);
+  for (const literal of ['Ctrl', 'Cmd', 'Mac']) assert.ok(locale['scrum-releases-select-help'].includes(literal));
+  assert.match(locale['scrum-report-help'], /lubalwa ngokwahlukeneyo.*asilulo uqikelelo olunguziro/);
+  assert.match(locale['scrum-report-help'], /kuphela xa iiyunithi zoqikelelo nemigaqo zifana/);
+  assert.notEqual(locale['scrum-completed'], locale['scrum-incomplete']);
+  const totals = locale['scrum-total'].replace('__count__', '3').replace('__estimate__', '8').replace('__unknown__', '1');
+  assert.match(totals, /3.*8.*1/);
+  assert.doesNotMatch(totals, /__\w+__/);
   const error = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
   assert.ok(error.includes('E_LDAP'));
   assert.ok(!error.includes('%s'));

@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Xhosa sprint reports and events — 2026-10-09
+
+Translate 30 messages in xh for releases, backlog ordering, sprint events,
+reports and states. Tests render summary variables and retain keyboard names,
+unknown-versus-zero estimates and matching-unit comparison restrictions. Both
+targeted suites and all 21 preservation checks pass. Specialized wording remains
+low confidence pending speaker review. Browser execution and remaining
+translations are outstanding.
+
 ## Xhosa planning settings — 2026-10-09
 
 Translate 30 planning labels in xh, covering views, roles, estimates, completion
