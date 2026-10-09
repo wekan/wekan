@@ -468,9 +468,58 @@ each following that tool's documented or source-verified format, with a loss
 report for what WeKan has no place for. Every format now imports and exports
 **many boards at once**, and each has its own documentation page. Imports,
 exports, clones and the REST API now **stream attachments** instead of holding
-them in memory. Translation work continues.
+them in memory. Five **GitHub CodeQL** alerts and the **brace-expansion**
+advisories are fixed. Translation work continues.
 
-This release adds the following new features:
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+**Imported Markdown links** - a link from an import file stays one link.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5ec6d9af18">A link title or URL in an import file can no longer end its link early</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+Alert 555: the Plane importer escaped `[` and `]` in a link title but not the
+backslash, so a title ending in `\` ran on into the URL, and it passed the URL
+through `encodeURIComponent`, which leaves `(` and `)` alone - a `)` in the URL
+ended the link and the rest became a second link to another address. ClickUp,
+Super Productivity and Vikunja wrote links the same way. All four now use
+`models/lib/markdownLink.js`, which escapes the title and percent-encodes what
+ends a destination. It is the content of an imported file, not an attempt
+against WeKan, so nothing is recorded in Admin Panel → Problems.
+`tests/securityAlerts20261010.test.cjs` renders the links with markdown-it and
+checks no other importer escapes the old way.
+
+</details>
+
+**ExcelJS** - the copy WeKan now carries in `npm-packages/exceljs`.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5ec6d9af18">Sheet names are read in linear time, and the manual test pages pin their CDN script</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+Alert 556: `colCache.decodeEx` split a sheet name from a reference with a
+regular expression that backtracks on long text, which a workbook being read
+controls; it is now read in one pass, giving the same results. Alerts 557 and
+558: the browser test pages loaded babel-polyfill from cdnjs without Subresource
+Integrity; they now carry its hash. The same change is in the @wekanteam/exceljs
+fork. The tests compare the new reader with the old expression and check that
+no tracked page loads an outside script without integrity.
+
+</details>
+
+**Tests** - a line that looked like a guard and did nothing.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5ec6d9af18">The import and export docs test escapes headings, and identity replacements are found in regex form too</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+Alert 554: `replace(/ /g, ' ')` replaced a space with itself where an escape for
+a regular expression was meant. `tests/noIdentityReplacement.test.cjs` only
+looked at string patterns and listed `replace(/-/g, '-')` as fine; it now
+reports a regular expression of plain characters replaced with the same text,
+and found this line before it was fixed.
+
+</details>
+
+and adds the following new features:
 
 **Import and export** - twenty-one more tools, each a round trip where the tool
 can read its own file back (Plane, which has no file import, is import only),
@@ -752,6 +801,14 @@ it. The page's branch per source and its four file choosers became one path
 and one chooser, so every source can be chosen as a file, not only pasted.
 
 </details>
+
+and updates the following dependencies:
+
+- **brace-expansion 5.0.6 → 5.0.12** — brace expansion for glob patterns; six
+  denial-of-service advisories (Dependabot alerts 137-142), in the vendored
+  ExcelJS and the vendored jade's dev tools
+  ([the update](https://github.com/wekan/wekan/commit/5ec6d9af18)).
+  Thanks to dependabot.
 
 and fixes the following bugs:
 
