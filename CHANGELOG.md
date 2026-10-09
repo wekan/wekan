@@ -468,8 +468,9 @@ each following that tool's documented or source-verified format, with a loss
 report for what WeKan has no place for. Every format now imports and exports
 **many boards at once**, and each has its own documentation page. Imports,
 exports, clones and the REST API now **stream attachments** instead of holding
-them in memory. Six **GitHub CodeQL** alerts and the **brace-expansion**
-advisories are fixed. Translation work continues.
+them in memory. WeKan moves to **Meteor 3.6-rc.0**, and six **GitHub CodeQL**
+alerts and the **brace-expansion** advisories are fixed. Translation work
+continues.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
@@ -820,6 +821,18 @@ and updates the following dependencies:
   ExcelJS and the vendored jade's dev tools
   ([the update](https://github.com/wekan/wekan/commit/5ec6d9af18)).
   Thanks to dependabot.
+- **Meteor 3.6-beta.3 → 3.6-rc.0** — the release candidate of Meteor 3.6,
+  with every core package at its rc360.0 version
+  ([the update](https://github.com/wekan/wekan/commit/51023baa0c)).
+  Thanks to xet7.
+- **@meteorjs/rspack 3.0.0-beta.3 → 3.0.0-rc.0** — the rspack bundler
+  integration that goes with Meteor 3.6-rc.0
+  ([the update](https://github.com/wekan/wekan/commit/d5c59211c0)).
+  Thanks to xet7.
+- **@wekanteam/meteor-reactive-cache 1.0.8 → 1.0.9** — its own dependencies
+  updated, Babel CLI 8 among them, and its stale lockfile removed
+  ([1.0.9](https://github.com/wekan/wekan/commit/7f8627590b), [the dependencies](https://github.com/wekan/wekan/commit/1bdc171f0f)).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
@@ -992,6 +1005,51 @@ they are translated again.
 
 </details>
 
+and has the following developer-facing changes:
+
+**npm packages** - the @wekanteam packages are part of this repository now.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dd6fe3ef1e">ExcelJS 4.7.4 is carried in npm-packages/exceljs</a>. Thanks to xet7.</summary>
+
+The @wekanteam/exceljs release with the streaming writer fix (archiver 8, and
+pictures on a streaming sheet) was published to npm but could not yet be
+installed from there, so WeKan takes it from `npm-packages/exceljs` with a
+`file:` dependency. That is what lets the card and board Excel exports stream.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9f29a41740">The other @wekanteam npm packages are carried in npm-packages too</a>. Thanks to xet7.</summary>
+
+dragscroll, html-to-markdown, meteor-globals and meteor-reactive-cache are now
+in `npm-packages/` and installed with `file:` dependencies, so a build does not
+depend on their npm releases and a fix to one ships with WeKan.
+
+</details>
+
+**Tests** - test code held to the rules the source is.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ff8f82b40d">The Vikunja export test strips tags to a fixed point</a>. Thanks to xet7.</summary>
+
+The test's stand-in sanitizer removed tags in one pass, the shape
+`tests/tagStrippingFixedPoint.test.cjs` keeps out of the tree (CodeQL
+js/incomplete-multi-character-sanitization). It now loops until nothing changes.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7f163a8000">A browser test for the import page's choice of who a file's people become</a>. Thanks to xet7.</summary>
+
+The Playwright spec takes each of the three answers. "Make them all me" puts the
+person importing on every card and makes no placeholder. Placeholders keep the
+original name, cannot log in and join the board inactive. Choosing existing
+users lists the file's people to map, and one left unmapped becomes a
+placeholder.
+
+</details>
+
 and documents the supported formats:
 
 <details>
@@ -1019,6 +1077,15 @@ Format-Coverage.md, which is now the index and the shared contract.
 and improves translations:
 
 **Translations** - continued language coverage and corrections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dd14753712">The new import and export strings reach every language file</a>. Thanks to translators and xet7.</summary>
+
+The Transifex pull added the strings of many-board import and export, export all
+boards and the people choice to all 243 language files, in English until they
+are translated there.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6b936b7dde">Refresh translation coverage after Xhosa fill</a>. Thanks to xet7.</summary>
