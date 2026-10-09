@@ -449,7 +449,9 @@ used.
 them **Microsoft Planner**, **monday.com**, **ClickUp**, **Linear**, **Notion**,
 **Redmine**, **Wrike**, **Taiga** and **Vikunja**, and import from **Plane**,
 each following that tool's documented or source-verified format, with a loss
-report for what WeKan has no place for. Translation work continues.
+report for what WeKan has no place for. Every format now imports and exports
+**many boards at once**, and each has its own documentation page. Translation
+work continues.
 
 This release adds the following new features:
 
@@ -680,6 +682,47 @@ import or API, so they cannot be carried over.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7858d84e12">Many boards at once: import many files or a whole app, export every board</a>. Thanks to xet7.</summary>
+
+Every import source takes several export files, or one .zip of them, each
+becoming its own board, and the import page lists what each became. One board
+per project makes each swimlane an import would create - a tool's project,
+folder or list - its own board, so an export of a whole app (Vikunja, Plane,
+Kanri's all data) imports as many boards, as a Trello .zip does. Export all
+boards, on the All Boards sidebar or for selected boards, downloads every
+board in one format: Excel as one workbook with a sheet per board named after
+it, the others as a .zip with a file per board. api.py gains importboardsfrom
+and exportallboards.
+
+</details>
+
+and fixes the following bugs:
+
+**Import and export** - faults found while documenting every format.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7858d84e12">A WeKan .zip export imports as a new board, and api.py handles every format</a>. Thanks to xet7.</summary>
+
+The All Boards import page refused a WeKan .zip in the browser; it is now
+unpacked on the server with its attachments, up to 512 MB of them. Kanri's
+all-data export read only its first board and now reads them all. api.py sent
+every file as JSON and wrote binary exports as text; it now sends each source
+as the import page does and fetches Excel, PDF, CSV and TSV from their routes.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7858d84e12">Trello Butler rules, the HTML export, Tasks.org time spent and Deck done fixed</a>. Thanks to xet7.</summary>
+
+An imported Butler rule kept its list name in lowercase, so it never fired on
+a list with capitals. The HTML export read the board JSON link off the export
+popup, which no longer has it, and stopped there. The Tasks.org export left
+out time spent, and a Nextcloud Deck card marked done through its API lost
+that. Each is pinned by tests/importExportCodeFixes.test.cjs.
+
+</details>
+
 and documents the supported formats:
 
 <details>
@@ -690,6 +733,17 @@ reads and writes more than fifty. It now lists them all, grouped by kind: where
 in each tool to get the file, what WeKan writes back, and what is not supported
 yet and why. A test fails when the import page or the export menu names a
 format the page does not.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7858d84e12">A directory per format, with the steps and the details for each</a>. Thanks to xet7.</summary>
+
+docs/Features/ImportExport has a page for each of the 48 formats: how to
+import and export it, one board and many, the shape the tool documents and
+where it was read, what is kept and what the loss report lists, the REST API,
+and the code and tests. Each format's details moved there from
+Format-Coverage.md, which is now the index and the shared contract.
 
 </details>
 
