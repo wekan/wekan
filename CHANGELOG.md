@@ -672,6 +672,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/59fb4bb980">Translate Xhosa Blockly colors and loop controls</a>. Thanks to xet7.</summary>
+
+Fill 36 Xhosa messages for Blockly and the read-only server setting. Tests
+preserve percent variables, keyboard labels, numeric limits and loop restrictions.
+Both targeted suites and all 21 preservation checks pass. Specialized wording
+needs speaker review; browser execution and remaining translations are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0c7fad659b">Translate Xhosa interrupted imports and history recovery</a>. Thanks to xet7.</summary>
 
 Fill 35 Xhosa messages for interrupted imports and Scrum history recovery.
