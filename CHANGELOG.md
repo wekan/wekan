@@ -672,6 +672,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5a2c397755">Translate Xhosa Blockly logic and arithmetic</a>. Thanks to xet7.</summary>
+
+Fill 30 Xhosa logic and arithmetic messages. Tests preserve variables, constants,
+coordinate limits and inclusive bounds, and check logical distinctions. Both
+targeted suites and all 21 preservation checks pass. Specialized wording needs
+speaker review; browser execution and remaining translations are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f9ad418fd9">Translate Xhosa Blockly list editing and comparisons</a>. Thanks to xet7.</summary>
 
 Fill 35 Xhosa list-editing, sorting and comparison messages. Tests preserve sort
