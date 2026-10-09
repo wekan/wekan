@@ -345,6 +345,44 @@ for (const locale of Object.values(locales)) {
   "scrum-history-checkpoint-discard-confirm",
   "scrum-history-checkpoint-ask-admin"
 ]);
+  keys.push(...[
+  "login-setting-env-only",
+  "blockly-ALT_KEY",
+  "blockly-BACKSPACE_KEY",
+  "blockly-CANNOT_DELETE_VARIABLE_PROCEDURE",
+  "blockly-CAPS_LOCK_KEY",
+  "blockly-CHANGE_VALUE_TITLE",
+  "blockly-CLEAN_UP",
+  "blockly-CLOSE_BACKPACK",
+  "blockly-COLLAPSED_WARNINGS_WARNING",
+  "blockly-COLLAPSE_ALL",
+  "blockly-COLLAPSE_BLOCK",
+  "blockly-COLOUR_BLEND_COLOUR1",
+  "blockly-COLOUR_BLEND_COLOUR2",
+  "blockly-COLOUR_BLEND_RATIO",
+  "blockly-COLOUR_BLEND_TITLE",
+  "blockly-COLOUR_BLEND_TOOLTIP",
+  "blockly-COLOUR_PICKER_TOOLTIP",
+  "blockly-COLOUR_RANDOM_TITLE",
+  "blockly-COLOUR_RANDOM_TOOLTIP",
+  "blockly-COLOUR_RGB_BLUE",
+  "blockly-COLOUR_RGB_GREEN",
+  "blockly-COLOUR_RGB_RED",
+  "blockly-COLOUR_RGB_TITLE",
+  "blockly-COLOUR_RGB_TOOLTIP",
+  "blockly-COMMAND_KEY",
+  "blockly-CONTEXT_MENU_KEY",
+  "blockly-CONTROLS_FLOW_STATEMENTS_OPERATOR_BREAK",
+  "blockly-CONTROLS_FLOW_STATEMENTS_OPERATOR_CONTINUE",
+  "blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_BREAK",
+  "blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_CONTINUE",
+  "blockly-CONTROLS_FLOW_STATEMENTS_WARNING",
+  "blockly-CONTROLS_FOREACH_TITLE",
+  "blockly-CONTROLS_FOREACH_TOOLTIP",
+  "blockly-CONTROLS_FOR_TITLE",
+  "blockly-CONTROLS_FOR_TOOLTIP",
+  "blockly-CONTROLS_IF_ELSEIF_TOOLTIP"
+]);
   for (const key of keys) {
     assert.notEqual(locale[key], source[key], key);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), key);
@@ -450,6 +488,18 @@ for (const locale of Object.values(locales)) {
     assert.doesNotMatch(rendered, /__/);
     tokens.forEach((token, index) => { assert.ok(rendered.includes(String(index + 1))); });
   }
+  assert.match(locale['login-setting-env-only'], /kuphela.*yeseva.*zifundwe kuphela/);
+  assert.match(locale['blockly-COLOUR_BLEND_TOOLTIP'], /0\.0 - 1\.0/);
+  assert.match(locale['blockly-COLOUR_RGB_TOOLTIP'], /0.*100/);
+  assert.match(locale['blockly-CONTROLS_FLOW_STATEMENTS_WARNING'], /kuphela ngaphakathi komjikelo/);
+  assert.notEqual(locale['blockly-CONTROLS_FLOW_STATEMENTS_OPERATOR_BREAK'], locale['blockly-CONTROLS_FLOW_STATEMENTS_OPERATOR_CONTINUE']);
+  for (const name of ['ALT', 'BACKSPACE', 'CAPS_LOCK', 'COMMAND']) {
+    assert.ok(locale[`blockly-${name}_KEY`].includes(source[`blockly-${name}_KEY`]));
+  }
+  const loopTitle = locale['blockly-CONTROLS_FOR_TITLE']
+    .replace('%1', 'counter').replace('%2', '2').replace('%3', '8').replace('%4', '2');
+  assert.match(loopTitle, /counter.*2.*8.*2/);
+  assert.doesNotMatch(loopTitle, /%[1-4]/);
   const error = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
   assert.ok(error.includes('E_LDAP'));
   assert.ok(!error.includes('%s'));

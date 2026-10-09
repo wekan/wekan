@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Xhosa Blockly colors and loop controls — 2026-10-09
+
+Translate 36 messages in xh for Blockly controls, colors, loops and the read-only
+server setting. Tests retain percent variables, printed keyboard labels, numeric
+limits and loop-only restrictions, and render a four-variable loop title. Both
+targeted suites and all 21 preservation checks pass. Specialized wording remains
+low confidence pending speaker review. Browser execution and remaining
+translations are outstanding.
+
 ## Xhosa interrupted imports and history recovery — 2026-10-09
 
 Translate 35 messages in xh for interrupted board imports and Scrum history
