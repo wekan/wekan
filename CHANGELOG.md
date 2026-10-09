@@ -605,9 +605,8 @@ reported. Export writes the import columns with cards numbered #1 and onward.
 Wrike documents the columns of its import, not its export, so that template is
 what is read and written. Folder rows become swimlanes, Status the lists, Parent
 Task the parent card, Assigned To the owner and assignees, and Depends On a
-blocked-by dependency. Export writes the WeKan list as a custom column named
-WeKan list rather than as Wrike's custom workflow statuses, which the import
-reads back.
+blocked-by dependency. Export writes the list as a Wrike custom status in a
+workflow named after the board (see the Wrike workflow entry below).
 
 </details>
 
@@ -662,6 +661,35 @@ lists, projects swimlanes, and parents, labels, dates, links and comments keep
 their places; priority, estimate, cycles and modules become custom fields. The
 XLSX variant writes its links and comments as Python text, which is reported
 rather than guessed at. Plane has no file import to export to.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a78b4aa744">Wrike: custom workflow statuses in Excel, and workflows as lists and rules</a>. Thanks to xet7.</summary>
+
+The Wrike Excel export now writes the workflow columns of Wrike's import help
+article: Workflow (named after the board), Status (the list's status group) and
+Custom Status (the list). Wrike applies a custom status only when that workflow
+exists, so the board's lists are also exported as one, in the JSON of Wrike's
+GET /workflows. That JSON is Wrike's only workflow exchange format. A list's
+group comes from its "moved here, mark complete or incomplete" rule, else from
+its name. In Rules > Import / Export, a pasted Wrike workflow adds the missing
+lists and the rules that close and reopen a card as Wrike's status groups do.
+Importing twice adds nothing. Wrike's own automation rules have no export,
+import or API, so they cannot be carried over.
+
+</details>
+
+and documents the supported formats:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2ea4d09678">List every import and export format in one page, linked from the README</a>. Thanks to xet7.</summary>
+
+docs/Features/ImportExport/External-Tools.md listed ten tools while WeKan
+reads and writes more than fifty. It now lists them all, grouped by kind: where
+in each tool to get the file, what WeKan writes back, and what is not supported
+yet and why. A test fails when the import page or the export menu names a
+format the page does not.
 
 </details>
 
