@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Xhosa Blockly editor and procedures — 2026-10-09
+
+Translate 35 messages in xh for editor navigation, variables and procedures.
+Tests retain keyboard labels and function-name variables, distinguish functions
+with and without output and preserve disabled-function and placement warnings.
+Both targeted suites and all 21 preservation checks pass. Specialized wording
+remains low confidence pending speaker review. Browser execution and remaining
+translations are outstanding.
+
 ## Xhosa Blockly mathematical functions — 2026-10-09
 
 Translate 30 messages in xh for rounding, logarithms, roots and trigonometry.
