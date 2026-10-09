@@ -908,6 +908,15 @@ for (const locale of Object.values(locales)) {
   "import-board-instruction-taiga",
   "import-board-instruction-vikunja"
 ]);
+  keys.push(...[
+  "import-board-instruction-quire",
+  "import-board-instruction-wrike",
+  "import-board-instruction-teamwork",
+  "import-board-instruction-businessmap",
+  "import-board-instruction-redmine",
+  "import-board-instruction-notion",
+  "import-board-instruction-plane"
+]);
   for (const key of keys) {
     assert.notEqual(locale[key], source[key], key);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), key);
@@ -1188,6 +1197,12 @@ for (const locale of Object.values(locales)) {
   assert.match(locale['import-board-instruction-pivotal'], /Estimate.*Story points/);
   assert.match(locale['import-board-instruction-monday'], /zigcina iindawo zazo/);
   for (const literal of ['sp-backup', '.json', 'To Do', 'In Progress', 'Backlog', 'Done']) assert.ok(locale['import-board-instruction-superproductivity'].includes(literal));
+  assert.match(locale['import-board-instruction-quire'], /Izimvo nezincamathelisi azikho/);
+  assert.match(locale['import-board-instruction-notion'], /Ubudlelwane, imifanekiso nezincamathelisi azingeniswa/);
+  assert.match(locale['import-board-instruction-plane'], /akunazo iinkcazo okanye izincamathelisi/);
+  assert.match(locale['import-board-instruction-businessmap'], /qala.*ngesiNgesi/);
+  assert.match(locale['import-board-instruction-redmine'], /sisiNgesi.*My account.*ngaphambi/);
+  for (const literal of ['--', '##', '>>', 'Complete', 'Estimated time']) assert.ok(locale['import-board-instruction-teamwork'].includes(literal));
   const error = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
   assert.ok(error.includes('E_LDAP'));
   assert.ok(!error.includes('%s'));
