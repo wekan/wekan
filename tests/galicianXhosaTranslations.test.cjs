@@ -556,6 +556,43 @@ for (const locale of Object.values(locales)) {
   "blockly-LISTS_SET_INDEX_INSERT",
   "blockly-LISTS_SET_INDEX_SET"
 ]);
+  keys.push(...[
+  "blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_FIRST",
+  "blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_FROM",
+  "blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_LAST",
+  "blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_RANDOM",
+  "blockly-LISTS_SET_INDEX_TOOLTIP_SET_FIRST",
+  "blockly-LISTS_SET_INDEX_TOOLTIP_SET_FROM",
+  "blockly-LISTS_SET_INDEX_TOOLTIP_SET_LAST",
+  "blockly-LISTS_SET_INDEX_TOOLTIP_SET_RANDOM",
+  "blockly-LISTS_SORT_ORDER_ASCENDING",
+  "blockly-LISTS_SORT_ORDER_DESCENDING",
+  "blockly-LISTS_SORT_TITLE",
+  "blockly-LISTS_SORT_TOOLTIP",
+  "blockly-LISTS_SORT_TYPE_IGNORECASE",
+  "blockly-LISTS_SORT_TYPE_NUMERIC",
+  "blockly-LISTS_SORT_TYPE_TEXT",
+  "blockly-LISTS_SPLIT_LIST_FROM_TEXT",
+  "blockly-LISTS_SPLIT_TEXT_FROM_LIST",
+  "blockly-LISTS_SPLIT_TOOLTIP_JOIN",
+  "blockly-LISTS_SPLIT_TOOLTIP_SPLIT",
+  "blockly-LISTS_SPLIT_WITH_DELIMITER",
+  "blockly-LOGIC_BOOLEAN_FALSE",
+  "blockly-LOGIC_BOOLEAN_TOOLTIP",
+  "blockly-LOGIC_BOOLEAN_TRUE",
+  "blockly-LOGIC_COMPARE_EQ_ARIA",
+  "blockly-LOGIC_COMPARE_GTE_ARIA",
+  "blockly-LOGIC_COMPARE_GT_ARIA",
+  "blockly-LOGIC_COMPARE_LTE_ARIA",
+  "blockly-LOGIC_COMPARE_LT_ARIA",
+  "blockly-LOGIC_COMPARE_NEQ_ARIA",
+  "blockly-LOGIC_COMPARE_TOOLTIP_EQ",
+  "blockly-LOGIC_COMPARE_TOOLTIP_GT",
+  "blockly-LOGIC_COMPARE_TOOLTIP_GTE",
+  "blockly-LOGIC_COMPARE_TOOLTIP_LT",
+  "blockly-LOGIC_COMPARE_TOOLTIP_LTE",
+  "blockly-LOGIC_COMPARE_TOOLTIP_NEQ"
+]);
   for (const key of keys) {
     assert.notEqual(locale[key], source[key], key);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), key);
@@ -724,6 +761,24 @@ for (const locale of Object.values(locales)) {
   const repeatedItem = locale['blockly-LISTS_REPEAT_TITLE'].replace('%1', 'item').replace('%2', '5');
   assert.match(repeatedItem, /item.*5/);
   assert.doesNotMatch(repeatedItem, /%[12]/);
+  assert.match(locale['blockly-LISTS_SORT_TOOLTIP'], /ikopi/);
+  assert.notEqual(locale['blockly-LISTS_SORT_ORDER_ASCENDING'], locale['blockly-LISTS_SORT_ORDER_DESCENDING']);
+  for (const position of ['FIRST', 'FROM', 'LAST', 'RANDOM']) {
+    assert.match(locale[`blockly-LISTS_SET_INDEX_TOOLTIP_SET_${position}`], /^Iseta/);
+    assert.doesNotMatch(locale[`blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_${position}`], /^Iseta/);
+  }
+  for (const operator of ['GTE', 'LTE']) {
+    assert.match(locale[`blockly-LOGIC_COMPARE_TOOLTIP_${operator}`], /okanye lilingana/);
+  }
+  for (const operator of ['GT', 'LT']) {
+    assert.doesNotMatch(locale[`blockly-LOGIC_COMPARE_TOOLTIP_${operator}`], /lilingana/);
+  }
+  assert.match(locale['blockly-LOGIC_COMPARE_TOOLTIP_EQ'], /ayalingana/);
+  assert.match(locale['blockly-LOGIC_COMPARE_TOOLTIP_NEQ'], /awalingani/);
+  assert.notEqual(locale['blockly-LOGIC_BOOLEAN_FALSE'], locale['blockly-LOGIC_BOOLEAN_TRUE']);
+  const sortTitle = locale['blockly-LISTS_SORT_TITLE'].replace('%1', 'numeric').replace('%2', 'ascending').replace('%3', 'items');
+  assert.match(sortTitle, /numeric.*ascending.*items/);
+  assert.doesNotMatch(sortTitle, /%[123]/);
   const error = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
   assert.ok(error.includes('E_LDAP'));
   assert.ok(!error.includes('%s'));

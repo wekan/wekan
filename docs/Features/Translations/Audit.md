@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Xhosa Blockly list editing and comparisons — 2026-10-09
+
+Translate 35 messages in xh for list editing, sorting, splitting and comparisons.
+Tests preserve sort variables and copy semantics, distinguish insertion from
+replacement, and retain strict versus inclusive comparisons. Both targeted suites
+and all 21 preservation checks pass. Specialized wording remains low confidence
+pending speaker review. Browser execution and remaining translations are
+outstanding.
+
 ## Xhosa Blockly list retrieval and removal — 2026-10-09
 
 Translate 40 messages in xh for list retrieval, removal, sublists and repetition.
