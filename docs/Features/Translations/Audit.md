@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Xhosa board and rule settings — 2026-10-09
+
+Translate 29 English placeholders in xh: announcements, colors, link rules,
+read-only fields, assignee rules, LDAP, provider restrictions and the rule editor.
+Preserve percent and brace variables, URL examples and setting identifiers.
+Regression checks cover permissions, conflicts, hidden-field preservation and
+rendered errors. Both targeted suites and all 21 preservation checks pass.
+Vocabulary references include the [IsiXhosa dictionary](https://isixhosa.click/all).
+Specialized wording is low confidence pending speaker review. Browser execution
+and remaining translations are outstanding.
+
 ## Zulu keyboard labels and current fill completion — 2026-10-09
 
 Translate 18 keyboard labels per Zulu catalog (36 values), retaining printed
