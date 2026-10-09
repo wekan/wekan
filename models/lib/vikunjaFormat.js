@@ -51,6 +51,8 @@
 // relations, label and project colors, WIP limits, project backgrounds and
 // descriptions, reactions and saved filters.
 
+import { markdownLinkTitle, markdownLinkUrl } from './markdownLink.js';
+
 export const VIKUNJA_EXPORT_VERSION = 'v1.0.0';
 export const VIKUNJA_MIN_VERSION = [0, 20, 1];
 export const MAX_VIKUNJA_DATA_CHARS = 64 * 1024 * 1024;
@@ -292,7 +294,7 @@ export function vikunjaHtmlToText(html, { checklists: wantChecklists = true } = 
     if (name === 'a') {
       if (closing) {
         const href = links.pop();
-        if (href) write(`](${href})`);
+        if (href) write(`](${markdownLinkUrl(href)})`);
       } else {
         const href = /^(https?:|mailto:)/i.test(attrs.href || '') ? attrs.href : '';
         links.push(href);
@@ -302,7 +304,7 @@ export function vikunjaHtmlToText(html, { checklists: wantChecklists = true } = 
     }
     if (name === 'img') {
       const src = /^https?:/i.test(attrs.src || '') ? attrs.src : '';
-      if (src) write(`![${attrs.alt || ''}](${src})`);
+      if (src) write(`![${markdownLinkTitle(attrs.alt || '')}](${markdownLinkUrl(src)})`);
       continue;
     }
     if (INLINE_MARK[name] && !(name === 'code' && pre)) { write(INLINE_MARK[name]); continue; }

@@ -239,4 +239,37 @@ describe('colCache', () => {
       right: 2,
     });
   });
+
+  it('splits sheet names as the regular expression it replaced did', () => {
+    const cases = [
+      ['A1', undefined, 'A1'],
+      ['Sheet1!A1:B2', 'Sheet1', 'A1:B2'],
+      ["'My Sheet'!A1", 'My Sheet', 'A1'],
+      ["'a''b'!C3", "a''b", 'C3'],
+      ["'a'''!X", "a''", 'X'],
+      ["''!X", undefined, 'X'],
+      ['!A1', '', 'A1'],
+      ['a b!A1', undefined, 'a b!A1'],
+      ['x^y!A1', undefined, 'x^y!A1'],
+      ['a!b!C1', 'a', 'b!C1'],
+    ];
+    cases.forEach(([value, sheetName, reference]) => {
+      expect(colCache.splitSheetName(value)).to.deep.equal({sheetName, reference});
+    });
+    expect(colCache.decodeEx("'My Sheet'!$B$2").sheetName).to.equal('My Sheet');
+  });
+
+  it('reads a long reference in linear time (negative: no backtracking)', () => {
+    const start = Date.now();
+    colCache.splitSheetName('a'.repeat(2000000));
+    colCache.splitSheetName(`'${"''".repeat(1000000)}`);
+    colCache.splitSheetName(`${'^'.repeat(1000000)}!`);
+    expect(Date.now() - start).to.be.below(1000);
+  });
+
+  it('negative: decodeEx no longer parses with the backtracking expression', () => {
+    // eslint-disable-next-line global-require
+    const source = require('fs').readFileSync(require.resolve('../../../lib/utils/col-cache'), 'utf8');
+    expect(source.includes("[^'^ !]*")).to.equal(false);
+  });
 });

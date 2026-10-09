@@ -73,7 +73,9 @@ test('every import source and export format has its own page, with the steps and
   const index = read('docs/Features/ImportExport/Format-Coverage.md');
   for (const dir of new Set(Object.values(DIRECTORY))) {
     const page = read(`docs/Features/ImportExport/${dir}/${dir}.md`);
-    const at = HEADINGS.map(h => page.search(new RegExp(`^## ${h.replace(/ /g, ' ')}$`, 'm')));
+    // A heading is matched as text: its characters are escaped, not read as
+    // regular-expression syntax.
+    const at = HEADINGS.map(h => page.search(new RegExp(`^## ${h.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'm')));
     assert.ok(at.every(i => i !== -1), `${dir}.md has every section: ${HEADINGS.filter((h, i) => at[i] === -1).join(', ')}`);
     assert.deepEqual([...at].sort((x, y) => x - y), at, `${dir}.md has them in order`);
     assert.ok(index.includes(`](./${dir}/${dir}.md)`), `the coverage index links ${dir}`);

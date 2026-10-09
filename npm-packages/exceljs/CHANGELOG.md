@@ -3,6 +3,11 @@
 This package is ExcelJS with updated dependencies,
 used at Meteor 3 WeKan with Node.js 24.x.
 
+## Upcoming exceljs release
+
+- [Read sheet names without a backtracking regular expression, pin the manual pages' CDN script, update brace-expansion](https://github.com/wekan/exceljs/commit/25db7892434b31c35374bba2433d6479fb005642).
+  Thanks to xet7.
+
 ## 2026-10-10 exceljs release 4.7.4
 
 - [Streaming WorkbookWriter works with archiver 8, and places images over cells, reading one image at a time](https://github.com/wekan/exceljs/commit/7b2f9395dc12141ae026f8d28b2eeeb32f457e78).

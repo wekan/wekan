@@ -48,6 +48,7 @@
 // finish_before and implemented_by relations, and unknown fields.
 
 import { readCsv } from './todoistCsvFormat.js';
+import { markdownLink } from './markdownLink.js';
 
 export const PLANE_FIELDS = ['project_name', 'project_identifier', 'parent', 'identifier', 'sequence_id', 'name',
   'state_name', 'priority', 'assignees', 'subscribers', 'created_by_name', 'start_date', 'target_date',
@@ -189,7 +190,7 @@ function linksText(links, at, unsupported) {
       return;
     }
     const title = str(isObject(link) ? link.title : '').trim() || url;
-    lines.push(`- [${title.replace(/[[\]]/g, '\\$&')}](${url.replace(/[()\s]/g, encodeURIComponent)})`);
+    lines.push(`- ${markdownLink(title, url)}`);
   });
   return lines.length ? `Links:\n${lines.join('\n')}` : '';
 }

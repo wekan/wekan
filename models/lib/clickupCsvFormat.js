@@ -36,6 +36,7 @@
 // are reported, as are dates that are neither milliseconds nor ISO 8601.
 
 import { readCsv } from './todoistCsvFormat.js';
+import { markdownLink } from './markdownLink.js';
 
 export const CLICKUP_COLUMNS = ['Task ID', 'Task Link', 'Task Type', 'Task Custom ID', 'Task Name', 'Task Content', 'Status',
   'Date created', 'Date created Text', 'Due date', 'Due date Text', 'Start date', 'Start date Text', 'Parent ID', 'Subtask IDs',
@@ -114,7 +115,7 @@ export function parseClickUpCsv(text) {
     if (attachments && attachments !== '[]') {
       try {
         const links = JSON.parse(attachments).filter(a => a && /^https?:\/\//i.test(String(a.url || '')))
-          .map(a => `[${String(a.title || a.url).replace(/[[\]]/g, '')}](${a.url})`);
+          .map(a => markdownLink(String(a.title || a.url), a.url));
         if (links.length) description = [description, links.join('\n')].filter(Boolean).join('\n\n');
       } catch (e) {
         unsupported.push({ path: `${at}/Attachments`, reason: 'ClickUp attachments are not the documented JSON list' });

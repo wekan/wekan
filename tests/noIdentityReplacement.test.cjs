@@ -105,6 +105,29 @@ function value(literal) {
   });
 }
 
+// `.replace(/ /g, ' ')`: a REGULAR EXPRESSION of plain characters and the same
+// text as the replacement (CodeQL #554, in tests/importExportDocsCoverage, where
+// an escape for a heading was meant). It is the same no-op as the string form.
+// Only a pattern of literal characters (an escaped character counts as itself)
+// is compared, never one with a class, a quantifier, an anchor or any other
+// syntax; not one with the i flag, which turns an "A" into an "a"; and not a
+// replacement holding a $, which can name what was matched.
+const REGEX_IDENTITY = new RegExp(
+  '\\.replace(?:All)?\\(\\s*' +
+  '/((?:[^/\\\\\\n.*+?^$|()[\\]{}]|\\\\[^a-zA-Z0-9\\n])+)/([a-z]*)' +
+  '\\s*,\\s*' +
+  "(?:'((?:[^'\\\\]|\\\\.)*)'|\"((?:[^\"\\\\]|\\\\.)*)\")" +
+  '\\s*\\)',
+  'g',
+);
+
+function regexIdentity(m) {
+  const [, source, flags] = m;
+  const replacement = m[3] !== undefined ? m[3] : m[4];
+  if (flags.includes('i') || replacement.includes('$')) return false;
+  return source.replace(/\\(.)/g, '$1') === value(replacement);
+}
+
 // Comments are stripped before scanning. This file and the one it was written
 // for both QUOTE the bad line to explain it, and a guard that reports the
 // sentence describing a bug as the bug is a guard that gets switched off.
@@ -123,6 +146,11 @@ test('no source file replaces a string with itself', () => {
     for (const m of text.matchAll(IDENTITY)) {
       const [from, to] = sides(m);
       if (value(from) !== value(to)) continue;
+      const line = text.slice(0, m.index).split('\n').length;
+      found.push(`${path.relative(ROOT, file)}:${line}: ${m[0]}`);
+    }
+    for (const m of text.matchAll(REGEX_IDENTITY)) {
+      if (!regexIdentity(m)) continue;
       const line = text.slice(0, m.index).split('\n').length;
       found.push(`${path.relative(ROOT, file)}:${line}: ${m[0]}`);
     }
@@ -149,13 +177,21 @@ test('the pattern really does catch the shape CodeQL reported (negative)', () =>
       .filter(m => { const [f, t] = sides(m); return value(f) === value(t); });
     assert.strictEqual(hits.length, 1, `not detected: ${sample}`);
   }
+  // The regular-expression form, as CodeQL #554 reported it.
+  for (const sample of [
+    "new RegExp(`^## ${h.replace(/ /g, ' ')}$`, 'm')",
+    "s.replace(/-/g, '-')",
+    "s.replace(/\\./g, '.')",
+    "raw.replace(/\"/g, '\\\"')",
+  ]) {
+    assert.strictEqual([...sample.matchAll(REGEX_IDENTITY)].filter(regexIdentity).length, 1, `not detected: ${sample}`);
+  }
 });
 
 test('and does not report a replacement that changes something', () => {
   // The other half: a guard that fires on working code gets switched off.
   const samples = [
     `s.replace('-', '_')`,
-    `s.replace(/-/g, '-')`,                 // regex source, not a string literal
     `s.replace('a', 'b').replace('c', 'd')`,
     "escapeRegExp = str => str.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&')",
   ];
@@ -163,6 +199,18 @@ test('and does not report a replacement that changes something', () => {
     const hits = [...sample.matchAll(IDENTITY)]
       .filter(m => { const [f, t] = sides(m); return value(f) === value(t); });
     assert.deepStrictEqual(hits.map(h => h[0]), [], `false positive: ${sample}`);
+  }
+  // Regular expressions that DO change something.
+  for (const sample of [
+    "s.replace(/ /g, '_')",
+    "s.replace(/a/gi, 'a')",                 // turns A into a
+    "s.replace(/a+/g, 'a')",                 // collapses runs
+    "s.replace(/[ ]/g, ' ')",                // a class is not compared
+    "s.replace(/x/g, '$&')",                 // $& names the match
+    "s.replace(/\\s/g, 's')",              // \s is whitespace, not an s
+    "escapeRegExp = str => str.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&')",
+  ]) {
+    assert.deepStrictEqual([...sample.matchAll(REGEX_IDENTITY)].filter(regexIdentity).map(h => h[0]), [], `false positive: ${sample}`);
   }
 });
 

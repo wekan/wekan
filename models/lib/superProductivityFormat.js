@@ -47,6 +47,8 @@
 // panel per list, and a list other than To Do, In Progress, Backlog and Done
 // becomes a tag its panel filters on.
 
+import { markdownLink } from './markdownLink.js';
+
 export const SP_CROSS_MODEL_VERSION = 4.5;
 export const SP_IN_PROGRESS_TAG_ID = 'KANBAN_IN_PROGRESS';
 export const SP_TODAY_TAG_ID = 'TODAY';
@@ -192,8 +194,8 @@ export function parseSuperProductivity(input) {
     (Array.isArray(task.attachments) ? task.attachments : []).forEach((attachment, index) => {
       const target = text(attachment && attachment.path).trim();
       if (/^https?:\/\//i.test(target)) {
-        const title = text(attachment.title).trim().replace(/[[\]]/g, '') || target;
-        links.push(`- [${title}](${target.replace(/[()\s]/g, encodeURIComponent)})`);
+        const title = text(attachment.title).trim() || target;
+        links.push(`- ${markdownLink(title, target)}`);
       } else {
         report(`${path}/attachments/${index}`, `a ${text(attachment && attachment.type) || 'local'} attachment is a path on the user's device, not a web link, and is not imported`);
       }

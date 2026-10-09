@@ -212,12 +212,41 @@ const colCache = {
     return this.decodeAddress(value);
   },
 
+  // Split [sheetName!]reference. A quoted name is 'name', with '' for a quote
+  // inside it; an unquoted one has no quote, caret, space or '!'. Read with a
+  // single pass rather than a regular expression: the expression used before
+  // backtracked over long input, which a workbook being read controls. The
+  // results are the ones it gave: the name as written ('' stays doubled), an
+  // empty quoted name is no name, and an empty unquoted one is ''.
+  splitSheetName(value) {
+    if (value[0] === "'") {
+      let i = 1;
+      while (i < value.length) {
+        if (value[i] === "'") {
+          if (value[i + 1] !== "'") break;
+          i += 2;
+        } else {
+          i += 1;
+        }
+      }
+      if (i < value.length && value[i + 1] === '!') {
+        return {sheetName: value.slice(1, i) || undefined, reference: value.slice(i + 2)};
+      }
+      return {sheetName: undefined, reference: value};
+    }
+    const bang = value.indexOf('!');
+    if (bang >= 0) {
+      const name = value.slice(0, bang);
+      if (!/['^ ]/.test(name)) {
+        return {sheetName: name, reference: value.slice(bang + 1)};
+      }
+    }
+    return {sheetName: undefined, reference: value};
+  },
+
   // convert [sheetName!][$]col[$]row[[$]col[$]row] into address or range structures
   decodeEx(value) {
-    const groups = value.match(/(?:(?:(?:'((?:[^']|'')*)')|([^'^ !]*))!)?(.*)/);
-
-    const sheetName = groups[1] || groups[2]; // Qouted and unqouted groups
-    const reference = groups[3]; // Remaining address
+    const {sheetName, reference} = this.splitSheetName(value);
 
     const parts = reference.split(':');
     if (parts.length > 1) {
