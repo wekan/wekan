@@ -55,8 +55,13 @@ async function main() {
   });
 
   test('negative: the old escaping, before the fix, let the URL out', () => {
-    const old = (title, url) => `[${title.replace(/[[\]]/g, '\\$&')}](${url.replace(/[()\s]/g, encodeURIComponent)})`;
-    const html = md.renderInline(old('t', 'https://e.example/x) [y](https://other.example/'));
+    // What the old code wrote for the title "t" and the URL
+    // "https://e.example/x) [y](https://other.example/": encodeURIComponent
+    // turned the space into %20 and left the parentheses. Written out rather
+    // than re-implemented, so the incomplete escaping is not code in the tree
+    // again (CodeQL alert 559 was this test re-running it).
+    const oldMarkdown = '[t](https://e.example/x)%20[y](https://other.example/)';
+    const html = md.renderInline(oldMarkdown);
     assert.equal((html.match(/<a /g) || []).length, 2, 'the reported fault is real: the link ended at the ")"');
     assert.match(html, /href="https:\/\/other\.example\/"/);
   });
@@ -76,9 +81,11 @@ async function main() {
     }
   });
 
-  test('negative: no importer builds a link with the incomplete escaping', () => {
-    const files = tracked('models').concat(tracked('server'), tracked('client'), tracked('imports'))
-      .filter(file => /\.(c|m)?js$/.test(file));
+  test('negative: no code builds a link with the incomplete escaping', () => {
+    // tests/ too: code scanning reads the tests, and alert 559 was a test
+    // re-running the old escaping to show it was wrong.
+    const files = tracked('models').concat(tracked('server'), tracked('client'), tracked('imports'), tracked('tests'))
+      .filter(file => /\.(c|m)?js$/.test(file) && !file.includes('/node_modules/'));
     for (const file of files) {
       const source = read(file);
       assert.doesNotMatch(source, /replace\(\/\[\(\)\\s\]\/g, encodeURIComponent\)/, `${file}: encodeURIComponent leaves ( and ) as they are`);
