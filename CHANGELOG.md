@@ -672,6 +672,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/400fb9e276">Translate Xhosa sprint reports and events</a>. Thanks to xet7.</summary>
+
+Fill 30 Xhosa messages. Tests retain summary variables, keyboard names, unknown
+estimates and report comparison restrictions. Both targeted suites and all 21
+preservation checks pass. Specialized wording needs speaker review;
+browser execution and remaining translations are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c5ac9ced64">Translate Xhosa planning settings</a>. Thanks to xet7.</summary>
 
 Fill 30 Xhosa planning labels. Tests preserve sprint-action distinctions,
