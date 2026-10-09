@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Xhosa planning imports and previews — 2026-10-09
+
+Translate 22 messages in xh for daily exports, planning imports and sync
+conflicts. Preserve count and reference variables, UTC, JSON and ID. Tests
+render preview counts and retain no-duplication, unchanged-card, finished-sprint
+and no-source-write warnings. Both targeted suites and all 21 preservation
+checks pass. Specialized wording remains low confidence pending speaker review.
+Browser execution and remaining translations are outstanding.
+
 ## Xhosa sprint states and daily observations — 2026-10-09
 
 Translate 24 messages in xh, preserving references, UTC and the 366-observation

@@ -157,6 +157,30 @@ for (const locale of Object.values(locales)) {
   "scrum-daily-empty",
   "scrum-observed-scope"
 ]);
+  keys.push(...[
+  "scrum-daily-observations-export-help",
+  "scrum-import-pending",
+  "scrum-import-into-board",
+  "scrum-import-into-board-hint",
+  "scrum-import-preview",
+  "scrum-import-choose-file",
+  "scrum-import-invalid-file",
+  "scrum-import-preview-sprints",
+  "scrum-import-preview-releases",
+  "scrum-import-preview-cards",
+  "scrum-import-preview-nothing",
+  "scrum-import-into-board-done",
+  "scrum-import-card-not-matched",
+  "scrum-import-card-ambiguous",
+  "scrum-import-card-on-another-board",
+  "scrum-import-record-ambiguous",
+  "scrum-import-record-not-imported",
+  "scrum-import-sprint-finished",
+  "sync-conflict-heading",
+  "sync-conflict-hint",
+  "sync-conflict-local",
+  "sync-conflict-keep-local"
+]);
   for (const key of keys) {
     assert.notEqual(locale[key], source[key], key);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), key);
@@ -193,6 +217,14 @@ for (const locale of Object.values(locales)) {
   const reference = locale['scrum-import-reference-omitted'].replace('__reference__', 'CARD-7');
   assert.ok(reference.includes('CARD-7'));
   assert.ok(!reference.includes('__reference__'));
+  assert.match(locale['scrum-daily-observations-export-help'], /UTC.*iintsuku ezingekhoyo azifakwa/);
+  assert.match(locale['scrum-import-into-board-hint'], /akuphindwa.*nge-ID/);
+  assert.match(locale['scrum-import-card-on-another-board'], /lishiywe lingatshintshwanga/);
+  assert.match(locale['scrum-import-sprint-finished'], /alihanjiswanga/);
+  assert.match(locale['sync-conflict-hint'], /Akukho nto ithunyelwa kwinkqubo yomthombo/);
+  const preview = locale['scrum-import-preview-cards'].replace('__updated__', '2').replace('__unchanged__', '3').replace('__unmatched__', '4');
+  assert.match(preview, /2.*3.*4/);
+  assert.doesNotMatch(preview, /__\w+__/);
   const error = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
   assert.ok(error.includes('E_LDAP'));
   assert.ok(!error.includes('%s'));
