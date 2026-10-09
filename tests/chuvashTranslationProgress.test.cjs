@@ -141,7 +141,7 @@ assert.deepEqual(tokens(chuvash['import-board-instruction-issues']), [
   '__sourceName__',
 ]);
 assert.match(chuvash['import-board-instruction-openproject'], /GET \/api\/v3\/work_packages/);
-assert.match(chuvash['import-board-instruction-jira'], /GET \/rest\/api\/2\/search/);
+assert.match(chuvash['import-board-instruction-jira'], /GET \/rest\/api\/3\/search\/jql/);
 assert.match(chuvash['import-trello-json-file-hint'], /API/);
 assert.match(chuvash['trello-api-key'], /https:\/\/trello\.com\/app-key/);
 assert.match(chuvash['trello-api-token'], /API/);

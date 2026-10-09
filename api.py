@@ -77,7 +77,7 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py importboard EXPORT.json # Import a whole board (with rules/workflows) from a WeKan export
     python3 api.py migratefromwekan REMOTE_URL REMOTE_USER REMOTE_PASS # Import ALL boards+workflows+rules from another WeKan
     python3 api.py exportboardpdf BOARDID OUTPUT.pdf # Export a whole board to PDF
-    python3 api.py importboardfrom SOURCE FILE # Import a tool's export file; SOURCE is a key of the import page (trello, jira, csv, excel, planner, wrike, notion, ...), see docs/Features/ImportExport
+    python3 api.py importboardfrom SOURCE FILE [--csv-mapping MAPPING.json] # Import a tool's export file (csv and excel: --csv-mapping says which column is which field); SOURCE is a key of the import page (trello, jira, csv, excel, planner, wrike, notion, ...), see docs/Features/ImportExport
     python3 api.py exportboardformat BOARDID FORMAT OUTPUTFILE # Export to a tool's format; FORMAT is a key of the export menu (kanboard, trello, planner, wrike, wrikeworkflow, ...)
     python3 api.py importboardsfrom SOURCE [--split] FILE_OR_DIR ... # Import many boards: each file (or each file of a directory or .zip) becomes a board; --split makes one board per project
     python3 api.py exportallboards FORMAT OUTPUTFILE [--boards ID1,ID2] # Export all boards: Excel as one workbook with a sheet per board, other formats as a .zip with a file per board
@@ -2092,14 +2092,15 @@ def import_document(source, filepath):
     with open(filepath, encoding='utf-8-sig') as f:
         text = f.read()
     if source == 'csv':
-        # As the import page: a tab separated file is read as commas.
-        if '\t' in text:
-            text = text.replace('\t', ',')
-        try:
-            dialect = csv.Sniffer().sniff(text[:4096], delimiters=',;')
-        except csv.Error:
-            dialect = csv.excel
-        return [row for row in csv.reader(io.StringIO(text), dialect)]
+        # As the import page: a file whose first line has a tab is read with
+        # tabs, so a value with a comma in it stays one value; otherwise the
+        # separator with more of it on the first line, a semicolon or a comma.
+        first = text.split('\n', 1)[0]
+        if '\t' in first:
+            delimiter = '\t'
+        else:
+            delimiter = ';' if first.count(';') > first.count(',') else ','
+        return [row for row in csv.reader(io.StringIO(text), delimiter=delimiter)]
     if source in TEXT_IMPORT_SOURCES:
         return text
     return json.loads(text)
@@ -2120,7 +2121,14 @@ elif arguments >= 3 and sys.argv[1] == 'importboardfrom':
     board = import_document(source, filepath)
     headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
     url = wekanurl + apiboards + 'import/' + source
-    response = requests.post(url, headers=headers, json={'board': board})
+    body = {'board': board}
+    # CSV/TSV and Excel: --csv-mapping MAPPING.json says which column holds
+    # which card field, as the import page's mapping step does, e.g.
+    # {"columns": {"title": 0, "list": 2}} or {"columns": {"title": 0}, "listName": "To do"}.
+    if '--csv-mapping' in sys.argv:
+        with open(sys.argv[sys.argv.index('--csv-mapping') + 1], encoding='utf-8') as f:
+            body['csvMapping'] = json.load(f)
+    response = requests.post(url, headers=headers, json=body)
     print(response.text)
 
 # Import many boards: every FILE (a directory gives its files, a .zip that is

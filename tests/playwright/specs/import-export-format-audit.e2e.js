@@ -1624,6 +1624,8 @@ for (const source of ['csv', 'markdown', 'excel']) {
         await page.locator('#import-textarea').fill(fs.readFileSync(path.join(fixtures, source === 'csv' ? 'csv.csv' : 'markdown.md'), 'utf8'));
         await page.locator('.js-import-without-mapping').click();
       }
+      // CSV and Excel ask which column is which field before importing.
+      if (source !== 'markdown') await page.locator('.js-csv-mapping-import').click();
       await waitForImportedBoard(page);
       boardId = page.url().match(/\/b\/([^/]+)/)[1];
       const cards = db.find('cards', { boardId });
@@ -1643,6 +1645,116 @@ for (const source of ['csv', 'markdown', 'excel']) {
     expect(db.find('boards', { 'members.userId': user.id })).toHaveLength(before);
   });
 }
+
+// The column mapping step of the CSV/TSV import (client/components/import/csvMapping.js):
+// a file with no list column is not imported as one list per row - the step
+// asks for the one list every card goes into.
+test('CSV: the mapping step asks for a list when the file has none, and every card goes into it', async ({ loggedInPage: page }) => {
+  let boardId;
+  try {
+    await navigateInApp(page, '/import/csv');
+    await page.locator('#import-textarea').fill('Task\tNotes\nBuy milk, eggs\tfrom the shop\nPaint fence\t\nCall Bob\tafter 5\n');
+    await page.locator('.js-import-without-mapping').click();
+    const step = page.locator('.js-csv-mapping');
+    await expect(step).toBeVisible();
+    // The title was matched from the file's first column, the list was not.
+    await expect(page.locator('#csv-map-title')).toHaveValue('0');
+    await expect(page.locator('#csv-map-list')).toHaveValue('');
+    await expect(page.locator('.js-csv-mapping-list-missing')).toBeVisible();
+    await page.locator('#csv-map-description').selectOption('1');
+    // Negative: an empty list name is refused on the page.
+    await page.locator('.js-csv-map-list-name').fill('');
+    await page.locator('.js-csv-mapping-import').click();
+    await expect(page.locator('.js-csv-mapping-error')).toBeVisible();
+    expect(page.url()).not.toMatch(/\/b\//);
+    await page.locator('.js-csv-map-list-name').fill('Shopping');
+    await page.locator('.js-csv-mapping-import').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    const lists = db.find('lists', { boardId });
+    expect(lists.map(list => list.title)).toEqual(['Shopping']);
+    const cards = db.find('cards', { boardId });
+    expect(cards.map(card => card.title).sort()).toEqual(['Buy milk, eggs', 'Call Bob', 'Paint fence']);
+    expect(cards.every(card => card.listId === lists[0]._id)).toBe(true);
+    expect(cards.find(card => card.title === 'Call Bob').description).toBe('after 5');
+    await expect(page.locator('.minicard-title', { hasText: 'Buy milk, eggs' })).toBeVisible();
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});
+
+test('CSV: a mapping whose columns are not in the file is refused without creating a board', async ({ loggedInPage: page, user }) => {
+  const before = db.find('boards', { 'members.userId': user.id }).length;
+  const results = await page.evaluate(async () => {
+    const rows = [['Title', 'List'], ['A', 'Doing']];
+    const out = [];
+    for (const csvMapping of [{ columns: { title: 5 } }, { columns: { nope: 0 } }, { columns: { title: '0' } }, { extra: 1 }]) {
+      try { await Meteor.callAsync('importBoard', rows, { csvMapping }, 'csv'); out.push('allowed'); }
+      catch (error) { out.push(error.error); }
+    }
+    return out;
+  });
+  expect(results).not.toContain('allowed');
+  expect(results[0]).toBe('invalid-import-mapping');
+  expect(db.find('boards', { 'members.userId': user.id })).toHaveLength(before);
+});
+
+// WeKan's own Excel export read back: the streaming table ExporterExcel
+// writes (title in A1, header in row 7 in the exporter's language - Finnish
+// here - and an Activity sheet), as "Export all boards" writes it: one sheet
+// per board. Each sheet becomes its own board; the Activity sheet is skipped.
+test('Excel: a WeKan export workbook in Finnish with a sheet per board imports as several boards', async ({ loggedInPage: page }) => {
+  const ExcelJS = require('../../../node_modules/@wekanteam/exceljs');
+  const fi = require('../../../imports/i18n/data/fi.i18n.json');
+  const layout = ['number', 'title', 'description', 'parent-card', 'owner', 'createdAt', 'last-modified-at',
+    'card-received', 'card-start', 'card-due', 'card-end', 'list', 'swimlane', 'assignee', 'members',
+    'requested-by', 'assigned-by', 'labels', 'overtime-hours', 'spent-time-hours'];
+  const titles = [`Excel round trip A ${Date.now()}`, `Excel round trip B ${Date.now()}`];
+  const boardIds = [];
+  try {
+    const workbook = new ExcelJS.Workbook();
+    titles.forEach((title, b) => {
+      const ws = workbook.addWorksheet(`Sheet ${b + 1}`);
+      ws.mergeCells('A1:H1');
+      ws.getCell('A1').value = title;
+      ws.addRow(['']);
+      ws.addRow([fi.description, '']);
+      ws.addRow(['']);
+      ws.addRow([fi.createdAt, new Date(), fi['last-modified-at'], new Date(), fi.members, '']);
+      ws.addRow(['']);
+      ws.addRow(layout.map(key => fi[key]));
+      ws.addRow(['1', `Card ${b + 1}`, 'Text', '', '', new Date(), new Date(), ' ', ' ',
+        new Date('2026-10-10T00:00:00Z'), ' ', b ? 'Valmis' : 'Työn alla', 'Default', '', '', '', '', '', 'false', '']);
+      ws.getCell('C8').value = { formula: 'UPPER("text")', result: 'TEXT' };
+    });
+    const activity = workbook.addWorksheet(fi.activity);
+    activity.addRow([titles[0]]);
+    activity.addRow(['']);
+    activity.addRow([fi.number, fi.activity, fi.card, fi.owner, fi.createdAt, fi['last-modified-at']]);
+    await navigateInApp(page, '/import/excel');
+    await page.locator('.js-import-excel-file').setInputFiles({
+      name: 'wekan-boards.xlsx', mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      buffer: Buffer.from(await workbook.xlsx.writeBuffer()),
+    });
+    await page.locator('form input[type=submit]').first().click();
+    await expect(page.locator('.js-csv-mapping')).toBeVisible();
+    await expect(page.locator('#csv-map-title')).toHaveValue('1');
+    await expect(page.locator('#csv-map-list')).toHaveValue('11');
+    await expect(page.locator('.js-csv-mapping-boards')).toContainText(titles[1]);
+    await expect(page.locator('.js-csv-mapping-skipped')).toContainText(fi.activity);
+    await page.locator('.js-csv-mapping-import').click();
+    await waitForImportedBoard(page);
+    for (const [b, title] of titles.entries()) {
+      const board = db.findOne('boards', { title });
+      expect(board).toBeTruthy();
+      boardIds.push(board._id);
+      const [card] = db.find('cards', { boardId: board._id });
+      expect(card.title).toBe(`Card ${b + 1}`);
+      expect(card.description).toBe('TEXT');
+      expect(new Date(card.dueAt).toISOString().slice(0, 10)).toBe('2026-10-10');
+      expect(db.find('lists', { boardId: board._id }).map(list => list.title)).toEqual([b ? 'Valmis' : 'Työn alla']);
+    }
+    expect(page.url()).toContain(`/b/${boardIds[0]}/`);
+  } finally { if (boardIds.length) db.cleanup({ boardIds }); }
+});
 
 test('Trello HTTP import enforces the Admin Panel import switch and rejects invalid requests', async ({ page, adminUser, request }) => {
   const { loginWithToken } = require('../helpers/auth');

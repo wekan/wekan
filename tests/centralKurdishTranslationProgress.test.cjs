@@ -143,7 +143,7 @@ assert.deepEqual(tokens(kurdish['import-board-instruction-issues']), [
   '__sourceName__',
 ]);
 assert.match(kurdish['import-board-instruction-openproject'], /GET \/api\/v3\/work_packages/);
-assert.match(kurdish['import-board-instruction-jira'], /GET \/rest\/api\/2\/search/);
+assert.match(kurdish['import-board-instruction-jira'], /GET \/rest\/api\/3\/search\/jql/);
 assert.match(kurdish['import-trello-json-file-hint'], /API/);
 assert.match(kurdish['trello-api-key'], /https:\/\/trello\.com\/app-key/);
 assert.match(kurdish['trello-api-token'], /API/);

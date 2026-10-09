@@ -3,9 +3,10 @@
 WeKan imports a board from a CSV (comma separated values) or TSV (tab
 separated values) text, one card per row, and exports a board as CSV with a
 comma or a semicolon, or as TSV. The first row is the header: it names the
-columns, and WeKan reads the columns it knows by their names. The import and
-the export use different column names, so a WeKan CSV export needs its
-headers renamed before it imports again (see **Format details**).
+columns. Before importing, the import page shows which column it will read
+as which card field, matched from the column names, and you can change any
+of them. A WeKan CSV export imports again as it is, in whatever language it
+was exported in.
 
 Example files to try the import with:
 
@@ -20,16 +21,31 @@ Example files to try the import with:
    details**.
 2. In WeKan, go to **All Boards → New → Import → CSV / TSV**.
 3. Tick the parts to import (**Select what to include**).
-4. Paste the text of the file into the text box and click **Import**. The
-   import page says: *Paste in your Comma Separated Values(CSV)/ Tab Separated
-   Values (TSV).*
-5. **Map members**: each username in the **Members** column is listed. A
-   username that matches a WeKan user is mapped to that user already; you can
-   map the others, or click **Import without mapping members (map later)**.
-6. The board opens when the import is done.
+4. Paste the text of the file into the text box and click **Import** (or
+   **Import without mapping members (map later)** to skip step 6). The import
+   page says: *Paste in your Comma Separated Values(CSV)/ Tab Separated Values
+   (TSV).*
+5. **Which column is which?** Each card field - title, description, list,
+   swimlane, owner, members, assignee, labels, the received, start, due and
+   end dates, created and last modified dates, requested by, assigned by,
+   parent card, spent time, overtime and archived - has a choice of the file's
+   columns, each shown with its first value. The choices are made from the
+   column names (see **Import columns**); change any that are wrong, and
+   choose *(not in the file)* for a field the file does not have.
+   - When the file has no column for the list, the page asks for **List for
+     every card**: choose the column above, or type the name of the one list
+     every card goes into. It starts as *To do* in your language.
+   - Columns that no field uses can be ticked to import as text custom
+     fields named after the column.
+   - Click **Next** (or **Import** when member mapping was skipped).
+6. **Map members**: each username in the columns chosen for owner, members,
+   assignee, requested by and assigned by is listed. A username that matches a
+   WeKan user is mapped to that user already; you can map the others, or click
+   **Import without mapping members (map later)**.
+7. The board opens when the import is done.
 
-A CSV import does not write a loss report: a column whose header WeKan does
-not know is skipped without a note.
+A CSV import does not write a loss report: a column that no field uses is
+skipped without a note.
 
 ### History
 
@@ -43,9 +59,12 @@ Import / From CSV/TSV*. It was asked for in
 
 - On the import page, under **Import many boards**, choose several CSV or TSV
   files, or one `.zip` that holds them. Each file becomes its own board,
-  imported without member mapping (members can be mapped later).
+  imported without member mapping (members can be mapped later) and without
+  the mapping step: each file's columns are read by their names, and a file
+  with no list column puts its cards in one list, *To do* in your language.
 - CSV is not imported through the generalized importer, so **One board per
-  project** is not offered for it. A CSV import always makes one swimlane.
+  project** is not offered for it. A Swimlane column gives one swimlane per
+  value instead.
 - From a script: `python3 api.py importboardsfrom csv FILE_OR_DIR ...`
   (files, directories of files, or `.zip` files).
 
@@ -83,43 +102,59 @@ From the [format coverage](../Format-Coverage.md) audit:
   CRLF and LF, locale-independent ISO dates and every documented WeKan column
   and custom field.
 
-The current code covers the quoting, line ends, ISO dates and custom field
-columns, but the import does not read every column the export writes: List,
-Swimlane, Start, Due, End and the people columns other than Members are not
-recognized under their export names.
+The import reads the quoting, line ends, ISO dates, custom field columns and
+every column the export writes, under its export name in any language.
 
 ### Import columns
 
-The import page parses the text with [Papa Parse](https://www.papaparse.com),
-which detects the separator. A text with tabs has its tabs turned into commas
-first, so a TSV value that itself contains a comma is split there. Empty rows
-are skipped. `models/csvCreator.js` then reads these headers, in any case and
-in any order:
+The import page parses the text with [Papa Parse](https://www.papaparse.com).
+A text whose first line has a tab is read with tab as the separator, so a TSV
+value that contains a comma stays one value; otherwise the separator is a
+comma, or a semicolon when the first line has more semicolons than commas.
+Empty rows are skipped.
 
-| Header | What it becomes |
+The mapping step's first choices come from the header names, in any case and
+in any order (`models/lib/csvImportMapping.js`). A header is recognised by
+the English names below, and by the name WeKan's CSV and Excel exports give
+the column in **every language WeKan has**: a board exported by a Finnish
+user has the header `Otsikko`, not `Title`, and imports the same. When two
+columns of a WeKan export have the same name in some language, their place
+in the export decides which is which.
+
+| Field | English header names |
 | --- | --- |
-| `Title` | Card title |
-| `Description` | Card description |
-| `Stage`, `Status` or `State` | The list. One list per value, in the order the values first appear |
-| `Members` or `Member` | Card members: usernames separated by spaces, each one that was mapped |
-| `Labels` or `Label` | Labels separated by spaces, each `name` or `name-color` (black when no color is given) |
-| `Due date`, `Deadline` or `Due at` | Due date |
-| `Start date` or `Start at` | Start date |
-| `Finish date` or `End at` | End date |
-| `Creation date` or `Created at` | Creation date |
-| `Update date`, `Updated at`, `Modified at` or `Modified on` | Modification date |
-| `CustomField-NAME-TYPE` | A custom field NAME of TYPE |
-| `CustomField-NAME-dropdown-A/B/C` | A dropdown (or `dropdownMultiSelect`) field with the items A, B and C |
-| `CustomField-NAME-currency-EUR` | A currency field with that currency code |
+| Title | `Title`, `Name`, `Card`, `Task`, `Task name`, `Summary`, `Subject` |
+| Description | `Description`, `Details`, `Notes` |
+| List | `List`, `Stage`, `Status`, `State`, `Column`: one list per value, in the order the values first appear |
+| Swimlane | `Swimlane`, `Lane`: one swimlane per value; without it one swimlane, **Default** |
+| Owner | `Owner`, `Creator`, `Created by`, `Author`: the card's creator |
+| Members | `Members`, `Member` |
+| Assignee | `Assignee`, `Assignees`, `Assigned to` |
+| Labels | `Labels`, `Label`, `Tags`: separated by spaces or commas, each `name` or `name-color` (black when no color is given) |
+| Received, Start, Due, End | `Received`, `Start` / `Start date`, `Due` / `Due date` / `Deadline`, `End` / `End date` / `Finish date` (and `... at`) |
+| Created at, Last modified at | `Created at` / `Creation date`, `Last modified at` / `Updated at` / `Modified on` |
+| Requested By, Assigned By | `Requested by`, `Assigned by` |
+| Parent card | `Parent card`: the title of another card of the file |
+| Spent time, Overtime | `Spent time (hours)`, `Overtime (hours)` |
+| Archived | `Archived`: `true` archives the card |
+| Custom fields | `CustomField-NAME-TYPE`, `CustomField-NAME-dropdown-A/B/C` (or `dropdownMultiSelect`), `CustomField-NAME-currency-EUR` |
 
+- When no column is recognised as the title, the first column that is not
+  another field's is the title, so a plain list of tasks under any heading
+  imports.
+- People columns hold usernames separated by spaces or commas. A username is
+  applied when it was mapped in the members step, or when it is the importing
+  user's own; Owner falls back to the importing user. Requested By and
+  Assigned By keep the names that were not mapped as the card's free text.
 - Dates are read with JavaScript's date parser: ISO 8601 (`2026-09-01` or
   `2026-09-01T12:00:00.000Z`) works everywhere; the example file uses
   `MM/DD/YYYY`.
-- An `Owner` column is recognized but not applied to the cards.
-- Every row should have a Stage, Status or State value. A row without one
-  creates a list named **Imported List** with the import date.
-- The board is named **Imported Board** with the import date, is private, and
-  has one swimlane, **Default**. The importing user is its admin.
+- Cards go to the list their list cell names. With no list column, or an
+  empty list cell, they go to one list: the name typed in the mapping step,
+  or *To do* in the importing user's language. One list per row is never
+  made.
+- The board is named **Imported Board** with the import date, is private,
+  and the importing user is its admin.
 - On Sandstorm, the import replaces the board it was started from.
 
 ### Export columns
@@ -151,21 +186,26 @@ the import reads them.
 
 ### Importing a WeKan CSV export again
 
-Rename these headers first: `List` to `Status`, `Start` to `Start date`,
-`Due` to `Due date`, `End` to `Finish date` and `Last modified at` to
-`Updated at`. Title, Description, Members, Labels, Created at and the
-`CustomField-...` columns are read as they are.
+Import the file as it is: every column of the export, under its name in the
+language it was exported in, is chosen for its field in the mapping step.
+Last activity and Voting are not imported.
 
 ## What is kept
 
 | CSV / TSV column | WeKan |
 | --- | --- |
 | Title, Description | Card title, description |
-| Stage / Status / State | List |
-| Members | Card members (mapped usernames) |
+| List (Stage / Status / State) | List; without it, one list named in the mapping step |
+| Swimlane | Swimlane |
+| Owner | The card's creator (a mapped username, or the importing user) |
+| Members, Assignee | Card members and assignees (mapped usernames) |
+| Requested By, Assigned By | Requesters and assigners (mapped usernames), the rest as text |
 | Labels (`name-color`) | Board labels and the card's labels |
-| Due, start, finish, created and updated dates | Card dates |
+| Received, start, due, end, created and last modified dates | Card dates |
+| Parent card | The card's parent, by title |
+| Spent time, Overtime, Archived | Spent time, overtime, archived |
 | `CustomField-...` | Board custom fields and the card's values |
+| Other columns ticked in the mapping step | Text custom fields |
 
 The export writes every column listed under **Export columns**.
 
@@ -173,12 +213,12 @@ The export writes every column listed under **Export columns**.
 
 On import:
 
-- columns WeKan does not know, including Swimlane, Owner, Requested By,
-  Assigned By, Assignee, Overtime, Spent time, Last activity, Voting and
-  Archived; every card goes to one swimlane and is not archived;
-- members who were not mapped;
-- label names with spaces in them: a space separates two labels;
-- in TSV, a comma inside a value (see **Import columns**).
+- columns no field uses and that were not ticked as custom fields,
+  including WeKan's Last activity and Voting columns;
+- members who were not mapped (Requested By and Assigned By keep them as
+  text);
+- label names with spaces or commas in them: those separate two labels;
+- a dropdown custom field value that is not one of the field's items.
 
 The CSV import writes no loss report, so none of this is listed in Admin Panel
 → Problems.
@@ -201,9 +241,22 @@ python3 api.py exportallboards scsv boards.zip        # semicolons
 python3 api.py exportallboards tsv boards.zip         # tabs
 ```
 
-- `importboardfrom csv` reads the file as the import page does (tabs turned
-  into commas, comma or semicolon detected) and sends the rows to
+- `importboardfrom csv` reads the file as the import page does (a tab, a
+  semicolon or a comma as the separator) and sends the rows to
   `POST /api/boards/import/csv`, with an optional `membersMapping`.
+- The mapping step's choices go in `csvMapping`, beside `board`:
+  `{"board": [[...header...], [...row...]], "csvMapping": {"columns":
+  {"title": 0, "list": 2, "owner": 3}, "listName": "To do",
+  "customFieldColumns": [5]}}`. Column numbers start from 0; the field names
+  are `title`, `description`, `list`, `swimlane`, `owner`, `members`,
+  `assignees`, `labels`, `receivedAt`, `startAt`, `dueAt`, `endAt`,
+  `createdAt`, `modifiedAt`, `requestedBy`, `assignedBy`, `parentCard`,
+  `spentTime`, `isOvertime` and `archived`. `listName` is used when there is
+  no `list` column. A field name WeKan does not have, a column the file does
+  not have, or anything else in `csvMapping` is refused with `400` and no
+  board is made. Without `csvMapping` the columns are read by their names.
+  From `api.py`: `python3 api.py importboardfrom csv board.csv --csv-mapping
+  mapping.json`.
 - `GET /api/boards/BOARDID/export/csv?authToken=TOKEN&delimiter=,` exports
   one board. `delimiter` is `,` (the default), `;` or a tab (`%09`);
   `fields` takes the same part names as the export popup.
@@ -213,21 +266,31 @@ python3 api.py exportallboards tsv boards.zip         # tabs
 ## How it is built and tested
 
 - Front end: [the import page](../../../../client/components/import)
-  (`client/components/import/import.js` parses the text,
+  (`client/components/import/import.js` hands the text to `csvMapping.js`,
+  which parses it and shows the mapping step, `csvMapping.jade`;
   `csvMembersMapper.js` lists the members to map).
-- Back end: [the CSV import](../../../../models/csvCreator.js) and
-  [the general import](../../../../models/import.js);
-  `models/lib/importedTableRows.js` drops empty rows. The export is
+- Mapping: `models/lib/csvImportMapping.js` matches the header names, checks
+  a mapping and plans the board; `server/lib/importHeaderNames.js` loads
+  every language's export column names; `server/methods/csvImportMapping.js`
+  answers the page's `csvImportGuessMapping` call.
+- Back end: [the CSV import](../../../../models/csvCreator.js) writes the
+  plan and [the general import](../../../../models/import.js) checks the
+  mapping's shape; `models/lib/importedTableRows.js` drops empty rows. The export is
   `models/export.js` (route), `models/exporter.js` (`buildCsvStream`),
   `models/lib/exporterCsvRow.js` (one row) and `models/lib/exportFields.js`
   (which part keeps which column).
-- Unit tests: `tests/csvCreator.headerMapping.test.cjs` (header names),
+- Unit tests: `tests/csvImportMapping.test.cjs` (a confirmed mapping is
+  used, one list when there is no list column, Owner, WeKan export headers
+  in every language, a wrong mapping refused, a TSV value with a comma),
+  `tests/csvCreator.headerMapping.test.cjs` (header names),
   `tests/exporterCsvRow.test.cjs` (export rows with missing references),
   `tests/importFormatAudit.test.cjs` (empty rows),
   `tests/exportBoardPopupOrder.test.cjs` (the export menu).
 - Playwright: `tests/playwright/specs/import-export-format-audit.e2e.js`
   (multiline Unicode text survives a CSV import; an empty import fails without
-  creating a board) and `tests/playwright/specs/export-access.e2e.js` (an
+  creating a board; the mapping step asks for a list for a file without one
+  and every card goes into it; a mapping with a column the file does not have
+  is refused) and `tests/playwright/specs/export-access.e2e.js` (an
   assigned-only member cannot read the unfiltered CSV export).
 
 ## Sources

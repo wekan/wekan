@@ -127,7 +127,7 @@ assert.deepEqual(tokens(ndebele['import-board-instruction-issues']),
 assert.match(ndebele['import-board-instruction-openproject'],
   /GET \/api\/v3\/work_packages/);
 assert.match(ndebele['import-board-instruction-jira'],
-  /GET \/rest\/api\/2\/search/);
+  /GET \/rest\/api\/3\/search\/jql/);
 assert.match(ndebele['import-trello-json-file-hint'], /API/);
 assert.match(ndebele['trello-api-key'],
   /https:\/\/trello\.com\/app-key/);

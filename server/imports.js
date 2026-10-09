@@ -355,6 +355,7 @@ import '/server/importRuns';
 import '/server/methods/instanceFeatures';
 import '/server/methods/emailRecovery';
 import '/server/methods/importReport';
+import '/server/methods/csvImportMapping';
 import '/server/methods/activityNotificationRecovery';
 import '/server/methods/wipLimitGroups';
 import '/server/methods/boardDueReminders';

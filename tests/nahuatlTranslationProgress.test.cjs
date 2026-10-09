@@ -167,7 +167,7 @@ assert.deepEqual(tokens(nahuatl['import-board-instruction-issues']),
 assert.match(nahuatl['import-board-instruction-openproject'],
   /GET \/api\/v3\/work_packages/);
 assert.match(nahuatl['import-board-instruction-jira'],
-  /GET \/rest\/api\/2\/search/);
+  /GET \/rest\/api\/3\/search\/jql/);
 assert.match(nahuatl['import-trello-json-file-hint'], /API key.*token/);
 assert.match(nahuatl['trello-api-key'],
   /https:\/\/trello\.com\/app-key/);

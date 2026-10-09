@@ -150573,7 +150573,7 @@
     "locale": "tig",
     "key": "import-board-instruction-jira",
     "before": "JSON ካብ ምድላይ ጉዳይ Jira Cloud REST API (GET /rest/api/2/search)፣ ወይ ተመሳሳሊ { \"issues\": [...] } ነገር ለጥፍ። ኩነታት Jira ዝርዝራት ይኾኑ፣ ጉዳያት ድማ ካርድታት ይኾኑ። ደንብታት ንምእታው ብምርጫ \"automationRules\" ዝርዝር ኣካትት።",
-    "after": "JSON ካብ ምድላይ ጉዳይ Jira Cloud REST API (GET /rest/api/2/search)፣ ወይ ተመሳሳሊ { \"issues\": [...] } ነገር ለጥፍ። ሓላት Jira ዝርዝራት ይኾኑ፣ ጉዳያት ድማ ወረቀት ካርዳት ይኾኑ። ደንብታት ንምእታው ብምርጫ \"automationRules\" ዝርዝር ኣካትት።",
+    "after": "JSON ካብ ምድላይ ጉዳይ Jira Cloud REST API (GET /rest/api/3/search/jql)፣ ወይ ተመሳሳሊ { \"issues\": [...] } ነገር ለጥፍ። ሓላት Jira ዝርዝራት ይኾኑ፣ ጉዳያት ድማ ወረቀት ካርዳት ይኾኑ። ደንብታት ንምእታው ብምርጫ \"automationRules\" ዝርዝር ኣካትት።",
     "reason": "2026-09-15: Replace remaining embedded Tigrinya Board and Card nouns with corpus-attested Tigre singular/plural forms, restricted to English Board/Card senses. Preserve placeholders and surrounding clauses; exclude Clipboard uses and guard already-correct Tigre Card compounds against duplication. Follow-up full-locale English source-sense repair: Status: ኩነታት → ሓላት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review."
   },
   {
@@ -162459,7 +162459,7 @@
     "locale": "wuu-Hans",
     "key": "import-board-instruction-jira",
     "before": "粘贴来自 Jira Cloud REST API issue 搜索（GET /rest/api/2/search）的 JSON，或等效的 { \"issues\": [...] } 对象。Jira 状态成为列表，issues 成为卡片。可选地包含 \"automationRules\" 数组以导入规则。",
-    "after": "贴进 Jira Cloud REST API 议题搜索（GET /rest/api/2/search）得到个 JSON，或者等效个 { \"issues\": [...] } 对象。Jira 状态变成列表，议题变成卡片。也可以包含 \"automationRules\" 数组来导入规则。",
+    "after": "贴进 Jira Cloud REST API 议题搜索（GET /rest/api/3/search/jql）得到个 JSON，或者等效个 { \"issues\": [...] } 对象。Jira 状态变成列表，议题变成卡片。也可以包含 \"automationRules\" 数组来导入规则。",
     "reason": "2026-10-08: Correct Wu import instructions while preserving API paths, schema keys and source variables; lower-confidence prose needs native review."
   },
   {

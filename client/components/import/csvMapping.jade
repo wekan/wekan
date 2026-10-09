@@ -1,0 +1,44 @@
+//- The column mapping step of the CSV/TSV and Excel imports
+  (client/components/import/csvMapping.js): which column of the file is which
+  card field, pre-filled from the column names, and the one list every card
+  goes into when the file has no list column.
+template(name="importCsvMapping")
+  .import-csv-mapping.js-csv-mapping
+    h2 {{_ 'csv-mapping-title'}}
+    if loading
+      +spinner
+    else
+      p {{_ 'csv-mapping-description'}}
+      if boardsText
+        p.quiet.js-csv-mapping-boards {{_ 'csv-mapping-boards'}} {{boardsText}}
+      if skippedText
+        p.quiet.js-csv-mapping-skipped {{_ 'csv-mapping-skipped-sheets'}} {{skippedText}}
+      if mappingError
+        .warning.js-csv-mapping-error {{_ mappingError}}
+      table.csv-mapping-fields
+        tbody
+          each fields
+            tr(class="csv-mapping-field-{{field}}")
+              th
+                label(for="csv-map-{{field}}") {{_ label}}
+              td
+                select.js-csv-map-field(id="csv-map-{{field}}" data-field="{{field}}")
+                  option(value="") {{_ 'csv-mapping-not-in-file'}}
+                  each columns
+                    option(value="{{index}}" selected="{{#if isChosen ../field index}}selected{{/if}}") {{text}}
+      if listMissing
+        //- No list column: every card goes into one list, named here.
+        .csv-mapping-list-name.js-csv-mapping-list-missing
+          p {{_ 'csv-mapping-list-missing'}}
+          label(for="csv-map-list-name") {{_ 'csv-mapping-list-name'}}
+          input.js-csv-map-list-name(id="csv-map-list-name" type="text" maxlength="255" value="{{listName}}")
+      if extraColumns.length
+        .csv-mapping-custom-fields
+          p {{_ 'csv-mapping-custom-fields'}}
+          ul
+            each extraColumns
+              li
+                a.flex.js-csv-map-custom-column(href="#" data-index="{{index}}")
+                  .materialCheckBox(class="{{#if checked}}is-checked{{/if}}")
+                  span {{text}}
+      button.primary.wide.js-csv-mapping-import(type="button") {{_ continueLabel}}

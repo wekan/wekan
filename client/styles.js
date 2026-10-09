@@ -22,6 +22,7 @@ import '/client/components/forms/datepicker.css';
 import '/client/components/forms/forms.css';
 import '/client/components/gantt/gantt.css';
 import '/client/components/gantt/ganttCard.css';
+import '/client/components/import/csvMapping.css';
 import '/client/components/import/import.css';
 import '/client/components/lists/list.css';
 import '/client/components/main/accessibility.css';

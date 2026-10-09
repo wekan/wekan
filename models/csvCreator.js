@@ -2,6 +2,7 @@ import { membersMode, membersMappingFor } from '/models/lib/importMembersMode';
 import { Meteor } from 'meteor/meteor';
 import { importedTableRows } from './lib/importedTableRows';
 import { plannedBoardFields } from './lib/importPipeline';
+import { DEFAULT_LIST_NAME, planCsvBoard, resolveCsvMapping } from './lib/csvImportMapping';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Activities from '/models/activities';
 import Boards from './boards';
@@ -10,19 +11,28 @@ import CustomFields from '/models/customFields';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 
+// Imports a CSV/TSV text or an Excel sheet - rows of cells, rows[0] the
+// header. Which column is which field is the mapping the import page's
+// mapping step sent (data.csvMapping), checked against the header, or else
+// what the header names say (models/lib/csvImportMapping.js), which also
+// decides what every row becomes. This class only writes that plan.
 export class CsvCreator {
-  constructor(data) {
+  // options.title - the board's title (an Excel sheet names its board);
+  // options.headerNames - every language's export column names, for tests
+  // and callers that have them already.
+  constructor(data = {}, options = {}) {
     // date to be used for timestamps during import
     this._nowDate = new Date();
-    // index to help keep track of what information a column stores
-    // each row represents a card
-    this.fieldIndex = {};
     this.lists = {};
+    this.swimlanes = {};
     // Map of members using username => wekanid
     // Who the file's people become - chosen users, placeholders, or the
     // person importing - the same for every source (models/lib/importMembersMode.js).
     this.membersMode = membersMode(data);
     this.members = membersMappingFor(data, () => Meteor.userId());
+    this.csvMapping = data.csvMapping;
+    this.boardTitle = options.title || '';
+    this.headerNames = options.headerNames || null;
     this.swimlane = null;
   }
 
@@ -52,135 +62,43 @@ export class CsvCreator {
     return Meteor.userId();
   }
 
-  /**
-   * Map the header row titles to an index to help assign proper values to the cards' fields
-   * Valid headers (name of card fields):
-   * title, description, status, owner, member, label, due date, start date, finish date, created at, updated at
-   * Some header aliases can also be accepted.
-   * Headers are NOT case-sensitive.
-   *
-   * @param {Array} headerRow array from row of headers of imported CSV/TSV for cards
-   */
-  mapHeadertoCardFieldIndex(headerRow) {
-    const index = {};
-    index.customFields = [];
-    for (let i = 0; i < headerRow.length; i++) {
-      // #6620: a sparse/short CSV row (a trailing empty column some CSV
-      // parsers report as a hole rather than '') yields undefined here -
-      // guard so an odd header row is skipped instead of crashing the
-      // import with "toLowerCase is not a function".
-      const header = typeof headerRow[i] === 'string' ? headerRow[i] : '';
-      switch (header.trim().toLowerCase()) {
-        case 'title':
-          index.title = i;
-          break;
-        case 'description':
-          index.description = i;
-          break;
-        case 'stage':
-        case 'status':
-        case 'state':
-          index.stage = i;
-          break;
-        case 'owner':
-          index.owner = i;
-          break;
-        case 'members':
-        case 'member':
-          index.members = i;
-          break;
-        case 'labels':
-        case 'label':
-          index.labels = i;
-          break;
-        case 'due date':
-        case 'deadline':
-        case 'due at':
-          index.dueAt = i;
-          break;
-        case 'start date':
-        case 'start at':
-          index.startAt = i;
-          break;
-        case 'finish date':
-        case 'end at':
-          index.endAt = i;
-          break;
-        case 'creation date':
-        case 'created at':
-          index.createdAt = i;
-          break;
-        case 'update date':
-        case 'updated at':
-        case 'modified at':
-        case 'modified on':
-          index.modifiedAt = i;
-          break;
-      }
-      if (header.toLowerCase().startsWith('customfield')) {
-        if (headerRow[i].split('-')[2] === 'dropdown' || headerRow[i].split('-')[2] === 'dropdownMultiSelect') {
-          index.customFields.push({
-            name: headerRow[i].split('-')[1],
-            type: headerRow[i].split('-')[2],
-            options: headerRow[i].split('-')[3].split('/'),
-            position: i,
-          });
-        } else if (headerRow[i].split('-')[2] === 'currency') {
-          index.customFields.push({
-            name: headerRow[i].split('-')[1],
-            type: headerRow[i].split('-')[2],
-            currencyCode: headerRow[i].split('-')[3],
-            position: i,
-          });
-        } else {
-          index.customFields.push({
-            name: headerRow[i].split('-')[1],
-            type: headerRow[i].split('-')[2],
-            position: i,
-          });
-        }
-      }
-    }
-    this.fieldIndex = index;
+  // A username of the file as a WeKan user id: the one the members mapping
+  // gave it, or the importing user when the name is their own. A name nobody
+  // mapped is not looked up among all users - that would put a stranger on
+  // the board's cards.
+  _userIdOf(username) {
+    if (!username) return undefined;
+    if (this.members[username]) return this.members[username];
+    if (this._importer && this._importer.username === username) return this._importer._id;
+    return undefined;
   }
-  async createCustomFields(boardId) {
-    for (const customField of this.fieldIndex.customFields) {
-      let settings = {};
-      if (customField.type === 'dropdown' || customField.type === 'dropdownMultiSelect') {
-        settings = {
-          dropdownItems: customField.options.map(option => {
-            return { _id: Random.id(6), name: option };
-          }),
-        };
-      } else if (customField.type === 'currency') {
-        settings = {
-          currencyCode: customField.currencyCode,
-        };
-      } else {
-        settings = {};
-      }
-      const id = await CustomFields.direct.insertAsync({
-        name: customField.name,
-        type: customField.type,
-        settings,
-        showOnCard: false,
-        automaticallyOnCard: false,
-        alwaysOnCard: false,
-        showLabelOnMiniCard: false,
-        boardIds: [boardId],
-      });
-      customField.id = id;
-      customField.settings = settings;
+
+  // The list every card without a list cell goes into, in the importing
+  // user's language when the request did not name one.
+  _defaultListName() {
+    try {
+      const { TAPi18n } = require('/imports/i18n');
+      const language = (this._importer && this._importer.profile && this._importer.profile.language) || 'en';
+      const name = TAPi18n.__('scrum-category-todo', {}, language);
+      return name && name !== 'scrum-category-todo' ? name : DEFAULT_LIST_NAME;
+    } catch (error) {
+      return DEFAULT_LIST_NAME;
     }
   }
 
-  async createBoard(csvData) {
+  async _headerNames() {
+    if (this.headerNames) return this.headerNames;
+    if (!Meteor.isServer) return {};
+    return require('/server/lib/importHeaderNames').importHeaderNames();
+  }
+
+  async createBoard(plan) {
     const boardToCreate = {
       ...plannedBoardFields(this),
       archived: false,
       color: 'belize',
       createdAt: this._now(),
-      labels: [],
+      labels: plan.labels.map(label => ({ _id: Random.id(6), color: label.color, name: label.name })),
       members: [
         {
           userId: Meteor.userId(),
@@ -197,37 +115,10 @@ export class CsvCreator {
       permission: 'private',
       slug: 'board',
       stars: 0,
-      title: `Imported Board ${this._now()}`,
+      title: this.boardTitle || `Imported Board ${this._now()}`,
     };
-
-    // create labels
-    const labelsToCreate = new Set();
-    for (let i = 1; i < csvData.length; i++) {
-      if (csvData[i][this.fieldIndex.labels]) {
-        for (const importedLabel of csvData[i][this.fieldIndex.labels].split(
-          ' ',
-        )) {
-          if (importedLabel && importedLabel.length > 0) {
-            labelsToCreate.add(importedLabel);
-          }
-        }
-      }
-    }
-    for (const label of labelsToCreate) {
-      let labelName, labelColor;
-      if (label.indexOf('-') > -1) {
-        labelName = label.split('-')[0];
-        labelColor = label.split('-')[1];
-      } else {
-        labelName = label;
-      }
-      const labelToCreate = {
-        _id: Random.id(6),
-        color: labelColor ? labelColor : 'black',
-        name: labelName,
-      };
-      boardToCreate.labels.push(labelToCreate);
-    }
+    this.labelIds = {};
+    boardToCreate.labels.forEach(label => { this.labelIds[`${label.name}\u0000${label.color}`] = label._id; });
 
     const boardId = await Boards.direct.insertAsync(boardToCreate);
     await Boards.direct.updateAsync(boardId, {
@@ -251,154 +142,171 @@ export class CsvCreator {
     return boardId;
   }
 
-  async createSwimlanes(boardId) {
-    const swimlaneToCreate = {
-      archived: false,
-      boardId,
-      createdAt: this._now(),
-      title: 'Default',
-      sort: 1,
-    };
-    const swimlaneId = await Swimlanes.direct.insertAsync(swimlaneToCreate);
-    await Swimlanes.direct.updateAsync(swimlaneId, { $set: { updatedAt: this._now() } });
-    this.swimlane = swimlaneId;
-  }
-
-  async createLists(csvData, boardId) {
-    let numOfCreatedLists = 0;
-    for (let i = 1; i < csvData.length; i++) {
-      const listToCreate = {
+  async createSwimlanes(plan, boardId) {
+    let sort = 0;
+    for (const title of plan.swimlanes) {
+      sort += 1;
+      const swimlaneId = await Swimlanes.direct.insertAsync({
         archived: false,
         boardId,
         createdAt: this._now(),
-      };
-      if (csvData[i][this.fieldIndex.stage]) {
-        const existingList = await ReactiveCache.getLists({
-          title: csvData[i][this.fieldIndex.stage],
-          boardId,
-        });
-        if (existingList.length > 0) {
-          continue;
-        } else {
-          listToCreate.title = csvData[i][this.fieldIndex.stage];
-        }
-      } else listToCreate.title = `Imported List ${this._now()}`;
+        title,
+        sort,
+      });
+      await Swimlanes.direct.updateAsync(swimlaneId, { $set: { updatedAt: this._now() } });
+      this.swimlanes[title] = swimlaneId;
+      if (!this.swimlane) this.swimlane = swimlaneId;
+    }
+  }
 
-      const listId = await Lists.direct.insertAsync(listToCreate);
-      this.lists[csvData[i][this.fieldIndex.stage]] = listId;
-      numOfCreatedLists++;
+  // One list per list name the plan has - the list cells' values, or the one
+  // list every card goes into when the file has no list column.
+  async createLists(plan, boardId) {
+    let sort = 0;
+    for (const title of plan.lists) {
+      sort += 1;
+      const listId = await Lists.direct.insertAsync({
+        archived: false,
+        boardId,
+        createdAt: this._now(),
+        title,
+      });
+      this.lists[title] = listId;
       await Lists.direct.updateAsync(listId, {
         $set: {
           updatedAt: this._now(),
-          sort: numOfCreatedLists,
+          sort,
         },
       });
     }
   }
 
-  async createCards(csvData, boardId) {
-    for (let i = 1; i < csvData.length; i++) {
+  async createCustomFields(plan, boardId) {
+    for (const customField of plan.customFields) {
+      let settings = {};
+      if (customField.type === 'dropdown' || customField.type === 'dropdownMultiSelect') {
+        settings = {
+          dropdownItems: customField.options.map(option => {
+            return { _id: Random.id(6), name: option };
+          }),
+        };
+      } else if (customField.type === 'currency') {
+        settings = {
+          currencyCode: customField.currencyCode,
+        };
+      }
+      const id = await CustomFields.direct.insertAsync({
+        name: customField.name,
+        type: customField.type,
+        settings,
+        showOnCard: false,
+        automaticallyOnCard: false,
+        alwaysOnCard: false,
+        showLabelOnMiniCard: false,
+        boardIds: [boardId],
+      });
+      customField.id = id;
+      customField.settings = settings;
+    }
+  }
+
+  // A dropdown cell names its item; a multi-select names several, separated
+  // by commas. A name the field does not have is left out rather than failing
+  // the import.
+  _customFieldValue(field, value) {
+    if (field.type === 'dropdown') {
+      const item = field.settings.dropdownItems.find(({ name }) => name === value);
+      return item ? item._id : undefined;
+    }
+    if (field.type === 'dropdownMultiSelect') {
+      const ids = String(value).split(/\s*,\s*/)
+        .map(name => field.settings.dropdownItems.find(item => item.name === name))
+        .filter(Boolean).map(item => item._id);
+      return ids.length ? ids : undefined;
+    }
+    return value;
+  }
+
+  // People named in a "by" cell: the mapped usernames become the card's
+  // requesters/assigners, the rest stays as the card's free text.
+  _byField(names) {
+    const ids = [];
+    const text = [];
+    names.forEach(name => {
+      const id = this._userIdOf(name);
+      if (id) { if (!ids.includes(id)) ids.push(id); } else text.push(name);
+    });
+    return { ids, text: text.join(', ') };
+  }
+
+  async createCards(plan, boardId) {
+    const cardIdByTitle = {};
+    const parents = [];
+    for (const card of plan.cards) {
       const cardToCreate = {
-        archived: false,
+        archived: !!card.archived,
         boardId,
         dateLastActivity: this._now(),
-        description: csvData[i][this.fieldIndex.description],
-        listId: this.lists[csvData[i][this.fieldIndex.stage]],
-        swimlaneId: this.swimlane,
-        sort: -1,
-        title: csvData[i][this.fieldIndex.title],
-        userId: this._user(),
-        spentTime: null,
-        labelIds: [],
+        listId: this.lists[card.list],
+        swimlaneId: this.swimlanes[card.swimlane] || this.swimlane,
+        sort: card.row,
+        title: card.title,
+        userId: this._userIdOf(card.owner) || this._user(),
+        spentTime: card.spentTime === undefined ? null : card.spentTime,
+        labelIds: card.labels.map(label => this.labelIds[`${label.name}\u0000${label.color}`]).filter(Boolean),
       };
-      // Date columns are optional: only set them when the column exists for this
-      // row and is non-empty (this.fieldIndex.<x> is undefined when the column is
-      // absent, so the cell lookup yields undefined).
-      const createdAtCell = csvData[i][this.fieldIndex.createdAt];
-      if (createdAtCell && createdAtCell.length !== 0) {
-        cardToCreate.createdAt = this._now(new Date(createdAtCell));
+      if (card.description !== undefined) cardToCreate.description = card.description;
+      if (card.archived) cardToCreate.archivedAt = this._now();
+      if (card.isOvertime) cardToCreate.isOvertime = true;
+      for (const field of ['receivedAt', 'startAt', 'dueAt', 'endAt', 'createdAt', 'modifiedAt']) {
+        if (card[field]) cardToCreate[field] = card[field];
       }
-      const startAtCell = csvData[i][this.fieldIndex.startAt];
-      if (startAtCell && startAtCell.length !== 0) {
-        cardToCreate.startAt = this._now(new Date(startAtCell));
-      }
-      const dueAtCell = csvData[i][this.fieldIndex.dueAt];
-      if (dueAtCell && dueAtCell.length !== 0) {
-        cardToCreate.dueAt = this._now(new Date(dueAtCell));
-      }
-      const endAtCell = csvData[i][this.fieldIndex.endAt];
-      if (endAtCell && endAtCell.length !== 0) {
-        cardToCreate.endAt = this._now(new Date(endAtCell));
-      }
-      const modifiedAtCell = csvData[i][this.fieldIndex.modifiedAt];
-      if (modifiedAtCell && modifiedAtCell.length !== 0) {
-        cardToCreate.modifiedAt = this._now(new Date(modifiedAtCell));
-      }
-      // add the labels
-      if (csvData[i][this.fieldIndex.labels]) {
-        const board = await ReactiveCache.getBoard(boardId);
-        for (const importedLabel of csvData[i][this.fieldIndex.labels].split(
-          ' ',
-        )) {
-          if (importedLabel && importedLabel.length > 0) {
-            let labelToApply;
-            if (importedLabel.indexOf('-') === -1) {
-              labelToApply = board.getLabel(importedLabel, 'black');
-            } else {
-              labelToApply = board.getLabel(
-                importedLabel.split('-')[0],
-                importedLabel.split('-')[1],
-              );
-            }
-            cardToCreate.labelIds.push(labelToApply._id);
-          }
+      const people = names => [...new Set(names.map(name => this._userIdOf(name)).filter(Boolean))];
+      const members = people(card.members);
+      if (members.length) cardToCreate.members = members;
+      const assignees = people(card.assignees);
+      if (assignees.length) cardToCreate.assignees = assignees;
+      const requested = this._byField(card.requestedBy);
+      if (requested.ids.length) cardToCreate.requesters = requested.ids;
+      if (requested.text) cardToCreate.requestedBy = requested.text;
+      const assigned = this._byField(card.assignedBy);
+      if (assigned.ids.length) cardToCreate.assigners = assigned.ids;
+      if (assigned.text) cardToCreate.assignedBy = assigned.text;
+      if (plan.customFields.length > 0) {
+        cardToCreate.customFields = [];
+        for (const { fieldIndex, value } of card.customValues) {
+          const field = plan.customFields[fieldIndex];
+          const stored = value === undefined ? undefined : this._customFieldValue(field, value);
+          if (stored !== undefined) cardToCreate.customFields.push({ _id: field.id, value: stored });
         }
       }
-      // add the members
-      if (csvData[i][this.fieldIndex.members]) {
-        const wekanMembers = [];
-        for (const importedMember of csvData[i][this.fieldIndex.members].split(
-          ' ',
-        )) {
-          if (this.members[importedMember]) {
-            const wekanId = this.members[importedMember];
-            if (!wekanMembers.find(wId => wId === wekanId)) {
-              wekanMembers.push(wekanId);
-            }
-          }
-        }
-        if (wekanMembers.length > 0) {
-          cardToCreate.members = wekanMembers;
-        }
+      const cardId = await Cards.direct.insertAsync(cardToCreate);
+      if (cardToCreate.title && !cardIdByTitle[cardToCreate.title]) cardIdByTitle[cardToCreate.title] = cardId;
+      if (card.parentTitle) parents.push({ cardId, parentTitle: card.parentTitle });
+    }
+    // The Excel table names a card's parent by title: linked once every card
+    // of the board exists, to the first card with that title.
+    for (const { cardId, parentTitle } of parents) {
+      const parentId = cardIdByTitle[parentTitle];
+      if (parentId && parentId !== cardId) {
+        await Cards.direct.updateAsync(cardId, { $set: { parentId } });
       }
-      // add the custom fields
-      if (this.fieldIndex.customFields.length > 0) {
-        const customFields = [];
-        this.fieldIndex.customFields.forEach(customField => {
-          if (csvData[i][customField.position] !== ' ') {
-            if (customField.type === 'dropdown') {
-              customFields.push({
-                _id: customField.id,
-                value: customField.settings.dropdownItems.find(
-                  ({ name }) => name === csvData[i][customField.position],
-                )._id,
-              });
-            } else {
-              customFields.push({
-                _id: customField.id,
-                value: csvData[i][customField.position],
-              });
-            }
-          }
-          cardToCreate.customFields = customFields;
-        });
-      }
-      await Cards.direct.insertAsync(cardToCreate);
     }
   }
 
   async create(board, currentBoardId) {
-    board = importedTableRows(board);
+    const rows = importedTableRows(board);
+    if (!rows.length || !Array.isArray(rows[0])) {
+      throw new Meteor.Error('error-csv-schema');
+    }
+    let mapping;
+    try {
+      mapping = resolveCsvMapping(rows[0], this.csvMapping, await this._headerNames());
+    } catch (error) {
+      throw new Meteor.Error('invalid-import-mapping', error.message);
+    }
+    this._importer = Meteor.userId() ? await ReactiveCache.getUser(Meteor.userId()) : null;
+    const plan = planCsvBoard(rows, mapping, { defaultListName: this._defaultListName() });
     const isSandstorm =
       Meteor.settings &&
       Meteor.settings.public &&
@@ -407,12 +315,11 @@ export class CsvCreator {
       const currentBoard = await ReactiveCache.getBoard(currentBoardId);
       await currentBoard.archive();
     }
-    this.mapHeadertoCardFieldIndex(board[0]);
-    const boardId = await this.createBoard(board);
-    await this.createLists(board, boardId);
-    await this.createSwimlanes(boardId);
-    await this.createCustomFields(boardId);
-    await this.createCards(board, boardId);
+    const boardId = await this.createBoard(plan);
+    await this.createLists(plan, boardId);
+    await this.createSwimlanes(plan, boardId);
+    await this.createCustomFields(plan, boardId);
+    await this.createCards(plan, boardId);
     return boardId;
   }
 }

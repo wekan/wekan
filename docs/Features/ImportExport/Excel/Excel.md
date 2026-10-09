@@ -1,8 +1,10 @@
 # Excel
 
-WeKan imports a board from an Excel `.xlsx` workbook laid out as a table, one
-card per row, and exports a whole board, a swimlane, a list or one card as an
-`.xlsx` workbook. The board export has two forms:
+WeKan imports boards from an Excel `.xlsx` workbook laid out as a table, one
+card per row - including the table WeKan's own Excel export writes, in any
+language, and the "Export all boards" workbook with a sheet per board - and
+exports a whole board, a swimlane, a list or one card as an `.xlsx`
+workbook. The board export has two forms:
 
 - the default detailed export produces printable A4 card blocks, using the same
   fields offered by the export popup;
@@ -16,31 +18,46 @@ described in [Excel and VBA](Excel-and-VBA.md).
 
 ## How to import
 
-1. In Excel, or another spreadsheet program, make a sheet whose **first row**
-   is the header row, with the column names listed under **Format details**,
-   and one card per row below it. Save it as an **Excel Workbook (.xlsx)**. A
-   `.xls` file must first be saved as `.xlsx`. Only the first sheet of the
-   workbook is read.
+1. In Excel, or another spreadsheet program, make a sheet with a header row
+   (the column names are listed under **Format details**) and one card per
+   row below it, and save it as an **Excel Workbook (.xlsx)**. A `.xls` file
+   must first be saved as `.xlsx`. A workbook WeKan exported can be imported
+   as it is.
 2. In WeKan, go to **All Boards → New → Import → Excel**.
 3. Tick the parts to import (**Select what to include**).
-4. Under **Excel file (.xlsx)**, choose the file and click **Import**. The
-   import page says: *Choose a WeKan-style .xlsx spreadsheet (the same columns
-   as the Excel export: Title, Description, Status/List, Members, Labels,
-   dates, custom fields). The first row is the header.*
-5. There is no member mapping step for Excel: members can be mapped later.
-   The board opens when the import is done.
+4. Under **Excel file (.xlsx)**, choose the file and click **Import**.
+5. **Which column is which?** The workbook is opened on the server, and the
+   page shows each card field with a choice of the first board sheet's
+   columns, matched from the column names - the same step as the
+   [CSV / TSV import](../CSV/CSV.md#how-to-import). When the sheet has no
+   list column, type the name of the one list every card goes into. The page
+   also names the sheets that become boards and the sheets that are not
+   imported. Click **Import**.
+6. There is no member mapping step for Excel: members can be mapped later.
+   The board opens when the import is done; when the workbook held several
+   boards, the first one opens and the others are on All Boards.
 
 The workbook is read on the server and imported through the same engine as
-the [CSV / TSV import](../CSV/CSV.md), so it reads the same column names. Like
-the CSV import, it does not write a loss report.
+the [CSV / TSV import](../CSV/CSV.md), so it reads the same column names.
+The file is sent twice: once to read its columns for the mapping step, once
+to import it. Like the CSV import, it does not write a loss report.
 
 ## How to import many boards at once
 
+- One workbook can hold many boards: every sheet with a header row becomes
+  its own board, named after the title above its table (WeKan's export
+  writes the board's title in cell A1) or else after the sheet. The
+  **Export all boards** workbook (below) imports back this way, one board per
+  sheet. The mapping confirmed on the page applies to every sheet whose
+  header is the same as the first board sheet's; a sheet with other columns
+  is read by its column names.
 - On the import page, under **Import many boards**, choose several `.xlsx`
-  files, or one `.zip` that holds them. Each file becomes its own board,
-  imported without member mapping (members can be mapped later).
+  files, or one `.zip` that holds them. Each file is imported without member
+  mapping (members can be mapped later) and without the mapping step: its
+  columns are read by their names.
 - Excel is not imported through the generalized importer, so **One board per
-  project** is not offered for it. An Excel import always makes one swimlane.
+  project** is not offered for it. A Swimlane column gives one swimlane per
+  value instead.
 - From a script: `python3 api.py importboardsfrom excel FILE_OR_DIR ...`
   (files, directories of files, or `.zip` files).
 
@@ -78,37 +95,46 @@ From the [format coverage](../Format-Coverage.md) audit:
   cells and dates, formulas as displayed values, custom-field columns and
   size, row and column bounds.
 
-The current import reads only the first worksheet, turns every cell into text
-and hands the rows to the CSV import (`parseXlsxToRows` in
-`models/import.js`).
+The import reads every worksheet, finds each one's header row, reads a
+formula cell as its calculated result, a rich text cell as its text and a
+date cell as a date, and hands each board's rows to the CSV import
+(`server/lib/excelBoardWorkbook.js`, `models/lib/csvImportMapping.js`).
 
 ### Import columns
 
-The first row is the header. These headers are read, in any case and in any
-order (the same as the [CSV import](../CSV/CSV.md#import-columns)):
+The header is the first row that names a title column - row 1 of a plain
+table, row 7 of WeKan's export, which has the board's title, description,
+dates and members above it. A header below row 1 has to name at least four
+known columns, so a note somewhere above a table is not taken for one. The
+column names are the same as the
+[CSV import's](../CSV/CSV.md#import-columns): English names such as `Title`,
+`Status`, `Owner`, `Due date`, `Labels` and `CustomField-NAME-TYPE`, and the
+names WeKan's exports write in every language. The mapping step shows what
+was matched, and anything can be changed there.
 
-- `Title`, `Description`;
-- `Stage`, `Status` or `State`: the list, one list per value;
-- `Members` or `Member`: usernames separated by spaces (with no member
-  mapping on this page they are not applied);
-- `Labels` or `Label`: separated by spaces, each `name` or `name-color`;
-- `Due date` / `Deadline` / `Due at`, `Start date` / `Start at`,
-  `Finish date` / `End at`, `Creation date` / `Created at`, and
-  `Update date` / `Updated at` / `Modified at` / `Modified on`;
-- `CustomField-NAME-TYPE`, `CustomField-NAME-dropdown-A/B/C` and
-  `CustomField-NAME-currency-CODE`.
-
-The board is named **Imported Board** with the import date, is private, and
-has one swimlane, **Default**.
+- A sheet without a header row is not a board: WeKan's **Activity** sheet
+  (its header names an activity and a card, not a title), an empty sheet or
+  a sheet of notes is skipped, and the mapping step lists it. When no sheet
+  has a recognised header, the first sheet's first row is the header.
+- A formula cell is read as the result the spreadsheet program last
+  calculated and saved; rich text as its text; a hyperlink as its text; an
+  error cell as empty; a date cell as that moment.
+- A merged range is one cell: the cells it covers are empty.
+- Labels are separated by spaces or commas, so the export's
+  `Bug ,Feature` is two labels.
+- With no list column, every card of the sheet goes to one list: the name
+  typed in the mapping step, or *To do* in the importing user's language.
+- The board is private and the importing user is its admin.
 
 ### Importing a WeKan Excel export again
 
-The streaming table export starts with the board's title, description,
-creation and modification dates and members in rows 1 to 6; its header is row
-7, in the exporting user's language. To import it: delete rows 1 to 6, then
-rename `List` to `Status`, `Start` to `Start date`, `Due` to `Due date` and
-`End` to `Finish date`. The table has no custom field columns. The detailed
-card-block export is a printed layout, not a table, and does not import.
+Import the streaming table export, or the **Export all boards** workbook, as
+it is: the header in row 7 is found in the language it was exported in,
+every column but Number is chosen for its field (Parent card links the card
+to the card with that title), the board is named after cell A1, and the
+Activity sheet is skipped. The table has no custom field columns. The
+detailed card-block export is a printed layout, not a table, and does not
+import.
 
 ### Export layout
 
@@ -201,11 +227,19 @@ On import:
 
 | Excel column | WeKan |
 | --- | --- |
+| Every sheet with a header row | A board, named after the title above the table or the sheet |
 | Title, Description | Card title, description |
-| Stage / Status / State | List |
+| List (Stage / Status / State) | List; without it, one list named in the mapping step |
+| Swimlane | Swimlane |
+| Owner | The card's creator when it is the importing user's username |
 | Labels (`name-color`) | Board labels and the card's labels |
-| Due, start, finish, created and updated dates | Card dates |
+| Received, start, due, end, created and last modified dates | Card dates |
+| Requested By, Assigned By | The card's free text |
+| Parent card | The card's parent, by title |
+| Spent time, Overtime | Spent time, overtime |
 | `CustomField-...` | Board custom fields and the card's values |
+| Other columns ticked in the mapping step | Text custom fields |
+| Formula and rich text cells | Their values |
 
 On export, the detailed workbook keeps every section of the opened card
 listed under **Export layout**, as far as the sections are ticked.
@@ -214,13 +248,15 @@ listed under **Export layout**, as far as the sections are ticked.
 
 On import:
 
-- every sheet after the first;
-- members, because the Excel import has no member mapping step;
-- columns WeKan does not know, cell formatting and images;
-- the value of a cell that holds a formula or formatted (rich) text: such a
-  cell is not plain text to the import. Paste the sheet as values before
-  importing;
-- label names with spaces in them: a space separates two labels.
+- sheets without a header row, including WeKan's Activity sheet (the
+  comments of the export);
+- members, assignees and owners other than the importing user, because the
+  Excel import has no member mapping step;
+- columns no field uses and that were not ticked as custom fields, cell
+  formatting and images;
+- a formula's formula: only its saved result is read. A workbook saved by a
+  program that does not store results reads such a cell as empty;
+- label names with spaces or commas in them: those separate two labels.
 
 The Excel import writes no loss report, so none of this is listed in Admin
 Panel → Problems.
@@ -239,7 +275,13 @@ python3 api.py exportallboards excel boards.xlsx       # GET /api/export-all-boa
 ```
 
 - `POST /api/boards/import/excel` takes `{ "board": { "excelBase64": "..." } }`:
-  the workbook in base64.
+  the workbook in base64. Every sheet with a header becomes a board, and the
+  answer is the first board's id. An optional `csvMapping` beside `board`
+  says which column holds which field, as the mapping step does, in the shape
+  the [CSV page](../CSV/CSV.md#rest-api) describes; it applies to the sheets
+  with the first board sheet's header, and a column the sheet does not have
+  is refused with `400`. From `api.py`: `python3 api.py importboardfrom excel
+  board.xlsx --csv-mapping mapping.json`.
 - `GET /api/boards/BOARDID/exportExcel?authToken=TOKEN` exports a board, with
   `fields` (the ticked parts; leave out `card-details` for the table),
   `swimlaneId` or `listId` to narrow it.
@@ -250,9 +292,14 @@ python3 api.py exportallboards excel boards.xlsx       # GET /api/export-all-boa
 
 ## How it is built and tested
 
-- Import: `models/import.js` (`parseXlsxToRows`, the `excel` case) reads the
-  first sheet with `@wekanteam/exceljs`; `models/csvCreator.js` writes the
-  board; `client/components/import/import.js` sends the file.
+- Import: `server/lib/excelBoardWorkbook.js` opens the workbook with
+  `@wekanteam/exceljs`; `models/lib/csvImportMapping.js` reads the cells,
+  finds each sheet's header and plans each board; the `excel` case in
+  `models/import.js` imports each board through `models/csvCreator.js`;
+  `client/components/import/import.js` sends the file and
+  `client/components/import/csvMapping.js` shows the mapping step, whose
+  columns come from the `excelImportPreview` method
+  (`server/methods/csvImportMapping.js`).
 - `models/exportExcel.js` and `models/server/ExporterExcel.js` implement the
   streaming board table.
 - `models/exportExcelCard.js` and
@@ -268,14 +315,17 @@ python3 api.py exportallboards excel boards.xlsx       # GET /api/export-all-boa
   when the installed streaming writer cannot load.
 - `models/lib/cardDocument.js` is the medium-independent card layout shared
   with PDF.
-- Unit tests: `tests/excelExport.test.cjs`,
+- Unit tests: `tests/csvImportMapping.test.cjs` (a WeKan export in Finnish
+  with its header in row 7 and its Activity sheet, a workbook with a sheet
+  per board, formula, rich text and date cells), `tests/excelExport.test.cjs`,
   `tests/exportExcelCardContainment.test.cjs`,
   `tests/xlsxTabColorCssInjection.test.cjs`.
 - Playwright: `tests/playwright/specs/25-excel-pdf.e2e.js` (importing an
   `.xlsx` creates a board with the rows),
   `tests/playwright/specs/import-export-format-audit.e2e.js` (multiline
   Unicode text survives an Excel import; an empty import fails without
-  creating a board) and `tests/playwright/specs/export-access.e2e.js` (an
+  creating a board; a WeKan export workbook in Finnish with a sheet per board
+  imports as several boards) and `tests/playwright/specs/export-access.e2e.js` (an
   assigned-only member cannot export the whole board, or an unassigned card).
 
 ## Sources

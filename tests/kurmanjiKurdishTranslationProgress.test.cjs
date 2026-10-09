@@ -133,7 +133,7 @@ assert.deepEqual(tokens(kurmanji['import-board-instruction-issues']),
 assert.match(kurmanji['import-board-instruction-openproject'],
   /GET \/api\/v3\/work_packages/);
 assert.match(kurmanji['import-board-instruction-jira'],
-  /GET \/rest\/api\/2\/search.*automationRules/);
+  /GET \/rest\/api\/3\/search\/jql.*automationRules/);
 assert.match(kurmanji['import-trello-json-file-hint'], /Trello API/);
 assert.match(kurmanji['import-trello-zip-unsafe-path'], /neewle.*redkirin/);
 assert.match(kurmanji['trello-api-key'],

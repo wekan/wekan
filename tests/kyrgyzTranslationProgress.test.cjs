@@ -122,7 +122,7 @@ assert.deepEqual(tokens(kyrgyz['import-board-instruction-issues']),
 assert.match(kyrgyz['import-board-instruction-openproject'],
   /GET \/api\/v3\/work_packages/);
 assert.match(kyrgyz['import-board-instruction-jira'],
-  /GET \/rest\/api\/2\/search.*automationRules/);
+  /GET \/rest\/api\/3\/search\/jql.*automationRules/);
 assert.match(kyrgyz['import-excel-file'], /\.xlsx/);
 assert.match(kyrgyz['trello-api-key'],
   /https:\/\/trello\.com\/app-key/);

@@ -12,6 +12,7 @@ import { Exporter } from './exporter';
 import { getMembersToMap } from './wekanmapper';
 import { assertImportEnabled } from './lib/importExportSecurity';
 import { withDeadline } from './lib/withDeadline';
+import { isCsvMappingShape, mappingForSheet } from './lib/csvImportMapping';
 
 // Hard deadline for a single board import, so a stalled/hung import can never leave the
 // client's spinner running forever — the method returns a timeout error instead.
@@ -42,24 +43,6 @@ function sanitizeImported(value, source, invocation) {
   });
 }
 
-// Parse an uploaded .xlsx (base64) into the row-array shape the CsvCreator
-// consumes (board[0] is the header row). Excel import reuses the CSV creator.
-async function parseXlsxToRows(excelBase64) {
-  // eslint-disable-next-line global-require
-  const ExcelJS = require('@wekanteam/exceljs');
-  const workbook = new ExcelJS.Workbook();
-  await workbook.xlsx.load(Buffer.from(excelBase64, 'base64'));
-  const worksheet = workbook.worksheets[0];
-  const rows = [];
-  if (worksheet) {
-    worksheet.eachRow(row => {
-      // row.values is 1-indexed (index 0 is empty); normalize to strings.
-      rows.push(row.values.slice(1).map(v => (v == null ? '' : String(v))));
-    });
-  }
-  return rows;
-}
-
 // On Sandstorm an import replaces the board it was started from: the creators
 // archive `currentBoard`. That id comes from the client, and nothing checked
 // it, so anyone could archive any board by naming it. Only a board admin may
@@ -87,6 +70,9 @@ Meteor.methods({
     check(data, Object);
     check(importSource, String);
     check(currentBoard, Match.Maybe(String));
+    // The CSV/TSV and Excel imports' column mapping (models/lib/csvImportMapping.js):
+    // its shape here, its column numbers against the file's header in the creator.
+    check(data.csvMapping, Match.Maybe(Match.Where(isCsvMappingShape)));
     // ImportBleed (GHSA-qp32-wqxw-wq3h): this method reaches direct collection
     // writes, so authentication is rejected immediately after Meteor's mandatory
     // argument audit and before feature checks, parsing or creator construction.
@@ -99,6 +85,8 @@ Meteor.methods({
     try { validateImportSourceShape(importSource, board); }
     catch (error) { throw new Meteor.Error('invalid-import-format', error.message); }
     let creator;
+    // The boards of an Excel workbook: one per sheet that has a header.
+    let excelBoards = null;
     // A .leo or OPML outline is XML: sanitizing the raw text would strip its
     // tags as markup. It is parsed first and the parsed tasks are sanitized
     // instead.
@@ -136,12 +124,18 @@ Meteor.methods({
         creator = new KanboardCreator(data, 'kanboard');
         break;
       case 'excel':
-        // board = { excelBase64 }; parse it into rows and reuse the CSV creator.
+        // board = { excelBase64 }; every sheet with a header is a board
+        // (server/lib/excelBoardWorkbook.js), read through the CSV creator.
         check(board, Object);
-        importedBoard = sanitizeImported(
-          await parseXlsxToRows(importedBoard.excelBase64), 'excel-cells', this,
-        );
-        creator = new CsvCreator(data);
+        if (!Meteor.isServer) return undefined;
+        try {
+          excelBoards = (await require('/server/lib/excelBoardWorkbook').readExcelBoards(importedBoard.excelBase64)).boards;
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        excelBoards = excelBoards.map(part => ({ ...part, rows: sanitizeImported(part.rows, 'excel-cells', this) }));
+        importedBoard = excelBoards[0].rows;
+        creator = new CsvCreator(data, { title: excelBoards[0].title });
         break;
       case 'markdown':
         // A markdown-kanban task list is plain text, not JSON - see
@@ -527,6 +521,27 @@ Meteor.methods({
     // projects then imports as several boards, as a Trello .zip does. Each part
     // is its own tracked import run with its own deadline; the first board's
     // id is returned, and every one is on All Boards.
+    // A workbook with several boards - "Export all boards" writes one sheet
+    // per board - imports each sheet as its own board, the same way: its own
+    // run and deadline, the first board's id returned. The mapping the page
+    // confirmed applies to the sheets with the first sheet's header.
+    if (Meteor.isServer && excelBoards && excelBoards.length > 1) {
+      let firstBoardId = null;
+      for (let i = 0; i < excelBoards.length; i += 1) {
+        const part = excelBoards[i];
+        const partData = { ...data, csvMapping: mappingForSheet(data.csvMapping, excelBoards, i) };
+        const partCreator = new CsvCreator(partData, { title: part.title });
+        const tracked = require('/server/importRuns').trackImport({ userId: this.userId, source: importSource,
+          creator: partCreator, execute: () => partCreator.create(part.rows, null) });
+        const boardId = await withDeadline(
+          tracked.promise,
+          importDeadlineMs(),
+          () => { tracked.abort(); return new Meteor.Error('import-timeout', 'Import took too long and was aborted'); },
+        );
+        if (!firstBoardId) firstBoardId = boardId;
+      }
+      return firstBoardId;
+    }
     if (Meteor.isServer && data.splitBy === 'swimlane' && creator instanceof KanboardCreator) {
       const { splitBySwimlane } = require('./lib/importSplit');
       let parts;

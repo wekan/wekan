@@ -115,7 +115,7 @@ assert.deepEqual(tokens(nepali['import-board-instruction-issues']),
 assert.match(nepali['import-board-instruction-openproject'],
   /GET \/api\/v3\/work_packages/);
 assert.match(nepali['import-board-instruction-jira'],
-  /GET \/rest\/api\/2\/search/);
+  /GET \/rest\/api\/3\/search\/jql/);
 assert.match(nepali['import-board-instruction-excel'], /\.xlsx.*Excel/);
 assert.match(nepali['import-trello-zip-file-hint'], /\.json.*\.zip/);
 assert.match(nepali['trello-api-key'],

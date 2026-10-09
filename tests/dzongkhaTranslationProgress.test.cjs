@@ -141,7 +141,7 @@ assert.deepEqual(tokens(dzongkha['import-board-instruction-issues']), [
   '__sourceName__',
 ]);
 assert.match(dzongkha['import-board-instruction-openproject'], /GET \/api\/v3\/work_packages/);
-assert.match(dzongkha['import-board-instruction-jira'], /GET \/rest\/api\/2\/search/);
+assert.match(dzongkha['import-board-instruction-jira'], /GET \/rest\/api\/3\/search\/jql/);
 assert.match(dzongkha['import-trello-json-file-hint'], /API/);
 assert.match(dzongkha['trello-api-key'], /https:\/\/trello\.com\/app-key/);
 assert.match(dzongkha['trello-api-token'], /API/);

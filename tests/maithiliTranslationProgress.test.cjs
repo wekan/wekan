@@ -124,7 +124,7 @@ assert.deepEqual(tokens(maithili['import-board-instruction-issues']),
 assert.match(maithili['import-board-instruction-openproject'],
   /GET \/api\/v3\/work_packages/);
 assert.match(maithili['import-board-instruction-jira'],
-  /GET \/rest\/api\/2\/search.*automationRules/);
+  /GET \/rest\/api\/3\/search\/jql.*automationRules/);
 assert.match(maithili['import-excel-file'], /\.xlsx/);
 assert.match(maithili['trello-api-key'],
   /https:\/\/trello\.com\/app-key/);

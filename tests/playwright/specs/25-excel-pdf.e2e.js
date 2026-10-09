@@ -31,8 +31,10 @@ test.describe('Excel import & board PDF export', () => {
       .locator('.js-import-excel-file')
       .setInputFiles({ name: 'board.xlsx', mimeType: XLSX_MIME, buffer });
 
-    // Submitting the form imports immediately (Excel skips member mapping).
+    // Submitting the form shows the column mapping step (Excel skips member
+    // mapping); its Import button imports.
     await loggedInPage.locator('form input[type=submit]').first().click();
+    await loggedInPage.locator('.js-csv-mapping-import').click();
 
     // Lands on the new board, which contains the imported card.
     await waitForImportedBoard(loggedInPage);

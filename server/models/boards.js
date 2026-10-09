@@ -13,6 +13,7 @@ import {
   planAcceptInvite,
 } from '/models/lib/boardInvites';
 import { buildBoardLabel } from '/models/lib/restLabel';
+import { isCsvMappingShape } from '/models/lib/csvImportMapping';
 import { LABEL_COLORS } from '/models/metadata/colors';
 import { filterUserBoards } from '/server/lib/boardListFilter';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -1107,6 +1108,10 @@ WebApp.handlers.post('/api/boards/import', async function(req, res) {
  * @param {object} board the source export object (or send it as the body)
  * @param {object} [membersMapping] map of source user id -> local user id
  * @param {string} [splitBy] "swimlane": one board per project (per swimlane)
+ * @param {object} [csvMapping] CSV/TSV and Excel only: which column holds
+ *   which card field, `{ columns: { title: 0, list: 2, ... }, listName,
+ *   customFieldColumns: [5] }` (column numbers from 0); without it the
+ *   columns are read by their header names
  * @return_type {_id: string}
  */
 WebApp.handlers.post('/api/boards/import/:source', async function(req, res) {
@@ -1123,12 +1128,22 @@ WebApp.handlers.post('/api/boards/import/:source', async function(req, res) {
     if (body.splitBy === 'swimlane') additionalData.splitBy = 'swimlane';
     // Who the file's people become: map, placeholder or me (models/lib/importMembersMode.js).
     if (['map', 'placeholder', 'me'].includes(body.membersMode)) additionalData.membersMode = body.membersMode;
+    // The column mapping of a CSV/TSV or Excel import
+    // (models/lib/csvImportMapping.js); importBoard checks it again.
+    if (body.csvMapping !== undefined) {
+      if (!isCsvMappingShape(body.csvMapping)) {
+        throw new Meteor.Error('invalid-import-mapping', 'csvMapping is not a valid column mapping');
+      }
+      additionalData.csvMapping = body.csvMapping;
+    }
     const boardId = await DDP._CurrentMethodInvocation.withValue(
       { userId: req.userId },
       async () => Meteor.callAsync('importBoard', board, additionalData, source, null),
     );
     sendJsonResult(res, { code: 200, data: { _id: boardId } });
   } catch (error) {
+    // A mapping that does not fit the file is the caller's mistake, not the server's.
+    if (error && error.error === 'invalid-import-mapping') error.statusCode = 400;
     sendJsonResult(res, publicErrorData(error));
   }
 });

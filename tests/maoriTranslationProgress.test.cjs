@@ -123,7 +123,7 @@ assert.deepEqual(tokens(maori['import-board-instruction-issues']),
 assert.match(maori['import-board-instruction-openproject'],
   /GET \/api\/v3\/work_packages/);
 assert.match(maori['import-board-instruction-jira'],
-  /GET \/rest\/api\/2\/search.*automationRules/);
+  /GET \/rest\/api\/3\/search\/jql.*automationRules/);
 assert.match(maori['import-excel-file'], /.xlsx/);
 assert.match(maori['trello-api-key'],
   /https:\/\/trello\.com\/app-key/);

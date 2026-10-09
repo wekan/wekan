@@ -1163,6 +1163,54 @@
     {
       "key": "import-members-mode-me",
       "since": "2026-10-09"
+    },
+    {
+      "key": "csv-mapping-title",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "csv-mapping-description",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "csv-mapping-not-in-file",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "csv-mapping-column-number",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "csv-mapping-list-missing",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "csv-mapping-list-name",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "csv-mapping-custom-fields",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "csv-mapping-boards",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "csv-mapping-skipped-sheets",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "csv-mapping-title-required",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "csv-mapping-list-required",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "invalid-import-mapping",
+      "since": "2026-10-09"
     }
   ]
 }

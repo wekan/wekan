@@ -6,6 +6,7 @@
 
 import { unzipSync } from 'fflate';
 import { readCsv } from './todoistCsvFormat.js';
+import { csvSeparatorOf } from './csvImportMapping.js';
 
 // The import file is an Excel workbook: sent as { excelBase64 }.
 export const EXCEL_SOURCES = ['excel', 'planner', 'monday', 'wrike', 'teamwork', 'businessmap'];
@@ -84,12 +85,10 @@ export function documentForFile(source, name, bytes) {
   if (ext === 'zip' && ZIP_EXPORT_SOURCES.includes(source) && source !== 'wekan') return { zipBase64: toBase64(bytes) };
   const text = new TextDecoder('utf-8').decode(bytes).replace(/^﻿/, '');
   if (source === 'csv') {
-    // As the import page: a tab separated file is read as commas, and a file
-    // with more semicolons than commas in its first line is semicolon separated.
-    const commas = text.includes('\t') ? text.replace(/\t/g, ',') : text;
-    const first = commas.split(/\r?\n/, 1)[0];
-    const separator = (first.match(/;/g) || []).length > (first.match(/,/g) || []).length ? ';' : ',';
-    return readCsv(commas, 'CSV', separator).filter(row => row.some(cell => String(cell).trim()));
+    // As the import page: a tab separated file is read with tabs, so a value
+    // with a comma in it stays one value, and a file with more semicolons than
+    // commas in its first line is semicolon separated.
+    return readCsv(text, 'CSV', csvSeparatorOf(text)).filter(row => row.some(cell => String(cell).trim()));
   }
   if (TEXT_SOURCES.includes(source)) return text;
   return JSON.parse(text);

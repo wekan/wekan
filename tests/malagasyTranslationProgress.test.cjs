@@ -125,7 +125,7 @@ assert.deepEqual(tokens(malagasy['import-board-instruction-issues']),
 assert.match(malagasy['import-board-instruction-openproject'],
   /GET \/api\/v3\/work_packages/);
 assert.match(malagasy['import-board-instruction-jira'],
-  /GET \/rest\/api\/2\/search.*automationRules/);
+  /GET \/rest\/api\/3\/search\/jql.*automationRules/);
 assert.match(malagasy['import-excel-file'], /.xlsx/);
 assert.match(malagasy['trello-api-key'],
   /https:\/\/trello\.com\/app-key/);

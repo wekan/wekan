@@ -164,7 +164,7 @@ assert.deepEqual(tokens(tigre['import-board-instruction-issues']),
 assert.match(tigre['import-board-instruction-openproject'],
   /GET \/api\/v3\/work_packages/);
 assert.match(tigre['import-board-instruction-jira'],
-  /Jira Cloud REST API.*GET \/rest\/api\/2\/search.*automationRules/s);
+  /Jira Cloud REST API.*GET \/rest\/api\/3\/search\/jql.*automationRules/s);
 assert.match(tigre['import-board-instruction-excel'], /WeKan.*\.xlsx.*Excel/s);
 assert.match(tigre['import-trello-json-file-hint'], /Trello API/);
 assert.match(tigre['trello-api-key'], /Trello API.*https:\/\/trello\.com\/app-key/);

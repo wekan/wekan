@@ -20,8 +20,8 @@ import { slimTaigaDump } from '/models/lib/taigaFormat';
 import { expandFiles, documentForFile, isGeneralizedSource } from '/models/lib/importManyFiles';
 import { TAPi18n } from '/imports/i18n';
 import TrelloImportJobs from '/models/trelloImportJobs';
+import { csvMappingData, parseCsvImportText, startCsvMapping } from './csvMapping';
 
-const Papa = require('papaparse');
 const { jiraEstimateCandidates, discoveredJiraEstimateMapping } = require('/models/lib/jiraEstimateMapping');
 
 // Helper to find the closest ancestor template instance by name
@@ -274,6 +274,14 @@ Template.import.onCreated(function () {
       let binary = '';
       for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
       this.importedData.set({ excelBase64: window.btoa(binary) });
+      // A WeKan-style workbook gets the column mapping step (csvMapping.js);
+      // the other workbook sources go on to the people step.
+      if (dataSource === 'excel') {
+        this.membersToMap.set([]);
+        this.setError('');
+        await startCsvMapping(this, { excelBase64: this.importedData.get().excelBase64 });
+        return;
+      }
       await this.mapPeopleOrImport(dataSource, skipMapping);
       return;
     }
@@ -370,14 +378,16 @@ Template.import.onCreated(function () {
       return;
     }
     if (dataSource === 'csv') {
-      const input = this.find('.js-import-json').value;
-      const csv = input.indexOf('\t') > 0 ? input.replace(/(\t)/g, ',') : input;
-      const ret = Papa.parse(csv);
-      if (ret && ret.data && ret.data.length) this.importedData.set(ret.data);
-      else throw new Meteor.Error('error-csv-schema');
-      const membersToMap = _prepareAdditionalData(ret.data);
-      this.membersToMap.set(membersToMap);
-      await advance();
+      const rows = parseCsvImportText(this.find('.js-import-json').value);
+      if (!rows.length) {
+        this.setError('error-csv-schema');
+        return;
+      }
+      this.setError('');
+      this.importedData.set(rows);
+      this.membersToMap.set(_prepareAdditionalData(rows));
+      // The column mapping step (csvMapping.js) comes first; members after it.
+      await startCsvMapping(this, { rows, membersStep: !skipMapping });
       return;
     }
     // Trello: a .zip package (one or more board .json files plus per-board
@@ -638,7 +648,7 @@ Template.import.onCreated(function () {
       pruneImportDocument(importedData, selectedFields()),
       // The selection again, for the parts only a creator can leave out:
       // the Scrum planning external parsers find (models/kanboardCreator.js).
-      { membersMapping: mappingById, importFields: selectedFields(), membersMode: this.membersMode || 'map',
+      { membersMapping: mappingById, importFields: selectedFields(), membersMode: this.membersMode || 'map', ...csvMappingData(this),
         ...(splitByProject(this.importSource) ? { splitBy: 'swimlane' } : {}) },
       this.importSource,
       Session.get('fromBoard'),

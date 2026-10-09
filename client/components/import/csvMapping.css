@@ -1,0 +1,49 @@
+/* The column mapping step of the CSV/TSV and Excel imports (csvMapping.jade). */
+.import-csv-mapping .csv-mapping-fields {
+  width: 100%;
+  max-width: 720px;
+  border-collapse: collapse;
+  margin-bottom: 12px;
+}
+.import-csv-mapping .csv-mapping-fields th {
+  text-align: start;
+  font-weight: normal;
+  padding: 4px 0;
+  padding-inline-end: 12px;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.import-csv-mapping .csv-mapping-fields td {
+  padding: 4px 0;
+  width: 100%;
+}
+.import-csv-mapping .csv-mapping-fields select {
+  width: 100%;
+  margin: 0;
+}
+.import-csv-mapping .csv-mapping-list-name,
+.import-csv-mapping .csv-mapping-custom-fields {
+  max-width: 720px;
+  margin-bottom: 12px;
+}
+.import-csv-mapping .csv-mapping-list-name input {
+  width: 100%;
+}
+.import-csv-mapping .csv-mapping-custom-fields ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.import-csv-mapping .csv-mapping-custom-fields a.flex {
+  align-items: center;
+  gap: 6px;
+  padding: 3px 0;
+}
+/* On a narrow screen each field's name sits above its choice. */
+@media (max-width: 600px) {
+  .import-csv-mapping .csv-mapping-fields th,
+  .import-csv-mapping .csv-mapping-fields td {
+    display: block;
+    padding: 2px 0;
+  }
+}
