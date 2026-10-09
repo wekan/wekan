@@ -144,6 +144,23 @@ function sendErrorResponse(res, statusCode, message) {
 // attachments), mirroring Authentication.checkBoardWriteAccess: the canonical
 // board write capability, or a global site admin. Read operations should keep
 // using board.hasMember().
+// A stored file as the API's raw answer: streamed, held to `maxBytes` as it
+// flows, and served as a download that cannot run in this origin.
+function sendRawFile(res, readStream, file, maxBytes) {
+  const { limitStream } = require('/server/lib/importAttachmentStream');
+  const { attachmentDisposition } = require('/models/lib/exportFilename');
+  res.writeHead(200, {
+    'Content-Type': file.type || 'application/octet-stream',
+    'Content-Disposition': attachmentDisposition(file.name || 'attachment'),
+    'X-Content-Type-Options': 'nosniff',
+    'Content-Security-Policy': "default-src 'none'; sandbox",
+    ...(Number.isFinite(file.size) ? { 'Content-Length': String(file.size) } : {}),
+  });
+  const body = limitStream(readStream, maxBytes);
+  body.on('error', () => res.destroy());
+  body.pipe(res);
+}
+
 async function userHasBoardWriteAccess(board, userId) {
   if (!board || !userId) {
     return false;
@@ -174,6 +191,34 @@ WebApp.handlers.use('/api', function activeAccountsExpressAuth(req, res, next) {
   });
 });
 
+// The checks every card upload makes, JSON or raw: the card, board, swimlane
+// and list belong together, the user may write to the board, and the board
+// takes attachments. Returns { board, card } or { status, message }.
+async function checkCardUploadTarget({ boardId, swimlaneId, listId, cardId }, userId) {
+  const card = await ReactiveCache.getCard(cardId);
+  if (!card) return { status: 404, message: 'Card not found' };
+  const board = await ReactiveCache.getBoard(boardId);
+  if (!board) return { status: 404, message: 'Board not found' };
+  if (card.boardId !== boardId) return { status: 400, message: 'Card does not belong to the specified board' };
+  if (card.swimlaneId !== swimlaneId) return { status: 400, message: 'Swimlane ID does not match the card\'s swimlane' };
+  if (card.listId !== listId) return { status: 400, message: 'List ID does not match the card\'s list' };
+  // Uploading requires write access, not just membership (read-only /
+  // comment-only / worker members cannot add attachments).
+  if (!(await userHasBoardWriteAccess(board, userId))) return { status: 403, message: 'You do not have permission to modify this card' };
+  if (!board.allowsAttachments) return { status: 403, message: 'Attachments are not allowed on this board' };
+  return { board, card };
+}
+
+// The admin-configured default storage, which every API upload goes to.
+async function apiUploadStorage() {
+  try {
+    const settings = await AttachmentStorageSettings.findOneAsync({});
+    return settings ? settings.getDefaultStorage() : STORAGE_NAME_FILESYSTEM;
+  } catch (error) {
+    return STORAGE_NAME_FILESYSTEM;
+  }
+}
+
 WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
     if (req.method !== 'POST') {
       return next();
@@ -196,6 +241,64 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
       if (apiUploadBlocked) {
         clearTimeout(timeout);
         return sendErrorResponse(res, 403, 'API uploads are disabled by administrator');
+      }
+
+      // A raw upload: the request body is the file itself - any Content-Type
+      // but JSON - and its card is named in the query. It streams into storage
+      // as it arrives, never held in memory or turned into base64, so its size
+      // is limited only by the API upload limit, checked against
+      // Content-Length before reading and counted as the bytes flow.
+      if (!/application\/json/i.test(String(req.headers['content-type'] || ''))) {
+        clearTimeout(timeout);
+        const query = req.query || {};
+        const target = {
+          boardId: String(query.boardId || ''), swimlaneId: String(query.swimlaneId || ''),
+          listId: String(query.listId || ''), cardId: String(query.cardId || ''),
+        };
+        const fileName = String(query.fileName || '').slice(0, 255);
+        if (!target.boardId || !target.swimlaneId || !target.listId || !target.cardId || !fileName) {
+          return sendErrorResponse(res, 400, 'Missing required parameters');
+        }
+        const declared = parseInt(req.headers['content-length'], 10);
+        if (Number.isFinite(declared) && declared > effectiveApiUploadMaxBytes) {
+          return sendErrorResponse(res, 413, 'Attachment exceeds API upload limit');
+        }
+        const checked = await checkCardUploadTarget(target, userId);
+        if (checked.status) return sendErrorResponse(res, checked.status, checked.message);
+        const targetStorage = await apiUploadStorage();
+        const { limitStream } = require('/server/lib/importAttachmentStream');
+        const { addAttachmentFromStream } = require('/models/lib/fileStoreStrategy');
+        const type = String(query.fileType || req.headers['content-type'] || 'application/octet-stream').slice(0, 255);
+        let fileRef;
+        try {
+          fileRef = await addAttachmentFromStream(limitStream(req, effectiveApiUploadMaxBytes), {
+            fileName, type, userId,
+            meta: { ...target, fileId: new ObjectId().toString(), source: 'api', storageBackend: targetStorage },
+          }, fileStoreStrategyFactory);
+        } catch (error) {
+          if (error && error.message === 'import-attachment-too-large') {
+            return sendErrorResponse(res, 413, 'Attachment exceeds API upload limit');
+          }
+          console.error('API raw attachment upload error:', error);
+          return sendErrorResponse(res, 500, 'Failed to upload attachment');
+        }
+        if (targetStorage !== STORAGE_NAME_FILESYSTEM) {
+          Meteor.defer(() => {
+            try {
+              moveToStorage(fileRef, targetStorage, fileStoreStrategyFactory);
+            } catch (error) {
+              console.error('Error moving attachment to target storage:', error);
+            }
+          });
+        }
+        return sendJsonResponse(res, 200, {
+          success: true,
+          attachmentId: fileRef._id,
+          fileName,
+          fileSize: fileRef.size,
+          storageBackend: targetStorage,
+          message: 'Attachment uploaded successfully',
+        });
       }
 
       let body = '';
@@ -244,51 +347,11 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
             return sendErrorResponse(res, 413, 'Attachment exceeds API upload limit');
           }
 
-          // Check if user has permission to modify the card
-          const card = await ReactiveCache.getCard(cardId);
-          if (!card) {
-            return sendErrorResponse(res, 404, 'Card not found');
-          }
-
-          const board = await ReactiveCache.getBoard(boardId);
-          if (!board) {
-            return sendErrorResponse(res, 404, 'Board not found');
-          }
-
-          // Verify that the card belongs to the specified board
-          if (card.boardId !== boardId) {
-            return sendErrorResponse(res, 400, 'Card does not belong to the specified board');
-          }
-
-          // Verify that the swimlaneId and listId match the card's actual swimlane and list
-          if (card.swimlaneId !== swimlaneId) {
-            return sendErrorResponse(res, 400, 'Swimlane ID does not match the card\'s swimlane');
-          }
-
-          if (card.listId !== listId) {
-            return sendErrorResponse(res, 400, 'List ID does not match the card\'s list');
-          }
-
-          // Check permissions: uploading requires write access, not just
-          // membership (read-only / comment-only / worker members cannot add
-          // attachments).
-          if (!(await userHasBoardWriteAccess(board, userId))) {
-            return sendErrorResponse(res, 403, 'You do not have permission to modify this card');
-          }
-
-          // Check if board allows attachments
-          if (!board.allowsAttachments) {
-            return sendErrorResponse(res, 403, 'Attachments are not allowed on this board');
-          }
+          const checked = await checkCardUploadTarget({ boardId, swimlaneId, listId, cardId }, userId);
+          if (checked.status) return sendErrorResponse(res, checked.status, checked.message);
 
           // Always use admin-configured default storage backend for API uploads.
-          let targetStorage = STORAGE_NAME_FILESYSTEM;
-          try {
-            const settings = await AttachmentStorageSettings.findOneAsync({});
-            targetStorage = settings ? settings.getDefaultStorage() : STORAGE_NAME_FILESYSTEM;
-          } catch (error) {
-            targetStorage = STORAGE_NAME_FILESYSTEM;
-          }
+          const targetStorage = await apiUploadStorage();
 
           // Validate storage backend
           if (![STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS, STORAGE_NAME_S3].includes(targetStorage)) {
@@ -380,6 +443,64 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
       if (apiUploadBlocked) {
         clearTimeout(timeout);
         return sendErrorResponse(res, 403, 'API uploads are disabled by administrator');
+      }
+
+      // A raw upload, as /api/attachment/upload takes one: the body is the
+      // image itself, the board is named in the query, and it streams into
+      // storage within the API upload limit.
+      if (!/application\/json/i.test(String(req.headers['content-type'] || ''))) {
+        clearTimeout(timeout);
+        const query = req.query || {};
+        const boardId = String(query.boardId || '');
+        const fileName = String(query.fileName || '').slice(0, 255);
+        if (!boardId || !fileName) return sendErrorResponse(res, 400, 'Missing required parameters');
+        const declared = parseInt(req.headers['content-length'], 10);
+        if (Number.isFinite(declared) && declared > effectiveApiUploadMaxBytes) {
+          return sendErrorResponse(res, 413, 'Background exceeds API upload limit');
+        }
+        const board = await ReactiveCache.getBoard(boardId);
+        if (!board) return sendErrorResponse(res, 404, 'Board not found');
+        // Managing backgrounds is board-admin (or global admin) gated.
+        const isAdmin = (board.hasAdmin && board.hasAdmin(userId)) ||
+          !!(await ReactiveCache.getUser({ _id: userId, isAdmin: true }));
+        if (!isAdmin) return sendErrorResponse(res, 403, 'Board admin required');
+        const targetStorage = await apiUploadStorage();
+        const { limitStream } = require('/server/lib/importAttachmentStream');
+        const { addAttachmentFromStream } = require('/models/lib/fileStoreStrategy');
+        let fileRef;
+        try {
+          fileRef = await addAttachmentFromStream(limitStream(req, effectiveApiUploadMaxBytes), {
+            fileName, userId,
+            type: String(query.fileType || req.headers['content-type'] || 'image/png').slice(0, 255),
+            meta: { boardId, fileId: new ObjectId().toString(), source: 'api-background', storageBackend: targetStorage },
+          }, fileStoreStrategyFactory);
+        } catch (error) {
+          if (error && error.message === 'import-attachment-too-large') {
+            return sendErrorResponse(res, 413, 'Background exceeds API upload limit');
+          }
+          console.error('API raw background upload error:', error);
+          return sendErrorResponse(res, 500, 'Failed to upload background');
+        }
+        if (targetStorage !== STORAGE_NAME_FILESYSTEM) {
+          Meteor.defer(() => {
+            try {
+              moveToStorage(fileRef, targetStorage, fileStoreStrategyFactory);
+            } catch (error) {
+              console.error('Error moving background to target storage:', error);
+            }
+          });
+        }
+        await board.setBackgroundImage(fileRef._id);
+        const updated = await ReactiveCache.getBoard(boardId);
+        return sendJsonResponse(res, 200, {
+          success: true,
+          attachmentId: fileRef._id,
+          fileName,
+          fileSize: fileRef.size,
+          storageBackend: targetStorage,
+          backgroundImageURL: updated ? updated.backgroundImageURL : '',
+          message: 'Board background uploaded successfully',
+        });
       }
 
       let body = '';
@@ -527,6 +648,11 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
       if (Number.isFinite(attachment.size) && attachment.size > effectiveApiDownloadMaxBytes) {
         return sendErrorResponse(res, 413, 'Background exceeds API download limit');
       }
+      // ?raw=1: the image itself, streamed, as /api/attachment/download does.
+      if (req.query && req.query.raw === '1') {
+        sendRawFile(res, readStream, attachment, effectiveApiDownloadMaxBytes);
+        return;
+      }
       const chunks = [];
       let totalBytes = 0;
       let responseSent = false;
@@ -608,6 +734,14 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
 
       if (Number.isFinite(attachment.size) && attachment.size > effectiveApiDownloadMaxBytes) {
         return sendErrorResponse(res, 413, 'Attachment exceeds API download limit');
+      }
+
+      // ?raw=1: the file itself, streamed from storage as it is read - never
+      // held in memory or turned into base64 - after the same checks, and held
+      // to the same API download limit as the bytes flow.
+      if (req.query && req.query.raw === '1') {
+        sendRawFile(res, readStream, attachment, effectiveApiDownloadMaxBytes);
+        return;
       }
 
       // Read file data

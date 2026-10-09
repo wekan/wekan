@@ -30,8 +30,8 @@ Uploading requires board admin; downloading requires board membership.
 
 | Method | Path | Purpose |
 | --- | --- | --- |
-| `POST` | `/api/attachment/upload-background` | Upload an image and set it as the board background. JSON body: `{ boardId, fileData (base64), fileName, fileType? }` |
-| `GET` | `/api/attachment/download-background/:boardId` | Download the board's current background image (returns `base64Data` + metadata) |
+| `POST` | `/api/attachment/upload-background?boardId=&fileName=&fileType=` | Upload an image and set it as the board background: the request body is the image itself (any Content-Type but JSON), streamed into storage. A JSON body `{ boardId, fileData (base64), fileName, fileType? }` works too, for small images |
+| `GET` | `/api/attachment/download-background/:boardId?raw=1` | Download the board's current background image itself, streamed. Without `raw=1` it answers JSON with `base64Data` + metadata |
 
 ```bash
 python3 api.py uploadbackground BOARDID /path/to/background.png

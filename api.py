@@ -1059,45 +1059,22 @@ if arguments >= 1:
         filepath = sys.argv[6]
         storage_backend = sys.argv[7] if arguments > 6 else None
         
-        # Read file and convert to base64
-        try:
-            with open(filepath, 'rb') as f:
-                file_data = f.read()
-                import base64
-                base64_data = base64.b64encode(file_data).decode('utf-8')
-        except FileNotFoundError:
+        # The file is streamed as the request body (the raw upload of
+        # /api/attachment/upload), never read whole or turned into base64.
+        import os, mimetypes
+        if not os.path.isfile(filepath):
             print(f"Error: File '{filepath}' not found")
             exit(1)
-        except Exception as e:
-            print(f"Error reading file: {e}")
-            exit(1)
-        
-        # Get file info
-        import os
         filename = os.path.basename(filepath)
-        import mimetypes
         file_type = mimetypes.guess_type(filepath)[0] or 'application/octet-stream'
-        
-        # Prepare request data
-        upload_data = {
-            'boardId': boardid,
-            'swimlaneId': swimlaneid,
-            'listId': listid,
-            'cardId': cardid,
-            'fileData': base64_data,
-            'fileName': filename,
-            'fileType': file_type
-        }
-        
-        if storage_backend:
-            upload_data['storageBackend'] = storage_backend
-        
-        # Make API call
-        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
+        params = {'boardId': boardid, 'swimlaneId': swimlaneid, 'listId': listid, 'cardId': cardid,
+                  'fileName': filename, 'fileType': file_type}
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey),
+                   'Content-Type': 'application/octet-stream'}
         upload_url = wekanurl + 'api/attachment/upload'
-        
         try:
-            response = requests.post(upload_url, headers=headers, json=upload_data)
+            with open(filepath, 'rb') as f:
+                response = requests.post(upload_url, headers=headers, params=params, data=f)
             response.raise_for_status()
             result = response.json()
             print(f"Upload successful!")
@@ -1120,30 +1097,20 @@ if arguments >= 1:
         attachmentid = sys.argv[2]
         outputpath = sys.argv[3]
         
-        # Make API call
-        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        # The file itself (?raw=1), written to disk as it arrives.
+        headers = {'Authorization': 'Bearer {}'.format(apikey)}
         download_url = wekanurl + f'api/attachment/download/{attachmentid}'
-        
         try:
-            response = requests.get(download_url, headers=headers)
-            response.raise_for_status()
-            result = response.json()
-            
-            if result.get('success'):
-                # Decode base64 data and save to file
-                import base64
-                file_data = base64.b64decode(result.get('base64Data'))
-                
+            with requests.get(download_url, headers=headers, params={'raw': '1'}, stream=True) as response:
+                response.raise_for_status()
+                size = 0
                 with open(outputpath, 'wb') as f:
-                    f.write(file_data)
-                
-                print(f"Download successful!")
-                print(f"File saved to: {outputpath}")
-                print(f"Original filename: {result.get('fileName')}")
-                print(f"Size: {result.get('fileSize')} bytes")
-                print(f"Storage: {result.get('storageBackend')}")
-            else:
-                print(f"Download failed: {result.get('message', 'Unknown error')}")
+                    for chunk in response.iter_content(chunk_size=1024 * 1024):
+                        f.write(chunk)
+                        size += len(chunk)
+            print(f"Download successful!")
+            print(f"File saved to: {outputpath}")
+            print(f"Size: {size} bytes")
         except requests.exceptions.RequestException as e:
             print(f"Download failed: {e}")
             if hasattr(e, 'response') and e.response is not None:
@@ -1966,40 +1933,35 @@ if arguments >= 5 and sys.argv[1] == 'setcardlocations':
 if arguments >= 3 and sys.argv[1] == 'uploadbackground':
     boardid = sys.argv[2]
     filepath = sys.argv[3]
-    import base64, os, mimetypes
+    import os, mimetypes
+    # Streamed as the request body (the raw upload), never read whole.
+    params = {'boardId': boardid, 'fileName': os.path.basename(filepath),
+              'fileType': mimetypes.guess_type(filepath)[0] or 'image/png'}
+    headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey),
+               'Content-Type': 'application/octet-stream'}
+    url = wekanurl + 'api/attachment/upload-background'
     try:
         with open(filepath, 'rb') as f:
-            base64_data = base64.b64encode(f.read()).decode('utf-8')
+            response = requests.post(url, headers=headers, params=params, data=f)
     except Exception as e:
         print(f"Error reading file: {e}")
         exit(1)
-    upload_data = {
-        'boardId': boardid,
-        'fileData': base64_data,
-        'fileName': os.path.basename(filepath),
-        'fileType': mimetypes.guess_type(filepath)[0] or 'image/png',
-    }
-    headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
-    url = wekanurl + 'api/attachment/upload-background'
-    response = requests.post(url, headers=headers, json=upload_data)
     print(response.text)
 
 if arguments >= 3 and sys.argv[1] == 'downloadbackground':
     boardid = sys.argv[2]
     outputpath = sys.argv[3]
-    import base64
-    headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+    # The image itself (?raw=1), written to disk as it arrives.
+    headers = {'Authorization': 'Bearer {}'.format(apikey)}
     url = wekanurl + f'api/attachment/download-background/{boardid}'
-    response = requests.get(url, headers=headers)
-    result = response.json()
-    if result.get('success'):
-        with open(outputpath, 'wb') as f:
-            f.write(base64.b64decode(result.get('base64Data')))
-        print(f"Background saved to: {outputpath}")
-        print(f"Original filename: {result.get('fileName')}")
-        print(f"Storage: {result.get('storageBackend')}")
-    else:
-        print(f"Download failed: {result}")
+    with requests.get(url, headers=headers, params={'raw': '1'}, stream=True) as response:
+        if response.status_code == 200:
+            with open(outputpath, 'wb') as f:
+                for chunk in response.iter_content(chunk_size=1024 * 1024):
+                    f.write(chunk)
+            print(f"Background saved to: {outputpath}")
+        else:
+            print(f"Download failed: {response.text}")
 
 # ------- BOARD BACKGROUND IMAGE UPLOAD / DOWNLOAD END -----------
 

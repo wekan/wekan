@@ -450,9 +450,6 @@ Found while making large boards fit 8 GB of RAM
 whole file, or every file of a board, in memory at once; each is removed from
 this list when it streams.
 
-- REST API and DDP attachment upload, download and board background travel as
-  base64 JSON, up to 64 MB plus the base64 copy (needs a streaming route beside
-  the JSON one, as the format is the API's).
 - The PDF and Excel card exports hold every image of the card or board
   (models/server/ExporterCardPDF.js, models/server/ExporterExcelCard.js).
 

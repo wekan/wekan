@@ -72,6 +72,10 @@ When calling a production Wekan server, ensure it is running via HTTPS and has a
 | `GET` | `/api/boards/:boardId/attachments/deleted` | [List the soft-deleted attachments of a board.](#list-deleted-attachments) |
 | `DELETE` | `/api/boards/:boardId/attachments/:attachmentId` | [Soft-delete an attachment.](#soft-delete-an-attachment) |
 | `POST` | `/api/boards/:boardId/attachments/:attachmentId/restore` | [Restore a soft-deleted attachment.](#restore-an-attachment) |
+| `POST` | `/api/attachment/upload` | Upload a file to a card: raw body, streamed, or base64 JSON. See [Attachments.md](./Attachments.md). |
+| `GET` | `/api/attachment/download/:attachmentId` | Download a card's file: `?raw=1` streams the file itself. See [Attachments.md](./Attachments.md). |
+| `POST` | `/api/attachment/upload-background` | Upload and set a board background, raw or JSON. See [Attachments.md](./Attachments.md). |
+| `GET` | `/api/attachment/download-background/:boardId` | Download a board background, `?raw=1` for the image itself. See [Attachments.md](./Attachments.md). |
 ### Board Settings: card field order
 | HTTP Method | Url | Short Description |
 | :--- | :--- | :--- |
