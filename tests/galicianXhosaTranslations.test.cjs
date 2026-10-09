@@ -67,6 +67,38 @@ for (const locale of Object.values(locales)) {
   "r-blocks-saved",
   "r-blocks-reload"
 ];
+  keys.push(...[
+  "board-view-product-backlog",
+  "board-view-sprints",
+  "board-view-sprint-report",
+  "board-view-velocity",
+  "scrum-settings",
+  "scrum-product-owner",
+  "scrum-master",
+  "scrum-developers",
+  "scrum-working-days",
+  "scrum-enabled",
+  "scrum-product-goal",
+  "scrum-definition-of-done",
+  "scrum-estimate-source",
+  "scrum-estimate-unit",
+  "scrum-completion-policy",
+  "scrum-source-poker",
+  "scrum-source-customField",
+  "scrum-policy-dueComplete",
+  "scrum-policy-doneLists",
+  "scrum-sprints",
+  "scrum-sprint",
+  "scrum-start-sprint",
+  "scrum-close-sprint",
+  "scrum-cancel-sprint",
+  "scrum-rollover-sprint",
+  "scrum-cancel-reason",
+  "scrum-product-backlog",
+  "scrum-edit-sprint",
+  "scrum-sprint-goal",
+  "scrum-capacity"
+]);
   for (const key of keys) {
     assert.notEqual(locale[key], source[key], key);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), key);
@@ -79,6 +111,13 @@ for (const locale of Object.values(locales)) {
   assert.match(locale['r-blocks-invalid'], /esinye kuphela.*esinye/);
   assert.match(locale['r-blocks-conflict'], /Layisha kwakhona.*ngaphambi kokugcina/);
   assert.match(locale['card-field-visibility-desc'], /Akukho datha yekhadi.*etshintshayo/);
+  assert.match(locale['scrum-start-sprint'], /^Qala/);
+  assert.match(locale['scrum-close-sprint'], /^Vala/);
+  assert.match(locale['scrum-cancel-sprint'], /^Rhoxisa/);
+  assert.match(locale['scrum-rollover-sprint'], /ongagqitywanga/);
+  assert.equal(locale['board-view-product-backlog'], locale['scrum-product-backlog']);
+  assert.equal(locale['board-view-sprints'], locale['scrum-sprints']);
+  assert.notEqual(locale['scrum-policy-dueComplete'], locale['scrum-policy-doneLists']);
   const error = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
   assert.ok(error.includes('E_LDAP'));
   assert.ok(!error.includes('%s'));

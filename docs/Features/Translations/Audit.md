@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Xhosa planning settings — 2026-10-09
+
+Translate 30 planning labels in xh, covering views, roles, estimates, completion
+policies and sprint actions. Regression checks preserve start/close/cancel
+distinctions, unfinished-work wording and consistent view labels. Both targeted
+suites and all 21 preservation checks pass. Specialized wording remains low
+confidence pending speaker review. Browser execution and remaining translations
+are outstanding.
+
 ## Xhosa board and rule settings — 2026-10-09
 
 Translate 29 English placeholders in xh: announcements, colors, link rules,
