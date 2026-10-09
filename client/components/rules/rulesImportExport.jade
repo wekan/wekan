@@ -37,6 +37,12 @@ template(name="rulesImportExportPopup")
         option(value="nodered") Node-RED
       button.primary.full.js-rules-import-workflow(type="button") {{_ 'r-import-workflow'}}
     hr
+    h3 {{_ 'r-wrike-workflow'}}
+    p.rules-ie-hint {{_ 'r-wrike-workflow-note'}}
+    .rules-ie-btns
+      button.primary.full.js-rules-export-wrike(type="button") {{_ 'r-export-wrike-workflow'}}
+      button.primary.full.js-rules-import-wrike(type="button") {{_ 'r-import-wrike-workflow'}}
+    hr
     h3 {{_ 'r-import-trello'}}
     p.rules-ie-hint {{_ 'r-import-trello-note'}}
     .rules-ie-btns

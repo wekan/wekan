@@ -33,6 +33,7 @@ import { formatSuperProductivity } from './superProductivityFormat.js';
 import { formatTaiga } from './taigaFormat.js';
 import { formatVikunja } from './vikunjaFormat.js';
 import { formatWrikeRows } from './wrikeFormat.js';
+import { formatWrikeWorkflow } from './wrikeWorkflow.js';
 import { formatTeamworkSheet } from './teamworkFormat.js';
 import { formatQuireCsv } from './quireCsvFormat.js';
 import { formatNotionCsv } from './notionFormat.js';
@@ -367,6 +368,10 @@ export const formatters = {
   // Wrike's Excel import template: rows models/export.js writes as .xlsx
   // (server/lib/wrikeWorkbook.js); round-trips with parseWrikeRows.
   wrike: formatWrikeRows,
+  // The board's lists as a Wrike workflow, in the JSON Wrike's GET /workflows
+  // returns (models/lib/wrikeWorkflow.js): the workflow the wrike export's
+  // Workflow and Custom Status cells name.
+  wrikeworkflow: formatWrikeWorkflow,
   // Teamwork.com's Excel task import template: rows models/export.js writes as
   // .xlsx (server/lib/teamworkWorkbook.js); round-trips with parseTeamworkSheet.
   teamwork: formatTeamworkSheet,

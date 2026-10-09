@@ -37,7 +37,7 @@ const SAMPLE = [
 ];
 
 async function main() {
-  const { parseWrikeRows, formatWrikeRows, wrikeDate, wrikePeople, WRIKE_COLUMNS, WRIKE_LIST_COLUMN } = await import('../models/lib/wrikeFormat.js');
+  const { parseWrikeRows, formatWrikeRows, wrikeDate, wrikePeople, WRIKE_EXPORT_COLUMNS, WRIKE_WORKFLOW_COLUMNS } = await import('../models/lib/wrikeFormat.js');
   const { EXTERNAL_PARSERS } = await import('../models/lib/externalParsers.js');
   const { formatters } = await import('../models/lib/externalExportFormatters.js');
   const { validateImportSourceShape } = await import('../models/lib/importSourceShape.js');
@@ -77,24 +77,32 @@ async function main() {
     assert.match(reasons, /\/row\/10 a Wrike folder or project's own Status, Assigned To, Start Date, Duration, End Date is not imported/);
   });
 
-  await test('custom workflows, lower-case headers, repeated rows and a list column', async () => {
+  await test('custom workflows, lower-case headers and repeated rows', async () => {
     const board = parseWrikeRows([
       ['Exported from somewhere'],
-      ['key', 'title', 'status', 'custom status', 'workflow', 'description', 'effort'],
-      ['1', 'Design', 'Active', 'In Review', 'Product', 'Spec it', '1h 30m'],
-      ['1', 'Design', 'Active', 'In Review', 'Product', 'Spec it', '1h 30m'],
-      ['2', 'Ship', 'Completed', '', '', '', ''],
+      ['key', 'title', 'default task workflow', 'workflow', 'status', 'custom status', 'description', 'effort'],
+      ['1', 'Design', '', 'Product', 'Active', 'In Review', 'Spec it', '1h 30m'],
+      ['1', 'Design', '', 'Product', 'Active', 'In Review', 'Spec it', '1h 30m'],
+      ['2', 'Ship', '', 'Product', 'Completed', 'Shipped', '', ''],
+      ['3', 'Drop', 'Product', 'Product', 'Cancelled', 'Shipped', '', ''],
     ]);
-    assert.deepEqual(board.columns.map(c => c.title), ['In Review', 'Completed'], 'Custom Status wins over its group');
-    assert.equal(board.tasks.length, 2, 'a task repeated for another folder is imported once');
-    assert.deepEqual(board.tasks[0].custom_fields, { effort: '1h 30m' });
-    assert.equal(board.tasks[1].swimlane_name, 'Default');
+    assert.deepEqual(board.columns.map(c => c.title), ['In Review', 'Shipped'], 'Custom Status wins over its group');
+    assert.equal(board.board.name, 'Product', 'the one workflow every task names is the board');
+    assert.equal(board.tasks.length, 3, 'a task repeated for another folder is imported once');
+    assert.deepEqual(board.tasks[0].custom_fields, { effort: '1h 30m' }, 'the workflow columns are not custom fields');
     const reasons = board.unsupported.map(u => `${u.path} ${u.reason}`).join('\n');
     assert.match(reasons, /\/row\/1 a row above the header row is not imported/);
-    assert.match(reasons, /\/row\/3\/workflow the Wrike workflow "Product" is not imported/);
     assert.match(reasons, /\/row\/4 a repeated row of the task with Key 1/);
-    const listed = parseWrikeRows([['Title', 'Status', WRIKE_LIST_COLUMN], ['A', 'Active', 'Doing']]);
-    assert.equal(listed.tasks[0].column_name, 'Doing', 'the WeKan list column wins over Status');
+    assert.match(reasons, /\/row\/6\/status the Cancelled status group of "Shipped" is not kept by the list: import the Wrike workflow in Rules/);
+    assert.match(reasons, /\/row\/6\/default task workflow the Wrike default task workflow "Product" of a task is not imported/);
+    assert.doesNotMatch(reasons, /\/row\/[35]\/status/, 'a group the status name implies is not a loss');
+    assert.doesNotMatch(reasons, /\/workflow /, 'the Workflow cell is read, not lost');
+    // The column of the previous WeKan export is an ordinary custom field now.
+    const old = parseWrikeRows([['Title', 'Status', 'WeKan list'], ['A', 'Active', 'Doing']]);
+    assert.equal(old.tasks[0].column_name, 'Active');
+    assert.deepEqual(old.tasks[0].custom_fields, { 'WeKan list': 'Doing' });
+    const two = parseWrikeRows([['Title', 'Workflow'], ['A', 'One'], ['B', 'Two']]);
+    assert.equal(two.board.name, 'Imported Wrike board', 'two workflows name no board');
   });
 
   await test('negative: bad keys, dates, dependencies, missing titles and non-template workbooks', async () => {
@@ -146,28 +154,42 @@ async function main() {
   await test('export writes the import template, and it imports back', async () => {
     const built = formatters.wrike({
       board: { title: 'Launch' },
+      lists: [{ title: 'Backlog' }, { title: 'Doing', color: 'orange' }, { title: 'Review' }],
+      // A list whose move rule marks a card complete is a Completed status.
+      workflowRules: [{ trigger: { activityType: 'moveCard', listName: 'Review' }, action: { actionType: 'markCardComplete' } }],
       items: [
         { cardId: 'c1', title: 'Order valves', listTitle: 'Doing', swimlaneTitle: 'Sprint 1', owner: 'alice', assignees: ['bob'],
           dueAt: '2026-10-20T00:00:00.000Z', startAt: '2026-10-01T00:00:00.000Z', description: 'Two of them',
           customFields: { Priority: 'urgent', Duration: '3 days', Vendor: 'ACME' } },
-        { cardId: 'c2', title: 'Fit valves', listTitle: 'Completed', swimlaneTitle: 'Sprint 1', parentCardId: 'c1' },
-        { cardId: 'c3', title: 'Plan', listTitle: 'Backlog', swimlaneTitle: 'Default', endAt: '2026-09-01T00:00:00.000Z' },
+        { cardId: 'c2', title: 'Fit valves', listTitle: 'Review', swimlaneTitle: 'Sprint 1', parentCardId: 'c1' },
+        { cardId: 'c3', title: 'Plan', listTitle: 'Backlog', swimlaneTitle: 'Default', endAt: '2026-09-01T00:00:00.000Z', dueComplete: true },
       ],
     });
     assert.equal(built.sheet, 'Tasks');
-    assert.deepEqual(built.rows[0], [...WRIKE_COLUMNS, WRIKE_LIST_COLUMN, 'Vendor']);
+    assert.deepEqual(built.rows[0], [...WRIKE_EXPORT_COLUMNS, 'Vendor']);
+    assert.ok(!built.rows[0].includes('WeKan list'), 'the list is a custom status, not a WeKan-only column');
+    // Workflow left of Status, Custom Status right of it, as Wrike requires.
+    const h = built.rows[0];
+    assert.deepEqual(WRIKE_WORKFLOW_COLUMNS.map(name => h.indexOf(name)), [3, 4, 5, 6, 7]);
     const titles = built.rows.slice(1).map(row => row[2]);
     assert.deepEqual(titles, ['Plan', '/Sprint 1/', 'Order valves', 'Fit valves'], 'Default first, then a folder row per swimlane');
     assert.deepEqual(built.rows.slice(1).map(row => row[0]), [1, 2, 3, 4], 'sequential Keys');
     assert.equal(built.rows[4][1], 3, 'Parent Task by Key');
-    assert.deepEqual(built.rows.slice(1).map(row => row[3]), ['Completed', '', 'Active', 'Completed'], 'Status is a Wrike status group');
-    assert.equal(built.rows[3][4], 'High', 'urgent is written as High');
+    const column = name => built.rows.slice(1).map(row => row[h.indexOf(name)]);
+    assert.deepEqual(column('Default task workflow'), ['', 'Launch', '', ''], 'a folder makes the workflow its tasks\' default');
+    assert.deepEqual(column('Default project workflow'), ['', '', '', '']);
+    assert.deepEqual(column('Workflow'), ['Launch', '', 'Launch', 'Launch'], 'the workflow is named after the board');
+    assert.deepEqual(column('Status'), ['Active', '', 'Active', 'Completed'], 'the list\'s status group, from its rule or name');
+    assert.deepEqual(column('Custom Status'), ['Backlog', '', 'Doing', 'Review'], 'the list is the custom status');
+    assert.equal(built.rows[1][h.indexOf('Status')], 'Active', 'a finished card in an Active list keeps its list\'s group');
+    assert.equal(built.rows[3][h.indexOf('Priority')], 'High', 'urgent is written as High');
     const xlsx = await writeWrikeWorkbook(built);
     const check = new ExcelJS.Workbook();
     await check.xlsx.load(xlsx);
-    assert.ok(check.getWorksheet('Tasks').getCell('G4').value instanceof Date, 'dates are real date cells, as in the sample');
+    assert.ok(check.getWorksheet('Tasks').getRow(4).getCell(h.indexOf('Start Date') + 1).value instanceof Date, 'dates are real date cells, as in the sample');
     const back = parseWrikeRows(await readWrikeWorkbook(xlsx.toString('base64')));
-    assert.deepEqual(back.columns.map(c => c.title), ['Backlog', 'Doing', 'Completed'], 'the WeKan list column brings the lists back');
+    assert.deepEqual(back.columns.map(c => c.title), ['Backlog', 'Doing', 'Review'], 'the custom statuses bring the lists back');
+    assert.equal(back.board.name, 'Launch', 'and the workflow the board\'s title');
     assert.deepEqual(back.swimlanes.map(s => s.name), ['Default', 'Sprint 1']);
     const [plan, order, fit] = back.tasks;
     assert.equal(plan.swimlane_name, 'Default');
@@ -179,7 +201,8 @@ async function main() {
     assert.deepEqual(order.custom_fields, { Priority: 'High', Duration: '3 days', Vendor: 'ACME' });
     assert.equal(fit.parent_ref, order.ref);
     assert.deepEqual(planImportedLinks(back.tasks).parents, [{ index: 2, parent: 1 }]);
-    assert.deepEqual(back.unsupported, []);
+    // Review's Completed group came from a rule, which a workbook cannot carry.
+    assert.deepEqual(back.unsupported.map(u => u.reason), ['the Completed status group of "Review" is not kept by the list: import the Wrike workflow in Rules to add the rule that does what it does']);
   });
 
   await test('wired into import, export, the import page and the export menu', async () => {

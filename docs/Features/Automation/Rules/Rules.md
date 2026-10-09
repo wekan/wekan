@@ -222,7 +222,7 @@ Click **Import / Export rules** on the Rules page, or in Board Settings under
 - **Import target** — choose which **workspace** and **board** the imported rules go
   into (the workspace selector filters your boards by your personal workspaces;
   defaults to the current board). This applies to every importer in the dialog
-  (JSON, CSV, Trello Butler and visual workflows).
+  (JSON, CSV, Trello Butler, visual workflows and Wrike workflows).
 
 ### Importing visual workflows (n8n / Node-RED)
 
@@ -236,6 +236,44 @@ reported. The rules are created in the **board you selected** under *Import targ
 > These formats are arbitrary-integration graphs, so the mapping is **best-effort**.
 > Importing rules/workflows *with* a whole board is supported for WeKan→WeKan (see
 > below); n8n/Node-RED bring workflows only, into a chosen existing board.
+
+### Wrike workflows
+
+A Wrike workflow is an ordered list of statuses, each in one of four status
+groups: **Active**, **Completed**, **Deferred** or **Cancelled**. Moving a task
+into a Completed or Cancelled status closes it in Wrike. On a WeKan board the
+statuses are the lists, and closing a card when it is moved is a rule. So the
+Import / Export dialog exchanges a Wrike workflow as **lists plus rules**:
+
+- **Export Wrike workflow** downloads `wrike-workflow.json`, in the JSON that
+  Wrike's API returns for its workflows (`GET /workflows`): one workflow named
+  after the board, with a custom status per list in board order and the nearest
+  Wrike color. A list's status group comes from its rules first. A "when a card
+  is moved to this list → mark it complete" rule makes it **Completed**, or
+  **Cancelled** when the list is named like Rejected or Cancelled. A "→ mark it
+  incomplete" rule makes it **Active**, or **Deferred** when it is named like
+  On hold. Without such a rule the name decides (Done and Closed are
+  Completed), else Active. Wrike needs an Active and a Completed status, so one
+  is added when no list is one. The same file is offered in **Board Settings →
+  Export → Wrike workflow**.
+- **Import Wrike workflow** reads that JSON pasted into the text box, either
+  from WeKan or saved from Wrike's `GET /workflows`, into the board chosen
+  under *Import target*. A status the board has no list for becomes a list
+  after the list of the status before it, with the nearest WeKan color. Each
+  status also gets a rule: moving a card into a Completed or Cancelled status
+  marks it complete, and into an Active or Deferred one marks it incomplete.
+  These rules show in the list, Workflow and Blocks views like any other rule.
+  A list that already has such a rule keeps it, so importing twice adds
+  nothing. Hidden statuses and other workflows in the file are counted as not
+  read. Only board admins can import, as for any rule.
+
+To move a board to Wrike, create the exported workflow in Wrike first (Account
+Management → Workflows, or the API's `POST /workflows`), and then import the
+board's **Wrike** Excel export. Its *Workflow* and *Custom Status* columns name
+that workflow and its statuses, and Wrike only applies them when they exist,
+matching case. Wrike's own automation rules (WHEN–IF–THEN) have no export,
+import or API, so they cannot be brought into WeKan, and WeKan rules other than
+the ones above have no Wrike counterpart.
 
 ### Importing a whole board with its workflows (WeKan → WeKan)
 

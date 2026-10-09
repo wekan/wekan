@@ -43,6 +43,22 @@ async function scrumPlanning(boardId) {
   return { sprints, releases };
 }
 
+const WRIKE_FORMATS = new Set(['wrike', 'wrikeworkflow']);
+
+// The board's rules as { trigger, action } with only the fields a Wrike
+// status group is read from: the list a moveCard trigger names, and the
+// action's type.
+async function moveCompletionRules(boardId) {
+  const rules = await ReactiveCache.getRules({ boardId });
+  const out = [];
+  for (const rule of rules || []) {
+    const [trigger, action] = await Promise.all([ReactiveCache.getTrigger(rule.triggerId), ReactiveCache.getAction(rule.actionId)]);
+    if (!trigger || !action) continue;
+    out.push({ trigger: { activityType: trigger.activityType, listName: trigger.listName }, action: { actionType: action.actionType } });
+  }
+  return out;
+}
+
 async function collect(boardId, fields, format) {
   const board = await ReactiveCache.getBoard(boardId);
   const lists = await ReactiveCache.getLists({ boardId, archived: false }, { sort: { sort: 1 } });
@@ -66,6 +82,9 @@ async function collect(boardId, fields, format) {
       state: 1, plannedEnd: 1, releasedAt: 1, notes: 1, provenance: 1 } }).fetchAsync()).map(release => [release._id, release]))
     : null;
   const planning = SCRUM_FORMATS.has(format) && want('scrum') ? await scrumPlanning(boardId) : null;
+  // A Wrike status group comes from the board's move-and-complete rules
+  // (models/lib/wrikeWorkflow.js), so both Wrike exports read them.
+  const workflowRules = WRIKE_FORMATS.has(format) ? await moveCompletionRules(boardId) : null;
 
   // The rest of a card, read once per board and only when selected. Custom
   // fields reach this export only after server/lib/adminOnlyCustomFields
@@ -137,6 +156,7 @@ async function collect(boardId, fields, format) {
   });
   return { board, lists, swimlanes, jiraEstimateMapping: estimateMapping,
     ...(planning ? { scrumSprints: planning.sprints, scrumReleases: planning.releases } : {}),
+    ...(workflowRules ? { workflowRules } : {}),
     items: items.map(item => gateItem(item, wanted)) };
 }
 

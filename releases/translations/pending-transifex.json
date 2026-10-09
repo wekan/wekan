@@ -1083,6 +1083,26 @@
     {
       "key": "import-board-instruction-plane",
       "since": "2026-10-08"
+    },
+    {
+      "key": "r-wrike-workflow",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "r-wrike-workflow-note",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "r-export-wrike-workflow",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "r-import-wrike-workflow",
+      "since": "2026-10-09"
+    },
+    {
+      "key": "r-import-wrike-workflow-done",
+      "since": "2026-10-09"
     }
   ]
 }

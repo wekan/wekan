@@ -154,6 +154,66 @@ test.describe('Rules', () => {
     await expect(popup.locator('.js-rules-export-csv')).toBeVisible();
   });
 
+  // A Wrike workflow (models/lib/wrikeWorkflow.js): the JSON of Wrike's GET
+  // /workflows becomes the board's lists and the rules that close and reopen
+  // a card as Wrike's status groups do; a second import adds nothing, and the
+  // export writes the board back as a workflow.
+  test('Import / Export applies a Wrike workflow as lists and rules, and exports one', async ({ boardPage, board }) => {
+    await openRulesPage(boardPage, board);
+    await openRulesMenuEntry(boardPage, 'js-open-rules-import-export');
+    const popup = boardPage.locator('.js-pop-over');
+    await expect(popup.locator('.js-rules-import-wrike')).toBeVisible({ timeout: 10_000 });
+
+    await popup.locator('.js-rules-import-text').fill('{ not json');
+    await popup.locator('.js-rules-import-wrike').click();
+    await expect(popup.locator('.rules-ie-message')).toContainText('not JSON');
+
+    const workflow = { kind: 'workflows', data: [
+      { name: 'Default Workflow', standard: true, hidden: false, customStatuses: [{ name: 'Active', group: 'Active', color: 'Blue' }] },
+      { name: 'Delivery', standard: false, hidden: false, customStatuses: [
+        { name: 'Queued', group: 'Active', color: 'Blue' },
+        { name: 'Building', group: 'Active', color: 'Orange' },
+        { name: 'Shipped', group: 'Completed', color: 'Green' },
+        { name: 'Dropped', group: 'Cancelled', color: 'Red' },
+        { name: 'Retired', group: 'Active', color: 'Gray', hidden: true },
+      ] },
+    ] };
+    await popup.locator('.js-rules-import-text').fill(JSON.stringify(workflow));
+    await popup.locator('.js-rules-import-wrike').click();
+    await expect(popup.locator('.rules-ie-message')).toContainText('Delivery', { timeout: 15_000 });
+    const added = () => db.find('lists', { boardId: board.boardId, archived: false })
+      .filter(list => ['Queued', 'Building', 'Shipped', 'Dropped', 'Retired'].includes(list.title))
+      .sort((a, b) => a.sort - b.sort);
+    expect(added().map(list => list.title)).toEqual(['Queued', 'Building', 'Shipped', 'Dropped']);
+    expect(added().find(list => list.title === 'Building').color).toBe('orange');
+    const moveRules = () => db.find('rules', { boardId: board.boardId }).map(rule => {
+      const trigger = db.findOne('triggers', { _id: rule.triggerId });
+      const action = db.findOne('actions', { _id: rule.actionId });
+      return `${trigger.activityType} ${trigger.listName} ${action.actionType}`;
+    }).sort();
+    expect(moveRules()).toEqual([
+      'moveCard Building markCardIncomplete', 'moveCard Dropped markCardComplete',
+      'moveCard Queued markCardIncomplete', 'moveCard Shipped markCardComplete',
+    ]);
+
+    await popup.locator('.js-rules-import-wrike').click();
+    await expect(popup.locator('.rules-ie-message')).toContainText('0 list(s) and 0 rule(s)', { timeout: 15_000 });
+    expect(added()).toHaveLength(4);
+    expect(moveRules()).toHaveLength(4);
+
+    const [download] = await Promise.all([
+      boardPage.waitForEvent('download'),
+      popup.locator('.js-rules-export-wrike').click(),
+    ]);
+    expect(download.suggestedFilename()).toBe('wrike-workflow.json');
+    const exported = JSON.parse(require('node:fs').readFileSync(await download.path(), 'utf8'));
+    expect(exported.kind).toBe('workflows');
+    const statuses = exported.data[0].customStatuses;
+    expect(statuses.find(status => status.name === 'Shipped').group).toBe('Completed');
+    expect(statuses.find(status => status.name === 'Dropped').group).toBe('Cancelled');
+    expect(statuses.find(status => status.name === 'Building')).toMatchObject({ group: 'Active', color: 'Orange' });
+  });
+
   test('a board button rule renders a runnable button in the board header', async ({ boardPage, board }) => {
     await openRulesPage(boardPage, board);
 

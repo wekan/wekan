@@ -131,6 +131,81 @@ Meteor.methods({
     return { _id: ruleId, triggerId, actionId };
   },
 
+  // A Wrike workflow (the JSON of Wrike's GET /workflows, or WeKan's "Wrike
+  // workflow" export) applied to a board, from Rules > Import/Export: each
+  // status the board has no list for becomes a list, placed after the list of
+  // the status before it and given its color, and each status gets the rule
+  // that does what its status group does in Wrike - a card moved into a
+  // Completed or Cancelled status is marked complete, into an Active or
+  // Deferred one incomplete (models/lib/wrikeWorkflow.js). A list that
+  // already has a complete/incomplete move rule keeps it, so a second import
+  // adds nothing. Board admins only, as for any rule.
+  async 'rules.importWrikeWorkflow'(boardId, text) {
+    check(boardId, String);
+    check(text, String);
+    if (!this.userId) throw new Meteor.Error('not-authorized');
+    if (text.length > 1024 * 1024) throw new Meteor.Error('invalid-import-format', 'Wrike workflow JSON is larger than 1 MB');
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board) throw new Meteor.Error('not-found', 'Board not found');
+    if (!board.hasAdmin(this.userId)) throw new Meteor.Error('not-authorized', 'Must be a board admin');
+
+    const { readWrikeWorkflow, wrikeWorkflowRules } = require('/models/lib/wrikeWorkflow');
+    let workflow;
+    try {
+      workflow = readWrikeWorkflow(text);
+    } catch (error) {
+      throw new Meteor.Error('invalid-import-format', error.message);
+    }
+    const statuses = workflow.statuses.slice(0, 200);
+
+    const Lists = require('/models/lists').default;
+    const lists = await ReactiveCache.getLists({ boardId, archived: false }, { sort: { sort: 1 } });
+    const listIdByTitle = new Map(lists.map(list => [list.title, list._id]));
+    let previousId = null;
+    let listsCreated = 0;
+    for (const status of statuses) {
+      if (listIdByTitle.has(status.name)) { previousId = listIdByTitle.get(status.name); continue; }
+      // createListAfter runs as this user (a server-side call keeps the
+      // caller), with its own write check and placement.
+      const listId = await Meteor.callAsync('createListAfter', { title: status.name, boardId, afterListId: previousId, type: 'list' });
+      const set = {};
+      if (status.color) set.color = status.color;
+      // The workflow's first status goes before every list, not after them.
+      if (!previousId && lists.length) set.sort = Math.min(...lists.map(list => (Number.isFinite(list.sort) ? list.sort : 0))) - 1;
+      if (Object.keys(set).length) await Lists.updateAsync(listId, { $set: set });
+      listIdByTitle.set(status.name, listId);
+      previousId = listId;
+      listsCreated += 1;
+    }
+
+    // Lists that already have a complete/incomplete move rule.
+    const governed = new Set();
+    for (const rule of await ReactiveCache.getRules({ boardId })) {
+      const trigger = await ReactiveCache.getTrigger(rule.triggerId);
+      const action = await ReactiveCache.getAction(rule.actionId);
+      if (trigger && action && trigger.activityType === 'moveCard' && ['markCardComplete', 'markCardIncomplete'].includes(action.actionType)) {
+        governed.add(trigger.listName);
+      }
+    }
+    const user = await ReactiveCache.getUser(this.userId);
+    const lang = (user && user.profile && user.profile.language) || 'en';
+    const { TAPi18n } = require('/imports/i18n');
+    await TAPi18n.ensureLanguageLoaded(lang);
+    const t = key => TAPi18n.__(key, {}, lang);
+    let rulesCreated = 0;
+    for (const rule of wrikeWorkflowRules(statuses)) {
+      if (governed.has(rule.trigger.listName)) continue;
+      const triggerDesc = `${t('r-when-a-card-is-moved')}: ${rule.trigger.listName}`;
+      const actionDesc = t(rule.action.actionType === 'markCardComplete' ? 'r-mark-complete' : 'r-mark-incomplete');
+      const triggerId = await Triggers.insertAsync({ ...rule.trigger, desc: triggerDesc, boardId });
+      const actionId = await Actions.insertAsync({ ...rule.action, desc: actionDesc, boardId });
+      const group = statuses.find(status => status.name === rule.trigger.listName).group;
+      await Rules.insertAsync({ title: `Wrike ${group}: ${generateDefaultRuleTitle(triggerDesc, actionDesc)}`, triggerId, actionId, boardId });
+      rulesCreated += 1;
+    }
+    return { name: workflow.name, statuses: statuses.length, listsCreated, rulesCreated, notRead: workflow.unsupported.length + (workflow.statuses.length - statuses.length) };
+  },
+
   // #2713: edit an existing rule's trigger/action in place instead of forcing
   // "delete the rule, recreate it from scratch". The rule document keeps its
   // own _id (and its unshared trigger/action _ids too) —

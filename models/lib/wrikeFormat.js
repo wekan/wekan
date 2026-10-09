@@ -30,11 +30,16 @@
 //   Key                         -> the card's source reference
 //   Parent Task                 -> the parent card (a subtask), by Key; a
 //                                  folder's Key puts the task in that folder
-//   Status                      -> the list (Active, Completed, Deferred,
-//                                  Cancelled); "Custom Status", the status name
-//                                  of a custom workflow, wins over its group,
-//                                  and "WeKan list", which WeKan's export
-//                                  writes, wins over both
+//   Status / Custom Status      -> the list: "Custom Status", the status of a
+//                                  custom workflow, wins over Status, its
+//                                  status group (Active, Completed, Deferred,
+//                                  Cancelled). A group the status's name does
+//                                  not imply is reported: a WeKan list has no
+//                                  group, and the rule that keeps it comes from
+//                                  importing the Wrike workflow in Rules
+//                                  (models/lib/wrikeWorkflow.js)
+//   Workflow                    -> the board's title, when every task names
+//                                  the same one
 //   Assigned To ("Name <email>",
 //   comma-separated)            -> the owner, then further assignees, by name
 //   Start Date / End Date       -> start and due dates (date cells, or
@@ -45,18 +50,26 @@
 //                                  Billing type, Budget and Wrike's own custom
 //                                  fields among them)
 // What has no WeKan place is reported: a start date constraint, a folder or
-// project's own status, assignee and dates, the workflow columns, the
+// project's own status, assignee and dates, a Default task or project
+// workflow on a task row, the
 // SS/FF/SF kind of a dependency (it is kept as is-blocked-by), dependencies
 // on folders, bad dates and keys, and a task's repeated rows (Wrike's export
 // writes a task once per folder it is tagged in, with the same Key).
 
+import { wrikeGroupForName, wrikeWorkflowFromBoard } from './wrikeWorkflow.js';
+
 export const WRIKE_COLUMNS = ['Key', 'Parent Task', 'Title', 'Status', 'Priority', 'Assigned To', 'Start Date',
   'Duration', 'End Date', 'Depends On', 'Start Date Constraint', 'Description'];
+// The workflow columns Wrike's import needs for a custom status, in the order
+// the help article lists them: Workflow left of Status, Custom Status right.
+export const WRIKE_WORKFLOW_COLUMNS = ['Default task workflow', 'Default project workflow', 'Workflow', 'Status', 'Custom Status'];
+// What WeKan's export writes: the documented columns with the workflow ones in
+// place of Status.
+export const WRIKE_EXPORT_COLUMNS = ['Key', 'Parent Task', 'Title', ...WRIKE_WORKFLOW_COLUMNS,
+  ...WRIKE_COLUMNS.slice(WRIKE_COLUMNS.indexOf('Status') + 1)];
 export const WRIKE_DATE_COLUMNS = ['Start Date', 'End Date', 'Start Date Constraint'];
 export const WRIKE_STATUSES = ['Active', 'Completed', 'Deferred', 'Cancelled'];
 export const WRIKE_PRIORITIES = ['High', 'Normal', 'Low'];
-// The list a card is in, as a custom field Wrike imports and WeKan reads back.
-export const WRIKE_LIST_COLUMN = 'WeKan list';
 // Wrike's own export stops at 65,000 rows.
 export const MAX_WRIKE_ROWS = 65000;
 const MAX_KEY = 999999;
@@ -67,7 +80,6 @@ const ROLES = {
   title: 'title',
   status: 'status',
   'custom status': 'customStatus',
-  [WRIKE_LIST_COLUMN.toLowerCase()]: 'list',
   priority: 'priority',
   'assigned to': 'people',
   'start date': 'start',
@@ -76,8 +88,8 @@ const ROLES = {
   'depends on': 'depends',
   'start date constraint': 'constraint',
   description: 'description',
-  'default task workflow': 'workflow',
-  'default project workflow': 'workflow',
+  'default task workflow': 'defaultWorkflow',
+  'default project workflow': 'defaultWorkflow',
   workflow: 'workflow',
 };
 const roleOf = title => ROLES[String(title || '').trim().toLowerCase()];
@@ -146,7 +158,7 @@ export function parseWrikeRows(rows) {
   });
   const column = role => header.findIndex(title => roleOf(title) === role);
   const at = { };
-  ['key', 'parent', 'title', 'status', 'customStatus', 'list', 'priority', 'people', 'start', 'duration', 'end',
+  ['key', 'parent', 'title', 'status', 'customStatus', 'workflow', 'priority', 'people', 'start', 'duration', 'end',
     'depends', 'constraint', 'description'].forEach(role => { at[role] = column(role); });
   const get = (row, role) => (at[role] === -1 ? '' : row[at[role]] || '');
   const isFolder = title => /^\/.*\/$/.test(title);
@@ -161,6 +173,7 @@ export function parseWrikeRows(rows) {
   });
 
   const tasks = [];
+  const workflows = new Set();
   const seen = new Set();
   let folder = 'Default';
   cells.slice(headerAt + 1).forEach((row, offset) => {
@@ -188,9 +201,14 @@ export function parseWrikeRows(rows) {
       description: get(row, 'description'),
       ref: key || `wrike${path}`,
       swimlane_name: folder,
-      column_name: get(row, 'list') || get(row, 'customStatus') || get(row, 'status') || 'Active',
+      column_name: get(row, 'customStatus') || get(row, 'status') || 'Active',
       tags: [],
     };
+    const group = get(row, 'status');
+    if (get(row, 'customStatus') && WRIKE_STATUSES.includes(group) && wrikeGroupForName(get(row, 'customStatus')) !== group) {
+      unsupported.push({ path: `${path}/${header[at.status]}`, reason: `the ${group} status group of "${get(row, 'customStatus')}" is not kept by the list: import the Wrike workflow in Rules to add the rule that does what it does` });
+    }
+    if (get(row, 'workflow')) workflows.add(get(row, 'workflow'));
     const parent = get(row, 'parent');
     if (parent && folders.has(parent)) task.swimlane_name = folders.get(parent);
     else if (parent) task.parent_ref = parent;
@@ -223,7 +241,7 @@ export function parseWrikeRows(rows) {
       const value = row[index];
       if (!name || !value) return;
       const role = roleOf(name);
-      if (role === 'workflow') unsupported.push({ path: `${path}/${name}`, reason: `the Wrike ${name} "${value}" is not imported` });
+      if (role === 'defaultWorkflow') unsupported.push({ path: `${path}/${name}`, reason: `the Wrike ${name} "${value}" of a task is not imported` });
       else if (!role) custom[name] = /^-?\d+(\.\d+)?$/.test(value) ? Number(value) : value;
     });
     if (Object.keys(custom).length) task.custom_fields = custom;
@@ -233,7 +251,7 @@ export function parseWrikeRows(rows) {
   const columns = [...new Set(tasks.map(task => task.column_name))];
   const swimlanes = [...new Set(tasks.map(task => task.swimlane_name))];
   return {
-    board: { name: 'Imported Wrike board' },
+    board: { name: workflows.size === 1 ? [...workflows][0] : 'Imported Wrike board' },
     columns: columns.map(title => ({ title })),
     swimlanes: (swimlanes.length ? swimlanes : ['Default']).map(name => ({ name })),
     tasks,
@@ -249,28 +267,27 @@ const day = value => {
 };
 const PRIORITY_ALIASES = { urgent: 'High', highest: 'High', high: 'High', medium: 'Normal', normal: 'Normal', low: 'Low', lowest: 'Low' };
 
-// The status group Wrike's default workflow knows: the list's own name when it
-// is one, else Completed for a finished card, else Active.
-function statusGroup(item) {
-  const named = WRIKE_STATUSES.find(status => status.toLowerCase() === String(item.listTitle || '').trim().toLowerCase());
-  if (named) return named;
-  return item.dueComplete || item.endAt ? 'Completed' : 'Active';
-}
-
 // The import template on a "Tasks" sheet, as Wrike's Excel import reads it:
 // a folder row "/<swimlane>/" above the cards of each swimlane but Default,
 // sequential Keys, Parent Task by Key, dates as YYYY-MM-DD (written as date
 // cells by server/lib/wrikeWorkbook.js), and the custom fields to the right of
-// Description, the list among them as "WeKan list".
-export function formatWrikeRows({ items }) {
+// Description. A card's list is its custom status in the workflow named after
+// the board - the one the "Wrike workflow" export describes, which has to
+// exist in Wrike for its import to use it - and each folder row makes that
+// workflow its tasks' default.
+export function formatWrikeRows({ board, items, lists, workflowRules }) {
   const list = Array.isArray(items) ? items : [];
+  const boardLists = Array.isArray(lists) && lists.length ? lists
+    : [...new Set(list.map(item => item.listTitle).filter(Boolean))].map(title => ({ title }));
+  const { workflow, statusOf } = wrikeWorkflowFromBoard({ boardTitle: board && board.title, lists: boardLists, rules: workflowRules });
+  const workflowName = workflow.data[0].name;
   const extra = [];
   for (const item of list) {
     for (const name of Object.keys(item.customFields || {})) {
       if (!extra.includes(name) && !roleOf(name) && !['priority', 'duration'].includes(name.toLowerCase())) extra.push(name);
     }
   }
-  const header = [...WRIKE_COLUMNS, WRIKE_LIST_COLUMN, ...extra];
+  const header = [...WRIKE_EXPORT_COLUMNS, ...extra];
   const rows = [header];
   const lanes = [];
   for (const item of list) {
@@ -294,7 +311,7 @@ export function formatWrikeRows({ items }) {
   for (const { folder, item, key } of order) {
     if (folder) {
       const path = folder.split('/').map(part => part.trim()).filter(Boolean).join('/');
-      rows.push(header.map(name => (name === 'Key' ? key : name === 'Title' ? `/${path || 'Folder'}/` : '')));
+      rows.push(header.map(name => (name === 'Key' ? key : name === 'Title' ? `/${path || 'Folder'}/` : name === 'Default task workflow' ? workflowName : '')));
       continue;
     }
     const fields = item.customFields || {};
@@ -304,7 +321,9 @@ export function formatWrikeRows({ items }) {
       Key: key,
       'Parent Task': item.parentCardId && keyOf.has(item.parentCardId) ? keyOf.get(item.parentCardId) : '',
       Title: String(item.title || '').trim() || 'Untitled',
-      Status: statusGroup(item),
+      Workflow: workflowName,
+      Status: statusOf(item.listTitle).group,
+      'Custom Status': statusOf(item.listTitle).name,
       Priority: priority,
       'Assigned To': [item.owner, ...(Array.isArray(item.assignees) ? item.assignees : [])].filter(Boolean).join(', '),
       'Start Date': day(item.startAt),
@@ -313,7 +332,6 @@ export function formatWrikeRows({ items }) {
       'Depends On': '',
       'Start Date Constraint': '',
       Description: item.description || '',
-      [WRIKE_LIST_COLUMN]: item.listTitle || '',
     };
     rows.push(header.map(name => (name in values ? values[name] : fields[name] === undefined ? '' : fields[name])));
   }

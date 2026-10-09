@@ -1,6 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import Papa from 'papaparse';
+import { wrikeWorkflowFromBoard } from '/models/lib/wrikeWorkflow';
 
 const RULES_FORMAT = 'wekan-rules-1.0.0';
 const STRIP_FIELDS = ['_id', 'boardId', 'createdAt', 'modifiedAt', 'updatedAt'];
@@ -329,6 +330,32 @@ Template.rulesImportExportPopup.events({
       reportImport(tpl, importRules(csvToRules(text), targetBoardId(tpl)));
     } catch (e) {
       tpl.message.set(String(e.message || e));
+    }
+  },
+  // The board's lists as a Wrike workflow (models/lib/wrikeWorkflow.js), each
+  // list's status group taken from its move-and-complete rules - every rule,
+  // not only the selected ones, since the workflow is the whole board's.
+  'click .js-rules-export-wrike'() {
+    const boardId = Session.get('currentBoard');
+    const board = ReactiveCache.getBoard(boardId);
+    const lists = ReactiveCache.getLists({ boardId, archived: false }, { sort: { sort: 1 } });
+    const rules = ReactiveCache.getRules({ boardId }).map(rule => ({
+      trigger: ReactiveCache.getTrigger(rule.triggerId),
+      action: ReactiveCache.getAction(rule.actionId),
+    })).filter(rule => rule.trigger && rule.action);
+    const { workflow } = wrikeWorkflowFromBoard({ boardTitle: board && board.title, lists, rules });
+    download('wrike-workflow.json', JSON.stringify(workflow, null, 2), 'application/json');
+  },
+  // Lists and rules are added on the server (rules.importWrikeWorkflow), which
+  // sees the target board's lists and rules even when it is not this board.
+  async 'click .js-rules-import-wrike'(event, tpl) {
+    try {
+      const result = await Meteor.callAsync('rules.importWrikeWorkflow', targetBoardId(tpl), tpl.find('.js-rules-import-text').value);
+      tpl.message.set(TAPi18n.__('r-import-wrike-workflow-done', {
+        name: result.name, lists: result.listsCreated, rules: result.rulesCreated, skipped: result.notRead,
+      }));
+    } catch (e) {
+      tpl.message.set(String((e && (e.reason || e.message)) || e));
     }
   },
   'click .js-rules-import-trello'(event, tpl) {

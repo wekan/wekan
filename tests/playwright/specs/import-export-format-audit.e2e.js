@@ -351,6 +351,22 @@ test('every external export menu link returns text and refuses an unrelated user
       expect([401, 403]).toContain(refused.status());
     });
   }
+  // The Wrike workflow is the board's lists, not its cards: Wrike's GET
+  // /workflows JSON with a custom status per list (models/lib/wrikeWorkflow.js).
+  await test.step('wrikeworkflow', async () => {
+    const anchor = page.locator('.js-pop-over a[href*="/export/wrikeworkflow?"]');
+    await expect(anchor).toBeVisible();
+    const href = await anchor.getAttribute('href');
+    const response = await page.request.get(href);
+    expect(response.status()).toBe(200);
+    const workflow = await response.json();
+    expect(workflow.kind).toBe('workflows');
+    const lists = db.find('lists', { boardId: board.boardId, archived: false }).map(list => list.title);
+    expect(workflow.data[0].customStatuses.map(status => status.name)).toEqual(expect.arrayContaining(lists));
+    const unauthorized = new URL(href, page.url());
+    unauthorized.searchParams.set('authToken', user2.token);
+    expect([401, 403]).toContain((await page.request.get(unauthorized.toString())).status());
+  });
 });
 
 // A Kanri single-board export: columns, a card with its description, due date,
@@ -907,6 +923,38 @@ test('Wrike: an import template imports with its folder, status, dates and depen
     expect(db.find('swimlanes', { boardId }).map(lane => lane.title)).toContain('Folder 1');
     expect(db.find('customFields', { boardIds: boardId }).map(field => field.name).sort()).toEqual(['Duration', 'Priority']);
     await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});
+
+// The custom-status columns of Wrike's import, in the order its help article
+// gives them, as WeKan's own Wrike export writes them: the Custom Status is the
+// list and the one Workflow the board's title.
+test('Wrike: custom statuses of a workflow import as lists, the workflow as the board title', async ({ loggedInPage: page }) => {
+  const ExcelJS = require('../../../node_modules/@wekanteam/exceljs');
+  let boardId;
+  try {
+    const workbook = new ExcelJS.Workbook();
+    const sheet = workbook.addWorksheet('Tasks');
+    [['Key', 'Parent Task', 'Title', 'Default task workflow', 'Default project workflow', 'Workflow', 'Status', 'Custom Status', 'Priority'],
+      [1, '', '/Release/', 'Delivery'],
+      [2, '', expected.title, '', '', 'Delivery', 'Active', 'Building', 'High'],
+      [3, '', 'Second task', '', '', 'Delivery', 'Completed', 'Shipped', ''],
+    ].forEach(row => sheet.addRow(row));
+    await navigateInApp(page, '/import/wrike');
+    await page.locator('.js-import-excel-file').setInputFiles({
+      name: 'wrike-workflow.xlsx', mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      buffer: Buffer.from(await workbook.xlsx.writeBuffer()),
+    });
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    expect(db.findOne('boards', { _id: boardId }).title).toBe('Delivery');
+    const lists = db.find('lists', { boardId });
+    const cards = db.find('cards', { boardId });
+    expect(lists.find(list => list._id === cards.find(c => c.title === expected.title).listId).title).toBe('Building');
+    expect(lists.find(list => list._id === cards.find(c => c.title === 'Second task').listId).title).toBe('Shipped');
+    expect(db.find('customFields', { boardIds: boardId }).map(field => field.name)).toEqual(['Priority']);
+    expect(db.find('swimlanes', { boardId }).map(lane => lane.title)).toContain('Release');
   } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
 });
 
