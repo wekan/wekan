@@ -672,6 +672,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7258355abf">Translate Xhosa board and rule settings</a>. Thanks to xet7.</summary>
+
+Fill 29 Xhosa placeholders. Tests preserve percent and brace variables, URL
+examples, LDAP identifiers, permissions and rule-editor restrictions. Both
+targeted suites and all 21 preservation checks pass. Specialized wording needs
+speaker review; browser execution and remaining translations are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f2f8c08caa">Complete current Zulu fill and refresh coverage count</a>. Thanks to xet7.</summary>
 
 Translate keyboard labels while retaining key legends, correct the monday.com
