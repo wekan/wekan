@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Zulu keyboard labels and current fill completion — 2026-10-09
+
+Translate 18 keyboard labels per Zulu catalog (36 values), retaining printed
+key names, and correct the possessive in the monday.com instruction. Both
+current fill lists are empty; this does not establish complete linguistic
+quality. Regression checks retain key legends and directions and verify empty
+fill lists. Three targeted suites and all 21 preservation checks pass.
+The broad run completed 333 suites in 128 seconds: 332 passed and one detected
+a stale README coverage count. Update 188 to the measured 190 catalogs over 90%
+non-English text; the failing language-wiring suite then passes all six checks.
+The ordinary backlog is 31,151 values in 44 locales, excluding 271 pending
+source keys. Both card-field visibility messages are translated in 180 of 234
+non-English paths. Specialized terminology, browser execution and the remaining
+language work still need review and completion.
+
 ## Zulu import instructions, final group — 2026-10-09
 
 Translate seven instructions per Zulu catalog (14 values): Quire, Wrike,

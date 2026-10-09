@@ -900,6 +900,26 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
   "import-board-instruction-notion",
   "import-board-instruction-plane"
 ]);
+  keys.push(...[
+  "blockly-ALT_KEY",
+  "blockly-BACKSPACE_KEY",
+  "blockly-CAPS_LOCK_KEY",
+  "blockly-COMMAND_KEY",
+  "blockly-CONTEXT_MENU_KEY",
+  "blockly-CONTROL_KEY",
+  "blockly-END_KEY",
+  "blockly-ENTER_KEY",
+  "blockly-ESCAPE",
+  "blockly-HOME_KEY",
+  "blockly-INSERT_KEY",
+  "blockly-OPTION_KEY",
+  "blockly-PAGE_DOWN_KEY",
+  "blockly-PAGE_UP_KEY",
+  "blockly-PAUSE_KEY",
+  "blockly-SHIFT_KEY",
+  "blockly-SPACE_KEY",
+  "blockly-TAB_KEY"
+]);
   for (const language of ['zu', 'zu-ZA']) {
     const locale = read(language);
     for (const key of keys) {
@@ -1142,6 +1162,15 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
     assert.match(locale['import-board-instruction-businessmap'], /qala ngokuqamba kabusha.*ngesiNgisi/);
     assert.match(locale['import-board-instruction-redmine'], /English ku-My account ngaphambi kokukhipha/);
     assert.match(locale['import-board-instruction-teamwork'], /izinga elilodwa elijulile/);
+    for (const key of ["blockly-ALT_KEY", "blockly-BACKSPACE_KEY", "blockly-CAPS_LOCK_KEY", "blockly-COMMAND_KEY", "blockly-CONTEXT_MENU_KEY", "blockly-CONTROL_KEY", "blockly-END_KEY", "blockly-ENTER_KEY", "blockly-ESCAPE", "blockly-HOME_KEY", "blockly-INSERT_KEY", "blockly-OPTION_KEY", "blockly-PAGE_DOWN_KEY", "blockly-PAGE_UP_KEY", "blockly-PAUSE_KEY", "blockly-SHIFT_KEY", "blockly-SPACE_KEY", "blockly-TAB_KEY"]) {
+      if (key === 'blockly-CONTEXT_MENU_KEY') assert.match(locale[key], /^≣ Imenyu$/);
+      else assert.ok(locale[key].includes(source[key]), key + ': printed key legend');
+    }
+    assert.match(locale['blockly-PAGE_DOWN_KEY'], /phansi/);
+    assert.match(locale['blockly-PAGE_UP_KEY'], /phezulu/);
+    assert.match(locale['import-board-instruction-monday'], /izindawo zazo/);
+    assert.doesNotMatch(locale['import-board-instruction-monday'], /izindawo zakho/);
+    assert.deepStrictEqual(JSON.parse(childProcess.execFileSync(node, [fill, '--list', language], { cwd: ROOT, encoding: 'utf8' })), {}, language + ': current fill list');
     const failure = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
     assert.ok(failure.includes('E_LDAP'));
     assert.ok(!failure.includes('%s'));
