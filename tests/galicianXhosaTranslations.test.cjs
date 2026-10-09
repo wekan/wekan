@@ -897,6 +897,17 @@ for (const locale of Object.values(locales)) {
   "import-board-instruction-linear",
   "import-board-instruction-ticktick"
 ]);
+  keys.push(...[
+  "import-board-instruction-clickup",
+  "import-board-instruction-nullboard",
+  "import-board-instruction-kanri",
+  "import-board-instruction-pivotal",
+  "import-board-instruction-tasksorg",
+  "import-board-instruction-monday",
+  "import-board-instruction-superproductivity",
+  "import-board-instruction-taiga",
+  "import-board-instruction-vikunja"
+]);
   for (const key of keys) {
     assert.notEqual(locale[key], source[key], key);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), key);
@@ -1171,6 +1182,12 @@ for (const locale of Object.values(locales)) {
   assert.match(locale['import-board-instruction-meistertask'], /igcina umhla wayo wokugqitywa/);
   assert.match(locale['import-board-instruction-obsidian'], /Archive.*agcinwe kwindawo yogcino/);
   assert.match(locale['import-board-instruction-ticktick'], /Uluhlu ngalunye.*yindlela yokuqubha/);
+  for (const format of ['nullboard', 'kanri']) assert.match(locale[`import-board-instruction-${format}`], /ibhodi yokuqala/);
+  for (const format of ['taiga', 'vikunja']) assert.match(locale[`import-board-instruction-${format}`], /Izincamathelisi azingeniswa/);
+  assert.match(locale['import-board-instruction-tasksorg'], /igcina umhla wayo wokugqitywa/);
+  assert.match(locale['import-board-instruction-pivotal'], /Estimate.*Story points/);
+  assert.match(locale['import-board-instruction-monday'], /zigcina iindawo zazo/);
+  for (const literal of ['sp-backup', '.json', 'To Do', 'In Progress', 'Backlog', 'Done']) assert.ok(locale['import-board-instruction-superproductivity'].includes(literal));
   const error = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
   assert.ok(error.includes('E_LDAP'));
   assert.ok(!error.includes('%s'));

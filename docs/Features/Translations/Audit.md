@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Xhosa task and board import instructions — 2026-10-09
+
+Translate nine instructions in xh for ClickUp, Nullboard, Kanri, Pivotal Tracker,
+Tasks.org, monday.com, Super Productivity, Taiga and Vikunja. Tests retain command
+literals, first-board limits, completion dates and attachment exclusions. All
+three targeted suites and 21 preservation checks pass. Seven import instructions
+remain. Specialized wording remains low confidence pending speaker review;
+browser execution and the wider translation backlog are outstanding.
+
 ## Xhosa outline and planning import instructions — 2026-10-09
 
 Translate eight instructions in xh for OPML, Org mode, Todoist, Planner,
