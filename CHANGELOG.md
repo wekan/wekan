@@ -672,6 +672,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ce7d915850">Complete current Xhosa translation fill</a>. Thanks to xet7.</summary>
+
+Fill the final seven Xhosa import instructions. The current fill list is empty.
+Tests preserve header requirements, hierarchy markers and data exclusions. All
+three targeted suites and 21 preservation checks pass. Specialized wording needs
+speaker review; browser execution and the wider translation backlog remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/be4c6e4b7c">Translate Xhosa task and board import instructions</a>. Thanks to xet7.</summary>
 
 Fill nine Xhosa import instructions. Tests retain commands, first-board limits,
