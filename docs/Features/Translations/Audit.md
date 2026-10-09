@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Xhosa outline and planning import instructions — 2026-10-09
+
+Translate eight instructions in xh for OPML, Org mode, Todoist, Planner,
+MeisterTask, Obsidian, Linear and TickTick. Tests retain export commands, field
+names, tokens, completion dates, archived cards and list mappings. All three
+targeted suites and 21 preservation checks pass. Sixteen import instructions
+remain. Specialized wording remains low confidence pending speaker review;
+browser execution and the wider translation backlog are outstanding.
+
 ## Xhosa Blockly text and workspace completion — 2026-10-09
 
 Translate the remaining 70 Blockly entries in xh for text, variables and workspace

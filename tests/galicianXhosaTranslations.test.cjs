@@ -887,6 +887,16 @@ for (const locale of Object.values(locales)) {
   "blockly-TEXT_APPEND_VARIABLE",
   "blockly-TEXT_CREATE_JOIN_ITEM_TITLE_ITEM"
 ]);
+  keys.push(...[
+  "import-board-instruction-opml",
+  "import-board-instruction-orgmode",
+  "import-board-instruction-todoist",
+  "import-board-instruction-planner",
+  "import-board-instruction-meistertask",
+  "import-board-instruction-obsidian",
+  "import-board-instruction-linear",
+  "import-board-instruction-ticktick"
+]);
   for (const key of keys) {
     assert.notEqual(locale[key], source[key], key);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), key);
@@ -1155,6 +1165,12 @@ for (const locale of Object.values(locales)) {
   assert.doesNotMatch(searchMatch, /%[123]/);
   assert.equal(locale['blockly-PROCEDURES_DEFRETURN_COMMENT'], locale['blockly-PROCEDURES_DEFNORETURN_COMMENT']);
   assert.equal(locale['blockly-CONTROLS_IF_ELSE_TITLE_ELSE'], locale['blockly-CONTROLS_IF_MSG_ELSE']);
+  for (const literal of ['TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED']) assert.ok(locale['import-board-instruction-orgmode'].includes(literal));
+  for (const literal of ['Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By']) assert.ok(locale['import-board-instruction-planner'].includes(literal));
+  for (const literal of ['Export as a template', '@labels', 'p1', 'p3']) assert.ok(locale['import-board-instruction-todoist'].includes(literal));
+  assert.match(locale['import-board-instruction-meistertask'], /igcina umhla wayo wokugqitywa/);
+  assert.match(locale['import-board-instruction-obsidian'], /Archive.*agcinwe kwindawo yogcino/);
+  assert.match(locale['import-board-instruction-ticktick'], /Uluhlu ngalunye.*yindlela yokuqubha/);
   const error = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
   assert.ok(error.includes('E_LDAP'));
   assert.ok(!error.includes('%s'));
