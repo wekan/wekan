@@ -303,6 +303,10 @@ Template.viewer.onRendered(function () {
     pre.parentNode.insertBefore(button, pre);
     button.addEventListener('click', function (e) {
       e.preventDefault();
+      // #6753: the button is an <a href="#"> inside the viewer, so the click
+      // also reached the viewer's 'click a' handler below, which opened its
+      // href - this page plus "#" - in a new tab. Copying is all it does.
+      e.stopPropagation();
       copyCodeBlockText(pre.textContent);
     });
   });
@@ -314,11 +318,31 @@ Template.viewer.events({
   // we stop these event at the viewer component level.
   'click a'(event, templateInstance) {
     const prevent = true;
-    const userId = event.currentTarget.dataset.userid;
+    const link = event.currentTarget;
+    // #6753: the code-block copy button handles its own click; it is not a
+    // link to follow.
+    if (link.classList.contains('js-copy-code')) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+    const userId = link.dataset.userid;
+    // A link to a place on this page ("#", "#section") is not a page to open:
+    // opening its href in a new tab opened this board again (#6753). It moves
+    // to the target in place when there is one.
+    const rawHref = link.getAttribute('href') || '';
+    if (!userId && rawHref.startsWith('#')) {
+      event.preventDefault();
+      event.stopPropagation();
+      const id = rawHref.slice(1);
+      const target = id && document.getElementById(id);
+      if (target) target.scrollIntoView();
+      return;
+    }
     if (userId) {
       Popup.open('member').call({ userId }, event, templateInstance);
     } else {
-      const href = event.currentTarget.href;
+      const href = link.href;
       if (href) {
         const cardPath = internalCardPath(href, window.location.href);
         const scheme = hrefScheme(href);

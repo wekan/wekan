@@ -64,4 +64,38 @@ check('#5149: uses the async Clipboard API with an execCommand fallback', () => 
   assert.ok(/fallbackCopyText/.test(src), 'must have an execCommand fallback');
 });
 
+check('#6753: copying stays on the page - the click does not reach the viewer link handler', () => {
+  const start = src.indexOf('Template.viewer.onRendered(');
+  const body = src.slice(start, src.indexOf('Template.viewer.events('));
+  assert.ok(/addEventListener\('click', function \(e\) \{\s*e\.preventDefault\(\);[\s\S]*?e\.stopPropagation\(\);[\s\S]*?copyCodeBlockText/.test(body),
+    'the button stops the click after preventing it');
+  const events = src.slice(src.indexOf('Template.viewer.events('));
+  const handler = events.slice(0, events.indexOf('window.open('));
+  assert.ok(/link\.classList\.contains\('js-copy-code'\)\) \{[\s\S]*?return;/.test(handler),
+    'the viewer handler leaves the copy button alone before it opens anything');
+  assert.ok(/rawHref\.startsWith\('#'\)\) \{[\s\S]*?return;/.test(handler),
+    'and does not open a link to a place on this page in a new tab');
+});
+
+check('#6753 negative: no in-page "#" control in the viewer can reach window.open', () => {
+  // Simulate the handler's decisions on the links the viewer can hold.
+  const decide = (classes, rawHref, userId) => {
+    if (classes.includes('js-copy-code')) return 'copy';
+    if (!userId && rawHref.startsWith('#')) return 'in-page';
+    if (userId) return 'member';
+    return 'open';
+  };
+  assert.equal(decide(['fa', 'js-copy-code'], '#', ''), 'copy');
+  assert.equal(decide([], '#', ''), 'in-page');
+  assert.equal(decide([], '#section', ''), 'in-page');
+  assert.equal(decide([], 'https://example.com/', ''), 'open');
+  assert.equal(decide([], '#', 'u1'), 'member');
+  // And the handler checks in that order in the source.
+  const events = src.slice(src.indexOf('Template.viewer.events('));
+  const order = ["contains('js-copy-code')", "rawHref.startsWith('#')", 'if (userId)', "window.open(href, '_blank'"]
+    .map(needle => events.indexOf(needle));
+  assert.ok(order.every(i => i >= 0), 'every step is there');
+  assert.deepEqual([...order].sort((a, b) => a - b), order, 'in that order');
+});
+
 console.log(`\ncopyCodeBlock: ${passed} checks passed`);
