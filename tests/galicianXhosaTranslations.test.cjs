@@ -625,6 +625,43 @@ for (const locale of Object.values(locales)) {
   "blockly-MATH_IS_DIVISIBLE_BY",
   "blockly-MATH_IS_EVEN"
 ]);
+  keys.push(...[
+  "blockly-MATH_IS_NEGATIVE",
+  "blockly-MATH_IS_ODD",
+  "blockly-MATH_IS_POSITIVE",
+  "blockly-MATH_IS_PRIME",
+  "blockly-MATH_IS_TOOLTIP",
+  "blockly-MATH_IS_WHOLE",
+  "blockly-MATH_MODULO_TITLE",
+  "blockly-MATH_MODULO_TOOLTIP",
+  "blockly-MATH_MULTIPLICATION_SYMBOL_ARIA",
+  "blockly-MATH_NUMBER_TOOLTIP",
+  "blockly-MATH_ONLIST_OPERATOR_AVERAGE",
+  "blockly-MATH_ONLIST_OPERATOR_MAX",
+  "blockly-MATH_ONLIST_OPERATOR_MAX_ARIA",
+  "blockly-MATH_ONLIST_OPERATOR_MEDIAN",
+  "blockly-MATH_ONLIST_OPERATOR_MIN",
+  "blockly-MATH_ONLIST_OPERATOR_MIN_ARIA",
+  "blockly-MATH_ONLIST_OPERATOR_MODE",
+  "blockly-MATH_ONLIST_OPERATOR_RANDOM",
+  "blockly-MATH_ONLIST_OPERATOR_STD_DEV",
+  "blockly-MATH_ONLIST_OPERATOR_SUM",
+  "blockly-MATH_ONLIST_TOOLTIP_AVERAGE",
+  "blockly-MATH_ONLIST_TOOLTIP_MAX",
+  "blockly-MATH_ONLIST_TOOLTIP_MEDIAN",
+  "blockly-MATH_ONLIST_TOOLTIP_MIN",
+  "blockly-MATH_ONLIST_TOOLTIP_MODE",
+  "blockly-MATH_ONLIST_TOOLTIP_RANDOM",
+  "blockly-MATH_ONLIST_TOOLTIP_STD_DEV",
+  "blockly-MATH_ONLIST_TOOLTIP_SUM",
+  "blockly-MATH_POWER_SYMBOL_ARIA",
+  "blockly-MATH_RANDOM_FLOAT_TITLE_RANDOM",
+  "blockly-MATH_RANDOM_FLOAT_TOOLTIP",
+  "blockly-MATH_RANDOM_INT_TITLE",
+  "blockly-MATH_RANDOM_INT_TOOLTIP",
+  "blockly-MATH_ROUND_OPERATOR_ROUND",
+  "blockly-MATH_ROUND_OPERATOR_ROUNDDOWN"
+]);
   for (const key of keys) {
     assert.notEqual(locale[key], source[key], key);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), key);
@@ -825,6 +862,17 @@ for (const locale of Object.values(locales)) {
   const constrainedValue = locale['blockly-MATH_CONSTRAIN_TITLE'].replace('%1', 'value').replace('%2', '0').replace('%3', '10');
   assert.match(constrainedValue, /value.*0.*10/);
   assert.doesNotMatch(constrainedValue, /%[123]/);
+  assert.match(locale['blockly-MATH_IS_NEGATIVE'], /lingaphantsi.*0/);
+  assert.match(locale['blockly-MATH_IS_POSITIVE'], /lingaphezulu.*0/);
+  assert.match(locale['blockly-MATH_IS_PRIME'], /kuphela.*1.*ngokwalo.*elikhulu/);
+  assert.notEqual(locale['blockly-MATH_IS_ODD'], locale['blockly-MATH_IS_EVEN']);
+  assert.match(locale['blockly-MATH_RANDOM_FLOAT_TOOLTIP'], /0\.0 \(uqukiwe\).*1\.0 \(akaqukwanga\)/);
+  assert.match(locale['blockly-MATH_RANDOM_INT_TOOLTIP'], /kuquka imida/);
+  assert.match(locale['blockly-MATH_ONLIST_TOOLTIP_MODE'], /uluhlu lwezona/);
+  assert.notEqual(locale['blockly-MATH_ONLIST_OPERATOR_AVERAGE'], locale['blockly-MATH_ONLIST_OPERATOR_MEDIAN']);
+  const remainderTitle = locale['blockly-MATH_MODULO_TITLE'].replace('%1', '7').replace('%2', '3');
+  assert.match(remainderTitle, /7 ÷ 3/);
+  assert.doesNotMatch(remainderTitle, /%[12]/);
   const error = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
   assert.ok(error.includes('E_LDAP'));
   assert.ok(!error.includes('%s'));

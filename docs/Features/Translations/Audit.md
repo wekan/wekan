@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Xhosa Blockly numeric tests and statistics — 2026-10-09
+
+Translate 35 messages in xh for numeric tests, statistics and random values.
+Tests retain variables, prime/sign distinctions, inclusive integer bounds and
+exclusive floating-point upper bounds. Standard-deviation terminology follows
+[IsiXhosa.click](https://isixhosa.click/word/1871). Both targeted suites and all
+21 preservation checks pass. Specialized wording remains low confidence pending
+speaker review. Browser execution and remaining translations are outstanding.
+
 ## Xhosa Blockly logic and arithmetic — 2026-10-09
 
 Translate 30 messages in xh for Boolean logic, arithmetic and numeric bounds.
