@@ -441,6 +441,33 @@ tests ran in Chromium and WebKit; Firefox cannot launch on the macOS machine
 used.
 
 </details>
+
+<details>
+<summary>Big data still held in memory: to stream, with as little memory as possible.</summary>
+
+Found while making large boards fit 8 GB of RAM
+([#6745](https://github.com/wekan/wekan/issues/6745)). Each place below holds a
+whole file, or every file of a board, in memory at once; each is removed from
+this list when it streams.
+
+- REST API and DDP attachment upload, download and board background travel as
+  base64 JSON, up to 64 MB plus the base64 copy (needs a streaming route beside
+  the JSON one, as the format is the API's).
+- Moving files to or from the old CollectionFS storage reads each whole file
+  (server/attachmentBulkMove.js readStrategyBuffer,
+  models/lib/collectionFsStore.js).
+- The PDF and Excel card exports hold every image of the card or board
+  (models/server/ExporterCardPDF.js, models/server/ExporterExcelCard.js).
+- The live Trello API import holds every attachment as base64 at once, up to
+  256 MB a file (server/trelloApiImport.js).
+- Cloning a board builds its whole export, every attachment as base64
+  (cloneBoard, models/exporter.js build).
+- The Trello .zip import reads the whole upload into memory, up to its 200 MB
+  cap, and each attachment up to 100 MB (server/routes/importTrelloZip.js).
+- Export all boards as WeKan JSON holds each board's attachments as base64
+  while it writes that board (server/routes/exportAllBoards.js).
+
+</details>
 </details>
 
 # Upcoming WeKan ® release
