@@ -672,6 +672,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e925fba96c">Translate Xhosa sync reports and omissions</a>. Thanks to xet7.</summary>
+
+Fill 24 Xhosa messages for omitted fields, source comparisons and recent sync
+reports. Tests retain report limits, hidden values and partial-failure warnings.
+Both targeted suites and all 21 preservation checks pass. Specialized wording
+needs speaker review; browser execution and remaining translations are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d3f641754f">Translate Xhosa sync conflicts and preview actions</a>. Thanks to xet7.</summary>
 
 Fill 20 Xhosa messages. Tests retain preservation guarantees, replacement reuse
