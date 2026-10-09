@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Xhosa Blockly text and workspace completion — 2026-10-09
+
+Translate the remaining 70 Blockly entries in xh for text, variables and workspace
+messages. Tests retain count/search variables, whitespace in composed messages,
+keyboard names and copy semantics. Both targeted suites and all 21 preservation
+checks pass. The 24 import instructions remain untranslated. Specialized wording
+remains low confidence pending speaker review; browser execution and the wider
+translation backlog are outstanding.
+
 ## Xhosa Blockly shortcuts and text controls — 2026-10-09
 
 Translate 40 messages in xh for shortcuts, text case, character positions and
