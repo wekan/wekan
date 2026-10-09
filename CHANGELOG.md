@@ -672,6 +672,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/be4c6e4b7c">Translate Xhosa task and board import instructions</a>. Thanks to xet7.</summary>
+
+Fill nine Xhosa import instructions. Tests retain commands, first-board limits,
+completion dates and attachment exclusions. All three targeted suites and 21
+preservation checks pass. Seven import instructions remain; specialized wording
+needs speaker review and browser execution is outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/de41ca91d4">Translate Xhosa outline and planning import instructions</a>. Thanks to xet7.</summary>
 
 Fill eight Xhosa import instructions. Tests preserve commands, field names,
