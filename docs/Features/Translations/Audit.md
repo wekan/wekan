@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Broad verification after Xhosa fill — 2026-10-09
+
+All 333 translation-related suites pass in 128 seconds after Xhosa filling and
+the README coverage refresh to 191 catalogs over 90% non-English text. A new
+full-current-fill regression gate for xh passes separately. The ordinary backlog
+is 30,443 values across 43 languages, excluding 271 pending source keys; both
+card-field visibility messages are filled in 181 of 234 non-English paths.
+These measurements do not certify fluency. Browser execution and the remaining
+translation and language-quality work are outstanding.
+
 ## Xhosa current fill completion — 2026-10-09
 
 Translate the final seven import instructions in xh for Quire, Wrike, Teamwork,

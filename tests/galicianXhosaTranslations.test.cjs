@@ -20,6 +20,14 @@ for (const language of ['gl', 'gl-ES', 'xh']) {
   );
 }
 
+// Xhosa's current fill includes the newer feature and pending source keys.
+const xhosaFill = spawnSync(process.execPath, [fillScript, '--list', 'xh'], {
+  cwd: root,
+  encoding: 'utf8',
+});
+assert.equal(xhosaFill.status, 0, xhosaFill.stderr);
+assert.deepEqual(JSON.parse(xhosaFill.stdout), {}, 'Xhosa current fill remains complete');
+
 for (const language of ['gl', 'gl-ES']) {
   assert.equal(locales[language]['select-none'], 'Non seleccionar ningún');
   assert.equal(locales[language].backup, 'Copia de seguranza');
