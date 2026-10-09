@@ -203,7 +203,10 @@ Blaze.Template.registerHelper(
     const knowedUsers = [...new Set([...currentBoard.members
       .filter(member => member.isActive)
       .map(member => {
-        const u = ReactiveCache.getUser(member.userId);
+        // #6745: only the username - a mention is rendered for every
+        // minicard title and description, and the whole user document
+        // re-ran all of them whenever any member's profile changed.
+        const u = ReactiveCache.getUser(member.userId, { fields: { username: 1 } });
         if (u) {
           member.username = u.username;
         }

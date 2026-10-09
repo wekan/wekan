@@ -186,6 +186,13 @@ publishComposite('openCardData', async function(cardId) {
           return await ReactiveCache.getCardTextNotes({ cardId: c._id }, {}, true);
         },
       },
+      // #6745: the reactions under this card's comments. A lazy board no
+      // longer ships every reaction of the board with the board itself.
+      {
+        async find(c) {
+          return await ReactiveCache.getCardCommentReactions({ cardId: c._id }, {}, true);
+        },
+      },
     ],
   };
 });

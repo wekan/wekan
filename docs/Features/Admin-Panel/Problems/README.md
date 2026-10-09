@@ -68,6 +68,7 @@ it configures: card loading is automatic per board size, with
 | [Snap.md](Snap.md) | The `snap run wekan.problems` commands that print this whole overview (and problem-specific detail like CPU) as text. |
 | [CPU-usage.md](CPU-usage.md) | CPU-usage monitor / governor and the CPU report. A pegged **ferretdb** process is the usual cause of slow pages. |
 | [RAM-usage.md](RAM-usage.md) | RAM-usage report. |
+| [Large-Boards.md](Large-Boards.md) | What a large board loads (lazy card windows, card details on open, streamed attachments), the #6745 measurements, and sizing for 8 GB of RAM. |
 | [Disk-usage.md](Disk-usage.md) | Disk-usage report. |
 | [Recovery.md](Recovery.md) | SQLite corruption/bloat safety and the automatic Recovery history. |
 | [Durable-Operations.md](Durable-Operations.md) | Restart-safe jobs, leases, checkpoints, idempotency, external-service retries and recovery reporting. |

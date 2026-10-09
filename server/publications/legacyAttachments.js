@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { check } from 'meteor/check';
+import { check, Match } from 'meteor/check';
 import { MongoInternals } from 'meteor/mongo';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { canReadBoard } from '/models/lib/boardVisibility';
@@ -25,8 +25,12 @@ function extensionOf(name) {
   return dot >= 0 ? name.slice(dot + 1).toLowerCase() : '';
 }
 
-Meteor.publish('legacyBoardAttachments', async function (boardId) {
+Meteor.publish('legacyBoardAttachments', async function (boardId, cardId) {
   check(boardId, String);
+  // #6745: the card whose details are open. Without it this sent every legacy
+  // attachment of the whole board each time a card was opened - and looked
+  // each one up again, one query per file.
+  check(cardId, Match.Maybe(String));
 
   const board = await ReactiveCache.getBoard(boardId);
   if (!canReadBoard(this.userId, board)) {
@@ -39,9 +43,21 @@ Meteor.publish('legacyBoardAttachments', async function (boardId) {
     // 'cfs.attachments.filerecord' already exists elsewhere and Meteor forbids a
     // second instance with the same name.
     const db = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
-    records = await db.collection('cfs.attachments.filerecord').find({ boardId }).toArray();
+    const selector = cardId ? { boardId, cardId } : { boardId };
+    records = await db.collection('cfs.attachments.filerecord').find(selector).toArray();
   } catch (error) {
     return this.ready();
+  }
+
+  // Which of these ids already exist as Meteor-Files documents - ONE query for
+  // all of them, not one per record.
+  const migrated = new Set();
+  if (records.length) {
+    const existing = await ReactiveCache.getAttachments(
+      { _id: { $in: records.map(rec => rec._id) }, 'meta.source': { $ne: 'legacy' } },
+      { fields: { _id: 1 } },
+    );
+    for (const doc of existing || []) migrated.add(doc._id);
   }
 
   for (const rec of records) {
@@ -59,8 +75,7 @@ Meteor.publish('legacyBoardAttachments', async function (boardId) {
     // file was already migrated). Meteor-Files ids are 24-hex ObjectId strings;
     // CollectionFS ids are 17-char Meteor random ids, so collisions are
     // unexpected, but guard anyway.
-    const existing = await ReactiveCache.getAttachment(rec._id);
-    if (existing && existing.meta && existing.meta.source !== 'legacy') {
+    if (migrated.has(rec._id)) {
       continue;
     }
 

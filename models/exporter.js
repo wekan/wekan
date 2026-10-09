@@ -183,8 +183,11 @@ export class Exporter {
     // [New] Encode attachment to base64
 
     const getBase64Data = function (doc, callback) {
-      let buffer = Buffer.allocUnsafe(0);
-      buffer.fill(0);
+      // #6745: the chunks are joined ONCE at the end. Appending each chunk with
+      // Buffer.concat([buffer, chunk]) copied everything read so far on every
+      // chunk - quadratic in the file size - and the copy was also piped to a
+      // temporary file that was then deleted unread.
+      const chunks = [];
 
       // callback has the form function (err, res) {}
 
@@ -208,28 +211,17 @@ export class Exporter {
         return;
       }
 
-      const tmpFile = path.join(
-        os.tmpdir(),
-        `tmpexport${process.pid}${Math.random()}`,
-      );
-      const tmpWriteable = fs.createWriteStream(tmpFile);
       const readStream = fs.createReadStream(storedPath);
       readStream.on('data', function (chunk) {
-        buffer = Buffer.concat([buffer, chunk]);
+        chunks.push(chunk);
       });
 
       readStream.on('error', function () {
         callback(null, null);
       });
       readStream.on('end', function () {
-        // done
-        fs.unlink(tmpFile, () => {
-          //ignored
-        });
-
-        callback(null, buffer.toString('base64'));
+        callback(null, Buffer.concat(chunks).toString('base64'));
       });
-      readStream.pipe(tmpWriteable);
     };
     const getBase64DataAsync = (doc) => new Promise((resolve, reject) => {
       getBase64Data(doc, (err, res) => err ? reject(err) : resolve(res));

@@ -40,6 +40,10 @@ const {
 
 const MAX_WINDOW = 5000; // hard cap on how many cards one list window may request
 
+// The fields a window's membership observer needs to know a card's place: its
+// sort keys. models/lib/cardWindowFields.js, unit-tested.
+const { windowOrderFields, windowCommentFields } = require('/models/lib/cardWindowFields');
+
 // hasWhere() (reject a client selector carrying $where server-side JS execution)
 // is imported from /models/lib/mongoSelectorSafety so it can be unit-tested.
 
@@ -111,13 +115,24 @@ publishComposite('boardCardsWindow', function(boardId, cardSelector, sort, limit
   // comments/checklists refresh on the next re-subscribe — and when the card is
   // OPENED it gets full, live children from the dedicated `openCardData`
   // subscription (see server/publications/cards.js), so nothing is missed there.
-  const windowCardIds = async board => {
-    const cards = await ReactiveCache.getCards(
-      windowSel(board),
-      { sort: sortOpt, limit: lim, fields: { _id: 1 } },
-      false,
-    );
-    return (cards || []).map(c => c._id);
+  //
+  // #6745: the five child cursors below each asked for these ids, so one
+  // subscribe ran the same sorted, limited query five times. publish-composite
+  // hands every child the same board object for one evaluation, so the ids are
+  // shared per board object (a later evaluation gets a new object and a fresh
+  // query - no cache outlives what it describes).
+  const windowIdsByBoard = new WeakMap();
+  const windowCardIds = board => {
+    let ids = windowIdsByBoard.get(board);
+    if (!ids) {
+      ids = ReactiveCache.getCards(
+        windowSel(board),
+        { sort: sortOpt, limit: lim, fields: { _id: 1 } },
+        false,
+      ).then(cards => (cards || []).map(c => c._id));
+      windowIdsByBoard.set(board, ids);
+    }
+    return ids;
   };
 
   return {
@@ -134,7 +149,7 @@ publishComposite('boardCardsWindow', function(boardId, cardSelector, sort, limit
       // exposed by it.
       return Boards.find(
         { _id: boardId },
-        { fields: { _id: 1, members: 1 }, limit: 1 },
+        { fields: { _id: 1, members: 1, allowsCommentsOnMinicard: 1 }, limit: 1 },
       );
     },
     children: [
@@ -153,7 +168,34 @@ publishComposite('boardCardsWindow', function(boardId, cardSelector, sort, limit
           let refreshQueued = false;
           let initializingObserver = true;
           let observerHandle;
+          let contentHandle;
+          let contentIds = '';
           let cards = [];
+
+          // Every field of the cards IN the window, by id: a title, label or
+          // date edit re-reads the window. Re-made only when the set of ids
+          // changes, so a scroll or a move re-targets it.
+          const watchWindowContent = async ids => {
+            const key = ids.slice().sort().join(',');
+            if (key === contentIds || stopped) return;
+            contentIds = key;
+            if (contentHandle) contentHandle.stop();
+            contentHandle = null;
+            if (ids.length === 0) return;
+            let initial = true;
+            const handle = await Cards.find({ _id: { $in: ids } }).observeChangesAsync({
+              changed: () => {
+                if (initial) return;
+                refresh().catch(error => publication.error(error));
+              },
+            });
+            initial = false;
+            if (stopped || contentIds !== key) {
+              handle.stop();
+              return;
+            }
+            contentHandle = handle;
+          };
 
           const refresh = async () => {
             refreshQueued = true;
@@ -184,6 +226,7 @@ publishComposite('boardCardsWindow', function(boardId, cardSelector, sort, limit
                   publication.removed('cards', cardId);
                 }
                 cards = next;
+                await watchWindowContent(cards.map(card => card._id));
               }
             } finally {
               refreshing = false;
@@ -194,13 +237,28 @@ publishComposite('boardCardsWindow', function(boardId, cardSelector, sort, limit
           publication.onStop(() => {
             stopped = true;
             if (observerHandle) observerHandle.stop();
+            if (contentHandle) contentHandle.stop();
           });
 
           // Observe the unrestricted selector, not the sorted/limited cursor
           // that stalls on FerretDB. Any matching card change asks refresh() to
           // fetch and diff the small visible window. Initial observer additions
           // are ignored because the first snapshot is already published.
-          observerHandle = await Cards.find(windowSel(board)).observeChangesAsync({
+          //
+          // #6745: observe only WHICH cards match and their ORDER - the sort
+          // keys - not every field of every card in the list. Without a
+          // projection each window kept a full copy of all of its list's
+          // cards (descriptions included) in the observer, and the database
+          // returned all of them on every poll, for every window on the
+          // board: the whole board, held in server memory once per open
+          // board view. The fields the selector itself tests are still
+          // tracked by the driver (it adds them to what it fetches), so a card
+          // moved out of the list or out of the filter still arrives as
+          // `removed`. An edit to a card that IS in the window is caught by
+          // watchWindowContent() above, which watches just those ids.
+          observerHandle = await Cards.find(windowSel(board), {
+            fields: windowOrderFields(sortOpt),
+          }).observeChangesAsync({
             added: () => {
               if (initializingObserver) return;
               return refresh().catch(error => publication.error(error));
@@ -219,11 +277,19 @@ publishComposite('boardCardsWindow', function(boardId, cardSelector, sort, limit
         },
       },
       // The window's comments — one cursor for the whole window (not per card).
+      // #6745: a minicard needs a comment's existence, author and time (the
+      // count and unread badges), not its text - unless the board shows the
+      // latest comments on minicards. The opened card gets every field of its
+      // own comments from `openCardData`.
       {
         async find(board) {
           const ids = await windowCardIds(board);
           if (ids.length === 0) return null;
-          return await ReactiveCache.getCardComments({ cardId: { $in: ids } }, {}, true);
+          return await ReactiveCache.getCardComments(
+            { cardId: { $in: ids } },
+            { fields: windowCommentFields(board) },
+            true,
+          );
         },
       },
       // The window's attachments.

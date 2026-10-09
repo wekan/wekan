@@ -12,6 +12,7 @@ import { isHexColor, toHex } from '/models/lib/contrastColor';
 import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
 import { lazyListCardCount } from '/client/lib/lazyCards';
+import { currentUserWith } from '/client/lib/currentUserWith';
 import {
   sumCustomFieldValues,
   numberFieldStats,
@@ -101,6 +102,14 @@ function resolveContainerSwimlaneId(list) {
 }
 
 Template.listHeader.helpers({
+  // #6745: this template asks the current user only about its board role
+  // (isBoardMember, isCommentOnly, isWorker, ...), which comes from the board
+  // and the user's _id. The global currentUser helper hands it the WHOLE user
+  // document, so every write to the user - a card open is one - re-ran every
+  // role check of every list header on the board.
+  currentUser() {
+    return currentUserWith(['username']);
+  },
   isCurrentList() {
     const list = Template.currentData();
     return Boolean(list && Utils.getCurrentListId() === list._id);

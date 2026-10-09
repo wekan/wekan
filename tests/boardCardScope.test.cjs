@@ -166,7 +166,10 @@ check('both the window and its COUNT are narrowed', () => {
 
   // The children (comments/attachments/checklists/items) hang off windowCardIds,
   // which builds on the same selector — so they cannot leak past the restriction.
-  assert.ok(/const windowCardIds = async board => \{[\s\S]*?windowSel\(board\)/.test(src),
+  // #6745: windowCardIds now shares ONE query per board object between the
+  // children (a promise memoized in a WeakMap), so it is no longer `async`;
+  // it must still build on windowSel(board).
+  assert.ok(/const windowCardIds = (?:async )?board => \{[\s\S]*?windowSel\(board\)/.test(src),
     'the window children are derived from the restricted window selector');
 });
 
@@ -176,7 +179,8 @@ check('the composite parent publishes the members its children read', () => {
   // child, so assignedOnlyCardScope() would have found no flag to act on and the
   // restriction would have been dead code.
   const src = fs.readFileSync(path.join(__dirname, '..', 'server', 'publications', 'cardsWindow.js'), 'utf8');
-  assert.ok(/fields: \{ _id: 1, members: 1 \}/.test(src),
+  // #6745: allowsCommentsOnMinicard rides along (the window's comment projection).
+  assert.ok(/fields: \{ _id: 1, members: 1(, allowsCommentsOnMinicard: 1)? \}/.test(src),
     'the parent cursor must publish members');
   assert.ok(!/fields: \{ _id: 1 \}, limit: 1/.test(src),
     'the id-only projection must not come back');

@@ -872,6 +872,13 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
             return sendErrorResponse(res, 403, 'Attachments are not allowed on the target board');
           }
 
+          // #6745: refuse a source over the limit BEFORE reading it, and stop
+          // reading as soon as the bytes read pass the limit. The whole file used
+          // to be read into memory first and only then compared with the limit,
+          // so a copy of a 2 GB file held 2 GB of server memory to refuse it.
+          if (Number(sourceAttachment.size) > effectiveApiUploadMaxBytes) {
+            return sendErrorResponse(res, 413, 'Attachment exceeds API upload limit');
+          }
           // Get source file strategy
           const sourceStrategy = fileStoreStrategyFactory.getFileStrategy(sourceAttachment, 'original');
           const readStream = sourceStrategy.getReadStream();
@@ -882,7 +889,18 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
 
           // Read source file data
           const chunks = [];
+          let bytesRead = 0;
+          let tooLarge = false;
           readStream.on('data', (chunk) => {
+            if (tooLarge) return;
+            bytesRead += chunk.length;
+            if (bytesRead > effectiveApiUploadMaxBytes) {
+              tooLarge = true;
+              chunks.length = 0;
+              readStream.destroy();
+              sendErrorResponse(res, 413, 'Attachment exceeds API upload limit');
+              return;
+            }
             chunks.push(chunk);
           });
 

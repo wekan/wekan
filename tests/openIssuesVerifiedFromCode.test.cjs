@@ -75,7 +75,8 @@ test('#5052: an attachment whose recorded path is wrong is still found', () => {
   // Reading, renaming and deleting all go through the same search (#6589).
   const store = read('models/lib/fileStoreStrategy.js');
   assert.ok(/resolveExistingPath\(\)/.test(store));
-  const getReadStream = store.slice(store.indexOf('  getReadStream() {',
+  // #6745: getReadStream takes an optional byte range now.
+  const getReadStream = store.slice(store.indexOf('  getReadStream(range) {',
     store.indexOf('candidatePaths()')));
   assert.ok(/this\.resolveExistingPath\(\)/.test(getReadStream.slice(0, 300)));
 });

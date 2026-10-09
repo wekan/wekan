@@ -18,6 +18,21 @@ Template.userAvatar.events({
   },
 });
 
+// #6745: the user fields an avatar reads. A helper that reads the whole user
+// document re-runs on every write to it; a card open writes one.
+// tests/largeBoardDataLoading.test.cjs pins that these stay field-limited.
+const INITIALS_USER_FIELDS = {
+  username: 1,
+  'profile.initials': 1,
+  'profile.fullname': 1,
+};
+const AVATAR_USER_FIELDS = {
+  ...INITIALS_USER_FIELDS,
+  'profile.avatarUrl': 1,
+  authenticationMethod: 1,
+  isActive: 1,
+};
+
 Template.userAvatar.helpers({
   defaultAvatarUrl() {
     if (!(Meteor.settings.public && Meteor.settings.public.defaultAvatar)) return '';
@@ -27,15 +42,11 @@ Template.userAvatar.helpers({
   },
 
   userData() {
-    const user = ReactiveCache.getUser(this.userId, {
-      fields: {
-        profile: 1,
-        username: 1,
-        authenticationMethod: 1,
-        isActive: 1,
-      },
-    });
-    return user;
+    // #6745: only what the avatar shows. `profile: 1` re-ran every avatar on
+    // the board whenever anything in the profile changed - and opening a card
+    // writes profile.cardLastViews - so one card open re-rendered every member
+    // and assignee avatar of every minicard.
+    return ReactiveCache.getUser(this.userId, { fields: AVATAR_USER_FIELDS });
   },
 
   // Distinguish, on the avatar itself, whether a real account backs this member:
@@ -81,7 +92,7 @@ Template.userAvatar.helpers({
   },
 
   avatarUrl() {
-    const user = ReactiveCache.getUser(this.userId, { fields: { profile: 1 } });
+    const user = ReactiveCache.getUser(this.userId, { fields: { 'profile.avatarUrl': 1 } });
     const base = (user && user.profile && user.profile.avatarUrl) || '';
     if (!base) return '';
     // Append current boardId when available so public viewers can access avatars on public boards
@@ -96,7 +107,8 @@ Template.userAvatar.helpers({
   },
 
   memberType() {
-    const user = ReactiveCache.getUser(this.userId);
+    // The role comes from the board; the user is needed only for its _id.
+    const user = ReactiveCache.getUser(this.userId, { fields: { _id: 1 } });
     if (!user) return '';
 
     const board = Utils.getCurrentBoard();
@@ -131,7 +143,7 @@ Template.userAvatar.helpers({
 Template.userAvatarInitials.helpers({
   initials() {
     if (typeof this.initials === 'string' && this.initials) return this.initials;
-    const user = ReactiveCache.getUser(this.userId);
+    const user = ReactiveCache.getUser(this.userId, { fields: INITIALS_USER_FIELDS });
     return (user && user.getInitials()) || '';
   },
 
@@ -139,7 +151,7 @@ Template.userAvatarInitials.helpers({
   // user document looks like: an empty width made Firefox refuse the whole
   // attribute ("0 0  15"), and the avatar rendered as nothing.
   viewPortWidth() {
-    const user = ReactiveCache.getUser(this.userId);
+    const user = ReactiveCache.getUser(this.userId, { fields: INITIALS_USER_FIELDS });
     const initials = (typeof this.initials === 'string' && this.initials)
       || (user && user.getInitials()) || '';
     return (initials.length || 1) * 12;

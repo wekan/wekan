@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
-import { getOldAttachmentData, getOldAttachmentDataBuffer } from '/models/lib/attachmentBackwardCompatibility';
+import { getOldAttachmentData, getOldAttachmentStream } from '/models/lib/attachmentBackwardCompatibility';
+import { addAttachmentFromStream } from '/models/lib/fileStoreStrategy';
 import Attachments from '/models/attachments';
 
 /**
@@ -50,22 +51,23 @@ if (Meteor.isServer) {
           return { success: true, message: 'Already migrated', attachmentId };
         }
 
-        // Get file data from GridFS
-        const fileData = getOldAttachmentDataBuffer(attachmentId);
-        if (!fileData) {
+        // #6745: stream the file out of GridFS into a new Meteor-Files
+        // attachment (through a temporary file on disk) instead of reading it
+        // into memory. This used to call getOldAttachmentDataBuffer() WITHOUT
+        // await: the whole file was read into memory in the background while
+        // `new File([fileData])` was handed the Promise, so the migrated
+        // attachment held the text "[object Promise]".
+        const readStream = await getOldAttachmentStream(attachmentId);
+        if (!readStream) {
           return { success: false, error: 'Could not read file data from GridFS' };
         }
 
-        // Create new attachment using Meteor-Files
-        const fileObj = new File([fileData], oldAttachment.name, {
-          type: oldAttachment.type
-        });
-
-        const uploader = await Attachments.insertAsync({
-          file: fileObj,
+        const uploader = await addAttachmentFromStream(readStream, {
+          fileName: oldAttachment.name,
+          type: oldAttachment.type,
           meta: oldAttachment.meta,
-          isBase64: false,
-          transport: 'http'
+          userId: oldAttachment.userId || this.userId,
+          size: oldAttachment.size,
         });
 
         if (uploader) {

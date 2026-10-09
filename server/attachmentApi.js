@@ -655,6 +655,13 @@ Meteor.methods({
       }
 
       try {
+        // #6745: refuse a source over the limit BEFORE reading it, and stop
+        // reading as soon as the bytes read pass the limit. The whole file used
+        // to be read into memory first and only then compared with the limit,
+        // so a copy of a 2 GB file held 2 GB of server memory to refuse it.
+        if (Number(sourceAttachment.size) > effectiveApiUploadMaxBytes) {
+          throw new Meteor.Error('file-too-large', 'Attachment exceeds API upload limit');
+        }
         // Get source file strategy
         const sourceStrategy = fileStoreStrategyFactory.getFileStrategy(sourceAttachment, 'original');
         const readStream = sourceStrategy.getReadStream();
@@ -665,8 +672,16 @@ Meteor.methods({
 
         // Read source file data
         const chunks = [];
+        let bytesRead = 0;
         return new Promise((resolve, reject) => {
           readStream.on('data', (chunk) => {
+            bytesRead += chunk.length;
+            if (bytesRead > effectiveApiUploadMaxBytes) {
+              chunks.length = 0;
+              readStream.destroy();
+              reject(new Meteor.Error('file-too-large', 'Attachment exceeds API upload limit'));
+              return;
+            }
             chunks.push(chunk);
           });
 

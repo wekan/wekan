@@ -12,6 +12,7 @@ import { CSSEvents } from '/client/lib/cssEvents';
 import { Filter } from '/client/lib/filter';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
+import { currentUserWith } from '/client/lib/currentUserWith';
 import { TAPi18n } from '/imports/i18n';
 import { defaultSwimlaneIdForBoard } from '/client/components/lists/listAddHelpers';
 const { calculateIndex } = Utils;
@@ -729,6 +730,10 @@ function initializeSwimlaneResize(tpl, retryCount = 0) {
 }
 
 Template.swimlane.helpers({
+  // #6745: board-role checks only (see listHeader.js) - not the whole user.
+  currentUser() {
+    return currentUserWith(['username']);
+  },
   canSeeAddList() {
     return ReactiveCache.getCurrentUser()?.isBoardAdmin();
   },
@@ -1017,6 +1022,10 @@ Template.addListInline.events({
 });
 
 Template.listsGroup.helpers({
+  // #6745: board-role checks only (see listHeader.js) - not the whole user.
+  currentUser() {
+    return currentUserWith(['username']);
+  },
   // Issue #6142: the add-list composer needs a swimlane as its data context
   // (it creates the list in that swimlane). In Lists mode the listsGroup data
   // context is the board, not a swimlane, so resolve the board's default

@@ -3,6 +3,7 @@ import { Random } from 'meteor/random';
 import Attachments from '/models/attachments';
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
 import { PassThrough } from 'stream';
 import { Meteor } from 'meteor/meteor';
 import { createObjectId } from './grid/createObjectId';
@@ -317,11 +318,15 @@ export class FileStoreStrategyGridFs extends FileStoreStrategy {
   /** returns a read stream
    * @return the read stream
    */
-  getReadStream() {
+  getReadStream(range) {
     const gfsId = this.getGridFsObjectId();
     let ret;
     if (gfsId) {
-      ret = this.gridFsBucket.openDownloadStream(gfsId);
+      // #6745: a byte range (inclusive end, models/lib/httpRange.js) streams
+      // only those bytes; GridFS takes an exclusive end.
+      ret = range
+        ? this.gridFsBucket.openDownloadStream(gfsId, { start: range.start, end: range.end + 1 })
+        : this.gridFsBucket.openDownloadStream(gfsId);
     }
     return ret;
   }
@@ -592,12 +597,15 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
     return undefined;
   }
 
-  getReadStream() {
+  getReadStream(range) {
     const chosen = this.resolveExistingPath();
     if (!chosen) {
       return undefined;
     }
-    return fs.createReadStream(chosen);
+    // #6745: a byte range (inclusive end, like fs) streams only those bytes.
+    return range
+      ? fs.createReadStream(chosen, { start: range.start, end: range.end })
+      : fs.createReadStream(chosen);
   }
 
   /** returns a write stream
@@ -675,6 +683,21 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
  * `versions.<version>.path` (mirrors the filesystem strategy) so reads can find
  * the object again regardless of provider.
  */
+// #6745: where a file bound for cloud storage is spooled before its upload
+// (FileStoreStrategyCloud.getWriteStream). A file there lives only for the
+// length of one upload.
+function cloudSpoolDir() {
+  const dir = path.join(os.tmpdir(), 'wekan-cloud-upload');
+  fs.mkdirSync(dir, { recursive: true });
+  return dir;
+}
+
+// S3 needs the body length up front to stream a body; the other providers
+// stream a file without it.
+function cloudUploadOptions(provider, size) {
+  return provider === STORAGE_NAME_S3 ? { ContentLength: size } : {};
+}
+
 export class FileStoreStrategyCloud extends FileStoreStrategy {
 
   /** constructor
@@ -733,7 +756,7 @@ export class FileStoreStrategyCloud extends FileStoreStrategy {
   /** returns a read stream (filled asynchronously from the cloud backend)
    * @return the read stream
    */
-  getReadStream() {
+  getReadStream(range) {
     const pass = new PassThrough();
     const adapter = getCloudAdapter(this.provider);
     if (!adapter) {
@@ -741,7 +764,9 @@ export class FileStoreStrategyCloud extends FileStoreStrategy {
       return pass;
     }
     const key = this.getObjectKey();
-    adapter.storage.getFileAsStream(adapter.bucketName, key)
+    // #6745: a byte range (inclusive end) is fetched from the backend as such.
+    const rangeArgs = range ? [{ start: range.start, end: range.end }] : [];
+    adapter.storage.getFileAsStream(adapter.bucketName, key, ...rangeArgs)
       .then(result => {
         if (!result || result.error || !result.value) {
           pass.destroy(new Error(result && result.error ? result.error : 'No cloud read stream'));
@@ -771,31 +796,40 @@ export class FileStoreStrategyCloud extends FileStoreStrategy {
       return pass;
     }
 
-    // Buffer the incoming bytes and upload them as a complete buffer instead of
-    // streaming a live body to the backend. Streaming an S3 PutObject body whose
-    // length is unknown fails with
+    // #6745: spool the incoming bytes to a temporary FILE, then upload that
+    // file as a stream of known length. Streaming a live body of unknown length
+    // to S3 fails with
     //   Invalid value "undefined" for header "x-amz-decoded-content-length"
     // and, if the socket drops mid-upload, the AWS SDK's body-stream promise
     // rejects UNHANDLED and crashes the server (SyncedCron treats it as fatal).
-    // A buffer has a known length and no socket-bound stream, so neither
-    // happens. The bulk move processes one file at a time, so peak memory is one
-    // file. The upload promise NEVER rejects — any failure is captured in
+    // This used to be avoided by collecting the whole file in one Buffer, which
+    // held every byte of a file moved to the cloud in server memory (no cap:
+    // the upload limit defaults to unlimited) - a 2 GB video needed 2 GB of
+    // RAM. A file on disk has a known length (ContentLength for S3) and is
+    // re-readable, so neither problem returns and memory stays at a stream
+    // buffer. The upload promise NEVER rejects - any failure is captured in
     // this._uploadError (read by waitUntilStored()).
-    const chunks = [];
+    const spoolPath = path.join(cloudSpoolDir(), `${Random.id()}-cloud-upload`);
+    const spool = fs.createWriteStream(spoolPath);
+    const removeSpool = () => fs.promises.unlink(spoolPath).catch(() => {});
     this._uploadPromise = new Promise(resolve => {
-      pass.on('data', chunk => chunks.push(chunk));
-      pass.on('error', error => {
+      const fail = error => {
         if (!this._uploadError) {
           this._uploadError = error instanceof Error ? error : new Error(String(error));
         }
-        resolve();
-      });
-      pass.on('end', () => {
-        Promise.resolve()
-          .then(() => adapter.storage.addFileFromBuffer({
-            buffer: Buffer.concat(chunks),
+        try { spool.destroy(); } catch (e) { /* already closed */ }
+        removeSpool().then(resolve);
+      };
+      pass.on('error', fail);
+      spool.on('error', fail);
+      spool.on('finish', () => {
+        if (this._uploadError) return;
+        fs.promises.stat(spoolPath)
+          .then(stat => adapter.storage.addFileFromPath({
+            origPath: spoolPath,
             bucketName: adapter.bucketName,
             targetPath: this._key,
+            options: cloudUploadOptions(this.provider, stat.size),
           }))
           .then(result => {
             if (result && result.error) {
@@ -805,8 +839,10 @@ export class FileStoreStrategyCloud extends FileStoreStrategy {
           .catch(error => {
             this._uploadError = error instanceof Error ? error : new Error(String(error));
           })
+          .then(removeSpool)
           .then(resolve);
       });
+      pass.pipe(spool);
     });
     return pass;
   }

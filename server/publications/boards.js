@@ -878,6 +878,10 @@ publishComposite('board', async function(boardId, isArchived, generation) {
       // CardCommentReactions at board level
       {
         async find(board) {
+          // #6745: reactions are shown only under the comments of an OPEN
+          // card. A lazy board ships no comments here either, so it ships no
+          // reactions: the opened card's own come from `openCardData`.
+          if (await boardIsLazy(board)) return null;
           return await ReactiveCache.getCardCommentReactions({ boardId: board._id }, {}, true);
         }
       },

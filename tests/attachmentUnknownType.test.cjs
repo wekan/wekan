@@ -113,7 +113,8 @@ test('unlink resolves it too, or the bytes stay on disk forever', () => {
 test('the reader and the writer use the SAME search', () => {
   // The bug was that they did not: the reader had a candidate list covering
   // every layout WeKan has used, and rename had one line.
-  const readStream = source.slice(source.indexOf('  getReadStream() {',
+  // #6745: getReadStream takes an optional byte range now.
+  const readStream = source.slice(source.indexOf('  getReadStream(range) {',
     source.indexOf('candidatePaths()')));
   assert.ok(/this\.resolveExistingPath\(\)/.test(readStream.slice(0, 300)),
     'getReadStream goes through the same resolver');

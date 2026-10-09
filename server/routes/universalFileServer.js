@@ -30,6 +30,7 @@ import { convertImageBufferToThumbnail, cachedThumbnail, rememberThumbnail } fro
 const { isThumbnailPath, canThumbnail, THUMBNAIL_TYPE } = require('/models/lib/attachmentThumbnail');
 // CacheBleed (GHSA-w3qg-pf27-g68r): files are served after an access check, so never shared-cacheable.
 const { setPrivateFileCacheHeaders, privateFileCacheHeaders } = require('/models/lib/fileCacheHeaders');
+const { parseRange, partialContentHeaders, ifRangeAllows } = require('/models/lib/httpRange');
 // The avatar types served inline; anything else is a download (AvatarMimeBleed).
 const INLINE_AVATAR_TYPES = new Set(['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/webp', 'image/avif', 'image/bmp']);
 const { readableWithoutMembership } = require('/models/lib/boardPermission');
@@ -705,6 +706,22 @@ if (Meteor.isServer) {
         return;
       }
 
+      // #6745: a Range request (a video seek, a resumed download) streams only
+      // the bytes asked for, from the storage backend itself. Legacy
+      // CollectionFS files and thumbnails are always sent whole.
+      const size = Number(attachment.size);
+      let range = null;
+      if (!wantsThumbnail && attachment?.meta?.source !== 'legacy'
+        && Number.isSafeInteger(size)
+        && ifRangeAllows(req.headers['if-range'], `"${attachment._id}"`)) {
+        range = parseRange(req.headers.range, size);
+      }
+      if (range === 'unsatisfiable') {
+        res.writeHead(416, { 'Content-Range': `bytes */${size}`, 'Accept-Ranges': 'bytes' });
+        res.end();
+        return;
+      }
+
       // Choose proper streaming based on source
       let readStream;
       if (attachment?.meta?.source === 'legacy') {
@@ -713,7 +730,7 @@ if (Meteor.isServer) {
       } else {
         // New Meteor-Files storage
         const strategy = attachmentStoreFactory.getFileStrategy(attachment, 'original');
-        readStream = strategy.getReadStream();
+        readStream = strategy.getReadStream(range || undefined);
       }
 
       if (!readStream) {
@@ -751,6 +768,13 @@ if (Meteor.isServer) {
         res.setHeader('Content-Security-Policy', "default-src 'none'; sandbox;");
       } else {
         setFileHeaders(res, attachment, true);
+      }
+      if (attachment?.meta?.source !== 'legacy') res.setHeader('Accept-Ranges', 'bytes');
+      if (range) {
+        for (const [name, value] of Object.entries(partialContentHeaders(range, size))) {
+          res.setHeader(name, value);
+        }
+        res.statusCode = 206;
       }
       streamFile(res, readStream, attachment);
 

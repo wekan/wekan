@@ -449,10 +449,13 @@ Template.cardDetails.onCreated(function () {
   // Surface legacy CollectionFS attachments for the current board so they show
   // up in the card's attachment gallery and can be read in place (without
   // migrating them to Meteor-Files first).
+  // #6745: only this card's legacy attachments, not the whole board's.
   this.autorun(() => {
-    const board = Utils.getCurrentBoard();
-    if (board && board._id) {
-      Meteor.subscribe('legacyBoardAttachments', board._id);
+    const boardId = Utils.getCurrentBoardId();
+    const data = Template.currentData();
+    const cardId = data && data._id;
+    if (boardId && cardId) {
+      Meteor.subscribe('legacyBoardAttachments', boardId, cardId);
     }
   });
 

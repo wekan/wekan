@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { EJSON } from 'meteor/ejson';
 import { DataCache } from '/imports/lib/dataCache';
+import { KeyedGroupIndex } from '/imports/lib/keyedGroupIndex';
 import { groupBy, indexBy } from '/imports/lib/collectionHelpers';
 const { publicCommentOptions } = require('/models/lib/commentPrivateFields');
 const { applyCardFieldVisibility } = require('/models/lib/cardFieldVisibility');
@@ -1655,97 +1656,78 @@ const ReactiveMiniMongoIndexServer = {
   },
 };
 
+// #6745: one KeyedGroupIndex per (index, select) pair, so a minicard depends
+// only on its own card's group - see imports/lib/keyedGroupIndex.js. These
+// used to be one DataCache object per index that every minicard depended on
+// as a whole.
+function keyedIndex(owner, name, select, build) {
+  if (!owner[name]) owner[name] = new Map();
+  const key = EJSON.stringify(select);
+  let index = owner[name].get(key);
+  if (!index) {
+    const parsed = EJSON.parse(key);
+    index = new KeyedGroupIndex(() => build(parsed));
+    owner[name].set(key, index);
+  }
+  return index;
+}
+
 // Client side little MiniMongo DB "Index"
 const ReactiveMiniMongoIndexClient = {
   getSubTasksWithParentId(parentId, addSelect = {}, options = {}) {
     let ret = [];
     if (parentId) {
-      const select = { addSelect, options };
-      if (!this.__subTasksWithId) {
-        this.__subTasksWithId = new DataCache((_select) => {
-          const __select = EJSON.parse(_select);
-          const _subTasks = ReactiveCache.getCards(
-            { parentId: { $exists: true }, ...__select.addSelect },
-            __select.options,
-          );
-          // #3626: a card is listed under EVERY one of its parents.
-          const _ret = {};
-          for (const subTask of _subTasks) {
-            for (const id of cardParentIds(subTask)) (_ret[id] = _ret[id] || []).push(subTask);
-          }
-          return _ret;
-        });
-      }
-      ret = this.__subTasksWithId.get(EJSON.stringify(select));
-      if (ret) {
-        ret = ret[parentId] || [];
-      }
+      ret = keyedIndex(this, '__subTasksWithId', { addSelect, options }, __select => {
+        const _subTasks = ReactiveCache.getCards(
+          { parentId: { $exists: true }, ...__select.addSelect },
+          __select.options,
+        );
+        // #3626: a card is listed under EVERY one of its parents.
+        const _ret = {};
+        for (const subTask of _subTasks) {
+          for (const id of cardParentIds(subTask)) (_ret[id] = _ret[id] || []).push(subTask);
+        }
+        return _ret;
+      }).get(parentId);
     }
     return ret;
   },
   getChecklistsWithCardId(cardId, addSelect = {}, options = {}) {
     let ret = [];
     if (cardId) {
-      const select = { addSelect, options };
-      if (!this.__checklistsWithId) {
-        this.__checklistsWithId = new DataCache((_select) => {
-          const __select = EJSON.parse(_select);
-          const _checklists = ReactiveCache.getChecklists(
-            { cardId: { $exists: true }, ...__select.addSelect },
-            __select.options,
-          );
-          const _ret = groupBy(_checklists, 'cardId');
-          return _ret;
-        });
-      }
-      ret = this.__checklistsWithId.get(EJSON.stringify(select));
-      if (ret) {
-        ret = ret[cardId] || [];
-      }
+      ret = keyedIndex(this, '__checklistsWithId', { addSelect, options }, __select => groupBy(
+        ReactiveCache.getChecklists(
+          { cardId: { $exists: true }, ...__select.addSelect },
+          __select.options,
+        ),
+        'cardId',
+      )).get(cardId);
     }
     return ret;
   },
   getChecklistItemsWithChecklistId(checklistId, addSelect = {}, options = {}) {
     let ret = [];
     if (checklistId) {
-      const select = { addSelect, options };
-      if (!this.__checklistItemsWithId) {
-        this.__checklistItemsWithId = new DataCache((_select) => {
-          const __select = EJSON.parse(_select);
-          const _checklistItems = ReactiveCache.getChecklistItems(
-            { checklistId: { $exists: true }, ...__select.addSelect },
-            __select.options,
-          );
-          const _ret = groupBy(_checklistItems, 'checklistId');
-          return _ret;
-        });
-      }
-      ret = this.__checklistItemsWithId.get(EJSON.stringify(select));
-      if (ret) {
-        ret = ret[checklistId] || [];
-      }
+      ret = keyedIndex(this, '__checklistItemsWithId', { addSelect, options }, __select => groupBy(
+        ReactiveCache.getChecklistItems(
+          { checklistId: { $exists: true }, ...__select.addSelect },
+          __select.options,
+        ),
+        'checklistId',
+      )).get(checklistId);
     }
     return ret;
   },
   getCardCommentsWithCardId(cardId, addSelect = {}, options = {}) {
     let ret = [];
     if (cardId) {
-      const select = { addSelect, options };
-      if (!this.__cardCommentsWithId) {
-        this.__cardCommentsWithId = new DataCache((_select) => {
-          const __select = EJSON.parse(_select);
-          const _cardComments = ReactiveCache.getCardComments(
-            { cardId: { $exists: true }, ...__select.addSelect },
-            __select.options,
-          );
-          const _ret = groupBy(_cardComments, 'cardId');
-          return _ret;
-        });
-      }
-      ret = this.__cardCommentsWithId.get(EJSON.stringify(select));
-      if (ret) {
-        ret = ret[cardId] || [];
-      }
+      ret = keyedIndex(this, '__cardCommentsWithId', { addSelect, options }, __select => groupBy(
+        ReactiveCache.getCardComments(
+          { cardId: { $exists: true }, ...__select.addSelect },
+          __select.options,
+        ),
+        'cardId',
+      )).get(cardId);
     }
     return ret;
   },
