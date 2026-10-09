@@ -223,13 +223,17 @@ async function renderCardDocumentExcel(ws, workbook, startRow, document, options
     }
     if (block.type === 'images') {
       const images = (block.images || [])
-        .filter(image => image.data && ['jpeg', 'png', 'gif', 'bmp'].includes(image.ext));
+        .filter(image => (image.data || image.stream) && ['jpeg', 'png', 'gif', 'bmp'].includes(image.ext));
       for (let offset = 0; offset < images.length; offset += 6) {
         const imageRow = images.slice(offset, offset + 6);
         ws.getRow(row).height = 95;
         imageRow.forEach((image, index) => {
           try {
-            const imageId = workbook.addImage({ buffer: image.data, extension: image.ext });
+            // A streaming workbook gets { stream } and reads the picture when
+            // it writes it, one picture at a time; otherwise the bytes.
+            const imageId = workbook.addImage(image.stream
+              ? { stream: image.stream, extension: image.ext }
+              : { buffer: image.data, extension: image.ext });
             ws.addImage(imageId, {
               tl: { col: index, row: row - 1 }, ext: { width: 105, height: 115 },
             });

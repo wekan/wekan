@@ -1,7 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 import { TAPi18n } from '/imports/i18n';
-import { createWorkbook } from './createWorkbook';
+import { createWorkbookWriter } from './createWorkbook';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 import { ExporterExcelCard } from './ExporterExcelCard';
 import { attachmentDisposition, exportFilename } from '/models/lib/exportFilename';
@@ -178,8 +178,13 @@ class ExporterExcelBoard {
     } catch (err) {
       console.error('ExporterExcelBoard: build error', err);
       if (!res.headersSent) {
+        res.removeHeader('Content-Disposition');
         res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
         res.end(`Export failed: ${err.message}`);
+      } else {
+        // Part of the file is already sent: end the download as failed rather
+        // than leave the browser waiting for the rest.
+        res.destroy(err);
       }
     }
   }
@@ -202,7 +207,16 @@ class ExporterExcelBoard {
         ? `${board.title} - ${(swimlanes[0] && swimlanes[0].title) || this.__('swimlane')}`
         : board.title);
 
-    const workbook = createWorkbook();
+    // Streamed to the response as it is written, so the headers go first.
+    const type = this._listId ? 'list' : (this._swimlaneId ? 'swimlane' : 'board');
+    const identity = this._listId ? data.listNumber
+      : (this._swimlaneId ? data.swimlaneNumber : board.title);
+    const filename = exportFilename(type, key => this.__(key), identity || 1, 'xlsx');
+    res.setHeader('Content-Type',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', attachmentDisposition(filename));
+
+    const workbook = createWorkbookWriter(res, { images: true });
     workbook.creator = this.__('export-board');
     workbook.created = new Date();
     workbook.modified = new Date();
@@ -235,6 +249,14 @@ class ExporterExcelBoard {
 
     let row = 1;
     const pageBreaks = [];
+    // Committing a row commits every row above it; nothing below is drawn
+    // above it again.
+    let committedRow = 0;
+    const commitRowsBefore = next => {
+      if (next - 1 <= committedRow) return;
+      ws.getRow(next - 1).commit();
+      committedRow = next - 1;
+    };
 
     const mergedRow = (value, opts = {}) => {
       ws.mergeCells(`A${row}:F${row}`);
@@ -352,6 +374,10 @@ class ExporterExcelBoard {
             });
             row = result.row + 1;
             pageBreaks.push(...result.pageBreakRows);
+            // A finished card is written out: the rows of a board of thousands
+            // of cards are not all kept until the end. Its pictures are read
+            // later, when the workbook commits, one at a time.
+            commitRowsBefore(row);
           }
         }
       }
@@ -361,15 +387,8 @@ class ExporterExcelBoard {
       ws.pageSetup.rowBreaks = [...new Set(pageBreaks)].map(r => ({ man: 1, id: r }));
     }
 
-    const type = this._listId ? 'list' : (this._swimlaneId ? 'swimlane' : 'board');
-    const identity = this._listId ? data.listNumber
-      : (this._swimlaneId ? data.swimlaneNumber : board.title);
-    const filename = exportFilename(type, key => this.__(key), identity || 1, 'xlsx');
-    res.setHeader('Content-Type',
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    res.setHeader('Content-Disposition', attachmentDisposition(filename));
-    await workbook.xlsx.write(res);
-    res.end();
+    ws.commit();
+    await workbook.commit();
   }
 }
 

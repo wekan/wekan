@@ -24,7 +24,7 @@
 //   { type: 'text',    blocks }                   markdown, as parsed blocks
 //   { type: 'list',    items: [{ runs, done, marker, level }] }
 //   { type: 'rows',    header, rows }             a small bordered grid
-//   { type: 'images',  images: [{ name, ext, data }] }
+//   { type: 'images',  images: [{ name, ext, data | stream }] }
 //   { type: 'note',    runs }                     one line, quiet
 //
 // A renderer decides what those look like in its medium, and only the renderer
@@ -343,7 +343,9 @@ function buildCardDocument(card, data, fields, translate) {
     // The pictures themselves, when the exporter could read them. Both formats
     // draw the same ones: a renderer that cannot embed a kind says so rather
     // than dropping it (see the design doc).
-    const images = (rows.images || []).filter(image => image && image.data);
+    // A streaming Excel workbook gets a picture as { stream }, read when it is
+    // written; everything else gets its bytes.
+    const images = (rows.images || []).filter(image => image && (image.data || image.stream));
     if (images.length) blocks.push({ type: 'images', images });
   }
 

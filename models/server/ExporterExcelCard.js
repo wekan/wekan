@@ -2,7 +2,8 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 import { TAPi18n } from '/imports/i18n';
 import { CARD_EXPORT_FIELD_KEYS } from '/models/lib/exportFields';
-import { createWorkbook } from './createWorkbook';
+import { createWorkbookWriter, workbookStreamsImages } from './createWorkbook';
+import { PassThrough } from 'stream';
 import { fileStoreStrategyFactory } from '/models/attachments.server';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 import { buildExportCardDocument, formatExportFileSize } from '/models/lib/cardExportDocument';
@@ -32,6 +33,33 @@ const EMBEDDABLE_IMAGE_MIME = new Map([
 
 function sanitizeSheetName(value) {
   return String(value || 'Card').replace(/[\\/*?:[\]]/g, '-').slice(0, 31);
+}
+
+// An image read only when the workbook writes it: the streaming writer calls
+// this for one image after another, so a card of many large pictures holds one
+// at a time. A picture that cannot be read is written empty rather than ending
+// the export half sent.
+function lazyImageStream(attachment) {
+  return () => {
+    const out = new PassThrough();
+    let source = null;
+    try {
+      const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, 'original');
+      source = strategy && strategy.getReadStream();
+    } catch (error) {
+      console.warn(`ExporterExcelCard: could not read image ${attachment._id}: ${error.message}`);
+    }
+    if (!source) {
+      out.end();
+      return out;
+    }
+    source.on('error', error => {
+      console.warn(`ExporterExcelCard: could not read image ${attachment._id}: ${error.message}`);
+      out.end();
+    });
+    source.pipe(out);
+    return out;
+  };
 }
 
 /** Read an entire readable stream into a Buffer. */
@@ -140,10 +168,22 @@ class ExporterExcelCard {
     } = data;
 
     const imageAttachments = [];
+    const streamsImages = workbookStreamsImages(workbook);
     for (const attachment of attachments) {
       const type = String(attachment.type || '').toLowerCase();
       const ext = EMBEDDABLE_IMAGE_MIME.get(type);
       if (!ext) continue;
+      if (streamsImages) {
+        // Not read here: the writer reads it when it writes it.
+        if (attachment.size === 0) continue;
+        imageAttachments.push({
+          name: attachment.name || (attachment.meta && attachment.meta.name) || attachment._id,
+          size: formatExportFileSize(attachment.size),
+          ext,
+          stream: lazyImageStream(attachment),
+        });
+        continue;
+      }
       try {
         const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, 'original');
         const stream = strategy && strategy.getReadStream();
@@ -190,8 +230,13 @@ class ExporterExcelCard {
     } catch (err) {
       console.error('ExporterExcelCard: build error', err);
       if (!res.headersSent) {
+        res.removeHeader('Content-Disposition');
         res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
         res.end(`Export failed: ${err.message}`);
+      } else {
+        // Part of the file is already sent: end the download as failed rather
+        // than leave the browser waiting for the rest.
+        res.destroy(err);
       }
     }
   }
@@ -313,7 +358,11 @@ class ExporterExcelCard {
     }
 
     // ── Workbook & worksheet setup ───────────────────────────────────────
-    const workbook = createWorkbook();
+    // Streamed to the response as it is written, so the headers go first.
+    const filename = exportFilename('card', key => this.__(key), card.cardNumber || 1, 'xlsx');
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', attachmentDisposition(filename));
+    const workbook = createWorkbookWriter(res, { images: true });
     workbook.creator  = this.__('export-board');
     workbook.created  = new Date();
     workbook.modified = new Date();
@@ -358,12 +407,9 @@ class ExporterExcelCard {
       ws.pageSetup.rowBreaks = pageBreakRows.map(r => ({ man: 1, id: r }));
     }
 
-    // ── Stream workbook directly to HTTP response (no temp file) ────────
-    const filename = exportFilename('card', key => this.__(key), card.cardNumber || 1, 'xlsx');
-    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    res.setHeader('Content-Disposition', attachmentDisposition(filename));
-    await workbook.xlsx.write(res);
-    res.end();
+    // ── Finish: the images are read and written now, one at a time ──────
+    ws.commit();
+    await workbook.commit();
   }
 }
 

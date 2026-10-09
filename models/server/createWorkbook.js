@@ -27,7 +27,18 @@ export const createWorkbook = function() {
 // EVENT on the archive, i.e. a crash rather than a rejected promise. So the
 // question is answered before anything is constructed, by what archiver
 // exports: callable means exceljs's writer works, an object means it cannot.
+//
+// The @wekanteam/exceljs fork fixed both (.tools/exceljs commit 7b2f939): its
+// writer builds archiver 8's ZipArchive itself, and StreamBuf.pipe returns its
+// destination as archiver 8 needs. The same change gave the streaming worksheet
+// addImage, so WorkbookWriter._addDrawing marks an exceljs that streams with
+// archiver 8 - and one that can stream images.
+function forkStreamsImages() {
+  return typeof Excel.stream.xlsx.WorkbookWriter.prototype._addDrawing === 'function';
+}
+
 function streamingWriterWorks() {
+  if (forkStreamsImages()) return true;
   try {
     // eslint-disable-next-line global-require
     return typeof require('archiver') === 'function';
@@ -72,6 +83,12 @@ class BufferedWorkbookWriter {
     return worksheet;
   }
 
+  // A picture is kept as its bytes here; only the streaming writer reads one
+  // when it is written.
+  addImage(image) {
+    return this._workbook.addImage(image);
+  }
+
   // Rows already have a commit() on the in-memory Row class, so nothing is
   // needed for those.
   async commit() {
@@ -89,8 +106,12 @@ class BufferedWorkbookWriter {
 // When the streaming writer cannot work (see above), this returns the buffered
 // stand-in instead. Same calls, same file, more memory - and an export that
 // finishes, which is the part that matters.
-export const createWorkbookWriter = function(stream) {
-  if (!streamingWriterWorks()) {
+//
+// { images: true } is for a workbook that places images over cells (the card
+// export, and the board export drawn in the card layout): an older exceljs has
+// no addImage on a streaming worksheet, so there it is the buffered stand-in.
+export const createWorkbookWriter = function(stream, options = {}) {
+  if (!streamingWriterWorks() || (options.images && !forkStreamsImages())) {
     return new BufferedWorkbookWriter(stream);
   }
   return new Excel.stream.xlsx.WorkbookWriter({
@@ -101,3 +122,8 @@ export const createWorkbookWriter = function(stream) {
 };
 
 export const streamingExcelAvailable = streamingWriterWorks;
+
+// Does this workbook take an image as { stream }, read when it is written? The
+// streaming writer of the fork does; an in-memory workbook needs the bytes.
+export const workbookStreamsImages = workbook =>
+  workbook instanceof Excel.stream.xlsx.WorkbookWriter && forkStreamsImages();
