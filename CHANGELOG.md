@@ -672,6 +672,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/94d5407ccd">Translate Xhosa Blockly numeric tests and statistics</a>. Thanks to xet7.</summary>
+
+Fill 35 Xhosa numeric and statistics messages. Tests preserve variables, sign
+and prime distinctions, and random-number bounds. Both targeted suites and all
+21 preservation checks pass. Specialized wording needs speaker review; browser
+execution and remaining translations are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5a2c397755">Translate Xhosa Blockly logic and arithmetic</a>. Thanks to xet7.</summary>
 
 Fill 30 Xhosa logic and arithmetic messages. Tests preserve variables, constants,
