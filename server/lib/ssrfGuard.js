@@ -331,10 +331,38 @@ function readResponse(res, options = {}) {
       reject(res.ssrfGuardEarlyError);
       return;
     }
-    const chunks = [];
     const maxBytes = Number.isFinite(options.maxResponseBytes)
       ? Math.max(1024, Math.min(options.maxResponseBytes, 1024 * 1024 * 1024))
       : 10 * 1024 * 1024;
+    // stream: true hands the body on as a stream instead of reading it into
+    // memory - for a large download that goes straight into storage. The same
+    // byte limit holds, counted as the bytes flow, and the request's inactivity
+    // timeout still applies while it is read.
+    if (options.stream) {
+      const { Transform } = require('stream');
+      let streamed = 0;
+      const body = new Transform({
+        transform(chunk, encoding, done) {
+          streamed += chunk.length;
+          if (streamed > maxBytes) return done(new Error(`outbound response exceeds ${maxBytes} bytes`));
+          return done(null, chunk);
+        },
+      });
+      res.on('error', error => body.destroy(error));
+      body.on('close', () => { if (!res.complete) res.destroy(); });
+      res.pipe(body);
+      const headers = Object.assign({}, res.headers);
+      Object.defineProperty(headers, 'get', {
+        enumerable: false,
+        value: name => {
+          const value = headers[String(name).toLowerCase()];
+          return value === undefined ? null : value;
+        },
+      });
+      resolve({ status: res.statusCode, ok: res.statusCode >= 200 && res.statusCode < 300, headers, body });
+      return;
+    }
+    const chunks = [];
     let bytes = 0;
     res.on('data', (chunk) => {
       bytes += chunk.length;

@@ -458,8 +458,6 @@ this list when it streams.
   models/lib/collectionFsStore.js).
 - The PDF and Excel card exports hold every image of the card or board
   (models/server/ExporterCardPDF.js, models/server/ExporterExcelCard.js).
-- The live Trello API import holds every attachment as base64 at once, up to
-  256 MB a file (server/trelloApiImport.js).
 
 </details>
 </details>

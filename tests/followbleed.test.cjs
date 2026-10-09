@@ -387,11 +387,13 @@ async function rejects(promise, pattern) {
       'trelloApiImport must import fetchSafe',
     );
 
-    // downloadAttachmentBase64 — the attachment sink
+    // downloadAttachmentStream — the attachment sink, which streams the file
+    // into storage as the creator reaches it
     const attachment = src.slice(
-      src.indexOf('async function downloadAttachmentBase64'),
-      src.indexOf('async function fetchBoard'),
+      src.indexOf('async function downloadAttachmentStream'),
+      src.indexOf('export function trelloAttachmentStreamer'),
     );
+    assert.ok(attachment.length > 100, 'the attachment sink exists');
     assert.ok(/validateAttachmentUrl\(url\)/.test(attachment), 'must still validate the URL');
     assert.ok(/\{ untrusted: true \}/.test(attachment),
       'the attachment download must go through the guarded fetch');

@@ -175,6 +175,8 @@ async function trelloFetch(url, options = {}, { untrusted = false } = {}) {
 
     if ([408, 425, 429].includes(res.status) || res.status >= 500) {
       lastError = res;
+      // A streamed body that is not used is let go before the retry.
+      if (res.body && typeof res.body.destroy === 'function') res.body.destroy();
       if (attempt < MAX_RETRIES) {
         const delay = retryDelayMs(res, attempt);
         if (process.env.DEBUG === 'true') {
@@ -211,52 +213,60 @@ async function trelloGet(path, key, token, params = {}) {
   return res.json();
 }
 
-async function downloadAttachmentBase64(url, key, token) {
-  try {
-    // SSRF fix (reported by meifukun): att.url comes from the Trello API response
-    // and is attacker-controlled (a board owner sets link-attachment URLs on their
-    // own board), and the fetched body is stored and readable back through the
-    // attachment API. The offline JSON import already gates every attachment on
-    // validateAttachmentUrl; the live path did not. Block loopback / private /
-    // link-local / cloud-metadata URLs here too, before any request is made.
-    const validation = await validateAttachmentUrl(url);
-    if (!validation.valid) {
-      if (process.env.DEBUG === 'true') {
-        console.warn('Blocked attachment URL during live Trello import:', url, '-', validation.reason);
-      }
-      try {
-        require('/server/lib/securityLog').record({
-          key: 'ssrf.attachment', action: 'blocked', source: 'trelloLiveImport.attachment',
-          detail: `blocked attachment url (${validation.reason})`,
-        });
-      } catch (e) { /* logging must never break the guard */ }
-      return null;
-    }
-    // FollowBleed (GHSA-j9p2-jm73-p549, reported by RandomGenerator): validating
-    // the URL above is only half of it. The download itself used the platform
-    // fetch(), which FOLLOWS redirects, so a public URL that passes the check
-    // above could answer `302 Location: http://127.0.0.1:18080/secret` and the
-    // loopback body was what got stored as the imported attachment — the same
-    // non-blind SSRF the validation was added to stop (LiveBleed), reached
-    // through the response instead of the request. It now downloads through
-    // fetchSafe, which validates and pins EVERY hop.
-    const res = await trelloFetch(url, {
-      headers: trelloAuthHeaders(url, key, token),
-    }, { untrusted: true });
-    if (!res.ok) {
-      if (process.env.DEBUG === 'true') {
-        console.warn('Trello attachment download HTTP', res.status, url);
-      }
-      return null;
-    }
-    const buffer = Buffer.from(await res.arrayBuffer());
-    return buffer.toString('base64');
-  } catch (e) {
-    if (process.env.DEBUG === 'true') {
-      console.warn('Trello attachment download failed:', url, e && e.message);
-    }
+// The same download as a stream (fetchSafe stream: true), for an attachment
+// that goes straight into storage: the same URL check, the same pinned and
+// validated redirects and the same 256 MB limit, but never the whole file in
+// memory. Resolves to the body stream, or null when it is not downloaded.
+async function downloadAttachmentStream(url, key, token) {
+  const validation = await validateAttachmentUrl(url);
+  if (!validation.valid) {
+    try {
+      require('/server/lib/securityLog').record({
+        key: 'ssrf.attachment', action: 'blocked', source: 'trelloLiveImport.attachment',
+        detail: `blocked attachment url (${validation.reason})`,
+      });
+    } catch (e) { /* logging must never break the guard */ }
     return null;
   }
+  const res = await trelloFetch(url, { headers: trelloAuthHeaders(url, key, token), stream: true }, { untrusted: true });
+  if (!res.ok) {
+    if (res.body && typeof res.body.destroy === 'function') res.body.destroy();
+    return null;
+  }
+  return res.body;
+}
+
+// For TrelloCreator.attachmentStream: each uploaded attachment downloaded as
+// the creator reaches it and streamed into storage, one at a time, instead of
+// every file of the board downloaded first and kept as base64 on the board.
+// A link attachment (its name is its URL) is no file and gets no stream.
+export function trelloAttachmentStreamer(key, token) {
+  return att => {
+    if (!att || !att.url || att.name === att.url) return null;
+    const { PassThrough } = require('stream');
+    const out = new PassThrough();
+    downloadAttachmentStream(att.url, key, token).then(body => {
+      if (!body) {
+        out.destroy(new Error('trello-attachment-unavailable'));
+        return;
+      }
+      body.on('error', error => out.destroy(error));
+      body.pipe(out);
+    }, error => out.destroy(error));
+    return out;
+  };
+}
+
+// The uploaded attachments of a board - those with a URL that are not links -
+// which trelloAttachmentStreamer will download.
+export function countUploadedAttachments(board) {
+  const ids = new Set();
+  const collect = att => {
+    if (!att || !att.url || att.name === att.url) return;
+    ids.add(att.id || att._id || att.url);
+  };
+  (board.cards || []).forEach(card => (card.attachments || []).forEach(collect));
+  return ids.size;
 }
 
 // Build the full board object in the shape TrelloCreator expects, mirroring a
@@ -286,40 +296,6 @@ async function fetchBoard(boardId, key, token) {
   });
 }
 
-// Download each uploaded attachment server-side (with OAuth) and inline the
-// bytes as base64 on `att.file`, so TrelloCreator inserts them directly the
-// same way it does for the offline attachments-ZIP path.
-export async function inlineAttachments(board, key, token) {
-  const logical = new Map();
-  const collect = att => {
-    if (!att) return;
-    if (att.url && att.name === att.url) return; // attached link, not a file
-    if (!att.url) return;
-    const id = att.id || att._id || att.url;
-    if (!logical.has(id)) logical.set(id, []);
-    logical.get(id).push(att);
-  };
-  (board.cards || []).forEach(card => (card.attachments || []).forEach(collect));
-  (board.actions || []).forEach(action => {
-    if (action.type === 'addAttachmentToCard') {
-      collect(action.data && action.data.attachment);
-    }
-  });
-
-  let matched = 0;
-  for (const occurrences of logical.values()) {
-    const url = occurrences[0].url;
-    const base64 = await downloadAttachmentBase64(url, key, token);
-    if (base64) {
-      occurrences.forEach(att => {
-        att.file = base64;
-      });
-      matched += 1;
-    }
-  }
-  return matched;
-}
-
 // Download the board background image server-side and inject it as
 // board.backgroundFile so TrelloCreator can store it as a board-level
 // attachment. Trello backgrounds are usually public (S3), so try without auth
@@ -347,7 +323,7 @@ export async function inlineBoardBackground(board, key, token) {
     const options = withAuth
       ? { headers: trelloAuthHeaders(url, key, token) }
       : {};
-    // FollowBleed: fetchSafe, not fetch — see downloadAttachmentBase64.
+    // FollowBleed: fetchSafe, not fetch — see downloadAttachmentStream.
     const res = await fetchSafe(url, {
       ...options,
       maxRedirects: MAX_DOWNLOAD_REDIRECTS,
@@ -415,7 +391,7 @@ export async function inlineMemberAvatars(board, membersMapping, key, token) {
         continue;
       }
       // Trello avatars are public (S3); try without auth, fall back to OAuth.
-      // FollowBleed: fetchSafe, not fetch — see downloadAttachmentBase64.
+      // FollowBleed: fetchSafe, not fetch — see downloadAttachmentStream.
       let res = await fetchSafe(imgUrl, { maxRedirects: MAX_DOWNLOAD_REDIRECTS });
       // RelayBleed: the credential retry only for a Trello-hosted avatar.
       if (!res.ok && isTrelloCredentialHost(imgUrl)) {
@@ -813,13 +789,16 @@ async function runJob(jobId) {
           continue;
         }
         const board = await fetchBoard(trelloBoardId, creds.key, creds.token);
-        const attachmentsImported = await inlineAttachments(board, creds.key, creds.token);
+        // Attachments stream from Trello into storage as the creator reaches
+        // them, instead of every file downloaded first as base64.
+        const attachmentsImported = countUploadedAttachments(board);
         await inlineBoardBackground(board, creds.key, creds.token);
         const membersMapping = await buildMembersMapping(board);
         const sanitized = require('/server/lib/secureTransfer').secureTransfer(board, {
           direction: 'import', source: 'import:trello-api', userId: job.userId,
         });
         const creator = new TrelloCreator({ membersMapping });
+        creator.attachmentStream = trelloAttachmentStreamer(creds.key, creds.token);
         const newBoardId = await trackImport({ userId: job.userId, source: 'trello-api', creator,
           execute: () => creator.create(sanitized, null) }).promise;
 

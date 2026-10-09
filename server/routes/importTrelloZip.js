@@ -9,7 +9,7 @@ import { validateImportSourceShape } from '/models/lib/importSourceShape';
 import { secureTransfer } from '/server/lib/secureTransfer';
 import {
   resolveCreds,
-  inlineAttachments,
+  trelloAttachmentStreamer,
   inlineBoardBackground,
   inlineMemberAvatars,
   inlineStickers,
@@ -144,12 +144,9 @@ async function importSingleBoard(payload, userId) {
   // board background image, member avatars and card stickers from Trello
   // (best-effort: a failed download must not abort the import).
   const creds = await resolveCreds(userId, '', '');
+  // Attachments stream from Trello into storage as the creator reaches them.
+  const attachmentStream = creds && creds.key && creds.token ? trelloAttachmentStreamer(creds.key, creds.token) : null;
   if (creds && creds.key && creds.token) {
-    try {
-      await inlineAttachments(board, creds.key, creds.token);
-    } catch (e) {
-      /* best-effort */
-    }
     try {
       await inlineBoardBackground(board, creds.key, creds.token);
     } catch (e) {
@@ -168,6 +165,7 @@ async function importSingleBoard(payload, userId) {
   }
 
   const creator = new TrelloCreator({ membersMapping, membersMode });
+  if (attachmentStream) creator.attachmentStream = attachmentStream;
   const boardId = await runAsUser(userId, () => trackImport({ userId, source: 'trello-zip', creator,
     execute: () => creator.create(board, null) }).promise);
   return { boardIds: boardId ? [boardId] : [] };

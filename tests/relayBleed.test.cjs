@@ -29,7 +29,9 @@ function harness({ respond = () => ({ ok: true, status: 200 }) } = {}) {
   const ok = (url, options) => {
     requests.push({ url, auth: (options && options.headers && options.headers.Authorization) || null });
     const r = respond(url, options);
-    return { headers: new Headers({ 'content-type': 'image/png' }), arrayBuffer: async () => new ArrayBuffer(4), ...r };
+    // A streamed download (fetchSafe stream: true) hands its body on as a stream.
+    const body = options && options.stream ? require('node:stream').Readable.from([Buffer.alloc(4)]) : undefined;
+    return { headers: new Headers({ 'content-type': 'image/png' }), arrayBuffer: async () => new ArrayBuffer(4), body, ...r };
   };
   const context = {
     URL, Buffer, Headers, console, process: { env: {}, pid: 1 }, Map, Set, Promise, Date, Math, JSON, AbortSignal,
@@ -44,6 +46,7 @@ function harness({ respond = () => ({ ok: true, status: 200 }) } = {}) {
     require: name => {
       if (name === '/models/lib/importExportSecurity') return { getImportExportSecuritySettings: async () => ({}) };
       if (name === '/server/lib/securityLog') return { record() {} };
+      if (name === 'stream') return require('node:stream');
       return {};
     },
   };
@@ -67,7 +70,15 @@ test('the reporter-style attack: a renamed link attachment no longer receives th
     { id: 'o', name: 'c.png', url: 'https://trello.com:8443/x' },
     { id: 's', name: 'd.png', url: 'https://evil.trello.com.example/x' },
   ] }] };
-  await context.inlineAttachments(board, KEY, TOKEN);
+  // Each attachment is downloaded as TrelloCreator reaches it, streamed.
+  const streamFor = context.trelloAttachmentStreamer(KEY, TOKEN);
+  await Promise.all(board.cards[0].attachments.map(att => new Promise(resolve => {
+    const stream = streamFor(att);
+    if (!stream) { resolve(); return; }
+    stream.on('error', resolve);
+    stream.on('end', resolve);
+    stream.resume();
+  })));
   assert.equal(requests.length, 6, 'every attachment is still downloaded');
   assert.deepEqual(credentialHosts(requests), ['trello.com']);
   for (const r of requests.filter(r => !r.auth)) assert.doesNotMatch(JSON.stringify(r), /victim-token/);
