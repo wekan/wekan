@@ -738,6 +738,26 @@ and one chooser, so every source can be chosen as a file, not only pasted.
 
 and fixes the following bugs:
 
+**Large boards** - a board of thousands of cards opens and closes cards fast
+on a server with 8 GB of RAM.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d56bb34490">Card close from 4 s to 0.1 s on a 4,000-card board; only visible data loads</a>. Thanks to markusst1982 and xet7.</summary>
+
+The client cache queued a stop callback per helper re-run and asked Tracker
+for dependents on every check; opening a card re-ran about 7,700 computations
+because avatars, mentions and headers read the whole user and every minicard
+depended on one board-wide index. Those now read only what they show, and the
+indexes are per card. The lazy card window keeps only ids and sort keys and
+sends comment text only when minicards show it; reactions and legacy
+attachments come with the opened card. Downloads honour Range requests and
+cloud uploads stream. In the FerretDB fork, dotted-path filters such as
+meta.cardId reach SQLite instead of scanning whole collections. On the seeded
+board, loading went from 17.6 s to 6.2 s and FerretDB's memory from 724 MB to
+280 MB. See docs/Features/Admin-Panel/Problems/Large-Boards.md.
+
+</details>
+
 **Import and export** - faults found while documenting every format.
 
 <details>
