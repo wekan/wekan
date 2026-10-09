@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Xhosa Blockly input and accessibility labels — 2026-10-09
+
+Translate 40 messages in xh for input labels, keyboard help and accessibility
+actions. Tests preserve variables, render the help key and distinguish open/close,
+start/end and dividend/divisor labels. Both targeted suites and all 21
+preservation checks pass. Specialized wording remains low confidence pending
+speaker review. Browser execution and remaining translations are outstanding.
+
 ## Xhosa Blockly conditions and editor actions — 2026-10-09
 
 Translate 45 messages in xh for conditions, loops, editor actions and bitmap

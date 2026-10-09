@@ -430,6 +430,48 @@ for (const locale of Object.values(locales)) {
   "blockly-FIELD_LABEL_EMPTY",
   "blockly-FIELD_LABEL_OPTION_INDEX"
 ]);
+  keys.push(...[
+  "blockly-FIELD_LABEL_VARIABLE",
+  "blockly-FIELD_MULTILINEINPUT_FINISH_EDITING",
+  "blockly-FIELD_MULTILINEINPUT_NEW_LINE",
+  "blockly-HELP_PROMPT",
+  "blockly-HOME_KEY",
+  "blockly-ICON_LABEL_COMMENT_CLOSED",
+  "blockly-ICON_LABEL_COMMENT_OPEN",
+  "blockly-ICON_LABEL_DEFAULT",
+  "blockly-ICON_LABEL_MUTATOR_CLOSED",
+  "blockly-ICON_LABEL_MUTATOR_OPEN",
+  "blockly-ICON_LABEL_WARNING_CLOSED",
+  "blockly-ICON_LABEL_WARNING_OPEN",
+  "blockly-INLINE_INPUTS",
+  "blockly-INPUT_LABEL_CONDITION",
+  "blockly-INPUT_LABEL_CONDITION_A",
+  "blockly-INPUT_LABEL_CONDITION_B",
+  "blockly-INPUT_LABEL_EMPTY",
+  "blockly-INPUT_LABEL_END_STATEMENT",
+  "blockly-INPUT_LABEL_INDEX",
+  "blockly-INPUT_LABEL_LISTS_CREATE_WITH_ITEM",
+  "blockly-INPUT_LABEL_LISTS_DELIMITER",
+  "blockly-INPUT_LABEL_LISTS_END_POSITION",
+  "blockly-INPUT_LABEL_LISTS_LIST_FROM_TEXT",
+  "blockly-INPUT_LABEL_LISTS_POSITION",
+  "blockly-INPUT_LABEL_LISTS_REPEAT_ITEM",
+  "blockly-INPUT_LABEL_LISTS_REPEAT_NUM",
+  "blockly-INPUT_LABEL_LISTS_START_POSITION",
+  "blockly-INPUT_LABEL_LISTS_TEXT_FROM_LIST",
+  "blockly-INPUT_LABEL_LISTS_TO_CHANGE",
+  "blockly-INPUT_LABEL_LISTS_TO_CHECK",
+  "blockly-INPUT_LABEL_LISTS_VALUE_TO_SET",
+  "blockly-INPUT_LABEL_LOOP_BY",
+  "blockly-INPUT_LABEL_LOOP_FROM",
+  "blockly-INPUT_LABEL_LOOP_LIST",
+  "blockly-INPUT_LABEL_LOOP_TIMES",
+  "blockly-INPUT_LABEL_LOOP_TO",
+  "blockly-INPUT_LABEL_MATH_CHANGE_BY",
+  "blockly-INPUT_LABEL_MATH_CONSTRAIN_VALUE",
+  "blockly-INPUT_LABEL_MATH_DIVIDEND",
+  "blockly-INPUT_LABEL_MATH_DIVISOR"
+]);
   for (const key of keys) {
     assert.notEqual(locale[key], source[key], key);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), key);
@@ -563,6 +605,17 @@ for (const locale of Object.values(locales)) {
     .replace('%1', '6').replace('%2', 'counter');
   assert.match(deleteVariable, /6.*counter/);
   assert.doesNotMatch(deleteVariable, /%[12]/);
+  for (const kind of ['COMMENT', 'WARNING']) {
+    assert.match(locale[`blockly-ICON_LABEL_${kind}_CLOSED`], /^Vula /);
+    assert.match(locale[`blockly-ICON_LABEL_${kind}_OPEN`], /^Vala /);
+  }
+  assert.notEqual(locale['blockly-INPUT_LABEL_LISTS_START_POSITION'], locale['blockly-INPUT_LABEL_LISTS_END_POSITION']);
+  assert.notEqual(locale['blockly-INPUT_LABEL_MATH_DIVIDEND'], locale['blockly-INPUT_LABEL_MATH_DIVISOR']);
+  assert.equal(locale['blockly-INPUT_LABEL_LISTS_REPEAT_NUM'], locale['blockly-INPUT_LABEL_LOOP_TIMES']);
+  assert.match(locale['blockly-HOME_KEY'], /Home/);
+  const keyboardHelp = locale['blockly-HELP_PROMPT'].replace('%1', 'F1');
+  assert.match(keyboardHelp, /F1/);
+  assert.doesNotMatch(keyboardHelp, /%1/);
   const error = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
   assert.ok(error.includes('E_LDAP'));
   assert.ok(!error.includes('%s'));
