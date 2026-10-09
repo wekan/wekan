@@ -468,7 +468,7 @@ each following that tool's documented or source-verified format, with a loss
 report for what WeKan has no place for. Every format now imports and exports
 **many boards at once**, and each has its own documentation page. Imports,
 exports, clones and the REST API now **stream attachments** instead of holding
-them in memory. Five **GitHub CodeQL** alerts and the **brace-expansion**
+them in memory. Six **GitHub CodeQL** alerts and the **brace-expansion**
 advisories are fixed. Translation work continues.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
@@ -516,6 +516,17 @@ a regular expression was meant. `tests/noIdentityReplacement.test.cjs` only
 looked at string patterns and listed `replace(/-/g, '-')` as fine; it now
 reports a regular expression of plain characters replaced with the same text,
 and found this line before it was fixed.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bb04a832ba">The security alerts test shows the old link escaping as its output, not as code</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+Alert 559: the test written for alert 555 re-ran the old, incomplete escaping
+to show that it let a URL end a link early, and code scanning reported that
+code. The test now holds the Markdown the old code wrote and still checks it
+renders as two links, and the check that no code escapes links that way now
+reads `tests/` too.
 
 </details>
 
