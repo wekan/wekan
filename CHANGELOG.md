@@ -585,10 +585,30 @@ and improves translations:
 
 **Translations** - Catalan, Czech, Dutch, French, German, Greek, Hungarian, Indonesian,
 Japanese, Korean, Malay,
-Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish and Ukrainian
+Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish, Ukrainian and Valencian
 base and regional catalogs.
 
-**Languages updated:** Catalan, Czech, Dutch, French, German, Greek, Hungarian, Indonesian, Japanese, Korean, Malay, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish, Ukrainian.
+**Languages updated:** Catalan, Czech, Dutch, French, German, Greek, Hungarian, Indonesian, Japanese, Korean, Malay, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish, Ukrainian, Valencian.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b6261f8a46">Translate remaining current Valencian strings</a>. Thanks to xet7.</summary>
+
+Fill 109 English placeholders in ca@valencia for linked cards, imports,
+member mapping, webhooks, notifications and Wrike workflows, with reviewed
+Valencian forms. Retain the native shared Dates label with locale-isolation
+and changed-source tests. Its full current fill list is empty. Preserve existing
+translations, exact placeholders and parsed constants. Regressions verify
+regional wording, permissions, propagation, import semantics, timing and
+workflow states. Longer technical and regional wording remains provisional
+pending speaker review; older catalog wording is not fully audited.
+
+All 305 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Three browser cases use ca-valencia and pass syntax and discovery;
+execution remains unverified because the local app and browser system
+dependencies are unavailable. The wider all-language backlog and semantic
+audit remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9485d19719">Translate remaining current Catalan strings</a>. Thanks to xet7.</summary>
