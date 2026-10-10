@@ -107,7 +107,7 @@ previously held for Transifex. Completed work is recorded in Upcoming.
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **29,735 untranslated locale/string values in 42 languages**.
   It excludes **383 source keys tracked separately as pending Transifex**.
-  A separate short-prose audit flags 2,139 candidates across 231 locales,
+  A separate short-prose audit flags 2,135 candidates across 229 locales,
   including capitalized At/To labels previously omitted;
   shared native words may equal English, so these require individual review.
   Exact Blockly OS brands and compact math/code symbols no longer inflate
@@ -145,6 +145,10 @@ previously held for Transifex. Completed work is recorded in Upcoming.
   labels; both full current fill lists are empty. Four Xhosa field/lane labels
   are corrected. Broader semantic review remains open, and the four selected
   browser cases are discovered and syntax-checked but not executed.
+- Both Zulu catalogs fill 112 English values each, including short delivery
+  labels. Their current fill lists are empty; specialist wording and broader
+  semantic review remain open. Four localized browser cases are registered
+  and syntax-checked, with execution still unverified.
 - Fill English placeholders in every language, including minority and
   constructed languages. Audit mixed-language and wrong-language seed text, and
   review provisional wording with speakers when available. Preserve
@@ -1526,6 +1530,24 @@ All 246 catalog key/token inventories and 21 preservation checks pass. Four
 localized browser scenarios are syntax-checked and discovered; execution
 remains unverified without a local app. Technical wording remains low
 confidence pending speaker review; sources are recorded in the audit.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c87837d19d">Translate current Zulu strings and clarify imported identities</a>. Thanks to xet7.</summary>
+
+Fill 112 English values in each Zulu catalog for card links, imports, exports,
+notifications, Wrike workflows and subtask completion, including short delivery
+labels. Both current fill lists are empty. Clarify one Xhosa import label so
+it describes replacing imported people with the current user. Preserve existing
+Zulu translations, exact source placeholders and API identifiers.
+
+The translation/Blockly run passes 302 of 303 suites; Papiamento still reports
+untranslated keys. All 246 catalog inventories and 21 preservation checks pass,
+as do targeted Zulu and Xhosa tests. Seven localized browser scenarios are
+syntax-checked and discovered; execution remains unverified. Longer technical
+sentences remain low confidence pending speaker review, with terminology
+sources and remaining work recorded in the audit.
 
 </details>
 
