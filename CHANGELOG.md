@@ -447,15 +447,13 @@ used.
 # Upcoming WeKan ® release
 
 **In short:** Boards now import from and export to twenty more tools, among
-them **Microsoft Planner**, **monday.com**, **ClickUp**, **Linear**, **Notion**,
-**Redmine**, **Wrike**, **Taiga** and **Vikunja**, and import from **Plane**,
-each following that tool's documented or source-verified format, with a loss
-report for what WeKan has no place for. Every format now imports and exports
-**many boards at once**, and each has its own documentation page. Imports,
-exports, clones and the REST API now **stream attachments** instead of holding
-them in memory. WeKan moves to **Meteor 3.6-rc.0**, and seven **GitHub CodeQL**
-alerts and the **brace-expansion** advisories are fixed. Translation work
-continues.
+them **Microsoft Planner**, **monday.com**, **ClickUp**, **Linear** and
+**Notion**, many boards at once, and imports, exports and the REST API
+**stream attachments**. Cards gain **attached cards**, **linked custom
+fields** and **subtask checkboxes**, boards a Trello-style **Calendar Mode**,
+and e-mail, the tray and webhooks can each choose their **content, grouping
+and schedule**. WeKan moves to **Meteor 3.6-rc.0**, and seven **GitHub
+CodeQL** alerts and the **brace-expansion** advisories are fixed.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
@@ -810,6 +808,80 @@ and one chooser, so every source can be chosen as a file, not only pasted.
 
 </details>
 
+**Cards** - other cards and their fields, and subtasks, from the card itself.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/32fa89fdc3">Attach a card to a card, as Trello's card attachments, and import them from Trello</a>. Thanks to ricardoboss and xet7.</summary>
+
+A card's Attachments section has Attach card: find a card of the board by its
+title, or paste a card link from any board you can read. The attached card is
+shown with its title, board and list and opens that card; the x removes it.
+Attaching needs the right to edit the card, only a card you can read can be
+attached, and a viewer who cannot read an attached card does not see its
+title. A Trello attachment that links to a card of the same export becomes an
+attached card; the WeKan JSON export keeps them. A
+[follow-up](https://github.com/wekan/wekan/commit/8215191197) gave the Attach
+card popup its title and close button. See
+[Attached cards](docs/Features/Cards/Attachments/Attached-Cards.md).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/746c097c9a">Link the custom fields of two cards, so a change on one is carried to the other</a>. Thanks to MarcusDger and xet7.</summary>
+
+The Custom Fields menu links a card to another one, both ways or one way, for
+example each worker's card sending to a main card on another board. Fields
+match by name and type, dropdowns by item name, and fields on one card only
+stay there. A carried value is written as the link's creator, recorded in
+History, and only while that user may still read and edit both cards; admin-
+only fields never take part, and a loop guard stops echoes and rings. See
+[Linked custom fields](docs/Features/Cards/CustomFields/Linked-Custom-Fields.md).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a713154d70">Tick subtasks done from the parent card's Subtasks list, with done/total in its heading</a>. Thanks to zhoujunhaohao and xet7.</summary>
+
+Each subtask row has a checkbox that marks the subtask card complete, and the
+heading shows "Subtasks (1/3)". Done means marked complete or archived, which
+the minicard badge and Hide completed subtasks now count too. The edit right
+is checked on the subtask itself, which may be on another board; an assigned-
+only member ticks only subtasks assigned to them.
+
+</details>
+
+**Board views** - Trello's calendar.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f133ddbba1">Calendar Mode, Trello's calendar, below Calendar in the view menu</a>. Thanks to tripledee and xet7.</summary>
+
+A month or a week from the user's first day of the week, each card on the day
+it is due with its labels and whole title, the day's cards in the board's own
+order, and the board Filter applied. A card opens with a click. A saved Board
+View menu order from before Calendar Mode gets it in its default place.
+
+</details>
+
+**Notifications** - what e-mail, the tray and webhooks contain, and when.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ab785acd1e">Choose what e-mail, the tray and webhooks contain, and group and schedule them</a>. Thanks to HaKePlan, Meeques and xet7.</summary>
+
+The Notifications popup at Admin Panel, board and Member Settings scope, and
+each one-way webhook's form, set per channel: the content (for webhooks the
+text and which property groups are sent, now with checklist, list and board
+names, before/after values and links; for e-mail and the tray the classic
+sentence or a clear layout with the board as a link and the actor and card in
+bold), the grouping (per event, card, board or all) and the schedule
+(immediately, every 5 minutes to 24 hours, or daily, with quiet hours). The
+most specific setting wins, the defaults keep today's behaviour, and a member
+can leave their name out of webhooks. Grouped webhooks and e-mail go through
+durable queues; values of admin-only custom fields reach only board admins in
+e-mail and tray, and never a webhook. See
+[Notification delivery](docs/Features/Notifications/Notification-Delivery.md).
+
+</details>
+
 and updates the following dependencies:
 
 - **brace-expansion 5.0.6 → 5.0.12** — brace expansion for glob patterns; six
@@ -831,6 +903,33 @@ and updates the following dependencies:
   Thanks to xet7.
 
 and fixes the following bugs:
+
+**Keyboard shortcuts** - on for new users, and d without opening the card.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/04a4f628e1">On for new users, and d opens a hovered card's due date</a>. Thanks to mimZD and xet7.</summary>
+
+The users schema stored keyboard shortcuts as off for every new user while the
+code means them on, so a new account had to switch them off and on again. With
+no card opened, d on a hovered or selected minicard now opens that card and
+its Due date editor. A test pins every profile setting's stored default to the
+default its code reads.
+
+</details>
+
+**Date popup** - today stands out on every board theme.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b7ba1e2075">Today is filled green, on every board colour theme</a>. Thanks to mimZD and xet7.</summary>
+
+The ring drawn in the day button's own colour was hard to see on themes whose
+day buttons are already a strong colour, such as purple. Today now has its own
+green fill with white text over every theme, the custom theme colour
+included, and keeps the ring and underline; today and selected keeps a green
+outline. Checked in the browser on the wisteria, dark and appleglasspastel
+themes.
+
+</details>
 
 **Card details** - the description and the code in it.
 
@@ -1103,6 +1202,18 @@ they are translated again.
 
 and has the following developer-facing changes:
 
+**Design** - a report to decide teams and organizations from.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4758908725">A design report on organizations, teams and their hierarchy</a>. Thanks to xet7.</summary>
+
+[docs/Design/TeamsOrganizations.md](docs/Design/TeamsOrganizations.md): what
+the open issues ask for, what the code does today and the defects found
+reading it, how other software manages and syncs groups from LDAP, SAML, OIDC
+and SCIM, and options for WeKan, with the decisions left open.
+
+</details>
+
 **npm packages** - the @wekanteam packages are part of this repository now.
 
 <details>
@@ -1232,7 +1343,8 @@ are translated there.
 Update measured README coverage to 191 catalogs and add a full-current-fill
 regression gate for Xhosa. All 333 translation-related suites pass; the new gate
 passes separately. Refresh TODO counts to 30,443 ordinary untranslated values in
-43 languages. Language-quality review and the remaining translation work stay open.
+43 languages. Language-quality review and the remaining translation work stay
+open.
 
 </details>
 
@@ -1289,8 +1401,10 @@ browser execution and remaining translations are outstanding.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e34dbda38a">Translate Xhosa Blockly accessibility and shortcuts</a>. Thanks to xet7.</summary>
 
-Fill 40 Xhosa procedure-input, accessibility and shortcut messages. Tests preserve
-variables, screen-reader states and navigation distinctions. Both targeted suites
+Fill 40 Xhosa procedure-input, accessibility and shortcut messages. Tests
+preserve
+variables, screen-reader states and navigation distinctions. Both targeted
+suites
 and all 21 preservation checks pass. Specialized wording needs speaker review;
 browser execution and remaining translations are outstanding.
 
@@ -1329,7 +1443,8 @@ execution and remaining translations are outstanding.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5a2c397755">Translate Xhosa Blockly logic and arithmetic</a>. Thanks to xet7.</summary>
 
-Fill 30 Xhosa logic and arithmetic messages. Tests preserve variables, constants,
+Fill 30 Xhosa logic and arithmetic messages. Tests preserve variables,
+constants,
 coordinate limits and inclusive bounds, and check logical distinctions. Both
 targeted suites and all 21 preservation checks pass. Specialized wording needs
 speaker review; browser execution and remaining translations are outstanding.
@@ -1371,7 +1486,8 @@ translations are outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/3a759d0927">Translate Xhosa Blockly input and accessibility labels</a>. Thanks to xet7.</summary>
 
 Fill 40 Xhosa input, keyboard help and accessibility labels. Tests retain
-variables and distinguish actions, positions and division operands. Both targeted
+variables and distinguish actions, positions and division operands. Both
+targeted
 suites and all 21 preservation checks pass. Specialized wording needs speaker
 review; browser execution and remaining translations are outstanding.
 
@@ -1381,7 +1497,8 @@ review; browser execution and remaining translations are outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/1210db0bbc">Translate Xhosa Blockly conditions and editor actions</a>. Thanks to xet7.</summary>
 
 Fill 45 Xhosa messages for conditions, loops, editor actions and bitmap labels.
-Tests preserve variables and keyboard labels, distinguish conditions and actions,
+Tests preserve variables and keyboard labels, distinguish conditions and
+actions,
 and render coordinates and deletion counts. Both targeted suites and all 21
 preservation checks pass. Specialized wording needs speaker review; browser
 execution and remaining translations are outstanding.
@@ -1392,9 +1509,11 @@ execution and remaining translations are outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/59fb4bb980">Translate Xhosa Blockly colors and loop controls</a>. Thanks to xet7.</summary>
 
 Fill 36 Xhosa messages for Blockly and the read-only server setting. Tests
-preserve percent variables, keyboard labels, numeric limits and loop restrictions.
+preserve percent variables, keyboard labels, numeric limits and loop
+restrictions.
 Both targeted suites and all 21 preservation checks pass. Specialized wording
-needs speaker review; browser execution and remaining translations are outstanding.
+needs speaker review; browser execution and remaining translations are
+outstanding.
 
 </details>
 
@@ -1402,9 +1521,11 @@ needs speaker review; browser execution and remaining translations are outstandi
 <summary><a href="https://github.com/wekan/wekan/commit/0c7fad659b">Translate Xhosa interrupted imports and history recovery</a>. Thanks to xet7.</summary>
 
 Fill 35 Xhosa messages for interrupted imports and Scrum history recovery.
-Tests preserve variables, render counts and retain deletion and rollback warnings.
+Tests preserve variables, render counts and retain deletion and rollback
+warnings.
 Both targeted suites and all 21 preservation checks pass. Specialized wording
-needs speaker review; browser execution and remaining translations are outstanding.
+needs speaker review; browser execution and remaining translations are
+outstanding.
 
 </details>
 
@@ -1412,7 +1533,8 @@ needs speaker review; browser execution and remaining translations are outstandi
 <summary><a href="https://github.com/wekan/wekan/commit/84951459e6">Translate Xhosa recovery controls and stuck sync operations</a>. Thanks to xet7.</summary>
 
 Fill 40 Xhosa messages for notification controls and stuck list sync operations.
-Tests retain count variables, pause/cancel distinctions, discard consequences and
+Tests retain count variables, pause/cancel distinctions, discard consequences
+and
 record limits. Both targeted suites and all 21 preservation checks pass.
 Specialized wording needs speaker review; browser execution and remaining
 translations are outstanding.
@@ -1436,7 +1558,8 @@ remaining translations are outstanding.
 Fill 24 Xhosa messages for omitted fields, source comparisons and recent sync
 reports. Tests retain report limits, hidden values and partial-failure warnings.
 Both targeted suites and all 21 preservation checks pass. Specialized wording
-needs speaker review; browser execution and remaining translations are outstanding.
+needs speaker review; browser execution and remaining translations are
+outstanding.
 
 </details>
 
@@ -1507,7 +1630,8 @@ Translate keyboard labels while retaining key legends, correct the monday.com
 possessive and verify both Zulu fill lists are empty. Three targeted suites and
 21 preservation checks pass. The broad run found one stale README count among
 333 suites; update it to 190 and verify the failing suite passes. Refresh TODO
-backlog counts. Language quality, browser review and other locales remain unfinished.
+backlog counts. Language quality, browser review and other locales remain
+unfinished.
 
 </details>
 
@@ -1516,8 +1640,10 @@ backlog counts. Language quality, browser review and other locales remain unfini
 
 Fill seven instructions per Zulu catalog. Tests preserve commands, columns,
 hierarchy markers, English-header requirements and excluded-data warnings.
-All three targeted suites and 21 preservation checks pass. Specialized terminology
-needs speaker review; browser execution and remaining translations are outstanding.
+All three targeted suites and 21 preservation checks pass. Specialized
+terminology
+needs speaker review; browser execution and remaining translations are
+outstanding.
 
 </details>
 
@@ -1534,7 +1660,8 @@ speaker review; browser execution and remaining translations are outstanding.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3305076c3b">Translate first Zulu import instruction group</a>. Thanks to xet7.</summary>
 
-Fill eight import instructions per Zulu catalog, preserving commands and formats.
+Fill eight import instructions per Zulu catalog, preserving commands and
+formats.
 Tests cover completion dates, archived cards and swimlane mapping. All three
 targeted suites and 21 preservation checks pass. Specialized terminology needs
 speaker review; browser execution and remaining translations are outstanding.
@@ -1545,9 +1672,12 @@ speaker review; browser execution and remaining translations are outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/dbb9c5e5b1">Translate Zulu recovery decisions and history checkpoints</a>. Thanks to xet7.</summary>
 
 Fill 22 messages per Zulu catalog. Tests preserve checkpoint variables, deletion
-warnings, foreign-board protection, rollback restrictions and read-only semantics.
-Both targeted suites and all 21 preservation checks pass. Specialized terminology
-needs speaker review; browser execution and remaining translations are outstanding.
+warnings, foreign-board protection, rollback restrictions and read-only
+semantics.
+Both targeted suites and all 21 preservation checks pass. Specialized
+terminology
+needs speaker review; browser execution and remaining translations are
+outstanding.
 
 </details>
 
@@ -1566,8 +1696,10 @@ speaker review; browser execution and remaining translations are outstanding.
 
 Fill 25 recovery messages per Zulu catalog. Tests preserve progress variables,
 cancellation warnings, pending work and already-applied-change guarantees.
-Both targeted suites and all 21 preservation checks pass. Specialized terminology
-needs speaker review; browser execution and remaining translations are outstanding.
+Both targeted suites and all 21 preservation checks pass. Specialized
+terminology
+needs speaker review; browser execution and remaining translations are
+outstanding.
 
 </details>
 
@@ -1587,7 +1719,8 @@ browser execution and remaining translations are outstanding.
 Fill 30 messages per Zulu catalog. Tests retain report limits, incomplete-run
 warnings, permissions, missing-versus-null semantics and SMTP categories. Both
 targeted suites and all 21 preservation checks pass. Specialized terminology
-needs speaker review; browser execution and remaining translations are outstanding.
+needs speaker review; browser execution and remaining translations are
+outstanding.
 
 </details>
 
@@ -1606,8 +1739,10 @@ browser execution and remaining translations are outstanding.
 
 Fill 35 messages per Zulu catalog. Tests preserve variables and report caveats,
 render preview counts and check unchanged-card and no-source-write instructions.
-Both targeted suites and all 21 preservation checks pass. Specialized terminology
-needs speaker review; browser execution and remaining translations are outstanding.
+Both targeted suites and all 21 preservation checks pass. Specialized
+terminology
+needs speaker review; browser execution and remaining translations are
+outstanding.
 
 </details>
 
@@ -1617,7 +1752,8 @@ needs speaker review; browser execution and remaining translations are outstandi
 Fill 50 messages per Zulu catalog. Tests preserve summary variables and check
 unknown estimates, partial reports, rollover and cancellation behavior. Both
 targeted suites and all 21 preservation checks pass. Specialized terminology
-needs speaker review; browser execution and remaining translations are outstanding.
+needs speaker review; browser execution and remaining translations are
+outstanding.
 
 </details>
 
@@ -1626,8 +1762,10 @@ needs speaker review; browser execution and remaining translations are outstandi
 
 Fill 38 application messages per Zulu catalog. Tests preserve brace variables,
 URL examples, permissions, conflict instructions and sprint-action distinctions.
-Both targeted suites and all 21 preservation checks pass. Specialized terminology
-needs speaker review; browser execution and remaining translations are outstanding.
+Both targeted suites and all 21 preservation checks pass. Specialized
+terminology
+needs speaker review; browser execution and remaining translations are
+outstanding.
 
 </details>
 
@@ -1636,15 +1774,18 @@ needs speaker review; browser execution and remaining translations are outstandi
 
 Fill 27 mathematical messages per Zulu catalog. Tests preserve function symbols,
 coordinate variables, statistical distinctions, logarithm base and angle units.
-Both targeted suites and all 21 preservation checks pass. Specialized terminology
-needs speaker review; browser execution and remaining translations are outstanding.
+Both targeted suites and all 21 preservation checks pass. Specialized
+terminology
+needs speaker review; browser execution and remaining translations are
+outstanding.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1fcaf906cf">Translate Zulu number properties and powers</a>. Thanks to xet7.</summary>
 
-Fill 26 mathematical strings per Zulu catalog, preserving constants and formulas.
+Fill 26 mathematical strings per Zulu catalog, preserving constants and
+formulas.
 Tests cover parity, rounding directions and sign distinctions. Both targeted
 suites and all 21 preservation checks pass. Specialized terminology needs
 speaker review; browser execution and remaining translations are outstanding.
@@ -1655,9 +1796,12 @@ speaker review; browser execution and remaining translations are outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/e471744e18">Translate Zulu keyboard navigation and screen-reader messages</a>. Thanks to xet7.</summary>
 
 Fill 50 messages per Zulu catalog, preserving shortcut variables. Tests cover
-rendered shortcuts, movement directions, cancel/finish and screen-reader toggles.
-Both targeted suites and all 21 preservation checks pass. Specialized terminology
-needs speaker review; browser execution and remaining translations are outstanding.
+rendered shortcuts, movement directions, cancel/finish and screen-reader
+toggles.
+Both targeted suites and all 21 preservation checks pass. Specialized
+terminology
+needs speaker review; browser execution and remaining translations are
+outstanding.
 
 </details>
 
@@ -1674,8 +1818,10 @@ speaker review; browser execution and remaining translations are outstanding.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/abe868f48b">Translate Zulu variable and workspace messages</a>. Thanks to xet7.</summary>
 
-Fill 58 strings per Zulu catalog. Preserve variables, shortcuts and joined-phrase
-spacing. Tests render variable conflicts and workspace counts and check consistent
+Fill 58 strings per Zulu catalog. Preserve variables, shortcuts and
+joined-phrase
+spacing. Tests render variable conflicts and workspace counts and check
+consistent
 conditional labels. Both targeted suites and all 21 preservation checks pass.
 Specialized terminology needs speaker review; browser execution and remaining
 translations are outstanding.
@@ -1696,8 +1842,10 @@ are outstanding.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ca55854277">Translate Zulu Blockly procedure controls</a>. Thanks to xet7.</summary>
 
-Translate 24 strings per Zulu catalog. Check function output, disabled definitions,
-function-only restrictions and rendered variables. The preceding broad run passed
+Translate 24 strings per Zulu catalog. Check function output, disabled
+definitions,
+function-only restrictions and rendered variables. The preceding broad run
+passed
 333 suites; both targeted suites and all 21 preservation checks pass after this
 batch. Refresh the TODO backlog counts. Specialized terms need speaker review;
 browser execution and the remaining translations are outstanding.
@@ -1744,7 +1892,8 @@ Fill 52 English strings in each of zu and zu-ZA, preserving variables and LDAP
 setting names. Regression checks cover rendered substitutions, permission and
 loop restrictions, and RGB bounds. Both targeted suites and all 21 preservation
 checks pass. Specialized programming terminology is low confidence and needs
-speaker review; browser execution and the remaining translations are outstanding.
+speaker review; browser execution and the remaining translations are
+outstanding.
 
 </details>
 
@@ -1754,7 +1903,8 @@ speaker review; browser execution and the remaining translations are outstanding
 Translate all 21 newer import instructions, preserving commands, column names,
 extensions, hierarchy markers and variables. Regression checks cover excluded
 data, first-board selection, completion dates and task hierarchy. Import and
-whole-catalog placeholder suites and all 21 preservation checks pass. The current
+whole-catalog placeholder suites and all 21 preservation checks pass. The
+current
 Albanian fill list is empty; language auditing, browser review and the wider
 translation backlog remain outstanding.
 
@@ -1786,9 +1936,12 @@ Remaining translations, language auditing and browser review are outstanding.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1c1e84323f">Translate first Afrikaans import instruction group</a>. Thanks to xet7.</summary>
 
-Translate eight instructions while preserving commands, extensions and variables.
-Regression checks cover completion, archives, first-board selection and swimlanes.
-The broad run after Galician corrections passed all 333 translation-related suites;
+Translate eight instructions while preserving commands, extensions and
+variables.
+Regression checks cover completion, archives, first-board selection and
+swimlanes.
+The broad run after Galician corrections passed all 333 translation-related
+suites;
 import and whole-catalog placeholder checks pass after this Afrikaans batch.
 Preservation checks pass. Remaining translations, language auditing and browser
 review are outstanding.
@@ -1799,7 +1952,8 @@ review are outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/35a643cb6e">Translate Galician interrupted-import and history recovery</a>. Thanks to xet7.</summary>
 
 Translate 68 values across two catalogs for interrupted imports, Scrum history
-recovery and server-only login settings. Preserve counters and reference variables.
+recovery and server-only login settings. Preserve counters and reference
+variables.
 Regression checks cover permanent deletion, non-destructive keep, foreign-board
 preservation, conflict blocking and rollback restrictions. Both relevant suites
 and all 21 preservation checks pass. Both current fill lists are empty; language
@@ -1811,9 +1965,12 @@ auditing, browser review and the wider translation backlog remain outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/19b1c2d879">Translate Galician synchronization recovery</a>. Thanks to xet7.</summary>
 
 Translate 42 values across two catalogs for stalled-sync explanations, reasons,
-counters and controls. Preserve exact variables. Regression checks cover retained
-applied changes, unwritten pending changes, access loss and discard restrictions.
-Both relevant suites and all 21 preservation checks pass. Remaining translations,
+counters and controls. Preserve exact variables. Regression checks cover
+retained
+applied changes, unwritten pending changes, access loss and discard
+restrictions.
+Both relevant suites and all 21 preservation checks pass. Remaining
+translations,
 language auditing and browser review are outstanding.
 
 </details>
@@ -1822,7 +1979,8 @@ language auditing and browser review are outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/2e922f7828">Translate Galician planning results</a>. Thanks to xet7.</summary>
 
 Translate 34 values across two catalogs for Scrum import results, reference
-warnings, planning synchronization and the stalled-sync heading. Preserve counters
+warnings, planning synchronization and the stalled-sync heading. Preserve
+counters
 and reference variables. Regression checks cover invalid JSON, unchanged cards,
 source matching and first-sync behavior. Both relevant suites and all 21
 preservation checks pass. Remaining translations, language auditing and browser
@@ -1846,8 +2004,10 @@ auditing and browser review are outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/f28e0ee74d">Translate remaining Galician import instructions</a>. Thanks to xet7.</summary>
 
 Translate 14 values across two catalogs for Quire, Wrike, Teamwork.com,
-Businessmap, Redmine, Notion and Plane, completing the newer group of 21 imports.
-Preserve commands, columns, extensions, hierarchy markers and variables. Regression
+Businessmap, Redmine, Notion and Plane, completing the newer group of 21
+imports.
+Preserve commands, columns, extensions, hierarchy markers and variables.
+Regression
 checks cover excluded data, English headers and task hierarchy. Three relevant
 suites and all 21 preservation checks pass. Remaining translations, language
 auditing and browser review are outstanding.
@@ -1857,10 +2017,14 @@ auditing and browser review are outstanding.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/37efcb8f8b">Translate six further Galician import instructions</a>. Thanks to xet7.</summary>
 
-Translate 12 values across two catalogs for Pivotal Tracker, Tasks.org, monday.com,
-Super Productivity, Taiga and Vikunja. Preserve commands, extensions and variables.
-Regression checks cover excluded attachments, completion dates, comments, archives
-and sprints. Three relevant suites and all 21 preservation checks pass. Remaining
+Translate 12 values across two catalogs for Pivotal Tracker, Tasks.org,
+monday.com,
+Super Productivity, Taiga and Vikunja. Preserve commands, extensions and
+variables.
+Regression checks cover excluded attachments, completion dates, comments,
+archives
+and sprints. Three relevant suites and all 21 preservation checks pass.
+Remaining
 translations, language auditing and browser review are outstanding.
 
 </details>
@@ -1868,10 +2032,13 @@ translations, language auditing and browser review are outstanding.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/877eca8186">Correct shared mixed-language Galician terminology</a>. Thanks to xet7.</summary>
 
-Correct 106 values across both Galician catalogs for activity, Home, card actions,
-Trello, automation and loading. Record audited corrections and preserve variables.
+Correct 106 values across both Galician catalogs for activity, Home, card
+actions,
+Trello, automation and loading. Record audited corrections and preserve
+variables.
 Restore the single-board Home limit and remove an unsupported loading-default
-claim. Three relevant suites and all 21 preservation checks pass. Further language
+claim. Three relevant suites and all 21 preservation checks pass. Further
+language
 auditing, remaining translations and browser review are outstanding.
 
 </details>
@@ -1892,10 +2059,12 @@ and browser review are outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/dd6bd0df11">Correct Portuguese labels in the Galician regional catalog</a>. Thanks to xet7.</summary>
 
 Replace 33 Portuguese labels and messages with reviewed Galician wording for
-board and card controls, archives, exports and password reset. Record each change
+board and card controls, archives, exports and password reset. Record each
+change
 in the audited correction ledger. Regression checks reject Portuguese wording
 and preserve exact variables. Three relevant suites and all 21 preservation
-checks pass. Further language corrections, translations and browser review remain
+checks pass. Further language corrections, translations and browser review
+remain
 outstanding.
 
 </details>
@@ -1919,7 +2088,8 @@ Translate 84 values across three catalogs for interrupted-import results, Scrum
 history recovery and server-only login settings. Preserve counters, references
 and regional wording. Regression checks cover keep and discard warnings,
 foreign-board preservation, conflict blocking and rollback restrictions. Four
-relevant suites and all 21 preservation checks pass. All three current fill lists
+relevant suites and all 21 preservation checks pass. All three current fill
+lists
 are empty; browser review and the wider translation backlog remain outstanding.
 
 </details>
@@ -1929,8 +2099,10 @@ are empty; browser review and the wider translation backlog remain outstanding.
 
 Translate 66 values across three catalogs for stalled-sync reasons and controls
 and the interrupted-import explanation. Preserve variables and regional wording.
-Regression checks cover access and discard restrictions, retained applied changes,
-unwritten pending changes and deletion of partial boards including later additions.
+Regression checks cover access and discard restrictions, retained applied
+changes,
+unwritten pending changes and deletion of partial boards including later
+additions.
 Four relevant suites and all 21 preservation checks pass. Browser review and the
 wider translation backlog remain outstanding.
 
@@ -1943,7 +2115,8 @@ Translate 60 values across three catalogs for Scrum import results, reference
 warnings, planning synchronization and initial stalled-sync recovery text.
 Preserve counters and reference variables. Regression checks cover matching,
 unchanged cards, first-sync behavior and applied versus pending changes. Four
-relevant suites and all 21 preservation checks pass. Browser review and the wider
+relevant suites and all 21 preservation checks pass. Browser review and the
+wider
 translation backlog remain outstanding.
 
 </details>
@@ -1965,9 +2138,12 @@ translation backlog remain outstanding.
 
 Translate OPML, Org mode and Todoist instructions in three catalogs, replacing
 nine English values. Preserve format keywords, commands, variables, label syntax
-and priority identifiers. Regression checks cover completion, hierarchy, subtasks
-and note-to-comment mapping. Import and placeholder suites and all 21 preservation
-checks pass. Browser review and the wider translation backlog remain outstanding.
+and priority identifiers. Regression checks cover completion, hierarchy,
+subtasks
+and note-to-comment mapping. Import and placeholder suites and all 21
+preservation
+checks pass. Browser review and the wider translation backlog remain
+outstanding.
 
 </details>
 
@@ -1978,7 +2154,8 @@ Translate the remaining 13 instructions in three catalogs, replacing 39 English
 values and completing this group of 21. Preserve commands, column names,
 extensions, hierarchy markers, variables and regional wording. Regression checks
 cover excluded data, English headers, task hierarchy and archives. Import and
-placeholder suites and all 21 preservation checks pass. Older import instructions,
+placeholder suites and all 21 preservation checks pass. Older import
+instructions,
 browser review and the wider translation backlog remain outstanding.
 
 </details>
@@ -1990,7 +2167,8 @@ Translate eight instructions in three catalogs, replacing 24 English values.
 Preserve commands, extensions, variables and regional wording. Regression checks
 cover first-board selection, completion dates, archives and swimlane mappings.
 Import and placeholder suites and all 21 preservation checks pass. Remaining
-instructions, browser review and the wider translation backlog remain outstanding.
+instructions, browser review and the wider translation backlog remain
+outstanding.
 
 </details>
 
@@ -1999,7 +2177,8 @@ instructions, browser review and the wider translation backlog remain outstandin
 
 Translate the remaining 13 instructions across four Russian locale paths,
 replacing 39 stored English values and completing this group of 21. Preserve the
-shared alias, commands, column names, extensions, hierarchy markers and variables.
+shared alias, commands, column names, extensions, hierarchy markers and
+variables.
 Regression checks cover excluded data, English headers, task hierarchy and
 archives. Import and placeholder suites and all 21 preservation checks pass.
 Browser review and the wider translation backlog remain outstanding.
@@ -2010,7 +2189,8 @@ Browser review and the wider translation backlog remain outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/dd9084b716">Translate first Russian import instruction group</a>. Thanks to xet7.</summary>
 
 Translate eight instructions across four Russian locale paths, replacing 24
-stored English values and preserving the shared catalog alias. Preserve commands,
+stored English values and preserving the shared catalog alias. Preserve
+commands,
 extensions and variables. Regression checks cover first-board selection,
 completion dates, archives and swimlane mappings. Import and placeholder suites
 and all 21 preservation checks pass. Remaining instructions, browser review and
@@ -2022,7 +2202,8 @@ the wider translation backlog remain outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/dee430763a">Fill Ukrainian regional planning and recovery translations</a>. Thanks to xet7.</summary>
 
 Fill 94 English regional values using reviewed Ukrainian translations for board
-settings, automation, LDAP, Scrum planning and recovery. Preserve existing regional
+settings, automation, LDAP, Scrum planning and recovery. Preserve existing
+regional
 translations, variables, configuration names and link-rule examples. Regional
 regression checks cover recovery consequences and restrictions. Four relevant
 suites and all 21 preservation checks pass. Browser review and the wider
@@ -2034,7 +2215,8 @@ translation backlog remain outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/d2e49f8871">Translate Ukrainian regional outline import instructions</a>. Thanks to xet7.</summary>
 
 Fill the remaining OPML, Org mode and Todoist instructions in uk-UA using the
-existing Ukrainian translations, preserving commands, variables and format names.
+existing Ukrainian translations, preserving commands, variables and format
+names.
 Regression checks cover hierarchy, completion and note-to-comment mappings.
 All 333 translation-related suites pass in 128 seconds, and all 21 preservation
 checks pass. Both Ukrainian catalogs have no exact English import instructions;
@@ -2069,7 +2251,8 @@ remain outstanding.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4d82b3b812">Translate Lithuanian import instructions</a>. Thanks to xet7.</summary>
 
-Translate all 21 Lithuanian instructions in this import group. Preserve commands,
+Translate all 21 Lithuanian instructions in this import group. Preserve
+commands,
 column names, extensions, hierarchy markers and variables. Regression checks
 cover first-board selection, completed-task dates, archives, swimlane mappings,
 excluded data, English headers and task hierarchy. Import-instruction and
@@ -2107,7 +2290,8 @@ wider translation backlog remain outstanding.
 
 Translate the remaining 13 Bosnian import instructions, completing all 21 in
 this group. Preserve commands, column names, extensions, hierarchy markers and
-variables. Regression checks cover excluded data, English headers, task hierarchy
+variables. Regression checks cover excluded data, English headers, task
+hierarchy
 and archived tasks. Import-instruction and placeholder suites and all 21
 translation-preservation checks pass. Browser review and the wider translation
 backlog remain outstanding.
@@ -2131,7 +2315,8 @@ translation backlog remain outstanding.
 Translate the remaining 13 Serbian instructions in Cyrillic, completing all 21
 import instructions there. Preserve commands, columns, variables and import
 limitations. Regression checks cover excluded data, English headers, hierarchy
-and archived tasks. Translation, placeholder and preservation checks pass; browser
+and archived tasks. Translation, placeholder and preservation checks pass;
+browser
 review and the wider translation backlog remain outstanding.
 
 </details>
@@ -2140,7 +2325,8 @@ review and the wider translation backlog remain outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/d5307ed5d7">Translate first Serbian import instructions</a>. Thanks to xet7.</summary>
 
 Translate eight Serbian import instructions in Cyrillic, preserving commands,
-extensions and variables. Regression checks cover first-board selection, completion
+extensions and variables. Regression checks cover first-board selection,
+completion
 dates, archived cards and swimlane mappings. Translation, placeholder and
 preservation checks pass; remaining Serbian instructions, browser review and the
 wider translation backlog remain outstanding.
@@ -2150,10 +2336,12 @@ wider translation backlog remain outstanding.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5402befdc6">Translate remaining Slovenian import instructions</a>. Thanks to xet7.</summary>
 
-Translate the remaining 13 instructions in both Slovenian catalogs, completing all
+Translate the remaining 13 instructions in both Slovenian catalogs, completing
+all
 21 import instructions there. Preserve commands, columns, variables and import
 limitations. Regression checks cover excluded data, English headers, hierarchy
-and archived tasks. Translation, placeholder and preservation checks pass; browser
+and archived tasks. Translation, placeholder and preservation checks pass;
+browser
 review and the wider translation backlog remain outstanding.
 
 </details>
@@ -2162,9 +2350,11 @@ review and the wider translation backlog remain outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/bafb8ec764">Translate first Slovenian import instructions</a>. Thanks to xet7.</summary>
 
 Translate eight import instructions in both Slovenian catalogs, preserving
-commands, extensions and variables. Regression checks cover first-board selection,
+commands, extensions and variables. Regression checks cover first-board
+selection,
 completion dates, archived cards and swimlane mappings. Translation, placeholder
-and preservation checks pass; remaining Slovenian instructions, browser review and
+and preservation checks pass; remaining Slovenian instructions, browser review
+and
 the wider translation backlog remain outstanding.
 
 </details>
@@ -2172,9 +2362,12 @@ the wider translation backlog remain outstanding.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8484038c8c">Translate Croatian import instructions</a>. Thanks to xet7.</summary>
 
-Translate 21 Croatian import instructions, preserving commands, columns, variables
-and import limitations. Regression checks cover first-board selection, completion
-dates, excluded data, English headers, hierarchy and archived cards. Focused checks
+Translate 21 Croatian import instructions, preserving commands, columns,
+variables
+and import limitations. Regression checks cover first-board selection,
+completion
+dates, excluded data, English headers, hierarchy and archived cards. Focused
+checks
 and the broader selection of 333 translation suites pass. The refreshed audit
 records the remaining translation backlog; browser review remains outstanding.
 
@@ -2184,9 +2377,11 @@ records the remaining translation backlog; browser review remains outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/f92c673b11">Translate remaining Bulgarian import instructions</a>. Thanks to xet7.</summary>
 
 Translate the remaining 13 Bulgarian instructions, completing all 21 import
-instructions there. Preserve commands, columns, variables and import limitations.
+instructions there. Preserve commands, columns, variables and import
+limitations.
 Regression checks cover excluded data, English headers, hierarchy and archived
-tasks. Translation, placeholder, completion and preservation checks pass; browser
+tasks. Translation, placeholder, completion and preservation checks pass;
+browser
 review and the wider translation backlog remain outstanding.
 
 </details>
@@ -2194,10 +2389,12 @@ review and the wider translation backlog remain outstanding.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/28c73fbedd">Translate first Bulgarian import instructions</a>. Thanks to xet7.</summary>
 
-Translate eight Bulgarian import instructions, preserving commands, extensions and
+Translate eight Bulgarian import instructions, preserving commands, extensions
+and
 variables. Regression checks cover first-board selection, completion dates,
 archived cards and swimlane mappings. Translation, placeholder, completion and
-preservation checks pass; remaining Bulgarian instructions, browser review and the
+preservation checks pass; remaining Bulgarian instructions, browser review and
+the
 wider translation backlog remain outstanding.
 
 </details>
@@ -2206,9 +2403,12 @@ wider translation backlog remain outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/a0310aaa4b">Translate remaining Vietnamese import instructions</a>. Thanks to xet7.</summary>
 
 Translate the remaining 13 instructions in both Vietnamese catalogs, completing
-all 21 import instructions there. Preserve commands, columns, variables and import
-limitations. Regression checks cover excluded data, English headers, hierarchy and
-archived tasks. Translation, placeholder, completion and preservation checks pass;
+all 21 import instructions there. Preserve commands, columns, variables and
+import
+limitations. Regression checks cover excluded data, English headers, hierarchy
+and
+archived tasks. Translation, placeholder, completion and preservation checks
+pass;
 browser review and the wider translation backlog remain outstanding.
 
 </details>
@@ -2217,8 +2417,10 @@ browser review and the wider translation backlog remain outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/9331c78da8">Translate first Vietnamese import instructions</a>. Thanks to xet7.</summary>
 
 Translate eight instructions in both Vietnamese catalogs, preserving commands,
-extensions and variables. Regression checks cover first-board selection, completion
-dates, archived cards and swimlane mappings. Translation, placeholder, completion
+extensions and variables. Regression checks cover first-board selection,
+completion
+dates, archived cards and swimlane mappings. Translation, placeholder,
+completion
 and preservation checks pass; remaining Vietnamese instructions, browser review
 and the wider translation backlog remain outstanding.
 
@@ -2230,7 +2432,8 @@ and the wider translation backlog remain outstanding.
 Translate the remaining 13 instructions in both Malay catalogs, completing all
 21 import instructions there. Preserve commands, columns, variables and import
 limitations. Regression checks cover excluded data, English headers, hierarchy
-and archived tasks. Translation, placeholder and preservation checks pass; browser
+and archived tasks. Translation, placeholder and preservation checks pass;
+browser
 review and the wider translation backlog remain outstanding.
 
 </details>
@@ -2239,7 +2442,8 @@ review and the wider translation backlog remain outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/bebeec9b39">Translate first Malay import instructions</a>. Thanks to xet7.</summary>
 
 Translate eight import instructions in both Malay catalogs, preserving commands,
-extensions and variables. Regression checks cover first-board selection, completion
+extensions and variables. Regression checks cover first-board selection,
+completion
 dates, archived cards and swimlane mappings. Translation, placeholder and
 preservation checks pass; remaining Malay instructions, browser review and the
 wider translation backlog remain outstanding.
@@ -2250,7 +2454,8 @@ wider translation backlog remain outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/42d5d92611">Translate remaining Indonesian import instructions</a>. Thanks to xet7.</summary>
 
 Translate the remaining 13 Indonesian instructions, completing all 21 import
-instructions there. Preserve commands, columns, variables and import limitations.
+instructions there. Preserve commands, columns, variables and import
+limitations.
 Regression checks cover excluded data, English headers, hierarchy and archived
 tasks. Translation, placeholder and preservation checks pass; browser review and
 the wider translation backlog remain outstanding.
@@ -2274,7 +2479,8 @@ translation backlog remain outstanding.
 Translate the remaining 13 instructions in both Korean catalogs, completing all
 21 import instructions there. Preserve commands, columns, variables and import
 limitations. Regression checks cover excluded data, English headers, hierarchy
-and archived tasks. Translation, placeholder and preservation checks pass; browser
+and archived tasks. Translation, placeholder and preservation checks pass;
+browser
 review and the wider translation backlog remain outstanding.
 
 </details>
@@ -2282,8 +2488,10 @@ review and the wider translation backlog remain outstanding.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8673bef810">Translate first Korean import instructions</a>. Thanks to xet7.</summary>
 
-Translate eight import instructions in both Korean catalogs, preserving commands,
-extensions and variables. Regression checks cover first-board selection, completion
+Translate eight import instructions in both Korean catalogs, preserving
+commands,
+extensions and variables. Regression checks cover first-board selection,
+completion
 dates, archived cards and swimlane mappings. Translation, placeholder and
 preservation checks pass; remaining Korean instructions, browser review and the
 wider translation backlog remain outstanding.
@@ -2294,8 +2502,10 @@ wider translation backlog remain outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/7ca8c0f12d">Translate remaining Hiragana import instructions</a>. Thanks to xet7.</summary>
 
 Translate the remaining 13 instructions in ja-HI, completing all 21 import
-instructions there. Preserve commands, columns, variables and import limitations.
-Regression checks enforce Hiragana prose and cover excluded data, English headers,
+instructions there. Preserve commands, columns, variables and import
+limitations.
+Regression checks enforce Hiragana prose and cover excluded data, English
+headers,
 hierarchy and archived tasks. Translation, placeholder and preservation checks
 pass; browser review and the wider translation backlog remain outstanding.
 
@@ -2307,7 +2517,8 @@ pass; browser review and the wider translation backlog remain outstanding.
 Translate eight instructions in ja-HI, preserving commands, extensions and
 variables. Regression checks enforce Hiragana prose and cover first-board
 selection, completion dates and archived cards. Translation, placeholder and
-preservation checks pass; remaining Hiragana instructions, browser review and the
+preservation checks pass; remaining Hiragana instructions, browser review and
+the
 wider translation backlog remain outstanding.
 
 </details>
@@ -2315,8 +2526,10 @@ wider translation backlog remain outstanding.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/80b30b3b13">Translate remaining Japanese import instructions</a>. Thanks to xet7.</summary>
 
-Translate the remaining 13 instructions in ja and ja-JP, completing all 21 import
-instructions there. Preserve commands, columns, variables and import limitations.
+Translate the remaining 13 instructions in ja and ja-JP, completing all 21
+import
+instructions there. Preserve commands, columns, variables and import
+limitations.
 Regression checks cover excluded data, English headers, hierarchy and archived
 tasks. Translation, placeholder and preservation checks pass; Hiragana wording,
 browser review and the wider translation backlog remain outstanding.
@@ -2326,10 +2539,12 @@ browser review and the wider translation backlog remain outstanding.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1c2bbe874c">Translate first Japanese import instructions</a>. Thanks to xet7.</summary>
 
-Translate eight instructions in ja and ja-JP, preserving commands, extensions and
+Translate eight instructions in ja and ja-JP, preserving commands, extensions
+and
 variables. Regression checks cover first-board selection, completion dates,
 archived cards and swimlane mappings. Translation, placeholder and preservation
-checks pass; remaining Japanese instructions, Hiragana wording, browser review and
+checks pass; remaining Japanese instructions, Hiragana wording, browser review
+and
 the wider translation backlog remain outstanding.
 
 </details>
@@ -2337,10 +2552,12 @@ the wider translation backlog remain outstanding.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c09588c385">Translate remaining Greek import instructions</a>. Thanks to xet7.</summary>
 
-Translate the remaining 13 import instructions in both Greek catalogs, completing
+Translate the remaining 13 import instructions in both Greek catalogs,
+completing
 all 21 instructions there. Preserve commands, columns, variables and import
 limitations. Regression checks cover excluded data, English headers, hierarchy
-and archived tasks. Translation, placeholder and preservation checks pass; browser
+and archived tasks. Translation, placeholder and preservation checks pass;
+browser
 review and the wider translation backlog remain outstanding.
 
 </details>
@@ -2349,7 +2566,8 @@ review and the wider translation backlog remain outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/49e95666ee">Translate first Greek import instructions</a>. Thanks to xet7.</summary>
 
 Translate eight import instructions in both Greek catalogs, preserving commands,
-extensions and variables. Regression checks cover first-board selection, completion
+extensions and variables. Regression checks cover first-board selection,
+completion
 dates, archived cards and swimlane mappings. Translation, placeholder and
 preservation checks pass; remaining Greek instructions, browser review and the
 wider translation backlog remain outstanding.
@@ -2361,8 +2579,10 @@ wider translation backlog remain outstanding.
 
 Translate 21 Turkish import instructions, preserving commands, column names,
 variables and import limitations. Regression checks cover first-board selection,
-excluded data, English headers, completion dates and archived tasks. Translation,
-placeholder and preservation checks pass; browser review and the wider translation
+excluded data, English headers, completion dates and archived tasks.
+Translation,
+placeholder and preservation checks pass; browser review and the wider
+translation
 backlog remain outstanding.
 
 </details>
@@ -2372,8 +2592,10 @@ backlog remain outstanding.
 
 Translate 21 Hungarian import instructions, preserving commands, column names,
 variables and import limitations. Regression checks cover first-board selection,
-excluded data, English headers, completion dates and archived tasks. Translation,
-placeholder and preservation checks pass; browser review and the wider translation
+excluded data, English headers, completion dates and archived tasks.
+Translation,
+placeholder and preservation checks pass; browser review and the wider
+translation
 backlog remain outstanding.
 
 </details>
@@ -2382,7 +2604,8 @@ backlog remain outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/617e347ebe">Translate Romanian import instructions</a>. Thanks to xet7.</summary>
 
 Translate 21 import instructions in both Romanian catalogs, preserving commands,
-column names, variables and import limitations. Regression checks cover first-board
+column names, variables and import limitations. Regression checks cover
+first-board
 selection, excluded data, English headers, completion dates and archived tasks.
 Translation, placeholder and preservation checks pass; browser review and the
 wider translation backlog remain outstanding.
@@ -2394,8 +2617,10 @@ wider translation backlog remain outstanding.
 
 Translate 21 Slovak import instructions, preserving commands, column names,
 variables and import limitations. Regression checks cover first-board selection,
-excluded data, English headers, completion dates and archived tasks. Translation,
-placeholder and preservation checks pass; browser review and the wider translation
+excluded data, English headers, completion dates and archived tasks.
+Translation,
+placeholder and preservation checks pass; browser review and the wider
+translation
 backlog remain outstanding.
 
 </details>
@@ -2404,7 +2629,8 @@ backlog remain outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/e71fa762a1">Translate Czech import instructions</a>. Thanks to xet7.</summary>
 
 Translate 21 import instructions in both Czech catalogs, preserving commands,
-column names, variables and import limitations. Regression checks cover first-board
+column names, variables and import limitations. Regression checks cover
+first-board
 selection, excluded data, English headers, completion dates and archived tasks.
 Translation, placeholder and preservation checks pass; browser review and the
 wider translation backlog remain outstanding.
@@ -2415,7 +2641,8 @@ wider translation backlog remain outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/5256aa752d">Translate Polish import instructions</a>. Thanks to xet7.</summary>
 
 Translate 21 import instructions in both Polish catalogs, preserving commands,
-column names, variables and import limitations. Regression checks cover first-board
+column names, variables and import limitations. Regression checks cover
+first-board
 selection, excluded data, English headers, completion dates and archived tasks.
 Translation, placeholder and preservation checks pass; browser review and the
 wider translation backlog remain outstanding.
@@ -2426,7 +2653,8 @@ wider translation backlog remain outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/f308b39b22">Translate Norwegian Bokmål import instructions</a>. Thanks to xet7.</summary>
 
 Translate 21 Norwegian Bokmål import instructions, preserving literal commands,
-column names, variables and import limitations. Regression checks cover first-board
+column names, variables and import limitations. Regression checks cover
+first-board
 selection, excluded data, English headers, completion dates and archived tasks.
 Translation, placeholder and preservation checks pass; browser review and the
 wider translation backlog remain outstanding.
@@ -2436,10 +2664,13 @@ wider translation backlog remain outstanding.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/62761d0b72">Translate Danish import instructions</a>. Thanks to xet7.</summary>
 
-Translate 21 Danish import instructions, preserving literal commands, column names,
+Translate 21 Danish import instructions, preserving literal commands, column
+names,
 variables and import limitations. Regression checks cover first-board selection,
-excluded data, English headers, completion dates and archived tasks. Translation,
-placeholder and preservation checks pass; browser review and the wider translation
+excluded data, English headers, completion dates and archived tasks.
+Translation,
+placeholder and preservation checks pass; browser review and the wider
+translation
 backlog remain outstanding.
 
 </details>
@@ -2447,10 +2678,13 @@ backlog remain outstanding.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c701c44abf">Translate Swedish import instructions</a>. Thanks to xet7.</summary>
 
-Translate 21 Swedish import instructions while preserving commands, column names,
+Translate 21 Swedish import instructions while preserving commands, column
+names,
 variables and import limitations. Regression checks cover first-board selection,
-excluded data, English headers, completion dates and archived tasks. Translation,
-placeholder and preservation checks pass; browser review and the wider translation
+excluded data, English headers, completion dates and archived tasks.
+Translation,
+placeholder and preservation checks pass; browser review and the wider
+translation
 backlog remain outstanding.
 
 </details>
@@ -2460,8 +2694,10 @@ backlog remain outstanding.
 
 Translate 21 import instructions in both Dutch catalogs, preserving literal
 commands, variables, column names and import limitations. Regression coverage
-checks first-board selection, excluded data, English headers, completed-task dates
-and archived tasks. Translation, placeholder and preservation checks pass; browser
+checks first-board selection, excluded data, English headers, completed-task
+dates
+and archived tasks. Translation, placeholder and preservation checks pass;
+browser
 review and the wider translation backlog remain outstanding.
 
 </details>
@@ -2480,10 +2716,12 @@ outstanding.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a846a7961f">Finish import instructions in four Portuguese catalogs</a>. Thanks to xet7.</summary>
 
-Translate 52 more values, completing all 21 import instructions in these catalogs.
+Translate 52 more values, completing all 21 import instructions in these
+catalogs.
 Preserve regional terms, commands, columns, extensions and hierarchy markers;
 check excluded data, English headers and archived tasks. Import-instruction and
-placeholder suites and all 21 preservation checks pass. The wider backlog remains unfinished.
+placeholder suites and all 21 preservation checks pass. The wider backlog
+remains unfinished.
 
 </details>
 
@@ -2493,37 +2731,49 @@ placeholder suites and all 21 preservation checks pass. The wider backlog remain
 Fill 32 values with regional terminology and preserved commands, extensions and
 variables. Check first-board selection, completion dates and archived cards.
 Import-instruction and placeholder suites and all 21 preservation checks pass.
-The remaining Portuguese instructions and wider translation backlog remain unfinished.
+The remaining Portuguese instructions and wider translation backlog remain
+unfinished.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/771127e70b">Finish import instructions in nine Spanish catalogs</a>. Thanks to xet7.</summary>
 
-Translate 117 more values, completing all 21 import instructions in these catalogs.
-Preserve commands, columns, extensions and hierarchy markers; check excluded data,
-English header requirements and archived tasks. Import-instruction and placeholder
-suites and all 21 preservation checks pass. The wider translation backlog remains unfinished.
+Translate 117 more values, completing all 21 import instructions in these
+catalogs.
+Preserve commands, columns, extensions and hierarchy markers; check excluded
+data,
+English header requirements and archived tasks. Import-instruction and
+placeholder
+suites and all 21 preservation checks pass. The wider translation backlog
+remains unfinished.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6de5319b8b">Translate eight import instructions in nine Spanish catalogs</a>. Thanks to xet7.</summary>
 
-Fill 72 values with preserved commands, extensions and variables. Regression checks
-cover first-board selection, completion dates, archived cards and import mappings.
+Fill 72 values with preserved commands, extensions and variables. Regression
+checks
+cover first-board selection, completion dates, archived cards and import
+mappings.
 Import-instruction and placeholder suites and all 21 preservation checks pass.
-The remaining Spanish instructions and wider translation backlog remain unfinished.
+The remaining Spanish instructions and wider translation backlog remain
+unfinished.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7d52e278f3">Finish import instructions in five French catalogs</a>. Thanks to xet7.</summary>
 
-Translate 65 more values, completing all 21 import instructions in these catalogs.
-Preserve commands, columns, extensions and hierarchy markers; check excluded data,
-English header requirements and archived tasks. Import-instruction and placeholder
-suites and all 21 preservation checks pass. The wider translation backlog remains unfinished.
+Translate 65 more values, completing all 21 import instructions in these
+catalogs.
+Preserve commands, columns, extensions and hierarchy markers; check excluded
+data,
+English header requirements and archived tasks. Import-instruction and
+placeholder
+suites and all 21 preservation checks pass. The wider translation backlog
+remains unfinished.
 
 </details>
 
@@ -2531,19 +2781,23 @@ suites and all 21 preservation checks pass. The wider translation backlog remain
 <summary><a href="https://github.com/wekan/wekan/commit/034eea1a80">Translate eight import instructions in five French catalogs</a>. Thanks to xet7.</summary>
 
 Fill 40 values while preserving product commands, extensions and variables.
-Regression checks cover first-board selection, archived cards and completion dates.
+Regression checks cover first-board selection, archived cards and completion
+dates.
 Import-instruction and placeholder suites and all 21 preservation checks pass.
-The remaining French import instructions and wider translation backlog remain unfinished.
+The remaining French import instructions and wider translation backlog remain
+unfinished.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cafca6bf33">Translate 21 import instructions in four German catalogs</a>. Thanks to xet7.</summary>
 
-Fill 84 values while preserving product commands, extensions, columns and hierarchy
+Fill 84 values while preserving product commands, extensions, columns and
+hierarchy
 markers. Regression checks cover variables, first-board selection, archived and
 completed tasks and excluded data. Import-instruction and placeholder suites and
-all 21 preservation checks pass. The wider translation backlog remains unfinished.
+all 21 preservation checks pass. The wider translation backlog remains
+unfinished.
 
 </details>
 
@@ -2552,8 +2806,10 @@ all 21 preservation checks pass. The wider translation backlog remains unfinishe
 
 Finish the remaining English sign-in warning and discover all 234 non-English
 catalog paths in its regression test. Reject missing and empty values, and check
-exact variables, address roles, ROOT_URL and substitution. Warning and placeholder
-suites and all 21 preservation checks pass. Cherokee prose has low confidence and
+exact variables, address roles, ROOT_URL and substitution. Warning and
+placeholder
+suites and all 21 preservation checks pass. Cherokee prose has low confidence
+and
 needs native review. The wider translation backlog remains unfinished.
 
 </details>
@@ -2562,16 +2818,20 @@ needs native review. The wider translation backlog remains unfinished.
 <summary><a href="https://github.com/wekan/wekan/commit/204bb32c1d">Translate Tamazight and Inuktitut sign-in warnings</a>. Thanks to xet7.</summary>
 
 Preserve address variables and ROOT_URL, with checks for Tifinagh and Canadian
-Aboriginal syllabics. Warning coverage includes 206 paths; warning and placeholder
-suites and all 21 preservation checks pass. These translations have lower confidence
-and need native review. The Cherokee warning and wider translation backlog remain unfinished.
+Aboriginal syllabics. Warning coverage includes 206 paths; warning and
+placeholder
+suites and all 21 preservation checks pass. These translations have lower
+confidence
+and need native review. The Cherokee warning and wider translation backlog
+remain unfinished.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8fc5a2b440">Translate Tigre and Wolaytta warnings and correct three Wolaytta labels</a>. Thanks to xet7.</summary>
 
-Preserve address variables and ROOT_URL in two warnings and replace three prefixed
+Preserve address variables and ROOT_URL in two warnings and replace three
+prefixed
 English labels. Warning coverage includes 204 paths; warning, placeholder and
 correction-ledger suites and all 21 preservation checks pass. These translations
 have low confidence and need native review. Three English warning paths and the
@@ -2582,10 +2842,13 @@ wider translation backlog remain unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2d4e5fd2dc">Translate Greenlandic and Nahuatl warnings and verify translation regressions</a>. Thanks to xet7.</summary>
 
-Preserve repeated address variables and ROOT_URL in two warnings. Warning coverage
+Preserve repeated address variables and ROOT_URL in two warnings. Warning
+coverage
 includes 202 paths. All 333 selected translation-related Node suites and all 21
-preservation checks pass. These translations have lower confidence and need native
-review. Five English warning paths and the wider translation backlog remain unfinished.
+preservation checks pass. These translations have lower confidence and need
+native
+review. Five English warning paths and the wider translation backlog remain
+unfinished.
 
 </details>
 
@@ -2594,18 +2857,22 @@ review. Five English warning paths and the wider translation backlog remain unfi
 
 Preserve repeated address variables and ROOT_URL in three warnings. Warning
 coverage includes 200 catalog paths. Warning and placeholder suites and all 21
-preservation checks pass. These translations have lower confidence and need native
-review. Seven English warning paths and the wider translation backlog remain unfinished.
+preservation checks pass. These translations have lower confidence and need
+native
+review. Seven English warning paths and the wider translation backlog remain
+unfinished.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9df171db32">Translate Arabic-script Uzbek and Kashmiri warnings and correct three Uzbek labels</a>. Thanks to xet7.</summary>
 
-Preserve address variables and ROOT_URL in two warnings, and replace Latin-script
+Preserve address variables and ROOT_URL in two warnings, and replace
+Latin-script
 text in three Arabic-script Uzbek labels. Warning coverage includes 197 paths;
 warning, placeholder and correction-ledger suites and all 21 preservation checks
-pass. These translations have lower confidence and need native review. Ten English
+pass. These translations have lower confidence and need native review. Ten
+English
 warning paths and the wider translation backlog remain unfinished.
 
 </details>
@@ -2613,7 +2880,8 @@ warning paths and the wider translation backlog remain unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7acb9ad77f">Translate Tibetan, Dzongkha and Tigrinya sign-in warnings</a>. Thanks to xet7.</summary>
 
-Preserve repeated address variables and ROOT_URL in three warnings, with separate
+Preserve repeated address variables and ROOT_URL in three warnings, with
+separate
 Tibetan and Dzongkha prose. Warning coverage includes 195 catalog paths. Warning
 and placeholder suites and all 21 preservation checks pass. These translations
 have lower confidence and need native review. There are 12 English warning paths
@@ -2626,17 +2894,22 @@ and a wider unfinished translation backlog.
 
 Preserve repeated address variables and ROOT_URL in three warnings. Warning
 coverage includes 192 catalog paths. Warning and placeholder suites and all 21
-preservation checks pass. These translations have lower confidence and need native
-review. There are 15 English warning paths and a wider unfinished translation backlog.
+preservation checks pass. These translations have lower confidence and need
+native
+review. There are 15 English warning paths and a wider unfinished translation
+backlog.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1dbf7a2f2e">Translate Acehnese, Aymara, Guarani and Quechua warnings and correct five labels</a>. Thanks to xet7.</summary>
 
-Preserve repeated address variables and ROOT_URL in four warnings. Remove language
-prefixes and English text from five Aymara/Quechua labels. Warning coverage includes
-189 paths; warning, placeholder and correction-ledger suites and all 21 preservation
+Preserve repeated address variables and ROOT_URL in four warnings. Remove
+language
+prefixes and English text from five Aymara/Quechua labels. Warning coverage
+includes
+189 paths; warning, placeholder and correction-ledger suites and all 21
+preservation
 checks pass. These translations have lower confidence and need native review.
 There are 18 English warning paths and a wider unfinished translation backlog.
 
@@ -2647,8 +2920,10 @@ There are 18 English warning paths and a wider unfinished translation backlog.
 
 Preserve repeated address variables and ROOT_URL in three more warnings. Warning
 coverage includes 185 catalog paths. Warning and placeholder suites and all 21
-preservation checks pass. These translations have lower confidence and need native
-review. There are 22 English warning paths and a wider unfinished translation backlog.
+preservation checks pass. These translations have lower confidence and need
+native
+review. There are 22 English warning paths and a wider unfinished translation
+backlog.
 
 </details>
 
@@ -2657,8 +2932,10 @@ review. There are 22 English warning paths and a wider unfinished translation ba
 
 Preserve repeated address variables and ROOT_URL in four more warnings. Warning
 coverage includes 182 catalog paths. Warning and placeholder suites and all 21
-preservation checks pass. These translations have lower confidence and need native
-review. There are 25 English warning paths and a wider unfinished translation backlog.
+preservation checks pass. These translations have lower confidence and need
+native
+review. There are 25 English warning paths and a wider unfinished translation
+backlog.
 
 </details>
 
@@ -2666,9 +2943,12 @@ review. There are 25 English warning paths and a wider unfinished translation ba
 <summary><a href="https://github.com/wekan/wekan/commit/7b76269efa">Translate Flemish, Northern Sámi, Manx and Cornish sign-in warnings</a>. Thanks to xet7.</summary>
 
 Preserve address variables and ROOT_URL in four more warnings. Warning coverage
-includes 178 catalog paths. Warning and placeholder suites and all 21 preservation
-checks pass. Northern Sámi, Manx and Cornish prose has lower confidence and needs
-native review. There are 29 English warning paths and a wider unfinished translation
+includes 178 catalog paths. Warning and placeholder suites and all 21
+preservation
+checks pass. Northern Sámi, Manx and Cornish prose has lower confidence and
+needs
+native review. There are 29 English warning paths and a wider unfinished
+translation
 backlog; browser review has not been run.
 
 </details>
@@ -2680,7 +2960,8 @@ Preserve both address variables and ROOT_URL in five more warnings, using the
 registered languages of legacy locale identifiers. Warning coverage includes 174
 catalog paths and checks Hiragana script. Warning and placeholder suites and all
 21 preservation checks pass. These translations have lower confidence and need
-native review; 33 warning paths and the wider translation backlog remain unfinished.
+native review; 33 warning paths and the wider translation backlog remain
+unfinished.
 
 </details>
 
@@ -2700,7 +2981,8 @@ and the wider all-language backlog remain outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/ab218dc5ce">Translate five Pacific sign-in warnings</a>. Thanks to xet7.</summary>
 
 Add Māori, Hawaiian, Samoan, Tongan and Fijian warning translations.
-Tests now cover 164 paths, checking repeated variables, address order and ROOT_URL.
+Tests now cover 164 paths, checking repeated variables, address order and
+ROOT_URL.
 Warning and placeholder suites and all 21 preservation checks pass. Hawaiian,
 Samoan, Tongan and Fijian prose has lower confidence and needs native review.
 This warning still has 43 English paths; browser review and the wider backlog
@@ -2722,7 +3004,8 @@ key order and protection of newer translations.
 <summary><a href="https://github.com/wekan/wekan/commit/e2c52f5efd">Translate five Romance and Latin sign-in warnings</a>. Thanks to xet7.</summary>
 
 Add Friulian, Romansh, Ladin, Aromanian and Latin warning translations.
-Tests now cover 159 paths, checking repeated variables, address order and ROOT_URL.
+Tests now cover 159 paths, checking repeated variables, address order and
+ROOT_URL.
 Warning and placeholder suites and all 21 preservation checks pass. These
 translations have lower confidence and need native review. This warning still
 has 48 English catalog paths; browser review and the wider backlog remain open.
@@ -2733,7 +3016,8 @@ has 48 English catalog paths; browser review and the wider backlog remain open.
 <summary><a href="https://github.com/wekan/wekan/commit/50d9ba91ad">Translate five additional Indic sign-in warnings</a>. Thanks to xet7.</summary>
 
 Add Assamese, Odia, Maithili, Bhojpuri and Konkani warning translations.
-Tests now cover 154 paths, checking repeated variables, address order and ROOT_URL.
+Tests now cover 154 paths, checking repeated variables, address order and
+ROOT_URL.
 Warning and placeholder suites and all 21 preservation checks pass. These
 translations have lower confidence and need native review. This warning still
 has 53 English catalog paths; browser review and the wider backlog remain open.
@@ -2744,7 +3028,8 @@ has 53 English catalog paths; browser review and the wider backlog remain open.
 <summary><a href="https://github.com/wekan/wekan/commit/9ae7e40076">Translate five regional European sign-in warnings</a>. Thanks to xet7.</summary>
 
 Add Breton, Kashubian, Upper Sorbian, Silesian and Faroese warning translations.
-Tests now cover 149 paths, checking repeated variables, address order and ROOT_URL.
+Tests now cover 149 paths, checking repeated variables, address order and
+ROOT_URL.
 Warning and placeholder suites and all 21 preservation checks pass. These
 translations have lower confidence and need native review. This warning still
 has 58 English catalog paths; browser review and the wider backlog remain open.
@@ -2754,8 +3039,10 @@ has 58 English catalog paths; browser review and the wider backlog remain open.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/28c61baefc">Translate regional Romance sign-in warnings</a>. Thanks to xet7.</summary>
 
-Add Aragonese, Asturian, Sardinian, Sicilian and Neapolitan warning translations.
-Tests now cover 144 paths, checking repeated variables, address order and ROOT_URL.
+Add Aragonese, Asturian, Sardinian, Sicilian and Neapolitan warning
+translations.
+Tests now cover 144 paths, checking repeated variables, address order and
+ROOT_URL.
 Warning and placeholder suites and all 21 preservation checks pass. These
 translations have lower confidence and need native review. This warning still
 has 63 English catalog paths; browser review and the wider backlog remain open.
@@ -2767,7 +3054,8 @@ has 63 English catalog paths; browser review and the wider backlog remain open.
 
 Add Kinyarwanda, Kirundi, Chichewa, Sesotho and Setswana warning translations.
 Tests now cover 139 paths, checking repeated address variables, rendering order
-and ROOT_URL. Warning and placeholder suites and all 21 preservation checks pass.
+and ROOT_URL. Warning and placeholder suites and all 21 preservation checks
+pass.
 These translations have lower confidence and need native review. Browser review
 and the wider all-language backlog remain outstanding.
 
@@ -2822,7 +3110,8 @@ all-language backlog remain open.
 <summary><a href="https://github.com/wekan/wekan/commit/1b4347dbac">Translate the sign-in address warning in five more languages</a>. Thanks to xet7.</summary>
 
 Add Javanese, Haitian Creole, Malagasy, Somali and Hausa warning translations.
-Regression tests now check 112 catalogs for repeated address variables, rendering
+Regression tests now check 112 catalogs for repeated address variables,
+rendering
 order and ROOT_URL. Warning and placeholder suites and all 21 preservation
 checks pass. Malagasy, Somali and Hausa prose has lower confidence and needs
 native review. Browser review and the wider all-language backlog remain open.
@@ -2833,7 +3122,8 @@ native review. Browser review and the wider all-language backlog remain open.
 <summary><a href="https://github.com/wekan/wekan/commit/1c0e2b0138">Translate Celtic and western European sign-in warnings</a>. Thanks to xet7.</summary>
 
 Add ten warning translations. Regression tests now check 107 catalogs for exact
-repeated address variables, rendering order and ROOT_URL. Warning and placeholder
+repeated address variables, rendering order and ROOT_URL. Warning and
+placeholder
 suites and all 21 preservation checks pass. Regional prose has lower confidence
 and needs native review. Browser review and the wider all-language backlog
 remain outstanding.
@@ -2845,7 +3135,8 @@ remain outstanding.
 
 Add 11 warning translations in Mongolian, Kazakh, Kyrgyz, Uzbek, Azerbaijani,
 Georgian and Armenian catalogs. Regression tests now check 97 catalogs for
-repeated address variables, rendering order and ROOT_URL. Warning and placeholder
+repeated address variables, rendering order and ROOT_URL. Warning and
+placeholder
 suites and all 21 preservation checks pass. Native and browser review, the Uzbek
 Arabic-script warning and the wider all-language backlog remain outstanding.
 
@@ -2855,7 +3146,8 @@ Arabic-script warning and the wider all-language backlog remain outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/91ca8cdcb8">Translate the sign-in address warning in 15 more catalogs</a>. Thanks to xet7.</summary>
 
 Add Catalan, Valencian, Galician, Basque, Esperanto, Thai, Swahili, Tagalog,
-Mandarin/Chinese variant and Cantonese warning translations. The regression suite
+Mandarin/Chinese variant and Cantonese warning translations. The regression
+suite
 now checks 86 catalogs for repeated address variables, rendering order and the
 literal ROOT_URL key. Warning and placeholder suites and all 21 preservation
 checks pass. Native and browser review and the wider all-language backlog
@@ -2891,7 +3183,8 @@ remain outstanding.
 
 Translate the external sign-in origin mismatch warning in 26 locale catalogs.
 Preserve both occurrences of each expected and actual address variable and the
-literal ROOT_URL configuration key. Regression tests verify variable inventories,
+literal ROOT_URL configuration key. Regression tests verify variable
+inventories,
 rendering order and repeated address substitution. The targeted warning and
 placeholder suites and all 21 preservation checks pass. Native review, browser
 checks and the wider all-language backlog remain outstanding.
@@ -2915,7 +3208,8 @@ translation backlog remain outstanding.
 
 Translate 21 instructions for Quire, Wrike, Teamwork.com, Businessmap, Redmine,
 Notion and Plane. Preserve commands, column names, hierarchy markers, file
-extensions and warnings about omitted data. All three failures from the 332-suite
+extensions and warnings about omitted data. All three failures from the
+332-suite
 translation run pass on targeted rerun, as do the expanded import-instruction
 suite, placeholder suite and all 21 preservation checks. Native review, browser
 checks and the wider all-language backlog remain outstanding.
@@ -2928,9 +3222,11 @@ checks and the wider all-language backlog remain outstanding.
 Translate instructions for Planner, MeisterTask, Obsidian, Linear, TickTick,
 ClickUp, Nullboard and Kanri. Preserve product commands, file extensions,
 first-board limits, archived-card mapping and completion dates. The registered
-import-instruction suite and all 21 preservation checks pass. A full scan verifies
+import-instruction suite and all 21 preservation checks pass. A full scan
+verifies
 exact placeholder inventories for 988,920 values across 246 catalog paths.
-Native review, browser checks and the remaining translations are still outstanding.
+Native review, browser checks and the remaining translations are still
+outstanding.
 
 </details>
 
@@ -2938,10 +3234,14 @@ Native review, browser checks and the remaining translations are still outstandi
 <summary><a href="https://github.com/wekan/wekan/commit/6b08c3d3dd">Translate Kashubian Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 31 values, preserving exact variables, keyboard names and count roles.
-Regression checks distinguish rollback from keeping records and preserve planning.
-The completed translation batches, placeholder and language wiring suites now all
-pass, as do focused checks and all 21 preservation checks. Recovery prose has lower
-confidence and needs native review. These checks cover registered batches; browser
+Regression checks distinguish rollback from keeping records and preserve
+planning.
+The completed translation batches, placeholder and language wiring suites now
+all
+pass, as do focused checks and all 21 preservation checks. Recovery prose has
+lower
+confidence and needs native review. These checks cover registered batches;
+browser
 checks and the remaining all-language translations are still outstanding.
 
 </details>
@@ -2950,10 +3250,12 @@ checks and the remaining all-language translations are still outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/10a3a73023">Translate Scottish Gaelic Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 31 values, preserving exact variables, keyboard names and count roles.
-Regression checks distinguish rollback from keeping records and preserve planning.
+Regression checks distinguish rollback from keeping records and preserve
+planning.
 Focused checks, placeholder and language wiring suites, and all 21 preservation
 checks pass. The completion suite still finds an untranslated Kashubian release
-label. Recovery prose has lower confidence and needs native review. Browser checks
+label. Recovery prose has lower confidence and needs native review. Browser
+checks
 and the remaining all-language translations are still outstanding.
 
 </details>
@@ -2973,10 +3275,13 @@ checks and the remaining all-language translations are still outstanding.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4fee733285">Translate Basque Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
 
-Translate 31 Basque values, preserving variables, keyboard names and count roles.
-Regression checks distinguish rollback from keeping records and preserve planning.
+Translate 31 Basque values, preserving variables, keyboard names and count
+roles.
+Regression checks distinguish rollback from keeping records and preserve
+planning.
 Focused checks, placeholder and language wiring suites, and all 21 preservation
-checks pass. The completion suite still finds an untranslated Welsh release label.
+checks pass. The completion suite still finds an untranslated Welsh release
+label.
 Native review, browser checks and the remaining all-language translations are
 still outstanding.
 
@@ -2985,10 +3290,13 @@ still outstanding.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4e54dda91c">Translate Breton Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
 
-Translate 31 Breton values, preserving variables, keyboard names and count roles.
-Regression checks distinguish rollback from keeping records and preserve planning.
+Translate 31 Breton values, preserving variables, keyboard names and count
+roles.
+Regression checks distinguish rollback from keeping records and preserve
+planning.
 Focused checks, placeholder and language wiring suites, and all 21 preservation
-checks pass. The completion suite still finds an untranslated Basque release label.
+checks pass. The completion suite still finds an untranslated Basque release
+label.
 Recovery prose has lower confidence and needs native review. Browser checks and
 the remaining all-language translations are still outstanding.
 
@@ -2997,10 +3305,13 @@ the remaining all-language translations are still outstanding.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d5d4735e5b">Translate Occitan Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
 
-Translate 31 Occitan values with exact variables, keyboard names and count roles.
-Add checks for preserving planning and distinguishing rollback from keeping records.
+Translate 31 Occitan values with exact variables, keyboard names and count
+roles.
+Add checks for preserving planning and distinguishing rollback from keeping
+records.
 Focused checks, placeholder and language wiring suites, and all 21 preservation
-checks pass. The completion suite still finds an untranslated Breton release label.
+checks pass. The completion suite still finds an untranslated Breton release
+label.
 Recovery prose has lower confidence and needs native review. Browser checks and
 completion of the remaining languages are still outstanding.
 
@@ -3010,7 +3321,8 @@ completion of the remaining languages are still outstanding.
 <summary><a href="https://github.com/wekan/wekan/commit/a1aea15a2c">Translate Asturian Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 31 values, preserving placeholders, count roles, keyboard names and
-recovery choices. Placeholder and language-wiring suites, focused Asturian checks
+recovery choices. Placeholder and language-wiring suites, focused Asturian
+checks
 and all 21 preservation checks pass. The large completion suite now reaches
 untranslated Occitan release text. Recovery prose has lower confidence and needs
 native review; browser checks and the remaining backlog are unfinished.
@@ -3021,9 +3333,11 @@ native review; browser checks and the remaining backlog are unfinished.
 <summary><a href="https://github.com/wekan/wekan/commit/b1156bcefa">Translate Aragonese Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 31 values, preserving placeholders, count roles, keyboard names and
-recovery choices. Placeholder and language-wiring suites, focused Aragonese checks
+recovery choices. Placeholder and language-wiring suites, focused Aragonese
+checks
 and all 21 preservation checks pass. The large completion suite now reaches
-untranslated Asturian release text. Recovery prose has lower confidence and needs
+untranslated Asturian release text. Recovery prose has lower confidence and
+needs
 native review; browser checks and the remaining backlog are unfinished.
 
 </details>
@@ -3032,9 +3346,11 @@ native review; browser checks and the remaining backlog are unfinished.
 <summary><a href="https://github.com/wekan/wekan/commit/07341319f3">Translate Neapolitan Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 31 values, preserving placeholders, count roles, keyboard names and
-recovery choices. Placeholder and language-wiring suites, focused Neapolitan checks
+recovery choices. Placeholder and language-wiring suites, focused Neapolitan
+checks
 and all 21 preservation checks pass. The large completion suite now reaches
-untranslated Aragonese release text. Recovery prose has lower confidence and needs
+untranslated Aragonese release text. Recovery prose has lower confidence and
+needs
 native review; browser checks and the remaining backlog are unfinished.
 
 </details>
@@ -3043,9 +3359,11 @@ native review; browser checks and the remaining backlog are unfinished.
 <summary><a href="https://github.com/wekan/wekan/commit/85621c368c">Translate Sicilian Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 31 values, preserving placeholders, count roles, keyboard names and
-recovery choices. Placeholder and language-wiring suites, focused Sicilian checks
+recovery choices. Placeholder and language-wiring suites, focused Sicilian
+checks
 and all 21 preservation checks pass. The large completion suite now reaches
-untranslated Neapolitan release text. Recovery prose has lower confidence and needs
+untranslated Neapolitan release text. Recovery prose has lower confidence and
+needs
 native review; browser checks and the remaining backlog are unfinished.
 
 </details>
@@ -3054,9 +3372,11 @@ native review; browser checks and the remaining backlog are unfinished.
 <summary><a href="https://github.com/wekan/wekan/commit/157995c7d5">Translate Sardinian Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 31 values, preserving placeholders, count roles, keyboard names and
-recovery choices. Placeholder and language-wiring suites, focused Sardinian checks
+recovery choices. Placeholder and language-wiring suites, focused Sardinian
+checks
 and all 21 preservation checks pass. The large completion suite now reaches
-untranslated Sicilian release text. Recovery prose has lower confidence and needs
+untranslated Sicilian release text. Recovery prose has lower confidence and
+needs
 native review; browser checks and the remaining backlog are unfinished.
 
 </details>
@@ -3065,9 +3385,11 @@ native review; browser checks and the remaining backlog are unfinished.
 <summary><a href="https://github.com/wekan/wekan/commit/ae77f3f3b0">Translate Corsican Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 31 values, preserving placeholders, count roles, keyboard names and
-recovery choices. Placeholder and language-wiring suites, focused Corsican checks
+recovery choices. Placeholder and language-wiring suites, focused Corsican
+checks
 and all 21 preservation checks pass. The large completion suite now reaches
-untranslated Sardinian release text. Recovery prose has lower confidence and needs
+untranslated Sardinian release text. Recovery prose has lower confidence and
+needs
 native review; browser checks and the remaining backlog are unfinished.
 
 </details>
@@ -3076,9 +3398,12 @@ native review; browser checks and the remaining backlog are unfinished.
 <summary><a href="https://github.com/wekan/wekan/commit/b629778b0a">Translate Irish Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 31 values, preserving placeholders, count roles, keyboard names and
-recovery choices. Placeholder and language-wiring suites, focused Irish checks and
-all 21 preservation checks pass. The large completion suite now reaches untranslated
-Corsican release text. Recovery wording has lower confidence and needs native review;
+recovery choices. Placeholder and language-wiring suites, focused Irish checks
+and
+all 21 preservation checks pass. The large completion suite now reaches
+untranslated
+Corsican release text. Recovery wording has lower confidence and needs native
+review;
 browser checks and the remaining all-language backlog are unfinished.
 
 </details>
@@ -3098,9 +3423,11 @@ all-language backlog are unfinished.
 <summary><a href="https://github.com/wekan/wekan/commit/cc864f1520">Translate Gujarati Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 31 values, preserving placeholders, count roles, keyboard names and
-recovery choices. Placeholder and language-wiring suites, focused Gujarati checks
+recovery choices. Placeholder and language-wiring suites, focused Gujarati
+checks
 and all 21 preservation checks pass. The large completion suite now reaches
-untranslated Kannada planning text. Native review, browser checks and the remaining
+untranslated Kannada planning text. Native review, browser checks and the
+remaining
 all-language backlog are unfinished.
 
 </details>
@@ -3109,9 +3436,12 @@ all-language backlog are unfinished.
 <summary><a href="https://github.com/wekan/wekan/commit/420d1aeabc">Translate Thai Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 31 values, preserving placeholders, count roles, keyboard names and
-recovery choices. Placeholder and language-wiring suites, focused Thai checks and
-all 21 preservation checks pass. The large completion suite now reaches untranslated
-Gujarati release text. Native review, browser checks and the remaining all-language
+recovery choices. Placeholder and language-wiring suites, focused Thai checks
+and
+all 21 preservation checks pass. The large completion suite now reaches
+untranslated
+Gujarati release text. Native review, browser checks and the remaining
+all-language
 backlog are unfinished.
 
 </details>
@@ -3119,8 +3449,10 @@ backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/20603cf77d">Translate Urdu Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
 
-Translate 31 values, preserving placeholders, reordered count roles, keyboard names
-and recovery choices. Placeholder and language-wiring suites, focused Urdu checks
+Translate 31 values, preserving placeholders, reordered count roles, keyboard
+names
+and recovery choices. Placeholder and language-wiring suites, focused Urdu
+checks
 and all 21 preservation checks pass. The large completion suite now reaches
 untranslated Thai release text. Native review, right-to-left browser checks and
 the remaining all-language backlog are unfinished.
@@ -3130,8 +3462,10 @@ the remaining all-language backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7c5dbdba52">Translate Nepali Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
 
-Translate 31 values, preserving placeholders, reordered count roles, keyboard names
-and recovery choices. Placeholder and language-wiring suites, focused Nepali checks
+Translate 31 values, preserving placeholders, reordered count roles, keyboard
+names
+and recovery choices. Placeholder and language-wiring suites, focused Nepali
+checks
 and all 21 preservation checks pass. The large completion suite now reaches
 untranslated Urdu release text. Native review, browser checks and the remaining
 all-language backlog are unfinished.
@@ -3141,10 +3475,13 @@ all-language backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fb648cd0be">Translate Tamil Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
 
-Translate 31 values, preserving placeholders, reordered count roles, keyboard names
-and recovery choices. Placeholder and language-wiring suites, focused Tamil checks
+Translate 31 values, preserving placeholders, reordered count roles, keyboard
+names
+and recovery choices. Placeholder and language-wiring suites, focused Tamil
+checks
 and all 21 preservation checks pass. The large completion suite now reaches
-untranslated Nepali release text. Native review, browser checks and the remaining
+untranslated Nepali release text. Native review, browser checks and the
+remaining
 all-language backlog are unfinished.
 
 </details>
@@ -3152,7 +3489,8 @@ all-language backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3b9e8bdcce">Translate Bengali Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
 
-Translate 31 values, preserving placeholders, reordered count roles, keyboard names,
+Translate 31 values, preserving placeholders, reordered count roles, keyboard
+names,
 import matching outcomes and recovery choices. Placeholder and language-wiring
 suites, focused Bengali checks and all 21 preservation checks pass. The large
 completion suite now reaches untranslated Tamil release text. Native review,
@@ -3165,7 +3503,8 @@ browser checks and the remaining all-language backlog are unfinished.
 
 Translate 62 values across both Hindi catalogs, preserving placeholders, count
 roles, keyboard names, matching errors and rollback/keep-board distinctions.
-Placeholder and language-wiring suites, focused Hindi checks and all 21 preservation
+Placeholder and language-wiring suites, focused Hindi checks and all 21
+preservation
 checks pass. The large completion suite now reaches untranslated Bengali release
 text. Native review, browser checks and the remaining backlog are unfinished.
 
@@ -3174,22 +3513,30 @@ text. Native review, browser checks and the remaining backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8d68bd56cb">Translate Malay and Indonesian Scrum planning and recovery</a>. Thanks to xet7.</summary>
 
-Translate 93 values across three catalogs. Preserve placeholders, keyboard names,
+Translate 93 values across three catalogs. Preserve placeholders, keyboard
+names,
 matching errors, recovery choices and the rule that a first sync never removes
-planning. Placeholder and language-wiring suites, focused batch checks and all 21
-preservation checks pass. The large completion suite now reaches untranslated Hindi
-planning text. Native review, browser checks and the remaining backlog are unfinished.
+planning. Placeholder and language-wiring suites, focused batch checks and all
+21
+preservation checks pass. The large completion suite now reaches untranslated
+Hindi
+planning text. Native review, browser checks and the remaining backlog are
+unfinished.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f0c89ad318">Translate Persian Scrum import and recovery messages</a>. Thanks to xet7.</summary>
 
-Translate 56 values across both Persian catalogs, preserving variable inventories,
-keyboard names, matching failures and rollback/keep-board distinctions. Placeholder
-and language-wiring suites plus all 21 preservation checks pass. The large completion
+Translate 56 values across both Persian catalogs, preserving variable
+inventories,
+keyboard names, matching failures and rollback/keep-board distinctions.
+Placeholder
+and language-wiring suites plus all 21 preservation checks pass. The large
+completion
 suite advances beyond Persian to untranslated Malay release text. Native review,
-browser checks and the remaining all-language translation backlog are unfinished.
+browser checks and the remaining all-language translation backlog are
+unfinished.
 
 </details>
 
@@ -3198,9 +3545,12 @@ browser checks and the remaining all-language translation backlog are unfinished
 
 Translate 56 values across both Hebrew catalogs, preserving variables, keyboard
 names, multi-release selection and rollback/keep-board distinctions. Correct the
-README coverage figure to 188 catalogs above 90 percent non-English text. Language
-wiring, placeholder checks, focused Hebrew checks and 21 preservation checks pass.
-The large completion suite now reaches untranslated Persian release text; remaining
+README coverage figure to 188 catalogs above 90 percent non-English text.
+Language
+wiring, placeholder checks, focused Hebrew checks and 21 preservation checks
+pass.
+The large completion suite now reaches untranslated Persian release text;
+remaining
 translations, native review and browser validation are unfinished.
 
 </details>
@@ -3209,9 +3559,11 @@ translations, native review and browser validation are unfinished.
 <summary><a href="https://github.com/wekan/wekan/commit/42797d6418">Translate Super Productivity, Taiga and Vikunja imports</a>. Thanks to xet7.</summary>
 
 Translate nine instructions in Wu Chinese, Papiamento and Yiddish. Preserve menu
-commands, filenames, archive behavior and attachment exclusions. All five affected
+commands, filenames, archive behavior and attachment exclusions. All five
+affected
 Node suites and 21 human-translation preservation checks pass. Native review,
-browser validation and the remaining all-language translation backlog are unfinished.
+browser validation and the remaining all-language translation backlog are
+unfinished.
 
 </details>
 
@@ -3230,9 +3582,11 @@ all-language translation backlog are unfinished.
 <summary><a href="https://github.com/wekan/wekan/commit/2f31971c4b">Translate short Mongolian Blockly labels</a>. Thanks to xet7.</summary>
 
 Translate 14 short English control, list, procedure and pixel-state labels. Keep
-indexed movement roles, list position markers and equivalent block labels intact.
+indexed movement roles, list position markers and equivalent block labels
+intact.
 Four focused Node suites and all 21 human-translation preservation checks pass.
-Composed labels need native review; browser/screen-reader validation and the wider
+Composed labels need native review; browser/screen-reader validation and the
+wider
 all-language translation backlog remain unfinished.
 
 </details>
@@ -3251,7 +3605,8 @@ remaining all-language translation backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/77002d3ef6">Translate seven import formats in Wu, Papiamento and Yiddish</a>. Thanks to xet7.</summary>
 
-Translate 21 instructions for Obsidian, Linear, TickTick, ClickUp, Nullboard, Kanri
+Translate 21 instructions for Obsidian, Linear, TickTick, ClickUp, Nullboard,
+Kanri
 and Pivotal Tracker. Preserve menu labels, file extensions, archive behavior and
 first-board-only imports. Instruction and catalog-wide placeholder suites pass,
 as do all 21 human-translation preservation checks. Three catalog-completeness
@@ -3265,7 +3620,8 @@ browser validation and the remaining all-language translations are unfinished.
 
 Translate 62 English values across five catalogs, retaining indexed movement
 arguments, list position markers, equivalent procedure labels and distinct pixel
-states. Four focused Node suites and 21 human-translation preservation checks pass.
+states. Four focused Node suites and 21 human-translation preservation checks
+pass.
 Composed labels need native review; browser/screen-reader tests were not run.
 The remaining all-language translation backlog is still unfinished.
 
@@ -3276,7 +3632,8 @@ The remaining all-language translation backlog is still unfinished.
 
 Translate 31 English labels while preserving indexed input/context arguments,
 conditional and procedure aliases, and distinct pixel states. Four focused Node
-suites and all 21 human-translation preservation checks pass. Composed labels need
+suites and all 21 human-translation preservation checks pass. Composed labels
+need
 native review; browser and screen-reader validation were not run. Translation
 work across the remaining languages is still unfinished.
 
@@ -3285,19 +3642,25 @@ work across the remaining languages is still unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/09c9ce2915">Translate short Czech, Japanese and Chinese labels</a>. Thanks to xet7.</summary>
 
-Translate 14 values across 12 locale paths. Distinguish Czech rule actors from sort
-criteria, translate Japanese or and preserve reordered Chinese movement arguments.
-Five focused suites and 21 human-preference checks pass, including Chinese translation
-protection. Browser/screen-reader validation was not run; wider translation work continues.
+Translate 14 values across 12 locale paths. Distinguish Czech rule actors from
+sort
+criteria, translate Japanese or and preserve reordered Chinese movement
+arguments.
+Five focused suites and 21 human-preference checks pass, including Chinese
+translation
+protection. Browser/screen-reader validation was not run; wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c07736a824">Translate short Blockly labels in Yiddish and Papiamento</a>. Thanks to xet7.</summary>
 
-Translate 29 labels, preserving indexed movement roles and equivalent control-flow
+Translate 29 labels, preserving indexed movement roles and equivalent
+control-flow
 and procedure forms. Four focused suites and 21 human-preference checks pass.
-Papiamento wording needs native review; browser/screen-reader tests were not run,
+Papiamento wording needs native review; browser/screen-reader tests were not
+run,
 and all-language translation work continues.
 
 </details>
@@ -3305,9 +3668,12 @@ and all-language translation work continues.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7b7f419f00">Translate short Blockly labels in Finnish, German and French</a>. Thanks to xet7.</summary>
 
-Translate 20 movement-announcement and pixel-state values across ten locale paths.
-Preserve indexed input/context roles, including Finnish word order. Four focused suites
-and all 21 human-preference checks pass. Screen-reader/browser validation was not run;
+Translate 20 movement-announcement and pixel-state values across ten locale
+paths.
+Preserve indexed input/context roles, including Finnish word order. Four focused
+suites
+and all 21 human-preference checks pass. Screen-reader/browser validation was
+not run;
 the all-language translation work continues.
 
 </details>
@@ -3315,20 +3681,27 @@ the all-language translation work continues.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f462841831">Translate MeisterTask import instructions in Wu, Papiamento and Yiddish</a>. Thanks to xet7.</summary>
 
-Translate the new instruction, preserving menu labels, CSV format, section/task mapping
-and completion dates. Five focused suites and all 21 human-preference checks pass,
-including the three completeness suites previously blocked by this new source string.
-Wording needs native review; browser tests were not run and wider translation work continues.
+Translate the new instruction, preserving menu labels, CSV format, section/task
+mapping
+and completion dates. Five focused suites and all 21 human-preference checks
+pass,
+including the three completeness suites previously blocked by this new source
+string.
+Wording needs native review; browser tests were not run and wider translation
+work continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/24e73687c9">Translate Planner import instructions in Wu, Papiamento and Yiddish</a>. Thanks to xet7.</summary>
 
-Translate the new Planner instruction in three languages, preserving menu and field
+Translate the new Planner instruction in three languages, preserving menu and
+field
 names and the .xlsx extension. Distinguish Planner groups from storage buckets.
-The literal/mapping regression passes. Three completeness suites passed before the next
-MeisterTask source addition and now flag that new string. Native review and wider
+The literal/mapping regression passes. Three completeness suites passed before
+the next
+MeisterTask source addition and now flag that new string. Native review and
+wider
 translation work remain unfinished; browser tests were not run.
 
 </details>
@@ -3336,60 +3709,77 @@ translation work remain unfinished; browser tests were not run.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e17d58820d">Expose short untranslated prose for locale review</a>. Thanks to xet7.</summary>
 
-Add a read-only audit for short English UI words hidden by the fill tool's invariant
-filter. The working catalog has 1,907 candidates across 198 locale files; shared words
-still require language-specific review. Preserve arguments and exclude technical notation.
-Both regression tests pass. The all-language translation work remains unfinished.
+Add a read-only audit for short English UI words hidden by the fill tool's
+invariant
+filter. The working catalog has 1,907 candidates across 198 locale files; shared
+words
+still require language-specific review. Preserve arguments and exclude technical
+notation.
+Both regression tests pass. The all-language translation work remains
+unfinished.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/07a09ca77d">Translate remaining English Wu Blockly labels</a>. Thanks to xet7.</summary>
 
-Translate 15 Blockly labels omitted from the missing-string report. Preserve indexed
+Translate 15 Blockly labels omitted from the missing-string report. Preserve
+indexed
 movement arguments and consistent control-flow and procedure labels.
-Three focused suites, 37 Blockly checks and 21 human-preference checks pass. Wu wording
-needs native review; browser tests were not run and wider translation work continues.
+Three focused suites, 37 Blockly checks and 21 human-preference checks pass. Wu
+wording
+needs native review; browser tests were not run and wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3e3a2a4f4c">Restore complete Wu flow report explanations</a>. Thanks to xet7.</summary>
 
-Correct 39 Wu values, replacing abbreviated analytics fragments with complete wording.
-Preserve forecast limitations, missing-history behavior, date fallbacks and correction scope.
-Three focused suites and all 21 human-preference checks pass. Statistical wording needs
-native review; browser tests were not run and the wider translation work continues.
+Correct 39 Wu values, replacing abbreviated analytics fragments with complete
+wording.
+Preserve forecast limitations, missing-history behavior, date fallbacks and
+correction scope.
+Three focused suites and all 21 human-preference checks pass. Statistical
+wording needs
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/72b11e7fe2">Correct Wu import, WIP group and sync instructions</a>. Thanks to xet7.</summary>
 
-Correct 24 Wu values, restoring WIP group meanings and project examples. Preserve
+Correct 24 Wu values, restoring WIP group meanings and project examples.
+Preserve
 search syntax, file extensions, item variables and the synchronization interval.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/736dac75d9">Correct Wu account messages and repair result counts</a>. Thanks to xet7.</summary>
 
-Correct 22 Wu values, preserving repair-result count variables and username minimums.
+Correct 22 Wu values, preserving repair-result count variables and username
+minimums.
 Restore Cron and status labels and clarify the missing-board repair limitation.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d8b8afd73f">Correct Wu job controls and migration ranges</a>. Thanks to xet7.</summary>
 
-Correct 26 Wu values, restoring task and board meanings. Preserve batch, CPU and delay
+Correct 26 Wu values, restoring task and board meanings. Preserve batch, CPU and
+delay
 ranges, their units and background migration behavior when the browser closes.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3399,27 +3789,32 @@ native review; browser tests were not run and the wider translation work continu
 Correct 30 Wu values, restoring elapsed-day, completion and monitoring meanings.
 Preserve numeric intervals, GridFS and once-per-board conversion instructions.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3d7d096229">Correct Wu repair prompts and migration field names</a>. Thanks to xet7.</summary>
 
-Correct 28 Wu values, restoring exact field-name case and migration status meanings.
+Correct 28 Wu values, restoring exact field-name case and migration status
+meanings.
 Preserve recovery scope, cleanup order and the difficult-undo warning.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d80d26740e">Correct Wu storage and scheduled task meanings</a>. Thanks to xet7.</summary>
 
-Correct 32 Wu values, preserving storage examples and scheduled board-operation scope.
+Correct 32 Wu values, preserving storage examples and scheduled board-operation
+scope.
 Clarify both conditions required for removing duplicate empty lists.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3429,117 +3824,145 @@ native review; browser tests were not run and the wider translation work continu
 Correct 24 Wu values, preserving cloud menu paths, product names and credential
 alternatives. Distinguish migration progress, success, failure and stop scope.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7a0460e755">Correct Wu anonymization and cloud storage help</a>. Thanks to xet7.</summary>
 
-Correct 19 Wu values, preserving anonymization examples, field names, cloud console
+Correct 19 Wu values, preserving anonymization examples, field names, cloud
+console
 labels, credential fallbacks and the once-only secret-key display warning.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b37c643b17">Correct Wu settings help and anonymization warning</a>. Thanks to xet7.</summary>
 
-Correct 20 Wu values, including stale loading help and an account-anonymization warning
-that incorrectly described export. Preserve configuration names and rendering examples.
+Correct 20 Wu values, including stale loading help and an account-anonymization
+warning
+that incorrectly described export. Preserve configuration names and rendering
+examples.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/202684210a">Correct Wu storage and database migration help</a>. Thanks to xet7.</summary>
 
-Correct 17 Wu values, preserving database URLs, settings, commands, file paths and
-migration target variables. Keep migration prerequisites and irreversible-deletion warnings.
+Correct 17 Wu values, preserving database URLs, settings, commands, file paths
+and
+migration target variables. Keep migration prerequisites and
+irreversible-deletion warnings.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c3c45288a7">Correct Wu account and scheduled-job wording</a>. Thanks to xet7.</summary>
 
-Correct 43 Wu values, clarifying account enablement and scheduled board operations.
+Correct 43 Wu values, clarifying account enablement and scheduled board
+operations.
 Distinguish absent paused migrations from an inability to resume them.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bf69929f30">Correct Wu Markdown, recurrence and lockout wording</a>. Thanks to xet7.</summary>
 
-Correct 28 Wu values, preserving format names and distinguishing card recurrence from
+Correct 28 Wu values, preserving format names and distinguishing card recurrence
+from
 checklist reset. Clarify login-failure counts and single/all-user unlock scope.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5bf865dd39">Correct Wu storage, progress and workspace wording</a>. Thanks to xet7.</summary>
 
-Correct 25 Wu values, restoring path, upload-progress and board-ID meanings. Preserve
+Correct 25 Wu values, restoring path, upload-progress and board-ID meanings.
+Preserve
 workspace variables, storage product names and compaction instruction order.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f136811382">Correct Wu diagnostics, checklist and storage meanings</a>. Thanks to xet7.</summary>
 
-Correct 45 Wu values, restoring Node, board and checklist-order meanings. Preserve
+Correct 45 Wu values, restoring Node, board and checklist-order meanings.
+Preserve
 storage names and distinguish all attachments from a board's attachments.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bdff13b866">Correct Wu animation and invitation wording</a>. Thanks to xet7.</summary>
 
-Correct 18 Wu values, checking animation meanings against their CSS. Clarify team
-removal and invitation permissions; preserve placeholders and the Cc abbreviation.
+Correct 18 Wu values, checking animation meanings against their CSS. Clarify
+team
+removal and invitation permissions; preserve placeholders and the Cc
+abbreviation.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4b4fd5d9f6">Correct Wu report, template and creator wording</a>. Thanks to xet7.</summary>
 
-Correct 21 Wu values, including administrator and card-creator roles. Preserve template
-variables, HTML space entities, API configuration and report aggregation meanings.
+Correct 21 Wu values, including administrator and card-creator roles. Preserve
+template
+variables, HTML space entities, API configuration and report aggregation
+meanings.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b8d6041ca4">Correct Wu dependency, map and server instructions</a>. Thanks to xet7.</summary>
 
-Correct 17 Wu values, preserving dependency counts, background size and log commands.
-Restore Snap as the installation product name. Add regression checks and refresh audit records.
+Correct 17 Wu values, preserving dependency counts, background size and log
+commands.
+Restore Snap as the installation product name. Add regression checks and refresh
+audit records.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/df966f107c">Correct Wu search-logic help translations</a>. Thanks to xet7.</summary>
 
-Correct fifteen Wu search-help values. Preserve predicate variables, code examples,
+Correct fifteen Wu search-help values. Preserve predicate variables, code
+examples,
 OR/AND semantics, negation, descending-sort syntax and positive page limits.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3547,29 +3970,37 @@ native review; browser tests were not run and the wider translation work continu
 <summary><a href="https://github.com/wekan/wekan/commit/0ea8f7c6fd">Correct Wu search-help translations</a>. Thanks to xet7.</summary>
 
 Correct sixteen Wu search-help values. Preserve operator placeholders, literal
-examples and arguments while clarifying member, container and date-interval scope.
+examples and arguments while clarifying member, container and date-interval
+scope.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8ab081b960">Correct Wu search-predicate translations</a>. Thanks to xet7.</summary>
 
-Correct seventeen Wu search-predicate and validation values. Preserve operator/value
-variables, percent placeholders, calendar-quarter meaning and positive-integer limits.
+Correct seventeen Wu search-predicate and validation values. Preserve
+operator/value
+variables, percent placeholders, calendar-quarter meaning and positive-integer
+limits.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c890e36ab9">Correct Wu search-result and operator translations</a>. Thanks to xet7.</summary>
 
-Correct twenty-seven Wu search-result and operator values. Preserve placeholders,
-range/total roles and source search abbreviations; restore domain-specific meanings.
+Correct twenty-seven Wu search-result and operator values. Preserve
+placeholders,
+range/total roles and source search abbreviations; restore domain-specific
+meanings.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3577,19 +4008,24 @@ native review; browser tests were not run and the wider translation work continu
 <summary><a href="https://github.com/wekan/wekan/commit/199e533493">Correct Wu shared-template and card-view translations</a>. Thanks to xet7.</summary>
 
 Correct twenty-two Wu shared-template and card-view values. Preserve variables,
-authorized-board scope, incomplete due cards and member-or-assignee restrictions.
+authorized-board scope, incomplete due cards and member-or-assignee
+restrictions.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e696cc805e">Correct Wu calendar and domain translations</a>. Thanks to xet7.</summary>
 
-Correct fifteen Wu weekday, status, checklist and domain values. Preserve variables,
-linked-card deletion prerequisites and domain-validation examples and restrictions.
+Correct fifteen Wu weekday, status, checklist and domain values. Preserve
+variables,
+linked-card deletion prerequisites and domain-validation examples and
+restrictions.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3599,7 +4035,8 @@ native review; browser tests were not run and the wider translation work continu
 Correct thirteen Wu display, notification and role values. Preserve variables,
 read/unread actions, assigned-card scope and the global-administrator exception.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3609,27 +4046,32 @@ native review; browser tests were not run and the wider translation work continu
 Correct nineteen Wu reminder, deletion and card-control values. Preserve named
 variables, deadline meanings, deletion warnings and multiple-window behavior.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7deea150f7">Correct Wu date and placement translations</a>. Thanks to xet7.</summary>
 
-Correct twenty-two Wu copying, deletion, date-activity and placement values. Preserve
+Correct twenty-two Wu copying, deletion, date-activity and placement values.
+Preserve
 old/new date variables, deadline meanings and opposite placement directions.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/76a68a3c8a">Correct Wu login and configuration literals</a>. Thanks to xet7.</summary>
 
-Correct sixteen Wu login and configuration values. Preserve variables, environment
+Correct sixteen Wu login and configuration values. Preserve variables,
+environment
 names, one-time code behavior, CAS protocol naming and HTML insertion positions.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3637,9 +4079,11 @@ native review; browser tests were not run and the wider translation work continu
 <summary><a href="https://github.com/wekan/wekan/commit/fa956fdbc8">Correct Wu rule-field action translations</a>. Thanks to xet7.</summary>
 
 Correct twenty Wu rule-action and configuration values. Preserve variables,
-checkbox actions, empty-field matching, delimiters and environment-setting precedence.
+checkbox actions, empty-field matching, delimiters and environment-setting
+precedence.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3649,7 +4093,8 @@ native review; browser tests were not run and the wider translation work continu
 Correct eighteen Wu rule-action fragments. Preserve variables, checkbox actions,
 current-versus-selected list scope, any-trigger semantics and action order.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3659,7 +4104,8 @@ native review; browser tests were not run and the wider translation work continu
 Correct twenty-four Wu rule-condition and action fragments. Preserve variables,
 date-set/change alternatives, opposite checklist actions and membership scope.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3669,7 +4115,8 @@ native review; browser tests were not run and the wider translation work continu
 Correct eighteen Wu rule fragments. Preserve variables, movement and completion
 meanings, all-card scope, N-day duration and dates relative to now.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3679,7 +4126,8 @@ native review; browser tests were not run and the wider translation work continu
 Correct eighteen Wu rule-import and schedule values. Preserve count variables,
 product names, unsupported-rule reporting and Monday–Friday schedule scope.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3689,37 +4137,45 @@ native review; browser tests were not run and the wider translation work continu
 Correct twenty-one Wu rule-trigger and workflow values. Preserve time variables,
 JSON/CSV literals and opposite added/removed and archived/restored events.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/84180373a0">Correct Wu parent-card and positional activity translations</a>. Thanks to xet7.</summary>
 
-Correct twenty-two Wu minicard, parent-card and activity values. Restore positional
+Correct twenty-two Wu minicard, parent-card and activity values. Restore
+positional
 label, field, value and owner roles while preserving source token inventories.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3a35c59529">Correct Wu organization and deletion translations</a>. Thanks to xet7.</summary>
 
-Correct twenty-two Wu organization, deletion and subtask-setting values. Preserve
-variables, administrator limits, duplicate-list conditions and deletion warnings.
+Correct twenty-two Wu organization, deletion and subtask-setting values.
+Preserve
+variables, administrator limits, duplicate-list conditions and deletion
+warnings.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ff8985d1bd">Correct Wu administration and field-scope translations</a>. Thanks to xet7.</summary>
 
-Correct nineteen Wu administration, custom-field and organization values. Preserve
+Correct nineteen Wu administration, custom-field and organization values.
+Preserve
 variables, product names, field scope and multitenancy configuration literals.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3729,7 +4185,8 @@ native review; browser tests were not run and the wider translation work continu
 Correct twenty-four Wu limits, invitation and mail-setting values. Preserve
 variables, template braces, avatar defaults and separate API buffering limits.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3739,7 +4196,8 @@ native review; browser tests were not run and the wider translation work continu
 Correct eighteen Wu time-tracking, shortcut, watching and link values. Preserve
 variables, shortcut ranges, opposite label actions and link-disable conditions.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3749,17 +4207,21 @@ native review; browser tests were not run and the wider translation work continu
 Correct twenty-five Wu shortcut, threshold and starred-item values. Preserve
 variables, assignment direction, time units and opposite default-board actions.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2ab39fc863">Correct Wu visibility and member-removal translations</a>. Thanks to xet7.</summary>
 
-Correct twenty-four Wu visibility, profile, removal and unsaved-description values.
-Preserve variables, login markup, access restrictions and member notification scope.
+Correct twenty-four Wu visibility, profile, removal and unsaved-description
+values.
+Preserve variables, login markup, access restrictions and member notification
+scope.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3767,19 +4229,24 @@ native review; browser tests were not run and the wider translation work continu
 <summary><a href="https://github.com/wekan/wekan/commit/f3a7f4f6ed">Correct Wu selection and notification translations</a>. Thanks to xet7.</summary>
 
 Correct twenty-seven Wu selection, membership and notification values. Preserve
-variables, selected-item scope, assigned-card visibility and ordinary editing limits.
+variables, selected-item scope, assigned-card visibility and ordinary editing
+limits.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9aea43a6d9">Correct Wu member and list-operation translations</a>. Thanks to xet7.</summary>
 
-Correct twenty-six Wu member, role and list-operation values. Preserve variables,
-last-administrator protection and the distinction between archiving and deletion.
+Correct twenty-six Wu member, role and list-operation values. Preserve
+variables,
+last-administrator protection and the distinction between archiving and
+deletion.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3789,7 +4256,8 @@ native review; browser tests were not run and the wider translation work continu
 Correct twenty-five Wu Trello import and cancellation values. Preserve technical
 literals, credential requirements, ZIP failure distinctions and deletion scope.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3799,17 +4267,20 @@ native review; browser tests were not run and the wider translation work continu
 Correct nineteen Wu import labels and instructions. Preserve API paths, schema
 keys, variables, Markdown examples, spreadsheet headers and mapping behavior.
 Four focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/74ea292fc6">Correct Wu sorting and filter translations</a>. Thanks to xet7.</summary>
 
-Correct twenty-seven Wu sorting, filtering and navigation values. Preserve literal
+Correct twenty-seven Wu sorting, filtering and navigation values. Preserve
+literal
 filter examples, variables and the distinction between creators and assignees.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3819,7 +4290,8 @@ native review; browser tests were not run and the wider translation work continu
 Correct thirty Wu import-error, account and export values. Preserve technical
 literals, linked-card restrictions and empty-board recovery instructions.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3827,9 +4299,11 @@ native review; browser tests were not run and the wider translation work continu
 <summary><a href="https://github.com/wekan/wekan/commit/b6057034cd">Correct Wu email and field-message translations</a>. Thanks to xet7.</summary>
 
 Correct twenty-five Wu field, email, invitation and access messages. Preserve
-named variables, technical literals, role restrictions and deletion-setting scope.
+named variables, technical literals, role restrictions and deletion-setting
+scope.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3837,9 +4311,11 @@ native review; browser tests were not run and the wider translation work continu
 <summary><a href="https://github.com/wekan/wekan/commit/a0ac16de9d">Correct Wu permissions and copying translations</a>. Thanks to xet7.</summary>
 
 Correct twenty-three Wu permissions, confirmation, clipboard and import values.
-Preserve variables, JSON property names, access limits and field-history deletion.
+Preserve variables, JSON property names, access limits and field-history
+deletion.
 Four focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3849,7 +4325,8 @@ native review; browser tests were not run and the wider translation work continu
 Correct twenty Wu archive-navigation, color and comment-role values. Preserve
 variables, assigned-card restrictions and the All Boards archive location.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3859,27 +4336,34 @@ native review; browser tests were not run and the wider translation work continu
 Correct twenty Wu search, font, avatar, toggle and card-aging values. Preserve
 variables, preview digits, opposite actions and three idle-day fading levels.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/034d1aa8d4">Correct Wu planning and card dialog translations</a>. Thanks to xet7.</summary>
 
-Correct nineteen Wu planning, card and account dialog values. Preserve variables,
-numeric planning choices and the imported-member permission limit during mapping.
+Correct nineteen Wu planning, card and account dialog values. Preserve
+variables,
+numeric planning choices and the imported-member permission limit during
+mapping.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2a2f48aff0">Correct Wu voting and archive translations</a>. Thanks to xet7.</summary>
 
-Correct seventeen Wu archive, card and voting values. Preserve overdue variables,
-card membership scope and the difference between archiving and permanent deletion.
+Correct seventeen Wu archive, card and voting values. Preserve overdue
+variables,
+card membership scope and the difference between archiving and permanent
+deletion.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3889,7 +4373,8 @@ native review; browser tests were not run and the wider translation work continu
 Correct twenty-two Wu timeline, calendar and card lifecycle values. Preserve
 variables, restoration fields and the difference between deletion and archiving.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3897,19 +4382,23 @@ native review; browser tests were not run and the wider translation work continu
 <summary><a href="https://github.com/wekan/wekan/commit/0da6bfb61b">Correct Wu board visibility and membership translations</a>. Thanks to xet7.</summary>
 
 Correct twenty Wu board, assignment, visibility and view strings. Preserve HTML
-and variables, and distinguish current-card assignments from all-card assignments.
+and variables, and distinguish current-card assignments from all-card
+assignments.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c5c1884f3c">Correct Wu archive and attachment translations</a>. Thanks to xet7.</summary>
 
-Correct thirty Wu archive, attachment, loading and board-setting values. Preserve
+Correct thirty Wu archive, attachment, loading and board-setting values.
+Preserve
 count and size variables, recoverable removal and permanent-deletion meanings.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3919,7 +4408,8 @@ native review; browser tests were not run and the wider translation work continu
 Correct eighteen Wu checklist, membership and administrator strings, including
 matching cards, completed addition, list placement and announcement activation.
 Three focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3929,7 +4419,8 @@ native review; browser tests were not run and the wider translation work continu
 Correct eleven Wu settings strings, including personal and shared width scope,
 all-list resizing, card placement and opposite shortcut toggle actions.
 Four focused suites and all 21 human-preference checks pass. Wu wording needs
-native review; browser tests were not run and the wider translation work continues.
+native review; browser tests were not run and the wider translation work
+continues.
 
 </details>
 
@@ -3937,8 +4428,10 @@ native review; browser tests were not run and the wider translation work continu
 <summary><a href="https://github.com/wekan/wekan/commit/865db11a14">Correct Wu workspace and home-board instructions</a>. Thanks to xet7.</summary>
 
 Correct 15 values, restoring the single-board restriction and preserving removal
-warnings and date roles. Three focused suites and 21 human-preference checks pass.
-Wu prose is lower confidence and needs native review. No browser session was run.
+warnings and date roles. Three focused suites and 21 human-preference checks
+pass.
+Wu prose is lower confidence and needs native review. No browser session was
+run.
 The broader language audit remains unfinished.
 
 </details>
@@ -3957,19 +4450,24 @@ session was run. The broader language audit remains unfinished.
 <summary><a href="https://github.com/wekan/wekan/commit/fc8a66d6ab">Correct Wu activity summary argument roles</a>. Thanks to xet7.</summary>
 
 Correct 25 activity summaries to Wu, repairing positional placeholder roles in
-import, removal and checklist messages. Update audit records. Three focused suites
-and 21 human-preference checks pass. Wording is lower confidence and needs native
-review. No browser session was run. The broader language audit remains unfinished.
+import, removal and checklist messages. Update audit records. Three focused
+suites
+and 21 human-preference checks pass. Wording is lower confidence and needs
+native
+review. No browser session was run. The broader language audit remains
+unfinished.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5f41d4ca7a">Correct Wu board activity wording</a>. Thanks to xet7.</summary>
 
-Replace 24 Mandarin-like or malformed activity messages with Wu wording, preserving
+Replace 24 Mandarin-like or malformed activity messages with Wu wording,
+preserving
 source tokens and updating exact-value audit records. Three focused suites and
 21 human-preference checks pass. Wording is lower confidence and needs native
-review. No browser session was run. The broader language audit remains unfinished.
+review. No browser session was run. The broader language audit remains
+unfinished.
 
 </details>
 
@@ -3979,14 +4477,16 @@ review. No browser session was run. The broader language audit remains unfinishe
 Replace 26 Mandarin-like activity and permission messages with Wu wording,
 preserving tokens and correcting title-argument order. Refresh exact-value audit
 records. Three focused suites and 21 human-preference checks pass. Wording is
-lower confidence and needs native review. No browser session was run. Work remains.
+lower confidence and needs native review. No browser session was run. Work
+remains.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/16ef038d8b">Complete current Wu translation fill list</a>. Thanks to xet7.</summary>
 
-Translate the final 33 recovery and environment-setting strings. The full current
+Translate the final 33 recovery and environment-setting strings. The full
+current
 Wu fill list is empty. Three focused suites and 21 human-preference checks pass.
 Wu wording is lower confidence and needs native review. No browser session was
 run. Older Mandarin-like passages and other languages remain unfinished.
@@ -4069,8 +4569,10 @@ review. No browser session was run. Remaining translations are unfinished.
 
 Translate 32 workspace and alias messages. The full current Wu fill list has no
 Blockly entries. Four focused suites and 21 human-preference checks pass.
-Wu wording is lower confidence and needs native review. No browser or screen-reader
-session was run. Other strings and older Mandarin-like passages remain unfinished.
+Wu wording is lower confidence and needs native review. No browser or
+screen-reader
+session was run. Other strings and older Mandarin-like passages remain
+unfinished.
 
 </details>
 
@@ -4078,7 +4580,8 @@ session was run. Other strings and older Mandarin-like passages remain unfinishe
 <summary><a href="https://github.com/wekan/wekan/commit/ea7eaa769d">Translate Wu Blockly text values and variables</a>. Thanks to xet7.</summary>
 
 Translate 35 text and variable messages, preserving placeholders and checking
-replacement order, whitespace and variable types. Four focused translation suites
+replacement order, whitespace and variable types. Four focused translation
+suites
 and 21 human-preference checks pass. Wu wording is lower confidence and needs
 native review. No browser or screen-reader session was run. Work is unfinished.
 
@@ -4087,7 +4590,8 @@ native review. No browser or screen-reader session was run. Work is unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/889c5d84a9">Translate Wu Blockly text positions</a>. Thanks to xet7.</summary>
 
-Translate 30 text messages, preserving variables and checking letter case, copied
+Translate 30 text messages, preserving variables and checking letter case,
+copied
 text and indexing from either end. Four focused translation suites and
 21 human-preference checks pass. Wu wording is lower confidence and needs native
 review. No browser or screen-reader session was run. Work remains unfinished.
@@ -4097,7 +4601,8 @@ review. No browser or screen-reader session was run. Work remains unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4226317591">Translate Wu Blockly keyboard shortcuts</a>. Thanks to xet7.</summary>
 
-Translate 37 shortcut and key labels, preserving key names and checking directions,
+Translate 37 shortcut and key labels, preserving key names and checking
+directions,
 navigation pairs and focus destinations. Four focused translation suites and
 21 human-preference checks pass. Wu wording is lower confidence and needs native
 review. No browser or screen-reader session was run. Work remains unfinished.
@@ -4127,7 +4632,8 @@ native review. No browser or screen-reader session was run. Work is unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e25c024618">Translate Wu Blockly rounding and unary math</a>. Thanks to xet7.</summary>
 
-Translate 30 math messages, preserving variables and literals and checking random
+Translate 30 math messages, preserving variables and literals and checking
+random
 bounds, rounding directions and logarithm bases. Four focused translation suites
 and 21 human-preference checks pass. Wu wording is lower confidence and needs
 native review. No browser or screen-reader session was run. Work is unfinished.
@@ -4138,7 +4644,8 @@ native review. No browser or screen-reader session was run. Work is unfinished.
 <summary><a href="https://github.com/wekan/wekan/commit/211c99607d">Translate Wu Blockly number properties and statistics</a>. Thanks to xet7.</summary>
 
 Translate 30 number-property and statistics messages, preserving variables and
-checking inclusive bounds and distinct statistical terms. Four focused suites and
+checking inclusive bounds and distinct statistical terms. Four focused suites
+and
 21 human-preference checks pass. Wu wording is lower confidence and needs native
 review. No browser or screen-reader session was run. Work remains unfinished.
 
@@ -4157,7 +4664,8 @@ review. No browser or screen-reader session was run. Work remains unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5fe338f83d">Translate Wu Blockly sorting and logic</a>. Thanks to xet7.</summary>
 
-Translate 30 list and comparison messages, preserving variables and checking sort
+Translate 30 list and comparison messages, preserving variables and checking
+sort
 directions, case sensitivity and comparison semantics. Four focused suites and
 21 human-preference checks pass. Wu wording is lower confidence and needs native
 review. No browser or screen-reader session was run. Work remains unfinished.
@@ -4178,7 +4686,8 @@ review. No browser or screen-reader session was run. Work remains unfinished.
 <summary><a href="https://github.com/wekan/wekan/commit/5cae76ce91">Translate Wu Blockly navigation and list retrieval</a>. Thanks to xet7.</summary>
 
 Translate 35 input, keyboard-navigation and list messages, preserving variables
-and checking movement and retrieval semantics. Four focused translation suites and
+and checking movement and retrieval semantics. Four focused translation suites
+and
 21 human-preference checks pass. Wu wording is lower confidence and needs native
 review. No browser or screen-reader session was run. Work remains unfinished.
 
@@ -4207,7 +4716,8 @@ review. No browser or screen-reader session was run. Work remains unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e13249115e">Translate Wu Blockly loops and editing</a>. Thanks to xet7.</summary>
 
-Translate 35 loop, condition, copy, deletion and enable/disable messages, preserving
+Translate 35 loop, condition, copy, deletion and enable/disable messages,
+preserving
 variables and checking opposite conditions and actions. Four focused translation
 suites and 21 human-preference checks pass. Wu wording is lower confidence and
 needs native review. No browser session was run. Remaining work is unfinished.
@@ -4217,7 +4727,8 @@ needs native review. No browser session was run. Remaining work is unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7410bfc2db">Translate Wu imports and Blockly controls</a>. Thanks to xet7.</summary>
 
-Translate 35 import, login, keyboard, color and control-flow messages, preserving
+Translate 35 import, login, keyboard, color and control-flow messages,
+preserving
 variables, literal names and numeric limits. Five focused translation suites and
 21 human-preference checks pass. Wu wording is lower confidence and needs native
 review. No browser session was run. Remaining translations are unfinished.
@@ -4230,15 +4741,18 @@ review. No browser session was run. Remaining translations are unfinished.
 Translate 17 settings and rule strings, preserving variables, link templates and
 configuration names. Three focused suites and 21 human-preference checks pass.
 Wu wording is lower confidence and needs native review; older Mandarin-like
-passages still need auditing. No browser session was run. Work remains unfinished.
+passages still need auditing. No browser session was run. Work remains
+unfinished.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/dc7ff85bfa">Complete current Papiamento translation fill list</a>. Thanks to xet7.</summary>
 
-Translate the final 49 recovery, import, history and environment-setting strings.
-The current full Papiamento fill list is empty; other languages remain unfinished.
+Translate the final 49 recovery, import, history and environment-setting
+strings.
+The current full Papiamento fill list is empty; other languages remain
+unfinished.
 Three focused translation suites and 21 human-preference checks pass.
 Specialized wording is lower confidence and needs native review. No browser
 session was run.
@@ -4260,7 +4774,8 @@ session was run. Remaining translations are unfinished.
 <summary><a href="https://github.com/wekan/wekan/commit/7b62fbbdd6">Translate Papiamento Sync outcomes and mail failures</a>. Thanks to xet7.</summary>
 
 Translate 35 Sync, estimate, planning, mail-failure and activity messages,
-preserving variables and checking failure states, null values and retry behavior.
+preserving variables and checking failure states, null values and retry
+behavior.
 Three focused translation suites and 21 human-preference checks pass.
 Specialized wording is lower confidence and needs native review. No browser
 session was run. Remaining translations are unfinished.
@@ -4270,7 +4785,8 @@ session was run. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bd576b6355">Translate Papiamento Sync previews and source reports</a>. Thanks to xet7.</summary>
 
-Translate 30 replacement, preview and source-report messages, preserving variables
+Translate 30 replacement, preview and source-report messages, preserving
+variables
 and checking replacement reuse, omitted values and report limits.
 Three focused translation suites and 21 human-preference checks pass.
 Specialized wording is lower confidence and needs native review. No browser
@@ -4292,7 +4808,8 @@ session was run. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/eff57a7ea0">Translate Papiamento Scrum reports and observations</a>. Thanks to xet7.</summary>
 
-Translate 45 Scrum event, state, report and daily-observation messages, preserving
+Translate 45 Scrum event, state, report and daily-observation messages,
+preserving
 variables, UTC and observation limits and checking report and sprint semantics.
 Three focused translation suites and 21 human-preference checks pass.
 Specialized wording is lower confidence and needs native review. No browser
@@ -4325,7 +4842,8 @@ session was run. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ed5d5895b8">Complete current Papiamento Blockly translations</a>. Thanks to xet7.</summary>
 
-Translate 44 variable, workspace, search and alias messages. The current full fill
+Translate 44 variable, workspace, search and alias messages. The current full
+fill
 list has no Blockly entries; other Papiamento translations remain unfinished.
 Four focused translation suites and 21 human-preference checks pass.
 Specialized wording is lower confidence and needs native review. No browser or
@@ -4360,9 +4878,11 @@ screen-reader session was run. Remaining translations are unfinished.
 
 Translate 28 English procedure, variable and accessibility messages. Preserve
 variables; check return values, disabled definitions, rename scope and opposite
-screen-reader transitions. Four focused translation suites and 21 human-preference
+screen-reader transitions. Four focused translation suites and 21
+human-preference
 checks pass. Specialized wording is lower confidence and needs native review.
-No browser or screen-reader session was run. Remaining translations are unfinished.
+No browser or screen-reader session was run. Remaining translations are
+unfinished.
 
 </details>
 
@@ -4402,7 +4922,8 @@ session was run. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9b83235800">Translate Papiamento Blockly logic messages</a>. Thanks to xet7.</summary>
 
-Translate 25 English logic messages. Preserve variables and null; check comparison
+Translate 25 English logic messages. Preserve variables and null; check
+comparison
 boundaries, equality, both/at-least-one inputs, negation and conditional labels.
 Four focused translation suites and 21 human-preference checks pass. Specialized
 wording is lower confidence and needs native review. No browser or screen-reader
@@ -4414,7 +4935,8 @@ session was run. Remaining translations are unfinished.
 <summary><a href="https://github.com/wekan/wekan/commit/684a5cdb00">Translate Papiamento Blockly list mutation and sorting</a>. Thanks to xet7.</summary>
 
 Translate 42 English list messages. Preserve variables and index markers; check
-insertion versus replacement, copies, missing-item results, positions and sorting.
+insertion versus replacement, copies, missing-item results, positions and
+sorting.
 Four focused translation suites and 21 human-preference checks pass. Specialized
 wording is lower confidence and needs native review. No browser or screen-reader
 session was run. Remaining translations are unfinished.
@@ -4427,7 +4949,8 @@ session was run. Remaining translations are unfinished.
 Translate 34 English navigation and list messages. Preserve variables; check
 retrieval, removal and combined operations, empty-list length and movement
 confirmation. Four focused translation suites and 21 human-preference checks
-pass. Specialized wording is lower confidence and needs native review. No browser
+pass. Specialized wording is lower confidence and needs native review. No
+browser
 or screen-reader session was run. Remaining translations are unfinished.
 
 </details>
@@ -4449,7 +4972,8 @@ session was run. Remaining translations are unfinished.
 Translate 35 English field, input, keyboard and icon messages. Preserve numbered
 variables and key names; check opposite actions, pixel states, row/column order
 and input roles. Four focused translation suites and 21 human-preference checks
-pass. Specialized wording is lower confidence and needs native review. No browser
+pass. Specialized wording is lower confidence and needs native review. No
+browser
 or screen-reader session was run. Remaining translations are unfinished.
 
 </details>
@@ -4458,7 +4982,8 @@ or screen-reader session was run. Remaining translations are unfinished.
 <summary><a href="https://github.com/wekan/wekan/commit/04f20bc654">Translate Papiamento Blockly loops and deletion</a>. Thanks to xet7.</summary>
 
 Translate 35 English loop, condition and editing messages. Preserve numbered
-variables; check opposite conditions, fallback branches, loop bounds and deletion
+variables; check opposite conditions, fallback branches, loop bounds and
+deletion
 counts. Four focused translation suites and 21 human-preference checks pass.
 Specialized wording is lower confidence and needs native review. No browser or
 screen-reader session was run. Remaining translations are unfinished.
@@ -4468,11 +4993,13 @@ screen-reader session was run. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/46816ff9b5">Translate Papiamento Blockly editing and color messages</a>. Thanks to xet7.</summary>
 
-Translate 30 English Blockly messages. Preserve numbered variables, key names and
+Translate 30 English Blockly messages. Preserve numbered variables, key names
+and
 numeric bounds; use the shared placeholder parser in the locale test and clarify
 its historical baseline. Four focused translation suites and 21 human-preference
 checks pass. Specialized wording is lower confidence and needs native review.
-No browser or screen-reader session was run. Remaining translations are unfinished.
+No browser or screen-reader session was run. Remaining translations are
+unfinished.
 
 </details>
 
@@ -4482,7 +5009,8 @@ No browser or screen-reader session was run. Remaining translations are unfinish
 Translate 33 remaining English fill-list entries. Check deletion scope, retained
 boards, rollback conflicts and read-only settings. The current full Yiddish fill
 list is empty. Three focused translation suites and 21 human-preference checks
-pass. Specialized wording is lower confidence and needs native review. No browser
+pass. Specialized wording is lower confidence and needs native review. No
+browser
 or screen-reader session was run. Broader vocabulary review and translations in
 other languages remain unfinished.
 
@@ -4491,11 +5019,13 @@ other languages remain unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c18527c022">Translate Yiddish List Sync recovery messages</a>. Thanks to xet7.</summary>
 
-Translate 23 English recovery messages. Preserve counters; check retained applied
+Translate 23 English recovery messages. Preserve counters; check retained
+applied
 changes, unwritten pending changes, whole-list access, replayable-operation
 protection and the oldest-50 limit. Three focused translation suites and 21
 human-preference checks pass. Specialized wording is lower confidence and needs
-native review. No browser or screen-reader session was run. Remaining translations
+native review. No browser or screen-reader session was run. Remaining
+translations
 are unfinished.
 
 </details>
@@ -4505,8 +5035,10 @@ are unfinished.
 
 Translate 23 English activity-recovery and rule-email messages. Check retained
 work, unavailable source activities, revoked access and permanent cancellation
-without recalling queued mail or delivered notifications. Three focused translation
-suites and 21 human-preference checks pass. Specialized wording is lower confidence
+without recalling queued mail or delivered notifications. Three focused
+translation
+suites and 21 human-preference checks pass. Specialized wording is lower
+confidence
 and needs native review. No browser or screen-reader session was run. Remaining
 translations are unfinished.
 
@@ -4518,7 +5050,8 @@ translations are unfinished.
 Translate 30 English Sync, mail-failure and activity-recovery messages. Preserve
 variables and literals; check missing/null values, matching, first-sync planning
 retention, retries and temporary/permanent failures. Three focused translation
-suites and 21 human-preference checks pass. Specialized wording is lower confidence
+suites and 21 human-preference checks pass. Specialized wording is lower
+confidence
 and needs native review. No browser or screen-reader session was run. Remaining
 translations are unfinished.
 
@@ -4529,9 +5062,11 @@ translations are unfinished.
 
 Translate 25 English source-field and run-report messages. Check display and
 retention limits, hidden values, possible partial changes and reports that do
-not resume or undo runs. Three focused translation suites and 21 human-preference
+not resume or undo runs. Three focused translation suites and 21
+human-preference
 checks pass. Specialized wording is lower confidence and needs native review.
-No browser or screen-reader session was run. Remaining translations are unfinished.
+No browser or screen-reader session was run. Remaining translations are
+unfinished.
 
 </details>
 
@@ -4540,7 +5075,8 @@ No browser or screen-reader session was run. Remaining translations are unfinish
 
 Translate 25 English conflict and preview messages. Check retained content,
 unchanged source data and subcards, limited-review scope and replacement reuse.
-Three focused translation suites and 21 human-preference checks pass. Specialized
+Three focused translation suites and 21 human-preference checks pass.
+Specialized
 wording is lower confidence and needs native review. No browser or screen-reader
 session was run. Remaining translations are unfinished.
 
@@ -4551,8 +5087,10 @@ session was run. Remaining translations are unfinished.
 
 Translate 35 English Scrum import, observation and partial-report messages.
 Preserve counters and references; check observation limits, unknown estimates,
-duplicate prevention and unchanged foreign-board cards. Three focused translation
-suites and 21 human-preference checks pass. Specialized wording is lower confidence
+duplicate prevention and unchanged foreign-board cards. Three focused
+translation
+suites and 21 human-preference checks pass. Specialized wording is lower
+confidence
 and needs native review. No browser or screen-reader session was run. Remaining
 translation work is unfinished.
 
@@ -4564,7 +5102,8 @@ translation work is unfinished.
 Translate 45 English Scrum planning, release and reporting messages. Preserve
 counters and shortcuts; check unknown estimates versus zero, comparison units,
 release removal scope, sprint states and close/cancel outcomes. Three focused
-translation suites and 21 human-preference checks pass. Specialized Scrum wording
+translation suites and 21 human-preference checks pass. Specialized Scrum
+wording
 is lower confidence and needs native review. No browser or screen-reader session
 was run. Remaining translations are unfinished.
 
@@ -4599,8 +5138,10 @@ was run. Remaining translations are unfinished.
 
 Translate the last 20 English Blockly fill-list entries in Yiddish. Preserve
 search variables and shortcuts; check navigation and legacy-label consistency.
-No Blockly entries remain in the full Yiddish fill list. Four focused translation
-suites and 21 human-preference checks pass. Specialized wording is lower confidence
+No Blockly entries remain in the full Yiddish fill list. Four focused
+translation
+suites and 21 human-preference checks pass. Specialized wording is lower
+confidence
 and needs native review. No browser or screen-reader session was run. Other
 Yiddish messages and the wider translation backlog remain unfinished.
 
@@ -4660,7 +5201,8 @@ translation work is unfinished.
 Translate 45 English math messages, preserving variables and notation. Check
 random-number endpoints, rounding directions, minimum/maximum, statistical
 operations and sign inversion. Four focused translation suites and 21
-human-preference checks pass. Specialized mathematical wording is lower confidence
+human-preference checks pass. Specialized mathematical wording is lower
+confidence
 and needs native review. No browser or screen-reader session was run.
 Remaining translation work is unfinished.
 
@@ -4670,9 +5212,11 @@ Remaining translation work is unfinished.
 <summary><a href="https://github.com/wekan/wekan/commit/bc67a1295e">Translate Yiddish Blockly comparisons and arithmetic</a>. Thanks to xet7.</summary>
 
 Translate 45 English logic and arithmetic messages. Preserve variables and
-mathematical notation; check strict/inclusive comparisons, both/either conditions,
+mathematical notation; check strict/inclusive comparisons, both/either
+conditions,
 inclusive bounds and angle units. Four focused translation suites and 21
-human-preference checks pass. Specialized mathematical wording is lower confidence
+human-preference checks pass. Specialized mathematical wording is lower
+confidence
 and needs native review. No browser or screen-reader session was run.
 Remaining translation work is unfinished.
 
@@ -4683,8 +5227,10 @@ Remaining translation work is unfinished.
 
 Translate 45 English list and logic messages, preserving variables and index
 markers. Check insertion versus replacement, operations on copies, missing-item
-results and Boolean values. Four focused translation suites and 21 human-preference
-checks pass. Specialized programming wording is lower confidence and needs native
+results and Boolean values. Four focused translation suites and 21
+human-preference
+checks pass. Specialized programming wording is lower confidence and needs
+native
 review. No browser or screen-reader session was run. Remaining translations
 are unfinished.
 
@@ -4708,7 +5254,8 @@ was run. Remaining translation work is unfinished.
 Translate 65 English field, input, keyboard and icon labels. Preserve variables,
 coordinate letters and key names; check row/column order, start/end positions
 and opening/closing actions. Four focused translation suites and 21
-human-preference checks pass. Specialized programming wording is lower confidence
+human-preference checks pass. Specialized programming wording is lower
+confidence
 and needs native review. No browser or screen-reader session was run.
 Remaining translation work is unfinished.
 
@@ -4769,7 +5316,8 @@ and remaining translations are unfinished.
 
 Translate 51 English messages for planning, imports, link rules, settings and
 Scrum recovery. Preserve variables, import syntax and configuration literals;
-check retention, conflict recovery and read-only settings. The fill list is empty.
+check retention, conflict recovery and read-only settings. The fill list is
+empty.
 
 Four focused translation suites and 21 human-preference checks pass.
 No browser or screen-reader session was run. Further vocabulary review
@@ -4808,7 +5356,8 @@ and remaining translations are unfinished.
 
 Translate 51 English messages for planning, imports, link rules, settings and
 Scrum recovery. Preserve variables, import syntax and configuration literals;
-check retention, conflict recovery and read-only settings. The fill list is empty.
+check retention, conflict recovery and read-only settings. The fill list is
+empty.
 
 Four focused translation suites and 21 human-preference checks pass.
 No browser or screen-reader session was run. Further vocabulary review
@@ -4847,7 +5396,8 @@ and remaining translations are unfinished.
 
 Translate 51 English messages for planning, imports, link rules, settings and
 Scrum recovery. Preserve variables, import syntax and configuration literals;
-check retention, conflict recovery and read-only settings. The fill list is empty.
+check retention, conflict recovery and read-only settings. The fill list is
+empty.
 
 Four focused translation suites and 21 human-preference checks pass.
 No browser or screen-reader session was run. Further vocabulary review
@@ -4858,7 +5408,8 @@ and translations in other languages are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f5bb20772d">Translate Belarusian interrupted import recovery messages</a>. Thanks to xet7.</summary>
 
-Translate 25 English import recovery messages into Belarusian. Preserve variables
+Translate 25 English import recovery messages into Belarusian. Preserve
+variables
 and existing terminology; check deletion of later additions, retaining partial
 data, foreign-board protection, Scrum recovery and the oldest-50 limit.
 
@@ -4912,7 +5463,8 @@ session was run; remaining translations and vocabulary review are unfinished.
 
 Translate 51 English messages for planning, imports, link rules, settings and
 Scrum recovery. Preserve variables, import syntax and configuration literals;
-check retention, conflict recovery and read-only settings. The fill list is empty.
+check retention, conflict recovery and read-only settings. The fill list is
+empty.
 
 Four focused translation suites and 21 human-preference checks pass.
 No browser or screen-reader session was run. Further vocabulary review
@@ -4951,7 +5503,8 @@ and remaining translations are unfinished.
 
 Translate 51 English messages for planning, imports, link rules, settings and
 Scrum recovery. Preserve variables, import syntax and configuration literals;
-check retention, conflict recovery and read-only settings. The fill list is empty.
+check retention, conflict recovery and read-only settings. The fill list is
+empty.
 
 Four focused translation suites and 21 human-preference checks pass.
 No browser or screen-reader session was run. Further vocabulary review
@@ -4975,7 +5528,8 @@ and remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5ff83bf51d">Translate Macedonian interrupted import recovery messages</a>. Thanks to xet7.</summary>
 
-Translate 25 English import recovery messages into Macedonian. Preserve variables
+Translate 25 English import recovery messages into Macedonian. Preserve
+variables
 and existing terminology; check deletion of later additions, retaining a partial
 board, foreign-board protection, Scrum recovery and the oldest-50 limit.
 
@@ -4990,7 +5544,8 @@ and remaining translations are unfinished.
 
 Translate 51 English messages for planning, imports, link rules, settings and
 Scrum recovery. Preserve variables, import syntax and configuration literals;
-check retention, conflict recovery and read-only settings. The fill list is empty.
+check retention, conflict recovery and read-only settings. The fill list is
+empty.
 
 Four focused translation suites and 21 human-preference checks pass.
 No browser or screen-reader session was run. Further vocabulary review
@@ -5029,7 +5584,8 @@ and remaining translations are unfinished.
 
 Translate 51 English messages for planning, imports, link rules, settings and
 Scrum recovery. Preserve variables, import syntax and configuration literals;
-check retention, conflict recovery and read-only settings. The fill list is empty.
+check retention, conflict recovery and read-only settings. The fill list is
+empty.
 
 Five focused translation suites and 21 human-preference checks pass.
 No browser or screen-reader session was run. Further vocabulary review
@@ -5042,7 +5598,8 @@ and translations in other languages are unfinished.
 
 Translate 23 English recovery messages into Croatian. Preserve counters and
 explain retained changes, discarded pending changes, revoked access, replayable
-operations and the oldest-50 limit, with regression coverage for each distinction.
+operations and the oldest-50 limit, with regression coverage for each
+distinction.
 
 Four focused translation suites and 21 human-preference checks pass.
 No browser or screen-reader session was run. Further vocabulary review
@@ -6610,7 +7167,8 @@ non-duplication and first-sync protection of planning. Full new wording
 remains low-confidence pending fluent review.
 
 All 322 translation suites pass after these repairs, including global
-placeholder checks. All 21 human-preference checks also pass. No browser or screen-reader session was run; the all-language
+placeholder checks. All 21 human-preference checks also pass. No browser or
+screen-reader session was run; the all-language
 translation and linguistic review work continues.
 
 </details>
