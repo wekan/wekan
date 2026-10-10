@@ -130,8 +130,8 @@ previously held for Transifex. Completed work is recorded in Upcoming and releas
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **29,735 untranslated locale/string values in 42 languages**.
   It excludes **383 source keys tracked separately as pending Transifex**.
-  After the Hebrew batch, full per-locale `--list` reports, including pending
-  keys, count **61,804 remaining values across 145 non-English locale
+  After the Arabic batch, full per-locale `--list` reports, including pending
+  keys, count **61,126 remaining values across 142 non-English locale
   files**. This fuller inventory remains the scope of the translation work.
   A separate short-prose audit flags 1,681 candidates across 183 locales.
   The two notification At/To labels now have translations in all non-English
@@ -525,14 +525,42 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** Current Afrikaans, Albanian, Belarusian, Bosnian, Bulgarian, Croatian, Estonian, Hebrew, Icelandic, Latvian,
-Macedonian, Persian, Serbian, Slovenian and Vietnamese strings are translated. Mixed-language Macedonian values and Basque
+**In short:** Current Afrikaans, Albanian, Arabic, Belarusian, Bosnian, Bulgarian, Croatian, Estonian, Hebrew, Icelandic, Latvian,
+Macedonian, Persian, Serbian, Slovenian and Vietnamese strings are translated. Mixed-language Arabic core labels and Macedonian values and Basque
 card wording are corrected, with validation of imports, notifications and recovery
 choices.
 
-**Translations** - Afrikaans, Albanian, Basque, Belarusian, Bosnian, Bulgarian, Croatian, Estonian, Hebrew, Icelandic, Latvian, Macedonian, Persian, Serbian, Slovenian and Vietnamese.
+**Translations** - Afrikaans, Albanian, Arabic, Basque, Belarusian, Bosnian, Bulgarian, Croatian, Estonian, Hebrew, Icelandic, Latvian, Macedonian, Persian, Serbian, Slovenian and Vietnamese.
 
-**Languages updated:** Afrikaans, Albanian, Basque, Belarusian, Bosnian, Bulgarian, Croatian, Estonian, Hebrew, Icelandic, Latvian, Macedonian, Persian, Serbian, Slovenian, Vietnamese.
+**Languages updated:** Afrikaans, Albanian, Arabic, Basque, Belarusian, Bosnian, Bulgarian, Croatian, Estonian, Hebrew, Icelandic, Latvian, Macedonian, Persian, Serbian, Slovenian, Vietnamese.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2204c5693d">Translate current Arabic strings and repair Persian core labels</a>. Thanks to xet7.</summary>
+
+Fill 678 English placeholders across ar, ar-DZ and ar-EG for linked cards and
+fields, 22 import-format instructions, member mapping, bulk imports and exports,
+webhooks, notifications, Wrike workflows, Scrum planning and recovery controls,
+LDAP, link rules and interrupted import/List Sync recovery. All three full current
+fill lists are empty, including pending Transifex keys. Separately replace six
+Persian core labels in each catalog (18 values) with Arabic. Preserve other values,
+exact tokens and parsed constants. Vocabulary checks prevent the Persian labels
+from returning; regressions also cover permissions, import exclusions, notification
+timing, permanent deletion and refusal to discard resumable operations.
+
+The Arabic language audit remains unfinished: older Persian activity messages,
+voting text, colors, email templates and other values still require correction.
+A scan found 462 candidates in ar before the six core repairs; shared valid Arabic
+words must be retained. Longer new technical wording remains low-confidence
+pending speaker review. Empty placeholder reports do not establish language quality.
+
+All 306 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Fifteen browser cases pass syntax and discovery; runtime execution
+remains unverified without the local app and browser system dependencies.
+The full inventory, including pending Transifex keys, records 61,126 remaining
+values across 142 non-English locale files. The all-language backlog and semantic
+audit remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6f11e15f7d">Translate remaining current Hebrew strings</a>. Thanks to xet7.</summary>
