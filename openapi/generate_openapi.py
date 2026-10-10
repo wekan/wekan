@@ -584,6 +584,25 @@ class SchemaProperty(object):
     def __init__(self, statement, schema, context):
         self.schema = schema
         self.statement = statement
+        self._doc = None
+        self._raw_doc = None
+        if statement.type == 'SpreadElement':
+            # `...helper('notificationDelivery')` in a schema object: the fields
+            # are made when the module runs, which a static reader cannot do.
+            # Document them as one optional object named by the helper's first
+            # string argument - the prefix every generated field shares - and
+            # leave a spread without one out (name None; Schemas drops it).
+            # A spread has no `key`; reading it stopped the release (.tools/log/wekan8).
+            self.name = None
+            arg = statement.argument
+            if (arg is not None and arg.type == 'CallExpression' and arg.arguments and
+                    arg.arguments[0].type == 'Literal' and isinstance(arg.arguments[0].value, str)):
+                self.name = arg.arguments[0].value
+            self.type = 'object'
+            self.elements = []
+            self.blackbox = True
+            self.required = False
+            return
         self.name = statement.key.name or statement.key.value
         self.type = 'object'
         self.elements = []
@@ -740,7 +759,8 @@ class SchemaProperty(object):
         self._doc = cleanup_jsdocs(jsdoc)
 
     def process_jsdocs(self, jsdocs):
-        start = self.statement.key.loc.start.line
+        key = getattr(self.statement, 'key', None)
+        start = (key or self.statement).loc.start.line
         for index, doc in enumerate(jsdocs):
             if start + 1 == doc.loc.start.line:
                 self.doc = doc
@@ -901,7 +921,14 @@ class Schemas(object):
                 self.name = data.expression.callee.object.name
 
             content = data.expression.arguments[0].arguments[0]
-            self.fields = [SchemaProperty(p, self, context) for p in content.properties]
+            self.fields = []
+            for p in content.properties:
+                field = SchemaProperty(p, self, context)
+                if field.name is None:
+                    logger.warning('{}:{} a spread in schema {} has no name to document; skipped'.format(
+                        context.path, p.loc.start.line, self.name))
+                    continue
+                self.fields.append(field)
 
         self._doc = None
         self._raw_doc = None
