@@ -177,3 +177,51 @@ assert.match(data['scrum-import-into-board-hint'], /никогаш не се д�
 assert.match(data['scrum-history-checkpoint-hint'], /никој друг.*не ги променил/);
 assert.match(data['scrum-history-checkpoint-hint'], /не менува записи/);
 assert.match(data['login-setting-env-only'], /само за читање/);
+
+// The locale tag requires Macedonian, even when an older value was non-English.
+assert.deepEqual(Object.keys(data), Object.keys(englishRecoverySource));
+for (const key of Object.keys(englishRecoverySource)) {
+  assert.deepEqual(translationTokens(data[key]), translationTokens(englishRecoverySource[key]), key);
+  assert.doesNotMatch(data[key], /[ћђъщыэЋЂЪЩЫЭ]/u, `${key}: non-Macedonian letters`);
+}
+assert.deepEqual(JSON.parse(require('node:child_process').execFileSync(process.execPath,
+  ['releases/translations/fill-translations.mjs', '--list', 'mk'], { cwd: root, encoding: 'utf8' })), {});
+assert.match(data['custom-field-links-hint'], /исто име и тип на двете карти/);
+assert.match(data['custom-field-links-hint'], /само на едната карта остануваат непроменети/);
+assert.match(data['custom-field-link-inactive'], /веќе не може да ги уредува двете карти.*архивирана/);
+assert.match(data['custom-field-link-both'], /Двонасочно.*која било карта/);
+assert.match(data['custom-field-link-send'], /Еднонасочно.*главната карта/);
+assert.match(data['field-link-not-allowed'], /уредувате двете карти/);
+assert.equal(data['import-members-mode-me'], 'Замени ги сите со мојата корисничка сметка');
+assert.match(data['import-many-boards-hint'], /без поврзување на членовите со корисници/);
+assert.match(data['import-many-boards-hint'], /самата е еден извоз.*е едно табло/);
+assert.match(data['export-all-boards-hint'], /можете да го извезете.*работна книга.*\.zip/);
+assert.match(data['webhook-payload-description'], /задржува наследената поставка/);
+assert.match(data['notification-delivery-quiet'], /почекај да завршат/);
+assert.match(data['r-wrike-workflow-note'], /како завршена.*Completed.*Cancelled.*како незавршена.*Active.*Deferred/);
+for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) assert.ok(data['r-wrike-workflow-note'].includes(literal));
+assert.ok(data['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+assert.match(data['subtask-mark-done'], /како завршена$/);
+assert.match(data['subtask-mark-not-done'], /како незавршена$/);
+for (const name of ['taiga', 'vikunja']) assert.match(data[`import-board-instruction-${name}`], /Прилозите не се увезуваат/);
+assert.match(data['import-board-instruction-redmine'], /јазикот на англиски во My account пред извозот/);
+assert.match(data['import-board-instruction-businessmap'], /Title, Column, Lane, Owner, Deadline/);
+assert.match(data['import-board-instruction-plane'], /нема описи или прилози, па тие не се увезуваат/);
+for (const key of ['assignee', 'cardAssigneePopup-title', 'cardAssigneesPopup-title']) assert.equal(data[key], 'Задолжено лице');
+assert.equal(data['custom-fields'], 'Прилагодени полиња');
+assert.equal(data['filter-no-custom-fields'], 'Нема прилагодени полиња');
+assert.equal(data['thursday'], 'Четврток');
+assert.equal(data['friday'], 'Петок');
+assert.equal(data['saturday'], 'Сабота');
+assert.match(data['activity-checklist-uncompleted-card'], /како незавршен/);
+assert.match(data['attachment-delete-pop'], /трајно.*Не може да се поништи/);
+assert.match(data['list-delete-suggest-archive'], /зачувате активноста/);
+assert.equal(data['board-private-info'], 'Ова табло ќе биде <strong>приватно</strong>.');
+assert.match(data['add-card-to-top-of-list'], /врвот на списокот/);
+assert.match(data['add-card-to-bottom-of-list'], /дното на списокот/);
+assert.equal(data['r-trigger'], 'Активатор');
+assert.equal(data['card-end'], 'Крај');
+assert.match(data['flow-active'], /Отворени/);
+assert.match(data['flow-note-blockerAnalysis'], /избришаните карти.*зачувани снимки.*преклопуваат.*одделно/);
+assert.match(data['flow-note-processBehavior'], /времето на создавање.*времето на архивирање.*средна вредност.*најмалку две/);
+console.log('Macedonian full current catalog, native correction meanings and exact tokens pass');

@@ -2,6 +2,49 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Macedonian current fills and language corrections — 2026-10-10
+
+Translate 130 English placeholders in mk for attached cards, linked fields,
+20 import-format instructions, member mapping, CSV columns, bulk imports and
+exports, webhooks, notifications, Wrike workflows and subtasks. The full current
+fill list is empty. Correct 154 existing wrong-language or mixed-language values:
+133 identified by non-Macedonian letter forms, the Bulgarian custom
+fields label, and 20 additional vocabulary/uppercase-script corrections. These
+include assignment labels, archives, activity messages, custom fields, weekdays,
+rule controls, CPU/memory labels, task actions and diagnostic descriptions.
+Correct the truncated blocker-analysis and process-behavior descriptions against
+the complete English source, including retained history, overlapping causes,
+creation/archive fallbacks and the two-completion minimum.
+
+Use Macedonian карта, список, лента, прилагодени полиња and задолжено лице.
+Terminology references: the official dictionary entries for
+[задолжен](https://makedonski.gov.mk/corpus/l/zadolzhen-prid) and
+[поле](https://makedonski.gov.mk/corpus/l/pole-sr). Preserve native Macedonian
+accented forms such as ѝ; removing non-Macedonian letters alone is not a language
+audit. Check vocabulary and meaning too. Comparison with the parent commit
+proves 130 English-only fills plus the 154 explicitly reviewed corrections,
+with all other values preserved. Longer technical and corrected wording remains
+provisional pending speaker review; older catalog fluency is not fully audited.
+A further vocabulary comparison flags 317 remaining non-English values longer
+than 15 characters that exactly match the Bulgarian or Serbian value of the
+same key. These are review candidates, not automatic replacement targets:
+shared native words and technical labels may legitimately match. Examples needing
+review include activity messages and workspace controls. This follow-up remains
+open even though the placeholder list is empty.
+
+Preserve source key order, exact placeholder inventories, HTML, parsed Wrike
+constants, WEBHOOKS_ATTRIBUTES and external menu/column names. Regressions cover
+full current completion, non-Macedonian letter rejection, native vocabulary,
+link directions, permissions, member replacement, ZIP semantics, import-format
+requirements, inherited settings, quiet hours, completion states, archive and
+delete distinctions, and complete diagnostic meanings. Three browser cases for
+linked fields, import-people choices and notification delivery pass syntax and
+discovery; runtime execution remains unverified because the local app and browser
+system dependencies are unavailable. All 306 translation/Blockly suites,
+246 catalog inventories and 21 human-preference checks pass. A fresh full per-locale `--list` inventory counts
+63,538 remaining values across 157 non-English locale files, including pending
+Transifex keys. The all-language backlog and semantic audit remain open.
+
 ## Bulgarian current fills — 2026-10-10
 
 Translate 110 English placeholders in bg for attached cards, linked fields,
