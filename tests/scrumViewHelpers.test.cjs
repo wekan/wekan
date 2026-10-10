@@ -40,7 +40,11 @@ function helperBlocks(js) {
   }
   return out;
 }
-const used = (markup, helper) => new RegExp(`(^|[^\\w$.-])${helper.replace(/\$/g, '\\$')}(?![\\w$-])`, 'm').test(markup);
+// The helper's name is matched as text: every character with a meaning in a
+// regular expression is escaped, backslash included (CodeQL #560 was the
+// `$`-only escape this replaced).
+const escapeRegExp = text => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const used = (markup, helper) => new RegExp(`(^|[^\\w$.-])${escapeRegExp(helper)}(?![\\w$-])`, 'm').test(markup);
 
 function misplaced(js, jade) {
   const sections = templates(jade);
