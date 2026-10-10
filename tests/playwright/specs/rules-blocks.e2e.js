@@ -127,7 +127,10 @@ for (const language of ['fi','ar','gu-IN','sv','sl','vi','ku','ckb','tt','so','n
     await page.locator('.js-blocks-save').click();
     await expect.poll(()=>db.findOne('triggers',{_id:ids.triggerId}).listName).toBe('Localized list');
     await workspace.scrollIntoViewIfNeeded();
-    await block.locator('.blocklyPath').first().click({button:'right',position:{x:30,y:12}});
+    // Left of the label (Blockly draws it from x=8): at x=30 the label of a
+    // script with tall or wide glyphs - Bhojpuri, Tibetan, Cherokee, Inuktitut
+    // and others - covered the point, and Firefox gave the click to the text.
+    await block.locator('.blocklyPath').first().click({button:'right',position:{x:4,y:12}});
     await expect(page.locator('.blocklyContextMenu')).toContainText(translations['blockly-DUPLICATE_BLOCK']);
     // Workspace comments are switched off on purpose (editor.js: `comments:
     // false` - a comment has no rule equivalent), so the menu never offers
