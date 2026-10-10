@@ -63,12 +63,16 @@ test('#6639: links remain above no edit overlay and keep their own click', () =>
   assert.ok(!/\.minicard-title-edit-zone/.test(minicardCss),
     'CSS cannot recreate the fixed overlay that swallowed short links');
   const viewerEvents = read('client/components/main/editor.js');
-  const linkHandler = viewerEvents.slice(viewerEvents.indexOf("'click a'(event"));
-  assert.ok(/FlowRouter\.go\(cardPath\)/.test(linkHandler.slice(0, 1000)),
-    'a linked card opens in the current tab');
-  assert.ok(/window\.open\(href, '_blank', 'noopener'\)/.test(linkHandler.slice(0, 1000)),
-    'an external link still opens its destination');
-  assert.ok(/event\.stopPropagation\(\)/.test(linkHandler.slice(0, 1200)),
+  // The handler's own body, not a fixed 1,000 or 1,200 characters: #6753 added
+  // the copy-button and in-page-link branches at its top, which pushed these
+  // lines past the fixed windows although the handler did not change for them.
+  const start = viewerEvents.indexOf("'click a'(event");
+  const linkHandler = viewerEvents.slice(start, viewerEvents.indexOf('\n});', start));
+  const opens = linkHandler.indexOf("window.open(href, '_blank', 'noopener')");
+  assert.ok(opens > 0, 'an external link still opens its destination');
+  assert.ok(/FlowRouter\.go\(cardPath\)/.test(linkHandler.slice(0, opens)),
+    'a linked card opens in the current tab, decided before anything opens a tab');
+  assert.ok(/event\.stopPropagation\(\)/.test(linkHandler.slice(opens)),
     'and its click never reaches the editable title container');
 });
 

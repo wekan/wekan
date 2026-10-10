@@ -7,7 +7,7 @@
 # FOUR channels — stable, candidate, beta and edge. Every snap job does exactly
 # that (snap-native, snap-launchpad and snap-variants all publish
 # `stable,candidate,beta,edge`), for the default snap and for the wekan-ondra and
-# wekan-gantt-gpl variants alike. It ships the newest WeKan (Meteor 3.6-beta.1,
+# wekan-gantt-gpl variants alike. It ships the newest WeKan (Meteor 3.6-rc.0,
 # Node.js 26, FerretDB v1, MongoDB 7, Caddy 2).
 #
 # snapcraft-core26.yaml is the SAME WeKan on `base: core26`, kept for testing the

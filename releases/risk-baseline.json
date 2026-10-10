@@ -46,7 +46,15 @@
     "package-lock.json": [
       "https://github\\.com/sponsors/csstools",
       "https://github\\.com/inikulin/parse5\\?sponsor=1",
-      "https://opencollective\\.com/csstools"
+      "https://opencollective\\.com/csstools",
+      "https://eslint\\.org/version-support",
+      "https://github\\.com/chalk/chalk\\?sponsor=1",
+      "https://github\\.com/sponsors/inspect-js",
+      "https://github\\.com/sponsors/sxzz",
+      "https://github\\.com/sponsors/wooorm",
+      "https://opencollective\\.com/babel",
+      "https://opencollective\\.com/core-js",
+      "https://opencollective\\.com/debug"
     ]
   },
   "files": {
