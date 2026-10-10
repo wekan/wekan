@@ -107,8 +107,8 @@ previously held for Transifex. Completed work is recorded in Upcoming.
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **29,735 untranslated locale/string values in 42 languages**.
   It excludes **383 source keys tracked separately as pending Transifex**.
-  A separate short-prose audit flags 1,831 candidates across 190 locales,
-  including capitalized At/To labels previously omitted;
+  A separate short-prose audit flags 1,681 candidates across 183 locales.
+  The two notification At/To labels now have translations in all non-English locales;
   shared native words may equal English, so these require individual review.
   Exact Blockly OS brands and compact math/code symbols no longer inflate
   the prose backlog. Counts are a snapshot; they do not establish the quality
@@ -1577,6 +1577,25 @@ inventories and 21 preservation checks pass. Three browser scenarios are
 syntax-checked and discovered; execution remains unverified. Longer technical
 wording remains low confidence pending speaker review. The all-language backlog
 and older semantic audit remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/306b5dc927">Complete notification time labels in every non-English locale</a>. Thanks to xet7.</summary>
+
+Translate 150 remaining English values in 75 catalogs. Daily send-time and
+quiet-hours-end labels now have translations in all 234 non-English locale
+paths. Preserve every other value and all English variants. Respect the
+legacy Venetian, Veps, Venda, Waray and Walloon tags and Arabic-script Uzbek.
+Minority-language phrasing remains provisional; lexical references and
+low-confidence languages are recorded in the translation audit and commit.
+
+All 304 translation/Blockly suites, 246 catalog key/token inventories and
+21 preservation checks pass. Eight added representative browser cases pass
+syntax and discovery checks; execution requires the unavailable local app.
+The short-prose queue falls to 1,681 candidates in 183 locales. The wider
+29,735-value ordinary backlog, pending feature strings and semantic audit
+remain open; this completes only the two time-label keys.
 
 </details>
 
