@@ -454,6 +454,7 @@ fields** and **subtask checkboxes**, boards a Trello-style **Calendar Mode**,
 and e-mail, the tray and webhooks can each choose their **content, grouping
 and schedule**. WeKan moves to **Meteor 3.6-rc.0**, and seven **GitHub
 CodeQL** alerts and the **brace-expansion** advisories are fixed.
+Translations are updated in 172 languages.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
@@ -1300,6 +1301,25 @@ placeholder.
 
 </details>
 
+**Releases** - what a release needs from the Upcoming section.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4c0942ff56">Everything under the Upcoming heading is optional</a>. Thanks to xet7.</summary>
+
+releases/release-all.sh stopped when the Upcoming section had no entries, no
+In short summary, or a Translations group without its Languages updated line,
+and releases/release-notes.sh failed on the same in the workflow, after the
+tag. Now only the Upcoming heading is required, since it becomes the new
+version; a missing part is a warning and is left out of the release notes.
+tests/releaseUpcomingPreflight.test.cjs and
+tests/releaseTranslationSummary.test.cjs pin both the warnings and the cases
+that still stop.
+
+</details>
+
+- [A Translations group may give the count of its languages when there are too many to list](https://github.com/wekan/wekan/commit/3ec85c82d6).
+  Thanks to xet7.
+
 and documents the supported formats:
 
 <details>
@@ -1327,6 +1347,11 @@ Format-Coverage.md, which is now the index and the shared contract.
 and improves translations:
 
 **Translations** - continued language coverage and corrections.
+
+**Languages updated:** 172 languages.
+
+- [The README counts 164 catalogs over 90% translated, after the new English strings](https://github.com/wekan/wekan/commit/93e83ec536).
+  Thanks to xet7.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/dd14753712">The new import and export strings reach every language file</a>. Thanks to translators and xet7.</summary>
