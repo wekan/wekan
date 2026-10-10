@@ -6,6 +6,23 @@ const { execFileSync } = require('node:child_process');
 const root = path.resolve(__dirname, '..');
 const read = code => JSON.parse(fs.readFileSync(path.join(root, `imports/i18n/data/${code}.i18n.json`), 'utf8'));
 const meanings = {
+  bg: {
+    matching: /едно и също име и тип в двете карти/,
+    unchanged: /само в едната карта, остават непроменени/,
+    inactive: /вече не може да редактира двете карти.*архивирана/,
+    both: /Двупосочно.*която и да е карта/,
+    send: /Еднопосочно.*основната карта/,
+    permission: /редактирате и двете карти/,
+    me: 'Замени всички с моя потребителски профил',
+    unmapped: /без съпоставяне на членове/,
+    archive: /сам по себе си е един износ.*е едно табло/,
+    export: /можете да изнесете.*работна книга.*\.zip/,
+    inherited: /запазва наследената настройка/,
+    quiet: /изчакай да приключат/,
+    workflow: /като завършена.*Completed.*Cancelled.*като незавършена.*Active.*Deferred/,
+    done: /като завършена$/, undone: /като незавършена$/,
+    list: 'Списък', lane: 'Коридор',
+  },
   hr: {
     matching: /istim nazivom i vrstom na obje kartice/,
     unchanged: /samo na jednoj kartici ostaju nepromijenjena/,
@@ -61,7 +78,7 @@ const meanings = {
 (async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   const english = read('en');
-  for (const code of ['hr', 'sr', 'sl', 'sl_SI']) {
+  for (const code of ['bg', 'hr', 'sr', 'sl', 'sl_SI']) {
     const d = read(code), m = meanings[code === 'sl_SI' ? 'sl' : code];
     assert.deepEqual(Object.keys(d), Object.keys(english), code);
     for (const key of Object.keys(english)) assert.deepEqual(translationTokens(d[key]), translationTokens(english[key]), `${code}:${key}`);
@@ -81,9 +98,9 @@ const meanings = {
     for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) assert.ok(d['r-wrike-workflow-note'].includes(literal));
     assert.ok(d['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
     for (const key of ['custom-field-links-hint', 'import-many-boards-hint', 'notification-delivery-quiet']) {
-      if (code === 'sr') assert.match(d[key], /\p{Script=Cyrillic}/u);
+      if (code === 'sr' || code === 'bg') assert.match(d[key], /\p{Script=Cyrillic}/u);
       else assert.doesNotMatch(d[key], /\p{Script=Cyrillic}/u);
     }
   }
-  console.log('Croatian, Serbian and both Slovenian current catalogs: tokens, native terminology and behavior meanings pass');
+  console.log('Bulgarian, Croatian, Serbian and both Slovenian current catalogs: tokens, native terminology and behavior meanings pass');
 })().catch(error => { console.error(error); process.exitCode = 1; });
