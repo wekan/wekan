@@ -497,11 +497,31 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** Translate the remaining current Czech, Dutch, French, German, Polish, Portuguese and Spanish strings and correct Swiss German spelling.
+**In short:** Translate the remaining current Czech, Dutch, French, German, Polish, Portuguese, Slovak and Spanish strings and correct Czech wording in Slovak and Swiss German spelling.
 
-**Translations** - Czech, Dutch, French, German, Polish, Portuguese and Spanish base and regional catalogs.
+**Translations** - Czech, Dutch, French, German, Polish, Portuguese, Slovak and Spanish base and regional catalogs.
 
-**Languages updated:** Czech, Dutch, French, German, Polish, Portuguese, Spanish.
+**Languages updated:** Czech, Dutch, French, German, Polish, Portuguese, Slovak, Spanish.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1d76d08c7f">Fill current Slovak strings and correct Czech seed wording</a>. Thanks to xet7.</summary>
+
+Translate 110 English placeholders in sk for linked cards, imports, member
+mapping, webhooks, notifications and Wrike workflows. Its full current fill
+list is empty. Correct 198 older Czech or mixed-language values in menus,
+filters, rules, activity text, account labels and time reporting to Slovak.
+Preserve other existing translations, exact placeholders and parsed constants.
+Regressions check native vocabulary, permissions, propagation directions,
+import semantics, notification timing, workflow states and time corrections.
+Longer technical wording remains provisional pending speaker review; older
+catalog wording is not fully audited.
+
+All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Three browser cases pass syntax and discovery; execution remains
+unverified because the local app and browser system dependencies are unavailable.
+The wider all-language backlog and semantic audit remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0ac133b2f4">Translate remaining current Czech strings</a>. Thanks to xet7.</summary>
