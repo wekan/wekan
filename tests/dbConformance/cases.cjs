@@ -170,13 +170,17 @@ const CASES = [
   { group: 'projection', name: '$meta recordId', kind: 'find', filter: {},
     options: { projection: { name: 1, rid: { $meta: 'recordId' } }, sort: { _id: 1 } },
     compare: COMPARE.SHAPE },
-  // `textScore` is computed by the handler ABOVE the backends, from the
-  // document's own strings, so every backend must produce the SAME number and
-  // the values are compared in full. It is also the only case that exercises
-  // `$text`: only `alpha` (_id 1) carries the term, and it carries it once.
+  // The only case that exercises `$text`: only `alpha` (_id 1) carries the
+  // term. MongoDB answers `$text` only with a text index ("text index required
+  // for $text query"), so the case creates one first - FerretDB accepts it too.
+  // The SCORE is recorded by type only: FerretDB counts term occurrences
+  // (internal/handler/common/filter.go textSearchScore) while MongoDB scores
+  // against its index with stemming and length normalisation, so the numbers
+  // differ by design and only "which documents, with a number" is compared.
   // Sorted by `_id` so the comparison does not depend on the order a backend
   // happens to return rows in.
   { group: 'projection', name: '$meta textScore', kind: 'find',
+    textIndex: { name: 'text' }, redact: ['score'],
     filter: { $text: { $search: 'alpha' } },
     options: { projection: { name: 1, score: { $meta: 'textScore' } }, sort: { _id: 1 } } },
   { group: 'sort', name: 'sort ascending', kind: 'find', filter: {}, options: { sort: { n: 1 } } },

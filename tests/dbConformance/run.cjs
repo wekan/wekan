@@ -84,6 +84,8 @@ async function runCase(db, c) {
   const col = db.collection('conformance');
   switch (c.kind) {
     case 'find':
+      // A case that needs an index first - `$text` needs a text index on MongoDB.
+      if (c.textIndex) await col.createIndex(c.textIndex);
       return col.find(c.filter, c.options || {}).toArray();
     case 'count':
       return col.countDocuments(c.filter || {});

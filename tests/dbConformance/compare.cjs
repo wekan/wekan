@@ -77,7 +77,7 @@ function compareRuns(runs, referenceLabel) {
 // The report, as text. Pure, so the test can read it.
 function renderReport(cmp, meta = {}) {
   const lines = [];
-  lines.push('# FerretDB v1: do all backends answer the same?');
+  lines.push('# FerretDB v1 and MongoDB: do all backends answer the same?');
   lines.push('');
   if (meta.when) lines.push(`Run: ${meta.when}`);
   if (meta.platform) lines.push(`Platform: ${meta.platform}`);

@@ -31,6 +31,15 @@
 # ppc64le and s390x, SQLite, PostgreSQL and MariaDB; on riscv64, SQLite and
 # PostgreSQL.
 #
+# MongoDB 8 and MongoDB 9 run too - the real servers, from the official
+# mongo:8.0 and mongo:9.0 images, queried DIRECTLY with no FerretDB in between.
+# All FerretDB backends can agree with each other and still all be wrong, and
+# only a MongoDB beside them shows it: the first run with MongoDB found that
+# FerretDB's $group handed every accumulator after the first an empty group.
+# On a Linux kernel from 6.19 to 7.0.13 MongoDB refuses to start ("Linux kernel
+# versions 6.19 and newer has a known incompatibility"); that is recorded as a
+# SKIP with the reason, because it is the machine, not WeKan.
+#
 # SAP HANA is only included when WEKAN_CONFORMANCE_HANA=1 is set: its image is
 # amd64-only, wants ~16 GB of RAM and tens of GB of disk, and needs SAP's licence
 # accepted - not something to start because somebody picked a menu entry.
@@ -65,9 +74,12 @@ FERRET_BIN="$WEKAN_DIR/.tools/FerretDB/bin/ferretdb"
 FERRET_REPO_SSH="git@github.com:wekan/FerretDB"
 FERRET_REPO_HTTPS="https://github.com/wekan/FerretDB"
 
-# backend | compose file it mirrors | service in that file | container port | handler
+# backend | compose file it mirrors (or image:<image>) | service | container port | handler
+# The `mongodb` handler is MongoDB itself: no FerretDB is started for it.
 BACKENDS=(
   "sqlite|docker-compose.yml||0|sqlite"
+  "mongodb8|image:mongo:8.0|mongodb|27017|mongodb"
+  "mongodb9|image:mongo:9.0|mongodb|27017|mongodb"
   "postgresql|docker-compose-ferretdb-v1-postgresql.yml|postgres|5432|postgresql"
   "mysql|docker-compose-ferretdb-v1-mysql.yml|mysql|3306|mysql"
   "mariadb|docker-compose-ferretdb-v1-mariadb.yml|mariadb|3306|mysql"
@@ -295,7 +307,10 @@ for entry in "${BACKENDS[@]}"; do
 
   image=""
   if [ -n "$service" ]; then
-    image="$(image_of "$file" "$service")"
+    case "$file" in
+      image:*) image="${file#image:}" ;;
+      *)       image="$(image_of "$file" "$service")" ;;
+    esac
     if [ -z "$image" ]; then
       echo "ERROR $name  no image found for service '$service' in $file"
       echo "ERROR $name  no image in $file" >> "$SUMMARY"
@@ -381,6 +396,11 @@ for entry in "${BACKENDS[@]}"; do
       # database per MongoDB database, which a per-database grant cannot allow.
       url="mysql://root:ferretdb_root_secret@127.0.0.1:$hostport/ferretdb"
       ;;
+    mongodb8|mongodb9)
+      start_db_container "$image" \
+        || { echo "ERROR $name  container did not start" >> "$SUMMARY"; stop_on_failure; continue; }
+      url="mongodb://127.0.0.1:$hostport"
+      ;;
     sap-hana)
       mkdir -p "$WEKAN_DIR/hana-config"
       [ -f "$WEKAN_DIR/hana-config/password.json" ] || \
@@ -407,12 +427,29 @@ for entry in "${BACKENDS[@]}"; do
         mysql)      docker_exec exec "$CONTAINER" mysqladmin ping -h 127.0.0.1 -u root -pferretdb_root_secret --silent >/dev/null 2>&1 && up=1 ;;
         mariadb)    docker_exec exec "$CONTAINER" healthcheck.sh --connect --innodb_initialized >/dev/null 2>&1 && up=1 ;;
         sap-hana)   docker_exec logs "$CONTAINER" 2>&1 | grep -q "Startup finished" && up=1 ;;
+        mongodb8|mongodb9)
+                    docker_exec exec "$CONTAINER" mongosh --quiet --eval 'db.runCommand({ping:1}).ok' 2>/dev/null | grep -q 1 && up=1 ;;
       esac
+      # MongoDB stops at once on a kernel it knows it is incompatible with.
+      # Waiting the full two minutes for it would only end in "never ready".
+      if [ "$handler" = mongodb ] && docker_exec logs "$CONTAINER" 2>&1 \
+           | grep -q 'Linux kernel versions 6.19 and newer has a known incompatibility'; then
+        up=2; break
+      fi
       [ "$up" -eq 1 ] && break
       printf '.'
       sleep 5
     done
     echo
+    if [ "$up" -eq 2 ]; then
+      kernel="$(docker_exec info --format '{{.KernelVersion}}' 2>/dev/null || uname -r)"
+      echo "SKIP  $name: MongoDB refuses to start on this Linux kernel ($kernel), 6.19-7.0.13"
+      echo "SKIP  $name  MongoDB refuses Linux kernel $kernel (6.19-7.0.13; upgrade the kernel)" >> "$SUMMARY"
+      docker_exec logs "$CONTAINER" >>"$log" 2>&1
+      docker_exec rm -f "$CONTAINER" >/dev/null 2>&1
+      skipped=$((skipped + 1))
+      continue
+    fi
     if [ "$up" -ne 1 ]; then
       echo "ERROR $name: the database never became ready (see $log)"
       docker_exec logs "$CONTAINER" >>"$log" 2>&1
@@ -421,6 +458,28 @@ for entry in "${BACKENDS[@]}"; do
       docker_exec rm -f "$CONTAINER" >/dev/null 2>&1
       continue
     fi
+  fi
+
+  # MongoDB itself answers the catalogue: no FerretDB in between.
+  if [ "$handler" = mongodb ]; then
+    echo "---- $name: running the query catalogue against $(docker_exec exec "$CONTAINER" mongod --version 2>/dev/null | head -1) ----"
+    node tests/dbConformance/run.cjs --uri "$url" --label "$name" --out "$LOGDIR" 2>&1 | tee -a "$log"
+    rc=${PIPESTATUS[0]}
+    if [ "$rc" -eq 0 ]; then
+      ran=$((ran + 1)); echo "RAN   $name" >> "$SUMMARY"
+    else
+      echo "ERROR $name  the catalogue could not be run" >> "$SUMMARY"
+      stop_on_failure
+    fi
+    echo "---- $name: stopping ----"
+    docker_exec logs "$CONTAINER" >>"$log" 2>&1
+    docker_exec rm -f "$CONTAINER" >/dev/null 2>&1
+    echo
+    if [ "${WEKAN_TEST_BAIL:-0}" = 1 ]; then
+      node tests/dbConformance/compare.cjs --dir "$LOGDIR" --reference sqlite 2>&1 | tee -a "$SUMMARY"
+      [ "${PIPESTATUS[0]}" -eq 0 ] || stop_on_failure
+    fi
+    continue
   fi
 
   echo "---- $name: starting the FerretDB we just built ----"
@@ -495,7 +554,7 @@ for entry in "${BACKENDS[@]}"; do
 done
 
 echo "=========================================================================="
-echo "Ran $ran backend(s); skipped $skipped for lack of an image on linux/$PLATFORM."
+echo "Ran $ran backend(s); skipped $skipped (no image for linux/$PLATFORM, not requested, or a kernel MongoDB refuses - see $SUMMARY)."
 echo
 
 if [ "$ran" -eq 0 ]; then

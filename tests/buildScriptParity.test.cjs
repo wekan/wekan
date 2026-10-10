@@ -358,6 +358,7 @@ test('every script in releases/ is reachable from BOTH menus', () => {
 
   // These are explicit audit/internal helpers, not independent release-menu actions.
   SKIP['translations/audit-progress.mjs'] = 'read-only audit reporting; run directly';
+  SKIP['translations/audit-short-prose.mjs'] = 'read-only review queue of short identical words; run directly';
   SKIP['translations/repair-audited-translations.mjs'] = 'reviewed repair helper; run directly';
   SKIP['translations/push-all-translations.mjs'] = 'implementation invoked by push-all-translations.sh';
 
