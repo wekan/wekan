@@ -55,9 +55,23 @@ for (const source of sources) {
 
 // What each external adapter now preserves beyond title/description/due/label,
 // imported through the real UI and read back from the database.
+// A comment by a person of an imported file is by their placeholder user (the
+// default people choice, models/lib/importMembersMode.js): the text as written,
+// and the person's name on the account - no longer a "name: " prefix.
+function expectCommentsBy(comments, wanted) {
+  expect(comments.map(c => c.text)).toEqual(wanted.map(([text]) => text));
+  comments.forEach((comment, i) => {
+    const author = db.findOne('users', { _id: comment.userId });
+    expect(author && author.profile && author.profile.fullname).toBe(wanted[i][1]);
+    expect(author.loginDisabled).toBe(true);
+  });
+}
+
 const FIDELITY = {
   kanboard: {
-    comments: [`kanboard-user: ${expected.comment}`],
+    // The author is a placeholder user keeping the name (the default people
+    // choice), not a prefix on the text.
+    comments: [expected.comment], author: 'kanboard-user',
     checklistItems: [['Audit subtask done', true], ['Audit subtask open', false]],
     card: card => {
       expect(card.color).toBe('crimson');
@@ -68,7 +82,9 @@ const FIDELITY = {
     labels: ['Audit category', 'priority:2'],
   },
   deck: {
-    comments: [`deck-user: ${expected.comment}`],
+    // The author is a placeholder user keeping the name (the default people
+    // choice), not a prefix on the text.
+    comments: [expected.comment], author: 'deck-user',
     checklistItems: [],
     card: card => {
       expect(new Date(card.createdAt).toISOString()).toBe('2026-09-01T00:00:00.000Z');
@@ -78,7 +94,9 @@ const FIDELITY = {
     labels: [expected.label],
   },
   openproject: {
-    comments: [`op-user: ${expected.comment}`],
+    // The author is a placeholder user keeping the name (the default people
+    // choice), not a prefix on the text.
+    comments: [expected.comment], author: 'op-user',
     checklistItems: [],
     card: card => {
       expect(new Date(card.startAt).toISOString()).toBe('2026-09-01T00:00:00.000Z');
@@ -96,7 +114,9 @@ const FIDELITY = {
     labels: ['Task', 'priority:High'],
   },
   asana: {
-    comments: [`asana-user: ${expected.comment}`],
+    // The author is a placeholder user keeping the name (the default people
+    // choice), not a prefix on the text.
+    comments: [expected.comment], author: 'asana-user',
     checklistItems: [['Audit subtask', true]],
     card: card => {
       expect(new Date(card.startAt).toISOString()).toBe('2026-09-01T00:00:00.000Z');
@@ -108,7 +128,9 @@ const FIDELITY = {
     labels: [expected.label],
   },
   zenkit: {
-    comments: [`zen-user: ${expected.comment}`],
+    // The author is a placeholder user keeping the name (the default people
+    // choice), not a prefix on the text.
+    comments: [expected.comment], author: 'zen-user',
     checklistItems: [['Audit item', true]],
     card: card => {
       const fields = Object.fromEntries(db.find('customFields', { boardIds: card.boardId }).map(f => [f._id, f.name]));
@@ -194,6 +216,15 @@ for (const [source, want] of Object.entries(FIDELITY)) {
       const comments = db.find('card_comments', { boardId });
       expect(comments.map(c => c.text).sort()).toEqual([...want.comments].sort());
       expect(comments.every(c => c.cardId === card._id)).toBe(true);
+      if (want.author) {
+        // Each comment is by a placeholder for the file's person: their name
+        // kept, unable to log in - and not by the person importing.
+        for (const comment of comments) {
+          const author = db.findOne('users', { _id: comment.userId });
+          expect(author && author.profile && author.profile.fullname).toBe(want.author);
+          expect(author.loginDisabled).toBe(true);
+        }
+      }
       const activities = db.find('activities', { boardId, activityType: 'addComment' });
       expect(activities).toHaveLength(want.comments.length);
       const items = db.find('checklistItems', { boardId }).sort((a, b) => a.sort - b.sort);
@@ -541,7 +572,7 @@ test('Pivotal Tracker: a stories CSV imports with its states, labels, comments a
     const done = cards.find(card => card.title === 'Finished story');
     expect(lists.find(list => list._id === done.listId).title).toBe('Accepted');
     expect(new Date(done.endAt).toISOString()).toBe('2026-09-03T00:00:00.000Z');
-    expect(db.find('card_comments', { cardId: open._id }).map(c => c.text)).toEqual(['Ana Lee: Looks good']);
+    expectCommentsBy(db.find('card_comments', { cardId: open._id }), [['Looks good', 'Ana Lee']]);
     const items = db.find('checklistItems', { cardId: open._id });
     expect(items.map(item => [item.title, item.isFinished]).sort()).toEqual([['Call', true], ['Pay', false]]);
     await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
@@ -696,7 +727,7 @@ test('Taiga: a project dump imports with its stories, tasks, epics, issues, comm
     expect(lists.find(list => list._id === story.listId).title).toBe('In progress');
     expect(story.requestedBy).toBe('carol@example.com');
     expect(new Date(story.dueAt).toISOString().slice(0, 10)).toBe('2024-03-15');
-    expect(db.find('card_comments', { cardId: story._id }).map(comment => comment.text)).toEqual(['Ann: Looks good']);
+    expectCommentsBy(db.find('card_comments', { cardId: story._id }), [['Looks good', 'Ann']]);
     const epic = cards.find(card => card.title === 'Content');
     expect(story.parentId).toBe(epic._id);
     expect(cards.filter(card => card.parentId === story._id).map(card => card.title).sort()).toEqual(['Intro paragraph', 'Outro paragraph']);
@@ -740,7 +771,10 @@ test('ClickUp: a task export imports with its status, list, tags, due date and s
     await navigateInApp(page, '/import/clickup');
     await page.locator('#import-textarea').fill([
       'Task ID,Task Name,Task Content,Status,Due date,Parent ID,Subtask IDs,Tags,Priority,List Name,Space Name',
-      `t1,${expected.title},"Two of them, DN50",in progress,${Date.UTC(2026, 9, 10)},,[t2],[${expected.label},web],high,Website,From ClickUp`,
+      // A cell holding a comma is quoted, as ClickUp's export (and WeKan's,
+      // formatClickUpCsv) writes it; the unquoted tag list split into two cells
+      // and moved every later column one to the right.
+      `t1,${expected.title},"Two of them, DN50",in progress,${Date.UTC(2026, 9, 10)},,[t2],"[${expected.label},web]",high,Website,From ClickUp`,
       't2,Child task,,to do,,t1,,[],,Website,From ClickUp',
     ].join('\r\n'));
     await page.locator('.js-import-without-mapping').click();
@@ -956,7 +990,7 @@ test('monday.com: a board export imports with its group, status, person, date an
     expect(new Date(card.dueAt).toISOString().slice(0, 10)).toBe('2026-10-10');
     expect(db.find('lists', { boardId }).find(list => list._id === card.listId).title).toBe('Working on it');
     expect(db.find('swimlanes', { boardId }).map(lane => lane.title)).toContain('Ideas');
-    expect(db.find('card_comments', { cardId: card._id }).map(comment => comment.text)).toEqual(['Alice Example: Ordered']);
+    expectCommentsBy(db.find('card_comments', { cardId: card._id }), [['Ordered', 'Alice Example']]);
     await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
   } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
 });
@@ -1142,7 +1176,8 @@ test('Microsoft Planner: an exported plan imports through the page', async ({ lo
       .toEqual(['Important Task 1', 'Important Task 2', 'Important Task 4']);
     const fields = db.find('customFields', { boardIds: boardId }).map(field => field.name).sort();
     expect(fields).toEqual(['Completed By', 'Priority', 'Progress']);
-    await expect(page.locator('.minicard-title', { hasText: 'Task 2' })).toBeVisible();
+    // Exact: "Task 2" is also the start of Task 20 to Task 29 in this plan.
+    await expect(page.locator('.minicard-title').getByText('Task 2', { exact: true })).toBeVisible();
   } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
 });
 
@@ -1226,7 +1261,7 @@ test('Vikunja: an export .zip imports through the page with its buckets, checkli
     const board = db.findOne('boards', { _id: boardId });
     expect(open.labelIds.map(id => board.labels.find(l => l._id === id).name)).toEqual([expected.label]);
     expect(db.find('checklistItems', { cardId: open._id }).map(item => [item.title, item.isFinished])).toEqual([['Quote', true], ['Order', false]]);
-    expect(db.find('card_comments', { cardId: open._id }).map(comment => comment.text)).toEqual(['ann: Looks good']);
+    expectCommentsBy(db.find('card_comments', { cardId: open._id }), [['Looks good', 'ann']]);
     const fields = db.find('customFields', { boardIds: boardId }).map(field => field.name).sort();
     expect(fields).toEqual(['Done', 'Percent Done', 'Priority']);
     await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
@@ -1375,7 +1410,7 @@ test('Plane: an export .zip imports through the page with its states, projects, 
     expect(new Date(child.endAt).toISOString().slice(0, 10)).toBe('2026-10-02');
     const board = db.findOne('boards', { _id: boardId });
     expect(open.labelIds.map(id => board.labels.find(l => l._id === id).name)).toEqual([expected.label]);
-    expect(db.find('card_comments', { cardId: open._id }).map(comment => comment.text)).toEqual(['John Smith: Looks good']);
+    expectCommentsBy(db.find('card_comments', { cardId: open._id }), [['Looks good', 'John Smith']]);
     const fields = db.find('customFields', { boardIds: boardId }).map(field => field.name).sort();
     expect(fields).toEqual(['Cycle', 'Estimate', 'Priority']);
     await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
@@ -1873,7 +1908,8 @@ test('github: an embedded issue comment becomes a card comment, not description 
     expect(card.description).not.toContain('Embedded GitHub reply');
     expect(card.description).toContain('Issue body only');
     const comments = db.find('card_comments', { boardId });
-    expect(comments.map(c => [c.text, c.cardId])).toEqual([['gh-commenter: Embedded GitHub reply', card._id]]);
+    expect(comments.map(c => c.cardId)).toEqual([card._id]);
+    expectCommentsBy(comments, [['Embedded GitHub reply', 'gh-commenter']]);
     expect(new Date(comments[0].createdAt).toISOString()).toBe('2026-09-02T10:00:00.000Z');
     await page.locator('.minicard .minicard-title').first().click();
     await expect(page.locator('.comment-text').first()).toContainText('Embedded GitHub reply');

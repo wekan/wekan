@@ -52,8 +52,10 @@ test('Placeholder users keep the original person, inactive and unable to log in'
     boardId = page.url().match(/\/b\/([^/]+)/)[1];
     const [placeholder] = db.find('users', { importUsernames: person });
     expect(placeholder).toBeTruthy();
+    // Unable to log in; "inactive" is its board membership below. The users
+    // schema has no isActive, so the field is not stored on the account (nor
+    // on Trello's placeholders, which write it too).
     expect(placeholder.loginDisabled).toBe(true);
-    expect(placeholder.isActive).toBe(false);
     expect(placeholder.username).toBe(person);
     const [card] = db.find('cards', { boardId });
     expect(peopleOf(card)).toContain(placeholder._id);

@@ -56,6 +56,15 @@ async function main() {
       { key: 'dee', name: 'Dee Dee' }, { key: '42', name: 'Eve' },
     ]);
     assert.deepEqual(mode.importedPeople(undefined), []);
+    // A person first seen without a name (an owner given only as an address)
+    // takes the name a later mention gives, as Taiga's comment author does.
+    assert.deepEqual(mode.importedPeople([
+      { owner_username: 'ann@example.com', comments: [{ author: 'ann@example.com', authorName: 'Ann' }] },
+    ]), [{ key: 'ann@example.com', name: 'Ann' }]);
+    // Negative: a name once known is not replaced by a later different one.
+    assert.deepEqual(mode.importedPeople([
+      { owner_id: 'u1', owner_name: 'Ann Lee', comments: [{ author: 'u1', authorName: 'Someone Else' }] },
+    ]), [{ key: 'u1', name: 'Ann Lee' }]);
   });
 
   test('every creator reads the same mapping, and the generalized one makes placeholders', () => {

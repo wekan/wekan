@@ -51,8 +51,14 @@ export function importedPeople(tasks) {
   const people = new Map();
   const add = (key, name) => {
     const id = typeof key === 'string' || typeof key === 'number' ? String(key).trim() : '';
-    if (!id || people.has(id)) return;
-    people.set(id, { key: id, name: String(name || id).trim() || id });
+    if (!id) return;
+    const given = String(name || '').trim();
+    const known = people.get(id);
+    // A person seen first without a name (an owner given only as an e-mail
+    // address) takes the name a later mention gives - Taiga's comment author
+    // "Ann" - rather than keeping the address as their name.
+    if (known) { if (given && known.name === id) known.name = given; return; }
+    people.set(id, { key: id, name: given || id });
   };
   for (const task of Array.isArray(tasks) ? tasks : []) {
     if (!task || typeof task !== 'object') continue;
