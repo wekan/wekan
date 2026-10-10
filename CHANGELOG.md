@@ -520,6 +520,35 @@ used.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Basque card wording is corrected and the current translation batch
+is verified, including imports, notifications and recovery choices.
+
+**Translations** - Basque.
+
+**Languages updated:** Basque.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/480e3639f6">Refine and validate current Basque translations</a>. Thanks to xet7.</summary>
+
+Review the 196 English placeholders filled in eu by commit e595f9a83b, included
+in v12.27, and correct noun forms in 23 of those newly filled values. Preserve
+all pre-existing translations, source placeholders and parsed constants. The
+full current Basque fill list is empty. Regressions verify field directions,
+permissions, import formats, member replacement, ZIP semantics, notification
+settings, completed versus incomplete states and recovery choices, including
+retained changes and permanent deletion. Longer technical wording remains
+provisional pending speaker review; older catalog fluency is not fully audited.
+
+All 305 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. The focused Basque regression also passes after the corrections.
+Three browser cases pass syntax and discovery; runtime execution remains
+unverified without the local app and browser system dependencies. The wider
+all-language backlog and semantic audit remain open.
+
+</details>
+
 # v12.27 2026-10-10 WeKan ® release
 
 **In short:** **FerretDB** now answers a `$group` with several accumulators,

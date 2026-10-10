@@ -5,7 +5,7 @@ Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 ## Basque current fills — 2026-10-10
 
 Translate 196 English placeholders in eu for attached cards, linked fields,
-calendar mode, twenty import-format instructions, member mapping, CSV columns,
+calendar mode, 22 import-format instructions, member mapping, CSV columns,
 bulk exports, external link rules, webhooks, notifications, Wrike workflows,
 LDAP synchronization, subtasks and interrupted operations. The full current fill
 list is empty. Follow the existing arbela, txartela, zerrenda, erraila and
