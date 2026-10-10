@@ -699,21 +699,27 @@ async function captureRuleMoveBoard({ plan, saved, action, commandContext, conte
   ]);
   if (!fromBoard || !toBoard || !list || !swimlane || !raw) throw new Error('sync-rule-move-board-target-missing');
   return prepareRuleMoveBoardCommand({ ...commandContext, fromBoardId,
-    ...await boardMoveInputs({ raw, model: card, fromBoard, toBoard, target, swimlaneTitle: swimlane.title }),
+    ...await boardMoveInputs({ raw, model: card, fromBoard, toBoard, target, swimlaneTitle: swimlane.title,
+      actorId: plan.actorId }),
     createdAt: new Date(), redoRows: await boardRedoRows(action.boardId, plan.actorId) });
 }
 
 // Card.move's choices for one card going to another board, by the same
-// lookups: labels by name, custom fields mapped (and shared), the next card
-// number, that board's active members; and the card's addedLabel activities.
-async function boardMoveInputs({ raw, model, fromBoard, toBoard, target, swimlaneTitle }) {
-  const names = (fromBoard.labels || []).filter(label => (raw.labelIds || []).includes(label._id)).map(label => label.name);
-  const labelIds = (toBoard.labels || []).filter(label => label.name && names.includes(label.name)).map(label => label._id);
+// lookups: labels by name - and, #1759, the ones that board lacks created
+// there when the actor is its admin - custom fields mapped (and shared), the
+// next card number, that board's active members; and the card's addedLabel
+// activities.
+async function boardMoveInputs({ raw, model, fromBoard, toBoard, target, swimlaneTitle, actorId }) {
+  const labels = crossBoardLabelPlan(fromBoard, raw.labelIds, toBoard, actorId);
+  // A label created for an earlier card of the same move-all is that board's
+  // label for the next one, as it is when Card.move moves them one by one.
+  if (labels.create.length) toBoard.labels = [...(toBoard.labels || []), ...labels.create];
+  const labelIds = labels.labelIds;
   const customFields = await model.mapCustomFieldsToBoard(toBoard._id);
   const labelActivities = await Activities.rawCollection().find({ activityType: 'addedLabel', cardId: raw._id },
     { projection: { labelId: 1 }, sort: { _id: 1 } }).toArray();
   return { card: raw, target, labelActivities,
-    mapped: { labelIds, cardNumber: await toBoard.getNextCardNumber(),
+    mapped: { labelIds, createLabels: labels.create, cardNumber: await toBoard.getNextCardNumber(),
       customFields: Array.isArray(customFields) ? customFields : [],
       // Its sprint and release by name on that board (models/lib/scrumCopy.js).
       scrumPlanning: raw.scrum && (raw.scrum.sprintId || require('/models/lib/scrum').cardReleaseIds(raw.scrum).length)
@@ -771,7 +777,7 @@ export async function runStoredSyncRuleMoveAllBoard({ index, completeDelivery = 
         const raw = await Cards.rawCollection().findOne({ _id: model._id, boardId: fromBoardId });
         if (!raw) continue;
         moves.push(await boardMoveInputs({ raw, model, fromBoard, toBoard, swimlaneTitle: lane.title,
-          target: { boardId: action.boardId, listId: to._id, swimlaneId: lane._id, sort: null } }));
+          target: { boardId: action.boardId, listId: to._id, swimlaneId: lane._id, sort: null }, actorId: plan.actorId }));
       }
     }
     const candidate = prepareRuleMoveAllBoardCommand({ ...commandContext, moves, createdAt: new Date(), fromBoardId,
@@ -829,6 +835,8 @@ async function applyRuleMoveBoard(command, { guard, completeDelivery, options })
   const actor = work => DDP._CurrentMethodInvocation.withValue({ userId: command.actorId, isSimulation: false }, work);
   const raw = Cards.rawCollection();
   const { place } = command.after;
+  // The labels the card brings to that board (#1759), before the card names them.
+  await createPlannedLabels(place.boardId, command.createLabels, actor, guard);
   await guard();
   if (!await raw.findOne(ruleMoveBoardAfter(command))) {
     if (!await raw.findOne(ruleMoveBoardBefore(command))) throw new Error('sync-rule-move-board-changed');
@@ -1035,12 +1043,14 @@ async function captureRuleCopyCard({ plan, action, commandContext, commands }) {
     mayReadField(policy.definitions.get(field._id), plan.boardId, policy.adminBoards));
   const customFieldIds = readable.map(field => field._id);
   // On another board: labels by name, and custom fields mapped (and shared)
-  // to that board, as Card.copy does.
+  // to that board, as Card.copy does. #1759: a label that board lacks is
+  // created there when the actor is its admin, as Card.copy's
+  // crossBoardLabelIds does; the labels to create are part of the command, so
+  // a replay creates them once.
   let crossBoard = null;
   if (targetBoardId !== plan.boardId) {
-    const names = (sourceBoard.labels || []).filter(label => (source.labelIds || []).includes(label._id))
-      .map(label => label.name);
-    crossBoard = { labelIds: filterCopiedLabelIds(board.labels || [], names),
+    const labels = crossBoardLabelPlan(sourceBoard, source.labelIds, board, plan.actorId);
+    crossBoard = { labelIds: labels.labelIds, createLabels: labels.create,
       customFields: await model.mapCustomFieldsToBoard.call({ customFields: readable }, targetBoardId) };
   }
   const dependencies = [];
@@ -1076,6 +1086,30 @@ async function captureRuleCopyCard({ plan, action, commandContext, commands }) {
     subtaskChecklists, subtaskItems: await itemsOf(subtaskChecklists.map(list => list._id)),
     comments, commentDocs: comments.map(comment => buildCopiedComment(comment, 'pending', targetBoardId)), crossBoard,
     createdAt });
+}
+
+// #1759's label plan for a card that goes to another board: Card.copy and
+// Card.move's own rule (models/lib/crossBoardLabels.js), with the rule's actor.
+function crossBoardLabelPlan(sourceBoard, labelIds, targetBoard, actorId) {
+  const { planCrossBoardLabels } = require('/models/lib/crossBoardLabels');
+  const { Random } = require('meteor/random');
+  return planCrossBoardLabels({
+    sourceLabels: (sourceBoard && sourceBoard.labels) || [],
+    labelIds: labelIds || [],
+    destLabels: (targetBoard && targetBoard.labels) || [],
+    canCreate: Boolean(targetBoard && actorId && typeof targetBoard.hasAdmin === 'function' && targetBoard.hasAdmin(actorId)),
+    newId: () => Random.id(6),
+  });
+}
+
+// The labels a command creates on its target board, each once: a label already
+// there by its id (an earlier run of the same command) is not added again.
+async function createPlannedLabels(boardId, labels, actor, guard) {
+  for (const label of labels || []) {
+    await guard();
+    await actor(() => Boards.updateAsync({ _id: boardId, 'labels._id': { $ne: label._id } },
+      { $push: { labels: { _id: label._id, name: label.name, color: label.color } } }));
+  }
 }
 
 export async function runStoredSyncRuleCopyCard({ index, completeDelivery = runStoredSyncActivityDelivery, ...options }) {
@@ -1127,7 +1161,9 @@ export async function runStoredSyncRuleCopyCard({ index, completeDelivery = runS
     if (!await collection.rawCollection().findOne({ _id: doc._id })) await collection.direct.insertAsync(doc, options);
   };
 
-  // The copy, then its creation activity (which runs the copy's own rules).
+  // The labels the copy brings to that board (#1759), then the copy, then its
+  // creation activity (which runs the copy's own rules).
+  await createPlannedLabels(command.targetBoardId, command.createLabels, actor, guard);
   await insertCard(command.card);
   await deliver(command.cardActivity);
   // Its attachments, each file once, with the History row from the plan.

@@ -153,6 +153,41 @@ test('move-all onto another board: one whole move per card, each keeping its sor
   assert.deepEqual(M.prepareRuleMoveAllBoardCommand({ ...f.context, moves: [], createdAt: new Date(1) }).units, []);
 });
 
+test('#1759: the labels the new board lacks are created there before the card names them', async () => {
+  const f = await fixture();
+  const created = { _id: 'local-to', name: 'Local', color: 'blue' };
+  const mapped = { labelIds: ['urgent-to', 'local-to'], createLabels: [created], cardNumber: 41,
+    customFields: [{ _id: 'cf-to', value: 1 }] };
+  const command = f.prepare({ mapped });
+  assert.deepEqual(command.createLabels, [created]);
+  assert.deepEqual(command.after.fields.labelIds, ['urgent-to', 'local-to']);
+  assert.deepEqual(command.effects.labelActivities, [{ _id: 'a1', labelId: 'urgent-to', boardId: 'to' },
+    { _id: 'a2', labelId: 'local-to', boardId: 'to' }], 'the second activity follows the created label');
+  assert.deepEqual(M.validateRuleMoveBoardCommand(command, f.context), command);
+  // Nothing to create: the command keeps its older shape, without the key.
+  assert.ok(!Object.hasOwn(f.prepare(), 'createLabels'));
+  // Negative: a label to create that the card does not carry, an unnamed one,
+  // or an empty list written into a command, is refused.
+  assert.throws(() => f.prepare({ mapped: { ...mapped, createLabels: [{ _id: 'stray', name: 'Stray', color: 'red' }] } }),
+    /invalid/);
+  assert.throws(() => f.prepare({ mapped: { ...mapped, createLabels: [{ ...created, name: '' }] } }), /invalid/);
+  assert.throws(() => M.validateRuleMoveBoardCommand(resum({ ...command, createLabels: [] }), f.context), /command-invalid/);
+  // Move-all: a unit carries its own labels to create.
+  const all = await fixture([{ _id: 'all', boardId: 'to', actionType: 'moveAllCardsInList', fromListName: 'Doing',
+    listName: 'Done' }]);
+  const unit = { card: all.card, target: { boardId: 'to', listId: 'done', swimlaneId: 'lane-to', sort: null }, mapped,
+    allowedMemberIds: ['actor'], titles: { boardName: 'To', oldBoardName: 'From', swimlaneName: 'Lane' } };
+  const moveAll = M.prepareRuleMoveAllBoardCommand({ ...all.context, moves: [unit], createdAt: new Date(1) });
+  assert.deepEqual(moveAll.units[0].createLabels, [created]);
+  // The runner plans with Card.move's own rule, shares a created label with
+  // the next card of a move-all, and creates each once before the update.
+  const plans = fs.readFileSync(path.join(ROOT, 'server/notifications/storedRulePlans.js'), 'utf8');
+  assert.match(plans, /const labels = crossBoardLabelPlan\(fromBoard, raw\.labelIds, toBoard, actorId\);/);
+  assert.match(plans, /if \(labels\.create\.length\) toBoard\.labels = \[\.\.\.\(toBoard\.labels \|\| \[\]\), \.\.\.labels\.create\];/);
+  assert.match(plans, /await createPlannedLabels\(place\.boardId, command\.createLabels, actor, guard\);\s*await guard\(\);\s*if \(!await raw\.findOne\(ruleMoveBoardAfter\(command\)\)\)/);
+  assert.equal((plans.match(/actorId: plan\.actorId \}\)/g) || []).length >= 2, true, 'both captures pass the actor');
+});
+
 test('wiring: move-all onto another board has its runner, and the guard follows its units', () => {
   const plans = fs.readFileSync(path.join(ROOT, 'server/notifications/storedRulePlans.js'), 'utf8');
   assert.match(plans, /moveAllCardsInList: \(\{ invocation \}\) => \(isOtherBoardMoveAll\(invocation\.action, plan\.boardId\)\s*\? runStoredSyncRuleMoveAllBoard : runStoredSyncRuleMoveAll\)/);

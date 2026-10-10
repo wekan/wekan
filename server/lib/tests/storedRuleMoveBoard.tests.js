@@ -107,8 +107,15 @@ describe('Stored Sync rule moves to another board', function () {
 
       assert.equal(await runStoredSyncRules(input), input.effectId);
       const moved = await Cards.rawCollection().findOne({ _id: ids.card });
+      // #1759: the actor is that board's admin, so its missing "Local" label is
+      // created there - once, the replay below included - as Card.move does.
+      const localLabels = async () => ((await Boards.rawCollection().findOne({ _id: to })).labels || [])
+        .filter(label => label.name === 'Local');
+      const [local] = await localLabels();
+      assert.ok(local && local.color === 'blue', 'the missing label is created on that board');
       assert.deepEqual([moved.boardId, moved.listId, moved.swimlaneId, moved.labelIds, moved.members, moved.cardDependencies],
-        [to, ids.inbox, ids.toLane, ['urgent-to'], [actor], []], 'labels by name, members of that board, no dependencies');
+        [to, ids.inbox, ids.toLane, ['urgent-to', local._id], [actor], []],
+        'labels by name or created, members of that board, no dependencies');
       assert.ok(Number.isSafeInteger(moved.cardNumber) && moved.cardNumber > 0);
       assert.deepEqual([moved.scrum, moved.scrumRevision], [{ issueType: 'Story', sprintId: `sprint-${to}` }, 5],
         'that board\'s sprint of the same name; no release there, none kept');
@@ -117,7 +124,8 @@ describe('Stored Sync rule moves to another board', function () {
       assert.deepEqual((await Cards.rawCollection().findOne({ _id: ids.blocked })).cardDependencies, [],
         'the board left keeps no dependency on it');
       const labelled = await Activities.rawCollection().find({ cardId: ids.card, activityType: 'addedLabel' }).toArray();
-      assert.deepEqual(labelled.map(a => [a.labelId, a.boardId]), [['urgent-to', to]]);
+      assert.deepEqual(labelled.map(a => [a.labelId, a.boardId]).sort(), [['urgent-to', to], [local._id, to]].sort(),
+        'both activities follow their label');
       const counts = async () => [
         await Activities.rawCollection().countDocuments({ cardId: ids.card, activityType: 'moveCardBoard' }),
         await ChangeHistory.rawCollection().countDocuments({ entityId: ids.card, group: 'position' }),
@@ -128,6 +136,7 @@ describe('Stored Sync rule moves to another board', function () {
       assert.deepEqual(await counts(), [1, 1, 1, 1, 1], 'each record once, not the hook\'s and the command\'s');
       assert.equal(await runStoredSyncRules(input), input.effectId, 'replay');
       assert.deepEqual(await counts(), [1, 1, 1, 1, 1]);
+      assert.equal((await localLabels()).length, 1, 'the replay creates no second label');
       assert.equal((await Cards.rawCollection().findOne({ _id: ids.card })).cardNumber, moved.cardNumber);
 
       // Parity: the ordinary Card.move of an identical card lands the same way.
@@ -137,6 +146,7 @@ describe('Stored Sync rule moves to another board', function () {
       const comparable = doc => Object.fromEntries(Object.entries(doc).filter(([key]) => !['_id', 'title', 'cardNumber',
         'listEnteredAt', 'modifiedAt', 'dateLastActivity', 'createdAt'].includes(key)));
       assert.deepEqual(comparable(moved), comparable(ordinary), 'the durable move is the ordinary move');
+      assert.equal((await localLabels()).length, 1, 'the ordinary move found the label the rule created');
 
       // Negative: a destination that opted out keeps the board on direct Sync.
       await Boards.rawCollection().updateOne({ _id: to }, { $set: { syncEffectsEnabled: false } });

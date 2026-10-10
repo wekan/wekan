@@ -142,7 +142,9 @@ function effectsFor({ base, before, after, titles, labelActivities, createdAt, r
 // boardId, targetBoardId, cardId } - the command's, or a move-all unit's.
 //   card       - the card (raw document) on the board it leaves;
 //   target     - { boardId, listId, swimlaneId, sort } (sort null: its own);
-//   mapped     - { labelIds, cardNumber, customFields } for the target board;
+//   mapped     - { labelIds, cardNumber, customFields } for the target board,
+//                and createLabels: the labels it lacks, created there first
+//                (#1759; only when there are any, so an older move reads the same);
 //   allowedMemberIds - the target board's active members;
 //   titles     - { boardName, oldBoardName, swimlaneName } for the activity;
 //   labelActivities - the card's addedLabel activities, { _id, labelId };
@@ -173,7 +175,10 @@ function buildMove({ base, card, target, mapped, allowedMemberIds, titles, label
   const savedTitles = { boardName: String(titles.boardName ?? ''), oldBoardName: String(titles.oldBoardName ?? ''),
     swimlaneName: String(titles.swimlaneName ?? '') };
   const savedLabels = labelActivities.map(row => ({ _id: row._id, labelId: row.labelId ?? null }));
+  const createLabels = Array.isArray(mapped.createLabels)
+    ? mapped.createLabels.map(label => ({ _id: label?._id, name: label?.name, color: label?.color })) : [];
   return { before, after, titles: savedTitles, labelActivities: savedLabels,
+    ...(createLabels.length ? { createLabels } : {}),
     effects: effectsFor({ base, before, after, titles: savedTitles, labelActivities: savedLabels, createdAt, redoRows }) };
 }
 
@@ -193,7 +198,11 @@ function validMove(move, base, createdAt) {
       !Array.isArray(move.after.fields.labelIds) || !Array.isArray(move.after.fields.customFields) ||
       !Number.isSafeInteger(move.after.fields.cardNumber) || canonical(move.after.fields.cardDependencies) !== canonical([]) ||
       !move.titles || Object.keys(move.titles).sort().join(',') !== 'boardName,oldBoardName,swimlaneName' ||
-      !Array.isArray(move.labelActivities)) return false;
+      !Array.isArray(move.labelActivities) ||
+      // #1759's labels to create: named, and each one the moved card carries.
+      (Object.hasOwn(move, 'createLabels') && (!Array.isArray(move.createLabels) || !move.createLabels.length ||
+        move.createLabels.some(label => !label || !text(label._id) || typeof label.name !== 'string' || !label.name ||
+          !move.after.fields.labelIds.includes(label._id))))) return false;
   // The saved effects are what this move writes (the redo targets are the
   // capture's, checked when they are written).
   const expected = effectsFor({ base, before: move.before, after: move.after, titles: move.titles,
@@ -224,6 +233,7 @@ function validateRuleMoveBoardCommand(row, context) {
   const base = identity(context);
   const elsewhere = !!row && Object.hasOwn(row, 'fromBoard');
   const keys = [...Object.keys(base), ...(elsewhere ? ['fromBoard'] : []), 'before', 'after', 'titles', 'labelActivities',
+    ...(row && Object.hasOwn(row, 'createLabels') ? ['createLabels'] : []),
     'createdAt', 'effects', 'checksum'].sort().join(',');
   if (!row || Object.keys(row).sort().join(',') !== keys ||
       (elsewhere && (!text(row.fromBoard) || row.fromBoard === base.boardId || row.fromBoard === base.targetBoardId)) ||
@@ -291,7 +301,8 @@ function validateRuleMoveAllBoardCommand(row, context) {
   if (checksum !== sha256(canonical(content))) fail('command-invalid');
   const seen = new Set();
   for (const unit of row.units) {
-    if (!unit || Object.keys(unit).sort().join(',') !== 'after,before,cardId,effects,labelActivities,titles' ||
+    if (!unit || Object.keys(unit).filter(key => key !== 'createLabels').sort().join(',') !==
+          'after,before,cardId,effects,labelActivities,titles' ||
         !text(unit.cardId) || seen.has(unit.cardId) || unit.after.place.sort !== unit.before.place.sort ||
         !validMove(unit, unitBase(base, unit.cardId), row.createdAt)) fail('command-invalid');
     seen.add(unit.cardId);

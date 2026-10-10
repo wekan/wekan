@@ -159,8 +159,14 @@ describe('Stored Sync rule copyCard', function () {
       const copies = await Cards.rawCollection().find({ boardId: destId }).toArray();
       assert.equal(copies.length, 1);
       const copied = copies[0];
-      assert.deepEqual([copied.listId, copied.swimlaneId, copied.labelIds], [destListId, destLaneId, ['urgent-there']],
-        'that board\'s list, and its label of the same name');
+      // #1759: the actor is that board's admin, so its missing "Local" label is
+      // created there - once, the replay below included - as Card.copy does.
+      const localLabels = async () => ((await Boards.rawCollection().findOne({ _id: destId })).labels || [])
+        .filter(label => label.name === 'Local');
+      const [local] = await localLabels();
+      assert.ok(local && local.color === 'blue', 'the missing label is created on that board');
+      assert.deepEqual([copied.listId, copied.swimlaneId, copied.labelIds], [destListId, destLaneId, ['urgent-there', local._id]],
+        'that board\'s list, its label of the same name, and the one created');
       assert.ok(Number.isSafeInteger(copied.cardNumber) && copied.cardNumber > 0, 'a number from that board');
       const checklists = await Checklists.rawCollection().find({ cardId: copied._id }).toArray();
       assert.deepEqual(checklists.map(list => list.boardId), [destId]);
@@ -174,6 +180,7 @@ describe('Stored Sync rule copyCard', function () {
         boardId: destId }), 1);
       assert.equal(await runStoredSyncRules(input), input.effectId, 'replay');
       assert.equal(await Cards.rawCollection().countDocuments({ boardId: destId }), 1);
+      assert.equal((await localLabels()).length, 1, 'the replay creates no second label');
 
       // Parity: the ordinary Card.copy to that board makes the same card.
       const context = { userId: actor, isSimulation: false, connection: null, setUserId() {}, unblock() {} };
@@ -184,6 +191,7 @@ describe('Stored Sync rule copyCard', function () {
       const comparable = card => Object.fromEntries(Object.entries(card).filter(([key]) =>
         !['_id', 'cardNumber', 'sort', 'createdAt', 'modifiedAt', 'dateLastActivity', 'listEnteredAt', 'coverId'].includes(key)));
       assert.deepEqual(comparable(copied), comparable(ordinary), 'the durable copy is the ordinary copy');
+      assert.equal((await localLabels()).length, 1, 'the ordinary copy found the label the rule created');
       assert.equal(ordinary.cardNumber, copied.cardNumber + 1, 'the copy and its replay took one number between them');
 
       // Negative: a destination that has not opted in is refused before anything is copied.

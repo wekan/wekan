@@ -92,6 +92,9 @@ function prepareRuleCopyCardCommand({ plan, activity, effectId, index, noop = fa
     const elsewhere = base.targetBoardId !== base.boardId;
     if (elsewhere !== Boolean(crossBoard) || (crossBoard && (!Array.isArray(crossBoard.labelIds) ||
         !Array.isArray(crossBoard.customFields)))) fail('invalid');
+    const createLabels = crossBoard && crossBoard.createLabels ? crossBoard.createLabels : [];
+    if (!Array.isArray(createLabels) || createLabels.some(label => !label || !text(label._id) ||
+        typeof label.name !== 'string' || !label.name || !crossBoard.labelIds.includes(label._id))) fail('invalid');
     const newCardId = derivedId(base._id, 'card', card._id);
     // Card.copy's document.
     const doc = { ...copy(card) };
@@ -111,6 +114,8 @@ function prepareRuleCopyCardCommand({ plan, activity, effectId, index, noop = fa
     const checklistIdOf = id => derivedId(base._id, 'checklist', id);
     const subtaskIdOf = id => derivedId(base._id, 'subtask', id);
     command.card = doc;
+    // #1759: labels the target board lacks, created there before the copy.
+    command.createLabels = createLabels.map(label => ({ _id: label._id, name: label.name, color: label.color }));
     command.coverId = copiedCover;
     command.cardActivity = creationActivity(base, doc, destination, createdAt, 'card');
     command.attachments = attachments.map(file => ({ sourceId: file._id, attachmentId: attachmentIdFor(base._id, file._id) }));
@@ -158,7 +163,9 @@ function validateRuleCopyCardCommand(row, context) {
   const base = identity(context);
   const keys = row?.noop ? [...Object.keys(base), 'createdAt', 'noop', 'checksum']
     : [...Object.keys(base), 'createdAt', 'noop', 'card', 'coverId', 'cardActivity', 'attachments', 'checklists', 'items',
-      'subtasks', 'subtaskChecklists', 'subtaskItems', 'comments', 'recorded', 'checksum'];
+      'subtasks', 'subtaskChecklists', 'subtaskItems', 'comments', 'recorded', 'checksum',
+      // #1759's labels to create; a command stored before them has none.
+      ...(row && Object.prototype.hasOwnProperty.call(row, 'createLabels') ? ['createLabels'] : [])];
   if (!row || Object.keys(row).sort().join(',') !== keys.sort().join(',') ||
       Object.entries(base).some(([key, value]) => canonical(row[key]) !== canonical(value)) ||
       !(row.createdAt instanceof Date) || typeof row.noop !== 'boolean') fail('command-invalid');
@@ -176,6 +183,9 @@ function validateRuleCopyCardCommand(row, context) {
         canonical(creationActivity(base, subtask.card, destination, row.createdAt, 'subtask')) !==
           canonical({ receiptId: subtask.receiptId, activity: subtask.activity })) fail('command-invalid');
   }
+  if (row.createLabels !== undefined && (!Array.isArray(row.createLabels) || row.createLabels.some(label =>
+      !label || !text(label._id) || typeof label.name !== 'string' || !label.name ||
+      !(card.labelIds || []).includes(label._id)))) fail('command-invalid');
   const ownCards = new Set([card._id, ...row.subtasks.map(subtask => subtask.card._id)]);
   const checklistIds = new Set([...row.checklists, ...row.subtaskChecklists].map(list => list._id));
   if ([...row.checklists, ...row.subtaskChecklists].some(list => !ownCards.has(list.cardId) ||

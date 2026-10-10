@@ -94,6 +94,37 @@ test('a copy to another board lives there, with that board\'s labels and custom 
     elsewhere.context), /command-invalid/);
 });
 
+test('#1759: the labels another board lacks are created there, once, as Card.copy does', async () => {
+  const elsewhere = await fixture({ boardId: 'other' });
+  const subtaskDocs = [{ title: 'Sub', boardId: 'other', listId: 'next', swimlaneId: 'lane' }];
+  const created = { _id: 'new-local', name: 'Local', color: 'blue' };
+  const crossBoard = { labelIds: ['urgent-there', 'new-local'], createLabels: [created], customFields: [] };
+  const command = elsewhere.prepare({ crossBoard, subtaskDocs });
+  assert.deepEqual(command.createLabels, [created], 'the command names the labels to create');
+  assert.deepEqual(command.card.labelIds, ['urgent-there', 'new-local'], 'and the copy carries them');
+  assert.deepEqual(C.validateRuleCopyCardCommand(command, elsewhere.context), command);
+  // A command stored before #1759 has no createLabels, and still runs.
+  const resum = row => { const { checksum, recorded, ...content } = row;
+    return { ...content, recorded, checksum: sha256(canonical(content)) }; };
+  const { createLabels, ...older } = command;
+  assert.deepEqual(C.validateRuleCopyCardCommand(resum(older), elsewhere.context), resum(older));
+  // Negative: a label to create that the copy does not carry, or one without
+  // a name, is refused when the command is made and when it is read back.
+  assert.throws(() => elsewhere.prepare({ subtaskDocs,
+    crossBoard: { ...crossBoard, createLabels: [{ _id: 'stray', name: 'Stray', color: 'red' }] } }), /invalid/);
+  assert.throws(() => elsewhere.prepare({ subtaskDocs,
+    crossBoard: { ...crossBoard, createLabels: [{ ...created, name: '' }] } }), /invalid/);
+  assert.throws(() => C.validateRuleCopyCardCommand(resum({ ...command,
+    createLabels: [{ _id: 'stray', name: 'Stray', color: 'red' }] }), elsewhere.context), /command-invalid/);
+  // The runner plans them with Card.copy's own rule and creates each once.
+  const plans = fs.readFileSync(path.join(ROOT, 'server/notifications/storedRulePlans.js'), 'utf8');
+  assert.match(plans, /planCrossBoardLabels\(\{/);
+  assert.match(plans, /canCreate: Boolean\(targetBoard && actorId && typeof targetBoard\.hasAdmin === 'function' && targetBoard\.hasAdmin\(actorId\)\)/);
+  assert.match(plans, /Boards\.updateAsync\(\{ _id: boardId, 'labels\._id': \{ \$ne: label\._id \} \}/,
+    'a label already there by its id is not added again on a replay');
+  assert.match(plans, /await createPlannedLabels\(command\.targetBoardId, command\.createLabels, actor, guard\);\s*await insertCard\(command\.card\);/);
+});
+
 test('negative: tampering and foreign records are refused; a noop stays a noop', async () => {
   const f = await fixture();
   const command = f.prepare();
