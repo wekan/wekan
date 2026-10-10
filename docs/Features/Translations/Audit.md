@@ -2,6 +2,49 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Wu and Xhosa current fills — 2026-10-10
+
+Fill 112 English values in each of `wuu-Hans` and `xh`: 110 pending strings
+for card attachment/linking, member mapping, CSV and multiple-board imports,
+exports, webhook identity, delivery settings, Wrike workflows and subtask
+completion, plus the short At/To delivery labels. Both full current fill
+lists are empty. All 224 filled values were English in the parent commit.
+Four Xhosa values are corrected separately: the custom-fields label and both
+edit-custom-fields headings used tradition/custom (`yesiko`) terminology;
+the swimlane label named swimming without a lane. All other existing values
+remain untouched. Other old Xhosa activity and customization wording still
+needs review; empty reports do not establish fluent language throughout.
+
+Wu wording follows the catalog's northern Wu vocabulary and constructions,
+including 搿, 侬, 勿, 卡片浪 and 个辰光. The
+[dictionary entry for 畀](https://en.wiktionary.org/wiki/畀) records its Wu use,
+and the [Wu interface example](https://tatoeba.org/wuu/sentences/show/904789)
+provides additional native-interface context. They do not validate the full
+technical sentences. Xhosa vocabulary research uses IsiXhosa.click for
+[dibanisa](https://isixhosa.click/word/925) and
+[lungiselela](https://isixhosa.click/word/260). The
+[dictionary entry for isiko](https://kaikki.org/dictionary/Xhosa/meaning/i/is/isiko.html)
+records the noun custom, rather than the software notion of customization.
+The prepared/custom-field and swimming-lane compounds remain provisional;
+longer technical sentences in both languages are low confidence pending
+fluent-speaker review.
+
+Tests cover current-fill gates, exact source placeholders, link direction,
+matching field name/type, unmatched fields left unchanged, both-card
+permissions, hidden-card and self-link refusal, member mapping exclusions,
+single-export archives, notification identity and completion negation.
+All 246 catalogs pass key order and exact token inventory; all 21
+human-preference checks pass. Four browser scenarios for linked fields and notification settings are syntax-checked and
+discovered in Wu/Xhosa; browser execution remains unverified. A fresh local
+connection check finds no application listening on port 3000.
+The broad translation/Blockly run passes 301 of 303 suites; the remaining
+current-fill failures are Papiamento and Venda/Zulu. The Wu and Xhosa gates
+now pass.
+
+The ordinary backlog remains 29,735 in 42 locales because this batch fills
+pending strings and short prose. The short-prose review queue falls to 2,139
+candidates in 231 locales. Shared words still require individual review.
+
 ## Lithuanian and Yiddish current fills — 2026-10-10
 
 Fill 112 English values in each locale: 110 current pending strings for card

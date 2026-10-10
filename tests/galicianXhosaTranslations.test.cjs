@@ -1,3 +1,4 @@
+const { translationTokens: currentTokens } = require('../releases/translations/placeholder-tokens.mjs');
 // The completed catalog predates newer features; keep its no-regression gate.
 // Full translation work remains visible through fill-translations.mjs --list.
 const assert = require('node:assert/strict');
@@ -1216,3 +1217,39 @@ for (const locale of Object.values(locales)) {
   assert.ok(!error.includes('%s'));
   console.log('Xhosa settings: variables, literals, restrictions and rendered errors passed');
 })().catch(error => { console.error(error); process.exitCode = 1; });
+
+// New features, including the short At/To labels omitted by ordinary reports.
+const xhosaCurrent = locales.xh;
+const currentSource = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
+assert.deepEqual(Object.keys(xhosaCurrent), Object.keys(currentSource));
+for (const [key, value] of Object.entries(currentSource)) {
+  assert.deepEqual(currentTokens(xhosaCurrent[key]), currentTokens(value), `${key}: all Xhosa source tokens`);
+}
+assert.match(xhosaCurrent['custom-field-links-hint'], /enegama nohlobo olufanayo/);
+assert.match(xhosaCurrent['custom-field-links-hint'], /kwikhadi elinye kuphela ishiywa ingatshintshwanga/);
+assert.match(xhosaCurrent['custom-field-link-sends'], /kweli khadi.*kwelo khadi/);
+assert.match(xhosaCurrent['custom-field-link-receives'], /kwelo khadi.*kweli khadi/);
+assert.match(xhosaCurrent['custom-field-link-inactive'], /akasakwazi ukuhlela omabini amakhadi, okanye elinye ikhadi ligciniwe kuvimba/);
+assert.match(xhosaCurrent['field-link-not-allowed'], /nemvume yokuhlela omabini amakhadi/);
+assert.match(xhosaCurrent['attach-card-self'], /alinakuncanyathiselwa kulo ngokwalo/);
+assert.match(xhosaCurrent['attached-card-unavailable'], /ongenakukulibona/);
+assert.match(xhosaCurrent['import-many-boards-hint'], /ngaphandle kokudibanisa amalungu/);
+assert.match(xhosaCurrent['import-many-boards-hint'], /ngokwayo.*iba yibhodi enye/);
+assert.match(xhosaCurrent['import-many-boards-hint'], /endaweni yommandla ongasentla/);
+assert.match(xhosaCurrent['webhook-hide-identity'], /Shiya igama lam ngaphandle/);
+assert.match(xhosaCurrent['subtask-mark-not-done'], /njengongagqitywanga/);
+assert.match(xhosaCurrent['subtask-done-no-permission'], /^Awunako ukutshintsha/);
+for (const literal of ['Active', 'Completed', 'Deferred', 'Cancelled', 'GET /workflows', 'JSON']) {
+  assert.ok(xhosaCurrent['r-wrike-workflow-note'].includes(literal), literal);
+}
+assert.match(xhosaCurrent['r-wrike-workflow-note'], /Imithetho yeWrike yokuzisebenzela ayinakuthunyelwa ngaphandle/);
+assert.equal(xhosaCurrent['notification-delivery-daily-time'], 'Ngexesha');
+assert.equal(xhosaCurrent['notification-delivery-quiet-to'], 'Kude kube');
+assert.match(xhosaCurrent['notification-delivery-quiet'], /linda de ziphele/);
+assert.equal(xhosaCurrent['custom-fields'], 'Imimandla elungiselelweyo');
+assert.equal(xhosaCurrent['card-edit-custom-fields'], xhosaCurrent['cardCustomFieldsPopup-title']);
+assert.match(xhosaCurrent['card-edit-custom-fields'], /imimandla elungiselelweyo/);
+assert.doesNotMatch(xhosaCurrent['card-edit-custom-fields'], /yesiko/);
+assert.equal(xhosaCurrent.swimlane, 'Umzila wokuqubha');
+assert.equal(xhosaCurrent.swimlane, xhosaCurrent['notification-delivery-part-swimlane']);
+console.log('Xhosa current links, delivery, source tokens and field/lane terminology pass.');

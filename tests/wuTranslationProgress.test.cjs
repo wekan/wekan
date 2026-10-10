@@ -1196,3 +1196,32 @@ assert.equal(wu['blockly-CONTROLS_IF_MSG_IF'], wu['blockly-CONTROLS_IF_IF_TITLE_
 assert.equal(wu['blockly-PROCEDURES_DEFNORETURN_TITLE'], wu['blockly-PROCEDURES_DEFRETURN_TITLE']);
 for (const key of ['CONTROLS_REPEAT_INPUT_DO', 'CONTROLS_FOREACH_INPUT_DO', 'CONTROLS_FOR_INPUT_DO', 'CONTROLS_IF_MSG_THEN', 'CONTROLS_WHILEUNTIL_INPUT_DO']) assert.equal(wu['blockly-' + key], '执行');
 assert.match(wu['blockly-LISTS_GET_SUBLIST_END_FROM_START'], /#/);
+
+// Current linked-field, import and delivery messages retain Wu syntax and the
+// safety distinctions in their source, including short labels hidden by --list.
+for (const key of ['attach-card-hint', 'custom-field-links-hint', 'custom-field-link-inactive', 'import-many-boards-hint', 'r-wrike-workflow-note']) {
+  assert.match(wu[key], /搿|侬|个辰光|里向|卡片浪/, `${key}: Wu vocabulary, not a Mandarin seed`);
+}
+assert.match(wu['custom-field-links-hint'], /名字搭类型一样/);
+assert.match(wu['custom-field-links-hint'], /只有一张卡片有个字段保留原样勿动/);
+assert.match(wu['custom-field-link-sends'], /搿张卡片.*伊张卡片/);
+assert.match(wu['custom-field-link-receives'], /伊张卡片.*搿张卡片/);
+assert.match(wu['custom-field-link-inactive'], /勿好编辑两张卡片，或者有一张卡片归档仔/);
+assert.match(wu['field-link-not-allowed'], /编辑两张卡片个权限/);
+assert.match(wu['attach-card-self'], /勿好附加到自家/);
+assert.match(wu['attached-card-unavailable'], /看勿到/);
+assert.match(wu['import-many-boards-hint'], /勿匹配成员/);
+assert.match(wu['import-many-boards-hint'], /本身是一份导出.*就算一块看板/);
+assert.match(wu['import-many-boards-hint'], /勿再用上头个字段/);
+assert.match(wu['webhook-hide-identity'], /勿带我个名字/);
+assert.match(wu['subtask-mark-not-done'], /呒没做完/);
+assert.match(wu['subtask-done-no-permission'], /侬勿好改/);
+for (const literal of ['Active', 'Completed', 'Deferred', 'Cancelled', 'GET /workflows', 'JSON']) {
+  assert.ok(wu['r-wrike-workflow-note'].includes(literal), literal);
+}
+assert.match(wu['r-wrike-workflow-note'], /自家个自动化规则呒办法.*导出/);
+assert.equal(wu['notification-delivery-daily-time'], '发送辰光');
+assert.equal(wu['notification-delivery-quiet-to'], '到');
+assert.match(wu['notification-delivery-quiet'], /等结束再发/);
+assert.notEqual(wu['notification-delivery-grouping-all'], wu['notification-delivery-grouping-none']);
+console.log('Wu current card links, imports, delivery decisions and short labels pass.');
