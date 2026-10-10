@@ -1,5 +1,4 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Check the full current Albanian catalog, including the newer feature strings.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -20,7 +19,7 @@ const tags = value => [...value.matchAll(/<\/?[A-Za-z][^>]*>/g)]
 
 const fillResult = spawnSync(process.execPath, [
   path.join(root, 'releases/translations/fill-translations.mjs'),
-  '--completed-catalog', '--list',
+  '--list',
   'sq',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
@@ -291,7 +290,7 @@ assert.deepEqual(tags(albanian['globalSearch-instructions-operator-number']),
   ['<number>', '<number>']);
 assert.deepEqual(tokens(albanian['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
-console.log('albanianTranslationProgress: historical catalog baseline passed; newer entries checked separately');
+console.log('albanianTranslationProgress: full current catalog completion gate passed');
 
 const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
 const recoveryKeys = Object.keys(english).filter(key => key.startsWith('stuck-sync-operation-'));
@@ -345,3 +344,28 @@ assert.match(albanian['scrum-import-into-board-hint'], /nuk dyfishohen kurrë/);
 assert.match(albanian['scrum-history-checkpoint-hint'], /askush tjetër nuk i ka ndryshuar/);
 assert.match(albanian['scrum-history-checkpoint-hint'], /nuk ndryshon asnjë regjistrim/);
 assert.match(albanian['login-setting-env-only'], /vetëm për lexim/);
+
+assert.deepEqual(Object.keys(albanian), Object.keys(english));
+for (const key of Object.keys(english)) {
+  assert.deepEqual(translationTokens(albanian[key]), translationTokens(english[key]), key);
+}
+assert.match(albanian['custom-field-links-hint'], /të njëjtin emër dhe tip në të dyja kartat/);
+assert.match(albanian['custom-field-links-hint'], /vetëm në njërën kartë mbeten të pandryshuara/);
+assert.match(albanian['custom-field-link-inactive'], /nuk mund t'i ndryshojë më të dyja kartat.*arkivuar/);
+assert.match(albanian['custom-field-link-both'], /Në të dyja drejtimet.*cilëndo kartë/);
+assert.match(albanian['custom-field-link-send'], /Në një drejtim.*karta kryesore/);
+assert.match(albanian['field-link-not-allowed'], /ndryshoni të dyja kartat/);
+assert.equal(albanian['import-members-mode-me'], 'Zëvendësoji të gjithë me llogarinë time');
+assert.match(albanian['import-many-boards-hint'], /pa përputhje anëtarësh/);
+assert.match(albanian['import-many-boards-hint'], /vetë një eksport i vetëm.*është një tabelë/);
+assert.match(albanian['export-all-boards-hint'], /mund ta eksportoni.*libër pune.*\.zip/);
+assert.match(albanian['webhook-payload-description'], /ruan cilësimin e trashëguar/);
+assert.match(albanian['notification-delivery-quiet'], /prit derisa të mbarojnë/);
+assert.match(albanian['r-wrike-workflow-note'], /si të përfunduar.*Completed.*Cancelled.*si të papërfunduar.*Active.*Deferred/);
+for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) assert.ok(albanian['r-wrike-workflow-note'].includes(literal));
+assert.ok(albanian['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+assert.match(albanian['subtask-mark-done'], /nëndetyrën si të përfunduar$/);
+assert.match(albanian['subtask-mark-not-done'], /nëndetyrën si të papërfunduar$/);
+assert.equal(albanian['notification-delivery-part-list'], 'Listë');
+assert.equal(albanian['notification-delivery-part-swimlane'], 'Korsi');
+console.log('Albanian full current catalog, exact tokens and link/import/notification semantics pass');

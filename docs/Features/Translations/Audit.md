@@ -2,6 +2,30 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Albanian current fills — 2026-10-10
+
+Translate 110 English placeholders in sq for attached cards, linked fields,
+calendar mode, member mapping, CSV columns, bulk imports and exports, webhooks,
+notifications, Wrike workflows and subtasks. The full current fill list is empty.
+Every changed value was English in the parent commit; all existing translations
+are preserved. Follow tabelë, kartë, listë, korsi, fusha të personalizuara and
+webhook-e terminology. Correct the new subtask wording to the existing compound
+nëndetyrë spelling. Longer technical wording remains provisional pending speaker
+review; older catalog fluency is not fully audited.
+
+Replace the historical completion gate with the full current fill list. Preserve
+all source placeholders, WEBHOOKS_ATTRIBUTES, GET /workflows and Wrike state
+names. Regressions check full key order and underscore/percent token inventories,
+matching versus untouched fields, editing permissions, propagation directions,
+member replacement, unmapped imports, ZIP semantics, export permissions,
+inherited settings, quiet hours and completed versus incomplete states. Three
+browser cases for linked fields, import-people choices and notification delivery
+pass syntax and discovery; runtime execution remains unverified without the local
+app and browser system dependencies. All 306 translation/Blockly suites,
+246 catalog inventories and 21 human-preference checks pass. A fresh full per-locale `--list` inventory counts
+63,318 remaining values across 155 non-English locale files, including pending
+Transifex keys. The all-language backlog and semantic audit remain open.
+
 ## Latvian current fills — 2026-10-10
 
 Translate 110 English placeholders in lv for attached cards, linked fields,
