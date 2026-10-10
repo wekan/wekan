@@ -2,6 +2,32 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Belarusian current fills — 2026-10-10
+
+Translate 130 English placeholders in be for attached cards, linked fields,
+20 import-format instructions, member mapping, CSV columns, bulk imports and
+exports, webhooks, notifications, Wrike workflows and subtasks. The full current
+fill list is empty, including pending Transifex keys. Every changed value was
+English in the parent commit; all existing translations are preserved. Follow
+дошка, картка, спіс, дарожка and карыстальніцкія палі terminology. The new values
+use Belarusian vocabulary and contain no Russian-only и, щ or ъ letters.
+Longer technical wording remains provisional and low-confidence pending speaker
+review; older catalog fluency is not fully audited.
+
+Regressions check full key order and exact underscore/percent tokens, field
+matching, unchanged unmatched fields, editing permissions, propagation directions,
+member replacement, unmapped imports, ZIP semantics, export permissions, inherited
+settings, quiet hours and completed versus incomplete states. Preserve external
+menu/column labels, WEBHOOKS_ATTRIBUTES and GET /workflows. Import checks retain
+unsupported-data exclusions, required English headers, first-board selection and
+subtask depth markers. All 306 translation/Blockly suites, 246 catalog inventories
+and 21 human-preference checks pass. Three browser cases for linked fields,
+import-people choices and notification delivery pass syntax and discovery; runtime
+execution remains unverified without the local app and browser system dependencies.
+A fresh full per-locale inventory counts 62,948 remaining values across 152
+non-English locale files, including pending Transifex keys. The all-language
+backlog and semantic audit remain open.
+
 ## Icelandic current fills — 2026-10-10
 
 Translate 130 English placeholders in is for attached cards, linked fields,

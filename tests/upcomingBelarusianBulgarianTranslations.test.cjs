@@ -117,3 +117,40 @@ assert.match(belarusianRecovery['scrum-import-into-board-hint'], /ніколі �
 assert.match(belarusianRecovery['scrum-history-checkpoint-hint'], /ніхто іншы.*не змяніў/);
 assert.match(belarusianRecovery['scrum-history-checkpoint-hint'], /не змяняе запісы/);
 assert.match(belarusianRecovery['login-setting-env-only'], /толькі для чытання/);
+
+// Include pending Transifex keys in the completion gate.
+const { spawnSync } = require('node:child_process');
+const completion = spawnSync(process.execPath, [path.join(__dirname, '../releases/translations/fill-translations.mjs'), '--list', 'be'], { encoding: 'utf8' });
+assert.equal(completion.status, 0, completion.stderr);
+assert.deepEqual(JSON.parse(completion.stdout), {});
+assert.deepEqual(Object.keys(belarusianRecovery), Object.keys(en));
+for (const key of Object.keys(en)) {
+  assert.deepEqual(translationTokens(belarusianRecovery[key]), translationTokens(en[key]), key);
+}
+const be = belarusianRecovery;
+assert.match(be['custom-field-links-hint'], /аднолькавымі назвай і тыпам на абедзвюх картках/);
+assert.match(be['custom-field-links-hint'], /толькі на адной картцы, застаюцца без змен/);
+assert.match(be['custom-field-link-inactive'], /больш не можа рэдагаваць абедзве карткі.*ў архіве/);
+assert.match(be['custom-field-link-both'], /У абодва бакі.*любой картцы/);
+assert.match(be['custom-field-link-send'], /У адзін бок.*галоўную картку/);
+assert.match(be['field-link-not-allowed'], /рэдагаваць абедзве карткі/);
+assert.equal(be['import-members-mode-me'], 'Замяніць усіх маім уліковым запісам');
+assert.match(be['import-many-boards-hint'], /без супастаўлення ўдзельнікаў/);
+assert.match(be['import-many-boards-hint'], /сам з'яўляецца адным экспартам.*гэта адна дошка/);
+assert.match(be['export-all-boards-hint'], /можаце экспартаваць.*адна кніга.*\.zip/);
+assert.match(be['webhook-payload-description'], /захоўвае ўспадкаваную наладу/);
+assert.match(be['notification-delivery-quiet'], /чакаць да іх заканчэння/);
+assert.match(be['r-wrike-workflow-note'], /як завершаную.*Completed.*Cancelled.*як незавершаную.*Active.*Deferred/);
+for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) assert.ok(be['r-wrike-workflow-note'].includes(literal));
+assert.ok(be['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+assert.match(be['subtask-mark-done'], /як завершаную$/);
+assert.match(be['subtask-mark-not-done'], /як незавершаную$/);
+for (const name of ['taiga', 'vikunja']) assert.match(be[`import-board-instruction-${name}`], /Укладанні не імпартуюцца/);
+assert.match(be['import-board-instruction-redmine'], /перад экспартам выберыце англійскую мову ў My account/);
+assert.match(be['import-board-instruction-businessmap'], /Title, Column, Lane, Owner, Deadline/);
+assert.match(be['import-board-instruction-plane'], /не змяшчае апісанняў або ўкладанняў.*не імпартуюцца/);
+assert.match(be['import-board-instruction-kanri'], /імпартуецца першая дошка/);
+assert.match(be['import-board-instruction-teamwork'], /--, ## або >> на адзін узровень глыбей/);
+assert.equal(be['notification-delivery-part-list'], 'Спіс');
+assert.equal(be['notification-delivery-part-swimlane'], 'Дарожка');
+console.log('Belarusian full current catalog, exact tokens and import/notification meanings pass');
