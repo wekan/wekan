@@ -497,11 +497,29 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** Translate the remaining current French and German strings and correct Swiss German spelling.
+**In short:** Translate the remaining current French, German and Spanish strings and correct Swiss German spelling.
 
-**Translations** - French and German base and regional catalogs.
+**Translations** - French, German and Spanish base and regional catalogs.
 
-**Languages updated:** French, German.
+**Languages updated:** French, German, Spanish.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5146f9365c">Translate current strings across Spanish locale variants</a>. Thanks to xet7.</summary>
+
+Fill 990 English values across nine Spanish catalogs for linked cards, imports,
+member mapping, webhooks, notifications and Wrike workflows. All nine full
+current fill lists are empty. Preserve existing regional translations, exact
+placeholders and parsed constants. Regressions cover permissions, propagation
+direction, import semantics, notification timing and workflow completion states.
+New wording uses neutral Spanish; regional style and longer technical phrasing
+remain provisional pending speaker review.
+
+All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Twenty-seven representative browser cases pass syntax and discovery;
+execution remains unverified because the local app and browser dependencies
+are unavailable. The wider all-language backlog and semantic audit remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/78bceed7d7">Translate current strings across French locale variants</a>. Thanks to xet7.</summary>
