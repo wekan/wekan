@@ -2,6 +2,37 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Esperanto current fill — 2026-10-10
+
+Translate 227 current English placeholders, including pending source keys, for
+attached cards, linked fields, 22 import formats, member mapping, CSV columns,
+multiple-board imports and exports, link rules, webhooks, notification delivery,
+Wrike workflows, LDAP, subtask completion, Scrum planning and recovery.
+The current full Esperanto fill list is empty. Every changed value was English
+in the parent commit; every other existing value is preserved. Use the existing
+tabulo, karto, naĝlinio, propra kampo and kontrollisto terminology.
+
+Preserve external menu names and parsed column names, file extensions, API
+paths, configuration constants, URL templates and exact source placeholders.
+Import instructions retain first-board selection, missing attachment/description
+limits and parent/subtask mappings. Recovery wording distinguishes keeping an
+unchanged partial board from permanently deleting its entire content, including
+later additions; discarded list-sync operations retain changes already applied.
+Scrum rollback remains conditional on no intervening edits, and first sync does
+not remove planning. Longer technical phrasing remains provisional pending
+speaker review; this is not a complete audit of older catalog wording.
+
+Extend the Esperanto regression from the historical completed catalog to the
+full current fill, and check all key/token inventories, import literals,
+permissions, directionality and destructive/non-destructive recovery meanings.
+Add representative Esperanto browser cases for linked fields, import people
+choices and notification settings. Browser execution remains unverified because
+the local app and browser system dependencies are unavailable; syntax and
+discovery are checked. All 304 translation/Blockly suites, 246 catalog
+key/token inventories and 21 preservation checks pass. The ordinary backlog
+remains 29,735 in 42 locales: these 227 fills were pending source strings
+excluded from that report. The wider all-language goal remains open.
+
 ## Remaining notification time labels — 2026-10-10
 
 Fill 150 English values in the remaining 75 locale files. The daily send-time
