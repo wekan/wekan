@@ -11,25 +11,31 @@ const checker = path.join(root, 'releases/check-upcoming-release.sh');
 const entry = '<details>\n<summary><a href="https://github.com/wekan/wekan/commit/1234567">Fix build</a></summary>\n</details>\n';
 const upcoming = '# Upcoming WeKan ® release\n\n**In short:** Fix build preparation.\n\n';
 
-test('release preflight accepts real Upcoming entries and rejects missing/empty/duplicate notes', () => {
+// Only the Upcoming heading is required - release-all.sh renames it to the new
+// version. What is under it (entries, In short, Languages updated) is optional:
+// a missing part is a warning, never a stop.
+test('release preflight requires one Upcoming heading, and only warns about its content', () => {
   const dir = fs.mkdtempSync(path.join(tmpRoot, 'release-preflight-'));
   try {
-    for (const [text, valid] of [
-      [upcoming.replace('**In short:** Fix build preparation.', '') + entry, false],
-      [upcoming.replace('Fix build preparation.', '   ') + entry, false],
-      ['# Upcoming WeKan ® release\n' + entry + '# v11.75 date\n**In short:** Older summary.\n', false],
-      [upcoming + entry + '# v11.75 2026-09-14 WeKan ® release\n', true],
-      ['# v11.75 2026-09-14 WeKan ® release\n' + entry, false],
-      [upcoming + '\n# v11.75 2026-09-14 WeKan ® release\n' + entry, false],
-      [upcoming + '**In short:** nothing here yet.\n', false],
-      [upcoming + entry + upcoming + entry, false],
-      ['# Upcoming WeKan unrelated heading\n' + entry, false],
+    for (const [text, valid, warning] of [
+      [upcoming + entry + '# v11.75 2026-09-14 WeKan ® release\n', true, null],
+      [upcoming.replace('**In short:** Fix build preparation.', '') + entry, true, /no \*\*In short:\*\* summary/],
+      [upcoming.replace('Fix build preparation.', '   ') + entry, true, /no \*\*In short:\*\* summary/],
+      ['# Upcoming WeKan ® release\n' + entry + '# v11.75 date\n**In short:** Older summary.\n', true, /no \*\*In short:\*\* summary/],
+      [upcoming + '\n# v11.75 2026-09-14 WeKan ® release\n' + entry, true, /no entries/],
+      ['# Upcoming WeKan ® release\n\n# v11.75 2026-09-14 WeKan ® release\n', true, /no entries[\s\S]*no \*\*In short/],
+      // Negative: without exactly one Upcoming heading there is no release to make.
+      ['# v11.75 2026-09-14 WeKan ® release\n' + entry, false, null],
+      [upcoming + entry + upcoming + entry, false, null],
+      ['# Upcoming WeKan unrelated heading\n' + entry, false, null],
     ]) {
       const file = path.join(dir, 'CHANGELOG.md');
       fs.writeFileSync(file, text);
       const result = spawnSync('bash', [checker, file], { encoding: 'utf8', env: { ...process.env, TMPDIR: tmpRoot } });
       assert.equal(result.status, valid ? 0 : 1, result.stderr);
       if (!valid) assert.match(result.stderr, /Error:.*Upcoming/);
+      if (warning) assert.match(result.stderr, warning);
+      if (valid && !warning) assert.equal(result.stderr, '');
       assert.equal(fs.readFileSync(file, 'utf8'), text, 'preflight is read-only');
     }
     const absent = spawnSync('bash', [checker, path.join(dir, 'absent.md')], { encoding: 'utf8' });
@@ -40,20 +46,21 @@ test('release preflight accepts real Upcoming entries and rejects missing/empty/
   }
 });
 
-test('release preflight requires translation language metadata before tagging', () => {
+test('release preflight accepts a Translations group without its language list, with a warning', () => {
   const dir = fs.mkdtempSync(path.join(tmpRoot, 'release-language-preflight-'));
   try {
     const file = path.join(dir, 'CHANGELOG.md');
     const group = '**Translations** - Locale repairs.\n\n';
-    for (const [notes, valid] of [
-      [upcoming + group + entry, false],
-      [upcoming + group + '**Languages updated:** Veps, Tigre\n\n' + entry, true],
-      [upcoming + group + entry + '\n**Languages updated:** Veps\n', false],
+    for (const [notes, warns] of [
+      [upcoming + group + entry, true],
+      [upcoming + group + '**Languages updated:** Veps, Tigre\n\n' + entry, false],
+      [upcoming + group + entry + '\n**Languages updated:** Veps\n', true],
     ]) {
       fs.writeFileSync(file, notes);
       const result = spawnSync('bash', [checker, file], { encoding: 'utf8' });
-      assert.equal(result.status, valid ? 0 : 1, result.stderr);
-      if (!valid) assert.match(result.stderr, /Languages updated/);
+      assert.equal(result.status, 0, result.stderr);
+      if (warns) assert.match(result.stderr, /Warning:.*Languages updated/);
+      else assert.equal(result.stderr, '');
       assert.equal(fs.readFileSync(file, 'utf8'), notes);
     }
   } finally {

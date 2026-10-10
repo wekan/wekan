@@ -63,11 +63,12 @@ for pat in patterns:
     if m:
         notes = m.group(1).strip()
         summary = re.search(r"^\*\*In short:\*\* (.*?)(?=\n\s*\n|\Z)", notes, re.MULTILINE | re.DOTALL)
+        # Everything in a release section is optional (releases/check-upcoming-release.sh):
+        # no summary, no In short section in the notes.
         if not summary:
-            sys.stderr.write("::error::release-notes: selected release needs an **In short:** summary.\n")
-            sys.exit(1)
+            sys.stderr.write("::warning::release-notes: no **In short:** summary; the notes have none.\n")
         lines = notes.splitlines(keepends=True)
-        security, languages = [], set()
+        security, languages, translated = [], set(), False
         i = 0
         while i < len(lines):
             line = lines[i]
@@ -88,11 +89,12 @@ for pat in patterns:
                 j += 1
             block = "".join(lines[i + 1:j]).strip()
             if is_translation:
+                translated = True
                 names = re.search(r"^\*\*Languages updated:\*\* (.+)$", block, re.MULTILINE)
-                if not names:
-                    sys.stderr.write("::error::release-notes: Translations group needs **Languages updated:** followed by comma-separated language names.\n")
-                    sys.exit(1)
-                languages.update(name.strip() for name in names.group(1).split(",") if name.strip())
+                if names:
+                    languages.update(name.strip() for name in names.group(1).split(",") if name.strip())
+                else:
+                    sys.stderr.write("::warning::release-notes: a Translations group has no **Languages updated:** line; its languages are not listed.\n")
             elif block:
                 security.append((line.strip() + "\n\n" if is_security else "") + block)
             i = j
@@ -102,7 +104,7 @@ for pat in patterns:
             heading = f"v{version} {date.today().isoformat()} WeKan ® release"
         anchor = re.sub(r"[^\w\s-]", "", heading.lower())
         anchor = re.sub(r"\s", "-", anchor)
-        output = ["## In short\n\n" + summary.group(1).strip()]
+        output = ["## In short\n\n" + summary.group(1).strip()] if summary else []
         if security:
             output.append("## Security\n\n" + "\n\n".join(security))
         if languages:
@@ -110,7 +112,7 @@ for pat in patterns:
                 "- " + name for name in sorted(languages, key=str.casefold)))
         output.extend([
             "Thanks to above GitHub users for their contributions" +
-            (" and translators for their translations." if languages else "."),
+            (" and translators for their translations." if languages or translated else "."),
             f"[More details at ChangeLog](https://github.com/wekan/wekan/blob/main/CHANGELOG.md#{anchor})",
         ])
         print("\n\n".join(output))

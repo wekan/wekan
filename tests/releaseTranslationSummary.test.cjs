@@ -32,12 +32,24 @@ try {
   assert.equal(proseHeading.status, 0, proseHeading.stderr);
   assert.match(proseHeading.stdout, /## Translations\n\n- Esperanto\n- Galician/);
   assert.doesNotMatch(proseHeading.stdout, /Private translation details/);
+  // Everything in a release section is optional: a missing language list or
+  // summary is a warning and is left out of the notes, never a failed release.
   const missing = run(intro + translations.replace('**Languages updated:** Galician, Esperanto, Galician\n', '') + other);
-  assert.notEqual(missing.status, 0);
-  assert.match(missing.stderr, /Translations group needs/);
+  assert.equal(missing.status, 0, missing.stderr);
+  assert.match(missing.stderr, /::warning::.*Languages updated/);
+  assert.deepEqual(missing.stdout.match(/^## .+$/gm), ['## In short'], 'no language list to show');
+  assert.match(missing.stdout, /and translators for their translations\./, 'the translators are still thanked');
+  assert.doesNotMatch(missing.stdout, /Private translation details/, 'and the details still stay out');
   const missingSummary = run(intro.replace('**In short:** Summary.\n\n', '') + other);
-  assert.notEqual(missingSummary.status, 0);
-  assert.match(missingSummary.stderr, /needs an \*\*In short:\*\* summary/);
+  assert.equal(missingSummary.status, 0, missingSummary.stderr);
+  assert.match(missingSummary.stderr, /::warning::.*In short/);
+  assert.equal(missingSummary.stdout.match(/^## .+$/gm), null, 'no In short section');
+  assert.match(missingSummary.stdout, /More details at ChangeLog/);
+  // Negative: an empty section still yields notes - the thanks and the link -
+  // so a release is never published with none.
+  const bare = run('# Upcoming WeKan ® release\n\n# v1.00 date WeKan ® release\nOld release.\n');
+  assert.equal(bare.status, 0, bare.stderr);
+  assert.match(bare.stdout, /^Thanks to above GitHub users for their contributions\.\n\n\[More details at ChangeLog\]/);
   const selected = run(intro + translations + other + '\n# v2.00 2026-09-14 WeKan ® release\n\n**In short:** Version-specific summary.\n', '2.00');
   assert.equal(selected.status, 0, selected.stderr);
   assert.match(selected.stdout, /Version-specific/);

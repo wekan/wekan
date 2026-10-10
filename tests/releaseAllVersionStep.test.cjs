@@ -34,7 +34,7 @@ console.log('releaseAllVersionStep:');
 
 test('the Upcoming-rename branch computes NEW as a fixed +1, not a measured/re-applied STEP', () => {
   const renameBlock = sh.slice(
-    sh.indexOf('# An Upcoming section with real entries'),
+    sh.indexOf('# An Upcoming heading is mandatory'),
     sh.indexOf('Opening the next'),
   );
   assert.ok(/NEW="\$\(wekan_dec \$\(\( \$\(wekan_enc "\$OLD"\) \+ 1 \)\) \)"/.test(renameBlock),

@@ -24,8 +24,9 @@ if [ -n "${ZSH_VERSION:-}" ]; then exec /bin/bash "$0" "$@"; fi
 #      amend or squash between writing an entry and releasing it changes the hashes,
 #      and the links would 404 once pushed. Each is remapped by commit subject.
 #   2. Determines PREVIOUS and NEW version automatically: renames the "# Upcoming
-#      WeKan ® release" heading to the next version. Missing or empty Upcoming notes
-#      stop the script. An explicit "PREVIOUS NEW" pair must match the next version.
+#      WeKan ® release" heading to the next version. A missing Upcoming heading
+#      stops the script; everything under it is optional. An explicit
+#      "PREVIOUS NEW" pair must match the next version.
 #   3. Commits and pushes pending changes (your CHANGELOG.md edit) to main so the
 #      workflow can read them.
 #   4. Triggers .github/workflows/release-all.yml.
@@ -41,7 +42,8 @@ if [ -n "${ZSH_VERSION:-}" ]; then exec /bin/bash "$0" "$@"; fi
 #              GitHub Release, builds+pushes Docker images, builds the snap.
 #
 # Release notes summarize translation details as updated language names.
-# Add **Languages updated:** metadata beneath the Translations group label.
+# Add **Languages updated:** metadata beneath the Translations group label
+# (optional; without it the notes do not list that group's languages).
 # Notes include only In short, Security, translation languages, thanks and
 # the changelog link. Other details stay in CHANGELOG.md. Never append
 # "Binaries in these bundles" or a provenance table; retain provenance.tsv
@@ -95,7 +97,7 @@ wekan_dec() { printf '%d.%02d' $(( $1 / 100 )) $(( $1 % 100 )); }
 # when its changelog heading was mistakenly left as Upcoming.
 LATEST="$(bash "$REPO_DIR/releases/latest-release-version.sh")"
 
-# An Upcoming section with real entries is mandatory, including explicit versions.
+# An Upcoming heading is mandatory, including explicit versions; its content is optional.
 OLD="$LATEST"
 NEW="$(wekan_dec $(( $(wekan_enc "$OLD") + 1 )) )"
 if [ -n "${1:-}" ] || [ -n "${2:-}" ] || [ "$#" -gt 2 ]; then
