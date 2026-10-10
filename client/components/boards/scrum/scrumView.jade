@@ -76,16 +76,19 @@ template(name="scrumView")
             p {{_ 'scrum-import-into-board-hint'}}
             input.js-scrum-transfer-file(type="file" accept=".json,application/json")
             button.js-scrum-transfer-preview(type="button" disabled=busy) {{_ 'scrum-import-preview'}}
+            //- `this.`: scrumView has `releases` and `cards` helpers, and a
+              helper wins over the data context - the preview's own counts
+              would read as empty (tests/scrumViewHelpers.test.cjs).
             with transferPreview
               .scrum-transfer-preview(role="status")
-                if changed
+                if this.changed
                   p.js-scrum-transfer-done {{_ 'scrum-import-into-board-done'}}
-                p {{_ 'scrum-import-preview-sprints' created=sprints.created.length matched=sprints.matched.length skipped=sprints.skipped.length}}
-                p {{_ 'scrum-import-preview-releases' created=releases.created.length matched=releases.matched.length skipped=releases.skipped.length}}
-                p {{_ 'scrum-import-preview-cards' updated=cards.updated unchanged=cards.unchanged unmatched=cards.unmatched}}
+                p {{_ 'scrum-import-preview-sprints' created=this.sprints.created.length matched=this.sprints.matched.length skipped=this.sprints.skipped.length}}
+                p {{_ 'scrum-import-preview-releases' created=this.releases.created.length matched=this.releases.matched.length skipped=this.releases.skipped.length}}
+                p {{_ 'scrum-import-preview-cards' updated=this.cards.updated unchanged=this.cards.unchanged unmatched=this.cards.unmatched}}
                 if nothingToDo
                   p.js-scrum-transfer-nothing {{_ 'scrum-import-preview-nothing'}}
-                each losses
+                each this.losses
                   p.scrum-transfer-loss {{lossText}}
                 if canApply
                   button.primary.js-scrum-transfer-apply(type="button" disabled=busy) {{_ 'import'}}

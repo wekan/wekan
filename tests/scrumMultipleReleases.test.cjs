@@ -250,3 +250,31 @@ test('negative: no reader of the single legacy field is left', () => {
   roots.forEach(walk);
   assert.deepEqual(offenders, []);
 });
+
+// A release (or sprint) saved after the card fields cached the board's names
+// does not change the board's scrumRevision, so the cache key did not change
+// and a minicard put into it showed "Release:" with no name
+// (tests/playwright/specs/scrum-multiple-releases.e2e.js). An ID the cache does
+// not know now asks again.
+test('names: an ID the cached names do not have is reported, a known one is not', () => {
+  const state = { sprints: [{ _id: 's1', name: 'S1' }], releases: [{ _id: 'r1', name: 'Alpha' }] };
+  assert.deepEqual(S.unknownScrumNameIds({ releaseIds: ['r1', 'r2'] }, ['releaseIds'], state), ['r2']);
+  assert.deepEqual(S.unknownScrumNameIds({ releaseId: 'r3', releaseIds: ['r1'] }, ['releaseIds'], state), ['r3'], 'the legacy releaseId is read too');
+  assert.deepEqual(S.unknownScrumNameIds({ sprintId: 's2', pastSprintIds: ['s1', 's3'] }, ['sprintId', 'pastSprintIds'], state), ['s2', 's3']);
+  assert.deepEqual(S.unknownScrumNameIds({ releaseId: 'r9' }, ['releaseId'], state), ['r9'], "a swimlane's one release");
+  // Negative: known IDs, empty values, hidden fields and no cache yet ask nothing.
+  assert.deepEqual(S.unknownScrumNameIds({ releaseIds: ['r1'], sprintId: 's1' }, ['releaseIds', 'sprintId'], state), []);
+  assert.deepEqual(S.unknownScrumNameIds({ releaseIds: [], releaseId: null, sprintId: '' }, ['releaseIds', 'sprintId'], state), []);
+  assert.deepEqual(S.unknownScrumNameIds({ releaseIds: ['r2'] }, ['sprintId'], state), [], 'a hidden field is not looked up');
+  assert.deepEqual(S.unknownScrumNameIds({ releaseIds: ['r2'] }, ['releaseIds'], null), [], 'nothing cached yet: the first load is already asked');
+  assert.deepEqual(S.unknownScrumNameIds(undefined, ['releaseIds'], state), []);
+});
+
+test('names: the card and minicard fields ask again for an unknown ID, throttled per ID set', () => {
+  const source = read('client/components/boards/scrum/scrumFields.js');
+  assert.match(source, /unknownScrumNameIds\(context\.record\?\.scrum,/);
+  assert.match(source, /function loadNames\(board, missing = \[\]\)/);
+  assert.match(source, /const throttleKey = missing\.length \? `\$\{key\}\|\$\{missing\.join\(','\)\}` : key;/);
+  // Negative: the old shape, a load keyed only by the settings revision, is gone.
+  assert.doesNotMatch(source, /if \(board && visibleFields\(context\)\.length\) loadNames\(board\);/);
+});

@@ -103,7 +103,11 @@ async function importTransfer(tpl, dryRun) {
     const result = await Meteor.callAsync('scrum.importIntoBoard', Session.get('currentBoard'), tpl.transferFile, { dryRun });
     if (tpl.stopped) return;
     tpl.transferPreview.set(result);
-    if (!dryRun) { invalidateScrumNames(); await refresh(tpl); }
+    // A quiet refresh: a loud one swaps the whole view for "Loading", which
+    // drew this panel again closed, so the import's own result - "imported"
+    // and what it could not place - was never seen, and the chosen file was
+    // gone for a second Preview (tests/scrumViewHelpers.test.cjs).
+    if (!dryRun) { invalidateScrumNames(); await refresh(tpl, { quiet: true }); }
   } catch (error) {
     if (!tpl.stopped) tpl.error.set(error.reason || error.message);
   } finally { if (!tpl.stopped) tpl.busy.set(false); }
@@ -241,6 +245,21 @@ Template.scrumView.helpers({
     })),
   })),
   eventKinds: () => ['planning', 'daily', 'review', 'retrospective'].map(value => ({ value, label: t(`scrum-event-${value}`), selected: value === (selectedEvent(current())?.kind || 'planning') })),
+  // The import report and the import-into-board panel are drawn by THIS
+  // template (scrumView.jade), so their helpers belong here: registered on
+  // scrumReportTable they were never found, the preview never rendered and
+  // the import report showed its summary with every loss line empty.
+  // tests/scrumViewHelpers.test.cjs pins it.
+  transferPreview: () => current().transferPreview.get(),
+  nothingToDo() {
+    const preview = current().transferPreview.get();
+    return !!preview && preview.dryRun && !transferChanges(preview);
+  },
+  canApply() {
+    const preview = current().transferPreview.get();
+    return !!preview && preview.dryRun && transferChanges(preview);
+  },
+  lossText() { return t(LOSS_KEYS[this.reason] || 'scrum-import-reference-omitted', { reference: this.sourceId }); },
 });
 Template.scrumReportTable.onCreated(function () { this.metric = new ReactiveVar('count'); });
 Template.scrumReportTable.events({
@@ -255,16 +274,6 @@ Template.scrumReportTable.helpers({
         rows: group.rows.map(row => ({ ...row, series: row.series.map(series => ({ ...series, label: t(`scrum-${series.key}`) })) })),
       }));
   },
-  transferPreview: () => current().transferPreview.get(),
-  nothingToDo() {
-    const preview = current().transferPreview.get();
-    return !!preview && preview.dryRun && !transferChanges(preview);
-  },
-  canApply() {
-    const preview = current().transferPreview.get();
-    return !!preview && preview.dryRun && transferChanges(preview);
-  },
-  lossText() { return t(LOSS_KEYS[this.reason] || 'scrum-import-reference-omitted', { reference: this.sourceId }); },
   formatTotal(value) { return value ? t('scrum-total', { count: value.count, estimate: value.estimate, unknown: value.unknown }) : ''; },
 });
 Template.scrumView.events({

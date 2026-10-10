@@ -97,6 +97,30 @@ function cardReleaseIds(scrum) {
   const list = Array.isArray(scrum.releaseIds) ? scrum.releaseIds.filter(releaseIdString) : [];
   return [...new Set([...(releaseIdString(scrum.releaseId) ? [scrum.releaseId] : []), ...list])];
 }
+// The sprint and release IDs a record's shown Scrum fields name that a cached
+// list of names (`state.sprints`, `state.releases`: [{ _id, name }]) does not
+// have. The card and minicard fields (client/components/boards/scrum/
+// scrumFields.js) read names from a cache keyed by the board's settings
+// revision, and creating a sprint or a release does not change that revision:
+// a card put into a release created after the cache was filled showed
+// "Release:" with no name. An ID the cache does not know means the cache is
+// stale, so the caller asks again. `fields` are the shown fields: 'sprintId',
+// 'pastSprintIds', 'releaseIds' (a card's list, its legacy releaseId read
+// too) and 'releaseId' (a swimlane's one).
+function unknownScrumNameIds(scrum, fields, state) {
+  if (!state || !scrum || typeof scrum !== 'object') return [];
+  const known = list => new Set((Array.isArray(list) ? list : []).map(row => row && row._id));
+  const sprints = known(state.sprints); const releases = known(state.releases);
+  const missing = new Set();
+  const check = (ids, names) => { for (const id of ids) if (releaseIdString(id) && !names.has(id)) missing.add(id); };
+  for (const field of fields || []) {
+    if (field === 'sprintId') check([scrum.sprintId], sprints);
+    else if (field === 'pastSprintIds') check(Array.isArray(scrum.pastSprintIds) ? scrum.pastSprintIds : [], sprints);
+    else if (field === 'releaseIds') check(cardReleaseIds(scrum), releases);
+    else if (field === 'releaseId') check([scrum.releaseId], releases);
+  }
+  return [...missing].sort();
+}
 const hasReleaseFields = scrum => !!scrum && typeof scrum === 'object' && (own(scrum, 'releaseId') || own(scrum, 'releaseIds'));
 // The stored form: both fields, the list deduplicated, `releaseId` its first.
 function withCardReleaseIds(scrum, releaseIds) {
@@ -188,4 +212,4 @@ function scrumRevisionSelector(doc) {
 module.exports = { DEFAULT_SCRUM_SETTINGS, normalizeScrumSettings, normalizeScrumMetadata,
   normalizeScrumRecord, getCardEstimate, isScrumCardDone, sprintSnapshot, scrumRevisionSelector,
   validateScrumRevision: revision, cardReleaseIds, withCardReleaseIds, applyCardReleaseChange,
-  portableCardReleases, MAX_CARD_RELEASES };
+  portableCardReleases, unknownScrumNameIds, MAX_CARD_RELEASES };

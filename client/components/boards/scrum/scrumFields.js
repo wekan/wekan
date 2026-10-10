@@ -5,7 +5,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { Session } from 'meteor/session';
 import { Tracker } from 'meteor/tracker';
 import { ReactiveCache } from '/imports/reactiveCache';
-const { cardReleaseIds } = require('/models/lib/scrum');
+const { cardReleaseIds, unknownScrumNameIds } = require('/models/lib/scrum');
 // A card's Release is a list (`releaseIds`, models/lib/scrum.js
 // cardReleaseIds - its legacy `releaseId` read too); a swimlane keeps one.
 const definitions = {
@@ -27,10 +27,16 @@ Meteor.startup(() => Tracker.autorun(() => {
   Meteor.userId(); Session.get('currentBoard');
   invalidateScrumNames();
 }));
-function loadNames(board) {
+// `missing`: sprint or release IDs a shown record names that the cached names
+// do not have (models/lib/scrum.js unknownScrumNameIds). Saving a sprint or a
+// release - from the Scrum view, another browser, another user or the API -
+// does not change the board's scrumRevision, so the key alone would keep a
+// stale list; an unknown ID asks again, at most once per 30 s per set.
+function loadNames(board, missing = []) {
   const key = JSON.stringify([board._id, Meteor.userId(), board.members, board.scrumRevision]);
-  if (Date.now() - (requestTimes.get(key) || 0) < 30000) return;
-  requestTimes.set(key, Date.now());
+  const throttleKey = missing.length ? `${key}|${missing.join(',')}` : key;
+  if (Date.now() - (requestTimes.get(throttleKey) || 0) < 30000) return;
+  requestTimes.set(throttleKey, Date.now());
   const requestedGeneration = generation;
   Meteor.call('scrum.getBoardData', board._id, (error, result) => {
     if (requestedGeneration !== generation || error) return;
@@ -76,7 +82,10 @@ Template.scrumMetadata.onCreated(function () {
   this.autorun(() => {
     names.get();
     const context = Template.currentData(); const board = boardFor(context);
-    if (board && visibleFields(context).length) loadNames(board);
+    const shown = visibleFields(context);
+    if (!board || !shown.length) return;
+    const state = safeNames(context);
+    loadNames(board, state ? unknownScrumNameIds(context.record?.scrum, shown.map(([, field]) => field), state) : []);
   });
 });
 function safeNames(context) {
