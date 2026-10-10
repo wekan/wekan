@@ -1581,6 +1581,24 @@ and older semantic audit remain open.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c5fc636117">Translate remaining current Italian strings</a>. Thanks to xet7.</summary>
+
+Fill 110 English placeholders for attached cards, linked custom fields, imports
+and exports, member mapping, webhooks, notifications, Wrike workflows and
+subtask completion. The full current Italian fill list is empty. Preserve
+existing translations, exact placeholders and parsed constants. Regressions
+check edit permissions, field direction, member replacement, ZIP handling,
+quiet hours and workflow completion rules. Longer technical wording remains
+provisional pending speaker review.
+
+All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Three representative browser cases pass syntax and discovery;
+execution remains unverified because the local app and browser dependencies
+are unavailable. The wider all-language backlog and semantic audit remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/bda8d389e8">Translate remaining current Norwegian Bokmål and Danish strings</a>. Thanks to xet7.</summary>
 
 Fill 110 English placeholders per catalog, 220 values in total, for attached
