@@ -1,5 +1,4 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Guard both complete current Afrikaans catalogs, including pending source keys.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -7,7 +6,7 @@ const { spawnSync } = require('node:child_process');
 const root = path.resolve(__dirname, '..');
 const fillScript = path.join(root, 'releases/translations/fill-translations.mjs');
 for (const language of ['af', 'af_ZA']) {
-  const result = spawnSync(process.execPath, [fillScript, '--completed-catalog', '--list', language], { cwd: root, encoding: 'utf8' });
+  const result = spawnSync(process.execPath, [fillScript, '--list', language], { cwd: root, encoding: 'utf8' });
   assert.equal(result.status, 0, result.stderr);
   assert.equal(result.stdout, '{}\n');
   const locale = JSON.parse(fs.readFileSync(path.join(root, `imports/i18n/data/${language}.i18n.json`), 'utf8'));
@@ -80,3 +79,36 @@ for (const language of ['af', 'af_ZA']) {
   assert.match(locale['scrum-history-checkpoint-hint'], /verander geen rekords nie/);
   assert.match(locale['login-setting-env-only'], /as leesalleen gewys/);
 }
+
+for (const language of ['af', 'af_ZA']) {
+  const locale = JSON.parse(fs.readFileSync(path.join(root, `imports/i18n/data/${language}.i18n.json`), 'utf8'));
+  assert.deepEqual(Object.keys(locale), Object.keys(english));
+  for (const key of Object.keys(english)) assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${language}:${key}`);
+  assert.match(locale['custom-field-links-hint'], /dieselfde naam en tipe op albei kaarte/);
+  assert.match(locale['custom-field-links-hint'], /net een kaart het, bly onveranderd/);
+  assert.match(locale['custom-field-link-inactive'], /kan nie meer albei kaarte wysig nie.*geargiveer/);
+  assert.match(locale['custom-field-link-both'], /Albei rigtings.*enige kaart/);
+  assert.match(locale['custom-field-link-send'], /Een rigting.*hoofkaart/);
+  assert.match(locale['field-link-not-allowed'], /albei kaarte kan wysig/);
+  assert.equal(locale['import-members-mode-me'], 'Vervang almal met my gebruikersrekening');
+  assert.match(locale['import-many-boards-hint'], /sonder lidtoewysing/);
+  assert.match(locale['import-many-boards-hint'], /self een uitvoer is.*is een raad/);
+  assert.match(locale['export-all-boards-hint'], /mag uitvoer.*een werkboek.*\.zip/);
+  assert.match(locale['webhook-payload-description'], /behou die oorgeërfde instelling/);
+  assert.match(locale['notification-delivery-quiet'], /wag totdat hulle verby is/);
+  assert.match(locale['r-wrike-workflow-note'], /as voltooi.*Completed.*Cancelled.*as onvoltooid.*Active.*Deferred/);
+  for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) assert.ok(locale['r-wrike-workflow-note'].includes(literal));
+  assert.ok(locale['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+  assert.match(locale['subtask-mark-done'], /as voltooi$/);
+  assert.match(locale['subtask-mark-not-done'], /as onvoltooid$/);
+  assert.equal(locale['notification-delivery-part-list'], 'Lys');
+  assert.equal(locale['notification-delivery-part-swimlane'], 'Swembaan');
+}
+const regional = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/af_ZA.i18n.json'), 'utf8'));
+for (const name of ['taiga', 'vikunja']) assert.match(regional[`import-board-instruction-${name}`], /Aanhegsels word nie ingevoer nie/);
+assert.match(regional['import-board-instruction-redmine'], /stel jou taal voor uitvoer op Engels in My account/);
+assert.match(regional['import-board-instruction-businessmap'], /Title, Column, Lane, Owner, Deadline/);
+assert.match(regional['import-board-instruction-plane'], /geen beskrywings of aanhegsels nie.*nie ingevoer nie/);
+assert.match(regional['import-board-instruction-kanri'], /eerste raad ingevoer/);
+assert.match(regional['import-board-instruction-teamwork'], /--, ## of >> een vlak dieper/);
+console.log('Both full current Afrikaans catalogs, exact tokens and import/notification meanings pass');

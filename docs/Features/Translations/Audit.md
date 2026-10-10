@@ -2,6 +2,33 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Afrikaans current fills — 2026-10-10
+
+Translate 240 English placeholders: 110 in af and 130 in af_ZA. Both full current
+fill lists are empty, including pending Transifex keys. Cover attached cards,
+linked fields, member mapping, CSV columns, bulk imports and exports, webhooks,
+notifications, Wrike workflows and subtasks; the regional catalog also receives
+20 missing import-format instructions. Every changed value was English in the
+parent commit; existing translations remain unchanged. Follow the existing kaart,
+lys, swembaan, pasgemaakte velde and gevolmagtigde terminology. Longer technical
+wording remains provisional and low-confidence pending speaker review; older
+catalog terminology and fluency are not fully audited.
+
+Replace historical completion gates with full current-catalog checks. Regressions
+compare every key and exact underscore/percent token with English and check field
+matching, unchanged unmatched fields, editing permissions, propagation directions,
+member replacement, unmapped imports, ZIP semantics, export permissions, inherited
+settings, quiet hours and completed versus incomplete states. Preserve external
+menu/column labels, WEBHOOKS_ATTRIBUTES and GET /workflows. Regional import checks
+retain unsupported-data exclusions, required English headers, first-board selection
+and subtask depth markers. All 306 translation/Blockly suites, 246 catalog inventories
+and 21 human-preference checks pass. Six browser cases for linked fields,
+import-people choices and notification delivery pass syntax and discovery; runtime
+execution remains unverified without the local app and browser system dependencies.
+A fresh full per-locale inventory counts 62,708 remaining values across 150
+non-English locale files, including pending Transifex keys. The all-language
+backlog and semantic audit remain open.
+
 ## Belarusian current fills — 2026-10-10
 
 Translate 130 English placeholders in be for attached cards, linked fields,
