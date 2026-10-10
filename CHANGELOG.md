@@ -107,7 +107,7 @@ previously held for Transifex. Completed work is recorded in Upcoming.
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **29,735 untranslated locale/string values in 42 languages**.
   It excludes **383 source keys tracked separately as pending Transifex**.
-  A separate short-prose audit flags 2,143 candidates across 232 locales,
+  A separate short-prose audit flags 2,139 candidates across 231 locales,
   including capitalized At/To labels previously omitted;
   shared native words may equal English, so these require individual review.
   Exact Blockly OS brands and compact math/code symbols no longer inflate
@@ -141,6 +141,10 @@ previously held for Transifex. Completed work is recorded in Upcoming.
   are corrected separately. Four linked-field and notification UI cases are
   registered and syntax-checked; execution and broader language review remain
   open.
+- Wu and Xhosa each fill 112 current English values, including short delivery
+  labels; both full current fill lists are empty. Four Xhosa field/lane labels
+  are corrected. Broader semantic review remains open, and the four selected
+  browser cases are discovered and syntax-checked but not executed.
 - Fill English placeholders in every language, including minority and
   constructed languages. Audit mixed-language and wrong-language seed text, and
   review provisional wording with speakers when available. Preserve
@@ -1504,6 +1508,24 @@ All 246 catalog inventories, 21 preservation checks and nine short-prose audit
 checks pass. Four localized browser scenarios are discovered and syntax-checked;
 execution remains unverified. Yiddish technical wording remains low confidence;
 dictionary references and the remaining work are recorded in the audit.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d91dfdfe87">Translate current Wu and Xhosa strings</a>. Thanks to xet7.</summary>
+
+Fill 112 English values in each locale for card links, imports, exports,
+notifications, Wrike workflows and subtask completion, including short At/To
+labels. Correct four Xhosa field/lane labels separately. Both full current
+fill lists are empty. Existing translations and exact source tokens are
+preserved; broader terminology review remains open.
+
+The translation/Blockly run passes 301 of 303 suites, resolving Wu and Xhosa
+completion failures; Papiamento and Venda/Zulu still report untranslated keys.
+All 246 catalog key/token inventories and 21 preservation checks pass. Four
+localized browser scenarios are syntax-checked and discovered; execution
+remains unverified without a local app. Technical wording remains low
+confidence pending speaker review; sources are recorded in the audit.
 
 </details>
 
