@@ -112,6 +112,8 @@ if [ -x "$WEKAN_TOOLS_DIR/.meteor/meteor" ]; then
 	PATH="$WEKAN_TOOLS_DIR/.meteor:$PATH"
 fi
 _wekan_node_version="$(sed -n 's/.*NODE_VERSION=v\([^ \\]*\).*/\1/p' "$WEKAN_DIR/Dockerfile" | head -1)"
+# npm comes from the Dockerfile too (CLAUDE.md), never a number typed here.
+_wekan_npm_version="$(sed -n 's/.*NPM_VERSION=\([^ \\]*\).*/\1/p' "$WEKAN_DIR/Dockerfile" | head -1)"
 case "$(uname -m 2>/dev/null)" in
 	x86_64|amd64) _wekan_node_arch=x64 ;;
 	aarch64|arm64) _wekan_node_arch=arm64 ;;
@@ -2970,7 +2972,7 @@ for _once in 1; do
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm
 			sudo npm -g install n
 			sudo n "$_wekan_node_version"
-			sudo npm install -g npm@12.0.2
+			sudo npm install -g "npm@${_wekan_npm_version:-latest}"
 			sudo npm -g install meteor --unsafe-perm
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
@@ -3010,7 +3012,7 @@ for _once in 1; do
 			nvm install 26
 			nvm alias default 26
 			nvm use 26
-			npm install -g npm@12.0.2
+			npm install -g "npm@${_wekan_npm_version:-latest}"
 			echo "Node $(node --version), npm $(npm --version)"
 			# Let new shells find nvm too. Its installer appends these itself,
 			# but only to the rc file it detects and only when IT did the

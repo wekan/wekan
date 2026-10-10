@@ -745,4 +745,65 @@ test('EVERYTHING bounds FerretDB compilation and skips the redundant dependency 
   assert.ok(/\.\/build\.sh build/.test(conformance));
   assert.ok(!/\.\/build\.sh deps/.test(conformance));
 });
+// Behaviour, not only menu entries: a .bat label that exists but does less than
+// its build.sh twin was the gap the menu checks above could not see.
+test('the Mocha run is the same in both: --full-app, its own build dir, and its exit status', () => {
+  assert.match(sh, /METEOR_LOCAL_DIR=\.meteor\/local-test meteor test --full-app --once/);
+  const body = bat.slice(bat.indexOf(':test_mocha_body'), bat.indexOf(':test_import\n'));
+  assert.match(body, /set "EMAIL_RECEIPT_SWEEP_INTERVAL_MS=1000"/);
+  assert.match(body, /set "METEOR_LOCAL_DIR=\.meteor\\local-test"/);
+  assert.match(body, /meteor test --full-app --once --driver-package meteortesting:mocha --port 3100/);
+  assert.match(body, /exit \/b %errorlevel%/);
+  assert.doesNotMatch(body, /exit \/b 0/, 'negative: a failing Mocha run is not reported as success');
+});
+
+test('both accept --run-everything on the command line', () => {
+  assert.match(sh, /--run-everything\) run_everything "\$\{2:-two-worker\}"/);
+  assert.match(bat, /if \/I "%~1"=="--run-everything" \([\s\S]{0,200}goto test_everything/);
+});
+
+test('the floating-promises guard FAILS in both, never only warns', () => {
+  const body = bat.slice(bat.indexOf(':check_floating_body'), bat.indexOf(':save_deps'));
+  assert.match(body, /process\.exit\(found\?1:0\)/);
+  assert.match(body, /exit \/b %FLOATING_RC%/);
+  assert.doesNotMatch(body, /exit \/b 0/);
+  assert.doesNotMatch(body, /WARNING: Rule/);
+});
+
+test('Playwright: the same browser directory and single-browser project in both', () => {
+  assert.match(sh, /PLAYWRIGHT_BROWSERS_PATH="\$WEKAN_DIR\/\.tools\/ms-playwright"/);
+  assert.match(bat, /set "PLAYWRIGHT_BROWSERS_PATH=%REPO%\\\.tools\\ms-playwright"/);
+  assert.match(bat, /set "WEKAN_PLAYWRIGHT_PROJECT=%PW_PROJECT%"/);
+});
+
+test('CUSTOM PORT + SUBDOMAIN gives the same ROOT_URL in both', () => {
+  assert.match(sh, /url="http:\/\/\$answer\.localhost:\$port"/);
+  const body = bat.slice(bat.indexOf(':dev_customurl'), bat.indexOf(':dev_killall'));
+  assert.match(body, /http:\/\/!DEV_HOST!\.localhost:%DEV_PORT%/, 'a bare name is a subdomain of localhost');
+  assert.match(body, /WEKAN_DEV_PORT/);
+  assert.match(body, /WEKAN_DEV_ROOT_URL/);
+  assert.match(body, /GTR 65535/, 'a port out of range is refused');
+  assert.match(body, /"!DEV_HOST:~-1!"=="\/"/, 'a trailing slash is removed');
+});
+
+test('Node.js and npm versions come from the Dockerfile in both (negative: no typed npm version)', () => {
+  assert.match(sh, /_wekan_npm_version="\$\(sed -n 's\/\.\*NPM_VERSION=/);
+  assert.doesNotMatch(sh, /npm install -g npm@\d/);
+  assert.match(bat, /findstr \/r \/c:"NPM_VERSION=\[0-9\]"/);
+  assert.match(bat, /choco install -y nodejs --version=%WK_NODE_VERSION%/);
+  assert.match(bat, /npm install -g npm@%WK_NPM_VERSION%/);
+});
+
+test('the trace dev server, Docker image tag, rspack and build diagnostics match', () => {
+  assert.match(bat, /--trace-warnings --max-old-space-size=%WEKAN_BUILD_HEAP_MB%/);
+  assert.doesNotMatch(bat, /--max-old-space-size=8192/);
+  assert.match(bat, /findstr \/r \/c:"\^ \*image: \*\[\^#\]\*wekan\/wekan" %CF%/);
+  assert.match(bat, /CommandLine -match 'rspack build --watch'/);
+  for (const v of ['npm_config_loglevel=verbose', 'npm_config_foreground_scripts=true',
+    'METEOR_PROFILE', 'build-command-output.cjs', 'WEKAN_BUILD_HEAP_SNAPSHOT', 'JavaScript heap out of memory']) {
+    assert.ok(sh.includes(v), `build.sh ${v}`);
+    assert.ok(bat.includes(v), `build.bat ${v}`);
+  }
+});
+
 console.log(`\n${passed} tests passed`);

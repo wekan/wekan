@@ -39,6 +39,11 @@ if /I "%~1"=="help"   goto cli_help_exit
 if /I "%~1"=="-l"     goto cli_list_exit
 if /I "%~1"=="--list" goto cli_list_exit
 if /I "%~1"=="list"   goto cli_list_exit
+REM The same non-interactive EVERYTHING as `./build.sh --run-everything [mode]`.
+if /I "%~1"=="--run-everything" (
+  if "%~2"=="" (set "WEKAN_EVERYTHING_MODE=two-worker") else (set "WEKAN_EVERYTHING_MODE=%~2")
+  goto test_everything
+)
 call :cli_run %*
 exit /b %errorlevel%
 :cli_help_exit
@@ -55,6 +60,11 @@ exit /b 0
 REM --- Repo root = folder of this script (strip trailing backslash) ---
 set "REPO=%~dp0"
 if "%REPO:~-1%"=="\" set "REPO=%REPO:~0,-1%"
+REM As build.sh: Meteor installed into the repo's .tools is on PATH, and the
+REM Playwright browsers live in .tools\ms-playwright, not in the user's cache,
+REM so a clean checkout and EVERYTHING use the same browsers.
+if exist "%REPO%\.tools\.meteor" set "PATH=%REPO%\.tools\.meteor;%PATH%"
+if not defined PLAYWRIGHT_BROWSERS_PATH set "PLAYWRIGHT_BROWSERS_PATH=%REPO%\.tools\ms-playwright"
 cd /d "%REPO%"
 
 REM Give the Meteor build tool and Node processes a larger heap so long
@@ -816,7 +826,13 @@ REM as the image the compose file references, so the following "up -d" runs your
 REM freshly built container instead of a possibly-stale prebuilt one. All WeKan
 REM compose files reference ghcr.io/wekan/wekan:latest.
 if not exist "%REPO%\Dockerfile" ( echo ERROR: Dockerfile not found in %REPO%. & goto end )
-set "WK_IMG=ghcr.io/wekan/wekan:latest"
+REM The wekan-app image tag THIS compose file uses, as build.sh
+REM wekan_docker_build_image reads it; ghcr.io/wekan/wekan:latest only if the
+REM file names none. A commented-out image line is not one.
+set "WK_IMG="
+for /f "tokens=1,* delims=:" %%a in ('findstr /r /c:"^ *image: *[^#]*wekan/wekan" %CF% 2^>nul') do if not defined WK_IMG set "WK_IMG=%%b"
+if defined WK_IMG for /f "tokens=* delims= " %%i in ("!WK_IMG!") do set "WK_IMG=%%i"
+if not defined WK_IMG set "WK_IMG=ghcr.io/wekan/wekan:latest"
 echo ==^> Building wekan-app image from local source, tagging it as: %WK_IMG%
 docker build -t %WK_IMG% -f "%REPO%\Dockerfile" "%REPO%"
 if errorlevel 1 ( echo ERROR: Docker build failed. & goto end )
@@ -836,7 +852,28 @@ if errorlevel 1 (
 	echo Installing Chocolatey package manager ...
 	@"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
 )
-call choco install -y git curl nodejs-lts mongodb-shell
+REM Node.js and npm are the versions the Dockerfile builds with (NODE_VERSION,
+REM NPM_VERSION), as build.sh installs them - not whatever LTS Chocolatey has.
+set "WK_NODE_VERSION="
+set "WK_NPM_VERSION="
+for /f "tokens=2 delims== " %%v in ('findstr /r /c:"NODE_VERSION=v[0-9]" "%REPO%\Dockerfile"') do if not defined WK_NODE_VERSION set "WK_NODE_VERSION=%%v"
+for /f "tokens=2 delims== " %%v in ('findstr /r /c:"NPM_VERSION=[0-9]" "%REPO%\Dockerfile"') do if not defined WK_NPM_VERSION set "WK_NPM_VERSION=%%v"
+if defined WK_NODE_VERSION set "WK_NODE_VERSION=%WK_NODE_VERSION:v=%"
+call choco install -y git curl mongodb-shell
+if defined WK_NODE_VERSION (
+	echo Installing Node.js %WK_NODE_VERSION% ^(Dockerfile NODE_VERSION^) ...
+	call choco install -y nodejs --version=%WK_NODE_VERSION% --allow-downgrade
+	if errorlevel 1 (
+		echo Chocolatey has no Node.js %WK_NODE_VERSION% yet; installing its newest Node.js instead.
+		call choco install -y nodejs
+	)
+) else (
+	call choco install -y nodejs-lts
+)
+if defined WK_NPM_VERSION (
+	echo Installing npm %WK_NPM_VERSION% ^(Dockerfile NPM_VERSION^) ...
+	call npm install -g npm@%WK_NPM_VERSION%
+)
 echo Installing Meteor (npm -g install meteor) ...
 call npm -g install meteor
 echo Done. Open a new terminal so PATH changes take effect, then re-run this script.
@@ -918,6 +955,37 @@ powershell -NoProfile -Command "& cmd /d /c $env:WEKAN_LOG_COMMAND 2>&1 | Tee-Ob
 exit /b %errorlevel%
 
 :buildcommon
+REM The same diagnostics as build.sh build_wekan: npm verbose output and
+REM foreground install scripts, METEOR_PROFILE, Node module resolution and the
+REM resolver command/output tracer, so a failed Windows build leaves the same
+REM evidence in its log. WEKAN_BUILD_HEAP_SNAPSHOT=1 caps the heap at
+REM WEKAN_BUILD_HEAP_SNAPSHOT_MB (4096) and writes a heap snapshot near the limit.
+setlocal
+set "npm_config_loglevel=verbose"
+set "npm_config_foreground_scripts=true"
+if not defined METEOR_PROFILE set "METEOR_PROFILE=100"
+if defined NODE_DEBUG (set "NODE_DEBUG=%NODE_DEBUG%,module") else (set "NODE_DEBUG=module")
+if "%WEKAN_BUILD_HEAP_SNAPSHOT%"=="1" (
+  if not defined WEKAN_BUILD_HEAP_SNAPSHOT_MB set "WEKAN_BUILD_HEAP_SNAPSHOT_MB=4096"
+  set "TOOL_NODE_FLAGS=--max-old-space-size=!WEKAN_BUILD_HEAP_SNAPSHOT_MB! --heapsnapshot-near-heap-limit=1"
+  set "NODE_OPTIONS=--max-old-space-size=!WEKAN_BUILD_HEAP_SNAPSHOT_MB! --heapsnapshot-near-heap-limit=1"
+  echo Heap snapshot: ON, heap capped at !WEKAN_BUILD_HEAP_SNAPSHOT_MB! MB; the build will fail sooner and write Heap.*.heapsnapshot.
+)
+set "NODE_OPTIONS=%NODE_OPTIONS% --require="%REPO%\tools\build-command-output.cjs""
+echo Build diagnostics: resolver command/output tracing, Node module resolution, npm verbose output, foreground install scripts, METEOR_PROFILE=%METEOR_PROFILE% ^(milliseconds^).
+call :buildcommon_steps
+set "BUILD_RC=%errorlevel%"
+if not "%BUILD_RC%"=="0" if defined WEKAN_BUILD_LOG (
+  findstr /c:"JavaScript heap out of memory" "%WEKAN_BUILD_LOG%" >nul 2>&1 && (
+    echo.
+    echo   The build ran out of JavaScript heap ^(allowed %WEKAN_BUILD_HEAP_MB% MB^).
+    echo   To see what fills it, run once with WEKAN_BUILD_HEAP_SNAPSHOT=1 and open the
+    echo   Heap.*.heapsnapshot it writes in Chrome DevTools: Memory -^> Load.
+  )
+)
+endlocal & exit /b %BUILD_RC%
+
+:buildcommon_steps
 if exist "%REPO%\node_modules"        call :build_logged rmdir /s /q "%REPO%\node_modules"
 if exist "%REPO%\node_modules\.cache" call :build_logged rmdir /s /q "%REPO%\node_modules\.cache"
 if exist "%REPO%\.meteor\local"       call :build_logged rmdir /s /q "%REPO%\.meteor\local"
@@ -972,7 +1040,7 @@ goto end
 call :ensure_dirs
 call :set_dev_env
 set "WARN_WHEN_USING_OLD_API=true"
-set "NODE_OPTIONS=--trace-warnings --max-old-space-size=8192"
+set "NODE_OPTIONS=--trace-warnings --max-old-space-size=%WEKAN_BUILD_HEAP_MB%"
 set "ROOT_URL=http://localhost:3000"
 call :runlog --port 3000
 goto end
@@ -1019,24 +1087,40 @@ call :runlog --port %PORT%
 goto end
 
 :dev_customurl
-REM Parity with build.sh's "CUSTOM PORT + SUBDOMAIN": ask for the port and the
-REM ROOT_URL host. An empty answer or a bare name is local, so the port is added;
-REM a full URL or a dotted name is public/proxied and the port is NOT added -
-REM the same rule build.sh's ask_dev_url applies.
+REM Parity with build.sh's "CUSTOM PORT + SUBDOMAIN" (ask_dev_url): ask for the
+REM port and the ROOT_URL host, unless WEKAN_DEV_PORT / WEKAN_DEV_ROOT_URL /
+REM WEKAN_DEV_HOST already say. A port that is not a number from 1 to 65535 is
+REM 3000. Empty is http://localhost:PORT; a bare name is a subdomain of
+REM localhost, http://NAME.localhost:PORT; a full URL is used as it is; a dotted
+REM name is public/proxied, https://NAME, and the port is NOT added. A trailing
+REM slash is removed, as it would double up in built URLs.
 call :ensure_dirs
-set "DEV_PORT="
-set /p "DEV_PORT=Port for the dev server to listen on [3000]: "
+set "DEV_PORT=%WEKAN_DEV_PORT%"
+if not defined DEV_PORT set /p "DEV_PORT=Port for the dev server to listen on [3000]: "
 if not defined DEV_PORT set "DEV_PORT=3000"
-echo ROOT_URL: empty or a bare name = local ^(the port is added^);
-echo           a full URL or a dotted name = public/proxied ^(the port is NOT added^).
-set "DEV_HOST="
-set /p "DEV_HOST=ROOT_URL [http://localhost:%DEV_PORT%]: "
-if not defined DEV_HOST set "DEV_HOST=localhost"
+echo %DEV_PORT%| findstr /r /x "[0-9][0-9]*" >nul
+if errorlevel 1 (
+  echo Not a number: '%DEV_PORT%' - using 3000.
+  set "DEV_PORT=3000"
+)
+set /a DEV_PORT_N=%DEV_PORT% 2>nul
+if %DEV_PORT_N% LSS 1 (echo Port out of range: %DEV_PORT% - using 3000.& set "DEV_PORT=3000")
+if %DEV_PORT_N% GTR 65535 (echo Port out of range: %DEV_PORT% - using 3000.& set "DEV_PORT=3000")
+set "DEV_HOST=%WEKAN_DEV_ROOT_URL%"
+if not defined DEV_HOST set "DEV_HOST=%WEKAN_DEV_HOST%"
+if not defined DEV_HOST (
+  echo ROOT_URL: empty or a bare name = local ^(the port is added^);
+  echo           a full URL or a dotted name = public/proxied ^(the port is NOT added^).
+  set /p "DEV_HOST=ROOT_URL [http://localhost:%DEV_PORT%]: "
+)
+if defined DEV_HOST if "!DEV_HOST:~-1!"=="/" set "DEV_HOST=!DEV_HOST:~0,-1!"
 set "DEV_ROOT_URL="
-echo %DEV_HOST% | findstr /r /c:"^^https*://" >nul && set "DEV_ROOT_URL=%DEV_HOST%"
-if not defined DEV_ROOT_URL echo %DEV_HOST% | findstr /r /c:"\." >nul && set "DEV_ROOT_URL=https://%DEV_HOST%"
-if not defined DEV_ROOT_URL set "DEV_ROOT_URL=http://%DEV_HOST%:%DEV_PORT%"
-echo ROOT_URL=%DEV_ROOT_URL%
+if not defined DEV_HOST set "DEV_ROOT_URL=http://localhost:%DEV_PORT%"
+if not defined DEV_ROOT_URL echo !DEV_HOST!| findstr /r /c:"://" >nul && set "DEV_ROOT_URL=!DEV_HOST!"
+if not defined DEV_ROOT_URL echo !DEV_HOST!| findstr /r /c:"\." >nul && set "DEV_ROOT_URL=https://!DEV_HOST!"
+if not defined DEV_ROOT_URL set "DEV_ROOT_URL=http://!DEV_HOST!.localhost:%DEV_PORT%"
+echo ==^> Meteor listens on port %DEV_PORT%
+echo ==^> ROOT_URL=%DEV_ROOT_URL%
 call :set_dev_env
 set "ROOT_URL=%DEV_ROOT_URL%"
 call :runlog --port %DEV_PORT%
@@ -1335,10 +1419,19 @@ call :tee test_mocha_body
 goto end
 
 :test_mocha_body
-echo Running Mocha tests: meteor test --once --driver-package meteortesting:mocha --port 3100
+echo Running Mocha tests: meteor test --full-app --once --driver-package meteortesting:mocha --port 3100
 echo (server-side unit/security/API-logic tests; browser/client tests are covered by Playwright options)
-call meteor test --once --driver-package meteortesting:mocha --port 3100
-exit /b 0
+REM The same run as build.sh: --full-app so the integration tests that need the
+REM app's hooks run instead of skipping themselves, the receipt sweep fast enough
+REM for its tests, and a build directory of its own so a running dev server's
+REM .meteor\local is not shared. Its exit status is the run's, so a failing test
+REM is not reported as success.
+setlocal
+set "EMAIL_RECEIPT_SWEEP_INTERVAL_MS=1000"
+if not defined WRITABLE_PATH set "WRITABLE_PATH=.."
+set "METEOR_LOCAL_DIR=.meteor\local-test"
+call meteor test --full-app --once --driver-package meteortesting:mocha --port 3100
+endlocal & exit /b %errorlevel%
 
 :test_import
 call :onelog import
@@ -1397,7 +1490,10 @@ if /i "%INSTALL_DEPS%"=="y" (
 	call meteor npm exec playwright install %PW_PROJECT%
 )
 call :onelog playwright-%PW_PROJECT%
-call meteor npm exec playwright test -- --project=%PW_PROJECT% 2>&1 | powershell -NoProfile -Command "$input | Tee-Object -FilePath '%ONELOG%'"
+REM tests\playwright\playwright.config.js reads WEKAN_PLAYWRIGHT_PROJECT to run
+REM only this browser's project, as build.sh run_playwright_single sets it.
+set "WEKAN_PLAYWRIGHT_PROJECT=%PW_PROJECT%"
+call meteor npm exec playwright test -- --project=%PW_PROJECT% 2>&1 | powershell -NoProfile -Command "$input | Tee-Object -FilePath '%ONELOG%'; exit $LASTEXITCODE"
 goto end
 
 REM ===========================================================================
@@ -1464,17 +1560,22 @@ echo Ensuring .eslintrc.json includes @typescript-eslint plugin and no-floating-
 node -e "const fs=require('fs');const p='.eslintrc.json';const c=JSON.parse(fs.readFileSync(p,'utf8'));c.plugins=Array.isArray(c.plugins)?c.plugins:[];if(!c.plugins.includes('@typescript-eslint'))c.plugins.push('@typescript-eslint');c.rules=c.rules||{};c.rules['@typescript-eslint/no-floating-promises']='error';fs.writeFileSync(p,JSON.stringify(c,null,2)+'\n');"
 
 echo Checking whether @typescript-eslint/no-floating-promises is configured in .eslintrc.json
+REM FAIL, not a warning, as in build.sh floating_promises_checks: a guard that
+REM only warns lets an unawaited permission check through.
+set "FLOATING_RC=0"
 findstr /c:"@typescript-eslint/no-floating-promises" .eslintrc.json >nul 2>&1
 if errorlevel 1 (
-	echo WARNING: Rule @typescript-eslint/no-floating-promises is NOT configured in .eslintrc.json
+	echo FAIL: Rule @typescript-eslint/no-floating-promises is NOT configured in .eslintrc.json
+	set "FLOATING_RC=1"
 ) else (
 	echo OK: Rule @typescript-eslint/no-floating-promises is configured in .eslintrc.json
 )
 
 echo.
 echo Scanning for unawaited Authentication.checkBoardAccess/checkBoardWriteAccess in server\models
-node -e "const fs=require('fs'),path=require('path');function walk(d,acc){for(const e of fs.readdirSync(d,{withFileTypes:true})){const fp=path.join(d,e.name);if(e.isDirectory())walk(fp,acc);else if(/\.js$/.test(e.name))acc.push(fp);}return acc;}let found=false;for(const f of walk('server/models',[])){const lines=fs.readFileSync(f,'utf8').split(/\r?\n/);lines.forEach((ln,i)=>{if(/Authentication\.checkBoard(Access|WriteAccess)\(/.test(ln)&&!/await Authentication\.checkBoard/.test(ln)){found=true;console.log(f+':'+(i+1)+': '+ln.trim());}});}console.log(found?'WARNING: Found possible unawaited board auth checks above':'OK: No unawaited board auth checks found');"
-exit /b 0
+node -e "const fs=require('fs'),path=require('path');function walk(d,acc){for(const e of fs.readdirSync(d,{withFileTypes:true})){const fp=path.join(d,e.name);if(e.isDirectory())walk(fp,acc);else if(/\.js$/.test(e.name))acc.push(fp);}return acc;}let found=false;for(const f of walk('server/models',[])){const lines=fs.readFileSync(f,'utf8').split(/\r?\n/);lines.forEach((ln,i)=>{if(/Authentication\.checkBoard(Access|WriteAccess)\(/.test(ln)&&!/await Authentication\.checkBoard/.test(ln)){found=true;console.log(f+':'+(i+1)+': '+ln.trim());}});}console.log(found?'FAIL: these board auth checks are not awaited':'OK: No unawaited board auth checks found');process.exit(found?1:0);"
+if errorlevel 1 set "FLOATING_RC=1"
+exit /b %FLOATING_RC%
 
 REM ===========================================================================
 :save_deps
@@ -1665,6 +1766,9 @@ REM Best-effort by image name; the per-port free below does the real work and is
 REM narrow enough not to touch unrelated Node apps.
 taskkill /F /IM meteor.exe /T >nul 2>&1
 taskkill /F /IM mongod.exe /T >nul 2>&1
+REM `rspack build --watch` listens on no port, so the per-port free below cannot
+REM find it; stop it by its command line, as build.sh's pkill does.
+powershell -NoProfile -Command "Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -match 'rspack build --watch' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }" >nul 2>&1
 for %%p in (%DEV_SERVER_PORTS%) do call :free_port %%p
 REM Wait for the ports to free (up to ~10s).
 for /l %%i in (1,1,10) do (
