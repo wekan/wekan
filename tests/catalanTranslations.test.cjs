@@ -5,7 +5,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const root = path.resolve(__dirname, '..');
-const result = spawnSync(process.execPath, [path.join(root, 'releases/translations/fill-translations.mjs'), '--completed-catalog', '--list', 'ca'], { cwd: root, encoding: 'utf8' });
+const result = spawnSync(process.execPath, [path.join(root, 'releases/translations/fill-translations.mjs'), '--list', 'ca'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
 assert.equal(result.stdout, '{}\n');
 const locale = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ca.i18n.json'), 'utf8'));
@@ -94,3 +94,30 @@ for (const code of ['ca', 'ca_ES', 'ca@valencia']) {
   assert.match(data['login-setting-env-only'], /Només l’entorn del servidor.*només per a lectura/);
   assert.doesNotMatch(data['interrupted-import-keep-confirm'], /s’elimina el tauler/);
 }
+
+for (const code of ['ca', 'ca_ES']) {
+  const data = JSON.parse(fs.readFileSync(path.join(root, `imports/i18n/data/${code}.i18n.json`), 'utf8'));
+  assert.deepEqual(Object.keys(data), Object.keys(english));
+  for (const key of Object.keys(english)) assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), `${code}:${key}`);
+  const full = spawnSync(process.execPath, [path.join(root, 'releases/translations/fill-translations.mjs'), '--list', code], { cwd: root, encoding: 'utf8' });
+  assert.equal(full.status, 0, full.stderr);
+  assert.deepEqual(JSON.parse(full.stdout), {});
+  assert.equal(data['notification-delivery-part-dates'], 'Dates');
+  assert.match(data['custom-field-links-hint'], /mateix nom i tipus a totes dues fitxes/);
+  assert.match(data['custom-field-links-hint'], /només té una de les fitxes es deixen sense canvis/);
+  assert.match(data['custom-field-link-inactive'], /ja no pot editar totes dues fitxes.*arxivada/);
+  assert.match(data['custom-field-link-both'], /tots dos sentits.*qualsevol fitxa/);
+  assert.match(data['custom-field-link-send'], /un sol sentit.*fitxa principal/);
+  assert.match(data['field-link-not-allowed'], /editar totes dues fitxes/);
+  assert.equal(data['import-members-mode-me'], 'Substitueix-les totes per mi');
+  assert.match(data['import-many-boards-hint'], /sense associar membres/);
+  assert.match(data['import-many-boards-hint'], /en si mateix una sola exportació.*és un sol tauler/);
+  assert.match(data['export-all-boards-hint'], /podeu exportar.*llibre.*\.zip/);
+  assert.match(data['webhook-payload-description'], /conserva la configuració heretada/);
+  assert.match(data['notification-delivery-quiet'], /espera fins que acabin/);
+  assert.match(data['r-wrike-workflow-note'], /com a completada.*Completed.*Cancelled.*com a no completada.*Active.*Deferred/);
+  for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) assert.ok(data['r-wrike-workflow-note'].includes(literal), literal);
+  assert.ok(data['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+  assert.notEqual(data['subtask-mark-done'], data['subtask-mark-not-done']);
+}
+console.log('Catalan current catalogs, shared date label, tokens and field meanings pass');

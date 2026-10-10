@@ -1001,6 +1001,10 @@ const LOCALE_INVARIANTS = {
   // IEC mathematical usage: https://scm.iec.cat/wp-content/uploads/2018/01/sessions_olimpiada.pdf
   // XTEC division terminology: https://ioc.xtec.cat/materials/FP/Recursos/fp_asx_m03_/web/fp_asx_m03_htmlindex/WebContent/u1/a1/continguts.html
   ...Object.fromEntries(['ca', 'ca_ES', 'ca@valencia'].map(code => [code, new Set([
+    // Catalan dates is the plural of data (IEC DCVB, entry data).
+    // Only the reviewed locales and exact source label are exempted.
+    ...(['ca', 'ca_ES'].includes(code) && en['notification-delivery-part-dates'] === 'Dates'
+      ? ['notification-delivery-part-dates'] : []),
     ...(code !== 'ca' ? ['blockly-PAUSE_KEY'] : []),
     'blockly-ARIA_TYPE_FIELD_ANGLE', 'blockly-ARIA_TYPE_FIELD_COLOUR',
     'blockly-INPUT_LABEL_LOOP_BY', 'blockly-INPUT_LABEL_MATH_DIVIDEND',

@@ -2,6 +2,32 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Catalan current fills and shared date label — 2026-10-10
+
+Translate 109 English placeholders in each of ca and ca_ES, 218 values in
+total, for attached cards, linked fields, calendar mode, member mapping,
+CSV columns, multiple-board import/export, webhooks, notifications, Wrike
+workflows and subtask completion. Both full current fill lists are empty.
+Every changed value was English in the parent commit; existing translations
+are preserved. Follow the existing tauler, fitxa, llista, carril and camps
+personalitzats terminology. Longer technical wording remains provisional
+pending speaker review; older catalog fluency is not fully audited.
+
+The remaining Dates label is already native Catalan, the plural of data
+([IEC DCVB, data](https://dcvb.iec.cat/results.asp?Word=data), date sense).
+Keep it unchanged and recognize only this exact source value in these two
+reviewed locales. Fixture tests prove that another locale and changed English
+source prose still appear as untranslated. Do not exempt broader sentences.
+
+Preserve source placeholders, WEBHOOKS_ATTRIBUTES, GET /workflows and Wrike
+state names. Regressions verify permissions, field directions, member
+replacement, ZIP semantics, inherited settings, quiet hours and completion
+states. Add both full current fill-list checks and six browser cases. Syntax
+and discovery pass; execution remains unverified because the local app and
+browser system dependencies are unavailable. All 305 translation/Blockly
+suites, 246 catalog inventories and 21 human-preference checks pass. The wider
+all-language backlog and semantic audit remain open.
+
 ## Greek current fills — 2026-10-10
 
 Translate 110 English placeholders in each of el and el-GR, 220 values in
