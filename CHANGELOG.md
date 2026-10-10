@@ -130,8 +130,8 @@ previously held for Transifex. Completed work is recorded in Upcoming and releas
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **29,735 untranslated locale/string values in 42 languages**.
   It excludes **383 source keys tracked separately as pending Transifex**.
-  After the Arabic batch, full per-locale `--list` reports, including pending
-  keys, count **61,126 remaining values across 142 non-English locale
+  After the Simplified Chinese batch, full per-locale `--list` reports, including pending
+  keys, count **59,770 remaining values across 136 non-English locale
   files**. This fuller inventory remains the scope of the translation work.
   A separate short-prose audit flags 1,681 candidates across 183 locales.
   The two notification At/To labels now have translations in all non-English
@@ -525,14 +525,38 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** Current Afrikaans, Albanian, Arabic, Belarusian, Bosnian, Bulgarian, Croatian, Estonian, Hebrew, Icelandic, Latvian,
+**In short:** Current Afrikaans, Albanian, Arabic, Belarusian, Bosnian, Bulgarian, Chinese (Simplified), Croatian, Estonian, Hebrew, Icelandic, Latvian,
 Macedonian, Persian, Serbian, Slovenian and Vietnamese strings are translated. Mixed-language Arabic and Macedonian values and Basque
 card wording are corrected, with validation of imports, notifications and recovery
 choices.
 
-**Translations** - Afrikaans, Albanian, Arabic, Basque, Belarusian, Bosnian, Bulgarian, Croatian, Estonian, Hebrew, Icelandic, Latvian, Macedonian, Persian, Serbian, Slovenian and Vietnamese.
+**Translations** - Afrikaans, Albanian, Arabic, Basque, Belarusian, Bosnian, Bulgarian, Chinese (Simplified), Croatian, Estonian, Hebrew, Icelandic, Latvian, Macedonian, Persian, Serbian, Slovenian and Vietnamese.
 
-**Languages updated:** Afrikaans, Albanian, Arabic, Basque, Belarusian, Bosnian, Bulgarian, Croatian, Estonian, Hebrew, Icelandic, Latvian, Macedonian, Persian, Serbian, Slovenian, Vietnamese.
+**Languages updated:** Afrikaans, Albanian, Arabic, Basque, Belarusian, Bosnian, Bulgarian, Chinese (Simplified), Croatian, Estonian, Hebrew, Icelandic, Latvian, Macedonian, Persian, Serbian, Slovenian, Vietnamese.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ee2626fe2e">Translate remaining current Simplified Chinese strings</a>. Thanks to xet7.</summary>
+
+Fill 1,356 English placeholders across cmn, zh, zh-CN, zh-GB, zh-Hans and zh_SG
+for linked cards and fields, 22 import-format instructions, member mapping, CSV
+columns, bulk imports and exports, webhooks, notifications, Wrike workflows,
+Scrum planning/checkpoints, LDAP, link rules and interrupted import/List Sync
+recovery. All six full current fill lists are empty, including pending Transifex
+keys. Preserve existing translations, exact tokens, parsed constants and external
+menu names. Regressions verify permissions, field directions, import exclusions,
+notification timing, permanent deletion, preserved applied changes and refusal to
+discard resumable operations. Specialist wording remains provisional pending
+speaker review; older catalog fluency is not fully audited. Traditional Chinese
+catalogs remain a separate pending batch.
+
+All 306 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Thirty browser cases pass syntax and discovery, with zh_SG mapped to
+the registered zh-SG runtime tag; execution remains unverified without the local
+app and browser system dependencies. The full inventory, including pending
+Transifex keys, records 59,770 remaining values across 136 non-English locale
+files. The all-language backlog and semantic audit remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3481a310cb">Replace legacy Persian text in Arabic catalogs</a>. Thanks to xet7.</summary>
