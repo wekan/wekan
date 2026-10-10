@@ -896,6 +896,19 @@ export class WekanCreator {
     }
   }
 
+  // #3257: the cards attached to a card follow the cards that came in the same
+  // export to their new ids; one that did not is dropped rather than left
+  // pointing at a card of the installation the export came from.
+  async createAttachedCards(wekanCards) {
+    const { remapAttachedCardIds } = require('/models/lib/attachedCards');
+    for (const card of wekanCards) {
+      const newCardId = this.cards[card._id];
+      if (!newCardId || !Array.isArray(card.attachedCardIds) || !card.attachedCardIds.length) continue;
+      const remapped = remapAttachedCardIds(card.attachedCardIds, this.cards, newCardId);
+      if (remapped.length) await Cards.direct.updateAsync(newCardId, { $set: { attachedCardIds: remapped } });
+    }
+  }
+
   async createChecklists(wekanChecklists, boardId) {
     const result = [];
     for (const [checklistIndex, checklist] of wekanChecklists.entries()) {
@@ -1175,6 +1188,7 @@ export class WekanCreator {
       { method: 'createCards', source: 'cards' },
       { method: 'createSubtasks', source: 'cards' },
       { method: 'createCardDependencies', source: 'cards' },
+      { method: 'createAttachedCards', source: 'cards' },
       { method: 'createScrumData' },
       { method: 'createChecklists', source: 'checklists' },
       { method: 'createChecklistItems', source: 'checklistItems' },

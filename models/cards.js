@@ -385,6 +385,18 @@ Cards.attachSchema(
     'labelIds.$': {
       type: String,
     },
+    attachedCardIds: {
+      /**
+       * #3257: the cards attached to this card (Trello's card attachments),
+       * by id - any card the user may read, on any board. Shown beside the
+       * file attachments (models/lib/attachedCards.js).
+       */
+      type: Array,
+      optional: true,
+    },
+    'attachedCardIds.$': {
+      type: String,
+    },
     members: {
       /**
        * list of members (user IDs)

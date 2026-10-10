@@ -483,3 +483,32 @@ div.attachment-thumbnail-container .attachment-thumbnail-text {
   padding: 0;
 }
 
+
+/* #3257: a card attached to this card, beside the files. */
+.attachment-gallery .attached-card-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+}
+.attachment-gallery .attached-card-link {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1 1 auto;
+  text-decoration: none;
+}
+.attachment-gallery .attached-card-link .attached-card-title {
+  font-weight: bold;
+  overflow-wrap: anywhere;
+}
+.attachment-gallery .attached-card-where,
+.attachment-gallery .attached-card-archived,
+.attachment-gallery .attached-card-unavailable {
+  font-size: 0.85em;
+  opacity: 0.75;
+}
+.attachment-gallery .js-detach-card {
+  flex: 0 0 auto;
+  cursor: pointer;
+}

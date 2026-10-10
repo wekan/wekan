@@ -19,6 +19,8 @@ import { buildAttachmentUploadConfig } from '/client/lib/attachmentUploadConfig'
 const { cleanFileName } = require('/imports/lib/fileNameDisplay');
 import { formatDateTime } from '/imports/lib/dateUtils';
 import { EscapeActions } from '/client/lib/escapeActions';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { ReactiveVar } from 'meteor/reactive-var';
 
 const { filesize } = require('filesize');
 import prettyMilliseconds from 'pretty-ms';
@@ -51,6 +53,21 @@ Template.attachmentGallery.events({
     openAttachmentViewer(openAttachmentId);
   },
   'click .js-add-attachment': Popup.open('cardAttachments'),
+  // #3257: an attached card opens in this tab, as a card link does.
+  'click .js-open-attached-card'(event) {
+    event.preventDefault();
+    const url = event.currentTarget.getAttribute('href');
+    if (url) FlowRouter.go(url);
+  },
+  'click .js-detach-card'(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const card = Template.currentData();
+    const cardId = typeof card.getRealId === 'function' ? card.getRealId() : card._id;
+    Meteor.call('detachCardFromCard', cardId, event.currentTarget.dataset.cardId, error => {
+      if (error) console.error('[attachments] detach card failed:', error);
+    });
+  },
   // If we let this event bubble, FlowRouter will handle it and empty the page
   // content, see #101.
   'click .js-download'(event) {
@@ -429,7 +446,26 @@ if (typeof document !== 'undefined') {
   }, true);
 }
 
+// #3257: the cards attached to this card, as the server lets this viewer see
+// them (server/models/attachedCards.js attachedCardsInfo) - fetched again
+// whenever the card's list of attached cards changes.
+Template.attachmentGallery.onCreated(function () {
+  this.attachedCards = new ReactiveVar([]);
+  this.autorun(() => {
+    const card = Template.currentData();
+    const cardId = card && (typeof card.getRealId === 'function' ? card.getRealId() : card._id);
+    const ids = card && Array.isArray(card.attachedCardIds) ? card.attachedCardIds.join(',') : '';
+    if (!cardId || !ids) { this.attachedCards.set([]); return; }
+    Meteor.call('attachedCardsInfo', cardId, (error, result) => {
+      this.attachedCards.set(error ? [] : (result || []));
+    });
+  });
+});
+
 Template.attachmentGallery.helpers({
+  attachedCards() {
+    return Template.instance().attachedCards.get();
+  },
   attachments() {
     const card = Template.currentData();
     if (!card) return [];
@@ -549,6 +585,56 @@ Template.cardAttachmentsPopup.events({
     event.preventDefault();
   },
   'click .js-upload-clipboard-image': Popup.open('previewClipboardImage'),
+  'click .js-attach-card': Popup.open('attachCard'),
+});
+
+// #3257: attach a card by a pasted card link, or one of this board's cards
+// found by its title. The server decides whether it may be attached.
+const escapeForRegExp = text => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+Template.attachCardPopup.onCreated(function () {
+  this.query = new ReactiveVar('');
+  this.error = new ReactiveVar('');
+});
+Template.attachCardPopup.helpers({
+  attachCardError() {
+    return Template.instance().error.get();
+  },
+  attachCardMatches() {
+    const query = Template.instance().query.get().trim();
+    const card = Template.currentData();
+    if (!query || !card || /^https?:|\//.test(query)) return [];
+    const ownId = typeof card.getRealId === 'function' ? card.getRealId() : card._id;
+    const attached = Array.isArray(card.attachedCardIds) ? card.attachedCardIds : [];
+    return ReactiveCache.getCards({
+      boardId: card.boardId,
+      archived: false,
+      _id: { $nin: [ownId, ...attached] },
+      title: { $regex: escapeForRegExp(query), $options: 'i' },
+    }, { limit: 8, sort: { title: 1 } });
+  },
+});
+function attachCard(templateInstance, card, target) {
+  const cardId = typeof card.getRealId === 'function' ? card.getRealId() : card._id;
+  templateInstance.error.set('');
+  Meteor.call('attachCardToCard', cardId, String(target || ''), error => {
+    if (error) templateInstance.error.set(error.error === 'attach-card-self' ? 'attach-card-self'
+      : error.error === 'attach-card-limit' ? 'attach-card-limit' : 'attach-card-not-found');
+    else Popup.back(2);
+  });
+}
+Template.attachCardPopup.events({
+  'input .js-attach-card-input'(event, templateInstance) {
+    templateInstance.query.set(event.currentTarget.value);
+    templateInstance.error.set('');
+  },
+  'click .js-attach-card-match'(event, templateInstance) {
+    event.preventDefault();
+    attachCard(templateInstance, Template.currentData(), event.currentTarget.dataset.cardId);
+  },
+  'submit .js-attach-card-form'(event, templateInstance) {
+    event.preventDefault();
+    attachCard(templateInstance, Template.currentData(), templateInstance.find('.js-attach-card-input').value);
+  },
 });
 
 const MAX_IMAGE_PIXEL = Utils.MAX_IMAGE_PIXEL;

@@ -1,4 +1,5 @@
 import { membersMode, membersMappingFor } from '/models/lib/importMembersMode';
+const { trelloCardShortLink, resolveTrelloCardAttachments } = require('/models/lib/attachedCards');
 import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
@@ -74,6 +75,9 @@ export class TrelloCreator {
     this.lists = {};
     // Map of cards Trello ID => Wekan ID
     this.cards = {};
+    // #3257: Trello card attachments - a card attached to a card - waiting for
+    // every card to exist: [{ cardId (WeKan), shortLink, url }].
+    this.pendingCardAttachments = [];
     // Map of attachments Wekan ID => Wekan ID
     this.attachmentIds = {};
     // Map of checklists Wekan ID => Wekan ID
@@ -638,6 +642,15 @@ export class TrelloCreator {
         // card description below, instead of trying to download them.
         const links = [];
         for (const att of mergedAttachments) {
+          // #3257: a card attached to this card is a link to a Trello card.
+          // It becomes the WeKan card made from the same export once every
+          // card exists (end of createCards); one of another board stays a
+          // link in the description.
+          const shortLink = !att.file && !att.zipEntryKey ? trelloCardShortLink(att.url) : null;
+          if (shortLink) {
+            this.pendingCardAttachments.push({ cardId, shortLink, url: att.url });
+            continue;
+          }
           // attached link, not a file
           if (att.name && att.name === att.url) {
             links.push(att.url);
@@ -753,7 +766,31 @@ export class TrelloCreator {
       }
       result.push(cardId);
     }
+    await this.attachImportedCards(trelloCards);
     return result;
+  }
+
+  // #3257: each Trello card attachment to a card of this export becomes an
+  // attached card; any other stays a link in the card's description, as an
+  // attached link always did.
+  async attachImportedCards(trelloCards) {
+    const { attach, unresolved } = resolveTrelloCardAttachments(trelloCards, this.cards, this.pendingCardAttachments);
+    for (const [cardId, ids] of Object.entries(attach)) {
+      await Cards.direct.updateAsync(cardId, { $set: { attachedCardIds: ids } });
+    }
+    const byCard = new Map();
+    for (const { cardId, url } of unresolved) byCard.set(cardId, [...(byCard.get(cardId) || []), url]);
+    for (const [cardId, urls] of byCard) {
+      const card = await Cards.findOneAsync(cardId, { fields: { description: 1 } });
+      const heading = `## ${TAPi18n.__('links-heading')}`;
+      let desc = ((card && card.description) || '').trim();
+      // Under the card's links heading when its other links made one.
+      if (desc.includes(heading)) desc += '\n';
+      else desc += `${desc ? '\n\n' : ''}${heading}\n`;
+      desc += urls.map(url => `* ${url}\n`).join('');
+      await Cards.direct.updateAsync(cardId, { $set: { description: desc } });
+    }
+    this.pendingCardAttachments = [];
   }
 
   // Create labels if they do not exist and load this.labels.

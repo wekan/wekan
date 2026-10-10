@@ -20,6 +20,23 @@ template(name="cardAttachmentsPopup")
         a.js-computer-upload {{_ 'computer'}}
       li
         a.js-upload-clipboard-image {{_ 'clipboard'}}
+      //- #3257: a card attached to this card, as Trello's card attachments.
+      li
+        a.js-attach-card {{_ 'attach-card'}}
+
+//- #3257: attach a card - a pasted card link (Copy card link gives one), or one
+  of this board's cards found by its title.
+template(name="attachCardPopup")
+  form.js-attach-card-form
+    label(for="attach-card-input") {{_ 'attach-card-hint'}}
+    input.js-attach-card-input#attach-card-input(type="text" autocomplete="off" autofocus)
+    if attachCardError
+      p.warning.js-attach-card-error {{_ attachCardError}}
+    ul.pop-over-list.attach-card-matches
+      each attachCardMatches
+        li
+          a.js-attach-card-match(data-card-id="{{_id}}") {{title}}
+    button.primary.js-attach-card-submit(type="submit") {{_ 'attach-card'}}
 
 template(name="previewClipboardImagePopup")
   p <kbd>Ctrl</kbd>+<kbd>V</kbd> {{_ "paste-or-dragdrop"}}
@@ -111,6 +128,25 @@ template(name="attachmentGallery")
             .migration-spinner
               i.fa.fa-cog.fa-spin
             .migration-text {{_ 'attachment-migration'}}
+
+    //- #3257: the cards attached to this one. A card the viewer cannot read
+      shows only that one is there (server/models/attachedCards.js).
+    each attachedCards
+      .attachment-item.attached-card-item(data-card-id="{{cardId}}")
+        if unavailable
+          .attached-card-unavailable
+            i.fa.fa-clone
+            span {{_ 'attached-card-unavailable'}}
+        else
+          a.attached-card-link.js-open-attached-card(href="{{url}}" title="{{title}}")
+            i.fa.fa-clone
+            span.attached-card-title= title
+            span.attached-card-where {{boardTitle}} / {{listTitle}}
+            if archived
+              span.attached-card-archived {{_ 'archived'}}
+        if canModifyCard
+          a.js-detach-card(title="{{_ 'detach-card'}}" aria-label="{{_ 'detach-card'}}" data-card-id="{{cardId}}")
+            i.fa.fa-times-thin
 
 template(name="attachmentActionsPopup")
   ul.pop-over-list

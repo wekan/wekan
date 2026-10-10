@@ -117,6 +117,7 @@ import './storedRuleChecklistLifecycle.tests';
 import './storedRuleCopyCard.tests';
 import './dependencyLayers.tests';
 import './cardMoveLabelActivities.tests';
+import './attachedCards.tests';
 import './storedRuleMoveBoard.tests';
 import './ruleEmailFollowedMove.tests';
 import './jiraScrumImport.tests';

@@ -1215,6 +1215,34 @@
     {
       "key": "import-file-label",
       "since": "2026-10-09"
+    },
+    {
+      "key": "attach-card",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "attach-card-hint",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "attached-card-unavailable",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "detach-card",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "attach-card-self",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "attach-card-limit",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "attach-card-not-found",
+      "since": "2026-10-10"
     }
   ]
 }
