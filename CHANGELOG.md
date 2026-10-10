@@ -535,6 +535,30 @@ choices.
 **Languages updated:** Basque, Bulgarian, Croatian, Macedonian, Serbian, Slovenian, Vietnamese.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5f005ecfe1">Correct reviewed Macedonian vocabulary matches</a>. Thanks to xet7.</summary>
+
+Review all 317 long values previously flagged for matching Bulgarian or Serbian.
+Correct 262 wrong-language, mixed-language or meaning-drifted values and retain
+55 valid shared terms. Cover activity messages, workspaces, filters, member and
+profile settings, notifications, storage, migration actions and diagnostics.
+Restore distinctions such as exporting versus converting, all users versus
+visibility rights and last access versus last modification. Preserve all other
+values, exact tokens, literal date formats and JSON property names. Update the
+existing audit record for the three-card JSON example after replacing its Serbian
+sample prose with Macedonian. Specialized wording remains lower confidence
+pending native-speaker review. Shorter and nonmatching older values still need
+language review; the current placeholder list remains empty.
+
+The broad run exercised 306 translation/Blockly suites: 305 passed and one caught
+the stale JSON audit record. After the record update, the failed suite and focused
+Macedonian and audit-progress checks pass on rerun. All 246 catalog inventories
+and 21 preservation checks pass. Existing Macedonian browser cases pass syntax
+and discovery; runtime execution remains unverified without the local app and
+browser system dependencies. The wider all-language backlog remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/496acb14e7">Fill Macedonian strings and correct mixed-language values</a>. Thanks to xet7.</summary>
 
 Fill 130 English placeholders in mk for linked cards and fields, 20 import-format
@@ -544,7 +568,7 @@ or mixed-language values in controls, activity messages, assignments, dates,
 archives and diagnostics. Restore the full source meaning of two truncated
 diagnostic descriptions. Preserve other translations, exact tokens, parsed
 constants and markup. The full current fill list is empty; 317 older cross-locale
-matches remain candidates for individual language review. Longer technical and
+matches were flagged for the individual language review recorded above. Longer technical and
 corrected wording remains lower confidence pending native-speaker review.
 
 All 306 translation/Blockly suites, 246 catalog inventories and 21 preservation
