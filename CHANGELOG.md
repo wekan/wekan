@@ -497,11 +497,29 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** Translate the remaining current Czech, Dutch, French, German, Polish, Portuguese, Slovak and Spanish strings and correct Czech wording in Slovak and Swiss German spelling.
+**In short:** Translate the remaining current Czech, Dutch, French, German, Hungarian, Polish, Portuguese, Slovak and Spanish strings and correct Czech wording in Slovak and Swiss German spelling.
 
-**Translations** - Czech, Dutch, French, German, Polish, Portuguese, Slovak and Spanish base and regional catalogs.
+**Translations** - Czech, Dutch, French, German, Hungarian, Polish, Portuguese, Slovak and Spanish base and regional catalogs.
 
-**Languages updated:** Czech, Dutch, French, German, Polish, Portuguese, Slovak, Spanish.
+**Languages updated:** Czech, Dutch, French, German, Hungarian, Polish, Portuguese, Slovak, Spanish.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0ec3ab7731">Translate remaining current Hungarian strings</a>. Thanks to xet7.</summary>
+
+Fill 110 English placeholders in hu for linked cards, imports, member mapping,
+webhooks, notifications and Wrike workflows. Its full current fill list is
+empty. Preserve existing translations, exact placeholders and parsed constants.
+Regressions verify permissions, field propagation directions, import semantics,
+notification timing and workflow completion states. Longer technical wording
+remains provisional pending speaker review; older catalog wording is not
+fully audited.
+
+All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Three browser cases pass syntax and discovery; execution remains
+unverified because the local app and browser system dependencies are unavailable.
+The wider all-language backlog and semantic audit remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1d76d08c7f">Fill current Slovak strings and correct Czech seed wording</a>. Thanks to xet7.</summary>
