@@ -57,8 +57,12 @@ async function loadDestination(board, file) {
     Cards.find({ boardId, ...notLinked, $or: [{ _id: { $in: ids } }, { cardNumber: { $in: numbers } }] }, { fields: cardFields }).fetchAsync(),
     Lists.find({ boardId }, { fields: { _id: 1, title: 1 } }).fetchAsync(),
     CustomFields.find({ boardIds: boardId }, { fields: { _id: 1, name: 1, type: 1 } }).fetchAsync(),
-    // A card ID of another board is named in the report, never written.
-    Cards.find({ _id: { $in: ids }, boardId: { $ne: boardId } }, { fields: { _id: 1 } }).fetchAsync(),
+    // A card ID of another board is named in the report, never written. The
+    // file's own board (its _id, the board it was exported from) is not
+    // "another board": a card of it with no match here is simply not matched,
+    // the usual case when planning moves from one board to another.
+    Cards.find({ _id: { $in: ids }, boardId: { $nin: [boardId, ...(typeof file._id === 'string' ? [file._id] : [])] } },
+      { fields: { _id: 1 } }).fetchAsync(),
   ]);
   return { sprints, releases, events, cards, lists, customFields, foreignCardIds: foreign.map(row => row._id),
     memberIds: (board.members || []).filter(member => member.isActive !== false).map(member => member.userId) };

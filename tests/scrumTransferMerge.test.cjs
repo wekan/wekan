@@ -181,7 +181,13 @@ test('the server method is admin-only, journaled, recorded in History and offere
   assert.match(server, /board\.hasAdmin\(userId\)/);
   assert.match(server, /writeImportPlan\(/); assert.match(server, /finishImportPlan\(/);
   assert.match(server, /scrumImportPending: true/);
-  assert.match(server, /boardId: \{ \$ne: boardId \}/, 'another board\'s card IDs are looked up only to be reported');
+  // Another board's card IDs are looked up only to be reported. The file's own
+  // board is not "another board": an unmatched card of it is not matched, as
+  // the server test's card that is only in the source expects.
+  assert.match(server, /boardId: \{ \$nin: \[boardId, \.\.\.\(typeof file\._id === 'string' \? \[file\._id\] : \[\]\)\] \}/,
+    'another board\'s card IDs are looked up only to be reported, the file\'s own board excluded');
+  assert.doesNotMatch(server, /boardId: \{ \$ne: boardId \} \}, \{ fields: \{ _id: 1 \} \}/,
+    'negative: the source board\'s own cards are not reported as another board\'s');
   assert.doesNotMatch(server, /Cards\.(update|insert|remove)/, 'cards are written only by the journaled stage');
   const recovery = read('server/lib/scrumImportRecovery.js');
   assert.match(recovery, /step\.after\.scrumRevision === step\.before\.scrumRevision \+ 1/);
