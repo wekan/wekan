@@ -127,6 +127,10 @@ echo "--- Renaming '# Upcoming WeKan ® release' -> '# v$NEW $DATE WeKan ® rele
 _tmp="$(mktemp)"
 sed "s|^# Upcoming WeKan ® release.*|# v$NEW $DATE WeKan ® release|" CHANGELOG.md > "$_tmp" && mv "$_tmp" CHANGELOG.md
 
+# Keep CHANGELOG.md small enough for GitHub to show it: older releases move to
+# old-CHANGELOG/ (the newest, this one, always stays). Committed with the rename.
+node "$REPO_DIR/releases/changelog-archive.mjs"
+
 # Do not open an empty Upcoming section. Add real notes before the next release.
 
 echo "=== WeKan remote release: v$OLD -> v$NEW ==="

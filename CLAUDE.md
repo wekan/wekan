@@ -438,32 +438,39 @@ directly after the merge.
   add and syntax-check/register the test and state clearly what could not be run.
   Do not duplicate an existing test merely to satisfy the audit — extend it when
   that keeps one behavior in one suite.
-- **CHANGELOG.md holds the CURRENT MONTH only.** It reached 2.6 MB and 51,365
-  lines over 1,100 releases back to 2015 (#6580), which is slow to open and
-  slower to read. Moving whole years out left 1.9 MB, still too large, because
-  releases here are frequent: 2026 alone is 272 releases over eight months and
-  July was 80 on its own. So:
+- **CHANGELOG.md stays small enough for GitHub to show it.** GitHub renders
+  Markdown up to 500 KiB; above that it shows only plain source text, and above
+  about 2 MB nothing at all ("we can't show files that are this big right
+  now"). CHANGELOG.md reached 2.6 MB over 1,100 releases back to 2015 (#6580),
+  and keeping only the current month still came to 2.1 MB, because releases
+  here are frequent and large. So the cut is by SIZE: 450,000 bytes
+  (`BUDGET` in `releases/changelog-archive.mjs`), under GitHub's limit with
+  room for the Status links to grow:
 
   | | |
   | --- | --- |
-  | `CHANGELOG.md` | the current month, plus `# Status` (Platforms/TODO Later inside it), `# Upcoming` |
-  | `old-CHANGELOG/<year>/<MM>.md` | earlier months of the current year |
-  | `old-CHANGELOG/<year>.md` | years that are over, whole |
+  | `CHANGELOG.md` | `# Status` (Platforms/TODO Later inside it), `# Upcoming`, and the newest releases that fit the budget |
+  | `old-CHANGELOG/<year>/<MM>.md` | a month's releases, newest first; a month over the budget continues in `<MM>-part2.md`, `<MM>-part3.md`, ... |
+  | `old-CHANGELOG/<year>.md` | 2015–2025, whole |
 
-  Past years stay one file each because they are already small (30–107 KB);
-  splitting them further would trade a size problem nobody has for a hundred
-  more files. Each archive opens with a **release count** — per month in a year
-  file, per day in a month file — and a bullet in `# Status`'s "Newest WeKan at
-  these platforms" details links every one.
+  Past years 2015–2025 stay one file each because they are already small
+  (30–107 KB). Every archive part fits the budget too, so it renders on GitHub;
+  only a single release larger than the budget gets a part of its own and is
+  shown as text. Each archive opens with a **release count** — per month in a
+  year file, per day in a month part — a split month's parts link each other,
+  and a bullet in `# Status`'s "Newest WeKan at these platforms" details links
+  every one.
   That `git blame` is less useful on the split file is accepted: the history is
   still in git (`gitk`, `git-gui`, `git log --follow`), and being small enough
   to open is worth more.
 
-  Run `node releases/changelog-archive.mjs` at the start of a month. It is
-  idempotent — a run with nothing to move only refreshes the tables — and it
-  takes the month to keep from the FILE rather than the clock, so two people
-  running it on the same day agree. An archived section is never edited, for the
-  same reason a released one is not.
+  Run `node releases/changelog-archive.mjs` whenever CHANGELOG.md has grown -
+  after a release is the natural moment. It is idempotent — a run with nothing
+  to move only refreshes the tables and parts — and it decides from the FILE
+  rather than the clock, so two people running it agree.
+  `tests/changelogArchive.test.cjs` fails when CHANGELOG.md is over the budget.
+  An archived section is never edited, for the same reason a released one is
+  not.
 - **The file's shape, top to bottom** — keep it exactly as it is now. There is
   exactly ONE `#` heading before the releases: `# Status`. Platforms, Version
   and TODO Later are `<details>` blocks nested inside it, not headings of

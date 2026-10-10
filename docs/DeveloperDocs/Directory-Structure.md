@@ -22,7 +22,7 @@ for years this page described four directories out of twenty and did not say so.
 | [sandstorm-src/](../../sandstorm-src) | the Sandstorm package |
 | [openapi/](../../openapi) | the REST API description, generated from the routes |
 | [meta/](../../meta) | signatures, icons, screenshots, project description |
-| [old-CHANGELOG/](../../old-CHANGELOG) | the CHANGELOG's history, by year and by month (`CHANGELOG.md` holds the current month) |
+| [old-CHANGELOG/](../../old-CHANGELOG) | the CHANGELOG's history, by year and by month, a busy month in parts (`CHANGELOG.md` holds the newest releases that fit GitHub's 500 KiB Markdown limit) |
 | `.tools/` | NOT part of this repository: the companion repos and toolchains a build needs, ignored by git and by Meteor |
 | `node_modules/`, `.meteor/`, `.build/`, `_build/` | generated; never edited, never committed |
 
