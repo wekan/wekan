@@ -1,5 +1,4 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Guard the full current Hungarian catalog and warning meanings.
 'use strict';
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -107,7 +106,7 @@ const currentKeys = [
   assert.match(hu['sync-time-estimate-hint'], /kifejezett null pedig törli/);
   assert.notEqual(hu['move-selection-before'], hu['move-selection-after']);
   const inventory = spawnSync(process.execPath,
-    ['releases/translations/fill-translations.mjs', '--completed-catalog', '--list', 'hu'],
+    ['releases/translations/fill-translations.mjs', '--list', 'hu'],
     { cwd: path.resolve(__dirname, '..'), encoding: 'utf8' });
   assert.equal(inventory.status, 0, inventory.stderr);
   assert.deepEqual(JSON.parse(inventory.stdout), {});
@@ -148,5 +147,23 @@ const currentKeys = [
     assert.ok(hu['external-link-rules-description'].includes(literal), literal);
   }
   assert.ok(hu['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+  assert.match(hu['custom-field-links-hint'], /azonos nevű és típusú/);
+  assert.match(hu['custom-field-links-hint'], /csak az egyik kártyán létező mezők változatlanok/);
+  assert.match(hu['custom-field-link-inactive'], /nem szerkesztheti mindkét kártyát.*archiválva/);
+  assert.match(hu['custom-field-link-both'], /Kétirányú.*bármelyik/);
+  assert.match(hu['custom-field-link-send'], /Egyirányú.*fő kártyára/);
+  assert.match(hu['field-link-not-allowed'], /Mindkét kártya szerkesztésére/);
+  assert.equal(hu['import-members-mode-me'], 'Mindegyikük helyett én szerepeljek');
+  assert.match(hu['import-many-boards-hint'], /tagok hozzárendelése nélkül/);
+  assert.match(hu['import-many-boards-hint'], /önmagában egyetlen exportot.*egy táblának számít/);
+  assert.match(hu['export-all-boards-hint'], /exportálható.*munkafüzet.*\.zip/);
+  assert.match(hu['webhook-payload-description'], /megőrzi az örökölt beállítást/);
+  assert.match(hu['notification-delivery-quiet'], /várakozás a végéig/);
+  assert.match(hu['r-wrike-workflow-note'], /befejezettnek.*Completed.*Cancelled.*befejezetlennek Active.*Deferred/);
+  for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) {
+    assert.ok(hu['r-wrike-workflow-note'].includes(literal), literal);
+  }
+  assert.ok(hu['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+  assert.notEqual(hu['subtask-mark-done'], hu['subtask-mark-not-done']);
   console.log('Hungarian source keys, tokens, planning and recovery warning meanings verified');
 })().catch(error => { console.error(error); process.exitCode = 1; });
