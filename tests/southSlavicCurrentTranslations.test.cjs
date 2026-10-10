@@ -6,6 +6,23 @@ const { execFileSync } = require('node:child_process');
 const root = path.resolve(__dirname, '..');
 const read = code => JSON.parse(fs.readFileSync(path.join(root, `imports/i18n/data/${code}.i18n.json`), 'utf8'));
 const meanings = {
+  bs: {
+    matching: /istim nazivom i tipom na obje kartice/,
+    unchanged: /samo na jednoj kartici ostaju nepromijenjena/,
+    inactive: /više ne može uređivati obje kartice.*arhivirana/,
+    both: /Dvosmjerno.*bilo kojoj kartici/,
+    send: /Jednosmjerno.*glavnu karticu/,
+    permission: /uređivati obje kartice/,
+    me: 'Zamijeni sve mojim korisničkim računom',
+    unmapped: /bez mapiranja članova/,
+    archive: /sama po sebi jedan izvoz.*jedna je tabla/,
+    export: /možete izvesti.*radna knjiga.*\.zip/,
+    inherited: /zadržava naslijeđenu postavku/,
+    quiet: /sačekaj da završi/,
+    workflow: /kao završenu.*Completed.*Cancelled.*kao nezavršenu.*Active.*Deferred/,
+    done: /kao završen$/, undone: /kao nezavršen$/,
+    list: 'Lista', lane: 'Traka',
+  },
   bg: {
     matching: /едно и също име и тип в двете карти/,
     unchanged: /само в едната карта, остават непроменени/,
@@ -78,7 +95,7 @@ const meanings = {
 (async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   const english = read('en');
-  for (const code of ['bg', 'hr', 'sr', 'sl', 'sl_SI']) {
+  for (const code of ['bs', 'bg', 'hr', 'sr', 'sl', 'sl_SI']) {
     const d = read(code), m = meanings[code === 'sl_SI' ? 'sl' : code];
     assert.deepEqual(Object.keys(d), Object.keys(english), code);
     for (const key of Object.keys(english)) assert.deepEqual(translationTokens(d[key]), translationTokens(english[key]), `${code}:${key}`);
@@ -102,5 +119,5 @@ const meanings = {
       else assert.doesNotMatch(d[key], /\p{Script=Cyrillic}/u);
     }
   }
-  console.log('Bulgarian, Croatian, Serbian and both Slovenian current catalogs: tokens, native terminology and behavior meanings pass');
+  console.log('Bosnian, Bulgarian, Croatian, Serbian and both Slovenian current catalogs: tokens, native terminology and behavior meanings pass');
 })().catch(error => { console.error(error); process.exitCode = 1; });

@@ -2,6 +2,32 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Bosnian current fills — 2026-10-10
+
+Translate 110 English placeholders in bs for attached cards, linked fields,
+calendar mode, member mapping, CSV columns, bulk imports and exports, webhooks,
+notifications, Wrike workflows and subtasks. The full current fill list is empty.
+Every changed value was English in the parent commit; all existing translations
+are preserved. Follow tabla, kartica, lista, traka and prilagođena polja wording,
+with Bosnian izvoz/uvoz, izvještaj, zavisnosti and sačuvati forms. Longer technical
+wording remains provisional pending speaker review; older catalog fluency is not
+fully audited.
+
+Extend the South Slavic current-catalog suite with Bosnian vocabulary and
+behavior checks. Preserve exact source placeholders, WEBHOOKS_ATTRIBUTES,
+GET /workflows and Wrike state names. Verify full key order and token inventories,
+matching versus unchanged fields, editing permissions, bidirectional versus
+one-way propagation, member replacement, unmapped imports, ZIP semantics,
+export permissions, inherited settings, quiet hours and completed versus
+incomplete states. Three browser cases for linked fields, import-people choices
+and notification delivery pass syntax and discovery; runtime execution remains
+unverified without the local app and browser system dependencies. All 306
+translation/Blockly suites, 246 catalog inventories and 21 human-preference
+checks pass. A fresh full per-locale `--list`
+inventory counts 63,208 remaining values across 154 non-English locale files,
+including pending Transifex keys. The all-language backlog and semantic audit
+remain open.
+
 ## Albanian current fills — 2026-10-10
 
 Translate 110 English placeholders in sq for attached cards, linked fields,
