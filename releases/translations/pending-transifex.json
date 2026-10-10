@@ -1263,6 +1263,94 @@
     {
       "key": "subtask-done-no-permission",
       "since": "2026-10-10"
+    },
+    {
+      "key": "custom-field-links",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "custom-field-links-hint",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "custom-field-links-none",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "custom-field-link-unavailable",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "custom-field-link-fields",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "custom-field-link-no-fields",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "custom-field-link-inactive",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "custom-field-unlink",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "custom-field-link-target",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "custom-field-link-direction",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "custom-field-link-both",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "custom-field-link-send",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "custom-field-link-sends",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "custom-field-link-receives",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "custom-field-link-add",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "field-link-self",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "field-link-limit",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "field-link-archived",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "field-link-invalid",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "field-link-not-found",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "field-link-not-allowed",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "cardCustomFieldLinksPopup-title",
+      "since": "2026-10-10"
     }
   ]
 }

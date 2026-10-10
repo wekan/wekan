@@ -113,6 +113,7 @@ import '/server/models/attachmentStorageSettings';
 import '/server/models/attachments';
 import '/server/models/boards';
 import '/server/models/cards';
+import '/server/models/customFieldLinks';
 import '/server/models/dependencies';
 import '/server/models/attachedCards';
 import '/server/models/eventLog';

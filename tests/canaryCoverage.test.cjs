@@ -40,6 +40,7 @@ const WIRED = [
   ['card.foreign-placement',           'server/permissions/cards.js',                 'BoardBleed'],
   ['card.vote-field',                  'server/permissions/cards.js',                 'SpaceBleed'],
   ['card.poker-field',                 'server/permissions/cards.js',                 'SpaceBleed'],
+  ['card.field-link-direct',           'server/models/customFieldLinks.js',           '-'],
   ['user.miniprofile-without-login',  'server/publications/users.js',                'MiniProfileBleed'],
   ['history.cross-board',              'server/permissions/userPositionHistory.js',   'PositionHistoryBleed'],
   ['cas.account-conflict',             'packages/wekan-accounts-cas/cas_server.js',    'CasAccountMergeBleed'],

@@ -16,6 +16,7 @@ Empty optional groups can be hidden by those settings.
 | Custom Fields in the card menu | [Fields and their settings cog](CustomFields/CustomFields.md) |
 | Subtasks heading menu | [Subtasks and their settings](Subtasks.md) |
 | Linked cards | [Navigating and linking cards](Linked-Cards.md) |
+| Linked custom fields | [Copy field values between two cards](CustomFields/Linked-Custom-Fields.md) |
 | Card recurrence | [Recurring work](Card-Recurrence.md) |
 | Planning Poker | [Estimation](Planning-Poker.md) |
 | Cover, stickers and location | [Cover](Cover/Cover.md), [stickers](Stickers/Stickers.md), [location](Locations/Locations.md) |

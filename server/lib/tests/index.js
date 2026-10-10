@@ -133,3 +133,4 @@ import './ruleTriggerScope.tests';
 import './scrumMovedReferences.tests';
 import './editableCardIds.tests';
 import './listSyncPlanning.tests';
+import './customFieldLinks.tests';

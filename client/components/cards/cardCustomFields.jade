@@ -26,6 +26,58 @@ template(name="cardCustomFieldsPopup")
     a.quiet-button.full.js-open-create-custom-field
         i.fa.fa-plus
         span {{_ 'createCustomField'}}
+    //- #5681: this card's fields linked, by name, to another card's.
+    a.quiet-button.full.js-open-custom-field-links
+        i.fa.fa-link
+        span {{_ 'custom-field-links'}}
+
+//- #5681: the cards this card's custom fields are linked to, and the form that
+  links one more - a pasted card link (Copy card link gives one) or one of this
+  board's cards found by its title - with the direction the values go.
+  server/models/customFieldLinks.js decides who may link and what is carried.
+template(name="cardCustomFieldLinksPopup")
+    .custom-field-links
+        p.quiet {{_ 'custom-field-links-hint'}}
+        if fieldLinksLoading
+            p.quiet {{_ 'loading'}}
+        else
+            unless fieldLinks.length
+                p.quiet.js-custom-field-links-empty {{_ 'custom-field-links-none'}}
+        ul.pop-over-list.js-custom-field-links
+            each fieldLinks
+                li.custom-field-link(data-card-id="{{cardId}}")
+                    if unavailable
+                        span.quiet {{_ 'custom-field-link-unavailable'}}
+                    else
+                        a.custom-field-link-card(href="{{url}}") {{title}}
+                        span.quiet  {{boardTitle}} / {{listTitle}}
+                        div.custom-field-link-mode {{_ modeLabel}}
+                        if fields.length
+                            div.custom-field-link-fields {{_ 'custom-field-link-fields'}} {{fieldNames}}
+                        else
+                            div.quiet.custom-field-link-fields {{_ 'custom-field-link-no-fields'}}
+                        unless active
+                            div.warning.custom-field-link-inactive {{_ 'custom-field-link-inactive'}}
+                    if canLinkFields
+                        a.js-unlink-custom-fields(data-card-id="{{cardId}}" title="{{_ 'custom-field-unlink'}}" aria-label="{{_ 'custom-field-unlink'}}")
+                            i.fa.fa-chain-broken(aria-hidden="true")
+                            span  {{_ 'custom-field-unlink'}}
+        if canLinkFields
+            hr
+            form.js-link-custom-fields-form
+                label(for="custom-field-link-input") {{_ 'custom-field-link-target'}}
+                input.js-custom-field-link-input#custom-field-link-input(type="text" autocomplete="off")
+                ul.pop-over-list.custom-field-link-matches
+                    each fieldLinkMatches
+                        li
+                            a.js-custom-field-link-match(data-card-id="{{_id}}") {{title}}
+                label(for="custom-field-link-mode") {{_ 'custom-field-link-direction'}}
+                select.js-custom-field-link-mode#custom-field-link-mode
+                    option(value="both") {{_ 'custom-field-link-both'}}
+                    option(value="send") {{_ 'custom-field-link-send'}}
+                if fieldLinkError
+                    p.warning.js-custom-field-link-error {{_ fieldLinkError}}
+                button.primary.js-link-custom-fields-submit(type="submit") {{_ 'custom-field-link-add'}}
 
 template(name="cardCustomField")
     h3.card-details-item-title.js-edit-card-custom-field-value(

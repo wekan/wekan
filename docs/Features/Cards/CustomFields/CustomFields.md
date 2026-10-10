@@ -71,3 +71,7 @@ Invalid regex definitions remain visible instead of preventing card rendering.
 This is the Custom Fields String Template feature requested in
 [#3815](https://github.com/wekan/wekan/issues/3815); Rules action templates use
 their separate `{card}`, `{board}` and other rule variables.
+
+To copy field values between two cards, for example from each worker's card
+to a main card on another board, see
+[Linked custom fields](Linked-Custom-Fields.md).

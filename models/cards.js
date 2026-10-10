@@ -283,6 +283,23 @@ Cards.attachSchema(
         },
       }),
     },
+    customFieldLinks: {
+      /**
+       * #5681: the cards this card's custom fields are linked to, by field
+       * name (models/lib/customFieldLinks.js). Written only by the server
+       * methods in server/models/customFieldLinks.js, on both cards at once.
+       */
+      type: Array,
+      optional: true,
+    },
+    'customFieldLinks.$': {
+      type: new SimpleSchema({
+        cardId: { type: String },
+        mode: { type: String, allowedValues: ['both', 'send', 'receive'] },
+        userId: { type: String },
+        createdAt: { type: Date, optional: true },
+      }),
+    },
     recurrenceInterval: {
       /**
        * Kanboard-style whole-card recurrence: automatically create a fresh copy

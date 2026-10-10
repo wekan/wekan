@@ -135,6 +135,10 @@ const CANARIES = {
     key: 'authz.board',
     what: 'tried to write a poker field directly instead of through the method',
   },
+  'card.field-link-direct': {
+    key: 'authz.board',
+    what: 'tried to write linked custom fields directly instead of through the method',
+  },
   'user.miniprofile-without-login': {
     key: 'authn.miniprofile',
     what: 'tried to enumerate user mini-profiles without logging in',

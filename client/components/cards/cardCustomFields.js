@@ -6,6 +6,7 @@ import {
   datePickerHelpers,
 } from '/client/lib/datepicker';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { ReactiveVar } from 'meteor/reactive-var';
 import {
   formatDateTime,
   formatDate,
@@ -131,6 +132,113 @@ Template.cardCustomFieldsPopup.events({
   // A new field is made from nothing, so it is handed nothing.
   'click .js-open-create-custom-field'(event) {
     Popup.open('createCustomField').call({}, event);
+  },
+  // #5681: link this card's custom fields to another card's.
+  'click .js-open-custom-field-links': Popup.open('cardCustomFieldLinks'),
+});
+
+// #5681: linked custom fields. The list comes from the server, which shows a
+// linked card only to a viewer who may read it; linking and unlinking are
+// methods that check edit rights on both cards (server/models/customFieldLinks.js).
+const FIELD_LINK_ERRORS = ['field-link-self', 'field-link-limit', 'field-link-archived', 'field-link-invalid'];
+const escapeFieldLinkQuery = text => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+function fieldLinkCard() {
+  const data = Template.currentData();
+  const card = data && typeof data.getRealId === 'function' ? data : getCurrentCardFromContext();
+  return card || null;
+}
+function loadFieldLinks(templateInstance) {
+  const card = templateInstance.card;
+  if (!card) return;
+  Meteor.call('cardCustomFieldLinksInfo', card.getRealId(), (error, links) => {
+    templateInstance.loading.set(false);
+    templateInstance.links.set(error ? [] : links || []);
+  });
+}
+Template.cardCustomFieldLinksPopup.onCreated(function () {
+  this.card = fieldLinkCard();
+  this.links = new ReactiveVar([]);
+  this.loading = new ReactiveVar(true);
+  this.query = new ReactiveVar('');
+  this.selected = new ReactiveVar(null);
+  this.error = new ReactiveVar('');
+  loadFieldLinks(this);
+});
+Template.cardCustomFieldLinksPopup.helpers({
+  fieldLinks() {
+    return Template.instance().links.get();
+  },
+  fieldLinksLoading() {
+    return Template.instance().loading.get();
+  },
+  fieldLinkError() {
+    return Template.instance().error.get();
+  },
+  canLinkFields() {
+    return Utils.canModifyCard(Template.instance().card);
+  },
+  modeLabel() {
+    if (this.mode === 'send') return 'custom-field-link-sends';
+    if (this.mode === 'receive') return 'custom-field-link-receives';
+    return 'custom-field-link-both';
+  },
+  fieldNames() {
+    return (this.fields || []).join(', ');
+  },
+  fieldLinkMatches() {
+    const tpl = Template.instance();
+    const query = tpl.query.get().trim();
+    const card = tpl.card;
+    if (!query || !card || /^https?:|\//.test(query) || tpl.selected.get()) return [];
+    const linked = (tpl.links.get() || []).map(link => link.cardId);
+    return ReactiveCache.getCards({
+      boardId: card.boardId,
+      archived: false,
+      type: { $ne: 'cardType-linkedCard' },
+      _id: { $nin: [card.getRealId(), ...linked] },
+      title: { $regex: escapeFieldLinkQuery(query), $options: 'i' },
+    }, { limit: 8, sort: { title: 1 } });
+  },
+});
+Template.cardCustomFieldLinksPopup.events({
+  'input .js-custom-field-link-input'(event, tpl) {
+    tpl.query.set(event.currentTarget.value);
+    tpl.selected.set(null);
+    tpl.error.set('');
+  },
+  'click .js-custom-field-link-match'(event, tpl) {
+    event.preventDefault();
+    const input = tpl.find('.js-custom-field-link-input');
+    input.value = event.currentTarget.textContent.trim();
+    tpl.selected.set(event.currentTarget.dataset.cardId);
+  },
+  'submit .js-link-custom-fields-form'(event, tpl) {
+    event.preventDefault();
+    const card = tpl.card;
+    if (!card) return;
+    const target = tpl.selected.get() || tpl.find('.js-custom-field-link-input').value;
+    const mode = tpl.find('.js-custom-field-link-mode').value;
+    tpl.error.set('');
+    Meteor.call('linkCardCustomFields', card.getRealId(), String(target || ''), mode, error => {
+      if (error) {
+        tpl.error.set(FIELD_LINK_ERRORS.includes(error.error) ? error.error
+          : error.error === 'not-authorized' ? 'field-link-not-allowed' : 'field-link-not-found');
+        return;
+      }
+      tpl.find('.js-custom-field-link-input').value = '';
+      tpl.query.set('');
+      tpl.selected.set(null);
+      loadFieldLinks(tpl);
+    });
+  },
+  'click .js-unlink-custom-fields'(event, tpl) {
+    event.preventDefault();
+    const card = tpl.card;
+    if (!card) return;
+    Meteor.call('unlinkCardCustomFields', card.getRealId(), event.currentTarget.dataset.cardId, error => {
+      if (error) tpl.error.set('field-link-not-allowed');
+      else loadFieldLinks(tpl);
+    });
   },
 });
 

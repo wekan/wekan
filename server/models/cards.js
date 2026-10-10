@@ -1797,6 +1797,9 @@ WebApp.handlers.put(
         { $set: { customFields: req.body.customFields } },
       );
       updated = true;
+      // #5681: `.direct` skips the hook that carries linked custom fields.
+      const { propagateLinkedCustomFields } = require('/server/models/customFieldLinks');
+      await propagateLinkedCustomFields(await Cards.findOneAsync(paramCardId), beforeEdit.customFields);
     }
     // #3697: accept any "clear" payload (null / "" / [] / a single id) and always
     // store a String[] — never null — so removing the last member/assignee over
@@ -2283,6 +2286,9 @@ WebApp.handlers.post(
       { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
       { $set: { customFields: updatedCustomFields } },
     );
+    // #5681: `.direct` skips the hook that carries linked custom fields.
+    const { propagateLinkedCustomFields } = require('/server/models/customFieldLinks');
+    await propagateLinkedCustomFields(await Cards.findOneAsync(paramCardId), card.customFields);
     sendJsonResult(res, {
       code: 200,
       data: { _id: paramCardId, customFields: updatedCustomFields },

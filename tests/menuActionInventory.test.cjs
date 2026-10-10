@@ -20,6 +20,9 @@ const delegated = new Map([
   // #3257: Attach is a type=submit button inside form.js-attach-card-form;
   // 'submit .js-attach-card-form' handles it.
   ['attachCardPopup/js-attach-card-submit', 'form submission'],
+  // #5681: the Link fields button is a type=submit button inside
+  // form.js-link-custom-fields-form; 'submit .js-link-custom-fields-form' handles it.
+  ['cardCustomFieldLinksPopup/js-link-custom-fields-submit', 'form submission'],
   ['listHeader/js-list-handle', 'sortable drag handle'],
   ['swimlaneFixedHeader/js-swimlane-header-handle', 'sortable drag handle'],
   ['header/js-header-collapsible-icon', 'styling; another action class handles click'],

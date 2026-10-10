@@ -495,6 +495,7 @@ which also fails on a canary in the catalog that nothing trips.
 | `card.cross-board-move` | `server/permissions/cards.js` | BoardBleed |
 | `card.invisible-parent` | `server/permissions/cards.js` | ParentBleed |
 | `card.vote-field`, `card.poker-field` | `server/permissions/cards.js` | direct field writes that must go through a method |
+| `card.field-link-direct` | `server/models/customFieldLinks.js` | linked custom fields written directly instead of through the method |
 | `list.cross-board-move` | `server/permissions/lists.js` | BoardBleed |
 | `swimlane.cross-board-move` | `server/permissions/swimlanes.js` | BoardBleed |
 | `checklist.cross-board-move` | `server/permissions/checklists.js` | ChecklistBleed |
