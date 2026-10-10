@@ -2,6 +2,44 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Notification time labels across 151 locale paths — 2026-10-10
+
+Translate the two short delivery labels omitted from ordinary fill reports:
+At identifies the daily send-time input, while To identifies the end of quiet
+hours. The batch changes 298 values in 149 JSON files, covering 302 values
+across 151 locale paths because two existing aliases share catalog files.
+Every changed value was English; all other values are preserved. English
+variants, including underscore-tagged variants, remain English.
+
+Use time-context wording, including explicit send/end-time nouns where a
+standalone preposition would be awkward. Georgian and Uyghur end-time labels
+name the ending time rather than showing an unattached suffix. The source
+Jade template confirms the labels belong to dailyTime and quietEnd, not a
+recipient selector. Shared regional catalogs retain their existing script
+conventions. Short labels and regional usage remain provisional pending
+speaker review, particularly Amharic, Khmer, Burmese, Malagasy and Uyghur.
+Lexical checks include [Khmer ម៉ោង](https://en.wiktionary.org/wiki/ម៉ោង)
+for clock time and [Burmese အထိ](https://en.wiktionary.org/wiki/အထိ)
+for a time-span endpoint. The direct Amharic dictionary page was unavailable;
+its wording remains provisional. Dictionary meanings do not validate every
+regional interface phrasing in this batch.
+
+The new regression suite checks all 151 paths for source order, nonempty
+non-English labels and exact tokens; pins representative time meanings;
+protects English variants; and verifies the template's time-input wiring.
+All 246 catalogs pass key/token inventories. Eight existing notification UI
+cases now cover Arabic, Finnish, French, Japanese, Russian, Turkish, Ukrainian
+and Traditional Chinese; syntax and discovery pass, browser execution is
+unverified. These are representative UI cases, not browser validation of all
+151 locale paths.
+All 304 translation/Blockly suites and all 21 human-preference checks pass.
+
+The short-prose review queue falls from 2,133 candidates in 229 locales to
+1,831 in 190. Both delivery labels still need direct translation in 75
+non-English locale paths, including minority and constructed languages.
+The ordinary backlog remains 29,735 in 42 locales; those counts exclude this
+short prose and do not prove linguistic completeness.
+
 ## Papiamento current fill — 2026-10-10
 
 Fill 112 English values: 110 pending strings for card attachments/links,
