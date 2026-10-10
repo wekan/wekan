@@ -2,6 +2,34 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Standard Japanese current fills — 2026-10-10
+
+Translate 206 English placeholders in each of ja and ja-JP, 412 values in
+total, for attached cards, linked fields, calendar mode, member mapping,
+CSV columns, multiple-board import/export, webhooks, notifications, Wrike,
+planning, LDAP and import/synchronization recovery. Both full current fill
+lists are empty. Every changed value was English in the parent commit;
+existing translations are preserved. Use ボード, カード, リスト, スイムレーン
+and カスタムフィールド consistently. Longer technical wording remains
+provisional pending speaker review; older catalog fluency is not fully audited.
+
+Preserve source placeholders, parsed link-rule syntax, LDAP settings,
+WEBHOOKS_ATTRIBUTES, GET /workflows, Wrike states and Org mode keywords.
+Regressions check permissions, propagation directions, member replacement,
+ZIP semantics, quiet hours, workflow states, permanent deletion, preservation
+of applied changes, initial synchronization and checkpoint conflict restrictions.
+Add five browser cases alongside existing base Japanese notification coverage.
+All six pass syntax and discovery; execution remains unverified because the
+local app and browser system dependencies are unavailable. All 304
+translation/Blockly suites, 246 catalog inventories and 21 human-preference
+checks pass.
+
+The ja-HI file is registered as ja-Hira (Hiragana), but contains ordinary kanji
+wording, including 削除 and 保存. It still has 206 current placeholders and
+needs a separate script review; the historical completed-catalog gate does not
+prove its current completion. This batch does not copy kanji wording into it.
+The wider all-language backlog and semantic audit remain open.
+
 ## Russian current fills — 2026-10-10
 
 Translate 110 English placeholders in each of ru, ru_RU and ru-UA, 330 values

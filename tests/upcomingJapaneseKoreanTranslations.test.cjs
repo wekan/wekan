@@ -90,5 +90,41 @@ console.log('\nupcomingJapaneseKoreanTranslations: ' + passed + ' tests passed')
       ['releases/translations/fill-translations.mjs', '--completed-catalog', '--list', code],
       { cwd: root, encoding: 'utf8' })), {});
   }
+  for (const code of ['ja', 'ja-JP']) {
+    const data = read(code);
+    assert.deepStrictEqual(JSON.parse(execFileSync(process.execPath,
+      ['releases/translations/fill-translations.mjs', '--list', code],
+      { cwd: root, encoding: 'utf8' })), {});
+    assert.match(data['custom-field-links-hint'], /両方のカードで名前と種類が同じ/);
+    assert.match(data['custom-field-links-hint'], /片方のカードにしかないフィールドは変更されません/);
+    assert.match(data['custom-field-link-inactive'], /両方のカードを編集できなく.*アーカイブ/);
+    assert.match(data['custom-field-link-both'], /双方向.*どちらのカード/);
+    assert.match(data['custom-field-link-send'], /一方向.*メインのカード/);
+    assert.match(data['field-link-not-allowed'], /両方のカードを編集する権限/);
+    assert.strictEqual(data['import-members-mode-me'], '全員を自分に置き換える');
+    assert.match(data['import-many-boards-hint'], /メンバーの対応付けなし/);
+    assert.match(data['import-many-boards-hint'], /zip 自体が1つのエクスポート.*1つのボードになります/);
+    assert.match(data['export-all-boards-hint'], /エクスポート権限.*ブック.*\.zip/);
+    assert.match(data['webhook-payload-description'], /継承した設定を維持/);
+    assert.match(data['notification-delivery-quiet'], /終了するまで待機/);
+    assert.match(data['r-wrike-workflow-note'], /CompletedまたはCancelled.*完了.*ActiveまたはDeferred.*未完了/);
+    for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) {
+      assert.ok(data['r-wrike-workflow-note'].includes(literal), literal);
+    }
+    assert.ok(data['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+    assert.notStrictEqual(data['subtask-mark-done'], data['subtask-mark-not-done']);
+    assert.match(data['interrupted-import-description'], /元ファイルは保存されないため.*続行できません/);
+    assert.match(data['interrupted-import-description'], /後から追加されたものも含めて削除/);
+    assert.match(data['interrupted-import-keep-confirm'], /何も削除されず/);
+    assert.match(data['interrupted-import-discard-confirm'], /すべての内容が完全に削除/);
+    assert.match(data['stuck-sync-operation-discard-confirm'], /適用済みの変更は保持され.*残りは書き込まれません/);
+    assert.match(data['scrum-import-into-board-hint'], /重複作成されません/);
+    assert.match(data['sync-planning-hint'], /初回の同期で計画が削除されることはありません/);
+    assert.match(data['scrum-history-checkpoint-hint'], /ほかの人が.*変更していない場合にのみ/);
+    assert.match(data['scrum-history-checkpoint-hint'], /レコードは変更しません/);
+    for (const literal of ['TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED']) assert.ok(data['import-board-instruction-orgmode'].includes(literal), literal);
+    for (const literal of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS', 'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) assert.ok(data['ldap-sync-now-nothing'].includes(literal), literal);
+    assert.ok(data['external-link-rules-description'].includes('[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
+  }
   console.log('Japanese source order, tokens, localized prose and completeness verified');
 })().catch(error => { console.error(error); process.exitCode = 1; });
