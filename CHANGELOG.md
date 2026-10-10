@@ -497,11 +497,30 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** Translate the remaining current Dutch, French, German, Portuguese and Spanish strings and correct Swiss German spelling.
+**In short:** Translate the remaining current Dutch, French, German, Polish, Portuguese and Spanish strings and correct Swiss German spelling.
 
-**Translations** - Dutch, French, German, Portuguese and Spanish base and regional catalogs.
+**Translations** - Dutch, French, German, Polish, Portuguese and Spanish base and regional catalogs.
 
-**Languages updated:** Dutch, French, German, Portuguese, Spanish.
+**Languages updated:** Dutch, French, German, Polish, Portuguese, Spanish.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ff097539bf">Translate remaining current Polish strings</a>. Thanks to xet7.</summary>
+
+Fill 316 English placeholders across pl and pl-PL: 220 newly translated values
+and 96 regional values reused from existing base Polish translations. Both
+full current fill lists are empty. Preserve existing translations, exact
+placeholders and parsed constants. Cover linked cards, imports, member mapping,
+webhooks, notifications and Wrike workflows, plus regional planning and recovery
+wording. Regressions verify permissions, propagation, timing, completion states
+and recovery warnings. Longer technical wording remains provisional pending
+speaker review.
+
+All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Six browser cases pass syntax and discovery; execution remains
+unverified because the local app and browser system dependencies are unavailable.
+The wider all-language backlog and semantic audit remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6f18ec01d9">Translate remaining current Dutch strings</a>. Thanks to xet7.</summary>
