@@ -1,5 +1,4 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Guard full current Arabic placeholder coverage; older wrong-language values still need review.
 'use strict';
 
 const assert = require('assert');
@@ -90,10 +89,67 @@ console.log('\nupcomingArabicTranslations: ' + passed + ' tests passed');
         assert.match(lang[key], /\p{Script=Arabic}/u, `${code}:${key}`);
       }
       const missing = JSON.parse(execFileSync(process.execPath,
-        ['releases/translations/fill-translations.mjs', '--completed-catalog', '--list', code],
+        ['releases/translations/fill-translations.mjs', '--list', code],
         { cwd: root, encoding: 'utf8' }));
       assert.deepStrictEqual(missing, {}, code);
       assert.strictEqual(lang['blockly-MATH_TRIG_ACOS'], 'acos');
     }
   });
 })().catch(error => { console.error(error); process.exitCode = 1; });
+
+for (const code of ['ar', 'ar-DZ', 'ar-EG']) {
+  const locale = read(code);
+  const corrected = { board: 'لوحة', swimlane: 'مسار', 'custom-fields': 'الحقول المخصصة', assignee: 'المكلّف', 'cardAssigneePopup-title': 'المكلّف', 'add-swimlane': 'إضافة مسار' };
+  for (const [key, value] of Object.entries(corrected)) {
+    assert.equal(locale[key], value, `${code}:${key}`);
+    assert.doesNotMatch(locale[key], /[پچژگکی]/, `${code}:${key} contains Persian-only letters`);
+  }
+  assert.match(locale['custom-field-links-hint'], /الاسم والنوع نفسيهما في البطاقتين/);
+  assert.match(locale['custom-field-links-hint'], /بطاقة واحدة فقط دون تغيير/);
+  assert.match(locale['custom-field-link-inactive'], /لم يعد قادرًا على تعديل البطاقتين.*أُرشفت/);
+  assert.match(locale['custom-field-link-both'], /في الاتجاهين.*أي من البطاقتين/);
+  assert.match(locale['custom-field-link-send'], /في اتجاه واحد.*البطاقة الرئيسية/);
+  assert.match(locale['field-link-not-allowed'], /قادرًا على تعديل البطاقتين/);
+  assert.equal(locale['import-members-mode-me'], 'استبدال الجميع بحسابي');
+  assert.match(locale['import-many-boards-hint'], /دون ربط الأعضاء/);
+  assert.match(locale['import-many-boards-hint'], /بحد ذاته عملية تصدير واحدة.*هو لوحة واحدة/);
+  assert.match(locale['export-all-boards-hint'], /يُسمح لك بتصديرها.*كمصنف واحد.*\.zip/);
+  assert.match(locale['webhook-payload-description'], /على الإعداد الموروث/);
+  assert.match(locale['notification-delivery-quiet'], /الانتظار حتى انتهائها/);
+  assert.match(locale['r-wrike-workflow-note'], /علامة الاكتمال.*Completed.*Cancelled.*علامة عدم الاكتمال.*Active.*Deferred/);
+  for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) assert.ok(locale['r-wrike-workflow-note'].includes(literal));
+  assert.ok(locale['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+  assert.match(locale['subtask-mark-done'], /علامة مكتملة/);
+  assert.match(locale['subtask-mark-not-done'], /علامة غير مكتملة/);
+  assert.equal(locale['notification-delivery-part-list'], 'قائمة');
+  assert.equal(locale['notification-delivery-part-swimlane'], 'مسار');
+  for (const name of ['taiga', 'vikunja']) assert.match(locale[`import-board-instruction-${name}`], /لا تُستورد المرفقات/);
+  assert.match(locale['import-board-instruction-redmine'], /اضبط لغتك على الإنجليزية في My account قبل التصدير/);
+  assert.match(locale['import-board-instruction-businessmap'], /Title, Column, Lane, Owner, Deadline/);
+  assert.match(locale['import-board-instruction-plane'], /لا يتضمن تصدير Plane أوصافًا أو مرفقات.*لا تُستورد/);
+  assert.match(locale['import-board-instruction-kanri'], /تُستورد اللوحة الأولى/);
+  assert.match(locale['import-board-instruction-teamwork'], /-- أو ## أو >> لمستوى أعمق واحد/);
+  for (const literal of ['TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED']) assert.ok(locale['import-board-instruction-orgmode'].includes(literal));
+  assert.ok(locale['external-link-rules-description'].includes('[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
+  assert.ok(locale['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+  for (const literal of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS', 'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) assert.ok(locale['ldap-sync-now-nothing'].includes(literal));
+  assert.match(locale['sync-planning-hint'], /لا تزيل المزامنة الأولى أي تخطيط مطلقًا/);
+  assert.match(locale['stuck-sync-operation-description'], /تبقى التغييرات المطبقة/);
+  assert.match(locale['stuck-sync-operation-description'], /لا تُكتب بقية التغييرات المحفوظة مطلقًا/);
+  assert.match(locale['stuck-sync-operation-reason-access-denied'], /صلاحية الكتابة في القائمة بأكملها/);
+  for (const key of ['stuck-sync-operation-replayable-now', 'stuck-sync-operation-not-stuck']) assert.match(locale[key], /لا يمكن التخلص منها/);
+  assert.match(locale['stuck-sync-operation-replayable'], /لم يُتخلص منها/);
+  assert.match(locale['stuck-sync-operation-busy'], /تجري مزامنة هذه القائمة الآن/);
+  assert.match(locale['interrupted-import-description'], /لا يمكن متابعة الاستيراد.*ملف المصدر لا يُحتفظ به/);
+  assert.match(locale['interrupted-import-description'], /أي شيء أُضيف إليها منذ ذلك الحين/);
+  assert.match(locale['interrupted-import-keep-confirm'], /لن يُزال أي شيء/);
+  assert.match(locale['interrupted-import-discard-confirm'], /كل محتوياتها نهائيًا/);
+  assert.match(locale['interrupted-import-foreign-board'], /لم تُنشأ.*لذلك لم تُعدّل/);
+  for (const key of ['stuck-sync-operation-truncated', 'interrupted-import-truncated']) assert.match(locale[key], /أقدم 50/);
+  assert.match(locale['scrum-import-into-board-hint'], /لا تُكرر مطلقًا/);
+  assert.match(locale['scrum-import-into-board-hint'], /البطاقات غير المطابقة وتُترك دون تغيير/);
+  assert.match(locale['scrum-history-checkpoint-hint'], /إذا لم يغيّر أي شخص آخر/);
+  assert.match(locale['scrum-history-checkpoint-hint'], /دون تغيير أي سجلات/);
+  assert.match(locale['interrupted-import-scrum-busy'], /قيد الكتابة أو الاستعادة/);
+}
+console.log('Arabic native core labels and import/recovery/notification meanings pass');

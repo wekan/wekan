@@ -2,6 +2,47 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Arabic current fills and core-language repairs — 2026-10-10
+
+Translate 678 English placeholders: 226 each in ar, ar-DZ and ar-EG. All three
+full current fill lists are empty, including pending Transifex keys. Cover linked
+cards and fields, 22 import-format instructions, member mapping, CSV columns,
+bulk imports and exports, webhooks, notifications, Wrike workflows, subtasks,
+Scrum planning/import/checkpoint controls, LDAP, link rules and interrupted
+import/List Sync recovery. Every fill replaced English. Separately replace six
+Persian core labels per catalog (18 values): board, swimlane, custom-fields,
+assignee, cardAssigneePopup-title and add-swimlane. Use لوحة, مسار, الحقول المخصصة
+and المكلّف, with vocabulary assertions as well as Persian-letter rejection.
+Other existing values remain unchanged.
+
+The broader Arabic wrong-language audit is NOT complete. Inspection found Persian
+activity messages, voting text, colors, email templates and other older values.
+A candidate scan of ar found 462 values matching Persian at the same key or
+containing Persian-specific letters, before these six corrections. Some are valid
+shared Arabic words, so this is a review queue, not a count of proven errors.
+Review vocabulary and source meaning before replacing the remaining candidates
+and inspect nonmatching values too. Empty placeholder reports do not establish
+that these catalogs are entirely Arabic. Longer new technical wording remains
+low-confidence pending speaker review.
+
+Regressions compare all keys and exact underscore/percent tokens with English.
+Check field permissions/directions, import exclusions and literal headers, member
+replacement, ZIP behavior, inherited settings, quiet hours and completion states.
+Preserve link-rule syntax, LDAP constants, WEBHOOKS_ATTRIBUTES, GET /workflows and
+Org mode keywords. Recovery checks retain applied changes, never write discarded
+remaining changes, refuse discard of replayable operations, distinguish keep from
+permanent removal, include later additions and leave unrelated boards untouched.
+Scrum checks preserve no-duplication and unchanged-unmatched-card behavior, first
+Sync planning, rollback eligibility and keep-without-record-changes semantics.
+
+All 306 translation/Blockly suites, 246 catalog inventories and 21 human-preference
+checks pass. Fifteen browser cases for linked fields, import-people choices,
+notification delivery, stuck List Sync and interrupted import recovery pass syntax
+and discovery; runtime execution remains unverified without the local app and
+browser system dependencies. A fresh full per-locale inventory counts 61,126
+remaining values across 142 non-English locale files, including pending Transifex
+keys. The all-language backlog and semantic audit remain open.
+
 ## Hebrew current fills — 2026-10-10
 
 Translate 396 English placeholders: 198 each in he and he-IL. Both full current
