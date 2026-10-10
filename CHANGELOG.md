@@ -130,8 +130,8 @@ previously held for Transifex. Completed work is recorded in Upcoming and releas
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **29,735 untranslated locale/string values in 42 languages**.
   It excludes **383 source keys tracked separately as pending Transifex**.
-  After the Macedonian batch, full per-locale `--list` reports, including pending
-  keys, count **63,538 remaining values across 157 non-English locale
+  After the Latvian batch, full per-locale `--list` reports, including pending
+  keys, count **63,428 remaining values across 156 non-English locale
   files**. This fuller inventory remains the scope of the translation work.
   A separate short-prose audit flags 1,681 candidates across 183 locales.
   The two notification At/To labels now have translations in all non-English
@@ -525,14 +525,35 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** Current Bulgarian, Croatian, Macedonian, Serbian, Slovenian and
-Vietnamese strings are translated. Mixed-language Macedonian values and Basque
+**In short:** Current Bulgarian, Croatian, Latvian, Macedonian, Serbian, Slovenian
+and Vietnamese strings are translated. Mixed-language Macedonian values and Basque
 card wording are corrected, with validation of imports, notifications and recovery
 choices.
 
-**Translations** - Basque, Bulgarian, Croatian, Macedonian, Serbian, Slovenian and Vietnamese.
+**Translations** - Basque, Bulgarian, Croatian, Latvian, Macedonian, Serbian, Slovenian and Vietnamese.
 
-**Languages updated:** Basque, Bulgarian, Croatian, Macedonian, Serbian, Slovenian, Vietnamese.
+**Languages updated:** Basque, Bulgarian, Croatian, Latvian, Macedonian, Serbian, Slovenian, Vietnamese.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e4908540ef">Translate remaining current Latvian strings</a>. Thanks to xet7.</summary>
+
+Fill 110 English placeholders in lv for linked cards and fields, calendar mode,
+member mapping, CSV columns, bulk imports and exports, webhooks, notifications,
+Wrike workflows and subtasks. The full current fill list is empty. Preserve
+existing translations, exact placeholders and parsed constants. Regressions
+verify Latvian vocabulary, editing permissions, propagation directions, member
+replacement, ZIP semantics, export permissions, inherited settings, quiet hours
+and completed versus incomplete states. Longer technical wording remains
+provisional pending speaker review; older catalog fluency is not fully audited.
+
+All 306 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Three browser cases pass syntax and discovery; runtime execution
+remains unverified without the local app and browser system dependencies.
+The full inventory, including pending Transifex keys, records 63,428 remaining
+values across 156 non-English locale files. The all-language backlog and semantic
+audit remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5f005ecfe1">Correct reviewed Macedonian vocabulary matches</a>. Thanks to xet7.</summary>
