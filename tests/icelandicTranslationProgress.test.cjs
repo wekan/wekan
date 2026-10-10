@@ -1,5 +1,4 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Guard the full current Icelandic catalog and its behavior meanings.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -7,7 +6,7 @@ const { spawnSync } = require('node:child_process');
 
 const root = path.resolve(__dirname, '..');
 const fillScript = path.join(root, 'releases/translations/fill-translations.mjs');
-const result = spawnSync(process.execPath, [fillScript, '--completed-catalog', '--list', 'is'], {
+const result = spawnSync(process.execPath, [fillScript, '--list', 'is'], {
   cwd: root,
   encoding: 'utf8',
 });
@@ -236,3 +235,36 @@ assert.match(icelandic['scrum-import-into-board-hint'], /aldrei tvítekin/);
 assert.match(icelandic['scrum-history-checkpoint-hint'], /enginn annar hefur síðan breytt/);
 assert.match(icelandic['scrum-history-checkpoint-hint'], /breytir engum færslum/);
 assert.match(icelandic['login-setting-env-only'], /aðeins sýnt til lestrar/);
+
+assert.deepEqual(Object.keys(icelandic), Object.keys(english));
+for (const key of Object.keys(english)) {
+  assert.deepEqual(translationTokens(icelandic[key]), translationTokens(english[key]), key);
+}
+assert.match(icelandic['custom-field-links-hint'], /sama heiti og gerð á báðum spjöldum/);
+assert.match(icelandic['custom-field-links-hint'], /aðeins á öðru spjaldinu eru látnir óbreyttir/);
+assert.match(icelandic['custom-field-link-inactive'], /ekki lengur breytt báðum spjöldum.*sett í safn/);
+assert.match(icelandic['custom-field-link-both'], /Í báðar áttir.*hvoru spjaldi sem er/);
+assert.match(icelandic['custom-field-link-send'], /Í eina átt.*aðalspjaldið/);
+assert.match(icelandic['field-link-not-allowed'], /breytt báðum spjöldum/);
+assert.equal(icelandic['import-members-mode-me'], 'Skipta öllum út fyrir minn notandareikning');
+assert.match(icelandic['import-many-boards-hint'], /án vörpunar meðlima/);
+assert.match(icelandic['import-many-boards-hint'], /sjálf einn útflutningur.*er ein tafla/);
+assert.match(icelandic['export-all-boards-hint'], /mátt flytja út.*vinnubók.*\.zip/);
+assert.match(icelandic['webhook-payload-description'], /heldur erfðu stillingunni/);
+assert.match(icelandic['notification-delivery-quiet'], /bíða þar til honum lýkur/);
+assert.equal(icelandic['notification-delivery-interval'], 'Tíðni');
+assert.equal(icelandic['notification-delivery-grouping-none'], 'Hver tilkynning sér');
+assert.match(icelandic['r-wrike-workflow-note'], /sem lokið.*Completed.*Cancelled.*sem ólokið.*Active.*Deferred/);
+for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) assert.ok(icelandic['r-wrike-workflow-note'].includes(literal));
+assert.ok(icelandic['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+assert.match(icelandic['subtask-mark-done'], /sem lokið$/);
+assert.match(icelandic['subtask-mark-not-done'], /sem ólokið$/);
+for (const name of ['taiga', 'vikunja']) assert.match(icelandic[`import-board-instruction-${name}`], /Viðhengi eru ekki flutt inn/);
+assert.match(icelandic['import-board-instruction-redmine'], /tungumálið á ensku í My account áður en þú flytur út/);
+assert.match(icelandic['import-board-instruction-businessmap'], /Title, Column, Lane, Owner, Deadline/);
+assert.match(icelandic['import-board-instruction-plane'], /hvorki lýsingar né viðhengi.*ekki flutt inn/);
+assert.match(icelandic['import-board-instruction-kanri'], /fyrsta taflan flutt inn/);
+assert.match(icelandic['import-board-instruction-teamwork'], /--, ## eða >> einu stigi neðar/);
+assert.equal(icelandic['notification-delivery-part-list'], 'Listi');
+assert.equal(icelandic['notification-delivery-part-swimlane'], 'Sundbraut');
+console.log('Icelandic full current catalog, exact tokens and import/notification meanings pass');

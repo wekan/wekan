@@ -2,6 +2,33 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Icelandic current fills — 2026-10-10
+
+Translate 130 English placeholders in is for attached cards, linked fields,
+20 import-format instructions, member mapping, CSV columns, bulk imports and
+exports, webhooks, notifications, Wrike workflows and subtasks. The full current
+fill list is empty and replaces the historical completion gate. Every changed
+value was English in the parent commit; all existing translations are preserved.
+Follow tafla, spjald, listi, sundbraut, sérsniðnir reitir and ábyrgðaraðili wording.
+Review the notification interval in its actual label/dropdown context and use
+Tíðni; distinguish each notification being separate from grouped delivery.
+Longer technical wording remains provisional pending speaker review; older
+catalog fluency is not fully audited.
+
+Preserve exact source placeholders, WEBHOOKS_ATTRIBUTES, GET /workflows, Wrike
+state names and external menu/column labels. Regressions check full key order
+and all tokens, field matching, unchanged unmatched fields, editing permissions,
+propagation directions, member replacement, unmapped imports, ZIP semantics,
+export permissions, inherited settings, quiet hours and completed versus
+incomplete states. Import checks retain unsupported-data exclusions, required
+English headers, first-board selection and subtask depth markers. Three browser
+cases for linked fields, import-people choices and notification delivery pass
+syntax and discovery; runtime execution remains unverified without the local app
+and browser system dependencies. All 306 translation/Blockly suites,
+246 catalog inventories and 21 human-preference checks pass. A fresh full per-locale `--list` inventory counts
+63,078 remaining values across 153 non-English locale files, including pending
+Transifex keys. The all-language backlog and semantic audit remain open.
+
 ## Bosnian current fills — 2026-10-10
 
 Translate 110 English placeholders in bs for attached cards, linked fields,
