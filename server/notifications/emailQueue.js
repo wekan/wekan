@@ -20,6 +20,8 @@ for (const collection of [EmailJobs, EmailLeases, EmailControls, EmailCommands, 
 }
 const configuredDelay = Number(process.env.EMAIL_NOTIFICATION_TIMEOUT);
 const delayMs = Number.isFinite(configuredDelay) && configuredDelay > 0 ? configuredDelay : 30000;
+// #5171: the immediate e-mail delay, which a quiet-hours window starts from.
+export const emailDelayMs = delayMs;
 export const emailOutbox = createEmailOutbox({
   withDeliverySlot: createEmailSendSlots(EmailSendSlots.rawCollection()),
   jobs: EmailJobs.rawCollection(), controls: EmailControls.rawCollection(), leases: EmailLeases.rawCollection(), delayMs,

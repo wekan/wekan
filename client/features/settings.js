@@ -6,6 +6,7 @@ import '/client/components/settings/informationBody.jade';
 import '/client/components/settings/invitationCode.jade';
 import '/client/components/settings/migrationProgress.jade';
 import '/client/components/settings/notificationSettingsPopup.jade';
+import '/client/components/settings/notificationDeliverySettings.jade';
 import '/client/components/settings/peopleBody.jade';
 import '/client/components/settings/settingBody.jade';
 import '/client/components/settings/settingHeader.jade';
@@ -29,6 +30,9 @@ import '/client/components/settings/leftMenu.js';
 import '/client/components/settings/lockedUsersBody.js';
 import '/client/components/settings/migrationProgress.js';
 import '/client/components/settings/notificationSettingsPopup.js';
+// #3695: notification delivery (content, grouping, schedule) per channel, in
+// Notification Settings and in each outgoing webhook form.
+import '/client/components/settings/notificationDeliverySettings.js';
 import '/client/components/settings/peopleBody.js';
 import '/client/components/settings/settingBody.js';
 import '/client/components/settings/settingHeader.js';

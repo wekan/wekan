@@ -1249,10 +1249,6 @@
       "since": "2026-10-10"
     },
     {
-      "key": "board-view-calendar-mode",
-      "since": "2026-10-10"
-    },
-    {
       "key": "subtask-mark-done",
       "since": "2026-10-10"
     },
@@ -1262,6 +1258,58 @@
     },
     {
       "key": "subtask-done-no-permission",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "webhook-payload-heading",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "webhook-payload-description",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "webhook-payload-text",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "webhook-payload-fields",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "webhook-payload-field-standard",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "webhook-payload-field-ids",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "webhook-payload-field-names",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "webhook-payload-field-links",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "webhook-payload-field-actor",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "webhook-payload-field-people",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "webhook-payload-field-details",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "webhook-hide-identity",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "webhook-someone",
       "since": "2026-10-10"
     },
     {
@@ -1350,6 +1398,138 @@
     },
     {
       "key": "cardCustomFieldLinksPopup-title",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "board-view-calendar-mode",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-layout",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-layout-classic",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-layout-clear",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-parts",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-part-board",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-part-actor",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-part-card",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-part-list",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-part-swimlane",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-part-details",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-part-dates",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-part-link",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-grouping",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-grouping-all",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-grouping-board",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-grouping-card",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-grouping-none",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-schedule",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-schedule-immediate",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-schedule-interval",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-schedule-daily",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-interval",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-minutes",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-daily-time",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-quiet",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-quiet-from",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-quiet-to",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-quiet-clear",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-timezone",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-delivery-invalid",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-group-card",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "notification-group-board",
       "since": "2026-10-10"
     }
   ]

@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { trayEntryVisible } from '/client/lib/notificationTray';
 
 // this hides the notifications drawer if anyone clicks off of the panel
 Template.body.events({
@@ -17,7 +18,8 @@ Template.notifications.helpers({
     // Activity details are subscribed only while the drawer is open. The bell
     // must count the user's unread records before that subscription exists.
     const notifications = ReactiveCache.getCurrentUser()?.profile?.notifications || [];
-    const unreadNotifications = notifications.filter(v => !v.read);
+    // #5171: an entry scheduled for later is not counted until it shows.
+    const unreadNotifications = notifications.filter(v => !v.read && trayEntryVisible(v));
     return unreadNotifications.length;
   },
 });

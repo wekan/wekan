@@ -12,6 +12,9 @@ let user;
 vm.runInNewContext(source.slice(start, end), {
   Template: { notifications: { helpers(value) { helpers = value; } } },
   ReactiveCache: { getCurrentUser: () => user },
+  // #5171: client/lib/notificationTray.js - an entry scheduled for later
+  // (showAt) is not counted until its time.
+  trayEntryVisible: entry => !entry || typeof entry.showAt !== 'number' || entry.showAt <= Date.now(),
 });
 
 user = {
@@ -23,6 +26,10 @@ user.profile.notifications.push({ activity: 'already-read', read: new Date() });
 assert.equal(helpers.unreadNotifications(), 1);
 user.profile.notifications[0].read = new Date();
 assert.equal(helpers.unreadNotifications(), 0);
+user = { profile: { notifications: [{ activity: 'later', read: null, showAt: Date.now() + 3600000 }] } };
+assert.equal(helpers.unreadNotifications(), 0, 'scheduled for later: not counted yet');
+user.profile.notifications[0].showAt = Date.now() - 1000;
+assert.equal(helpers.unreadNotifications(), 1, 'its time has come');
 for (user of [null, {}, { profile: {} }, { profile: { notifications: [] } }]) {
   assert.equal(helpers.unreadNotifications(), 0);
 }

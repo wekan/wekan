@@ -11,6 +11,7 @@ const getReactiveCache = () => require('/imports/reactiveCache').ReactiveCache;
 // Lazy getter — avoids circular dependency (i18n/tap → reactiveCache → settings)
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 const { SimpleSchema } = require('/imports/simpleSchema');
+const { deliverySchemaFields } = require('/models/lib/notificationDelivery');
 const InvitationCodes = require('/models/invitationCodes').default;
 //var nodemailer = require('nodemailer');
 
@@ -482,6 +483,10 @@ Settings.attachSchema(
       optional: true,
       defaultValue: true,
     },
+    // #3695 / #5171: the instance default notification delivery per channel
+    // (email, tray, webhook). Unset keys use the built-in behaviour, which is
+    // what WeKan did before these settings. See models/lib/notificationDelivery.js.
+    ...deliverySchemaFields('notificationDelivery'),
     // #2022: admin-customizable templates for WeKan's transactional emails.
     // Each is OPTIONAL and unset by default, so an install that has never
     // touched Admin Panel -> Email Templates sends the exact hardcoded/i18n

@@ -1,6 +1,7 @@
 import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Users from '/models/users';
+import { trayClearItemHtml } from '/client/lib/notificationTray';
 
 Template.notification.events({
   async 'click .read-status .materialCheckBox'() {
@@ -21,6 +22,9 @@ Template.notification.events({
 
 Template.notification.helpers({
   mode: 'board',
+  clearItem() {
+    return trayClearItemHtml(this.activityData);
+  },
   isOfActivityType(activityId, type) {
     const activity = ReactiveCache.getActivity(activityId);
     return activity && activity.activityType === type;

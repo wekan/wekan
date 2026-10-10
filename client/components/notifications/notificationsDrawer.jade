@@ -49,6 +49,21 @@ template(name='notificationsDrawer')
           |(#{unreadNotifications})
       a.close
         i.fa.fa-times-thin
+    //- #5171: entries of one card or board collapse into one row when the
+      tray grouping says so (models/lib/notificationDelivery.js).
     ul.notifications
-      each notifications
-        +notification(activityData=activityObj index=dbIndex read=read)
+      each notificationGroups
+        if isCollapsible
+          li.notification-group(data-key=key)
+            a.js-toggle-notification-group(data-key=key aria-expanded="{{#if expanded}}true{{else}}false{{/if}}")
+              i.fa(class="{{#if expanded}}fa-caret-down{{else}}fa-caret-right{{/if}}")
+              |  {{groupLabel}}
+          if expanded
+            each entries
+              +notification(activityData=activityObj index=dbIndex read=read)
+          else
+            with firstEntry
+              +notification(activityData=activityObj index=dbIndex read=read)
+        else
+          each entries
+            +notification(activityData=activityObj index=dbIndex read=read)

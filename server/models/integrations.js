@@ -6,6 +6,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import Integrations from '/models/integrations';
 import { validateAttachmentUrl } from '/models/lib/attachmentUrlValidation';
 import { ensureIndex } from '/server/lib/mongoStartup';
+const { normalizeDeliverySettings } = require('/models/lib/notificationDelivery');
 // ErrorBleed: refusals answer with their real status and a safe message.
 const { publicErrorData } = require('/server/lib/apiResponseHelpers');
 
@@ -90,6 +91,23 @@ WebApp.handlers.put('/api/boards/:boardId/integrations/:intId', async function(r
     const paramIntId = req.params.intId;
     await Authentication.checkBoardAdmin(req.userId, paramBoardId);
 
+    // #3695: how this webhook delivers - { webhook: { text, fields, grouping,
+    // schedule, ... } }, or null to inherit the board / Admin Panel default
+    // (models/lib/notificationDelivery.js). Validated before ANY field is
+    // written, so a refused request changes nothing.
+    let notificationDelivery;
+    if (req.body.hasOwnProperty('notificationDelivery')) {
+      try {
+        notificationDelivery = normalizeDeliverySettings(req.body.notificationDelivery, ['webhook']);
+      } catch (e) {
+        sendJsonResult(res, {
+          code: 400,
+          data: { error: 'invalid-notification-delivery', reason: e.message },
+        });
+        return;
+      }
+    }
+
     if (req.body.hasOwnProperty('enabled')) {
       await Integrations.direct.updateAsync(
         { _id: paramIntId, boardId: paramBoardId },
@@ -123,6 +141,12 @@ WebApp.handlers.put('/api/boards/:boardId/integrations/:intId', async function(r
       await Integrations.direct.updateAsync(
         { _id: paramIntId, boardId: paramBoardId },
         { $set: { token: req.body.token } },
+      );
+    }
+    if (req.body.hasOwnProperty('notificationDelivery')) {
+      await Integrations.direct.updateAsync(
+        { _id: paramIntId, boardId: paramBoardId },
+        notificationDelivery ? { $set: { notificationDelivery } } : { $unset: { notificationDelivery: '' } },
       );
     }
     if (req.body.hasOwnProperty('activities')) {

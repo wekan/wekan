@@ -55,8 +55,16 @@ function createTrayDelivery({ users, receipts, assertCurrent = async () => {} })
     await assertCurrent();
     return expected._id;
   }
-  async function deliver(userId, activityId) {
+  // #5171: `extra` may carry `showAt` (ms), the time the drawer starts showing
+  // this entry under the recipient's tray schedule (models/lib/
+  // notificationDelivery.js). Without it the entry is exactly as before.
+  async function deliver(userId, activityId, extra = {}) {
     const expected = receiptFor(userId, activityId);
+    const entry = { activity: activityId, read: null };
+    if (extra && extra.showAt !== undefined) {
+      if (!Number.isFinite(extra.showAt)) fail('tray-delivery-show-at-invalid');
+      entry.showAt = extra.showAt;
+    }
     for (let attempt = 0; attempt < 20; attempt++) {
       await assertCurrent();
       if (await readReceipt(expected)) { await assertCurrent(); return expected._id; }
@@ -73,7 +81,7 @@ function createTrayDelivery({ users, receipts, assertCurrent = async () => {} })
       try {
         await users.updateOne({ ...selector, 'profile.notifications.activity': activityId }, { $set: marker });
         await users.updateOne({ ...selector, 'profile.notifications.activity': { $ne: activityId } }, {
-          $set: marker, $addToSet: { 'profile.notifications': { activity: activityId, read: null } },
+          $set: marker, $addToSet: { 'profile.notifications': entry },
         });
       } catch (error) { failure = error; }
       const current = await readUser(userId);

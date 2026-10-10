@@ -67,6 +67,20 @@ Template.notificationSettingsPopup.helpers({
   isAdminScope() {
     return Template.instance().data.scope === 'admin';
   },
+  // #3695 / #5171: the delivery sections. At board scope only a board admin
+  // can change them (the server method checks that too).
+  showDelivery() {
+    const scope = Template.instance().data.scope;
+    if (scope !== 'board') return scope === 'admin' || scope === 'member';
+    const user = ReactiveCache.getCurrentUser();
+    return !!(user && (user.isBoardAdmin() || user.isAdmin));
+  },
+  deliveryTargetId() {
+    return Template.instance().data.scope === 'board' ? Utils.getCurrentBoardId() : null;
+  },
+  deliveryChannels() {
+    return ['email', 'tray', 'webhook'].map(channel => ({ channel }));
+  },
   // #572: every kind of card activity, ticked unless this member muted it.
   isMemberScope() {
     return Template.instance().data.scope === 'member';

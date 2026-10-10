@@ -44,6 +44,89 @@ message from these, in its own language, and address the person by username.
 }
 ```
 
+## Choosing what a webhook sends (#3695)
+
+A receiver that writes its own message - a Rocket.Chat incoming-webhook
+script, for example - can ask WeKan for the activity's data as properties and
+for as little text as possible. Two settings decide what a regular (one-way)
+outgoing webhook sends:
+
+- **Send the message text** - Yes sends the translated sentence as `text`; No
+  leaves `text` out.
+- **Send these fields** - any combination of these groups (none ticked sends
+  only `description`, the event name):
+
+| Group | Properties |
+| --- | --- |
+| Standard fields | the list `WEBHOOKS_ATTRIBUTES` selects (snap: `webhooks-attributes`), or the built-in list below when it is not set |
+| IDs | `activityId`, `boardId`, `oldBoardId`, `swimlaneId`, `oldSwimlaneId`, `listId`, `oldListId`, `cardId`, `commentId`, `checklistId`, `checklistItemId`, `labelId`, `attachmentId`, `customFieldId` |
+| Names and titles | `board`, `oldBoard`, `swimlane`, `oldSwimlane`, `list`, `oldList`, `card`, `checklist`, `checklistItem`, `label`, `attachment`, `customField` |
+| Links | `url` (the card link, or the board link for a board event), `cardUrl`, `boardUrl` |
+| Who did it | `user` (display name), `username`, `userId` |
+| The member or assignee it is about | `member`, `memberUsername`, `memberId`, `assignee`, `assigneeUsername`, `assigneeId` |
+| Details | `comment`, `cardDescription` (the card's description), `customFieldValue`, `value`, `oldValue` (before/after of a change), `timeKey`, `timeValue`, `timeOldValue` (dates) |
+
+Every payload also has `description` (the event, e.g. `act-joinMember`), and an
+`act-editCard` event has `field`. A property is only present when the activity
+has it.
+
+The built-in standard list is `cardId`, `listId`, `oldListId`, `boardId`,
+`comment`, `user`, `username`, `card`, `commentId`, `swimlaneId`,
+`customField`, `customFieldValue`, `labelId`, `label`, `attachmentId`, `list`,
+`board`, `swimlane`, `member`, `memberUsername`, `assigneeId`, `assignee`,
+`assigneeUsername` and `url`.
+
+### Where to set it, and which setting wins
+
+These are the webhook channel's *content* settings in the shared notification
+delivery model, beside its grouping and schedule - see
+[Notification delivery](../Notifications/Notification-Delivery.md). Each
+setting is resolved on its own; the first level that sets it wins:
+
+1. **The webhook itself** - Board Settings / Outgoing Webhooks, or Admin Panel /
+   Settings / Global Webhooks for a global webhook: the *Outgoing Webhooks*
+   section under each saved one-way webhook. REST:
+   `PUT /api/boards/:boardId/integrations/:intId` with
+   `"notificationDelivery": { "webhook": { "text": false, "fields": ["ids", "names"] } }`
+   (`null` for a value, or for the whole object, inherits).
+2. **The board** - Board Settings / Notifications / *Outgoing Webhooks*, for
+   that board's own webhooks only (board admins). A global webhook belongs to
+   the instance administrator, so a board cannot reshape it.
+3. **The Admin Panel** - Admin Panel / People / Notifications / *Outgoing
+   Webhooks*, the default for every webhook of the instance (instance admins).
+4. **Built in** - text on, Standard fields: exactly the payload WeKan sent
+   before these settings existed. Nothing changes until somebody changes a
+   setting, and `WEBHOOKS_ATTRIBUTES` keeps working as before.
+
+At the webhook and board levels, *Default* means "inherit the next level".
+Field group names in the stored value are `standard`, `ids`, `names`,
+`links`, `actor`, `people` and `details`; anything else is refused.
+
+### Member Settings: leave my name out
+
+Member Settings / Notifications / *Outgoing Webhooks* has one member-level choice:
+**Leave my name out of outgoing webhooks**. Webhooks deliver to a chat room,
+not to a member, so a member does not choose a room's payload; what a member
+does own is their identity. With it ticked, every webhook - one-way and
+two-way, on every board - leaves out that member's `user`, `username` and
+`userId` when they did something, and `member`/`memberUsername`/`memberId` or
+`assignee`/`assigneeUsername`/`assigneeId` when the event is about them, and the
+text says "A member" instead of their name. No board or Admin Panel setting
+overrides it. (Text the member wrote themselves, such as a comment that
+mentions their name, is sent as written.)
+
+### What is never sent
+
+A group only ever sends the properties listed above: never e-mail addresses,
+the watcher list, tokens or other secrets. The value of a custom field marked
+admin-only (#3141) - `customFieldValue`, `value`, `oldValue` - is left out of
+every one-way webhook, because a chat room is read by people who are not the
+board's admins.
+
+Two-way webhooks keep sending the complete activity parameters (their reply
+protocol needs them); the text and field settings do not apply to them, the
+member's "leave my name out" does.
+
 ## Cards
 
 ### Creation

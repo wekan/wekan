@@ -14,9 +14,12 @@ function fixture({ load = async () => {}, translate = (key, params, language) =>
     ReactiveCache: { getUser: async () => user ? { getLanguage: () => language } : null,
       // HookBleed: delivery builds the request from the STORED integration.
       getIntegration: async () => stored, getBoard: async () => ({ hasMember: () => member }),
+      getCurrentSetting: async () => ({}),
       getCard: async id => (id === 'card' ? { _id: 'card', boardId: 'board', listId: 'list' } : null) },
     TAPi18n: { ensureLanguageLoaded: load, __: (...args) => { translations.push(args); return translate(...args); } },
     fetchSafe: async (url, request) => { requests.push({ url, ...request }); return { status: 200 }; },
+    // #3695: the payload builder outgoing.js imports (stripped below).
+    ...require('../models/lib/webhookPayload'), ...require('../models/lib/notificationDelivery'),
   };
   const source = fs.readFileSync(require.resolve('../server/notifications/outgoing.js'), 'utf8')
     .replace(/^import .*;\n/gm, '').replace(/^export /gm, '');

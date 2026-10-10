@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { ReactiveCache } from '/imports/reactiveCache';
 const { SimpleSchema } = require('/imports/simpleSchema');
+const { deliverySchemaFields } = require('/models/lib/notificationDelivery');
 
 const Integrations = new Mongo.Collection('integrations');
 
@@ -94,6 +95,10 @@ Integrations.attachSchema(
         }
       },
     },
+    // #3695: how this webhook delivers - content, grouping, schedule. Unset keys
+    // inherit the board's default (board webhooks), then the Admin Panel's.
+    // See models/lib/notificationDelivery.js.
+    ...deliverySchemaFields('notificationDelivery', ['webhook']),
     token: {
       /**
        * token of the integration

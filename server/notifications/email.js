@@ -1,7 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 
-import { emailOutbox } from '/server/notifications/emailQueue';
+import { emailOutbox, emailDelayMs } from '/server/notifications/emailQueue';
 import { Notifications } from '/server/notifications/notifications';
 import { formatActivityNotificationTitle } from '/server/lib/activityNotificationTitle';
 import { resolveNotificationSetting } from '/models/lib/notificationSettings';
@@ -11,6 +11,14 @@ const {
   buildHtmlNotificationLine,
 } = require('/models/lib/emailNotificationSafety');
 const { substituteVars } = require('/models/lib/ruleVarsSubstitute');
+const {
+  channelOf,
+  groupKeyFor,
+  nextDeliveryAt,
+  redactForRecipient,
+  renderNotificationItem,
+  resolveChannelSettings,
+} = require('/models/lib/notificationDelivery');
 
 // Prepare a self-contained, rendered job without enqueuing it. Recovery planning
 // can persist this result and later reuse the exact text and language.
@@ -27,6 +35,7 @@ export async function prepareActivityEmail(user, title, description, params) {
   const userId = user._id;
   const lan = user.getLanguage();
   const memberOverride = user.profile && user.profile.notifyOverrideEmail;
+  const memberDelivery = channelOf(user.profile && user.profile.notificationDelivery, 'email');
   params = structuredClone(params);
 
   // 3-tier Notification Settings: admin default -> board override ->
@@ -36,6 +45,7 @@ export async function prepareActivityEmail(user, title, description, params) {
     notifyDefaultEmail: currentSetting.notifyDefaultEmail,
     activityEmailSubjectTemplate: currentSetting.activityEmailSubjectTemplate,
     activityEmailBodyTemplate: currentSetting.activityEmailBodyTemplate,
+    notificationDelivery: currentSetting.notificationDelivery,
   };
   const board = params.boardId
     ? await ReactiveCache.getBoard(params.boardId)
@@ -46,6 +56,18 @@ export async function prepareActivityEmail(user, title, description, params) {
     memberOverride,
   });
   if (!enabled) return null;
+
+  // #5171: how this recipient's e-mail is delivered - Member Settings, then
+  // the board, then the Admin Panel, then the built-in behaviour (the classic
+  // sentence, combined per recipient after EMAIL_NOTIFICATION_TIMEOUT).
+  const delivery = resolveChannelSettings('email', [
+    ['member', memberDelivery],
+    ['board', channelOf(board && board.notificationDelivery, 'email')],
+    ['admin', channelOf(setting && setting.notificationDelivery, 'email')],
+  ]);
+  // A value of an admin-only custom field (#3141) reaches only board admins.
+  const isBoardAdmin = !!(board && typeof board.hasAdmin === 'function' && board.hasAdmin(userId));
+  params = redactForRecipient(params, { isBoardAdmin });
 
   // #5875: the server only loads the English bundle at startup, so make sure
   // the recipient's language is loaded before translating the subject/body —
@@ -92,6 +114,13 @@ export async function prepareActivityEmail(user, title, description, params) {
     );
   }
   const bodyTemplate = templateSetting && templateSetting.activityEmailBodyTemplate;
+  // #5171: the clearly arranged item - board, actor and card in bold and
+  // linked, only the chosen parts, with a plain-text alternative. An admin's
+  // own body template still wins: it is the more specific instruction.
+  const clear = !bodyTemplate && delivery.layout === 'clear'
+    ? renderNotificationItem({ description, params, parts: delivery.parts,
+      translate: (key, values) => TAPi18n.__(key, values, lan) })
+    : null;
   const text = bodyTemplate
     ? `${existing ? `\n${subject}\n` : ''}${substituteVars(bodyTemplate, templateVars)}`
     : `${existing ? `\n${subject}\n` : ''}${
@@ -104,7 +133,7 @@ export async function prepareActivityEmail(user, title, description, params) {
   // the HTML body unescaped, markup in a card title reached other members'
   // mail. The HTML body substitutes escaped values; the text body is unchanged.
   const htmlVars = Object.fromEntries(Object.entries(templateVars).map(([key, value]) => [key, escapeEmailHtml(value)]));
-  const html = bodyTemplate
+  const html = clear ? clear.html : bodyTemplate
     ? `${existing ? `<br/>\n${escapeEmailHtml(subject)}<br/>\n` : ''}${substituteVars(bodyTemplate, htmlVars)}`
     : buildHtmlNotificationLine({
         existing,
@@ -113,8 +142,18 @@ export async function prepareActivityEmail(user, title, description, params) {
         descriptionText,
         url: params.url,
       });
-  return { userId, eventId: params.activityId,
+  const job = { userId, eventId: params.activityId,
     subject, html, language: lan, cardId: params.cardId || null, boardId: params.boardId || null };
+  // #5171: only what differs from the built-in delivery is added, so a job
+  // under default settings is exactly the job WeKan always queued.
+  if (clear) job.text = clear.text;
+  const groupKey = delivery.from.grouping === 'default' ? null
+    : groupKeyFor(delivery.grouping, { boardId: job.boardId, cardId: job.cardId, eventId: job.eventId });
+  if (groupKey && delivery.grouping !== 'all') job.groupKey = groupKey;
+  if (delivery.schedule !== 'immediate' || delivery.quietStart) {
+    job.deliverAt = nextDeliveryAt(new Date(), delivery, { baseDelayMs: emailDelayMs }).getTime();
+  }
+  return job;
 }
 
 Meteor.startup(() => {

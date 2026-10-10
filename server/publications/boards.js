@@ -62,6 +62,9 @@ const BOARD_LIST_FIELDS = {
   dateLastActivity: 1,
   allowsCardCounterList: 1,
   allowsBoardMemberList: 1,
+  // #5171: how this board's notifications show in the members' tray (layout,
+  // grouping). Settings, no secret - members see them in Board Settings too.
+  notificationDelivery: 1,
 };
 
 // The global relationship-only boards publication does not stream every public

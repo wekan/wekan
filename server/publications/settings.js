@@ -46,6 +46,9 @@ const SETTING_FIELDS = {
   // 3-tier Notification Settings admin defaults (models/lib/notificationSettings.js).
   notifyDefaultTray: 1,
   notifyDefaultEmail: 1,
+  // #3695 / #5171: the Admin Panel default notification delivery per channel.
+  // Board, webhook and member settings show what they inherit from it; no secret.
+  notificationDelivery: 1,
   // Admin Panel / Problems / Delete reads this field back after writing it.
   // Without publishing it, the optimistic checkmark is immediately redrawn from
   // `undefined` even though the server saved the new value.

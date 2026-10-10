@@ -127,6 +127,9 @@ export async function prepareActivityNotification(userId, doc) {
     title = ACTIVITY_NOTIFICATION_TITLE.BOARD;
     if (board && typeof board.absoluteUrl === 'function') {
       params.url = board.absoluteUrl();
+      // #3695: the board link on its own, beside `url` (which becomes the
+      // card link when the activity is about a card).
+      params.boardUrl = params.url;
     }
     params.boardId = activity.boardId;
   }
@@ -144,6 +147,9 @@ export async function prepareActivityNotification(userId, doc) {
     participants = [...new Set([...participants, activity.memberId])];
     const member = await activity.member();
     params.member = getActivityUserName(member, activity.memberId);
+    // #3695: the joined/removed member's id, for a receiver that matches users
+    // by id rather than by name.
+    params.memberId = activity.memberId;
     // #3297: the login name too - a full name is not unique, and a chat
     // integration addresses the person by username.
     params.memberUsername = (member && member.username) || '';
@@ -217,6 +223,7 @@ export async function prepareActivityNotification(userId, doc) {
             : (await ReactiveCache.getBoard(card.boardId)) ||
               (await Boards.findOneAsync(card.boardId));
         params.url = card.absoluteUrl(cardBoard);
+        params.cardUrl = params.url;
       }
       params.cardId = activity.cardId;
       // #5143: include the card description in the outgoing webhook / notification
@@ -345,6 +352,8 @@ export async function prepareActivityNotification(userId, doc) {
     if (checklist?.title) {
       params.checklist = normalizeActivityText(checklist.title);
     }
+    // #3695: the checklist's id, as a structured webhook property.
+    params.checklistId = activity.checklistId;
   }
 
   if (activity.checklistItemId) {
@@ -352,11 +361,19 @@ export async function prepareActivityNotification(userId, doc) {
     if (checklistItem?.title) {
       params.checklistItem = normalizeActivityText(checklistItem.title);
     }
+    params.checklistItemId = activity.checklistItemId;
   }
 
   if (activity.customFieldId) {
     const customField = await activity.customField();
     if (customField) {
+      params.customFieldId = activity.customFieldId;
+      // #3695 / #3141: an admin-only field's VALUE is hidden from members who
+      // are not board admins, so an outgoing webhook - read in a chat room -
+      // never carries it (models/lib/webhookPayload.js buildWebhookBody).
+      if (customField.adminOnly === true) {
+        params.customFieldAdminOnly = true;
+      }
       if (customField.name) {
         params.customField = normalizeActivityText(customField.name);
       }
@@ -385,7 +402,7 @@ export async function prepareActivityNotification(userId, doc) {
     title = activity.timeOldValue ? 'act-withDue' : 'act-newDue';
   }
 
-  ['timeValue', 'timeOldValue'].forEach((key) => {
+  ['timeKey', 'timeValue', 'timeOldValue'].forEach((key) => {
     const value = activity[key];
     if (value !== undefined) params[key] = value;
   });

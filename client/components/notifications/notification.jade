@@ -4,7 +4,13 @@ template(name='notification')
       .materialCheckBox(class="{{#if read}}is-checked{{/if}}")
       +notificationIcon(activityData)
     .details
-      +activity(activity=activityData mode='none')
+      //- #5171: the clearly arranged layout (escaped by
+        models/lib/notificationDelivery.js renderNotificationItem), or the
+        classic activity line.
+      if clearItem
+        .notification-clear-item {{{clearItem}}}
+      else
+        +activity(activity=activityData mode='none')
       .notification-date
         small.quiet {{activityDate}}
     if read

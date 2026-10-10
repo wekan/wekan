@@ -65,3 +65,13 @@ template(name="notificationSettingsPopup")
           a.flex.js-notify-activity(data-group="{{key}}" role="checkbox" aria-checked="{{#if enabled}}true{{else}}false{{/if}}")
             .materialCheckBox(class="{{#if enabled}}is-checked{{/if}}")
             span {{_ labelKey}}
+    //- #3695 / #5171: how notifications are delivered, per channel - content,
+      grouping, schedule (models/lib/notificationDelivery.js). Admin Panel: the
+      instance defaults; Board Settings: this board's (board admins); Member
+      Settings: the member's own e-mail and tray, and leaving their name out of
+      webhooks. Each webhook can override the admin/board webhook settings in
+      its own form (outgoingWebhooksPopup).
+    if showDelivery
+      each deliveryChannels
+        li.notification-delivery-row
+          +notificationDeliverySettings(scope=../scope targetId=deliveryTargetId channel=channel)

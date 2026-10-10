@@ -2,8 +2,19 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { toggleNotificationsDrawer } from './notifications.js';
 import Users from '/models/users';
+import { ReactiveVar } from 'meteor/reactive-var';
+import { trayDeliveryFor, trayEntryVisible } from '/client/lib/notificationTray';
+const { groupEntries } = require('/models/lib/notificationDelivery');
+
+// #5171: the entries the drawer shows now - an entry scheduled for later
+// (showAt) waits for its time.
+function visibleNotifications() {
+  const user = ReactiveCache.getCurrentUser();
+  return (user ? user.notifications() : []).filter(entry => trayEntryVisible(entry));
+}
 
 Template.notificationsDrawer.onCreated(function() {
+  this.expandedGroups = new ReactiveVar([]);
   Meteor.subscribe('notificationActivities');
   Meteor.subscribe('notificationCards');
   Meteor.subscribe('notificationUsers');
@@ -17,21 +28,49 @@ Template.notificationsDrawer.onCreated(function() {
 
 Template.notificationsDrawer.helpers({
   notifications() {
-    const user = ReactiveCache.getCurrentUser();
-    return user ? user.notifications() : [];
+    return visibleNotifications();
+  },
+  // #5171: the drawer rows - single entries, or one card's / board's entries
+  // together, by each entry's tray grouping (member -> board -> Admin Panel).
+  notificationGroups() {
+    const expanded = Template.instance().expandedGroups.get();
+    return groupEntries(visibleNotifications(),
+      entry => trayDeliveryFor(entry.activityObj && entry.activityObj.boardId).grouping,
+      entry => ({ boardId: entry.activityObj && entry.activityObj.boardId, cardId: entry.activityObj && entry.activityObj.cardId }))
+      .map(group => {
+        const first = group.entries[0];
+        const activity = first.activityObj || {};
+        const card = group.key.startsWith('card:') && activity.card ? activity.card() : null;
+        const board = activity.board ? activity.board() : null;
+        return {
+          ...group,
+          firstEntry: first,
+          isCollapsible: group.entries.length > 1,
+          expanded: expanded.includes(group.key),
+          groupLabel: card
+            ? TAPi18n.__('notification-group-card', { count: group.entries.length, card: card.title || '' })
+            : TAPi18n.__('notification-group-board', { count: group.entries.length, board: (board && board.title) || '' }),
+        };
+      });
   },
   transformedProfile() {
     return ReactiveCache.getCurrentUser();
   },
   readNotifications() {
-    const user = ReactiveCache.getCurrentUser();
-    const list = user ? user.notifications() : [];
+    const list = visibleNotifications();
     const readNotifications = list.filter(v => !!v.read);
     return readNotifications.length;
   },
 });
 
 Template.notificationsDrawer.events({
+  'click .js-toggle-notification-group'(event, instance) {
+    event.preventDefault();
+    event.stopPropagation();
+    const key = event.currentTarget.dataset.key;
+    const expanded = instance.expandedGroups.get();
+    instance.expandedGroups.set(expanded.includes(key) ? expanded.filter(k => k !== key) : [...expanded, key]);
+  },
   'click .notification-menu-toggle'(event) {
     event.stopPropagation();
     Session.set('showNotificationMenu', !Session.get('showNotificationMenu'));

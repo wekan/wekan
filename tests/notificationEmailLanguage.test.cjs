@@ -44,7 +44,8 @@ test('#5438 notification preparation loads the recipient language first', () => 
 });
 
 test('the durable email keeps the recipient language selected when rendered', () => {
-  assert.match(notification, /return \{ userId,[\s\S]*?language: lan/);
+  // #5171: the job is built, then the delivery fields are added to it.
+  assert.match(notification, /const job = \{ userId,[\s\S]*?language: lan[\s\S]*?return job;/);
   assert.match(notification, /if \(job\) await emailOutbox.enqueue\(job\)/);
   const worker = read('server/lib/emailOutbox.js');
   assert.match(worker, /language: first.language/);

@@ -7,6 +7,14 @@ const copy = value => EJSON.parse(EJSON.stringify(value), { relaxed: true });
 const text = value => typeof value === 'string' && value.length > 0 && value.length <= 1024;
 const exact = (value, fields) => value && !Array.isArray(value) && Object.keys(value).sort().join(',') === fields;
 const fail = () => { throw new Error('activity-notification-plan-invalid'); };
+// #5171: an e-mail job may also carry its plain-text alternative, its group
+// and its scheduled time (models/lib/notificationDelivery.js); a job without
+// them is the original shape, so plans saved before still validate.
+const EMAIL_JOB_KEYS = ['boardId', 'cardId', 'eventId', 'html', 'language', 'subject', 'userId'];
+const EMAIL_JOB_OPTIONAL = ['deliverAt', 'groupKey', 'text'];
+const emailJobKeys = job => !!job && !Array.isArray(job) && typeof job === 'object' &&
+  EMAIL_JOB_KEYS.every(key => Object.hasOwn(job, key)) &&
+  Object.keys(job).every(key => EMAIL_JOB_KEYS.includes(key) || EMAIL_JOB_OPTIONAL.includes(key));
 function planIdentity(activity, dispatchUserId) {
   if (!activity || !text(activity._id) || (dispatchUserId !== null && !text(dispatchUserId))) fail();
   return { version: 1, activityId: activity._id, activityHash: sha256(canonical(activity)), dispatchUserId };
@@ -23,11 +31,14 @@ function validatePlanShape(plan) {
     seen.add(row.userId);
     const job = row.email;
     if (job === null) continue;
-    if (!exact(job, 'boardId,cardId,eventId,html,language,subject,userId') || job.userId !== row.userId ||
+    if (!emailJobKeys(job) || job.userId !== row.userId ||
         job.eventId !== plan.activityId || !(job.boardId === null || text(job.boardId)) ||
         !(job.cardId === null || text(job.cardId)) ||
         !text(job.language) || typeof job.subject !== 'string' || job.subject.length > 10000 ||
-        /[\r\n]/.test(job.subject) || typeof job.html !== 'string') fail();
+        /[\r\n]/.test(job.subject) || typeof job.html !== 'string' ||
+        (job.text !== undefined && typeof job.text !== 'string') ||
+        (job.groupKey !== undefined && !text(job.groupKey)) ||
+        (job.deliverAt !== undefined && !Number.isFinite(job.deliverAt))) fail();
   }
   if (calculateObjectSize(plan) > 14 * 1024 * 1024) fail();
 }

@@ -1,0 +1,84 @@
+//- #3695 / #5171: how one notification channel delivers - content, grouping
+//- and schedule (models/lib/notificationDelivery.js). One template for every
+//- place it is set:
+//-   scope 'admin'        Admin Panel / Notifications - instance defaults
+//-   scope 'board'        Board Settings / Notifications - this board
+//-   scope 'member'       Member Settings / Notifications - the member's own
+//-                        e-mail and tray; for webhooks only "leave my name out"
+//-   scope 'integration'  one webhook's own form (targetId = its _id)
+//- channel is 'email' | 'tray' | 'webhook'. Every change saves at once through
+//- the setNotificationDelivery method, which checks the caller's role and
+//- validates the value. "Default" inherits the next level.
+template(name="notificationDeliverySettings")
+  details.notification-delivery-settings(data-scope="{{scope}}" data-channel="{{channel}}")
+    summary.title
+      i.fa(class="{{channelIcon}}")
+      |  {{_ channelLabel}}
+    if memberWebhook
+      a.flex.js-webhook-hide-identity(role="checkbox" aria-checked="{{#if hideIdentity}}true{{else}}false{{/if}}")
+        .materialCheckBox(class="{{#if hideIdentity}}is-checked{{/if}}")
+        span {{_ 'webhook-hide-identity'}}
+    else
+      if isWebhook
+        p.quiet {{_ 'webhook-payload-description'}}
+        label.notification-delivery-label
+          | {{_ 'webhook-payload-text'}}
+          select.js-delivery-select(data-key="text")
+            each textOptions
+              option(value=value selected=selected) {{_ labelKey}}
+        p.notification-delivery-label {{_ 'webhook-payload-fields'}}
+        +notificationDeliveryChecklist(rows=fieldRows key="fields" inherit=fieldsInherit offerDefault=offerDefault)
+      else
+        label.notification-delivery-label
+          | {{_ 'notification-delivery-layout'}}
+          select.js-delivery-select(data-key="layout")
+            each layoutOptions
+              option(value=value selected=selected) {{_ labelKey}}
+        if showParts
+          p.notification-delivery-label {{_ 'notification-delivery-parts'}}
+          +notificationDeliveryChecklist(rows=partRows key="parts" inherit=partsInherit offerDefault=offerDefault)
+      label.notification-delivery-label
+        | {{_ 'notification-delivery-grouping'}}
+        select.js-delivery-select(data-key="grouping")
+          each groupingOptions
+            option(value=value selected=selected) {{_ labelKey}}
+      label.notification-delivery-label
+        | {{_ 'notification-delivery-schedule'}}
+        select.js-delivery-select(data-key="schedule")
+          each scheduleOptions
+            option(value=value selected=selected) {{_ labelKey}}
+      if scheduleIs 'interval'
+        label.notification-delivery-label
+          | {{_ 'notification-delivery-interval'}}
+          select.js-delivery-select(data-key="intervalMinutes")
+            each intervalOptions
+              option(value=value selected=selected) {{label}}
+      if scheduleIs 'daily'
+        label.notification-delivery-label
+          | {{_ 'notification-delivery-daily-time'}}
+          input.js-delivery-time(type="time" data-key="dailyTime" value=dailyTime)
+      p.notification-delivery-label {{_ 'notification-delivery-quiet'}}
+      .notification-delivery-quiet
+        label
+          | {{_ 'notification-delivery-quiet-from'}}
+          input.js-delivery-quiet(type="time" data-key="quietStart" value=quietStart)
+        label
+          | {{_ 'notification-delivery-quiet-to'}}
+          input.js-delivery-quiet(type="time" data-key="quietEnd" value=quietEnd)
+        if hasQuiet
+          a.js-delivery-quiet-clear {{_ 'notification-delivery-quiet-clear'}}
+      if timezone
+        p.quiet.notification-delivery-timezone {{_ 'notification-delivery-timezone'}} {{timezone}}
+    if message
+      p.quiet.js-delivery-message {{message}}
+
+template(name="notificationDeliveryChecklist")
+  .notification-delivery-checklist(data-key="{{key}}")
+    if offerDefault
+      a.flex.js-delivery-list-default(data-key="{{key}}" role="checkbox" aria-checked="{{#if inherit}}true{{else}}false{{/if}}")
+        .materialCheckBox(class="{{#if inherit}}is-checked{{/if}}")
+        span {{_ 'default'}}
+    each rows
+      a.flex.js-delivery-list-item(data-key="{{../key}}" data-value="{{value}}" role="checkbox" aria-checked="{{#if enabled}}true{{else}}false{{/if}}")
+        .materialCheckBox(class="{{#if enabled}}is-checked{{/if}}")
+        span {{_ labelKey}}

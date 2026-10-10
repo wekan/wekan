@@ -283,6 +283,7 @@ import '/server/startupSchemaUpgrade';
 import '/server/notifications/email';
 import '/server/notifications/notifications';
 import '/server/notifications/outgoing';
+import '/server/notifications/webhookQueue';
 import '/server/notifications/profile';
 import '/server/notifications/watch';
 
@@ -361,6 +362,7 @@ import '/server/methods/csvImportMapping';
 import '/server/methods/activityNotificationRecovery';
 import '/server/methods/wipLimitGroups';
 import '/server/methods/boardDueReminders';
+import '/server/methods/notificationDelivery';
 import '/server/rulesButton';
 
 // ----------------------------------------------------------------------------

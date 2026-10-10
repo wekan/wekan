@@ -10,6 +10,7 @@ const { BOARD_PERMISSIONS, readableWithoutMembership, withoutMembershipSelectors
 const { normalizeAutoArchiveDays } = require('/models/lib/autoArchive');
 const { cardParentIds, parentFields } = require('/models/lib/cardParents');
 const boardViewSettings = require('/models/lib/boardViewSettings');
+const { deliverySchemaFields } = require('/models/lib/notificationDelivery');
 import escapeForRegex from 'escape-string-regexp';
 import CustomFields from './customFields';
 import {
@@ -930,6 +931,11 @@ Boards.attachSchema(
       type: Boolean,
       optional: true,
     },
+    // #3695 / #5171: this board's notification delivery per channel (email,
+    // tray, webhook) - content, grouping, schedule. Unset keys inherit the Admin
+    // Panel default; a member's own choice (email, tray) and a webhook's own
+    // setting win over it. See models/lib/notificationDelivery.js.
+    ...deliverySchemaFields('notificationDelivery'),
     // #5323: this board's due-date reminder offsets (days before due, 0 = due
     // today, negative = days past due), overriding NOTIFY_DUE_DAYS_BEFORE_AND_AFTER.
     // Unset uses the server default; an empty list turns reminders off.

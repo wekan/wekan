@@ -71,7 +71,10 @@ async function outgoingPayload(params, type = 'outgoing', attributes) {
     // HookBleed: the request is built from the stored integration - here the
     // one the call names, as in ordinary use.
     check() {}, ReactiveCache: { getUser: async () => ({ getLanguage: () => 'en' }),
-      getIntegration: async () => structuredClone(integration), getBoard: async () => ({ hasMember: () => true }) },
+      getIntegration: async () => structuredClone(integration), getBoard: async () => ({ hasMember: () => true }),
+      getCurrentSetting: async () => ({}) },
+    // #3695: the payload builder outgoing.js imports (stripped above).
+    ...require('../models/lib/webhookPayload'), ...require('../models/lib/notificationDelivery'),
     TAPi18n: { ensureLanguageLoaded: async () => {}, __: () => 'changed' },
     Integrations: { Const: { TWOWAY: 'two-way' } },
     fetchSafe: async (url, request) => { payload = JSON.parse(request.body); return { status: 200 }; },

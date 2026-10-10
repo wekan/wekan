@@ -487,6 +487,11 @@ template(name="outgoingWebhooksPopup")
       input(type="hidden" value=this.type name="_type")
       input(type="hidden" value=_id name="id")
       input.primary.wide(type="submit" value="{{_ 'save'}}")
+      //- #3695: what this webhook sends, grouped and when (content, grouping,
+        schedule). Saved at once on each change; a two-way webhook keeps the
+        full activity parameters and immediate delivery its reply needs.
+      unless $eq type 'bidirectional-webhooks'
+        +notificationDeliverySettings(scope="integration" targetId=_id channel="webhook")
   form.integration-form
     textarea.js-outgoing-webhooks-title(rows="2" placeholder="{{_ 'webhook-title'}}" name="title")
     input.js-outgoing-webhooks-url(placeholder="{{_ 'URL' }}" type="text" name="url")

@@ -31,6 +31,11 @@ No**, where Default means "inherit from the level above".
    the setting above this level.
 3. Changes apply immediately - there is no separate Save button.
 
+Below the on/off rows, each channel (Email, Notifications tray, Outgoing
+Webhooks) has its delivery settings - what a notification shows, whether
+several are combined, and when they are sent. See
+[Notification delivery](../Notifications/Notification-Delivery.md).
+
 ## Precedence
 
 ```

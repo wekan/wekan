@@ -34,7 +34,10 @@ assert.match(
   email,
   // Not `bodyTemplate ? text : ...`: that sent the template's substituted
   // member-written values as HTML (MailTitleBleed regression, 2026-10-02).
-  /const html = bodyTemplate\s*\?[^\n]*\$\{substituteVars\(bodyTemplate, htmlVars\)\}`\s*:\s*buildHtmlNotificationLine\(\{/,
+  // #5171: the clearly arranged layout comes first when chosen; it is built
+  // by models/lib/notificationDelivery.js renderNotificationItem, which
+  // escapes every value (tests/notificationDelivery.test.cjs).
+  /const html = clear \? clear\.html : bodyTemplate\s*\?[^\n]*\$\{substituteVars\(bodyTemplate, htmlVars\)\}`\s*:\s*buildHtmlNotificationLine\(\{/,
   'the HTML notification body must be built by the shared, escaping-aware helper',
 );
 assert.match(

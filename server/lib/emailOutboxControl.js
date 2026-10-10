@@ -2,7 +2,7 @@ const { withSyncLease } = require('./syncLease');
 const { matchesEmailCommand } = require('./emailReceiptIdentity');
 const ACTIONS = ['pause', 'resume', 'cancel', 'retry'];
 const REQUEST_ID = /^[A-Za-z0-9_-]{20,64}$/;
-const PAYLOAD_FIELDS = { html: '', subject: '', language: '', cardId: '', nextAttemptAt: '', lastFailure: '', failedAt: '' };
+const PAYLOAD_FIELDS = { html: '', text: '', subject: '', language: '', cardId: '', nextAttemptAt: '', lastFailure: '', failedAt: '' };
 
 // A stable request receipt prevents a reconnect from repeating an old cancel
 // against mail queued later. Generation fencing also makes an interrupted old

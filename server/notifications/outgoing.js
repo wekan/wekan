@@ -5,6 +5,8 @@ import { TAPi18n } from '/imports/i18n';
 import { fetchSafe } from '/server/lib/ssrfGuard';
 import CardComments from '/models/cardComments';
 import Integrations from '/models/integrations';
+import { buildWebhookBody, hideIdentityFields, memberHidesIdentity } from '/models/lib/webhookPayload';
+import { channelOf, resolveChannelSettings, webhookQueueTarget } from '/models/lib/notificationDelivery';
 
 const Lock = {
     _lock: {},
@@ -117,6 +119,31 @@ const Lock = {
       }
     }
   };
+// #3695: how one webhook delivers (models/lib/notificationDelivery.js): its
+// own setting, then its board's - for the board's own webhooks only; a global
+// webhook is the instance admin's - then the Admin Panel default.
+export async function webhookDeliveryFor(integration) {
+  const setting = await ReactiveCache.getCurrentSetting();
+  const ownBoard = integration.boardId && integration.boardId !== Integrations.Const.GLOBAL_WEBHOOK_ID
+    ? await ReactiveCache.getBoard(integration.boardId) : null;
+  return resolveChannelSettings('webhook', [
+    ['integration', channelOf(integration.notificationDelivery, 'webhook')],
+    ['board', channelOf(ownBoard && ownBoard.notificationDelivery, 'webhook')],
+    ['admin', channelOf(setting && setting.notificationDelivery, 'webhook')],
+  ]);
+}
+
+// #3695: the people in this activity who asked webhooks to leave them out.
+async function webhookHiddenUserIds(params) {
+  const ids = [...new Set([params.userId, params.memberId, params.assigneeId]
+    .filter(id => typeof id === 'string' && id))];
+  const hidden = [];
+  for (const id of ids) {
+    if (memberHidesIdentity(await ReactiveCache.getUser(id))) hidden.push(id);
+  }
+  return hidden;
+}
+
 // Prepare a detached wire payload without HTTP, comment writes or echo locks.
 // A durable caller must persist it and recheck authorization before delivery.
 export async function prepareOutgoingWebhook({ integration, description, params, actorId }) {
@@ -151,6 +178,20 @@ export async function prepareOutgoingWebhook({ integration, description, params,
   // translating, otherwise it falls back to English.
   const language = user.getLanguage();
   await TAPi18n.ensureLanguageLoaded(language);
+
+  // #3695: Member Settings -> Notifications -> "Leave my name out of outgoing
+  // webhooks". The actor, and the person a join or assignment is about, are
+  // named in neither the text nor the properties when they asked for that.
+  const hiddenUserIds = await webhookHiddenUserIds(params);
+  if (hiddenUserIds.length) {
+    const someone = TAPi18n.__('webhook-someone', {}, language);
+    // `params` is this call's own clone; buildWebhookBody / hideIdentityFields
+    // drop the `user` property of a hidden actor, so only the text uses this.
+    if (params.userId && hiddenUserIds.includes(params.userId)) params.user = quoteParams.user = someone;
+    if (params.memberId && hiddenUserIds.includes(params.memberId)) quoteParams.member = someone;
+    if (params.assigneeId && hiddenUserIds.includes(params.assigneeId)) quoteParams.assignee = someone;
+  }
+
   const descriptionText = TAPi18n.__(
     description,
     quoteParams,
@@ -164,16 +205,14 @@ export async function prepareOutgoingWebhook({ integration, description, params,
 
   if (text.length === 0) return null;
 
-  const value = {
-    text: `${text}`,
-  };
-
-  webhooksAtbts.forEach(key => {
-    if (params[key] !== undefined) value[key] = params[key];
+  // #3695: which properties this webhook carries - the webhook's own choice,
+  // then its board's default, then the Admin Panel default; unset everywhere
+  // is the unchanged payload (text + the standard attribute list).
+  const settings = await webhookDeliveryFor(integration);
+  const value = buildWebhookBody({
+    description, params, text, settings,
+    legacyAttributes: webhooksAtbts, hiddenUserIds,
   });
-  value.description = description;
-  // #4912: the consolidated edit event always says which field changed.
-  if (description === 'act-editCard' && typeof params.field === 'string') value.field = params.field;
   const is2way = integration.type === Integrations.Const.TWOWAY;
   const token = integration.token || '';
   const fetchHeaders = {
@@ -182,7 +221,8 @@ export async function prepareOutgoingWebhook({ integration, description, params,
   if (token) fetchHeaders['X-Wekan-Token'] = token;
 
   return { url: integration.url, headers: fetchHeaders,
-    body: JSON.stringify(is2way ? { description, ...clonedParams } : value),
+    body: JSON.stringify(is2way
+      ? hideIdentityFields({ description, ...clonedParams }, params, hiddenUserIds) : value),
     is2way, language };
 }
 Meteor.methods({
@@ -239,6 +279,22 @@ Meteor.methods({
         const prepared = await prepareOutgoingWebhook({ integration: storedIntegration, description, params, actorId: this.userId });
         if (!prepared) return;
         const { is2way } = prepared;
+
+        // #3695: a one-way webhook whose delivery settings group or schedule
+        // its notifications goes through the durable queue
+        // (server/notifications/webhookQueue.js); the built-in settings POST
+        // at once, below, exactly as before. Two-way webhooks are always
+        // immediate: their reply edits the comment the event was about.
+        if (!is2way) {
+          const delivery = await webhookDeliveryFor(storedIntegration);
+          const queued = webhookQueueTarget(delivery, { boardId: params.boardId, cardId: params.cardId,
+            eventId: params.activityId });
+          if (queued) {
+            await require('/server/notifications/webhookQueue').webhookOutbox.enqueue({
+              integrationId: storedIntegration._id, body: JSON.parse(prepared.body), ...queued });
+            return;
+          }
+        }
 
         if (is2way) {
           const cid = params.commentId;

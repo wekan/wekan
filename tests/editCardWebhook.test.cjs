@@ -57,7 +57,10 @@ for (const dir of ['server', 'models']) {
 }
 
 // The one-way payload names the field; the event has English text.
-assert.match(read('server/notifications/outgoing.js'), /description === 'act-editCard'.*value\.field = params\.field/);
+// #3695: the one-way body is built by models/lib/webhookPayload.js now, for
+// every payload setting; the edit event's `field` is still always added.
+assert.match(read('models/lib/webhookPayload.js'), /description === 'act-editCard'.*value\.field = params\.field/);
+assert.match(read('server/notifications/outgoing.js'), /buildWebhookBody\(\{/);
 const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
 assert.match(en['act-editCard'], /__card__/);
 console.log('editCardWebhook: ok');

@@ -13,16 +13,29 @@ const MAX_DIGEST_BYTES = 4 * 1024 * 1024;
 function createEmailOutbox({ jobs, leases, controls, getUser, send, replyTo, from,
   canReceive = async () => true,
   withDeliverySlot = (work, { assertOwner }) => work({ assertCurrent: assertOwner }), random = Math.random, now = () => new Date(), leaseOptions = {}, delayMs = 30000 }) {
-  async function enqueue({ userId, eventId = randomUUID(), subject, html, language, cardId = null, boardId = null }) {
+  // #5171: `text` is the plain-text alternative of a clearly arranged item,
+  // `groupKey` keeps one e-mail to one board/card/notification, and
+  // `deliverAt` (ms) is the scheduled delivery time from the recipient's
+  // delivery settings (models/lib/notificationDelivery.js). All three are
+  // optional: a job without them is delivered exactly as before.
+  async function enqueue({ userId, eventId = randomUUID(), subject, html, language, cardId = null, boardId = null,
+    text, groupKey, deliverAt }) {
     if (![userId, eventId, subject, html, language].every(value => typeof value === 'string') ||
         !userId || !eventId || !language || /[\r\n]/.test(subject) ||
         subject.length > 10000 ||
         (cardId !== null && typeof cardId !== 'string') ||
-        (boardId !== null && typeof boardId !== 'string')) throw new Error('invalid-email-job');
+        (boardId !== null && typeof boardId !== 'string') ||
+        (text !== undefined && typeof text !== 'string') ||
+        (groupKey !== undefined && (typeof groupKey !== 'string' || !groupKey || groupKey.length > 300)) ||
+        (deliverAt !== undefined && !Number.isFinite(deliverAt))) throw new Error('invalid-email-job');
     const _id = idFor(userId, eventId), createdAt = now();
+    const due = deliverAt !== undefined
+      ? new Date(Math.max(deliverAt, createdAt.getTime()))
+      : new Date(createdAt.getTime() + delayMs);
     const job = { _id, userId, eventId, subject, html, language, cardId, boardId,
+      ...(text !== undefined ? { text } : {}), ...(groupKey !== undefined ? { groupKey } : {}),
       state: 'pending', attempts: 0, cycleAttempts: 0, createdAt,
-      nextAttemptAt: new Date(createdAt.getTime() + delayMs) };
+      nextAttemptAt: due };
     if (calculateObjectSize(job) > MAX_JOB_BYTES) throw new Error('email-job-too-large');
     try { await jobs.insertOne(job); }
     catch (error) {
@@ -59,11 +72,17 @@ function createEmailOutbox({ jobs, leases, controls, getUser, send, replyTo, fro
           const cursor = jobs.find({ userId, state: 'pending', nextAttemptAt: { $lte: now() },
             ...(control?.cancelBefore ? { createdAt: { $gt: control.cancelBefore } } : {}) })
             .sort({ createdAt: 1, _id: 1 }).limit(100).batchSize(1);
-          let batch = []; let size = 0;
+          let batch = []; let size = 0; let batchKey;
           // Stream to bound memory even when each queued document is large. A
           // single large event travels alone rather than being silently dropped.
           try {
             for await (const job of cursor) {
+              // #5171: one e-mail carries one group. Jobs without a key are
+              // the built-in "everything due for this recipient" group; other
+              // groups wait for the next pass (a second later).
+              const key = job.groupKey ?? null;
+              if (batchKey === undefined) batchKey = key;
+              else if (key !== batchKey) continue;
               const bytes = Buffer.byteLength(job.html);
               if (batch.length && size + bytes > MAX_DIGEST_BYTES) break;
               batch.push(job); size += bytes;
@@ -104,7 +123,7 @@ function createEmailOutbox({ jobs, leases, controls, getUser, send, replyTo, fro
             await assertCurrent();
             if (!user) {
               await jobs.updateMany(selector, { $set: { state: 'cancelled', finishedAt: now() },
-                $unset: { html: '', subject: '', language: '', cardId: '', nextAttemptAt: '', lastFailure: '' } });
+                $unset: { html: '', text: '', subject: '', language: '', cardId: '', nextAttemptAt: '', lastFailure: '' } });
               return;
             }
             const permitted = [], cancelled = [];
@@ -115,7 +134,7 @@ function createEmailOutbox({ jobs, leases, controls, getUser, send, replyTo, fro
             await assertCurrent();
             if (cancelled.length) await jobs.updateMany({ _id: { $in: cancelled }, userId, state: 'pending', attemptId }, {
               $set: { state: 'cancelled', finishedAt: now() },
-              $unset: { html: '', subject: '', language: '', cardId: '', nextAttemptAt: '', lastFailure: '' },
+              $unset: { html: '', text: '', subject: '', language: '', cardId: '', nextAttemptAt: '', lastFailure: '' },
             });
             batch = permitted;
             if (!batch.length) return;
@@ -126,8 +145,11 @@ function createEmailOutbox({ jobs, leases, controls, getUser, send, replyTo, fro
             const first = batch[0], last = [...batch].reverse().find(job => job.cardId);
             await assertCurrent();
             phase = 'smtp';
+            // #5171: a plain-text alternative only when every item has one.
+            const plain = batch.every(job => typeof job.text === 'string')
+              ? { text: batch.map(job => job.text).join('\n\n') } : {};
             const result = await send({ to: address.toLowerCase(), from: from(), subject: first.subject,
-              html: batch.map(job => job.html).join('<br/>\n\n'), language: first.language,
+              html: batch.map(job => job.html).join('<br/>\n\n'), language: first.language, ...plain,
               userId, replyTo: replyTo(last?.cardId, userId) });
             // Meteor's development console output and hook-suppressed sends can
             // resolve without delivering mail. Only a transport's accepted
@@ -139,7 +161,7 @@ function createEmailOutbox({ jobs, leases, controls, getUser, send, replyTo, fro
             phase = 'acknowledgement';
             await assertCurrent();
             await jobs.updateMany(selector, { $set: { state: 'sent', finishedAt: now() },
-              $unset: { html: '', subject: '', language: '', cardId: '', nextAttemptAt: '', lastFailure: '' } });
+              $unset: { html: '', text: '', subject: '', language: '', cardId: '', nextAttemptAt: '', lastFailure: '' } });
             const confirmed = await jobs.countDocuments({ _id: { $in: ids }, userId, state: 'sent' });
             if (confirmed !== ids.length) throw new Error('email-acknowledgement-incomplete');
           } catch (error) {
