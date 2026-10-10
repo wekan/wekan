@@ -453,7 +453,7 @@ each following that tool's documented or source-verified format, with a loss
 report for what WeKan has no place for. Every format now imports and exports
 **many boards at once**, and each has its own documentation page. Imports,
 exports, clones and the REST API now **stream attachments** instead of holding
-them in memory. WeKan moves to **Meteor 3.6-rc.0**, and six **GitHub CodeQL**
+them in memory. WeKan moves to **Meteor 3.6-rc.0**, and seven **GitHub CodeQL**
 alerts and the **brace-expansion** advisories are fixed. Translation work
 continues.
 
@@ -513,6 +513,17 @@ to show that it let a URL end a link early, and code scanning reported that
 code. The test now holds the Markdown the old code wrote and still checks it
 renders as two links, and the check that no code escapes links that way now
 reads `tests/` too.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eefc66185b">A Scrum test escapes a helper name completely, and incomplete escaping is found anywhere</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+Alert 560: tests/scrumViewHelpers.test.cjs put a helper name into a regular
+expression with only `$` escaped. It now escapes every special character, and
+`tests/incompleteEscaping.test.cjs` finds a backslash escape that does not also
+escape the backslash in any WeKan source or test, including inside a template
+literal's interpolation, where this one was.
 
 </details>
 
