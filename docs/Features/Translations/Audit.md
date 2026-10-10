@@ -2,6 +2,39 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Traditional Chinese current fills — 2026-10-10
+
+Translate 678 English placeholders: 226 each in zh-Hant, zh-TW and zh-HK. All three
+full current fill lists are empty, including pending Transifex keys. Cover linked
+cards and fields, 22 import-format instructions, member mapping, CSV columns,
+bulk imports and exports, webhooks, notifications, Wrike workflows, subtasks,
+Scrum planning/import/checkpoint controls, LDAP, link rules and interrupted
+import/List Sync recovery. Every changed value was English in the parent commit;
+existing translations remain unchanged. Use Traditional Chinese 清單、自訂欄位、
+承辦人、待辦清單、封存、匯入 and 匯出 terminology. Clarify project iterations and
+board-local planning changes. Specialist wording remains provisional pending
+speaker review; older catalog terminology and fluency are not fully audited.
+
+Replace historical completion gates with full current-catalog checks. Compare
+all keys and exact underscore/percent tokens with English. Semantic checks cover
+field permissions/directions, unmapped imports, ZIP behavior, inherited settings,
+quiet hours and completion states. Keep import exclusions, required English
+headers, first-board selection, subtask markers, link-rule syntax, LDAP constants,
+WEBHOOKS_ATTRIBUTES, GET /workflows and Org mode keywords. Recovery checks retain
+applied changes, never write discarded remaining changes, refuse discard of
+replayable operations, distinguish keep from permanent removal, include later
+additions and leave unrelated boards untouched. Scrum checks preserve no-duplication,
+unchanged unmatched cards, first-Sync planning, rollback eligibility and keeping
+records unchanged. Selected checks reject Simplified Chinese forms in these fills.
+
+All 306 translation/Blockly suites, 246 catalog inventories and 21 human-preference
+checks pass. Fifteen browser cases for linked fields, import-people choices,
+notification delivery, stuck List Sync and interrupted import recovery pass syntax
+and discovery; execution remains unverified without the local app and browser
+system dependencies. A fresh full per-locale inventory counts 59,092 remaining
+values across 133 non-English locale files, including pending Transifex keys.
+The all-language backlog and semantic audit remain open.
+
 ## Simplified Chinese current fills — 2026-10-10
 
 Translate 1,356 English placeholders: 226 each in cmn, zh, zh-CN, zh-GB, zh-Hans
