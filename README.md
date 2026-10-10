@@ -24,7 +24,7 @@ that by providing one-click installation on various platforms.
 - WeKan ® is used in [most countries of the world](https://snapcraft.io/wekan).
 - WeKan ® largest user has 30k users using WeKan ® in their company.
 - WeKan ® has been [translated](https://app.transifex.com/wekan/) into 234 locale catalogs;
-  191 have non-English text for over 90% of source keys. This measures text coverage,
+  164 have non-English text for over 90% of source keys. This measures text coverage,
   not translation quality; language review and remaining translations are ongoing.
 - [Features](https://github.com/wekan/wekan/tree/main/docs/Features):
   - Real-time user interface
