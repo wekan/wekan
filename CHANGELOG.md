@@ -501,7 +501,7 @@ used.
 
 **In short:** **FerretDB** now answers a `$group` with several accumulators,
 `$min`/`$max` and capped collections the way MongoDB does - found by new
-**MongoDB 8 and MongoDB 9** conformance tests that EVERYTHING now runs - and
+**MongoDB 6, 7, 8 and 9** conformance tests that EVERYTHING now runs - and
 **build.bat** does what build.sh does, not only offers the same menu. Current
 strings are translated in 15 languages, among them Czech, Japanese, Korean
 and Spanish.
@@ -540,6 +540,9 @@ answer all 110 cases the same, MongoDB 8.0.32 and 9.0.2 included.
 
 </details>
 
+- [MongoDB 6 and 7 are compared too: all eight databases answer all 110 cases the same](https://github.com/wekan/wekan/commit/debd1d876d).
+  Thanks to xet7.
+
 **Build scripts** - build.bat does what build.sh does.
 
 <details>
@@ -557,7 +560,8 @@ tests/buildScriptParity.test.cjs checks each in both scripts.
 
 and improves translations:
 
-**Translations** - Czech, Dutch, French, German, Hungarian, Indonesian, Japanese, Korean,
+**Translations** - Czech, Dutch, French, German, Hungarian, Indonesian,
+Japanese, Korean,
 Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish and Ukrainian
 base and regional catalogs.
 
@@ -576,7 +580,8 @@ older catalog wording is not fully audited.
 
 All 305 translation/Blockly suites, 246 catalog inventories and 21 preservation
 checks pass. Six browser cases pass syntax and discovery; execution remains
-unverified because the local app and browser system dependencies are unavailable.
+unverified because the local app and browser system dependencies are
+unavailable.
 The wider all-language backlog and semantic audit remain open.
 
 </details>
@@ -594,7 +599,8 @@ catalog wording is not fully audited.
 
 All 305 translation/Blockly suites, 246 catalog inventories and 21 preservation
 checks pass. Three browser cases pass syntax and discovery; execution remains
-unverified because the local app and browser system dependencies are unavailable.
+unverified because the local app and browser system dependencies are
+unavailable.
 The wider all-language backlog and semantic audit remain open.
 
 </details>
