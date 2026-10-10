@@ -1,5 +1,4 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Guard both current Czech catalogs, including reused regional translations.
 'use strict';
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -94,7 +93,7 @@ const currentKeys = [
   assert.equal(cs['blockly-SPACE_KEY'], 'Mezerník');
   assert.equal(cs['blockly-LOGIC_TERNARY_CONDITION'], 'podmínka');
   const inventory = spawnSync(process.execPath,
-    ['releases/translations/fill-translations.mjs', '--completed-catalog', '--list', 'cs'],
+    ['releases/translations/fill-translations.mjs', '--list', 'cs'],
     { cwd: path.resolve(__dirname, '..'), encoding: 'utf8' });
   assert.equal(inventory.status, 0, inventory.stderr);
   assert.deepEqual(JSON.parse(inventory.stdout), {});
@@ -133,5 +132,42 @@ const currentKeys = [
     assert.ok(cs['external-link-rules-description'].includes(literal), literal);
   }
   assert.ok(cs['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+  for (const code of ['cs', 'cs-CZ']) {
+    const locale = read(code);
+    assert.deepEqual(Object.keys(locale), Object.keys(en), code);
+    for (const key of Object.keys(en)) {
+      assert.deepEqual(translationTokens(locale[key]), translationTokens(en[key]), `${code}:${key}`);
+    }
+    const current = spawnSync(process.execPath,
+      ['releases/translations/fill-translations.mjs', '--list', code],
+      { cwd: path.resolve(__dirname, '..'), encoding: 'utf8' });
+    assert.equal(current.status, 0, current.stderr);
+    assert.deepEqual(JSON.parse(current.stdout), {}, code);
+    assert.match(locale['custom-field-links-hint'], /stejným názvem a typem na obou kartách/);
+    assert.match(locale['custom-field-links-hint'], /pouze jedna karta, zůstanou beze změny/);
+    assert.match(locale['custom-field-link-inactive'], /nemůže upravovat obě karty.*archivována/);
+    assert.match(locale['custom-field-link-both'], /Obousměrně.*kterékoli kartě/);
+    assert.match(locale['custom-field-link-send'], /Jednosměrně.*hlavní kartu/);
+    assert.match(locale['field-link-not-allowed'], /upravovat obě karty/);
+    assert.equal(locale['import-members-mode-me'], 'Nahradit je všechny mnou');
+    assert.match(locale['import-many-boards-hint'], /bez přiřazení členů/);
+    assert.match(locale['import-many-boards-hint'], /sám tvoří jeden export.*je jedno tablo/);
+    assert.match(locale['export-all-boards-hint'], /můžete exportovat.*sešit.*\.zip/);
+    assert.match(locale['webhook-payload-description'], /zachová zděděné nastavení/);
+    assert.match(locale['notification-delivery-quiet'], /počkat na její konec/);
+    assert.match(locale['r-wrike-workflow-note'], /jako dokončenou.*Completed.*Cancelled.*jako nedokončenou.*Active.*Deferred/);
+    for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) {
+      assert.ok(locale['r-wrike-workflow-note'].includes(literal), `${code}:${literal}`);
+    }
+    assert.ok(locale['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+    assert.notEqual(locale['subtask-mark-done'], locale['subtask-mark-not-done']);
+    assert.match(locale['interrupted-import-description'], /nelze pokračovat.*zdrojový soubor neuchovává/);
+    assert.match(locale['interrupted-import-description'], /včetně všeho, co bylo přidáno později/);
+    assert.match(locale['interrupted-import-keep-confirm'], /Nic se neodstraní/);
+    assert.match(locale['interrupted-import-discard-confirm'], /trvale odstraněny/);
+    assert.match(locale['stuck-sync-operation-discard-confirm'], /provedené změny se zachovají.*nikdy nezapíší/);
+    assert.match(locale['scrum-history-checkpoint-hint'], /pouze tehdy.*nezměnil nikdo jiný/);
+    assert.match(locale['sync-planning-hint'], /První synchronizace nikdy neodstraňuje/);
+  }
   console.log('Czech source keys, tokens, planning and recovery warning meanings verified');
 })().catch(error => { console.error(error); process.exitCode = 1; });

@@ -2,6 +2,34 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Czech base and regional current fills — 2026-10-10
+
+Fill 110 English placeholders in cs and 206 in cs-CZ, 316 values in total.
+Write 110 current translations in each catalog (220 values), and reuse 96
+existing base Czech translations for regional English placeholders. Both full
+current fill lists are empty. Every changed value was English in the parent
+commit; all other values are preserved. Reused values match the parent base
+catalog exactly. Follow the existing tablo, karta, seznam, dráha and vlastní
+pole terminology. Longer technical wording remains provisional pending speaker
+review; this batch is not a full fluency audit of older translations.
+
+Translate attached cards, linked fields, calendar mode, member mapping,
+CSV columns, multiple-board import/export, webhooks, notifications, Wrike
+workflows and subtask completion. Regional reuse includes planning,
+synchronization, announcements and interrupted-import recovery. Preserve all
+source tokens, WEBHOOKS_ATTRIBUTES, GET /workflows and Wrike state names.
+Regressions check edit permissions, field propagation directions, member
+replacement, ZIP semantics, inherited settings, quiet hours, completion states,
+retained changes, destructive recovery warnings and checkpoint constraints.
+
+Extend the Czech regression to both full current catalogs and add six browser
+cases for linked fields, import-people choices and notification delivery.
+Syntax and discovery are verified; browser execution remains unverified because
+the local app and browser system dependencies are unavailable. All 304
+translation/Blockly suites, 246 catalog key/token inventories and 21
+human-preference checks pass. Wider translation work and semantic auditing
+remain open.
+
 ## Polish base and regional current fills — 2026-10-10
 
 Fill 110 English placeholders in pl and 206 in pl-PL: 316 values in total.
