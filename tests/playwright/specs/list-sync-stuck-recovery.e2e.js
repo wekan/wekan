@@ -48,7 +48,7 @@ test('only administrators can list or discard stuck List Sync operations', async
   } finally { cleanup([listId], [seeded.operationId], [seeded.intentId]); }
 });
 
-for (const language of ['en', 'haw', 'fa', 'fa-IR', 'he', 'he-IL', 'ar', 'ar-DZ', 'ar-EG']) {
+for (const language of ['en', 'haw', 'fa', 'fa-IR', 'he', 'he-IL', 'ar', 'ar-DZ', 'ar-EG', 'cmn', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG']) {
 test(`administrator discards a stuck List Sync operation in Recovery, once in ${language}`, async ({ page, adminUser }) => {
   // Its list no longer exists, so the scope can never match again.
   const listId = `stale-${randomUUID()}`;
@@ -56,7 +56,7 @@ test(`administrator discards a stuck List Sync operation in Recovery, once in ${
   const seeded = seedOperation({ listId, boardId: scope.boardId, actorId: adminUser.id, scope });
   try {
     await loginWithToken(page, adminUser.id, adminUser.token);
-    await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
+    await page.evaluate(language => Meteor.callAsync('setLanguage', language), language === 'zh_SG' ? 'zh-SG' : language);
     const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
     await navigateInApp(page, '/admin/problems/recovery');
     const panel = page.locator('.list-sync-stuck-operations');

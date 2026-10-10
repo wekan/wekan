@@ -22,9 +22,9 @@ async function chooseMode(page, mode) {
   await expect(page.locator(`.js-import-members-mode[data-mode="${mode}"] .materialCheckBox`)).toHaveClass(/is-checked/);
 }
 
-for (const language of ['en', 'zu', 'zu-ZA', 'xh', 'pap', 'eo', 'fi', 'sv', 'nb', 'da', 'it', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-FR', 'fr-BE', 'fr-CA', 'fr-CH', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-BR', 'pt-PT', 'pt_PT', 'nl', 'nl-NL', 'pl', 'pl-PL', 'cs', 'cs-CZ', 'sk', 'hu', 'ro', 'ro-RO', 'tr', 'uk', 'uk-UA', 'ru', 'ru_RU', 'ru-UA', 'ja', 'ja-JP', 'ja-HI', 'ko', 'ko-KR', 'id', 'ms', 'ms-MY', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valencia', 'gl', 'gl-ES', 'eu', 'vi', 'vi-VN', 'hr', 'sr', 'sl', 'sl_SI', 'bg', 'mk', 'lv', 'sq', 'bs', 'is', 'be', 'af', 'af_ZA', 'et-EE', 'fa', 'fa-IR', 'he', 'he-IL', 'ar', 'ar-DZ', 'ar-EG']) {
+for (const language of ['en', 'zu', 'zu-ZA', 'xh', 'pap', 'eo', 'fi', 'sv', 'nb', 'da', 'it', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-FR', 'fr-BE', 'fr-CA', 'fr-CH', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-BR', 'pt-PT', 'pt_PT', 'nl', 'nl-NL', 'pl', 'pl-PL', 'cs', 'cs-CZ', 'sk', 'hu', 'ro', 'ro-RO', 'tr', 'uk', 'uk-UA', 'ru', 'ru_RU', 'ru-UA', 'ja', 'ja-JP', 'ja-HI', 'ko', 'ko-KR', 'id', 'ms', 'ms-MY', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valencia', 'gl', 'gl-ES', 'eu', 'vi', 'vi-VN', 'hr', 'sr', 'sl', 'sl_SI', 'bg', 'mk', 'lv', 'sq', 'bs', 'is', 'be', 'af', 'af_ZA', 'et-EE', 'fa', 'fa-IR', 'he', 'he-IL', 'ar', 'ar-DZ', 'ar-EG', 'cmn', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG']) {
 test(`Make them all me: every person becomes the person importing in ${language}`, async ({ loggedInPage: page, user }) => {
-  await page.evaluate(language => Meteor.callAsync('setLanguage', language), language === 'ja-HI' ? 'ja-Hira' : language === 'ca@valencia' ? 'ca-valencia' : language);
+  await page.evaluate(language => Meteor.callAsync('setLanguage', language), language === 'ja-HI' ? 'ja-Hira' : language === 'ca@valencia' ? 'ca-valencia' : language === 'zh_SG' ? 'zh-SG' : language);
   const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
   const person = `me-mode-${Date.now()}`;
   let boardId;

@@ -1,5 +1,4 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Guard full current Simplified Chinese coverage and preserve other Chinese families.
 'use strict';
 
 const assert = require('assert');
@@ -98,8 +97,62 @@ console.log(`\nupcomingChineseTranslations: ${passed} tests passed`);
     assert.doesNotMatch(locale['filter-preset-save'], /儲存|篩選/);
     assert.notStrictEqual(locale['move-selection-before'], locale['move-selection-after']);
     assert.deepStrictEqual(JSON.parse(execFileSync(process.execPath,
-      ['releases/translations/fill-translations.mjs', '--completed-catalog', '--list', code],
+      ['releases/translations/fill-translations.mjs', '--list', code],
       { cwd: root, encoding: 'utf8' })), {});
   }
   console.log('Simplified Chinese source order, tokens, script and completeness verified');
 })().catch(error => { console.error(error); process.exitCode = 1; });
+
+for (const code of ['cmn', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG']) {
+  const locale = read(code);
+  assert.match(locale['custom-field-links-hint'], /名称和类型相同/);
+  assert.match(locale['custom-field-links-hint'], /仅存在于一张卡片上的字段保持不变/);
+  assert.match(locale['custom-field-link-inactive'], /已无法编辑两张卡片.*已归档/);
+  assert.match(locale['custom-field-link-both'], /双向.*任一卡片/);
+  assert.match(locale['custom-field-link-send'], /单向.*主卡片/);
+  assert.match(locale['field-link-not-allowed'], /有权编辑两张卡片/);
+  assert.equal(locale['import-members-mode-me'], '全部替换为我的用户账户');
+  assert.match(locale['import-many-boards-hint'], /不进行成员映射/);
+  assert.match(locale['import-many-boards-hint'], /本身就是一次导出.*则它是一个看板/);
+  assert.match(locale['export-all-boards-hint'], /你有权导出.*一个工作簿.*\.zip/);
+  assert.match(locale['webhook-payload-description'], /保留继承的设置/);
+  assert.match(locale['notification-delivery-quiet'], /等到结束后再发送/);
+  assert.match(locale['r-wrike-workflow-note'], /Completed.*Cancelled.*已完成.*Active.*Deferred.*未完成/);
+  for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) assert.ok(locale['r-wrike-workflow-note'].includes(literal));
+  assert.ok(locale['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+  assert.match(locale['subtask-mark-done'], /已完成$/);
+  assert.match(locale['subtask-mark-not-done'], /未完成$/);
+  assert.equal(locale['notification-delivery-part-list'], '列表');
+  assert.equal(locale['notification-delivery-part-swimlane'], '泳道');
+  for (const name of ['taiga', 'vikunja']) assert.match(locale[`import-board-instruction-${name}`], /不导入附件/);
+  assert.match(locale['import-board-instruction-redmine'], /导出前将 My account 中的语言设为英语/);
+  assert.match(locale['import-board-instruction-businessmap'], /Title, Column, Lane, Owner, Deadline/);
+  assert.match(locale['import-board-instruction-plane'], /不含描述和附件.*不会导入/);
+  assert.match(locale['import-board-instruction-kanri'], /只导入第一个看板/);
+  assert.match(locale['import-board-instruction-teamwork'], /--、## 或 >> 表示再深一层/);
+  for (const literal of ['TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED']) assert.ok(locale['import-board-instruction-orgmode'].includes(literal));
+  assert.ok(locale['external-link-rules-description'].includes('[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
+  assert.ok(locale['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+  for (const literal of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS', 'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) assert.ok(locale['ldap-sync-now-nothing'].includes(literal));
+  assert.match(locale['sync-planning-hint'], /首次同步绝不会移除规划/);
+  assert.match(locale['stuck-sync-operation-description'], /已经应用的更改会保留/);
+  assert.match(locale['stuck-sync-operation-description'], /其余已保存的更改绝不会写入/);
+  assert.match(locale['stuck-sync-operation-reason-access-denied'], /整个列表的写入权限/);
+  for (const key of ['stuck-sync-operation-replayable-now', 'stuck-sync-operation-not-stuck']) assert.match(locale[key], /不能丢弃/);
+  assert.match(locale['stuck-sync-operation-replayable'], /未将其丢弃/);
+  assert.match(locale['stuck-sync-operation-busy'], /此列表正在同步/);
+  assert.match(locale['interrupted-import-description'], /不保留源文件，无法继续导入/);
+  assert.match(locale['interrupted-import-description'], /此后添加的任何内容/);
+  assert.match(locale['interrupted-import-keep-confirm'], /不会移除任何内容/);
+  assert.match(locale['interrupted-import-discard-confirm'], /全部内容将被永久移除/);
+  assert.match(locale['interrupted-import-foreign-board'], /不是由此导入创建的，因此未作更改/);
+  for (const key of ['stuck-sync-operation-truncated', 'interrupted-import-truncated']) assert.match(locale[key], /最早的 50/);
+  assert.match(locale['scrum-import-into-board-hint'], /绝不会重复创建/);
+  assert.match(locale['scrum-import-into-board-hint'], /不匹配的卡片会被列出并保持不变/);
+  assert.match(locale['scrum-history-checkpoint-hint'], /没有其他人更改这些记录时才可用/);
+  assert.match(locale['scrum-history-checkpoint-hint'], /不更改任何记录/);
+  assert.match(locale['interrupted-import-scrum-busy'], /仍在写入或恢复中/);
+  assert.doesNotMatch(locale['custom-field-links-hint'], /欄位|變更|關聯/);
+  assert.doesNotMatch(locale['interrupted-import-description'], /匯入|檔案|伺服器/);
+}
+console.log('Simplified Chinese import, recovery, notification and Scrum meanings pass in all six catalogs');
