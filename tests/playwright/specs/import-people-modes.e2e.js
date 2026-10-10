@@ -22,11 +22,15 @@ async function chooseMode(page, mode) {
   await expect(page.locator(`.js-import-members-mode[data-mode="${mode}"] .materialCheckBox`)).toHaveClass(/is-checked/);
 }
 
-test('Make them all me: every person of the file becomes the person importing', async ({ loggedInPage: page, user }) => {
+for (const language of ['en', 'zu', 'zu-ZA', 'xh']) {
+test(`Make them all me: every person becomes the person importing in ${language}`, async ({ loggedInPage: page, user }) => {
+  await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
+  const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
   const person = `me-mode-${Date.now()}`;
   let boardId;
   try {
     await fillClickUp(page, person);
+    await expect(page.locator('.js-import-members-mode[data-mode="me"]')).toContainText(strings['import-members-mode-me']);
     await chooseMode(page, 'me');
     await page.locator('#import-textarea').press('Tab');
     await page.locator('form input[type="submit"]').first().click();
@@ -40,6 +44,8 @@ test('Make them all me: every person of the file becomes the person importing', 
     await page.evaluate(() => Session.set('importMembersMode', 'map'));
   }
 });
+
+}
 
 test('Placeholder users keep the original person, inactive and unable to log in', async ({ loggedInPage: page }) => {
   const person = `placeholder-${Date.now()}`;

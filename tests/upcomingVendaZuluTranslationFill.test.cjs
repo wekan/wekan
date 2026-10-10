@@ -1182,3 +1182,35 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
   }
   console.log('Zulu controls: translated keys, exact variables, rendering and restrictions passed');
 })().catch(error => { console.error(error); process.exitCode = 1; });
+
+// Current card linking/import/delivery prose in both Zulu catalog paths.
+for (const code of ['zu', 'zu-ZA']) {
+  const locale = read(code);
+  assert.match(locale['custom-field-links-hint'], /ezinegama nohlobo olufanayo/);
+  assert.match(locale['custom-field-links-hint'], /ekhadini elilodwa kuphela zishiywa zingashintshiwe/);
+  assert.match(locale['custom-field-link-sends'], /kuleli khadi.*kulelo khadi/);
+  assert.match(locale['custom-field-link-receives'], /kulelo khadi.*kuleli khadi/);
+  assert.match(locale['field-link-not-allowed'], /nemvume yokuhlela womabili amakhadi/);
+  assert.match(locale['custom-field-link-inactive'], /akasakwazi ukuhlela womabili amakhadi, noma elinye ikhadi ligcinwe/);
+  assert.match(locale['attached-card-unavailable'], /elingabonakali kuwe/);
+  assert.match(locale['custom-field-link-unavailable'], /elingabonakali kuwe/);
+  assert.match(locale['attach-card-self'], /alikwazi.*kulo uqobo/);
+  assert.match(locale['import-many-boards-hint'], /ngaphandle kokufanisa amalungu/);
+  assert.match(locale['import-many-boards-hint'], /uqobo.*iba yibhodi elilodwa/);
+  assert.match(locale['import-many-boards-hint'], /esikhundleni senkambu engenhla/);
+  assert.match(locale['csv-mapping-skipped-sheets'], /angeke angeniswe/);
+  assert.match(locale['webhook-hide-identity'], /^Ungafaki igama lami/);
+  assert.match(locale['subtask-mark-not-done'], /njengongaqediwe/);
+  assert.match(locale['subtask-done-no-permission'], /^Awukwazi ukushintsha/);
+  for (const literal of ['Active', 'Completed', 'Deferred', 'Cancelled', 'JSON', 'GET /workflows']) {
+    assert.ok(locale['r-wrike-workflow-note'].includes(literal), `${code}: ${literal}`);
+  }
+  assert.match(locale['r-wrike-workflow-note'], /ayikwazi ukuthunyelwa ngaphandle/);
+  assert.equal(locale['notification-delivery-daily-time'], 'Ngesikhathi');
+  assert.equal(locale['notification-delivery-quiet-to'], 'Kuze kube');
+  assert.match(locale['notification-delivery-quiet'], /linda aze aphele/);
+}
+
+for (const code of ['zu', 'zu-ZA']) {
+  assert.equal(read(code)['import-members-mode-me'], 'Sebenzisa mina esikhundleni sabo bonke');
+}

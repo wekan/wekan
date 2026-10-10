@@ -1253,3 +1253,5 @@ assert.doesNotMatch(xhosaCurrent['card-edit-custom-fields'], /yesiko/);
 assert.equal(xhosaCurrent.swimlane, 'Umzila wokuqubha');
 assert.equal(xhosaCurrent.swimlane, xhosaCurrent['notification-delivery-part-swimlane']);
 console.log('Xhosa current links, delivery, source tokens and field/lane terminology pass.');
+
+assert.equal(locales.xh['import-members-mode-me'], 'Sebenzisa mna endaweni yabo bonke');

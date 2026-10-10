@@ -2,6 +2,43 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Zulu current fills — 2026-10-10
+
+Fill 112 English values in each of `zu` and `zu-ZA` (224 locale/string values).
+The 110 current pending strings cover card attachments, linked fields, member
+mapping, CSV and multiple-board imports, exports, webhook identity, delivery
+settings, Wrike workflows and subtask completion. Also translate the short
+At/To delivery labels. Both full current fill lists are empty. Every changed
+value was English in the parent commit; all existing Zulu translations are preserved.
+Correct one Xhosa label separately: Make them all me now explicitly uses the
+current user in place of all imported people. The previous wording suggested
+assignment. The importer and its existing people-mode test establish the
+identity-substitution behavior.
+
+Terminology follows the existing Zulu catalogs. The Department of Arts and
+Culture's [multilingual science and technology terminology list](https://dsacevents.dsac.gov.za/NLTS/docs/natSciencesTech_gr46_Nguni2013.pdf)
+records isixhumanisi and -xhumanisa for link, and -ngabonakaliyo for invisible.
+These are lexical references rather than validation of full software sentences.
+Specialist compounds and longer explanatory prose remain low confidence pending
+fluent-speaker review. Empty fill reports do not establish a complete semantic
+audit of the older catalogs.
+
+Regression checks distinguish links in either direction, unchanged unmatched
+fields, edit rights on both cards, invisible cards, self-links, import exclusions,
+archives containing one export, hiding webhook identity and incomplete subtasks.
+Wrike API group names and GET /workflows stay literal. All 246 catalogs pass
+key order and exact placeholder inventories. Four linked-field and notification
+browser scenarios are syntax-checked and discovered across the two Zulu paths.
+Three more localized import-people cases cover both Zulu paths and Xhosa, with
+the current user replacing imported identities and no placeholder user created.
+Browser execution remains unverified.
+The broad translation/Blockly run passes 302 of 303 suites; Papiamento is the
+remaining current-fill failure. The Zulu and Xhosa targeted suites also pass
+after the identity-label clarification. All 21 preservation checks pass.
+
+The ordinary backlog remains 29,735 in 42 locales: these fills are pending keys
+or short prose. The short-prose queue falls to 2,135 candidates in 229 locales.
+
 ## Wu and Xhosa current fills — 2026-10-10
 
 Fill 112 English values in each of `wuu-Hans` and `xh`: 110 pending strings

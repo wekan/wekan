@@ -23,7 +23,7 @@ async function expand(sectionLocator) {
   await sectionLocator.locator('summary').click();
 }
 
-for (const language of ['en', 'haw', 'lt', 'yi', 'wuu-Hans', 'xh']) {
+for (const language of ['en', 'haw', 'lt', 'yi', 'wuu-Hans', 'xh', 'zu', 'zu-ZA']) {
 test(`#5171 member scope: layout, grouping, daily schedule and webhook identity in ${language}`, async ({ boardPage: page, user }) => {
   await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
   const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
