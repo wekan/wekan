@@ -107,20 +107,20 @@ previously held for Transifex. Completed work is recorded in Upcoming.
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **29,735 untranslated locale/string values in 42 languages**.
   It excludes **383 source keys tracked separately as pending Transifex**.
-  A separate short-prose audit flags 1,751 candidates across 185 locales;
+  A separate short-prose audit flags 2,143 candidates across 232 locales,
+  including capitalized At/To labels previously omitted;
   shared native words may equal English, so these require individual review.
   Exact Blockly OS brands and compact math/code symbols no longer inflate
   the prose backlog. Counts are a snapshot; they do not establish the quality
   or language of other values.
-  After the Xhosa fill and README coverage refresh to 191, all 333
-  translation-related suites pass in 128 seconds. A new full-current-fill
-  regression gate for Xhosa passes separately. Xhosa and both Zulu fill lists
-  are empty, which does not establish linguistic completeness or fluency.
+  Earlier Xhosa completion checks predate the newer pending strings. The
+  current broad run still exposes English placeholders in several catalogs;
+  see the dated audit results. Empty reports do not establish fluency.
 - Placeholder inventories match English across all 246 locale paths. Fill now
   rejects damaged token batches before writing. Both card-field visibility
   keys are translated in 181 non-English paths; 53 paths still need them.
-  Catalog key order, all 333 translation-related suites and 21 human-preference
-  checks pass. Browser execution and the remaining translation work are open.
+  Catalog key order and 21 human-preference checks pass. Browser execution
+  and the remaining translation work are open.
 - The 13 activity-notification preference keys have no empty or exact
   English-placeholder values in all 234 non-English locale paths and have left
   the pending queue. Provisional wording still needs language review.
@@ -134,6 +134,11 @@ previously held for Transifex. Completed work is recorded in Upcoming.
   establishes placeholder coverage, not fluency: specialist wording and the
   older malformed-seed audit still need review. Five selected Hawaiian browser
   flows are registered and syntax-checked; execution remains unverified.
+- Lithuanian and Yiddish each fill 112 current English values, including short
+  delivery labels. Their full current fill lists are empty. Twelve malformed
+  Lithuanian labels/activity messages and 40 Yiddish customization mistranslations
+  are corrected separately. Four linked-field and notification UI cases are
+  registered and syntax-checked; execution and broader language review remain open.
 - Fill English placeholders in every language, including minority and
   constructed languages. Audit mixed-language and wrong-language seed text, and
   review provisional wording with speakers when available. Preserve
@@ -471,15 +476,16 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** **Hawaiian translations** improve card linking, imports,
-notifications, planning, recovery and Blockly controls. Malformed custom-field labels are corrected;
+**In short:** **Hawaiian, Lithuanian and Yiddish translations** improve
+card linking, imports and notifications. Hawaiian also gains planning, recovery
+and Blockly wording. Malformed labels and customization terms are corrected;
 wider translation work continues.
 
 This release improves translations:
 
 **Translations** - card links, imports, delivery settings, planning, recovery and Blockly controls.
 
-**Languages updated:** Hawaiian.
+**Languages updated:** Hawaiian, Lithuanian, Yiddish.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b2867896fb">Translate card links and import mapping</a>. Thanks to xet7.</summary>
@@ -560,6 +566,24 @@ other locales still report untranslated keys. All 21 preservation checks and
 246 catalog key/token checks pass. Five selected Hawaiian browser scenarios
 are discovered and syntax-checked; execution remains unverified. Specialist
 wording is low confidence, and the older malformed-text audit remains open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2d587d6c27">Translate current Lithuanian and Yiddish strings</a>. Thanks to xet7.</summary>
+
+Fill 112 English values in each locale, including short delivery labels omitted
+from the fill report. Correct 12 malformed Lithuanian card/activity strings and
+40 Yiddish customization mistranslations. Preserve placeholders and executable
+filter examples. Both current fill lists are empty; broader language review
+remains open. The short-prose audit now includes capitalized At/To labels.
+
+The translation/Blockly run passes 299 of 303 suites, resolving the shared
+Breton/Lithuanian/Yiddish failure. Four other current-fill gates still fail.
+All 246 catalog inventories, 21 preservation checks and nine short-prose audit
+checks pass. Four localized browser scenarios are discovered and syntax-checked;
+execution remains unverified. Yiddish technical wording remains low confidence;
+dictionary references and the remaining work are recorded in the audit.
 
 </details>
 
