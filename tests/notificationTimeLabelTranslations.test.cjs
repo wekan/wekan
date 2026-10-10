@@ -8,7 +8,10 @@ const read = code => JSON.parse(fs.readFileSync(path.join(root, `imports/i18n/da
 const source = read('en');
 const keys = ['notification-delivery-daily-time', 'notification-delivery-quiet-to'];
 assert.deepEqual(keys.map(key => source[key]), ['At', 'To']);
-const locales = ["af", "af_ZA", "am", "ar-DZ", "ar-EG", "ar", "az-AZ", "az-LA", "az", "be", "bg", "bn", "bs", "ca", "ca@valencia", "ca_ES", "cmn", "cs-CZ", "cs", "cy-GB", "cy", "da", "de-AT", "de-CH", "de", "de_DE", "el-GR", "el", "eo", "es-AR", "es-CL", "es-CO", "es-LA", "es-MX", "es-PE", "es-PY", "es", "es_CO", "et-EE", "eu", "fa-IR", "fa", "fi", "fo", "fr-BE", "fr-CA", "fr-CH", "fr-FR", "fr", "fy-NL", "fy", "ga", "gd", "gl-ES", "gl", "gu-IN", "ha", "he-IL", "he", "hi-IN", "hi", "hr", "ht", "hu", "hy", "id", "is", "it", "ja-HI", "ja-JP", "ja", "jv", "ka", "kk", "km-KH", "km", "km_KH", "kn", "ko-KR", "ko", "ku", "ky", "la", "lb", "lv", "mg", "mi", "mk", "ml", "mn", "mr", "ms-MY", "ms", "mt", "my", "nb", "ne", "nl-NL", "nl", "or_IN", "pa", "pl-PL", "pl", "ps", "pt-BR", "pt-PT", "pt", "pt_PT", "ro-RO", "ro", "ru-RU", "ru-UA", "ru", "ru_RU", "sd", "si", "sk", "sl", "sl_SI", "sn", "so", "sq", "sr", "sv", "sw", "ta", "te-IN", "tg", "th", "tk_TM", "tl", "tr", "tt", "ug", "uk-UA", "uk", "ur", "uz-LA", "uz-UZ", "uz", "vi-VN", "vi", "yue_CN", "zh-CN", "zh-GB", "zh-HK", "zh-Hans", "zh-Hant", "zh-TW", "zh", "zh_SG"];
+const locales = fs.readdirSync(path.join(root, 'imports/i18n/data'))
+  .filter(file => file.endsWith('.i18n.json'))
+  .map(file => file.replace(/\.i18n\.json$/, ''))
+  .filter(code => !/^en(?:[-_]|$)/.test(code));
 for (const code of locales) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(source), `${code}: key order`);
@@ -26,6 +29,14 @@ for (const [code, expected] of Object.entries({
   tr: ['Saat', 'Bitiş'], uk: ['О', 'До'],
   ka: ['საათი', 'დასრულების დრო'], ug: ['سائەت', 'ئاخىرلىشىش ۋاقتى'],
   'zh-Hant': ['傳送時間', '結束時間'],
+  // These legacy tags name different languages, despite their shared prefix.
+  've-CC': ['A le', 'Fina a'], 've-PP': ['Aig', 'Lop'],
+  ve: ['Tshifhinga', 'U swika'],
+  'wa-RR': ['Ha', 'Tubtob'], wa: ['A', "Disk'a"],
+  tlh: ['rep', "DorDI'"], vo: ['Tü', 'Jü'],
+  chr: ['ᎢᏳᏩᏂᎸᎯ', 'ᎤᎵᏍᏆᏗ'],
+  'uz-AR': ['ساعت', 'آخری'], zgh: ['ⴰⴽⵓⴷ', 'ⴰⵔ'],
+  wal: ['Saatiya', 'Wursetta'],
 })) assert.deepEqual(keys.map(key => read(code)[key]), expected, code);
 for (const file of fs.readdirSync(path.join(root, 'imports/i18n/data'))) {
   const code = file.replace(/\.i18n\.json$/, '');

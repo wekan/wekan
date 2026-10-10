@@ -2,6 +2,53 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Remaining notification time labels — 2026-10-10
+
+Fill 150 English values in the remaining 75 locale files. The daily send-time
+and quiet-hours end labels now have translations in all 234 non-English locale
+paths. All other catalog values are preserved, and the 12 English catalogs
+retain their English labels. This completes these two keys, not the wider
+translation or wrong-language audit.
+
+Use clock-time and time-range wording; a time/hour or end noun is used where
+an isolated preposition or suffix would be awkward. Respect the registry's
+legacy tags: ve-CC is Venetian, ve-PP is Veps and ve is Venda; wa-RR is Waray
+and wa is Walloon. Uzbek uz-AR uses Arabic script for both labels.
+
+Lexical references for the less familiar terms include:
+
+- [Acehnese thesaurus](https://fileserver-az.core.ac.uk/download/160609809.pdf): sampoe, until.
+- [Cherokee Central Schools time vocabulary](https://shiyo.org/time): the o'clock label.
+- [Volapük grammar](https://www.panix.com/~bartlett/volgram.html): tü for time and jü for an endpoint.
+- [Klingon time expressions](https://klingonska.org/ref/time.html): rep for clock time;
+  [Klingon lexicon](https://www.frathwiki.com/Klingon/lexicon): Dor for a period ending.
+- [Veps comparative word forms](https://www.pure.ed.ac.uk/ws/portalfiles/portal/291143483/talk_handout.pdf): lop, end.
+- [Venda mathematics terminology](https://www.education.gov.za/Portals/0/Documents/MTbBE/mttbe%20terminology/Tshivenda%20Grade%204%20and%205%20MathematicsTerminology.pdf?ver=2025-11-06-164434-523): u swika in a clock-time range.
+- [Tamazight dictionary](https://www.livelingua.com/peace-corps/Tamazight/Tamazight-English-Dictionary-2007.pdf): ar, until.
+- [Wolaytta questionnaire](https://bmjopen.bmj.com/content/bmjopen/15/1/e081659/DC1/embed/inline-supplementary-material-1.pdf?download=true): saatiyaa and time endpoints;
+  [Wolaytta story ending](https://bibleforchildren.org/PDFs/wolaytta/03_Noah_and_the_Great_Flood_Wolaytta_CB6.pdf): wursetta.
+- [Uzbek literary discussion](https://ishanch.blogfa.com/post/310): آخری as an endpoint, used here instead of a detached suffix.
+
+These references support vocabulary, not speaker validation of complete UI
+phrasing. Low-confidence wording remains in Acehnese, Aymara, Bambara, Buryat,
+Cherokee, Chuvash, Dzongkha, Ewe, Fulfulde, Inuktitut, Greenlandic, Konkani,
+Kashmiri, Ladin, Nahuatl, Aromanian, Sakha, Tigre, Klingon, Tongan, Arabic-script
+Uzbek, Veps, Volapük, Wolaytta and Tamazight. Their labels are provisional and
+remain eligible for replacement by reviewed correct-language human translations.
+
+Extend the time-label regression to every non-English locale, including the
+legacy-tag distinctions, script examples, exact tokens and English-variant
+protection. Add eight representative notification UI cases for Klingon,
+Volapük, Venda, Venetian, Veps, Waray, Tamazight and Cherokee. Browser execution
+requires the unavailable local app; syntax and test discovery are checked.
+All 304 translation/Blockly suites pass.
+The file discovers 28 browser cases in total. All 246 catalogs pass the
+source-key and exact-placeholder inventory; all 21 human-preference checks
+pass. The short-prose queue falls from 1,831 candidates in 190 locales to
+1,681 in 183. The ordinary backlog remains 29,735 values in 42 locales and
+excludes 383 pending source keys. No catalog-wide fluency claim follows from
+finishing these two labels.
+
 ## Notification time labels across 151 locale paths — 2026-10-10
 
 Translate the two short delivery labels omitted from ordinary fill reports:
