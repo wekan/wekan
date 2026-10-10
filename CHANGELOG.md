@@ -851,6 +851,64 @@ that no tab opens and the text is copied.
 
 </details>
 
+**Boards** - what sits on a board and its page.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c23891dfff">A board announcement can be dismissed again: the board no longer lies over it</a>. Thanks to xet7.</summary>
+
+The board canvas filled its wrapper from the top, over the announcement
+banner, so the swimlane header took the clicks meant for its close button.
+While a banner shows, the board now starts below it. The browser test checks
+the button is the element at its own place before dismissing it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8834cecea9">All Boards has Export all boards in its header bar</a>. Thanks to xet7.</summary>
+
+It was only in the All Boards sidebar's home view, which nothing opens since
+the page lost its hamburger - reachable through Search and the back arrow
+alone. It is now a button beside Search, opening the same popup.
+
+</details>
+
+**Scrum** - planning shown and imported where it is asked for.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6ec8773937">Release names on cards, the import-into-board preview and the import report show again</a>. Thanks to xet7.</summary>
+
+A card put into a release created after the names were cached showed
+"Release:" with no name; an ID the cache lacks now asks again, throttled. The
+import-into-board preview never appeared and the import report showed every
+loss line empty, because their helpers were registered on another template;
+tests/scrumViewHelpers.test.cjs checks each Scrum template has its own.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5b723c111e">A transferred card that is only on its source board is reported as not matched</a>. Thanks to xet7.</summary>
+
+Every unmatched card of the file's own board was reported as belonging to
+another board, so "not matched" was all but unreachable for the usual
+board-to-board transfer. Cards of a third board are still reported as another
+board's and never written.
+
+</details>
+
+**Sync rules** - a durable rule does what the ordinary action does.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d1de4a1fe6">A stored rule that copies or moves a card to another board brings its labels as Card.copy does</a>. Thanks to xet7.</summary>
+
+Since #1759 a label the other board lacks is created there when the actor is
+its admin, but the durable copy, move and move-all still dropped it, so they
+were no longer the ordinary copy or move. They now plan the same labels, saved
+in the command so a replay creates none twice; in a move-all a label created
+for one card is the next card's. A mover who is not that board's admin still
+drops the label.
+
+</details>
+
 **Large boards** - a board of thousands of cards opens and closes cards fast
 on a server with 8 GB of RAM.
 
@@ -959,7 +1017,48 @@ used as before. tests/excelExport.test.cjs pins both paths and, when
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e7be1ed082">Streamed attachments are stored again, and a Trello .zip brings its files</a>. Thanks to xet7.</summary>
+
+The streaming above handed Meteor-Files 3's addFile a callback it never
+calls - addFile is async - so every streamed attachment waited forever: .zip
+imports, clones, REST raw uploads and storage moves stopped at their first
+file. It now awaits the result. TrelloCreator also dropped the zip entry each
+attachment was matched to, so a Trello .zip fell back to downloading Trello's
+login-only URLs; it keeps it now. A file record without versions answers 404,
+not 500.
+
+</details>
+
 **Import and export** - faults found while documenting every format.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8834cecea9">The Planner, Wrike, monday.com, Teamwork.com and Businessmap exports work again</a>. Thanks to xet7.</summary>
+
+They answered 500: the shared renderer required each workbook writer through
+a variable, which the bundler cannot resolve. Each is a literal require now,
+and a test refuses a require by expression anywhere in server or model code.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/62eb9c5c29">An OPML export holds its cards: text exports are made from checked values</a>. Thanks to xet7.</summary>
+
+The export boundary sanitized every finished export as HTML, which stripped
+OPML's <outline> tags with the card titles in them and logged every text
+format's own tags as unsafe markup. A text export is now made from the board's
+values passed through the boundary; JSON is checked as before.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9cee923dbe">An imported person is named as the file names them</a>. Thanks to xet7.</summary>
+
+A person first seen without a name - Taiga's owner given as an e-mail address
+- kept the address as their placeholder's name although a comment named them.
+A later name now replaces a name that is only the address, never a real one.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7858d84e12">A WeKan .zip export imports as a new board, and api.py handles every format</a>. Thanks to xet7.</summary>
@@ -1029,6 +1128,49 @@ depend on their npm releases and a fix to one ships with WeKan.
 </details>
 
 **Tests** - test code held to the rules the source is.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/650849f98d">Release metadata, the source audit and a title-link guard follow Meteor 3.6-rc.0 and #6753</a>. Thanks to xet7.</summary>
+
+The Dockerfile and snapcraft still named Meteor 3.6-beta, eight npm funding
+links new to package-lock.json are allowed exactly, and the title-click guard
+reads the viewer's link handler whole instead of a fixed window.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9cee923dbe">The import browser tests follow the people choice</a>. Thanks to xet7.</summary>
+
+A comment by a file's person is now by their placeholder user, its text as
+written, so the tests check that rather than a "name: " prefix. The ClickUp
+CSV quotes its cell with a comma, and the Planner test matches "Task 2"
+exactly.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/adb46489a7">The view tests read the board's own view</a>. Thanks to xet7.</summary>
+
+Since #4906 a view chosen on a board is saved for that board; two specs still
+waited for the shared view and timed out in every browser.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5e9c313f03">The localized Blocks test right-clicks a block beside its label</a>. Thanks to xet7.</summary>
+
+In 13 locales with tall or wide glyphs the label covered the click point and
+Firefox gave it the right-click.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/207072476b">The SAML popup test asks for the popup</a>. Thanks to xet7.</summary>
+
+SAML logs in by full-page redirect by default; the popup test never chose
+the popup, so its page navigated away.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ff8f82b40d">The Vikunja export test strips tags to a fixed point</a>. Thanks to xet7.</summary>
