@@ -130,8 +130,8 @@ previously held for Transifex. Completed work is recorded in Upcoming and releas
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **29,735 untranslated locale/string values in 42 languages**.
   It excludes **383 source keys tracked separately as pending Transifex**.
-  After the Estonian batch, full per-locale `--list` reports, including pending
-  keys, count **62,598 remaining values across 149 non-English locale
+  After the Persian batch, full per-locale `--list` reports, including pending
+  keys, count **62,200 remaining values across 147 non-English locale
   files**. This fuller inventory remains the scope of the translation work.
   A separate short-prose audit flags 1,681 candidates across 183 locales.
   The two notification At/To labels now have translations in all non-English
@@ -526,13 +526,36 @@ used.
 # Upcoming WeKan ® release
 
 **In short:** Current Afrikaans, Albanian, Belarusian, Bosnian, Bulgarian, Croatian, Estonian, Icelandic, Latvian,
-Macedonian, Serbian, Slovenian and Vietnamese strings are translated. Mixed-language Macedonian values and Basque
+Macedonian, Persian, Serbian, Slovenian and Vietnamese strings are translated. Mixed-language Macedonian values and Basque
 card wording are corrected, with validation of imports, notifications and recovery
 choices.
 
-**Translations** - Afrikaans, Albanian, Basque, Belarusian, Bosnian, Bulgarian, Croatian, Estonian, Icelandic, Latvian, Macedonian, Serbian, Slovenian and Vietnamese.
+**Translations** - Afrikaans, Albanian, Basque, Belarusian, Bosnian, Bulgarian, Croatian, Estonian, Icelandic, Latvian, Macedonian, Persian, Serbian, Slovenian and Vietnamese.
 
-**Languages updated:** Afrikaans, Albanian, Basque, Belarusian, Bosnian, Bulgarian, Croatian, Estonian, Icelandic, Latvian, Macedonian, Serbian, Slovenian, Vietnamese.
+**Languages updated:** Afrikaans, Albanian, Basque, Belarusian, Bosnian, Bulgarian, Croatian, Estonian, Icelandic, Latvian, Macedonian, Persian, Serbian, Slovenian, Vietnamese.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/973215e72e">Translate remaining current Persian strings</a>. Thanks to xet7.</summary>
+
+Fill 398 English placeholders across fa and fa-IR for linked cards and fields,
+22 import-format instructions, member mapping, CSV columns, bulk imports and
+exports, webhooks, notifications, Wrike workflows, subtasks, planning, LDAP,
+link rules, read-only settings and interrupted import/List Sync recovery.
+Both full current fill lists are empty, including pending Transifex keys.
+Preserve existing translations, exact tokens, parsed constants and external menu
+names. Regressions check permissions, field directions, import exclusions,
+notification timing, permanent deletion warnings, preserved applied changes and
+refusal to discard resumable operations. Longer Persian technical wording remains
+low-confidence pending speaker review; older catalog fluency is not fully audited.
+
+All 306 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Ten browser cases pass syntax and discovery; runtime execution
+remains unverified without the local app and browser system dependencies.
+The full inventory, including pending Transifex keys, records 62,200 remaining
+values across 147 non-English locale files. The all-language backlog and semantic
+audit remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2a19a286ab">Translate remaining current Estonian strings</a>. Thanks to xet7.</summary>
