@@ -1,5 +1,4 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Guard all current Russian catalogs and warning meanings.
 'use strict';
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -106,9 +105,35 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(ru['email-recovery-confirm-cancel'], /Новые сообщения.*сохранятся/);
   assert.notEqual(ru['move-selection-before'], ru['move-selection-after']);
   const inventory = spawnSync(process.execPath,
-    ['releases/translations/fill-translations.mjs', '--completed-catalog', '--list', 'ru'],
+    ['releases/translations/fill-translations.mjs', '--list', 'ru'],
     { cwd: path.resolve(__dirname, '..'), encoding: 'utf8' });
   assert.equal(inventory.status, 0, inventory.stderr);
   assert.deepEqual(JSON.parse(inventory.stdout), {});
+  for (const code of ['ru', 'ru_RU', 'ru-UA']) {
+    const data = read(code);
+    const current = spawnSync(process.execPath,
+      ['releases/translations/fill-translations.mjs', '--list', code],
+      { cwd: path.resolve(__dirname, '..'), encoding: 'utf8' });
+    assert.equal(current.status, 0, current.stderr);
+    assert.deepEqual(JSON.parse(current.stdout), {}, code);
+    assert.match(data['custom-field-links-hint'], /одинаковыми названием и типом на обеих карточках/);
+    assert.match(data['custom-field-links-hint'], /только на одной карточке, остаются без изменений/);
+    assert.match(data['custom-field-link-inactive'], /не может редактировать обе карточки.*архивирована/);
+    assert.match(data['custom-field-link-both'], /обе стороны.*любой карточке/);
+    assert.match(data['custom-field-link-send'], /одну сторону.*основную карточку/);
+    assert.match(data['field-link-not-allowed'], /редактировать обе карточки/);
+    assert.equal(data['import-members-mode-me'], 'Заменить их всех на меня');
+    assert.match(data['import-many-boards-hint'], /без сопоставления участников/);
+    assert.match(data['import-many-boards-hint'], /сам является одним экспортом.*является одной доской/);
+    assert.match(data['export-all-boards-hint'], /можете экспортировать.*одна книга.*\.zip/);
+    assert.match(data['webhook-payload-description'], /сохраняет унаследованную настройку/);
+    assert.match(data['notification-delivery-quiet'], /ждать до их окончания/);
+    assert.match(data['r-wrike-workflow-note'], /как завершённую.*Completed.*Cancelled.*как незавершённую.*Active.*Deferred/);
+    for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) {
+      assert.ok(data['r-wrike-workflow-note'].includes(literal), literal);
+    }
+    assert.ok(data['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+    assert.notEqual(data['subtask-mark-done'], data['subtask-mark-not-done']);
+  }
   console.log('Russian source keys, tokens, planning and recovery warning meanings verified');
 })().catch(error => { console.error(error); process.exitCode = 1; });

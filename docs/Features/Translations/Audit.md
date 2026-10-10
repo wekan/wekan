@@ -2,6 +2,28 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Russian current fills — 2026-10-10
+
+Translate 110 English placeholders in each of ru, ru_RU and ru-UA, 330 values
+in total, for attached cards, linked fields, calendar mode, member mapping,
+CSV columns, multiple-board import/export, webhooks, notifications, Wrike
+workflows and subtask completion. All three full current fill lists are empty.
+Every changed value was English in the parent commit; existing translations
+are preserved. Follow the existing доска, карточка, список, дорожка and
+настраиваемые поля terminology. Longer technical wording remains provisional
+pending speaker review; older catalog fluency is not fully audited.
+
+Preserve exact source placeholders, WEBHOOKS_ATTRIBUTES, GET /workflows and
+Wrike state names. Regressions cover edit permissions, field propagation
+directions, member replacement, ZIP semantics, export permissions, inherited
+settings, quiet hours and workflow completion states. Extend the regression
+to all three full current fill lists. Add eight browser cases alongside the
+existing base Russian notification case. All nine pass syntax and discovery;
+execution remains unverified because the local app and browser system
+dependencies are unavailable. All 304 translation/Blockly suites, 246 catalog
+inventories and 21 human-preference checks pass. The wider all-language
+backlog and semantic audit remain open.
+
 ## Ukrainian current fills — 2026-10-10
 
 Translate 110 English placeholders in each of uk and uk-UA, 220 values in
