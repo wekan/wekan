@@ -62,5 +62,9 @@
   {
     "fields": ["mapX", "mapY"],
     "handling": "Positions on the board's Map view image (#3256), as percentages of that image; they mean nothing without it, so they are not email content."
+  },
+  {
+    "fields": ["attachedCardIds"],
+    "handling": "#3257: ids of the cards attached to this one. Their titles are read only by someone who may read those cards (attachedCardsInfo), so these ids are not email content."
   }
 ]

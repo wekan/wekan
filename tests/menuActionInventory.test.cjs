@@ -17,6 +17,9 @@ const delegated = new Map([
   // #1566: the board announcement's Save is a type=submit button inside
   // form.js-board-announcement-form; 'submit .js-board-announcement-form' handles it.
   ['boardAnnouncementPopup/js-board-announcement-save', 'form submission'],
+  // #3257: Attach is a type=submit button inside form.js-attach-card-form;
+  // 'submit .js-attach-card-form' handles it.
+  ['attachCardPopup/js-attach-card-submit', 'form submission'],
   ['listHeader/js-list-handle', 'sortable drag handle'],
   ['swimlaneFixedHeader/js-swimlane-header-handle', 'sortable drag handle'],
   ['header/js-header-collapsible-icon', 'styling; another action class handles click'],

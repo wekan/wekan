@@ -1245,6 +1245,10 @@
       "since": "2026-10-10"
     },
     {
+      "key": "attachCardPopup-title",
+      "since": "2026-10-10"
+    },
+    {
       "key": "board-view-calendar-mode",
       "since": "2026-10-10"
     }

@@ -34,7 +34,7 @@ function attachedCardIdFrom(input) {
   return ID.test(text) ? text : null;
 }
 
-// A Trello card link - https://trello.com/c/<shortLink>[/<number>-<slug>] - as
+// A Trello card link - trello.com/c/<shortLink>[/<number>-<slug>] - as
 // a Trello export writes a card attached to a card. Returns the short link.
 const TRELLO_CARD_URL = /^https?:\/\/(?:www\.)?trello\.com\/c\/([A-Za-z0-9]{6,12})(?:[/?#]|$)/i;
 function trelloCardShortLink(url) {

@@ -211,6 +211,7 @@
   "attachmentDeletePopup-title": "Fafao ny rakitra?",
   "attachments": "Rakitra miaraka",
   "attach-card": "Attach card",
+  "attachCardPopup-title": "Attach card",
   "attach-card-hint": "Paste a card link (Copy card link on the other card), or type a card title on this board",
   "attached-card-unavailable": "An attached card you cannot see",
   "detach-card": "Remove attached card",
