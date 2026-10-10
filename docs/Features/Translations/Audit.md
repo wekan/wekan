@@ -2,6 +2,29 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Korean current fills — 2026-10-10
+
+Translate 206 English placeholders in each of ko and ko-KR, 412 values in
+total, for attached cards, linked fields, calendar mode, member mapping,
+CSV columns, multiple-board import/export, webhooks, notifications, Wrike,
+planning, LDAP and import/synchronization recovery. Both full current fill
+lists are empty. Every changed value was English in the parent commit;
+existing translations are preserved. Follow the existing 보드, 카드, 목록,
+스윔레인 and 사용자정의 항목 terminology. Longer technical wording remains
+provisional pending speaker review; older catalog fluency is not fully audited.
+
+Preserve source placeholders, parsed link-rule syntax, LDAP settings,
+WEBHOOKS_ATTRIBUTES, GET /workflows, Wrike states and Org mode keywords.
+Regressions check permissions, field directions, member replacement, ZIP
+semantics, timing, workflow states, permanent deletion, preserved applied
+changes, initial synchronization and checkpoint conflict restrictions. Both
+full current fill lists replace the historical completion gates. Register six
+browser cases for linked fields, import-people choices and notification delivery.
+Syntax and discovery pass; execution remains unverified because the local app
+and browser system dependencies are unavailable. All 305 translation/Blockly
+suites, 246 catalog inventories and 21 human-preference checks pass. The wider
+all-language backlog and semantic audit remain open.
+
 ## Hiragana current fills — 2026-10-10
 
 Translate all 206 current English placeholders in ja-HI (registered as
