@@ -2,6 +2,35 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Hawaiian imports, delivery controls and Blockly — 2026-10-10
+
+Fill another 169 English values: 22 import instructions, 70 link/notification/
+webhook/LDAP/visibility controls (including the short At and To labels omitted
+by the normal fill list), 67 Blockly color/loop/editor controls and ten Blocks
+view messages. All changed values were English in the parent commit; existing
+translations are untouched. The full Hawaiian fill list drops from 876 to 709,
+and the ordinary backlog from 30,443 to 30,366 values across 43 languages.
+Hawaiian accounts for 631 of those ordinary values; pending keys and the wider
+wrong-language/short-prose audits remain open.
+
+The programming-block term palaka is an extension of the dictionary's physical
+[block](https://wehe.hilo.hawaii.edu/?q=block) sense; lākiō is supported by the
+[rate](https://wehe.hilo.hawaii.edu/?q=rate) entry's ratio usage. Programming
+compounds and long technical sentences remain low confidence pending speaker
+review. Product menu names, CSV headers, file extensions, numeric ranges, query
+examples and source placeholders are retained deliberately.
+
+The Hawaiian suite now uses the shared token extractor for every source key,
+including Blockly's numbered placeholders. Positive and negative checks cover
+import exclusions, first-board limits, required English headers, identity
+omission, visibility without data changes, while/until and break/continue.
+All 19 targeted suites and 21 preservation checks pass. The import-instruction
+and notification UI scenarios are syntax-checked and discovered alongside the
+existing Hawaiian Blocks drag/edit/save/menu scenario (25 selected tests).
+Browser execution remains unverified: localhost:3000 has no running app.
+The preceding broad run's five other-catalog completion failures remain open;
+this batch neither edits those catalogs nor relaxes their assertions.
+
 ## Hawaiian card links and import mapping — 2026-10-10
 
 Fill 61 English placeholders for attached cards, linked custom fields, board

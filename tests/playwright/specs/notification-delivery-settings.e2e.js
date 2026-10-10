@@ -23,10 +23,16 @@ async function expand(sectionLocator) {
   await sectionLocator.locator('summary').click();
 }
 
-test('#5171 member scope: own e-mail layout, grouping and daily schedule; webhook identity', async ({ boardPage: page, user }) => {
+for (const language of ['en', 'haw']) {
+test(`#5171 member scope: layout, grouping, daily schedule and webhook identity in ${language}`, async ({ boardPage: page, user }) => {
+  await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
+  const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
   await openPopup(page, 'notificationSettings', { scope: 'member' });
   const email = section(page, 'member', 'email');
   await expand(email);
+  await expect(email.locator('select[data-key="layout"] option[value="clear"]')).toHaveText(strings['notification-delivery-layout-clear']);
+  await expect(email.locator('select[data-key="grouping"] option[value="board"]')).toHaveText(strings['notification-delivery-grouping-board']);
+  await expect(email.locator('select[data-key="schedule"] option[value="daily"]')).toHaveText(strings['notification-delivery-schedule-daily']);
   const read = () => ((db.findOne('users', { _id: user.id }).profile || {}).notificationDelivery || {}).email || {};
   await email.locator('select[data-key="layout"]').selectOption('clear');
   await expect.poll(() => read().layout).toBe('clear');
@@ -42,9 +48,12 @@ test('#5171 member scope: own e-mail layout, grouping and daily schedule; webhoo
 
   const webhook = section(page, 'member', 'webhook');
   await expand(webhook);
+  await expect(webhook.locator('.js-webhook-hide-identity span')).toHaveText(strings['webhook-hide-identity']);
   await webhook.locator('.js-webhook-hide-identity').click();
   await expect.poll(() => (db.findOne('users', { _id: user.id }).profile || {}).webhookHideIdentity).toBe(true);
 });
+
+}
 
 test('#3695 board scope: webhook text off and an extra field group, then back to default', async ({ boardPage: page, board }) => {
   await openPopup(page, 'notificationSettings', { scope: 'board' });

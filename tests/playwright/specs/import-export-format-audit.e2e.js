@@ -1915,3 +1915,19 @@ test('github: an embedded issue comment becomes a card comment, not description 
     await expect(page.locator('.comment-text').first()).toContainText('Embedded GitHub reply');
   } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
 });
+
+// Hawaiian instructions preserve the external tools' commands and exclusions.
+for (const source of ['opml', 'orgmode', 'meistertask', 'obsidian', 'linear',
+  'ticktick', 'clickup', 'nullboard', 'kanri', 'pivotal', 'tasksorg', 'monday',
+  'superproductivity', 'taiga', 'vikunja', 'quire', 'wrike', 'teamwork',
+  'businessmap', 'redmine', 'notion', 'plane']) {
+  test(`Hawaiian ${source} import instructions render without an English fallback`, async ({ loggedInPage: page }) => {
+    const strings = require('../../../imports/i18n/data/haw.i18n.json');
+    const english = require('../../../imports/i18n/data/en.i18n.json');
+    await page.evaluate(() => Meteor.callAsync('setLanguage', 'haw'));
+    await navigateInApp(page, `/import/${source}`);
+    const instruction = page.locator('label[for="import-textarea"]');
+    await expect(instruction).toContainText(strings[`import-board-instruction-${source}`]);
+    await expect(instruction).not.toContainText(english[`import-board-instruction-${source}`]);
+  });
+}

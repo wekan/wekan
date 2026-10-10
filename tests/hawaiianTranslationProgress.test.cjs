@@ -15,6 +15,7 @@ const hawaiian = readLocale('haw');
 const tokens = value => [...value.matchAll(
   /__[A-Za-z0-9_]+__|%[0-9$]*[A-Za-z]|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g,
 )].map(([token]) => token).sort();
+const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
 const tags = value => [...value.matchAll(/<\/?[A-Za-z][^>]*>/g)]
   .map(([tag]) => tag).sort();
 
@@ -30,7 +31,7 @@ assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 0,
 assert.deepEqual(Object.keys(hawaiian), Object.keys(english),
   'Hawaiian key order follows the English source');
 for (const [key, value] of Object.entries(hawaiian)) {
-  assert.deepEqual(tokens(value), tokens(english[key]),
+  assert.deepEqual(translationTokens(value), translationTokens(english[key]),
     `${key}: locale-wide placeholder inventory`);
   assert.deepEqual(tags(value), tags(english[key]),
     `${key}: locale-wide HTML tag inventory`);
@@ -142,3 +143,237 @@ assert.equal(hawaiian['import-many-progress']
   .replace('__done__', '2').replace('__total__', '5').replace('__name__', 'Papa'),
   'Ke hoʻokomo nei i 2 o 5: Papa');
 console.log('hawaiianTranslationProgress: historic gate and card/import batch passed');
+
+// Import instructions, delivery controls and the first Blockly control families.
+const nextKeys = [
+  "import-board-instruction-opml",
+  "import-board-instruction-orgmode",
+  "import-board-instruction-meistertask",
+  "import-board-instruction-obsidian",
+  "import-board-instruction-linear",
+  "import-board-instruction-ticktick",
+  "import-board-instruction-clickup",
+  "import-board-instruction-nullboard",
+  "import-board-instruction-kanri",
+  "import-board-instruction-pivotal",
+  "import-board-instruction-tasksorg",
+  "import-board-instruction-monday",
+  "import-board-instruction-superproductivity",
+  "import-board-instruction-taiga",
+  "import-board-instruction-vikunja",
+  "import-board-instruction-quire",
+  "import-board-instruction-wrike",
+  "import-board-instruction-teamwork",
+  "import-board-instruction-businessmap",
+  "import-board-instruction-redmine",
+  "import-board-instruction-notion",
+  "import-board-instruction-plane",
+  "external-link-rules",
+  "external-link-rules-description",
+  "external-link-identifier-aliases",
+  "webhook-payload-heading",
+  "webhook-payload-description",
+  "webhook-payload-text",
+  "webhook-payload-fields",
+  "webhook-payload-field-standard",
+  "webhook-payload-field-ids",
+  "webhook-payload-field-names",
+  "webhook-payload-field-links",
+  "webhook-payload-field-actor",
+  "webhook-payload-field-people",
+  "webhook-payload-field-details",
+  "webhook-hide-identity",
+  "webhook-someone",
+  "notification-delivery-layout",
+  "notification-delivery-layout-classic",
+  "notification-delivery-layout-clear",
+  "notification-delivery-parts",
+  "notification-delivery-part-board",
+  "notification-delivery-part-actor",
+  "notification-delivery-part-card",
+  "notification-delivery-part-list",
+  "notification-delivery-part-swimlane",
+  "notification-delivery-part-details",
+  "notification-delivery-part-dates",
+  "notification-delivery-part-link",
+  "notification-delivery-grouping",
+  "notification-delivery-grouping-all",
+  "notification-delivery-grouping-board",
+  "notification-delivery-grouping-card",
+  "notification-delivery-grouping-none",
+  "notification-delivery-schedule",
+  "notification-delivery-schedule-immediate",
+  "notification-delivery-schedule-interval",
+  "notification-delivery-schedule-daily",
+  "notification-delivery-interval",
+  "notification-delivery-minutes",
+  "notification-delivery-quiet",
+  "notification-delivery-quiet-from",
+  "notification-delivery-quiet-clear",
+  "notification-delivery-timezone",
+  "notification-delivery-invalid",
+  "notification-group-card",
+  "notification-group-board",
+  "read-only-field",
+  "r-wrike-workflow",
+  "r-wrike-workflow-note",
+  "r-export-wrike-workflow",
+  "r-import-wrike-workflow",
+  "r-import-wrike-workflow-done",
+  "r-moved-forward",
+  "r-moved-back",
+  "r-assignee",
+  "r-add-actinguser-assignee",
+  "r-remove-all-assignees",
+  "ldap-sync-now",
+  "ldap-sync-now-done",
+  "ldap-sync-now-error",
+  "ldap-sync-now-nothing",
+  "oauth-providers-allowed-email-domains",
+  "card-field-visibility",
+  "card-field-visibility-desc",
+  "import-file-label",
+  "subtask-mark-done",
+  "subtask-mark-not-done",
+  "subtask-done-no-permission",
+  "blockly-CANNOT_DELETE_VARIABLE_PROCEDURE",
+  "blockly-CHANGE_VALUE_TITLE",
+  "blockly-CLEAN_UP",
+  "blockly-CLOSE_BACKPACK",
+  "blockly-COLLAPSED_WARNINGS_WARNING",
+  "blockly-COLLAPSE_ALL",
+  "blockly-COLLAPSE_BLOCK",
+  "blockly-COLOUR_BLEND_COLOUR1",
+  "blockly-COLOUR_BLEND_COLOUR2",
+  "blockly-COLOUR_BLEND_RATIO",
+  "blockly-COLOUR_BLEND_TITLE",
+  "blockly-COLOUR_BLEND_TOOLTIP",
+  "blockly-COLOUR_PICKER_TOOLTIP",
+  "blockly-COLOUR_RANDOM_TITLE",
+  "blockly-COLOUR_RANDOM_TOOLTIP",
+  "blockly-COLOUR_RGB_BLUE",
+  "blockly-COLOUR_RGB_GREEN",
+  "blockly-COLOUR_RGB_RED",
+  "blockly-COLOUR_RGB_TITLE",
+  "blockly-COLOUR_RGB_TOOLTIP",
+  "blockly-CONTEXT_MENU_KEY",
+  "blockly-CONTROLS_FLOW_STATEMENTS_OPERATOR_BREAK",
+  "blockly-CONTROLS_FLOW_STATEMENTS_OPERATOR_CONTINUE",
+  "blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_BREAK",
+  "blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_CONTINUE",
+  "blockly-CONTROLS_FLOW_STATEMENTS_WARNING",
+  "blockly-CONTROLS_FOREACH_TITLE",
+  "blockly-CONTROLS_FOREACH_TOOLTIP",
+  "blockly-CONTROLS_FOR_TITLE",
+  "blockly-CONTROLS_FOR_TOOLTIP",
+  "blockly-CONTROLS_IF_ELSEIF_TOOLTIP",
+  "blockly-CONTROLS_IF_ELSE_TOOLTIP",
+  "blockly-CONTROLS_IF_IF_TOOLTIP",
+  "blockly-CONTROLS_IF_MSG_ELSE",
+  "blockly-CONTROLS_IF_MSG_ELSEIF",
+  "blockly-CONTROLS_IF_TOOLTIP_1",
+  "blockly-CONTROLS_IF_TOOLTIP_2",
+  "blockly-CONTROLS_IF_TOOLTIP_3",
+  "blockly-CONTROLS_IF_TOOLTIP_4",
+  "blockly-CONTROLS_REPEAT_TITLE",
+  "blockly-CONTROLS_REPEAT_TOOLTIP",
+  "blockly-CONTROLS_WHILEUNTIL_OPERATOR_UNTIL",
+  "blockly-CONTROLS_WHILEUNTIL_OPERATOR_WHILE",
+  "blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL",
+  "blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE",
+  "blockly-COPY_ALL_TO_BACKPACK",
+  "blockly-COPY_SHORTCUT",
+  "blockly-COPY_TO_BACKPACK",
+  "blockly-CURRENT_BLOCK_ANNOUNCEMENT",
+  "blockly-CUT_SHORTCUT",
+  "blockly-DELETE_ALL_BLOCKS",
+  "blockly-DELETE_BLOCK",
+  "blockly-DELETE_VARIABLE",
+  "blockly-DELETE_VARIABLE_CONFIRMATION",
+  "blockly-DELETE_X_BLOCKS",
+  "blockly-DISABLE_BLOCK",
+  "blockly-DUPLICATE_BLOCK",
+  "blockly-DUPLICATE_COMMENT",
+  "blockly-EDIT_BLOCK_CONTENTS",
+  "blockly-EMPTY_BACKPACK",
+  "blockly-ENABLE_BLOCK",
+  "blockly-EXPAND_ALL",
+  "blockly-EXPAND_BLOCK",
+  "blockly-EXTERNAL_INPUTS",
+  "blockly-FIELD_BITMAP_ARIA_VALUE",
+  "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR",
+  "blockly-FIELD_BITMAP_BUTTON_LABEL_RANDOMIZE",
+  "r-blocks-view",
+  "r-blocks-help",
+  "r-blocks-discard",
+  "r-blocks-unavailable",
+  "r-blocks-invalid",
+  "r-blocks-conflict",
+  "r-blocks-permission",
+  "r-blocks-unsaved",
+  "r-blocks-saved",
+  "r-blocks-reload",
+  "notification-delivery-daily-time",
+  "notification-delivery-quiet-to"
+];
+for (const key of nextKeys) {
+  assert.ok(hawaiian[key].trim(), `${key}: nonempty text`);
+  assert.notEqual(hawaiian[key], english[key], `${key}: English prose cannot return`);
+}
+const importLiterals = {
+  orgmode: ['TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED'],
+  meistertask: ['Export project', 'CSV'],
+  obsidian: ['Markdown', '.md', 'Archive'],
+  linear: ['Settings', 'Import / Export', 'Export data', 'CSV'],
+  ticktick: ['Settings', 'Account', 'Backup & Import', 'CSV'],
+  clickup: ['Settings', 'Imports / Exports', 'Export Items', 'List', 'Table', 'CSV'],
+  nullboard: ['Export this board...', '.nbx', 'raw'],
+  kanri: ['Import & Export', 'Export individual board', 'Export all data', '.json'],
+  pivotal: ['MORE', 'Export CSV', 'Bulk Actions', 'Estimate', 'Story points'],
+  tasksorg: ['Settings', 'Backups', 'Export tasks', '.json'],
+  monday: ['More actions', 'Export board to Excel', '.xlsx', 'Status'],
+  superproductivity: ['Sync & Backup', 'Export Data', 'sp-backup', '.json', 'To Do', 'In Progress', 'Backlog', 'Done'],
+  taiga: ['Admin > Project > Export', '.json.gz', 'JSON'],
+  vikunja: ['Data Export', '.zip', 'data.json'],
+  quire: ['Export CSV'],
+  wrike: ['.xlsx', 'Status', 'Key', 'Priority', 'Duration'],
+  teamwork: ['Tasklist', 'Assign to', 'Estimated time', '.xlsx', '--', '##', '>>'],
+  businessmap: ['Advanced Search', 'Configure results', 'Title', 'Column', 'Lane', 'Owner', 'Deadline'],
+  redmine: ['Also available in: CSV', 'All columns', 'Description', 'My account', '% Done'],
+  notion: ['•••', 'Markdown & CSV', '.zip', 'Status'],
+  plane: ['Workspace Settings', 'Exports', 'JSON', 'CSV', 'Excel', '.zip'],
+};
+for (const [format, literals] of Object.entries(importLiterals)) {
+  for (const literal of literals) assert.ok(hawaiian[`import-board-instruction-${format}`].includes(literal),
+    `${format}: preserve external command/header ${literal}`);
+}
+for (const format of ['taiga', 'vikunja', 'notion']) {
+  assert.match(hawaiian[`import-board-instruction-${format}`], /ʻAʻole hoʻokomo ʻia.*mea pili/,
+    `${format}: attachments are explicitly excluded`);
+}
+assert.match(hawaiian['import-board-instruction-quire'], /ʻAʻohe manaʻo a me nā mea pili/);
+assert.match(hawaiian['import-board-instruction-plane'], /ʻAʻohe wehewehe a me nā mea pili/);
+for (const format of ['nullboard', 'kanri']) assert.match(
+  hawaiian[`import-board-instruction-${format}`], /papa mua/, 'only the first board is imported');
+assert.match(hawaiian['import-board-instruction-businessmap'], /ʻōlelo Pelekānia/);
+assert.match(hawaiian['import-board-instruction-redmine'], /ʻōlelo Pelekānia/);
+assert.match(hawaiian['external-link-rules-description'], /\[\{identifier\}:\{number\}\] = https:\/\/tracker\.example\.com\/\{identifier\}\/\{number\}/);
+assert.match(hawaiian['external-link-identifier-aliases'], /TK=Task, IN=Incident/);
+assert.match(hawaiian['ldap-sync-now-nothing'], /LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS.*LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED/);
+assert.match(hawaiian['card-field-visibility-desc'], /ʻAʻole hoʻololi ʻia ka ʻikepili kāleka/);
+assert.match(hawaiian['notification-delivery-quiet'], /kali a pau/);
+assert.equal(hawaiian['notification-delivery-daily-time'], 'I ka hola');
+assert.equal(hawaiian['notification-delivery-quiet-to'], 'A hiki i');
+assert.match(hawaiian['webhook-hide-identity'], /^Mai hoʻokomo/);
+assert.match(hawaiian['r-wrike-workflow-note'], /GET \/workflows/);
+assert.match(hawaiian['r-wrike-workflow-note'], /Completed a i ʻole Cancelled.*Active a i ʻole Deferred/);
+assert.match(hawaiian['blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_BREAK'], /Puka i waho/);
+assert.match(hawaiian['blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_CONTINUE'], /hoʻomau i ka pōʻai aʻe/);
+assert.match(hawaiian['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL'], /wahaheʻe/);
+assert.match(hawaiian['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE'], /ʻoiaʻiʻo/);
+assert.match(hawaiian['blockly-COLOUR_RGB_TOOLTIP'], /0 a me 100/);
+assert.match(hawaiian['blockly-COLOUR_BLEND_TOOLTIP'], /0\.0 - 1\.0/);
+assert.equal(hawaiian['blockly-CONTROLS_REPEAT_TITLE'].replace('%1', '3'), 'hana hou 3 manawa');
+assert.match(hawaiian['r-blocks-invalid'], /hoʻokahi wale nō/);
+assert.match(hawaiian['r-blocks-permission'], /ʻae luna papa/);
+console.log('hawaiianTranslationProgress: import, delivery and Blockly controls passed');
