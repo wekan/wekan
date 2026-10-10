@@ -2,6 +2,31 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Estonian current fills — 2026-10-10
+
+Translate 110 English placeholders in et-EE for attached cards, linked fields,
+member mapping, CSV columns, bulk imports and exports, webhooks, notifications,
+Wrike workflows and subtasks. The full current fill list is empty, including
+pending Transifex keys. Every changed value was English in the parent commit;
+existing translations remain unchanged. Follow kaart, loetelu, ujumisrada and
+kohandatud väljad terminology. Use Saatmisintervall for the interval control's
+label. Longer technical wording remains provisional and low-confidence pending
+speaker review; older catalog terminology and fluency are not fully audited.
+
+Add a full current-catalog completion gate alongside the shared historical gates
+for other languages. Reuse the existing asynchronous source-order and exact
+underscore/percent token checks. New semantic checks cover field matching,
+unchanged unmatched fields, editing permissions, propagation directions, member
+replacement, unmapped imports, ZIP semantics, export permissions, inherited
+settings, quiet hours and completed versus incomplete states. Preserve parsed
+constants, WEBHOOKS_ATTRIBUTES and GET /workflows. All 306 translation/Blockly
+suites, 246 catalog inventories and 21 human-preference checks pass. Three browser
+cases for linked fields, import-people choices and notification delivery pass
+syntax and discovery; runtime execution remains unverified without the local app
+and browser system dependencies. A fresh full per-locale inventory counts 62,598
+remaining values across 149 non-English locale files, including pending Transifex
+keys. The all-language backlog and semantic audit remain open.
+
 ## Afrikaans current fills — 2026-10-10
 
 Translate 240 English placeholders: 110 in af and 130 in af_ZA. Both full current

@@ -55,3 +55,28 @@ for (const locale of Object.values(locales)) {
   assert.match(locale['office-report-desc'], /IPv4.*IPv6/);
   assert.match(locale['api-no-calls'], /REST API.*WITH_API=true/);
 }
+
+const fullEstonian = spawnSync(process.execPath, [fillScript, '--list', 'et-EE'], { cwd: root, encoding: 'utf8' });
+assert.equal(fullEstonian.status, 0, fullEstonian.stderr);
+assert.deepEqual(JSON.parse(fullEstonian.stdout), {});
+assert.match(et['custom-field-links-hint'], /sama nime ja tüübiga/);
+assert.match(et['custom-field-links-hint'], /ainult ühel kaardil, jäetakse muutmata/);
+assert.match(et['custom-field-link-inactive'], /ei saa enam mõlemat kaarti muuta.*arhiveeritud/);
+assert.match(et['custom-field-link-both'], /Mõlemas suunas.*kummagi kaardi/);
+assert.match(et['custom-field-link-send'], /Ühes suunas.*põhikaardile/);
+assert.match(et['field-link-not-allowed'], /õigus mõlemat kaarti muuta/);
+assert.equal(et['import-members-mode-me'], 'Asenda kõik minu kasutajakontoga');
+assert.match(et['import-many-boards-hint'], /liikmeid vastendamata/);
+assert.match(et['import-many-boards-hint'], /Üht eksporti sisaldav.*on üks juhatus/);
+assert.match(et['export-all-boards-hint'], /õigus eksportida.*ühe töövihikuna.*\.zip/);
+assert.match(et['webhook-payload-description'], /säilitatakse päritud seadistus/);
+assert.match(et['notification-delivery-quiet'], /oota nende lõpuni/);
+assert.equal(et['notification-delivery-interval'], 'Saatmisintervall');
+assert.match(et['r-wrike-workflow-note'], /lõpetatuks.*Completed.*Cancelled.*lõpetamata.*Active.*Deferred/);
+for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) assert.ok(et['r-wrike-workflow-note'].includes(literal));
+assert.ok(et['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+assert.match(et['subtask-mark-done'], /lõpetatuks$/);
+assert.match(et['subtask-mark-not-done'], /lõpetamata olekusse$/);
+assert.equal(et['notification-delivery-part-list'], 'Loetelu');
+assert.equal(et['notification-delivery-part-swimlane'], 'Ujumisrada');
+console.log('Estonian full current catalog, exact tokens and import/notification meanings pass');
