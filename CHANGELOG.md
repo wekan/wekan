@@ -107,7 +107,7 @@ previously held for Transifex. Completed work is recorded in Upcoming.
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **29,735 untranslated locale/string values in 42 languages**.
   It excludes **383 source keys tracked separately as pending Transifex**.
-  A separate short-prose audit flags 2,133 candidates across 229 locales,
+  A separate short-prose audit flags 1,831 candidates across 190 locales,
   including capitalized At/To labels previously omitted;
   shared native words may equal English, so these require individual review.
   Exact Blockly OS brands and compact math/code symbols no longer inflate
@@ -155,6 +155,11 @@ previously held for Transifex. Completed work is recorded in Upcoming.
   pass, while technical wording and the wider semantic audit remain open.
   Three localized browser cases are discovered and
   syntax-checked; execution remains unverified.
+- The short daily-send-time and quiet-hours-end labels are now translated in
+  151 more locale paths (149 JSON files and two existing aliases). All other
+  translations are preserved. The same two labels remain English in 75
+  non-English paths, which still need direct translation. Eight representative
+  browser cases are registered; execution and regional wording review remain open.
 - Fill English placeholders in every language, including minority and
   constructed languages. Audit mixed-language and wrong-language seed text, and
   review provisional wording with speakers when available. Preserve
@@ -1572,6 +1577,23 @@ inventories and 21 preservation checks pass. Three browser scenarios are
 syntax-checked and discovered; execution remains unverified. Longer technical
 wording remains low confidence pending speaker review. The all-language backlog
 and older semantic audit remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/065b0e0ec3">Translate short notification time labels across 151 locale paths</a>. Thanks to xet7.</summary>
+
+Translate daily send-time and quiet-hours-end labels in 149 JSON files,
+covering 151 locale paths through two existing aliases. Preserve all other
+translations and every English variant. These labels identify time inputs,
+not message recipients. The two labels remain untranslated in 75 non-English
+locale paths, which remain part of the all-language work.
+
+All 304 translation/Blockly suites, 246 catalog key/token inventories and
+21 preservation checks pass. Eight representative browser cases pass syntax
+and discovery checks; browser execution remains unverified. Regional wording
+remains provisional, particularly Amharic, Khmer, Burmese, Malagasy and Uyghur;
+lexical references and remaining work are recorded in the translation audit.
 
 </details>
 
