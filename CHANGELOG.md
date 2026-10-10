@@ -105,7 +105,7 @@ Status checked on 2026-10-10. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **30,443 untranslated locale/string values in 43 languages**.
+  report counts **30,366 untranslated locale/string values in 43 languages**.
   It excludes **383 source keys tracked separately as pending Transifex**.
   A separate short-prose audit flags 1,751 candidates across 185 locales;
   shared native words may equal English, so these require individual review.
@@ -127,16 +127,16 @@ previously held for Transifex. Completed work is recorded in Upcoming.
 - Automatic-archiving and date-filter messages now have non-English values in
   all 234 non-English locale paths. Continue the remaining feature families and
   the language-quality audit; coverage does not establish fluent wording.
-- Hawaiian card-linking and import/export work fills 61 pending placeholders
-  and repairs eight malformed older custom-field strings. The current Hawaiian
-  fill list still has 876 entries; the ordinary report above excludes these
-  pending keys. The Hawaiian regression suite and 21 preservation checks pass.
-  A Hawaiian linked-fields browser scenario is registered and syntax-checked;
-  execution awaits a running application. Longer technical wording remains
-  provisional, and malformed seed text elsewhere still needs review. The broad
-  run has 297/302 translation-named suites passing; five current-fill gates
-  expose new English placeholders in other catalogs (see the audit notes).
-  All 14 Blockly-named suites and all-catalog key/token checks pass.
+- Hawaiian work fills 230 English values across card links, import/export,
+  notifications, webhooks, LDAP, visibility and Blockly, and repairs eight
+  malformed older custom-field strings. Its full fill list still has 709
+  entries, including 631 in the ordinary report. The latest 19 targeted suites
+  and 21 preservation checks pass. The 25 selected Hawaiian UI scenarios are
+  registered and syntax-checked; execution awaits a running application.
+  Technical wording remains provisional and malformed seed text elsewhere
+  still needs review. The preceding broad run passed 297/302 translation-named
+  suites; five current-fill gates expose new English placeholders in other
+  catalogs (see the audit notes), and their assertions remain intact.
 - Fill English placeholders in every language, including minority and
   constructed languages. Audit mixed-language and wrong-language seed text, and
   review provisional wording with speakers when available. Preserve
@@ -159,12 +159,14 @@ previously held for Transifex. Completed work is recorded in Upcoming.
 </details>
 
 <details>
-<summary>Blockly translations paused for release; remaining languages and review.</summary>
+<summary>Blockly translation work resumed; remaining languages and review.</summary>
 
-Paused again at the maintainer's request on 2026-09-27 for the next release,
-and kept paused by the maintainer's decision of 2026-10-08.
+Previously paused for release on 2026-09-27 and 2026-10-08; resumed on
+2026-10-10 at the maintainer's request to translate all remaining strings.
+The current Hawaiian batch covers color, loop and editor controls; its
+remaining Blockly messages and other incomplete catalogs are still open.
 Gujarati Blockly prose and Blocks-editor messages now have placeholder coverage;
-resume the remaining catalogs and terminology review only when requested.
+the remaining catalogs and terminology review are now in progress.
 The editable Blocks view
 remains available. All 696 Blockly messages have WeKan message-key coverage,
 but translation into every WeKan language is unfinished.
@@ -471,13 +473,13 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** **Hawaiian translations** improve card linking and import/export
-controls. Malformed custom-field labels are corrected; wider translation work
-continues.
+**In short:** **Hawaiian translations** improve card linking, imports,
+notifications and Blockly controls. Malformed custom-field labels are corrected;
+wider translation work continues.
 
 This release improves translations:
 
-**Translations** - card links, import mapping and custom-field wording.
+**Translations** - card links, imports, delivery settings and Blockly controls.
 
 **Languages updated:** Hawaiian.
 
@@ -494,6 +496,23 @@ All 246 catalogs pass key-order and placeholder checks; 21 preservation checks
 and 14 Blockly suites pass. The broad translation run passes 297 of 302 suites;
 five completion gates expose new untranslated keys in other catalogs. Their
 assertions remain intact, and the outstanding work is recorded in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e373cfb7a2">Translate imports, notifications and Blockly controls</a>. Thanks to xet7.</summary>
+
+Fill 169 more Hawaiian English values, including 22 import instructions,
+notification timing, webhook identity, LDAP and visibility messages, and
+Blockly color, loop and editor controls. Keep external commands, file names,
+column headers and all source placeholders intact. Tests distinguish loop
+conditions, check import exclusions and protect existing translations.
+
+All 19 targeted suites, 21 preservation checks and all-catalog key/token checks
+pass. The 25 selected Hawaiian browser scenarios are discovered; execution
+awaits a running application. Programming compounds and longer sentences remain
+low confidence pending speaker review. The Hawaiian fill list still has 709
+entries, and the wider all-language work remains open.
 
 </details>
 
