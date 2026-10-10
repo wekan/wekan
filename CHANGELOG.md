@@ -526,13 +526,40 @@ used.
 # Upcoming WeKan ® release
 
 **In short:** Current Afrikaans, Albanian, Arabic, Belarusian, Bosnian, Bulgarian, Croatian, Estonian, Hebrew, Icelandic, Latvian,
-Macedonian, Persian, Serbian, Slovenian and Vietnamese strings are translated. Mixed-language Arabic core labels and Macedonian values and Basque
+Macedonian, Persian, Serbian, Slovenian and Vietnamese strings are translated. Mixed-language Arabic and Macedonian values and Basque
 card wording are corrected, with validation of imports, notifications and recovery
 choices.
 
 **Translations** - Afrikaans, Albanian, Arabic, Basque, Belarusian, Bosnian, Bulgarian, Croatian, Estonian, Hebrew, Icelandic, Latvian, Macedonian, Persian, Serbian, Slovenian and Vietnamese.
 
 **Languages updated:** Afrikaans, Albanian, Arabic, Basque, Belarusian, Bosnian, Bulgarian, Croatian, Estonian, Hebrew, Icelandic, Latvian, Macedonian, Persian, Serbian, Slovenian, Vietnamese.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3481a310cb">Replace legacy Persian text in Arabic catalogs</a>. Thanks to xet7.</summary>
+
+Review all 456 remaining candidates from the Persian-seed scan. Correct 358 values
+in each of ar, ar-DZ and ar-EG (1,074 total), retain 98 valid/shared Arabic values
+per catalog and leave all other values unchanged. Cover activities, voting, colors,
+custom fields, account emails, import/export, filters, webhook controls, rules,
+settings, reminders, organizations, search and flow analytics. Restore permanent
+removal warnings, disable-versus-delete and check-versus-uncheck distinctions,
+email/date roles and omitted blocker-history details. Preserve exact source tokens,
+HTML tags, Arial, Markdown and comma-separated rule examples.
+
+The flagged queue is reviewed and no Persian-specific letters remain in these
+catalogs. Vocabulary assertions protect actual Arabic meanings and valid shared
+words; script checks alone do not prove language quality. Longer rule fragments,
+color shades and analytics wording remain low-confidence pending speaker review.
+Broader unflagged semantic and short-prose audits remain open.
+
+All 306 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Three Arabic rule-color browser cases check translated action and
+color labels and pass syntax/discovery; runtime remains unverified without the
+local app and browser system dependencies. Full Arabic placeholder lists remain
+empty. The all-language placeholder backlog remains 61,126 values across 142
+locale files, including pending Transifex keys.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2204c5693d">Translate current Arabic strings and repair Persian core labels</a>. Thanks to xet7.</summary>
