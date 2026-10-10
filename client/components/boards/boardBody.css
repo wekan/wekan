@@ -40,6 +40,28 @@
   min-width: 100%;
 }
 
+/* #1566: a board's announcement sits above its canvas. The canvas fills the
+   wrapper from its top, so it lay over the banner and its swimlane header
+   took the close button's clicks: the announcement could not be dismissed.
+   While a banner shows, the wrapper is a column - the banner, then the
+   canvas taking the rest - and without one nothing changes. */
+.board-wrapper:has(> .board-announcement) {
+  display: flex;
+  flex-direction: column;
+}
+.board-wrapper > .board-announcement {
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.board-wrapper:has(> .board-announcement) > .board-canvas {
+  position: relative;
+  top: auto;
+  bottom: auto;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
 /* Ensure horizontal scrollbar is visible for high zoom levels */
 .board-wrapper .board-canvas[style*="overflow-x: auto"] {
   overflow-x: auto !important;

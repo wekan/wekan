@@ -13,6 +13,17 @@ test('a board announcement shows on its board until dismissed, and again after a
   const banner = page.locator('.js-board-announcement');
   await expect(banner).toContainText('<b>Freeze</b> on Friday');
   await expect(banner.locator('b')).toHaveCount(0);
+  // The board canvas used to lie over the banner, so its swimlane header took
+  // the close button's clicks. The button is the element at its own place,
+  // and the canvas starts below the banner.
+  const covered = await banner.locator('.js-close-board-announcement').evaluate(button => {
+    const box = button.getBoundingClientRect();
+    const top = document.elementFromPoint(box.left + box.width / 2, box.top + box.height / 2);
+    const canvas = document.querySelector('.board-wrapper > .board-canvas').getBoundingClientRect();
+    const bannerBox = button.closest('.js-board-announcement').getBoundingClientRect();
+    return { onTop: button === top || button.contains(top), below: canvas.top >= bannerBox.bottom - 1 };
+  });
+  expect(covered).toEqual({ onTop: true, below: true });
   await banner.locator('.js-close-board-announcement').click();
   await expect(banner).toHaveCount(0);
   await expect.poll(() => (db.findOne('users', { _id: user.id }).profile.dismissedBoardAnnouncements || {})[board.boardId]).toBeTruthy();
