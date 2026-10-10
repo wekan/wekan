@@ -26,6 +26,16 @@ that by providing one-click installation on various platforms.
 - WeKan ® has been [translated](https://app.transifex.com/wekan/) into 234 locale catalogs;
   164 have non-English text for over 90% of source keys. This measures text coverage,
   not translation quality; language review and remaining translations are ongoing.
+- [Databases](https://github.com/wekan/wekan/blob/main/docs/Databases/Supported.md):
+  - FerretDB v1 with SQLite, the default on every platform - bundle, Docker,
+    Snap and Kubernetes - so no database server is needed.
+  - FerretDB v1 with PostgreSQL works; with MySQL, MariaDB or SAP HANA it is
+    experimental.
+  - MongoDB 6, 7, 8 and 9. MongoDB refuses to start on Linux kernels 6.19 to
+    7.0.13, which FerretDB is not affected by.
+  - All of them - SAP HANA only when asked - answer the same 110-query
+    conformance catalogue the same way, checked by EVERYTHING in build.sh and
+    build.bat.
 - [Features](https://github.com/wekan/wekan/tree/main/docs/Features):
   - Real-time user interface
   - All Boards page, Drag drop reorder with one or Multi-Selection:

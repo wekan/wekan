@@ -482,7 +482,9 @@ directly after the merge.
      whose `<summary>` is `Newest WeKan at these platforms`, holding the line
      `Newest WeKan at these platforms:` and the Install / Upgrade / Docs / Mac
      ChangeLog bullets, plus the `Older releases:` bullet linking the per-year
-     archives. Then a `<details>` whose `<summary>` is `Version` holding
+     archives. Then a `<details>` whose `<summary>` is `Databases` listing
+     which databases WeKan supports and how each is tested, kept in step with
+     `docs/Databases/Supported.md`. Then a `<details>` whose `<summary>` is `Version` holding
      "which WeKan version uses what". Then a `<details>` whose `<summary>` is
      `TODO Later`, itself holding a `<details>` whose `<summary>` is `Carried
      to a future release.` explaining the list, then one `<details>` per

@@ -1,6 +1,7 @@
 # Do all the backends answer the same?
 
-FerretDB v1 translates one MongoDB query into five different SQL dialects. That
+FerretDB v1 translates one MongoDB query into five different SQL dialects, and
+WeKan can also run on MongoDB itself (see [../../Supported.md](../../Supported.md)). That
 `{n: {$gt: 5}}` *runs* on PostgreSQL, MySQL, MariaDB and SAP HANA says very
 little; whether it returns **the same documents, in the same order** as on SQLite
 is the question that decides whether a backend can be trusted with a board.
@@ -21,17 +22,25 @@ is the question that decides whether a backend can be trusted with a board.
    run against **that** binary — the newest code — not a downloaded release.
 2. **Picks the databases this CPU can actually run.** `docker manifest inspect`
    is asked whether the image has a build for this architecture, so the answer
-   stays true as images change. On arm64 that is SQLite, PostgreSQL, MySQL and
-   MariaDB; on ppc64le and s390x, SQLite, PostgreSQL and MariaDB; on riscv64,
-   SQLite and PostgreSQL.
+   stays true as images change. On amd64 and arm64 that is SQLite, PostgreSQL,
+   MySQL and MariaDB through FerretDB, and MongoDB 6, 7, 8 and 9; on ppc64le and
+   s390x, SQLite, PostgreSQL and MariaDB; on riscv64, SQLite and PostgreSQL.
+   MongoDB 7 is the `mongo:7` image of
+   [docker-compose-mongodb-v7.yml](../../../../docker-compose-mongodb-v7.yml);
+   6, 8 and 9 are `mongo:6.0`, `mongo:8.0` and `mongo:9.0`. On a Linux kernel
+   MongoDB refuses (6.19 to 7.0.13) its backend is a skip with the reason.
 3. **Runs the query catalogue against each, one at a time.** Sequential on
    purpose: they all use the same FerretDB port, and a database under test should
-   not be competing for CPU and disk with three others.
-4. **Compares the answers** against SQLite as the reference.
+   not be competing for CPU and disk with three others. MongoDB is queried
+   directly, with no FerretDB in between, so a fault every FerretDB backend
+   shares still shows up as a difference - the first such run found three, in
+   FerretDB's `$group`, `$min`/`$max` and capped collections.
+4. **Compares the answers** against SQLite as the reference, and fails when any
+   database answers a case differently.
 
 ## What is asked
 
-One catalogue of 100 cases in 15 groups, taken from FerretDB v1's own source
+One catalogue of 110 cases in 15 groups, taken from FerretDB v1's own source
 rather than from MongoDB's manual — the point is to cover what *this* FerretDB
 implements:
 

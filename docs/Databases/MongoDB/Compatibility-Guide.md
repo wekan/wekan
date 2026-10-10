@@ -1,5 +1,10 @@
 # MongoDB Compatibility Guide
 
+> **Historical.** This page records fixes made when WeKan ran on Meteor 2.14.
+> WeKan now runs on Meteor 3.6 with the Node.js MongoDB driver 6.16. For which
+> databases are supported today and how they are tested, see
+> [../Supported.md](../Supported.md): MongoDB 6, 7, 8 and 9, and FerretDB v1.
+
 ## Overview
 
 This guide documents MongoDB compatibility issues and fixes for Wekan across MongoDB versions 3.0 through 8.0, ensuring proper operation with Meteor.js 2.14.

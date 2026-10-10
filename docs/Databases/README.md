@@ -6,6 +6,10 @@ in SQLite, PostgreSQL, MySQL, MariaDB or SAP HANA. The **default** is FerretDB v
 with its embedded SQLite, so a fresh `docker compose up -d` needs no database
 server at all.
 
+**Which databases are supported, and how each is tested:
+[Supported.md](Supported.md)** - FerretDB v1 on SQLite (the default),
+PostgreSQL, MySQL, MariaDB and SAP HANA, and MongoDB 6, 7, 8 and 9.
+
 | Directory | What is in it |
 | --- | --- |
 | [FerretDB/1/](FerretDB/1/) | FerretDB v1 — the default. SQLite, PostgreSQL, MySQL, MariaDB, SAP HANA |
@@ -29,7 +33,8 @@ MariaDB and SAP HANA are experimental.
 
 - [Driver-System.md](MongoDB/Driver-System.md) — which Node driver is used for which server version
 - [Version-Management.md](MongoDB/Version-Management.md) — detecting the server version and switching binaries
-- [Compatibility-Guide.md](MongoDB/Compatibility-Guide.md) — MongoDB 3.0 … 8.0 with Meteor
+- [Supported.md](Supported.md) — the MongoDB versions tested with current WeKan: 6, 7, 8 and 9
+- [Compatibility-Guide.md](MongoDB/Compatibility-Guide.md) — fixes from the Meteor 2.14 era, MongoDB 3.0 … 8.0
 - [Oplog-Configuration.md](MongoDB/Oplog-Configuration.md) — why the OpLog matters, and how to enable it
 - [OpLog-Enablement.md](MongoDB/OpLog-Enablement.md) — its status per deployment platform
 - [avx-qemu.md](MongoDB/avx-qemu.md) — MongoDB 5+ on a CPU without AVX

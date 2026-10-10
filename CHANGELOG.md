@@ -603,7 +603,8 @@ wording is not fully audited.
 
 All 305 translation/Blockly suites, 246 catalog inventories and 21 preservation
 checks pass. Six browser cases pass syntax and discovery; execution remains
-unverified because the local app and browser system dependencies are unavailable.
+unverified because the local app and browser system dependencies are
+unavailable.
 The wider all-language backlog and semantic audit remain open.
 
 </details>
