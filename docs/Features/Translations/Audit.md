@@ -2,6 +2,33 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Polish base and regional current fills — 2026-10-10
+
+Fill 110 English placeholders in pl and 206 in pl-PL: 316 values in total.
+Write 110 current translations for both catalogs (220 values), and reuse
+96 existing base Polish translations for regional English placeholders.
+Both full current fill lists are empty. Every changed value was English in
+the parent commit; all other values are preserved. Reused translations match
+the parent base catalog exactly. Use the existing tablica, karta, lista,
+ścieżka and niestandardowe pola terminology. Longer technical wording remains
+provisional pending speaker review; older catalog fluency is not fully audited.
+
+Cover attached cards, linked fields, calendar mode, import member mapping,
+CSV columns, multiple-board imports/exports, webhooks, notifications, Wrike
+workflows and subtask completion. Reused regional translations also cover
+planning, synchronization, announcements and interrupted-import recovery.
+Preserve source tokens, WEBHOOKS_ATTRIBUTES, GET /workflows and Wrike state
+names. Regressions verify permissions, field propagation directions, member
+replacement, ZIP semantics, inherited settings, quiet hours, completion states,
+retained changes, destructive recovery warnings and checkpoint constraints.
+
+Extend the Polish regression to both full current catalogs and register six
+browser cases for linked fields, import-people choices and notification delivery.
+Syntax and discovery are checked; browser execution remains unverified because
+the local app and browser system dependencies are unavailable. All 304
+translation/Blockly suites, 246 catalog key/token inventories and 21
+preservation checks pass. Wider translation work and semantic auditing remain open.
+
 ## Dutch base and regional current fills — 2026-10-10
 
 Translate 110 English placeholders in each of nl and nl-NL, 220 values in

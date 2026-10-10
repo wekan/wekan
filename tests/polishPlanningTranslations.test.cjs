@@ -1,5 +1,4 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Guard both current Polish catalogs, including reused regional translations.
 'use strict';
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -182,8 +181,40 @@ const currentKeys = [
     assert.equal(pl[key], en[key], key + ': reviewed shared term');
   }
   const inventory = spawnSync(process.execPath,
-    ['releases/translations/fill-translations.mjs', '--completed-catalog', '--list', 'pl'], { cwd: root, encoding: 'utf8' });
+    ['releases/translations/fill-translations.mjs', '--list', 'pl'], { cwd: root, encoding: 'utf8' });
   assert.equal(inventory.status, 0, inventory.stderr);
   assert.deepEqual(JSON.parse(inventory.stdout), {});
+
+  for (const code of ['pl', 'pl-PL']) {
+    const locale = read(code);
+    assert.deepEqual(Object.keys(locale), Object.keys(en), code);
+    for (const key of Object.keys(en)) assert.deepEqual(translationTokens(locale[key]), translationTokens(en[key]), `${code}:${key}`);
+    const current = spawnSync(process.execPath, ['releases/translations/fill-translations.mjs', '--list', code], { cwd: root, encoding: 'utf8' });
+    assert.equal(current.status, 0, current.stderr);
+    assert.deepEqual(JSON.parse(current.stdout), {}, code);
+    assert.match(locale['custom-field-links-hint'], /tej samej nazwie i typie na obu/);
+    assert.match(locale['custom-field-links-hint'], /tylko na jednej karcie pozostają bez zmian/);
+    assert.match(locale['custom-field-link-both'], /obie strony/);
+    assert.match(locale['custom-field-link-send'], /jedną stronę.*kartę główną/);
+    assert.match(locale['field-link-not-allowed'], /edycji obu kart/);
+    assert.equal(locale['import-members-mode-me'], 'Zastąp je wszystkie mną');
+    assert.match(locale['import-many-boards-hint'], /bez przypisywania członków/);
+    assert.match(locale['import-many-boards-hint'], /sam w sobie jest pojedynczym eksportem.*jest jedną tablicą/);
+    assert.match(locale['export-all-boards-hint'], /możesz eksportować.*skoroszyt.*\.zip/);
+    assert.match(locale['webhook-payload-description'], /odziedziczone ustawienie/);
+    assert.match(locale['notification-delivery-quiet'], /czekaj do ich zakończenia/);
+    assert.match(locale['r-wrike-workflow-note'], /ukończoną.*Completed.*Cancelled.*nieukończoną.*Active.*Deferred/);
+    for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) assert.ok(locale['r-wrike-workflow-note'].includes(literal));
+    assert.ok(locale['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+    assert.notEqual(locale['subtask-mark-done'], locale['subtask-mark-not-done']);
+    // Recovery translations reused from pl retain destructive-action boundaries.
+    assert.match(locale['interrupted-import-description'], /nie można wznowić.*plik źródłowy nie jest zachowywany/);
+    assert.match(locale['interrupted-import-description'], /także elementy dodane później/);
+    assert.match(locale['interrupted-import-keep-confirm'], /Nic nie zostanie usunięte/);
+    assert.match(locale['interrupted-import-discard-confirm'], /trwale usunięte/);
+    assert.match(locale['stuck-sync-operation-discard-confirm'], /zastosowane zmiany zostaną zachowane.*nigdy nie zostaną wprowadzone/);
+    assert.match(locale['scrum-history-checkpoint-hint'], /tylko wtedy, gdy nikt inny nie/);
+    assert.match(locale['sync-planning-hint'], /pierwsza synchronizacja nigdy nie usuwa/);
+  }
   console.log('Polish translation coverage, source order, syntax and warning meanings verified');
 })().catch(error => { console.error(error); process.exitCode = 1; });
