@@ -121,3 +121,57 @@ for (const code of persian) {
   for (const key of ['interrupted-import-truncated', 'stuck-sync-operation-truncated']) assert.match(locale[key], /۵۰ مورد قدیمی‌تر/);
 }
 console.log('Both full current Persian catalogs, exact tokens and import/recovery/notification meanings pass');
+
+for (const code of hebrew) {
+  const result = spawnSync(process.execPath, [path.join(__dirname, '../releases/translations/fill-translations.mjs'), '--list', code], { encoding: 'utf8' });
+  assert.equal(result.status, 0, result.stderr);
+  assert.deepEqual(JSON.parse(result.stdout), {});
+  const locale = read(code);
+  assert.deepEqual(Object.keys(locale), Object.keys(en));
+  for (const key of Object.keys(en)) assert.deepEqual(translationTokens(locale[key]), translationTokens(en[key]), `${code}:${key}`);
+  assert.match(locale['custom-field-links-hint'], /אותו שם ואותו סוג בשני הכרטיסים/);
+  assert.match(locale['custom-field-links-hint'], /רק באחד הכרטיסים נשארים ללא שינוי/);
+  assert.match(locale['custom-field-link-inactive'], /כבר אינו יכול לערוך את שני הכרטיסים.*לארכיון/);
+  assert.match(locale['custom-field-link-both'], /לשני הכיוונים.*כל אחד מהכרטיסים/);
+  assert.match(locale['custom-field-link-send'], /לכיוון אחד.*לכרטיס הראשי/);
+  assert.match(locale['field-link-not-allowed'], /רשאים לערוך את שני הכרטיסים/);
+  assert.equal(locale['import-members-mode-me'], 'החלפת כולם בחשבון המשתמש שלי');
+  assert.match(locale['import-many-boards-hint'], /ללא מיפוי חברים/);
+  assert.match(locale['import-many-boards-hint'], /בעצמו ייצוא אחד.*הוא לוח אחד/);
+  assert.match(locale['export-all-boards-hint'], /רשאים לייצא.*כחוברת עבודה אחת.*\.zip/);
+  assert.match(locale['webhook-payload-description'], /שומרת על ההגדרה שהתקבלה בירושה/);
+  assert.match(locale['notification-delivery-quiet'], /להמתין עד לסיומן/);
+  assert.match(locale['r-wrike-workflow-note'], /כהושלם.*Completed.*Cancelled.*וכלא הושלם.*Active.*Deferred/);
+  for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) assert.ok(locale['r-wrike-workflow-note'].includes(literal));
+  assert.ok(locale['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+  assert.match(locale['subtask-mark-done'], /כהושלמה$/);
+  assert.match(locale['subtask-mark-not-done'], /כלא הושלמה$/);
+  assert.equal(locale['notification-delivery-part-list'], 'רשימה');
+  assert.equal(locale['notification-delivery-part-swimlane'], 'מסלול');
+  for (const name of ['taiga', 'vikunja']) assert.match(locale[`import-board-instruction-${name}`], /קבצים מצורפים אינם מיובאים/);
+  assert.match(locale['import-board-instruction-redmine'], /הגדירו את השפה לאנגלית ב-My account לפני הייצוא/);
+  assert.match(locale['import-board-instruction-businessmap'], /Title, Column, Lane, Owner, Deadline/);
+  assert.match(locale['import-board-instruction-plane'], /אינו כולל תיאורים או קבצים מצורפים.*אינם מיובאים/);
+  assert.match(locale['import-board-instruction-kanri'], /מיובא הלוח הראשון/);
+  assert.match(locale['import-board-instruction-teamwork'], /בסימן -, # או >/);
+  assert.match(locale['import-board-instruction-teamwork'], /--, ## או >> רמה אחת עמוק יותר/);
+  for (const literal of ['TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED']) assert.ok(locale['import-board-instruction-orgmode'].includes(literal));
+  assert.ok(locale['external-link-rules-description'].includes('[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
+  assert.ok(locale['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+  for (const literal of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS', 'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) assert.ok(locale['ldap-sync-now-nothing'].includes(literal));
+  assert.match(locale['sync-planning-hint'], /סנכרון ראשון לעולם אינו מסיר תכנון/);
+  assert.match(locale['stuck-sync-operation-description'], /שינויים שכבר הוחלו נשמרים/);
+  assert.match(locale['stuck-sync-operation-description'], /יתר השינויים השמורים לעולם לא נכתבים/);
+  assert.match(locale['stuck-sync-operation-reason-access-denied'], /אין הרשאת כתיבה לכל הרשימה/);
+  for (const key of ['stuck-sync-operation-replayable-now', 'stuck-sync-operation-not-stuck']) assert.match(locale[key], /אי אפשר להשליך אותה/);
+  assert.match(locale['stuck-sync-operation-replayable'], /היא לא הושלכה/);
+  assert.match(locale['stuck-sync-operation-busy'], /מסתנכרנת כעת/);
+  assert.match(locale['interrupted-import-description'], /אי אפשר להמשיך ייבוא.*קובץ המקור אינו נשמר/);
+  assert.match(locale['interrupted-import-description'], /כולל כל מה שנוסף אליו מאז/);
+  assert.match(locale['interrupted-import-keep-confirm'], /דבר לא מוסר/);
+  assert.match(locale['interrupted-import-discard-confirm'], /יוסרו לצמיתות/);
+  assert.match(locale['interrupted-import-foreign-board'], /לא נוצר על ידי הייבוא הזה.*לא שונה/);
+  assert.match(locale['stuck-sync-operation-truncated'], /50 הפעולות הישנות ביותר/);
+  assert.match(locale['interrupted-import-truncated'], /50 הייבואים הישנים ביותר/);
+}
+console.log('Both full current Hebrew catalogs, exact tokens and import/recovery/notification meanings pass');

@@ -46,7 +46,7 @@ test('only administrators can list, keep or discard interrupted imports', async 
   } finally { cleanup([seeded]); }
 });
 
-for (const language of ['en', 'haw', 'fa', 'fa-IR']) {
+for (const language of ['en', 'haw', 'fa', 'fa-IR', 'he', 'he-IL']) {
 test(`administrator discards an interrupted import in Recovery, once, and nothing else in ${language}`, async ({ page, adminUser, board }) => {
   const seeded = seedInterrupted(adminUser.id);
   const otherCards = db.countDocuments('cards', { boardId: board.boardId });
