@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.25
+  version: v12.26
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2435,7 +2435,7 @@ paths:
   /api/boards/{board}/export/{format}:
     get:
       operationId: exportExternal
-      summary: Export the board as a NextCloud Deck / Kanboard / OpenProject /  GitHub / GitLab / Gitea / Forgejo / Jira / Asana / Zenkit / Trello style  JSON, or Markdown.
+      summary: Export the board as a NextCloud Deck / Kanboard / OpenProject /  GitHub / GitLab / Gitea / Forgejo / Jira / Asana / Zenkit / Trello style  JSON, a Taiga project dump (JSON), or Markdown.
       tags:
         - Boards
       parameters:
@@ -2634,6 +2634,11 @@ paths:
         - multipart/form-data
         - application/json
       parameters:
+        - name: notificationDelivery
+          in: formData
+          description: the notificationDelivery value
+          type: string
+          required: true
         - name: board
           in: path
           description: the board value
@@ -5638,6 +5643,9 @@ definitions:
       notifyOverrideEmail:
         type: boolean
         x-nullable: true
+      notificationDelivery:
+        type: object
+        x-nullable: true
       dueReminderDays:
         type: array
         items:
@@ -6498,6 +6506,15 @@ definitions:
         items:
           $ref: "#/definitions/CardsCustomfields"
         x-nullable: true
+      customFieldLinks:
+        description: |
+           #5681: the cards this card's custom fields are linked to, by field
+           name (models/lib/customFieldLinks.js). Written only by the server
+           methods in server/models/customFieldLinks.js, on both cards at once.
+        type: array
+        items:
+          $ref: "#/definitions/CardsCustomfieldlinks"
+        x-nullable: true
       recurrenceInterval:
         description: |
            Kanboard-style whole-card recurrence: automatically create a fresh copy
@@ -6557,6 +6574,16 @@ definitions:
       labelIds:
         description: |
            list of labels ID the card has
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
+      attachedCardIds:
+        description: |
+           #3257: the cards attached to this card (Trello's card attachments),
+           by id - any card the user may read, on any board. Shown beside the
+           file attachments (models/lib/attachedCards.js).
         type: array
         items:
           type: string
@@ -6963,6 +6990,8 @@ definitions:
       - allowNonBoardMembers
   CardsCustomfields:
     type: object
+  CardsCustomfieldlinks:
+    type: object
   CardsStickers:
     type: object
   CardsLocations:
@@ -7356,6 +7385,9 @@ definitions:
              - delivery time: fetchSafe() (server/lib/ssrfGuard.js), which resolves
                once, pins the connection to the validated IP and blocks redirects.
         type: string
+      notificationDelivery:
+        type: object
+        x-nullable: true
       token:
         description: |
            token of the integration
@@ -7964,6 +7996,9 @@ definitions:
       notifyDefaultEmail:
         type: boolean
         x-nullable: true
+      notificationDelivery:
+        type: object
+        x-nullable: true
       inviteEmailSubjectTemplate:
         type: string
         x-nullable: true
@@ -8322,6 +8357,14 @@ definitions:
            Member-level override of email notifications (see
            models/lib/notificationSettings.js).
         type: boolean
+      notificationDelivery:
+        type: object
+      webhookHideIdentity:
+        description: |
+           #3695: true leaves this member's name, username and id out of every
+           outgoing webhook - as the actor and as the person a join or
+           assignment is about (models/lib/webhookPayload.js). Unset = named.
+        type: boolean
       fullname:
         description: |
            full name of the user
@@ -8616,6 +8659,7 @@ definitions:
           - board-view-swimlanes
           - board-view-lists
           - board-view-cal
+          - board-view-calendar-mode
           - board-view-multiboard-cal
           - board-view-gantt
           - board-view-gantt-frappe
@@ -8796,7 +8840,8 @@ definitions:
         type: object
       keyboardShortcuts:
         description: |
-           User-specified state of keyboard shortcut activation.
+           User-specified state of keyboard shortcut activation. On by default,
+           the same default isKeyboardShortcuts() reads (#6755).
         type: boolean
       verticalScrollbars:
         description: |
@@ -8945,6 +8990,12 @@ definitions:
         description: |
            the date on which this notification was read
         type: string
+      showAt:
+        description: |
+           #5171: when the drawer starts showing this entry (ms since epoch),
+           from the member's tray schedule (models/lib/notificationDelivery.js).
+           Unset = at once, as before.
+        type: number
     required:
       - activity
   UsersProfileStarredpages:
