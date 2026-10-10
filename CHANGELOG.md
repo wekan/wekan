@@ -497,11 +497,30 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** Translate the remaining current Czech, Dutch, French, German, Hungarian, Polish, Portuguese, Slovak and Spanish strings and correct Czech wording in Slovak and Swiss German spelling.
+**In short:** Translate the remaining current Czech, Dutch, French, German, Hungarian, Polish, Portuguese, Romanian, Slovak and Spanish strings and correct Czech wording in Slovak and Swiss German spelling.
 
-**Translations** - Czech, Dutch, French, German, Hungarian, Polish, Portuguese, Slovak and Spanish base and regional catalogs.
+**Translations** - Czech, Dutch, French, German, Hungarian, Polish, Portuguese, Romanian, Slovak and Spanish base and regional catalogs.
 
-**Languages updated:** Czech, Dutch, French, German, Hungarian, Polish, Portuguese, Slovak, Spanish.
+**Languages updated:** Czech, Dutch, French, German, Hungarian, Polish, Portuguese, Romanian, Slovak, Spanish.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ab22344f91">Fill current Romanian strings and correct Italian field labels</a>. Thanks to xet7.</summary>
+
+Fill 220 English placeholders across ro and ro-RO for linked cards, imports,
+member mapping, webhooks, notifications and Wrike workflows. Both full current
+fill lists are empty. Correct the Italian custom-field label to Romanian in
+both catalogs. Preserve other translations, exact placeholders and parsed
+constants. Regressions verify Romanian wording, permissions, field propagation,
+import semantics, notification timing and workflow completion states. Longer
+technical wording remains provisional pending speaker review; older catalog
+wording is not fully audited.
+
+All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Six browser cases pass syntax and discovery; execution remains
+unverified because the local app and browser system dependencies are unavailable.
+The wider all-language backlog and semantic audit remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0ec3ab7731">Translate remaining current Hungarian strings</a>. Thanks to xet7.</summary>
