@@ -2,6 +2,45 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Macedonian vocabulary follow-up — 2026-10-10
+
+Review all 317 previously flagged values longer than 15 characters that matched
+Bulgarian or Serbian at the same key. Correct 262 wrong-language, mixed-language
+or meaning-drifted values, while retaining 55 valid shared Macedonian/technical
+terms. Every value outside the explicit correction set is unchanged. The retained
+terms include calendar/timeline labels, file types, database names and Blockly
+expressions; matching another locale alone does not justify replacing them.
+
+Correct activity messages, workspaces, profile/member settings, dates and filters,
+assignment and search controls, storage and migration settings, notifications,
+accessibility labels and diagnostic instructions. Restore distinctions such as
+exporting versus converting, all users versus visibility rights, last access
+versus last modification, a start time versus starting a timer, and optional
+move reasons. Keep technical date-format strings, Arial and Cron literal. The
+three-card JSON example now has Macedonian sample prose with literal title and
+description property names. Update its existing audited-corrections record to
+this reviewed result; the earlier structural repair had retained Serbian prose.
+The historical Macedonian repair queue is empty again, without changing the
+original audit evidence or adding new historical review records.
+
+Extend regression coverage for native vocabulary, positive and negative action
+meanings, schedule intervals, account lockout, JSON parsing, literal formats and
+shared terms that must remain unchanged. Full key order and underscore/percent
+token inventories still match English. The current placeholder list remains
+empty; these corrections improve language and meaning rather than reducing that
+count. This completes review of the 317 flagged matches, not of every older
+Macedonian value. Shorter strings and nonmatching wrong-language values may need
+further review. Longer or specialized corrections remain lower confidence
+pending native-speaker review.
+
+The broad run exercised 306 translation/Blockly suites: 305 passed and the
+corrections-record suite caught the outdated Serbian JSON example value. After
+updating that existing record, the failed suite, audit-progress suite and focused
+Macedonian suite pass on rerun. All 246 catalog inventories and 21 preservation
+checks pass. Existing Macedonian browser cases pass syntax and discovery; browser runtime execution remains
+unverified without the local app and browser system dependencies. The wider
+all-language backlog and semantic audit remain open.
+
 ## Macedonian current fills and language corrections — 2026-10-10
 
 Translate 130 English placeholders in mk for attached cards, linked fields,

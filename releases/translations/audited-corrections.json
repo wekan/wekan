@@ -129,8 +129,8 @@
     "locale": "mk",
     "key": "copyManyCardsPopup-format",
     "before": "[ {\"наслов\": \"Наслов првог предмета\", \"опис\":\"Опис првог предмета\"}, {\"наслов\":\"Наслов другог предмета\",\"опис\":\"Опис другог предмета\"},{\"наслов\":\"Наслов последњег предмете\",\"опис\":\"Опис последњег предмета\"} ]",
-    "after": "[{\"title\": \"Наслов првог предмета\",\"description\": \"Опис првог предмета\"},{\"title\": \"Наслов другог предмета\",\"description\": \"Опис другог предмета\"},{\"title\": \"Наслов последњег предмете\",\"description\": \"Опис последњег предмета\"}]",
-    "reason": "Restore literal JSON property names; preserve translated sample prose."
+    "after": "[ {\"title\": \"Наслов на првата карта\", \"description\":\"Опис на првата карта\"}, {\"title\":\"Наслов на втората карта\",\"description\":\"Опис на втората карта\"},{\"title\":\"Наслов на последната карта\",\"description\":\"Опис на последната карта\"} ]",
+    "reason": "Restore literal JSON property names and replace Serbian sample prose with Macedonian, preserving the three-card example structure."
   },
   {
     "locale": "mt",

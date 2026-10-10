@@ -225,3 +225,54 @@ assert.match(data['flow-active'], /Отворени/);
 assert.match(data['flow-note-blockerAnalysis'], /избришаните карти.*зачувани снимки.*преклопуваат.*одделно/);
 assert.match(data['flow-note-processBehavior'], /времето на создавање.*времето на архивирање.*средна вредност.*најмалку две/);
 console.log('Macedonian full current catalog, native correction meanings and exact tokens pass');
+
+// Shared Cyrillic spelling did not make these Bulgarian/Serbian UI values Macedonian.
+assert.equal(data['allboards.add-workspace'], 'Додај работен простор');
+assert.equal(data['memberPopup-title'], 'Поставки за членот');
+assert.equal(data['boardMenuPopup-title'], 'Поставки за таблото');
+assert.equal(data['email-address'], 'Адреса на е-пошта');
+assert.equal(data.username, 'Корисничко име');
+assert.equal(data['email-invite-subject'], '__inviter__ ви испрати покана');
+assert.equal(data['card-edit-members'], 'Уреди ги членовите');
+assert.equal(data['export-card'], 'Извези карта');
+assert.equal(data['import-board-c'], 'Увези табло');
+assert.equal(data['dueCardsViewChange-choice-all'], 'Сите корисници');
+assert.equal(data['list-label-modifiedAt'], 'Време на последен пристап');
+assert.equal(data['filter-due-today'], 'Рокот е денес');
+assert.equal(data['filter-due-tomorrow'], 'Рокот е утре');
+assert.equal(data['filter-no-due-date'], 'Без рок');
+assert.equal(data['filter-custom-fields-label'], 'Филтрирај според прилагодените полиња');
+assert.match(data['shortcut-toggle-searchbar'], /Прикажи\/скриј.*за пребарување/);
+assert.match(data['shortcut-toggle-sidebar'], /Прикажи\/скриј.*на таблото/);
+assert.match(data['s3-access-key'], /Клуч за пристап/);
+assert.match(data['s3-secret-key-required'], /Потребен е таен клуч/);
+assert.match(data['s3-settings-saved'], /успешно зачувани/);
+assert.match(data['stop-all-migrations'], /Запри ги сите миграции/);
+assert.equal(data['migration-running'], 'Во тек...');
+assert.equal(data['migration-failed'], 'Миграцијата не успеа');
+assert.equal(data['start-time'], 'Време на почеток');
+assert.equal(data['every-10-minutes'], 'На секои 10 минути');
+assert.equal(data['every-30-minutes'], 'На секои 30 минути');
+assert.equal(data['accounts-lockout-user-locked'], 'Корисникот е заклучен');
+assert.equal(data['accounts-lockout-unlock-all'], 'Отклучи ги сите');
+assert.match(data['flow-error'], /не можеше да се вчита.*Проверете ги вредностите.*повторно/);
+assert.match(data['move-reason'], /Причина.*незадолжително/);
+assert.match(data['ask-move-reason'], /Побарај причина/);
+assert.match(data['time-adjustments'], /по автор/);
+assert.equal(data['date-format-yyyy-mm-dd'], 'YYYY-MM-DD');
+assert.equal(data['date-format-dd-mm-yyyy'], 'DD-MM-YYYY');
+assert.equal(data['date-format-mm-dd-yyyy'], 'MM-DD-YYYY');
+assert.equal(data['excel-font'], 'Arial');
+const sampleCards = JSON.parse(data['copyManyCardsPopup-format']);
+assert.equal(sampleCards.length, 3);
+for (const card of sampleCards) {
+  assert.deepEqual(Object.keys(card), ['title', 'description']);
+  assert.match(card.title, /^Наслов на .* карта$/);
+  assert.match(card.description, /^Опис на .* карта$/);
+}
+// Shared terms are valid Macedonian and must not be replaced just for matching.
+assert.equal(data['board-view-calendar-mode'], 'Календарски режим');
+assert.equal(data['blockly-FIELD_BITMAP_PIXEL_LABEL'], '%1, ред %2, колона %3');
+assert.equal(data['blockly-TEXT_APPEND_TITLE'], 'на %1 додај текст %2');
+assert.equal(data['import-trello-json-file'], 'Trello .json датотека');
+console.log('Macedonian vocabulary review: actions, status, date formats, JSON structure and retained shared terms pass');
