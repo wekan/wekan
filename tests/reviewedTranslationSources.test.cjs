@@ -39,6 +39,27 @@ try {
     path.join(fixture, 'imports/i18n/data/fur.i18n.json'), 'utf8')),
   { info: 'Version', sentence: 'Spiete', changed: 'Gnove font' },
   'filling preserves reviewed shared terms while repairing actual placeholders');
+
+  const sharedFrench = {
+    'notification-delivery-part-dates': 'Dates',
+    'notification-delivery-minutes': '__count__ minutes',
+  };
+  write('imports/i18n/data/en.i18n.json', sharedFrench);
+  for (const code of ['fr', 'fr-FR', 'fr-BE', 'fr-CA', 'fr-CH', 'fi']) {
+    write(`imports/i18n/data/${code}.i18n.json`, sharedFrench);
+    assert.deepEqual(JSON.parse(run(['--list', code])), code === 'fi' ? sharedFrench : {},
+      `${code}: exact shared terms only apply to French`);
+  }
+  const changedFrench = {
+    'notification-delivery-part-dates': 'Show dates',
+    'notification-delivery-minutes': '__count__ minutes later',
+  };
+  write('imports/i18n/data/en.i18n.json', changedFrench);
+  for (const code of ['fr', 'fr-FR', 'fr-BE', 'fr-CA', 'fr-CH']) {
+    write(`imports/i18n/data/${code}.i18n.json`, changedFrench);
+    assert.deepEqual(JSON.parse(run(['--list', code])), changedFrench,
+      `${code}: changed source prose must not be exempted`);
+  }
 } finally {
   fs.rmSync(fixture, { recursive: true, force: true });
 }

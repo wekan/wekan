@@ -1,5 +1,4 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Guard full current French fills, with exact reviewed shared French terms.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -106,12 +105,35 @@ const pendingKeys = [
 ];
 const fillScript = path.join(root, 'releases/translations/fill-translations.mjs');
 for (const language of ['fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'fr']) {
-  const result = spawnSync(process.execPath, [fillScript, '--completed-catalog', '--list', language], { cwd: root, encoding: 'utf8' });
+  const result = spawnSync(process.execPath, [fillScript, '--list', language], { cwd: root, encoding: 'utf8' });
   assert.equal(result.status, 0, result.stderr);
   assert.equal(result.stdout, '{}\n');
   const locale = JSON.parse(fs.readFileSync(path.join(root, `imports/i18n/data/${language}.i18n.json`), 'utf8'));
   assert.equal(locale.action, "Opération à effectuer");
   assert.equal(locale.public, 'Visible par tous');
+  assert.match(locale['custom-field-links-hint'], /même nom et le même type sur les deux/);
+  assert.match(locale['custom-field-links-hint'], /une seule carte restent inchangés/);
+  assert.match(locale['custom-field-link-both'], /les deux sens/);
+  assert.match(locale['custom-field-link-send'], /un seul sens.*carte principale/);
+  assert.match(locale['custom-field-link-inactive'], /ne peut plus modifier les deux.*archivée/);
+  assert.match(locale['field-link-not-allowed'], /modifier les deux cartes/);
+  assert.equal(locale['import-members-mode-me'], 'Toutes les remplacer par moi');
+  assert.match(locale['import-many-boards-hint'], /sans association des membres/);
+  assert.match(locale['import-many-boards-hint'], /lui-même une seule exportation.*correspond à un tableau/);
+  assert.match(locale['export-all-boards-hint'], /pouvez exporter.*classeur.*\.zip/);
+  assert.match(locale['webhook-payload-description'], /réglage hérité.*toujours envoyé/);
+  assert.match(locale['webhook-hide-identity'], /Omettre mon nom/);
+  assert.match(locale['notification-delivery-quiet'], /attendre qu’elles se terminent/);
+  assert.match(locale['r-wrike-workflow-note'], /terminée.*Completed.*Cancelled.*non terminée.*Active.*Deferred/);
+  assert.match(locale['r-wrike-workflow-note'], /propres à Wrike ne peuvent pas être exportées/);
+  for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) {
+    assert.ok(locale['r-wrike-workflow-note'].includes(literal), `${language}: ${literal}`);
+  }
+  assert.ok(locale['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+  assert.notEqual(locale['subtask-mark-done'], locale['subtask-mark-not-done']);
+  assert.equal(locale['notification-delivery-part-dates'], 'Dates');
+  assert.equal(locale['notification-delivery-minutes'], '__count__ minutes');
+
   assert.equal(locale.ticket, "Demande d'assistance");
   assert.match(locale['office-report-desc'], /IPv4.*IPv6/);
   assert.match(locale['api-no-calls'], /REST API.*WITH_API=true/);

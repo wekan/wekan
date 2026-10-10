@@ -2,6 +2,45 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## French base and regional current fills — 2026-10-10
+
+Translate 108 English placeholders in each of fr, fr-FR, fr-BE, fr-CA and fr-CH,
+540 values in total, for attached cards, linked fields, calendar mode, member
+mapping, CSV columns, multiple-board import/export, webhooks, notifications,
+Wrike workflows and subtask completion. All five full current fill lists are
+empty. Every changed catalog value was English in the parent commit; all other
+values are preserved. Use the existing tableau, carte, liste, couloir and
+champs personnalisés vocabulary in each regional catalog.
+
+Two remaining identical values are correct French: Dates and __count__ minutes.
+Protect both values only in these five French locales, with exact source-value
+checks, rather than changing their wording.
+The [Académie date entry](https://www.dictionnaire-academie.fr/article/A9D0115?history=0)
+uses the calendar sense and plural dates; its
+[heure entry](https://www.dictionnaire-academie.fr/article/A9H0629) uses minutes
+as the time unit. The count token remains code. Exceptions are exact-value bound,
+so a future English source change is not automatically exempted; existing
+reviewed-source tests cover stale-value rejection and locale isolation. The
+older audited-reviews manifest is unchanged; it only accepts historical audit
+findings.
+
+Preserve source placeholders, WEBHOOKS_ATTRIBUTES, GET /workflows and Wrike's
+state-group names. Meaning checks cover permissions, one-way/two-way links,
+archived cards, member replacement, ZIP files that are single exports, export
+permissions, inherited webhook behavior, quiet hours and completion states.
+Longer technical and regional phrasing remains provisional pending speaker
+review; older catalog fluency is not certified by this batch.
+
+Extend the existing French regression to all five current fills and the exact
+shared-word exceptions. Add fourteen browser cases, with fifteen representative
+cases across the five variants when including the existing French notification
+case. Syntax and discovery are checked; execution remains unverified because
+the local app and browser system dependencies are unavailable. All 246 catalog
+key/token inventories and 21 preservation checks pass. All 304 translation/
+Blockly suites pass after the exact-source exception change. The ordinary
+backlog remains 29,735 values in 42 locales: these fills were pending source
+strings excluded from that report. The wider all-language work remains open.
+
 ## German base and regional current fills — 2026-10-10
 
 Translate 110 English placeholders in each of de, de-AT, de-CH and de_DE,
