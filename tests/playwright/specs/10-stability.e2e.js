@@ -129,7 +129,10 @@ test.describe('Stability & connectivity', () => {
     await expect.poll(() => page.evaluate(id => Meteor.user()?.profile?.starredBoards?.includes(id), board.boardId)).toBe(true);
     await page.locator('.js-toggle-board-view').click();
     await page.locator('.js-open-lists-view').click();
-    await expect.poll(() => page.evaluate(() => Meteor.user()?.profile?.boardView)).toBe('board-view-lists');
+    // A view chosen on a board is that board's own since #4906 / #4256
+    // (profile.boardViews), not the shared profile.boardView.
+    await expect.poll(() => page.evaluate(id => Meteor.user()?.profile?.boardViews?.[id], board.boardId))
+      .toBe('board-view-lists');
 
     await expect.poll(() => page.evaluate(() => localStorage.getItem('Meteor.loginToken'))).toBeNull();
     const cookies = await page.context().cookies();
@@ -145,7 +148,7 @@ test.describe('Stability & connectivity', () => {
     await expect(avatar).toBeVisible();
     await expect.poll(() => avatar.evaluate(img => img.complete && img.naturalWidth > 0)).toBe(true);
     await expect.poll(() => page.evaluate(id => ({
-      view: Meteor.user()?.profile?.boardView,
+      view: Meteor.user()?.profile?.boardViews?.[id],
       starred: Meteor.user()?.profile?.starredBoards?.includes(id),
     }), board.boardId)).toEqual({ view: 'board-view-lists', starred: true });
     await page.screenshot({ path: testInfo.outputPath('upgraded-profile-preferences.png') });

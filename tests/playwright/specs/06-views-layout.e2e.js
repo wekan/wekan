@@ -127,8 +127,10 @@ test.describe('Views & layout', () => {
     await expect(secondLane.getByText('Alpha Card', { exact: true })).toHaveCount(0);
 
     await bp.switchToListView();
+    // A view chosen on a board is that board's own since #4906 / #4256
+    // (profile.boardViews), not the shared profile.boardView.
     await expect.poll(
-      () => db.findOne('users', { _id: user.id })?.profile?.boardView,
+      () => db.findOne('users', { _id: user.id })?.profile?.boardViews?.[board.boardId],
       { timeout: 10_000 },
     ).toBe('board-view-lists');
     await boardPage.reload({ waitUntil: 'domcontentloaded' });
