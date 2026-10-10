@@ -130,8 +130,8 @@ previously held for Transifex. Completed work is recorded in Upcoming and releas
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **29,735 untranslated locale/string values in 42 languages**.
   It excludes **383 source keys tracked separately as pending Transifex**.
-  After the Vietnamese batch, full per-locale `--list` reports, including those
-  pending keys, count **64,218 remaining values across 163 non-English locale
+  After the Croatian, Serbian and Slovenian batch, full per-locale `--list`
+  reports, including pending keys, count **63,778 remaining values across 159 non-English locale
   files**. This fuller inventory remains the scope of the translation work.
   A separate short-prose audit flags 1,681 candidates across 183 locales.
   The two notification At/To labels now have translations in all non-English
@@ -525,12 +525,35 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** Current Vietnamese strings are translated, and Basque card wording
-is corrected, including validation of imports, notifications and recovery choices.
+**In short:** Current Croatian, Serbian, Slovenian and Vietnamese strings are
+translated, and Basque card wording is corrected, including validation of imports,
+notifications and recovery choices.
 
-**Translations** - Basque and Vietnamese.
+**Translations** - Basque, Croatian, Serbian, Slovenian and Vietnamese.
 
-**Languages updated:** Basque, Vietnamese.
+**Languages updated:** Basque, Croatian, Serbian, Slovenian, Vietnamese.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5a68457ad6">Translate current Croatian, Serbian and Slovenian strings</a>. Thanks to xet7.</summary>
+
+Fill 440 English placeholders across hr, sr, sl and sl_SI for linked cards and
+fields, calendar mode, member mapping, CSV columns, bulk imports and exports,
+webhooks, notifications, Wrike workflows and subtasks. All four full current
+fill lists are empty. Preserve existing translations, exact placeholders and
+each catalog's established terminology, including Serbian Cyrillic legal-workflow
+terms. Regressions verify permissions, field directions, member replacement,
+ZIP semantics, export permissions, inherited settings, quiet hours and completed
+versus incomplete states. Longer technical wording remains provisional pending
+speaker review; older catalog fluency is not fully audited.
+
+All 306 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Twelve browser cases pass syntax and discovery; runtime execution
+remains unverified without the local app and browser system dependencies.
+The full inventory, including pending Transifex keys, now records 63,778 remaining
+values across 159 non-English locale files. The all-language backlog and
+semantic audit remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5a35e57aaf">Translate remaining current Vietnamese strings</a>. Thanks to xet7.</summary>
