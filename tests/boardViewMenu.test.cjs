@@ -36,6 +36,7 @@ const VIEWS = [
   { view: 'board-view-lists', jsClass: 'js-open-lists-view', icon: 'fa-trello' },
   { view: 'board-view-table', jsClass: 'js-open-table-view', icon: 'fa-table' },
   { view: 'board-view-cal', jsClass: 'js-open-cal-view', icon: 'fa-calendar' },
+  { view: 'board-view-calendar-mode', jsClass: 'js-open-calendar-mode-view', icon: 'fa-calendar-check-o', template: 'calendarModeView', helper: 'isViewCalendarMode' },
   { view: 'board-view-multiboard-cal', jsClass: 'js-open-multiboard-cal-view', icon: 'fa-calendar-plus-o', template: 'multiboardCalendarView', helper: 'isViewMultiboardCalendar' },
   { view: 'board-view-time', jsClass: 'js-open-time-view', icon: 'fa-clock-o', template: 'timeView', helper: 'isViewTime' },
   { view: 'board-view-timeline', jsClass: 'js-open-timeline-view', icon: 'fa-history', template: 'timelineView', helper: 'isViewTimeline' },

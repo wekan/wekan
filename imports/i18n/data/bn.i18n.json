@@ -265,6 +265,7 @@
   "zoom-level": "বর্ধিতকরণের মাত্রা",
   "enter-zoom-level": "বর্ধিতকরণের মাত্রা লিখুন (50-300%):",
   "board-view-cal": "পঞ্জিকা",
+  "board-view-calendar-mode": "Calendar Mode",
   "board-view-multiboard-cal": "পঞ্জিকা (সব বোর্ড)",
   "board-view-swimlanes": "সাঁতারপথসমূহ",
   "board-view-collapse": "সংকুচিত",

@@ -265,6 +265,7 @@
   "zoom-level": "Zoomstufe",
   "enter-zoom-level": "Eingabe Zoom Stufe (50-300%):",
   "board-view-cal": "Kalender",
+  "board-view-calendar-mode": "Calendar Mode",
   "board-view-multiboard-cal": "Kalender (Alle Boards)",
   "board-view-swimlanes": "Bahnenansicht",
   "board-view-collapse": "Einklappen",

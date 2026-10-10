@@ -1,0 +1,88 @@
+/* #3194: Calendar Mode - Trello's calendar. */
+.calendar-mode-view {
+  padding: 8px 12px;
+  overflow: auto;
+}
+.calendar-mode-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.calendar-mode-title {
+  margin: 0;
+  font-size: 1.3em;
+}
+.calendar-mode-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.calendar-mode-buttons button.is-active {
+  font-weight: bold;
+  box-shadow: inset 0 -2px 0 currentColor;
+}
+.calendar-mode-weekdays,
+.calendar-mode-week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+.calendar-mode-weekday {
+  padding: 4px;
+  font-weight: bold;
+  text-align: center;
+}
+.calendar-mode-day {
+  min-height: 110px;
+  padding: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.6);
+  min-width: 0;
+}
+.calendar-mode-day.is-outside {
+  opacity: 0.55;
+}
+.calendar-mode-day.is-today .calendar-mode-day-number {
+  font-weight: bold;
+  text-decoration: underline;
+}
+.calendar-mode-day-number {
+  font-size: 0.85em;
+  margin-bottom: 4px;
+}
+.calendar-mode-card {
+  display: block;
+  margin-bottom: 4px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  background: #fff;
+  color: inherit;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.calendar-mode-card-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin-bottom: 2px;
+}
+.calendar-mode-card-labels .card-label {
+  font-size: 0.75em;
+  padding: 0 4px;
+  border-radius: 3px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.calendar-mode-card-title {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+@media screen and (max-width: 800px) {
+  .calendar-mode-day {
+    min-height: 70px;
+  }
+}

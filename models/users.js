@@ -849,6 +849,7 @@ Users.attachSchema(
         'board-view-swimlanes',
         'board-view-lists',
         'board-view-cal',
+        'board-view-calendar-mode',
         'board-view-multiboard-cal',
         'board-view-gantt',
         'board-view-gantt-frappe',

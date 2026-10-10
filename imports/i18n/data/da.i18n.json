@@ -265,6 +265,7 @@
   "zoom-level": "Zoom niveau",
   "enter-zoom-level": "Angiv zoom niveau (50-300%):",
   "board-view-cal": "Kalender",
+  "board-view-calendar-mode": "Calendar Mode",
   "board-view-multiboard-cal": "Kalender (Alle tavler)",
   "board-view-swimlanes": "Svømmebaner",
   "board-view-collapse": "Sammenfold",

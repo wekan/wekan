@@ -320,6 +320,7 @@ export const Utils = {
     } else if (
       [
         'board-view-multiboard-cal',
+        'board-view-calendar-mode',
         'board-view-gantt-frappe',
         'board-view-gantt-dhtmlx',
         'board-view-table',
@@ -429,6 +430,7 @@ export const Utils = {
     } else if (
       [
         'board-view-multiboard-cal',
+        'board-view-calendar-mode',
         'board-view-gantt-frappe',
         'board-view-gantt-dhtmlx',
         'board-view-table',

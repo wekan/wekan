@@ -265,6 +265,7 @@
   "zoom-level": "Kattalashtirish darajasi",
   "enter-zoom-level": "Kattalashtirish darajasini kiriting (50-300%):",
   "board-view-cal": "Kalendar",
+  "board-view-calendar-mode": "Calendar Mode",
   "board-view-multiboard-cal": "Bir nechta taxta uchun taqvim",
   "board-view-swimlanes": "Suzish yo'llari",
   "board-view-collapse": "Yiqilish",

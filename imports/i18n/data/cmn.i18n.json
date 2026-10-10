@@ -265,6 +265,7 @@
   "zoom-level": "缩放级别",
   "enter-zoom-level": "输入缩放级别 (50-300%)：",
   "board-view-cal": "日历",
+  "board-view-calendar-mode": "Calendar Mode",
   "board-view-multiboard-cal": "日历 (所有板)",
   "board-view-swimlanes": "泳道",
   "board-view-collapse": "坍塌",

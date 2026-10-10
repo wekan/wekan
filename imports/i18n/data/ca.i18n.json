@@ -265,6 +265,7 @@
   "zoom-level": "Nivell d'ampliació",
   "enter-zoom-level": "Introduïu el nivell d'ampliació (50-300%):",
   "board-view-cal": "Calendari",
+  "board-view-calendar-mode": "Calendar Mode",
   "board-view-multiboard-cal": "Calendari (Tots els taulers)",
   "board-view-swimlanes": "Carrils",
   "board-view-collapse": "Contraure",

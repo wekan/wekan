@@ -24,6 +24,8 @@ const BOARD_VIEWS = [
   { view: 'board-view-lists', labelKey: 'board-view-lists', icon: 'fa-trello' },
   { view: 'board-view-table', labelKey: 'board-view-table', icon: 'fa-table' },
   { view: 'board-view-cal', labelKey: 'board-view-cal', icon: 'fa-calendar' },
+  // #3194: Trello's calendar - a card on its due day, with its labels.
+  { view: 'board-view-calendar-mode', labelKey: 'board-view-calendar-mode', icon: 'fa-calendar-check-o' },
   { view: 'board-view-multiboard-cal', labelKey: 'board-view-multiboard-cal', icon: 'fa-calendar-plus-o' },
   { view: 'board-view-time', labelKey: 'board-view-time', icon: 'fa-clock-o' },
   { view: 'board-view-timeline', labelKey: 'board-view-timeline', icon: 'fa-history' },
@@ -76,6 +78,7 @@ const DEFAULT_BOARD_VIEW_ORDER = [
   'board-view-lists',
   'board-view-table',
   'board-view-cal',
+  'board-view-calendar-mode',
   'board-view-multiboard-cal',
   'board-view-time',
   'board-view-timeline',
@@ -108,6 +111,11 @@ const DEFAULT_BOARD_VIEW_ORDER = [
   'board-view-size-cycle-time',
   'board-view-map',
 ];
+
+// Views added to the default order after a board could save an order of its
+// own (Board Settings / Board View). A saved order that lacks only these is
+// the default order of its time, not a custom one (normalizeBoardViewOrder).
+const VIEWS_ADDED_LATER = ['board-view-calendar-mode'];
 
 // After which entries the menu draws a separator - the same six `hr`s the
 // pre-feature template had, at the same places - only in the DEFAULT order,
@@ -158,11 +166,19 @@ function normalizeBoardViewOrder(storedOrder) {
   // knows that the default list does not, so a view added to the table but
   // not yet to the list above still reaches the menu (at the end) instead
   // of vanishing. tests/boardViewSettings.test.cjs fails when the two differ.
+  // A saved order that IS the default order of its time - every default view,
+  // in default order, missing only views added after it was saved
+  // (VIEWS_ADDED_LATER) - is the default order: it gets every view in its
+  // default place - Calendar Mode below Calendar (#3194) - and keeps the
+  // menu's separators. Any other order is the user's own, and a view it lacks
+  // goes at the end.
+  const olderDefault = DEFAULT_BOARD_VIEW_ORDER.filter(view => seen.has(view) || !VIEWS_ADDED_LATER.includes(view));
+  if (result.length && olderDefault.length === result.length && olderDefault.every((view, i) => view === result[i])) {
+    result.length = 0;
+  }
   DEFAULT_BOARD_VIEW_ORDER.concat(VIEW_KEYS).forEach(view => {
-    if (!seen.has(view)) {
-      seen.add(view);
-      result.push(view);
-    }
+    if (result.includes(view)) return;
+    result.push(view);
   });
   return result;
 }

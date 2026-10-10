@@ -265,6 +265,7 @@
   "zoom-level": "확대/축소 수준",
   "enter-zoom-level": "확대 수준을 입력하세요 (50-300%):",
   "board-view-cal": "달력",
+  "board-view-calendar-mode": "Calendar Mode",
   "board-view-multiboard-cal": "달력 (전체 보드)",
   "board-view-swimlanes": "스윔레인",
   "board-view-collapse": "접기",

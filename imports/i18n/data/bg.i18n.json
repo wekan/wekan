@@ -265,6 +265,7 @@
   "zoom-level": "Ниво",
   "enter-zoom-level": "Въведете ниво на мащабиране (50-300%):",
   "board-view-cal": "Календар",
+  "board-view-calendar-mode": "Calendar Mode",
   "board-view-multiboard-cal": "Календар (Всички табла)",
   "board-view-swimlanes": "Коридори",
   "board-view-collapse": "Събери",

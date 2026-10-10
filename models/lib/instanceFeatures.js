@@ -31,7 +31,7 @@ const FEATURES = [
   { key: 'views-table', labelKey: 'feature-views-table', descKey: 'feature-views-table-desc',
     views: ['board-view-table'] },
   { key: 'views-calendar', labelKey: 'feature-views-calendar', descKey: 'feature-views-calendar-desc',
-    views: ['board-view-cal', 'board-view-multiboard-cal'] },
+    views: ['board-view-cal', 'board-view-calendar-mode', 'board-view-multiboard-cal'] },
   { key: 'views-time', labelKey: 'feature-views-time', descKey: 'feature-views-time-desc',
     views: ['board-view-time', 'board-view-timeline'] },
   { key: 'views-overview', labelKey: 'feature-views-overview', descKey: 'feature-views-overview-desc',

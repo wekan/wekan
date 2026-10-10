@@ -1243,6 +1243,10 @@
     {
       "key": "attach-card-not-found",
       "since": "2026-10-10"
+    },
+    {
+      "key": "board-view-calendar-mode",
+      "since": "2026-10-10"
     }
   ]
 }

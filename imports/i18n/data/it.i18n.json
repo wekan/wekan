@@ -265,6 +265,7 @@
   "zoom-level": "Livello di zoom",
   "enter-zoom-level": "Inserisci il livello di zoom (50-300%):",
   "board-view-cal": "Calendario",
+  "board-view-calendar-mode": "Calendar Mode",
   "board-view-multiboard-cal": "Calendario (Tutte le bacheche)",
   "board-view-swimlanes": "Swimlane",
   "board-view-collapse": "Comprimi",

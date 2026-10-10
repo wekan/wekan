@@ -265,6 +265,7 @@
   "zoom-level": "Lebel han Zoom",
   "enter-zoom-level": "Igbutang an lebel han zoom (50-300%):",
   "board-view-cal": "Kalendaryo",
+  "board-view-calendar-mode": "Calendar Mode",
   "board-view-multiboard-cal": "Kalendaryo (Ngatanan nga Board)",
   "board-view-swimlanes": "Mga Swimlane",
   "board-view-collapse": "I-collapse",

@@ -380,6 +380,8 @@ const PRE_FEATURE_MENU = [
   'board-view-table',
   'hr',
   'board-view-cal',
+  // #3194: Calendar Mode, below Calendar.
+  'board-view-calendar-mode',
   'board-view-multiboard-cal',
   'board-view-time',
   'board-view-timeline',
@@ -426,10 +428,22 @@ const PRE_FEATURE_HR_AFTER = PRE_FEATURE_MENU
   .map((k, i) => (k === 'hr' ? PRE_FEATURE_MENU[i - 1] : null))
   .filter(Boolean);
 
+test('#3194: a board that saved the default order before Calendar Mode still has the default order', () => {
+  const before = bvs.DEFAULT_BOARD_VIEW_ORDER.filter(view => view !== 'board-view-calendar-mode');
+  const out = bvs.normalizeBoardViewOrder(before);
+  assert.deepStrictEqual(out, bvs.DEFAULT_BOARD_VIEW_ORDER, 'Calendar Mode in its place, below Calendar');
+  assert.strictEqual(bvs.isDefaultBoardViewOrder(before), true, 'and the menu keeps its separators');
+  // Negative: a custom order is not made the default; the new view goes at
+  // the end of it, and a view other than the ones added later still counts.
+  const custom = before.slice(1).concat(before[0]);
+  assert.deepStrictEqual(bvs.normalizeBoardViewOrder(custom), custom.concat('board-view-calendar-mode'));
+  assert.strictEqual(bvs.isDefaultBoardViewOrder(before.filter(view => view !== 'board-view-table')), false);
+});
+
 test('the default order is the pre-feature menu order (525bcab1b), literally', () => {
   assert.deepStrictEqual(bvs.DEFAULT_BOARD_VIEW_ORDER, PRE_FEATURE_ORDER);
-  // 34 before the Map view (#3256) was appended.
-  assert.strictEqual(PRE_FEATURE_ORDER.length, 35);
+  // 34 before the Map view (#3256) was appended, 35 before Calendar Mode (#3194).
+  assert.strictEqual(PRE_FEATURE_ORDER.length, 36);
   // The literal in the model is a list of its own, not a slice of the table
   // (negative: re-sorting BOARD_VIEWS must not be able to change the default).
   assert.match(bvsSrc, /const DEFAULT_BOARD_VIEW_ORDER = \[\n\s*'board-view-swimlanes',/);

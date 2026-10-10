@@ -265,6 +265,7 @@
   "zoom-level": "Уровень масштаба",
   "enter-zoom-level": "Введите уровень масштаба (50-300%):",
   "board-view-cal": "Календарь",
+  "board-view-calendar-mode": "Calendar Mode",
   "board-view-multiboard-cal": "Календарь (Все доски)",
   "board-view-swimlanes": "Дорожки",
   "board-view-collapse": "Свернуть",

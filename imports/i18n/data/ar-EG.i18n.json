@@ -265,6 +265,7 @@
   "zoom-level": "مستوى التكبير",
   "enter-zoom-level": "أدخل مستوى التكبير (50-300%):",
   "board-view-cal": "التقويم",
+  "board-view-calendar-mode": "Calendar Mode",
   "board-view-multiboard-cal": "التقويم (كل اللوحات)",
   "board-view-swimlanes": "خطوط السباحة",
   "board-view-collapse": "انهيار",

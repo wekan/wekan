@@ -265,6 +265,7 @@
   "zoom-level": "Zoomaus taso",
   "enter-zoom-level": "Kirjoita zoomaus taso (50-300%):",
   "board-view-cal": "Kalenteri",
+  "board-view-calendar-mode": "Calendar Mode",
   "board-view-multiboard-cal": "Kalenteri (Kaikki taulut)",
   "board-view-swimlanes": "Uimaradat",
   "board-view-collapse": "Pienennä",

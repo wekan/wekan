@@ -1,0 +1,31 @@
+//- #3194: Calendar Mode - Trello's calendar. A card on the day it is due, with
+  its labels and its whole title, the cards of a day in the board's order
+  (models/lib/calendarMode.js). A month or a week.
+template(name="calendarModeView")
+  .calendar-mode-view.js-calendar-mode-view
+    if currentCard
+      +cardDetails(currentCard)
+    .calendar-mode-toolbar
+      h2.calendar-mode-title= rangeTitle
+      .calendar-mode-buttons
+        button.js-calendar-mode-today(type="button") {{_ 'today'}}
+        button.js-calendar-mode-prev(type="button" aria-label="{{_ 'previous'}}") {{_ 'previous'}}
+        button.js-calendar-mode-next(type="button" aria-label="{{_ 'next'}}") {{_ 'next'}}
+        button.js-calendar-mode-range(type="button" data-range="week" class="{{#if isRange 'week'}}is-active{{/if}}") {{_ 'week'}}
+        button.js-calendar-mode-range(type="button" data-range="month" class="{{#if isRange 'month'}}is-active{{/if}}") {{_ 'month'}}
+    .calendar-mode-grid(role="grid")
+      .calendar-mode-weekdays(role="row")
+        each weekdayNames
+          .calendar-mode-weekday(role="columnheader")= this
+      each weeks
+        .calendar-mode-week(role="row")
+          each this
+            .calendar-mode-day(role="gridcell" data-day="{{key}}" class="{{#unless inRange}}is-outside{{/unless}} {{#if isToday}}is-today{{/if}}")
+              .calendar-mode-day-number= dayOfMonth
+              each cardsOn key
+                a.calendar-mode-card.js-calendar-mode-card(href="{{cardUrl}}" data-card-id="{{_id}}" class="{{#if color}}card-label-{{color}}-border{{/if}}")
+                  if cardLabels.length
+                    .calendar-mode-card-labels
+                      each cardLabels
+                        span.card-label(class="card-label-{{color}}" title="{{name}}")= name
+                  .calendar-mode-card-title= title

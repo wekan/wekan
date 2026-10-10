@@ -828,6 +828,9 @@ Template.boardBody.helpers({
   isViewCalendar() {
     return Utils.boardView() === 'board-view-cal';
   },
+  isViewCalendarMode() {
+    return Utils.boardView() === 'board-view-calendar-mode';
+  },
 
   isViewMultiboardCalendar() {
     return Utils.boardView() === 'board-view-multiboard-cal';
