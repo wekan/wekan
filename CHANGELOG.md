@@ -105,7 +105,7 @@ Status checked on 2026-10-10. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **30,193 untranslated locale/string values in 43 languages**.
+  report counts **30,022 untranslated locale/string values in 43 languages**.
   It excludes **383 source keys tracked separately as pending Transifex**.
   A separate short-prose audit flags 1,751 candidates across 185 locales;
   shared native words may equal English, so these require individual review.
@@ -127,10 +127,10 @@ previously held for Transifex. Completed work is recorded in Upcoming.
 - Automatic-archiving and date-filter messages now have non-English values in
   all 234 non-English locale paths. Continue the remaining feature families and
   the language-quality audit; coverage does not establish fluent wording.
-- Hawaiian work fills 416 English values across card links, import/export,
+- Hawaiian work fills 587 English values across card links, import/export,
   notifications, webhooks, LDAP, visibility and Blockly, and repairs eight
-  malformed older custom-field strings. Its full fill list still has 536
-  entries, including 458 in the ordinary report. The latest 19 targeted suites
+  malformed older custom-field strings. Its full fill list still has 365
+  entries, including 287 in the ordinary report. The latest 19 targeted suites
   and 21 preservation checks pass. The 25 selected Hawaiian UI scenarios are
   registered and syntax-checked; execution awaits a running application.
   Technical wording remains provisional and malformed seed text elsewhere
@@ -163,8 +163,8 @@ previously held for Transifex. Completed work is recorded in Upcoming.
 
 Previously paused for release on 2026-09-27 and 2026-10-08; resumed on
 2026-10-10 at the maintainer's request to translate all remaining strings.
-The current Hawaiian batches cover color, loop, input, list, logic and editor
-controls; their
+The current Hawaiian batches cover color, loop, input, list, logic, math,
+procedure and editor controls; their
 remaining Blockly messages and other incomplete catalogs are still open.
 Gujarati Blockly prose and Blocks-editor messages now have placeholder coverage;
 the remaining catalogs and terminology review are now in progress.
@@ -530,6 +530,22 @@ All 19 targeted suites, 21 preservation checks and 246 catalog key/token checks
 pass. The Hawaiian browser scenario is registered but has not been executed.
 Specialist wording remains low confidence pending speaker review. Hawaiian still
 has 536 entries in its full fill list, and all-language work remains open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/18bb105f91">Translate Blockly math and procedure messages</a>. Thanks to xet7.</summary>
+
+Fill 171 Hawaiian values for mathematical operations, functions, variables,
+screen-reader controls and navigation. Keep mathematical notation, numeric
+bounds and placeholders intact. Regression checks distinguish random-number
+bounds, logarithm bases, function output and screen-reader states.
+
+All 19 targeted suites, 21 preservation checks and 246 catalog key/token checks
+pass. Browser execution remains unverified. Mathematical and programming
+terminology remains low confidence pending fluent-speaker review, with research
+sources recorded in the translation audit. Hawaiian still has 365 entries in
+its full fill list; the all-language goal remains open.
 
 </details>
 
