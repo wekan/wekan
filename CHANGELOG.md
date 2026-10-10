@@ -495,6 +495,36 @@ used.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Translate the remaining current German strings and correct Swiss German spelling.
+
+**Translations** - German base and regional catalogs.
+
+**Languages updated:** German.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ee9fbe1cfd">Translate current strings across German locale variants</a>. Thanks to xet7.</summary>
+
+Fill 440 English values across de, de-AT, de-CH and de_DE for linked cards,
+imports, member mapping, webhooks, notifications and Wrike workflows. All four
+full current fill lists are empty. Separately normalize 86 older Swiss German
+values from ß to ss without changing their wording otherwise. Preserve all
+other existing translations, source tokens and parsed constants. Regression
+checks cover permissions, propagation direction, import semantics, notification
+timing, workflow states and Swiss spelling. Longer technical phrasing remains
+provisional pending speaker review.
+
+All 304 translation/Blockly suites pass, along with 16 German/Blockly suites
+rerun after spelling corrections, 246 catalog inventories and 21 preservation
+checks. Twelve representative browser cases pass syntax and discovery;
+execution remains unverified because the local app and browser dependencies
+are unavailable. The wider all-language backlog and semantic audit remain open.
+
+</details>
+
+Thanks to above GitHub users for their contributions.
+
 # v12.26 2026-10-10 WeKan ® release
 
 **In short:** Boards now import from and export to twenty more tools, among
