@@ -130,8 +130,8 @@ previously held for Transifex. Completed work is recorded in Upcoming and releas
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **29,735 untranslated locale/string values in 42 languages**.
   It excludes **383 source keys tracked separately as pending Transifex**.
-  After the Belarusian batch, full per-locale `--list` reports, including pending
-  keys, count **62,948 remaining values across 152 non-English locale
+  After the Afrikaans batch, full per-locale `--list` reports, including pending
+  keys, count **62,708 remaining values across 150 non-English locale
   files**. This fuller inventory remains the scope of the translation work.
   A separate short-prose audit flags 1,681 candidates across 183 locales.
   The two notification At/To labels now have translations in all non-English
@@ -525,14 +525,37 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** Current Albanian, Belarusian, Bosnian, Bulgarian, Croatian, Icelandic, Latvian,
+**In short:** Current Afrikaans, Albanian, Belarusian, Bosnian, Bulgarian, Croatian, Icelandic, Latvian,
 Macedonian, Serbian, Slovenian and Vietnamese strings are translated. Mixed-language Macedonian values and Basque
 card wording are corrected, with validation of imports, notifications and recovery
 choices.
 
-**Translations** - Albanian, Basque, Belarusian, Bosnian, Bulgarian, Croatian, Icelandic, Latvian, Macedonian, Serbian, Slovenian and Vietnamese.
+**Translations** - Afrikaans, Albanian, Basque, Belarusian, Bosnian, Bulgarian, Croatian, Icelandic, Latvian, Macedonian, Serbian, Slovenian and Vietnamese.
 
-**Languages updated:** Albanian, Basque, Belarusian, Bosnian, Bulgarian, Croatian, Icelandic, Latvian, Macedonian, Serbian, Slovenian, Vietnamese.
+**Languages updated:** Afrikaans, Albanian, Basque, Belarusian, Bosnian, Bulgarian, Croatian, Icelandic, Latvian, Macedonian, Serbian, Slovenian, Vietnamese.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4c5bf48b53">Translate remaining current Afrikaans strings</a>. Thanks to xet7.</summary>
+
+Fill 240 English placeholders across af and af_ZA for linked cards and fields,
+member mapping, CSV columns, bulk imports and exports, webhooks, notifications,
+Wrike workflows and subtasks. The regional catalog also receives 20 missing
+import-format instructions. Both full current fill lists are empty, including
+pending Transifex keys. Preserve existing translations, exact tokens, parsed
+constants and external menu/column names. Regressions verify permissions, field
+directions, member replacement, ZIP semantics, inherited settings, quiet hours,
+completion states, unsupported import data and required English headers.
+Longer Afrikaans technical wording remains low-confidence pending speaker review;
+older catalog terminology and fluency are not fully audited.
+
+All 306 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Six browser cases pass syntax and discovery; runtime execution
+remains unverified without the local app and browser system dependencies.
+The full inventory, including pending Transifex keys, records 62,708 remaining
+values across 150 non-English locale files. The all-language backlog and semantic
+audit remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7c187e7318">Translate remaining current Belarusian strings</a>. Thanks to xet7.</summary>
