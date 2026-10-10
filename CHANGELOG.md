@@ -136,9 +136,11 @@ previously held for Transifex. Completed work is recorded in Upcoming.
   flows are registered and syntax-checked; execution remains unverified.
 - Lithuanian and Yiddish each fill 112 current English values, including short
   delivery labels. Their full current fill lists are empty. Twelve malformed
-  Lithuanian labels/activity messages and 40 Yiddish customization mistranslations
+  Lithuanian labels/activity messages and 40 Yiddish customization
+  mistranslations
   are corrected separately. Four linked-field and notification UI cases are
-  registered and syntax-checked; execution and broader language review remain open.
+  registered and syntax-checked; execution and broader language review remain
+  open.
 - Fill English placeholders in every language, including minority and
   constructed languages. Audit mixed-language and wrong-language seed text, and
   review provisional wording with speakers when available. Preserve
@@ -475,121 +477,6 @@ used.
 </details>
 
 # Upcoming WeKan ® release
-
-**In short:** **Hawaiian, Lithuanian and Yiddish translations** improve
-card linking, imports and notifications. Hawaiian also gains planning, recovery
-and Blockly wording. Malformed labels and customization terms are corrected;
-wider translation work continues.
-
-This release improves translations:
-
-**Translations** - card links, imports, delivery settings, planning, recovery and Blockly controls.
-
-**Languages updated:** Hawaiian, Lithuanian, Yiddish.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/b2867896fb">Translate card links and import mapping</a>. Thanks to xet7.</summary>
-
-Fill 61 Hawaiian English placeholders and repair eight malformed custom-field
-strings. Regression checks preserve source tokens, link directions and permission
-requirements. The existing linked-fields browser scenario now covers Hawaiian
-labels and hidden-card rejection; discovery passes, but execution awaits a
-running app. Technical wording remains low confidence pending speaker review.
-
-All 246 catalogs pass key-order and placeholder checks; 21 preservation checks
-and 14 Blockly suites pass. The broad translation run passes 297 of 302 suites;
-five completion gates expose new untranslated keys in other catalogs. Their
-assertions remain intact, and the outstanding work is recorded in TODO Later.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/e373cfb7a2">Translate imports, notifications and Blockly controls</a>. Thanks to xet7.</summary>
-
-Fill 169 more Hawaiian English values, including 22 import instructions,
-notification timing, webhook identity, LDAP and visibility messages, and
-Blockly color, loop and editor controls. Keep external commands, file names,
-column headers and all source placeholders intact. Tests distinguish loop
-conditions, check import exclusions and protect existing translations.
-
-All 19 targeted suites, 21 preservation checks and all-catalog key/token checks
-pass. The 25 selected Hawaiian browser scenarios are discovered; execution
-awaits a running application. Programming compounds and longer sentences remain
-low confidence pending speaker review. The Hawaiian fill list still has 709
-entries, and the wider all-language work remains open.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/714129c68f">Translate Blockly inputs, lists and logic</a>. Thanks to xet7.</summary>
-
-Fill 186 more Hawaiian values, including short labels and list aliases that
-ordinary fill reports omit. Translate keyboard navigation, accessibility labels,
-list operations and Boolean controls. Whole-family regression checks preserve
-copy semantics, read/remove distinctions, first/last indexing, strict/inclusive
-comparisons and source placeholders.
-
-All 19 targeted suites, 21 preservation checks and 246 catalog key/token checks
-pass. The Hawaiian browser scenario is registered but has not been executed.
-Specialist wording remains low confidence pending speaker review. Hawaiian still
-has 536 entries in its full fill list, and all-language work remains open.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/18bb105f91">Translate Blockly math and procedure messages</a>. Thanks to xet7.</summary>
-
-Fill 171 Hawaiian values for mathematical operations, functions, variables,
-screen-reader controls and navigation. Keep mathematical notation, numeric
-bounds and placeholders intact. Regression checks distinguish random-number
-bounds, logarithm bases, function output and screen-reader states.
-
-All 19 targeted suites, 21 preservation checks and 246 catalog key/token checks
-pass. Browser execution remains unverified. Mathematical and programming
-terminology remains low confidence pending fluent-speaker review, with research
-sources recorded in the translation audit. Hawaiian still has 365 entries in
-its full fill list; the all-language goal remains open.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/fe1a734523">Complete current Hawaiian placeholder coverage</a>. Thanks to xet7.</summary>
-
-Translate 349 remaining values for Blockly text and workspace controls, Scrum
-planning, Sync and recovery. Retain 17 exact physical keyboard legends. The
-current Hawaiian fill list is empty, including pending keys, and regression
-checks cover short Blockly prose omitted from the ordinary report. Existing
-translations and all source placeholders are preserved.
-
-The translation/Blockly run passes 297 of 302 suites; five existing gates in
-other locales still report untranslated keys. All 21 preservation checks and
-246 catalog key/token checks pass. Five selected Hawaiian browser scenarios
-are discovered and syntax-checked; execution remains unverified. Specialist
-wording is low confidence, and the older malformed-text audit remains open.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/2d587d6c27">Translate current Lithuanian and Yiddish strings</a>. Thanks to xet7.</summary>
-
-Fill 112 English values in each locale, including short delivery labels omitted
-from the fill report. Correct 12 malformed Lithuanian card/activity strings and
-40 Yiddish customization mistranslations. Preserve placeholders and executable
-filter examples. Both current fill lists are empty; broader language review
-remains open. The short-prose audit now includes capitalized At/To labels.
-
-The translation/Blockly run passes 299 of 303 suites, resolving the shared
-Breton/Lithuanian/Yiddish failure. Four other current-fill gates still fail.
-All 246 catalog inventories, 21 preservation checks and nine short-prose audit
-checks pass. Four localized browser scenarios are discovered and syntax-checked;
-execution remains unverified. Yiddish technical wording remains low confidence;
-dictionary references and the remaining work are recorded in the audit.
-
-</details>
-
-Thanks to above GitHub users for their contributions and translators for their translations.
-
-# v12.26 2026-10-10 WeKan ® release
 
 **In short:** Boards now import from and export to twenty more tools, among
 them **Microsoft Planner**, **monday.com**, **ClickUp**, **Linear** and
@@ -1474,6 +1361,18 @@ release-all.sh runs it after every release; no release section was changed.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ed4a3a86a1">A spread in a schema no longer stops the API docs, and so the release</a>. Thanks to xet7.</summary>
+
+The v12.26 release stopped in its bump job: openapi/generate_openapi.py read
+the key of every schema property, and notification delivery builds part of
+four schemas with a spread, which has none. A spread is now documented as one
+optional object named by the helper's first string argument,
+notificationDelivery on all four. tests/openapiSchemaSpread.test.cjs runs the
+whole generator.
+
+</details>
+
 - [A Translations group may give the count of its languages when there are too many to list](https://github.com/wekan/wekan/commit/3ec85c82d6).
   Thanks to xet7.
 
@@ -1506,6 +1405,107 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 **Languages updated:** 172 languages.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b2867896fb">Translate card links and import mapping</a>. Thanks to xet7.</summary>
+
+Fill 61 Hawaiian English placeholders and repair eight malformed custom-field
+strings. Regression checks preserve source tokens, link directions and
+permission
+requirements. The existing linked-fields browser scenario now covers Hawaiian
+labels and hidden-card rejection; discovery passes, but execution awaits a
+running app. Technical wording remains low confidence pending speaker review.
+
+All 246 catalogs pass key-order and placeholder checks; 21 preservation checks
+and 14 Blockly suites pass. The broad translation run passes 297 of 302 suites;
+five completion gates expose new untranslated keys in other catalogs. Their
+assertions remain intact, and the outstanding work is recorded in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e373cfb7a2">Translate imports, notifications and Blockly controls</a>. Thanks to xet7.</summary>
+
+Fill 169 more Hawaiian English values, including 22 import instructions,
+notification timing, webhook identity, LDAP and visibility messages, and
+Blockly color, loop and editor controls. Keep external commands, file names,
+column headers and all source placeholders intact. Tests distinguish loop
+conditions, check import exclusions and protect existing translations.
+
+All 19 targeted suites, 21 preservation checks and all-catalog key/token checks
+pass. The 25 selected Hawaiian browser scenarios are discovered; execution
+awaits a running application. Programming compounds and longer sentences remain
+low confidence pending speaker review. The Hawaiian fill list still has 709
+entries, and the wider all-language work remains open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/714129c68f">Translate Blockly inputs, lists and logic</a>. Thanks to xet7.</summary>
+
+Fill 186 more Hawaiian values, including short labels and list aliases that
+ordinary fill reports omit. Translate keyboard navigation, accessibility labels,
+list operations and Boolean controls. Whole-family regression checks preserve
+copy semantics, read/remove distinctions, first/last indexing, strict/inclusive
+comparisons and source placeholders.
+
+All 19 targeted suites, 21 preservation checks and 246 catalog key/token checks
+pass. The Hawaiian browser scenario is registered but has not been executed.
+Specialist wording remains low confidence pending speaker review. Hawaiian still
+has 536 entries in its full fill list, and all-language work remains open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/18bb105f91">Translate Blockly math and procedure messages</a>. Thanks to xet7.</summary>
+
+Fill 171 Hawaiian values for mathematical operations, functions, variables,
+screen-reader controls and navigation. Keep mathematical notation, numeric
+bounds and placeholders intact. Regression checks distinguish random-number
+bounds, logarithm bases, function output and screen-reader states.
+
+All 19 targeted suites, 21 preservation checks and 246 catalog key/token checks
+pass. Browser execution remains unverified. Mathematical and programming
+terminology remains low confidence pending fluent-speaker review, with research
+sources recorded in the translation audit. Hawaiian still has 365 entries in
+its full fill list; the all-language goal remains open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fe1a734523">Complete current Hawaiian placeholder coverage</a>. Thanks to xet7.</summary>
+
+Translate 349 remaining values for Blockly text and workspace controls, Scrum
+planning, Sync and recovery. Retain 17 exact physical keyboard legends. The
+current Hawaiian fill list is empty, including pending keys, and regression
+checks cover short Blockly prose omitted from the ordinary report. Existing
+translations and all source placeholders are preserved.
+
+The translation/Blockly run passes 297 of 302 suites; five existing gates in
+other locales still report untranslated keys. All 21 preservation checks and
+246 catalog key/token checks pass. Five selected Hawaiian browser scenarios
+are discovered and syntax-checked; execution remains unverified. Specialist
+wording is low confidence, and the older malformed-text audit remains open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2d587d6c27">Translate current Lithuanian and Yiddish strings</a>. Thanks to xet7.</summary>
+
+Fill 112 English values in each locale, including short delivery labels omitted
+from the fill report. Correct 12 malformed Lithuanian card/activity strings and
+40 Yiddish customization mistranslations. Preserve placeholders and executable
+filter examples. Both current fill lists are empty; broader language review
+remains open. The short-prose audit now includes capitalized At/To labels.
+
+The translation/Blockly run passes 299 of 303 suites, resolving the shared
+Breton/Lithuanian/Yiddish failure. Four other current-fill gates still fail.
+All 246 catalog inventories, 21 preservation checks and nine short-prose audit
+checks pass. Four localized browser scenarios are discovered and syntax-checked;
+execution remains unverified. Yiddish technical wording remains low confidence;
+dictionary references and the remaining work are recorded in the audit.
+
+</details>
 
 - [The README counts 164 catalogs over 90% translated, after the new English strings](https://github.com/wekan/wekan/commit/93e83ec536).
   Thanks to xet7.
