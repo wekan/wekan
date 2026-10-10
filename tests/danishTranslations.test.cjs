@@ -1,11 +1,10 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Guard the full current fill, including pending source keys.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const root = path.resolve(__dirname, '..');
-const result = spawnSync(process.execPath, [path.join(root, 'releases/translations/fill-translations.mjs'), '--completed-catalog', '--list', 'da'], { cwd: root, encoding: 'utf8' });
+const result = spawnSync(process.execPath, [path.join(root, 'releases/translations/fill-translations.mjs'), '--list', 'da'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
 assert.equal(result.stdout, '{}\n');
 const locale = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/da.i18n.json'), 'utf8'));
@@ -179,3 +178,26 @@ const currentKeys = [
   assert.match(locale['activity-recovery-cancel-confirm'], /kan ikke genoptages/);
   console.log('Danish source keys, tokens, shared vocabulary and recovery meaning verified');
 })().catch(error => { console.error(error); process.exitCode = 1; });
+
+// Parsed constants and state group names are not translated prose.
+for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) {
+  assert.ok(locale['r-wrike-workflow-note'].includes(literal), literal);
+}
+assert.ok(locale['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+assert.notEqual(locale['subtask-mark-done'], locale['subtask-mark-not-done']);
+
+assert.match(locale['custom-field-links-hint'], /samme navn og type på begge/);
+assert.match(locale['custom-field-links-hint'], /kun findes på det ene kort.*uændrede/);
+assert.match(locale['custom-field-link-both'], /Begge veje/);
+assert.match(locale['custom-field-link-send'], /Én vej.*hovedkortet/);
+assert.match(locale['custom-field-link-inactive'], /ikke længere redigere begge.*arkiveret/);
+assert.match(locale['field-link-not-allowed'], /redigere begge kort/);
+assert.equal(locale['import-members-mode-me'], 'Erstat dem alle med mig');
+assert.match(locale['import-many-boards-hint'], /uden medlemstilknytning/);
+assert.match(locale['import-many-boards-hint'], /i sig selv er én eksport.*er én tavle/);
+assert.match(locale['export-all-boards-hint'], /kan eksportere.*projektmappe.*\.zip/);
+assert.match(locale['webhook-payload-description'], /nedarvede indstilling.*altid har sendt/);
+assert.match(locale['webhook-hide-identity'], /Udelad mit navn/);
+assert.match(locale['notification-delivery-quiet'], /vent, til de er slut/);
+assert.match(locale['r-wrike-workflow-note'], /fuldført.*Completed.*Cancelled.*ikke fuldført.*Active.*Deferred/);
+assert.match(locale['r-wrike-workflow-note'], /egne automatiseringsregler kan ikke eksporteres/);

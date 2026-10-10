@@ -2,6 +2,38 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Norwegian Bokmål and Danish current fills — 2026-10-10
+
+Translate 110 English placeholders in each catalog, 220 values in total, for
+attached cards, linked custom fields, calendar mode, member mapping, CSV
+columns, multiple-board import/export, webhooks, notification delivery, Wrike
+workflows and subtask completion. Both full current fill lists are empty.
+All changed values were English in the parent commit; every other value is
+preserved. Retain each catalog's tavle/kort/svømmebane terminology, Norwegian
+tilpassede felt and Danish brugerdefinerede felter.
+
+Preserve all source placeholders, WEBHOOKS_ATTRIBUTES, GET /workflows and
+Wrike's Active, Completed, Deferred and Cancelled group names. Wording keeps
+one-way versus two-way field changes distinct, requires edit access to both
+cards, blocks archived-card linking, distinguishes member-mapping choices,
+handles a ZIP that is itself one export as one board and retains export
+permissions. Notification wording preserves inherited webhook defaults and
+waiting until quiet hours end. Wrike's completion rules retain their group
+semantics and its own automation cannot be exported. Longer technical wording
+remains provisional pending speaker review; older catalog fluency is not
+certified by this batch.
+
+Extend both existing regression suites to their full current fill lists,
+with checks for source tokens, parsed constants, permissions, field direction,
+member replacement, imports and notification/workflow meanings. Add six
+representative browser cases across linked fields, import-people choices and
+notification delivery. Browser execution remains unverified because the local
+app and browser system dependencies are unavailable; syntax and discovery
+are checked. All 304 translation/Blockly suites, 246 catalog key/token
+inventories and 21 human-preference checks pass. The ordinary backlog remains 29,735 values in 42 locales: these
+220 fills were pending source strings excluded from that report. The wider
+all-language translation and semantic-review work remains open.
+
 ## Finnish and Swedish current fills — 2026-10-10
 
 Translate 110 English placeholders in each catalog, 220 values in total, for
