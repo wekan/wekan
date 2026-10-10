@@ -11,7 +11,7 @@ export function shortProseCandidates(source, locale) {
     // Match words, not units, OS/product names, search abbreviations or notation.
     // Strip indexed arguments only for classification, never from the report.
     const prose = value.replace(/%\d+/g, '').replace(/#/g, '').trim();
-    return /^(?:if|do|or|as|to|on|of|by|is|No|Me|OK)$/.test(prose);
+    return /^(?:if|do|or|as|to|on|of|by|is|At|To|No|Me|OK)$/.test(prose);
   }));
 }
 

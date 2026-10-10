@@ -23,7 +23,7 @@ async function expand(sectionLocator) {
   await sectionLocator.locator('summary').click();
 }
 
-for (const language of ['en', 'haw']) {
+for (const language of ['en', 'haw', 'lt', 'yi']) {
 test(`#5171 member scope: layout, grouping, daily schedule and webhook identity in ${language}`, async ({ boardPage: page, user }) => {
   await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
   const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
@@ -42,6 +42,8 @@ test(`#5171 member scope: layout, grouping, daily schedule and webhook identity 
   await expect.poll(() => read().parts).not.toContain('swimlane');
   await email.locator('select[data-key="schedule"]').selectOption('daily');
   await expect.poll(() => read().schedule).toBe('daily');
+  await expect(email.locator('label:has(input[data-key="dailyTime"])')).toHaveText(strings['notification-delivery-daily-time']);
+  await expect(email.locator('label:has(input[data-key="quietEnd"])')).toHaveText(strings['notification-delivery-quiet-to']);
   expect(typeof read().timezone).toBe('string');
   await email.locator('select[data-key="schedule"]').selectOption('');
   await expect.poll(() => read().schedule).toBeUndefined();

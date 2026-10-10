@@ -2,6 +2,48 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Lithuanian and Yiddish current fills — 2026-10-10
+
+Fill 112 English values in each locale: 110 current pending strings for card
+attachments, linked fields, imports/exports, notification delivery, webhooks,
+Wrike workflows and subtask completion, plus the short delivery labels At/To
+omitted from the ordinary report. Both full current fill lists are empty.
+The ordinary report remains 29,735 in 42 locales because these fills were
+pending keys or short prose. The short-prose audit now includes capitalized
+At/To: 2,143 candidates in 232 locales, including 462 previously unreported
+At/To values. These are review candidates, not an automatic correction list. This is placeholder coverage, not a full semantic
+review of either catalog.
+
+Correct 12 malformed Lithuanian values separately: `card`, `cardType-card`
+and `cards-count-one` used the truncated/non-Lithuanian `Kort`; nine activity
+messages contained untranslated swimlane prose. Use the catalog's existing
+kortelė and plaukimo juosta vocabulary, preserving old/new move directions.
+The [Lithuanian dictionary entry](https://www.zodynas.lt/terminu-zodynas/k/kortele)
+also supports kortelė for card.
+
+Correct 40 Yiddish values that used מנהג (custom in the sense of tradition)
+for user customization. The [Yiddish dictionary entry](https://en.wiktionary.org/wiki/מינהג)
+distinguishes that noun from [אייגן, own](https://en.wiktionary.org/wiki/אייגן).
+Use inflected own-field/own-content phrasing for fields, logos, HTML and
+translation overrides. Restore executable field/filter examples and the
+singular Size field label. The [published Yiddish form](https://opwdd.ny.gov/benefit-eligibility-questionnaire-yiddish)
+provides צוטשעפּען for attach; full technical compounds and longer sentences
+remain low confidence pending speaker review. These sources establish lexical
+building blocks, not validation of the full interface translations.
+
+All other existing translations are unchanged. Exact source placeholder
+inventories and key order pass in all 246 catalogs. New regressions include
+whole-catalog token/markup checks, current-fill coverage, one-way and two-way
+links, unmatched fields, permission rejection, import archive behavior,
+notification identity, completion negation and the corrected terminology.
+The 21 human-preference checks pass. Four browser cases for linking fields
+and notification settings in Lithuanian/Yiddish are syntax-checked and
+discovered; execution remains unverified without a running application.
+The broad translation/Blockly run passes 299 of 303 suites. The shared
+Breton/Lithuanian/Yiddish suite now passes; four current-fill failures remain
+in Galician/Xhosa, Papiamento, Venda/Zulu and Wu. The nine short-prose audit
+checks pass, including the added capitalized-label cases.
+
 ## Hawaiian current fill completed — 2026-10-10
 
 Fill the remaining 349 English values: 87 Blockly text/workspace strings,
