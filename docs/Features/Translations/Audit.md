@@ -2,6 +2,36 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Vietnamese current fills — 2026-10-10
+
+Translate 207 English placeholders in each of vi and vi-VN, 414 values in
+total, for attached cards, linked fields, OPML and Org mode imports, member
+mapping, CSV columns, bulk exports, external links, webhooks, notifications,
+Wrike workflows, LDAP synchronization, subtasks, Scrum planning and recovery.
+Both full current fill lists are empty. Every changed value was English in the
+parent commit; existing translations are preserved. Follow the existing bảng,
+thẻ, danh sách, làn ngang and trường tùy chỉnh terminology. Longer technical
+wording remains provisional pending speaker review; older catalog fluency is
+not fully audited.
+
+Preserve source placeholders, technical identifiers, external-link examples
+and parsed Org mode and Wrike constants. Extend the Vietnamese suite to check
+both full current fill lists, complete key order and token inventories, field
+directions, permissions, member replacement, ZIP semantics, inheritance,
+quiet hours and completed versus incomplete states. Recovery regressions
+cover retained changes, permanent deletion, foreign-board protection, duplicate
+prevention, preservation of local planning, the first synchronization and
+conflict-sensitive rollback. Six browser cases for linked fields, import-people
+choices and notification delivery pass syntax and discovery; runtime execution
+remains unverified because the local app and browser system dependencies are
+unavailable. All 305 translation/Blockly suites, 246 catalog inventories and
+21 human-preference checks pass.
+A full per-locale `--list` inventory after this batch finds 64,218 remaining
+values across 163 non-English locale files, including pending Transifex source
+keys. This is broader than `--missing`, which omits the pending queue. These
+counts identify remaining placeholders, not fluency or wrong-language text.
+The wider all-language backlog and semantic audit remain open.
+
 ## Basque current fills — 2026-10-10
 
 Translate 196 English placeholders in eu for attached cards, linked fields,
