@@ -459,7 +459,7 @@ used.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.26 2026-10-10 WeKan ® release
 
 **In short:** Boards now import from and export to twenty more tools, among
 them **Microsoft Planner**, **monday.com**, **ClickUp**, **Linear** and
