@@ -561,7 +561,25 @@ and improves translations:
 Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish and Ukrainian
 base and regional catalogs.
 
-**Languages updated:** Czech, Dutch, French, German, Hungarian, Indonesian, Japanese, Korean, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish, Ukrainian.
+**Languages updated:** Czech, Dutch, French, German, Hungarian, Indonesian, Japanese, Korean, Malay, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish, Ukrainian.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a0c7a0a40a">Translate remaining current Malay strings</a>. Thanks to xet7.</summary>
+
+Fill 352 English placeholders across ms and ms-MY for linked cards, imports,
+member mapping, webhooks, notifications, Wrike, LDAP and recovery. Both full
+current fill lists are empty. Preserve existing translations, exact placeholders
+and parsed constants. Regressions verify permissions, propagation, import
+semantics, timing, workflow states, destructive recovery warnings and preserved
+changes. Longer technical wording remains provisional pending speaker review;
+older catalog wording is not fully audited.
+
+All 305 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Six browser cases pass syntax and discovery; execution remains
+unverified because the local app and browser system dependencies are unavailable.
+The wider all-language backlog and semantic audit remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ef6a8178d1">Translate remaining current Indonesian strings</a>. Thanks to xet7.</summary>
