@@ -19,7 +19,8 @@ const localIso = (page, offset = 0) => page.evaluate(days => {
 
 const look = locator => locator.evaluate(element => {
   const style = getComputedStyle(element);
-  return { boxShadow: style.boxShadow, fontWeight: style.fontWeight, textDecoration: style.textDecorationLine };
+  return { boxShadow: style.boxShadow, fontWeight: style.fontWeight, textDecoration: style.textDecorationLine,
+    background: style.backgroundColor, color: style.color };
 });
 
 test('due-date popup marks today, and only today', async ({ page, user, board }) => {
@@ -65,6 +66,34 @@ test('due-date popup marks today, and only today', async ({ page, user, board })
   await expect(pop.locator(`.js-calendar-day[data-date="${todayIso}"]`)).toHaveCount(0);
   await expect(pop.locator('.js-calendar-day.is-today, .js-calendar-day[aria-current]')).toHaveCount(0);
 });
+
+// #6751 comment 6097142848: on a purple board the ring was hard to see. Today
+// has its own green fill with white text in every board colour theme.
+for (const color of ['wisteria', 'dark', 'appleglasspastel']) {
+  test(`due-date popup fills today green on the ${color} theme`, async ({ page, user, board }) => {
+    db.updateOne('boards', { _id: board.boardId }, { $set: { color } });
+    const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+    db.updateOne('users', { _id: user.id }, { $set: { 'profile.language': 'en', 'profile.calendarSystem': 'gregorian' } });
+    db.updateOne('cards', { _id: card._id }, { $unset: { dueAt: '' } });
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+    await expect(page.locator(`.board-color-${color}`).first()).toBeAttached();
+    await new BoardPage(page).clickCard(board.listIds[0], 'Alpha Card');
+    const cp = new CardPage(page);
+    await cp.waitForOpen();
+    await cp.openDueDateEditor();
+    const pop = page.locator('.js-pop-over');
+    const today = pop.locator(`.js-calendar-day[data-date="${await localIso(page)}"]`);
+    await expect(today).toBeVisible();
+    await page.mouse.move(0, 0);
+    const todayLook = await look(today);
+    expect(todayLook.background).toBe('rgb(46, 125, 50)');
+    expect(todayLook.color).toBe('rgb(255, 255, 255)');
+    // Negative: the other days keep the theme's own fill.
+    const other = await look(pop.locator('.js-calendar-day:not(.is-today)').first());
+    expect(other.background).not.toBe('rgb(46, 125, 50)');
+  });
+}
 
 test('board Calendar view marks today\'s day number', async ({ page, user, board }) => {
   await loginWithToken(page, user.id, user.token);

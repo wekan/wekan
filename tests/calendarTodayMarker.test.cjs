@@ -144,7 +144,14 @@ const pickerCss = read('client/components/forms/calendarDateInput.css');
 const todaySelector = '.calendar-date-input .selected-calendar-picker button.js-calendar-day.is-today';
 const todayRule = rules(pickerCss).find(rule => rule.selector === todaySelector);
 assert.ok(todayRule, 'the picker has a today rule');
-assert.match(todayRule.body, /box-shadow:\s*inset 0 0 0 3px currentColor/, 'today has a ring in the button\'s own text colour');
+// #6751 comment 6097142848: a ring in the theme's own colours was too faint on
+// a purple theme, so today has its own fill, the same in every theme.
+assert.match(todayRule.body, /background:\s*#2e7d32 !important/, 'today has its own green fill, over every theme');
+assert.match(todayRule.body, /(^|;)\s*color:\s*#fff !important/, 'with white text on it');
+assert.match(todayRule.body, /box-shadow:\s*inset 0 0 0 2px #fff/, 'and a white inset ring');
+const bothRule = rules(pickerCss).find(rule => rule.selector === `${todaySelector}[aria-pressed='true']`);
+assert.ok(bothRule && /outline:\s*2px solid #2e7d32/.test(bothRule.body),
+  'today + selected keeps a visible outline, in green rather than the white text colour');
 assert.match(todayRule.body, /font-weight:\s*bold/);
 assert.match(todayRule.body, /text-decoration:\s*underline/);
 assert.doesNotMatch(todayRule.body, /(margin|padding|border)-(left|right)|\b(left|right):/, 'RTL-safe: no physical sides');
@@ -165,12 +172,13 @@ const cssFiles = [];
   }
 })(path.join(root, 'client'));
 assert.ok(cssFiles.length > 10);
-const guarded = /(^|;)\s*(box-shadow|text-decoration(-line)?|font-weight)\s*:/;
+const guarded = /(^|;)\s*(box-shadow|text-decoration(-line)?|font-weight|background(-color)?|color)\s*:/;
+const fillDecl = /^\s*(background(-color)?|color)\s*:/;
 let competing = 0;
 for (const file of cssFiles) {
   for (const rule of rules(fs.readFileSync(file, 'utf8'))) {
     for (const sel of splitList(rule.selector)) {
-      if (sel === todaySelector) continue;
+      if (sel === todaySelector || sel.startsWith(todaySelector)) continue;
       assert.doesNotMatch(`${sel}{${rule.body}}`, /\.is-today\b[^{]*\{[^}]*(display\s*:\s*none|visibility\s*:\s*hidden)/,
         `${path.relative(root, file)}: ${sel} must not hide today`);
       const reachesDay = /selected-calendar-picker|js-calendar-day|calendar-date-input/.test(sel)
@@ -178,6 +186,14 @@ for (const file of cssFiles) {
       if (!reachesDay || !guarded.test(rule.body)) continue;
       competing += 1;
       const body = rule.body.split(';').filter(decl => /^\s*(box-shadow|text-decoration(-line)?|font-weight)\s*:/.test(decl));
+      // A theme may force its fill with !important (the custom theme colour
+      // does); today's fill is !important too, so such a rule only has to be
+      // less specific, which the check below requires of every plain rule.
+      const fills = rule.body.split(';').filter(decl => fillDecl.test(decl) && /!important/.test(decl));
+      if (fills.length && !/:hover|:active|:focus|aria-pressed/.test(sel)) {
+        assert.ok(compare(specificity(sel), mine) < 0,
+          `${path.relative(root, file)}: "${sel}" forces a fill and must be less specific than today (${mine})`);
+      }
       for (const decl of body) {
         assert.doesNotMatch(decl, /!important/,
           `${path.relative(root, file)}: "${sel} { ${decl.trim()} }" would override today's marker`);

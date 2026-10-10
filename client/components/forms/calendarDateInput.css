@@ -55,21 +55,30 @@
   font-weight: bold;
   outline: 2px solid currentColor;
 }
-/* #6751: today's day is distinct from every other day. The ring and the
-   underline are drawn in the button's OWN text colour (currentColor), so they
-   contrast with whatever fill a board colour theme, dark mode or a custom theme
-   colour gives the day buttons - the fills differ per theme, some with
-   !important, but each theme already keeps its text readable on its fill. The
-   selector is more specific than the themes' `.board-color-x
-   .selected-calendar-picker button.primary` (0,3,1) rules so a theme's
-   box-shadow or font-weight cannot hide it. Selected day keeps its outline
-   outside, so today + selected shows both. Logical properties only: RTL-safe. */
+/* #6751: today's day is distinct from every other day, in every theme. Today
+   gets its OWN fill - green with white text - instead of a mark drawn on the
+   theme's fill: a ring in the button's text colour was too faint on themes
+   whose day buttons are already a strong colour (wisteria's purple, #6751
+   comment 6097142848). The fill and the text colour are !important because the
+   custom theme colour sets the picker buttons' background with !important; the
+   selector (0,4,1) is more specific than every theme's `.board-color-x
+   .selected-calendar-picker button.primary` (0,3,1), so it wins over all of
+   them. The white inset ring and the underline still mark it without colour
+   vision. Logical properties only: RTL-safe. */
 .calendar-date-input .selected-calendar-picker button.js-calendar-day.is-today {
-  box-shadow: inset 0 0 0 3px currentColor;
+  background: #2e7d32 !important;
+  color: #fff !important;
+  box-shadow: inset 0 0 0 2px #fff;
   font-weight: bold;
   text-decoration: underline;
   text-decoration-thickness: 2px;
   text-underline-offset: 3px;
+}
+/* Today and selected: the selected outline is drawn outside the button in
+   today's green, as white (the text colour) would vanish on a light popup. */
+.calendar-date-input .selected-calendar-picker button.js-calendar-day.is-today[aria-pressed='true'] {
+  outline: 2px solid #2e7d32;
+  outline-offset: 2px;
 }
 .calendar-date-input .selected-calendar-picker td.is-today-cell {
   background: color-mix(in srgb, currentColor 15%, transparent);
