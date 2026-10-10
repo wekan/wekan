@@ -497,11 +497,32 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** Translate the remaining current Czech, Dutch, French, German, Hungarian, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish and Ukrainian strings and correct Czech wording in Slovak and Swiss German spelling.
+**In short:** Translate the remaining current Czech, Dutch, French, German, Hungarian, Japanese, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish and Ukrainian strings and correct Czech wording in Slovak and Swiss German spelling.
 
-**Translations** - Czech, Dutch, French, German, Hungarian, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish and Ukrainian base and regional catalogs.
+**Translations** - Czech, Dutch, French, German, Hungarian, Japanese, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish and Ukrainian base and regional catalogs.
 
-**Languages updated:** Czech, Dutch, French, German, Hungarian, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish, Ukrainian.
+**Languages updated:** Czech, Dutch, French, German, Hungarian, Japanese, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish, Ukrainian.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9b4d16b1ce">Translate remaining current standard Japanese strings</a>. Thanks to xet7.</summary>
+
+Fill 412 English placeholders across ja and ja-JP for linked cards, imports,
+member mapping, webhooks, notifications, Wrike, planning, LDAP and recovery.
+Both full current fill lists are empty. Preserve existing translations, exact
+placeholders and parsed constants. Regressions verify permissions, propagation,
+import semantics, timing, workflow states, destructive recovery warnings and
+checkpoint restrictions. Longer technical wording remains provisional pending
+speaker review; older catalog wording is not fully audited.
+
+All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Add five browser cases alongside existing Japanese notification
+coverage; all six pass syntax and discovery. Execution remains unverified
+because the local app and browser system dependencies are unavailable.
+The Hiragana catalog (ja-HI, registered as ja-Hira) still needs its 206 current
+fills and a separate script review. The wider all-language backlog and semantic
+audit remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e1774f913c">Translate remaining current Russian strings</a>. Thanks to xet7.</summary>
