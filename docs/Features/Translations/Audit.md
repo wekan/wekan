@@ -2,6 +2,34 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Spanish base and regional current fills — 2026-10-10
+
+Translate 110 English placeholders in each of es, es-AR, es-CL, es-CO, es-LA,
+es-MX, es-PE, es-PY and es_CO, 990 values in total. Coverage includes attached
+cards, linked fields, calendar mode, member mapping, CSV columns, multiple-board
+import/export, webhooks, notifications, Wrike workflows and subtask completion.
+All nine full current fill lists are empty. Every changed value was English
+in the parent commit; all other values are preserved, including existing
+regional wording. Use the shared tablero, tarjeta, lista, carril and campos
+personalizados terminology. New wording uses neutral Spanish; regional style
+and longer technical phrasing remain provisional pending speaker review.
+
+Preserve every source placeholder, WEBHOOKS_ATTRIBUTES, GET /workflows and
+Wrike's state-group names. Regression checks cover edit access to both cards,
+archived-card restrictions, one-way/two-way field propagation, importer-as-user
+mapping, ZIP files that are single exports, export permissions, inherited
+webhook settings, waiting until quiet hours end and workflow completion states.
+This does not certify the language quality of every older catalog value.
+
+Extend the existing Spanish regression to all nine full current fills and
+add 27 representative browser cases across linked fields, import-people
+choices and notification delivery. Syntax and discovery are checked; browser
+execution remains unverified because the local app and browser system
+dependencies are unavailable. All 304 translation/Blockly suites, 246 catalog
+key/token inventories and 21 human-preference checks pass. The ordinary backlog remains 29,735 values
+in 42 locales: these fills were pending source strings excluded from that
+report. The wider all-language and semantic-review work remains open.
+
 ## French base and regional current fills — 2026-10-10
 
 Translate 108 English placeholders in each of fr, fr-FR, fr-BE, fr-CA and fr-CH,

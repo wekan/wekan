@@ -1,5 +1,4 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Guard the full current fill for every Spanish locale variant.
 'use strict';
 const assert = require('assert');
 const childProcess = require('child_process');
@@ -12,15 +11,36 @@ const languages = ['es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE',
   'es-PY', 'es', 'es_CO'];
 for (const language of languages) {
   assert.deepStrictEqual(JSON.parse(childProcess.execFileSync(node,
-    [fill, '--completed-catalog', '--list', language], { cwd: ROOT, encoding: 'utf8' })), {});
+    [fill, '--list', language], { cwd: ROOT, encoding: 'utf8' })), {});
   const translated = JSON.parse(fs.readFileSync(path.join(ROOT,
     'imports/i18n/data', `${language}.i18n.json`), 'utf8'));
   assert.strictEqual(translated.officeReportTitle, 'Oficinas');
   assert.match(translated['api-report-desc'], /puntos finales|frecuencia/);
   assert.match(translated['api-no-calls'], /WITH_API=true/);
   assert.strictEqual(translated.error, 'Mensaje de error');
+  assert.match(translated['custom-field-links-hint'], /mismo nombre y tipo en ambas/);
+  assert.match(translated['custom-field-links-hint'], /solo tiene una tarjeta permanecen sin cambios/);
+  assert.match(translated['custom-field-link-both'], /ambos sentidos/);
+  assert.match(translated['custom-field-link-send'], /un solo sentido.*tarjeta principal/);
+  assert.match(translated['custom-field-link-inactive'], /ya no puede editar ambas.*archivada/);
+  assert.match(translated['field-link-not-allowed'], /editar ambas tarjetas/);
+  assert.strictEqual(translated['import-members-mode-me'], 'Sustituirlas todas por mí');
+  assert.match(translated['import-many-boards-hint'], /sin asignación de miembros/);
+  assert.match(translated['import-many-boards-hint'], /por sí mismo una sola exportación.*es un tablero/);
+  assert.match(translated['export-all-boards-hint'], /puedes exportar.*libro.*\.zip/);
+  assert.match(translated['webhook-payload-description'], /configuración heredada.*siempre han enviado/);
+  assert.match(translated['webhook-hide-identity'], /Omitir mi nombre/);
+  assert.match(translated['notification-delivery-quiet'], /esperar hasta que terminen/);
+  assert.match(translated['r-wrike-workflow-note'], /completada.*Completed.*Cancelled.*no completada.*Active.*Deferred/);
+  assert.match(translated['r-wrike-workflow-note'], /reglas de automatización.*no se pueden exportar/);
+  for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) {
+    assert.ok(translated['r-wrike-workflow-note'].includes(literal), `${language}: ${literal}`);
+  }
+  assert.ok(translated['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+  assert.notStrictEqual(translated['subtask-mark-done'], translated['subtask-mark-not-done']);
+
 }
-console.log('upcomingSpanishTranslationFill: historical baseline checks passed');
+console.log('upcomingSpanishTranslationFill: full current fills and linked-card/import/delivery meanings passed');
 
 const currentKeys = [
   "board-announcement",
