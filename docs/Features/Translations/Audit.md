@@ -2,6 +2,37 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Persian current fills — 2026-10-10
+
+Translate 398 English placeholders: 199 each in fa and fa-IR. Both full current
+fill lists are empty, including pending Transifex keys. Cover attached cards,
+linked fields, 22 import-format instructions, member mapping, CSV columns, bulk
+imports and exports, webhooks, notifications, Wrike workflows, subtasks, planning,
+LDAP, link rules, read-only settings and interrupted import/List Sync recovery.
+Every changed value was English in the parent commit; existing translations
+remain unchanged. Follow برد، کارت، لیست، مسیر and فیلدهای شخصی terminology.
+Longer Persian technical wording remains provisional and low-confidence pending
+speaker review; older catalog terminology and fluency are not fully audited.
+
+Regressions compare all keys and exact underscore/percent tokens with English.
+Check permissions, field directions, unmapped imports, ZIP semantics, inherited
+settings, quiet hours and completed versus incomplete states. Import checks keep
+unsupported-data exclusions, required English headers, first-board selection and
+subtask depth markers. Preserve parsed constants, link-rule syntax, LDAP settings,
+WEBHOOKS_ATTRIBUTES, GET /workflows and Org mode keywords. Recovery checks retain
+already-applied changes, never write discarded remaining changes, refuse discard
+of replayable operations, distinguish keep from permanent removal, include later
+additions in deletion warnings and leave unrelated boards untouched. Verify the
+oldest-50 limit and that first Sync never removes planning.
+
+All 306 translation/Blockly suites, 246 catalog inventories and 21 human-preference
+checks pass. Ten browser cases for linked fields, import-people choices,
+notification delivery, stuck List Sync and interrupted import recovery pass syntax
+and discovery; runtime execution remains unverified without the local app and
+browser system dependencies. A fresh full per-locale inventory counts 62,200
+remaining values across 147 non-English locale files, including pending Transifex
+keys. The all-language backlog and semantic audit remain open.
+
 ## Estonian current fills — 2026-10-10
 
 Translate 110 English placeholders in et-EE for attached cards, linked fields,
