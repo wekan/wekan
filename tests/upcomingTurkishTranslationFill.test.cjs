@@ -1,5 +1,4 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Guard the full current Turkish catalog and warning meanings.
 'use strict';
 const assert = require('assert');
 const childProcess = require('child_process');
@@ -9,7 +8,7 @@ const ROOT = path.resolve(__dirname, '..');
 const node = process.execPath;
 const fill = path.join(ROOT, 'releases/translations/fill-translations.mjs');
 assert.deepStrictEqual(JSON.parse(childProcess.execFileSync(node,
-  [fill, '--completed-catalog', '--list', 'tr'], { cwd: ROOT, encoding: 'utf8' })), {});
+  [fill, '--list', 'tr'], { cwd: ROOT, encoding: 'utf8' })), {});
 const translated = JSON.parse(fs.readFileSync(path.join(ROOT,
   'imports/i18n/data/tr.i18n.json'), 'utf8'));
 assert.strictEqual(translated.checklist, 'Kontrol listesi');
@@ -71,5 +70,23 @@ console.log('upcomingTurkishTranslationFill: 5 tests passed');
   assert.strictEqual(translated['scrum-product-backlog'], 'Ürün İş Listesi');
   assert.strictEqual(translated['scrum-sprint'], 'Sprint', 'established Turkish Scrum vocabulary');
   assert.strictEqual(translated['blockly-ENTER_KEY'], 'Enter', 'keyboard legend');
+  assert.match(translated['custom-field-links-hint'], /Her iki kartta aynı ada ve türe/);
+  assert.match(translated['custom-field-links-hint'], /Yalnızca bir kartta bulunan alanlar değişmeden kalır/);
+  assert.match(translated['custom-field-link-inactive'], /her iki kartı düzenleyemiyor.*arşivlenmiş/);
+  assert.match(translated['custom-field-link-both'], /İki yönlü.*herhangi bir karttaki/);
+  assert.match(translated['custom-field-link-send'], /Tek yönlü.*ana karta/);
+  assert.match(translated['field-link-not-allowed'], /Her iki kartı da düzenleyebilmeniz/);
+  assert.strictEqual(translated['import-members-mode-me'], 'Hepsini benimle değiştir');
+  assert.match(translated['import-many-boards-hint'], /üye eşleştirmesi yapılmadan/);
+  assert.match(translated['import-many-boards-hint'], /Kendisi tek bir dışa aktarım.*tek bir panodur/);
+  assert.match(translated['export-all-boards-hint'], /Dışa aktarabileceğiniz.*çalışma kitabı.*\.zip/);
+  assert.match(translated['webhook-payload-description'], /devralınan ayarı korur/);
+  assert.match(translated['notification-delivery-quiet'], /bitene kadar bekle/);
+  assert.match(translated['r-wrike-workflow-note'], /Completed.*Cancelled.*tamamlanmış.*Active.*Deferred.*tamamlanmamış/);
+  for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) {
+    assert.ok(translated['r-wrike-workflow-note'].includes(literal), literal);
+  }
+  assert.ok(translated['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+  assert.notStrictEqual(translated['subtask-mark-done'], translated['subtask-mark-not-done']);
   console.log('upcomingTurkishTranslationFill: source keys, tokens and planning/recovery prose verified');
 })().catch(error => { console.error(error); process.exitCode = 1; });

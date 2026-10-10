@@ -2,6 +2,29 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Turkish current fills — 2026-10-10
+
+Translate 110 English placeholders in tr for attached cards, linked fields,
+calendar mode, member mapping, CSV columns, multiple-board import/export,
+webhooks, notifications, Wrike workflows and subtask completion. The full
+current fill list is empty. Every changed value was English in the parent
+commit; all existing translations are preserved. Follow the existing pano,
+kart, liste, kulvar and özel alanlar terminology. Longer technical wording
+remains provisional pending speaker review; older catalog fluency is not
+fully audited.
+
+Preserve all source placeholders, WEBHOOKS_ATTRIBUTES, GET /workflows and
+Wrike state names. Regressions cover edit permissions, field propagation
+directions, member replacement, ZIP semantics, export permissions, inherited
+settings, quiet hours and workflow completion states. Replace the historical
+completion gate with the full current fill list. Add browser cases for linked
+fields and import-people choices; notification delivery already covers Turkish.
+All three cases pass syntax and discovery, but execution remains unverified
+because the local app and browser system dependencies are unavailable.
+All 304 translation/Blockly suites, 246 catalog inventories and 21
+human-preference checks pass. The wider all-language backlog and semantic
+audit remain open.
+
 ## Romanian current fills and field label correction — 2026-10-10
 
 Translate 110 English placeholders in each of ro and ro-RO, 220 values in
