@@ -122,3 +122,60 @@ for (const code of hindi) {
   assert.match(locale['interrupted-import-truncated'], /सबसे पुराने 50/);
 }
 console.log('Both full current Hindi catalogs, exact tokens and import/recovery/notification meanings pass');
+
+for (const code of gujarati) {
+  const result = spawnSync(process.execPath, [path.join(__dirname, '../releases/translations/fill-translations.mjs'), '--list', code], { encoding: 'utf8' });
+  assert.equal(result.status, 0, result.stderr);
+  assert.deepEqual(JSON.parse(result.stdout), {});
+  const locale = read(code);
+  assert.deepEqual(Object.keys(locale), Object.keys(en));
+  for (const key of Object.keys(en)) assert.deepEqual(translationTokens(locale[key]), translationTokens(en[key]), `${code}:${key}`);
+  assert.match(locale['custom-field-links-hint'], /સમાન નામ અને પ્રકાર/);
+  assert.match(locale['custom-field-links-hint'], /માત્ર એક કાર્ડ પર હોય તેવા ક્ષેત્રો યથાવત્ રહે છે/);
+  assert.match(locale['custom-field-link-inactive'], /હવે બંને કાર્ડમાં ફેરફાર કરી શકતી નથી.*આર્કાઇવ/);
+  assert.match(locale['custom-field-link-both'], /બંને દિશામાં.*કોઈપણ કાર્ડ/);
+  assert.match(locale['custom-field-link-send'], /એક દિશામાં.*મુખ્ય કાર્ડ/);
+  assert.match(locale['field-link-not-allowed'], /બંને કાર્ડમાં ફેરફાર કરવાની પરવાનગી/);
+  assert.equal(locale['import-members-mode-me'], 'બધાને મારા વપરાશકર્તા ખાતાથી બદલો');
+  assert.match(locale['import-many-boards-hint'], /સભ્યોનું જોડાણ કર્યા વિના/);
+  assert.match(locale['import-many-boards-hint'], /પોતે એક જ નિકાસ છે.*તે એક બોર્ડ છે/);
+  assert.match(locale['export-all-boards-hint'], /નિકાસ કરવાની પરવાનગી.*એક વર્કબુક.*\.zip/);
+  assert.match(locale['webhook-payload-description'], /વારસામાં મળેલી ગોઠવણી જાળવે છે/);
+  assert.match(locale['notification-delivery-quiet'], /પૂરો થાય ત્યાં સુધી રાહ જુઓ/);
+  assert.match(locale['r-wrike-workflow-note'], /Completed.*Cancelled.*પૂર્ણ.*Active.*Deferred.*અપૂર્ણ/);
+  for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) assert.ok(locale['r-wrike-workflow-note'].includes(literal));
+  assert.ok(locale['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+  assert.match(locale['subtask-mark-done'], /સબટાસ્કને પૂર્ણ/);
+  assert.match(locale['subtask-mark-not-done'], /સબટાસ્કને અપૂર્ણ/);
+  assert.equal(locale['notification-delivery-part-list'], 'યાદી');
+  assert.equal(locale['notification-delivery-part-swimlane'], 'સ્વિમલેન');
+  for (const name of ['taiga', 'vikunja']) assert.match(locale[`import-board-instruction-${name}`], /જોડાણો આયાત થતા નથી/);
+  assert.match(locale['import-board-instruction-taiga'], /પહેલાં \.json\.gz ફાઇલને અનઝિપ કરો/);
+  assert.match(locale['import-board-instruction-redmine'], /નિકાસ કરતાં પહેલાં My accountમાં ભાષા અંગ્રેજી/);
+  assert.match(locale['import-board-instruction-businessmap'], /Title, Column, Lane, Owner, Deadline/);
+  assert.match(locale['import-board-instruction-plane'], /વર્ણન કે જોડાણો હોતાં નથી.*આયાત થતા નથી/);
+  assert.match(locale['import-board-instruction-kanri'], /પહેલું બોર્ડ આયાત થાય છે/);
+  assert.match(locale['import-board-instruction-teamwork'], /--, ## અથવા >> એક સ્તર વધુ ઊંડાઈ/);
+  for (const literal of ['TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED']) assert.ok(locale['import-board-instruction-orgmode'].includes(literal));
+  assert.ok(locale['external-link-rules-description'].includes('[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
+  assert.ok(locale['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+  for (const literal of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS', 'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) assert.ok(locale['ldap-sync-now-nothing'].includes(literal));
+  assert.match(locale['login-setting-env-only'], /ફક્ત સર્વરના પર્યાવરણ.*માત્ર વાંચવા માટે/);
+  assert.match(locale['stuck-sync-operation-description'], /પહેલેથી લાગુ થયેલા ફેરફારો રહે છે/);
+  assert.match(locale['stuck-sync-operation-description'], /બાકીના સાચવેલા ફેરફારો ક્યારેય લખાતા નથી/);
+  assert.match(locale['stuck-sync-operation-reason-access-denied'], /આખી યાદીમાં લખવાની પરવાનગી નથી/);
+  for (const key of ['stuck-sync-operation-replayable-now', 'stuck-sync-operation-not-stuck']) assert.match(locale[key], /ત્યજી શકાતી નથી/);
+  assert.match(locale['stuck-sync-operation-replayable'], /ત્યજવામાં આવી નથી/);
+  assert.match(locale['stuck-sync-operation-busy'], /હમણાં સમન્વયિત થઈ રહી છે/);
+  assert.match(locale['interrupted-import-description'], /આયાત આગળ ચાલુ રાખી શકાતી નથી.*સ્રોત ફાઇલ રાખવામાં આવતી નથી/);
+  assert.match(locale['interrupted-import-description'], /ત્યાર પછી ઉમેરાયેલી દરેક વસ્તુ/);
+  assert.match(locale['interrupted-import-keep-confirm'], /કંઈ દૂર થતું નથી/);
+  assert.match(locale['interrupted-import-discard-confirm'], /બધી સામગ્રી કાયમ માટે દૂર થશે/);
+  assert.match(locale['interrupted-import-foreign-board'], /આ આયાતે બનાવ્યું નહોતું.*ફેરફાર થયો નથી/);
+  for (const key of ['stuck-sync-operation-truncated', 'interrupted-import-truncated']) assert.match(locale[key], /સૌથી જૂની 50/);
+  for (const key of ['custom-field-links-hint', 'interrupted-import-description', 'r-wrike-workflow-note']) {
+    assert.match(locale[key], /\p{Script=Gujarati}/u);
+    assert.doesNotMatch(locale[key], /\p{Script=Devanagari}/u);
+  }
+}
+console.log('Full current Gujarati catalog, exact tokens and import/recovery/notification meanings pass');

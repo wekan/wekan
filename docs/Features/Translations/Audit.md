@@ -2,6 +2,37 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Gujarati current fills — 2026-10-10
+
+Translate 196 English placeholders in gu-IN. Its full current fill list is empty,
+including pending Transifex keys. Cover linked cards and fields, 22 import-format
+instructions, member mapping, CSV columns, bulk imports and exports, webhooks,
+notifications, Wrike workflows, subtasks, LDAP, link rules, read-only server settings
+and interrupted import/List Sync recovery. Every changed value was English in the
+parent commit; existing translations remain unchanged. Use બોર્ડ, કાર્ડ, યાદી,
+સ્વિમલેન and કસ્ટમ ક્ષેત્રો terminology. Longer Gujarati technical wording remains
+provisional and low-confidence pending speaker review; older catalog terminology
+and fluency are not fully audited.
+
+Regressions compare all keys and exact underscore/percent tokens with English.
+Check field permissions/directions, unmapped imports, ZIP behavior, inherited
+settings, quiet hours and completion states. Keep import exclusions, required
+English headers, first-board selection, subtask markers, compressed-file handling,
+link-rule syntax, LDAP constants, WEBHOOKS_ATTRIBUTES, GET /workflows and Org mode
+keywords. Recovery checks retain applied changes, never write discarded remaining
+changes, refuse discard of replayable operations, distinguish keep from permanent
+removal, include later additions and leave unrelated boards untouched. Verify the
+oldest-50 limits, server-environment-only configuration and Gujarati rather than
+Devanagari script in representative new prose.
+
+All 306 translation/Blockly suites, 246 catalog inventories and 21 human-preference
+checks pass. Five browser cases for linked fields, import-people choices,
+notification delivery, stuck List Sync and interrupted import recovery pass syntax
+and discovery; execution remains unverified without the local app and browser
+system dependencies. A fresh full per-locale inventory counts 58,504 remaining
+values across 130 non-English locale files, including pending Transifex keys.
+The all-language backlog and semantic audit remain open.
+
 ## Hindi current fills — 2026-10-10
 
 Translate 392 English placeholders: 196 each in hi and hi-IN. Both full current
