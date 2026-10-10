@@ -1581,6 +1581,26 @@ and older semantic audit remain open.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bda8d389e8">Translate remaining current Norwegian Bokmål and Danish strings</a>. Thanks to xet7.</summary>
+
+Fill 110 English placeholders per catalog, 220 values in total, for attached
+cards, linked fields, imports and exports, member mapping, webhooks,
+notifications, Wrike workflows and subtask completion. Both full current fill
+lists are empty. Preserve existing translations, exact source tokens and
+workflow literals. Regressions cover edit permissions, link direction, member
+replacement, ZIP import behavior, quiet hours and workflow completion rules.
+Longer technical wording remains provisional pending speaker review.
+
+All 304 translation/Blockly suites, 246 catalog key/token inventories and
+21 preservation checks pass. Six representative browser scenarios pass syntax
+and discovery; execution remains unverified because the local app and browser
+dependencies are unavailable. The ordinary backlog remains 29,735 values in
+42 locales because these fills were pending source strings excluded from that
+report. The wider all-language work and semantic audit remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b71d83ce7e">Translate remaining current Finnish and Swedish strings</a>. Thanks to xet7.</summary>
 
 Fill 110 English placeholders in each language, 220 values in total, for linked
