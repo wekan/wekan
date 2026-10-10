@@ -377,3 +377,59 @@ assert.equal(hawaiian['blockly-CONTROLS_REPEAT_TITLE'].replace('%1', '3'), 'hana
 assert.match(hawaiian['r-blocks-invalid'], /hoʻokahi wale nō/);
 assert.match(hawaiian['r-blocks-permission'], /ʻae luna papa/);
 console.log('hawaiianTranslationProgress: import, delivery and Blockly controls passed');
+
+// Entire input, list and logic families, including aliases and short source
+// words omitted from the fill report, must stay translated. URLs, hue values,
+// empty affixes, the index symbol and the code literal null stay unchanged.
+const blocklyFamilies = /^blockly-(?:FIELD_|ICON_|INPUT_LABEL_|KEYBOARD_NAV_|LISTS_|LOGIC_)/;
+for (const [key, value] of Object.entries(english)) {
+  if (!blocklyFamilies.test(key) || /(?:HELPURL|HUE)$/.test(key)
+      || !value || ['blockly-LISTS_GET_INDEX_FROM_START', 'blockly-LOGIC_NULL'].includes(key)) continue;
+  assert.ok(hawaiian[key].trim(), `${key}: translated family has nonempty text`);
+  assert.notEqual(hawaiian[key], value, `${key}: prose, including short labels, stays translated`);
+}
+for (const suffix of ['FIRST', 'FROM', 'LAST', 'RANDOM']) {
+  const get = hawaiian[`blockly-LISTS_GET_INDEX_TOOLTIP_GET_${suffix}`];
+  const remove = hawaiian[`blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_${suffix}`];
+  const both = hawaiian[`blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_${suffix}`];
+  assert.match(get, /^Hoʻihoʻi/);
+  assert.doesNotMatch(get, /[Ww]ehe/, 'read-only getters do not claim removal');
+  assert.match(remove, /^Wehe/);
+  assert.doesNotMatch(remove, /hoʻihoʻi/, 'remove-only operations do not promise a return value');
+  assert.match(both, /^Wehe a hoʻihoʻi/);
+}
+for (const key of ['LISTS_GET_SUBLIST_TOOLTIP', 'LISTS_REVERSE_TOOLTIP', 'LISTS_SORT_TOOLTIP']) {
+  assert.match(hawaiian[`blockly-${key}`], /kope/, `${key}: operates on a copy`);
+}
+assert.match(hawaiian['blockly-LISTS_INDEX_FROM_END_TOOLTIP'], /hope/);
+assert.match(hawaiian['blockly-LISTS_INDEX_FROM_START_TOOLTIP'], /mua/);
+assert.equal(hawaiian['blockly-LISTS_GET_SUBLIST_END_FROM_START'], 'a i #');
+assert.match(hawaiian['blockly-LISTS_GET_SUBLIST_END_FROM_END'], /mai ka hope/);
+assert.match(hawaiian['blockly-LISTS_SORT_TYPE_IGNORECASE'], /hua nui.*hua liʻiliʻi/);
+assert.match(hawaiian['blockly-LISTS_SPLIT_TOOLTIP_JOIN'], /^Hoʻohui/);
+assert.match(hawaiian['blockly-LISTS_SPLIT_TOOLTIP_SPLIT'], /^Hoʻokaʻawale/);
+assert.match(hawaiian['blockly-LISTS_INDEX_OF_TOOLTIP'], /%1 inā ʻaʻole i loaʻa/);
+assert.match(hawaiian['blockly-LOGIC_OPERATION_TOOLTIP_AND'], /nā hoʻokomo ʻelua/);
+assert.match(hawaiian['blockly-LOGIC_OPERATION_TOOLTIP_OR'], /ma ka liʻiliʻi hoʻokahi/);
+assert.match(hawaiian['blockly-LOGIC_COMPARE_TOOLTIP_GTE'], /a i ʻole like lāua/);
+assert.match(hawaiian['blockly-LOGIC_COMPARE_TOOLTIP_LTE'], /a i ʻole like lāua/);
+assert.doesNotMatch(hawaiian['blockly-LOGIC_COMPARE_TOOLTIP_GT'], /like lāua/);
+assert.doesNotMatch(hawaiian['blockly-LOGIC_COMPARE_TOOLTIP_LT'], /like lāua/);
+for (const label of ['CONDITION', 'IF_TRUE', 'IF_FALSE']) {
+  assert.ok(hawaiian['blockly-LOGIC_TERNARY_TOOLTIP'].includes(hawaiian[`blockly-LOGIC_TERNARY_${label}`]),
+    `ternary help names the translated ${label} control`);
+}
+assert.equal(hawaiian['blockly-FIELD_BITMAP_PIXEL_ON'], 'ʻā');
+assert.equal(hawaiian['blockly-FIELD_BITMAP_PIXEL_OFF'], 'pio');
+assert.notEqual(hawaiian['blockly-INPUT_LABEL_MATH_DIVIDEND'], hawaiian['blockly-INPUT_LABEL_MATH_DIVISOR']);
+assert.equal(hawaiian['blockly-KEYBOARD_NAV_COPIED_HINT'].replace('%1', 'Ctrl+V'),
+  'Ua kope ʻia. Kaomi iā Ctrl+V e hoʻopili ai.');
+assert.equal(hawaiian['blockly-LISTS_REPEAT_TITLE'].replace('%1', 'A').replace('%2', '3'),
+  'hana i papa inoa me ka mea A i hana hou ʻia 3 manawa');
+for (const key of ['CONTROLS_IF_MSG_IF', 'CONTROLS_REPEAT_INPUT_DO',
+  'CONTROLS_FOREACH_INPUT_DO', 'CONTROLS_FOR_INPUT_DO', 'CONTROLS_IF_IF_TITLE_IF',
+  'CONTROLS_IF_MSG_THEN', 'CONTROLS_WHILEUNTIL_INPUT_DO', 'PROCEDURES_DEFNORETURN_TITLE',
+  'PROCEDURES_DEFRETURN_TITLE']) {
+  assert.notEqual(hawaiian[`blockly-${key}`], english[`blockly-${key}`]);
+}
+console.log('hawaiianTranslationProgress: Blockly inputs, lists, logic and short labels passed');

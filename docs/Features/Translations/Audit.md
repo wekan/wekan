@@ -2,6 +2,36 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Hawaiian Blockly inputs, lists and logic — 2026-10-10
+
+Fill another 186 English values for input/accessibility labels, keyboard
+navigation, list creation and manipulation, and Boolean/comparison controls.
+This includes 13 short labels omitted from the normal fill list and the later
+list aliases. All changed values were English in the parent commit, and all
+previous translations remain untouched. Use the established papa inoa, mea loli,
+waiwai and palaka vocabulary; specialist phrasing remains low confidence pending
+fluent-speaker review.
+
+The regression gate now covers whole input, list and logic families, allowing
+only source help URLs, hue numbers, empty affixes, the index symbol and null to
+remain English-identical. Positive and negative assertions distinguish get,
+remove and get-and-remove, copy versus mutation, first versus last indexing,
+AND versus OR, and strict versus inclusive comparisons. Ternary help names its
+translated controls, and numbered placeholders render in navigation and repeat
+messages. Existing correct translations are not replaced to satisfy the gate.
+
+All 19 targeted suites and 21 preservation checks pass. All 246 catalogs pass
+key order and exact placeholder inventories. The existing Hawaiian Blocks
+edit/save/context-menu browser scenario passes syntax checking and Playwright
+discovery; execution remains unverified. The wider broad-suite completion
+failures recorded below remain open.
+
+Hawaiian's full fill list decreases from 709 to 536 entries (458 ordinary,
+78 pending); the ordinary all-language report falls from 30,366 to 30,193 values
+across 43 languages. The difference between 186 fills and the 173-entry report
+reduction is the 13 short labels. Physical key legends remain unchanged, and
+remaining mathematical, text, procedure and planning messages are still open.
+
 ## Hawaiian imports, delivery controls and Blockly — 2026-10-10
 
 Fill another 169 English values: 22 import instructions, 70 link/notification/
