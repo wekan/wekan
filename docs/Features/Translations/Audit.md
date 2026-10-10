@@ -2,6 +2,28 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Galician current fills — 2026-10-10
+
+Translate 110 English placeholders in each of gl and gl-ES, 220 values in
+total, for attached cards, linked fields, calendar mode, member mapping,
+CSV columns, multiple-board import/export, webhooks, notifications, Wrike
+workflows and subtask completion. Both full current fill lists are empty.
+Every changed value was English in the parent commit; existing translations
+are preserved. Follow the existing taboleiro, tarxeta, lista, carril and
+campos personalizados terminology. Longer technical wording remains provisional
+pending speaker review; older catalog fluency is not fully audited.
+
+Preserve source placeholders, WEBHOOKS_ATTRIBUTES, GET /workflows and Wrike
+state names. Regressions verify permissions, field directions, member
+replacement, ZIP semantics, export permissions, inherited settings, quiet
+hours and workflow completion states. Both full current fill lists replace
+the historical completion gates. Register six browser cases for linked fields,
+import-people choices and notification delivery. Syntax and discovery pass;
+execution remains unverified because the local app and browser system
+dependencies are unavailable. All 305 translation/Blockly suites, 246 catalog
+inventories and 21 human-preference checks pass. The wider all-language backlog
+and semantic audit remain open.
+
 ## Valencian current fills — 2026-10-10
 
 Translate 109 English placeholders in ca@valencia, registered as ca-valencia,

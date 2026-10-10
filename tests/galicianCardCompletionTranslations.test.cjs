@@ -1,5 +1,4 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Guard both full current Galician catalogs and action meanings.
 'use strict';
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -34,11 +33,27 @@ console.log('Galician complete/incomplete card actions: actual template wiring, 
       assert.ok(locale[key]?.trim(), key);
       assert.notEqual(locale[key], english[key], `${code}:${key} remains English`);
     }
+    assert.match(locale['custom-field-links-hint'], /mesmo nome e tipo nas dúas tarxetas/);
+    assert.match(locale['custom-field-links-hint'], /só existen nunha das tarxetas quedan sen cambios/);
+    assert.match(locale['custom-field-link-inactive'], /xa non pode editar as dúas tarxetas.*arquivada/);
+    assert.match(locale['custom-field-link-both'], /dous sentidos.*calquera tarxeta/);
+    assert.match(locale['custom-field-link-send'], /só sentido.*tarxeta principal/);
+    assert.match(locale['field-link-not-allowed'], /editar as dúas tarxetas/);
+    assert.equal(locale['import-members-mode-me'], 'Substituílas todas por min');
+    assert.match(locale['import-many-boards-hint'], /sen asociar membros/);
+    assert.match(locale['import-many-boards-hint'], /por si mesmo unha única exportación.*é un só taboleiro/);
+    assert.match(locale['export-all-boards-hint'], /pode exportar.*libro.*\.zip/);
+    assert.match(locale['webhook-payload-description'], /conserva a configuración herdada/);
+    assert.match(locale['notification-delivery-quiet'], /agardar ata que rematen/);
+    assert.match(locale['r-wrike-workflow-note'], /como completa.*Completed.*Cancelled.*como incompleta.*Active.*Deferred/);
+    for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) assert.ok(locale['r-wrike-workflow-note'].includes(literal), literal);
+    assert.ok(locale['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+    assert.notEqual(locale['subtask-mark-done'], locale['subtask-mark-not-done']);
     assert.match(locale['scrum-total'], /tarxetas.*descoñecidas/);
     assert.doesNotMatch(locale['scrum-total'], /tarjetas|cartões|desconocidas/);
     assert.equal(locale['blockly-INPUT_LABEL_MATH_DIVISOR'], 'divisor');
     assert.deepEqual(JSON.parse(execFileSync(process.execPath,
-      ['releases/translations/fill-translations.mjs', '--completed-catalog', '--list', code],
+      ['releases/translations/fill-translations.mjs', '--list', code],
       { cwd: root, encoding: 'utf8' })), {});
   }
   console.log('Galician source keys, interpolation tokens and planning/recovery translations verified');
