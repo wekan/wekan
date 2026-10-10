@@ -31,7 +31,8 @@
 # ppc64le and s390x, SQLite, PostgreSQL and MariaDB; on riscv64, SQLite and
 # PostgreSQL.
 #
-# MongoDB 8 and MongoDB 9 run too - the real servers, from the official
+# MongoDB 6, 7, 8 and 9 run too - the real servers, from the official
+# mongo:6.0, mongo:7 (the image docker-compose-mongodb-v7.yml runs WeKan with),
 # mongo:8.0 and mongo:9.0 images, queried DIRECTLY with no FerretDB in between.
 # All FerretDB backends can agree with each other and still all be wrong, and
 # only a MongoDB beside them shows it: the first run with MongoDB found that
@@ -78,6 +79,8 @@ FERRET_REPO_HTTPS="https://github.com/wekan/FerretDB"
 # The `mongodb` handler is MongoDB itself: no FerretDB is started for it.
 BACKENDS=(
   "sqlite|docker-compose.yml||0|sqlite"
+  "mongodb6|image:mongo:6.0|mongodb|27017|mongodb"
+  "mongodb7|docker-compose-mongodb-v7.yml|wekandb|27017|mongodb"
   "mongodb8|image:mongo:8.0|mongodb|27017|mongodb"
   "mongodb9|image:mongo:9.0|mongodb|27017|mongodb"
   "postgresql|docker-compose-ferretdb-v1-postgresql.yml|postgres|5432|postgresql"
@@ -396,7 +399,7 @@ for entry in "${BACKENDS[@]}"; do
       # database per MongoDB database, which a per-database grant cannot allow.
       url="mysql://root:ferretdb_root_secret@127.0.0.1:$hostport/ferretdb"
       ;;
-    mongodb8|mongodb9)
+    mongodb*)
       start_db_container "$image" \
         || { echo "ERROR $name  container did not start" >> "$SUMMARY"; stop_on_failure; continue; }
       url="mongodb://127.0.0.1:$hostport"
@@ -427,7 +430,7 @@ for entry in "${BACKENDS[@]}"; do
         mysql)      docker_exec exec "$CONTAINER" mysqladmin ping -h 127.0.0.1 -u root -pferretdb_root_secret --silent >/dev/null 2>&1 && up=1 ;;
         mariadb)    docker_exec exec "$CONTAINER" healthcheck.sh --connect --innodb_initialized >/dev/null 2>&1 && up=1 ;;
         sap-hana)   docker_exec logs "$CONTAINER" 2>&1 | grep -q "Startup finished" && up=1 ;;
-        mongodb8|mongodb9)
+        mongodb*)
                     docker_exec exec "$CONTAINER" mongosh --quiet --eval 'db.runCommand({ping:1}).ok' 2>/dev/null | grep -q 1 && up=1 ;;
       esac
       # MongoDB stops at once on a kernel it knows it is incompatible with.
