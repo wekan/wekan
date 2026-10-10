@@ -497,11 +497,30 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** Translate the remaining current Czech, Dutch, French, German, Hungarian, Polish, Portuguese, Romanian, Slovak, Spanish and Turkish strings and correct Czech wording in Slovak and Swiss German spelling.
+**In short:** Translate the remaining current Czech, Dutch, French, German, Hungarian, Polish, Portuguese, Romanian, Slovak, Spanish, Turkish and Ukrainian strings and correct Czech wording in Slovak and Swiss German spelling.
 
-**Translations** - Czech, Dutch, French, German, Hungarian, Polish, Portuguese, Romanian, Slovak, Spanish and Turkish base and regional catalogs.
+**Translations** - Czech, Dutch, French, German, Hungarian, Polish, Portuguese, Romanian, Slovak, Spanish, Turkish and Ukrainian base and regional catalogs.
 
-**Languages updated:** Czech, Dutch, French, German, Hungarian, Polish, Portuguese, Romanian, Slovak, Spanish, Turkish.
+**Languages updated:** Czech, Dutch, French, German, Hungarian, Polish, Portuguese, Romanian, Slovak, Spanish, Turkish, Ukrainian.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/782a778f28">Translate remaining current Ukrainian strings</a>. Thanks to xet7.</summary>
+
+Fill 220 English placeholders across uk and uk-UA for linked cards, imports,
+member mapping, webhooks, notifications and Wrike workflows. Both full current
+fill lists are empty. Preserve existing translations, exact placeholders and
+parsed constants. Regressions verify permissions, field propagation directions,
+import semantics, notification timing and workflow completion states. Longer
+technical wording remains provisional pending speaker review; older catalog
+wording is not fully audited.
+
+All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Add five browser cases alongside existing base Ukrainian
+notification coverage; all six pass syntax and discovery. Execution remains
+unverified because the local app and browser system dependencies are unavailable.
+The wider all-language backlog and semantic audit remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/05a077cbbe">Translate remaining current Turkish strings</a>. Thanks to xet7.</summary>
