@@ -2,6 +2,46 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Papiamento current fill — 2026-10-10
+
+Fill 112 English values: 110 pending strings for card attachments/links,
+member mapping, CSV and multiple-board imports, exports, webhook identity,
+delivery settings, Wrike workflows and subtask completion, plus the short
+At/To delivery labels. The full current Papiamento fill list is empty. Every
+filled value was English in the parent commit. Correct five older mixed-Spanish
+values separately: map-to-existing-user-desc, org-admins-description, roles-info,
+dueCardsViewChange-choice-all-description and globalSearchViewChange-choice-all-description.
+Preserve original role limits, global-admin rights and search visibility. Other
+existing translations are untouched.
+
+Use the catalog's Papiamentu spelling and established Tabla, Karchi, Kaminda
+and Kamponan personalisá terminology. Lexical research for linking includes
+[the indexed bilingual entry for konektá](https://es.glosbe.com/es/pap/conectar),
+with general vocabulary checked against the historical
+[Papiamentu-Dutch dictionary](https://www.dbnl.org/tekst/jans550dicc01_01/jans550dicc01_01_0004.php).
+The Kaikki mirror, French Wiktionary page and Flowently grammar PDF could not
+be fetched; indexed excerpts were not treated as validation of full sentences. Longer
+technical compounds remain low confidence pending fluent-speaker review.
+An empty placeholder list does not complete the older semantic audit; the five
+identified mixed-language descriptions are now corrected, with negative guards
+against their Spanish seed vocabulary.
+
+Regression checks cover link direction, matching field name/type, unchanged
+unmatched fields, both-card permissions, hidden and self-linked cards,
+identity substitution on import, archive semantics, ignored sheets, webhook
+privacy and incomplete subtasks. API identifiers remain literal. All 246
+catalogs pass key order and exact placeholder inventories. Three localized
+browser scenarios are syntax-checked and discovered for linked fields, import
+identity mapping and delivery settings; browser execution remains unverified.
+The broad translation/Blockly run passes all 303 suites, clearing the last
+current-fill failure in that selection. After the final mixed-language fixes,
+the Papiamento, audited-corrections and audit-progress suites pass again. All
+21 human-preference checks pass. This is not an all-language completeness claim.
+
+The ordinary backlog stays at 29,735 in 42 locales because these fills were
+pending or short prose. The short-prose review queue falls to 2,133 candidates
+in 229 locales.
+
 ## Zulu current fills — 2026-10-10
 
 Fill 112 English values in each of `zu` and `zu-ZA` (224 locale/string values).

@@ -441,3 +441,41 @@ for (const prefix of ['stuck-sync-operation', 'interrupted-import']) assert.matc
 assert.match(papiamento['scrum-history-checkpoint-hint'], /ningun otro hende a kambia/);
 assert.match(papiamento['login-setting-env-only'], /Solamente e ambiente di servidor.*solamente pa lesa/);
 assert.deepEqual(JSON.parse(remainingPapiamento.stdout), {}, 'the full current Papiamento fill list is empty');
+
+// Current import/link/delivery controls, including short At/To prose.
+assert.match(papiamento['custom-field-links-hint'], /mesun nòmber i tipo/);
+assert.match(papiamento['custom-field-links-hint'], /solamente un karchi tin ta keda sin kambio/);
+assert.match(papiamento['custom-field-link-sends'], /e karchi aki.*e karchi ei/);
+assert.match(papiamento['custom-field-link-receives'], /e karchi ei.*e karchi aki/);
+assert.match(papiamento['custom-field-link-inactive'], /no por editá tur dos karchi mas, òf un karchi ta arkivá/);
+assert.match(papiamento['field-link-not-allowed'], /permiso pa editá tur dos karchi/);
+assert.match(papiamento['attached-card-unavailable'], /bo no por mira/);
+assert.match(papiamento['attach-card-self'], /no por.*na su mes/);
+assert.equal(papiamento['import-members-mode-me'], 'Usa mi na lugá di tur e personanan');
+assert.match(papiamento['import-many-boards-hint'], /sin asigná miembronan/);
+assert.match(papiamento['import-many-boards-hint'], /mes ta un solo eksportashon.*ta un solo tabla/);
+assert.match(papiamento['import-many-boards-hint'], /en bes di e kampo ariba/);
+assert.match(papiamento['csv-mapping-skipped-sheets'], /no ta wordu importá/);
+assert.match(papiamento['webhook-hide-identity'], /^No inkluí mi nòmber/);
+assert.match(papiamento['subtask-mark-not-done'], /komo no kompletá/);
+assert.match(papiamento['subtask-done-no-permission'], /^Bo no por kambia/);
+for (const literal of ['Active', 'Completed', 'Deferred', 'Cancelled', 'GET /workflows', 'JSON']) {
+  assert.ok(papiamento['r-wrike-workflow-note'].includes(literal), literal);
+}
+assert.match(papiamento['r-wrike-workflow-note'], /reglanan di automatisashon propio di Wrike no por wordu eksportá/);
+assert.equal(papiamento['notification-delivery-daily-time'], 'Na ora');
+assert.equal(papiamento['notification-delivery-quiet-to'], 'Te');
+assert.match(papiamento['notification-delivery-quiet'], /warda te ora nan kaba/);
+console.log('Papiamento current import identities, link directions, permissions and delivery controls pass.');
+
+// Reject the mixed Spanish seed and keep the original permission boundaries.
+for (const key of ['map-to-existing-user-desc', 'org-admins-description', 'roles-info', 'dueCardsViewChange-choice-all-description', 'globalSearchViewChange-choice-all-description']) {
+  assert.doesNotMatch(papiamento[key], /Elige|pueden|tienes|Muestra|donde|realizar|restringidos|resultados|conseder/);
+}
+assert.match(papiamento['map-to-existing-user-desc'], /mesun ròl di e miembro importá/);
+assert.match(papiamento['map-to-existing-user-desc'], /nunka por duna mas permiso ku e importashon a duna/);
+assert.match(papiamento['org-admins-description'], /kopianan di seguridat, i nada mas/);
+assert.match(papiamento['org-admins-description'], /nunka por duna.*henter e sitio, ni administrá un atministradó di e sitio/);
+assert.match(papiamento['roles-info'], /semper tin tur e derechonan i no por wordu limitá aki/);
+assert.match(papiamento['dueCardsViewChange-choice-all-description'], /no ta kompletá.*usuario tin permiso/);
+assert.match(papiamento['globalSearchViewChange-choice-all-description'], /bo tin permiso.*miembro òf persona asigná/);
