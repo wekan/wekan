@@ -1332,6 +1332,18 @@ that still stop.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5029b65382">CHANGELOG.md stays under GitHub's 500 KiB Markdown limit, so GitHub shows it</a>. Thanks to xet7.</summary>
+
+At 2.1 MB GitHub showed "we can't show files that are this big right now" for
+CHANGELOG.md: it renders Markdown up to 500 KiB, shows plain text above that,
+and nothing above about 2 MB. releases/changelog-archive.mjs now keeps the
+newest releases that fit in 450,000 bytes and moves the rest to
+old-CHANGELOG/<year>/<MM>.md, a busy month split into parts that each render.
+release-all.sh runs it after every release; no release section was changed.
+
+</details>
+
 - [A Translations group may give the count of its languages when there are too many to list](https://github.com/wekan/wekan/commit/3ec85c82d6).
   Thanks to xet7.
 
