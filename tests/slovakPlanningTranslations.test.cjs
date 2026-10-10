@@ -1,5 +1,4 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Guard the full current Slovak catalog and its warning meanings.
 'use strict';
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -96,7 +95,7 @@ const currentKeys = [
   assert.notEqual(sk['move-selection-before'], sk['move-selection-after']);
   assert.equal(sk['blockly-LOGIC_TERNARY_CONDITION'], 'podmienka');
   const inventory = spawnSync(process.execPath,
-    ['releases/translations/fill-translations.mjs', '--completed-catalog', '--list', 'sk'],
+    ['releases/translations/fill-translations.mjs', '--list', 'sk'],
     { cwd: path.resolve(__dirname, '..'), encoding: 'utf8' });
   assert.equal(inventory.status, 0, inventory.stderr);
   assert.deepEqual(JSON.parse(inventory.stdout), {});
@@ -135,5 +134,38 @@ const currentKeys = [
     assert.ok(sk['external-link-rules-description'].includes(literal), literal);
   }
   assert.ok(sk['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+  for (const [key, value] of Object.entries(sk)) {
+    assert.doesNotMatch(value, /[řěů]|[Uu]živat|[Vv]lastní pole|[Ss]mazat/, `${key}: Czech seed wording`);
+  }
+  assert.equal(sk['username'], 'Používateľské meno');
+  assert.equal(sk['change-card-parent'], 'Zmeniť nadradenú kartu');
+  assert.equal(sk['cardAttachmentsPopup-title'], 'Priložiť z');
+  assert.equal(sk['custom-field-currency'], 'Mena');
+  assert.equal(sk['filter-no-custom-fields'], 'Žiadne vlastné polia');
+  assert.equal(sk['r-made-incomplete'], 'Označené ako nedokončené');
+  assert.equal(sk['predicate-open'], 'otvorené');
+  assert.match(sk['time-adjustment-note'], /Nie sú to jednotlivé pracovné úseky/);
+  assert.match(sk['time-adjustment-note'], /Záporné hodnoty sú opravy/);
+  assert.match(sk['time-adjustment-note'], /nezaznamenaný čas nemožno priradiť/);
+  assert.equal(sk['custom-fields'], 'Vlastné polia');
+  assert.doesNotMatch(sk['custom-fields'], /Vlastní pole/);
+  assert.match(sk['custom-field-links-hint'], /rovnakým názvom a typom na oboch kartách/);
+  assert.match(sk['custom-field-links-hint'], /iba jedna karta, zostanú bez zmeny/);
+  assert.match(sk['custom-field-link-inactive'], /nemôže upravovať obe karty.*archivovaná/);
+  assert.match(sk['custom-field-link-both'], /Obojsmerne.*ktorejkoľvek karte/);
+  assert.match(sk['custom-field-link-send'], /Jednosmerne.*hlavnú kartu/);
+  assert.match(sk['field-link-not-allowed'], /upravovať obe karty/);
+  assert.equal(sk['import-members-mode-me'], 'Nahradiť ich všetkých mnou');
+  assert.match(sk['import-many-boards-hint'], /bez priradenia členov/);
+  assert.match(sk['import-many-boards-hint'], /sám tvorí jeden export.*je jedna nástenka/);
+  assert.match(sk['export-all-boards-hint'], /môžete exportovať.*zošit.*\.zip/);
+  assert.match(sk['webhook-payload-description'], /zachová zdedené nastavenie/);
+  assert.match(sk['notification-delivery-quiet'], /počkať na jeho koniec/);
+  assert.match(sk['r-wrike-workflow-note'], /ako dokončenú.*Completed.*Cancelled.*ako nedokončenú.*Active.*Deferred/);
+  for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) {
+    assert.ok(sk['r-wrike-workflow-note'].includes(literal), literal);
+  }
+  assert.ok(sk['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+  assert.notEqual(sk['subtask-mark-done'], sk['subtask-mark-not-done']);
   console.log('Slovak source keys, tokens, notification and recovery warning meanings verified');
 })().catch(error => { console.error(error); process.exitCode = 1; });

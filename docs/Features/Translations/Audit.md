@@ -2,6 +2,36 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Slovak current fills and Czech seed corrections — 2026-10-10
+
+Translate 110 English placeholders in sk for attached cards, linked fields,
+calendar mode, member mapping, CSV columns, multiple-board import/export,
+webhooks, notifications, Wrike workflows and subtask completion. The full
+current fill list is empty. Separately correct 198 Czech or mixed-language
+values, including Vlastní pole to Slovak Vlastné polia, menus, filters,
+activity text, rules, account labels and time-reporting guidance. Each had
+Czech-specific spelling or vocabulary in the parent commit. The 110 fills
+were English; all other values are preserved.
+Use the existing nástenka, karta, zoznam and dráha terminology. Longer technical
+wording remains provisional pending speaker review; this is not a complete
+fluency audit of older translations.
+
+Preserve all source placeholders, WEBHOOKS_ATTRIBUTES, GET /workflows and
+Wrike state names. Regressions reject the identified Czech seed vocabulary and check native
+Slovak terms, time-correction semantics, the field label, edit permissions,
+field propagation directions, member replacement, ZIP semantics, inherited
+settings, quiet hours and workflow completion states. The full current fill
+list replaces the older completed-catalog-only regression gate.
+
+Add three browser cases for linked fields, import-people choices and
+notification delivery. Syntax and discovery are verified; browser execution
+remains unverified because the local app and browser system dependencies are
+unavailable. All 304 translation/Blockly suites, 246 catalog key/token
+inventories and 21 human-preference checks pass. Wider translation work and
+semantic auditing remain open. The Czech
+spelling scan is a focused guard, not proof that every older value is fluent
+Slovak; vocabulary and source meanings were reviewed for these 198 replacements.
+
 ## Czech base and regional current fills — 2026-10-10
 
 Fill 110 English placeholders in cs and 206 in cs-CZ, 316 values in total.
