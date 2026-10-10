@@ -583,12 +583,31 @@ tests/buildScriptParity.test.cjs checks each in both scripts.
 
 and improves translations:
 
-**Translations** - Czech, Dutch, French, German, Greek, Hungarian, Indonesian,
-Japanese, Korean,
+**Translations** - Catalan, Czech, Dutch, French, German, Greek, Hungarian, Indonesian,
+Japanese, Korean, Malay,
 Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish and Ukrainian
 base and regional catalogs.
 
-**Languages updated:** Czech, Dutch, French, German, Greek, Hungarian, Indonesian, Japanese, Korean, Malay, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish, Ukrainian.
+**Languages updated:** Catalan, Czech, Dutch, French, German, Greek, Hungarian, Indonesian, Japanese, Korean, Malay, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish, Ukrainian.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9485d19719">Translate remaining current Catalan strings</a>. Thanks to xet7.</summary>
+
+Fill 218 English placeholders across ca and ca_ES for linked cards, imports,
+member mapping, webhooks, notifications and Wrike workflows. Retain the native
+shared Dates label with tests for locale isolation and changed-source rejection.
+Both full current fill lists are empty. Preserve existing translations, exact
+placeholders and parsed constants. Regressions verify permissions, propagation,
+import semantics, timing and workflow completion states. Longer technical
+wording remains provisional pending speaker review; older catalog wording is
+not fully audited.
+
+All 305 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Six browser cases pass syntax and discovery; execution remains
+unverified because the local app and browser system dependencies are unavailable.
+The wider all-language backlog and semantic audit remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7f26c8ee12">Translate remaining current Greek strings</a>. Thanks to xet7.</summary>
