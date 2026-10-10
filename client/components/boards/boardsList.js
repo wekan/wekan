@@ -472,6 +472,12 @@ Template.allBoardsHeaderButtons.events({
     BoardMultiSelection.activate();
     openAllBoardsSidebar(SIDEBAR_MULTISELECTION);
   },
+  // Every board you can export, in one download (the same popup the sidebar's
+  // row opens).
+  'click .js-export-all-boards'(evt) {
+    evt.preventDefault();
+    Popup.open('exportAllBoards').call({ boardIds: null }, evt);
+  },
   // The way OFF, beside the button that turned it on - the same pair the
   // board's own Multi-Selection has. `stopPropagation` because this X sits
   // inside the bar, and a click that also reached the button beside it would

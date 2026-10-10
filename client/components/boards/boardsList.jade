@@ -538,6 +538,12 @@ template(name="allBoardsHeaderButtons")
   a.board-header-btn.js-all-boards-sidebar-search(title="{{_ 'search-boards'}}")
     i.fa.fa-search
     span.board-header-btn-label {{_ 'search-boards'}}
+  //- Export all boards (server/routes/exportAllBoards.js). It was a row of the
+    sidebar's home view only, which nothing on this page opens since All Boards
+    lost its hamburger: reachable only through Search and the back arrow.
+  a.board-header-btn.js-export-all-boards(title="{{_ 'export-all-boards'}}")
+    i.fa.fa-download
+    span.board-header-btn-label {{_ 'export-all-boards'}}
   if canMultiSelectBoards
     //- Says whether it is ON, and offers the way OFF - the same pair the
       board's own Multi-Selection has. It looked identical whether or not a

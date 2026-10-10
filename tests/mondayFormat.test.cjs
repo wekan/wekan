@@ -151,7 +151,7 @@ async function main() {
     assert.equal(EXTERNAL_PARSERS.monday, parseMondaySheets);
     assert.equal(formatters.monday, formatMondaySheets);
     assert.match(read('models/import.js'), /case 'monday':[\s\S]*?readMondayWorkbook\(importedBoard\.excelBase64\);\s*importedBoard = EXTERNAL_PARSERS\.monday\(importedBoard\);[\s\S]*?sanitizeImported\(importedBoard, 'monday', this\);\s*creator = new KanboardCreator\(data, 'monday'\);/);
-    assert.match(read('server/lib/renderExternalExport.js'), /monday: \['\/server\/lib\/mondayWorkbook', 'writeMondayWorkbook'\]/);
+    assert.match(read('server/lib/renderExternalExport.js'), /monday: \(\) => require\('\/server\/lib\/mondayWorkbook'\)\.writeMondayWorkbook,/);
     const page = read('client/components/import/import.js');
     assert.match(read('models/lib/importSources.js'), /\{ key: 'monday', name: 'monday\.com'[,}]/); // the one list of sources
     // The page reads every source through one path described in

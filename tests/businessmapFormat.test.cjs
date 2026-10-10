@@ -204,7 +204,7 @@ async function main() {
     assert.equal(EXTERNAL_PARSERS.businessmap, parseBusinessmapSheets);
     assert.equal(formatters.businessmap, formatBusinessmapSheets);
     assert.match(read('models/import.js'), /case 'businessmap':[\s\S]*?readBusinessmapWorkbook\(importedBoard\.excelBase64\);\s*importedBoard = EXTERNAL_PARSERS\.businessmap\(importedBoard\);[\s\S]*?sanitizeImported\(importedBoard, 'businessmap', this\);\s*creator = new KanboardCreator\(data, 'businessmap'\);/);
-    assert.match(read('server/lib/renderExternalExport.js'), /businessmap: \['\/server\/lib\/businessmapWorkbook', 'writeBusinessmapWorkbook'\]/);
+    assert.match(read('server/lib/renderExternalExport.js'), /businessmap: \(\) => require\('\/server\/lib\/businessmapWorkbook'\)\.writeBusinessmapWorkbook,/);
     const page = read('client/components/import/import.js');
     assert.match(read('models/lib/importSources.js'), /\{ key: 'businessmap', name: 'Businessmap \(Kanbanize\)'[,}]/); // the one list of sources
     // The workbook sources share one branch; their order there is not the point.

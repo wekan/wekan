@@ -87,6 +87,14 @@ async function main() {
   test('All Boards offers it for every board and for the selected ones; api.py too', () => {
     const jade = read('client/components/boards/allBoardsSidebar.jade');
     assert.match(jade, /a\.sidebar-btn\.js-export-all-boards/);
+    // The page's own bar has it: the sidebar's home view that holds the row is
+    // opened by nothing on All Boards since the page lost its hamburger.
+    const list = read('client/components/boards/boardsList.jade');
+    const buttons = list.slice(list.indexOf('template(name="allBoardsHeaderButtons")'),
+      list.indexOf('template(name="allBoardsViewMenu")'));
+    assert.match(buttons, /a\.board-header-btn\.js-export-all-boards\(title="\{\{_ 'export-all-boards'\}\}"\)/);
+    assert.match(read('client/components/boards/boardsList.js'),
+      /'click \.js-export-all-boards'\(evt\) \{\s*evt\.preventDefault\(\);\s*Popup\.open\('exportAllBoards'\)\.call\(\{ boardIds: null \}, evt\);/);
     assert.match(jade, /a\.sidebar-btn\.js-export-selected-boards/);
     assert.match(jade, /template\(name="exportAllBoardsPopup"\)/);
     const js = read('client/components/boards/allBoardsSidebar.js');
@@ -98,6 +106,25 @@ async function main() {
     assert.match(api, /wekanurl \+ 'api\/export-all-boards\/' \+ fmt/);
     const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
     for (const key of ['export-all-boards', 'export-selected-boards', 'export-all-boards-hint', 'exportAllBoardsPopup-title']) assert.ok(en[key], key);
+  });
+
+  test('negative: server code requires its modules by a literal path the bundle can resolve', () => {
+    // renderExternalExport required each workbook writer through a variable,
+    // require(path); rspack cannot resolve that, and every Excel-based tool
+    // export (Planner, Wrike, monday.com, Teamwork.com, Businessmap) answered
+    // 500. No server or model file may require a module by an expression.
+    const { execFileSync } = require('node:child_process');
+    const files = execFileSync('git', ['ls-files', 'server', 'models', 'imports', 'config'], { cwd: path.join(__dirname, '..'),
+      encoding: 'utf8' }).split('\n').filter(file => /\.(c|m)?js$/.test(file) && !file.includes('/tests/') && fs.existsSync(path.join(__dirname, '..', file)));
+    const offenders = [];
+    for (const file of files) {
+      read(file).split('\n').forEach((line, i) => {
+        if (/^\s*(\/\/|\*)/.test(line)) return;
+        if (/\brequire\(\s*[^'"`)\s]/.test(line)) offenders.push(`${file}:${i + 1}: ${line.trim()}`);
+      });
+    }
+    assert.deepEqual(offenders, []);
+    assert.match(read('server/lib/renderExternalExport.js'), /body: await WORKBOOKS\[format\]\(\)\(built\)/);
   });
 
   console.log(`\nexportAllBoards: ${passed} checks passed`);

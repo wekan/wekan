@@ -14,13 +14,17 @@ const TEXT_TYPES = { markdown: 'text/markdown', leo: 'application/xml', todotxt:
   obsidian: 'text/markdown', linear: 'text/csv', ticktick: 'text/csv', clickup: 'text/csv', nullboard: 'application/json',
   pivotal: 'text/csv', redmine: 'text/csv', notion: 'text/csv', superproductivity: 'application/json', quire: 'text/csv',
   opml: 'text/x-opml', orgmode: 'text/x-org' };
-// The tools whose import file is an Excel workbook, and the module writing it.
+// The tools whose import file is an Excel workbook, and the function writing
+// it. Each require names its module literally: the bundler (rspack) resolves
+// only a literal path, and the [path, name] pairs this used to hold were
+// required through a variable - "require(path)" - which the bundle cannot
+// resolve, so every workbook export answered 500.
 const WORKBOOKS = {
-  wrike: ['/server/lib/wrikeWorkbook', 'writeWrikeWorkbook'], // models/lib/wrikeFormat.js
-  monday: ['/server/lib/mondayWorkbook', 'writeMondayWorkbook'], // models/lib/mondayFormat.js
-  teamwork: ['/server/lib/teamworkWorkbook', 'writeTeamworkWorkbook'], // models/lib/teamworkFormat.js
-  businessmap: ['/server/lib/businessmapWorkbook', 'writeBusinessmapWorkbook'], // models/lib/businessmapFormat.js
-  planner: ['/server/lib/plannerWorkbook', 'writePlannerWorkbook'], // models/lib/plannerFormat.js
+  wrike: () => require('/server/lib/wrikeWorkbook').writeWrikeWorkbook, // models/lib/wrikeFormat.js
+  monday: () => require('/server/lib/mondayWorkbook').writeMondayWorkbook, // models/lib/mondayFormat.js
+  teamwork: () => require('/server/lib/teamworkWorkbook').writeTeamworkWorkbook, // models/lib/teamworkFormat.js
+  businessmap: () => require('/server/lib/businessmapWorkbook').writeBusinessmapWorkbook, // models/lib/businessmapFormat.js
+  planner: () => require('/server/lib/plannerWorkbook').writePlannerWorkbook, // models/lib/plannerFormat.js
 };
 
 async function renderExternalExport(boardId, format, fields) {
@@ -36,8 +40,7 @@ async function renderExternalExport(boardId, format, fields) {
     return { contentType: 'application/zip', body: require('/server/lib/vikunjaArchive').writeVikunjaArchive(vikunjaArchiveFiles(built)) };
   }
   if (WORKBOOKS[format]) {
-    const [path, writer] = WORKBOOKS[format];
-    return { contentType: XLSX, body: await require(path)[writer](built) };
+    return { contentType: XLSX, body: await WORKBOOKS[format]()(built) };
   }
   // Every other format is one JSON document - Kanri's board export
   // (models/lib/kanriFormat.js) among them.

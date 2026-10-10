@@ -199,7 +199,7 @@ async function main() {
     // The bytes of each format are made in server/lib/renderExternalExport.js,
     // shared by the board export route and "Export all boards".
     const exp = read('server/lib/renderExternalExport.js');
-    assert.match(exp, /planner: \['\/server\/lib\/plannerWorkbook', 'writePlannerWorkbook'\]/);
+    assert.match(exp, /planner: \(\) => require\('\/server\/lib\/plannerWorkbook'\)\.writePlannerWorkbook,/);
     assert.match(exp, /spreadsheetml\.sheet/);
     const page = read('client/components/import/import.js');
     assert.match(read('models/lib/importSources.js'), /\{ key: 'planner', name: 'Microsoft Planner'[,}]/); // the one list of sources

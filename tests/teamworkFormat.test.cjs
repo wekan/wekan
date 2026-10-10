@@ -183,7 +183,7 @@ async function main() {
     assert.equal(EXTERNAL_PARSERS.teamwork, parseTeamworkSheet);
     assert.equal(formatters.teamwork, formatTeamworkSheet);
     assert.match(read('models/import.js'), /case 'teamwork':[\s\S]*?check\(board, Object\);[\s\S]*?readTeamworkWorkbook\(importedBoard\.excelBase64\);\s*importedBoard = EXTERNAL_PARSERS\.teamwork\(importedBoard\);[\s\S]*?sanitizeImported\(importedBoard, 'teamwork', this\);\s*creator = new KanboardCreator\(data, 'teamwork'\);/);
-    assert.match(read('server/lib/renderExternalExport.js'), /teamwork: \['\/server\/lib\/teamworkWorkbook', 'writeTeamworkWorkbook'\]/);
+    assert.match(read('server/lib/renderExternalExport.js'), /teamwork: \(\) => require\('\/server\/lib\/teamworkWorkbook'\)\.writeTeamworkWorkbook,/);
     const page = read('client/components/import/import.js');
     assert.match(read('models/lib/importSources.js'), /\{ key: 'teamwork', name: 'Teamwork\.com'[,}]/); // the one list of sources
     // The workbook sources share one branch; their order there is not the point.

@@ -209,7 +209,7 @@ async function main() {
     assert.equal(EXTERNAL_PARSERS.wrike, parseWrikeRows);
     assert.equal(formatters.wrike, formatWrikeRows);
     assert.match(read('models/import.js'), /case 'wrike':[\s\S]*?readWrikeWorkbook\(importedBoard\.excelBase64\);\s*importedBoard = EXTERNAL_PARSERS\.wrike\(importedBoard\);[\s\S]*?sanitizeImported\(importedBoard, 'wrike', this\);\s*creator = new KanboardCreator\(data, 'wrike'\);/);
-    assert.match(read('server/lib/renderExternalExport.js'), /wrike: \['\/server\/lib\/wrikeWorkbook', 'writeWrikeWorkbook'\]/);
+    assert.match(read('server/lib/renderExternalExport.js'), /wrike: \(\) => require\('\/server\/lib\/wrikeWorkbook'\)\.writeWrikeWorkbook,/);
     const page = read('client/components/import/import.js');
     assert.match(read('models/lib/importSources.js'), /\{ key: 'wrike', name: 'Wrike'[,}]/); // the one list of sources
     // The workbook sources share one branch and one list; later ones follow.
