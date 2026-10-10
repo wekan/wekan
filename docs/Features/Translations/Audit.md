@@ -2,6 +2,40 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Basque current fills — 2026-10-10
+
+Translate 196 English placeholders in eu for attached cards, linked fields,
+calendar mode, twenty import-format instructions, member mapping, CSV columns,
+bulk exports, external link rules, webhooks, notifications, Wrike workflows,
+LDAP synchronization, subtasks and interrupted operations. The full current fill
+list is empty. Follow the existing arbela, txartela, zerrenda, erraila and
+eremu pertsonalizatuak terminology. Preserve existing translations and all
+source placeholders, parsed constants, query examples and external menu labels.
+Longer technical wording remains provisional pending speaker review; older
+catalog fluency is not fully audited.
+
+The maintainer's concurrent commit e595f9a83b included the complete batch and
+its regressions before preparing v12.27. Comparison against that commit's
+parent verifies exactly 196 English-only replacements and no changes to
+existing translations. A follow-up review corrects 23 newly filled values to
+use the txartel stem before determiners/modifiers, in conversion descriptions
+and after a count; it leaves pre-existing translations alone. Reference:
+[Basque public-service usage of txartel bat](https://egoitza.araba.eus/eu/entsegu-zentroa-beste-txartel-bat-ematea-aurrekoa-lapurtu-galdu-hondatu-edo-gaizki-dabilelako)
+and [txartel dictionary and inflection](https://en.wiktionary.org/wiki/txartel).
+The Basque gate now checks the full current fill list;
+Uyghur retains its historical gate. Regressions cover field directions and
+permissions, member replacement, ZIP semantics, notification inheritance and
+timing, completed versus incomplete states, unsupported import data, required
+English column names, retained sync changes, permanent board deletion,
+read-only settings and protection of a board created by another import.
+
+Three browser cases for linked fields, import-people choices and notification
+delivery pass syntax and discovery. Runtime execution remains unverified
+because the local app and browser system dependencies are unavailable.
+All 305 translation/Blockly suites, 246 catalog key-order and token inventories
+and 21 human-preference checks pass. The focused Basque regression also passes
+after the noun-form corrections. The wider all-language backlog and semantic audit remain open.
+
 ## Galician current fills — 2026-10-10
 
 Translate 110 English placeholders in each of gl and gl-ES, 220 values in

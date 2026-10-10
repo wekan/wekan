@@ -45,10 +45,10 @@ assert.match(uyghur['select-none'], /[\u0600-\u06ff]/);
     assert.deepEqual(translationTokens(basque[key]), translationTokens(english[key]), key);
   }
   assert.match(basque['custom-field-links-hint'], /Bi txarteletan izen eta mota bera/);
-  assert.match(basque['custom-field-links-hint'], /Txartela bakar batean dauden eremuak ez dira aldatzen/);
+  assert.match(basque['custom-field-links-hint'], /Txartel bakar batean dauden eremuak ez dira aldatzen/);
   assert.match(basque['custom-field-link-inactive'], /ezin ditu jada bi txartelak editatu.*biltegian/);
   assert.match(basque['custom-field-link-both'], /Bi noranzkoetan.*edozein txarteletako/);
-  assert.match(basque['custom-field-link-send'], /Noranzko bakarrean.*txartela nagusira/);
+  assert.match(basque['custom-field-link-send'], /Noranzko bakarrean.*txartel nagusira/);
   assert.match(basque['field-link-not-allowed'], /Bi txartelak editatzeko baimena/);
   assert.equal(basque['import-members-mode-me'], 'Ordezkatu guztiak nire erabiltzailearekin');
   assert.match(basque['import-many-boards-hint'], /kideen esleipenik gabe/);
@@ -73,6 +73,9 @@ assert.match(uyghur['select-none'], /[\u0600-\u06ff]/);
   assert.match(basque['import-board-instruction-redmine'], /jarri hizkuntza ingelesez My account atalean esportatu aurretik/);
   assert.match(basque['import-board-instruction-businessmap'], /Title, Column, Lane, Owner, Deadline/);
   for (const literal of ['TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED']) assert.ok(basque['import-board-instruction-orgmode'].includes(literal));
+  for (const key of ['attach-card-hint', 'custom-field-links-hint', 'custom-field-link-send', 'interrupted-import-counts']) {
+    assert.doesNotMatch(basque[key], /[Tt]xartela (?:bat|hon|nagus)|__cards__ txartela/);
+  }
   assert.match(basque['login-setting-env-only'], /Zerbitzariaren inguruneak soilik.*irakurtzeko soilik/);
   console.log('Basque current catalog, tokens, import semantics and recovery choices verified');
 })().catch(error => { console.error(error); process.exitCode = 1; });
