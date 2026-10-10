@@ -27,6 +27,26 @@ console.log('upcomingGreekTranslationFill: 10 tests passed');
       assert.notStrictEqual(translated[key], en[key], `${language}: ${key} must be translated`);
       assert.match(translated[key], /[\u0370-\u03ff]/u, `${language}: ${key} needs Greek prose`);
     }
+    const { execFileSync } = require('node:child_process');
+    assert.deepStrictEqual(JSON.parse(execFileSync(process.execPath,
+      ['releases/translations/fill-translations.mjs', '--list', language],
+      { cwd: ROOT, encoding: 'utf8' })), {});
+    assert.match(translated['custom-field-links-hint'], /ίδιο όνομα και τύπο και στις δύο κάρτες/);
+    assert.match(translated['custom-field-links-hint'], /μόνο στη μία κάρτα παραμένουν αμετάβλητα/);
+    assert.match(translated['custom-field-link-inactive'], /δεν μπορεί πλέον να επεξεργαστεί και τις δύο κάρτες.*αρχειοθετηθεί/);
+    assert.match(translated['custom-field-link-both'], /Αμφίδρομα.*οποιαδήποτε κάρτα/);
+    assert.match(translated['custom-field-link-send'], /Μονόδρομα.*κύρια κάρτα/);
+    assert.match(translated['field-link-not-allowed'], /επεξεργαστείτε και τις δύο κάρτες/);
+    assert.strictEqual(translated['import-members-mode-me'], 'Αντικατάσταση όλων με εμένα');
+    assert.match(translated['import-many-boards-hint'], /χωρίς αντιστοίχιση μελών/);
+    assert.match(translated['import-many-boards-hint'], /από μόνο του μία εξαγωγή.*είναι ένας πίνακας/);
+    assert.match(translated['export-all-boards-hint'], /μπορείτε να εξαγάγετε.*βιβλίο εργασίας.*\.zip/);
+    assert.match(translated['webhook-payload-description'], /διατηρεί την κληρονομημένη ρύθμιση/);
+    assert.match(translated['notification-delivery-quiet'], /αναμονή μέχρι να τελειώσουν/);
+    assert.match(translated['r-wrike-workflow-note'], /ως ολοκληρωμένη.*Completed.*Cancelled.*ως μη ολοκληρωμένη.*Active.*Deferred/);
+    for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) assert.ok(translated['r-wrike-workflow-note'].includes(literal), literal);
+    assert.ok(translated['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+    assert.notStrictEqual(translated['subtask-mark-done'], translated['subtask-mark-not-done']);
     assert.match(translated['scrum-import-into-board-hint'], /χωρίς να δημιουργούνται διπλότυπα/);
     assert.match(translated['scrum-import-card-on-another-board'], /παρέμεινε αμετάβλητη/);
     assert.match(translated['scrum-import-sprint-finished'], /δεν μετακινήθηκε/);
