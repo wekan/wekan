@@ -557,11 +557,29 @@ tests/buildScriptParity.test.cjs checks each in both scripts.
 
 and improves translations:
 
-**Translations** - Czech, Dutch, French, German, Hungarian, Japanese, Korean,
+**Translations** - Czech, Dutch, French, German, Hungarian, Indonesian, Japanese, Korean,
 Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish and Ukrainian
 base and regional catalogs.
 
-**Languages updated:** Czech, Dutch, French, German, Hungarian, Japanese, Korean, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish, Ukrainian.
+**Languages updated:** Czech, Dutch, French, German, Hungarian, Indonesian, Japanese, Korean, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish, Ukrainian.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ef6a8178d1">Translate remaining current Indonesian strings</a>. Thanks to xet7.</summary>
+
+Fill 176 English placeholders in id for linked cards, imports, member mapping,
+webhooks, notifications, Wrike, LDAP and recovery. Its full current fill list
+is empty. Preserve existing translations, exact placeholders and parsed
+constants. Regressions verify permissions, propagation, import semantics,
+timing, workflow states, destructive recovery warnings and preserved changes.
+Longer technical wording remains provisional pending speaker review; older
+catalog wording is not fully audited.
+
+All 305 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Three browser cases pass syntax and discovery; execution remains
+unverified because the local app and browser system dependencies are unavailable.
+The wider all-language backlog and semantic audit remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a56a3abb9e">Translate remaining current Korean strings</a>. Thanks to xet7.</summary>
