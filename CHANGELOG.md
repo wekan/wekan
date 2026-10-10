@@ -520,7 +520,7 @@ used.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.27 2026-10-10 WeKan ® release
 
 **In short:** **FerretDB** now answers a `$group` with several accumulators,
 `$min`/`$max` and capped collections the way MongoDB does - found by new
