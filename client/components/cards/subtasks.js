@@ -10,6 +10,29 @@ import {
 } from './subtaskViewHelpers';
 import { Utils } from '/client/lib/utils';
 const { cardParentIds, collectAllAncestorIdsSync } = require('/models/lib/cardParents');
+const { isSubtaskDone, subtaskDoneCountLabel, subtaskDoneDenial } = require('/models/lib/subtaskDone');
+const { isAssignedOnlyMember } = require('/models/lib/boardCardScope');
+
+// #4693: what models/lib/subtaskDone.js needs of a subtask on the client. A
+// linked card is completed through its source (Card.getDueComplete), so the
+// flag is read the way the card details read it.
+function subtaskDoneFields(subtask) {
+  if (!subtask) return null;
+  const dueComplete = typeof subtask.getDueComplete === 'function'
+    ? subtask.getDueComplete()
+    : subtask.dueComplete === true;
+  return { archived: subtask.archived === true, dueComplete };
+}
+
+// #4693: "Subtasks (1/3)" - done/total in the section heading
+// (client/components/cards/cardDetails.jade, +cardSectionHeader count=...).
+// Only the subtasks this viewer has - minimongo holds what the board
+// publication let them read - are counted.
+Template.registerHelper('subtaskDoneCount', function subtaskDoneCount() {
+  const card = this;
+  if (!card || typeof card.allSubtasks !== 'function') return null;
+  return subtaskDoneCountLabel((card.allSubtasks() || []).map(subtaskDoneFields));
+});
 
 Template.subtasks.events({
   'click .js-open-subtask-details-menu'(event) {
@@ -131,9 +154,15 @@ Template.subtasks.helpers({
     const card = ReactiveCache.getCard(this.cardId);
     const allSubtasks = card && card.allSubtasks ? card.allSubtasks() : [];
     if (Template.instance().hideCompletedSubtasks.get()) {
-      return allSubtasks.filter(subtask => !subtask.archived);
+      // #4693: "completed" is archived OR ticked done (isSubtaskDone).
+      return allSubtasks.filter(subtask => !isSubtaskDone(subtaskDoneFields(subtask)));
     }
     return allSubtasks;
+  },
+  // #4693: the id the done ticks are made under - the real card for a link.
+  realCardId() {
+    const card = ReactiveCache.getCard(this.cardId);
+    return card && card.getRealId ? card.getRealId() : this.cardId;
   },
 });
 
@@ -145,6 +174,27 @@ Template.subtasks.events({
 });
 
 Template.subtaskDetail.helpers({
+  // #4693: ticked done, or archived (#3409's "completed").
+  subtaskIsDone() {
+    return isSubtaskDone(subtaskDoneFields(this.subtask));
+  },
+  // #4693: the same rule the server's setSubtaskDone applies, so the box is
+  // live only for someone whose tick the server will accept: write access to
+  // the SUBTASK's board (it may be another board than the parent's), and for
+  // an assigned-only member only on a subtask assigned to them.
+  subtaskCanTick() {
+    const subtask = this.subtask;
+    if (!subtask) return false;
+    const userId = Meteor.userId();
+    const board = typeof subtask.board === 'function' ? subtask.board() : null;
+    return subtaskDoneDenial({
+      userId,
+      parentCardId: this.parentCardId,
+      subtask,
+      canEdit: !!board && Utils.canModifyCard(subtask),
+      assignedOnly: isAssignedOnlyMember(board, userId),
+    }) === null;
+  },
   // #6091: show the subtask's current status, i.e. the list it resides in
   // (prefixed with the board title when the subtask lives on another board
   // than the parent card).
@@ -160,6 +210,24 @@ Template.subtaskDetail.helpers({
     const parentCard = Utils.getCurrentCard();
     const sameBoard = !!parentCard && parentCard.boardId === subtask.boardId;
     return subtaskStatusLabel({ listTitle, boardTitle, sameBoard });
+  },
+});
+
+Template.subtaskDetail.events({
+  // #4693: tick / untick. Server-authoritative: the method checks the
+  // permissions again and records the change in the subtask's History.
+  async 'click .js-toggle-subtask-done'(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const data = Template.currentData();
+    const subtask = data && data.subtask;
+    if (!subtask || !subtask._id || !data.parentCardId) return;
+    const done = !isSubtaskDone(subtaskDoneFields(subtask));
+    try {
+      await Meteor.callAsync('setSubtaskDone', data.parentCardId, subtask._id, done);
+    } catch (error) {
+      alert(error?.reason || error?.message || error?.error || 'Could not change the subtask.');
+    }
   },
 });
 

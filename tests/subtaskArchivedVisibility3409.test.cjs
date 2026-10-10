@@ -105,8 +105,11 @@ test('visibleSubtasks() filters archived subtasks out only when the toggle is on
   const fn = m[0];
   assert.ok(/hideCompletedSubtasks\.get\(\)/.test(fn),
     'the helper must consult the toggle');
-  assert.ok(/filter\(subtask => !subtask\.archived\)/.test(fn),
-    'when hiding, the filter must drop archived subtasks');
+  // #4693 widened "completed" from archived to archived OR ticked done
+  // (models/lib/subtaskDone.js isSubtaskDone), so the toggle hides a ticked
+  // subtask too - it is completed. Archived ones are still hidden by it.
+  assert.ok(/filter\(subtask => !isSubtaskDone\(subtaskDoneFields\(subtask\)\)\)/.test(fn),
+    'when hiding, the filter must drop completed (archived or done) subtasks');
 });
 
 // --- i18n: the toggle label exists -----------------------------------------
@@ -117,10 +120,11 @@ test('en.i18n.json has the hideCompletedSubtasks label', () => {
 
 // --- Simulate the actual filtering logic end-to-end, without Meteor -------
 
+const { isSubtaskDone } = require('../models/lib/subtaskDone.js');
 function computeVisibleSubtasks(allSubtasks, hideCompleted) {
-  // Mirrors visibleSubtasks() exactly.
+  // Mirrors visibleSubtasks() (#4693: completed = archived or ticked done).
   if (hideCompleted) {
-    return allSubtasks.filter(subtask => !subtask.archived);
+    return allSubtasks.filter(subtask => !isSubtaskDone(subtask));
   }
   return allSubtasks;
 }
@@ -145,6 +149,15 @@ test('#3409: turning the toggle on hides the archived (completed) subtasks', () 
   const visible = computeVisibleSubtasks(subtasks, true);
   assert.deepStrictEqual(visible.map(s => s._id), ['s1', 's3'],
     'with the toggle on, only the archived subtask should be filtered out');
+});
+
+test('#4693: the toggle also hides a subtask ticked done, and keeps an open one', () => {
+  const subtasks = [
+    { _id: 's1', archived: false, dueComplete: true },
+    { _id: 's2', archived: false, dueComplete: false },
+  ];
+  assert.deepStrictEqual(computeVisibleSubtasks(subtasks, true).map(s => s._id), ['s2']);
+  assert.deepStrictEqual(computeVisibleSubtasks(subtasks, false).map(s => s._id), ['s1', 's2']);
 });
 
 // --- NEGATIVE: the numeric M/N counter logic from #4050 is untouched ------

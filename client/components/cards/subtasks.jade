@@ -13,7 +13,7 @@ template(name="subtasks")
 
   .card-subtasks-items
     each subtask in visibleSubtasks
-      +subtaskDetail(subtask = subtask)
+      +subtaskDetail(subtask = subtask parentCardId = realCardId)
 
   if canModifyCard
     +inlinedForm(autoclose=false classNames="js-add-subtask" cardId = cardId)
@@ -29,8 +29,17 @@ template(name="subtaskDetail")
     +inlinedForm(classNames="js-edit-subtask-title" subtask = subtask)
       +editSubtaskItemForm(subtask = subtask)
     else
-      .subtask-title
+      .subtask-title(class="{{#if subtaskIsDone}}is-done{{/if}}")
         span
+        //- #4693: tick a subtask done (its "Mark as complete", dueComplete)
+          right here. Only for someone who may edit THAT subtask - it may be
+          on another board - and the server checks the same again.
+        if subtaskCanTick
+          a.subtask-done-toggle.js-toggle-subtask-done(role="checkbox" aria-checked="{{#if subtaskIsDone}}true{{else}}false{{/if}}" title="{{#if subtaskIsDone}}{{_ 'subtask-mark-not-done'}}{{else}}{{_ 'subtask-mark-done'}}{{/if}}")
+            .materialCheckBox(class="{{#if subtaskIsDone}}is-checked{{/if}}")
+        else
+          span.subtask-done-toggle.is-disabled(role="checkbox" aria-checked="{{#if subtaskIsDone}}true{{else}}false{{/if}}" aria-disabled="true" title="{{#if subtask.archived}}{{_ 'completed'}}{{else}}{{_ 'subtask-done-no-permission'}}{{/if}}")
+            .materialCheckBox(class="{{#if subtaskIsDone}}is-checked{{/if}}")
         if subtask.archived
           i.fa.fa-check-circle.subtask-completed-icon(title="{{_ 'completed'}}")
         if canModifyCard

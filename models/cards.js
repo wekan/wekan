@@ -1629,8 +1629,11 @@ Cards.helpers({
   },
 
   subtasksFinished() {
+    // #4693: a subtask is finished when it is archived OR marked complete
+    // (dueComplete, ticked in the parent's Subtasks list) -
+    // models/lib/subtaskDone.js isSubtaskDone, the same rule as the heading.
     const ret = ReactiveMiniMongoIndex.getSubTasksWithParentId(this.getRealId(), {
-      archived: true,
+      $or: [{ archived: true }, { dueComplete: true }],
     });
     return ret;
   },

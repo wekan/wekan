@@ -234,3 +234,22 @@ textarea.js-edit-subtask-item {
 .subtask-title .subtask-status i.fa {
   margin-inline-end: 4px;
 }
+
+/* #4693: the done checkbox at the start of each subtask row, like a checklist
+   item's. order: -1 keeps it first whatever else the row carries. */
+.subtask-title .subtask-done-toggle {
+  order: -1;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-inline-end: 8px;
+  cursor: pointer;
+}
+.subtask-title .subtask-done-toggle.is-disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+.subtask-title.is-done .title {
+  text-decoration: line-through;
+  color: #8c8c8c;
+}

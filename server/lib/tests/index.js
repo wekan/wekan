@@ -128,6 +128,7 @@ import './scrumSnapshotRows.tests';
 import './scrumTransferMerge.tests';
 import './continuousBackup.tests';
 import './copySubtaskScope.tests';
+import './subtaskDone.tests';
 import './ruleTriggerScope.tests';
 import './scrumMovedReferences.tests';
 import './editableCardIds.tests';

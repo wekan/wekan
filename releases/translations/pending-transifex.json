@@ -1251,6 +1251,18 @@
     {
       "key": "board-view-calendar-mode",
       "since": "2026-10-10"
+    },
+    {
+      "key": "subtask-mark-done",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "subtask-mark-not-done",
+      "since": "2026-10-10"
+    },
+    {
+      "key": "subtask-done-no-permission",
+      "since": "2026-10-10"
     }
   ]
 }

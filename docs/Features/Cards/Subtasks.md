@@ -19,6 +19,32 @@ list it currently resides in (for example *To Do*, *In Progress*, *Done*) — re
 to the subtask title. When a subtask lives on a different board than the parent card, the
 list name is prefixed with that board's title.
 
+## Ticking a subtask done
+
+Each subtask in the card's **Subtasks** section has a **checkbox** at the start
+of its row ([#4693](https://github.com/wekan/wekan/issues/4693)). Tick it to mark
+the subtask done, untick it to mark it not done again. The section heading shows
+how many are done, for example **Subtasks (1/3)**, and the minicard's subtask
+badge counts the same.
+
+- **What "done" means.** A subtask is a card, and ticking it sets that card's own
+  **Mark as complete** flag - the same checkbox as in the subtask's card details
+  and on its minicard, the one the rules engine's *Mark card complete* action and
+  Scrum's default completion policy use. An **archived** subtask also counts as
+  done, as before; it shows a ticked box that cannot be unticked until the
+  subtask is restored.
+- **Who can tick it.** Anyone who may edit the subtask card itself. A subtask
+  usually lives on the parent board's subtask board, so what counts is the
+  member's role on *that* board: board admins and normal members can tick;
+  comment-only, read-only and worker members see the box disabled; an
+  assigned-only member can tick only the subtasks assigned to them. The server
+  checks the same rule, so the box is not the only guard.
+- **History.** A tick is recorded in the subtask's History (the *dates* group,
+  like any *Mark as complete*), with who did it.
+- **What is counted.** Only the subtasks you can see: a subtask on a board you
+  cannot read is neither shown nor counted.
+- **Hide completed subtasks** now also hides the subtasks ticked done.
+
 ## Subtask fixes (upcoming release)
 
 Several long-standing subtask bugs are fixed in the upcoming release:

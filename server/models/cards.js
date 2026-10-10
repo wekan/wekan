@@ -48,6 +48,8 @@ import ChecklistItems from '/models/checklistItems';
 import { subtaskCustomFields } from '/imports/lib/subtaskHelpers';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
+// #4693: setSubtaskDone - tick a subtask done from the parent's Subtasks list.
+import '/server/lib/subtaskDoneMethod';
 import getSlug from 'limax';
 // ErrorBleed: refusals answer with their real status and a safe message.
 const { publicErrorData } = require('/server/lib/apiResponseHelpers');

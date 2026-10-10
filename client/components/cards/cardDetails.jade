@@ -218,7 +218,9 @@ template(name="cardDetails")
                     |  {{checklistFinishedCount}}/{{checklistItemCount}}
               +checklists(cardId = _id card = this)
           if currentBoard.allowsSubtasks
+            //- #4693: "Subtasks (1/3)", done/total (subtaskDoneCount in subtasks.js).
             +cardSectionHeader(section="subtasks" icon="fa-sitemap" label="subtasks"
+              count=subtaskDoneCount
               menuClass="js-open-subtasks-settings" menuTitle="subtask-settings")
             if isSectionOpen "subtasks"
               +subtasks(cardId = _id)
