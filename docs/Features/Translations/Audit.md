@@ -2,6 +2,33 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Croatian, Serbian and Slovenian current fills — 2026-10-10
+
+Translate 110 English placeholders in each of hr, sr, sl and sl_SI, 440 values
+in total, for attached cards, linked fields, calendar mode, member mapping,
+CSV columns, bulk imports and exports, webhooks, notifications, Wrike workflows
+and subtasks. All four full current fill lists are empty. Every changed value
+was English in the parent commit; existing translations are preserved. Use
+Croatian ploča, kartica, popis, traka and prilagođena polja; Slovenian tabla,
+kartica, seznam, plavalna steza and poljubna polja; and the Serbian catalog's
+established Cyrillic legal-workflow vocabulary списи, предмет, део поступка,
+поступак and придружене рубрике. Longer technical wording remains provisional
+pending speaker review; older catalog fluency is not fully audited.
+
+Preserve exact source placeholders, WEBHOOKS_ATTRIBUTES, GET /workflows and
+Wrike state names. The combined regression checks full current completion,
+source key order and all tokens, plus vocabulary as well as script. Meaning
+checks cover field matching, untouched unmatched fields, editing permissions,
+bidirectional versus one-way propagation, member replacement, unmapped imports,
+ZIP semantics, export permissions, inherited settings, quiet hours and completed
+versus incomplete states. Twelve browser cases cover linked fields, import-people
+choices and notification delivery in all four catalogs. Syntax and discovery
+pass; runtime execution remains unverified because the local app and browser
+system dependencies are unavailable. All 306 translation/Blockly suites,
+246 catalog inventories and 21 human-preference checks pass. A fresh full per-locale `--list` inventory counts
+63,778 remaining values across 159 non-English locale files, including pending
+Transifex keys. The all-language backlog and semantic audit remain open.
+
 ## Vietnamese current fills — 2026-10-10
 
 Translate 207 English placeholders in each of vi and vi-VN, 414 values in
