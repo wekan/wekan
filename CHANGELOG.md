@@ -442,21 +442,6 @@ used.
 
 </details>
 
-<details>
-<summary>Big data still held in memory: to stream, with as little memory as possible.</summary>
-
-Found while making large boards fit 8 GB of RAM
-([#6745](https://github.com/wekan/wekan/issues/6745)). Each place below holds a
-whole file, or every file of a board, in memory at once; each is removed from
-this list when it streams.
-
-- The Excel exports stream only once a @wekanteam/exceljs release with the
-  fork's streaming writer fix (archiver 8, and pictures on a streaming sheet)
-  is published and installed; the installed 4.7.3 still takes the in-memory
-  writer, which holds every picture and the whole workbook
-  (models/server/createWorkbook.js recognises the fixed release by itself).
-
-</details>
 </details>
 
 # Upcoming WeKan ® release
@@ -1011,8 +996,9 @@ now write to the response through createWorkbookWriter, and the board export
 writes each card's rows out once the card is drawn. With the fixed
 @wekanteam/exceljs streaming writer (archiver 8 support and pictures on a
 streaming sheet, made in the fork) each picture is opened only when it is
-written, one at a time; until that release is installed the buffered writer is
-used as before. tests/excelExport.test.cjs pins both paths and, when
+written, one at a time. That release (4.7.4) is now carried in
+npm-packages/exceljs, so these exports stream; an older exceljs would take the
+buffered writer as before. tests/excelExport.test.cjs pins both paths and, when
 .tools/exceljs is checked out, runs the fork.
 
 </details>
