@@ -44,6 +44,29 @@ https://wekan.fi/status/
 </details>
 
 <details>
+<summary>Databases</summary>
+
+Which databases WeKan supports
+([docs/Databases/Supported.md](docs/Databases/Supported.md)):
+
+- FerretDB v1 with SQLite: the default on every platform - bundle, Docker, Snap
+  and Kubernetes.
+- FerretDB v1 with PostgreSQL: works. With MySQL or MariaDB: experimental. With
+  SAP HANA: experimental, amd64 only.
+- FerretDB 2 with PostgreSQL/DocumentDB: not tested.
+- MongoDB 6, 7, 8 and 9: the query conformance catalogue answers the same on
+  6.0.28, 7.0.43, 8.0.32 and 9.0.2. WeKan's Mocha tests and dev server run on
+  Meteor's bundled MongoDB 8.0.29, and docker-compose-mongodb-v7.yml runs WeKan
+  on MongoDB 7.
+- MongoDB refuses to start on Linux kernels 6.19 to 7.0.13 (Ubuntu 26.04
+  included) until MongoDB 8.0.35 or 9.0.4 or kernel 7.0.14; FerretDB is not
+  affected.
+- MongoDB 3.x to 5.x: not tested with current WeKan; only to dump an old
+  database and restore it into a supported one.
+
+</details>
+
+<details>
 <summary>Version</summary>
 
 - Version numbers v11.33, v11.54, v11.57, v11.59 and v11.61 do not exist: a bug
@@ -560,12 +583,30 @@ tests/buildScriptParity.test.cjs checks each in both scripts.
 
 and improves translations:
 
-**Translations** - Czech, Dutch, French, German, Hungarian, Indonesian,
+**Translations** - Czech, Dutch, French, German, Greek, Hungarian, Indonesian,
 Japanese, Korean,
 Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish and Ukrainian
 base and regional catalogs.
 
-**Languages updated:** Czech, Dutch, French, German, Hungarian, Indonesian, Japanese, Korean, Malay, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish, Ukrainian.
+**Languages updated:** Czech, Dutch, French, German, Greek, Hungarian, Indonesian, Japanese, Korean, Malay, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish, Ukrainian.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7f26c8ee12">Translate remaining current Greek strings</a>. Thanks to xet7.</summary>
+
+Fill 220 English placeholders across el and el-GR for linked cards, imports,
+member mapping, webhooks, notifications and Wrike workflows. Both full current
+fill lists are empty. Preserve existing translations, exact placeholders and
+parsed constants. Regressions verify permissions, field propagation directions,
+import semantics, notification timing and workflow completion states. Longer
+technical wording remains provisional pending speaker review; older catalog
+wording is not fully audited.
+
+All 305 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Six browser cases pass syntax and discovery; execution remains
+unverified because the local app and browser system dependencies are unavailable.
+The wider all-language backlog and semantic audit remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a0c7a0a40a">Translate remaining current Malay strings</a>. Thanks to xet7.</summary>
