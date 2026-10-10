@@ -496,3 +496,85 @@ for (const [direction, word] of Object.entries({ DOWN: 'lalo', UP: 'luna', LEFT:
 assert.equal(hawaiian['blockly-PROCEDURES_CREATE_DO'].replace('%1', 'hanaHou'), "Hana iā 'hanaHou'");
 assert.equal(hawaiian['blockly-RENAME_VARIABLE'].replace('%1', 'x'), "Hoʻololi i ka inoa o ka mea loli 'x'");
 console.log('hawaiianTranslationProgress: math, functions and screen-reader controls passed');
+
+// Current coverage includes post-milestone keys and the pending queue.
+const currentFill = spawnSync(process.execPath, [
+  path.join(root, 'releases/translations/fill-translations.mjs'), '--list', 'haw',
+], { cwd: root, encoding: 'utf8' });
+assert.equal(currentFill.status, 0, currentFill.stderr);
+assert.deepEqual(JSON.parse(currentFill.stdout), {}, 'Hawaiian current fill stays complete');
+const keyboardLegends = {
+  ALT_KEY: 'Alt', BACKSPACE_KEY: 'Backspace', CAPS_LOCK_KEY: 'Caps Lock',
+  COMMAND_KEY: 'Command', CONTROL_KEY: 'Control', END_KEY: 'End',
+  ENTER_KEY: 'Enter', ESCAPE: 'Escape', HOME_KEY: 'Home', INSERT_KEY: 'Insert',
+  OPTION_KEY: 'Option', PAGE_DOWN_KEY: 'Page Down', PAGE_UP_KEY: 'Page Up',
+  PAUSE_KEY: 'Pause', SHIFT_KEY: 'Shift', SPACE_KEY: 'Space', TAB_KEY: 'Tab',
+};
+const otherNotation = {
+  CHROME_OS: 'ChromeOS', LINUX: 'Linux', MAC_OS: 'macOS', WINDOWS: 'Windows',
+  DIALOG_OK: 'OK', LISTS_GET_INDEX_FROM_START: '#', LOGIC_NULL: 'null',
+};
+const blocklyInvariants = new Map([...mathNotation,
+  ...Object.entries({ ...keyboardLegends, ...otherNotation })
+    .map(([key, value]) => [`blockly-${key}`, value]),
+]);
+for (const [key, value] of Object.entries(english)) {
+  if (!key.startsWith('blockly-') || !value || /(?:HELPURL|HUE)$/.test(key)) continue;
+  if (blocklyInvariants.has(key)) {
+    assert.equal(value, blocklyInvariants.get(key), `${key}: changed source requires review`);
+    assert.equal(hawaiian[key], value);
+  } else {
+    assert.notEqual(hawaiian[key], value, `${key}: all Blockly prose, including short labels`);
+  }
+}
+assert.equal(hawaiian['blockly-ANNOUNCE_MOVE_OF'], '%1 o %2');
+assert.match(hawaiian['blockly-TEXT_CHANGECASE_TOOLTIP'], /kope/);
+assert.match(hawaiian['blockly-TEXT_TRIM_TOOLTIP'], /kope/);
+assert.match(hawaiian['blockly-TEXT_LENGTH_TOOLTIP'], /me nā hakahaka pū/);
+assert.match(hawaiian['blockly-TEXT_REPLACE_TOOLTIP'], /nā wahi a pau/);
+assert.match(hawaiian['blockly-TEXT_INDEXOF_TOOLTIP'], /%1 inā ʻaʻole i loaʻa/);
+for (const key of ['TEXT_CHARAT_FROM_END', 'TEXT_GET_SUBSTRING_START_FROM_END', 'TEXT_GET_SUBSTRING_END_FROM_END']) {
+  assert.match(hawaiian[`blockly-${key}`], /mai ka hope/);
+}
+for (const [key, word] of [['LEFT', 'hema'], ['RIGHT', 'ʻākau'], ['BOTH', 'ʻelua']]) {
+  assert.ok(hawaiian[`blockly-TEXT_TRIM_OPERATOR_${key}`].includes(word));
+}
+for (const literal of ['Enter', 'Shift+Enter', 'Escape']) {
+  assert.ok(hawaiian['blockly-WORKSPACE_SEARCH_INPUT_LABEL'].includes(literal));
+}
+assert.equal(hawaiian['blockly-WORKSPACE_CONTENTS_BLOCKS_ONE'].replace('%2',
+  hawaiian['blockly-WORKSPACE_CONTENTS_COMMENTS_ONE']),
+  'Hoʻokahi ahu palaka a me hoʻokahi manaʻo ma ke kahua hana.');
+assert.equal(hawaiian['blockly-WORKSPACE_SEARCH_MATCH'].replace('%1', '2').replace('%2', '5').replace('%3', 'Kāleka'),
+  'Mea like 2 o 5: Kāleka');
+assert.match(hawaiian['scrum-report-help'], /ʻaʻole lākou he mau kuhi 0/);
+for (const key of ['scrum-daily-observations-help', 'scrum-daily-observations-export-help']) {
+  assert.match(hawaiian[key], /UTC/);
+  assert.match(hawaiian[key], /ʻAʻole he 0 nā kuhi/);
+  assert.match(hawaiian[key], /lā i loaʻa ʻole/);
+}
+assert.match(hawaiian['scrum-daily-truncated'], /366/);
+assert.match(hawaiian['scrum-partial-report'], /komo wale nō nā kāleka i hāʻawi ʻia iā ʻoe/);
+assert.match(hawaiian['scrum-import-card-on-another-board'], /waiho hoʻololi ʻole ʻia/);
+assert.match(hawaiian['sync-conflict-hint'], /ʻAʻohe mea e hoʻouna ʻia i ka ʻōnaehana kumu/);
+assert.match(hawaiian['sync-conflict-review-complete'], /ʻAʻole i holo.*holoʻokoʻa/);
+assert.match(hawaiian['sync-conflict-archive-hint'], /ʻAʻole hoʻololi ʻia nā kāleka keiki/);
+for (const key of ['sync-estimate-field-hint', 'sync-time-estimate-hint']) {
+  assert.match(hawaiian[key], /waiwai kumu i loaʻa ʻole/);
+  assert.match(hawaiian[key], /null/);
+}
+assert.match(hawaiian['sync-planning-hint'], /ʻaʻole loa wehe ka hoʻolikelike mua/);
+assert.match(hawaiian['activity-recovery-cancel-confirm'], /ʻAʻole hiki ke hoʻomau hou ʻia/);
+assert.match(hawaiian['activity-recovery-cancel-confirm'], /ʻAʻole hoʻihoʻi ʻia nā leka uila/);
+assert.match(hawaiian['activity-recovery-source-unavailable'], /ʻAʻohe mea i hana hou ʻia/);
+assert.match(hawaiian['stuck-sync-operation-discard-confirm'], /Noho nā hoʻololi.*ʻaʻole kākau ʻia ke koena/);
+assert.match(hawaiian['stuck-sync-operation-replayable'], /ʻaʻole i hoʻolei ʻia/);
+assert.match(hawaiian['interrupted-import-description'], /ʻAʻole hiki ke hoʻomau.*ʻaʻole mālama ʻia kona faila kumu/);
+assert.match(hawaiian['interrupted-import-description'], /nā mea i hoʻohui ʻia ma hope pū/);
+assert.match(hawaiian['interrupted-import-keep-confirm'], /ʻAʻohe mea e wehe ʻia/);
+assert.match(hawaiian['interrupted-import-discard-confirm'], /Wehe paʻa ʻia/);
+assert.match(hawaiian['interrupted-import-foreign-board'], /ʻaʻole i hoʻopā ʻia/);
+assert.match(hawaiian['scrum-history-checkpoint-hint'], /ʻaʻohe mea ʻē aʻe i hoʻololi/);
+assert.match(hawaiian['scrum-history-checkpoint-hint'], /ʻaʻole hoʻololi i kekahi moʻolelo/);
+assert.match(hawaiian['login-setting-env-only'], /kikowaena wale nō.*heluhelu wale nō/);
+console.log('hawaiianTranslationProgress: current fill, composed text, planning and recovery passed');

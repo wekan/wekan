@@ -48,19 +48,22 @@ test('only administrators can list or discard stuck List Sync operations', async
   } finally { cleanup([listId], [seeded.operationId], [seeded.intentId]); }
 });
 
-test('administrator discards a stuck List Sync operation in Recovery, once', async ({ page, adminUser }) => {
+for (const language of ['en', 'haw']) {
+test(`administrator discards a stuck List Sync operation in Recovery, once in ${language}`, async ({ page, adminUser }) => {
   // Its list no longer exists, so the scope can never match again.
   const listId = `stale-${randomUUID()}`;
   const scope = { listId, boardId: `gone-${randomUUID()}`, incarnation: 'i', revision: 'r', sourceKey: syncSourceKey(source) };
   const seeded = seedOperation({ listId, boardId: scope.boardId, actorId: adminUser.id, scope });
   try {
     await loginWithToken(page, adminUser.id, adminUser.token);
+    await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
+    const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
     await navigateInApp(page, '/admin/problems/recovery');
     const panel = page.locator('.list-sync-stuck-operations');
-    await expect(panel.getByRole('heading', { name: 'List Sync operations that cannot be replayed' })).toBeVisible();
+    await expect(panel.getByRole('heading', { name: strings['stuck-sync-operation-heading'] })).toBeVisible();
     const row = panel.locator(`tr[data-list="${listId}"]`);
-    await expect(row).toContainText('1 of 3 changes applied');
-    await expect(row).toContainText('The list was removed, recreated or its Sync settings changed');
+    await expect(row).toContainText(strings['stuck-sync-operation-applied'].replace('__applied__', '1').replace('__total__', '3'));
+    await expect(row).toContainText(strings['stuck-sync-operation-reason-scope-changed']);
     await expect(row.locator('.js-list-sync-stuck-discard')).toBeEnabled();
     page.once('dialog', dialog => dialog.accept());
     await row.locator('.js-list-sync-stuck-discard').click();
@@ -80,6 +83,8 @@ test('administrator discards a stuck List Sync operation in Recovery, once', asy
       detail: { $regex: seeded.operationId } })).toBe(1);
   } finally { cleanup([listId], [seeded.operationId], [seeded.intentId]); }
 });
+
+}
 
 test('an operation that can still be replayed cannot be discarded', async ({ page, adminUser, user, board }) => {
   // The list exists with exactly the saved scope and the actor still writes to

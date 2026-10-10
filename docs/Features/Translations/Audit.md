@@ -2,6 +2,43 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Hawaiian current fill completed — 2026-10-10
+
+Fill the remaining 349 English values: 87 Blockly text/workspace strings,
+102 planning/report/import messages, 78 Sync/email/recovery controls, 81 final
+recovery messages and the short `%1 of %2` announcement omitted from ordinary
+reports. All changed values were English in the parent commit. Existing
+translations are untouched. Specialist planning, recovery and programming
+wording remains low confidence pending fluent-speaker review.
+
+The 17 physical keyboard legends (Alt, Backspace, Caps Lock, Command, Control,
+End, Enter, Escape, Home, Insert, Option, Page Down, Page Up, Pause, Shift,
+Space and Tab) are retained explicitly, scoped to Hawaiian, the exact key and
+its current English value. This is classification of printed key names, not
+translation. The full current fill list is empty, including pending keys;
+whole-Blockly regression coverage also checks short prose excluded from the
+report. Help URLs, math notation, OS brands and OK remain intentional literals.
+An empty fill report does not establish fluent wording or completion of the
+older malformed-seed audit, which remains open.
+
+Tests cover composed workspace messages and whitespace, source placeholders,
+unknown-versus-zero estimates, partial reports, UTC observation limits,
+missing-versus-null Sync values, no writes back to source systems, permanent
+cancellation, interrupted imports and recovery permissions. Four existing
+browser flows now cover Hawaiian: backlog paging, activity recovery with
+ordinary-user denial, interrupted-import discard and stuck-Sync discard.
+Together with the existing Blocks flow, five selected scenarios pass syntax
+checking and Playwright discovery. Browser execution remains unverified.
+All 246 catalogs pass source key order and exact placeholder inventories.
+The broad translation/Blockly run passes 297 of 302 suites; the five existing
+current-fill failures remain in Breton/Lithuanian/Yiddish, Galician/Xhosa,
+Papiamento, Venda/Zulu and Wu. All 21 human-preference checks pass.
+
+The ordinary report falls from 30,022 values in 43 languages to 29,735 in 42.
+Of that 287-entry reduction, 270 are translated prose and 17 are physical-key
+exceptions. Another 78 fills are in the pending queue and one is short prose.
+The remaining all-language work and wrong-language review remain open.
+
 ## Hawaiian Blockly math, procedures and navigation — 2026-10-10
 
 Fill another 171 English values for arithmetic, numeric tests, statistics,

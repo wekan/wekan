@@ -46,18 +46,21 @@ test('only administrators can list, keep or discard interrupted imports', async 
   } finally { cleanup([seeded]); }
 });
 
-test('administrator discards an interrupted import in Recovery, once, and nothing else', async ({ page, adminUser, board }) => {
+for (const language of ['en', 'haw']) {
+test(`administrator discards an interrupted import in Recovery, once, and nothing else in ${language}`, async ({ page, adminUser, board }) => {
   const seeded = seedInterrupted(adminUser.id);
   const otherCards = db.countDocuments('cards', { boardId: board.boardId });
   try {
     await loginWithToken(page, adminUser.id, adminUser.token);
+    await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
+    const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
     await navigateInApp(page, '/admin/problems/recovery');
     const panel = page.locator('.interrupted-imports');
-    await expect(panel.getByRole('heading', { name: 'Board imports that stopped before finishing' })).toBeVisible();
+    await expect(panel.getByRole('heading', { name: strings['interrupted-import-heading'] })).toBeVisible();
     const row = panel.locator(`tr[data-run="${seeded.runId}"]`);
-    await expect(row).toContainText('Imported from trello');
-    await expect(row).toContainText('Stopped without finishing, at createCards');
-    await expect(row).toContainText('1 swimlanes, 3 lists, 3 cards');
+    await expect(row).toContainText(strings['interrupted-import-source'].replace('__source__', 'trello'));
+    await expect(row).toContainText(strings['interrupted-import-state-stopped'].replace('__stage__', 'createCards'));
+    await expect(row).toContainText(strings['interrupted-import-counts'].replace('__swimlanes__', '1').replace('__lists__', '3').replace('__cards__', '3').replace('__checklists__', '0').replace('__comments__', '0').replace('__attachments__', '0'));
     await expect(row.locator('.js-interrupted-import-discard')).toBeEnabled();
     page.once('dialog', dialog => dialog.accept());
     await row.locator('.js-interrupted-import-discard').click();
@@ -74,6 +77,8 @@ test('administrator discards an interrupted import in Recovery, once, and nothin
     expect(db.countDocuments('recoveryEvents', { type: 'import-discarded', detail: { $regex: seeded.runId } })).toBe(1);
   } finally { cleanup([seeded]); }
 });
+
+}
 
 test('administrator keeps an interrupted import as it is', async ({ page, adminUser }) => {
   const seeded = seedInterrupted(adminUser.id);

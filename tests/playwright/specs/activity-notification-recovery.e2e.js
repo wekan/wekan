@@ -26,7 +26,8 @@ function cleanup(ids) {
   db.deleteMany('activities', { _id: { $in: ids } });
   db.deleteMany('notificationEmailJobs', { eventId: { $in: ids } });
 }
-test('Recovery paginates pending activity summaries, disables orphan retries and denies ordinary users', async ({ page, adminUser, user }) => {
+for (const language of ['en', 'haw']) {
+test(`Recovery paginates pending activity summaries, disables orphan retries and denies ordinary users in ${language}`, async ({ page, adminUser, user }) => {
   const prefix = db.uid('activity-report') + '.*[x]', ids = [];
   try {
     for (let i = 0; i < 13; i++) {
@@ -34,13 +35,15 @@ test('Recovery paginates pending activity summaries, disables orphan retries and
       seed(id, { _id: id, activityType: 'createCard', boardId: prefix, createdAt: new Date(), privateContent: 'PRIVATE BODY' });
     }
     await loginWithToken(page, adminUser.id, adminUser.token);
+    await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
+    const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
     await navigateInApp(page, '/admin/problems/recovery');
     const panel = page.locator('.activity-notification-recovery-reports');
-    await expect(panel).toContainText('Pending activity notifications');
+    await expect(panel).toContainText(strings['activity-recovery-heading']);
     await panel.locator('.js-table-page-search').fill(prefix);
     await panel.locator('.js-table-page-search').press('Enter');
     await expect(panel.locator('tbody tr')).toHaveCount(10);
-    await expect(panel.locator('tbody tr').first()).toContainText('Original activity is missing');
+    await expect(panel.locator('tbody tr').first()).toContainText(strings['activity-recovery-status-missing']);
     await expect(panel.locator('.js-retry-activity-notification').first()).toBeDisabled();
     await panel.locator('.js-table-page-next').click();
     await expect(panel.locator('tbody tr')).toHaveCount(3);
@@ -59,6 +62,8 @@ test('Recovery paginates pending activity summaries, disables orphan retries and
     expect(db.find('activities', { _id: { $in: ids } })).toHaveLength(0);
   } finally { cleanup(ids); }
 });
+}
+
 test('manual retry delivers a stored plan once and removes completed work from the report', async ({ page, adminUser, user2 }) => {
   const id = db.uid('manual-activity');
   try {

@@ -4,7 +4,8 @@ const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { loginWithToken, openBoard } = require('../helpers/auth');
 
-test('Product Backlog shows a page of rows at a time, in Scrum order, and more on request', async ({ page, user, board }) => {
+for (const language of ['en', 'haw']) {
+test(`Product Backlog shows a page of rows at a time, in Scrum order, and more on request in ${language}`, async ({ page, user, board }) => {
   const [card] = db.find('cards', { boardId: board.boardId });
   const ids = [];
   try {
@@ -15,9 +16,13 @@ test('Product Backlog shows a page of rows at a time, in Scrum order, and more o
         scrum: { backlogRank: 1000 + i } });
     }
     await loginWithToken(page, user.id, user.token);
+    await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
+    const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
     await openBoard(page, board.boardId, board.slug);
     await page.locator('.js-toggle-board-view').first().click();
+    await expect(page.locator('.pop-over .js-open-product-backlog-view')).toContainText(strings['board-view-product-backlog']);
     await page.locator('.pop-over .js-open-product-backlog-view').click();
+    await expect(page.getByText(strings['scrum-backlog-help'], { exact: true })).toBeVisible();
     const rows = page.locator('.scrum-table tbody tr[data-card-id]');
     await expect(rows).toHaveCount(100);
     await expect(rows.last()).toContainText(/Paged 09[0-9]/);
@@ -32,3 +37,5 @@ test('Product Backlog shows a page of rows at a time, in Scrum order, and more o
     db.deleteMany('cards', { _id: { $in: ids } });
   }
 });
+
+}

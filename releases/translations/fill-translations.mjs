@@ -83,6 +83,19 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // needs a different word. Keep those exceptions per locale; putting them in the
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
+  // Hawaiian keeps the legends printed on physical keyboard keys. Match the
+  // exact English label so a future change to explanatory prose is not exempt.
+  haw: new Set(Object.entries({
+    'blockly-ALT_KEY': 'Alt', 'blockly-BACKSPACE_KEY': 'Backspace',
+    'blockly-CAPS_LOCK_KEY': 'Caps Lock', 'blockly-COMMAND_KEY': 'Command',
+    'blockly-CONTROL_KEY': 'Control', 'blockly-END_KEY': 'End',
+    'blockly-ENTER_KEY': 'Enter', 'blockly-ESCAPE': 'Escape',
+    'blockly-HOME_KEY': 'Home', 'blockly-INSERT_KEY': 'Insert',
+    'blockly-OPTION_KEY': 'Option', 'blockly-PAGE_DOWN_KEY': 'Page Down',
+    'blockly-PAGE_UP_KEY': 'Page Up', 'blockly-PAUSE_KEY': 'Pause',
+    'blockly-SHIFT_KEY': 'Shift', 'blockly-SPACE_KEY': 'Space',
+    'blockly-TAB_KEY': 'Tab',
+  }).filter(([key, value]) => en[key] === value).map(([key]) => key)),
   // Native mathematical labels: CLDR Upper Sorbian annotations and the
   // Silesian emoji vocabulary both name these operators plus/minus.
   // Scope by locale, key AND exact source value so later prose is not hidden.
