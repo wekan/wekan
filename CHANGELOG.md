@@ -108,7 +108,8 @@ previously held for Transifex. Completed work is recorded in Upcoming.
   report counts **29,735 untranslated locale/string values in 42 languages**.
   It excludes **383 source keys tracked separately as pending Transifex**.
   A separate short-prose audit flags 1,681 candidates across 183 locales.
-  The two notification At/To labels now have translations in all non-English locales;
+  The two notification At/To labels now have translations in all non-English
+  locales;
   shared native words may equal English, so these require individual review.
   Exact Blockly OS brands and compact math/code symbols no longer inflate
   the prose backlog. Counts are a snapshot; they do not establish the quality
@@ -159,7 +160,8 @@ previously held for Transifex. Completed work is recorded in Upcoming.
   151 more locale paths (149 JSON files and two existing aliases). All other
   translations are preserved. The same two labels remain English in 75
   non-English paths, which still need direct translation. Eight representative
-  browser cases are registered; execution and regional wording review remain open.
+  browser cases are registered; execution and regional wording review remain
+  open.
 - Fill English placeholders in every language, including minority and
   constructed languages. Audit mixed-language and wrong-language seed text, and
   review provisional wording with speakers when available. Preserve
@@ -497,9 +499,67 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** Translate the remaining current Czech, Dutch, French, German, Hungarian, Japanese, Korean, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish and Ukrainian strings and correct Czech wording in Slovak and Swiss German spelling.
+**In short:** **FerretDB** now answers a `$group` with several accumulators,
+`$min`/`$max` and capped collections the way MongoDB does - found by new
+**MongoDB 8 and MongoDB 9** conformance tests that EVERYTHING now runs - and
+**build.bat** does what build.sh does, not only offers the same menu. Current
+strings are translated in 15 languages, among them Czech, Japanese, Korean
+and Spanish.
 
-**Translations** - Czech, Dutch, French, German, Hungarian, Japanese, Korean, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish and Ukrainian base and regional catalogs.
+This release fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/FerretDB/commit/7fc21b45">FerretDB answers a $group with several accumulators, $min/$max and capped max like MongoDB</a>. Thanks to xet7.</summary>
+
+`$group` gave all its accumulators one iterator over the group, so every
+accumulator after the first saw an empty group: `$min`/`$max` after `$avg`
+answered null, and `$last`/`$push` after `$first` answered null and `[]`.
+WeKan's e-mail outbox report is one such `$group`, so on FerretDB only its
+queued count was right. `$min`/`$max` also took null as the smallest value,
+and a capped collection kept more than its `max` until the periodic cleanup.
+Each accumulator now gets its own iterator, null is skipped, and an insert
+trims a capped collection at once. A Go test in `stages/group_test.go` fails
+without the fix.
+
+</details>
+
+and has the following developer-facing changes:
+
+**Database conformance** - MongoDB beside FerretDB, so a fault every backend
+shares is still a difference.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/08cba19eac">EVERYTHING compares MongoDB 8 and MongoDB 9 too, queried directly</a>. Thanks to xet7.</summary>
+
+releases/db-conformance.sh, run by EVERYTHING from build.sh and build.bat, now
+runs the query catalogue against `mongo:8.0` and `mongo:9.0` beside FerretDB's
+SQLite, PostgreSQL, MySQL and MariaDB. The `$text` case creates the text index
+MongoDB requires and compares the score by type. On a Linux kernel MongoDB
+refuses (6.19 to 7.0.13) its backend is a skip with the reason. All six now
+answer all 110 cases the same, MongoDB 8.0.32 and 9.0.2 included.
+
+</details>
+
+**Build scripts** - build.bat does what build.sh does.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c454f8567d">build.bat runs Mocha, guards, Playwright, builds and Setup the same way as build.sh</a>. Thanks to xet7.</summary>
+
+Mocha with `--full-app` and its exit status, `--run-everything` on the command
+line, a floating-promises guard that fails, Playwright browsers in
+`.tools\ms-playwright`, the same CUSTOM PORT + SUBDOMAIN rule, the computed
+heap for the trace dev server, the compose file's image tag, stopping
+`rspack build --watch`, the same build diagnostics, and Node.js and npm at the
+Dockerfile's versions - build.sh had npm pinned by hand to a stale 12.0.2.
+tests/buildScriptParity.test.cjs checks each in both scripts.
+
+</details>
+
+and improves translations:
+
+**Translations** - Czech, Dutch, French, German, Hungarian, Japanese, Korean,
+Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish and Ukrainian
+base and regional catalogs.
 
 **Languages updated:** Czech, Dutch, French, German, Hungarian, Japanese, Korean, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish, Ukrainian.
 
@@ -516,7 +576,8 @@ speaker review; older catalog wording is not fully audited.
 
 All 305 translation/Blockly suites, 246 catalog inventories and 21 preservation
 checks pass. Six browser cases pass syntax and discovery; execution remains
-unverified because the local app and browser system dependencies are unavailable.
+unverified because the local app and browser system dependencies are
+unavailable.
 The wider all-language backlog and semantic audit remain open.
 
 </details>
@@ -575,7 +636,8 @@ review; older catalog wording is not fully audited.
 All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
 checks pass. Add eight browser cases alongside existing base Russian
 notification coverage; all nine pass syntax and discovery. Execution remains
-unverified because the local app and browser system dependencies are unavailable.
+unverified because the local app and browser system dependencies are
+unavailable.
 The wider all-language backlog and semantic audit remain open.
 
 </details>
@@ -594,7 +656,8 @@ wording is not fully audited.
 All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
 checks pass. Add five browser cases alongside existing base Ukrainian
 notification coverage; all six pass syntax and discovery. Execution remains
-unverified because the local app and browser system dependencies are unavailable.
+unverified because the local app and browser system dependencies are
+unavailable.
 The wider all-language backlog and semantic audit remain open.
 
 </details>
@@ -632,7 +695,8 @@ wording is not fully audited.
 
 All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
 checks pass. Six browser cases pass syntax and discovery; execution remains
-unverified because the local app and browser system dependencies are unavailable.
+unverified because the local app and browser system dependencies are
+unavailable.
 The wider all-language backlog and semantic audit remain open.
 
 </details>
@@ -650,7 +714,8 @@ fully audited.
 
 All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
 checks pass. Three browser cases pass syntax and discovery; execution remains
-unverified because the local app and browser system dependencies are unavailable.
+unverified because the local app and browser system dependencies are
+unavailable.
 The wider all-language backlog and semantic audit remain open.
 
 </details>
@@ -670,7 +735,8 @@ catalog wording is not fully audited.
 
 All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
 checks pass. Three browser cases pass syntax and discovery; execution remains
-unverified because the local app and browser system dependencies are unavailable.
+unverified because the local app and browser system dependencies are
+unavailable.
 The wider all-language backlog and semantic audit remain open.
 
 </details>
@@ -689,7 +755,8 @@ review.
 
 All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
 checks pass. Six browser cases pass syntax and discovery; execution remains
-unverified because the local app and browser system dependencies are unavailable.
+unverified because the local app and browser system dependencies are
+unavailable.
 The wider all-language backlog and semantic audit remain open.
 
 </details>
@@ -708,7 +775,8 @@ speaker review.
 
 All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
 checks pass. Six browser cases pass syntax and discovery; execution remains
-unverified because the local app and browser system dependencies are unavailable.
+unverified because the local app and browser system dependencies are
+unavailable.
 The wider all-language backlog and semantic audit remain open.
 
 </details>
@@ -760,7 +828,8 @@ New wording uses neutral Spanish; regional style and longer technical phrasing
 remain provisional pending speaker review.
 
 All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
-checks pass. Twenty-seven representative browser cases pass syntax and discovery;
+checks pass. Twenty-seven representative browser cases pass syntax and
+discovery;
 execution remains unverified because the local app and browser dependencies
 are unavailable. The wider all-language backlog and semantic audit remain open.
 
@@ -804,7 +873,7 @@ are unavailable. The wider all-language backlog and semantic audit remain open.
 
 </details>
 
-Thanks to above GitHub users for their contributions.
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.26 2026-10-10 WeKan ® release
 
