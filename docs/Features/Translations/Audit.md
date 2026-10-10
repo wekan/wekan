@@ -2,6 +2,42 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Hawaiian Blockly math, procedures and navigation — 2026-10-10
+
+Fill another 171 English values for arithmetic, numeric tests, statistics,
+trigonometric help, functions, variables, screen-reader controls and shortcuts,
+including three later aliases. All changed values were English in the parent
+commit; existing translations remain untouched. Mathematical constants, code
+notation, degree units, ranges and positional placeholders are retained.
+
+Terminology research includes the published
+[Māmaka Kaiao dictionary scan](https://tlingitlanguage.com/wp-content/uploads/2015/07/hawaiian-scan.pdf)
+for kumu pahōonui lua (square root), helu kumu (prime), helu kaulike (even),
+helu kauʻewa (odd) and the signed/whole number names;
+[a Hawaiian classroom lesson](https://studylib.net/doc/12104030/title-grade-6-grade-math)
+for mean and median; and the Hawaiian entry in
+[Wiktionary's logarithm translations](https://en.wiktionary.org/wiki/logarithm)
+for huhui helu. Several direct dictionary pages and the full PDF fetch were
+unavailable; indexed dictionary entries supplied the cited vocabulary.
+Trigonometric labels use mathematical function names with Hawaiian explanatory
+prose. Statistical, exponent and programming compounds remain low confidence
+pending fluent-speaker review; the sources do not certify the whole sentences.
+
+Whole-family regression checks cover mathematical prose, procedures, shortcuts
+and screen-reader messages. Tests pin random-number inclusivity, clamp bounds,
+atan2's range, degree/radian distinction, logarithm bases, average/median/mode,
+functions with/without output, disabled definitions and screen-reader states.
+All 19 targeted suites and 21 preservation checks pass; all 246 catalogs pass
+source key order and exact placeholder inventories. The existing Hawaiian
+Blocks browser scenario passes syntax checking and discovery, but execution
+remains unverified. The preceding broad run's five other-catalog completion
+failures remain open.
+
+Hawaiian's full fill list drops from 536 to 365 entries (287 ordinary and 78
+pending). The ordinary all-language report drops from 30,193 to 30,022 values
+across 43 languages. Remaining text, workspace and planning messages, physical
+key-label review, and the wider semantic audit are still open.
+
 ## Hawaiian Blockly inputs, lists and logic — 2026-10-10
 
 Fill another 186 English values for input/accessibility labels, keyboard

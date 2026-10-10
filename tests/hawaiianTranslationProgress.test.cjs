@@ -433,3 +433,66 @@ for (const key of ['CONTROLS_IF_MSG_IF', 'CONTROLS_REPEAT_INPUT_DO',
   assert.notEqual(hawaiian[`blockly-${key}`], english[`blockly-${key}`]);
 }
 console.log('hawaiianTranslationProgress: Blockly inputs, lists, logic and short labels passed');
+
+// Math notation stays literal; explanatory math and procedure prose does not.
+const mathNotation = new Map(Object.entries({
+  'MATH_ADDITION_SYMBOL': '+', 'MATH_DIVISION_SYMBOL': '÷',
+  'MATH_MULTIPLICATION_SYMBOL': '×', 'MATH_POWER_SYMBOL': '^',
+  'MATH_SUBTRACTION_SYMBOL': '-', 'MATH_CONSTANT_E_ARIA': 'e',
+  'MATH_CONSTANT_PI_ARIA': 'pi', 'MATH_TRIG_ACOS': 'acos',
+  'MATH_TRIG_ASIN': 'asin', 'MATH_TRIG_ATAN': 'atan',
+  'MATH_TRIG_COS': 'cos', 'MATH_TRIG_SIN': 'sin', 'MATH_TRIG_TAN': 'tan',
+}).map(([key, value]) => [`blockly-${key}`, value]));
+for (const [key, value] of Object.entries(english)) {
+  if (!/^blockly-(MATH_|PROCEDURES_|SHORTCUTS_|SCREENREADER_)/.test(key)
+      || /(?:HELPURL|HUE)$/.test(key) || !value) continue;
+  if (mathNotation.has(key)) {
+    assert.equal(value, mathNotation.get(key), `${key}: review changed source notation`);
+    assert.equal(hawaiian[key], value, `${key}: retain code/math notation`);
+  } else {
+    assert.ok(hawaiian[key].trim());
+    assert.notEqual(hawaiian[key], value, `${key}: no English prose fallback`);
+  }
+}
+assert.match(hawaiian['blockly-MATH_RANDOM_FLOAT_TOOLTIP'], /0\.0 \(komo pū\).*1\.0 \(ʻaʻole komo\)/,
+  'random fractions include zero and exclude one');
+assert.match(hawaiian['blockly-MATH_RANDOM_INT_TOOLTIP'], /me nā palena pū/,
+  'random integers include both bounds');
+assert.match(hawaiian['blockly-MATH_CONSTRAIN_TOOLTIP'], /me nā palena pū/);
+assert.match(hawaiian['blockly-MATH_ATAN2_TOOLTIP'], /\(X, Y\).*kēkelē.*-180 a i 180/);
+for (const operation of ['COS', 'SIN', 'TAN']) assert.match(
+  hawaiian[`blockly-MATH_TRIG_TOOLTIP_${operation}`], /kēkelē \(ʻaʻole radiana\)/);
+for (const operation of ['ACOS', 'ASIN', 'ATAN']) assert.match(
+  hawaiian[`blockly-MATH_TRIG_TOOLTIP_${operation}`], /huli/);
+for (const literal of ['π (3.141…)', 'e (2.718…)', 'φ (1.618…)',
+  'sqrt(2) (1.414…)', 'sqrt(½) (0.707…)', '∞']) {
+  assert.ok(hawaiian['blockly-MATH_CONSTANT_TOOLTIP'].includes(literal), literal);
+}
+assert.match(hawaiian['blockly-MATH_SINGLE_TOOLTIP_LN'], /kumu e/);
+assert.match(hawaiian['blockly-MATH_SINGLE_TOOLTIP_LOG10'], /kumu 10/);
+assert.match(hawaiian['blockly-MATH_SINGLE_TOOLTIP_ABS'], /hōʻailona ʻole/);
+assert.match(hawaiian['blockly-MATH_SINGLE_TOOLTIP_NEG'], /hōʻailona i hoʻohuli ʻia/);
+assert.match(hawaiian['blockly-MATH_ONLIST_TOOLTIP_AVERAGE'], /ʻawelike/);
+assert.match(hawaiian['blockly-MATH_ONLIST_TOOLTIP_MEDIAN'], /kūwaena/);
+assert.match(hawaiian['blockly-MATH_ONLIST_TOOLTIP_MODE'], /pinepine loa/);
+assert.equal(new Set(['AVERAGE', 'MEDIAN', 'MODE', 'STD_DEV'].map(
+  key => hawaiian[`blockly-MATH_ONLIST_OPERATOR_${key}`])).size, 4);
+assert.match(hawaiian['blockly-MATH_IS_PRIME'], /helu kumu/);
+assert.match(hawaiian['blockly-MATH_IS_EVEN'], /kaulike/);
+assert.match(hawaiian['blockly-MATH_IS_ODD'], /kauʻewa/);
+assert.match(hawaiian['blockly-MATH_IS_DIVISIBLE_BY'], /koena ʻole/);
+assert.match(hawaiian['blockly-PROCEDURES_DEFNORETURN_TOOLTIP'], /hopena puka ʻole/);
+assert.doesNotMatch(hawaiian['blockly-PROCEDURES_DEFRETURN_TOOLTIP'], /ʻole/);
+assert.match(hawaiian['blockly-PROCEDURES_CALLRETURN_TOOLTIP'], /hoʻohana i kona hopena/);
+assert.doesNotMatch(hawaiian['blockly-PROCEDURES_CALLNORETURN_TOOLTIP'], /kona hopena/);
+assert.match(hawaiian['blockly-PROCEDURES_CALL_DISABLED_DEF_WARNING'], /^ʻAʻole hiki.*hoʻopau ʻia/);
+assert.match(hawaiian['blockly-PROCEDURES_IFRETURN_WARNING'], /loko wale nō/);
+assert.match(hawaiian['blockly-SCREENREADER_MODE_DISABLED'], /Ua pio.*e hoʻā ai/);
+assert.match(hawaiian['blockly-SCREENREADER_MODE_ENABLED'], /Ua ʻā.*e hoʻopau ai/);
+for (const [direction, word] of Object.entries({ DOWN: 'lalo', UP: 'luna', LEFT: 'hema', RIGHT: 'ʻākau' })) {
+  for (const action of ['MOVE', 'SCROLL']) assert.ok(
+    hawaiian[`blockly-SHORTCUTS_${action}_${direction}`].includes(word), `${action} ${direction}`);
+}
+assert.equal(hawaiian['blockly-PROCEDURES_CREATE_DO'].replace('%1', 'hanaHou'), "Hana iā 'hanaHou'");
+assert.equal(hawaiian['blockly-RENAME_VARIABLE'].replace('%1', 'x'), "Hoʻololi i ka inoa o ka mea loli 'x'");
+console.log('hawaiianTranslationProgress: math, functions and screen-reader controls passed');
