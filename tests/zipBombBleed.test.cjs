@@ -102,3 +102,18 @@ test('negative: no server code inflates a zip entry whole, or trusts entry.vars'
   });
   assert.deepEqual(offenders, []);
 });
+
+test('a zip attachment keeps its entry through TrelloCreator, so it streams instead of downloading', () => {
+  // The route sets zipEntryKey (and bytes) on each attachment it matched; the
+  // creator rebuilt every attachment from a fixed list of fields that left
+  // them out, so the stream hook never saw the entry and each attachment of a
+  // .zip fell back to its Trello URL - which needs Trello's own login - and
+  // the board arrived without its files.
+  const creator = read('models/trelloCreator.js');
+  const normalize = creator.slice(creator.indexOf('const pushAttachment = raw => {'), creator.indexOf('attachmentsById.set(id, norm);'));
+  assert.match(normalize, /zipEntryKey: raw\.zipEntryKey,/);
+  assert.match(normalize, /bytes: raw\.bytes,/);
+  assert.match(normalize, /if \(!existing\.zipEntryKey && norm\.zipEntryKey\) existing\.zipEntryKey = norm\.zipEntryKey;/);
+  assert.match(creator, /this\.attachmentStream \? this\.attachmentStream\(att\) : null;/);
+  assert.match(read('server/routes/importTrelloZip.js'), /att\.zipEntryKey = key;/);
+});

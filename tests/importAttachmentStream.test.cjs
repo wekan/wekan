@@ -58,6 +58,27 @@ async function main() {
     assert.doesNotMatch(zip, /attachment\.file = bytes\.toString\('base64'\)/, 'negative: no zip attachment is put inline');
   });
 
+  await test('Meteor-Files 3\'s addFile is awaited, never given a callback it would not call', async () => {
+    // addFile(path, opts, proceedAfterUpload) is async in Meteor-Files 3 and
+    // takes no callback; addAttachmentFromStream passed one, which was never
+    // called, so every streamed import attachment waited forever.
+    const fss = read('models/lib/fileStoreStrategy.js');
+    const add = fss.slice(fss.indexOf('export const addAttachmentFromStream'), fss.indexOf('export const copyFile'));
+    assert.match(add, /Promise\.resolve\(collection\.addFile\(/);
+    assert.match(add, /\)\)\.then\(resolve, fail\);/);
+    // Negative: no call anywhere hands addFile a function.
+    const { execFileSync } = require('node:child_process');
+    const files = execFileSync('git', ['ls-files', 'models', 'server', 'client', 'imports'], { cwd: path.join(__dirname, '..'),
+      encoding: 'utf8' }).split('\n').filter(file => /\.(c|m)?js$/.test(file) && !file.includes('/tests/'));
+    for (const file of files) {
+      const source = read(file);
+      for (let at = source.indexOf('.addFile('); at !== -1; at = source.indexOf('.addFile(', at + 1)) {
+        const call = source.slice(at, at + 600);
+        assert.doesNotMatch(call.slice(0, call.indexOf(');') + 2), /\(err(or)?\s*,|function\s*\(err/, `${file}: addFile given a callback`);
+      }
+    }
+  });
+
   console.log(`\nimportAttachmentStream: ${passed} checks passed`);
 }
 

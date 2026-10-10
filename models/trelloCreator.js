@@ -605,6 +605,12 @@ export class TrelloCreator {
           type: raw.mimeType || raw.type || undefined,
           userId: raw.idMemberCreator || raw.userId,
           file: raw.file,
+          // A .zip import points the attachment at its zip entry, and gives its
+          // size, on the raw object (server/routes/importTrelloZip.js); leaving
+          // them out here made every zip attachment fall back to downloading
+          // its Trello URL, which needs Trello's own login, so none arrived.
+          zipEntryKey: raw.zipEntryKey,
+          bytes: raw.bytes,
         };
         const existing = attachmentsById.get(id);
         if (existing) {
@@ -613,6 +619,8 @@ export class TrelloCreator {
           if (!existing.file && norm.file) existing.file = norm.file;
           if (!existing.url && norm.url) existing.url = norm.url;
           if (!existing.type && norm.type) existing.type = norm.type;
+          if (!existing.zipEntryKey && norm.zipEntryKey) existing.zipEntryKey = norm.zipEntryKey;
+          if (!existing.bytes && norm.bytes) existing.bytes = norm.bytes;
           return;
         }
         attachmentsById.set(id, norm);

@@ -280,6 +280,9 @@ async function importZipFile(zipPath, userId, membersMode) {
         execute: () => creator.create(board, null) }).promise);
       if (boardId) boardIds.push(boardId);
     } catch (e) {
+      // Also in the server log: the client shows only the message, and a
+      // board that failed half way left nothing else to go on.
+      console.error('[import-trello-zip] board import failed:', board.name, e);
       errors.push({ board: board.name, error: (e && e.message) || 'import-failed' });
     }
   }

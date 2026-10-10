@@ -184,6 +184,16 @@ class FileStoreStrategy {
     this.collection = collection || Attachments;
   }
 
+  /** The record of this version, or {} when the file has none: a record
+   * written without `versions` (an import, a hand-made document) made every
+   * reader throw "reading 'original'", and the file route answered 500 for
+   * what is a missing file - a 404.
+   */
+  version() {
+    const versions = (this.fileObj && this.fileObj.versions) || {};
+    return versions[this.versionName] || {};
+  }
+
   /** after successfull upload */
   onAfterUpload() {
   }
@@ -426,7 +436,7 @@ export class FileStoreStrategyGridFs extends FileStoreStrategy {
    * @return the GridFS Object-Id
    */
   getGridFsFileId() {
-    const ret = (this.fileObj.versions[this.versionName].meta || {})
+    const ret = (this.version().meta || {})
       .gridFsFileId;
     return ret;
   }
@@ -496,7 +506,7 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
    * @return array of absolute candidate paths
    */
   candidatePaths() {
-    const v = this.fileObj.versions[this.versionName] || {};
+    const v = this.version();
     const originalPath = v.path || '';
     const normalized = (originalPath || '').replace(/\\/g, '/');
     const isAvatar = normalized.includes('/avatars/') || (this.fileObj.collectionName === 'avatars');
@@ -614,7 +624,7 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
    */
   getWriteStream(filePath) {
     if (typeof filePath !== 'string') {
-      filePath = this.fileObj.versions[this.versionName].path;
+      filePath = this.version().path;
     }
     const ret = fs.createWriteStream(filePath);
     return ret;
@@ -631,7 +641,7 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
     // The file that is THERE, not the one the database remembers - see
     // candidatePaths(). A delete that misses leaves the bytes on disk forever.
     const filePath = this.resolveExistingPath()
-      || (this.fileObj.versions[this.versionName] || {}).path;
+      || this.version().path;
     if (filePath) fs.unlink(filePath, () => {});
   }
 
@@ -647,7 +657,7 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
       // ENOENT and it stayed stuck under the wrong name for good. Say what is
       // actually wrong - the file is gone, not the rename - and name the
       // attachment, because the ENOENT named a path nobody recognised.
-      const recorded = (this.fileObj.versions[this.versionName] || {}).path || '(none recorded)';
+      const recorded = this.version().path || '(none recorded)';
       throw new Error(
         `Attachment ${this.fileObj._id} (${this.fileObj.name || 'unnamed'}), version `
         + `${this.versionName}: no file found on disk. The database says ${recorded}, `
@@ -894,7 +904,7 @@ export class FileStoreStrategyCloud extends FileStoreStrategy {
 
   /** the object key used in the cloud bucket */
   getObjectKey() {
-    const version = this.fileObj.versions[this.versionName] || {};
+    const version = this.version();
     if (version.path) {
       return version.path;
     }
@@ -1051,7 +1061,7 @@ export const moveToStorage = async function(fileObj, storageDestination, fileSto
     // returns true and we proceed with chunked streaming, relying on the write-error
     // handler below to stop and remove any partial output. Never delete the source.
     if (strategyWrite.getStorageName() === STORAGE_NAME_FILESYSTEM) {
-      const versionSize = (fileObj.versions[versionName] && fileObj.versions[versionName].size) || fileObj.size || 0;
+      const versionSize = ((fileObj.versions || {})[versionName] || {}).size || fileObj.size || 0;
       if (!hasEnoughDiskSpace(fileStoreStrategyFactory.storagePath, versionSize)) {
         console.error(
           '[moveToStorage] not enough free disk space to move attachment',
@@ -1197,8 +1207,13 @@ export const addAttachmentFromStream = function(
 
     readStream.on('error', fail);
     writeStream.on('error', fail);
+    // Meteor-Files 3's addFile is async - addFile(path, opts, proceedAfterUpload)
+    // returning the file - and takes no callback. A callback passed as its third
+    // argument was never called, so every streamed attachment (a .zip import,
+    // a clone, the REST raw upload, a storage move) waited forever and the
+    // import stopped at the first file. copyFile below awaits it the same way.
     writeStream.on('finish', () => {
-      collection.addFile(
+      Promise.resolve(collection.addFile(
         tempPath,
         {
           fileName: fileName || 'attachment',
@@ -1208,8 +1223,8 @@ export const addAttachmentFromStream = function(
           size,
           fileId: new ObjectId().toString(),
         },
-        (err, fileRef) => (err ? fail(err) : resolve(fileRef)),
-      );
+        true,
+      )).then(resolve, fail);
     });
 
     readStream.pipe(writeStream);
