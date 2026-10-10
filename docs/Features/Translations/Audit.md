@@ -2,6 +2,36 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Portuguese base and regional current fills — 2026-10-10
+
+Translate 110 English placeholders in each of pt, pt-BR, pt-PT and pt_PT,
+440 values in total, for attached cards, linked fields, calendar mode, member
+mapping, CSV columns, multiple-board import/export, webhooks, notifications,
+Wrike workflows and subtask completion. All four full current fill lists are
+empty. Every changed value was English in the parent commit; all other values
+are preserved. Follow the newer European Portuguese prose in pt/pt-PT/pt_PT
+with ficheiro, utilizador, folha and pista; Brazilian wording uses arquivo,
+usuário, planilha and raia, and the catalog's campos customizados terminology.
+Do not overwrite older catalog choices. Longer technical and regional phrasing
+remains provisional pending speaker review.
+
+Preserve source tokens, WEBHOOKS_ATTRIBUTES, GET /workflows and Wrike's state
+group names. Regressions cover permissions, one-way/two-way field propagation,
+archived cards, member replacement, ZIP exports, export permissions, inherited
+webhook behavior, quiet hours and completion states. Brazilian link wording
+uses the masculine noun link; European wording retains ligação. The older
+catalogs' broader semantic audit remains open.
+
+Extend the existing Portuguese test to the full current fill of all four
+variants, including Brazilian Portuguese in its first fill-list gate. Add
+12 representative browser cases for linked fields, import-people choices and
+notification delivery. Syntax and discovery are checked; browser execution
+remains unverified because the local app and browser system dependencies are
+unavailable. All 304 translation/Blockly suites, 246 catalog key/token
+inventories and 21 preservation checks pass. The ordinary backlog remains
+29,735 values in 42 locales: these fills were pending source strings excluded
+from that report. The wider all-language work remains open.
+
 ## Spanish base and regional current fills — 2026-10-10
 
 Translate 110 English placeholders in each of es, es-AR, es-CL, es-CO, es-LA,

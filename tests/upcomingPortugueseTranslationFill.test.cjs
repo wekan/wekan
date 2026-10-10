@@ -1,5 +1,4 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Guard all four Portuguese variants against current fill placeholders.
 'use strict';
 const assert = require('assert');
 const childProcess = require('child_process');
@@ -8,9 +7,9 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const node = process.execPath;
 const fill = path.join(ROOT, 'releases/translations/fill-translations.mjs');
-for (const language of ['pt-PT', 'pt', 'pt_PT']) {
+for (const language of ['pt-PT', 'pt', 'pt_PT', 'pt-BR']) {
   const remaining = JSON.parse(childProcess.execFileSync(node,
-    [fill, '--completed-catalog', '--list', language], { cwd: ROOT, encoding: 'utf8' }));
+    [fill, '--list', language], { cwd: ROOT, encoding: 'utf8' }));
   assert.deepStrictEqual(remaining, {});
   const translated = JSON.parse(fs.readFileSync(path.join(ROOT,
     'imports/i18n/data', `${language}.i18n.json`), 'utf8'));
@@ -18,8 +17,42 @@ for (const language of ['pt-PT', 'pt', 'pt_PT']) {
   assert.match(translated['api-report-desc'], /pontos finais|frequência/);
   assert.doesNotMatch(translated['office-no-results'], /Nobody|logged in/);
   assert.match(translated['api-no-calls'], /WITH_API=true/);
+  assert.match(translated['custom-field-links-hint'], /mesmo nome e tipo nos dois/);
+  assert.match(translated['custom-field-links-hint'], /único cartão permanecem inalterados/);
+  assert.match(translated['custom-field-link-both'], /dois sentidos/);
+  assert.match(translated['custom-field-link-send'], /só sentido.*cartão principal/);
+  assert.match(translated['field-link-not-allowed'], /editar os dois cartões/);
+  assert.match(translated['custom-field-link-inactive'], /arquivado/);
+  assert.strictEqual(translated['import-members-mode-me'], 'Substituí-las todas por mim');
+  assert.match(translated['import-many-boards-hint'], /sem associação de membros/);
+  assert.match(translated['import-many-boards-hint'], /por si só uma exportação.*é um quadro/);
+  assert.match(translated['export-all-boards-hint'], /pode exportar.*\.zip/);
+  assert.match(translated['webhook-payload-description'], /configuração herdada.*sempre enviaram/);
+  assert.match(translated['webhook-hide-identity'], /Omitir o meu nome/);
+  assert.match(translated['notification-delivery-quiet'], /aguardar até terminarem/);
+  assert.match(translated['r-wrike-workflow-note'], /concluído.*Completed.*Cancelled.*não concluído.*Active.*Deferred/);
+  assert.match(translated['r-wrike-workflow-note'], /não podem ser exportadas/);
+  for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) {
+    assert.ok(translated['r-wrike-workflow-note'].includes(literal), `${language}: ${literal}`);
+  }
+  assert.ok(translated['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+  assert.notStrictEqual(translated['subtask-mark-done'], translated['subtask-mark-not-done']);
+  if (language === 'pt-BR') {
+    assert.match(translated['import-file-label'], /arquivo/);
+    assert.match(translated['import-members-mode-map'], /usuário/);
+    assert.match(translated['csv-mapping-boards'], /planilha/);
+    assert.strictEqual(translated['notification-delivery-part-swimlane'], 'Raia');
+    assert.match(translated['attach-card-hint'], /um link/);
+  } else {
+    assert.match(translated['import-file-label'], /ficheiro/);
+    assert.match(translated['import-members-mode-map'], /utilizador/);
+    assert.match(translated['csv-mapping-boards'], /folha/);
+    assert.strictEqual(translated['notification-delivery-part-swimlane'], 'Pista');
+    assert.match(translated['attach-card-hint'], /uma ligação/);
+  }
+
 }
-console.log('upcomingPortugueseTranslationFill: historical baseline checks passed');
+console.log('upcomingPortugueseTranslationFill: full current fills and regional terminology verified');
 
 const currentKeys = [
   "board-announcement",
@@ -138,7 +171,7 @@ const currentKeys = [
       assert.notStrictEqual(translated[key], english[key], `${language}:${key}`);
     }
     assert.deepStrictEqual(JSON.parse(childProcess.execFileSync(node,
-      [fill, '--completed-catalog', '--list', language], { cwd: ROOT, encoding: 'utf8' })), {});
+      [fill, '--list', language], { cwd: ROOT, encoding: 'utf8' })), {});
     for (const key of currentKeys) {
       assert.ok(translated[key]?.trim(), `${language}:${key}`);
       assert.notStrictEqual(translated[key], english[key], `${language}:${key} remains English`);
