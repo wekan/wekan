@@ -107,7 +107,7 @@ previously held for Transifex. Completed work is recorded in Upcoming.
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **29,735 untranslated locale/string values in 42 languages**.
   It excludes **383 source keys tracked separately as pending Transifex**.
-  A separate short-prose audit flags 2,135 candidates across 229 locales,
+  A separate short-prose audit flags 2,133 candidates across 229 locales,
   including capitalized At/To labels previously omitted;
   shared native words may equal English, so these require individual review.
   Exact Blockly OS brands and compact math/code symbols no longer inflate
@@ -149,6 +149,12 @@ previously held for Transifex. Completed work is recorded in Upcoming.
   labels. Their current fill lists are empty; specialist wording and broader
   semantic review remain open. Four localized browser cases are registered
   and syntax-checked, with execution still unverified.
+- Papiamento fills 112 current English values, including short delivery labels.
+  Its full current fill list is empty; five mixed-Spanish permission and search
+  descriptions are also corrected. All 303 selected translation/Blockly suites
+  pass, while technical wording and the wider semantic audit remain open.
+  Three localized browser cases are discovered and
+  syntax-checked; execution remains unverified.
 - Fill English placeholders in every language, including minority and
   constructed languages. Audit mixed-language and wrong-language seed text, and
   review provisional wording with speakers when available. Preserve
@@ -1548,6 +1554,24 @@ as do targeted Zulu and Xhosa tests. Seven localized browser scenarios are
 syntax-checked and discovered; execution remains unverified. Longer technical
 sentences remain low confidence pending speaker review, with terminology
 sources and remaining work recorded in the audit.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b25cadef3e">Translate current Papiamento strings and repair mixed-language guidance</a>. Thanks to xet7.</summary>
+
+Fill 112 English values for card links, imports, exports, notifications, Wrike
+workflows and subtask completion, including short delivery labels. Correct five
+mixed-Spanish permission and search descriptions, preserving role limits and
+site-admin restrictions. The full current fill list is empty; all other existing
+translations and exact source placeholders are preserved.
+
+All 303 translation/Blockly suites pass. After the final wording corrections,
+three targeted Papiamento/audit suites pass again. All 246 catalog key/token
+inventories and 21 preservation checks pass. Three browser scenarios are
+syntax-checked and discovered; execution remains unverified. Longer technical
+wording remains low confidence pending speaker review. The all-language backlog
+and older semantic audit remain open.
 
 </details>
 
