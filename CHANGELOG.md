@@ -497,11 +497,29 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** Translate the remaining current German strings and correct Swiss German spelling.
+**In short:** Translate the remaining current French and German strings and correct Swiss German spelling.
 
-**Translations** - German base and regional catalogs.
+**Translations** - French and German base and regional catalogs.
 
-**Languages updated:** German.
+**Languages updated:** French, German.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/78bceed7d7">Translate current strings across French locale variants</a>. Thanks to xet7.</summary>
+
+Fill 540 English values across fr, fr-FR, fr-BE, fr-CA and fr-CH for linked
+cards, imports, member mapping, webhooks, notifications and Wrike workflows.
+All five full current fill lists are empty. Retain Dates and __count__ minutes
+as correct French with exact-source, locale-specific exceptions; tests prove
+that changed English prose becomes eligible for translation again. Preserve
+existing translations, exact placeholders and parsed constants. Longer
+technical and regional wording remains provisional pending speaker review.
+
+All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Fifteen representative browser cases pass syntax and discovery;
+execution remains unverified because the local app and browser dependencies
+are unavailable. The wider all-language backlog and semantic audit remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ee9fbe1cfd">Translate current strings across German locale variants</a>. Thanks to xet7.</summary>
