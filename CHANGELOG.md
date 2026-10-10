@@ -497,11 +497,29 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** Translate the remaining current Czech, Dutch, French, German, Hungarian, Japanese, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish and Ukrainian strings and correct Czech wording in Slovak and Swiss German spelling.
+**In short:** Translate the remaining current Czech, Dutch, French, German, Hungarian, Japanese, Korean, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish and Ukrainian strings and correct Czech wording in Slovak and Swiss German spelling.
 
-**Translations** - Czech, Dutch, French, German, Hungarian, Japanese, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish and Ukrainian base and regional catalogs.
+**Translations** - Czech, Dutch, French, German, Hungarian, Japanese, Korean, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish and Ukrainian base and regional catalogs.
 
-**Languages updated:** Czech, Dutch, French, German, Hungarian, Japanese, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish, Ukrainian.
+**Languages updated:** Czech, Dutch, French, German, Hungarian, Japanese, Korean, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish, Ukrainian.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a56a3abb9e">Translate remaining current Korean strings</a>. Thanks to xet7.</summary>
+
+Fill 412 English placeholders across ko and ko-KR for linked cards, imports,
+member mapping, webhooks, notifications, Wrike, planning, LDAP and recovery.
+Both full current fill lists are empty. Preserve existing translations, exact
+placeholders and parsed constants. Regressions verify permissions, propagation,
+import semantics, timing, workflow states, destructive recovery warnings and
+checkpoint restrictions. Longer technical wording remains provisional pending
+speaker review; older catalog wording is not fully audited.
+
+All 305 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Six browser cases pass syntax and discovery; execution remains
+unverified because the local app and browser system dependencies are unavailable.
+The wider all-language backlog and semantic audit remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fb336423fd">Translate current Japanese Hiragana placeholders</a>. Thanks to xet7.</summary>
