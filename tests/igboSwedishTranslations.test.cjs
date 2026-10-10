@@ -1,5 +1,4 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Swedish covers the full current fill; Igbo retains its historical catalog gate.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -8,7 +7,7 @@ const root = path.resolve(__dirname, '..');
 const fillScript = path.join(root, 'releases/translations/fill-translations.mjs');
 const locales = {};
 for (const language of ['ig', 'sv']) {
-  const result = spawnSync(process.execPath, [fillScript, '--completed-catalog', '--list', language], { cwd: root, encoding: 'utf8' });
+  const result = spawnSync(process.execPath, [fillScript, ...(language === 'sv' ? [] : ['--completed-catalog']), '--list', language], { cwd: root, encoding: 'utf8' });
   assert.equal(result.status, 0, result.stderr);
   assert.equal(result.stdout, '{}\n');
   locales[language] = JSON.parse(fs.readFileSync(path.join(root, `imports/i18n/data/${language}.i18n.json`), 'utf8'));
@@ -174,3 +173,24 @@ const swedishCurrentKeys = [
   assert.ok(sv['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
   console.log('Swedish current import and Sync recovery prose, variables and source syntax verified');
 })().catch(error => { console.error(error); process.exitCode = 1; });
+
+
+const swedishDelivery = locales.sv;
+assert.match(swedishDelivery['custom-field-links-hint'], /samma namn och typ på båda/);
+assert.match(swedishDelivery['custom-field-links-hint'], /bara finns på det ena kortet.*oförändrade/);
+assert.match(swedishDelivery['custom-field-link-both'], /Åt båda hållen/);
+assert.match(swedishDelivery['custom-field-link-send'], /Åt ett håll.*huvudkortet/);
+assert.match(swedishDelivery['custom-field-link-inactive'], /inte längre redigera båda.*arkiverat/);
+assert.match(swedishDelivery['field-link-not-allowed'], /redigera båda korten/);
+assert.equal(swedishDelivery['import-members-mode-me'], 'Ersätt dem alla med mig');
+assert.match(swedishDelivery['import-many-boards-hint'], /utan medlemskoppling/);
+assert.match(swedishDelivery['import-many-boards-hint'], /i sig är en enda export.*är en tavla/);
+assert.match(swedishDelivery['export-all-boards-hint'], /kan exportera.*arbetsbok.*\.zip/);
+assert.match(swedishDelivery['webhook-payload-description'], /ärvda inställningen.*alltid har skickat/);
+assert.match(swedishDelivery['webhook-hide-identity'], /Utelämna mitt namn/);
+assert.match(swedishDelivery['notification-delivery-quiet'], /vänta tills de är slut/);
+assert.match(swedishDelivery['r-wrike-workflow-note'], /slutfört.*Completed.*Cancelled.*ej slutfört.*Active.*Deferred/);
+assert.match(swedishDelivery['r-wrike-workflow-note'], /egna automatiseringsregler kan inte exporteras/);
+assert.ok(swedishDelivery['r-wrike-workflow-note'].includes('GET /workflows'));
+assert.ok(swedishDelivery['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+assert.notEqual(swedishDelivery['subtask-mark-done'], swedishDelivery['subtask-mark-not-done']);

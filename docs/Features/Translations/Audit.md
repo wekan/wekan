@@ -2,6 +2,39 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Finnish and Swedish current fills — 2026-10-10
+
+Translate 110 English placeholders in each catalog, 220 values in total, for
+attached cards, linked custom fields, calendar mode, member mapping, CSV
+columns, multiple-board import/export, webhooks, notification delivery, Wrike
+workflows and subtask completion. Both full current fill lists are empty.
+All changed values were English in the parent commit; every other value is
+preserved. Keep the established Finnish taulu/kortti/uimarata and Swedish
+tavla/kort/simbana terminology.
+
+Preserve source tokens, WEBHOOKS_ATTRIBUTES, GET /workflows and Wrike's exact
+Active, Completed, Deferred and Cancelled state-group names. Wording preserves
+one-way versus two-way field propagation, edit access to both cards, archived
+card restrictions, placeholder-user mapping, single-export ZIP handling and
+export permissions. Quiet hours wait until their end; webhook defaults retain
+the inherited behavior. Wrike completion rules distinguish completed/cancelled
+from active/deferred states and do not imply that Wrike automation can be
+exported. Longer technical wording remains provisional pending speaker review.
+This does not certify the language quality of every older string.
+
+Extend the existing Finnish and Swedish regressions to their full current
+fill lists and add meaning checks for permissions, propagation direction,
+member replacement, notification timing and workflow state rules. Keep Igbo's
+separate historical gate unchanged in the shared Swedish suite. Add Finnish
+and Swedish to the existing linked-field and import-people browser cases and
+Swedish to notification delivery; Finnish delivery coverage already exists.
+All 304 translation/Blockly suites pass.
+All six representative cases pass syntax and discovery checks. Browser
+execution remains unverified because the local app and browser system
+dependencies are unavailable. All 246 catalog key/token inventories and
+21 human-preference checks pass. The ordinary backlog remains 29,735 values
+in 42 locales: these fills were pending strings excluded from that count.
+
 ## Esperanto current fill — 2026-10-10
 
 Translate 227 current English placeholders, including pending source keys, for

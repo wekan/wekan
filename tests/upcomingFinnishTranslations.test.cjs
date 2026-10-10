@@ -1,5 +1,4 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Finnish is guarded against current fill placeholders, including pending keys.
 'use strict';
 
 // The Upcoming release completes the Finnish Office and API report strings.
@@ -77,7 +76,7 @@ console.log(`\nupcomingFinnishTranslations: ${passed} tests passed`);
   test('only reviewed product names and math symbols remain unchanged', () => {
     const { execFileSync } = require('node:child_process');
     const missing = JSON.parse(execFileSync(process.execPath,
-      ['releases/translations/fill-translations.mjs', '--completed-catalog', '--list', 'fi'],
+      ['releases/translations/fill-translations.mjs', '--list', 'fi'],
       { cwd: ROOT, encoding: 'utf8' }));
     assert.deepStrictEqual(missing, {});
     assert.strictEqual(finnish['blockly-MAC_OS'], 'macOS');
@@ -235,4 +234,26 @@ test('planning import and recovery choices retain their meaning and syntax', () 
     assert.ok(finnish['external-link-rules-description'].includes(literal), literal);
   }
   assert.ok(finnish['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+});
+
+
+test('current linked-card, import, delivery and workflow meanings remain distinct', () => {
+  assert.match(finnish['custom-field-links-hint'], /samannimiset ja samantyyppiset.*molempien|Molempien.*samannimiset ja samantyyppiset/);
+  assert.match(finnish['custom-field-links-hint'], /vain yhdessä kortissa.*ennalleen/);
+  assert.match(finnish['custom-field-link-both'], /Molempiin suuntiin/);
+  assert.match(finnish['custom-field-link-send'], /Yhteen suuntaan.*pääkorttiin/);
+  assert.match(finnish['custom-field-link-inactive'], /ei voi enää muokata molempia.*arkistoitu/);
+  assert.match(finnish['field-link-not-allowed'], /oikeus muokata molempia/);
+  assert.strictEqual(finnish['import-members-mode-me'], 'Korvaa heidät kaikki minulla');
+  assert.match(finnish['import-many-boards-hint'], /ilman jäsenten kohdistusta/);
+  assert.match(finnish['import-many-boards-hint'], /itsessään on yksi vienti.*on yksi taulu/);
+  assert.match(finnish['export-all-boards-hint'], /voit viedä.*työkirjana.*\.zip/);
+  assert.match(finnish['webhook-payload-description'], /perityn asetuksen.*saman sisällön kuin ennenkin/);
+  assert.match(finnish['webhook-hide-identity'], /Jätä nimeni pois/);
+  assert.match(finnish['notification-delivery-quiet'], /odota niiden päättymistä/);
+  assert.match(finnish['r-wrike-workflow-note'], /valmiiksi.*Completed.*Cancelled.*keskeneräiseksi.*Active.*Deferred/);
+  assert.match(finnish['r-wrike-workflow-note'], /omia automaatiosääntöjä ei voi viedä/);
+  assert.ok(finnish['r-wrike-workflow-note'].includes('GET /workflows'));
+  assert.ok(finnish['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+  assert.notStrictEqual(finnish['subtask-mark-done'], finnish['subtask-mark-not-done']);
 });
