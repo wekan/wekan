@@ -127,3 +127,41 @@ test('SAML browser-tab error has no English fallback in any non-English locale',
     assert.deepEqual(translationTokens(locale[key]), translationTokens(en[key]), `${file}: source placeholders`);
   }
 });
+
+// The browser spec saml-popup-error.e2e.js drives the real POPUP flow. Since
+// redirect became the default (2026-10-08) a spec that does not ask for the
+// popup - or calls loginWithSaml before the configuration arrived - has its
+// page navigated away to the identity provider ("Execution context was
+// destroyed"). That is the intended default, so each such spec must ask for the
+// popup and wait for it.
+function flowSetup(config) {
+  const opened = [], assigned = [];
+  const Meteor = { Error: class extends Error {}, startup() {} };
+  vm.runInNewContext(source, { Meteor, Random: { id: () => 'token' }, URLSearchParams,
+    window: { screenX: 0, screenY: 0, outerWidth: 1000, outerHeight: 800, open: url => { opened.push(url); return { closed: false, focus() {} }; },
+      location: { assign: url => assigned.push(url) }, sessionStorage: { setItem() {}, getItem() { return null; }, removeItem() {} } },
+    ServiceConfiguration: { configurations: { findOne: () => config } },
+    Accounts: { callLoginMethod() {} }, setInterval() { return 1; }, clearInterval() {} });
+  Meteor.loginWithSaml({ provider: 'p' }, () => {});
+  return { opened, assigned };
+}
+test('the popup opens only when the loaded configuration asks for it', () => {
+  const popup = flowSetup({ service: 'saml', loginFlow: 'popup' });
+  assert.equal(popup.opened.length, 1); assert.deepEqual(popup.assigned, []);
+  // Negative: no configuration yet, or none chosen, is the page redirect.
+  for (const config of [undefined, { service: 'saml' }, { service: 'saml', loginFlow: 'redirect' }]) {
+    const flow = flowSetup(config);
+    assert.equal(flow.opened.length, 0); assert.equal(flow.assigned.length, 1);
+    assert.match(flow.assigned[0], /^\/_saml\/authorize\?provider=p&credentialToken=token$/);
+  }
+});
+test('every browser spec that drives the real SAML popup asks for it and waits for the configuration', () => {
+  const dir = 'tests/playwright/specs';
+  const specs = fs.readdirSync(dir).filter(file => file.endsWith('.js')).map(file => [file, fs.readFileSync(`${dir}/${file}`, 'utf8')])
+    .filter(([, text]) => /saveSamlSettings/.test(text) && /Meteor\.loginWithSaml\(\{/.test(text) && /samlResult/.test(text));
+  assert.ok(specs.some(([file]) => file === 'saml-popup-error.e2e.js'));
+  for (const [file, text] of specs) {
+    assert.match(text, /loginFlow: 'popup'/, `${file} asks for the popup flow`);
+    assert.match(text, /\.findOne\(\{ service: 'saml' \}\)\?\.loginFlow === 'popup'/, `${file} waits for the popup configuration`);
+  }
+});

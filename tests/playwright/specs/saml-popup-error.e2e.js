@@ -34,7 +34,13 @@ test('real signed SAML popup establishes a Meteor session and failed ACS returns
     previous = await page.evaluate(() => Meteor.callAsync('getSamlConfigSources'));
     await page.evaluate(config => Meteor.callAsync('saveSamlSettings', config), {
       enabled: true, provider: 'popup-regression', entryPoint: provider.url + '/saml', issuer: new URL(page.url()).origin,
-      cert: certificate, mergeExistingUsers: false,
+      // SAML logs in by full-page redirect by default since ad51a03731 (a
+      // popup is blocked in iframes and on some phones, and an identity
+      // provider's Cross-Origin-Opener-Policy can cut it off). This test is
+      // about the POPUP flow, which SAML_LOGIN_FLOW=popup still chooses, so it
+      // asks for it; without it loginWithSaml navigates this page away to the
+      // identity provider, which is the deliberate new default, not a bug.
+      cert: certificate, mergeExistingUsers: false, loginFlow: 'popup',
     });
     for (const mode of ['allow', 'subject-conflict', 'tampered']) {
       provider.state.mode = mode === 'subject-conflict' ? 'allow' : mode;
@@ -44,6 +50,10 @@ test('real signed SAML popup establishes a Meteor session and failed ACS returns
       try {
         await client.goto(new URL('/sign-in', page.url()).toString());
         await client.waitForFunction(() => typeof Meteor !== 'undefined' && Meteor.status().connected);
+        // Until the SAML service configuration has arrived the client takes the
+        // redirect (saml_client.js samlLoginFlow): wait for the popup setting.
+        await client.waitForFunction(() => Package['service-configuration'].ServiceConfiguration.configurations
+          .findOne({ service: 'saml' })?.loginFlow === 'popup');
         await client.evaluate(() => {
           window.samlResult = null;
           Meteor.loginWithSaml({ provider: 'popup-regression' }, error => { window.samlResult = error ? { error: error.error, reason: error.reason } : { ok: true }; });
