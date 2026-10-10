@@ -2,6 +2,32 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Valencian current fills — 2026-10-10
+
+Translate 109 English placeholders in ca@valencia, registered as ca-valencia,
+for attached cards, linked fields, calendar mode, member mapping, CSV columns,
+multiple-board import/export, webhooks, notifications, Wrike and subtasks.
+Use the Catalan batch as the starting text and review the complete proposal,
+adapting regional forms to the existing este/esta wording, substituïx,
+convertix, siguen, tinga, continga, ací, llig, eixida and guardar. Correct the
+eixida contraction to d’eixida. Every changed value was English in the parent
+commit; existing translations are preserved. Longer technical and regional
+wording remains provisional pending speaker review.
+
+Dates is already native wording (the reviewed Catalan data plural). Extend
+only the exact-source date-label exemption to this locale, with tests for
+locale isolation and changed-source rejection. The full current fill list is
+empty. Preserve source placeholders, WEBHOOKS_ATTRIBUTES, GET /workflows and
+Wrike states. Regressions cover regional forms, permissions, field direction,
+member replacement, ZIP semantics, inherited settings, timing and completion.
+
+Register three browser cases using the actual ca-valencia runtime tag and
+ca@valencia file. Syntax and discovery pass; execution remains unverified
+because the local app and browser system dependencies are unavailable.
+All 305 translation/Blockly suites, 246 catalog inventories and 21
+human-preference checks pass. Older catalog fluency and the wider all-language
+backlog and semantic audit remain open.
+
 ## Catalan current fills and shared date label — 2026-10-10
 
 Translate 109 English placeholders in each of ca and ca_ES, 218 values in

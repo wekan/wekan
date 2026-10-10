@@ -1,11 +1,10 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Guard the full current Valencian catalog and regional vocabulary.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const root = path.resolve(__dirname, '..');
-const result = spawnSync(process.execPath, [path.join(root, 'releases/translations/fill-translations.mjs'), '--completed-catalog', '--list', 'ca@valencia'], { cwd: root, encoding: 'utf8' });
+const result = spawnSync(process.execPath, [path.join(root, 'releases/translations/fill-translations.mjs'), '--list', 'ca@valencia'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
 assert.equal(result.stdout, '{}\n');
 const locale = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ca@valencia.i18n.json'), 'utf8'));
@@ -13,3 +12,33 @@ assert.equal(locale['select-none'], 'No en selecciones cap');
 assert.equal(locale.avatars, 'Imatges dels perfils');
 assert.match(locale['office-report-desc'], /IPv4.*IPv6/);
 assert.match(locale['api-no-calls'], /REST API.*WITH_API=true/);
+
+(async () => {
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  const en = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
+  assert.deepEqual(Object.keys(locale), Object.keys(en));
+  for (const key of Object.keys(en)) assert.deepEqual(translationTokens(locale[key]), translationTokens(en[key]), key);
+  assert.equal(locale['notification-delivery-part-dates'], 'Dates');
+  assert.match(locale['attach-card-hint'], /d’este tauler/);
+  assert.match(locale['csv-mapping-description'], /siguen incorrectes.*no tinga/);
+  assert.match(locale['custom-field-links-hint'], /mateix nom i tipus a totes dues fitxes/);
+  assert.match(locale['custom-field-links-hint'], /només té una de les fitxes es deixen sense canvis/);
+  assert.match(locale['custom-field-link-inactive'], /ja no pot editar totes dues fitxes.*arxivada/);
+  assert.match(locale['custom-field-link-both'], /tots dos sentits.*qualsevol fitxa/);
+  assert.match(locale['custom-field-link-send'], /un sol sentit.*fitxa principal/);
+  assert.match(locale['field-link-not-allowed'], /editar totes dues fitxes/);
+  assert.equal(locale['import-members-mode-me'], 'Substituïx-les totes per mi');
+  assert.match(locale['import-many-boards-hint'], /sense associar membres/);
+  assert.match(locale['import-many-boards-hint'], /en si mateix una sola exportació.*és un sol tauler/);
+  assert.match(locale['import-many-boards-hint'], /continga.*fitxers ací/);
+  assert.match(locale['export-all-boards-hint'], /podeu exportar.*llibre.*\.zip/);
+  assert.match(locale['webhook-payload-description'], /webhooks d’eixida.*conserva la configuració heretada/);
+  assert.doesNotMatch(locale['webhook-hide-identity'], /de eixida/);
+  assert.match(locale['notification-delivery-quiet'], /espera fins que acaben/);
+  assert.match(locale['r-wrike-workflow-note'], /com a completada.*Completed.*Cancelled.*com a no completada.*Active.*Deferred/);
+  assert.match(locale['r-wrike-workflow-note'], /s’apliquen.*llig.*convertix/);
+  for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) assert.ok(locale['r-wrike-workflow-note'].includes(literal), literal);
+  assert.ok(locale['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+  assert.notEqual(locale['subtask-mark-done'], locale['subtask-mark-not-done']);
+  console.log('Valencian current catalog, regional forms, shared date label and tokens pass');
+})().catch(error => { console.error(error); process.exitCode = 1; });

@@ -1003,7 +1003,7 @@ const LOCALE_INVARIANTS = {
   ...Object.fromEntries(['ca', 'ca_ES', 'ca@valencia'].map(code => [code, new Set([
     // Catalan dates is the plural of data (IEC DCVB, entry data).
     // Only the reviewed locales and exact source label are exempted.
-    ...(['ca', 'ca_ES'].includes(code) && en['notification-delivery-part-dates'] === 'Dates'
+    ...(en['notification-delivery-part-dates'] === 'Dates'
       ? ['notification-delivery-part-dates'] : []),
     ...(code !== 'ca' ? ['blockly-PAUSE_KEY'] : []),
     'blockly-ARIA_TYPE_FIELD_ANGLE', 'blockly-ARIA_TYPE_FIELD_COLOUR',

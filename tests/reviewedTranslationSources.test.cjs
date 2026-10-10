@@ -62,14 +62,14 @@ try {
   }
   const sharedCatalan = { 'notification-delivery-part-dates': 'Dates' };
   write('imports/i18n/data/en.i18n.json', sharedCatalan);
-  for (const code of ['ca', 'ca_ES', 'fi']) {
+  for (const code of ['ca', 'ca_ES', 'ca@valencia', 'fi']) {
     write(`imports/i18n/data/${code}.i18n.json`, sharedCatalan);
     assert.deepEqual(JSON.parse(run(['--list', code])), code === 'fi' ? sharedCatalan : {},
       `${code}: Catalan shared date label is locale-specific`);
   }
   const changedCatalan = { 'notification-delivery-part-dates': 'Show dates' };
   write('imports/i18n/data/en.i18n.json', changedCatalan);
-  for (const code of ['ca', 'ca_ES']) {
+  for (const code of ['ca', 'ca_ES', 'ca@valencia']) {
     write(`imports/i18n/data/${code}.i18n.json`, changedCatalan);
     assert.deepEqual(JSON.parse(run(['--list', code])), changedCatalan,
       `${code}: changed source prose must still be translated`);
