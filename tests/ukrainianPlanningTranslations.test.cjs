@@ -1,5 +1,4 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Guard both current Ukrainian catalogs and warning meanings.
 'use strict';
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -87,7 +86,7 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.notEqual(uk['move-selection-before'], uk['move-selection-after']);
   assert.equal(uk['blockly-CONTEXT_MENU_KEY'], '≣ Меню');
   const inventory = spawnSync(process.execPath,
-    ['releases/translations/fill-translations.mjs', '--completed-catalog', '--list', 'uk'],
+    ['releases/translations/fill-translations.mjs', '--list', 'uk'],
     { cwd: path.resolve(__dirname, '..'), encoding: 'utf8' });
   assert.equal(inventory.status, 0, inventory.stderr);
   assert.deepEqual(JSON.parse(inventory.stdout), {});
@@ -118,5 +117,33 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   }
   assert.ok(regional['external-link-rules-description'].includes('[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
   assert.ok(regional['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+  for (const code of ['uk', 'uk-UA']) {
+    const data = read(code);
+    assert.deepEqual(Object.keys(data), Object.keys(en), code);
+    for (const key of Object.keys(en)) assert.deepEqual(translationTokens(data[key]), translationTokens(en[key]), `${code}:${key}`);
+    const current = spawnSync(process.execPath,
+      ['releases/translations/fill-translations.mjs', '--list', code],
+      { cwd: path.resolve(__dirname, '..'), encoding: 'utf8' });
+    assert.equal(current.status, 0, current.stderr);
+    assert.deepEqual(JSON.parse(current.stdout), {}, code);
+    assert.match(data['custom-field-links-hint'], /однаковими назвою й типом на обох картках/);
+    assert.match(data['custom-field-links-hint'], /лише на одній картці, залишаються без змін/);
+    assert.match(data['custom-field-link-inactive'], /не може редагувати обидві картки.*архівовано/);
+    assert.match(data['custom-field-link-both'], /обидва боки.*будь-якій картці/);
+    assert.match(data['custom-field-link-send'], /один бік.*головну картку/);
+    assert.match(data['field-link-not-allowed'], /редагувати обидві картки/);
+    assert.equal(data['import-members-mode-me'], 'Замінити їх усіх на мене');
+    assert.match(data['import-many-boards-hint'], /без зіставлення учасників/);
+    assert.match(data['import-many-boards-hint'], /сам є одним експортом.*є однією дошкою/);
+    assert.match(data['export-all-boards-hint'], /можете експортувати.*одна книга.*\.zip/);
+    assert.match(data['webhook-payload-description'], /зберігає успадковане налаштування/);
+    assert.match(data['notification-delivery-quiet'], /чекати до їх завершення/);
+    assert.match(data['r-wrike-workflow-note'], /як завершену.*Completed.*Cancelled.*як незавершену.*Active.*Deferred/);
+    for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) {
+      assert.ok(data['r-wrike-workflow-note'].includes(literal), literal);
+    }
+    assert.ok(data['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+    assert.notEqual(data['subtask-mark-done'], data['subtask-mark-not-done']);
+  }
   console.log('Ukrainian source keys, tokens, planning and recovery warning meanings verified');
 })().catch(error => { console.error(error); process.exitCode = 1; });
