@@ -104,4 +104,36 @@ test('all import transports and export adapters use the common boundary', () => 
   assert.match(rest, /Meteor\.callAsync\('importBoard'/);
 });
 
+test('a text export is made from sanitized values, not sanitized as HTML afterwards', () => {
+  // OPML keeps a card's title in <outline text="...">. Sanitizing the finished
+  // document as HTML removed those tags with the titles in them, so the OPML
+  // export held only the board's name.
+  // A stand-in sanitizer, stripping to a fixed point (tests/tagStrippingFixedPoint.test.cjs).
+  const stripTags = value => {
+    let text = String(value);
+    let previous;
+    do {
+      previous = text;
+      text = text.replace(/<[^>]*>/g, '');
+    } while (text !== previous);
+    return text;
+  };
+  const opml = '<opml version="2.0"><head><title>Board</title></head><body><outline text="Alpha Card"/></body></opml>';
+  const whole = boundary.sanitizeTransferValue(opml, { direction: 'export', sanitizeHtml: stripTags }).value;
+  assert.doesNotMatch(whole, /Alpha Card/, 'negative: the old order lost the card');
+  const values = boundary.sanitizeTransferValue({ items: [{ title: 'Alpha Card', description: '<img src=x onerror=1>' }] },
+    { direction: 'export', sanitizeHtml: stripTags }).value;
+  assert.equal(values.items[0].title, 'Alpha Card');
+  assert.equal(values.items[0].description, '', 'a value with markup is still sanitized');
+  const exporters = fs.readFileSync(path.join(root, 'models/lib/externalExporters.js'), 'utf8');
+  const build = exporters.slice(exporters.indexOf('export async function buildExternalExport'));
+  assert.match(build, /if \(typeof formatted !== 'string'\) return secureTransfer\(formatted, context\);/);
+  assert.match(build, /items: secureTransfer\(collected\.items, context\) \}\);/);
+  // The board, lists and swimlanes keep their prototype: the boundary refuses
+  // a non-plain object, and passing the collected documents whole made every
+  // external export answer 500.
+  assert.match(build, /Object\.assign\(Object\.create\(Object\.getPrototypeOf\(doc\)\), doc, \{ title: secureTransfer\(doc\.title, context\) \}\)/);
+  assert.doesNotMatch(build, /secureTransfer\(await collect\(/, 'negative: never the collected documents whole');
+});
+
 console.log(`\nimportExportBoundary: ${passed} tests passed`);

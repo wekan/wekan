@@ -163,8 +163,24 @@ async function collect(boardId, fields, format) {
 export async function buildExternalExport(boardId, format, fields) {
   const formatter = formatters[format];
   if (!formatter) return null;
-  const formatted = formatter(await collect(boardId, fields, format));
-  return require('/server/lib/secureTransfer').secureTransfer(formatted, {
-    direction: 'export', source: `export:${format}`,
-  });
+  const { secureTransfer } = require('/server/lib/secureTransfer');
+  const context = { direction: 'export', source: `export:${format}` };
+  // A JSON document is checked as it is sent. A formatter that writes a
+  // document of its own - OPML, Leo's XML, Markdown, CSV - returns text in that
+  // format's syntax, which is not HTML: passing the finished document through
+  // the HTML sanitizer stripped its markup (OPML's <outline text="..."> lost
+  // every card), logged its own tags as unsafe markup on every export, and held
+  // a whole board to the size of one string.
+  const collected = await collect(boardId, fields, format);
+  const formatted = formatter(collected);
+  if (typeof formatted !== 'string') return secureTransfer(formatted, context);
+  // A text document is made again from the board's values passed through the
+  // boundary: the cards (plain objects collect builds) and the board's, lists'
+  // and swimlanes' titles. The board, its lists and swimlanes are collection
+  // documents with helpers, so each keeps its prototype and gets a checked
+  // title - the boundary refuses a non-plain object as a whole.
+  const safeTitle = doc => (doc && typeof doc.title === 'string'
+    ? Object.assign(Object.create(Object.getPrototypeOf(doc)), doc, { title: secureTransfer(doc.title, context) }) : doc);
+  return formatter({ ...collected, board: safeTitle(collected.board), lists: (collected.lists || []).map(safeTitle),
+    swimlanes: (collected.swimlanes || []).map(safeTitle), items: secureTransfer(collected.items, context) });
 }
