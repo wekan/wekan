@@ -1,6 +1,41 @@
 # Translation audit progress
 
-Audit date: **2026-09-12**. Last updated: **2026-10-09**.
+Audit date: **2026-09-12**. Last updated: **2026-10-10**.
+
+## Hawaiian card links and import mapping — 2026-10-10
+
+Fill 61 English placeholders for attached cards, linked custom fields, board
+announcements, CSV column mapping and bulk import/export. Correct eight nearby
+malformed seed strings for editing/deleting custom fields, currency, dropdown
+options and numbers. Other existing translations remain unchanged. The catalog
+still contains malformed seed prose outside this batch; this is not a completed
+semantic audit.
+
+Terminology follows the existing Papa / Kāleka / Papa inoa catalog vocabulary,
+with [kāleka](https://wehe.hilo.hawaii.edu/?q=k%C4%81leka) and
+[hoʻopili](https://wehe.hilo.hawaii.edu/?q=ho%CA%BBopili) checked in the University
+of Hawaiʻi dictionaries. Technical compounds and longer sentences remain
+low confidence pending fluent-speaker review.
+
+The extended Hawaiian regression suite checks source key order, catalog-wide
+placeholder and HTML inventories, nonempty/non-English batch values, link
+transfer directions, two-card permissions, unchanged unmatched fields and
+removal of malformed seed words. All 21 human-preference checks pass. The
+existing linked-fields browser scenario now covers Hawaiian labels and the
+hidden-card rejection; it passes syntax checking and Playwright discovery.
+All 14 Blockly-named suites pass. Of 302 translation-named suites, 297 pass;
+five fail current-fill completion checks on newly added English placeholders:
+`bretonLithuanianYiddishTranslations`, `galicianXhosaTranslations`,
+`papiamentoTranslationProgress`, `upcomingVendaZuluTranslationFill` and
+`wuTranslationProgress`. Those catalogs and suites are unchanged in this batch;
+their remaining translations must be filled without weakening the tests. All
+246 catalogs pass key-order and exact-placeholder checks. Browser execution
+is unverified: no application responds at localhost:3000.
+
+The Hawaiian current fill list has 876 entries left (including pending keys).
+The ordinary report remains 30,443 values in 43 languages because these 61
+filled keys are in the separate pending queue, now containing 383 source keys.
+No pending key is removed until its all-language coverage is complete.
 
 ## Broad verification after Xhosa fill — 2026-10-09
 

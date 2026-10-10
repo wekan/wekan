@@ -8,7 +8,10 @@ const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { openBoard } = require('../helpers/auth');
 
-test('a card\'s custom fields are linked to another card, carry a change, and are unlinked (#5681)', async ({ boardPage: page, board }) => {
+for (const language of ['en', 'haw']) {
+test(`a card's custom fields are linked, carry a change, and are unlinked in ${language} (#5681)`, async ({ boardPage: page, board }) => {
+  await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
+  const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
   const card = db.findOne('cards', { boardId: board.boardId });
   const mainId = db.uid('card');
   const operation = db.uid('cf'), status = db.uid('cf'), remarks = db.uid('cf'), approved = db.uid('cf');
@@ -33,13 +36,15 @@ test('a card\'s custom fields are linked to another card, carry a change, and ar
     await page.locator('.card-details .js-open-custom-fields-settings').click();
     await page.locator('.js-pop-over .js-open-custom-field-links').click();
     const pop = page.locator('.js-pop-over');
-    await expect(pop.locator('.js-custom-field-links-empty')).toBeVisible();
+    await expect(pop.locator('.js-custom-field-links-empty')).toHaveText(strings['custom-field-links-none']);
+    await expect(pop.locator('.js-custom-field-link-mode option[value="both"]')).toHaveText(strings['custom-field-link-both']);
+    await expect(pop.locator('.js-custom-field-link-mode option[value="send"]')).toHaveText(strings['custom-field-link-send']);
 
     // Negative: a card the user cannot read is refused, and nothing is linked.
     await pop.locator('.js-custom-field-link-input')
       .fill(`${new URL(page.url()).origin}/b/${hidden.boardId}/x/${hiddenCard._id}`);
     await pop.locator('.js-link-custom-fields-submit').click();
-    await expect(pop.locator('.js-custom-field-link-error')).toBeVisible();
+    await expect(pop.locator('.js-custom-field-link-error')).toHaveText(strings['field-link-not-found']);
     expect(db.findOne('cards', { _id: card._id }).customFieldLinks || []).toEqual([]);
 
     // One way, to the main card, picked by its title.
@@ -73,3 +78,5 @@ test('a card\'s custom fields are linked to another card, carry a change, and ar
     db.cleanup({ boardIds: [hidden.boardId] });
   }
 });
+
+}

@@ -49,4 +49,96 @@ assert.deepEqual(tokens(hawaiian['act-deleteCard']),
 assert.deepEqual(tokens(hawaiian['restore-list-swimlanes-done']),
   ['__remaining__', '__restored__']);
 
-console.log('hawaiianTranslationProgress: complete locale passed');
+// Newer card-linking and import/export messages are outside the historic gate.
+const recentKeys = [
+  "attach-card",
+  "attachCardPopup-title",
+  "attach-card-hint",
+  "attached-card-unavailable",
+  "detach-card",
+  "attach-card-self",
+  "attach-card-limit",
+  "attach-card-not-found",
+  "board-announcement",
+  "board-announcement-enabled",
+  "board-view-calendar-mode",
+  "custom-field-links",
+  "custom-field-links-hint",
+  "custom-field-links-none",
+  "custom-field-link-unavailable",
+  "custom-field-link-fields",
+  "custom-field-link-no-fields",
+  "custom-field-link-inactive",
+  "custom-field-unlink",
+  "custom-field-link-target",
+  "custom-field-link-direction",
+  "custom-field-link-both",
+  "custom-field-link-send",
+  "custom-field-link-sends",
+  "custom-field-link-receives",
+  "custom-field-link-add",
+  "field-link-self",
+  "field-link-limit",
+  "field-link-archived",
+  "field-link-invalid",
+  "field-link-not-found",
+  "field-link-not-allowed",
+  "cardCustomFieldLinksPopup-title",
+  "cards-use-list-color",
+  "import-members-mode-heading",
+  "import-members-mode-map",
+  "import-members-mode-placeholder",
+  "import-members-mode-me",
+  "csv-mapping-title",
+  "csv-mapping-description",
+  "csv-mapping-not-in-file",
+  "csv-mapping-column-number",
+  "csv-mapping-list-missing",
+  "csv-mapping-list-name",
+  "csv-mapping-custom-fields",
+  "csv-mapping-boards",
+  "csv-mapping-skipped-sheets",
+  "csv-mapping-title-required",
+  "csv-mapping-list-required",
+  "invalid-import-mapping",
+  "import-many-boards",
+  "import-many-boards-hint",
+  "import-one-board-per-project",
+  "import-one-board-per-project-hint",
+  "import-many-progress",
+  "import-many-results-heading",
+  "import-many-imported",
+  "export-all-boards",
+  "export-selected-boards",
+  "export-all-boards-hint",
+  "exportAllBoardsPopup-title",
+  "card-edit-custom-fields",
+  "custom-field-delete-pop",
+  "custom-field-currency",
+  "custom-field-currency-option",
+  "custom-field-dropdown-options",
+  "custom-field-dropdown-options-placeholder",
+  "custom-field-dropdown-unknown",
+  "custom-field-number"
+];
+for (const key of recentKeys) {
+  assert.ok(hawaiian[key].trim(), `${key}: nonempty Hawaiian text`);
+  assert.notEqual(hawaiian[key], english[key], `${key}: no English fallback`);
+}
+assert.match(hawaiian['custom-field-link-sends'], /kēia kāleka i kēlā kāleka/);
+assert.match(hawaiian['custom-field-link-receives'], /kēlā kāleka i kēia kāleka/);
+assert.match(hawaiian['custom-field-links-hint'], /ʻAʻole hoʻololi ʻia/,
+  'unmatched fields are explicitly left unchanged');
+assert.match(hawaiian['field-link-not-allowed'], /nā kāleka ʻelua/,
+  'editing permission is required on both cards');
+assert.equal(hawaiian['custom-field-number'], 'Helu');
+assert.equal(hawaiian['custom-field-currency'], 'Kālā');
+assert.match(hawaiian['custom-field-dropdown-options-placeholder'], /Enter/);
+assert.doesNotMatch(recentKeys.map(key => hawaiian[key]).join(' '),
+  /kulalenakawa|opakionaka|unakanowana|numapela|palekaka|wilala/,
+  'malformed seed words must not return');
+assert.equal(hawaiian['csv-mapping-column-number'].replace('__number__', '3'), 'Kolamu 3');
+assert.equal(hawaiian['import-many-progress']
+  .replace('__done__', '2').replace('__total__', '5').replace('__name__', 'Papa'),
+  'Ke hoʻokomo nei i 2 o 5: Papa');
+console.log('hawaiianTranslationProgress: historic gate and card/import batch passed');
