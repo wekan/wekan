@@ -28,10 +28,15 @@ test.describe('#6748 rule Set color action', () => {
     db.deleteMany('actions', { boardId: board.boardId });
   });
 
-  test('a color other than green can be picked and is saved', async ({ boardPage: page, board }) => {
+  for (const language of ['en', 'ar', 'ar-DZ', 'ar-EG']) {
+  test(`a color other than green can be picked and is saved in ${language}`, async ({ boardPage: page, board }) => {
+    await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
+    const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
     await startCardAction(page, board, 'Paint red');
     const colorButton = page.locator('#color-action');
     await expect(colorButton).toHaveClass(/card-details-green/);
+    await expect(colorButton).toHaveText(strings['color-green']);
+    await expect(colorButton.locator('..')).toContainText(strings['r-set-color']);
 
     await colorButton.click();
     const popup = page.locator('.pop-over');
@@ -41,12 +46,15 @@ test.describe('#6748 rule Set color action', () => {
     await popup.locator('.js-submit').click();
 
     await expect(colorButton).toHaveClass(/card-details-red/);
+    await expect(colorButton).toHaveText(strings['color-red']);
     await expect(colorButton).not.toHaveClass(/card-details-green/);
     await page.locator('.js-set-color-action.js-goto-rules').click();
 
     await expect.poll(() => savedAction(board, 'Paint red')?.selectedColor, { timeout: 15_000 }).toBe('red');
     expect(savedAction(board, 'Paint red').actionType).toBe('setColor');
   });
+
+  }
 
   test('without picking, the action keeps the green default', async ({ boardPage: page, board }) => {
     await startCardAction(page, board, 'Paint default');

@@ -2,6 +2,37 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Arabic legacy-language review — 2026-10-10
+
+Review all 456 remaining candidates from the earlier Persian-seed scan (462 minus
+six core labels already repaired). Correct 358 values in each of ar, ar-DZ and
+ar-EG: 1,074 values total. Retain 98 valid/shared Arabic candidates per catalog
+and leave every value outside this correction set unchanged. The reviewed queue
+is now exhausted. No Persian-specific پ, چ, ژ, گ, ک or ی letters remain in these
+three catalogs, but this check is only supporting evidence: same-script vocabulary
+and unflagged values still require broader semantic review.
+
+Corrections cover activity messages, voting, colors, custom fields, account and
+invitation emails, import/export guidance, filtering, webhook controls, rules,
+settings, reminders, organizations, search and flow analytics. Restore permanent
+removal warnings, exact email roles and source variables, before/after date roles,
+watch versus mute and check versus uncheck. Disable-webhook now says disable rather
+than delete. Restore every clause of the blocker-history explanation, including
+unknown starts, retained snapshots for deleted cards and separately counted
+overlapping causes. Keep Arial as the actual font family, Markdown as a format,
+HTML tags unchanged and ASCII commas in the parsed rule-item example. Retain valid
+shared words such as عضو, عنوان and صف rather than treating matches as errors.
+Longer rule fragments, color shades and analytics wording remain low-confidence
+pending speaker review.
+
+All 306 translation/Blockly suites, 246 catalog inventories and 21 human-preference
+checks pass. Full Arabic placeholder gates still report zero. The existing rule
+color browser test now covers all three Arabic locales and checks the translated
+action text and green/red labels along with the saved action. Three Arabic cases
+pass syntax and discovery; runtime remains unverified without the local app and
+browser system dependencies. The all-language placeholder backlog remains 61,126
+values across 142 locale files; broader language and short-prose audits remain open.
+
 ## Arabic current fills and core-language repairs — 2026-10-10
 
 Translate 678 English placeholders: 226 each in ar, ar-DZ and ar-EG. All three

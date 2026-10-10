@@ -153,3 +153,54 @@ for (const code of ['ar', 'ar-DZ', 'ar-EG']) {
   assert.match(locale['interrupted-import-scrum-busy'], /قيد الكتابة أو الاستعادة/);
 }
 console.log('Arabic native core labels and import/recovery/notification meanings pass');
+
+// The legacy Persian seed uses this script too; assert vocabulary and meaning,
+// not merely membership of the broad Arabic Unicode script.
+for (const code of ['ar', 'ar-DZ', 'ar-EG']) {
+  const locale = read(code);
+  for (const [key, value] of Object.entries(locale)) assert.doesNotMatch(value, /[پچژگکی]/, `${code}:${key} contains Persian-specific letters`);
+  assert.equal(locale['activity-imported'], 'استورد %s إلى %s من %s');
+  assert.equal(locale['activity-imported-board'], 'استورد %s من %s');
+  assert.match(locale['vote-delete-pop'], /الحذف نهائي.*جميع الإجراءات/);
+  assert.match(locale['delete-user-confirm-popup'], /لا يمكن التراجع/);
+  assert.equal(locale['disable-webhook'], 'تعطيل خطاف الويب هذا');
+  assert.doesNotMatch(locale['disable-webhook'], /حذف/);
+  assert.match(locale['import-members-map-note'], /الأعضاء غير المرتبطين.*المستخدم الحالي/);
+  assert.match(locale['muted-info'], /لن تتلقى أي إشعار/);
+  assert.match(locale['watching-info'], /ستتلقى إشعارًا بأي تغيير/);
+  assert.match(locale['swimlaneAddPopup-title'], /أدناه$/);
+  assert.equal(locale['color-red'], 'أحمر');
+  assert.equal(locale['color-green'], 'أخضر');
+  assert.equal(locale['color-blue'], 'أزرق');
+  assert.equal(locale['r-check'], 'تحديد');
+  assert.equal(locale['r-uncheck'], 'إلغاء التحديد');
+  assert.equal(locale['r-checked'], 'محدد');
+  assert.equal(locale['r-unchecked'], 'غير محدد');
+  assert.equal(locale['r-items-list'], 'عنصر1,عنصر2,عنصر3');
+  assert.match(locale['r-when-a-end-date-changed'], /تعيين تاريخ الانتهاء أو تغييره/);
+  assert.match(locale['r-when-a-received-date-changed'], /تعيين تاريخ الاستلام أو تغييره/);
+  assert.match(locale['email-enrollAccount-text'], /لبدء استخدام الخدمة/);
+  assert.match(locale['email-resetPassword-text'], /لإعادة تعيين كلمة مرورك/);
+  assert.match(locale['email-verifyEmail-text'], /لتأكيد البريد الإلكتروني لحسابك/);
+  assert.match(locale['email-invite-register-text'], /يدعوك __inviter__.*رمز دعوتك هو: __icode__/s);
+  assert.match(locale['act-a-dueAt'], /متى: __timeValue__.*أين: __card__.*الموعد السابق __timeOldValue__/s);
+  assert.equal(locale['excel-font'], 'Arial');
+  assert.equal(locale['convert-to-markdown'], 'تحويل إلى Markdown');
+  assert.equal(locale['uncollapse'], 'توسيع');
+  assert.equal(locale['status'], 'الحالة');
+  assert.equal(locale['operator-swimlane'], 'مسار');
+  assert.equal(locale['operator-assignee'], 'المكلّف');
+  assert.equal(locale['predicate-open'], 'مفتوح');
+  assert.equal(locale['predicate-archived'], 'مؤرشف');
+  assert.match(locale['globalSearch-instructions-notes-4'], /لا تميّز بين الأحرف الكبيرة والصغيرة/);
+  assert.match(locale['flow-note-blockerAnalysis'], /أوقات بدء العوائق وانتهائها لكل مرحلة/);
+  assert.match(locale['flow-note-blockerAnalysis'], /الروابط القديمة غير معروفة/);
+  assert.match(locale['flow-note-blockerAnalysis'], /البطاقات المحذوفة لقطات محفوظة/);
+  assert.match(locale['flow-note-blockerAnalysis'], /الأسباب المتداخلة كلٌّ على حدة/);
+  // Valid Arabic shared with Persian must not be replaced solely for matching.
+  assert.equal(locale['userPopup-title'], 'عضو');
+  assert.equal(locale['text-note-title'], 'عنوان');
+  assert.equal(locale['queue'], 'صف');
+  assert.equal(locale['blockly-TEXT_LENGTH_TITLE'], 'طول %1');
+}
+console.log('Arabic legacy vocabulary, destructive actions, email roles, rule directions and retained shared words pass');
