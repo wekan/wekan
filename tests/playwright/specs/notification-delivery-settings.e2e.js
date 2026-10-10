@@ -23,7 +23,7 @@ async function expand(sectionLocator) {
   await sectionLocator.locator('summary').click();
 }
 
-for (const language of ['en', 'haw', 'lt', 'yi', 'wuu-Hans', 'xh', 'zu', 'zu-ZA', 'pap', 'eo', 'ar', 'fi', 'sv', 'nb', 'da', 'it', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-FR', 'fr-BE', 'fr-CA', 'fr-CH', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-BR', 'pt-PT', 'pt_PT', 'ja', 'ru', 'tr', 'uk', 'zh-Hant', 'tlh', 'vo', 've', 've-CC', 've-PP', 'wa-RR', 'zgh', 'chr']) {
+for (const language of ['en', 'haw', 'lt', 'yi', 'wuu-Hans', 'xh', 'zu', 'zu-ZA', 'pap', 'eo', 'ar', 'fi', 'sv', 'nb', 'da', 'it', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-FR', 'fr-BE', 'fr-CA', 'fr-CH', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-BR', 'pt-PT', 'pt_PT', 'nl', 'nl-NL', 'ja', 'ru', 'tr', 'uk', 'zh-Hant', 'tlh', 'vo', 've', 've-CC', 've-PP', 'wa-RR', 'zgh', 'chr']) {
 test(`#5171 member scope: layout, grouping, daily schedule and webhook identity in ${language}`, async ({ boardPage: page, user }) => {
   await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
   const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);

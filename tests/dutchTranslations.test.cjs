@@ -1,5 +1,4 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Guard the full current fill for both Dutch locale variants.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -7,11 +6,32 @@ const { spawnSync } = require('node:child_process');
 const root = path.resolve(__dirname, '..');
 const fillScript = path.join(root, 'releases/translations/fill-translations.mjs');
 for (const language of ['nl-NL', 'nl']) {
-  const result = spawnSync(process.execPath, [fillScript, '--completed-catalog', '--list', language], { cwd: root, encoding: 'utf8' });
+  const result = spawnSync(process.execPath, [fillScript, '--list', language], { cwd: root, encoding: 'utf8' });
   assert.equal(result.status, 0, result.stderr);
   assert.equal(result.stdout, '{}\n');
   const locale = JSON.parse(fs.readFileSync(path.join(root, `imports/i18n/data/${language}.i18n.json`), 'utf8'));
   assert.equal(locale.swimlane, 'Werkbaan');
+  assert.match(locale['custom-field-links-hint'], /dezelfde naam en hetzelfde type op beide/);
+  assert.match(locale['custom-field-links-hint'], /slechts één kaart heeft.*ongewijzigd/);
+  assert.match(locale['custom-field-link-both'], /Beide richtingen/);
+  assert.match(locale['custom-field-link-send'], /Eén richting.*hoofdkaart/);
+  assert.match(locale['custom-field-link-inactive'], /niet langer beide kaarten bewerken.*gearchiveerd/);
+  assert.match(locale['field-link-not-allowed'], /beide kaarten kunnen bewerken/);
+  assert.equal(locale['import-members-mode-me'], 'Vervang ze allemaal door mij');
+  assert.match(locale['import-many-boards-hint'], /zonder ledentoewijzing/);
+  assert.match(locale['import-many-boards-hint'], /zelf één export.*is één bord/);
+  assert.match(locale['export-all-boards-hint'], /kunt exporteren.*werkmap.*\.zip/);
+  assert.match(locale['webhook-payload-description'], /overgenomen instelling.*altijd hebben verzonden/);
+  assert.match(locale['webhook-hide-identity'], /Mijn naam weglaten/);
+  assert.match(locale['notification-delivery-quiet'], /wachten totdat ze voorbij zijn/);
+  assert.match(locale['r-wrike-workflow-note'], /voltooid.*Completed.*Cancelled.*niet voltooid.*Active.*Deferred/);
+  assert.match(locale['r-wrike-workflow-note'], /eigen automatiseringsregels.*kunnen niet.*geëxporteerd/);
+  for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) {
+    assert.ok(locale['r-wrike-workflow-note'].includes(literal), `${language}: ${literal}`);
+  }
+  assert.ok(locale['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+  assert.notEqual(locale['subtask-mark-done'], locale['subtask-mark-not-done']);
+
   assert.equal(locale.status, 'Toestand');
   assert.equal(locale.repository, 'Broncodeopslag');
   assert.equal(locale.ticket, 'Ondersteuningsverzoek');

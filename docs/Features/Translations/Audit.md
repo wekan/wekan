@@ -2,6 +2,31 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Dutch base and regional current fills — 2026-10-10
+
+Translate 110 English placeholders in each of nl and nl-NL, 220 values in
+total, for attached cards, linked fields, calendar mode, member mapping, CSV
+columns, multiple-board imports/exports, webhooks, notifications, Wrike
+workflows and subtask completion. Both full current fill lists are empty.
+Every changed value was English in the parent commit; all other values are
+preserved. Use the existing bord, kaart, lijst, werkbaan and maatwerkvelden
+terminology. Longer technical phrasing remains provisional pending speaker
+review; this is not a complete audit of older catalog wording.
+
+Preserve exact source placeholders, WEBHOOKS_ATTRIBUTES, GET /workflows and
+Wrike's state-group names. Regressions cover edit permissions on both cards,
+one-way/two-way field propagation, archived cards, member replacement, ZIP
+files that are single exports, export permissions, inherited webhook settings,
+waiting until quiet hours end and workflow completion states.
+
+Extend the existing Dutch regression to both full current fill lists and add
+six representative browser cases for linked fields, import-people choices and
+notification delivery. Syntax and discovery are checked; execution remains
+unverified because the local app and browser system dependencies are unavailable.
+All 304 translation/Blockly suites, 246 catalog key/token inventories and
+21 preservation checks pass. The wider all-language translation work and
+semantic audit remain open.
+
 ## Portuguese base and regional current fills — 2026-10-10
 
 Translate 110 English placeholders in each of pt, pt-BR, pt-PT and pt_PT,
