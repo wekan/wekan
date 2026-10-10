@@ -22,7 +22,7 @@ async function chooseMode(page, mode) {
   await expect(page.locator(`.js-import-members-mode[data-mode="${mode}"] .materialCheckBox`)).toHaveClass(/is-checked/);
 }
 
-for (const language of ['en', 'zu', 'zu-ZA', 'xh', 'pap', 'eo', 'fi', 'sv', 'nb', 'da', 'it']) {
+for (const language of ['en', 'zu', 'zu-ZA', 'xh', 'pap', 'eo', 'fi', 'sv', 'nb', 'da', 'it', 'de', 'de-AT', 'de-CH', 'de_DE']) {
 test(`Make them all me: every person becomes the person importing in ${language}`, async ({ loggedInPage: page, user }) => {
   await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
   const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);

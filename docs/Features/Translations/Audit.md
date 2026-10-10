@@ -2,6 +2,37 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## German base and regional current fills — 2026-10-10
+
+Translate 110 English placeholders in each of de, de-AT, de-CH and de_DE,
+440 values in total, for attached cards, linked fields, calendar mode, member
+mapping, CSV columns, multiple-board imports/exports, webhooks, notifications,
+Wrike workflows and subtask completion. All four full current fill lists are
+empty. Keep the catalogs' Arbeitstafel, Karte and Arbeitsbahn terminology.
+
+The Swiss spelling regression exposed 86 older de-CH values containing ß.
+Normalize only that character to ss in those values, preserving their wording
+and meaning; protect the convention across the entire Swiss catalog. These
+are separate orthographic corrections, not placeholder fills. All other values
+are preserved, and every filled value was English in the parent commit.
+
+Preserve exact placeholders, WEBHOOKS_ATTRIBUTES, GET /workflows and Wrike's
+state-group names. Meaning checks cover edit permissions, one-way/two-way
+field propagation, archived-card restrictions, member replacement, ZIP files
+that are single exports, export permissions, inherited webhook settings, quiet
+hours and completion states. Longer technical wording remains provisional
+pending speaker review; the old catalogs' broader semantic audit remains open.
+
+Extend the existing German regression to the full current fill of all four
+variants and add twelve representative browser cases across linked fields,
+import-people choices and notification delivery. Browser execution remains
+unverified because the local app and browser system dependencies are unavailable;
+syntax and discovery are checked. All 304 translation/Blockly suites pass,
+as do 16 German/Blockly suites rerun after the spelling corrections. All 246
+catalog key/token inventories and 21 human-preference checks pass. The ordinary
+backlog remains 29,735 values in 42 locales; these fills were pending source
+strings excluded from that report. The wider all-language work remains open.
+
 ## Italian current fill — 2026-10-10
 
 Translate 110 current English placeholders for attached cards, linked fields,

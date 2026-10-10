@@ -1,5 +1,4 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Guard the full current fill for all four German locale variants.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -106,11 +105,37 @@ const pendingKeys = [
 ];
 const fillScript = path.join(root, 'releases/translations/fill-translations.mjs');
 for (const language of ['de-AT', 'de-CH', 'de', 'de_DE']) {
-  const result = spawnSync(process.execPath, [fillScript, '--completed-catalog', '--list', language], { cwd: root, encoding: 'utf8' });
+  const result = spawnSync(process.execPath, [fillScript, '--list', language], { cwd: root, encoding: 'utf8' });
   assert.equal(result.status, 0, result.stderr);
   assert.equal(result.stdout, '{}\n');
   const locale = JSON.parse(fs.readFileSync(path.join(root, `imports/i18n/data/${language}.i18n.json`), 'utf8'));
   assert.equal(locale.board, 'Arbeitstafel');
+  assert.match(locale['custom-field-links-hint'], /demselben Namen und Typ auf beiden/);
+  assert.match(locale['custom-field-links-hint'], /nur eine der Karten hat.*unverändert/);
+  assert.match(locale['custom-field-link-both'], /beide Richtungen/);
+  assert.match(locale['custom-field-link-send'], /eine Richtung.*Hauptkarte/);
+  assert.match(locale['custom-field-link-inactive'], /nicht mehr beide Karten bearbeiten.*archiviert/);
+  assert.match(locale['field-link-not-allowed'], /beide Karten bearbeiten/);
+  assert.equal(locale['import-members-mode-me'], 'Ersetze sie alle durch mich');
+  assert.match(locale['import-many-boards-hint'], /ohne Mitgliederzuordnung/);
+  assert.match(locale['import-many-boards-hint'], /selbst ein einzelner Export.*ist eine Arbeitstafel/);
+  assert.match(locale['export-all-boards-hint'], /exportieren darfst.*Arbeitsmappe.*\.zip/);
+  assert.match(locale['webhook-payload-description'], /geerbte Einstellung.*bisher gesendet/);
+  assert.match(locale['webhook-hide-identity'], /Meinen Namen.*weglassen/);
+  assert.match(locale['notification-delivery-quiet'], /bis zu ihrem Ende warten/);
+  assert.match(locale['r-wrike-workflow-note'], /abgeschlossen.*Completed.*Cancelled.*nicht abgeschlossen.*Active.*Deferred/);
+  assert.match(locale['r-wrike-workflow-note'], /eigene Automatisierungsregeln können nicht.*exportiert werden/);
+  for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) {
+    assert.ok(locale['r-wrike-workflow-note'].includes(literal), `${language}: ${literal}`);
+  }
+  assert.ok(locale['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+  assert.notEqual(locale['subtask-mark-done'], locale['subtask-mark-not-done']);
+  if (language === 'de-CH') {
+    for (const [key, value] of Object.entries(locale)) {
+      assert.ok(!value.includes('ß'), `${key}: Swiss spelling`);
+    }
+  }
+
   assert.equal(locale.swimlane, 'Arbeitsbahn');
   assert.equal(locale.status, 'Zustand');
   assert.equal(locale.repository, 'Quellcodeablage');
