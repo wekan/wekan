@@ -583,12 +583,31 @@ tests/buildScriptParity.test.cjs checks each in both scripts.
 
 and improves translations:
 
-**Translations** - Catalan, Czech, Dutch, French, German, Greek, Hungarian, Indonesian,
+**Translations** - Catalan, Czech, Dutch, French, Galician, German, Greek, Hungarian, Indonesian,
 Japanese, Korean, Malay,
 Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish, Ukrainian and Valencian
 base and regional catalogs.
 
-**Languages updated:** Catalan, Czech, Dutch, French, German, Greek, Hungarian, Indonesian, Japanese, Korean, Malay, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish, Ukrainian, Valencian.
+**Languages updated:** Catalan, Czech, Dutch, French, Galician, German, Greek, Hungarian, Indonesian, Japanese, Korean, Malay, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish, Ukrainian, Valencian.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c5f1ea975c">Translate remaining current Galician strings</a>. Thanks to xet7.</summary>
+
+Fill 220 English placeholders across gl and gl-ES for linked cards, fields,
+imports, member mapping, CSV columns, bulk exports, webhooks, notifications,
+Wrike workflows and subtasks. Both full current fill lists are empty.
+Preserve existing translations, exact placeholders and parsed constants.
+Regressions verify permissions, field directions, member replacement,
+ZIP semantics, inherited settings, quiet hours and completion states.
+Longer technical wording remains provisional pending speaker review;
+older catalog fluency is not fully audited.
+
+All 305 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Six browser cases pass syntax and discovery; execution remains
+unverified because the local app and browser system dependencies are unavailable.
+The wider all-language backlog and semantic audit remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b6261f8a46">Translate remaining current Valencian strings</a>. Thanks to xet7.</summary>
