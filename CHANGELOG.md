@@ -504,6 +504,25 @@ used.
 **Languages updated:** Czech, Dutch, French, German, Hungarian, Japanese, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish, Ukrainian.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/fb336423fd">Translate current Japanese Hiragana placeholders</a>. Thanks to xet7.</summary>
+
+Fill 206 current English placeholders in ja-HI, registered as ja-Hira, with
+hiragana prose and spaced phrases. Preserve technical names, parsed syntax
+and exact placeholders. Its full current fill list is empty. Regressions
+check the script of all 206 entries, permissions, field direction, imports,
+notification timing, workflow states and recovery warnings. Longer technical
+wording and spacing remain provisional pending reader review.
+
+All 305 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Three browser cases use the actual ja-Hira runtime tag and pass
+syntax and discovery; execution remains unverified without the local app and
+browser system dependencies. A separate script audit remains: 3,641 older
+values contain kanji or katakana and need review against the source. The wider
+all-language backlog and semantic audit remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9b4d16b1ce">Translate remaining current standard Japanese strings</a>. Thanks to xet7.</summary>
 
 Fill 412 English placeholders across ja and ja-JP for linked cards, imports,
@@ -518,8 +537,8 @@ All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
 checks pass. Add five browser cases alongside existing Japanese notification
 coverage; all six pass syntax and discovery. Execution remains unverified
 because the local app and browser system dependencies are unavailable.
-The Hiragana catalog (ja-HI, registered as ja-Hira) still needs its 206 current
-fills and a separate script review. The wider all-language backlog and semantic
+The Hiragana catalog (ja-HI, registered as ja-Hira) is handled separately; its
+older script review remains open. The wider all-language backlog and semantic
 audit remain open.
 
 </details>
