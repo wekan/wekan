@@ -2,6 +2,32 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Latvian current fills — 2026-10-10
+
+Translate 110 English placeholders in lv for attached cards, linked fields,
+calendar mode, member mapping, CSV columns, bulk imports and exports, webhooks,
+notifications, Wrike workflows and subtasks. The full current fill list is empty.
+Every changed value was English in the parent commit; all existing translations
+are preserved. Follow dēlis, kartiņa, saraksts and josla terminology, with
+pielāgotie lauki for custom fields. Technical vocabulary references include
+[kārtula in the Latvian terminology portal](https://termini.gov.lv/atrast/k%C4%81rtula/lv)
+and [Latvian webhook usage in Microsoft documentation](https://support.microsoft.com/lv-LV/teams/apps-service/create-incoming-webhooks-with-workflows-for-microsoft-teams).
+Longer technical wording remains provisional pending speaker review; older
+catalog fluency is not fully audited.
+
+Preserve all source placeholders, WEBHOOKS_ATTRIBUTES, GET /workflows and Wrike
+state names. Regressions check full current completion, complete key order and
+token inventories, Latvian vocabulary rather than Lithuanian carryovers, field
+matching, unchanged unmatched fields, editing permissions, propagation directions,
+member replacement, unmapped imports, ZIP semantics, export permissions, inherited
+settings, quiet hours and completed versus incomplete states. Three browser cases
+cover linked fields, import-people choices and notification delivery; syntax and
+discovery pass, while runtime execution remains unverified because the local app
+and browser system dependencies are unavailable. All 306 translation/Blockly
+suites, 246 catalog inventories and 21 human-preference checks pass. A fresh full per-locale `--list` inventory
+counts 63,428 remaining values across 156 non-English locale files, including
+pending Transifex keys. The all-language backlog and semantic audit remain open.
+
 ## Macedonian vocabulary follow-up — 2026-10-10
 
 Review all 317 previously flagged values longer than 15 characters that matched
