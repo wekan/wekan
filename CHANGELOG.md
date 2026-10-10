@@ -130,8 +130,8 @@ previously held for Transifex. Completed work is recorded in Upcoming and releas
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **29,735 untranslated locale/string values in 42 languages**.
   It excludes **383 source keys tracked separately as pending Transifex**.
-  After the Albanian batch, full per-locale `--list` reports, including pending
-  keys, count **63,318 remaining values across 155 non-English locale
+  After the Bosnian batch, full per-locale `--list` reports, including pending
+  keys, count **63,208 remaining values across 154 non-English locale
   files**. This fuller inventory remains the scope of the translation work.
   A separate short-prose audit flags 1,681 candidates across 183 locales.
   The two notification At/To labels now have translations in all non-English
@@ -525,14 +525,36 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** Current Albanian, Bulgarian, Croatian, Latvian, Macedonian, Serbian,
-Slovenian and Vietnamese strings are translated. Mixed-language Macedonian values and Basque
+**In short:** Current Albanian, Bosnian, Bulgarian, Croatian, Latvian, Macedonian,
+Serbian, Slovenian and Vietnamese strings are translated. Mixed-language Macedonian values and Basque
 card wording are corrected, with validation of imports, notifications and recovery
 choices.
 
-**Translations** - Albanian, Basque, Bulgarian, Croatian, Latvian, Macedonian, Serbian, Slovenian and Vietnamese.
+**Translations** - Albanian, Basque, Bosnian, Bulgarian, Croatian, Latvian, Macedonian, Serbian, Slovenian and Vietnamese.
 
-**Languages updated:** Albanian, Basque, Bulgarian, Croatian, Latvian, Macedonian, Serbian, Slovenian, Vietnamese.
+**Languages updated:** Albanian, Basque, Bosnian, Bulgarian, Croatian, Latvian, Macedonian, Serbian, Slovenian, Vietnamese.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7f0ee4463c">Translate remaining current Bosnian strings</a>. Thanks to xet7.</summary>
+
+Fill 110 English placeholders in bs for linked cards and fields, calendar mode,
+member mapping, CSV columns, bulk imports and exports, webhooks, notifications,
+Wrike workflows and subtasks. The full current fill list is empty. Preserve
+existing translations, established terminology, exact placeholders and parsed
+constants. Regressions verify editing permissions, propagation directions,
+member replacement, ZIP semantics, export permissions, inherited settings,
+quiet hours and completed versus incomplete states. Longer technical wording
+remains provisional pending speaker review; older catalog fluency is not fully
+audited.
+
+All 306 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Three browser cases pass syntax and discovery; runtime execution
+remains unverified without the local app and browser system dependencies.
+The full inventory, including pending Transifex keys, records 63,208 remaining
+values across 154 non-English locale files. The all-language backlog and semantic
+audit remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9cd88a43c4">Translate remaining current Albanian strings</a>. Thanks to xet7.</summary>
