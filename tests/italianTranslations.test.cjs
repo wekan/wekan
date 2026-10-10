@@ -1,11 +1,10 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Guard the full current Italian fill, including pending source keys.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const root = path.resolve(__dirname, '..');
-const result = spawnSync(process.execPath, [path.join(root, 'releases/translations/fill-translations.mjs'), '--completed-catalog', '--list', 'it'], { cwd: root, encoding: 'utf8' });
+const result = spawnSync(process.execPath, [path.join(root, 'releases/translations/fill-translations.mjs'), '--list', 'it'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
 assert.equal(result.stdout, '{}\n');
 const locale = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/it.i18n.json'), 'utf8'));
@@ -169,3 +168,24 @@ const currentKeys = [
   assert.equal(locale['blockly-MATH_TRIG_COS'], 'cos');
   console.log('italianTranslations: complete source keys, tokens and planning/recovery prose verified');
 })().catch(error => { console.error(error); process.exitCode = 1; });
+
+assert.match(locale['custom-field-links-hint'], /stesso nome e tipo su entrambe/);
+assert.match(locale['custom-field-links-hint'], /una sola scheda rimangono invariati/);
+assert.match(locale['custom-field-link-both'], /entrambe le direzioni/);
+assert.match(locale['custom-field-link-send'], /una sola direzione.*scheda principale/);
+assert.match(locale['custom-field-link-inactive'], /non può più modificare entrambe.*archiviata/);
+assert.match(locale['field-link-not-allowed'], /modificare entrambe le schede/);
+assert.equal(locale['import-members-mode-me'], 'Sostituiscile tutte con me');
+assert.match(locale['import-many-boards-hint'], /senza associazione dei membri/);
+assert.match(locale['import-many-boards-hint'], /di per sé un'unica esportazione.*una bacheca/);
+assert.match(locale['export-all-boards-hint'], /puoi esportare.*cartella di lavoro.*\.zip/);
+assert.match(locale['webhook-payload-description'], /impostazione ereditata.*sempre inviato/);
+assert.match(locale['webhook-hide-identity'], /Ometti il mio nome/);
+assert.match(locale['notification-delivery-quiet'], /attendi che finiscano/);
+assert.match(locale['r-wrike-workflow-note'], /completata.*Completed.*Cancelled.*non completata.*Active.*Deferred/);
+assert.match(locale['r-wrike-workflow-note'], /non possono essere esportate/);
+for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) {
+  assert.ok(locale['r-wrike-workflow-note'].includes(literal), literal);
+}
+assert.ok(locale['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+assert.notEqual(locale['subtask-mark-done'], locale['subtask-mark-not-done']);

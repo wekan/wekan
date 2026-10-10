@@ -2,6 +2,35 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Italian current fill — 2026-10-10
+
+Translate 110 current English placeholders for attached cards, linked fields,
+calendar mode, member mapping, CSV columns, multiple-board imports/exports,
+webhooks, notification delivery, Wrike workflows and subtask completion.
+The full current Italian fill list is empty. Every changed value was English
+in the parent commit; all other values are preserved. Use the existing bacheca,
+scheda, lista, corsia and campi personalizzati terminology.
+
+Preserve exact placeholders, WEBHOOKS_ATTRIBUTES, GET /workflows and Wrike's
+state-group names. Meaning checks distinguish one-way from two-way links,
+require edit permission on both cards, retain archived-card restrictions,
+replace all imported people with the importer only for that selected mode,
+and preserve single-export ZIP handling and export permissions. Quiet hours
+wait until their end, webhook defaults retain inherited behavior, and Wrike
+completion rules distinguish completed/cancelled from active/deferred states.
+Longer technical phrasing remains provisional pending speaker review; this
+batch does not certify the fluency of every older catalog value.
+
+Extend the existing Italian regression to the full current fill and add
+representative UI cases for linked fields, import people and notification
+settings. Browser execution remains unverified because the local app and
+browser system dependencies are unavailable; syntax and discovery are checked.
+All 304 translation/Blockly suites, 246 catalog key/token inventories and
+21 human-preference checks pass.
+The ordinary backlog remains 29,735 values in 42 locales: these fills were
+pending source strings excluded from that report. The wider all-language
+translation work and semantic audit remain open.
+
 ## Norwegian Bokmål and Danish current fills — 2026-10-10
 
 Translate 110 English placeholders in each catalog, 220 values in total, for
