@@ -561,6 +561,11 @@ directly after the merge.
   Release notes summarize each Translations group as only a list of updated
   languages. Add `**Languages updated:**` with comma-separated full language
   names below the group label; keep detailed entries in the changelog and audit.
+  When more than 20 languages were updated, too many to list, give only their
+  count instead: `**Languages updated:** 172 languages.`, which the release
+  notes show as "Updated translations at 172 languages." Every part of the
+  Upcoming section is optional: a part with nothing to say - no translations,
+  no security fixes - is left out rather than added empty.
   Release notes have only In short, Security, Translations (language list),
   the standard thanks line and More details at ChangeLog with the release
   anchor link. Other details stay in CHANGELOG.md. Keep download

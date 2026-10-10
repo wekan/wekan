@@ -45,6 +45,15 @@ try {
   assert.match(missingSummary.stderr, /::warning::.*In short/);
   assert.equal(missingSummary.stdout.match(/^## .+$/gm), null, 'no In short section');
   assert.match(missingSummary.stdout, /More details at ChangeLog/);
+  // Too many languages to list: the group gives their count, and the notes say so.
+  const counted = run(intro + translations.replace('Galician, Esperanto, Galician', '172 languages.') + other);
+  assert.equal(counted.status, 0, counted.stderr);
+  assert.match(counted.stdout, /## Translations\n\nUpdated translations at 172 languages\.\n/);
+  assert.doesNotMatch(counted.stdout, /^- /m, 'no list of one "172 languages" item');
+  assert.match(counted.stdout, /and translators for their translations\./);
+  // A listed name keeps no trailing full stop.
+  const dotted = run(intro + translations.replace('Galician, Esperanto, Galician', 'Galician, Esperanto.') + other);
+  assert.match(dotted.stdout, /- Esperanto\n- Galician\n/);
   // Negative: an empty section still yields notes - the thanks and the link -
   // so a release is never published with none.
   const bare = run('# Upcoming WeKan ® release\n\n# v1.00 date WeKan ® release\nOld release.\n');

@@ -68,7 +68,9 @@ for pat in patterns:
         if not summary:
             sys.stderr.write("::warning::release-notes: no **In short:** summary; the notes have none.\n")
         lines = notes.splitlines(keepends=True)
-        security, languages, translated = [], set(), False
+        # A Translations group lists its languages by name, or - when there are
+        # too many to list - only their count: "**Languages updated:** 172 languages."
+        security, languages, counts, translated = [], set(), [], False
         i = 0
         while i < len(lines):
             line = lines[i]
@@ -91,8 +93,11 @@ for pat in patterns:
             if is_translation:
                 translated = True
                 names = re.search(r"^\*\*Languages updated:\*\* (.+)$", block, re.MULTILINE)
-                if names:
-                    languages.update(name.strip() for name in names.group(1).split(",") if name.strip())
+                count = names and re.fullmatch(r"(\d+) languages?\.?", names.group(1).strip())
+                if count:
+                    counts.append(int(count.group(1)))
+                elif names:
+                    languages.update(name.strip().rstrip(".") for name in names.group(1).split(",") if name.strip().rstrip("."))
                 else:
                     sys.stderr.write("::warning::release-notes: a Translations group has no **Languages updated:** line; its languages are not listed.\n")
             elif block:
@@ -107,12 +112,15 @@ for pat in patterns:
         output = ["## In short\n\n" + summary.group(1).strip()] if summary else []
         if security:
             output.append("## Security\n\n" + "\n\n".join(security))
-        if languages:
+        if counts:
+            total = max(counts) + len(languages)
+            output.append(f"## Translations\n\nUpdated translations at {total} languages.")
+        elif languages:
             output.append("## Translations\n\n" + "\n".join(
                 "- " + name for name in sorted(languages, key=str.casefold)))
         output.extend([
             "Thanks to above GitHub users for their contributions" +
-            (" and translators for their translations." if languages or translated else "."),
+            (" and translators for their translations." if languages or counts or translated else "."),
             f"[More details at ChangeLog](https://github.com/wekan/wekan/blob/main/CHANGELOG.md#{anchor})",
         ])
         print("\n\n".join(output))
