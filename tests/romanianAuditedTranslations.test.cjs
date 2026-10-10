@@ -1,5 +1,4 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Guard both current Romanian catalogs and previously audited corrections.
 'use strict';
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -159,12 +158,32 @@ const currentKeys = [
     assert.match(data['sync-conflict-hint'], /Nu se trimite nimic/);
     assert.match(data['activity-recovery-cancel-confirm'], /Nu mai poate fi reluată/);
     const inventory = spawnSync(process.execPath,
-      ['releases/translations/fill-translations.mjs', '--completed-catalog', '--list', locale], { cwd: root, encoding: 'utf8' });
+      ['releases/translations/fill-translations.mjs', '--list', locale], { cwd: root, encoding: 'utf8' });
     assert.equal(inventory.status, 0, inventory.stderr);
     assert.deepEqual(JSON.parse(inventory.stdout), {});
     const repaired = records.filter(row => row.locale === locale);
     assert.ok(repaired.length >= 414, `${locale}: reviewed Romanian activity and instruction batches`);
     for (const row of repaired) assert.doesNotMatch(row.after, /\bbachec[ah]|\bsched[ae]\b|\butenti\b|\baggiunt[ao]\b|\bnell[ao]\b/i, row.key);
+    assert.equal(data['custom-fields'], 'Câmpuri personalizate');
+    assert.doesNotMatch(data['custom-fields'], /Campi personalizzati/);
+    assert.match(data['custom-field-links-hint'], /același nume și tip de pe ambele carduri/);
+    assert.match(data['custom-field-links-hint'], /un singur card rămân neschimbate/);
+    assert.match(data['custom-field-link-inactive'], /nu mai poate edita ambele carduri.*arhivat/);
+    assert.match(data['custom-field-link-both'], /ambele sensuri.*oricare card/);
+    assert.match(data['custom-field-link-send'], /singur sens.*cardului principal/);
+    assert.match(data['field-link-not-allowed'], /edita ambele carduri/);
+    assert.equal(data['import-members-mode-me'], 'Înlocuiește-le pe toate cu mine');
+    assert.match(data['import-many-boards-hint'], /fără asocierea membrilor/);
+    assert.match(data['import-many-boards-hint'], /el însuși un singur export.*este un singur panou/);
+    assert.match(data['export-all-boards-hint'], /puteți exporta.*registru de lucru.*\.zip/);
+    assert.match(data['webhook-payload-description'], /păstrează setarea moștenită/);
+    assert.match(data['notification-delivery-quiet'], /așteaptă până la sfârșitul lor/);
+    assert.match(data['r-wrike-workflow-note'], /ca finalizat.*Completed.*Cancelled.*ca nefinalizat.*Active.*Deferred/);
+    for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) {
+      assert.ok(data['r-wrike-workflow-note'].includes(literal), literal);
+    }
+    assert.ok(data['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+    assert.notEqual(data['subtask-mark-done'], data['subtask-mark-not-done']);
     assert.equal(data.board, 'Panou');
     assert.equal(data.card, 'Card');
     assert.equal(data.checklist, 'Listă de verificare');

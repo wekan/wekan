@@ -2,6 +2,31 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Romanian current fills and field label correction — 2026-10-10
+
+Translate 110 English placeholders in each of ro and ro-RO, 220 values in
+total, for attached cards, linked fields, calendar mode, member mapping,
+CSV columns, multiple-board import/export, webhooks, notifications, Wrike
+workflows and subtask completion. Both full current fill lists are empty.
+Separately correct the Italian custom-fields label Campi personalizzati to
+Romanian Câmpuri personalizate in both catalogs. The 220 fills were English
+in the parent commit; all other values except those two wrong-language labels
+are preserved. Use the existing panou, card, listă and culoar terminology.
+Longer technical wording remains provisional pending speaker review; older
+catalog fluency and language identification are not fully audited.
+
+Preserve source placeholders, WEBHOOKS_ATTRIBUTES, GET /workflows and Wrike
+state names. Regressions cover Romanian field wording, edit permissions,
+field propagation directions, member replacement, ZIP semantics, export
+permissions, inherited settings, quiet hours and workflow completion states.
+Replace the historical completion gate with both full current fill lists.
+Register six browser cases for linked fields, import-people choices and
+notification delivery. Syntax and discovery are verified; execution remains
+unverified because the local app and browser system dependencies are unavailable.
+All 304 translation/Blockly suites, 246 catalog inventories and 21
+human-preference checks pass. The wider all-language backlog and semantic
+audit remain open.
+
 ## Hungarian current fills — 2026-10-10
 
 Translate 110 English placeholders in hu for attached cards, linked fields,
