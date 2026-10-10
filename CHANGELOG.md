@@ -1581,6 +1581,27 @@ and older semantic audit remain open.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a5db842c0e">Translate the remaining current Esperanto strings</a>. Thanks to xet7.</summary>
+
+Fill 227 English placeholders for attached cards, linked fields, 22 import
+formats, member mapping, CSV columns, multiple-board imports and exports,
+webhooks, notifications, Wrike workflows, LDAP, Scrum planning and recovery.
+The full current Esperanto fill list is empty. Existing translations, exact
+placeholders, external menu names and parsed literals are preserved. Recovery
+messages distinguish preserving applied changes from permanently deleting a
+partial board and its later additions. Longer technical wording remains
+provisional pending speaker review.
+
+All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Three representative Esperanto browser scenarios pass syntax and
+discovery; execution remains unverified because the local app and browser
+system dependencies are unavailable. The 29,735-value ordinary backlog in
+42 locales excludes these pending strings and remains open, along with the
+wider semantic audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/306b5dc927">Complete notification time labels in every non-English locale</a>. Thanks to xet7.</summary>
 
 Translate 150 remaining English values in 75 catalogs. Daily send-time and
