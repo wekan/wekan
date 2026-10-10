@@ -125,11 +125,14 @@ a publishing step.
 <summary>Translation work in progress: remaining new strings in all languages.</summary>
 
 Status checked on 2026-10-10. Translation work has resumed, including keys
-previously held for Transifex. Completed work is recorded in Upcoming.
+previously held for Transifex. Completed work is recorded in Upcoming and releases.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **29,735 untranslated locale/string values in 42 languages**.
   It excludes **383 source keys tracked separately as pending Transifex**.
+  After the Vietnamese batch, full per-locale `--list` reports, including those
+  pending keys, count **64,218 remaining values across 163 non-English locale
+  files**. This fuller inventory remains the scope of the translation work.
   A separate short-prose audit flags 1,681 candidates across 183 locales.
   The two notification At/To labels now have translations in all non-English
   locales;
@@ -522,12 +525,34 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** Basque card wording is corrected and the current translation batch
-is verified, including imports, notifications and recovery choices.
+**In short:** Current Vietnamese strings are translated, and Basque card wording
+is corrected, including validation of imports, notifications and recovery choices.
 
-**Translations** - Basque.
+**Translations** - Basque and Vietnamese.
 
-**Languages updated:** Basque.
+**Languages updated:** Basque, Vietnamese.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5a35e57aaf">Translate remaining current Vietnamese strings</a>. Thanks to xet7.</summary>
+
+Fill 414 English placeholders across vi and vi-VN for linked cards and fields,
+imports, CSV mapping, bulk exports, webhooks, notifications, Wrike workflows,
+LDAP synchronization, subtasks, Scrum planning and recovery. Both full current
+fill lists are empty. Preserve existing translations, source placeholders and
+parsed constants. Regressions verify permissions, field directions, member
+replacement, ZIP semantics, inherited settings, quiet hours, completion states,
+duplicate prevention, local planning and recovery actions that keep or delete
+data. Longer technical wording remains provisional pending speaker review;
+older catalog fluency is not fully audited.
+
+All 305 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Six browser cases pass syntax and discovery; runtime execution
+remains unverified without the local app and browser system dependencies.
+A full inventory including pending Transifex keys records 64,218 remaining
+values across 163 non-English locale files. The all-language backlog and
+semantic audit remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/480e3639f6">Refine and validate current Basque translations</a>. Thanks to xet7.</summary>
