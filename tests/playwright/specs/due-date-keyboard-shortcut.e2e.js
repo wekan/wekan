@@ -82,4 +82,33 @@ test.describe('#6750 due date keyboard shortcut', () => {
       await expect(dueDatePopup(page)).toHaveCount(0);
     }
   });
+
+  // #6755: "d" did nothing until the card was opened. On a hovered minicard it
+  // opens that card and its Due date editor.
+  test('d on a hovered minicard opens the card and its Due date editor (#6755)', async ({ page, user, board }) => {
+    // #6755: a user whose profile has no keyboardShortcuts value has them ON.
+    db.updateOne('users', { _id: user.id }, { $unset: { 'profile.keyboardShortcuts': '' } });
+    const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+    await page.locator('.js-minicard', { hasText: 'Alpha Card' }).first().hover();
+    await page.evaluate(() => document.activeElement && document.activeElement.blur());
+    await page.keyboard.press('d');
+    await expect(page).toHaveURL(new RegExp(`/${card._id}$`));
+    await expect(dueDatePopup(page)).toBeVisible({ timeout: 8_000 });
+    await page.keyboard.press('Escape');
+  });
+
+  test('negative: d over a minicard does nothing when shortcuts are disabled (#6755)', async ({ page, user, board }) => {
+    db.updateOne('users', { _id: user.id }, { $set: { 'profile.keyboardShortcuts': false } });
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+    const url = page.url();
+    await page.locator('.js-minicard', { hasText: 'Alpha Card' }).first().hover();
+    await page.evaluate(() => document.activeElement && document.activeElement.blur());
+    await page.keyboard.press('d');
+    await page.waitForTimeout(800);
+    expect(page.url()).toBe(url);
+    await expect(dueDatePopup(page)).toHaveCount(0);
+  });
 });

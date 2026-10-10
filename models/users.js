@@ -1114,10 +1114,11 @@ Users.attachSchema(
     },
     'profile.keyboardShortcuts': {
       /**
-       * User-specified state of keyboard shortcut activation.
+       * User-specified state of keyboard shortcut activation. On by default,
+       * the same default isKeyboardShortcuts() reads (#6755).
        */
       type: Boolean,
-      defaultValue: false,
+      defaultValue: true,
     },
     'profile.verticalScrollbars': {
       /**

@@ -107,12 +107,24 @@ test('d is bound once, through the shared filter, to the opened card with canMod
   assert.match(filter, /isContentEditable\)\s*\n\s*return false/);
   assert.match(filter, /HTMLInputElement[^\n]*HTMLTextAreaElement/);
 
-  const fn = keyboard.slice(keyboard.indexOf('export function openDueDateEditorOfOpenedCard'), keyboard.indexOf("hotkeys('d, shift+d'"));
+  const fn = keyboard.slice(keyboard.indexOf('function clickDueDateControl'), keyboard.indexOf("hotkeys('d, shift+d'"));
   assert.match(fn, /Utils\.getCurrentCardId\(\)/, 'targets the opened card');
   assert.match(fn, /canModifyCard: Utils\.canModifyCard\(card\)/, 'same permission as the due date control');
   assert.match(fn, /findDueDateControl\(document/);
   assert.match(fn, /control\.click\(\)/, 'opens the same popup a click opens');
   assert.doesNotMatch(fn, /Popup\.open/, 'never opens the popup past the rendered control');
+});
+
+test('#6755: with no card opened, d opens the hovered or selected minicard first', () => {
+  const fn = keyboard.slice(keyboard.indexOf('export function openDueDateEditorOfOpenedCard'), keyboard.indexOf("hotkeys('d, shift+d'"));
+  assert.match(fn, /if \(cardId\) return clickDueDateControl\(cardId\);/, 'an opened card wins');
+  assert.match(fn, /Session\.get\('selectedCard'\) \|\| getHoveredCardId\(\)/, 'the same card the other card shortcuts use');
+  assert.match(fn, /if \(!minicard \|\| !Utils\.canModifyCard\(minicard\)\) return false;/,
+    'negative: a card the user may not edit is not even opened');
+  assert.match(fn, /Utils\.goCardId\(minicardId\)/);
+  assert.match(fn, /Utils\.getCurrentCardId\(\) === minicardId && clickDueDateControl\(minicardId\)/,
+    'clicks only once that card is the opened one, through the same control and permission');
+  assert.match(fn, /Date\.now\(\) - started < 3000/, 'gives up rather than waiting forever');
 });
 
 test('the due date control it clicks is the one card details renders only for editors', () => {

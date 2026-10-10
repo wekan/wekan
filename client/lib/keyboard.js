@@ -389,13 +389,10 @@ hotkeys('n', (event) => {
 // badge in the card details, by clicking that very control. Like every
 // shortcut here it runs only through hotkeys.filter above: nothing when the
 // user turned keyboard shortcuts off, nothing while typing in an input,
-// textarea or contentEditable. It needs an opened card (a hovered minicard has
-// no due date editor to open) and Utils.canModifyCard for it; the card details
-// render the control only for a user who may edit the due date, so without
-// one nothing happens.
-export function openDueDateEditorOfOpenedCard() {
-  const cardId = Utils.getCurrentCardId();
-  if (!cardId || Meteor.userId() === null) return false;
+// textarea or contentEditable. It needs Utils.canModifyCard for the card; the
+// card details render the control only for a user who may edit the due date,
+// so without one nothing happens.
+function clickDueDateControl(cardId) {
   const card = ReactiveCache.getCard(cardId);
   if (!card) return false;
   const control = findDueDateControl(document, {
@@ -405,6 +402,27 @@ export function openDueDateEditorOfOpenedCard() {
   });
   if (!control) return false;
   control.click();
+  return true;
+}
+export function openDueDateEditorOfOpenedCard() {
+  if (Meteor.userId() === null) return false;
+  const cardId = Utils.getCurrentCardId();
+  if (cardId) return clickDueDateControl(cardId);
+  // #6755: with no card opened, `d` on a hovered or selected minicard - the
+  // card every other card shortcut here acts on - opens that card and then
+  // its Due date editor, rather than doing nothing until the card is opened.
+  const minicardId = Session.get('selectedCard') || getHoveredCardId();
+  const minicard = minicardId && ReactiveCache.getCard(minicardId);
+  if (!minicard || !Utils.canModifyCard(minicard)) return false;
+  Utils.goCardId(minicardId);
+  // The card details render after the route changes; wait for its control,
+  // and give up quietly if it never comes (no due dates on this board).
+  const started = Date.now();
+  const tryClick = () => {
+    if (Utils.getCurrentCardId() === minicardId && clickDueDateControl(minicardId)) return;
+    if (Date.now() - started < 3000) setTimeout(tryClick, 50);
+  };
+  setTimeout(tryClick, 0);
   return true;
 }
 hotkeys('d, shift+d', (event) => {
