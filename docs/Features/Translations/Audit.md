@@ -2,6 +2,32 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-10**.
 
+## Hiragana current fills — 2026-10-10
+
+Translate all 206 current English placeholders in ja-HI (registered as
+ja-Hira) directly into hiragana, including loanwords. Add spaces between
+phrases for readability. Preserve source placeholders and technical names,
+API paths, settings, Org mode keywords and link-rule syntax. The full current
+fill list is empty. Every changed value was English in the parent commit;
+other values are preserved. Longer technical phrasing and word spacing remain
+provisional pending reader review.
+
+Regression coverage checks all 206 values for hiragana and absence of kanji
+or katakana, all catalog tokens, field direction, permissions, member mapping,
+ZIP semantics, notification timing, workflow states, permanent deletion,
+retained changes and recovery conflict restrictions. Register three browser
+cases with the actual ja-Hira runtime tag and ja-HI source file. Syntax and
+discovery pass; execution remains unverified because the local app and browser
+system dependencies are unavailable. All 305 translation/Blockly suites,
+246 catalog inventories and 21 human-preference checks pass.
+
+The old script audit is still substantial: 3,641 unchanged values contain
+kanji or katakana. This count identifies review candidates, not proof that
+every character is prose (some may be examples or literal data). Those entries
+must be reviewed against English and converted where appropriate, preserving
+code and placeholders. An empty fill list does not prove script completion.
+The wider all-language backlog and semantic audit remain open.
+
 ## Standard Japanese current fills — 2026-10-10
 
 Translate 206 English placeholders in each of ja and ja-JP, 412 values in
