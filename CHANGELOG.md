@@ -524,7 +524,7 @@ used.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.30 2026-10-11 WeKan ® release
 
 **In short:** The **Import** page shows every source under "Import from:" at
 once, in columns, when the window is wide enough. A **Sandstorm** grain shows
