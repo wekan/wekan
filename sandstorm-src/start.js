@@ -21,6 +21,7 @@
 
 const { spawn, spawnSync } = require('child_process');
 const fs = require('fs');
+const net = require('net');
 const path = require('path');
 
 // ── layout ───────────────────────────────────────────────────────────────────
@@ -150,6 +151,40 @@ function stopBridge() {
   sleep(1);                                              // let the OS release APP_PORT before the next listener binds it
 }
 process.on('exit', () => { if (bridge) { try { bridge.kill('SIGKILL'); } catch (_) {} } });
+
+// Hand APP_PORT from the bridge to WeKan at the moment WeKan BINDS it, not
+// before main.js loads. Meteor 3 awaits every Meteor.startup hook before it
+// calls httpServer.listen (boot.js callStartupHooks, then webapp's main), and
+// on a grain those hooks take a while. Releasing the port before require()
+// left nothing on APP_PORT for all of that time, so sandstorm-http-bridge got
+// connection-refused, which Sandstorm passes on as a DISCONNECTED error and
+// the browser shows as an empty response (NS_ERROR_NET_EMPTY_RESPONSE) - and
+// a startup hook that never finished made it permanent. Now the please-wait
+// page answers until the listen call itself, which waits for the bridge
+// process to EXIT (its socket is closed by then) and only then binds.
+function yieldPortOnListen() {
+  const listen = net.Server.prototype.listen;
+  net.Server.prototype.listen = function (...args) {
+    const opts = args[0];
+    const port = opts && typeof opts === 'object' ? opts.port : opts;
+    if (String(port) !== String(APP_PORT)) return listen.apply(this, args);
+    net.Server.prototype.listen = listen;                // only the first bind of APP_PORT
+    this.once('listening', () => console.log(`** WeKan is listening on port ${APP_PORT}`));
+    const child = bridge;
+    bridge = null;
+    if (!child || child.exitCode !== null || child.signalCode !== null) {
+      return listen.apply(this, args);
+    }
+    let bound = false;
+    const bind = () => { if (!bound) { bound = true; listen.apply(this, args); } };
+    child.once('exit', bind);
+    // A bridge that ignores SIGTERM must not keep WeKan off its port.
+    setTimeout(() => { try { child.kill('SIGKILL'); } catch (_) {} }, 3000).unref();
+    setTimeout(bind, 5000).unref();
+    try { child.kill('SIGTERM'); } catch (_) { bind(); }
+    return this;
+  };
+}
 
 function startFerret(port, opts = {}) {
   const args = ['--handler=sqlite', `--sqlite-url=file:${SQLITE_DIR}/`,
@@ -342,7 +377,8 @@ function runApp() {
 
   console.log('** Starting WeKan on FerretDB ...');
   setTimeout(() => {
-    stopBridge();                                        // release APP_PORT so Meteor can bind it
+    // The please-wait page keeps APP_PORT until Meteor binds it (above).
+    yieldPortOnListen();
     require('./main.js');
   }, 1500);                                              // let FerretDB start listening
 }
