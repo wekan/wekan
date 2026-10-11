@@ -524,7 +524,7 @@ used.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.31 2026-10-11 WeKan ® release
 
 WeKan can be packaged as a Nextcloud External App with Nextcloud sign-in and
 persistent FerretDB SQLite storage. The companion and publisher are implemented;
