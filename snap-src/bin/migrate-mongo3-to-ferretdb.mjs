@@ -27,7 +27,7 @@
  *   FILES_DIR         files root (holds attachments/, avatars/, db/)
  *   MIGRATION_PORT    HTTP progress port                                [8080]
  */
-// mongodb and bson are CommonJS in WeKan's bundle. Under Node 24's ESM loader an
+// mongodb and bson are CommonJS in WeKan's bundle. Under Node 26's ESM loader an
 // `import x from 'cjs'` default-interop gave objects that were missing EJSON entirely
 // (both `import bson`'s default and mongodb's re-export came back undefined, so every
 // collection failed with "Cannot read properties of undefined (reading 'parse')").

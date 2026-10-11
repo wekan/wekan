@@ -3,7 +3,7 @@
 // Regression coverage for #2405, #2428 and #3684. A multi-board Sandstorm
 // grain must use the maintained board-member workflow; its old Powerbox-only
 // control cannot attach an identity to the board and capnp.node is unavailable
-// with the Node 24 bundle.
+// with the Node 26 bundle.
 
 const assert = require('assert');
 const fs = require('fs');

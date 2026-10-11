@@ -68,7 +68,7 @@ if [ ! -f "$WEKAN_MAINTENANCE" ] && [ "ferretdb" = "$(bash "$SNAP/bin/database-r
     exit 0
 fi
 
-# The replica-set setup below uses db-eval (the bundled Node.js 24 + the `mongodb`
+# The replica-set setup below uses db-eval (the bundled Node.js 26 + the `mongodb`
 # driver), not mongosh, so there is no client telemetry to disable. mongod itself
 # has no phone-home telemetry (Cloud Free Monitoring is opt-in and stays off).
 DB_EVAL="$SNAP/bin/db-eval"

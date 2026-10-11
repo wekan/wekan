@@ -487,7 +487,7 @@ if [ -n "$BIND_IP" ]; then
     echo -e "BIND_IP=$BIND_IP"
 fi
 
-# The readiness checks below use db-eval (the bundled Node.js 24 + the `mongodb`
+# The readiness checks below use db-eval (the bundled Node.js 26 + the `mongodb`
 # driver from the WeKan bundle), so there is no mongosh binary — nothing to install
 # and nothing phoning home. db-eval speaks the wire protocol to both FerretDB v1
 # and MongoDB 6/7.

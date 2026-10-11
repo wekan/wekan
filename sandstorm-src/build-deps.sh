@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Assemble a modernized meteor-spk.deps for the WeKan Sandstorm .spk:
-#   Node 24 + FerretDB v1 + Mongo 3.x CLIs + the migration launcher/importer,
+#   Node 26 + FerretDB v1 + Mongo 3.x CLIs + the migration launcher/importer,
 #   on top of upstream meteor-spk 0.6.0 (which already has mongod 3.0 + niscud).
 #
 # See docs/Platforms/FOSS/Container/Sandstorm/Meteor3/Migration.md.
@@ -13,8 +13,16 @@
 #
 # Env (override as needed):
 #   OUT             work/output dir                    [$HOME/projects/meteor-spk]
-#   NODE_VERSION    Node major/exact to bundle         [24]  (match Meteor 3.5's node)
-#   FERRETDB_URL    URL of the ferretdb-amd64 binary   [newest wekan/FerretDB release]
+#   SANDSTORM_NODE_VERSION  exact Node to bundle   [the Dockerfile's NODE_VERSION]
+#   FERRETDB_TAG    wekan/FerretDB release to bundle   [newest release]
+#   FERRETDB_URL    URL of the ferretdb-amd64 binary   [that release's asset]
+#
+# The grain gets the SAME Node.js and FerretDB as every other platform: the exact
+# Node the Dockerfile pins and the FerretDB release ferretdb-latest-tag.sh names,
+# which are the versions https://wekan.fi/version.txt advertises (written by
+# releases/update-website-version-info.sh from those same two sources). npm is
+# not bundled - a grain never runs it - but the workflows that pack the .spk
+# install the Dockerfile's NPM_VERSION through releases/use-release-npm.sh.
 #   MIGRATEMONGO    git URL of the Mongo 3.x CLIs      [github.com/wekan/migratemongo]
 set -euo pipefail
 
@@ -30,7 +38,10 @@ FETCH="$(cd "$(dirname "$0")/.." && pwd)/releases/fetch.sh"
 
 REPO="$(cd "$(dirname "$0")/.." && pwd)"     # wekan repo root
 OUT="${OUT:-$HOME/projects/meteor-spk}"
-NODE_VERSION="${NODE_VERSION:-24}"
+# Not $NODE_VERSION: the workflows set that to the bare major ('26') for
+# setup-node, and the grain must get the exact patch release, not "newest 26.x".
+NODE_PIN="${SANDSTORM_NODE_VERSION:-$(sed -n 's/.*NODE_VERSION=\(v[0-9][0-9.]*\).*/\1/p' "$REPO/Dockerfile" | head -1)}"
+[[ "$NODE_PIN" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "no exact NODE_VERSION in $REPO/Dockerfile (got '$NODE_PIN')" >&2; exit 1; }
 MIGRATEMONGO="${MIGRATEMONGO:-https://github.com/wekan/migratemongo.git}"
 SPK_URL="https://dl.sandstorm.io/meteor-spk-0.6.0.tar.xz"
 
@@ -44,26 +55,18 @@ if [ ! -d "$OUT/meteor-spk-0.6.0" ]; then
 fi
 [ -x "$DEPS/bin/mongod" ] && [ -x "$DEPS/bin/niscud" ] || { echo "base deps missing mongod/niscud"; exit 1; }
 
-echo "==> [2/7] Node ${NODE_VERSION} (replaces bundled Node 14)"
-# Prefer the EXACT node from Meteor 3.5's dev bundle (ABI match with the WeKan
-# bundle's native addons); fall back to the newest ${NODE_VERSION}.x from nodejs.org.
-NODE_BIN=""
-if command -v meteor >/dev/null 2>&1; then
-  DEVBUNDLE="$(meteor node -e 'console.log(process.execPath)' 2>/dev/null || true)"
-  [ -x "$DEVBUNDLE" ] && NODE_BIN="$DEVBUNDLE"
-fi
-if [ -z "$NODE_BIN" ]; then
-  NV="$(bash "$FETCH" -o - https://nodejs.org/dist/index.json | \
-        node -e 'const v=JSON.parse(require("fs").readFileSync(0)).find(x=>x.version.startsWith("v'"$NODE_VERSION"'."));console.log(v.version)')"
-  bash "$FETCH" -o "$OUT/node.tar.xz" "https://nodejs.org/dist/${NV}/node-${NV}-linux-x64.tar.xz"
-  tar -xJf "$OUT/node.tar.xz" -C "$OUT"
-  NODE_BIN="$OUT/node-${NV}-linux-x64/bin/node"
-fi
-cp -f "$NODE_BIN" "$DEPS/bin/node"
-"$DEPS/bin/node" --version || { echo "bundled node does not run on this host"; exit 1; }
+echo "==> [2/7] Node ${NODE_PIN} (replaces bundled Node 14)"
+# The exact Node the Dockerfile pins, from the source releases/resolve-node-source.sh
+# picks for linux-x64 and verified against the SHA256 that source publishes - the
+# same helper the zip bundles embed their Node with. Not Meteor's dev-bundle node:
+# that follows the Meteor release rather than version.txt.
+mkdir -p "$DEPS/bin"
+bash "$REPO/releases/embed-verified-node.sh" "$DEPS/bin/node" node-x64 "$NODE_PIN"
+GOT="$("$DEPS/bin/node" --version)" || { echo "bundled node does not run on this host"; exit 1; }
+[ "$GOT" = "$NODE_PIN" ] || { echo "bundled node is $GOT, expected $NODE_PIN" >&2; exit 1; }
 
-echo "==> [3/7] Refresh runtime libs for Node 24 + FerretDB (host glibc 2.35 on ubuntu-24.04)"
-# Node 24 needs a newer libstdc++/glibc than 0.6.0's (2.31). Copy the host's from
+echo "==> [3/7] Refresh runtime libs for Node 26 + FerretDB (host glibc 2.35 on ubuntu-24.04)"
+# Node 26 needs a newer libstdc++/glibc than 0.6.0's (2.31). Copy the host's from
 # ubuntu-24.04. mongod 3.0 / niscud (built for older glibc) still run (glibc is
 # backward-compatible). The Mongo 3.x CLIs get their OWN old libs (step 5).
 HOSTLIB=/usr/lib/x86_64-linux-gnu
@@ -100,10 +103,17 @@ cp -fL --remove-destination "$LOADER" "$DEPS/lib/x86_64-linux-gnu/ld-linux-x86-6
 # or ferretdb, add it here (or use `spk dev` tracing to regenerate the tree).
 
 echo "==> [4/7] FerretDB v1 (amd64) at deps root"
-# Download only the amd64 binary from the newest wekan/FerretDB release (per-arch
-# assets, no ferretdb.zip). /releases/latest/download/<asset> resolves to the
-# newest non-prerelease release.
-FERRETDB_URL="${FERRETDB_URL:-https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-amd64}"
+# Download only the amd64 binary (per-arch assets, no ferretdb.zip) of the newest
+# wekan/FerretDB release, named by its TAG so the log says which version the grain
+# got. That is the version version.txt shows. If the tag cannot be looked up,
+# /releases/latest/download/ is the same release, just unnamed.
+FERRETDB_TAG="${FERRETDB_TAG:-$(bash "$REPO/releases/ferretdb-latest-tag.sh")}"
+if [ -n "$FERRETDB_TAG" ]; then
+  FERRETDB_URL="${FERRETDB_URL:-https://github.com/wekan/FerretDB/releases/download/$FERRETDB_TAG/ferretdb-amd64}"
+else
+  FERRETDB_URL="${FERRETDB_URL:-https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-amd64}"
+fi
+echo "    FerretDB ${FERRETDB_TAG:-latest}: $FERRETDB_URL"
 bash "$FETCH" -o "$DEPS/ferretdb" "$FERRETDB_URL"
 chmod +x "$DEPS/ferretdb"
 python3 "$REPO/releases/check-telemetry.py" --kind ferretdb "$DEPS/ferretdb"

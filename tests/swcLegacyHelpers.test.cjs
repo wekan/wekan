@@ -114,7 +114,7 @@ test('.swcrc is not swallowed by the vim-swapfile ignore rule', () => {
 test('the big local-only clones are ignored, node included', () => {
   // Sibling repositories cloned INSIDE this working copy to be edited or built
   // from. They are whole git repos and gigabytes of source - `node/` alone is a
-  // 2.2G clone of the Node.js 24.x fork WeKan builds its runtime from - and
+  // 2.2G clone of the Node.js 26.x fork WeKan builds its runtime from - and
   // untracked they are noise in every `git status` that hides the files that
   // matter.
   const rules = read('.gitignore').split(/\r?\n/).map(line => line.trim());

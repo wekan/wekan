@@ -25,7 +25,7 @@
  */
 
 // Resolve the CURRENT mongodb driver (v6, OP_MSG) from WeKan's bundle. A plain
-// `import { MongoClient } from 'mongodb'` under Node 24's ESM loader can resolve the
+// `import { MongoClient } from 'mongodb'` under Node 26's ESM loader can resolve the
 // ANCIENT meteor-spk base mongodb v2.x (legacy OP_QUERY, which FerretDB rejects with
 // "Unsupported OP_QUERY command: update") or fail default-interop entirely. So anchor a
 // createRequire inside the modern bundle exactly like migrate-mongo3-to-ferretdb.mjs:

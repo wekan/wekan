@@ -8,7 +8,7 @@ npm-packages/
 # would hide those suites, making `meteor test` report "0 passing".
 /tests/
 
-# Build/tool scratch space: a full Node 24 install (headers for EVERY openssl arch),
+# Build/tool scratch space: a full Node 26 install (headers for EVERY openssl arch),
 # a Go toolchain with its module/build caches, build logs and repro dirs. 20,535
 # DIRECTORIES, none of it app code. Meteor's watcher takes one inotify watch per
 # directory, and the per-user limit (fs.inotify.max_user_watches, 65536 here) is

@@ -1,6 +1,6 @@
 // WeKan on Sandstorm — grain launcher (meteor-spk.deps/start.js).
 //
-// Runs WeKan (Node 24) on FerretDB v1 (embedded SQLite), migrating an existing
+// Runs WeKan (Node 26) on FerretDB v1 (embedded SQLite), migrating an existing
 // grain's data to FerretDB on first launch. See
 // docs/Platforms/FOSS/Container/Sandstorm/Meteor3/Migration.md.
 //
@@ -26,7 +26,7 @@ const path = require('path');
 // ── layout ───────────────────────────────────────────────────────────────────
 // Read-only app payload (resolve from __dirname; do not hardcode the mount point).
 const APPROOT = __dirname;
-const NODE         = path.join(APPROOT, 'bin/node');            // Node 24
+const NODE         = path.join(APPROOT, 'bin/node');            // Node 26
 const MONGOD3      = path.join(APPROOT, 'bin/mongod');          // MongoDB 3.0.7
 const NISCUD       = path.join(APPROOT, 'bin/niscud');          // MongoDB 2.x (Niscu)
 const MM_BIN       = path.join(APPROOT, 'migratemongo/bin');    // mongo + mongoexport (3.x CLIs)

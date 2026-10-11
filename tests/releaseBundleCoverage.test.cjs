@@ -85,13 +85,13 @@ test('win32 and mac-x64 are best-effort: they skip when their fork node is absen
 
 test('win32 cross-builds ia32 native modules (no 32-bit Windows Node exists to install)', () => {
   const body = job('build-win32');
-  // There is NO 32-bit Windows Node 24 to install - setup-node architecture: x86
+  // There is NO 32-bit Windows Node 26 to install - setup-node architecture: x86
   // fails with "Unable to find Node version '24' for platform win32 and
   // architecture x86". So the x64 runner Node drives node-gyp, and the modules
   // (bcrypt) are cross-compiled to ia32 via npm_config_arch=ia32, matching the
   // fork's 32-bit node.exe the bundle ships.
   assert.ok(!/architecture:\s*x86/.test(body),
-    'build-win32 must NOT ask setup-node for architecture: x86 - no 32-bit Windows Node 24 exists');
+    'build-win32 must NOT ask setup-node for architecture: x86 - no 32-bit Windows Node 26 exists');
   assert.ok(/npm_config_arch:\s*ia32/.test(body),
     'build-win32 must set npm_config_arch: ia32 so node-gyp cross-builds 32-bit native modules');
 });

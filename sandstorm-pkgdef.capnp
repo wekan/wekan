@@ -241,7 +241,7 @@ const myCommand :Spk.Manifest.Command = (
     #bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
     #---------------------------------------------------------------------
     (key = "PATH", value = "/usr/local/bin:/usr/bin:/bin"),
-    # Files root for the Node24/FerretDB build: attachments/, avatars/ and the
+    # Files root for the Node26/FerretDB build: attachments/, avatars/ and the
     # FerretDB SQLite db/ live under /var/files (start.js also exports this). See
     # docs/Platforms/FOSS/Container/Sandstorm/Meteor3/Migration.md.
     (key = "WRITABLE_PATH", value = "/var/files"),

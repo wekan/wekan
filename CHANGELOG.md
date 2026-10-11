@@ -373,7 +373,7 @@ under review with unchanged counts.
 
 [#3318](https://github.com/wekan/wekan/issues/3318) (outgoing webhooks from a
 Sandstorm grain require a user-granted Powerbox network capability and a
-Node-24-compatible bridge implementation; direct HTTP is intentionally blocked
+Node-26-compatible bridge implementation; direct HTTP is intentionally blocked
 by the grain sandbox),
 [#6549](https://github.com/wekan/wekan/issues/6549) (OAuth2 through
 Rocket.Chat's G Suite SAML app: WeKan logs in only when the Rocket.Chat session

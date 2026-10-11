@@ -18,7 +18,7 @@ describe('dependencies REST OpenAPI annotations', function () {
     // is not the repo root. Locate the source by walking up from several seeds
     // (cwd, and the shell PWD where meteor was launched) until we find it.
     // NOTE: do not reference the bare `__dirname` global here. This file is an ES
-    // module (it uses top-level `import`), and Meteor/Node 24 injects
+    // module (it uses top-level `import`), and Meteor/Node 26 injects
     // `const __dirname = fileURLToPath(import.meta.url)` for ESM files that use
     // `__dirname`. That collides with the `__dirname` Meteor's CommonJS module
     // wrapper already provides, crashing the whole server bundle at boot with

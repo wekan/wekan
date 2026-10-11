@@ -76,11 +76,11 @@ if (isSandstorm && Meteor.isServer) {
   // Powerbox identity-claim (sandstormClaimIdentityRequest) and Sandstorm activity
   // notifications (Activities.after.insert -> reportActivity) — use node-capnp
   // (capnp.node). That native addon is currently built for an older Node ABI and
-  // fails to load on the bundled Node 24 (NODE_MODULE_VERSION mismatch,
+  // fails to load on the bundled Node 26 (NODE_MODULE_VERSION mismatch,
   // ERR_DLOPEN_FAILED), which previously crashed the whole grain on boot. Load it
   // lazily and degrade gracefully instead: the grain boots and core WeKan (login +
   // kanban) works; only powerbox invites and activity events are skipped until
-  // capnp is rebuilt for Node 24, or reimplemented over the bridge's HTTP/JSON API
+  // capnp is rebuilt for Node 26, or reimplemented over the bridge's HTTP/JSON API
   // (see the Sandstorm CHANGELOG: use "Cap'n Proto APIs without Cap'n Proto").
   let Capnp = null;
   let Package, Powerbox, Identity, SandstormHttpBridge, bridgeConfig;
