@@ -1,251 +1,211 @@
-# Dev: releasing WeKan to Univention Corporate Server (UCS) from release-all.yml
+# UCS portal upgrades: WeKan 6.09 to WeKan 12.28 and later
 
-Based on [docs/Platforms/FOSS/Container/UCS](../../Platforms/FOSS/Container/UCS) and the
-[wekan/univention](https://github.com/wekan/univention) app repo.
+The target is an **automatic upgrade from the UCS App Center portal**. An
+administrator selects **Upgrade** for WeKan; no separate migration command should
+be necessary. WeKan 6.09's MongoDB data moves to **FerretDB v1 with SQLite**, and
+CollectionFS/GridFS attachments and avatars move to the **filesystem**.
 
-Goal: from `wekan/wekan`'s **release-all.yml**, also release the **Docker-based UCS App
-Center app** for the newest UCS, so UCS users **upgrade from their Update Center**. The
-new release must move the app off **WeKan 6.09 + MongoDB 3.x** onto **WeKan 10.x +
-FerretDB v1 (SQLite)** (from [wekan/FerretDB](https://github.com/wekan/FerretDB)),
-**automatically migrating** the MongoDB 3.x data to FerretDB and the attachments/avatars
-to the **filesystem** during the upgrade.
+**Status: implementation prepared, not published or validated on UCS yet.**
+The app definition is in the separate [wekan/univention repository](https://github.com/wekan/univention),
+checked out locally at `.tools/univention`. The initial target is **12.28**.
+“Newest” means the newest version published and approved in the UCS App Center;
+a new upstream WeKan release does not automatically become a UCS release.
 
-This document lists **what must be added to the WeKan GitHub repos** (secrets, files,
-workflow jobs) to make that happen.
+After upgrade, normal start/restart runs exactly two containers:
 
-## Remaining steps
+| Service | Container | Process |
+| --- | --- | --- |
+| `wekan` | `wekan-app` | WeKan, initially 12.28 |
+| `wekandb` | `wekan-db` | FerretDB v1, SQLite handler |
 
-> **Status:** the `ucs` job **is already wired into `release-all.yml`** — guarded, it skips
-> with a `::notice::` until the items below are done. It currently only **bumps the image
-> tag** and uploads; the MongoDB 3.x → FerretDB SQLite compose + migration hook still need
-> to be written (§2–§4).
+No MongoDB, migration worker, or third database container belongs in the installed
+compose file. Both services use the versioned WeKan image; the database service
+runs its bundled `/build/ferretdb`, not the app entrypoint.
 
-1. **Univention App Provider account** with the `wekan` app assigned; get the
-   `univention-appcenter-control` CLI (App Provider self-service).
-2. **Add secrets** `UNIVENTION_APP_PROVIDER_USER` and `UNIVENTION_APP_PROVIDER_PASSWORD`
-   (see "How to add a secret" below). Optionally `UNIVENTION_REGISTRY_AUTH` only if you
-   push images yourself instead of letting the App Provider mirror the public image.
-3. **Extend `WEKAN_REPO_TOKEN`** to have write access to `wekan/univention`.
-4. **Write the FerretDB migration** in `wekan/univention`: the new `component/compose`
-   (FerretDB SQLite + `data/files` volume), the migration lifecycle step wrapping the two
-   existing `.mjs` scripts, and fix `component/inst` (the MongoDB `mongo` shell is gone
-   under FerretDB). See §2–§4.
-5. **Finish the upload command** in the `ucs` job — the `univention-appcenter-control
-   upload` app-version id / file arguments depend on your App Provider account.
-6. Test the upgrade on a UCS VM (6.09/MongoDB 3.x → 10.x/FerretDB): boards, attachments,
-   avatars, LDAP login must survive; confirm the new version appears in the Update Center.
+## What has been prepared
 
-**How to add a secret:** GitHub → the `wekan/wekan` repo → **Settings → Secrets and
-variables → Actions → New repository secret**; or `gh secret set NAME --repo wekan/wekan`
-(paste the value) / `gh secret set NAME --repo wekan/wekan < file`.
+In `wekan/univention`:
 
----
+- `component/compose`: two services, retained UCS ROOT_URL/LDAP/mail templates,
+  polling reactivity, persistent filesystem storage, and a migration completion
+  gate before the application starts.
+- `component/preinst`: host-side App Center hook. Pulls the images before downtime,
+  stops the old app, saves a MongoDB dump and rendered configuration, migrates and
+  verifies the copy, and removes the temporary containers before returning success.
+  Failure returns nonzero to cancel the upgrade and restarts the old app if it was
+  running. The old MongoDB directory is never overwritten or deleted.
+- `component/migration/`: one-shot helper image, legacy-compatible importer, source
+  tool wrappers and strict completion/file checks. `mongo` and `mongoexport` run
+  inside the original database container using `docker exec`; a modern driver
+  connects only to FerretDB. No intermediate MongoDB version upgrade is needed.
+- `component/inst` and `component/test`: use the app's MongoDB driver to access
+  FerretDB instead of expecting a Mongo shell in `wekan-db`.
+- `component/compose-6.09`: original template retained for reference/rollback.
+- `tests/migration.test.mjs`: isolated tests for upgrade sequencing, failures,
+  retry handling, file verification and the two-service deployment.
 
-## 1. How the UCS app works today (baseline)
+The helper is temporary. It needs the Docker socket to run the original database's
+read tools; **the installed WeKan and FerretDB containers never mount that socket**.
+The migration rejects partial success, truncated files, unresolved CollectionFS
+records, unconverted GridFS references and missing attachment files. Files already
+stored externally by a customized 6.09 installation need a separate recovery plan;
+the automatic path here is for MongoDB-stored attachments.
 
-The [wekan/univention](https://github.com/wekan/univention) repo is the **UCS App
-Center app definition** (not the WeKan source). Key files:
+## Remaining steps for the maintainer
 
-- `component/compose` — Docker **Compose v2** with two services:
-  - `wekandb`: `docker.software-univention.de/wekan-wekandb:<ver>` running
-    `mongod --smallfiles --oplogSize 128` (**old MongoDB 3.x**), data volume
-    `/var/lib/univention-appcenter/apps/wekan/data/db`.
-  - `wekan`: `docker.software-univention.de/wekan-wekan:<ver>`, `MONGO_URL=mongodb://wekandb:27017/wekan`,
-    `ROOT_URL=https://<fqdn>/wekan`, and the full **LDAP** env block wired to UCS LDAP
-    (`DEFAULT_AUTHENTICATION_METHOD=ldap`, cert/UCR templating via `@%@…@%@` / `@!@…@!@`).
-- `component/inst` — the **join script**: registers the service, writes the Apache
-  reverse-proxy vhost (`/wekan` + the sockjs websocket rule), creates `wekan-admin`, and
-  seeds default settings via `docker exec -i wekan-db mongo`.
-- `component/uinst` — uninstall/unjoin.
-- `meta/wekan.meta`, `meta/wekan_*.ini` — App Center metadata (ID `wekan`, categories,
-  description) and the versioned `.ini`.
-- `meta/*.svg`, `meta/thumbnail_*.png` — logos/screenshots.
-- `component/{all,amd64,i386}/Packages*`, `Release*` — the apt component repo metadata.
+### 1. Publish the companion changes and build the helper
 
-**Publishing today** is manual: images are copied into Univention's registry
-`docker.software-univention.de/` and the app is submitted via the **Univention App
-Provider** portal (the maintainer, xet7, did this for the current version).
+Commit/push the prepared `wekan/univention` changes from its default branch,
+`master`, and the documentation from `wekan/wekan`'s `main`. These are separate
+repositories; a WeKan commit does not include files under `.tools/univention`.
+Publishing commands in this document are for the human maintainer.
 
-The WeKan **Docker image** itself is already built and pushed by release-all.yml's
-`docker` job (Docker Hub / Quay / GHCR); the migration tooling already exists in the
-WeKan bundle:
+On a Docker build machine, from the `wekan/univention` root:
 
-- [`snap-src/bin/migrate-mongo3-to-ferretdb.mjs`](../../../snap-src/bin/migrate-mongo3-to-ferretdb.mjs)
-  — reads a **MongoDB 3.2** DB with the legacy `mongoexport` (the modern driver can't
-  connect to 3.2) and inserts into a running **FerretDB**; reassembles CollectionFS
-  **GridFS** attachments/avatars straight to the filesystem.
-- [`snap-src/bin/migrate-gridfs-to-fs.mjs`](../../../snap-src/bin/migrate-gridfs-to-fs.mjs)
-  — moves any remaining GridFS binaries from FerretDB to
-  `files/attachments/` + `files/avatars/` and rewrites the path fields.
-
-So the pieces exist — this task is **wiring them into an automatic UCS upgrade**.
-
----
-
-## 2. Target architecture (WeKan 10.x on UCS)
-
-Replace the two-container MongoDB app with a **FerretDB v1 SQLite** app + filesystem
-storage. New `component/compose` (sketch — carries over the whole LDAP/ROOT_URL block
-unchanged, only the DB and storage change):
-
-```yaml
-version: '2'
-services:
-  ferretdb:
-    image: docker.software-univention.de/wekan-ferretdb:<wekan-version>   # FerretDB v1, SQLite handler
-    container_name: wekan-db
-    restart: always
-    environment:
-      - FERRETDB_HANDLER=sqlite
-      - FERRETDB_SQLITE_URL=file:/data/db/
-    expose: [ "27017" ]
-    volumes:
-      - /var/lib/univention-appcenter/apps/wekan/data/db:/data/db     # SQLite files
-
-  wekan:
-    image: docker.software-univention.de/wekan-wekan:<wekan-version>   # WeKan 10.x
-    container_name: wekan-app
-    restart: always
-    ports: [ "8080:8080" ]
-    environment:
-      - WRITABLE_PATH=/data
-      - MONGO_URL=mongodb://wekandb:27017/wekan       # points at FerretDB
-      - ROOT_URL=https://@%@hostname@%@.@%@domainname@%@/wekan
-      # … the entire existing LDAP_* / MAIL_* / WITH_API block, unchanged …
-    volumes:
-      - /var/lib/univention-appcenter/apps/wekan/data/files:/data/files   # attachments + avatars on FS
+```sh
+docker pull ghcr.io/wekan/wekan:v12.28
+docker build --pull -f component/migration/Dockerfile \
+  -t ghcr.io/wekan/wekan-ucs-migration:v12.28 .
 ```
 
-Notes:
-- **FerretDB v1 SQLite** speaks the MongoDB wire protocol, so WeKan still uses
-  `MONGO_URL`; only the backend container changes. (Alternatively run WeKan with
-  `WEKAN_DB=ferretdb` embedded, as the snap does — but a small sidecar keeps the compose
-  shape and volume layout closest to today's.)
-- **Attachments/avatars → filesystem** via the `data/files` volume (`WRITABLE_PATH`),
-  matching what `migrate-gridfs-to-fs.mjs` writes.
-- The WeKan image for UCS must contain the **FerretDB v1 binary** (from
-  [wekan/FerretDB](https://github.com/wekan/FerretDB) releases, `ferretdb-amd64`) and the
-  two migration `.mjs` scripts, OR they live in a dedicated **migration image** (below).
+Inspect the result and verify that the selected WeKan image has the executable
+`/build/ferretdb`, Node, and the modern MongoDB driver under the bundle's
+`programs/server` tree. The helper copies the Docker CLI from `docker:27.5.1-cli`;
+verify it can communicate with Docker on each supported UCS version.
 
----
+Publish the tested helper image to the registry referenced by `component/preinst`,
+or arrange for Univention to mirror it. If the registry changes, update **both**
+image references in `preinst` as well as the image references in `compose` and the
+helper's `WEKAN_IMAGE` build argument. The portal cannot perform the migration
+until the helper image exists and is pullable by the UCS host.
 
-## 3. The automatic migration on upgrade (MongoDB 3.x → FerretDB SQLite)
+Keep tags fixed per UCS release. For a release after 12.28, update `compose`,
+`preinst`, and the helper Dockerfile together, rebuild the helper, then test that
+release. Do not replace these pins with `latest` during a database migration.
 
-UCS Docker App Center apps support **lifecycle scripts** in the app definition:
-`update_available`, `preinst`, `store_data`, `restore_data_before_setup`,
-`restore_data_after_setup`, `setup`, `inst` (join), `uinst`. The migration runs as a
-one-shot during the version upgrade, before the new `wekan` container serves traffic:
+### 2. Register the app version and scripts in the Provider Portal
 
-1. **`store_data`** (old version) — already keeps the MongoDB 3.x data at
-   `…/apps/wekan/data/db`.
-2. **`restore_data_after_setup`** or a dedicated **migration container** (new version):
-   1. Start a **temporary MongoDB 3.x** container bound to the old `data/db`
-      (`SRC_PORT`), read-only.
-   2. Start **FerretDB v1 SQLite** on the new `data/db` (empty).
-   3. Run `migrate-mongo3-to-ferretdb.mjs` with
-      `MONGO_BIN_DIR`=legacy mongoexport, `SRC_PORT`, `SRC_DB=wekan`,
-      `TARGET_MONGO_URL=mongodb://127.0.0.1:<ferretdb-port>/wekan`,
-      `FILES_DIR=…/data/files` → text + GridFS files migrated; progress served on
-      `MIGRATION_PORT`.
-   4. Run `migrate-gridfs-to-fs.mjs` (`SOURCE_MONGO_URL`=FerretDB, `WRITABLE_PATH=…/data`)
-      to move any remaining GridFS binaries to `files/attachments` + `files/avatars`.
-   5. On success, **stop and discard** the temporary MongoDB container; keep the old
-      `data/db.mongo/` as a backup for one release (safety), then prune.
-3. **New compose starts** WeKan 10.x + FerretDB SQLite. WeKan's own **schema migrations**
-   run on first boot (the migration scripts intentionally leave schema as-is).
+Use the App Provider account that owns `wekan`. Create the new app version from
+6.09 in the target UCS section. Select supported UCS versions/architectures only
+after testing; the old `meta/wekan_20190520122559.ini` is historical metadata,
+not a ready-to-publish 12.28 definition.
 
-Because the migration reuses the exact scripts the snap already ships, the UCS path
-should be a thin wrapper (a `migrate` shell entrypoint that sets the env above and calls
-the two `.mjs` in order) — package it as a **`wekan-migrate` image** referenced only by
-the upgrade step, or bake it into the WeKan image.
+Upload/register these files for the **new** version:
 
----
+| File | Provider Portal purpose |
+| --- | --- |
+| `component/compose` | UCR-template Docker Compose file; main service `wekan` |
+| `component/preinst` | Script called before installation/upgrade |
+| `component/inst` | Join script |
+| `component/uinst` | Unjoin script |
+| `component/test` | Test script run after installation |
+| `component/README_EN`, `component/README_DE` | Administrator information |
 
-## 4. What to add to the WeKan GitHub repos
+The migration helper's files are inside its image; they are not separate App Center
+hooks. Do not upload `compose-6.09` as the new compose file. Do not enable an
+inherited `store_data` script that requires the old application to remain running:
+the prepared `preinst` deliberately leaves it stopped to prevent post-copy writes.
 
-### 4a. `wekan/univention` (the app definition)
-- New **`component/compose`** (FerretDB SQLite + `data/files`, §2).
-- **Lifecycle/migration scripts**: a `restore_data_after_setup` (or `update_available` +
-  a migration container) implementing §3, plus the `migrate` wrapper that calls the two
-  `.mjs` scripts.
-- Updated **`meta/wekan_<newstamp>.ini`** / `meta/wekan.meta` (new version, "requires
-  data migration" note, min UCS version).
-- Update **`component/inst`**: the default-settings seeding currently does
-  `docker exec -i wekan-db mongo …` — MongoDB 3.x `mongo` shell is gone under FerretDB;
-  replace with a `mongosh`/FerretDB-compatible call or a WeKan REST/settings call.
+Confirm with Univention that a long-running `preinst` is supported for the largest
+expected databases, including the timeout and progress handling. Check that the
+remaining upgrade lifecycle accepts the stopped old main container. These are
+**release blockers to test**, not assumptions already verified here.
 
-### 4b. `wekan/wekan` (`release-all.yml`)
-Add a **`ucs`** job (after the `docker` job that publishes the WeKan image) that:
-1. Checks out `wekan/univention` (using `WEKAN_REPO_TOKEN`, see §5).
-2. Regenerates `component/compose` and the `.ini` with the **new release version** and
-   the new image tags (FerretDB SQLite + files volume).
-3. Commits/pushes those to `wekan/univention`.
-4. **Publishes to the Univention App Provider** with `univention-appcenter-control`
-   (upload the app version + component + logos), authenticating with the App Provider
-   credentials (§5). Univention then mirrors the referenced public WeKan/FerretDB Docker
-   images into `docker.software-univention.de/` and the new version appears in users'
-   **App Center / Update Center**.
+UCS substitutes `@%@...@%@` and `@!@...@!@` in the compose template. Do not run the
+raw template through Docker Compose; validate the rendered file on UCS. See the
+[UCS configuration and upgrade-hook documentation](https://docs.software-univention.de/app-center/5.2/en/configurations.html).
 
-### 4c. `wekan/FerretDB`
-- Ensure a **FerretDB v1 binary/image** for the UCS arch (amd64 at least) is published on
-  each release (`ferretdb-amd64` already is) so §2's `ferretdb` image / the WeKan image's
-  embedded binary can be built from it.
+### 3. Test the actual portal upgrade on a disposable UCS VM
 
----
+Take a VM snapshot, install 6.09, and seed representative data before enabling the
+[Test App Center](https://docs.software-univention.de/app-center/5.2/en/lifecycle.html#test-app-center).
+Use the portal's **Upgrade** action, not only a direct invocation of `preinst`.
 
-## 5. GitHub secrets / keys to add (`wekan/wekan`)
+- Verify boards, lists, swimlanes, cards, comments, users and permissions. Let the
+  new app complete its normal schema migrations on first startup.
+- Download pre-upgrade attachments and compare their hashes after migration.
+  Include images, PDFs, non-ASCII filenames, large and empty files, CollectionFS
+  attachments, Meteor-Files GridFS versions, avatars and card covers. Open/download
+  them in the browser, and upload a new file after upgrading.
+- Test activated LDAP users, Domain Admin membership, rejected inactive users,
+  the local administrator, ROOT_URL `/wekan`, WebSockets and mail settings.
+- Test a fresh install and a later upgrade from the migrated release. Neither
+  should try to import the old MongoDB again.
+- Test missing source, failed image pull, dump failure, insufficient disk space,
+  truncated GridFS chunks, interrupted worker and a retry after the old app has
+  accepted new writes. Failure must appear in the portal and must not start an
+  empty new app. Retries must take a new snapshot, not reuse stale copied data.
+- Restart WeKan through UCS, then reboot the VM. Verify only `wekan-app` and
+  `wekan-db` run for this app. `wekan-db` must run `/build/ferretdb`; neither
+  `wekan-ucs-migration` nor `wekan-ucs-migration-db` may remain.
+- Exercise rollback on the test VM using the saved rendered compose and retained
+  MongoDB directory. Record the steps for the UCS version being released.
 
-| Secret | New or existing | What it is | Why |
-|---|---|---|---|
-| **`UNIVENTION_APP_PROVIDER_USER`** | **new** | Univention App Provider account (email/username) | Authenticate `univention-appcenter-control` to upload the app version. |
-| **`UNIVENTION_APP_PROVIDER_PASSWORD`** | **new** | App Provider password or API token | Same. |
-| **`UNIVENTION_REGISTRY_AUTH`** | **new, only if pushing images yourself** | Credentials for `docker.software-univention.de` | Only if you push WeKan/FerretDB images directly instead of letting the App Provider mirror public images. Usually **not needed** — Univention mirrors public Docker Hub/GHCR images at ingestion. |
-| **`WEKAN_REPO_TOKEN`** | **extend existing** | GitHub PAT with write to other `wekan/*` repos | Add `wekan/univention` to its scope so the `ucs` job can push the regenerated compose/meta. |
+Local validation so far covers shell/JavaScript syntax and isolated mocked-Docker
+regression tests. **No real Docker image build, UCS portal upgrade, database copy,
+LDAP/browser test or reboot test has been run in this development environment.**
+Do not approve the production release on the strength of the mocked tests alone.
 
-No new Docker Hub/Quay/GHCR secrets are needed — the WeKan image is already published by
-the existing `docker` job (`DOCKERHUB_AUTH`/`QUAY_AUTH`/`GHCR_AUTH`), and Univention pulls
-the public image.
+### 4. Finish release automation before relying on it
 
-> **App Provider access:** the account must be a registered **Univention App Provider**
-> with the `wekan` app assigned. `univention-appcenter-control` (from the
-> `univention-appcenter-dev` tools) is the CLI that uploads app versions; get it and the
-> account from https://www.univention.com/products/univention-app-center/ (App Provider
-> self-service).
+The `ucs` job already exists in
+[release-all.yml](../../../.github/workflows/release-all.yml), but it is incomplete:
 
----
+- Its tag replacement matches the old `wekan-wekan:` image name, not the new
+  GHCR references. It must update the app and migration-helper versions together.
+- It does not build or publish `wekan-ucs-migration`.
+- It calls `univention/releases/fetch.sh`, which is absent from the companion
+  repository. Fetch the official Provider Portal CLI using a valid helper/path.
+- It only prints an intended upload; it does **not** execute it. Implement app
+  version creation and the explicit file uploads using the real UCS section and
+  app identifier, for example `5.2/wekan=12.28` if that is the tested target.
+- The job has `continue-on-error: true`; a successful overall GitHub release does
+  not prove a UCS version was published or accepted.
 
-## 6. Migration env → script mapping (reference)
+Configure `UNIVENTION_APP_PROVIDER_USER` and `UNIVENTION_APP_PROVIDER_PASSWORD` in
+GitHub Actions, and give `WEKAN_REPO_TOKEN` access to `wekan/univention`. Configure
+registry publishing credentials for the helper if the chosen release mechanism
+needs them. `UNIVENTION_REGISTRY_AUTH` is needed only if your publishing arrangement
+requires authenticated writes to Univention's registry. Do not commit credentials.
 
-| Step | Script | Key env |
-|---|---|---|
-| Mongo 3.x → FerretDB (text + GridFS) | `migrate-mongo3-to-ferretdb.mjs` | `MONGO_BIN_DIR`, `MONGO_LIB`, `SRC_PORT`, `SRC_DB=wekan`, `TARGET_MONGO_URL`, `FILES_DIR`, `MIGRATION_PORT` |
-| Remaining GridFS → filesystem | `migrate-gridfs-to-fs.mjs` | `SOURCE_MONGO_URL` (FerretDB), `WRITABLE_PATH` (→ `files/attachments`, `files/avatars`) |
+Get the official CLI and account-specific upload commands from the
+[Provider Portal upload documentation](https://docs.software-univention.de/app-center/5.2/en/lifecycle.html#app-provider-portal-upload-interface).
+First release manually through the Test App Center if necessary; automation is
+not a substitute for migration acceptance testing.
 
-Both are re-runnable/idempotent (skip files already at destination), so a retried upgrade
-is safe.
+### 5. Obtain release approval and verify availability
 
----
+After the VM upgrade and rollback tests pass, approve the tested app version in
+the Provider Portal and coordinate Univention's approval/mirroring. Verify that
+an ordinary production UCS installation offers the new version and that its
+Upgrade action performs the migration automatically. Until then, describe 12.28
+as the **prepared UCS upgrade**, not as already available in the production catalog.
 
-## 7. Checklist
+## Storage, retry and rollback reference
 
-- [ ] Register/obtain a **Univention App Provider** account with the `wekan` app assigned
-- [ ] Add secrets `UNIVENTION_APP_PROVIDER_USER` / `UNIVENTION_APP_PROVIDER_PASSWORD`
-      (and `UNIVENTION_REGISTRY_AUTH` only if pushing images yourself)
-- [ ] Extend `WEKAN_REPO_TOKEN` scope to include `wekan/univention`
-- [ ] `wekan/FerretDB`: publish the FerretDB v1 SQLite binary/image per release (done for amd64)
-- [ ] `wekan/univention`: new FerretDB-SQLite `component/compose` + `data/files` volume
-- [ ] `wekan/univention`: migration lifecycle step wrapping the two `.mjs` scripts (§3)
-- [ ] `wekan/univention`: fix `component/inst` default-settings seeding (no MongoDB `mongo` shell)
-- [ ] `release-all.yml`: add the `ucs` job (regenerate + push app, upload via
-      `univention-appcenter-control`) (§4b)
-- [ ] Test upgrade on a UCS VM: WeKan 6.09/MongoDB 3.x → 10.x/FerretDB; verify boards,
-      attachments, avatars, and LDAP login survive
-- [ ] Confirm the new version appears in the UCS **App Center / Update Center**
+All paths below are under `/var/lib/univention-appcenter/apps/wekan/data/`:
 
-## See also
+| Path | Purpose |
+| --- | --- |
+| `db/` | Original MongoDB data; retained, never mounted by the new compose |
+| `dump/ucs-<timestamp>-<pid>/` | MongoDB dump, old rendered compose, container configuration |
+| `ferretdb/files/db/` | Active FerretDB SQLite data |
+| `ferretdb/files/attachments/` | Migrated attachment files |
+| `ferretdb/files/avatars/` | Migrated avatar files |
+| `ferretdb/.ucs-migration-complete` | Gate allowing the new application to start |
+| `ferretdb/ucs-migration-status.json` | Migration result and diagnostics |
+| `ferretdb-before-<timestamp>-<pid>/` | Previous attempt retained when retrying 6.09 upgrade |
 
-- [docs/Platforms/FOSS/Container/UCS](../../Platforms/FOSS/Container/UCS) — the user-facing UCS page.
-- [Snap-Core.md](Forks/Snap-Core.md) — the snap build that already runs the same MongoDB→FerretDB migration.
-- [Snap-Ondra-Gantt.md](Snap-Ondra-Gantt.md) — the same "push to a downstream repo + publish"
-  pattern for variant snaps.
-- [Linux.md](OS/Linux.md) — Docker in the broader Linux update picture.
+Keep backups private: they contain user data, password hashes and LDAP/mail
+configuration. Back up the active SQLite database and attachment/avatar directories
+as one consistent set, preferably while the two services are stopped. Never copy
+SQLite alone and assume it contains the attachment binaries.
+
+A failed migration cancels the upgrade and restarts the old app when possible.
+Failure later in the App Center lifecycle may require UCS recovery: stop the new
+services, restore the saved old app definition through UCS, and use the original
+MongoDB data with the old image. Changes made on the new app after cutover are
+not present in the old database. Do not delete either copy during investigation.
+Do not create the completion marker by hand to bypass a failed migration.
+
+See the [UCS user guide](../../Platforms/FOSS/Container/UCS/README.md).

@@ -12,9 +12,61 @@
 - Univention VM can be standalone, or replace Windows Server Active Directory, or join to existing Active Directory. Has web UI, LDAP server, Users/Groups management, adding user to app.
 - WeKan ® LDAP login is integrated to Univention LDAP. Create at Univention web UI at Users management LDAP Domain Admin user, and add WeKan ® app for that user, to get WeKan ® Admin Panel. Normal users don't have Admin Panel.
 - Has WeKan ® . From App Center you can install RocketChat, WordPress, OnlyOffice, NextCloud, OpenXChange, etc. Some apps are full free versions, some other apps require payment for more features. WeKan ® is full free version.
-- WeKan ® on Univention is based WeKan ® Docker version. Upgrading all apps on Univention upgrades also WeKan ® to newest available WeKan ® version.
-- Newer version of WeKan ® will be released when building and testing is done.
+- WeKan ® on Univention uses Docker. UCS App Center offers the newest WeKan version that has been published and approved for your UCS version; this can differ from the newest upstream release.
+- The prepared upgrade from 6.09 targets WeKan 12.28 with FerretDB SQLite. It still needs image publication and testing/approval in the UCS App Center before production availability.
 - [RocketChat Webhook workaround](https://github.com/wekan/univention/issues/15)
+
+## Prepared upgrade: WeKan 6.09 → 12.28
+
+The new UCS app definition is designed to migrate automatically when you select
+**Upgrade** for WeKan in the UCS App Center portal. You should not need to run a
+separate migration command. This upgrade is **not yet verified or published for
+production UCS**; wait until the tested version is offered in your App Center.
+
+During the upgrade, WeKan is temporarily unavailable while its database and
+attachments are copied and checked. MongoDB collections move to **FerretDB v1
+with SQLite**. Attachments and avatars stored in MongoDB move to the
+**filesystem**, keeping their links to cards and users. UCS LDAP, mail and
+ROOT_URL settings remain part of the app configuration.
+
+After a successful upgrade, starting WeKan runs only two Docker containers:
+
+- `wekan-app`: the new WeKan application.
+- `wekan-db`: FerretDB with the SQLite backend.
+
+The migration containers are removed. MongoDB no longer runs for this app;
+its original data remains on disk for rollback.
+
+Before upgrading, take a UCS VM snapshot or a tested backup and allow maintenance
+time and enough free disk space for the old data, backup and migrated copy. The
+upgrade checks available space before dumping the database. If migration fails,
+it cancels the upgrade and attempts to restart the old application. Do not delete
+the old database or bypass the migration completion check.
+
+### Where the data lives
+
+Paths are below `/var/lib/univention-appcenter/apps/wekan/data/`:
+
+| Path | Contents |
+| --- | --- |
+| `ferretdb/files/db/` | Active SQLite database after migration |
+| `ferretdb/files/attachments/` | Attachments on the filesystem |
+| `ferretdb/files/avatars/` | Avatars on the filesystem |
+| `db/` | Retained original MongoDB data |
+| `dump/ucs-<timestamp>-<pid>/` | Pre-upgrade dump and configuration backup |
+
+Back up the active database **and** both file directories together. Stop the app
+and database before a filesystem backup to keep them consistent. Keep the old
+MongoDB data and pre-upgrade backup until the migrated app has been checked and
+you have a tested backup of the new storage.
+
+After upgrading, check LDAP login, board/card counts, comments, old attachment
+downloads, avatars and new uploads. Restart through UCS and verify the same data
+is present. Upgrade logs are in `/var/log/univention/appcenter.log`; the migration
+result is in `data/ferretdb/ucs-migration-status.json` under the app directory.
+
+For the maintainer's remaining build, publication and UCS test steps, see
+[UCS automatic upgrade design](../../../../Design/Autoupdate/UCS.md).
 
 ## Feature Requests and Bugs
 
@@ -44,6 +96,7 @@ UCS WeKan v5.71 and newer is using WeKan Gantt GPL version. [Source](https://git
 
 ![ucs-mail-3](https://user-images.githubusercontent.com/15545/78279359-129e7800-7520-11ea-9e22-a911826285ba.png)
 
-# Repairing MongoDB
+## Repairing the legacy MongoDB installation
 
-[Repair MongoDB](../../../../Backup/Repair-MongoDB.md)
+[Repair MongoDB](../../../../Backup/Repair-MongoDB.md) applies to the old 6.09
+installation and retained MongoDB backup, not the new FerretDB SQLite database.
