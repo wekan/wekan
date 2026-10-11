@@ -532,7 +532,8 @@ choices.
 
 This release has the following developer-tooling fix:
 
-- [Setup installs Meteor with --foreground-script, because npm 11 refuses --unsafe-perm](https://github.com/wekan/wekan/commit/5c9334b76c).
+- [Setup installs Meteor with --foreground-scripts, because npm 12 refuses --unsafe-perm](https://github.com/wekan/wekan/commit/5c9334b76c)
+  and [the abbreviated --foreground-script](https://github.com/wekan/wekan/commit/3c755c1855).
   Thanks to xet7.
 
 and updates the following translations:
