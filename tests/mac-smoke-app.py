@@ -10,14 +10,46 @@ import sys
 import tempfile
 import time
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 spec = importlib.util.spec_from_file_location('smoke', Path(__file__).resolve().parents[1] / 'releases/mac/smoke-app.py')
+real_run = subprocess.run
+
 smoke = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(smoke)
 
 
 class MacSmoke(unittest.TestCase):
+    def test_permission_error_only_ignored_for_dead_groups(self):
+        for sig in (0, signal.SIGTERM, signal.SIGKILL):
+            for listing in ('', '123 Z\n123 Z+\n456 S\n'):
+                with self.subTest(sig=sig, listing=listing), \
+                     patch.object(smoke.os, 'killpg', side_effect=PermissionError(1, 'denied')), \
+                     patch.object(smoke.subprocess, 'check_output', return_value=listing):
+                    self.assertFalse(smoke.signal_group(123, sig))
+            with self.subTest(sig=sig, live=True), \
+                 patch.object(smoke.os, 'killpg', side_effect=PermissionError(1, 'denied')), \
+                 patch.object(smoke.subprocess, 'check_output', return_value='123 Z\n123 S\n'):
+                with self.assertRaises(PermissionError):
+                    smoke.signal_group(123, sig)
+
+    def test_failed_process_inspection_is_not_success(self):
+        with patch.object(smoke.os, 'killpg', side_effect=PermissionError(1, 'denied')), \
+             patch.object(smoke.subprocess, 'check_output',
+                          side_effect=subprocess.CalledProcessError(1, ['ps'])):
+            with self.assertRaises(subprocess.CalledProcessError):
+                smoke.signal_group(123, 0)
+
+    def test_darwin_shutdown_race_reaps_launcher(self):
+        process = Mock(pid=123)
+        # TERM succeeds, then both the existence probe and KILL see zombies.
+        with patch.object(smoke.os, 'killpg', side_effect=[None,
+                          PermissionError(1, 'denied'), PermissionError(1, 'denied')]), \
+             patch.object(smoke.subprocess, 'check_output', return_value='123 Z\n'):
+            smoke.stop_app(process, grace=.1)
+        process.poll.assert_called_once()
+        process.wait.assert_called_once_with(timeout=5)
+
     def test_success_and_failure_stop_term_resistant_descendants(self):
         for ready in (True, False):
             with self.subTest(ready=ready), tempfile.TemporaryDirectory() as tmp:
@@ -27,6 +59,8 @@ class MacSmoke(unittest.TestCase):
                 # Like the actual shell launcher: wait for a foreground child.
                 command = ['bash', '-c', 'trap "exit 0" TERM; "$@"; wait', 'launcher', sys.executable, '-c', child]
                 def probe(*args, **kwargs):
+                    if args[0][0] != 'curl':
+                        return real_run(*args, **kwargs)
                     deadline = time.monotonic() + 2
                     while not pidfile.exists() and time.monotonic() < deadline:
                         time.sleep(.01)
@@ -44,7 +78,9 @@ class MacSmoke(unittest.TestCase):
 
     def test_early_exit_preserves_failure(self):
         with tempfile.TemporaryDirectory() as tmp:
-            with patch.object(smoke.subprocess, 'run', return_value=subprocess.CompletedProcess([], 7)):
+            with patch.object(smoke.subprocess, 'run', side_effect=lambda *a, **kw:
+                              subprocess.CompletedProcess(a[0], 7) if a[0][0] == 'curl'
+                              else real_run(*a, **kw)):
                 self.assertFalse(smoke.smoke(['sh', '-c', 'echo startup-failed; exit 9'],
                                             'http://unused', Path(tmp) / 'app.log', timeout=.5, grace=.1))
 
@@ -74,7 +110,11 @@ class MacSmoke(unittest.TestCase):
 
     def test_probe_exception_still_cleans_up(self):
         with tempfile.TemporaryDirectory() as tmp:
-            with patch.object(smoke.subprocess, 'run', side_effect=RuntimeError('probe failed')):
+            def probe(*args, **kwargs):
+                if args[0][0] == 'curl':
+                    raise RuntimeError('probe failed')
+                return real_run(*args, **kwargs)
+            with patch.object(smoke.subprocess, 'run', side_effect=probe):
                 with self.assertRaisesRegex(RuntimeError, 'probe failed'):
                     smoke.smoke(['sleep', '60'], 'http://unused', Path(tmp) / 'app.log', grace=.1)
 

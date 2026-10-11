@@ -136,6 +136,9 @@ jobs:
           MAC_ARCH: ${{ matrix.arch }}
         run: |
           set -euo pipefail
+          mkdir -p "$PWD/.tools/tmp"
+          export TMPDIR="$PWD/.tools/tmp"
+          python3 -B tests/mac-smoke-app.py
           app="$PWD/dist/WeKan-${VERSION}-mac-${MAC_ARCH}.app"
           command="$app/Contents/Resources/launch-wekan.command"
           export WRITABLE_PATH="$PWD/.tools/tmp/mac-smoke-data"

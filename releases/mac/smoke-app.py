@@ -15,6 +15,17 @@ def signal_group(pid, sig):
         return True
     except ProcessLookupError:
         return False
+    except PermissionError:
+        # Darwin can return EPERM for a group containing only zombies. Verify
+        # that no live member remains before treating it as a stopped group;
+        # a real permission failure must still fail the smoke test.
+        listing = subprocess.check_output(
+            ['ps', '-axo', 'pgid=,stat='], text=True, timeout=3)
+        for line in listing.splitlines():
+            group, state = line.split()
+            if int(group) == pid and not state.startswith('Z'):
+                raise
+        return False
 
 
 def stop_app(process, grace=5):
@@ -51,9 +62,11 @@ def smoke(command, url, log, timeout=180, grace=5):
             print('::error::The bundled Mac app did not start WeKan with FerretDB.', flush=True)
             return False
         finally:
-            stop_app(process, grace)
-            with log.open(errors='replace') as lines:
-                print(''.join(deque(lines, maxlen=100)), end='', flush=True)
+            try:
+                stop_app(process, grace)
+            finally:
+                with log.open(errors='replace') as lines:
+                    print(''.join(deque(lines, maxlen=100)), end='', flush=True)
 
 
 def interrupted(signum, frame):
