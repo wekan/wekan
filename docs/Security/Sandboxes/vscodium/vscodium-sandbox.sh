@@ -1,9 +1,10 @@
 # Reset previous attempts
-sudo flatpak kill com.vscodium.codium
-sudo flatpak override --reset com.vscodium.codium
+#flatpak kill com.vscodium.codium
+flatpak install -y com.vscodium.codium
+flatpak override --reset com.vscodium.codium
 
 # Block EVERYTHING except the display and the wekan folder
-sudo flatpak override com.vscodium.codium \
+flatpak override com.vscodium.codium \
   --nofilesystem=home \
   --nofilesystem=host \
   --nofilesystem=xdg-run/gvfs \
