@@ -28,7 +28,12 @@ const { verify } = require('../releases/verify-mime-runtime.cjs');
     await assert.rejects(detectMimeBuffer('not bytes'), TypeError);
     console.log('ok - portable MIME detection, concurrent initialization and negative inputs');
     const manifest = require('../package.json');
-    assert.equal(manifest.dependencies.wasmagic, '1.0.10');
+    // An exact pin, and the one the lockfile installs. Not a literal version
+    // here: Dependabot bumps package.json and the lockfile together, and a
+    // copy of the number in this test went stale at the first bump.
+    assert.match(manifest.dependencies.wasmagic, /^\d+\.\d+\.\d+$/);
+    const lock = require('../package-lock.json');
+    assert.equal(lock.packages['node_modules/wasmagic'].version, manifest.dependencies.wasmagic);
     const snap = fs.readFileSync(path.resolve('snapcraft.yaml'), 'utf8');
     assert.match(snap, /stage-packages:\s*- file\s*- libmagic-mgc/);
     const setup = fs.readFileSync(path.resolve('build.sh'), 'utf8');

@@ -107,7 +107,8 @@ test('a new shell finds nvm too', () => {
 test('Meteor is still installed the same way afterwards', () => {
   // The point of the branch is Node; everything after it is unchanged.
   assert.ok(/npx -y meteor/.test(code));
-  assert.ok(/export PATH=~\/\.meteor:\$PATH/.test(code));
+  // Spelled with "$HOME" since 0dbf9d8502, the same line as the Linux branch.
+  assert.ok(/export PATH="\$HOME\/\.meteor:\$PATH"/.test(code));
 });
 
 test('and Linux is untouched - it installs Node its own way', () => {

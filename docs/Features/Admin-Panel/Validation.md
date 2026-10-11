@@ -105,11 +105,11 @@ are not reachable from the current Admin Panel menu. Current storage panes use
 | Security (`security`) | [settings.js](../../../models/settings.js) | Rich-text and import/export policies, enforced by renderers and server guards. |
 | Delete (`delete`) | [settings.js](../../../server/models/settings.js) | Explicit administrator permanent-delete setting; purge remains a separate action. |
 | Notifications (`notifications`) | [settings.js](../../../models/settings.js) | Activity, notification and watching switches; separate from delivery preferences. |
-| Security Report (`security-report`) | [eventlog.js](../../../models/eventlog.js) | Recorded security events, search, detail and acknowledgement. |
+| Security Report (`security-report`) | [eventLog.js](../../../models/eventLog.js) | Recorded security events, search, detail and acknowledgement. |
 | Impersonation Report (`impersonation`) | [impersonationReport.js](../../../server/publications/impersonationReport.js) | Scoped event publication and counts. |
 | Performance (`performance`) | [adminProblems.js](../../../client/components/settings/adminProblems.js) | Persisted performance options; card loading uses the active loading policy. |
-| Speed (`speed`) | [eventlog.js](../../../models/eventlog.js) | Recorded speed events; no events is a valid empty report. |
-| Tests (`tests`) | [eventlog.js](../../../models/eventlog.js) | Recorded test results; opening the pane does not run every repository test. |
+| Speed (`speed`) | [eventLog.js](../../../models/eventLog.js) | Recorded speed events; no events is a valid empty report. |
+| Tests (`tests`) | [eventLog.js](../../../models/eventLog.js) | Recorded test results; opening the pane does not run every repository test. |
 | CPU usage (`cpu`) | [systemStatus.js](../../../server/methods/systemStatus.js) | CPU detail and recorded governor events. |
 | Instrumentation (`instrumentation`) | [instrumentationReport.js](../../../server/methods/instrumentationReport.js) | Local Meteor operation counters; no external telemetry upload. |
 | Broken Cards (`broken-cards`) | [repairBrokenCards.js](../../../server/methods/repairBrokenCards.js) | Broken-card repair and reports, with administrator checks. |
@@ -119,7 +119,7 @@ are not reachable from the current Admin Panel menu. Current storage panes use
 | Cards (`cards`) | [cards.js](../../../server/publications/cards.js) | Card report with server-side counts and pagination. |
 | Recovery (`recovery`) | [recovery.js](../../../server/recovery.js) | Recorded maintenance/recovery events and actions; actual corruption recovery is a separate destructive scenario. |
 | Offices (`office`) | [loginOffices.js](../../../server/methods/loginOffices.js) | People/address counts, location summaries and IPv4/IPv6 evidence. |
-| API (`api`) | [eventlog.js](../../../models/eventlog.js) | Recorded REST endpoint usage and actors. |
+| API (`api`) | [eventLog.js](../../../models/eventLog.js) | Recorded REST endpoint usage and actors. |
 | Database problems (`database`) | [databaseProblems.js](../../../server/lib/databaseProblems.js) | Database event ingestion/classification and problem reporting. |
 | Filesystem integrity (`integrity`) | [fileIntegrityScan.js](../../../server/lib/fileIntegrityScan.js) | Integrity scans/baselines plus file-status audit; scans report their coverage limits. |
 

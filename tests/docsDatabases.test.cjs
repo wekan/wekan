@@ -51,10 +51,13 @@ test('one directory per database, and the expected files in them', () => {
   }
   assert.ok(fs.existsSync(path.join(DB, 'FerretDB', '2', 'PostgreSQL.md')));
   assert.ok(fs.existsSync(path.join(DB, 'ToroDB', 'PostgreSQL', 'docker-compose.yml')));
-  // Nothing left loose at the top: only the index.
-  const top = fs.readdirSync(DB).filter(n => fs.statSync(path.join(DB, n)).isFile());
-  assert.deepStrictEqual(top, ['README.md'],
-    'the only file directly in docs/Databases is its README.md');
+  // Nothing left loose at the top: only the index, and Supported.md - the one
+  // page about ALL the databases (which are supported and how each is tested),
+  // linked from README.md and CHANGELOG.md's Status, so it belongs to no single
+  // database's directory.
+  const top = fs.readdirSync(DB).filter(n => fs.statSync(path.join(DB, n)).isFile()).sort();
+  assert.deepStrictEqual(top, ['README.md', 'Supported.md'],
+    'the only files directly in docs/Databases are README.md and Supported.md');
 });
 
 test('every directory has a README.md, which is what a reader opens first', () => {
