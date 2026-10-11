@@ -531,7 +531,7 @@ persistent FerretDB SQLite storage. The companion and publisher are implemented;
 a real Docker build and Nextcloud/HaRP deployment still need validation before
 production publication.
 
-This release adds the following new feature:
+This release adds the following feature and fixes:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a325cfe991">Nextcloud ExApp sign-in and persistent SQLite packaging</a>. Thanks to xet7.</summary>
@@ -550,6 +550,30 @@ access, lifecycle callbacks and WebSocket forwarding. A real-deployment browser
 suite is registered and syntax-checked, but was not run: Docker, Nextcloud and
 HaRP are unavailable here. Signing credentials, registration and live deployment
 checks remain documented in `docs/Design/Autoupdate/Nextcloud.md`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3c085a2d71">Fix Mac app smoke-test cleanup after successful startup</a>. Thanks to xet7.</summary>
+
+Handle macOS process-group permission errors when only exited processes remain.
+Inspect process state before ignoring the error, retain failures for live
+processes, and print the app log even if cleanup fails. Regression tests cover
+zombie groups, live permission failures, failed inspection and bounded shutdown.
+The workflow now runs these tests on both Mac architectures. Local Linux tests
+passed; the packaged app still needs a macOS workflow run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a1e97a18c4">Remove plaintext UCS provider password files (CodeQL alert 561)</a>. Thanks to xet7.</summary>
+
+Pass the provider password to each CLI invocation through an anonymous stdin
+pipe instead of writing a temporary credential file. Remove the password from
+the child environment and retain redacted failure messages. Offline tests verify
+repeated CLI authentication, no password file creation and failure redaction.
+UCS/Nextcloud workflow checks pass; CodeQL and a credentialed portal run remain
+for CI. No portal writes were performed during development.
 
 </details>
 
