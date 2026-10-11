@@ -531,9 +531,29 @@ that **node-patches** already publishes. The **CPU platform** design document
 now matches what the node-patches and **FerretDB** releases build and what
 WeKan actually ships, and the platform pages are **reorganized** under
 `docs/Platforms`. **UCS upgrades** use migration tools bundled in the ordinary
-WeKan image and can obtain both images from Univention alone.
+WeKan image and can obtain both images from Univention alone. A dropped
+**card** no longer flickers by showing in both lists at once.
 
 This release fixes the following bugs:
+
+**Card drag and drop** - what is shown between the drop and the saved move.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a8323cc39c">A dropped card is no longer shown in both lists at once</a>. Thanks to mimZD and xet7.</summary>
+
+The drop handler must call `sortable('cancel')`, which puts the dragged card
+back at its source until Blaze re-renders the move. The drop preview filled the
+target slot during that gap, but the card also stayed visible at its source,
+so on a large board it was drawn twice until the source list caught up. That
+is the flicker in the reporter's newest video on
+[#6430](https://github.com/wekan/wekan/issues/6430). The card left at the
+source is now hidden until Blaze removes or moves it. A reorder within one list
+no longer jumps the card back to its old place first. A rejected move, or one
+that does not arrive within 10 seconds, shows the card again where it is.
+`tests/cardDropPreviewSource.test.cjs` covers these cases on a minimal DOM,
+and `37-card-drag-sort.e2e.js` checks the source list during the drop.
+
+</details>
 
 **Windows bundles** - restore the 32-bit build.
 
