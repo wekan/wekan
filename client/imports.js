@@ -95,6 +95,7 @@ import '/client/features/users';
 // Presence for Admin Panel > People (#3678, #3734): periodic last-active
 // heartbeat for the current session.
 import '/client/lastActiveHeartbeat';
+import '/client/nextcloud';
 import '/client/features/activities';
 import '/client/features/boardConversion';
 import '/client/features/gantt';

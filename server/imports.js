@@ -165,6 +165,7 @@ import '/server/eventLogSummaryStartup';
 import '/server/authentication';
 import '/server/cors';
 import '/server/header-login';
+import '/server/nextcloud';
 import '/server/max-image-pixel';
 import '/server/max-size';
 import '/server/policy';

@@ -337,7 +337,8 @@ if (Meteor.isServer) {
         // Otherwise require a signed-in requester who may read the board: a
         // member, or anybody signed in on an 'instance' board (#3249).
         const token = extractLoginToken(req);
-        const user = token ? await getUserFromToken(token) : null;
+        const user = process.env.NEXTCLOUD_EXAPP === 'true'
+          ? await getNextcloudRequestUser(req) : token ? await getUserFromToken(token) : null;
         if (user && board && board.hasMember && board.hasMember(user._id)) return true;
         if (user && board && readableWithoutMembership(board.permission, true)) return true;
         return false;
@@ -345,7 +346,8 @@ if (Meteor.isServer) {
 
       // 2) Authenticated request without explicit board context
       const token = extractLoginToken(req);
-      const user = token ? await getUserFromToken(token) : null;
+      const user = process.env.NEXTCLOUD_EXAPP === 'true'
+          ? await getNextcloudRequestUser(req) : token ? await getUserFromToken(token) : null;
       if (user) return true;
 
       // 3) Allow if avatar owner is on any public board (so avatars are public only when on public boards)
@@ -455,8 +457,13 @@ if (Meteor.isServer) {
   }
 
   /**
-   * Resolve a user from a raw login token string
+   * Resolve the identity already verified by the Nextcloud gateway.
    */
+  async function getNextcloudRequestUser(req) {
+    const userId = await require('/server/lib/requestUser').getUserIdFromRequest(req);
+    return userId ? await Meteor.users.findOneAsync(userId) : null;
+  }
+
   async function getUserFromToken(rawToken) {
     try {
       if (!rawToken || typeof rawToken !== 'string' || rawToken.length < 10) return null;
@@ -481,7 +488,8 @@ if (Meteor.isServer) {
       // Sandstorm already gated grain access; trust the platform (see isSandstormRequest).
       if (isSandstormRequest(req)) return true;
       const token = extractLoginToken(req);
-      const user = token ? await getUserFromToken(token) : null;
+      const user = process.env.NEXTCLOUD_EXAPP === 'true'
+          ? await getNextcloudRequestUser(req) : token ? await getUserFromToken(token) : null;
       // Files Report already publishes every attachment to site administrators.
       // Keep this exception local to attachment routes, not general board reads.
       if (user?.isAdmin === true && user.loginDisabled !== true) return true;

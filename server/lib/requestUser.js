@@ -104,6 +104,13 @@ export function isSandstormRequest(req) {
  *  try/catch will turn into a 500. */
 export async function getUserIdFromRequest(req) {
   try {
+    if (process.env.NEXTCLOUD_EXAPP === 'true') {
+      const { nextcloudIdentity, nextcloudUserId, matchesNextcloudUser } = require('/server/lib/nextcloudIdentity');
+      const identity = nextcloudIdentity(req?.headers);
+      if (!identity) return null;
+      const user = await Meteor.users.findOneAsync(nextcloudUserId(identity));
+      return matchesNextcloudUser(user, identity) && user.loginDisabled !== true ? user._id : null;
+    }
     if (isSandstormRequest(req)) {
       return req.headers['x-sandstorm-user-id'];
     }

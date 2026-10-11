@@ -11,27 +11,27 @@ support (`packages/wekan-oidc/`), both of which the Nextcloud paths below build 
 
 ## Remaining steps
 
-> **Status:** the standalone [nextcloud.yml](../../../.github/workflows/nextcloud.yml)
-> publisher runs only through a separate manual `workflow_dispatch`. Neither
-> `release-all.yml` nor `release-all-missing.yml` invokes it.
-> Missing credentials produce an explicit skip; configured publication failures
-> remain visible. The ExApp implementation, registration and deployment tests
-> listed below are still required.
+> **Status:** the ExApp implementation is now in `wekan/nextcloud` (local checkout
+> `.tools/nextcloud`), with opt-in Nextcloud authentication in WeKan. Local HTTP,
+> WebSocket, lifecycle and account-isolation tests pass. Docker builds and a live
+> Nextcloud/HaRP deployment have not yet been verified. The standalone
+> [nextcloud.yml](../../../.github/workflows/nextcloud.yml) runs only manually.
 
-1. **Create the ExApp repo `wekan/nextcloud`**: `appinfo/info.xml` with the
-   `<external-app>` block, the Node **AppAPI-handshake wrapper** (`/heartbeat`, `/enabled`,
-   `/init`, `AUTHORIZATION-APP-API` → WeKan user mapping), and a `Dockerfile` (WeKan +
-   embedded FerretDB SQLite). See §A1–A3.
-2. **Get the app signing certificate**: generate a key + CSR, PR the CSR to
-   `nextcloud/app-certificate-requests`, receive `wekan.crt`; then **register** the app at
-   `apps.nextcloud.com/developer/apps/new`. See §B2–B3.
-3. **Add secrets** `NEXTCLOUD_APP_PRIVATE_KEY`, `NEXTCLOUD_APP_PUBLIC_CRT`,
-   `NEXTCLOUD_APPSTORE_TOKEN`, and `GHCR_AUTH`; give `WEKAN_REPO_TOKEN` read access
-   to `wekan/nextcloud` for checkout.
-4. **Require HaRP** deploy daemon + Nextcloud 30/31+ (WebSocket/DDP) in the app docs; the
-   old proxy/Docker-Socket-Proxy can't carry WeKan's realtime.
-5. Test-deploy the ExApp on a Nextcloud + HaRP instance: OIDC login, DDP realtime,
-   attachments, and an AI `taskprocessing` call.
+1. **Publish a new WeKan image containing this integration.** The ExApp Dockerfile
+   and workflow require `/build/nextcloud-exapp-capability.json` and the bundled
+   FerretDB binary. An older image cannot acquire the Meteor authentication code
+   merely by wrapping it. Then publish the companion repository changes.
+2. **Test the image with Nextcloud 32–35, AppAPI and HaRP.** Verify two users,
+   explicit administrator IDs, private boards, WebSocket reconnect, attachments,
+   avatars, disable/re-enable, restart, volume-preserving upgrade and restore.
+   Support for that version range is declared but still needs live validation.
+3. **Get the app signing certificate** for app ID `wekan`, register it with the
+   App Store, and add `NEXTCLOUD_APP_PRIVATE_KEY`, `NEXTCLOUD_APP_PUBLIC_CRT`,
+   `NEXTCLOUD_APPSTORE_TOKEN`, `GHCR_AUTH`, and `WEKAN_REPO_TOKEN` with read access
+   to `wekan/nextcloud`.
+4. **Run `nextcloud.yml` separately** with the published WeKan version. It tests
+   the companion, builds amd64/arm64 ExApp images, signs the archive and submits it.
+   Neither `release-all.yml` nor `release-all-missing.yml` calls this workflow.
 
 **How to add a secret:** GitHub → the `wekan/wekan` repo → **Settings → Secrets and
 variables → Actions → New repository secret**; or `gh secret set NAME --repo wekan/wekan`
@@ -57,72 +57,65 @@ Store (the image lives in a registry the app references).
 
 ## A. Building WeKan for Nextcloud (what to add to the repos)
 
-### A1. A new repo: `wekan/nextcloud` (the ExApp)
-An ExApp is a Nextcloud app folder + a container:
+### A1. Companion repository implementation
 
-```
-wekan-exapp/
-├── appinfo/
-│   └── info.xml          # metadata + <external-app> (docker image + routes)
-├── ex_app/
-│   ├── lib/              # the AppAPI-handshake wrapper (Node) — see A2
-│   └── src/              # optional Vue frontend (adds a WeKan TopMenu entry)
-└── Dockerfile            # builds the ExApp image (wrapper + WeKan + DB)
-```
+`.tools/nextcloud` is the checkout of `wekan/nextcloud`:
 
-`appinfo/info.xml` — the distinguishing `<external-app>` block (scopes were removed in
-AppAPI 3.2.0; access is per-route via `access_level`):
-
-```xml
-<external-app>
-    <docker-install>
-        <registry>ghcr.io</registry>
-        <image>wekan/wekan-exapp</image>
-        <image-tag>v10.00</image-tag>
-    </docker-install>
-    <routes>
-        <route>
-            <url>.*</url>
-            <verb>GET,POST,PUT,DELETE</verb>
-            <access_level>USER</access_level>          <!-- PUBLIC | USER | ADMIN -->
-            <headers_to_exclude>[]</headers_to_exclude>
-            <bruteforce_protection>[401]</bruteforce_protection>
-        </route>
-    </routes>
-</external-app>
+```text
+appinfo/info.xml       App Store metadata, USER routes and admin-ID setting
+ex_app/gateway.mjs     AppAPI lifecycle, navigation, authenticated HTTP/WebSocket proxy
+ex_app/start.mjs       persistent storage, privilege drop, HaRP and process supervision
+Dockerfile            selected WeKan image plus the HaRP FRP client
+tests/gateway.test.mjs HTTP/WebSocket, authentication and lifecycle regression tests
+README.md             build, pre-store installation, storage and validation steps
 ```
 
-### A2. The AppAPI-handshake wrapper (the real work — there is no Node ExApp SDK)
-On deploy, AppAPI injects env vars (`APP_SECRET`, `APP_ID`, `APP_PORT`, `APP_HOST`,
-`NEXTCLOUD_URL`, `APP_PERSISTENT_STORAGE`, …) and drives a lifecycle the container **must**
-implement. Add a small Node/Express service (a sidecar, or routes fronting WeKan) that:
+The metadata requires Nextcloud 32–35 and a HaRP deploy daemon. `NEXTCLOUD_ADMIN_USERS`
+is a JSON array of exact Nextcloud IDs, for example `["admin"]`. Empty means no
+WeKan site administrators. A first visitor does not automatically become an admin. Set
+`WEKAN_PUBLIC_URL` to the browser-visible HaRP URL ending in `/exapps/wekan/` if
+the deploy daemon's `NEXTCLOUD_URL` is only an internal callback address.
 
-1. Serves **`GET /heartbeat`** → `{"status":"ok"}` (unauthenticated; polled up to ~90 s).
-2. Handles **`PUT /enabled?enabled=1|0`** → registers/removes the WeKan menu entry,
-   returns `{"error":""}`.
-3. Optionally **`POST /init`** → returns `{}` immediately, then reports progress `1..100`
-   via `PUT /ocs/v1.php/apps/app_api/ex-app/status`.
-4. Binds WeKan on `APP_PORT`/`APP_HOST`, stores data under `APP_PERSISTENT_STORAGE`.
-5. Trusts Nextcloud-proxied requests via the shared-secret headers
-   (`AUTHORIZATION-APP-API` = `base64(userid:secret)`, `EX-APP-ID`, `EX-APP-VERSION`,
-   `AA-VERSION`) and **maps the Nextcloud `userid` to a WeKan user** (JIT-provision).
-6. To call back into Nextcloud, sends the same `AUTHORIZATION-APP-API` header.
+### A2. Nextcloud sign-in and lifecycle
 
-Mirror the contract from the Python skeleton (`nextcloud/app-skeleton-python`) and the
-Authentication/Deployment docs (§B). `nc_py_api` supplies this for Python; **Node has no
-official SDK**, so it's a small custom service.
+The gateway checks AppAPI's shared-secret headers on HTTP and WebSocket requests.
+It replaces incoming identity headers with a signature made using a random key
+known only to the gateway and the child WeKan process. WeKan's opt-in
+`server/nextcloud.js` login handler reads the identity from the DDP connection,
+not from user-supplied login arguments. Resume tokens cannot switch to another
+Nextcloud user's account. Accounts are isolated by Nextcloud URL and user ID;
+no username/email matching is used. The normal disabled-user check still applies.
+HTTP file requests use the same identity. Other WeKan deployments are unaffected
+unless `NEXTCLOUD_EXAPP=true` is explicitly set.
 
-### A3. Two hard constraints for WeKan specifically
-- **WebSockets/DDP:** WeKan's realtime uses DDP over WebSockets. The **old** AppAPI proxy
-  did **not** support WebSockets — you must use the **HaRP** deploy daemon (Nextcloud
-  30/31+), which routes directly to the ExApp and supports WebSockets. (The classic
-  **Docker Socket Proxy** daemon is deprecated, slated for removal in Nextcloud 35.)
-- **Database:** AppAPI deploys a **single image**. WeKan's DB (FerretDB v1 SQLite, or
-  MongoDB) must be **bundled inside the ExApp image** (embedded `WEKAN_DB=ferretdb`, as
-  the snap does) or provided as an external service the wrapper points at — it can't be a
-  second compose service the way UCS does it. Embedding **FerretDB v1 SQLite** (from
-  [wekan/FerretDB](https://github.com/wekan/FerretDB)) with data under
-  `APP_PERSISTENT_STORAGE` is the clean fit.
+`GET /heartbeat` responds immediately while the app starts. System-authenticated
+`POST /init` reports progress to `/ocs/v1.php/apps/app_api/ex-app/status` once
+WeKan's capability/health endpoint is ready. `PUT /enabled` registers/removes the
+menu and its navigation script; disabling also closes active WebSocket tunnels.
+The menu opens the WeKan app through HaRP under `/exapps/wekan/`.
+
+All app routes require a Nextcloud user. Anonymous WeKan sharing outside
+Nextcloud is not available through this package. OIDC is still an option for a
+separately hosted WeKan, but is not required for this ExApp's sign-in.
+
+### A3. Container and persistent SQLite storage
+
+One AppAPI container contains three supervised services: the gateway, WeKan and
+FerretDB v1 SQLite. It uses the FerretDB binary already included in the selected
+WeKan image. WeKan and FerretDB listen only on loopback ports. An FRP child is
+started for HaRP tunnel mode; direct-connect mode uses `APP_HOST`/`APP_PORT`.
+The launcher initializes volume ownership as root, then drops to the WeKan UID.
+No Docker socket mount or privileged container is required.
+
+`WRITABLE_PATH=$APP_PERSISTENT_STORAGE/wekan`, with sibling directories
+`files/db`, `files/attachments`, and `files/avatars`. Keep the whole persistent
+volume across upgrades. Back it up with the container stopped and verify restore.
+This package installs a new instance; migration from another WeKan deployment is
+not automatic. SQLite recovery procedures for other packaging formats are not
+invoked by this launcher.
+
+The old Docker Socket Proxy path is not supported: WeKan needs HaRP WebSockets.
+See the companion README for `occ app_api:app:register` test-install instructions.
 
 ### A4. Standalone `nextcloud.yml` publishing workflow
 
@@ -147,7 +140,7 @@ Neither the companion branch nor the image's `latest` tag is changed: completing
 an older release must not roll back a newer version. The signing certificate must
 already be registered with the App Store; the workflow does not register or
 replace certificates. No live signing/publication was exercised during the
-refactor; the ExApp and credentials must exist before a real end-to-end test.
+implementation; live Nextcloud deployment validation and credentials remain required.
 
 ### A5. Secrets/keys to add (`wekan/wekan`)
 | Secret | New/existing | What it is |
@@ -156,7 +149,7 @@ refactor; the ExApp and credentials must exist before a real end-to-end test.
 | `NEXTCLOUD_APP_PUBLIC_CRT` | **new** | The Nextcloud-issued **certificate** (`APP_ID.crt`) |
 | `NEXTCLOUD_APPSTORE_TOKEN` | **new** | App Store developer API token (upload releases) |
 | `WEKAN_REPO_TOKEN` | **extend** | Add `wekan/nextcloud` to its repo scope |
-| `GHCR_AUTH`/`DOCKERHUB_AUTH` | existing | Already push WeKan images; reuse for the ExApp image |
+| `GHCR_AUTH` | existing | Base64-encoded `username:token` permitted to publish the ExApp image to GHCR |
 
 ---
 
@@ -169,7 +162,7 @@ block and references a container image instead of shipping PHP.
 - **`appinfo/info.xml`** — mandatory: `<id>` (= folder name), `<name lang="en">`,
   `<description lang="en">` (Markdown ok), `<version>` (semver), `<licence>` (SPDX,
   British spelling), `<author>`, `<bugs>` (tracker URL),
-  `<dependencies><nextcloud min-version="30" max-version="35"/></dependencies>`.
+  `<dependencies><nextcloud min-version="32" max-version="35"/></dependencies>`.
   Optional: `<summary>`, `<category>` (e.g. `organization`, `tools`, `integration`,
   `workflow`, `ai`), `<screenshot>` (HTTPS), `<website>`, `<repository>`, `<donation>`.
   For an ExApp, add the `<external-app>` block (§A1).
@@ -303,7 +296,7 @@ Kanboard, Planka, Focalboard) is a **separate app** that *integrates with* Nextc
 
 ## E. Checklist
 
-- [ ] New repo `wekan/nextcloud` (ExApp): `appinfo/info.xml` + `<external-app>`, Node
+- [x] Companion implementation `wekan/nextcloud` (ExApp): `appinfo/info.xml` + `<external-app>`, Node
       AppAPI-handshake wrapper, Dockerfile (WeKan + embedded FerretDB SQLite)
 - [ ] Obtain the app **signing certificate** (PR to `nextcloud/app-certificate-requests`)
       and **register** the app at apps.nextcloud.com
@@ -311,14 +304,37 @@ Kanboard, Planka, Focalboard) is a **separate app** that *integrates with* Nextc
       `NEXTCLOUD_APPSTORE_TOKEN`; extend `WEKAN_REPO_TOKEN` to `wekan/nextcloud`
 - [ ] Run `nextcloud.yml` separately for the selected published WeKan version
       (build ExApp image → regenerate info.xml → sign → `POST /api/v1/apps/releases`)
-- [ ] Require **HaRP** deploy daemon (WebSocket/DDP) and Nextcloud 30/31+ in the docs
+- [x] Require **HaRP** deploy daemon (WebSocket/DDP) and Nextcloud 32–35 in the docs
 - [ ] (Integrations) Document/point WeKan OIDC at Nextcloud `oidc` provider (SSO);
       optionally add Task Processing AI calls and a Deck sync bridge
-- [ ] Test: deploy the ExApp on a Nextcloud + HaRP instance; verify login (OIDC),
-      realtime (DDP over WebSocket), attachments, and an AI summarize call
+- [ ] Test: deploy the ExApp on a Nextcloud + HaRP instance; verify Nextcloud sign-in,
+      realtime (DDP over WebSocket), attachments, avatars, restart and volume retention
 
 ## See also
 
 - [UCS.md](UCS.md) — the same "Docker WeKan on a platform + migration" pattern for Univention.
 - [Snap-Ondra-Gantt.md](Snap-Ondra-Gantt.md) — the "push to a downstream repo + publish from release-all.yml" pattern.
 - [OS/Linux.md](OS/Linux.md) — Docker/Snap/Flatpak in the broader Linux update picture.
+
+## Local and deployment validation
+
+Run the main repository's `tests/nextcloudIdentity.test.cjs` and
+`tests/nextcloudLogin.test.cjs`, plus the companion's `tests/gateway.test.mjs`.
+The latter uses real local HTTP and WebSocket connections against a test backend.
+It is not a live Meteor, FerretDB or Nextcloud test.
+
+For the registered browser suite, save a signed-in **test** Nextcloud session as a
+Playwright storage-state file outside git, then run from `tests/playwright`:
+
+```sh
+WEKAN_BASE_URL=https://cloud.example \
+WEKAN_NEXTCLOUD_URL=https://cloud.example/exapps/wekan/ \
+WEKAN_NEXTCLOUD_STORAGE_STATE=/private/path/nextcloud-session.json \
+npx playwright test specs/nextcloud.e2e.js --project=chromium
+```
+
+Keep that state private; it contains a Nextcloud session. The browser suite checks
+sign-in, WebSocket connectivity, reconnect, reload and anonymous-session denial.
+Manual deployment checks for files, admin privileges, upgrades and backup restore
+remain required. AI, Deck and calendar integrations in section C are possibilities,
+not features implemented by this ExApp.

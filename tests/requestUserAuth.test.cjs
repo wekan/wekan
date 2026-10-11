@@ -93,7 +93,7 @@ test('Sandstorm, where there is no login token at all, still resolves', () => {
     'on Sandstorm the platform authorises the request and injects the user id; ' +
     'token lookup would always fail there and every image would 403');
   const at = body.indexOf('export async function getUserIdFromRequest');
-  const fn = body.slice(at, at + 600);
+  const fn = body.slice(at);
   assert.ok(fn.indexOf('isSandstormRequest') < fn.indexOf('extractLoginToken'),
     'checked before the token path, which cannot succeed on Sandstorm');
 });

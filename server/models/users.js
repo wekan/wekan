@@ -1903,6 +1903,10 @@ Accounts.onCreateUser(async (options, user) => {
     { fields: { _id: 1 } },
   );
   user.isAdmin = !existingUser;
+  // ExApp identities receive only explicitly configured admin privileges.
+  if (process.env.NEXTCLOUD_EXAPP === 'true' && user.services?.nextcloud) {
+    user.isAdmin = require('/server/lib/nextcloudIdentity').nextcloudAdmin(user.services.nextcloud.id);
+  }
   const creation = adminCreation.get();
   if (creation) {
     user.isAdmin = creation.isAdmin;

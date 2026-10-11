@@ -465,6 +465,8 @@ COPY --chmod=644 releases/ferretdb/recovery-bridge.mjs /build/recovery-bridge.mj
 # for a reverse proxy to time out on.
 COPY --chmod=644 releases/ferretdb/db-ready.mjs /build/db-ready.mjs
 
+COPY releases/nextcloud/capability.json /build/nextcloud-exapp-capability.json
+
 USER wekan
 ENV PORT=8080
 EXPOSE $PORT
