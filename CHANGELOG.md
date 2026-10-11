@@ -527,7 +527,9 @@ used.
 # Upcoming WeKan ® release
 
 **In short:** The **Import** page shows every source under "Import from:" at
-once, in columns, when the window is wide enough. The **Windows** bundles no
+once, in columns, when the window is wide enough. A **Sandstorm** grain shows
+its please-wait page until WeKan is ready instead of an empty response. The
+**Windows** bundles no
 longer fail when Chocolatey's package feed is down: they use the 7-Zip the
 build machine already has.
 
@@ -543,6 +545,24 @@ as fit (`columns: 200px`, a width rather than a count), so a phone keeps one
 column, and a row never splits between two columns.
 `tests/importPage.test.cjs` checks the column width and `break-inside: avoid`,
 and fails if the lists go back to one column.
+
+</details>
+
+and fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6e6b5d2e30">A Sandstorm grain shows its please-wait page until WeKan is ready, not an empty response</a>. Thanks to xet7.</summary>
+
+The grain log reached `[repairBoardsOnStartup] done`, but the browser showed
+`NS_ERROR_NET_EMPTY_RESPONSE`. `sandstorm-src/start.js` killed the please-wait
+bridge on port 4000 and then loaded `main.js`, and Meteor 3 awaits every
+`Meteor.startup` hook before it calls `listen`, so nothing answered on the port
+for all of WeKan's startup. sandstorm-http-bridge got connection-refused, which
+Sandstorm passes on as an empty response. Now the first `listen` on the app port
+waits for the bridge process to exit and then binds, and the grain log says
+`WeKan is listening on port 4000`. `tests/sandstormPortHandoff.test.cjs` runs
+the real bridge and the handoff on a free port and checks the port answers 503
+throughout startup and then WeKan's 200.
 
 </details>
 
