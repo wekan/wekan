@@ -151,6 +151,10 @@ case "$dest" in
   *)     chmod +x "$dest" ;;
 esac
 
+# The symbol table and debug data, ~33 MB of a 150 MB node, read only by a
+# debugger. After the checksum above, so the file verified is the original.
+bash "$here/strip-node.sh" "$dest" || exit 1
+
 # A platform bundle also carries Node's Linux runtime library. This runs on
 # native builders; emulated builds use install-node-for-arch.sh inside the target.
 case "$platform" in

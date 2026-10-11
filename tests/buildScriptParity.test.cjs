@@ -249,6 +249,13 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'embed-verified-node.sh': 'release-workflow: called per native build job to '
       + 'download+verify the bundled Node.js from the wekan/node fork',
     'install-node-for-arch.sh': 'release-workflow: runs inside the build container',
+    'compile-native-addons.mjs': 'release-workflow: the win32 and win-arm64 jobs\n'
+      + '      call it inside a BUILT bundle to compile bcrypt/argon2 for a CPU with no\n'
+      + '      prebuild, with the node-gyp that bundle\'s install brought; nothing to\n'
+      + '      point it at until a build exists',
+    'strip-node.sh': 'release-workflow: embed-verified-node.sh and\n'
+      + '      install-node-for-arch.sh call it on the node they just verified and put\n'
+      + '      in a bundle; it takes one binary and has no release step of its own',
     'resolve-node-source.sh': 'release-workflow: a lookup the other scripts, the\n      bundle jobs and the Dockerfile call - it prints where a platform\'s Node.js\n      comes from and downloads nothing itself',
     'require-binaries.sh': 'release-workflow: called per build job',
     'record-provenance.sh': 'release-workflow: called per build job',

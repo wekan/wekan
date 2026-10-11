@@ -38,7 +38,7 @@ set -eux
 
 export DEBIAN_FRONTEND=noninteractive
 
-bash "$(dirname "$0")/apt-install.sh" build-essential python3 curl xz-utils ca-certificates libatomic1
+bash "$(dirname "$0")/apt-install.sh" build-essential python3 curl xz-utils ca-certificates libatomic1 elfutils
 
 # Only the node BINARY has to be for this CPU. npm is JavaScript, so it runs on
 # whatever node executes it: it comes from the official amd64 tarball of the same
@@ -196,6 +196,9 @@ node "$(dirname "$0")/platform-native-packages.mjs" /bundle linux "$(node -p pro
 # host's bundle/ directory, mounted by the workflow.
 cp /opt/node/bin/node /bundle/node
 chmod +x /bundle/node
+# Its symbol table and debug data (~33 MB), as for every other bundle. In this
+# target container the native strip knows the CPU; eu-strip is used if present.
+bash "$(dirname "$0")/strip-node.sh" /bundle/node
 python3 "$(dirname "$0")/bundle-node-runtime.py" /bundle/node
 
 # #6458: replace the inherited amd64 qemu-user with this arch's own same-arch

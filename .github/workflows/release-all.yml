@@ -602,7 +602,7 @@ jobs:
 
       - name: Install system dependencies
         run: |
-          bash "$GITHUB_WORKSPACE/releases/apt-install.sh" libatomic1 build-essential g++ make python3 curl wget zip unzip xz-utils qemu-user-static
+          bash "$GITHUB_WORKSPACE/releases/apt-install.sh" libatomic1 build-essential g++ make python3 curl wget zip unzip xz-utils elfutils qemu-user-static
 
       - uses: actions/setup-node@v7
         with:
@@ -918,7 +918,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          bash "$GITHUB_WORKSPACE/releases/apt-install.sh" libatomic1 build-essential g++ make python3 curl unzip zip xz-utils qemu-user-static
+          bash "$GITHUB_WORKSPACE/releases/apt-install.sh" libatomic1 build-essential g++ make python3 curl unzip zip xz-utils elfutils qemu-user-static
 
       # Which Node.js this platform gets - and whether it is built at all.
       #
