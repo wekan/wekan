@@ -524,6 +524,29 @@ used.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The **Windows** bundles no longer fail when Chocolatey's package
+feed is down: they use the 7-Zip the build machine already has.
+
+This release has the following developer-tooling fix:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6cb7e45b92">Windows bundles use the runner's 7-Zip instead of installing it from Chocolatey</a>. Thanks to xet7.</summary>
+
+v12.29's build-win64 failed before building anything, in `choco install -y
+7zip`: community.chocolatey.org answered `504 (Gateway Timeout)` and Chocolatey
+could not resolve `7zip.install`. The windows-latest image already has 7-Zip in
+`C:\Program Files\7-Zip`, so build-win64, build-win-arm64 and build-win32 use
+it and put it on PATH for their later `7z` steps, falling back to Chocolatey,
+retried five times, only on an image without it.
+`tests/releaseWindows7zip.test.cjs` checks all three jobs and fails when any
+workflow runs a bare `choco install` again.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.29 2026-10-11 WeKan ® release
 
 **In short:** **Sandstorm** notifications and the activity log work again, and
