@@ -127,8 +127,12 @@ export function checkAddonArch(bundle, arch, packages = []) {
       files
         .map((f) => relative(bundle, f).split(sep))
         .map((parts) => {
-          for (let i = parts.length - 2; i >= 0; i--) {
-            if (parts[i] === name && parts[i - 1] === 'node_modules') return parts.slice(0, i + 1).join(sep);
+          // A scoped name (@img/sharp-win32-x64) is two path segments.
+          const seg = name.split('/');
+          for (let i = parts.length - 1 - seg.length; i >= 1; i--) {
+            if (parts[i - 1] === 'node_modules' && seg.every((s, k) => parts[i + k] === s)) {
+              return parts.slice(0, i + seg.length).join(sep);
+            }
           }
           return null;
         })

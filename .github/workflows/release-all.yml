@@ -1444,6 +1444,23 @@ jobs:
           # nothing requires, and refuses any policy entry the graph says IS reached.
           node "$SRC/releases/prune-unreachable-npm.mjs" ../..
 
+      - name: Add sharp for Windows x64 (win64), and check the native addons
+        if: steps.preflight.outputs.skip != 'true'
+        shell: bash
+        # The bundle came from the amd64 Linux one, so sharp (attachment
+        # thumbnails) had only @img/sharp-linux-x64 and every thumbnail fell
+        # back to the full-size image. This puts in @img/sharp-win32-x64 at
+        # the version sharp pins - prebuilt, libvips DLLs included - and drops
+        # the packages whose os/cpu name another platform. Then every addon
+        # the bundle loads is read from its PE header: bcrypt, argon2 and
+        # sharp must each have one for x64, because accounts-password imports
+        # the first two with no fallback.
+        run: |
+          SRC="$PWD/src"
+          set -euo pipefail
+          node "$SRC/releases/windows-native-packages.mjs" bundle x64
+          node "$SRC/releases/check-addon-arch.mjs" bundle x64 bcrypt argon2 @img/sharp-win32-x64
+
       - name: Check the binaries the win64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
         # bash, not the Windows default shell: this is a bash script (`set -euo
@@ -1821,6 +1838,16 @@ jobs:
       - name: Rebuild native modules for Windows
         if: steps.preflight.outputs.skip != 'true'
         shell: bash
+        # The runner and its node are x64. Without these, node-gyp-build's
+        # install test loads argon2's win32-x64 prebuild in that x64 node,
+        # passes, and compiles nothing - so v12.32's win-arm64 zip shipped no
+        # arm64 argon2 at all (argon2 0.44 publishes no win32-arm64 prebuild),
+        # and accounts-password imports it with no fallback. With them, the
+        # test looks for win32-arm64, finds none, and node-gyp cross-compiles
+        # it with Visual Studio's ARM64 tools against nodejs.org's arm64 node.lib.
+        env:
+          npm_config_arch: arm64
+          npm_config_target_arch: arm64
         run: |
           SRC="$PWD/src"
           cd bundle/programs/server
@@ -1843,6 +1870,23 @@ jobs:
           # packages load it through Npm.require(). This removes only what it can prove
           # nothing requires, and refuses any policy entry the graph says IS reached.
           node "$SRC/releases/prune-unreachable-npm.mjs" ../..
+
+      - name: Add sharp for Windows ARM64 (win-arm64), and check the native addons
+        if: steps.preflight.outputs.skip != 'true'
+        shell: bash
+        # The bundle came from the amd64 Linux one, so sharp (attachment
+        # thumbnails) had only @img/sharp-linux-x64 and every thumbnail fell
+        # back to the full-size image. This puts in @img/sharp-win32-arm64 at
+        # the version sharp pins - prebuilt, libvips DLLs included - and drops
+        # the packages whose os/cpu name another platform. Then every addon
+        # the bundle loads is read from its PE header: bcrypt, argon2 and
+        # sharp must each have one for arm64, because accounts-password imports
+        # the first two with no fallback.
+        run: |
+          SRC="$PWD/src"
+          set -euo pipefail
+          node "$SRC/releases/windows-native-packages.mjs" bundle arm64
+          node "$SRC/releases/check-addon-arch.mjs" bundle arm64 bcrypt argon2 @img/sharp-win32-arm64
 
       - name: Check the binaries the win-arm64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -2265,11 +2309,25 @@ jobs:
           # packages load it through Npm.require(). This removes only what it can prove
           # nothing requires, and refuses any policy entry the graph says IS reached.
           node "$SRC/releases/prune-unreachable-npm.mjs" ../..
-          # bcrypt and argon2 publish no win32-ia32 prebuild, so the rebuild above
-          # must have COMPILED both, and accounts-password imports them with no
-          # fallback. A cross-build that quietly did nothing still zips and passes
-          # 7z t, and only fails at the first sign-in - so read the binaries.
-          node "$SRC/releases/check-addon-arch.mjs" ../.. ia32 bcrypt argon2
+          # bcrypt and argon2 publish no win32-ia32 prebuild, so this rebuild
+          # must COMPILE both; the next step reads the binaries to prove it did.
+
+      - name: Add sharp for Windows 32-bit (win32), and check the native addons
+        if: steps.preflight.outputs.skip != 'true'
+        shell: bash
+        # The bundle came from the amd64 Linux one, so sharp (attachment
+        # thumbnails) had only @img/sharp-linux-x64 and every thumbnail fell
+        # back to the full-size image. This puts in @img/sharp-win32-ia32 at
+        # the version sharp pins - prebuilt, libvips DLLs included - and drops
+        # the packages whose os/cpu name another platform. Then every addon
+        # the bundle loads is read from its PE header: bcrypt, argon2 and
+        # sharp must each have one for ia32, because accounts-password imports
+        # the first two with no fallback.
+        run: |
+          SRC="$PWD/src"
+          set -euo pipefail
+          node "$SRC/releases/windows-native-packages.mjs" bundle ia32
+          node "$SRC/releases/check-addon-arch.mjs" bundle ia32 bcrypt argon2 @img/sharp-win32-ia32
 
       - name: Check the binaries the win32 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'

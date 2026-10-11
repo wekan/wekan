@@ -96,14 +96,43 @@ test('no Windows job hands tar a Windows path', () => {
   }
 });
 
-test('build-win32 checks its addons after the rebuild and trims', () => {
-  const at = (s) => win32.body.indexOf(s);
-  const check = at('releases/check-addon-arch.mjs" ../.. ia32 bcrypt argon2');
-  assert.ok(check !== -1, 'build-win32 runs check-addon-arch.mjs for ia32 bcrypt and argon2');
-  assert.ok(at('npm-retry.sh" npm install') < check, 'after the rebuild');
-  assert.ok(at('bundle-trim.mjs') < check && at('prune-unreachable-npm.mjs') < check,
-    'and after everything that deletes files');
-  assert.ok(check < at('Create win32 zip'), 'and before the zip is made');
+// Every Windows bundle job: the right sharp goes in, and every addon it ships
+// is read before the zip is made - after the rebuild and everything that
+// deletes files, so what is checked is what is zipped.
+const BUNDLE_JOBS = { 'build-win64': 'x64', 'build-win-arm64': 'arm64', 'build-win32': 'ia32' };
+test('each Windows bundle job adds its own sharp and checks its addons', () => {
+  for (const [name, arch] of Object.entries(BUNDLE_JOBS)) {
+    const job = windowsJobs.find((j) => j.name === name);
+    assert.ok(job, `${name} exists and runs on Windows`);
+    const at = (s) => job.body.indexOf(s);
+    const add = at(`releases/windows-native-packages.mjs" bundle ${arch}`);
+    const check = at(`releases/check-addon-arch.mjs" bundle ${arch} bcrypt argon2 @img/sharp-win32-${arch}`);
+    assert.ok(add !== -1, `${name} adds @img/sharp-win32-${arch}`);
+    assert.ok(check > add, `${name} checks bcrypt, argon2 and sharp for ${arch}, after adding sharp`);
+    assert.ok(at('npm-retry.sh" npm install') < add, `${name}: after the rebuild`);
+    assert.ok(at('bundle-trim.mjs') < add && at('prune-unreachable-npm.mjs') < add,
+      `${name}: after everything that deletes files`);
+    assert.ok(check < at('7z a wekan-'), `${name}: before the zip is made`);
+  }
+});
+
+// v12.32's win-arm64 zip had no arm64 argon2: the x64 runner's node passed
+// node-gyp-build's install test with argon2's win32-x64 prebuild, so nothing
+// was compiled. A job whose CPU is not the runner's must say so to npm.
+test('a cross-built Windows job tells npm its target CPU', () => {
+  const rebuildEnv = (name) => {
+    const job = windowsJobs.find((j) => j.name === name);
+    const i = job.body.indexOf('- name: Rebuild native modules for Windows');
+    const step = job.body.slice(i, job.body.indexOf('\n      - name:', i + 1));
+    return {
+      arch: (/npm_config_arch:\s*(\S+)/.exec(step) || [])[1],
+      target: (/npm_config_target_arch:\s*(\S+)/.exec(step) || [])[1],
+    };
+  };
+  assert.deepStrictEqual(rebuildEnv('build-win-arm64'), { arch: 'arm64', target: 'arm64' });
+  assert.deepStrictEqual(rebuildEnv('build-win32'), { arch: 'ia32', target: 'ia32' });
+  // win64 is the runner's own CPU, and must not be told another one.
+  assert.deepStrictEqual(rebuildEnv('build-win64'), { arch: undefined, target: undefined });
 });
 
 // ── check-addon-arch.mjs itself, on real PE/ELF headers ─────────────────────
