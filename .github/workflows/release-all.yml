@@ -1403,7 +1403,7 @@ jobs:
           # ferretdb.exe, *.exe tools and start-wekan.bat are added in later steps.
           rm -f bundle/node bundle/ferretdb bundle/.ferretdb-default bundle/start-wekan.sh
           rm -f bundle/bsondump bundle/mongodump bundle/mongoexport bundle/mongofiles \
-                bundle/mongoimport bundle/mongorestore bundle/mongostat bundle/mongotop
+                bundle/mongoimport bundle/mongorestore bundle/mongostat bundle/mongotop bundle/mongo-tools
           # Linux-only cpu-exec + qemu-user (#6458) make no sense on Windows.
           rm -f bundle/cpu-exec bundle/qemu-x86_64
           # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
@@ -1818,7 +1818,7 @@ jobs:
           # ferretdb.exe, *.exe tools and start-wekan.bat are added in later steps.
           rm -f bundle/node bundle/ferretdb bundle/.ferretdb-default bundle/start-wekan.sh
           rm -f bundle/bsondump bundle/mongodump bundle/mongoexport bundle/mongofiles \
-                bundle/mongoimport bundle/mongorestore bundle/mongostat bundle/mongotop
+                bundle/mongoimport bundle/mongorestore bundle/mongostat bundle/mongotop bundle/mongo-tools
           # Linux-only cpu-exec + qemu-user (#6458) make no sense on Windows.
           rm -f bundle/cpu-exec bundle/qemu-x86_64
           # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
@@ -2228,7 +2228,7 @@ jobs:
           # *.exe tools and start-wekan.bat are added in later steps.
           rm -f bundle/node bundle/ferretdb bundle/.ferretdb-default bundle/start-wekan.sh
           rm -f bundle/bsondump bundle/mongodump bundle/mongoexport bundle/mongofiles \
-                bundle/mongoimport bundle/mongorestore bundle/mongostat bundle/mongotop
+                bundle/mongoimport bundle/mongorestore bundle/mongostat bundle/mongotop bundle/mongo-tools
           rm -f bundle/cpu-exec bundle/qemu-x86_64
           # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
           # which fails to compile on Node.js 26. Replace with bcrypt 6.0.0.
@@ -2568,7 +2568,7 @@ jobs:
           # macOS (Apple Silicon needs no AVX emulation anyway).
           rm -f bundle/cpu-exec bundle/qemu-x86_64
           rm -f bundle/bsondump bundle/mongodump bundle/mongoexport bundle/mongofiles \
-                bundle/mongoimport bundle/mongorestore bundle/mongostat bundle/mongotop
+                bundle/mongoimport bundle/mongorestore bundle/mongostat bundle/mongotop bundle/mongo-tools
           # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
           # which fails to compile on Node.js 26. Replace with bcrypt 6.0.0.
           BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
@@ -2854,7 +2854,7 @@ jobs:
           # Linux-only cpu-exec + qemu-user (#6458) make no sense on macOS.
           rm -f bundle/cpu-exec bundle/qemu-x86_64
           rm -f bundle/bsondump bundle/mongodump bundle/mongoexport bundle/mongofiles \
-                bundle/mongoimport bundle/mongorestore bundle/mongostat bundle/mongotop
+                bundle/mongoimport bundle/mongorestore bundle/mongostat bundle/mongotop bundle/mongo-tools
           # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
           # which fails to compile on Node.js 26. Replace with bcrypt 6.0.0.
           BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
@@ -3343,7 +3343,7 @@ jobs:
           bash releases/record-provenance.sh '${{ matrix.arch }}' 'FerretDB' \
             'wekan/FerretDB' "${FERRET_TAG:-latest}" "$FERRET_URL" "$FERRET_SHA"
           # Overwrite the inherited amd64 MongoDB Database Tools with this arch's ones.
-          # Tolerant per tool: wekan/mongo-tools-patches does not publish every arch this
+          # Tolerant: wekan/mongo-tools-patches does not publish mongo-tools for every arch this
           # bundle is built for, and a missing mongodump is a missing convenience,
           # not a broken bundle - FerretDB is the database and the launcher does
           # not need these to start. A silently-amd64 tool would be worse.

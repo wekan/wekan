@@ -245,18 +245,12 @@ fi
 
 # ── 4. MongoDB Database Tools - a convenience, not a requirement ─────────────
 mt="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
-absent=""
+# Only the one program mongo-tools-<arch>, all eight tools in it
+# (releases/fetch-mongo-tools.sh); the separate per-tool binaries are not used.
 if have "${mt}/mongo-tools-${ferretdb_arch}"; then
-    :   # all eight, as one program (releases/fetch-mongo-tools.sh)
+    echo "MongoDB Database Tools for ${ferretdb_arch}: mongo-tools-${ferretdb_arch} present"
 else
-    for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-        have "${mt}/${t}-${ferretdb_arch}" || absent="${absent} ${t}"
-    done
-fi
-if [ -n "$absent" ]; then
-    echo "::warning::wekan/mongo-tools-patches has no${absent} for ${ferretdb_arch}. The bundle ships without them rather than with the amd64 ones; FerretDB is the database and the launcher does not need them to start."
-else
-    echo "MongoDB Database Tools for ${ferretdb_arch}: all present"
+    echo "::warning::wekan/mongo-tools-patches has no mongo-tools-${ferretdb_arch}. The bundle ships without the MongoDB Database Tools rather than with the amd64 ones; FerretDB is the database and the launcher does not need them to start."
 fi
 
 # A best-effort arch with no Node.js port: report it and stop cleanly, so the

@@ -116,8 +116,8 @@ test('the binaries a release embeds are the binaries this embeds', () => {
   assert.ok(/fetch-mongo-tools\.sh" --shims "\$BUNDLE"/.test(script), 'with the same launchers');
   assert.ok(/fetch-mongo-tools\.sh" \.build\/bundle amd64/.test(baseJob), 'as the workflow');
   const tools = 'bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop';
-  assert.ok(script.includes(tools),
-    'and all eight per-tool assets while mongo-tools-<platform> is not published yet');
+  assert.ok(!script.includes(tools),
+    'and never the eight per-tool assets: mongo-tools-<platform> is the only shape (negative)');
   assert.ok(/releases\/ferretdb\/\$LAUNCHER/.test(script), 'the launcher');
   assert.ok(/sqlite-recovery\.mjs/.test(script), 'verified SQLite snapshot and recovery helper');
   assert.ok(/snap-src\/bin\/cpu-exec/.test(script), 'cpu-exec (#6458)');

@@ -373,7 +373,7 @@ directly after the merge.
     | --- | --- | --- | --- |
     | `.tools/FerretDB` | wekan/FerretDB | `main-v1` | the FerretDB v1 fork WeKan ships as its default database |
     | `.tools/node-patches` | wekan/node-patches | `main` | patches to upstream Node.js; builds the `node-<platform>` binaries the bundles, the Docker image and the snap embed |
-    | `.tools/mongo-tools-patches` | wekan/mongo-tools-patches | `main` | patches to the MongoDB Database Tools; builds `<tool>-<arch>` |
+    | `.tools/mongo-tools-patches` | wekan/mongo-tools-patches | `main` | patches to the MongoDB Database Tools; builds `mongo-tools-<arch>`, all eight tools as one program |
     | `.tools/TSC` | Secretchronicles/TSC | `devel` | the game xet7 also maintains — same author and maintainer mode, its own GNU ChangeLog and release process |
     | `.tools/sandstorm` | sandstorm-io/sandstorm | — | upstream Sandstorm, when present — somebody else's project, cloned for reference |
 
