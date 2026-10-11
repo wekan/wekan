@@ -527,12 +527,12 @@ used.
 # Upcoming WeKan ® release
 
 **In short:** **LDAP login on UCS** works again after the 12.32 upgrade, and
-**attachment thumbnails** work on every platform WeKan ships, not only Linux
-amd64. The **Windows 32-bit** bundle, which v12.32 announced but did not ship,
-builds now, and the **ARM64** Windows bundle gets the sign-in module it was
-missing. Every bundle job now checks that each native module it ships is built
-for its platform and CPU. **Nextcloud sign-in** now preserves its verified
-identity through WebSocket setup.
+**Nextcloud sign-in** keeps its verified identity through WebSocket setup.
+**Attachment thumbnails** work on every platform WeKan ships, not only Linux
+amd64. The **Windows 32-bit** bundle, announced in v12.32 but not shipped,
+builds now, the **ARM64** Windows bundle gets its missing sign-in module, and
+every bundle job checks that its native modules are built for its platform and
+CPU.
 
 This release fixes the following bugs:
 
@@ -633,8 +633,8 @@ built for other platforms. Checking the published v12.32 zips also showed that
 the ARM64 zip had no ARM64 `argon2`, which sign-in imports with no fallback:
 the job never told npm its target CPU, so nothing was compiled. It now does.
 All three jobs check `bcrypt`, `argon2` and `sharp` before zipping.
-`tests/windowsNativePackages.test.cjs` covers the download, a tampered tarball
-and a path-traversal entry.
+`tests/platformNativePackages.test.cjs` (named `windowsNativePackages` in this
+commit) covers the download, a tampered tarball and a path-traversal entry.
 
 </details>
 
