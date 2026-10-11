@@ -524,6 +524,32 @@ used.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The **Windows 32-bit** and **Windows ARM64** bundles build again.
+Their sign-in modules are now compiled for the right CPU directly, because
+**npm 12** no longer does it during the install.
+
+This release fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/34a33f7b14">The Windows 32-bit and ARM64 bundles compile their sign-in modules again</a>. Thanks to xet7.</summary>
+
+v12.33 published no win32 or win-arm64 zip: both jobs failed their native
+module check. `bcrypt` and `argon2` have no prebuilt binary for 32-bit Windows,
+and `argon2` has none for Windows ARM64, so they must be compiled. The jobs
+left that to npm during the install, but npm 12 ignores `npm_config_arch` and
+`npm_config_nodedir`, and blocks install scripts that `allowScripts` does not
+list. `releases/compile-native-addons.mjs` now runs node-gyp itself with the
+target CPU, and fails if no module comes out. With the real node-gyp 13,
+`argon2` 0.44 and `bcrypt` 6, both compiled and hashed a password.
+`tests/compileNativeAddons.test.cjs` covers the failure cases, and
+`tests/win32BundleBuild.test.cjs` checks both jobs.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.33 2026-10-11 WeKan ® release
 
 **In short:** **LDAP login on UCS** works again after the 12.32 upgrade, and
@@ -620,6 +646,10 @@ reads each shipped binary's header and fails the job unless both are built for
 Windows job gives `tar` such a path, and the checker on 32-bit, 64-bit and
 Linux binaries.
 
+**It was not built in v12.33 either.** The job got past the headers, but npm 12
+compiled nothing for 32-bit Windows, so the addon check refused the bundle and
+no win32 zip was published. The fix is in the next release.
+
 </details>
 
 <details>
@@ -635,6 +665,10 @@ the job never told npm its target CPU, so nothing was compiled. It now does.
 All three jobs check `bcrypt`, `argon2` and `sharp` before zipping.
 `tests/platformNativePackages.test.cjs` (named `windowsNativePackages` in this
 commit) covers the download, a tampered tarball and a path-traversal entry.
+
+**The ARM64 part did not work in v12.33.** npm 12 ignores `npm_config_arch`,
+so `argon2` was still not compiled for ARM64; the addon check refused the bundle
+and no win-arm64 zip was published. The fix is in the next release.
 
 </details>
 
