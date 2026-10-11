@@ -57,6 +57,24 @@ the automatic path here is for MongoDB-stored attachments.
 
 ## Remaining steps for the maintainer
 
+### Writable storage layout
+
+UCS sets `WRITABLE_PATH=/data` in both the app and migration helper. The helper
+uses that variable for its file output, verification, status and completion marker:
+
+- `${WRITABLE_PATH}/files/attachments`: migrated attachment files.
+- `${WRITABLE_PATH}/files/avatars`: migrated avatar files.
+- `${WRITABLE_PATH}/files/db`: FerretDB SQLite files, mounted as `/state` inside
+  the separate database container.
+
+These directories persist on the UCS host beneath
+`/var/lib/univention-appcenter/apps/wekan/data/ferretdb/files/`.
+The migration and final database containers mount the same `files/db` directory.
+Changing the container-side writable path requires updating both the app and
+helper environment and their volume destinations, plus the startup marker check;
+changing only the app environment would leave the migrated file paths pointing
+to the old location.
+
 ### 1. Publish the companion changes and build the helper
 
 Commit/push the prepared `wekan/univention` changes from its default branch,
