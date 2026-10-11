@@ -110,4 +110,50 @@ test('source refuses before either LDAP group search when configuration is incom
   assert.match(login, /escapeLdapFilterValue\(name\)/);
 });
 
+// UCS (wekan/univention component/compose). Its settings, as the App Center
+// renders them, decide whether anyone can log in after an upgrade.
+function ucsOptions(env) {
+  return {
+    group_filter_group_id_attribute: env.LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE,
+    group_filter_group_member_attribute: env.LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE,
+    group_filter_group_member_format: env.LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT,
+    group_filter_group_name: env.LDAP_GROUP_FILTER_GROUP_NAME,
+  };
+}
+const UCS_609 = {
+  LDAP_GROUP_FILTER_ENABLE: 'true',
+  LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE: '',
+  LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE: 'uniqueMember',
+  LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT: 'dn',
+  LDAP_GROUP_FILTER_GROUP_NAME: '',
+};
+
+// Negative: the settings UCS carried from 6.09 into the 12.32 upgrade. 6.09
+// read them as "in any group"; this release refuses them, which is the
+// "LDAP authentication failed" every UCS user got after upgrading. The refusal
+// is right (#3700) - the fix is in the UCS compose, below.
+test('the 6.09 UCS group settings are refused at login, and give no admin groups', () => {
+  const options = ucsOptions(UCS_609);
+  assert.deepStrictEqual(
+    missingLoginGroupFilterSettings(options, 'Domain Admins'),
+    ['LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE'],
+  );
+  assert.deepStrictEqual(missingGroupLookupSettings(options), ['LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE']);
+});
+
+// The fixed UCS settings: access by (wekanActivated=TRUE), no group filter, and
+// a complete group lookup so Domain Admins still become WeKan admins.
+test('the fixed UCS settings need no group filter and can still find admin groups', () => {
+  const fixed = { ...UCS_609, LDAP_GROUP_FILTER_ENABLE: 'false', LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE: 'cn' };
+  assert.strictEqual(fixed.LDAP_GROUP_FILTER_ENABLE, 'false', 'isUserInGroup returns true when the filter is off');
+  assert.deepStrictEqual(missingGroupLookupSettings(ucsOptions(fixed)), [],
+    'getUserGroups can answer, so LDAP_SYNC_ADMIN_GROUPS works');
+  // And if somebody turns the filter back on without naming a group, it is
+  // still refused rather than read as "anyone": the guard is unchanged.
+  assert.deepStrictEqual(
+    missingLoginGroupFilterSettings(ucsOptions({ ...fixed, LDAP_GROUP_FILTER_ENABLE: 'true' })),
+    ['LDAP_GROUP_FILTER_GROUP_NAME'],
+  );
+});
+
 console.log(`\n${passed} passed`);

@@ -72,6 +72,36 @@ result is in `data/ferretdb/ucs-migration-status.json` under the app directory.
 For the maintainer's remaining build, publication and UCS test steps, see
 [UCS automatic upgrade design](UCS-upgrades.md).
 
+### LDAP login fails after upgrading to 12.32
+
+The 12.32 app definition kept a 6.09 setting: WeKan's LDAP **group** filter
+switched on, with no group named. WeKan 6.09 read that as "member of any group";
+current WeKan refuses an incomplete group filter, so every LDAP login fails with
+**LDAP authentication failed**, and the app log says `LDAP group login filter is
+enabled but cannot check membership ... Refusing login`. Who may use WeKan on UCS
+is decided by the **WeKan activated** checkbox of each user
+(`(wekanActivated=TRUE)`), so the group filter is not needed. The next app
+version turns it off and sets `cn` as the group name attribute, so members of
+**Domain Admins** are WeKan administrators again.
+
+Until that version is offered, an installation that already upgraded can apply
+the same two settings on the UCS host:
+
+```
+ucr set appcenter/env/wekan/LDAP_GROUP_FILTER_ENABLE=false \
+        appcenter/env/wekan/LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE=cn
+univention-app reinitialize wekan
+docker exec wekan-app env | grep LDAP_GROUP_FILTER
+```
+
+The last command should show `LDAP_GROUP_FILTER_ENABLE=false` and
+`LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE=cn`. The two `ucr` values can be removed
+with `ucr unset` after upgrading to a version that contains the fix.
+
+Open WeKan at the address in its **ROOT_URL** setting
+(`https://<ucs-host>/wekan`). Opened through another host name or an IP address,
+the browser blocks WeKan's own requests to the ROOT_URL host as cross-origin.
+
 ## Feature Requests and Bugs
 
 [WeKan ® for Univention Feature Requests and Bugs](https://github.com/wekan/univention/issues)

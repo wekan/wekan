@@ -227,6 +227,53 @@ print(json.dumps({'authenticated': True}))
             with self.assertRaises(ValueError):
                 ucs.prepare(self.root / 'source', self.output, '12.28', value)
 
+    # The LDAP group settings of the UCS compose, as the 12.32 upgrade shipped
+    # them from 6.09: filter on, no group id attribute, no group name. WeKan
+    # refuses that at login (#3700), so every LDAP login failed after upgrading.
+    LDAP_609 = """      - LDAP_GROUP_FILTER_ENABLE=true
+      - LDAP_GROUP_FILTER_OBJECTCLASS=univentionGroup
+      - LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE=
+      - LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE=uniqueMember
+      - LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT=dn
+      - LDAP_GROUP_FILTER_GROUP_NAME=
+      - LDAP_SYNC_ADMIN_STATUS=true
+      - LDAP_SYNC_ADMIN_GROUPS=@!@
+from univention.lib.misc import custom_groupname
+print(custom_groupname('Domain Admins'))@!@
+"""
+
+    def compose_with(self, ldap):
+        compose = self.root / 'source/component/compose'
+        compose.write_text(compose.read_text() + '    environment:\n' + ldap)
+
+    def test_compose_that_would_refuse_every_ldap_login_is_not_published(self):
+        self.compose_with(self.LDAP_609)
+        with self.assertRaisesRegex(ValueError, 'LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE'):
+            ucs.prepare(self.root / 'source', self.root / 'refused', '12.33')
+        self.assertFalse((self.root / 'refused/component/compose').exists())
+
+    def test_fixed_ucs_ldap_settings_are_published(self):
+        self.compose_with(self.LDAP_609
+                          .replace('FILTER_ENABLE=true', 'FILTER_ENABLE=false')
+                          .replace('GROUP_ID_ATTRIBUTE=\n', 'GROUP_ID_ATTRIBUTE=cn\n'))
+        ucs.prepare(self.root / 'source', self.root / 'fixed', '12.33')
+        self.assertIn('LDAP_GROUP_FILTER_ENABLE=false', (self.root / 'fixed/component/compose').read_text())
+
+    def test_ldap_group_rules_follow_wekan(self):
+        problems = ucs.ldap_group_problems
+        # Nothing about groups configured: nothing to check.
+        self.assertEqual(problems('    environment:\n      - LDAP_ENABLE=true\n'), [])
+        # Admin sync alone still needs the lookup settings, or nobody is admin.
+        self.assertEqual(len(problems('      - LDAP_SYNC_ADMIN_STATUS=true\n')), 1)
+        # A complete filter with a named group is fine.
+        complete = self.LDAP_609.replace('GROUP_ID_ATTRIBUTE=\n', 'GROUP_ID_ATTRIBUTE=cn\n') \
+                                .replace('GROUP_NAME=\n', 'GROUP_NAME=wekan-users\n')
+        self.assertEqual(problems(complete), [])
+        # Filter on with no group name admits only the admin group: refused.
+        only_admins = self.LDAP_609.replace('GROUP_ID_ATTRIBUTE=\n', 'GROUP_ID_ATTRIBUTE=cn\n')
+        self.assertEqual(len(problems(only_admins)), 1)
+        self.assertIn('LDAP_GROUP_FILTER_GROUP_NAME', problems(only_admins)[0])
+
 
 if __name__ == '__main__':
     unittest.main()

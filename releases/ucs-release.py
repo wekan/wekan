@@ -67,10 +67,54 @@ def images(compose, replacements):
     return ''.join(result)
 
 
+LDAP_GROUP_LOOKUP = ('LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE',
+                     'LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE',
+                     'LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT')
+
+
+def compose_environment(compose):
+    """`- KEY=value` lines of the compose file. A value that is a UCR Python
+    template (`@!@ ... @!@`) is computed on the host, so it counts as set."""
+    env = {}
+    for line in compose.splitlines():
+        match = re.match(r'^\s*-\s*([A-Z][A-Z0-9_]*)=(.*)$', line)
+        if match:
+            env[match.group(1)] = match.group(2).strip()
+    return env
+
+
+def ldap_group_problems(compose):
+    """The LDAP group settings WeKan would refuse, as WeKan refuses them.
+
+    WeKan fails closed on an incomplete group filter (#3700,
+    packages/wekan-ldap/server/groupFilterConfig.js): with
+    LDAP_GROUP_FILTER_ENABLE=true it needs the three group lookup settings and
+    at least one group name, or it refuses every login; with
+    LDAP_SYNC_ADMIN_STATUS=true it needs the lookup settings, or nobody is
+    admin. The UCS compose had the filter on with an empty group id attribute
+    and group name, carried over from 6.09, where that meant "in any group" -
+    so after the 12.32 upgrade every LDAP login was refused. A compose like that
+    is not published."""
+    env = compose_environment(compose)
+    true = lambda key: env.get(key, '').lower() == 'true'
+    problems = []
+    if true('LDAP_GROUP_FILTER_ENABLE') or true('LDAP_SYNC_ADMIN_STATUS'):
+        missing = [key for key in LDAP_GROUP_LOOKUP if not env.get(key)]
+        if missing:
+            problems.append('LDAP group lookup needs ' + ', '.join(missing))
+    if true('LDAP_GROUP_FILTER_ENABLE') and not env.get('LDAP_GROUP_FILTER_GROUP_NAME'):
+        problems.append('LDAP_GROUP_FILTER_ENABLE=true with no LDAP_GROUP_FILTER_GROUP_NAME '
+                        'admits only LDAP_SYNC_ADMIN_GROUPS, or nobody')
+    return problems
+
+
 def prepare(repo, output, release, database_image=''):
     release = version(release)
     source = Path(repo) / 'component'
     compose = (source / 'compose').read_text()
+    problems = ldap_group_problems(compose)
+    if problems:
+        raise ValueError('UCS compose LDAP settings would refuse every login: ' + '; '.join(problems))
     image_pattern = r'ghcr\.io/wekan/ferretdb:v1\.[0-9]+\.[0-9]+'
     if not database_image:
         match = re.search(r'^    image: (' + image_pattern + r')$', compose, re.M)
