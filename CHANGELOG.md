@@ -528,9 +528,29 @@ used.
 **In short:** Current Afrikaans, Albanian, Arabic, Belarusian, Bosnian, Bulgarian, Chinese (Simplified), Chinese (Traditional), Croatian, Estonian, Gujarati, Hebrew, Hindi, Icelandic, Latvian,
 Macedonian, Persian, Serbian, Slovenian and Vietnamese strings are translated. Mixed-language Arabic and Macedonian values and Basque
 card wording are corrected, with validation of imports, notifications and recovery
-choices.
+choices. **Sandstorm** grains boot again.
 
-This release has the following developer-tooling fix:
+This release fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d6427a5afb">Sandstorm grains start again instead of crash-looping on ./start-memory.sh</a>. Thanks to xet7.</summary>
+
+Every grain died at once with `execvp(argvp[0], argvp): No such file or
+directory; argvp[0] = ./start-memory.sh`. The script was there, but a grain has
+no shell: the meteor-spk 0.6.0 base ships only `mongod`, `niscud` and `node` in
+`bin/`, so there is no `/bin/sh` to run a `#!/bin/sh` script, and execvp reports
+the missing interpreter as a missing file. The launcher that gives WeKan a
+memory-derived V8 heap (three fifths of the grain's memory, at most 4 GiB,
+keeping an administrator's own `NODE_OPTIONS`) is now `start-memory.js`, and the
+pkgdef runs it as `node start-memory.js`. `start.js` also waited by spawning
+`/bin/sleep`, which a grain lacks too, so every wait returned at once; it now
+blocks with `Atomics.wait`. `tests/sandstormNoShell.test.cjs` runs the launcher,
+checks the heap, the override and the exit status it passes on, and fails when
+the grain command is a shell script or a launcher spawns a system utility.
+
+</details>
+
+and has the following developer-tooling fix:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0dbf9d8502">Setup installs Meteor with npx meteor, as Meteor's documentation says</a>. Thanks to xet7.</summary>
