@@ -72,99 +72,45 @@ if (isSandstorm && Meteor.isServer) {
 
   // WeKan on Sandstorm runs behind sandstorm-http-bridge. Login and user identity
   // come from the X-Sandstorm-* HTTP headers (see the wekan-accounts-sandstorm
-  // package) and need NO Cap'n Proto. Only the two advanced features below —
-  // Powerbox identity-claim (sandstormClaimIdentityRequest) and Sandstorm activity
-  // notifications (Activities.after.insert -> reportActivity) — use node-capnp
-  // (capnp.node). That native addon is currently built for an older Node ABI and
-  // fails to load on the bundled Node 26 (NODE_MODULE_VERSION mismatch,
-  // ERR_DLOPEN_FAILED), which previously crashed the whole grain on boot. Load it
-  // lazily and degrade gracefully instead: the grain boots and core WeKan (login +
-  // kanban) works; only powerbox invites and activity events are skipped until
-  // capnp is rebuilt for Node 26, or reimplemented over the bridge's HTTP/JSON API
-  // (see the Sandstorm CHANGELOG: use "Cap'n Proto APIs without Cap'n Proto").
-  let Capnp = null;
-  let Package, Powerbox, Identity, SandstormHttpBridge, bridgeConfig;
-  try {
-    Capnp = Npm.require('capnp');
-    Package = Capnp.importSystem('sandstorm/package.capnp');
-    Powerbox = Capnp.importSystem('sandstorm/powerbox.capnp');
-    Identity = Capnp.importSystem('sandstorm/identity.capnp');
-    SandstormHttpBridge = Capnp.importSystem(
-      'sandstorm/sandstorm-http-bridge.capnp',
-    ).SandstormHttpBridge;
-    bridgeConfig = Capnp.parse(
-      Package.BridgeConfig,
-      fs.readFileSync('/sandstorm-http-bridge-config'),
-    );
-  } catch (e) {
-    Capnp = null;
-    console.error(
-      "** WeKan/Sandstorm: Cap'n Proto (capnp.node) unavailable — Powerbox " +
-        'identity-claim and activity notifications are disabled. Login and core ' +
-        'features still work via sandstorm-http-bridge headers. Reason:',
-      (e && e.message) || e,
-    );
-  }
-
-  let httpBridge = null;
-  let capnpConnection = null;
-
-  function getHttpBridge() {
-    if (!httpBridge) {
-      capnpConnection = Capnp.connect('unix:/tmp/sandstorm-api');
-      httpBridge = capnpConnection.restore(null, SandstormHttpBridge);
+  // package) and need NO Cap'n Proto. Two features do: Powerbox identity claims
+  // (sandstormClaimIdentityRequest) and Sandstorm activity events
+  // (Activities.after.insert -> reportActivity). Both are Cap'n Proto calls on the
+  // bridge's /tmp/sandstorm-api socket - the bridge's HTTP proxy has no route for
+  // either (sandstorm src/sandstorm/bridge-proxy.c++). They used node-capnp
+  // (capnp.node), a native addon built for Node 14 that cannot load on Node 26, so
+  // a grain ran without them. imports/sandstorm/bridgeClient.mjs now makes the same
+  // calls in plain JavaScript with @wekanteam/capnp-es (npm-packages/capnp-es); it
+  // is loaded on first use, so a non-Sandstorm server never loads it.
+  let bridgeClientModule = null;
+  let bridgeConnection = null;
+  async function bridgeClient() {
+    if (!bridgeClientModule) {
+      bridgeClientModule = await import('/imports/sandstorm/bridgeClient.mjs');
+      bridgeConnection = bridgeClientModule.createBridge();
     }
-    return httpBridge;
+    return { api: bridgeClientModule, bridge: bridgeConnection.bridge };
   }
 
-  // Powerbox identity-claim needs Cap'n Proto; only register it when capnp loaded.
-  if (Capnp) Meteor.methods({
+  // An activity type is sent as its index in the pkgdef's
+  // bridgeConfig.viewInfo.eventTypes, which Sandstorm puts in every grain as
+  // /sandstorm-http-bridge-config.
+  let eventTypeNames = null;
+  function activityTypeIndex(api, name) {
+    if (!eventTypeNames) {
+      eventTypeNames = api.parseEventTypeNames(fs.readFileSync('/sandstorm-http-bridge-config'));
+    }
+    return eventTypeNames.indexOf(name);
+  }
+
+  Meteor.methods({
     async sandstormClaimIdentityRequest(token, descriptor) {
       check(token, String);
       check(descriptor, String);
 
-      const parsedDescriptor = Capnp.parse(
-        Powerbox.PowerboxDescriptor,
-        Buffer.from(descriptor, 'base64'),
-        { packed: true },
-      );
-
-      const tag = Capnp.parse(
-        Identity.Identity.PowerboxTag,
-        parsedDescriptor.tags[0].value,
-      );
-      const permissions = [];
-      if (tag.permissions[1]) {
-        permissions.push('configure');
-      }
-
-      if (tag.permissions[0]) {
-        permissions.push('participate');
-      }
-
       const sessionId = this.connection.sandstormSessionId();
-      const httpBridge = getHttpBridge();
-      const session = httpBridge.getSessionContext(sessionId).context;
-      const api = httpBridge.getSandstormApi(sessionId).api;
-
-      const response = await session.claimRequest(token);
-      const identity = response.cap.castAs(Identity.Identity);
-      const [identityIdResult, profileResult] = await Promise.all([
-        api.getIdentityId(identity),
-        identity.getProfile(),
-        httpBridge.saveIdentity(identity),
-      ]);
-      const identityId = identityIdResult.id.toString('hex').slice(0, 32);
-      const profile = profileResult.profile;
-      const pictureResponse = await profile.picture.getUrl();
-      const sandstormInfo = {
-        id: identityId,
-        name: profile.displayName.defaultText,
-        permissions,
-        picture: `${pictureResponse.protocol}://${pictureResponse.hostPath}`,
-        preferredHandle: profile.preferredHandle,
-        pronouns: profile.pronouns,
-      };
+      const { api, bridge } = await bridgeClient();
+      const permissions = api.parseIdentityRequestPermissions(descriptor);
+      const sandstormInfo = await api.claimIdentity(bridge, sessionId, token, permissions);
 
       const login = await Accounts.updateOrCreateUserFromExternalService(
         'sandstorm',
@@ -176,114 +122,88 @@ if (isSandstorm && Meteor.isServer) {
     },
   });
 
-  async function reportActivity(sessionId, path, type, users, caption) {
-    const httpBridge = getHttpBridge();
-    const session = httpBridge.getSessionContext(sessionId).context;
-    const maybeUsers = await Promise.all(
-      users.map(async (user) => {
-        try {
-          const response = await httpBridge.getSavedIdentity(user.id);
-          // Call getProfile() to make sure that the identity successfully resolves.
-          // (In C++ we would instead call whenResolved() here.)
-          const identity = response.identity;
-          await identity.getProfile();
-          return {
-            identity,
-            mentioned: !!user.mentioned,
-            subscribed: !!user.subscribed,
-          };
-        } catch (e) {
-          // Ignore identities that fail to restore. Either they were added before we set
-          // `saveIdentityCaps` to true, or they have lost access to the board.
-          return undefined;
-        }
-      }),
-    );
-    const resolvedUsers = maybeUsers.filter(u => !!u);
-    const event = { path, type, users: resolvedUsers };
-    if (caption) {
-      event.notification = { caption };
-    }
-    await session.activity(event);
-  }
-
   Meteor.startup(() => {
-    // Reporting activity to Sandstorm goes over the Cap'n Proto bridge session;
-    // without capnp there is no way to send it, so skip registering the hook.
-    if (!Capnp) return;
     Activities.after.insert(async (userId, doc) => {
       // HACK: We need the connection that's making the request in order to read the
-      // Sandstorm session ID.
+      // Sandstorm session ID. Read it before the first await: the invocation is
+      // only current until then.
       const invocation = DDP._CurrentInvocation.get(); // eslint-disable-line no-undef
-      if (invocation) {
-        const sessionId = invocation.connection.sandstormSessionId();
+      if (!invocation) return;
+      const sessionId = invocation.connection.sandstormSessionId();
 
-        const eventTypes = bridgeConfig.viewInfo.eventTypes;
+      try {
+        const { api, bridge } = await bridgeClient();
+        const defIdx = activityTypeIndex(api, doc.activityType);
+        if (defIdx < 0) return;
 
-        const defIdx = eventTypes.findIndex(
-          def => def.name === doc.activityType,
-        );
-        if (defIdx >= 0) {
-          const users = {};
-          async function ensureUserListed(userId) {
-            if (!users[userId]) {
-              const user = await Meteor.users.findOneAsync(userId);
-              if (user) {
-                users[userId] = { id: user.services.sandstorm.id };
-              } else {
-                return false;
-              }
-            }
-            return true;
-          }
-
-          async function mentionedUser(userId) {
-            if (await ensureUserListed(userId)) {
-              users[userId].mentioned = true;
+        const users = {};
+        async function ensureUserListed(userId) {
+          if (!users[userId]) {
+            const user = await Meteor.users.findOneAsync(userId);
+            if (user && user.services && user.services.sandstorm) {
+              users[userId] = { id: user.services.sandstorm.id };
+            } else {
+              return false;
             }
           }
-
-          async function subscribedUser(userId) {
-            if (await ensureUserListed(userId)) {
-              users[userId].subscribed = true;
-            }
-          }
-
-          let path = '';
-          let caption = null;
-
-          if (doc.cardId) {
-            path = `b/sandstorm/libreboard/${doc.cardId}`;
-            const card = ReactiveCache.getCard(doc.cardId);
-            if (card && card.members) {
-              for (const memberId of card.members) {
-                await subscribedUser(memberId);
-              }
-            }
-          }
-
-          if (doc.memberId) {
-            await mentionedUser(doc.memberId);
-          }
-
-          if (doc.activityType === 'addComment') {
-            const comment = ReactiveCache.getCardComment(doc.commentId);
-            caption = { defaultText: comment.text };
-            const activeMembers = ReactiveCache.getBoard(sandstormBoard._id).activeMembers()
-              .map(x => x.userId);
-            const mentions = comment.text.match(/\B@([\w.]*)/g) || [];
-            for (const username of mentions) {
-              const user = await Meteor.users.findOneAsync({
-                username: username.slice(1),
-              });
-              if (user && activeMembers.indexOf(user._id) !== -1) {
-                await mentionedUser(user._id);
-              }
-            }
-          }
-
-          await reportActivity(sessionId, path, defIdx, Object.values(users), caption);
+          return true;
         }
+
+        async function mentionedUser(userId) {
+          if (await ensureUserListed(userId)) {
+            users[userId].mentioned = true;
+          }
+        }
+
+        async function subscribedUser(userId) {
+          if (await ensureUserListed(userId)) {
+            users[userId].subscribed = true;
+          }
+        }
+
+        let path = '';
+        let caption = null;
+
+        if (doc.cardId) {
+          path = `b/sandstorm/libreboard/${doc.cardId}`;
+          const card = ReactiveCache.getCard(doc.cardId);
+          if (card && card.members) {
+            for (const memberId of card.members) {
+              await subscribedUser(memberId);
+            }
+          }
+        }
+
+        if (doc.memberId) {
+          await mentionedUser(doc.memberId);
+        }
+
+        if (doc.activityType === 'addComment') {
+          const comment = ReactiveCache.getCardComment(doc.commentId);
+          caption = comment.text;
+          const board = ReactiveCache.getBoard(doc.boardId);
+          const activeMembers = board ? board.activeMembers().map(x => x.userId) : [];
+          const mentions = comment.text.match(/\B@([\w.]*)/g) || [];
+          for (const username of mentions) {
+            const user = await Meteor.users.findOneAsync({
+              username: username.slice(1),
+            });
+            if (user && activeMembers.indexOf(user._id) !== -1) {
+              await mentionedUser(user._id);
+            }
+          }
+        }
+
+        await api.reportActivity(bridge, sessionId, {
+          path,
+          type: defIdx,
+          users: Object.values(users),
+          caption,
+        });
+      } catch (e) {
+        // A notification that could not be sent must not fail the change that
+        // caused it.
+        console.error('** WeKan/Sandstorm: activity event not sent:', (e && e.message) || e);
       }
     });
   });

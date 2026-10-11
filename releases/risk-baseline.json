@@ -55,6 +55,19 @@
       "https://opencollective\\.com/babel",
       "https://opencollective\\.com/core-js",
       "https://opencollective\\.com/debug"
+    ],
+    "imports/sandstorm/capnp/api-session.mjs": [
+      "https://api\\.github\\.com",
+      "https://api\\.github\\.com/users",
+      "https://apidata\\.googleusercontent\\.com/caldav/v2",
+      "https://developer\\.github\\.com/v3/oauth/\\#scopes"
+    ],
+    "imports/sandstorm/capnp/package.mjs": [
+      "http://choosealicense\\.com/no\\-license/",
+      "http://opensource\\.org/licenses/",
+      "https://docs\\.sandstorm\\.io/en/latest/developing/auth/",
+      "https://docs\\.sandstorm\\.io/en/latest/developing/http\\-apis/",
+      "https://keybase\\.io"
     ]
   },
   "files": {

@@ -289,6 +289,12 @@ test('every script in releases/ is reachable from BOTH menus', () => {
       + '      reaches. There is no graph to walk until a build has produced a\n'
       + '      bundle, and a menu entry would need one to point at. Run it by hand\n'
       + '      with --dry-run against .build/bundle to see what it would take',
+    'sandstorm-capnp-schemas.sh': 'a code GENERATOR, not a build step: it\n'
+      + '      regenerates imports/sandstorm/capnp/*.mjs from Sandstorm\'s .capnp\n'
+      + '      schemas, and with --mock builds the C++ peer\n'
+      + '      tests/sandstormCapnpRpc.test.cjs runs against. Its output is\n'
+      + '      committed, so no build runs it; run it by hand when the schemas,\n'
+      + '      the capnp-es fork\'s compiler or the fixture change',
     'changelog-wrap.mjs': 'an editing aid for whoever just wrote CHANGELOG prose;\n'
       + '      tests/changelogFormat.test.cjs names it when lines run long, and it\n'
       + '      only changes whitespace. Run by hand, never from a build menu',

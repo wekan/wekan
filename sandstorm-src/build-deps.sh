@@ -156,6 +156,12 @@ else
   echo "    qemu-user-static not installed; spk ships cpu-exec without a bundled qemu-user"
 fi
 
+# The meteor-spk base's node-capnp (33.6 MB capnp.node, built for Node 14, so it
+# cannot load on Node 26). WeKan speaks Cap'n Proto to the bridge through
+# @wekanteam/capnp-es (imports/sandstorm/bridgeClient.mjs), which needs no
+# native code, so nothing loads it - and it counts toward Sandstorm's 1 GiB.
+rm -rf "$DEPS/programs/server/node_modules/capnp.node" "$DEPS/programs/server/node_modules/capnp.js"
+
 echo "==> [7/7] niscud + old node_modules kept for the niscu->3.0 stage:"
 ls -la "$DEPS/bin/niscud" "$DEPS/node_modules/mongodb" >/dev/null 2>&1 \
   && echo "    ok (present)" || echo "    WARNING: niscud/node_modules missing from base"

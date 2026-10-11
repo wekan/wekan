@@ -85,8 +85,12 @@ investing in the rest.
 
 Start from the 0.6.0 base, then:
 
-- **Replace** `bin/node` with **Node 26** — use the exact build from Meteor 3.6-beta.1's dev bundle
-  (`meteor node -e "console.log(process.version)"`) so native‑addon ABIs match the WeKan bundle.
+- **Replace** `bin/node` with **Node 26** — the exact `NODE_VERSION` the Dockerfile pins, which
+  is what <https://wekan.fi/version.txt> advertises, downloaded and checksum-verified with
+  `releases/embed-verified-node.sh` like every other platform's bundle.
+- **Remove** `programs/server/node_modules/capnp.node` (33.6 MB, node-capnp built for Node 14,
+  which cannot load on Node 26) and `capnp.js`. WeKan speaks Cap'n Proto to the bridge in plain
+  JavaScript instead — see *Cap'n Proto RPC to the bridge* below.
 - **Keep** `bin/mongod` (3.0.7) — read‑only migration source.
 - **Keep** `bin/niscud` (MongoDB 2.x) **and** the old bundled `node_modules/{mongodb,bson,
   mongodb-core,es6-promise,readable-stream}` — used by `start.js`'s **niscu → MongoDB 3.0**
@@ -114,6 +118,27 @@ Start from the 0.6.0 base, then:
 > must be self‑contained and regenerated with `gather-deps` on a clean modern base.
 
 amd64 only. (arm64 Sandstorm is out of scope here; the migratemongo 3.x binaries are x86_64.)
+
+### Cap'n Proto RPC to the bridge
+
+Login needs only the `X-Sandstorm-*` headers, but **Powerbox identity claims** and **activity
+events** (Sandstorm's notifications and activity log) are Cap'n Proto calls on the bridge's
+`/tmp/sandstorm-api` socket. The bridge's HTTP proxy (`http_proxy`, port 15239) has no route for
+either: it implements only `POST http://http-bridge/session/<id>/claim` and Bearer forwarding to
+HTTP APIs (sandstorm `src/sandstorm/bridge-proxy.c++`); the "Cap'n Proto APIs without Cap'n
+Proto" its CHANGELOG mentions were never built.
+
+- [`imports/sandstorm/bridgeClient.mjs`](../../../../../../imports/sandstorm/bridgeClient.mjs)
+  makes those calls — `getSessionContext`, `activity`, `getSavedIdentity`, `claimRequest`,
+  `getProfile`, `getIdentityId`, `saveIdentity` — and `sandstorm.js` loads it on first use.
+- It uses [`@wekanteam/capnp-es`](../../../../../../npm-packages/capnp-es/README.md), WeKan's fork
+  of the pure-JavaScript capnp-es, which adds what the bridge needs and upstream's RPC lacked:
+  Resolve (with Disembargo), Release, tail calls and Unimplemented.
+- The schema classes in `imports/sandstorm/capnp/*.mjs` are generated from Sandstorm's own
+  `.capnp` files by [`releases/sandstorm-capnp-schemas.sh`](../../../../../../releases/sandstorm-capnp-schemas.sh).
+- [`tests/sandstormCapnpRpc.test.cjs`](../../../../../../tests/sandstormCapnpRpc.test.cjs) runs
+  it against the reference C++ RPC implementation with Sandstorm's schemas
+  (`tests/fixtures/capnp-rpc/mock-bridge.c++`; `releases/sandstorm-capnp-schemas.sh --mock`).
 
 ---
 
@@ -384,6 +409,9 @@ and refreshes.
 - [ ] **TEST** `LD_LIBRARY_PATH` split — node26/ferretdb on the fresh 2.35 libs; mongo‑3.0 CLIs on
       the old libs; no cross‑contamination.
 - [ ] **TEST** Admin Panel / Attachments / Sandstorm: status accuracy, disk numbers, guarded delete.
+- [ ] **TEST** on a real grain: a card comment appears in Sandstorm's notifications and activity
+      log for the card's members and the mentioned users (verified so far against the C++ RPC
+      peer in `tests/sandstormCapnpRpc.test.cjs`, not a live grain).
 
 ---
 

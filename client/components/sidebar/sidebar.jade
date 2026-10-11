@@ -91,8 +91,7 @@ template(name="membersWidget")
               +userAvatar(userId=this.userId showStatus=true)
             //- Sandstorm grains can contain multiple boards. Their users already
               exist in this grain after first visiting it, so use WeKan's normal,
-              permission-checked board-member picker. The former Powerbox button
-              depended on capnp.node (unavailable with the bundled Node 26) and its
+              permission-checked board-member picker. The former Powerbox button's
               claimed identity was never attached to the selected board. #2405
             if currentUser.canInviteToBoard
               a.member.add-member.js-manage-board-members(title="{{_ 'add-members'}}")
