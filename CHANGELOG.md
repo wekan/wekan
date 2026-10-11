@@ -524,6 +524,32 @@ used.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The **Windows 32-bit** bundle, which v12.32 announced but did not
+ship, builds now, and the job checks that its sign-in modules are really built
+for 32-bit Windows.
+
+This release fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/df48ef2aeb">The win32 bundle builds, with its sign-in modules checked for 32-bit Windows</a>. Thanks to xet7.</summary>
+
+v12.32 was the first release whose win32 job found its Node.js, and it failed
+at the next step: `tar` in Git Bash reads the `D:` of the runner's temporary
+directory as a remote host name. The job now gives `tar` only relative names
+and node-gyp the Windows form of the path. The step after that had never run
+either: `bcrypt` and `argon2` have no prebuilt 32-bit Windows binary, and
+WeKan's sign-in cannot work without them. `releases/check-addon-arch.mjs` now
+reads each shipped binary's header and fails the job unless both are built for
+32-bit Windows. `tests/win32BundleBuild.test.cjs` checks the step, that no
+Windows job gives `tar` such a path, and the checker on 32-bit, 64-bit and
+Linux binaries.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.32 2026-10-11 WeKan ® release
 
 **In short:** A dropped **card** no longer flickers by showing in both lists at
@@ -568,6 +594,10 @@ accepts the `*` binary-mode marker. The downloaded binary was checked against
 the published SHA256. `tests/releaseNodeSources.test.cjs` runs the checksum
 matcher on real sidecar lines, and checks that a line for another file such as
 `node-win32.lib` is never taken.
+
+**It was not built in v12.32 after all.** This fix let the job find its Node.js,
+and it then failed at its next step, unpacking the Node.js headers: no win32
+zip was published. The fix for that is in the next release.
 
 </details>
 
