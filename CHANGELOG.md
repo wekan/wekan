@@ -529,7 +529,8 @@ used.
 WeKan can be packaged as a Nextcloud External App with Nextcloud sign-in and
 persistent FerretDB SQLite storage. The companion and publisher are implemented;
 a real Docker build and Nextcloud/HaRP deployment still need validation before
-production publication.
+production publication. Ready files document how WeKan can be added to
+**ZimaOS**, **TrueNAS**, **Coolify**, **Dokploy** and the **AUR**.
 
 This release adds the following feature and fixes:
 
@@ -587,6 +588,25 @@ process reference, leaving port 4000 occupied when Meteor started and causing
 A real-process regression reproduces the old failure and verifies that the
 replacement exits before WeKan takes the port. All 20 focused Sandstorm checks
 pass locally; a full grain upgrade was not run in this environment.
+
+</details>
+
+and has the following documentation:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bb9c4c7044">Possible additional platforms, with ready files for five app stores and the AUR</a>. Thanks to xet7.</summary>
+
+`docs/Design/Autoupdate/Platforms.md` opens with the open source platforms WeKan
+is not on yet - checked in each catalog on 2026-10-11 - and, for each, what is
+done and what is still missing. ZimaOS/CasaOS, TrueNAS, Coolify, Dokploy and the
+Arch User Repository get the files their catalogs take and a README with the
+pull request each expects, under `docs/Platforms/`. Each was tested with its
+catalog's own tools where they run without the platform: CasaOS's validator and
+store builder (1/1 built, both architectures pinned), the TrueNAS library
+render, Dokploy's three validators, and Arch's `makepkg`, whose package started
+WeKan and answered HTTP 200. `tests/platformTemplates.test.cjs` keeps the image
+tag and the settings the same across them. None is submitted yet; the human
+steps are listed.
 
 </details>
 
