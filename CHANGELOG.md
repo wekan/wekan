@@ -526,8 +526,9 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** On **32-bit ARM**, attachment thumbnails no longer risk crashing
-WeKan, and **PDF attachment text** is searchable on more platforms. The
+**In short:** On **Univention (UCS)**, avatars show again after an upgrade. On
+**32-bit ARM**, attachment thumbnails no longer risk crashing WeKan, and **PDF
+attachment text** is searchable on more platforms. The
 **Windows 32-bit** and **ARM64** bundles build again. The **Docker image**
 builds from the released bundles instead of rebuilding them under emulation,
 and **Launchpad** snap builds upload 1 MB instead of 237 MB. Bundles shrink by
@@ -535,6 +536,23 @@ about 120 MB: the **bundled Node.js** is stripped of debug data, and the
 **MongoDB Database Tools** are one program instead of eight.
 
 This release fixes the following bugs:
+
+**Univention (UCS)** - WeKan served under /wekan, after an upgrade.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7514d6e175">Avatars show again, and lazily loaded code comes from the page's own address</a>. Thanks to xet7.</summary>
+
+Every avatar was an empty circle, though Change Avatar showed the picture. The
+stored address `/cdn/storage/avatars/<id>` was used as is, which on UCS is
+outside WeKan's `/wekan` path, so the web server answered 404. Avatars are now
+drawn under the path WeKan is served at, whatever host or path they were saved
+with. A browser that opened WeKan by another address than `ROOT_URL` also
+fetched part of WeKan's code from the `ROOT_URL` host, which it could not
+reach; that code now comes from the page's own address. Links still use
+`ROOT_URL`. `tests/avatarDisplayUrl.test.cjs` covers the stored address forms
+and checks that no page draws a stored avatar address directly.
+
+</details>
 
 **Native modules in the bundles** - what each platform can load.
 
@@ -635,6 +653,8 @@ and has the following developer-tooling fix:
 
 - [The board permission guard accepts the commented-out Sandstorm migration it now finds](https://github.com/wekan/wekan/commit/8a78749061).
   Thanks to xet7.
+- [The release scripts work with a GitHub CLI older than 2.48](https://github.com/wekan/wekan/commit/0516826f75),
+  which has no `--slurp` and stopped the release. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
