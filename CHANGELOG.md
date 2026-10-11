@@ -530,9 +530,12 @@ used.
 that **node-patches** already publishes. The **CPU platform** design document
 now matches what the node-patches and **FerretDB** releases build and what
 WeKan actually ships, and the platform pages are **reorganized** under
-`docs/Platforms`.
+`docs/Platforms`. **UCS upgrades** use migration tools bundled in the ordinary
+WeKan image and can obtain both images from Univention alone.
 
-This release fixes the following bug:
+This release fixes the following bugs:
+
+**Windows bundles** - restore the 32-bit build.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/24e5cc4300">The win32 bundle is built again</a>. Thanks to xet7.</summary>
@@ -549,6 +552,36 @@ matcher on real sidecar lines, and checks that a line for another file such as
 
 </details>
 
+**UCS upgrades** - migration tools and registry availability.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7f4a8fa6c1">Bundle migration tools and use the target UCS registry images</a>. Thanks to xet7.</summary>
+
+The 12.31 upgrade stopped before migration when the separate helper image
+returned an authorization error. The ordinary WeKan Docker image now includes
+its migration runtime and Docker client. The temporary worker explicitly runs
+that command; normal WeKan startup and the two-service deployment stay intact.
+The full release publishes these tools with the app image on all three registries,
+and missing-release recovery retries its failed Docker job.
+
+The generated preinst reads the target version's cached compose references and
+tries those exact images first. Both images can therefore come solely from the
+UCS registry, including its renamed tags. GHCR, Docker Hub and Quay provide
+fallbacks for the pinned upstream versions. Pulls and a bundled-tools check run
+before downtime; failure cancels the upgrade while retaining the original data.
+The portal uploader checks anonymous availability, bundled tools and database
+UID before writing a draft, and no longer builds a separate helper package.
+
+Regression coverage includes UCS-only access, individual upstream fallbacks,
+missing or ambiguous target metadata, failed downloads, missing tools, retries,
+portal errors, cleanup and migration integrity. The 21 migration and 17 uploader
+tests pass, as do the affected release and existing migration suites. No real
+Docker build, UCS portal upgrade or browser/LDAP test ran in this environment.
+A new WeKan release and UCS acceptance test are required; the already published
+12.31 image does not contain these tools.
+
+</details>
+
 and has the following documentation updates:
 
 **Platform docs** - where the platform pages live, and what is built.
@@ -560,7 +593,8 @@ The autoupdate design pages moved from `docs/Design/Autoupdate` to the
 platform they describe: the per-OS pages to
 `docs/Platforms/FOSS/OS/OS-future-alternatives`, the snap pages to
 `Container/Snap`, UCS and Nextcloud to `Container/Docker`, and `Platforms.md`
-to `docs/Platforms`. `docs/Platforms/FOSS/Cloud` was split between
+to `docs/Platforms`. **UCS upgrades** use migration tools bundled in the ordinary
+WeKan image and can obtain both images from Univention alone. `docs/Platforms/FOSS/Cloud` was split between
 `Container/Docker` and `FOSS/CloudFlare`, Friend and UCS moved under
 `Container/Docker`, and Leo moved to `Features/ImportExport/Leo`. All links to
 them were updated, in the docs, workflows, tests and on wekan.fi, and
