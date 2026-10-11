@@ -34,6 +34,7 @@ const root = path.resolve(__dirname, '..');
 const read = rel => fs.readFileSync(path.join(root, rel), 'utf8');
 
 const WORKFLOWS = [
+  '.github/workflows/nextcloud.yml',
   '.github/workflows/release-all.yml',
   '.github/workflows/release-all-missing.yml',
   '.github/workflows/AppImage.yml',

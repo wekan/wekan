@@ -1,0 +1,164 @@
+name: Nextcloud App Store
+run-name: Nextcloud ${{ inputs.version }}
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
+        description: 'Existing WeKan release version, without v'
+  workflow_dispatch:
+    inputs:
+      version:
+        required: true
+        type: string
+        description: 'Existing WeKan release version, without v'
+
+permissions:
+  contents: write
+  packages: write
+
+concurrency:
+  group: wekan-nextcloud-${{ inputs.version }}
+  cancel-in-progress: false
+
+jobs:
+  nextcloud:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      VERSION: ${{ inputs.version }}
+    steps:
+      - name: Check required secrets
+        id: guard
+        env:
+          REPO_TOKEN: ${{ secrets.WEKAN_REPO_TOKEN }}
+          NC_KEY: ${{ secrets.NEXTCLOUD_APP_PRIVATE_KEY }}
+          NC_CRT: ${{ secrets.NEXTCLOUD_APP_PUBLIC_CRT }}
+          NC_TOKEN: ${{ secrets.NEXTCLOUD_APPSTORE_TOKEN }}
+          REGISTRY_AUTH: ${{ secrets.GHCR_AUTH }}
+        run: |
+          set -eu
+          if [ -z "$REPO_TOKEN" ] || [ -z "$NC_KEY" ] || [ -z "$NC_CRT" ] || [ -z "$NC_TOKEN" ] || [ -z "$REGISTRY_AUTH" ]; then
+            echo 'ok=false' >> "$GITHUB_OUTPUT"
+            echo '::notice::Nextcloud publishing not configured. See docs/Design/Autoupdate/Nextcloud.md.'
+          else
+            echo 'ok=true' >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v7
+        if: steps.guard.outputs.ok == 'true'
+
+      - name: Prepare temporary directory and validate release
+        if: steps.guard.outputs.ok == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p "$GITHUB_WORKSPACE/.tools/tmp"
+          echo "TMPDIR=$GITHUB_WORKSPACE/.tools/tmp" >> "$GITHUB_ENV"
+          python3 -c 'import sys; sys.path.insert(0,"releases"); import importlib; importlib.import_module("nextcloud-release").app_version(sys.argv[1])' "$VERSION"
+          gh release view "v$VERSION" --repo wekan/wekan --json tagName
+
+      - name: Checkout the ExApp definition
+        if: steps.guard.outputs.ok == 'true'
+        uses: actions/checkout@v7
+        with:
+          repository: wekan/nextcloud
+          token: ${{ secrets.WEKAN_REPO_TOKEN }}
+          persist-credentials: false
+          path: exapp
+
+      - name: Check App Store and prepare versioned metadata
+        id: plan
+        if: steps.guard.outputs.ok == 'true'
+        run: python3 releases/nextcloud-release.py --version "$VERSION"
+
+      - name: Set up Docker Buildx
+        if: steps.guard.outputs.ok == 'true' && steps.plan.outputs.skip != 'true'
+        uses: docker/setup-buildx-action@v4
+
+      - name: Publish the missing versioned ExApp image
+        if: steps.guard.outputs.ok == 'true' && steps.plan.outputs.skip != 'true'
+        env:
+          GHCR_AUTH: ${{ secrets.GHCR_AUTH }}
+        run: |
+          set +x
+          set -euo pipefail
+          credentials="$(printf '%s' "$GHCR_AUTH" | base64 -d)"
+          [[ "$credentials" == *:* && -n "${credentials%%:*}" && -n "${credentials#*:}" ]]
+          printf '%s' "${credentials#*:}" | docker login ghcr.io -u "${credentials%%:*}" --password-stdin
+          unset credentials
+          docker pull "ghcr.io/wekan/wekan:v$VERSION"
+          image="ghcr.io/wekan/wekan-exapp:v$VERSION"
+          if docker buildx imagetools inspect "$image" > .tools/exapp-image.txt 2> .tools/exapp-image-error.txt; then
+            echo 'Keeping the existing versioned ExApp image.'
+          elif grep -Eqi 'manifest unknown|name unknown|not found' .tools/exapp-image-error.txt; then
+            docker buildx build --push --provenance=mode=max \
+              --tag "$image" --build-arg "WEKAN_VERSION=$VERSION" exapp
+          else
+            cat .tools/exapp-image-error.txt >&2
+            echo '::error::Cannot inspect the Nextcloud ExApp image; refusing to treat a registry error as an absent image.' >&2
+            exit 1
+          fi
+          # No latest tag or companion-branch update: recovery of an older release
+          # must not roll back a newer deployment or the companion source tree.
+
+      - name: Package, sign and publish to the Nextcloud App Store
+        if: steps.guard.outputs.ok == 'true' && steps.plan.outputs.skip != 'true'
+        env:
+          APP_ID: ${{ steps.plan.outputs.app_id }}
+          APP_PRIVATE_KEY: ${{ secrets.NEXTCLOUD_APP_PRIVATE_KEY }}
+          APP_PUBLIC_CRT: ${{ secrets.NEXTCLOUD_APP_PUBLIC_CRT }}
+          APPSTORE_TOKEN: ${{ secrets.NEXTCLOUD_APPSTORE_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set +x
+          set -euo pipefail
+          umask 077
+          task_dir="$(mktemp -d "$TMPDIR/nextcloud-sign.XXXXXX")"
+          trap 'rm -rf -- "$task_dir"' EXIT
+          archive="${APP_ID}.tar.gz"
+          new_archive=false
+          gh release view --repo wekan/wekan "v$VERSION" --json assets > "$task_dir/assets.json"
+          if jq -e --arg name "$archive" '.assets | any(.name == $name)' "$task_dir/assets.json" >/dev/null; then
+            gh release download --repo wekan/wekan "v$VERSION" --pattern "$archive" --dir "$task_dir"
+          else
+            tar --exclude=.git --exclude=.tools --exclude=.env --exclude=node_modules \
+              -czf "$task_dir/$archive" --transform "s,^\./,${APP_ID}/," -C exapp .
+            new_archive=true
+          fi
+          python3 releases/nextcloud-release.py --version "$VERSION" --archive "$task_dir/$archive" --app-id "$APP_ID"
+          if [ "$new_archive" = true ]; then
+            gh release upload --repo wekan/wekan "v$VERSION" "$task_dir/$archive"
+          fi
+          printf '%s' "$APP_PRIVATE_KEY" > "$task_dir/app.key"
+          printf '%s' "$APP_PUBLIC_CRT" > "$task_dir/app.crt"
+          openssl x509 -in "$task_dir/app.crt" -pubkey -noout > "$task_dir/public.key"
+          openssl dgst -sha512 -sign "$task_dir/app.key" -out "$task_dir/signature" "$task_dir/$archive"
+          openssl dgst -sha512 -verify "$task_dir/public.key" -signature "$task_dir/signature" "$task_dir/$archive"
+          signature="$(openssl base64 -A -in "$task_dir/signature")"
+          download="https://github.com/wekan/wekan/releases/download/v${VERSION}/${archive}"
+          jq -n --arg download "$download" --arg signature "$signature" \
+            '{download: $download, signature: $signature, nightly: false}' > "$task_dir/release.json"
+          curl --fail-with-body --silent --show-error --max-time 300 \
+            -X POST https://apps.nextcloud.com/api/v1/apps/releases \
+            -H "Authorization: Token $APPSTORE_TOKEN" -H 'Content-Type: application/json' \
+            --data-binary "@$task_dir/release.json"
+
+      - name: Job result
+        if: always()
+        env:
+          ENABLED: ${{ steps.guard.outputs.ok }}
+          SKIPPED: ${{ steps.plan.outputs.skip }}
+          RESULT: ${{ job.status }}
+        run: |
+          if [ "$ENABLED" != true ]; then
+            echo 'Nextcloud: not configured; no publication attempted.' >> "$GITHUB_STEP_SUMMARY"
+          elif [ "$RESULT" != success ]; then
+            echo 'Nextcloud: FAILED; inspect this job.' >> "$GITHUB_STEP_SUMMARY"
+          elif [ "$SKIPPED" = true ]; then
+            echo 'Nextcloud: already published; left unchanged.' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'Nextcloud: App Store upload accepted.' >> "$GITHUB_STEP_SUMMARY"
+          fi

@@ -95,7 +95,7 @@ run-name: Release v${{ inputs.new_version }}
 #                      to those repos (the built-in GITHUB_TOKEN only covers
 #                      wekan/wekan). See releases/create-github-secrets.sh.
 #                      Also needs write access to wekan/wekan-ondra,
-#                      wekan/wekan-gantt-gpl, wekan/univention and wekan/nextcloud
+#                      wekan/wekan-gantt-gpl and wekan/nextcloud (UCS uses a public checkout)
 #                      for the snap-variants / ucs / nextcloud jobs below.
 #   SNAP_AUTH must also carry ACL for the variant snap names wekan-ondra and
 #                      wekan-gantt-gpl (snap-variants job). See
@@ -5335,223 +5335,30 @@ jobs:
           fi
 
   ucs:
-    # ENABLED. `continue-on-error: true` below means a failure here can never
-    # fail the release or hold up another job - the point of running it is to
-    # SEE what it reports. Disable again by replacing the `if` below with
-    # `if: ${{ false }}`.
     needs: [prepare, release, docker]
-    # always(), for the same reason as the charts job above: a cancellation
-    # elsewhere in the run skips every job that has not started yet, and in
-    # v10.80 that silently dropped this one along with charts.
     if: ${{ !cancelled() && needs.prepare.result == 'success' && needs.release.result == 'success' && needs.docker.result == 'success' }}
-    continue-on-error: true
-    timeout-minutes: 45
-    runs-on: ubuntu-latest
-    env:
-      VERSION: ${{ needs.prepare.outputs.version }}
-    steps:
-      - name: Check required secrets are configured
-        id: guard
-        env:
-          REPO_TOKEN: ${{ secrets.WEKAN_REPO_TOKEN }}
-          UCS_USER: ${{ secrets.UNIVENTION_APP_PROVIDER_USER }}
-          UCS_PASS: ${{ secrets.UNIVENTION_APP_PROVIDER_PASSWORD }}
-        run: |
-          if [ -z "$REPO_TOKEN" ] || [ -z "$UCS_USER" ] || [ -z "$UCS_PASS" ]; then
-            echo "ok=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::ucs skipped — set WEKAN_REPO_TOKEN, UNIVENTION_APP_PROVIDER_USER, UNIVENTION_APP_PROVIDER_PASSWORD. See docs/Design/Autoupdate/UCS.md."
-          else
-            echo "ok=true" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Checkout the wekan/univention app repo
-        if: steps.guard.outputs.ok == 'true'
-        uses: actions/checkout@v7
-        with:
-          repository: wekan/univention
-          token: ${{ secrets.WEKAN_REPO_TOKEN }}
-          path: univention
-
-      - name: Update the app to WeKan ${{ needs.prepare.outputs.version }}
-        if: steps.guard.outputs.ok == 'true'
-        run: |
-          set -euo pipefail
-          cd univention
-          # Bump the WeKan image tag in the compose (image is mirrored by the App
-          # Provider from the public wekanteam/wekan image). The FerretDB compose +
-          # migration hook is the larger change from docs/Design/Autoupdate/UCS.md.
-          sed -i "s#\(wekan-wekan:\)[^ ]*#\1${VERSION}#g" component/compose || true
-          git config user.name  'wekan-release-bot'
-          git config user.email 'release@wekan.team'
-          git add -A
-          git commit -m "WeKan ${VERSION} for UCS" || echo "no changes"
-          git push origin HEAD:master
-
-      - name: Upload the app to the Univention App Provider
-        if: steps.guard.outputs.ok == 'true'
-        env:
-          UNIVENTION_APPCENTER_USER: ${{ secrets.UNIVENTION_APP_PROVIDER_USER }}
-          UNIVENTION_APPCENTER_PASSWORD: ${{ secrets.UNIVENTION_APP_PROVIDER_PASSWORD }}
-        run: |
-          UNIV="$PWD/univention"
-          set -euo pipefail
-          # univention-appcenter-control is the App Provider CLI. Fetch it and
-          # upload the app metadata/component. The exact app-version id and file
-          # arguments depend on the App Provider account — see UCS.md.
-          if ! bash "$UNIV/releases/fetch.sh" --optional -o univention-appcenter-control \
-                https://provider-portal.software-univention.de/appcenter-selfservice/univention-appcenter-control; then
-            echo "::warning::Could not fetch univention-appcenter-control; upload skipped (fill in per account)."
-            exit 0
-          fi
-          chmod +x univention-appcenter-control
-          echo "Fetched univention-appcenter-control. Intended upload:"
-          echo "  ./univention-appcenter-control upload \"wekan_${VERSION}\" univention/meta/* univention/component/*"
-
-      # Always, as the last step: the run summary then answers "what worked and what
-      # did not" for the whole release at a glance, instead of eighteen job logs. A
-      # step that failed has already printed an ::error:: saying why; this names the
-      # job it was in.
-      - name: Job result
-        if: always()
-        # bash explicitly: this same step runs on the Windows and macOS runners too,
-        # where the default shell is PowerShell / not necessarily this bash.
-        shell: bash
-        run: |
-          case "${{ job.status }}" in
-            success)   mark='OK       ' ;;
-            failure)   mark='FAILED   ' ;;
-            cancelled) mark='CANCELLED' ;;
-            *)         mark='${{ job.status }}' ;;
-          esac
-          echo "$mark ucs"
-          echo "$mark ucs" >> "$GITHUB_STEP_SUMMARY"
-          if [ "${{ job.status }}" = "failure" ]; then
-            echo "::error::ucs FAILED. The ::error:: line in this job's log, above, says which step and why."
-          fi
-          # ./univention-appcenter-control upload "wekan_${VERSION}" univention/meta/* univention/component/* \
-          #   || echo "::warning::App Provider upload failed (check account/app id)."
+    uses: ./.github/workflows/ucs.yml
+    permissions:
+      contents: read
+      packages: write
+    with:
+      version: ${{ needs.prepare.outputs.version }}
+    secrets: inherit
 
   # ─── Nextcloud App Store (ExApp) ────────────────────────────────────────────
   # Build the WeKan ExApp image and publish the app to apps.nextcloud.com.
   # DORMANT until the ExApp repo (wekan/nextcloud) and the signing/App Store
   # secrets exist. See docs/Design/Autoupdate/Nextcloud.md.
   nextcloud:
-    # ENABLED. `continue-on-error: true` below means a failure here can never
-    # fail the release or hold up another job - the point of running it is to
-    # SEE what it reports. Disable again by replacing the `if` below with
-    # `if: ${{ false }}`.
     needs: [prepare, release, docker]
-    # always(), for the same reason as the charts job above: a cancellation
-    # elsewhere in the run skips every job that has not started yet, and in
-    # v10.80 that silently dropped this one along with charts.
     if: ${{ !cancelled() && needs.prepare.result == 'success' && needs.release.result == 'success' && needs.docker.result == 'success' }}
-    continue-on-error: true
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
-    env:
-      VERSION: ${{ needs.prepare.outputs.version }}
-    steps:
-      - name: Check required secrets are configured
-        id: guard
-        env:
-          REPO_TOKEN: ${{ secrets.WEKAN_REPO_TOKEN }}
-          NC_KEY: ${{ secrets.NEXTCLOUD_APP_PRIVATE_KEY }}
-          NC_CRT: ${{ secrets.NEXTCLOUD_APP_PUBLIC_CRT }}
-          NC_TOKEN: ${{ secrets.NEXTCLOUD_APPSTORE_TOKEN }}
-        run: |
-          if [ -z "$REPO_TOKEN" ] || [ -z "$NC_KEY" ] || [ -z "$NC_CRT" ] || [ -z "$NC_TOKEN" ]; then
-            echo "ok=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::nextcloud skipped — set WEKAN_REPO_TOKEN, NEXTCLOUD_APP_PRIVATE_KEY, NEXTCLOUD_APP_PUBLIC_CRT, NEXTCLOUD_APPSTORE_TOKEN. See docs/Design/Autoupdate/Nextcloud.md."
-          else
-            echo "ok=true" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Checkout the wekan/nextcloud ExApp repo
-        if: steps.guard.outputs.ok == 'true'
-        uses: actions/checkout@v7
-        with:
-          repository: wekan/nextcloud
-          token: ${{ secrets.WEKAN_REPO_TOKEN }}
-          path: exapp
-
-      - name: Log in to ghcr.io
-        if: steps.guard.outputs.ok == 'true'
-        env:
-          GHCR_AUTH: ${{ secrets.GHCR_AUTH }}
-        run: |
-          set -euo pipefail
-          user="$(printf '%s' "$GHCR_AUTH" | base64 -d | cut -d: -f1)"
-          printf '%s' "$GHCR_AUTH" | base64 -d | cut -d: -f2- | docker login ghcr.io -u "$user" --password-stdin
-
-      - name: Build and push the WeKan ExApp image
-        if: steps.guard.outputs.ok == 'true'
-        run: |
-          set -euo pipefail
-          cd exapp
-          docker buildx build --push \
-            --provenance=mode=max \
-            -t ghcr.io/wekan/wekan-exapp:v${VERSION} \
-            -t ghcr.io/wekan/wekan-exapp:latest \
-            --build-arg WEKAN_VERSION=${VERSION} .
-
-      - name: Update info.xml version and image tag, push
-        if: steps.guard.outputs.ok == 'true'
-        run: |
-          set -euo pipefail
-          cd exapp
-          sed -i "s#<version>[^<]*</version>#<version>${VERSION}</version>#" appinfo/info.xml
-          sed -i "s#<image-tag>[^<]*</image-tag>#<image-tag>v${VERSION}</image-tag>#" appinfo/info.xml
-          git config user.name  'wekan-release-bot'
-          git config user.email 'release@wekan.team'
-          git add -A
-          git commit -m "WeKan ExApp ${VERSION}" || echo "no changes"
-          git push origin HEAD:main
-
-      - name: Package, sign and publish to the Nextcloud App Store
-        if: steps.guard.outputs.ok == 'true'
-        env:
-          APP_PRIVATE_KEY: ${{ secrets.NEXTCLOUD_APP_PRIVATE_KEY }}
-          APPSTORE_TOKEN: ${{ secrets.NEXTCLOUD_APPSTORE_TOKEN }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          set -euo pipefail
-          APP_ID="$(grep -m1 -oP '(?<=<id>)[^<]+' exapp/appinfo/info.xml)"
-          # Package the app folder as <app-id>.tar.gz (must contain appinfo/info.xml).
-          tar -czf "${APP_ID}.tar.gz" --transform "s,^\./,${APP_ID}/," -C exapp .
-          printf '%s' "$APP_PRIVATE_KEY" > app.key
-          SIGN="$(openssl dgst -sha512 -sign app.key "${APP_ID}.tar.gz" | openssl base64 -A)"
-          rm -f app.key
-          # The App Store fetches the tarball from a download URL, so attach it to
-          # the GitHub Release first, then register the release.
-          gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${APP_ID}.tar.gz" --clobber
-          DL="https://github.com/wekan/wekan/releases/download/v${VERSION}/${APP_ID}.tar.gz"
-          curl -fsSL -X POST https://apps.nextcloud.com/api/v1/apps/releases \
-            -H "Authorization: Token ${APPSTORE_TOKEN}" \
-            -H "Content-Type: application/json" \
-            -d "{\"download\":\"${DL}\",\"signature\":\"${SIGN}\",\"nightly\":false}" \
-            || echo "::warning::Nextcloud App Store upload failed (check token/cert/app registration)."
-
-      # Always, as the last step: the run summary then answers "what worked and what
-      # did not" for the whole release at a glance, instead of eighteen job logs. A
-      # step that failed has already printed an ::error:: saying why; this names the
-      # job it was in.
-      - name: Job result
-        if: always()
-        # bash explicitly: this same step runs on the Windows and macOS runners too,
-        # where the default shell is PowerShell / not necessarily this bash.
-        shell: bash
-        run: |
-          case "${{ job.status }}" in
-            success)   mark='OK       ' ;;
-            failure)   mark='FAILED   ' ;;
-            cancelled) mark='CANCELLED' ;;
-            *)         mark='${{ job.status }}' ;;
-          esac
-          echo "$mark nextcloud"
-          echo "$mark nextcloud" >> "$GITHUB_STEP_SUMMARY"
-          if [ "${{ job.status }}" = "failure" ]; then
-            echo "::error::nextcloud FAILED. The ::error:: line in this job's log, above, says which step and why."
-          fi
+    uses: ./.github/workflows/nextcloud.yml
+    permissions:
+      contents: write
+      packages: write
+    with:
+      version: ${{ needs.prepare.outputs.version }}
+    secrets: inherit
 
   # Refresh the selected changelog notes after builds. Binary provenance remains
   # in build artifacts and is never appended to release notes.

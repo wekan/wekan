@@ -183,10 +183,16 @@ test('ucs and nextcloud still wait on prepare, release and docker', () => {
   }
 });
 
-test('ucs and nextcloud stay continue-on-error, so neither can fail the release', () => {
+test('ucs and nextcloud call bounded reusable workflows with inherited secrets', () => {
   for (const name of ['ucs', 'nextcloud']) {
-    assert.ok(/^ {4}continue-on-error:\s*true\s*$/m.test(job(name)),
-      `${name} is best-effort reporting; it must not be able to fail the release`);
+    assert.ok(job(name).includes(`uses: ./.github/workflows/${name}.yml`));
+    assert.ok(job(name).includes('secrets: inherit'));
+    // GitHub rejects continue-on-error on workflow calls. Configured publishing
+    // failures now remain visible; each callee skips missing credentials itself.
+    assert.ok(!job(name).includes('continue-on-error:'));
+    const called = fs.readFileSync(path.join(repoRoot, `.github/workflows/${name}.yml`), 'utf8');
+    assert.match(called, /timeout-minutes: \d+/);
+    assert.ok(!called.includes('continue-on-error: true'));
   }
 });
 

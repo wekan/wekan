@@ -32,10 +32,14 @@ ROOT_URL settings remain part of the app configuration.
 After a successful upgrade, starting WeKan runs only two Docker containers:
 
 - `wekan-app`: the new WeKan application.
-- `wekan-db`: FerretDB with the SQLite backend.
+- `wekan-db`: FerretDB v1 with the SQLite backend, sourced from the
+  `ghcr.io/wekan/ferretdb` image and mirrored to Univention's registry when published.
 
 The migration containers are removed. MongoDB no longer runs for this app;
-its original data remains on disk for rollback.
+its original data remains on disk for rollback. The old
+`wekan-wekandb:6.09-ucs1` registry image was verified as **MongoDB 3.2.21**.
+The `wekan-wekandb` repository name is retained for UCS packaging; the new image
+under that name will contain FerretDB, not MongoDB.
 
 Before upgrading, take a UCS VM snapshot or a tested backup and allow maintenance
 time and enough free disk space for the old data, backup and migrated copy. The

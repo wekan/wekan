@@ -11,8 +11,11 @@ support (`packages/wekan-oidc/`), both of which the Nextcloud paths below build 
 
 ## Remaining steps
 
-> **Status:** the `nextcloud` job **is already wired into `release-all.yml`** — guarded, it
-> skips with a `::notice::` until the items below are done, so it never breaks a release.
+> **Status:** the shared [nextcloud.yml](../../../.github/workflows/nextcloud.yml)
+> publisher is called by both `release-all.yml` and `release-all-missing.yml`.
+> Missing credentials produce an explicit skip; configured publication failures
+> remain visible. The ExApp implementation, registration and deployment tests
+> listed below are still required.
 
 1. **Create the ExApp repo `wekan/nextcloud`**: `appinfo/info.xml` with the
    `<external-app>` block, the Node **AppAPI-handshake wrapper** (`/heartbeat`, `/enabled`,
@@ -22,7 +25,8 @@ support (`packages/wekan-oidc/`), both of which the Nextcloud paths below build 
    `nextcloud/app-certificate-requests`, receive `wekan.crt`; then **register** the app at
    `apps.nextcloud.com/developer/apps/new`. See §B2–B3.
 3. **Add secrets** `NEXTCLOUD_APP_PRIVATE_KEY`, `NEXTCLOUD_APP_PUBLIC_CRT`,
-   `NEXTCLOUD_APPSTORE_TOKEN`; **extend `WEKAN_REPO_TOKEN`** to `wekan/nextcloud`.
+   `NEXTCLOUD_APPSTORE_TOKEN`, and `GHCR_AUTH`; give `WEKAN_REPO_TOKEN` read access
+   to `wekan/nextcloud` for checkout.
 4. **Require HaRP** deploy daemon + Nextcloud 30/31+ (WebSocket/DDP) in the app docs; the
    old proxy/Docker-Socket-Proxy can't carry WeKan's realtime.
 5. Test-deploy the ExApp on a Nextcloud + HaRP instance: OIDC login, DDP realtime,
@@ -119,13 +123,30 @@ official SDK**, so it's a small custom service.
   [wekan/FerretDB](https://github.com/wekan/FerretDB)) with data under
   `APP_PERSISTENT_STORAGE` is the clean fit.
 
-### A4. `release-all.yml` — a new `nextcloud` job
-After the `docker` job publishes the WeKan image, add a job that:
-1. Checks out `wekan/nextcloud` (uses `WEKAN_REPO_TOKEN`).
-2. Builds & pushes the **ExApp image** (`ghcr.io/wekan/wekan-exapp:v<version>`) — wrapper
-   + WeKan bundle + embedded FerretDB.
-3. Regenerates `appinfo/info.xml` with the new `<image-tag>` and `<version>`.
-4. **Signs and uploads** the app release to the App Store (§B4).
+### A4. Shared `nextcloud.yml` publishing workflow
+
+Both release workflows call [nextcloud.yml](../../../.github/workflows/nextcloud.yml)
+with the selected version and inherited secrets. In a normal release it waits for
+the WeKan Docker image. Recovery also invokes it after resolving the existing
+release version. A human maintainer can invoke it separately:
+
+```sh
+gh workflow run nextcloud.yml -f version=12.28
+```
+
+The shared job checks the upstream GitHub release and App Store catalog, skips an
+already-published app version, and builds only a missing versioned ExApp image.
+Metadata uses a three-part app version (`12.28.0` for WeKan `12.28`) and image tag
+`v12.28`. An existing release tarball is reused instead of overwritten. Git
+metadata and temporary files are excluded from new tarballs; the signing key is
+stored outside the package and cleaned up afterward. The certificate verifies
+the signature before the App Store request. A rejected request fails the job.
+
+Neither the companion branch nor the image's `latest` tag is changed: completing
+an older release must not roll back a newer version. The signing certificate must
+already be registered with the App Store; the workflow does not register or
+replace certificates. No live signing/publication was exercised during the
+refactor; the ExApp and credentials must exist before a real end-to-end test.
 
 ### A5. Secrets/keys to add (`wekan/wekan`)
 | Secret | New/existing | What it is |
