@@ -524,6 +524,37 @@ used.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** A booting **Sandstorm** grain no longer fills its log with two
+false warnings, about Node's Web Storage and about ROOT_URL.
+
+This release fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5e25090e8f">A booting grain no longer logs two false warnings</a>. Thanks to xet7.</summary>
+
+Node 26 printed `ExperimentalWarning: localStorage is not available because
+--localstorage-file was not provided` into every grain log, because Node 25+
+has a global `localStorage` and server code merely probing for it triggers the
+warning. WeKan's server never uses Web Storage, so `start-memory.js` now adds
+`--no-experimental-webstorage` to `NODE_OPTIONS`. It also keeps an
+administrator's own heap size or Web Storage choice while adding whatever is
+missing, instead of computing nothing at all once `NODE_OPTIONS` was set. The
+ROOT_URL email warning of #6538 is skipped when `SANDSTORM=1`: a grain's
+ROOT_URL is always its loopback address behind sandstorm-http-bridge, and the
+grain has no SMTP of its own, so the advice to `snap set wekan root-url=...`
+never applied.
+The capnp.node message stays: that module is still built for Node 14 and the
+grain deliberately runs without Powerbox identity claims and activity events.
+`tests/sandstormNoShell.test.cjs` runs the launcher against a stub that touches
+`localStorage` and fails if the warning appears, and checks that the bare stub
+does print it.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.28 2026-10-11 WeKan ® release
 
 **In short:** Current Afrikaans, Albanian, Arabic, Belarusian, Bosnian,
