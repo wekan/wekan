@@ -11,6 +11,7 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+import tempfile
 
 FILES = ('compose', 'preinst', 'inst', 'uinst', 'test', 'README_EN', 'README_DE')
 
@@ -79,21 +80,36 @@ def prepare(repo, output, release, database_image=''):
     if not re.fullmatch(image_pattern, database_image):
         raise ValueError('Select a wekan/FerretDB v1 GHCR version tag, for example ghcr.io/wekan/ferretdb:v1.92.0')
     app_image = f'ghcr.io/wekan/wekan:v{release}'
-    helper_image = f'ghcr.io/wekan/wekan-ucs-migration:v{release}'
+    # The ordinary versioned app image also contains the UCS migration tools.
+    helper_image = app_image
     destination = Path(output) / 'component'
     destination.mkdir(parents=True, exist_ok=True)
     for name in FILES:
         shutil.copy2(source / name, destination / name)
-    shutil.copytree(source / 'migration', destination / 'migration', dirs_exist_ok=True)
     (destination / 'compose').write_text(images(compose, {'wekan': app_image, 'wekandb': database_image}))
     hook = (destination / 'preinst').read_text()
     for key, value in [('image', app_image), ('helper', helper_image), ('dbimage', database_image)]:
         hook, count = re.subn(rf'^{key}=.*$', f'{key}={value}', hook, flags=re.M)
         if count != 1:
             raise ValueError(f'Missing/duplicate preinst {key}')
+    pull_block = 'docker pull "$image"\ndocker pull "$dbimage"\ndocker pull "$helper"'
+    if hook.count(pull_block) != 1:
+        raise ValueError('Expected one preinst image-pull block before downtime')
+    fallback = Path(__file__).with_name('ucs-pull-image.sh').read_text()
+    hook = hook.replace(pull_block, fallback + '\n' + """
+ucs_compose="${BASH_SOURCE[0]%.preinst}.compose"
+if [ ! -f "$ucs_compose" ]; then ucs_compose="$(dirname -- "${BASH_SOURCE[0]}")/compose"; fi
+app_mirror=$(ucs_compose_image "$ucs_compose" wekan)
+db_mirror=$(ucs_compose_image "$ucs_compose" wekandb)
+ucs_pull_image "$image" "$app_mirror"
+ucs_pull_image "$dbimage" "$db_mirror"
+docker run --rm --entrypoint bash "$image" /opt/ucs-migration/start.sh --check
+""")
+    worker_tail = '-v /var/run/docker.sock:/var/run/docker.sock -v "$target:/data" "$helper"'
+    if hook.count(worker_tail) != 1:
+        raise ValueError('Expected one UCS migration worker command')
+    hook = hook.replace(worker_tail, worker_tail + ' bash /opt/ucs-migration/start.sh')
     (destination / 'preinst').write_text(hook)
-    dockerfile = destination / 'migration/Dockerfile'
-    dockerfile.write_text(re.sub(r'^ARG WEKAN_IMAGE=.*$', f'ARG WEKAN_IMAGE={app_image}', dockerfile.read_text(), flags=re.M))
     return {'app_image': app_image, 'helper_image': helper_image, 'database_image': database_image}
 
 
@@ -150,6 +166,45 @@ def plan(portal, source_app, target_app):
     return 'draft' if target else 'new'
 
 
+def verify_public_images(directory=None, app_image=None):
+    """Use the same unauthenticated pulls as a UCS host, including image layers."""
+    references = [app_image] if app_image else []
+    if directory is not None:
+        hook = (Path(directory) / 'component/preinst').read_text()
+        for key in ('image', 'dbimage'):
+            matches = re.findall(rf'^{key}=(\S+)$', hook, re.M)
+            if len(matches) != 1 or not re.fullmatch(r'ghcr\.io/wekan/[a-z0-9-]+:[A-Za-z0-9_.-]+', matches[0]):
+                raise ValueError(f'Missing or invalid preinst {key} image')
+            references.append(matches[0])
+    # Never inherit docker login, credential helpers or the runner's config.
+    with tempfile.TemporaryDirectory(prefix='ucs-public-images-') as config:
+        for reference in references:
+            environment = os.environ.copy()
+            environment['DOCKER_CONFIG'] = config
+            result = subprocess.run(['bash', '-c', 'source "$1"; ucs_pull_image "$2"',
+                                     'ucs-public-check', str(Path(__file__).with_name('ucs-pull-image.sh')), reference],
+                                    capture_output=True, text=True, env=environment)
+            if result.returncode:
+                raise RuntimeError(
+                    f'UCS cannot pull {reference} anonymously from any mirror. Ensure the version exists '
+                    'and its package is public, then retry. Portal draft not uploaded.')
+        result = subprocess.run(['docker', '--config', config, 'run', '--rm', '--entrypoint',
+                                 'bash', references[0], '/opt/ucs-migration/start.sh', '--check'],
+                                capture_output=True, text=True)
+        if result.returncode:
+            raise RuntimeError('Selected WeKan image lacks working bundled UCS migration tools; '
+                               'publish a new WeKan release before uploading the portal draft.')
+        if len(references) > 1:
+            result = subprocess.run(['docker', '--config', config, 'run', '--rm', references[1], '--version'],
+                                    capture_output=True, text=True)
+            if result.returncode:
+                raise RuntimeError('Selected FerretDB image cannot run; portal draft not uploaded')
+            result = subprocess.run(['docker', '--config', config, 'run', '--rm', '--entrypoint',
+                                     'id', references[1], '-u'], capture_output=True, text=True)
+            if result.returncode or result.stdout.strip() != '1000':
+                raise RuntimeError('Selected FerretDB image must use UID 1000; portal draft not uploaded')
+
+
 def upload(portal, directory, source_app, target_app):
     files = [Path(directory) / 'component' / name for name in FILES]
     for file in files:
@@ -158,6 +213,7 @@ def upload(portal, directory, source_app, target_app):
     state = plan(portal, source_app, target_app)
     if state == 'published':
         return state
+    verify_public_images(directory)
     if state == 'new':
         portal.call('new-version', source_app, target_app)
     portal.call('upload', target_app, *(str(file) for file in files))
@@ -173,7 +229,7 @@ def upload(portal, directory, source_app, target_app):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=('prepare', 'plan', 'upload', 'resolve'))
+    parser.add_argument('action', choices=('prepare', 'plan', 'upload', 'resolve', 'check-image'))
     parser.add_argument('--version', type=version)
     parser.add_argument('--wekan-release')
     parser.add_argument('--ferretdb-release')
@@ -191,6 +247,9 @@ def main():
         return
     if not args.version:
         parser.error('--version is required for prepare, plan and upload')
+    if args.action == 'check-image':
+        verify_public_images(app_image=f'ghcr.io/wekan/wekan:v{args.version}')
+        return
     if args.action == 'prepare':
         result = prepare(args.repo, args.directory, args.version, os.getenv('UCS_FERRETDB_IMAGE', ''))
         print(json.dumps(result))

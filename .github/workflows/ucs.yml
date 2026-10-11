@@ -11,7 +11,6 @@ on:
 
 permissions:
   contents: read
-  packages: write
 
 # This publisher is started separately with workflow_dispatch. Do not race
 # creation of a portal version or overwrite an image built by another attempt.
@@ -33,10 +32,9 @@ jobs:
         env:
           PROVIDER_USER: ${{ secrets.UNIVENTION_APP_PROVIDER_USER }}
           PROVIDER_PASSWORD: ${{ secrets.UNIVENTION_APP_PROVIDER_PASSWORD }}
-          REGISTRY_AUTH: ${{ secrets.GHCR_AUTH }}
         run: |
           set -eu
-          if [ -z "$PROVIDER_USER" ] || [ -z "$PROVIDER_PASSWORD" ] || [ -z "$REGISTRY_AUTH" ] || [ -z "$UCS_SOURCE_APP" ] || [ -z "$UCS_TARGET_UCS" ]; then
+          if [ -z "$PROVIDER_USER" ] || [ -z "$PROVIDER_PASSWORD" ] || [ -z "$UCS_SOURCE_APP" ] || [ -z "$UCS_TARGET_UCS" ]; then
             echo '::notice::UCS publishing not configured. See docs/Platforms/FOSS/Container/Docker/UCS/UCS-upgrades.md.'
             echo 'enabled=false' >> "$GITHUB_OUTPUT"
           else
@@ -101,41 +99,9 @@ jobs:
         if: steps.config.outputs.enabled == 'true' && steps.portal.outputs.skip != 'true'
         run: python3 releases/ucs-release.py prepare --version "$VERSION"
 
-      - name: Set up Docker Buildx
-        if: steps.config.outputs.enabled == 'true' && steps.portal.outputs.skip != 'true'
-        uses: docker/setup-buildx-action@v4
-
-      - name: Build missing migration image
-        if: steps.config.outputs.enabled == 'true' && steps.portal.outputs.skip != 'true'
-        env:
-          GHCR_AUTH: ${{ secrets.GHCR_AUTH }}
-          APP_IMAGE: ${{ steps.prepare.outputs.app_image }}
-          DATABASE_IMAGE: ${{ steps.prepare.outputs.database_image }}
-          HELPER_IMAGE: ${{ steps.prepare.outputs.helper_image }}
-        run: |
-          set +x
-          set -euo pipefail
-          credentials="$(printf '%s' "$GHCR_AUTH" | base64 -d)"
-          [[ "$credentials" == *:* && -n "${credentials%%:*}" && -n "${credentials#*:}" ]]
-          printf '%s' "${credentials#*:}" | docker login ghcr.io -u "${credentials%%:*}" --password-stdin
-          unset credentials
-          # Missing-release recovery must fail visibly if the app image is absent.
-          docker pull "$APP_IMAGE"
-          docker pull "$DATABASE_IMAGE"
-          docker run --rm "$DATABASE_IMAGE" --version
-          docker run --rm --entrypoint id "$DATABASE_IMAGE" -u | grep -qx 1000
-          if docker buildx imagetools inspect "$HELPER_IMAGE" > .tools/helper-image.txt 2> .tools/helper-image-error.txt; then
-            echo 'Keeping the already-published helper image.'
-          elif grep -Eqi 'manifest unknown|name unknown|not found' .tools/helper-image-error.txt; then
-            docker buildx build --platform linux/amd64 \
-              --file .tools/ucs-release/component/migration/Dockerfile \
-              --tag "$HELPER_IMAGE" --push .tools/ucs-release
-          else
-            cat .tools/helper-image-error.txt >&2
-            echo '::error::Cannot inspect the UCS helper image; refusing to treat a registry error as an absent image.' >&2
-            exit 1
-          fi
-
+      # The standard WeKan release already published the migration tools inside
+      # the app image on Docker Hub, GHCR and Quay. upload checks anonymous pulls
+      # with mirror fallback and runs start.sh --check before any portal write.
       - name: Upload or finish the UCS portal draft
         id: upload
         if: steps.config.outputs.enabled == 'true' && steps.portal.outputs.skip != 'true'

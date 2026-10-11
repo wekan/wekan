@@ -1,0 +1,2 @@
+#!/bin/sh
+exec docker exec wekan-db mongoexport "$@"

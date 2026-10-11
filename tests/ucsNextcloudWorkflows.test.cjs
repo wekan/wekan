@@ -30,6 +30,18 @@ assert.ok(ucs.includes('ucs-release.py resolve'));
 assert.ok(!ucs.includes('vars.UCS_FERRETDB_IMAGE'));
 assert.ok(ucs.includes('required: false'));
 assert.ok(ucs.includes('group: wekan-ucs-publish'));
+// Migration is a command in the standard image, never a fourth package.
+assert.ok(!ucs.includes('docker buildx build'));
+assert.ok(!ucs.includes('GHCR_AUTH'));
+assert.ok(!ucs.includes('packages: write'));
+assert.ok(read('release-all.yml').includes('ucs-release.py check-image --version "$VERSION"'));
+assert.ok(read('release-all-missing.yml').includes('releases/retry-failed-release.py'));
+const dockerfile = fs.readFileSync(path.join(root, 'Dockerfile'), 'utf8');
+assert.match(dockerfile, /apt-get install --assume-yes --no-install-recommends file libatomic1 docker-cli/);
+assert.match(dockerfile, /COPY releases\/ucs-migration \/opt\/ucs-migration/);
+assert.match(dockerfile, /USER wekan/);
+assert.match(dockerfile, /CMD \["bash", "\/build\/wekan-entrypoint.sh"\]/);
+assert.ok(!dockerfile.includes('VOLUME /var/run/docker.sock'));
 const nc = read('nextcloud.yml');
 assert.ok(nc.includes('--exclude=.git'));
 assert.ok(nc.includes('persist-credentials: false'));

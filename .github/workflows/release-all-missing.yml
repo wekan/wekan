@@ -11,7 +11,10 @@ name: Release all missing
 #
 # This finishes a release that already exists. It never bumps a version, never
 # tags, and does not rebuild the main Docker images, snap or the website.
-# UCS and Nextcloud publishing runs separately through their manual workflows.
+# UCS and Nextcloud portal publishing runs separately through their manual workflows.
+# UCS migration tools are part of the main WeKan Docker image. recover retries
+# its failed Docker build/publish job, including the bundled-tools smoke check;
+# there is no separate migration image to build or registry package to publish.
 #
 # It DOES publish the Helm chart, because that is a thing a release can be
 # missing like any other: the chart entry is written once, during the release it

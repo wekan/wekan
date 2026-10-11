@@ -4176,6 +4176,13 @@ jobs:
           done
           exit $rc
 
+      - name: Verify bundled UCS migration tools
+        run: |
+          set -euo pipefail
+          mkdir -p "$GITHUB_WORKSPACE/.tools/tmp"
+          export TMPDIR="$GITHUB_WORKSPACE/.tools/tmp"
+          python3 releases/ucs-release.py check-image --version "$VERSION"
+
       - name: Copy published manifest to Quay
         run: |
           set -uo pipefail

@@ -1,0 +1,3 @@
+#!/bin/sh
+# Run the SOURCE's matching shell; no source credentials or host port needed.
+exec docker exec wekan-db mongo "$@"

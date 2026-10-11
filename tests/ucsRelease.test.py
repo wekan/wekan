@@ -46,11 +46,78 @@ class UcsRelease(unittest.TestCase):
         for name in ucs.FILES:
             (component / name).write_text('content ' + name)
         (component / 'compose').write_text('services:\n  wekandb:\n    # Image was: old-mongo:6.09\n    image: '+DATABASE_IMAGE+'\n  wekan:\n    # Image was: older:5.0\n    image: ghcr.io/wekan/wekan:v12.27\n')
-        (component / 'preinst').write_text('image=old\nhelper=old-helper\ndbimage=old-db\n')
+        (component / 'preinst').write_text('image=old\nhelper=old-helper\ndbimage=old-db\ndocker pull "$image"\ndocker pull "$dbimage"\ndocker pull "$helper"\ndocker run -v /var/run/docker.sock:/var/run/docker.sock -v "$target:/data" "$helper"\n')
         (component / 'migration').mkdir()
         (component / 'migration/Dockerfile').write_text('ARG WEKAN_IMAGE=old\nFROM ${WEKAN_IMAGE}\n')
         self.output = self.root / 'output'
         ucs.prepare(self.root / 'source', self.output, '12.28')
+        self.public_patcher = patch.object(ucs, 'verify_public_images')
+        self.public_check = self.public_patcher.start()
+        self.addCleanup(self.public_patcher.stop)
+
+    def test_anonymous_pulls_use_empty_config_for_every_image(self):
+        self.public_patcher.stop()
+        configs = []
+        def pull(command, **kwargs):
+            if command[0] == 'docker':
+                self.assertEqual(command[1], '--config')
+                config = Path(command[2])
+                self.assertEqual(command[3:5], ['run', '--rm'])
+            else:
+                self.assertEqual(command[:2], ['bash', '-c'])
+                config = Path(kwargs['env']['DOCKER_CONFIG'])
+            self.assertTrue(config.is_dir())
+            self.assertEqual(list(config.iterdir()), [])
+            configs.append(config)
+            return subprocess.CompletedProcess(command, 0, stdout='1000\n' if command[-1] == '-u' else '')
+        with patch.object(ucs.subprocess, 'run', side_effect=pull) as run:
+            ucs.verify_public_images(self.output)
+        self.assertEqual([call.args[0][-1] for call in run.call_args_list[:2]], [
+            'ghcr.io/wekan/wekan:v12.28', DATABASE_IMAGE])
+        self.assertTrue(all(not config.exists() for config in configs))
+
+    def test_private_or_missing_image_blocks_new_and_existing_drafts(self):
+        self.public_patcher.stop()
+        for state in ('new', 'draft'):
+            for failed_image in range(2):
+                portal = FakePortal(state)
+                responses = [subprocess.CompletedProcess([], 0)] * failed_image
+                responses.append(subprocess.CompletedProcess([], 1, '', 'unauthorized'))
+                with patch.object(ucs.subprocess, 'run', side_effect=responses) as run:
+                    with self.assertRaisesRegex(RuntimeError, 'anonymously.*Portal draft not uploaded'):
+                        ucs.upload(portal, self.output, '4.4/wekan=6.09', '5.2/wekan=12.28')
+                self.assertEqual([call[0] for call in portal.calls], ['list'])
+                self.assertFalse(Path(run.call_args.kwargs['env']['DOCKER_CONFIG']).exists())
+
+    def test_old_image_without_bundled_tools_cannot_create_a_portal_draft(self):
+        self.public_patcher.stop()
+        portal = FakePortal()
+        responses = [subprocess.CompletedProcess([], 0)] * 2 + [subprocess.CompletedProcess([], 1)]
+        with patch.object(ucs.subprocess, 'run', side_effect=responses):
+            with self.assertRaisesRegex(RuntimeError, 'lacks working bundled UCS migration tools'):
+                ucs.upload(portal, self.output, '4.4/wekan=6.09', '5.2/wekan=12.28')
+        self.assertEqual([call[0] for call in portal.calls], ['list'])
+
+    def test_wrong_database_uid_blocks_portal_write(self):
+        self.public_patcher.stop()
+        portal = FakePortal()
+        responses = [subprocess.CompletedProcess([], 0)] * 4 + [subprocess.CompletedProcess([], 0, '0\n')]
+        with patch.object(ucs.subprocess, 'run', side_effect=responses):
+            with self.assertRaisesRegex(RuntimeError, 'UID 1000'):
+                ucs.upload(portal, self.output, '4.4/wekan=6.09', '5.2/wekan=12.28')
+        self.assertEqual([call[0] for call in portal.calls], ['list'])
+
+    def test_invalid_or_duplicate_image_is_rejected_before_pull(self):
+        self.public_patcher.stop()
+        hook = self.output / 'component/preinst'
+        valid = hook.read_text()
+        for bad in (valid + 'image=duplicate\n', valid.replace('dbimage=', '#dbimage='),
+                    valid.replace('ghcr.io/wekan/wekan:v12.28', '--all-tags')):
+            hook.write_text(bad)
+            with patch.object(ucs.subprocess, 'run') as run:
+                with self.assertRaises(ValueError):
+                    ucs.verify_public_images(self.output)
+                run.assert_not_called()
 
     def test_cli_reads_password_from_fresh_pipe_without_disk_storage(self):
         cli = self.root / 'fake-cli.py'
@@ -88,8 +155,11 @@ print(json.dumps({'authenticated': True}))
         self.assertIn('image: ghcr.io/wekan/wekan:v12.28', compose)
         hook = (self.output / 'component/preinst').read_text()
         self.assertIn('dbimage='+DATABASE_IMAGE, hook)
-        self.assertIn('helper=ghcr.io/wekan/wekan-ucs-migration:v12.28', hook)
-        self.assertIn('ARG WEKAN_IMAGE=ghcr.io/wekan/wekan:v12.28', (self.output / 'component/migration/Dockerfile').read_text())
+        self.assertIn('helper=ghcr.io/wekan/wekan:v12.28', hook)
+        self.assertIn('\"$helper\" bash /opt/ucs-migration/start.sh', hook)
+        self.assertIn('ucs_pull_image \"$image\"', hook)
+        self.assertNotIn('docker pull \"$helper\"', hook)
+        self.assertFalse((self.output / 'component/migration/Dockerfile').exists())
         self.assertEqual(ucs.images(compose, {'wekan': 'ghcr.io/wekan/wekan:v12.28', 'wekandb': DATABASE_IMAGE}), compose)
 
     def test_database_tag_override_updates_compose_and_hook(self):
@@ -128,6 +198,7 @@ print(json.dumps({'authenticated': True}))
         portal = FakePortal('published')
         self.assertEqual(ucs.upload(portal, self.output, '4.4/wekan=6.09', '5.2/wekan=12.28'), 'published')
         self.assertEqual([c[0] for c in portal.calls], ['list'])
+        self.public_check.assert_not_called()
 
     def test_readback_failure_is_not_success(self):
         with self.assertRaisesRegex(RuntimeError, 'read-back'):

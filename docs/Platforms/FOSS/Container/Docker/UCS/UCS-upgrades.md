@@ -7,7 +7,8 @@ CollectionFS/GridFS attachments and avatars move to the **filesystem**.
 
 **Status: implementation prepared, not published or validated on UCS yet.**
 The app definition is in the separate [wekan/univention repository](https://github.com/wekan/univention),
-checked out locally at `.tools/univention`. The initial target is **12.28**.
+checked out locally at `.tools/univention`. The initial target was **12.28**;
+use a new release containing the bundled migration tools described below.
 “Newest” means the newest version published and approved in the UCS App Center;
 a new upstream WeKan release does not automatically become a UCS release.
 
@@ -36,12 +37,13 @@ In `wekan/univention`:
   verifies the copy, and removes the temporary containers before returning success.
   Failure returns nonzero to cancel the upgrade and restarts the old app if it was
   running. The old MongoDB directory is never overwritten or deleted.
-- `component/migration/`: one-shot helper image, legacy-compatible importer, source
+- `releases/ucs-migration/` in **wekan/wekan**: bundled importer, source
   tool wrappers and strict completion/file checks. `mongo` and `mongoexport` run
   inside the original database container using `docker exec`; a modern driver
   connects only to FerretDB. No intermediate MongoDB version upgrade is needed.
-  The temporary database uses the same pinned GHCR FerretDB image as the final
-  compose service.
+  The temporary database uses the same FerretDB image as the final compose
+  service. `releases/ucs-release.py` converts the companion hook to run the
+  ordinary WeKan image with `bash /opt/ucs-migration/start.sh`.
 - `component/inst` and `component/test`: use the app's MongoDB driver to access
   FerretDB instead of expecting a Mongo shell in `wekan-db`.
 - `component/compose-6.09`: original template retained for reference/rollback.
@@ -75,44 +77,47 @@ helper environment and their volume destinations, plus the startup marker check;
 changing only the app environment would leave the migrated file paths pointing
 to the old location.
 
-### 1. Publish the companion changes and build the helper
+### 1. Publish a WeKan image containing the migration tools
 
-Commit/push the prepared `wekan/univention` changes from its default branch,
-`master`, and the documentation from `wekan/wekan`'s `main`. These are separate
-repositories; a WeKan commit does not include files under `.tools/univention`.
-Publishing commands in this document are for the human maintainer.
+The main WeKan `Dockerfile` includes `releases/ucs-migration/` and Debian's
+`docker-cli`. The default image command and user still start WeKan normally.
+Only the temporary UCS worker overrides the command and runs as root with the
+Docker socket. There is **no separate migration image to build or publish**.
 
-On a Docker build machine, from the `wekan/univention` root:
+`release-all.yml` publishes the ordinary versioned image to Docker Hub, GHCR and
+Quay and smoke-tests its migration tools. `release-all-missing.yml` recovers
+failed jobs of that release, including the main Docker build/publish job. The
+standalone `ucs.yml` only prepares the App Center draft; it verifies anonymous
+image access and bundled tools before any portal write. Publishing remains a
+human-maintainer operation.
 
-```sh
-docker pull ghcr.io/wekan/wekan:v12.28
-docker build --pull -f component/migration/Dockerfile \
-  -t ghcr.io/wekan/wekan-ucs-migration:v12.28 .
-```
+The generated hook first reads the **target version's cached compose file**
+beside its `.preinst` file and pulls the exact `wekan` and `wekandb` image
+references. This uses Univention's actual mirrored names and tags, including
+`-ucsN` suffixes, rather than guessing them from the upstream version.
+When both new images are mirrored, the migration can use **only the UCS registry**.
+It does not download a Docker CLI, Node.js, npm packages or a helper image at run
+time. The original MongoDB container and its read tools must still exist locally.
+
+If a target image cannot be pulled, the hook tries the same pinned upstream
+version at GHCR, Docker Hub and Quay. A successful mirror pull is tagged locally
+under the hook's canonical name before use. All pulls and the migration-tools
+check finish before the old app is stopped. If no source works, the upgrade
+fails without using a stale cached image. Normal App Center installation still
+uses its compose references, so those references must also be available for
+App Center's own pull after preinst.
 
 Inspect the result and verify that the selected WeKan image has Node and the
 modern MongoDB driver under the bundle's `programs/server` tree. The selected
 FerretDB image must use the SQLite handler and `/ferretdb` entrypoint, with UID
-1000 owning its `/state` mount. `preinst` gives that UID ownership of
-`ferretdb/files/db/`; app-owned attachment directories keep the WeKan image's UID.
-The helper copies the Docker CLI from `docker:27.5.1-cli`;
-verify it can communicate with Docker on each supported UCS version.
-
-Publish the tested helper image to the registry referenced by `component/preinst`,
-or let the new `ucs.yml` job build/publish it automatically after adding the
-configuration below. The normal app and database images are mirrored by
-Univention from the references in `compose`. The one-shot helper is not a compose
-service, so arrange its mirroring separately if UCS cannot pull from GHCR. If
-registries change, update `image`, `dbimage` and `helper` in `preinst`, the two
-compose image references and the helper's `WEKAN_IMAGE` build argument. The portal cannot perform the migration
-until the helper image exists and is pullable by the UCS host.
+1000 owning its `/state` mount. Verify Docker CLI compatibility on each supported
+UCS version. `start.sh --check` checks the packaged files and driver without
+starting migration or requiring a source database/socket.
 
 Keep version tags fixed per UCS release. `releases/ucs-release.py` prepares the
-versioned compose, preinst and helper Dockerfile together. It retains every image
-history comment and adds the replaced active image as another comment. The
-workflow resolves the latest published stable release of the **wekan/FerretDB**
-fork at run time and sets `UCS_FERRETDB_IMAGE` to its full GHCR version tag. Do not use
-upstream `ghcr.io/ferretdb/ferretdb:2`: that is a different PostgreSQL backend.
+versioned compose and preinst together. It retains every image history comment.
+The workflow resolves the latest stable **wekan/FerretDB** release and pins its
+version; upstream FerretDB v2 is a different PostgreSQL backend.
 
 ### 2. Register the app version and scripts in the Provider Portal
 
@@ -121,7 +126,10 @@ Use the App Provider account that owns `wekan`. Create the new app version from
 after testing; the old `meta/wekan_20190520122559.ini` is historical metadata,
 not a ready-to-publish 12.28 definition.
 
-Upload/register these files for the **new** version:
+Upload/register these **generated** files for the new version from
+`.tools/ucs-release/component/` after running the publisher preparation step.
+Do not upload the unprepared companion `preinst`: preparation embeds the mirror
+selection and switches the worker to the bundled migration command.
 
 | File | Provider Portal purpose |
 | --- | --- |
@@ -132,7 +140,7 @@ Upload/register these files for the **new** version:
 | `component/test` | Test script run after installation |
 | `component/README_EN`, `component/README_DE` | Administrator information |
 
-The migration helper's files are inside its image; they are not separate App Center
+The migration worker's files are inside the ordinary WeKan image; they are not separate App Center
 hooks. Do not upload `compose-6.09` as the new compose file. Do not enable an
 inherited `store_data` script that requires the old application to remain running:
 the prepared `preinst` deliberately leaves it stopped to prevent post-copy writes.
@@ -160,6 +168,8 @@ Use the portal's **Upgrade** action, not only a direct invocation of `preinst`.
   them in the browser, and upload a new file after upgrading.
 - Test activated LDAP users, Domain Admin membership, rejected inactive users,
   the local administrator, ROOT_URL `/wekan`, WebSockets and mail settings.
+- Test a UCS-registry-only upgrade with all three upstream registries blocked,
+  then each upstream fallback and an all-registries-unavailable failure.
 - Test a fresh install and a later upgrade from the migrated release. Neither
   should try to import the old MongoDB again.
 - Test missing source, failed image pull, dump failure, insufficient disk space,
@@ -190,7 +200,7 @@ gh workflow run ucs.yml
 
 Leave the **version** input empty to use the latest published stable release of
 `wekan/wekan`. To retry a specific WeKan release, provide its numeric version,
-for example `gh workflow run ucs.yml -f version=12.28`. FerretDB is resolved from
+for example `gh workflow run ucs.yml -f version=<new-version>`. FerretDB is resolved from
 the latest published stable release of `wekan/FerretDB` on every run, matching
 the fork used by this repository's build scripts. Both images use explicit tags,
 and the workflow pulls them before uploading a portal draft; an unavailable
@@ -210,7 +220,6 @@ Add these **repository Actions secrets** in `wekan/wekan`:
 | --- | --- |
 | `UNIVENTION_APP_PROVIDER_USER` | Account with access to the `wekan` app |
 | `UNIVENTION_APP_PROVIDER_PASSWORD` | That account's Provider Portal password |
-| `GHCR_AUTH` | Existing base64-encoded `username:token`, permitted to publish `ghcr.io/wekan/wekan-ucs-migration` |
 
 Add these **repository Actions variables** (not secrets):
 
@@ -228,9 +237,11 @@ current when adopting it for subsequent releases.
 The standalone job checks the selected upstream release, reads the Provider Portal
 catalog, and leaves a **published** version unchanged. For a missing version it
 copies `UCS_SOURCE_APP`; for an existing draft it resumes uploading. It prepares
-versioned files, verifies the source app/database images are pullable, builds only
-a missing helper image, and uploads the explicit compose/hooks/README file list
-using the official CLI. The compose and preinst are read back and compared with
+versioned files, pulls the app and database with an empty Docker configuration
+and checks the bundled migration tools before uploading the explicit
+compose/hooks/README file list using the official CLI. The anonymous check tries
+GHCR, Docker Hub and Quay in turn. No separate helper build or registry login is
+needed in this workflow. The compose and preinst are read back and compared with
 the submitted files. Authentication/network/read-back errors fail visibly; they
 are not treated as a missing version or a successful upload.
 
@@ -256,12 +267,31 @@ version. UCS VM testing, image mirroring, provider approval and Univention appro
 remain human/provider steps before users see it in production. See the
 [Provider Portal upload documentation](https://docs.software-univention.de/app-center/5.2/en/lifecycle.html#app-provider-portal-upload-interface).
 
+### Recover the 12.31 helper-image authorization failure
+
+The supplied 12.31 UCS log stopped at an unauthorized pull of
+`ghcr.io/wekan/wekan-ucs-migration:v12.31`, before migration or application
+downtime. The new design removes that package dependency. Publish a **new WeKan
+release containing the bundled tools**, then run `ucs.yml` for that version.
+An old image such as 12.31 cannot gain these tools from a portal-only update:
+the uploader now rejects it before writing a draft.
+
+Refresh the Test App Center cache with `univention-app update`, then retry
+**Upgrade** using the corrected draft. Do not erase the retained MongoDB data
+or migration state to work around an image download error.
+
+Test on a disposable UCS VM with GHCR, Docker Hub and Quay blocked and only
+Univention's registry reachable. Confirm the target compose references both
+new mirrored images, the worker uses the ordinary WeKan image, and the whole
+portal upgrade succeeds. Automated tests cover this registry selection with
+mocked Docker; a real UCS upgrade and browser/LDAP checks are still required.
+
 ### 5. Obtain release approval and verify availability
 
 After the VM upgrade and rollback tests pass, approve the tested app version in
 the Provider Portal and coordinate Univention's approval/mirroring. Verify that
 an ordinary production UCS installation offers the new version and that its
-Upgrade action performs the migration automatically. Until then, describe 12.28
+Upgrade action performs the migration automatically. Until then, describe it
 as the **prepared UCS upgrade**, not as already available in the production catalog.
 
 ## Checked image identities

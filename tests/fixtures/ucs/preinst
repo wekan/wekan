@@ -1,0 +1,120 @@
+#!/bin/bash
+# UCS App Center host hook: automatic 6.09 -> FerretDB/filesystem upgrade.
+set -euo pipefail
+umask 077
+old_version= error_file=
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        --old-version) old_version="$2"; shift 2 ;;
+        --error-file) error_file="$2"; shift 2 ;;
+        --binddn|--bindpwd|--bindpwdfile|--locale|--version) shift 2 ;;
+        *) shift ;;
+    esac
+done
+base=/var/lib/univention-appcenter/apps/wekan/data
+target="$base/ferretdb"
+image=ghcr.io/wekan/wekan:v12.28
+dbimage=ghcr.io/wekan/ferretdb:v1.92.0
+helper=ghcr.io/wekan/wekan-ucs-migration:v12.28
+mkdir -p "$base/tmp"
+export TMPDIR="$base/tmp"
+exec 9>"$base/.ucs-migration.lock"
+flock -n 9 || { echo 'Another WeKan migration is running' >&2; exit 1; }
+stopped=false
+was_running=false
+worker_started=false
+db_started=false
+success=false
+fail() {
+    rc=$?
+    trap - EXIT
+    if [ "$worker_started" = true ]; then docker rm -f wekan-ucs-migration >/dev/null 2>&1 || true; fi
+    if [ "$db_started" = true ]; then docker stop wekan-ucs-migration-db >/dev/null 2>&1 || true; docker rm wekan-ucs-migration-db >/dev/null 2>&1 || true; fi
+    if [ "$success" != true ]; then
+        message='WeKan migration failed. Upgrade cancelled; original MongoDB retained. See /var/log/univention/appcenter.log and data/ferretdb/ucs-migration-status.json. Retry Upgrade after correcting the error.'
+        echo "$message" >&2
+        if [ -n "$error_file" ]; then printf '%s\n' "$message" >> "$error_file"; fi
+        if [ "$stopped" = true ] && [ "$was_running" = true ]; then docker start wekan-app >/dev/null || true; fi
+        [ "$rc" -ne 0 ] || rc=1
+    fi
+    exit "$rc"
+}
+trap fail EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
+# Pull before downtime; missing artifacts must not interrupt the installed app.
+docker pull "$image"
+docker pull "$dbimage"
+docker pull "$helper"
+if [ -z "$old_version" ]; then
+    # A new install must not silently adopt an old unconverted database directory.
+    if [ -d "$base/db" ] && [ -n "$(ls -A "$base/db")" ]; then
+        echo 'Existing MongoDB data requires an upgrade, not a fresh install' >&2; exit 1
+    fi
+    mkdir -p "$target"
+    docker run --rm --user 0 -v "$target:/data" -v "$base/tmp:/ucs-tmp" "$image" bash -ec \
+      'mkdir -p /data/files/db; touch /data/.ucs-migration-complete; chown -R wekan:wekan /data; chown -R 1000:1000 /data/files/db; chmod 1777 /ucs-tmp'
+    success=true
+    exit 0
+fi
+case "$old_version" in
+    6.09|6.09-*) ;;
+    *)
+        # Subsequent portal upgrades keep the migrated database and attachments.
+        test -f "$target/.ucs-migration-complete"
+        success=true
+        exit 0 ;;
+esac
+# A killed hook may leave its labelled helpers behind. Remove only our helpers.
+for container in wekan-ucs-migration wekan-ucs-migration-db; do
+    if docker inspect "$container" >/dev/null 2>&1; then
+        test "$(docker inspect -f '{{index .Config.Labels "wekan.ucs-migration"}}' "$container")" = 1
+        docker rm -f "$container"
+    fi
+done
+# Reserve space before mongodump can fill the source filesystem. This conservative
+# estimate covers a dump, the converted database/files, and a 1 GiB margin.
+source_bytes=$(docker exec wekan-db mongo --quiet wekan --eval 'print(Math.ceil(db.stats().dataSize))')
+case "$source_bytes" in ''|*[!0-9]*) echo 'Cannot measure source database' >&2; exit 1 ;; esac
+free_kb=$(df -Pk "$base" | awk 'NR==2 {print $4}')
+test "$((free_kb * 1024))" -gt "$((source_bytes * 3 + 1073741824))"
+# Never reuse a partial/previous copy: the old app may have accepted writes after
+# an aborted upgrade. Preserve it for diagnosis, then take a new consistent copy.
+stamp=$(date -u +%Y%m%dT%H%M%SZ)-$$
+if [ -e "$target" ]; then mv "$target" "$base/ferretdb-before-$stamp"; fi
+mkdir -p "$target/files/db" "$base/dump/ucs-$stamp"
+docker run --rm --user 0 -v "$target:/data" -v "$base/tmp:/ucs-tmp" "$image" bash -ec \
+    'chown -R wekan:wekan /data; chown -R 1000:1000 /data/files/db; chmod 1777 /ucs-tmp'
+# Back up the rendered UCR configuration (contains secrets; keep private).
+cp -a /var/lib/univention-appcenter/apps/wekan/compose "$base/dump/ucs-$stamp/compose"
+docker inspect wekan-app > "$base/dump/ucs-$stamp/wekan-app.json"
+docker inspect wekan-db > "$base/dump/ucs-$stamp/wekan-db.json"
+was_running=$(docker inspect -f '{{.State.Running}}' wekan-app)
+docker stop wekan-app
+stopped=true
+# Use the source image's own tools: compatible even with pre-4.2 MongoDB.
+docker exec wekan-db mongodump --db wekan --out "/dump/ucs-$stamp/mongodb"
+test -d "$base/dump/ucs-$stamp/mongodb/wekan"
+docker run -d --name wekan-ucs-migration-db --label wekan.ucs-migration=1 \
+    -v "$target/files/db:/state" "$dbimage" --handler=sqlite \
+    --sqlite-url=file:/state/ --listen-addr=0.0.0.0:27017 --telemetry=disable
+db_started=true
+# Docker socket is confined to this short-lived host orchestrator; the installed
+# app and database services never receive it. Wrappers exec only source read tools.
+worker_started=true
+docker run --name wekan-ucs-migration --label wekan.ucs-migration=1 --user 0 \
+    --network container:wekan-ucs-migration-db \
+    -v /var/run/docker.sock:/var/run/docker.sock -v "$target:/data" "$helper"
+test -f "$target/.ucs-migration-complete"
+docker run --rm --user 0 -v "$target:/data" -v "$base/tmp:/ucs-tmp" "$image" bash -ec \
+    'chown -R wekan:wekan /data; chown -R 1000:1000 /data/files/db; chmod 1777 /ucs-tmp'
+# Cleanup is part of success, not a best-effort step: only two services may remain.
+docker rm wekan-ucs-migration
+worker_started=false
+docker stop wekan-ucs-migration-db
+docker rm wekan-ucs-migration-db
+db_started=false
+success=true
+# Leave the old app stopped: App Center now replaces the services. Restarting it
+# here would allow writes after the snapshot. The old MongoDB data is never deleted.
+echo 'WeKan database and attachments verified. Continuing App Center upgrade.'

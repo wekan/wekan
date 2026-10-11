@@ -104,3 +104,12 @@ UCS WeKan v5.71 and newer is using WeKan Gantt GPL version. [Source](https://git
 
 [Repair MongoDB](../../../../../Backup/Repair-MongoDB.md) applies to the old 6.09
 installation and retained MongoDB backup, not the new FerretDB SQLite database.
+
+## Migration image availability
+
+New releases bundle UCS migration tools in the ordinary WeKan Docker image.
+The temporary worker uses that same image with an explicit migration command;
+there is no separately published helper image. If Univention mirrors both the
+new WeKan and FerretDB images, the generated preinst can use only UCS's registry.
+It reads the exact target compose references before trying upstream fallbacks.
+See [release and recovery steps](UCS-upgrades.md#recover-the-1231-helper-image-authorization-failure).
