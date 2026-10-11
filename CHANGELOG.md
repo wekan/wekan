@@ -577,6 +577,19 @@ for CI. No portal writes were performed during development.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2c4c89e794">Fix Sandstorm port handoff after successful migration</a>. Thanks to xet7.</summary>
+
+An old waiting-page process could deliver its exit callback after the blocking
+migration had already started a replacement. That callback discarded the new
+process reference, leaving port 4000 occupied when Meteor started and causing
+`EADDRINUSE`. Only clear the reference when the exiting process still owns it.
+A real-process regression reproduces the old failure and verifies that the
+replacement exits before WeKan takes the port. All 20 focused Sandstorm checks
+pass locally; a full grain upgrade was not run in this environment.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.30 2026-10-11 WeKan ® release
