@@ -533,20 +533,26 @@ choices.
 This release has the following developer-tooling fix:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/9c3692f832">Setup installs Meteor again with npm 12</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0dbf9d8502">Setup installs Meteor with npx meteor, as Meteor's documentation says</a>. Thanks to xet7.</summary>
 
-build.sh installs npm 12.2.0, the Dockerfile's NPM_VERSION, right before
-`npm -g install meteor`, and npm 12 stopped that install three ways in turn:
-it [refuses `--unsafe-perm`](https://github.com/wekan/wekan/commit/5c9334b76c), which npm 7 removed; it
-[refuses Meteor's documented `--foreground-script`](https://github.com/wekan/wekan/commit/3c755c1855)
-as an abbreviation of `--foreground-scripts`; and it runs
-no package's install script unless `allow-scripts` names it, so the meteor
-installer package was added but never downloaded Meteor. build.sh, build.bat
-and releases/rebuild-release.sh now pass `--foreground-scripts
---allow-scripts=meteor`, which npm matches against the registry URL's
-package name, so only that one script is allowed. All three were checked
-against npm 12.2.0 itself. `tests/npmMeteorInstall.test.cjs` fails on any of
-the three in a script or in the .agents notes.
+build.sh installs npm 12.2.0, the Dockerfile's NPM_VERSION, right before it
+installed Meteor with `sudo npm -g install meteor`, and npm 12 stopped that
+three ways in turn: it [refuses `--unsafe-perm`](https://github.com/wekan/wekan/commit/5c9334b76c),
+[refuses the abbreviated `--foreground-script`](https://github.com/wekan/wekan/commit/3c755c1855),
+and [runs no install script that `--allow-scripts` does not name](https://github.com/wekan/wekan/commit/9c3692f832),
+so the meteor installer package was added but never downloaded Meteor.
+
+[Meteor's install page](https://docs.meteor.com/about/install.html) installs it
+on Linux, macOS and Windows alike with `npx meteor`, as the user and never with
+sudo; the global npm install is only its fallback. npx runs the installer
+directly, into `~/.meteor` (`%LOCALAPPDATA%\.meteor` on Windows), so none of the
+three applies. build.sh's Linux branch, build.bat and
+releases/rebuild-release.sh now do that, as the macOS branch already did,
+unless Meteor is installed already. build.sh also removes the global installer
+package an earlier setup left behind. Checked with npm 12.2.0: `npx -y meteor`
+installed Meteor 3.5.2 and put it on PATH. `tests/npmMeteorInstall.test.cjs`
+fails when a script installs Meteor any other way, with sudo, or with a flag
+npm 12 rejects.
 
 </details>
 
