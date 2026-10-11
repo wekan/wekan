@@ -530,7 +530,9 @@ used.
 WeKan, and **PDF attachment text** is searchable on more platforms. The
 **Windows 32-bit** and **ARM64** bundles build again. The **Docker image**
 builds from the released bundles instead of rebuilding them under emulation,
-and **Launchpad** snap builds upload 1 MB instead of 237 MB.
+and **Launchpad** snap builds upload 1 MB instead of 237 MB. Bundles shrink by
+about 120 MB: the **bundled Node.js** is stripped of debug data, and the
+**MongoDB Database Tools** are one program instead of eight.
 
 This release fixes the following bugs:
 
@@ -595,6 +597,44 @@ which ran on every push to look for Helm charts this repository does not have,
 now runs only when `charts/` changes.
 
 </details>
+
+and makes the release files smaller:
+
+**Bundled binaries** - what each bundle, image and snap carries.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3eb549058c">The bundled Node.js no longer carries its symbol table and debug data</a>. Thanks to xet7.</summary>
+
+The Node.js executables from nodejs.org include the data a debugger reads:
+linux-x64 and linux-arm64 Node.js 26 are 150 MB, and 117 and 115 MB without it.
+`releases/strip-node.sh` removes it after the download has been checked against
+its published checksum. It keeps the dynamic symbol table that bcrypt, argon2,
+sharp and canvas load against, and refuses a result without it. A macOS node is
+re-signed after stripping. FerretDB's own builds are likewise built without
+symbols in wekan/FerretDB (57.7 to 40.3 MB), which bundles get with its next
+release. `tests/stripNode.test.cjs` strips a real binary and checks what is
+left.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/44af4f3e72">The MongoDB Database Tools are one 15 MB program instead of eight taking 105 MB</a>. Thanks to xet7.</summary>
+
+Each of mongodump, mongorestore and the other six carried its own copy of the
+Go runtime and the MongoDB driver. wekan/mongo-tools-patches now publishes all
+eight as one program, `mongo-tools`, and `releases/fetch-mongo-tools.sh` puts it
+in every bundle with a small launcher per tool, so `mongodump` works as before
+in bundles, snaps and on Windows. Until that release is published, the eight
+separate tools are used. A bundle for a platform without tools no longer keeps
+the amd64 ones. `tests/fetchMongoTools.test.cjs` checks the launchers, the
+fallback, the checksum check and that nothing else downloads the tools.
+
+</details>
+
+and has the following developer-tooling fix:
+
+- [The board permission guard accepts the commented-out Sandstorm migration it now finds](https://github.com/wekan/wekan/commit/8a78749061).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
