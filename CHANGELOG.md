@@ -524,7 +524,7 @@ used.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.32 2026-10-11 WeKan ® release
 
 **In short:** A dropped **card** no longer flickers by showing in both lists at
 once, and the **Windows 32-bit** bundle is built again. **UCS upgrades** run
