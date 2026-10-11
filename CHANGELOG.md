@@ -527,10 +527,14 @@ used.
 # Upcoming WeKan ® release
 
 **In short:** The **Windows 32-bit** bundle, which v12.32 announced but did not
-ship, builds now, and the job checks that its sign-in modules are really built
-for 32-bit Windows.
+ship, builds now. All **Windows** bundles get the image library for their own
+CPU, so attachment thumbnails work there, and the **ARM64** bundle gets the
+sign-in module it was missing. Every Windows job now checks that each native
+module it ships is built for its CPU.
 
-This release fixes the following bug:
+This release fixes the following bugs:
+
+**Windows bundles** - what they build, and the native modules they ship.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/df48ef2aeb">The win32 bundle builds, with its sign-in modules checked for 32-bit Windows</a>. Thanks to xet7.</summary>
@@ -545,6 +549,22 @@ reads each shipped binary's header and fails the job unless both are built for
 32-bit Windows. `tests/win32BundleBuild.test.cjs` checks the step, that no
 Windows job gives `tar` such a path, and the checker on 32-bit, 64-bit and
 Linux binaries.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b5e96ac682">Thumbnails work on Windows, and the ARM64 bundle can sign in</a>. Thanks to xet7.</summary>
+
+Every Windows bundle is made from the Linux amd64 one, so `sharp`, which makes
+attachment thumbnails, had only its Linux binary and fell back to full-size
+images. Each Windows job now adds `@img/sharp-win32-<arch>` at the version
+`sharp` pins, checked against the npm registry's sha512, and removes packages
+built for other platforms. Checking the published v12.32 zips also showed that
+the ARM64 zip had no ARM64 `argon2`, which sign-in imports with no fallback:
+the job never told npm its target CPU, so nothing was compiled. It now does.
+All three jobs check `bcrypt`, `argon2` and `sharp` before zipping.
+`tests/windowsNativePackages.test.cjs` covers the download, a tampered tarball
+and a path-traversal entry.
 
 </details>
 
