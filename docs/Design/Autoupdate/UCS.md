@@ -177,13 +177,12 @@ regression tests. **No real Docker image build, UCS portal upgrade, database cop
 LDAP/browser test or reboot test has been run in this development environment.**
 Do not approve the production release on the strength of the mocked tests alone.
 
-### 4. Configure the shared UCS publisher
+### 4. Configure the standalone UCS publisher
 
-[ucs.yml](../../../.github/workflows/ucs.yml) now contains the shared publishing
-job. Both [release-all.yml](../../../.github/workflows/release-all.yml) and
-[release-all-missing.yml](../../../.github/workflows/release-all-missing.yml) call
-it with the selected release version and inherited secrets. It can also be
-started manually by a human maintainer:
+[ucs.yml](../../../.github/workflows/ucs.yml) runs only when started separately
+with `workflow_dispatch`. Neither `release-all.yml` nor `release-all-missing.yml`
+invokes it. After the selected WeKan release and Docker image exist, a human
+maintainer starts it from GitHub Actions **Run workflow** or with:
 
 ```sh
 gh workflow run ucs.yml -f version=12.28
@@ -210,7 +209,7 @@ and the job does not push git changes. The new versioned definition is kept in
 the portal and a workflow artifact. Keep the companion template's version history
 current when adopting it for subsequent releases.
 
-The shared job checks the selected upstream release, reads the Provider Portal
+The standalone job checks the selected upstream release, reads the Provider Portal
 catalog, and leaves a **published** version unchanged. For a missing version it
 copies `UCS_SOURCE_APP`; for an existing draft it resumes uploading. It prepares
 versioned files, verifies the source app/database images are pullable, builds only
@@ -220,10 +219,10 @@ the submitted files. Authentication/network/read-back errors fail visibly; they
 are not treated as a missing version or a successful upload.
 
 If required configuration is absent, the job reports **not configured** and skips.
-Once configured, a failure is visible in the calling release workflow. Recovery
-through `release-all-missing.yml` calls the same publisher even if an older job
-incorrectly reported success without uploading. The WeKan release image must
-already exist; this job does not rebuild the main WeKan Docker image.
+Once configured, a failure is visible in the standalone UCS workflow. To retry,
+run `ucs.yml` again with the same version; existing drafts are resumed and
+published versions are left unchanged. The WeKan release image must already
+exist; this job does not rebuild the main WeKan Docker image.
 
 The CLI is downloaded from Univention using this repository's `releases/fetch.sh`.
 It is called with its actual `--noninteractive` and `--pwdfile` options. Secrets

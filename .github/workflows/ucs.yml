@@ -2,12 +2,6 @@ name: UCS App Center
 run-name: UCS ${{ inputs.version }}
 
 on:
-  workflow_call:
-    inputs:
-      version:
-        description: 'Existing WeKan release version, without v'
-        required: true
-        type: string
   workflow_dispatch:
     inputs:
       version:
@@ -19,7 +13,7 @@ permissions:
   contents: read
   packages: write
 
-# Both full and missing-release workflows share one publisher. Do not race
+# This publisher is started separately with workflow_dispatch. Do not race
 # creation of a portal version or overwrite an image built by another attempt.
 concurrency:
   group: wekan-ucs-${{ inputs.version }}

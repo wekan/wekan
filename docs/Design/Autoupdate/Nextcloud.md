@@ -11,8 +11,9 @@ support (`packages/wekan-oidc/`), both of which the Nextcloud paths below build 
 
 ## Remaining steps
 
-> **Status:** the shared [nextcloud.yml](../../../.github/workflows/nextcloud.yml)
-> publisher is called by both `release-all.yml` and `release-all-missing.yml`.
+> **Status:** the standalone [nextcloud.yml](../../../.github/workflows/nextcloud.yml)
+> publisher runs only through a separate manual `workflow_dispatch`. Neither
+> `release-all.yml` nor `release-all-missing.yml` invokes it.
 > Missing credentials produce an explicit skip; configured publication failures
 > remain visible. The ExApp implementation, registration and deployment tests
 > listed below are still required.
@@ -123,18 +124,18 @@ official SDK**, so it's a small custom service.
   [wekan/FerretDB](https://github.com/wekan/FerretDB)) with data under
   `APP_PERSISTENT_STORAGE` is the clean fit.
 
-### A4. Shared `nextcloud.yml` publishing workflow
+### A4. Standalone `nextcloud.yml` publishing workflow
 
-Both release workflows call [nextcloud.yml](../../../.github/workflows/nextcloud.yml)
-with the selected version and inherited secrets. In a normal release it waits for
-the WeKan Docker image. Recovery also invokes it after resolving the existing
-release version. A human maintainer can invoke it separately:
+[nextcloud.yml](../../../.github/workflows/nextcloud.yml) is started separately
+from GitHub Actions **Run workflow** or the command below, after the selected
+WeKan release and Docker image exist. To retry a failed publication, run it again
+with the same version:
 
 ```sh
 gh workflow run nextcloud.yml -f version=12.28
 ```
 
-The shared job checks the upstream GitHub release and App Store catalog, skips an
+The standalone job checks the upstream GitHub release and App Store catalog, skips an
 already-published app version, and builds only a missing versioned ExApp image.
 Metadata uses a three-part app version (`12.28.0` for WeKan `12.28`) and image tag
 `v12.28`. An existing release tarball is reused instead of overwritten. Git
@@ -308,8 +309,8 @@ Kanboard, Planka, Focalboard) is a **separate app** that *integrates with* Nextc
       and **register** the app at apps.nextcloud.com
 - [ ] Add secrets `NEXTCLOUD_APP_PRIVATE_KEY`, `NEXTCLOUD_APP_PUBLIC_CRT`,
       `NEXTCLOUD_APPSTORE_TOKEN`; extend `WEKAN_REPO_TOKEN` to `wekan/nextcloud`
-- [ ] `release-all.yml`: add the `nextcloud` job (build ExApp image → regenerate
-      info.xml → sign → `POST /api/v1/apps/releases`)
+- [ ] Run `nextcloud.yml` separately for the selected published WeKan version
+      (build ExApp image → regenerate info.xml → sign → `POST /api/v1/apps/releases`)
 - [ ] Require **HaRP** deploy daemon (WebSocket/DDP) and Nextcloud 30/31+ in the docs
 - [ ] (Integrations) Document/point WeKan OIDC at Nextcloud `oidc` provider (SSO);
       optionally add Task Processing AI calls and a Deck sync bridge

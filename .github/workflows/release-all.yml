@@ -95,17 +95,10 @@ run-name: Release v${{ inputs.new_version }}
 #                      to those repos (the built-in GITHUB_TOKEN only covers
 #                      wekan/wekan). See releases/create-github-secrets.sh.
 #                      Also needs write access to wekan/wekan-ondra,
-#                      wekan/wekan-gantt-gpl and wekan/nextcloud (UCS uses a public checkout)
-#                      for the snap-variants / ucs / nextcloud jobs below.
+#                      wekan/wekan-gantt-gpl for the snap-variants job below.
 #   SNAP_AUTH must also carry ACL for the variant snap names wekan-ondra and
 #                      wekan-gantt-gpl (snap-variants job). See
 #                      docs/Design/Autoupdate/Snap-Ondra-Gantt.md.
-#   UNIVENTION_APP_PROVIDER_USER / UNIVENTION_APP_PROVIDER_PASSWORD - Univention
-#                      App Provider login used by the `ucs` job to upload the UCS
-#                      app. See docs/Design/Autoupdate/UCS.md.
-#   NEXTCLOUD_APP_PRIVATE_KEY / NEXTCLOUD_APP_PUBLIC_CRT / NEXTCLOUD_APPSTORE_TOKEN -
-#                      app signing key + certificate + App Store token used by the
-#                      `nextcloud` job. See docs/Design/Autoupdate/Nextcloud.md.
 #
 #   Reading the logs: every job ends with a "Job result" step that runs whatever
 #   happened, so the run summary is a list of OK / FAILED / CANCELLED, one line per
@@ -125,7 +118,7 @@ run-name: Release v${{ inputs.new_version }}
 #   that uses it, which then names the secret in the log instead of leaving a bare
 #   401 behind. So a missing or broken secret is always ONE named line, near the top.
 #
-#   The snap-variants / ucs / nextcloud jobs are guarded: if their secrets are not
+#   The snap-variants jobs are guarded: if their secrets are not
 #   set they log a ::warning:: and skip, so they never break an ordinary release.
 
 on:
@@ -451,7 +444,7 @@ jobs:
     needs: docker
     # `always()` so that a CANCELLATION somewhere else in the run cannot skip
     # this job. It is not defensive dressing: in v10.80 the release itself, the
-    # image and every bundle were published, and then charts, ucs and nextcloud
+    # image and every bundle were published, and then charts
     # were all skipped the moment `docker` finished - because build-mac-x64 was
     # queued on a retired runner label and had to be cancelled by hand, and a
     # cancelled job cancels the RUN, which skips every job that has not started.
@@ -2721,7 +2714,7 @@ jobs:
     # fail: the job QUEUES FOREVER waiting for a runner that will never come, so
     # every release since then had a build-mac-x64 sitting there for hours until
     # it was cancelled by hand - and cancelling it cancelled the RUN, which is
-    # what skipped the charts, ucs and nextcloud jobs (they had not started yet).
+    # what skipped the charts jobs (they had not started yet).
     # No release has ever carried a wekan-<version>-mac-x64.zip because of it.
     # Intel macOS is still offered, under new labels: macos-15-intel and
     # macos-26-intel (macos-14/15/26 without the suffix are Apple Silicon). This
@@ -3107,7 +3100,7 @@ jobs:
           # container does not. It is BEST-EFFORT (optional): the preflight skips
           # it with a warning instead of failing, because a hard failure here
           # fails the whole build-extra-arches matrix job and SKIPS every job that
-          # needs it - docker, and through docker charts/ucs/nextcloud - so one
+          # needs it - docker, and through docker charts - so one
           # unbuildable CPU took the Docker image down with it. It stays in the
           # matrix so it is visible on every run (as a skip), and returns to a
           # real build the day a linux/loong64 base image is published.
@@ -5405,32 +5398,6 @@ jobs:
           if [ "${{ job.status }}" = "failure" ]; then
             echo "::error::snap-variants ${{ matrix.snapname }} ${{ matrix.arch }} FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
-
-  ucs:
-    needs: [prepare, release, docker]
-    if: ${{ !cancelled() && needs.prepare.result == 'success' && needs.release.result == 'success' && needs.docker.result == 'success' }}
-    uses: ./.github/workflows/ucs.yml
-    permissions:
-      contents: read
-      packages: write
-    with:
-      version: ${{ needs.prepare.outputs.version }}
-    secrets: inherit
-
-  # ─── Nextcloud App Store (ExApp) ────────────────────────────────────────────
-  # Build the WeKan ExApp image and publish the app to apps.nextcloud.com.
-  # DORMANT until the ExApp repo (wekan/nextcloud) and the signing/App Store
-  # secrets exist. See docs/Design/Autoupdate/Nextcloud.md.
-  nextcloud:
-    needs: [prepare, release, docker]
-    if: ${{ !cancelled() && needs.prepare.result == 'success' && needs.release.result == 'success' && needs.docker.result == 'success' }}
-    uses: ./.github/workflows/nextcloud.yml
-    permissions:
-      contents: write
-      packages: write
-    with:
-      version: ${{ needs.prepare.outputs.version }}
-    secrets: inherit
 
   # Refresh the selected changelog notes after builds. Binary provenance remains
   # in build artifacts and is never appended to release notes.

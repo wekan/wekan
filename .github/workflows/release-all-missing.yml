@@ -11,8 +11,7 @@ name: Release all missing
 #
 # This finishes a release that already exists. It never bumps a version, never
 # tags, and does not rebuild the main Docker images, snap or the website.
-# UCS and Nextcloud jobs may publish their missing helper/ExApp images and
-# app-store entries, without replacing already-published versions.
+# UCS and Nextcloud publishing runs separately through their manual workflows.
 #
 # It DOES publish the Helm chart, because that is a thing a release can be
 # missing like any other: the chart entry is written once, during the release it
@@ -455,30 +454,6 @@ jobs:
             *)         mark='${{ job.status }}' ;;
           esac
           echo "$mark charts" >> "$GITHUB_STEP_SUMMARY"
-
-  # Complete a missing UCS portal draft even when the old full-release job
-  # reported success without uploading. Published versions are left unchanged.
-  ucs:
-    needs: plan
-    if: ${{ !cancelled() && needs.plan.result == 'success' && needs.plan.outputs.version != '' }}
-    uses: ./.github/workflows/ucs.yml
-    permissions:
-      contents: read
-      packages: write
-    with:
-      version: ${{ needs.plan.outputs.version }}
-    secrets: inherit
-
-  nextcloud:
-    needs: plan
-    if: ${{ !cancelled() && needs.plan.result == 'success' && needs.plan.outputs.version != '' }}
-    uses: ./.github/workflows/nextcloud.yml
-    permissions:
-      contents: write
-      packages: write
-    with:
-      version: ${{ needs.plan.outputs.version }}
-    secrets: inherit
 
   # The end of the run attaches nothing: every job above attached its own files
   # as it finished them. This only reports what the release still lacks, and it

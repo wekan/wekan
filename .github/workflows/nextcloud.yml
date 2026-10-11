@@ -2,12 +2,6 @@ name: Nextcloud App Store
 run-name: Nextcloud ${{ inputs.version }}
 
 on:
-  workflow_call:
-    inputs:
-      version:
-        required: true
-        type: string
-        description: 'Existing WeKan release version, without v'
   workflow_dispatch:
     inputs:
       version:

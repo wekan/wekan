@@ -71,7 +71,7 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
 // Every job that runs after the release is published and must survive a
 // cancellation elsewhere in the run.
-const POST_RELEASE_JOBS = ['charts', 'ucs', 'nextcloud'];
+const POST_RELEASE_JOBS = ['charts'];
 
 for (const name of POST_RELEASE_JOBS) {
   test(`${name} runs on !cancelled(), so a FAILED sibling cannot skip it`, () => {
@@ -174,26 +174,6 @@ test('the reusable AppImage workflow bounds every job it runs', () => {
 test('charts waits on docker, so the chart never points at an image that is not pushed', () => {
   assert.deepStrictEqual(jobNeeds('charts'), ['docker'],
     'the chart advertises the freshly published multi-arch image; docker is what pushes it');
-});
-
-test('ucs and nextcloud still wait on prepare, release and docker', () => {
-  for (const name of ['ucs', 'nextcloud']) {
-    assert.deepStrictEqual(jobNeeds(name).sort(), ['docker', 'prepare', 'release'],
-      `${name} publishes an app that points at the released image`);
-  }
-});
-
-test('ucs and nextcloud call bounded reusable workflows with inherited secrets', () => {
-  for (const name of ['ucs', 'nextcloud']) {
-    assert.ok(job(name).includes(`uses: ./.github/workflows/${name}.yml`));
-    assert.ok(job(name).includes('secrets: inherit'));
-    // GitHub rejects continue-on-error on workflow calls. Configured publishing
-    // failures now remain visible; each callee skips missing credentials itself.
-    assert.ok(!job(name).includes('continue-on-error:'));
-    const called = fs.readFileSync(path.join(repoRoot, `.github/workflows/${name}.yml`), 'utf8');
-    assert.match(called, /timeout-minutes: \d+/);
-    assert.ok(!called.includes('continue-on-error: true'));
-  }
 });
 
 console.log(`\n${passed} passed`);
