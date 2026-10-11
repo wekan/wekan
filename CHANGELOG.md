@@ -526,11 +526,30 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** The **Windows 32-bit** and **Windows ARM64** bundles build again.
-Their sign-in modules are now compiled for the right CPU directly, because
-**npm 12** no longer does it during the install.
+**In short:** On **32-bit ARM**, attachment thumbnails no longer risk crashing
+WeKan, and **PDF attachment text** is searchable on more platforms. The
+**Windows 32-bit** and **ARM64** bundles build again. The **Docker image**
+builds from the released bundles instead of rebuilding them under emulation,
+and **Launchpad** snap builds upload 1 MB instead of 237 MB.
 
-This release fixes the following bug:
+This release fixes the following bugs:
+
+**Native modules in the bundles** - what each platform can load.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/628bb95619">32-bit ARM uses the WebAssembly sharp, and more platforms get the PDF text library</a>. Thanks to xet7.</summary>
+
+v12.33 gave the armhf, armv7 and armv6 bundles sharp's native ARM package. Its
+binaries are built for ARMv7 and ARMv8, so an ARMv6 board such as a Raspberry Pi
+1 or Zero, and possibly some ARMv7 boards, can stop WeKan with an illegal
+instruction the first time a thumbnail is made. 32-bit ARM now uses the
+WebAssembly sharp, which runs on any CPU. Checking what the bundles carry also
+showed that the PDF library needs `@napi-rs/canvas` to load at all, and only
+Linux x64 had it. Bundles for Linux arm64 and riscv64, macOS and Windows x64
+and ARM64 now get it, so PDF attachment text is indexed for search there too.
+`tests/platformNativePackages.test.cjs` covers both.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/34a33f7b14">The Windows 32-bit and ARM64 bundles compile their sign-in modules again</a>. Thanks to xet7.</summary>
@@ -545,6 +564,35 @@ target CPU, and fails if no module comes out. With the real node-gyp 13,
 `argon2` 0.44 and `bcrypt` 6, both compiled and hashed a password.
 `tests/compileNativeAddons.test.cjs` covers the failure cases, and
 `tests/win32BundleBuild.test.cjs` checks both jobs.
+
+</details>
+
+and speeds up the release builds:
+
+**Release workflows** - building the image and the snaps.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3c34e65403">The Docker image is built from the released bundles, not rebuilt under emulation</a>. Thanks to xet7.</summary>
+
+The image build took 27 of the Docker job's 29 minutes, because it rebuilt each
+bundle for seven platforms, six of them under QEMU. A first build stage now runs
+on the build machine. It downloads each platform's released bundle, checks it
+against the published checksum and checks that its Node.js binary is for that
+CPU. The emulated stage only installs three runtime packages. The image's
+Node.js is now the bundle's own, and no npm or compiler is in the image.
+`tests/dockerImageFromBundle.test.cjs` checks the new build.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5f60152d08">Launchpad snap builds get 1 MB of source, and no job clones unused history</a>. Thanks to xet7.</summary>
+
+Each Launchpad snap build was sent the whole 237 MB repository, though it uses
+only the recipe and a few scripts; it now gets those 1.1 MB. The snap, version
+bump and release-tag jobs no longer clone the 447 MB history, and the Ondra and
+Gantt sync no longer clones its target repositories' history. `release.yml`,
+which ran on every push to look for Helm charts this repository does not have,
+now runs only when `charts/` changes.
 
 </details>
 
@@ -627,6 +675,12 @@ here. The script checks every native module's ELF, Mach-O or PE header for the
 target. On the v12.32 zips it found the right packages for all Linux and macOS
 bundles. `tests/sharpEveryPlatform.test.cjs` requires every bundle job to run
 it.
+
+**On 32-bit ARM this release can crash.** The armhf, armv7 and armv6 zips got
+sharp's native ARM package, which is built for ARMv7 and ARMv8. On an ARMv6
+board (Raspberry Pi 1, Zero), and possibly on some ARMv7 ones, making the first
+thumbnail can stop WeKan with an illegal instruction. The fix is in the next
+release: 32-bit ARM uses the WebAssembly sharp instead.
 
 </details>
 
