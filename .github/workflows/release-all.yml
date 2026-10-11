@@ -1714,9 +1714,9 @@ jobs:
   # The runner is 64-bit and the bundle is 32-bit. There is NO 32-bit Windows
   # Node 26 to install (that is the whole reason the fork exists), so setup-node
   # runs the runner's normal x64 Node to DRIVE the build, and the native modules
-  # (bcrypt) are cross-compiled to ia32 by passing npm_config_arch=ia32 in the
-  # rebuild step below - node-gyp then fetches the ia32 headers and builds Win32
-  # binaries. The shipped node.exe is the fork's 32-bit node-win32.exe.
+  # (bcrypt, argon2) are cross-compiled to ia32 by compile-native-addons.mjs in
+  # the rebuild step below - node-gyp --arch=ia32 against a nodedir holding the
+  # fork's ia32 node.lib. The shipped node.exe is the fork's 32-bit node-win32.exe.
   # Windows on ARM. Every binary this bundle needs is published: nodejs.org
   # builds node-<version>-win-arm64.zip itself, wekan/FerretDB publishes
   # ferretdb-win-arm64.exe and wekan/mongo-tools-patches publishes the tools
@@ -1843,21 +1843,20 @@ jobs:
       - name: Rebuild native modules for Windows
         if: steps.preflight.outputs.skip != 'true'
         shell: bash
-        # The runner and its node are x64. Without these, node-gyp-build's
-        # install test loads argon2's win32-x64 prebuild in that x64 node,
-        # passes, and compiles nothing - so v12.32's win-arm64 zip shipped no
-        # arm64 argon2 at all (argon2 0.44 publishes no win32-arm64 prebuild),
-        # and accounts-password imports it with no fallback. With them, the
-        # test looks for win32-arm64, finds none, and node-gyp cross-compiles
-        # it with Visual Studio's ARM64 tools against nodejs.org's arm64 node.lib.
-        env:
-          npm_config_arch: arm64
-          npm_config_target_arch: arm64
+        # The runner and its node are x64. argon2 0.44 publishes no
+        # win32-arm64 prebuild, so it must be COMPILED for arm64, and
+        # accounts-password imports it with no fallback. npm 12 no longer does
+        # that during the install below: it ignores npm_config_arch ("Unknown
+        # env config") and blocks install scripts outside allowScripts, so
+        # v12.32 shipped no arm64 argon2 and v12.33 failed its addon check.
+        # compile-native-addons.mjs runs node-gyp itself, for arm64, before
+        # prune-build-only-modules removes node-gyp.
         run: |
           SRC="$PWD/src"
           cd bundle/programs/server
           rm -rf node_modules
           bash "$SRC/releases/npm-retry.sh" npm install
+          node "$SRC/releases/compile-native-addons.mjs" ../.. arm64 bcrypt argon2
           # ../.. is the bundle root: this step is inside programs/server.
           node "$SRC/releases/prune-build-only-modules.mjs" ../..
           node "$SRC/releases/bump-bundle-npm-deps.mjs" ../..
@@ -2136,9 +2135,9 @@ jobs:
   # The runner is 64-bit and the bundle is 32-bit. There is NO 32-bit Windows
   # Node 26 to install (that is the whole reason the fork exists), so setup-node
   # runs the runner's normal x64 Node to DRIVE the build, and the native modules
-  # (bcrypt) are cross-compiled to ia32 by passing npm_config_arch=ia32 in the
-  # rebuild step below - node-gyp then fetches the ia32 headers and builds Win32
-  # binaries. The shipped node.exe is the fork's 32-bit node-win32.exe.
+  # (bcrypt, argon2) are cross-compiled to ia32 by compile-native-addons.mjs in
+  # the rebuild step below - node-gyp --arch=ia32 against a nodedir holding the
+  # fork's ia32 node.lib. The shipped node.exe is the fork's 32-bit node-win32.exe.
   build-win32:
     needs: [prepare, build-amd64, release]
     runs-on: windows-latest
@@ -2153,7 +2152,7 @@ jobs:
 
       # x64 Node (the runner's own): there is no 32-bit Windows Node 26 to
       # install. It only DRIVES npm/node-gyp; the ia32 output comes from
-      # npm_config_arch=ia32 in the rebuild step.
+      # node-gyp --arch=ia32 (compile-native-addons.mjs) in the rebuild step.
       - name: Audit telemetry source before release work
         shell: bash
         run: python3 src/releases/check-telemetry.py --source src
@@ -2255,16 +2254,14 @@ jobs:
       - name: Rebuild native modules for Windows (32-bit)
         if: steps.preflight.outputs.skip != 'true'
         shell: bash
-        # The x64 runner Node drives node-gyp, and npm_config_arch=ia32 makes it
-        # cross-build 32-bit (Win32) native modules (bcrypt). But an ia32 addon
+        # The x64 runner Node drives node-gyp, and --arch=ia32 makes it
+        # cross-build 32-bit (Win32) native modules (bcrypt, argon2). An ia32 addon
         # must LINK against an ia32 node.lib, and nodejs.org dropped 32-bit Windows
         # in Node 23 - so node-gyp cannot fetch win-x86/node.lib. Build a nodedir
         # it CAN use: node headers (arch-independent, from nodejs.org) plus the
         # node-win32.lib that wekan/node-patches publishes beside its
         # node-win32.exe, and point node-gyp at it with nodedir.
         env:
-          npm_config_arch: ia32
-          npm_config_target_arch: ia32
           NODE_FULL: ${{ steps.preflight.outputs.node_full }}
         run: |
           SRC="$PWD/src"
@@ -2292,11 +2289,17 @@ jobs:
           bash "$SRC/releases/fetch.sh" -o "$ND/ia32/node.lib" \
             "https://github.com/wekan/node-patches/releases/download/${NODE_FULL}/node-win32.lib"
           cp "$ND/ia32/node.lib" "$ND/Release/node.lib"
-          export npm_config_nodedir="$(cygpath -w "$ND")"
-          echo "Cross-building ia32 native modules against nodedir $npm_config_nodedir (fork node.lib)."
+          NODEDIR="$(cygpath -w "$ND")"
+          echo "Cross-building ia32 native modules against nodedir $NODEDIR (fork node.lib)."
           cd bundle/programs/server
           rm -rf node_modules
           bash "$SRC/releases/npm-retry.sh" npm install
+          # npm 12 ignores npm_config_arch/npm_config_nodedir and blocks install
+          # scripts outside allowScripts, so the install above compiles nothing
+          # (v12.33). bcrypt and argon2 publish no win32-ia32 prebuild: compile
+          # them here with node-gyp, for ia32 against this nodedir, before
+          # prune-build-only-modules removes node-gyp.
+          node "$SRC/releases/compile-native-addons.mjs" ../.. ia32 --nodedir "$NODEDIR" bcrypt argon2
           # ../.. is the bundle root: this step is inside programs/server.
           node "$SRC/releases/prune-build-only-modules.mjs" ../..
           node "$SRC/releases/bump-bundle-npm-deps.mjs" ../..
@@ -2314,8 +2317,7 @@ jobs:
           # packages load it through Npm.require(). This removes only what it can prove
           # nothing requires, and refuses any policy entry the graph says IS reached.
           node "$SRC/releases/prune-unreachable-npm.mjs" ../..
-          # bcrypt and argon2 publish no win32-ia32 prebuild, so this rebuild
-          # must COMPILE both; the next step reads the binaries to prove it did.
+          # The next step reads the compiled binaries to prove they are ia32.
 
       - name: Add sharp for Windows 32-bit (win32), and check the native addons
         if: steps.preflight.outputs.skip != 'true'

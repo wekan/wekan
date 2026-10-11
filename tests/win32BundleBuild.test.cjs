@@ -75,7 +75,7 @@ test('build-win32 gives tar no drive-letter path', () => {
     'tar extracts by relative name inside the nodedir');
   assert.ok(/test -f "\$ND\/include\/node\/node\.h"/.test(win32.body),
     'and the headers are checked to have arrived');
-  assert.ok(/export npm_config_nodedir="\$\(cygpath -w "\$ND"\)"/.test(win32.body),
+  assert.ok(/NODEDIR="\$\(cygpath -w "\$ND"\)"/.test(win32.body),
     'node-gyp gets the Windows form of the nodedir');
 });
 
@@ -116,23 +116,36 @@ test('each Windows bundle job adds its own sharp and checks its addons', () => {
   }
 });
 
-// v12.32's win-arm64 zip had no arm64 argon2: the x64 runner's node passed
-// node-gyp-build's install test with argon2's win32-x64 prebuild, so nothing
-// was compiled. A job whose CPU is not the runner's must say so to npm.
-test('a cross-built Windows job tells npm its target CPU', () => {
-  const rebuildEnv = (name) => {
+// v12.32's win-arm64 zip had no arm64 argon2, and in v12.33 both cross-built
+// jobs compiled nothing: npm 12 ignores npm_config_arch / npm_config_nodedir
+// ("Unknown env config") and blocks install scripts outside allowScripts. A job
+// whose CPU is not the runner's compiles with node-gyp directly, after the
+// programs/server install brought node-gyp in and before it is pruned.
+const CROSS = { 'build-win-arm64': 'arm64', 'build-win32': 'ia32' };
+test('each cross-built Windows job compiles its addons with node-gyp itself', () => {
+  for (const [name, arch] of Object.entries(CROSS)) {
     const job = windowsJobs.find((j) => j.name === name);
-    const i = job.body.indexOf('- name: Rebuild native modules for Windows');
-    const step = job.body.slice(i, job.body.indexOf('\n      - name:', i + 1));
-    return {
-      arch: (/npm_config_arch:\s*(\S+)/.exec(step) || [])[1],
-      target: (/npm_config_target_arch:\s*(\S+)/.exec(step) || [])[1],
-    };
-  };
-  assert.deepStrictEqual(rebuildEnv('build-win-arm64'), { arch: 'arm64', target: 'arm64' });
-  assert.deepStrictEqual(rebuildEnv('build-win32'), { arch: 'ia32', target: 'ia32' });
-  // win64 is the runner's own CPU, and must not be told another one.
-  assert.deepStrictEqual(rebuildEnv('build-win64'), { arch: undefined, target: undefined });
+    const at = (s) => job.body.indexOf(s);
+    const compile = at(`releases/compile-native-addons.mjs" ../.. ${arch}`);
+    assert.ok(compile !== -1, `${name} runs compile-native-addons.mjs for ${arch}`);
+    assert.ok(/compile-native-addons\.mjs"[^\n]* bcrypt argon2/.test(job.body), `${name}: for bcrypt and argon2`);
+    assert.ok(at('npm-retry.sh" npm install') < compile, `${name}: after the install that brings node-gyp`);
+    assert.ok(compile < at('prune-build-only-modules.mjs'), `${name}: before node-gyp is pruned`);
+  }
+  assert.ok(/compile-native-addons\.mjs" \.\.\/\.\. ia32 --nodedir "\$NODEDIR"/.test(
+    windowsJobs.find((j) => j.name === 'build-win32').body),
+  'win32 links against the fork\'s ia32 node.lib through --nodedir');
+});
+
+// Negative, everywhere: no workflow hands npm a config npm 12 does not know.
+// It ignores them today, says it will refuse them in its next major version,
+// and relying on them is what compiled nothing in v12.33.
+test('no workflow relies on npm_config_arch, _target_arch or _nodedir', () => {
+  for (const { f, text } of workflows) {
+    const body = code(text);
+    assert.ok(!/^\s*npm_config_(?:arch|target_arch|nodedir)\s*:/m.test(body), `${f} sets an npm_config_ arch/nodedir env`);
+    assert.ok(!/export\s+npm_config_(?:arch|target_arch|nodedir)=/.test(body), `${f} exports an npm_config_ arch/nodedir`);
+  }
 });
 
 // ── check-addon-arch.mjs itself, on real PE/ELF headers ─────────────────────

@@ -88,12 +88,19 @@ test('win32 cross-builds ia32 native modules (no 32-bit Windows Node exists to i
   // There is NO 32-bit Windows Node 26 to install - setup-node architecture: x86
   // fails with "Unable to find Node version '24' for platform win32 and
   // architecture x86". So the x64 runner Node drives node-gyp, and the modules
-  // (bcrypt) are cross-compiled to ia32 via npm_config_arch=ia32, matching the
-  // fork's 32-bit node.exe the bundle ships.
+  // (bcrypt, argon2) are cross-compiled to ia32, matching the fork's 32-bit
+  // node.exe the bundle ships.
+  //
+  // This used to require npm_config_arch: ia32. That was the right pin until the
+  // release jobs moved to npm 12, which ignores npm_config_arch ("Unknown env
+  // config") and blocks install scripts outside allowScripts - so v12.33's
+  // build-win32 compiled nothing. The cross-build now calls node-gyp itself
+  // with --arch=ia32 (releases/compile-native-addons.mjs), and that is what this
+  // pins; tests/win32BundleBuild.test.cjs pins where in the step it runs.
   assert.ok(!/architecture:\s*x86/.test(body),
     'build-win32 must NOT ask setup-node for architecture: x86 - no 32-bit Windows Node 26 exists');
-  assert.ok(/npm_config_arch:\s*ia32/.test(body),
-    'build-win32 must set npm_config_arch: ia32 so node-gyp cross-builds 32-bit native modules');
+  assert.ok(/compile-native-addons\.mjs" \.\.\/\.\. ia32 --nodedir/.test(body),
+    'build-win32 must cross-build its 32-bit native modules with node-gyp --arch=ia32');
 });
 
 // ── release-notes waits for every bundle so the provenance table is complete ─
