@@ -2220,14 +2220,22 @@ jobs:
         run: |
           SRC="$PWD/src"
           set -euo pipefail
-          ND="${RUNNER_TEMP}/node-ia32"
+          # RUNNER_TEMP is a Windows path, D:\a\_temp. GNU tar reads anything
+          # before a colon as a REMOTE HOST (host:path, for rmt), so
+          # `tar -C D:\a\_temp/node-ia32` died with "Cannot open: No such file
+          # or directory" - v12.32, the first release whose win32 job got this
+          # far. So the shell works on the POSIX form of the path, tar is given
+          # only relative names, and node-gyp gets the Windows form it expects.
+          ND="$(cygpath -u "$RUNNER_TEMP")/node-ia32"
           mkdir -p "$ND/ia32" "$ND/Release"
           # Headers (same for every arch); try /download/release then /dist.
-          bash "$SRC/releases/fetch.sh" --optional -o /tmp/nodehdr.tar.gz \
+          bash "$SRC/releases/fetch.sh" --optional -o "$ND/node-headers.tar.gz" \
             "https://nodejs.org/download/release/${NODE_FULL}/node-${NODE_FULL}-headers.tar.gz" \
-          || bash "$SRC/releases/fetch.sh" -o /tmp/nodehdr.tar.gz \
+          || bash "$SRC/releases/fetch.sh" -o "$ND/node-headers.tar.gz" \
             "https://nodejs.org/dist/${NODE_FULL}/node-${NODE_FULL}-headers.tar.gz"
-          tar -xzf /tmp/nodehdr.tar.gz -C "$ND" --strip-components=1
+          (cd "$ND" && tar -xzf node-headers.tar.gz --strip-components=1 && rm -f node-headers.tar.gz)
+          test -f "$ND/include/node/node.h" \
+            || { echo "::error::The Node.js ${NODE_FULL} headers did not unpack into $ND/include/node."; exit 1; }
           # The 32-bit import library, at the two paths node-gyp may look in. It
           # comes from wekan/node-patches, which is also where the node-win32.exe
           # in this bundle comes from (nobody else builds either any more), so the
@@ -2235,8 +2243,8 @@ jobs:
           bash "$SRC/releases/fetch.sh" -o "$ND/ia32/node.lib" \
             "https://github.com/wekan/node-patches/releases/download/${NODE_FULL}/node-win32.lib"
           cp "$ND/ia32/node.lib" "$ND/Release/node.lib"
-          export npm_config_nodedir="$ND"
-          echo "Cross-building ia32 native modules against nodedir $ND (fork node.lib)."
+          export npm_config_nodedir="$(cygpath -w "$ND")"
+          echo "Cross-building ia32 native modules against nodedir $npm_config_nodedir (fork node.lib)."
           cd bundle/programs/server
           rm -rf node_modules
           bash "$SRC/releases/npm-retry.sh" npm install
@@ -2257,6 +2265,11 @@ jobs:
           # packages load it through Npm.require(). This removes only what it can prove
           # nothing requires, and refuses any policy entry the graph says IS reached.
           node "$SRC/releases/prune-unreachable-npm.mjs" ../..
+          # bcrypt and argon2 publish no win32-ia32 prebuild, so the rebuild above
+          # must have COMPILED both, and accounts-password imports them with no
+          # fallback. A cross-build that quietly did nothing still zips and passes
+          # 7z t, and only fails at the first sign-in - so read the binaries.
+          node "$SRC/releases/check-addon-arch.mjs" ../.. ia32 bcrypt argon2
 
       - name: Check the binaries the win32 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
