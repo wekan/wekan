@@ -71,6 +71,18 @@ class UcsRelease(unittest.TestCase):
         self.assertIn('# Image was: ' + DATABASE_IMAGE, compose)
         self.assertIn('dbimage=' + selected, (self.output / 'component/preinst').read_text())
 
+    def test_release_selection_uses_published_version_tags(self):
+        stable = lambda tag: dict(tagName=tag, isDraft=False, isPrerelease=False)
+        selected = ucs.release_selection(stable('v13.01'), stable('v1.95.0'))
+        self.assertEqual(selected, {'VERSION': '13.01',
+            'UCS_FERRETDB_IMAGE': 'ghcr.io/wekan/ferretdb:v1.95.0'})
+        for bad in [stable('v2.0.0'), stable('latest'), dict(tagName='v1.95.0', isDraft=True, isPrerelease=False)]:
+            with self.assertRaises(ValueError):
+                ucs.release_selection(stable('v13.01'), bad)
+        for bad in [stable('v13.01\nBAD=value'), dict(tagName='v13.01', isDraft=False, isPrerelease=True)]:
+            with self.assertRaises(ValueError):
+                ucs.release_selection(bad, stable('v1.95.0'))
+
     def test_create_upload_readback(self):
         portal = FakePortal()
         self.assertEqual(ucs.upload(portal, self.output, '4.4/wekan=6.09', '5.2/wekan=12.28'), 'uploaded')

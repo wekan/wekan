@@ -1,12 +1,12 @@
 name: UCS App Center
-run-name: UCS ${{ inputs.version }}
+run-name: UCS ${{ inputs.version || 'latest' }}
 
 on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Existing WeKan release version, without v'
-        required: true
+        description: 'WeKan release version without v; leave empty for latest published release'
+        required: false
         type: string
 
 permissions:
@@ -16,7 +16,7 @@ permissions:
 # This publisher is started separately with workflow_dispatch. Do not race
 # creation of a portal version or overwrite an image built by another attempt.
 concurrency:
-  group: wekan-ucs-${{ inputs.version }}
+  group: wekan-ucs-publish
   cancel-in-progress: false
 
 jobs:
@@ -27,7 +27,6 @@ jobs:
       VERSION: ${{ inputs.version }}
       UCS_SOURCE_APP: ${{ vars.UCS_SOURCE_APP }}
       UCS_TARGET_UCS: ${{ vars.UCS_TARGET_UCS }}
-      UCS_FERRETDB_IMAGE: ${{ vars.UCS_FERRETDB_IMAGE }}
     steps:
       - name: Check UCS publishing configuration
         id: config
@@ -47,18 +46,30 @@ jobs:
       - uses: actions/checkout@v7
         if: steps.config.outputs.enabled == 'true'
 
-      - name: Prepare private temporary directory and validate version
-        if: steps.config.outputs.enabled == 'true'
-        run: |
-          mkdir -p "$GITHUB_WORKSPACE/.tools/tmp"
-          echo "TMPDIR=$GITHUB_WORKSPACE/.tools/tmp" >> "$GITHUB_ENV"
-          python3 -c 'import sys; sys.path.insert(0,"releases"); import importlib; importlib.import_module("ucs-release").version(sys.argv[1])' "$VERSION"
-
-      - name: Verify the upstream release exists
+      - name: Resolve published WeKan and FerretDB versions
         if: steps.config.outputs.enabled == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release view "v$VERSION" --repo wekan/wekan --json tagName
+        run: |
+          set -euo pipefail
+          mkdir -p "$GITHUB_WORKSPACE/.tools/tmp"
+          echo "TMPDIR=$GITHUB_WORKSPACE/.tools/tmp" >> "$GITHUB_ENV"
+          if [ -n "$VERSION" ]; then
+            python3 -c 'import sys; sys.path.insert(0,"releases"); import importlib; importlib.import_module("ucs-release").version(sys.argv[1])' "$VERSION"
+            gh release view "v$VERSION" --repo wekan/wekan --json tagName,isDraft,isPrerelease > .tools/tmp/ucs-wekan-release.json
+          else
+            gh release view --repo wekan/wekan --json tagName,isDraft,isPrerelease > .tools/tmp/ucs-wekan-release.json
+          fi
+          gh release view --repo wekan/FerretDB --json tagName,isDraft,isPrerelease > .tools/tmp/ucs-ferretdb-release.json
+          python3 releases/ucs-release.py resolve \
+            --wekan-release .tools/tmp/ucs-wekan-release.json \
+            --ferretdb-release .tools/tmp/ucs-ferretdb-release.json
+
+      - name: Report selected versions
+        if: steps.config.outputs.enabled == 'true'
+        run: |
+          printf 'WeKan: ghcr.io/wekan/wekan:v%s\nFerretDB: %s\nUCS section: %s\n' \
+            "$VERSION" "$UCS_FERRETDB_IMAGE" "$UCS_TARGET_UCS" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Get the official Provider Portal CLI
         if: steps.config.outputs.enabled == 'true'
@@ -137,7 +148,7 @@ jobs:
         if: steps.upload.outputs.result == 'uploaded'
         uses: actions/upload-artifact@v7
         with:
-          name: ucs-${{ inputs.version }}
+          name: ucs-${{ env.VERSION }}
           path: .tools/ucs-release/component
 
       - name: Report UCS result

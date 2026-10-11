@@ -110,8 +110,8 @@ until the helper image exists and is pullable by the UCS host.
 Keep version tags fixed per UCS release. `releases/ucs-release.py` prepares the
 versioned compose, preinst and helper Dockerfile together. It retains every image
 history comment and adds the replaced active image as another comment. The
-optional `UCS_FERRETDB_IMAGE` variable selects a new version tag from the **wekan** fork;
-leave it unset to retain the selected version tag in the companion template. Do not use
+workflow resolves the latest published stable release of the **wekan/FerretDB**
+fork at run time and sets `UCS_FERRETDB_IMAGE` to its full GHCR version tag. Do not use
 upstream `ghcr.io/ferretdb/ferretdb:2`: that is a different PostgreSQL backend.
 
 ### 2. Register the app version and scripts in the Provider Portal
@@ -185,8 +185,24 @@ invokes it. After the selected WeKan release and Docker image exist, a human
 maintainer starts it from GitHub Actions **Run workflow** or with:
 
 ```sh
-gh workflow run ucs.yml -f version=12.28
+gh workflow run ucs.yml
 ```
+
+Leave the **version** input empty to use the latest published stable release of
+`wekan/wekan`. To retry a specific WeKan release, provide its numeric version,
+for example `gh workflow run ucs.yml -f version=12.28`. FerretDB is resolved from
+the latest published stable release of `wekan/FerretDB` on every run, matching
+the fork used by this repository's build scripts. Both images use explicit tags,
+and the workflow pulls them before uploading a portal draft; an unavailable
+image fails the run rather than silently falling back to an older image.
+
+`UCS_FERRETDB_IMAGE` is now an environment variable computed for that run, not a
+repository Actions variable to maintain. An existing repository value such as
+`v1.92.0` is ignored. The workflow does not modify repository variables.
+`UCS_TARGET_UCS` keeps its existing meaning and value: the destination UCS
+section. The portal target combines that section with the resolved WeKan version.
+The selected image versions appear in the run summary.
+
 
 Add these **repository Actions secrets** in `wekan/wekan`:
 
@@ -202,7 +218,7 @@ Add these **repository Actions variables** (not secrets):
 | --- | --- |
 | `UCS_SOURCE_APP` | Existing portal version to copy, including UCS section, for example `4.4/wekan=6.09`; use the exact version displayed by the portal |
 | `UCS_TARGET_UCS` | Tested destination section, for example `5.2` |
-| `UCS_FERRETDB_IMAGE` | Optional `ghcr.io/wekan/ferretdb:v1.<minor>.<patch>`; unset uses the companion template's version tag |
+
 
 `WEKAN_REPO_TOKEN` is no longer required for UCS: the companion checkout is public
 and the job does not push git changes. The new versioned definition is kept in
