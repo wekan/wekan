@@ -209,6 +209,46 @@ test('each bundle job stops before building when its platform has no Node.js', (
   }
 });
 
+// node-patches writes a Windows binary's checksum WITHOUT the .exe -
+// node-win32.exe is checked by node-win32.sha256sum - and in sha256sum's binary
+// mode, `<hash> *node-win32.exe`. The resolver looked only for
+// node-win32.exe.sha256sum and an unmarked name, so win32 answered "no Node.js
+// anywhere" every release while both of its binaries sat on the releases.
+test('a node-patches Windows asset is found by its sidecar without .exe', () => {
+  const body = code(resolver);
+  assert.ok(/"\$\{url\}\.sha256sum"/.test(body),
+    'the resolver must still try <asset>.sha256sum first');
+  assert.ok(/\$\{asset%\.exe\}\.sha256sum/.test(body),
+    'and for a .exe asset must also try the sidecar without .exe');
+});
+
+// The checksum-line matcher, run for real against the lines the sidecars
+// actually contain, rather than read as text.
+test('the checksum matcher takes binary-mode lines and refuses another file', () => {
+  const { execFileSync } = require('child_process');
+  const m = code(resolver).match(/awk -v f="\$asset" '([^']+)'/);
+  assert.ok(m, 'the resolver must pick the checksum out with one awk program');
+  const pick = (asset, text) => execFileSync('awk', ['-v', `f=${asset}`, m[1]],
+    { input: text, encoding: 'utf8' }).trim();
+  const H = 'a'.repeat(64);
+  const O = 'b'.repeat(64);
+
+  // positive: every shape a sidecar is written in
+  assert.strictEqual(pick('node-win32.exe', `${H} *node-win32.exe\n`), H,
+    'binary-mode marker (node-patches Windows sidecars)');
+  assert.strictEqual(pick('node-x64', `${H}  node-x64\n`), H, 'text mode');
+  assert.strictEqual(pick('node-x64', `${H}  ./node-x64\n`), H, './ prefix');
+  assert.strictEqual(pick('node-x64', `${H}\n`), H, 'a bare hash');
+
+  // negative: a line for ANOTHER file is never taken as this one's checksum
+  assert.strictEqual(pick('node-win32.exe', `${O} *node-win64.exe\n`), '',
+    'another binary-mode file must not match');
+  assert.strictEqual(pick('node-win32.exe', `${O}  node-win32.lib\n`), '',
+    'the import library must not match the executable');
+  assert.strictEqual(pick('node-win32.exe', `${O} *node-win32.lib\n${H} *node-win32.exe\n`), H,
+    'and the right line wins when several are present');
+});
+
 if (process.exitCode) {
   console.error(`\nreleaseNodeSources: ${passed} passed, and the FAILures above`);
 } else {

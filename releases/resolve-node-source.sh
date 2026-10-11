@@ -246,11 +246,20 @@ for V in $versions; do
   #    "does it exist" the same way SHASUMS256.txt does above. (An asset with no
   #    checksum beside it is not taken: the whole point of these three sources is
   #    that what is shipped can be verified.)
+  #
+  #    A Windows asset's sidecar drops the .exe: node-win32.exe is checked by
+  #    node-win32.sha256sum, not node-win32.exe.sha256sum, and its line is
+  #    `<hash> *node-win32.exe` - sha256sum's binary-mode marker in front of the
+  #    name. Looking only for <asset>.sha256sum and an unmarked name is what kept
+  #    win32 from ever being built while both of its binaries were published.
   url="${PATCHES}/${V}/${asset}"
   sums_body="$(bash "$(dirname "$0")/fetch.sh" --optional -o - "${url}.sha256sum" 2>/dev/null)"
+  if [ -z "$sums_body" ] && [ "$asset" != "${asset%.exe}" ]; then
+    sums_body="$(bash "$(dirname "$0")/fetch.sh" --optional -o - "${PATCHES}/${V}/${asset%.exe}.sha256sum" 2>/dev/null)"
+  fi
   if [ -n "$sums_body" ]; then
-    sha="$(printf '%s\n' "$sums_body" \
-      | awk -v f="$asset" '$2 == f || $2 == "./" f { print $1; exit } NF == 1 { print $1; exit }')"
+    sha="$(printf '%s\n' "$sums_body" | tr -d '\r' \
+      | awk -v f="$asset" '$2 == f || $2 == "*" f || $2 == "./" f || $2 == "*./" f { print $1; exit } NF == 1 { print $1; exit }')"
     if [ -n "$sha" ]; then
       log "Node.js ${V} for ${platform}: wekan/node-patches (${url})"
       emit "$V" wekan/node-patches "$url" binary "" "$sha"

@@ -147,7 +147,7 @@ what `resolve-node-source.sh` answered for v26.11.1.
 | loong64 | — (no loong64 base image) | — | — | `ferretdb-loong64` | unofficial |
 | win64 | ✅ (+ `WeKan-<v>-win64.exe`) | | | `ferretdb-win64.exe` | official |
 | win-arm64 | ✅ | | | `ferretdb-win-arm64.exe` | official |
-| win32 | — (see below) | | | `ferretdb-win32.exe` | none resolved |
+| win32 | from the next release (see below) | | | `ferretdb-win32.exe` | node-patches (`node-win32.exe`) |
 | mac-x64 | ✅ (+ `.app.zip`) | | | `ferretdb-mac-amd64` | official |
 | mac-arm64 | ✅ (+ `.app.zip`) | | | `ferretdb-mac-arm64` | official |
 
@@ -157,14 +157,14 @@ because unofficial-builds had no v26.11.1 riscv64 build yet. i386, armhf, armv7
 and armv6 depend on node-patches alone, so if it has not published one of them,
 that row is not built.
 
-**win32 is not built, although both binaries exist.** `node-win32.exe` is on
-node-patches, but its checksum is published as `node-win32.sha256sum` with the
-line `<hash> *node-win32.exe`. The resolver looks for `<asset>.sha256sum`, which
-is `node-win32.exe.sha256sum`, gets a 404, and answers `node_found=false`. Either
-side can be changed to fix this: node-patches can publish
-`node-win32.exe.sha256sum`, or the resolver can also try the name without `.exe`
-and accept the `*` binary-mode marker. win64 and win-arm64 do not hit this,
-because nodejs.org serves them first.
+**win32 was not built up to v12.31, although both binaries existed.**
+node-patches publishes the checksum of `node-win32.exe` as `node-win32.sha256sum`
+(without `.exe`), with the line `<hash> *node-win32.exe` (sha256sum's binary-mode
+marker). The resolver looked only for `node-win32.exe.sha256sum` and an unmarked
+name, so it answered `node_found=false`. It now also tries the sidecar without
+`.exe` and accepts the `*` marker, so the next release builds win32 again.
+`tests/releaseNodeSources.test.cjs` runs the matcher against those lines. win64
+and win-arm64 were never affected, because nodejs.org serves them first.
 
 The names in this table come from different projects, and they disagree. That
 is why the build matrix names each Linux platform three times (`arch`,
