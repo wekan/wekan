@@ -103,6 +103,60 @@ function get(port) {
     }
   });
 
+  await test('an old bridge exit cannot discard its replacement after blocking migration', async () => {
+    const APP_PORT = String(await freePort());
+    const children = [];
+    const realListen = net.Server.prototype.listen;
+    const bridgePath = path.join(ROOT, 'sandstorm-src/migration-bridge.js');
+    // start.js blocks the event loop in spawnSync/Atomics.wait during migration.
+    // The first bridge exits in that interval, but its JS exit callback runs only
+    // AFTER startBridge has installed the replacement for Meteor startup.
+    const lifecycle = new Function('fs', 'BRIDGE', 'NODE', 'APP_PORT', 'spawn',
+      'cpuExec', 'process', 'sleep', 'net', `
+        let bridge = null;
+        ${extract('startBridge')}
+        ${extract('stopBridge')}
+        ${extract('yieldPortOnListen')}
+        return { startBridge, stopBridge, yieldPortOnListen, current: () => bridge };
+      `)(fs, bridgePath, process.execPath, APP_PORT, (...args) => {
+        const child = spawn(...args);
+        children.push(child);
+        return child;
+      }, (command, args) => [command, args], process,
+      seconds => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, seconds * 1000), net);
+    const app = http.createServer((req, res) => res.end('wekan'));
+    try {
+      lifecycle.startBridge();
+      for (let i = 0; i < 100 && (await get(APP_PORT)) !== 503; i++) await wait(50);
+      assert.strictEqual(await get(APP_PORT), 503);
+      const old = lifecycle.current();
+      const exited = new Promise(resolve => old.once('exit', resolve));
+      lifecycle.stopBridge(); // blocks: old's exit callback is queued
+      lifecycle.startBridge('Starting WeKan');
+      const replacement = lifecycle.current();
+      assert.notStrictEqual(replacement, old);
+      await exited; // deliver the old callback AFTER replacement was assigned
+      assert.strictEqual(lifecycle.current(), replacement,
+        'the old exit callback must not clear the new bridge');
+      for (let i = 0; i < 100 && (await get(APP_PORT)) !== 503; i++) await wait(50);
+      assert.strictEqual(await get(APP_PORT), 503, 'replacement owns the app port');
+      lifecycle.yieldPortOnListen();
+      await new Promise((resolve, reject) => {
+        app.once('error', reject);
+        app.listen({ port: Number(APP_PORT), host: '0.0.0.0' }, resolve);
+      });
+      assert.strictEqual(await get(APP_PORT), 200, 'WeKan takes the port without EADDRINUSE');
+      assert.ok(replacement.exitCode !== null || replacement.signalCode !== null,
+        'replacement has exited before WeKan listens');
+    } finally {
+      net.Server.prototype.listen = realListen;
+      app.close();
+      for (const child of children) {
+        if (child.exitCode === null && child.signalCode === null) child.kill('SIGKILL');
+      }
+    }
+  });
+
   await test('another port is bound straight away, untouched', async () => {
     const APP_PORT = String(await freePort());
     const other = await freePort();

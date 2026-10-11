@@ -141,7 +141,13 @@ function startBridge(message) {
       env: { ...process.env, PORT: APP_PORT, BRIDGE_MESSAGE: message || '' },
     });
     bridge.on('error', () => {});                        // a bridge failure must not break startup
-    bridge.on('exit', () => { bridge = null; });
+    const child = bridge;
+    bridge.on('exit', () => {
+      // Migration blocks the event loop. An old bridge's exit event can arrive
+      // after startBridge has installed its replacement; retain that new owner
+      // so yieldPortOnListen can stop it before Meteor binds APP_PORT.
+      if (bridge === child) bridge = null;
+    });
   } catch (_) { bridge = null; }
 }
 function stopBridge() {
