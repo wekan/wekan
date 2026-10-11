@@ -528,10 +528,11 @@ used.
 
 **In short:** The **Import** page shows every source under "Import from:" at
 once, in columns, when the window is wide enough. A **Sandstorm** grain shows
-its please-wait page until WeKan is ready instead of an empty response. The
-**Windows** bundles no
-longer fail when Chocolatey's package feed is down: they use the 7-Zip the
-build machine already has.
+its please-wait page until WeKan is ready instead of an empty response, follows
+the open board in its URL and title again, and its **Powerbox** button adds a
+person to the open board. The **Windows** bundles no longer fail when
+Chocolatey's package feed is down: they use the 7-Zip the build machine already
+has.
 
 This release adds the following new feature:
 
@@ -548,7 +549,10 @@ and fails if the lists go back to one column.
 
 </details>
 
-and fixes the following bug:
+and fixes the following bugs:
+
+**Sandstorm** - a grain that answers while it starts, a client that talks to the
+Sandstorm shell again, and Powerbox invitations to a board.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6e6b5d2e30">A Sandstorm grain shows its please-wait page until WeKan is ready, not an empty response</a>. Thanks to xet7.</summary>
@@ -563,6 +567,39 @@ waits for the bridge process to exit and then binds, and the grain log says
 `WeKan is listening on port 4000`. `tests/sandstormPortHandoff.test.cjs` runs
 the real bridge and the handoff on a free port and checks the port answers 503
 throughout startup and then WeKan's 200.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ed5502edfa">The grain's browser code runs again, so the URL and title follow the board</a>. Thanks to xet7.</summary>
+
+`sandstorm.js` was imported only by `server/imports.js` once `mainModule`
+turned eager loading off, so its browser half never ran in a grain: the grain
+URL and title stayed on the first page, the Powerbox picker could not open, and
+the `isSandstorm` helper was undefined, so the email, password, logout and
+avatar settings that Sandstorm handles itself were shown anyway. The server
+half - which loads the Cap'n Proto bridge client and `node:net` - is now
+`server/sandstorm.js`, and the client imports the shared `sandstorm.js`. Its
+shell listener ignores messages that are not its own replies, instead of
+throwing on every message another frame or extension posts.
+`tests/sandstormClientHalf.test.cjs` checks both imports and fails when the
+shared half picks up server-only code. Not yet tried in a live grain.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ed5502edfa">The Powerbox button is back and adds the person picked to the open board</a>. Thanks to xet7.</summary>
+
+[#2405](https://github.com/wekan/wekan/issues/2405) removed the members
+widget's Powerbox button because the identity it claimed was never attached to
+a board, and node-capnp could not redeem it on Node 26 anyway. Redeeming works
+again through `imports/sandstorm/bridgeClient.mjs`, and the button, shown only
+in a grain and only to people who may invite, now passes the open board: the
+claimed person is invited to it through `inviteUserToBoard`, with the member
+picker's own checks - board membership, the Admin Panel's invite roles and the
+organization and team restrictions. `tests/sandstormMultiBoardMembers.test.cjs`
+pins the button, the board it passes, and that the claim adds members only
+through `inviteUserToBoard`.
 
 </details>
 
