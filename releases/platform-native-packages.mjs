@@ -26,9 +26,13 @@
 //      against the npm registry's sha512, and unpacks them beside sharp.
 //      sharp publishes these for linux x64/arm64/arm/ppc64/s390x/riscv64,
 //      darwin x64/arm64 and win32 x64/arm64/ia32.
-//   3. For a CPU sharp publishes nothing for (Linux i386 and loong64), sharp
-//      falls back to @img/sharp-wasm32, which WeKan's package.json installs
-//      into every bundle. That is checked to be there and to match sharp.
+//   3. For a CPU sharp publishes nothing usable for (Linux i386, loong64, and
+//      32-bit ARM - see noNativeReason), sharp falls back to @img/sharp-wasm32,
+//      which WeKan's package.json installs into every bundle. That is checked
+//      to be there and to match sharp.
+//   3b. The same for @napi-rs/canvas, which pdfjs-dist 6 needs to load at all
+//      (PDF attachment text search). It has no fallback; where none is
+//      published, or on 32-bit ARM, it is left out and that is logged.
 //   4. Reads every remaining native addon's header (check-addon-arch.mjs), and
 //      fails unless the sharp package from step 2 is loadable here.
 //
@@ -49,9 +53,35 @@ const WASM = '@img/sharp-wasm32';
 // The package sharp loads on <platform>-<arch>, at the version sharp pins -
 // or null when sharp publishes none and falls back to WebAssembly.
 export function sharpPlatformSpec(sharpPackageJson, platform, arch) {
+  if (noNativeReason(platform, arch)) return null;
   const name = `@img/sharp-${platform}-${arch}`;
   const version = sharpPackageJson.optionalDependencies?.[name];
   return version ? { name, version } : null;
+}
+
+// The package @napi-rs/canvas loads on <platform>-<arch>: glibc on Linux, MSVC
+// on Windows, never musl. pdfjs-dist 6 needs it to load AT ALL (it builds a
+// DOMMatrix at module load), so without it PDF attachment text is not indexed
+// for search. There is no fallback, and none for ppc64, s390x, ia32, loong64.
+export function canvasPlatformSpec(canvasPackageJson, platform, arch) {
+  if (noNativeReason(platform, arch)) return null;
+  const re = new RegExp(`^@napi-rs/canvas-${platform}-${arch}(?:-(?:gnu|gnueabihf|msvc))?$`);
+  const name = Object.keys(canvasPackageJson.optionalDependencies || {}).find((n) => re.test(n));
+  return name ? { name, version: canvasPackageJson.optionalDependencies[name] } : null;
+}
+
+// 32-bit ARM gets neither native package. sharp's linux-arm .node is built for
+// ARMv7 and its libvips for ARMv8 (readelf Tag_CPU_arch), and canvas's
+// linux-arm-gnueabihf for ARMv7. The armv6 bundle runs on Raspberry Pi 1 and
+// Zero, and armhf/armv7 on ARMv7 boards: an instruction those CPUs lack is a
+// SIGILL, which kills the whole WeKan process the first time a thumbnail is
+// made - where a package that is missing only fails to load, and is handled.
+// So 32-bit ARM uses the WebAssembly sharp, which runs on any CPU.
+export function noNativeReason(platform, arch) {
+  if (platform === 'linux' && arch === 'arm') {
+    return 'the 32-bit ARM builds target ARMv7/ARMv8, which ARMv6 and some ARMv7 CPUs cannot execute';
+  }
+  return '';
 }
 
 // A minimal ustar reader: npm tarballs are ustar, with long paths in the
@@ -196,25 +226,32 @@ export async function addPlatformNativePackages(bundle, platform, arch, { dryRun
   }
 
   const added = [];
-  const spec = sharpPlatformSpec(sharp, platform, arch);
-  if (spec) {
+  const required = [];
+  const install = async (spec) => {
     const { meta, files } = await download(spec.name, spec.version);
-    const install = [{ ...spec, files }];
-    // Its libvips: an optionalDependency of the platform package, pinned exactly.
+    const packages = [{ ...spec, files }];
+    // Its own native libraries (sharp's libvips): optionalDependencies, pinned exactly.
     for (const [dep, version] of Object.entries(meta.optionalDependencies || {})) {
-      install.push({ name: dep, version, files: (await download(dep, version)).files });
+      packages.push({ name: dep, version, files: (await download(dep, version)).files });
     }
-    for (const p of install) {
+    for (const p of packages) {
       const dest = join(modules, ...p.name.split('/'));
       if (!dryRun) writePackage(dest, p.files);
       log(`add     ${relative(bundle, dest)} ${p.version} (${p.files.length} files, sha512 verified)`);
       added.push({ name: p.name, version: p.version });
     }
+    required.push(spec.name);
+  };
+  const why = noNativeReason(platform, arch);
+
+  const spec = sharpPlatformSpec(sharp, platform, arch);
+  if (spec) {
+    await install(spec);
   } else {
-    // sharp publishes nothing native for this CPU; it falls back to WebAssembly.
+    // No usable native sharp for this CPU; it falls back to WebAssembly.
     const wasm = join(modules, ...WASM.split('/'), 'package.json');
     if (!existsSync(wasm)) {
-      throw new Error(`sharp ${sharp.version} has no ${platform}-${arch} package, and ${WASM} is not in the bundle to fall back to - is it in package.json's optionalDependencies?`);
+      throw new Error(`sharp ${sharp.version} has no usable ${platform}-${arch} package, and ${WASM} is not in the bundle to fall back to - is it in package.json's optionalDependencies?`);
     }
     const wasmVersion = JSON.parse(readFileSync(wasm, 'utf8')).version;
     if (wasmVersion !== sharp.version) {
@@ -223,11 +260,18 @@ export async function addPlatformNativePackages(bundle, platform, arch, { dryRun
     if (!existsSync(join(modules, '@emnapi', 'runtime', 'package.json'))) {
       throw new Error(`${WASM} needs @emnapi/runtime, and it is not in the bundle`);
     }
-    log(`keep    ${WASM} ${wasmVersion}: sharp publishes no ${platform}-${arch} binary, so it runs as WebAssembly`);
+    log(`keep    ${WASM} ${wasmVersion}: ${why || `sharp publishes no ${platform}-${arch} binary`}, so it runs as WebAssembly`);
+  }
+
+  const canvasManifest = join(modules, '@napi-rs', 'canvas', 'package.json');
+  if (existsSync(canvasManifest)) {
+    const cspec = canvasPlatformSpec(JSON.parse(readFileSync(canvasManifest, 'utf8')), platform, arch);
+    if (cspec) await install(cspec);
+    else log(`none    @napi-rs/canvas for ${platform}-${arch} (${why || 'none is published'}): PDF attachment text is not indexed for search here`);
   }
 
   if (dryRun) return { removed: removed.map((d) => relative(bundle, d)), added, errors: [] };
-  const { errors, good, skipped } = checkAddonArch(bundle, arch, spec ? [spec.name] : [], { platform });
+  const { errors, good, skipped } = checkAddonArch(bundle, arch, required, { platform });
   for (const g of good) log(`ok      ${g}`);
   for (const s of skipped) log(`--      ${s} (another platform's package)`);
   return { removed: removed.map((d) => relative(bundle, d)), added, errors };

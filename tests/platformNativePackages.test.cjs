@@ -23,6 +23,7 @@ const zlib = require('zlib');
 
 const {
   sharpPlatformSpec,
+  canvasPlatformSpec,
   untar,
   verifyIntegrity,
   foreignPackages,
@@ -90,6 +91,12 @@ function tree(files) {
 }
 const NM = 'programs/server/npm/node_modules';
 const pkg = (o) => JSON.stringify(o);
+const CANVAS = {
+  name: '@napi-rs/canvas', version: '1.0.10',
+  optionalDependencies: Object.fromEntries(['android-arm64', 'darwin-arm64', 'darwin-x64', 'linux-arm-gnueabihf',
+    'linux-arm64-gnu', 'linux-arm64-musl', 'linux-riscv64-gnu', 'linux-x64-gnu', 'linux-x64-musl', 'win32-arm64-msvc',
+    'win32-x64-msvc'].map((s) => [`@napi-rs/canvas-${s}`, '1.0.10'])),
+};
 const SHARP = {
   name: 'sharp', version: '0.35.5',
   optionalDependencies: {
@@ -137,7 +144,7 @@ const quiet = { log: () => {} };
 console.log('platformNativePackages:');
 
 await test('the sharp package is the one sharp itself pins for that platform and CPU', () => {
-  assert.deepStrictEqual(sharpPlatformSpec(SHARP, 'linux', 'arm'), { name: '@img/sharp-linux-arm', version: '0.35.5' });
+  assert.deepStrictEqual(sharpPlatformSpec(SHARP, 'linux', 's390x'), { name: '@img/sharp-linux-s390x', version: '0.35.5' });
   assert.deepStrictEqual(sharpPlatformSpec(SHARP, 'darwin', 'arm64'), { name: '@img/sharp-darwin-arm64', version: '0.35.5' });
   assert.deepStrictEqual(sharpPlatformSpec(SHARP, 'win32', 'ia32'), { name: '@img/sharp-win32-ia32', version: '0.35.5' });
   // sharp publishes nothing for Linux i386: no guess, the fallback is used.
@@ -192,28 +199,79 @@ await test('only packages npm would not install on the target are removed', () =
   }
 });
 
-await test('Linux ARM: sharp and its libvips arrive, and the x64 ones go', async () => {
+await test('Linux s390x: sharp and its libvips arrive, and the x64 ones go', async () => {
   const dir = tree({
-    [`${NM}/sharp/package.json`]: pkg(SHARP),
+    [`${NM}/sharp/package.json`]: pkg({ ...SHARP, optionalDependencies: { ...SHARP.optionalDependencies } }),
     [`${NM}/@img/sharp-linux-x64/package.json`]: pkg({ os: ['linux'], cpu: ['x64'] }),
     [`${NM}/@img/sharp-linux-x64/lib/sharp-linux-x64.node`]: elf(62),
   });
   const reg = registry({
-    '@img/sharp-linux-arm@0.35.5': {
-      optionalDependencies: { '@img/sharp-libvips-linux-arm': '1.3.4' },
-      files: [['package.json', pkg({ os: ['linux'], cpu: ['arm'] })], ['lib/sharp-linux-arm-0.35.5.node', elf(40)]],
+    '@img/sharp-linux-s390x@0.35.5': {
+      optionalDependencies: { '@img/sharp-libvips-linux-s390x': '1.3.4' },
+      files: [['package.json', pkg({ os: ['linux'], cpu: ['s390x'] })], ['lib/sharp-linux-s390x-0.35.5.node', elf(22, true)]],
     },
-    '@img/sharp-libvips-linux-arm@1.3.4': {
-      files: [['package.json', pkg({ os: ['linux'], cpu: ['arm'] })], ['lib/libvips-cpp.so.8.18.7', 'so']],
+    '@img/sharp-libvips-linux-s390x@1.3.4': {
+      files: [['package.json', pkg({ os: ['linux'], cpu: ['s390x'] })], ['lib/libvips-cpp.so.8.18.7', 'so']],
     },
   });
   try {
-    const r = await withFetch(reg.fetch, () => addPlatformNativePackages(dir, 'linux', 'arm', quiet));
+    const r = await withFetch(reg.fetch, () => addPlatformNativePackages(dir, 'linux', 's390x', quiet));
     assert.deepStrictEqual(r.errors, []);
     assert.deepStrictEqual(r.added.map((a) => `${a.name}@${a.version}`),
-      ['@img/sharp-linux-arm@0.35.5', '@img/sharp-libvips-linux-arm@1.3.4']);
-    assert.ok(fs.existsSync(path.join(dir, NM, '@img/sharp-libvips-linux-arm/lib/libvips-cpp.so.8.18.7')));
+      ['@img/sharp-linux-s390x@0.35.5', '@img/sharp-libvips-linux-s390x@1.3.4']);
+    assert.ok(fs.existsSync(path.join(dir, NM, '@img/sharp-libvips-linux-s390x/lib/libvips-cpp.so.8.18.7')));
     assert.ok(!fs.existsSync(path.join(dir, NM, '@img/sharp-linux-x64')));
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+// Negative, and the reason v12.33's 32-bit ARM bundles were dangerous: sharp's
+// linux-arm .node is ARMv7 and its libvips ARMv8, canvas's ARMv7. On an ARMv6
+// board (Raspberry Pi 1, Zero) that is a SIGILL that kills WeKan. 32-bit ARM
+// downloads no native package at all and keeps the WebAssembly sharp.
+await test('32-bit ARM gets no native sharp or canvas, only the WebAssembly sharp', async () => {
+  assert.strictEqual(sharpPlatformSpec(SHARP, 'linux', 'arm'), null);
+  assert.strictEqual(canvasPlatformSpec(CANVAS, 'linux', 'arm'), null);
+  const dir = tree({
+    [`${NM}/sharp/package.json`]: pkg(SHARP),
+    [`${NM}/@img/sharp-wasm32/package.json`]: pkg({ name: '@img/sharp-wasm32', version: '0.35.5' }),
+    [`${NM}/@emnapi/runtime/package.json`]: pkg({ name: '@emnapi/runtime', version: '1.11.3' }),
+    [`${NM}/@napi-rs/canvas/package.json`]: pkg(CANVAS),
+    [`${NM}/@napi-rs/canvas-linux-x64-gnu/package.json`]: pkg({ os: ['linux'], cpu: ['x64'] }),
+  });
+  const reg = registry({});
+  try {
+    const r = await withFetch(reg.fetch, () => addPlatformNativePackages(dir, 'linux', 'arm', quiet));
+    assert.deepStrictEqual(r.errors, []);
+    assert.deepStrictEqual(r.added, []);
+    assert.deepStrictEqual(reg.served, [], 'nothing is downloaded for 32-bit ARM');
+    assert.ok(!fs.existsSync(path.join(dir, NM, '@napi-rs/canvas-linux-x64-gnu')));
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+await test('canvas: the glibc / MSVC package for the CPU, never musl', async () => {
+  assert.deepStrictEqual(canvasPlatformSpec(CANVAS, 'linux', 'arm64'), { name: '@napi-rs/canvas-linux-arm64-gnu', version: '1.0.10' });
+  assert.deepStrictEqual(canvasPlatformSpec(CANVAS, 'linux', 'x64'), { name: '@napi-rs/canvas-linux-x64-gnu', version: '1.0.10' });
+  assert.deepStrictEqual(canvasPlatformSpec(CANVAS, 'win32', 'x64'), { name: '@napi-rs/canvas-win32-x64-msvc', version: '1.0.10' });
+  assert.deepStrictEqual(canvasPlatformSpec(CANVAS, 'darwin', 'arm64'), { name: '@napi-rs/canvas-darwin-arm64', version: '1.0.10' });
+  for (const [p, a] of [['linux', 's390x'], ['linux', 'ppc64'], ['linux', 'ia32'], ['win32', 'ia32']]) {
+    assert.strictEqual(canvasPlatformSpec(CANVAS, p, a), null, `${p}-${a} has none`);
+  }
+  // And it is downloaded and checked like sharp.
+  const dir = tree({
+    [`${NM}/sharp/package.json`]: pkg(SHARP),
+    [`${NM}/@napi-rs/canvas/package.json`]: pkg(CANVAS),
+  });
+  const reg = registry({
+    '@img/sharp-darwin-arm64@0.35.5': { files: [['package.json', pkg({ os: ['darwin'], cpu: ['arm64'] })]] },
+    '@napi-rs/canvas-darwin-arm64@1.0.10': { files: [['package.json', pkg({ os: ['darwin'], cpu: ['arm64'] })]] },
+  });
+  try {
+    const r = await withFetch(reg.fetch, () => addPlatformNativePackages(dir, 'darwin', 'arm64', quiet));
+    assert.deepStrictEqual(r.added.map((x) => x.name), ['@img/sharp-darwin-arm64', '@napi-rs/canvas-darwin-arm64']);
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
   }
