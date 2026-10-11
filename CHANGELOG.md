@@ -524,7 +524,7 @@ used.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.28 2026-10-11 WeKan ® release
 
 **In short:** Current Afrikaans, Albanian, Arabic, Belarusian, Bosnian,
 Bulgarian, Chinese (Simplified), Chinese (Traditional), Croatian, Estonian,
@@ -1173,7 +1173,6 @@ all-language backlog and semantic audit remain open.
 </details>
 
 Thanks to above GitHub users for their contributions and translators for their translations.
-
 
 # v12.27 2026-10-10 WeKan ® release
 
