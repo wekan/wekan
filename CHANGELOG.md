@@ -532,9 +532,23 @@ choices.
 
 This release has the following developer-tooling fix:
 
-- [Setup installs Meteor with --foreground-scripts, because npm 12 refuses --unsafe-perm](https://github.com/wekan/wekan/commit/5c9334b76c)
-  and [the abbreviated --foreground-script](https://github.com/wekan/wekan/commit/3c755c1855).
-  Thanks to xet7.
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9c3692f832">Setup installs Meteor again with npm 12</a>. Thanks to xet7.</summary>
+
+build.sh installs npm 12.2.0, the Dockerfile's NPM_VERSION, right before
+`npm -g install meteor`, and npm 12 stopped that install three ways in turn:
+it [refuses `--unsafe-perm`](https://github.com/wekan/wekan/commit/5c9334b76c), which npm 7 removed; it
+[refuses Meteor's documented `--foreground-script`](https://github.com/wekan/wekan/commit/3c755c1855)
+as an abbreviation of `--foreground-scripts`; and it runs
+no package's install script unless `allow-scripts` names it, so the meteor
+installer package was added but never downloaded Meteor. build.sh, build.bat
+and releases/rebuild-release.sh now pass `--foreground-scripts
+--allow-scripts=meteor`, which npm matches against the registry URL's
+package name, so only that one script is allowed. All three were checked
+against npm 12.2.0 itself. `tests/npmMeteorInstall.test.cjs` fails on any of
+the three in a script or in the .agents notes.
+
+</details>
 
 and updates the following translations:
 
