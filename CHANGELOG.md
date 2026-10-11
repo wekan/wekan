@@ -526,13 +526,34 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** The **Windows 32-bit** bundle, which v12.32 announced but did not
-ship, builds now. All **Windows** bundles get the image library for their own
-CPU, so attachment thumbnails work there, and the **ARM64** bundle gets the
-sign-in module it was missing. Every Windows job now checks that each native
-module it ships is built for its CPU.
+**In short:** **Attachment thumbnails** work on every platform WeKan ships,
+not only Linux amd64. The **Windows 32-bit** bundle, which v12.32 announced but
+did not ship, builds now, and the **ARM64** Windows bundle gets the sign-in
+module it was missing. Every bundle job now checks that each native module it
+ships is built for its platform and CPU.
 
 This release fixes the following bugs:
+
+**Attachment thumbnails** - the image library on every platform.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/943bfd9197">Every bundle gets the sharp image library for its own platform and CPU</a>. Thanks to xet7.</summary>
+
+Every bundle except Linux amd64 is made from the amd64 one, which had only
+`sharp`'s Linux x64 binary. In the v12.32 zips for arm64, ppc64le, s390x,
+riscv64, i386, armhf, armv7, armv6 and both macOS, and in the Docker images and
+snaps made from them, thumbnails fell back to the full-size image. Each bundle
+job now runs `releases/platform-native-packages.mjs` for its own target. It
+adds that platform's `sharp` and libvips packages at the pinned versions,
+checked against the npm registry's sha512. On Linux i386 and loong64, where
+`sharp` publishes no binary, it uses `@img/sharp-wasm32`, now an optional
+dependency in `package.json`. That fallback made thumbnails under Node 26
+here. The script checks every native module's ELF, Mach-O or PE header for the
+target. On the v12.32 zips it found the right packages for all Linux and macOS
+bundles. `tests/sharpEveryPlatform.test.cjs` requires every bundle job to run
+it.
+
+</details>
 
 **Windows bundles** - what they build, and the native modules they ship.
 
