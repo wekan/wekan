@@ -146,11 +146,13 @@ test('a non-duplicate error from the update propagates unchanged', async () => {
 
 // --- wiring: sandstorm.js actually uses the helpers ------------------------------
 
-test('sandstorm.js probes case-insensitively and claims via the racy-safe helper', () => {
-  const src = fs.readFileSync(path.join(__dirname, '..', 'sandstorm.js'), 'utf8');
+test('server/sandstorm.js probes case-insensitively and claims via the racy-safe helper', () => {
+  // The Users.after.insert hook is in the server half since sandstorm.js was
+  // split so the client could load the shared half.
+  const src = fs.readFileSync(path.join(__dirname, '..', 'server/sandstorm.js'), 'utf8');
   assert.ok(
     /from ['"]\/models\/lib\/sandstormUsername['"]/.test(src),
-    'sandstorm.js must import from /models/lib/sandstormUsername',
+    'server/sandstorm.js must import from /models/lib/sandstormUsername',
   );
   assert.ok(
     src.includes('usernameCaseInsensitiveRegex(candidate)'),

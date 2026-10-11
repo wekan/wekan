@@ -89,13 +89,18 @@ template(name="membersWidget")
           else
             each currentBoard.membersForSidebar
               +userAvatar(userId=this.userId showStatus=true)
-            //- Sandstorm grains can contain multiple boards. Their users already
-              exist in this grain after first visiting it, so use WeKan's normal,
-              permission-checked board-member picker. The former Powerbox button's
-              claimed identity was never attached to the selected board. #2405
+            //- Sandstorm grains can contain multiple boards. Users who have already
+              visited this grain are found by WeKan's normal, permission-checked
+              board-member picker. The Powerbox button beside it picks a person
+              through Sandstorm instead, and adds them to THIS board through the
+              same inviteUserToBoard checks (#2405 removed it while the claimed
+              identity was never attached to a board).
             if currentUser.canInviteToBoard
               a.member.add-member.js-manage-board-members(title="{{_ 'add-members'}}")
                 i.fa.fa-plus
+              if isSandstorm
+                a.member.add-member.sandstorm-powerbox-request-identity(title="{{_ 'invite-people'}}")
+                  i.fa.fa-user-plus
             .clearfix
             if isInvited
               hr

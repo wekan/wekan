@@ -479,8 +479,8 @@ async function main() {
     assert.deepStrictEqual(client.parseIdentityRequestPermissions(descriptor), ['participate']);
   });
 
-  await test('sandstorm.js uses the JavaScript bridge client, and nothing loads capnp.node (negative)', async () => {
-    const js = read('sandstorm.js');
+  await test('server/sandstorm.js uses the JavaScript bridge client, and nothing loads capnp.node (negative)', async () => {
+    const js = read('server/sandstorm.js');
     assert.ok(js.includes("import('/imports/sandstorm/bridgeClient.mjs')"));
     assert.ok(/reportActivity\(/.test(js) && /claimIdentity\(/.test(js));
     const offenders = spawnSync('git', ['grep', '-l', '-E', "Npm\\.require\\(['\"]capnp['\"]\\)|require\\(['\"]capnp['\"]\\)",

@@ -85,7 +85,7 @@ test('no workflow hard-codes an npm version (negative)', () => {
 
 test('the Sandstorm sources describe the Node they ship (negative)', () => {
   for (const rel of ['sandstorm-src/start.js', 'sandstorm-src/build-deps.sh', 'sandstorm-pkgdef.capnp',
-                     'sandstorm.js', 'docs/Platforms/FOSS/Container/Sandstorm/Meteor3/Migration.md']) {
+                     'sandstorm.js', 'server/sandstorm.js', 'docs/Platforms/FOSS/Container/Sandstorm/Meteor3/Migration.md']) {
     assert.ok(!/\bNode ?24\b|node24/i.test(read(rel)), `${rel} still says Node 24`);
   }
 });

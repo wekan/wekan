@@ -118,3 +118,8 @@ import '/client/components/main/structuralSelection';
 import '/client/components/main/boardDragSettings';
 
 import './components/main/boardSettingsColumnActions';
+
+// Sandstorm's shell bridge (grain URL and title, the Powerbox picker, the
+// relative Meteor.absoluteUrl) and the isSandstorm template helper. It does
+// nothing outside a grain.
+import '/sandstorm';

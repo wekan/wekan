@@ -424,6 +424,7 @@ import '/server/importedUserReconciliation';
 // 17. Sandstorm integration
 // ----------------------------------------------------------------------------
 import '/sandstorm';
+import '/server/sandstorm';
 
 import '/server/methods/fileStatusAudit';
 import '/server/methods/instrumentationReport';

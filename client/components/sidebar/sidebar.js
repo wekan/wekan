@@ -1175,7 +1175,7 @@ Template.membersWidget.events({
     FlowRouter.go(allBoardsPath(SECTION_ARCHIVE, []));
   },
   'click .sandstorm-powerbox-request-identity'() {
-    window.sandstormRequestIdentity();
+    window.sandstormRequestIdentity(Session.get('currentBoard'));
   },
   'click .js-member-invite-accept'() {
     const boardId = Session.get('currentBoard');
