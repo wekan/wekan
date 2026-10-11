@@ -27,6 +27,25 @@ def run(root, *args):
     return subprocess.check_output(args, cwd=root, text=True).strip()
 
 
+def gh_pages(text):
+    """The pages `gh api --paginate` prints, as a list with one entry per page.
+
+    Without --slurp, gh prints the pages back to back ([...][...]), which one
+    json.loads cannot read. --slurp would wrap them in one array, but it exists
+    only from GitHub CLI 2.48 on, and an older gh stopped the release with
+    "unknown flag: --slurp". So the pages are read one after another here.
+    """
+    decoder = json.JSONDecoder()
+    text = text.strip()
+    pages, i = [], 0
+    while i < len(text):
+        page, i = decoder.raw_decode(text, i)
+        pages.append(page)
+        while i < len(text) and text[i].isspace():
+            i += 1
+    return pages
+
+
 def valid_origin(remote, repo):
     """Accept exact GitHub HTTPS and SSH clone URLs, with optional .git."""
     return remote in {
@@ -174,7 +193,7 @@ def source_version(root, config, requested=''):
 
 def latest(root, config):
     # Network/API errors are fatal; never mistake an outage for a first release.
-    rows = json.loads(run(root, 'gh', 'api', '--paginate', '--slurp',
+    rows = gh_pages(run(root, 'gh', 'api', '--paginate',
                           'repos/' + config['repo'] + '/releases?per_page=100'))
     return [x['tag_name'] for page in rows for x in page if not x['draft']]
 

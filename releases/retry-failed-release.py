@@ -11,11 +11,30 @@ def gh(*args):
     return subprocess.check_output(['gh', *args], text=True).strip()
 
 
+def gh_pages(text):
+    """The pages `gh api --paginate` prints, as a list with one entry per page.
+
+    Without --slurp, gh prints the pages back to back ([...][...]), which one
+    json.loads cannot read. --slurp would wrap them in one array, but it exists
+    only from GitHub CLI 2.48 on, and an older gh stopped the release with
+    "unknown flag: --slurp". So the pages are read one after another here.
+    """
+    decoder = json.JSONDecoder()
+    text = text.strip()
+    pages, i = [], 0
+    while i < len(text):
+        page, i = decoder.raw_decode(text, i)
+        pages.append(page)
+        while i < len(text) and text[i].isspace():
+            i += 1
+    return pages
+
+
 def recover(version, repo):
     version = version.removeprefix('v')
     if not re.fullmatch(r'\d+\.\d{2}', version):
         raise ValueError('Expected a WeKan release version, e.g. 11.92')
-    pages = json.loads(gh('api', '--paginate', '--slurp',
+    pages = gh_pages(gh('api', '--paginate',
                           f'repos/{repo}/actions/workflows/release-all.yml/runs?event=workflow_dispatch&per_page=100'))
     candidates = [run for page in pages for run in page['workflow_runs']
                   if (run['display_title'] == f'Release v{version}' or

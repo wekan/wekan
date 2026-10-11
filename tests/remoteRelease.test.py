@@ -148,6 +148,23 @@ class ReleaseTests(unittest.TestCase):
             self.assertEqual(r.source_version(self.root,self.config,'b'*40),'b'*40)
         self.assertIn('::warning::',findings.getvalue())
 
+    def test_latest_reads_pages_without_slurp(self):
+        # gh before 2.48 has no --slurp ("unknown flag: --slurp" stopped a
+        # release); --paginate alone prints the pages back to back.
+        pages = ('[{"tag_name":"v3","draft":false},{"tag_name":"v4","draft":true}]\n'
+                 '[{"tag_name":"v2","draft":false}]\n[{"tag_name":"v1","draft":false}]\n')
+        with patch.object(r,'run',return_value=pages) as gh:
+            self.assertEqual(r.latest(self.root,self.config),['v3','v2','v1'])
+        self.assertNotIn('--slurp',gh.call_args.args)
+        self.assertIn('--paginate',gh.call_args.args)
+        self.assertEqual(r.gh_pages(''),[])
+        self.assertEqual(r.gh_pages('{"a":1}{"a":2}'),[{'a':1},{'a':2}])
+        # Negative: a truncated page is an error, never a shorter release list.
+        with self.assertRaises(ValueError):
+            r.gh_pages('[{"tag_name":"v1"}][{"tag_')
+        # And nowhere else: no gh call in this script asks for --slurp.
+        self.assertNotIn("'--slurp'",(ROOT/'releases/remote-release.py').read_text())
+
     def test_missing_preserves_version_and_selects_existing_source(self):
         with patch.object(r,'latest',return_value=['v12','v11']):
             self.assertEqual(r.prepare_version(self.root,self.config,self.text,True,''),'v12')
