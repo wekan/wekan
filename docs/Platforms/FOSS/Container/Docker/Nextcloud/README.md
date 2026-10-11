@@ -309,8 +309,9 @@ Kanboard, Planka, Focalboard) is a **separate app** that *integrates with* Nextc
 - [x] Require **HaRP** deploy daemon (WebSocket/DDP) and Nextcloud 32–35 in the docs
 - [ ] (Integrations) Document/point WeKan OIDC at Nextcloud `oidc` provider (SSO);
       optionally add Task Processing AI calls and a Deck sync bridge
-- [ ] Test: deploy the ExApp on a Nextcloud + HaRP instance; verify Nextcloud sign-in,
-      realtime (DDP over WebSocket), attachments, avatars, restart and volume retention
+- [x] Native tests with real Nextcloud 32–35 + HaRP: sign-in, realtime DDP,
+      attachments, avatars, lifecycle, restart, upgrade and volume restore
+- [ ] Run the container acceptance checks and validate the amd64/arm64 Docker images
 
 ## See also
 
@@ -356,8 +357,9 @@ python3 tests/nextcloud/native.py --major 35 --subpath /cloud --frp-tls \
   --candidate-bundle .tools/nextcloud-runtime/source/bundle --candidate-version 12.32.1
 ```
 
-`runtime.json` records versions, source commit, bundle hashes and whether each
-bundle used the source preload. `browser.log`, `browser-restart.log`, `browser-upgrade.log` and
+`runtime.json` records versions, the checkout commit at test startup, bundle
+hashes and whether each bundle used the source preload. The bundle hashes
+identify the tested build even if other work advances the checkout during a run. `browser.log`, `browser-restart.log`, `browser-upgrade.log` and
 `browser-backup-restore.log` keep each stage's result. A nonzero result fails the
 command; missing fixtures are not silently skipped. Services are stopped on exit.
 A stopped volume backup, restored volume and test logs are retained for inspection.
@@ -383,6 +385,23 @@ before the authenticated tunnel is started.
 | Safe release archives, metadata, existing-version skip, catalog failure | `nextcloudRelease.test.py`, including the actual `tar` layout |
 | Signature verification and tampering | Real OpenSSL signing with temporary test-only keys |
 | Manual-only workflow, both image architectures, immutable retry assets, cleanup and failed store request | `ucsNextcloudWorkflows.test.cjs` workflow guards |
+
+Validation completed on **2026-10-11**, Linux x86_64: **40 browser checks passed**
+using the published v12.32 baseline and the freshly built source candidate.
+Each row includes five browser scenarios plus restart, upgrade and restore.
+
+| Nextcloud | Transport | Passed | Log directory under `.tools/log/nextcloud-tests/` |
+|---|---|---|---|
+| 32.0.15 | direct | 8/8 | `2026-10-11_22-32-52` |
+| 33.0.9 | direct | 8/8 | `2026-10-11_22-36-42` |
+| 34.0.4 | direct | 8/8 | `2026-10-11_22-40-39` |
+| 35.0.1 | direct | 8/8 | `2026-10-11_22-44-25` |
+| 35.0.1 | FRP mutual TLS, /cloud | 8/8 | `2026-10-11_22-41-44` |
+
+All eight focused Node suites, including the nine Python release tests, and all
+18 companion tests passed. `results.json` in the same log root summarizes these
+runs. Docker was unavailable, so the container runner exited with an explicit
+not-run result; no Docker image or ARM64 execution is claimed.
 
 Docker image execution remains a separate check. After building a local ExApp
 image containing the tested source, run:

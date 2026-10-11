@@ -530,9 +530,39 @@ used.
 not only Linux amd64. The **Windows 32-bit** bundle, which v12.32 announced but
 did not ship, builds now, and the **ARM64** Windows bundle gets the sign-in
 module it was missing. Every bundle job now checks that each native module it
-ships is built for its platform and CPU.
+ships is built for its platform and CPU. **Nextcloud sign-in** now preserves
+its verified identity through WebSocket setup.
 
 This release fixes the following bugs:
+
+**Nextcloud** - sign-in and deployment regression tests.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/91bfd08097">Sign-in survives SockJS header filtering, with live deployment tests</a>. Thanks to xet7.</summary>
+
+SockJS removes custom headers before Meteor sees a connection, which discarded
+Nextcloud's signed identity and prevented sign-in. The ExApp transport now
+preserves a verified identity on its own upgrade socket, before that filtering.
+Ordinary WeKan deployments do not install this hook.
+
+`bash build.sh nextcloud-tests` builds current source and runs real Nextcloud
+32–35, matching AppAPI, HaRP, WeKan and FerretDB SQLite under `.tools`. Browser
+coverage includes three accounts, explicit administrators, private boards,
+shared live edits, uploads, denied requests, resume-token isolation and account
+disabling. Restart, an AppAPI upgrade to the source build, and full-volume
+restore check the retained identity, board and downloaded file bytes. A `/cloud`
+run exercises the real FRP Unix-socket tunnel with mutual TLS and rejects an
+incorrect secret or TLS server name. All 40 browser checks passed. Docker
+image and ARM64 execution still require deployment testing.
+
+The [companion gateway fix](https://github.com/wekan/nextcloud/commit/f79f962)
+keeps disabling effective after a failed menu removal and restart, and removes
+ordinary Authorization credentials before proxying. Its 18 tests cover gateway
+failures, process supervision, metadata and runtime isolation. Release tests
+verify real signatures, tampering, existing-version retries and unsafe archive
+members; the workflow now also packages its root directory under the app ID.
+
+</details>
 
 **Attachment thumbnails** - the image library on every platform.
 
