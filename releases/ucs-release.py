@@ -11,7 +11,6 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
-import tempfile
 
 FILES = ('compose', 'preinst', 'inst', 'uinst', 'test', 'README_EN', 'README_DE')
 
@@ -120,15 +119,21 @@ def lookup(catalog, identifier):
 
 
 class Portal:
-    def __init__(self, cli, username, password_file):
+    def __init__(self, cli, username, password):
         self.cli = cli
-        self.authentication = ['--noninteractive', '--username', username, '--pwdfile', str(password_file)]
+        self.password = password
+        self.authentication = ['--noninteractive', '--username', username, '--pwdfile', '/dev/stdin']
 
     def call(self, action, *arguments, json_result=False):
         command = ['python3', self.cli, action, *self.authentication, *arguments]
         if json_result:
             command.append('--json')
-        result = subprocess.run(command, text=True, capture_output=True)
+        # The CLI reads --pwdfile once and caches it for this invocation. Use a
+        # fresh stdin pipe for every call, never a credential file on disk.
+        environment = os.environ.copy()
+        environment.pop('UNIVENTION_APP_PROVIDER_PASSWORD', None)
+        result = subprocess.run(command, input=self.password, text=True,
+                                capture_output=True, env=environment)
         if result.returncode:
             # get/list output may contain private app settings. Never echo it.
             raise RuntimeError(f'Provider Portal {action} failed (exit {result.returncode}); check credentials, app access and CLI API version')
@@ -196,13 +201,9 @@ def main():
         return
     source = app_id(os.environ['UCS_SOURCE_APP'])
     target = app_id(f"{os.environ['UCS_TARGET_UCS']}/wekan={args.version}")
-    # TMPDIR is set to .tools/tmp by the workflow. Never put credentials in args.
-    with tempfile.TemporaryDirectory(prefix='ucs-provider-') as temporary:
-        password_file = Path(temporary) / 'password'
-        password_file.write_text(os.environ['UNIVENTION_APP_PROVIDER_PASSWORD'])
-        password_file.chmod(0o600)
-        portal = Portal(args.cli, os.environ['UNIVENTION_APP_PROVIDER_USER'], password_file)
-        result = plan(portal, source, target) if args.action == 'plan' else upload(portal, args.directory, source, target)
+    portal = Portal(args.cli, os.environ['UNIVENTION_APP_PROVIDER_USER'],
+                    os.environ.pop('UNIVENTION_APP_PROVIDER_PASSWORD'))
+    result = plan(portal, source, target) if args.action == 'plan' else upload(portal, args.directory, source, target)
     print(f'{target}: {result}; production release still requires Univention approval')
     if os.getenv('GITHUB_OUTPUT'):
         with open(os.environ['GITHUB_OUTPUT'], 'a') as output:

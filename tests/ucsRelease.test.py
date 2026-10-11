@@ -2,6 +2,8 @@
 import importlib.util
 import json
 import os
+import subprocess
+from unittest.mock import patch
 from pathlib import Path
 import tempfile
 import unittest
@@ -49,6 +51,34 @@ class UcsRelease(unittest.TestCase):
         (component / 'migration/Dockerfile').write_text('ARG WEKAN_IMAGE=old\nFROM ${WEKAN_IMAGE}\n')
         self.output = self.root / 'output'
         ucs.prepare(self.root / 'source', self.output, '12.28')
+
+    def test_cli_reads_password_from_fresh_pipe_without_disk_storage(self):
+        cli = self.root / 'fake-cli.py'
+        cli.write_text("""import json, os, sys
+password = open(sys.argv[sys.argv.index('--pwdfile') + 1]).read()
+assert password == 'test-provider-secret'
+assert password not in ' '.join(sys.argv)
+assert 'UNIVENTION_APP_PROVIDER_PASSWORD' not in os.environ
+print(json.dumps({'authenticated': True}))
+""")
+        before = set(self.root.rglob('*'))
+        portal = ucs.Portal(str(cli), 'test-user', 'test-provider-secret')
+        with patch.dict(os.environ, UNIVENTION_APP_PROVIDER_PASSWORD='test-provider-secret'), \
+             patch.object(ucs.Path, 'write_text', side_effect=AssertionError('no credential files')):
+            for action in ('list', 'get'):
+                self.assertEqual(portal.call(action, json_result=True), {'authenticated': True})
+        self.assertEqual(set(self.root.rglob('*')), before)
+
+    def test_cli_failure_does_not_expose_credentials_or_private_output(self):
+        portal = ucs.Portal('unused', 'test-user', 'test-provider-secret')
+        failure = subprocess.CompletedProcess([], 1, 'test-provider-secret private settings',
+                                               'test-provider-secret authentication failed')
+        with patch.object(ucs.subprocess, 'run', return_value=failure):
+            with self.assertRaises(RuntimeError) as error:
+                portal.call('list', json_result=True)
+        self.assertNotIn('test-provider-secret', str(error.exception))
+        self.assertNotIn('private settings', str(error.exception))
+        self.assertIn('exit 1', str(error.exception))
 
     def test_prepare_keeps_history_and_synchronizes_images(self):
         compose = (self.output / 'component/compose').read_text()

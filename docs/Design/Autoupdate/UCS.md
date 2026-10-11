@@ -241,8 +241,11 @@ published versions are left unchanged. The WeKan release image must already
 exist; this job does not rebuild the main WeKan Docker image.
 
 The CLI is downloaded from Univention using this repository's `releases/fetch.sh`.
-It is called with its actual `--noninteractive` and `--pwdfile` options. Secrets
-stay in a private temporary file; app-definition JSON is not printed to logs.
+It is called with `--noninteractive --pwdfile /dev/stdin`. Each CLI invocation
+receives the password through a fresh anonymous stdin pipe; the release helper
+does not write a password file or include the password in its CLI arguments or
+child environment. App-definition JSON and CLI error output are not printed to
+logs. This transport requires the Linux runner used by `ucs.yml`.
 These commands have offline regression coverage but still require a first
 credentialed Test App Center upload to confirm the account's metadata and the
 portal's compose/preinst read-back fields. No portal writes were performed during
