@@ -6,14 +6,16 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 . "$SCRIPT_DIR/ensure-tools.sh"
 if [ "$(_et_os)" = macos ]; then
   _et_brew_ensure
-  command -v meteor >/dev/null 2>&1 || brew install meteor
   command -v zip >/dev/null 2>&1 || brew install zip
 else
   ensure_tools npm zip
-  if ! command -v meteor >/dev/null 2>&1; then
-    sudo npm install -g meteor --foreground-scripts --allow-scripts=meteor
-  fi
 fi
+# Meteor as https://docs.meteor.com/about/install.html installs it: `npx meteor`,
+# as this user, never sudo, into ~/.meteor (see build.sh's Install dependencies).
+if ! command -v meteor >/dev/null 2>&1 && [ ! -x "$HOME/.meteor/meteor" ]; then
+  npx -y meteor
+fi
+export PATH="$HOME/.meteor:$PATH"
 
 echo "Note: If you use other locale than en_US.UTF-8 , you need to additionally install en_US.UTF-8"
 case "$(_et_linux_family)" in

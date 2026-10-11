@@ -846,7 +846,7 @@ echo Installing WeKan dependencies for Windows.
 rem Full MIME detection uses the libmagic WASM engine/database installed by npm.
 rem No external file.exe installation is needed.
 echo This uses Chocolatey to install git, curl, Node.js LTS and MongoDB tools,
-echo then installs Meteor via npm.
+echo then installs Meteor with npx meteor.
 where choco >nul 2>&1
 if errorlevel 1 (
 	echo Installing Chocolatey package manager ...
@@ -874,8 +874,18 @@ if defined WK_NPM_VERSION (
 	echo Installing npm %WK_NPM_VERSION% ^(Dockerfile NPM_VERSION^) ...
 	call npm install -g npm@%WK_NPM_VERSION%
 )
-echo Installing Meteor (npm -g install meteor --foreground-scripts --allow-scripts=meteor) ...
-call npm -g install meteor --foreground-scripts --allow-scripts=meteor
+REM Meteor as https://docs.meteor.com/about/install.html installs it on Windows,
+REM Linux and macOS alike: npx meteor. The meteor npm package is only an
+REM installer; npx runs it directly, into %LOCALAPPDATA%\.meteor, and it adds
+REM that to the user's PATH. npm -g install meteor ran the same installer as an
+REM install script, which npm 12 refuses to run.
+where meteor >nul 2>&1
+if errorlevel 1 (
+	echo Installing Meteor ^(npx meteor^) ...
+	call npx -y meteor
+) else (
+	echo Meteor is already installed.
+)
 echo Done. Open a new terminal so PATH changes take effect, then re-run this script.
 goto end
 

@@ -2969,12 +2969,32 @@ for _once in 1; do
 					;;
 				*) echo "Unsupported Linux distribution; install a C/C++ toolchain, git, curl, wget, 7zip, zip, unzip, file and npm." >&2; exit 1 ;;
 			esac
-			#sudo chown -R $(id -u):$(id -g) $HOME/.npm
 			sudo npm -g install n
 			sudo n "$_wekan_node_version"
 			sudo npm install -g "npm@${_wekan_npm_version:-latest}"
-			sudo npm -g install meteor --foreground-scripts --allow-scripts=meteor
-			#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
+			hash -r
+			# Meteor the way https://docs.meteor.com/about/install.html installs
+			# it on Linux, macOS and Windows alike: `npx meteor`, as this user and
+			# never with sudo. The meteor npm package is only an installer; npx
+			# runs its cli.js, which installs into ~/.meteor and adds that to
+			# PATH in the shell rc files. `sudo npm -g install meteor` ran the
+			# same installer as an install script instead, which npm 12 refuses
+			# to run (and which also refused --unsafe-perm and the documented
+			# --foreground-script).
+			#
+			# The global meteor package such a setup left behind is only that
+			# installer, never Meteor itself (~/.meteor is not touched).
+			sudo npm -g uninstall meteor >/dev/null 2>&1 || true
+			# npx caches in ~/.npm, which an old `sudo npm` could leave root-owned.
+			if [ -d "$HOME/.npm" ] && [ ! -w "$HOME/.npm" ]; then
+				sudo chown -R "$(id -u):$(id -g)" "$HOME/.npm"
+			fi
+			if [ -x "$HOME/.meteor/meteor" ]; then
+				echo "Meteor is already installed in $HOME/.meteor"
+			else
+				npx -y meteor
+			fi
+			export PATH="$HOME/.meteor:$PATH"
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
 			echo "macOS"
 			# Node comes from nvm, not from Homebrew's node@26 keg.
@@ -3023,8 +3043,14 @@ for _once in 1; do
 				grep -qxF 'export NVM_DIR="$HOME/.nvm"' "$rc" || echo 'export NVM_DIR="$HOME/.nvm"' >> "$rc"
 				grep -qxF '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"' "$rc" || echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"' >> "$rc"
 			done
-			npx -y meteor
-			export PATH=~/.meteor:$PATH
+			# Meteor as https://docs.meteor.com/about/install.html installs it:
+			# `npx meteor`, as this user, never sudo (see the Linux branch).
+			if [ -x "$HOME/.meteor/meteor" ]; then
+				echo "Meteor is already installed in $HOME/.meteor"
+			else
+				npx -y meteor
+			fi
+			export PATH="$HOME/.meteor:$PATH"
 			exit;
 		elif [[ "$OSTYPE" == "cygwin" ]]; then
 		        # POSIX compatibility layer and Linux environment emulation for Windows

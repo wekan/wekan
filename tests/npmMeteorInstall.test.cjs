@@ -1,8 +1,15 @@
 'use strict';
 
-// Every script that installs Meteor with npm has to satisfy npm 12 (NPM_VERSION
-// in the Dockerfile, which build.sh and build.bat install right before Meteor).
-// Each rule below was a Setup -> Install dependencies run that stopped:
+// Setup installs Meteor the way https://docs.meteor.com/about/install.html
+// does on Linux, macOS and Windows alike: `npx meteor`, as the user, never
+// with sudo. npx runs the meteor package's bin, cli.js, which installs when
+// given no command, into ~/.meteor (%LOCALAPPDATA%\.meteor on Windows).
+//
+// It used `sudo npm -g install meteor`, and npm 12 (NPM_VERSION in the
+// Dockerfile, which build.sh and build.bat install right before Meteor)
+// stopped that three ways in turn, each a Setup -> Install dependencies run.
+// A global npm install of meteor left anywhere - a script, or the .agents
+// notes it is copied from - still has to get past all three:
 //
 // 1. --unsafe-perm: npm 7 removed it and npm 12 refuses an unknown cli flag
 //    with EUNKNOWNCONFIG.
@@ -15,9 +22,6 @@
 //    the install "succeeded" and left no Meteor. --allow-scripts=meteor lets
 //    that one script run; npm matches it against the registry URL's name, not
 //    the tarball's own package.json, so it allows nothing else.
-//
-// `npx -y meteor` (the macOS branch) needs none of this: npx runs the
-// package's bin, cli.js, which installs when given no command.
 //
 // Every script this repository runs is checked, and the .agents notes the
 // spellings get copied from. Old docs for Meteor 2 (which ships npm 6, where
@@ -76,16 +80,32 @@ assert.deepStrictEqual(meteorInstalls.filter(({ text }) => !/--allow-scripts=met
   .map(({ where }) => where), [],
   'npm 12 blocks the meteor installer\'s install script without --allow-scripts=meteor');
 
-// Positive: the scripts that install Meteor still do, in the form npm 12 runs.
-for (const [file, line] of [
-  ['build.sh', 'sudo npm -g install meteor --foreground-scripts --allow-scripts=meteor'],
-  ['build.bat', 'call npm -g install meteor --foreground-scripts --allow-scripts=meteor'],
-  ['releases/rebuild-release.sh', 'sudo npm install -g meteor --foreground-scripts --allow-scripts=meteor'],
+// Positive: every script that installs Meteor does it with `npx -y meteor`.
+// build.sh has it twice: the Linux and the macOS branch.
+for (const [file, line, count] of [
+  ['build.sh', 'npx -y meteor', 2],
+  ['build.bat', 'call npx -y meteor', 1],
+  ['releases/rebuild-release.sh', 'npx -y meteor', 1],
 ]) {
-  assert.ok(lines(path.join(root, file)).some(({ text }) => text.trim() === line),
-    `${file} installs Meteor with: ${line}`);
+  assert.strictEqual(lines(path.join(root, file)).filter(({ text }) => text.trim() === line).length,
+    count, `${file} installs Meteor with: ${line}`);
 }
-assert.ok(meteorInstalls.length >= 3, 'the global Meteor installs are found');
+// And they no longer install it with a global npm install, as the docs advise
+// only when npx fails, nor through Homebrew, which has no Meteor formula.
+for (const file of ['build.sh', 'build.bat', 'releases/rebuild-release.sh']) {
+  const found = lines(path.join(root, file))
+    .filter(({ text }) => globalMeteorInstall.test(text) || /brew install meteor\b/.test(text));
+  assert.deepStrictEqual(found.map(({ where }) => where), [], `${file} installs Meteor with npx`);
+}
+
+// Negative: never as root. The installer warns against it, and as root it
+// writes ~/.meteor and the rc files somewhere other than the user's.
+assert.deepStrictEqual(offenders(scripts, (text) => /\bsudo\b[^\n]*\bnpx\b[^\n]*\bmeteor\b/.test(text)), [],
+  'Meteor is installed as the user, not with sudo');
+// A previous setup's global installer package is removed, never left as a
+// second `meteor` command beside ~/.meteor/meteor.
+assert.match(fs.readFileSync(path.join(root, 'build.sh'), 'utf8'),
+  /^\s*sudo npm -g uninstall meteor >\/dev\/null 2>&1 \|\| true$/m);
 
 // Negative: each pattern finds what it is there to find, and nothing else.
 assert.ok(unsafePerm.test('sudo npm -g install meteor --unsafe-perm'));
