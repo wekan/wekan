@@ -227,9 +227,10 @@ const pkgdef :Spk.PackageDefinition = (
 
 const myCommand :Spk.Manifest.Command = (
   # Here we define the command used to start up your server.
-  #argv = ["/sandstorm-http-bridge", "4000", "--", "./start-memory.sh"],
   #argv = ["/sandstorm-http-bridge", "4000", "--", "node", "--stack-size=65500", "start.js"],
-  argv = ["/sandstorm-http-bridge", "4000", "--", "./start-memory.sh"],
+  # node, not a shell script: a grain has no /bin/sh (meteor-spk's bin/ holds only
+  # mongod, niscud and node), so a "./start-memory.sh" died with execvp ENOENT.
+  argv = ["/sandstorm-http-bridge", "4000", "--", "node", "start-memory.js"],
   environ = [
     # Note that this defines the *entire* environment seen by your app.
     #---------------------------------------------------------------------

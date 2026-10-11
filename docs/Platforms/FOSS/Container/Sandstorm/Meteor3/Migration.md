@@ -121,7 +121,9 @@ amd64 only. (arm64 Sandstorm is out of scope here; the migratemongo 3.x binaries
 
 The canonical launcher is committed at
 [`sandstorm-src/start.js`](../../../../../../sandstorm-src/start.js); the spk build copies it into
-`meteor-spk.deps/start.js`. It is a CJS launcher, spawned by the pkgdef as `... node start.js`.
+`meteor-spk.deps/start.js`. It is a CJS launcher, started by
+[`sandstorm-src/start-memory.js`](../../../../../../sandstorm-src/start-memory.js), which the
+pkgdef runs as `... node start-memory.js` to give it a memory-derived V8 heap first.
 On first launch it runs the migration chain for whatever the grain holds —
 **niscu (2.x) → MongoDB 3.0** (Stage 1, the preserved legacy path, for very old grains) then
 **MongoDB 3.0 → FerretDB** (Stage 2) — then runs WeKan on FerretDB. Fresh grains and
@@ -342,7 +344,10 @@ and refreshes.
 - `WRITABLE_PATH`: `/var/wekan-uploads` → **`/var/files`**.
 - Do **not** set `MONGO_URL` in `environ` (start.js sets it to the FerretDB port).
 - Bump `appVersion` and `appMarketingVersion`.
-- Keep `argv = ["/sandstorm-http-bridge", "4000", "--", "node", "start.js"]`.
+- Keep `argv = ["/sandstorm-http-bridge", "4000", "--", "node", "start-memory.js"]`. The
+  command must be run BY node: a grain has no `/bin/sh` (meteor-spk's `bin/` holds only
+  `mongod`, `niscud` and `node`), so a shell script there fails with
+  `execvp(...): No such file or directory`.
 - `SANDSTORM=1` and `METEOR_SETTINGS={"public":{"sandstorm":true}}` are already present — that
   drives `isSandstorm` for the new admin panel.
 

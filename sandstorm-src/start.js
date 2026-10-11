@@ -116,7 +116,10 @@ function oldLibEnv() {
   };
 }
 
-function sleep(sec) { spawnSync('/bin/sleep', [String(sec)]); }
+// Block without a child process: a grain has no /bin/sleep (no coreutils at all),
+// so spawning it failed silently and every wait here returned at once.
+const SLEEP_CELL = new Int32Array(new SharedArrayBuffer(4));
+function sleep(sec) { Atomics.wait(SLEEP_CELL, 0, 0, sec * 1000); }
 
 // ── "please wait" bridge on APP_PORT ─────────────────────────────────────────
 // Sandstorm frames the grain, proxying to APP_PORT via /sandstorm-http-bridge. Any

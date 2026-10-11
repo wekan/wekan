@@ -127,8 +127,9 @@ chmod +x "$DEPS/migratemongo/bin/"*
 
 echo "==> [6/7] Launcher + importer"
 cp -f "$REPO/sandstorm-src/start.js"                       "$DEPS/start.js"
-cp -f "$REPO/sandstorm-src/start-memory.sh"                 "$DEPS/start-memory.sh"
-chmod +x "$DEPS/start-memory.sh"
+# start-memory.js, not .sh: the grain has no shell (see the file's header).
+cp -f "$REPO/sandstorm-src/start-memory.js"                "$DEPS/start-memory.js"
+rm -f "$DEPS/start-memory.sh"
 cp -f "$REPO/sandstorm-src/migration-bridge.js"            "$DEPS/migration-bridge.js"
 cp -f "$REPO/snap-src/bin/migrate-mongo3-to-ferretdb.mjs"  "$DEPS/migrate-mongo3-to-ferretdb.mjs"
 # #6458: cpu-exec + qemu-user — run any binary that needs CPU features the

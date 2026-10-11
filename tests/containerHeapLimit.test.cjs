@@ -51,16 +51,17 @@ test('heap selection happens before the server exec', () => {
 });
 
 test('every packaged runtime derives memory and preserves overrides', () => {
-  for (const rel of ['releases/ferretdb/start-wekan.sh', 'snap-src/bin/wekan-control', 'snap-src/bin/ferretdb-control', 'start-wekan.sh', 'sandstorm-src/start-memory.sh']) {
+  for (const rel of ['releases/ferretdb/start-wekan.sh', 'snap-src/bin/wekan-control', 'snap-src/bin/ferretdb-control', 'start-wekan.sh', 'sandstorm-src/start-memory.js']) {
     const source = fs.readFileSync(path.join(ROOT, rel), 'utf8');
     assert.ok(source.includes('/sys/fs/cgroup/memory.max'), `${rel} must read cgroup v2`);
-    assert.ok(source.includes('${NODE_OPTIONS:-') || source.includes('${GOMEMLIMIT:-'), `${rel} must preserve overrides`);
+    assert.ok(source.includes('${NODE_OPTIONS:-') || source.includes('${GOMEMLIMIT:-') ||
+              source.includes('if (!env.NODE_OPTIONS)'), `${rel} must preserve overrides`);
   }
   for (const rel of ['build.bat', 'start-wekan.bat', 'releases/ferretdb/start-wekan.bat']) {
     const source = fs.readFileSync(path.join(ROOT, rel), 'utf8');
     assert.ok(source.includes('TotalVisibleMemorySize'), `${rel} must derive installed RAM`);
   }
-  assert.ok(fs.readFileSync(path.join(ROOT, 'sandstorm-pkgdef.capnp'), 'utf8').includes('./start-memory.sh'));
+  assert.ok(fs.readFileSync(path.join(ROOT, 'sandstorm-pkgdef.capnp'), 'utf8').includes('"node", "start-memory.js"'));
 });
 
 console.log(`\ncontainerHeapLimit: ${passed} tests passed`);

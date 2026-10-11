@@ -122,9 +122,8 @@ test('the sandstorm grain launcher routes every bundled binary through cpu-exec'
                      'NODE, [IMPORTER]']) {
     assert.ok(start.includes(`cpuExec(${bin}`), `not routed through cpu-exec: ${bin}`);
   }
-  // ...and nothing bundled is still spawned directly. /bin/sleep is a grain
-  // utility, not a bundled binary, so it is exempt.
-  const direct = start.match(/spawn(?:Sync)?\((?!\.\.\.cpuExec|'\/bin\/sleep')/g) || [];
+  // ...and nothing bundled is still spawned directly.
+  const direct = start.match(/spawn(?:Sync)?\((?!\.\.\.cpuExec)/g) || [];
   assert.deepStrictEqual(direct, [], 'a bundled binary is still spawned directly');
 });
 
