@@ -11,7 +11,7 @@ if [ "$(_et_os)" = macos ]; then
 else
   ensure_tools npm zip
   if ! command -v meteor >/dev/null 2>&1; then
-    sudo npm install -g meteor --unsafe-perm --foreground-script
+    sudo npm install -g meteor --foreground-script
   fi
 fi
 
