@@ -524,6 +524,29 @@ used.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The **CPU platform** design document now matches what the
+**node-patches** and **FerretDB** releases build and what WeKan actually ships.
+
+This release has the following documentation update:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4ad51ec8eb">The CPU platform table matches the node-patches and FerretDB releases</a>. Thanks to xet7.</summary>
+
+[Platforms.md](docs/Design/Autoupdate/Platforms.md) now lists all 16
+node-patches v26.11.1 targets and all 25 FerretDB v1.92.0 targets. Its table
+of what is built matches the v12.30 and v12.31 release files and the
+architectures of the Docker image: the armv7, armv6, Windows and macOS bundles
+are included, and loong64 and win32 are marked as not built. win32 is not built
+because node-patches publishes `node-win32.sha256sum`, while the resolver looks
+for `node-win32.exe.sha256sum`. FreeBSD amd64 is listed as having both binaries
+now.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.31 2026-10-11 WeKan ® release
 
 WeKan can be packaged as a Nextcloud External App with Nextcloud sign-in and
