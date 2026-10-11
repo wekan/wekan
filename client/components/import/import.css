@@ -191,6 +191,23 @@ a.show-mapping {
   padding: 0;
 }
 
+/* And each list fills its own width too. One row per line left a wide window
+   showing WeKan, Trello and Jira and leaving the rest below the fold, beside a
+   column of empty space. A column width rather than a count, so the lists take
+   as many columns as fit - several on a wide screen, one on a phone - and
+   every source and every part is on screen at once wherever there is room.
+   A row never splits between two columns. */
+.import-page .import-source-list,
+.import-page .import-part-list {
+  columns: 200px;
+  column-gap: 16px;
+}
+
+.import-page .import-source-list li,
+.import-page .import-part-list li {
+  break-inside: avoid;
+}
+
 /* A row is EXACTLY the row Admin Panel / Announcement draws:
    `a.flex > .materialCheckBox + span`, and no geometry of its own. That matters
    more than it looks: `.materialCheckBox.is-checked` becomes the tick by

@@ -216,6 +216,26 @@ test('the two questions sit side by side when there is room', () => {
   assert.ok(/align-items: start/.test(body), 'and a short column does not stretch');
 });
 
+test('each list fills its width with columns when there is room', () => {
+  // A wide window showed three sources and a column of empty space beside the
+  // rest: the lists flow into as many columns as fit, by width, not by count.
+  const css = read('client/components/import/import.css');
+  const rule = css.slice(css.indexOf('.import-page .import-source-list,\n.import-page .import-part-list {\n  columns'));
+  const body = rule.slice(0, rule.indexOf('}'));
+  assert.ok(/columns: 200px;/.test(body), 'both lists flow into columns of a minimum width');
+  assert.ok(!/column-count/.test(css), 'never a fixed count, so a phone keeps one column');
+  const li = css.slice(css.indexOf('.import-page .import-source-list li,'));
+  assert.ok(/break-inside: avoid/.test(li.slice(0, li.indexOf('}'))),
+    'and a row is never split between two columns');
+});
+
+test('the lists are not columns of one again (negative)', () => {
+  const css = read('client/components/import/import.css');
+  const lists = css.split('}').filter(r => /\.import-(source|part)-list\s*[,{]/.test(r));
+  assert.ok(lists.some(r => /columns: \d+px/.test(r)), 'a column width is set on the lists');
+  assert.ok(!lists.some(r => /columns: (1|auto)\s*;/.test(r)), 'nothing resets them to one column');
+});
+
 test('a row is the Announcement row, and nothing on top of it', () => {
   // The Admin Panel's Announcement toggle is `a.flex > .materialCheckBox +
   // span` with no CSS of its own, and that is the whole style: the tick's
