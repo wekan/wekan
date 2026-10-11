@@ -526,10 +526,27 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** The **Windows** bundles no longer fail when Chocolatey's package
-feed is down: they use the 7-Zip the build machine already has.
+**In short:** The **Import** page shows every source under "Import from:" at
+once, in columns, when the window is wide enough. The **Windows** bundles no
+longer fail when Chocolatey's package feed is down: they use the 7-Zip the
+build machine already has.
 
-This release has the following developer-tooling fix:
+This release adds the following new feature:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f44e52242c">The Import page shows every source under Import from: at once, in columns</a>. Thanks to xet7.</summary>
+
+The source list was one row per line, so a wide window showed WeKan, Trello and
+Jira and left the rest below the fold, beside a column of empty space. The
+source list and the "What to include" list now flow into as many 200px columns
+as fit (`columns: 200px`, a width rather than a count), so a phone keeps one
+column, and a row never splits between two columns.
+`tests/importPage.test.cjs` checks the column width and `break-inside: avoid`,
+and fails if the lists go back to one column.
+
+</details>
+
+and has the following developer-tooling fix:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6cb7e45b92">Windows bundles use the runner's 7-Zip instead of installing it from Chocolatey</a>. Thanks to xet7.</summary>
