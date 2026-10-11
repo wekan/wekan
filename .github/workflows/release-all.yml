@@ -1362,9 +1362,33 @@ jobs:
             echo "skip=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Install 7-zip
+      - name: Use the runner's 7-Zip
         if: steps.preflight.outputs.skip != 'true'
-        run: choco install -y 7zip
+        shell: pwsh
+        # windows-latest already has 7-Zip in C:\Program Files\7-Zip. Installing
+        # it again from Chocolatey made the build depend on community.chocolatey.org,
+        # and v12.29's build-win64 died there before building anything:
+        #   Failed to fetch results from V2 feed ... 504 (Gateway Timeout)
+        #   '7zip.install 26.3.0' is not compatible with '7zip 26.4.0 constraint'
+        # Chocolatey is now only the fallback for an image without it, retried.
+        run: |
+          $exe = 'C:\Program Files\7-Zip\7z.exe'
+          if (-not (Get-Command 7z -ErrorAction SilentlyContinue) -and (Test-Path $exe)) {
+            Add-Content -Path $env:GITHUB_PATH -Value (Split-Path $exe)
+            $env:PATH = (Split-Path $exe) + ';' + $env:PATH
+          }
+          if (Get-Command 7z -ErrorAction SilentlyContinue) {
+            (& 7z | Select-Object -First 3) -join "`n" | Write-Host
+            exit 0
+          }
+          for ($i = 1; $i -le 5; $i++) {
+            choco install -y 7zip
+            if ($LASTEXITCODE -eq 0) { exit 0 }
+            Write-Host "choco install 7zip failed (attempt $i of 5); retrying in $(30 * $i) s"
+            Start-Sleep -Seconds (30 * $i)
+          }
+          Write-Host "::error::7-Zip is not on this runner image and Chocolatey could not install it in 5 attempts (community.chocolatey.org unavailable?)."
+          exit 1
 
       - name: Download amd64 bundle
         if: steps.preflight.outputs.skip != 'true'
@@ -1738,9 +1762,33 @@ jobs:
             echo "skip=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Install 7-zip
+      - name: Use the runner's 7-Zip
         if: steps.preflight.outputs.skip != 'true'
-        run: choco install -y 7zip
+        shell: pwsh
+        # windows-latest already has 7-Zip in C:\Program Files\7-Zip. Installing
+        # it again from Chocolatey made the build depend on community.chocolatey.org,
+        # and v12.29's build-win64 died there before building anything:
+        #   Failed to fetch results from V2 feed ... 504 (Gateway Timeout)
+        #   '7zip.install 26.3.0' is not compatible with '7zip 26.4.0 constraint'
+        # Chocolatey is now only the fallback for an image without it, retried.
+        run: |
+          $exe = 'C:\Program Files\7-Zip\7z.exe'
+          if (-not (Get-Command 7z -ErrorAction SilentlyContinue) -and (Test-Path $exe)) {
+            Add-Content -Path $env:GITHUB_PATH -Value (Split-Path $exe)
+            $env:PATH = (Split-Path $exe) + ';' + $env:PATH
+          }
+          if (Get-Command 7z -ErrorAction SilentlyContinue) {
+            (& 7z | Select-Object -First 3) -join "`n" | Write-Host
+            exit 0
+          }
+          for ($i = 1; $i -le 5; $i++) {
+            choco install -y 7zip
+            if ($LASTEXITCODE -eq 0) { exit 0 }
+            Write-Host "choco install 7zip failed (attempt $i of 5); retrying in $(30 * $i) s"
+            Start-Sleep -Seconds (30 * $i)
+          }
+          Write-Host "::error::7-Zip is not on this runner image and Chocolatey could not install it in 5 attempts (community.chocolatey.org unavailable?)."
+          exit 1
 
       - name: Download amd64 bundle
         if: steps.preflight.outputs.skip != 'true'
@@ -2100,9 +2148,33 @@ jobs:
             echo "skip=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Install 7-zip
+      - name: Use the runner's 7-Zip
         if: steps.preflight.outputs.skip != 'true'
-        run: choco install -y 7zip
+        shell: pwsh
+        # windows-latest already has 7-Zip in C:\Program Files\7-Zip. Installing
+        # it again from Chocolatey made the build depend on community.chocolatey.org,
+        # and v12.29's build-win64 died there before building anything:
+        #   Failed to fetch results from V2 feed ... 504 (Gateway Timeout)
+        #   '7zip.install 26.3.0' is not compatible with '7zip 26.4.0 constraint'
+        # Chocolatey is now only the fallback for an image without it, retried.
+        run: |
+          $exe = 'C:\Program Files\7-Zip\7z.exe'
+          if (-not (Get-Command 7z -ErrorAction SilentlyContinue) -and (Test-Path $exe)) {
+            Add-Content -Path $env:GITHUB_PATH -Value (Split-Path $exe)
+            $env:PATH = (Split-Path $exe) + ';' + $env:PATH
+          }
+          if (Get-Command 7z -ErrorAction SilentlyContinue) {
+            (& 7z | Select-Object -First 3) -join "`n" | Write-Host
+            exit 0
+          }
+          for ($i = 1; $i -le 5; $i++) {
+            choco install -y 7zip
+            if ($LASTEXITCODE -eq 0) { exit 0 }
+            Write-Host "choco install 7zip failed (attempt $i of 5); retrying in $(30 * $i) s"
+            Start-Sleep -Seconds (30 * $i)
+          }
+          Write-Host "::error::7-Zip is not on this runner image and Chocolatey could not install it in 5 attempts (community.chocolatey.org unavailable?)."
+          exit 1
 
       - name: Download amd64 bundle
         if: steps.preflight.outputs.skip != 'true'
