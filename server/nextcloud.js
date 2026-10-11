@@ -8,6 +8,9 @@ if (process.env.NEXTCLOUD_EXAPP === 'true') {
   if (!process.env.WEKAN_NEXTCLOUD_PROXY_KEY || !process.env.NEXTCLOUD_URL) {
     throw new Error('Nextcloud ExApp requires the trusted in-container gateway');
   }
+  require('/server/lib/nextcloudTransport').installNextcloudTransport(
+    WebApp.httpServer, Meteor.server.stream_server,
+  );
   Meteor.settings.public.nextcloudExApp = true;
   Accounts.registerLoginHandler('nextcloud', async function(options) {
     if (!Object.prototype.hasOwnProperty.call(options, 'nextcloud')) return undefined;

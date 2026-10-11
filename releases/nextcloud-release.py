@@ -45,10 +45,16 @@ def published(catalog, name, release):
 
 def verify_archive(archive, name, release):
     with tarfile.open(archive, 'r:gz') as package:
+        seen = set()
         for member in package.getmembers():
             parts = Path(member.name).parts
-            if '..' in parts or '.git' in parts or Path(member.name).is_absolute():
+            private = {'.git', '.tools', '.env', 'node_modules', '__pycache__'}
+            if (not parts or parts[0] != name or '..' in parts or private.intersection(parts)
+                    or Path(member.name).is_absolute() or parts in seen
+                    or not (member.isfile() or member.isdir())
+                    or any(part.endswith(('.key', '.pem', '.p12', '.pfx')) for part in parts)):
                 raise ValueError('Unsafe or private archive member')
+            seen.add(parts)
         info = package.getmember(f'{name}/appinfo/info.xml')
         if not info.isfile() or info.size > 1024 * 1024:
             raise ValueError('Invalid packaged metadata')

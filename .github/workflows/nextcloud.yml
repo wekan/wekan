@@ -129,7 +129,7 @@ jobs:
             gh release download --repo wekan/wekan "v$VERSION" --pattern "$archive" --dir "$task_dir"
           else
             tar --exclude=.git --exclude=.tools --exclude=.env --exclude=node_modules \
-              -czf "$task_dir/$archive" --transform "s,^\./,${APP_ID}/," -C exapp .
+              -czf "$task_dir/$archive" --transform "s,^\.$,${APP_ID},;s,^\./,${APP_ID}/," -C exapp .
             new_archive=true
           fi
           python3 releases/nextcloud-release.py --version "$VERSION" --archive "$task_dir/$archive" --app-id "$APP_ID"

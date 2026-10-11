@@ -2653,6 +2653,7 @@ RELEASE_SCRIPTS=(	"Release|Release All: audit, commit, push and build with Actio
 	"Bundles|Fetch the built bundle from the ppc64le build host|releases/up-o.sh|WeKan version, e.g. 10.50||"
 	"Bundles|Fetch the built bundle from the s390x build host|releases/up-s.sh|WeKan version, e.g. 10.50||"
 	"Bundles|Upload the Windows bundle to the download server|releases/up-w.sh|WeKan version, e.g. 10.50||"
+	"Docker images|Test Nextcloud 32-35 with native local services|tests/nextcloud/run.sh|Nextcloud majors (default 32 33 34 35)|linux|nextcloud-tests"
 	"Docker images|Build the WeKan Docker image|releases/docker-build.sh|||"
 	"Docker images|Create the multi-platform buildx builder|releases/docker-build-deps.sh|||"
 	"Docker images|Publish a variant image (wekan-gantt-gpl / wekan-ondra)|releases/docker-publish-variant.sh|Image and version, e.g. wekan-gantt-gpl 10.50||"

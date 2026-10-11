@@ -24,14 +24,14 @@ function load() {
       return user._id;
     },
   };
-  const Meteor = { settings: { public: {} }, Error, users: {
+  const Meteor = { server: { stream_server: { register() {} } }, settings: { public: {} }, Error, users: {
     findOneAsync: async id => users.get(id),
     updateAsync: async (id, update) => Object.assign(users.get(id), update.$set),
   } };
   const source = fs.readFileSync(require.resolve('../server/nextcloud.js'), 'utf8').replace(/^import .*;\n/gm, '');
-  vm.runInNewContext(source, { Meteor, Accounts, WebApp: { handlers: { use() {} } },
+  vm.runInNewContext(source, { Meteor, Accounts, WebApp: { httpServer: { prependListener() {} }, handlers: { use() {} } },
     process: { env }, check(options) { assert.equal(typeof options.nextcloud, 'boolean'); },
-    require: () => tools, Error });
+    require: name => name.endsWith('nextcloudTransport') ? { installNextcloudTransport() {} } : tools, Error });
   return { users, login: user => login.call({ connection: { httpHeaders: headers(user) } }, { nextcloud: true }),
     rawLogin: login, validate };
 }

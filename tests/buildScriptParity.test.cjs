@@ -362,6 +362,15 @@ test('every script in releases/ is reachable from BOTH menus', () => {
       + '      feature introduces text, with arguments a menu cannot supply',
   };
 
+  // These release/container internals take build-job or migration-only inputs.
+  // Keep the menu audit strict for standalone commands without exposing internals.
+  SKIP['check-addon-arch.mjs'] = 'native-addon checker called by Windows bundle jobs';
+  SKIP['platform-native-packages.mjs'] = 'target-package installer called by platform bundle jobs';
+  SKIP['ucs-pull-image.sh'] = 'registry fallback helper called by UCS release scripts';
+  for (const helper of ['importer.mjs', 'run.mjs', 'start.sh', 'verify.mjs']) {
+    SKIP[`ucs-migration/${helper}`] = 'in-container UCS migration implementation, covered by ucsMigration';
+  }
+
   // These are explicit audit/internal helpers, not independent release-menu actions.
   SKIP['translations/audit-progress.mjs'] = 'read-only audit reporting; run directly';
   SKIP['translations/audit-short-prose.mjs'] = 'read-only review queue of short identical words; run directly';

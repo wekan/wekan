@@ -13,8 +13,9 @@ support (`packages/wekan-oidc/`), both of which the Nextcloud paths below build 
 
 > **Status:** the ExApp implementation is now in `wekan/nextcloud` (local checkout
 > `.tools/nextcloud`), with opt-in Nextcloud authentication in WeKan. Local HTTP,
-> WebSocket, lifecycle and account-isolation tests pass. Docker builds and a live
-> Nextcloud/HaRP deployment have not yet been verified. The standalone
+> WebSocket, lifecycle and account-isolation tests are supplemented by the native
+> Nextcloud/AppAPI/HaRP acceptance matrix described below. Docker image validation
+> remains a separate deployment check. The standalone
 > [nextcloud.yml](../../../../../../.github/workflows/nextcloud.yml) runs only manually.
 
 1. **Publish a new WeKan image containing this integration.** The ExApp Dockerfile
@@ -24,7 +25,8 @@ support (`packages/wekan-oidc/`), both of which the Nextcloud paths below build 
 2. **Test the image with Nextcloud 32–35, AppAPI and HaRP.** Verify two users,
    explicit administrator IDs, private boards, WebSocket reconnect, attachments,
    avatars, disable/re-enable, restart, volume-preserving upgrade and restore.
-   Support for that version range is declared but still needs live validation.
+   The native matrix below covers these application flows; Docker-managed deployment
+   and architecture-specific image execution remain separate checks.
 3. **Get the app signing certificate** for app ID `wekan`, register it with the
    App Store, and add `NEXTCLOUD_APP_PRIVATE_KEY`, `NEXTCLOUD_APP_PUBLIC_CRT`,
    `NEXTCLOUD_APPSTORE_TOKEN`, `GHCR_AUTH`, and `WEKAN_REPO_TOKEN` with read access
@@ -140,7 +142,7 @@ Neither the companion branch nor the image's `latest` tag is changed: completing
 an older release must not roll back a newer version. The signing certificate must
 already be registered with the App Store; the workflow does not register or
 replace certificates. No live signing/publication was exercised during the
-implementation; live Nextcloud deployment validation and credentials remain required.
+implementation; Docker deployment validation and publication credentials remain required.
 
 ### A5. Secrets/keys to add (`wekan/wekan`)
 | Secret | New/existing | What it is |
@@ -318,23 +320,86 @@ Kanboard, Planka, Focalboard) is a **separate app** that *integrates with* Nextc
 
 ## Local and deployment validation
 
-Run the main repository's `tests/nextcloudIdentity.test.cjs` and
-`tests/nextcloudLogin.test.cjs`, plus the companion's `tests/gateway.test.mjs`.
-The latter uses real local HTTP and WebSocket connections against a test backend.
-It is not a live Meteor, FerretDB or Nextcloud test.
+The native acceptance runner uses real Nextcloud, its matching bundled AppAPI,
+HaRP (HAProxy and the Python agent), Chromium, WeKan and FerretDB SQLite. Runtime
+files, databases, browser downloads and test credentials stay in `.tools/`; each
+run writes logs and failure traces under `.tools/log/nextcloud-tests/<datetime>/`.
+The sandbox setup follows [the local toolchain instructions](../../../../../Security/Sandboxes/vscodium/README.md).
 
-For the registered browser suite, save a signed-in **test** Nextcloud session as a
-Playwright storage-state file outside git, then run from `tests/playwright`:
+On Linux x86_64 with Python 3.12+, a C compiler, make, curl, git and OpenSSL,
+install the Dockerfile-selected Node.js under `.tools` first,
+then prepare a published **ExApp-capable** baseline and run the matrix:
 
 ```sh
-WEKAN_BASE_URL=https://cloud.example \
-WEKAN_NEXTCLOUD_URL=https://cloud.example/exapps/wekan/ \
-WEKAN_NEXTCLOUD_STORAGE_STATE=/private/path/nextcloud-session.json \
-npx playwright test specs/nextcloud.e2e.js --project=chromium
+mkdir -p .tools/tmp
+export TMPDIR="$PWD/.tools/tmp"
+python3 tests/nextcloud/bootstrap.py --version 12.32
+bash build.sh nextcloud-tests              # Nextcloud 32, 33, 34 and 35
+bash build.sh nextcloud-tests 32           # one major while debugging
 ```
 
-Keep that state private; it contains a Nextcloud session. The browser suite checks
-sign-in, WebSocket connectivity, reconnect, reload and anonymous-session denial.
-Manual deployment checks for files, admin privileges, upgrades and backup restore
-remain required. AI, Deck and calendar integrations in section C are possibilities,
-not features implemented by this ExApp.
+The command runs the focused Node/Python and companion suites, builds current
+WeKan source into `.tools/nextcloud-runtime/source`, installs its server
+dependencies and tests an upgrade from the published bundle to that fresh build.
+An incremented patch number is used **only in the isolated AppAPI fixture** to
+exercise its update command; this does not change repository versions or publish
+a release. The baseline needs the source `nextcloudTransport` preload because
+published v12.32 loses identity headers in SockJS. The freshly built candidate
+runs its own compiled transport fix without that preload. Older pre-ExApp
+bundles such as v12.29 are not valid baselines.
+
+For a Nextcloud installation below a path, use the prepared source candidate:
+
+```sh
+python3 tests/nextcloud/native.py --major 35 --subpath /cloud --frp-tls \
+  --upgrade-from .tools/nextcloud-runtime/wekan/bundle \
+  --candidate-bundle .tools/nextcloud-runtime/source/bundle --candidate-version 12.32.1
+```
+
+`runtime.json` records versions, source commit, bundle hashes and whether each
+bundle used the source preload. `browser.log`, `browser-restart.log`, `browser-upgrade.log` and
+`browser-backup-restore.log` keep each stage's result. A nonzero result fails the
+command; missing fixtures are not silently skipped. Services are stopped on exit.
+A stopped volume backup, restored volume and test logs are retained for inspection.
+The runner uses loopback ports and HaRP's manual registration. The default matrix
+finishes with a `/cloud` run through real FRP using mutual TLS and the production
+Unix-socket configuration. Incorrect tunnel secrets and TLS server names must fail
+before the authenticated tunnel is started.
+
+| Requirement | Automated coverage |
+|---|---|
+| Nextcloud version range, app ID and USER routes | Companion `metadata.test.mjs`; live matrix uses the real metadata's routes |
+| Shared-secret auth, injected headers, separate internal/public URLs | Companion `gateway.test.mjs` and `lifecycle.test.mjs`; anonymous browser requests through real HaRP |
+| Identity survives SockJS filtering | `nextcloudTransport.test.cjs`; real browser sign-in and WebSocket reconnect |
+| JIT identities, exact admin IDs, first-user policy, concurrent tabs, issuer isolation | `nextcloudIdentity.test.cjs`, `nextcloudLogin.test.cjs`; three real Nextcloud accounts |
+| Cross-account resume, forged login arguments, disabled accounts | Unit tests plus live DDP calls against the real database |
+| Private boards, membership, real-time changes | Two browser sessions; denied nonmember reads followed by a shared card edit |
+| Attachments and avatars | Real UI uploads, downloaded byte equality, nonmember attachment denial |
+| Heartbeat/init readiness, menu registration, disable/re-enable | Companion lifecycle suite and real AppAPI registration/disable/enable; active DDP connection is closed |
+| Restart, upgrade, backup and restore | Stop all WeKan/database/gateway processes; replace bundle or restore full volume; verify identity, board and file bytes in a new browser |
+| Child failure, failed spawn, SIGTERM, forced shutdown deadline | Companion `runtime.test.mjs`, using real child processes |
+| Loopback backend configuration and secret removal | Companion runtime tests |
+| FRP TLS paths, quoted secrets, Unix socket configuration | Independent TOML parser; real mutual-TLS FRP browser run, wrong-secret and wrong-server-name rejection |
+| Safe release archives, metadata, existing-version skip, catalog failure | `nextcloudRelease.test.py`, including the actual `tar` layout |
+| Signature verification and tampering | Real OpenSSL signing with temporary test-only keys |
+| Manual-only workflow, both image architectures, immutable retry assets, cleanup and failed store request | `ucsNextcloudWorkflows.test.cjs` workflow guards |
+
+Docker image execution remains a separate check. After building a local ExApp
+image containing the tested source, run:
+
+```sh
+python3 tests/nextcloud/container.py --image wekan-nextcloud:test
+```
+
+It checks privilege drop, persistent directory creation, heartbeat, absence of a
+Docker socket/privileged mode, bounded shutdown and restart. It fails explicitly
+when Docker is unavailable. The native matrix does **not** validate Docker image
+builds, ARM64 execution or Docker-managed upgrades; those still require deployment
+testing on the corresponding hosts. Certificate
+issuance, App Store registration/secrets and publication are maintainer steps,
+not actions performed by these tests.
+
+The existing `tests/playwright/specs/nextcloud.e2e.js` also supports a separately
+deployed stack via `WEKAN_NEXTCLOUD_URL` and `WEKAN_NEXTCLOUD_STORAGE_STATE`.
+Keep storage-state files private. AI, Deck, calendar and other section C
+integrations are proposed extensions, not functionality implemented by this ExApp.
