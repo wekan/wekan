@@ -524,7 +524,7 @@ used.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.33 2026-10-11 WeKan ® release
 
 **In short:** **LDAP login on UCS** works again after the 12.32 upgrade, and
 **Nextcloud sign-in** keeps its verified identity through WebSocket setup.
