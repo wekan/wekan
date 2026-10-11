@@ -526,10 +526,29 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** The **CPU platform** design document now matches what the
-**node-patches** and **FerretDB** releases build and what WeKan actually ships.
+**In short:** The **Windows 32-bit** bundle is built again, using the Node.js
+that **node-patches** already publishes. The **CPU platform** design document
+now matches what the node-patches and **FerretDB** releases build and what
+WeKan actually ships.
 
-This release has the following documentation update:
+This release fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/24e5cc4300">The win32 bundle is built again</a>. Thanks to xet7.</summary>
+
+wekan/node-patches publishes `node-win32.exe` with its checksum in
+`node-win32.sha256sum` (without `.exe`), as the line `<hash> *node-win32.exe`.
+The Node.js resolver looked only for `node-win32.exe.sha256sum` and an unmarked
+name, so it reported that no Node.js existed for win32, and the win32 bundle job
+skipped itself every release. It now also tries the sidecar without `.exe` and
+accepts the `*` binary-mode marker. The downloaded binary was checked against
+the published SHA256. `tests/releaseNodeSources.test.cjs` runs the checksum
+matcher on real sidecar lines, and checks that a line for another file such as
+`node-win32.lib` is never taken.
+
+</details>
+
+and has the following documentation update:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4ad51ec8eb">The CPU platform table matches the node-patches and FerretDB releases</a>. Thanks to xet7.</summary>
@@ -538,10 +557,8 @@ This release has the following documentation update:
 node-patches v26.11.1 targets and all 25 FerretDB v1.92.0 targets. Its table
 of what is built matches the v12.30 and v12.31 release files and the
 architectures of the Docker image: the armv7, armv6, Windows and macOS bundles
-are included, and loong64 and win32 are marked as not built. win32 is not built
-because node-patches publishes `node-win32.sha256sum`, while the resolver looks
-for `node-win32.exe.sha256sum`. FreeBSD amd64 is listed as having both binaries
-now.
+are included, loong64 is marked as not built, and the win32 fix above is
+described. FreeBSD amd64 is listed as having both binaries now.
 
 </details>
 
