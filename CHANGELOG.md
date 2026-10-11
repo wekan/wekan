@@ -530,6 +530,13 @@ Macedonian, Persian, Serbian, Slovenian and Vietnamese strings are translated. M
 card wording are corrected, with validation of imports, notifications and recovery
 choices.
 
+This release has the following developer-tooling fix:
+
+- [Setup installs Meteor with --foreground-script, because npm 11 refuses --unsafe-perm](https://github.com/wekan/wekan/commit/5c9334b76c).
+  Thanks to xet7.
+
+and updates the following translations:
+
 **Translations** - Afrikaans, Albanian, Arabic, Basque, Belarusian, Bosnian, Bulgarian, Chinese (Simplified), Chinese (Traditional), Croatian, Estonian, Gujarati, Hebrew, Hindi, Icelandic, Latvian, Macedonian, Persian, Serbian, Slovenian and Vietnamese.
 
 **Languages updated:** Afrikaans, Albanian, Arabic, Basque, Belarusian, Bosnian, Bulgarian, Chinese (Simplified), Chinese (Traditional), Croatian, Estonian, Gujarati, Hebrew, Hindi, Icelandic, Latvian, Macedonian, Persian, Serbian, Slovenian, Vietnamese.
@@ -1014,6 +1021,9 @@ unverified without the local app and browser system dependencies. The wider
 all-language backlog and semantic audit remain open.
 
 </details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 
 # v12.27 2026-10-10 WeKan ® release
 
