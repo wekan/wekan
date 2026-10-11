@@ -168,10 +168,11 @@ jobs:
     permissions:
       contents: write
     steps:
+      # Shallow: this job reads the tree, commits the version bump on top of it
+      # and pushes - none of which needs history.
       - uses: actions/checkout@v7
         with:
           ref: main
-          fetch-depth: 0
 
       - name: Validate release notes before changing versions
         env:
@@ -272,10 +273,11 @@ jobs:
       # CHANGELOG.md from their own checkout instead - see
       # "Check the release notes exist in CHANGELOG.md" below.
     steps:
+      # Shallow: the only thing history was fetched for was finding out whether
+      # the release tag already exists, which the tag step now asks GitHub.
       - uses: actions/checkout@v7
         with:
           ref: main
-          fetch-depth: 0
 
       - name: Audit telemetry source before release work
         shell: bash
@@ -308,7 +310,9 @@ jobs:
           VERSION="${{ steps.version.outputs.version }}"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if git rev-parse "v$VERSION" >/dev/null 2>&1; then
+          # Asked of GitHub, not of this shallow checkout, which carries no tags:
+          # a re-run must find the tag its first run pushed.
+          if git ls-remote --exit-code --tags origin "refs/tags/v$VERSION" >/dev/null 2>&1; then
             echo "Tag v$VERSION already exists, leaving it as is."
           else
             git tag -a "v$VERSION" -m "v$VERSION"
@@ -4820,9 +4824,10 @@ jobs:
         if: steps.bundle.outputs.available == 'true'
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
-          # remote-build (Launchpad) rejects shallow clones, so fetch full history
-          # here; the next step then replaces it with a small COMPLETE history.
-          fetch-depth: 0
+          # Shallow is enough: remote-build (Launchpad) rejects a SHALLOW repository,
+          # but what it gets is not this checkout - prepare-launchpad-source.sh
+          # makes a fresh one-commit repository from git archive HEAD. The full
+          # history (447 MB) used to be fetched here and never uploaded.
 
       - name: Audit telemetry source before release work
         shell: bash

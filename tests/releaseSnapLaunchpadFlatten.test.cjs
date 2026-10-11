@@ -31,7 +31,10 @@ function projectHash(dir) {
 test('Launchpad prepares a complete isolated source before running remote-build', () => {
   assert.ok(body.indexOf('actions/checkout@') < body.indexOf('bash releases/prepare-launchpad-source.sh'));
   assert.ok(body.indexOf('bash releases/prepare-launchpad-source.sh') < body.indexOf('bash "$remote_wrapper" remote-build --launchpad-accept-public-upload'));
-  assert.match(body, /fetch-depth: 0/);
+  // The snapshot is a fresh one-commit repository made with git archive, so the
+  // checkout's history is never uploaded: a full clone (fetch-depth: 0, 447 MB
+  // of history) was fetched for nothing.
+  assert.doesNotMatch(body, /fetch-depth: 0/);
   assert.match(body, /cd "\$remote_source"/);
   assert.match(body, /tee "\$remote_log"/);
   assert.match(body, /mv "\$download" \./);
@@ -45,6 +48,11 @@ test('snapshot is complete, repeatable, architecture-specific and usable from Sn
     run(dir, 'git', ['config', 'user.email', 'fixture@example.invalid']);
     fs.writeFileSync(path.join(dir, 'snapcraft.yaml'), 'name: wekan\nversion: 11.85\n');
     fs.writeFileSync(path.join(dir, 'tracked.txt'), 'source');
+    fs.mkdirSync(path.join(dir, 'snap/hooks'), { recursive: true });
+    fs.writeFileSync(path.join(dir, 'snap/hooks/configure'), '#!/bin/sh');
+    fs.mkdirSync(path.join(dir, 'releases'));
+    fs.writeFileSync(path.join(dir, 'releases/fetch.sh'), '#!/bin/sh');
+    fs.writeFileSync(path.join(dir, 'releases/unrelated.sh'), 'not for the snap');
     run(dir, 'git', ['add', '.']); run(dir, 'git', ['commit', '-qm', 'fixture']);
     fs.writeFileSync(path.join(dir, 'untracked.txt'), 'must not be uploaded');
     run(dir, 'bash', [helper, 'armhf']);
@@ -53,6 +61,12 @@ test('snapshot is complete, repeatable, architecture-specific and usable from Sn
     assert.equal(run(source, 'git', ['rev-list', '--count', 'HEAD']), '1');
     assert.ok(fs.statSync(path.join(source, '.git')).isFile());
     assert.ok(!fs.existsSync(path.join(source, 'untracked.txt')));
+    // Only what the recipe reads: present paths in, everything else out.
+    assert.ok(fs.existsSync(path.join(source, 'snapcraft.yaml')));
+    assert.ok(fs.existsSync(path.join(source, 'snap/hooks/configure')));
+    assert.ok(fs.existsSync(path.join(source, 'releases/fetch.sh')));
+    assert.ok(!fs.existsSync(path.join(source, 'tracked.txt')), 'a file the recipe does not read is not uploaded');
+    assert.ok(!fs.existsSync(path.join(source, 'releases/unrelated.sh')));
     const hash = projectHash(source);
     const commit = run(source, 'git', ['rev-parse', 'HEAD']);
     run(source, 'git', ['status', '--porcelain']); // refreshes the external index
@@ -71,4 +85,24 @@ test('snapshot is complete, repeatable, architecture-specific and usable from Sn
     assert.equal(invalid.status, 2);
     assert.equal(run(dir, 'git', ['log', '-1', '--format=%s']), 'fixture', 'original checkout unchanged');
   } finally { fs.rmSync(dir, { recursive: true, force: true }); }
+});
+
+// Negative, against the real recipe: every project path snapcraft.yaml reads
+// must be in the uploaded list, or the Launchpad build fails on a missing file
+// - found only after an hour on a release's slowest builders.
+test('the uploaded list covers every project path snapcraft.yaml refers to', () => {
+  const recipe = fs.readFileSync(path.join(root, 'snapcraft.yaml'), 'utf8');
+  const script = fs.readFileSync(helper, 'utf8');
+  const listed = script.split('SNAP_SOURCE_PATHS=(')[1].split(')')[0].split(/\s+/).filter(Boolean);
+  const covered = (p) => listed.some((l) => p === l || p.startsWith(l + '/'));
+  const refs = new Set();
+  for (const m of recipe.matchAll(/(?:\.\.\/|PROJECT_DIR[^/\n]*\/)([A-Za-z0-9_.-]+\/[A-Za-z0-9_./-]+)/g)) {
+    if (!m[1].startsWith('parts/') && !m[1].startsWith('stage/')) refs.add(m[1]);
+  }
+  for (const m of recipe.matchAll(/^\s+source: ([A-Za-z0-9_./-]+)\s*$/gm)) {
+    if (m[1] !== '.' && !/^[a-z]+:\/\//.test(m[1])) refs.add(m[1]);
+  }
+  assert.ok(refs.size >= 5, `found ${refs.size} project paths in snapcraft.yaml`);
+  for (const ref of refs) assert.ok(covered(ref), `snapcraft.yaml reads ${ref}, which is not uploaded to Launchpad`);
+  for (const l of listed) assert.ok(fs.existsSync(path.join(root, l)), `${l} is listed but does not exist`);
 });

@@ -13,7 +13,27 @@ mkdir -p "$TMPDIR"
 rm -rf "$source_dir" "$git_dir"
 mkdir -p "$source_dir"
 snapshot_date=$(git -C "$root" show -s --format=%cI HEAD)
-git -C "$root" archive HEAD | tar -x -C "$source_dir"
+# Only what the snap recipe reads goes to Launchpad. The whole tree is 237 MB
+# (docs, tests, translations, client code) and the recipe uses none of it: the
+# app comes from the release .zip. Uploading it, and the `wekan` part copying
+# it (source: .), cost every Launchpad leg time on its slowest builders.
+# tests/releaseSnapLaunchpadFlatten.test.cjs checks this list covers every
+# project path snapcraft.yaml refers to.
+SNAP_SOURCE_PATHS=(
+  snapcraft.yaml
+  snap
+  snap-src
+  releases/fetch.sh
+  releases/check-telemetry.py
+  releases/risk-baseline.json
+  releases/migrate-mongodb-to-ferretdb.mjs
+)
+present=()
+for path in "${SNAP_SOURCE_PATHS[@]}"; do
+  if [ -n "$(git -C "$root" ls-tree --name-only HEAD -- "$path")" ]; then present+=("$path"); fi
+done
+case " ${present[*]} " in *" snapcraft.yaml "*) ;; *) echo "No snapcraft.yaml at HEAD" >&2; exit 1 ;; esac
+git -C "$root" archive HEAD -- "${present[@]}" | tar -x -C "$source_dir"
 # Architecture is part of the source hash, preventing matrix legs from replacing
 # one another's Launchpad recipes. The YAML comment does not change the build.
 printf '\n# Launchpad build architecture: %s\n' "$arch" >> "$source_dir/snapcraft.yaml"

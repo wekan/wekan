@@ -51,7 +51,8 @@ jobs:
           token: ${{ secrets.WEKAN_REPO_TOKEN }}
           ref: main
           path: target
-          fetch-depth: 0
+          # Shallow: one commit is added on top of main and pushed. The full
+          # history of these repositories is ~160 MB each and is not read.
 
       - name: Copy WeKan and restore ${{ matrix.package }} package identities
         run: |

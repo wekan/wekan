@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - main
+    # This repository has no charts/ directory: the Helm chart is published to
+    # wekan/charts by release-all.yml. Without this filter every push to main
+    # cloned the full history (447 MB) to find no chart to release.
+    paths:
+      - 'charts/**'
 
 permissions:
   contents: read
