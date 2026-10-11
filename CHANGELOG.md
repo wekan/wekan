@@ -524,7 +524,7 @@ used.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.29 2026-10-11 WeKan ® release
 
 **In short:** **Sandstorm** notifications and the activity log work again, and
 Powerbox identity claims can be redeemed, without the Node 14 Cap'n Proto addon
