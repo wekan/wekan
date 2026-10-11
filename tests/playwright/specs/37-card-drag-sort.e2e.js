@@ -334,6 +334,13 @@ test.describe('Card drag-sort reordering', () => {
       // left it empty for the duration of a large board's Blaze flush.
       await expect(target.locator('[data-card-id]')).toHaveCount(1);
       await expect(target.locator('.card-drop-preview')).toHaveCount(1);
+      // ...and while the preview stands in for it, the card is NOT also shown
+      // at its source. sortable('cancel') put the real node back there; it was
+      // drawn in both lists until the source re-rendered (comment 6111272360).
+      const sourceList = loggedInPage.locator(`#js-list-${board.listIds[0]}`);
+      await expect(
+        sourceList.locator('.js-minicard', { hasText: 'Moving Card' }).filter({ visible: true }),
+      ).toHaveCount(0);
       await expect
         .poll(
           () => target.locator('.js-minicard:not(.card-drop-preview)').count(),
@@ -343,6 +350,66 @@ test.describe('Card drag-sort reordering', () => {
         )
         .toBe(1);
       await expect(target.locator('.card-drop-preview')).toHaveCount(0);
+      await expect(
+        loggedInPage.locator('.js-minicard', { hasText: 'Moving Card' }).filter({ visible: true }),
+      ).toHaveCount(1);
+    } finally {
+      db.cleanup({ boardIds: [board.boardId] });
+    }
+  });
+
+  test('#6430 a reorder within a list shows the card only in its new place', async ({
+    loggedInPage,
+    user,
+  }) => {
+    const board = db.seedBoard({
+      ownerId: user.id,
+      title: 'ReorderNoFlicker',
+      listCount: 1,
+      cardTitlesPerList: [['Moving Card', 'Middle Card', 'Last Card']],
+    });
+    try {
+      await openBoard(loggedInPage, board.boardId, board.slug);
+      await waitForMeteor(loggedInPage);
+      const list = loggedInPage.locator(`#js-list-${board.listIds[0]} .js-minicards`);
+      const source = list.locator('.js-minicard', { hasText: 'Moving Card' }).first();
+      const target = list.locator('.js-minicard', { hasText: 'Last Card' }).first();
+      await source.waitFor({ timeout: 30_000 });
+
+      // The same deterministic gap as above.
+      await source.evaluate((element) => {
+        const card = Blaze.getData(element);
+        const move = card.move.bind(card);
+        card.move = (...args) =>
+          new Promise((resolve, reject) => {
+            setTimeout(() => move(...args).then(resolve, reject), 750);
+          });
+      });
+
+      await dragCardOnto(loggedInPage, source, target, { place: 'after' });
+
+      // While the move is pending the card is visible once, in the drop slot:
+      // not jumped back to the top of the list, and not drawn twice.
+      await expect(list.locator('.card-drop-preview')).toHaveCount(1);
+      // The preview is a clone, so the title is read from the markup rather
+      // than from Blaze data.
+      const visibleTitles = await list.evaluate((el) =>
+        Array.from(el.querySelectorAll('.js-minicard'))
+          .filter((card) => getComputedStyle(card).display !== 'none')
+          .map((card) => card.querySelector('.minicard-title-text')?.textContent.trim()),
+      );
+      expect(visibleTitles).toEqual([
+        'Middle Card',
+        'Last Card',
+        'Moving Card',
+      ]);
+
+      await expect.poll(() => dbOrder(board.boardId, board.listIds[0]), { timeout: 15_000 })
+        .toEqual(['Middle Card', 'Last Card', 'Moving Card']);
+      await expect(list.locator('.card-drop-preview')).toHaveCount(0);
+      await expect(
+        list.locator('.js-minicard', { hasText: 'Moving Card' }).filter({ visible: true }),
+      ).toHaveCount(1);
     } finally {
       db.cleanup({ boardIds: [board.boardId] });
     }

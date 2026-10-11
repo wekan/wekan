@@ -523,11 +523,15 @@ Template.listBody.onRendered(function () {
           listId,
           sortIndex.base,
         );
+        // #6430: cardDomElement is back at its source after sortable('cancel');
+        // it is hidden until Blaze moves the card, so the card is never shown
+        // in both lists at once.
         retireCardDropPreview(
           dropPreview,
           card._id,
           targetContainer,
           moveResult,
+          cardDomElement,
         );
       }
       if (boardComponent) boardComponent.setIsDragging(false);
