@@ -315,7 +315,9 @@ parts:
             rm -f $SNAPCRAFT_PART_INSTALL/node \
                   $SNAPCRAFT_PART_INSTALL/start-wekan.sh \
                   $SNAPCRAFT_PART_INSTALL/start-wekan.bat
-            for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
+            # mongo-tools is the one program the eight are launchers for, and
+            # moves with them (releases/fetch-mongo-tools.sh).
+            for t in mongo-tools bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
               [ -f "$SNAPCRAFT_PART_INSTALL/$t" ] && mv -f "$SNAPCRAFT_PART_INSTALL/$t" "$SNAPCRAFT_PART_INSTALL/bin/$t" || true
             done
             # Bundle the MongoDB -> FerretDB migrator (run by migration-control on

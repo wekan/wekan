@@ -32,8 +32,9 @@ CLOUD = (
 )
 NATIVE_CLOUD = ('x-client-sku', 'x-client-SKU', 'x-client-ver', 'x-client-Ver',
                 'x-client-os', 'x-client-cpu')
+# mongo-tools is all eight as one program (releases/fetch-mongo-tools.sh).
 TOOLS = {'bsondump', 'mongodump', 'mongoexport', 'mongofiles', 'mongoimport',
-         'mongorestore', 'mongostat', 'mongotop'}
+         'mongorestore', 'mongostat', 'mongotop', 'mongo-tools'}
 FERRET = (
     'internal/util/telemetry.(*Reporter).report',
     'internal/util/telemetry.(*Reporter).send',

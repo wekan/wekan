@@ -109,10 +109,15 @@ test('the binaries a release embeds are the binaries this embeds', () => {
   assert.ok(/embed-verified-node\.sh/.test(script), 'a verified Node.js');
   assert.ok(/FerretDB\/releases\/latest\/download/.test(script), 'FerretDB from wekan/FerretDB');
   assert.ok(/mongo-tools-patches\/releases\/latest\/download/.test(script), 'the MongoDB tools');
+  // Both get them as the one program mongo-tools-<platform> and its eight
+  // launchers: the workflow through fetch-mongo-tools.sh, the local build
+  // through its own cache and that script's --shims.
+  assert.ok(/mongo-tools-\$\{PLATFORM\}\$\{EXE\}/.test(script), 'the one-program mongo-tools');
+  assert.ok(/fetch-mongo-tools\.sh" --shims "\$BUNDLE"/.test(script), 'with the same launchers');
+  assert.ok(/fetch-mongo-tools\.sh" \.build\/bundle amd64/.test(baseJob), 'as the workflow');
   const tools = 'bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop';
   assert.ok(script.includes(tools),
-    'all eight MongoDB Database Tools, in the order the workflow lists them');
-  assert.ok(script.includes(tools) && baseJob.includes(tools), 'and the same eight as the workflow');
+    'and all eight per-tool assets while mongo-tools-<platform> is not published yet');
   assert.ok(/releases\/ferretdb\/\$LAUNCHER/.test(script), 'the launcher');
   assert.ok(/sqlite-recovery\.mjs/.test(script), 'verified SQLite snapshot and recovery helper');
   assert.ok(/snap-src\/bin\/cpu-exec/.test(script), 'cpu-exec (#6458)');

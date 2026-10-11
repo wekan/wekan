@@ -128,6 +128,8 @@ export function pack({ launcher, payload, version }) {
  *   *.node           native addons are loaded with LoadLibrary, same reason
  *   main.js          Node resolves the entry before the VFS hooks could see it
  *   start-wekan.bat  cmd.exe reads it
+ *   *.cmd            the MongoDB Database Tools' launchers (mongodump.cmd runs
+ *                    mongo-tools.exe mongodump); cmd.exe reads them too
  *   wekan-vfs.cjs    node --require reads it before anything is mounted
  *
  * The list is computed from the archive rather than written by hand, so a
@@ -141,7 +143,7 @@ export function realFileMembers(names, strip = 'bundle/') {
     const base = path.posix.basename(rel);
     const top = !rel.includes('/');
     if (rel.endsWith('.node') ||
-        (top && rel.endsWith('.exe')) ||
+        (top && (rel.endsWith('.exe') || rel.endsWith('.cmd'))) ||
         (top && (base === 'main.js' || base === 'start-wekan.bat' ||
                  base === 'wekan-vfs.cjs'))) {
       wanted.push(name);

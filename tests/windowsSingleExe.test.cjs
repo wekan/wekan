@@ -169,6 +169,8 @@ async function main() {
     'bundle/node.exe',
     'bundle/ferretdb.exe',
     'bundle/mongodump.exe',
+    'bundle/mongo-tools.exe',
+    'bundle/mongodump.cmd',
     'bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt/prebuilds/win32-x64/bcrypt.node',
     'bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/argon2/prebuilds/win32-x64/argon2.glibc.node',
     'bundle/programs/server/boot.js',
@@ -186,6 +188,7 @@ async function main() {
     for (const must of [
       'bundle/main.js', 'bundle/start-wekan.bat', 'bundle/wekan-vfs.cjs',
       'bundle/node.exe', 'bundle/ferretdb.exe', 'bundle/mongodump.exe',
+      'bundle/mongo-tools.exe', 'bundle/mongodump.cmd',
       'bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt/prebuilds/win32-x64/bcrypt.node',
       'bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/argon2/prebuilds/win32-x64/argon2.glibc.node',
     ]) {

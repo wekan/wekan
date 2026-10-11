@@ -40,10 +40,23 @@ assert.match(
   /wekan\/FerretDB\/releases\/latest\/download\/ferretdb-amd64/,
   'the primary bundle must fetch the newest FerretDB release',
 );
+// The workflow fetches the tools through releases/fetch-mongo-tools.sh (one
+// program, mongo-tools-<platform>, instead of eight), so the newest-release
+// URL lives in that helper now; the workflow is checked for calling it.
 assert.match(
   workflow,
+  /releases\/fetch-mongo-tools\.sh" \.build\/bundle amd64/,
+  'the primary workflow must fetch the database tools through the helper',
+);
+assert.match(
+  read('releases/fetch-mongo-tools.sh'),
   /wekan\/mongo-tools-patches\/releases\/latest\/download/,
   'the primary workflow must fetch the newest database-tool release',
+);
+assert.doesNotMatch(
+  read('releases/fetch-mongo-tools.sh'),
+  /wekan\/mongo-tools-patches\/releases\/download\/v\d/,
+  'the database-tool helper must not pin an old release',
 );
 assert.match(
   resolver,

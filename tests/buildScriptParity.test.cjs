@@ -256,6 +256,9 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'strip-node.sh': 'release-workflow: embed-verified-node.sh and\n'
       + '      install-node-for-arch.sh call it on the node they just verified and put\n'
       + '      in a bundle; it takes one binary and has no release step of its own',
+    'fetch-mongo-tools.sh': 'release-workflow: every bundle job, the arch\n'
+      + '      repack and build-release-bundle.sh call it to put one platform\'s MongoDB\n'
+      + '      Database Tools in a bundle; it has no release step of its own',
     'resolve-node-source.sh': 'release-workflow: a lookup the other scripts, the\n      bundle jobs and the Dockerfile call - it prints where a platform\'s Node.js\n      comes from and downloads nothing itself',
     'require-binaries.sh': 'release-workflow: called per build job',
     'record-provenance.sh': 'release-workflow: called per build job',

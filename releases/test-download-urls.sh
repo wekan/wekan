@@ -49,8 +49,8 @@ echo ""
 
 echo "=== MongoDB Database Tools (wekan/mongo-tools-patches, per-arch, newest release) ==="
 for a in amd64 arm64 s390x ppc64le riscv64; do
-  check "mongodump-$a (wekan/mongo-tools-patches)" \
-    "https://github.com/wekan/mongo-tools-patches/releases/latest/download/mongodump-$a"
+  check "mongo-tools-$a (wekan/mongo-tools-patches, all eight in one)" \
+    "https://github.com/wekan/mongo-tools-patches/releases/latest/download/mongo-tools-$a"
 done
 echo ""
 

@@ -732,11 +732,8 @@ jobs:
           # Bundled MongoDB Database Tools (amd64) from wekan/mongo-tools-patches (per-arch,
           # no mongodb.com). This base amd64 bundle is inherited by the other Linux
           # arches, which overwrite these with their own arch's tools below.
-          MT="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
-          for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-            bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o ".build/bundle/$t" "$MT/$t-amd64"
-            chmod +x ".build/bundle/$t"
-          done
+          bash "$GITHUB_WORKSPACE/releases/fetch-mongo-tools.sh" .build/bundle amd64 \
+            || { echo "::error::The MongoDB Database Tools for amd64 could not be put in the bundle; the lines above say why."; exit 1; }
           # Self-contained launcher (defaults to FerretDB SQLite + WRITABLE_PATH).
           cp releases/ferretdb/start-wekan.sh .build/bundle/
           chmod +x .build/bundle/start-wekan.sh
@@ -1012,11 +1009,8 @@ jobs:
             echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-arm64 on this release, so it is unverified."
           fi
           # Overwrite the inherited amd64 MongoDB Database Tools with arm64 ones.
-          MT="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
-          for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-            bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o "bundle/$t" "$MT/$t-arm64"
-            chmod +x "bundle/$t"
-          done
+          bash "$GITHUB_WORKSPACE/releases/fetch-mongo-tools.sh" bundle arm64 \
+            || { echo "::error::The MongoDB Database Tools for arm64 could not be put in the bundle; the lines above say why."; exit 1; }
           # #6458: replace the inherited amd64 qemu-user with this arch's own
           # (cpu-exec is a shell script and stays as inherited). qemu-aarch64
           # lets ARMv8.0 hosts (Raspberry Pi 4 and older) run binaries that
@@ -1498,10 +1492,8 @@ jobs:
           # Shell; scripted DB access uses the bundled Node.js 26 + `mongodb` driver.
           # (The Windows launcher, start-wekan.bat, is added by the FerretDB embed
           # step below from releases/ferretdb/start-wekan.bat.)
-          BASE="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
-          for tool in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-            bash "$SRC/releases/fetch.sh" -o "bundle/${tool}.exe" "${BASE}/${tool}-win64.exe"
-          done
+          bash "$SRC/releases/fetch-mongo-tools.sh" bundle win64 \
+            || { echo "::error::The MongoDB Database Tools for win64 could not be put in the bundle; the lines above say why."; exit 1; }
 
           echo "=== bundle contents ==="
           ls -1 bundle/
@@ -1924,10 +1916,8 @@ jobs:
           # Shell; scripted DB access uses the bundled Node.js 26 + `mongodb` driver.
           # (The Windows launcher, start-wekan.bat, is added by the FerretDB embed
           # step below from releases/ferretdb/start-wekan.bat.)
-          BASE="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
-          for tool in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-            bash "$SRC/releases/fetch.sh" -o "bundle/${tool}.exe" "${BASE}/${tool}-win-arm64.exe"
-          done
+          bash "$SRC/releases/fetch-mongo-tools.sh" bundle win-arm64 \
+            || { echo "::error::The MongoDB Database Tools for win-arm64 could not be put in the bundle; the lines above say why."; exit 1; }
 
           echo "=== bundle contents ==="
           ls -1 bundle/
@@ -2357,11 +2347,9 @@ jobs:
           set -euo pipefail
           # MongoDB Database Tools (32-bit Windows) from wekan/mongo-tools-patches; tolerant
           # (skip any tool not built for win32).
-          BASE="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
-          for tool in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-            bash "$SRC/releases/fetch.sh" --optional -o "bundle/${tool}.exe" "${BASE}/${tool}-win32.exe" \
-              || { rm -f "bundle/${tool}.exe"; echo "No ${tool}-win32.exe; skipping"; }
-          done
+          rc=0; bash "$SRC/releases/fetch-mongo-tools.sh" bundle win32 || rc=$?
+          [ "$rc" != 2 ] || { echo "::error::A MongoDB Database Tools download failed or did not match its checksum; the lines above say which."; exit 1; }
+          [ "$rc" = 0 ] || echo "No MongoDB Database Tools for win32; skipping"
           echo "=== bundle contents ==="
           ls -1 bundle/
 
@@ -2679,11 +2667,9 @@ jobs:
           fi
           # macOS MongoDB Database Tools (mac-arm64) from wekan/mongo-tools-patches; tolerant
           # (skip any tool not built for macOS).
-          MT="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
-          for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-            bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o "bundle/$t" "$MT/$t-mac-arm64" \
-              && chmod +x "bundle/$t" || { rm -f "bundle/$t"; echo "No $t-mac-arm64; skipping"; }
-          done
+          rc=0; bash "$GITHUB_WORKSPACE/releases/fetch-mongo-tools.sh" bundle mac-arm64 || rc=$?
+          [ "$rc" != 2 ] || { echo "::error::A MongoDB Database Tools download failed or did not match its checksum; the lines above say which."; exit 1; }
+          [ "$rc" = 0 ] || echo "No MongoDB Database Tools for mac-arm64; skipping"
 
       - name: Create mac-arm64 zip
         id: zip
@@ -2962,11 +2948,9 @@ jobs:
           fi
           # macOS MongoDB Database Tools (mac-x64) from wekan/mongo-tools-patches; tolerant
           # (skip any tool not built for this arch).
-          MT="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
-          for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-            bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o "bundle/$t" "$MT/$t-mac-x64" \
-              && chmod +x "bundle/$t" || { rm -f "bundle/$t"; echo "No $t-mac-x64; skipping"; }
-          done
+          rc=0; bash "$GITHUB_WORKSPACE/releases/fetch-mongo-tools.sh" bundle mac-x64 || rc=$?
+          [ "$rc" != 2 ] || { echo "::error::A MongoDB Database Tools download failed or did not match its checksum; the lines above say which."; exit 1; }
+          [ "$rc" = 0 ] || echo "No MongoDB Database Tools for mac-x64; skipping"
 
       - name: Create mac-x64 zip
         id: zip
@@ -3363,15 +3347,11 @@ jobs:
           # bundle is built for, and a missing mongodump is a missing convenience,
           # not a broken bundle - FerretDB is the database and the launcher does
           # not need these to start. A silently-amd64 tool would be worse.
-          MT="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
-          for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-            if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o "bundle/$t" "$MT/$t-${{ matrix.ferretdb_arch }}"; then
-              chmod +x "bundle/$t"
-            else
-              echo "::warning::No $t for ${{ matrix.ferretdb_arch }} in wekan/mongo-tools-patches; removing the inherited amd64 one rather than shipping it."
-              rm -f "bundle/$t"
-            fi
-          done
+          # It removes the inherited amd64 tools first, so a platform with none
+          # ships without them rather than with the wrong CPU's.
+          rc=0; bash "$GITHUB_WORKSPACE/releases/fetch-mongo-tools.sh" bundle "${{ matrix.ferretdb_arch }}" || rc=$?
+          [ "$rc" != 2 ] || { echo "::error::A MongoDB Database Tools download failed or did not match its checksum; the lines above say which."; exit 1; }
+          [ "$rc" = 0 ] || echo "::warning::No MongoDB Database Tools for ${{ matrix.ferretdb_arch }} in wekan/mongo-tools-patches; the bundle ships without them."
           touch bundle/.ferretdb-default
 
       - name: Create ${{ matrix.arch }} zip
