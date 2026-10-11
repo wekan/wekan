@@ -874,8 +874,8 @@ if defined WK_NPM_VERSION (
 	echo Installing npm %WK_NPM_VERSION% ^(Dockerfile NPM_VERSION^) ...
 	call npm install -g npm@%WK_NPM_VERSION%
 )
-echo Installing Meteor (npm -g install meteor) ...
-call npm -g install meteor
+echo Installing Meteor (npm -g install meteor --foreground-scripts --allow-scripts=meteor) ...
+call npm -g install meteor --foreground-scripts --allow-scripts=meteor
 echo Done. Open a new terminal so PATH changes take effect, then re-run this script.
 goto end
 

@@ -48,7 +48,7 @@ Do not offer the shell installer on Windows. If `npx` installation still fails
 after cache recovery, use the documented npm fallback:
 
 ```bash
-npm install -g meteor --foreground-scripts
+npm install -g meteor --foreground-scripts --allow-scripts=meteor
 ```
 
 Do not place `meteor` in an application's dependencies or devDependencies.

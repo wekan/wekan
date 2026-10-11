@@ -2973,7 +2973,7 @@ for _once in 1; do
 			sudo npm -g install n
 			sudo n "$_wekan_node_version"
 			sudo npm install -g "npm@${_wekan_npm_version:-latest}"
-			sudo npm -g install meteor --foreground-scripts
+			sudo npm -g install meteor --foreground-scripts --allow-scripts=meteor
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
 			echo "macOS"
