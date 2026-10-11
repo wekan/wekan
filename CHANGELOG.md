@@ -647,20 +647,21 @@ This release adds the following feature and fixes:
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a325cfe991">Nextcloud ExApp sign-in and persistent SQLite packaging</a>. Thanks to xet7.</summary>
 
-The companion `wekan/nextcloud` provides AppAPI lifecycle endpoints, a navigation
-entry, authenticated HTTP/WebSocket forwarding, HaRP support and supervised
-WeKan/FerretDB processes in one container. Database, attachments and avatars
-persist in the AppAPI volume. WeKan binds sign-in and resumed sessions to the
-verified Nextcloud identity, keeps accounts separate by instance and user ID,
-and assigns site-administrator rights only to explicitly configured users.
+The companion `wekan/nextcloud` provides AppAPI lifecycle endpoints, a
+navigation entry, authenticated HTTP/WebSocket forwarding, HaRP support and
+supervised WeKan/FerretDB processes in one container. Database, attachments and
+avatars persist in the AppAPI volume. WeKan binds sign-in and resumed sessions
+to the verified Nextcloud identity, keeps accounts separate by instance and user
+ID, and assigns site-administrator rights only to explicitly configured users.
 
 The standalone Nextcloud publisher checks for this authentication capability
 before building amd64/arm64 images. Local tests cover signed identities,
-concurrent account creation, cross-user resume refusal, disabled users, HTTP file
-access, lifecycle callbacks and WebSocket forwarding. A real-deployment browser
-suite is registered and syntax-checked, but was not run: Docker, Nextcloud and
-HaRP are unavailable here. Signing credentials, registration and live deployment
-checks remain documented in `docs/Design/Autoupdate/Nextcloud.md`.
+concurrent account creation, cross-user resume refusal, disabled users, HTTP
+file access, lifecycle callbacks and WebSocket forwarding. A real-deployment
+browser suite is registered and syntax-checked, but was not run: Docker,
+Nextcloud and HaRP are unavailable here. Signing credentials, registration and
+live deployment checks remain documented in
+`docs/Design/Autoupdate/Nextcloud.md`.
 
 </details>
 
