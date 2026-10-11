@@ -526,12 +526,13 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** **Attachment thumbnails** work on every platform WeKan ships,
-not only Linux amd64. The **Windows 32-bit** bundle, which v12.32 announced but
-did not ship, builds now, and the **ARM64** Windows bundle gets the sign-in
-module it was missing. Every bundle job now checks that each native module it
-ships is built for its platform and CPU. **Nextcloud sign-in** now preserves
-its verified identity through WebSocket setup.
+**In short:** **LDAP login on UCS** works again after the 12.32 upgrade, and
+**attachment thumbnails** work on every platform WeKan ships, not only Linux
+amd64. The **Windows 32-bit** bundle, which v12.32 announced but did not ship,
+builds now, and the **ARM64** Windows bundle gets the sign-in module it was
+missing. Every bundle job now checks that each native module it ships is built
+for its platform and CPU. **Nextcloud sign-in** now preserves its verified
+identity through WebSocket setup.
 
 This release fixes the following bugs:
 
@@ -561,6 +562,24 @@ ordinary Authorization credentials before proxying. Its 18 tests cover gateway
 failures, process supervision, metadata and runtime isolation. Release tests
 verify real signatures, tampering, existing-version retries and unsafe archive
 members; the workflow now also packages its root directory under the app ID.
+
+</details>
+
+**UCS** - signing in after the App Center upgrade.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5f0716fc74">LDAP login works after the UCS 12.32 upgrade</a>. Thanks to xet7.</summary>
+
+The UCS app kept a 6.09 setting: WeKan's LDAP group filter on, with no group
+named. WeKan 6.09 read that as "member of any group". Current WeKan refuses an
+incomplete group filter, so every UCS user got "LDAP authentication failed",
+and members of Domain Admins were no longer admins. UCS decides access with the
+**WeKan activated** user setting, so the app in wekan/univention now turns the
+group filter off and names groups by `cn`. `releases/ucs-release.py` refuses to
+publish an app whose LDAP group settings WeKan would refuse at login.
+`tests/ucsRelease.test.py` and `tests/ldapGroupFilterConfig.test.cjs` cover the
+old and fixed settings. The UCS README gives a workaround for installations
+that have already upgraded.
 
 </details>
 
