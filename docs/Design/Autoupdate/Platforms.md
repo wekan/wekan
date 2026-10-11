@@ -23,7 +23,7 @@ AppImage, Helm chart and zip bundles: YunoHost (state "working", level 8), CapRo
 | NixOS / nixpkgs | MIT | a package of the release bundle (marked as prebuilt binaries) and a NixOS service module; FerretDB is already in nixpkgs | medium |
 | openSUSE Build Service | GPL | one project that builds .deb and .rpm and their repositories for Debian, Ubuntu, Fedora and openSUSE | medium |
 | Fedora COPR | GPL | an rpm of the zip bundle | medium |
-| FreeBSD ports | BSD | needs FreeBSD's own Node.js and rebuilt native modules: the bundle's are Linux binaries | large |
+| FreeBSD ports | BSD | wekan/node-patches has `node-freebsd-x64` and wekan/FerretDB has `ferretdb-freebsd-amd64`; the native modules still need rebuilding on FreeBSD, because the bundle's are Linux binaries | large |
 | Alpine | open source (not checked) | musl: the bundle's glibc Node.js does not run, so native modules need rebuilding | medium–large |
 
 **Hard, but possible:** Debian's own archive, and with it FreedomBox (every npm
@@ -71,37 +71,67 @@ and a **Node.js runtime**.
 
 ## The two binaries a platform needs
 
-**FerretDB v1** — [wekan/FerretDB](https://github.com/wekan/FerretDB/releases)
-builds `ferretdb-<arch>` for sixteen targets, and that is the widest of the two
-lists. Every non-amd64, non-arm64 platform uses it: MongoDB ships no server for
-any of them.
+Both lists below were read from the newest release of each repository on
+2026-10-11: [wekan/FerretDB v1.92.0](https://github.com/wekan/FerretDB/releases)
+and [wekan/node-patches v26.11.1](https://github.com/wekan/node-patches/releases).
+Every binary there has a `.sha256sum` beside it.
 
-**Node.js 26** — three sources, tried **in this order** by the bundle job, which
-prints which one served:
+**FerretDB v1** builds `ferretdb-<target>` for **25 targets**, the wider of the
+two lists. Every non-amd64, non-arm64 Linux platform uses it, because MongoDB
+ships no server for any of them:
 
-1. **Official** — <https://nodejs.org/dist/>
-2. **Unofficial** — <https://unofficial-builds.nodejs.org/download/release/>
-3. **This project's patches** — <https://github.com/wekan/node-patches/releases>,
-   upstream Node.js plus WeKan's patches, built for the platforms the first two
-   do not publish at all.
+| OS | FerretDB assets |
+| --- | --- |
+| Linux | `amd64`, `arm64`, `i386`, `armhf`, `armv6`, `armel`, `ppc64le`, `s390x`, `riscv64`, `loong64` |
+| Windows | `win64.exe`, `win32.exe`, `win-arm64.exe` |
+| macOS | `mac-amd64`, `mac-arm64` |
+| FreeBSD | `freebsd-amd64`, `freebsd-arm64`, `freebsd-i386`, `freebsd-armv7`, `freebsd-armv6`, `freebsd-armel` |
+| OpenBSD | `openbsd-amd64`, `openbsd-arm64` |
+| NetBSD | `netbsd-amd64` |
+| Android | `android-arm64` |
 
-And when **none** of the three has a platform, that platform is **not built**
-that release — no bundle, no snap, no image architecture, and no red job either.
-Nothing has to be edited for it to come back: the next run resolves again and
-builds it the moment a Node.js for it is published anywhere.
+There is no separate `armv7` FerretDB: the armv7 bundle uses `ferretdb-armhf`.
 
-The first two ship a **tarball** (node, npm, the whole runtime); node-patches
-ships the **bare binary**, because that is the only part missing — so when it
-serves, npm is taken from the official amd64 tarball of the same version. npm is
-JavaScript and runs on whatever node executes it, so an npm built for one CPU
-drives a node built for another.
+**Node.js 26** has three sources, tried **in this order** by the bundle job,
+which prints which one served:
 
-[`releases/resolve-node-source.sh`](../../../releases/resolve-node-source.sh) is
-the one place that order and the platform-name mapping live: the bundle jobs, the
-extra-arch preflight and the `Dockerfile` all ask it, so they cannot disagree
-about where a platform's Node.js comes from.
+1. **Official**: <https://nodejs.org/dist/>
+2. **Unofficial**: <https://unofficial-builds.nodejs.org/download/release/>
+3. **This project's patches**: <https://github.com/wekan/node-patches/releases>,
+   upstream Node.js plus WeKan's patches. It builds **16 targets**:
+
+| OS | node-patches assets |
+| --- | --- |
+| Linux | `x64`, `arm64`, `i386`, `armhf`, `armv7`, `armv6`, `ppc64le`, `s390x`, `riscv64`, `loong64` |
+| Windows | `win64.exe`, `win32.exe`, `win-arm64.exe` (each with its `.lib`) |
+| macOS | `mac-x64`, `mac-arm64` |
+| FreeBSD | `freebsd-x64` |
+
+node-patches builds the official platforms as well, but because of the order
+above the bundle only takes Node.js from it where nodejs.org and
+unofficial-builds have nothing for the pinned version.
+
+When **none** of the three has a platform, that platform is **not built** in
+that release: no bundle, no snap, no image architecture, and no red job either.
+Nothing has to be edited for it to come back. The next run resolves again and
+builds it as soon as a Node.js for it is published anywhere.
+
+nodejs.org and unofficial-builds ship a **tarball** (node, npm, the whole
+runtime). node-patches ships only the **bare binary**, because that is the only
+part missing. When node-patches serves, npm is taken from the official amd64
+tarball of the same version. npm is JavaScript and runs on whatever node
+executes it, so an npm built for one CPU drives a node built for another.
+
+[`releases/resolve-node-source.sh`](../../../releases/resolve-node-source.sh)
+is the one place where that order and the platform-name mapping are defined.
+The bundle jobs, the extra-arch preflight and the `Dockerfile` all call it, so
+they cannot disagree about where a platform's Node.js comes from.
 
 ## What is built, and where each part comes from
+
+The release files below were checked on v12.30 and v12.31. The Docker
+architectures were checked on `ghcr.io/wekan/wekan:v12.30`. "Node.js from" is
+what `resolve-node-source.sh` answered for v26.11.1.
 
 | Platform | Bundle | Snap | Docker | FerretDB asset | Node.js from |
 | --- | --- | --- | --- | --- | --- |
@@ -109,41 +139,71 @@ about where a platform's Node.js comes from.
 | arm64 | ✅ | ✅ | ✅ | `ferretdb-arm64` | official |
 | ppc64le | ✅ | ✅ `ppc64el` | ✅ | `ferretdb-ppc64le` | official |
 | s390x | ✅ | ✅ | ✅ | `ferretdb-s390x` | official |
-| riscv64 | ✅ | ✅ | ✅ | `ferretdb-riscv64` | unofficial |
-| i386 | ✅ | ✅ | ✅ `linux/386` | `ferretdb-i386` | node-patches (`node-i386`) |
+| riscv64 | ✅ | in the Launchpad matrix, not on v12.30 | ✅ | `ferretdb-riscv64` | node-patches (`node-riscv64`) |
+| i386 | ✅ | — (core24 has no i386) | ✅ `linux/386` | `ferretdb-i386` | node-patches (`node-i386`) |
 | armhf | ✅ | ✅ | ✅ `linux/arm/v7` | `ferretdb-armhf` | node-patches (`node-armhf`) |
-| loong64 | ✅ | — | — | `ferretdb-loong64` | unofficial |
+| armv7 | ✅ | — | — | `ferretdb-armhf` | node-patches (`node-armv7`) |
+| armv6 | ✅ | — | — (debian:trixie has no `arm/v6`) | `ferretdb-armv6` | node-patches (`node-armv6`) |
+| loong64 | — (no loong64 base image) | — | — | `ferretdb-loong64` | unofficial |
+| win64 | ✅ (+ `WeKan-<v>-win64.exe`) | | | `ferretdb-win64.exe` | official |
+| win-arm64 | ✅ | | | `ferretdb-win-arm64.exe` | official |
+| win32 | — (see below) | | | `ferretdb-win32.exe` | none resolved |
+| mac-x64 | ✅ (+ `.app.zip`) | | | `ferretdb-mac-amd64` | official |
+| mac-arm64 | ✅ (+ `.app.zip`) | | | `ferretdb-mac-arm64` | official |
 
-A "Node.js from" of node-patches is the one column that can be EMPTY for a
-release: those are the platforms only node-patches builds, so until it has
-published one, that row is not built at all.
+"node-patches" in the "Node.js from" column can change from release to release.
+riscv64 normally comes from unofficial-builds and fell back to node-patches only
+because unofficial-builds had no v26.11.1 riscv64 build yet. i386, armhf, armv7
+and armv6 depend on node-patches alone, so if it has not published one of them,
+that row is not built.
 
-Three vocabularies meet in that table and they disagree, which is why the build
-matrix names all three separately (`arch`, `node_arch`, `ferretdb_arch`):
+**win32 is not built, although both binaries exist.** `node-win32.exe` is on
+node-patches, but its checksum is published as `node-win32.sha256sum` with the
+line `<hash> *node-win32.exe`. The resolver looks for `<asset>.sha256sum`, which
+is `node-win32.exe.sha256sum`, gets a 404, and answers `node_found=false`. Either
+side can be changed to fix this: node-patches can publish
+`node-win32.exe.sha256sum`, or the resolver can also try the name without `.exe`
+and accept the `*` binary-mode marker. win64 and win-arm64 do not hit this,
+because nodejs.org serves them first.
+
+The names in this table come from different projects, and they disagree. That
+is why the build matrix names each Linux platform three times (`arch`,
+`node_arch`, `ferretdb_arch`):
 
 * Node says **x86** where Debian, snap and FerretDB say **i386**;
 * Node says **armv7l** where they say **armhf**;
-* snap says **ppc64el** where everyone else says **ppc64le**.
+* snap says **ppc64el** where everyone else says **ppc64le**;
+* FerretDB says **mac-amd64** where node-patches and the bundle say **mac-x64**.
 
-A row that named only one of them would download another CPU's binary and the
-mistake would not show until somebody ran it.
+A row that used only one of these names would download a binary for the wrong
+CPU, and nobody would notice until they ran it.
 
-## What is deliberately not built
+## What is not built
 
-**armel** (ARMv5, soft-float) — FerretDB builds it; Node.js cannot. V8 has not
-supported ARMv5 for many years, nobody publishes a runtime for it, and
-node-patches cannot make one either. A bundle with no runtime in it is not a
-bundle. It is the permanent case of the general rule above: no Node.js, no
-platform.
+**armel** (ARMv5, soft-float): FerretDB builds it, on Linux and FreeBSD, but
+Node.js cannot run there. V8 has not supported ARMv5 for many years, nobody
+publishes a runtime for it, and node-patches cannot build one either. A bundle
+without a runtime is not a bundle. This is the permanent case of the general
+rule above: no Node.js, no platform. ARMv6 boards (Raspberry Pi 1 and Zero) use
+the armv6 bundle, which is hard-float.
 
-**loong64 snap and image** — the bundle exists, but loong64 is not a snap
-architecture, and buildx and the three registries do not agree on it yet. It
-ships as a `.zip`.
+**loong64**: both binaries exist (`node-loong64` from unofficial-builds and
+node-patches, `ferretdb-loong64`), but Docker Hub has no loong64 base image to
+rebuild the native modules in. The matrix leg stays in place and is skipped, so
+it shows on every run. Even when the bundle exists, loong64 is not a snap
+architecture.
 
-**Windows, macOS x64, FreeBSD** — out of scope for these three artifacts rather
-than impossible: the snap and the image are Linux, and a Windows or FreeBSD
-Node.js needs its own host to build on rather than a cross compiler on a Linux
-runner. macOS arm64 has a bundle of its own already (`build-mac-arm64`).
+**Ready on the binary side, but no bundle job yet.** Both repositories already
+publish both binaries for these, so what remains is a build job and a host to
+rebuild the native modules on:
+
+| Platform | FerretDB | Node.js |
+| --- | --- | --- |
+| FreeBSD amd64 | `ferretdb-freebsd-amd64` | `node-freebsd-x64` (node-patches only) |
+
+**FerretDB only, no Node.js anywhere:** FreeBSD arm64/i386/armv7/armv6/armel,
+OpenBSD amd64/arm64, NetBSD amd64 and Android arm64. Each of these becomes
+possible once node-patches builds a Node.js for it.
 
 ## Where this is enforced
 
