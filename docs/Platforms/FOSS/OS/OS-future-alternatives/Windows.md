@@ -166,5 +166,5 @@ without the user re-running an installer.
 ## See also
 
 - Linux Snap auto-refresh, and why the exotic-arch snap builds differ:
-  [Snap-Core.md](../Forks/Snap-Core.md)
-- [Install WeKan on Windows](../../../Platforms/Propietary/OS/Windows/Install-Windows.md) · [Windows.md](../../../Platforms/Propietary/OS/Windows)
+  [Snap-Core.md](../../Container/Snap/Snap-Core.md)
+- [Install WeKan on Windows](../../../Propietary/OS/Windows/Install-Windows.md) · [Windows.md](../../../Propietary/OS/Windows)

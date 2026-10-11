@@ -13,11 +13,11 @@ AppImage, Helm chart and zip bundles: YunoHost (state "working", level 8), CapRo
 
 | Platform | Licence | How WeKan gets in | Effort |
 | --- | --- | --- | --- |
-| [ZimaOS / CasaOS](../../Platforms/FOSS/Container/Docker/CasaOS/README.md) | Apache-2.0 | `Apps/WeKan/docker-compose.yml` in IceWhaleTech/CasaOS-AppStore | small |
-| [TrueNAS](../../Platforms/FOSS/Container/Docker/TrueNAS/README.md) (community apps) | LGPL-3.0 | `ix-dev/community/wekan/` in truenas/apps; Planka and Vikunja are there | small–medium |
-| [Coolify](../../Platforms/FOSS/Container/Docker/Coolify/README.md) | Apache-2.0 | `templates/compose/wekan.yaml`, plus a coolify-docs page | small |
-| [Dokploy](../../Platforms/FOSS/Container/Docker/Dokploy/README.md) | Apache-2.0 | `blueprints/wekan/` in Dokploy/templates | small |
-| [Arch Linux AUR](../../Platforms/FOSS/Package/AUR/README.md) | (AUR packaging: 0BSD) | `wekan-bin` PKGBUILD over the release zip, with a systemd unit | small |
+| [ZimaOS / CasaOS](FOSS/Container/Docker/CasaOS/README.md) | Apache-2.0 | `Apps/WeKan/docker-compose.yml` in IceWhaleTech/CasaOS-AppStore | small |
+| [TrueNAS](FOSS/Container/Docker/TrueNAS/README.md) (community apps) | LGPL-3.0 | `ix-dev/community/wekan/` in truenas/apps; Planka and Vikunja are there | small–medium |
+| [Coolify](FOSS/Container/Docker/Coolify/README.md) | Apache-2.0 | `templates/compose/wekan.yaml`, plus a coolify-docs page | small |
+| [Dokploy](FOSS/Container/Docker/Dokploy/README.md) | Apache-2.0 | `blueprints/wekan/` in Dokploy/templates | small |
+| [Arch Linux AUR](FOSS/Package/AUR/README.md) | (AUR packaging: 0BSD) | `wekan-bin` PKGBUILD over the release zip, with a systemd unit | small |
 | Proxmox VE Helper-Scripts | MIT | `ct/wekan.sh` in community-scripts/ProxmoxVE: an LXC that runs the zip bundle, no Docker | medium |
 | StartOS (Start9) | MIT | its own `wekan-startos` wrapper repository (s9pk) | medium |
 | NixOS / nixpkgs | MIT | a package of the release bundle (marked as prebuilt binaries) and a NixOS service module; FerretDB is already in nixpkgs | medium |
@@ -122,7 +122,7 @@ part missing. When node-patches serves, npm is taken from the official amd64
 tarball of the same version. npm is JavaScript and runs on whatever node
 executes it, so an npm built for one CPU drives a node built for another.
 
-[`releases/resolve-node-source.sh`](../../../releases/resolve-node-source.sh)
+[`releases/resolve-node-source.sh`](../../releases/resolve-node-source.sh)
 is the one place where that order and the platform-name mapping are defined.
 The bundle jobs, the extra-arch preflight and the `Dockerfile` all call it, so
 they cannot disagree about where a platform's Node.js comes from.
@@ -217,7 +217,7 @@ snap, or a snap that downloads a bundle nobody built.
 
 ## Related
 
-- [Snap-Core.md](Forks/Snap-Core.md) — why the exotic arches build on Launchpad
+- [Snap-Core.md](FOSS/Container/Snap/Snap-Core.md) — why the exotic arches build on Launchpad
 - `.github/workflows/release-all.yml` — the bundle, snap and image jobs
 - `releases/resolve-node-source.sh` — which of the three sources serves a platform
 - `release-all.yml` in [wekan/node-patches](https://github.com/wekan/node-patches)

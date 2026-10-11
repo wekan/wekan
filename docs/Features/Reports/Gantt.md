@@ -101,4 +101,4 @@ Previous GPLv2 WeKan Gantt is deprecated https://github.com/wekan/wekan-gantt-gp
 
 # UCS
 
-[Gantt feature at UCS](../../Platforms/FOSS/Container/UCS#gantt)
+[Gantt feature at UCS](../../Platforms/FOSS/Container/Docker/UCS#gantt)

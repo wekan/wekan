@@ -64,4 +64,4 @@ Updates afterwards are manual: bump `version` in `meta.json` and the image tag i
 
 ## What is missing
 
-See the table in [docs/Design/Autoupdate/Platforms.md](../../../../../Design/Autoupdate/Platforms.md#possible-additional-platforms).
+See the table in [docs/Platforms/Platforms.md](../../../../Platforms.md#possible-additional-platforms).

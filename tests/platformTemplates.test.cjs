@@ -3,7 +3,7 @@
 // The files under docs/Platforms/ that are meant to be pasted into other
 // projects' app catalogs (ZimaOS/CasaOS, TrueNAS, Coolify, Dokploy) and the AUR
 // package. They are not run here - each catalog's own validator is, in .tools/
-// (docs/Design/Autoupdate/Platforms.md says which passed) - so this suite pins
+// (docs/Platforms/Platforms.md says which passed) - so this suite pins
 // what they must agree on, so that one can not drift from the others:
 //
 //   * one pinned WeKan image tag, the same everywhere, never latest;

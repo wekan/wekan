@@ -280,7 +280,7 @@ Support Desk | No | No | $ Yes
 Card Template App | Copy Checklist Template to Multiple Cards | Yes | $ Yes
 Slack | [Yes](../Features/Webhooks/Discord/Outgoing-Webhook-to-Discord.md) | Yes |  $ Yes
 Amazon Echo | No | No | $ Yes
-Collaborate/TogetherJS | [Not yet](../Platforms/FOSS/Container/Friend) | No | Yes
+Collaborate/TogetherJS | [Not yet](../Platforms/FOSS/Container/Docker/Friend) | No | Yes
 Gmail Add-on | No | Yes | Yes
 Hangouts Chat bot | No | Yes | $ Yes
 Print board | No | No | $ Yes
@@ -296,7 +296,7 @@ SEO Checklist | No | No | $ Yes
 
 Features | Wekan | Trello | Restyaboard
 ------------ | ------------- | ------------- | -------------
-iOS Mobile App | [Not yet](../Platforms/FOSS/Container/Friend). Mobile Chrome browser works. | Yes | Yes
+iOS Mobile App | [Not yet](../Platforms/FOSS/Container/Docker/Friend). Mobile Chrome browser works. | Yes | Yes
 Android Mobile App | [Yes](../Browsers/Browser-compatibility-matrix.md) | Yes | Yes
 Windows Microsoft Store App | [Yes](../Browsers/Browser-compatibility-matrix.md) | ? | ?
 Ubuntu Touch OpenStore App | [Yes](../Browsers/Browser-compatibility-matrix.md) | ? | ?

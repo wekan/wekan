@@ -36,7 +36,7 @@ jobs:
           set -eu
           if [ -z "$REPO_TOKEN" ] || [ -z "$NC_KEY" ] || [ -z "$NC_CRT" ] || [ -z "$NC_TOKEN" ] || [ -z "$REGISTRY_AUTH" ]; then
             echo 'ok=false' >> "$GITHUB_OUTPUT"
-            echo '::notice::Nextcloud publishing not configured. See docs/Design/Autoupdate/Nextcloud.md.'
+            echo '::notice::Nextcloud publishing not configured. See docs/Platforms/FOSS/Container/Docker/Nextcloud/README.md.'
           else
             echo 'ok=true' >> "$GITHUB_OUTPUT"
           fi

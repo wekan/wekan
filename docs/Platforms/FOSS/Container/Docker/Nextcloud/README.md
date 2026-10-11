@@ -15,7 +15,7 @@ support (`packages/wekan-oidc/`), both of which the Nextcloud paths below build 
 > `.tools/nextcloud`), with opt-in Nextcloud authentication in WeKan. Local HTTP,
 > WebSocket, lifecycle and account-isolation tests pass. Docker builds and a live
 > Nextcloud/HaRP deployment have not yet been verified. The standalone
-> [nextcloud.yml](../../../.github/workflows/nextcloud.yml) runs only manually.
+> [nextcloud.yml](../../../../../../.github/workflows/nextcloud.yml) runs only manually.
 
 1. **Publish a new WeKan image containing this integration.** The ExApp Dockerfile
    and workflow require `/build/nextcloud-exapp-capability.json` and the bundled
@@ -119,7 +119,7 @@ See the companion README for `occ app_api:app:register` test-install instruction
 
 ### A4. Standalone `nextcloud.yml` publishing workflow
 
-[nextcloud.yml](../../../.github/workflows/nextcloud.yml) is started separately
+[nextcloud.yml](../../../../../../.github/workflows/nextcloud.yml) is started separately
 from GitHub Actions **Run workflow** or the command below, after the selected
 WeKan release and Docker image exist. To retry a failed publication, run it again
 with the same version:
@@ -312,9 +312,9 @@ Kanboard, Planka, Focalboard) is a **separate app** that *integrates with* Nextc
 
 ## See also
 
-- [UCS.md](UCS.md) — the same "Docker WeKan on a platform + migration" pattern for Univention.
-- [Snap-Ondra-Gantt.md](Snap-Ondra-Gantt.md) — the "push to a downstream repo + publish from release-all.yml" pattern.
-- [OS/Linux.md](OS/Linux.md) — Docker/Snap/Flatpak in the broader Linux update picture.
+- [UCS-upgrades.md](../UCS/UCS-upgrades.md) — the same "Docker WeKan on a platform + migration" pattern for Univention.
+- [Snap-Ondra-Gantt.md](../../Snap/Snap-Ondra-Gantt.md) — the "push to a downstream repo + publish from release-all.yml" pattern.
+- [Linux.md](../../../OS/OS-future-alternatives/Linux.md) — Docker/Snap/Flatpak in the broader Linux update picture.
 
 ## Local and deployment validation
 

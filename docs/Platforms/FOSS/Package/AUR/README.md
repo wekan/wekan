@@ -66,4 +66,4 @@ warns that automated updates are at the maintainer's own risk.
 
 ## What is missing
 
-See the table in [docs/Design/Autoupdate/Platforms.md](../../../../Design/Autoupdate/Platforms.md#possible-additional-platforms).
+See the table in [docs/Platforms/Platforms.md](../../../Platforms.md#possible-additional-platforms).

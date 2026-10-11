@@ -38,7 +38,7 @@ Maxime Quandalle, original author of Wekan
 
 * [EthKan](https://github.com/EthKan)
 
-* [Friend](../Platforms/FOSS/Container/Friend)
+* [Friend](../Platforms/FOSS/Container/Docker/Friend)
 
 # In Spanish
 

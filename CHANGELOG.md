@@ -553,7 +553,7 @@ and has the following documentation update:
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4ad51ec8eb">The CPU platform table matches the node-patches and FerretDB releases</a>. Thanks to xet7.</summary>
 
-[Platforms.md](docs/Design/Autoupdate/Platforms.md) now lists all 16
+[Platforms.md](docs/Platforms/Platforms.md) now lists all 16
 node-patches v26.11.1 targets and all 25 FerretDB v1.92.0 targets. Its table
 of what is built matches the v12.30 and v12.31 release files and the
 architectures of the Docker image: the armv7, armv6, Windows and macOS bundles

@@ -37,7 +37,7 @@ jobs:
         run: |
           set -eu
           if [ -z "$PROVIDER_USER" ] || [ -z "$PROVIDER_PASSWORD" ] || [ -z "$REGISTRY_AUTH" ] || [ -z "$UCS_SOURCE_APP" ] || [ -z "$UCS_TARGET_UCS" ]; then
-            echo '::notice::UCS publishing not configured. See docs/Design/Autoupdate/UCS.md.'
+            echo '::notice::UCS publishing not configured. See docs/Platforms/FOSS/Container/Docker/UCS/UCS-upgrades.md.'
             echo 'enabled=false' >> "$GITHUB_OUTPUT"
           else
             echo 'enabled=true' >> "$GITHUB_OUTPUT"

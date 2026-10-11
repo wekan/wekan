@@ -179,7 +179,7 @@ Do not approve the production release on the strength of the mocked tests alone.
 
 ### 4. Configure the standalone UCS publisher
 
-[ucs.yml](../../../.github/workflows/ucs.yml) runs only when started separately
+[ucs.yml](../../../../../../.github/workflows/ucs.yml) runs only when started separately
 with `workflow_dispatch`. Neither `release-all.yml` nor `release-all-missing.yml`
 invokes it. After the selected WeKan release and Docker image exist, a human
 maintainer starts it from GitHub Actions **Run workflow** or with:
@@ -313,4 +313,4 @@ MongoDB data with the old image. Changes made on the new app after cutover are
 not present in the old database. Do not delete either copy during investigation.
 Do not create the completion marker by hand to bypass a failed migration.
 
-See the [UCS user guide](../../Platforms/FOSS/Container/UCS/README.md).
+See the [UCS user guide](README.md).

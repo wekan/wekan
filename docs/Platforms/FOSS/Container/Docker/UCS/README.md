@@ -70,7 +70,7 @@ is present. Upgrade logs are in `/var/log/univention/appcenter.log`; the migrati
 result is in `data/ferretdb/ucs-migration-status.json` under the app directory.
 
 For the maintainer's remaining build, publication and UCS test steps, see
-[UCS automatic upgrade design](../../../../Design/Autoupdate/UCS.md).
+[UCS automatic upgrade design](UCS-upgrades.md).
 
 ## Feature Requests and Bugs
 
@@ -78,7 +78,7 @@ For the maintainer's remaining build, publication and UCS test steps, see
 
 ## Gantt
 
-[How to use Gantt](../../../../Features/Reports/Gantt.md)
+[How to use Gantt](../../../../../Features/Reports/Gantt.md)
 
 UCS WeKan v5.71 and newer is using WeKan Gantt GPL version. [Source](https://github.com/wekan/wekan/issues/2870#issuecomment-954598565).
 
@@ -96,11 +96,11 @@ UCS WeKan v5.71 and newer is using WeKan Gantt GPL version. [Source](https://git
 
 ### 3) Mail Settings
 
-[Troubleshooting Mail](../../../../Features/Email/Troubleshooting-Mail.md)
+[Troubleshooting Mail](../../../../../Features/Email/Troubleshooting-Mail.md)
 
 ![ucs-mail-3](https://user-images.githubusercontent.com/15545/78279359-129e7800-7520-11ea-9e22-a911826285ba.png)
 
 ## Repairing the legacy MongoDB installation
 
-[Repair MongoDB](../../../../Backup/Repair-MongoDB.md) applies to the old 6.09
+[Repair MongoDB](../../../../../Backup/Repair-MongoDB.md) applies to the old 6.09
 installation and retained MongoDB backup, not the new FerretDB SQLite database.

@@ -31,7 +31,7 @@ Coolify has no validator that runs without its Laravel stack. The template was c
 against the rules its docs and its PR-quality workflow enforce (header keys, port, a
 pinned tag, no `container_name`/`restart`/networks, the `SERVICE_URL` variable named
 after the service and port, a named volume, a healthcheck, a trailing newline) - see the
-platform test in [docs/Design/Autoupdate/Platforms.md](../../../../../Design/Autoupdate/Platforms.md#possible-additional-platforms).
+platform test in [docs/Platforms/Platforms.md](../../../../Platforms.md#possible-additional-platforms).
 It has not been started in a Coolify instance.
 
 ## The pull request
@@ -57,4 +57,4 @@ Updates afterwards are manual PRs that bump the image tag.
 
 ## What is missing
 
-See the table in [docs/Design/Autoupdate/Platforms.md](../../../../../Design/Autoupdate/Platforms.md#possible-additional-platforms).
+See the table in [docs/Platforms/Platforms.md](../../../../Platforms.md#possible-additional-platforms).

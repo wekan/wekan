@@ -9,7 +9,7 @@
 // legs died before building anything - "Your build requires a base that this tool
 // does not support (core24)" - on every single release. They now build on
 // Launchpad, which is the only mechanism that does core24 on an arch with no
-// native GitHub runner. See docs/Design/Autoupdate/Forks/Snap-Core.md.
+// native GitHub runner. See docs/Platforms/FOSS/Container/Snap/Snap-Core.md.
 
 const assert = require('assert');
 const fs = require('fs');

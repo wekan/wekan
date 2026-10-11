@@ -102,7 +102,7 @@ test('the SNAPS keep both names, which is the point (negative)', () => {
 });
 
 test('the docs say the same thing', () => {
-  const design = read('docs/Design/Autoupdate/Snap-Ondra-Gantt.md');
+  const design = read('docs/Platforms/FOSS/Container/Snap/Snap-Ondra-Gantt.md');
   assert.ok(/no Docker side/.test(design),
     'Snap-Ondra-Gantt.md must not still describe an automatic Docker publish');
   const platforms = read('docs/Platforms/FOSS/Container/Docker/CPU-platforms.md');

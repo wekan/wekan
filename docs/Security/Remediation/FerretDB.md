@@ -1,7 +1,7 @@
 # Design: FerretDB automatic security & speed remediation, logging and reports
 
 Status: **Implemented and audited 2026-08-23** · Owner: xet7 · Related: [WeKan.md](WeKan.md) (the WeKan side and
-the shared on-disk layout), [Snap-Core](../../Design/Autoupdate/Forks/Snap-Core.md).
+the shared on-disk layout), [Snap-Core](../../Platforms/FOSS/Container/Snap/Snap-Core.md).
 
 This is the FerretDB (v1, SQLite backend — the `wekan/FerretDB` fork on `main-v1`) counterpart of
 [WeKan.md](WeKan.md). It specifies, for the database process:

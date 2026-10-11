@@ -1,3 +1,7 @@
+# Helm Chart for Kubernetes
+
+[Related issue](https://github.com/wekan/wekan/issues/3923)
+
 # WeKan Helm Charts
 
 ## Webpage

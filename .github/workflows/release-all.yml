@@ -98,7 +98,7 @@ run-name: Release v${{ inputs.new_version }}
 #                      wekan/wekan-gantt-gpl for the snap-variants job below.
 #   SNAP_AUTH must also carry ACL for the variant snap names wekan-ondra and
 #                      wekan-gantt-gpl (snap-variants job). See
-#                      docs/Design/Autoupdate/Snap-Ondra-Gantt.md.
+#                      docs/Platforms/FOSS/Container/Snap/Snap-Ondra-Gantt.md.
 #
 #   Reading the logs: every job ends with a "Job result" step that runs whatever
 #   happened, so the run summary is a list of OK / FAILED / CANCELLED, one line per
@@ -2973,7 +2973,7 @@ jobs:
   # it. The one FerretDB target deliberately absent is armel (ARMv5, soft-float):
   # V8 has not supported ARMv5 for many years - nobody, this fork included, can
   # build a Node.js for it - so there would be nothing to run the bundle with. See
-  # docs/Design/Autoupdate/Platforms.md.
+  # docs/Platforms/Platforms.md.
   build-extra-arches:
     needs: [prepare, build-amd64, release]
     runs-on: ubuntu-24.04
@@ -4645,7 +4645,7 @@ jobs:
     # WeKan's `base: core24`: "Your build requires a base that this tool does not
     # support (core24)". There is no maintained QEMU multi-arch action that does
     # core24; Canonical's answer for non-native arches on core24 IS remote-build. See
-    # docs/Design/Autoupdate/Forks/Snap-Core.md.
+    # docs/Platforms/FOSS/Container/Snap/Snap-Core.md.
     #
     # This job retries the remote build 3x and uploads only when a .snap file is
     # really there - the "is not a valid file" (snapcraft upload, exit 64) failure
@@ -5219,7 +5219,7 @@ jobs:
   # Publish two extra snaps that are the newest wekan code under a different snap
   # name. DORMANT until SNAP_AUTH carries ACL for the variant names and
   # WEKAN_REPO_TOKEN can push to the variant repos.
-  # See docs/Design/Autoupdate/Snap-Ondra-Gantt.md.
+  # See docs/Platforms/FOSS/Container/Snap/Snap-Ondra-Gantt.md.
   snap-variants:
     # The SAME WeKan snap, published under the two older names people still have
     # installed: wekan-ondra and wekan-gantt-gpl. One release publishes all three
@@ -5275,7 +5275,7 @@ jobs:
           #     snap-auth.txt
           if [ -z "$SNAP_AUTH" ]; then
             echo "snap=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::snap-variants (${{ matrix.snapname }} ${{ matrix.arch }}) skipped — SNAP_AUTH is not set, so the snap cannot be published. See docs/Design/Autoupdate/Snap-Ondra-Gantt.md."
+            echo "::warning::snap-variants (${{ matrix.snapname }} ${{ matrix.arch }}) skipped — SNAP_AUTH is not set, so the snap cannot be published. See docs/Platforms/FOSS/Container/Snap/Snap-Ondra-Gantt.md."
             exit 0
           fi
           echo "snap=true" >> "$GITHUB_OUTPUT"
