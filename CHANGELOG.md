@@ -533,9 +533,38 @@ attachment text** is searchable on more platforms. The
 builds from the released bundles instead of rebuilding them under emulation,
 and **Launchpad** snap builds upload 1 MB instead of 237 MB. Bundles shrink by
 about 120 MB: the **bundled Node.js** is stripped of debug data, and the
-**MongoDB Database Tools** are one program instead of eight.
+**MongoDB Database Tools** are one program instead of eight. Three **GitHub
+CodeQL** alerts are fixed.
 
-This release fixes the following bugs:
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+**Regular expressions** - what goes into a pattern, and how it is escaped.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4caa929cfe">No pattern is built from an unescaped value, and no escape stops at the first match</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+Alert 564: the release script that adds each platform's native packages
+compiled its command-line platform and CPU into a regular expression, so the
+caller chose part of the pattern. The package names are now compared as text.
+The upload naming of attachments and avatars, the attachment rename popup and
+`tools/mirror-menu.mjs` built a pattern from a file extension or a name the
+same way; they compare literally now. Alert 563: a scoped package name had
+only its first `/` encoded for the npm registry; every one is now, and
+anything that is not a package name is refused. Seven tests escaped a pattern
+the same first-only way, which let `- g+` pass a check meant for `g++`.
+Alert 562: a test's app-id pattern backtracked exponentially on `0.0.0...`.
+None of these is reachable as an attack on a running WeKan - a build
+script's arguments, a test, and an extension Meteor-Files already limits to
+letters, digits, `-`, `_` and `.` - so nothing is recorded in Admin Panel →
+Problems. `tests/noUnescapedDynamicRegExp.test.cjs` parses every source file
+and fails on a pattern built from an unescaped value unless the site is
+listed with its reason, `tests/noIncompleteRegExpEscaping.test.cjs` fails on
+any first-only escape, and the attack strings are run in
+`tests/platformNativePackages.test.cjs` and `tests/platformTemplates.test.cjs`.
+
+</details>
+
+and fixes the following bugs:
 
 **Univention (UCS)** - WeKan served under /wekan, after an upgrade.
 
