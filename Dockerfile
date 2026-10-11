@@ -11,19 +11,139 @@
 # glibc cannot run the hard-float node-armv6 in the armv6 bundle. The docker job
 # therefore asks this base what it publishes and drops a platform it lacks; see
 # docs/Platforms/FOSS/Container/Docker/CPU-platforms.md.
+
+# ── Stage 1: the release bundle, prepared ON THE BUILD MACHINE ───────────────
+#
+# Everything a release bundle needs is already done when this runs: each
+# wekan-<version>-<arch>.zip was built by its own release-all.yml leg, with
+# programs/server installed, its native modules built for that CPU, the
+# security bumps applied, the tree trimmed and pruned, the telemetry check
+# passed, and the Node.js for that CPU embedded as bundle/node - resolved by
+# releases/resolve-node-source.sh and verified against the SHA256 its source
+# published (embed-verified-node.sh / install-node-for-arch.sh).
+#
+# This image used to do all of it AGAIN, inside the target platform: apt-get
+# a compiler toolchain, resolve and download Node.js, npm install, prune, bump,
+# trim, prune, and purge the toolchain - seven times, six of them under QEMU.
+# That was 27 of the docker job's 29 minutes in v12.32, for a result the .zip
+# already was. So this stage runs with --platform=$BUILDPLATFORM, natively on
+# the runner, for whichever TARGET it is building: it downloads that target's
+# .zip, checks it against the release's own .sha256sum, re-runs the telemetry
+# check, and checks that bundle/node really is a binary for the target CPU.
+# Nothing in it executes target code, so nothing is emulated.
+#
+# The image's node is the bundle's own node: the same file the .zip ships,
+# rather than a second download that had to agree with it.
+FROM --platform=$BUILDPLATFORM debian:trixie AS bundle
+
+ARG TARGETARCH
+ARG TARGETVARIANT
+ARG VERSION=12.32
+ARG DEBIAN_FRONTEND=noninteractive
+
+COPY --chmod=755 releases/check-telemetry.py /tmp/check-telemetry.py
+COPY releases/risk-baseline.json /tmp/risk-baseline.json
+
+RUN <<EOR
+set -o xtrace
+# Fail hard on any error so a missing release zip / failed download can never
+# produce a "successful" image with an empty /build (Cannot find /build/main.js).
+set -eo pipefail
+
+apt-get update --assume-yes
+apt-get install --assume-yes --no-install-recommends ca-certificates wget unzip python3
+
+# Multi-arch mapping: Docker TARGETARCH -> WeKan's own platform name, which is
+# the bundle .zip's name. amd64/arm64 have MongoDB Community;
+# ppc64le/s390x/riscv64 have no MongoDB server and ship FerretDB v1 instead (the
+# ferretdb binary is baked into their .zip and started by wekan-entrypoint.sh).
+# Debian's 32-bit ARM port is armhf (ARMv7, VFPv3-D16), which is what
+# linux/arm/v7 runs. ELF_MACHINE is the e_machine the bundle's node must carry.
+case "${TARGETARCH}" in
+    "amd64")   WEKAN_ARCH="amd64";   ELF_MACHINE=62  ;;
+    "arm64")   WEKAN_ARCH="arm64";   ELF_MACHINE=183 ;;
+    "ppc64le") WEKAN_ARCH="ppc64le"; ELF_MACHINE=21  ;;
+    "s390x")   WEKAN_ARCH="s390x";   ELF_MACHINE=22  ;;
+    "riscv64") WEKAN_ARCH="riscv64"; ELF_MACHINE=243 ;;
+    "386")     WEKAN_ARCH="i386";    ELF_MACHINE=3   ;;
+    # BOTH linux/arm/v6 and linux/arm/v7 arrive here as TARGETARCH=arm - the CPU
+    # generation is in TARGETVARIANT, not in TARGETARCH - so this branch MUST read
+    # the variant. Mapping "arm" straight to armhf, as it did, would hand an ARMv6
+    # board (Raspberry Pi 1, Zero) the armhf bundle, which is built to Debian's
+    # ARMv7-A baseline and whose instructions that board cannot execute.
+    "arm")
+        ELF_MACHINE=40
+        case "${TARGETVARIANT}" in
+            "v6")    WEKAN_ARCH="armv6" ;;
+            # v7, and an unset variant, are Debian's armhf port: ARMv7-A,
+            # VFPv3-D16 hard-float. That is what linux/arm/v7 runs.
+            "v7"|"") WEKAN_ARCH="armhf" ;;
+            # v5 is armel: FerretDB and the MongoDB tools publish it (they are Go),
+            # but Node.js does not exist for ARMv5 at all, so there is no bundle to
+            # put in an image and refusing is the only honest answer.
+            *) echo "Unsupported 32-bit ARM variant: ${TARGETVARIANT} (only v6 and v7 have a WeKan bundle)"; exit 1 ;;
+        esac ;;
+    *) echo "Unsupported architecture: ${TARGETARCH}${TARGETVARIANT:+/${TARGETVARIANT}}"; exit 1 ;;
+esac
+
+mkdir -p /work
+cd /work
+# Retry the release-asset download: even though the CI `docker` job needs the
+# `release` job (so the asset is already uploaded), GitHub's
+# releases/download/<tag>/<asset> URL can briefly return 404 right after upload
+# (CDN/propagation lag). A plain wget treats 404 as fatal, which failed the
+# build; retry on transient HTTP errors so propagation lag no longer breaks it.
+WEKAN_ZIP="wekan-${VERSION}-${WEKAN_ARCH}.zip"
+WEKAN_ZIP_URL="https://github.com/wekan/wekan/releases/download/v${VERSION}/${WEKAN_ZIP}"
+wget --tries=20 --waitretry=20 --retry-on-http-error=404,403,500,502,503 "${WEKAN_ZIP_URL}" \
+  || { echo "Failed to download ${WEKAN_ZIP_URL} after retries"; exit 8; }
+wget --tries=20 --waitretry=20 --retry-on-http-error=404,403,500,502,503 "${WEKAN_ZIP_URL}.sha256sum" \
+  || { echo "Failed to download ${WEKAN_ZIP_URL}.sha256sum after retries"; exit 8; }
+# The file the image is built from is the file the release published.
+sha256sum -c "${WEKAN_ZIP}.sha256sum"
+unzip -q "${WEKAN_ZIP}"
+rm "${WEKAN_ZIP}" "${WEKAN_ZIP}.sha256sum"
+python3 /tmp/check-telemetry.py --bundle ./bundle
+
+# The bundle's own node is the image's node, so it must be FOR the target CPU:
+# a .zip of the wrong architecture would otherwise become an image whose node
+# cannot start, and nothing here runs it to find out.
+test -s bundle/node || { echo "${WEKAN_ZIP} has no bundle/node"; exit 1; }
+python3 - "${ELF_MACHINE}" bundle/node <<'EOP'
+import struct, sys
+want, path = int(sys.argv[1]), sys.argv[2]
+head = open(path, 'rb').read(20)
+if head[:4] != b'\x7fELF':
+    sys.exit(f'{path} is not an ELF binary')
+got = struct.unpack('>H' if head[5] == 2 else '<H', head[18:20])[0]
+if got != want:
+    sys.exit(f'{path} is for ELF machine {got}, not {want}: the bundle is for another CPU')
+print(f'{path}: ELF machine {got}, as expected')
+EOP
+
+# /out is laid out as the image's root: the app at /build, node on PATH.
+mkdir -p /out/usr/local/bin
+mv bundle/node /out/usr/local/bin/node
+chmod 755 /out/usr/local/bin/node
+ln -s "/usr/local/bin/node" "/out/usr/local/bin/nodejs"
+# The .zip's self-contained launchers start its bundled node; the image starts
+# wekan-entrypoint.sh instead. /build/ferretdb (used by the entrypoint) and the
+# per-arch MongoDB Database Tools stay, for backup/restore inside the container.
+rm -f bundle/start-wekan.sh bundle/start-wekan.bat
+mv bundle /out/build
+EOR
+
+# ── Stage 2: the image, for the TARGET platform ──────────────────────────────
+#
+# The only work left that runs as the target CPU (under QEMU for all but amd64):
+# the WeKan user, an OS update, and the three runtime packages the app needs.
 FROM debian:trixie
 LABEL maintainer="wekan"
 LABEL org.opencontainers.image.ref.name="debian"
 LABEL org.opencontainers.image.version="trixie"
 LABEL org.opencontainers.image.source="https://github.com/wekan/wekan"
 
-# TARGETARCH and TARGETVARIANT are automatically provided by Docker Buildx
-ARG TARGETARCH
-ARG TARGETVARIANT
-ARG VERSION=12.32
 ARG DEBIAN_FRONTEND=noninteractive
-
-ENV BUILD_DEPS="apt-utils gnupg wget bzip2 g++ curl libarchive-tools build-essential git ca-certificates python3 unzip"
 
 ENV \
     DEBUG=false \
@@ -236,221 +356,35 @@ ENV \
     MONGO_URL_FILE="" \
     S3_SECRET_KEY_FILE=""
 
-# Where this image's Node.js comes from is decided by the SAME script the .zip
-# bundles and the snap use - official nodejs.org, then unofficial-builds, then
-# wekan/node-patches - so the image and the bundle of the same architecture can
-# never end up on Node.js from different places. It is copied in rather than
-# reimplemented here; a second copy of that order would drift from the first.
-COPY --chmod=755 releases/resolve-node-source.sh /tmp/resolve-node-source.sh
-# It asks nodejs.org and github.com which builds exist, through releases/fetch.sh
-# - which retries a 503 instead of reading it as "that build does not exist".
-# The two travel together: without this line the resolve step dies on the first
-# lookup. tests/releaseDownloads.test.cjs pins the pair.
-COPY --chmod=755 releases/fetch.sh /tmp/fetch.sh
-COPY --chmod=755 releases/check-telemetry.py /tmp/check-telemetry.py
-COPY releases/risk-baseline.json /tmp/risk-baseline.json
-COPY --chmod=755 releases/prepare-bundle-npm.mjs /tmp/prepare-bundle-npm.mjs
-# The bundle's `npm install` leaves node-gyp's whole tree - 83 of the 120
-# packages in programs/server/node_modules - in a bundle that compiles nothing at
-# run time, and a scan of the published image reads it as what it is. The same
-# script runs in every per-arch leg of release-all.yml, so the .zip bundles and
-# this image are pruned identically. tests/imageBuildOnlyModules.test.cjs pins it.
-COPY --chmod=755 releases/prune-build-only-modules.mjs /tmp/prune-build-only-modules.mjs
-# Its companion, and its manifest: the npm packages Meteor's own packages bundle,
-# which nothing in package.json can reach. The .zip is built with these already
-# applied; what this run has to redo is the part `npm install` puts back.
-COPY --chmod=755 releases/bump-bundle-npm-deps.mjs /tmp/bump-bundle-npm-deps.mjs
-COPY --chmod=644 releases/bundle-npm-security-bumps.json /tmp/bundle-npm-security-bumps.json
-# And the third of the same kind: WeKan talks DDP over sockjs on every platform,
-# so no bundle carries uWebSockets.js. ddp-server requires that module only
-# inside the uws transport's setup(), which a sockjs server never calls, and it
-# is 121M of prebuilt binaries for OS/CPU/ABI combinations one machine cannot
-# use. The entrypoint coerces DDP_TRANSPORT=uws to sockjs, so an existing
-# compose file that asks for uws keeps working rather than crash-looping.
-COPY --chmod=755 releases/bundle-trim.mjs /tmp/bundle-trim.mjs
-# Its companion: the same idea applied to programs/server/npm/node_modules.
-COPY --chmod=755 releases/prune-unreachable-npm.mjs /tmp/prune-unreachable-npm.mjs
-
 RUN <<EOR
 set -o xtrace
-# Fail hard on any error so a missing release zip / failed download can never
-# produce a "successful" image with an empty /build (Cannot find /build/main.js).
 set -eo pipefail
 
 # Create Wekan user. --create-home is required because --system users do not
-# get a home directory by default; without it /home/wekan never exists and the
-# later `chown ... /home/wekan/` aborts the build (now that set -e is active).
+# get a home directory by default.
 useradd --user-group --system --create-home --home-dir /home/wekan wekan
 
 # OS Updates
 apt-get update --assume-yes
 apt-get upgrade --assume-yes
-apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS}
-# Runtime MIME detection, Node.js atomics and the UCS migration Docker client
-# survive build cleanup. docker-cli installs no daemon or buildx recommendation.
+# Runtime MIME detection, Node.js atomics and the UCS migration Docker client.
+# docker-cli installs no daemon or buildx recommendation. Nothing in this image
+# compiles anything, so no compiler is installed (and none has to be purged).
 apt-get install --assume-yes --no-install-recommends file libatomic1 docker-cli
-
-# Multi-arch mapping: Docker TARGETARCH -> WeKan's own platform name, which is
-# both the bundle .zip's name and what resolve-node-source.sh is asked about.
-# amd64/arm64 have MongoDB Community; ppc64le/s390x/riscv64 have no MongoDB
-# server and ship FerretDB v1 instead (the ferretdb binary is baked into their
-# .zip and started by wekan-entrypoint.sh). Debian's 32-bit ARM port is armhf
-# (ARMv7, VFPv3-D16), which is what linux/arm/v7 runs.
-case "${TARGETARCH}" in
-    "amd64")   WEKAN_ARCH="amd64"   ;;
-    "arm64")   WEKAN_ARCH="arm64"   ;;
-    "ppc64le") WEKAN_ARCH="ppc64le" ;;
-    "s390x")   WEKAN_ARCH="s390x"   ;;
-    "riscv64") WEKAN_ARCH="riscv64" ;;
-    "386")     WEKAN_ARCH="i386"    ;;
-    # BOTH linux/arm/v6 and linux/arm/v7 arrive here as TARGETARCH=arm - the CPU
-    # generation is in TARGETVARIANT, not in TARGETARCH - so this branch MUST read
-    # the variant. Mapping "arm" straight to armhf, as it did, would hand an ARMv6
-    # board (Raspberry Pi 1, Zero) the armhf bundle, which is built to Debian's
-    # ARMv7-A baseline and whose instructions that board cannot execute.
-    "arm")
-        case "${TARGETVARIANT}" in
-            "v6")    WEKAN_ARCH="armv6" ;;
-            # v7, and an unset variant, are Debian's armhf port: ARMv7-A,
-            # VFPv3-D16 hard-float. That is what linux/arm/v7 runs.
-            "v7"|"") WEKAN_ARCH="armhf" ;;
-            # v5 is armel: FerretDB and the MongoDB tools publish it (they are Go),
-            # but Node.js does not exist for ARMv5 at all, so there is no bundle to
-            # put in an image and refusing is the only honest answer.
-            *) echo "Unsupported 32-bit ARM variant: ${TARGETVARIANT} (only v6 and v7 have a WeKan bundle)"; exit 1 ;;
-        esac ;;
-    *) echo "Unsupported architecture: ${TARGETARCH}${TARGETVARIANT:+/${TARGETVARIANT}}"; exit 1 ;;
-esac
-
-# Node.js installation - official nodejs.org, then unofficial-builds.nodejs.org,
-# then wekan/node-patches, in that order, for EVERY architecture.
-#
-# The choice is made by releases/resolve-node-source.sh, copied in above and used
-# by the .zip bundles and the snap as well, so the image and the bundle of one
-# architecture always carry the same Node.js from the same place. It is asked
-# about the MAJOR, so a CPU whose newest build lags a release still gets its
-# newest: it answers with the exact file, what shape that file is, and the
-# SHA256 the source published for it.
-#
-# npm is arch-independent JavaScript, so it is grafted from the official amd64
-# tarball of the version that was resolved - a build-time tool, not the shipped
-# node. (node-patches publishes a bare node binary and no npm at all, which is
-# why npm is fetched separately rather than taken from the archive above.)
-cd /tmp
-NODE_MAJOR="${NODE_VERSION#v}"; NODE_MAJOR="${NODE_MAJOR%%.*}"
-if ! NODE_META="$(bash /tmp/resolve-node-source.sh "${WEKAN_ARCH}" "${NODE_MAJOR}")"; then
-    echo "No Node.js ${NODE_MAJOR}.x for ${WEKAN_ARCH} at nodejs.org, unofficial-builds.nodejs.org or wekan/node-patches, so this image cannot be built for it. Build node-${WEKAN_ARCH} in wekan/node-patches, or drop ${TARGETARCH} from the image's platform list." >&2
-    exit 1
-fi
-eval "${NODE_META}"
-echo "Node.js ${node_full} for ${WEKAN_ARCH}: ${node_from} (${node_url})"
-wget --tries=20 --waitretry=20 --retry-on-http-error=403,500,502,503 -O node-download "${node_url}"
-echo "${node_sha256}  node-download" | sha256sum -c -
-case "${node_kind}" in
-    binary)
-        cp node-download /usr/local/bin/node
-        ;;
-    tar.xz|tar.gz|tar)
-        # bsdtar (libarchive-tools) is installed below for the bundle; plain tar
-        # here, letting it detect the compression rather than naming it.
-        tar -xf node-download --no-same-owner "${node_member}"
-        cp "${node_member}" /usr/local/bin/node
-        ;;
-    *)
-        echo "resolve-node-source.sh returned an unknown kind '${node_kind}'." >&2
-        exit 1
-        ;;
-esac
-chmod +x /usr/local/bin/node
-# npm + npx from the official amd64 tarball of the SAME version; extract only
-# those paths, not the amd64 node binary.
-# Same flags as the download above: a bare wget treats a 503 as fatal, and
-# nodejs.org has them.
-wget --tries=20 --waitretry=20 --retry-on-http-error=403,500,502,503 \
-  "https://nodejs.org/dist/${node_full}/node-${node_full}-linux-x64.tar.gz"
-wget --tries=20 --waitretry=20 --retry-on-http-error=403,500,502,503 \
-  "https://nodejs.org/dist/${node_full}/SHASUMS256.txt"
-grep " node-${node_full}-linux-x64.tar.gz\$" SHASUMS256.txt | sha256sum -c -
-tar xzf "node-${node_full}-linux-x64.tar.gz" -C /usr/local --strip-components=1 --no-same-owner \
-    "node-${node_full}-linux-x64/lib/node_modules/npm" \
-    "node-${node_full}-linux-x64/bin/npm" \
-    "node-${node_full}-linux-x64/bin/npx"
-rm -rf node-download "node-${node_full}-linux-x64.tar.gz" "node-${node_full}-linux-x64" SHASUMS256.txt
-ln -s "/usr/local/bin/node" "/usr/local/bin/nodejs"
-
-# NPM configuration
-npm install -g npm@${NPM_VERSION}
-chown --recursive wekan:wekan /home/wekan/
-
-# Temporary Tar swap for Meteor bundle
-cp $(which tar) $(which tar)~
-ln -sf $(which bsdtar) $(which tar)
-
-# WeKan Bundle Installation
-mkdir -p /home/wekan/app
-cd /home/wekan/app
-# Retry the release-asset download: even though the CI `docker` job needs the
-# `release` job (so the asset is already uploaded), GitHub's
-# releases/download/<tag>/<asset> URL can briefly return 404 right after upload
-# (CDN/propagation lag). A plain wget treats 404 as fatal, which failed the
-# build; retry on transient HTTP errors so propagation lag no longer breaks it.
-WEKAN_ZIP_URL="https://github.com/wekan/wekan/releases/download/v${VERSION}/wekan-${VERSION}-${WEKAN_ARCH}.zip"
-wget --tries=20 --waitretry=20 --retry-on-http-error=404,403,500,502,503 "${WEKAN_ZIP_URL}" \
-  || { echo "Failed to download ${WEKAN_ZIP_URL} after retries"; exit 8; }
-unzip "wekan-${VERSION}-${WEKAN_ARCH}.zip"
-rm "wekan-${VERSION}-${WEKAN_ARCH}.zip"
-node /tmp/prepare-bundle-npm.mjs ./bundle
-npm install --prefix ./bundle/programs/server
-# node-gyp and @mapbox/node-pre-gyp compiled nothing here - every native module
-# in the bundle is a prebuilt .node - and nothing in boot.js reaches them. Their
-# tree is what shipped `tar` 6.2.1 (CRITICAL) and npm's networking stack to the
-# published image, so it goes now that the install is done.
-node /tmp/prune-build-only-modules.mjs ./bundle
-# The .zip already carries the bumped meteor/ tree; this install put back
-# meteor-dev-bundle's own underscore 1.13.7 pin (CVE-2026-27601) over it, so the
-# same pass runs here.
-node /tmp/bump-bundle-npm-deps.mjs ./bundle
-# No uWebSockets.js, no legacy client, no source maps: this image runs sockjs,
-# serves web.browser to every browser, and has no debugger attached to it.
-node /tmp/bundle-trim.mjs ./bundle --transport sockjs --drop-legacy-client
-# And the npm tree rspack cannot tree-shake, because Atmosphere packages load it
-# through Npm.require(). Only what it can prove nothing requires.
-node /tmp/prune-unreachable-npm.mjs ./bundle
-python3 /tmp/check-telemetry.py --bundle ./bundle
-mv /home/wekan/app/bundle /build
-
-# The .zip bundle now ships a self-contained launcher + its own Node.js for the
-# offline downloads; the Docker image installs its own Node and uses
-# wekan-entrypoint.sh, so drop the redundant bundled node + launchers. Keeps
-# /build/ferretdb (used by the entrypoint) and the per-arch MongoDB Database Tools
-# (bsondump, mongodump, mongorestore, … from wekan/mongo-tools-patches, embedded in the
-# bundle) for backup/restore inside the container. Saves ~80 MB per arch.
-rm -f /build/node /build/start-wekan.sh /build/start-wekan.bat
-
-# Restore original tar
-mv $(which tar)~ $(which tar)
-
-# Cleanup
-# npm is a BUILD tool in this image and nothing else: the only thing it does is
-# the `npm install` above, and the container starts bash + wekan-entrypoint.sh,
-# which never calls it. Shipping it shipped npm's own bundled dependencies - its
-# `tar` (CRITICAL), `sigstore`, `@sigstore/*`, `ip-address`, `brace-expansion` -
-# as image content that no code path can reach. node itself stays, because that
-# is what runs WeKan.
-rm -rf /usr/local/lib/node_modules/npm /usr/local/bin/npm /usr/local/bin/npx
 # Remove unused Go-based pebble binary shipped by base image to reduce CVE surface.
 apt-get remove --purge --assume-yes pebble || true
 rm -f /usr/bin/pebble
-apt-get remove --purge --assume-yes ${BUILD_DEPS}
 apt-get autoremove --assume-yes
 apt-get clean --assume-yes
-rm -Rf /tmp/*
 rm -Rf /var/lib/apt/lists/*
-rm -Rf /home/wekan/app
 
 mkdir -p /data
 chown wekan:wekan --recursive /data
 EOR
+
+# The bundle and its node, prepared in stage 1. npm is not in this image at all:
+# nothing here installs anything, and the entrypoint never calls it.
+COPY --from=bundle /out/ /
 
 # Database-backend selector entrypoint. Every arch's bundle now ships a FerretDB
 # binary (baked into the .zip and moved to /build/ferretdb above); this script

@@ -127,10 +127,14 @@ test('every consumer asks the one resolver instead of carrying its own copy', ()
     'embed-verified-node.sh must use the resolver');
   assert.ok(/resolve-node-source\.sh/.test(code(checkArch)),
     'check-arch-binaries.sh must use the resolver');
-  assert.ok(/resolve-node-source\.sh/.test(code(dockerfile)),
-    'the Dockerfile must use the resolver');
-  assert.ok(/COPY .*resolve-node-source\.sh/.test(dockerfile),
-    'and must COPY it in rather than reimplementing it');
+  // The image no longer resolves a node of its own: it ships the .zip's
+  // bundle/node, which that architecture's leg resolved and verified, so the
+  // image and the .zip carry the SAME file rather than two downloads that had
+  // to agree. What must hold is that it carries no walk of its own either.
+  assert.ok(!/nodejs\.org|unofficial-builds|node-patches\/releases/.test(code(dockerfile)),
+    'the Dockerfile must not download Node.js itself');
+  assert.ok(/mv bundle\/node \/out\/usr\/local\/bin\/node/.test(code(dockerfile)),
+    'it takes the bundle\'s own node');
 
   // Nobody may still download from the retired fork.
   for (const [name, text] of [['the Dockerfile', dockerfile],
@@ -142,19 +146,17 @@ test('every consumer asks the one resolver instead of carrying its own copy', ()
   }
 });
 
-test('the Dockerfile installs the resolved node and verifies it', () => {
+test('the Dockerfile ships the verified bundle node, for the right CPU', () => {
   const body = code(dockerfile);
-  assert.ok(/resolve-node-source\.sh/.test(body), 'the image resolves its node');
-  assert.ok(/sha256sum -c -/.test(body),
-    'and checks the download against the SHA256 the source published');
-  // Both shapes: the tarball nodejs.org/unofficial-builds publish, and the bare
-  // binary node-patches publishes.
-  assert.ok(/tar\.xz\|tar\.gz\|tar\)/.test(body) && /\bbinary\)/.test(body),
-    'and unpacks whichever shape that source publishes');
-  // npm is a build-time tool and stays official, on the version that was
-  // resolved - not on a separately pinned one that could differ from the node.
-  assert.ok(/nodejs\.org\/dist\/\$\{node_full\}/.test(body),
-    'npm must come from the official tarball of the version that was resolved');
+  // The node arrives inside the .zip, so the .zip is what is verified: against
+  // the .sha256sum the release published beside it.
+  assert.ok(/sha256sum -c "\$\{WEKAN_ZIP\}\.sha256sum"/.test(body),
+    'the .zip the node comes in is checked against the release\'s own SHA256');
+  // Nothing in the build runs it, so its CPU is read from the ELF header.
+  assert.ok(/ELF_MACHINE/.test(body) && /the bundle is for another CPU/.test(body),
+    'and the node is checked to be a binary for the target CPU');
+  // npm is not needed at all any more: nothing in the image installs anything.
+  assert.ok(!/npm install/.test(body), 'and no npm is installed or run');
 });
 
 test('every platform WeKan builds has a row in the resolver mapping table', () => {

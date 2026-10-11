@@ -190,7 +190,9 @@ test('the Dockerfile carries fetch.sh next to the script that needs it', () => {
   // fetch.sh, and a missing helper there is a build that dies on its first
   // lookup with "No such file or directory".
   const dockerfile = read('Dockerfile');
-  if (!/resolve-node-source\.sh/.test(dockerfile)) return;
+  // Code, not comments: the image now takes the bundle's own node, and its
+  // comments still name the resolver that chose it.
+  if (!/resolve-node-source\.sh/.test(dockerfile.replace(/^\s*#.*$/gm, ''))) return;
   assert.ok(/COPY[^\n]*releases\/fetch\.sh/.test(dockerfile),
     'the Dockerfile must copy releases/fetch.sh too');
   assert.ok(!/^wget "https:\/\/nodejs\.org/m.test(dockerfile),

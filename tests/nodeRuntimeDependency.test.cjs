@@ -11,7 +11,10 @@ test('runtime bundler rejects foreign architectures and preserves licensing', ()
 test('Docker keeps libatomic outside the removable build dependencies', () => {
   const docker = read('Dockerfile');
   assert.match(docker, /apt-get install[^\n]*file libatomic1/);
-  assert.doesNotMatch(docker.match(/ENV BUILD_DEPS="[^"]*"/)[0], /libatomic1/);
+  // There is no removable build-dependency list any more (nothing in the image
+  // is compiled); what must hold is that nothing purges it again.
+  assert.doesNotMatch(docker, /apt-get (?:remove|purge)[^\n]*libatomic1/);
+  assert.doesNotMatch((docker.match(/ENV BUILD_DEPS="[^"]*"/) || [''])[0], /libatomic1/);
 });
 test('native and emulated Linux bundles both package their own runtime', () => {
   assert.match(read('releases/embed-verified-node.sh'), /python3 "\$here\/bundle-node-runtime.py" "\$dest" \|\| exit 1/);

@@ -168,7 +168,9 @@ test('a candidate platform the BASE image does not publish is dropped, not silen
   // run the hard-float node-armv6 the armv6 bundle carries. The Decide step must
   // therefore ask the base what it publishes and treat a platform it lacks like a
   // bundle that did not land.
-  assert.ok(/base_image="\$\(awk '\/\^FROM \/\{print \$2; exit\}' Dockerfile\)"/.test(body),
+  // The LAST FROM: the first is the bundle stage, which runs on the build
+  // machine (--platform=$BUILDPLATFORM) and is not what the image is made of.
+  assert.ok(/base_image="\$\(awk '\/\^FROM \/\{base=\$2\} END\{print base\}' Dockerfile\)"/.test(body),
     'the base image name must be read out of the Dockerfile, not written a second time here');
   assert.ok(/docker buildx imagetools inspect "\$base_image"/.test(body),
     'the Decide step must ask the base image which platforms it publishes');

@@ -59,30 +59,30 @@ test('it never touches the Meteor packages\' own npm dependencies', () => {
     'and removes nothing under npm/node_modules');
 });
 
-test('the image prunes after its install, and before the bundle is moved', () => {
-  const install = dockerfile.indexOf('npm install --prefix ./bundle/programs/server');
-  const prune = dockerfile.indexOf('node /tmp/prune-build-only-modules.mjs');
-  const move = dockerfile.indexOf('mv /home/wekan/app/bundle /build');
-  assert.ok(install > 0 && prune > install && move > prune,
-    'install, then prune, then move');
-  assert.ok(/COPY --chmod=755 releases\/prune-build-only-modules\.mjs/.test(dockerfile),
-    'and the script is copied in, or the RUN dies on a missing file');
+test('the image installs nothing, so it has no build-only tree to prune', () => {
+  // The Docker image used to reinstall programs/server from the .zip and redo
+  // its post-processing, under QEMU for six of seven platforms. Since the image
+  // is built from the .zip as it was published (Dockerfile stage 1, checked
+  // against its .sha256sum), it has nothing to redo: the .zip's own leg in
+  // release-all.yml already ran these steps. See tests/dockerImageFromBundle.test.cjs.
+  const code = dockerfile.replace(/^\s*#.*$/gm, '');
+  assert.ok(!/npm install/.test(code), 'no npm install in the image');
+  assert.ok(!/node \/tmp\/prune-build-only-modules\.mjs/.test(code), 'and so nothing to prune');
 });
 
 test('the image ships no npm and no npx', () => {
-  assert.ok(/rm -rf \/usr\/local\/lib\/node_modules\/npm \/usr\/local\/bin\/npm \/usr\/local\/bin\/npx/
-    .test(dockerfile), 'npm, npx and npm\'s own node_modules are removed');
-  const remove = dockerfile.indexOf('rm -rf /usr/local/lib/node_modules/npm');
-  const install = dockerfile.indexOf('npm install --prefix ./bundle/programs/server');
-  assert.ok(remove > install,
-    'and removed AFTER the install that needs it, not before');
+  // They are never put there: no npm tarball is unpacked and no npm is
+  // installed, so there is nothing to remove afterwards either.
+  const code = dockerfile.replace(/^\s*#.*$/gm, '');
+  assert.ok(!/bin\/npm|lib\/node_modules\/npm|npm install -g/.test(code),
+    'no npm or npx is installed into the image');
 });
 
 test('node itself stays - that is what runs WeKan (negative)', () => {
   // The guard against over-correcting: this is about npm, not about node.
   assert.ok(!/rm -rf [^\n]*\/usr\/local\/bin\/node\b/.test(dockerfile),
     'the node binary is never removed');
-  assert.ok(/ln -s "\/usr\/local\/bin\/node" "\/usr\/local\/bin\/nodejs"/.test(dockerfile),
+  assert.ok(/ln -s "\/usr\/local\/bin\/node" "\/out\/usr\/local\/bin\/nodejs"/.test(dockerfile),
     'and is still linked as nodejs');
 });
 

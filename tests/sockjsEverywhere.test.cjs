@@ -111,7 +111,9 @@ test('the coercion runs before the server is started, not after', () => {
 test('every bundle assembly site trims the bundle', () => {
   // The pairing is the check: prune-build-only-modules.mjs marks the places a
   // built bundle is post-processed, and bundle-trim.mjs belongs at every one.
-  for (const f of ['.github/workflows/release-all.yml', 'Dockerfile',
+  // Not the Dockerfile: it ships the published .zip, already trimmed by its
+  // own leg, and runs no trim of its own (tests/dockerImageFromBundle.test.cjs).
+  for (const f of ['.github/workflows/release-all.yml',
     'releases/install-node-for-arch.sh']) {
     const s = read(f);
     // Count INVOCATIONS - `node .../<script>` - not the prose that names them.
@@ -124,7 +126,9 @@ test('every bundle assembly site trims the bundle', () => {
 });
 
 test('every trim call drops uws, the legacy client and the source maps', () => {
-  for (const f of ['.github/workflows/release-all.yml', 'Dockerfile',
+  // Not the Dockerfile: it ships the published .zip, already trimmed by its
+  // own leg, and runs no trim of its own (tests/dockerImageFromBundle.test.cjs).
+  for (const f of ['.github/workflows/release-all.yml',
     'releases/install-node-for-arch.sh']) {
     // Join shell line continuations first: the amd64 site wraps its arguments
     // onto a second line, and half a command is not a command.
@@ -148,6 +152,8 @@ test('every trim call drops uws, the legacy client and the source maps', () => {
 test('the Dockerfile copies the scripts it runs (negative)', () => {
   const s = read('Dockerfile');
   for (const script of ['bundle-trim.mjs', 'prune-unreachable-npm.mjs']) {
+    // The image runs neither now; if one comes back, its COPY must come first.
+    if (!s.includes(`node /tmp/${script}`)) continue;
     assert.ok(s.includes(`COPY --chmod=755 releases/${script} /tmp/${script}`),
       `a RUN that calls /tmp/${script} needs the COPY that puts it there`);
     assert.ok(s.indexOf(`COPY --chmod=755 releases/${script}`) < s.indexOf(`node /tmp/${script}`),

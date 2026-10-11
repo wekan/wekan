@@ -104,15 +104,22 @@ test('every leg bumps again, because npm install puts underscore back', () => {
   assert.ok(legs >= 7, `expected a bump in each bundle leg, found ${legs}`);
   assert.ok(/bump-bundle-npm-deps\.mjs/.test(read('releases/install-node-for-arch.sh')),
     'the extra-arch containers too');
-  assert.ok(/node \/tmp\/bump-bundle-npm-deps\.mjs \.\/bundle/.test(dockerfile),
-    'and the Docker image, which reinstalls programs/server from the .zip');
+  // The Docker image used to reinstall programs/server from the .zip and redo
+  // its post-processing, under QEMU for six of seven platforms. Since the image
+  // is built from the .zip as it was published (Dockerfile stage 1, checked
+  // against its .sha256sum), it has nothing to redo: the .zip's own leg in
+  // release-all.yml already ran these steps. See tests/dockerImageFromBundle.test.cjs.
+  assert.ok(!/npm install/.test(dockerfile.replace(/^\s*#.*$/gm, '')),
+    'the Docker image reinstalls nothing, so it has no underscore pin to undo');
 });
 
-test('the Dockerfile copies the manifest beside the script', () => {
+test('the Dockerfile copies the manifest beside the script, when it runs it', () => {
   // The script reads the manifest from its own directory; without this line the
   // image build dies on a missing file instead of shipping an unbumped bundle.
-  assert.ok(/COPY --chmod=644 releases\/bundle-npm-security-bumps\.json/.test(dockerfile),
-    'the manifest is copied in too');
+  // The image no longer runs it (see above) - so both must be absent together.
+  const runs = /node \/tmp\/bump-bundle-npm-deps\.mjs/.test(dockerfile);
+  const copies = /COPY --chmod=644 releases\/bundle-npm-security-bumps\.json/.test(dockerfile);
+  assert.strictEqual(copies, runs, 'the manifest is copied exactly when the script runs');
 });
 
 test('npm is run in a way that works on Windows too', () => {

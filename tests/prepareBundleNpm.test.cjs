@@ -33,7 +33,10 @@ test('Meteor bundle permits only reviewed, commit-pinned root tarballs', async (
 });
 
 test('production install paths prepare the bundle before npm installation', () => {
-  for (const name of ['releases/build-release-bundle.sh', '.github/workflows/release-all.yml', 'Dockerfile']) {
+  // Not the Dockerfile: it installs nothing (it ships the published .zip as is).
+  assert.doesNotMatch(fs.readFileSync(path.join(__dirname, '..', 'Dockerfile'), 'utf8').replace(/^\s*#.*$/gm, ''),
+    /npm install/);
+  for (const name of ['releases/build-release-bundle.sh', '.github/workflows/release-all.yml']) {
     const text = fs.readFileSync(path.join(__dirname, '..', name), 'utf8');
     assert.match(text, /node [^\n]*prepare-bundle-npm\.mjs/);
     const call = text.search(/node [^\n]*prepare-bundle-npm\.mjs/);

@@ -3934,8 +3934,10 @@ jobs:
           # that did not land. The base is read out of the Dockerfile so there is no
           # second copy of its name here. arm64 is recorded as arm64/v8, which
           # everyone writes as linux/arm64, so the implied /v8 is normalised away -
-          # the same normalisation the push-verify does below.
-          base_image="$(awk '/^FROM /{print $2; exit}' Dockerfile)"
+          # the same normalisation the push-verify does below. It is the LAST FROM:
+          # the first is the bundle stage, which runs on the build machine
+          # (--platform=$BUILDPLATFORM) and is not what the image is made of.
+          base_image="$(awk '/^FROM /{base=$2} END{print base}' Dockerfile)"
           base_plats="$(docker buildx imagetools inspect "$base_image" \
             --format '{{range .Manifest.Manifests}}{{.Platform.OS}}/{{.Platform.Architecture}}{{if .Platform.Variant}}/{{.Platform.Variant}}{{end}} {{end}}' \
             | sed 's#/v8 # #g')" || {
