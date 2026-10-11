@@ -528,9 +528,12 @@ used.
 **In short:** Current Afrikaans, Albanian, Arabic, Belarusian, Bosnian, Bulgarian, Chinese (Simplified), Chinese (Traditional), Croatian, Estonian, Gujarati, Hebrew, Hindi, Icelandic, Latvian,
 Macedonian, Persian, Serbian, Slovenian and Vietnamese strings are translated. Mixed-language Arabic and Macedonian values and Basque
 card wording are corrected, with validation of imports, notifications and recovery
-choices. **Sandstorm** grains boot again.
+choices. **Sandstorm** grains boot again, on the same Node.js, npm and FerretDB
+as every other platform.
 
-This release fixes the following bug:
+This release fixes the following bugs:
+
+**Sandstorm** - grains start again, and carry the versions version.txt names.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d6427a5afb">Sandstorm grains start again instead of crash-looping on ./start-memory.sh</a>. Thanks to xet7.</summary>
@@ -547,6 +550,26 @@ pkgdef runs it as `node start-memory.js`. `start.js` also waited by spawning
 blocks with `Atomics.wait`. `tests/sandstormNoShell.test.cjs` runs the launcher,
 checks the heap, the override and the exit status it passes on, and fails when
 the grain command is a shell script or a launcher spawns a system utility.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/242c4b097c">The .spk uses the same Node.js, npm and FerretDB as every other platform</a>. Thanks to xet7.</summary>
+
+[version.txt](https://wekan.fi/version.txt) takes Node and npm from the
+Dockerfile's `NODE_VERSION` and `NPM_VERSION`, and FerretDB from
+`releases/ferretdb-latest-tag.sh`. The Sandstorm build used none of them:
+`sandstorm-src/build-deps.sh` copied Meteor's dev-bundle node, which follows the
+Meteor release, or else downloaded the newest Node 24, and the Sandstorm and
+Windows workflows installed a hard-coded npm 12.0.2 while the Dockerfile said
+12.2.0. The grain now gets the Dockerfile's exact Node (26.11.1), downloaded
+and checksum-verified with `releases/embed-verified-node.sh` like the zip
+bundles and checked after copying, FerretDB by the release tag version.txt
+names, and every workflow that packs a .spk installs npm with
+`releases/use-release-npm.sh`. Comments and docs describing the current
+runtime say Node 26. `tests/sandstormRuntimeVersions.test.cjs` compares the
+grain's Node with what version.txt reads and fails when any workflow pins npm
+itself or a Sandstorm source still says Node 24.
 
 </details>
 
