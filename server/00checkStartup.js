@@ -36,7 +36,12 @@ if (errors.length > 0) {
 // Say it once, at startup, naming the setting and what to set it to. It is a
 // warning, not a refusal: a single-machine install where localhost IS the address
 // is perfectly valid.
-{
+//
+// Not in a Sandstorm grain: there ROOT_URL is ALWAYS the grain's own loopback
+// address on port 4000 behind sandstorm-http-bridge (sandstorm-src/start.js sets
+// it), the grain has no SMTP of its own, and none of the advice applies - so the
+// warning was a false alarm in every grain's log.
+if (process.env.SANDSTORM !== '1') {
   const rootUrl = process.env.ROOT_URL || '';
   const local = /^https?:\/\/(localhost|127\.0\.0\.1|\[::1\])(:\d+)?\/?$/i.test(rootUrl);
 

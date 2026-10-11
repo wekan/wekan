@@ -3,7 +3,17 @@
 // Gives WeKan an explicit, bounded V8 heap derived from the grain's memory
 // (three fifths of it, at most 4 GiB), the same rule the Docker image, the
 // bundle and the snap apply, and then runs start.js with it. An administrator's
-// own NODE_OPTIONS always wins.
+// own heap size in NODE_OPTIONS always wins.
+//
+// It also turns Node's Web Storage off. Since Node 25 a global localStorage
+// exists, and the first server-side code that merely checks for it prints
+//
+//   ExperimentalWarning: localStorage is not available because
+//   --localstorage-file was not provided.
+//
+// into every grain's log. WeKan's server never uses Web Storage - a browser's
+// localStorage is the client's - so the global is removed rather than given a
+// file in the grain's /var.
 //
 // This is JavaScript, not a shell script, because a grain HAS NO SHELL: the
 // meteor-spk 0.6.0 base puts only mongod, niscud and node in bin/, so there is
@@ -40,10 +50,15 @@ function memoryMb() {
 }
 
 const env = { ...process.env };
-if (!env.NODE_OPTIONS) {
+const options = (env.NODE_OPTIONS || '').split(/\s+/).filter(Boolean);
+if (!options.some((o) => /^--max[-_]old[-_]space[-_]size(=|$)/.test(o))) {
   const heapMb = Math.min(Math.floor(memoryMb() * 3 / 5), 4096);
-  env.NODE_OPTIONS = `--max-old-space-size=${heapMb}`;
+  options.push(`--max-old-space-size=${heapMb}`);
 }
+if (!options.some((o) => /^--(no-)?(experimental-)?webstorage$|^--localstorage-file(=|$)/.test(o))) {
+  options.push('--no-experimental-webstorage');
+}
+env.NODE_OPTIONS = options.join(' ');
 
 const child = spawn(process.execPath, [path.join(__dirname, 'start.js')],
   { stdio: 'inherit', env });

@@ -55,7 +55,7 @@ test('every packaged runtime derives memory and preserves overrides', () => {
     const source = fs.readFileSync(path.join(ROOT, rel), 'utf8');
     assert.ok(source.includes('/sys/fs/cgroup/memory.max'), `${rel} must read cgroup v2`);
     assert.ok(source.includes('${NODE_OPTIONS:-') || source.includes('${GOMEMLIMIT:-') ||
-              source.includes('if (!env.NODE_OPTIONS)'), `${rel} must preserve overrides`);
+              source.includes('--max[-_]old[-_]space[-_]size'), `${rel} must preserve overrides`);
   }
   for (const rel of ['build.bat', 'start-wekan.bat', 'releases/ferretdb/start-wekan.bat']) {
     const source = fs.readFileSync(path.join(ROOT, rel), 'utf8');

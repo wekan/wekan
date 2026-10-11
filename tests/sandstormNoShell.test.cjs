@@ -85,8 +85,12 @@ fs.mkdirSync(TMP, { recursive: true });
 try {
   fs.copyFileSync(path.join(ROOT, 'sandstorm-src/start-memory.js'), path.join(TMP, 'start-memory.js'));
   fs.writeFileSync(path.join(TMP, 'start.js'),
-    'console.log(JSON.stringify({o: process.env.NODE_OPTIONS || "", h: require("v8").getHeapStatistics().heap_size_limit}));' +
-    'process.exit(Number(process.env.STUB_EXIT || 0));');
+    // Touch localStorage the way server code that probes for it does.
+    'const ls = typeof globalThis.localStorage;' +
+    'console.log(JSON.stringify({o: process.env.NODE_OPTIONS || "", ls, h: require("v8").getHeapStatistics().heap_size_limit}));' +
+    // Exit on a timer: Node emits the Web Storage warning on a later tick, and
+    // an immediate process.exit() would hide it from the negative check below.
+    'setTimeout(() => process.exit(Number(process.env.STUB_EXIT || 0)), 20);');
   const run = (env) => spawnSync(process.execPath, [path.join(TMP, 'start-memory.js')],
     { env: { PATH: process.env.PATH, ...env }, encoding: 'utf8' });
 
@@ -94,16 +98,38 @@ try {
     const r = run({});
     assert.strictEqual(r.status, 0, r.stderr);
     const out = JSON.parse(r.stdout);
-    const m = out.o.match(/^--max-old-space-size=(\d+)$/);
+    const m = out.o.match(/^--max-old-space-size=(\d+) --no-experimental-webstorage$/);
     assert.ok(m, `unexpected NODE_OPTIONS: ${out.o}`);
     const mb = Number(m[1]);
     assert.ok(mb > 0 && mb <= 4096, `heap ${mb} out of range`);
     assert.ok(mb <= Math.floor(require('os').totalmem() / 1048576 * 3 / 5));
   });
 
-  test('an administrator NODE_OPTIONS is kept as it is (negative)', () => {
+  test('an administrator heap size is kept as it is (negative)', () => {
     const r = run({ NODE_OPTIONS: '--max-old-space-size=123' });
-    assert.strictEqual(JSON.parse(r.stdout).o, '--max-old-space-size=123');
+    assert.strictEqual(JSON.parse(r.stdout).o, '--max-old-space-size=123 --no-experimental-webstorage');
+    const other = run({ NODE_OPTIONS: '--trace-warnings' });
+    assert.match(JSON.parse(other.stdout).o, /^--trace-warnings --max-old-space-size=\d+ --no-experimental-webstorage$/,
+      'other administrator options still get the computed heap');
+  });
+
+  test('the grain log has no Web Storage ExperimentalWarning', () => {
+    const r = run({});
+    assert.strictEqual(JSON.parse(r.stdout).ls, 'undefined', 'Web Storage is off for the server');
+    assert.ok(!/ExperimentalWarning|localstorage-file/.test(r.stderr), r.stderr);
+    // Negative: the same stub WITHOUT the launcher prints exactly the warning
+    // the grain log showed, so the assertion above is not vacuous - on a Node
+    // that has Web Storage at all.
+    if (Number(process.versions.node.split('.')[0]) >= 25) {
+      const bare = spawnSync(process.execPath, [path.join(TMP, 'start.js')],
+        { env: { PATH: process.env.PATH }, encoding: 'utf8' });
+      assert.match(bare.stderr, /localStorage is not available because --localstorage-file was not provided/);
+    }
+  });
+
+  test('an administrator Web Storage choice is kept (negative)', () => {
+    const r = run({ NODE_OPTIONS: '--localstorage-file=/var/ls.json' });
+    assert.ok(!/--no-experimental-webstorage/.test(JSON.parse(r.stdout).o));
   });
 
   test('start.js exit status is passed through to the bridge', () => {
@@ -112,5 +138,17 @@ try {
 } finally {
   fs.rmSync(TMP, { recursive: true, force: true });
 }
+
+test('the ROOT_URL email warning is not raised inside a grain', () => {
+  // A grain's ROOT_URL is always its loopback address behind the bridge and it
+  // has no SMTP, so the #6538 advice ("snap set wekan root-url=...") is a false
+  // alarm there. Everywhere else the check still runs.
+  const check = read('server/00checkStartup.js');
+  const at = check.indexOf("if (process.env.SANDSTORM !== '1') {");
+  assert.notStrictEqual(at, -1, 'the ROOT_URL check must be skipped only in Sandstorm');
+  assert.ok(at < check.indexOf('ROOT_URL is not set.') && at < check.indexOf('Every link WeKan sends by email'));
+  assert.ok(/\(key = "SANDSTORM", value ?= ?"1"\)/.test(pkgdef), 'the grain sets SANDSTORM=1');
+  assert.ok(read('sandstorm-src/start.js').includes("process.env.ROOT_URL || `http://127.0.0.1:${APP_PORT}`"));
+});
 
 console.log(`\nsandstormNoShell: ${passed} tests passed`);
