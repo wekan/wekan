@@ -20,7 +20,7 @@ After upgrade, normal start/restart runs exactly two containers:
 
 No MongoDB, migration worker, or third database container belongs in the installed
 compose file. The app uses the versioned WeKan image. The database uses the dedicated
-`ghcr.io/wekan/ferretdb` image, pinned by digest, with its `/ferretdb` entrypoint.
+`ghcr.io/wekan/ferretdb` image, pinned by version tag, with its `/ferretdb` entrypoint.
 Univention mirrors these source images into its registry when publishing: the
 service/repository name `wekan-wekandb` does not mean the new image runs MongoDB.
 
@@ -89,11 +89,11 @@ registries change, update `image`, `dbimage` and `helper` in `preinst`, the two
 compose image references and the helper's `WEKAN_IMAGE` build argument. The portal cannot perform the migration
 until the helper image exists and is pullable by the UCS host.
 
-Keep tags/digests fixed per UCS release. `releases/ucs-release.py` prepares the
+Keep version tags fixed per UCS release. `releases/ucs-release.py` prepares the
 versioned compose, preinst and helper Dockerfile together. It retains every image
 history comment and adds the replaced active image as another comment. The
-optional `UCS_FERRETDB_IMAGE` variable selects a new digest from the **wekan** fork;
-leave it unset to retain the tested digest in the companion template. Do not use
+optional `UCS_FERRETDB_IMAGE` variable selects a new version tag from the **wekan** fork;
+leave it unset to retain the selected version tag in the companion template. Do not use
 upstream `ghcr.io/ferretdb/ferretdb:2`: that is a different PostgreSQL backend.
 
 ### 2. Register the app version and scripts in the Provider Portal
@@ -185,7 +185,7 @@ Add these **repository Actions variables** (not secrets):
 | --- | --- |
 | `UCS_SOURCE_APP` | Existing portal version to copy, including UCS section, for example `4.4/wekan=6.09`; use the exact version displayed by the portal |
 | `UCS_TARGET_UCS` | Tested destination section, for example `5.2` |
-| `UCS_FERRETDB_IMAGE` | Optional pinned `ghcr.io/wekan/ferretdb@sha256:<digest>`; unset uses the companion template's digest |
+| `UCS_FERRETDB_IMAGE` | Optional `ghcr.io/wekan/ferretdb:v1.<minor>.<patch>`; unset uses the companion template's version tag |
 
 `WEKAN_REPO_TOKEN` is no longer required for UCS: the companion checkout is public
 and the job does not push git changes. The new versioned definition is kept in
@@ -239,8 +239,10 @@ This was checked from the
 [UCS registry manifest](https://docker.software-univention.de/v2/wekan-wekandb/manifests/6.09-ucs1),
 not inferred from the WeKan version number. No database binary was executed here.
 
-The GHCR **wekan/FerretDB** image selected for the new template is pinned to
-`sha256:41786dd4906890ec7ec1d9d1f6477baaec141dea5535553180920715aba6c634`.
+The GHCR **wekan/FerretDB** image selected for the new template uses the version tag
+`ghcr.io/wekan/ferretdb:v1.92.0`. The public registry confirmed that this tag
+resolves to the previously selected image. Compose and the migration hook use
+the tag; the previous digest remains only in the compose image history.
 Its registry configuration confirms `/ferretdb`, user `ferretdb:ferretdb`, handler
 `sqlite` and the default `/state` storage directory. The fork's Docker build uses
 UID 1000. The root WeKan `docker-compose.yml` currently uses the same fork through

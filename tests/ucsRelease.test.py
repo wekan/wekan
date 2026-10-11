@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('ucs_release', ROOT / 'releases/ucs-release.py')
 ucs = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(ucs)
-DIGEST = 'ghcr.io/wekan/ferretdb@sha256:' + 'a' * 64
+DATABASE_IMAGE = 'ghcr.io/wekan/ferretdb:v1.92.0'
 
 
 class FakePortal:
@@ -43,7 +43,7 @@ class UcsRelease(unittest.TestCase):
         component.mkdir(parents=True)
         for name in ucs.FILES:
             (component / name).write_text('content ' + name)
-        (component / 'compose').write_text('services:\n  wekandb:\n    # Image was: old-mongo:6.09\n    image: '+DIGEST+'\n  wekan:\n    # Image was: older:5.0\n    image: ghcr.io/wekan/wekan:v12.27\n')
+        (component / 'compose').write_text('services:\n  wekandb:\n    # Image was: old-mongo:6.09\n    image: '+DATABASE_IMAGE+'\n  wekan:\n    # Image was: older:5.0\n    image: ghcr.io/wekan/wekan:v12.27\n')
         (component / 'preinst').write_text('image=old\nhelper=old-helper\ndbimage=old-db\n')
         (component / 'migration').mkdir()
         (component / 'migration/Dockerfile').write_text('ARG WEKAN_IMAGE=old\nFROM ${WEKAN_IMAGE}\n')
@@ -57,10 +57,19 @@ class UcsRelease(unittest.TestCase):
         self.assertIn('# Image was: ghcr.io/wekan/wekan:v12.27', compose)
         self.assertIn('image: ghcr.io/wekan/wekan:v12.28', compose)
         hook = (self.output / 'component/preinst').read_text()
-        self.assertIn('dbimage='+DIGEST, hook)
+        self.assertIn('dbimage='+DATABASE_IMAGE, hook)
         self.assertIn('helper=ghcr.io/wekan/wekan-ucs-migration:v12.28', hook)
         self.assertIn('ARG WEKAN_IMAGE=ghcr.io/wekan/wekan:v12.28', (self.output / 'component/migration/Dockerfile').read_text())
-        self.assertEqual(ucs.images(compose, {'wekan': 'ghcr.io/wekan/wekan:v12.28', 'wekandb': DIGEST}), compose)
+        self.assertEqual(ucs.images(compose, {'wekan': 'ghcr.io/wekan/wekan:v12.28', 'wekandb': DATABASE_IMAGE}), compose)
+
+    def test_database_tag_override_updates_compose_and_hook(self):
+        selected = 'ghcr.io/wekan/ferretdb:v1.93.0'
+        result = ucs.prepare(self.root / 'source', self.output, '12.28', selected)
+        self.assertEqual(result['database_image'], selected)
+        compose = (self.output / 'component/compose').read_text()
+        self.assertIn('    image: ' + selected, compose)
+        self.assertIn('# Image was: ' + DATABASE_IMAGE, compose)
+        self.assertIn('dbimage=' + selected, (self.output / 'component/preinst').read_text())
 
     def test_create_upload_readback(self):
         portal = FakePortal()
@@ -99,7 +108,9 @@ class UcsRelease(unittest.TestCase):
         for value in ['v12.28', '12.28;touch file', '../bad', '12\n28']:
             with self.assertRaises(ValueError):
                 ucs.version(value)
-        for value in ['ghcr.io/ferretdb/ferretdb:2', 'ghcr.io/wekan/ferretdb:latest']:
+        for value in ['ghcr.io/ferretdb/ferretdb:2', 'ghcr.io/wekan/ferretdb:latest',
+                      'ghcr.io/wekan/ferretdb@sha256:' + 'a' * 64,
+                      'ghcr.io/wekan/ferretdb:v2.0.0']:
             with self.assertRaises(ValueError):
                 ucs.prepare(self.root / 'source', self.output, '12.28', value)
 

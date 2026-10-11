@@ -56,10 +56,14 @@ def prepare(repo, output, release, database_image=''):
     release = version(release)
     source = Path(repo) / 'component'
     compose = (source / 'compose').read_text()
+    image_pattern = r'ghcr\.io/wekan/ferretdb:v1\.[0-9]+\.[0-9]+'
     if not database_image:
-        database_image = re.search(r'^    image: (ghcr.io/wekan/ferretdb@sha256:[a-f0-9]{64})$', compose, re.M).group(1)
-    if not re.fullmatch(r'ghcr\.io/wekan/ferretdb@sha256:[a-f0-9]{64}', database_image):
-        raise ValueError('Pin the wekan/FerretDB v1 GHCR image by digest, not upstream FerretDB v2 or latest')
+        match = re.search(r'^    image: (' + image_pattern + r')$', compose, re.M)
+        if not match:
+            raise ValueError('Compose must select a version-tagged wekan/FerretDB v1 GHCR image')
+        database_image = match.group(1)
+    if not re.fullmatch(image_pattern, database_image):
+        raise ValueError('Select a wekan/FerretDB v1 GHCR version tag, for example ghcr.io/wekan/ferretdb:v1.92.0')
     app_image = f'ghcr.io/wekan/wekan:v{release}'
     helper_image = f'ghcr.io/wekan/wekan-ucs-migration:v{release}'
     destination = Path(output) / 'component'
