@@ -678,6 +678,20 @@ fallback, the checksum check and that nothing else downloads the tools.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/41bc82713e">Only the one-program mongo-tools is used, never the eight separate tools</a>. Thanks to xet7.</summary>
+
+wekan/mongo-tools-patches now publishes only `mongo-tools-<platform>`: nine
+binaries per platform had grown to 774 uploads a release, and GitHub's rate
+limit stopped them part way. The fallback to the eight separate tools is
+gone from `releases/fetch-mongo-tools.sh`, the local bundle build and the
+release preflight, so every bundle, image and snap has the one program or no
+tools, and the log says which. `tests/fetchMongoTools.test.cjs` serves a
+release with only the separate tools and checks none is installed or even
+requested, and fails on any script that builds such a download address.
+
+</details>
+
 and has the following developer-tooling fix:
 
 - [The board permission guard accepts the commented-out Sandstorm migration it now finds](https://github.com/wekan/wekan/commit/8a78749061).
