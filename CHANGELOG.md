@@ -526,13 +526,12 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** The **Windows 32-bit** bundle is built again, using the Node.js
-that **node-patches** already publishes. The **CPU platform** design document
-now matches what the node-patches and **FerretDB** releases build and what
-WeKan actually ships, and the platform pages are **reorganized** under
-`docs/Platforms`. **UCS upgrades** use migration tools bundled in the ordinary
-WeKan image and can obtain both images from Univention alone. A dropped
-**card** no longer flickers by showing in both lists at once.
+**In short:** A dropped **card** no longer flickers by showing in both lists at
+once, and the **Windows 32-bit** bundle is built again. **UCS upgrades** run
+their migration from the ordinary WeKan image and can get every image from the
+Univention registry alone. The platform docs are **reorganized** under
+`docs/Platforms`, and their CPU table matches what **node-patches** and
+**FerretDB** build.
 
 This release fixes the following bugs:
 
@@ -572,7 +571,7 @@ matcher on real sidecar lines, and checks that a line for another file such as
 
 </details>
 
-**UCS upgrades** - migration tools and registry availability.
+**UCS upgrades** - what the upgrade runs, and where it gets its images.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7f4a8fa6c1">Bundle migration tools and use the target UCS registry images</a>. Thanks to xet7.</summary>
@@ -581,8 +580,8 @@ The 12.31 upgrade stopped before migration when the separate helper image
 returned an authorization error. The ordinary WeKan Docker image now includes
 its migration runtime and Docker client. The temporary worker explicitly runs
 that command; normal WeKan startup and the two-service deployment stay intact.
-The full release publishes these tools with the app image on all three registries,
-and missing-release recovery retries its failed Docker job.
+The full release publishes these tools with the app image on all three
+registries, and missing-release recovery retries its failed Docker job.
 
 The generated preinst reads the target version's cached compose references and
 tries those exact images first. Both images can therefore come solely from the
@@ -613,8 +612,7 @@ The autoupdate design pages moved from `docs/Design/Autoupdate` to the
 platform they describe: the per-OS pages to
 `docs/Platforms/FOSS/OS/OS-future-alternatives`, the snap pages to
 `Container/Snap`, UCS and Nextcloud to `Container/Docker`, and `Platforms.md`
-to `docs/Platforms`. **UCS upgrades** use migration tools bundled in the ordinary
-WeKan image and can obtain both images from Univention alone. `docs/Platforms/FOSS/Cloud` was split between
+to `docs/Platforms`. `docs/Platforms/FOSS/Cloud` was split between
 `Container/Docker` and `FOSS/CloudFlare`, Friend and UCS moved under
 `Container/Docker`, and Leo moved to `Features/ImportExport/Leo`. All links to
 them were updated, in the docs, workflows, tests and on wekan.fi, and
