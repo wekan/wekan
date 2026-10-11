@@ -64,7 +64,10 @@ const Attachments = new FilesCollection({
     } else if (opts?.file?.name) {
       // Server
       if (opts.file.extension) {
-        filenameWithoutExtension = opts.file.name.replace(new RegExp(opts.file.extensionWithDot + "$"), "")
+        // A literal suffix, never a RegExp built from the uploaded name.
+        const name = opts.file.name;
+        const suffix = opts.file.extensionWithDot;
+        filenameWithoutExtension = name.endsWith(suffix) ? name.slice(0, -suffix.length) : name;
       } else {
         // file has no extension, so don't replace anything, otherwise the last character is removed (because extensionWithDot = '.')
         filenameWithoutExtension = opts.file.name;

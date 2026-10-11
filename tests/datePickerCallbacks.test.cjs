@@ -3,6 +3,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
+const escapeRegExp = text => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 const root = path.resolve(__dirname, '..');
 const cardDate = fs.readFileSync(
@@ -42,7 +43,7 @@ for (const method of [
 ]) {
   assert.match(
     cardDetails,
-    new RegExp(`await Meteor\\.callAsync\\('${method.replace('.', '\\.')}'`),
+    new RegExp(`await Meteor\\.callAsync\\('${escapeRegExp(method)}'`),
     `${method} callback must await the server method`,
   );
 }

@@ -3,6 +3,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
+const escapeRegExp = text => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const { spawnSync } = require('node:child_process');
 
 const root = path.resolve(__dirname, '..');
@@ -277,7 +278,7 @@ assert.deepEqual(tokens(malagasy['database-migration-confirm']), ['__db__']);
 for (const term of ['Sandstorm', 'WeKan', 'MongoDB 3', 'FerretDB v1',
   'SQLite', 'files/attachments', 'files/avatars']) {
   assert.match(malagasy['sandstorm-migration-description'],
-    new RegExp(term.replace('/', '\\/')));
+    new RegExp(escapeRegExp(term)));
 }
 assert.match(malagasy['cards-loading-description'],
   /WeKan.*CARDS_LOADING.*all\/lazy\/auto.*CARDS_LOADING_LAZY_THRESHOLD/s);

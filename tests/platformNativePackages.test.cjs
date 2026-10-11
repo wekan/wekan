@@ -24,6 +24,7 @@ const zlib = require('zlib');
 const {
   sharpPlatformSpec,
   canvasPlatformSpec,
+  registryPackagePath,
   untar,
   verifyIntegrity,
   foreignPackages,
@@ -369,6 +370,35 @@ await test('a bundle with no sharp, or an unknown target, is an error', async ()
     await assert.rejects(addPlatformNativePackages(dir, 'darwin', 'ia32', quiet), /unknown target/);
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+// CodeQL alert #564 (js/regex-injection): platform and arch come from the
+// command line and were compiled into a RegExp, so an arch of `.*` matched
+// any canvas package and `(a+)+$` was a pattern of the caller's choosing.
+// They are compared as strings now.
+await test('canvas: platform and arch are literal text, not regex (negative)', async () => {
+  for (const arch of ['.*', 'x6.', 'x64|arm64', '(a+)+$', '[a-z0-9]+']) {
+    assert.strictEqual(canvasPlatformSpec(CANVAS, 'linux', arch), null, `arch ${arch}`);
+  }
+  assert.strictEqual(canvasPlatformSpec(CANVAS, '.+', 'x64'), null);
+  const evil = { optionalDependencies: { ['@napi-rs/canvas-linux-' + 'a'.repeat(40) + '!']: '1.0.0' } };
+  const started = Date.now();
+  assert.strictEqual(canvasPlatformSpec(evil, 'linux', '(a+)+$'), null);
+  assert.ok(Date.now() - started < 1000, 'no backtracking pattern is ever run');
+  assert.ok(!/new RegExp\(/.test(fs.readFileSync(path.join(__dirname, '..', 'releases/platform-native-packages.mjs'), 'utf8')),
+    'platform-native-packages.mjs builds no RegExp from its arguments');
+});
+
+// CodeQL alert #563 (js/incomplete-sanitization): `name.replace('/', '%2F')`
+// replaced only the first `/`. Every one is replaced now, and something that
+// is not an npm package name is refused instead of becoming another URL.
+await test('the registry path encodes every / and refuses what is not a package name', async () => {
+  assert.strictEqual(registryPackagePath('@img/sharp-linux-arm64'), '@img%2Fsharp-linux-arm64');
+  assert.strictEqual(registryPackagePath('@napi-rs/canvas-win32-x64-msvc'), '@napi-rs%2Fcanvas-win32-x64-msvc');
+  assert.strictEqual(registryPackagePath('sharp'), 'sharp');
+  for (const bad of ['@img/sharp/../../x', 'a/b/c', '../sharp', '@img/', '/sharp', 'sharp?x=1', 'sharp#x', '', null]) {
+    assert.throws(() => registryPackagePath(bad), /not an npm package name/, String(bad));
   }
 });
 

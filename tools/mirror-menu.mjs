@@ -104,8 +104,8 @@ export async function sync(settings, { preview = false, run = streamCommand, dir
           counter.partial += chunk;
           const lines = counter.partial.split('\n'); counter.partial = lines.pop();
           for (const line of lines) {
-            if (new RegExp(`^\\[${target}\\] processed: issue `).test(line)) counter.issues++;
-            if (new RegExp(`^\\[${target}\\] processed: release `).test(line)) counter.releases++;
+            if (line.startsWith(`[${target}] processed: issue `)) counter.issues++;
+            if (line.startsWith(`[${target}] processed: release `)) counter.releases++;
           }
           dashboard();
         }});

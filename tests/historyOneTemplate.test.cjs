@@ -18,6 +18,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
+const escapeRegExp = text => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 const ROOT = path.join(__dirname, '..');
 const read = f => fs.readFileSync(path.join(ROOT, f), 'utf8');
@@ -524,7 +525,7 @@ test('every field inside an each-in loop is reached through its loop variable', 
 // there: an unimported .jade means the menu item opens nothing at all.
 test('the template, its code and its styles are all imported', () => {
   for (const part of ['historyTable.jade', 'historyTable.js', 'historyTable.css']) {
-    assert.match(feature, new RegExp(part.replace('.', '\\.')),
+    assert.match(feature, new RegExp(escapeRegExp(part)),
       `${part} must be imported or it is not in the bundle`);
   }
   assert.match(clientImports, /import '\/client\/features\/history';/,

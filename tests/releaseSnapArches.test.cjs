@@ -14,6 +14,7 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
+const escapeRegExp = text => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 const repoRoot = path.resolve(__dirname, '..');
 const read = rel => fs.readFileSync(path.join(repoRoot, rel), 'utf8');
@@ -421,7 +422,7 @@ test('snap assembly reuses prebuilt bundles instead of rebuilding npm dependenci
     const buildPackages = part.slice(part.indexOf('build-packages:'),
       part.indexOf('stage-packages:'));
     for (const unnecessary of ['build-essential', 'python3', 'g++', 'capnproto', 'nodejs', 'npm']) {
-      assert.doesNotMatch(buildPackages, new RegExp(`- ${unnecessary.replace('+', '\\+')}(?:\\s|$)`),
+      assert.doesNotMatch(buildPackages, new RegExp(`- ${escapeRegExp(unnecessary)}(?:\\s|$)`),
         `${file}: ${unnecessary} is unnecessary when Launchpad only unpacks the bundle`);
     }
   }

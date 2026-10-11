@@ -56,4 +56,58 @@ test('the established full metacharacter escape remains allowed', () => {
   assert.deepStrictEqual(incompleteInlineEscapes(good), []);
 });
 
+// GitHub CodeQL alerts #563 (js/incomplete-sanitization) and the test-file
+// copies of it: `.replace('/', '%2F')` or `.replace('.', '\\.')` with a STRING
+// pattern replaces only the first occurrence, so `@a/b/c` kept its second `/`
+// and `'g++'.replace('+', '\\+')` left a live `+` that let `- g+` pass a guard.
+// An escape is a regex with the g flag, the complete escapeRegExp, or no
+// escaping at all (literal comparison). Minified vendor copies are not ours.
+const FIRST_ONLY_ESCAPE = /\.replace\(\s*(['"])((?:\\.|(?!\1)[^\\]){1,4})\1\s*,\s*(['"`])(?:\\\\|%[0-9A-Fa-f]{2}|&#?\w+;)/;
+
+// Files that quote the shape on purpose, as a sample for their own guard.
+const FIRST_ONLY_SAMPLES = new Set([
+  'tests/noIdentityReplacement.test.cjs', // CodeQL's own example, as a string
+]);
+
+function firstOnlyEscapes(source) {
+  return source.split('\n').flatMap((line, index) => {
+    if (/^\s*(?:\/\/|\*)/.test(line)) return [];
+    return FIRST_ONLY_ESCAPE.test(line) ? [index + 1] : [];
+  });
+}
+
+test('no string-pattern replace performs an escape (it would escape only the first one)', () => {
+  const offenders = [];
+  for (const file of sourceFiles()) {
+    if (file === __filename || /\.min\.js$/.test(file)) continue;
+    if (FIRST_ONLY_SAMPLES.has(path.relative(ROOT, file).split(path.sep).join('/'))) continue;
+    if (!fs.existsSync(file)) continue;
+    for (const line of firstOnlyEscapes(fs.readFileSync(file, 'utf8'))) {
+      offenders.push(`${path.relative(ROOT, file)}:${line}`);
+    }
+  }
+  assert.deepStrictEqual(offenders, [],
+    `use a /g regex, the complete escapeRegExp, or literal matching:\n${offenders.join('\n')}`);
+});
+
+test('negative: the guard catches each first-only escape it was written for', () => {
+  for (const bad of [
+    "fetch(`${REGISTRY}/${name.replace('/', '%2F')}/${version}`);",
+    "new RegExp(`${file.replace('.', '\\\\.')}`);",
+    "new RegExp(term.replace('/', '\\\\/'));",
+    'new RegExp(`- ${pkg.replace("+", "\\\\+")}`);',
+    "html.replace('<', '&lt;');",
+  ]) {
+    assert.deepStrictEqual(firstOnlyEscapes(bad), [1], bad);
+  }
+  for (const good of [
+    "name.replace(/\\//g, '%2F');",
+    "parseFloat(v.replace(',', '.'));",
+    "iso.replace('T', ' ');",
+    "text.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&');",
+  ]) {
+    assert.deepStrictEqual(firstOnlyEscapes(good), [], good);
+  }
+});
+
 console.log(`\nnoIncompleteRegExpEscaping: ${passed} tests passed`);

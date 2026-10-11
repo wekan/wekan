@@ -19,6 +19,7 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
+const escapeRegExp = text => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 const repoRoot = path.resolve(__dirname, '..');
 const workflow = fs.readFileSync(
@@ -50,7 +51,7 @@ for (const b of NATIVE) {
   test(`${b.job} exists and embeds the fork's ${b.fork_asset}`, () => {
     const body = job(b.job);
     const re = new RegExp(
-      `embed-verified-node\\.sh\\s+\\S*node\\S*\\s+${b.fork_asset.replace('.', '\\.')}\\s`);
+      `embed-verified-node\\.sh\\s+\\S*node\\S*\\s+${escapeRegExp(b.fork_asset)}\\s`);
     assert.ok(re.test(body),
       `${b.job} must embed the fork's ${b.fork_asset} via embed-verified-node.sh`);
   });
