@@ -1,0 +1,24 @@
+# documentation: https://github.com/wekan/wekan/tree/main/docs
+# slogan: Open-source kanban board with swimlanes, checklists, attachments and a REST API.
+# category: productivity
+# tags: kanban,project-management,productivity,tasks,boards
+# logo: svgs/wekan.svg
+# port: 8080
+
+services:
+  wekan:
+    image: ghcr.io/wekan/wekan:v12.29
+    environment:
+      - SERVICE_URL_WEKAN_8080
+      - ROOT_URL=${SERVICE_URL_WEKAN}
+      - WEKAN_DB=ferretdb
+      - WRITABLE_PATH=/data
+      - PORT=8080
+    volumes:
+      - wekan-data:/data
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch(\"http://127.0.0.1:8080/\").then(r => process.exit(r.status < 500 ? 0 : 1), () => process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 120s

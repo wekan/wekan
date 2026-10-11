@@ -1,3 +1,58 @@
+# Possible additional platforms
+
+Open source platforms that WeKan is NOT on yet, and could be added to. WeKan's absence
+was checked on 2026-10-11 in each catalog's own repository (its full file tree, or its
+search API where it has one), not from memory - except for Alpine, the openSUSE Build
+Service and Fedora COPR, which were not checked.
+
+**Already there**, besides WeKan's own Docker image, snap, Sandstorm, UCS, Flatpak,
+AppImage, Helm chart and zip bundles: YunoHost (state "working", level 8), CapRover
+(one-click app), Runtipi, Kubero, Artifact Hub (the Helm chart).
+
+**Not there, and possible:**
+
+| Platform | Licence | How WeKan gets in | Effort |
+| --- | --- | --- | --- |
+| [ZimaOS / CasaOS](../../Platforms/FOSS/Container/Docker/CasaOS/README.md) | Apache-2.0 | `Apps/WeKan/docker-compose.yml` in IceWhaleTech/CasaOS-AppStore | small |
+| [TrueNAS](../../Platforms/FOSS/Container/Docker/TrueNAS/README.md) (community apps) | LGPL-3.0 | `ix-dev/community/wekan/` in truenas/apps; Planka and Vikunja are there | small–medium |
+| [Coolify](../../Platforms/FOSS/Container/Docker/Coolify/README.md) | Apache-2.0 | `templates/compose/wekan.yaml`, plus a coolify-docs page | small |
+| [Dokploy](../../Platforms/FOSS/Container/Docker/Dokploy/README.md) | Apache-2.0 | `blueprints/wekan/` in Dokploy/templates | small |
+| [Arch Linux AUR](../../Platforms/FOSS/Package/AUR/README.md) | (AUR packaging: 0BSD) | `wekan-bin` PKGBUILD over the release zip, with a systemd unit | small |
+| Proxmox VE Helper-Scripts | MIT | `ct/wekan.sh` in community-scripts/ProxmoxVE: an LXC that runs the zip bundle, no Docker | medium |
+| StartOS (Start9) | MIT | its own `wekan-startos` wrapper repository (s9pk) | medium |
+| NixOS / nixpkgs | MIT | a package of the release bundle (marked as prebuilt binaries) and a NixOS service module; FerretDB is already in nixpkgs | medium |
+| openSUSE Build Service | GPL | one project that builds .deb and .rpm and their repositories for Debian, Ubuntu, Fedora and openSUSE | medium |
+| Fedora COPR | GPL | an rpm of the zip bundle | medium |
+| FreeBSD ports | BSD | needs FreeBSD's own Node.js and rebuilt native modules: the bundle's are Linux binaries | large |
+| Alpine | open source (not checked) | musl: the bundle's glibc Node.js does not run, so native modules need rebuilding | medium–large |
+
+**Hard, but possible:** Debian's own archive, and with it FreedomBox (every npm
+dependency must be its own Debian package - OBS or an own APT repository is the
+practical route); GNU Guix (everything built from source, no prebuilt binaries);
+Flathub (WeKan has its own Flatpak repository; Flathub is for desktop apps and prefers
+building from source).
+
+**Not open source**, although often listed with the above: Umbrel (PolyForm
+Noncommercial), Cosmos Cloud (Apache-2.0 with Commons Clause), Unraid and Synology
+(proprietary). Check Olares's licence before adding WeKan there.
+
+## Status of each platform
+
+The five with the best cost-benefit have their files and a README with the exact pull
+request under `docs/Platforms/`, tested as far as is possible without the platform
+itself; their tests use `.tools/`, which is not in git. What is left, per platform:
+
+| Platform | Done | Still missing |
+| --- | --- | --- |
+| ZimaOS / CasaOS | `docker-compose.yml` with the `x-casaos` metadata. The store's validator (0 issues) and full store builder (1/1 built, amd64 + arm64 pinned against the live registry) pass | `docker compose config -q` (needs Docker); `thumbnail.png` and screenshots; installing it on a real ZimaOS/CasaOS; the PR. Later: run as the image's own user instead of root, once the image supports any user ID |
+| TrueNAS | The app folder: `app.yaml`, `ix_values.yaml` (digest-pinned), `questions.yaml`, the template, test values. Renders with the catalog's library 2.3.15 | The app-request issue; the catalog's Docker-based tools (`copy-lib`, `app-test`, `metadata`, `ports`, `validate`) and committing what they generate; checking the port is still free; a Renovate `customVersioning` entry for WeKan's `vMAJOR.MINOR` tags; icon and screenshot for the maintainers to upload; an install on TrueNAS; the PR, whose template asks whether AI generated any of it |
+| Coolify | `templates/compose/wekan.yaml`. Meets the rules Coolify's docs and PR checks state | A Discussion in service-template-requests; a test in a local Coolify (*Docker Compose Empty*); the required coolify-docs PR (`content/docs/services/wekan.mdx`, logo); the PR, whose template asks whether AI tools were used |
+| Dokploy | `blueprints/wekan/` (compose, template.toml, meta.json). Dokploy's three validators pass | The logo file in the folder; a deploy in a Dokploy instance (untested PRs are closed); a screenshot; the PR |
+| Arch Linux AUR | `wekan-bin`: PKGBUILD, unit, sysusers, tmpfiles, settings file. Built with Arch's `makepkg` (every checksum passed), and the packaged WeKan answered HTTP 200 | `namcap`, `pacman -U` and the unit under systemd on a real Arch (an `archlinux:base-devel` container); an AUR account; publishing; deciding how releases bump it (by hand, nvchecker, or CI) |
+| All Docker-based ones | | Each pins `ghcr.io/wekan/wekan:v12.29`, the newest image on the registry when written (GitHub release v12.30 existed before its image). Bump all of them together; `tests/platformTemplates.test.cjs` fails when they disagree |
+
+The rest of the table above has no files yet.
+
 # Design: which CPU platforms a release is built for
 
 A WeKan release ships three kinds of artifact, and they are built in this order

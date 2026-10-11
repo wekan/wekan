@@ -1,0 +1,35 @@
+[Unit]
+Description=WeKan kanban board
+Documentation=https://github.com/wekan/wekan/tree/main/docs
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=wekan
+Group=wekan
+EnvironmentFile=/etc/wekan/wekan.env
+# FerretDB writes its state.json to the working directory.
+WorkingDirectory=/var/lib/wekan
+ExecStart=/usr/share/wekan/start-wekan.sh
+# start-wekan.sh restarts WeKan itself, and exits 0 when it is stopped, so
+# on-failure would never fire.
+Restart=always
+RestartSec=5
+# start-wekan.sh raises the stack limit with `ulimit -s 65500` (KiB).
+LimitSTACK=67108864
+LimitNOFILE=65536
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/wekan
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX AF_NETLINK
+SystemCallArchitectures=native
+LockPersonality=true
+
+[Install]
+WantedBy=multi-user.target

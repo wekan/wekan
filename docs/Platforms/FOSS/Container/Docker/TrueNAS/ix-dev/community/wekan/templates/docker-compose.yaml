@@ -1,0 +1,36 @@
+{% set tpl = ix_lib.base.render.Render(values) %}
+
+{% set c1 = tpl.add_container(values.consts.wekan_container_name, "image") %}
+{% set perm_container = tpl.deps.perms(values.consts.perms_container_name) %}
+{% set perms_config = {"uid": values.run_as.user, "gid": values.run_as.group, "mode": "check"} %}
+
+{% do c1.set_user(values.run_as.user, values.run_as.group) %}
+{% do c1.healthcheck.set_custom_test(["CMD", "node", "-e", "fetch('http://127.0.0.1:%d/').then(r => process.exit(r.status < 500 ? 0 : 1), () => process.exit(1))" % values.network.web_port.port_number]) %}
+{% do c1.environment.add_env("ROOT_URL", values.wekan.root_url.rstrip("/")) %}
+{% do c1.environment.add_env("PORT", values.network.web_port.port_number) %}
+{# One container: WeKan with its bundled FerretDB v1 on SQLite. #}
+{% do c1.environment.add_env("WEKAN_DB", "ferretdb") %}
+{% do c1.environment.add_env("WRITABLE_PATH", "/data") %}
+{# FerretDB keeps state.json in its working directory, /build, which only the
+   image's own user can write; run_as may be any user, so keep it in /data. #}
+{% do c1.environment.add_env("FERRETDB_STATE_DIR", "/data/ferretdb") %}
+{% do c1.environment.add_user_envs(values.wekan.additional_envs) %}
+
+{% do c1.add_port(values.network.web_port) %}
+
+{% do c1.add_storage("/data", values.storage.data) %}
+{% do perm_container.add_or_skip_action("data", values.storage.data, perms_config) %}
+
+{% for store in values.storage.additional_storage %}
+  {% do c1.add_storage(store.mount_path, store) %}
+  {% do perm_container.add_or_skip_action(store.mount_path, store, perms_config) %}
+{% endfor %}
+
+{% if perm_container.has_actions() %}
+  {% do perm_container.activate() %}
+  {% do c1.depends.add_dependency(values.consts.perms_container_name, "service_completed_successfully") %}
+{% endif %}
+
+{% do tpl.portals.add(values.network.web_port) %}
+
+{{ tpl.render() | tojson }}

@@ -1,0 +1,66 @@
+name: wekan
+services:
+  wekan:
+    image: ghcr.io/wekan/wekan:v12.29
+    # The bind mount below is created by Docker owned by root, and the image's
+    # own user (wekan) could not write to it, so the container runs as root.
+    user: "0:0"
+    deploy:
+      resources:
+        reservations:
+          memory: "512M"
+    network_mode: bridge
+    environment:
+      ROOT_URL: http://localhost:10880
+      WEKAN_DB: ferretdb
+      WRITABLE_PATH: /data
+      PORT: "8080"
+      TZ: $TZ
+    ports:
+      - target: 8080
+        published: "10880"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/data
+        target: /data
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch(\"http://127.0.0.1:8080/\").then(r => process.exit(r.status < 500 ? 0 : 1), () => process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 120s
+    container_name: wekan
+x-casaos:
+  id: fi.wekan.wekan
+  architectures:
+    - amd64
+    - arm64
+  main: wekan
+  author: WeKan Team
+  developer: WeKan Team
+  category: Productivity
+  description:
+    en_US: WeKan is an open-source kanban board with swimlanes, lists, cards, checklists, attachments, due dates, rules, a calendar, Gantt and a REST API. It runs with its database built in, so this single container is all it needs.
+  tagline:
+    en_US: Open-source kanban board
+  tips:
+    before_install:
+      en_US: |
+        After installing, open the app's settings and set **ROOT_URL** to the
+        address you open WeKan at, for example `http://192.168.1.10:10880`.
+        WeKan builds its links from it, and its live updates connect to it.
+        The first account you register becomes the administrator.
+  title:
+    en_US: WeKan
+  icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/WeKan/icon.svg
+  index: /
+  port_map: "10880"
+  scheme: http
+  version: "12.29"
+  update_at: "2026-10-11"
+  website: "https://wekan.fi"
+  repo: "https://github.com/wekan/wekan"
+  support: "https://github.com/wekan/wekan/issues"
+  docs: "https://github.com/wekan/wekan/tree/main/docs"

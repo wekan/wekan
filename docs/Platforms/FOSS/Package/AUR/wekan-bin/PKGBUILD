@@ -1,0 +1,46 @@
+# Maintainer: Lauri Ojansivu <x at xet7 dot org>
+
+pkgname=wekan-bin
+pkgver=12.30
+pkgrel=1
+pkgdesc="Open-source kanban board, with its database (FerretDB v1 on SQLite) built in"
+arch=('x86_64' 'aarch64')
+url="https://wekan.fi"
+# WeKan is MIT; the bundle also carries FerretDB and the MongoDB Database Tools (Apache-2.0).
+license=('MIT' 'Apache-2.0')
+depends=('glibc' 'gcc-libs' 'bash')
+provides=("wekan=$pkgver")
+conflicts=('wekan')
+backup=('etc/wekan/wekan.env')
+# Prebuilt, checksummed upstream binaries (Node.js, FerretDB): keep them byte for byte.
+options=('!strip' '!debug')
+source=("LICENSE-$pkgver::https://raw.githubusercontent.com/wekan/wekan/v$pkgver/LICENSE"
+        'wekan.service'
+        'wekan.sysusers'
+        'wekan.tmpfiles'
+        'wekan.env')
+source_x86_64=("https://github.com/wekan/wekan/releases/download/v$pkgver/wekan-$pkgver-amd64.zip")
+source_aarch64=("https://github.com/wekan/wekan/releases/download/v$pkgver/wekan-$pkgver-arm64.zip")
+sha256sums=('9781f6fc345638955b2eab73bc3c8670d741555327b7ad04a768e2877430bd29'
+            '8b43f67ece8de06ae503fec9a126233bea4e2cf11c8532b863dfa20cdb70b520'
+            '9b49ae30b107416805cda8253471c5dc436e16ebe09b1a051afab6979d6d46b9'
+            '7806ced19fa9e40827c5d4cbdfc515e72876266b6ad761a5d1e1ba2458ad1e71'
+            '87541ebff4cd4ac923e3277aae2e988112acae47ff7178417616b5fc673b20c7')
+sha256sums_x86_64=('345671a0a3fbbf09d050d3147f025104fa171225c9b56dca35e64ce75976a20f')
+sha256sums_aarch64=('13976872df6d1393dbe1c7c325f5639de78309fc3c811b1c05d6ab7abab0ce28')
+
+package() {
+  # The bundle is self-contained: bundle/node, bundle/ferretdb, bundle/main.js
+  # and the launcher bundle/start-wekan.sh, which starts FerretDB on SQLite and
+  # then WeKan. It is read-only to the wekan user; its data goes to
+  # WRITABLE_PATH (/var/lib/wekan, set in /etc/wekan/wekan.env).
+  install -dm755 "$pkgdir/usr/share/wekan"
+  cp -a --no-preserve=ownership "$srcdir/bundle/." "$pkgdir/usr/share/wekan/"
+
+  install -Dm644 wekan.service "$pkgdir/usr/lib/systemd/system/wekan.service"
+  install -Dm644 wekan.sysusers "$pkgdir/usr/lib/sysusers.d/wekan.conf"
+  install -Dm644 wekan.tmpfiles "$pkgdir/usr/lib/tmpfiles.d/wekan.conf"
+  # Group-readable by wekan only, through tmpfiles (the user does not exist yet here).
+  install -Dm640 wekan.env "$pkgdir/etc/wekan/wekan.env"
+  install -Dm644 "LICENSE-$pkgver" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

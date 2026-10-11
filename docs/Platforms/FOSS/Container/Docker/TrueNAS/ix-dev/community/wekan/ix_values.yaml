@@ -1,0 +1,11 @@
+images:
+  image:
+    repository: ghcr.io/wekan/wekan
+    tag: "v12.29@sha256:96658d62dbe78ab7501ab834fe8fa4b0b85b8dce694d0fb67e1000a524e8c8e9"
+  container_utils_image:
+    repository: ixsystems/container-utils
+    tag: "1.0.2@sha256:46eba20714c1cc6784f60e245c32c33a2d9f616e47d804694a9854248c89a992"
+
+consts:
+  wekan_container_name: wekan
+  perms_container_name: permissions

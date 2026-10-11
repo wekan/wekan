@@ -1,0 +1,2 @@
+d /var/lib/wekan 0750 wekan wekan -
+z /etc/wekan/wekan.env 0640 root wekan -

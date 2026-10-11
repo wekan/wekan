@@ -1,0 +1,22 @@
+services:
+  wekan:
+    image: ghcr.io/wekan/wekan:v12.29
+    restart: unless-stopped
+    environment:
+      ROOT_URL: ${ROOT_URL}
+      WEKAN_DB: ferretdb
+      WRITABLE_PATH: /data
+      PORT: "8080"
+    expose:
+      - 8080
+    volumes:
+      - wekan-data:/data
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch(\"http://127.0.0.1:8080/\").then(r => process.exit(r.status < 500 ? 0 : 1), () => process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 120s
+
+volumes:
+  wekan-data: {}

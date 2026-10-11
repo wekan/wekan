@@ -1,0 +1,30 @@
+resources:
+  limits:
+    cpus: 2.0
+    memory: 4096
+
+TZ: Etc/UTC
+
+wekan:
+  root_url: http://localhost:8080
+  additional_envs: []
+
+network:
+  web_port:
+    bind_mode: published
+    port_number: 8080
+
+run_as:
+  user: 568
+  group: 568
+
+ix_volumes:
+  data: /opt/tests/mnt/wekan/data
+
+storage:
+  data:
+    type: ix_volume
+    ix_volume_config:
+      dataset_name: data
+      create_host_path: true
+  additional_storage: []

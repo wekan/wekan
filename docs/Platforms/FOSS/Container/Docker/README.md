@@ -1,6 +1,13 @@
 Which CPU platforms the image is published for, and why some bundle platforms are
 not images: [CPU-platforms.md](CPU-platforms.md).
 
+## WeKan in self-hosting app stores
+
+Ready files, and the pull request each store expects, for stores that do not have
+WeKan yet: [ZimaOS / CasaOS](CasaOS/README.md), [TrueNAS](TrueNAS/README.md),
+[Coolify](Coolify/README.md) and [Dokploy](Dokploy/README.md). The status of each, and
+other possible platforms: [Possible additional platforms](../../../../Design/Autoupdate/Platforms.md#possible-additional-platforms).
+
 ## WeKan Docker compose files (which database?)
 
 Since the default database changed, the compose files in https://github.com/wekan/wekan are:

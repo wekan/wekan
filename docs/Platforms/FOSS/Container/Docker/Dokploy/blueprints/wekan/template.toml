@@ -1,0 +1,11 @@
+[variables]
+main_domain = "${domain}"
+
+[config]
+[[config.domains]]
+serviceName = "wekan"
+port = 8080
+host = "${main_domain}"
+
+[config.env]
+ROOT_URL = "http://${main_domain}"

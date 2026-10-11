@@ -1,0 +1,13 @@
+{
+  "id": "wekan",
+  "name": "WeKan",
+  "version": "12.29",
+  "description": "WeKan is an open-source kanban board: boards, swimlanes, lists, cards, checklists, attachments and a REST API, with its database built in.",
+  "logo": "wekan.svg",
+  "links": {
+    "github": "https://github.com/wekan/wekan",
+    "website": "https://wekan.fi",
+    "docs": "https://github.com/wekan/wekan/tree/main/docs"
+  },
+  "tags": ["kanban", "project-management", "productivity", "self-hosted"]
+}

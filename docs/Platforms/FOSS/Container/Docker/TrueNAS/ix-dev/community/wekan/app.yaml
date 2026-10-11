@@ -1,0 +1,35 @@
+app_version: v12.29
+capabilities: []
+categories:
+- productivity
+changelog_url: https://github.com/wekan/wekan/blob/main/CHANGELOG.md
+date_added: '2026-10-11'
+description: WeKan is an open-source kanban board with its database built in.
+home: https://wekan.fi
+host_mounts: []
+icon: https://media.sys.truenas.net/apps/wekan/icons/icon.svg
+keywords:
+- kanban
+- project
+- task
+lib_version: 2.3.15
+lib_version_hash: 418b1697e018a564438ced4d735f4ced3ea16cc9fa74971a6040e769c80a66e5
+maintainers:
+- email: dev@truenas.com
+  name: truenas
+  url: https://www.truenas.com/
+name: wekan
+run_as_context:
+- description: Container [wekan] can run as any non-root user and group.
+  gid: 568
+  group_name: Host group is [apps]
+  uid: 568
+  user_name: Host user is [apps]
+screenshots: []
+sources:
+- https://apps.truenas.com/catalog/wekan_community/
+- https://github.com/wekan/wekan
+- https://github.com/wekan/wekan/pkgs/container/wekan
+title: WeKan
+train: community
+version: 1.0.0
