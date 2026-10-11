@@ -528,13 +528,11 @@ used.
 
 **In short:** Current Afrikaans, Albanian, Arabic, Belarusian, Bosnian,
 Bulgarian, Chinese (Simplified), Chinese (Traditional), Croatian, Estonian,
-Gujarati, Hebrew, Hindi, Icelandic, Latvian,
-Macedonian, Persian, Serbian, Slovenian and Vietnamese strings are translated.
-Mixed-language Arabic and Macedonian values and Basque
-card wording are corrected, with validation of imports, notifications and
-recovery
-choices. **Sandstorm** grains boot again, on the same Node.js, npm and FerretDB
-as every other platform.
+Gujarati, Hebrew, Hindi, Icelandic, Latvian, Macedonian, Persian, Serbian,
+Slovenian and Vietnamese strings are translated. Mixed-language Arabic and
+Macedonian values and Basque card wording are corrected, with validation of
+imports, notifications and recovery choices. **Sandstorm** grains boot again, on
+the same Node.js, npm and FerretDB as every other platform.
 
 This release fixes the following bugs:
 
@@ -578,7 +576,9 @@ itself or a Sandstorm source still says Node 24.
 
 </details>
 
-and has the following developer-tooling fix:
+and has the following developer-tooling fixes:
+
+**Installing Meteor** - how build.sh, build.bat and the release scripts get it.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0dbf9d8502">Setup installs Meteor with npx meteor, as Meteor's documentation says</a>. Thanks to xet7.</summary>
@@ -601,6 +601,27 @@ package an earlier setup left behind. Checked with npm 12.2.0: `npx -y meteor`
 installed Meteor 3.5.2 and put it on PATH. `tests/npmMeteorInstall.test.cjs`
 fails when a script installs Meteor any other way, with sudo, or with a flag
 npm 12 rejects.
+
+</details>
+
+**Tests and docs** - the node suites pass again, with the guards following the
+code where it changed on purpose.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d6bee1bdaf">The six failing node suites pass again</a>. Thanks to xet7.</summary>
+
+Three were wrong data: `docs/Features/Admin-Panel/Validation.md` linked
+`models/eventlog.js`, which on a case-sensitive filesystem is not
+`models/eventLog.js`; the README still counted 164 catalogs over 90% translated
+where there are 166; and CHANGELOG.md had 66 prose lines over 80 columns, now
+wrapped by `releases/changelog-wrap.mjs` (whitespace only). Three were guards
+behind deliberate changes, now updated with the reason written beside them:
+`docs/Databases/Supported.md` belongs at the top of `docs/Databases` because it
+covers every database, build.sh's macOS branch has written
+`export PATH="$HOME/.meteor:$PATH"` since the `npx meteor` change, and
+`tests/portableMimeDetection.test.cjs` checks that the wasmagic pin is exact and
+matches the lockfile instead of repeating a version Dependabot had already
+bumped. All 1,784 node suites pass.
 
 </details>
 
