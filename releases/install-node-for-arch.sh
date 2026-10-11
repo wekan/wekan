@@ -185,6 +185,12 @@ node "$(dirname "$0")/bump-bundle-npm-deps.mjs" /bundle
 node "$(dirname "$0")/bundle-trim.mjs" /bundle --transport sockjs --drop-legacy-client
 # And the npm tree rspack cannot tree-shake: only what it can prove is unreachable.
 node "$(dirname "$0")/prune-unreachable-npm.mjs" /bundle
+# sharp (attachment thumbnails): the amd64 bundle this one came from has only
+# @img/sharp-linux-x64, which cannot load here. Add this CPU's package, or keep
+# the WebAssembly fallback where sharp publishes none (i386, loong64), and check
+# every native addon's header. `process.arch` of THIS node is the name sharp
+# itself looks up: arm for armv6/armv7/armhf, ppc64 for ppc64le, ia32 for i386.
+node "$(dirname "$0")/platform-native-packages.mjs" /bundle linux "$(node -p process.arch)"
 
 # Bundle the target-arch Node.js for the self-contained launcher. /bundle is the
 # host's bundle/ directory, mounted by the workflow.

@@ -105,7 +105,7 @@ test('each Windows bundle job adds its own sharp and checks its addons', () => {
     const job = windowsJobs.find((j) => j.name === name);
     assert.ok(job, `${name} exists and runs on Windows`);
     const at = (s) => job.body.indexOf(s);
-    const add = at(`releases/windows-native-packages.mjs" bundle ${arch}`);
+    const add = at(`releases/platform-native-packages.mjs" bundle win32 ${arch}`);
     const check = at(`releases/check-addon-arch.mjs" bundle ${arch} bcrypt argon2 @img/sharp-win32-${arch}`);
     assert.ok(add !== -1, `${name} adds @img/sharp-win32-${arch}`);
     assert.ok(check > add, `${name} checks bcrypt, argon2 and sharp for ${arch}, after adding sharp`);
@@ -144,7 +144,14 @@ function pe(machine) {
   b.writeUInt16LE(machine, 0x84);
   return b;
 }
-const ELF = Buffer.concat([Buffer.from([0x7f, 0x45, 0x4c, 0x46]), Buffer.alloc(60)]);
+// A little-endian x86-64 ELF header: e_machine 62 at offset 18.
+const ELF = (() => {
+  const b = Buffer.alloc(64);
+  b.write('\x7fELF', 0, 'latin1');
+  b[4] = 2; b[5] = 1;
+  b.writeUInt16LE(62, 18);
+  return b;
+})();
 
 function bundle(files) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'addon-arch-'));
@@ -169,7 +176,7 @@ test('the PE machine field is read, and ELF is told apart', () => {
   withBundle({ 'a.node': pe(PE_MACHINE.ia32), 'b.node': pe(PE_MACHINE.x64), 'c.node': ELF }, (d) => {
     assert.deepStrictEqual(readBinaryKind(path.join(d, 'a.node')), { format: 'PE', machine: 0x014c });
     assert.deepStrictEqual(readBinaryKind(path.join(d, 'b.node')), { format: 'PE', machine: 0x8664 });
-    assert.deepStrictEqual(readBinaryKind(path.join(d, 'c.node')), { format: 'ELF' });
+    assert.deepStrictEqual(readBinaryKind(path.join(d, 'c.node')), { format: 'ELF', machine: 62 });
   });
 });
 
@@ -212,7 +219,7 @@ test('a build for the wrong CPU, or a Linux one, is refused', () => {
     assert.ok(checkAddonArch(d, 'ia32', ['argon2']).errors.some((e) => /is ELF/.test(e)));
   });
   withBundle({ [`${AP}/bcrypt/prebuilds/win32-ia32/bcrypt.node`]: pe(PE_MACHINE.x64) }, (d) => {
-    assert.ok(checkAddonArch(d, 'ia32', []).errors.some((e) => /in the ia32 prebuilds/.test(e)));
+    assert.ok(checkAddonArch(d, 'ia32', []).errors.some((e) => /in the ia32 Windows prebuilds/.test(e)));
   });
 });
 

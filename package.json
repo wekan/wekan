@@ -133,5 +133,8 @@
         "qs": "6.16.0"
       }
     }
+  },
+  "optionalDependencies": {
+    "@img/sharp-wasm32": "^0.35.5"
   }
 }

@@ -669,6 +669,11 @@ jobs:
           # nothing requires, and refuses any policy entry the graph says IS reached.
           node "$GITHUB_WORKSPACE/releases/prune-unreachable-npm.mjs" \
             "$GITHUB_WORKSPACE/.build/bundle"
+          # sharp (attachment thumbnails) for this platform, and every native
+          # addon's header checked against it. Every other bundle starts from
+          # this one and runs the same script for its own platform and CPU.
+          node "$GITHUB_WORKSPACE/releases/platform-native-packages.mjs" \
+            "$GITHUB_WORKSPACE/.build/bundle" linux x64
 
       - name: Does the bundle actually start?
         # THE CHECK THAT WAS MISSING. v10.96 shipped a bundle whose boot.js died
@@ -964,7 +969,7 @@ jobs:
             -v "$(pwd)/Dockerfile:/Dockerfile:ro" \
             -w /bundle/programs/server \
             node:${NODE_VERSION}-slim \
-            sh -c "bash /releases/apt-install.sh libatomic1 build-essential python3 && bash /releases/use-release-npm.sh && bash /releases/npm-retry.sh npm install && node /releases/prune-build-only-modules.mjs /bundle && node /releases/bump-bundle-npm-deps.mjs /bundle && node /releases/bundle-trim.mjs /bundle --transport sockjs --drop-legacy-client --trim-prebuilds --platform linux --arch arm64 && node /releases/prune-unreachable-npm.mjs /bundle"
+            sh -c "bash /releases/apt-install.sh libatomic1 build-essential python3 && bash /releases/use-release-npm.sh && bash /releases/npm-retry.sh npm install && node /releases/prune-build-only-modules.mjs /bundle && node /releases/bump-bundle-npm-deps.mjs /bundle && node /releases/bundle-trim.mjs /bundle --transport sockjs --drop-legacy-client --trim-prebuilds --platform linux --arch arm64 && node /releases/prune-unreachable-npm.mjs /bundle && node /releases/platform-native-packages.mjs /bundle linux arm64"
 
       - name: Check the binaries the arm64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -1458,7 +1463,7 @@ jobs:
         run: |
           SRC="$PWD/src"
           set -euo pipefail
-          node "$SRC/releases/windows-native-packages.mjs" bundle x64
+          node "$SRC/releases/platform-native-packages.mjs" bundle win32 x64
           node "$SRC/releases/check-addon-arch.mjs" bundle x64 bcrypt argon2 @img/sharp-win32-x64
 
       - name: Check the binaries the win64 bundle needs exist
@@ -1885,7 +1890,7 @@ jobs:
         run: |
           SRC="$PWD/src"
           set -euo pipefail
-          node "$SRC/releases/windows-native-packages.mjs" bundle arm64
+          node "$SRC/releases/platform-native-packages.mjs" bundle win32 arm64
           node "$SRC/releases/check-addon-arch.mjs" bundle arm64 bcrypt argon2 @img/sharp-win32-arm64
 
       - name: Check the binaries the win-arm64 bundle needs exist
@@ -2326,7 +2331,7 @@ jobs:
         run: |
           SRC="$PWD/src"
           set -euo pipefail
-          node "$SRC/releases/windows-native-packages.mjs" bundle ia32
+          node "$SRC/releases/platform-native-packages.mjs" bundle win32 ia32
           node "$SRC/releases/check-addon-arch.mjs" bundle ia32 bcrypt argon2 @img/sharp-win32-ia32
 
       - name: Check the binaries the win32 bundle needs exist
@@ -2604,6 +2609,9 @@ jobs:
           # packages load it through Npm.require(). This removes only what it can prove
           # nothing requires, and refuses any policy entry the graph says IS reached.
           node "$GITHUB_WORKSPACE/releases/prune-unreachable-npm.mjs" ../..
+          # sharp (attachment thumbnails): the amd64 bundle has only its Linux
+          # package. Add the macOS arm64 one and check every native addon.
+          node "$GITHUB_WORKSPACE/releases/platform-native-packages.mjs" ../.. darwin arm64
           cd ../../..
 
       - name: Check the binaries the mac-arm64 bundle needs exist
@@ -2889,6 +2897,9 @@ jobs:
           # packages load it through Npm.require(). This removes only what it can prove
           # nothing requires, and refuses any policy entry the graph says IS reached.
           node "$GITHUB_WORKSPACE/releases/prune-unreachable-npm.mjs" ../..
+          # sharp (attachment thumbnails): the amd64 bundle has only its Linux
+          # package. Add the macOS x64 one and check every native addon.
+          node "$GITHUB_WORKSPACE/releases/platform-native-packages.mjs" ../.. darwin x64
           cd ../../..
 
       - name: Check the binaries the mac-x64 bundle needs exist

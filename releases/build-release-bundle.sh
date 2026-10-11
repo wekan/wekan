@@ -162,6 +162,11 @@ node "$ROOT/releases/bundle-trim.mjs" "$BUNDLE" --transport sockjs --drop-legacy
 
 say "3/6  prune-unreachable-npm"
 node "$ROOT/releases/prune-unreachable-npm.mjs" "$BUNDLE" || fail "prune-unreachable-npm failed."
+# The release workflow's own step: this machine's sharp package (attachment
+# thumbnails), and every native addon's header checked against this machine.
+node "$ROOT/releases/platform-native-packages.mjs" "$BUNDLE" \
+    "$(node -p process.platform)" "$(node -p process.arch)" \
+    || fail "platform-native-packages failed: a native module in the bundle is not for this machine."
 
 # ── 2. Does it start? ────────────────────────────────────────────────────────
 #
