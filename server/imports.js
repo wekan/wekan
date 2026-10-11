@@ -200,6 +200,7 @@ import '/server/cron/syncedCron';
 // ----------------------------------------------------------------------------
 import '/server/card-opened-webhook';
 import '/server/cards-loading';
+import '/server/dynamicImportOrigin';
 
 // ----------------------------------------------------------------------------
 // 8. Server — import helpers

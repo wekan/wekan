@@ -5,6 +5,17 @@ import { avatarUpdateCounter } from '/client/components/users/avatarUpdateCounte
 import Avatars from '/models/avatars';
 import Presences from '/models/presences';
 import { Utils } from '/client/lib/utils';
+const { avatarDisplayUrl } = require('/models/lib/avatarDisplayUrl');
+
+// The stored profile.avatarUrl, as the address this browser loads it from: under
+// the path WeKan is served at NOW, on this page's origin. Rendered as stored, a
+// /cdn/storage/avatars/<id> is outside WeKan on a sub-path install such as UCS's
+// /wekan, and the avatar is an empty circle (models/lib/avatarDisplayUrl.js).
+export function avatarSrc(stored) {
+  const cfg = typeof window !== 'undefined' && window.__meteor_runtime_config__;
+  return avatarDisplayUrl(stored, (cfg && cfg.ROOT_URL_PATH_PREFIX) || '');
+}
+Template.registerHelper('avatarSrc', (stored) => avatarSrc(typeof stored === 'string' ? stored : ''));
 
 // #824: the default avatar (DEFAULT_AVATAR_URL, server/defaultAvatar.js) for a
 // user with none of their own; an image that does not load is remembered, per
@@ -38,7 +49,11 @@ Template.userAvatar.helpers({
     if (!(Meteor.settings.public && Meteor.settings.public.defaultAvatar)) return '';
     const userId = this.userId;
     if (!userId || failedDefaultAvatars.get().has(userId)) return '';
-    return `/avatar-default/${encodeURIComponent(userId)}`;
+    // Under the path WeKan is served at, like avatarSrc: a bare /avatar-default
+    // is outside WeKan on a sub-path install.
+    const cfg = typeof window !== 'undefined' && window.__meteor_runtime_config__;
+    const prefix = String((cfg && cfg.ROOT_URL_PATH_PREFIX) || '').replace(/\/+$/, '');
+    return `${prefix}/avatar-default/${encodeURIComponent(userId)}`;
   },
 
   userData() {
@@ -93,7 +108,7 @@ Template.userAvatar.helpers({
 
   avatarUrl() {
     const user = ReactiveCache.getUser(this.userId, { fields: { 'profile.avatarUrl': 1 } });
-    const base = (user && user.profile && user.profile.avatarUrl) || '';
+    const base = avatarSrc((user && user.profile && user.profile.avatarUrl) || '');
     if (!base) return '';
     // Append current boardId when available so public viewers can access avatars on public boards
     try {

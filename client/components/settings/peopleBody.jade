@@ -238,7 +238,7 @@ template(name="peopleRow")
         a.js-edit-people-avatar(data-user-id=userData._id)
           if hasAvatarUrl
             .avatar
-              img.avatar-image(src="{{userData.profile.avatarUrl}}", alt="{{userData.username}}", title="{{_ 'change-avatar'}}")
+              img.avatar-image(src="{{avatarSrc userData.profile.avatarUrl}}", alt="{{userData.username}}", title="{{_ 'change-avatar'}}")
           else
             +userAvatarInitials(userId=userData._id)
         <s>{{ userData.username }}</s>
@@ -247,7 +247,7 @@ template(name="peopleRow")
         a.js-edit-people-avatar(data-user-id=userData._id)
           if hasAvatarUrl
             .avatar
-              img.avatar-image(src="{{userData.profile.avatarUrl}}", alt="{{userData.username}}", title="{{_ 'change-avatar'}}")
+              img.avatar-image(src="{{avatarSrc userData.profile.avatarUrl}}", alt="{{userData.username}}", title="{{_ 'change-avatar'}}")
           else
             +userAvatarInitials(userId=userData._id)
         | {{ userData.username }}
@@ -256,7 +256,7 @@ template(name="peopleRow")
         a.js-edit-people-avatar(data-user-id=userData._id)
           if hasAvatarUrl
             .avatar
-              img.avatar-image(src="{{userData.profile.avatarUrl}}", alt="{{userData.username}}", title="{{_ 'change-avatar'}}")
+              img.avatar-image(src="{{avatarSrc userData.profile.avatarUrl}}", alt="{{userData.username}}", title="{{_ 'change-avatar'}}")
           else
             +userAvatarInitials(userId=userData._id)
         | {{ userData.username }}

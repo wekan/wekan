@@ -147,7 +147,7 @@ template(name="tablePage")
                           span.table-page-person
                             a.member.edit-user.js-table-page-edit-user(data-user-id="{{userId}}" title="{{text}}")
                               if avatarUrl
-                                img.avatar.avatar-image(src="{{avatarUrl}}" alt="{{text}}")
+                                img.avatar.avatar-image(src="{{avatarSrc avatarUrl}}" alt="{{text}}")
                               else
                                 +userAvatarInitials(userId=userId initials=initials)
                             span.table-page-person-name {{text}}
@@ -157,7 +157,7 @@ template(name="tablePage")
                       .table-page-single-person
                         a.member.edit-user.js-table-page-edit-user(data-user-id="{{userId}}" title="{{text}}")
                           if userAvatarUrl
-                            img.avatar.avatar-image(src="{{userAvatarUrl}}" alt="{{text}}")
+                            img.avatar.avatar-image(src="{{avatarSrc userAvatarUrl}}" alt="{{text}}")
                           else
                             +userAvatarInitials(userId=userId initials=initials)
                         span.table-page-single-person-name {{text}}
