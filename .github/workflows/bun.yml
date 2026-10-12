@@ -51,6 +51,7 @@ jobs:
     outputs:
       tag: ${{ steps.plan.outputs.tag }}
       bun_tag: ${{ steps.plan.outputs.bun_tag }}
+      bun_version: ${{ steps.plan.outputs.bun_version }}
       matrix: ${{ steps.plan.outputs.matrix }}
       count: ${{ steps.plan.outputs.count }}
     steps:
@@ -87,7 +88,7 @@ jobs:
           node-version: '26'
       - uses: oven-sh/setup-bun@v2
         with:
-          bun-version: ${{ needs.plan.outputs.bun_tag }}
+          bun-version: ${{ needs.plan.outputs.bun_version }}
       - name: Prepare isolated Meteor with ESM support
         working-directory: app
         run: |

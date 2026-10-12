@@ -57,7 +57,10 @@ def plan(release, bun_release, only='', missing=False):
         name = asset_name(tag, item['target'])
         if item['target'] in selectors and not (missing and {name, name + '.sha256sum'} <= existing):
             rows.append(item)
-    return {'tag': tag, 'bun_tag': bun_release['tag_name'], 'matrix': {'include': rows}, 'count': len(rows)}
+    # setup-bun expects semver; GitHub runtime download URLs need the full tag.
+    return {'tag': tag, 'bun_tag': bun_release['tag_name'],
+            'bun_version': bun_release['tag_name'].removeprefix('bun-v'),
+            'matrix': {'include': rows}, 'count': len(rows)}
 
 
 def download(url, destination):

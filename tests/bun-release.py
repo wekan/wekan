@@ -20,6 +20,16 @@ class BunReleaseTests(unittest.TestCase):
     def test_all_runtime_targets_are_planned(self):
         self.assertEqual(assets.plan(self.release, self.bun)['count'], 12)
 
+    def test_installer_version_is_separate_from_download_tag(self):
+        for version in ['1.4.3', '12.34.56']:
+            self.bun['tag_name'] = 'bun-v' + version
+            result = assets.plan(self.release, self.bun)
+            self.assertEqual(result['bun_version'], version)
+            self.assertEqual(result['bun_tag'], 'bun-v' + version)
+        for tag in ['1.4.3', 'bun-v1.4', 'bun-v1.4.3-canary', 'bun-v1.4.3\n']:
+            self.bun['tag_name'] = tag
+            with self.assertRaises(ValueError): assets.plan(self.release, self.bun)
+
     def test_aliases_and_profiles_are_not_platforms(self):
         self.bun['assets'] += [{'name': 'bun-linux-x64-baseline.zip'}, {'name': 'bun-linux-x64-profile.zip'}]
         self.assertEqual(assets.plan(self.release, self.bun)['count'], 12)

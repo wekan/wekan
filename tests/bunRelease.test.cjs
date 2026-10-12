@@ -18,6 +18,10 @@ for (const item of targets.filter(x => ['linux', 'android'].includes(x.platform)
 }
 assert(!targets.some(x => /baseline|profile|i386|riscv/.test(x.target)));
 assert(workflow.includes('--format=esm'));
+assert(workflow.includes('bun_version: ${{ steps.plan.outputs.bun_version }}'));
+assert(workflow.includes('bun-version: ${{ needs.plan.outputs.bun_version }}'));
+assert(!workflow.includes('bun-version: ${{ needs.plan.outputs.bun_tag }}'));
+assert(workflow.includes('BUN_TAG: ${{ needs.plan.outputs.bun_tag }}'));
 assert(workflow.includes('BUN_SMOKE_BROWSER:'));
 assert(read('releases/bun/live-smoke.mjs').includes('../../tests/bun-browser-smoke.cjs'));
 assert(workflow.includes('ref: refs/tags/${{ needs.plan.outputs.tag }}'));
