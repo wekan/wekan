@@ -380,4 +380,32 @@ grain timings and browser rendering remain separate measurements.
 stacks before and after extraction against the packaged source-map-support,
 no sidecar read before stack formatting, read-only file mode preservation,
 idempotence, repeat trimming, invalid maps, and untouched client/external-map
-scripts. The existing bundle-trimming suite passes. Docker consumes the already-trimmed release bundle. No browser automation was run.
+scripts. The existing bundle-trimming suite passes. Docker consumes the
+already-trimmed release bundle. No browser automation was run.
+
+### Deferred authentication dependencies
+
+The remaining CPU profile attributed about 90 ms to SAML and LDAP package
+initialization. These integrations register at startup, but now load
+`@node-saml/node-saml` only when a configured SAML operation needs an instance,
+`ldapts` when connecting, and `limax` when username transliteration is enabled
+and requested. They remain available outside Sandstorm, with the same settings
+and authentication checks. The first operation pays the dependency load cost;
+subsequent requires use the normal module cache.
+
+Sequential local production comparisons, with the same persisted database and
+only lightweight launcher timing enabled, measured:
+
+| Run | Previous payload | Deferred authentication dependencies |
+| --- | ---: | ---: |
+| First pair: HTTP listening | 1.112 s | 1.025 s |
+| Second pair: HTTP listening | 974 ms | 902 ms |
+| Second pair: initial Meteor require | 342 ms | 344 ms |
+| Second pair: require returned to listen requested | 553 ms | 474 ms |
+
+These are local warm-cache measurements, not actual-grain or browser timings.
+`tests/lazyAuthDependencies.test.cjs` covers unloaded registration and disabled
+paths, first-use construction, SAML configuration caching and STARTTLS options.
+The existing LDAP and SAML suites pass, including signed-response and replay
+checks. CommonJS exports were also checked against the trimmed production
+packages using the shipped Node binary. No browser automation was run.
