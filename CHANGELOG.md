@@ -537,6 +537,8 @@ about 120 MB: the **bundled Node.js** is stripped of debug data, and the
 
 Sandstorm listener readiness and deferred loading reduce startup time.
 
+This release improves Sandstorm startup and packaging:
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bab0c13988">Reduce server bundle file count for Sandstorm extraction</a>.</summary>
 
@@ -561,7 +563,8 @@ browser automation and a full legacy migration were not run.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2b8a4a234f">Defer SAML and LDAP dependencies until first use</a>.</summary>
 
-Load SAML's protocol library only for configured SAML operations, the LDAP client
+Load SAML's protocol library only for configured SAML operations, the LDAP
+client
 on connection, and username transliteration dictionaries only when requested.
 Keep registration and authentication checks unchanged. A repeated local
 production comparison reached HTTP readiness in 902 ms versus 974 ms with
@@ -581,7 +584,8 @@ Load archive dependencies when importing, exporting or restoring instead of at
 server startup. This avoids Bluebird's eager diagnostic stacks and their costly
 source-map processing. Keep lightweight Sandstorm launcher timing logs, but make
 Meteor's detailed stack-based startup profiler opt-in. A rebuilt production
-payload reached HTTP readiness in 1.38 s versus 2.90 s on the same persisted test
+payload reached HTTP readiness in 1.38 s versus 2.90 s on the same persisted
+test
 database with detailed profiling disabled in both; these are local warm-cache
 measurements, not full browser load times. Source maps remain enabled.
 
@@ -596,7 +600,8 @@ backup and Sandstorm launcher tests pass; browser automation was not run.
 
 Keep non-English dictionaries out of the eager server script, reading each only
 when requested. English remains embedded for startup fallback, all translation
-contents are preserved, and browser dynamic imports are unchanged. The production
+contents are preserved, and browser dynamic imports are unchanged. The
+production
 server script shrank from 129.6 MiB to 55.9 MiB; a local warm-cache comparison
 reached HTTP readiness in 1.220 s versus 1.453 s with source maps enabled.
 
@@ -643,7 +648,8 @@ the listening marker. These are warm-host-cache measurements, not actual grain
 or board-render timings. The profiling guide records build steps and boundaries.
 
 HTTP tests exercise the real child-process handoff and retained connection;
-waiting-page tests cover pending, successful, not-ready and disconnected requests.
+waiting-page tests cover pending, successful, not-ready and disconnected
+requests.
 The actual production readiness endpoint returned 204. Browser automation was
 not run, as requested.
 
@@ -675,14 +681,17 @@ No UI behavior changes.
 
 The grain manifest enables monotonic launcher milestones with process CPU
 deltas; the local runner also enables Meteor's detailed startup profiler. The
-local profiling runner uses the real memory wrapper, launcher, bundle and FerretDB with the manifest environment;
+local profiling runner uses the real memory wrapper, launcher, bundle and
+FerretDB with the manifest environment;
 Bubblewrap maps isolated test data to the normal grain paths. It does not need
 a Sandstorm service or simulate browser identity and Cap'n Proto services.
 
-Tests cover timing and CPU deltas, disabled diagnostics, environment inheritance,
+Tests cover timing and CPU deltas, disabled diagnostics, environment
+inheritance,
 packaging, and HTTP handoff. An opt-in local namespace integration test runs
 the launchers twice with fixture payloads to check persistent test data and
-milestone order. Actual local development-bundle runs also reached HTTP readiness.
+milestone order. Actual local development-bundle runs also reached HTTP
+readiness.
 The profiling guide explains timing boundaries, cache comparisons and host I/O
 measurements; production grain performance still needs representative data and
 storage. No browser behavior changes.

@@ -233,6 +233,10 @@ URL only on that response. The app also serves 204 on that endpoint for requests
 reconnecting after handoff. The isolated production test observed the held
 response 2 ms after the server's listening marker.
 
+New connections can fail during the brief socket close/rebind interval. The
+already-held readiness request spans that interval; the handoff test checks
+waiting-page availability before the switch and HTTP readiness after it.
+
 Disconnected requests retry after 250 ms; requests held for 25 seconds expire and
 reconnect. JavaScript-disabled clients retain the five-second meta refresh. During
 legacy data migration, the separate importer dashboard still refreshes every two

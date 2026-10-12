@@ -192,6 +192,7 @@ test('every script in releases/ is reachable from BOTH menus', () => {
   // Deliberately not in the Releases menu, each for a stated reason. A script
   // added here must be given one.
   const SKIP = {
+    'externalize-server-source-maps.mjs': 'internal source-map helper imported by bundle-trim.mjs, not a standalone menu action',
     'recover-scrum-import.cjs': 'manual offline database recovery requires a board ID; not a release action',
     'translations/import-blockly.cjs': 'translation catalog helper; invoked explicitly for Blockly updates',
     'translations/placeholder-tokens.mjs': 'shared pure placeholder parser used by translation validation',
