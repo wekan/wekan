@@ -524,6 +524,57 @@ used.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The **Windows 32-bit** and **Windows ARM64** bundles build again,
+and four **GitHub CodeQL** alerts are fixed, among them a pattern that could
+stall the release build.
+
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+**Patterns and generated code** - how release tools and tests read text and
+write code.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/900267451c">No backtracking package scan, no case-sensitive tag match, no paths spliced into code</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+Alert 565: the release script that prunes unused npm packages read package
+names with a pattern that let `/` both separate and belong to path segments,
+so a quoted `-/-/-/...` could be split in exponentially many ways, and one
+real minified file took over two seconds by itself. A `/` now only separates.
+Over all 23,812 files in node_modules it finds every package it found before,
+and also `require('querystring-es3/')`, a form the old pattern missed and so
+could have pruned. Alert 566: tests matched `<script>` case-sensitively, so a
+check that sanitized output has no script would have let `<SCRIPT>` pass; four
+now match any case. Alerts 567 and 568: a test wrote file paths into generated
+JavaScript; it and four other tests now keep that code constant, and the i18n
+loader the test drives refuses an asset name that is not a locale tag and
+escapes the literal it writes. None is reachable on a running WeKan - a build
+script and tests - so nothing is recorded in Admin Panel → Problems.
+`tests/securityAlerts20261012.test.cjs` fails on these shapes anywhere in the
+tree, and `tests/pruneUnreachableNpm.test.cjs` runs the attack string.
+
+</details>
+
+and fixes the following bugs:
+
+**Windows bundles** - building the 32-bit and ARM64 bundles.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b34d36e8f5">The 32-bit and ARM64 Windows bundles find node-gyp again</a>. Thanks to xet7.</summary>
+
+v12.34's build-win32 and build-win-arm64 stopped with "Cannot find module
+...accounts-password/programs/server/node_modules/node-gyp/bin/node-gyp.js".
+The jobs give `releases/compile-native-addons.mjs` the bundle as a relative
+path, and node-gyp runs inside each package, where that relative path pointed
+somewhere else. The path is made absolute first.
+`tests/compileNativeAddons.test.cjs` now calls it the way the jobs do, with a
+stand-in node-gyp that resolves paths as the real one does.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.34 2026-10-12 WeKan ® release
 
 **In short:** On **Univention (UCS)**, avatars show again after an upgrade, and
