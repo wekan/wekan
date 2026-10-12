@@ -4041,6 +4041,15 @@ jobs:
           found=""
           if [ -f "$appjs" ]; then
             match="$(grep -aoE '"name":"wekan","version":"v?[0-9][^"]*"' "$appjs" | head -1 || true)"
+            if [ -z "$match" ]; then
+              # The rspack build keeps only the fields the code reads, and the
+              # server reads only require('/package.json').version - so the
+              # module is JSON.parse('{"version":"v12.38.0"}') with no "name" to
+              # anchor on, and this check was skipped on every release. WeKan's
+              # is the only v-prefixed one; use it only when it is unambiguous.
+              match="$(grep -aoE "JSON\.parse\('\{\"version\":\"v[0-9][^\"]*\"\}'\)" "$appjs" | sort -u || true)"
+              [ "$(printf '%s\n' "$match" | grep -c .)" -eq 1 ] || match=""
+            fi
             found="$(printf '%s' "$match" | sed -E 's/.*"version":"([^"]*)".*/\1/')"
           fi
           rm -rf "$tmp" bundle.zip
@@ -5264,11 +5273,13 @@ jobs:
           echo "Re-run this matrix job after Launchpad finishes. Its deterministic snapshot reconnects to the same build, downloads the snap, and publishes it."
 
       # An unexpected job-level cancellation is distinct from the deliberate,
-      # clean waiter timeout above.
+      # clean waiter timeout above. It is not necessarily the time cap: in the
+      # v12.38 run all four jobs were cancelled at 1h49m of a 360-minute cap,
+      # while Launchpad sat in "Uploading", and said "ran out of time".
       - name: Say what a cancelled ${{ matrix.arch }} job leaves behind
         if: cancelled()
         run: |
-          echo "::warning::snap-launchpad ${{ matrix.arch }} ran out of time (the job cap), but the Launchpad build was NOT cancelled - it is still building there."
+          echo "::warning::snap-launchpad ${{ matrix.arch }} was cancelled (by hand, or at the job time cap), but the Launchpad build was NOT cancelled - it may still be building there."
           echo "Re-run THIS job when it has finished: snapcraft remote-build reconnects to the same Launchpad build and downloads the snap; nothing is rebuilt."
           for log in snapcraft-wekan-*.txt; do
             [ -e "$log" ] || continue
