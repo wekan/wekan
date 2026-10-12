@@ -524,7 +524,7 @@ used.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.37 2026-10-12 WeKan ® release
 
 **In short:** **Bun** release builds explicitly install the compiler tools
 needed to create the application bundle. A missing Rspack installation is
