@@ -524,7 +524,7 @@ used.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.38 2026-10-12 WeKan ® release
 
 **In short:** a **GitHub CodeQL** alert on HTML end-tag patterns is fixed.
 **SAML** says why it could not link an existing account and can find it by
