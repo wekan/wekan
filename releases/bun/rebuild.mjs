@@ -1,9 +1,9 @@
 // Rebuild only native npm packages; keep Meteor's compiled JS identical everywhere.
-import { chmodSync, existsSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { join, resolve, relative } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
-import { prepareBundleNpm } from '../prepare-bundle-npm.mjs';
+import { makeWritable, prepareBundleNpm } from '../prepare-bundle-npm.mjs';
 import { bumpNodeGyp } from '../bump-bundle-node-gyp.mjs';
 
 export function packageCopies(root, names) {
@@ -35,13 +35,26 @@ export function run(command, args, cwd, extraEnv = {}, timeout = 0) {
 // A load probe is only a prebuilt-addon shortcut, not the final native test.
 // FreeBSD logs stopped here for three hours; terminate hung probes so the
 // source rebuild can run. SIGKILL also bounds runtimes that ignore SIGTERM.
+// The expected "no prebuilt addon" answer, as ONE plain line. Bun's raw stderr
+// is a source excerpt plus a line starting `error:`, which GitHub turned into an
+// error annotation, so a windows-arm64 job that built, passed and attached its
+// bundle was listed with an error, as were both FreeBSD jobs before their real
+// failure.
+export function probeFailureReason(result) {
+  if (result.error) return result.error.message;
+  const line = String(result.stderr || '').split(/\r?\n/)
+    .map(text => text.trim()).find(text => /^error:/i.test(text));
+  if (line) return `no usable prebuilt addon (${line.replace(/^error:\s*/i, '')})`;
+  return result.signal ? `probe ended by ${result.signal}` : `probe exited ${result.status}`;
+}
+
 export function probeAddon(bun, dir, cwd, timeout = 30000) {
   console.log(`Checking prebuilt addon: ${dir}`);
   const result = spawnSync(bun, ['-e', 'require(process.argv[1]); process.exit(0)', dir], {
     cwd, encoding: 'utf8', timeout, killSignal: 'SIGKILL',
   });
   if (result.error || result.status !== 0) {
-    console.log(`Rebuilding ${dir}: ${result.error?.message || result.stderr || result.signal || result.status}`);
+    console.log(`Rebuilding ${dir}: ${probeFailureReason(result)}`);
     return false;
   }
   return true;
@@ -67,7 +80,7 @@ export function rebuild(bundle) {
   const bun = join(bundle, process.platform === 'win32' ? 'bun.exe' : 'bun');
   if (!existsSync(join(bundle, 'index.mjs'))) throw new Error('Expected an ESM Meteor bundle');
   prepareBundleNpm(bundle);
-  chmodSync(join(server, 'package.json'), 0o644);
+  makeWritable(join(server, 'package.json'));
   const bumped = bumpNodeGyp(join(server, 'package.json'));
   if (bumped.error) throw new Error(bumped.error);
   // Root install obtains node-gyp. Native lifecycle scripts are invoked below,

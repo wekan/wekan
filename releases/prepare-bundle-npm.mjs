@@ -1,9 +1,23 @@
 #!/usr/bin/env node
 // npm 12 rejects URL dependencies by default. Meteor's server bundle declares
 // its commit-pinned source-map-support tarball directly; allow only root URLs.
-import { readFileSync, writeFileSync, existsSync, chmodSync, statSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, chmodSync, statSync, accessSync, constants } from 'node:fs';
 import { resolve, join, relative, isAbsolute } from 'node:path';
 import { pathToFileURL } from 'node:url';
+
+// Meteor writes some bundle files read-only. Only the OWNER may chmod, so a
+// build whose user does not own the bundle - Termux's system user on the
+// runner's bind mount, which the workflow made writable for everyone with
+// `chmod -R a+rwX` - failed with EPERM at the chmod although the write itself
+// would have worked. Change the mode only when the file is not writable yet.
+export function makeWritable(file) {
+  try {
+    accessSync(file, constants.W_OK);
+    return;
+  } catch {
+    chmodSync(file, statSync(file).mode | 0o200);
+  }
+}
 
 export function prepareBundleNpm(bundle) {
   const server = join(bundle, 'programs/server');
@@ -32,7 +46,7 @@ export function prepareBundleNpm(bundle) {
       throw new Error('Review unexpected Meteor npm rebuild arguments');
     }
     if (after !== before) {
-      chmodSync(rebuildFile, statSync(rebuildFile).mode | 0o200);
+      makeWritable(rebuildFile);
       writeFileSync(rebuildFile, after);
       changed = true;
     }
@@ -57,7 +71,7 @@ export function prepareBundleNpm(bundle) {
       const policy = { argon2: true, bcrypt: true, 'useragent-ng': true };
       if (JSON.stringify(data.allowScripts) !== JSON.stringify(policy)) {
         data.allowScripts = policy;
-        if (existsSync(manifest)) chmodSync(manifest, statSync(manifest).mode | 0o200);
+        if (existsSync(manifest)) makeWritable(manifest);
         writeFileSync(manifest, JSON.stringify(data, null, 2) + '\n');
         changed = true;
       }
