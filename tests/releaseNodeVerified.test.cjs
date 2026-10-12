@@ -28,6 +28,7 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
+const escapeRegExp = text => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 const repoRoot = path.resolve(__dirname, '..');
 const workflow = fs.readFileSync(
@@ -97,7 +98,7 @@ for (const b of NATIVE) {
     const body = job(b.job);
     // The shipped node comes from the helper, for this exact platform.
     const re = new RegExp(
-      `embed-verified-node\\.sh\\s+\\S*node\\S*\\s+${b.asset.replace('.', '\\.')}\\s+"\\$NODE_VERSION"`,
+      `embed-verified-node\\.sh\\s+\\S*node\\S*\\s+${escapeRegExp(b.asset)}\\s+"\\$NODE_VERSION"`,
     );
     assert.ok(re.test(body),
       `${b.job} must embed node via embed-verified-node.sh ${b.asset}`);

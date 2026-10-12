@@ -25,7 +25,7 @@ and how the one-time MongoDB 3 → FerretDB v1 migration works.
   the MongoDB Shell. This removes a large, CVE-prone binary and works identically
   on every architecture. See [MongoDB client binaries](#mongodb-client-binaries-source-and-availability).
 - **The MongoDB Database Tools are downloaded from WeKan's own fork, not from the
-  MongoDB website** — `mongodump-<arch>` etc. from
+  MongoDB website** — `mongo-tools-<arch>`, all eight tools as one program, from
   [wekan/mongo-tools-patches](https://github.com/wekan/mongo-tools-patches/releases).
 - **Existing MongoDB 7 data (amd64/arm64) is NOT migrated to FerretDB v1** — that
   snap keeps using its existing MongoDB 7.
@@ -175,12 +175,15 @@ On amd64/arm64 you can still switch an install to the bundled MongoDB 7 server:
 WeKan does not download MongoDB clients from the MongoDB website:
 
 - **MongoDB Database Tools** come from [wekan/mongo-tools-patches](https://github.com/wekan/mongo-tools-patches/releases).
-  These are pure Go, so its `build-binaries.yml` workflow cross-compiles **every
-  architecture** (`bsondump`, `mongodump`, `mongoexport`, `mongofiles`,
-  `mongoimport`, `mongorestore`, `mongostat`, `mongotop`), including arches MongoDB
-  never shipped tools for (riscv64, loong64). Every WeKan build (snap, bundle,
-  Docker, Sandstorm) downloads the one `<tool>-<arch>` it needs from the newest
-  release.
+  These are pure Go, so its `release-all.yml` workflow cross-compiles **every
+  architecture**, including arches MongoDB never shipped tools for (riscv64,
+  loong64), as ONE program per architecture: `mongo-tools-<arch>` is `bsondump`,
+  `mongodump`, `mongoexport`, `mongofiles`, `mongoimport`, `mongorestore`,
+  `mongostat` and `mongotop`, about 15 MB instead of about 105 MB for eight
+  separate programs. Every WeKan build (snap, bundle, Docker) downloads the one
+  `mongo-tools-<arch>` it needs from the newest release and adds a small launcher
+  named after each tool, so `mongodump` works as before. The separate per-tool
+  binaries are not used.
 - **`mongosh` is not used at all.** It is a large Node.js-packaged binary (it
   embeds its own Node and drags in a heavy, CVE-prone dependency tree) that cannot
   be cross-compiled for s390x/ppc64le/riscv64. Since WeKan already bundles Node.js
@@ -320,7 +323,7 @@ bundle the snap's `wekan` part downloads, and staged to `$SNAP/ferretdb`
 - The **FerretDB v1** server and the **MongoDB client binaries** are not pinned:
   every build fetches the newest per-arch asset from the WeKan forks —
   `ferretdb-<arch>` from [wekan/FerretDB](https://github.com/wekan/FerretDB/releases),
-  `<tool>-<arch>` from [wekan/mongo-tools-patches](https://github.com/wekan/mongo-tools-patches/releases),
+  `mongo-tools-<arch>` from [wekan/mongo-tools-patches](https://github.com/wekan/mongo-tools-patches/releases),
   and `mongosh-<arch>` from [wekan/mongosh](https://github.com/wekan/mongosh/releases).
 
 ## Snaps and channels

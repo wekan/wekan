@@ -259,8 +259,8 @@ esac
 
 # The MongoDB Database Tools, from wekan/mongo-tools-patches, as every release
 # bundle carries them: the one program mongo-tools and a launcher per tool
-# (releases/fetch-mongo-tools.sh says why). Before that release exists, the
-# eight per-tool assets.
+# (releases/fetch-mongo-tools.sh says why). Only that one program: a platform
+# without it ships without the tools, never with the separate per-tool binaries.
 MT="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
 asset="mongo-tools-${PLATFORM}${EXE}"
 fetch_cached "$MT/$asset" "$asset" "$BUNDLE/mongo-tools$EXE"
@@ -269,15 +269,7 @@ case $? in
        bash "$ROOT/releases/fetch-mongo-tools.sh" --shims "$BUNDLE" "$kind"
        echo "    tools      $asset" ;;
     2) fail "$asset does not match its published SHA256." ;;
-    *) for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-           asset="$t-${PLATFORM}${EXE}"
-           fetch_cached "$MT/$asset" "$asset" "$BUNDLE/$t$EXE"
-           case $? in
-               0) : ;;
-               1) echo "    warning: no $asset published; the bundle has no $t." ;;
-               2) fail "$asset does not match its published SHA256." ;;
-           esac
-       done ;;
+    *) echo "    warning: no $asset published; the bundle has no MongoDB Database Tools." ;;
 esac
 
 # The launcher, and #6458's cpu-exec + qemu-user beside it.

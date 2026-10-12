@@ -8,6 +8,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
+const escapeRegExp = text => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const cm = require('../models/lib/calendarMode');
 
 const ROOT = path.join(__dirname, '..');
@@ -79,7 +80,7 @@ test('the view is offered below Calendar, rendered by the board, and shows label
   assert.match(js, /Filter\.isActive\(\) \? Filter\._getMongoSelector\(\) : undefined/, 'with the board Filter, as Calendar');
   assert.match(js, /getStartDayOfWeek/);
   for (const file of ['calendarModeView.jade', 'calendarModeView.js', 'calendarModeView.css']) {
-    assert.match(read('client/features/boards.js'), new RegExp(`import '/client/components/boards/${file.replace('.', '\\.')}';`));
+    assert.match(read('client/features/boards.js'), new RegExp(`import '/client/components/boards/${escapeRegExp(file)}';`));
   }
   assert.equal(JSON.parse(read('imports/i18n/data/en.i18n.json'))['board-view-calendar-mode'], 'Calendar Mode');
 });

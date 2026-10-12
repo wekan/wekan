@@ -22,6 +22,11 @@ const yaml = require('js-yaml');
 const ROOT = path.join(__dirname, '..');
 const D = 'docs/Platforms/FOSS/Container/Docker';
 const read = (rel) => fs.readFileSync(path.join(ROOT, rel), 'utf8');
+// CasaOS's app id: labels joined by `.`, at least two of them, with `_` and `-`
+// only inside a label. The earlier pattern also allowed `.` inside a label, so
+// `0.0.0...` could be split between the two groups in exponentially many ways
+// (CodeQL alert #562, js/redos); each separator now belongs to one group only.
+const REVERSE_DOMAIN_ID = /^[a-z0-9]+(?:[_-][a-z0-9]+)*(?:\.[a-z0-9]+(?:[_-][a-z0-9]+)*)+$/;
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -97,10 +102,23 @@ test('each catalog\'s own rules (negative)', () => {
   assert.ok(cool.environment.includes('SERVICE_URL_WEKAN_8080'));
   assert.match(read(`${D}/Coolify/templates/compose/wekan.yaml`), /^# port: 8080$/m);
   const x = compose.casaos['x-casaos'];
-  assert.match(x.id, /^[a-z0-9]+(?:[._-][a-z0-9]+)*(?:\.[a-z0-9]+(?:[._-][a-z0-9]+)*)+$/, 'reverse-domain id');
+  assert.match(x.id, REVERSE_DOMAIN_ID, 'reverse-domain id');
   assert.strictEqual(x.main, 'wekan');
   assert.strictEqual(typeof x.port_map, 'string');
   assert.strictEqual(String(compose.casaos.services.wekan.ports[0].published), x.port_map);
+});
+
+test('the reverse-domain id pattern is linear on CodeQL\'s attack string (#562)', () => {
+  for (const id of ['io.wekan.wekan', 'com.example.my-app', 'org.foo_bar.baz']) assert.match(id, REVERSE_DOMAIN_ID);
+  for (const id of ['wekan', '.wekan', 'io..wekan', 'io.wekan.', 'io.-wekan', 'IO.Wekan', 'io.wekan-']) {
+    assert.doesNotMatch(id, REVERSE_DOMAIN_ID, `${id} (negative)`);
+  }
+  // '0.0' then many '.0' and a character that fails the match: 2^n steps for
+  // the old pattern, a few hundred for this one.
+  const attack = '0.0' + '.0'.repeat(5000) + '!';
+  const started = Date.now();
+  assert.doesNotMatch(attack, REVERSE_DOMAIN_ID);
+  assert.ok(Date.now() - started < 500, `took ${Date.now() - started} ms`);
 });
 
 test('the AUR package checks every source and keeps data in /var/lib/wekan', () => {

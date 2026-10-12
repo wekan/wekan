@@ -8,12 +8,14 @@
 // in one Go program of about 15 MB, instead of eight programs of about 105 MB
 // that each carried their own Go runtime and MongoDB driver.
 // releases/fetch-mongo-tools.sh puts it in a bundle with eight small
-// launchers, so `mongodump` keeps working wherever it did, and falls back to
-// the per-tool assets while a release does not have mongo-tools-<platform>.
+// launchers, so `mongodump` keeps working wherever it did. It is the ONLY
+// shape: the eight separate <tool>-<platform> binaries are never fetched, even
+// from a release that still has them, and nothing else in the tree builds one
+// of their download addresses.
 //
 // The downloads here are served by a local HTTP server standing in for the
-// GitHub release (MONGO_TOOLS_BASE), so 404s, checksums and the fallback are
-// exercised for real, through releases/fetch.sh.
+// GitHub release (MONGO_TOOLS_BASE), so 404s and checksums are exercised for
+// real, through releases/fetch.sh.
 
 const assert = require('assert');
 const crypto = require('crypto');
@@ -37,8 +39,10 @@ process.on('exit', () => fs.rmSync(tmp, { recursive: true, force: true }));
 const FAKE = '#!/bin/sh\necho "mongo-tools $*"\n';
 const sha = (s) => crypto.createHash('sha256').update(s).digest('hex');
 let assets = {};
+let requested = [];
 const server = http.createServer((req, res) => {
   const name = decodeURIComponent(req.url.slice(1));
+  requested.push(name);
   if (Object.prototype.hasOwnProperty.call(assets, name)) {
     res.writeHead(200); res.end(assets[name]);
   } else {
@@ -106,16 +110,32 @@ test('Windows gets mongo-tools.exe and a .cmd per tool', async () => {
   assert.match(r.out, /no checksum for mongo-tools-win64\.exe/, 'an unverified download is said so');
 });
 
-test('before mongo-tools-<platform> is published, the eight per-tool assets are used', async () => {
+test('a release with only the per-tool binaries gives no tools, and none is even requested (negative)', async () => {
   assets = {};
   for (const t of TOOLS) assets[`${t}-s390x`] = `#!/bin/sh\necho ${t}\n`;
-  const dir = bundle('fallback');
+  requested = [];
+  const dir = bundle('no-fallback');
   const r = await run([dir, 's390x']);
-  assert.strictEqual(r.status, 0, r.out);
-  assert.ok(!fs.existsSync(path.join(dir, 'mongo-tools')));
-  for (const t of TOOLS) {
-    assert.strictEqual(spawnSync(path.join(dir, t), { encoding: 'utf8' }).stdout.trim(), t);
-  }
+  assert.strictEqual(r.status, 1, r.out);
+  assert.match(r.out, /publishes no mongo-tools-s390x/);
+  assert.deepStrictEqual(fs.readdirSync(dir), [], 'no per-tool binary is installed');
+  assert.deepStrictEqual(requested.filter((n) => !n.startsWith('mongo-tools-')), [],
+    'only mongo-tools-<platform> is ever downloaded');
+});
+
+test('no script or workflow builds a per-tool mongo-tools-patches download (negative)', () => {
+  // A per-tool asset address is a tool name, or a loop variable over the tool
+  // names, followed by -<platform variable>.
+  const perTool = new RegExp('(?:' + TOOLS.join('|') + '|\\$\\{?t\\}?)-\\$\\{?(?:platform|PLATFORM|ferretdb_arch|FERRETDB_ARCH|arch|ARCH|a)\\b');
+  const files = spawnSync('git', ['ls-files', 'releases', '.github', 'snap-src', 'sandstorm-src', 'tools',
+    'Dockerfile', 'snapcraft.yaml', 'snapcraft-core26.yaml', 'build.sh', 'build.bat'], { cwd: ROOT, encoding: 'utf8' })
+    .stdout.split('\n').filter(Boolean);
+  assert.ok(files.length > 50, `only ${files.length} files listed`);
+  const offenders = files.filter((rel) => fs.existsSync(path.join(ROOT, rel)) && perTool.test(code(read(rel))));
+  assert.deepStrictEqual(offenders, [], 'these still fetch a per-tool binary instead of mongo-tools-<platform>');
+  assert.ok(perTool.test('fetch_cached "$MT/$t-${PLATFORM}${EXE}"') && perTool.test('have "${mt}/${t}-${ferretdb_arch}"')
+    && perTool.test('$BASE/mongodump-$platform'), 'the pattern catches the shapes that were removed');
+  assert.ok(!perTool.test('"$BASE/mongo-tools-$platform$exe"'), 'and not the one program');
 });
 
 // Negative: what must never ship.

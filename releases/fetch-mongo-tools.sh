@@ -11,16 +11,16 @@
 #   A platform starting with "win" gets .exe binaries and .cmd launchers.
 #
 #   Exit 0  the tools are in the bundle
-#        1  wekan/mongo-tools-patches publishes no tools for this platform; the
+#        1  wekan/mongo-tools-patches publishes no mongo-tools-<platform>; the
 #           bundle has none (never the previous platform's - see below)
 #        2  a download did not match its published SHA256, or failed outright
 #
 # WHY ONE PROGRAM. The eight tools are eight Go programs, and each carried its
 # own copy of the Go runtime, the MongoDB driver and the tools' shared packages:
-# about 105 MB per bundle, image and snap. wekan/mongo-tools-patches now also
-# publishes mongo-tools-<platform>, all eight as one program of about 15 MB
-# (its releases/multicall.sh). Run as `mongo-tools mongodump ...` it is
-# mongodump, with mongodump's own options, --help and --version.
+# about 105 MB per bundle, image and snap. wekan/mongo-tools-patches publishes
+# only mongo-tools-<platform>, all eight as one program of about 15 MB (its
+# releases/multicall.sh). Run as `mongo-tools mongodump ...` it is mongodump,
+# with mongodump's own options, --help and --version.
 #
 # WHY LAUNCHERS AND NOT SYMLINKS. The program is also each tool when it is RUN
 # under the tool's name, so a symlink would do on Linux and macOS - but a
@@ -31,10 +31,11 @@
 # PowerShell alike. So `mongodump` keeps working everywhere it did, from
 # $SNAP/bin, the bundle directory and PATH.
 #
-# THE FALLBACK. A WeKan release can be cut before wekan/mongo-tools-patches has
-# published mongo-tools-<platform> on its newest release. Then the eight
-# per-tool assets are fetched as before, so no release goes out without tools
-# because the two repositories were released in the wrong order.
+# NO PER-TOOL FALLBACK. The eight separate <tool>-<platform> binaries are not
+# fetched even where an older release still carries them: one program per
+# platform is the only shape WeKan ships, so every bundle, image and snap runs
+# the same build of the tools. A platform without mongo-tools-<platform> ships
+# without tools and says so.
 #
 # Whatever was in the bundle before is removed first. Every non-amd64 Linux
 # bundle starts as a copy of the amd64 one, and an amd64 mongodump left in an
@@ -112,15 +113,5 @@ case $? in
   2) exit 2 ;;
 esac
 
-echo "fetch-mongo-tools: no mongo-tools-$platform$exe on the newest wekan/mongo-tools-patches release; fetching the eight tools one by one."
-got=0
-for t in $TOOLS; do
-  fetch "$BASE/$t-$platform$exe" "$dir/$t$exe"
-  case $? in
-    0) got=$((got + 1)) ;;
-    1) echo "::warning::wekan/mongo-tools-patches has no $t-$platform$exe; the bundle ships without $t." ;;
-    2) exit 2 ;;
-  esac
-done
-[ "$got" -gt 0 ] || { echo "fetch-mongo-tools: wekan/mongo-tools-patches publishes no tools for $platform." >&2; exit 1; }
-exit 0
+echo "fetch-mongo-tools: wekan/mongo-tools-patches publishes no mongo-tools-$platform$exe; the bundle ships without the MongoDB Database Tools." >&2
+exit 1

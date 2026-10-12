@@ -63,11 +63,15 @@ export function sharpPlatformSpec(sharpPackageJson, platform, arch) {
 // on Windows, never musl. pdfjs-dist 6 needs it to load AT ALL (it builds a
 // DOMMatrix at module load), so without it PDF attachment text is not indexed
 // for search. There is no fallback, and none for ppc64, s390x, ia32, loong64.
+// The candidate names are compared as strings, never compiled into a RegExp:
+// platform and arch come from the command line (CodeQL alert #564).
 export function canvasPlatformSpec(canvasPackageJson, platform, arch) {
   if (noNativeReason(platform, arch)) return null;
-  const re = new RegExp(`^@napi-rs/canvas-${platform}-${arch}(?:-(?:gnu|gnueabihf|msvc))?$`);
-  const name = Object.keys(canvasPackageJson.optionalDependencies || {}).find((n) => re.test(n));
-  return name ? { name, version: canvasPackageJson.optionalDependencies[name] } : null;
+  const deps = canvasPackageJson.optionalDependencies || {};
+  const base = `@napi-rs/canvas-${platform}-${arch}`;
+  const candidates = [base, `${base}-gnu`, `${base}-gnueabihf`, `${base}-msvc`];
+  const name = Object.keys(deps).find((n) => candidates.includes(n));
+  return name ? { name, version: deps[name] } : null;
 }
 
 // 32-bit ARM gets neither native package. sharp's linux-arm .node is built for
@@ -189,11 +193,21 @@ export function foreignPackages(serverDir, platform, arch) {
   return foreign.filter((d) => !foreign.some((o) => o !== d && d.startsWith(o + sep)));
 }
 
+// The registry path of a package: a scoped name's `/` is sent as %2F. Every
+// `/` is replaced, not only the first (CodeQL alert #563), and a name that is
+// not an npm package name is refused rather than escaped into some other URL.
+export function registryPackagePath(name) {
+  if (typeof name !== 'string' || !/^(?:@[a-z0-9][\w.-]*\/)?[a-z0-9][\w.-]*$/.test(name)) {
+    throw new Error(`not an npm package name: ${name}`);
+  }
+  return name.replace(/\//g, '%2F');
+}
+
 async function download(name, version) {
   if (!/^\d+\.\d+\.\d+(?:-[\w.]+)?$/.test(version)) {
     throw new Error(`${name}: expected an exact version, got ${version}`);
   }
-  const meta = await fetchRetry(`${REGISTRY}/${name.replace('/', '%2F')}/${version}`, 'json');
+  const meta = await fetchRetry(`${REGISTRY}/${registryPackagePath(name)}/${version}`, 'json');
   const tarball = await fetchRetry(meta.dist.tarball, 'buffer');
   verifyIntegrity(tarball, meta.dist.integrity);
   return { meta, files: untar(gunzipSync(tarball)) };

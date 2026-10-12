@@ -849,8 +849,9 @@ Template.attachmentActionsPopup.events({
 
 Template.attachmentRenamePopup.helpers({
   getNameWithoutExtension() {
-    const ret = this.name.replace(new RegExp("\\." + this.extension + "$"), "");
-    return ret;
+    // A literal suffix, never a RegExp built from the file's extension.
+    const suffix = `.${this.extension}`;
+    return this.name.endsWith(suffix) ? this.name.slice(0, -suffix.length) : this.name;
   },
 });
 
