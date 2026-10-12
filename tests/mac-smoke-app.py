@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+import contextlib
+import io
 import importlib.util
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import threading
@@ -20,6 +22,14 @@ spec.loader.exec_module(smoke)
 
 
 class MacSmoke(unittest.TestCase):
+    def setUp(self):
+        # Negative fixtures intentionally print ::error::. Capture their output
+        # so successful unit tests do not annotate the real app build as failed.
+        self.output = io.StringIO()
+        capture = contextlib.redirect_stdout(self.output)
+        capture.__enter__()
+        self.addCleanup(capture.__exit__, None, None, None)
+
     def test_permission_error_only_ignored_for_dead_groups(self):
         for sig in (0, signal.SIGTERM, signal.SIGKILL):
             for listing in ('', '123 Z\n123 Z+\n456 S\n'):
@@ -83,6 +93,7 @@ class MacSmoke(unittest.TestCase):
                               else real_run(*a, **kw)):
                 self.assertFalse(smoke.smoke(['sh', '-c', 'echo startup-failed; exit 9'],
                                             'http://unused', Path(tmp) / 'app.log', timeout=.5, grace=.1))
+                self.assertIn('::error::The bundled Mac app', self.output.getvalue())
 
     def test_real_http_success_and_failure(self):
         for status in (200, 503, None):

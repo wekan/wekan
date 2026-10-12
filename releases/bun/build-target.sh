@@ -5,9 +5,7 @@ export TMPDIR="$root/.tools/tmp"
 mkdir -p "$TMPDIR"
 : "${TARGET:?}" "${TARGET_PLATFORM:?}" "${TARGET_ARCH:?}" "${RELEASE_TAG:?}"
 node releases/bun/rebuild.mjs bundle
-binary=./bundle/bun
-[ "$TARGET_PLATFORM" != win32 ] || binary=./bundle/bun.exe
-"$binary" releases/bun/check-native.mjs "$root/bundle" "$TARGET_PLATFORM" "$TARGET_ARCH"
+node releases/bun/run-native-check.mjs "$root/bundle" "$TARGET_PLATFORM" "$TARGET_ARCH"
 if [ -n "${BUN_SMOKE_MONGO_URL:-}" ]; then
   node releases/bun/live-smoke.mjs bundle
 else

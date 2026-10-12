@@ -118,3 +118,12 @@ test('helm is still needed for what only helm does', () => {
 });
 
 console.log(`\n${passed} passed`);
+
+test('the real planner follows authenticated pagination and preserves failures', () => {
+  execFileSync('python3', ['-B', 'tests/backfill-charts-pagination.py'], {
+    cwd: repoRoot, stdio: 'pipe', timeout: 10000,
+  });
+  const workflow = fs.readFileSync(path.join(repoRoot, '.github/workflows/release-all.yml'), 'utf8');
+  assert.match(workflow, /set -o pipefail\n\s+\.\/wekan\/releases\/backfill-charts.sh \| tee/,
+    'a failed plan must not look successful just because tee succeeded');
+});

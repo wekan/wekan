@@ -56,6 +56,7 @@ if (process.platform !== 'win32') {
     const marker = path.join(tmp, '.bun-smoke-ok');
     for (const [output, success] of [
       ['MongoServerSelectionError: connect ECONNREFUSED 127.0.0.1:1', true],
+      ['::error::expected database rejection\nMongoServerSelectionError: refused', true],
       ['SyntaxError: broken bundle', false],
       ['MongoServerSelectionError: refused\nError: Cannot find module argon2', false],
       ['', false],
@@ -65,6 +66,8 @@ if (process.platform !== 'win32') {
       const result = spawnSync(process.execPath, ['releases/bun/smoke.mjs', tmp], { cwd: root, encoding: 'utf8' });
       assert.equal(result.status === 0, success, result.stdout + result.stderr);
       assert.equal(fs.existsSync(marker), success);
+      assert(!/^::error::/m.test(result.stdout + result.stderr), 'expected errors must not create CI annotations');
+      if (!success && output) assert(result.stderr.includes(output.split('\n')[0]), 'real failure diagnostics must remain visible');
     }
     const launch = spawnSync('sh', ['releases/bun/start-wekan.sh'], {
       cwd: root, encoding: 'utf8', env: { ...process.env, MONGO_URL: '', ROOT_URL: '' },

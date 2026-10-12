@@ -10,16 +10,19 @@ const child = spawn(resolve(bundle, process.platform === 'win32' ? 'bun.exe' : '
   stdio: ['ignore', 'pipe', 'pipe'],
 });
 let output = '';
-for (const stream of [child.stdout, child.stderr]) stream.on('data', data => { output += data; process.stdout.write(data); });
+// Expected database errors are evidence for this gate, not CI annotations.
+for (const stream of [child.stdout, child.stderr]) stream.on('data', data => { output += data; });
 const timer = setTimeout(() => child.kill('SIGKILL'), 60000);
 child.on('error', error => { clearTimeout(timer); throw error; });
 child.on('close', () => {
   clearTimeout(timer);
   if (!/MongoServerSelectionError|ECONNREFUSED.*127\.0\.0\.1:1/.test(output) ||
       /Cannot find module|ERR_MODULE_NOT_FOUND|SyntaxError|ReferenceError|TypeError|ERR_DLOPEN_FAILED|invalid ELF/.test(output)) {
+    for (const line of output.split(/\r?\n/)) console.error(`[bun smoke] ${line}`);
     console.error('Bun bundle did not load cleanly up to database connection');
     process.exitCode = 1;
     return;
   }
+  console.log('Bun loaded cleanly up to the expected unavailable database.');
   writeFileSync(resolve(bundle, '.bun-smoke-ok'), 'Loaded on target; native password and image operations passed.\n');
 });

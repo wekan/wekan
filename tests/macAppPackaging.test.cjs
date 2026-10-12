@@ -59,4 +59,5 @@ test('Mac smoke test stops the whole app group without an unbounded wait', { ski
     cwd: root, encoding: 'utf8', timeout: 10000,
   });
   assert.equal(result.status, 0, result.stdout + result.stderr);
+  assert.doesNotMatch(result.stdout, /::error::/, 'negative fixtures must not annotate the real build');
 });

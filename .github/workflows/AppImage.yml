@@ -191,8 +191,11 @@ jobs:
         run: |
           set -euo pipefail
           zip="wekan-${{ needs.release.outputs.version }}-${{ matrix.bundle_arch }}.zip"
-          if gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" '${{ needs.release.outputs.tag }}' --repo "${{ github.repository }}" \
-               --json assets --jq '.assets[].name' 2>/dev/null | grep -qx "$zip"; then
+          # Read the complete response before searching: grep -q can close a
+          # pipe early and turn a present asset into a SIGPIPE failure.
+          assets=$(gh release view --repo "${{ github.repository }}" '${{ needs.release.outputs.tag }}' \
+            --json assets --jq '.assets[].name')
+          if grep -Fxq "$zip" <<< "$assets"; then
             echo "OK: $zip is on ${{ needs.release.outputs.tag }}; building its AppImage."
           else
             echo "::notice::$zip is not on ${{ needs.release.outputs.tag }} yet - skipping this AppImage (it can only wrap a bundle that exists)."

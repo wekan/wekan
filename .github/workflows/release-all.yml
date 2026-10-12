@@ -544,6 +544,7 @@ jobs:
       - name: Report which releases the chart index is missing
         continue-on-error: true
         run: |
+          set -o pipefail
           ./wekan/releases/backfill-charts.sh | tee -a "$GITHUB_STEP_SUMMARY"
 
       # Always, as the last step: the run summary then answers "what worked and what

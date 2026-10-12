@@ -24,12 +24,41 @@ export function packageCopies(root, names) {
   return found;
 }
 
-export function run(command, args, cwd, extraEnv = {}) {
+export function run(command, args, cwd, extraEnv = {}, timeout = 0) {
   const result = spawnSync(command, args, {
-    cwd, stdio: 'inherit', shell: process.platform === 'win32' && command.endsWith('.cmd'),
+    cwd, timeout, killSignal: 'SIGKILL', stdio: 'inherit', shell: process.platform === 'win32' && command.endsWith('.cmd'),
     env: { ...process.env, ...extraEnv },
   });
   if (result.error || result.status !== 0) throw new Error(`${command} failed: ${result.error || result.status}`);
+}
+
+// A load probe is only a prebuilt-addon shortcut, not the final native test.
+// FreeBSD logs stopped here for three hours; terminate hung probes so the
+// source rebuild can run. SIGKILL also bounds runtimes that ignore SIGTERM.
+export function probeAddon(bun, dir, cwd, timeout = 30000) {
+  console.log(`Checking prebuilt addon: ${dir}`);
+  const result = spawnSync(bun, ['-e', 'require(process.argv[1]); process.exit(0)', dir], {
+    cwd, encoding: 'utf8', timeout, killSignal: 'SIGKILL',
+  });
+  if (result.error || result.status !== 0) {
+    console.log(`Rebuilding ${dir}: ${result.error?.message || result.stderr || result.signal || result.status}`);
+    return false;
+  }
+  return true;
+}
+
+// Sharp has no Android prebuilt addon. Build against Termux's libvips and
+// install only its declared addon headers, not its development/test toolchain.
+export function buildSharpFromSource(dir, server, npm) {
+  const pkg = JSON.parse(readFileSync(join(dir, 'package.json'), 'utf8'));
+  const addonApi = pkg.devDependencies?.['node-addon-api'];
+  if (!addonApi) throw new Error('Sharp does not declare node-addon-api build headers');
+  run(npm, ['install', '--no-save', '--omit=dev', '--ignore-scripts', '--package-lock=false',
+    `node-addon-api@${addonApi}`], server);
+  rmSync(join(dir, 'src/build'), { recursive: true, force: true });
+  run(process.execPath, [join(server, 'node_modules/node-gyp/bin/node-gyp.js'),
+    'rebuild', `--directory=${join(dir, 'src')}`, `--arch=${process.arch}`], server,
+    { SHARP_FORCE_GLOBAL_LIBVIPS: '1' });
 }
 
 export function rebuild(bundle) {
@@ -53,9 +82,11 @@ export function rebuild(bundle) {
     // Install optional packages on the TARGET, including musl/Bionic distinctions.
     // This is deliberately not a cross-platform npm_config_arch override.
     run(npm, ['install', '--omit=dev', '--include=optional', '--ignore-scripts', '--package-lock=false'], dir);
+    if (name === 'sharp' && process.platform === 'android') {
+      buildSharpFromSource(dir, server, npm);
+    }
     if (name === 'bcrypt' || name === 'argon2') {
-      const probe = spawnSync(bun, ['-e', 'require(process.argv[1])', dir], { cwd: server, encoding: 'utf8' });
-      if (probe.status !== 0) {
+      if (!probeAddon(bun, dir, server)) {
         run(process.execPath, [join(server, 'node_modules/node-gyp/bin/node-gyp.js'),
           'rebuild', `--directory=${dir}`, `--arch=${process.arch}`], server);
       }

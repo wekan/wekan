@@ -197,6 +197,8 @@ jobs:
           TERMUX_ARCH: ${{ matrix.termux_arch }}
         run: |
           # Termux uses Android libc/linker and native Android clang, not glibc.
+          # Its entrypoint clears Docker env when switching to the system user.
+          # Pass build metadata as env arguments AFTER that switch.
           # Its unprivileged system user needs a writable bind mount.
           chmod -R a+rwX bundle
           mkdir -p dist .tools/tmp
@@ -204,9 +206,12 @@ jobs:
           docker run --rm --security-opt seccomp=unconfined \
             -v "$PWD:/work" -w /work \
             -e TARGET -e TARGET_PLATFORM -e TARGET_ARCH -e RELEASE_TAG \
-            "termux/termux-docker:$TERMUX_ARCH" bash -ec '
+            "termux/termux-docker:$TERMUX_ARCH" env \
+              "TARGET=$TARGET" "TARGET_PLATFORM=$TARGET_PLATFORM" \
+              "TARGET_ARCH=$TARGET_ARCH" "RELEASE_TAG=$RELEASE_TAG" \
+              DO_NOT_TRACK=1 bash -ec '
               apt-get update
-              apt-get install -y nodejs-lts python make clang pkg-config
+              apt-get install -y nodejs-lts python make clang pkg-config libvips
               bash releases/bun/build-target.sh'
       - name: FreeBSD VM build and smoke tests
         if: matrix.kind == 'freebsd'

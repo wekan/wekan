@@ -16,7 +16,8 @@ FerretDB, MongoDB Database Tools, Node.js, or a compiler.
 After extracting, set `MONGO_URL` and `ROOT_URL`, optionally `PORT` (3000 by
 default), and run `bundle/start-wekan.sh` or `bundle/start-wekan.cmd` on
 Windows. Android bundles run inside Termux, with its standard libraries and
-prefix; install `libc++` in Termux if needed by native addons. Keep the whole
+prefix; install `libc++` and `libvips` in Termux before starting the bundle.
+Sharp is compiled against Termux libvips because it has no Android prebuilt addon. Keep the whole
 bundle together. `index.mjs` is used on every platform; the optional Unix
 socket based `bun-host.mjs` is not the portable Windows entry point.
 
@@ -27,11 +28,16 @@ socket based `bun-host.mjs` is not the portable Windows entry point.
 - macOS and Windows: native x64 and ARM64 hosted runners.
 - Android: the official Termux containers on matching Linux runner CPUs.
   These execute Bionic/Android binaries and build with Android clang; they
-  are not glibc bundles renamed as Android. They do not emulate the Android
+  are not glibc bundles renamed as Android. Build metadata is passed after the
+  entrypoint clears the Docker environment, and Sharp is built from source. They do not emulate the Android
   UI/framework, so this is not a device or APK test.
 - FreeBSD: real FreeBSD VMs through `vmactions/freebsd-vm`; its documented
   Ubuntu x64 host supports both x86_64 and emulated aarch64 guests. Prepared
   images are cached. This is the one target that needs cross-CPU emulation.
+
+Addon load probes have a 30-second deadline and fall back to source builds.
+The final native operation checks run under a Node supervisor with a three-minute
+deadline; a hung or failed check prevents packaging.
 
 The ESM compile is shared by all twelve targets. Only native npm dependencies
 are rebuilt per target. Matrix jobs run independently, and each attaches its

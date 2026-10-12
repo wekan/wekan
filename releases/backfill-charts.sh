@@ -78,10 +78,10 @@ if [ -z "${CHARTS_DIR:-}" ]; then
     fi
   done
 fi
-if [ -z "${CHARTS_DIR:-}" ]; then
+if [ -z "${CHARTS_DIR:-}" ] && [ "$APPLY" = true ]; then
   echo "Charts repo not found at $REPO_DIR/.tools/charts or $REPO_DIR/../w/charts."
   echo "Set CHARTS_DIR to the wekan/charts checkout, or run with no --apply for a plan."
-  [ "$APPLY" = true ] && exit 1
+  exit 1
 fi
 
 # ── 1. The plan ──────────────────────────────────────────────────────────────
@@ -95,6 +95,8 @@ fi
 # The image check is the slow one (one request per release without a chart), so
 # it is the only one that is concurrent, and a release is only asked about when
 # its answer can change the outcome.
+mkdir -p "$REPO_DIR/.tools/tmp"
+export TMPDIR="$REPO_DIR/.tools/tmp"
 PLAN_JSON="$(mktemp)"
 trap 'rm -f "$PLAN_JSON"' EXIT
 
@@ -113,12 +115,21 @@ def get(url, headers=None, timeout=60):
 # Every WeKan release, newest first. Only vNN.MM tags: those are the releases a
 # chart is ever cut for.
 releases = []
-for page in range(1, 20):
-    with get(f"https://api.github.com/repos/wekan/wekan/releases?per_page=100&page={page}") as r:
-        batch = json.load(r)
-    if not batch:
-        break
-    releases += batch
+url = "https://api.github.com/repos/wekan/wekan/releases?per_page=100"
+headers = {"Accept": "application/vnd.github+json", "User-Agent": "wekan-chart-backfill"}
+auth = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
+if auth:
+    headers["Authorization"] = f"Bearer {auth}"
+# Follow GitHub's pagination links, including the absence of a next page.
+# The old fixed page loop failed with HTTP 422 during the v12.37 report.
+while url:
+    with get(url, headers=headers) as r:
+        releases.extend(json.load(r))
+        links = r.headers.get("Link", "")
+    next_link = re.search(r'<([^>]+)>;\s*rel="next"', links)
+    url = next_link.group(1) if next_link else None
+    if url and not url.startswith("https://api.github.com/"):
+        raise ValueError("Unexpected release pagination host")
 versions = []
 for rel in releases:
     m = re.fullmatch(r"v(\d+)\.(\d+)", rel.get("tag_name", ""))
