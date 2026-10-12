@@ -161,8 +161,8 @@ test('negative: user content is escaped and only http(s) links are made', () => 
   const item = d.renderNotificationItem({ description: 'act-createCard', params: evil, parts: d.ITEM_PARTS, translate });
   // No markup of their own: every < of user text is &lt;, and no href is
   // anything but http(s).
-  assert.doesNotMatch(item.html, /<script|<img|<svg|href="javascript:|href="data:|" ?onmouseover=/);
-  assert.deepEqual([...item.html.matchAll(/<([a-z]+)/g)].map(m => m[1]).filter(t => !['div', 'b', 'a', 'br'].includes(t)), []);
+  assert.doesNotMatch(item.html, /<script|<img|<svg|href="javascript:|href="data:|" ?onmouseover=/i);
+  assert.deepEqual([...item.html.matchAll(/<([a-z]+)/gi)].map(m => m[1].toLowerCase()).filter(t => !['div', 'b', 'a', 'br'].includes(t)), []);
   assert.match(item.html, /&lt;script&gt;/);
   assert.match(item.html, /href="https:\/\/wekan\.example\/%22onmouseover=%22x"/, 'a quote in a URL is percent-encoded');
 });

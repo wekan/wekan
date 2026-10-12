@@ -101,7 +101,7 @@ async function main() {
   assert.match(twice, /<span class="hljs-string">/);
   assert.match(twice, /<span class="hljs-comment">\/\/ hi<\/span>/);
   assert.match(twice, /&lt;script&gt;/, 'code stays text');
-  assert.doesNotMatch(twice, /<script/);
+  assert.doesNotMatch(twice, /<script/i);
   // Its config on its own still forbids every input, and the hook is removed.
   assert.ok(viewer.getSecureDOMPurifyConfig().FORBID_TAGS.includes('input'));
   assert.equal(viewerPurifier.sanitize('<input type="checkbox">', viewer.getSecureDOMPurifyConfig()), '');

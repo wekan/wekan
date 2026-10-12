@@ -97,6 +97,40 @@ test('THE VETO: a policy-named package that IS required is refused', dir => {
   assert.ok(/removed 0 package/.test(out), 'and nothing was removed');
 });
 
+// CodeQL alert #565: `/` was allowed both between and inside path segments,
+// so a quoted `-/-/-/...` could be split in exponentially many ways, and
+// es-module-lexer's minified lexer alone took over two seconds. A `/` now only
+// separates segments.
+test('the VETO also sees the trailing-slash form require("typescript/")', dir => {
+  // Node's idiom for "the package, not a built-in of the same name". The old
+  // pattern did not match it, so such a package could have been removed.
+  const bundle = makeBundle(dir, Object.assign(
+    { 'programs/server/app/app.js': 'const ts = require("typescript/");' },
+    pkg('typescript', '// a compiler'),
+  ));
+  const out = prune(bundle);
+  assert.ok(has(bundle, `${NM}/typescript`), 'it must still be there');
+  assert.ok(/KEEPING typescript/.test(out), out);
+});
+
+test('a backtracking-shaped string is scanned in linear time (negative)', dir => {
+  const attack = '"' + '-/'.repeat(50000) + '!';
+  const bundle = makeBundle(dir, Object.assign(
+    { 'programs/server/app/app.js': `const x = ${JSON.stringify(attack)}; require("left-pad");` },
+    pkg('typescript', '// a compiler'),
+    pkg('left-pad', 'module.exports = 1;'),
+  ));
+  const started = Date.now();
+  prune(bundle);
+  assert.ok(Date.now() - started < 10000, `took ${Date.now() - started} ms`);
+  assert.ok(!has(bundle, `${NM}/typescript`) && has(bundle, `${NM}/left-pad`), 'and the result is unchanged');
+  const src = fs.readFileSync(PRUNE, 'utf8');
+  const spec = src.match(/^const SPECIFIER = \/(.*)\/g;$/m);
+  assert.ok(spec, 'SPECIFIER is still one regex literal');
+  assert.ok(!/\[[^\]]*\/[^\]]*\]\+\)\*/.test(spec[1].replace(/\\\//g, '/')),
+    'no repeated path segment whose character class also contains /');
+});
+
 test('it never touches a package the policy does not name (negative)', dir => {
   // 590 packages are unreachable; only the provable ones are in the policy. An
   // unreachable package the policy is silent about must survive untouched.

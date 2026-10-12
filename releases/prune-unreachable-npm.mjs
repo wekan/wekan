@@ -144,7 +144,13 @@ const CODE = /\.(js|cjs|mjs)$/;
 // createRequire(...)("sharp"), native import(), and Meteor's virtual paths.
 // This intentionally over-approximates: an ordinary string can retain a package,
 // but a renamed loader must never make a runtime dependency disappear.
-const SPECIFIER = /["']((?:\/node_modules\/)?(?:@[a-zA-Z0-9_.-]+\/)?[a-zA-Z0-9_.-]+(?:\/[a-zA-Z0-9_./-]+)*)["']/g;
+// A `/` separates path segments and is never part of one, so each specifier
+// matches one way only. When `/` was also allowed inside a segment, `"-/-/-/...`
+// could be split in exponentially many ways (CodeQL alert #565, js/redos), and
+// es-module-lexer's minified lexer took longer than two seconds by itself. The
+// optional trailing `/` keeps `require('querystring-es3/')`, the form that
+// names a package rather than a built-in module, which the old pattern missed.
+const SPECIFIER = /["']((?:\/node_modules\/)?(?:@[a-zA-Z0-9_.-]+\/)?[a-zA-Z0-9_.-]+(?:\/[a-zA-Z0-9_.-]+)*\/?)["']/g;
 
 function filesOf(dir, out = []) {
   let ents;

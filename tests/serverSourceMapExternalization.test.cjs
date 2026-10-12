@@ -26,14 +26,15 @@ function trace(server) {
       if (String(file).endsWith('.runtime-source-map.json')) mapReads++;
       return original.call(this, file, ...args);
     };
-    require(${JSON.stringify(support)}).install({ handleUncaughtExceptions: false });
+    require(process.argv[1]).install({ handleUncaughtExceptions: false });
     const fn = vm.runInThisContext(fs.readFileSync('app/test.js', 'utf8'), { filename: 'app/test.js' });
     if (mapReads) throw Error('eager map read');
     let stack;
     try { fn(); } catch (e) { stack = e.stack; }
     console.log(JSON.stringify({ stack, mapReads }));
   `;
-  const result = spawnSync(process.execPath, ['-e', script], { cwd: server, encoding: 'utf8' });
+  // The module path is an argument, never spliced into the script's source.
+  const result = spawnSync(process.execPath, ['-e', script, support], { cwd: server, encoding: 'utf8' });
   assert.equal(result.status, 0, result.stderr);
   return JSON.parse(result.stdout);
 }

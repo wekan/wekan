@@ -290,13 +290,14 @@ test('without WEKAN_VFS_ARCHIVE it installs nothing', () => {
   fs.writeFileSync(probe, [
     "const fs = require('node:fs');",
     'const before = fs.readFileSync;',
-    `const vfs = require(${JSON.stringify(VFS)});`,
+    // The module path is an argument, never spliced into the probe's source.
+    'const vfs = require(process.argv[2]);',
     'console.log(JSON.stringify({',
     '  installed: vfs.installed,',
     '  untouched: fs.readFileSync === before,',
     '}));',
   ].join('\n'));
-  const out = execFileSync(process.execPath, [probe], {
+  const out = execFileSync(process.execPath, [probe, VFS], {
     encoding: 'utf8',
     env: { ...process.env, WEKAN_VFS_ARCHIVE: '', WEKAN_VFS_ROOT: '' },
   });
@@ -315,11 +316,12 @@ test('an entry whose length disagrees with the directory is refused', () => {
   fs.writeFileSync(damaged, copy);
   const probe = path.join(work, 'damaged.cjs');
   fs.writeFileSync(probe, [
-    `const vfs = require(${JSON.stringify(VFS)});`,
+    // The module path is an argument, never spliced into the probe's source.
+    'const vfs = require(process.argv[2]);',
     "try { vfs.readEntry('x.js'); console.log('NO ERROR'); }",
     'catch (e) { console.log(e.message); }',
   ].join('\n'));
-  const out = execFileSync(process.execPath, [probe], {
+  const out = execFileSync(process.execPath, [probe, VFS], {
     encoding: 'utf8',
     env: {
       ...process.env,

@@ -6,7 +6,8 @@ const vm = require('node:vm');
 const file = fs.readFileSync(path.join(__dirname, '../client/components/boards/multiboardCalendarView.js'), 'utf8');
 // Resolve the real module's imports explicitly; no Filter/FlowRouter globals.
 const source = file.replace(/^import\s+\{([^}]+)\}\s+from\s+(['"])([^'"]+)\2;/gm,
-  (_, names, quote, specifier) => `const {${names}} = require(${JSON.stringify(specifier)});`);
+  // The specifier is re-emitted as the very literal the source wrote.
+  (_, names, quote, specifier) => `const {${names}} = require(${quote}${specifier}${quote});`);
 let created, helpers, active = false, ready = true, rtl = false, instance;
 const start = new Date('2026-03-21T12:00:00Z'), end = new Date('2026-03-22T12:00:00Z');
 const boards = ['a', 'b'].map(id => ({

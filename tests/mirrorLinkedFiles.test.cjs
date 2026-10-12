@@ -16,7 +16,7 @@ test('every public linked file is archived under its own comment, with empty lis
   assert.equal(fs.readdirSync(comment).filter(n=>n.startsWith('attachment-')).length,3);
   assert.match(fs.readFileSync(path.join(comment,'index.csv'),'utf8'),/article.html/);
   const page=fs.readFileSync(path.join(base,'issues/1000/index.html'),'utf8');
-  assert.match(page,/2000\/attachment-/);assert.match(page,/<img /);assert.match(page,/<video /);assert.doesNotMatch(page,/<script>unsafe/);
+  assert.match(page,/2000\/attachment-/);assert.match(page,/<img /);assert.match(page,/<video /);assert.doesNotMatch(page,/<script\b[^>]*>unsafe/i);
   assert.match(fs.readFileSync(path.join(base,'index.html'),'utf8'),/wekan\/wekan/);
   assert.match(fs.readFileSync(path.join(base,'issues/index.csv'),'utf8'),/1000/);
   assert.equal(snapshot.issues[0].commentsToMirror[0].archiveCommentId,undefined);

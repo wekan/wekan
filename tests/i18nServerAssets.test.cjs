@@ -32,7 +32,11 @@ test('server eager dynamic imports read only requested language and cache it', a
   t.after(() => fs.rmSync(tmp, { recursive: true, force: true }));
   const french = path.join(root, 'imports/i18n/data/fr.i18n.json');
   const german = path.join(root, 'imports/i18n/data/de.i18n.json');
-  fs.writeFileSync(path.join(tmp, 'entry.cjs'), `exports.fr = () => import(${JSON.stringify(french)}); exports.de = () => import(${JSON.stringify(german)});`);
+  // The dictionaries sit beside the entry, so its source is constant: no path
+  // is turned into code (CodeQL alerts #567 and #568, js/bad-code-sanitization).
+  fs.copyFileSync(french, path.join(tmp, 'fr.i18n.json'));
+  fs.copyFileSync(german, path.join(tmp, 'de.i18n.json'));
+  fs.writeFileSync(path.join(tmp, 'entry.cjs'), "exports.fr = () => import('./fr.i18n.json'); exports.de = () => import('./de.i18n.json');");
   const compiler = rspack({ mode: 'production', target: 'node', entry: path.join(tmp, 'entry.cjs'),
     output: { path: path.join(tmp, 'out'), filename: 'main.cjs', library: { type: 'commonjs2' } },
     module: { parser: { javascript: { dynamicImportMode: 'eager' } }, rules: [{ test: /\.i18n\.json$/, type: 'javascript/auto', use: [path.join(root, 'npm-packages/meteor-i18n-server-loader')] }] },

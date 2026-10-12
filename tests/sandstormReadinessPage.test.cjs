@@ -14,9 +14,14 @@ vm.runInNewContext(source, {
 });
 let html;
 handler({ url: '/' }, { writeHead(status) { assert.equal(status, 503); }, end(body) { html = body; } });
-assert.match(html, /<noscript><meta http-equiv="refresh"/);
-assert.doesNotMatch(html.replace(/<noscript>[\s\S]*?<\/noscript>/g, ''), /http-equiv="refresh"/);
-const script = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+// Tag patterns are case-insensitive and allow attributes and `</script >`:
+// HTML does, so a case-sensitive pattern can miss the tag it is looking for
+// (CodeQL alert #566, js/bad-tag-filter).
+assert.match(html, /<noscript\b[^>]*>\s*<meta http-equiv="refresh"/i);
+assert.doesNotMatch(html.replace(/<noscript\b[^>]*>[\s\S]*?<\/noscript\s*>/gi, ''), /http-equiv="refresh"/i);
+const scripts = [...html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script\s*>/gi)];
+assert.equal(scripts.length, 1, 'the page has exactly one script');
+const script = scripts[0][1];
 
 async function check(result, shouldReload) {
   let respond;
