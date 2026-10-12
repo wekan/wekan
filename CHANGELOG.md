@@ -526,9 +526,9 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** **Bun** release builds now pass the correct version to the
-installer, fixing the setup failure that prevented all platform builds
-from starting.
+**In short:** The **Bun** release workflow fixes the installer failure that
+blocked every platform build. The selected runtime stays consistent across
+application compilation and platform downloads.
 
 This release fixes the following bugs:
 
@@ -540,10 +540,12 @@ it as invalid semver before Meteor could build. The planner now emits a
 separate `1.4.3` installer version while keeping the full release tag for
 runtime downloads and provenance. All targets still use the same Bun release.
 
-Regression tests cover version conversion, rejected malformed and prerelease
-tags, and workflow wiring. Bun packaging and release attachment tests pass,
-as does workflow validation. The full GitHub Actions build was not rerun
-locally; this fixes the setup failure shown in the build log.
+`tests/bun-release.py` verifies installer version conversion, retains the
+original download tag, and rejects malformed and prerelease tags.
+`tests/bunRelease.test.cjs` checks that the workflow sends each value to the
+right consumer. Bun packaging, release attachment tests and workflow
+validation pass. Full platform builds still need verification in GitHub
+Actions; these checks cover the reported setup failure.
 
 </details>
 
