@@ -27,7 +27,11 @@ const {
   DEFAULT_LAZY_THRESHOLD,
 } = require('/models/lib/cardsLoading');
 const { boardCardScope, assignedOnlyCardScope } = require('/models/lib/boardCardScope');
-const { boardVisibilitySelectors, starredPublicBoardSelector } = require('/models/lib/boardVisibilitySelectors');
+const {
+  boardVisibilitySelectors,
+  starredPublicBoardSelector,
+  starredVisibleBoardSelector,
+} = require('/models/lib/boardVisibilitySelectors');
 const { cardParentIds, collectAllAncestorIds } = require('/models/lib/cardParents');
 
 // Card-loading mode (Admin Panel / Features): 'all' ships every card/checklist to
@@ -70,10 +74,23 @@ const BOARD_LIST_FIELDS = {
 // The global relationship-only boards publication does not stream every public
 // board. A separate subscription follows the current user's starred IDs so a
 // public favorite stays available after leaving its own board publication.
-Meteor.publish('starredPublicBoards', function(boardIds) {
+// #6764: and so does a PRIVATE favorite the user may see. The header's
+// Favorites popup is on every page and must not depend on the `boards`
+// composite having already delivered them; it used to send only
+// public/instance boards here, and users whose favorites were all private saw
+// an empty popup. The name stays, so existing clients keep subscribing.
+Meteor.publish('starredPublicBoards', async function(boardIds) {
   check(boardIds, [String]);
   if (!this.userId) return this.ready();
-  const clause = starredPublicBoardSelector(boardIds);
+  const user = await ReactiveCache.getUser(this.userId);
+  if (!user) return this.ready();
+  const clause = starredVisibleBoardSelector({
+    boardIds,
+    userId: this.userId,
+    orgIds: user.orgIds(),
+    teamIds: user.teamIds(),
+    emailDomains: user.emailDomains(),
+  });
   if (!clause) return this.ready();
   return Boards.find({ ...clause, archived: false, type: 'board' }, {
     fields: BOARD_LIST_FIELDS,

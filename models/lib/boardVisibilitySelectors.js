@@ -86,4 +86,37 @@ function starredPublicBoardSelector(boardIds) {
   return ids.length ? { _id: { $in: ids }, permission: { $in: ['public', 'instance'] } } : null;
 }
 
-module.exports = { boardVisibilitySelectors, starredPublicBoardSelector };
+// #6764: the header's Favorites popup lists `profile.starredBoards` through
+// Boards.userBoards on the client, so every starred board it may show has to be
+// in minimongo on EVERY page. The `starredPublicBoards` publication only sent
+// public/instance ones, which left a user whose favorites are all private
+// boards with an empty popup. This selects the starred ids the user may
+// actually see - public/instance, or an ACTIVE membership / org / team / domain
+// share, the same builder as everywhere else - so a revoked share or a stale
+// star still never brings a private board back.
+function starredVisibleBoardSelector({
+  boardIds,
+  userId,
+  orgIds = [],
+  teamIds = [],
+  emailDomains = [],
+} = {}) {
+  const starredPublic = starredPublicBoardSelector(boardIds);
+  if (!starredPublic) return null;
+  const { _id, permission } = starredPublic;
+  return {
+    _id,
+    $or: [
+      { permission },
+      ...boardVisibilitySelectors({
+        userId, orgIds, teamIds, emailDomains, includePublic: false,
+      }),
+    ],
+  };
+}
+
+module.exports = {
+  boardVisibilitySelectors,
+  starredPublicBoardSelector,
+  starredVisibleBoardSelector,
+};
