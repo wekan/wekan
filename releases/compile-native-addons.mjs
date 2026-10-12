@@ -93,6 +93,10 @@ export function nodeGypPath(bundle) {
 
 export function compileNativeAddons(bundle, arch, packages, { nodedir = '', run = spawnSync, log = console.log } = {}) {
   if (!ARCHES.includes(arch)) throw new Error(`unknown arch ${arch}; expected one of ${ARCHES.join(', ')}`);
+  // Absolute, because node-gyp runs with each package as its cwd: the jobs
+  // pass `../..` from programs/server, and in v12.34 that relative node-gyp
+  // path was looked up under accounts-password/ and was not there.
+  bundle = resolve(bundle);
   const gyp = nodeGypPath(bundle);
   const { compile, skip, missing } = plan(bundle, arch, packages);
   if (missing.length) throw new Error(`not in the bundle: ${missing.join(', ')}`);

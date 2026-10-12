@@ -121,6 +121,37 @@ test('node-gyp is asked for the target CPU, in the package, with the nodedir', (
   });
 });
 
+// v12.34: the jobs run this from programs/server with the bundle as `../..`,
+// and node-gyp runs with the package as its cwd. Every path it is given has to
+// work from THERE, which a fake resolving against this process's cwd hid.
+test('a relative bundle path works from inside programs/server, as the jobs call it', () => {
+  withTree(BUNDLE, (d) => {
+    const calls = [];
+    const run = (exe, args, opts) => {
+      calls.push(args);
+      // What the child process sees: relative paths resolve against opts.cwd.
+      const script = path.resolve(opts.cwd, args[0]);
+      const dir = path.resolve(opts.cwd, args.find((a) => a.startsWith('--directory=')).slice('--directory='.length));
+      if (!fs.existsSync(script)) return { status: 1, error: new Error(`Cannot find module '${script}'`) };
+      fs.mkdirSync(path.join(dir, 'build/Release'), { recursive: true });
+      fs.writeFileSync(path.join(dir, 'build/Release/addon.node'), 'MZ');
+      return { status: 0 };
+    };
+    const before = process.cwd();
+    process.chdir(path.join(d, 'programs/server'));
+    try {
+      const r = compileNativeAddons('../..', 'arm64', ['bcrypt', 'argon2'], { run, ...quiet });
+      assert.deepStrictEqual(r.compiled, [path.join(AP, 'argon2')]);
+    } finally {
+      process.chdir(before);
+    }
+    for (const args of calls) {
+      assert.ok(path.isAbsolute(args[0]), `node-gyp.js is absolute: ${args[0]}`);
+      assert.ok(path.isAbsolute(args.find((a) => a.startsWith('--directory=')).slice(12)), 'and so is --directory');
+    }
+  });
+});
+
 // Negative: every way the compile can quietly not happen is an error.
 test('a failed compile, no output, no node-gyp or no package is an error', () => {
   withTree(BUNDLE, (d) => {
