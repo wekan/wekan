@@ -319,3 +319,35 @@ first-use Excel write/read and malformed input, archive-inspection failure,
 unchanged global Promise, and the existing workbook/backup suites. Ten focused
 test files passed on packaged Node v26.11.1; startup-wrapper and namespace tests
 also passed. Browser automation was not run.
+
+### Server translation assets
+
+Meteor's Rspack server configuration makes dynamic imports eager: dictionaries
+that are separate browser chunks were all embedded in the server script. The
+server-only `meteor-i18n-server-loader` emits non-English dictionaries under
+`private/build-assets/i18n/` instead. The generated module resolves its packaged
+path through `Assets.absoluteFilePath`, reads and parses the JSON on first import,
+and uses Rspack's normal module cache thereafter. English stays embedded as the
+startup fallback. Registry tags, translation contents, custom overrides and the
+client's existing dynamic imports are unchanged.
+
+The production build contains 243 non-English dictionary assets. `app/app.js`
+shrinks from 129.6 MiB to 55.9 MiB; this moves data out of the startup script,
+not out of the package. Source maps remain enabled. A sequential comparison on
+the same persisted test database with detailed profiling disabled measured:
+
+| Phase | Cleaned previous payload | Translation assets |
+| --- | ---: | ---: |
+| Initial Meteor require | 829 ms | 603 ms |
+| HTTP listening | 1.453 s | 1.220 s |
+
+The first rebuilt-payload run took 1.257 s. These are warm-cache local production
+measurements, not actual-grain or board-render times. Loading a language for the
+first time now pays its file read and JSON parsing cost.
+
+`tests/i18nServerAssets.test.cjs` checks all dictionaries round-trip unchanged,
+invalid JSON fails the build, server-only rule selection and embedded English.
+A real Rspack build using Meteor's eager import mode verifies no initial reads,
+only the requested language loaded, the expected import namespace and caching.
+The existing browser lazy-loading and Rspack overlay tests also pass. Browser
+automation was not run.

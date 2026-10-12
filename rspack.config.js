@@ -49,6 +49,16 @@ module.exports = defineConfig(Meteor => ({
   }),
   module: {
     rules: [
+      ...(Meteor.isServer
+        ? [{
+            test: /\.i18n\.json$/,
+            include: path.resolve(__dirname, 'imports/i18n/data'),
+            // English is the synchronous fallback in tap.js on both platforms.
+            exclude: /[/\\]en\.i18n\.json$/,
+            type: 'javascript/auto',
+            use: [path.resolve(__dirname, 'npm-packages/meteor-i18n-server-loader')],
+          }]
+        : []),
       {
         test: /\.jade$/,
         use: [path.resolve(__dirname, 'npm-packages/meteor-jade-loader')],
