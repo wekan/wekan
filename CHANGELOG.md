@@ -524,6 +524,74 @@ used.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** the Docker image's vulnerability scans on **Quay** and **Artifact
+Hub** are cut down to what has no fix yet. The image no longer carries
+**docker-cli** and its old Go, the bundled **FerretDB** and **MongoDB tools**
+are built with **Go 1.27.2**, and eight npm packages inside Meteor's own
+packages are raised to fixed releases.
+
+This release fixes the following SECURITY ISSUES found by container image scanning:
+
+**The Docker image** - what the image carries besides WeKan.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/be2a4053be">It no longer installs docker-cli, whose Go 1.24 filled the scans</a>. Thanks to xet7.</summary>
+
+Debian's `docker-cli` is a Go program built with Go 1.24.4, and its standard
+library advisories were most of the Quay scan (about 60 entries per
+architecture) and three of Artifact Hub's. Only the UCS migration used it, to
+run `mongo` and `mongoexport` inside the old database container. Its wrappers
+now run `releases/ucs-migration/docker-exec.mjs`, which talks to the Docker
+Engine API over the mounted socket and keeps stdout, stderr and the exit
+status apart exactly as `docker exec` did, with 125 when Docker refuses.
+`tests/ucsDockerExec.test.mjs` drives it against a fake engine that splits
+frames across reads, covers the refusals, and fails if the image installs a
+Docker CLI again. It was not run against a live UCS host here.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/169670abd5">Eight npm packages inside Meteor's packages are raised to fixed releases</a>. Thanks to xet7.</summary>
+
+Artifact Hub's scan found advisories in `browserslist` 4.28.4,
+`baseline-browser-mapping` 2.10.40, `colord` 2.9.3, `svgo` 2.8.3 and
+`source-map-js` 1.2.1 (meteor/minifier-css), `compression` 1.7.4 and `qs`
+6.15.3 (meteor/webapp, meteor/oauth) and `lodash.template` 4.5.0
+(aldeed:simple-schema), all fixed in the same major. Meteor pins those, so
+`releases/bump-bundle-npm-deps.mjs` raises them in the built bundle. It now
+also gives a bumped package its own copy of a dependency whose sibling is a
+different version, so `compression` 1.8.2 runs with the `bytes`, `negotiator`
+and `safe-buffer` it declares. On a copy of the real v12.38 bundle all eight
+load, compression serves gzip and the bundle passes
+`releases/bundle-smoke-boot.sh`. The `nodemailer` and `postcss-selector-parser`
+fixes need a new major and are listed as not fixable, beside `uuid`.
+
+</details>
+
+**FerretDB and the MongoDB tools** - the Go programs bundled with WeKan.
+
+<details>
+<summary><a href="https://github.com/wekan/FerretDB/commit/b6880891">They are built with Go 1.27.2 and golang.org/x/net v0.60.0</a>. Thanks to xet7.</summary>
+
+Both scans listed the Go 1.27.0 (`ferretdb`) and 1.27.1 (`mongo-tools`)
+standard libraries and x/net v0.59.0, fixed in Go 1.27.2 and x/net 0.60.0.
+[wekan/FerretDB](https://github.com/wekan/FerretDB/commit/b6880891) and
+[wekan/mongo-tools-patches](https://github.com/wekan/mongo-tools-patches/commit/e4da9eb)
+now build with them; rebuilt binaries embed go1.27.2 and x/net v0.60.0. The
+FerretDB image also [takes Debian's security
+updates](https://github.com/wekan/FerretDB/commit/3711b1cb) now, for the fixed
+liblzma5. WeKan bundles them from their next releases.
+
+</details>
+
+None of these is an attempt anybody can make against a running WeKan - they
+are what the image is built from - so nothing is recorded in Admin Panel →
+Problems. The remaining Debian findings have no fixed package yet.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.38 2026-10-12 WeKan ® release
 
 **In short:** a **GitHub CodeQL** alert on HTML end-tag patterns is fixed.
