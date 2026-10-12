@@ -37,7 +37,7 @@ for (const name of ['release-all.yml', 'release-all-missing.yml']) {
 assert(read('.github/workflows/release-all-missing.yml').includes('only: ${{ needs.plan.outputs.bun }}'));
 const expected = spawnSync('bash', ['releases/expected-assets.sh', '12.34'], { cwd: root, encoding: 'utf8' });
 assert.equal(expected.status, 0, expected.stderr);
-for (const { target } of targets) assert(expected.stdout.includes(`bun ${target} wekan-12.34-bun-${target}.tar.gz sums`));
+for (const { target } of targets) assert(expected.stdout.includes(`bun ${target} wekan-12.34-bun-${target}.zip sums`));
 const python = spawnSync('python3', ['-B', 'tests/bun-release.py'], { cwd: root, encoding: 'utf8' });
 assert.equal(python.status, 0, python.stdout + python.stderr);
 console.log(python.stdout + python.stderr);

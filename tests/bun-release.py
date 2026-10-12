@@ -38,6 +38,11 @@ class BunReleaseTests(unittest.TestCase):
         self.assertEqual(assets.plan(self.release, self.bun, '["android-arm64"]', True)['count'], 0)
         self.assertEqual(assets.plan(self.release, self.bun, '["android-arm64"]')['count'], 1)
 
+    def test_old_tar_assets_do_not_skip_zip_builds(self):
+        name = 'wekan-12.34-bun-linux-x64.tar.gz'
+        self.release['assets'] = [{'name': name}, {'name': name + '.sha256sum'}]
+        self.assertEqual(assets.plan(self.release, self.bun, '["linux-x64"]', True)['count'], 1)
+
     def test_bad_selectors_and_tags_fail(self):
         for value in ['[]', '{}', '["unknown"]', '[12]', '"linux-x64"']:
             with self.assertRaises(ValueError): assets.plan(self.release, self.bun, value)
@@ -48,7 +53,7 @@ class BunReleaseTests(unittest.TestCase):
 
     def test_archive_requires_smoke_and_preserves_launcher_mode(self):
         import hashlib
-        import tarfile
+        import zipfile
         with tempfile.TemporaryDirectory(dir=ROOT / '.tools/tmp') as tmp:
             previous = Path.cwd()
             try:
@@ -59,12 +64,22 @@ class BunReleaseTests(unittest.TestCase):
                 launcher = Path('bundle/start-wekan.sh')
                 launcher.write_text('#!/bin/sh\nexit 0\n')
                 launcher.chmod(0o755)
+                Path('bundle/empty').mkdir()
+                Path('bundle/dependency').mkdir()
+                Path('bundle/dependency/index.js').write_text('module.exports = 42;')
+                Path('bundle/linked-dependency').symlink_to('dependency', target_is_directory=True)
+                Path('bundle/linked-launcher').symlink_to('start-wekan.sh')
                 assets.package('v12.34', 'linux-x64')
                 name = assets.asset_name('v12.34', 'linux-x64')
                 archive = Path('dist') / name
-                with tarfile.open(archive) as tar:
-                    self.assertEqual(tar.getmember('bundle/start-wekan.sh').mode & 0o777, 0o755)
-                    self.assertNotIn('bundle/.bun-smoke-ok', tar.getnames())
+                self.assertEqual(name, 'wekan-12.34-bun-linux-x64.zip')
+                with zipfile.ZipFile(archive) as zipped:
+                    self.assertIsNone(zipped.testzip())
+                    self.assertEqual(zipped.getinfo('bundle/start-wekan.sh').external_attr >> 16 & 0o777, 0o755)
+                    self.assertEqual(zipped.read('bundle/linked-launcher'), launcher.read_bytes())
+                    self.assertEqual(zipped.read('bundle/linked-dependency/index.js'), b'module.exports = 42;')
+                    self.assertIn('bundle/empty/', zipped.namelist())
+                    self.assertNotIn('bundle/.bun-smoke-ok', zipped.namelist())
                 self.assertEqual(Path(str(archive) + '.sha256sum').read_text(),
                                  hashlib.sha256(archive.read_bytes()).hexdigest() + '  ' + name + '\n')
             finally:

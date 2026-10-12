@@ -220,7 +220,7 @@ jobs:
       - name: Check finished archive exists
         id: ready
         run: |
-          files=(dist/*.tar.gz)
+          files=(dist/*.zip)
           [ "${#files[@]}" -eq 1 ]
           test -s "${files[0]}"
           test -s "${files[0]}.sha256sum"
@@ -237,5 +237,5 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          files=(dist/*.tar.gz dist/*.sha256sum)
+          files=(dist/*.zip dist/*.sha256sum)
           bash releases/github-release-upload.sh "$GITHUB_REPOSITORY" "$RELEASE_TAG" "${files[@]}"

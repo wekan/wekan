@@ -82,5 +82,5 @@ python3 - "$v" "$(dirname "$0")/bun/targets.json" <<'PYBUN'
 import json, sys
 for item in json.load(open(sys.argv[2])):
     target = item['target']
-    print(f'bun {target} wekan-{sys.argv[1]}-bun-{target}.tar.gz sums')
+    print(f'bun {target} wekan-{sys.argv[1]}-bun-{target}.zip sums')
 PYBUN

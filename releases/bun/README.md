@@ -6,7 +6,7 @@ then rebuilds native dependencies for every OS/CPU in `targets.json`. Empty
 calls it for the release being built; `release-all-missing.yml` asks for only
 missing archives/checksums. It does not create releases or move tags.
 
-Assets are `wekan-<version>-bun-<os>-<cpu>[-musl].tar.gz`, with a matching
+Assets are `wekan-<version>-bun-<os>-<cpu>[-musl].zip`, with a matching
 `.sha256sum`. Each contains the ESM server and browser assets, its own Bun
 executable, native npm dependencies, launchers, and build provenance. These
 are server bundles, not Android APKs or desktop applications. Supply an
