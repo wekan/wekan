@@ -524,6 +524,37 @@ used.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **Bun** release builds explicitly install the compiler tools
+needed to create the application bundle. A missing Rspack installation is
+reported before compilation starts.
+
+This release fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3d20a9e4a6c4f040037db13a767aeee6587666ed">Bun builds install Rspack before compiling</a>. Thanks to xet7.</summary>
+
+The v12.36 ESM build stopped because Meteor could not find the configuration
+inside `node_modules/@meteorjs/rspack`. The application's own configuration
+was present, but Rspack is a development dependency. The locked npm install
+now explicitly includes development and optional dependencies, including
+native compiler packages, and checks for Rspack's configuration immediately.
+Production npm settings can no longer omit these build tools.
+
+`tests/bunRelease.test.cjs` runs an offline npm fixture that first reproduces
+omitted build dependencies, then installs them with the workflow's flags.
+It also verifies that the lockfile stays unchanged and the configuration
+check runs before compilation. Bun packaging, release attachment tests and
+workflow validation pass. A fresh local dependency install with production
+omission settings and the corrected flags completed, followed by a successful
+Meteor ESM build of the application. Full platform builds still require
+GitHub Actions.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.36 2026-10-12 WeKan ® release
 
 **In short:** The **Bun** release workflow fixes the installer failure that
