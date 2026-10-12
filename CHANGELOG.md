@@ -528,7 +528,8 @@ used.
 
 **In short:** The **Windows 32-bit** and **Windows ARM64** bundles build again,
 and four **GitHub CodeQL** alerts are fixed, among them a pattern that could
-stall the release build.
+stall the release build. Experimental **Bun** bundles cover its twelve
+OS/CPU targets, with automatic release attachments and missing-asset recovery.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
@@ -553,6 +554,32 @@ escapes the literal it writes. None is reachable on a running WeKan - a build
 script and tests - so nothing is recorded in Admin Panel → Problems.
 `tests/securityAlerts20261012.test.cjs` fails on these shapes anywhere in the
 tree, and `tests/pruneUnreachableNpm.test.cjs` runs the attack string.
+
+</details>
+
+and adds the following release builds:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1d1db1c2340534fdf3f30b1aa2d8af3afcdfe9ca">Bun bundles join the release downloads for every supported OS and CPU</a>. Thanks to dupontbertrand and xet7.</summary>
+
+`bun.yml` builds the selected release as Meteor ESM once, then rebuilds its
+native dependencies for Linux (glibc and musl), macOS, Windows, FreeBSD and
+Android, each on x64 and ARM64. Archives include Bun, and their names include
+`bun`, the OS and CPU; each has a SHA256 checksum. Both release workflows call
+it, and recovery skips complete archive/checksum pairs. Native hosted runners
+and Alpine/Termux containers avoid CPU emulation where possible; FreeBSD
+uses VMs. Fast compression and cached Meteor dependencies reduce build time.
+
+Meteor's Bun support is still unmerged. An isolated, reviewed port of
+meteor/meteor#14751 to 3.6-rc.0 preserves WeKan's package pins; ordinary Node
+builds are unchanged. These server bundles require an external database.
+Native password/image checks and startup tests gate each target's upload.
+Linux additionally checks HTTP, DDP and Chromium signup, board creation and
+anonymous mutation rejection. The Linux x64 build and these browser checks
+passed locally, along with ten upstream tests and thirty release-related
+suites. Other target builds require GitHub Actions and were not run locally.
+`tests/bunRelease.test.cjs` and `tests/bun-release.py` cover the target catalog,
+asset names, missing checksums, rejected inputs and failed-build gates.
 
 </details>
 
