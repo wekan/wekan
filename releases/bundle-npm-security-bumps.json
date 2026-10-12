@@ -20,30 +20,39 @@
   ],
   "minimums": {
     "@babel/runtime": "7.29.7",
+    "baseline-browser-mapping": "2.11.0",
     "body-parser": "1.20.6",
+    "browserslist": "4.28.7",
+    "colord": "2.9.4",
+    "compression": "1.8.2",
     "cookie": "0.7.2",
     "diff": "3.5.1",
     "lodash": "4.18.1",
+    "lodash.template": "4.18.1",
     "nanoid": "3.3.18",
     "nodemailer": "8.0.11",
     "on-headers": "1.1.0",
     "openpgp": "5.11.3",
     "picomatch": "4.0.5",
     "postcss": "8.5.26",
-    "qs": "6.15.3",
-    "svgo": "2.8.3",
+    "qs": "6.16.0",
+    "source-map-js": "1.2.2",
+    "svgo": "2.8.4",
     "tmp": "0.2.7",
     "underscore": "1.13.8"
   },
   "notFixable": {
-    "lodash.template": [
-      "CVE-2021-23337 and CVE-2026-4800 have no fixed release: the package is",
-      "deprecated and its last version is 4.5.0. It reaches the bundle through",
-      "aldeed:simple-schema, and moving off it is that package's change to make."
-    ],
     "nodemailer": [
-      "GHSA-p6gq-j5cr-w38f is fixed in 9.0.1 only, a major the Meteor email",
-      "package is not written against. 8.0.11 fixes the other four."
+      "8.0.11 is the newest 8.x. CVE-2026-82659 (fixed in 9.0.1), GHSA-2x7j-588g-ccc2,",
+      "GHSA-cc9r-2j5m-2m83 and GHSA-wmmp-3585-3rmp (9.1.0), GHSA-8m3c-c648-2xjj (9.1.1),",
+      "GHSA-6vj9-mwq6-2f5v and GHSA-8vvx-rff5-p5rq (10.0.2) and GHSA-v53p-9fqp-m79j",
+      "(10.0.6) are fixed only in majors the Meteor email package is not written",
+      "against. They move when meteor/email moves."
+    ],
+    "postcss-selector-parser": [
+      "CVE-2026-104844 in the 6.1.4 meteor/minifier-css brings (through cssnano) is",
+      "fixed only in 7.1.6, a new major its dependents are not written against.",
+      "minifier-css runs at build time; it moves when Meteor's minifier-css moves."
     ],
     "uuid": [
       "CVE-2026-41907 affects the 8.3.2 in meteor/ddp-server and",

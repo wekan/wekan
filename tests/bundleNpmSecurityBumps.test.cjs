@@ -41,10 +41,13 @@ console.log('bundleNpmSecurityBumps:');
 
 test('the manifest lists the packages the scan found, at fixed versions', () => {
   const expected = {
-    'nodemailer': '8.0', 'openpgp': '5.11', 'svgo': '2.8', 'postcss': '8.5',
-    'nanoid': '3.3', 'lodash': '4.18', 'qs': '6.15', 'body-parser': '1.20',
+    'nodemailer': '8.0', 'openpgp': '5.11', 'svgo': '2.8.4', 'postcss': '8.5',
+    'nanoid': '3.3', 'lodash': '4.18', 'qs': '6.16', 'body-parser': '1.20',
     'cookie': '0.7', 'on-headers': '1.1', 'tmp': '0.2', 'diff': '3.5',
     '@babel/runtime': '7.', 'underscore': '1.13.8',
+    // Artifact Hub's Trivy report of the v12.38 image: same-major fixes.
+    'browserslist': '4.28.7', 'baseline-browser-mapping': '2.11', 'colord': '2.9.4',
+    'compression': '1.8', 'source-map-js': '1.2.2', 'lodash.template': '4.18',
   };
   for (const [name, prefix] of Object.entries(expected)) {
     const got = manifest.minimums[name];
@@ -63,10 +66,20 @@ test('uuid is NOT bumped, and says why (negative)', () => {
     'and notFixable carries the boot error it caused');
 });
 
-test('lodash.template is recorded as unfixable, not silently skipped', () => {
-  const reason = (manifest.notFixable['lodash.template'] || []).join(' ');
-  assert.ok(/no fixed release/.test(reason) && /aldeed/.test(reason),
-    'a package with no fix says so, and says whose change it is');
+test('a fix that needs a new major is recorded in notFixable, never in minimums (negative)', () => {
+  for (const name of ['nodemailer', 'postcss-selector-parser', 'uuid']) {
+    const reason = (manifest.notFixable[name] || []).join(' ');
+    assert.ok(/major/.test(reason), `${name} says the fix is a new major`);
+  }
+  // nodemailer stays at the newest 8.x; the 9.x/10.x fixes are named, not taken.
+  assert.ok(manifest.minimums.nodemailer.startsWith('8.'));
+  assert.ok(!('postcss-selector-parser' in manifest.minimums));
+  // lodash.template has had a fixed release (4.18.x) since 2026-04; it is no
+  // longer described as unfixable.
+  assert.ok(!('lodash.template' in manifest.notFixable));
+  for (const [name, version] of Object.entries(manifest.minimums)) {
+    assert.ok(/^\d+\.\d+\.\d+$/.test(version), `${name} is pinned to an exact version`);
+  }
 });
 
 test('the bumper installs without scripts, so no prebuilt native is rebuilt', () => {
@@ -80,8 +93,12 @@ test('the bumper installs without scripts, so no prebuilt native is rebuilt', ()
 test('it only replaces copies that are BELOW the minimum', () => {
   assert.ok(/compare\(c\.version, minimum\) < 0/.test(bumper),
     'a copy already at or above the minimum is left alone');
-  assert.ok(/if \(fs\.existsSync\(dest\)\) continue;/.test(bumper),
-    'and an existing sibling dependency is never overwritten');
+  // An existing sibling dependency is never overwritten: a different version
+  // goes into the bumped package's own node_modules instead.
+  assert.ok(/if \(have === want\) continue;/.test(bumper), 'a matching sibling is reused');
+  assert.ok(/have === undefined \? dest : path\.join\(copy\.dir, 'node_modules', dep\)/.test(bumper),
+    'a different sibling is left alone and the dependency is nested');
+  assert.ok(/if \(fs\.existsSync\(target\)\) continue;/.test(bumper), 'and nothing is overwritten');
 });
 
 test('the version compare is numeric, not lexical', () => {

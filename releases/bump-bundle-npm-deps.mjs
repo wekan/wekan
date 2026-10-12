@@ -24,8 +24,9 @@
 // version once into a temporary prefix (with --ignore-scripts, so no prebuilt
 // native module in the bundle is rebuilt by it), and replaces those copies. A
 // dependency the new version needs and the place it lands does not have is
-// copied in beside it; one that is already there is LEFT ALONE, because a
-// sibling at a different major is a sibling some other package chose.
+// copied in beside it. One already there at another version is LEFT ALONE,
+// because it is a sibling some other package chose; the bumped package gets its
+// own copy in its own node_modules instead, so each resolves what it declared.
 //
 // It never adds a package that was not already there: a copy below the minimum
 // is replaced, everything else is untouched.
@@ -190,11 +191,21 @@ for (const [name, minimum] of Object.entries(manifest.minimums)) {
         : [entry];
       for (const dep of names) {
         if (dep === name) continue;
+        const from = path.join(prefix, 'node_modules', dep);
+        const want = readJson(path.join(from, 'package.json'))?.version;
         const dest = path.join(siblings, dep);
-        if (fs.existsSync(dest)) continue;
-        fs.mkdirSync(path.dirname(dest), { recursive: true });
-        fs.cpSync(path.join(prefix, 'node_modules', dep), dest, { recursive: true });
-        console.log(`    + ${dep} (needed by ${name} ${minimum})`);
+        const have = readJson(path.join(dest, 'package.json'))?.version;
+        if (have === want) continue;
+        // A sibling at another version is one some other package chose, so it
+        // stays. The bumped package gets the version npm resolved for it in its
+        // OWN node_modules, which Node searches first: compression 1.8.2 needs
+        // bytes 3.1.2 and negotiator 0.6.4 beside meteor/webapp's 3.0.0 and
+        // 0.6.3, and would otherwise run against those.
+        const target = have === undefined ? dest : path.join(copy.dir, 'node_modules', dep);
+        if (fs.existsSync(target)) continue;
+        fs.mkdirSync(path.dirname(target), { recursive: true });
+        fs.cpSync(from, target, { recursive: true });
+        console.log(`    + ${dep} ${want} (needed by ${name} ${minimum}${target === dest ? '' : `; nested, beside ${have}`})`);
       }
     }
   }
