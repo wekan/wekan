@@ -535,6 +535,160 @@ and **Launchpad** snap builds upload 1 MB instead of 237 MB. Bundles shrink by
 about 120 MB: the **bundled Node.js** is stripped of debug data, and the
 **MongoDB Database Tools** are one program instead of eight.
 
+Sandstorm listener readiness and deferred loading reduce startup time.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bab0c13988">Reduce server bundle file count for Sandstorm extraction</a>.</summary>
+
+Remove unused server copies of browser libraries and client-only Core-JS,
+plus dependency type declarations. Keep the live server Core-JS polyfill,
+compiled browser programs, executable TypeScript and migration tools. Expand
+dependency analysis to include quoted specifiers, all server app chunks and
+runtime/optional/peer dependencies; retain the policy veto and add a JSON audit.
+
+The test SPK has 29,512 regular files instead of 44,472, a reduction of 14,960
+(34%). With upstream Node stripping applied, its compressed size falls from
+172.8 to 163.2 MiB. Local HTTP readiness remains 0.92 s; actual Sandstorm
+extraction time on slow storage has not yet been measured.
+
+Pruning, trimming and lazy-loading checks pass. Isolated packaged-runtime checks
+cover XLSX/ZIP round trips, image rendering, PDF generation/text extraction and
+SAML/LDAP dependencies. Browser and migration payloads compare byte-for-byte;
+browser automation and a full legacy migration were not run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2b8a4a234f">Defer SAML and LDAP dependencies until first use</a>.</summary>
+
+Load SAML's protocol library only for configured SAML operations, the LDAP client
+on connection, and username transliteration dictionaries only when requested.
+Keep registration and authentication checks unchanged. A repeated local
+production comparison reached HTTP readiness in 902 ms versus 974 ms with
+lightweight timing enabled in both payloads. First use pays the deferred cost.
+
+LDAP and SAML regression suites pass, including signed-response/replay checks
+and deferred-loading coverage for disabled paths, first use, SAML caching and
+STARTTLS options. Packaged dependency exports were checked using the shipped
+Node binary. Browser automation was not run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3df146c164">Defer ZIP and Excel initialization until first use</a>.</summary>
+
+Load archive dependencies when importing, exporting or restoring instead of at
+server startup. This avoids Bluebird's eager diagnostic stacks and their costly
+source-map processing. Keep lightweight Sandstorm launcher timing logs, but make
+Meteor's detailed stack-based startup profiler opt-in. A rebuilt production
+payload reached HTTP readiness in 1.38 s versus 2.90 s on the same persisted test
+database with detailed profiling disabled in both; these are local warm-cache
+measurements, not full browser load times. Source maps remain enabled.
+
+Fresh-process regression tests verify deferred loading, first-use workbook
+round trips, invalid input and unchanged native Promise. Existing workbook,
+backup and Sandstorm launcher tests pass; browser automation was not run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/df1c240edd">Load server translations from private assets on demand</a>.</summary>
+
+Keep non-English dictionaries out of the eager server script, reading each only
+when requested. English remains embedded for startup fallback, all translation
+contents are preserved, and browser dynamic imports are unchanged. The production
+server script shrank from 129.6 MiB to 55.9 MiB; a local warm-cache comparison
+reached HTTP readiness in 1.220 s versus 1.453 s with source maps enabled.
+
+Tests check every dictionary's contents, malformed input, server-only rule
+selection, English fallback, and real Rspack first-use loading and caching.
+Existing browser lazy-loading tests pass. Browser automation was not run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8c26d75e31">Load server source maps only when formatting mapped stacks</a>.</summary>
+
+Extract inline server maps into adjacent runtime JSON files, retaining their
+contents and relative sourceMappingURL references without registering eager
+Meteor manifest maps. About 51 MiB of base64 comments leave the startup scripts;
+the app script shrinks from 55.9 MiB to 9.7 MiB. A repeated local production
+comparison reached HTTP readiness in 1.003 s versus 1.225 s. Client scripts are
+unchanged, and mapped error traces are preserved.
+
+Tests verify identical mapped stacks with the packaged mapper, lazy reads,
+read-only files, repeated trimming, invalid input and unchanged client scripts.
+The bundle-trimming suite and signed-package startup smoke test pass. Docker
+includes the extraction helper. Browser automation was not run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/22d7d23118">Notify the waiting page immediately when WeKan is listening</a>.</summary>
+
+Replace the normal five-second page refresh with a held readiness request. The
+waiting-page process releases its listening socket, Meteor binds it, and the
+launcher then signals the waiting process to answer HTTP 204. The browser keeps
+its current URL and reloads immediately. The app also answers the readiness
+endpoint after handoff, so disconnected requests can reconnect. A five-second
+refresh remains for JavaScript-disabled clients; legacy migration dashboards
+retain their separate progress-refresh behavior.
+
+Actual production builds correct the earlier development-bundle extrapolation:
+production embeds the large app inside app/app.js and does not incur the large
+standalone .cjs Reify pass. Local production measurements reached HTTP readiness
+in 3.25–3.73 seconds. An unpacked test SPK running as a read-only root with only
+packaged libraries resumed in 3.32 seconds; the held response arrived 2 ms after
+the listening marker. These are warm-host-cache measurements, not actual grain
+or board-render timings. The profiling guide records build steps and boundaries.
+
+HTTP tests exercise the real child-process handoff and retained connection;
+waiting-page tests cover pending, successful, not-ready and disconnected requests.
+The actual production readiness endpoint returned 204. Browser automation was
+not run, as requested.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/22d7d23118">Wait for the database listener instead of sleeping 1.5 seconds</a>.</summary>
+
+The grain launcher checks FerretDB's loopback listener every 50 ms and starts
+Meteor as soon as it accepts connections. It waits up to 30 seconds for a slow
+database and fails if the listener never becomes available. Mongo's driver and
+the application's database readiness hook still check protocol-level readiness;
+the waiting page remains available through the handoff.
+
+The same uncached local development bundle now listens in 2.51 seconds instead
+of 3.96 seconds. Profiling attributes about another second to development source
+maps requested by Bluebird's stack inspection. A temporary overlay matching
+production's hidden-map setting reached 1.49 seconds; this is not a production
+package benchmark and no source-map behavior was changed in the launcher.
+
+Tests cover an already-listening database, a database slower than the old fixed
+delay, timeout, packaging, fresh/resumed launcher integration and HTTP handoff.
+No UI behavior changes.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/22d7d23118">Profile the Sandstorm server startup path locally</a>.</summary>
+
+The grain manifest enables monotonic launcher milestones with process CPU
+deltas; the local runner also enables Meteor's detailed startup profiler. The
+local profiling runner uses the real memory wrapper, launcher, bundle and FerretDB with the manifest environment;
+Bubblewrap maps isolated test data to the normal grain paths. It does not need
+a Sandstorm service or simulate browser identity and Cap'n Proto services.
+
+Tests cover timing and CPU deltas, disabled diagnostics, environment inheritance,
+packaging, and HTTP handoff. An opt-in local namespace integration test runs
+the launchers twice with fixture payloads to check persistent test data and
+milestone order. Actual local development-bundle runs also reached HTTP readiness.
+The profiling guide explains timing boundaries, cache comparisons and host I/O
+measurements; production grain performance still needs representative data and
+storage. No browser behavior changes.
+
+</details>
+
 This release fixes the following bugs:
 
 **Univention (UCS)** - WeKan served under /wekan, after an upgrade.
