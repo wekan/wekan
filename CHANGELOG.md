@@ -583,6 +583,17 @@ asset names, missing checksums, rejected inputs and failed-build gates.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/05d45e219ffa56b1a7510862f1ca9839188bac15">Bun release downloads use ZIP archives</a>. Thanks to xet7.</summary>
+
+All Bun targets now attach `wekan-<version>-bun-<os>-<cpu>[-musl].zip`
+and matching SHA256 checksums. Fast compression preserves executable permissions
+and includes linked dependencies. Release recovery expects ZIP files even when
+an older tar archive is present. Archive tests verify contents, permissions,
+linked files and directories, checksums and recovery from the old format.
+
+</details>
+
 and fixes the following bugs:
 
 **Windows bundles** - building the 32-bit and ARM64 bundles.
