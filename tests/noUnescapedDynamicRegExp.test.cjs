@@ -46,7 +46,6 @@ const REVIEWED = {
   'models/usersessiondata.js': 'unpickles a RegExp the server itself pickled (server/publications/cards.js)',
   'packages/markdown/src/template-integration.js': 'CARD_URL_RE.source is a constant; rule.source is escaped when built',
   'packages/wekan-ldap/server/groupAllowlist.js': 'every character escaped by escapeRegExpChar; only * and ? become .* and .',
-  'releases/prune-unreachable-npm.mjs': 'joins constant pattern strings',
   'server/models/activities.js': 'BIGEVENTS_PATTERN is an operator-supplied regex by design',
   'models/lib/obsidianKanbanFormat.js': 'pattern is built from escapeRegExp(format); emoji is a key of the constant TASK_DATES',
   'models/lib/sanitizeSvg.js': 'tag comes from the constant DANGEROUS_ELEMENTS list',

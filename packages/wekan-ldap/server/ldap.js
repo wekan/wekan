@@ -4,6 +4,7 @@ import { Log } from 'meteor/logging';
 // so in the snap (and every bundle) none of them were ever visible.
 import { log_debug, log_info } from './logger';
 import { normalizeLdapEncryption } from './encryptionSetting';
+import { ldapCertificateHint } from './tlsCertificateHint';
 import { buildUserIdFilter } from './userIdFilter';
 import {
   missingGroupLookupSettings,
@@ -254,6 +255,9 @@ export default class LDAP {
       // #6548: a failed bind used to leave no trace of why. The DN and the
       // directory's answer, never the password (logger.js redacts secrets).
       log_info(`Bind failed for ${dn}:`, error);
+      // #6762: a refused certificate says what to do about it.
+      const hint = ldapCertificateHint(error);
+      if (hint) Log.warn(hint);
       throw error;
     }
   }

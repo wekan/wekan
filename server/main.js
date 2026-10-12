@@ -19,6 +19,22 @@
   }
 }
 
+// 0b. #6762: TLS trusts the operating system's certificate authorities as well
+//     as Node.js's own, so a company root CA installed on the server verifies
+//     LDAPS, mail, webhooks and OAuth2 the way it does for every other program.
+//     Before anything opens a connection.
+{
+  const { trustSystemCaCertificates } = require('/server/lib/systemCaCertificates');
+  try {
+    const result = trustSystemCaCertificates();
+    if (result.applied) {
+      console.log(`[tls] trusting ${result.added} certificate authorities of the operating system as well as Node.js's own`);
+    }
+  } catch (e) {
+    console.warn(`[tls] the operating system's certificate authorities could not be read (${e.message}); only Node.js's own are trusted`);
+  }
+}
+
 // 1. Helpers polyfill (server no-op for .helpers())
 require('/imports/collectionHelpers');
 

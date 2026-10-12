@@ -48,8 +48,9 @@ test('the method runs the probe before it can answer success', () => {
   assert.ok(probeAt !== -1 && probeAt < successAt);
   assert.match(src, /if \(probe\.error\) \{\s*throw new Meteor\.Error\('LDAP_not_tested'/);
   assert.match(src, /await ldap\.client\.search\(probe\.baseDN, anonymousSearchOptions\(\)\)/);
-  // The directory's own message reaches the Admin Panel as the reason.
-  assert.match(src, /throw new Meteor\.Error\(error\.name \|\| error\.message, error\.message\)/);
+  // The directory's own message reaches the Admin Panel as the reason - with,
+  // since #6762, what to do about a refused certificate appended to it.
+  assert.match(src, /throw new Meteor\.Error\(error\.name \|\| error\.message, hint \? `\$\{error\.message\} \$\{hint\}` : error\.message\)/);
 });
 
 // The reported case, against the library WeKan ships: no directory listening.

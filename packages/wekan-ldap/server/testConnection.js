@@ -1,6 +1,7 @@
 import LDAP from './ldap';
 import { runWithLdapDisconnect } from './connectionGuard';
 import { connectionProbe, anonymousSearchOptions } from './testConnectionProbe';
+import { ldapCertificateHint } from './tlsCertificateHint';
 
 Meteor.methods({
   async ldap_test_connection() {
@@ -55,7 +56,9 @@ Meteor.methods({
           await ldap.client.search(probe.baseDN, anonymousSearchOptions());
         }
       } catch (error) {
-        throw new Meteor.Error(error.name || error.message, error.message);
+        // #6762: a refused certificate tells the admin what to do about it.
+        const hint = ldapCertificateHint(error);
+        throw new Meteor.Error(error.name || error.message, hint ? `${error.message} ${hint}` : error.message);
       }
 
       return {

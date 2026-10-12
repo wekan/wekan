@@ -17,8 +17,9 @@ const loggerSrc = fs.readFileSync(path.join(ROOT, 'packages/wekan-ldap/server/lo
 assert.ok(!/Log\.debug\(/.test(ldap), 'no Log.debug in ldap.js');
 assert.ok(!/\$\{searchOptions\}/.test(ldap), 'no object interpolated into a string');
 assert.match(ldap, /import \{ log_debug, log_info \} from '\.\/logger';/);
-// A failed bind and a failed authentication say why.
-assert.match(ldap, /async bind\(dn, password\) \{\s*try \{\s*await this\.client\.bind\(dn, password\);\s*\} catch \(error\) \{[\s\S]*?log_info\(`Bind failed for \$\{dn\}:`, error\);\s*throw error;/);
+// A failed bind and a failed authentication say why - and since #6762 a
+// refused certificate also says what to do about it, before the rethrow.
+assert.match(ldap, /async bind\(dn, password\) \{\s*try \{\s*await this\.client\.bind\(dn, password\);\s*\} catch \(error\) \{[\s\S]*?log_info\(`Bind failed for \$\{dn\}:`, error\);[\s\S]{0,200}?throw error;/);
 assert.match(ldap, /log_info\(`Not authenticated \$\{dn\}:`, error\);/);
 
 // The logger, run as it is: prints only when enabled, objects as JSON, secrets redacted.

@@ -33,6 +33,26 @@ above that should replace them. An unknown value logs a warning and does not
 silently enable encryption. LDAPS and STARTTLS can negotiate the same modern
 TLS protocols; STARTTLS is not inherently more secure than LDAPS.
 
+### A private or company certificate authority
+
+The LDAP server's certificate is verified (`LDAP_REJECT_UNAUTHORIZED` defaults
+to `true`). WeKan trusts the certificate authorities Node.js ships with and,
+since #6762, also those installed on the server. So a company root CA works
+the same way it does for every other program:
+
+```
+sudo cp company-root-ca.crt /usr/local/share/ca-certificates/
+sudo update-ca-certificates
+sudo snap restart wekan        # or restart the Docker container / service
+```
+
+The file must end in `.crt`. If the LDAP server sends only its own certificate,
+install the intermediate CA the same way. Fedora and RHEL use
+`/etc/pki/ca-trust/source/anchors/` and `update-ca-trust`. Instead, the CA can
+be given to WeKan alone in `LDAP_CA_CERT` (snap:
+`sudo snap set wekan ldap-ca-cert="$(cat company-root-ca.pem)"`). Either is
+better than turning verification off.
+
 ## Snap
 
 LDAP is available on Snap Stable channel. Settings can be seen with command `wekan.help` and from repo https://github.com/wekan/wekan-ldap . More settings at https://github.com/wekan/wekan-snap/wiki/Supported-settings-keys
