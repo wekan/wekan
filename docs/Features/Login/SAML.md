@@ -19,8 +19,8 @@ Enable it with these environment variables (see the commented example in
 | `SAML_IDPSLO_REDIRECTURL` | The identity provider's Single Logout redirect URL, if used. |
 | `SAML_PRIVATE_KEYFILE` / `SAML_PUBLIC_CERTFILE` | Paths under `private/` to this instance's own key/cert, only needed if the IdP requires signed `AuthnRequest`s. |
 | `SAML_IDENTIFIER_FORMAT` | NameID format requested from the IdP. Defaults to `urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress`. |
-| `SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE` | Assertion attribute to use as the WeKan username instead of the NameID/email. |
-| `SAML_ATTRIBUTES` | Assertion attributes read for the local profile. |
+| `SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE` | Assertion attribute to use as the WeKan username instead of the NameID/email. Its value is compared with `username`; see *Linking existing accounts* below. |
+| `SAML_ATTRIBUTES` | Not used by login at the moment. Attributes are read from the validated assertion by name: `email`, `username` (or the match attribute), `displayName`/`cn`, `email_verified`. |
 | `SAML_IDP_PROFILE` | What the identity provider signs and how login opens: `standard` (default) or `signed-assertion-redirect`. See below. |
 | `SAML_WANT_RESPONSE_SIGNED` | `true`/`false`: require a signed SAML Response. Default: from the profile. |
 | `SAML_WANT_ASSERTIONS_SIGNED` | `true`/`false`: require a signed Assertion. Default: from the profile. |
@@ -117,6 +117,35 @@ IdP identity to an existing local account; the default remains false. Keep the
 client's `public.SAML_PROVIDER` consistent with the server's provider setting.
 Verify the issuer/audience, ACS URL and assertion-signing public certificate.
 A signature failure is distinct from a response-ID or account-conflict failure.
+
+## Linking existing accounts
+
+With `SAML_MERGE_EXISTING_USERS=true`, a first SAML login can be linked to an
+account that already exists, for example one provisioned by LDAP. The existing
+account is found:
+
+1. by `username` equal to the login name - the value of the
+   `SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE` attribute, else the `email` attribute,
+   else an email-address NameID;
+2. when no username matches and the login name IS the assertion's email (an
+   email NameID, or `SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=email`), by that address
+   among the accounts' **verified** emails.
+
+Linking then requires ALL of these, and refuses otherwise:
+
+- the account is not already bound to a SAML identity;
+- the assertion has an `email` attribute (or an email-address NameID);
+- the assertion has the attribute **`email_verified`** with the value `true`.
+  SAML has no standard attribute for this - add it at the IdP (for example an
+  F5 BIG-IP APM attribute statement) only if the IdP really verifies addresses;
+- that same email is a verified email of the local account.
+
+Each refusal writes its reason to the server log, e.g.
+`wekan-accounts-saml: refused to link the SAML login of "jdoe" to existing
+account "jdoe": assertion-has-no-email_verified=true attribute`. A missing
+`email` or `email_verified` is also shown on the sign-in page, because the fix
+is in the IdP configuration; a refusal caused by the local account's state keeps
+the generic "SAML identity does not match this account" message.
 
 These are deployment-specific settings, not defaults changed by the fix.
 The local signed-response fixture and popup/UI tests do not validate a remote

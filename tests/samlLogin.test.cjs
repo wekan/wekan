@@ -74,9 +74,15 @@ test('a login attempt without a stored, validated credential is rejected', () =>
 });
 
 test('SAML still refuses silent takeover of a non-SAML username', () => {
-  assert.match(samlServer, /const isSamlAccount = user\.authenticationMethod === 'saml'/);
+  // The refusal conditions live in identity.js's samlLinkRefusal (one reason
+  // per condition, for the server log) since the SAML linking error report;
+  // the guard itself is unchanged.
+  const samlIdentitySrc = fs.readFileSync(path.join(__dirname, '..', 'packages/wekan-accounts-saml/identity.js'), 'utf8');
+  assert.match(samlIdentitySrc, /if \(user\.authenticationMethod === 'saml' \|\| user\.services\?\.saml\)/);
+  assert.match(samlServer, /const refusal = samlLinkRefusal\(\{ user, email, profile, mergeAllowed \}\);\s*if \(refusal\) \{/);
   assert.match(samlServer, /const mergeAllowed = config\?\.mergeExistingUsers === true/);
   assert.match(samlServer, /throw new Meteor\.Error\(\s*\n?\s*'saml-account-conflict'/);
+  assert.match(samlIdentitySrc, /const GENERIC_CONFLICT = 'SAML identity does not match this account\. Contact your administrator\.'/);
 });
 
 test('Meteor.loginWithSaml opens the authorize popup and exchanges a credential token', () => {

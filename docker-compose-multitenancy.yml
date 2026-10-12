@@ -107,7 +107,19 @@ services:
       #- SAML_PRIVATE_KEYFILE=
       #- SAML_PUBLIC_CERTFILE=
       #- SAML_IDENTIFIER_FORMAT=
+      # SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE : assertion attribute whose value becomes
+      # the WeKan username (e.g. username). Empty = the email / NameID. With
+      # SAML_MERGE_EXISTING_USERS=true an existing account is found by that
+      # username, or - when the value is the assertion's email - by a verified
+      # email, so an LDAP account with its own short username can be linked.
+      # Linking an existing account ALSO requires the assertion to carry the
+      # attribute email_verified=true (SAML has no standard one: add it at the
+      # IdP only if the IdP verifies addresses) and that email to be verified on
+      # the local account. A refused link logs its reason in the server log.
+      # docs/Features/Login/SAML.md
       #- SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=
+      # SAML_ATTRIBUTES : not used by login at the moment; attributes are read
+      # from the validated assertion as named (email, username, displayName).
       #- SAML_ATTRIBUTES=
       #- SAML_MERGE_EXISTING_USERS=false
       #- SAML_IDP_PROFILE=standard
@@ -148,7 +160,19 @@ services:
       #- SAML_PRIVATE_KEYFILE=
       #- SAML_PUBLIC_CERTFILE=
       #- SAML_IDENTIFIER_FORMAT=
+      # SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE : assertion attribute whose value becomes
+      # the WeKan username (e.g. username). Empty = the email / NameID. With
+      # SAML_MERGE_EXISTING_USERS=true an existing account is found by that
+      # username, or - when the value is the assertion's email - by a verified
+      # email, so an LDAP account with its own short username can be linked.
+      # Linking an existing account ALSO requires the assertion to carry the
+      # attribute email_verified=true (SAML has no standard one: add it at the
+      # IdP only if the IdP verifies addresses) and that email to be verified on
+      # the local account. A refused link logs its reason in the server log.
+      # docs/Features/Login/SAML.md
       #- SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=
+      # SAML_ATTRIBUTES : not used by login at the moment; attributes are read
+      # from the validated assertion as named (email, username, displayName).
       #- SAML_ATTRIBUTES=
       #- SAML_MERGE_EXISTING_USERS=false
       #- SAML_IDP_PROFILE=standard

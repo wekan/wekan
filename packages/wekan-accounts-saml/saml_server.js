@@ -12,7 +12,7 @@
 // docs/Features/Login/SAML.md.
 
 import { createResponseReplayGuard } from './responseReplay';
-import { samlIdentity, samlIdentitySelector, samlEmailVerified } from './identity';
+import { samlIdentity, samlIdentitySelector, samlEmailVerified, samlLinkRefusal, GENERIC_CONFLICT } from './identity';
 import bodyParser from 'body-parser';
 
 const urlEncodedParser = bodyParser.urlencoded({ extended: false });
@@ -265,47 +265,53 @@ Accounts.registerLoginHandler(async (options) => {
     globalRoles: ['user'],
   };
 
-  const conflict = (recordAttempt = true) => {
+  const conflict = (recordAttempt = true, message = GENERIC_CONFLICT) => {
     try {
       if (recordAttempt && typeof global.__wekanTripCanary === 'function') {
         global.__wekanTripCanary('saml.subject-conflict', { username });
       }
     } catch (e) { /* logging must never break the guard */ }
-    throw new Meteor.Error(
-      'saml-account-conflict',
-      'SAML identity does not match this account. Contact your administrator.',
-    );
+    throw new Meteor.Error('saml-account-conflict', message);
   };
   // Resolve the immutable identity FIRST, so attribute/username changes cannot
   // redirect a returning subject into another account.
   let user = await Meteor.users.findOneAsync(identitySelector);
   if (!user) {
+    const mergeAllowed = config?.mergeExistingUsers === true;
     user = await Meteor.users.findOneAsync({ username: userOptions.username });
+    // The login name an email-address NameID, or SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE
+    // =email, resolves to IS the email. An existing account (e.g. provisioned by
+    // LDAP) has its own short username, so looking only at `username` never
+    // found it and fell through to creating a new user ("The invitation code is
+    // required"). When merging is on, look that address up among VERIFIED
+    // local emails too; samlLinkRefusal below still requires the IdP to attest
+    // the same email before anything is linked.
+    if (!user && mergeAllowed && email && userOptions.username === email) {
+      user = await Meteor.users.findOneAsync({ emails: { $elemMatch: { address: email, verified: true } } });
+    }
     if (user) {
-      const isSamlAccount = user.authenticationMethod === 'saml';
-      const mergeAllowed = config?.mergeExistingUsers === true;
-      // Never rebind an existing or legacy SAML identity, even with merging on.
-      if (isSamlAccount || user.services?.saml) {
-        // Missing legacy scope can also be an ordinary login after upgrade.
-        conflict(Boolean(samlIdentity(user.services?.saml)));
+      const refusal = samlLinkRefusal({ user, email, profile, mergeAllowed });
+      if (refusal) {
+        console.warn(`wekan-accounts-saml: refused to link the SAML login of "${username}" to existing account "${user.username}": ${refusal.reason}`);
+        if (refusal.reason.startsWith('merge-disabled')) {
+          try {
+            if (typeof global.__wekanTripCanary === 'function') {
+              global.__wekanTripCanary('saml.account-conflict', { username });
+            }
+          } catch (e) { /* logging must never break the guard */ }
+        }
+        conflict(refusal.recordAttempt, refusal.userMessage);
       }
-      if (!mergeAllowed) {
-        try {
-          if (typeof global.__wekanTripCanary === 'function') {
-            global.__wekanTripCanary('saml.account-conflict', { username });
-          }
-        } catch (e) { /* logging must never break the guard */ }
-        conflict();
-      }
-      if (!email || !samlEmailVerified(profile) ||
-          !user.emails?.some(entry => entry.address === email && entry.verified === true)) conflict();
       // Compare-and-set: simultaneous first links cannot overwrite each other.
       const linked = await Meteor.users.updateAsync({
         _id: user._id, 'services.saml': { $exists: false },
         authenticationMethod: { $ne: 'saml' },
         emails: { $elemMatch: { address: email, verified: true } },
       }, { $set: { 'services.saml': identity } });
-      if (!linked) conflict();
+      if (!linked) {
+        console.warn(`wekan-accounts-saml: refused to link the SAML login of "${username}" to existing account "${user.username}": the account changed while linking`);
+        conflict();
+      }
     } else {
       // Persist the binding in the initial insert, never in a later blind write.
       userOptions.services = { saml: identity };

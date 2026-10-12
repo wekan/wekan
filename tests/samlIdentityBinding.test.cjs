@@ -103,6 +103,67 @@ test('linking requires opt-in and explicit verified matching email on both sides
   await assert.rejects(harness([local], { mergeExistingUsers: true }).login({ ...subject, email_verified: true }), { error: 'saml-account-conflict' });
 });
 
+// SAML linking report (v12.33, F5 BIG-IP, LDAP-provisioned accounts): every
+// refusal said "SAML identity does not match this account", so a missing
+// email_verified attribute looked like an attack, and nothing was logged.
+const ldapUser = () => ({ _id: 'ldap', username: 'jdoe', authenticationMethod: 'ldap', emails: [{ address: subject.email, verified: true }] });
+const GENERIC = /^SAML identity does not match this account\. Contact your administrator\.$/;
+async function quietly(fn) {
+  const warn = console.warn, lines = [];
+  console.warn = (...args) => lines.push(args.join(' '));
+  try { return { result: await fn().catch(err => err), lines }; } finally { console.warn = warn; }
+}
+
+test('each link refusal has its own reason in the server log, and assertion faults say what is missing', async () => {
+  const cases = [
+    [{ mergeExistingUsers: true, localProfileMatchAttribute: 'username' }, { username: 'jdoe' }, /email_verified=true/, /no-email_verified/],
+    [{ mergeExistingUsers: true, localProfileMatchAttribute: 'username', identifierFormat: 'urn:oasis:names:tc:SAML:2.0:nameid-format:persistent' }, { username: 'jdoe', email: undefined, email_verified: true }, /has no email address/, /assertion-has-no-email$/],
+    [{ localProfileMatchAttribute: 'username' }, { username: 'jdoe', email_verified: true }, GENERIC, /merge-disabled/],
+    [{ mergeExistingUsers: true, localProfileMatchAttribute: 'username' }, { username: 'jdoe', email: 'other@example.invalid', email_verified: true }, GENERIC, /not-a-verified-email-of-this-account/],
+  ];
+  for (const [config, attrs, message, reason] of cases) {
+    const h = harness([ldapUser()], config);
+    const { result, lines } = await quietly(() => h.login({ ...subject, ...attrs }));
+    assert.equal(result.error, 'saml-account-conflict', JSON.stringify(attrs));
+    assert.match(result.message, message, JSON.stringify(attrs));
+    assert.equal(lines.length, 1);
+    assert.match(lines[0], /refused to link the SAML login of "jdoe" to existing account "jdoe"/);
+    assert.match(lines[0], reason);
+    assert.deepEqual(h.users, [ldapUser()], 'nothing was linked');
+  }
+  // A bound account keeps the generic message: its state is not the IdP's to fix.
+  const bound = victim();
+  const { result, lines } = await quietly(() => harness([bound], { mergeExistingUsers: true }).login({ ...subject, nameID: 'attacker', email_verified: true }));
+  assert.match(result.message, GENERIC);
+  assert.match(lines[0], /account-already-bound-to-saml/);
+});
+
+test('an email login name finds the existing account by its verified email when merging is on', async () => {
+  for (const config of [{ mergeExistingUsers: true }, { mergeExistingUsers: true, localProfileMatchAttribute: 'email' }]) {
+    const h = harness([ldapUser()], config);
+    assert.equal((await h.login({ ...subject, email_verified: 'true' })).userId, 'ldap');
+    assert.equal(h.users.length, 1, 'no second account was created');
+    assert.deepEqual(h.users[0].services.saml, { ...identity.samlIdentity(subject), sessionIndex: '' });
+  }
+});
+
+test('the email lookup never links without merging, IdP attestation, or a verified local email (negative)', async () => {
+  // Merging off: no email lookup at all, so this is an ordinary new SAML account.
+  let h = harness([ldapUser()]);
+  const { result } = await quietly(() => h.login({ ...subject, username: 'x', email_verified: true }));
+  assert.equal(h.users.find(u => u._id === 'ldap').services, undefined, String(result && result.message));
+  // Merging on but the IdP does not attest the email: refused, nothing linked.
+  h = harness([ldapUser()], { mergeExistingUsers: true });
+  const refused = await quietly(() => h.login({ ...subject }));
+  assert.equal(refused.result.error, 'saml-account-conflict');
+  assert.deepEqual(h.users, [ldapUser()]);
+  // The local email is unverified: the lookup does not even find it.
+  const unverified = { ...ldapUser(), emails: [{ address: subject.email, verified: false }] };
+  h = harness([unverified], { mergeExistingUsers: true });
+  await quietly(() => h.login({ ...subject, email_verified: true }));
+  assert.equal(h.users.find(u => u._id === 'ldap').services, undefined);
+});
+
 test('conditional writes reject concurrent links and binding changes before login completes', async () => {
   const local = { _id: 'local', username: subject.email, emails: [{ address: subject.email, verified: true }] };
   for (const initial of [local, victim()]) {
