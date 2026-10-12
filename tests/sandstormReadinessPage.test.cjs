@@ -14,12 +14,12 @@ vm.runInNewContext(source, {
 });
 let html;
 handler({ url: '/' }, { writeHead(status) { assert.equal(status, 503); }, end(body) { html = body; } });
-// Tag patterns are case-insensitive and allow attributes and `</script >`:
-// HTML does, so a case-sensitive pattern can miss the tag it is looking for
-// (CodeQL alert #566, js/bad-tag-filter).
+// Tag patterns are case-insensitive and allow attributes, also in END tags:
+// HTML does, and a browser ends a script at `</script foo>` too, so a narrower
+// pattern misses the tag it is looking for (CodeQL alerts #566, #569).
 assert.match(html, /<noscript\b[^>]*>\s*<meta http-equiv="refresh"/i);
-assert.doesNotMatch(html.replace(/<noscript\b[^>]*>[\s\S]*?<\/noscript\s*>/gi, ''), /http-equiv="refresh"/i);
-const scripts = [...html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script\s*>/gi)];
+assert.doesNotMatch(html.replace(/<noscript\b[^>]*>[\s\S]*?<\/noscript\b[^>]*>/gi, ''), /http-equiv="refresh"/i);
+const scripts = [...html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script\b[^>]*>/gi)];
 assert.equal(scripts.length, 1, 'the page has exactly one script');
 const script = scripts[0][1];
 

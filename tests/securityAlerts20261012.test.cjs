@@ -4,6 +4,8 @@
 // a SHAPE across the tree, not only at the line that was reported.
 //   565 js/redos: releases/prune-unreachable-npm.mjs - tests/pruneUnreachableNpm.test.cjs
 //   566 js/bad-tag-filter: a case-sensitive <script> pattern in a test
+//   569 js/bad-tag-filter: an end-tag pattern `<\/script\s*>` that misses
+//       `</script foo="bar">`, which a browser still accepts as the end tag
 //   567, 568 js/bad-code-sanitization: file paths spliced into generated code
 //       with JSON.stringify, in a test and in the i18n loader the test drives
 // Run: node tests/securityAlerts20261012.test.cjs
@@ -26,7 +28,7 @@ const sources = () => execFileSync('git', ['ls-files', '-z'], { cwd: ROOT }).toS
 
 function regexLiterals(file) {
   const src = fs.readFileSync(path.join(ROOT, file), 'utf8');
-  if (!/script|iframe/i.test(src)) return [];
+  if (!/script|iframe|style|textarea|title/i.test(src)) return [];
   let ast;
   try {
     ast = acorn.parse(src, { ecmaVersion: 'latest', sourceType: 'module', allowHashBang: true,
@@ -49,8 +51,36 @@ test('566: no pattern for a script, noscript or iframe tag is case-sensitive', (
   }
   assert.deepEqual(offenders, []);
   assert.equal(caseSensitiveTag({ pattern: '<script>([\\s\\S]*?)<\\/script>', flags: '' }), true, 'the reported pattern is caught');
-  assert.equal(caseSensitiveTag({ pattern: '<script\\b[^>]*>([\\s\\S]*?)<\\/script\\s*>', flags: 'gi' }), false);
+  assert.equal(caseSensitiveTag({ pattern: '<script\\b[^>]*>([\\s\\S]*?)<\\/script\\b[^>]*>', flags: 'gi' }), false);
   assert.equal(caseSensitiveTag({ pattern: '<table|<style', flags: '' }), false, 'other tags are not this rule');
+});
+
+// An END tag is ended by the first `>`, whatever sits before it: browsers take
+// `</script foo="bar">` and `</script\t\n bar>` as the end of the script (a parse
+// error, but rendered). So a pattern for one must allow anything but `>` up to
+// it - `<\/script\b[^>]*>` - never `<\/script>` or `<\/script\s*>`.
+const END_TAG = /<\\\/(?:script|noscript|style|iframe|textarea|title)(?!\\b\[\^>\]\*>|\[\^>\]\*>)/i;
+const looseEndTag = (re) => END_TAG.test(re.pattern);
+
+test('569: every end-tag pattern for script, noscript, style, iframe, textarea or title allows attributes', () => {
+  const offenders = [];
+  for (const file of sources()) {
+    for (const re of regexLiterals(file)) if (looseEndTag(re)) offenders.push(`${file}:${re.line} /${re.pattern}/${re.flags}`);
+  }
+  assert.deepEqual(offenders, []);
+  assert.equal(looseEndTag({ pattern: '<script\\b[^>]*>([\\s\\S]*?)<\\/script\\s*>' }), true, 'the reported pattern is caught');
+  assert.equal(looseEndTag({ pattern: '<style[^>]*>.*?<\\/style>' }), true, 'and the bare form');
+  assert.equal(looseEndTag({ pattern: '<script\\b[^>]*>([\\s\\S]*?)<\\/script\\b[^>]*>' }), false);
+  assert.equal(looseEndTag({ pattern: '<\\/noscript[^>]*>' }), false);
+});
+
+test('569: the fixed end-tag pattern finds a script whose end tag carries junk (positive)', () => {
+  const re = /<script\b[^>]*>([\s\S]*?)<\/script\b[^>]*>/gi;
+  for (const end of ['</script>', '</script >', '</SCRIPT>', '</script foo="bar">', '</script\t\n bar>']) {
+    const m = [...`<p>x</p><script>alert(1)${end}<p>y</p>`.matchAll(re)];
+    assert.equal(m.length, 1, end);
+    assert.equal(m[0][1], 'alert(1)', end);
+  }
 });
 
 test('567/568: the i18n loader writes a literal that stays one literal', () => {

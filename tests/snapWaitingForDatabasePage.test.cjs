@@ -160,7 +160,7 @@ test('it uses the Admin Panel product name', async () => {
     }
     assert.ok(/<h1>.*Acme Boards is waiting for its database<\/h1>/.test(body),
       'the heading is the product name, not WeKan');
-    assert.ok(/<title>Acme Boards — Starting<\/title>/.test(body), 'and so is the tab');
+    assert.ok(/<title>Acme Boards — Starting<\/title\b[^>]*>/.test(body), 'and so is the tab');
     assert.ok(!/WeKan is waiting/.test(body), 'with no WeKan left in it (negative)');
   } finally {
     child.kill();

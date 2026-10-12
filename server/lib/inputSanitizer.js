@@ -17,7 +17,7 @@ export function sanitizeInput(input) {
 
   // Additional check for CSS injection patterns
   const cssInjectionPatterns = [
-    /<style[^>]*>.*?<\/style>/gi,
+    /<style\b[^>]*>[\s\S]*?<\/style\b[^>]*>/gi,
     /style\s*=\s*["'][^"']*["']/gi,
     /@import\s+[^;]+;/gi,
     /url\s*\(\s*[^)]+\s*\)/gi,
