@@ -84,6 +84,7 @@ const TMP = path.join(process.env.TMPDIR || path.join(ROOT, '.tools/tmp'), `sand
 fs.mkdirSync(TMP, { recursive: true });
 try {
   fs.copyFileSync(path.join(ROOT, 'sandstorm-src/start-memory.js'), path.join(TMP, 'start-memory.js'));
+  fs.copyFileSync(path.join(ROOT, 'sandstorm-src/startup-timing.js'), path.join(TMP, 'startup-timing.js'));
   fs.writeFileSync(path.join(TMP, 'start.js'),
     // Touch localStorage the way server code that probes for it does.
     'const ls = typeof globalThis.localStorage;' +

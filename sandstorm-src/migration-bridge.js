@@ -4,7 +4,7 @@
 // to WeKan. Without it the http-bridge gets connection-refused on the app port and the
 // browser shows "This page can not be displayed embedded in another page" (the grain
 // frame error noted in docs/Platforms/FOSS/Container/Sandstorm). Answering every URL
-// with a small "please wait" page (HTTP 503, auto-refresh) keeps the grain framed until
+// with a small "please wait" page (HTTP 503) keeps the grain framed until
 // WeKan is up. It is a separate process so start.js can release the port with a kill
 // (a definitive socket close) before the migration importer or Meteor binds the port —
 // an in-process server could not release its listening socket while start.js is blocked
@@ -18,7 +18,7 @@ const MESSAGE = (process.env.BRIDGE_MESSAGE || 'WeKan is getting your data ready
 
 const HTML = `<!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="refresh" content="5">
+<noscript><meta http-equiv="refresh" content="5"></noscript>
 <title>WeKan — Please wait</title>
 <style>
   :root{color-scheme:light dark}
@@ -38,11 +38,38 @@ const HTML = `<!DOCTYPE html><html lang="en"><head>
 </style></head><body>
 <div class="card">
   <h1><span class="spin"></span>${MESSAGE}</h1>
-  <p>This page refreshes automatically and will open WeKan as soon as it is ready.</p>
+  <p>WeKan will open automatically as soon as it is ready.</p>
   <p class="muted">The first launch after an upgrade migrates your data, which can take a while.</p>
-</div></body></html>`;
+</div>
+<script>
+(function waitForApp() {
+  fetch('/.sandstorm-startup-ready', { cache: 'no-store' }).then(function(response) {
+    if (response.status === 204) {
+      location.reload();
+    } else {
+      setTimeout(waitForApp, 250);
+    }
+  }).catch(function() {
+    // A migration or a proxy timeout can close the held request. Reconnect,
+    // keeping this page visible through the gap instead of navigating into it.
+    setTimeout(waitForApp, 250);
+  });
+})();
+</script></body></html>`;
 
-http.createServer((req, res) => {
+const waiting = new Set();
+const server = http.createServer((req, res) => {
+  if (req.url === '/.sandstorm-startup-ready') {
+    waiting.add(res);
+    // Bound the request lifetime for proxies and interrupted startup. This is
+    // a reconnect fallback, not the normal readiness notification interval.
+    const timeout = setTimeout(() => {
+      res.writeHead(503, { 'Cache-Control': 'no-store' });
+      res.end();
+    }, 25000);
+    res.on('close', () => { clearTimeout(timeout); waiting.delete(res); });
+    return;
+  }
   res.writeHead(503, {
     'Content-Type': 'text/html; charset=utf-8',
     'Retry-After': '5',
@@ -51,3 +78,18 @@ http.createServer((req, res) => {
   res.end(HTML);
 }).listen(PORT, '127.0.0.1',
   () => console.log(`[migration-bridge] serving the please-wait page on 127.0.0.1:${PORT}`));
+
+process.on('message', message => {
+  if (message === 'release-port') {
+    // Stop accepting new connections but retain the browser's held request.
+    // server.close() releases the listening socket before returning; its
+    // callback waits for those active requests to finish.
+    server.close(() => process.exit(0));
+    if (process.connected) process.send('port-released', () => {});
+  } else if (message === 'app-listening') {
+    for (const res of waiting) {
+      res.writeHead(204, { 'Cache-Control': 'no-store' });
+      res.end();
+    }
+  }
+});

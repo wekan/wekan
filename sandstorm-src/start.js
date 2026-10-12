@@ -19,6 +19,8 @@
 // the filesystem. Migration is idempotent (marker); the old data is never
 // auto-deleted (the admin frees it from Admin Panel / Attachments / Sandstorm).
 
+const markStartup = require('./startup-timing')('launcher');
+markStartup('entry');
 const { spawn, spawnSync } = require('child_process');
 const fs = require('fs');
 const net = require('net');
@@ -137,7 +139,7 @@ function startBridge(message) {
   if (bridge || !fs.existsSync(BRIDGE)) return;          // already up, or not bundled
   try {
     bridge = spawn(...cpuExec(NODE, [BRIDGE]), {
-      stdio: 'inherit',
+      stdio: ['inherit', 'inherit', 'inherit', 'ipc'],
       env: { ...process.env, PORT: APP_PORT, BRIDGE_MESSAGE: message || '' },
     });
     bridge.on('error', () => {});                        // a bridge failure must not break startup
@@ -166,8 +168,8 @@ process.on('exit', () => { if (bridge) { try { bridge.kill('SIGKILL'); } catch (
 // connection-refused, which Sandstorm passes on as a DISCONNECTED error and
 // the browser shows as an empty response (NS_ERROR_NET_EMPTY_RESPONSE) - and
 // a startup hook that never finished made it permanent. Now the please-wait
-// page answers until the listen call itself, which waits for the bridge
-// process to EXIT (its socket is closed by then) and only then binds.
+// page answers until the listen call itself. The bridge releases its listening
+// socket over IPC but retains active readiness requests until Meteor listens.
 function yieldPortOnListen() {
   const listen = net.Server.prototype.listen;
   net.Server.prototype.listen = function (...args) {
@@ -175,7 +177,14 @@ function yieldPortOnListen() {
     const port = opts && typeof opts === 'object' ? opts.port : opts;
     if (String(port) !== String(APP_PORT)) return listen.apply(this, args);
     net.Server.prototype.listen = listen;                // only the first bind of APP_PORT
-    this.once('listening', () => console.log(`** WeKan is listening on port ${APP_PORT}`));
+    markStartup('meteor-listen-requested');
+    this.once('listening', () => {
+      markStartup('meteor-listening');
+      if (child && child.connected) {
+        child.send('app-listening', () => {});
+      }
+      console.log(`** WeKan is listening on port ${APP_PORT}`);
+    });
     const child = bridge;
     bridge = null;
     if (!child || child.exitCode !== null || child.signalCode !== null) {
@@ -184,10 +193,20 @@ function yieldPortOnListen() {
     let bound = false;
     const bind = () => { if (!bound) { bound = true; listen.apply(this, args); } };
     child.once('exit', bind);
-    // A bridge that ignores SIGTERM must not keep WeKan off its port.
-    setTimeout(() => { try { child.kill('SIGKILL'); } catch (_) {} }, 3000).unref();
-    setTimeout(bind, 5000).unref();
-    try { child.kill('SIGTERM'); } catch (_) { bind(); }
+    // An unresponsive bridge must not keep WeKan off its port. Also reap it if
+    // an abandoned browser connection prevents graceful shutdown after handoff.
+    const killTimer = setTimeout(() => { try { child.kill('SIGKILL'); } catch (_) {} }, 3000);
+    killTimer.unref();
+    child.once('exit', () => clearTimeout(killTimer));
+    if (child.connected) {
+      child.on('message', message => { if (message === 'port-released') bind(); });
+      child.send('release-port', error => {
+        if (error) { try { child.kill('SIGTERM'); } catch (_) { bind(); } }
+      });
+    } else {
+      // Compatibility with bridge processes started without an IPC channel.
+      try { child.kill('SIGTERM'); } catch (_) { bind(); }
+    }
     return this;
   };
 }
@@ -339,14 +358,20 @@ function migrateMongo3ToFerret() {
 async function migrateIfNeeded() {
   if (fs.existsSync(MARKER)) return;                     // already on FerretDB
   if (haveNiscuData() && !haveMongo3Data()) {
+    markStartup('niscu-migration-start');
     await migrateNiscuToMongo3();                        // → produces /var/wiredTigerDb
+    markStartup('niscu-migration-end');
   }
   if (haveMongo3Data()) {
+    markStartup('mongo3-migration-start');
     migrateMongo3ToFerret();                             // → FerretDB
+    markStartup('mongo3-migration-end');
   }
 }
 
-function runApp() {
+async function runApp() {
+  markStartup('migration-check-complete');
+  markStartup('ferretdb-spawn');
   const ferret = startFerret(DB_PORT, { oplog: true });  // steady-state DB, OpLog on
   ferret.on('exit', code => {                            // if the DB dies, restart the grain
     console.error(`** FerretDB exited (code ${code}); stopping grain.`);
@@ -382,18 +407,23 @@ function runApp() {
   process.env.SANDSTORM     = '1';
 
   console.log('** Starting WeKan on FerretDB ...');
-  setTimeout(() => {
-    // The please-wait page keeps APP_PORT until Meteor binds it (above).
-    yieldPortOnListen();
-    require('./main.js');
-  }, 1500);                                              // let FerretDB start listening
+  await require('./wait-for-port')(DB_PORT);
+  markStartup('ferretdb-listening');
+  // The please-wait page keeps APP_PORT until Meteor binds it (above).
+  markStartup('meteor-load-start');
+  yieldPortOnListen();
+  require('./main.js');
+  // main.js starts asynchronous boot: returning is NOT HTTP readiness.
+  markStartup('meteor-require-returned');
 }
 
 ensureDirs();
+markStartup('directories-ready');
 // Show the please-wait page on APP_PORT from the very start so the grain is never an
 // unframable connection-refused error, whether this launch migrates data or not.
 const willMigrate = !fs.existsSync(MARKER) && (haveNiscuData() || haveMongo3Data());
 startBridge(willMigrate ? 'WeKan is migrating your data…' : 'WeKan is starting…');
+markStartup('migration-check-start');
 migrateIfNeeded()
   .then(runApp)
   .catch(e => { console.error('** Fatal during migration:', e && e.stack || e); process.exit(1); });
