@@ -1,0 +1,3052 @@
+diff --git a/packages/core-runtime/load-js-image.js b/packages/core-runtime/load-js-image.js
+index 029c9f2..2dfb6c6 100644
+--- a/packages/core-runtime/load-js-image.js
++++ b/packages/core-runtime/load-js-image.js
+@@ -26,7 +26,7 @@ function processNext() {
+ 
+   isProcessing = true;
+ 
+-  var config = next.runImage.call(this);
++  var config = next.runImage.call(typeof globalThis !== 'undefined' ? globalThis : this);
+   runEagerModules(config, function (mainModuleExports) {
+     // Get the exports after the eager code has been run
+     var exports = config.export ? config.export() : {};
+diff --git a/packages/core-runtime/package-registry.js b/packages/core-runtime/package-registry.js
+index 0ba05dc..d31bb38 100644
+--- a/packages/core-runtime/package-registry.js
++++ b/packages/core-runtime/package-registry.js
+@@ -61,7 +61,7 @@ PRp._promise = function promise(name) {
+ };
+ 
+ // Initialize the Package namespace used by all Meteor packages.
+-var global = this;
++var global = typeof globalThis !== 'undefined' ? globalThis : (typeof window !== 'undefined' ? window : this);
+ global.Package = new PackageRegistry();
+ 
+ if (typeof exports === "object") {
+diff --git a/packages/ddp-server/package.js b/packages/ddp-server/package.js
+index 6ff8db7..b457ddb 100644
+--- a/packages/ddp-server/package.js
++++ b/packages/ddp-server/package.js
+@@ -9,6 +9,7 @@ Npm.depends({
+   "permessage-deflate2": "0.1.8",
+   sockjs: "0.3.24",
+   "lodash.once": "4.1.1",
++  ws: "8.18.0",
+   "lodash.isempty": "4.4.0",
+   "lodash.isstring": "4.0.1",
+   "lodash.isobject": "3.0.2"
+@@ -57,6 +58,7 @@ Package.onUse(function (api) {
+   api.addFiles("transports/raw_connection.js", "server");
+   api.addFiles("transports/sockjs.js", "server");
+   api.addFiles("transports/uws.js", "server");
++  api.addFiles("transports/bun.js", "server");
+   api.addFiles("transports/index.js", "server");
+   api.addFiles("stream_server.js", "server");
+ 
+@@ -87,5 +89,6 @@ Package.onTest(function (api) {
+   api.addFiles("crossbar_tests.js", ["server"]);
+   api.addFiles("raw_websocket_tests.js", "server");
+   api.addFiles("transports/uws_tests.js", "server");
++  api.addFiles("transports/bun_tests.js", "server");
+   api.addFiles("transports/sockjs_tests.js", "server");
+ });
+diff --git a/packages/ddp-server/transports/bun.js b/packages/ddp-server/transports/bun.js
+new file mode 100644
+index 0000000..5ca1146
+--- /dev/null
++++ b/packages/ddp-server/transports/bun.js
+@@ -0,0 +1,71 @@
++import { EventEmitter } from 'events';
++import { RawWebSocketConnection } from './raw_connection.js';
++
++/**
++ * Bun native WebSocket transport.
++ *
++ * Uses the `ws` npm package in noServer mode with Node's http 'upgrade'
++ * event. This works on both Node.js and Bun, but is primarily intended
++ * for Bun where SockJS and uWebSockets.js are not available.
++ *
++ * Bun's http.createServer supports the 'upgrade' event, making this
++ * the most straightforward transport for Bun runtime.
++ *
++ * Select via:
++ *   DDP_TRANSPORT=bun
++ *   Meteor.settings.packages['ddp-server'].transport = 'bun'
++ *   Auto-detected when typeof Bun !== 'undefined'
++ */
++export function createBunTransport() {
++  return {
++    name: 'bun',
++    setup(httpServer, pathPrefix, options) {
++      var emitter = new EventEmitter();
++      var WebSocketServer = Npm.require('ws').WebSocketServer;
++      var wss = new WebSocketServer({ noServer: true });
++
++      // Reject plain HTTP requests to /websocket
++      WebApp.rawConnectHandlers.use(function (req, res, next) {
++        var pathname;
++        try {
++          pathname = new URL(req.url, 'http://localhost').pathname;
++        } catch (err) {
++          next();
++          return;
++        }
++        if (pathname === pathPrefix + '/websocket' ||
++            pathname === pathPrefix + '/websocket/') {
++          res.writeHead(400, { 'Content-Type': 'text/plain' });
++          res.end('Not a valid websocket request');
++        } else {
++          next();
++        }
++      });
++
++      httpServer.on('upgrade', function (req, socket, head) {
++        var pathname;
++        try {
++          pathname = new URL(req.url, 'http://localhost').pathname;
++        } catch (err) {
++          socket.destroy();
++          return;
++        }
++
++        if (pathname === pathPrefix + '/websocket' ||
++            pathname === pathPrefix + '/websocket/' ||
++            // SockJS-style paths from legacy clients
++            (pathname.includes('/sockjs/') && pathname.endsWith('/websocket'))) {
++
++          wss.handleUpgrade(req, socket, head, function (ws) {
++            var conn = new RawWebSocketConnection(ws, req, socket, function (data) {
++              return data.toString();
++            });
++            emitter.emit('connection', conn);
++          });
++        }
++      });
++
++      return emitter;
++    }
++  };
++}
+diff --git a/packages/ddp-server/transports/bun_tests.js b/packages/ddp-server/transports/bun_tests.js
+new file mode 100644
+index 0000000..3f23c6b
+--- /dev/null
++++ b/packages/ddp-server/transports/bun_tests.js
+@@ -0,0 +1,79 @@
++import { EventEmitter } from 'events';
++import { createBunTransport } from './bun.js';
++import { getTransport } from './index.js';
++
++function makeServer() {
++  const server = new EventEmitter();
++  return server;
++}
++
++Tinytest.add(
++  'ddp-server/bun - createBunTransport returns valid transport object',
++  function (test) {
++    const transport = createBunTransport();
++    test.equal(transport.name, 'bun');
++    test.isTrue(typeof transport.setup === 'function');
++  }
++);
++
++Tinytest.add(
++  'ddp-server/bun - transport setting honoured via Meteor.settings',
++  function (test) {
++    const savedSettings = Meteor.settings;
++    try {
++      Meteor.settings = {
++        packages: { 'ddp-server': { transport: 'bun' } },
++      };
++
++      const seen = Meteor.settings?.packages?.['ddp-server'];
++      test.isNotUndefined(seen, 'transport setting must be reachable via Meteor.settings');
++      test.equal(seen.transport, 'bun',
++        'transport name must round-trip through Meteor.settings.packages["ddp-server"].transport');
++
++      const transport = getTransport();
++      test.equal(transport.name, 'bun');
++      test.equal(__meteor_runtime_config__.DDP_TRANSPORT, 'bun');
++    } finally {
++      Meteor.settings = savedSettings;
++      delete __meteor_runtime_config__.DDP_TRANSPORT;
++    }
++  }
++);
++
++Tinytest.add(
++  'ddp-server/bun - transport setting honoured via DDP_TRANSPORT env var',
++  function (test) {
++    const origEnv = process.env.DDP_TRANSPORT;
++    const savedSettings = Meteor.settings;
++    try {
++      Meteor.settings = {};
++      process.env.DDP_TRANSPORT = 'bun';
++
++      const transport = getTransport();
++      test.equal(transport.name, 'bun');
++      test.equal(__meteor_runtime_config__.DDP_TRANSPORT, 'bun');
++    } finally {
++      if (origEnv !== undefined) {
++        process.env.DDP_TRANSPORT = origEnv;
++      } else {
++        delete process.env.DDP_TRANSPORT;
++      }
++      Meteor.settings = savedSettings;
++      delete __meteor_runtime_config__.DDP_TRANSPORT;
++    }
++  }
++);
++
++Tinytest.add(
++  'ddp-server/bun - setup attaches upgrade listener to httpServer',
++  function (test) {
++    const transport = createBunTransport();
++    const server = makeServer();
++    const initialListeners = server.listenerCount('upgrade');
++
++    const emitter = transport.setup(server, '');
++    test.isTrue(emitter instanceof EventEmitter, 'setup must return an EventEmitter');
++    test.equal(server.listenerCount('upgrade'), initialListeners + 1,
++      'setup must register one upgrade listener on httpServer');
++  }
++);
+diff --git a/packages/ddp-server/transports/index.js b/packages/ddp-server/transports/index.js
+index 071e3bc..64a2394 100644
+--- a/packages/ddp-server/transports/index.js
++++ b/packages/ddp-server/transports/index.js
+@@ -1,5 +1,6 @@
+ import { createSockJSTransport } from './sockjs.js';
+ import { createUwsTransport } from './uws.js';
++import { createBunTransport } from './bun.js';
+ 
+ /**
+  * Socket contract
+@@ -25,6 +26,7 @@ import { createUwsTransport } from './uws.js';
+ const TRANSPORTS = {
+   sockjs: createSockJSTransport,
+   uws: createUwsTransport,
++  bun: createBunTransport,
+ };
+ 
+ const VALID_NAMES = Object.keys(TRANSPORTS);
+@@ -34,7 +36,8 @@ const VALID_NAMES = Object.keys(TRANSPORTS);
+  *   1. Meteor.settings.packages['ddp-server'].transport
+  *   2. DDP_TRANSPORT env var
+  *   3. DISABLE_SOCKJS=1 → 'uws' (backward compat)
+- *   4. default: 'sockjs'
++ *   4. Bun runtime auto-detect → 'bun'
++ *   5. default: 'sockjs'
+  *
+  * Also sets __meteor_runtime_config__.DDP_TRANSPORT so the client
+  * knows whether to load SockJS or use native WebSocket.
+@@ -68,11 +71,16 @@ function resolveTransportName() {
+     return process.env.DDP_TRANSPORT;
+   }
+ 
+-  // 3. Backward compat: DISABLE_SOCKJS=1 → uws
++  // 3. Bun runtime: SockJS and uws are not available
++  if (typeof Bun !== 'undefined') {
++    return 'bun';
++  }
++
++  // 4. Backward compat: DISABLE_SOCKJS=1 → uws
+   if (process.env.DISABLE_SOCKJS) {
+     return 'uws';
+   }
+ 
+-  // 4. Default
++  // 5. Default
+   return 'sockjs';
+ }
+diff --git a/packages/meteor/setimmediate.js b/packages/meteor/setimmediate.js
+index 8cf75fb..0c1acda 100644
+--- a/packages/meteor/setimmediate.js
++++ b/packages/meteor/setimmediate.js
+@@ -30,7 +30,7 @@
+ 
+ "use strict";
+ 
+-var global = this;
++var global = typeof globalThis !== "undefined" ? globalThis : this;
+ 
+ 
+ // IE 10, Node >= 9.1
+diff --git a/packages/modules/reify.js b/packages/modules/reify.js
+index 035eafa..08db7bb 100644
+--- a/packages/modules/reify.js
++++ b/packages/modules/reify.js
+@@ -1,3 +1,23 @@
+ require("@meteorjs/reify/lib/runtime").enable(
+   module.constructor.prototype
+ );
++
++if (typeof globalThis.__meteorWrapPackageGetter === "function") {
++  var Mp = module.constructor.prototype;
++  if (!Mp.export.__pkgWrapped) {
++    var origExport = Mp.export;
++    Mp.export = function (getters, constant) {
++      if (getters && typeof getters === "object" && typeof this.id === "string" && this.id.indexOf("/node_modules/meteor/") === 0) {
++        var self = this;
++        var wrapped = {};
++        Object.keys(getters).forEach(function (key) {
++          wrapped[key] = globalThis.__meteorWrapPackageGetter(self.id, getters[key]);
++        });
++        return origExport.call(this, wrapped, constant);
++      }
++      return origExport.call(this, getters, constant);
++    };
++    Mp.export.__pkgWrapped = true;
++  }
++}
++
+diff --git a/packages/rspack/lib/build-context.js b/packages/rspack/lib/build-context.js
+index 89c5974..b793d93 100644
+--- a/packages/rspack/lib/build-context.js
++++ b/packages/rspack/lib/build-context.js
+@@ -741,13 +741,21 @@ const __rspackModule = Npm['require']('module');
+ const __rspackServerRequire = __rspackModule.createRequire(__rspackServerBundlePath);
+ const __rspackMeteorRequire = require;
+ const __rspackServerModule = new __rspackModule(__rspackServerBundlePath);
+-const __rspackNodeRequire = __rspackServerModule.require.bind(__rspackServerModule);
+-__rspackServerModule.require = function(request) {
++const __rspackNodeRequire = typeof __rspackServerModule.require === 'function'
++  ? __rspackServerModule.require.bind(__rspackServerModule)
++  : __rspackServerRequire;
++const __rspackCustomRequire = function(request) {
+   if (typeof request === 'string' && request.startsWith('meteor/')) {
+-    return __rspackMeteorRequire(request);
++    const mod = __rspackMeteorRequire(request);
++    if (typeof globalThis.__meteorWrapPackageModule === 'function') {
++      return globalThis.__meteorWrapPackageModule(request.slice(7), mod);
++    }
++    return mod;
+   }
+   return __rspackNodeRequire(request);
+ };
++Object.assign(__rspackCustomRequire, __rspackServerRequire);
++__rspackServerModule.require = __rspackCustomRequire;
+ delete __rspackServerRequire.cache[__rspackServerBundlePath];
+ __rspackServerRequire.cache[__rspackServerBundlePath] = __rspackServerModule;
+ /* Node compiles the bundle outside Meteor's boot wrapper, so the
+@@ -755,7 +763,26 @@ __rspackServerRequire.cache[__rspackServerBundlePath] = __rspackServerModule;
+ globalThis.Npm = Npm;
+ globalThis.Assets = Assets;
+ try {
+-  __rspackServerModule.load(__rspackServerBundlePath);
++  if (typeof __rspackServerModule.load === 'function') {
++    __rspackServerModule.load(__rspackServerBundlePath);
++  } else {
++    const __rspackFs = Npm['require']('fs');
++    const __rspackPath = Npm['require']('path');
++    const __rspackVm = Npm['require']('vm');
++    const __rspackCode = __rspackFs.readFileSync(__rspackServerBundlePath, 'utf8');
++    const __rspackFn = __rspackVm.runInThisContext(
++      '(function (exports, require, module, __filename, __dirname) {\\n' + __rspackCode + '\\n})',
++      { filename: __rspackServerBundlePath }
++    );
++    __rspackFn(
++      __rspackServerModule.exports,
++      __rspackCustomRequire,
++      __rspackServerModule,
++      __rspackServerBundlePath,
++      __rspackPath.dirname(__rspackServerBundlePath)
++    );
++    __rspackServerModule.loaded = true;
++  }
+   /* A bundle with TLA exports a Promise; Meteor's boot waits for this file. */
+   await Promise.resolve(__rspackServerModule.exports);
+ } catch (error) {
+diff --git a/scripts/ci/__tests__/bun-host-prefix-repro.node-test.js b/scripts/ci/__tests__/bun-host-prefix-repro.node-test.js
+new file mode 100644
+index 0000000..211a659
+--- /dev/null
++++ b/scripts/ci/__tests__/bun-host-prefix-repro.node-test.js
+@@ -0,0 +1,236 @@
++// scripts/ci/__tests__/bun-host-prefix-repro.test.js
++// Minimal standalone reproducer and verification for bun-host under a ROOT_URL_PATH_PREFIX (e.g. /ks).
++// Runs under both Node (node:test) and Bun (bun test).
++
++const { test } = require('node:test');
++const assert = require('node:assert/strict');
++const fs = require('node:fs');
++const os = require('node:os');
++const path = require('node:path');
++const http = require('node:http');
++const { spawn } = require('node:child_process');
++
++function findExecutable(name) {
++  if (name === 'bun' && process.versions?.bun) {
++    return process.execPath;
++  }
++  for (const dir of (process.env.PATH || '').split(path.delimiter)) {
++    const candidate = path.join(dir, name);
++    try {
++      if (fs.existsSync(candidate) && fs.statSync(candidate).isFile()) {
++        return candidate;
++      }
++    } catch {}
++  }
++  return null;
++}
++
++test('bun-host prefix routing: WebSocket upgrade and static files under ROOT_URL_PATH_PREFIX', async (t) => {
++  const bunPath = findExecutable('bun');
++  if (!bunPath) {
++    t.skip('Bun binary not found in PATH');
++    return;
++  }
++
++  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'meteor-bun-prefix-test-'));
++  const sockPath = path.join(dir, 'test-express.sock');
++  const staticFile = path.join(dir, 'app.js');
++  fs.writeFileSync(staticFile, 'console.log("static-client-file-under-prefix");');
++
++  // Allocate an ephemeral port for Bun.serve
++  const srv = http.createServer();
++  await new Promise((r) => srv.listen(0, '127.0.0.1', r));
++  const testPort = srv.address().port;
++  await new Promise((r) => srv.close(r));
++
++  // 1. Mock Express/Connect server on Unix socket
++  const expressServer = http.createServer((req, res) => {
++    // If request has prefix /ks, strip it as WebApp does
++    let url = req.url;
++    if (url.startsWith('/ks')) {
++      url = url.slice(3) || '/';
++    }
++
++    if (url.startsWith('/api/echo')) {
++      res.writeHead(200, { 'Content-Type': 'application/json' });
++      res.end(JSON.stringify({ echo: true, url: req.url }));
++      return;
++    }
++
++    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
++    res.end('<!DOCTYPE html><html><body>Boilerplate under /ks</body></html>');
++  });
++
++  await new Promise((resolve) => expressServer.listen(sockPath, resolve));
++
++  // 2. Bun host process with ROOT_URL_PATH_PREFIX='/ks'
++  const hostScript = path.join(dir, 'test-host-prefix.mjs');
++  fs.writeFileSync(
++    hostScript,
++    `
++const staticFiles = new Map([
++  ['/app.js', { absPath: ${JSON.stringify(staticFile)}, hash: 'h123' }],
++]);
++
++function getPathPrefix() {
++  if (process.env.ROOT_URL) {
++    try {
++      let p = new URL(process.env.ROOT_URL).pathname;
++      if (p.endsWith('/')) p = p.slice(0, -1);
++      return p;
++    } catch (e) {}
++  }
++  return '';
++}
++
++function isWebSocketPath(pathname) {
++  const prefix = getPathPrefix();
++  let p = pathname;
++  if (prefix && (p === prefix || p.startsWith(prefix + '/'))) {
++    p = p.slice(prefix.length) || '/';
++  }
++  return p === '/websocket' || p === '/websocket/' ||
++    (p.includes('/sockjs/') && p.endsWith('/websocket'));
++}
++
++function serveStaticFile(urlPath) {
++  let info = staticFiles.get(urlPath);
++  if (!info) {
++    const prefix = getPathPrefix();
++    if (prefix && (urlPath === prefix || urlPath.startsWith(prefix + '/'))) {
++      const subPath = urlPath.slice(prefix.length) || '/';
++      info = staticFiles.get(subPath);
++    }
++  }
++  if (!info) return null;
++
++  return new Response(Bun.file(info.absPath), {
++    headers: {
++      'Content-Type': 'application/javascript; charset=UTF-8',
++      'ETag': '"' + info.hash + '"',
++    },
++  });
++}
++
++const server = Bun.serve({
++  port: ${testPort},
++  hostname: '127.0.0.1',
++  async fetch(req, srv) {
++    if (req.headers.get('upgrade')?.toLowerCase() === 'websocket') {
++      const url = new URL(req.url);
++      if (isWebSocketPath(url.pathname)) {
++        return srv.upgrade(req) ? undefined : new Response('WS upgrade failed', { status: 400 });
++      }
++    }
++
++    const url = new URL(req.url);
++    const staticResp = serveStaticFile(url.pathname);
++    if (staticResp) return staticResp;
++
++    try {
++      return await fetch(
++        new Request('http://localhost' + url.pathname + url.search, {
++          method: req.method,
++          headers: req.headers,
++          body: (req.method !== 'GET' && req.method !== 'HEAD') ? req.body : undefined,
++          redirect: 'manual',
++        }),
++        { unix: ${JSON.stringify(sockPath)} }
++      );
++    } catch (err) {
++      return new Response('Proxy Error: ' + err.message, { status: 502 });
++    }
++  },
++  websocket: {
++    open(ws) { ws.send('ddp-connected-prefix'); },
++    message(ws, msg) { ws.send(msg); },
++  },
++});
++
++console.log('BUN_PREFIX_READY');
++`
++  );
++
++  const hostChild = spawn(bunPath, [hostScript], {
++    stdio: ['ignore', 'pipe', 'inherit'],
++    env: { ...process.env, ROOT_URL: `http://localhost:${testPort}/ks` },
++  });
++
++  t.after(async () => {
++    hostChild.kill('SIGKILL');
++    await new Promise((r) => expressServer.close(r));
++    try { fs.rmSync(dir, { recursive: true, force: true }); } catch {}
++  });
++
++  await new Promise((resolve, reject) => {
++    const timer = setTimeout(() => reject(new Error('bun host failed to start')), 5000);
++    hostChild.stdout.on('data', (chunk) => {
++      if (chunk.toString().includes('BUN_PREFIX_READY')) {
++        clearTimeout(timer);
++        resolve();
++      }
++    });
++  });
++
++  const baseUrl = `http://127.0.0.1:${testPort}`;
++
++  // 1. Prefixed WebSocket upgrade at ws://localhost:<port>/ks/websocket
++  const ws = new WebSocket(`ws://127.0.0.1:${testPort}/ks/websocket`);
++  const wsMsg = await new Promise((resolve, reject) => {
++    const timer = setTimeout(() => reject(new Error('Prefixed WS timeout')), 3000);
++    ws.addEventListener('message', (event) => {
++      clearTimeout(timer);
++      resolve(String(event.data));
++    });
++    ws.addEventListener('error', (err) => {
++      clearTimeout(timer);
++      reject(err);
++    });
++  });
++  ws.close();
++  assert.equal(wsMsg, 'ddp-connected-prefix');
++
++  // 2. Prefixed SockJS WebSocket upgrade at ws://localhost:<port>/ks/sockjs/123/xyz/websocket
++  const wsSockjs = new WebSocket(`ws://127.0.0.1:${testPort}/ks/sockjs/123/xyz/websocket`);
++  const wsSockjsMsg = await new Promise((resolve, reject) => {
++    const timer = setTimeout(() => reject(new Error('SockJS WS timeout')), 3000);
++    wsSockjs.addEventListener('message', (event) => {
++      clearTimeout(timer);
++      resolve(String(event.data));
++    });
++    wsSockjs.addEventListener('error', (err) => {
++      clearTimeout(timer);
++      reject(err);
++    });
++  });
++  wsSockjs.close();
++  assert.equal(wsSockjsMsg, 'ddp-connected-prefix');
++
++  // 3. Fallback unprefixed WebSocket upgrade at ws://localhost:<port>/websocket
++  const wsDirect = new WebSocket(`ws://127.0.0.1:${testPort}/websocket`);
++  const wsDirectMsg = await new Promise((resolve, reject) => {
++    const timer = setTimeout(() => reject(new Error('Direct WS timeout')), 3000);
++    wsDirect.addEventListener('message', (event) => {
++      clearTimeout(timer);
++      resolve(String(event.data));
++    });
++    wsDirect.addEventListener('error', (err) => {
++      clearTimeout(timer);
++      reject(err);
++    });
++  });
++  wsDirect.close();
++  assert.equal(wsDirectMsg, 'ddp-connected-prefix');
++
++  // 4. Prefixed static file serving at /ks/app.js
++  const staticRes = await fetch(`${baseUrl}/ks/app.js`);
++  assert.equal(staticRes.status, 200);
++  assert.equal(await staticRes.text(), 'console.log("static-client-file-under-prefix");');
++
++  // 5. Prefixed API proxying to Express at /ks/api/echo
++  const apiRes = await fetch(`${baseUrl}/ks/api/echo`);
++  assert.equal(apiRes.status, 200);
++  const json = await apiRes.json();
++  assert.equal(json.echo, true);
++  assert.equal(json.url, '/ks/api/echo');
++});
+diff --git a/scripts/ci/__tests__/bun-host-routing.node-test.js b/scripts/ci/__tests__/bun-host-routing.node-test.js
+new file mode 100644
+index 0000000..d9382db
+--- /dev/null
++++ b/scripts/ci/__tests__/bun-host-routing.node-test.js
+@@ -0,0 +1,241 @@
++const { test } = require('node:test');
++const assert = require('node:assert/strict');
++const fs = require('node:fs');
++const os = require('node:os');
++const path = require('node:path');
++const http = require('node:http');
++const { spawn } = require('node:child_process');
++
++function findExecutable(name) {
++  if (name === 'bun' && process.versions?.bun) {
++    return process.execPath;
++  }
++  for (const dir of (process.env.PATH || '').split(path.delimiter)) {
++    const candidate = path.join(dir, name);
++    try {
++      if (fs.existsSync(candidate) && fs.statSync(candidate).isFile()) {
++        return candidate;
++      }
++    } catch {}
++  }
++  return null;
++}
++
++test('bun-host HTTP routing: static files, dynamic API pass-through, and body forwarding', async (t) => {
++  const bunPath = findExecutable('bun');
++  if (!bunPath) {
++    t.skip('Bun binary not found in PATH');
++    return;
++  }
++
++  // Create temporary directory for fixture
++  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'meteor-bun-host-test-'));
++  const sockPath = path.join(dir, 'test-express.sock');
++  const staticFile = path.join(dir, 'app.js');
++  fs.writeFileSync(staticFile, 'console.log("static-client-file");');
++
++  // Allocate an ephemeral port for Bun.serve (avoid port 3000 collision!)
++  // We find an unused port first
++  const srv = http.createServer();
++  await new Promise((r) => srv.listen(0, '127.0.0.1', r));
++  const testPort = srv.address().port;
++  await new Promise((r) => srv.close(r));
++
++  // 1. Create the mock Express/Connect server on Unix socket
++  const expressServer = http.createServer((req, res) => {
++    if (req.url.startsWith('/api/echo')) {
++      let body = '';
++      req.on('data', (c) => (body += c));
++      req.on('end', () => {
++        res.writeHead(200, { 'Content-Type': 'application/json' });
++        res.end(
++          JSON.stringify({
++            echo: true,
++            method: req.method,
++            url: req.url,
++            body: body ? JSON.parse(body) : null,
++          })
++        );
++      });
++      return;
++    }
++
++    // Default fallback: Express boilerplate HTML simulation
++    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
++    res.end('<!DOCTYPE html><html><body>Meteor Boilerplate</body></html>');
++  });
++
++  await new Promise((resolve) => expressServer.listen(sockPath, resolve));
++
++  // 2. Spawn Bun process running Bun.serve mirroring bun-host.mjs routing
++  const hostScript = path.join(dir, 'test-host.mjs');
++  fs.writeFileSync(
++    hostScript,
++    `
++const staticFiles = new Map([
++  ['/app.js', { absPath: ${JSON.stringify(staticFile)}, hash: 'h123' }],
++]);
++
++const pathPrefix = '/ks';
++
++function isWebSocketPath(pathname) {
++  let p = pathname;
++  if (pathPrefix && (p === pathPrefix || p.startsWith(pathPrefix + '/'))) {
++    p = p.slice(pathPrefix.length) || '/';
++  }
++  return p === '/websocket' || p === '/websocket/' ||
++    (p.includes('/sockjs/') && p.endsWith('/websocket'));
++}
++
++function getStaticFile(urlPath) {
++  let info = staticFiles.get(urlPath);
++  if (!info && pathPrefix && (urlPath === pathPrefix || urlPath.startsWith(pathPrefix + '/'))) {
++    info = staticFiles.get(urlPath.slice(pathPrefix.length) || '/');
++  }
++  return info;
++}
++
++const server = Bun.serve({
++  port: ${testPort},
++  hostname: '127.0.0.1',
++  async fetch(req, srv) {
++    if (req.headers.get('upgrade')?.toLowerCase() === 'websocket') {
++      const url = new URL(req.url);
++      if (isWebSocketPath(url.pathname)) {
++        return srv.upgrade(req) ? undefined : new Response('WS upgrade failed', { status: 400 });
++      }
++    }
++
++    const url = new URL(req.url);
++    const staticInfo = getStaticFile(url.pathname);
++    if (staticInfo) {
++      return new Response(Bun.file(staticInfo.absPath), {
++        headers: {
++          'Content-Type': 'application/javascript; charset=UTF-8',
++          'ETag': '"' + staticInfo.hash + '"',
++        },
++      });
++    }
++
++    // Dynamic HTTP proxy over Unix socket to Express
++    try {
++      return await fetch(
++        new Request('http://localhost' + url.pathname + url.search, {
++          method: req.method,
++          headers: req.headers,
++          body: (req.method !== 'GET' && req.method !== 'HEAD') ? req.body : undefined,
++          redirect: 'manual',
++        }),
++        { unix: ${JSON.stringify(sockPath)} }
++      );
++    } catch (err) {
++      return new Response('Proxy Error: ' + err.message, { status: 502 });
++    }
++  },
++  websocket: {
++    open(ws) { ws.send('ddp-connected'); },
++    message(ws, msg) { ws.send(msg); },
++  },
++});
++
++console.log('BUN_HOST_READY');
++`
++  );
++
++  const hostChild = spawn(bunPath, [hostScript], {
++    stdio: ['ignore', 'pipe', 'inherit'],
++  });
++
++  t.after(async () => {
++    hostChild.kill('SIGKILL');
++    await new Promise((r) => expressServer.close(r));
++    try { fs.rmSync(dir, { recursive: true, force: true }); } catch {}
++  });
++
++  // Wait for BUN_HOST_READY
++  await new Promise((resolve, reject) => {
++    const timer = setTimeout(() => reject(new Error('bun host failed to start')), 5000);
++    hostChild.stdout.on('data', (chunk) => {
++      if (chunk.toString().includes('BUN_HOST_READY')) {
++        clearTimeout(timer);
++        resolve();
++      }
++    });
++  });
++
++  const baseUrl = `http://127.0.0.1:${testPort}`;
++
++  // Scenario 1: Static file is served with correct headers and zero-copy content
++  const staticRes = await fetch(`${baseUrl}/app.js`);
++  assert.equal(staticRes.status, 200);
++  assert.ok(staticRes.headers.get('content-type').includes('javascript'));
++  assert.equal(staticRes.headers.get('etag'), '"h123"');
++  assert.equal(await staticRes.text(), 'console.log("static-client-file");');
++
++  // Scenario 2: Dynamic GET API is NOT shadowed by boilerplate HTML
++  const getApiRes = await fetch(`${baseUrl}/api/echo?query=true`);
++  assert.equal(getApiRes.status, 200);
++  assert.ok(getApiRes.headers.get('content-type').includes('application/json'));
++  const getJson = await getApiRes.json();
++  assert.equal(getJson.echo, true);
++  assert.equal(getJson.method, 'GET');
++  assert.equal(getJson.url, '/api/echo?query=true');
++
++  // Scenario 3: Dynamic POST API forwards body cleanly to Express (not 405 Method Not Allowed)
++  const postApiRes = await fetch(`${baseUrl}/api/echo`, {
++    method: 'POST',
++    headers: { 'Content-Type': 'application/json' },
++    body: JSON.stringify({ item: 'banana', count: 3 }),
++  });
++  assert.equal(postApiRes.status, 200);
++  assert.ok(postApiRes.headers.get('content-type').includes('application/json'));
++  const postJson = await postApiRes.json();
++  assert.equal(postJson.echo, true);
++  assert.equal(postJson.method, 'POST');
++  assert.deepEqual(postJson.body, { item: 'banana', count: 3 });
++
++  // Scenario 4: Non-API app URLs fall through to Express and receive the Meteor boilerplate
++  const pageRes = await fetch(`${baseUrl}/some-app-page`);
++  assert.equal(pageRes.status, 200);
++  assert.ok(pageRes.headers.get('content-type').includes('text/html'));
++  assert.ok((await pageRes.text()).includes('Meteor Boilerplate'));
++
++  // Scenario 5: WebSocket upgrade on /websocket (unprefixed)
++  const ws = new WebSocket(`ws://127.0.0.1:${testPort}/websocket`);
++  const wsMsg = await new Promise((resolve, reject) => {
++    const timer = setTimeout(() => reject(new Error('WS timeout')), 3000);
++    ws.addEventListener('message', (event) => {
++      clearTimeout(timer);
++      resolve(String(event.data));
++    });
++    ws.addEventListener('error', (err) => {
++      clearTimeout(timer);
++      reject(err);
++    });
++  });
++  ws.close();
++  assert.equal(wsMsg, 'ddp-connected');
++
++  // Scenario 6: WebSocket upgrade on /ks/websocket (prefixed)
++  const wsPrefixed = new WebSocket(`ws://127.0.0.1:${testPort}/ks/websocket`);
++  const wsPrefixedMsg = await new Promise((resolve, reject) => {
++    const timer = setTimeout(() => reject(new Error('Prefixed WS timeout')), 3000);
++    wsPrefixed.addEventListener('message', (event) => {
++      clearTimeout(timer);
++      resolve(String(event.data));
++    });
++    wsPrefixed.addEventListener('error', (err) => {
++      clearTimeout(timer);
++      reject(err);
++    });
++  });
++  wsPrefixed.close();
++  assert.equal(wsPrefixedMsg, 'ddp-connected');
++
++  // Scenario 7: Static file served under /ks/app.js (prefixed)
++  const staticPrefixedRes = await fetch(`${baseUrl}/ks/app.js`);
++  assert.equal(staticPrefixedRes.status, 200);
++  assert.ok(staticPrefixedRes.headers.get('content-type').includes('javascript'));
++  assert.equal(staticPrefixedRes.headers.get('etag'), '"h123"');
++  assert.equal(await staticPrefixedRes.text(), 'console.log("static-client-file");');
++});
+diff --git a/scripts/ci/__tests__/ipc-lifecycle.node-test.js b/scripts/ci/__tests__/ipc-lifecycle.node-test.js
+new file mode 100644
+index 0000000..7e5cd79
+--- /dev/null
++++ b/scripts/ci/__tests__/ipc-lifecycle.node-test.js
+@@ -0,0 +1,137 @@
++const { test } = require('node:test');
++const assert = require('node:assert/strict');
++const fs = require('node:fs');
++const os = require('node:os');
++const path = require('node:path');
++const { spawn } = require('node:child_process');
++
++function findExecutable(name) {
++  if (name === 'node' && process.version && !process.versions?.bun) {
++    return process.execPath;
++  }
++  if (name === 'bun' && process.versions?.bun) {
++    return process.execPath;
++  }
++  for (const dir of (process.env.PATH || '').split(path.delimiter)) {
++    const candidate = path.join(dir, name);
++    try {
++      if (fs.existsSync(candidate) && fs.statSync(candidate).isFile()) {
++        return candidate;
++      }
++    } catch {}
++  }
++  return null;
++}
++
++function createChildScript(t) {
++  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'meteor-ipc-fixture-'));
++  const scriptPath = path.join(dir, 'child-worker.js');
++
++  const content = `
++let isCleanExit = false;
++
++process.on('message', (msg) => {
++  if (msg.topic === 'ping') {
++    process.send({
++      topic: 'pong',
++      payload: {
++        received: msg.payload,
++        runtime: typeof Bun !== 'undefined' ? 'bun' : 'node',
++      },
++    });
++  }
++});
++
++process.on('SIGTERM', () => {
++  isCleanExit = true;
++  process.exit(0);
++});
++`;
++
++  fs.writeFileSync(scriptPath, content, 'utf8');
++
++  t.after(() => {
++    fs.rmSync(dir, { recursive: true, force: true });
++  });
++
++  return scriptPath;
++}
++
++function runIpcScenario(executable, scriptPath, isBun = false) {
++  return new Promise((resolve, reject) => {
++    const spawnOpts = {
++      stdio: ['pipe', 'pipe', 'pipe', 'ipc'],
++    };
++    if (isBun) {
++      spawnOpts.serialization = 'json';
++    }
++
++    const child = spawn(executable, [scriptPath], spawnOpts);
++    let receivedPong = null;
++
++    const timer = setTimeout(() => {
++      child.kill('SIGKILL');
++      reject(new Error(`Timed out waiting for IPC response from ${executable}`));
++    }, 5000);
++
++    child.on('message', (msg) => {
++      if (msg.topic === 'pong') {
++        receivedPong = msg.payload;
++        // Verify graceful shutdown
++        child.kill('SIGTERM');
++      }
++    });
++
++    child.on('exit', (code, signal) => {
++      clearTimeout(timer);
++      resolve({ receivedPong, code, signal });
++    });
++
++    child.on('error', (err) => {
++      clearTimeout(timer);
++      reject(err);
++    });
++
++    // Send test ping to child
++    child.send({
++      topic: 'ping',
++      payload: { testId: 'core-ipc-42', value: 'hello-ipc' },
++    });
++  });
++}
++
++test('Parent to Node child IPC exchanges JSON messages and terminates cleanly', async (t) => {
++  const nodePath = findExecutable('node');
++  if (!nodePath) {
++    t.skip('Node executable not found in PATH');
++    return;
++  }
++
++  const scriptPath = createChildScript(t);
++  const result = await runIpcScenario(nodePath, scriptPath, false);
++
++  assert.ok(result.receivedPong, 'Pong payload must be received');
++  assert.equal(result.receivedPong.runtime, 'node');
++  assert.equal(result.receivedPong.received.testId, 'core-ipc-42');
++  assert.equal(result.receivedPong.received.value, 'hello-ipc');
++  assert.equal(result.code, 0, 'child must exit cleanly with code 0');
++  assert.ok(!result.signal, 'child must not be terminated by a signal');
++});
++
++test('Parent to Bun child IPC exchanges JSON messages via serialization:json and terminates cleanly', async (t) => {
++  const bunPath = findExecutable('bun');
++  if (!bunPath) {
++    t.skip('Bun executable not found in PATH');
++    return;
++  }
++
++  const scriptPath = createChildScript(t);
++  const result = await runIpcScenario(bunPath, scriptPath, true);
++
++  assert.ok(result.receivedPong, 'Pong payload must be received from Bun');
++  assert.equal(result.receivedPong.runtime, 'bun');
++  assert.equal(result.receivedPong.received.testId, 'core-ipc-42');
++  assert.equal(result.receivedPong.received.value, 'hello-ipc');
++  assert.equal(result.code, 0, 'child must exit cleanly with code 0');
++  assert.ok(!result.signal, 'child must not be terminated by a signal');
++});
+diff --git a/scripts/ci/__tests__/package-isolation.node-test.js b/scripts/ci/__tests__/package-isolation.node-test.js
+new file mode 100644
+index 0000000..f586f90
+--- /dev/null
++++ b/scripts/ci/__tests__/package-isolation.node-test.js
+@@ -0,0 +1,225 @@
++const { test } = require('node:test');
++const assert = require('node:assert/strict');
++const fs = require('node:fs');
++const os = require('node:os');
++const path = require('node:path');
++const { pathToFileURL } = require('node:url');
++const { spawnSync } = require('node:child_process');
++
++const REPO_ROOT = path.resolve(__dirname, '../../..');
++const LOADER_PATH = path.join(REPO_ROOT, 'tools/static-assets/server/esm-loader.mjs');
++
++function createFixture(t) {
++  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'meteor-isolation-fixture-'));
++  const server = path.join(root, 'programs/server');
++
++  function write(rel, body) {
++    const file = path.join(root, rel);
++    fs.mkdirSync(path.dirname(file), { recursive: true });
++    fs.writeFileSync(file, body);
++  }
++
++  write('package.json', JSON.stringify({ type: 'module' }));
++  write('star.json', JSON.stringify({ gitCommitHash: 'test-isolation-hash' }));
++  write('programs/server/config.json', JSON.stringify({ appId: 'test-app', clientArchs: [] }));
++
++  // Manifest with 3 packages: core-runtime, package-a, package-b, and namespaced package org:pkg-c
++  write('programs/server/program.json', JSON.stringify({
++    load: [
++      { path: 'packages/core-runtime.js' },
++      {
++        path: 'packages/pkg-a.js',
++        node_modules: 'npm/pkg-a/node_modules',
++        assets: {
++          'shared.txt': 'assets/pkg-a-shared.txt',
++          'only-a.txt': 'assets/only-a.txt',
++        },
++      },
++      {
++        path: 'packages/pkg-b.js',
++        node_modules: 'npm/pkg-b/node_modules',
++        assets: {
++          'shared.txt': 'assets/pkg-b-shared.txt',
++        },
++      },
++      {
++        path: 'packages/org_pkg-c.js',
++        node_modules: 'npm/org_pkg-c/node_modules',
++        assets: {
++          'c-asset.txt': 'assets/c-asset.txt',
++        },
++      },
++      { path: 'app/app.js', assets: { 'app.txt': 'assets/app.txt' } },
++    ],
++  }));
++
++  write('programs/server/packages/core-runtime.js', [
++    'globalThis.Package = { "core-runtime": { queue(){}, waitUntilAllLoaded(){ return null; } } };',
++  ].join('\n'));
++
++  // Package A initiates an async chain that will invoke B
++  write('programs/server/packages/pkg-a.js', [
++    'globalThis.aDeferredPromise = new Promise(r => { globalThis.resolveA = r; });',
++    'globalThis.invokeBFromAAsync = async () => {',
++    '  await globalThis.aDeferredPromise;',
++    '  return await globalThis.callFromB();',
++    '};',
++    'globalThis.invokeBFromAWrappedContext = (fn) => {',
++    '  const wrapped = globalThis.__meteorWrapPackageModule("pkg-a", { runInA: (cb) => cb() });',
++    '  return wrapped.runInA(fn);',
++    '};',
++  ].join('\n'));
++
++  // Package B exposes methods to test its own assets and Npm dependencies
++  write('programs/server/packages/pkg-b.js', [
++    'globalThis.callFromB = async () => ({',
++    '  asset: await Assets.getTextAsync("shared.txt"),',
++    '  npm: Npm.require("test-dep")',
++    '});',
++    'globalThis.callBOnlyAAsset = () => Assets.getTextAsync("only-a.txt");',
++    'globalThis.callBOnlyANpm = () => Npm.require("only-a-dep");',
++  ].join('\n'));
++
++  // Namespaced Package C (org:pkg-c)
++  write('programs/server/packages/org_pkg-c.js', [
++    'globalThis.callFromC = async () => ({',
++    '  asset: await Assets.getTextAsync("c-asset.txt"),',
++    '  npm: Npm.require("c-dep")',
++    '});',
++  ].join('\n'));
++
++  write('programs/server/app/app.js', 'export {};');
++
++  // Create Assets
++  write('programs/server/assets/pkg-a-shared.txt', 'asset-from-a');
++  write('programs/server/assets/pkg-b-shared.txt', 'asset-from-b');
++  write('programs/server/assets/only-a.txt', 'only-a-content');
++  write('programs/server/assets/c-asset.txt', 'c-content');
++  write('programs/server/assets/app.txt', 'app-content');
++
++  // Create Npm packages
++  write('programs/server/npm/pkg-a/node_modules/test-dep/package.json', JSON.stringify({ name: 'test-dep', version: '1.0.0', main: 'index.js' }));
++  write('programs/server/npm/pkg-a/node_modules/test-dep/index.js', 'module.exports = "npm-from-a";');
++
++  write('programs/server/npm/pkg-a/node_modules/only-a-dep/package.json', JSON.stringify({ name: 'only-a-dep', version: '1.0.0', main: 'index.js' }));
++  write('programs/server/npm/pkg-a/node_modules/only-a-dep/index.js', 'module.exports = "only-a-npm-content";');
++
++  write('programs/server/npm/pkg-b/node_modules/test-dep/package.json', JSON.stringify({ name: 'test-dep', version: '2.0.0', main: 'index.js' }));
++  write('programs/server/npm/pkg-b/node_modules/test-dep/index.js', 'module.exports = "npm-from-b";');
++
++  write('programs/server/npm/org_pkg-c/node_modules/c-dep/package.json', JSON.stringify({ name: 'c-dep', version: '1.0.0', main: 'index.js' }));
++  write('programs/server/npm/org_pkg-c/node_modules/c-dep/index.js', 'module.exports = "npm-from-c";');
++
++  // Test runner harness inside fixture
++  write('test-runner.mjs', `
++import { bootPackages } from ${JSON.stringify(pathToFileURL(LOADER_PATH).href)};
++
++await bootPackages(${JSON.stringify(server)});
++
++// 1. Direct call from B
++const directB = await globalThis.callFromB();
++
++// 2. Call from B after async event originated in A
++globalThis.resolveA();
++const fromA = await globalThis.invokeBFromAAsync();
++
++// 2b. Call B from inside active async context originated in A (e.g. webapp HTTP handler calling oauth)
++const fromAWrapped = await globalThis.invokeBFromAWrappedContext(() => globalThis.callFromB());
++
++// 3. Foreign asset request from B must throw
++let missingAssetRejected = false;
++try {
++  await globalThis.callBOnlyAAsset();
++} catch (e) {
++  missingAssetRejected = true;
++}
++
++// 4. Foreign npm request from B must throw
++let missingNpmRejected = false;
++try {
++  globalThis.callBOnlyANpm();
++} catch (e) {
++  missingNpmRejected = true;
++}
++
++// 5. Atmosphere namespaced package C must resolve its own asset and npm module
++const fromC = await globalThis.callFromC();
++
++const results = {
++  directB,
++  fromA,
++  fromAWrapped,
++  missingAssetRejected,
++  missingNpmRejected,
++  fromC,
++};
++
++console.log(JSON.stringify(results));
++`);
++
++  t.after(() => {
++    fs.rmSync(root, { recursive: true, force: true });
++  });
++
++  return { root, runnerScript: path.join(root, 'test-runner.mjs') };
++}
++
++test('esm-loader enforces strict package isolation for assets and npm under Node', (t) => {
++  const { runnerScript } = createFixture(t);
++  const result = spawnSync(process.execPath, [runnerScript], {
++    encoding: 'utf8',
++    timeout: 10000,
++  });
++
++  assert.equal(result.status, 0, `Node run failed: ${result.stderr || result.stdout}`);
++  const data = JSON.parse(result.stdout.trim());
++
++  assert.equal(data.directB.asset, 'asset-from-b');
++  assert.equal(data.directB.npm, 'npm-from-b');
++  assert.equal(data.fromA.asset, 'asset-from-b');
++  assert.equal(data.fromA.npm, 'npm-from-b');
++  assert.equal(data.fromAWrapped.asset, 'asset-from-b');
++  assert.equal(data.fromAWrapped.npm, 'npm-from-b');
++  assert.equal(data.missingAssetRejected, true);
++  assert.equal(data.missingNpmRejected, true);
++  assert.equal(data.fromC.asset, 'c-content');
++  assert.equal(data.fromC.npm, 'npm-from-c');
++});
++
++test('esm-loader enforces strict package isolation for assets and npm under Bun', (t) => {
++  let bunPath = null;
++  for (const dir of (process.env.PATH || '').split(path.delimiter)) {
++    const candidate = path.join(dir, 'bun');
++    try {
++      if (fs.existsSync(candidate) && fs.statSync(candidate).isFile()) {
++        bunPath = candidate;
++        break;
++      }
++    } catch {}
++  }
++
++  if (!bunPath) {
++    t.skip('Bun binary not found in PATH');
++    return;
++  }
++
++  const { runnerScript } = createFixture(t);
++  const result = spawnSync(bunPath, [runnerScript], {
++    encoding: 'utf8',
++    timeout: 10000,
++  });
++
++  assert.equal(result.status, 0, `Bun run failed: ${result.stderr || result.stdout}`);
++  const data = JSON.parse(result.stdout.trim());
++
++  assert.equal(data.directB.asset, 'asset-from-b');
++  assert.equal(data.directB.npm, 'npm-from-b');
++  assert.equal(data.fromA.asset, 'asset-from-b');
++  assert.equal(data.fromA.npm, 'npm-from-b');
++  assert.equal(data.fromAWrapped.asset, 'asset-from-b');
++  assert.equal(data.fromAWrapped.npm, 'npm-from-b');
++  assert.equal(data.missingAssetRejected, true);
++  assert.equal(data.missingNpmRejected, true);
++  assert.equal(data.fromC.asset, 'c-content');
++  assert.equal(data.fromC.npm, 'npm-from-c');
++});
+diff --git a/scripts/ci/esm-bun-smoke.mjs b/scripts/ci/esm-bun-smoke.mjs
+new file mode 100644
+index 0000000..6712fe3
+--- /dev/null
++++ b/scripts/ci/esm-bun-smoke.mjs
+@@ -0,0 +1,113 @@
++#!/usr/bin/env node
++// DDP smoke test against a running Meteor server bundle.
++//
++// Asserts the three primitives a server bundle must provide: a DDP connection,
++// a method call, and a subscription that becomes ready and delivers a document.
++// Runs on Node and on Bun, and uses the global WebSocket so it needs no
++// dependencies of its own.
++//
++// Usage: esm-bun-smoke.mjs ws://localhost:3000/websocket
++
++const url = process.argv[2];
++if (!url) {
++  console.error('usage: esm-bun-smoke.mjs <ws-url>');
++  process.exit(2);
++}
++
++const TIMEOUT_MS = Number(process.env.SMOKE_TIMEOUT_MS || 60000);
++const ws = new WebSocket(url);
++const send = (msg) => ws.send(JSON.stringify(msg));
++
++let stage = 'DDP connect';
++const seen = { connected: false, methodResult: false, subReady: false, added: false };
++
++const result = new Promise((resolve, reject) => {
++  const timer = setTimeout(
++    () => reject(new Error(`timed out after ${TIMEOUT_MS}ms waiting for: ${stage}`)),
++    TIMEOUT_MS,
++  );
++  const settle = (error) => {
++    clearTimeout(timer);
++    error ? reject(error) : resolve();
++  };
++
++  ws.addEventListener('open', () => {
++    send({ msg: 'connect', version: '1', support: ['1'] });
++  });
++
++  ws.addEventListener('error', () => settle(new Error(`websocket error (${stage})`)));
++  ws.addEventListener('close', () => {
++    if (!seen.added) settle(new Error(`connection closed during: ${stage}`));
++  });
++
++  ws.addEventListener('message', (event) => {
++    let msg;
++    try {
++      msg = JSON.parse(typeof event.data === 'string' ? event.data : String(event.data));
++    } catch {
++      return; // SockJS framing noise; the raw /websocket endpoint sends plain DDP
++    }
++
++    switch (msg.msg) {
++      case 'ping':
++        send({ msg: 'pong', id: msg.id });
++        break;
++
++      case 'connected':
++        seen.connected = true;
++        console.log('ok  DDP connected  session=' + msg.session);
++        stage = 'method call';
++        send({ msg: 'method', id: '1', method: 'smoke.echo', params: ['hello'] });
++        break;
++
++      case 'result':
++        if (msg.error) return settle(new Error('method returned an error: ' + JSON.stringify(msg.error)));
++        if (msg.id === '1') {
++          if (msg.result?.echoed !== 'hello') {
++            return settle(new Error('unexpected method result: ' + JSON.stringify(msg.result)));
++          }
++          console.log('ok  method smoke.echo returned ' + JSON.stringify(msg.result));
++          stage = 'scoped package npm dependency';
++          send({ msg: 'method', id: '3', method: 'smoke.scopedNpm', params: [] });
++          break;
++        }
++        // Value computed by the npm dependency of the scoped package smoke:scoped-npm-dep.
++        if (msg.result?.padded !== '007') {
++          return settle(new Error('unexpected scoped npm result: ' + JSON.stringify(msg.result)));
++        }
++        seen.methodResult = true;
++        console.log('ok  method smoke.scopedNpm returned ' + JSON.stringify(msg.result));
++        stage = 'subscription';
++        send({ msg: 'sub', id: '2', name: 'smoke.items', params: [] });
++        break;
++
++      case 'added':
++        seen.added = true;
++        console.log('ok  document added from publication  collection=' + msg.collection);
++        if (seen.subReady) settle();
++        break;
++
++      case 'ready':
++        seen.subReady = true;
++        console.log('ok  subscription ready');
++        if (seen.added) settle();
++        break;
++
++      case 'nosub':
++        settle(new Error('subscription refused: ' + JSON.stringify(msg.error)));
++        break;
++    }
++  });
++});
++
++try {
++  await result;
++  console.log('\nESM bundle smoke test passed (connection, method, publication).');
++  process.exit(0);
++} catch (error) {
++  console.error('\nSMOKE TEST FAILED: ' + error.message);
++  console.error('reached: ' + JSON.stringify(seen));
++  process.exit(1);
++} finally {
++  try { ws.close(); } catch {}
++}
+diff --git a/tools/cli/commands.js b/tools/cli/commands.js
+index 526c031..cef9619 100644
+--- a/tools/cli/commands.js
++++ b/tools/cli/commands.js
+@@ -470,6 +470,7 @@ var runCommandOptions = {
+     'allow-incompatible-update': { type: Boolean },
+     'extra-packages': { type: String },
+     'exclude-archs': { type: String },
++    'runtime': { type: String },
+   },
+   catalogRefresh: new catalog.Refresh.Never()
+ };
+@@ -582,6 +583,11 @@ async function doRunCommand(options) {
+     await prepareCordovaProject();
+   }
+ 
++  if (options.runtime && options.runtime !== 'node' && options.runtime !== 'bun') {
++    Console.error("--runtime must be 'node' or 'bun'.");
++    throw new main.ExitWithCode(1);
++  }
++
+   var runAll = require('../runners/run-all.js');
+   return runAll.run({
+     projectContext: projectContext,
+@@ -591,10 +597,12 @@ async function doRunCommand(options) {
+     appHost: appHost,
+     ...normalizeInspectOptions(options),
+     settingsFile: options.settings,
++    runtime: options.runtime || 'node',
+     buildOptions: {
+       minifyMode: options.production ? 'production' : 'development',
+       buildMode,
+-      webArchs: webArchs
++      webArchs: webArchs,
++      format: options.runtime === 'bun' ? 'esm' : undefined,
+     },
+     rootUrl: process.env.ROOT_URL,
+     mongoUrl: process.env.MONGO_URL,
+@@ -1435,7 +1443,8 @@ var buildCommands = {
+     headless: { type: Boolean },
+     verbose: { type: Boolean, short: "v" },
+     'allow-incompatible-update': { type: Boolean },
+-    platforms: { type: String }
++    platforms: { type: String },
++    format: { type: String },
+   },
+   catalogRefresh: new catalog.Refresh.Never()
+ };
+@@ -1624,6 +1633,13 @@ ${Console.command("meteor build ../output")}`,
+     projectContext: projectContext
+   });
+ 
++  // Validate --format option
++  const format = options.format || undefined;
++  if (format && format !== 'esm') {
++    Console.error(`Unknown --format value: "${format}". Valid values: esm`);
++    return 1;
++  }
++
+   var bundler = require('../isobuild/bundler.js');
+   var bundleResult = await bundler.bundle({
+     projectContext: projectContext,
+@@ -1638,6 +1654,7 @@ ${Console.command("meteor build ../output")}`,
+       serverArch: bundleArch,
+       buildMode: options.debug ? 'development' : 'production',
+       webArchs,
++      format,
+     },
+   });
+   if (bundleResult.errors) {
+diff --git a/tools/isobuild/bundler.js b/tools/isobuild/bundler.js
+index a569e5f..4b1f577 100644
+--- a/tools/isobuild/bundler.js
++++ b/tools/isobuild/bundler.js
+@@ -213,6 +213,19 @@ exports._mainJsContents = [
+   "require('./programs/server/boot.js');",
+ ].join("\n");
+ 
++// ESM format: index.mjs boots the server via standard ESM imports
++// instead of boot.js + runtime.js + vm.runInThisContext.
++// The esm-loader.mjs is copied alongside and does the heavy lifting.
++exports._esmIndexContents = [
++  'import { fileURLToPath, pathToFileURL } from "node:url";',
++  'import path from "node:path";',
++  'const __filename = fileURLToPath(import.meta.url);',
++  'const __dirname = path.dirname(__filename);',
++  'const serverDir = path.join(__dirname, "programs", "server");',
++  'const { boot } = await import(pathToFileURL(path.join(serverDir, "esm-loader.mjs")).href);',
++  'await boot(serverDir);',
++].join("\n");
++
+ ///////////////////////////////////////////////////////////////////////////////
+ // NodeModulesDirectory
+ ///////////////////////////////////////////////////////////////////////////////
+@@ -2829,6 +2842,7 @@ class ServerTarget extends JsImageTarget {
+     buildMode,
+     // falsy or 'symlink', documented in exports.bundle
+     includeNodeModules,
++    format,
+   }) {
+     var self = this;
+ 
+@@ -2893,35 +2907,49 @@ class ServerTarget extends JsImageTarget {
+ 
+     const toolsDir = files.pathDirname(
+       files.convertToStandardPath(__dirname));
++    const serverAssetsDir = files.pathJoin(toolsDir, "static-assets", "server");
++
++    if (format === 'esm') {
++      // ESM format: copy only npm-rebuild (needed for postinstall) and the ESM loader
++      await builder.copyTranspiledModules([
++        "npm-rebuild.js",
++        "npm-rebuild-args.js",
++      ], {
++        sourceRootDir: serverAssetsDir,
++        needToTranspile: files.inCheckout(),
++      });
+ 
+-    await builder.copyTranspiledModules([
+-      "profile.ts"
+-    ], {
+-      sourceRootDir: files.pathJoin(toolsDir, "tool-env"),
+-    });
++      await builder.write("esm-loader.mjs", {
++        file: files.pathJoin(serverAssetsDir, "esm-loader.mjs"),
++      });
+ 
+-    // Server bootstrap
+-    await builder.copyTranspiledModules([
+-      "boot.js",
+-      "boot-utils.js",
+-      "debug.ts",
+-      "server-json.js",
+-      "mini-files.ts",
+-      "npm-require.js",
+-      "npm-rebuild.js",
+-      "npm-rebuild-args.js",
+-      "runtime.js",
+-    ], {
+-      sourceRootDir: files.pathJoin(
+-        toolsDir,
+-        "static-assets",
+-        "server",
+-      ),
+-      // If we're not in a checkout, then <toolsDir>/static-assets/server
+-      // already contains transpiled files, so we can just copy them, without
+-      // also transpiling them again.
+-      needToTranspile: files.inCheckout(),
+-    });
++      // Bun production host — standalone Bun.serve() entry point
++      await builder.write("bun-host.mjs", {
++        file: files.pathJoin(serverAssetsDir, "bun-host.mjs"),
++      });
++    } else {
++      // Legacy format: copy all boot files
++      await builder.copyTranspiledModules([
++        "profile.ts"
++      ], {
++        sourceRootDir: files.pathJoin(toolsDir, "tool-env"),
++      });
++
++      await builder.copyTranspiledModules([
++        "boot.js",
++        "boot-utils.js",
++        "debug.ts",
++        "server-json.js",
++        "mini-files.ts",
++        "npm-require.js",
++        "npm-rebuild.js",
++        "npm-rebuild-args.js",
++        "runtime.js",
++      ], {
++        sourceRootDir: serverAssetsDir,
++        needToTranspile: files.inCheckout(),
++      });
++    }
+ 
+     // Script that fetches the dev_bundle and runs the server bootstrap
+     // XXX this is #GalaxyLegacy, the generated start.sh is not really used by
+@@ -2932,10 +2960,7 @@ class ServerTarget extends JsImageTarget {
+       );
+     }
+ 
+-    // Nothing actually pays attention to the `path` field for a server program
+-    // in star.json any more, so it might as well be boot.js. (It used to be
+-    // start.sh, a script included for the legacy Galaxy prototype.)
+-    var controlFilePath = 'boot.js';
++    var controlFilePath = format === 'esm' ? 'esm-loader.mjs' : 'boot.js';
+     return {
+       controlFile: controlFilePath,
+     };
+@@ -3040,7 +3065,8 @@ var writeTargetToPath = Profile(
+     previousBuilder = null,
+     buildMode,
+     minifyMode,
+-    forceInPlaceBuild
++    forceInPlaceBuild,
++    format,
+   }) {
+     var builder = new Builder({
+       outputPath: files.pathJoin(outputPath, 'programs', name),
+@@ -3060,6 +3086,7 @@ var writeTargetToPath = Profile(
+       includeNodeModules,
+       buildMode,
+       minifyMode,
++      format,
+     });
+ 
+     await builder.complete();
+@@ -3107,6 +3134,7 @@ var writeSiteArchive = Profile("bundler writeSiteArchive", async function (
+     minifyMode,
+     sourceRoot,
+     forceInPlaceBuild,
++    format,
+   }) {
+ 
+   const builders = {};
+@@ -3156,12 +3184,47 @@ var writeSiteArchive = Profile("bundler writeSiteArchive", async function (
+ 
+     // Affordances for standalone use
+     if (targets.server) {
+-      // add program.json as the first argument after "node main.js" to the boot script.
+-      await builder.write('main.js', {
+-        data: Buffer.from(exports._mainJsContents, 'utf8')
+-      });
++      if (format === 'esm') {
++        await builder.write('index.mjs', {
++          data: Buffer.from(exports._esmIndexContents, 'utf8')
++        });
+ 
+-      await builder.write('README', { data: Buffer.from(
++        await builder.write('README', { data: Buffer.from(
++`This is a Meteor application bundle (ESM format).
++
++EXPERIMENTAL: This bundle was built with --format=esm. The ESM format
++uses standard ES module imports instead of the legacy boot chain
++(boot.js + runtime.js + vm.runInThisContext). It requires Node.js ${process.version}+.
++
++To run the application:
++
++  $ (cd programs/server && npm install)
++  $ export MONGO_URL='mongodb://user:password@host:port/databasename'
++  $ export ROOT_URL='http://example.com'
++  $ export MAIL_URL='smtp://user:password@mailhost:port/'
++  $ export METEOR_SETTINGS='{"public":{"key":"value"}}'
++  $ node index.mjs
++
++Use the PORT environment variable to set the port where the
++application will listen. The default is 80, but that will require
++root on most systems.
++
++Known limitations vs legacy format:
++- METEOR_INSPECT_BRK is not supported (use --inspect-brk flag directly)
++- METEOR_PARENT_PID monitoring is not implemented
++- Source maps are enabled via Node's native --enable-source-maps flag
++  (automatically enabled on Node 20+ via process.setSourceMapsEnabled)
++
++Find out more about Meteor at meteor.com.
++`,
++        'utf8')});
++      } else {
++        // Legacy format: main.js + boot.js + runtime.js
++        await builder.write('main.js', {
++          data: Buffer.from(exports._mainJsContents, 'utf8')
++        });
++
++        await builder.write('README', { data: Buffer.from(
+ `This is a Meteor application bundle. It has only one external dependency:
+ Node.js ${process.version}. To run the application:
+ 
+@@ -3178,7 +3241,8 @@ root on most systems.
+ 
+ Find out more about Meteor at meteor.com.
+ `,
+-      'utf8')});
++        'utf8')});
++      }
+     }
+ 
+     // Merge the WatchSet of everything that went into the bundle.
+@@ -3205,7 +3269,8 @@ Find out more about Meteor at meteor.com.
+         previousBuilder: previousBuilders[name] || null,
+         buildMode,
+         minifyMode,
+-        forceInPlaceBuild
++        forceInPlaceBuild,
++        format,
+       });
+ 
+       builders[name] = targetBuilder;
+@@ -3331,6 +3396,10 @@ async function bundle({
+ }) {
+   buildOptions = buildOptions || {};
+ 
++  if (buildOptions.format && buildOptions.format !== 'esm') {
++    throw new Error(`Unknown --format value: ${buildOptions.format}. Valid values: esm`);
++  }
++
+   var serverArch = buildOptions.serverArch || archinfo.host();
+   var webArchs;
+   if (buildOptions.webArchs) {
+@@ -3491,6 +3560,7 @@ async function bundle({
+       releaseName,
+       minifyMode,
+       forceInPlaceBuild,
++      format: buildOptions.format,
+     };
+ 
+     async function writeClientTarget(target) {
+diff --git a/tools/isobuild/linker.js b/tools/isobuild/linker.js
+index 5f0754b..44959cf 100644
+--- a/tools/isobuild/linker.js
++++ b/tools/isobuild/linker.js
+@@ -1006,7 +1006,7 @@ function getFooter ({
+   hasRuntime
+ }) {
+   if (!hasRuntime) {
+-    return '\n})();\n';
++    return '\n}).apply(typeof globalThis !== "undefined" ? globalThis : this);\n';
+   }
+ 
+   let chunks = [];
+diff --git a/tools/runners/run-app.js b/tools/runners/run-app.js
+index 278352c..bc3221d 100644
+--- a/tools/runners/run-app.js
++++ b/tools/runners/run-app.js
+@@ -141,6 +141,7 @@ var AppProcess = function (options) {
+   self.onListen = options.onListen;
+   self.nodeOptions = options.nodeOptions || [];
+   self.inspect = options.inspect;
++  self.runtime = options.runtime || 'node';
+   self.settings = options.settings;
+   self.testMetadata = options.testMetadata;
+   self.autoRestart = options.autoRestart;
+@@ -340,39 +341,69 @@ Object.assign(AppProcess.prototype, {
+   _spawn: async function () {
+     var self = this;
+ 
++    var child_process = require('child_process');
++    var isBun = self.runtime === 'bun';
++
+     // Path conversions
+     var entryPoint = files.convertToOSPath(
+-      files.pathJoin(self.bundlePath, 'main.js'));
++      files.pathJoin(self.bundlePath, isBun ? 'index.mjs' : 'main.js'));
++
++    // Resolve runtime executable
++    var execPath;
++    if (isBun) {
++      const path = require('path');
++      const fs = require('fs');
++      const paths = (process.env.PATH || '').split(path.delimiter);
++      const exts = process.platform === 'win32' ? (process.env.PATHEXT || '.EXE;.CMD;.BAT').split(';') : [''];
++      for (const p of paths) {
++        for (const ext of exts) {
++          const full = path.join(p, 'bun' + ext);
++          try {
++            if (fs.existsSync(full) && fs.statSync(full).isFile()) {
++              if (process.platform !== 'win32') {
++                fs.accessSync(full, fs.constants.X_OK);
++              }
++              execPath = full;
++              break;
++            }
++          } catch (e) {}
++        }
++        if (execPath) break;
++      }
++      if (!execPath) {
++        throw new Error(
++          'Bun not found. Install it from https://bun.sh and make sure it is in your PATH.'
++        );
++      }
++    } else {
++      execPath = process.execPath;
++    }
+ 
+     // Setting options
+     var opts = JSON.parse(JSON.stringify(self.nodeOptions));
+ 
+     if (self.inspect) {
+-      // Always use --inspect rather than --inspect-brk, even when
+-      // self.inspect.break is true, because --inspect-brk stops at the
+-      // very first instruction executed by the child process, which is
+-      // too early to set any meaningful breakpoints. Instead, we want to
+-      // stop just after server code has loaded but before it begins to
+-      // execute. See _computeEnvironment for logic that sets
+-      // env.METEOR_INSPECT_BRK in that case.
+       opts.push("--inspect=" + self.inspect.port);
+     }
+ 
+-    opts.push(`--require=${files.convertToOSPath(files.pathJoin(__dirname, '../node-process-warnings.js'))}`)
++    if (!isBun) {
++      opts.push(`--require=${files.convertToOSPath(files.pathJoin(__dirname, '../node-process-warnings.js'))}`);
++    }
+ 
+     opts.push(entryPoint);
+ 
+-    // Call node
+-    var child_process = require('child_process');
+-    // setup the 'ipc' pipe if further communication between app and proxy is
+-    // expected
+-    var child = child_process.spawn(process.execPath, opts, {
++    // Spawn the runtime process
++    // Both Node and Bun support Node's standard IPC channel when using JSON serialization.
++    var spawnOptions = {
+       env: self._computeEnvironment(),
+       stdio: ['pipe', 'pipe', 'pipe', 'ipc'],
+-    });
++    };
++    if (isBun) {
++      spawnOptions.serialization = 'json';
++    }
++
++    var child = child_process.spawn(execPath, opts, spawnOptions);
+ 
+-    // Add a child.sendMessage(topic, payload) method to this child
+-    // process object.
+     const interProcessMessaging = await loadIsopackage("inter-process-messaging");
+     interProcessMessaging.enable(child);
+ 
+@@ -467,6 +498,7 @@ var AppRunner = function (options) {
+   self.rootUrl = options.rootUrl;
+   self.mobileServerUrl = options.mobileServerUrl;
+   self.cordovaRunner = options.cordovaRunner;
++  self.runtime = options.runtime || 'node';
+   self.settingsFile = options.settingsFile;
+   self.testMetadata = options.testMetadata;
+   self.inspect = options.inspect;
+@@ -855,6 +887,7 @@ Object.assign(AppRunner.prototype, {
+       },
+       nodeOptions: getNodeOptionsFromEnvironment(),
+       settings: settings,
++      runtime: self.runtime,
+       testMetadata: self.testMetadata,
+       autoRestart: self.autoRestart,
+       hmrSecret: self.hmrSecret
+@@ -897,13 +930,16 @@ Object.assign(AppRunner.prototype, {
+     var serverWatcher;
+     var clientWatcher;
+ 
+-    appProcess.proc.onMessage("shell-server", message => {
+-      if (message && message.command === "reload") {
+-        self._resolvePromise("run", { outcome: "changed" });
+-      } else {
+-        return Promise.reject("Unsupported shell command: " + message);
+-      }
+-    });
++    // IPC messaging (not available with Bun runtime)
++    if (appProcess.proc.onMessage) {
++      appProcess.proc.onMessage("shell-server", message => {
++        if (message && message.command === "reload") {
++          self._resolvePromise("run", { outcome: "changed" });
++        } else {
++          return Promise.reject("Unsupported shell command: " + message);
++        }
++      });
++    }
+ 
+     if (self.watchForChanges) {
+       serverWatcher = new watch.Watcher({
+@@ -943,16 +979,16 @@ Object.assign(AppRunner.prototype, {
+     }
+ 
+     function pauseClient(arch) {
+-      return appProcess.proc.sendMessage("webapp-pause-client", { arch });
++      if (appProcess.proc.sendMessage) {
++        return appProcess.proc.sendMessage("webapp-pause-client", { arch });
++      }
+     }
+ 
+     async function refreshClient(arch) {
++      if (!appProcess.proc.sendMessage) return;
+       if (typeof arch === "string") {
+-        // This message will reload the client program and unpause it.
+         await appProcess.proc.sendMessage("webapp-reload-client", { arch });
+       }
+-      // If arch is not a string, the receiver of this message should
+-      // assume all clients need to be refreshed.
+       await appProcess.proc.sendMessage("client-refresh");
+     }
+ 
+diff --git a/tools/static-assets/server/bun-host.mjs b/tools/static-assets/server/bun-host.mjs
+new file mode 100644
+index 0000000..22a6d4c
+--- /dev/null
++++ b/tools/static-assets/server/bun-host.mjs
+@@ -0,0 +1,269 @@
++#!/usr/bin/env bun
++// bun-host.mjs — Single-port Bun host for Meteor ESM bundles
++//
++//   Bun.serve(:PORT)
++//     ├── Static files → Bun.file() (zero-copy)
++//     ├── API/middleware/SSR/boilerplate → fetch() over Unix socket → Express
++//     └── WebSocket DDP → StreamServer._onConnection()
++//
++// Usage:
++//   MONGO_URL=mongodb://localhost:27017/myapp \
++//   ROOT_URL=http://localhost:3000 \
++//   PORT=3000 \
++//     bun bun-host.mjs /path/to/bundle/programs/server
++
++import { pathToFileURL } from 'node:url';
++import path from 'node:path';
++import fs from 'node:fs';
++import { EventEmitter } from 'events';
++
++// Preserve native Bun fetch and HTTP primitives before any package can overwrite them
++const NativeRequest = globalThis.Request;
++const NativeResponse = globalThis.Response;
++const nativeFetch = typeof Bun !== 'undefined' && Bun.fetch ? Bun.fetch.bind(Bun) : globalThis.fetch;
++
++// ---------------------------------------------------------------------------
++// Args
++// ---------------------------------------------------------------------------
++
++const serverDir = path.resolve(process.argv[2] || '');
++if (!serverDir || !fs.existsSync(path.join(serverDir, 'program.json'))) {
++  console.error('Usage: bun bun-host.mjs <path-to-bundle/programs/server>');
++  process.exit(1);
++}
++
++const PORT = parseInt(process.env.PORT || '3000');
++const SOCK_PATH = `/tmp/meteor-bun-${process.pid}.sock`;
++
++console.log(`[bun-host] Booting Meteor on Bun from ${serverDir}`);
++
++// ---------------------------------------------------------------------------
++// Step 1: Boot packages via ESM loader
++// ---------------------------------------------------------------------------
++
++const loaderPath = pathToFileURL(path.join(serverDir, 'esm-loader.mjs')).href;
++const { bootPackages, runMain } = await import(loaderPath);
++await bootPackages(serverDir);
++
++const WebApp = Package.webapp.WebApp;
++
++// ---------------------------------------------------------------------------
++// Step 2: Build static file map from client manifests
++// ---------------------------------------------------------------------------
++
++const staticFiles = new Map();
++const programsDir = path.dirname(serverDir);
++
++for (const arch of ['web.browser', 'web.browser.legacy']) {
++  const programPath = path.join(programsDir, arch, 'program.json');
++  if (!fs.existsSync(programPath)) continue;
++
++  const program = JSON.parse(fs.readFileSync(programPath, 'utf8'));
++  const archDir = path.join(programsDir, arch);
++
++  for (const item of (program.manifest || [])) {
++    if (!item.url || !item.path) continue;
++    const urlPath = item.url.split('?')[0];
++    if (staticFiles.has(urlPath)) continue;
++
++    staticFiles.set(urlPath, {
++      absPath: path.join(archDir, item.path),
++      hash: item.hash || null,
++      type: item.type || 'asset',
++      cacheable: !!item.hash,
++    });
++  }
++}
++
++console.log(`[bun-host] Static file map: ${staticFiles.size} entries`);
++
++const CONTENT_TYPES = {
++  js: 'application/javascript; charset=UTF-8',
++  css: 'text/css; charset=UTF-8',
++  json: 'application/json; charset=UTF-8',
++  html: 'text/html; charset=UTF-8',
++  svg: 'image/svg+xml', png: 'image/png', jpg: 'image/jpeg',
++  gif: 'image/gif', ico: 'image/x-icon',
++  woff: 'font/woff', woff2: 'font/woff2', ttf: 'font/ttf',
++  eot: 'application/vnd.ms-fontobject',
++};
++
++function contentTypeFor(filePath, type) {
++  if (type === 'js') return CONTENT_TYPES.js;
++  if (type === 'css') return CONTENT_TYPES.css;
++  if (type === 'json') return CONTENT_TYPES.json;
++  const ext = path.extname(filePath).slice(1).toLowerCase();
++  return CONTENT_TYPES[ext] || 'application/octet-stream';
++}
++
++function getPathPrefix() {
++  if (globalThis.__meteor_runtime_config__?.ROOT_URL_PATH_PREFIX) {
++    return globalThis.__meteor_runtime_config__.ROOT_URL_PATH_PREFIX;
++  }
++  if (process.env.ROOT_URL) {
++    try {
++      let p = new URL(process.env.ROOT_URL).pathname;
++      if (p.endsWith('/')) p = p.slice(0, -1);
++      return p;
++    } catch (e) {}
++  }
++  return '';
++}
++
++function isWebSocketPath(pathname) {
++  // Exact unprefixed alias always accepted (compatibility).
++  if (pathname === '/websocket' || pathname === '/websocket/') return true;
++  const prefix = getPathPrefix();
++  let p = pathname;
++  if (prefix) {
++    // With a prefix configured, only paths under the prefix are DDP endpoints.
++    if (p === prefix || p.startsWith(prefix + '/')) {
++      p = p.slice(prefix.length) || '/';
++    } else {
++      return false;
++    }
++  }
++  return p === '/websocket' || p === '/websocket/' ||
++    (p.includes('/sockjs/') && p.endsWith('/websocket'));
++}
++
++function serveStaticFile(urlPath) {
++  const prefix = getPathPrefix();
++  let lookupPath = urlPath;
++  if (prefix) {
++    // With a path prefix configured, only resolve requests under the prefix.
++    if (urlPath === prefix || urlPath.startsWith(prefix + '/')) {
++      lookupPath = urlPath.slice(prefix.length) || '/';
++    } else {
++      return null;
++    }
++  }
++  const info = staticFiles.get(lookupPath);
++  if (!info) return null;
++
++  const headers = { 'Content-Type': contentTypeFor(info.absPath, info.type) };
++  if (info.cacheable && info.hash) {
++    headers['Cache-Control'] = 'public, max-age=31536000, immutable';
++    headers['ETag'] = `"${info.hash}"`;
++  } else {
++    headers['Cache-Control'] = 'public, max-age=0';
++  }
++  return new NativeResponse(Bun.file(info.absPath), { headers });
++}
++
++// ---------------------------------------------------------------------------
++// Step 3: BunSocket adapter for DDP WebSocket
++// ---------------------------------------------------------------------------
++
++class BunSocket extends EventEmitter {
++  constructor(ws, req) {
++    super();
++    this._ws = ws;
++    this.protocol = 'websocket-raw';
++    this.headers = req?.headers ? Object.fromEntries(new Headers(req.headers).entries()) : {};
++    this.remoteAddress = req?.headers?.get?.('x-forwarded-for') || '127.0.0.1';
++    this.url = req?.url ? (new URL(req.url, 'http://localhost').pathname) : '/websocket';
++    this._session = { recv: { connection: { setTimeout() {} }, protocol: 'websocket-raw' } };
++  }
++  send(data) { try { this._ws.send(data); } catch (e) {} }
++  write(data) { this.send(data); }
++  close() { try { this._ws.close(); } catch (e) {} }
++  setWebsocketTimeout() {}
++}
++
++// ---------------------------------------------------------------------------
++// Step 4: Patch WebApp.startListening → Bun.serve()
++// ---------------------------------------------------------------------------
++
++WebApp.startListening = function (httpServer, listenOptions, cb) {
++  try { fs.unlinkSync(SOCK_PATH); } catch (e) {}
++
++  httpServer.listen({ path: SOCK_PATH }, () => {
++    console.log(`[bun-host] Express/webapp on Unix socket ${SOCK_PATH}`);
++
++    Bun.serve({
++      port: PORT,
++      hostname: process.env.BIND_IP || '0.0.0.0',
++      idleTimeout: 120,
++
++      async fetch(req, server) {
++        if (req.headers.get('upgrade')?.toLowerCase() === 'websocket') {
++          const url = new URL(req.url, `http://localhost:${PORT}`);
++          if (isWebSocketPath(url.pathname)) {
++            return server.upgrade(req, { data: { req } })
++              ? undefined
++              : new NativeResponse('WebSocket upgrade failed', { status: 400 });
++          }
++        }
++
++        const url = new URL(req.url, `http://localhost:${PORT}`);
++        const staticResp = (req.method === 'GET' || req.method === 'HEAD')
++          ? serveStaticFile(url.pathname)
++          : null;
++        if (staticResp) return staticResp;
++
++        try {
++          const fwdHeaders = new Headers(req.headers);
++          fwdHeaders.delete('accept-encoding');
++          fwdHeaders.set('host', `localhost:${PORT}`);
++
++          const proxyResp = await nativeFetch(
++            new NativeRequest(`http://localhost${url.pathname}${url.search}`, {
++              method: req.method,
++              headers: fwdHeaders,
++              body: (req.method !== 'GET' && req.method !== 'HEAD') ? req.body : undefined,
++              redirect: 'manual',
++            }),
++            { unix: SOCK_PATH }
++          );
++
++          const respHeaders = new Headers(proxyResp.headers);
++          if (respHeaders.has('content-encoding')) {
++            respHeaders.delete('content-encoding');
++            respHeaders.delete('content-length');
++          }
++
++          return new NativeResponse(proxyResp.body, {
++            status: proxyResp.status,
++            statusText: proxyResp.statusText,
++            headers: respHeaders,
++          });
++        } catch (e) {
++          console.error(`[bun-host] Proxy error: ${e.message}`);
++          return new NativeResponse('Internal proxy error', { status: 502 });
++        }
++      },
++
++      websocket: {
++        open(ws) {
++          const socket = new BunSocket(ws, ws.data.req);
++          ws.data.socket = socket;
++          const streamServer = Package.meteor.Meteor.server.stream_server;
++          streamServer._onConnection(socket);
++        },
++        message(ws, msg) {
++          const data = typeof msg === 'string' ? msg : new TextDecoder().decode(msg);
++          ws.data.socket.emit('data', data);
++        },
++        close(ws) {
++          if (ws.data.socket) ws.data.socket.emit('close');
++        },
++      },
++    });
++
++    console.log(`[bun-host] Bun.serve() on port ${PORT}`);
++    console.log(`[bun-host] http://localhost:${PORT}/`);
++    cb();
++  });
++
++  const cleanup = () => { try { fs.unlinkSync(SOCK_PATH); } catch (e) {} };
++  process.on('SIGTERM', () => { cleanup(); process.exit(0); });
++  process.on('SIGINT', () => { cleanup(); process.exit(0); });
++  process.on('exit', cleanup);
++};
++
++// ---------------------------------------------------------------------------
++// Step 5: Run main — webapp calls our patched startListening
++// ---------------------------------------------------------------------------
++
++await runMain();
+diff --git a/tools/static-assets/server/esm-loader.mjs b/tools/static-assets/server/esm-loader.mjs
+new file mode 100644
+index 0000000..1d3b2c2
+--- /dev/null
++++ b/tools/static-assets/server/esm-loader.mjs
+@@ -0,0 +1,672 @@
++// ESM Loader for Meteor server bundles
++//
++// Alternative to the legacy boot chain (boot.js + runtime.js + npm-require.js).
++// Loads Meteor packages via standard ESM dynamic imports instead of
++// vm.runInThisContext, eliminating the need for Reify and Module.prototype
++// patching.
++//
++// Generated by `meteor build --format=esm`. Not used by the legacy format.
++//
++// Usage:
++//   import { boot } from './esm-loader.mjs';
++//   await boot('/path/to/bundle/programs/server');
++
++import { createRequire } from 'node:module';
++import { pathToFileURL } from 'node:url';
++import { AsyncLocalStorage } from 'node:async_hooks';
++import path from 'node:path';
++import fs from 'node:fs';
++
++// ============================================================
++// Resolver
++//
++// Maps npm require calls from Meteor packages to their actual
++// locations on disk. Each package may have its own node_modules
++// directory; the resolver uses program.json to build a per-package
++// search path.
++// ============================================================
++
++const asyncPackageContext = new AsyncLocalStorage();
++
++function createResolver(serverDir, programJson) {
++  const require = createRequire(path.join(serverDir, '_virtual.js'));
++
++  const packageNodeModulesMap = {};
++  const packageOwnNodeModulesMap = {};
++  for (const item of programJson.load) {
++    const dirs = [];
++    if (typeof item.node_modules === 'string') {
++      dirs.push(path.join(serverDir, item.node_modules));
++      packageOwnNodeModulesMap[item.path] = true;
++    } else if (item.node_modules && typeof item.node_modules === 'object') {
++      for (const p of Object.keys(item.node_modules)) {
++        if (!item.node_modules[p].local) dirs.push(path.join(serverDir, p));
++      }
++      packageOwnNodeModulesMap[item.path] = true;
++    }
++    dirs.push(path.join(serverDir, 'node_modules'));
++    packageNodeModulesMap[item.path] = dirs;
++  }
++
++  const packageMatchers = [];
++  let appMatcher = null;
++
++  for (const item of programJson.load) {
++    const kp = item.path;
++    const patterns = [kp];
++    if (kp.startsWith('packages/') && kp.endsWith('.js')) {
++      const base = kp.slice(0, -3); // e.g. 'packages/ddp-server' or 'packages/ostrio_flow-router-extra'
++      patterns.push(base + '/');
++      const pkgName = base.slice(9); // e.g. 'ddp-server' or 'ostrio_flow-router-extra'
++      patterns.push('node_modules/meteor/' + pkgName + '/');
++      if (pkgName.includes('_')) {
++        patterns.push('node_modules/meteor/' + pkgName.replace(/_/g, ':') + '/');
++        patterns.push('packages/' + pkgName.replace(/_/g, ':') + '/');
++      }
++      packageMatchers.push({ path: kp, patterns });
++    } else if (kp === 'app/app.js') {
++      patterns.push(
++        path.join(serverDir, 'app') + '/',
++        'programs/server/app/',
++        'meteor://\u{1F4BB}app',
++        'meteor://%F0%9F%92%BBapp',
++        'app/app.js'
++      );
++      appMatcher = { path: kp, patterns };
++    } else {
++      if (kp.endsWith('.js')) {
++        patterns.push(kp.slice(0, -3) + '/');
++      }
++      packageMatchers.push({ path: kp, patterns });
++    }
++  }
++  if (appMatcher) {
++    packageMatchers.push(appMatcher);
++  }
++
++  let currentPackagePath = null;
++
++  function resolveInDirs(name, dirs) {
++    for (const dir of dirs) {
++      try {
++        return createRequire(path.join(dir, '_v.js')).resolve(name);
++      } catch (e) { continue; }
++    }
++    return null;
++  }
++
++  function getCallerPackagePath() {
++    const stack = new Error().stack || '';
++    for (const rawLine of stack.split('\n')) {
++      if (rawLine.includes('esm-loader.mjs') || rawLine.includes('core-runtime.js') || rawLine.includes('node:') || rawLine.includes('native:')) {
++        continue;
++      }
++      let line = rawLine;
++      try { line = decodeURIComponent(rawLine); } catch (e) {}
++      for (const matcher of packageMatchers) {
++        for (const pat of matcher.patterns) {
++          if (line.includes(pat) || rawLine.includes(pat)) return matcher.path;
++        }
++      }
++    }
++
++    const store = asyncPackageContext.getStore();
++    if (store && store.packagePath) return store.packagePath;
++
++    return currentPackagePath;
++  }
++
++  function getDirs() {
++    const pkgPath = getCallerPackagePath();
++    if (pkgPath && packageNodeModulesMap[pkgPath]) {
++      return packageNodeModulesMap[pkgPath];
++    }
++    return [path.join(serverDir, 'node_modules')];
++  }
++
++  function meteorNpmRequire(name, error) {
++    const dirs = getDirs();
++
++    // Virtual absolute paths: /node_modules/meteor/X/node_modules/Y
++    if (name.startsWith('/node_modules/')) {
++      const parts = name.split('/node_modules/');
++      const lastPart = parts[parts.length - 1];
++      const resolved = resolveInDirs(lastPart, dirs);
++      if (resolved) return require(resolved);
++      const diskPath = path.join(serverDir, 'npm' + name.replace(/:/g, '_'));
++      if (fs.existsSync(diskPath)) return require(diskPath);
++    }
++
++    // Normal module names in caller's search path
++    const resolved = resolveInDirs(name, dirs);
++    if (resolved) return require(resolved);
++
++    // Node builtins
++    try { return require(name); } catch (e) {}
++
++    throw error || new Error('Cannot find module ' + JSON.stringify(name));
++  }
++
++  meteorNpmRequire.resolve = function (name) {
++    const dirs = getDirs();
++    if (name.startsWith('/node_modules/')) {
++      const parts = name.split('/node_modules/');
++      const lastPart = parts[parts.length - 1];
++      const resolved = resolveInDirs(lastPart, dirs);
++      if (resolved) return resolved;
++      const diskPath = path.join(serverDir, 'npm' + name.replace(/:/g, '_'));
++      if (fs.existsSync(diskPath)) return diskPath;
++    }
++    const resolved = resolveInDirs(name, dirs);
++    if (resolved) return resolved;
++
++    return require.resolve(name);
++  };
++
++  return {
++    meteorNpmRequire,
++    getCallerPackagePath,
++    setCurrentPackage(p) { currentPackagePath = p; },
++    getCurrentPackage() { return currentPackagePath; },
++    packageNodeModulesMap,
++    packageOwnNodeModulesMap,
++  };
++}
++
++// ============================================================
++// Boot
++//
++// Three entry points:
++//   boot(serverDir)         — full boot: load packages + run main (default)
++//   bootPackages(serverDir) — load packages only, return before main()
++//   runMain()               — run startup hooks + main() (call after bootPackages)
++//
++// bootPackages + runMain exist so that a custom host (e.g. Bun.serve)
++// can inject setup between package loading and app startup.
++// ============================================================
++
++/**
++ * Load all Meteor packages and setup globals, but do NOT run main().
++ * Returns context needed by custom hosts.
++ */
++export async function bootPackages(serverDir) {
++  const programJson = JSON.parse(fs.readFileSync(path.join(serverDir, 'program.json'), 'utf8'));
++  const configJson = JSON.parse(fs.readFileSync(path.join(serverDir, 'config.json'), 'utf8'));
++  const buildDir = path.dirname(path.dirname(serverDir));
++  const starJson = JSON.parse(fs.readFileSync(path.join(buildDir, 'star.json'), 'utf8'));
++  const programsDir = path.dirname(serverDir);
++
++  const { meteorNpmRequire, getCallerPackagePath, setCurrentPackage, getCurrentPackage, packageNodeModulesMap, packageOwnNodeModulesMap } = createResolver(serverDir, programJson);
++
++  // Build per-package asset maps from program.json
++  // In the legacy boot, Assets is injected per-package via closure.
++  // Here, we use a global Assets object that switches context per-package,
++  // same pattern as the resolver's setCurrentPackage.
++  const packageAssetsMap = {};
++  for (const item of programJson.load) {
++    if (item.assets) {
++      packageAssetsMap[item.path] = item.assets;
++    }
++  }
++  let currentAssets = null;
++
++  function setCurrentAssets(packagePath) {
++    currentAssets = packageAssetsMap[packagePath] || null;
++  }
++
++  function packageHasCustomEnv(packagePath) {
++    if (!packagePath) return false;
++    if (packageAssetsMap[packagePath] && Object.keys(packageAssetsMap[packagePath]).length > 0) return true;
++    if (packageOwnNodeModulesMap && packageOwnNodeModulesMap[packagePath]) return true;
++    return false;
++  }
++
++  // Path normalization matching boot.js behavior (via mini-files.ts)
++  function normalizeAssetPath(assetPath) {
++    if (process.platform === 'win32') {
++      assetPath = assetPath.replace(/\\/g, '/');
++    }
++    return assetPath ? assetPath.normalize('NFC') : assetPath;
++  }
++
++  // Globals expected by Meteor packages
++  globalThis.__meteor_bootstrap__ = {
++    startupHooks: [],
++    serverDir,
++    configJson,
++    isFibersDisabled: true,
++  };
++  globalThis.__meteor_runtime_config__ = {
++    meteorRelease: configJson.meteorRelease,
++    gitCommitHash: starJson.gitCommitHash,
++  };
++  if (!process.env.APP_ID) process.env.APP_ID = configJson.appId;
++
++  globalThis.Npm = { require: meteorNpmRequire };
++
++  function resolveAssetEntry(assetPath) {
++    assetPath = normalizeAssetPath(assetPath);
++    const callerPath = getCallerPackagePath();
++    if (callerPath && packageAssetsMap[callerPath] && packageAssetsMap[callerPath][assetPath]) {
++      return packageAssetsMap[callerPath][assetPath];
++    }
++    if (currentAssets && currentAssets[assetPath]) {
++      return currentAssets[assetPath];
++    }
++    const appAssets = packageAssetsMap['app/app.js'];
++    if (appAssets && (!callerPath || callerPath === 'app/app.js') && appAssets[assetPath]) {
++      return appAssets[assetPath];
++    }
++    return null;
++  }
++
++  // Assets API — reads real files from the bundle, per-package context
++  globalThis.Assets = {
++    getTextAsync(assetPath, callback) {
++      return getAsset(assetPath, 'utf8', callback);
++    },
++    getBinaryAsync(assetPath, callback) {
++      return getAsset(assetPath, undefined, callback);
++    },
++    absoluteFilePath(assetPath) {
++      const relPath = resolveAssetEntry(assetPath);
++      if (!relPath) {
++        throw new Error('Unknown asset: ' + assetPath);
++      }
++      return path.join(serverDir, relPath);
++    },
++    getServerDir() { return serverDir; },
++  };
++
++  function getAsset(assetPath, encoding, callback) {
++    const relPath = resolveAssetEntry(assetPath);
++    if (!relPath) {
++      const err = new Error('Unknown asset: ' + assetPath);
++      if (callback) { callback(err); return; }
++      return Promise.reject(err);
++    }
++    const filePath = path.join(serverDir, relPath);
++    if (callback) {
++      fs.readFile(filePath, encoding, (err, result) => {
++        if (err) { callback(err); return; }
++        callback(null, encoding ? result : new Uint8Array(result));
++      });
++      return;
++    }
++    return fs.promises.readFile(filePath, encoding).then(result =>
++      encoding ? result : new Uint8Array(result)
++    );
++  }
++
++  globalThis.npmRequire = meteorNpmRequire;
++  globalThis.Profile = function (name, fn) { return fn || function () {}; };
++  globalThis.Profile.time = function (name, fn) { return fn(); };
++  globalThis.Profile.run = async function (name, fn) { return fn(); };
++
++  globalThis.__METEOR_ASYNC_LOCAL_STORAGE = new AsyncLocalStorage();
++
++  // Enable native source maps (Node 20+)
++  if (typeof process.setSourceMapsEnabled === 'function') {
++    process.setSourceMapsEnabled(true);
++  }
++
++  // Dynamic import info for the dynamic-import package
++  globalThis.dynamicImportInfo = { server: { dynamicRoot: path.join(serverDir, 'dynamic') } };
++  const clientArchs = configJson.clientArchs || Object.keys(configJson.clientPaths || {});
++  clientArchs.forEach(arch => {
++    globalThis.dynamicImportInfo[arch] = { dynamicRoot: path.join(programsDir, arch, 'dynamic') };
++  });
++
++  // The Meteor linker generates implicit global assignments
++  // (e.g. `Mongo = Package.mongo.Mongo`) which are illegal in ESM strict mode.
++  // Pre-declare them on globalThis to avoid ReferenceError.
++  for (const dir of [path.join(serverDir, 'packages'), path.join(serverDir, 'app')]) {
++    if (!fs.existsSync(dir)) continue;
++    for (const file of fs.readdirSync(dir).filter(f => f.endsWith('.js'))) {
++      const src = fs.readFileSync(path.join(dir, file), 'utf8');
++      for (const m of src.matchAll(/^(\w+)\s*=\s*Package/gm)) {
++        if (!(m[1] in globalThis)) globalThis[m[1]] = undefined;
++      }
++    }
++  }
++
++  // Map core-runtime queue names to program.json load paths. Packages queue
++  // under their own name ('ddp-server'); the app queues under the string "null".
++  const queuePathByName = Object.create(null);
++  for (const item of programJson.load) {
++    const m = /^packages\/(.+)\.js$/.exec(item.path);
++    if (m) {
++      queuePathByName[m[1]] = item.path;
++      if (m[1].includes('_')) {
++        queuePathByName[m[1].replace(/_/g, ':')] = item.path;
++      }
++    } else if (item.path === 'app/app.js') {
++      queuePathByName['null'] = item.path;
++    }
++  }
++  const appPath = queuePathByName['null'] || null;
++
++  // core-runtime defers package initialization into a queue drained AFTER the
++  // import loop below, so binding npm/asset resolution around import() is not
++  // enough: by the time a package's eager modules run, the loop has moved on
++  // and Npm.require() would resolve against the last package imported.
++  // Wrap queue() so the binding happens when a package's initialization starts.
++  // processNext() is strictly sequential (guarded by isProcessing), so the
++  // binding stays correct for the whole package, async eager modules included.
++  const boundFunctionCache = new WeakMap();
++  function bindPackageFunction(fn, itemPath) {
++    if (typeof fn !== 'function' || fn.__pkgBound) return fn;
++    let cached = boundFunctionCache.get(fn);
++    if (cached) return cached;
++
++    const bound = new Proxy(fn, {
++      apply(target, thisArg, args) {
++        const prevPkg = getCurrentPackage();
++        if (itemPath) {
++          setCurrentPackage(itemPath);
++          setCurrentAssets(itemPath);
++        }
++        try {
++          return asyncPackageContext.run({ packagePath: itemPath }, () => {
++            return Reflect.apply(target, thisArg, args);
++          });
++        } finally {
++          setCurrentPackage(prevPkg);
++          setCurrentAssets(prevPkg);
++        }
++      },
++      construct(target, args, newTarget) {
++        const prevPkg = getCurrentPackage();
++        if (itemPath) {
++          setCurrentPackage(itemPath);
++          setCurrentAssets(itemPath);
++        }
++        try {
++          return asyncPackageContext.run({ packagePath: itemPath }, () => {
++            return Reflect.construct(target, args, newTarget);
++          });
++        } finally {
++          setCurrentPackage(prevPkg);
++          setCurrentAssets(prevPkg);
++        }
++      },
++      get(target, prop, receiver) {
++        if (prop === '__pkgBound') return true;
++        const val = Reflect.get(target, prop, target);
++        if (typeof val === 'function' && prop !== 'constructor' && prop !== 'prototype') {
++          return bindPackageFunction(val, itemPath);
++        }
++        return val;
++      },
++      set(target, prop, value, receiver) {
++        return Reflect.set(target, prop, value, target);
++      },
++      has(target, prop) {
++        return Reflect.has(target, prop);
++      }
++    });
++
++    boundFunctionCache.set(fn, bound);
++    return bound;
++  }
++
++  function wrapPackageModule(pkgName, mod) {
++    if (!mod || (typeof mod !== 'object' && typeof mod !== 'function')) return mod;
++    const itemPath = queuePathByName[pkgName] || ('packages/' + pkgName.replace(/:/g, '_') + '.js');
++    if (!packageHasCustomEnv(itemPath)) return mod;
++    if (mod.__pkgWrapped) return mod;
++
++    const boundCache = new Map();
++    function getBound(fn) {
++      if (typeof fn !== 'function' || fn.__pkgBound) return fn;
++      let b = boundCache.get(fn);
++      if (!b) {
++        b = bindPackageFunction(fn, itemPath);
++        boundCache.set(fn, b);
++      }
++      return b;
++    }
++
++    const handler = {
++      get(target, prop, receiver) {
++        if (prop === '__pkgWrapped') return true;
++        const val = Reflect.get(target, prop, receiver);
++        if (typeof val === 'function' && prop !== 'Promise' && prop !== 'Meteor') {
++          return getBound(val);
++        }
++        return val;
++      }
++    };
++
++    if (typeof mod === 'function') {
++      handler.apply = function (target, thisArg, args) {
++        const prevPkg = getCurrentPackage();
++        if (itemPath) {
++          setCurrentPackage(itemPath);
++          setCurrentAssets(itemPath);
++        }
++        try {
++          return asyncPackageContext.run({ packagePath: itemPath }, () => {
++            return Reflect.apply(target, thisArg, args);
++          });
++        } finally {
++          setCurrentPackage(prevPkg);
++          setCurrentAssets(prevPkg);
++        }
++      };
++    }
++
++    return new Proxy(mod, handler);
++  }
++  globalThis.__meteorWrapPackageModule = wrapPackageModule;
++
++  const packageGetterBoundCache = new WeakMap();
++  globalThis.__meteorWrapPackageGetter = function (modId, getter) {
++    let itemPath = null;
++    if (typeof modId === 'string' && modId.startsWith('/node_modules/meteor/')) {
++      const rest = modId.slice(21);
++      const pkgName = rest.split('/')[0];
++      itemPath = queuePathByName[pkgName] || ('packages/' + pkgName.replace(/:/g, '_') + '.js');
++    }
++    if (!itemPath || !packageHasCustomEnv(itemPath)) {
++      return getter;
++    }
++
++    return function () {
++      const val = getter();
++      if (typeof val === 'function') {
++        if (val.__pkgBound) return val;
++        let b = packageGetterBoundCache.get(val);
++        if (!b) {
++          b = bindPackageFunction(val, itemPath);
++          packageGetterBoundCache.set(val, b);
++        }
++        return b;
++      }
++      return val;
++    };
++  };
++
++  let queueWrapped = false;
++  function wrapCoreRuntimeQueue() {
++    const coreRuntime = globalThis.Package && globalThis.Package['core-runtime'];
++    if (!coreRuntime || typeof coreRuntime.queue !== 'function') return false;
++
++    function hookModuleExport() {
++      const mr = globalThis.Package && globalThis.Package['modules-runtime'];
++      if (mr && mr.meteorInstall && mr.meteorInstall.Module && mr.meteorInstall.Module.prototype) {
++        const Mp = mr.meteorInstall.Module.prototype;
++        if (typeof Mp.export === 'function' && !Mp.export.__pkgWrapped) {
++          const origExport = Mp.export;
++          Mp.export = function (getters, constant) {
++            if (getters && typeof getters === 'object' && typeof this.id === 'string' && this.id.startsWith('/node_modules/meteor/')) {
++              const wrapped = {};
++              for (const key of Object.keys(getters)) {
++                wrapped[key] = globalThis.__meteorWrapPackageGetter(this.id, getters[key]);
++              }
++              return origExport.call(this, wrapped, constant);
++            }
++            return origExport.call(this, getters, constant);
++          };
++          Mp.export.__pkgWrapped = true;
++        }
++      }
++    }
++
++    const PRp = Object.getPrototypeOf(globalThis.Package);
++    if (PRp && typeof PRp._define === 'function' && !PRp._define.__wrapped) {
++      const originalDefine = PRp._define;
++      PRp._define = function definePackage(name, pkg) {
++        hookModuleExport();
++        const itemPath = name == null ? null : queuePathByName[name] || null;
++        const res = originalDefine.apply(this, arguments);
++        hookModuleExport();
++        if (itemPath && packageHasCustomEnv(itemPath) && res && typeof res === 'object') {
++          for (const key of Object.keys(res)) {
++            if (key === 'Promise' || key === 'Meteor') continue;
++            const desc = Object.getOwnPropertyDescriptor(res, key);
++            if (!desc) continue;
++            if (typeof desc.value === 'function' && !desc.value.__pkgBound) {
++              try {
++                Object.defineProperty(res, key, {
++                  value: bindPackageFunction(desc.value, itemPath),
++                  writable: desc.writable !== false,
++                  configurable: true,
++                  enumerable: desc.enumerable,
++                });
++              } catch {}
++            } else if (typeof desc.get === 'function') {
++              const origGet = desc.get;
++              try {
++                Object.defineProperty(res, key, {
++                  get() {
++                    const fn = origGet.call(this);
++                    if (typeof fn === 'function' && !fn.__pkgBound) {
++                      return bindPackageFunction(fn, itemPath);
++                    }
++                    return fn;
++                  },
++                  configurable: true,
++                  enumerable: desc.enumerable,
++                });
++              } catch {}
++            }
++          }
++        }
++        return res;
++      };
++      PRp._define.__wrapped = true;
++    }
++
++    const originalQueue = coreRuntime.queue;
++    coreRuntime.queue = function (name, runImage) {
++      const itemPath = name == null ? null : queuePathByName[name] || null;
++      return originalQueue.call(this, name, function () {
++        const prevPkg = getCurrentPackage();
++        if (itemPath) {
++          setCurrentPackage(itemPath);
++          setCurrentAssets(itemPath);
++        }
++        try {
++          return asyncPackageContext.run({ packagePath: itemPath }, function () {
++            const targetThis = typeof globalThis !== 'undefined' ? globalThis : this;
++            const config = runImage.apply(targetThis, arguments);
++            if (config && typeof config.require === 'function') {
++              const originalRequire = config.require;
++              config.require = function (id) {
++                const prevReqPkg = getCurrentPackage();
++                if (itemPath) {
++                  setCurrentPackage(itemPath);
++                  setCurrentAssets(itemPath);
++                }
++                let res;
++                try {
++                  res = asyncPackageContext.run({ packagePath: itemPath }, () => {
++                    return originalRequire.apply(this, arguments);
++                  });
++                } finally {
++                  setCurrentPackage(prevReqPkg);
++                  setCurrentAssets(prevReqPkg);
++                }
++                if (typeof id === 'string' && id.startsWith('meteor/')) {
++                  return wrapPackageModule(id.slice(7), res);
++                }
++                return res;
++              };
++            }
++            return config;
++          });
++        } finally {
++          setCurrentPackage(prevPkg);
++          setCurrentAssets(prevPkg);
++        }
++      });
++    };
++    return true;
++  }
++
++  // Import all packages in the dependency order computed by isobuild
++  for (const item of programJson.load) {
++    setCurrentPackage(item.path);
++    setCurrentAssets(item.path);
++    await asyncPackageContext.run({ packagePath: item.path }, async function () {
++      await import(pathToFileURL(path.join(serverDir, item.path)).href);
++    });
++    // core-runtime loads first; wrap its queue before any package registers.
++    if (!queueWrapped) queueWrapped = wrapCoreRuntimeQueue();
++  }
++
++  // Wait for core-runtime async queue (deferred package initialization)
++  const ready = globalThis.Package['core-runtime'].waitUntilAllLoaded();
++  if (ready) await ready;
++
++  // Startup hooks and main() belong to the app, not to whichever package
++  // happened to initialize last.
++  if (appPath) {
++    setCurrentPackage(appPath);
++    setCurrentAssets(appPath);
++  }
++
++  return { serverDir, programJson, configJson };
++}
++
++/**
++ * Run startup hooks and main(). Call after bootPackages().
++ */
++export async function runMain() {
++  while (globalThis.__meteor_bootstrap__.startupHooks.length) {
++    await globalThis.__meteor_bootstrap__.startupHooks.shift()();
++  }
++  globalThis.__meteor_bootstrap__.startupHooks = null;
++
++  // Find and run main()
++  const mains = [];
++  if ('main' in globalThis) mains.push(globalThis.main);
++  if (typeof Package !== 'undefined') {
++    for (const name of Object.keys(Package)) {
++      const { main } = Package[name];
++      if (typeof main === 'function' && !mains.includes(main)) mains.push(main);
++    }
++  }
++
++  if (mains.length === 1) {
++    const exitCode = await mains[0].call({}, process.argv.slice(2));
++    if (exitCode !== 'DAEMON') process.exit(exitCode);
++  } else if (mains.length === 0) {
++    console.error('No main() function found.');
++    process.exit(1);
++  } else {
++    console.error(`Expected a single main() function, found ${mains.length}.`);
++    process.exit(1);
++  }
++}
++
++/**
++ * Full boot: load packages + run main. Backward compatible entry point.
++ * Used by index.mjs generated by the bundler.
++ */
++export async function boot(serverDir) {
++  const ctx = await bootPackages(serverDir);
++  await runMain();
++  return ctx;
++}
+diff --git a/tools/tests/apps/esm-bun-smoke/.meteor/packages b/tools/tests/apps/esm-bun-smoke/.meteor/packages
+new file mode 100644
+index 0000000..c1e44e3
+--- /dev/null
++++ b/tools/tests/apps/esm-bun-smoke/.meteor/packages
+@@ -0,0 +1,10 @@
++# App used by the ESM/Bun smoke-test CI job.
++# Exercises the three DDP primitives a server bundle must support:
++# a method, a publication, and a connection.
++meteor-base
++webapp
++ecmascript
++mongo
++# Scoped local package with an npm dependency: regression for the ESM loader
++# colon-to-underscore mapping of /node_modules/meteor/<author>:<name>/node_modules/*.
++smoke:scoped-npm-dep
+diff --git a/tools/tests/apps/esm-bun-smoke/.meteor/release b/tools/tests/apps/esm-bun-smoke/.meteor/release
+new file mode 100644
+index 0000000..621e94f
+--- /dev/null
++++ b/tools/tests/apps/esm-bun-smoke/.meteor/release
+@@ -0,0 +1 @@
++none
+diff --git a/tools/tests/apps/esm-bun-smoke/package.json b/tools/tests/apps/esm-bun-smoke/package.json
+new file mode 100644
+index 0000000..73b0855
+--- /dev/null
++++ b/tools/tests/apps/esm-bun-smoke/package.json
+@@ -0,0 +1,12 @@
++{
++  "name": "esm-bun-smoke",
++  "private": true,
++  "dependencies": {
++    "@babel/runtime": "^7.23.5"
++  },
++  "meteor": {
++    "mainModule": {
++      "server": "server/main.js"
++    }
++  }
++}
+diff --git a/tools/tests/apps/esm-bun-smoke/packages/scoped-npm-dep/package.js b/tools/tests/apps/esm-bun-smoke/packages/scoped-npm-dep/package.js
+new file mode 100644
+index 0000000..c34bcb6
+--- /dev/null
++++ b/tools/tests/apps/esm-bun-smoke/packages/scoped-npm-dep/package.js
+@@ -0,0 +1,19 @@
++// Scoped (author:name) local package with an npm dependency.
++//
++// Regression coverage for the ESM loader: package code requiring an npm module
++// goes through the virtual id /node_modules/meteor/smoke:scoped-npm-dep/node_modules/left-pad,
++// whose on-disk directory is npm/node_modules/meteor/smoke_scoped-npm-dep (colon
++// mapped to underscore). Unscoped packages never exercise that mapping, and a
++// dependency hoisted into programs/server/node_modules (like `ms`) would hide it.
++Package.describe({
++  name: 'smoke:scoped-npm-dep',
++  version: '0.0.1',
++  summary: 'Scoped package with an npm dependency, used by the ESM/Bun smoke test',
++});
++
++Npm.depends({ 'left-pad': '1.3.0' });
++
++Package.onUse(function (api) {
++  api.use('ecmascript', 'server');
++  api.mainModule('server.js', 'server');
++});
+diff --git a/tools/tests/apps/esm-bun-smoke/packages/scoped-npm-dep/server.js b/tools/tests/apps/esm-bun-smoke/packages/scoped-npm-dep/server.js
+new file mode 100644
+index 0000000..de3ad6e
+--- /dev/null
++++ b/tools/tests/apps/esm-bun-smoke/packages/scoped-npm-dep/server.js
+@@ -0,0 +1,4 @@
++import leftPad from 'left-pad';
++
++// Evaluated at package load: a broken npm resolution fails the boot, not just the method.
++export const scopedNpmDep = { padded: leftPad('7', 3, '0') };
+diff --git a/tools/tests/apps/esm-bun-smoke/server/main.js b/tools/tests/apps/esm-bun-smoke/server/main.js
+new file mode 100644
+index 0000000..c9929cb
+--- /dev/null
++++ b/tools/tests/apps/esm-bun-smoke/server/main.js
+@@ -0,0 +1,24 @@
++import { Meteor } from 'meteor/meteor';
++import { Mongo } from 'meteor/mongo';
++import { scopedNpmDep } from 'meteor/smoke:scoped-npm-dep';
++
++const Items = new Mongo.Collection('smokeItems');
++
++Meteor.methods({
++  'smoke.echo'(value) {
++    return { echoed: value };
++  },
++  'smoke.scopedNpm'() {
++    return scopedNpmDep;
++  },
++});
++
++Meteor.publish('smoke.items', function () {
++  return Items.find();
++});
++
++Meteor.startup(async () => {
++  if ((await Items.find().countAsync()) === 0) {
++    await Items.insertAsync({ name: 'smoke' });
++  }
++});
+diff --git a/tools/tests/apps/esm-format-test/.meteor/packages b/tools/tests/apps/esm-format-test/.meteor/packages
+new file mode 100644
+index 0000000..ace90a9
+--- /dev/null
++++ b/tools/tests/apps/esm-format-test/.meteor/packages
+@@ -0,0 +1,3 @@
++# Minimal app for testing --format=esm builds
++meteor-base
++webapp
+diff --git a/tools/tests/apps/esm-format-test/.meteor/release b/tools/tests/apps/esm-format-test/.meteor/release
+new file mode 100644
+index 0000000..621e94f
+--- /dev/null
++++ b/tools/tests/apps/esm-format-test/.meteor/release
+@@ -0,0 +1 @@
++none
+diff --git a/tools/tests/esm-format.js b/tools/tests/esm-format.js
+new file mode 100644
+index 0000000..ecf40b2
+--- /dev/null
++++ b/tools/tests/esm-format.js
+@@ -0,0 +1,146 @@
++var selftest = require('../tool-testing/selftest.js');
++var Sandbox = selftest.Sandbox;
++
++import * as files from "../fs/files";
++
++// Tests for `meteor build --format=esm`
++
++selftest.define("build --format=esm produces index.mjs and esm-loader", async function () {
++  const s = new Sandbox();
++  await s.init();
++
++  await s.createApp("myapp", "esm-format-test");
++  s.cd("myapp");
++
++  const run = s.run("build", "--format=esm", "--directory", "../esm-build");
++  run.waitSecs(120);
++  await run.expectExit(0);
++
++  const bundlePath = files.pathJoin(s.home, "esm-build", "bundle");
++
++  // index.mjs should exist (ESM entrypoint)
++  selftest.expectTrue(files.exists(
++    files.pathJoin(bundlePath, "index.mjs")
++  ));
++
++  // esm-loader.mjs should exist in programs/server/
++  selftest.expectTrue(files.exists(
++    files.pathJoin(bundlePath, "programs", "server", "esm-loader.mjs")
++  ));
++
++  // main.js should NOT exist (that's the legacy entrypoint)
++  selftest.expectFalse(files.exists(
++    files.pathJoin(bundlePath, "main.js")
++  ));
++});
++
++selftest.define("build --format=esm omits legacy boot files", async function () {
++  const s = new Sandbox();
++  await s.init();
++
++  await s.createApp("myapp", "esm-format-test");
++  s.cd("myapp");
++
++  const run = s.run("build", "--format=esm", "--directory", "../esm-build");
++  run.waitSecs(120);
++  await run.expectExit(0);
++
++  const serverPath = files.pathJoin(s.home, "esm-build", "bundle", "programs", "server");
++
++  // Legacy boot files should NOT be present
++  selftest.expectFalse(files.exists(files.pathJoin(serverPath, "boot.js")));
++  selftest.expectFalse(files.exists(files.pathJoin(serverPath, "runtime.js")));
++  selftest.expectFalse(files.exists(files.pathJoin(serverPath, "npm-require.js")));
++  selftest.expectFalse(files.exists(files.pathJoin(serverPath, "boot-utils.js")));
++
++  // npm-rebuild.js should still be present (needed for postinstall)
++  selftest.expectTrue(files.exists(files.pathJoin(serverPath, "npm-rebuild.js")));
++
++  // program.json should still be present (the ESM loader uses it)
++  selftest.expectTrue(files.exists(files.pathJoin(serverPath, "program.json")));
++});
++
++selftest.define("build without --format produces legacy bundle (no regression)", async function () {
++  const s = new Sandbox();
++  await s.init();
++
++  await s.createApp("myapp", "esm-format-test");
++  s.cd("myapp");
++
++  const run = s.run("build", "--directory", "../legacy-build");
++  run.waitSecs(120);
++  await run.expectExit(0);
++
++  const bundlePath = files.pathJoin(s.home, "legacy-build", "bundle");
++  const serverPath = files.pathJoin(bundlePath, "programs", "server");
++
++  // Legacy entrypoint should exist
++  selftest.expectTrue(files.exists(files.pathJoin(bundlePath, "main.js")));
++
++  // ESM entrypoint should NOT exist
++  selftest.expectFalse(files.exists(files.pathJoin(bundlePath, "index.mjs")));
++
++  // Legacy boot files should be present
++  selftest.expectTrue(files.exists(files.pathJoin(serverPath, "boot.js")));
++  selftest.expectTrue(files.exists(files.pathJoin(serverPath, "runtime.js")));
++
++  // esm-loader.mjs should NOT be present
++  selftest.expectFalse(files.exists(files.pathJoin(serverPath, "esm-loader.mjs")));
++});
++
++selftest.define("build --format=invalid fails with error", async function () {
++  const s = new Sandbox();
++  await s.init();
++
++  await s.createApp("myapp", "esm-format-test");
++  s.cd("myapp");
++
++  const run = s.run("build", "--format=invalid", "--directory", "../bad-build");
++  run.waitSecs(30);
++  await run.matchErr('Unknown --format value');
++  await run.expectExit(1);
++});
++
++selftest.define("build --format=esm index.mjs contains ESM import syntax", async function () {
++  const s = new Sandbox();
++  await s.init();
++
++  await s.createApp("myapp", "esm-format-test");
++  s.cd("myapp");
++
++  const run = s.run("build", "--format=esm", "--directory", "../esm-build");
++  run.waitSecs(120);
++  await run.expectExit(0);
++
++  const indexContent = files.readFile(
++    files.pathJoin(s.home, "esm-build", "bundle", "index.mjs"),
++    'utf8'
++  );
++
++  // Should contain ESM import syntax
++  selftest.expectTrue(indexContent.includes('import '));
++  selftest.expectTrue(indexContent.includes('await boot('));
++
++  // Should NOT contain CJS require
++  selftest.expectFalse(indexContent.includes('require('));
++});
++
++selftest.define("build --format=esm README mentions index.mjs", async function () {
++  const s = new Sandbox();
++  await s.init();
++
++  await s.createApp("myapp", "esm-format-test");
++  s.cd("myapp");
++
++  const run = s.run("build", "--format=esm", "--directory", "../esm-build");
++  run.waitSecs(120);
++  await run.expectExit(0);
++
++  const readmeContent = files.readFile(
++    files.pathJoin(s.home, "esm-build", "bundle", "README"),
++    'utf8'
++  );
++
++  selftest.expectTrue(readmeContent.includes('index.mjs'));
++  selftest.expectTrue(readmeContent.includes('ESM'));
++});

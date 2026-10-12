@@ -1,0 +1,14 @@
+[
+  {"target":"linux-x64","asset":"bun-linux-x64.zip","runner":"ubuntu-24.04","kind":"native","platform":"linux","arch":"x64"},
+  {"target":"linux-arm64","asset":"bun-linux-aarch64.zip","runner":"ubuntu-24.04-arm","kind":"native","platform":"linux","arch":"arm64"},
+  {"target":"linux-x64-musl","asset":"bun-linux-x64-musl.zip","runner":"ubuntu-24.04","kind":"musl","platform":"linux","arch":"x64"},
+  {"target":"linux-arm64-musl","asset":"bun-linux-aarch64-musl.zip","runner":"ubuntu-24.04-arm","kind":"musl","platform":"linux","arch":"arm64"},
+  {"target":"macos-x64","asset":"bun-darwin-x64.zip","runner":"macos-15-intel","kind":"native","platform":"darwin","arch":"x64"},
+  {"target":"macos-arm64","asset":"bun-darwin-aarch64.zip","runner":"macos-15","kind":"native","platform":"darwin","arch":"arm64"},
+  {"target":"windows-x64","asset":"bun-windows-x64.zip","runner":"windows-2025","kind":"native","platform":"win32","arch":"x64"},
+  {"target":"windows-arm64","asset":"bun-windows-aarch64.zip","runner":"windows-11-arm","kind":"native","platform":"win32","arch":"arm64"},
+  {"target":"freebsd-x64","asset":"bun-freebsd-x64.zip","runner":"ubuntu-24.04","kind":"freebsd","platform":"freebsd","arch":"x64","vm_arch":"x86_64"},
+  {"target":"freebsd-arm64","asset":"bun-freebsd-aarch64.zip","runner":"ubuntu-24.04","kind":"freebsd","platform":"freebsd","arch":"arm64","vm_arch":"aarch64"},
+  {"target":"android-x64","asset":"bun-linux-x64-android.zip","runner":"ubuntu-24.04","kind":"android","platform":"android","arch":"x64","termux_arch":"x86_64"},
+  {"target":"android-arm64","asset":"bun-linux-aarch64-android.zip","runner":"ubuntu-24.04-arm","kind":"android","platform":"android","arch":"arm64","termux_arch":"aarch64"}
+]

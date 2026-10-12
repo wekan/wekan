@@ -524,7 +524,7 @@ used.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.34 2026-10-12 WeKan ® release
 
 **In short:** On **Univention (UCS)**, avatars show again after an upgrade, and
 an **LDAPS** server signed by a company CA is trusted again. **Sandstorm**
