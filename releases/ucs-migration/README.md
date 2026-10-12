@@ -1,6 +1,11 @@
 # UCS migration inside the WeKan image
 
-The main Dockerfile installs Debian's `docker-cli` and these tools. Its ordinary
+The main Dockerfile copies these tools into the image. It installs no Docker
+CLI: `tools/mongo` and `tools/mongoexport` run `docker-exec.mjs`, which speaks
+the Docker Engine API over `/var/run/docker.sock` (or a `unix://` `DOCKER_HOST`)
+to run the command in `wekan-db`, with its stdout, stderr and exit status. Debian's
+`docker-cli` is a Go program whose old Go standard library was most of the image's
+vulnerability scan, for this one use. Its ordinary
 CMD still runs WeKan as the `wekan` user. The generated UCS preinst starts a
 short-lived container from that SAME versioned app image as root with:
 

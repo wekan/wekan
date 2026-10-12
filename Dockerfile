@@ -367,10 +367,12 @@ useradd --user-group --system --create-home --home-dir /home/wekan wekan
 # OS Updates
 apt-get update --assume-yes
 apt-get upgrade --assume-yes
-# Runtime MIME detection, Node.js atomics and the UCS migration Docker client.
-# docker-cli installs no daemon or buildx recommendation. Nothing in this image
-# compiles anything, so no compiler is installed (and none has to be purged).
-apt-get install --assume-yes --no-install-recommends file libatomic1 docker-cli
+# Runtime MIME detection and Node.js atomics. Nothing in this image compiles
+# anything, so no compiler is installed (and none has to be purged).
+# No docker-cli: it is a Go program whose Go 1.24 standard library was most of
+# the image's vulnerability scan, for a client only the UCS migration used. That
+# talks to the Docker socket itself now (releases/ucs-migration/docker-exec.mjs).
+apt-get install --assume-yes --no-install-recommends file libatomic1
 # Remove unused Go-based pebble binary shipped by base image to reduce CVE surface.
 apt-get remove --purge --assume-yes pebble || true
 rm -f /usr/bin/pebble

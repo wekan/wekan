@@ -1,2 +1,2 @@
 #!/bin/sh
-exec docker exec wekan-db mongoexport "$@"
+exec node "$(dirname -- "$0")/../docker-exec.mjs" wekan-db mongoexport "$@"

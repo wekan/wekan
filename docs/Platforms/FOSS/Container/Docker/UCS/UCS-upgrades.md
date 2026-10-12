@@ -79,8 +79,10 @@ to the old location.
 
 ### 1. Publish a WeKan image containing the migration tools
 
-The main WeKan `Dockerfile` includes `releases/ucs-migration/` and Debian's
-`docker-cli`. The default image command and user still start WeKan normally.
+The main WeKan `Dockerfile` includes `releases/ucs-migration/`. It has no Docker
+CLI: the migration's `docker-exec.mjs` runs `mongo` and `mongoexport` in the old
+database container through the Docker Engine API on the mounted socket. The
+default image command and user still start WeKan normally.
 Only the temporary UCS worker overrides the command and runs as root with the
 Docker socket. There is **no separate migration image to build or publish**.
 

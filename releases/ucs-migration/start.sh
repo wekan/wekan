@@ -4,8 +4,7 @@ set -euo pipefail
 root=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 if [ "${1:-}" = --check ]; then
     command -v node >/dev/null
-    docker --version
-    for script in run.mjs importer.mjs verify.mjs; do node --check "$root/$script"; done
+    for script in run.mjs importer.mjs verify.mjs docker-exec.mjs; do node --check "$root/$script"; done
     test -x "$root/tools/mongo"
     test -x "$root/tools/mongoexport"
     node -e 'const {createRequire}=require("node:module"); const r=createRequire("/build/programs/server/npm/node_modules/meteor/npm-mongo/node_modules/_.cjs"); if(typeof r("mongodb").MongoClient !== "function" || typeof r("mongodb").BSON.EJSON.parse !== "function") process.exit(1)'

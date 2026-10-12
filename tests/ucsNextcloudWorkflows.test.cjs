@@ -37,7 +37,7 @@ assert.ok(!ucs.includes('packages: write'));
 assert.ok(read('release-all.yml').includes('ucs-release.py check-image --version "$VERSION"'));
 assert.ok(read('release-all-missing.yml').includes('releases/retry-failed-release.py'));
 const dockerfile = fs.readFileSync(path.join(root, 'Dockerfile'), 'utf8');
-assert.match(dockerfile, /apt-get install --assume-yes --no-install-recommends file libatomic1 docker-cli/);
+assert.match(dockerfile, /apt-get install --assume-yes --no-install-recommends file libatomic1\n/);
 assert.match(dockerfile, /COPY releases\/ucs-migration \/opt\/ucs-migration/);
 assert.match(dockerfile, /USER wekan/);
 assert.match(dockerfile, /CMD \["bash", "\/build\/wekan-entrypoint.sh"\]/);

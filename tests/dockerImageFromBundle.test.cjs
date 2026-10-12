@@ -85,8 +85,8 @@ test('stage 2, the emulated one, does only what needs the target CPU', () => {
   const s = code(stage2);
   const runs = [...s.matchAll(/^RUN /gm)].length;
   assert.strictEqual(runs, 2, 'one RUN for user + packages, one chmod');
-  assert.ok(/apt-get install --assume-yes --no-install-recommends file libatomic1 docker-cli\n/.test(s),
-    'exactly the three runtime packages');
+  assert.ok(/apt-get install --assume-yes --no-install-recommends file libatomic1\n/.test(s),
+    'exactly the two runtime packages - no docker-cli, whose Go stdlib filled the image scan');
   assert.ok(!/wget|curl|unzip|python3/.test(s), 'nothing downloaded or checked here: that is stage 1');
 });
 
