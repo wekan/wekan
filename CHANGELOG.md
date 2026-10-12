@@ -526,10 +526,10 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** **Bun** builds preserve Android settings and bound native checks
-that could stall FreeBSD jobs. **Release packaging** detects existing AppImage
-source bundles reliably and reports chart gaps without guessing API pages.
-Expected smoke-test errors no longer mark successful builds as broken.
+**In short:** **Bun** build fixes restore Android build settings and prevent
+native checks from hanging indefinitely. **AppImage** packaging recognizes
+available source bundles, and the **Helm chart** report follows GitHub's
+pagination. Successful smoke tests no longer produce misleading CI errors.
 
 This release fixes the following build bugs:
 
@@ -555,13 +555,26 @@ the available GitHub token and follows pagination links instead of guessing
 pages; its pipeline now preserves a failed planner status. Expected database
 errors and negative Mac smoke fixtures no longer emit CI error annotations.
 
-Eleven targeted Node suites and workflow validation pass. Offline fixtures
-cover the Termux environment reset, Sharp build setup and compiler failures,
-hung addons, present/missing assets, API failures and chart pagination. A real
-Linux Bun bundle passes native password/image operations and the startup
-smoke gate. Android and FreeBSD builds require their CI environments; native
-macOS archive validation is skipped on Linux. These changes affect build
-infrastructure, with no application UI change requiring a browser test.
+Regression coverage exercises the failing boundaries directly:
+
+- `tests/buildLogFixes.test.cjs` reproduces Termux's environment reset,
+  checks complete AppImage asset responses and API failures, and terminates
+  hung addon probes without accepting failed native checks.
+- `tests/bunSharpSourceBuild.test.cjs` installs build headers from offline
+  fixtures, removes stale native output and preserves compiler failures.
+- `tests/backfill-charts-pagination.py` runs the actual chart planner against
+  paginated responses, including more than nineteen pages, API errors and
+  an unexpected pagination host.
+- `tests/bunRelease.test.cjs` and `tests/macAppPackaging.test.cjs` verify that
+  expected smoke failures do not annotate successful CI jobs as errors,
+  while real failures retain their diagnostics.
+
+Eleven targeted Node suites, six changelog suites, shell syntax checks and
+workflow validation pass. A real Linux Bun bundle passes bcrypt and argon2
+password checks, a Sharp image operation and the startup smoke gate.
+Android and FreeBSD builds still require their CI environments; native
+macOS archive validation is skipped on Linux. These are build-infrastructure
+changes, with no application UI change requiring a browser test.
 
 </details>
 
