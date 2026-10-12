@@ -233,6 +233,9 @@ const myCommand :Spk.Manifest.Command = (
   argv = ["/sandstorm-http-bridge", "4000", "--", "node", "start-memory.js"],
   environ = [
     # Note that this defines the *entire* environment seen by your app.
+    # Lightweight startup markers. Enable METEOR_PROFILE only for diagnostics:
+    # its hook stack traces force expensive source-map processing at startup.
+    (key = "WEKAN_STARTUP_TIMING", value = "1"),
     #---------------------------------------------------------------------
     # https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132
     # Add more Node heap:

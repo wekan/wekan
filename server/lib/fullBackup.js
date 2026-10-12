@@ -11,7 +11,6 @@ const { pipeline } = require('node:stream/promises');
 // Use the same BSON implementation as the database driver, including Meteor's
 // separately bundled driver. BSON objects from different major versions cannot mix.
 function createBackupTools(EJSON) {
-const unzipper = require('unzipper');
 
 const FORMAT = 'wekan-instance-backup';
 const VERSION = 2;
@@ -159,6 +158,7 @@ async function readManifest(entry) {
   return EJSON.parse(Buffer.concat(parts).toString());
 }
 async function inspectInstanceBackup(zipPath) {
+  const unzipper = require('unzipper');
   const zip = await unzipper.Open.file(zipPath);
   if (!zip.files.some(entry => entry.path === MANIFEST)) return null;
   const entries = new Map();

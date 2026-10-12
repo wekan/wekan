@@ -1,6 +1,5 @@
 import { SyncedCron } from 'meteor/quave:synced-cron';
 import { DDP } from 'meteor/ddp';
-import limax from 'limax';
 import LDAP from './ldap';
 import { slugifyPreservingHyphens } from './usernameSlug';
 import { parseGroupAllowlist, filterGroupsByAllowlist } from './groupAllowlist';
@@ -33,6 +32,8 @@ export function slug(text) {
   if (LDAP.settings_get('LDAP_UTF8_NAMES_SLUGIFY') !== true) {
     return text;
   }
+  // Transliteration dictionaries are needed only when slugification is enabled.
+  const limax = require('limax');
   // #4653: slugify each hyphen-separated segment and rejoin with '-' so a
   // username like "p.parta-partb" is NOT collapsed to "p.parta.partb" (limax's
   // '.' separator would otherwise swallow the hyphen and break login).

@@ -11,7 +11,6 @@
 // into Meteor's accounts system. See ../LICENSE and
 // docs/Features/Login/SAML.md.
 
-import { SAML } from '@node-saml/node-saml';
 import { createResponseReplayGuard } from './responseReplay';
 import { samlIdentity, samlIdentitySelector, samlEmailVerified } from './identity';
 import bodyParser from 'body-parser';
@@ -55,6 +54,8 @@ async function getSaml() {
   const publicCert = readFileSetting(config.publicCertFile);
   const provider = config.provider || 'default';
 
+  // Load the XML/signature implementation only when configured SAML is used.
+  const { SAML } = require('@node-saml/node-saml');
   _samlInstance = new SAML({
     entryPoint: config.entryPoint,
     issuer: config.issuer,

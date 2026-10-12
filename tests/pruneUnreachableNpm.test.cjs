@@ -174,22 +174,6 @@ test('a package linked the METEOR way counts as reached', dir => {
   }
 });
 
-test('the scanner reads all four forms, and says so where it is written', () => {
-  // The regex is the whole safety of this tool: whatever it cannot see, it calls
-  // dead. Pinned by name so a future edit that drops one is a failing test rather
-  // than a crash-looping release.
-  // Matched as literal text, not as a pattern: what is in the file IS a regex,
-  // so `module\\.link` there carries a backslash, and testing it as a pattern
-  // asks the wrong question and passes for the wrong reason.
-  const src = fs.readFileSync(PRUNE, 'utf8');
-  const req = src.slice(src.indexOf('const REQ = new RegExp('),
-    src.indexOf('].map(r => r.source)'));
-  assert.ok(req.length > 100, 'could not find the scanner regex to check');
-  for (const form of ['require', 'module\\.link', 'module\\.watch', 'module\\.dynamicImport']) {
-    assert.ok(req.includes(form), `the scanner no longer looks for ${form}`);
-  }
-});
-
 test('--dry-run removes nothing but reports what it would', dir => {
   const bundle = makeBundle(dir, Object.assign(
     { 'programs/server/app/app.js': '// nothing' },
@@ -220,6 +204,75 @@ test('it refuses a directory that is not a Meteor bundle (negative)', dir => {
   fs.mkdirSync(notABundle);
   assert.throws(() => prune(notABundle), /Command failed/,
     'a wrong path must fail loudly, not delete something unexpected');
+});
+
+test('browser build inputs go only from the server dependency tree', dir => {
+  const names = ['blockly', 'meteor-node-stubs', '@wekan/office-open-xml-viewer'];
+  const bundle = makeBundle(dir, Object.assign(
+    { 'programs/server/app/app.js': '// no browser imports',
+      'programs/web.browser/app/client.js': 'const viewer = "keep these browser bytes";' },
+    ...names.map(name => pkg(name)),
+  ));
+  const report = path.join(dir, 'report.json');
+  prune(bundle, ['--dry-run', '--report-json', report]);
+  for (const name of names) assert.ok(has(bundle, `${NM}/${name}`));
+  const rows = JSON.parse(fs.readFileSync(report));
+  assert.equal(rows.filter(row => row.action === 'remove').length, 3);
+  prune(bundle);
+  for (const name of names) assert.ok(!has(bundle, `${NM}/${name}`));
+  assert.equal(fs.readFileSync(path.join(bundle, 'programs/web.browser/app/client.js'), 'utf8'),
+    'const viewer = "keep these browser bytes";');
+});
+
+test('aliased, deferred and virtual-path references veto browser package removal', dir => {
+  const references = ['const load = () => r("blockly/core");',
+    'const load = () => import("blockly/core");',
+    'module.link("/node_modules/blockly/core.js", {});',
+    'import Blockly from "blockly/core";'];
+  for (const source of references) {
+    const bundle = makeBundle(dir, Object.assign(
+      { 'programs/server/app/lazy-chunk.js': source }, pkg('blockly')));
+    prune(bundle);
+    assert.ok(has(bundle, `${NM}/blockly`), source);
+  }
+});
+
+test('runtime, optional and peer dependency metadata retains computed loads', dir => {
+  const bundle = makeBundle(dir, Object.assign(
+    { 'programs/server/app/app.js': 'load("native-loader");' },
+    pkg('native-loader'), pkg('blockly'), pkg('meteor-node-stubs'), pkg('@wekan/office-open-xml-viewer'),
+    { [`${NM}/native-loader/package.json`]: JSON.stringify({ name: 'native-loader',
+      dependencies: { blockly: '1' }, optionalDependencies: { 'meteor-node-stubs': '1' },
+      peerDependencies: { '@wekan/office-open-xml-viewer': '1' }, devDependencies: { typescript: '1' } }) },
+    pkg('typescript'),
+  ));
+  const report = path.join(dir, 'report.json');
+  prune(bundle, ['--report-json', report]);
+  for (const name of ['blockly', 'meteor-node-stubs', '@wekan/office-open-xml-viewer']) {
+    assert.ok(has(bundle, `${NM}/${name}`));
+    const row = JSON.parse(fs.readFileSync(report)).find(row => row.package === name);
+    assert.ok(row.reasons.some(reason => reason.includes('runtime dependency')));
+  }
+  assert.ok(!has(bundle, `${NM}/typescript`));
+});
+
+test('only unused client polyfill copies go; server Core-JS and future imports survive', dir => {
+  const paths = ['url', 'ecmascript-runtime-client', 'ecmascript-runtime-server'];
+  const files = { 'programs/server/app/app.js': '// no polyfills' };
+  for (const name of paths) {
+    files[`${NM}/meteor/${name}/node_modules/core-js/package.json`] = '{"name":"core-js"}';
+    files[`${NM}/meteor/${name}/node_modules/core-js/index.js`] = '// polyfill';
+    files[`programs/server/packages/${name}.js`] = '// browser versions only';
+  }
+  const bundle = makeBundle(dir, files);
+  prune(bundle);
+  assert.ok(!has(bundle, `${NM}/meteor/url/node_modules/core-js`));
+  assert.ok(!has(bundle, `${NM}/meteor/ecmascript-runtime-client/node_modules/core-js`));
+  assert.ok(has(bundle, `${NM}/meteor/ecmascript-runtime-server/node_modules/core-js`));
+  files['programs/server/packages/url.js'] = 'module.link("/node_modules/meteor/url/node_modules/core-js/modules/new-feature.js", {});';
+  makeBundle(dir, files);
+  prune(bundle);
+  assert.ok(has(bundle, `${NM}/meteor/url/node_modules/core-js`));
 });
 
 test('every policy entry states WHY, because the why is what gets re-checked', () => {

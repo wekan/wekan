@@ -139,6 +139,8 @@ echo "==> [6/7] Launcher + importer"
 cp -f "$REPO/sandstorm-src/start.js"                       "$DEPS/start.js"
 # start-memory.js, not .sh: the grain has no shell (see the file's header).
 cp -f "$REPO/sandstorm-src/start-memory.js"                "$DEPS/start-memory.js"
+cp -f "$REPO/sandstorm-src/startup-timing.js"              "$DEPS/startup-timing.js"
+cp -f "$REPO/sandstorm-src/wait-for-port.js"               "$DEPS/wait-for-port.js"
 rm -f "$DEPS/start-memory.sh"
 cp -f "$REPO/sandstorm-src/migration-bridge.js"            "$DEPS/migration-bridge.js"
 cp -f "$REPO/snap-src/bin/migrate-mongo3-to-ferretdb.mjs"  "$DEPS/migrate-mongo3-to-ferretdb.mjs"

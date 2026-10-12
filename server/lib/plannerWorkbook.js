@@ -1,6 +1,5 @@
 // Opens and writes Microsoft Planner's Excel workbook; what its rows mean is
 // models/lib/plannerFormat.js. Server only: ExcelJS is a server dependency.
-const ExcelJS = require('@wekanteam/exceljs');
 
 // The rows of the "Tasks" sheet (the first sheet when there is no "Tasks"), as
 // arrays of raw cell values, at their sheet positions: rows[0] is row 1 and an
@@ -9,6 +8,7 @@ const ExcelJS = require('@wekanteam/exceljs');
 // to String(date)'s local time.
 async function readPlannerWorkbook(excelBase64) {
   if (typeof excelBase64 !== 'string' || !excelBase64) throw new Error('Planner workbook is empty');
+  const ExcelJS = require('@wekanteam/exceljs');
   const workbook = new ExcelJS.Workbook();
   await workbook.xlsx.load(Buffer.from(excelBase64, 'base64'));
   const sheet = workbook.getWorksheet('Tasks') || workbook.worksheets[0];
@@ -24,6 +24,7 @@ async function readPlannerWorkbook(excelBase64) {
 
 // A .xlsx Buffer from formatPlannerRows()'s { sheet, rows }.
 async function writePlannerWorkbook({ sheet, rows }) {
+  const ExcelJS = require('@wekanteam/exceljs');
   const workbook = new ExcelJS.Workbook();
   const worksheet = workbook.addWorksheet(sheet || 'Tasks');
   (rows || []).forEach(cells => worksheet.addRow(cells));

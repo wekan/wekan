@@ -14,7 +14,8 @@ class SamlStub {
   async getLogoutUrlAsync(profile) { assert.equal(profile.nameID, 'subject'); return 'https://idp.example/logout?signed=request'; }
 }
 vm.runInNewContext(source, {
-  SAML: SamlStub, URL, console,
+  require(name) { assert.equal(name, '@node-saml/node-saml'); return { SAML: SamlStub }; },
+  URL, console,
   ...require('../packages/wekan-accounts-saml/responseReplay'),
   bodyParser: { urlencoded: () => (_req, _res, next) => next() },
   ServiceConfiguration: { configurations: { findOneAsync: async () => config } },

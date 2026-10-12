@@ -1,7 +1,6 @@
 // Opens and writes Teamwork.com's Excel task import template; what its rows
 // mean is models/lib/teamworkFormat.js. Server only: ExcelJS is a server
 // dependency.
-const ExcelJS = require('@wekanteam/exceljs');
 
 // The first sheet as { name, rows }: rows at their sheet positions (rows[0] is
 // row 1, an empty row is []), so a reported row number is the one Excel
@@ -14,6 +13,7 @@ async function readTeamworkWorkbook(excelBase64) {
   if (buffer.length >= 4 && buffer.readUInt32BE(0) === 0xd0cf11e0) {
     throw new Error('Teamwork.com workbook is an .xls file; save it as .xlsx and import that');
   }
+  const ExcelJS = require('@wekanteam/exceljs');
   const workbook = new ExcelJS.Workbook();
   await workbook.xlsx.load(buffer);
   const sheet = workbook.worksheets[0];
@@ -29,6 +29,7 @@ async function readTeamworkWorkbook(excelBase64) {
 
 // A .xlsx Buffer from formatTeamworkSheet()'s { name, rows }.
 async function writeTeamworkWorkbook({ name, rows }) {
+  const ExcelJS = require('@wekanteam/exceljs');
   const workbook = new ExcelJS.Workbook();
   const title = String(name || 'Tasks').replace(/[\\/?*[\]:]/g, ' ').trim().slice(0, 31) || 'Tasks';
   const worksheet = workbook.addWorksheet(title);

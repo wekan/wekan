@@ -1,6 +1,10 @@
-import Excel from '@wekanteam/exceljs';
+import loadExcel from './loadExcel.js';
+
+// Load ZIP/Excel dependencies only when an export needs them. In particular,
+// Bluebird's initialization otherwise forces expensive source-map processing.
 
 export const createWorkbook = function() {
+  const Excel = loadExcel();
   return new Excel.Workbook();
 };
 
@@ -34,6 +38,7 @@ export const createWorkbook = function() {
 // addImage, so WorkbookWriter._addDrawing marks an exceljs that streams with
 // archiver 8 - and one that can stream images.
 function forkStreamsImages() {
+  const Excel = loadExcel();
   return typeof Excel.stream.xlsx.WorkbookWriter.prototype._addDrawing === 'function';
 }
 
@@ -53,6 +58,7 @@ function streamingWriterWorks() {
 // bounded memory is what is lost, not the export.
 class BufferedWorkbookWriter {
   constructor(stream) {
+    const Excel = loadExcel();
     this._stream = stream;
     this._workbook = new Excel.Workbook();
   }
@@ -111,6 +117,7 @@ class BufferedWorkbookWriter {
 // export, and the board export drawn in the card layout): an older exceljs has
 // no addImage on a streaming worksheet, so there it is the buffered stand-in.
 export const createWorkbookWriter = function(stream, options = {}) {
+  const Excel = loadExcel();
   if (!streamingWriterWorks() || (options.images && !forkStreamsImages())) {
     return new BufferedWorkbookWriter(stream);
   }
@@ -125,5 +132,7 @@ export const streamingExcelAvailable = streamingWriterWorks;
 
 // Does this workbook take an image as { stream }, read when it is written? The
 // streaming writer of the fork does; an in-memory workbook needs the bytes.
-export const workbookStreamsImages = workbook =>
-  workbook instanceof Excel.stream.xlsx.WorkbookWriter && forkStreamsImages();
+export const workbookStreamsImages = workbook => {
+  const Excel = loadExcel();
+  return workbook instanceof Excel.stream.xlsx.WorkbookWriter && forkStreamsImages();
+};

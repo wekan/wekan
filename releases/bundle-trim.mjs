@@ -39,6 +39,8 @@
 //  2. Source maps - 4766 files, 188 MB, over a fifth of the bundle. They exist
 //     for a debugger attached to the process. A packed app has none, and a
 //     missing .map degrades a stack trace at worst; nothing fails to load.
+//     Inline server maps are preserved separately as lazy runtime sidecars,
+//     avoiding their base64 text in the startup script without losing mappings.
 //
 //  3. prebuildify prebuilds - `--trim-prebuilds`. bcrypt and argon2 (Meteor's
 //     accounts-password) each ship a prebuilds/<platform>-<arch>/ directory per
@@ -68,7 +70,8 @@ import {
   readdirSync, statSync, unlinkSync, existsSync, rmSync, readFileSync, writeFileSync,
   chmodSync,
 } from 'fs';
-import { join, basename, dirname } from 'path';
+import { join, basename, dirname, sep } from 'path';
+import { externalizeServerSourceMaps } from './externalize-server-source-maps.mjs';
 
 const argv = process.argv.slice(2);
 const bundle = argv.find(a => !a.startsWith('--'));
@@ -95,6 +98,7 @@ const arch = value('arch', 'x64');
 // Walk once, collecting both kinds of victim, so a bundle of this size is read
 // from disk a single time.
 const maps = [];
+const declarations = [];
 const uwsDirs = new Set();
 const prebuildDirs = new Set();
 function walk(dir) {
@@ -107,6 +111,9 @@ function walk(dir) {
       if (e.name === 'uWebSockets.js') uwsDirs.add(p);
       if (e.name === 'prebuilds') prebuildDirs.add(p);
       walk(p);
+    } else if (e.isFile() && /\.d\.(?:ts|mts|cts)$/.test(e.name)
+      && p.startsWith(join(bundle, 'programs', 'server') + sep) && p.split(sep).includes('node_modules')) {
+      declarations.push(p);
     } else if (e.isFile() && e.name.endsWith('.map')) {
       maps.push(p);
     }
@@ -249,6 +256,13 @@ if (flag('trim-prebuilds')) {
   }
 }
 
+// Type declarations are compiler inputs, not executable TypeScript. Keep .ts,
+// .mts and .cts implementations (Node can execute those), runtime data, and
+// declarations outside the server dependency trees. This also reduces the
+// number of filesystem entries Sandstorm must create while installing an SPK.
+for (const file of declarations) drop(file);
+console.log(`bundle-trim: removed ${declarations.length} server dependency declaration files`);
+
 // 2. Source maps.
 //
 // A NAMED map is not optional. boot.js reads every map listed in
@@ -277,6 +291,11 @@ if (!flag('keep-maps')) {
     });
   }
 }
+
+// Retain previously-inline server maps as lazy sidecars, even when dropping
+// ordinary build maps. This preserves the existing mapped-error behavior.
+const externalMaps = externalizeServerSourceMaps(bundle);
+console.log(`bundle-trim: externalized ${externalMaps.count} inline server map(s), removed ${Math.round(externalMaps.removedBytes / 1048576)} MiB from startup scripts`);
 
 // 3. The legacy client bundle - a whole second copy of the client, built for
 //    browsers without modern JS. 83 MiB.

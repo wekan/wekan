@@ -55,7 +55,7 @@ test('the server never reimplements XML signature verification itself', () => {
   // The only place XML/signature-shaped work may appear is via the imported
   // SAML class from @node-saml/node-saml; this file must not contain its own
   // XML parsing or signature-verification logic.
-  assert.match(samlServer, /import \{ SAML \} from '@node-saml\/node-saml';/);
+  assert.match(samlServer, /const \{ SAML \} = require\('@node-saml\/node-saml'\);/);
   for (const forbidden of [/xml2js/, /xml-crypto/, /xmldom/, /createVerify\(/, /X509Certificate/]) {
     assert.doesNotMatch(samlServer, forbidden,
       `saml_server.js must not hand-roll XML/signature handling (${forbidden})`);

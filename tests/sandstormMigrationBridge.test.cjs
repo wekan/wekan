@@ -70,7 +70,7 @@ test('the bridge yields the app port around the importer, and is released for Me
   // awaits every startup hook before it listens, and killing the bridge first
   // left the port empty all that time (NS_ERROR_NET_EMPTY_RESPONSE).
   // tests/sandstormPortHandoff.test.cjs runs the handoff for real.
-  const iRequire = src.indexOf("    require('./main.js');");
+  const iRequire = src.indexOf("require('./main.js');");
   const iYield   = src.lastIndexOf('yieldPortOnListen();', iRequire);
   assert.ok(iYield > iHandoff && iYield < iRequire, 'bridge hands the port over when Meteor binds it');
 });

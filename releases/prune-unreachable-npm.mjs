@@ -4,7 +4,7 @@
 // Remove packages from a built bundle's programs/server/npm/node_modules that
 // no require() from the server can reach.
 //
-// Usage: node releases/prune-unreachable-npm.mjs <bundle-dir> [--dry-run]
+// Usage: node releases/prune-unreachable-npm.mjs <bundle-dir> [--dry-run] [--report-json <file>]
 //
 // WHY THIS TREE IS BIG
 //
@@ -30,7 +30,8 @@
 //
 // The reachable set is computed from the bundle every run, and it is
 // deliberately OVER-approximated: once a package is reached, every file in it is
-// scanned and every require() string literal counts. Then deletion is restricted
+// scanned and every quoted package specifier and declared runtime dependency
+// counts. Then deletion is restricted
 // to an explicit POLICY list - a name is removed only if the policy names it AND
 // the graph says nothing reaches it. So the policy cannot outlive its own
 // justification: if a future WeKan really does require `typescript`, the graph
@@ -45,15 +46,21 @@
 // provable rather than merely plausible - the same standard the uWebSockets.js
 // removal met. The rest stays until someone can say as much about it.
 
-import { readdirSync, readFileSync, statSync, existsSync, rmSync } from 'fs';
-import { join, dirname, basename } from 'path';
+import { readdirSync, readFileSync, statSync, existsSync, rmSync, writeFileSync } from 'fs';
+import { join, dirname, basename, resolve } from 'path';
 
 const argv = process.argv.slice(2);
-const bundle = argv.find(a => !a.startsWith('--'));
+const bundleArg = argv[0];
+const bundle = bundleArg && !bundleArg.startsWith('--') ? resolve(bundleArg) : null;
+const reportAt = argv.indexOf('--report-json');
+const reportFile = reportAt >= 0 ? argv[reportAt + 1] : null;
+if (reportAt >= 0 && (!reportFile || reportFile.startsWith('--'))) {
+  throw new Error('--report-json requires an output filename');
+}
 const dryRun = argv.includes('--dry-run');
 
 if (!bundle) {
-  console.error('usage: node releases/prune-unreachable-npm.mjs <bundle-dir> [--dry-run]');
+  console.error('usage: node releases/prune-unreachable-npm.mjs <bundle-dir> [--dry-run] [--report-json <file>]');
   process.exit(2);
 }
 const SERVER = join(bundle, 'programs', 'server');
@@ -72,6 +79,20 @@ if (!existsSync(NPM)) {
 // Each entry says WHY, because the why is what a later reader has to re-check.
 // `test` gets the package directory and returns true if this entry claims it.
 const POLICY = [
+  {
+    why: 'client polyfill copies in Meteor url and ecmascript-runtime-client. '
+      + 'Their server modules use Node URL and register browser versions only. '
+      + 'The ecmascript-runtime-server copy is deliberately not in this policy.',
+    test: dir => ['url', 'ecmascript-runtime-client'].some(name =>
+      dir === join(NPM, 'meteor', name, 'node_modules', 'core-js')),
+  },
+  {
+    why: 'browser-only build inputs. Blockly and the Office viewer are imported '
+      + 'only by client code; meteor-node-stubs supplies browser polyfills. '
+      + 'Their compiled browser chunks ship separately in programs/web.browser.',
+    test: dir => ['blockly', 'meteor-node-stubs'].includes(basename(dir))
+      || (basename(dir) === 'office-open-xml-viewer' && basename(dirname(dir)) === '@wekan'),
+  },
   {
     why: 'a TypeScript compiler. A devDependency of 196 packages in this tree '
       + '(the @aws-sdk family) and a runtime dependency of none.',
@@ -118,13 +139,12 @@ const CODE = /\.(js|cjs|mjs)$/;
 //
 // Scanning only for require() therefore missed every ESM import in every Meteor
 // package, which is most of them, and reported packages as unreachable that the
-// server links on its first tick. All four forms below are counted now.
-const REQ = new RegExp([
-  /(?:^|[^.\w])(?:Npm\.)?require\s*\(\s*['"]([^'"\n]+)['"]\s*\)/,   // require('x')
-  /module\.link\s*\(\s*['"]([^'"\n]+)['"]/,                          // ESM import
-  /module\.watch\s*\(\s*require\s*\(\s*['"]([^'"\n]+)['"]/,          // watched require
-  /module\.dynamicImport\s*\(\s*['"]([^'"\n]+)['"]/,                  // await import()
-].map(r => r.source).join('|'), 'g');
+// server links on its first tick. Each form contains a quoted specifier.
+// Count every quoted package specifier, including minified require aliases,
+// createRequire(...)("sharp"), native import(), and Meteor's virtual paths.
+// This intentionally over-approximates: an ordinary string can retain a package,
+// but a renamed loader must never make a runtime dependency disappear.
+const SPECIFIER = /["']((?:\/node_modules\/)?(?:@[a-zA-Z0-9_.-]+\/)?[a-zA-Z0-9_.-]+(?:\/[a-zA-Z0-9_./-]+)*)["']/g;
 
 function filesOf(dir, out = []) {
   let ents;
@@ -142,6 +162,7 @@ function filesOf(dir, out = []) {
 // "@scope/name/sub" -> "@scope/name". Node builtins, relative paths and Meteor's
 // virtual `meteor/<package>` modules are not npm packages.
 function packageOf(spec) {
+  if (spec?.startsWith('/node_modules/')) spec = spec.slice('/node_modules/'.length);
   if (!spec || spec.startsWith('.') || spec.startsWith('/')) return null;
   if (spec.startsWith('node:')) return null;
   if (spec === 'meteor' || spec.startsWith('meteor/')) return null;
@@ -167,24 +188,33 @@ function resolvePackage(name, from) {
 
 const reached = new Set();
 const queue = [];
+const reasons = new Map();
+function retain(dir, reason) {
+  if (!dir) return;
+  if (!reasons.has(dir)) reasons.set(dir, new Set());
+  reasons.get(dir).add(reason);
+  if (!reached.has(dir)) { reached.add(dir); queue.push(dir); }
+}
 
 function scanFile(file, from) {
   let src;
   try { src = readFileSync(file, 'utf8'); } catch { return; }
-  for (const m of src.matchAll(REQ)) {
-    const name = packageOf(m[1] || m[2] || m[3] || m[4]);
+  for (const m of src.matchAll(SPECIFIER)) {
+    const nested = /^(?:\/node_modules\/)?meteor\/([^/]+)\/node_modules\/(.+)$/.exec(m[1]);
+    const name = packageOf(nested ? nested[2] : m[1]);
     if (!name) continue;
-    const dir = resolvePackage(name, from);
-    if (dir && !reached.has(dir)) { reached.add(dir); queue.push(dir); }
+    const dir = resolvePackage(name, nested ? join(NPM, 'meteor', nested[1]) : from);
+    retain(dir, `specifier ${m[1]} in ${file.slice(SERVER.length + 1)}`);
   }
 }
 
 // Roots: what the server actually loads.
 const roots = [];
-for (const f of ['boot.js', 'main.js', join('app', 'app.js')]) {
+for (const f of readdirSync(SERVER).filter(f => CODE.test(f))) {
   const p = join(SERVER, f);
   if (existsSync(p)) roots.push([p, SERVER]);
 }
+for (const file of filesOf(join(SERVER, 'app'))) roots.push([file, dirname(file)]);
 // Each packages/<name>.js is a Meteor package, and its Npm.require() resolves
 // first in npm/node_modules/meteor/<name>/node_modules.
 const packagesDir = join(SERVER, 'packages');
@@ -198,7 +228,16 @@ if (existsSync(packagesDir)) {
 for (const [file, from] of roots) scanFile(file, from);
 while (queue.length) {
   const dir = queue.shift();
-  for (const f of filesOf(dir)) scanFile(f, dir);
+  // Runtime metadata covers computed imports, notably sharp's platform package
+  // and native addons. Keep optional dependencies too; never traverse devDeps.
+  const metadata = join(dir, 'package.json');
+  if (existsSync(metadata)) {
+    const pkg = JSON.parse(readFileSync(metadata, 'utf8'));
+    for (const name of Object.keys({ ...pkg.dependencies, ...pkg.optionalDependencies, ...pkg.peerDependencies })) {
+      retain(resolvePackage(name, dir), `runtime dependency of ${dir.slice(SERVER.length + 1)}`);
+    }
+  }
+  for (const f of filesOf(dir)) scanFile(f, dirname(f));
 }
 
 // ── Apply ────────────────────────────────────────────────────────────────────
@@ -253,6 +292,15 @@ for (const dir of all) {
     continue;
   }
   removals.push([dir, entry, sizeOf(dir)]);
+}
+
+if (reportFile) {
+  const report = all.map(dir => ({
+    package: rel(dir), bytes: sizeOf(dir),
+    action: reached.has(dir) ? 'keep-referenced' : POLICY.some(e => e.test(dir)) ? 'remove' : 'keep-unreviewed',
+    reasons: [...(reasons.get(dir) || [])],
+  })).sort((a, b) => b.bytes - a.bytes);
+  writeFileSync(reportFile, JSON.stringify(report, null, 2) + '\n');
 }
 
 for (const [dir, entry] of refused) {

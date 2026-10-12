@@ -30,6 +30,8 @@
 // starts, so start.js runs as a child with NODE_OPTIONS set, which the bridge,
 // FerretDB-importer and every other node child of start.js inherit as well.
 
+const markStartup = require('./startup-timing')('memory-wrapper', true);
+markStartup('entry');
 const { spawn } = require('child_process');
 const fs = require('fs');
 const os = require('os');
@@ -60,6 +62,7 @@ if (!options.some((o) => /^--(no-)?(experimental-)?webstorage$|^--localstorage-f
 }
 env.NODE_OPTIONS = options.join(' ');
 
+markStartup('launcher-spawn');
 const child = spawn(process.execPath, [path.join(__dirname, 'start.js')],
   { stdio: 'inherit', env });
 for (const sig of ['SIGTERM', 'SIGINT', 'SIGHUP']) {

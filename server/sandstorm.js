@@ -25,6 +25,13 @@ const isSandstorm = Meteor.settings?.public?.sandstorm;
 if (isSandstorm) {
   const fs = require('fs');
 
+  // A waiting-page request may reconnect after the launcher has released its
+  // port. The app only accepts HTTP after Meteor's startup hooks finish.
+  WebApp.rawHandlers.use('/.sandstorm-startup-ready', (req, res) => {
+    res.writeHead(204, { 'Cache-Control': 'no-store' });
+    res.end();
+  });
+
   // sandstorm-http-bridge historically advertises "Accept-Encoding: gzip" to the
   // app regardless of what the browser actually sent, so Meteor serves gzip/brotli
   // -encoded responses that the browser then fails to decode — the grain loads but

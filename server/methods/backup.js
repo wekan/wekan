@@ -16,7 +16,6 @@ import { isCloudConfigured } from '/models/lib/cloudStorage';
 const { appendInstanceBackup, inspectInstanceBackup, restoreInstanceBackup } =
   require('/server/lib/fullBackup').createBackupTools(MongoInternals.NpmModule.BSON.EJSON);
 import { ZipArchive } from 'archiver';
-import unzipper from 'unzipper';
 const { filesRootFrom, scheduleText, safeEntryPath, symlinkOnRestorePath, safeCollectionName, validateBackupOptions, validateBackupSchedule } =
   require('/models/lib/backupPaths');
 // Multitenancy option D (docs/Design/Multitenancy/Multitenancy.md, D.8): backing up
@@ -319,6 +318,7 @@ async function doRestore(zipPath, mode, orgId = null) {
     }
     // unzipper.Open reads the central directory, then streams each entry on
     // demand — a 5 GB attachment is piped straight to disk, never buffered.
+    const unzipper = require('unzipper');
     const directory = await unzipper.Open.file(zipPath);
     // ZipBleed: entries refused for naming a path outside the directory they belong
     // in, or a collection WeKan does not write. Collected and reported at the end

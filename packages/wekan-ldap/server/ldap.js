@@ -1,4 +1,3 @@
-import { Client } from 'ldapts';
 import { Log } from 'meteor/logging';
 // #6548: details go through the LDAP logger, which prints when LDAP_LOG_ENABLED
 // is true and redacts secrets. Meteor's debug level never prints in production,
@@ -229,6 +228,8 @@ export default class LDAP {
 
     log_debug('clientOptions', clientOptions);
 
+    // Registering LDAP accounts does not require loading the LDAP client.
+    const { Client } = require('ldapts');
     this.client = new Client(clientOptions);
 
     if (this.options.encryption === 'starttls') {

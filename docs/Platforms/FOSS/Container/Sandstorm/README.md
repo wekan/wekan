@@ -1,4 +1,5 @@
 - At some cases [Hardened kernel may prevent creating new Wekan boards at Sandstorm](https://github.com/wekan/wekan/issues/1398)
+- [Profile server startup locally using the Sandstorm launchers](Startup-Profiling.md).
 
 ## 1. Backup Sandstorm
 
@@ -23,8 +24,10 @@ Migrating old MongoDB 3 data
 - If there is old WeKan data, it is automatically migrated when opening old WeKan grain.
   Attachments are migrated from MongoDB to files/attachments.
   Text data is migrated from MongoDB to SQLite at files/db/wekan.sqlite .
-- During migration and startup the grain now shows a "please wait" page that refreshes
-  automatically and opens WeKan as soon as it is ready. Previously, while nothing was
+- During startup the grain shows a "please wait" page with a held-open readiness
+  request. The launcher releases that request once WeKan is listening, and the page
+  immediately opens WeKan. Migration dashboards still update their progress separately.
+  Previously, while nothing was
   listening on the grain's app port, the browser showed an error that the page can not
   be opened embedded in another page, and you had to close the grain and open it again;
   a small bridge server on the app port (`sandstorm-src/migration-bridge.js`, run by the
