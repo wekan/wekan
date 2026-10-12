@@ -524,7 +524,7 @@ used.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.35 2026-10-12 WeKan ® release
 
 **In short:** The **Windows 32-bit** and **Windows ARM64** bundles build again,
 and four **GitHub CodeQL** alerts are fixed, among them a pattern that could
