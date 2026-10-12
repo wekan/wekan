@@ -110,7 +110,9 @@ jobs:
           DO_NOT_TRACK: '1'
         run: |
           export TMPDIR="$PWD/.tools/tmp"
-          meteor npm ci
+          # Rspack and its native compiler are devDependencies needed to build.
+          meteor npm ci --include=dev --include=optional
+          test -s node_modules/@meteorjs/rspack/rspack.config.js
           meteor build ../esm-output --directory --server-only --format=esm
           test -s ../esm-output/bundle/index.mjs
           git rev-parse HEAD > ../esm-output/bundle/wekan-commit.txt

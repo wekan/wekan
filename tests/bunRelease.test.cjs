@@ -76,3 +76,52 @@ if (process.platform !== 'win32') {
   }
 }
 console.log('Bun smoke positive/negative process tests passed.');
+
+// Exercise the workflow's actual npm flags with offline local packages. A
+// production-configured runner must still install its dev and optional tools.
+const dependencyTmp = fs.mkdtempSync(path.join(root, '.tools/tmp/bun-build-deps-'));
+try {
+  const write = (file, value) => {
+    const dest = path.join(dependencyTmp, file);
+    fs.mkdirSync(path.dirname(dest), { recursive: true });
+    fs.writeFileSync(dest, JSON.stringify(value));
+  };
+  for (const name of ['build-tool', 'native-tool']) {
+    write(`${name}/package.json`, { name, version: '1.0.0' });
+  }
+  write('package.json', {
+    name: 'bun-build-deps-test', version: '1.0.0',
+    devDependencies: { 'build-tool': 'file:build-tool' },
+    optionalDependencies: { 'native-tool': 'file:native-tool' },
+  });
+  fs.writeFileSync(path.join(dependencyTmp, '.npmrc'), 'omit[]=dev\nomit[]=optional\ninstall-links=true\n');
+  const env = { ...process.env, NODE_ENV: 'production',
+    npm_config_cache: path.join(dependencyTmp, 'cache'),
+    PATH: path.dirname(process.execPath) + path.delimiter + process.env.PATH };
+  const npm = args => {
+    const result = spawnSync(process.platform === 'win32' ? 'npm.cmd' : 'npm',
+      [...args, '--offline', '--ignore-scripts', '--no-audit', '--no-fund'],
+      { cwd: dependencyTmp, env, encoding: 'utf8', shell: process.platform === 'win32' });
+    assert.equal(result.status, 0, result.error?.message || result.stdout + result.stderr);
+  };
+  npm(['install', '--package-lock-only']);
+  const lock = fs.readFileSync(path.join(dependencyTmp, 'package-lock.json'), 'utf8');
+  npm(['ci']);
+  for (const name of ['build-tool', 'native-tool']) {
+    assert(!fs.existsSync(path.join(dependencyTmp, 'node_modules', name)), 'control must omit tools');
+  }
+  const install = workflow.match(/^ +meteor npm (ci[^\n]*)$/m);
+  assert(install, 'ESM build must use a locked npm install');
+  npm(install[1].trim().split(/\s+/));
+  for (const name of ['build-tool', 'native-tool']) {
+    assert(fs.existsSync(path.join(dependencyTmp, 'node_modules', name, 'package.json')),
+      `ESM build omitted ${name}`);
+  }
+  assert.equal(fs.readFileSync(path.join(dependencyTmp, 'package-lock.json'), 'utf8'), lock);
+  const configCheck = 'test -s node_modules/@meteorjs/rspack/rspack.config.js';
+  assert(workflow.indexOf(configCheck) > workflow.indexOf(install[0]));
+  assert(workflow.indexOf(configCheck) < workflow.indexOf('meteor build ../esm-output'));
+} finally {
+  fs.rmSync(dependencyTmp, { recursive: true, force: true });
+}
+console.log('Bun build dependencies survive production npm settings; lockfile unchanged.');
