@@ -526,12 +526,91 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** **Bun** build fixes restore Android build settings and prevent
-native checks from hanging indefinitely. **AppImage** packaging recognizes
-available source bundles, and the **Helm chart** report follows GitHub's
-pagination. Successful smoke tests no longer produce misleading CI errors.
+**In short:** a **GitHub CodeQL** alert on HTML end-tag patterns is fixed.
+**SAML** says why it could not link an existing account and can find it by
+email; **private favorites** show in the header popup, and a dragged **list**
+shows clearly where it will land. **Bun** build fixes restore Android build
+settings and stop native checks hanging, and **AppImage** packaging and the
+**Helm chart** report find their release assets reliably.
 
-This release fixes the following build bugs:
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/715eb2b826">End-tag patterns also match tags that carry attributes</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+Alert 569: a test found a page's script with `<\/script\s*>`, but a browser
+also ends a script at `</script foo="bar">` - a parse error it still renders -
+so the pattern could miss the tag it was looking for. That test, the server
+input sanitizer's `<style>` pattern and one more test now use
+`<\/tag\b[^>]*>`. The sanitizer runs after sanitize-html has removed every tag,
+so its pattern was defence in depth rather than an open hole, and none of these
+is reachable as an attempt on a running WeKan, so nothing is recorded in Admin
+Panel → Problems. `tests/securityAlerts20261012.test.cjs` now fails on the
+loose end-tag shape for script, noscript, style, iframe, textarea and title
+anywhere in the tree, and checks that the fixed pattern finds an end tag with
+junk in it.
+
+</details>
+
+and fixes the following bugs:
+
+**SAML** - linking a SAML login to an existing account.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a9c75efe60">It says why an existing account could not be linked, and finds it by email</a>. Thanks to xet7.</summary>
+
+Linking a SAML login to an existing account, for example one provisioned by
+LDAP, refused with the same "SAML identity does not match this account" for
+every reason - merging off, account already bound, no email, no
+`email_verified=true`, email mismatch - and logged nothing. Each condition now
+writes its own reason to the server log, and a missing `email` or
+`email_verified` in the assertion is named on the sign-in page, because the fix
+is in the IdP. The refusal itself is unchanged and fails closed. With
+`SAML_MERGE_EXISTING_USERS=true`, a login name that IS the assertion's email
+(an email NameID, or `SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=email`) also finds the
+account by a verified email instead of trying to create a new user. The docs
+and compose files now describe `email_verified`, the matching rules, and that
+`SAML_ATTRIBUTES` is not used. `tests/samlIdentityBinding.test.cjs` drives the
+login handler through every refusal and the email lookup, including negative
+cases without merging, attestation or a verified local email. A live IdP was
+not available to test against.
+
+</details>
+
+**The header bar** - the Favorites popup.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bcf2305448">Private starred boards show in the Favorites popup</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+The `starredPublicBoards` publication sent only public and instance boards, so
+a user whose favorites were all private boards saw "Make a board favorite" in
+the popup. It now sends every starred board the user may see - public or
+instance, or an active membership, organization, team or domain share -
+through the same visibility builder as the other board publications, so a
+revoked share or stale star still never brings a private board back.
+`tests/publicBoardFavorites.test.cjs` covers the selector for private boards
+and that every relationship clause requires `isActive`. The popup in a running
+browser was not tested here.
+
+</details>
+
+**Board views** - dragging lists.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/205110e3a5">A dragged list shows clearly where it will land</a>. Thanks to mimZD and xet7.</summary>
+
+The drop placeholder has no `--list-width`, so none of the list width rules
+matched it, and it kept `flex-shrink: 1` with no content. In a swimlane wider
+than the window, flexbox shrank it to a thin shadow between two lists. It now
+never shrinks, all three list sortables give it the dragged list's width as
+`min-width`, and it is drawn as a tinted, dashed drop area.
+`tests/listDragPlaceholderVisible.test.cjs` pins the CSS and fails if any list
+sortable in `client/` leaves out the `min-width`. The browser drag itself was
+not run here.
+
+</details>
+
+and fixes the following build bugs:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/929e3051d46ca267246fff4819fc2e62de05563f">Repair target builds and release asset checks</a>. Thanks to xet7.</summary>
