@@ -296,10 +296,25 @@ body.mobile-mode [id^="swimlane-"] .list[style*="--list-width"]:not(.list-collap
 .list.ui-sortable-helper .list-header.ui-sortable-handle {
   cursor: grabbing;
 }
+/* #6763: where a dragged list will land must be as obvious as a card's drop
+   gap. The placeholder is a bare `.list` with no inline --list-width, so none
+   of the width rules above match it and it kept the flex default
+   `flex-shrink: 1` with no content to hold it open - in a swimlane already
+   wider than the window, flexbox shrank it to a few pixels and all that showed
+   was a thin shadow between two lists. It now never shrinks (the sortable's
+   start() also gives it the dragged list's width as min-width), and it is
+   drawn as a tinted, dashed drop area instead of a faint grey one. The outline
+   sits inside the box, so it neither changes the layout nor fights the mobile
+   rules that set this element's borders. */
 .list.placeholder {
-  background-color: rgba(0,0,0,0.2);
+  background-color: rgba(0,123,255,0.15);
   border-color: transparent;
   box-shadow: none;
+  outline: 3px dashed rgba(0,123,255,0.75);
+  outline-offset: -3px;
+  border-radius: 4px;
+  flex: none !important;
+  flex-shrink: 0 !important;
   height: 135px;
 }
 .list.list-collapsed {

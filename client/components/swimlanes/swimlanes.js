@@ -393,6 +393,7 @@ function initSortable(boardComponent, $listsDom) {
         ui.helper.css('z-index', 1000);
         ui.placeholder.height(ui.helper.height());
         ui.placeholder.width(ui.helper.width());
+        ui.placeholder.css('min-width', ui.helper.width()); // #6763
         EscapeActions.executeUpTo('popup-close');
         if (boardComponent) boardComponent.setIsDragging(true);
 
@@ -494,6 +495,7 @@ Template.swimlane.onRendered(function () {
           ui.helper.css('z-index', 1000);
           ui.placeholder.height(ui.helper.height());
           ui.placeholder.width(ui.helper.width());
+          ui.placeholder.css('min-width', ui.helper.width()); // #6763
           EscapeActions.executeUpTo('popup-close');
           if (boardComponent) boardComponent.setIsDragging(true);
           suspendBoardDragscroll(); // #6558
@@ -1128,6 +1130,7 @@ Template.listsGroup.onRendered(function () {
           ui.helper.css('z-index', 1000);
           ui.placeholder.height(ui.helper.height());
           ui.placeholder.width(ui.helper.width());
+          ui.placeholder.css('min-width', ui.helper.width()); // #6763
           EscapeActions.executeUpTo('popup-close');
           if (boardComponent) boardComponent.setIsDragging(true);
           suspendBoardDragscroll(); // #6558
