@@ -524,6 +524,49 @@ used.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **Bun** builds preserve Android settings and bound native checks
+that could stall FreeBSD jobs. **Release packaging** detects existing AppImage
+source bundles reliably and reports chart gaps without guessing API pages.
+Expected smoke-test errors no longer mark successful builds as broken.
+
+This release fixes the following build bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/929e3051d46ca267246fff4819fc2e62de05563f">Repair target builds and release asset checks</a>. Thanks to xet7.</summary>
+
+The v12.37 Android Bun jobs lost their target variables when Termux cleared
+Docker's environment. Pass them as command arguments after that boundary.
+Sharp has no Android prebuilt addon, so install Termux libvips and compile
+Sharp with its declared addon headers. Android users also need libvips at
+runtime, as documented in the bundle instructions.
+
+Both FreeBSD Bun jobs stalled after an addon dependency install. The following
+load probe had no deadline. It now exits explicitly after loading, terminates
+a stuck probe after 30 seconds, and falls back to source compilation. A Node
+supervisor bounds the final native operation checks to three minutes; failed
+checks still prevent packaging.
+
+The i386 bundle was already attached when its AppImage job reported it absent.
+Read the complete asset list before matching it, avoiding an early-closing
+pipe, and distinguish API errors from a missing asset. The chart report uses
+the available GitHub token and follows pagination links instead of guessing
+pages; its pipeline now preserves a failed planner status. Expected database
+errors and negative Mac smoke fixtures no longer emit CI error annotations.
+
+Eleven targeted Node suites and workflow validation pass. Offline fixtures
+cover the Termux environment reset, Sharp build setup and compiler failures,
+hung addons, present/missing assets, API failures and chart pagination. A real
+Linux Bun bundle passes native password/image operations and the startup
+smoke gate. Android and FreeBSD builds require their CI environments; native
+macOS archive validation is skipped on Linux. These changes affect build
+infrastructure, with no application UI change requiring a browser test.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.37 2026-10-12 WeKan ® release
 
 **In short:** **Bun** release builds explicitly install the compiler tools
