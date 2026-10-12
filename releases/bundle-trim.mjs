@@ -39,6 +39,8 @@
 //  2. Source maps - 4766 files, 188 MB, over a fifth of the bundle. They exist
 //     for a debugger attached to the process. A packed app has none, and a
 //     missing .map degrades a stack trace at worst; nothing fails to load.
+//     Inline server maps are preserved separately as lazy runtime sidecars,
+//     avoiding their base64 text in the startup script without losing mappings.
 //
 //  3. prebuildify prebuilds - `--trim-prebuilds`. bcrypt and argon2 (Meteor's
 //     accounts-password) each ship a prebuilds/<platform>-<arch>/ directory per
@@ -69,6 +71,7 @@ import {
   chmodSync,
 } from 'fs';
 import { join, basename, dirname } from 'path';
+import { externalizeServerSourceMaps } from './externalize-server-source-maps.mjs';
 
 const argv = process.argv.slice(2);
 const bundle = argv.find(a => !a.startsWith('--'));
@@ -277,6 +280,11 @@ if (!flag('keep-maps')) {
     });
   }
 }
+
+// Retain previously-inline server maps as lazy sidecars, even when dropping
+// ordinary build maps. This preserves the existing mapped-error behavior.
+const externalMaps = externalizeServerSourceMaps(bundle);
+console.log(`bundle-trim: externalized ${externalMaps.count} inline server map(s), removed ${Math.round(externalMaps.removedBytes / 1048576)} MiB from startup scripts`);
 
 // 3. The legacy client bundle - a whole second copy of the client, built for
 //    browsers without modern JS. 83 MiB.

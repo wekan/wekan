@@ -351,3 +351,33 @@ A real Rspack build using Meteor's eager import mode verifies no initial reads,
 only the requested language loaded, the expected import namespace and caching.
 The existing browser lazy-loading and Rspack overlay tests also pass. Browser
 automation was not run.
+
+### Lazy source-map files
+
+`bundle-trim.mjs` now extracts final inline server source-map directives into
+adjacent `*.runtime-source-map.json` files and leaves a relative
+`sourceMappingURL`. It does not add `sourceMap` entries to `program.json`, which
+Meteor would eagerly read and parse at boot. The stack-trace mapper loads the
+sidecar when needed. The decoded map, including source contents and positions,
+is retained unchanged, and script line numbers before the directive are unchanged.
+The distinct suffix survives repeat trimming. Client scripts are not modified.
+
+This extraction removed about 51 MiB of base64 comments from 81 production
+server scripts. Two sequential warm-cache comparisons on the same persisted
+test database, with detailed profiling disabled, measured:
+
+| Run | Inline maps | External maps |
+| --- | ---: | ---: |
+| First pair: HTTP listening | 1.250 s | 1.072 s |
+| Second pair: HTTP listening | 1.225 s | 1.003 s |
+| Second pair: initial Meteor require | 601 ms | 343 ms |
+
+The work of loading a map moves to the first mapped stack, rather than being
+paid by every startup. These are local production-payload measurements; actual
+grain timings and browser rendering remain separate measurements.
+
+`tests/serverSourceMapExternalization.test.cjs` verifies identical mapped error
+stacks before and after extraction against the packaged source-map-support,
+no sidecar read before stack formatting, read-only file mode preservation,
+idempotence, repeat trimming, invalid maps, and untouched client/external-map
+scripts. The existing bundle-trimming suite passes. Docker consumes the already-trimmed release bundle. No browser automation was run.
