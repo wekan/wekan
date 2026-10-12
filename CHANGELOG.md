@@ -524,6 +524,31 @@ used.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **Bun** release builds now pass the correct version to the
+installer, fixing the setup failure that prevented all platform builds
+from starting.
+
+This release fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f24448ebd11a4a49a334dc10f87f00846d84c41a">Bun setup accepts the selected runtime version</a>. Thanks to xet7.</summary>
+
+The v12.35 ESM job passed `bun-v1.4.3` to `oven-sh/setup-bun`, which rejected
+it as invalid semver before Meteor could build. The planner now emits a
+separate `1.4.3` installer version while keeping the full release tag for
+runtime downloads and provenance. All targets still use the same Bun release.
+
+Regression tests cover version conversion, rejected malformed and prerelease
+tags, and workflow wiring. Bun packaging and release attachment tests pass,
+as does workflow validation. The full GitHub Actions build was not rerun
+locally; this fixes the setup failure shown in the build log.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.35 2026-10-12 WeKan ® release
 
 **In short:** The **Windows 32-bit** and **Windows ARM64** bundles build again,
