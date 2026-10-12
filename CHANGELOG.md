@@ -530,7 +530,8 @@ used.
 Hub** are cut down to what has no fix yet. The image no longer carries
 **docker-cli** and its old Go, the bundled **FerretDB** and **MongoDB tools**
 are built with **Go 1.27.2**, and eight npm packages inside Meteor's own
-packages are raised to fixed releases.
+packages are raised to fixed releases. The **Android** and **FreeBSD** Bun
+builds are fixed, and the Docker job checks the bundle version again.
 
 This release fixes the following SECURITY ISSUES found by container image scanning:
 
@@ -589,6 +590,55 @@ liblzma5. WeKan bundles them from their next releases.
 None of these is an attempt anybody can make against a running WeKan - they
 are what the image is built from - so nothing is recorded in Admin Panel →
 Problems. The remaining Debian findings have no fixed package yet.
+
+and fixes the following build bugs:
+
+**Bun runtime bundles** - the per-target builds in bun.yml.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fb12ea42c8">Android and FreeBSD build, and windows-arm64 no longer shows a false error</a>. Thanks to xet7.</summary>
+
+Android: Termux's user does not own the bind-mounted bundle - the workflow
+makes it writable for everyone - so `chmod` on `npm-rebuild-args.js` failed
+with EPERM before a write that was allowed. A file is now chmodded only when
+it is not writable already. FreeBSD: the final Bun native check was killed at
+its three-minute deadline with no output, because its buffered console went
+with it. It now writes each step unbuffered and exits explicitly, and the
+supervisor tells a hung operation (a failure naming the step) from every
+check passing and Bun then hanging on exit, a known FreeBSD deadlock
+([oven-sh/bun#44595](https://github.com/oven-sh/bun/issues/44595)), which
+passes with a warning. windows-arm64 built, passed and attached its bundle,
+yet showed an error: the expected no-prebuilt-addon probe printed Bun's raw
+`error:` line, which GitHub turns into an annotation; it is one plain line
+now. `tests/bunTargetBuildFailures.test.cjs` covers each case, and the real
+check passes under Bun 1.4.3 on Linux. Android and FreeBSD need their CI
+runners to confirm.
+
+</details>
+
+**Release checks** - what the release workflow verifies and reports.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/163ebf260a">The Docker job checks the bundle version again</a>. Thanks to xet7.</summary>
+
+The check looked for `"name":"wekan"` in `app.js`, but rspack keeps only the
+`version` field the server reads, so every release skipped it with a warning.
+It now also reads the one v-prefixed version-only module, and still only warns
+when that is absent or ambiguous. A cancelled snap-launchpad job no longer
+says it ran out of time: the v12.38 jobs were cancelled at 1h49m of a
+360-minute cap while Launchpad sat in "Uploading".
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/68c9f2bcd0">The build script parity guard passes again</a>. Thanks to xet7.</summary>
+
+`tests/buildScriptParity.test.cjs` failed because the Bun target-build
+scripts, which bun.yml runs on each target runner, and the UCS migration's
+`docker-exec.mjs` are not `build.sh` menu entries. They are recorded as
+internals with their reason, and all 1,820 node suites pass.
+
+</details>
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
