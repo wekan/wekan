@@ -4,12 +4,12 @@
 import { worksheetRows, excelSheetsToBoards } from '/models/lib/csvImportMapping';
 import { importHeaderNames } from './importHeaderNames';
 
-const ExcelJS = require('@wekanteam/exceljs');
 
 // { boards: [{ title, sheet, rows }], skipped: [sheet names] } - rows[0] of a
 // board is its header, every cell text (dates as ISO 8601).
 export async function readExcelBoards(excelBase64) {
   if (typeof excelBase64 !== 'string' || !excelBase64) throw new Error('The workbook is empty');
+  const ExcelJS = require('@wekanteam/exceljs');
   const workbook = new ExcelJS.Workbook();
   await workbook.xlsx.load(Buffer.from(excelBase64, 'base64'));
   const sheets = workbook.worksheets.map(worksheet => ({ name: worksheet.name, rows: worksheetRows(worksheet) }));

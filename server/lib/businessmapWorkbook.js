@@ -1,7 +1,6 @@
 // Opens and writes Businessmap (Kanbanize) Excel workbooks; what their rows
 // mean is models/lib/businessmapFormat.js. Server only: ExcelJS is a server
 // dependency.
-const ExcelJS = require('@wekanteam/exceljs');
 
 // Every sheet, in order, as { name, rows }: the card sheet, then any "Links"
 // or "Subtasks" tab an export added. Rows keep their sheet positions
@@ -14,6 +13,7 @@ async function readBusinessmapWorkbook(excelBase64) {
   if (buffer.length >= 4 && buffer.readUInt32BE(0) === 0xd0cf11e0) {
     throw new Error('Businessmap workbook is an .xls file; open it in a spreadsheet program and save it as .xlsx');
   }
+  const ExcelJS = require('@wekanteam/exceljs');
   const workbook = new ExcelJS.Workbook();
   await workbook.xlsx.load(buffer);
   return workbook.worksheets.map(sheet => {
@@ -28,6 +28,7 @@ async function readBusinessmapWorkbook(excelBase64) {
 
 // A .xlsx Buffer from formatBusinessmapSheets()'s { sheets }.
 async function writeBusinessmapWorkbook({ sheets }) {
+  const ExcelJS = require('@wekanteam/exceljs');
   const workbook = new ExcelJS.Workbook();
   (sheets || []).forEach((sheet, index) => {
     const worksheet = workbook.addWorksheet(String(sheet.name || `sheet${index + 1}`).replace(/[\\/?*[\]:]/g, ' ').slice(0, 31) || `sheet${index + 1}`);

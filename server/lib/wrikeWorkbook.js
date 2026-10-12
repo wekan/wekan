@@ -1,6 +1,5 @@
 // Opens and writes Wrike's Excel import template; what its rows mean is
 // models/lib/wrikeFormat.js. Server only: ExcelJS is a server dependency.
-const ExcelJS = require('@wekanteam/exceljs');
 
 const DATE_COLUMNS = ['start date', 'end date', 'start date constraint'];
 
@@ -10,6 +9,7 @@ const DATE_COLUMNS = ['start date', 'end date', 'start date constraint'];
 // cell stays a Date, so its day is not lost to String(date)'s local time.
 async function readWrikeWorkbook(excelBase64) {
   if (typeof excelBase64 !== 'string' || !excelBase64) throw new Error('Wrike workbook is empty');
+  const ExcelJS = require('@wekanteam/exceljs');
   const workbook = new ExcelJS.Workbook();
   await workbook.xlsx.load(Buffer.from(excelBase64, 'base64'));
   const sheet = workbook.getWorksheet('Tasks') || workbook.worksheets[0];
@@ -27,6 +27,7 @@ async function readWrikeWorkbook(excelBase64) {
 // dates are real date cells, as in Wrike's sample, so the YYYY-MM-DD text the
 // formatter writes in the date columns becomes a date at 00:00 UTC.
 async function writeWrikeWorkbook({ sheet, rows }) {
+  const ExcelJS = require('@wekanteam/exceljs');
   const workbook = new ExcelJS.Workbook();
   const worksheet = workbook.addWorksheet(sheet || 'Tasks');
   const header = Array.isArray(rows && rows[0]) ? rows[0] : [];

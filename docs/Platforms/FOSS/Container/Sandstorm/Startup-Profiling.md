@@ -136,8 +136,8 @@ The development results (roughly 9.3 to 3.9 seconds) must not be attributed to
 production. The bypass helper and its tests have been removed; Meteor uses its
 normal runtime loader and default cache behavior.
 
-The retained improvements are database-listener readiness and the held browser
-readiness request. Detailed Meteor profiling
+The retained improvements are database-listener readiness, deferred ZIP/Excel
+initialization, and the held browser readiness request. Detailed Meteor profiling
 is opt-in. Source maps remain enabled. See the production measurements below.
 
 To list file accesses and read sizes without recording read buffers, start the
@@ -284,3 +284,38 @@ Simply aliasing Bluebird to native Promise is unsafe: unzipper uses its `props`,
 `map`, and `mapSeries` APIs. Any dependency change needs archive/import/export
 coverage and a rebuilt production measurement; moving this work to first use
 also means that first operation may incur the deferred cost.
+
+
+### Deferring archive dependencies
+
+Workbook readers/writers now load ExcelJS when invoked, and backup restore code
+loads unzipper when it inspects an archive. Constructing the backup tools and
+registering workbook helpers no longer initialize those dependencies. CommonJS
+module caching retains the loaded modules for subsequent operations; first use
+still pays their initialization cost. No promise implementation is replaced.
+
+The default grain manifest retains `WEKAN_STARTUP_TIMING=1` but omits
+`METEOR_PROFILE`, whose hook-registration stacks would otherwise force source-map
+processing even with Bluebird deferred. The explicit local profiling runner still
+enables detailed Meteor profiling. Compare identical profiler settings when
+measuring the deferral alone.
+
+A rebuilt and release-trimmed production bundle, running with the packaged Node
+and FerretDB in an isolated read-only root, produced these warm-cache results on
+the same persisted test database, with detailed profiling disabled in both:
+
+| Payload | HTTP listening |
+| --- | ---: |
+| Before deferral | 2.902 s |
+| Deferred ZIP/Excel dependencies, first run of rebuilt payload | 1.544 s |
+| Deferred ZIP/Excel dependencies, repeated run | 1.378 s |
+
+Source maps remained enabled throughout. The paired repeated run saved 1.524 s
+(about 53%). The held readiness request returned 204 within 1–2 ms of listening.
+These are local server measurements, not actual-grain or full-board-render times.
+
+Regression coverage includes fresh-process checks for unloaded dependencies,
+first-use Excel write/read and malformed input, archive-inspection failure,
+unchanged global Promise, and the existing workbook/backup suites. Ten focused
+test files passed on packaged Node v26.11.1; startup-wrapper and namespace tests
+also passed. Browser automation was not run.

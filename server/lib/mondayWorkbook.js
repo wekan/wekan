@@ -1,6 +1,5 @@
 // Opens and writes monday.com's Excel workbook; what its rows mean is
 // models/lib/mondayFormat.js. Server only: ExcelJS is a server dependency.
-const ExcelJS = require('@wekanteam/exceljs');
 
 // Every sheet, in order, as { name, rows }: the board sheet first, then the
 // "<board>-updates" sheet when the export has one. Rows keep their sheet
@@ -8,6 +7,7 @@ const ExcelJS = require('@wekanteam/exceljs');
 // Date, so its day is not lost to String(date)'s local time.
 async function readMondayWorkbook(excelBase64) {
   if (typeof excelBase64 !== 'string' || !excelBase64) throw new Error('monday.com workbook is empty');
+  const ExcelJS = require('@wekanteam/exceljs');
   const workbook = new ExcelJS.Workbook();
   await workbook.xlsx.load(Buffer.from(excelBase64, 'base64'));
   return workbook.worksheets.map(sheet => {
@@ -22,6 +22,7 @@ async function readMondayWorkbook(excelBase64) {
 
 // A .xlsx Buffer from formatMondaySheets()'s { sheets }.
 async function writeMondayWorkbook({ sheets }) {
+  const ExcelJS = require('@wekanteam/exceljs');
   const workbook = new ExcelJS.Workbook();
   (sheets || []).forEach((sheet, index) => {
     const worksheet = workbook.addWorksheet(String(sheet.name || `sheet${index + 1}`).replace(/[\\/?*[\]:]/g, ' ').slice(0, 31) || `sheet${index + 1}`);
