@@ -409,3 +409,60 @@ paths, first-use construction, SAML configuration caching and STARTTLS options.
 The existing LDAP and SAML suites pass, including signed-response and replay
 checks. CommonJS exports were also checked against the trimmed production
 packages using the shipped Node binary. No browser automation was run.
+
+### Package file-count reduction
+
+Sandstorm installation also pays for creating each filesystem entry. The v1242
+optimized test package still contained 44,472 regular files. The server npm
+tree included browser build inputs and thousands of compiler declarations.
+
+`prune-unreachable-npm.mjs` now scans quoted package specifiers regardless of
+the loader's name, including deferred imports, minified aliases and Meteor
+virtual paths. It scans all server app chunks and follows runtime, optional and
+peer dependency metadata, protecting computed native loads such as Sharp and
+Canvas. This is a conservative over-approximation, not a proof that every other
+package is unused. Deletion still requires a reviewed policy entry. Use:
+
+```sh
+node releases/prune-unreachable-npm.mjs /path/to/bundle --dry-run --report-json package-report.json
+```
+
+The report lists file-content bytes, removal/retention status, and reasons for
+retention. The new policy removes unreferenced server copies of Blockly, the
+Office viewer and meteor-node-stubs (2,222 files, 34.6 MiB). Their compiled
+browser programs are retained. It also removes unreferenced Core-JS copies
+belonging to Meteor's URL and client-runtime packages: their server modules use
+Node's URL implementation and register browser versions. The server-runtime
+Core-JS copy remains: Meteor's compiled shim uses `module.useNode()` and really
+loads its polyfill from the npm tree. Any future reference vetoes removal.
+
+`bundle-trim.mjs` removes `.d.ts`, `.d.mts` and `.d.cts` files only inside server
+node_modules trees. It retains executable `.ts`/`.mts`/`.cts` files, runtime
+assets, licenses and declarations outside those dependency trees. After the
+browser-package pruning this removes another 7,360 declaration files.
+
+The package also applies upstream's `strip-node.sh` to the staged Node binary,
+saving 33.3 MB of symbols/debug data. This changes bytes, not file count.
+
+The two unused Core-JS copies remove another 5,378 files (only 1.9 MiB of
+contents, but many filesystem entries). In the signed v1245 test package,
+compared with v1242:
+
+| Measurement | Before | After |
+| --- | ---: | ---: |
+| Regular files | 44,472 | 29,512 |
+| Directories | 5,733 | 5,114 |
+| File-content bytes | 934,548,070 | 835,023,276 |
+| Compressed SPK | 172.8 MiB | 163.2 MiB |
+
+This is 14,960 fewer files, about 34%. It does not establish a particular
+Sandstorm extraction-time improvement; installation needs measuring on the
+slow filesystem. A local signed-package startup reached HTTP readiness in
+0.919 s and answered the held request one millisecond later.
+
+The 14 pruning and 30 trimming checks pass, along with mapped-stack and lazy
+archive/authentication checks. An isolated runtime check using only the SPK's
+Node and dependencies performed XLSX and ZIP round trips, Sharp/Canvas PNG
+rendering, PDF generation/text extraction, and loaded the deferred SAML/LDAP
+libraries. Compiled browser files and legacy migration payloads were compared
+byte-for-byte. Browser automation and a full legacy-grain migration were not run.

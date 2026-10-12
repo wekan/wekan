@@ -70,7 +70,7 @@ import {
   readdirSync, statSync, unlinkSync, existsSync, rmSync, readFileSync, writeFileSync,
   chmodSync,
 } from 'fs';
-import { join, basename, dirname } from 'path';
+import { join, basename, dirname, sep } from 'path';
 import { externalizeServerSourceMaps } from './externalize-server-source-maps.mjs';
 
 const argv = process.argv.slice(2);
@@ -98,6 +98,7 @@ const arch = value('arch', 'x64');
 // Walk once, collecting both kinds of victim, so a bundle of this size is read
 // from disk a single time.
 const maps = [];
+const declarations = [];
 const uwsDirs = new Set();
 const prebuildDirs = new Set();
 function walk(dir) {
@@ -110,6 +111,9 @@ function walk(dir) {
       if (e.name === 'uWebSockets.js') uwsDirs.add(p);
       if (e.name === 'prebuilds') prebuildDirs.add(p);
       walk(p);
+    } else if (e.isFile() && /\.d\.(?:ts|mts|cts)$/.test(e.name)
+      && p.startsWith(join(bundle, 'programs', 'server') + sep) && p.split(sep).includes('node_modules')) {
+      declarations.push(p);
     } else if (e.isFile() && e.name.endsWith('.map')) {
       maps.push(p);
     }
@@ -251,6 +255,13 @@ if (flag('trim-prebuilds')) {
     prebuildsKept += kept;
   }
 }
+
+// Type declarations are compiler inputs, not executable TypeScript. Keep .ts,
+// .mts and .cts implementations (Node can execute those), runtime data, and
+// declarations outside the server dependency trees. This also reduces the
+// number of filesystem entries Sandstorm must create while installing an SPK.
+for (const file of declarations) drop(file);
+console.log(`bundle-trim: removed ${declarations.length} server dependency declaration files`);
 
 // 2. Source maps.
 //

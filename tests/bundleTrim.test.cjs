@@ -499,4 +499,22 @@ for (const [platform, arch, remove] of [['linux', 'arm64', true], ['win32', 'x64
   });
 }
 
+test('declaration pruning reduces server file count without deleting TypeScript implementations or assets', dir => {
+  const base = 'programs/server/npm/node_modules/library';
+  const remove = ['index.d.ts', 'index.d.mts', 'index.d.cts', 'nested/types.d.ts'];
+  const keep = ['index.ts', 'index.mts', 'index.cts', 'index.js', 'data.json', 'LICENSE', 'README.md'];
+  const files = Object.fromEntries([...remove, ...keep].map(name => [`${base}/${name}`, 'fixture']));
+  files['programs/server/node_modules/other/index.d.ts'] = 'declaration';
+  files['programs/server/assets/app/example.d.ts'] = 'user asset';
+  files['programs/web.browser/example.d.ts'] = 'client asset';
+  const bundle = makeBundle(dir, files);
+  trim(bundle, ['--keep-maps']);
+  for (const name of remove) assert.ok(!exists(bundle, `${base}/${name}`));
+  assert.ok(!exists(bundle, 'programs/server/node_modules/other/index.d.ts'));
+  for (const name of keep) assert.ok(exists(bundle, `${base}/${name}`));
+  assert.equal(fs.readFileSync(path.join(bundle, 'programs/server/assets/app/example.d.ts'), 'utf8'), 'user asset');
+  assert.ok(exists(bundle, 'programs/web.browser/example.d.ts'));
+  assert.match(trim(bundle), /removed 0 server dependency declaration files/);
+});
+
 console.log(`\nbundleTrim: ${passed} tests passed`);
