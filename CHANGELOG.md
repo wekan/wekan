@@ -524,7 +524,7 @@ used.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.36 2026-10-12 WeKan ® release
 
 **In short:** The **Bun** release workflow fixes the installer failure that
 blocked every platform build. The selected runtime stays consistent across
