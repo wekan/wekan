@@ -41,6 +41,7 @@ const WORKFLOWS = [
   '.github/workflows/mac.yml',
   '.github/workflows/Flatpak.yml',
   '.github/workflows/windows.yml',
+  '.github/workflows/bun.yml',
 ];
 
 // The one upload exempt from the always() rule, and why: the Nextcloud app
@@ -101,7 +102,7 @@ test('the jobs that build release files are the ones that attach them', () => {
     'release-all.yml:build-extra-arches', 'release-all.yml:build-sandstorm',
     'release-all.yml:snap-native', 'release-all.yml:snap-launchpad',
     'release-all-missing.yml:extra-arches',
-    'AppImage.yml:build', 'mac.yml:build', 'Flatpak.yml:build', 'windows.yml:build',
+    'AppImage.yml:build', 'mac.yml:build', 'Flatpak.yml:build', 'windows.yml:build', 'bun.yml:build',
   ]) {
     assert.ok(names.includes(want), `${want} must attach its own files; attaching jobs: ${names.join(', ')}`);
   }

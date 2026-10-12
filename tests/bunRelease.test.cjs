@@ -1,0 +1,74 @@
+'use strict';
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const { spawnSync } = require('node:child_process');
+const root = path.resolve(__dirname, '..');
+const read = file => fs.readFileSync(path.join(root, file), 'utf8');
+const targets = JSON.parse(read('releases/bun/targets.json'));
+const workflow = read('.github/workflows/bun.yml');
+assert.equal(targets.length, 12);
+assert.equal(new Set(targets.map(x => x.target)).size, 12);
+for (const os of ['linux', 'macos', 'windows', 'freebsd', 'android']) {
+  for (const arch of ['x64', 'arm64']) assert(targets.some(x => x.target === `${os}-${arch}`));
+}
+for (const arch of ['x64', 'arm64']) assert(targets.some(x => x.target === `linux-${arch}-musl`));
+for (const item of targets.filter(x => ['linux', 'android'].includes(x.platform))) {
+  assert.equal(item.runner, item.arch === 'arm64' ? 'ubuntu-24.04-arm' : 'ubuntu-24.04');
+}
+assert(!targets.some(x => /baseline|profile|i386|riscv/.test(x.target)));
+assert(workflow.includes('--format=esm'));
+assert(workflow.includes('BUN_SMOKE_BROWSER:'));
+assert(read('releases/bun/live-smoke.mjs').includes('../../tests/bun-browser-smoke.cjs'));
+assert(workflow.includes('ref: refs/tags/${{ needs.plan.outputs.tag }}'));
+assert(workflow.includes('termux/termux-docker:$TERMUX_ARCH'));
+assert(workflow.includes('vmactions/freebsd-vm@v1'));
+assert(workflow.includes('fail-fast: false'));
+assert(!workflow.includes('continue-on-error:'));
+assert(!workflow.includes('self-hosted'));
+assert(workflow.indexOf('build-target.sh') < workflow.indexOf('github-release-upload.sh'));
+assert(workflow.includes("steps.ready.outcome == 'success' && inputs.publish"));
+assert(workflow.includes('missing_only:'));
+assert(!workflow.includes('gh release create'));
+assert(!workflow.includes('git push'));
+for (const name of ['release-all.yml', 'release-all-missing.yml']) {
+  assert(read(`.github/workflows/${name}`).includes('uses: ./.github/workflows/bun.yml'));
+}
+assert(read('.github/workflows/release-all-missing.yml').includes('only: ${{ needs.plan.outputs.bun }}'));
+const expected = spawnSync('bash', ['releases/expected-assets.sh', '12.34'], { cwd: root, encoding: 'utf8' });
+assert.equal(expected.status, 0, expected.stderr);
+for (const { target } of targets) assert(expected.stdout.includes(`bun ${target} wekan-12.34-bun-${target}.tar.gz sums`));
+const python = spawnSync('python3', ['-B', 'tests/bun-release.py'], { cwd: root, encoding: 'utf8' });
+assert.equal(python.status, 0, python.stdout + python.stderr);
+console.log(python.stdout + python.stderr);
+console.log('Bun workflow coverage and release contract passed.');
+
+// Exercise the smoke gate with child processes: a runtime exception must never
+// be accepted merely because a database error also appears in its output.
+if (process.platform !== 'win32') {
+  const tmp = fs.mkdtempSync(path.join(root, '.tools/tmp/bun-smoke-test-'));
+  try {
+    const binary = path.join(tmp, 'bun');
+    const marker = path.join(tmp, '.bun-smoke-ok');
+    for (const [output, success] of [
+      ['MongoServerSelectionError: connect ECONNREFUSED 127.0.0.1:1', true],
+      ['SyntaxError: broken bundle', false],
+      ['MongoServerSelectionError: refused\nError: Cannot find module argon2', false],
+      ['', false],
+    ]) {
+      fs.rmSync(marker, { force: true });
+      fs.writeFileSync(binary, `#!/bin/sh\ncat <<'BUN_TEST_OUTPUT'\n${output}\nBUN_TEST_OUTPUT\nexit 1\n`, { mode: 0o755 });
+      const result = spawnSync(process.execPath, ['releases/bun/smoke.mjs', tmp], { cwd: root, encoding: 'utf8' });
+      assert.equal(result.status === 0, success, result.stdout + result.stderr);
+      assert.equal(fs.existsSync(marker), success);
+    }
+    const launch = spawnSync('sh', ['releases/bun/start-wekan.sh'], {
+      cwd: root, encoding: 'utf8', env: { ...process.env, MONGO_URL: '', ROOT_URL: '' },
+    });
+    assert.notEqual(launch.status, 0);
+    assert(launch.stderr.includes('Set MONGO_URL'));
+  } finally {
+    fs.rmSync(tmp, { recursive: true, force: true });
+  }
+}
+console.log('Bun smoke positive/negative process tests passed.');

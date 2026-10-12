@@ -1274,6 +1274,18 @@ jobs:
       tag: v${{ needs.prepare.outputs.version }}
       publish: true
 
+  bun:
+    name: Bun runtime bundles
+    needs: [prepare, release]
+    if: ${{ !cancelled() && needs.release.result == 'success' }}
+    uses: ./.github/workflows/bun.yml
+    permissions:
+      contents: write
+      actions: read
+    with:
+      tag: v${{ needs.prepare.outputs.version }}
+      publish: true
+
   mac-app:
     name: Mac apps
     needs: [prepare, release, build-mac-arm64, build-mac-x64]

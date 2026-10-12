@@ -99,6 +99,7 @@ jobs:
       version: ${{ steps.plan.outputs.version }}
       extra: ${{ steps.plan.outputs.extra }}
       appimage: ${{ steps.plan.outputs.appimage }}
+      bun: ${{ steps.plan.outputs.bun }}
       mac: ${{ steps.plan.outputs.mac }}
       flatpak: ${{ steps.plan.outputs.flatpak }}
       windows: ${{ steps.plan.outputs.windows }}
@@ -153,7 +154,7 @@ jobs:
           total="$(wc -l < missing.txt | tr -d ' ')"
           echo "total=$total" >> "$GITHUB_OUTPUT"
 
-          for kind in extra appimage mac flatpak windows; do
+          for kind in extra appimage mac flatpak windows bun; do
             sels="$(awk -v k="$kind" '$1 == k { print $2 }' missing.txt)"
             json="$(printf '%s\n' $sels | sed '/^$/d' | jq -R . | jq -sc .)"
             [ -n "$json" ] || json='[]'
@@ -307,6 +308,20 @@ jobs:
           # side - an upload that reports success and leaves no asset behind is
           # the failure nobody notices until a download 404s.
           bash releases/github-release-upload.sh "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "$asset" "${asset}.sha256sum"
+
+  bun:
+    name: Missing Bun runtime bundles
+    needs: plan
+    if: ${{ needs.plan.outputs.bun != '[]' }}
+    uses: ./.github/workflows/bun.yml
+    permissions:
+      contents: write
+      actions: read
+    with:
+      tag: v${{ needs.plan.outputs.version }}
+      publish: true
+      only: ${{ needs.plan.outputs.bun }}
+      missing_only: true
 
   appimage:
     name: AppImages
@@ -466,7 +481,7 @@ jobs:
   done:
     timeout-minutes: 15
     name: what is still missing
-    needs: [plan, extra-arches, appimage, mac, flatpak, windows-exe, charts]
+    needs: [plan, extra-arches, appimage, mac, flatpak, windows-exe, charts, bun]
     if: ${{ always() && needs.plan.result == 'success' }}
     runs-on: ubuntu-latest
     steps:

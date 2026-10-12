@@ -76,3 +76,11 @@ done
 echo "windows win64 WeKan-${v}-win64.exe sums"
 
 echo "sandstorm sandstorm wekan-${v}-sandstorm.spk nosums"
+
+# Bun has a separate ESM build; its catalog is also the workflow matrix.
+python3 - "$v" "$(dirname "$0")/bun/targets.json" <<'PYBUN'
+import json, sys
+for item in json.load(open(sys.argv[2])):
+    target = item['target']
+    print(f'bun {target} wekan-{sys.argv[1]}-bun-{target}.tar.gz sums')
+PYBUN
