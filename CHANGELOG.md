@@ -131,11 +131,11 @@ releases.
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **28,516 untranslated locale/string values in 42 languages**.
   It excludes **379 source keys tracked separately as pending Transifex**.
-  After the Urdu batch and new Trello strings, full per-locale `--list`
-  reports, including pending keys, count **55,424 remaining values across
-  123 non-English locale files**. This fuller inventory remains the scope
+  After the Malayalam batch and new Trello strings, full per-locale `--list`
+  reports, including pending keys, count **55,201 remaining values across
+  122 non-English locale files**. This fuller inventory remains the scope
   of the translation work.
-  A separate short-prose audit flags 1,669 candidates across 181 locales.
+  A separate short-prose audit flags 1,661 candidates across 180 locales.
   The two notification At/To labels now have translations in all non-English
   locales;
   shared native words may equal English, so these require individual review.
@@ -145,6 +145,11 @@ releases.
   Earlier Xhosa completion checks predate the newer pending strings. The
   current broad run still exposes English placeholders in several catalogs;
   see the dated audit results. Empty reports do not establish fluency.
+- Malayalam now has no current fill candidates after 223 feature fills and
+  thirteen exempt labels. Scrum matching, preservation and conflict warnings
+  are covered, and rule rows omit a redundant linking verb. Six focused
+  suites and 21 human-preference checks pass; nine Malayalam browser cases
+  register. Execution and broader wording review remain open.
 - Urdu now has no current fill candidates after 193 feature fills. Existing
   non-English values are unchanged. Three focused suites, seven static RTL
   checks and 21 human-preference checks pass. Ten Urdu browser cases register,
@@ -183,7 +188,7 @@ releases.
 - Marathi now has no current fill candidates after 212 feature fills. Another
   55 English settings, rule and keyboard labels were hidden by the fill tool's
   technical-name and short-word exemptions; those are now translated too.
-  `node releases/translations/audit-exempt-prose.mjs` exposes 3,814 review
+  `node releases/translations/audit-exempt-prose.mjs` exposes 3,809 review
   candidates across 226 locales. They include intentional names and shared
   spellings, so they are not a confirmed untranslated count. Preserve existing
   human-verified `zh` wording; add only confirmed missing strings there.
@@ -584,8 +589,8 @@ through its API, with **swimlanes** kept as labels that WeKan's Trello import
 turns back into swimlanes; on **Sandstorm**, the **Powerbox** lets a grain
 reach Trello. **FreeBSD** Bun bundles, the **Launchpad snap** waits and the
 **Mac apps** release step are fixed. Missing Bengali, Marathi, Nepali and
-Tamil, Thai, Kannada and Urdu strings are filled, and wrong-language values
-are corrected.
+Tamil, Thai, Kannada, Urdu and Malayalam strings are filled, and
+wrong-language values are corrected.
 
 This release adds the following new features:
 
@@ -836,6 +841,25 @@ checks pass. Source tokens and key order match across all 246 catalogs.
 Ten Urdu browser cases register for feature flows, page direction, visible
 text and mirrored placement; execution needs a running rebuilt app. The
 current fill list is empty, but whole-catalog wording review remains open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0ae7f04e55">Fill Malayalam feature strings and remove a redundant rule linking verb</a>. Thanks to xet7.</summary>
+
+Translate 223 feature placeholders and thirteen exempt labels, including
+Scrum import, synchronization and recovery. Existing non-English Malayalam
+values and verified Chinese wording stay unchanged. Rule rows omit a separate
+linking verb before action phrases that already contain their verb; progress
+counts retain numerator/denominator order.
+
+Six focused suites and 21 human-preference checks pass. Tests cover matched
+versus unmatched planning, first-sync preservation, conflicts, irreversible
+removal, permissions, source literals and runtime counts. Exact tokens and
+key order match across all 246 catalogs. Nine Malayalam browser cases
+register, including Scrum rollback, conflict and member restrictions;
+execution needs a running rebuilt app. The fill and short-prose queues are
+empty, but whole-catalog grammar and wording review remain unfinished.
 
 </details>
 

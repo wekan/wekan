@@ -2,6 +2,47 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Malayalam features and Scrum recovery — 2026-10-13
+
+Commit `0ae7f04e55` fills 223 current placeholders and thirteen labels hidden
+by exemptions. A parent comparison confirms all 236 replaced values were
+English. Existing non-English Malayalam values are unchanged, and no `zh`
+catalog changed. The fills use established board, card, list, lane, field,
+attachment and assignee terminology. Longer technical clauses remain
+provisional pending speaker review.
+
+The additional thirty Scrum strings distinguish existing planning from new
+records, ambiguous or unmatched cards, cards on another board, finished
+sprints, local changes retained until the source changes, and first-sync
+preservation. Recovery wording distinguishes rollback from keeping all
+records, permits rollback only without later conflicting edits, and keeps
+board-administrator authority explicit. All original source tokens remain.
+
+Short-label review uses recipient and actor labels before the corresponding
+inputs and `/` between fixed-order current/total counts. The generic linking
+verb becomes `ആണ്`; the language-aware rule helper omits it before existing
+Malayalam action predicates, including temporal phrases ending in `പ്പോൾ`.
+This removes the extra word but does not certify complete trigger sentence
+word order. The Kannada browser test is generalized to cover both languages
+without duplicating its UI and saved-description assertions.
+
+Six focused suites pass: Malayalam, Kannada, Basque rule grammar,
+browser-language fallback, shared labels and exempt prose. They cover
+permissions, import exclusions, recovery consequences, Scrum conflicts,
+locale-tag boundaries, source literals and runtime substitution including
+zero. All 21 human-preference checks pass. Source key order and exact tokens
+match across 246 catalogs / 1,019,178 pairs. Nine Malayalam browser cases
+register, including three Scrum history cases for rollback, later edits and
+ordinary-member restrictions. Execution still needs a rebuilt running app.
+
+The full filtered inventory is 55,201 values across 122 non-English paths.
+The ordinary report remains 28,516 values across 42 locales, excluding 379
+pending keys. Supplemental candidates fall to 3,809 across 226 locales;
+short-prose candidates fall to 1,661 across 180 locales. Malayalam's full
+fill list and short-prose queue are empty. Remaining physical key legends,
+product names and notation are retained. Whole-catalog language review and
+the overall translation task remain unfinished.
+
 ## Urdu feature fills and RTL coverage — 2026-10-13
 
 Commit `762bb1df85` fills 193 current English placeholders. A parent comparison
