@@ -193506,5 +193506,215 @@
     "before": "Latine: Tu sunt filtering schedae adest hoc tabula. Click here ad muta filtrum.",
     "after": "Chartas in hac tabula filtras. Preme hic ut filtrum mutes.",
     "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "filter-to-selection",
+    "before": "Latine: Filtrum ad selection",
+    "after": "Filtra secundum res electas",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "other-filters-label",
+    "before": "Latine: Aliud Filters",
+    "after": "Alia filtra",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "advanced-filter-label",
+    "before": "Latine: Advanced Filtrum",
+    "after": "Filtrum provectum",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "fullname",
+    "before": "Latine: nomen plenum",
+    "after": "Nomen plenum",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "show-activities",
+    "before": "Latine: Monstra Actiones",
+    "after": "Monstra actiones",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "hide-activities",
+    "before": "Latine: Cela Actiones",
+    "after": "Cela actiones",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "imported-member-no-account",
+    "before": "Latine: Importatum sodalis — non matching ratio yet",
+    "after": "Membrum importatum — nondum ratio congruens",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "inactive-member",
+    "before": "Latine: Inactivum sodalis",
+    "after": "Membrum inactivum",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "impersonate-user",
+    "before": "Latine: Impersonate usor",
+    "after": "Age personam usoris",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "import-board",
+    "before": "Latine: importa tabula",
+    "after": "importa tabulam",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "import-board-c",
+    "before": "Latine: Importa tabula",
+    "after": "Importa tabulam",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "import-board-instruction-kanboard",
+    "before": "Latine: Paste a Kanboard exporta JSON: an object cum \"columns\" (vel tasks carrying column_name) et a \"tasks\" array (title, description, column_name, swimlane_name, date_due, owner, tags). Columns become indices et tasks become schedae.",
+    "after": "Insere JSON ex Kanboard exportatum: obiectum cum \"columns\" (vel muneribus quae column_name habent) et serie \"tasks\" (title, description, column_name, swimlane_name, date_due, owner, tags). Columnae fiunt indices et munera fiunt chartae.",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "import-board-instruction-deck",
+    "before": "Latine: Paste a NextCloud Deck tabula JSON (a tabula cum \"stacks\", quisque stack carrying its \"cards\"). Stacks become indices et schedae become schedae.",
+    "after": "Insere JSON tabulae NextCloud Deck (tabulam cum \"stacks\", quorum quisque suas \"cards\" habet). Acervi fiunt indices et chartae fiunt chartae.",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "import-board-instruction-openproject",
+    "before": "Latine: Paste an OpenProject work-packages collection JSON (GET /api/v3/work_packages). Statuses become indices et work packages become schedae.",
+    "after": "Insere JSON collectionis fasciculorum operis OpenProject (GET /api/v3/work_packages). Status fiunt indices et fasciculi operis fiunt chartae.",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "import-board-instruction-issues",
+    "before": "Latine: Paste a __sourceName__ issues JSON array (__endpoint__). Issues become schedae grouped into Aperi / Clausum indices.",
+    "after": "Insere seriem JSON rerum ex __sourceName__ (__endpoint__). Res fiunt chartae in indices Open / Closed distributae.",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "import-board-instruction-asana",
+    "before": "Latine: Paste an Asana tasks exporta JSON ({ \"data\": [...] } ex the Asana exporta vel GET /tasks). Tasks sunt grouped into sections (memberships); perfectum tasks i ad Done.",
+    "after": "Insere JSON munerum ex Asana exportatum ({ \"data\": [...] } ex exportatione Asana vel GET /tasks). Munera in sectiones (memberships) distribuuntur; munera perfecta in Done ponuntur.",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "import-board-instruction-zenkit",
+    "before": "Latine: Paste a ZenKit index exporta JSON ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages become indices et res become schedae.",
+    "after": "Insere JSON indicis ex ZenKit exportatum ({ \"title\", \"stages\":[...], \"items\":[...] }). Gradus fiunt indices et res fiunt chartae.",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "import-board-instruction-csv",
+    "before": "Latine: Paste in tuum Comma Separated Valores(CSV)/ Tab Separated Valores (TSV).",
+    "after": "Insere valores commatibus separatos (CSV) vel tabulatoribus separatos (TSV).",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "import-board-instruction-jira",
+    "before": "Latine: Paste the JSON ex the Jira Cloud REST API issue quaere (GET /rest/api/3/search/jql), vel an equivalent { \"issues\": [...] } object. Jira statuses become indices et issues become schedae. Optionally include an \"automationRules\" array ad importa regulae.",
+    "after": "Insere JSON quaestionis rerum Jira Cloud: GET /rest/api/3/search/jql?jql=project=KEY&fields=*all&expand=names,schema (sine fields tantum ID rerum reddit). Magnum opus per paginas venit, quarum quaeque nextPageToken ad proximam habet: res omnium paginarum in unam seriem \"issues\" coniunge, aut quamque paginam ut tabulam propriam importa per importationem multarum tabularum. Obiectum aequivalens { \"issues\": [...] } quoque valet. Status Jira fiunt indices et res fiunt chartae. Si vis, seriem \"automationRules\" include ut regulas importes.",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "import-board-instruction-excel",
+    "before": "Latine: Elige a WeKan-style.xlsx spreadsheet (the idem columns as the Excel exporta: Titulus, Descriptio, Status/Index, Sodales, Tituli, dates, custom campi). The primus row est the header.",
+    "after": "Elige librum .xlsx: tabulam cum una charta in quaque linea (columnis ut Title, Description, Status/List, Members, Labels, diebus et campis propriis), aut librum a WeKan exportatum, etiam cum unaquaque tabula in folio proprio. Proximus gradus ostendit quae columna cui campo respondeat. Omne folium cum linea titulorum fit tabula.",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "import-excel-file",
+    "before": "Latine: Excel fasciculus (.xlsx)",
+    "after": "Fasciculus Excel (.xlsx)",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "import-board-instruction-wekan",
+    "before": "Latine: In tuum tabula, i ad 'Tabula optionum', then 'Exporta tabula', et copia the textus in the depromptum fasciculus.",
+    "after": "In tabula tua, aperi 'Menu', deinde 'Export board', et textum in fasciculo recepto exscribe.",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "import-board-instruction-about-errors",
+    "before": "Latine: Si tu get errors quando importing tabula, sometimes importing still works, et tabula est at Omnia Tabulae pagina.",
+    "after": "Si errores in importatione tabulae accipis, interdum importatio tamen succedit et tabula in pagina omnium tabularum est.",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "import-without-mapping-members",
+    "before": "Latine: Importa sine mapping sodales (map later)",
+    "after": "Importa sine coniunctione membrorum (postea coniunge)",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "import-json-placeholder",
+    "before": "Latine: Paste tuum validum JSON data here",
+    "after": "Insere hic data tua JSON valida",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "import-csv-placeholder",
+    "before": "Latine: Paste tuum validum CSV/TSV data here",
+    "after": "Insere hic data tua CSV/TSV valida",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "import-json-file",
+    "before": "Latine: Vel elige a Trello JSON fasciculus",
+    "after": "Vel elige fasciculum JSON Trello",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "import-attachments-zip",
+    "before": "Latine: Trello adnexa ZIP (optional, ex Trello Scheda Adnexa Downloader)",
+    "after": "ZIP adiunctis Trello continendis (optionale, ex Trello Card Attachments Downloader)",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "import-trello-json-file",
+    "before": "Latine: Trello.json fasciculus",
+    "after": "Fasciculus .json Trello",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "advanced-filter-description",
+    "before": "Latine: Advanced Filtrum allows ad scribe a string containing following operators: ==!= <= >= && || ( ) A space est used as a separator inter the Operators. Tu potest filtrum for omnia Custom Campi a typing their names et valores. For Example: Field1 == Value1. Note: Si campi vel valores contains spaces, tu need ad encapsulate them into single quotes. For Example: 'Campus 1' == 'Valor 1'. For single control characters (' \\/) ad esse skipped, tu potest use \\. For example: Field1 == I\\'m. Also tu potest combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally omnia operators sunt interpreted ex left ad right. Tu potest muta the order a placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also tu potest quaere textus campi using regex: F1 == /Tes.*/i",
+    "after": "Filtrum provectum sinit textum scribere cum his operatoribus: == != <= >= && || ( ) Spatium operatoria separat. Omnes campos proprios filtrare potes nominibus et valoribus eorum scriptis. Exempli gratia: Field1 == Value1. Nota: si nomina camporum vel valores spatia continent, eos signis citationis simplicibus includere debes. Exempli gratia: 'Field 1' == 'Value 1'. Ut singula signa specialia (' \\/) ut textum litteralem tractes, uti potes signo \\. Exempli gratia: Field1 == I\\'m. Plures condiciones etiam coniungere potes. Exempli gratia: F1 == V1 || F1 == V2. Solent omnia operatoria a sinistra ad dextram interpretari. Ordinem parenthesibus mutare potes. Exempli gratia: F1 == V1 && ( F2 == V2 || F2 == V3 ). Campos textus etiam expressionibus regularibus quaerere potes: F1 == /Tes.*/i",
+    "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
   }
 ]

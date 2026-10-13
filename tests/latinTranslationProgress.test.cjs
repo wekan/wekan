@@ -395,3 +395,15 @@ assert.match(latin['filter-hide-empty'], /Cela.*vacuos/);
 assert.equal(latin['list-label-short-modifiedAt'], '(U)');
 assert.equal(latin['list-label-short-title'], '(N)');
 assert.equal(latin['list-label-short-sort'], '(M)');
+
+const reviewedImportKeys = ["filter-to-selection", "other-filters-label", "advanced-filter-label", "fullname", "show-activities", "hide-activities", "imported-member-no-account", "inactive-member", "impersonate-user", "import-board", "import-board-c", "import-board-instruction-kanboard", "import-board-instruction-deck", "import-board-instruction-openproject", "import-board-instruction-issues", "import-board-instruction-asana", "import-board-instruction-zenkit", "import-board-instruction-csv", "import-board-instruction-jira", "import-board-instruction-excel", "import-excel-file", "import-board-instruction-wekan", "import-board-instruction-about-errors", "import-without-mapping-members", "import-json-placeholder", "import-csv-placeholder", "import-json-file", "import-attachments-zip", "import-trello-json-file", "advanced-filter-description"];
+for (const key of reviewedImportKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Paste|Advanced|For Example|Note:|sometimes|mapping|optional)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+for (const example of ['== != <= >= && || ( )', 'Field1 == Value1', "'Field 1' == 'Value 1'", "Field1 == I\\'m", 'F1 == V1 || F1 == V2', 'F1 == V1 && ( F2 == V2 || F2 == V3 )', 'F1 == /Tes.*/i']) assert.ok(latin['advanced-filter-description'].includes(example), example);
+for (const literal of ['GET /rest/api/3/search/jql?jql=project=KEY&fields=*all&expand=names,schema', 'nextPageToken', '"issues"', '"automationRules"']) assert.ok(latin['import-board-instruction-jira'].includes(literal), literal);
+assert.match(latin['import-board-instruction-jira'], /sine fields tantum ID rerum reddit/);
+assert.match(latin['import-board-instruction-excel'], /una charta in quaque linea.*Omne folium cum linea titulorum fit tabula/);
+assert.match(latin['import-board-instruction-about-errors'], /interdum.*tamen succedit/);
+assert.match(latin['import-without-mapping-members'], /postea coniunge/);
