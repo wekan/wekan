@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin security settings — 2026-10-14
+
+Commit `386fbba5ec` repairs 26 security labels and explanations. Regression
+checks retain disabled defaults, server-side import/export refusal, avatar-only
+exclusions, anonymization effects, account history preservation, irreversible
+changes and the distinction between activities, notifications and observation.
+Markdown/HTML examples and anonymization identifiers remain literal.
+
+Three translation suites pass with 28,995 correction ledger entries. All 21
+human-preference checks pass, and exact comparison preserves 38,430 existing
+Chinese values. Security browser coverage checks default and enforcement text;
+syntax and discovery pass, runtime remains pending.
+
+There remain 392 Latin values containing “Latine:”. Unprefixed values and other
+languages still require semantic review; all-language verification is unfinished.
+
 ## Latin migration and card loading — 2026-10-14
 
 Commit `e949142731` repairs 26 database migration and card-loading entries.

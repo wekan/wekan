@@ -3598,6 +3598,21 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/386fbba5ec">Repair Latin security setting translations</a>. Thanks to xet7.</summary>
+
+- Translate 26 security entries. Preserve disabled defaults, import/export
+  enforcement, anonymization effects, activity/notification distinctions and
+  literal code examples.
+- Three translation suites and 21 human-preference checks pass. Existing Chinese
+  values remain unchanged. Security browser coverage passes syntax and
+  discovery;
+  execution remains pending.
+- Review remains unfinished: 392 Latin values contain the legacy prefix.
+  Unprefixed values and other languages still require semantic review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
