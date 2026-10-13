@@ -318,3 +318,16 @@ assert.match(corsican['board-view-timeline-restore-confirm'], /titulu.*discrizzi
 assert.match(corsican['board-view-timeline-showing'], /à a data di/);
 assert.match(corsican['calendar-system-iso8601'], /gregorianu.*simane ISO 8601/);
 assert.match(corsican['roadmap-empty-no-custom-fields'], /"Version" o "Release"/);
+
+const cardCorrectionKeys = ["card-delete-notice", "card-delete-pop", "card-archive-pop", "list-archive-pop", "listArchivePopup-title", "swimlane-archive-pop", "swimlaneArchivePopup-title", "card-due-on", "card-spent", "card-edit-attachments", "card-labels-title", "card-members-title", "card-start-on", "cardAttachmentsPopup-title", "cardCustomField-datePopup-title", "cardStartVotingPopup-title", "positiveVoteMembersPopup-title", "vote-question", "vote-against", "cardStartPlanningPokerPopup-title", "poker-question", "poker-one", "poker-two", "poker-three", "poker-five", "poker-eight", "poker-thirteen", "poker-twenty", "poker-forty", "poker-oneHundred", "poker-unsure", "poker-finish", "poker-result-who", "poker-replay", "set-estimation", "poker-delete-pop", "cardArchivePopup-title", "cardDetailsActionsPopup-title", "addBoardTeamPopup-title", "removeBoardTeamPopup-title", "adminChangeAvatarPopup-title", "boardBackgroundsPopup-title", "deleteBoardBackgroundPopup-title", "userDeletePopup-title", "addBoardDomainPopup-title", "removeBoardDomainPopup-title", "mapImportedMemberPopup-title"];
+for (const key of cardCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /\b(?:Archiviare|Tempo|trascorso|allegati|Cambia|Allega|Avvia|Favorevoli|Domanda|contro|Imposta|Perderai|Sfondi|sfondo|dominio|Associa)\b/, key);
+}
+for (const key of ['poker-question','poker-one','poker-two','poker-three','poker-five','poker-eight','poker-thirteen','poker-twenty','poker-forty','poker-oneHundred','poker-unsure']) {
+  assert.equal(corsican[key], english[key], key);
+  assert.doesNotMatch(corsican[key], /In corsu/);
+}
+assert.match(corsican['card-delete-pop'], /Tutte l’azzioni.*ùn puderete più apre torna.*Ùn si pò annullà/);
+assert.match(corsican['poker-delete-pop'], /permanente.*tutte l’azzioni/);
+for (const key of ['card-archive-pop','list-archive-pop','swimlane-archive-pop']) assert.match(corsican[key], /ùn serà più visibile.*dopu l’archiviazione/);

@@ -148,3 +148,20 @@ test.describe('Voting & watchers', () => {
       .toContain(user.id);
   });
 });
+
+test('Corsican Planning Poker shows literal scores without progress prefixes', async ({ boardPage: page, board }) => {
+  db.updateOne('boards', { _id: board.boardId }, { $set: { allowsPoker: true } });
+  db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' }, { $set: {
+    'poker.question': 'Estimate this card', 'poker.end': new Date(Date.now() + 86400000),
+  } });
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'co'));
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  const bp = new BoardPage(page), cp = new CardPage(page);
+  await bp.clickCard(board.listIds[0], 'Alpha Card');
+  await cp.waitForOpen();
+  await expect(cp.root.locator('.poker-title h3')).toHaveText('Planning Poker');
+  for (const [name, value] of [['one','1'],['two','2'],['three','3'],['five','5'],['eight','8'],['thirteen','13'],['twenty','20'],['forty','40'],['one-hundred','100'],['unsure','?']]) {
+    await expect(cp.root.locator('.js-poker-vote-' + name)).toHaveText(value);
+  }
+  await expect(cp.root.locator('.poker-deck')).not.toContainText(['In corsu']);
+});

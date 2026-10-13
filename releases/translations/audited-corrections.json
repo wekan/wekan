@@ -178554,5 +178554,334 @@
     "before": "ISO 8601",
     "after": "Calendariu gregorianu (simane ISO 8601)",
     "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "card-delete-notice",
+    "before": "L'eliminazione è permanente. Tutte le azioni associate a questa carta andranno perse.",
+    "after": "A squassatura hè permanente. Perderete tutte l’azzioni assuciate à sta carta.",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "card-delete-pop",
+    "before": "Tutte le azioni saranno rimosse dal flusso attività e non sarai in grado di riaprire la carta. Non potrai tornare indietro.",
+    "after": "Tutte l’azzioni seranu cacciate da u flussu d’attività è ùn puderete più apre torna a carta. Ùn si pò annullà st’azzione.",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "card-archive-pop",
+    "before": "La carta non sarà più visibile in questa lista dopo l'archiviazione.",
+    "after": "A carta ùn serà più visibile in sta lista dopu l’archiviazione.",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "list-archive-pop",
+    "before": "La lista non sarà più visibile in a tavula dopo l'archiviazione.",
+    "after": "A lista ùn serà più visibile nant’à a tavula dopu l’archiviazione.",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "listArchivePopup-title",
+    "before": "Archiviare la lista?",
+    "after": "Archivià a lista?",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "swimlane-archive-pop",
+    "before": "La swimlane non sarà più visibile in a tavula dopo l'archiviazione.",
+    "after": "U curridore ùn serà più visibile nant’à a tavula dopu l’archiviazione.",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "swimlaneArchivePopup-title",
+    "before": "Archiviare la swimlane?",
+    "after": "Archivià u curridore?",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "card-due-on",
+    "before": "Scade il",
+    "after": "Scade u",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "card-spent",
+    "before": "Tempo trascorso",
+    "after": "Tempu passatu",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "card-edit-attachments",
+    "before": "Mudificà allegati",
+    "after": "Mudificà l’appicci",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "card-labels-title",
+    "before": "Cambia le etichette per questa carta.",
+    "after": "Cambià l’etichette di a carta.",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "card-members-title",
+    "before": "Aghjunghje o caccià membri di a tavula da questa carta",
+    "after": "Aghjunghje o caccià membri di a tavula nant’à a carta.",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "card-start-on",
+    "before": "Inizia il",
+    "after": "Principia u",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "cardAttachmentsPopup-title",
+    "before": "Allega da",
+    "after": "Aghjunghje un appicciu da",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "cardCustomField-datePopup-title",
+    "before": "Cambia data",
+    "after": "Cambià a data",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "cardStartVotingPopup-title",
+    "before": "Avvia una votazione",
+    "after": "Principià un votu",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "positiveVoteMembersPopup-title",
+    "before": "Favorevoli",
+    "after": "Favurevuli",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "vote-question",
+    "before": "Domanda di votazione",
+    "after": "Dumanda di votu",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "vote-against",
+    "before": "contro",
+    "after": "contru",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "cardStartPlanningPokerPopup-title",
+    "before": "Avvia un Planning Poker",
+    "after": "Principià un Planning Poker",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "poker-question",
+    "before": "In corsu: Planning Poker",
+    "after": "Planning Poker",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "poker-one",
+    "before": "In corsu: 1",
+    "after": "1",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "poker-two",
+    "before": "In corsu: 2",
+    "after": "2",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "poker-three",
+    "before": "In corsu: 3",
+    "after": "3",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "poker-five",
+    "before": "In corsu: 5",
+    "after": "5",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "poker-eight",
+    "before": "In corsu: 8",
+    "after": "8",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "poker-thirteen",
+    "before": "In corsu: 13",
+    "after": "13",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "poker-twenty",
+    "before": "In corsu: 20",
+    "after": "20",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "poker-forty",
+    "before": "In corsu: 40",
+    "after": "40",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "poker-oneHundred",
+    "before": "In corsu: 100",
+    "after": "100",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "poker-unsure",
+    "before": "In corsu: ?",
+    "after": "?",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "poker-finish",
+    "before": "Fine",
+    "after": "Compie",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "poker-result-who",
+    "before": "Chi",
+    "after": "Quale",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "poker-replay",
+    "before": "Ripeti",
+    "after": "Ghjucà torna",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "set-estimation",
+    "before": "Imposta la stima",
+    "after": "Definisce a stima",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "poker-delete-pop",
+    "before": "L'eliminazione è permanente. Perderai tutte le azioni associate a questu planning poker.",
+    "after": "A squassatura hè permanente. Perderete tutte l’azzioni assuciate à stu Planning Poker.",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "cardArchivePopup-title",
+    "before": "Archiviare la card?",
+    "after": "Archivià a carta?",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "cardDetailsActionsPopup-title",
+    "before": "Azioni carta",
+    "after": "Azzioni di a carta",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "addBoardTeamPopup-title",
+    "before": "Aghjunghje Team",
+    "after": "Aghjunghje una squadra",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "removeBoardTeamPopup-title",
+    "before": "Caccià Team",
+    "after": "Caccià a squadra",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "adminChangeAvatarPopup-title",
+    "before": "Cambia avatar",
+    "after": "Cambià l’avatar",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "boardBackgroundsPopup-title",
+    "before": "Sfondi di a tavula",
+    "after": "Fondi di a tavula",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "deleteBoardBackgroundPopup-title",
+    "before": "Squassà l'immagine di sfondo",
+    "after": "Squassà a maghjina di fondu",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "userDeletePopup-title",
+    "before": "Squassà l'account",
+    "after": "Squassà u contu",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "addBoardDomainPopup-title",
+    "before": "Aghjunghje dominio",
+    "after": "Aghjunghje un duminiu",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "removeBoardDomainPopup-title",
+    "before": "Caccià dominio",
+    "after": "Caccià u duminiu",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "mapImportedMemberPopup-title",
+    "before": "Associa a un utilizatore esistente",
+    "after": "Assucià à un utilizatore esistente",
+    "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
   }
 ]
