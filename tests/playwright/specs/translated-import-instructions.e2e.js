@@ -5,7 +5,7 @@ const en = require('../../../imports/i18n/data/en.i18n.json');
 for (const language of ['la', 'st', 'mt', 'sw', 'co']) {
 const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
 for (const format of [...(language === 'la' ? ['trello'] : []), ...(language === 'st' ? ['markdown', 'taskwarrior', 'focalboard', 'todoist', 'planner', 'jira', 'excel'] : []), ...(language === 'co' ? ['zenkit', 'jira', 'excel', 'kanboard', 'deck', 'openproject', 'focalboard', 'todoist', 'planner'] : []), 'opml', 'orgmode', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri', 'pivotal', 'tasksorg', 'monday', 'superproductivity', 'taiga', 'vikunja', 'quire', 'wrike', 'teamwork', 'businessmap', 'redmine', 'notion', 'plane']) {
-  if (language === 'la' && !["opml", "orgmode", "meistertask", "obsidian", "linear", "ticktick", "clickup", "nullboard", "kanri", "pivotal", "tasksorg", "monday", "trello"].includes(format)) continue;
+  if (language === 'la' && !["opml", "orgmode", "meistertask", "obsidian", "linear", "ticktick", "clickup", "nullboard", "kanri", "pivotal", "tasksorg", "monday", "trello", "superproductivity", "taiga", "vikunja", "quire", "wrike", "teamwork", "businessmap", "redmine", "notion", "plane"].includes(format)) continue;
   test(`Import instructions and limits for ${format} in ${language}`, async ({ loggedInPage: page }) => {
     await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
     await navigateInApp(page, `/import/${format}`);

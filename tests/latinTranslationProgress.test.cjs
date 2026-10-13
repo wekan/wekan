@@ -78,3 +78,18 @@ assert.match(latin['import-board-instruction-nullboard'], /prima linea.*titulus.
 assert.match(latin['import-board-instruction-clickup'], /omnibus columnis.*indices ClickUp fiunt semitae/);
 assert.match(latin['import-board-instruction-monday'], /aliae columnae fiunt campi proprii.*renovationes fiunt commentaria/);
 for (const name of ['Menu', 'More', 'Print and Export', 'Export JSON']) assert.ok(latin['import-board-instruction-trello'].includes(name));
+
+const nextImportGuideKeys = ["import-board-instruction-superproductivity", "import-board-instruction-taiga", "import-board-instruction-vikunja", "import-board-instruction-quire", "import-board-instruction-wrike", "import-board-instruction-teamwork", "import-board-instruction-businessmap", "import-board-instruction-redmine", "import-board-instruction-notion", "import-board-instruction-plane"];
+for (const key of nextImportGuideKeys) {
+  assert.notEqual(latin[key], english[key], key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+for (const format of ['taiga', 'vikunja']) assert.match(latin[`import-board-instruction-${format}`], /Adiuncta non importantur/);
+assert.match(latin['import-board-instruction-quire'], /Commentaria et adiuncta.*non sunt/);
+assert.match(latin['import-board-instruction-notion'], /prima columna.*relatio importationis.*Relationes, imagines et adiuncta non importantur/);
+assert.match(latin['import-board-instruction-plane'], /descriptiones aut adiuncta non continet.*non importantur/);
+for (const marker of ['-', '#', '>', '--', '##', '>>']) assert.ok(latin['import-board-instruction-teamwork'].includes(marker));
+assert.match(latin['import-board-instruction-businessmap'], /nominibus Anglicis.*ordine capitum.*in Anglicum muta/);
+assert.match(latin['import-board-instruction-redmine'], /ante exportationem in My account linguam Anglicam elige/);
+assert.match(latin['import-board-instruction-taiga'], /[.]json[.]gz decomprime/);
+assert.match(latin['import-board-instruction-superproductivity'], /opera in tabulario posita fiunt chartae in tabulario positae/);
