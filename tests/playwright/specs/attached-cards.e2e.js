@@ -8,7 +8,10 @@ const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { openBoard } = require('../helpers/auth');
 
-test('a card of the board is attached by its title, opens, and is removed (#3257)', async ({ boardPage: page, board, user }) => {
+for (const language of ['en', 'mt']) {
+test(`a card of the board is attached by its title, opens, and is removed in ${language} (#3257)`, async ({ boardPage: page, board, user }) => {
+  await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
+  const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
   const card = db.findOne('cards', { boardId: board.boardId });
   const otherId = db.uid('card');
   db.insertOne('cards', { ...card, _id: otherId, title: 'Attached Beta Card', sort: 900, attachedCardIds: [] });
@@ -28,6 +31,7 @@ test('a card of the board is attached by its title, opens, and is removed (#3257
     if (await header.locator('.fa-caret-right').count()) await header.click();
     await expect(add).toBeVisible();
     await add.click();
+    await expect(page.locator('.js-pop-over .js-attach-card')).toHaveText(strings['attach-card']);
     await page.locator('.js-pop-over .js-attach-card').click();
     await page.locator('.js-pop-over .js-attach-card-input').fill('Beta');
     await page.locator('.js-pop-over .js-attach-card-match', { hasText: 'Attached Beta Card' }).click();
@@ -42,7 +46,7 @@ test('a card of the board is attached by its title, opens, and is removed (#3257
     await page.locator('.js-pop-over .js-attach-card-input')
       .fill(`${new URL(page.url()).origin}/b/${hidden.boardId}/x/${hiddenCard._id}`);
     await page.locator('.js-pop-over .js-attach-card-submit').click();
-    await expect(page.locator('.js-pop-over .js-attach-card-error')).toBeVisible();
+    await expect(page.locator('.js-pop-over .js-attach-card-error')).toHaveText(strings['attach-card-not-found']);
     expect(db.findOne('cards', { _id: card._id }).attachedCardIds).toEqual([otherId]);
     await page.keyboard.press('Escape');
 
@@ -63,6 +67,7 @@ test('a card of the board is attached by its title, opens, and is removed (#3257
     db.cleanup({ boardIds: [hidden.boardId] });
   }
 });
+}
 
 // A Trello export's card attachment to another card of the same board becomes
 // an attached card; one to a card of another board stays a link.
