@@ -2815,6 +2815,21 @@ semantic verification remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/51421f5384">Repair Latin checklist and workspace translations</a>. Thanks to xet7.</summary>
+
+Repair 60 mixed-language strings for checklist activity, dates, workspaces,
+board selection and Home controls. Keep the valid Latin word Color through an
+exact-source exception that does not hide changed English prose.
+
+The Latin, correction-ledger and technical-exception suites pass, as do all 21
+preservation checks. The workspace browser case passes syntax and discovery;
+runtime remains pending. Existing Chinese values are unchanged. There remain
+2,196 Latin values containing the old language prefix; all-language translation
+and semantic review remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

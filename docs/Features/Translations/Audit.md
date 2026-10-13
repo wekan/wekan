@@ -2,6 +2,27 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin checklist and workspace review — 2026-10-14
+
+Commit `51421f5384` repairs 60 mixed-language activity and board controls,
+including checklist completion, date changes, workspace creation, board selection,
+Home removal and list positioning. Tests preserve argument order, opposite
+checklist states, administrator-only permanent deletion and the distinction
+between removing the initial-board setting and deleting a board.
+
+Latin Color is a valid shared word. Its detector exception is restricted to the
+exact workspace-color source value; a negative test verifies that changed English
+prose and unrelated keys remain translatable.
+
+The Latin, guarded-correction and technical-exception suites pass with 27,188
+ledger entries. All 21 human-preference checks pass. Workspace navigation and
+creation-form browser coverage passes syntax and discovery; runtime remains
+pending. Exact comparison preserves 38,430 existing Chinese values.
+
+There remain 2,196 Latin values containing “Latine:” (2,183 start with it).
+Unprefixed strings also require review. All-language translation and semantic
+verification remain unfinished.
+
 ## Latin activity-message review — 2026-10-14
 
 Commit `1e254be892` repairs 65 prefixed, mixed-language or grammatically broken
