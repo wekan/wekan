@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin sorting and filter controls — 2026-10-14
+
+Commit `9860c8a248` repairs 30 prefixed strings for sort labels and abbreviations,
+date filters, missing values and member/assignee/creator distinctions. Tests
+preserve today/tomorrow/this-week/next-week periods, overdue versus missing dates,
+showing archived lists and hiding empty lists. The creator filter no longer has
+a duplicated language prefix.
+
+The Latin and guarded-correction suites pass with 27,644 ledger entries. All 21
+human-preference checks pass. A date-filter browser case checks translated labels
+and mutually exclusive radio states; syntax and discovery pass, runtime remains
+pending. Exact comparison preserves 38,430 existing Chinese values.
+
+There remain 1,740 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin exports and name collision errors — 2026-10-14
 
 Commit `855b54d55a` repairs 30 prefixed messages for duplicate names and email
