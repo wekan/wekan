@@ -2423,6 +2423,22 @@ values are preserved. Translation and semantic-review work remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9dc53b66f9">Correct Southern Sotho automation conditions and labels</a>. Thanks to xet7.</summary>
+
+Reviewed source keys 1417–1589 and corrected 13 values. Date triggers include
+both setting and changing a date. Auto-detect no longer says learn, and the
+remove-labels action no longer refers to goals. Rule states, toggle controls
+and assignee conditions are clarified; short English fragments are translated.
+
+Southern Sotho and repair-ledger suites pass with 26,939 guarded corrections;
+all 21 human-preference checks pass. Workflow-import browser coverage passes
+syntax and discovery; runtime execution remains pending. All 38,430 existing
+Chinese values are preserved. The short-string inventory exemption still
+needs review; all-language translation work remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

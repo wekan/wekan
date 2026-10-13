@@ -2,6 +2,25 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho historical review: automation conditions — 2026-10-13
+
+Commit `9dc53b66f9` reviews source keys 1417–1589 and repairs 13 values.
+Enabled/disabled states and their toggle identify activation clearly.
+Auto-detect no longer says learn. Assignee conditions include their conditional
+wording, and four date triggers include both setting and changing the date.
+Removing all labels no longer says removing goals. The short English fragments
+`by` and `is` are translated. Other valid wording in this range is preserved.
+
+The Southern Sotho and repair-ledger suites pass with 26,939 guarded corrections;
+all 21 human-preference checks pass. Workflow-import browser coverage passes
+syntax and discovery; runtime execution remains pending. Exact comparison
+preserves 38,430 existing Chinese values. Historical review reaches key 1589.
+
+The inventory still exempts every value containing fewer than three letters,
+which hid `by` and `is`. Reviewing that blanket exemption remains necessary:
+short function words are translatable, unlike genuine symbols or abbreviations.
+All-language completion remains unproven.
+
 ## Storage inventory correction and Southern Sotho fill — 2026-10-13
 
 Commit `d223f4fd53` closes the broad-prefix inventory gap documented below.
