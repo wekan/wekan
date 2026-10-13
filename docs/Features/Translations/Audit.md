@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin locations and backgrounds — 2026-10-14
+
+Commit `08c7d5314b` repairs 30 prefixed location, background, sorting and server
+error entries. Regression checks preserve title aliases, size placeholders,
+latitude/longitude, detection failure/success, exact troubleshooting commands and
+newest/oldest sorting. The shared place name “Asia” has an exact source/key
+exception with negative coverage for longer English prose.
+
+The Latin, guarded-correction and shared-word suites pass with 28,601 ledger
+entries. All 21 human-preference checks pass. Location browser coverage checks
+invalid input followed by a coordinate-bearing map link; syntax and discovery
+pass, runtime remains pending. Exact comparison preserves 38,430 existing Chinese
+values.
+
+There remain 786 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin sorting and dependencies — 2026-10-14
 
 Commit `959bfbcedc` repairs 37 prefixed sorting, completion, sticker and dependency
