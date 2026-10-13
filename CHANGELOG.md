@@ -3694,6 +3694,19 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6f0bbb9a34">Repair Latin status, account and repair-result translations</a>. Thanks to xet7.</summary>
+
+- Translate 70 status and account entries. Preserve temporary lockout,
+  required credentials, minimum username length and repair-result counters.
+- Three translation suites and 21 human-preference checks pass. Existing Chinese
+  values remain unchanged. Problem-summary browser coverage passes syntax and
+  discovery; execution remains pending.
+- Review remains unfinished: 65 Latin values contain the legacy prefix.
+  Unprefixed values and other languages still require semantic review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

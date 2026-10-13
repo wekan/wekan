@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin status, accounts and repair results — 2026-10-14
+
+Commit `6f0bbb9a34` repairs 70 status, repository, account and repair-result
+entries. Regression checks retain temporary lockout, required credentials,
+minimum username length, acknowledgement instructions and repair counters.
+Latin “Error” and “Status” receive exact source/key exceptions with negative tests.
+
+Three translation suites pass with 29,322 correction ledger entries. All 21
+human-preference checks pass, and exact comparison preserves 38,430 existing
+Chinese values. Problem-summary browser coverage seeds a test event and checks
+review/acknowledgement guidance; syntax and discovery pass, runtime is pending.
+
+There remain 65 Latin values containing “Latine:”. Unprefixed values and other
+languages still require semantic review; all-language verification is unfinished.
+
 ## Latin monitoring and conversion progress — 2026-10-14
 
 Commit `2e4f49297e` repairs 65 monitoring and progress entries. Regression checks
