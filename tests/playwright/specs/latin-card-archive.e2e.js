@@ -94,3 +94,19 @@ test('Latin swimlane deletion warns that recovery is impossible', async ({ board
   await expect(pop).not.toContainText('Latine:');
   await expect(pop.locator('button.js-confirm')).toBeVisible();
 });
+
+
+test('Latin card window controls distinguish maximizing from minimizing', async ({ boardPage: page, board }) => {
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'la'));
+  await new BoardPage(page).clickCard(board.listIds[0], 'Alpha Card');
+  const card = new CardPage(page);
+  await card.waitForOpen();
+  const maximize = card.root.locator('.js-maximize-card-details');
+  const minimize = card.root.locator('.js-minimize-card-details');
+  if (!(await maximize.isVisible())) await minimize.click();
+  await expect(maximize).toHaveAttribute('title', 'Maximam fac fenestram chartae');
+  await maximize.click();
+  await expect(minimize).toHaveAttribute('title', 'Minimam fac fenestram chartae');
+  await minimize.click();
+  await expect(maximize).toBeVisible();
+});

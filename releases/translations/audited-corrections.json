@@ -200590,5 +200590,215 @@
     "before": "Latine: Copia semita natatoria",
     "after": "Exscribe semitam",
     "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
+  },
+  {
+    "locale": "la",
+    "key": "display-card-creator",
+    "before": "Latine: Ostende Scheda Creator",
+    "after": "Monstra auctorem chartae",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "wait-spinner",
+    "before": "Latine: Wait Spinner",
+    "after": "Indicium exspectationis",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "Bounce",
+    "before": "Latine: Bounce Wait Spinner",
+    "after": "Indicium exspectationis saltans",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "Cube",
+    "before": "Latine: Cube Wait Spinner",
+    "after": "Indicium exspectationis cubicum",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "Cube-Grid",
+    "before": "Latine: Cube-Grid Wait Spinner",
+    "after": "Indicium exspectationis: reticulum cuborum",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "Dot",
+    "before": "Latine: Dot Wait Spinner",
+    "after": "Indicium exspectationis: punctum",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "Double-Bounce",
+    "before": "Latine: Double Bounce Wait Spinner",
+    "after": "Indicium exspectationis dupliciter saltans",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "Rotateplane",
+    "before": "Latine: Rotateplane Wait Spinner",
+    "after": "Indicium exspectationis: planum rotans",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "Scaleout",
+    "before": "Latine: Scaleout Wait Spinner",
+    "after": "Indicium exspectationis dilatans",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "Wave",
+    "before": "Latine: Wave Wait Spinner",
+    "after": "Indicium exspectationis: unda",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "maximize-card",
+    "before": "Latine: Maximize Scheda",
+    "after": "Maximam fac fenestram chartae",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "minimize-card",
+    "before": "Latine: Minimize Scheda",
+    "after": "Minimam fac fenestram chartae",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "delete-org-warning-message",
+    "before": "Latine: Potest non dele hoc organizatio, there est at least one usor illud belongs ad it",
+    "after": "Haec consociatio deleri non potest, quia saltem unus usor ad eam pertinet",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "delete-team-warning-message",
+    "before": "Latine: Potest non dele hoc manus, there est at least one usor illud belongs ad it",
+    "after": "Haec manus deleri non potest, quia saltem unus usor ad eam pertinet",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "subject",
+    "before": "Latine: Subject",
+    "after": "Argumentum",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "details",
+    "before": "Latine: Singula",
+    "after": "Singula",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "carbon-copy",
+    "before": "Latine: Carbon Copia (Cc:)",
+    "after": "Exemplar additum (Cc:)",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "ticket",
+    "before": "Latine: Ticket",
+    "after": "Tessera",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "tickets",
+    "before": "Latine: Tickets",
+    "after": "Tesserae",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "ticket-number",
+    "before": "Latine: Ticket Numerus",
+    "after": "Numerus tesserae",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "open",
+    "before": "Latine: Aperi",
+    "after": "Aperta",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "pending",
+    "before": "Latine: Pending",
+    "after": "Pendens",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "closed",
+    "before": "Latine: Clausum",
+    "after": "Clausa",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "resolved",
+    "before": "Latine: Resolved",
+    "after": "Soluta",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "cancelled",
+    "before": "Latine: Cancelled",
+    "after": "Revocata",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "history-change-removed",
+    "before": "Latine: Remotum",
+    "after": "Remotum",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "history-change-edited",
+    "before": "Latine: Mutatum",
+    "after": "Mutatum",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "history-change-moved",
+    "before": "Latine: Motum",
+    "after": "Motum",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "history-change-restored",
+    "before": "Latine: Restitutum",
+    "after": "Restitutum",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "request",
+    "before": "Latine: Request",
+    "after": "Petitio",
+    "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
   }
 ]

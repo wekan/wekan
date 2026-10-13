@@ -932,3 +932,17 @@ assert.match(latin['recovery-report-desc'], /iterata migratio ex MongoDB/);
 assert.match(latin['recovery-report-desc'], /exemplaria subsidiaria datorum textualium/);
 assert.match(latin['recovery-maintenance-note'], /automatice perget cum restitutio perfecta erit/);
 assert.equal(latin['copy-swimlane'], latin['copySwimlanePopup-title']);
+
+const reviewedSpinnerTicketKeys = ["display-card-creator", "wait-spinner", "Bounce", "Cube", "Cube-Grid", "Dot", "Double-Bounce", "Rotateplane", "Scaleout", "Wave", "maximize-card", "minimize-card", "delete-org-warning-message", "delete-team-warning-message", "subject", "details", "carbon-copy", "ticket", "tickets", "ticket-number", "open", "pending", "closed", "resolved", "cancelled", "history-change-removed", "history-change-edited", "history-change-moved", "history-change-restored", "request"];
+for (const key of reviewedSpinnerTicketKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Display|Wait|Spinner|Maximize|Minimize|organization|Pending|Resolved|Removed)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+const latinSpinnerKeys = ['Bounce', 'Cube', 'Cube-Grid', 'Dot', 'Double-Bounce', 'Rotateplane', 'Scaleout', 'Wave'];
+assert.equal(new Set(latinSpinnerKeys.map(key => latin[key])).size, 8);
+for (const key of latinSpinnerKeys) assert.match(latin[key], /^Indicium exspectationis/);
+assert.notEqual(latin['maximize-card'], latin['minimize-card']);
+for (const kind of ['org', 'team']) assert.match(latin[`delete-${kind}-warning-message`], /deleri non potest, quia saltem unus usor/);
+assert.ok(latin['carbon-copy'].includes('(Cc:)'));
+assert.equal(new Set(['open', 'pending', 'closed', 'resolved', 'cancelled'].map(key => latin[key])).size, 5);
+assert.equal(new Set(['removed', 'edited', 'moved', 'restored'].map(kind => latin[`history-change-${kind}`])).size, 4);
