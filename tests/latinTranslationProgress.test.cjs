@@ -1104,3 +1104,19 @@ assert.ok(latin['backup-day-of-month'].includes('1-28'));
 assert.match(latin['gcs-key-filename-description'], /Ad libitum:.*in serviente/);
 assert.match(latin['gcs-credentials-description'], /fasciculo clavis vel documentis authentificationis praedefinitis/);
 assert.match(latin['cloud-secret-keep-blank'], /valor praesens servetur/);
+
+const reviewedCloudGuidanceKeys = ["gcs-permissions-note", "s3-endpoint-menu-path", "s3-region-menu-path", "s3-bucket-menu-path", "s3-access-key-menu-path", "s3-secret-key-menu-path", "azure-account-name-menu-path", "azure-account-key-menu-path", "azure-connection-string-menu-path", "azure-container-menu-path", "gcs-project-id-menu-path", "gcs-bucket-menu-path", "gcs-key-filename-menu-path", "gcs-credentials-menu-path", "cloud-secret-set", "cloud-secret-none", "test-cloud-connection", "cloud-connection-success", "cloud-connection-failed", "cloud-settings-saved", "cloud-settings-save-failed", "move-storage-azure", "move-storage-gcs", "attachment-move-storage-azure", "attachment-move-storage-gcs", "gridfs-enabled", "gridfs-disabled", "gridfs-enabled-description", "s3-disabled"];
+for (const key of reviewedCloudGuidanceKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:your bucket|your account|leave blank|Connection successful|Connection failed|Storage Disabled)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+for (const literal of ['New principals', 'client_email', 'Storage Object Admin', 'Grant access']) assert.ok(latin['gcs-permissions-note'].includes(literal));
+for (const literal of ['Application running outside AWS', 'Access key ID', 'Create access key']) assert.ok(latin['s3-access-key-menu-path'].includes(literal));
+assert.match(latin['s3-secret-key-menu-path'], /semel tantum cum clavis creatur/);
+assert.ok(latin['s3-secret-key-menu-path'].includes('Download .csv'));
+assert.match(latin['gcs-key-filename-menu-path'], /AUT insere JSON/);
+assert.match(latin['gcs-credentials-menu-path'], /vel serva fasciculum et indica iter eius supra/);
+assert.match(latin['cloud-secret-set'], /relinque vacuum/);
+assert.notEqual(latin['cloud-connection-success'], latin['cloud-connection-failed']);
+assert.notEqual(latin['gridfs-enabled'], latin['gridfs-disabled']);
+for (const key of ['move-storage-azure', 'move-storage-gcs']) assert.equal(latin[key], english[key]);

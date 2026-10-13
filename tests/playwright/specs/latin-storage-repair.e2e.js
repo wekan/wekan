@@ -38,6 +38,7 @@ test('Latin Azure settings explain the optional connection string', async ({ pag
   await expect(field).toContainText('Ad libitum: utere integra serie connexionis loco nominis et clavis rationis.');
   await expect(field.locator('.cloud-input-label-tr')).not.toContainText('Latine:');
   await expect(field.locator('input')).toHaveAttribute('type', 'password');
+  await expect(field.locator('.cloud-input-path').last()).toContainText('ratio tua → Security + networking → Access keys → key1 → Connection string → Show.');
 });
 
 test('Latin database migration pane preserves prerequisites and connection instructions', async ({ page, adminUser }) => {

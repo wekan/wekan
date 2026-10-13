@@ -203208,5 +203208,208 @@
     "before": "Latine: The nomen de the Cloud Storage bucket ad store fasciculi in.",
     "after": "Nomen receptaculi Cloud Storage in quo fasciculi serventur.",
     "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "gcs-permissions-note",
+    "before": "Latine: Give WeKan's service ratio lege/scribe access ad the bucket: Google Cloud Console → Cloud Storage → Buckets → tuum bucket → Facultates → Grant access. In \"Novum principals\", paste the service ratio epistula electronica — the \"client_email\" valor ex tuum JSON key — then elige the munus \"Storage Object Administrator\" et Serva.",
+    "after": "Da rationi servitii WeKan potestatem legendi et scribendi in receptaculo: Google Cloud Console → Cloud Storage → Buckets → receptaculum tuum → Permissions → Grant access. In \"New principals\" insere inscriptionem electronicam rationis servitii — valorem \"client_email\" ex clave tua JSON — deinde elige personam \"Storage Object Admin\" et Save.",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "s3-endpoint-menu-path",
+    "before": "Latine: AWS: leave blank (uses the region endpoint). S3-compatible: the Endpoint URL ex tuum MinIO / Cloudflare R2 / Backblaze B2 / Wasabi / DigitalOcean Spaces console.",
+    "after": "AWS: relinque vacuum (puncto accessus regionis utitur). Cum S3 congruens: URL puncti accessus ex console MinIO / Cloudflare R2 / Backblaze B2 / Wasabi / DigitalOcean Spaces.",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "s3-region-menu-path",
+    "before": "Latine: AWS Console → S3 → Buckets → tuum bucket → Properties → AWS Region.",
+    "after": "AWS Console → S3 → Buckets → receptaculum tuum → Properties → AWS Region.",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "s3-bucket-menu-path",
+    "before": "Latine: AWS Console → S3 → Buckets → tuum bucket nomen (vel Crea bucket → Bucket nomen).",
+    "after": "AWS Console → S3 → Buckets → nomen receptaculi tui (vel Create bucket → Bucket name).",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "s3-access-key-menu-path",
+    "before": "Latine: AWS Console → IAM → Usores → tuum usor → Securitas credentials → Access keys → Crea access key → elige use case 'Application currens outside AWS' → Crea access key. Shown as 'Access key ID'.",
+    "after": "AWS Console → IAM → Users → usor tuus → Security credentials → Access keys → Create access key → elige usum 'Application running outside AWS' → Create access key. Monstratur ut 'Access key ID'.",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "s3-secret-key-menu-path",
+    "before": "Latine: Idem screen as the Access key ID; 'Secret access key' est shown tantum semel quando the key est creatum — copia it then (vel Deposce.csv).",
+    "after": "In eadem pagina ac Access key ID; 'Secret access key' semel tantum cum clavis creatur monstratur — tum eam exscribe (vel Download .csv).",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "azure-account-name-menu-path",
+    "before": "Latine: Azure Portal → Storage rationes → tuum ratio → nomen shown at the top (also under Securitas + networking → Access keys → Storage ratio nomen).",
+    "after": "Azure Portal → Storage accounts → ratio tua → nomen in summa pagina monstratum (etiam sub Security + networking → Access keys → Storage account name).",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "azure-account-key-menu-path",
+    "before": "Latine: Azure Portal → Storage rationes → tuum ratio → Securitas + networking → Access keys → key1 → Monstra → Key.",
+    "after": "Azure Portal → Storage accounts → ratio tua → Security + networking → Access keys → key1 → Show → Key.",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "azure-connection-string-menu-path",
+    "before": "Latine: Azure Portal → Storage rationes → tuum ratio → Securitas + networking → Access keys → key1 → Coniunctio string → Monstra.",
+    "after": "Azure Portal → Storage accounts → ratio tua → Security + networking → Access keys → key1 → Connection string → Show.",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "azure-container-menu-path",
+    "before": "Latine: Azure Portal → Storage rationes → tuum ratio → Data storage → Containers → tuum container (vel + Container ad crea one).",
+    "after": "Azure Portal → Storage accounts → ratio tua → Data storage → Containers → receptaculum tuum (vel + Container ut novum crees).",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "gcs-project-id-menu-path",
+    "before": "Latine: Google Cloud Console → project selector at the top → tuum project's ID (Cloud overview → Dashboard → Project informatio → Project ID).",
+    "after": "Google Cloud Console → selector propositi in summa pagina → identificator propositi tui (Cloud overview → Dashboard → Project info → Project ID).",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "gcs-bucket-menu-path",
+    "before": "Latine: Google Cloud Console → Cloud Storage → Buckets → tuum bucket nomen (vel Crea ad make one).",
+    "after": "Google Cloud Console → Cloud Storage → Buckets → nomen receptaculi tui (vel Create ut novum crees).",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "gcs-key-filename-menu-path",
+    "before": "Latine: Path adest the WeKan ministrator ad the depromptum service ratio JSON key fasciculus (creatum below). Use hoc Vel paste the JSON into the campus below.",
+    "after": "Iter in serviente WeKan ad fasciculum clavis JSON rationis servitii extractum (infra creatum). Hoc utere AUT insere JSON in campum inferiorem.",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "gcs-credentials-menu-path",
+    "before": "Latine: Google Cloud Console → IAM & Administrator → Service rationes → tuum service ratio → Keys → Adde key → Crea novum key → JSON → Crea (downloads the fasciculus). Paste its contents here, vel serva the fasciculus et set its path above.",
+    "after": "Google Cloud Console → IAM & Admin → Service accounts → ratio servitii tua → Keys → Add key → Create new key → JSON → Create (fasciculum extrahit). Insere eius textum hic, vel serva fasciculum et indica iter eius supra.",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "cloud-secret-set",
+    "before": "Latine: (servatum — leave blank ad keep)",
+    "after": "(servatum — relinque vacuum ut serves)",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "cloud-secret-none",
+    "before": "Latine: (non set)",
+    "after": "(non constitutum)",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "test-cloud-connection",
+    "before": "Latine: Probatio coniunctio",
+    "after": "Proba connexionem",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "cloud-connection-success",
+    "before": "Latine: Coniunctio felix",
+    "after": "Connexio successit",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "cloud-connection-failed",
+    "before": "Latine: Coniunctio defecit",
+    "after": "Connexio defecit",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "cloud-settings-saved",
+    "before": "Latine: Storage configurationes servatum",
+    "after": "Configurationes repositorii servatae sunt",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "cloud-settings-save-failed",
+    "before": "Latine: Defecit ad serva storage configurationes",
+    "after": "Configurationes repositorii servari non potuerunt",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "move-storage-azure",
+    "before": "Latine: Azure Blob",
+    "after": "Azure Blob",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "move-storage-gcs",
+    "before": "Latine: Google Cloud Storage",
+    "after": "Google Cloud Storage",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-move-storage-azure",
+    "before": "Latine: Move adnexum ad Azure Blob Storage",
+    "after": "Transfer adiunctum in Azure Blob Storage",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-move-storage-gcs",
+    "before": "Latine: Move adnexum ad Google Cloud Storage",
+    "after": "Transfer adiunctum in Google Cloud Storage",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "gridfs-enabled",
+    "before": "Latine: GridFS Habilitatum",
+    "after": "GridFS activum est",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "gridfs-disabled",
+    "before": "Latine: GridFS Inhabilitatum",
+    "after": "GridFS inactivum est",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "gridfs-enabled-description",
+    "before": "Latine: Use MongoDB GridFS for fasciculus storage",
+    "after": "Utere MongoDB GridFS ad fasciculos servandos",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "s3-disabled",
+    "before": "Latine: S3/MinIO Storage Inhabilitatum",
+    "after": "Repositorium S3/MinIO inactivum est",
+    "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
   }
 ]
