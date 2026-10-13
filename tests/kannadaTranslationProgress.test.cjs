@@ -1,5 +1,5 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Check the full current Kannada fill list, including pending features.
+// Structural completion does not certify all existing wording.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -7,7 +7,7 @@ const { spawnSync } = require('node:child_process');
 
 const root = path.resolve(__dirname, '..');
 const fillScript = path.join(root, 'releases/translations/fill-translations.mjs');
-const result = spawnSync(process.execPath, [fillScript, '--completed-catalog', '--list', 'kn'], {
+const result = spawnSync(process.execPath, [fillScript, '--list', 'kn'], {
   cwd: root,
   encoding: 'utf8',
 });
@@ -132,3 +132,71 @@ assert.deepEqual(tokens(kannada['repair-broken-cards-done-unfixable']),
   ['__fixed__', '__unfixable__']);
 assert.deepEqual(tokens(kannada['globalSearch-instructions-operator-number']),
   ['__operator_number__']);
+
+assert.equal(kannada['attachment-limit-unit-bytes'], 'ಬೈಟ್‌ಗಳು');
+assert.equal(kannada['r-d-send-email-to'], 'ಸ್ವೀಕರಿಸುವವರು');
+for (const key of ['r-of', 'of']) assert.equal(`1 ${kannada[key]} 10`, '1 / 10');
+assert.match(kannada['custom-field-links-hint'], /ಒಂದೇ ಹೆಸರು ಮತ್ತು ಪ್ರಕಾರ/);
+assert.match(kannada['custom-field-links-hint'], /ಒಂದೇ ಕಾರ್ಡ್‌ನಲ್ಲಿ ಇರುವ ಕ್ಷೇತ್ರಗಳನ್ನು ಬದಲಾಯಿಸಲಾಗುವುದಿಲ್ಲ/);
+assert.match(kannada['custom-field-link-send'], /ಈ ಕಾರ್ಡ್‌ನ ಬದಲಾವಣೆಗಳು ಮುಖ್ಯ ಕಾರ್ಡ್‌ಗೆ/);
+assert.match(kannada['custom-field-link-receives'], /ಆ ಕಾರ್ಡ್‌ನ ಬದಲಾವಣೆಗಳು ಈ ಕಾರ್ಡ್‌ಗೆ/);
+assert.match(kannada['field-link-not-allowed'], /ಎರಡೂ ಕಾರ್ಡ್‌ಗಳನ್ನು ಸಂಪಾದಿಸಲು.*ಅನುಮತಿ/);
+assert.match(kannada['read-only-field'], /ಎಲ್ಲಾ ಸದಸ್ಯರೂ.*ನಿರ್ವಾಹಕರು ಮಾತ್ರ/);
+assert.match(kannada['notification-delivery-quiet'], /ಮುಗಿಯುವವರೆಗೆ ಕಾಯಿರಿ/);
+assert.match(kannada['webhook-payload-description'], /ಮೇಲಿನ ಹಂತದಿಂದ ಬಂದ ಸೆಟ್ಟಿಂಗ್ ಅನ್ನು ಉಳಿಸುತ್ತದೆ/);
+assert.match(kannada['stuck-sync-operation-discard-confirm'], /ಈಗಾಗಲೇ ಅನ್ವಯಿಸಿದ ಬದಲಾವಣೆಗಳು ಉಳಿಯುತ್ತವೆ/);
+assert.match(kannada['stuck-sync-operation-discard-confirm'], /ಉಳಿದವುಗಳನ್ನು ಎಂದಿಗೂ ಬರೆಯಲಾಗುವುದಿಲ್ಲ/);
+assert.match(kannada['stuck-sync-operation-not-stuck'], /ತ್ಯಜಿಸಲಾಗುವುದಿಲ್ಲ/);
+assert.match(kannada['stuck-sync-operation-replayable'], /ತಾನಾಗಿಯೇ ಮುಗಿಯುತ್ತದೆ.*ತ್ಯಜಿಸಲಾಗಿಲ್ಲ/);
+assert.match(kannada['interrupted-import-description'], /ಮೂಲ ಕಡತವನ್ನು ಉಳಿಸದಿರುವುದರಿಂದ.*ಮುಂದುವರಿಸಲಾಗುವುದಿಲ್ಲ/);
+assert.match(kannada['interrupted-import-description'], /ನಂತರ ಸೇರಿಸಿದವುಗಳೂ ಸೇರಿದಂತೆ/);
+assert.match(kannada['interrupted-import-keep-confirm'], /ಯಾವುದನ್ನೂ ತೆಗೆದುಹಾಕಲಾಗುವುದಿಲ್ಲ/);
+assert.match(kannada['interrupted-import-discard-confirm'], /ಎಲ್ಲವನ್ನೂ ಶಾಶ್ವತವಾಗಿ ತೆಗೆದುಹಾಕಲಾಗುತ್ತದೆ/);
+assert.match(kannada['interrupted-import-foreign-board'], /ರಚಿಸಿಲ್ಲ.*ಬದಲಾಯಿಸಲಾಗಿಲ್ಲ/);
+for (const key of ['stuck-sync-operation-truncated', 'interrupted-import-truncated']) assert.match(kannada[key], /ಅತ್ಯಂತ ಹಳೆಯ 50/);
+for (const format of ['taiga', 'vikunja', 'notion']) assert.match(kannada['import-board-instruction-' + format], /ಲಗತ್ತುಗಳನ್ನು ಆಮದು ಮಾಡಲಾಗುವುದಿಲ್ಲ/);
+assert.match(kannada['import-board-instruction-quire'], /ಕಾಮೆಂಟ್‌ಗಳು ಮತ್ತು ಲಗತ್ತುಗಳು ಇರುವುದಿಲ್ಲ/);
+assert.match(kannada['import-board-instruction-plane'], /ವಿವರಣೆಗಳು ಅಥವಾ ಲಗತ್ತುಗಳು ಇರುವುದಿಲ್ಲ.*ಆಮದು ಮಾಡಲಾಗುವುದಿಲ್ಲ/);
+for (const format of ['nullboard', 'kanri']) assert.match(kannada['import-board-instruction-' + format], /ಮೊದಲ ಫಲಕವನ್ನು ಆಮದು/);
+for (const literal of ['TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED']) assert.ok(kannada['import-board-instruction-orgmode'].includes(literal));
+for (const literal of ['Tasklist', 'Task', 'Description', 'Assign to', 'Start date', 'Due date', 'Priority', 'Estimated time', 'Tags', 'Status', '--', '##', '>>']) {
+  assert.ok(kannada['import-board-instruction-teamwork'].includes(literal));
+}
+assert.match(kannada['import-board-instruction-businessmap'], /ಶೀರ್ಷಿಕೆ ಸಾಲನ್ನು ಇಂಗ್ಲಿಷ್‌ಗೆ ಬದಲಾಯಿಸಿ/);
+assert.match(kannada['import-board-instruction-redmine'], /My account ನಲ್ಲಿ ಭಾಷೆಯನ್ನು English/);
+assert.match(kannada['import-many-boards-hint'], /ಸದಸ್ಯರ ಹೊಂದಾಣಿಕೆಯಿಲ್ಲದೆ/);
+assert.match(kannada['import-many-boards-hint'], /ಮೇಲಿನ ಕ್ಷೇತ್ರದ ಬದಲಿಗೆ/);
+assert.match(kannada['r-wrike-workflow-note'], /Completed ಅಥವಾ Cancelled.*ಪೂರ್ಣಗೊಂಡಿದೆ.*Active ಅಥವಾ Deferred.*ಅಪೂರ್ಣ/);
+for (const literal of ['GET /workflows', 'JSON']) assert.ok(kannada['r-wrike-workflow-note'].includes(literal));
+for (const literal of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS', 'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) assert.ok(kannada['ldap-sync-now-nothing'].includes(literal));
+assert.ok(kannada['external-link-rules-description'].includes('[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
+assert.ok(kannada['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+assert.match(kannada['login-setting-env-only'], /ಸರ್ವರ್ ಪರಿಸರದಿಂದ ಮಾತ್ರ.*ಓದಲು ಮಾತ್ರ/);
+assert.ok(kannada['trello-export-desc'].includes('Swimlane: …'));
+assert.match(kannada['trello-export-desc'], /ಮತ್ತೆ ಪಥಗಳಾಗಿ ಬದಲಾಯಿಸುತ್ತದೆ/);
+assert.match(kannada['trello-export-warnings'], /ಎಲ್ಲವನ್ನೂ ರಫ್ತು ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ/);
+assert.match(kannada['sandstorm-trello-access-needed'], /ಇಂಟರ್ನೆಟ್ ಪ್ರವೇಶವಿಲ್ಲ.*ಮೊದಲು.*ಅನುಮತಿ/);
+assert.match(kannada['sandstorm-trello-access-granted'], /ತಲುಪಬಹುದು/);
+
+const { ruleTriggerCopula } = require('../imports/i18n/ruleGrammar');
+for (const tag of ['kn', 'kn-IN', 'kn_IN', 'KN']) assert.equal(ruleTriggerCopula(tag, kannada['r-is']), '');
+for (const tag of ['en', 'knight', '', undefined]) assert.equal(ruleTriggerCopula(tag, 'is'), 'is');
+for (const key of ['r-added-to', 'r-removed-from', 'r-archived', 'r-unarchived', 'r-completed', 'r-made-incomplete']) {
+  const phrase = [kannada['r-when-a-card'], ruleTriggerCopula('kn', kannada['r-is']), kannada[key]].filter(Boolean).join(' ');
+  assert.doesNotMatch(phrase, /\bis\b| ಇದೆ /);
+  assert.ok(phrase.endsWith(kannada[key]), 'retain the already inflected predicate');
+}
+
+(async () => {
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  assert.deepEqual(Object.keys(kannada), Object.keys(english));
+  for (const key of Object.keys(english)) assert.deepEqual(translationTokens(kannada[key]), translationTokens(english[key]), key);
+  const i18n = require('i18next').createInstance();
+  await i18n.init({ lng: 'kn', fallbackLng: 'en', initImmediate: false,
+    interpolation: { prefix: '__', suffix: '__', escapeValue: false },
+    resources: { en: { translation: english }, kn: { translation: kannada } } });
+  assert.equal(i18n.t('notification-group-card', { count: 3, card: 'ಪರೀಕ್ಷೆ' }), 'ಪರೀಕ್ಷೆ ಕಾರ್ಡ್‌ನಲ್ಲಿ 3 ಅಧಿಸೂಚನೆಗಳು');
+  assert.equal(i18n.t('stuck-sync-operation-applied', { applied: 0, total: 2 }), '2 ಬದಲಾವಣೆಗಳಲ್ಲಿ 0 ಅನ್ವಯಿಸಲಾಗಿದೆ');
+  assert.equal(i18n.t('interrupted-import-state-failed', { stage: 'createCards', error: 'E_TEST' }), 'createCards ಹಂತದಲ್ಲಿ E_TEST ದೋಷದಿಂದ ವಿಫಲವಾಗಿದೆ');
+  console.log('Kannada: full fill list, exact tokens, selected meanings, rule copula and runtime interpolation pass');
+})().catch(error => { console.error(error); process.exitCode = 1; });
