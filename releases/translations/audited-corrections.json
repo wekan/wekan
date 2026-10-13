@@ -188263,5 +188263,47 @@
     "before": "Kgomaretsa lenane la mesebetsi ea markdown (mokhoa oo lisebelisoa tsa markdown-kanban tse kang Obsidian Kanban li o sebelisang): lihlooho tsa \"## Lebitso la lenane\", ka lintho tsa \"- [ ]\"/\"- [x]\" ka tlase. Lihlooho li fetoha manane 'me lintho li fetoha likarete.",
     "after": "Kgomaretsa lenane la mesebetsi ea markdown (mokhoa oo lisebelisoa tsa markdown-kanban tse kang Obsidian Kanban li o sebelisang): lihlooho tsa \"## Lebitso la lenane\", ka lintho tsa \"- [ ]\"/\"- [x]\" ka tlase. Lihlooho li fetoha manane 'me lintho li fetoha likarete; le lenane la matshwao a dikulo le se nang mabokose a ho tshwaya le a kenngwa, e le dikarete tse sa phethwang.",
     "reason": "Restore the supported plain-bullet-list import and its open-card result."
+  },
+  {
+    "locale": "st",
+    "key": "import-board-instruction-taskwarrior",
+    "before": "Beha sephetho sa task export: lenane la JSON kapa mosebetsi o le mong moleng ka mong. Mesebetsi e phethilweng e ya ho Done, project le priority di fetoha ditlhaku, annotations e fetoha maikutlo, mme depends e fetoha ho itshetleha ka mesebetsi e thibelang.",
+    "after": "Beha sephetho sa task export: lenane la JSON kapa mosebetsi o le mong moleng ka mong. Mesebetsi e phethilweng e ya ho Done, project le priority di fetoha dileibole, annotations e fetoha maikutlo, mme depends e fetoha ho itshetleha ka mesebetsi e thibelang.",
+    "reason": "Restore target-language import instructions, source format details and label meanings."
+  },
+  {
+    "locale": "st",
+    "key": "import-board-instruction-focalboard",
+    "before": "Ntsha faele ya .boardarchive pokellong e peteditsweng mme o behe dikahare tsa board.jsonl ya boto, ka mola wa mofuta kapa ntle le wona. Thepa ya ho arola ka dihlopha ponong ya boto e fetoha manane, thepa e meng ya kgetho e fetoha ditlhaku, dikarolo tsa mongolo le mabokose a ho tshwaya di fetoha tlhaloso le lenane la ho hlahloba, mme maikutlo a bolokwa. Ditshwantsho le difaele tse hoketsweng ha di kenngwe.",
+    "after": "Ntsha faele ya .boardarchive pokellong e peteditsweng mme o behe dikahare tsa board.jsonl ya boto, ka mola wa mofuta kapa ntle le wona. Thepa ya ho arola ka dihlopha ponong ya boto e fetoha manane, thepa e meng ya kgetho e fetoha dileibole, dikarolo tsa mongolo le mabokose a ho tshwaya di fetoha tlhaloso le lenane la ho hlahloba, mme maikutlo a bolokwa. Ditshwantsho le difaele tse hoketsweng ha di kenngwe.",
+    "reason": "Restore target-language import instructions, source format details and label meanings."
+  },
+  {
+    "locale": "st",
+    "key": "import-board-instruction-todoist",
+    "before": "In Todoist, open the project menu and choose Export as a template, then paste the CSV file. Sections become lists, tasks become cards, sub-tasks become a checklist, notes become comments, and @labels and priorities p1 to p3 become labels.",
+    "after": "Ho Todoist, bula projeke, kgetha lenane la ⋯ ka hodimo ka ho le letona, ebe Manage data > Export as CSV, mme o manamise faele ya CSV. Dikarolo di fetoha manane, mesebetsi e fetoha dikarete, mesebetsi e menyenyane e fetoha lenane la tlhahlobo, dinoutu di fetoha ditshwaelo, mme @labels le bohlokwa ba p1 ho isa p3 di fetoha dileibole.",
+    "reason": "Restore target-language import instructions, source format details and label meanings."
+  },
+  {
+    "locale": "st",
+    "key": "import-board-instruction-planner",
+    "before": "In Microsoft Planner, open the plan's menu and choose Export plan to Excel, then choose that .xlsx file. Buckets become lists and tasks become cards, with their assignees, dates, labels, checklist and description; Progress, Priority and Completed By become custom fields.",
+    "after": "Ho Microsoft Planner, bula moralo, kgetha lenane la ⋯ pela lebitso la wona, ebe Export as Excel (ho Planner ya kgale: Export plan to Excel), mme o kgethe faele eo ya .xlsx. Dihlopha di fetoha manane mme mesebetsi e fetoha dikarete, ka batho ba e abetsweng, matsatsi, dileibole, lenane la tlhahlobo le tlhaloso; Progress, Priority le Completed By di fetoha dikarolo tse ikgethileng.",
+    "reason": "Restore target-language import instructions, source format details and label meanings."
+  },
+  {
+    "locale": "st",
+    "key": "import-board-instruction-jira",
+    "before": "Kgomaretsa JSON ho tswa patlong ya mathata ya Jira Cloud REST API (GET /rest/api/3/search/jql), kapa ntho e tshwanang { \"issues\": [...] }. Maemo a Jira a fetoha manane mme mathata a fetoha dikarete. Ka boikgethelo kenya lenane la \"automationRules\" ho kenya melao.",
+    "after": "Manamisa JSON ya patlo ya ditaba tsa Jira Cloud: GET /rest/api/3/search/jql?jql=project=KEY&fields=*all&expand=names,schema (ntle le fields e kgutlisa feela di-ID tsa ditaba). Projeke e kgolo e tla ka maqephe, le leng le le leng le na le nextPageToken bakeng sa le latelang: kenya ditaba tsa maqephe ohle lenaneng le le leng la \"issues\", kapa kenya leqephe ka leng e le boto ya lona ka Kenya diboto tse ngata. Ntho e lekanang ya { \"issues\": [...] } le yona e a sebetsa. Maemo a Jira a fetoha manane mme ditaba di fetoha dikarete. Ka boikgethelo kenyelletsa lenane la \"automationRules\" ho kenya melao.",
+    "reason": "Restore target-language import instructions, source format details and label meanings."
+  },
+  {
+    "locale": "st",
+    "key": "import-board-instruction-excel",
+    "before": "Kgetha spreadsheet ya .xlsx ya mokgwa wa WeKan (dikholomo tse tshwanang le tsa Excel export: Title, Description, Status/List, Members, Labels, dates, custom fields). Mola wa pele ke sehlooho.",
+    "after": "Kgetha buka ya mosebetsi ya .xlsx: tafole e nang le karete e le nngwe moleng ka mong (dikholomo tse kang Title, Description, Status/List, Members, Labels, matsatsi le dikarolo tse ikgethileng), kapa buka ya mosebetsi e ntshitsweng ke WeKan, ho kenyeletswa e nang le boto ka nngwe leqepheng la yona. Mohato o latelang o bontsha hore kholomo ka nngwe ke karolo efe. Leqephe ka leng le nang le mola wa dihlooho le fetoha boto.",
+    "reason": "Restore target-language import instructions, source format details and label meanings."
   }
 ]

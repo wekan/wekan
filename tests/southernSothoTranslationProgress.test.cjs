@@ -627,3 +627,20 @@ for (const example of [escapedApostropheExample, "'Field 1' == 'Value 1'", 'F1 =
 assert.doesNotMatch(sesotho['advanced-filter-description'], /I’m/);
 assert.match(sesotho['advanced-filter-description'], /matshwao a qotso a le mong/);
 assert.match(sesotho['import-board-instruction-markdown'], /matshwao a dikulo.*se nang mabokose a ho tshwaya.*dikarete tse sa phethwang/);
+
+// Historical review through key 929: stale English differs from current English
+// and therefore requires semantic coverage beyond the placeholder inventory.
+for (const format of ['taskwarrior', 'focalboard', 'todoist', 'planner']) {
+  const value = sesotho[`import-board-instruction-${format}`];
+  assert.match(value, /dileibole/);
+  assert.doesNotMatch(value, /ditlhaku|^In /);
+}
+assert.match(sesotho['import-board-instruction-todoist'], /Manage data > Export as CSV/);
+assert.doesNotMatch(sesotho['import-board-instruction-todoist'], /Export as a template/);
+assert.match(sesotho['import-board-instruction-planner'], /Export as Excel.*Planner ya kgale: Export plan to Excel/);
+assert.match(sesotho['import-board-instruction-jira'], /fields=[*]all&expand=names,schema/);
+assert.match(sesotho['import-board-instruction-jira'], /ntle le fields.*feela di-ID/);
+assert.match(sesotho['import-board-instruction-jira'], /nextPageToken.*maqephe ohle.*issues.*leqephe ka leng.*boto ya lona/);
+assert.match(sesotho['import-board-instruction-excel'], /karete e le nngwe moleng ka mong/);
+assert.match(sesotho['import-board-instruction-excel'], /Mohato o latelang.*kholomo/);
+assert.match(sesotho['import-board-instruction-excel'], /Leqephe ka leng le nang le mola wa dihlooho le fetoha boto/);
