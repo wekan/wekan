@@ -29,3 +29,15 @@ test('Latin comment editor keeps the intentionally empty placeholder', async ({ 
   await expect(editor).toHaveAttribute('placeholder', '');
   await expect(editor).toHaveValue('');
 });
+
+test('Latin card export popup has the translated action title', async ({ boardPage: page, board }) => {
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'la'));
+  await new BoardPage(page).clickCard(board.listIds[0], 'Alpha Card');
+  const cp = new CardPage(page);
+  await cp.waitForOpen();
+  await cp.openActionsMenu();
+  await cp.clickAction('.js-export-card');
+  const title = page.locator('.js-pop-over .header-title');
+  await expect(title).toHaveText('Exporta chartam');
+  await expect(title).not.toContainText('Latine:');
+});

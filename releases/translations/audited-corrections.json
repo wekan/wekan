@@ -193086,5 +193086,215 @@
     "before": "Latine: Hoc usor est non creatum",
     "after": "Hic usor creatus non est",
     "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
+  },
+  {
+    "locale": "la",
+    "key": "error-username-taken",
+    "before": "Latine: Hoc nomen usoris est already taken",
+    "after": "Hoc nomen usoris iam occupatum est",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "error-orgname-taken",
+    "before": "Latine: Hoc organizatio nomen est already taken",
+    "after": "Hoc nomen consociationis iam occupatum est",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "error-teamname-taken",
+    "before": "Latine: Hoc manus nomen est already taken",
+    "after": "Hoc nomen manus iam occupatum est",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "error-email-taken",
+    "before": "Latine: Epistula electronica has already fuit taken",
+    "after": "Haec inscriptio electronica iam occupata est",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "export-board-without-attachments",
+    "before": "Latine: sine adnexa",
+    "after": "sine adiunctis",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "export-ical-feed",
+    "before": "Latine: Calendar (iCal)",
+    "after": "Fluxus calendarii (iCal)",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "user-can-not-export-excel",
+    "before": "Latine: Usor potest non exporta Excel",
+    "after": "Usor in Excel exportare non potest",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "export-card",
+    "before": "Latine: Exporta scheda",
+    "after": "Exporta chartam",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "export-card-pdf",
+    "before": "Latine: Exporta scheda ad PDF",
+    "after": "Exporta chartam in PDF",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "export-card-excel",
+    "before": "Latine: Exporta scheda ad Excel",
+    "after": "Exporta chartam in Excel",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "export-card-excel-fields",
+    "before": "Latine: Elige campi ad include in Excel exporta:",
+    "after": "Elige campos in exportatione Excel includendos:",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "export-card-subtasks",
+    "before": "Latine: Submunera",
+    "after": "Submunera",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "export-card-field-people",
+    "before": "Latine: People (Creator, Dominus, Sodales, Assignees)",
+    "after": "Personae (Creator, Dominus, Membra, Ii quibus assignatum est)",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "export-card-field-board-info",
+    "before": "Latine: Tabula Informatio (Tabula, Index, semita natatoria)",
+    "after": "Informatio tabulae (Tabula, Index, Semita)",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "export-card-field-dates",
+    "before": "Latine: Dates (Creatum, Received, Incipe, Due, End)",
+    "after": "Dies (Creationis, Acceptionis, Initii, Debitus, Finis)",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "export-card-attachment-filename",
+    "before": "Latine: Filename",
+    "after": "Nomen fasciculi",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "export-card-attachment-size",
+    "before": "Latine: Magnitudo",
+    "after": "Magnitudo",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "export-card-attachment-type",
+    "before": "Latine: Genus",
+    "after": "Genus",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "export-card-attachment-uploaded-by",
+    "before": "Latine: Immissum A",
+    "after": "A quo fasciculus immissus est",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "export-card-attachment-uploaded-at",
+    "before": "Latine: Immissum At",
+    "after": "Quando fasciculus immissus est",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "export-card-attachment-image-previews",
+    "before": "Latine: Imago Previews",
+    "after": "Praevisiones imaginum",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "export-card-excel-no-disk-space",
+    "before": "Latine: Non potest exporta ad Excel: non enough free discus space",
+    "after": "Exportari in Excel non potest: spatium liberum in disco non sufficit",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "export-card-excel-free",
+    "before": "Latine: free",
+    "after": "liberum",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "export-card-excel-needed",
+    "before": "Latine: needed",
+    "after": "necessarium",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "user-can-not-export-card-to-pdf",
+    "before": "Latine: Usor potest non exporta scheda ad PDF",
+    "after": "Usor chartam in PDF exportare non potest",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "user-can-not-export-card-to-excel",
+    "before": "Latine: Usor potest non exporta scheda ad Excel",
+    "after": "Usor chartam in Excel exportare non potest",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "exportCardPopup-title",
+    "before": "Latine: Exporta scheda",
+    "after": "Exporta chartam",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "sorted",
+    "before": "Latine: Sorted",
+    "after": "Ordinatum",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "remove-sort",
+    "before": "Latine: Remove ordina",
+    "after": "Remove ordinationem",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "sort-desc",
+    "before": "Latine: Click ad Ordina Index",
+    "after": "Preme ut indicem ordines",
+    "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
   }
 ]

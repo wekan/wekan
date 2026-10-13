@@ -361,3 +361,19 @@ assert.match(latin['error-linked-card-not-allowed'], /chartam ordinariam.*Aliam 
 assert.match(latin['error-user-notAllowSelf'], /Te ipsum.*non potes/);
 assert.match(latin['error-csv-schema'], /CSV.*commatibus.*TSV.*tabulatoribus/);
 assert.notEqual(latin['email-resetPassword-text'], latin['email-verifyEmail-text']);
+
+const reviewedExportKeys = ["error-username-taken", "error-orgname-taken", "error-teamname-taken", "error-email-taken", "export-board-without-attachments", "export-ical-feed", "user-can-not-export-excel", "export-card", "export-card-pdf", "export-card-excel", "export-card-excel-fields", "export-card-subtasks", "export-card-field-people", "export-card-field-board-info", "export-card-field-dates", "export-card-attachment-filename", "export-card-attachment-size", "export-card-attachment-type", "export-card-attachment-uploaded-by", "export-card-attachment-uploaded-at", "export-card-attachment-image-previews", "export-card-excel-no-disk-space", "export-card-excel-free", "export-card-excel-needed", "user-can-not-export-card-to-pdf", "user-can-not-export-card-to-excel", "exportCardPopup-title", "sorted", "remove-sort", "sort-desc"];
+for (const key of reviewedExportKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:already|taken|Filename|Previews|Uploaded|Received|Sorted|Click)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+for (const key of ['user-can-not-export-excel', 'user-can-not-export-card-to-pdf', 'user-can-not-export-card-to-excel']) assert.match(latin[key], /exportare non potest$/);
+assert.match(latin['export-card-excel-no-disk-space'], /spatium liberum in disco non sufficit/);
+assert.notEqual(latin['export-card-excel-free'], latin['export-card-excel-needed']);
+assert.match(latin['export-card-attachment-uploaded-by'], /^A quo/);
+assert.match(latin['export-card-attachment-uploaded-at'], /^Quando/);
+assert.equal(latin['exportCardPopup-title'], latin['export-card']);
+assert.equal(latin['export-card-subtasks'], latin.subtasks);
+assert.match(latin['export-card-field-dates'], /Creationis, Acceptionis, Initii, Debitus, Finis/);
+assert.match(latin['export-board-without-attachments'], /^sine /);
+assert.match(latin['export-ical-feed'], /iCal/);
