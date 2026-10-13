@@ -144,3 +144,21 @@ assert.match(latin['scrum-import-sprint-finished'], /perfectum non mota/);
 assert.match(latin['scrum-releases-select-help'], /Ctrl.*Cmd.*omnes electiones tolle.*omnibus editionibus/);
 assert.equal(latin['scrum-import-preview'], 'Praevisio');
 assert.equal(latin.history, 'Historia');
+
+const recoveryKeys = ["sync-planning-sprint", "sync-planning-releases", "sync-planning-fields", "sync-planning-hint", "stuck-sync-operation-heading", "stuck-sync-operation-description", "stuck-sync-operation-list", "stuck-sync-operation-applied", "stuck-sync-operation-reason-scope-changed", "stuck-sync-operation-reason-access-denied", "stuck-sync-operation-reason-trigger-unknown", "stuck-sync-operation-reason-intent-missing", "stuck-sync-operation-reason-unknown", "stuck-sync-operation-replayable-now", "stuck-sync-operation-discard-confirm", "stuck-sync-operation-empty", "stuck-sync-operation-truncated", "stuck-sync-operation-unavailable", "stuck-sync-operation-missing", "stuck-sync-operation-not-stuck", "stuck-sync-operation-replayable", "stuck-sync-operation-busy", "interrupted-import-heading", "interrupted-import-description", "interrupted-import-progress", "interrupted-import-created", "interrupted-import-source", "interrupted-import-state-stopped", "interrupted-import-state-failed", "interrupted-import-state-discarding", "interrupted-import-scrum", "interrupted-import-counts", "interrupted-import-no-board", "interrupted-import-keep", "interrupted-import-keep-confirm", "interrupted-import-discard-confirm", "interrupted-import-empty", "interrupted-import-truncated", "interrupted-import-unavailable", "interrupted-import-missing", "interrupted-import-not-interrupted", "interrupted-import-foreign-board", "interrupted-import-scrum-busy", "scrum-history-checkpoint-stuck", "scrum-history-checkpoint-counts", "scrum-history-checkpoint-hint", "scrum-history-checkpoint-rollback", "scrum-history-checkpoint-discard", "scrum-history-checkpoint-discard-confirm", "scrum-history-checkpoint-ask-admin", "login-setting-env-only"];
+for (const key of recoveryKeys) {
+  assert.notEqual(latin[key], english[key], key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['sync-planning-hint'], /primum per ID fontis, deinde per nomen/);
+assert.match(latin['sync-planning-hint'], /prima synchronizatio consilium numquam removet/);
+assert.match(latin['stuck-sync-operation-discard-confirm'], /iam adhibitae manent; ceterae numquam scribuntur/);
+assert.match(latin['stuck-sync-operation-replayable'], /ideo abiecta non est/);
+assert.match(latin['interrupted-import-description'], /continuari non potest, quia fasciculus fontis non servatur/);
+assert.match(latin['interrupted-import-description'], /etiam ea quae postea addita sunt/);
+assert.match(latin['interrupted-import-keep-confirm'], /Nihil removetur/);
+assert.match(latin['interrupted-import-discard-confirm'], /in perpetuum removentur/);
+assert.match(latin['interrupted-import-foreign-board'], /ideo immutata mansit/);
+assert.match(latin['scrum-history-checkpoint-hint'], /tantum si nemo alius eas res postea mutavit/);
+assert.match(latin['scrum-history-checkpoint-hint'], /nullas res mutat/);
+assert.match(latin['login-setting-env-only'], /tantum per ambitum servitoris.*sine facultate mutandi/);
