@@ -180108,5 +180108,306 @@
     "before": "In Microsoft Planner, open the plan's menu and choose Export plan to Excel, then choose that .xlsx file. Buckets become lists and tasks become cards, with their assignees, dates, labels, checklist and description; Progress, Priority and Completed By become custom fields.",
     "after": "In Microsoft Planner, aprite u pianu, sceglite u menù ⋯ accantu à u so nome, po Export as Excel (in Planner classicu: Export plan to Excel), è sceglite stu schedariu .xlsx. I gruppi diventanu liste è i compiti diventanu carte, cù e so persone assignate, date, etichette, lista di cuntrollu è discrizzione; Progress, Priority è Completed By diventanu campi persunalizati.",
     "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "import-board-instruction-trello",
+    "before": "Nella tua tavula Trello vai a 'Menu', poi 'Altro', 'Stampa ed spurtà', 'Spurtà JSON', e cupià il testo che compare.",
+    "after": "In a vostra tavula Trello, andate à « Menu », po « More », « Print and Export », « Export JSON », è cupiate u testu ottenutu.",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "import-board-instruction-wekan",
+    "before": "Nella tua tavula vai su \"Menu\", poi \"Spurtà tavula\" e cupià il testo in u schedariu scaricato.",
+    "after": "In a vostra tavula, andate à « Menù », po « Espurtà a tavula », è cupiate u testu di u schedariu scaricatu.",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "import-board-instruction-about-errors",
+    "before": "Se hai di i errori quando importi una tavula, qualche volta l'importazione funziona comunque, e la tavula si trova in a pagina \"Tutte le tavule\"",
+    "after": "S’è vo ricevite errori durante l’impurtazione d’una tavula, qualchì volta l’impurtazione funziona quantunque è a tavula si trova nant’à a pagina Tutte e tavule.",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "import-without-mapping-members",
+    "before": "Impurtà senza mappare i membri (mappa in seguito)",
+    "after": "Impurtà senza assucià i membri (assucià li dopu)",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "import-json-file",
+    "before": "Oppure selezziunà un schedariu JSON di Trello",
+    "after": "O selezziunà un schedariu JSON di Trello",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "import-attachments-zip",
+    "before": "ZIP di i allegati di Trello (facoltativo, da Trello Card Attachments Downloader)",
+    "after": "ZIP d’appicci Trello (facultativu, da Trello Card Attachments Downloader)",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "import-trello-zip-file-hint",
+    "before": "Un .zip cù uno o più schedariu .json di tavule e i loro allegati in sottocartelle cù il nome di a tavula (da Trello Card Attachments Downloader). Tutte le tavule vengono importate.",
+    "after": "Un .zip cù unu o parechji schedarii .json di tavule è i so appicci in sottucartulari cù u nome di a tavula (da Trello Card Attachments Downloader). Tutte e tavule sò impurtate.",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "import-trello-zip-progress",
+    "before": "Importazione di e tavule dal .zip, attendere…",
+    "after": "Impurtazione di e tavule da u .zip, aspettate…",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "import-timeout",
+    "before": "L'importazione ha richiesto troppo tempo ed è stata interrotta. Riprova; se continua ad accadere, la tavula potrebbe essere troppo grande o il database occupato.",
+    "after": "L’impurtazione hà pigliatu troppu tempu è hè stata piantata. Pruvate torna; s’ellu accade sempre, a tavula pò esse troppu grande o a basa di dati pò esse occupata.",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "import-trello-zip-too-many-files",
+    "before": "Il .zip contiene troppi schedariu per essere importato.",
+    "after": "U .zip cuntene troppu schedarii per esse impurtatu.",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "import-trello-zip-file-too-large",
+    "before": "Un schedariu all'interno del .zip è troppo grande per essere importato.",
+    "after": "Un schedariu dentru à u .zip hè troppu grande per esse impurtatu.",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "import-trello-zip-unsafe-path",
+    "before": "Il .zip contiene percorsi di schedariu non sicuri ed è stato rifiutato.",
+    "after": "U .zip cuntene percorsi di schedarii micca sicuri è hè statu ricusatu.",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "import-trello-workspace",
+    "before": "Nome di u spaziu di travagliu personale (facoltativo)",
+    "after": "Nome di u spaziu di travagliu persunale (facultativu)",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "import-trello-workspace-placeholder",
+    "before": "La tavula importata viene collocata sotto questu spaziu di travagliu, creato se non esiste",
+    "after": "A tavula impurtata hè piazzata sottu à stu spaziu di travagliu, creatu s’ellu ùn esiste micca",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "trello-api-import",
+    "before": "Impurtà direttamente da Trello cù chiave API e token",
+    "after": "Impurtà direttamente da Trello cù a chjave API è u gettone",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "trello-api-import-desc",
+    "before": "Incolla la chiave API e il token di Trello per elencare i tuoi spazi di travagliu e le tavule di Trello, quindi impurtà quelli selezionati cù i loro allegati.",
+    "after": "Incullate a vostra chjave API è u gettone Trello per elencà i vostri spazii di travagliu è e tavule Trello, po impurtate quelli scelti cù i so appicci.",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "trello-parent-workspace-top",
+    "before": "Livello superiore",
+    "after": "Livellu supranu",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "trello-import-selected",
+    "before": "Impurtà le tavule selezionate",
+    "after": "Impurtà e tavule scelte",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "trello-importing",
+    "before": "Importazione di e tavule…",
+    "after": "Impurtazione di e tavule…",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "trello-api-credentials-required",
+    "before": "Inserite sia a chjave API sia u token di Trello.",
+    "after": "Scrivite à tempu a chjave API è u gettone Trello.",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "trello-export-include-attachments",
+    "before": "Includere l'appicci",
+    "after": "Include l’appicci",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "trello-select-boards",
+    "before": "Selezziunà almeno una tavula da importare.",
+    "after": "Selezziunate almenu una tavula da impurtà.",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "select-all",
+    "before": "Selezziunà tutto",
+    "after": "Selezziunà tuttu",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "select-none",
+    "before": "Non selezionare nulla",
+    "after": "Ùn selezziunà nunda",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "unselect-all",
+    "before": "Deseleziona tutto",
+    "after": "Caccià tutta a selezzione",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "trello-import-progress",
+    "before": "Avanzamento importazione",
+    "after": "Avanzamentu di l’impurtazione",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "trello-cancel",
+    "before": "Annullà importazione",
+    "after": "Annullà l’impurtazione",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "trello-cancel-delete",
+    "before": "Annullà ed squassà le importate",
+    "after": "Annullà è squassà e tavule impurtate",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "trello-cancel-delete-confirm",
+    "before": "Annullare l'importazione ed eliminare le tavule già importate da questu processo? L'operazione non può essere annullata.",
+    "after": "Annullà l’impurtazione è squassà e tavule digià impurtate da stu travagliu? Ùn si pò annullà st’azzione.",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "trello-resume",
+    "before": "Riprendi importazione",
+    "after": "Ripiglià l’impurtazione",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "trello-delete-imported",
+    "before": "Squassà le tavule importate",
+    "after": "Squassà e tavule impurtate",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "trello-clear-job",
+    "before": "Cancella",
+    "after": "Sguassà",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "trello-import-errors",
+    "before": "Errori di importazione",
+    "after": "Errori d’impurtazione",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "copy-to-clipboard",
+    "before": "Cupià negli appunti",
+    "after": "Cupià in l’appunti",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "import-map-members",
+    "before": "Mappatura dei membri",
+    "after": "Assucià i membri",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "import-members-map",
+    "before": "La tavula che hai importato contiene alcuni membri. Per favore scegli i membri che vuoi importare tra i tuoi utilizatori",
+    "after": "A vostra tavula impurtata cuntene certi membri. Assuciate i membri chì vulete impurtà à i vostri utilizatori.",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "import-members-map-note",
+    "before": "Nota: I membri non mappati verranno assegnati all'utilizatore corrente.",
+    "after": "Nota: i membri micca assuciati seranu assignati à l’utilizatore attuale.",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "import-user-select",
+    "before": "Scegli l'utilizatore che vuoi venga utilizzato come questu membru",
+    "after": "Sceglite l’utilizatore esistente chì vulete aduprà cum’è stu membru",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "importMapMembersAddPopup-title",
+    "before": "Scegli membru",
+    "after": "Selezziunà un membru",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "check-version",
+    "before": "Controlla versione",
+    "after": "Verificà a versione",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "invalid-date",
+    "before": "Data non valida",
+    "after": "Data micca valida",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "invalid-time",
+    "before": "Tempo non valido",
+    "after": "Ora micca valida",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "invalid-user",
+    "before": "Utilizatore non valido",
+    "after": "Utilizatore micca validu",
+    "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
   }
 ]

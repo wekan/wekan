@@ -397,3 +397,18 @@ assert.doesNotMatch(corsican['import-board-instruction-todoist'], /Export as a t
 assert.match(corsican['import-board-instruction-todoist'], /sottucompiti.*lista di cuntrollu.*note.*cummenti.*@labels.*p1 à p3/);
 assert.match(corsican['import-board-instruction-planner'], /Export as Excel.*classicu: Export plan to Excel/);
 assert.match(corsican['import-board-instruction-planner'], /\.xlsx.*persone assignate.*date.*etichette.*lista di cuntrollu.*discrizzione.*Progress, Priority è Completed By.*campi persunalizati/);
+
+const trelloCorrectionKeys = ["import-board-instruction-trello", "import-board-instruction-wekan", "import-board-instruction-about-errors", "import-without-mapping-members", "import-json-file", "import-attachments-zip", "import-trello-zip-file-hint", "import-trello-zip-progress", "import-timeout", "import-trello-zip-too-many-files", "import-trello-zip-file-too-large", "import-trello-zip-unsafe-path", "import-trello-workspace", "import-trello-workspace-placeholder", "trello-api-import", "trello-api-import-desc", "trello-parent-workspace-top", "trello-import-selected", "trello-importing", "trello-api-credentials-required", "trello-export-include-attachments", "trello-select-boards", "select-all", "select-none", "unselect-all", "trello-import-progress", "trello-cancel", "trello-cancel-delete", "trello-cancel-delete-confirm", "trello-resume", "trello-delete-imported", "trello-clear-job", "trello-import-errors", "copy-to-clipboard", "import-map-members", "import-members-map", "import-members-map-note", "import-user-select", "importMapMembersAddPopup-title", "check-version", "invalid-date", "invalid-time", "invalid-user"];
+for (const key of trelloCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /\b(?:Nella|tua|poi|testo|scaricato|quando|qualche|comunque|mappare|seguito|Oppure|allegati|facoltativo|uno|loro|sottocartelle|vengono|attendere|richiesto|interrotta|troppo|potrebbe|contiene|troppi|importato|interno|rifiutato|personale|viene|creato|chiave|tuoi|quindi|Livello|superiore|selezionate|almeno|importare|tutto|nulla|Annullare|eliminare|processo|operazione|Riprendi|Cancella|negli|Mappatura|dei|verranno|assegnati|Scegli|Controlla|valido)\b/, key);
+}
+assert.match(corsican['import-timeout'], /hè stata piantata.*Pruvate torna.*troppu grande.*basa di dati.*occupata/);
+assert.match(corsican['import-trello-zip-file-hint'], /unu o parechji.*sottucartulari.*Tutte e tavule sò impurtate/);
+assert.match(corsican['import-trello-zip-unsafe-path'], /micca sicuri.*ricusatu/);
+assert.match(corsican['trello-cancel-delete-confirm'], /digià impurtate da stu travagliu.*Ùn si pò annullà/);
+assert.match(corsican['import-members-map-note'], /micca assuciati.*assignati.*utilizatore attuale/);
+assert.match(corsican['trello-select-boards'], /almenu una tavula/);
+assert.match(corsican['import-trello-workspace-placeholder'], /creatu s’ellu ùn esiste micca/);
+assert.match(corsican['trello-api-credentials-required'], /à tempu.*chjave API.*gettone/);
+assert.match(corsican['import-board-instruction-about-errors'], /qualchì volta.*quantunque.*Tutte e tavule/);
