@@ -1134,7 +1134,7 @@ const isInvariantSource = value => {
   if (!/\p{Letter}/u.test(withoutPlaceholders)) return true;
   if (/^(?:YYYY-MM-DD|DD-MM-YYYY|MM-DD-YYYY)$/.test(value)) return true;
   if (/^https?:\/\/\S+$/.test(value)) return true; // example/placeholder URLs stay identical in every locale
-  return /^(Meteor|Node|MongoDB.*|OAuth2|LDAP|CAS|GridFS|Arial|Gantt|Frappe Gantt|DHTMLX Gantt|S3.*|CollectionFS|Google Cloud Storage\.?|Azure Blob.*|Meteor-Files|Microsoft Azure Blob Storage\.?|MongoDB Compact|Bytes|URL|Logo|Cron|OS|Platform|USA|Asia|OK|Planning Poker|API|Bigboard|Google|GitHub|Facebook|X \(Twitter\)|Meteor Developer|Weibo|Meetup)$/.test(value);
+  return /^(Meteor|Node|MongoDB|MongoDB CollectionFS|MongoDB Meteor-Files|OAuth2|LDAP|CAS|GridFS|Arial|Gantt|Frappe Gantt|DHTMLX Gantt|S3|S3\/MinIO|CollectionFS|Google Cloud Storage\.?|Azure Blob|Azure Blob Storage|Meteor-Files|Microsoft Azure Blob Storage\.?|MongoDB Compact|Bytes|URL|Logo|Cron|OS|Platform|USA|Asia|OK|Planning Poker|API|Bigboard|Google|GitHub|Facebook|X \(Twitter\)|Meteor Developer|Weibo|Meetup)$/.test(value);
 };
 // Keys added in English on purpose while they wait for Transifex
 // (pending-transifex.json, written by add-pending-keys.mjs). A locale value

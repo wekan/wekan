@@ -691,3 +691,19 @@ assert.doesNotMatch(sesotho['card-field-order'], /masimo/);
 assert.equal(sesotho['card-field-order-move-up'], 'Fallisetsa hodimo');
 assert.equal(sesotho['card-field-order-move-down'], 'Fallisetsa tlase');
 assert.notEqual(sesotho['card-field-order-move-up'], sesotho['card-field-order-move-down']);
+
+// Product names remain recognizable while storage prose is translated.
+for (const key of ["s3-file-id", "s3-minio-storage-description", "s3-disabled", "mongodb-gridfs-storage", "s3-access-key", "s3-bucket", "s3-bucket-description", "s3-connection-failed", "s3-connection-success", "s3-enabled", "s3-endpoint", "s3-endpoint-description", "s3-minio-storage", "s3-port", "s3-port-description", "s3-region", "s3-secret-key", "s3-secret-key-required", "s3-settings-saved", "s3-ssl-enabled", "s3-attachments", "s3-size"]) {
+  assert.notEqual(sesotho[key], english[key], key);
+  assert.deepEqual(tokens(sesotho[key]), tokens(english[key]), key);
+}
+assert.match(sesotho['s3-disabled'], /e kwetswe/);
+assert.match(sesotho['s3-enabled'], /e buletswe/);
+assert.match(sesotho['s3-connection-failed'], /e hlolehile/);
+assert.match(sesotho['s3-connection-success'], /e atlehile/);
+assert.match(sesotho['s3-secret-key-required'], /lekunutu.*se a hlokahala/);
+assert.notEqual(sesotho['s3-access-key'], sesotho['s3-secret-key']);
+for (const provider of ['AWS S3', 'MinIO', 'Cloudflare R2', 'Backblaze B2', 'Wasabi', 'DigitalOcean Spaces']) {
+  assert.ok(sesotho['s3-minio-storage-description'].includes(provider));
+}
+for (const host of ['s3.amazonaws.com', 'minio.example.com']) assert.ok(sesotho['s3-endpoint-description'].includes(host));
