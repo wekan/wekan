@@ -751,3 +751,23 @@ for (const kind of ['card', 'swimlane']) {
 assert.match(latin['left-of-list'], /sinistram/);
 assert.match(latin['right-of-list'], /dextram/);
 assert.match(latin.almostdue, /appropinquat$/);
+
+const reviewedReminderPreferenceKeys = ["pastdue", "duenow", "act-newDue", "act-withDue", "act-almostdue", "act-pastdue", "act-duenow", "act-atUserComment", "delete-user-confirm-popup", "delete-team-confirm-popup", "delete-org-confirm-popup", "accounts-allowUserDelete", "hide-minicard-label-text", "show-desktop-drag-handles", "drag-to-resize-sidebar", "drag-to-resize-left-menu", "submit-on-enter", "open-many-cards-at-once", "open-many-cards-at-once-description", "submit-on-enter-description", "addmore-detail", "show-on-card", "show-on-minicard", "new", "editOrgPopup-title", "newOrgPopup-title", "editTeamPopup-title", "newTeamPopup-title", "editUserPopup-title", "newUserPopup-title", "help", "view-all", "filter-by-unread", "mark-all-as-read", "mark-all-as-unread"];
+for (const key of reviewedReminderPreferenceKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:current|reminding|mentioned|undo|Hide|Show|Keep|When|Unread)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin.pastdue, /praeteriit$/);
+assert.match(latin.duenow, /hodie est$/);
+assert.match(latin['act-almostdue'], /appropinquare$/);
+assert.match(latin['act-pastdue'], /praeteriisse$/);
+assert.match(latin['act-duenow'], /nunc adesse$/);
+for (const kind of ['user', 'team', 'org']) assert.match(latin[`delete-${kind}-confirm-popup`], /revocari non potest/);
+assert.match(latin['accounts-allowUserDelete'], /rationem suam/);
+for (const shortcut of ['Enter', 'Shift+Enter', 'Ctrl/Cmd+Enter']) assert.ok(latin['submit-on-enter-description'].includes(shortcut));
+assert.match(latin['submit-on-enter-description'], /Si inactiva est, Ctrl\/Cmd\+Enter servat et Enter novam lineam inserit/);
+assert.match(latin['open-many-cards-at-once-description'], /propria fenestra quamque chartam/);
+assert.match(latin['open-many-cards-at-once-description'], /inactiva est.*claudis eam quae aperta erat/);
+assert.notEqual(latin['show-on-card'], latin['show-on-minicard']);
+assert.equal(latin['mark-all-as-read'], 'Nota omnia ut lecta');
+assert.equal(latin['mark-all-as-unread'], 'Nota omnia ut non lecta');

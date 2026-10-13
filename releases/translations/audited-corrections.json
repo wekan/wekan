@@ -198126,5 +198126,250 @@
     "before": "Latine: praesens due tempus %s est approaching",
     "after": "tempus debitum praesens %s appropinquat",
     "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "pastdue",
+    "before": "Latine: praesens due tempus %s est past",
+    "after": "tempus debitum praesens %s praeteriit",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "duenow",
+    "before": "Latine: praesens due tempus %s est hodie",
+    "after": "tempus debitum praesens %s hodie est",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "act-newDue",
+    "before": "Latine: __list__/__card__ has 1st due reminder [__board__]",
+    "after": "__list__/__card__ primam admonitionem diei debiti habet [__board__]",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "act-withDue",
+    "before": "Latine: __list__/__card__ due reminders [__board__]",
+    "after": "__list__/__card__ admonitiones diei debiti [__board__]",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "act-almostdue",
+    "before": "Latine: erat reminding the praesens due (__timeValue__) de __card__ est approaching",
+    "after": "admonebat tempus debitum praesens (__timeValue__) chartae __card__ appropinquare",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "act-pastdue",
+    "before": "Latine: erat reminding the praesens due (__timeValue__) de __card__ est past",
+    "after": "admonebat tempus debitum praesens (__timeValue__) chartae __card__ praeteriisse",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "act-duenow",
+    "before": "Latine: erat reminding the praesens due (__timeValue__) de __card__ est nunc",
+    "after": "admonebat tempus debitum praesens (__timeValue__) chartae __card__ nunc adesse",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "act-atUserComment",
+    "before": "Latine: mentioned tu adest scheda __card__: __comment__ at index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "te memoravit in charta __card__: __comment__ in indice __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "delete-user-confirm-popup",
+    "before": "Latine: certusne es tu want ad dele hoc ratio? There est non solve.",
+    "after": "Certusne es te hanc rationem delere velle? Deletio revocari non potest.",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "delete-team-confirm-popup",
+    "before": "Latine: certusne es tu want ad dele hoc manus? There est non solve.",
+    "after": "Certusne es te hanc manum delere velle? Deletio revocari non potest.",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "delete-org-confirm-popup",
+    "before": "Latine: certusne es tu want ad dele hoc organizatio? There est non solve.",
+    "after": "Certusne es te hanc consociationem delere velle? Deletio revocari non potest.",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "accounts-allowUserDelete",
+    "before": "Latine: Self dele usor ratio",
+    "after": "Permitte usori rationem suam delere",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "hide-minicard-label-text",
+    "before": "Latine: Cela minicard titulus textus",
+    "after": "Cela textum titulorum in chartula",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "show-desktop-drag-handles",
+    "before": "Latine: Monstra mensa drag handles",
+    "after": "Monstra ansas trahendi in computatro mensali",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "drag-to-resize-sidebar",
+    "before": "Latine: Drag ad resize sidebar",
+    "after": "Trahe ut magnitudinem columnae lateralis mutes",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "drag-to-resize-left-menu",
+    "before": "Latine: Drag ad resize left tabula optionum",
+    "after": "Trahe ut magnitudinem indicis sinistri mutes",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "submit-on-enter",
+    "before": "Latine: Submit editors cum Enter",
+    "after": "Serva textum editorum premendo Enter",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "open-many-cards-at-once",
+    "before": "Latine: Aperi many schedae at semel",
+    "after": "Aperi plures chartas simul",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "open-many-cards-at-once-description",
+    "before": "Latine: Keep omnis scheda tu click aperi in its own window. Quando hoc est abest, clicking a scheda closes the one illud erat aperi.",
+    "after": "Serva apertam in propria fenestra quamque chartam quam premes. Si haec optio inactiva est, premendo chartam claudis eam quae aperta erat.",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "submit-on-enter-description",
+    "before": "Latine: Quando adest, pressing Enter saves the scheda titulus, descriptio et aliud inline editors; Shift+Enter inserts a novum line. Quando abest, Ctrl/Cmd+Enter saves et Enter inserts a novum line.",
+    "after": "Si haec optio activa est, premendo Enter servas titulum chartae, descriptionem et textum aliorum editorum in loco; Shift+Enter novam lineam inserit. Si inactiva est, Ctrl/Cmd+Enter servat et Enter novam lineam inserit.",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "addmore-detail",
+    "before": "Latine: Adde a plus detailed descriptio",
+    "after": "Adde descriptionem accuratiorem",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "show-on-card",
+    "before": "Latine: Monstra adest Scheda",
+    "after": "Monstra in charta",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "show-on-minicard",
+    "before": "Latine: Monstra adest Minicard",
+    "after": "Monstra in chartula",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "new",
+    "before": "Latine: Novum",
+    "after": "Novum",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "editOrgPopup-title",
+    "before": "Latine: Muta Organizatio",
+    "after": "Muta consociationem",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "newOrgPopup-title",
+    "before": "Latine: Novum Organizatio",
+    "after": "Nova consociatio",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "editTeamPopup-title",
+    "before": "Latine: Muta Manus",
+    "after": "Muta manum",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "newTeamPopup-title",
+    "before": "Latine: Novum Manus",
+    "after": "Nova manus",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "editUserPopup-title",
+    "before": "Latine: Muta Usor",
+    "after": "Muta usorem",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "newUserPopup-title",
+    "before": "Latine: Novum Usor",
+    "after": "Novus usor",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "help",
+    "before": "Latine: Auxilium",
+    "after": "Auxilium",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "view-all",
+    "before": "Latine: Vide Omnia",
+    "after": "Vide omnia",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "filter-by-unread",
+    "before": "Latine: Filtrum a Non lectum",
+    "after": "Filtra secundum non lecta",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "mark-all-as-read",
+    "before": "Latine: Mark omnia as lege",
+    "after": "Nota omnia ut lecta",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "mark-all-as-unread",
+    "before": "Latine: Mark omnia as non lectum",
+    "after": "Nota omnia ut non lecta",
+    "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
   }
 ]
