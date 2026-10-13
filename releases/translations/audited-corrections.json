@@ -195501,5 +195501,215 @@
     "before": "Latine: hamus interretialis Nomen",
     "after": "Nomen hami interretialis",
     "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "webhook-token",
+    "before": "Latine: Tessera (Optional for Authenticatio)",
+    "after": "Tessera (optionalis ad authenticationem)",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "notification-delivery-layout",
+    "before": "Latine: Layout",
+    "after": "Dispositio",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "outgoing-webhooks",
+    "before": "Latine: Outgoing Webhooks",
+    "after": "Hami interretiales exeuntes",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "bidirectional-webhooks",
+    "before": "Latine: Two-Way Webhooks",
+    "after": "Hami interretiales bidirectionales",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "outgoingWebhooksPopup-title",
+    "before": "Latine: Outgoing Webhooks",
+    "after": "Hami interretiales exeuntes",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "boardCardTitlePopup-title",
+    "before": "Latine: Scheda Titulus Filtrum",
+    "after": "Filtrum tituli chartae",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "disable-webhook",
+    "before": "Latine: Inhabilita Hoc hamus interretialis",
+    "after": "Inactiva hunc hamum interretialem",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "global-webhook",
+    "before": "Latine: Global Webhooks",
+    "after": "Hami interretiales globales",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "new-outgoing-webhook",
+    "before": "Latine: Novum Outgoing hamus interretialis",
+    "after": "Novus hamus interretialis exiens",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "no-name",
+    "before": "Latine: (Ignotum)",
+    "after": "(Ignotum)",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "Platform",
+    "before": "Latine: Platform",
+    "after": "Systema",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "package",
+    "before": "Latine: Package",
+    "after": "Fasciculus programmatum",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "OS",
+    "before": "Latine: OS",
+    "after": "OS",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "Meteor",
+    "before": "Latine: Meteor",
+    "after": "Meteor",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "Database",
+    "before": "Latine: Repositorio datorum",
+    "after": "Repositorium datorum",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "Node",
+    "before": "Latine: Node",
+    "after": "Node",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "Node_version",
+    "before": "Latine: Node versio",
+    "after": "Versio Node",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "Meteor_version",
+    "before": "Latine: Meteor versio",
+    "after": "Versio Meteor",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "Database_type",
+    "before": "Latine: Repositorio datorum genus",
+    "after": "Genus repositorii datorum",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "Database_commit",
+    "before": "Latine: Repositorio datorum commit",
+    "after": "Versio repositorii datorum (commit)",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "FerretDB_version",
+    "before": "Latine: FerretDB versio",
+    "after": "Versio FerretDB",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "FerretDB_commit",
+    "before": "Latine: FerretDB commit",
+    "after": "Versio FerretDB (commit)",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "Reactivity_mode",
+    "before": "Latine: Reactivity modus (changeStreams / oplog / polling)",
+    "after": "Modus reactivitatis (changeStreams / oplog / polling)",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "Reactivity_order",
+    "before": "Latine: Reactivity order (METEOR_REACTIVITY_ORDER)",
+    "after": "Ordo reactivitatis (METEOR_REACTIVITY_ORDER)",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "DDP_transport",
+    "before": "Latine: DDP transport (DDP_TRANSPORT)",
+    "after": "Transmissio DDP (DDP_TRANSPORT)",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "MongoDB_version",
+    "before": "Latine: MongoDB compatible versio",
+    "after": "Versio cum MongoDB compatibilis",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "MongoDB_storage_engine",
+    "before": "Latine: MongoDB storage engine",
+    "after": "Machina reponendi MongoDB",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "MongoDB_Oplog_enabled",
+    "before": "Latine: MongoDB Oplog habilitatum",
+    "after": "Oplog MongoDB activum",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "OS_Arch",
+    "before": "Latine: OS Arch",
+    "after": "Architectura OS",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "OS_Cpus",
+    "before": "Latine: OS CPU Count",
+    "after": "Numerus CPU in OS",
+    "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
   }
 ]

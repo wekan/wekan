@@ -536,3 +536,19 @@ assert.equal(latin['email-invite-register-subject'], latin['email-invite-subject
 assert.ok(latin['email-invite-register-text'].includes('\n__url__\n\n'));
 assert.ok(latin['email-invite-register-text'].includes('__icode__'));
 assert.notEqual(latin['email-templates-invite-subject'], latin['email-templates-invite-body']);
+
+const reviewedSystemKeys = ["webhook-token", "notification-delivery-layout", "outgoing-webhooks", "bidirectional-webhooks", "outgoingWebhooksPopup-title", "boardCardTitlePopup-title", "disable-webhook", "global-webhook", "new-outgoing-webhook", "no-name", "Platform", "package", "OS", "Meteor", "Database", "Node", "Node_version", "Meteor_version", "Database_type", "Database_commit", "FerretDB_version", "FerretDB_commit", "Reactivity_mode", "Reactivity_order", "DDP_transport", "MongoDB_version", "MongoDB_storage_engine", "MongoDB_Oplog_enabled", "OS_Arch", "OS_Cpus"];
+for (const key of reviewedSystemKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Optional|Outgoing|Two-Way|Layout|storage engine|CPU Count)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+for (const name of ['OS', 'Meteor', 'Node']) assert.equal(latin[name], name);
+for (const value of ['changeStreams', 'oplog', 'polling']) assert.ok(latin.Reactivity_mode.includes(value));
+assert.ok(latin.Reactivity_order.includes('METEOR_REACTIVITY_ORDER'));
+assert.ok(latin.DDP_transport.includes('DDP_TRANSPORT'));
+assert.match(latin['webhook-token'], /optionalis/);
+assert.notEqual(latin['outgoing-webhooks'], latin['bidirectional-webhooks']);
+assert.equal(latin['outgoing-webhooks'], latin['outgoingWebhooksPopup-title']);
+assert.match(latin['disable-webhook'], /^Inactiva /);
+assert.match(latin.MongoDB_version, /compatibilis/);
+assert.match(latin.OS_Cpus, /Numerus CPU/);
