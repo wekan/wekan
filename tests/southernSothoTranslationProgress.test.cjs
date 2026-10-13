@@ -895,3 +895,17 @@ assert.match(sesotho['sync-conflict-hint'], /Ha ho letho le romelwang tsamaisong
 assert.match(sesotho['sync-conflict-review-complete'], /Lenane lohle ha le a amahanngwa/);
 assert.match(sesotho['email-recovery-confirm-cancel'], /di ke ke tsa kgutlisetswa.*kamora kopo ena e tla bolokwa/);
 assert.match(sesotho['activity-recovery-cancel-confirm'], /Sena se ke ke sa tswellwa hape.*ha di kgutliswe/);
+
+// Historical review through key 4269: email limits, labels and sender direction.
+assert.match(sesotho['email-to-card-webhook'], /Mailgun, SendGrid, Postmark.*sefetisi sa melaetsa ya MIME e sa fetolwang/);
+assert.doesNotMatch(sesotho['email-to-card-webhook'], /MIME relay/);
+assert.match(sesotho['email-to-card-part-description'], /Dikahare tsa imeile/);
+assert.match(sesotho['email-to-card-off-member-off'], /^O timme/);
+assert.match(sesotho['feature-views-email-desc'], /dileibole ke dileibole/);
+assert.doesNotMatch(sesotho['feature-views-email-desc'], /ditlhaku/);
+assert.match(sesotho['email-view-not-receiving'], /Ditlhophiso tsa ditsebiso/);
+assert.match(sesotho['email-view-too-many-recipients'], /ba sa feteng 20/);
+assert.doesNotMatch(sesotho['email-view-too-many-recipients'], /20 feela/);
+assert.match(sesotho['email-bounces-category-hard-desc'], /domeine/);
+assert.match(sesotho['email-bounces-ses-description'], /aterese eo WeKan e romelang ho tloha ho eona/);
+assert.match(sesotho['email-bounces-ses-description'], /Bounce le Complaint.*SNS.*HTTPS/);

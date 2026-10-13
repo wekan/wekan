@@ -189341,5 +189341,61 @@
     "before": "Ho isa dikarete tsa sprint pele: __done__ ho tse __total__",
     "after": "Ho fetisetsa dikarete tsa potoloho ya Scrum pele: __done__ ho tse __total__",
     "reason": "Distinguish a Scrum estimate from size and translate the remaining English sprint term in rollover progress."
+  },
+  {
+    "locale": "st",
+    "key": "email-to-card-webhook",
+    "before": "URL ya webhook e kenang ya mofani wa imeile (Mailgun, SendGrid, Postmark kapa MIME relay e sa sebetswang)",
+    "after": "URL ya webhook e kenang ya mofani wa imeile (Mailgun, SendGrid, Postmark kapa sefetisi sa melaetsa ya MIME e sa fetolwang)",
+    "reason": "Restore email label, content, recipient-limit and sending-address meanings; remove remaining mixed English in email help."
+  },
+  {
+    "locale": "st",
+    "key": "email-to-card-part-description",
+    "before": "Mmele e le tlhaloso ya karete",
+    "after": "Dikahare tsa imeile e le tlhaloso ya karete",
+    "reason": "Restore email label, content, recipient-limit and sending-address meanings; remove remaining mixed English in email help."
+  },
+  {
+    "locale": "st",
+    "key": "email-to-card-off-member-off",
+    "before": "O tima diaterese tsa hao tsa diboto ho Ditlhophiso tsa setho.",
+    "after": "O timme diaterese tsa hao tsa diboto ho Ditlhophiso tsa setho.",
+    "reason": "Restore email label, content, recipient-limit and sending-address meanings; remove remaining mixed English in email help."
+  },
+  {
+    "locale": "st",
+    "key": "feature-views-email-desc",
+    "before": "Boto e le lebokose la mangolo: lenane la imeile ke Tse kenang, manane ke difoldara, ditlhaku ke ditlhaku, mme ditho di ngola le ho araba diimeile ho tswa atereseng ya boto.",
+    "after": "Boto e le lebokose la mangolo: lenane la imeile ke Tse kenang, manane ke difoldara, dileibole ke dileibole, mme ditho di ngola le ho araba diimeile ho tswa atereseng ya boto.",
+    "reason": "Restore email label, content, recipient-limit and sending-address meanings; remove remaining mixed English in email help."
+  },
+  {
+    "locale": "st",
+    "key": "email-view-not-receiving",
+    "before": "Boto ena ha e so amohele diimeile. E bulele ho Disetting tsa ditsebiso tsa boto → Imeile ho karete.",
+    "after": "Boto ena ha e so amohele diimeile. E bulele ho Ditlhophiso tsa ditsebiso tsa boto → Imeile ho karete.",
+    "reason": "Restore email label, content, recipient-limit and sending-address meanings; remove remaining mixed English in email help."
+  },
+  {
+    "locale": "st",
+    "key": "email-view-too-many-recipients",
+    "before": "Baamohedi ba 20 feela molaetseng o le mong.",
+    "after": "Molaetsa o le mong o ka ba le baamohedi ba sa feteng 20.",
+    "reason": "Restore email label, content, recipient-limit and sending-address meanings; remove remaining mixed English in email help."
+  },
+  {
+    "locale": "st",
+    "key": "email-bounces-category-hard-desc",
+    "before": "Aterese ha e eo: phoso ea ho ngola, ak'haonte e hlakotsoeng, domain e sa tsejoeng.",
+    "after": "Aterese ha e eo: phoso ea ho ngola, ak'haonte e hlakotsoeng, domeine e sa tsejoeng.",
+    "reason": "Restore email label, content, recipient-limit and sending-address meanings; remove remaining mixed English in email help."
+  },
+  {
+    "locale": "st",
+    "key": "email-bounces-ses-description",
+    "before": "Ho Amazon SES, romela litsebiso tsa Bounce le Complaint, le molao oa kamohelo bakeng sa aterese eo WeKan e romelang ho eona, ho sehlooho sa SNS, 'me u ngolise aterese ena ho sona ka HTTPS:",
+    "after": "Ho Amazon SES, romela litsebiso tsa Bounce le Complaint, le molao oa kamohelo bakeng sa aterese eo WeKan e romelang ho tloha ho eona, ho sehlooho sa SNS, 'me u ngolise aterese ena ho sona ka HTTPS:",
+    "reason": "Restore email label, content, recipient-limit and sending-address meanings; remove remaining mixed English in email help."
   }
 ]

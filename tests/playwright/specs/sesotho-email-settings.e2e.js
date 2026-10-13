@@ -26,3 +26,13 @@ test('Southern Sotho OAuth help preserves precedence and secret handling', async
   await expect(hint).toContainText('Sephiri se bolokwa ho seva');
   await expect(hint).not.toContainText('seforong');
 });
+
+test('Southern Sotho bounce setup identifies the sending address', async ({ page, adminUser }) => {
+  await loginWithToken(page, adminUser.id, adminUser.token);
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'st'));
+  await navigateInApp(page, '/admin/people/email');
+  const section = page.locator('.email-bounces');
+  await expect(section).toContainText(strings['email-bounces-ses-description']);
+  await expect(section).toContainText('aterese eo WeKan e romelang ho tloha ho eona');
+  await expect(section).not.toContainText('aterese eo WeKan e romelang ho eona');
+});
