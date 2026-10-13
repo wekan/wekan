@@ -377,3 +377,21 @@ assert.equal(latin['export-card-subtasks'], latin.subtasks);
 assert.match(latin['export-card-field-dates'], /Creationis, Acceptionis, Initii, Debitus, Finis/);
 assert.match(latin['export-board-without-attachments'], /^sine /);
 assert.match(latin['export-ical-feed'], /iCal/);
+
+const reviewedFilterKeys = ["list-sort-by", "list-label-modifiedAt", "list-label-title", "list-label-sort", "list-label-short-modifiedAt", "list-label-short-title", "list-label-short-sort", "filter-cards", "filter-dates-label", "filter-no-due-date", "filter-overdue", "filter-due-today", "filter-due-this-week", "filter-due-next-week", "filter-due-tomorrow", "list-filter-label", "filter-clear", "filter-labels-label", "filter-no-label", "filter-member-label", "filter-no-member", "filter-assignee-label", "filter-creator-label", "filter-no-assignee", "filter-custom-fields-label", "filter-no-custom-fields", "filter-show-archive", "filter-hide-empty", "filter-on", "filter-on-desc"];
+for (const key of reviewedFilterKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Overdue|Due|assignee|filtering|Click|Custom|Access|Order)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['filter-due-today'], /hodie$/);
+assert.match(latin['filter-due-tomorrow'], /cras$/);
+assert.match(latin['filter-due-this-week'], /hac hebdomade$/);
+assert.match(latin['filter-due-next-week'], /hebdomade proxima$/);
+assert.match(latin['filter-overdue'], /praeteriit$/);
+for (const key of ['filter-no-due-date', 'filter-no-label', 'filter-no-member', 'filter-no-assignee', 'filter-no-custom-fields']) assert.match(latin[key], /^Sine /);
+assert.equal(new Set(['filter-member-label', 'filter-assignee-label', 'filter-creator-label'].map(key => latin[key])).size, 3);
+assert.match(latin['filter-show-archive'], /Monstra.*archivo/);
+assert.match(latin['filter-hide-empty'], /Cela.*vacuos/);
+assert.equal(latin['list-label-short-modifiedAt'], '(U)');
+assert.equal(latin['list-label-short-title'], '(N)');
+assert.equal(latin['list-label-short-sort'], '(M)');

@@ -193296,5 +193296,215 @@
     "before": "Latine: Click ad Ordina Index",
     "after": "Preme ut indicem ordines",
     "reason": "Repair mixed-language export, collision and sorting labels, preserving denied actions, disk-space requirements and field distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "list-sort-by",
+    "before": "Latine: Ordina the Index A:",
+    "after": "Ordina indicem secundum:",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "list-label-modifiedAt",
+    "before": "Latine: Ultimus Access Tempus",
+    "after": "Tempus ultimi accessus",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "list-label-title",
+    "before": "Latine: Nomen de the Index",
+    "after": "Nomen indicis",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "list-label-sort",
+    "before": "Latine: Tuum Manual Order",
+    "after": "Ordo a te manu constitutus",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "list-label-short-modifiedAt",
+    "before": "Latine: (L)",
+    "after": "(U)",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "list-label-short-title",
+    "before": "Latine: (N)",
+    "after": "(N)",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "list-label-short-sort",
+    "before": "Latine: (M)",
+    "after": "(M)",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "filter-cards",
+    "before": "Latine: Filtrum Schedae vel Indices",
+    "after": "Filtra chartas vel indices",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "filter-dates-label",
+    "before": "Latine: Filtrum a dies",
+    "after": "Filtra secundum diem",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "filter-no-due-date",
+    "before": "Latine: Non dies debitus",
+    "after": "Sine die debito",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "filter-overdue",
+    "before": "Latine: Overdue",
+    "after": "Dies debitus praeteriit",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "filter-due-today",
+    "before": "Latine: Due hodie",
+    "after": "Debitum hodie",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "filter-due-this-week",
+    "before": "Latine: Due hoc hebdomas",
+    "after": "Debitum hac hebdomade",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "filter-due-next-week",
+    "before": "Latine: Due proximum hebdomas",
+    "after": "Debitum hebdomade proxima",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "filter-due-tomorrow",
+    "before": "Latine: Due cras",
+    "after": "Debitum cras",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "list-filter-label",
+    "before": "Latine: Filtrum Index a Titulus",
+    "after": "Filtra indicem secundum titulum",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "filter-clear",
+    "before": "Latine: Purga filtrum",
+    "after": "Purga filtrum",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "filter-labels-label",
+    "before": "Latine: Filtrum a titulus",
+    "after": "Filtra secundum titulum",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "filter-no-label",
+    "before": "Latine: Non titulus",
+    "after": "Sine titulo",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "filter-member-label",
+    "before": "Latine: Filtrum a sodalis",
+    "after": "Filtra secundum membrum",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "filter-no-member",
+    "before": "Latine: Non sodalis",
+    "after": "Sine membro",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "filter-assignee-label",
+    "before": "Latine: Filtrum a assignee",
+    "after": "Filtra secundum eum cui assignatum est",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "filter-creator-label",
+    "before": "Latine: Filtrum a Latine: Creator",
+    "after": "Filtra secundum creatorem",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "filter-no-assignee",
+    "before": "Latine: Non assignee",
+    "after": "Sine eo cui assignatum est",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "filter-custom-fields-label",
+    "before": "Latine: Filtrum a Custom Campi",
+    "after": "Filtra secundum campos proprios",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "filter-no-custom-fields",
+    "before": "Latine: Non Custom Campi",
+    "after": "Sine campis propriis",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "filter-show-archive",
+    "before": "Latine: Monstra in archivum relatum indices",
+    "after": "Monstra indices in archivo",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "filter-hide-empty",
+    "before": "Latine: Cela vacuum indices",
+    "after": "Cela indices vacuos",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "filter-on",
+    "before": "Latine: Filtrum est adest",
+    "after": "Filtrum activum est",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "filter-on-desc",
+    "before": "Latine: Tu sunt filtering schedae adest hoc tabula. Click here ad muta filtrum.",
+    "after": "Chartas in hac tabula filtras. Preme hic ut filtrum mutes.",
+    "reason": "Repair sorting and filter controls, preserving date periods, missing-value filters and member/assignee/creator distinctions."
   }
 ]
