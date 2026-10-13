@@ -182502,5 +182502,285 @@
     "before": "Spostato/a da",
     "after": "Spustatu/a da",
     "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-archived",
+    "before": "Spostato/a nell'archiviu",
+    "after": "Spustatu/a in l’archiviu",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-unarchived",
+    "before": "Ripristinato/a dall'archiviu",
+    "after": "Ristabilitu/a da l’archiviu",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-when-the-label",
+    "before": "Quando l'etichetta viene",
+    "after": "Quandu l’etichetta",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-when-a-member",
+    "before": "Quando un membru viene",
+    "after": "Quandu un membru hè",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-when-the-member",
+    "before": "Quando un membru viene",
+    "after": "Quandu u membru",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-when-a-assignee",
+    "before": "Assignatu",
+    "after": "Quandu una persona assignata hè",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-when-the-assignee",
+    "before": "Assignatu",
+    "after": "Quandu a persona assignata",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-when-a-attach",
+    "before": "Quando un allegatu",
+    "after": "Quandu un appicciu",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-when-a-card-matches-advanced-filter",
+    "before": "Quandu una scheda currisponde à u filtru avanzatu",
+    "after": "Quandu una carta currisponde à u filtru avanzatu",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-when-a-due-date-changed",
+    "before": "Scadenza: a data hè cambiata",
+    "after": "Quandu a data di scadenza hè definita o cambiata",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-when-a-start-date-changed",
+    "before": "Principià: a data hè cambiata",
+    "after": "Quandu a data di principiu hè definita o cambiata",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-when-a-end-date-changed",
+    "before": "Fine: a data hè cambiata",
+    "after": "Quandu a data di fine hè definita o cambiata",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-when-a-received-date-changed",
+    "before": "Ricevuta: a data hè cambiata",
+    "after": "Quandu a data di ricezzione hè definita o cambiata",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-when-a-checklist",
+    "before": "Quando una checklist è",
+    "after": "Quandu una lista di cuntrollu hè",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-when-the-checklist",
+    "before": "Quando la checklist",
+    "after": "Quandu a lista di cuntrollu",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-completed",
+    "before": "Completato/a",
+    "after": "Compiu/a",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-made-incomplete",
+    "before": "Rendi incompleto",
+    "after": "Resu micca compiu",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-when-a-item",
+    "before": "Quando un elemento di a checklist è",
+    "after": "Quandu un elementu di a lista di cuntrollu hè",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-when-the-item",
+    "before": "Quando un elemento di a checklist",
+    "after": "Quandu l’elementu di a lista di cuntrollu",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-checked",
+    "before": "Selezionato",
+    "after": "Marcatu",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-unchecked",
+    "before": "Deselezionato",
+    "after": "Micca marcatu",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-move-card-to",
+    "before": "Move carta a",
+    "after": "Spustà a carta à",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-top-of",
+    "before": "Al di sopra di",
+    "after": "In cima à",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-bottom-of",
+    "before": "Al di sotto di",
+    "after": "In fondu à",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-its-list",
+    "before": "la sua lista",
+    "after": "a so lista",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-unarchive",
+    "before": "Ristabilisce dall'archiviu",
+    "after": "Ristabilisce da l’archiviu",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-assignee",
+    "before": "assegnatario",
+    "after": "persona assignata",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-set-color",
+    "before": "Imposta il culore",
+    "after": "Definisce u culore à",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-checklist",
+    "before": "lista di controllo",
+    "after": "lista di cuntrollu",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-check-all",
+    "before": "Selezziunà tutti",
+    "after": "Marcà tutti",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-uncheck-all",
+    "before": "Togli la spunta a tutti",
+    "after": "Caccià a marca à tutti",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-items-check",
+    "before": "Elementi di a checklist",
+    "after": "elementi di a lista di cuntrollu",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-check",
+    "before": "Selezziunà",
+    "after": "Marcà",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-uncheck",
+    "before": "Togli la spunta",
+    "after": "Caccià a marca",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-item",
+    "before": "elemento",
+    "after": "elementu",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-of-checklist",
+    "before": "di a checklist",
+    "after": "di a lista di cuntrollu",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-send-email",
+    "before": "Invia un'e-mail",
+    "after": "Mandà un email",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-to",
+    "before": "fino a",
+    "after": "à",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-subject",
+    "before": "oggetto",
+    "after": "ughjettu",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-rule-details",
+    "before": "Dettagli di a regola",
+    "after": "Dettagli di a regula",
+    "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
   }
 ]

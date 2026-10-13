@@ -26,3 +26,16 @@ test('Corsican workflow builder distinguishes triggers from actions', async ({ b
   await expect(workflow.locator('.js-create-workflow-rule')).toBeDisabled();
   await expect(workflow.locator('.workflow-help')).not.toContainText('Trascina un trigger');
 });
+
+test('Corsican date triggers include both initial setting and later changes', async ({ boardPage: page, board }) => {
+  const strings = require('../../../imports/i18n/data/co.i18n.json');
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'co'));
+  await navigateInApp(page, `/b/${board.boardId}/${board.slug}/rules`);
+  await page.locator('#ruleTitle').fill('Date changes');
+  await page.locator('.js-goto-trigger').click();
+  for (const kind of ['due', 'start', 'end', 'received']) {
+    const row = page.locator('.trigger-item').filter({ has: page.locator(`.js-add-${kind}-date-changed-trigger`) });
+    await expect(row).toContainText(strings[`r-when-a-${kind}-date-changed`]);
+    await expect(row).toContainText('hè definita o cambiata');
+  }
+});

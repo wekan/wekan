@@ -502,3 +502,20 @@ assert.match(corsican['r-w-card-unarchived'], /ristabilita da l’archiviu/);
 assert.match(corsican['r-moved-to'], /à$/);
 assert.match(corsican['r-moved-from'], /da$/);
 assert.match(corsican['r-days-after'], /dopu$/);
+
+const triggerFragmentCorrectionKeys = ["r-archived", "r-unarchived", "r-when-the-label", "r-when-a-member", "r-when-the-member", "r-when-a-assignee", "r-when-the-assignee", "r-when-a-attach", "r-when-a-card-matches-advanced-filter", "r-when-a-due-date-changed", "r-when-a-start-date-changed", "r-when-a-end-date-changed", "r-when-a-received-date-changed", "r-when-a-checklist", "r-when-the-checklist", "r-completed", "r-made-incomplete", "r-when-a-item", "r-when-the-item", "r-checked", "r-unchecked", "r-move-card-to", "r-top-of", "r-bottom-of", "r-its-list", "r-unarchive", "r-assignee", "r-set-color", "r-checklist", "r-check-all", "r-uncheck-all", "r-items-check", "r-check", "r-uncheck", "r-item", "r-of-checklist", "r-send-email", "r-to", "r-subject", "r-rule-details"];
+for (const key of triggerFragmentCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /\b(?:Spostato|Ripristinato|Quando|viene|Assignatu|allegatu|scheda|checklist|Completato|Rendi|incompleto|elemento|Selezionato|Deselezionato|Al|sopra|sotto|sua|assegnatario|Imposta|controllo|Togli|spunta|Invia|fino|oggetto|regola)\b/, key);
+}
+for (const key of ['r-when-a-due-date-changed','r-when-a-start-date-changed','r-when-a-end-date-changed','r-when-a-received-date-changed']) {
+  assert.match(corsican[key], /^Quandu.*hè definita o cambiata$/);
+}
+assert.match(corsican['r-when-a-assignee'], /^Quandu una persona assignata hè$/);
+assert.match(corsican['r-when-the-assignee'], /^Quandu a persona assignata$/);
+assert.equal(corsican['r-checked'], 'Marcatu');
+assert.equal(corsican['r-unchecked'], 'Micca marcatu');
+assert.match(corsican['r-made-incomplete'], /micca compiu/);
+assert.equal(corsican['r-to'], 'à');
+assert.equal(corsican['r-top-of'], 'In cima à');
+assert.equal(corsican['r-bottom-of'], 'In fondu à');
