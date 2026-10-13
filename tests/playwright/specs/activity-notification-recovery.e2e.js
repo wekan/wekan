@@ -26,7 +26,7 @@ function cleanup(ids) {
   db.deleteMany('activities', { _id: { $in: ids } });
   db.deleteMany('notificationEmailJobs', { eventId: { $in: ids } });
 }
-for (const language of ['en', 'haw']) {
+for (const language of ['st', 'en', 'haw']) {
 test(`Recovery paginates pending activity summaries, disables orphan retries and denies ordinary users in ${language}`, async ({ page, adminUser, user }) => {
   const prefix = db.uid('activity-report') + '.*[x]', ids = [];
   try {

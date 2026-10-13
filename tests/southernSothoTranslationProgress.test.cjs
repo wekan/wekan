@@ -490,8 +490,8 @@ const fullSesothoInventory = spawnSync(process.execPath, [
   path.join(root, 'releases/translations/fill-translations.mjs'), '--list', 'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fullSesothoInventory.status, 0, fullSesothoInventory.stderr);
-assert.deepEqual(Object.keys(JSON.parse(fullSesothoInventory.stdout)).filter(key => key.startsWith('blockly-')), [],
-  'Southern Sotho Blockly has no remaining non-exempt English placeholders');
+assert.deepEqual(Object.keys(JSON.parse(fullSesothoInventory.stdout)), [],
+  'Southern Sotho has no remaining non-exempt English placeholders');
 
 const translatedScrumPlanningKeys = ["board-view-product-backlog", "board-view-sprints", "board-view-sprint-report", "board-view-velocity", "scrum-settings", "scrum-product-owner", "scrum-master", "scrum-developers", "scrum-working-days", "scrum-enabled", "scrum-product-goal", "scrum-definition-of-done", "scrum-estimate-source", "scrum-estimate-unit", "scrum-completion-policy", "scrum-source-poker", "scrum-source-customField", "scrum-policy-dueComplete", "scrum-policy-doneLists", "scrum-sprints", "scrum-sprint", "scrum-start-sprint", "scrum-close-sprint", "scrum-cancel-sprint", "scrum-rollover-sprint", "scrum-cancel-reason", "scrum-product-backlog", "scrum-edit-sprint", "scrum-sprint-goal", "scrum-capacity", "scrum-new-sprint", "scrum-releases", "scrum-release", "scrum-release-scope", "scrum-releases-select-help", "scrum-select-sprint", "scrum-backlog", "scrum-backlog-help", "scrum-backlog-rank", "scrum-issue-type", "scrum-acceptance-criteria", "scrum-events", "scrum-event-kind", "scrum-timebox", "scrum-notes", "scrum-event-planning", "scrum-event-daily", "scrum-event-review", "scrum-event-retrospective", "scrum-committed", "scrum-added", "scrum-removed", "scrum-incomplete", "scrum-no-closed-sprints", "scrum-report-help", "scrum-total", "scrum-state-planned", "scrum-unknown-estimate", "scrum-confirm-close", "scrum-confirm-cancel", "scrum-past-sprints", "scrum-list-category", "scrum-swimlane-purpose", "scrum-category-backlog", "scrum-category-todo", "scrum-category-doing", "scrum-partial-report", "scrum-state-released", "scrum-released-at", "scrum-follow-up-cards", "scrum-import-reference-omitted", "scrum-partial-snapshot", "scrum-resume-close", "scrum-daily-observations", "scrum-daily-observations-help"];
 for (const key of translatedScrumPlanningKeys) {
@@ -555,3 +555,25 @@ assert.notEqual(sesotho['email-failure-smtp-temporary'], sesotho['email-failure-
 assert.match(sesotho['email-failure-delivery-unconfirmed'], /ha ho a kgona ho netefatswa.*pele o leka hape/);
 assert.match(sesotho['sync-planning-hint'], /feela ha Scrum e buletswe.*pele ka ID.*ebe ka lebitso/);
 assert.match(sesotho['sync-planning-hint'], /ho fihlela mohlodi o fetola.*ha pele ha ho ke ho tlosa moralo/);
+
+const translatedRecoveryFinalKeys = ["activity-recovery-heading", "activity-recovery-description", "activity-recovery-empty", "activity-recovery-unavailable", "activity-recovery-retry", "activity-recovery-retrying", "activity-recovery-status-pending", "activity-recovery-status-preparing", "activity-recovery-status-processing", "activity-recovery-status-missing", "activity-recovery-status-changed", "activity-recovery-status-invalid", "activity-recovery-status-inconsistent", "activity-recovery-busy", "activity-recovery-denied", "activity-recovery-source-unavailable", "activity-recovery-disabled", "activity-recovery-failed", "activity-recovery-paused", "activity-recovery-control-conflict", "activity-recovery-control-failed", "activity-recovery-status-cancelled", "activity-recovery-cancel", "activity-recovery-cancel-confirm", "rule-email-recovery-unavailable", "stuck-sync-operation-heading", "stuck-sync-operation-description", "stuck-sync-operation-list", "stuck-sync-operation-applied", "stuck-sync-operation-reason-scope-changed", "stuck-sync-operation-reason-access-denied", "stuck-sync-operation-reason-trigger-unknown", "stuck-sync-operation-reason-intent-missing", "stuck-sync-operation-reason-unknown", "stuck-sync-operation-replayable-now", "stuck-sync-operation-discard-confirm", "stuck-sync-operation-empty", "stuck-sync-operation-truncated", "stuck-sync-operation-unavailable", "stuck-sync-operation-missing", "stuck-sync-operation-not-stuck", "stuck-sync-operation-replayable", "stuck-sync-operation-busy", "interrupted-import-heading", "interrupted-import-description", "interrupted-import-progress", "interrupted-import-created", "interrupted-import-source", "interrupted-import-state-stopped", "interrupted-import-state-failed", "interrupted-import-state-discarding", "interrupted-import-scrum", "interrupted-import-counts", "interrupted-import-no-board", "interrupted-import-keep", "interrupted-import-keep-confirm", "interrupted-import-discard-confirm", "interrupted-import-empty", "interrupted-import-truncated", "interrupted-import-unavailable", "interrupted-import-missing", "interrupted-import-not-interrupted", "interrupted-import-foreign-board", "interrupted-import-scrum-busy", "scrum-history-checkpoint-stuck", "scrum-history-checkpoint-counts", "scrum-history-checkpoint-hint", "scrum-history-checkpoint-rollback", "scrum-history-checkpoint-discard", "scrum-history-checkpoint-discard-confirm", "scrum-history-checkpoint-ask-admin", "login-setting-env-only"];
+for (const key of translatedRecoveryFinalKeys) {
+  assert.notEqual(sesotho[key], english[key], `${key}: no English placeholder`);
+  assert.deepEqual(tokens(sesotho[key]), tokens(english[key]), key);
+}
+assert.match(sesotho['activity-recovery-description'], /ha ho ke ho theha ketsahalo hape/);
+assert.match(sesotho['activity-recovery-denied'], /ha di sa dumella/);
+assert.match(sesotho['activity-recovery-cancel-confirm'], /ka ho sa feleng.*se ke ke sa tswellwa hape.*diimeile|ka ho sa feleng.*se ke ke sa tswellwa hape.*Diimeile/);
+assert.match(sesotho['activity-recovery-cancel-confirm'], /moleng.*seng di fihlile ha di kgutliswe/);
+assert.match(sesotho['stuck-sync-operation-description'], /diphetoho tse seng di sebedisitswe di sala.*ha di ngolwe le ka mohla/);
+assert.match(sesotho['stuck-sync-operation-replayable-now'], /e tla iphethela.*e ke ke ya lahlwa/);
+assert.match(sesotho['stuck-sync-operation-replayable'], /e tla iphethela.*ha e a lahlwa/);
+assert.match(sesotho['interrupted-import-description'], /ho ke ke ha tswellwa.*faele ya mohlodi ha e bolokwe/);
+assert.match(sesotho['interrupted-import-description'], /tsohle tse kentsweng.*ho tloha ka nako eo/);
+assert.match(sesotho['interrupted-import-discard-confirm'], /tsohle.*ka ho sa feleng/);
+assert.match(sesotho['interrupted-import-keep-confirm'], /Ha ho letho le tloswang/);
+assert.match(sesotho['interrupted-import-foreign-board'], /ha e a thehwa.*ha e a angwa/);
+for (const key of ['stuck-sync-operation-truncated', 'interrupted-import-truncated']) assert.match(sesotho[key], /50 tsa kgale ka ho fetisisa/);
+assert.match(sesotho['scrum-history-checkpoint-hint'], /feela ha ho se motho e mong ya fetotseng.*ha ho fetole direkoto/);
+assert.match(sesotho['scrum-history-checkpoint-stuck'], /ho thibetswe ho fihlela e rarollwa/);
+assert.match(sesotho['login-setting-env-only'], /tikoloho ya seva feela.*ho bala feela/);
