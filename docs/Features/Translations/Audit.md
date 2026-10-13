@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin fonts, card aging and movement — 2026-10-14
+
+Commit `35d2caec77` repairs 35 prefixed strings for font previews and sizes,
+avatar controls, stars, automatic list widths, card fading and directional
+movement. Tests preserve the numeric preview, five distinct font-size labels,
+toggle state/action, all three fading intensities and their idle-day condition,
+and upward/downward/leftward/rightward actions.
+
+The Latin and guarded-correction suites pass with 27,447 ledger entries. All 21
+human-preference checks pass. The existing Latin font-popup browser case now
+checks the translated preview and size label; syntax and discovery pass, runtime
+remains pending. Exact comparison preserves 38,430 existing Chinese values.
+
+There remain 1,937 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin member mapping and appearance labels — 2026-10-14
 
 Commit `8e336c5a13` repairs 40 prefixed messages for import/restore popups,

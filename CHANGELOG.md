@@ -2906,6 +2906,21 @@ the old language prefix; all-language review remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/35d2caec77">Repair Latin font and card aging controls</a>. Thanks to xet7.</summary>
+
+Repair 35 mixed-language strings for font previews and sizes, avatars, stars,
+automatic widths, card fading and movement. Preserve size distinctions, idle-day
+thresholds, fading intensity, toggle actions and movement directions.
+
+The Latin and guarded-correction suites and all 21 preservation checks pass.
+Extended font-popup browser coverage passes syntax and discovery; runtime
+remains
+pending. Existing Chinese values are unchanged. There remain 1,937 Latin values
+containing the old language prefix; all-language review remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
