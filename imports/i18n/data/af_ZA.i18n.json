@@ -3078,7 +3078,7 @@
   "move-reason": "Beweeg kaart — Beskrywing",
   "ask-move-reason": "Beweeg kaart → Beskrywing?",
   "time-adjustments": "ure — Δ — Gebruikersnaam",
-  "time-adjustment-note": "Geskiedenis: Δ ure; Gebruikersnaam ≠ Toegewers.",
+  "time-adjustment-note": "Veranderings aan aangetekende ure, gegroepeer volgens die persoon wat die totaal wysig. Dit is nie afsonderlike werksessies nie. Negatiewe waardes is regstellings. Tyd wat vroeër nie aangeteken is nie, kan nie aan iemand toegeskryf word nie.",
   "blockly-ADD_COMMENT": "Voeg kommentaar by",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Kan nie verder rol nie.",

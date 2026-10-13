@@ -3078,7 +3078,7 @@
   "move-reason": "Perkelti kortelę — Aprašymas",
   "ask-move-reason": "Perkelti kortelę → Aprašymas?",
   "time-adjustments": "valandų — Δ — Vartotojo vardas",
-  "time-adjustment-note": "Istorija: Δ valandų; Vartotojo vardas ≠ Perėmėjai.",
+  "time-adjustment-note": "Užregistruotų valandų pakeitimai, sugrupuoti pagal bendrą sumą redaguojantį asmenį. Tai nėra atskiri darbo seansai. Neigiamos reikšmės yra pataisymai. Ankstesnio neužregistruoto laiko negalima priskirti jokiam asmeniui.",
   "blockly-ADD_COMMENT": "Palikti komentarą",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Toliau slinkti negalima.",

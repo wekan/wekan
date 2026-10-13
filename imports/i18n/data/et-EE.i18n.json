@@ -3078,7 +3078,7 @@
   "move-reason": "Liikumiskaart — Kirjeldus",
   "ask-move-reason": "Liikumiskaart → Kirjeldus?",
   "time-adjustments": "tundi — Δ — Kasutajanimi",
-  "time-adjustment-note": "Ajalugu: Δ tundi; Kasutajanimi ≠ Vastutajad.",
+  "time-adjustment-note": "Kirjapandud tundide muudatused, rühmitatuna kogusummat muutnud isiku järgi. Need ei ole eraldi tööseansid. Negatiivsed väärtused on parandused. Varem kirjapanemata aega ei saa ühelegi isikule omistada.",
   "blockly-ADD_COMMENT": "Lisa kommentaar",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Edasi kerida ei saa.",

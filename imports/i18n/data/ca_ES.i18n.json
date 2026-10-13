@@ -3078,7 +3078,7 @@
   "move-reason": "Moure fitxa — Descripció",
   "ask-move-reason": "Moure fitxa → Descripció?",
   "time-adjustments": "hores — Δ — Nom d'usuari",
-  "time-adjustment-note": "Història: Δ hores; Nom d'usuari ≠ Assignats.",
+  "time-adjustment-note": "Canvis en les hores registrades, agrupats per la persona que modifica el total. No són sessions de treball individuals. Els valors negatius són correccions. El temps anterior no registrat no es pot atribuir a cap persona.",
   "blockly-ADD_COMMENT": "Afegeix un comentari",
   "blockly-ALT_KEY": "Tecla Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "No es pot desplaçar més.",

@@ -3078,7 +3078,7 @@
   "move-reason": "Movi karton — Priskribo",
   "ask-move-reason": "Movi karton → Priskribo?",
   "time-adjustments": "horoj — Δ — Uzantnomo",
-  "time-adjustment-note": "Historio: Δ horoj; Uzantnomo ≠ Asignitoj.",
+  "time-adjustment-note": "Ŝanĝoj de registritaj horoj, grupigitaj laŭ la persono redaktanta la sumon. Ĉi tiuj ne estas apartaj laborseancoj. Negativaj valoroj estas korektoj. Antaŭa neregistrita tempo ne povas esti atribuita al iu persono.",
   "blockly-ADD_COMMENT": "Aldoni komenton",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Ne eblas plu rulumi.",

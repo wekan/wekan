@@ -13,7 +13,8 @@ for (const { locales, meanings } of groups) {
   assert.equal(meanings.length, 4, 'editor grouping, not sessions, negative corrections, no earlier attribution');
   for (const code of locales) {
     const text = read(code)[key];
-    assert.notEqual(text, source[key], code);
+    if (/^en(?:[-_]|$)/.test(code)) assert.equal(text, source[key], code);
+    else assert.notEqual(text, source[key], code);
     assert.doesNotMatch(text, /(?:^|\s)Δ(?:\s|$)|≠/, `${code}: shorthand is not the explanation`);
     for (const meaning of meanings) assert.ok(text.includes(meaning), `${code}: missing ${meaning}`);
     const repair = ledger.filter(row => row.locale === code && row.key === key).at(-1);

@@ -3078,7 +3078,7 @@
   "move-reason": "Zhvendos kartën — Përshkrimi",
   "ask-move-reason": "Zhvendos kartën → Përshkrimi?",
   "time-adjustments": "orë — Δ — Emri i përdoruesit",
-  "time-adjustment-note": "Historiku: Δ orë; Emri i përdoruesit ≠ Të caktuarit.",
+  "time-adjustment-note": "Ndryshimet në orët e regjistruara, të grupuara sipas personit që redakton totalin. Këto nuk janë seanca pune individuale. Vlerat negative janë korrigjime. Koha e mëparshme e paregjistruar nuk mund t’i atribuohet asnjë personi.",
   "blockly-ADD_COMMENT": "Vendos nje Koment",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Nuk mund të lëvizet më tej në faqe.",

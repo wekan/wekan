@@ -3078,7 +3078,7 @@
   "move-reason": "Færa spjald — Lýsing",
   "ask-move-reason": "Færa spjald → Lýsing?",
   "time-adjustments": "klukkustundir — Δ — Notandanafn",
-  "time-adjustment-note": "Ferill: Δ klukkustundir; Notandanafn ≠ Ábyrgðaraðilar.",
+  "time-adjustment-note": "Breytingar á skráðum klukkustundum, flokkaðar eftir þeim sem breytir heildinni. Þetta eru ekki einstakar vinnulotur. Neikvæð gildi eru leiðréttingar. Ekki er hægt að eigna neinum tíma sem var ekki skráður áður.",
   "blockly-ADD_COMMENT": "Bæta við athugasemd",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Ekki er hægt að skruna lengra.",

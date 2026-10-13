@@ -3078,7 +3078,7 @@
   "move-reason": "Ilipat ang kard — Paglalarawan",
   "ask-move-reason": "Ilipat ang kard → Paglalarawan?",
   "time-adjustments": "mga oras — Δ — pangalan ng gumagamit",
-  "time-adjustment-note": "Kasaysayan: Δ mga oras; pangalan ng gumagamit ≠ Mga nakatalaga.",
+  "time-adjustment-note": "Mga pagbabago sa naitalang oras, na nakapangkat ayon sa taong nag-edit ng kabuuan. Hindi ito mga indibidwal na sesyon ng trabaho. Ang mga negatibong halaga ay mga pagwawasto. Hindi maaaring iugnay sa sinuman ang dating oras na hindi naitala.",
   "blockly-ADD_COMMENT": "Magkomento",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Hindi na maaaring mag-scroll pa.",

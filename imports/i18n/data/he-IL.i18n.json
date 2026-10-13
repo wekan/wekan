@@ -3078,7 +3078,7 @@
   "move-reason": "העברת כרטיס — תיאור",
   "ask-move-reason": "העברת כרטיס → תיאור?",
   "time-adjustments": "שעות — Δ — שם משתמש",
-  "time-adjustment-note": "היסטוריה: Δ שעות; שם משתמש ≠ גורמים אחראים.",
+  "time-adjustment-note": "שינויים בשעות שנרשמו, מקובצים לפי האדם שעורך את הסכום הכולל. אלה אינם פרקי עבודה נפרדים. ערכים שליליים הם תיקונים. לא ניתן לייחס לאדם כלשהו זמן קודם שלא נרשם.",
   "blockly-ADD_COMMENT": "הוסף תגובה",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "אי אפשר לגלול עוד.",

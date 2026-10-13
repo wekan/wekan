@@ -3078,7 +3078,7 @@
   "move-reason": "Move Card — Description",
   "ask-move-reason": "Move Card → Description?",
   "time-adjustments": "hours — Δ — Username",
-  "time-adjustment-note": "History: Δ hours; Username ≠ Assignees.",
+  "time-adjustment-note": "Changes to recorded hours, grouped by the person editing the total. These are not individual work sessions. Negative values are corrections. Earlier unrecorded time cannot be attributed.",
   "blockly-ADD_COMMENT": "Add Comment",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Can't scroll further.",

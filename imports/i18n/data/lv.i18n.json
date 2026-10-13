@@ -3078,7 +3078,7 @@
   "move-reason": "Pārvietot kartiņu — Apraksts",
   "ask-move-reason": "Pārvietot kartiņu → Apraksts?",
   "time-adjustments": "stundas — Δ — Lietotājvārds",
-  "time-adjustment-note": "Istorija: Δ stundas; Lietotājvārds ≠ Perėmėjai.",
+  "time-adjustment-note": "Reģistrēto stundu izmaiņas, sagrupētas pēc personas, kura rediģē kopējo skaitu. Tās nav atsevišķas darba sesijas. Negatīvās vērtības ir labojumi. Iepriekš nereģistrēto laiku nevar attiecināt uz kādu personu.",
   "blockly-ADD_COMMENT": "Pievienot komentāru",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Tālāk ritināt nevar.",

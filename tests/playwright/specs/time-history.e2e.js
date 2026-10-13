@@ -30,7 +30,8 @@ test('move dialog records reason and one reversible position', async ({ boardPag
 for (const language of ['en', ...require('../../timeHistoryTranslationMeanings.json').flatMap(row => row.locales)]) {
 test(`REST time corrections, move reasons, retained activity and report authors in ${language}`, async ({ boardPage: page, board, user }) => {
   const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
-  await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
+  await page.evaluate(language => Meteor.callAsync('setLanguage', language), language === 'ca@valencia' ? 'ca-valencia' : language);
+  if (/^(?:ar|fa|he|ur)(?:[-_]|$)/.test(language)) await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
   const source = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
   const headers = { Authorization: `Bearer ${user.token}` };
   const endpoint = `/api/boards/${board.boardId}/lists/${source.listId}/cards/${source._id}`;

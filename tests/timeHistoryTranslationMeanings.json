@@ -282,5 +282,403 @@
       "valores negativos são correções",
       "tempo anterior não registrado não pode ser atribuído"
     ]
+  },
+  {
+    "locales": [
+      "ar",
+      "ar-DZ",
+      "ar-EG"
+    ],
+    "meanings": [
+      "الشخص الذي يعدّل المجموع",
+      "ليست جلسات عمل فردية",
+      "القيم السالبة هي تصحيحات",
+      "لا يمكن إسناد الوقت السابق غير المسجل"
+    ]
+  },
+  {
+    "locales": [
+      "fa",
+      "fa-IR"
+    ],
+    "meanings": [
+      "فردی که مجموع را ویرایش می‌کند",
+      "جلسه‌های کاری جداگانه نیستند",
+      "مقادیر منفی اصلاحات هستند",
+      "ثبت نشده است را نمی‌توان به کسی نسبت داد"
+    ]
+  },
+  {
+    "locales": [
+      "he",
+      "he-IL"
+    ],
+    "meanings": [
+      "האדם שעורך את הסכום הכולל",
+      "אינם פרקי עבודה נפרדים",
+      "ערכים שליליים הם תיקונים",
+      "לא ניתן לייחס לאדם כלשהו זמן קודם שלא נרשם"
+    ]
+  },
+  {
+    "locales": [
+      "bn"
+    ],
+    "meanings": [
+      "মোট পরিমাণ সম্পাদনাকারী ব্যক্তি অনুযায়ী",
+      "পৃথক কাজের সেশন নয়",
+      "ঋণাত্মক মানগুলো সংশোধন",
+      "নথিভুক্ত না হওয়া সময় কোনো ব্যক্তির নামে বরাদ্দ করা যায় না"
+    ]
+  },
+  {
+    "locales": [
+      "mr"
+    ],
+    "meanings": [
+      "एकूण वेळ संपादित करणाऱ्या व्यक्तीनुसार",
+      "स्वतंत्र कामाची सत्रे नाहीत",
+      "ऋण मूल्ये दुरुस्त्या आहेत",
+      "नोंदवला नसलेला वेळ कोणत्याही व्यक्तीच्या नावावर दाखवता येत नाही"
+    ]
+  },
+  {
+    "locales": [
+      "ne"
+    ],
+    "meanings": [
+      "कुल समय सम्पादन गर्ने व्यक्तिअनुसार",
+      "छुट्टाछुट्टै कामका सत्रहरू होइनन्",
+      "ऋणात्मक मानहरू सुधार हुन्",
+      "रेकर्ड नगरिएको समय कुनै व्यक्तिलाई श्रेय दिन सकिँदैन"
+    ]
+  },
+  {
+    "locales": [
+      "ta"
+    ],
+    "meanings": [
+      "மொத்தத்தைத் திருத்திய நபரின்படி",
+      "தனித்தனி வேலை அமர்வுகள் அல்ல",
+      "எதிர்மறை மதிப்புகள் திருத்தங்களாகும்",
+      "பதிவுசெய்யப்படாத நேரத்தை எந்த நபருக்கும் உரியதாகக் குறிப்பிட முடியாது"
+    ]
+  },
+  {
+    "locales": [
+      "th"
+    ],
+    "meanings": [
+      "ตามผู้ที่แก้ไขยอดรวม",
+      "ไม่ใช่ช่วงการทำงานแต่ละครั้ง",
+      "ค่าติดลบเป็นการแก้ไขข้อมูล",
+      "ไม่สามารถระบุได้ว่าเวลาก่อนหน้าที่ไม่ได้บันทึกไว้เป็นของใคร"
+    ]
+  },
+  {
+    "locales": [
+      "kn"
+    ],
+    "meanings": [
+      "ಒಟ್ಟು ಸಮಯವನ್ನು ಸಂಪಾದಿಸಿದ ವ್ಯಕ್ತಿಯ ಪ್ರಕಾರ",
+      "ಪ್ರತ್ಯೇಕ ಕೆಲಸದ ಅವಧಿಗಳಲ್ಲ",
+      "ಋಣಾತ್ಮಕ ಮೌಲ್ಯಗಳು ತಿದ್ದುಪಡಿಗಳಾಗಿವೆ",
+      "ದಾಖಲಿಸದ ಸಮಯವನ್ನು ಯಾವುದೇ ವ್ಯಕ್ತಿಗೆ ಸೇರಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ"
+    ]
+  },
+  {
+    "locales": [
+      "ur"
+    ],
+    "meanings": [
+      "کُل وقت میں ترمیم کرنے والے شخص کے لحاظ سے",
+      "انفرادی کام کے سیشن نہیں ہیں",
+      "منفی قدریں تصحیحات ہیں",
+      "درج نہ کیے گئے وقت کو کسی شخص سے منسوب نہیں کیا جا سکتا"
+    ]
+  },
+  {
+    "locales": [
+      "ml"
+    ],
+    "meanings": [
+      "മൊത്തം സമയം തിരുത്തിയ വ്യക്തിയുടെ അടിസ്ഥാനത്തിൽ",
+      "വ്യക്തിഗത ജോലി സെഷനുകളല്ല",
+      "നെഗറ്റീവ് മൂല്യങ്ങൾ തിരുത്തലുകളാണ്",
+      "രേഖപ്പെടുത്താത്ത സമയം ഏതെങ്കിലും വ്യക്തിയുടേതായി കണക്കാക്കാനാവില്ല"
+    ]
+  },
+  {
+    "locales": [
+      "te-IN"
+    ],
+    "meanings": [
+      "మొత్తం సమయాన్ని సవరించిన వ్యక్తి ప్రకారం",
+      "విడివిడి పని సెషన్లు కావు",
+      "ఋణాత్మక విలువలు దిద్దుబాట్లు",
+      "నమోదు చేయని సమయాన్ని ఏ వ్యక్తికీ ఆపాదించలేము"
+    ]
+  },
+  {
+    "locales": [
+      "hi",
+      "hi-IN"
+    ],
+    "meanings": [
+      "कुल समय में बदलाव करने वाले व्यक्ति के अनुसार",
+      "अलग-अलग कार्य सत्र नहीं हैं",
+      "ऋणात्मक मान सुधार हैं",
+      "दर्ज न किए गए समय को किसी व्यक्ति से नहीं जोड़ा जा सकता"
+    ]
+  },
+  {
+    "locales": [
+      "gu-IN"
+    ],
+    "meanings": [
+      "કુલ સમય સંપાદિત કરનાર વ્યક્તિ અનુસાર",
+      "અલગ-અલગ કામના સત્રો નથી",
+      "ઋણ મૂલ્યો સુધારા છે",
+      "નોંધાયો ન હોય એવો સમય કોઈ વ્યક્તિને સોંપી શકાતો નથી"
+    ]
+  },
+  {
+    "locales": [
+      "eo"
+    ],
+    "meanings": [
+      "persono redaktanta la sumon",
+      "ne estas apartaj laborseancoj",
+      "Negativaj valoroj estas korektoj",
+      "neregistrita tempo ne povas esti atribuita"
+    ]
+  },
+  {
+    "locales": [
+      "ca",
+      "ca_ES",
+      "ca@valencia"
+    ],
+    "meanings": [
+      "persona que modifica el total",
+      "No són sessions de treball individuals",
+      "valors negatius són correccions",
+      "temps anterior no registrat no es pot atribuir"
+    ]
+  },
+  {
+    "locales": [
+      "gl",
+      "gl-ES"
+    ],
+    "meanings": [
+      "persoa que modifica o total",
+      "Non son sesións de traballo individuais",
+      "valores negativos son correccións",
+      "tempo anterior non rexistrado non se pode atribuír"
+    ]
+  },
+  {
+    "locales": [
+      "eu"
+    ],
+    "meanings": [
+      "guztizkoa editatzen duen pertsonaren arabera",
+      "Ez dira banakako lan-saioak",
+      "Balio negatiboak zuzenketak dira",
+      "erregistratu gabeko denbora ezin zaio inori egotzi"
+    ]
+  },
+  {
+    "locales": [
+      "et-EE"
+    ],
+    "meanings": [
+      "kogusummat muutnud isiku järgi",
+      "ei ole eraldi tööseansid",
+      "Negatiivsed väärtused on parandused",
+      "kirjapanemata aega ei saa ühelegi isikule omistada"
+    ]
+  },
+  {
+    "locales": [
+      "lv"
+    ],
+    "meanings": [
+      "personas, kura rediģē kopējo skaitu",
+      "nav atsevišķas darba sesijas",
+      "Negatīvās vērtības ir labojumi",
+      "nereģistrēto laiku nevar attiecināt"
+    ]
+  },
+  {
+    "locales": [
+      "lt"
+    ],
+    "meanings": [
+      "bendrą sumą redaguojantį asmenį",
+      "nėra atskiri darbo seansai",
+      "Neigiamos reikšmės yra pataisymai",
+      "neužregistruoto laiko negalima priskirti"
+    ]
+  },
+  {
+    "locales": [
+      "is"
+    ],
+    "meanings": [
+      "þeim sem breytir heildinni",
+      "ekki einstakar vinnulotur",
+      "Neikvæð gildi eru leiðréttingar",
+      "Ekki er hægt að eigna neinum tíma sem var ekki skráður áður"
+    ]
+  },
+  {
+    "locales": [
+      "af",
+      "af_ZA"
+    ],
+    "meanings": [
+      "persoon wat die totaal wysig",
+      "nie afsonderlike werksessies nie",
+      "Negatiewe waardes is regstellings",
+      "nie aangeteken is nie, kan nie aan iemand toegeskryf word nie"
+    ]
+  },
+  {
+    "locales": [
+      "sw"
+    ],
+    "meanings": [
+      "mtu anayehariri jumla",
+      "si vipindi binafsi vya kazi",
+      "Thamani hasi ni masahihisho",
+      "haukurekodiwa hauwezi kuhusishwa na mtu yeyote"
+    ]
+  },
+  {
+    "locales": [
+      "tl"
+    ],
+    "meanings": [
+      "taong nag-edit ng kabuuan",
+      "Hindi ito mga indibidwal na sesyon ng trabaho",
+      "negatibong halaga ay mga pagwawasto",
+      "Hindi maaaring iugnay sa sinuman ang dating oras na hindi naitala"
+    ]
+  },
+  {
+    "locales": [
+      "sq"
+    ],
+    "meanings": [
+      "personit që redakton totalin",
+      "nuk janë seanca pune individuale",
+      "Vlerat negative janë korrigjime",
+      "paregjistruar nuk mund t’i atribuohet asnjë personi"
+    ]
+  },
+  {
+    "locales": [
+      "bs"
+    ],
+    "meanings": [
+      "osobi koja uređuje ukupan iznos",
+      "nisu pojedinačne radne sesije",
+      "Negativne vrijednosti su ispravke",
+      "neevidentirano vrijeme ne može se pripisati"
+    ]
+  },
+  {
+    "locales": [
+      "mk"
+    ],
+    "meanings": [
+      "лицето што го уредува вкупниот износ",
+      "не се поединечни работни сесии",
+      "Негативните вредности се исправки",
+      "неевидентираното време не може да му се припише"
+    ]
+  },
+  {
+    "locales": [
+      "sr"
+    ],
+    "meanings": [
+      "особи која мења укупан износ",
+      "нису појединачне радне сесије",
+      "Негативне вредности су исправке",
+      "неевидентирано време не може се приписати"
+    ]
+  },
+  {
+    "locales": [
+      "hy"
+    ],
+    "meanings": [
+      "ընդհանուր գումարը խմբագրող անձի",
+      "առանձին աշխատանքային փուլեր չեն",
+      "Բացասական արժեքները ուղղումներ են",
+      "չգրանցված ժամանակը չի կարող վերագրվել"
+    ]
+  },
+  {
+    "locales": [
+      "ka"
+    ],
+    "meanings": [
+      "პირის მიხედვით, რომელმაც ჯამი შეცვალა",
+      "არ არის ცალკეული სამუშაო სესიები",
+      "უარყოფითი მნიშვნელობები შესწორებებია",
+      "აღურიცხავი დრო კონკრეტულ პირს ვერ მიეწერება"
+    ]
+  },
+  {
+    "locales": [
+      "kk"
+    ],
+    "meanings": [
+      "жалпы мәнді өңдеген адам бойынша",
+      "жеке жұмыс сеанстары емес",
+      "Теріс мәндер — түзетулер",
+      "тіркелмеген уақытты қандай да бір адамға жатқызу мүмкін емес"
+    ]
+  },
+  {
+    "locales": [
+      "ky"
+    ],
+    "meanings": [
+      "жалпы маанини оңдогон адам боюнча",
+      "өзүнчө иш сеанстары эмес",
+      "Терс маанилер — түзөтүүлөр",
+      "катталбаган убакытты кандайдыр бир адамга таандык кылууга болбойт"
+    ]
+  },
+  {
+    "locales": [
+      "mn"
+    ],
+    "meanings": [
+      "нийт дүнг зассан хүнээр",
+      "ажлын сесс биш",
+      "Сөрөг утгууд нь залруулга",
+      "бүртгээгүй хугацааг хэн нэгэнд хамааруулах боломжгүй"
+    ]
+  },
+  {
+    "locales": [
+      "en_AU",
+      "en_ID",
+      "en_SG",
+      "en_TR",
+      "en_ZA"
+    ],
+    "meanings": [
+      "person editing the total",
+      "not individual work sessions",
+      "Negative values are corrections",
+      "Earlier unrecorded time cannot be attributed"
+    ]
   }
 ]
