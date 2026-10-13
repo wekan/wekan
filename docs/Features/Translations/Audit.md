@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican uploads and attachment limits — 2026-10-13
+
+Commit `84e25df892` repairs 42 values in the source-ordered review through
+key 1209. Upload, download and API limits retain their separate directions;
+API buffering retains distinct server-side safety caps. Positive-value
+validation, unlimited/blocked modes and success/failure messages remain
+distinct. GB, MB and Bytes lose unrelated in-progress prefixes. Tracking
+and board watching retain their different notification scope, unassigning
+names the assignment, and WIP guidance keeps both recovery alternatives.
+
+The Corsican and full repair-ledger suites pass; the ledger contains
+25,909 guarded corrections. All 21 human-preference checks pass. A new
+attachment-limit browser case registers, checking four transfer labels and
+all three size units after selecting the maximum-size mode. It has not
+run against the application. Exact comparison preserves all 38,430
+protected Chinese values and limits this locale batch to the 42 reviewed
+replacements. Broader language review remains unfinished.
+
 ## Corsican settings, shortcuts and membership — 2026-10-13
 
 Commit `6f2e4740ab` repairs 42 values in the source-ordered review through

@@ -1770,6 +1770,19 @@ Existing Chinese text is unchanged; broader language review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/84e25df892">Correct Corsican uploads and attachment limits</a>. Thanks to xet7.</summary>
+
+Repair 42 upload, template, notification and attachment-limit values.
+Preserve upload/download directions, separate API buffering safety limits
+and WIP recovery choices. Restore GB, MB and Bytes without extra prefixes.
+
+The Corsican and repair-ledger suites and 21 human-preference checks pass.
+An attachment-limit browser case registers; runtime execution remains
+pending. Existing Chinese text is unchanged; broader review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
