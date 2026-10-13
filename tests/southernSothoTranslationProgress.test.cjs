@@ -533,3 +533,25 @@ assert.match(sesotho['sync-conflict-creation-hint'], /ya pele e sa fetolwa.*Ho l
 assert.match(sesotho['sync-preview-saved'], /dipeakanyo tse bolokilweng.*hlahloba mohlodi hape/);
 assert.match(sesotho['sync-preview-scope'], /e nngwe e ka siuwa/);
 assert.match(sesotho['sync-preview-truncated'], /100 tsa pele/);
+
+const translatedSyncReportKeys = ["sync-preview-unmapped", "sync-preview-parser-warnings", "sync-preview-parser-unsupported", "sync-source-heading", "sync-source-scope", "sync-source-unmapped", "sync-source-excluded", "sync-source-converted", "sync-source-fallback", "sync-source-excluded-item", "sync-source-occurrences", "sync-source-truncated", "sync-source-omitted", "sync-report-button", "sync-report-retention", "sync-report-partial", "sync-report-unfinished", "sync-report-failed", "sync-report-completed-with-warnings", "sync-report-skipped", "sync-report-review-only", "sync-report-unavailable", "sync-report-empty", "sync-recovery-heading", "sync-recovery-description", "sync-recovery-unavailable", "sync-recovery-all", "sync-estimate-field", "sync-estimate-field-hint", "email-failure-smtp-temporary", "email-failure-smtp-rejected", "email-failure-smtp-authentication", "email-failure-smtp-configuration", "email-failure-recipient-unavailable", "email-failure-delivery-unconfirmed", "email-failure-acknowledgement-failed", "email-failure-delivery-failed", "email-failure-retry-limit", "sync-original-time", "sync-remaining-time", "sync-time-estimate-hint", "sync-planning-sprint", "sync-planning-releases", "sync-planning-fields", "sync-planning-hint"];
+for (const key of translatedSyncReportKeys) {
+  assert.notEqual(sesotho[key], english[key], `${key}: no English placeholder`);
+  assert.deepEqual(tokens(sesotho[key]), tokens(english[key]), key);
+}
+assert.match(sesotho['sync-source-scope'], /boleng ba tsona ha bo bontshwe/);
+assert.match(sesotho['sync-source-truncated'], /100.*kgutsufaditsweng/);
+assert.match(sesotho['sync-report-retention'], /20.*matsatsi a 30/);
+assert.match(sesotho['sync-report-partial'], /ho ka be ho fetotse.*di ke ke tsa tswella kapa tsa etsolla/);
+assert.match(sesotho['sync-report-unavailable'], /ho ngola lenaneng lohle.*seva e fumanehang/);
+assert.match(sesotho['sync-recovery-description'], /ntse ho etswa kapa ho sitisitswe.*Ntjhafatsa.*di ke ke tsa tswella kapa tsa etsolla/);
+for (const key of ['sync-estimate-field-hint', 'sync-time-estimate-hint']) {
+  assert.match(sesotho[key], /boleng bo siyo mohloding bo a iphapanyetswa|Boleng bo siyo mohloding bo a iphapanyetswa/);
+  assert.match(sesotho[key], /null e boletsweng ka ho hlaka e hlakola boleng/);
+  assert.match(sesotho[key], /dikgohlano/);
+}
+assert.match(sesotho['sync-time-estimate-hint'], /karolo e le nngwe feela/);
+assert.notEqual(sesotho['email-failure-smtp-temporary'], sesotho['email-failure-smtp-rejected']);
+assert.match(sesotho['email-failure-delivery-unconfirmed'], /ha ho a kgona ho netefatswa.*pele o leka hape/);
+assert.match(sesotho['sync-planning-hint'], /feela ha Scrum e buletswe.*pele ka ID.*ebe ka lebitso/);
+assert.match(sesotho['sync-planning-hint'], /ho fihlela mohlodi o fetola.*ha pele ha ho ke ho tlosa moralo/);
