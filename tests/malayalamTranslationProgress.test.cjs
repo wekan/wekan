@@ -1,5 +1,5 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Check the full current Malayalam fill list, including pending features.
+// Structural completion does not certify all existing wording.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -8,7 +8,7 @@ const { spawnSync } = require('node:child_process');
 const root = path.resolve(__dirname, '..');
 const fillScript = path.join(root,
   'releases/translations/fill-translations.mjs');
-const result = spawnSync(process.execPath, [fillScript, '--completed-catalog', '--list', 'ml'], {
+const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
   cwd: root,
   encoding: 'utf8',
 });
@@ -347,3 +347,84 @@ assert.match(malayalam['mongodb-compact-description'], /MongoDB GridFS.*Compact/
 assert.match(malayalam['mongodb-compact-warning'], /oplog.*Meteor/);
 assert.equal(malayalam['gridfs-file-id'], 'GridFS ഫയൽ ID');
 assert.equal(malayalam['board-title'], 'ബോർഡ് ശീർഷകം');
+
+assert.equal(malayalam['attachment-limit-unit-bytes'], 'ബൈറ്റുകൾ');
+for (const key of ['r-of', 'of']) assert.equal(`1 ${malayalam[key]} 10`, '1 / 10');
+assert.equal(malayalam['r-to'], 'സ്വീകർത്താവ്');
+assert.equal(malayalam['r-d-send-email-to'], 'സ്വീകർത്താവ്');
+assert.equal(malayalam['r-by'], 'ചെയ്തയാൾ');
+assert.match(malayalam['custom-field-links-hint'], /ഒരേ പേരും തരവുമുള്ള/);
+assert.match(malayalam['custom-field-links-hint'], /ഒരു കാർഡിൽ മാത്രം ഉള്ള ഫീൽഡുകൾ മാറ്റില്ല/);
+assert.match(malayalam['custom-field-link-send'], /ഈ കാർഡിലെ മാറ്റങ്ങൾ പ്രധാന കാർഡിലേക്ക്/);
+assert.match(malayalam['custom-field-link-receives'], /ആ കാർഡിലെ മാറ്റങ്ങൾ ഈ കാർഡിലേക്ക്/);
+assert.match(malayalam['field-link-not-allowed'], /രണ്ട് കാർഡുകളും തിരുത്താനുള്ള അനുമതി/);
+assert.match(malayalam['read-only-field'], /എല്ലാ അംഗങ്ങൾക്കും.*അഡ്മിനിസ്ട്രേറ്റർമാർക്ക് മാത്രമേ/);
+assert.match(malayalam['notification-delivery-quiet'], /അവസാനിക്കുന്നതുവരെ കാത്തിരിക്കുക/);
+assert.match(malayalam['webhook-payload-description'], /മുകളിലെ തലത്തിൽ നിന്ന് ലഭിച്ച ക്രമീകരണം നിലനിർത്തും/);
+assert.match(malayalam['stuck-sync-operation-discard-confirm'], /ഇതിനകം പ്രയോഗിച്ച മാറ്റങ്ങൾ നിലനിൽക്കും/);
+assert.match(malayalam['stuck-sync-operation-discard-confirm'], /ബാക്കിയുള്ളവ ഒരിക്കലും എഴുതില്ല/);
+assert.match(malayalam['stuck-sync-operation-not-stuck'], /ഉപേക്ഷിക്കാനാവില്ല/);
+assert.match(malayalam['stuck-sync-operation-replayable'], /തനിയെ പൂർത്തിയാകുമെന്നതിനാൽ ഉപേക്ഷിച്ചില്ല/);
+assert.match(malayalam['interrupted-import-description'], /ഉറവിട ഫയൽ സൂക്ഷിക്കാത്തതിനാൽ ഇറക്കുമതി തുടരാനാവില്ല/);
+assert.match(malayalam['interrupted-import-description'], /പിന്നീട് ചേർത്തവ ഉൾപ്പെടെ/);
+assert.match(malayalam['interrupted-import-keep-confirm'], /ഒന്നും നീക്കില്ല/);
+assert.match(malayalam['interrupted-import-discard-confirm'], /എല്ലാം സ്ഥിരമായി നീക്കും/);
+assert.match(malayalam['interrupted-import-foreign-board'], /സൃഷ്ടിച്ചതല്ല.*മാറ്റിയില്ല/);
+for (const key of ['stuck-sync-operation-truncated', 'interrupted-import-truncated']) assert.match(malayalam[key], /ഏറ്റവും പഴയ 50/);
+for (const format of ['taiga', 'vikunja']) assert.match(malayalam['import-board-instruction-' + format], /അറ്റാച്ച്‌മെന്റുകൾ ഇറക്കുമതി ചെയ്യില്ല/);
+assert.match(malayalam['import-board-instruction-notion'], /ബന്ധങ്ങൾ, ചിത്രങ്ങൾ, അറ്റാച്ച്‌മെന്റുകൾ എന്നിവ ഇറക്കുമതി ചെയ്യില്ല/);
+assert.match(malayalam['import-board-instruction-quire'], /കമന്റുകളും അറ്റാച്ച്‌മെന്റുകളും ഇല്ല/);
+assert.match(malayalam['import-board-instruction-plane'], /വിവരണങ്ങളോ അറ്റാച്ച്‌മെന്റുകളോ ഇല്ല.*ഇറക്കുമതി ചെയ്യില്ല/);
+for (const format of ['nullboard', 'kanri']) assert.match(malayalam['import-board-instruction-' + format], /ആദ്യ ബോർഡ് ഇറക്കുമതി/);
+for (const literal of ['TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED']) assert.ok(malayalam['import-board-instruction-orgmode'].includes(literal));
+for (const literal of ['Tasklist', 'Task', 'Description', 'Assign to', 'Start date', 'Due date', 'Priority', 'Estimated time', 'Tags', 'Status', '--', '##', '>>']) assert.ok(malayalam['import-board-instruction-teamwork'].includes(literal));
+assert.match(malayalam['import-board-instruction-businessmap'], /തലക്കെട്ടുള്ള വരി ഇംഗ്ലീഷിലേക്ക് മാറ്റുക/);
+assert.match(malayalam['import-board-instruction-redmine'], /My account-ൽ ഭാഷ English/);
+assert.match(malayalam['import-many-boards-hint'], /അംഗങ്ങളെ പൊരുത്തപ്പെടുത്താതെ/);
+assert.match(malayalam['import-many-boards-hint'], /മുകളിലെ ഫീൽഡിനു പകരം/);
+assert.match(malayalam['r-wrike-workflow-note'], /Completed അല്ലെങ്കിൽ Cancelled.*പൂർത്തിയായതായും Active അല്ലെങ്കിൽ Deferred.*പൂർത്തിയാകാത്തതായും/);
+for (const literal of ['GET /workflows', 'JSON']) assert.ok(malayalam['r-wrike-workflow-note'].includes(literal));
+for (const literal of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS', 'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) assert.ok(malayalam['ldap-sync-now-nothing'].includes(literal));
+assert.ok(malayalam['external-link-rules-description'].includes('[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
+assert.ok(malayalam['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+assert.match(malayalam['login-setting-env-only'], /സെർവർ പരിസ്ഥിതിയിൽ നിന്ന് മാത്രമേ.*വായിക്കാൻ മാത്രമായി/);
+assert.ok(malayalam['trello-export-desc'].includes('Swimlane: …'));
+assert.match(malayalam['trello-export-desc'], /വീണ്ടും പാതകളാക്കി മാറ്റും/);
+assert.match(malayalam['trello-export-warnings'], /എല്ലാം കയറ്റുമതി ചെയ്യാനായില്ല/);
+assert.match(malayalam['sandstorm-trello-access-needed'], /ഇന്റർനെറ്റ് പ്രവേശനമില്ല.*ആദ്യം.*അനുവദിക്കുക/);
+assert.match(malayalam['sandstorm-trello-access-granted'], /പ്രവേശിക്കാം/);
+assert.match(malayalam['scrum-import-into-board-hint'], /പകർപ്പുകൾ സൃഷ്ടിക്കില്ല/);
+assert.match(malayalam['scrum-import-into-board-hint'], /പൊരുത്തപ്പെടാത്ത കാർഡുകൾ.*മാറ്റമില്ലാതെ/);
+assert.match(malayalam['scrum-import-card-on-another-board'], /മറ്റൊരു ബോർഡിലേതായതിനാൽ മാറ്റമില്ലാതെ/);
+assert.match(malayalam['scrum-import-sprint-finished'], /പൂർത്തിയായ സ്പ്രിന്റിലേക്ക് ഒരു കാർഡ് മാറ്റിയില്ല/);
+assert.match(malayalam['sync-planning-hint'], /ആദ്യ സമന്വയം ഒരിക്കലും ആസൂത്രണം നീക്കില്ല/);
+assert.match(malayalam['sync-planning-hint'], /മാറുന്നതുവരെ പ്രാദേശിക ആസൂത്രണ മാറ്റം നിലനിൽക്കും/);
+assert.match(malayalam['scrum-history-checkpoint-hint'], /മറ്റാരും ആ രേഖകൾ മാറ്റിയിട്ടില്ലെങ്കിൽ മാത്രമേ/);
+assert.match(malayalam['scrum-history-checkpoint-hint'], /രേഖകളൊന്നും മാറ്റാതിരിക്കുകയും/);
+assert.match(malayalam['scrum-history-checkpoint-discard-confirm'], /ഇതിനകം എഴുതിയ മാറ്റങ്ങൾ ഉൾപ്പെടെ/);
+assert.match(malayalam['scrum-history-checkpoint-ask-admin'], /അഡ്മിനിസ്ട്രേറ്റർക്ക്/);
+for (const literal of ['Ctrl', 'Cmd']) assert.ok(malayalam['scrum-releases-select-help'].includes(literal));
+
+const { ruleTriggerCopula } = require('../imports/i18n/ruleGrammar');
+for (const tag of ['ml', 'ml-IN', 'ml_IN', 'ML']) assert.equal(ruleTriggerCopula(tag, malayalam['r-is']), '');
+for (const tag of ['en', 'mlang', undefined]) assert.equal(ruleTriggerCopula(tag, 'is'), 'is');
+for (const key of ['r-added-to', 'r-removed-from', 'r-archived', 'r-unarchived', 'r-completed', 'r-made-incomplete']) {
+  const phrase = [malayalam['r-when-a-card'], ruleTriggerCopula('ml', malayalam['r-is']), malayalam[key]].filter(Boolean).join(' ');
+  assert.doesNotMatch(phrase, /\bis\b| ആണ് /);
+  assert.ok(phrase.endsWith(malayalam[key]));
+}
+
+(async () => {
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  assert.deepEqual(Object.keys(malayalam), Object.keys(english));
+  for (const key of Object.keys(english)) assert.deepEqual(translationTokens(malayalam[key]), translationTokens(english[key]), key);
+  const i18n = require('i18next').createInstance();
+  await i18n.init({ lng: 'ml', fallbackLng: 'en', initImmediate: false,
+    interpolation: { prefix: '__', suffix: '__', escapeValue: false },
+    resources: { en: { translation: english }, ml: { translation: malayalam } } });
+  assert.equal(i18n.t('notification-group-card', { count: 3, card: 'പരീക്ഷണം' }), 'പരീക്ഷണം കാർഡിൽ 3 അറിയിപ്പുകൾ');
+  assert.equal(i18n.t('stuck-sync-operation-applied', { applied: 0, total: 2 }), '2 മാറ്റങ്ങളിൽ 0 പ്രയോഗിച്ചു');
+  assert.equal(i18n.t('interrupted-import-state-failed', { stage: 'createCards', error: 'E_TEST' }), 'createCards ഘട്ടത്തിൽ E_TEST പിശകോടെ പരാജയപ്പെട്ടു');
+  assert.equal(i18n.t('scrum-history-checkpoint-counts', { applied: 1, total: 3, pending: 0, conflicted: 2 }), '3 മാറ്റങ്ങളിൽ 1 എഴുതി, 0 എഴുതിയില്ല, 2 പിന്നീട് മറ്റൊരാൾ മാറ്റി.');
+  console.log('Malayalam: full fill list, tokens, selected meanings, Scrum states, rule copula and runtime interpolation pass');
+})().catch(error => { console.error(error); process.exitCode = 1; });

@@ -48,7 +48,7 @@ test('only administrators can list or discard stuck List Sync operations', async
   } finally { cleanup([listId], [seeded.operationId], [seeded.intentId]); }
 });
 
-for (const language of ['en', 'haw', 'fa', 'fa-IR', 'he', 'he-IL', 'ar', 'ar-DZ', 'ar-EG', 'cmn', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-Hant', 'zh-TW', 'zh-HK', 'hi', 'hi-IN', 'gu-IN', 'bn', 'mr', 'ne', 'ta', 'th', 'kn', 'ur']) {
+for (const language of ['en', 'haw', 'fa', 'fa-IR', 'he', 'he-IL', 'ar', 'ar-DZ', 'ar-EG', 'cmn', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-Hant', 'zh-TW', 'zh-HK', 'hi', 'hi-IN', 'gu-IN', 'bn', 'mr', 'ne', 'ta', 'th', 'kn', 'ur', 'ml']) {
 test(`administrator discards a stuck List Sync operation in Recovery, once in ${language}`, async ({ page, adminUser }) => {
   // Its list no longer exists, so the scope can never match again.
   const listId = `stale-${randomUUID()}`;

@@ -2,12 +2,14 @@
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { navigateInApp } = require('../helpers/auth');
-const strings = require('../../../imports/i18n/data/kn.i18n.json');
 
-test('Kannada rule rows and saved descriptions omit the redundant linking verb', async ({ boardPage: page, board }) => {
-  await page.evaluate(() => Meteor.callAsync('setLanguage', 'kn'));
+for (const language of ['kn', 'ml']) {
+test(`Rule rows and saved descriptions omit the redundant linking verb in ${language}`, async ({ boardPage: page, board }) => {
+  const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
+  const name = language === 'kn' ? 'ಪರೀಕ್ಷೆ' : 'പരീക്ഷണം';
+  await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
   await navigateInApp(page, `/b/${board.boardId}/${board.slug}/rules`);
-  await page.locator('#ruleTitle').fill('Kannada predicate');
+  await page.locator('#ruleTitle').fill(`${language} predicate`);
   await page.locator('.js-goto-trigger').click();
   await page.locator('.js-set-card-triggers').click();
   for (const id of ['spec-label', 'spec-member', 'spec-assignee']) {
@@ -20,12 +22,14 @@ test('Kannada rule rows and saved descriptions omit the redundant linking verb',
     await expect(row.locator('option[value="removed"]')).toHaveText(strings['r-removed-from']);
   }
   await page.locator('.js-set-checklist-triggers').click();
-  await page.locator('#check-name').fill('ಪರೀಕ್ಷೆ');
+  await page.locator('#check-name').fill(name);
   await page.locator('.js-add-spec-check-trigger.js-goto-action').click();
   await page.locator('.js-add-gen-move-action.js-goto-rules').first().click();
   await expect.poll(() => db.find('triggers', { boardId: board.boardId }).map(item => item.desc).join('\n'))
-    .toContain('ಪರೀಕ್ಷೆ');
+    .toContain(name);
   const description = db.find('triggers', { boardId: board.boardId }).map(item => item.desc).join('\n');
-  expect(description).not.toMatch(/\bis\b| ಇದೆ /);
+  expect(description.split(/\s+/)).not.toContain('is');
+  expect(description.split(/\s+/)).not.toContain(strings['r-is']);
   expect(description).toContain(strings['r-added-to']);
 });
+}
