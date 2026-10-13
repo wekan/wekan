@@ -173871,5 +173871,803 @@
     "before": "நாள்கட்டி",
     "after": "நாள்காட்டி",
     "reason": "Restore the long vowel in the Tamil calendar noun நாள்காட்டி, already used by calendar-system and feature labels; dictionary: https://en.wiktionary.org/wiki/நாள்காட்டி"
+  },
+  {
+    "locale": "az",
+    "key": "act-addBoardMember",
+    "before": "Şuraya __member__ üzv əlavə edildi __board__",
+    "after": "__member__ adlı üzvü __board__ lövhəsinə əlavə etdi",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura Activity notifications prefix the actor name, so retain an active predicate."
+  },
+  {
+    "locale": "az",
+    "key": "act-archivedBoard",
+    "before": "Şura __board__ Arxivə köçürüldü",
+    "after": "__board__ lövhəsi arxivə köçürüldü",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "act-removeBoardMember",
+    "before": "üzvü __member__ şuradan çıxarıldı __board__",
+    "after": "__member__ adlı üzvü __board__ lövhəsindən çıxardı",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura Activity notifications prefix the actor name, so retain an active predicate."
+  },
+  {
+    "locale": "az",
+    "key": "admin-desc",
+    "before": "Kartlara baxa və redaktə edə, üzvləri silə və şuranın parametrlərini dəyişə bilər. Fəaliyyətlərə baxa bilər.",
+    "after": "Kartlara baxa və onları redaktə edə, üzvləri silə və lövhənin parametrlərini dəyişə bilər. Fəaliyyətlərə baxa bilər.",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "restore-board",
+    "before": "Bərpa Şurası",
+    "after": "Lövhəni bərpa edin",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "show-board_members-avatar",
+    "before": "Şura üzvlərinin avatarlarını göstərin",
+    "after": "Lövhə üzvlərinin avatarlarını göstərin",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "board-public-info",
+    "before": "Bu şura <strong>public</strong> olacaq.",
+    "after": "Bu lövhə <strong>açıq</strong> olacaq.",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "cardAssigneePopup-title",
+    "before": "Təyinatçı",
+    "after": "Təyin edilmiş şəxs",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "createBoardPopup-title",
+    "before": "Şura yaradın",
+    "after": "Lövhə yaradın",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "email-invite-text",
+    "before": "Hörmətli __user__,\n\n__inviter__ sizi əməkdaşlıq üçün \"__board__\" şurasına qoşulmağa dəvət edir.\n\nZəhmət olmasa aşağıdakı linkə daxil olun:\n\n__url__\n\ntəşəkkürlər.",
+    "after": "Hörmətli __user__,\n\n__inviter__ sizi əməkdaşlıq üçün \"__board__\" lövhəsinə qoşulmağa dəvət edir.\n\nZəhmət olmasa aşağıdakı linkə daxil olun:\n\n__url__\n\nTəşəkkürlər.",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "push-invite-text",
+    "before": "Hörmətli __user__,\n\n__inviter__ sizi əməkdaşlıq üçün \"__board__\" şurasına qoşulmağa dəvət edir.\n\nZəhmət olmasa aşağıdakı linkə daxil olun:\n\n__url__\n\ntəşəkkürlər.",
+    "after": "Hörmətli __user__,\n\n__inviter__ sizi əməkdaşlıq üçün \"__board__\" lövhəsinə qoşulmağa dəvət edir.\n\nZəhmət olmasa aşağıdakı linkə daxil olun:\n\n__url__\n\nTəşəkkürlər.",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "headerBarCreateBoardPopup-title",
+    "before": "Şura yaradın",
+    "after": "Lövhə yaradın",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "import-members-map",
+    "before": "İdxal etdiyiniz şuranın bəzi üzvləri var. Xahiş edirik, idxal etmək istədiyiniz üzvləri istifadəçilərinizə xəritələşdirin",
+    "after": "İdxal etdiyiniz lövhənin bəzi üzvləri var. İdxal etmək istədiyiniz üzvləri mövcud istifadəçilərinizlə uyğunlaşdırın.",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "just-invited",
+    "before": "Siz sadəcə bu şuraya dəvətlisiniz",
+    "after": "Siz sadəcə bu lövhəyə dəvətlisiniz",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "linkCardToBoardPopup-title",
+    "before": "Bu Şuraa keçid",
+    "after": "Lövhəyə keçid",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "public-desc",
+    "before": "Bu şura ictimaidir. O, linki olan hər kəsə görünür və Google kimi axtarış sistemlərində görünəcək. Yalnız lövhəyə əlavə edilmiş şəxslər redaktə edə bilər.",
+    "after": "Bu lövhə açıqdır. Linki olan hər kəs onu görə bilər və o, Google kimi axtarış sistemlərində görünəcək. Yalnız lövhəyə əlavə edilmiş şəxslər redaktə edə bilər.",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "remove-from-board",
+    "before": "Şuradan çıxarın",
+    "after": "Lövhədən çıxarın",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "email-invite-register-text",
+    "before": "Hörmətli __user__,\n\n__inviter__ əməkdaşlıq üçün sizi kanban şurasına dəvət edir.\n\nZəhmət olmasa aşağıdakı linkə daxil olun:\n__url__\n\nVə dəvət kodunuz: __icode__\n\ntəşəkkürlər.",
+    "after": "Hörmətli __user__,\n\n__inviter__ əməkdaşlıq üçün sizi kanban lövhəsinə dəvət edir.\n\nZəhmət olmasa aşağıdakı linkə daxil olun:\n__url__\n\nDəvət kodunuz: __icode__\n\nTəşəkkürlər.",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "r-board-rules",
+    "before": "Şuranın qaydaları",
+    "after": "Lövhənin qaydaları",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "r-w-assignee-added",
+    "before": "Təyinatçı əlavə edilir",
+    "after": "Təyin edilmiş şəxs əlavə edilir",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "r-w-assignee-removed",
+    "before": "Təyinatçı silinir",
+    "after": "Təyin edilmiş şəxs silinir",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "r-board",
+    "before": "Şura",
+    "after": "Lövhə",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "r-when-a-assignee",
+    "before": "Təyinatçı",
+    "after": "Təyin edilmiş şəxs",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "r-when-the-assignee",
+    "before": "Təyinatçı",
+    "after": "Təyin edilmiş şəxs",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "assignee",
+    "before": "Təyinatçı",
+    "after": "Təyin edilmiş şəxs",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "cardAssigneesPopup-title",
+    "before": "Təyinatçı",
+    "after": "Təyin edilmiş şəxs",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "board",
+    "before": "Şura",
+    "after": "Lövhə",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<username>` - ​​*<username>* *təyinatçı* olduğu kartlar",
+    "after": "`__operator_assignee__:<username>` - *<username>* adlı istifadəçinin *təyin edilmiş şəxs* olduğu kartlar",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "globalSearch-instructions-operator-team",
+    "before": "`__operator_team__:<display name|short name>` - ​​komandaya təyin edilmiş şuraya aid kartlar *<name>*",
+    "after": "`__operator_team__:<display name|short name>` - *<name>* komandasına təyin edilmiş lövhəyə aid kartlar",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "schedule-board-archive",
+    "before": "Cədvəl Şurası Arxivi",
+    "after": "Lövhənin arxivləşdirilməsini planlaşdırın",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "comprehensive-board-migration",
+    "before": "Kompleks Şura Miqrasiya",
+    "after": "Lövhənin hərtərəfli miqrasiyası",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "fix-avatar-urls-migration-description",
+    "before": "Düzgün yaddaşdan istifadə etmək üçün şura üzvləri üçün avatar URL-lərini yeniləyir və pozulmuş avatar istinadlarını düzəldir.",
+    "after": "Düzgün saxlama sistemindən istifadə etmək üçün lövhə üzvlərinin avatar URL-lərini yeniləyir və pozulmuş avatar istinadlarını düzəldir.",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "run-fix-missing-lists-migration-confirm",
+    "before": "Bu, şura strukturunda çatışmayan və ya pozulmuş siyahıları aşkar edəcək və təmir edəcək. Davam edilsin?",
+    "after": "Bu, lövhənin strukturunda çatışmayan və ya pozulmuş siyahıları aşkar edib düzəldəcək. Davam edilsin?",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "Bu, düzgün yaddaşdan istifadə etmək üçün şura üzvlərinin avatar URL-lərini yeniləyəcək. Davam edilsin?",
+    "after": "Bu, düzgün saxlama sistemindən istifadə etmək üçün lövhə üzvlərinin avatar URL-lərini yeniləyəcək. Davam edilsin?",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "step-analyze-board-structure",
+    "before": "Şuranın strukturunu təhlil edin",
+    "after": "Lövhənin strukturunu təhlil edin",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "unmigrated-boards",
+    "before": "Köçürülməmiş Şuralar",
+    "after": "Köçürülməmiş lövhələr",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "interrupted-import-board",
+    "before": "Şura",
+    "after": "Lövhə",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "act-addBoardMember",
+    "before": "Şuraya __member__ üzv əlavə edildi __board__",
+    "after": "__member__ adlı üzvü __board__ lövhəsinə əlavə etdi",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura Activity notifications prefix the actor name, so retain an active predicate."
+  },
+  {
+    "locale": "az-AZ",
+    "key": "act-archivedBoard",
+    "before": "Şura __board__ Arxivə köçürüldü",
+    "after": "__board__ lövhəsi arxivə köçürüldü",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "act-removeBoardMember",
+    "before": "üzvü __member__ şuradan çıxarıldı __board__",
+    "after": "__member__ adlı üzvü __board__ lövhəsindən çıxardı",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura Activity notifications prefix the actor name, so retain an active predicate."
+  },
+  {
+    "locale": "az-AZ",
+    "key": "admin-desc",
+    "before": "Kartlara baxa və redaktə edə, üzvləri silə və şuranın parametrlərini dəyişə bilər. Fəaliyyətlərə baxa bilər.",
+    "after": "Kartlara baxa və onları redaktə edə, üzvləri silə və lövhənin parametrlərini dəyişə bilər. Fəaliyyətlərə baxa bilər.",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "restore-board",
+    "before": "Bərpa Şurası",
+    "after": "Lövhəni bərpa edin",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "show-board_members-avatar",
+    "before": "Şura üzvlərinin avatarlarını göstərin",
+    "after": "Lövhə üzvlərinin avatarlarını göstərin",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "board-public-info",
+    "before": "Bu şura <strong>public</strong> olacaq.",
+    "after": "Bu lövhə <strong>açıq</strong> olacaq.",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "cardAssigneePopup-title",
+    "before": "Təyinatçı",
+    "after": "Təyin edilmiş şəxs",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "createBoardPopup-title",
+    "before": "Şura yaradın",
+    "after": "Lövhə yaradın",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "email-invite-text",
+    "before": "Hörmətli __user__,\n\n__inviter__ sizi əməkdaşlıq üçün \"__board__\" şurasına qoşulmağa dəvət edir.\n\nZəhmət olmasa aşağıdakı linkə daxil olun:\n\n__url__\n\ntəşəkkürlər.",
+    "after": "Hörmətli __user__,\n\n__inviter__ sizi əməkdaşlıq üçün \"__board__\" lövhəsinə qoşulmağa dəvət edir.\n\nZəhmət olmasa aşağıdakı linkə daxil olun:\n\n__url__\n\nTəşəkkürlər.",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "push-invite-text",
+    "before": "Hörmətli __user__,\n\n__inviter__ sizi əməkdaşlıq üçün \"__board__\" şurasına qoşulmağa dəvət edir.\n\nZəhmət olmasa aşağıdakı linkə daxil olun:\n\n__url__\n\ntəşəkkürlər.",
+    "after": "Hörmətli __user__,\n\n__inviter__ sizi əməkdaşlıq üçün \"__board__\" lövhəsinə qoşulmağa dəvət edir.\n\nZəhmət olmasa aşağıdakı linkə daxil olun:\n\n__url__\n\nTəşəkkürlər.",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "headerBarCreateBoardPopup-title",
+    "before": "Şura yaradın",
+    "after": "Lövhə yaradın",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "import-members-map",
+    "before": "İdxal etdiyiniz şuranın bəzi üzvləri var. Xahiş edirik, idxal etmək istədiyiniz üzvləri istifadəçilərinizə xəritələşdirin",
+    "after": "İdxal etdiyiniz lövhənin bəzi üzvləri var. İdxal etmək istədiyiniz üzvləri mövcud istifadəçilərinizlə uyğunlaşdırın.",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "just-invited",
+    "before": "Siz sadəcə bu şuraya dəvətlisiniz",
+    "after": "Siz sadəcə bu lövhəyə dəvətlisiniz",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "linkCardToBoardPopup-title",
+    "before": "Bu Şuraa keçid",
+    "after": "Lövhəyə keçid",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "public-desc",
+    "before": "Bu şura ictimaidir. O, linki olan hər kəsə görünür və Google kimi axtarış sistemlərində görünəcək. Yalnız lövhəyə əlavə edilmiş şəxslər redaktə edə bilər.",
+    "after": "Bu lövhə açıqdır. Linki olan hər kəs onu görə bilər və o, Google kimi axtarış sistemlərində görünəcək. Yalnız lövhəyə əlavə edilmiş şəxslər redaktə edə bilər.",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "remove-from-board",
+    "before": "Şuradan çıxarın",
+    "after": "Lövhədən çıxarın",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "email-invite-register-text",
+    "before": "Hörmətli __user__,\n\n__inviter__ əməkdaşlıq üçün sizi kanban şurasına dəvət edir.\n\nZəhmət olmasa aşağıdakı linkə daxil olun:\n__url__\n\nVə dəvət kodunuz: __icode__\n\ntəşəkkürlər.",
+    "after": "Hörmətli __user__,\n\n__inviter__ əməkdaşlıq üçün sizi kanban lövhəsinə dəvət edir.\n\nZəhmət olmasa aşağıdakı linkə daxil olun:\n__url__\n\nDəvət kodunuz: __icode__\n\nTəşəkkürlər.",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "r-board-rules",
+    "before": "Şuranın qaydaları",
+    "after": "Lövhənin qaydaları",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "r-w-assignee-added",
+    "before": "Təyinatçı əlavə edilir",
+    "after": "Təyin edilmiş şəxs əlavə edilir",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "r-w-assignee-removed",
+    "before": "Təyinatçı silinir",
+    "after": "Təyin edilmiş şəxs silinir",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "r-board",
+    "before": "Şura",
+    "after": "Lövhə",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "r-when-a-assignee",
+    "before": "Təyinatçı",
+    "after": "Təyin edilmiş şəxs",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "r-when-the-assignee",
+    "before": "Təyinatçı",
+    "after": "Təyin edilmiş şəxs",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "assignee",
+    "before": "Təyinatçı",
+    "after": "Təyin edilmiş şəxs",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "cardAssigneesPopup-title",
+    "before": "Təyinatçı",
+    "after": "Təyin edilmiş şəxs",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "board",
+    "before": "Şura",
+    "after": "Lövhə",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<username>` - ​​*<username>* *təyinatçı* olduğu kartlar",
+    "after": "`__operator_assignee__:<username>` - *<username>* adlı istifadəçinin *təyin edilmiş şəxs* olduğu kartlar",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "globalSearch-instructions-operator-team",
+    "before": "`__operator_team__:<display name|short name>` - ​​komandaya təyin edilmiş şuraya aid kartlar *<name>*",
+    "after": "`__operator_team__:<display name|short name>` - *<name>* komandasına təyin edilmiş lövhəyə aid kartlar",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "schedule-board-archive",
+    "before": "Cədvəl Şurası Arxivi",
+    "after": "Lövhənin arxivləşdirilməsini planlaşdırın",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "comprehensive-board-migration",
+    "before": "Kompleks Şura Miqrasiya",
+    "after": "Lövhənin hərtərəfli miqrasiyası",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "fix-avatar-urls-migration-description",
+    "before": "Düzgün yaddaşdan istifadə etmək üçün şura üzvləri üçün avatar URL-lərini yeniləyir və pozulmuş avatar istinadlarını düzəldir.",
+    "after": "Düzgün saxlama sistemindən istifadə etmək üçün lövhə üzvlərinin avatar URL-lərini yeniləyir və pozulmuş avatar istinadlarını düzəldir.",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "run-fix-missing-lists-migration-confirm",
+    "before": "Bu, şura strukturunda çatışmayan və ya pozulmuş siyahıları aşkar edəcək və təmir edəcək. Davam edilsin?",
+    "after": "Bu, lövhənin strukturunda çatışmayan və ya pozulmuş siyahıları aşkar edib düzəldəcək. Davam edilsin?",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "Bu, düzgün yaddaşdan istifadə etmək üçün şura üzvlərinin avatar URL-lərini yeniləyəcək. Davam edilsin?",
+    "after": "Bu, düzgün saxlama sistemindən istifadə etmək üçün lövhə üzvlərinin avatar URL-lərini yeniləyəcək. Davam edilsin?",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "step-analyze-board-structure",
+    "before": "Şuranın strukturunu təhlil edin",
+    "after": "Lövhənin strukturunu təhlil edin",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "unmigrated-boards",
+    "before": "Köçürülməmiş Şuralar",
+    "after": "Köçürülməmiş lövhələr",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-AZ",
+    "key": "interrupted-import-board",
+    "before": "Şura",
+    "after": "Lövhə",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "act-addBoardMember",
+    "before": "Şuraya __member__ üzv əlavə edildi __board__",
+    "after": "__member__ adlı üzvü __board__ lövhəsinə əlavə etdi",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura Activity notifications prefix the actor name, so retain an active predicate."
+  },
+  {
+    "locale": "az-LA",
+    "key": "act-archivedBoard",
+    "before": "Şura __board__ Arxivə köçürüldü",
+    "after": "__board__ lövhəsi arxivə köçürüldü",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "act-removeBoardMember",
+    "before": "üzvü __member__ şuradan çıxarıldı __board__",
+    "after": "__member__ adlı üzvü __board__ lövhəsindən çıxardı",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura Activity notifications prefix the actor name, so retain an active predicate."
+  },
+  {
+    "locale": "az-LA",
+    "key": "admin-desc",
+    "before": "Kartlara baxa və redaktə edə, üzvləri silə və şuranın parametrlərini dəyişə bilər. Fəaliyyətlərə baxa bilər.",
+    "after": "Kartlara baxa və onları redaktə edə, üzvləri silə və lövhənin parametrlərini dəyişə bilər. Fəaliyyətlərə baxa bilər.",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "restore-board",
+    "before": "Bərpa Şurası",
+    "after": "Lövhəni bərpa edin",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "show-board_members-avatar",
+    "before": "Şura üzvlərinin avatarlarını göstərin",
+    "after": "Lövhə üzvlərinin avatarlarını göstərin",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "board-public-info",
+    "before": "Bu şura <strong>public</strong> olacaq.",
+    "after": "Bu lövhə <strong>açıq</strong> olacaq.",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "cardAssigneePopup-title",
+    "before": "Təyinatçı",
+    "after": "Təyin edilmiş şəxs",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "createBoardPopup-title",
+    "before": "Şura yaradın",
+    "after": "Lövhə yaradın",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "email-invite-text",
+    "before": "Hörmətli __user__,\n\n__inviter__ sizi əməkdaşlıq üçün \"__board__\" şurasına qoşulmağa dəvət edir.\n\nZəhmət olmasa aşağıdakı linkə daxil olun:\n\n__url__\n\ntəşəkkürlər.",
+    "after": "Hörmətli __user__,\n\n__inviter__ sizi əməkdaşlıq üçün \"__board__\" lövhəsinə qoşulmağa dəvət edir.\n\nZəhmət olmasa aşağıdakı linkə daxil olun:\n\n__url__\n\nTəşəkkürlər.",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "push-invite-text",
+    "before": "Hörmətli __user__,\n\n__inviter__ sizi əməkdaşlıq üçün \"__board__\" şurasına qoşulmağa dəvət edir.\n\nZəhmət olmasa aşağıdakı linkə daxil olun:\n\n__url__\n\ntəşəkkürlər.",
+    "after": "Hörmətli __user__,\n\n__inviter__ sizi əməkdaşlıq üçün \"__board__\" lövhəsinə qoşulmağa dəvət edir.\n\nZəhmət olmasa aşağıdakı linkə daxil olun:\n\n__url__\n\nTəşəkkürlər.",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "headerBarCreateBoardPopup-title",
+    "before": "Şura yaradın",
+    "after": "Lövhə yaradın",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "import-members-map",
+    "before": "İdxal etdiyiniz şuranın bəzi üzvləri var. Xahiş edirik, idxal etmək istədiyiniz üzvləri istifadəçilərinizə xəritələşdirin",
+    "after": "İdxal etdiyiniz lövhənin bəzi üzvləri var. İdxal etmək istədiyiniz üzvləri mövcud istifadəçilərinizlə uyğunlaşdırın.",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "just-invited",
+    "before": "Siz sadəcə bu şuraya dəvətlisiniz",
+    "after": "Siz sadəcə bu lövhəyə dəvətlisiniz",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "linkCardToBoardPopup-title",
+    "before": "Bu Şuraa keçid",
+    "after": "Lövhəyə keçid",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "public-desc",
+    "before": "Bu şura ictimaidir. O, linki olan hər kəsə görünür və Google kimi axtarış sistemlərində görünəcək. Yalnız lövhəyə əlavə edilmiş şəxslər redaktə edə bilər.",
+    "after": "Bu lövhə açıqdır. Linki olan hər kəs onu görə bilər və o, Google kimi axtarış sistemlərində görünəcək. Yalnız lövhəyə əlavə edilmiş şəxslər redaktə edə bilər.",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "remove-from-board",
+    "before": "Şuradan çıxarın",
+    "after": "Lövhədən çıxarın",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "email-invite-register-text",
+    "before": "Hörmətli __user__,\n\n__inviter__ əməkdaşlıq üçün sizi kanban şurasına dəvət edir.\n\nZəhmət olmasa aşağıdakı linkə daxil olun:\n__url__\n\nVə dəvət kodunuz: __icode__\n\ntəşəkkürlər.",
+    "after": "Hörmətli __user__,\n\n__inviter__ əməkdaşlıq üçün sizi kanban lövhəsinə dəvət edir.\n\nZəhmət olmasa aşağıdakı linkə daxil olun:\n__url__\n\nDəvət kodunuz: __icode__\n\nTəşəkkürlər.",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "r-board-rules",
+    "before": "Şuranın qaydaları",
+    "after": "Lövhənin qaydaları",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "r-w-assignee-added",
+    "before": "Təyinatçı əlavə edilir",
+    "after": "Təyin edilmiş şəxs əlavə edilir",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "r-w-assignee-removed",
+    "before": "Təyinatçı silinir",
+    "after": "Təyin edilmiş şəxs silinir",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "r-board",
+    "before": "Şura",
+    "after": "Lövhə",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "r-when-a-assignee",
+    "before": "Təyinatçı",
+    "after": "Təyin edilmiş şəxs",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "r-when-the-assignee",
+    "before": "Təyinatçı",
+    "after": "Təyin edilmiş şəxs",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "assignee",
+    "before": "Təyinatçı",
+    "after": "Təyin edilmiş şəxs",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "cardAssigneesPopup-title",
+    "before": "Təyinatçı",
+    "after": "Təyin edilmiş şəxs",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "board",
+    "before": "Şura",
+    "after": "Lövhə",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<username>` - ​​*<username>* *təyinatçı* olduğu kartlar",
+    "after": "`__operator_assignee__:<username>` - *<username>* adlı istifadəçinin *təyin edilmiş şəxs* olduğu kartlar",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "globalSearch-instructions-operator-team",
+    "before": "`__operator_team__:<display name|short name>` - ​​komandaya təyin edilmiş şuraya aid kartlar *<name>*",
+    "after": "`__operator_team__:<display name|short name>` - *<name>* komandasına təyin edilmiş lövhəyə aid kartlar",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "schedule-board-archive",
+    "before": "Cədvəl Şurası Arxivi",
+    "after": "Lövhənin arxivləşdirilməsini planlaşdırın",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "comprehensive-board-migration",
+    "before": "Kompleks Şura Miqrasiya",
+    "after": "Lövhənin hərtərəfli miqrasiyası",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "fix-avatar-urls-migration-description",
+    "before": "Düzgün yaddaşdan istifadə etmək üçün şura üzvləri üçün avatar URL-lərini yeniləyir və pozulmuş avatar istinadlarını düzəldir.",
+    "after": "Düzgün saxlama sistemindən istifadə etmək üçün lövhə üzvlərinin avatar URL-lərini yeniləyir və pozulmuş avatar istinadlarını düzəldir.",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "run-fix-missing-lists-migration-confirm",
+    "before": "Bu, şura strukturunda çatışmayan və ya pozulmuş siyahıları aşkar edəcək və təmir edəcək. Davam edilsin?",
+    "after": "Bu, lövhənin strukturunda çatışmayan və ya pozulmuş siyahıları aşkar edib düzəldəcək. Davam edilsin?",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "Bu, düzgün yaddaşdan istifadə etmək üçün şura üzvlərinin avatar URL-lərini yeniləyəcək. Davam edilsin?",
+    "after": "Bu, düzgün saxlama sistemindən istifadə etmək üçün lövhə üzvlərinin avatar URL-lərini yeniləyəcək. Davam edilsin?",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "step-analyze-board-structure",
+    "before": "Şuranın strukturunu təhlil edin",
+    "after": "Lövhənin strukturunu təhlil edin",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "unmigrated-boards",
+    "before": "Köçürülməmiş Şuralar",
+    "after": "Köçürülməmiş lövhələr",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az-LA",
+    "key": "interrupted-import-board",
+    "before": "Şura",
+    "after": "Lövhə",
+    "reason": "Use lövhə for the Kanban board rather than şura (council), and təyin edilmiş şəxs for the assigned person rather than the assigning person; preserve exact query and notification tokens. Board terminology: https://en.wiktionary.org/wiki/lövhə and https://en.wiktionary.org/wiki/şura"
+  },
+  {
+    "locale": "az",
+    "key": "linkCardToNewBoard",
+    "before": "Bu vərəqdən lövhə yarat",
+    "after": "Bu kartdan lövhə yaradın",
+    "reason": "Create a Kanban board from this card: use kart for the source card and lövhə for the new board, not sheet or council."
+  },
+  {
+    "locale": "az-AZ",
+    "key": "linkCardToNewBoard",
+    "before": "Şura yaradın (Kart)",
+    "after": "Bu kartdan lövhə yaradın",
+    "reason": "Create a Kanban board from this card: use kart for the source card and lövhə for the new board, not sheet or council."
+  },
+  {
+    "locale": "az-LA",
+    "key": "linkCardToNewBoard",
+    "before": "Şura yaradın (Kart)",
+    "after": "Bu kartdan lövhə yaradın",
+    "reason": "Create a Kanban board from this card: use kart for the source card and lövhə for the new board, not sheet or council."
   }
 ]
