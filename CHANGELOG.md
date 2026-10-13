@@ -131,9 +131,9 @@ releases.
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **28,516 untranslated locale/string values in 42 languages**.
   It excludes **379 source keys tracked separately as pending Transifex**.
-  After the Azerbaijani feature batch, full per-locale `--list` reports,
-  including pending keys, count **54,532 remaining values across
-  119 non-English locale files**. This fuller inventory remains the scope
+  After the Latin Uzbek feature batch, full per-locale `--list` reports,
+  including pending keys, count **53,863 remaining values across
+  116 non-English locale files**. This fuller inventory remains the scope
   of the translation work.
   A separate short-prose audit flags 1,649 candidates across 180 locales.
   The two notification At/To labels now have translations in all non-English
@@ -145,6 +145,11 @@ releases.
   Earlier Xhosa completion checks predate the newer pending strings. The
   current broad run still exposes English placeholders in several catalogs;
   see the dated audit results. Empty reports do not establish fluency.
+- Latin Uzbek now has no current fill candidates after 223 feature fills,
+  the Bytes label and fourteen Blockly key descriptions in each of `uz`,
+  `uz-UZ` and `uz-LA`. Four focused suites and 21 human-preference checks
+  pass; 27 browser cases register. Older wording, the Arabic-script catalog
+  and browser execution remain open. Existing non-English text is unchanged.
 - Azerbaijani has 114 recorded terminology repairs across `az`, `az-AZ`
   and `az-LA`: Kanban boards, assigned people, creation commands, invitations
   and visibility wording. Two suites and 21 human-preference checks pass;
@@ -196,7 +201,7 @@ releases.
 - Marathi now has no current fill candidates after 212 feature fills. Another
   55 English settings, rule and keyboard labels were hidden by the fill tool's
   technical-name and short-word exemptions; those are now translated too.
-  `node releases/translations/audit-exempt-prose.mjs` exposes 3,800 review
+  `node releases/translations/audit-exempt-prose.mjs` exposes 3,755 review
   candidates across 226 locales. They include intentional names and shared
   spellings, so they are not a confirmed untranslated count. Preserve existing
   human-verified `zh` wording; add only confirmed missing strings there.
@@ -623,8 +628,8 @@ through its API, with **swimlanes** kept as labels that WeKan's Trello import
 turns back into swimlanes; on **Sandstorm**, the **Powerbox** lets a grain
 reach Trello. **FreeBSD** Bun bundles, the **Launchpad snap** waits and the
 **Mac apps** release step are fixed. Missing Bengali, Marathi, Nepali and
-Tamil, Thai, Kannada, Urdu, Malayalam and Azerbaijani strings are filled,
-and wrong-language values and Azerbaijani terminology are corrected.
+Tamil, Thai, Kannada, Urdu, Malayalam, Azerbaijani and Latin Uzbek strings
+are filled, and wrong-language values and Azerbaijani terminology are corrected.
 
 This release adds the following new features:
 
@@ -930,6 +935,24 @@ for the three variants, covering feature flows, Scrum recovery, storage and
 Blockly; execution needs a running rebuilt app. Full Azerbaijani fill reports
 are empty, but broader wording and grammar review remain open. Existing
 Chinese text is unchanged.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6825f00ac7">Fill Latin Uzbek feature and recovery translations</a>. Thanks to xet7.</summary>
+
+Fill 223 feature placeholders, the Bytes label and fourteen Blockly key
+names in each of `uz`, `uz-UZ` and `uz-LA`, 714 values total. Translate
+linked fields, importer instructions, notifications, Trello export, Scrum
+planning and recovery warnings. Localized keyboard descriptions retain the
+physical key legends in parentheses. Existing non-English values are kept.
+
+Four focused suites and 21 human-preference checks pass. All 246 catalogs
+retain source key order and placeholders. Twenty-seven browser cases register
+for feature flows, Scrum recovery and Blockly in the three variants;
+execution still needs a running rebuilt app. Full Latin Uzbek fill reports
+are empty. Older terminology, composed grammar and the Arabic-script catalog
+remain under review. Existing Chinese text is unchanged.
 
 </details>
 

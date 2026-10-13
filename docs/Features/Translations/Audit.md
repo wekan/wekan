@@ -2,6 +2,49 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Latin Uzbek features and recovery — 2026-10-13
+
+Commit `6825f00ac7` fills 238 source-identical values in each of `uz`, `uz-UZ`
+and `uz-LA`, 714 values total. These are 223 feature placeholders, the Bytes
+label and fourteen Blockly key descriptions. The feature text covers linked
+cards and fields, importer instructions, bulk import/export, Trello/Sandstorm,
+notifications, LDAP, Scrum planning and interrupted-operation recovery.
+Existing board, list and field vocabulary guides the new text; new assignee
+references describe the assigned person as `tayinlangan shaxs`.
+
+Keyboard descriptions include the original physical key legend in parentheses
+so users can identify it. Page Up and Page Down retain opposite directions,
+and Backspace describes deleting the preceding character. Alt remains its key
+name. The extra fifteen keys were filled directly after exact comparison to
+English because the ordinary helper excludes them. No existing non-English
+value was changed. The Arabic-script `uz-AR` catalog and every Chinese catalog
+are untouched by this batch.
+
+Four focused suites pass: Asturian/Welsh/Uzbek, exempt-prose, short-prose and
+shared-label tests. The Latin Uzbek gate now checks the full current list,
+including pending features. Tests check link direction and permissions,
+preservation versus permanent deletion, refusal to discard replayable work,
+Scrum matching and conflict recovery, and first-sync preservation. File-format
+markers, upstream menu names, LDAP variables and external-link syntax stay
+literal. Runtime interpolation covers card notifications, zero applied
+changes, failed imports and Scrum conflict counts.
+
+All 21 human-preference checks pass. Key order and exact placeholders match
+across all 246 catalogs / 1,019,178 pairs. Parent comparison proves exactly
+238 fills per catalog and preservation of every earlier non-English value.
+Twenty-seven browser cases register across seven specs: linked fields,
+notification delivery, interrupted imports, stuck sync, Trello export,
+Scrum history recovery and Blockly. They have not been executed against a
+rebuilt running app.
+
+The filtered backlog is 53,863 values across 116 non-English catalog paths.
+The supplemental exempt-prose queue has 3,755 candidates across 226 locales;
+the short-prose queue has 1,649 across 180. Latin Uzbek full fill lists are
+empty, but that does not certify existing wording. The older `Tayinlovchi`
+assignee labels, composed rule grammar, Arabic-script Uzbek and the wider
+semantic audit still need review. Technical prose remains subject to fluent
+review. The overall all-language objective is not complete.
+
 ## Azerbaijani features, recovery and accessibility — 2026-10-13
 
 Commit `9d8a48c4d8` fills 230 source-identical values in each of `az`, `az-AZ`
