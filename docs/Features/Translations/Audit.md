@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican board views and timeline wording — 2026-10-13
+
+Commit `b61c0df17f` repairs 26 menu, view, calendar and timeline values.
+Mixed Italian labels are replaced, Watch refers to following rather than
+generic notifications, Gantt loses an unrelated in-progress prefix, and
+ISO 8601 regains the Gregorian calendar and week-system meaning. Timeline
+text retains the past-state date and all restored fields with no deletion.
+The already-correct shared word `Statistiche` was left unchanged.
+
+The Corsican and full repair-ledger suites pass; the ledger records
+25,508 guarded corrections. All 21 human-preference checks pass. A new
+calendar-settings browser case registers for Gregorian and ISO week labels,
+respecting the existing runtime calendar-support check. It has not run
+against the application. Exact comparison preserves all 38,430 protected
+Chinese values and limits the locale batch to 26 reviewed replacements.
+Broader language review remains unfinished.
+
 ## Corsican board display and attachment warnings — 2026-10-13
 
 Commit `b1c1c68040` repairs 27 values found through direct review of board,

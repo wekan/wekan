@@ -1621,6 +1621,20 @@ pending. Protected Chinese values are unchanged; broader review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b61c0df17f">Correct Corsican board views and timeline wording</a>. Thanks to xet7.</summary>
+
+Repair 26 menu, view, timeline and calendar values. Remove an unrelated
+in-progress prefix from Gantt and restore the Gregorian calendar and ISO
+week meaning. Timeline restoration retains every field and the no-deletion
+warning.
+
+The Corsican suite, full repair-ledger suite and 21 human-preference checks
+pass. A calendar-settings browser case registers; runtime execution remains
+pending. Protected Chinese values are unchanged; broader review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
