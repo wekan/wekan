@@ -202963,5 +202963,250 @@
     "before": "Latine: Quando habilitatum, the watch feature est turned abest — usores non potest subscribe ad tabulae, indices vel schedae ad receive notificationes, et ullum attempt ad muta a watch level est reiectum. Praedefinitum est abest.",
     "after": "Cum haec optio activa est, facultas observandi prohibetur — usores tabulas, indices vel chartas observare non possunt ut notificationes accipiant, et omnis conatus gradum observationis mutandi recusatur. Optio initio inactiva est.",
     "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "backup-data",
+    "before": "Latine: Data (textus)",
+    "after": "Data (textus)",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "backup-scope",
+    "before": "Latine: Exemplar subsidiarium scope",
+    "after": "Ambitus exemplaris subsidiarii",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "backup-scope-instance",
+    "before": "Latine: Whole instance",
+    "after": "Tota instantia",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "backup-scope-description",
+    "before": "Latine: The whole instance, vel one Organizatio. An Organization's exemplar subsidiarium contains its tabulae et everything adest them, including the adnexa de illa tabulae — but non usor rationes et non instance configurationes, because illa sunt shared a omnis Organizatio. Restoring an Organization's exemplar subsidiarium tantum ever writes ad tabulae illud Organizatio owns.",
+    "after": "Tota instantia vel una consociatio. Exemplar subsidiarium consociationis tabulas eius et omnia quae in eis sunt continet, etiam adiuncta earum tabularum — sed nullas rationes usorum nec configurationes instantiae, quia hae omnibus consociationibus communes sunt. Restitutio exemplaris subsidiarii consociationis tantum in tabulas quas illa consociatio possidet scribit.",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "theme-override-all-tenants",
+    "before": "Latine: Override illud applies ad omnia tenants",
+    "after": "Exceptio quae omnibus clientibus separatis applicatur",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "backup-storage",
+    "before": "Latine: Serva ad storage",
+    "after": "Serva in repositorio",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "backup-now",
+    "before": "Latine: Exemplar subsidiarium nunc",
+    "after": "Crea exemplar subsidiarium nunc",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "backup-done",
+    "before": "Latine: Exemplar subsidiarium perfectum",
+    "after": "Exemplar subsidiarium perfectum est",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "backup-schedule",
+    "before": "Latine: Scheduled exemplaria subsidiaria",
+    "after": "Exemplaria subsidiaria tempori destinata",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "backup-frequency",
+    "before": "Latine: Frequency",
+    "after": "Frequentia",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "backup-frequency-off",
+    "before": "Latine: Abest",
+    "after": "Inactiva",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "backup-frequency-daily",
+    "before": "Latine: Daily",
+    "after": "Cotidie",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "backup-frequency-weekly",
+    "before": "Latine: Weekly",
+    "after": "Quaque hebdomade",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "backup-frequency-monthly",
+    "before": "Latine: Monthly",
+    "after": "Quoque mense",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "backup-time",
+    "before": "Latine: Tempus (HH:MM)",
+    "after": "Hora (HH:MM)",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "backup-day-of-week",
+    "before": "Latine: Dies de hebdomas (weekly)",
+    "after": "Dies hebdomadis (hebdomadale)",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "backup-day-of-month",
+    "before": "Latine: Dies de mensis (monthly, 1-28)",
+    "after": "Dies mensis (menstruale, 1-28)",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "backup-list",
+    "before": "Latine: Index exemplaria subsidiaria",
+    "after": "Enumera exemplaria subsidiaria",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "backup-datetime",
+    "before": "Latine: Dies et tempus",
+    "after": "Dies et hora",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "backup-path",
+    "before": "Latine: Fasciculus path",
+    "after": "Iter fasciculi",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "backup-restore-mode",
+    "before": "Latine: Restitue modus",
+    "after": "Modus restitutionis",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "backup-restore-add-missing",
+    "before": "Latine: Adde missing data tantum",
+    "after": "Adde tantum data absentia",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "backup-restore-replace-all",
+    "before": "Latine: Replace omnia data",
+    "after": "Substitue omnia data",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "backup-restore-select-first",
+    "before": "Latine: Elige a exemplar subsidiarium ex the index primus.",
+    "after": "Primum elige exemplar subsidiarium ex indice.",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "gcs-project-id",
+    "before": "Latine: Project ID",
+    "after": "Identificator propositi",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "gcs-bucket",
+    "before": "Latine: Bucket",
+    "after": "Receptaculum",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "gcs-key-filename",
+    "before": "Latine: Service ratio key fasciculus path",
+    "after": "Iter fasciculi clavis rationis servitii",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "gcs-key-filename-description",
+    "before": "Latine: Optional: path ad a service ratio JSON key fasciculus adest the ministrator.",
+    "after": "Ad libitum: iter fasciculi clavis JSON rationis servitii in serviente.",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "gcs-credentials",
+    "before": "Latine: Service ratio credentials (JSON)",
+    "after": "Documenta authentificationis rationis servitii (JSON)",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "gcs-credentials-description",
+    "before": "Latine: Optional: paste the service ratio JSON key. Leave blank ad use the key fasciculus vel praedefinitum credentials.",
+    "after": "Ad libitum: insere clavem JSON rationis servitii. Relinque vacuum ut fasciculo clavis vel documentis authentificationis praedefinitis utaris.",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "cloud-secret-keep-blank",
+    "before": "Latine: Leave blank ad keep the praesens valor.",
+    "after": "Relinque vacuum ut valor praesens servetur.",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "azure-account-name-description",
+    "before": "Latine: The nomen de tuum Azure Storage ratio.",
+    "after": "Nomen rationis tuae Azure Storage.",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "azure-container-description",
+    "before": "Latine: The blob container ad store fasciculi in.",
+    "after": "Receptaculum obiectorum blob in quo fasciculi serventur.",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "gcs-project-id-description",
+    "before": "Latine: Tuum Google Cloud project id.",
+    "after": "Identificator propositi tui Google Cloud.",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
+  },
+  {
+    "locale": "la",
+    "key": "gcs-bucket-description",
+    "before": "Latine: The nomen de the Cloud Storage bucket ad store fasciculi in.",
+    "after": "Nomen receptaculi Cloud Storage in quo fasciculi serventur.",
+    "reason": "Translate backup scope, schedules and restore modes plus credential fallback instructions; preserve organization isolation and technical formats."
   }
 ]

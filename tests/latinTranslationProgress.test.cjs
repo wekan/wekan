@@ -1088,3 +1088,19 @@ assert.match(latin['anonymize-account-confirm-popup'], /historiam servant/);
 assert.match(latin['anonymize-account-confirm-popup'], /revocari non potest/);
 assert.match(latin['disable-notifications-description'], /Actiones adhuc notari possunt/);
 assert.match(latin['disable-watch-description'], /omnis conatus gradum observationis mutandi recusatur/);
+
+const reviewedBackupScopeKeys = ["backup-data", "backup-scope", "backup-scope-instance", "backup-scope-description", "theme-override-all-tenants", "backup-storage", "backup-now", "backup-done", "backup-schedule", "backup-frequency", "backup-frequency-off", "backup-frequency-daily", "backup-frequency-weekly", "backup-frequency-monthly", "backup-time", "backup-day-of-week", "backup-day-of-month", "backup-list", "backup-datetime", "backup-path", "backup-restore-mode", "backup-restore-add-missing", "backup-restore-replace-all", "backup-restore-select-first", "gcs-project-id", "gcs-bucket", "gcs-key-filename", "gcs-key-filename-description", "gcs-credentials", "gcs-credentials-description", "cloud-secret-keep-blank", "azure-account-name-description", "azure-container-description", "gcs-project-id-description", "gcs-bucket-description"];
+for (const key of reviewedBackupScopeKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Backup|Scheduled|Whole instance|Restore|Optional|Leave blank|account key)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['backup-scope-description'], /nullas rationes usorum nec configurationes instantiae/);
+assert.match(latin['backup-scope-description'], /tantum in tabulas quas illa consociatio possidet/);
+assert.match(latin['backup-restore-add-missing'], /tantum data absentia/);
+assert.match(latin['backup-restore-replace-all'], /omnia data/);
+assert.equal(new Set(['off', 'daily', 'weekly', 'monthly'].map(suffix => latin[`backup-frequency-${suffix}`])).size, 4);
+assert.ok(latin['backup-time'].includes('HH:MM'));
+assert.ok(latin['backup-day-of-month'].includes('1-28'));
+assert.match(latin['gcs-key-filename-description'], /Ad libitum:.*in serviente/);
+assert.match(latin['gcs-credentials-description'], /fasciculo clavis vel documentis authentificationis praedefinitis/);
+assert.match(latin['cloud-secret-keep-blank'], /valor praesens servetur/);

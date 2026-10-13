@@ -51,3 +51,15 @@ test('Latin database migration pane preserves prerequisites and connection instr
   await expect(description).toContainText('snap set wekan database=ferretdb vel =mongodb');
   await expect(description).not.toContainText('Latine:');
 });
+
+test('Latin backup settings distinguish schedule frequencies', async ({ page, adminUser }) => {
+  await loginWithToken(page, adminUser.id, adminUser.token);
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'la'));
+  await navigateInApp(page, '/admin/attachments/backup');
+  const frequency = page.locator('.js-backup-frequency');
+  await expect(frequency.locator('option[value="daily"]')).toHaveText('Cotidie');
+  await expect(frequency.locator('option[value="weekly"]')).toHaveText('Quaque hebdomade');
+  await expect(frequency.locator('option[value="monthly"]')).toHaveText('Quoque mense');
+  await expect(frequency.locator('option[value="off"]')).toHaveText('Inactiva');
+  await expect(page.locator('.js-backup-time')).toHaveAttribute('type', 'time');
+});
