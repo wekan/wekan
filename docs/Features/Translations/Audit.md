@@ -2,6 +2,51 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Azerbaijani features, recovery and accessibility — 2026-10-13
+
+Commit `9d8a48c4d8` fills 230 source-identical values in each of `az`, `az-AZ`
+and `az-LA`, 690 values total. The 223 current feature placeholders cover
+linked cards and fields, importer instructions, bulk import/export, Trello and
+Sandstorm access, notifications, LDAP, Scrum planning and interrupted-operation
+recovery. The corrected `lövhə` and assigned-person terminology is used.
+
+Seven labels were outside the normal fill list: Bytes, S3 bucket, S3 port,
+the two count separators, Blockly's nested-input movement announcement and
+its pixel-on state. These were filled directly only after confirming each
+still exactly equalled English. Fixed numerator/denominator layouts use `/`;
+the movement announcement places the parent before its contained input,
+while pixel on/off remain distinct. Alt, Command and Tab retain their physical
+key legends, and OK remains a conventional acknowledgment. No existing
+non-English value changed, including the preceding terminology repairs.
+No Chinese catalog changed.
+
+Four focused suites pass: the existing Azerbaijani/Croatian/Polish/Slovak
+suite, exempt-prose audit, short-prose audit and shared-label suite. The
+Azerbaijani gate now checks the full current list, including pending features.
+Positive and negative checks cover link direction, two-card edit permission,
+permanent deletion versus preservation, refusal to discard replayable work,
+Scrum conflicts, completed-sprint handling and first-sync preservation. Import
+format literals, LDAP variables, Wrike statuses and external-link syntax are
+preserved. Runtime interpolation exercises card notifications, zero applied
+changes, a failed import and Scrum conflict counts.
+
+All 21 human-preference checks pass. All 246 catalogs retain English key order
+and exact placeholders across 1,019,178 locale/key pairs. Parent comparison
+confirms exactly 230 fills in each catalog with every previous non-English
+value untouched. Thirty browser cases register across eight existing specs:
+notification delivery, linked fields, interrupted imports, stuck sync,
+Trello export, Scrum history recovery, S3 settings and Blockly. They have not
+run against a rebuilt app; registration is not execution evidence.
+
+The full filtered backlog is now 54,532 values across 119 non-English paths.
+The ordinary report still counts 28,516 values across 42 locales, excluding
+379 pending source keys. Supplemental audits flag 3,800 exempt-prose candidates
+across 226 locales and 1,649 short-prose candidates across 180 locales.
+These are review queues, not automatic errors. Azerbaijani's full fill lists
+are empty; complete semantic review is still open, including older storage
+wording and composed rule grammar. Technical prose remains subject to fluent
+review. The overall all-language objective is not complete.
+
 ## Azerbaijani board and assignee terminology — 2026-10-13
 
 Commit `30a92983f5` repairs 38 values in each of `az`, `az-AZ` and `az-LA`,
