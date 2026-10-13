@@ -2,6 +2,49 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Time-history explanation review — 2026-10-13
+
+Commit `3fe68ad266` repairs `time-adjustment-note` in 54 catalog paths.
+The older notes were short labels around delta/not-equal symbols. They
+omitted the source's four substantive points: changes are grouped by the
+person editing the total, are not individual work sessions, negative values
+are corrections, and earlier unrecorded time cannot be attributed. The
+Romanian note also mixed Spanish and French wording; Vietnamese retained a
+Malay opening. Complete replacements remove those foreign fragments.
+
+This batch covers Swedish, Norwegian Bokmål, Danish, German, French,
+Spanish, Portuguese, Italian, Dutch, Polish, Czech, Russian, Ukrainian,
+Turkish, Azerbaijani, Hungarian, Romanian, Greek, Malay, Vietnamese, Japanese
+and Korean, including the selected regional files. Brazilian Portuguese keeps
+its spelling of registered; the other Portuguese catalogs use theirs.
+Existing full explanations such as Finnish, Croatian, Slovak, Slovenian and
+Indonesian were left alone. No existing Chinese value changed.
+
+The meaning fixture tests all four clauses for each catalog and proves that
+the previous text omitted them. Its negative shorthand check recognizes a
+standalone delta symbol, not the Greek letter inside a word. The full ledger
+suite passes with 25,046 corrections and verifies idempotency, tokens and
+preservation of newer translations. All 21 human-preference checks pass.
+The browser test extends the existing real correction flow rather than
+adding a label-only duplicate: positive adjustments, a rejected negative
+total, a negative correction, translated report explanations, exports and
+retained history. All 55 cases register (54 locales and English), but they
+have not run against a rebuilt app.
+
+Concurrent email work added 49 source keys and English placeholders to the
+catalogs. Only the time-note diff was staged in each locale, preserving that
+independent work. Comparison against the parent proves that the note is the
+only changed pre-existing value in each of the 54 catalogs; new keys were
+left intact. Existing Chinese values were compared individually and retained.
+
+The current working-tree source has 4,192 keys. Its filtered inventory now
+counts 65,329 values across all 234 non-English paths; the ordinary report
+counts 39,982 values across 234 paths and excludes 379 pending keys. The
+increase from 53,863 is exactly the 49 new keys in each non-English catalog.
+Earlier empty per-locale reports therefore predate this addition and do not
+establish current completion. Other time-note translations, the new email
+strings and the broader semantic and browser audits remain unfinished.
+
 ## Latin Uzbek assignee and time-history repairs — 2026-10-13
 
 Commit `6c10d035c2` repairs thirteen values in each of `uz`, `uz-UZ` and

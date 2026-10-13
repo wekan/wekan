@@ -129,11 +129,11 @@ previously held for Transifex. Completed work is recorded in Upcoming and
 releases.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **28,516 untranslated locale/string values in 42 languages**.
+  report counts **39,982 untranslated locale/string values in 234 languages**.
   It excludes **379 source keys tracked separately as pending Transifex**.
-  After the Latin Uzbek feature batch, full per-locale `--list` reports,
-  including pending keys, count **53,863 remaining values across
-  116 non-English locale files**. This fuller inventory remains the scope
+  With 49 new email strings in the working tree, full per-locale `--list`
+  reports, including pending keys, count **65,329 remaining values across
+  234 non-English locale files**. This fuller inventory remains the scope
   of the translation work.
   A separate short-prose audit flags 1,649 candidates across 180 locales.
   The two notification At/To labels now have translations in all non-English
@@ -145,6 +145,14 @@ releases.
   Earlier Xhosa completion checks predate the newer pending strings. The
   current broad run still exposes English placeholders in several catalogs;
   see the dated audit results. Empty reports do not establish fluency.
+- Earlier empty fill reports below describe their recorded batches. The
+  newly added email strings expand the backlog in every non-English catalog;
+  they still need translation, including new Chinese keys only.
+- Time-history explanations have 54 recorded repairs: editor grouping,
+  individual-session exclusion, negative corrections and missing historical
+  attribution are now explicit. Two suites and 21 human-preference checks
+  pass; 55 browser cases register including English. Other locales and
+  browser execution remain under review.
 - Latin Uzbek now has no current fill candidates after 223 feature fills,
   the Bytes label and fourteen Blockly key descriptions in each of `uz`,
   `uz-UZ` and `uz-LA`. Four focused suites and 21 human-preference checks
@@ -973,6 +981,25 @@ alongside 21 human-preference checks. Six browser cases register for assigning
 a card and reading the time-history note; execution needs a rebuilt app.
 Unrelated translations and existing Chinese text are unchanged. Composed rule
 grammar, Arabic-script Uzbek and broader wording review remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3fe68ad266">Restore complete time-history explanations in 54 catalogs</a>. Thanks to xet7.</summary>
+
+Replace abbreviated symbol-only notes with the full explanation in Nordic,
+German, French, Spanish, Portuguese, Italian, Dutch, Polish, Czech, Russian,
+Ukrainian, Turkish, Azerbaijani, Hungarian, Romanian, Greek, Malay, Vietnamese,
+Japanese and Korean catalogs. Changes are grouped by the person editing the
+total, not individual work sessions. Negative values are corrections, and
+previously unrecorded time cannot be attributed to anyone.
+
+The meaning tests and all 25,046 correction-ledger entries pass, alongside
+21 human-preference checks. The existing browser flow now registers in these
+54 locales plus English, exercising corrections, rejected negative totals,
+report text and exports; it has not run against a rebuilt app. Existing
+Chinese wording is unchanged. Other time-history translations remain under
+review.
 
 </details>
 
