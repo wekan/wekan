@@ -149,3 +149,16 @@ assert.match(corsican['import-board-instruction-notion'], /rilazioni, imagine è
 assert.match(corsican['import-board-instruction-plane'], /ùn cuntene nè discrizzioni nè appicci/);
 assert.match(corsican['import-board-instruction-businessmap'], /rinumate prima a linea d'intestazione in inglese/);
 assert.match(corsican['import-board-instruction-redmine'], /English in My account prima d'espurtà/);
+
+const activityCorrectionKeys = ["activity-changedDescription", "activity-added", "activity-archived", "activity-attached", "activity-created", "activity-changedListTitle", "activity-excluded", "activity-imported", "activity-imported-board", "activity-joined", "activity-on", "activity-sent", "activity-unjoined", "activity-subtask-added", "activity-checked-item", "activity-unchecked-item", "activity-checklist-added", "activity-checklist-item-added", "activity-checklist-item-removed", "activity-checked-item-card", "activity-unchecked-item-card", "activity-checklist-completed-card"];
+for (const key of activityCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /modificata|spostato|creato|rinominata|escluso|importato|inviato|abbandonato|sottocompito|selezionata|disattivato|elemento|è stato|deselezionato|completata|controllo/, key);
+}
+assert.equal(corsican['activity-created'], 'hà creatu %s');
+assert.equal(corsican['activity-subtask-added'], 'hà aghjuntu un sottucompitu à %s');
+assert.doesNotMatch(corsican['activity-subtask-added'], /1%s/);
+assert.match(corsican['activity-checked-item'], /hà marcatu/);
+assert.match(corsican['activity-unchecked-item'], /hà cacciatu a marca/);
+assert.match(corsican['activity-checklist-item-added'], /à '%s' in %s/);
+assert.match(corsican['activity-checklist-item-removed'], /da '%s' in %s/);

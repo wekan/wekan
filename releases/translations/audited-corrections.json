@@ -176202,5 +176202,159 @@
     "before": "on",
     "after": "mixgħul",
     "reason": "Translate confirmed English prose or a short label hidden by the normal fill inventory; retain technical product names and exact placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "activity-changedDescription",
+    "before": "descrizzione modificata di %s",
+    "after": "hà mudificatu a discrizzione di %s",
+    "reason": "Replace Italian or mixed-language activity prose with Corsican; preserve source placeholders and action direction."
+  },
+  {
+    "locale": "co",
+    "key": "activity-added",
+    "before": "ha aghjuntu %s a %s",
+    "after": "hà aghjuntu %s à %s",
+    "reason": "Replace Italian or mixed-language activity prose with Corsican; preserve source placeholders and action direction."
+  },
+  {
+    "locale": "co",
+    "key": "activity-archived",
+    "before": "%s spostato nell'archiviu",
+    "after": "%s spustatu in l'archiviu",
+    "reason": "Replace Italian or mixed-language activity prose with Corsican; preserve source placeholders and action direction."
+  },
+  {
+    "locale": "co",
+    "key": "activity-attached",
+    "before": "allegatu %s a %s",
+    "after": "hà aghjuntu %s in appicciu à %s",
+    "reason": "Replace Italian or mixed-language activity prose with Corsican; preserve source placeholders and action direction."
+  },
+  {
+    "locale": "co",
+    "key": "activity-created",
+    "before": "creato %s",
+    "after": "hà creatu %s",
+    "reason": "Replace Italian or mixed-language activity prose with Corsican; preserve source placeholders and action direction."
+  },
+  {
+    "locale": "co",
+    "key": "activity-changedListTitle",
+    "before": "lista rinominata in %s",
+    "after": "hà rinumatu a lista in %s",
+    "reason": "Replace Italian or mixed-language activity prose with Corsican; preserve source placeholders and action direction."
+  },
+  {
+    "locale": "co",
+    "key": "activity-excluded",
+    "before": "escluso %s da %s",
+    "after": "hà esclusu %s da %s",
+    "reason": "Replace Italian or mixed-language activity prose with Corsican; preserve source placeholders and action direction."
+  },
+  {
+    "locale": "co",
+    "key": "activity-imported",
+    "before": "importato %s in %s da %s",
+    "after": "hà impurtatu %s in %s da %s",
+    "reason": "Replace Italian or mixed-language activity prose with Corsican; preserve source placeholders and action direction."
+  },
+  {
+    "locale": "co",
+    "key": "activity-imported-board",
+    "before": "importato %s da %s",
+    "after": "hà impurtatu %s da %s",
+    "reason": "Replace Italian or mixed-language activity prose with Corsican; preserve source placeholders and action direction."
+  },
+  {
+    "locale": "co",
+    "key": "activity-joined",
+    "before": "si è unito a %s",
+    "after": "s'hè unitu à %s",
+    "reason": "Replace Italian or mixed-language activity prose with Corsican; preserve source placeholders and action direction."
+  },
+  {
+    "locale": "co",
+    "key": "activity-on",
+    "before": "su %s",
+    "after": "nant'à %s",
+    "reason": "Replace Italian or mixed-language activity prose with Corsican; preserve source placeholders and action direction."
+  },
+  {
+    "locale": "co",
+    "key": "activity-sent",
+    "before": "inviato %s a %s",
+    "after": "hà mandatu %s à %s",
+    "reason": "Replace Italian or mixed-language activity prose with Corsican; preserve source placeholders and action direction."
+  },
+  {
+    "locale": "co",
+    "key": "activity-unjoined",
+    "before": "ha abbandonato %s",
+    "after": "hà lasciatu %s",
+    "reason": "Replace Italian or mixed-language activity prose with Corsican; preserve source placeholders and action direction."
+  },
+  {
+    "locale": "co",
+    "key": "activity-subtask-added",
+    "before": "aghjuntu il sottocompito a 1%s",
+    "after": "hà aghjuntu un sottucompitu à %s",
+    "reason": "Replace Italian or mixed-language activity prose with Corsican; preserve source placeholders and action direction."
+  },
+  {
+    "locale": "co",
+    "key": "activity-checked-item",
+    "before": "selezionata %s in a checklist %s di %s",
+    "after": "hà marcatu %s in a lista di cuntrollu %s di %s",
+    "reason": "Replace Italian or mixed-language activity prose with Corsican; preserve source placeholders and action direction."
+  },
+  {
+    "locale": "co",
+    "key": "activity-unchecked-item",
+    "before": "disattivato %s in a checklist %s di %s",
+    "after": "hà cacciatu a marca di %s in a lista di cuntrollu %s di %s",
+    "reason": "Replace Italian or mixed-language activity prose with Corsican; preserve source placeholders and action direction."
+  },
+  {
+    "locale": "co",
+    "key": "activity-checklist-added",
+    "before": "ha aghjuntu una checklist a %s",
+    "after": "hà aghjuntu una lista di cuntrollu à %s",
+    "reason": "Replace Italian or mixed-language activity prose with Corsican; preserve source placeholders and action direction."
+  },
+  {
+    "locale": "co",
+    "key": "activity-checklist-item-added",
+    "before": "Aghjuntu l'elemento checklist a '%s' in %s",
+    "after": "hà aghjuntu un elementu di lista di cuntrollu à '%s' in %s",
+    "reason": "Replace Italian or mixed-language activity prose with Corsican; preserve source placeholders and action direction."
+  },
+  {
+    "locale": "co",
+    "key": "activity-checklist-item-removed",
+    "before": "è stato cacciatu un elemento di a checklist da '%s' in %s",
+    "after": "hà cacciatu un elementu di lista di cuntrollu da '%s' in %s",
+    "reason": "Replace Italian or mixed-language activity prose with Corsican; preserve source placeholders and action direction."
+  },
+  {
+    "locale": "co",
+    "key": "activity-checked-item-card",
+    "before": "%s è stato selezionato in a checklist %s",
+    "after": "hà marcatu %s in a lista di cuntrollu %s",
+    "reason": "Replace Italian or mixed-language activity prose with Corsican; preserve source placeholders and action direction."
+  },
+  {
+    "locale": "co",
+    "key": "activity-unchecked-item-card",
+    "before": "%s è stato deselezionato in a  checklist %s",
+    "after": "hà cacciatu a marca di %s in a lista di cuntrollu %s",
+    "reason": "Replace Italian or mixed-language activity prose with Corsican; preserve source placeholders and action direction."
+  },
+  {
+    "locale": "co",
+    "key": "activity-checklist-completed-card",
+    "before": "completata lista di controllo __checklist__  in a carta __card__ di a lista __list__ di a swimlane __swimlane__ in a tavula __board__",
+    "after": "hà compiu a lista di cuntrollu __checklist__ di a carta __card__ di a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or mixed-language activity prose with Corsican; preserve source placeholders and action direction."
   }
 ]
