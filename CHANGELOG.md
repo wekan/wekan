@@ -3140,6 +3140,23 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0dda250d79">Repair Latin webhook and system information labels</a>. Thanks to xet7.</summary>
+
+Repair 30 prefixed labels for webhooks, notification layout and system
+information.
+Preserve product names, runtime modes and environment-variable identifiers,
+while
+translating surrounding labels and distinguishing webhook directions.
+
+The Latin and guarded-correction suites and all 21 preservation checks pass.
+Existing Latin notification-layout browser coverage passes syntax and discovery;
+runtime remains pending. Existing Chinese values are unchanged. There remain
+1,425 Latin values containing the old language prefix; all-language review is
+unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin webhooks and system information — 2026-10-14
+
+Commit `0dda250d79` repairs 30 prefixed labels for webhooks, notification layout,
+platform information and database/runtime details. Tests retain product names,
+changeStreams/oplog/polling, METEOR_REACTIVITY_ORDER and DDP_TRANSPORT, optional
+authentication, disable actions, compatibility wording and outgoing versus
+bidirectional webhook labels.
+
+The Latin and guarded-correction suites pass with 27,959 ledger entries. All 21
+human-preference checks pass. Existing Latin notification-settings browser coverage
+already checks the changed layout label; syntax and discovery pass, runtime remains
+pending. Exact comparison preserves 38,430 existing Chinese values.
+
+There remain 1,425 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin transfer limits, SMTP and invitations — 2026-10-14
 
 Commit `49dc81ea2b` repairs 40 prefixed messages for transfer limits, avatar
