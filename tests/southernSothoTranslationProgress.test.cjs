@@ -13,7 +13,7 @@ const readLocale = code => JSON.parse(fs.readFileSync(
 const english = readLocale('en');
 const sesotho = readLocale('st');
 const tokens = value => [...value.matchAll(
-  /__[A-Za-z0-9_]+__|%[A-Za-z]|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g,
+  /__[A-Za-z0-9_]+__|%(?:\d+\$)?[A-Za-z]|%\d+|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g,
 )].map(([token]) => token).sort();
 const tags = value => [...value.matchAll(/<\/?[A-Za-z][^>]*>/g)]
   .map(([tag]) => tag).sort();
@@ -366,3 +366,23 @@ assert.match(sesotho['card-field-visibility-desc'], /Ha ho data ya karete kapa p
 assert.match(sesotho['card-field-visibility-desc'], /tshwaya hape.*kamoo e neng e behilwe kateng/);
 assert.match(sesotho['subtask-mark-not-done'], /o sa phethwa/);
 assert.match(sesotho['subtask-done-no-permission'], /O ke ke wa fetola/);
+
+const translatedBlocklyControlKeys = ["blockly-CANNOT_DELETE_VARIABLE_PROCEDURE", "blockly-CHANGE_VALUE_TITLE", "blockly-CLEAN_UP", "blockly-CLOSE_BACKPACK", "blockly-COLLAPSED_WARNINGS_WARNING", "blockly-COLLAPSE_ALL", "blockly-COLLAPSE_BLOCK", "blockly-COLOUR_BLEND_COLOUR1", "blockly-COLOUR_BLEND_COLOUR2", "blockly-COLOUR_BLEND_RATIO", "blockly-COLOUR_BLEND_TITLE", "blockly-COLOUR_BLEND_TOOLTIP", "blockly-COLOUR_PICKER_TOOLTIP", "blockly-COLOUR_RANDOM_TITLE", "blockly-COLOUR_RANDOM_TOOLTIP", "blockly-COLOUR_RGB_TITLE", "blockly-COLOUR_RGB_TOOLTIP", "blockly-CONTROLS_FLOW_STATEMENTS_OPERATOR_BREAK", "blockly-CONTROLS_FLOW_STATEMENTS_OPERATOR_CONTINUE", "blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_BREAK", "blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_CONTINUE", "blockly-CONTROLS_FLOW_STATEMENTS_WARNING", "blockly-CONTROLS_FOREACH_TITLE", "blockly-CONTROLS_FOREACH_TOOLTIP", "blockly-CONTROLS_FOR_TITLE", "blockly-CONTROLS_FOR_TOOLTIP", "blockly-CONTROLS_IF_ELSEIF_TOOLTIP", "blockly-CONTROLS_IF_ELSE_TOOLTIP", "blockly-CONTROLS_IF_IF_TOOLTIP", "blockly-CONTROLS_IF_MSG_ELSE", "blockly-CONTROLS_IF_MSG_ELSEIF", "blockly-CONTROLS_IF_TOOLTIP_1", "blockly-CONTROLS_IF_TOOLTIP_2", "blockly-CONTROLS_IF_TOOLTIP_3", "blockly-CONTROLS_IF_TOOLTIP_4", "blockly-CONTROLS_REPEAT_TITLE", "blockly-CONTROLS_REPEAT_TOOLTIP", "blockly-CONTROLS_WHILEUNTIL_OPERATOR_UNTIL", "blockly-CONTROLS_WHILEUNTIL_OPERATOR_WHILE", "blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL", "blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE", "blockly-COPY_ALL_TO_BACKPACK", "blockly-COPY_SHORTCUT", "blockly-COPY_TO_BACKPACK", "blockly-CURRENT_BLOCK_ANNOUNCEMENT", "blockly-CUT_SHORTCUT", "blockly-DELETE_ALL_BLOCKS", "blockly-DELETE_BLOCK", "blockly-DELETE_VARIABLE", "blockly-DELETE_VARIABLE_CONFIRMATION", "blockly-DELETE_X_BLOCKS", "blockly-DISABLE_BLOCK", "blockly-DUPLICATE_BLOCK", "blockly-DUPLICATE_COMMENT", "blockly-EDIT_BLOCK_CONTENTS", "blockly-EMPTY_BACKPACK", "blockly-ENABLE_BLOCK", "blockly-EXPAND_ALL", "blockly-EXPAND_BLOCK", "blockly-EXTERNAL_INPUTS", "blockly-FIELD_BITMAP_ARIA_VALUE", "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR", "blockly-FIELD_BITMAP_BUTTON_LABEL_RANDOMIZE", "blockly-FIELD_BITMAP_PIXEL_LABEL", "blockly-FIELD_BITMAP_PIXEL_OFF", "blockly-FIELD_LABEL_EDIT_PREFIX", "blockly-FIELD_LABEL_EMPTY", "blockly-FIELD_LABEL_OPTION_INDEX", "blockly-FIELD_LABEL_VARIABLE", "blockly-FIELD_MULTILINEINPUT_FINISH_EDITING", "blockly-FIELD_MULTILINEINPUT_NEW_LINE", "blockly-HELP_PROMPT", "blockly-ICON_LABEL_COMMENT_CLOSED", "blockly-ICON_LABEL_COMMENT_OPEN", "blockly-ICON_LABEL_MUTATOR_CLOSED"];
+for (const key of translatedBlocklyControlKeys) {
+  assert.notEqual(sesotho[key], english[key], `${key}: no English placeholder`);
+  assert.deepEqual(tokens(sesotho[key]), tokens(english[key]), key);
+}
+assert.deepEqual(tokens('boloko %1, %2, %1'), ['%1', '%1', '%2']);
+assert.notDeepEqual(tokens('%1'), tokens('%2'));
+assert.notDeepEqual(tokens('%1'), tokens('%1 %1'));
+assert.match(sesotho['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL'], /e se nnete/);
+assert.match(sesotho['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE'], /e le nnete/);
+assert.match(sesotho['blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_BREAK'], /^Tswa potolohong/);
+assert.match(sesotho['blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_CONTINUE'], /Tlola tse setseng.*phetapheto e latelang/);
+assert.match(sesotho['blockly-CONTROLS_FLOW_STATEMENTS_WARNING'], /feela ka hare ho potoloho/);
+assert.match(sesotho['blockly-COLOUR_BLEND_TOOLTIP'], /0.0 - 1.0/);
+assert.match(sesotho['blockly-COLOUR_RGB_TOOLTIP'], /pakeng tsa 0 le 100/);
+assert.deepEqual(tokens(sesotho['blockly-CONTROLS_FOR_TITLE']), ['%1', '%2', '%3', '%4']);
+assert.match(sesotho['blockly-CANNOT_DELETE_VARIABLE_PROCEDURE'], /Ha ho kgonehe ho hlakola.*karolo ya tlhaloso/);
+
+for (const key of ["blockly-ALT_KEY", "blockly-BACKSPACE_KEY", "blockly-CAPS_LOCK_KEY", "blockly-COMMAND_KEY", "blockly-CONTEXT_MENU_KEY", "blockly-CONTROL_KEY", "blockly-END_KEY", "blockly-ENTER_KEY", "blockly-ESCAPE", "blockly-HOME_KEY", "blockly-INSERT_KEY", "blockly-OPTION_KEY", "blockly-PAGE_DOWN_KEY", "blockly-PAGE_UP_KEY", "blockly-PAUSE_KEY", "blockly-SHIFT_KEY", "blockly-SPACE_KEY", "blockly-TAB_KEY"]) assert.equal(sesotho[key], english[key], key);
