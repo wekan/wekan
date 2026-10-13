@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican Trello import and cancellation controls — 2026-10-13
+
+Commit `b03a4afca6` repairs 43 values in the source-ordered review through
+key 949. ZIP guidance retains multiple boards, per-board attachment
+folders and distinct count, size and unsafe-path failures. Timeout wording
+retains interruption, retry and both possible causes. Cancellation with
+deletion applies to boards already imported by this job and retains the
+irreversibility warning. Member mapping retains assignment of unmapped
+members to the current user. Existing correct wording is preserved.
+
+The Corsican and full repair-ledger suites pass; the ledger contains
+25,773 guarded corrections. All 21 human-preference checks pass. A new
+Trello import browser case registers and checks instructions, ZIP guidance,
+optional workspace placement, mapping controls and empty file inputs.
+It has not run against the application. Exact comparison preserves all
+38,430 protected Chinese values and limits this locale batch to the 43
+reviewed replacements. Broader language review remains unfinished.
+
 ## Corsican filtering and importer guidance — 2026-10-13
 
 Commit `8b9c88ba25` repairs 28 values in the source-ordered review through

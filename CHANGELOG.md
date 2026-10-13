@@ -1731,6 +1731,19 @@ Existing Chinese text is unchanged; broader language review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b03a4afca6">Correct Corsican Trello imports and cancellation messages</a>. Thanks to xet7.</summary>
+
+Repair 43 import, workspace, member-mapping and cancellation values. Keep
+ZIP size/count/path errors distinct and limit irreversible deletion to
+boards imported by the current job. Preserve optional workspace placement.
+
+The Corsican and repair-ledger suites and 21 human-preference checks pass.
+A Trello import browser case registers; runtime execution remains pending.
+Existing Chinese text is unchanged; broader language review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
