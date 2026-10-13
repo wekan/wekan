@@ -635,14 +635,12 @@ Upcoming as it is committed. Builds run on GitHub Actions only.
 
 # Upcoming WeKan ® release
 
-**In short:** on every platform a board can be **exported to Trello**
-through its API, with **swimlanes** kept as labels that WeKan's Trello import
-turns back into swimlanes; on **Sandstorm**, the **Powerbox** lets a grain
-reach Trello. **FreeBSD** Bun bundles, the **Launchpad snap** waits and the
-**Mac apps** release step are fixed. Missing Bengali, Marathi, Nepali and
-Tamil, Thai, Kannada, Urdu, Malayalam, Azerbaijani and Latin Uzbek strings
-are filled. Wrong-language values and Azerbaijani and Uzbek terminology
-are corrected.
+**In short:** **email to card** arrives on every platform, through provider
+webhooks, **IMAP** mailboxes or a **Sandstorm** grain's own address, which
+also sends WeKan's email. A board can be **exported to Trello** with its
+**swimlanes** kept as labels, and a grain reaches Trello through the
+**Powerbox**. **FreeBSD** Bun bundles, the **Launchpad snap** and the **Mac
+apps** step are fixed, and many languages are filled and corrected.
 
 This release adds the following new features:
 
@@ -680,6 +678,34 @@ proxy keeps for itself), so the import counts them as left out.
 `tests/sandstormApiEgress.test.mjs` checks the Powerbox descriptor, the claim
 and the proxied requests against a fake bridge, and `tests/relayBleed.test.cjs`
 that no download leaves a grain. Not yet tried in a live Sandstorm grain.
+
+</details>
+
+**Email** - email into cards, set up in Notification Settings.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/988b177e59">An email to your board address becomes a card, on every platform</a>. Thanks to xet7.</summary>
+
+Each member has a private address for each board, `board+<token>@<domain>`;
+**New address** replaces it. The subject is the title, the body is the
+description (quoted replies left out, HTML as text) under a From line, and the
+attachments are attached, no SVG, as for uploads. The card is the address
+member's, never the From address's, and they must still have write access when
+the email arrives; a reply to a card's conversation (`In-Reply-To` /
+`References`) becomes a comment on it. **Notification Settings** at three
+levels: the Admin Panel turns it on and is the only place for the domain, the
+webhook secret and the IMAP mailboxes with their passwords, which never leave
+the server; a board admin turns the board on and picks its list and swimlane;
+board and member choose which parts of an email are used. Mail arrives by
+`POST /api/inbound-email` (Mailgun, SendGrid, Postmark, forms, multipart, raw
+MIME), by IMAP (imapflow and mailparser, one replica polling under a database
+lease), or on **Sandstorm** at the grain's own address, read from its Maildir,
+with a member's board token in the subject; a grain also sends WeKan's email
+through Sandstorm, as it has no network. Unknown addresses, wrong secrets and
+floods show in Admin Panel → Problems. See
+[Email to card](docs/Features/Email/Email-To-Card.md);
+`tests/emailToCard.test.cjs` covers the settings, the payloads, the capnp email
+and the guards.
 
 </details>
 
