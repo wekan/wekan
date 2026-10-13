@@ -1463,6 +1463,20 @@ unchanged, and broader Corsican wording review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f7e256b997">Correct Corsican activity notification wording</a>. Thanks to xet7.</summary>
+
+Replace 39 mixed-language notification values with Corsican attachment,
+checklist, custom-field, membership and card-movement wording. Preserve
+source placeholders, including their case, and movement direction.
+
+The Corsican suite, full repair-ledger suite and 21 human-preference checks
+pass. A notification-drawer browser case registers but has not run against
+the application. Existing protected Chinese values remain unchanged;
+broader language review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

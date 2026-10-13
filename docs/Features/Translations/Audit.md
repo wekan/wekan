@@ -2,6 +2,27 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican activity notification wording — 2026-10-13
+
+Commit `f7e256b997` corrects 39 notification values containing Italian or
+English fragments. Explicit Corsican text replaces attachment, checklist,
+custom-field and swimlane terms, alongside membership, import, restore and
+movement actions. Exact repair entries bring the ledger to 25,233 rows.
+Checks preserve source token spelling and case, including `__checkList__`,
+and retain source/destination order and completed/uncompleted distinctions.
+
+Both the Corsican suite and full repair-ledger suite pass; all 21
+human-preference checks pass. Source inspection confirms the server and
+clear notification drawer use these `act-*` keys. A new drawer browser case
+registers and checks Corsican card creation without English swimlane text
+or raw tokens; it has not executed against the application.
+
+The final guarded comparison preserves all 38,385 Chinese values present
+in the current parent revision, including concurrent additions committed
+during this work. Only the 39 specified Corsican values changed in this
+batch. The filtered backlog is unaffected by these repairs to non-English
+values; many older Corsican strings still need review.
+
 ## Corsican mixed-language activity messages — 2026-10-13
 
 Commit `e3c22d9e92` replaces 22 Italian or mixed-language activity values
