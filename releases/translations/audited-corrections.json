@@ -184441,5 +184441,446 @@
     "before": "Template stringa",
     "after": "Mudellu di stringa",
     "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "custom-field-stringtemplate-separator",
+    "before": "Separatore (usa &#32; o &nbsp; per uno spaziu)",
+    "after": "Siparatore (aduprate &#32; o &nbsp; per un spaziu)",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "creator-on-minicard",
+    "before": "Creatore su minicard",
+    "after": "Creatore nant’à a minicarta",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "filesReportTitle",
+    "before": "Report schedariu",
+    "after": "Raportu di i schedarii",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "filename-invisible-legend",
+    "before": "Rosso: il nome del schedariu contiene caratteri invisibili",
+    "after": "Rossu: u nome di u schedariu cuntene caratteri invisibili",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "reports",
+    "before": "Segnalazioni",
+    "after": "Raporti",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "securityReportTitle",
+    "before": "Sicurità",
+    "after": "Raportu di sicurità",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "cpuReportTitle",
+    "before": "Utilizzo di a CPU",
+    "after": "Usu di a CPU",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "databaseReportTitle",
+    "before": "Problemi del database",
+    "after": "Prublemi di a basa di dati",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "new-problems",
+    "before": "nuovi problemi",
+    "after": "prublemi novi",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "rulesReportTitle",
+    "before": "Report regole",
+    "after": "Raportu di e regule",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "boardsReportTitle",
+    "before": "Report tavule",
+    "after": "Raportu di e tavule",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "cardsReportTitle",
+    "before": "Report carte",
+    "after": "Raportu di e carte",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "impersonation-user",
+    "before": "Utilizatore impersonificato",
+    "after": "Utilizatore cù l’identità di quale si hè cunnessu",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "recoveryReportTitle",
+    "before": "Ripristino",
+    "after": "Ricuperazione",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "office-report-desc",
+    "before": "Da dove accedono le persone, raggruppato per persona. Ogni indirizzo IPv4 o IPv6 mustrà il paese, la città e il numero di accessi riusciti disponibili.",
+    "after": "Da induve si cunnettanu e persone, raggruppate per persona. Ogni indirizzu IPv4 o IPv6 mostra u paese, a cità è u numeru di cunnessioni riesciute dispunibuli.",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "office-location",
+    "before": "Posizione",
+    "after": "Pusizione",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "office-address",
+    "before": "Indirizzo",
+    "after": "Indirizzu",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "office-logins",
+    "before": "Accessi",
+    "after": "Cunnessioni",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "office-first-seen",
+    "before": "Visto la prima volta",
+    "after": "Vistu a prima volta",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "office-last-seen",
+    "before": "Visto l'ultima volta",
+    "after": "Vistu l’ultima volta",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "office-shared",
+    "before": "Condiviso",
+    "after": "Spartutu",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "office-no-results",
+    "before": "Nimu ha ancora effettuato l'accesso oppure non è stato registrato alcun accesso.",
+    "after": "Nimu ùn si hè ancu cunnessu, o nisuna cunnessione hè stata arregistrata.",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "apiReportTitle",
+    "before": "In corsu: API",
+    "after": "API",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "api-report-desc",
+    "before": "Quali punti terminali REST API vengono usati, da chi e cù quale frequenza. Una riga per account e punto terminale, cù l'intervallo temporale coperto; mai una riga per richiesta.",
+    "after": "Quali punti d’accessu di l’API REST sò aduprati, da quale è quantu spessu. Una linea per contu è puntu d’accessu, cù u periodu cupertu; mai una linea per dumanda.",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "api-endpoint",
+    "before": "In corsu: API",
+    "after": "API",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "api-calls",
+    "before": "Chiamate",
+    "after": "Chjame",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "api-first-called",
+    "before": "Prima chiamata",
+    "after": "Prima chjama",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "api-last-called",
+    "before": "Ultima chiamata",
+    "after": "Ultima chjama",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "recovery-report-desc",
+    "before": "Azioni automatiche di sicurità e ripristino dei dati: rilevamento di a corruzione, backup dei dati testuali, ripristini, nova migrazione da MongoDB e riparazione automatica di un database sovradimensionato.",
+    "after": "Azzioni autumatiche di prutezzione è di riparazione di i dati: rilevamentu di curruzzione, copie di salvezza di i dati testuali, risturazioni, nova migrazione da MongoDB è riparazione autumatica d’una basa di dati ingrandata troppu.",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "recovery-event",
+    "before": "Evento",
+    "after": "Evenimentu",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "recovery-detail",
+    "before": "Dettaglio",
+    "after": "Ditagliu",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "recovery-maintenance-title",
+    "before": "Ripristino dei tuoi dati",
+    "after": "Ricuperazione di i vostri dati",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "reason",
+    "before": "Motivo",
+    "after": "Ragione",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "copy-swimlane",
+    "before": "Cupià swimlane",
+    "after": "Cupià a corsia",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "copySwimlanePopup-title",
+    "before": "Cupià swimlane",
+    "after": "Cupià a corsia",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "display-card-creator",
+    "before": "Mustrà il creatore di a carta",
+    "after": "Mustrà u creatore di a carta",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "wait-spinner",
+    "before": "Spinner di attesa",
+    "after": "Indicatore d’attesa",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "Bounce",
+    "before": "Spinner di attesa Bounce",
+    "after": "Indicatore d’attesa Bounce",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "Cube",
+    "before": "Spinner di attesa Cube",
+    "after": "Indicatore d’attesa Cube",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "Dot",
+    "before": "Spinner di attesa Dot",
+    "after": "Indicatore d’attesa Dot",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "Wave",
+    "before": "Spinner di attesa Wave",
+    "after": "Indicatore d’attesa Wave",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "maximize-card",
+    "before": "Massimizza carta",
+    "after": "Ingrandà a carta",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "minimize-card",
+    "before": "Minimizza carta",
+    "after": "Riduce a carta",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "subject",
+    "before": "Soggetto",
+    "after": "Ughjettu",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "details",
+    "before": "Dettagli",
+    "after": "Ditaglii",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "carbon-copy",
+    "before": "Cupià Conoscenza (Cc:)",
+    "after": "Copia per cunniscenza (Cc:)",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "ticket",
+    "before": "Richiesta di assistenza",
+    "after": "Dumanda d’assistenza",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "tickets",
+    "before": "Ticket",
+    "after": "Dumande d’assistenza",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "ticket-number",
+    "before": "Numero ticket",
+    "after": "Numeru di a dumanda d’assistenza",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "pending",
+    "before": "In sospeso",
+    "after": "In attesa",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "closed",
+    "before": "Chiuso",
+    "after": "Chjosu",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "resolved",
+    "before": "Risolto",
+    "after": "Risoltu",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "cancelled",
+    "before": "Annullato",
+    "after": "Annullatu",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "history-change-moved",
+    "before": "Spostato",
+    "after": "Spostatu",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "history-change-restored",
+    "before": "Ripristinato",
+    "after": "Risturatu",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "request",
+    "before": "Richiesta",
+    "after": "Dumanda",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "requests",
+    "before": "Richieste",
+    "after": "Dumande",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "help-request",
+    "before": "Richiesta aiuto",
+    "after": "Dumanda d’aiutu",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "editCardSortOrderPopup-title",
+    "before": "Mudificà ordinamento",
+    "after": "Mudificà l’urdinamentu",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "cardDetailsPopup-title",
+    "before": "Dettagli carta",
+    "after": "Ditaglii di a carta",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "add-teams",
+    "before": "Aghjunghje team",
+    "after": "Aghjunghje squadre",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "filter-card-title-label",
+    "before": "Filtra per titulu carta",
+    "after": "Filtrà per titulu di a carta",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "invite-people-error",
+    "before": "Errore durante l'invio di i inviti di registrazione",
+    "after": "Errore mentre si mandava l’invitu à registrà si",
+    "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
   }
 ]

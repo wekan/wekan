@@ -580,3 +580,15 @@ assert.match(corsican['globalSearch-instructions-operator-has'], /`has:-due`.*se
 assert.match(corsican['globalSearch-instructions-notes-2'], /\*OR\*.*almenu una/);
 assert.match(corsican['globalSearch-instructions-notes-4'], /ùn distinguenu micca.*maiuscule.*minuscule/);
 assert.match(corsican['import-dependencies-empty'], /tavula.*almenu una linea/);
+
+const reportTicketCorrectionKeys = ["custom-field-stringtemplate-separator", "creator-on-minicard", "filesReportTitle", "filename-invisible-legend", "reports", "securityReportTitle", "cpuReportTitle", "databaseReportTitle", "new-problems", "rulesReportTitle", "boardsReportTitle", "cardsReportTitle", "impersonation-user", "recoveryReportTitle", "office-report-desc", "office-location", "office-address", "office-logins", "office-first-seen", "office-last-seen", "office-shared", "office-no-results", "apiReportTitle", "api-report-desc", "api-endpoint", "api-calls", "api-first-called", "api-last-called", "recovery-report-desc", "recovery-event", "recovery-detail", "recovery-maintenance-title", "reason", "copy-swimlane", "copySwimlanePopup-title", "display-card-creator", "wait-spinner", "Bounce", "Cube", "Dot", "Wave", "maximize-card", "minimize-card", "subject", "details", "carbon-copy", "ticket", "tickets", "ticket-number", "pending", "closed", "resolved", "cancelled", "history-change-moved", "history-change-restored", "request", "requests", "help-request", "editCardSortOrderPopup-title", "cardDetailsPopup-title", "add-teams", "filter-card-title-label", "invite-people-error"];
+for (const key of reportTicketCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /In corsu:|su minicard|Rosso: il|Utilizzo|nuovi problemi|Report regole|impersonificato|Ripristino|Da dove|vengono usati|mai una riga|dei dati|Spinner di attesa|Richiesta|Chiuso|Annullato|Ripristinato|Dettagli carta|invio di/, key);
+}
+for (const key of ['apiReportTitle', 'api-endpoint']) assert.equal(corsican[key], 'API');
+assert.match(corsican['custom-field-stringtemplate-separator'], /&#32;.*&nbsp;/);
+assert.match(corsican['office-report-desc'], /per persona.*IPv4.*IPv6.*paese.*cità.*cunnessioni riesciute/);
+assert.match(corsican['api-report-desc'], /Una linea per contu.*puntu d’accessu.*mai una linea per dumanda/);
+assert.match(corsican['recovery-report-desc'], /copie di salvezza.*risturazioni.*MongoDB.*riparazione autumatica/);
+assert.match(corsican['carbon-copy'], /\(Cc:\)/);
