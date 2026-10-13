@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin scheduling and cloud storage — 2026-10-14
+
+Commit `8cf28c4464` repairs 52 scheduled-job and cloud storage entries. Checks
+retain scheduling versus completion, successful versus failed actions, retrying
+failed migrations versus resuming paused ones, optional Azure connection strings
+and literal cloud service names. Filesystem enabled/disabled states stay distinct.
+
+Three translation suites pass with 28,943 correction ledger entries. All 21
+human-preference checks pass, and exact comparison preserves 38,430 existing
+Chinese values. Azure browser coverage checks the translated connection-string
+explanation and password input; syntax and discovery pass, runtime is pending.
+
+There remain 444 Latin values containing “Latine:”. Unprefixed values and other
+languages still require semantic review; all-language verification is unfinished.
+
 ## Latin support and lockout controls — 2026-10-14
 
 Commit `08137b1d4a` repairs 50 support, accessibility, lockout, scheduling and
