@@ -3078,7 +3078,7 @@
   "move-reason": "Kartı köçürün — Təsvir",
   "ask-move-reason": "Kartı köçürün → Təsvir?",
   "time-adjustments": "saat — Δ — İstifadəçi adı",
-  "time-adjustment-note": "Tarix: Δ saat; İstifadəçi adı ≠ Təyin edilmiş şəxslər.",
+  "time-adjustment-note": "Qeydə alınmış saatlardakı dəyişikliklər ümumi məbləği redaktə edən şəxsə görə qruplaşdırılır. Bunlar ayrı-ayrı iş sessiyaları deyil. Mənfi dəyərlər düzəlişlərdir. Əvvəllər qeydə alınmamış vaxtı hər hansı şəxsə aid etmək mümkün deyil.",
   "blockly-ADD_COMMENT": "Şərh əlavə et",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Daha çox sürüşdürmək mümkün deyil.",

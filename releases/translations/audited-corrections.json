@@ -174942,5 +174942,383 @@
     "before": "Tarix: Δ soat; Foydalanuvchi nomi ≠ Tayinlovchilar.",
     "after": "Qayd etilgan soatlardagi oʻzgarishlar jami qiymatni tahrirlagan shaxs boʻyicha guruhlangan. Bular alohida ish seanslari emas. Manfiy qiymatlar tuzatishlardir. Avval qayd etilmagan vaqtni biror shaxsga bogʻlab boʻlmaydi.",
     "reason": "Restore the full source meaning: total edits are grouped by editor, not individual work sessions; negative amounts are corrections and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "sv",
+    "key": "time-adjustment-note",
+    "before": "Historik: Δ timmar; Användarnamn ≠ Tilldelade.",
+    "after": "Ändringar av registrerade timmar, grupperade efter personen som ändrar totalsumman. Detta är inte enskilda arbetspass. Negativa värden är korrigeringar. Tid som inte registrerats tidigare kan inte tillskrivas någon.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "nb",
+    "key": "time-adjustment-note",
+    "before": "Historikk: Δ timer; Brukernavn ≠ Tildelte.",
+    "after": "Endringer i registrerte timer, gruppert etter personen som endrer totalsummen. Dette er ikke individuelle arbeidsøkter. Negative verdier er korrigeringer. Tid som ikke tidligere er registrert, kan ikke tilskrives noen.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "da",
+    "key": "time-adjustment-note",
+    "before": "Historik: Δ timer; Brugernavn ≠ Tildelte.",
+    "after": "Ændringer i registrerede timer, grupperet efter den person, der ændrer det samlede antal. Dette er ikke individuelle arbejdsperioder. Negative værdier er rettelser. Tid, der ikke tidligere er registreret, kan ikke tilskrives nogen.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "de",
+    "key": "time-adjustment-note",
+    "before": "Verlauf: Δ Stunden; Benutzername ≠ Zugewiesene.",
+    "after": "Änderungen an erfassten Stunden, gruppiert nach der Person, die die Gesamtsumme bearbeitet. Dies sind keine einzelnen Arbeitssitzungen. Negative Werte sind Korrekturen. Zuvor nicht erfasste Zeit kann keiner Person zugeordnet werden.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "de-AT",
+    "key": "time-adjustment-note",
+    "before": "Verlauf: Δ Stunden; Benutzername ≠ Zugewiesene.",
+    "after": "Änderungen an erfassten Stunden, gruppiert nach der Person, die die Gesamtsumme bearbeitet. Dies sind keine einzelnen Arbeitssitzungen. Negative Werte sind Korrekturen. Zuvor nicht erfasste Zeit kann keiner Person zugeordnet werden.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "de-CH",
+    "key": "time-adjustment-note",
+    "before": "Verlauf: Δ Stunden; Benutzername ≠ Zugewiesene.",
+    "after": "Änderungen an erfassten Stunden, gruppiert nach der Person, die die Gesamtsumme bearbeitet. Dies sind keine einzelnen Arbeitssitzungen. Negative Werte sind Korrekturen. Zuvor nicht erfasste Zeit kann keiner Person zugeordnet werden.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "de_DE",
+    "key": "time-adjustment-note",
+    "before": "Verlauf: Δ Stunden; Benutzername ≠ Zugewiesene.",
+    "after": "Änderungen an erfassten Stunden, gruppiert nach der Person, die die Gesamtsumme bearbeitet. Dies sind keine einzelnen Arbeitssitzungen. Negative Werte sind Korrekturen. Zuvor nicht erfasste Zeit kann keiner Person zugeordnet werden.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "fr",
+    "key": "time-adjustment-note",
+    "before": "Historique: Δ heures; Nom d'utilisateur ≠ Intervenants.",
+    "after": "Modifications des heures enregistrées, regroupées par personne ayant modifié le total. Il ne s’agit pas de sessions de travail individuelles. Les valeurs négatives sont des corrections. Le temps antérieur non enregistré ne peut être attribué à personne.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "fr-FR",
+    "key": "time-adjustment-note",
+    "before": "Historique: Δ heures; Nom d'utilisateur ≠ Intervenants.",
+    "after": "Modifications des heures enregistrées, regroupées par personne ayant modifié le total. Il ne s’agit pas de sessions de travail individuelles. Les valeurs négatives sont des corrections. Le temps antérieur non enregistré ne peut être attribué à personne.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "fr-BE",
+    "key": "time-adjustment-note",
+    "before": "Historique: Δ heures; Nom d'utilisateur ≠ Intervenants.",
+    "after": "Modifications des heures enregistrées, regroupées par personne ayant modifié le total. Il ne s’agit pas de sessions de travail individuelles. Les valeurs négatives sont des corrections. Le temps antérieur non enregistré ne peut être attribué à personne.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "fr-CA",
+    "key": "time-adjustment-note",
+    "before": "Historique: Δ heures; Nom d'utilisateur ≠ Intervenants.",
+    "after": "Modifications des heures enregistrées, regroupées par personne ayant modifié le total. Il ne s’agit pas de sessions de travail individuelles. Les valeurs négatives sont des corrections. Le temps antérieur non enregistré ne peut être attribué à personne.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "fr-CH",
+    "key": "time-adjustment-note",
+    "before": "Historique: Δ heures; Nom d'utilisateur ≠ Intervenants.",
+    "after": "Modifications des heures enregistrées, regroupées par personne ayant modifié le total. Il ne s’agit pas de sessions de travail individuelles. Les valeurs négatives sont des corrections. Le temps antérieur non enregistré ne peut être attribué à personne.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "es",
+    "key": "time-adjustment-note",
+    "before": "Historial: Δ horas; Nombre de usuario ≠ Asignados.",
+    "after": "Cambios en las horas registradas, agrupados por la persona que modifica el total. No son sesiones de trabajo individuales. Los valores negativos son correcciones. El tiempo anterior que no se haya registrado no se puede atribuir a ninguna persona.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "es-AR",
+    "key": "time-adjustment-note",
+    "before": "Historial: Δ horas; Nombre de usuario ≠ Asignados.",
+    "after": "Cambios en las horas registradas, agrupados por la persona que modifica el total. No son sesiones de trabajo individuales. Los valores negativos son correcciones. El tiempo anterior que no se haya registrado no se puede atribuir a ninguna persona.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "es-CL",
+    "key": "time-adjustment-note",
+    "before": "Historial: Δ horas; Nombre de usuario ≠ Asignados.",
+    "after": "Cambios en las horas registradas, agrupados por la persona que modifica el total. No son sesiones de trabajo individuales. Los valores negativos son correcciones. El tiempo anterior que no se haya registrado no se puede atribuir a ninguna persona.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "es-CO",
+    "key": "time-adjustment-note",
+    "before": "Historial: Δ horas; Nombre de usuario ≠ Asignados.",
+    "after": "Cambios en las horas registradas, agrupados por la persona que modifica el total. No son sesiones de trabajo individuales. Los valores negativos son correcciones. El tiempo anterior que no se haya registrado no se puede atribuir a ninguna persona.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "es-LA",
+    "key": "time-adjustment-note",
+    "before": "Historial: Δ horas; Nombre de usuario ≠ Asignados.",
+    "after": "Cambios en las horas registradas, agrupados por la persona que modifica el total. No son sesiones de trabajo individuales. Los valores negativos son correcciones. El tiempo anterior que no se haya registrado no se puede atribuir a ninguna persona.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "es-MX",
+    "key": "time-adjustment-note",
+    "before": "Historial: Δ horas; Nombre de usuario ≠ Asignados.",
+    "after": "Cambios en las horas registradas, agrupados por la persona que modifica el total. No son sesiones de trabajo individuales. Los valores negativos son correcciones. El tiempo anterior que no se haya registrado no se puede atribuir a ninguna persona.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "es-PE",
+    "key": "time-adjustment-note",
+    "before": "Historial: Δ horas; Nombre de usuario ≠ Asignados.",
+    "after": "Cambios en las horas registradas, agrupados por la persona que modifica el total. No son sesiones de trabajo individuales. Los valores negativos son correcciones. El tiempo anterior que no se haya registrado no se puede atribuir a ninguna persona.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "es-PY",
+    "key": "time-adjustment-note",
+    "before": "Historial: Δ horas; Nombre de usuario ≠ Asignados.",
+    "after": "Cambios en las horas registradas, agrupados por la persona que modifica el total. No son sesiones de trabajo individuales. Los valores negativos son correcciones. El tiempo anterior que no se haya registrado no se puede atribuir a ninguna persona.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "es_CO",
+    "key": "time-adjustment-note",
+    "before": "Historial: Δ horas; Nombre de usuario ≠ Asignados.",
+    "after": "Cambios en las horas registradas, agrupados por la persona que modifica el total. No son sesiones de trabajo individuales. Los valores negativos son correcciones. El tiempo anterior que no se haya registrado no se puede atribuir a ninguna persona.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "pt",
+    "key": "time-adjustment-note",
+    "before": "Histórico: Δ horas; Nome de utilizador ≠ Administradores.",
+    "after": "Alterações nas horas registadas, agrupadas pela pessoa que altera o total. Não são sessões de trabalho individuais. Os valores negativos são correções. O tempo anterior não registado não pode ser atribuído a ninguém.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "pt-PT",
+    "key": "time-adjustment-note",
+    "before": "Histórico: Δ horas; Nome de utilizador ≠ Administradores.",
+    "after": "Alterações nas horas registadas, agrupadas pela pessoa que altera o total. Não são sessões de trabalho individuais. Os valores negativos são correções. O tempo anterior não registado não pode ser atribuído a ninguém.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "time-adjustment-note",
+    "before": "Histórico: Δ horas; Nome de utilizador ≠ Administradores.",
+    "after": "Alterações nas horas registadas, agrupadas pela pessoa que altera o total. Não são sessões de trabalho individuais. Os valores negativos são correções. O tempo anterior não registado não pode ser atribuído a ninguém.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "it",
+    "key": "time-adjustment-note",
+    "before": "Cronologia: Δ ore; Nome utente ≠ Assegnatari.",
+    "after": "Modifiche alle ore registrate, raggruppate per persona che modifica il totale. Non si tratta di singole sessioni di lavoro. I valori negativi sono correzioni. Il tempo precedente non registrato non può essere attribuito a nessuno.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "nl",
+    "key": "time-adjustment-note",
+    "before": "Historie: Δ uren; Gebruikersnaam ≠ Toegewezen personen.",
+    "after": "Wijzigingen in geregistreerde uren, gegroepeerd op de persoon die het totaal aanpast. Dit zijn geen afzonderlijke werksessies. Negatieve waarden zijn correcties. Eerdere niet-geregistreerde tijd kan niet aan iemand worden toegeschreven.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "nl-NL",
+    "key": "time-adjustment-note",
+    "before": "Historie: Δ uren; Gebruikersnaam ≠ Toegewezen personen.",
+    "after": "Wijzigingen in geregistreerde uren, gegroepeerd op de persoon die het totaal aanpast. Dit zijn geen afzonderlijke werksessies. Negatieve waarden zijn correcties. Eerdere niet-geregistreerde tijd kan niet aan iemand worden toegeschreven.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "pl",
+    "key": "time-adjustment-note",
+    "before": "Historia: Δ godzin; Nazwa użytkownika ≠ Przypisani.",
+    "after": "Zmiany zarejestrowanych godzin, pogrupowane według osoby edytującej łączny czas. Nie są to pojedyncze sesje pracy. Wartości ujemne są korektami. Wcześniejszego niezarejestrowanego czasu nie można przypisać żadnej osobie.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "pl-PL",
+    "key": "time-adjustment-note",
+    "before": "Historia: Δ godzin; Nazwa użytkownika ≠ Przypisani.",
+    "after": "Zmiany zarejestrowanych godzin, pogrupowane według osoby edytującej łączny czas. Nie są to pojedyncze sesje pracy. Wartości ujemne są korektami. Wcześniejszego niezarejestrowanego czasu nie można przypisać żadnej osobie.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "cs",
+    "key": "time-adjustment-note",
+    "before": "Historie: Δ hodin; Uživatelské jméno ≠ Řešitelé.",
+    "after": "Změny zaznamenaných hodin, seskupené podle osoby, která upravuje celkový čas. Nejde o jednotlivé pracovní úseky. Záporné hodnoty jsou opravy. Dřívější nezaznamenaný čas nelze nikomu přiřadit.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "cs-CZ",
+    "key": "time-adjustment-note",
+    "before": "Historie: Δ hodin; Uživatelské jméno ≠ Řešitelé.",
+    "after": "Změny zaznamenaných hodin, seskupené podle osoby, která upravuje celkový čas. Nejde o jednotlivé pracovní úseky. Záporné hodnoty jsou opravy. Dřívější nezaznamenaný čas nelze nikomu přiřadit.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "ru",
+    "key": "time-adjustment-note",
+    "before": "История: Δ часы; Имя пользователя ≠ Исполнители.",
+    "after": "Изменения записанных часов, сгруппированные по пользователю, изменившему итог. Это не отдельные рабочие сеансы. Отрицательные значения — исправления. Ранее неучтённое время нельзя отнести к какому-либо пользователю.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "ru_RU",
+    "key": "time-adjustment-note",
+    "before": "История: Δ часы; Имя пользователя ≠ Исполнители.",
+    "after": "Изменения записанных часов, сгруппированные по пользователю, изменившему итог. Это не отдельные рабочие сеансы. Отрицательные значения — исправления. Ранее неучтённое время нельзя отнести к какому-либо пользователю.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "ru-UA",
+    "key": "time-adjustment-note",
+    "before": "История: Δ часы; Имя пользователя ≠ Исполнители.",
+    "after": "Изменения записанных часов, сгруппированные по пользователю, изменившему итог. Это не отдельные рабочие сеансы. Отрицательные значения — исправления. Ранее неучтённое время нельзя отнести к какому-либо пользователю.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "uk",
+    "key": "time-adjustment-note",
+    "before": "Історія: Δ години; Ім'я користувача ≠ Виконавці.",
+    "after": "Зміни записаних годин, згруповані за особою, яка редагує загальну кількість. Це не окремі робочі сеанси. Від’ємні значення є виправленнями. Раніше незафіксований час не можна приписати жодній особі.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "uk-UA",
+    "key": "time-adjustment-note",
+    "before": "Історія: Δ години; Ім'я користувача ≠ Виконавці.",
+    "after": "Зміни записаних годин, згруповані за особою, яка редагує загальну кількість. Це не окремі робочі сеанси. Від’ємні значення є виправленнями. Раніше незафіксований час не можна приписати жодній особі.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "tr",
+    "key": "time-adjustment-note",
+    "before": "Geçmiş: Δ saat; Kullanıcı adı ≠ Atananlar.",
+    "after": "Kaydedilen saatlerdeki değişiklikler, toplamı düzenleyen kişiye göre gruplandırılır. Bunlar ayrı çalışma oturumları değildir. Negatif değerler düzeltmelerdir. Daha önce kaydedilmemiş süre herhangi bir kişiye atfedilemez.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "az",
+    "key": "time-adjustment-note",
+    "before": "Tarix: Δ saat; İstifadəçi adı ≠ Təyin edilmiş şəxslər.",
+    "after": "Qeydə alınmış saatlardakı dəyişikliklər ümumi məbləği redaktə edən şəxsə görə qruplaşdırılır. Bunlar ayrı-ayrı iş sessiyaları deyil. Mənfi dəyərlər düzəlişlərdir. Əvvəllər qeydə alınmamış vaxtı hər hansı şəxsə aid etmək mümkün deyil.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "az-AZ",
+    "key": "time-adjustment-note",
+    "before": "Tarix: Δ saat; İstifadəçi adı ≠ Təyin edilmiş şəxslər.",
+    "after": "Qeydə alınmış saatlardakı dəyişikliklər ümumi məbləği redaktə edən şəxsə görə qruplaşdırılır. Bunlar ayrı-ayrı iş sessiyaları deyil. Mənfi dəyərlər düzəlişlərdir. Əvvəllər qeydə alınmamış vaxtı hər hansı şəxsə aid etmək mümkün deyil.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "az-LA",
+    "key": "time-adjustment-note",
+    "before": "Tarix: Δ saat; İstifadəçi adı ≠ Təyin edilmiş şəxslər.",
+    "after": "Qeydə alınmış saatlardakı dəyişikliklər ümumi məbləği redaktə edən şəxsə görə qruplaşdırılır. Bunlar ayrı-ayrı iş sessiyaları deyil. Mənfi dəyərlər düzəlişlərdir. Əvvəllər qeydə alınmamış vaxtı hər hansı şəxsə aid etmək mümkün deyil.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "hu",
+    "key": "time-adjustment-note",
+    "before": "Történet: Δ óra; Felhasználónév ≠ Felelősök.",
+    "after": "A rögzített órák változásai az összesített értéket módosító személy szerint csoportosítva. Ezek nem különálló munkamenetek. A negatív értékek korrekciók. A korábban nem rögzített idő nem rendelhető személyhez.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "ro",
+    "key": "time-adjustment-note",
+    "before": "Cronologia: Δ ore; Nombre de usuario ≠ Intervenants.",
+    "after": "Modificări ale orelor înregistrate, grupate după persoana care editează totalul. Acestea nu sunt sesiuni de lucru individuale. Valorile negative sunt corecții. Timpul anterior neînregistrat nu poate fi atribuit unei persoane.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "time-adjustment-note",
+    "before": "Cronologia: Δ ore; Nombre de usuario ≠ Intervenants.",
+    "after": "Modificări ale orelor înregistrate, grupate după persoana care editează totalul. Acestea nu sunt sesiuni de lucru individuale. Valorile negative sunt corecții. Timpul anterior neînregistrat nu poate fi atribuit unei persoane.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "el",
+    "key": "time-adjustment-note",
+    "before": "Ιστορικό: Δ ώρες; Όνομα Χρήστη ≠ Υπεύθυνοι.",
+    "after": "Αλλαγές στις καταγεγραμμένες ώρες, ομαδοποιημένες ανά άτομο που επεξεργάζεται το σύνολο. Δεν πρόκειται για μεμονωμένες περιόδους εργασίας. Οι αρνητικές τιμές είναι διορθώσεις. Ο προηγούμενος μη καταγεγραμμένος χρόνος δεν μπορεί να αποδοθεί σε κάποιο άτομο.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "el-GR",
+    "key": "time-adjustment-note",
+    "before": "Ιστορικό: Δ ώρες; Όνομα Χρήστη ≠ Υπεύθυνοι.",
+    "after": "Αλλαγές στις καταγεγραμμένες ώρες, ομαδοποιημένες ανά άτομο που επεξεργάζεται το σύνολο. Δεν πρόκειται για μεμονωμένες περιόδους εργασίας. Οι αρνητικές τιμές είναι διορθώσεις. Ο προηγούμενος μη καταγεγραμμένος χρόνος δεν μπορεί να αποδοθεί σε κάποιο άτομο.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "ms",
+    "key": "time-adjustment-note",
+    "before": "Sejarah: Δ ja; Nama Pengguna ≠ Penerima Tugas.",
+    "after": "Perubahan pada jam yang direkodkan, dikumpulkan mengikut orang yang menyunting jumlah keseluruhan. Ini bukan sesi kerja individu. Nilai negatif ialah pembetulan. Masa terdahulu yang tidak direkodkan tidak dapat dikaitkan dengan sesiapa.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "ms-MY",
+    "key": "time-adjustment-note",
+    "before": "Sejarah: Δ ja; Nama Pengguna ≠ Penerima Tugas.",
+    "after": "Perubahan pada jam yang direkodkan, dikumpulkan mengikut orang yang menyunting jumlah keseluruhan. Ini bukan sesi kerja individu. Nilai negatif ialah pembetulan. Masa terdahulu yang tidak direkodkan tidak dapat dikaitkan dengan sesiapa.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "vi",
+    "key": "time-adjustment-note",
+    "before": "Sejarah: Δ giờ; Tài khoản ≠ Người được giao.",
+    "after": "Các thay đổi về số giờ đã ghi nhận, được nhóm theo người chỉnh sửa tổng số giờ. Đây không phải là các phiên làm việc riêng lẻ. Giá trị âm là các lần điều chỉnh. Thời gian trước đây chưa được ghi nhận không thể quy cho bất kỳ ai.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "vi-VN",
+    "key": "time-adjustment-note",
+    "before": "Sejarah: Δ giờ; Tài khoản ≠ Người được giao.",
+    "after": "Các thay đổi về số giờ đã ghi nhận, được nhóm theo người chỉnh sửa tổng số giờ. Đây không phải là các phiên làm việc riêng lẻ. Giá trị âm là các lần điều chỉnh. Thời gian trước đây chưa được ghi nhận không thể quy cho bất kỳ ai.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "ja",
+    "key": "time-adjustment-note",
+    "before": "履歴: Δ 時間; ユーザー名 ≠ 担当者.",
+    "after": "記録済みの時間の変更を、合計を編集した人ごとにまとめています。個々の作業セッションを示すものではありません。負の値は修正を表します。過去に記録されなかった時間を特定の人に帰属させることはできません。",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "ja-JP",
+    "key": "time-adjustment-note",
+    "before": "履歴: Δ 時間; ユーザー名 ≠ 担当者.",
+    "after": "記録済みの時間の変更を、合計を編集した人ごとにまとめています。個々の作業セッションを示すものではありません。負の値は修正を表します。過去に記録されなかった時間を特定の人に帰属させることはできません。",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "ko",
+    "key": "time-adjustment-note",
+    "before": "이력: Δ 시간; 아이디 ≠ 담당자.",
+    "after": "기록된 시간의 변경 사항을 합계를 수정한 사람별로 묶어 표시합니다. 개별 작업 세션을 나타내는 것은 아닙니다. 음수 값은 정정 사항입니다. 이전에 기록되지 않은 시간은 특정 사람에게 귀속시킬 수 없습니다.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "ko-KR",
+    "key": "time-adjustment-note",
+    "before": "이력: Δ 시간; 아이디 ≠ 담당자.",
+    "after": "기록된 시간의 변경 사항을 합계를 수정한 사람별로 묶어 표시합니다. 개별 작업 세션을 나타내는 것은 아닙니다. 음수 값은 정정 사항입니다. 이전에 기록되지 않은 시간은 특정 사람에게 귀속시킬 수 없습니다.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "pt-BR",
+    "key": "time-adjustment-note",
+    "before": "Histórico: Δ horas; Nome de usuário ≠ Administradores.",
+    "after": "Alterações nas horas registradas, agrupadas pela pessoa que altera o total. Não são sessões de trabalho individuais. Os valores negativos são correções. O tempo anterior não registrado não pode ser atribuído a ninguém.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
   }
 ]

@@ -3078,7 +3078,7 @@
   "move-reason": "Kartı taşı — Açıklama",
   "ask-move-reason": "Kartı taşı → Açıklama?",
   "time-adjustments": "saat — Δ — Kullanıcı adı",
-  "time-adjustment-note": "Geçmiş: Δ saat; Kullanıcı adı ≠ Atananlar.",
+  "time-adjustment-note": "Kaydedilen saatlerdeki değişiklikler, toplamı düzenleyen kişiye göre gruplandırılır. Bunlar ayrı çalışma oturumları değildir. Negatif değerler düzeltmelerdir. Daha önce kaydedilmemiş süre herhangi bir kişiye atfedilemez.",
   "blockly-ADD_COMMENT": "Yorum Ekle",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Daha fazla kaydırılamıyor.",

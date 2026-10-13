@@ -3078,7 +3078,7 @@
   "move-reason": "Sposta scheda — Descrizione",
   "ask-move-reason": "Sposta scheda → Descrizione?",
   "time-adjustments": "ore — Δ — Nombre de usuario",
-  "time-adjustment-note": "Cronologia: Δ ore; Nombre de usuario ≠ Intervenants.",
+  "time-adjustment-note": "Modificări ale orelor înregistrate, grupate după persoana care editează totalul. Acestea nu sunt sesiuni de lucru individuale. Valorile negative sunt corecții. Timpul anterior neînregistrat nu poate fi atribuit unei persoane.",
   "blockly-ADD_COMMENT": "Adaugă un comentariu",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Nu se poate derula mai departe.",

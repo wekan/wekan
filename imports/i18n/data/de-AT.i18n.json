@@ -3078,7 +3078,7 @@
   "move-reason": "Karte verschieben — Beschreibung",
   "ask-move-reason": "Karte verschieben → Beschreibung?",
   "time-adjustments": "Stunden — Δ — Benutzername",
-  "time-adjustment-note": "Verlauf: Δ Stunden; Benutzername ≠ Zugewiesene.",
+  "time-adjustment-note": "Änderungen an erfassten Stunden, gruppiert nach der Person, die die Gesamtsumme bearbeitet. Dies sind keine einzelnen Arbeitssitzungen. Negative Werte sind Korrekturen. Zuvor nicht erfasste Zeit kann keiner Person zugeordnet werden.",
   "blockly-ADD_COMMENT": "Kommentar hinzufügen",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Weiteres Scrollen ist nicht möglich.",

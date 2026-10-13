@@ -3078,7 +3078,7 @@
   "move-reason": "Di chuyển Thẻ — Mô tả",
   "ask-move-reason": "Di chuyển Thẻ → Mô tả?",
   "time-adjustments": "giờ — Δ — Tài khoản",
-  "time-adjustment-note": "Sejarah: Δ giờ; Tài khoản ≠ Người được giao.",
+  "time-adjustment-note": "Các thay đổi về số giờ đã ghi nhận, được nhóm theo người chỉnh sửa tổng số giờ. Đây không phải là các phiên làm việc riêng lẻ. Giá trị âm là các lần điều chỉnh. Thời gian trước đây chưa được ghi nhận không thể quy cho bất kỳ ai.",
   "blockly-ADD_COMMENT": "Thêm Chú Giải",
   "blockly-ALT_KEY": "Phím Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Không thể cuộn thêm.",

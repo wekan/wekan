@@ -3078,7 +3078,7 @@
   "move-reason": "Déplacer la carte — Texte descriptif",
   "ask-move-reason": "Déplacer la carte → Texte descriptif?",
   "time-adjustments": "heures — Δ — Nom d'utilisateur",
-  "time-adjustment-note": "Historique: Δ heures; Nom d'utilisateur ≠ Intervenants.",
+  "time-adjustment-note": "Modifications des heures enregistrées, regroupées par personne ayant modifié le total. Il ne s’agit pas de sessions de travail individuelles. Les valeurs négatives sont des corrections. Le temps antérieur non enregistré ne peut être attribué à personne.",
   "blockly-ADD_COMMENT": "Ajouter un commentaire",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Impossible de défiler davantage.",

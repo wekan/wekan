@@ -3078,7 +3078,7 @@
   "move-reason": "Verplaats kaart — Beschrijving",
   "ask-move-reason": "Verplaats kaart → Beschrijving?",
   "time-adjustments": "uren — Δ — Gebruikersnaam",
-  "time-adjustment-note": "Historie: Δ uren; Gebruikersnaam ≠ Toegewezen personen.",
+  "time-adjustment-note": "Wijzigingen in geregistreerde uren, gegroepeerd op de persoon die het totaal aanpast. Dit zijn geen afzonderlijke werksessies. Negatieve waarden zijn correcties. Eerdere niet-geregistreerde tijd kan niet aan iemand worden toegeschreven.",
   "blockly-ADD_COMMENT": "Opmerking toevoegen",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Verder scrollen is niet mogelijk.",

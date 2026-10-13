@@ -3078,7 +3078,7 @@
   "move-reason": "カードの移動 — 詳細",
   "ask-move-reason": "カードの移動 → 詳細?",
   "time-adjustments": "時間 — Δ — ユーザー名",
-  "time-adjustment-note": "履歴: Δ 時間; ユーザー名 ≠ 担当者.",
+  "time-adjustment-note": "記録済みの時間の変更を、合計を編集した人ごとにまとめています。個々の作業セッションを示すものではありません。負の値は修正を表します。過去に記録されなかった時間を特定の人に帰属させることはできません。",
   "blockly-ADD_COMMENT": "コメントを追加",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "これ以上スクロールできません。",

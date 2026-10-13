@@ -3078,7 +3078,7 @@
   "move-reason": "카드 이동 — 설명",
   "ask-move-reason": "카드 이동 → 설명?",
   "time-adjustments": "시간 — Δ — 아이디",
-  "time-adjustment-note": "이력: Δ 시간; 아이디 ≠ 담당자.",
+  "time-adjustment-note": "기록된 시간의 변경 사항을 합계를 수정한 사람별로 묶어 표시합니다. 개별 작업 세션을 나타내는 것은 아닙니다. 음수 값은 정정 사항입니다. 이전에 기록되지 않은 시간은 특정 사람에게 귀속시킬 수 없습니다.",
   "blockly-ADD_COMMENT": "댓글 추가",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "더 이상 스크롤할 수 없습니다.",

@@ -1,0 +1,286 @@
+[
+  {
+    "locales": [
+      "sv"
+    ],
+    "meanings": [
+      "personen som ändrar totalsumman",
+      "inte enskilda arbetspass",
+      "Negativa värden är korrigeringar",
+      "inte registrerats tidigare kan inte tillskrivas"
+    ]
+  },
+  {
+    "locales": [
+      "nb"
+    ],
+    "meanings": [
+      "personen som endrer totalsummen",
+      "ikke individuelle arbeidsøkter",
+      "Negative verdier er korrigeringer",
+      "ikke tidligere er registrert, kan ikke tilskrives"
+    ]
+  },
+  {
+    "locales": [
+      "da"
+    ],
+    "meanings": [
+      "person, der ændrer det samlede antal",
+      "ikke individuelle arbejdsperioder",
+      "Negative værdier er rettelser",
+      "ikke tidligere er registreret, kan ikke tilskrives"
+    ]
+  },
+  {
+    "locales": [
+      "de",
+      "de-AT",
+      "de-CH",
+      "de_DE"
+    ],
+    "meanings": [
+      "Person, die die Gesamtsumme bearbeitet",
+      "keine einzelnen Arbeitssitzungen",
+      "Negative Werte sind Korrekturen",
+      "nicht erfasste Zeit kann keiner Person zugeordnet"
+    ]
+  },
+  {
+    "locales": [
+      "fr",
+      "fr-FR",
+      "fr-BE",
+      "fr-CA",
+      "fr-CH"
+    ],
+    "meanings": [
+      "personne ayant modifié le total",
+      "ne s’agit pas de sessions de travail individuelles",
+      "valeurs négatives sont des corrections",
+      "temps antérieur non enregistré ne peut être attribué"
+    ]
+  },
+  {
+    "locales": [
+      "es",
+      "es-AR",
+      "es-CL",
+      "es-CO",
+      "es-LA",
+      "es-MX",
+      "es-PE",
+      "es-PY",
+      "es_CO"
+    ],
+    "meanings": [
+      "persona que modifica el total",
+      "No son sesiones de trabajo individuales",
+      "valores negativos son correcciones",
+      "tiempo anterior que no se haya registrado no se puede atribuir"
+    ]
+  },
+  {
+    "locales": [
+      "pt",
+      "pt-PT",
+      "pt_PT"
+    ],
+    "meanings": [
+      "pessoa que altera o total",
+      "Não são sessões de trabalho individuais",
+      "valores negativos são correções",
+      "tempo anterior não registado não pode ser atribuído"
+    ]
+  },
+  {
+    "locales": [
+      "it"
+    ],
+    "meanings": [
+      "persona che modifica il totale",
+      "Non si tratta di singole sessioni di lavoro",
+      "valori negativi sono correzioni",
+      "tempo precedente non registrato non può essere attribuito"
+    ]
+  },
+  {
+    "locales": [
+      "nl",
+      "nl-NL"
+    ],
+    "meanings": [
+      "persoon die het totaal aanpast",
+      "geen afzonderlijke werksessies",
+      "Negatieve waarden zijn correcties",
+      "niet-geregistreerde tijd kan niet aan iemand worden toegeschreven"
+    ]
+  },
+  {
+    "locales": [
+      "pl",
+      "pl-PL"
+    ],
+    "meanings": [
+      "osoby edytującej łączny czas",
+      "Nie są to pojedyncze sesje pracy",
+      "Wartości ujemne są korektami",
+      "niezarejestrowanego czasu nie można przypisać"
+    ]
+  },
+  {
+    "locales": [
+      "cs",
+      "cs-CZ"
+    ],
+    "meanings": [
+      "osoby, která upravuje celkový čas",
+      "Nejde o jednotlivé pracovní úseky",
+      "Záporné hodnoty jsou opravy",
+      "nezaznamenaný čas nelze nikomu přiřadit"
+    ]
+  },
+  {
+    "locales": [
+      "ru",
+      "ru_RU",
+      "ru-UA"
+    ],
+    "meanings": [
+      "пользователю, изменившему итог",
+      "не отдельные рабочие сеансы",
+      "Отрицательные значения — исправления",
+      "неучтённое время нельзя отнести"
+    ]
+  },
+  {
+    "locales": [
+      "uk",
+      "uk-UA"
+    ],
+    "meanings": [
+      "особою, яка редагує загальну кількість",
+      "не окремі робочі сеанси",
+      "Від’ємні значення є виправленнями",
+      "Раніше незафіксований час не можна приписати"
+    ]
+  },
+  {
+    "locales": [
+      "tr"
+    ],
+    "meanings": [
+      "toplamı düzenleyen kişiye göre gruplandırılır",
+      "ayrı çalışma oturumları değildir",
+      "Negatif değerler düzeltmelerdir",
+      "kaydedilmemiş süre herhangi bir kişiye atfedilemez"
+    ]
+  },
+  {
+    "locales": [
+      "az",
+      "az-AZ",
+      "az-LA"
+    ],
+    "meanings": [
+      "redaktə edən şəxsə görə qruplaşdırılır",
+      "ayrı-ayrı iş sessiyaları deyil",
+      "Mənfi dəyərlər düzəlişlərdir",
+      "qeydə alınmamış vaxtı hər hansı şəxsə aid etmək mümkün deyil"
+    ]
+  },
+  {
+    "locales": [
+      "hu"
+    ],
+    "meanings": [
+      "értéket módosító személy szerint",
+      "nem különálló munkamenetek",
+      "negatív értékek korrekciók",
+      "nem rögzített idő nem rendelhető személyhez"
+    ]
+  },
+  {
+    "locales": [
+      "ro",
+      "ro-RO"
+    ],
+    "meanings": [
+      "persoana care editează totalul",
+      "nu sunt sesiuni de lucru individuale",
+      "Valorile negative sunt corecții",
+      "Timpul anterior neînregistrat nu poate fi atribuit"
+    ]
+  },
+  {
+    "locales": [
+      "el",
+      "el-GR"
+    ],
+    "meanings": [
+      "άτομο που επεξεργάζεται το σύνολο",
+      "Δεν πρόκειται για μεμονωμένες περιόδους εργασίας",
+      "αρνητικές τιμές είναι διορθώσεις",
+      "μη καταγεγραμμένος χρόνος δεν μπορεί να αποδοθεί"
+    ]
+  },
+  {
+    "locales": [
+      "ms",
+      "ms-MY"
+    ],
+    "meanings": [
+      "orang yang menyunting jumlah keseluruhan",
+      "bukan sesi kerja individu",
+      "Nilai negatif ialah pembetulan",
+      "tidak direkodkan tidak dapat dikaitkan"
+    ]
+  },
+  {
+    "locales": [
+      "vi",
+      "vi-VN"
+    ],
+    "meanings": [
+      "người chỉnh sửa tổng số giờ",
+      "không phải là các phiên làm việc riêng lẻ",
+      "Giá trị âm là các lần điều chỉnh",
+      "chưa được ghi nhận không thể quy cho"
+    ]
+  },
+  {
+    "locales": [
+      "ja",
+      "ja-JP"
+    ],
+    "meanings": [
+      "合計を編集した人ごと",
+      "作業セッションを示すものではありません",
+      "負の値は修正",
+      "記録されなかった時間を特定の人に帰属させることはできません"
+    ]
+  },
+  {
+    "locales": [
+      "ko",
+      "ko-KR"
+    ],
+    "meanings": [
+      "합계를 수정한 사람별로",
+      "개별 작업 세션을 나타내는 것은 아닙니다",
+      "음수 값은 정정 사항",
+      "기록되지 않은 시간은 특정 사람에게 귀속시킬 수 없습니다"
+    ]
+  },
+  {
+    "locales": [
+      "pt-BR"
+    ],
+    "meanings": [
+      "pessoa que altera o total",
+      "Não são sessões de trabalho individuais",
+      "valores negativos são correções",
+      "tempo anterior não registrado não pode ser atribuído"
+    ]
+  }
+]

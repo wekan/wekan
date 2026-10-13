@@ -3078,7 +3078,7 @@
   "move-reason": "Kártya áthelyezése — Leírás",
   "ask-move-reason": "Kártya áthelyezése → Leírás?",
   "time-adjustments": "óra — Δ — Felhasználónév",
-  "time-adjustment-note": "Történet: Δ óra; Felhasználónév ≠ Felelősök.",
+  "time-adjustment-note": "A rögzített órák változásai az összesített értéket módosító személy szerint csoportosítva. Ezek nem különálló munkamenetek. A negatív értékek korrekciók. A korábban nem rögzített idő nem rendelhető személyhez.",
   "blockly-ADD_COMMENT": "Megjegyzés hozzáadása",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Nem lehet tovább görgetni.",

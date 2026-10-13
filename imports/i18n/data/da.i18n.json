@@ -3078,7 +3078,7 @@
   "move-reason": "Flyt kort — Beskrivelse",
   "ask-move-reason": "Flyt kort → Beskrivelse?",
   "time-adjustments": "timer — Δ — Brugernavn",
-  "time-adjustment-note": "Historik: Δ timer; Brugernavn ≠ Tildelte.",
+  "time-adjustment-note": "Ændringer i registrerede timer, grupperet efter den person, der ændrer det samlede antal. Dette er ikke individuelle arbejdsperioder. Negative værdier er rettelser. Tid, der ikke tidligere er registreret, kan ikke tilskrives nogen.",
   "blockly-ADD_COMMENT": "Tilføj Kommentar",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Kan ikke rulle længere.",

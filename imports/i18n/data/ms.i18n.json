@@ -3078,7 +3078,7 @@
   "move-reason": "Pindah Kad — Penerangan",
   "ask-move-reason": "Pindah Kad → Penerangan?",
   "time-adjustments": "ja — Δ — Nama Pengguna",
-  "time-adjustment-note": "Sejarah: Δ ja; Nama Pengguna ≠ Penerima Tugas.",
+  "time-adjustment-note": "Perubahan pada jam yang direkodkan, dikumpulkan mengikut orang yang menyunting jumlah keseluruhan. Ini bukan sesi kerja individu. Nilai negatif ialah pembetulan. Masa terdahulu yang tidak direkodkan tidak dapat dikaitkan dengan sesiapa.",
   "blockly-ADD_COMMENT": "Berikan Komen",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Tidak boleh menatal lebih jauh.",

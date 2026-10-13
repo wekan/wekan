@@ -3078,7 +3078,7 @@
   "move-reason": "Mover o Cartão — Descrição",
   "ask-move-reason": "Mover o Cartão → Descrição?",
   "time-adjustments": "horas — Δ — Nome de utilizador",
-  "time-adjustment-note": "Histórico: Δ horas; Nome de utilizador ≠ Administradores.",
+  "time-adjustment-note": "Alterações nas horas registadas, agrupadas pela pessoa que altera o total. Não são sessões de trabalho individuais. Os valores negativos são correções. O tempo anterior não registado não pode ser atribuído a ninguém.",
   "blockly-ADD_COMMENT": "Adicionar Comentário",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Não é possível deslocar mais.",

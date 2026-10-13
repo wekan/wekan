@@ -3078,7 +3078,7 @@
   "move-reason": "Przenieś kartę — Opis",
   "ask-move-reason": "Przenieś kartę → Opis?",
   "time-adjustments": "godzin — Δ — Nazwa użytkownika",
-  "time-adjustment-note": "Historia: Δ godzin; Nazwa użytkownika ≠ Przypisani.",
+  "time-adjustment-note": "Zmiany zarejestrowanych godzin, pogrupowane według osoby edytującej łączny czas. Nie są to pojedyncze sesje pracy. Wartości ujemne są korektami. Wcześniejszego niezarejestrowanego czasu nie można przypisać żadnej osobie.",
   "blockly-ADD_COMMENT": "Dodaj Komentarz",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Nie można dalej przewijać.",

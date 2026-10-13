@@ -27,7 +27,10 @@ test('move dialog records reason and one reversible position', async ({ boardPag
   await expect.poll(() => db.getCard(source._id).lastMoveReason).toBe('Ready for review');
 });
 
-test('REST time corrections, move reasons, retained activity and report authors', async ({ boardPage: page, board, user }) => {
+for (const language of ['en', ...require('../../timeHistoryTranslationMeanings.json').flatMap(row => row.locales)]) {
+test(`REST time corrections, move reasons, retained activity and report authors in ${language}`, async ({ boardPage: page, board, user }) => {
+  const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
+  await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
   const source = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
   const headers = { Authorization: `Bearer ${user.token}` };
   const endpoint = `/api/boards/${board.boardId}/lists/${source.listId}/cards/${source._id}`;
@@ -43,7 +46,8 @@ test('REST time corrections, move reasons, retained activity and report authors'
   expect(invalid.status()).toBe(400);
   await page.locator('.js-toggle-board-view').first().click();
   await page.locator('.js-open-time-view').click();
-  await expect(page.locator('.time-adjustments')).toContainText('Time adjustments by author');
+  await expect(page.locator('.time-adjustments')).toContainText(strings['time-adjustments']);
+  await expect(page.locator('.time-adjustments > p')).toHaveText(strings['time-adjustment-note']);
   await expect(page.locator('.time-adjustments tbody').last().locator('tr')).toHaveCount(3);
   await expect(page.locator('.time-adjustments')).toContainText('-2');
   await page.locator('.js-export-chart').click();
@@ -67,6 +71,8 @@ test('REST time corrections, move reasons, retained activity and report authors'
   expect(report.adjustments.entries).toHaveLength(3);
   expect(report.adjustments.entries.every(row => row.title === source.title)).toBe(true);
 });
+
+}
 
 test('activity timestamps are exact inline text (#1673)', async ({ boardPage: page, board, user }) => {
   const source = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });

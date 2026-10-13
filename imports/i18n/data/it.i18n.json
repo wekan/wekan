@@ -3078,7 +3078,7 @@
   "move-reason": "Sposta scheda — Descrizione",
   "ask-move-reason": "Sposta scheda → Descrizione?",
   "time-adjustments": "ore — Δ — Nome utente",
-  "time-adjustment-note": "Cronologia: Δ ore; Nome utente ≠ Assegnatari.",
+  "time-adjustment-note": "Modifiche alle ore registrate, raggruppate per persona che modifica il totale. Non si tratta di singole sessioni di lavoro. I valori negativi sono correzioni. Il tempo precedente non registrato non può essere attribuito a nessuno.",
   "blockly-ADD_COMMENT": "Aggiungi commento",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Impossibile scorrere ulteriormente.",

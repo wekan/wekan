@@ -3078,7 +3078,7 @@
   "move-reason": "Flytta kort — Beskrivning",
   "ask-move-reason": "Flytta kort → Beskrivning?",
   "time-adjustments": "timmar — Δ — Användarnamn",
-  "time-adjustment-note": "Historik: Δ timmar; Användarnamn ≠ Tilldelade.",
+  "time-adjustment-note": "Ändringar av registrerade timmar, grupperade efter personen som ändrar totalsumman. Detta är inte enskilda arbetspass. Negativa värden är korrigeringar. Tid som inte registrerats tidigare kan inte tillskrivas någon.",
   "blockly-ADD_COMMENT": "Lägg till kommentar",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Det går inte att rulla längre.",
