@@ -3189,6 +3189,23 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0da6274347">Repair Latin deletion warnings and subtask settings</a>. Thanks to xet7.</summary>
+
+- Translate 40 mixed-language deletion warnings, subtask settings, minicard
+  labels
+  and activity messages. Preserve permanent deletion, empty duplicate-list
+  scope,
+  full ancestry versus immediate parent, and message placeholders.
+- Latin and guarded-correction suites pass with 28,054 corrections; all 21
+  human-preference checks pass and 38,430 existing Chinese values are preserved.
+  The added duplicate-list warning browser check passes syntax and discovery;
+  browser execution remains pending.
+- Translation review remains unfinished: 1,330 Latin values contain the legacy
+  “Latine:” prefix, and unprefixed values and other languages still need review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

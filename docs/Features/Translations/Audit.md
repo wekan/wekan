@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin deletion warnings and subtask settings — 2026-10-14
+
+Commit `0da6274347` repairs 40 prefixed deletion, subtask, minicard and activity
+entries. Regression checks preserve irreversible deletion, the same-name and
+empty-list conditions, settings aliases, full ancestry versus immediate parent,
+prefix versus subtext placement, checklist counts and activity placeholders.
+The full-path wording follows the parent-card chain in `models/cards.js`.
+
+The Latin and guarded-correction suites pass with 28,054 ledger entries. All 21
+human-preference checks pass. Duplicate-list warning browser coverage passes
+syntax and discovery; runtime remains pending. Exact comparison preserves
+38,430 existing Chinese values.
+
+There remain 1,330 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin organization permissions and tenant labels — 2026-10-14
 
 Commit `7729efb8e0` repairs 25 prefixed entries for tenant domains, organization
