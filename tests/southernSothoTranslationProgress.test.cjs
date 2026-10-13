@@ -280,4 +280,20 @@ assert.deepEqual(tags(sesotho['globalSearch-instructions-operator-number']),
 assert.doesNotMatch(sesotho['operator-number'], /\s/);
 assert.match(sesotho['import-board-source'], /Trello.*Jira.*WeKan.*CSV.*Excel/);
 
-console.log('southernSothoTranslationProgress: complete after forty-three batches');
+console.log('southernSothoTranslationProgress: historical catalog and card-link checks passed');
+
+const translatedCardLinkKeys = ["attach-card", "attachCardPopup-title", "attach-card-hint", "attached-card-unavailable", "detach-card", "attach-card-self", "attach-card-limit", "attach-card-not-found", "board-announcement", "board-announcement-enabled", "board-view-calendar-mode", "custom-field-links", "custom-field-links-hint", "custom-field-links-none", "custom-field-link-unavailable", "custom-field-link-fields", "custom-field-link-no-fields", "custom-field-link-inactive", "custom-field-unlink", "custom-field-link-target", "custom-field-link-direction", "custom-field-link-both", "custom-field-link-send", "custom-field-link-sends", "custom-field-link-receives", "custom-field-link-add", "field-link-self", "field-link-limit", "field-link-archived", "field-link-invalid", "field-link-not-found", "field-link-not-allowed", "cardCustomFieldLinksPopup-title", "cards-use-list-color"];
+for (const key of translatedCardLinkKeys) {
+  assert.notEqual(sesotho[key], english[key], `${key}: no English placeholder`);
+  assert.deepEqual(tokens(sesotho[key]), tokens(english[key]), key);
+}
+assert.match(sesotho['custom-field-links-hint'], /lebitso le mofuta o tshwanang/);
+assert.match(sesotho['custom-field-links-hint'], /kareteng e le nngwe feela ha di fetolwe/);
+assert.match(sesotho['custom-field-link-inactive'], /ha a sa kgona.*ka bobedi, kapa.*polokelong/);
+assert.match(sesotho['custom-field-link-both'], /^Ditsela ka bobedi/);
+assert.match(sesotho['custom-field-link-send'], /^Tsela e le nngwe.*e ka sehloohong/);
+assert.notEqual(sesotho['custom-field-link-sends'], sesotho['custom-field-link-receives']);
+assert.match(sesotho['field-link-not-allowed'], /hlophisa dikarete ka bobedi/);
+assert.match(sesotho['attach-card-self'], /e ke ke.*boyona/);
+assert.match(sesotho['attached-card-unavailable'], /sa kgoneng ho e bona/);
+assert.match(sesotho['cards-use-list-color'], /tse se nang mmala wa tsona/);
