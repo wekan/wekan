@@ -1491,6 +1491,20 @@ application execution remains pending. Protected Chinese values are unchanged.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d07120761b">Correct Corsican board warnings and import guidance</a>. Thanks to xet7.</summary>
+
+Repair 33 mixed-language board, deletion, invitation and filter messages.
+Restore Jira pagination and required-field instructions and Excel mapping
+and per-sheet behavior. Preserve irreversible-deletion warnings and HTML.
+
+The Corsican suite, repair-ledger suite and 21 human-preference checks pass.
+The importer browser suite registers 69 cases, including three new Corsican
+formats; execution remains pending. Protected Chinese values are unchanged,
+and broader language review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

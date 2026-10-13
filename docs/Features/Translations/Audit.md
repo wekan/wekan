@@ -2,6 +2,30 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican board warnings and import guidance — 2026-10-13
+
+Commit `d07120761b` repairs 33 mixed-language values for board visibility,
+archives, widths, deletion, invitations, filters and imports. Visibility
+retains the future tense and HTML emphasis. Custom-field deletion explicitly
+retains irreversibility, all-card removal and loss of history. Linked-card
+errors retain the inaccessible-card warning; empty-board import errors
+retain the instruction to export again using the current version.
+
+Jira's old translation omitted pagination and field requirements. The
+replacement preserves the complete endpoint, the IDs-only warning without
+fields, `nextPageToken`, combined-page or per-board alternatives, and the
+`issues` and `automationRules` literals. Excel now explains column mapping
+and one board per sheet rather than describing only the old fixed layout.
+
+The Corsican and full repair-ledger suites pass, as do all 21
+human-preference checks. The ledger now contains 25,303 guarded repairs.
+The importer browser suite registers 69 cases, including added Corsican
+ZenKit, Jira and Excel cases; Excel checks its file chooser because the
+source registry does not enable text paste for that format. Browser runtime
+execution remains pending. All 38,385 protected Chinese values are unchanged.
+Broader language review remains unfinished; these mixed-language repairs
+do not reduce the filtered English-placeholder count.
+
 ## Corsican permission and board controls — 2026-10-13
 
 Commit `724fd0730d` repairs 37 mixed-language values. Membership and
