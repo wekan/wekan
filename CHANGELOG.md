@@ -1900,6 +1900,18 @@ runtime execution remains pending. Existing Chinese text is unchanged.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5c96e8b59e">Correct Corsican report and ticket translations</a>. Thanks to xet7.</summary>
+
+Repair 63 report, recovery, ticket and display-control values. Preserve
+login grouping, API aggregation, recovery operations and technical literals.
+
+The Corsican and repair-ledger suites and 21 human-preference checks pass.
+Recovery-report browser coverage is registered; runtime execution remains
+pending. Existing Chinese text is unchanged; broader review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

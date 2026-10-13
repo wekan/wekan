@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican reports, recovery and tickets — 2026-10-13
+
+Commit `5c96e8b59e` repairs 63 values in the source-ordered review through
+key 2219. Office reporting retains grouping by person and IPv4/IPv6 login
+counts. API reporting retains one row per account and endpoint, rather
+than per request. Recovery wording retains corruption detection, text
+backups, restores, MongoDB re-migration and automatic database repair.
+Ticket states, spinner labels and card controls lose Italian wording.
+API names and HTML space entities remain literal.
+
+The Corsican and full repair-ledger suites pass; the ledger contains
+26,412 guarded corrections. All 21 human-preference checks pass. The new
+recovery-report browser case passes syntax checking and registers, but has
+not run against the application. Exact comparison preserves all 38,430
+existing Chinese values. Broader language review remains unfinished.
+
 ## Corsican remaining search help and controls — 2026-10-13
 
 Commit `5fce837d4e` repairs 50 values in the source-ordered review through
