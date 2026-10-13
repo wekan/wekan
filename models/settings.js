@@ -216,6 +216,17 @@ Settings.attachSchema(
       optional: true,
       blackbox: true,
     },
+    // Email to card (#794): Admin Panel -> Notification Settings -> Inbound
+    // email. On/off, the board-address domain, the provider webhook's secret
+    // and the IMAP mailboxes polled, with their passwords. Never published:
+    // the Admin Panel reads it through getInboundMailSettings, which leaves the
+    // secret and the passwords out (server/emailToCard.js,
+    // models/lib/emailToCard.js inboundMailAdminView).
+    inboundMail: {
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
     productName: {
       type: String,
       optional: true,

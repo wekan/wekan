@@ -38,7 +38,7 @@ SANDSTORM_COMMIT=a97cf3ee19d3bf2761cd597583ca5d998de425d8
 TYPESCRIPT_VERSION=5.9.3
 
 # The schemas WeKan's bridge client loads, and every file they import.
-SCHEMAS="sandstorm-http-bridge package grain identity powerbox util api-session activity ip"
+SCHEMAS="sandstorm-http-bridge package grain identity powerbox util api-session activity ip email hack-session"
 # What the C++ peer is compiled from.
 MOCK_SCHEMAS="sandstorm-http-bridge grain identity powerbox util activity"
 

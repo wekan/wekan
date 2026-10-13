@@ -462,6 +462,19 @@ Cards.attachSchema(
       type: Date,
       optional: true,
     },
+    email: {
+      /**
+       * #794: the email this card came from or was sent as - { direction:
+       * 'in'|'out', from: { name, address }, to: [address], cc: [address],
+       * subject, messageId, threadIds: [Message-ID], at }. threadIds holds
+       * every Message-ID of the conversation, so a reply to it (In-Reply-To /
+       * References) becomes a comment here rather than a new card
+       * (server/emailToCard.js, server/emailView.js).
+       */
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
     startAt: {
       /**
        * Date the card was started to be worked on

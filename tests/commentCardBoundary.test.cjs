@@ -54,7 +54,15 @@ test('negative: every externally supplied REST comment insert is preceded by the
     return entry.isDirectory() ? walk(file) : file.endsWith('.js') ? [file] : [];
   });
   const paths = walk(path.join(root, 'server')).filter(file => /CardComments\.(?:direct\.)?insertAsync\(/.test(fs.readFileSync(file, 'utf8')));
-  assert.deepEqual(paths.map(file => path.relative(root, file)).sort(), ['server/models/cardComments.js', 'server/routes/inboundEmail.js']);
+  assert.deepEqual(paths.map(file => path.relative(root, file)).sort(),
+    ['server/emailToCard.js', 'server/models/cardComments.js', 'server/routes/inboundEmail.js']);
+  // #794: an emailed reply is a comment on a card found ON the board of the
+  // address it was sent to, by a member with write access there - the card is
+  // never named by the sender.
+  const emailToCard = read('server/emailToCard.js');
+  assert.match(emailToCard, /Cards\.findOneAsync\(\{ boardId: board\._id, archived: false, 'email\.threadIds'/);
+  assert.match(emailToCard, /allowIsBoardMemberWithWriteAccess\(user\._id, board\)/);
+  assert.match(read('server/emailView.js'), /ReactiveCache\.getCard\(\{ _id: input\.cardId, boardId: board\._id \}\)/);
   const source = read('server/models/cardComments.js');
   const at = source.indexOf("WebApp.handlers.post('/api/boards/:boardId/cards/:cardId/comments'");
   assert.ok(source.indexOf('commentCardMatchesBoard(card, paramCardId, paramBoardId)', at) < source.indexOf('CardComments.direct.insertAsync(', at));

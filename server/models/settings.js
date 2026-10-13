@@ -358,6 +358,9 @@ Meteor.startup(async () => {
   const mailTransport = currentMailSetting?.mailServer?.enabled
     ? installAdminMailTransport({ Email, EmailInternals, mailServer: currentMailSetting.mailServer })
     : installMailTransport({ Email, EmailInternals });
+  // A grain has no network: on Sandstorm every email goes through the grain's
+  // own address instead (server/sandstormEmail.js).
+  if (isSandstorm) require('/server/sandstormEmail').installGrainTransport();
   if (mailTransport === 'custom-tls') {
     console.info(
       'Mail TLS: using MAIL_TLS_CA_CERT / MAIL_TLS_SERVERNAME. The certificate is ' +
@@ -379,6 +382,7 @@ if (isSandstorm) {
       }
       installMailTransport({ Email, EmailInternals });
       Accounts.emailTemplates.from = doc.mailServer.from;
+      require('/server/sandstormEmail').installGrainTransport();
     }
   });
 }
@@ -429,6 +433,7 @@ Meteor.methods({
       delete Email.customTransport;
       installMailTransport({ Email, EmailInternals });
     }
+    if (isSandstorm) require('/server/sandstormEmail').installGrainTransport();
     return true;
   },
   // Admin Panel / People / LDAP, OAuth2, CAS, Header login and the Login

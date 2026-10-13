@@ -1,0 +1,143 @@
+//- Email to card (#794) in Notification Settings, at all three levels
+//- (models/lib/emailToCard.js, server/emailToCard.js):
+//-   scope 'admin'   Admin Panel - on/off, the address domain, the provider
+//-                   webhook and its secret, the IMAP mailboxes and their
+//-                   passwords. The only place servers and passwords are set;
+//-                   a secret is never shown back, only whether one is saved.
+//-   scope 'board'   Board Settings - on/off, the list and swimlane cards go
+//-                   to, which parts of an email are used (board admins), and
+//-                   the member's own address for this board.
+//-   scope 'member'  Member Settings - the member's own on/off and parts.
+template(name="emailToCardSettings")
+  details.notification-delivery-settings.email-to-card-settings(data-scope="{{scope}}")
+    summary.title
+      i.fa.fa-inbox
+      |  {{_ 'email-to-card'}}
+    p.quiet {{_ 'email-to-card-description'}}
+    if isAdminScope
+      if admin
+        with admin
+          a.flex.js-etc-admin-enabled(role="checkbox" aria-checked="{{#if enabled}}true{{else}}false{{/if}}")
+            .materialCheckBox(class="{{#if enabled}}is-checked{{/if}}")
+            span {{_ 'email-to-card-admin-enabled'}}
+          if sandstormAddress
+            p.notification-delivery-label {{_ 'email-to-card-sandstorm-address'}}
+            p
+              code.js-etc-copy {{sandstormAddress}}
+          else
+            label.notification-delivery-label
+              | {{_ 'email-to-card-domain'}}
+              input.js-etc-domain(type="text" value="{{domain}}" placeholder="boards.example.com" autocomplete="off")
+            p.notification-delivery-label {{_ 'email-to-card-webhook'}}
+            p
+              code {{webhookUrl}}
+            label.notification-delivery-label
+              | {{_ 'email-to-card-webhook-secret'}}
+              input.js-etc-webhook-secret(type="password" autocomplete="new-password" placeholder="{{#if webhookSecretSet}}{{_ 'email-to-card-secret-saved'}}{{/if}}")
+            if webhookSecretSet
+              a.flex.js-etc-clear-secret(role="checkbox" aria-checked="{{#if clearSecret}}true{{else}}false{{/if}}")
+                .materialCheckBox(class="{{#if clearSecret}}is-checked{{/if}}")
+                span {{_ 'email-to-card-clear-secret'}}
+            p.notification-delivery-label {{_ 'email-to-card-imap-accounts'}}
+            each accounts
+              fieldset.email-to-card-account(data-id="{{id}}")
+                label.notification-delivery-label
+                  | {{_ 'email-to-card-account-label'}}
+                  input.js-etc-account(data-key="label" type="text" value="{{label}}")
+                label.notification-delivery-label
+                  | {{_ 'email-to-card-imap-host'}}
+                  input.js-etc-account(data-key="host" type="text" value="{{host}}" placeholder="imap.example.com" autocomplete="off")
+                label.notification-delivery-label
+                  | {{_ 'email-to-card-imap-port'}}
+                  input.js-etc-account(data-key="port" type="number" min="1" max="65535" value="{{port}}")
+                label.notification-delivery-label
+                  | {{_ 'email-to-card-imap-security'}}
+                  select.js-etc-account(data-key="secure")
+                    option(value="true" selected="{{#if secure}}selected{{/if}}") TLS
+                    option(value="false" selected="{{#unless secure}}selected{{/unless}}") STARTTLS
+                label.notification-delivery-label
+                  | {{_ 'username'}}
+                  input.js-etc-account(data-key="username" type="text" value="{{username}}" autocomplete="off")
+                label.notification-delivery-label
+                  | {{_ 'password'}}
+                  input.js-etc-account-password(type="password" autocomplete="new-password" placeholder="{{#if passwordSet}}{{_ 'email-to-card-secret-saved'}}{{/if}}")
+                label.notification-delivery-label
+                  | {{_ 'email-to-card-imap-mailbox'}}
+                  input.js-etc-account(data-key="mailbox" type="text" value="{{mailbox}}")
+                label.notification-delivery-label
+                  | {{_ 'email-to-card-imap-after'}}
+                  select.js-etc-account(data-key="after")
+                    option(value="seen" selected="{{#if $eq after 'seen'}}selected{{/if}}") {{_ 'email-to-card-imap-after-seen'}}
+                    option(value="delete" selected="{{#if $eq after 'delete'}}selected{{/if}}") {{_ 'email-to-card-imap-after-delete'}}
+                label.notification-delivery-label
+                  | {{_ 'email-to-card-imap-enabled'}}
+                  select.js-etc-account(data-key="enabled")
+                    option(value="true" selected="{{#if enabled}}selected{{/if}}") {{_ 'yes'}}
+                    option(value="false" selected="{{#unless enabled}}selected{{/unless}}") {{_ 'no'}}
+                if lastError
+                  p.warning {{lastError}}
+                else if lastPollAt
+                  p.quiet {{_ 'email-to-card-imap-last-poll'}} {{lastPollAt}}
+                button.js-etc-remove-account(type="button") {{_ 'delete'}}
+            button.js-etc-add-account(type="button") {{_ 'email-to-card-add-imap'}}
+          button.primary.js-etc-admin-save(type="button") {{_ 'save'}}
+        if isSandstorm
+          label.notification-delivery-label
+            | {{_ 'email-to-card-sandstorm-board'}}
+            select.js-etc-sandstorm-board
+              option(value="") {{_ 'email-to-card-sandstorm-board-none'}}
+              each sandstormBoards
+                option(value="{{_id}}" selected="{{#if selected}}selected{{/if}}") {{title}}
+      else
+        p.quiet {{_ 'loading'}}
+    if isBoardScope
+      if canEditBoard
+        a.flex.js-etc-board-enabled(role="checkbox" aria-checked="{{#if boardEnabled}}true{{else}}false{{/if}}")
+          .materialCheckBox(class="{{#if boardEnabled}}is-checked{{/if}}")
+          span {{_ 'email-to-card-board-enabled'}}
+        label.notification-delivery-label
+          | {{_ 'email-to-card-list'}}
+          select.js-etc-board-place(data-key="listId")
+            option(value="") {{_ 'email-to-card-first-list'}}
+            each boardLists
+              option(value="{{_id}}" selected="{{#if selected}}selected{{/if}}") {{title}}
+        label.notification-delivery-label
+          | {{_ 'email-to-card-swimlane'}}
+          select.js-etc-board-place(data-key="swimlaneId")
+            option(value="") {{_ 'email-to-card-default-swimlane'}}
+            each boardSwimlanes
+              option(value="{{_id}}" selected="{{#if selected}}selected{{/if}}") {{title}}
+      +emailToCardParts(rows=partRows)
+      p.notification-delivery-label {{_ 'email-to-card-your-address'}}
+      if address.enabled
+        p
+          code.js-etc-copy {{address.address}}
+        if address.subjectTag
+          p.quiet {{_ 'email-to-card-sandstorm-subject'}}
+          p
+            code.js-etc-copy {{address.subjectTag}}
+        p.quiet {{_ 'email-to-card-address-private'}}
+        button.js-etc-new-address(type="button") {{_ 'email-to-card-new-address'}}
+      else
+        p.quiet {{_ addressOffKey}}
+    if isMemberScope
+      label.notification-delivery-label
+        | {{_ 'email-to-card-member-enabled'}}
+        select.js-etc-member-enabled
+          option(value="" selected="{{#if $eq memberEnabled ''}}selected{{/if}}") {{_ 'default'}}
+          option(value="true" selected="{{#if $eq memberEnabled 'true'}}selected{{/if}}") {{_ 'yes'}}
+          option(value="false" selected="{{#if $eq memberEnabled 'false'}}selected{{/if}}") {{_ 'no'}}
+      +emailToCardParts(rows=partRows)
+    if message
+      p.quiet.js-etc-message {{message}}
+
+//- Which parts of an email the card gets. "Default" inherits the board (for
+  a member) or WeKan's defaults (for a board).
+template(name="emailToCardParts")
+  p.notification-delivery-label {{_ 'email-to-card-parts'}}
+  each rows
+    label.notification-delivery-label
+      | {{_ labelKey}}
+      select.js-etc-part(data-part="{{name}}" disabled="{{#if readOnly}}disabled{{/if}}")
+        each options
+          option(value="{{value}}" selected="{{#if selected}}selected{{/if}}") {{_ labelKey}}

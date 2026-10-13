@@ -931,6 +931,15 @@ Boards.attachSchema(
       type: Boolean,
       optional: true,
     },
+    // Email to card (#794): { enabled, listId, swimlaneId, parts } - whether
+    // this board takes email from its members' board addresses, where the
+    // cards go, and which parts of an email are used. Off when unset. Set by
+    // setBoardEmailToCard (server/emailToCard.js); see models/lib/emailToCard.js.
+    emailToCard: {
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
     // #3695 / #5171: this board's notification delivery per channel (email,
     // tray, webhook) - content, grouping, schedule. Unset keys inherit the Admin
     // Panel default; a member's own choice (email, tray) and a webhook's own

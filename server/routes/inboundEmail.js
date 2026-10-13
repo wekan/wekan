@@ -1,5 +1,10 @@
-// Reply-by-email inbound webhook (#2414): "reply to a notification email, and
-// the reply becomes a comment on the card", Trello-style.
+// Inbound email webhook. Two uses, told apart by the recipient address:
+//   - reply-by-email (#2414): "reply to a notification email, and the reply
+//     becomes a comment on the card", Trello-style - below;
+//   - email to card (#794): an email to a member's board address becomes a
+//     card - server/emailToCard.js. That one is configured in Admin Panel ->
+//     Notification Settings, which can also poll IMAP mailboxes instead
+//     (server/lib/imapInbound.js); the history below is about the reply half.
 //
 // SCOPE DECISION: this is the WEBHOOK-based approach, not an IMAP-polling
 // mail client. WeKan currently only SENDS email (server/notifications/email.js)
@@ -38,6 +43,7 @@ import { sendJsonResult } from '/server/apiMiddleware';
 const { verifyReplyToken } = require('/server/lib/inboundEmailReplyToken');
 const { stripQuotedReply } = require('/server/lib/inboundEmailQuoteStrip');
 const { replyAuthorDecision } = require('/server/lib/inboundEmailUserMatch');
+const { readInboundMessage } = require('/server/lib/inboundEmailRequest');
 const crypto = require('crypto');
 
 // Timing-safe comparison of the optional provider secret.
@@ -96,13 +102,15 @@ async function commentCreationActivity(userId, doc) {
   });
 }
 
-function logRejectedInboundEmail(req, detail) {
+// `from` is the request, or (IMAP, Sandstorm) a string naming the source.
+function logRejectedInboundEmail(from, detail) {
   try {
     const { record } = require('/server/lib/securityLog');
     record({
       key: 'authn.inbound-email',
       action: 'blocked',
-      source: (req.headers && req.headers['x-forwarded-for']) || req.socket?.remoteAddress,
+      source: typeof from === 'string' ? from
+        : (from.headers && from.headers['x-forwarded-for']) || from.socket?.remoteAddress,
       detail,
     });
   } catch (e) {
@@ -110,85 +118,134 @@ function logRejectedInboundEmail(req, detail) {
   }
 }
 
+// The webhook secret: the Admin Panel's (Notification Settings -> Inbound
+// email), else INBOUND_EMAIL_WEBHOOK_SECRET.
+async function webhookSecret() {
+  try {
+    const { inboundMailSettings } = require('/server/emailToCard');
+    const inboundMail = await inboundMailSettings();
+    if (inboundMail.webhookSecretSet && inboundMail.webhookSecret) return inboundMail.webhookSecret;
+  } catch (e) {
+    // fall through to the environment
+  }
+  return process.env.INBOUND_EMAIL_WEBHOOK_SECRET || '';
+}
+
+// A reply to a notification email becomes a comment. Shared by the webhook,
+// the IMAP poller and the Sandstorm mailbox; returns { code, error } or
+// { code: 200, commentId }, and `handled: false` when the recipient is not a
+// reply address.
+export async function receiveReplyEmail({ to, from, text }, { source = 'webhook' } = {}) {
+  const secret = process.env.INBOUND_EMAIL_HMAC_SECRET;
+  const recipients = Array.isArray(to) ? to : [to];
+  const replyTo = recipients.find(address => /^reply\+/i.test(String(address || '')));
+  if (!replyTo) return { handled: false };
+  const refuse = detail => logRejectedInboundEmail(String(source || 'unknown'), detail);
+  if (!secret) {
+    // Feature is opt-in; with no secret configured there is nothing valid
+    // to verify against, so every call is refused the same way.
+    refuse('INBOUND_EMAIL_HMAC_SECRET not configured');
+    return { handled: true, code: 404, error: 'Not found' };
+  }
+
+  const verification = verifyReplyToken(replyTo, secret);
+  if (!verification.valid) {
+    // A genuine but expired token, or the card-only form sent before
+    // ReplyBleed was fixed, is a real user replying to an old email.
+    if (!['expired', 'legacy-token'].includes(verification.reason)) {
+      refuse(`invalid reply token (${verification.reason})`);
+    }
+    return { handled: true, code: 403, error: 'Invalid or expired reply address' };
+  }
+
+  const card = await ReactiveCache.getCard(verification.cardId);
+  if (!card) {
+    refuse('reply token references a missing card');
+    return { handled: true, code: 404, error: 'Card not found' };
+  }
+
+  // The author is the recipient the reply address was minted for, never the
+  // From address; replyAuthorDecision says whether that recipient sent it
+  // and may still comment here.
+  const user = await Meteor.users.findOneAsync(verification.userId,
+    { fields: { _id: 1, emails: 1, loginDisabled: 1 } });
+  const board = await ReactiveCache.getBoard(card.boardId);
+  const decision = replyAuthorDecision({ user, fromAddress: from, card, board });
+  if (!decision.ok) {
+    if (decision.log) refuse(decision.detail);
+    return { handled: true, code: decision.code, error: decision.error };
+  }
+
+  const commentText = stripQuotedReply(text);
+  if (!commentText) {
+    return { handled: true, code: 400, error: 'Empty reply' };
+  }
+
+  const commentId = await CardComments.direct.insertAsync({
+    userId: user._id,
+    text: commentText,
+    cardId: card._id,
+    boardId: card.boardId,
+  });
+  const commentDoc = await ReactiveCache.getCardComment({ _id: commentId });
+  if (commentDoc) {
+    await commentCreationActivity(user._id, commentDoc);
+  }
+  return { handled: true, code: 200, commentId };
+}
+
+// One parsed email, to whichever use its recipients name: a board address
+// (email to card) or a reply address (comment).
+export async function receiveEmail(message, { source = 'webhook', fields = {} } = {}) {
+  const { receiveBoardEmail } = require('/server/emailToCard');
+  const board = await receiveBoardEmail(message, { source });
+  if (board.handled) return board;
+  const legacy = extractInboundFields(fields);
+  const to = [...(message.deliveredTo || []), ...(message.to || []), ...(message.cc || [])];
+  if (legacy.to) to.push(legacy.to);
+  return receiveReplyEmail({
+    to,
+    from: (message.from && message.from.address) || legacy.from,
+    text: message.text || legacy.text,
+  }, { source });
+}
+
 WebApp.handlers.post('/api/inbound-email', async function inboundEmailHandler(req, res) {
   try {
-    const secret = process.env.INBOUND_EMAIL_HMAC_SECRET;
-    if (!secret) {
-      // Feature is opt-in; with no secret configured there is nothing valid
-      // to verify against, so every call is refused the same way.
-      logRejectedInboundEmail(req, 'INBOUND_EMAIL_HMAC_SECRET not configured');
-      sendJsonResult(res, { code: 404, data: { error: 'Not found' } });
-      return;
-    }
-
-    const webhookSecret = process.env.INBOUND_EMAIL_WEBHOOK_SECRET;
-    if (webhookSecret) {
+    const expected = await webhookSecret();
+    if (expected) {
       const given = (req.headers && req.headers['x-wekan-inbound-secret']) || (req.query && req.query.secret);
-      if (!secretMatches(given, webhookSecret)) {
+      if (!secretMatches(given, expected)) {
         logRejectedInboundEmail(req, 'inbound webhook secret missing or wrong');
         sendJsonResult(res, { code: 401, data: { error: 'Unauthorized' } });
         return;
       }
     }
 
-    const body = req.body || {};
-    const { from, to, text } = extractInboundFields(body);
-
-    if (!to) {
-      logRejectedInboundEmail(req, 'missing recipient field');
-      sendJsonResult(res, { code: 400, data: { error: 'Missing recipient' } });
+    let parsed;
+    try {
+      parsed = await readInboundMessage(req);
+    } catch (e) {
+      const tooLarge = e && e.message === 'too-large';
+      sendJsonResult(res, { code: tooLarge ? 413 : 400, data: { error: tooLarge ? 'Too large' : 'Unreadable email' } });
       return;
     }
-
-    const verification = verifyReplyToken(to, secret);
-    if (!verification.valid) {
-      // A genuine but expired token, or the card-only form sent before
-      // ReplyBleed was fixed, is a real user replying to an old email.
-      if (!['expired', 'legacy-token'].includes(verification.reason)) {
-        logRejectedInboundEmail(req, `invalid reply token (${verification.reason})`);
+    const source = (req.headers && req.headers['x-forwarded-for']) || req.socket?.remoteAddress;
+    const result = await receiveEmail(parsed.message, { source, fields: parsed.fields });
+    if (!result.handled) {
+      if (!process.env.INBOUND_EMAIL_HMAC_SECRET) {
+        logRejectedInboundEmail(req, 'INBOUND_EMAIL_HMAC_SECRET not configured');
+        sendJsonResult(res, { code: 404, data: { error: 'Not found' } });
+      } else {
+        logRejectedInboundEmail(req, 'missing recipient field');
+        sendJsonResult(res, { code: 400, data: { error: 'Missing recipient' } });
       }
-      sendJsonResult(res, { code: 403, data: { error: 'Invalid or expired reply address' } });
       return;
     }
-
-    const card = await ReactiveCache.getCard(verification.cardId);
-    if (!card) {
-      logRejectedInboundEmail(req, 'reply token references a missing card');
-      sendJsonResult(res, { code: 404, data: { error: 'Card not found' } });
-      return;
-    }
-
-    // The author is the recipient the reply address was minted for, never the
-    // From address; replyAuthorDecision says whether that recipient sent it
-    // and may still comment here.
-    const user = await Meteor.users.findOneAsync(verification.userId,
-      { fields: { _id: 1, emails: 1, loginDisabled: 1 } });
-    const board = await ReactiveCache.getBoard(card.boardId);
-    const decision = replyAuthorDecision({ user, fromAddress: from, card, board });
-    if (!decision.ok) {
-      if (decision.log) logRejectedInboundEmail(req, decision.detail);
-      sendJsonResult(res, { code: decision.code, data: { error: decision.error } });
-      return;
-    }
-
-    const commentText = stripQuotedReply(text);
-    if (!commentText) {
-      sendJsonResult(res, { code: 400, data: { error: 'Empty reply' } });
-      return;
-    }
-
-    const commentId = await CardComments.direct.insertAsync({
-      userId: user._id,
-      text: commentText,
-      cardId: card._id,
-      boardId: card.boardId,
-    });
-
-    sendJsonResult(res, { code: 200, data: { _id: commentId } });
-
-    const commentDoc = await ReactiveCache.getCardComment({ _id: commentId });
-    if (commentDoc) {
-      await commentCreationActivity(user._id, commentDoc);
+    if (result.code === 200) {
+      sendJsonResult(res, { code: 200, data: { _id: result.cardId || result.commentId || null } });
+    } else {
+      sendJsonResult(res, { code: result.code, data: { error: result.error } });
     }
   } catch (error) {
     logRejectedInboundEmail(req, `unexpected error: ${error && error.message}`);

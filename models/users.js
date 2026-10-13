@@ -361,6 +361,16 @@ Users.attachSchema(
       type: Boolean,
       optional: true,
     },
+    'profile.emailToCard': {
+      /**
+       * Email to card (#794): { enabled, parts } - whether this member's
+       * board addresses work, and which parts of an email they want on the
+       * card (models/lib/emailToCard.js). Unset = on, the board's parts.
+       */
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
     // #5171: the member's own e-mail and tray delivery - content, grouping,
     // schedule. Wins over the board and Admin Panel settings for their own
     // notifications. See models/lib/notificationDelivery.js.

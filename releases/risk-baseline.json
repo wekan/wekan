@@ -54,7 +54,21 @@
       "https://github\\.com/sponsors/wooorm",
       "https://opencollective\\.com/babel",
       "https://opencollective\\.com/core-js",
-      "https://opencollective\\.com/debug"
+      "https://opencollective\\.com/debug",
+      "https://github\\.com/cheeriojs/dom\\-serializer\\?sponsor=1",
+      "https://github\\.com/fb55/domhandler\\?sponsor=1",
+      "https://github\\.com/fb55/domutils\\?sponsor=1",
+      "https://github\\.com/fb55/entities\\?sponsor=1",
+      "https://github\\.com/fb55/htmlparser2\\?sponsor=1",
+      "https://github\\.com/sponsors/fastify",
+      "https://github\\.com/sponsors/fb55",
+      "https://github\\.com/sponsors/KillyMXI",
+      "https://github\\.com/sponsors/markdown\\-it",
+      "https://github\\.com/sponsors/puzrin",
+      "https://ko\\-fi\\.com/rebeccastevens",
+      "https://opencollective\\.com/express",
+      "https://opencollective\\.com/fastify",
+      "https://tidelift\\.com/funding/github/npm/deepmerge\\-ts"
     ],
     "imports/sandstorm/capnp/api-session.mjs": [
       "https://api\\.github\\.com",

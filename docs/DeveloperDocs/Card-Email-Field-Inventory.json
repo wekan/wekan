@@ -70,5 +70,9 @@
   {
     "fields": ["customFieldLinks"],
     "handling": "#5681: ids of the cards whose custom fields are linked to this one, with the direction and the link's creator. Link bookkeeping, not card content: the linked values are ordinary customFields, so these ids are not email content."
+  },
+  {
+    "fields": ["email"],
+    "handling": "#794: the email this card came from or was sent as - sender, recipients, subject and the Message-IDs that thread replies onto it (server/emailToCard.js, server/emailView.js). Mail bookkeeping, not card content: excluded, so a card mailed onward never discloses who wrote to the board or the addresses of the conversation."
   }
 ]
