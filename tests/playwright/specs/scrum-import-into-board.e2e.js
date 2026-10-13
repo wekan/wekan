@@ -13,12 +13,15 @@ const call = (page, method, ...args) => page.evaluate(async ({ method, args }) =
   catch (error) { throw new Error(`${error.error}: ${error.reason || error.message}`); }
 }, { method, args });
 
-test('Scrum planning imports into an existing board once, matching its cards', async ({ page, browser, request, user, board }) => {
+for (const language of ['en', 'mt']) {
+test(`Scrum planning imports into an existing board once, matching its cards in ${language}`, async ({ page, browser, request, user, board }) => {
   const destination = db.seedBoard({ ownerId: user.id, title: 'Scrum import destination',
     cardTitlesPerList: [['Alpha Card'], ['Beta Card'], ['Not the same card']] });
   const member = db.seedUser();
   try {
     await loginWithToken(page, user.id, user.token);
+    await call(page, 'setLanguage', language);
+    const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
     const sprint = await call(page, 'scrum.saveSprint', board.boardId, null,
       { name: 'Imported sprint', plannedStart: '2026-10-01', plannedEnd: '2026-10-14' }, null);
     const release = await call(page, 'scrum.saveRelease', board.boardId, null, { name: 'Imported release' }, null);
@@ -51,8 +54,8 @@ test('Scrum planning imports into an existing board once, matching its cards', a
     await panel.locator('.js-scrum-transfer-file').setInputFiles({ name: 'board.json', mimeType: 'application/json',
       buffer: Buffer.from(JSON.stringify(exported)) });
     await panel.locator('.js-scrum-transfer-preview').click();
-    await expect(panel.locator('.scrum-transfer-preview')).toContainText('Sprints: 1 new');
-    await expect(panel.locator('.scrum-transfer-preview')).toContainText('Cards: 2 to update');
+    await expect(panel.locator('.scrum-transfer-preview')).toContainText(strings['scrum-import-preview-sprints'].replace('__created__', '1').replace('__matched__', '0').replace('__skipped__', '0'));
+    await expect(panel.locator('.scrum-transfer-preview')).toContainText(strings['scrum-import-preview-cards'].replace('__updated__', '2').replace('__unchanged__', '0').replace('__unmatched__', '1'));
     await expect(panel.locator('.scrum-transfer-loss')).toContainText(byTitle('Gamma Card')._id);
     expect(db.find('scrumSprints', { boardId: destination.boardId })).toHaveLength(0);
 
@@ -74,7 +77,7 @@ test('Scrum planning imports into an existing board once, matching its cards', a
 
     // The same file again: nothing to change.
     await panel.locator('.js-scrum-transfer-preview').click();
-    await expect(panel.locator('.js-scrum-transfer-nothing')).toBeVisible();
+    await expect(panel.locator('.js-scrum-transfer-nothing')).toHaveText(strings['scrum-import-preview-nothing']);
     await expect(panel.locator('.js-scrum-transfer-apply')).toHaveCount(0);
     expect(db.find('scrumSprints', { boardId: destination.boardId })).toHaveLength(1);
     expect(db.find('scrumReleases', { boardId: destination.boardId })).toHaveLength(1);
@@ -85,3 +88,4 @@ test('Scrum planning imports into an existing board once, matching its cards', a
     db.cleanup({ boardIds: [destination.boardId], userIds: [member.id] });
   }
 });
+}

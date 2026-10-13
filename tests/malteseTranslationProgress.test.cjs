@@ -59,3 +59,18 @@ assert.match(maltese['csv-mapping-list-missing'], /lista waħda.*kull karta/);
 assert.match(maltese['csv-mapping-list-required'], /jew agħżel il-kolonna/);
 assert.match(maltese['csv-mapping-skipped-sheets'], /ma jiġux importati/);
 assert.match(maltese['invalid-import-mapping'], /ma jaqbilx mal-fajl/);
+
+for (const key of Object.keys(english).filter(k => /^(scrum-import-|scrum-release-scope$|scrum-releases-select-help$|subtask-mark-|subtask-done-no-permission$)/.test(k))) {
+  assert.notEqual(maltese[key], english[key], key);
+  assert.deepEqual(tokens(maltese[key]), tokens(english[key]), key);
+}
+assert.match(maltese['scrum-import-into-board-hint'], /jintrabtu, qatt ma jiġu duplikati/);
+assert.match(maltese['scrum-import-into-board-hint'], /bl-ID, jew bin-numru u t-titlu/);
+assert.match(maltese['scrum-import-into-board-hint'], /ma jaqblux.*jitħallew mhux mibdula/);
+assert.match(maltese['scrum-import-card-ambiguous'], /aktar minn karta waħda/);
+assert.match(maltese['scrum-import-card-on-another-board'], /bord ieħor.*mhux mibdula/);
+assert.match(maltese['scrum-import-sprint-finished'], /ma ġietx imċaqalqa.*ntemm/);
+assert.match(maltese['scrum-releases-select-help'], /Ctrl.*Cmd.*Mac.*kull verżjoni/);
+assert.match(maltese['subtask-mark-not-done'], /mhux lest/);
+assert.doesNotMatch(maltese['subtask-mark-done'], /mhux lest/);
+assert.match(maltese['subtask-done-no-permission'], /Ma tistax tibdel/);

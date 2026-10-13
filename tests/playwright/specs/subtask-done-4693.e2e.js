@@ -25,8 +25,11 @@ async function openCard(page, board, cardId) {
   return cp;
 }
 
-test.describe('Subtask done checkbox (#4693)', () => {
+for (const language of ['en', 'mt']) {
+test.describe(`Subtask done checkbox in ${language} (#4693)`, () => {
+  const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
   test('ticking and unticking a subtask updates it and the done/total count', async ({ boardPage, board }) => {
+    await boardPage.evaluate(language => Meteor.callAsync('setLanguage', language), language);
     const { parent, child } = makeSubtask(board);
     const cp = await openCard(boardPage, board, parent._id);
     const heading = cp.root.locator('.js-toggle-card-section[data-section="subtasks"]');
@@ -35,10 +38,12 @@ test.describe('Subtask done checkbox (#4693)', () => {
 
     await expect(heading).toContainText('(0/1)');
     await expect(box).toHaveAttribute('aria-checked', 'false');
+    await expect(box).toHaveAttribute('title', strings['subtask-mark-done']);
 
     await box.click();
     await expect.poll(() => db.findOne('cards', { _id: child._id }).dueComplete).toBe(true);
     await expect(box).toHaveAttribute('aria-checked', 'true');
+    await expect(box).toHaveAttribute('title', strings['subtask-mark-not-done']);
     await expect(row.locator('.subtask-title')).toHaveClass(/is-done/);
     await expect(heading).toContainText('(1/1)');
 
@@ -55,6 +60,7 @@ test.describe('Subtask done checkbox (#4693)', () => {
       userId: user2.id, isAdmin: false, isActive: true, isNoComments: false,
       isCommentOnly: true, isWorker: false, isReadOnly: false, isReadAssignedOnly: false } } });
     await loginWithToken(page, user2.id, user2.token);
+    await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
     await openBoard(page, board.boardId, board.slug);
     const cp = await openCard(page, board, parent._id);
     const row = cp.root.locator('.card-subtasks-items .js-subtasks').filter({ hasText: 'Beta Card' });
@@ -62,6 +68,7 @@ test.describe('Subtask done checkbox (#4693)', () => {
     await expect(cp.root.locator('.js-toggle-card-section[data-section="subtasks"]')).toContainText('(1/1)');
     await expect(row.locator('.subtask-done-toggle.is-disabled')).toHaveAttribute('aria-checked', 'true');
     await expect(row.locator('.js-toggle-subtask-done')).toHaveCount(0);
+    await expect(row.locator('.subtask-done-toggle.is-disabled')).toHaveAttribute('title', strings['subtask-done-no-permission']);
 
     const refused = await page.evaluate(([p, c]) => Meteor.callAsync('setSubtaskDone', p, c, false)
       .then(() => 'accepted', error => error.error), [parent._id, child._id]);
@@ -69,3 +76,4 @@ test.describe('Subtask done checkbox (#4693)', () => {
     expect(db.findOne('cards', { _id: child._id }).dueComplete).toBe(true);
   });
 });
+}
