@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin rule builder and activity messages — 2026-10-14
+
+Commit `6150377ef5` repairs 40 prefixed rule-builder and activity entries.
+Regression checks preserve setting versus clearing custom-field values, triggers
+versus actions, existing-rule editing, archive/restoration direction, any-label
+conditions, daily scheduling, received dates, format literals and selection scope.
+
+The Latin and guarded-correction suites pass with 28,094 ledger entries. All 21
+human-preference checks pass. Existing workflow-builder browser coverage now
+includes Latin, including the disabled creation button before parts are selected.
+Syntax and discovery pass; browser runtime remains pending. Exact comparison
+preserves 38,430 existing Chinese values.
+
+There remain 1,290 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin deletion warnings and subtask settings — 2026-10-14
 
 Commit `0da6274347` repairs 40 prefixed deletion, subtask, minicard and activity
