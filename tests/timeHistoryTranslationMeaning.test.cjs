@@ -16,6 +16,7 @@ for (const { locales, meanings } of groups) {
     if (/^en(?:[-_]|$)/.test(code)) assert.equal(text, source[key], code);
     else assert.notEqual(text, source[key], code);
     assert.doesNotMatch(text, /(?:^|\s)Δ(?:\s|$)|≠/, `${code}: shorthand is not the explanation`);
+    if (code === 'ja-HI') assert.doesNotMatch(text, /[\p{Script=Han}\p{Script=Katakana}]/u, 'Hiragana locale uses its declared script');
     for (const meaning of meanings) assert.ok(text.includes(meaning), `${code}: missing ${meaning}`);
     const repair = ledger.filter(row => row.locale === code && row.key === key).at(-1);
     assert.equal(repair.after, text, code);

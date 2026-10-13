@@ -175817,5 +175817,61 @@
     "before": "Таърих: Δ соат; Номи корбар ≠ Масъулон.",
     "after": "Тағйироти соатҳои сабтшуда аз рӯи шахсе, ки шумораи умумии соатҳоро таҳрир мекунад, гурӯҳбандӣ шудаанд. Инҳо ҷаласаҳои алоҳидаи корӣ нестанд. Қиматҳои манфӣ ислоҳот мебошанд. Вақти қаблан сабтнашударо ба ягон шахс нисбат додан мумкин нест.",
     "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "ku",
+    "key": "time-adjustment-note",
+    "before": "Dîrokçe: Δ saet; Navê bikarhêner ≠ Berpirsyar.",
+    "after": "Guherînên saetên tomarkirî li gorî kesê ku tevahiyê diguherîne tên komkirin. Ev ne danişînên kar ên takekesî ne. Nirxên neyînî sererastkirin in. Dema berê ya ku nehatiye tomarkirin nikare ji kesekî re bê veqetandin.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "ckb",
+    "key": "time-adjustment-note",
+    "before": "مێژوو: Δ کاتژمێر; ناوی بەکارهێنەر ≠ بەرپرسان.",
+    "after": "گۆڕانکارییەکانی کاتژمێرە تۆمارکراوەکان بەپێی ئەو کەسە گرووپ کراون کە کۆی گشتی دەستکاری دەکات. ئەمانە دانیشتنە تاکەکەسییەکانی کار نین. بەها نەرێنییەکان ڕاستکردنەوەن. ئەو کاتەی پێشتر تۆمار نەکراوە ناتوانرێت بدرێتە پاڵ کەسێک.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "ps",
+    "key": "time-adjustment-note",
+    "before": "مخينه: Δ ساعتونه; کارن نوم ≠ ګمارل شوي.",
+    "after": "په ثبت شویو ساعتونو کې بدلونونه د هغه کس له مخې ډلبندي شوي چې ټولیز وخت سموي. دا د کار جلا ناستې نه دي. منفي ارزښتونه سمونونه دي. پخوانی ناثبت شوی وخت هېڅ کس ته نه شي منسوب کېدای.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "sd",
+    "key": "time-adjustment-note",
+    "before": "تاريخچه: Δ ڪلاڪ; استعمال ڪندڙ جو نالو ≠ ذميوار.",
+    "after": "رڪارڊ ڪيل ڪلاڪن ۾ تبديليون، ڪل وقت ۾ ترميم ڪندڙ شخص جي لحاظ کان گروپن ۾ ورهايل آهن. اهي ڪم جا الڳ الڳ سيشن نه آهن. منفي قدر درستگيون آهن. اڳ ۾ رڪارڊ نه ڪيل وقت ڪنهن شخص ڏانهن منسوب نٿو ڪري سگهجي.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "ug",
+    "key": "time-adjustment-note",
+    "before": "تارىخ: Δ سائەت; ئىشلەتكۈچى ئىسمى ≠ ھاۋالە قىلغۇچىلار.",
+    "after": "خاتىرىلەنگەن سائەتتىكى ئۆزگىرىشلەر ئومۇمىي ۋاقىتنى تەھرىرلىگەن كىشى بويىچە گۇرۇپپىلانغان. بۇلار ئايرىم خىزمەت جەريانلىرى ئەمەس. مەنپىي قىممەتلەر تۈزىتىشلەردۇر. ئىلگىرى خاتىرىلەنمىگەن ۋاقىتنى ھېچقانداق كىشىگە تەۋە قىلىشقا بولمايدۇ.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "ha",
+    "key": "time-adjustment-note",
+    "before": "Tarihi: Δ awanni; Sunan mai amfani ≠ Waɗanda aka ba wa.",
+    "after": "An haɗa canje-canje ga awannin da aka rubuta bisa ga mutumin da yake gyara jimillar. Waɗannan ba zaman aiki na ɗaiɗaiku ba ne. Ƙimomin da ke ƙasa da sifili gyare-gyare ne. Ba za a iya danganta lokacin da ba a rubuta a baya ga wani mutum ba.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "so",
+    "key": "time-adjustment-note",
+    "before": "Taariikh: Δ saacadood; Magaca isticmaalaha ≠ Loo xilsaaray.",
+    "after": "Isbeddellada saacadaha la diiwaangeliyey waxaa loo kooxeeyaa qofka wax ka beddelaya wadarta. Kuwani ma aha kalfadhiyo shaqo oo gooni-gooni ah. Qiimayaasha taban waa sixitaanno. Waqti hore oo aan la diiwaangelin looma nisbayn karo qofna.",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "ja-HI",
+    "key": "time-adjustment-note",
+    "before": "履歴: Δ 時間; ユーザー名 ≠ 担当者.",
+    "after": "きろくずみの じかんの へんこうを、ごうけいを へんしゅうした ひとごとに まとめています。いっかいごとの さぎょうを しめすものでは ありません。ふの あたいは しゅうせいを あらわします。かこに きろくされなかった じかんを、とくていの ひとに きぞくさせることは できません。",
+    "reason": "Restore all source distinctions: edits grouped by editor, not individual work sessions, negative values are corrections, and earlier unrecorded time cannot be attributed."
   }
 ]

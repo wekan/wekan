@@ -913,5 +913,93 @@
       "Қиматҳои манфӣ ислоҳот мебошанд",
       "сабтнашударо ба ягон шахс нисбат додан мумкин нест"
     ]
+  },
+  {
+    "locales": [
+      "ku"
+    ],
+    "meanings": [
+      "Guherînên saetên tomarkirî li gorî kesê ku tevahiyê diguherîne tên komkirin",
+      "Ev ne danişînên kar ên takekesî ne",
+      "Nirxên neyînî sererastkirin in",
+      "Dema berê ya ku nehatiye tomarkirin nikare ji kesekî re bê veqetandin"
+    ]
+  },
+  {
+    "locales": [
+      "ckb"
+    ],
+    "meanings": [
+      "گۆڕانکارییەکانی کاتژمێرە تۆمارکراوەکان بەپێی ئەو کەسە گرووپ کراون کە کۆی گشتی دەستکاری دەکات",
+      "ئەمانە دانیشتنە تاکەکەسییەکانی کار نین",
+      "بەها نەرێنییەکان ڕاستکردنەوەن",
+      "ئەو کاتەی پێشتر تۆمار نەکراوە ناتوانرێت بدرێتە پاڵ کەسێک"
+    ]
+  },
+  {
+    "locales": [
+      "ps"
+    ],
+    "meanings": [
+      "په ثبت شویو ساعتونو کې بدلونونه د هغه کس له مخې ډلبندي شوي چې ټولیز وخت سموي",
+      "دا د کار جلا ناستې نه دي",
+      "منفي ارزښتونه سمونونه دي",
+      "پخوانی ناثبت شوی وخت هېڅ کس ته نه شي منسوب کېدای"
+    ]
+  },
+  {
+    "locales": [
+      "sd"
+    ],
+    "meanings": [
+      "رڪارڊ ڪيل ڪلاڪن ۾ تبديليون، ڪل وقت ۾ ترميم ڪندڙ شخص جي لحاظ کان گروپن ۾ ورهايل آهن",
+      "اهي ڪم جا الڳ الڳ سيشن نه آهن",
+      "منفي قدر درستگيون آهن",
+      "اڳ ۾ رڪارڊ نه ڪيل وقت ڪنهن شخص ڏانهن منسوب نٿو ڪري سگهجي"
+    ]
+  },
+  {
+    "locales": [
+      "ug"
+    ],
+    "meanings": [
+      "خاتىرىلەنگەن سائەتتىكى ئۆزگىرىشلەر ئومۇمىي ۋاقىتنى تەھرىرلىگەن كىشى بويىچە گۇرۇپپىلانغان",
+      "بۇلار ئايرىم خىزمەت جەريانلىرى ئەمەس",
+      "مەنپىي قىممەتلەر تۈزىتىشلەردۇر",
+      "ئىلگىرى خاتىرىلەنمىگەن ۋاقىتنى ھېچقانداق كىشىگە تەۋە قىلىشقا بولمايدۇ"
+    ]
+  },
+  {
+    "locales": [
+      "ha"
+    ],
+    "meanings": [
+      "An haɗa canje-canje ga awannin da aka rubuta bisa ga mutumin da yake gyara jimillar",
+      "Waɗannan ba zaman aiki na ɗaiɗaiku ba ne",
+      "Ƙimomin da ke ƙasa da sifili gyare-gyare ne",
+      "Ba za a iya danganta lokacin da ba a rubuta a baya ga wani mutum ba"
+    ]
+  },
+  {
+    "locales": [
+      "so"
+    ],
+    "meanings": [
+      "Isbeddellada saacadaha la diiwaangeliyey waxaa loo kooxeeyaa qofka wax ka beddelaya wadarta",
+      "Kuwani ma aha kalfadhiyo shaqo oo gooni-gooni ah",
+      "Qiimayaasha taban waa sixitaanno",
+      "Waqti hore oo aan la diiwaangelin looma nisbayn karo qofna"
+    ]
+  },
+  {
+    "locales": [
+      "ja-HI"
+    ],
+    "meanings": [
+      "きろくずみの じかんの へんこうを、ごうけいを へんしゅうした ひとごとに まとめています",
+      "いっかいごとの さぎょうを しめすものでは ありません",
+      "ふの あたいは しゅうせいを あらわします",
+      "かこに きろくされなかった じかんを、とくていの ひとに きぞくさせることは できません"
+    ]
   }
 ]
