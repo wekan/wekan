@@ -2622,6 +2622,22 @@ heading; syntax and discovery pass, while runtime execution remains pending.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/94f4cf2409">Correct Southern Sotho email instructions and limits</a>. Thanks to xet7.</summary>
+
+Eight guarded repairs clarify message content, labels, disabled addresses,
+recipient limits and the SES sending address. Mixed English in email help is
+translated. The historical review reaches the end of the current 4,270-key
+catalog; native-speaker verification and all-language work remain unfinished.
+
+Both translation suites and all 21 preservation checks pass. Existing Chinese
+values remain unchanged. The new email-settings browser case passes syntax and
+discovery; runtime remains pending. The refreshed inventory contains 30,557
+English-equal candidates across 135 languages, requiring contextual review;
+379 source keys pending Transifex are tracked separately.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

@@ -2,6 +2,26 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho historical review: email and catalog end — 2026-10-13
+
+Commit `94f4cf2409` reviews source keys 4070–4269 and repairs eight values.
+Email help distinguishes labels from letters and message contents from a body,
+expresses the recipient maximum, and identifies the SES sending address rather
+than the destination. Disabled-address wording describes the existing state.
+Mixed English in settings, domain and raw-MIME relay descriptions is translated.
+
+The Southern Sotho and repair-ledger suites pass with 27,057 guarded corrections;
+all 21 human-preference checks pass. The added SES settings browser case passes
+syntax and discovery; runtime remains pending. Exact comparison preserves
+38,430 existing Chinese values. Review reaches the end of the current 4,270-key
+catalog but does not establish native-level accuracy. Technical terminology
+still benefits from native-speaker verification.
+
+The refreshed filtered inventory reports 30,557 English-equal candidates across
+135 languages, plus 379 source keys pending Transifex tracked separately. Shared
+words and technical names require contextual review rather than automatic
+replacement. All-language translation and semantic verification remain unfinished.
+
 ## Southern Sotho historical review: Scrum and recovery — 2026-10-13
 
 Commit `6d74dfa66f` reviews source keys 3730–4069 and repairs two values.
