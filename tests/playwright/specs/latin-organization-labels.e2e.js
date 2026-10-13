@@ -26,3 +26,16 @@ test('Latin role settings explain global-admin rights and unsaved preview', asyn
   await expect(pane).toContainText('antequam serves.');
   await expect(pane.locator('.js-roles-save')).toBeVisible();
 });
+
+
+test('Latin shared-template settings explain scopes and nonempty template boards', async ({ page, adminUser }) => {
+  const { loginWithToken, navigateInApp } = require('../helpers/auth');
+  await loginWithToken(page, adminUser.id, adminUser.token);
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'la'));
+  await navigateInApp(page, '/admin/people/templates');
+  const pane = page.locator('.templates-settings');
+  await expect(pane.locator('.templates-description')).toContainText('Elige unum vel plures ambitus infra');
+  await expect(pane.locator('.templates-description')).toContainText('Soli usores quorum tabula Exemplarium non est vacua enumerantur.');
+  await expect(pane.locator('.templates-description')).not.toContainText('Latine:');
+  await expect(pane.locator('.js-toggle-template-scope')).toHaveCount(3);
+});

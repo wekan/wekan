@@ -787,3 +787,20 @@ assert.equal(new Set(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 's
 assert.match(latin['delete-linked-cards-before-this-list'], /antequam chartas coniunctas deleveris/);
 assert.match(latin['delete-linked-cards-before-this-list'], /ad chartas huius indicis spectant/);
 assert.notEqual(latin['hide-checked-items'], latin['hide-finished-checklist']);
+
+const reviewedSharingViewKeys = ["task", "create-task", "domains", "domain", "add-domain", "share-template-with", "drag-template-here-to-share", "remove-domain-from-board", "invalid-domain", "domain-user-count", "no-items-message", "shared-templates", "shared-templates-info", "shared-templates-select-scope", "no-shared-templates", "displayName", "shortName", "autoAddUsersWithDomainName", "website", "person", "day", "week", "month", "context-separator", "myCardsViewChange-title", "myCardsViewChangePopup-title", "myCardsViewChange-choice-table", "myCardsSortChange-title", "myCardsSortChangePopup-title", "myCardsSortChange-choice-board", "myCardsSortChange-choice-dueat", "dueCards-title", "dueCardsViewChange-title", "dueCardsViewChangePopup-title", "dueCardsViewChange-choice-me", "dueCardsViewChange-choice-all", "dueCardsViewChange-choice-all-description", "globalSearchViewChange-title", "globalSearchViewChangePopup-title", "globalSearchViewChange-choice-me"];
+for (const key of reviewedSharingViewKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Task|Domain|Template|Browse|Select|Shared|Automatically|View|Users)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['invalid-domain'], /example\.com.*sine @ aut spatiis/);
+assert.match(latin['shared-templates-info'], /unum vel plures ambitus/);
+assert.match(latin['shared-templates-info'], /Soli usores quorum tabula Exemplarium non est vacua/);
+assert.match(latin['shared-templates-info'], /dominium inscriptionis electronicae/);
+assert.equal(latin['context-separator'], '/');
+for (const key of ['myCardsViewChange', 'myCardsSortChange', 'dueCardsViewChange', 'globalSearchViewChange']) assert.equal(latin[`${key}-title`], latin[`${key}Popup-title`]);
+assert.notEqual(latin['myCardsSortChange-choice-board'], latin['myCardsSortChange-choice-dueat']);
+assert.match(latin['dueCardsViewChange-choice-all-description'], /chartas imperfectas/);
+assert.match(latin['dueCardsViewChange-choice-all-description'], /cum \*die debito\*/);
+assert.match(latin['dueCardsViewChange-choice-all-description'], /ad quas usor aditum habet/);
+assert.notEqual(latin['dueCardsViewChange-choice-me'], latin['dueCardsViewChange-choice-all']);

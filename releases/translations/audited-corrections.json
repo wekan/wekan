@@ -198616,5 +198616,285 @@
     "before": "Latine: Cela finitum index probationis",
     "after": "Cela indicem probationis perfectum",
     "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "task",
+    "before": "Latine: Task",
+    "after": "Munus",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "create-task",
+    "before": "Latine: Crea Task",
+    "after": "Crea munus",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "domains",
+    "before": "Latine: Domains",
+    "after": "Dominia",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "domain",
+    "before": "Latine: Domain",
+    "after": "Dominium",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "add-domain",
+    "before": "Latine: Adde Domain",
+    "after": "Adde dominium",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "share-template-with",
+    "before": "Latine: Share template cum",
+    "after": "Communica exemplar cum",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "drag-template-here-to-share",
+    "before": "Latine: Drag a Template Tabula here ad share it",
+    "after": "Trahe tabulam exemplarem huc ut eam communices",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "remove-domain-from-board",
+    "before": "Latine: certusne es tu want ad remove hoc domain ex hoc tabula?",
+    "after": "Certusne es te hoc dominium ex hac tabula removere velle?",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "invalid-domain",
+    "before": "Latine: Invalidum domain. Use a domain like example.com (non @ vel spaces).",
+    "after": "Dominium invalidum. Utere dominio sicut example.com (sine @ aut spatiis).",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "domain-user-count",
+    "before": "Latine: Usores",
+    "after": "Usores",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "no-items-message",
+    "before": "Latine: Non res.",
+    "after": "Nullae res.",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "shared-templates",
+    "before": "Latine: Shared templates",
+    "after": "Exemplaria communia",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "shared-templates-info",
+    "before": "Latine: Browse usores' shareable template tabulae, grouped a Organizatio, Manus vel epistula electronica Domain. Elige one vel plus scopes below ad monstra the matching shared templates. Tantum usores whose Templates tabula est non vacuum sunt listed.",
+    "after": "Inspice tabulas exemplares usorum quae communicari possunt, secundum consociationem, manum aut dominium inscriptionis electronicae ordinatas. Elige unum vel plures ambitus infra ut exemplaria communia congruentia monstres. Soli usores quorum tabula Exemplarium non est vacua enumerantur.",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "shared-templates-select-scope",
+    "before": "Latine: Elige a scope above (Organizationes, Manus vel Domains) ad monstra shared templates.",
+    "after": "Elige ambitum supra (consociationes, manus aut dominia) ut exemplaria communia monstres.",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "no-shared-templates",
+    "before": "Latine: Non shared templates",
+    "after": "Nulla exemplaria communia",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "displayName",
+    "before": "Latine: Ostende Nomen",
+    "after": "Nomen monstratum",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "shortName",
+    "before": "Latine: Short Nomen",
+    "after": "Nomen breve",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "autoAddUsersWithDomainName",
+    "before": "Latine: Automatice adde usores cum the domain nomen",
+    "after": "Adde automatice usores cum nomine dominii",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "website",
+    "before": "Latine: Website",
+    "after": "Situs interretialis",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "person",
+    "before": "Latine: Person",
+    "after": "Persona",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "day",
+    "before": "Latine: Dies",
+    "after": "Dies",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "week",
+    "before": "Latine: Hebdomas",
+    "after": "Hebdomas",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "month",
+    "before": "Latine: Mensis",
+    "after": "Mensis",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "context-separator",
+    "before": "Latine: /",
+    "after": "/",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "myCardsViewChange-title",
+    "before": "Latine: My Schedae Vide",
+    "after": "Aspectus chartarum mearum",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "myCardsViewChangePopup-title",
+    "before": "Latine: My Schedae Vide",
+    "after": "Aspectus chartarum mearum",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "myCardsViewChange-choice-table",
+    "before": "Latine: Table",
+    "after": "Tabella",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "myCardsSortChange-title",
+    "before": "Latine: My Schedae Ordina",
+    "after": "Ordo chartarum mearum",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "myCardsSortChangePopup-title",
+    "before": "Latine: My Schedae Ordina",
+    "after": "Ordo chartarum mearum",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "myCardsSortChange-choice-board",
+    "before": "Latine: A Tabula",
+    "after": "Secundum tabulam",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "myCardsSortChange-choice-dueat",
+    "before": "Latine: A dies debitus",
+    "after": "Secundum diem debitum",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "dueCards-title",
+    "before": "Latine: Due Schedae",
+    "after": "Chartae cum die debito",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "dueCardsViewChange-title",
+    "before": "Latine: Due Schedae Vide",
+    "after": "Aspectus chartarum cum die debito",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "dueCardsViewChangePopup-title",
+    "before": "Latine: Due Schedae Vide",
+    "after": "Aspectus chartarum cum die debito",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "dueCardsViewChange-choice-me",
+    "before": "Latine: Me",
+    "after": "Ego",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "dueCardsViewChange-choice-all",
+    "before": "Latine: Omnia Usores",
+    "after": "Omnes usores",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "dueCardsViewChange-choice-all-description",
+    "before": "Latine: Shows omnia incomplete schedae cum a *Due* dies ex tabulae for which the usor has facultas.",
+    "after": "Monstrat omnes chartas imperfectas cum *die debito* ex tabulis ad quas usor aditum habet.",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "globalSearchViewChange-title",
+    "before": "Latine: Global Quaere Vide",
+    "after": "Aspectus quaestionis universalis",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "globalSearchViewChangePopup-title",
+    "before": "Latine: Global Quaere Vide",
+    "after": "Aspectus quaestionis universalis",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "globalSearchViewChange-choice-me",
+    "before": "Latine: My schedae",
+    "after": "Chartae meae",
+    "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
   }
 ]
