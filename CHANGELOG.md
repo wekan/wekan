@@ -2503,6 +2503,21 @@ Chinese values are preserved. All-language translation work continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/26090b467a">Clarify Southern Sotho report metrics and checklist templates</a>. Thanks to xet7.</summary>
+
+Reviewed source keys 2135–2349 and corrected five values. Recovery severity
+identifies seriousness rather than pain. Checklist copying specifies a template
+as its source. The custom-translation count identifies strings, and remaining
+time refers to the due date rather than an end date.
+
+Southern Sotho and repair-ledger suites pass with 26,959 guarded corrections;
+all 21 human-preference checks pass. Checklist-copy browser coverage passes
+syntax and discovery; runtime execution remains pending. All 38,430 existing
+Chinese values are preserved. All-language translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

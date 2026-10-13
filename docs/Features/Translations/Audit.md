@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho historical review: report metrics and templates — 2026-10-13
+
+Commit `26090b467a` reviews source keys 2135–2349 and repairs five values.
+Recovery severity identifies seriousness rather than pain. Both the checklist
+copy action and dialog identify the template source rather than an example.
+The custom-translation count uses the noun for text lines, and remaining time
+refers to the due date rather than the end date. Other valid wording is preserved.
+
+The Southern Sotho and repair-ledger suites pass with 26,959 guarded corrections;
+all 21 human-preference checks pass. The browser case checks the template-copy
+action and opens its dialog without copying contents. Syntax and discovery
+pass; runtime execution remains pending. Exact comparison preserves 38,430
+existing Chinese values. Historical review reaches key 2349; all-language
+translation and semantic review remain unfinished.
+
 ## Southern Sotho historical review: search constraints — 2026-10-13
 
 Commit `d50db7b0bc` reviews source keys 1990–2134 and repairs three values.
