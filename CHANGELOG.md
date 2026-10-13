@@ -565,15 +565,94 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** more **UI labels and storage settings** now use their target
-language, and seeded wrong-language instructions are corrected. Missing
-Bengali, Marathi, Nepali and Tamil feature strings are filled. Tamil calendar
-spelling is corrected. New Trello strings
-are translated in Chinese and Marathi, and a new audit exposes
-English prose hidden by technical-name exemptions. Existing verified
-translations remain intact while the wider language-quality review continues.
+**In short:** on every platform a board can be **exported to Trello**
+through its API, with **swimlanes** kept as labels that WeKan's Trello import
+turns back into swimlanes; on **Sandstorm**, the **Powerbox** lets a grain
+reach Trello. **FreeBSD** Bun bundles, the **Launchpad snap** waits and the
+**Mac apps** release step are fixed. Missing Bengali, Marathi, Nepali and
+Tamil strings are filled, and wrong-language values are corrected.
 
-This release updates the following translations:
+This release adds the following new features:
+
+**Trello** - import and export, on every WeKan platform.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/88d00e02f1">Export a board to Trello, and bring its swimlanes back on import</a>. Thanks to xet7.</summary>
+
+**Board Settings → Export → Trello** creates the board in Trello through its
+API with the saved key and token: labels, lists, cards with their dates and
+labels, checklists, comments (starting with their author and time) and
+attachment files; archived lists and cards are archived there too. It runs as
+a server job from the board export, with the same access check, and lists
+anything Trello refused. Trello has no swimlanes, so each swimlane becomes a
+label named `Swimlane: <title>` on its cards: the free Swimlanes by Blue Cat
+Power-Up groups Trello cards into rows by label, and every WeKan Trello import
+(JSON, `.zip` and the live API import) turns those labels back into swimlanes.
+`tests/trelloExportPlan.test.cjs` covers the mapping and the round trip, and
+`tests/trelloApiExport.test.cjs` runs the export against a fake Trello API.
+
+</details>
+
+**Sandstorm** - reaching outside services from a grain.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/88d00e02f1">A grain reaches Trello through the Sandstorm Powerbox</a>. Thanks to xet7.</summary>
+
+A grain has no network of its own. **Allow access to Trello** on the Trello
+import page and in the export opens the Powerbox for `https://api.trello.com/1`,
+the way the Sandstorm WordPress app reaches wordpress.org for plugin updates.
+The access token is kept per user on the server, never sent to a browser, and
+ends when the user loses access to the grain. Trello's REST calls go through
+the bridge proxy; files uploaded to Trello cannot be (Trello needs a header the
+proxy keeps for itself), so the import counts them as left out.
+`tests/sandstormApiEgress.test.mjs` checks the Powerbox descriptor, the claim
+and the proxied requests against a fake bridge, and `tests/relayBleed.test.cjs`
+that no download leaves a grain. Not yet tried in a live Sandstorm grain.
+
+</details>
+
+and fixes the following build bugs:
+
+**Release builds** - jobs that skipped or gave up on work that had succeeded.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ccff887734">The Mac apps, Windows EXE, Docker image and snap checks find published assets</a>. Thanks to xet7.</summary>
+
+Both v12.39 Mac apps were skipped although their bundles were attached:
+`gh release view … | grep -q` let grep exit at the first match while gh was
+still writing, gh got SIGPIPE, `pipefail` failed the pipeline, and the job said
+the bundle was not published - green, with two notices. Four other checks had
+the same shape. Each now reads the asset list whole before matching it.
+`tests/releaseAssetCheckNoSigpipe.test.cjs` reproduces the failure and fails if
+any workflow pipes `gh` or `curl` into `grep -q` again.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/121bf673a5">A Launchpad snap build is waited for through network blips</a>. Thanks to xet7.</summary>
+
+The v12.39 armhf, s390x and riscv64 builds ran on Launchpad, but the runner's
+connection to its API dropped or a poll hung, and snapcraft ended each attempt
+as "Network is unreachable" or "Timed out waiting for build" - three blips
+failed each job. A failed build-state poll is now retried for up to 30
+minutes; other errors and the workflow's own deadline are unchanged.
+`tests/releaseSnapcraftCompat.test.cjs` covers the retries and their limits.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/13c9bd27d5">FreeBSD Bun bundles build Sharp natively</a>. Thanks to xet7.</summary>
+
+Both FreeBSD jobs stopped at `native check: sharp`: Sharp's only FreeBSD
+prebuilt is WebAssembly with Worker threads, and under Bun on FreeBSD the first
+image operation never returned, while the same build works under Bun on Linux.
+Sharp is now compiled against the system libvips, as on Android, and the
+FreeBSD VM installs `vips`. FreeBSD ships libvips 8.18.6 and Sharp asks for
+8.18.7, so the next FreeBSD run shows whether it compiles.
+
+</details>
+
+and updates the following translations:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/67d1ad324f">Translate shared UI labels and repair seeded terminology</a>. Thanks to xet7.</summary>
