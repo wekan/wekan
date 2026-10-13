@@ -2,6 +2,47 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Time-history regional and South Asian review — 2026-10-13
+
+Commit `c6aa8490d0` repairs 23 more abbreviated notes: Belarusian, Assamese,
+Odia, Punjabi, Sinhala, Javanese, Haitian Creole, Frisian (`fy`, `fy-NL`),
+Luxembourgish, Latin, Faroese, Welsh (`cy`, `cy-GB`), Irish, Scottish Gaelic,
+Occitan, Asturian, Aragonese, Corsican, Sardinian, Sicilian and Tajik.
+All four source meanings are stated explicitly. The Latin note no longer
+contains the artificial repeated `Latine:` wrapper. Tajik names the total
+number of hours rather than an amount of money.
+
+Vocabulary checks used [Teanglann's negative entry](https://www.teanglann.ie/en/fgb/di%C3%BAltach)
+and [Foclóir's attribution entry](https://www.focloir.ie/en/dictionary/ei/attribute)
+for Irish; [the Aragonese orthographic dictionary](https://www.efaragonesa.org/biblio/Edacar13.pdf)
+attests `rechistrar`; [Asturian correición](https://en.wiktionary.org/wiki/correici%C3%B3n)
+and [the Sardinian spelling tool](https://cros.nor-web.eu/) support correction
+terminology. [Sicilian Wikimedia usage](https://commons.wikimedia.org/wiki/Commons%3ARename_a_category/scn)
+supports `currizzioni`, replacing the initial draft spelling. These checks
+support vocabulary, not complete sentence certification. Faroese, Frisian,
+Scottish Gaelic, Aragonese, Corsican, Sardinian and Sicilian technical prose
+is provisional and explicitly marked for fluent review in the source commit.
+
+The existing four-meaning fixture now covers 125 catalog paths. Its positive
+checks require each distinction and its negative checks reject the previous
+shorthand. Both affected suites pass, including all 25,117 ledger rows and
+their exact-before matching, idempotency and preservation of newer reviewed
+text. All 21 human-preference checks pass. All keys and placeholder tokens
+were checked against the current English source in the 23 changed catalogs.
+
+The shared browser correction flow automatically includes the new fixture
+locales: 126 cases register, including primary English. They have not been
+executed against a rebuilt app. Only the note hunks were staged; unrelated
+pre-existing values and concurrent new email keys were preserved. Existing
+Chinese values were compared individually and left unchanged.
+
+The filtered backlog remains 65,329 values across 234 non-English paths.
+Eighty-seven further catalog paths still have the shorthand note, alongside
+the eight protected `zh` paths that must remain unchanged. The latter are
+not permission to override the user's explicit preservation instruction.
+The full all-language objective, broader semantic review and browser
+execution remain unfinished.
+
 ## Further time-history meaning repairs — 2026-10-13
 
 Commit `44d8210a69` repairs 48 more catalog values. Forty-three cover Arabic,

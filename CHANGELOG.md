@@ -148,10 +148,10 @@ releases.
 - Earlier empty fill reports below describe their recorded batches. The
   newly added email strings expand the backlog in every non-English catalog;
   they still need translation, including new Chinese keys only.
-- The shared time-history audit covers 102 repaired explanations, including
+- The shared time-history audit covers 125 repaired explanations, including
   five English regional catalogs. Editor grouping, individual-session
   exclusion, negative corrections and missing historical attribution are
-  explicit. Two suites and 21 human-preference checks pass; 103 browser
+  explicit. Two suites and 21 human-preference checks pass; 126 browser
   cases register including English, with RTL checks where applicable.
   Further catalogs and browser execution remain under review.
 - Latin Uzbek now has no current fill candidates after 223 feature fills,
@@ -1018,6 +1018,23 @@ with 25,094 corrections. All 21 human-preference checks pass. The browser
 flow registers in 103 locales including English, checks RTL page direction
 where needed, and uses the registered Valencian language tag. Execution
 against a rebuilt app and the remaining language reviews are still pending.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c6aa8490d0">Complete time-history explanations in 23 more catalogs</a>. Thanks to xet7.</summary>
+
+Replace abbreviated notes in Belarusian, Assamese, Odia, Punjabi, Sinhala,
+Javanese, Haitian Creole, Frisian, Luxembourgish, Latin, Faroese, Welsh,
+Irish, Scottish Gaelic, Occitan, Asturian, Aragonese, Corsican, Sardinian,
+Sicilian and Tajik catalogs, including the selected regional files. Preserve
+all four source distinctions about edits to totals and attribution.
+
+The shared tests cover 125 explanations; all 25,117 correction-ledger entries
+and 21 human-preference checks pass. The browser flow registers 126 cases
+including English but has not run against a rebuilt app. Some regional
+technical wording is provisional pending fluent review. Existing Chinese
+text and unrelated translations remain unchanged.
 
 </details>
 
