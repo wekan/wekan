@@ -197916,5 +197916,215 @@
     "before": "Latine: Adde Custom HTML ante </body> end",
     "after": "Adde HTML proprium ante finem </body>",
     "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "error-undefined",
+    "before": "Latine: Something went wrong",
+    "after": "Aliquid perperam evenit",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "error-ldap-login",
+    "before": "Latine: An error occurred while trying ad introitus",
+    "after": "Error accidit dum ingressus temptabatur",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "display-authentication-method",
+    "before": "Latine: Ostende Authenticatio Method",
+    "after": "Monstra modum authenticationis",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "oidc-button-text",
+    "before": "Latine: Customize the OIDC globulus textus",
+    "after": "Muta textum bullae OIDC",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "default-authentication-method",
+    "before": "Latine: Praedefinitum Authenticatio Method",
+    "after": "Modus authenticationis praedefinitus",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "duplicate-board",
+    "before": "Latine: Duplicate Tabula",
+    "after": "Duplica tabulam",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "duplicate-board-confirm",
+    "before": "Latine: certusne es tu want ad duplicate hoc tabula?",
+    "after": "Certusne es te hanc tabulam duplicare velle?",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "org-number",
+    "before": "Latine: The numerus de organizationes est:",
+    "after": "Numerus consociationum est: ",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "team-number",
+    "before": "Latine: The numerus de manus est:",
+    "after": "Numerus manuum est: ",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "people-number",
+    "before": "Latine: The numerus de people est:",
+    "after": "Numerus hominum est: ",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "swimlaneDeletePopup-title",
+    "before": "Latine: Dele semita natatoria?",
+    "after": "Delere semitam?",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "swimlane-delete-pop",
+    "before": "Latine: Omnia actiones erit esse remotum ex the actio feed et tu won't esse able ad recover the semita natatoria. There est non solve.",
+    "after": "Omnes actiones ex serie actionum removebuntur, neque semitam recuperare poteris. Deletio revocari non potest.",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "restore-all",
+    "before": "Latine: Restitue omnia",
+    "after": "Restitue omnia",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "delete-all",
+    "before": "Latine: Dele omnia",
+    "after": "Dele omnia",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "previous_as",
+    "before": "Latine: ultimus tempus erat",
+    "after": "tempore superiore erat",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "act-a-dueAt",
+    "before": "Latine: modified due tempus ad Quando: __timeValue__\nUbi: __card__ praecedens due erat __timeOldValue__",
+    "after": "mutavit tempus debitum ad \nQuando: __timeValue__\nUbi: __card__\n tempus debitum prius erat __timeOldValue__",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "act-a-endAt",
+    "before": "Latine: modified ending tempus ad __timeValue__ ex (__timeOldValue__)",
+    "after": "mutavit tempus finis ad __timeValue__ ex (__timeOldValue__)",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "act-a-startAt",
+    "before": "Latine: modified starting tempus ad __timeValue__ ex (__timeOldValue__)",
+    "after": "mutavit tempus initii ad __timeValue__ ex (__timeOldValue__)",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "act-a-receivedAt",
+    "before": "Latine: modified received tempus ad __timeValue__ ex (__timeOldValue__)",
+    "after": "mutavit tempus receptionis ad __timeValue__ ex (__timeOldValue__)",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "a-dueAt",
+    "before": "Latine: modified due tempus ad esse",
+    "after": "mutavit tempus debitum ad",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "a-endAt",
+    "before": "Latine: modified ending tempus ad esse",
+    "after": "mutavit tempus finis ad",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "a-startAt",
+    "before": "Latine: modified starting tempus ad esse",
+    "after": "mutavit tempus initii ad",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "a-receivedAt",
+    "before": "Latine: modified received tempus ad esse",
+    "after": "mutavit tempus receptionis ad",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "above-selected-card",
+    "before": "Latine: Above electum scheda",
+    "after": "Supra chartam electam",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "above-selected-swimlane",
+    "before": "Latine: Above electum semita natatoria",
+    "after": "Supra semitam electam",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "below-selected-card",
+    "before": "Latine: Below electum scheda",
+    "after": "Infra chartam electam",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "below-selected-swimlane",
+    "before": "Latine: Below electum semita natatoria",
+    "after": "Infra semitam electam",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "left-of-list",
+    "before": "Latine: Left de electum index",
+    "after": "Ad sinistram indicis electi",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "right-of-list",
+    "before": "Latine: Right de electum index",
+    "after": "Ad dextram indicis electi",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "almostdue",
+    "before": "Latine: praesens due tempus %s est approaching",
+    "after": "tempus debitum praesens %s appropinquat",
+    "reason": "Repair Latin authentication labels, swimlane deletion warnings, date activity messages and relative placement controls; preserve irreversibility and date placeholders."
   }
 ]

@@ -730,3 +730,24 @@ assert.match(latin['custom-head-link-tags'], /link.*HTML/);
 assert.match(latin['custom-assetlinks-content'], /assetlinks\.json.*JSON/);
 assert.match(latin['add-custom-html-after-body-start'], /post initium <body>/);
 assert.match(latin['add-custom-html-before-body-end'], /ante finem <\/body>/);
+
+const reviewedAuthDateKeys = ["error-undefined", "error-ldap-login", "display-authentication-method", "oidc-button-text", "default-authentication-method", "duplicate-board", "duplicate-board-confirm", "org-number", "team-number", "people-number", "swimlaneDeletePopup-title", "swimlane-delete-pop", "restore-all", "delete-all", "previous_as", "act-a-dueAt", "act-a-endAt", "act-a-startAt", "act-a-receivedAt", "a-dueAt", "a-endAt", "a-startAt", "a-receivedAt", "above-selected-card", "above-selected-swimlane", "below-selected-card", "below-selected-swimlane", "left-of-list", "right-of-list", "almostdue"];
+for (const key of reviewedAuthDateKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Something|Authentication|Default|Duplicate|recover|undo|modified|selected|approaching)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['oidc-button-text'], /OIDC$/);
+assert.notEqual(latin['display-authentication-method'], latin['default-authentication-method']);
+assert.match(latin['duplicate-board-confirm'], /duplicare velle/);
+assert.match(latin['swimlane-delete-pop'], /neque semitam recuperare poteris/);
+assert.match(latin['swimlane-delete-pop'], /revocari non potest/);
+assert.notEqual(latin['restore-all'], latin['delete-all']);
+assert.match(latin['act-a-dueAt'], /Quando: __timeValue__\nUbi: __card__/);
+assert.match(latin['act-a-dueAt'], /prius erat __timeOldValue__/);
+for (const kind of ['card', 'swimlane']) {
+  assert.match(latin[`above-selected-${kind}`], /^Supra/);
+  assert.match(latin[`below-selected-${kind}`], /^Infra/);
+}
+assert.match(latin['left-of-list'], /sinistram/);
+assert.match(latin['right-of-list'], /dextram/);
+assert.match(latin.almostdue, /appropinquat$/);

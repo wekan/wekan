@@ -80,3 +80,17 @@ test('Latin duplicate-list deletion warning limits deletion to empty matching li
   await expect(pop).not.toContainText('Latine:');
   await expect(pop.locator('button.js-confirm')).toBeVisible();
 });
+
+
+test('Latin swimlane deletion warns that recovery is impossible', async ({ boardPage: page }) => {
+  await page.evaluate(async () => {
+    await Meteor.callAsync('setLanguage', 'la');
+    Popup.close();
+    Popup.open('swimlaneDelete')({ currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
+  });
+  const pop = page.locator('.js-pop-over');
+  await expect(pop.locator('.header-title')).toHaveText('Delere semitam?');
+  await expect(pop.locator('p')).toContainText('neque semitam recuperare poteris. Deletio revocari non potest.');
+  await expect(pop).not.toContainText('Latine:');
+  await expect(pop.locator('button.js-confirm')).toBeVisible();
+});
