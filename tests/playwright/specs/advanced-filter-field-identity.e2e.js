@@ -106,14 +106,18 @@ test('decimal currency filters and rules preserve the complete numeric boundary'
   }
 });
 
-test('Corsican advanced-filter help renders the exact examples', async ({ boardPage: page }) => {
-  await page.evaluate(() => Meteor.callAsync('setLanguage', 'co'));
+for (const language of ['co', 'st']) {
+test(`${language} advanced-filter help renders the exact examples`, async ({ boardPage: page }) => {
+  await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
   await page.locator('.js-open-filter-view').click();
   const help = page.locator('.js-field-advanced-filter + span');
-  const strings = require('../../../imports/i18n/data/co.i18n.json');
+  const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
   await expect(help).toHaveText(strings['advanced-filter-description']);
   await expect(help).toContainText("Field1 == I\\'m");
   await expect(help).toContainText('F1 == /Tes.*/i');
   await expect(help).not.toContainText('Il filtro avanzato');
   await expect(help).not.toContainText('Campo1 == Valore1');
+  await expect(help).not.toContainText('Field1 == I’m');
 });
+
+}

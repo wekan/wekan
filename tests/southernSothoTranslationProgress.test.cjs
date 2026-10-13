@@ -611,3 +611,19 @@ assert.equal(sesotho.worker, 'Mosebeletsi');
 assert.notEqual(sesotho.worker, 'Mosebetsi');
 assert.equal(sesotho['save-card-as-template'], 'Boloka e le thempleite');
 assert.doesNotMatch(sesotho['save-card-as-template'], /Setshwantsho/);
+
+// Historical review through key 813: literal filter examples and import limits.
+assert.equal(sesotho['custom-fields'], 'Dikarolo tse ikgethileng');
+assert.doesNotMatch(sesotho['custom-fields'], /Masimo/);
+for (const key of ['export-card-excel-no-disk-space', 'export-card-excel-free']) {
+  assert.match(sesotho[key], /se sa sebediswang/);
+  assert.doesNotMatch(sesotho[key], /mahala/);
+}
+const escapedApostropheExample = "Field1 == I" + String.fromCharCode(92) + "'m";
+for (const example of [escapedApostropheExample, "'Field 1' == 'Value 1'", 'F1 == V1 || F1 == V2', 'F1 == V1 && ( F2 == V2 || F2 == V3 )', 'F1 == /Tes.*/i']) {
+  assert.ok(english['advanced-filter-description'].includes(example));
+  assert.ok(sesotho['advanced-filter-description'].includes(example), example);
+}
+assert.doesNotMatch(sesotho['advanced-filter-description'], /I’m/);
+assert.match(sesotho['advanced-filter-description'], /matshwao a qotso a le mong/);
+assert.match(sesotho['import-board-instruction-markdown'], /matshwao a dikulo.*se nang mabokose a ho tshwaya.*dikarete tse sa phethwang/);

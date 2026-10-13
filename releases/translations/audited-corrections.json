@@ -188228,5 +188228,40 @@
     "before": "Boloka e le Setshwantsho",
     "after": "Boloka e le thempleite",
     "reason": "Save a reusable template rather than a picture."
+  },
+  {
+    "locale": "st",
+    "key": "custom-fields",
+    "before": "Masimo a ikgethileng",
+    "after": "Dikarolo tse ikgethileng",
+    "reason": "Use data-field terminology rather than agricultural fields."
+  },
+  {
+    "locale": "st",
+    "key": "export-card-excel-no-disk-space",
+    "before": "Ha ho kgonehe ho ntsha ho Excel: ha ho sebaka se lekaneng sa mahala diskeng",
+    "after": "Ha ho kgonehe ho ntsha ho Excel: ha ho sebaka se lekaneng se sa sebediswang diskeng",
+    "reason": "Describe unused disk capacity rather than space offered without charge."
+  },
+  {
+    "locale": "st",
+    "key": "export-card-excel-free",
+    "before": "mahala",
+    "after": "se sa sebediswang",
+    "reason": "Describe unused disk capacity rather than a price."
+  },
+  {
+    "locale": "st",
+    "key": "advanced-filter-description",
+    "before": "Sefe se tswetseng pele se dumella ho ngola mola o nang le diopereita tsena: == != <= >= && || ( ) Sekgeo se sebediswa ho arola diopereita. O ka sefa dibaka tsohle tse ikgethileng ka mabitso le boleng ba tsona. Mohlala: Field1 == Value1. Ela hloko: Ha dibaka kapa boleng di na le dikgeo, di kenye ka hara matshwao a le mong. Mohlala: 'Field 1' == 'Value 1'. Ho tlola matshwao a taolo, sebedisa backslash. Mohlala: Field1 == I’m. O ka kopanya maemo a mangata. Mohlala: F1 == V1 || F1 == V2. Ka tlwaelo diopereita tsohle di tolokwa ho tloha ho le letshehadi ho ya ho le letona. Fetola tatelano ka masakana. Mohlala: F1 == V1 && ( F2 == V2 || F2 == V3 ). O ka batla le dibaka tsa mongolo ka regex: F1 == /Tes.*/i",
+    "after": "Sefe se tswetseng pele se dumella ho ngola mola o nang le diopereita tsena: == != <= >= && || ( ) Sekgeo se sebediswa ho arola diopereita. O ka sefa dibaka tsohle tse ikgethileng ka mabitso le boleng ba tsona. Mohlala: Field1 == Value1. Ela hloko: Ha dibaka kapa boleng di na le dikgeo, di kenye ka hara matshwao a qotso a le mong. Mohlala: 'Field 1' == 'Value 1'. Ho tlola matshwao a taolo ka bonngwe (' \\/), o ka sebedisa \\. Mohlala: Field1 == I\\'m. O ka kopanya maemo a mangata. Mohlala: F1 == V1 || F1 == V2. Ka tlwaelo diopereita tsohle di tolokwa ho tloha ho le letshehadi ho ya ho le letona. Fetola tatelano ka masakana. Mohlala: F1 == V1 && ( F2 == V2 || F2 == V3 ). O ka batla le dibaka tsa mongolo ka regex: F1 == /Tes.*/i",
+    "reason": "Preserve literal escape syntax and the apostrophe example; specify single quotation marks."
+  },
+  {
+    "locale": "st",
+    "key": "import-board-instruction-markdown",
+    "before": "Kgomaretsa lenane la mesebetsi ea markdown (mokhoa oo lisebelisoa tsa markdown-kanban tse kang Obsidian Kanban li o sebelisang): lihlooho tsa \"## Lebitso la lenane\", ka lintho tsa \"- [ ]\"/\"- [x]\" ka tlase. Lihlooho li fetoha manane 'me lintho li fetoha likarete.",
+    "after": "Kgomaretsa lenane la mesebetsi ea markdown (mokhoa oo lisebelisoa tsa markdown-kanban tse kang Obsidian Kanban li o sebelisang): lihlooho tsa \"## Lebitso la lenane\", ka lintho tsa \"- [ ]\"/\"- [x]\" ka tlase. Lihlooho li fetoha manane 'me lintho li fetoha likarete; le lenane la matshwao a dikulo le se nang mabokose a ho tshwaya le a kenngwa, e le dikarete tse sa phethwang.",
+    "reason": "Restore the supported plain-bullet-list import and its open-card result."
   }
 ]
