@@ -1783,6 +1783,19 @@ pending. Existing Chinese text is unchanged; broader review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1eb90ef43f">Correct Corsican invitations and organization administration</a>. Thanks to xet7.</summary>
+
+Repair 62 email, system, field and organization values. Preserve invitation
+tokens, tenant-routing configuration, organization-admin permission limits
+and permanent board deletion warnings. Restore Meteor and Node names.
+
+The Corsican and repair-ledger suites and 21 human-preference checks pass.
+The field-controls browser case gains creation-scope labels; runtime
+execution remains pending. Existing Chinese text is unchanged.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

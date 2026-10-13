@@ -2,6 +2,25 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican invitations and organization administration — 2026-10-13
+
+Commit `1eb90ef43f` repairs 62 values in the source-ordered review through
+key 1369. Invitation text retains the user, inviter, URL and invitation-code
+tokens. Tenant-domain guidance preserves example hostnames,
+`MULTITENANCY=true`, branding replacement and the empty non-tenant setting.
+Organization admins remain limited to their organization's people and
+backups, with neither site-admin grants nor management of site admins.
+Board deletion retains all lists, cards, labels, activities and inability
+to recover. Field controls distinguish new cards from all cards.
+
+The Corsican and full repair-ledger suites pass; the ledger contains
+25,971 guarded corrections. All 21 human-preference checks pass. The
+existing field-controls browser case registers with four additional display
+and creation-scope labels; it has not run against the application. Exact
+comparison preserves all 38,430 protected Chinese values and limits this
+locale batch to the 62 reviewed replacements. Broader language review
+remains unfinished.
+
 ## Corsican uploads and attachment limits — 2026-10-13
 
 Commit `84e25df892` repairs 42 values in the source-ordered review through
