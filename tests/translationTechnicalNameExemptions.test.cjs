@@ -81,3 +81,10 @@ for (const [value, expected] of [['Status', true], ['Migration status', false]])
   const shared = vm.runInNewContext(latinSetExpression, { en: { 'migration-progress-status': value } });
   assert.equal(shared.has('migration-progress-status'), expected);
 }
+
+for (const [key, value, longer] of [['error', 'Error', 'An error occurred'], ['problems-status-title', 'Status', 'Problem status']]) {
+  for (const [sourceValue, expected] of [[value, true], [longer, false]]) {
+    const shared = vm.runInNewContext(latinSetExpression, { en: { [key]: sourceValue } });
+    assert.equal(shared.has(key), expected);
+  }
+}

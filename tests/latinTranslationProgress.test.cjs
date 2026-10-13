@@ -1188,3 +1188,19 @@ for (const n of [5, 10, 30]) assert.ok(latin[`every-${n}-minutes`].includes(Stri
 assert.equal(latin['gridfs-storage'], 'GridFS');
 assert.notEqual(latin['last-run'], latin['next-run']);
 assert.notEqual(latin['monitoring-export-failed'], latin['monitoring-refresh-failed']);
+
+const reviewedStatusAccountKeys = ["previous", "refresh", "refresh-monitoring", "remaining-attachments", "resume-migration", "run-once", "s3-attachments", "s3-size", "s3-storage", "scanning-status", "schedule", "search-boards-or-operations", "show-list-on-minicard", "showChecklistAtMinicard", "showing", "start-test-operation", "start-time", "step-progress", "stop-migration", "storage-distribution", "system-resources", "total-attachments", "total-operations", "total-size", "unmigrated-boards", "weight", "cron", "current-step", "otp", "create-account", "already-account", "available-repositories", "repositories", "repository", "repository-name", "size-bytes", "last-modified", "no-repositories", "create-repository", "upload-repository", "api-endpoints", "sign-in-to-upload", "account-locked", "otp-required", "invalid-credentials", "username-password-required", "password-mismatch", "username-too-short", "user-exists", "account-created", "account-creation-failed", "login-allow", "confirm", "error", "file", "log", "logout", "server", "protocol", "summary", "problems-summary-help", "problems-status-title", "problems-in-progress-help", "problems-none-in-progress", "no-new-problems", "repair-broken-cards", "repairing", "repair-broken-cards-done", "repair-broken-cards-done-unfixable", "restore-list-swimlanes-done"];
+for (const key of reviewedStatusAccountKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Refresh|Remaining|Create Account|username or password|temporarily|No new problems|Repaired)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['account-locked'], /ad tempus.*postea conare/);
+assert.match(latin['username-too-short'], /saltem 3 characteres/);
+assert.match(latin['username-password-required'], /et tessera requiruntur/);
+assert.match(latin['invalid-credentials'], /vel tessera/);
+assert.match(latin['account-created'], /Nunc ingredi potes/);
+assert.ok(latin['problems-summary-help'].includes(latin.acknowledge));
+assert.match(latin['problems-summary-help'], /quas recensuisti.*ad zerum/);
+assert.match(latin['repair-broken-cards-done-unfixable'], /nullam tabulam habent et automatice corrigi non possunt/);
+assert.match(latin['restore-list-swimlanes-done'], /__remaining__ restitui non potuerunt/);
+assert.equal(latin['s3-storage'], 'S3');

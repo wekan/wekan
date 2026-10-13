@@ -204762,5 +204762,495 @@
     "before": "Latine: Pause Migration",
     "after": "Intermitte migrationem",
     "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "previous",
+    "before": "Latine: Praecedens",
+    "after": "Prior",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "refresh",
+    "before": "Latine: Refresh",
+    "after": "Renova",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "refresh-monitoring",
+    "before": "Latine: Refresh Monitoring",
+    "after": "Renova observationem",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "remaining-attachments",
+    "before": "Latine: Remaining Adnexa",
+    "after": "Adiuncta reliqua",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "resume-migration",
+    "before": "Latine: Resume Migration",
+    "after": "Resume migrationem",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "run-once",
+    "before": "Latine: Run semel",
+    "after": "Exsequere semel",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "s3-attachments",
+    "before": "Latine: S3 Adnexa",
+    "after": "Adiuncta S3",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "s3-size",
+    "before": "Latine: S3 Magnitudo",
+    "after": "Magnitudo S3",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "s3-storage",
+    "before": "Latine: S3",
+    "after": "S3",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "scanning-status",
+    "before": "Latine: Scanning Status",
+    "after": "Status examinationis",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "schedule",
+    "before": "Latine: Schedule",
+    "after": "Destina tempori",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "search-boards-or-operations",
+    "before": "Latine: Quaere tabulae vel operations...",
+    "after": "Quaere tabulas vel operationes…",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "show-list-on-minicard",
+    "before": "Latine: Monstra Index adest Minicard",
+    "after": "Monstra indicem in parva charta",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "showChecklistAtMinicard",
+    "before": "Latine: Monstra index probationis at Minicard",
+    "after": "Monstra indicem probationis in parva charta",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "showing",
+    "before": "Latine: Showing",
+    "after": "Monstrantur",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "start-test-operation",
+    "before": "Latine: Incipe Probatio Operation",
+    "after": "Incipe operationem probatoriam",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "start-time",
+    "before": "Latine: Incipe Tempus",
+    "after": "Hora initii",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "step-progress",
+    "before": "Latine: Step Progress",
+    "after": "Progressus gradus",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "stop-migration",
+    "before": "Latine: Siste Migration",
+    "after": "Siste migrationem",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "storage-distribution",
+    "before": "Latine: Storage Distribution",
+    "after": "Distributio repositorii",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "system-resources",
+    "before": "Latine: System Resources",
+    "after": "Opes systematis",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "total-attachments",
+    "before": "Latine: Total Adnexa",
+    "after": "Summa adiunctorum",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "total-operations",
+    "before": "Latine: Total Operations",
+    "after": "Summa operationum",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "total-size",
+    "before": "Latine: Total Magnitudo",
+    "after": "Magnitudo tota",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "unmigrated-boards",
+    "before": "Latine: Unmigrated Tabulae",
+    "after": "Tabulae nondum migratae",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "weight",
+    "before": "Latine: Weight",
+    "after": "Pondus",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "cron",
+    "before": "Latine: Cron",
+    "after": "Cron",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "current-step",
+    "before": "Latine: Praesens Step",
+    "after": "Gradus praesens",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "otp",
+    "before": "Latine: OTP Code",
+    "after": "Codex OTP",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "create-account",
+    "before": "Latine: Crea Ratio",
+    "after": "Crea rationem",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "already-account",
+    "before": "Latine: Already have an ratio? intra",
+    "after": "Iam rationem habes? Ingredere",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "available-repositories",
+    "before": "Latine: Praesto Repositories",
+    "after": "Repositoria praesto",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "repositories",
+    "before": "Latine: Repositories",
+    "after": "Repositoria",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "repository",
+    "before": "Latine: Repository",
+    "after": "Repositorium",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "repository-name",
+    "before": "Latine: Repository nomen",
+    "after": "Nomen repositorii",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "size-bytes",
+    "before": "Latine: Magnitudo (bytes)",
+    "after": "Magnitudo (octeti)",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "last-modified",
+    "before": "Latine: novissime mutatum",
+    "after": "Ultima mutatio",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "no-repositories",
+    "before": "Latine: Non repositories found",
+    "after": "Nulla repositoria inventa sunt",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "create-repository",
+    "before": "Latine: Crea Repository",
+    "after": "Crea repositorium",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "upload-repository",
+    "before": "Latine: Immitte/Renova Repository",
+    "after": "Immitte/Renova repositorium",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "api-endpoints",
+    "before": "Latine: API Endpoints",
+    "after": "Puncta accessus API",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "sign-in-to-upload",
+    "before": "Latine: intra ad immitte repositories",
+    "after": "Ingredere ut repositoria immittas",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "account-locked",
+    "before": "Latine: Ratio est temporarily clausum due ad too many defecit introitus attempts. Please iterum conare later.",
+    "after": "Ratio ad tempus exclusa est propter nimios conatus ingrediendi infelices. Iterum postea conare, quaeso.",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "otp-required",
+    "before": "Latine: OTP code necessarium",
+    "after": "Codex OTP requiritur",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "invalid-credentials",
+    "before": "Latine: Invalidum nomen usoris vel tessera",
+    "after": "Nomen usoris vel tessera invalida",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "username-password-required",
+    "before": "Latine: nomen usoris et tessera sunt necessarium",
+    "after": "Nomen usoris et tessera requiruntur",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "password-mismatch",
+    "before": "Latine: Passwords do non match",
+    "after": "Tesserae non congruunt",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "username-too-short",
+    "before": "Latine: nomen usoris debet esse at least 3 characters",
+    "after": "Nomen usoris saltem 3 characteres habere debet",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "user-exists",
+    "before": "Latine: Usor already exists",
+    "after": "Usor iam exstat",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "account-created",
+    "before": "Latine: Ratio creatum! Tu potest nunc intra.",
+    "after": "Ratio creata est! Nunc ingredi potes.",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "account-creation-failed",
+    "before": "Latine: Defecit ad crea ratio",
+    "after": "Ratio creari non potuit",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "login-allow",
+    "before": "Latine: Introitus: Permitte",
+    "after": "Ingressus: permitte",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "confirm",
+    "before": "Latine: Confirma",
+    "after": "Confirma",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "error",
+    "before": "Latine: Error",
+    "after": "Error",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "file",
+    "before": "Latine: Fasciculus",
+    "after": "Fasciculus",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "log",
+    "before": "Latine: Log",
+    "after": "Diarium",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "logout",
+    "before": "Latine: Logout",
+    "after": "Egredere",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "server",
+    "before": "Latine: Ministrator",
+    "after": "Serviens",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "protocol",
+    "before": "Latine: Protocol",
+    "after": "Protocollum",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "summary",
+    "before": "Latine: Summarium",
+    "after": "Summa",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "problems-summary-help",
+    "before": "Latine: Check the problema areas tu have reviewed, then click Acknowledge ad restitue their new-problem count.",
+    "after": "Signa partes problematum quas recensuisti, deinde preme Agnosce ut numerus novorum problematum earum ad zerum redeat.",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "problems-status-title",
+    "before": "Latine: Status",
+    "after": "Status",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "problems-in-progress-help",
+    "before": "Latine: Haec migrations vel repairs sunt currens nunc. Logins potest esse slow, vel monstra \"Debet esse logged in\" vel a \"Loading, please wait\" spinner, until they finish et CPU drops.",
+    "after": "Hae migrationes vel correctiones nunc aguntur. Ingressus lenti esse possunt, aut nuntium \"Ingredi debes\" vel indicium \"Oneratur, exspecta quaeso\" monstrare, donec perficiantur et usus CPU decrescat.",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "problems-none-in-progress",
+    "before": "Latine: Non migrations vel repairs sunt in progress.",
+    "after": "Nullae migrationes vel correctiones aguntur.",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "no-new-problems",
+    "before": "Latine: Non novum problemata.",
+    "after": "Nulla nova problemata.",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "repair-broken-cards",
+    "before": "Latine: Repair broken schedae",
+    "after": "Corrige chartas corruptas",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "repairing",
+    "before": "Latine: Repairing…",
+    "after": "Corrigitur…",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "repair-broken-cards-done",
+    "before": "Latine: Repaired __fixed__ scheda(s).",
+    "after": "Chartae __fixed__ correctae sunt.",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "repair-broken-cards-done-unfixable",
+    "before": "Latine: Repaired __fixed__ scheda(s). __unfixable__ scheda(s) have non tabula et non potest esse repaired automatice.",
+    "after": "Chartae __fixed__ correctae sunt. Chartae __unfixable__ nullam tabulam habent et automatice corrigi non possunt.",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "restore-list-swimlanes-done",
+    "before": "Latine: Restitutum __restored__ index(s). __remaining__ could non esse restitutum.",
+    "after": "Indices __restored__ restituti sunt. __remaining__ restitui non potuerunt.",
+    "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
   }
 ]
