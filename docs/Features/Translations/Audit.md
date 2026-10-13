@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican accounts, reports and scoped imports — 2026-10-13
+
+Commit `105eb49d8c` repairs 45 values in the source-ordered review through
+key 2989. Account errors, repository labels and scoped-import choices lose
+Italian wording. Problem-report help retains reviewed-area acknowledgement
+and resetting new counts. Repair guidance keeps both count placeholders
+and explains that cards without boards cannot be repaired automatically.
+The card-number keyword becomes numeru and its help retains query syntax.
+
+Three suites pass: Corsican, the full repair ledger (26,805 corrections)
+and the actual search parser, including valid/invalid native number queries.
+All 21 human-preference checks pass. Both Corsican report browser cases
+register; the new summary case seeds and cleans up a problem event to show
+the conditional help. Syntax checking passes, but runtime execution remains
+pending. Exact comparison preserves 38,430 existing Chinese values. Broader
+language review remains unfinished.
+
 ## Corsican monitoring and job controls — 2026-10-13
 
 Commit `c1cc3c49cd` repairs 52 values in the source-ordered review through

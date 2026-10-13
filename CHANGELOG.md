@@ -1998,6 +1998,19 @@ broader review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/105eb49d8c">Correct Corsican account, report and import wording</a>. Thanks to xet7.</summary>
+
+Repair 45 account, report and scoped-import values. Preserve repair limits,
+acknowledgement scope, import/export choices and card-number search syntax.
+
+The Corsican, repair-ledger and actual-parser suites pass, along with 21
+human-preference checks. Conditional report-help browser coverage is
+registered; runtime execution remains pending. Existing Chinese text is
+unchanged; broader review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
