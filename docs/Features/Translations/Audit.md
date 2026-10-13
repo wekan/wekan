@@ -2,6 +2,47 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Marathi fills and hidden source-equal prose — 2026-10-13
+
+Commit `f263dd0b8d` fills 212 current placeholders plus 55 English settings,
+rule and keyboard labels excluded by the fill tool. A parent comparison
+confirms all 267 original values were English; existing Marathi wording and
+all `zh` catalogs remain unchanged. Marathi's ordinary fill list and the new
+supplemental queue are empty. The filtered global fill inventory is now 54,981
+values across 128 locale paths. This is not a count of all translation work.
+
+The raw comparison found 120 source-equal Latin-containing Marathi labels
+outside help URLs. Fifty-five needed translation; the remaining 65 are product
+names, format strings, abbreviations, mathematical functions or symbols. Count
+separators use `1 / 10`, preserving numerator/denominator order in templates
+that cannot put the Marathi postposition after the total. Rule actor and sort
+controls use standalone native labels before their inputs. Physical keyboard
+legends remain visible alongside Marathi function names. No existing values
+were replaced merely because they use Devanagari like Hindi; a narrow scan for
+common Hindi copulas, pronouns and action words found zero candidates, which
+is not evidence that all Marathi wording has been semantically reviewed.
+
+The [supplemental audit](../../../releases/translations/audit-exempt-prose.mjs)
+is read-only. The main fill script exempts whole strings beginning with `S3`
+or `MongoDB`, not just product names, so an empty fill list missed ordinary
+English descriptions and settings states. The new queue exposes 4,121
+candidates across 226 locales, excluding exact technical names. Some generic
+labels or physical key legends are intentional; each candidate needs review.
+The report identifies existing human-verified `zh` catalogs explicitly; it
+never writes any locale. Only confirmed missing strings may be added there.
+The separate short-prose audit now reports 1,673 candidates across 182 locales.
+
+Tests check complete key/token inventories, state distinctions, field directions,
+permissions, imported/excluded data, source literals, destructive consequences,
+first-sync preservation, unmatched-card handling, conflict-aware rollback and
+runtime substitution including zero. Marathi, shared-label, card-field,
+supplemental-audit and Scrum recovery suites pass. Eight Marathi browser cases
+register across linked fields, notification delivery, two recovery views,
+Scrum history and storage settings. The configured localhost:3000 app is not
+running, so those cases remain unexecuted. A rebuilt app is needed to exercise
+the new catalogs. Longer technical explanations remain provisional pending
+speaker review; the wider wrong-language and whole-catalog audit is unfinished.
+
 ## Bengali current fills — 2026-10-13
 
 Commit `012ee1eb0c` fills 182 English values, covering linked fields, 22 import

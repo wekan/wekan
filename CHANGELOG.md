@@ -131,10 +131,10 @@ releases.
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **28,516 untranslated locale/string values in 42 languages**.
   It excludes **368 source keys tracked separately as pending Transifex**.
-  After the Bengali batch, full per-locale `--list` reports, including
-  pending keys, count **55,193 remaining values across 129 non-English locale
+  After the Marathi batch, full per-locale `--list` reports, including
+  pending keys, count **54,981 remaining values across 128 non-English locale
   files**. This fuller inventory remains the scope of the translation work.
-  A separate short-prose audit flags 1,681 candidates across 183 locales.
+  A separate short-prose audit flags 1,673 candidates across 182 locales.
   The two notification At/To labels now have translations in all non-English
   locales;
   shared native words may equal English, so these require individual review.
@@ -144,6 +144,14 @@ releases.
   Earlier Xhosa completion checks predate the newer pending strings. The
   current broad run still exposes English placeholders in several catalogs;
   see the dated audit results. Empty reports do not establish fluency.
+- Marathi now has no current fill candidates after 212 feature fills. Another
+  55 English settings, rule and keyboard labels were hidden by the fill tool's
+  technical-name and short-word exemptions; those are now translated too.
+  `node releases/translations/audit-exempt-prose.mjs` exposes 4,121 review
+  candidates across 226 locales. They include intentional names and shared
+  spellings, so they are not a confirmed untranslated count. Preserve existing
+  human-verified `zh` wording; add only confirmed missing strings there.
+  Broader language review and browser execution remain open.
 - Bengali now has no remaining current fill candidates, including pending
   keys, after translating 182 feature strings. Existing Bengali wording was
   preserved. Linked-field, notification and recovery browser cases register;
@@ -536,9 +544,10 @@ used.
 # Upcoming WeKan ® release
 
 **In short:** more **UI labels** now use their target language, and seeded
-wrong-language terminology is corrected. **Bengali** gains the remaining feature
-strings. Existing verified translations remain intact while the wider
-language-quality review continues.
+wrong-language terminology is corrected. **Bengali and Marathi** gain missing
+feature strings, and a new audit exposes English settings prose previously
+hidden by technical-name exemptions. Existing verified translations remain
+intact while the wider language-quality review continues.
 
 This release updates the following translations:
 
@@ -554,7 +563,7 @@ All 307 translation/Blockly suites and 21 human-preference checks pass.
 Source tokens match across all 246 catalogs. Expanded notification browser
 coverage registers 125 Chromium tests; execution still needs a running app.
 [Terminology evidence and review limits](docs/Features/Translations/Shared-Labels-2026-10-13.md)
-record provisional wording. The wider language audit and 55,193 untranslated
+record provisional wording. The wider language audit and 54,981 filtered fill
 values remain in TODO Later.
 
 </details>
@@ -572,6 +581,24 @@ exact source placeholders and runtime interpolation. Three focused suites
 pass. Four Bengali browser cases register for linked fields, notification
 settings and both recovery views; execution still needs a running app.
 Longer technical wording remains provisional pending speaker review.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f263dd0b8d">Fill Marathi feature and settings prose; expose hidden review candidates</a>. Thanks to xet7.</summary>
+
+Translate 212 current placeholders and 55 English settings, rule and keyboard
+labels hidden by the fill report's exemptions. Existing Marathi translations
+remain unchanged. Product names, keyboard legends and source tokens are kept.
+The new read-only audit exposes product-prefixed prose and generic labels;
+its candidates need individual review, and do not override verified `zh` text.
+
+Marathi and shared-label tests cover permissions, import exclusions, recovery
+warnings, Scrum conflicts, settings states and runtime interpolation. The
+supplemental audit and Scrum recovery suites pass. Eight Marathi browser cases
+register, including storage settings and Scrum rollback/conflict controls;
+execution needs a rebuilt running app. The Marathi fill and supplemental
+queues are empty, but broader language-quality review remains unfinished.
 
 </details>
 
