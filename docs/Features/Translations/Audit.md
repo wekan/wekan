@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin search messages and operators — 2026-10-14
+
+Commit `cb3da6ac52` repairs 48 prefixed search entries. Regression checks
+preserve access limits, membership/assignment scope, quoted missing-result values,
+counts, shorthand aliases, distinct full operator names and parser registration.
+The title operator is distinct from the label operator.
+
+The Latin and guarded-correction suites pass with 28,462 ledger entries. All 21
+human-preference checks pass. Title-search browser coverage requires a matching
+card and excludes a different title; syntax and discovery pass, runtime remains
+pending. Exact comparison preserves 38,430 existing Chinese values.
+
+There remain 925 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin template sharing and card views — 2026-10-14
 
 Commit `13f06820f7` repairs 40 prefixed shared-template, domain and card-view

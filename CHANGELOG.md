@@ -3362,6 +3362,23 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cb3da6ac52">Repair Latin search messages and operator names</a>. Thanks to xet7.</summary>
+
+- Translate 48 mixed-language search entries, preserving access boundaries,
+  member/assignee scope and placeholders. Use distinct Latin operator names
+  while
+  retaining shorthand aliases and checking parser registration.
+- Latin and guarded-correction suites pass with 28,462 corrections. All 21
+  human-preference checks pass; 38,430 existing Chinese values are preserved.
+  Added title-search browser coverage passes syntax and discovery; browser
+  execution remains pending.
+- Review remains unfinished: 925 Latin values contain the legacy “Latine:”
+  prefix.
+  Unprefixed values and other languages still require semantic review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
