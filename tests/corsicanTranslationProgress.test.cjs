@@ -362,3 +362,21 @@ assert.match(corsican['move-list-right'], /à diritta$/);
 assert.equal(corsican['color-red'], 'rossu');
 assert.equal(corsican['color-white'], 'biancu');
 assert.equal(corsican['color-yellow'], 'ghjallu');
+
+const accountCorrectionKeys = ["createCustomFieldPopup-title", "custom-field-dropdown", "custom-field-dropdown-none", "custom-field-dropdown-unknown", "custom-field-dropdownMultiSelect", "custom-field-number", "custom-field-text", "date-format", "decline", "default-avatar", "enable-permanent-delete", "enable-permanent-delete-description", "disambiguateMultiMemberPopup-title", "discard", "edit-profile", "edit-wip-limit", "editCardStartDatePopup-title", "editCardDueDatePopup-title", "editCustomFieldPopup-title", "editCardSpentTimePopup-title", "editNotificationPopup-title", "editProfilePopup-title", "email-enrollAccount-text", "email-fail", "email-fail-text", "email-invalid", "email-invite", "email-invite-subject", "push-invite-title", "email-resetPassword-subject", "email-resetPassword-text", "email-sent", "email-verifyEmail-text", "enable-vertical-scrollbars", "error-board-notAdmin", "error-board-notAMember", "error-watch-disabled", "error-notAllowed", "error-json-schema", "error-csv-schema", "error-user-disabled", "error-user-doesNotExist", "error-user-notCreated", "error-username-taken", "error-orgname-taken", "error-teamname-taken", "export-board-without-attachments", "export-ical-feed", "user-can-not-export-excel", "export-card-excel-fields", "export-card-subtasks", "export-card-field-board-info", "export-card-attachment-type", "export-card-attachment-uploaded-by", "export-card-attachment-uploaded-at", "export-card-attachment-image-previews", "export-card-excel-free", "export-card-excel-needed", "user-can-not-export-card-to-pdf", "user-can-not-export-card-to-excel", "sorted", "remove-sort"];
+for (const key of accountCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /\b(?:campo|sconosciuto|Numero|Testo|Formato|predefinito|Consenti|agli|contenuti|contrassegnati|impostazione|Disambiguare|profilo|Cambia|tempo|trascorso|Ciao|iniziare|utilizzare|clicca|seguente|Invio|fallito|inviato|ripristinare|tua|Devi|essere|questa|poterlo|Il|tuo|disabilitato|creato|già|preso|allegati|Caricato|immagini|libero|necessario|ordinamento)\b/, key);
+}
+assert.match(corsican['enable-permanent-delete-description'], /amministratori glubali.*definitivamente.*marcati cum’è squassati.*ùn squassa nunda da per sè/);
+assert.match(corsican['error-board-notAdmin'], /amministratore di sta tavula/);
+assert.match(corsican['error-board-notAMember'], /membru di sta tavula/);
+assert.match(corsican['error-notAllowed'], /rolu.*ùn permette micca/);
+assert.match(corsican['email-resetPassword-text'], /ristabilisce.*parolla d’intrata/);
+assert.match(corsican['email-verifyEmail-text'], /verificà l’indirizzu.*vostru contu/);
+assert.equal(corsican['email-invite-subject'], corsican['push-invite-title']);
+for (const key of ['email-enrollAccount-text','email-resetPassword-text','email-verifyEmail-text']) {
+  assert.equal(corsican[key].split('\n\n').length, english[key].split('\n\n').length, key);
+}
+assert.match(corsican['error-csv-schema'], /virgule.*tabulazioni.*ùn cuntenenu micca/);
+for (const format of ['pdf','excel']) assert.match(corsican[`user-can-not-export-card-to-${format}`], /ùn pò micca espurtà/);

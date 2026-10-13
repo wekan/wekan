@@ -179478,5 +179478,439 @@
     "before": "Creà campo",
     "after": "Creà un campu",
     "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "createCustomFieldPopup-title",
+    "before": "Creà campo",
+    "after": "Creà un campu",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "custom-field-dropdown",
+    "before": "Lista a discesa",
+    "after": "Lista di scelta",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "custom-field-dropdown-none",
+    "before": "(niente)",
+    "after": "(nunda)",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "custom-field-dropdown-unknown",
+    "before": "(sconosciuto)",
+    "after": "(scunnisciutu)",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "custom-field-dropdownMultiSelect",
+    "before": "Lista à tomba (selezzione multiplla)",
+    "after": "Lista di scelta (selezzione multipla)",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "custom-field-number",
+    "before": "Numero",
+    "after": "Numeru",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "custom-field-text",
+    "before": "Testo",
+    "after": "Testu",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "date-format",
+    "before": "Formato data",
+    "after": "Furmatu di data",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "decline",
+    "before": "Rifiuta",
+    "after": "Rifusà",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "default-avatar",
+    "before": "Avatar predefinito",
+    "after": "Avatar predefinitu",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "enable-permanent-delete",
+    "before": "Attivà l'eliminazione permanente per l'amministratore globale",
+    "after": "Attivà a suppressione permanente per l’amministratore glubale",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "enable-permanent-delete-description",
+    "before": "Consenti agli amministratori globali di eliminare definitivamente i contenuti contrassegnati come eliminati. L'attivazione di questa impostazione non squassà nulla da sola.",
+    "after": "Permette à l’amministratori glubali di squassà definitivamente i cuntenuti marcati cum’è squassati. Attivà st’opzione ùn squassa nunda da per sè.",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "disambiguateMultiMemberPopup-title",
+    "before": "Disambiguare l'azione Membru",
+    "after": "Chjarificà l’azzione di u membru",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "discard",
+    "before": "Scarta",
+    "after": "Scartà",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "edit-profile",
+    "before": "Mudificà profilo",
+    "after": "Mudificà u prufilu",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "edit-wip-limit",
+    "before": "Mudificà limite Work In Progress",
+    "after": "Mudificà a limita WIP",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "editCardStartDatePopup-title",
+    "before": "Cambia data di inizio",
+    "after": "Cambià a data di principiu",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "editCardDueDatePopup-title",
+    "before": "Cambia data di scadenza",
+    "after": "Cambià a data di scadenza",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "editCustomFieldPopup-title",
+    "before": "Mudificà campo",
+    "after": "Mudificà u campu",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "editCardSpentTimePopup-title",
+    "before": "Cambia tempo trascorso",
+    "after": "Cambià u tempu passatu",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "editNotificationPopup-title",
+    "before": "Mudificà nutificazioni",
+    "after": "Mudificà a nutificazione",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "editProfilePopup-title",
+    "before": "Mudificà profilo",
+    "after": "Mudificà u prufilu",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "email-enrollAccount-text",
+    "before": "Ciao __user__,\n\nPer iniziare ad utilizzare il servizio, clicca nantu à u link seguente:\n\n__url__\n\nGrazie.",
+    "after": "Salute __user__,\n\nPer principià à aduprà u serviziu, basta à cliccà nant’à u ligame quì sottu.\n\n__url__\n\nGrazie.",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "email-fail",
+    "before": "Invio email fallito",
+    "after": "Mandata di a posta elettronica fiascata",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "email-fail-text",
+    "before": "Errore in u tentativo di invio email",
+    "after": "Errore pruvendu à mandà a posta elettronica",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "email-invalid",
+    "before": "Email non valida",
+    "after": "Indirizzu di posta elettronica micca validu",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "email-invite",
+    "before": "Invita via email",
+    "after": "Invità per posta elettronica",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "email-invite-subject",
+    "before": "__inviter__ ti ha inviato un invito",
+    "after": "__inviter__ vi hà mandatu un invitu",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "push-invite-title",
+    "before": "__inviter__ ti ha inviato un invito",
+    "after": "__inviter__ vi hà mandatu un invitu",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "email-resetPassword-subject",
+    "before": "Ristabilisce la tua parolla su on __siteName__",
+    "after": "Ristabilisce a vostra parolla d’intrata nant’à __siteName__",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "email-resetPassword-text",
+    "before": "Ciao __user__,\n\nPer ripristinare la tua parolla, clicca nantu à u link seguente:\n\n__url__\n\nGrazie.",
+    "after": "Salute __user__,\n\nPer ristabilisce a vostra parolla d’intrata, basta à cliccà nant’à u ligame quì sottu.\n\n__url__\n\nGrazie.",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "email-sent",
+    "before": "Email inviata",
+    "after": "Posta elettronica mandata",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "email-verifyEmail-text",
+    "before": "Ciao __user__,\n\nPer verificare il tuo account email, clicca nantu à u link seguente:\n\n__url__\n\nGrazie.",
+    "after": "Salute __user__,\n\nPer verificà l’indirizzu di posta elettronica di u vostru contu, basta à cliccà nant’à u ligame quì sottu.\n\n__url__\n\nGrazie.",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "enable-vertical-scrollbars",
+    "before": "Attivà le barre di scorrimento verticali",
+    "after": "Attivà e barre di scurrimentu verticale",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "error-board-notAdmin",
+    "before": "Devi essere admin di questa tavula per poterlo fare",
+    "after": "Duvete esse amministratore di sta tavula per fà quessa",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "error-board-notAMember",
+    "before": "Devi essere un membru di questa tavula per poterlo fare",
+    "after": "Duvete esse membru di sta tavula per fà quessa",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "error-watch-disabled",
+    "before": "Il monitoraggio di tavule e carte è disattivato dall'amministratore",
+    "after": "U seguitu di e tavule è di e carte hè disattivatu da l’amministratore",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "error-notAllowed",
+    "before": "Il tuo ruolo in a tavula non ti consente di farlo",
+    "after": "U vostru rolu nant’à a tavula ùn permette micca di fà quessa",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "error-json-schema",
+    "before": "Il tuo schedariu JSON non contiene le giuste infurmazioni in u formato corretto",
+    "after": "I vostri dati JSON ùn cuntenenu micca l’infurmazioni necessarie in u furmatu currettu",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "error-csv-schema",
+    "before": "Il tuo schedariu CSV (Comma Separated Values) / TSV (Tab Separated Values) non contiene le giuste infurmazioni in u formato corretto",
+    "after": "I vostri dati CSV (valori separati da virgule) / TSV (valori separati da tabulazioni) ùn cuntenenu micca l’infurmazioni necessarie in u furmatu currettu",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "error-user-disabled",
+    "before": "Questu account utilizatore è disabilitato",
+    "after": "Stu contu d’utilizatore hè disattivatu",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "error-user-doesNotExist",
+    "before": "Questu utilizatore non esiste",
+    "after": "St’utilizatore ùn esiste micca",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "error-user-notCreated",
+    "before": "L'utilizatore non è stato creato",
+    "after": "St’utilizatore ùn hè statu creatu",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "error-username-taken",
+    "before": "Questu username è già utilizzato",
+    "after": "Stu nome d’utilizatore hè digià adupratu",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "error-orgname-taken",
+    "before": "Il nome di questa urganizazione è già stato scelto",
+    "after": "Stu nome d’urganizazione hè digià adupratu",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "error-teamname-taken",
+    "before": "Il nome di questu team è già stato preso",
+    "after": "Stu nome di squadra hè digià adupratu",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "export-board-without-attachments",
+    "before": "senza allegati",
+    "after": "senza appicci",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "export-ical-feed",
+    "before": "Calendario (iCal)",
+    "after": "Flussu di calendariu (iCal)",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "user-can-not-export-excel",
+    "before": "L'utilizatore non può effettuare l'esportazione in Excel",
+    "after": "L’utilizatore ùn pò micca espurtà in Excel",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "export-card-excel-fields",
+    "before": "Selezziunà i campi da includere nell'esportazione Excel:",
+    "after": "Selezziunà i campi da include in l’espurtazione Excel:",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "export-card-subtasks",
+    "before": "Sotto-compiti",
+    "after": "Sottucompiti",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "export-card-field-board-info",
+    "before": "Info tavula (Tavula, Lista, Swimlane)",
+    "after": "Infurmazioni di a tavula (Tavula, Lista, Corsia)",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "export-card-attachment-type",
+    "before": "Tipo",
+    "after": "Tippu",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "export-card-attachment-uploaded-by",
+    "before": "Caricato da",
+    "after": "Caricatu da",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "export-card-attachment-uploaded-at",
+    "before": "Caricato il",
+    "after": "Caricatu u",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "export-card-attachment-image-previews",
+    "before": "Anteprime immagini",
+    "after": "Anteprime di l’imagine",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "export-card-excel-free",
+    "before": "libero",
+    "after": "liberu",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "export-card-excel-needed",
+    "before": "necessario",
+    "after": "necessariu",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "user-can-not-export-card-to-pdf",
+    "before": "L'utilizatore non può esportare la carta in PDF",
+    "after": "L’utilizatore ùn pò micca espurtà a carta in PDF",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "user-can-not-export-card-to-excel",
+    "before": "L'utilizatore non può esportare la carta in Excel",
+    "after": "L’utilizatore ùn pò micca espurtà a carta in Excel",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "sorted",
+    "before": "Ordinate",
+    "after": "Ordinatu",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "remove-sort",
+    "before": "Caccià l'ordinamento",
+    "after": "Caccià l’urdinamentu",
+    "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
   }
 ]
