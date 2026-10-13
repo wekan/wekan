@@ -100,6 +100,64 @@ const reviewed = {
   ]
 };
 
+Object.assign(reviewed, {
+  "bn": [
+    "r-is",
+    "r-of",
+    "r-d-send-email-to",
+    "of"
+  ],
+  "ne": [
+    "r-is",
+    "r-of",
+    "r-d-send-email-to",
+    "of"
+  ],
+  "hu": [
+    "s3-bucket",
+    "s3-endpoint",
+    "r-of",
+    "of"
+  ],
+  "is": [
+    "r-sort-by",
+    "r-is",
+    "r-to",
+    "r-of",
+    "r-d-send-email-to",
+    "r-by",
+    "dueCardsViewChange-choice-me",
+    "of"
+  ],
+  "sq": [
+    "r-sort-by",
+    "r-is",
+    "r-to",
+    "r-of",
+    "r-d-send-email-to",
+    "r-by",
+    "dueCardsViewChange-choice-me",
+    "of",
+    "blockly-ANNOUNCE_MOVE_OF",
+    "blockly-FIELD_BITMAP_PIXEL_ON"
+  ],
+  "tl": [
+    "r-sort-by",
+    "r-is",
+    "r-to",
+    "r-of",
+    "r-d-send-email-to",
+    "r-by",
+    "dueCardsViewChange-choice-me",
+    "of",
+    "blockly-ANNOUNCE_MOVE_OF",
+    "blockly-FIELD_BITMAP_PIXEL_ON",
+    "blockly-PROCEDURES_DEFNORETURN_TITLE",
+    "blockly-PROCEDURES_DEFRETURN_TITLE",
+    "blockly-LISTS_GET_SUBLIST_END_FROM_START"
+  ]
+});
+
 (async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   let count = 0;
@@ -116,8 +174,14 @@ const reviewed = {
   }
   for (const locale of ['ja-HI', 'ja-JP']) assert.match(require(`../imports/i18n/data/${locale}.i18n.json`).or, /[ぁ-ゖ]/u);
   assert.match(require('../imports/i18n/data/be.i18n.json').no, /[А-Яа-я]/u);
+  assert.equal(require('../imports/i18n/data/tl.i18n.json')['blockly-LISTS_GET_SUBLIST_END_FROM_START'], 'hanggang #');
+  for (const locale of ['bn', 'ne', 'hu']) {
+    const strings = require(`../imports/i18n/data/${locale}.i18n.json`);
+    assert.equal(strings['r-of'], '/');
+    assert.equal(strings.of, '/');
+  }
   // Shared words remain valid; this batch does not replace them to force zero.
   for (const locale of ['es', 'it', 'ca']) assert.equal(require(`../imports/i18n/data/${locale}.i18n.json`).no, 'No');
   for (const locale of ['nl', 'nl-NL']) assert.equal(require(`../imports/i18n/data/${locale}.i18n.json`)['r-is'], 'is');
-  console.log(`shortLabelTranslationGaps: ${count} fills in ${Object.keys(reviewed).length} locales; tokens, product names and shared words preserved`);
+  console.log(`shortLabelTranslationGaps: ${count} reviewed values in ${Object.keys(reviewed).length} locales; tokens, product names and shared words preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

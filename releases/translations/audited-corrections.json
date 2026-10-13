@@ -189397,5 +189397,12 @@
     "before": "Ho Amazon SES, romela litsebiso tsa Bounce le Complaint, le molao oa kamohelo bakeng sa aterese eo WeKan e romelang ho eona, ho sehlooho sa SNS, 'me u ngolise aterese ena ho sona ka HTTPS:",
     "after": "Ho Amazon SES, romela litsebiso tsa Bounce le Complaint, le molao oa kamohelo bakeng sa aterese eo WeKan e romelang ho tloha ho eona, ho sehlooho sa SNS, 'me u ngolise aterese ena ho sona ka HTTPS:",
     "reason": "Restore email label, content, recipient-limit and sending-address meanings; remove remaining mixed English in email help."
+  },
+  {
+    "locale": "tl",
+    "key": "blockly-LISTS_GET_SUBLIST_END_FROM_START",
+    "before": "mula #",
+    "after": "hanggang #",
+    "reason": "Correct the Tagalog sublist end position from a starting point to an inclusive endpoint."
   }
 ]
