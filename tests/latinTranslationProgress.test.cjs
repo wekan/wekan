@@ -93,3 +93,18 @@ assert.match(latin['import-board-instruction-businessmap'], /nominibus Anglicis.
 assert.match(latin['import-board-instruction-redmine'], /ante exportationem in My account linguam Anglicam elige/);
 assert.match(latin['import-board-instruction-taiga'], /[.]json[.]gz decomprime/);
 assert.match(latin['import-board-instruction-superproductivity'], /opera in tabulario posita fiunt chartae in tabulario positae/);
+
+const mappingKeys = ["import-members-mode-heading", "import-members-mode-map", "import-members-mode-placeholder", "import-members-mode-me", "csv-mapping-title", "csv-mapping-description", "csv-mapping-not-in-file", "csv-mapping-column-number", "csv-mapping-list-missing", "csv-mapping-list-name", "csv-mapping-custom-fields", "csv-mapping-boards", "csv-mapping-skipped-sheets", "csv-mapping-title-required", "csv-mapping-list-required", "invalid-import-mapping", "import-many-boards", "import-many-boards-hint", "import-one-board-per-project", "import-one-board-per-project-hint", "import-many-progress", "import-many-results-heading", "import-many-imported", "export-all-boards", "export-selected-boards", "export-all-boards-hint", "exportAllBoardsPopup-title", "exportToTrelloPopup-title", "trello-export-desc", "trello-export-include-attachments", "trello-export-start", "trello-export-open-board", "trello-export-warnings", "sandstorm-trello-access-needed", "sandstorm-allow-trello-access"];
+for (const key of mappingKeys) {
+  assert.notEqual(latin[key], english[key], key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.equal(latin['export-all-boards'], latin['exportAllBoardsPopup-title']);
+assert.equal(latin['trello-export-start'], latin['exportToTrelloPopup-title']);
+assert.ok(latin['csv-mapping-description'].includes(latin['csv-mapping-not-in-file']));
+assert.match(latin['import-members-mode-placeholder'], /propriis nominibus.*postea cum veris usoribus/);
+assert.match(latin['import-many-boards-hint'], /sine coniunctione membrorum.*ipse una exportatio.*una tabula.*loco campi superioris/);
+assert.match(latin['import-one-board-per-project-hint'], /necessitudines inter illas tabulas.*relatione importationis/);
+assert.match(latin['export-all-boards-hint'], /quas exportare potes.*unus liber.*ceterae formae.*[.]zip/);
+assert.match(latin['trello-export-desc'], /Swimlane: ….*rursus in semitas/);
+assert.match(latin['sandstorm-trello-access-needed'], /nullum proprium accessum.*Primum permitte/);
