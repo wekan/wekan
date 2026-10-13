@@ -191007,5 +191007,285 @@
     "before": "Latine: Collapse",
     "after": "Contrahe",
     "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "board-view-gantt",
+    "before": "Latine: Gantt",
+    "after": "Gantt",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "board-view-table",
+    "before": "Latine: Table",
+    "after": "Tabula ordinata",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "board-view-stats",
+    "before": "Latine: Statistics",
+    "after": "Statistica",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "bucket-example",
+    "before": "Latine: Like \"Bucket Index\" for example",
+    "after": "Exempli gratia, index rerum quas ante mortem facere vis",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "calendar-previous-month-label",
+    "before": "Latine: Praecedens Mensis",
+    "after": "Mensis prior",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "calendar-next-month-label",
+    "before": "Latine: Proximum Mensis",
+    "after": "Mensis proximus",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "card-archived",
+    "before": "Latine: Hoc scheda est motum ad Archivum.",
+    "after": "Haec charta in archivum translata est.",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "board-archived",
+    "before": "Latine: Hoc tabula est motum ad Archivum.",
+    "after": "Haec tabula in archivum translata est.",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "card-comments-title",
+    "before": "Latine: Hoc scheda has %s commentarium.",
+    "after": "Haec charta %s commentarium habet.",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "card-delete-notice",
+    "before": "Latine: Deleting est permanent. Tu erit lose omnia actiones associated cum hoc scheda.",
+    "after": "Deletio perpetua est. Omnes actiones huic chartae conexas amittes.",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "card-delete-pop",
+    "before": "Latine: Omnia actiones erit esse remotum ex the actio feed et tu won't esse able ad re-open the scheda. There est non solve.",
+    "after": "Omnes actiones ex indice actionum removebuntur et chartam rursus aperire non poteris. Revocari non potest.",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "card-delete-suggest-archive",
+    "before": "Latine: Tu potest move a scheda ad Archivum ad remove it ex the tabula et preserve the actio.",
+    "after": "Chartam in archivum transferre potes ut eam e tabula removeas et actiones serves.",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "card-archive-pop",
+    "before": "Latine: Scheda erit non esse visible at hoc index after archiving scheda.",
+    "after": "Charta in hoc indice non apparebit postquam in archivum translata est.",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "card-archive-suggest-cancel",
+    "before": "Latine: Tu potest later restitue scheda ex Archivum.",
+    "after": "Chartam postea ex archivo restituere potes.",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "list-archive-pop",
+    "before": "Latine: Index erit non esse visible adest the tabula after archiving.",
+    "after": "Index in tabula non apparebit postquam in archivum translatus est.",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "list-archive-suggest",
+    "before": "Latine: Tu potest later restitue the index ex the Archivum in Tabula Configurationes.",
+    "after": "Indicem postea ex archivo in optionibus tabulae restituere potes.",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "listArchivePopup-title",
+    "before": "Latine: Archivum Index?",
+    "after": "Transferre indicem in archivum?",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "swimlane-archive-pop",
+    "before": "Latine: semita natatoria erit non esse visible adest the tabula after archiving.",
+    "after": "Semita in tabula non apparebit postquam in archivum translata est.",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "swimlane-archive-suggest",
+    "before": "Latine: Tu potest later restitue the semita natatoria ex the Archivum in Tabula Configurationes.",
+    "after": "Semitam postea ex archivo in optionibus tabulae restituere potes.",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "swimlaneArchivePopup-title",
+    "before": "Latine: Archivum semita natatoria?",
+    "after": "Transferre semitam in archivum?",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "card-due",
+    "before": "Latine: Due",
+    "after": "Debitum",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "card-due-on",
+    "before": "Latine: Due adest",
+    "after": "Debitum die",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "card-spent",
+    "before": "Latine: Spent Tempus",
+    "after": "Tempus impensum",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "card-edit-attachments",
+    "before": "Latine: Muta adnexa",
+    "after": "Muta adiuncta",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "card-edit-custom-fields",
+    "before": "Latine: Muta custom campi",
+    "after": "Muta campos proprios",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "card-edit-labels",
+    "before": "Latine: Muta tituli",
+    "after": "Muta titulos",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "card-edit-members",
+    "before": "Latine: Muta sodales",
+    "after": "Muta membra",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "card-labels-title",
+    "before": "Latine: Muta the tituli for the scheda.",
+    "after": "Muta titulos chartae.",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "card-members-title",
+    "before": "Latine: Adde vel remove sodales de the tabula ex the scheda.",
+    "after": "Adde membra tabulae chartae vel ea a charta remove.",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "card-start-on",
+    "before": "Latine: Starts adest",
+    "after": "Incipit die",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "cardAttachmentsPopup-title",
+    "before": "Latine: Attach Ex",
+    "after": "Adiunge ex",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "cardCustomField-datePopup-title",
+    "before": "Latine: Muta dies",
+    "after": "Muta diem",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "cardCustomFieldsPopup-title",
+    "before": "Latine: Muta custom campi",
+    "after": "Muta campos proprios",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "cardStartVotingPopup-title",
+    "before": "Latine: Incipe a vote",
+    "after": "Incipe suffragium",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "positiveVoteMembersPopup-title",
+    "before": "Latine: Proponents",
+    "after": "Fautores",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "negativeVoteMembersPopup-title",
+    "before": "Latine: Opponents",
+    "after": "Adversarii",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "card-edit-voting",
+    "before": "Latine: Muta voting",
+    "after": "Muta suffragium",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "editVoteEndDatePopup-title",
+    "before": "Latine: Muta vote dies finis",
+    "after": "Muta diem finis suffragii",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "allowNonBoardMembers",
+    "before": "Latine: Permitte omnia logged in usores",
+    "after": "Permitte omnibus usoribus qui ingressi sunt",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "vote-question",
+    "before": "Latine: Voting question",
+    "after": "Quaestio suffragii",
+    "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
   }
 ]

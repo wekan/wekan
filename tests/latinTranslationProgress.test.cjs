@@ -232,3 +232,18 @@ assert.notEqual(latin['zoom-in'], latin['zoom-out']);
 assert.equal(latin['board-view'], latin['boardChangeViewPopup-title']);
 for (const key of ['boardInfoOnMyBoardsPopup-title', 'boardInfoOnMyBoards-title']) assert.equal(latin[key], latin['board-info-on-my-boards']);
 for (const key of ['boardChangeBackgroundImagePopup-title', 'allBoardsChangeBackgroundImagePopup-title']) assert.equal(latin[key], latin['board-change-background-image']);
+
+const reviewedArchiveKeys = ["board-view-gantt", "board-view-table", "board-view-stats", "bucket-example", "calendar-previous-month-label", "calendar-next-month-label", "card-archived", "board-archived", "card-comments-title", "card-delete-notice", "card-delete-pop", "card-delete-suggest-archive", "card-archive-pop", "card-archive-suggest-cancel", "list-archive-pop", "list-archive-suggest", "listArchivePopup-title", "swimlane-archive-pop", "swimlane-archive-suggest", "swimlaneArchivePopup-title", "card-due", "card-due-on", "card-spent", "card-edit-attachments", "card-edit-custom-fields", "card-edit-labels", "card-edit-members", "card-labels-title", "card-members-title", "card-start-on", "cardAttachmentsPopup-title", "cardCustomField-datePopup-title", "cardCustomFieldsPopup-title", "cardStartVotingPopup-title", "positiveVoteMembersPopup-title", "negativeVoteMembersPopup-title", "card-edit-voting", "editVoteEndDatePopup-title", "allowNonBoardMembers", "vote-question"];
+for (const key of reviewedArchiveKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Deleting|There|Archive|voting|logged|custom|Starts|Attach)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.equal(latin['board-view-gantt'], 'Gantt');
+assert.match(latin['card-delete-notice'], /perpetua.*Omnes actiones.*amittes/);
+assert.match(latin['card-delete-pop'], /rursus aperire non poteris.*Revocari non potest/);
+assert.match(latin['card-delete-suggest-archive'], /actiones serves/);
+for (const key of ['card-archive-suggest-cancel', 'list-archive-suggest', 'swimlane-archive-suggest']) assert.match(latin[key], /postea ex archivo.*restituere potes/);
+assert.match(latin.allowNonBoardMembers, /omnibus usoribus qui ingressi sunt/);
+assert.notEqual(latin['positiveVoteMembersPopup-title'], latin['negativeVoteMembersPopup-title']);
+assert.equal(latin['card-edit-custom-fields'], latin['cardCustomFieldsPopup-title']);
+assert.match(latin['card-members-title'], /chartae.*a charta remove/);
