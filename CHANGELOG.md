@@ -2275,6 +2275,20 @@ native review and the all-language objective remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ef05274b3c">Repair Southern Sotho activity and control meanings</a>. Thanks to xet7.</summary>
+
+Review the first 220 strings. Correct four meaning errors: reversed title
+arguments, automatic template application, a positive-integer height
+constraint and matching-card search scope. Preserve valid existing wording.
+
+Translation and repair-ledger suites and 21 human-preference checks pass.
+The activity browser case gains Southern Sotho argument-order assertions;
+syntax and discovery pass, but runtime execution remains pending. Chinese
+text is unchanged; broader review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

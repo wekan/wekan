@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho historical review: activity and controls — 2026-10-13
+
+Commit `ef05274b3c` reviews source keys 0–219 and repairs four values.
+The activity template supplies the new title before the card link; the
+translation had reversed their roles despite preserving both percent tokens.
+Default-template guidance now says automatically rather than confidently.
+The height constraint explicitly requires an integer greater than zero, and
+the subtask search message specifies matching cards rather than all cards.
+Other valid wording is preserved, including shared terms and variants.
+
+The Southern Sotho and full repair-ledger suites pass, verifying 26,878
+guarded corrections. All 21 human-preference checks pass. The existing
+activity-rendering browser suite gains a Southern Sotho case with positive
+and negative argument-order assertions; syntax and discovery pass, but
+runtime execution remains pending. Exact comparison preserves 38,430
+existing Chinese values. Full placeholder coverage remains zero, while
+historical semantic review has only reached key 219 and is unfinished.
+
 ## Southern Sotho remaining recovery translations — 2026-10-13
 
 Commit `80df25497d` fills the final 72 non-exempt English placeholders.
