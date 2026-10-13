@@ -46,4 +46,26 @@ assert.deepEqual(tokens(corsican['act-deleteCard']),
   ['__board__', '__card__', '__list__', '__swimlane__']);
 assert.deepEqual(tokens(corsican['activity-changedTitle']), ['%s', '%s']);
 
-console.log('corsicanTranslationProgress: complete locale passed');
+
+
+// Newer linked-card features are outside the historical completed-catalog gate.
+const cardLinkKeys = Object.keys(english).filter(key => /^(?:attach-card(?:-|$)|attachCardPopup-title$|attached-card-unavailable$|detach-card$|custom-field-link|custom-field-unlink$|field-link-|cardCustomFieldLinksPopup-title$)/.test(key));
+assert.equal(cardLinkKeys.length, 30);
+for (const key of cardLinkKeys) {
+  assert.notEqual(corsican[key], english[key], `${key}: no English fallback`);
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+}
+assert.match(corsican['custom-field-links-hint'], /listessu nome è tippu/);
+assert.match(corsican['custom-field-links-hint'], /una sola carta fermanu senza cambiamentu/);
+assert.match(corsican['custom-field-link-both'], /duie direzzioni/);
+assert.match(corsican['custom-field-link-send'], /una sola direzzione.*carta principale/);
+assert.match(corsican['custom-field-link-sends'], /sta carta.*quella carta/);
+assert.match(corsican['custom-field-link-receives'], /quella carta.*sta carta/);
+assert.match(corsican['field-link-not-allowed'], /mudificà e duie carte/);
+assert.doesNotMatch(corsican['field-link-not-allowed'], /vede e duie carte/);
+assert.match(corsican['custom-field-link-inactive'], /ùn pò più mudificà.*archiviata/);
+assert.match(corsican['attach-card-not-found'], /nisuna carta chì pudete vede/);
+assert.match(corsican['field-link-self'], /ùn pò micca.*ella stessa/);
+assert.match(corsican['field-link-archived'], /archiviata ùn pò micca/);
+
+console.log('corsicanTranslationProgress: historical catalog and card-link checks passed');
