@@ -2830,6 +2830,20 @@ and semantic review remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f6f05040ae">Repair Latin sizing and archive controls</a>. Thanks to xet7.</summary>
+
+Repair 55 mixed-language strings for list widths, swimlane height, keyboard
+shortcuts, administrator controls, archiving and attachment deletion. Tests
+preserve personal/shared scope, toggle direction and data-loss warnings.
+
+The Latin and guarded-correction suites and all 21 preservation checks pass.
+The keyboard toggle browser case passes syntax and discovery; runtime remains
+pending. Existing Chinese values are unchanged. There remain 2,141 Latin values
+containing the old language prefix; all-language review remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
