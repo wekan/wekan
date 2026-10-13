@@ -39,3 +39,16 @@ test('Offices shows recorded flag and city and wraps a long IPv6 address', async
     db.updateOne('users', { _id: adminUser.id }, { $unset: { [`loginAddresses.entries.${key}`]: '' } });
   }
 });
+
+
+test('Latin offices report distinguishes first and last observed logins', async ({ page, adminUser }) => {
+  await loginWithToken(page, adminUser.id, adminUser.token);
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'la'));
+  await navigateInApp(page, '/admin/problems/office');
+  const headers = page.locator('.table-page-table thead');
+  await expect(headers).toContainText('Ingressus');
+  await expect(headers).toContainText('Primum visum');
+  await expect(headers).toContainText('Ultimum visum');
+  await expect(headers).not.toContainText('First seen');
+  await expect(headers).not.toContainText('Last seen');
+});

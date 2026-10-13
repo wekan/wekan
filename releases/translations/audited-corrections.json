@@ -200415,5 +200415,180 @@
     "before": "Latine: Ubi people intra ex, grouped a person. Quisque IPv4 vel IPv6 address shows its praesto regio, city et felix introitus count.",
     "after": "Unde homines ingrediantur, secundum personam ordinatum. Quaeque inscriptio IPv4 vel IPv6 monstrat patriam et urbem, si praesto sunt, atque numerum ingressuum felicium.",
     "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "office-location",
+    "before": "Latine: Locus",
+    "after": "Locus",
+    "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
+  },
+  {
+    "locale": "la",
+    "key": "office-address",
+    "before": "Latine: Address",
+    "after": "Inscriptio",
+    "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
+  },
+  {
+    "locale": "la",
+    "key": "office-logins",
+    "before": "Latine: Logins",
+    "after": "Ingressus",
+    "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
+  },
+  {
+    "locale": "la",
+    "key": "office-first-seen",
+    "before": "Latine: Primus seen",
+    "after": "Primum visum",
+    "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
+  },
+  {
+    "locale": "la",
+    "key": "office-last-seen",
+    "before": "Latine: Ultimus seen",
+    "after": "Ultimum visum",
+    "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
+  },
+  {
+    "locale": "la",
+    "key": "office-shared",
+    "before": "Latine: Shared",
+    "after": "Commune",
+    "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
+  },
+  {
+    "locale": "la",
+    "key": "office-no-results",
+    "before": "Latine: Nobody has logged in yet, vel non logins have fuit recorded.",
+    "after": "Nemo adhuc ingressus est, aut nulli ingressus relati sunt.",
+    "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
+  },
+  {
+    "locale": "la",
+    "key": "apiReportTitle",
+    "before": "Latine: API",
+    "after": "API",
+    "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
+  },
+  {
+    "locale": "la",
+    "key": "api-report-desc",
+    "before": "Latine: Which REST API endpoints sunt used, a whom, et quomodo often. One row per ratio et endpoint, cum the window it covers - numquam a row per request.",
+    "after": "Quae puncta accessus REST API adhibeantur, a quibus et quam saepe. Una linea pro quaque ratione et puncto accessus, cum spatio temporis quod complectitur — numquam una linea pro quaque petitione.",
+    "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
+  },
+  {
+    "locale": "la",
+    "key": "api-endpoint",
+    "before": "Latine: API",
+    "after": "API",
+    "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
+  },
+  {
+    "locale": "la",
+    "key": "api-calls",
+    "before": "Latine: Calls",
+    "after": "Invocationes",
+    "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
+  },
+  {
+    "locale": "la",
+    "key": "api-first-called",
+    "before": "Latine: Primus called",
+    "after": "Primum invocatum",
+    "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
+  },
+  {
+    "locale": "la",
+    "key": "api-last-called",
+    "before": "Latine: Ultimus called",
+    "after": "Ultimum invocatum",
+    "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
+  },
+  {
+    "locale": "la",
+    "key": "api-no-calls",
+    "before": "Latine: Non REST API calls have fuit recorded. The API est abest unless WITH_API=true.",
+    "after": "Nullae invocationes REST API relatae sunt. API inactiva est nisi WITH_API=true.",
+    "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
+  },
+  {
+    "locale": "la",
+    "key": "recovery-report-desc",
+    "before": "Latine: Automaticum data-safety et remediation actiones: corruption detection, text-data exemplaria subsidiaria, restores, re-migration ex MongoDB, et automaticum repair de a bloated repositorio datorum.",
+    "after": "Actiones automaticae ad data tuenda et corrigenda: detectio corruptionis, exemplaria subsidiaria datorum textualium, restitutiones, iterata migratio ex MongoDB et reparatio automatica datorum repositorii nimis aucti.",
+    "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
+  },
+  {
+    "locale": "la",
+    "key": "recovery-event",
+    "before": "Latine: Event",
+    "after": "Eventus",
+    "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
+  },
+  {
+    "locale": "la",
+    "key": "recovery-severity",
+    "before": "Latine: Severity",
+    "after": "Gravitas",
+    "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
+  },
+  {
+    "locale": "la",
+    "key": "recovery-db",
+    "before": "Latine: Repositorio datorum",
+    "after": "Datorum repositorium",
+    "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
+  },
+  {
+    "locale": "la",
+    "key": "recovery-detail",
+    "before": "Latine: Detail",
+    "after": "Singula",
+    "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
+  },
+  {
+    "locale": "la",
+    "key": "recovery-no-events",
+    "before": "Latine: Non recuperatio events recorded. The repositorio datorum est healthy.",
+    "after": "Nulli eventus restitutionis relati sunt. Datorum repositorium sanum est.",
+    "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
+  },
+  {
+    "locale": "la",
+    "key": "recovery-maintenance-title",
+    "before": "Latine: Recovering tuum data",
+    "after": "Data tua restituuntur",
+    "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
+  },
+  {
+    "locale": "la",
+    "key": "recovery-maintenance-note",
+    "before": "Latine: Please wait — hoc pagina erit continue automatice quando recuperatio finishes.",
+    "after": "Exspecta, quaeso — haec pagina automatice perget cum restitutio perfecta erit.",
+    "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
+  },
+  {
+    "locale": "la",
+    "key": "reason",
+    "before": "Latine: Reason",
+    "after": "Causa",
+    "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
+  },
+  {
+    "locale": "la",
+    "key": "copy-swimlane",
+    "before": "Latine: Copia semita natatoria",
+    "after": "Exscribe semitam",
+    "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
+  },
+  {
+    "locale": "la",
+    "key": "copySwimlanePopup-title",
+    "before": "Latine: Copia semita natatoria",
+    "after": "Exscribe semitam",
+    "reason": "Repair Latin office, API and recovery reporting text; preserve aggregation scope, configuration literals, recovery actions and automatic continuation."
   }
 ]

@@ -915,3 +915,20 @@ assert.match(latin['office-report-desc'], /IPv4 vel IPv6/);
 assert.match(latin['office-report-desc'], /si praesto sunt/);
 assert.match(latin['office-report-desc'], /ingressuum felicium/);
 assert.equal(latin['cpuReportTitle'], 'Usus CPU');
+
+const reviewedOfficeRecoveryKeys = ["office-location", "office-address", "office-logins", "office-first-seen", "office-last-seen", "office-shared", "office-no-results", "apiReportTitle", "api-report-desc", "api-endpoint", "api-calls", "api-first-called", "api-last-called", "api-no-calls", "recovery-report-desc", "recovery-event", "recovery-severity", "recovery-db", "recovery-detail", "recovery-no-events", "recovery-maintenance-title", "recovery-maintenance-note", "reason", "copy-swimlane", "copySwimlanePopup-title"];
+for (const key of reviewedOfficeRecoveryKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Location|Address|Logins|Shared|endpoints|account|recorded|Recovering|Reason)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.notEqual(latin['office-first-seen'], latin['office-last-seen']);
+assert.match(latin['office-no-results'], /aut nulli ingressus relati/);
+assert.equal(latin.apiReportTitle, 'API');
+assert.equal(latin['api-endpoint'], 'API');
+assert.match(latin['api-report-desc'], /Una linea pro quaque ratione et puncto accessus/);
+assert.match(latin['api-report-desc'], /numquam una linea pro quaque petitione/);
+assert.match(latin['api-no-calls'], /inactiva est nisi WITH_API=true/);
+assert.match(latin['recovery-report-desc'], /iterata migratio ex MongoDB/);
+assert.match(latin['recovery-report-desc'], /exemplaria subsidiaria datorum textualium/);
+assert.match(latin['recovery-maintenance-note'], /automatice perget cum restitutio perfecta erit/);
+assert.equal(latin['copy-swimlane'], latin['copySwimlanePopup-title']);
