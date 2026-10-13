@@ -898,3 +898,20 @@ assert.equal(latin['map-region-asia'], 'Asia');
 for (const command of ['sudo snap logs wekan.wekan', 'sudo docker logs wekan-app']) assert.ok(latin['server-error-troubleshooting'].includes('`' + command + '`'));
 assert.match(latin['created-at-newest-first'], /recentissima primum/);
 assert.match(latin['created-at-oldest-first'], /antiquissima primum/);
+
+const reviewedReportTemplateKeys = ["now-activities-of-all-boards-are-hidden", "move-swimlane", "moveSwimlanePopup-title", "custom-field-stringtemplate", "custom-field-stringtemplate-format", "custom-field-stringtemplate-separator", "custom-field-stringtemplate-item-placeholder", "creator", "creator-on-minicard", "filesReportTitle", "filter-invisible-filenames", "filename-invisible-legend", "reports", "problems", "securityReportTitle", "speedReportTitle", "testsReportTitle", "cpuReportTitle", "databaseReportTitle", "new-problems", "acknowledge", "rulesReportTitle", "boardsReportTitle", "cardsReportTitle", "impersonationReportTitle", "impersonation-admin", "impersonation-user", "recoveryReportTitle", "officeReportTitle", "office-report-desc"];
+for (const key of reviewedReportTemplateKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:String Template|Format|Press|Report|Only|filename|Impersonated|successful)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.equal(latin['move-swimlane'], latin['moveSwimlanePopup-title']);
+assert.match(latin['custom-field-stringtemplate-format'], /%{value}/);
+for (const entity of ['&#32;', '&nbsp;']) assert.ok(latin['custom-field-stringtemplate-separator'].includes(entity));
+assert.match(latin['filter-invisible-filenames'], /^Tantum nomina fasciculorum/);
+assert.match(latin['filename-invisible-legend'], /^Ruber:/);
+assert.notEqual(latin['impersonation-admin'], latin['impersonation-user']);
+assert.match(latin['office-report-desc'], /secundum personam/);
+assert.match(latin['office-report-desc'], /IPv4 vel IPv6/);
+assert.match(latin['office-report-desc'], /si praesto sunt/);
+assert.match(latin['office-report-desc'], /ingressuum felicium/);
+assert.equal(latin['cpuReportTitle'], 'Usus CPU');

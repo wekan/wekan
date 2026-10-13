@@ -200205,5 +200205,215 @@
     "before": "Latine: Tabula actiones",
     "after": "Actiones tabulae",
     "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "now-activities-of-all-boards-are-hidden",
+    "before": "Latine: Nunc omnia actiones de omnia tabulae sunt hidden",
+    "after": "Nunc omnes actiones omnium tabularum occultae sunt",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "move-swimlane",
+    "before": "Latine: Move semita natatoria",
+    "after": "Move semitam",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "moveSwimlanePopup-title",
+    "before": "Latine: Move semita natatoria",
+    "after": "Move semitam",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "custom-field-stringtemplate",
+    "before": "Latine: String Template",
+    "after": "Exemplar catenae textus",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Latine: Format (use %{value} as placeholder)",
+    "after": "Forma (utere %{value} ut signo substituendo)",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "custom-field-stringtemplate-separator",
+    "before": "Latine: Separator (use &#32; vel &nbsp; for a space)",
+    "after": "Separator (utere &#32; aut &nbsp; pro spatio)",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "before": "Latine: Press enter ad adde plus res",
+    "after": "Preme Enter ut plures res addas",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "creator",
+    "before": "Latine: Creator",
+    "after": "Auctor",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "creator-on-minicard",
+    "before": "Latine: Creator adest minicard",
+    "after": "Auctor in chartula",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "filesReportTitle",
+    "before": "Latine: Fasciculi Relatio",
+    "after": "Relatio fasciculorum",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "filter-invisible-filenames",
+    "before": "Latine: Tantum filenames cum invisible characters",
+    "after": "Tantum nomina fasciculorum cum characteribus invisibilibus",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "filename-invisible-legend",
+    "before": "Latine: Red: filename has invisible characters",
+    "after": "Ruber: nomen fasciculi characteres invisibiles continet",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "reports",
+    "before": "Latine: Relationes",
+    "after": "Relationes",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "problems",
+    "before": "Latine: Problemata",
+    "after": "Problemata",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "securityReportTitle",
+    "before": "Latine: Securitas Relatio",
+    "after": "Relatio securitatis",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "speedReportTitle",
+    "before": "Latine: Celeritas",
+    "after": "Celeritas",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "testsReportTitle",
+    "before": "Latine: Probationes",
+    "after": "Probationes",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "cpuReportTitle",
+    "before": "Latine: CPU usage",
+    "after": "Usus CPU",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "databaseReportTitle",
+    "before": "Latine: Repositorio datorum problemata",
+    "after": "Problemata datorum repositorii",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "new-problems",
+    "before": "Latine: novum problemata",
+    "after": "nova problemata",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "acknowledge",
+    "before": "Latine: Acknowledge",
+    "after": "Agnosce",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "rulesReportTitle",
+    "before": "Latine: Regulae Relatio",
+    "after": "Relatio regularum",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "boardsReportTitle",
+    "before": "Latine: Tabulae Relatio",
+    "after": "Relatio tabularum",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "cardsReportTitle",
+    "before": "Latine: Schedae Relatio",
+    "after": "Relatio chartarum",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "impersonationReportTitle",
+    "before": "Latine: Impersonation Relatio",
+    "after": "Relatio de personis usorum susceptis",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "impersonation-admin",
+    "before": "Latine: Administrator",
+    "after": "Administrator",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "impersonation-user",
+    "before": "Latine: Impersonated usor",
+    "after": "Usor cuius persona geritur",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "recoveryReportTitle",
+    "before": "Latine: Recuperatio",
+    "after": "Restitutio",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "officeReportTitle",
+    "before": "Latine: Offices",
+    "after": "Sedes",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
+  },
+  {
+    "locale": "la",
+    "key": "office-report-desc",
+    "before": "Latine: Ubi people intra ex, grouped a person. Quisque IPv4 vel IPv6 address shows its praesto regio, city et felix introitus count.",
+    "after": "Unde homines ingrediantur, secundum personam ordinatum. Quaeque inscriptio IPv4 vel IPv6 monstrat patriam et urbem, si praesto sunt, atque numerum ingressuum felicium.",
+    "reason": "Repair Latin string-template and report labels; retain substitution tokens, space entities, invisible-filename filtering and successful-login scope."
   }
 ]

@@ -16,4 +16,11 @@ test('Latin custom field form translates types and dropdown instructions', async
   await pop.locator('select.js-field-type').selectOption('dropdown');
   await expect(pop.locator('.js-dropdown-item.last')).toHaveAttribute('placeholder', 'Preme Enter ut plures optiones addas');
   await expect(pop.locator('.js-dropdown-item.last')).toHaveValue('');
+  await pop.locator('select.js-field-type').selectOption('stringtemplate');
+  const settings = pop.locator('.js-field-settings-stringtemplate');
+  await expect(settings).toBeVisible();
+  await expect(settings.locator('label').first()).toHaveText('Forma (utere %{value} ut signo substituendo)');
+  await expect(settings.locator('label').last()).toHaveText('Separator (utere &#32; aut &nbsp; pro spatio)');
+  await expect(pop.locator('.js-field-settings-dropdown')).toBeHidden();
+
 });
