@@ -176888,5 +176888,236 @@
     "before": "Eliminare checklist?",
     "after": "Squassà a lista di cuntrollu?",
     "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "allboards.delete-workspace-confirm",
+    "before": "Sei sicuro di voler eliminare questu spaziu di travagliu?",
+    "after": "Site sicuru di vulè squassà stu spaziu di travagliu?",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "list-width-personal-note",
+    "before": "Questa larghezza è solu per te.",
+    "after": "Sta larghezza hè solu per voi.",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "fixed-list-width-note",
+    "before": "Se attivu, tutte le liste hanno la stessa larghezza e ridimensionando una lista si ridimensionano tutte. Questa impostazione è solu per te.",
+    "after": "S’ellu hè attivu, tutte e liste anu a stessa larghezza è cambià a larghezza d’una lista cambia quella di tutte e liste. Stu paràmetru hè solu per voi.",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "archive-board-confirm",
+    "before": "Sei sicuro di voler spostare questa tavula nell'archiviu?",
+    "after": "Site sicuru di vulè spustà sta tavula in l’archiviu?",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "card_members",
+    "before": "Tutti i membri di a carta corrente in questa tavula",
+    "after": "Tutti i membri di a carta attuale di sta tavula",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "board-private-info",
+    "before": "Questa tavula sarà <strong>privata</strong>.",
+    "after": "Sta tavula serà <strong>privata</strong>.",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "board-public-info",
+    "before": "Questa tavula sarà <strong>pubblica</strong>.",
+    "after": "Sta tavula serà <strong>publica</strong>.",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "card-archived",
+    "before": "Questa carta è stata spostata nell'archiviu",
+    "after": "Sta carta hè stata spustata in l’archiviu.",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "board-archived",
+    "before": "Questa tavula è stata spostata nell'archiviu",
+    "after": "Sta tavula hè stata spustata in l’archiviu.",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "card-comments-title",
+    "before": "Questa carta ha %s cummentu.",
+    "after": "Sta carta hà %s cummentu.",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "map-to-existing-user-no-results",
+    "before": "Nessun utilizatore corrispondente trovato.",
+    "after": "Nisun utilizatore currispundente trovu.",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "delete-avatar-confirm",
+    "before": "Sei sicuro di voler eliminare questu avatar?",
+    "after": "Site sicuru di vulè squassà st’avatar?",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "comment-delete",
+    "before": "Sei sicuro di voler cancellare il cummentu?",
+    "after": "Site sicuru di vulè squassà u cummentu?",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "no-comments",
+    "before": "Nessun cummentu",
+    "after": "Nisun cummentu",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "confirm-checklist-item-delete-popup",
+    "before": "Sei sicuro di voler eliminare l'elemento di a checklist?",
+    "after": "Site sicuru di vulè squassà l’elementu di a lista di cuntrollu?",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "checklistItemDeletePopup-title",
+    "before": "Eliminare l'elemento di a checklist?",
+    "after": "Squassà l’elementu di a lista di cuntrollu?",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "custom-color",
+    "before": "Culore personalizzato",
+    "after": "Culore persunalizatu",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "custom-field-delete-pop",
+    "before": "Non potrai tornare indietro. Questa azione rimuoverà questu campo personalizzato da tutte le carte ed eliminerà ogni sua traccia.",
+    "after": "Ùn si pò annullà st’azzione. Stu campu persunalizatu serà cacciatu da tutte e carte è a so cronulugia serà distrutta.",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "deleteCustomFieldPopup-title",
+    "before": "Squassà il campo personalizzato?",
+    "after": "Squassà u campu persunalizatu?",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "deleteLabelPopup-title",
+    "before": "Eliminare etichetta?",
+    "after": "Squassà l’etichetta?",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "email-invite-text",
+    "before": "Caro __user__,\n\n__inviter__ ti ha invitato ad unirti alla tavula \"__board__\" per collaborare.\n\nPer favore clicca nantu à u link seguente:\n\n__url__\n\nGrazie.",
+    "after": "Caru __user__,\n\n__inviter__ vi invita à raghjunghje a tavula \"__board__\" per cullaburà.\n\nSeguitate u ligame quì sottu:\n\n__url__\n\nGrazie.",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "push-invite-text",
+    "before": "Caro __user__,\n\n__inviter__ ti ha invitato ad unirti alla tavula \"__board__\" per collaborare.\n\nPer favore clicca nantu à u link seguente:\n\n__url__\n\nGrazie.",
+    "after": "Caru __user__,\n\n__inviter__ vi invita à raghjunghje a tavula \"__board__\" per cullaburà.\n\nSeguitate u ligame quì sottu:\n\n__url__\n\nGrazie.",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "error-board-doesNotExist",
+    "before": "Questa tavula non esiste",
+    "after": "Sta tavula ùn esiste micca",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "error-import-empty-board",
+    "before": "Questa esportazione non contiene alcun contenuto di a tavula (nessuna swimlane, lista o carta). Potrebbe essere stata creata da una versione precedente di WeKan cù un noto bug di esportazione. Spurtà di novu la tavula cù la versione attuale e impurtà il novu schedariu.",
+    "after": "St’espurtazione ùn cuntene nunda di a tavula (nè curridori, nè liste, nè carte). Pò esse stata creata da una versione precedente di WeKan cù un errore d’espurtazione cunnisciutu. Espurtate torna a tavula cù a versione attuale è impurtate u novu schedariu.",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "error-list-doesNotExist",
+    "before": "Questa lista non esiste",
+    "after": "Sta lista ùn esiste micca",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "error-linked-card-not-allowed",
+    "before": "Puoi collegare solu a una carta normale. Non è consentito collegare a un'altra carta collegata o a una carta che rimanda a questa tavula, perché renderebbe le carte inaccessibili.",
+    "after": "Pudete ligà solu una carta nurmale. Ùn hè micca permessu di ligà un’altra carta ligata, o una carta chì rimanda à sta tavula, perchè e carte diventerianu inaccessibili.",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "export-card-excel-no-disk-space",
+    "before": "Impossibile esportare in Excel: spaziu su disco insufficiente",
+    "after": "Ùn si pò espurtà versu Excel: spaziu liberu insufficiente nant’à u discu",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "filter-no-member",
+    "before": "Nessun membru",
+    "after": "Nisun membru",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "filter-no-assignee",
+    "before": "Nessun assegnatario",
+    "after": "Nisuna persona assignata",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "filter-on-desc",
+    "before": "Stai filtrando le carte su questa tavula. Clicca qui per modificare il filtro,",
+    "after": "Filtrate e carte di sta tavula. Cliccate quì per mudificà u filtru.",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "import-board-instruction-zenkit",
+    "before": "Incolla un JSON di esportazione di una lista ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Gli stage diventano liste e gli item diventano carte.",
+    "after": "Incollate un JSON d’espurtazione d’una lista ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). E tappe diventanu liste è l’elementi diventanu carte.",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "import-board-instruction-jira",
+    "before": "Incolla il JSON dalla ricerca issue di a REST API di Jira Cloud (GET /rest/api/3/search/jql), o un oggetto equivalente { \"issues\": [...] }. Gli stati di Jira diventano liste e le issue diventano carte. Facoltativamente includi un array \"automationRules\" per importare le regole.",
+    "after": "Incollate u JSON d’una ricerca di richieste Jira Cloud: GET /rest/api/3/search/jql?jql=project=KEY&fields=*all&expand=names,schema (senza fields, rende solu l’identificatori di e richieste). Un grande prughjettu ghjunghje in pagine, ognuna cù un nextPageToken per a prossima: mettite e richieste di tutte e pagine in una sola matrice \"issues\", o impurtate ogni pagina cum’è una tavula distinta cù Impurtà parechje tavule. Un ogettu equivalente { \"issues\": [...] } funziona dinù. I stati Jira diventanu liste è e richieste diventanu carte. Pudete dinù include una matrice \"automationRules\" per impurtà e regule.",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "import-board-instruction-excel",
+    "before": "Scegli un foglio di calcolo .xlsx in stile WeKan (le stesse colonne dell'esportazione Excel: Titulu, Descrizzione, Stato/Lista, Membri, Etichette, date, campi personalizzati). La prima riga è l'intestazione.",
+    "after": "Sceglite un libru di travagliu .xlsx: una tabella cù una carta per linea (culonne cum’è Title, Description, Status/List, Members, Labels, date è campi persunalizati), o un libru di travagliu espurtatu da WeKan, ancu unu cù ogni tavula nant’à un fogliu distintu. A tappa dopu mostra quale culonna currisponde à quale campu. Ogni fogliu cù una linea d’intestazione diventa una tavula.",
+    "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
   }
 ]

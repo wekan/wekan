@@ -193,3 +193,20 @@ assert.equal(corsican['userAnonymizePopup-title'], 'Anonimizà u contu');
 assert.match(corsican['card-delete-suggest-archive'], /archiviu.*cunservà a so attività/);
 assert.match(corsican['personal-list-width-description'], /attivu.*ogni utilizatore.*disattivu.*spartute cù tutti/);
 assert.equal(corsican.subtasks, 'Sottucompiti');
+
+const boardCorrectionKeys = ["allboards.delete-workspace-confirm", "list-width-personal-note", "fixed-list-width-note", "archive-board-confirm", "card_members", "board-private-info", "board-public-info", "card-archived", "board-archived", "card-comments-title", "map-to-existing-user-no-results", "delete-avatar-confirm", "comment-delete", "no-comments", "confirm-checklist-item-delete-popup", "checklistItemDeletePopup-title", "custom-color", "custom-field-delete-pop", "deleteCustomFieldPopup-title", "deleteLabelPopup-title", "email-invite-text", "push-invite-text", "error-board-doesNotExist", "error-import-empty-board", "error-list-doesNotExist", "error-linked-card-not-allowed", "export-card-excel-no-disk-space", "filter-no-member", "filter-no-assignee", "filter-on-desc", "import-board-instruction-zenkit", "import-board-instruction-jira", "import-board-instruction-excel"];
+for (const key of boardCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.deepEqual(tags(corsican[key]), tags(english[key]), key);
+  assert.doesNotMatch(corsican[key], /\b(?:Sei sicuro|Questa|Nessun|Puoi|Impossibile|Eliminare|personalizzato|Caro|Incolla|Scegli|esportazione|contiene|collegare|spostata)\b/, key);
+}
+assert.match(corsican['board-private-info'], /serà <strong>privata<\/strong>/);
+assert.match(corsican['board-public-info'], /serà <strong>publica<\/strong>/);
+assert.match(corsican['custom-field-delete-pop'], /Ùn si pò annullà.*tutte e carte.*cronulugia serà distrutta/);
+assert.match(corsican['error-linked-card-not-allowed'], /solu una carta nurmale.*inaccessibili/);
+assert.match(corsican['error-import-empty-board'], /versione attuale.*novu schedariu/);
+for (const literal of ['GET /rest/api/3/search/jql?jql=project=KEY&fields=*all&expand=names,schema', 'nextPageToken', '"issues"', '"automationRules"']) assert.ok(corsican['import-board-instruction-jira'].includes(literal));
+assert.match(corsican['import-board-instruction-jira'], /senza fields.*solu l’identificatori/);
+assert.match(corsican['import-board-instruction-jira'], /tutte e pagine.*ogni pagina/);
+assert.match(corsican['import-board-instruction-excel'], /Ogni fogliu cù una linea d’intestazione diventa una tavula/);
+assert.equal(corsican['email-invite-text'], corsican['push-invite-text']);
