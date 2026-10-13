@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican templates and search results — 2026-10-13
+
+Commit `930fd9fe2b` repairs 47 values in the source-ordered review through
+key 1939. Due-card guidance retains incomplete cards with due dates from
+authorized boards. Global search retains authorized boards and the My Cards
+restriction to membership or assignment. Template guidance retains the
+organization/team/domain scopes. Result counts and not-found messages keep
+their placeholders and plural meaning. Search abbreviations and the context
+separator lose unrelated in-progress prefixes.
+
+The Corsican and full repair-ledger suites pass; the ledger contains
+26,262 guarded corrections. All 21 human-preference checks pass. The existing
+shared-template browser case registers with the corrected scope hint and a
+negative check for prior Italian text; it has not run against the
+application. Exact comparison preserves all 38,430 protected Chinese values
+and limits this locale batch to the 47 reviewed replacements. Broader
+language review remains unfinished.
+
 ## Corsican preferences, role controls and weekdays — 2026-10-13
 
 Commit `0343ff48a0` repairs 44 values in the source-ordered review through
