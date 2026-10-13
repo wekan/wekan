@@ -841,3 +841,29 @@ assert.match(sesotho['wip-limit-group-name-placeholder'], /sehlopha.*boikhethelo
 assert.equal(sesotho['wip-limit-group-select-swimlane'], 'Kgetha tsela');
 assert.doesNotMatch(sesotho['wip-limit-group-select-swimlane'], /boto/);
 assert.equal(sesotho['wip-limit-group-apply-swimlane'], 'Sebedisa tseleng');
+
+// Historical review through key 3169: restore report caveats lost to shorthand.
+assert.match(sesotho['list-sync-description'], /metsotso e meng le e meng e 15/);
+assert.ok(sesotho['list-sync-description'].includes(sesotho['list-sync-now']));
+assert.equal(sesotho['list-sync-credential'], 'Bopaki ba ho kena');
+assert.doesNotMatch(sesotho['list-sync-credential'], /Tumello/);
+assert.match(sesotho['list-sync-credential-status-unset'], /ha bo eso/);
+assert.match(sesotho['list-sync-now-error'], /ho hlolehile: %s/);
+assert.match(sesotho['flow-note-agingWip'], /bonyane dinako tse hlano/);
+assert.match(sesotho['flow-note-agingWip'], /nalane.*siyo.*ha e tsejwe/);
+assert.match(sesotho['flow-note-blockerAnalysis'], /Dikarete tse hlakotsweng.*dikopi tsa nalane/);
+assert.match(sesotho['flow-note-blockerAnalysis'], /nako e le nngwe.*ka thoko/);
+for (const phrase of ['2,000', 'UTC', 'ho seng letho le phethilweng', 'mohatleng o ka hodimo', 'mohatleng o ka tlase', 'ha se tiisetso', '3,650', 'ha ho kgakanyo']) assert.ok(sesotho['flow-note-monteCarlo'].includes(phrase), phrase);
+for (const key of ['flow-note-processBehavior', 'flow-note-sizeCycleTime']) {
+  assert.match(sesotho[key], /ho theha haeba/);
+  assert.match(sesotho[key], /ho isa polokelong haeba/);
+}
+assert.match(sesotho['flow-note-processBehavior'], /bonyane diphetho tse pedi tse nepahetseng/);
+assert.match(sesotho['flow-note-sizeCycleTime'], /matsatsi a sa nepahalang di a tlohelwa/);
+assert.match(sesotho['time-adjustment-note'], /ha se dinako tsa mosebetsi ka bonngwe/);
+assert.match(sesotho['time-adjustment-note'], /ka tlase ho lefela ke ditokiso/);
+assert.match(sesotho['time-adjustment-note'], /sa tlalehwang e ke ke ya abelwa motho/);
+assert.match(sesotho['move-reason'], /boikhethelo/);
+assert.match(sesotho['flow-error'], /Hlahloba boleng mme o leke hape/);
+assert.notEqual(sesotho['flow-size'], sesotho['flow-mean']);
+assert.doesNotMatch(sesotho['flow-size-source'], /Masimo/);

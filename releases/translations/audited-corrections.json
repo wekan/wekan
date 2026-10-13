@@ -188907,5 +188907,383 @@
     "before": "Sebedisa Tsela",
     "after": "Sebedisa tseleng",
     "reason": "Restore the meanings of API connection points, severity, custom-field summaries and WIP limit groups."
+  },
+  {
+    "locale": "st",
+    "key": "chart-forecast-none-remaining",
+    "before": "Ha ho letho le setseng le bulehile ho hlahisa - karete e nngwe le e nngwe e phethilwe.",
+    "after": "Ha ho dikarete tse sa ntseng di bulehile tseo ho ka hakanywang nako ya tsona ya ho phetheha - dikarete tsohle di phethilwe.",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "chart-forecast-no-velocity",
+    "before": "Dikarete tse __remaining__ di sa ntse di bulehile; ha ho diphetho tsa morao-rao tsa ho hlahisa letsatsi.",
+    "after": "Dikarete tse __remaining__ di sa ntse di bulehile; ha ho dikarete tse phethilweng morao tjena tseo ho ka hakanywang letsatsi ka tsona.",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "list-sync-menu",
+    "before": "Tumellano",
+    "after": "Amahanya",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "listSyncPopup-title",
+    "before": "Tumellano ya Lenane",
+    "after": "Ho amahanya lenane",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "list-sync-description",
+    "before": "Boloka lenane lena le ntjhafalitswe ho tswa ho tracker e kantle. Mosebetsi wa ka morao o e hlahloba metsotso e 15 e nngwe le e nngwe; sebedisa \"Tumellano hona jwale\" ho hlahloba hang-hang.",
+    "after": "Boloka lenane lena le ntjhafaditswe ka data ya tsamaiso e kantle ya ho latela mesebetsi. Mosebetsi o sebetsang bokamoraong o e hlahloba metsotso e meng le e meng e 15; sebedisa \"Amahanya hona jwale\" ho hlahloba hang-hang.",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "list-sync-source-none",
+    "before": "Ha e tumellanngwe",
+    "after": "Ha le a amahanngwa",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "list-sync-credential",
+    "before": "Tumello",
+    "after": "Bopaki ba ho kena",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "list-sync-credential-status-set",
+    "before": "Tumello e beetswe.",
+    "after": "Bopaki ba ho kena bo se bo behilwe.",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "list-sync-credential-status-unset",
+    "before": "Ha ho tumello e beetsweng ho fihlela hona jwale.",
+    "after": "Bopaki ba ho kena ha bo eso behwe.",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "list-sync-enabled",
+    "before": "Tumellano e kentswe tshebetsong",
+    "after": "Ho amahanya ho kentswe tshebetsong",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "list-sync-last-synced",
+    "before": "Tumellano ya ho qetela",
+    "after": "Le qetetse ho amahanngwa",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "list-sync-now",
+    "before": "Tumellano hona jwale",
+    "after": "Amahanya hona jwale",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "list-sync-now-pending",
+    "before": "E a tumellana…",
+    "after": "Ho a amahanngwa…",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "list-sync-now-success",
+    "before": "Tumellano e phethilwe ka katleho.",
+    "after": "Ho amahanya ho phethilwe ka katleho.",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "list-sync-now-error",
+    "before": "Tumellano e hlolehile: %s",
+    "after": "Ho amahanya ho hlolehile: %s",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "list-sync-clear",
+    "before": "Emisa tumellano",
+    "after": "Emisa ho amahanya",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "board-view-aging-wip",
+    "before": "Ho tsofala ha karete — Lenane",
+    "after": "Mosebetsi o ntseng o tswela pele: nako e fetileng",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "board-view-blocker-analysis",
+    "before": "Dikamano — Dipalopalo",
+    "after": "Tlhahlobo ya dithibelo",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "board-view-monte-carlo",
+    "before": "Monte Carlo — Histogram ea tlhahiso",
+    "after": "Dihakanyo tsa Monte Carlo",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "board-view-process-behavior",
+    "before": "XmR — Nako ea potoloho",
+    "after": "Boitshwaro ba tshebetso (XmR)",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "board-view-size-cycle-time",
+    "before": "Boholo / Nako ea potoloho",
+    "after": "Boholo ba mosebetsi ha bo bapiswa le nako ya potoloho",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-age-days",
+    "before": "Lenane — Nako (matsatsi)",
+    "after": "Nako e seng e fetile mohatong (matsatsi)",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-p85",
+    "before": "Lenane — P85 (matsatsi)",
+    "after": "Persentaele ya bo85 ya mohato (matsatsi)",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-samples",
+    "before": "Nalane — n",
+    "after": "Dinako tsa ho dula mohatong nakong e fetileng",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-signal",
+    "before": "Meedi",
+    "after": "Sesupo",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-unusual",
+    "before": "Meedi ⚠",
+    "after": "Ka ntle ho moedi",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-blocker",
+    "before": "E thibela",
+    "after": "Karete e thibelang",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-episodes",
+    "before": "Dikamano — Nalane",
+    "after": "Diketsahalo tsa thibelo",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-active",
+    "before": "Dikamano — Pheletso —",
+    "after": "Diketsahalo tsa thibelo tse sa felang",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-blocked-days",
+    "before": "E thibetswe ke (Dikarete × matsatsi)",
+    "after": "Dikarete tse thibetsweng × matsatsi",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-unknown-start",
+    "before": "Qala — (ha e tsejwe)",
+    "after": "Maqalo a sa tsejweng",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-confidence",
+    "before": "Dipalopalo (%)",
+    "after": "Boemo ba tshepo ya kgakanyo",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-target-count",
+    "before": "Dikarete — Nomoro",
+    "after": "Palo e rerilweng ya dikarete",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-finish-days",
+    "before": "E phethilwe (matsatsi)",
+    "after": "Matsatsi a hlokahalang ho phethela",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-finish-date",
+    "before": "E phethilwe — Letsatsi",
+    "after": "Letsatsi la ho phethela",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-target-date",
+    "before": "E lokela ho phethwa",
+    "after": "Letsatsi le rerilweng",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-capacity",
+    "before": "Dikarete ≥",
+    "after": "Bonyane palo ena ya dikarete",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-beyond-horizon",
+    "before": "> 3650 matsatsi",
+    "after": "Ka nqane ho nako e lekilweng papisong",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-mean",
+    "before": "Nako ea potoloho — x̄",
+    "after": "Karolelano",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-moving-range",
+    "before": "|Δ Nako ea potoloho|",
+    "after": "Phapang pakeng tsa diteko tse latellanang",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-mr-mean",
+    "before": "MR̄",
+    "after": "Karolelano ya diphapang pakeng tsa diteko tse latellanang",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-size-source",
+    "before": "Boholo — Masimo a ikgethileng",
+    "after": "Karolo ya data ya boholo",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-size",
+    "before": "Boholo",
+    "after": "Kgakanyo",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-error",
+    "before": "Phoso — Dipalopalo",
+    "after": "Tlaleho ha e a kgona ho kenngwa. Hlahloba boleng mme o leke hape.",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-details",
+    "before": "Dintlha — Nalane",
+    "after": "Nalane eo tlaleho e thehilweng ho yona",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-note-agingWip",
+    "before": "Lenane: Qala → Nako. P85: n ≥ 5. (ha e tsejwe): —.",
+    "after": "Dikarete tse bulehileng: matsatsi ho tloha ha di kena mohatong wa jwale. Ditshiya tse kgubedu di feta persentaele ya bo85 ya nalane ya mohato oo (bonyane dinako tse hlano tsa ho dula mohatong). Ha nalane ya ho kena e le siyo, nako ha e tsejwe.",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-note-blockerAnalysis",
+    "before": "Dikamano: Nalane → Qala / Pheletso. Qala (ha e tsejwe): —.",
+    "after": "Nalane ya dikamano tsa ho itshetleha e fana ka dinako tsa ho qala le ho fela ha dithibelo mohatong ka mong. Maqalo a mahokelo a kgale a ka nna a se tsejwe. Dikarete tse hlakotsweng di hloka dikopi tsa nalane tse bolokilweng. Mabaka a thibelang ka nako e le nngwe a balwa ka thoko.",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-note-monteCarlo",
+    "before": "Monte Carlo: 2000 × Nalane. matsatsi: UTC; 0 ✓. 50%, 70%, 85%, 95%. Dikarete ≥; Nako ≤. Meedi: 3650 matsatsi.",
+    "after": "Diteko tse 2,000 di nka disampole tsa matsatsi a felletseng a khalendara ya UTC, ho kenyeletswa matsatsi ao ho seng letho le phethilweng ka ona. Matsatsi ke dihakanyo tse tswang mohatleng o ka hodimo wa kabo; dipalo ke boitlamo bo tswang mohatleng o ka tlase. Ho nahanwa hore lebelo la ho phethela mosebetsi le tla tshwana nakong e tlang; sena ha se tiisetso. Nako e telele ka ho fetisisa e lekilweng: matsatsi a 3,650. Ha ho se letho le phethilweng, ha ho kgakanyo.",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-note-processBehavior",
+    "before": "XmR: Nako ea potoloho; Qala → E phethilwe. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
+    "after": "Nako ya potoloho e sebedisa nako ya ho qala, kapa ya ho theha haeba ya ho qala e le siyo; le nako ya ho fela, kapa ya ho isa polokelong haeba ya ho fela e le siyo. XmR e bontsha boleng ka bong le diphapang tse latellanang, hammoho le karolelano le meedi ya tlhaho ya tshebetso; ho hlokahala bonyane diphetho tse pedi tse nepahetseng.",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "flow-note-sizeCycleTime",
+    "before": "X: Planning Poker / Nomoro. Y: Nako ea potoloho (matsatsi). (ha e tsejwe): —.",
+    "after": "Kgakanyo ya jwale ya Planning Poker kapa karolo e le nngwe ya data ya dinomoro e bapiswa le nako ya potoloho e phethilweng ka matsatsi. Dihakanyo tse siyo le matsatsi a sa nepahalang di a tlohelwa. Nako ya ho qala e sebedisa ya ho theha haeba e le siyo; nako ya ho fela e sebedisa ya ho isa polokelong haeba e le siyo.",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "move-reason",
+    "before": "Falatsa karete — Tlhaloso",
+    "after": "Lebaka la ho suthisa (boikhethelo)",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "ask-move-reason",
+    "before": "Falatsa karete → Tlhaloso?",
+    "after": "Botsa lebaka ha ho suthiswa dikarete",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "time-adjustments",
+    "before": "dihora — Δ — Lebitso la mosebedisi",
+    "after": "Ditokiso tsa nako ho ya ka motho ya di entseng",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "time-adjustment-note",
+    "before": "Nalane: Δ dihora; Lebitso la mosebedisi ≠ Ba abetsoeng.",
+    "after": "Diphetoho tsa dihora tse tlalehilweng, tse hlophisitsweng ho ya ka motho ya fetolang kakaretso. Tsena ha se dinako tsa mosebetsi ka bonngwe. Boleng bo ka tlase ho lefela ke ditokiso. Nako ya pele e sa tlalehwang e ke ke ya abelwa motho.",
+    "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
   }
 ]
