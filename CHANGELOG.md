@@ -1582,6 +1582,19 @@ pending. Protected Chinese values are unchanged; broader review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d7c43eeb4b">Correct Corsican repair and recovery guidance</a>. Thanks to xet7.</summary>
+
+Repair 20 mixed-language values for account anonymization, watching,
+recovery migrations and storage. Preserve non-archived versus all-archived
+scope, administrator requirements, literal identifiers and undo warnings.
+
+The Corsican suite, full repair-ledger suite and 21 human-preference checks
+pass. The registered S3 browser case now checks endpoint guidance; execution
+remains pending. Protected Chinese text is unchanged; broader review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

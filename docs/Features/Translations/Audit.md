@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican repair and recovery guidance — 2026-10-13
+
+Commit `d7c43eeb4b` repairs 20 mixed-language values. The account action
+no longer says import-user anonymization. Watching restrictions retain
+rejected subscription changes and the disabled default. Recovery warnings
+retain non-archived-only scope for lost items versus all archived items,
+administrator-only execution and the difficulty of undoing restoration.
+`swimlaneId`, `listId`, `Lost Cards` and cloud-product names remain literal.
+
+The Corsican and full repair-ledger suites pass; the ledger contains
+25,418 guarded corrections. All 21 human-preference checks pass. The S3
+browser case registers with the corrected endpoint guidance assertion;
+it has not executed against the application. The final comparison preserves
+all 38,430 Chinese values in the current parent, including concurrent
+additions committed during this work. Only the 20 specified Corsican values
+changed in this batch. Broader language review remains unfinished.
+
 ## Corsican storage migration and avatar guidance — 2026-10-13
 
 Commit `78d684e364` repairs 25 mixed-language storage, account and scheduling
