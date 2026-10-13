@@ -174669,5 +174669,278 @@
     "before": "Şura yaradın (Kart)",
     "after": "Bu kartdan lövhə yaradın",
     "reason": "Create a Kanban board from this card: use kart for the source card and lövhə for the new board, not sheet or council."
+  },
+  {
+    "locale": "uz",
+    "key": "cardAssigneePopup-title",
+    "before": "Tayinlovchi",
+    "after": "Tayinlangan shaxs",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz",
+    "key": "export-card-field-people",
+    "before": "Odamlar (yaratuvchi, egasi, a'zolar, tayinlovchilar)",
+    "after": "Odamlar (yaratuvchi, egasi, a'zolar, tayinlangan shaxslar)",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz",
+    "key": "toggle-assignees",
+    "before": "Karta uchun 1 dan 9 gacha tayinlovchilarni almashtiring (Taxtaga qo'shish tartibi bo'yicha).",
+    "after": "Karta uchun 1 dan 9 gacha tayinlangan shaxslarni almashtiring (Taxtaga qo'shish tartibi bo'yicha).",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz",
+    "key": "r-w-assignee-added",
+    "before": "Tayinlovchi qoʻshildi",
+    "after": "Tayinlangan shaxs qoʻshildi",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz",
+    "key": "r-w-assignee-removed",
+    "before": "Tayinlovchi olib tashlandi",
+    "after": "Tayinlangan shaxs olib tashlandi",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz",
+    "key": "r-when-a-assignee",
+    "before": "Tayinlovchi bo'lganda",
+    "after": "Tayinlangan shaxs bo'lganda",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz",
+    "key": "r-when-the-assignee",
+    "before": "Qachon Tayinlovchi",
+    "after": "Qachon Tayinlangan shaxs",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz",
+    "key": "assignee",
+    "before": "Tayinlovchi",
+    "after": "Tayinlangan shaxs",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz",
+    "key": "assignees",
+    "before": "Tayinlovchilar",
+    "after": "Tayinlangan shaxslar",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz",
+    "key": "cardAssigneesPopup-title",
+    "before": "Tayinlovchi",
+    "after": "Tayinlangan shaxs",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz",
+    "key": "globalSearch-instructions-operator-user",
+    "before": "`__operator_user__:<username>` - ​​*<username>* *aʼzo* yoki *tayinlovchi* boʻlgan kartalar",
+    "after": "`__operator_user__:<username>` - ​​*<username>* *aʼzo* yoki *tayinlangan shaxs* boʻlgan kartalar",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<username>` - ​​*<username>* *tayinlovchi* boʻlgan kartalar",
+    "after": "`__operator_assignee__:<username>` - ​​*<username>* *tayinlangan shaxs* boʻlgan kartalar",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz",
+    "key": "time-adjustment-note",
+    "before": "Tarix: Δ soat; Foydalanuvchi nomi ≠ Tayinlovchilar.",
+    "after": "Qayd etilgan soatlardagi oʻzgarishlar jami qiymatni tahrirlagan shaxs boʻyicha guruhlangan. Bular alohida ish seanslari emas. Manfiy qiymatlar tuzatishlardir. Avval qayd etilmagan vaqtni biror shaxsga bogʻlab boʻlmaydi.",
+    "reason": "Restore the full source meaning: total edits are grouped by editor, not individual work sessions; negative amounts are corrections and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "cardAssigneePopup-title",
+    "before": "Tayinlovchi",
+    "after": "Tayinlangan shaxs",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "export-card-field-people",
+    "before": "Odamlar (yaratuvchi, egasi, a'zolar, tayinlovchilar)",
+    "after": "Odamlar (yaratuvchi, egasi, a'zolar, tayinlangan shaxslar)",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "toggle-assignees",
+    "before": "Karta uchun 1 dan 9 gacha tayinlovchilarni almashtiring (Taxtaga qo'shish tartibi bo'yicha).",
+    "after": "Karta uchun 1 dan 9 gacha tayinlangan shaxslarni almashtiring (Taxtaga qo'shish tartibi bo'yicha).",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "r-w-assignee-added",
+    "before": "Tayinlovchi qoʻshildi",
+    "after": "Tayinlangan shaxs qoʻshildi",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "r-w-assignee-removed",
+    "before": "Tayinlovchi olib tashlandi",
+    "after": "Tayinlangan shaxs olib tashlandi",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "r-when-a-assignee",
+    "before": "Tayinlovchi bo'lganda",
+    "after": "Tayinlangan shaxs bo'lganda",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "r-when-the-assignee",
+    "before": "Qachon Tayinlovchi",
+    "after": "Qachon Tayinlangan shaxs",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "assignee",
+    "before": "Tayinlovchi",
+    "after": "Tayinlangan shaxs",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "assignees",
+    "before": "Tayinlovchilar",
+    "after": "Tayinlangan shaxslar",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "cardAssigneesPopup-title",
+    "before": "Tayinlovchi",
+    "after": "Tayinlangan shaxs",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "globalSearch-instructions-operator-user",
+    "before": "`__operator_user__:<username>` - ​​*<username>* *aʼzo* yoki *tayinlovchi* boʻlgan kartalar",
+    "after": "`__operator_user__:<username>` - ​​*<username>* *aʼzo* yoki *tayinlangan shaxs* boʻlgan kartalar",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<username>` - ​​*<username>* *tayinlovchi* boʻlgan kartalar",
+    "after": "`__operator_assignee__:<username>` - ​​*<username>* *tayinlangan shaxs* boʻlgan kartalar",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "time-adjustment-note",
+    "before": "Tarix: Δ soat; Foydalanuvchi nomi ≠ Tayinlovchilar.",
+    "after": "Qayd etilgan soatlardagi oʻzgarishlar jami qiymatni tahrirlagan shaxs boʻyicha guruhlangan. Bular alohida ish seanslari emas. Manfiy qiymatlar tuzatishlardir. Avval qayd etilmagan vaqtni biror shaxsga bogʻlab boʻlmaydi.",
+    "reason": "Restore the full source meaning: total edits are grouped by editor, not individual work sessions; negative amounts are corrections and earlier unrecorded time cannot be attributed."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "cardAssigneePopup-title",
+    "before": "Tayinlovchi",
+    "after": "Tayinlangan shaxs",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "export-card-field-people",
+    "before": "Odamlar (yaratuvchi, egasi, a'zolar, tayinlovchilar)",
+    "after": "Odamlar (yaratuvchi, egasi, a'zolar, tayinlangan shaxslar)",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "toggle-assignees",
+    "before": "Karta uchun 1 dan 9 gacha tayinlovchilarni almashtiring (Taxtaga qo'shish tartibi bo'yicha).",
+    "after": "Karta uchun 1 dan 9 gacha tayinlangan shaxslarni almashtiring (Taxtaga qo'shish tartibi bo'yicha).",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "r-w-assignee-added",
+    "before": "Tayinlovchi qoʻshildi",
+    "after": "Tayinlangan shaxs qoʻshildi",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "r-w-assignee-removed",
+    "before": "Tayinlovchi olib tashlandi",
+    "after": "Tayinlangan shaxs olib tashlandi",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "r-when-a-assignee",
+    "before": "Tayinlovchi bo'lganda",
+    "after": "Tayinlangan shaxs bo'lganda",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "r-when-the-assignee",
+    "before": "Qachon Tayinlovchi",
+    "after": "Qachon Tayinlangan shaxs",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "assignee",
+    "before": "Tayinlovchi",
+    "after": "Tayinlangan shaxs",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "assignees",
+    "before": "Tayinlovchilar",
+    "after": "Tayinlangan shaxslar",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "cardAssigneesPopup-title",
+    "before": "Tayinlovchi",
+    "after": "Tayinlangan shaxs",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "globalSearch-instructions-operator-user",
+    "before": "`__operator_user__:<username>` - ​​*<username>* *aʼzo* yoki *tayinlovchi* boʻlgan kartalar",
+    "after": "`__operator_user__:<username>` - ​​*<username>* *aʼzo* yoki *tayinlangan shaxs* boʻlgan kartalar",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<username>` - ​​*<username>* *tayinlovchi* boʻlgan kartalar",
+    "after": "`__operator_assignee__:<username>` - ​​*<username>* *tayinlangan shaxs* boʻlgan kartalar",
+    "reason": "Assignee names the person assigned (tayinlangan shaxs), not the assigning party (tayinlovchi); preserve surrounding query syntax and argument tokens."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "time-adjustment-note",
+    "before": "Tarix: Δ soat; Foydalanuvchi nomi ≠ Tayinlovchilar.",
+    "after": "Qayd etilgan soatlardagi oʻzgarishlar jami qiymatni tahrirlagan shaxs boʻyicha guruhlangan. Bular alohida ish seanslari emas. Manfiy qiymatlar tuzatishlardir. Avval qayd etilmagan vaqtni biror shaxsga bogʻlab boʻlmaydi.",
+    "reason": "Restore the full source meaning: total edits are grouped by editor, not individual work sessions; negative amounts are corrections and earlier unrecorded time cannot be attributed."
   }
 ]

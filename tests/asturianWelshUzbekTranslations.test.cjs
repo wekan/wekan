@@ -57,6 +57,21 @@ console.log('Latin Uzbek regional board forms and automatic card-loading guidanc
 // warnings must not reverse, and external formats keep their literal markers.
 for (const code of ['uz', 'uz-UZ', 'uz-LA']) {
   const data = locales[code];
+  for (const key of ['assignee', 'cardAssigneePopup-title', 'cardAssigneesPopup-title']) assert.equal(data[key], 'Tayinlangan shaxs');
+  assert.equal(data.assignees, 'Tayinlangan shaxslar');
+  assert.match(data['r-w-assignee-added'], /Tayinlangan shaxs qoʻshildi/);
+  assert.match(data['r-w-assignee-removed'], /Tayinlangan shaxs olib tashlandi/);
+  for (const value of Object.values(data)) assert.doesNotMatch(value, /tayinlovchi/i);
+  for (const [key, operator] of [['globalSearch-instructions-operator-user', '__operator_user__'], ['globalSearch-instructions-operator-assignee', '__operator_assignee__']]) {
+    assert.ok(data[key].includes(`\`${operator}:<username>\``));
+    assert.ok(data[key].includes('*<username>*'));
+    assert.ok(data[key].includes('*tayinlangan shaxs*'));
+  }
+  assert.match(data['toggle-assignees'], /1 dan 9 gacha tayinlangan shaxslarni/);
+  assert.match(data['time-adjustment-note'], /jami qiymatni tahrirlagan shaxs boʻyicha guruhlangan/);
+  assert.match(data['time-adjustment-note'], /alohida ish seanslari emas/);
+  assert.match(data['time-adjustment-note'], /Manfiy qiymatlar tuzatishlardir/);
+  assert.match(data['time-adjustment-note'], /Avval qayd etilmagan vaqtni biror shaxsga bogʻlab boʻlmaydi/);
   assert.match(data['custom-field-link-sends'], /Bu kartadagi.*oʻsha kartaga/);
   assert.match(data['custom-field-link-receives'], /Oʻsha kartadagi.*bu kartaga/);
   assert.match(data['field-link-not-allowed'], /Ikkala kartani ham tahrirlash huquqingiz/);
