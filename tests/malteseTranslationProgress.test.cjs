@@ -1,5 +1,5 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Check the current full filtered inventory, including newer feature strings.
+// An empty fill report is not a semantic or fluent-language certification.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -20,7 +20,7 @@ const tags = value => [...value.matchAll(/<\/?[A-Za-z][^>]*>/g)]
 
 const fillResult = spawnSync(process.execPath, [
   path.join(root, 'releases/translations/fill-translations.mjs'),
-  '--completed-catalog', '--list',
+  '--list',
   'mt',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
@@ -46,7 +46,7 @@ assert.deepEqual(tokens(maltese['activity-changedTitle']), ['%s', '%s']);
 assert.deepEqual(tokens(maltese['act-deleteCard']),
   ['__board__', '__card__', '__list__', '__swimlane__']);
 
-console.log('malteseTranslationProgress: earlier catalog and locale-wide token checks passed');
+console.log('malteseTranslationProgress: current fill inventory and locale-wide token checks passed');
 
 for (const key of Object.keys(english).filter(k => /^(csv-mapping-|import-members-mode-|invalid-import-mapping$)/.test(k))) {
   assert.notEqual(maltese[key], english[key], key);
@@ -104,3 +104,16 @@ assert.match(maltese['read-only-field'], /kull membru jara.*amministraturi tal-b
 assert.match(maltese['login-setting-env-only'], /biss mill-ambjent tas-server.*għall-qari biss/);
 assert.match(maltese['oauth-providers-allowed-email-domains'], /separati b'virgoli; vojt jippermetti lil kulħadd/);
 assert.match(maltese['cards-use-list-color'], /mingħajr kulur tagħhom stess/);
+
+for (const format of ['opml', 'orgmode', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri', 'pivotal', 'tasksorg', 'monday', 'superproductivity', 'taiga', 'vikunja', 'quire', 'wrike', 'teamwork', 'businessmap', 'redmine', 'notion', 'plane']) {
+  assert.notEqual(maltese['import-board-instruction-' + format], english['import-board-instruction-' + format]);
+}
+for (const literal of ['TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED']) assert.ok(maltese['import-board-instruction-orgmode'].includes(literal));
+for (const literal of ['Tasklist', 'Task', 'Description', 'Assign to', 'Start date', 'Due date', 'Priority', 'Estimated time', 'Tags', 'Status', '--', '##', '>>']) assert.ok(maltese['import-board-instruction-teamwork'].includes(literal));
+for (const format of ['taiga', 'vikunja']) assert.match(maltese['import-board-instruction-' + format], /L-annessi ma jiġux importati/);
+assert.match(maltese['import-board-instruction-notion'], /Ir-relazzjonijiet, l-immaġnijiet u l-annessi ma jiġux importati/);
+assert.match(maltese['import-board-instruction-quire'], /Il-kummenti u l-annessi mhumiex fis-CSV/);
+assert.match(maltese['import-board-instruction-plane'], /m'għandhiex deskrizzjonijiet jew annessi.*ma jiġux importati/);
+for (const format of ['nullboard', 'kanri']) assert.match(maltese['import-board-instruction-' + format], /jiġi importat l-ewwel bord/);
+assert.match(maltese['import-board-instruction-businessmap'], /l-ewwel semmi mill-ġdid ir-ringiela tal-intestaturi bl-Ingliż/);
+assert.match(maltese['import-board-instruction-redmine'], /English f'My account qabel tesporta/);
