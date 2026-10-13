@@ -519,3 +519,19 @@ assert.match(corsican['r-made-incomplete'], /micca compiu/);
 assert.equal(corsican['r-to'], 'à');
 assert.equal(corsican['r-top-of'], 'In cima à');
 assert.equal(corsican['r-bottom-of'], 'In fondu à');
+
+const authenticationDateCorrectionKeys = ["r-d-send-email", "r-d-send-email-to", "r-d-send-email-subject", "r-d-archive", "r-d-unarchive", "r-in-swimlane", "r-d-check-one", "r-d-uncheck-one", "r-d-check-of-list", "r-d-add-checklist", "r-d-remove-checklist", "r-add-checklist", "r-add-swimlane", "r-swimlane-name", "r-when-a-card-is-moved", "r-set", "r-update", "r-datefield", "r-df-start-at", "r-to-current-datetime", "r-link-card", "ldap", "ldap-test-connection-error", "sign-in-with", "passwordless-hint", "passwordless-sign-in", "oauth2", "cas", "authentication-method", "authentication-type", "settings-group-url", "settings-group-logo", "hide-logo", "board-member-list", "error-undefined", "display-authentication-method", "duplicate-board", "cloneBoardPopup-title", "team-number", "people-number", "swimlane-delete-pop", "restore-all", "delete-all", "previous_as", "act-a-endAt", "act-a-startAt", "act-a-receivedAt", "a-dueAt", "a-endAt", "a-startAt", "a-receivedAt", "above-selected-card", "above-selected-swimlane", "below-selected-card", "below-selected-swimlane", "left-of-list", "right-of-list", "duenow", "act-newDue"];
+for (const key of authenticationDateCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /\b(?:Invia|fino|oggetto|swimlane|elemento|Deseleziona|checklist|Quando|viene|spostata|Imposta|Aggiorna|campo|inizio|Collega|fallita|Accedi|Richiede|uscita|Metodo|autenticazione|Tipo|dei|Qualcosa è|andato|storto|metodo|Duplica|tutto|orario|finale|iniziale|ricezione|precedentemente|modificata|selezionata|sinistra|destra|sollecito)\b/, key);
+}
+assert.match(corsican['passwordless-hint'], /MAIL_URL.*PASSWORDLESS_ENABLED/);
+for (const key of ['ldap','oauth2','cas','settings-group-url','settings-group-logo']) assert.equal(corsican[key], english[key]);
+for (const key of ['act-a-endAt','act-a-startAt','act-a-receivedAt']) assert.match(corsican[key], /à __timeValue__ da \(__timeOldValue__\)/);
+assert.match(corsican['swimlane-delete-pop'], /filu d’attività.*ùn puderete micca ricuperà.*Ùn si pò annullà/);
+assert.match(corsican['left-of-list'], /^À manca/);
+assert.match(corsican['right-of-list'], /^À diritta/);
+assert.match(corsican['above-selected-card'], /^Sopra/);
+assert.match(corsican['below-selected-card'], /^Sottu/);
+assert.match(corsican['duenow'], /%s hè oghje$/);
+assert.match(corsican['act-newDue'], /primu ramintamentu di scadenza/);

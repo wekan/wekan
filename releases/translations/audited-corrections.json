@@ -182782,5 +182782,418 @@
     "before": "Dettagli di a regola",
     "after": "Dettagli di a regula",
     "reason": "Repair mixed-language automation fragments; restore set-or-changed date triggers, assignee conditions, checklist negations and action destinations."
+  },
+  {
+    "locale": "co",
+    "key": "r-d-send-email",
+    "before": "Invia email",
+    "after": "Mandà un email",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "r-d-send-email-to",
+    "before": "fino a",
+    "after": "à",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "r-d-send-email-subject",
+    "before": "oggetto",
+    "after": "ughjettu",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "r-d-archive",
+    "before": "Move carta nell'archiviu",
+    "after": "Spustà a carta in l’archiviu",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "r-d-unarchive",
+    "before": "Ristabilisce la carta dall'archiviu",
+    "after": "Ristabilisce a carta da l’archiviu",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "r-in-swimlane",
+    "before": "in a swimlane",
+    "after": "in a corsia",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "r-d-check-one",
+    "before": "Selezziunà elemento",
+    "after": "Marcà l’elementu",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "r-d-uncheck-one",
+    "before": "Deseleziona elemento",
+    "after": "Caccià a marca di l’elementu",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "r-d-check-of-list",
+    "before": "di a checklist",
+    "after": "di a lista di cuntrollu",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "r-d-add-checklist",
+    "before": "Aghjunghje checklist",
+    "after": "Aghjunghje una lista di cuntrollu",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "r-d-remove-checklist",
+    "before": "Caccià checklist",
+    "after": "Caccià a lista di cuntrollu",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "r-add-checklist",
+    "before": "Aghjunghje checklist",
+    "after": "Aghjunghje una lista di cuntrollu",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "r-add-swimlane",
+    "before": "Aghjunghje swimlane",
+    "after": "Aghjunghje una corsia",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "r-swimlane-name",
+    "before": "nome swimlane",
+    "after": "nome di a corsia",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "r-when-a-card-is-moved",
+    "before": "Quando una carta viene spostata in un'altra lista",
+    "after": "Quandu una carta hè spustata in un’altra lista",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "r-set",
+    "before": "Imposta",
+    "after": "Definisce",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "r-update",
+    "before": "Aggiorna",
+    "after": "Aghjurnà",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "r-datefield",
+    "before": "campo data",
+    "after": "campu di data",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "r-df-start-at",
+    "before": "inizio",
+    "after": "principiu",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "r-to-current-datetime",
+    "before": "a data/ora corrente",
+    "after": "à a data/ora attuale",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "r-link-card",
+    "before": "Collega carta a",
+    "after": "Ligà a carta à",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "ldap",
+    "before": "In corsu: LDAP",
+    "after": "LDAP",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "ldap-test-connection-error",
+    "before": "Cunnessione fallita: %s",
+    "after": "Cunnessione fiascata: %s",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "sign-in-with",
+    "before": "Accedi cù %s",
+    "after": "Cunnettassi cù %s",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "passwordless-hint",
+    "before": "Richiede a posta in uscita (MAIL_URL). Ancu PASSWORDLESS_ENABLED.",
+    "after": "Ci vole a posta di surtita (MAIL_URL). Dinù PASSWORDLESS_ENABLED.",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "passwordless-sign-in",
+    "before": "Accedi cù u codice",
+    "after": "Cunnettassi cù u codice",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "oauth2",
+    "before": "In corsu: OAuth2",
+    "after": "OAuth2",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "cas",
+    "before": "In corsu: CAS",
+    "after": "CAS",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "authentication-method",
+    "before": "Metodo di autenticazione",
+    "after": "Metudu d’autentificazione",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "authentication-type",
+    "before": "Tipo di autenticazione",
+    "after": "Tippu d’autentificazione",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "settings-group-url",
+    "before": "In corsu: URL",
+    "after": "URL",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "settings-group-logo",
+    "before": "In corsu: Logo",
+    "after": "Logo",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "hide-logo",
+    "before": "Piattà il logo",
+    "after": "Piattà u logò",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "board-member-list",
+    "before": "Lista dei membri di a tavula",
+    "after": "Lista di i membri di a tavula",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "error-undefined",
+    "before": "Qualcosa è andato storto",
+    "after": "Qualcosa hè andatu male",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "display-authentication-method",
+    "before": "Mustrà il metodo di autenticazione",
+    "after": "Mustrà u metudu d’autentificazione",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "duplicate-board",
+    "before": "Duplica tavula",
+    "after": "Duplicà a tavula",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "cloneBoardPopup-title",
+    "before": "Clunà u tavulone?",
+    "after": "Clunà a tavula?",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "team-number",
+    "before": "Il numero di squadre è:",
+    "after": "U numeru di squadre hè:",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "people-number",
+    "before": "Il numero di persone è:",
+    "after": "U numeru di persone hè:",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "swimlane-delete-pop",
+    "before": "Tutte l’azzioni seranu cacciate da u filu d’attività è ùn puderete micca ricuperà a swimlane. Ùn si pò annullà.",
+    "after": "Tutte l’azzioni seranu cacciate da u filu d’attività è ùn puderete micca ricuperà a corsia. Ùn si pò annullà.",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "restore-all",
+    "before": "Ristabilisce tutto",
+    "after": "Ristabilisce tuttu",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "delete-all",
+    "before": "Squassà tutto",
+    "after": "Squassà tuttu",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "previous_as",
+    "before": "l'ultima volta è stata",
+    "after": "l’ultima volta era",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "act-a-endAt",
+    "before": "orario finale mudificatu in __timeValue__ (precedentemente: __timeOldValue__)",
+    "after": "hà cambiatu l’ora di fine à __timeValue__ da (__timeOldValue__)",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "act-a-startAt",
+    "before": "orario iniziale mudificatu in __timeValue__ (precedentemente: __timeOldValue__)",
+    "after": "hà cambiatu l’ora di principiu à __timeValue__ da (__timeOldValue__)",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "act-a-receivedAt",
+    "before": "orario di ricezione mudificatu in __timeValue__ (precedentemente: __timeOldValue__)",
+    "after": "hà cambiatu l’ora di ricezzione à __timeValue__ da (__timeOldValue__)",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "a-dueAt",
+    "before": "scadenza modificata in",
+    "after": "hà cambiatu l’ora di scadenza à",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "a-endAt",
+    "before": "orario finale mudificatu in",
+    "after": "hà cambiatu l’ora di fine à",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "a-startAt",
+    "before": "orario iniziale mudificatu in",
+    "after": "hà cambiatu l’ora di principiu à",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "a-receivedAt",
+    "before": "orario di ricezione mudificatu in",
+    "after": "hà cambiatu l’ora di ricezzione à",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "above-selected-card",
+    "before": "Sopra la carta selezionata",
+    "after": "Sopra à a carta scelta",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "above-selected-swimlane",
+    "before": "Sopra à a swimlane scelta",
+    "after": "Sopra à a corsia scelta",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "below-selected-card",
+    "before": "Sotto la carta selezionata",
+    "after": "Sottu à a carta scelta",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "below-selected-swimlane",
+    "before": "Sottu à a swimlane scelta",
+    "after": "Sottu à a corsia scelta",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "left-of-list",
+    "before": "A sinistra di a lista selezionata",
+    "after": "À manca di a lista scelta",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "right-of-list",
+    "before": "A destra di a lista selezionata",
+    "after": "À diritta di a lista scelta",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "duenow",
+    "before": "la data di scadenza attuale %s è oghje",
+    "after": "a scadenza attuale %s hè oghje",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "act-newDue",
+    "before": "__list__/__card__ ha un 1° sollecito [__board__]",
+    "after": "__list__/__card__ hà u primu ramintamentu di scadenza [__board__]",
+    "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
   }
 ]
