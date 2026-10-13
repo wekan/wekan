@@ -6,7 +6,10 @@ const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { openBoard } = require('../helpers/auth');
 
-test('Calendar Mode shows due cards on their day with labels, in board order (#3194)', async ({ boardPage: page, board }) => {
+for (const language of ['en', 'ta']) {
+test(`Calendar Mode shows due cards on their day with labels, in board order in ${language} (#3194)`, async ({ boardPage: page, board }) => {
+  const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
+  await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
   const lists = db.find('lists', { boardId: board.boardId }).sort((a, b) => a.sort - b.sort);
   const cards = db.find('cards', { boardId: board.boardId });
   const inFirst = cards.find(card => card.listId === lists[0]._id);
@@ -22,6 +25,8 @@ test('Calendar Mode shows due cards on their day with labels, in board order (#3
 
   await openBoard(page, board.boardId, board.slug);
   await page.locator('.js-toggle-board-view').first().click();
+  await expect(page.locator('.pop-over .js-open-cal-view')).toHaveText(strings['board-view-cal']);
+  await expect(page.locator('.pop-over .js-open-calendar-mode-view')).toHaveText(strings['board-view-calendar-mode']);
   const entries = page.locator('.pop-over .js-board-view-entry');
   const names = await entries.evaluateAll(links => links.map(link => link.className));
   const cal = names.findIndex(name => name.includes('js-open-cal-view'));
@@ -54,3 +59,4 @@ test('Calendar Mode shows due cards on their day with labels, in board order (#3
   await day.locator('.calendar-mode-card', { hasText: inSecond.title }).click();
   await expect(page).toHaveURL(new RegExp(`/${inSecond._id}$`));
 });
+}

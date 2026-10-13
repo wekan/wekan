@@ -173843,5 +173843,33 @@
     "before": "Use SSL/TLS para sa S3 connections",
     "after": "Gamitin ang SSL/TLS para sa mga koneksyon sa S3",
     "reason": "Replace mixed English/Tagalog S3 instructions with Tagalog clauses; preserve literal AWS console labels, URLs and the one-time secret display warning (2026-10-13). Complete software wording remains provisional pending speaker review."
+  },
+  {
+    "locale": "ta",
+    "key": "board-view-cal",
+    "before": "நாள்கட்டி",
+    "after": "நாள்காட்டி",
+    "reason": "Restore the long vowel in the Tamil calendar noun நாள்காட்டி, already used by calendar-system and feature labels; dictionary: https://en.wiktionary.org/wiki/நாள்காட்டி"
+  },
+  {
+    "locale": "ta",
+    "key": "board-view-multiboard-cal",
+    "before": "நாள்கட்டி (அனைத்துப் பலகைகள்)",
+    "after": "நாள்காட்டி (அனைத்துப் பலகைகள்)",
+    "reason": "Restore the long vowel in the Tamil calendar noun நாள்காட்டி, already used by calendar-system and feature labels; dictionary: https://en.wiktionary.org/wiki/நாள்காட்டி"
+  },
+  {
+    "locale": "ta",
+    "key": "export-ical-feed",
+    "before": "நாள்கட்டி (iCal)",
+    "after": "நாள்காட்டி (iCal)",
+    "reason": "Restore the long vowel in the Tamil calendar noun நாள்காட்டி, already used by calendar-system and feature labels; dictionary: https://en.wiktionary.org/wiki/நாள்காட்டி"
+  },
+  {
+    "locale": "ta",
+    "key": "calendar",
+    "before": "நாள்கட்டி",
+    "after": "நாள்காட்டி",
+    "reason": "Restore the long vowel in the Tamil calendar noun நாள்காட்டி, already used by calendar-system and feature labels; dictionary: https://en.wiktionary.org/wiki/நாள்காட்டி"
   }
 ]
