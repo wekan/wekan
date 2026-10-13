@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican board migrations and progress — 2026-10-13
+
+Commit `f4d12f7b0f` repairs 55 values in the source-ordered review through
+key 2819. Duplicate-list guidance requires both an empty list and another
+same-title list containing cards. Its confirmation retains conversion of
+shared lists to per-swimlane lists before deletion. Comprehensive repairs
+retain list ordering, card positions and swimlane structure. Individual
+repair actions and progress states lose Italian wording.
+
+The Corsican and full repair-ledger suites pass; the ledger verifies
+26,708 guarded corrections. All 21 human-preference checks pass. Several
+migration labels have no current client UI references; the conversion
+progress template still uses its description and estimated-time label.
+No new browser case was added for this batch, and rendered validation is
+pending with the local app unavailable. Exact comparison preserves 38,430
+existing Chinese values. Broader language review remains unfinished.
+
 ## Corsican restore modes and cloud configuration — 2026-10-13
 
 Commit `56dd1cbf08` repairs 51 values in the source-ordered review through

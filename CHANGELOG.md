@@ -1974,6 +1974,18 @@ Existing Chinese text is unchanged; broader review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f4d12f7b0f">Correct Corsican board-migration and progress translations</a>. Thanks to xet7.</summary>
+
+Repair 55 migration, repair and progress values. Preserve duplicate-empty-list
+conditions, shared-list conversion ordering and independent repair actions.
+
+The Corsican and repair-ledger suites and 21 human-preference checks pass.
+Browser validation remains pending. Existing Chinese text is unchanged;
+broader review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
