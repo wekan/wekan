@@ -181361,5 +181361,439 @@
     "before": "Porta SMTP",
     "after": "Portu SMTP",
     "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "smtp-tls",
+    "before": "Supporto TLS",
+    "after": "Sustegnu TLS",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "email-templates-title",
+    "before": "Posta elettronica Mudelli",
+    "after": "Mudelli di posta elettronica",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "invitation-code",
+    "before": "Codice d'invito",
+    "after": "Codice d’invitu",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "email-invite-register-subject",
+    "before": "__inviter__ ti ha inviato un invito",
+    "after": "__inviter__ vi hà mandatu un invitu",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "email-invite-register-text",
+    "before": "Gentile __user__,\n\n__inviter__ ti ha invitato a partecipare a questa tavula kanban per collaborare.\n\nPer favore segui il collegamento qui sotto:\n__url__\n\nIl tuo codice di invito è: __icode__\n\nGrazie.",
+    "after": "Caru __user__,\n\n__inviter__ vi invita à una tavula kanban per cullaburà.\n\nSeguitate u ligame quì sottu:\n__url__\n\nU vostru codice d’invitu hè: __icode__\n\nGrazie.",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "email-smtp-test-subject",
+    "before": "E-Mail di test SMTP",
+    "after": "Email di prova SMTP",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "outgoing-webhooks",
+    "before": "Webhook in uscita",
+    "after": "Webhook di surtita",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "bidirectional-webhooks",
+    "before": "Webhook a due vie",
+    "after": "Webhook à duie direzzioni",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "outgoingWebhooksPopup-title",
+    "before": "Webhook in uscita",
+    "after": "Webhook di surtita",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "boardCardTitlePopup-title",
+    "before": "Filtro per titulu carta",
+    "after": "Filtru secondu u titulu di a carta",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "disable-webhook",
+    "before": "Disattiva questu webhook",
+    "after": "Disattivà stu webhook",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "global-webhook",
+    "before": "Webhook globali",
+    "after": "Webhook glubali",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "new-outgoing-webhook",
+    "before": "Novu webhook in uscita",
+    "after": "Novu webhook di surtita",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "no-name",
+    "before": "(Sconosciuto)",
+    "after": "(Scunnisciutu)",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "package",
+    "before": "Pacchetto",
+    "after": "Pacchettu",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "Meteor",
+    "before": "In corsu: Meteor",
+    "after": "Meteor",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "Node",
+    "before": "In corsu: Node",
+    "after": "Node",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "Database_type",
+    "before": "Tipo di database",
+    "after": "Tippu di basa di dati",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "Database_commit",
+    "before": "Commit del database",
+    "after": "Commit di a basa di dati",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "MongoDB_Oplog_enabled",
+    "before": "MongoDB Oplog abilitato",
+    "after": "Oplog MongoDB attivatu",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "OS_Cpus",
+    "before": "Numero CPU SO",
+    "after": "Numeru di CPU di u SO",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "OS_Loadavg",
+    "before": "Carico medio SO",
+    "after": "Carica media di u SO",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "OS_Release",
+    "before": "Versione di rilascio SO",
+    "after": "Versione di u SO",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "OS_Type",
+    "before": "Tipo SO",
+    "after": "Tippu di SO",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "OS_Uptime",
+    "before": "Tempo di attività del SO",
+    "after": "Tempu di funziunamentu di u SO",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "seconds",
+    "before": "secondi",
+    "after": "sicondi",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "show-field-on-card",
+    "before": "Visualizza questu campo nantu à a carta",
+    "after": "Mustrà stu campu nant’à a carta",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "automatically-field-on-card",
+    "before": "Aghjunghje campo alle nuove carte",
+    "after": "Aghjunghje u campu à e carte nove",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "always-field-on-card",
+    "before": "Aghjunghje campo a tutte le carte",
+    "after": "Aghjunghje u campu à tutte e carte",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "showLabel-field-on-card",
+    "before": "Mustrà l'etichetta di campo su minischeda",
+    "after": "Mustrà l’etichetta di u campu nant’à a minicarta",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "accounts-allowEmailChange",
+    "before": "Permetti mudificà dell'email",
+    "after": "Permette di cambià l’indirizzu email",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "accounts-allowUserNameChange",
+    "before": "Consenti la mudificà del nome utilizatore",
+    "after": "Cambiamentu di u nome d’utilizatore",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "tableVisibilityMode-allowPrivateOnly",
+    "before": "Visibilità tavule: Consenti solu le tavule private",
+    "after": "Visibilità di e tavule: permette solu e tavule private",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "createdAt",
+    "before": "Creato alle",
+    "after": "Creatu u",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "modifiedAt",
+    "before": "Mudificatu il",
+    "after": "Mudificatu u",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "verified",
+    "before": "Verificato",
+    "after": "Verificatu",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "active-team",
+    "before": "Team attivu",
+    "after": "Squadra attiva",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "org-shared-templates",
+    "before": "Template condivisi",
+    "after": "Mudelli spartuti",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "org-propagate-members-to-boards",
+    "before": "Propaga i membri alle tavule",
+    "after": "Aghjunghje i membri à e tavule",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "org-tenant",
+    "before": "Multi-tenant: questa urganizazione come tenant",
+    "after": "Multi-tenanza: st’urganizazione cum’è inquilinu",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "org-domains",
+    "before": "Domini di questa urganizazione",
+    "after": "Duminii di st’urganizazione",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "org-domains-description",
+    "before": "Nomi host su cui viene servita questa urganizazione, separati da virgole — per esempio a.example.com, kanban.example.org. Una richiesta a uno di essi è una richiesta di questa urganizazione, e la personalizzazione qui sotto sostituisce quella dell'istanza. Ha effetto solu se il server è avviato cù MULTITENANCY=true. Lasciare vuoto se questa urganizazione non è un tenant.",
+    "after": "Nomi d’ospiti chì servenu st’urganizazione, separati da virgule — per esempiu a.example.com, kanban.example.org. Una dumanda à unu d’elli hè una dumanda di st’urganizazione, è a persunalizazione quì sottu rimpiazza quella di l’istanza per ella. Hà effettu solu quandu u servitore hè avviatu cù MULTITENANCY=true. Lasciate viotu quandu st’urganizazione ùn hè micca un inquilinu.",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "error-org-domain-taken",
+    "before": "Quel dominio appartiene già a un'altra urganizazione:",
+    "after": "Stu duminiu appartene digià à un’altra urganizazione:",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "org-admins",
+    "before": "Amministratori dell'urganizazione",
+    "after": "Amministratori di l’urganizazione",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "org-admins-description",
+    "before": "Membri di questa urganizazione che possono amministrarla: le sue persone e i suoi backup, e nient'altro. Non possono mai concedere il permesso di amministratore dell'intero sito, né gestire un amministratore del sito.",
+    "after": "Membri di st’urganizazione chì ponu amministrà la: e so persone è e so copie di salvezza, è nunda altru. Ùn ponu mai dà u statutu Admin per tuttu u situ, nè gestisce un amministratore di u situ.",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "org-admin",
+    "before": "Amministratore dell'urganizazione",
+    "after": "Amministratore di l’urganizazione",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "team-shared-templates",
+    "before": "Template condivisi",
+    "after": "Mudelli spartuti",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "team-propagate-members-to-boards",
+    "before": "Propaga i membri alle tavule",
+    "after": "Aghjunghje i membri à e tavule",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "card-received-on",
+    "before": "Ricevuta il",
+    "after": "Ricevuta u",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "card-end-on",
+    "before": "Termina il",
+    "after": "Finisce u",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "editCardReceivedDatePopup-title",
+    "before": "Cambia data ricezione",
+    "after": "Cambià a data di ricezzione",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "editCardEndDatePopup-title",
+    "before": "Cambia data finale",
+    "after": "Cambià a data di fine",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "setCardColorPopup-title",
+    "before": "Imposta il culore",
+    "after": "Definisce u culore",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "setSelectionColorPopup-title",
+    "before": "Imposta culore selezione",
+    "after": "Definisce u culore di a selezzione",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "setCardActionsColorPopup-title",
+    "before": "Scegli un culore",
+    "after": "Sceglie un culore",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "setSwimlaneColorPopup-title",
+    "before": "Scegli un culore",
+    "after": "Sceglie un culore",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "setListColorPopup-title",
+    "before": "Scegli un culore",
+    "after": "Sceglie un culore",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "assigned-by",
+    "before": "Assegnato da",
+    "after": "Assignatu da",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "requested-by",
+    "before": "Richiesto da",
+    "after": "Dumandatu da",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "card-sorting-by-number",
+    "before": "Ordinamento carta per numero",
+    "after": "Urdinamentu di e carte secondu u numeru",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "board-delete-notice",
+    "before": "L'eliminazione è permanente. Tutte le azioni, liste e carte associate a questa tavula andranno perse.",
+    "after": "A suppressione hè permanente. Perderete tutte e liste, e carte è l’azzioni assuciate à sta tavula.",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "delete-board-confirm-popup",
+    "before": "Tutte le liste, carte, etichette e azioni saranno rimosse e non sarai più in grado di recuperare il contenuto di a tavula. L'azione non è annullabile.",
+    "after": "Tutte e liste, e carte, l’etichette è l’attività seranu squassate è ùn puderete micca ricuperà u cuntenutu di a tavula. Ùn si pò annullà st’azzione.",
+    "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
   }
 ]

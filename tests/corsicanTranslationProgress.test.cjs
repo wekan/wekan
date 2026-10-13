@@ -459,3 +459,17 @@ for (const key of ['attachment-upload-limit-label','api-upload-limit-label']) as
 for (const key of ['attachment-download-limit-label','api-download-limit-label']) assert.match(corsican[key], /scaricata/);
 for (const suffix of ['gb','mb','bytes']) assert.equal(corsican[`attachment-limit-unit-${suffix}`], english[`attachment-limit-unit-${suffix}`]);
 assert.match(corsican['attachment-transfer-limits-invalid-value'], /pusitivu è validu/);
+
+const organizationControlCorrectionKeys = ["smtp-tls", "email-templates-title", "invitation-code", "email-invite-register-subject", "email-invite-register-text", "email-smtp-test-subject", "outgoing-webhooks", "bidirectional-webhooks", "outgoingWebhooksPopup-title", "boardCardTitlePopup-title", "disable-webhook", "global-webhook", "new-outgoing-webhook", "no-name", "package", "Meteor", "Node", "Database_type", "Database_commit", "MongoDB_Oplog_enabled", "OS_Cpus", "OS_Loadavg", "OS_Release", "OS_Type", "OS_Uptime", "seconds", "show-field-on-card", "automatically-field-on-card", "always-field-on-card", "showLabel-field-on-card", "accounts-allowEmailChange", "accounts-allowUserNameChange", "tableVisibilityMode-allowPrivateOnly", "createdAt", "modifiedAt", "verified", "active-team", "org-shared-templates", "org-propagate-members-to-boards", "org-tenant", "org-domains", "org-domains-description", "error-org-domain-taken", "org-admins", "org-admins-description", "org-admin", "team-shared-templates", "team-propagate-members-to-boards", "card-received-on", "card-end-on", "editCardReceivedDatePopup-title", "editCardEndDatePopup-title", "setCardColorPopup-title", "setSelectionColorPopup-title", "setCardActionsColorPopup-title", "setSwimlaneColorPopup-title", "setListColorPopup-title", "assigned-by", "requested-by", "card-sorting-by-number", "board-delete-notice", "delete-board-confirm-popup"];
+for (const key of organizationControlCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /\b(?:Supporto|inviato|Gentile|invitato|partecipare|questa|collaborare|favore|segui|collegamento|qui|Il|tuo|uscita|due|Filtro|Disattiva|Sconosciuto|Pacchetto|Tipo|del|abilitato|Numero|Carico|rilascio|Tempo|Visualizza|campo|alle|nuove|minischeda|Permetti|Consenti|Creato|Verificato|condivisi|Propaga|come|viene|virgole|esempio|richiesta|sostituisce|Lasciare|vuoto|Quel|dominio|appartiene|già|possono|nient|concedere|intero|sito|gestire|Cambia|Imposta|Scegli|Assegnato|Richiesto|Ordinamento|numero|eliminazione|azioni|associate|andranno|perse|saranno|rimosse|sarai|recuperare|contenuto|annullabile)\b/, key);
+}
+assert.equal(corsican.Meteor, 'Meteor');
+assert.equal(corsican.Node, 'Node');
+assert.match(corsican['email-invite-register-text'], /__url__.*\n\nU vostru codice d’invitu hè: __icode__/);
+assert.match(corsican['org-domains-description'], /a\.example\.com, kanban\.example\.org.*MULTITENANCY=true.*Lasciate viotu/);
+assert.match(corsican['org-admins-description'], /persone.*copie di salvezza.*nunda altru.*Ùn ponu mai.*Admin.*nè gestisce un amministratore di u situ/);
+assert.match(corsican['delete-board-confirm-popup'], /liste.*carte.*etichette.*attività.*ùn puderete micca ricuperà.*Ùn si pò annullà/);
+assert.match(corsican['automatically-field-on-card'], /carte nove$/);
+assert.match(corsican['always-field-on-card'], /tutte e carte$/);
