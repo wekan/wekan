@@ -1139,3 +1139,21 @@ assert.ok(latin['s3-region-description'].includes('us-east-1'));
 assert.ok(latin['s3-ssl-enabled-description'].includes('SSL/TLS'));
 assert.match(latin['s3-secret-key-required'], /requiritur/);
 assert.notEqual(latin['s3-connection-success'], latin['s3-connection-failed']);
+
+const reviewedBoardMigrationKeys = ["card-show-lists", "save-s3-settings", "schedule-board-archive", "schedule-board-backup", "schedule-board-cleanup", "scheduled-board-operations", "start-all-migrations", "stop-all-migrations", "test-s3-connection", "writable-path", "writable-path-description", "add-job", "attachment-migration", "attachment-monitoring", "attachment-settings", "attachment-storage-settings", "automatic-migration", "back-to-settings", "board-migration", "board-migrations", "card-show-lists-on-minicard", "comprehensive-board-migration", "comprehensive-board-migration-description", "delete-duplicate-empty-lists-migration", "delete-duplicate-empty-lists-migration-description", "lost-cards", "lost-cards-list", "restore-lost-cards-migration", "restore-lost-cards-migration-description", "restore-all-archived-migration", "restore-all-archived-migration-description", "fix-missing-lists-migration", "fix-missing-lists-migration-description", "fix-avatar-urls-migration", "fix-avatar-urls-migration-description", "fix-all-file-urls-migration", "fix-all-file-urls-migration-description", "migration-needed", "migration-complete", "migration-running", "migration-successful", "migration-failed", "migrations", "migrations-admin-only"];
+for (const key of reviewedBoardMigrationKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Schedule|Migration Needed|Running|Restore|Only board|Safely|missing|storage backend)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['delete-duplicate-empty-lists-migration-description'], /nullas chartas habent ET.*eodem titulo.*chartas continet/);
+for (const kind of ['restore-lost-cards', 'restore-all-archived']) {
+  for (const field of ['swimlaneId', 'listId']) assert.ok(latin[`${kind}-migration-description`].includes(field));
+}
+assert.ok(latin['restore-lost-cards-migration-description'].includes(latin['lost-cards']));
+assert.match(latin['restore-all-archived-migration-description'], /omnes semitas, indices et chartas/);
+assert.match(latin['migrations-admin-only'], /^Tantum administratores tabulae/);
+assert.match(latin['fix-missing-lists-migration-description'], /absentes vel corruptos/);
+assert.match(latin['fix-all-file-urls-migration-description'], /huic tabulae adiunctorum/);
+assert.notEqual(latin['migration-needed'], latin['migration-complete']);
+assert.notEqual(latin['migration-successful'], latin['migration-failed']);
+assert.match(latin['writable-path'], /scribere licet/);

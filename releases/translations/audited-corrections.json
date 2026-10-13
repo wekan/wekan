@@ -203719,5 +203719,313 @@
     "before": "Latine: Use SSL/TLS for S3 connections",
     "after": "Utere SSL/TLS ad connexiones S3",
     "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "card-show-lists",
+    "before": "Latine: Scheda Monstra Indices",
+    "after": "Monstra indices in charta",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "save-s3-settings",
+    "before": "Latine: Serva S3 Configurationes",
+    "after": "Serva configurationes S3",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "schedule-board-archive",
+    "before": "Latine: Schedule Tabula Archivum",
+    "after": "Destina tempori translationem tabulae in archivum",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "schedule-board-backup",
+    "before": "Latine: Schedule Tabula Exemplar subsidiarium",
+    "after": "Destina tempori exemplar subsidiarium tabulae",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "schedule-board-cleanup",
+    "before": "Latine: Schedule Tabula Cleanup",
+    "after": "Destina tempori purgationem tabulae",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "scheduled-board-operations",
+    "before": "Latine: Scheduled Tabula Operations",
+    "after": "Operationes tabulae tempori destinatae",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "start-all-migrations",
+    "before": "Latine: Incipe Omnia Migrations",
+    "after": "Incipe omnes migrationes",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "stop-all-migrations",
+    "before": "Latine: Siste Omnia Migrations",
+    "after": "Siste omnes migrationes",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "test-s3-connection",
+    "before": "Latine: Probatio S3 Coniunctio",
+    "after": "Proba connexionem S3",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "writable-path",
+    "before": "Latine: Writable Path",
+    "after": "Iter in quo scribere licet",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "writable-path-description",
+    "before": "Latine: Base directory path for fasciculus storage",
+    "after": "Iter directorii fundamentalis ad fasciculos servandos",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "add-job",
+    "before": "Latine: Adde Job",
+    "after": "Adde munus",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-migration",
+    "before": "Latine: Adnexum Migration",
+    "after": "Migratio adiunctorum",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-monitoring",
+    "before": "Latine: Adnexum Monitoring",
+    "after": "Observatio adiunctorum",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-settings",
+    "before": "Latine: Adnexum Configurationes",
+    "after": "Configurationes adiunctorum",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-storage-settings",
+    "before": "Latine: Storage Configurationes",
+    "after": "Configurationes repositorii",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "automatic-migration",
+    "before": "Latine: Automaticum Migration",
+    "after": "Migratio automatica",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "back-to-settings",
+    "before": "Latine: Retro ad Configurationes",
+    "after": "Redi ad configurationes",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "board-migration",
+    "before": "Latine: Tabula Migration",
+    "after": "Migratio tabulae",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "board-migrations",
+    "before": "Latine: Tabula Migrations",
+    "after": "Migrationes tabularum",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "card-show-lists-on-minicard",
+    "before": "Latine: Monstra Indices adest Minicard",
+    "after": "Monstra indices in parva charta",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "comprehensive-board-migration",
+    "before": "Latine: Comprehensive Tabula Migration",
+    "after": "Migratio integra tabulae",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "comprehensive-board-migration-description",
+    "before": "Latine: Performs comprehensive checks et fixes for tabula data integrity, including index ordering, scheda positions, et semita natatoria structure.",
+    "after": "Integritatem datorum tabulae penitus examinat et corrigit, etiam ordinem indicum, situs chartarum et structuram semitarum.",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "delete-duplicate-empty-lists-migration",
+    "before": "Latine: Dele Duplicate Vacuum Indices",
+    "after": "Dele indices duplicatos vacuos",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "delete-duplicate-empty-lists-migration-description",
+    "before": "Latine: Safely deletes vacuum duplicate indices. Tantum removes indices illud have non schedae Et have another index cum the idem titulus illud contains schedae.",
+    "after": "Tuto delet indices duplicatos vacuos. Tantum indices removet qui nullas chartas habent ET alium indicem eodem titulo habent qui chartas continet.",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "lost-cards",
+    "before": "Latine: Lost Schedae",
+    "after": "Chartae amissae",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "lost-cards-list",
+    "before": "Latine: Restitutum Res",
+    "after": "Res restitutae",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "restore-lost-cards-migration",
+    "before": "Latine: Restitue Lost Schedae",
+    "after": "Restitue chartas amissas",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "restore-lost-cards-migration-description",
+    "before": "Latine: Finds et restores schedae et indices cum missing swimlaneId vel listId. Creates a 'Lost Schedae' semita natatoria ad make omnia lost res visible again.",
+    "after": "Invenit et restituit chartas et indices quibus swimlaneId vel listId deest. Semitam 'Chartae amissae' creat ut omnes res amissae rursus visibiles fiant.",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "restore-all-archived-migration",
+    "before": "Latine: Restitue Omnia In archivum relatum",
+    "after": "Restitue omnia in archivum translata",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "restore-all-archived-migration-description",
+    "before": "Latine: Restores omnia in archivum relatum swimlanes, indices, et schedae. Automatice fixes ullum missing swimlaneId vel listId ad make res visible.",
+    "after": "Restituit omnes semitas, indices et chartas in archivum translatas. Automatice corrigit omne swimlaneId vel listId quod deest ut res visibiles fiant.",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "fix-missing-lists-migration",
+    "before": "Latine: Fix Missing Indices",
+    "after": "Corrige indices absentes",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "fix-missing-lists-migration-description",
+    "before": "Latine: Detects et repairs missing vel corrupted indices in the tabula structure.",
+    "after": "Detegit et corrigit indices absentes vel corruptos in structura tabulae.",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "fix-avatar-urls-migration",
+    "before": "Latine: Fix Imago URLs",
+    "after": "Corrige URL imaginum usorum",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "fix-avatar-urls-migration-description",
+    "before": "Latine: Updates imago URLs for tabula sodales ad use the correct storage backend et fixes broken imago references.",
+    "after": "Renovat URL imaginum membrorum tabulae ut repositorio recto utantur, et corrigit nexus imaginum fractos.",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "fix-all-file-urls-migration",
+    "before": "Latine: Fix Omnia Fasciculus URLs",
+    "after": "Corrige omnia URL fasciculorum",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "fix-all-file-urls-migration-description",
+    "before": "Latine: Updates omnia fasciculus adnexum URLs adest hoc tabula ad use the correct storage backend et fixes broken fasciculus references.",
+    "after": "Renovat omnia URL fasciculorum huic tabulae adiunctorum ut repositorio recto utantur, et corrigit nexus fasciculorum fractos.",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "migration-needed",
+    "before": "Latine: Migration Needed",
+    "after": "Migratio necessaria est",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "migration-complete",
+    "before": "Latine: Perfice",
+    "after": "Perfectum",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "migration-running",
+    "before": "Latine: Currens...",
+    "after": "Exsequitur…",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "migration-successful",
+    "before": "Latine: Migration perfectum successfully",
+    "after": "Migratio feliciter perfecta est",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "migration-failed",
+    "before": "Latine: Migration defecit",
+    "after": "Migratio defecit",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "migrations",
+    "before": "Latine: Migrations",
+    "after": "Migrationes",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "migrations-admin-only",
+    "before": "Latine: Tantum tabula administrators potest run migrations",
+    "after": "Tantum administratores tabulae migrationes exsequi possunt",
+    "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
   }
 ]

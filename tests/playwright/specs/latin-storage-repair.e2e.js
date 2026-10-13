@@ -78,3 +78,14 @@ test('Latin S3 settings distinguish access keys from secret keys', async ({ page
   await expect(endpoint).toContainText('URL puncti accessus S3 (exempli gratia s3.amazonaws.com vel minio.example.com)');
   await expect(endpoint.locator('.cloud-input-label-tr')).not.toContainText('Latine:');
 });
+
+test('Latin filesystem settings label the writable base path', async ({ page, adminUser }) => {
+  await loginWithToken(page, adminUser.id, adminUser.token);
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'la'));
+  await navigateInApp(page, '/admin/attachments/filesystem');
+  const field = page.locator('.form-group').filter({ has: page.locator('#filesystem-path') });
+  await expect(field.locator('label')).toHaveText('Iter in quo scribere licet');
+  await expect(field).toContainText('Iter fundamentale repositorii fasciculorum');
+  await expect(field).not.toContainText('Latine:');
+  await expect(field.locator('input')).toHaveAttribute('readonly', '');
+});
