@@ -39,3 +39,9 @@ for (const [value, expected] of [['Color', true], ['Choose a color', false]]) {
   assert.equal(set.has('allboards.workspace-color'), expected);
   assert.equal(set.has('allboards.workspaces'), false);
 }
+
+// Remove is also the Latin imperative; only this exact source/key pair is shared.
+for (const [value, expected] of [['Remove', true], ['Remove all cards', false]]) {
+  const shared = vm.runInNewContext(latinSetExpression, { en: { 'r-remove': value } });
+  assert.equal(shared.has('r-remove'), expected);
+}

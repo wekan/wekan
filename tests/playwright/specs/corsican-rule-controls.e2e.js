@@ -67,3 +67,20 @@ test('Latin workflow toolbox distinguishes its trigger and action labels', async
   await expect(workflow).toContainText('Nota chartam imperfectam');
   await expect(workflow.locator('.js-create-workflow-rule')).toBeDisabled();
 });
+
+
+test('Latin rule actions distinguish top and bottom of the current list', async ({ boardPage: page, board }) => {
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'la'));
+  await navigateInApp(page, `/b/${board.boardId}/${board.slug}/rules`);
+  await page.locator('#ruleTitle').fill('Probatio ordinis');
+  await page.locator('.js-goto-trigger').click();
+  await page.locator('.js-add-gen-moved-trigger.js-goto-action').click();
+  const row = page.locator('#move-gen-action').locator('xpath=../..');
+  await expect(row).toContainText('Move chartam ad');
+  await expect(row).toContainText('indicis sui');
+  await expect(row.locator('option[value="top"]')).toHaveText('summum');
+  await expect(row.locator('option[value="bottom"]')).toHaveText('imum');
+  await row.locator('select').selectOption('bottom');
+  await expect(row.locator('select')).toHaveValue('bottom');
+  await expect(row).not.toContainText('Latine:');
+});

@@ -689,3 +689,25 @@ assert.notEqual(latin['r-completed'], latin['r-made-incomplete']);
 for (const kind of ['due', 'start', 'end', 'received']) {
   assert.match(latin[`r-when-a-${kind}-date-changed`], /constituitur vel mutatur$/);
 }
+
+const reviewedActionDescriptionKeys = ["r-move-card-to", "r-top-of", "r-bottom-of", "r-its-list", "r-unarchive", "r-card", "r-remove", "r-label", "r-member", "r-remove-all", "r-assignee", "r-set-color", "r-checklist", "r-check-all", "r-uncheck-all", "r-items-check", "r-check", "r-uncheck", "r-item", "r-of-checklist", "r-send-email", "r-to", "r-of", "r-subject", "r-rule-details", "r-d-move-to-top-gen", "r-d-move-to-top-spec", "r-d-move-to-bottom-gen", "r-d-move-to-bottom-spec", "r-d-send-email", "r-d-send-email-to", "r-d-send-email-subject", "r-d-send-email-message", "r-d-archive", "r-d-unarchive", "r-d-add-label", "r-d-remove-label", "r-create-card", "r-in-list", "r-in-swimlane", "r-d-add-member", "r-d-remove-member", "r-d-remove-all-member", "r-d-check-all", "r-d-uncheck-all", "r-d-check-one", "r-d-uncheck-one", "r-d-check-of-list", "r-d-add-checklist", "r-d-remove-checklist"];
+for (const key of reviewedActionDescriptionKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Top|Bottom|Archive|checklist|Send|subject|items|Restore)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+for (const direction of ['top', 'bottom']) {
+  assert.equal([latin['r-move-card-to'], latin[`r-${direction}-of`], latin['r-its-list']].join(' '), latin[`r-d-move-to-${direction}-gen`]);
+  assert.match(latin[`r-d-move-to-${direction}-gen`], /indicis sui$/);
+  assert.match(latin[`r-d-move-to-${direction}-spec`], /indicis$/);
+}
+for (const action of ['check', 'uncheck']) {
+  assert.equal(`${latin[`r-${action}-all`]} ${latin['r-items-check']}`, latin[`r-d-${action}-all`]);
+  assert.equal(`${latin[`r-${action}`]} ${latin['r-item']}`, latin[`r-d-${action}-one`]);
+}
+assert.match(latin['r-d-archive'], /in archivum/);
+assert.match(latin['r-d-unarchive'], /ex archivo/);
+assert.match(latin['r-remove-all'], /omnia membra ex charta/);
+assert.equal(latin['r-send-email'], latin['r-d-send-email']);
+assert.equal(latin['r-subject'], latin['r-d-send-email-subject']);
+assert.notEqual(latin['r-d-add-member'], latin['r-d-remove-member']);
+assert.notEqual(latin['r-in-list'], latin['r-in-swimlane']);

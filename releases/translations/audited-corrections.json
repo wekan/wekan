@@ -197286,5 +197286,355 @@
     "before": "Incipe: dies mutata est",
     "after": "Cum dies initii constituitur vel mutatur",
     "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-move-card-to",
+    "before": "Latine: Move scheda ad",
+    "after": "Move chartam ad",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-top-of",
+    "before": "Latine: Top de",
+    "after": "summum",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-bottom-of",
+    "before": "Latine: Bottom de",
+    "after": "imum",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-its-list",
+    "before": "Latine: its index",
+    "after": "indicis sui",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-unarchive",
+    "before": "Latine: Restitue ex Archivum",
+    "after": "Restitue ex archivo",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-card",
+    "before": "Latine: scheda",
+    "after": "chartam",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-remove",
+    "before": "Latine: Remove",
+    "after": "Remove",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-label",
+    "before": "Latine: titulus",
+    "after": "titulum",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-member",
+    "before": "Latine: sodalis",
+    "after": "membrum",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-remove-all",
+    "before": "Latine: Remove omnia sodales ex the scheda",
+    "after": "Remove omnia membra ex charta",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-assignee",
+    "before": "Latine: assignee",
+    "after": "delegatum",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-set-color",
+    "before": "Latine: Set color ad",
+    "after": "Constitue colorem:",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-checklist",
+    "before": "Latine: index probationis",
+    "after": "indicem probationis",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-check-all",
+    "before": "Latine: Check omnia",
+    "after": "Signa omnes",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-uncheck-all",
+    "before": "Latine: Uncheck omnia",
+    "after": "Priva signo omnes",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-items-check",
+    "before": "Latine: res de index probationis",
+    "after": "res indicis probationis",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-check",
+    "before": "Latine: Check",
+    "after": "Signa",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-uncheck",
+    "before": "Latine: Uncheck",
+    "after": "Priva signo",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-item",
+    "before": "Latine: res",
+    "after": "rem",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-of-checklist",
+    "before": "Latine: de index probationis",
+    "after": "indicis probationis",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-send-email",
+    "before": "Latine: Mitte an epistula electronica",
+    "after": "Mitte epistulam electronicam",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-to",
+    "before": "Latine: ad",
+    "after": "ad",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-of",
+    "before": "Latine: de",
+    "after": "de",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-subject",
+    "before": "Latine: subject",
+    "after": "argumentum",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-rule-details",
+    "before": "Latine: Regula singula",
+    "after": "Singula regulae",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-d-move-to-top-gen",
+    "before": "Latine: Move scheda ad top de its index",
+    "after": "Move chartam ad summum indicis sui",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-d-move-to-top-spec",
+    "before": "Latine: Move scheda ad top de index",
+    "after": "Move chartam ad summum indicis",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-d-move-to-bottom-gen",
+    "before": "Latine: Move scheda ad bottom de its index",
+    "after": "Move chartam ad imum indicis sui",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "Latine: Move scheda ad bottom de index",
+    "after": "Move chartam ad imum indicis",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-d-send-email",
+    "before": "Latine: Mitte epistula electronica",
+    "after": "Mitte epistulam electronicam",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-d-send-email-to",
+    "before": "Latine: ad",
+    "after": "ad",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-d-send-email-subject",
+    "before": "Latine: subject",
+    "after": "argumentum",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-d-send-email-message",
+    "before": "Latine: nuntius",
+    "after": "nuntius",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-d-archive",
+    "before": "Latine: Move scheda ad Archivum",
+    "after": "Transfer chartam in archivum",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-d-unarchive",
+    "before": "Latine: Restitue scheda ex Archivum",
+    "after": "Restitue chartam ex archivo",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-d-add-label",
+    "before": "Latine: Adde titulus",
+    "after": "Adde titulum",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-d-remove-label",
+    "before": "Latine: Remove titulus",
+    "after": "Remove titulum",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-create-card",
+    "before": "Latine: Crea novum scheda",
+    "after": "Crea novam chartam",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-in-list",
+    "before": "Latine: in index",
+    "after": "in indice",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-in-swimlane",
+    "before": "Latine: in semita natatoria",
+    "after": "in semita",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-d-add-member",
+    "before": "Latine: Adde sodalis",
+    "after": "Adde membrum",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-d-remove-member",
+    "before": "Latine: Remove sodalis",
+    "after": "Remove membrum",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-d-remove-all-member",
+    "before": "Latine: Remove omnia sodalis",
+    "after": "Remove omnia membra",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-d-check-all",
+    "before": "Latine: Check omnia res de a index",
+    "after": "Signa omnes res indicis probationis",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-d-uncheck-all",
+    "before": "Latine: Uncheck omnia res de a index",
+    "after": "Priva signo omnes res indicis probationis",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-d-check-one",
+    "before": "Latine: Check res",
+    "after": "Signa rem",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-d-uncheck-one",
+    "before": "Latine: Uncheck res",
+    "after": "Priva signo rem",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-d-check-of-list",
+    "before": "Latine: de index probationis",
+    "after": "indicis probationis",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-d-add-checklist",
+    "before": "Latine: Adde index probationis",
+    "after": "Adde indicem probationis",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-d-remove-checklist",
+    "before": "Latine: Remove index probationis",
+    "after": "Remove indicem probationis",
+    "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
   }
 ]
