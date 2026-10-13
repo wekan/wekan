@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho historical review: Blockly operations — 2026-10-13
+
+Commit `0056f57d79` reviews source keys 3170–3729 and repairs six values.
+The atan2 tooltip translates inverse tangent; four trigonometry tooltips use
+angular-degree terminology, preserving the negative/positive bounds and the
+exclusion of radians. Vertical movement shortcuts use the movement verb.
+Valid loop, list, logic, text, keyboard labels and placeholders are preserved.
+
+The ledger suite verifies 27,047 guarded corrections. The Southern Sotho suite
+passes after updating two assertions that required the previous angle wording.
+Checks cover units, movement direction, numeric bounds, negation and destructive
+list operations. All 21 human-preference checks pass. The existing Southern
+Sotho Blockly browser case passes syntax and discovery; runtime remains pending.
+Exact comparison preserves 38,430 existing Chinese values. Historical review
+reaches key 3729; all-language translation and semantic review remain unfinished.
+
 ## Southern Sotho historical review: analytics and synchronization — 2026-10-13
 
 Commit `2bc93bdfde` reviews source keys 3000–3169 and repairs 54 values.

@@ -2595,6 +2595,20 @@ all-language translation and semantic review remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0056f57d79">Clarify Southern Sotho Blockly angles and movement</a>. Thanks to xet7.</summary>
+
+Six guarded repairs translate inverse tangent, clarify angular degrees and
+correct the up/down movement instructions. Historical review through source
+key 3729 preserves valid loop, list, logic and text operations and placeholders.
+
+The repair-ledger and Southern Sotho suites pass, with old angle-wording
+assertions updated. All 21 preservation checks pass and existing Chinese values
+remain unchanged. The existing Southern Sotho Blockly browser case passes syntax
+and discovery; runtime execution remains pending. All-language review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
