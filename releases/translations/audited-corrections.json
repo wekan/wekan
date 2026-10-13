@@ -179912,5 +179912,201 @@
     "before": "Caccià l'ordinamento",
     "after": "Caccià l’urdinamentu",
     "reason": "Repair mixed Italian/Corsican field, account and export prose; preserve email tokens, permission restrictions and nondeleting enablement semantics."
+  },
+  {
+    "locale": "co",
+    "key": "list-sort-by",
+    "before": "Ordina lista per:",
+    "after": "Urdinà a lista secondu:",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "list-label-modifiedAt",
+    "before": "Orario ultimo accesso",
+    "after": "Ora di l’ultimu accessu",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "list-label-sort",
+    "before": "Il tuo ordine manuale",
+    "after": "U vostru ordine manuale",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "list-label-short-title",
+    "before": "In corsu: (N)",
+    "after": "(N)",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "filter-cards",
+    "before": "Filtra carte o liste",
+    "after": "Filtrà e carte o e liste",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "filter-dates-label",
+    "before": "Filtra per data",
+    "after": "Filtrà per data",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "filter-due-this-week",
+    "before": "Scade questa settimana",
+    "after": "Scade sta settimana",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "list-filter-label",
+    "before": "Filtra lista per titulu",
+    "after": "Filtrà a lista secondu u titulu",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "filter-clear",
+    "before": "Pulisci filtri",
+    "after": "Sguassà u filtru",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "filter-no-label",
+    "before": "Nessuna etichetta",
+    "after": "Nisuna etichetta",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "filter-member-label",
+    "before": "Filtra secondo il membru",
+    "after": "Filtrà secondu u membru",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "filter-creator-label",
+    "before": "Filtra secondo Creatore",
+    "after": "Filtrà secondu u creatore",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "filter-hide-empty",
+    "before": "Piattà liste vuote",
+    "after": "Piattà e liste viote",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "filter-on",
+    "before": "Il filtro è attivu",
+    "after": "U filtru hè attivu",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "filter-to-selection",
+    "before": "Filtra selezione",
+    "after": "Filtrà secondu a selezzione",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "other-filters-label",
+    "before": "Altri flitri",
+    "after": "Altri filtri",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "advanced-filter-label",
+    "before": "Filtro avanzato",
+    "after": "Filtru avanzatu",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "fullname",
+    "before": "Nome completo",
+    "after": "Nome cumpletu",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "imported-member-no-account",
+    "before": "Membru importato — nessun account corrispondente ancora",
+    "after": "Membru impurtatu — ancu nisun contu currispundente",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "inactive-member",
+    "before": "Membru inattivo",
+    "after": "Membru inattivu",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "impersonate-user",
+    "before": "Impersona utilizatore",
+    "after": "Agisce cum’è st’utilizatore",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "import-board-instruction-kanboard",
+    "before": "Incolla un JSON di esportazione Kanboard: un oggetto cù \"columns\" (o task che riportano column_name) e un array \"tasks\" (title, description, column_name, swimlane_name, date_due, owner, tags). Le colonne diventano liste e i task diventano carte.",
+    "after": "Incullate un JSON d’espurtazione Kanboard: un ughjettu cù \"columns\" (o compiti cù column_name) è una matrice \"tasks\" (title, description, column_name, swimlane_name, date_due, owner, tags). E culonne diventanu liste è i compiti diventanu carte.",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "import-board-instruction-deck",
+    "before": "Incolla il JSON di una tavula NextCloud Deck (una tavula cù \"stacks\", ciascuno stack cù le sue \"cards\"). Gli stack diventano liste e le card diventano carte.",
+    "after": "Incullate u JSON d’una tavula NextCloud Deck (una tavula cù \"stacks\", ogni stack cù e so \"cards\"). E pile diventanu liste è e carte diventanu carte.",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "import-board-instruction-openproject",
+    "before": "Incolla un JSON di una raccolta di work package OpenProject (GET /api/v3/work_packages). Gli stati diventano liste e i work package diventano carte.",
+    "after": "Incullate u JSON d’una cullezzione di pacchetti di travagliu OpenProject (GET /api/v3/work_packages). I stati diventanu liste è i pacchetti di travagliu diventanu carte.",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "import-board-instruction-issues",
+    "before": "Incolla un array JSON di issue di __sourceName__ (__endpoint__). Le issue diventano carte raggruppate in e liste Aperte / Chiuse.",
+    "after": "Incullate una matrice JSON di richieste di __sourceName__ (__endpoint__). E richieste diventanu carte ragruppate in liste Aperte / Chjose.",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "import-board-instruction-focalboard",
+    "before": "Scumpressa u schedariu .boardarchive è incolla u cuntenutu di u board.jsonl di u tavulone, cù o senza a linea di versione. A pruprietà di raggruppamentu di a vista di u tavulone diventa liste, l’altre pruprietà di selezzione diventanu etichette, i blocchi di testu è di caselle da spuntà diventanu a descrizzione è una lista di cuntrollu, è i cummenti sò cunservati. L’imaghjini è l’allegati ùn sò micca impurtati.",
+    "after": "Scumpattate u schedariu .boardarchive è incullate u board.jsonl d’una tavula, cù o senza a so linea di versione. A pruprietà di ragruppamentu di a vista di a tavula diventa e liste, l’altre pruprietà di selezzione diventanu etichette, i blocchi di testu è di caselle à marcà diventanu a discrizzione è una lista di cuntrollu, è i cummenti sò cunservati. L’imagine è l’appicci ùn sò micca impurtati.",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "import-board-instruction-todoist",
+    "before": "In Todoist, open the project menu and choose Export as a template, then paste the CSV file. Sections become lists, tasks become cards, sub-tasks become a checklist, notes become comments, and @labels and priorities p1 to p3 become labels.",
+    "after": "In Todoist, aprite u prughjettu, sceglite u menù ⋯ in cima à diritta, po Manage data > Export as CSV, è incullate u schedariu CSV. E sezzioni diventanu liste, i compiti diventanu carte, i sottucompiti diventanu una lista di cuntrollu, e note diventanu cummenti, è @labels è e priurità da p1 à p3 diventanu etichette.",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
+  },
+  {
+    "locale": "co",
+    "key": "import-board-instruction-planner",
+    "before": "In Microsoft Planner, open the plan's menu and choose Export plan to Excel, then choose that .xlsx file. Buckets become lists and tasks become cards, with their assignees, dates, labels, checklist and description; Progress, Priority and Completed By become custom fields.",
+    "after": "In Microsoft Planner, aprite u pianu, sceglite u menù ⋯ accantu à u so nome, po Export as Excel (in Planner classicu: Export plan to Excel), è sceglite stu schedariu .xlsx. I gruppi diventanu liste è i compiti diventanu carte, cù e so persone assignate, date, etichette, lista di cuntrollu è discrizzione; Progress, Priority è Completed By diventanu campi persunalizati.",
+    "reason": "Repair mixed-language filtering and importer guidance; preserve source mappings, literal field names and current export-menu paths."
   }
 ]

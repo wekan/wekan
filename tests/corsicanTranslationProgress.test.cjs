@@ -380,3 +380,20 @@ for (const key of ['email-enrollAccount-text','email-resetPassword-text','email-
 }
 assert.match(corsican['error-csv-schema'], /virgule.*tabulazioni.*ùn cuntenenu micca/);
 for (const format of ['pdf','excel']) assert.match(corsican[`user-can-not-export-card-to-${format}`], /ùn pò micca espurtà/);
+
+const filterImportCorrectionKeys = ["list-sort-by", "list-label-modifiedAt", "list-label-sort", "list-label-short-title", "filter-cards", "filter-dates-label", "filter-due-this-week", "list-filter-label", "filter-clear", "filter-no-label", "filter-member-label", "filter-creator-label", "filter-hide-empty", "filter-on", "filter-to-selection", "other-filters-label", "advanced-filter-label", "fullname", "imported-member-no-account", "inactive-member", "impersonate-user", "import-board-instruction-kanboard", "import-board-instruction-deck", "import-board-instruction-openproject", "import-board-instruction-issues", "import-board-instruction-focalboard", "import-board-instruction-todoist", "import-board-instruction-planner"];
+for (const key of filterImportCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /\b(?:Ordina|Orario|ultimo|Il|tuo|Pulisci|Nessuna|secondo|vuote|filtro|avanzato|completo|importato|nessun|corrispondente|ancora|inattivo|Impersona|oggetto|riportano|ciascuno|Gli|raggruppate|Chiuse|allegati)\b/, key);
+}
+assert.equal(corsican['list-label-short-title'], '(N)');
+assert.match(corsican['filter-no-label'], /Nisuna etichetta/);
+assert.match(corsican['imported-member-no-account'], /ancu nisun contu/);
+for (const literal of ['columns','column_name','tasks','title','description','swimlane_name','date_due','owner','tags']) assert.ok(corsican['import-board-instruction-kanboard'].includes(literal), literal);
+assert.match(corsican['import-board-instruction-openproject'], /GET \/api\/v3\/work_packages/);
+assert.match(corsican['import-board-instruction-focalboard'], /cù o senza.*linea di versione.*cummenti sò cunservati.*appicci ùn sò micca impurtati/);
+assert.match(corsican['import-board-instruction-todoist'], /Manage data > Export as CSV/);
+assert.doesNotMatch(corsican['import-board-instruction-todoist'], /Export as a template/);
+assert.match(corsican['import-board-instruction-todoist'], /sottucompiti.*lista di cuntrollu.*note.*cummenti.*@labels.*p1 à p3/);
+assert.match(corsican['import-board-instruction-planner'], /Export as Excel.*classicu: Export plan to Excel/);
+assert.match(corsican['import-board-instruction-planner'], /\.xlsx.*persone assignate.*date.*etichette.*lista di cuntrollu.*discrizzione.*Progress, Priority è Completed By.*campi persunalizati/);
