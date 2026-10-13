@@ -1595,6 +1595,19 @@ remains pending. Protected Chinese text is unchanged; broader review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9869b00d25">Correct Corsican workspace and card controls</a>. Thanks to xet7.</summary>
+
+Repair 37 mixed-language workspace, selection, date-activity, layout and
+subtask values. Preserve the one-board Home limit, opening after login,
+nondeletion warning and positive-integer height requirement.
+
+The Corsican suite, full repair-ledger suite and 21 human-preference checks
+pass. Registered subtask browser cases include the corrected add control;
+runtime execution remains pending. Protected Chinese values are unchanged.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

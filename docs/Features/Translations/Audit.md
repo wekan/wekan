@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican workspace and card controls — 2026-10-13
+
+Commit `9869b00d25` corrects 37 values found by direct source comparison
+beyond the earlier phrase scan. Workspace and subworkspace controls,
+selection actions, Home-board guidance, date activities, widths, swimlane
+heights and subtask labels no longer retain the reviewed Italian fragments.
+Tests preserve exact date tokens, one-board selection, opening after login,
+nondeletion of the board itself and positive-integer height validation.
+
+The Corsican and full repair-ledger suites pass; the ledger now contains
+25,455 guarded corrections. All 21 human-preference checks pass. Both
+Corsican subtask browser cases register, with the completion workflow also
+checking the corrected add-subtask control. Runtime execution remains
+pending. Exact comparison preserves all 38,430 protected Chinese values
+and limits the locale change to the 37 reviewed replacements. Broader
+language review remains unfinished.
+
 ## Corsican repair and recovery guidance — 2026-10-13
 
 Commit `d7c43eeb4b` repairs 20 mixed-language values. The account action
