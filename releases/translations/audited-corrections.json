@@ -188711,5 +188711,61 @@
     "before": "Nako e setseng ho fihla letsatsing la ho fela",
     "after": "Nako e setseng ho fihla letsatsing la ho qetela",
     "reason": "Clarify recovery severity, copying from templates, translation-string counts and time until due."
+  },
+  {
+    "locale": "st",
+    "key": "checklist-reset-interval",
+    "before": "Ho qalisoa hoesa ka boiketsetso",
+    "after": "Ho seta botjha ka boiketsetso",
+    "reason": "Distinguish automatic checklist reset from card recurrence and clarify last activity and error severity."
+  },
+  {
+    "locale": "st",
+    "key": "checklistResetIntervalPopup-title",
+    "before": "Ho qalisoa hoesa ka boiketsetso",
+    "after": "Ho seta botjha ka boiketsetso",
+    "reason": "Distinguish automatic checklist reset from card recurrence and clarify last activity and error severity."
+  },
+  {
+    "locale": "st",
+    "key": "checklist-reset-interval-none",
+    "before": "E timmeng (ha e qalisoe hoesa ka boiketsetso)",
+    "after": "E kwetswe (ha e setwe botjha ka boiketsetso)",
+    "reason": "Distinguish automatic checklist reset from card recurrence and clarify last activity and error severity."
+  },
+  {
+    "locale": "st",
+    "key": "card-recurrence-interval",
+    "before": "Ho qalisoa hoesa ka boiketsetso",
+    "after": "Ho ipheta ha karete",
+    "reason": "Distinguish automatic checklist reset from card recurrence and clarify last activity and error severity."
+  },
+  {
+    "locale": "st",
+    "key": "cardRecurrenceIntervalPopup-title",
+    "before": "Ho qalisoa hoesa ka boiketsetso",
+    "after": "Ho ipheta ha karete",
+    "reason": "Distinguish automatic checklist reset from card recurrence and clarify last activity and error severity."
+  },
+  {
+    "locale": "st",
+    "key": "card-recurrence-interval-none",
+    "before": "E timmeng (ha e qalisoe hoesa ka boiketsetso)",
+    "after": "E kwetswe (karete ha e iphete ka boiketsetso)",
+    "reason": "Distinguish automatic checklist reset from card recurrence and clarify last activity and error severity."
+  },
+  {
+    "locale": "st",
+    "key": "admin-people-last-active",
+    "before": "E sebedisitsoe qetellong",
+    "after": "E qetetse ho sebetsa",
+    "reason": "Distinguish automatic checklist reset from card recurrence and clarify last activity and error severity."
+  },
+  {
+    "locale": "st",
+    "key": "cron-error-severity",
+    "before": "Bohloko",
+    "after": "Boima ba bothata",
+    "reason": "Distinguish automatic checklist reset from card recurrence and clarify last activity and error severity."
   }
 ]

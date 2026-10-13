@@ -787,3 +787,16 @@ assert.match(sesotho['translation-number'], /Palo ya mela.*phetolelo/);
 assert.doesNotMatch(sesotho['translation-number'], /meretlwa/);
 assert.match(sesotho['board-status-remaining-time-total'], /letsatsing la ho qetela/);
 assert.doesNotMatch(sesotho['board-status-remaining-time-total'], /ho fela/);
+
+// Historical review through key 2479: reset and recurrence are distinct actions.
+assert.equal(sesotho['checklist-reset-interval'], sesotho['checklistResetIntervalPopup-title']);
+assert.equal(sesotho['card-recurrence-interval'], sesotho['cardRecurrenceIntervalPopup-title']);
+assert.notEqual(sesotho['checklist-reset-interval'], sesotho['card-recurrence-interval']);
+assert.match(sesotho['checklist-reset-interval'], /seta botjha/);
+assert.match(sesotho['card-recurrence-interval'], /ipheta ha karete/);
+assert.match(sesotho['checklist-reset-interval-none'], /E kwetswe.*ha e setwe botjha/);
+assert.match(sesotho['card-recurrence-interval-none'], /E kwetswe.*ha e iphete/);
+for (const key of ['checklist-reset-interval', 'card-recurrence-interval']) assert.doesNotMatch(sesotho[key], /hoesa/);
+assert.equal(sesotho['admin-people-last-active'], 'E qetetse ho sebetsa');
+assert.equal(sesotho['cron-error-severity'], sesotho['recovery-severity']);
+assert.notEqual(sesotho['cron-error-severity'], 'Bohloko');

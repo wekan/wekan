@@ -103,3 +103,18 @@ test('Southern Sotho checklist copying identifies the template source', async ({
   // Inspect only; do not choose a template or copy its contents.
   await page.evaluate(() => Popup.close());
 });
+
+
+test('Southern Sotho card recurrence uses repetition rather than checklist reset', async ({ boardPage: page, board }) => {
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'st'));
+  await new BoardPage(page).clickCard(board.listIds[0], 'Alpha Card');
+  const card = new CardPage(page);
+  await card.waitForOpen();
+  await card.openActionsMenu();
+  await page.locator('.js-pop-over .js-set-card-recurrence-interval').click();
+  await expect(page.locator('.js-pop-over .header-title')).toHaveText('Ho ipheta ha karete');
+  const off = page.locator('.js-pop-over .js-set-card-recurrence[data-interval="none"]');
+  await expect(off).toContainText('karete ha e iphete ka boiketsetso');
+  await expect(off).not.toContainText('setwe botjha');
+  await page.evaluate(() => Popup.close());
+});
