@@ -2154,6 +2154,20 @@ Existing Chinese text is unchanged.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/73e233a13b">Translate Southern Sotho Blockly editor and control flow</a>. Thanks to xet7.</summary>
+
+Translate 75 editor, accessibility, colour and control-flow strings. Keep
+18 physical keyboard legends with exact-value exemptions. Check numbered
+placeholders, break/continue, while/until and colour bounds. Descriptive
+programming terminology has lower confidence and needs native review.
+
+Translation checks and 21 human-preference checks pass. The existing
+Southern Sotho Blockly browser case passes syntax and discovery checks;
+runtime execution remains pending. Existing Chinese text is unchanged.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

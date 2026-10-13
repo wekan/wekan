@@ -2,6 +2,28 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho Blockly editor and control flow — 2026-10-13
+
+Commit `73e233a13b` fills 75 English placeholders for editor actions,
+accessibility labels, colours and control flow. Eighteen keyboard legends
+remain recognizable with exemptions guarded by the exact English source.
+The token checker now includes numbered percent and positional printf tokens,
+with negative cases for renumbering and omitted repeated tokens. Semantic
+checks distinguish break/continue and while/until, retain colour ranges and
+verify function-bound variable deletion restrictions.
+
+Variable and programming terminology uses descriptive wording with lower
+confidence and needs native review. The Southern Sotho regression suite and
+21 human-preference checks pass. The existing Blockly drag, field-editing and
+context-menu browser case passes syntax and discovery; runtime execution
+remains pending without the UI stack. Exact comparison preserves 38,430
+existing Chinese values and existing Southern Sotho translations.
+
+The full Southern Sotho placeholder count falls from 745 to 652: 75 fills
+and 18 explicit keyboard exemptions. Its filtered inventory is 584; the
+global filtered backlog is 28,423 across 42 languages. This is not fluency
+certification, and the all-language objective remains unfinished.
+
 ## Southern Sotho notifications and automation settings — 2026-10-13
 
 Commit `7c10778dac` fills 46 English placeholders. Delivery settings retain
