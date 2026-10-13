@@ -1420,6 +1420,20 @@ protected Chinese values remain unchanged by this batch.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e3c22d9e92">Correct mixed Italian wording in Corsican activity messages</a>. Thanks to xet7.</summary>
+
+Replace 22 mixed-language activity messages with Corsican and remove a
+stray digit before the subtask placeholder. Preserve source tokens and
+distinguish adding, removing, checking and unchecking items.
+
+The Corsican suite, full correction-ledger suite and 21 human-preference
+checks pass. Card-creation history now has a registered Corsican browser
+case; runtime execution remains pending. Protected Chinese values remain
+unchanged, and broader Corsican wording review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

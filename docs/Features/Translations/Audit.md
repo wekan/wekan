@@ -2,6 +2,29 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican mixed-language activity messages — 2026-10-13
+
+Commit `e3c22d9e92` replaces 22 Italian or mixed-language activity values
+with Corsican. Examples include `creato`, `inviato`, `importato`,
+`selezionata`, `disattivato` and `lista di controllo`. The subtask activity
+also loses an erroneous literal `1` before `%s`. Existing correct Corsican
+activity values are retained.
+
+The exact before/after repairs bring the ledger to 25,194 entries. Both
+the Corsican suite and full correction-ledger suite pass, including token
+preservation, replay idempotence and protection for newer wording. All
+21 human-preference checks pass. Negative checks reject the repaired Italian
+phrases and distinguish checked/unchecked and added/removed meanings.
+
+The card-creation browser workflow now registers English and Corsican
+cases. Source inspection confirms it renders `activity-added`, so its
+Corsican assertion checks `hà aghjuntu` and rejects the former `ha aghjuntu`.
+These cases have not run against the application. All 38,079 protected
+Chinese values remain unchanged; concurrent mail-report additions remain
+outside the commit. The filtered count is unaffected because these were
+non-English mixed-language values. Many older Corsican activity, membership
+and board strings still require correction; fluent review remains pending.
+
 ## Corsican import instructions — 2026-10-13
 
 Commit `9198e84b39` fills 22 English import-format instructions. Checks
