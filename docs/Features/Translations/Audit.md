@@ -2,6 +2,26 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho sync diagnostics and planning — 2026-10-13
+
+Commit `b7fb228486` fills 45 placeholders for source reports, retention,
+diagnostics, estimate mapping, email failures and Scrum sync planning.
+Semantic checks retain 100-path, 20-run and 30-day limits, hidden source
+values, possible partial changes, full-list write access and no-resume/no-undo
+warnings. Missing values remain distinct from explicit null; estimate fields
+require exactly one match. Planning keeps local changes until the source
+changes and is never removed by the first sync.
+
+The Southern Sotho regression suite and all 21 human-preference checks pass.
+The existing sync-planning browser case now includes Southern Sotho; syntax
+and discovery pass, but runtime execution remains pending without the UI
+stack. Exact comparison preserves 38,430 existing Chinese values and all
+existing translated Southern Sotho values.
+
+The full Southern Sotho placeholder count falls from 117 to 72. Its filtered
+inventory is 25; the global filtered backlog is 27,864 across 42 languages.
+Native review and the all-language objective remain unfinished.
+
 ## Southern Sotho Scrum import and sync guidance — 2026-10-13
 
 Commit `1128608ba5` fills 50 daily-observation, Scrum-import, sync-conflict

@@ -2248,6 +2248,19 @@ runtime execution remains pending. Existing Chinese text is unchanged.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b7fb228486">Translate Southern Sotho sync diagnostics and planning</a>. Thanks to xet7.</summary>
+
+Fill 45 source-report, retention, estimate-mapping, email-failure and
+planning placeholders. Preserve missing-versus-null handling, access
+requirements and warnings that reports cannot resume or undo changes.
+
+Translation checks and 21 human-preference checks pass. The sync-planning
+browser case now includes Southern Sotho; syntax and discovery pass, but
+runtime execution remains pending. Existing Chinese text is unchanged.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
