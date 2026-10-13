@@ -222,3 +222,21 @@ test.describe('#5799 All Boards sort / search / pagination', () => {
     });
   });
 });
+
+test('Latin workspace navigation and creation form use translated labels', async ({ page, user }) => {
+  await loginWithToken(page, user.id, user.token);
+  await callMethod(page, 'setLanguage', 'la');
+  await gotoRemaining(page);
+  await expect(page.locator('.js-select-menu[data-type="remaining"]').first()).toContainText('Reliquae');
+  const header = page.locator('.workspaces-header');
+  await expect(header).toContainText('Spatia laboris');
+  await expect(header).not.toContainText('Latine:');
+  await expect(header.locator('.js-add-workspace')).toHaveAttribute('title', 'Adde spatium laboris');
+  await header.locator('.js-add-workspace').click();
+  const form = page.locator('form.js-add-workspace-form');
+  await expect(form).toBeVisible();
+  await expect(form).toContainText('Nomen spatii laboris');
+  await expect(form.locator('input[type="submit"]')).toHaveValue('Adde spatium laboris');
+  await expect(form.locator('textarea')).toHaveValue('');
+  await expect(form.locator('textarea')).toHaveAttribute('required', '');
+});

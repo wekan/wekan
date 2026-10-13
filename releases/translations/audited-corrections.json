@@ -189894,5 +189894,425 @@
     "before": "Latine: importatum %s ex %s",
     "after": "importavit %s ex %s",
     "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "activity-joined",
+    "before": "Latine: joined %s",
+    "after": "se adiunxit ad %s",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "activity-moved",
+    "before": "Latine: motum %s ex %s ad %s",
+    "after": "movit %s ex %s ad %s",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "activity-on",
+    "before": "Latine: adest %s",
+    "after": "in %s",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "activity-removed",
+    "before": "Latine: remotum %s ex %s",
+    "after": "removit %s ex %s",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "activity-sent",
+    "before": "Latine: missum %s ad %s",
+    "after": "misit %s ad %s",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "activity-unjoined",
+    "before": "Latine: unjoined %s",
+    "after": "se removit a %s",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "activity-subtask-added",
+    "before": "Latine: additum submunus ad %s",
+    "after": "submunus addidit ad %s",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "activity-checked-item",
+    "before": "Latine: checked %s in index probationis %s de %s",
+    "after": "rem %s in indice probationis %s rei %s perfectam notavit",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "activity-unchecked-item",
+    "before": "Latine: unchecked %s in index probationis %s de %s",
+    "after": "rem %s in indice probationis %s rei %s imperfectam notavit",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "activity-checklist-added",
+    "before": "Latine: additum index probationis ad %s",
+    "after": "indicem probationis addidit ad %s",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "activity-checklist-removed",
+    "before": "Latine: remotum a index probationis ex %s",
+    "after": "indicem probationis removit ex %s",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "activity-checklist-completed",
+    "before": "Latine: perfectum index probationis %s de %s",
+    "after": "indicem probationis %s rei %s perfecit",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "activity-checklist-uncompleted",
+    "before": "Latine: uncompleted the index probationis %s de %s",
+    "after": "indicem probationis %s rei %s imperfectum notavit",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "activity-checklist-item-added",
+    "before": "Latine: additum res indicis ad '%s' in %s",
+    "after": "rem addidit indici probationis '%s' in %s",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "activity-checklist-item-removed",
+    "before": "Latine: remotum a res indicis ex '%s' in %s",
+    "after": "rem removit ex indice probationis '%s' in %s",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "activity-checked-item-card",
+    "before": "Latine: checked %s in index probationis %s",
+    "after": "rem %s in indice probationis %s perfectam notavit",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "activity-unchecked-item-card",
+    "before": "Latine: unchecked %s in index probationis %s",
+    "after": "rem %s in indice probationis %s imperfectam notavit",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "activity-checklist-completed-card",
+    "before": "Latine: perfectum index probationis __checklist__ at scheda __card__ at index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "indicem probationis __checklist__ perfecit in charta __card__ in indice __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "activity-checklist-uncompleted-card",
+    "before": "Latine: uncompleted the index probationis %s",
+    "after": "indicem probationis %s imperfectum notavit",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "activity-editComment",
+    "before": "Latine: mutatum commentarium %s",
+    "after": "commentarium %s mutavit",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "activity-deleteComment",
+    "before": "Latine: deletum commentarium %s",
+    "after": "commentarium %s delevit",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "activity-receivedDate",
+    "before": "Latine: mutatum received dies ad %s de %s",
+    "after": "diem accepti mutavit in %s rei %s",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "activity-startDate",
+    "before": "Latine: mutatum dies initii ad %s de %s",
+    "after": "diem initii mutavit in %s rei %s",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "allboards.starred",
+    "before": "Latine: Starred",
+    "after": "Stella notatae",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "allboards.remaining",
+    "before": "Latine: Remaining",
+    "after": "Reliquae",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "allboards.workspaces",
+    "before": "Latine: Workspaces",
+    "after": "Spatia laboris",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "allboards.add-workspace",
+    "before": "Latine: Adde Workspace",
+    "after": "Adde spatium laboris",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "allboards.add-workspace-prompt",
+    "before": "Latine: Workspace nomen",
+    "after": "Nomen spatii laboris",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "allboards.add-subworkspace",
+    "before": "Latine: Adde Subworkspace",
+    "after": "Adde spatium laboris subordinatum",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "allboards.add-subworkspace-prompt",
+    "before": "Latine: Subworkspace nomen",
+    "after": "Nomen spatii laboris subordinati",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "allboards.edit-workspace",
+    "before": "Latine: Muta workspace",
+    "after": "Muta spatium laboris",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "allboards.edit-workspace-name",
+    "before": "Latine: Workspace nomen",
+    "after": "Nomen spatii laboris",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "allboards.edit-workspace-icon",
+    "before": "Latine: Workspace icon (markdown)",
+    "after": "Icon spatii laboris (Markdown)",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "allboards.workspace-menu",
+    "before": "Latine: Workspace tabula optionum",
+    "after": "Tabula optionum spatii laboris",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "workspace-settings",
+    "before": "Latine: Workspace Configurationes",
+    "after": "Optiones spatii laboris",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "workspaceActionsPopup-title",
+    "before": "Latine: Workspace Configurationes",
+    "after": "Optiones spatii laboris",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "addWorkspacePopup-title",
+    "before": "Latine: Adde Workspace",
+    "after": "Adde spatium laboris",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "allboards.workspace-color",
+    "before": "Latine: Color",
+    "after": "Color",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "allboards.delete-workspace-confirm",
+    "before": "Latine: certusne es tu want ad dele hoc workspace?",
+    "after": "Certusne es te hoc spatium laboris delere velle?",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "allboards.delete-workspace-confirm-check",
+    "before": "Latine: Confirma workspace deletion",
+    "after": "Confirma deletionem spatii laboris",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "multi-selection-active",
+    "before": "Latine: Click checkboxes ad elige tabulae",
+    "after": "Preme quadrata electionis ut tabulas eligas",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "archive-permanent-delete-disabled-hint",
+    "before": "Latine: Si at Administrator Panel / Problemata / Dele est checked Habilita permanent dele for Global Administrator then here erit become visible globulus for Dele.",
+    "after": "Si in Tabula administrationis / Problemata / Dele electum est ut administrator globalis res in perpetuum delere possit, hic apparebit globulus delendi.",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "no-boards-selected",
+    "before": "Latine: Tu did non elige ullum tabulae.",
+    "after": "Nullas tabulas elegisti.",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "select-only-one-board",
+    "before": "Latine: Please elige tantum one tabula",
+    "after": "Quaeso, unam tantum tabulam elige",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "selected-label",
+    "before": "Latine: Electum:",
+    "after": "Electae:",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "set-selected-starred",
+    "before": "Latine: Star the electum tabulae",
+    "after": "Tabulas electas stella nota",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "set-selected-unstarred",
+    "before": "Latine: Unstar the electum tabulae",
+    "after": "Stellas a tabulis electis remove",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "set-selected-home",
+    "before": "Latine: Set as Domus tabula (apertum after introitus)",
+    "after": "Constitue tabulam initialem (post ingressum aperitur)",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "unset-selected-home",
+    "before": "Latine: Unset as Domus tabula",
+    "after": "Desine hac tabula uti ut initiali",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "home-board-badge",
+    "before": "Latine: Domus tabula (apertum after introitus)",
+    "after": "Tabula initialis (post ingressum aperitur)",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "home-board-empty",
+    "before": "Latine: Drag tantum one tabula here ad aperi it after introitus",
+    "after": "Unam tantum tabulam huc trahe ut post ingressum aperiatur",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "home-board-remove",
+    "before": "Latine: Remove ex Domus",
+    "after": "Desine hac tabula uti ut initiali",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "home-board-remove-confirm",
+    "before": "Latine: Remove hoc tabula ex Domus? The tabula itself est non deletum.",
+    "after": "Desinere hac tabula uti ut initiali? Ipsa tabula non deletur.",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "activity-dueDate",
+    "before": "Latine: mutatum dies debitus ad %s de %s",
+    "after": "diem debitum mutavit in %s rei %s",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "activity-endDate",
+    "before": "Latine: mutatum dies finis ad %s de %s",
+    "after": "diem finis mutavit in %s rei %s",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "add-template",
+    "before": "Latine: Adde Template",
+    "after": "Adde exemplar",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "add-card-to-top-of-list",
+    "before": "Latine: Adde Scheda ad Top de Index",
+    "after": "Adde chartam ad initium indicis",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "add-card-to-bottom-of-list",
+    "before": "Latine: Adde Scheda ad Bottom de Index",
+    "after": "Adde chartam ad finem indicis",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "setListWidthPopup-title",
+    "before": "Latine: Set width",
+    "after": "Constitue latitudinem",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "set-list-width",
+    "before": "Latine: Set width",
+    "after": "Constitue latitudinem",
+    "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
   }
 ]

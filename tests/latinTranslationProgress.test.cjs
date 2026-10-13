@@ -177,3 +177,21 @@ assert.equal(latin['act-addLabel'], latin['act-addedLabel']);
 assert.equal(latin['act-removeLabel'], latin['act-removedLabel']);
 assert.match(latin['act-restoredCard'], /restituit/);
 assert.match(latin['act-deleteCard'], /delevit/);
+
+const reviewedBoardKeys = ["activity-joined", "activity-moved", "activity-on", "activity-removed", "activity-sent", "activity-unjoined", "activity-subtask-added", "activity-checked-item", "activity-unchecked-item", "activity-checklist-added", "activity-checklist-removed", "activity-checklist-completed", "activity-checklist-uncompleted", "activity-checklist-item-added", "activity-checklist-item-removed", "activity-checked-item-card", "activity-unchecked-item-card", "activity-checklist-completed-card", "activity-checklist-uncompleted-card", "activity-editComment", "activity-deleteComment", "activity-receivedDate", "activity-startDate", "allboards.starred", "allboards.remaining", "allboards.workspaces", "allboards.add-workspace", "allboards.add-workspace-prompt", "allboards.add-subworkspace", "allboards.add-subworkspace-prompt", "allboards.edit-workspace", "allboards.edit-workspace-name", "allboards.edit-workspace-icon", "allboards.workspace-menu", "workspace-settings", "workspaceActionsPopup-title", "addWorkspacePopup-title", "allboards.workspace-color", "allboards.delete-workspace-confirm", "allboards.delete-workspace-confirm-check", "multi-selection-active", "archive-permanent-delete-disabled-hint", "no-boards-selected", "select-only-one-board", "selected-label", "set-selected-starred", "set-selected-unstarred", "set-selected-home", "unset-selected-home", "home-board-badge", "home-board-empty", "home-board-remove", "home-board-remove-confirm", "activity-dueDate", "activity-endDate", "add-template", "add-card-to-top-of-list", "add-card-to-bottom-of-list", "setListWidthPopup-title", "set-list-width"];
+for (const key of reviewedBoardKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:checked|unchecked|uncompleted|Workspace|workspace|Please|Click|after|login)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.equal(latin['allboards.workspace-color'], 'Color'); // Valid Latin shared with English.
+assert.equal(latin['workspace-settings'], latin['workspaceActionsPopup-title']);
+assert.equal(latin['allboards.add-workspace'], latin['addWorkspacePopup-title']);
+assert.match(latin['activity-moved'], /%s ex %s ad %s/);
+for (const key of ['activity-receivedDate', 'activity-startDate', 'activity-dueDate', 'activity-endDate']) assert.match(latin[key], /in %s rei %s/);
+assert.match(latin['activity-checked-item'], / perfectam notavit/);
+assert.match(latin['activity-unchecked-item'], / imperfectam notavit/);
+assert.match(latin['home-board-remove-confirm'], /Ipsa tabula non deletur/);
+assert.match(latin['home-board-empty'], /Unam tantum.*post ingressum/);
+assert.match(latin['archive-permanent-delete-disabled-hint'], /Si.*administrator globalis.*in perpetuum.*hic apparebit/);
+assert.match(latin['add-card-to-top-of-list'], /initium/);
+assert.match(latin['add-card-to-bottom-of-list'], /finem/);

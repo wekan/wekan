@@ -30,3 +30,12 @@ assert.equal(symbols['attachment-limit-unit-gb'], 'GB');
 assert.equal(symbols['blockly-MATH_CONSTANT_PI_ARIA'], 'pi');
 assert.equal(symbols['r-is'], undefined);
 assert.equal(symbols['blockly-CONTROLS_IF_MSG_IF'], undefined);
+
+// Latin color is a real shared word; never exempt changed source prose.
+const latinSetLine = source.split('\n').find(line => line.startsWith('  la: new Set(')).trim();
+const latinSetExpression = latinSetLine.slice('la: '.length).replace(/,$/, '');
+for (const [value, expected] of [['Color', true], ['Choose a color', false]]) {
+  const set = vm.runInNewContext(latinSetExpression, { en: { 'allboards.workspace-color': value } });
+  assert.equal(set.has('allboards.workspace-color'), expected);
+  assert.equal(set.has('allboards.workspaces'), false);
+}
