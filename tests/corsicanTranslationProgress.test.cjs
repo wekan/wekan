@@ -223,3 +223,18 @@ assert.match(corsican['sandstorm-remove-member-warning'], /Ùn revoca micca l’
 assert.match(corsican['leave-board-pop'], /tutte e carte/);
 assert.match(corsican['list-delete-suggest-archive'], /cunservà a so attività/);
 assert.match(corsican['import-trello-json-file-hint'], /chjave API è u gettone.*appicci.*fondu.*avatar/);
+
+const settingsCorrectionKeys = ["unset-default-board-title", "starred-boards-description", "toggle-assignees", "go-to-board", "avatars-upload-blocked-description", "showSum-field-on-list", "boardDeletePopup-title", "delete-all-notifications-confirm", "delete-duplicate-lists-confirm", "r-schedule-on-date", "r-remove-all", "r-d-move-to-top-gen", "r-d-move-to-top-spec", "r-d-move-to-bottom-gen", "r-d-move-to-bottom-spec", "r-d-check-all", "r-checklist-note", "custom-head-tags-enabled", "custom-manifest-enabled", "custom-assetlinks-enabled", "add-custom-html-after-body-start", "duplicate-board-confirm", "swimlaneDeletePopup-title", "delete-user-confirm-popup", "delete-team-confirm-popup"];
+for (const key of settingsCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.deepEqual(tags(corsican[key]), tags(english[key]), key);
+  assert.doesNotMatch(corsican[key], /\b(?:Questa|Sei sicuro|gli|alla|dalla|personalizzato|personalizzati|Eliminare|impostazione|Muovi)\b/, key);
+}
+assert.match(corsican['delete-duplicate-lists-confirm'], /listessu nome è ùn cuntenenu nisuna carta/);
+assert.match(corsican['delete-all-notifications-confirm'], /tutte e nutificazioni.*ùn pò micca esse annullata/);
+for (const key of ['delete-user-confirm-popup','delete-team-confirm-popup']) assert.match(corsican[key], /Ùn si pò annullà/);
+assert.match(corsican['r-d-move-to-top-gen'], /in cima à a so lista/);
+assert.match(corsican['r-d-move-to-bottom-gen'], /in fondu à a so lista/);
+assert.match(corsican['r-checklist-note'], /separati da virgule/);
+assert.match(corsican['avatars-upload-blocked-description'], /novi avatar.*sincrunizati.*attivati di manera predefinita/);
+assert.match(corsican['custom-assetlinks-enabled'], /assetlinks\.json/);

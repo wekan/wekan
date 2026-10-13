@@ -177259,5 +177259,180 @@
     "before": "Assegna te stesso alla carta corrente",
     "after": "Assignà si a carta attuale",
     "reason": "Replace mixed Italian/Corsican prose; restore exact filter examples and preserve visibility, access and archive semantics."
+  },
+  {
+    "locale": "co",
+    "key": "unset-default-board-title",
+    "before": "Questa tavula si apre dopo il login. Clicca per non aprirla più automaticamente.",
+    "after": "Sta tavula si apre dopu a cunnessione. Cliccate per ùn apre la più automaticamente.",
+    "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "starred-boards-description",
+    "before": "Le tavule stellate vengono mostrate in cima alla lista di e tavule.",
+    "after": "E tavule preferite sò mustrate in cima à a vostra lista di tavule.",
+    "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "toggle-assignees",
+    "before": "Alterna gli assegnatari da 1-9 per la carta (in base all'ordine di aghjunta alla tavula).",
+    "after": "Attivà o disattivà e persone assignate 1-9 per a carta (secondu l’ordine d’aghjunta à a tavula).",
+    "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "go-to-board",
+    "before": "Vai alla tavula",
+    "after": "Andà à a tavula",
+    "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "avatars-upload-blocked-description",
+    "before": "Impedisci agli utilizatori di caricare nuovi avatar (utile quando gli avatar sono sincronizzati da un'altra fonte). Gli avatar sono abilitati per impostazione predefinita.",
+    "after": "Impedisce à l’utilizatori di caricà novi avatar (utile quandu l’avatar sò sincrunizati da un’altra fonte). L’avatar sò attivati di manera predefinita.",
+    "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "showSum-field-on-list",
+    "before": "Mustrà la somma dei campi in cima alla lista",
+    "after": "Mustrà a somma di i campi in cima à a lista",
+    "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "boardDeletePopup-title",
+    "before": "Eliminare la tavula?",
+    "after": "Squassà a tavula?",
+    "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "delete-all-notifications-confirm",
+    "before": "Sei sicuro di voler eliminare tutte le nutificazioni? Questa azione non può essere annullata.",
+    "after": "Site sicuru di vulè squassà tutte e nutificazioni? St’azzione ùn pò micca esse annullata.",
+    "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "delete-duplicate-lists-confirm",
+    "before": "Sei sicuro? Verranno eliminate tutte le liste duplicate che hanno lo stesso nome e non contengono carte.",
+    "after": "Site sicuru? Tutte e liste duplicate chì anu u listessu nome è ùn cuntenenu nisuna carta seranu squassate.",
+    "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "r-schedule-on-date",
+    "before": "alla data",
+    "after": "à a data",
+    "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "r-remove-all",
+    "before": "Caccià tutti i membri dalla carta",
+    "after": "Caccià tutti i membri da a carta",
+    "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "r-d-move-to-top-gen",
+    "before": "Move la carta in cima alla sua lista",
+    "after": "Spustà a carta in cima à a so lista",
+    "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "r-d-move-to-top-spec",
+    "before": "Move la carta in cima alla lista",
+    "after": "Spustà a carta in cima à a lista",
+    "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "r-d-move-to-bottom-gen",
+    "before": "Move la carta in fondo alla sua lista",
+    "after": "Spustà a carta in fondu à a so lista",
+    "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "Muovi la carta in fondo alla lista",
+    "after": "Spustà a carta in fondu à a lista",
+    "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "r-d-check-all",
+    "before": "Selezziunà tutti gli item di una lista",
+    "after": "Marcà tutti l’elementi d’una lista",
+    "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "r-checklist-note",
+    "before": "Nota: Gli elementi di a checklist devono essere scritti come valori separati dalla virgola",
+    "after": "Nota: l’elementi di a lista di cuntrollu devenu esse scritti cum’è valori separati da virgule.",
+    "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "custom-head-tags-enabled",
+    "before": "Attivà tag head personalizzati",
+    "after": "Attivà e balise head persunalizate",
+    "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "custom-manifest-enabled",
+    "before": "Attivà web manifest personalizzato",
+    "after": "Attivà u manifestu web persunalizatu",
+    "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "custom-assetlinks-enabled",
+    "before": "Attivà assetlinks.json personalizzato",
+    "after": "Attivà assetlinks.json persunalizatu",
+    "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "add-custom-html-after-body-start",
+    "before": "Aghjunghje codice HTML personalizzato dopo <body> inzio",
+    "after": "Aghjunghje HTML persunalizatu dopu l’apertura di <body>",
+    "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "duplicate-board-confirm",
+    "before": "Sei sicuro di voler duplicare questa tavula?",
+    "after": "Site sicuru di vulè duplicà sta tavula?",
+    "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "swimlaneDeletePopup-title",
+    "before": "Eliminare la swimlane?",
+    "after": "Squassà u curridore?",
+    "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "delete-user-confirm-popup",
+    "before": "Sei sicuro di voler eliminare questu profilo? Non sarà possibile ripristinarlo.",
+    "after": "Site sicuru di vulè squassà stu contu? Ùn si pò annullà st’azzione.",
+    "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "delete-team-confirm-popup",
+    "before": "Sei sicuro di voler eliminare questu team? Non è possibile annullare.",
+    "after": "Site sicuru di vulè squassà sta squadra? Ùn si pò annullà st’azzione.",
+    "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
   }
 ]

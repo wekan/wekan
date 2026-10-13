@@ -137,3 +137,31 @@ test('Corsican clear notification drawer renders corrected card activity', async
     db.deleteOne('activities', { _id: activityId });
   }
 });
+
+test('Corsican delete-all confirmation preserves cancellation', async ({ boardPage: page, user }) => {
+  const activityId = db.uid('corsican-delete-confirm');
+  db.insertOne('activities', { _id: activityId, userId: user.id, activityType: 'createBoard', createdAt: new Date() });
+  db.updateOne('users', { _id: user.id }, { $set: {
+    'profile.notifications': [{ activity: activityId, read: null }],
+  } });
+  try {
+    await page.evaluate(() => Meteor.callAsync('setLanguage', 'co'));
+    await page.reload();
+    await page.locator('.notifications-drawer-toggle').first().click();
+    await page.locator('#notifications-drawer .notification-menu-toggle').click();
+    const dialogSeen = new Promise((resolve, reject) => page.once('dialog', async dialog => {
+      try {
+        expect(dialog.message()).toBe(require('../../../imports/i18n/data/co.i18n.json')['delete-all-notifications-confirm']);
+        expect(dialog.message()).toContain('ùn pò micca esse annullata');
+        await dialog.dismiss();
+        resolve();
+      } catch (error) { await dialog.dismiss(); reject(error); }
+    }));
+    await page.locator('#notifications-drawer .delete-all').click();
+    await dialogSeen;
+    expect(db.findOne('users', { _id: user.id }).profile.notifications.map(n => n.activity)).toContain(activityId);
+  } finally {
+    db.updateOne('users', { _id: user.id }, { $set: { 'profile.notifications': [] } });
+    db.deleteOne('activities', { _id: activityId });
+  }
+});
