@@ -8,6 +8,8 @@ test('Latin custom field form translates types and dropdown instructions', async
     Popup.open('createCustomField')({ currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
   });
   const pop = page.locator('.js-pop-over');
+  await expect(pop.locator('.js-field-automatically-on-card')).toContainText('Adde campum chartis novis');
+  await expect(pop.locator('.js-field-always-on-card')).toContainText('Adde campum omnibus chartis');
   await expect(pop.locator('option[value="text"]')).toHaveText('Textus');
   await expect(pop.locator('option[value="number"]')).toHaveText('Numerus');
   await expect(pop.locator('option[value="currency"]')).toHaveText('Moneta');

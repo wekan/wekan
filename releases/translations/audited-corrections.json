@@ -195711,5 +195711,215 @@
     "before": "Latine: OS CPU Count",
     "after": "Numerus CPU in OS",
     "reason": "Repair webhook and system-information labels while preserving product names, configuration variables and runtime mode identifiers."
+  },
+  {
+    "locale": "la",
+    "key": "OS_Freemem",
+    "before": "Latine: OS Free Memoria",
+    "after": "Memoria libera OS",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "OS_Loadavg",
+    "before": "Latine: OS Load Average",
+    "after": "Onus medium OS",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "OS_Platform",
+    "before": "Latine: OS Platform",
+    "after": "Systema OS",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "OS_Release",
+    "before": "Latine: OS Release",
+    "after": "Editio OS",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "OS_Totalmem",
+    "before": "Latine: OS Total Memoria",
+    "after": "Memoria tota OS",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "OS_Type",
+    "before": "Latine: OS Genus",
+    "after": "Genus OS",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "OS_Uptime",
+    "before": "Latine: OS Uptime",
+    "after": "Tempus cursus OS",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "days",
+    "before": "Latine: dies",
+    "after": "dies",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "hours",
+    "before": "Latine: horae",
+    "after": "horae",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "minutes",
+    "before": "Latine: minuta",
+    "after": "minuta",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "seconds",
+    "before": "Latine: seconds",
+    "after": "secunda",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "show-field-on-card",
+    "before": "Latine: Monstra hoc campus adest scheda",
+    "after": "Monstra hunc campum in charta",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "automatically-field-on-card",
+    "before": "Latine: Adde campus ad novum schedae",
+    "after": "Adde campum chartis novis",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "always-field-on-card",
+    "before": "Latine: Adde campus ad omnia schedae",
+    "after": "Adde campum omnibus chartis",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "showLabel-field-on-card",
+    "before": "Latine: Monstra campus titulus adest minicard",
+    "after": "Monstra titulum campi in chartula",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "showSum-field-on-list",
+    "before": "Latine: Monstra sum de campi at top de index",
+    "after": "Monstra summam camporum in summo indice",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "accounts-allowEmailChange",
+    "before": "Latine: Permitte Epistula electronica Muta",
+    "after": "Permitte mutationem inscriptionis electronicae",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "accounts-allowUserNameChange",
+    "before": "Latine: nomen usoris Muta",
+    "after": "Mutatio nominis usoris",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "tableVisibilityMode-allowPrivateOnly",
+    "before": "Latine: Tabulae visibility: Permitte privatum tabulae tantum",
+    "after": "Visibilitas tabularum: permitte tantum tabulas privatas",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "tableVisibilityMode",
+    "before": "Latine: Tabulae visibility",
+    "after": "Visibilitas tabularum",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "visibility",
+    "before": "Latine: Visibility",
+    "after": "Visibilitas",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "createdAt",
+    "before": "Latine: creatum die",
+    "after": "Creatum die",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "modifiedAt",
+    "before": "Latine: Modified at",
+    "after": "Mutatum die",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "verified",
+    "before": "Latine: Verificatum",
+    "after": "Confirmatum",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "active",
+    "before": "Latine: Activum",
+    "after": "Activum",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "active-team",
+    "before": "Latine: Activum Manus",
+    "after": "Manus activa",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "active-org",
+    "before": "Latine: Activum Organizatio",
+    "after": "Consociatio activa",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "org-shared-templates",
+    "before": "Latine: Shared Templates",
+    "after": "Exemplaria communia",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "org-propagate-members-to-boards",
+    "before": "Latine: Propagate Sodales Ad Tabulae",
+    "after": "Propaga membra ad tabulas",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "org-sync-members-from-auth",
+    "before": "Latine: Sync Sodales Ex Auth Provider",
+    "after": "Synchroniza membra ex provisore authenticationis",
+    "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
   }
 ]

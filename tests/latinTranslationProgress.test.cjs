@@ -552,3 +552,19 @@ assert.equal(latin['outgoing-webhooks'], latin['outgoingWebhooksPopup-title']);
 assert.match(latin['disable-webhook'], /^Inactiva /);
 assert.match(latin.MongoDB_version, /compatibilis/);
 assert.match(latin.OS_Cpus, /Numerus CPU/);
+
+const reviewedFieldPolicyKeys = ["OS_Freemem", "OS_Loadavg", "OS_Platform", "OS_Release", "OS_Totalmem", "OS_Type", "OS_Uptime", "days", "hours", "minutes", "seconds", "show-field-on-card", "automatically-field-on-card", "always-field-on-card", "showLabel-field-on-card", "showSum-field-on-list", "accounts-allowEmailChange", "accounts-allowUserNameChange", "tableVisibilityMode-allowPrivateOnly", "tableVisibilityMode", "visibility", "createdAt", "modifiedAt", "verified", "active", "active-team", "active-org", "org-shared-templates", "org-propagate-members-to-boards", "org-sync-members-from-auth"];
+for (const key of reviewedFieldPolicyKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Free|Load Average|Uptime|Modified|Shared|Templates|Provider|Propagate)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin.OS_Freemem, /libera/);
+assert.match(latin.OS_Totalmem, /tota/);
+assert.equal(new Set(['days', 'hours', 'minutes', 'seconds'].map(key => latin[key])).size, 4);
+assert.match(latin['automatically-field-on-card'], /chartis novis/);
+assert.match(latin['always-field-on-card'], /omnibus chartis/);
+assert.match(latin['showSum-field-on-list'], /summam camporum in summo indice/);
+assert.match(latin['tableVisibilityMode-allowPrivateOnly'], /tantum tabulas privatas/);
+assert.notEqual(latin.createdAt, latin.modifiedAt);
+assert.match(latin['org-propagate-members-to-boards'], /ad tabulas/);
+assert.match(latin['org-sync-members-from-auth'], /ex provisore authenticationis/);
