@@ -158,6 +158,10 @@ Object.assign(reviewed, {
   ]
 });
 
+const blocklyShortLocales = ["ka", "km", "la", "tt", "jv", "kk", "tg", "sn", "km-KH", "km_KH"];
+const blocklyShortKeys = ["blockly-ANNOUNCE_MOVE_OF", "blockly-CONTROLS_IF_MSG_IF", "blockly-CONTROLS_IF_IF_TITLE_IF", "blockly-CONTROLS_REPEAT_INPUT_DO", "blockly-CONTROLS_FOREACH_INPUT_DO", "blockly-CONTROLS_FOR_INPUT_DO", "blockly-CONTROLS_IF_MSG_THEN", "blockly-CONTROLS_WHILEUNTIL_INPUT_DO", "blockly-FIELD_BITMAP_PIXEL_ON", "blockly-LISTS_GET_SUBLIST_END_FROM_START", "blockly-LISTS_SET_INDEX_INPUT_TO", "blockly-LOGIC_OPERATION_OR", "blockly-PROCEDURES_DEFNORETURN_TITLE", "blockly-PROCEDURES_DEFRETURN_TITLE"];
+for (const locale of blocklyShortLocales) reviewed[locale] = blocklyShortKeys;
+
 (async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   let count = 0;
@@ -179,6 +183,15 @@ Object.assign(reviewed, {
     const strings = require(`../imports/i18n/data/${locale}.i18n.json`);
     assert.equal(strings['r-of'], '/');
     assert.equal(strings.of, '/');
+  }
+  for (const locale of blocklyShortLocales) {
+    const strings = require(`../imports/i18n/data/${locale}.i18n.json`);
+    assert.equal(strings['blockly-CONTROLS_IF_MSG_IF'], strings['blockly-CONTROLS_IF_IF_TITLE_IF']);
+    for (const alias of ['FOREACH_INPUT_DO', 'FOR_INPUT_DO', 'IF_MSG_THEN', 'WHILEUNTIL_INPUT_DO']) {
+      assert.equal(strings[`blockly-CONTROLS_${alias}`], strings['blockly-CONTROLS_REPEAT_INPUT_DO']);
+    }
+    assert.equal(strings['blockly-PROCEDURES_DEFRETURN_TITLE'], strings['blockly-PROCEDURES_DEFNORETURN_TITLE']);
+    assert.ok(strings['blockly-LISTS_GET_SUBLIST_END_FROM_START'].includes('#'));
   }
   // Shared words remain valid; this batch does not replace them to force zero.
   for (const locale of ['es', 'it', 'ca']) assert.equal(require(`../imports/i18n/data/${locale}.i18n.json`).no, 'No');
