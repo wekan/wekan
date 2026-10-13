@@ -461,3 +461,34 @@ assert.match(sesotho['blockly-PROCEDURES_IFRETURN_WARNING'], /feela ka hare ho t
 assert.match(sesotho['blockly-SCREENREADER_MODE_DISABLED'], /o timme.*ho o bulela/);
 assert.match(sesotho['blockly-SCREENREADER_MODE_ENABLED'], /o butswe.*ho o tima/);
 assert.match(sesotho['blockly-RENAME_VARIABLE_TITLE'], /tsohle.*%1/);
+
+const translatedBlocklyTextKeys = ["blockly-SHORTCUTS_JUMP_LAST_BLOCK", "blockly-SHORTCUTS_JUMP_NEXT_PAGE", "blockly-SHORTCUTS_JUMP_PREVIOUS_PAGE", "blockly-SHORTCUTS_JUMP_TOP_STACK", "blockly-SHORTCUTS_MOVE_LEFT", "blockly-SHORTCUTS_MOVE_RIGHT", "blockly-SHORTCUTS_NEXT_HEADING", "blockly-SHORTCUTS_NEXT_STACK", "blockly-SHORTCUTS_PERFORM_ACTION", "blockly-SHORTCUTS_PREVIOUS_HEADING", "blockly-SHORTCUTS_PREVIOUS_STACK", "blockly-SHORTCUTS_SCROLL_DOWN", "blockly-SHORTCUTS_SCROLL_LEFT", "blockly-SHORTCUTS_SCROLL_RIGHT", "blockly-SHORTCUTS_SCROLL_UP", "blockly-SHORTCUTS_SHOW_CONTEXT_MENU", "blockly-SHORTCUTS_SHOW_TOOLTIP", "blockly-SHORTCUTS_START_MOVE", "blockly-SHORTCUTS_START_MOVE_STACK", "blockly-SHORTCUTS_TOGGLE_SCREENREADER_MODE", "blockly-TEXT_APPEND_TITLE", "blockly-TEXT_APPEND_TOOLTIP", "blockly-TEXT_CHANGECASE_OPERATOR_LOWERCASE", "blockly-TEXT_CHANGECASE_OPERATOR_TITLECASE", "blockly-TEXT_CHANGECASE_OPERATOR_UPPERCASE", "blockly-TEXT_CHANGECASE_TOOLTIP", "blockly-TEXT_CHARAT_FIRST", "blockly-TEXT_CHARAT_FROM_END", "blockly-TEXT_CHARAT_FROM_START", "blockly-TEXT_CHARAT_LAST", "blockly-TEXT_CHARAT_RANDOM", "blockly-TEXT_CHARAT_TITLE", "blockly-TEXT_CHARAT_TOOLTIP", "blockly-TEXT_COUNT_MESSAGE0", "blockly-TEXT_COUNT_TOOLTIP", "blockly-TEXT_CREATE_JOIN_ITEM_TOOLTIP", "blockly-TEXT_CREATE_JOIN_TITLE_JOIN", "blockly-TEXT_CREATE_JOIN_TOOLTIP", "blockly-TEXT_FROM_END_ARIA", "blockly-TEXT_FROM_START_ARIA", "blockly-TEXT_GET_SUBSTRING_END_FROM_END", "blockly-TEXT_GET_SUBSTRING_END_FROM_START", "blockly-TEXT_GET_SUBSTRING_END_LAST", "blockly-TEXT_GET_SUBSTRING_INPUT_IN_TEXT", "blockly-TEXT_GET_SUBSTRING_START_FIRST", "blockly-TEXT_GET_SUBSTRING_START_FROM_END", "blockly-TEXT_GET_SUBSTRING_START_FROM_START", "blockly-TEXT_GET_SUBSTRING_TOOLTIP", "blockly-TEXT_INDEXOF_OPERATOR_FIRST", "blockly-TEXT_INDEXOF_OPERATOR_LAST", "blockly-TEXT_INDEXOF_TITLE", "blockly-TEXT_INDEXOF_TOOLTIP", "blockly-TEXT_ISEMPTY_TITLE", "blockly-TEXT_ISEMPTY_TOOLTIP", "blockly-TEXT_JOIN_TITLE_CREATEWITH", "blockly-TEXT_JOIN_TOOLTIP", "blockly-TEXT_LENGTH_TITLE", "blockly-TEXT_LENGTH_TOOLTIP", "blockly-TEXT_PRINT_TITLE", "blockly-TEXT_PRINT_TOOLTIP", "blockly-TEXT_PROMPT_TOOLTIP_NUMBER", "blockly-TEXT_PROMPT_TOOLTIP_TEXT", "blockly-TEXT_PROMPT_TYPE_NUMBER", "blockly-TEXT_PROMPT_TYPE_TEXT", "blockly-TEXT_REPLACE_MESSAGE0", "blockly-TEXT_REPLACE_TOOLTIP", "blockly-TEXT_REVERSE_MESSAGE0", "blockly-TEXT_REVERSE_TOOLTIP", "blockly-TEXT_TEXT_TOOLTIP", "blockly-TEXT_TRIM_OPERATOR_BOTH", "blockly-TEXT_TRIM_OPERATOR_LEFT", "blockly-TEXT_TRIM_OPERATOR_RIGHT", "blockly-TEXT_TRIM_TOOLTIP", "blockly-UNDO", "blockly-UNNAMED_KEY", "blockly-VARIABLES_GET_CREATE_SET", "blockly-VARIABLES_GET_TOOLTIP", "blockly-VARIABLES_SET", "blockly-VARIABLES_SET_CREATE_GET", "blockly-VARIABLES_SET_TOOLTIP", "blockly-VARIABLE_ALREADY_EXISTS", "blockly-VARIABLE_ALREADY_EXISTS_FOR_ANOTHER_TYPE", "blockly-VARIABLE_ALREADY_EXISTS_FOR_A_PARAMETER", "blockly-WORKSPACE_COMMENT_DEFAULT_TEXT", "blockly-WORKSPACE_CONTENTS_BLOCKS_MANY", "blockly-WORKSPACE_CONTENTS_BLOCKS_ONE", "blockly-WORKSPACE_CONTENTS_BLOCKS_ZERO", "blockly-WORKSPACE_CONTENTS_COMMENTS_MANY", "blockly-WORKSPACE_CONTENTS_COMMENTS_ONE", "blockly-WORKSPACE_LABEL_1_STACK", "blockly-WORKSPACE_LABEL_FLYOUT_WORKSPACE", "blockly-WORKSPACE_LABEL_MANY_STACKS", "blockly-WORKSPACE_LABEL_MUTATOR_WORKSPACE", "blockly-WORKSPACE_LABEL_PLAIN", "blockly-WORKSPACE_SEARCH_CLOSE", "blockly-WORKSPACE_SEARCH_FIND_NEXT", "blockly-WORKSPACE_SEARCH_FIND_PREVIOUS", "blockly-WORKSPACE_SEARCH_INPUT_LABEL", "blockly-WORKSPACE_SEARCH_MATCH", "blockly-WORKSPACE_SEARCH_NO_MATCHES", "blockly-ZOOM_TO_FIT_ARIA_LABEL", "blockly-CONTROLS_IF_ELSEIF_TITLE_ELSEIF", "blockly-CONTROLS_IF_ELSE_TITLE_ELSE", "blockly-PROCEDURES_DEFRETURN_COMMENT", "blockly-PROCEDURES_DEFRETURN_PROCEDURE", "r-blocks-view", "r-blocks-help", "r-blocks-discard", "r-blocks-unavailable", "r-blocks-invalid", "r-blocks-conflict", "r-blocks-permission", "r-blocks-unsaved", "r-blocks-saved", "r-blocks-reload"];
+for (const key of translatedBlocklyTextKeys) {
+  assert.notEqual(sesotho[key], english[key], `${key}: no English placeholder`);
+  assert.deepEqual(tokens(sesotho[key]), tokens(english[key]), key);
+}
+assert.match(sesotho['blockly-TEXT_LENGTH_TOOLTIP'], /ho kenyelletswa dibaka/);
+assert.match(sesotho['blockly-TEXT_REPLACE_TOOLTIP'], /makgetlo ohle/);
+assert.match(sesotho['blockly-TEXT_INDEXOF_TOOLTIP'], /mongolo wa pele.*mongolong wa bobedi.*%1 haeba mongolo o sa fumanwe/);
+assert.match(sesotho['blockly-TEXT_TRIM_TOOLTIP'], /kopi.*ntlheng e le nngwe kapa dintlheng ka bobedi/);
+assert.match(sesotho['blockly-TEXT_CHARAT_FROM_END'], /ho tloha qetellong/);
+assert.doesNotMatch(sesotho['blockly-TEXT_CHARAT_FROM_START'], /qetellong/);
+for (const literal of ['Enter', 'Shift+Enter', 'Escape']) assert.ok(sesotho['blockly-WORKSPACE_SEARCH_INPUT_LABEL'].includes(literal), literal);
+assert.match(sesotho['blockly-WORKSPACE_SEARCH_INPUT_LABEL'], /Enter bakeng sa e latelang.*Shift[+]Enter bakeng sa e fetileng/);
+assert.ok(sesotho['blockly-WORKSPACE_CONTENTS_COMMENTS_MANY'].startsWith(' '));
+assert.deepEqual(tokens(sesotho['blockly-WORKSPACE_CONTENTS_BLOCKS_ONE']), ['%2']);
+assert.deepEqual(tokens(sesotho['blockly-WORKSPACE_CONTENTS_BLOCKS_ZERO']), ['%2']);
+assert.equal(sesotho['blockly-CONTROLS_IF_ELSEIF_TITLE_ELSEIF'], sesotho['blockly-CONTROLS_IF_MSG_ELSEIF']);
+assert.equal(sesotho['blockly-CONTROLS_IF_ELSE_TITLE_ELSE'], sesotho['blockly-CONTROLS_IF_MSG_ELSE']);
+assert.equal(sesotho['blockly-PROCEDURES_DEFRETURN_COMMENT'], sesotho['blockly-PROCEDURES_DEFNORETURN_COMMENT']);
+assert.equal(sesotho['blockly-PROCEDURES_DEFRETURN_PROCEDURE'], sesotho['blockly-PROCEDURES_DEFNORETURN_PROCEDURE']);
+assert.match(sesotho['r-blocks-invalid'], /e le nngwe feela.*ketso e le nngwe.*sa hokahanang kapa tse eketsehileng pele o boloka/);
+assert.match(sesotho['r-blocks-conflict'], /fetohile.*molao o bolokilweng hape pele o boloka/);
+assert.match(sesotho['r-blocks-permission'], /Tumello ya molaodi wa boto/);
+
+const fullSesothoInventory = spawnSync(process.execPath, [
+  path.join(root, 'releases/translations/fill-translations.mjs'), '--list', 'st',
+], { cwd: root, encoding: 'utf8' });
+assert.equal(fullSesothoInventory.status, 0, fullSesothoInventory.stderr);
+assert.deepEqual(Object.keys(JSON.parse(fullSesothoInventory.stdout)).filter(key => key.startsWith('blockly-')), [],
+  'Southern Sotho Blockly has no remaining non-exempt English placeholders');
