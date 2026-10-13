@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin sidebar, default boards and tracking — 2026-10-14
+
+Commit `42ab802edd` repairs 30 prefixed messages for sidebar controls,
+starred/default boards, time labels, tracking, assignments and shortcuts. Tests
+preserve the card-count threshold, automatic opening and its removal, shortcut
+range and member order, multi-selection add/remove distinctions, notification
+participation scope and unassignment versus membership removal.
+
+The Latin and guarded-correction suites pass with 27,859 ledger entries. All 21
+human-preference checks pass. Existing shortcut-page coverage now checks both
+multi-selection label actions; syntax and discovery pass, runtime remains pending.
+Exact comparison preserves 38,430 existing Chinese values.
+
+There remain 1,525 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin member removal and shortcuts — 2026-10-14
 
 Commit `7f256bce30` repairs 30 prefixed messages for member removal, unsaved

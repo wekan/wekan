@@ -3093,6 +3093,20 @@ containing the old language prefix; all-language review remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/42ab802edd">Repair Latin sidebar and tracking controls</a>. Thanks to xet7.</summary>
+
+Repair 30 prefixed strings for sidebar controls, starred/default boards, time
+labels, tracking and shortcuts. Preserve stopping automatic board opening,
+shortcut ranges and the difference between adding labels and removing them.
+
+The Latin and guarded-correction suites and all 21 preservation checks pass.
+Extended shortcut-page coverage passes syntax and discovery; runtime remains
+pending. Existing Chinese values are unchanged. There remain 1,525 Latin values
+containing the old language prefix; all-language review remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
