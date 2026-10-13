@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin backup scope and credentials — 2026-10-14
+
+Commit `6bfdbc9179` repairs 35 backup and cloud credential entries. Regression
+checks retain organization-owned restoration boundaries, exclusion of shared
+accounts/settings, missing-only versus replacement modes, schedule formats and
+optional credential sources. Blank secrets retain their existing value.
+
+Three translation suites pass with 29,030 correction ledger entries. All 21
+human-preference checks pass, and exact comparison preserves 38,430 existing
+Chinese values. Backup browser coverage checks schedule choices and time input;
+syntax and discovery pass, runtime remains pending.
+
+There remain 357 Latin values containing “Latine:”. Unprefixed values and other
+languages still require semantic review; all-language verification is unfinished.
+
 ## Latin security settings — 2026-10-14
 
 Commit `386fbba5ec` repairs 26 security labels and explanations. Regression
