@@ -2564,6 +2564,20 @@ translation and semantic review remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/77f401cdee">Correct Southern Sotho WIP group and field-summary labels</a>. Thanks to xet7.</summary>
+
+Nine guarded repairs distinguish WIP groups from enabling a limit, preserve the
+swimlane target, and identify API connection points, problem severity and
+custom-field sums and date ranges. Historical review reaches source key 2999;
+all-language translation and semantic review remain unfinished.
+
+Both translation suites and all 21 preservation checks pass. Existing Chinese
+values remain unchanged. The WIP dialog browser case passes syntax and discovery
+checks; browser runtime execution remains pending.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
