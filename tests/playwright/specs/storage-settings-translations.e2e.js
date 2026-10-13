@@ -4,7 +4,7 @@
 const { test, expect } = require('../fixtures');
 const { loginWithToken, navigateInApp } = require('../helpers/auth');
 
-for (const language of ['en', 'mr', 'bn', 'is', 'tl', 'sq']) {
+for (const language of ['en', 'mr', 'bn', 'is', 'tl', 'sq', 'ne', 'kn', 'ml', 'jv', 'kk', 'ky', 'tg', 'so']) {
   test(`S3 settings show translated labels and descriptions in ${language}`, async ({ page, adminUser }) => {
     const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
     await loginWithToken(page, adminUser.id, adminUser.token);

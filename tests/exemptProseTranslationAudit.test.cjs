@@ -43,7 +43,7 @@ test('Marathi has no remaining candidates in this supplemental queue', async () 
   assert.equal(`1 ${locale['r-of']} 10`, '1 / 10', 'count remains numerator then denominator');
 });
 
-test('four settings batches render native prose while retaining technical literals', async () => {
+test('reviewed settings batches render native prose while retaining technical literals', async () => {
   const { exemptProseCandidates } = await import('../releases/translations/audit-exempt-prose.mjs');
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   const source = require('../imports/i18n/data/en.i18n.json');
@@ -51,6 +51,14 @@ test('four settings batches render native prose while retaining technical litera
   await i18n.init({ lng: 'en', fallbackLng: 'en', initImmediate: false,
     interpolation: { prefix: '__', suffix: '__' }, resources: { en: { translation: source } } });
   const states = {
+    ne: { enabled: /^S3 सक्रिय छ$/, disabled: /निष्क्रिय छ$/, required: /आवश्यक छ$/, failed: /जडान असफल भयो$/, success: /जडान सफल भयो$/ },
+    kn: { enabled: /^S3 ಸಕ್ರಿಯವಾಗಿದೆ$/, disabled: /ನಿಷ್ಕ್ರಿಯವಾಗಿದೆ$/, required: /ಅಗತ್ಯವಿದೆ$/, failed: /ಸಂಪರ್ಕ ವಿಫಲವಾಗಿದೆ$/, success: /ಸಂಪರ್ಕ ಯಶಸ್ವಿಯಾಗಿದೆ$/ },
+    ml: { enabled: /^S3 പ്രവർത്തനക്ഷമമാണ്$/, disabled: /പ്രവർത്തനരഹിതമാണ്$/, required: /ആവശ്യമാണ്$/, failed: /പരാജയപ്പെട്ടു$/, success: /വിജയിച്ചു$/ },
+    jv: { enabled: /^S3 diaktifake$/, disabled: /dipateni$/, required: /dibutuhake$/, failed: /gagal$/, success: /kasil$/ },
+    kk: { enabled: /^S3 қосылған$/, disabled: /өшірілген$/, required: /қажет$/, failed: /сәтсіз аяқталды$/, success: /сәтті орнатылды$/ },
+    ky: { enabled: /^S3 иштетилген$/, disabled: /өчүрүлгөн$/, required: /талап кылынат$/, failed: /ишке ашкан жок$/, success: /ийгиликтүү түзүлдү$/ },
+    tg: { enabled: /^S3 фаъол аст$/, disabled: /ғайрифаъол аст$/, required: /зарур аст$/, failed: /ноком шуд$/, success: /муваффақ шуд$/ },
+    so: { enabled: /^S3 waa la hawlgeliyey$/, disabled: /waa la damiyey$/, required: /waa loo baahan yahay$/, failed: /wuu fashilmay$/, success: /wuu guulaystay$/ },
     bn: { enabled: /^S3 সক্রিয়$/, disabled: /নিষ্ক্রিয়$/, required: /প্রয়োজন$/, failed: /ব্যর্থ হয়েছে$/, success: /সফল হয়েছে$/ },
     is: { enabled: /^S3 virkt$/, disabled: /óvirk$/, required: /nauðsynlegur$/, failed: /við S3 mistókst$/, success: /við S3 tókst$/ },
     tl: { enabled: /^Pinagana ang S3$/, disabled: /^Hindi pinagana/, required: /^Kailangan/, failed: /^Nabigo/, success: /^Nagtagumpay/ },
