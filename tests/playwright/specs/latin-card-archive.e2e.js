@@ -41,3 +41,16 @@ test('Latin card export popup has the translated action title', async ({ boardPa
   await expect(title).toHaveText('Exporta chartam');
   await expect(title).not.toContainText('Latine:');
 });
+
+test('Latin list deletion warning distinguishes permanent loss from archiving', async ({ boardPage: page }) => {
+  await page.evaluate(async () => {
+    await Meteor.callAsync('setLanguage', 'la');
+    Popup.close();
+    Popup.open('listDelete')({ currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
+  });
+  const pop = page.locator('.js-pop-over');
+  await expect(pop).toContainText('indicem recuperare non poteris. Revocari non potest.');
+  await expect(pop).toContainText('Indicem in archivum transferre potes');
+  await expect(pop).toContainText('actiones serves.');
+  await expect(pop).not.toContainText('Latine:');
+});

@@ -194171,5 +194171,215 @@
     "before": "Latine: Leave Tabula",
     "after": "Relinque tabulam",
     "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
+  },
+  {
+    "locale": "la",
+    "key": "leave-board-pop",
+    "before": "Latine: certusne es tu want ad leave __boardTitle__? Tu erit esse remotum ex omnia schedae adest hoc tabula.",
+    "after": "Certusne es te tabulam __boardTitle__ relinquere velle? Ex omnibus chartis huius tabulae removeberis.",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "leaveBoardPopup-title",
+    "before": "Latine: Leave Tabula?",
+    "after": "Relinquere tabulam?",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "list-archive-cards",
+    "before": "Latine: Move omnia schedae in hoc index ad Archivum",
+    "after": "Transfer omnes chartas huius indicis in archivum",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "list-archive-cards-pop",
+    "before": "Latine: Hoc erit remove omnia the schedae in hoc index ex the tabula. Ad vide schedae in Archivum et bring them retro ad the tabula, click “Tabula optionum” > “Archivum”.",
+    "after": "Hoc omnes chartas huius indicis e tabula removebit. Ut chartas in archivo videas et in tabulam restituas, preme «Tabula optionum» > «Archivum».",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "list-move-cards",
+    "before": "Latine: Move omnia schedae in hoc index",
+    "after": "Move omnes chartas huius indicis",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "list-select-cards",
+    "before": "Latine: omnia elige schedae in hoc index",
+    "after": "Elige omnes chartas huius indicis",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "set-color-list",
+    "before": "Latine: Set Color",
+    "after": "Constitue colorem",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "settingsUserPopup-title",
+    "before": "Latine: Usor Configurationes",
+    "after": "Optiones usoris",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "settingsTeamPopup-title",
+    "before": "Latine: Manus Configurationes",
+    "after": "Optiones manus",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "settingsOrgPopup-title",
+    "before": "Latine: Organizatio Configurationes",
+    "after": "Optiones consociationis",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "orgAdminsPopup-title",
+    "before": "Latine: Organizatio Admins",
+    "after": "Administratores consociationis",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "swimlaneActionPopup-title",
+    "before": "Latine: semita natatoria Actiones",
+    "after": "Actiones semitae",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "swimlaneAddPopup-title",
+    "before": "Latine: Adde a semita natatoria below",
+    "after": "Adde semitam infra",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "listImportCardPopup-title",
+    "before": "Latine: Importa a Trello scheda",
+    "after": "Importa chartam Trello",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "listImportCardsTsvPopup-title",
+    "before": "Latine: Importa Excel CSV/TSV",
+    "after": "Importa Excel CSV/TSV",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "link-list",
+    "before": "Latine: Vinculum ad hoc index",
+    "after": "Ligamen ad hunc indicem",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "list-delete-pop",
+    "before": "Latine: Omnia actiones erit esse remotum ex the actio feed et tu won't esse able ad recover the index. There est non solve.",
+    "after": "Omnes actiones ex indice actionum removebuntur et indicem recuperare non poteris. Revocari non potest.",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "list-delete-suggest-archive",
+    "before": "Latine: Tu potest move a index ad Archivum ad remove it ex the tabula et preserve the actio.",
+    "after": "Indicem in archivum transferre potes ut eum e tabula removeas et actiones serves.",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "calendar",
+    "before": "Latine: Calendar",
+    "after": "Calendarium",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "gantt",
+    "before": "Latine: Gantt",
+    "after": "Gantt",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "log-in",
+    "before": "Latine: intra",
+    "after": "Ingredere",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "loginPopup-title",
+    "before": "Latine: intra",
+    "after": "Ingredere",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "menu",
+    "before": "Latine: Tabula optionum",
+    "after": "Tabula optionum",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "move-selection",
+    "before": "Latine: Move selection",
+    "after": "Move res electas",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "copy-selection",
+    "before": "Latine: Copia selection",
+    "after": "Copia res electas",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "moveListPopup-title",
+    "before": "Latine: Move Index",
+    "after": "Move indicem",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "moveCardToBottom-title",
+    "before": "Latine: move ad Bottom",
+    "after": "Move ad finem",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "moveCardToTop-title",
+    "before": "Latine: move ad Top",
+    "after": "Move ad initium",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "moveSelectionPopup-title",
+    "before": "Latine: Move selection",
+    "after": "Move res electas",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "copySelectionPopup-title",
+    "before": "Latine: Copia selection",
+    "after": "Copia res electas",
+    "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
   }
 ]

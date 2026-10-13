@@ -438,3 +438,20 @@ assert.match(latin['label-delete-pop'], /Revocari non potest.*omnibus chartis.*h
 assert.equal(latin['label-create'], latin['createLabelPopup-title']);
 assert.notEqual(latin.running, latin.paused);
 assert.notEqual(latin['invalid-date'], latin['invalid-time']);
+
+const reviewedListActionKeys = ["leave-board-pop", "leaveBoardPopup-title", "list-archive-cards", "list-archive-cards-pop", "list-move-cards", "list-select-cards", "set-color-list", "settingsUserPopup-title", "settingsTeamPopup-title", "settingsOrgPopup-title", "orgAdminsPopup-title", "swimlaneActionPopup-title", "swimlaneAddPopup-title", "listImportCardPopup-title", "listImportCardsTsvPopup-title", "link-list", "list-delete-pop", "list-delete-suggest-archive", "calendar", "gantt", "log-in", "loginPopup-title", "menu", "move-selection", "copy-selection", "moveListPopup-title", "moveCardToBottom-title", "moveCardToTop-title", "moveSelectionPopup-title", "copySelectionPopup-title"];
+for (const key of reviewedListActionKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Leave|Bottom|Top|selection|Admins|Configurationes)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['leave-board-pop'], /__boardTitle__.*omnibus chartis.*removeberis/);
+for (const key of ['list-archive-cards', 'list-move-cards', 'list-select-cards']) assert.match(latin[key], /omnes chartas huius indicis/);
+assert.match(latin['list-delete-pop'], /recuperare non poteris.*Revocari non potest/);
+assert.match(latin['list-delete-suggest-archive'], /actiones serves/);
+assert.match(latin['list-archive-cards-pop'], /in tabulam restituas/);
+assert.equal(latin['move-selection'], latin['moveSelectionPopup-title']);
+assert.equal(latin['copy-selection'], latin['copySelectionPopup-title']);
+assert.notEqual(latin['moveCardToTop-title'], latin['moveCardToBottom-title']);
+assert.equal(latin.calendar, latin['board-view-cal']);
+assert.equal(latin.gantt, 'Gantt');
+assert.equal(latin['log-in'], latin['loginPopup-title']);
