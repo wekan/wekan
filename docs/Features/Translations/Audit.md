@@ -2,6 +2,28 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Maltese Scrum transfers and subtasks — 2026-10-13
+
+Commit `c87fcb37ec` fills 20 English values for Scrum transfer previews,
+release selection, matching errors and subtask completion. Existing Maltese
+terminology for work cycles and versions is retained. Messages explicitly
+preserve unmatched cards, avoid duplicate planning, distinguish ambiguous
+matches and foreign boards, and refuse moving a card into a finished cycle.
+The release-selection guidance retains Ctrl, Cmd and Mac.
+
+Four Maltese suites and all 21 human-preference checks pass. Positive and
+negative checks verify matching semantics, unchanged records, permissions
+and done versus not-done actions. Only the 20 English placeholders changed;
+all existing non-English Maltese text and 38,079 protected Chinese values
+match the parent. Three browser cases register: Scrum transfer with repeat
+import and authorization checks, subtask completion toggling, and a
+comment-only member's refusal. They assert localized text but have not run
+against a rebuilt application.
+
+Maltese has 68 filtered English values remaining. The global inventory is
+53,708 across 116 catalogs. Further fills, semantic review and browser
+execution remain necessary for the complete all-language objective.
+
 ## Maltese import people and column mapping — 2026-10-13
 
 Commit `f0c5c03cb1` fills 16 English values for imported-person choices and
