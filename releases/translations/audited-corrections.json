@@ -195921,5 +195921,180 @@
     "before": "Latine: Sync Sodales Ex Auth Provider",
     "after": "Synchroniza membra ex provisore authenticationis",
     "reason": "Repair system metrics, custom-field scope and organization settings, preserving new/all-card and private-only distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "org-tenant",
+    "before": "Latine: Multitenancy: hoc Organizatio as a tenant",
+    "after": "Plures consociationes in una instantia: haec consociatio ut pars separata",
+    "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
+  },
+  {
+    "locale": "la",
+    "key": "org-domains",
+    "before": "Latine: Domains de hoc Organizatio",
+    "after": "Dominia huius consociationis",
+    "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
+  },
+  {
+    "locale": "la",
+    "key": "org-domains-description",
+    "before": "Latine: Hostnames hoc Organizatio est served adest, separated a commas — for example a.example.com, kanban.example.org. A request ad one de them est hoc Organization's request, et the branding below replaces the instance branding for it. Tantum in effect quando the ministrator est started cum MULTITENANCY=true. Leave vacuum quando hoc Organizatio est non a tenant.",
+    "after": "Nomina hospitum quibus haec consociatio praebetur, commatibus separata — exempli gratia a.example.com, kanban.example.org. Petitio ad unum ex his nominibus est petitio huius consociationis, cui insignia infra posita insignia instantiae substituunt. Hoc valet tantum si servitor cum MULTITENANCY=true inchoatur. Relinque vacuum si haec consociatio non est pars separata instantiae.",
+    "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
+  },
+  {
+    "locale": "la",
+    "key": "error-org-domain-taken",
+    "before": "Latine: Illud domain already belongs ad another Organizatio:",
+    "after": "Illud dominium iam ad aliam consociationem pertinet:",
+    "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
+  },
+  {
+    "locale": "la",
+    "key": "org-admins",
+    "before": "Latine: Organizatio admins",
+    "after": "Administratores consociationis",
+    "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
+  },
+  {
+    "locale": "la",
+    "key": "org-admins-description",
+    "before": "Latine: Sodales de hoc Organizatio quis potest administer it: its people et its exemplaria subsidiaria, et nothing else. They potest numquam grant the site-wide Administrator flag, et numquam manage a site administrator.",
+    "after": "Membra huius consociationis quae eam administrare possunt: eius homines et exemplaria subsidiaria, nihil aliud. Numquam possunt ius administratoris totius situs concedere, neque administratorem situs administrare.",
+    "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
+  },
+  {
+    "locale": "la",
+    "key": "org-admin",
+    "before": "Latine: Organizatio administrator",
+    "after": "Administrator consociationis",
+    "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
+  },
+  {
+    "locale": "la",
+    "key": "team-shared-templates",
+    "before": "Latine: Shared Templates",
+    "after": "Exemplaria communia",
+    "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
+  },
+  {
+    "locale": "la",
+    "key": "team-propagate-members-to-boards",
+    "before": "Latine: Propagate Sodales Ad Tabulae",
+    "after": "Propaga membra ad tabulas",
+    "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
+  },
+  {
+    "locale": "la",
+    "key": "team-sync-members-from-auth",
+    "before": "Latine: Sync Sodales Ex Auth Provider",
+    "after": "Synchroniza membra ex provisore authenticationis",
+    "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
+  },
+  {
+    "locale": "la",
+    "key": "active-person",
+    "before": "Latine: Activum Person",
+    "after": "Persona activa",
+    "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
+  },
+  {
+    "locale": "la",
+    "key": "card-received",
+    "before": "Latine: Received",
+    "after": "Receptum",
+    "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
+  },
+  {
+    "locale": "la",
+    "key": "card-received-on",
+    "before": "Latine: Received adest",
+    "after": "Receptum die",
+    "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
+  },
+  {
+    "locale": "la",
+    "key": "card-end",
+    "before": "Latine: End",
+    "after": "Finis",
+    "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
+  },
+  {
+    "locale": "la",
+    "key": "card-end-on",
+    "before": "Latine: Ends adest",
+    "after": "Finitur die",
+    "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
+  },
+  {
+    "locale": "la",
+    "key": "editCardReceivedDatePopup-title",
+    "before": "Latine: Muta received dies",
+    "after": "Muta diem receptionis",
+    "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
+  },
+  {
+    "locale": "la",
+    "key": "editCardEndDatePopup-title",
+    "before": "Latine: Muta dies finis",
+    "after": "Muta diem finis",
+    "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
+  },
+  {
+    "locale": "la",
+    "key": "setCardColorPopup-title",
+    "before": "Latine: Set color",
+    "after": "Constitue colorem",
+    "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
+  },
+  {
+    "locale": "la",
+    "key": "setSelectionColorPopup-title",
+    "before": "Latine: Set selection color",
+    "after": "Constitue colorem rerum electarum",
+    "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
+  },
+  {
+    "locale": "la",
+    "key": "setCardActionsColorPopup-title",
+    "before": "Latine: Elige a color",
+    "after": "Elige colorem",
+    "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
+  },
+  {
+    "locale": "la",
+    "key": "setSwimlaneColorPopup-title",
+    "before": "Latine: Elige a color",
+    "after": "Elige colorem",
+    "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
+  },
+  {
+    "locale": "la",
+    "key": "setListColorPopup-title",
+    "before": "Latine: Elige a color",
+    "after": "Elige colorem",
+    "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
+  },
+  {
+    "locale": "la",
+    "key": "assigned-by",
+    "before": "Latine: Assigned A",
+    "after": "Assignatum a",
+    "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
+  },
+  {
+    "locale": "la",
+    "key": "requested-by",
+    "before": "Latine: Requested A",
+    "after": "Petitio ab",
+    "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
+  },
+  {
+    "locale": "la",
+    "key": "card-sorting-by-number",
+    "before": "Latine: Scheda sorting a numerus",
+    "after": "Ordinatio chartarum secundum numerum",
+    "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
   }
 ]

@@ -568,3 +568,20 @@ assert.match(latin['tableVisibilityMode-allowPrivateOnly'], /tantum tabulas priv
 assert.notEqual(latin.createdAt, latin.modifiedAt);
 assert.match(latin['org-propagate-members-to-boards'], /ad tabulas/);
 assert.match(latin['org-sync-members-from-auth'], /ex provisore authenticationis/);
+
+const reviewedTenantLabelKeys = ["org-tenant", "org-domains", "org-domains-description", "error-org-domain-taken", "org-admins", "org-admins-description", "org-admin", "team-shared-templates", "team-propagate-members-to-boards", "team-sync-members-from-auth", "active-person", "card-received", "card-received-on", "card-end", "card-end-on", "editCardReceivedDatePopup-title", "editCardEndDatePopup-title", "setCardColorPopup-title", "setSelectionColorPopup-title", "setCardActionsColorPopup-title", "setSwimlaneColorPopup-title", "setListColorPopup-title", "assigned-by", "requested-by", "card-sorting-by-number"];
+for (const key of reviewedTenantLabelKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:tenant|Domains|Hostnames|admins|Shared|Provider|Received|sorting)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['org-domains-description'], /commatibus separata/);
+assert.match(latin['org-domains-description'], /tantum si servitor cum MULTITENANCY=true/);
+assert.match(latin['org-domains-description'], /Relinque vacuum si/);
+assert.match(latin['org-admins-description'], /homines et exemplaria subsidiaria, nihil aliud/);
+assert.match(latin['org-admins-description'], /Numquam.*totius situs concedere, neque administratorem situs administrare/);
+for (const suffix of ['shared-templates', 'propagate-members-to-boards', 'sync-members-from-auth']) {
+  assert.equal(latin[`team-${suffix}`], latin[`org-${suffix}`]);
+}
+assert.notEqual(latin['card-received-on'], latin['card-end-on']);
+assert.notEqual(latin['assigned-by'], latin['requested-by']);
+assert.match(latin['setSelectionColorPopup-title'], /rerum electarum/);
