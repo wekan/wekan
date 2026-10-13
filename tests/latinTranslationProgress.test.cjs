@@ -331,3 +331,17 @@ assert.match(latin['worker-desc'], /Tantum chartas movere, se ipsum chartae assi
 assert.match(latin['confirm-move-list-to-swimlane'], /omnes eius chartas in aliam semitam/);
 assert.match(latin['copyManyCardsPopup-instructions'], /Tituli et descriptiones.*JSON$/);
 assert.notEqual(latin['checklistDeletePopup-title'], latin['checklistItemDeletePopup-title']);
+
+const reviewedFieldKeys = ["createTemplateContainerPopup-title", "chooseBoardSourcePopup-title", "createLabelPopup-title", "createCustomField", "createCustomFieldPopup-title", "current", "custom-color", "custom-field-delete-pop", "custom-field-checkbox", "custom-field-currency", "custom-field-currency-option", "custom-field-dropdown", "custom-field-dropdown-none", "custom-field-dropdown-options", "custom-field-dropdown-options-placeholder", "custom-field-dropdown-unknown", "custom-field-number", "custom-field-text", "date-format", "date-format-yyyy-mm-dd", "date-format-dd-mm-yyyy", "date-format-mm-dd-yyyy", "decline", "default-avatar", "enable-permanent-delete", "enable-permanent-delete-description", "deleteCustomFieldPopup-title", "deleteLabelPopup-title", "disambiguateMultiLabelPopup-title", "disambiguateMultiMemberPopup-title", "discard", "download", "edit-profile", "edit-wip-limit", "soft-wip-limit", "editCardStartDatePopup-title", "editCardDueDatePopup-title", "editCustomFieldPopup-title", "addReactionPopup-title", "editCardSpentTimePopup-title", "editLabelPopup-title", "editNotificationPopup-title", "editProfilePopup-title", "email-enrollAccount-subject", "email-enrollAccount-text", "email-fail", "email-fail-text", "email-invalid", "email-invite", "email-invite-subject"];
+for (const key of reviewedFieldKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Checkbox|Currency|Disambiguate|Sending|Hello|Thanks|trying|Invalidum)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+for (const key of ['yyyy-mm-dd', 'dd-mm-yyyy', 'mm-dd-yyyy']) assert.equal(latin[`date-format-${key}`], english[`date-format-${key}`]);
+assert.match(latin['custom-field-delete-pop'], /Revocari non potest.*omnibus chartis.*historia eius delebitur/);
+assert.match(latin['enable-permanent-delete-description'], /administratoribus globalibus.*nondum penitus deletae.*per se nihil delet/);
+assert.match(latin['email-invite-subject'], /^__inviter__ invitationem tibi misit$/);
+assert.ok(latin['email-enrollAccount-text'].includes('\n\n__url__\n\n'));
+assert.equal(latin['createCustomField'], latin['createCustomFieldPopup-title']);
+assert.equal(latin['edit-profile'], latin['editProfilePopup-title']);
+assert.notEqual(latin['custom-field-dropdown-none'], latin['custom-field-dropdown-unknown']);

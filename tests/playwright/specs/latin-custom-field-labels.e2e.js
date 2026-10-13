@@ -1,0 +1,17 @@
+'use strict';
+const { test, expect } = require('../fixtures');
+
+test('Latin custom field form translates types and dropdown instructions', async ({ boardPage: page }) => {
+  await page.evaluate(async () => {
+    await Meteor.callAsync('setLanguage', 'la');
+    Popup.close();
+    Popup.open('createCustomField')({ currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
+  });
+  const pop = page.locator('.js-pop-over');
+  await expect(pop.locator('option[value="text"]')).toHaveText('Textus');
+  await expect(pop.locator('option[value="number"]')).toHaveText('Numerus');
+  await expect(pop.locator('option[value="currency"]')).toHaveText('Moneta');
+  await pop.locator('select.js-field-type').selectOption('dropdown');
+  await expect(pop.locator('.js-dropdown-item.last')).toHaveAttribute('placeholder', 'Preme Enter ut plures optiones addas');
+  await expect(pop.locator('.js-dropdown-item.last')).toHaveValue('');
+});

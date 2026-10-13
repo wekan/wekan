@@ -192561,5 +192561,355 @@
     "before": "Latine: Destinatio Scheda Titles et Descriptions in hoc JSON format",
     "after": "Tituli et descriptiones chartarum destinatarum hac forma JSON",
     "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "createTemplateContainerPopup-title",
+    "before": "Latine: Adde Template Container",
+    "after": "Adde receptaculum exemplarium",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "chooseBoardSourcePopup-title",
+    "before": "Latine: Importa tabula",
+    "after": "Importa tabulam",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "createLabelPopup-title",
+    "before": "Latine: Crea Titulus",
+    "after": "Crea titulum",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "createCustomField",
+    "before": "Latine: Crea Campus",
+    "after": "Crea campum",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "createCustomFieldPopup-title",
+    "before": "Latine: Crea Campus",
+    "after": "Crea campum",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "current",
+    "before": "Latine: praesens",
+    "after": "praesens",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "custom-color",
+    "before": "Latine: Custom color",
+    "after": "Color proprius",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "custom-field-delete-pop",
+    "before": "Latine: There est non solve. Hoc erit remove hoc campus proprius ex omnia schedae et destroy its historia.",
+    "after": "Revocari non potest. Hic campus proprius ex omnibus chartis removebitur et historia eius delebitur.",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "custom-field-checkbox",
+    "before": "Latine: Checkbox",
+    "after": "Quadratum electionis",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "custom-field-currency",
+    "before": "Latine: Currency",
+    "after": "Moneta",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "custom-field-currency-option",
+    "before": "Latine: Currency Code",
+    "after": "Codex monetae",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "custom-field-dropdown",
+    "before": "Latine: Dropdown Index",
+    "after": "Index explicabilis",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "custom-field-dropdown-none",
+    "before": "Latine: (nihil)",
+    "after": "(nihil)",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "custom-field-dropdown-options",
+    "before": "Latine: Index Optiones",
+    "after": "Optiones indicis",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "custom-field-dropdown-options-placeholder",
+    "before": "Latine: Press enter ad adde plus optiones",
+    "after": "Preme Enter ut plures optiones addas",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "custom-field-dropdown-unknown",
+    "before": "Latine: (ignotum)",
+    "after": "(ignotum)",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "custom-field-number",
+    "before": "Latine: Numerus",
+    "after": "Numerus",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "custom-field-text",
+    "before": "Latine: Textus",
+    "after": "Textus",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "date-format",
+    "before": "Latine: Dies Format",
+    "after": "Forma diei",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "date-format-yyyy-mm-dd",
+    "before": "Latine: YYYY-MM-DD",
+    "after": "YYYY-MM-DD",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "date-format-dd-mm-yyyy",
+    "before": "Latine: DD-MM-YYYY",
+    "after": "DD-MM-YYYY",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "date-format-mm-dd-yyyy",
+    "before": "Latine: MM-DD-YYYY",
+    "after": "MM-DD-YYYY",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "decline",
+    "before": "Latine: Decline",
+    "after": "Recusa",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "default-avatar",
+    "before": "Latine: Praedefinitum imago",
+    "after": "Imago usoris praedefinita",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "enable-permanent-delete",
+    "before": "Latine: Habilita permanent dele for Global Administrator",
+    "after": "Permitte administratori globali in perpetuum delere",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "enable-permanent-delete-description",
+    "before": "Latine: Permitte Global Admins ad permanently dele soft-deleted content. Enabling hoc setting does non dele anything a itself.",
+    "after": "Permitte administratoribus globalibus res quae iam remotae sed nondum penitus deletae sunt in perpetuum delere. Hanc optionem activare per se nihil delet.",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "deleteCustomFieldPopup-title",
+    "before": "Latine: Dele campus proprius?",
+    "after": "Delere campum proprium?",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "deleteLabelPopup-title",
+    "before": "Latine: Dele Titulus?",
+    "after": "Delere titulum?",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "disambiguateMultiLabelPopup-title",
+    "before": "Latine: Disambiguate Titulus Actio",
+    "after": "Defini actionem tituli",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "disambiguateMultiMemberPopup-title",
+    "before": "Latine: Disambiguate Sodalis Actio",
+    "after": "Defini actionem membri",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "discard",
+    "before": "Latine: Discard",
+    "after": "Abice",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "download",
+    "before": "Latine: Deposce",
+    "after": "Depone",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "edit-profile",
+    "before": "Latine: Muta Forma usoris",
+    "after": "Muta indicia usoris",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "edit-wip-limit",
+    "before": "Latine: Muta WIP Limit",
+    "after": "Muta limitem WIP",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "soft-wip-limit",
+    "before": "Latine: Soft WIP Limit",
+    "after": "Limes WIP flexibilis",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "editCardStartDatePopup-title",
+    "before": "Latine: Muta dies initii",
+    "after": "Muta diem initii",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "editCardDueDatePopup-title",
+    "before": "Latine: Muta dies debitus",
+    "after": "Muta diem debitum",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "editCustomFieldPopup-title",
+    "before": "Latine: Muta Campus",
+    "after": "Muta campum",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "addReactionPopup-title",
+    "before": "Latine: Adde reaction",
+    "after": "Adde responsionem emotivam",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "editCardSpentTimePopup-title",
+    "before": "Latine: Muta spent tempus",
+    "after": "Muta tempus impensum",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "editLabelPopup-title",
+    "before": "Latine: Muta Titulus",
+    "after": "Muta titulum",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "editNotificationPopup-title",
+    "before": "Latine: Muta Notificatio",
+    "after": "Muta notificationem",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "editProfilePopup-title",
+    "before": "Latine: Muta Forma usoris",
+    "after": "Muta indicia usoris",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "email-enrollAccount-subject",
+    "before": "Latine: An ratio creatum for tu adest __siteName__",
+    "after": "Ratio usoris tibi creata est in __siteName__",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "email-enrollAccount-text",
+    "before": "Latine: Hello __user__, Ad incipe using the service, simply click the vinculum below. __url__ Thanks.",
+    "after": "Salve __user__,\n\nUt hoc ministerio uti incipias, preme ligamen infra.\n\n__url__\n\nGratias.",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "email-fail",
+    "before": "Latine: Sending epistula electronica defecit",
+    "after": "Missio epistulae electronicae defecit",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "email-fail-text",
+    "before": "Latine: Error trying ad mitte epistula electronica",
+    "after": "Error dum epistula electronica mittitur",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "email-invalid",
+    "before": "Latine: Invalidum epistula electronica",
+    "after": "Inscriptio electronica invalida",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "email-invite",
+    "before": "Latine: Invita via Epistula electronica",
+    "after": "Invita per epistulam electronicam",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "email-invite-subject",
+    "before": "Latine: __inviter__ missum tu an invitation",
+    "after": "__inviter__ invitationem tibi misit",
+    "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
   }
 ]
