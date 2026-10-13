@@ -67,3 +67,16 @@ test('Latin WIP warning explains both recovery choices', async ({ boardPage: pag
   await expect(pop).toContainText('quaedam munera ex hoc indice move, aut maiorem limitem WIP constitue.');
   await expect(pop).not.toContainText('Latine:');
 });
+
+
+test('Latin duplicate-list deletion warning limits deletion to empty matching lists', async ({ boardPage: page }) => {
+  await page.evaluate(async () => {
+    await Meteor.callAsync('setLanguage', 'la');
+    Popup.close();
+    Popup.open('deleteDuplicateLists')({ currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
+  });
+  const pop = page.locator('.js-pop-over');
+  await expect(pop.locator('p')).toHaveText('Certusne es? Omnes indices duplicati qui idem nomen habent et nullas chartas continent delebuntur.');
+  await expect(pop).not.toContainText('Latine:');
+  await expect(pop.locator('button.js-confirm')).toBeVisible();
+});

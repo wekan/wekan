@@ -196096,5 +196096,285 @@
     "before": "Latine: Scheda sorting a numerus",
     "after": "Ordinatio chartarum secundum numerum",
     "reason": "Replace mixed English and Latin tenant, membership, date and color labels with reviewed Latin; retain administrator boundaries and server configuration."
+  },
+  {
+    "locale": "la",
+    "key": "board-delete-notice",
+    "before": "Latine: Deleting est permanent. Tu erit lose omnia indices, schedae et actiones associated cum hoc tabula.",
+    "after": "Deletio perpetua est. Omnes indices, chartas et actiones huic tabulae coniunctas amittes.",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "delete-board-confirm-popup",
+    "before": "Latine: Omnia indices, schedae, tituli, et actiones erit esse deletum et tu won't esse able ad recover the tabula contents. There est non solve.",
+    "after": "Omnes indices, chartae, tituli et actiones delebuntur, neque contenta tabulae recuperare poteris. Deletio revocari non potest.",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "boardDeletePopup-title",
+    "before": "Latine: Dele Tabula?",
+    "after": "Delere tabulam?",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "delete-board",
+    "before": "Latine: Dele Tabula",
+    "after": "Dele tabulam",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "delete-all-notifications",
+    "before": "Latine: Dele Omnia Notificationes",
+    "after": "Dele omnes notificationes",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "delete-all-notifications-confirm",
+    "before": "Latine: certusne es tu want ad dele omnia notificationes? Hoc actio non potest esse undone.",
+    "after": "Certusne es te omnes notificationes delere velle? Haec actio revocari non potest.",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "delete-duplicate-lists",
+    "before": "Latine: Dele Duplicate Indices",
+    "after": "Dele indices duplicatos",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "delete-duplicate-lists-confirm",
+    "before": "Latine: certusne es? Hoc erit dele omnia duplicate indices illud have the idem nomen et contain non schedae.",
+    "after": "Certusne es? Omnes indices duplicati qui idem nomen habent et nullas chartas continent delebuntur.",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "default-subtasks-board",
+    "before": "Latine: Submunera for __board__ tabula",
+    "after": "Submunera tabulae __board__",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "default",
+    "before": "Latine: Praedefinitum",
+    "after": "Praedefinitum",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "defaultdefault",
+    "before": "Latine: Praedefinitum",
+    "after": "Praedefinitum",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "queue",
+    "before": "Latine: Queue",
+    "after": "Ordo exspectantium",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "subtask-settings",
+    "before": "Latine: Submunera Configurationes",
+    "after": "Configurationes submunerum",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "card-settings",
+    "before": "Latine: Scheda Configurationes",
+    "after": "Configurationes chartarum",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "boardSubtaskSettingsPopup-title",
+    "before": "Latine: Submunera Configurationes",
+    "after": "Configurationes submunerum",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "boardCardSettingsPopup-title",
+    "before": "Latine: Scheda Configurationes",
+    "after": "Configurationes chartarum",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "deposit-subtasks-board",
+    "before": "Latine: Deposit submunera ad hoc tabula:",
+    "after": "Depone submunera in hac tabula:",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "deposit-subtasks-list",
+    "before": "Latine: Landing index for submunera deposited here:",
+    "after": "Index in quem submunera hic deposita recipiuntur:",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "show-parent-in-minicard",
+    "before": "Latine: Monstra parent in minicard:",
+    "after": "Monstra chartam superiorem in chartula:",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "description-on-minicard",
+    "before": "Latine: Descriptio adest minicard",
+    "after": "Descriptio in chartula",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "cover-attachment-on-minicard",
+    "before": "Latine: Cover imago adest minicard",
+    "after": "Imago tegumenti in chartula",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "badge-attachment-on-minicard",
+    "before": "Latine: Count de adnexa adest minicard",
+    "after": "Numerus adiunctorum in chartula",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "card-sorting-by-number-on-minicard",
+    "before": "Latine: Scheda sorting a numerus adest minicard",
+    "after": "Ordinatio chartarum secundum numerum in chartula",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "checklist-count-on-minicard",
+    "before": "Latine: res indicis count (0/0) adest minicard",
+    "after": "Numerus rerum indicis probationis (0/0) in chartula",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "checklist-count",
+    "before": "Latine: res indicis count (0/0)",
+    "after": "Numerus rerum indicis probationis (0/0)",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-count",
+    "before": "Latine: Count de adnexa",
+    "after": "Numerus adiunctorum",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "cover-image",
+    "before": "Latine: Cover imago",
+    "after": "Imago tegumenti",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "prefix-with-full-path",
+    "before": "Latine: Prefix cum full path",
+    "after": "Praepone totam seriem chartarum superiorum",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "prefix-with-parent",
+    "before": "Latine: Prefix cum parent",
+    "after": "Praepone chartam superiorem",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "subtext-with-full-path",
+    "before": "Latine: Subtext cum full path",
+    "after": "Subpone totam seriem chartarum superiorum",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "subtext-with-parent",
+    "before": "Latine: Subtext cum parent",
+    "after": "Subpone chartam superiorem",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "change-card-parent",
+    "before": "Latine: Muta card's parent",
+    "after": "Muta chartam superiorem huius chartae",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "parent-card",
+    "before": "Latine: Parent scheda",
+    "after": "Charta superior",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "source-board",
+    "before": "Latine: Fons tabula",
+    "after": "Tabula originis",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "no-parent",
+    "before": "Latine: Don't monstra parent",
+    "after": "Noli monstrare chartam superiorem",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "activity-added-label",
+    "before": "Latine: additum titulus '%s' ad %s",
+    "after": "addidit titulum '%s' chartae %s",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "activity-removed-label",
+    "before": "Latine: remotum titulus '%s' ex %s",
+    "after": "removit titulum '%s' ex charta %s",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "activity-delete-attach",
+    "before": "Latine: deletum an adnexum ex %s",
+    "after": "delevit adiunctum ex charta %s",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "activity-added-label-card",
+    "before": "Latine: additum titulus '%s'",
+    "after": "addidit titulum '%s'",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "activity-removed-label-card",
+    "before": "Latine: remotum titulus '%s'",
+    "after": "removit titulum '%s'",
+    "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
   }
 ]

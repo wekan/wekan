@@ -585,3 +585,27 @@ for (const suffix of ['shared-templates', 'propagate-members-to-boards', 'sync-m
 assert.notEqual(latin['card-received-on'], latin['card-end-on']);
 assert.notEqual(latin['assigned-by'], latin['requested-by']);
 assert.match(latin['setSelectionColorPopup-title'], /rerum electarum/);
+
+const reviewedDeletionSubtaskKeys = ["board-delete-notice", "delete-board-confirm-popup", "boardDeletePopup-title", "delete-board", "delete-all-notifications", "delete-all-notifications-confirm", "delete-duplicate-lists", "delete-duplicate-lists-confirm", "default-subtasks-board", "default", "defaultdefault", "queue", "subtask-settings", "card-settings", "boardSubtaskSettingsPopup-title", "boardCardSettingsPopup-title", "deposit-subtasks-board", "deposit-subtasks-list", "show-parent-in-minicard", "description-on-minicard", "cover-attachment-on-minicard", "badge-attachment-on-minicard", "card-sorting-by-number-on-minicard", "checklist-count-on-minicard", "checklist-count", "attachment-count", "cover-image", "prefix-with-full-path", "prefix-with-parent", "subtext-with-full-path", "subtext-with-parent", "change-card-parent", "parent-card", "source-board", "no-parent", "activity-added-label", "activity-removed-label", "activity-delete-attach", "activity-added-label-card", "activity-removed-label-card"];
+for (const key of reviewedDeletionSubtaskKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Deleting|permanent|undo|Duplicate|Settings|Landing|Count|parent|Prefix|Subtext)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['board-delete-notice'], /Deletio perpetua est/);
+assert.match(latin['delete-board-confirm-popup'], /neque contenta tabulae recuperare poteris/);
+assert.match(latin['delete-all-notifications-confirm'], /revocari non potest/);
+assert.match(latin['delete-duplicate-lists-confirm'], /idem nomen habent et nullas chartas continent/);
+assert.equal(latin.default, latin.defaultdefault);
+assert.equal(latin['subtask-settings'], latin['boardSubtaskSettingsPopup-title']);
+assert.equal(latin['card-settings'], latin['boardCardSettingsPopup-title']);
+assert.notEqual(latin['deposit-subtasks-board'], latin['deposit-subtasks-list']);
+for (const kind of ['prefix', 'subtext']) {
+  assert.match(latin[`${kind}-with-full-path`], /totam seriem chartarum superiorum/);
+  assert.doesNotMatch(latin[`${kind}-with-parent`], /totam seriem/);
+}
+assert.match(latin['prefix-with-parent'], /^Praepone/);
+assert.match(latin['subtext-with-parent'], /^Subpone/);
+assert.match(latin['no-parent'], /^Noli monstrare/);
+assert.equal(latin['checklist-count-on-minicard'], latin['checklist-count'] + ' in chartula');
+assert.match(latin['activity-added-label'], /^addidit/);
+assert.match(latin['activity-removed-label'], /^removit/);
