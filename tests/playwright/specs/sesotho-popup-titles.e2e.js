@@ -62,3 +62,16 @@ test('Southern Sotho card settings identify data fields', async ({ boardPage: pa
   await expect(heading).not.toContainText('masimo');
   await page.evaluate(() => Popup.close());
 });
+
+
+test('Southern Sotho workflow format automatically detects rather than learns', async ({ boardPage: page }) => {
+  await page.evaluate(async () => {
+    await Meteor.callAsync('setLanguage', 'st');
+    Popup.open('rulesImportExport')({ currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
+  });
+  const option = page.locator('.js-pop-over .js-workflow-format option[value="auto"]');
+  await expect(option).toHaveText('Lemoha ka boiketsetso');
+  await expect(option).not.toContainText('Ithute');
+  await expect(page.locator('.js-pop-over .js-rules-import-text')).toBeEmpty();
+  await page.evaluate(() => Popup.close());
+});

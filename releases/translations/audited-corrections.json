@@ -188480,5 +188480,96 @@
     "before": "Sisa ka tlase",
     "after": "Fallisetsa tlase",
     "reason": "Translate MongoDB status descriptions and clarify card-field ordering and movement."
+  },
+  {
+    "locale": "st",
+    "key": "r-rule-enabled",
+    "before": "E kentsoe",
+    "after": "E buletswe",
+    "reason": "Restore rule-state, detection, assignee, date-trigger and remove-label meanings; translate short English fragments."
+  },
+  {
+    "locale": "st",
+    "key": "r-rule-disabled",
+    "before": "E tiimile",
+    "after": "E kwetswe",
+    "reason": "Restore rule-state, detection, assignee, date-trigger and remove-label meanings; translate short English fragments."
+  },
+  {
+    "locale": "st",
+    "key": "r-toggle-rule-enabled",
+    "before": "Kenya kapa tima molao ona",
+    "after": "Bulela kapa kwala molao ona",
+    "reason": "Restore rule-state, detection, assignee, date-trigger and remove-label meanings; translate short English fragments."
+  },
+  {
+    "locale": "st",
+    "key": "r-format-auto",
+    "before": "Ithute ka boiketsetso",
+    "after": "Lemoha ka boiketsetso",
+    "reason": "Restore rule-state, detection, assignee, date-trigger and remove-label meanings; translate short English fragments."
+  },
+  {
+    "locale": "st",
+    "key": "r-sort-by",
+    "before": "by",
+    "after": "ka",
+    "reason": "Restore rule-state, detection, assignee, date-trigger and remove-label meanings; translate short English fragments."
+  },
+  {
+    "locale": "st",
+    "key": "r-is",
+    "before": "is",
+    "after": "e",
+    "reason": "Restore rule-state, detection, assignee, date-trigger and remove-label meanings; translate short English fragments."
+  },
+  {
+    "locale": "st",
+    "key": "r-when-a-assignee",
+    "before": "Ea abetsoeng se",
+    "after": "Ha motho ya abetsweng a",
+    "reason": "Restore rule-state, detection, assignee, date-trigger and remove-label meanings; translate short English fragments."
+  },
+  {
+    "locale": "st",
+    "key": "r-when-the-assignee",
+    "before": "Ea abetsoeng",
+    "after": "Ha motho ya abetsweng",
+    "reason": "Restore rule-state, detection, assignee, date-trigger and remove-label meanings; translate short English fragments."
+  },
+  {
+    "locale": "st",
+    "key": "r-when-a-due-date-changed",
+    "before": "E lokela ho phethwa: letsatsi le fetotswe",
+    "after": "Ha letsatsi la ho qetela le behwa kapa le fetolwa",
+    "reason": "Restore rule-state, detection, assignee, date-trigger and remove-label meanings; translate short English fragments."
+  },
+  {
+    "locale": "st",
+    "key": "r-when-a-start-date-changed",
+    "before": "Qala: letsatsi le fetotswe",
+    "after": "Ha letsatsi la qalo le behwa kapa le fetolwa",
+    "reason": "Restore rule-state, detection, assignee, date-trigger and remove-label meanings; translate short English fragments."
+  },
+  {
+    "locale": "st",
+    "key": "r-when-a-end-date-changed",
+    "before": "Pheletso: letsatsi le fetotswe",
+    "after": "Ha letsatsi la pheletso le behwa kapa le fetolwa",
+    "reason": "Restore rule-state, detection, assignee, date-trigger and remove-label meanings; translate short English fragments."
+  },
+  {
+    "locale": "st",
+    "key": "r-when-a-received-date-changed",
+    "before": "E amohetswe: letsatsi le fetotswe",
+    "after": "Ha letsatsi la kamohelo le behwa kapa le fetolwa",
+    "reason": "Restore rule-state, detection, assignee, date-trigger and remove-label meanings; translate short English fragments."
+  },
+  {
+    "locale": "st",
+    "key": "r-remove-all-labels",
+    "before": "Tlosa dipheo tsohle karateng",
+    "after": "Tlosa dileibole tsohle kareteng",
+    "reason": "Restore rule-state, detection, assignee, date-trigger and remove-label meanings; translate short English fragments."
   }
 ]

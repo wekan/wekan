@@ -707,3 +707,19 @@ for (const provider of ['AWS S3', 'MinIO', 'Cloudflare R2', 'Backblaze B2', 'Was
   assert.ok(sesotho['s3-minio-storage-description'].includes(provider));
 }
 for (const host of ['s3.amazonaws.com', 'minio.example.com']) assert.ok(sesotho['s3-endpoint-description'].includes(host));
+
+// Historical review through key 1589: rule states and event conditions.
+assert.equal(sesotho['r-rule-enabled'], 'E buletswe');
+assert.equal(sesotho['r-rule-disabled'], 'E kwetswe');
+assert.notEqual(sesotho['r-rule-enabled'], sesotho['r-rule-disabled']);
+assert.equal(sesotho['r-toggle-rule-enabled'], 'Bulela kapa kwala molao ona');
+assert.equal(sesotho['r-format-auto'], 'Lemoha ka boiketsetso');
+assert.doesNotMatch(sesotho['r-format-auto'], /Ithute/);
+assert.equal(sesotho['r-sort-by'], 'ka');
+assert.equal(sesotho['r-is'], 'e');
+for (const key of ['r-when-a-assignee', 'r-when-the-assignee']) assert.match(sesotho[key], /^Ha motho ya abetsweng/);
+for (const kind of ['due', 'start', 'end', 'received']) {
+  assert.match(sesotho[`r-when-a-${kind}-date-changed`], /^Ha letsatsi.*le behwa kapa le fetolwa$/);
+}
+assert.equal(sesotho['r-remove-all-labels'], 'Tlosa dileibole tsohle kareteng');
+assert.doesNotMatch(sesotho['r-remove-all-labels'], /dipheo/);
