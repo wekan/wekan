@@ -253,3 +253,16 @@ for (const backend of ['gridfs','s3']) {
   assert.ok(corsican['move-all-attachments-to-' + backend].endsWith(literal));
   assert.match(corsican['move-all-attachments-of-board-to-' + backend], /di a tavula/);
 }
+
+const storageCorrectionKeys = ["move-all-attachments", "attachment-repair-locations-description", "mongodb-compact-description", "import-board-zip", "hideCheckedChecklistItems", "hideAllChecklistItems", "support-info-only-for-logged-in-users", "accounts-lockout-confirm-unlock", "accounts-lockout-confirm-unlock-all", "accounts-lockout-show-locked-users", "admin-people-filter-all", "accounts-lockout-all-users-unlocked", "board-archive-failed", "board-backup-failed", "board-cleanup-failed", "cron-job-delete-confirm", "cron-errors-cleared", "s3-force-path-style-description", "database-migration-confirm", "sandstorm-migration-description", "sandstorm-delete-raw-mongodb-description", "sandstorm-delete-raw-mongodb-confirm", "disable-import-avatars-description", "disable-export-avatars-description", "anonymize-import-users"];
+for (const key of storageCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /\b(?:gli|alla|dalla|Impossibile|Sei sicuro|Vuoi|Questa operazione|vengono|viene|abilitato)\b/, key);
+}
+assert.match(corsican['mongodb-compact-description'], /ùn si riduce micca automaticamente.*solu dopu avè compiu/);
+assert.match(corsican['database-migration-confirm'], /ùn sò micca affettati.*destinazione deve esse in funzione/);
+for (const literal of ['MongoDB 3','FerretDB v1 (SQLite)','files/attachments','files/avatars']) assert.ok(corsican['sandstorm-migration-description'].includes(literal));
+for (const key of ['sandstorm-delete-raw-mongodb-description','sandstorm-delete-raw-mongodb-confirm']) assert.match(corsican[key], /FerretDB.*Ùn si pò annullà/);
+assert.match(corsican['disable-import-avatars-description'], /LDAP, OIDC\/OAuth2.*altri dati sò sempre impurtati.*solu l’avatar.*disattivatu/);
+assert.match(corsican['disable-export-avatars-description'], /altri dati sò sempre espurtati.*solu l’avatar.*disattivatu/);
+assert.notEqual(corsican.hideCheckedChecklistItems, corsican.hideAllChecklistItems);

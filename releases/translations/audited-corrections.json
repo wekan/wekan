@@ -177609,5 +177609,180 @@
     "before": "Move tutti gli allegati di a tavula in S3",
     "after": "Spustà tutti l’appicci di a tavula in S3",
     "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
+  },
+  {
+    "locale": "co",
+    "key": "move-all-attachments",
+    "before": "Move tutti gli allegati",
+    "after": "Spustà tutti l’appicci",
+    "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-repair-locations-description",
+    "before": "Trova gli allegati e gli avatar il cui storage registrato (filesystem / GridFS / cloud) non corrisponde più alla posizione effettiva del schedariu e correggi il database per puntare alla posizione reale.",
+    "after": "Truvà l’appicci è l’avatar chì anu un locu d’almacenamentu arregistratu (sistema di schedarii / GridFS / nuvulu) chì ùn currisponde più à u locu di u schedariu, è currege a basa di dati per indicà u locu veru.",
+    "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
+  },
+  {
+    "locale": "co",
+    "key": "mongodb-compact-description",
+    "before": "Dopo aver spostato i schedariu fuori da MongoDB GridFS, il schedariu del database su disco non si riduce automaticamente. Eseguendo Compact si recupera lo spaziu liberato riscrivendo i dati di a collection. Esegui questa operazione solu dopo aver completato gli spostamenti massivi di schedariu.",
+    "after": "Dopu avè spustatu i schedarii fora di MongoDB GridFS, u schedariu di a basa di dati nant’à u discu ùn si riduce micca automaticamente. Eseguisce Compact ricupera u spaziu liberatu riscrivendu i dati di a cullezzione. Eseguite st’operazione solu dopu avè compiu tutti i spustamenti di schedarii in massa.",
+    "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
+  },
+  {
+    "locale": "co",
+    "key": "import-board-zip",
+    "before": "Aghjunghje il schedariu .zip contenente i schedariu JSON di a tavula, i nomi tavula di e sottodirectory cù gli allegati",
+    "after": "Aghjunghje un schedariu .zip chì cuntene schedarii JSON di tavule è sottucartulari cù i nomi di e tavule chì cuntenenu l’appicci",
+    "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
+  },
+  {
+    "locale": "co",
+    "key": "hideCheckedChecklistItems",
+    "before": "Piattà gli elementi di a lista di controllo selezionati",
+    "after": "Piattà l’elementi marcati di e liste di cuntrollu",
+    "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
+  },
+  {
+    "locale": "co",
+    "key": "hideAllChecklistItems",
+    "before": "Piattà gli elementi di a lista di controllo",
+    "after": "Piattà tutti l’elementi di e liste di cuntrollu",
+    "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
+  },
+  {
+    "locale": "co",
+    "key": "support-info-only-for-logged-in-users",
+    "before": "Le infurmazioni di supporto sono solu per gli utilizatori autenticati.",
+    "after": "L’infurmazioni d’assistenza sò solu per l’utilizatori cunnessi.",
+    "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
+  },
+  {
+    "locale": "co",
+    "key": "accounts-lockout-confirm-unlock",
+    "before": "Sei sicuro di voler sbloccare questu utilizatore?",
+    "after": "Site sicuru di vulè sbluccà st’utilizatore?",
+    "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
+  },
+  {
+    "locale": "co",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "before": "Vuoi davvero sbloccare tutti gli utilizatori bloccati?",
+    "after": "Site sicuru di vulè sbluccà tutti l’utilizatori bluccati?",
+    "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
+  },
+  {
+    "locale": "co",
+    "key": "accounts-lockout-show-locked-users",
+    "before": "Mustrà solu gli utilizatori bloccati",
+    "after": "Mustrà solu l’utilizatori bluccati",
+    "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
+  },
+  {
+    "locale": "co",
+    "key": "admin-people-filter-all",
+    "before": "Tutti gli utilizatori",
+    "after": "Tutti l’utilizatori",
+    "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
+  },
+  {
+    "locale": "co",
+    "key": "accounts-lockout-all-users-unlocked",
+    "before": "Tutti gli utilizatori bloccati sono stati sbloccati",
+    "after": "Tutti l’utilizatori bluccati sò stati sbluccati",
+    "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
+  },
+  {
+    "locale": "co",
+    "key": "board-archive-failed",
+    "before": "Impossibile pianificare l'archiviazione di a tavula",
+    "after": "Ùn hè statu pussibule di pianificà l’archiviazione di a tavula",
+    "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
+  },
+  {
+    "locale": "co",
+    "key": "board-backup-failed",
+    "before": "Impossibile pianificare il backup di a tavula",
+    "after": "Ùn hè statu pussibule di pianificà a copia di salvezza di a tavula",
+    "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
+  },
+  {
+    "locale": "co",
+    "key": "board-cleanup-failed",
+    "before": "Impossibile pianificare la pulizia di a tavula",
+    "after": "Ùn hè statu pussibule di pianificà a pulizia di a tavula",
+    "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
+  },
+  {
+    "locale": "co",
+    "key": "cron-job-delete-confirm",
+    "before": "Sei sicuro di voler eliminare questu processo pianificato?",
+    "after": "Site sicuru di vulè squassà stu travagliu pianificatu?",
+    "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
+  },
+  {
+    "locale": "co",
+    "key": "cron-errors-cleared",
+    "before": "Tutti gli errori cancellati cù successo",
+    "after": "Tutti l’errori sò stati cacciati cù successu",
+    "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
+  },
+  {
+    "locale": "co",
+    "key": "s3-force-path-style-description",
+    "before": "Richiesto da MinIO e dalla maggior parte dei server compatibili cù S3 non AWS.",
+    "after": "Richiestu da MinIO è da a maiò parte di i servori cumpatibili cù S3 chì ùn sò micca AWS.",
+    "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
+  },
+  {
+    "locale": "co",
+    "key": "database-migration-confirm",
+    "before": "Copiare tutte le collection testuali su __db__? Gli allegati e gli avatar nantu à u filesystem non sono interessati. Il database di destinazione deve essere in esecuzione.",
+    "after": "Cupià tutte e cullezzioni di testu versu __db__? L’appicci è l’avatar in u sistema di schedarii ùn sò micca affettati. A basa di dati di destinazione deve esse in funzione.",
+    "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
+  },
+  {
+    "locale": "co",
+    "key": "sandstorm-migration-description",
+    "before": "Quando WeKan viene eseguito all'interno di un grain Sandstorm, il suo vecchio database MongoDB 3 viene migrato su FerretDB v1 (SQLite) al primo avvio, e gli allegati e gli avatar vengono spostati dal database alle directory files/attachments e files/avatars del grain. Questu mustrà se quella migrazione è riuscita e quanto spaziu su disco occupano ancora i vecchi schedariu grezzi del database MongoDB all'interno del grain, e consente di eliminare quei schedariu grezzi per liberare spaziu.",
+    "after": "Quandu WeKan funziona in un grain Sandstorm, a so vechja basa di dati MongoDB 3 hè migrata versu FerretDB v1 (SQLite) à u primu avviu, è l’appicci è l’avatar sò spustati da a basa di dati versu i cartulari files/attachments è files/avatars di u grain. Quì hè mustratu s’è sta migrazione hè riesciuta è quantu spaziu nant’à u discu occupanu sempre i vechji schedarii grezzi di a basa di dati MongoDB in u grain; pudete squassà sti schedarii grezzi per liberà spaziu.",
+    "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
+  },
+  {
+    "locale": "co",
+    "key": "sandstorm-delete-raw-mongodb-description",
+    "before": "Dopo una migrazione riuscita i dati risiedono in FerretDB e nantu à u filesystem, quindi i vecchi schedariu grezzi del database MongoDB 3 possono essere eliminati per liberare spaziu su disco del grain. Questa operazione non può essere annullata.",
+    "after": "Dopu una migrazione riesciuta, i dati si trovanu in FerretDB è in u sistema di schedarii; i vechji schedarii grezzi di a basa di dati MongoDB 3 ponu dunque esse squassati per liberà spaziu nant’à u discu di u grain. Ùn si pò annullà st’azzione.",
+    "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
+  },
+  {
+    "locale": "co",
+    "key": "sandstorm-delete-raw-mongodb-confirm",
+    "before": "Eliminare i schedariu grezzi del database MongoDB 3 per liberare spaziu su disco? I dati sono già stati migrati su FerretDB e nantu à u filesystem. Questa operazione non può essere annullata.",
+    "after": "Squassà i schedarii grezzi di a basa di dati MongoDB 3 per liberà spaziu nant’à u discu? I dati sò digià stati migrati versu FerretDB è u sistema di schedarii. Ùn si pò annullà st’azzione.",
+    "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
+  },
+  {
+    "locale": "co",
+    "key": "disable-import-avatars-description",
+    "before": "Se abilitato, gli avatar (immagini del profilo utilizatore) non vengono mai importati. Questu riguarda l'importazione WeKan JSON, l'importazione Trello e la sincronizzazione di i avatar da provider di identità esterni al login (LDAP, OIDC/OAuth2). I nomi e gli altri dati vengono comunque importati; vengono saltati solu gli avatar. Il valore predefinito è disattivato.",
+    "after": "Quandu hè attivatu, l’avatar (ritratti di prufilu di l’utilizatori) ùn sò mai impurtati. Questu copre l’impurtazione JSON WeKan, l’impurtazione Trello è a sincrunizazione d’avatar da furnidori d’identità esterni à a cunnessione (LDAP, OIDC/OAuth2). I nomi è l’altri dati sò sempre impurtati; solu l’avatar sò saltati. Hè disattivatu di manera predefinita.",
+    "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
+  },
+  {
+    "locale": "co",
+    "key": "disable-export-avatars-description",
+    "before": "Se abilitato, gli avatar (immagini del profilo utilizatore) non vengono mai inclusi quando si spurtà una tavula (esportazione WeKan JSON e CSV). I nomi utilizatore e gli altri dati vengono comunque esportati; vengono omessi solu gli avatar. Il valore predefinito è disattivato.",
+    "after": "Quandu hè attivatu, l’avatar (ritratti di prufilu di l’utilizatori) ùn sò mai inclusi in l’espurtazione d’una tavula (espurtazione JSON WeKan è CSV). I nomi d’utilizatore è l’altri dati sò sempre espurtati; solu l’avatar sò omessi. Hè disattivatu di manera predefinita.",
+    "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
+  },
+  {
+    "locale": "co",
+    "key": "anonymize-import-users",
+    "before": "Anonimizza gli utilizatori in importazione",
+    "after": "Anonimizà l’utilizatori impurtati",
+    "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
   }
 ]
