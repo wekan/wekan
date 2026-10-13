@@ -649,3 +649,19 @@ assert.equal(new Set(['once', 'daily', 'weekday', 'weekly', 'monthly'].map(k => 
 assert.notEqual(latin['r-schedule-on-weekday'], latin['r-schedule-on-day']);
 assert.equal(new Set(['is-set', 'soon', 'overdue'].map(k => latin[`r-due-${k}`])).size, 3);
 assert.match(latin['r-due-overdue'], /praeteriit/);
+
+const reviewedRuleActionLabels = ["r-days-before", "r-days-after", "r-when-card-in-list", "r-for-n-days", "r-card-button", "r-board-button", "r-button-label", "r-run", "r-sort-list", "r-sort-by", "r-sort-due", "r-sort-name", "r-mark-complete", "r-mark-incomplete", "r-move-all-cards", "r-set-date-relative", "r-later", "r-unit-minutes", "r-unit-hours", "r-unit-days", "r-unit-weeks", "r-unit-months", "r-trigger", "r-action"];
+for (const key of reviewedRuleActionLabels) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:days|before|after|button|Sort|Mark|complete|relative|Trigger)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['r-days-before'], /ante$/);
+assert.match(latin['r-days-after'], /post$/);
+assert.match(latin['r-for-n-days'], /N dies/);
+assert.notEqual(latin['r-card-button'], latin['r-board-button']);
+assert.match(latin['r-mark-complete'], /chartam perfectam$/);
+assert.match(latin['r-mark-incomplete'], /chartam imperfectam$/);
+assert.match(latin['r-move-all-cards'], /omnes chartas/);
+assert.match(latin['r-set-date-relative'], /temporis praesentis/);
+assert.equal(new Set(['minutes', 'hours', 'days', 'weeks', 'months'].map(k => latin[`r-unit-${k}`])).size, 5);
+assert.notEqual(latin['r-trigger'], latin['r-action']);

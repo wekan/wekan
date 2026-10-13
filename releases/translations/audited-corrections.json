@@ -196866,5 +196866,173 @@
     "before": "Latine: est overdue",
     "after": "praeteriit",
     "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-days-before",
+    "before": "Latine: dies ante",
+    "after": "diebus ante",
+    "reason": "Repair Latin rule action, duration and button labels; retain completion polarity, all-card scope and relative-date meaning."
+  },
+  {
+    "locale": "la",
+    "key": "r-days-after",
+    "before": "Latine: dies after",
+    "after": "diebus post",
+    "reason": "Repair Latin rule action, duration and button labels; retain completion polarity, all-card scope and relative-date meaning."
+  },
+  {
+    "locale": "la",
+    "key": "r-when-card-in-list",
+    "before": "Latine: Quando a scheda has fuit in index",
+    "after": "Cum charta mansit in indice",
+    "reason": "Repair Latin rule action, duration and button labels; retain completion polarity, all-card scope and relative-date meaning."
+  },
+  {
+    "locale": "la",
+    "key": "r-for-n-days",
+    "before": "Latine: for N dies",
+    "after": "per N dies",
+    "reason": "Repair Latin rule action, duration and button labels; retain completion polarity, all-card scope and relative-date meaning."
+  },
+  {
+    "locale": "la",
+    "key": "r-card-button",
+    "before": "Latine: Scheda globulus",
+    "after": "Bulla chartae",
+    "reason": "Repair Latin rule action, duration and button labels; retain completion polarity, all-card scope and relative-date meaning."
+  },
+  {
+    "locale": "la",
+    "key": "r-board-button",
+    "before": "Latine: Tabula globulus",
+    "after": "Bulla tabulae",
+    "reason": "Repair Latin rule action, duration and button labels; retain completion polarity, all-card scope and relative-date meaning."
+  },
+  {
+    "locale": "la",
+    "key": "r-button-label",
+    "before": "Latine: Globulus titulus",
+    "after": "Titulus bullae",
+    "reason": "Repair Latin rule action, duration and button labels; retain completion polarity, all-card scope and relative-date meaning."
+  },
+  {
+    "locale": "la",
+    "key": "r-run",
+    "before": "Latine: Run",
+    "after": "Exsequere",
+    "reason": "Repair Latin rule action, duration and button labels; retain completion polarity, all-card scope and relative-date meaning."
+  },
+  {
+    "locale": "la",
+    "key": "r-sort-list",
+    "before": "Latine: Ordina index",
+    "after": "Ordina indicem",
+    "reason": "Repair Latin rule action, duration and button labels; retain completion polarity, all-card scope and relative-date meaning."
+  },
+  {
+    "locale": "la",
+    "key": "r-sort-by",
+    "before": "Latine: a",
+    "after": "secundum",
+    "reason": "Repair Latin rule action, duration and button labels; retain completion polarity, all-card scope and relative-date meaning."
+  },
+  {
+    "locale": "la",
+    "key": "r-sort-due",
+    "before": "Latine: dies debitus",
+    "after": "diem debitum",
+    "reason": "Repair Latin rule action, duration and button labels; retain completion polarity, all-card scope and relative-date meaning."
+  },
+  {
+    "locale": "la",
+    "key": "r-sort-name",
+    "before": "Latine: nomen",
+    "after": "nomen",
+    "reason": "Repair Latin rule action, duration and button labels; retain completion polarity, all-card scope and relative-date meaning."
+  },
+  {
+    "locale": "la",
+    "key": "r-mark-complete",
+    "before": "Latine: Mark scheda perfice",
+    "after": "Nota chartam perfectam",
+    "reason": "Repair Latin rule action, duration and button labels; retain completion polarity, all-card scope and relative-date meaning."
+  },
+  {
+    "locale": "la",
+    "key": "r-mark-incomplete",
+    "before": "Latine: Mark scheda incomplete",
+    "after": "Nota chartam imperfectam",
+    "reason": "Repair Latin rule action, duration and button labels; retain completion polarity, all-card scope and relative-date meaning."
+  },
+  {
+    "locale": "la",
+    "key": "r-move-all-cards",
+    "before": "Latine: Move omnia schedae in index",
+    "after": "Move omnes chartas in indice",
+    "reason": "Repair Latin rule action, duration and button labels; retain completion polarity, all-card scope and relative-date meaning."
+  },
+  {
+    "locale": "la",
+    "key": "r-set-date-relative",
+    "before": "Latine: Set dies relative ad nunc",
+    "after": "Constitue diem respectu temporis praesentis",
+    "reason": "Repair Latin rule action, duration and button labels; retain completion polarity, all-card scope and relative-date meaning."
+  },
+  {
+    "locale": "la",
+    "key": "r-later",
+    "before": "Latine: later",
+    "after": "postea",
+    "reason": "Repair Latin rule action, duration and button labels; retain completion polarity, all-card scope and relative-date meaning."
+  },
+  {
+    "locale": "la",
+    "key": "r-unit-minutes",
+    "before": "Latine: minutum(s)",
+    "after": "minuta",
+    "reason": "Repair Latin rule action, duration and button labels; retain completion polarity, all-card scope and relative-date meaning."
+  },
+  {
+    "locale": "la",
+    "key": "r-unit-hours",
+    "before": "Latine: hora(s)",
+    "after": "horae",
+    "reason": "Repair Latin rule action, duration and button labels; retain completion polarity, all-card scope and relative-date meaning."
+  },
+  {
+    "locale": "la",
+    "key": "r-unit-days",
+    "before": "Latine: dies(s)",
+    "after": "dies",
+    "reason": "Repair Latin rule action, duration and button labels; retain completion polarity, all-card scope and relative-date meaning."
+  },
+  {
+    "locale": "la",
+    "key": "r-unit-weeks",
+    "before": "Latine: hebdomas(s)",
+    "after": "hebdomades",
+    "reason": "Repair Latin rule action, duration and button labels; retain completion polarity, all-card scope and relative-date meaning."
+  },
+  {
+    "locale": "la",
+    "key": "r-unit-months",
+    "before": "Latine: mensis(s)",
+    "after": "menses",
+    "reason": "Repair Latin rule action, duration and button labels; retain completion polarity, all-card scope and relative-date meaning."
+  },
+  {
+    "locale": "la",
+    "key": "r-trigger",
+    "before": "Latine: Trigger",
+    "after": "Condicio excitans",
+    "reason": "Repair Latin rule action, duration and button labels; retain completion polarity, all-card scope and relative-date meaning."
+  },
+  {
+    "locale": "la",
+    "key": "r-action",
+    "before": "Latine: Actio",
+    "after": "Actio",
+    "reason": "Repair Latin rule action, duration and button labels; retain completion polarity, all-card scope and relative-date meaning."
   }
 ]

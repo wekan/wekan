@@ -56,3 +56,14 @@ test('Latin rule import dialog explains partial conversion and keeps format iden
   await expect(pop.locator('.js-workflow-format option[value="n8n"]')).toHaveText('n8n');
   await expect(pop.locator('.js-workflow-format option[value="nodered"]')).toHaveText('Node-RED');
 });
+
+
+test('Latin workflow toolbox distinguishes its trigger and action labels', async ({ boardPage: page }) => {
+  const { openRulesMenuEntry } = require('../helpers/rulesMenu');
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'la'));
+  await openRulesMenuEntry(page, 'js-open-rules-workflow-view');
+  const workflow = page.locator('.rules-workflow');
+  await expect(workflow).toContainText('Nota chartam perfectam');
+  await expect(workflow).toContainText('Nota chartam imperfectam');
+  await expect(workflow.locator('.js-create-workflow-rule')).toBeDisabled();
+});
