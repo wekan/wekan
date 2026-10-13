@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin transfer limits, SMTP and invitations — 2026-10-14
+
+Commit `49dc81ea2b` repairs 40 prefixed messages for transfer limits, avatar
+policy, registration, SMTP and invitations. Tests preserve literal GB/MB/Bytes,
+separate server-side API safety caps, positive limits, default avatar permission,
+unlimited/maximum/blocked modes, outgoing SMTP direction, sending a test to
+oneself and invitation variables and paragraphs.
+
+The Latin and guarded-correction suites pass with 27,929 ledger entries. All 21
+human-preference checks pass. The existing attachment-limit browser scenario now
+also checks Latin directions and units; syntax and discovery pass, runtime remains
+pending. Exact comparison preserves 38,430 existing Chinese values.
+
+There remain 1,455 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin uploads, appearance and WIP warnings — 2026-10-14
 
 Commit `7842c44d16` repairs 30 prefixed messages for uploads, logo settings,

@@ -3125,6 +3125,21 @@ the old language prefix; all-language review remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/49dc81ea2b">Repair Latin transfer limits and SMTP messages</a>. Thanks to xet7.</summary>
+
+Repair 40 prefixed strings for transfer limits, avatars, registration, SMTP and
+invitations. Preserve upload/download directions, separate server safety caps,
+literal units, invitation variables and email paragraphs.
+
+The Latin and guarded-correction suites and all 21 preservation checks pass.
+The Latin attachment-limit browser case passes syntax and discovery; runtime
+remains pending. Existing Chinese values are unchanged. There remain 1,455 Latin
+values containing the old language prefix; all-language review remains
+unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
