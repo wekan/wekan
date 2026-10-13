@@ -46,6 +46,20 @@ test.describe('Search', () => {
     await expect(boardPage.locator('.global-search-error-messages')).toHaveCount(0);
   });
 
+  test('Corsican search help explains absence, sorting and case-insensitive text', async ({ boardPage, user }) => {
+    db.updateOne('users', { _id: user.id }, { $set: { 'profile.language': 'co' } });
+    await boardPage.reload();
+    await expect(boardPage.locator('html')).toHaveAttribute('lang', 'co');
+    const sp = new SearchPage(boardPage);
+    await sp.navigateToGlobalSearch();
+    const help = boardPage.locator('.global-search-instructions');
+    await expect(help).toContainText('has:-due');
+    await expect(help).toContainText('senza data di scadenza');
+    await expect(help).toContainText('Per un urdinamentu discendente');
+    await expect(help).toContainText('ùn distinguenu micca e maiuscule da e minuscule');
+    await expect(help).not.toContainText('Per impostazione predefinita');
+  });
+
   test('global search returns cards matching the query and excludes non-matching cards', async ({ boardPage, board }) => {
     const sp = new SearchPage(boardPage);
     await sp.navigateToGlobalSearch();

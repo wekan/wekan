@@ -184091,5 +184091,355 @@
     "before": "`__predicate_public__` - carte soltanto in tavule pubbliche",
     "after": "`__predicate_public__` - carte solu in tavule publiche",
     "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-status-private",
+    "before": "`__predicate_private__` - carte soltanto in tavule private",
+    "after": "`__predicate_private__` - carte solu in tavule private",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-operator-has",
+    "before": "`__operator_has__:<field>` - dove *<field>* è uno di `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` oppure `__predicate_member__`.  Inserendo `-` davanti a *<field>* circà per l'assenza di un valore in u campo (per esempio `has:-due` circà per carte senza una data di scadenza).",
+    "after": "`__operator_has__:<field>` - induve *<field>* hè unu di `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` o `__predicate_member__`. Mettendu un `-` davanti à *<field>*, si cerca l’assenza d’un valore in quellu campu (per esempiu, `has:-due` cerca e carte senza data di scadenza).",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-operator-sort",
+    "before": "`__operator_sort__:<sort-name>` - dove *<sort-name>* è uno dei `__predicate_due__`, `__predicate_created__` oppure `__predicate_modified__`.  Per un ordine discendente, aghjunghje un `-` davanti al nome.",
+    "after": "`__operator_sort__:<sort-name>` - induve *<sort-name>* hè unu di `__predicate_due__`, `__predicate_created__` o `__predicate_modified__`. Per un urdinamentu discendente, mettite un `-` davanti à u nome di l’urdinamentu.",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-operator-limit",
+    "before": "`__operator_limit__:<n>` - dove *<n>* è un numero intero positivo che esprime il numero di e carte da visualizzare per pagina.",
+    "after": "`__operator_limit__:<n>` - induve *<n>* hè un numeru interu pusitivu chì indica u numeru di carte da mustrà per pagina.",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-notes-2",
+    "before": "Valori diversi di u stesso criterio di ricerca vengono combinati tramite *OR*. Vengono quindi selezionate tutte le carte che soddisfano almeno uno dei criteri. `__operator_list__:Available __operator_list__:Blocked` selezionerà le carte contenute in qualsiasi lista chiamata *Blocked* o *Available*.",
+    "after": "L’operatori simili sò cumbinati cù *OR*. Sò riturnate e carte chì currispondenu à almenu una di e cundizioni.\n`__operator_list__:Available __operator_list__:Blocked` riturna e carte in qualsiasi lista chjamata *Blocked* o *Available*.",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-notes-3-2",
+    "before": "I ghjorni possono essere specificati come numeri interi positivi/negativi oppure utilizzando `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` oppure `__predicate_year__` per il periodo corrente.",
+    "after": "I ghjorni ponu esse specificati cù un numeru interu pusitivu o negativu, o cù `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` o `__predicate_year__` per u periodu attuale.",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-notes-4",
+    "before": "La distinzione tra maiuscole e minuscole non viene effettuata in e ricerche di testo.",
+    "after": "E ricerche di testu ùn distinguenu micca e maiuscule da e minuscule.",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-notes-5",
+    "before": "Per impostazione predefinita le carte archiviate non sono incluse in a ricerca.",
+    "after": "Per difettu, e carte archiviate ùn sò micca incluse in a ricerca.",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "link-to-search",
+    "before": "Link a questa ricerca",
+    "after": "Ligame à sta ricerca",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "excel-font",
+    "before": "In corsu: Arial",
+    "after": "Arial",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "number",
+    "before": "Numero",
+    "after": "Numeru",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "label-colors",
+    "before": "Colori etichette",
+    "after": "Culori di l’etichette",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "label-names",
+    "before": "Nomi etichette",
+    "after": "Nomi di l’etichette",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "archived-at",
+    "before": "archiviata il",
+    "after": "archiviata u",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "sort-cards",
+    "before": "Ordina carte",
+    "after": "Urdinà e carte",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "sort-boards",
+    "before": "Ordina tavule",
+    "after": "Urdinà e tavule",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "sort-is-on",
+    "before": "Ordinamento attivu",
+    "after": "L’urdinamentu hè attivu",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "cardsSortPopup-title",
+    "before": "Ordina carte",
+    "after": "Urdinà e carte",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "due-complete",
+    "before": "Scadenza completata",
+    "after": "Scadenza compia",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "add-sticker",
+    "before": "Aghjunghje sticker",
+    "after": "Aghjunghje un adesivu",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "remove-sticker",
+    "before": "Caccià sticker",
+    "after": "Caccià un adesivu",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "drag-to-connect",
+    "before": "Trascina per collegare a un'altra carta",
+    "after": "Trascinà per ligà à un’altra carta",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "dependency-type",
+    "before": "Tipo di relazione",
+    "after": "Tipu di relazione",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "dependency-type-related-to",
+    "before": "Correlata a",
+    "after": "Ligata à",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "dependency-type-is-blocked-by",
+    "before": "È bloccata da",
+    "after": "Hè bluccata da",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "dependency-type-is-fixed-by",
+    "before": "È risolta da",
+    "after": "Hè risolta da",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "filter-dependencies-label",
+    "before": "Filtra per dipendenze",
+    "after": "Filtrà per dipendenze",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "import-dependencies-placeholder",
+    "before": "Oppure incolla qui il JSON / SVG di e dipendenze",
+    "after": "O incullate quì u JSON / SVG di e dipendenze",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "import-dependencies-empty",
+    "before": "Selezziunà una tavula e fornisci almeno una riga di dipendenza",
+    "after": "Selezziunate una tavula è furnite almenu una linea di dipendenza",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "board-backgrounds",
+    "before": "Sfondi di a tavula",
+    "after": "Fondi di a tavula",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "boardBackgrounds-title",
+    "before": "Sfondi di a tavula",
+    "after": "Fondi di a tavula",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "upload-background",
+    "before": "Caricà immagine di sfondo",
+    "after": "Caricà un’imagine di fondu",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "set-as-active",
+    "before": "Imposta come sfondo di a tavula",
+    "after": "Stabilisce cum’è fondu di a tavula",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "location",
+    "before": "Posizione",
+    "after": "Pusizione",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "add-location",
+    "before": "Aghjunghje posizione",
+    "after": "Aghjunghje una pusizione",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "cardLocationsPopup-title",
+    "before": "Aghjunghje posizione",
+    "after": "Aghjunghje una pusizione",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "location-name",
+    "before": "Nome di a posizione",
+    "after": "Nome di a pusizione",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "location-address",
+    "before": "Indirizzo",
+    "after": "Indirizzu",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "location-detect",
+    "before": "Rileva",
+    "after": "Rilevà",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "location-detect-done",
+    "before": "Dettagli di a posizione rilevata compilati qui sotto.",
+    "after": "I ditaglii di a pusizione rilevata sò stati riempiti quì sottu.",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "location-open-map-at",
+    "before": "Apre i link di e mappe cù",
+    "after": "Apre i ligami di e carte geografiche cù",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "map-region-usa",
+    "before": "In corsu: USA",
+    "after": "USA",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "map-region-asia",
+    "before": "In corsu: Asia",
+    "after": "Asia",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "server-error",
+    "before": "Errore server",
+    "after": "Errore di u servitore",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "title-alphabetically",
+    "before": "Titulu (ordine alfabetico)",
+    "after": "Titulu (in ordine alfabeticu)",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "links-heading",
+    "before": "Link",
+    "after": "Ligami",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "now-activities-of-all-boards-are-hidden",
+    "before": "Ora tutte le attività di tutte le tavule sono nascoste",
+    "after": "Avà tutte l’attività di tutte e tavule sò piattate",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "move-swimlane",
+    "before": "Move swimlane",
+    "after": "Move a corsia",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "moveSwimlanePopup-title",
+    "before": "Move swimlane",
+    "after": "Move a corsia",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
+  },
+  {
+    "locale": "co",
+    "key": "custom-field-stringtemplate",
+    "before": "Template stringa",
+    "after": "Mudellu di stringa",
+    "reason": "Repair Italian or prefixed Corsican search and control wording; preserve syntax and proper names."
   }
 ]

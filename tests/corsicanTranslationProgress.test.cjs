@@ -569,3 +569,14 @@ for (const key of searchHelpCorrectionKeys) {
 for (const key of ['globalSearch-instructions-operator-created', 'globalSearch-instructions-operator-modified']) assert.match(corsican[key], /ghjorni fà o menu$/);
 assert.match(corsican['globalSearch-instructions-description'], /`list:Blocked`/);
 assert.match(corsican['globalSearch-instructions-description'], /`__operator_list__:"To Review"`/);
+
+const remainingSearchControlKeys = ["globalSearch-instructions-status-private", "globalSearch-instructions-operator-has", "globalSearch-instructions-operator-sort", "globalSearch-instructions-operator-limit", "globalSearch-instructions-notes-2", "globalSearch-instructions-notes-3-2", "globalSearch-instructions-notes-4", "globalSearch-instructions-notes-5", "link-to-search", "excel-font", "number", "label-colors", "label-names", "archived-at", "sort-cards", "sort-boards", "sort-is-on", "cardsSortPopup-title", "due-complete", "add-sticker", "remove-sticker", "drag-to-connect", "dependency-type", "dependency-type-related-to", "dependency-type-is-blocked-by", "dependency-type-is-fixed-by", "filter-dependencies-label", "import-dependencies-placeholder", "import-dependencies-empty", "board-backgrounds", "boardBackgrounds-title", "upload-background", "set-as-active", "location", "add-location", "cardLocationsPopup-title", "location-name", "location-address", "location-detect", "location-detect-done", "location-open-map-at", "map-region-usa", "map-region-asia", "server-error", "title-alphabetically", "links-heading", "now-activities-of-all-boards-are-hidden", "move-swimlane", "moveSwimlanePopup-title", "custom-field-stringtemplate"];
+for (const key of remainingSearchControlKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /In corsu:|soltanto|dove|è uno|vengono|possono essere|Per impostazione|Ordina |Ordinamento|Trascina per|collegare|È bloccata|Oppure incolla|fornisci almeno|Imposta come|Indirizzo|compilati qui|sono nascoste|Move swimlane/, key);
+}
+for (const key of ['excel-font', 'map-region-usa', 'map-region-asia']) assert.equal(corsican[key], english[key]);
+assert.match(corsican['globalSearch-instructions-operator-has'], /`has:-due`.*senza data di scadenza/);
+assert.match(corsican['globalSearch-instructions-notes-2'], /\*OR\*.*almenu una/);
+assert.match(corsican['globalSearch-instructions-notes-4'], /ùn distinguenu micca.*maiuscule.*minuscule/);
+assert.match(corsican['import-dependencies-empty'], /tavula.*almenu una linea/);

@@ -229,3 +229,13 @@ assert.equal(corsicanOverdue.hasErrors(), false);
 assert.equal(corsicanOverdue.getQueryParams().getPredicate('dueAt').operator, '$lt');
 assert.equal(query(`${labels['operator-has']}:nonexistent-field`).hasErrors(), true);
 assert.equal(query(`${labels['operator-created']}:${labels['predicate-overdue']}`).hasErrors(), true);
+
+for (const [key, field] of [['predicate-due', 'dueAt'], ['predicate-created', 'createdAt'], ['predicate-modified', 'modifiedAt']]) {
+  for (const descending of [false, true]) {
+    const parsed = query(`${labels['operator-sort']}:${descending ? '-' : ''}${labels[key]}`);
+    assert.equal(parsed.hasErrors(), false, key);
+    assert.deepEqual(JSON.parse(JSON.stringify(parsed.getQueryParams().getPredicate('sort'))),
+      { name: field, order: descending ? 'des' : 'asc' });
+  }
+}
+assert.equal(query(`${labels['operator-sort']}:not-a-sort`).hasErrors(), true);
