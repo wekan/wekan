@@ -190699,5 +190699,313 @@
     "before": "Latine: Dele Adnexum?",
     "after": "Delere adiunctum?",
     "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "auto-watch",
+    "before": "Latine: Automatice watch tabulae quando they sunt creatum",
+    "after": "Automatice observa tabulas cum creantur",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "avatar-too-big",
+    "before": "Latine: The imago est too large (__size__ max)",
+    "after": "Imago usoris nimis magna est (maximum __size__)",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "board-change-color",
+    "before": "Latine: Muta color",
+    "after": "Muta colorem",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "board-change-background-image",
+    "before": "Latine: Muta Background Imago",
+    "after": "Muta imaginem fundi",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "board-background-image-url",
+    "before": "Latine: Background Imago URL",
+    "after": "URL imaginis fundi",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "add-background-image",
+    "before": "Latine: Adde Background Imago",
+    "after": "Adde imaginem fundi",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "remove-background-image",
+    "before": "Latine: Remove Background Imago",
+    "after": "Remove imaginem fundi",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "show-at-all-boards-page",
+    "before": "Latine: Monstra at Omnia Tabulae pagina",
+    "after": "Monstra in pagina omnium tabularum",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "board-info-on-my-boards",
+    "before": "Latine: Omnia Tabulae Configurationes",
+    "after": "Optiones omnium tabularum",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "boardInfoOnMyBoardsPopup-title",
+    "before": "Latine: Omnia Tabulae Configurationes",
+    "after": "Optiones omnium tabularum",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "boardInfoOnMyBoards-title",
+    "before": "Latine: Omnia Tabulae Configurationes",
+    "after": "Optiones omnium tabularum",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "show-card-counter-per-list",
+    "before": "Latine: Monstra scheda count per index",
+    "after": "Monstra numerum chartarum in quoque indice",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "show-board_members-avatar",
+    "before": "Latine: Monstra Tabula sodales avatars",
+    "after": "Monstra imagines membrorum tabulae",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "board_members",
+    "before": "Latine: Omnia tabula sodales",
+    "after": "Omnia membra tabulae",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "card_members",
+    "before": "Latine: Omnia sodales de praesens scheda at hoc tabula",
+    "after": "Omnia membra chartae praesentis in hac tabula",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "board_assignees",
+    "before": "Latine: Omnia assignees de omnia schedae at hoc tabula",
+    "after": "Omnes quibus chartae in hac tabula assignatae sunt",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "card_assignees",
+    "before": "Latine: Omnia assignees de praesens scheda at hoc tabula",
+    "after": "Omnes quibus charta praesens in hac tabula assignata est",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "board-nb-stars",
+    "before": "Latine: %s stars",
+    "after": "%s stellae",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "board-not-found",
+    "before": "Latine: Tabula non inventum",
+    "after": "Tabula non inventa est",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "board-private-info",
+    "before": "Latine: Hoc tabula erit esse <strong>private</strong>.",
+    "after": "Haec tabula <strong>privata</strong> erit.",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "board-public-info",
+    "before": "Latine: Hoc tabula erit esse <strong>public</strong>.",
+    "after": "Haec tabula <strong>publica</strong> erit.",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "board-drag-drop-reorder-or-click-open",
+    "before": "Latine: trahe et depone ad reorder tabula icons. Click tabula icon ad aperi tabula.",
+    "after": "Trahe et depone ut icones tabularum reordines. Preme iconem tabulae ut tabulam aperias.",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "board-open-and-move-between-remaining-and-workspaces",
+    "before": "Latine: Click ad aperi tabula. Use drag handle ad assign tabula ad __workspaces__ (drop adest workspace in sidebar).",
+    "after": "Preme ut tabulam aperias. Utere ansa trahendi ut tabulam spatiis laboris __workspaces__ assignes (depone in spatio laboris in margine laterali).",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "boardChangeColorPopup-title",
+    "before": "Latine: Muta Tabula Background",
+    "after": "Muta fundum tabulae",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "changeColorPopup-title",
+    "before": "Latine: Muta Color",
+    "after": "Muta colorem",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "changeFontPopup-title",
+    "before": "Latine: Font",
+    "after": "Forma litterarum",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "boardChangeBackgroundImagePopup-title",
+    "before": "Latine: Muta Background Imago",
+    "after": "Muta imaginem fundi",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "allBoardsChangeColorPopup-title",
+    "before": "Latine: Muta color",
+    "after": "Muta colorem",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "allBoardsChangeBackgroundImagePopup-title",
+    "before": "Latine: Muta Background Imago",
+    "after": "Muta imaginem fundi",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "boardChangeTitlePopup-title",
+    "before": "Latine: Renomina Tabula",
+    "after": "Muta nomen tabulae",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "boardChangeVisibilityPopup-title",
+    "before": "Latine: Muta Visibility",
+    "after": "Muta visibilitatem",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "boardChangeWatchPopup-title",
+    "before": "Latine: Muta Watch",
+    "after": "Muta observationem",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "boardChangeViewPopup-title",
+    "before": "Latine: Tabula Vide",
+    "after": "Conspectus tabulae",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "board-view",
+    "before": "Latine: Tabula Vide",
+    "after": "Conspectus tabulae",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "desktop-mode",
+    "before": "Latine: Mensa Modus",
+    "after": "Modus computatri mensalis",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "mobile-mode",
+    "before": "Latine: Mobilis Modus",
+    "after": "Modus instrumenti mobilis",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "mobile-desktop-toggle",
+    "before": "Latine: Toggle inter Mobilis et Mensa Modus",
+    "after": "Alterna inter modum instrumenti mobilis et modum computatri mensalis",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "zoom-in",
+    "before": "Latine: Zoom In",
+    "after": "Amplifica",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "zoom-out",
+    "before": "Latine: Zoom Out",
+    "after": "Minue",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "zoom-level",
+    "before": "Latine: Zoom Level",
+    "after": "Gradus amplificationis",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "enter-zoom-level",
+    "before": "Latine: Enter zoom level (50-300%):",
+    "after": "Insere gradum amplificationis (50-300%):",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "board-view-cal",
+    "before": "Latine: Calendar",
+    "after": "Calendarium",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "board-view-multiboard-cal",
+    "before": "Latine: Calendar (Omnes tabulae)",
+    "after": "Calendarium plurium tabularum",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "board-view-collapse",
+    "before": "Latine: Collapse",
+    "after": "Contrahe",
+    "reason": "Replace mixed-language board appearance and view labels with Latin, retaining scope, visibility and placeholders."
   }
 ]

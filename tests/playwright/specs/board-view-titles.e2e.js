@@ -84,3 +84,12 @@ for (const view of [
     });
   }
 }
+
+test('Latin board view menu distinguishes the calendar label from untranslated text', async ({ boardPage }) => {
+  await boardPage.evaluate(() => Meteor.callAsync('setLanguage', 'la'));
+  await boardPage.locator('.js-toggle-board-view').first().click();
+  const calendar = boardPage.locator('.pop-over .js-open-cal-view');
+  await expect(calendar).toHaveText('Calendarium');
+  await expect(calendar).not.toContainText('Latine:');
+  await expect(calendar).not.toHaveText('Calendar');
+});

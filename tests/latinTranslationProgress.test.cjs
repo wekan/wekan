@@ -215,3 +215,20 @@ assert.equal(latin['set-swimlane-height'], latin['setSwimlaneHeightPopup-title']
 assert.equal(latin['add-members'], latin['addMemberPopup-title']);
 assert.equal(latin['archived-items'], latin.archives);
 assert.notEqual(latin['and-n-other-card'], latin['and-n-other-card_plural']);
+
+const reviewedDisplayKeys = ["auto-watch", "avatar-too-big", "board-change-color", "board-change-background-image", "board-background-image-url", "add-background-image", "remove-background-image", "show-at-all-boards-page", "board-info-on-my-boards", "boardInfoOnMyBoardsPopup-title", "boardInfoOnMyBoards-title", "show-card-counter-per-list", "show-board_members-avatar", "board_members", "card_members", "board_assignees", "card_assignees", "board-nb-stars", "board-not-found", "board-private-info", "board-public-info", "board-drag-drop-reorder-or-click-open", "board-open-and-move-between-remaining-and-workspaces", "boardChangeColorPopup-title", "changeColorPopup-title", "changeFontPopup-title", "boardChangeBackgroundImagePopup-title", "allBoardsChangeColorPopup-title", "allBoardsChangeBackgroundImagePopup-title", "boardChangeTitlePopup-title", "boardChangeVisibilityPopup-title", "boardChangeWatchPopup-title", "boardChangeViewPopup-title", "board-view", "desktop-mode", "mobile-mode", "mobile-desktop-toggle", "zoom-in", "zoom-out", "zoom-level", "enter-zoom-level", "board-view-cal", "board-view-multiboard-cal", "board-view-collapse"];
+for (const key of reviewedDisplayKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Background|Image|Visibility|Watch|Calendar|Collapse|Zoom|Click|stars)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['board-private-info'], /<strong>privata<[/]strong>/);
+assert.match(latin['board-public-info'], /<strong>publica<[/]strong>/);
+assert.match(latin['board_assignees'], /chartae.*assignatae sunt/);
+assert.match(latin['card_assignees'], /charta praesens.*assignata est/);
+assert.match(latin['board-open-and-move-between-remaining-and-workspaces'], /ansa trahendi.*__workspaces__.*margine laterali/);
+assert.match(latin['avatar-too-big'], /maximum __size__/);
+assert.ok(latin['enter-zoom-level'].includes('50-300%'));
+assert.notEqual(latin['zoom-in'], latin['zoom-out']);
+assert.equal(latin['board-view'], latin['boardChangeViewPopup-title']);
+for (const key of ['boardInfoOnMyBoardsPopup-title', 'boardInfoOnMyBoards-title']) assert.equal(latin[key], latin['board-info-on-my-boards']);
+for (const key of ['boardChangeBackgroundImagePopup-title', 'allBoardsChangeBackgroundImagePopup-title']) assert.equal(latin[key], latin['board-change-background-image']);
