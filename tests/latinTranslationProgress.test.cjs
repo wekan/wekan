@@ -502,3 +502,20 @@ assert.match(latin['tracking-info'], /omnibus mutationibus.*creator vel membrum/
 assert.notEqual(latin['unassign-member'], latin['remove-member']);
 assert.notEqual(latin['spent-time-hours'], latin['overtime-hours']);
 assert.equal(latin['starred-boards'], latin['bookmarksPopup-title']);
+
+const reviewedUploadKeys = ["uploading-files", "upload-failed", "upload-completed", "custom-top-left-corner-logo-image-url", "custom-top-left-corner-logo-link-url", "custom-top-left-corner-logo-height", "custom-login-logo-image-url", "custom-login-logo-link-url", "custom-help-link-url", "text-below-custom-login-logo", "automatic-linked-url-schemes", "import-usernames", "view-it", "go-to-board", "warn-list-archived", "watching", "watching-info", "welcome-board", "welcome-swimlane", "welcome-list1", "welcome-list2", "card-templates-swimlane", "list-templates-swimlane", "board-templates-swimlane", "what-to-do", "wipLimitErrorPopup-title", "wipLimitErrorPopup-dialog-pt1", "wipLimitErrorPopup-dialog-pt2", "attachment-transfer-limits-title", "attachment-limits"];
+for (const key of reviewedUploadKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Uploading|Custom|Top|Corner|Height|Welcome|Milestone|Templates|Limits)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['upload-failed'], /defecit/);
+assert.match(latin['upload-completed'], /perfecta est/);
+assert.match(latin['custom-top-left-corner-logo-height'], /superiore sinistro.*27$/);
+assert.match(latin['custom-top-left-corner-logo-image-url'], /URL imaginis/);
+assert.match(latin['custom-top-left-corner-logo-link-url'], /URL ligaminis/);
+assert.match(latin['automatic-linked-url-schemes'], /Unum schema URL in quaque linea/);
+assert.match(latin['warn-list-archived'], /charta in indice qui in archivo/);
+assert.match(latin['watching-info'], /omni mutatione/);
+assert.match(latin['wipLimitErrorPopup-dialog-pt1'], /maior est quam limes WIP/);
+assert.match(latin['wipLimitErrorPopup-dialog-pt2'], /ex hoc indice move, aut maiorem limitem/);
+assert.equal(new Set(['card', 'list', 'board'].map(kind => latin[`${kind}-templates-swimlane`])).size, 3);

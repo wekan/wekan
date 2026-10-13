@@ -195011,5 +195011,215 @@
     "before": "Latine: Immissum an imago",
     "after": "Imaginem usoris immisit",
     "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "uploading-files",
+    "before": "Latine: Uploading fasciculi",
+    "after": "Fasciculi immittuntur",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "upload-failed",
+    "before": "Latine: Immitte defecit",
+    "after": "Immissio defecit",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "upload-completed",
+    "before": "Latine: Immitte perfectum",
+    "after": "Immissio perfecta est",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "custom-top-left-corner-logo-image-url",
+    "before": "Latine: Custom Top Left Corner Logo Imago URL",
+    "after": "URL imaginis insignis proprii in angulo superiore sinistro",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "custom-top-left-corner-logo-link-url",
+    "before": "Latine: Custom Top Left Corner Logo Vinculum URL",
+    "after": "URL ligaminis insignis proprii in angulo superiore sinistro",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "custom-top-left-corner-logo-height",
+    "before": "Latine: Custom Top Left Corner Logo Height. Praedefinitum: 27",
+    "after": "Altitudo insignis proprii in angulo superiore sinistro. Praedefinita: 27",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "custom-login-logo-image-url",
+    "before": "Latine: Custom Introitus Logo Imago URL",
+    "after": "URL imaginis insignis proprii in pagina ingressus",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "custom-login-logo-link-url",
+    "before": "Latine: Custom Introitus Logo Vinculum URL",
+    "after": "URL ligaminis insignis proprii in pagina ingressus",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "custom-help-link-url",
+    "before": "Latine: Custom Auxilium Vinculum URL",
+    "after": "URL ligaminis auxilii proprii",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "text-below-custom-login-logo",
+    "before": "Latine: Textus below Custom Introitus Logo",
+    "after": "Textus infra insigne proprium paginae ingressus",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "automatic-linked-url-schemes",
+    "before": "Latine: Custom URL Schemes which debet automatice esse clickable. One URL Scheme per line",
+    "after": "Schemata URL propria quae automatice premi possint. Unum schema URL in quaque linea",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "import-usernames",
+    "before": "Latine: Importa Usernames",
+    "after": "Importa nomina usorum",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "view-it",
+    "before": "Latine: Vide it",
+    "after": "Vide hoc",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "go-to-board",
+    "before": "Latine: I ad Tabula",
+    "after": "Vade ad tabulam",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "warn-list-archived",
+    "before": "Latine: monitum: hoc scheda est in an index at Archivum",
+    "after": "Monitum: haec charta in indice qui in archivo est reperitur",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "watching",
+    "before": "Latine: Watching",
+    "after": "Observatio",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "watching-info",
+    "before": "Latine: Tu erit esse notified de ullum muta in hoc tabula",
+    "after": "De omni mutatione in hac tabula certior fies",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "welcome-board",
+    "before": "Latine: Welcome Tabula",
+    "after": "Tabula introductionis",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "welcome-swimlane",
+    "before": "Latine: Milestone 1",
+    "after": "Meta 1",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "welcome-list1",
+    "before": "Latine: Basics",
+    "after": "Fundamenta",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "welcome-list2",
+    "before": "Latine: Advanced",
+    "after": "Provecta",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "card-templates-swimlane",
+    "before": "Latine: Scheda Templates",
+    "after": "Exemplaria chartarum",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "list-templates-swimlane",
+    "before": "Latine: Index Templates",
+    "after": "Exemplaria indicum",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "board-templates-swimlane",
+    "before": "Latine: Tabula Templates",
+    "after": "Exemplaria tabularum",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "what-to-do",
+    "before": "Latine: Quid visne do?",
+    "after": "Quid facere vis?",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "wipLimitErrorPopup-title",
+    "before": "Latine: Invalidum WIP Limit",
+    "after": "Limes WIP invalidus",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "wipLimitErrorPopup-dialog-pt1",
+    "before": "Latine: The numerus de tasks in hoc index est higher than the WIP limit you've defined.",
+    "after": "Numerus munerum in hoc indice maior est quam limes WIP quem constituisti.",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "wipLimitErrorPopup-dialog-pt2",
+    "before": "Latine: Please move some tasks out de hoc index, vel set a higher WIP limit.",
+    "after": "Quaeso quaedam munera ex hoc indice move, aut maiorem limitem WIP constitue.",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-transfer-limits-title",
+    "before": "Latine: Adnexum Et API Fasciculus Magnitudo Limits",
+    "after": "Limites magnitudinis adiunctorum et fasciculorum API",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-limits",
+    "before": "Latine: Limits",
+    "after": "Limites",
+    "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
   }
 ]

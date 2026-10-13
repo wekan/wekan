@@ -54,3 +54,16 @@ test('Latin list deletion warning distinguishes permanent loss from archiving', 
   await expect(pop).toContainText('actiones serves.');
   await expect(pop).not.toContainText('Latine:');
 });
+
+test('Latin WIP warning explains both recovery choices', async ({ boardPage: page }) => {
+  await page.evaluate(async () => {
+    await Meteor.callAsync('setLanguage', 'la');
+    Popup.close();
+    Popup.open('wipLimitError')({ currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
+  });
+  const pop = page.locator('.js-pop-over');
+  await expect(pop.locator('.header-title')).toHaveText('Limes WIP invalidus');
+  await expect(pop).toContainText('maior est quam limes WIP quem constituisti.');
+  await expect(pop).toContainText('quaedam munera ex hoc indice move, aut maiorem limitem WIP constitue.');
+  await expect(pop).not.toContainText('Latine:');
+});
