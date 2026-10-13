@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican feature controls and backup guidance — 2026-10-13
+
+Commit `cf03f236b5` repairs 42 values in the source-ordered review through
+key 2629. Card loading now describes automatic threshold selection and both
+environment overrides. The account-anonymization confirmation now describes
+permanent identity replacement, avatar removal, disabled login, retained
+history and irreversibility; it previously repeated export instructions.
+Import/export anonymization, plain-text rendering and notification controls
+retain their distinct scopes. Organization restores remain limited to owned
+boards and exclude shared accounts/settings. Backup paths stay literal.
+
+The Corsican and full repair-ledger suites pass; the final ledger check
+verifies 26,602 guarded corrections. All 21 human-preference checks pass.
+Two performance/security help browser cases pass syntax checking and
+register. Runtime execution is unavailable: a fresh localhost:3000 probe
+failed to connect. Exact comparison preserves 38,430 existing Chinese
+values. Broader language review remains unfinished.
+
 ## Corsican scheduling, cloud storage and migration — 2026-10-13
 
 Commit `f8c5783f41` repairs 49 values in the source-ordered review through

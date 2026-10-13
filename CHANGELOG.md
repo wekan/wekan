@@ -1949,6 +1949,19 @@ pending. Existing Chinese text is unchanged; broader review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cf03f236b5">Correct Corsican feature and backup guidance</a>. Thanks to xet7.</summary>
+
+Repair 42 feature and backup values. Restore automatic card-loading guidance
+and the account-anonymization confirmation, which wrongly described export.
+Preserve irreversible account changes, retained history and backup scope.
+
+The Corsican and repair-ledger suites and 21 human-preference checks pass.
+Two help-text browser cases are registered; runtime execution is unavailable
+because the local app is not running. Existing Chinese text is unchanged.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
