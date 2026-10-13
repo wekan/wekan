@@ -3236,6 +3236,21 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5e94c5e2a0">Repair Latin rule action and duration labels</a>. Thanks to xet7.</summary>
+
+- Translate 24 mixed-language rule controls, preserving complete/incomplete
+  actions, before/after offsets, relative dates, duration units and all-card
+  scope.
+- Latin and guarded-correction suites pass with 28,148 corrections; all 21
+  human-preference checks pass and 38,430 existing Chinese values are preserved.
+  Added workflow-toolbox browser coverage passes syntax and discovery; runtime
+  execution remains pending.
+- Review remains unfinished: 1,236 Latin values contain the legacy “Latine:”
+  prefix. Unprefixed values and other languages still require semantic review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

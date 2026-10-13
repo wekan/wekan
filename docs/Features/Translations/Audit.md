@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin rule actions and durations — 2026-10-14
+
+Commit `5e94c5e2a0` repairs 24 prefixed rule-action, duration and button labels.
+Regression checks distinguish before/after, card/board buttons, complete and
+incomplete actions, all-card scope, relative dates and five duration units.
+
+The Latin and guarded-correction suites pass with 28,148 ledger entries. All 21
+human-preference checks pass. Workflow-toolbox browser coverage checks both
+completion actions and the disabled creation button before parts are selected.
+Syntax and discovery pass; browser runtime remains pending. Exact comparison
+preserves 38,430 existing Chinese values.
+
+There remain 1,236 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. Upcoming shared trigger fragments require checking
+Latin agreement and case across their subject/predicate combinations; the current
+rule grammar helper still retains the separate Latin linking verb.
+All-language translation and semantic verification remain unfinished.
+
 ## Latin rule import and scheduling — 2026-10-14
 
 Commit `1f11631552` repairs 30 prefixed import and scheduling entries. Regression
