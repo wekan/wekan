@@ -46,4 +46,4 @@ assert.deepEqual(tokens(maltese['activity-changedTitle']), ['%s', '%s']);
 assert.deepEqual(tokens(maltese['act-deleteCard']),
   ['__board__', '__card__', '__list__', '__swimlane__']);
 
-console.log('malteseTranslationProgress: complete locale passed');
+console.log('malteseTranslationProgress: earlier catalog and locale-wide token checks passed');
