@@ -2,6 +2,25 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican recovery decisions — 2026-10-13
+
+Commit `ef77f5a3f3` fills 37 English synchronization/import recovery
+messages. The suite checks all 48 messages in those groups, including the
+11 already translated. Assertions distinguish preserved applied changes
+from changes never written, retryable operations from discardable ones,
+and keeping a partial board from deleting it permanently. Warnings retain
+missing source files, later additions and untouched unrelated boards.
+
+The Corsican suite and 21 human-preference checks pass. Two browser cases
+register for synchronization discard and interrupted-import discard, but
+have not executed against the application.
+
+Only the 37 English values changed. All 38,079 existing protected Chinese
+values remain unchanged, and concurrent mail-report additions are outside
+the commit. Corsican now has 126 filtered placeholders; the global count
+is 53,350 across 114 catalogs. Regional phrasing, older mixed-language text
+and browser execution still require review.
+
 ## Corsican card attachments and linked fields — 2026-10-13
 
 Commit `cdb2405e93` fills 30 English placeholders. Checks cover matching

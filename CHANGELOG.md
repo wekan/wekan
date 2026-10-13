@@ -132,7 +132,7 @@ releases.
   report counts **28,516 untranslated locale/string values in 42 languages**.
   It excludes **379 source keys tracked separately as pending Transifex**.
   With the newer email/chat strings included, full per-locale `--list`
-  reports, including pending keys, count **53,387 remaining values across
+  reports, including pending keys, count **53,350 remaining values across
   114 non-English locale files**. This fuller inventory remains the scope
   of the translation work.
   A separate short-prose audit flags 1,649 candidates across 180 locales.
@@ -1358,6 +1358,21 @@ run against the application.
 Corsican has 163 filtered placeholders left. Regional wording and older
 mixed-language text still need review. Prior translations and all protected
 Chinese values remain unchanged by this batch.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ef77f5a3f3">Translate Corsican synchronization and import recovery</a>. Thanks to xet7.</summary>
+
+Fill 37 messages explaining interrupted synchronization and board imports.
+Preserve warnings about changes already applied, unrecorded source files,
+permanent deletion and later additions to partial boards. Tests cover all
+48 recovery strings, including the previously translated controls.
+
+The Corsican suite and 21 human-preference checks pass. Two browser cases
+register; application execution and fluent wording review remain pending.
+Corsican has 126 filtered placeholders left. Existing translated values and
+protected Chinese text remain unchanged.
 
 </details>
 
