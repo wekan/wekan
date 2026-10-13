@@ -131,9 +131,9 @@ releases.
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **28,516 untranslated locale/string values in 42 languages**.
   It excludes **379 source keys tracked separately as pending Transifex**.
-  After the Tamil batch and new Trello strings, full per-locale `--list`
-  reports, including pending keys, count **56,003 remaining values across
-  126 non-English locale files**. This fuller inventory remains the scope
+  After the Thai batch and new Trello strings, full per-locale `--list`
+  reports, including pending keys, count **55,810 remaining values across
+  125 non-English locale files**. This fuller inventory remains the scope
   of the translation work.
   A separate short-prose audit flags 1,673 candidates across 182 locales.
   The two notification At/To labels now have translations in all non-English
@@ -145,6 +145,10 @@ releases.
   Earlier Xhosa completion checks predate the newer pending strings. The
   current broad run still exposes English placeholders in several catalogs;
   see the dated audit results. Empty reports do not establish fluency.
+- Thai now has no current fill candidates after 193 feature fills, plus the
+  exempt Bytes label. Existing non-English values are unchanged. Three
+  focused suites and 21 human-preference checks pass; five Thai browser
+  cases register. Execution and whole-catalog wording review remain open.
 - Tamil now has no current fill candidates after 193 feature fills. The
   exempt Bytes label is translated too, and four misspelled calendar labels
   are corrected. Four relevant suites and 21 human-preference checks pass.
@@ -169,7 +173,7 @@ releases.
 - Marathi now has no current fill candidates after 212 feature fills. Another
   55 English settings, rule and keyboard labels were hidden by the fill tool's
   technical-name and short-word exemptions; those are now translated too.
-  `node releases/translations/audit-exempt-prose.mjs` exposes 3,820 review
+  `node releases/translations/audit-exempt-prose.mjs` exposes 3,819 review
   candidates across 226 locales. They include intentional names and shared
   spellings, so they are not a confirmed untranslated count. Preserve existing
   human-verified `zh` wording; add only confirmed missing strings there.
@@ -570,7 +574,7 @@ through its API, with **swimlanes** kept as labels that WeKan's Trello import
 turns back into swimlanes; on **Sandstorm**, the **Powerbox** lets a grain
 reach Trello. **FreeBSD** Bun bundles, the **Launchpad snap** waits and the
 **Mac apps** release step are fixed. Missing Bengali, Marathi, Nepali and
-Tamil strings are filled, and wrong-language values are corrected.
+Tamil and Thai strings are filled, and wrong-language values are corrected.
 
 This release adds the following new features:
 
@@ -771,6 +775,22 @@ import exclusions, permanent removal versus keeping data, source literals
 and runtime substitution. Six Tamil browser cases register, including
 calendar labels; execution needs a running rebuilt app. The current Tamil
 fill list is empty, but broader wording review remains unfinished.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0a7eba3e4e">Fill Thai feature strings and the byte unit label</a>. Thanks to xet7.</summary>
+
+Translate 193 current placeholders for linked fields, import formats,
+notifications, recovery and Trello, plus the exempt Bytes label. All previous
+non-English Thai values and verified Chinese wording remain unchanged.
+
+Three focused suites and 21 human-preference checks pass. Exact source tokens
+and key order match across all 246 catalogs. Tests cover permission direction,
+import exclusions, irreversible removal versus keeping data, technical
+identifiers and runtime substitution. Five Thai browser cases register;
+execution needs a running rebuilt app. The current fill list is empty, but
+whole-catalog semantic review remains unfinished.
 
 </details>
 

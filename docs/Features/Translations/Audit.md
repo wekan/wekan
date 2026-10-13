@@ -2,6 +2,40 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Thai feature fills — 2026-10-13
+
+Commit `0a7eba3e4e` fills 193 current placeholders and the exempt Bytes label.
+Comparison with the parent confirms all 194 replaced values were English;
+every earlier non-English Thai value is unchanged. No `zh` catalog changed.
+The translations use existing terms for boards, cards, lists, swimlanes,
+custom fields, checklists and assignees. Source menu names, file extensions,
+column headers and round-trip markers remain literal where users must find
+or supply them. Longer technical wording is provisional pending speaker review.
+
+Review of remaining source-equal values leaves product names, abbreviations,
+query letters, mathematical functions, OK and physical keyboard legends.
+Descriptions consisting only of cloud product names are retained too. A
+narrow scan found no Khmer, Lao, Myanmar, Cyrillic or Devanagari script; that
+result does not prove that every Thai sentence has been semantically reviewed.
+The full current fill list is empty, including pending feature keys.
+
+Three focused suites pass: Thai, shared labels and exempt prose. Tests cover
+which card sends or receives changes, permission loss, values left unchanged,
+import exclusions and first-board behavior, inherited notification settings,
+permanent deletion versus retention, no stored import source, Trello network
+permission states and runtime interpolation including zero. Source key order
+and exact tokens match across all 246 catalogs / 1,019,178 pairs; all 21
+human-preference checks pass. Five Thai browser cases register for linked
+fields, notification settings, both recovery views and Trello export. These
+still require execution against a rebuilt running app.
+
+The full filtered inventory falls to 55,810 values across 125 non-English
+paths. The ordinary report remains 28,516 values across 42 locales, excluding
+379 pending keys. The supplemental queue falls by one to 3,819 candidates
+across 226 locales. The whole-language semantic audit and overall translation
+task remain unfinished. No external translation service or remote upload was
+used.
+
 ## Tamil feature fills and calendar spelling — 2026-10-13
 
 Commit `5de70e0399` fills 193 feature placeholders and the exempt Bytes label.
