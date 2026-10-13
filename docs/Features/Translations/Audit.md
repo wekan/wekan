@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican restore modes and cloud configuration — 2026-10-13
+
+Commit `56dd1cbf08` repairs 51 values in the source-ordered review through
+key 2729. Restore wording preserves filesystem/database destinations and
+the chosen mode. Cloud help retains optional key-file/JSON alternatives,
+blank-field behavior, read/write permission, and the one-time display of
+an S3 secret key. Provider menu labels, client_email and role names remain
+literal. Migration states and storage names lose Italian wording and
+invented language prefixes.
+
+The Corsican and full repair-ledger suites pass; the ledger verifies
+26,653 guarded corrections. All 21 human-preference checks pass. Four
+Corsican attachment browser cases register, including cloud help; syntax
+checking passes, but runtime execution remains pending. Exact comparison
+preserves 38,430 existing Chinese values. Broader language review remains
+unfinished.
+
 ## Corsican feature controls and backup guidance — 2026-10-13
 
 Commit `cf03f236b5` repairs 42 values in the source-ordered review through

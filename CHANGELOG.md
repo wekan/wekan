@@ -1962,6 +1962,18 @@ because the local app is not running. Existing Chinese text is unchanged.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/56dd1cbf08">Correct Corsican restore and cloud-storage translations</a>. Thanks to xet7.</summary>
+
+Repair 51 restore, cloud-storage and migration values. Preserve credential
+alternatives, provider menu labels, restore destinations and migration states.
+
+The Corsican and repair-ledger suites and 21 human-preference checks pass.
+Cloud-help browser coverage is registered; runtime execution remains pending.
+Existing Chinese text is unchanged; broader review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
