@@ -1608,6 +1608,19 @@ runtime execution remains pending. Protected Chinese values are unchanged.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b1c1c68040">Correct Corsican board display and attachment warnings</a>. Thanks to xet7.</summary>
+
+Repair 27 mixed-language board, archive, template and attachment messages.
+Preserve the offline data-loss warning, administrator-only board creation,
+permanent attachment deletion and board-reordering instructions.
+
+The Corsican suite, full repair-ledger suite and 21 human-preference checks
+pass. The template-container browser case registers; runtime execution is
+pending. Protected Chinese values are unchanged; broader review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

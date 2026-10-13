@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican board display and attachment warnings — 2026-10-13
+
+Commit `b1c1c68040` repairs 27 values found through direct review of board,
+archive, template and attachment controls. The offline message retains
+refresh-related data loss and the server-stop check. Board creation now
+names boards instead of little squares. Archive actions remain distinct
+from permanent attachment deletion, and reordering instructions retain both
+dragging and clicking with the workspace placeholder unchanged.
+
+The Corsican and full repair-ledger suites pass; the ledger contains
+25,482 guarded corrections. All 21 human-preference checks pass. A new
+Templates-page browser case registers and checks the corrected container
+creation label and tooltip. It has not run against the application.
+Exact comparison preserves all 38,430 existing protected Chinese values
+and limits this locale batch to 27 reviewed replacements. Broader language
+review remains unfinished.
+
 ## Corsican workspace and card controls — 2026-10-13
 
 Commit `9869b00d25` corrects 37 values found by direct source comparison
