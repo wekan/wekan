@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican board, archive and member controls — 2026-10-13
+
+Commit `01e3a9542e` repairs 52 values in the source-ordered review through
+key 1044. Personal override labels no longer imply cancellation and Gantt
+loses an unrelated in-progress prefix. Label deletion retains all-card
+removal, history destruction and irreversibility. Selection controls keep
+their target and movement direction. Assigned-only users retain restricted
+visibility and normal-user editing; muted, participating and watched
+notifications retain their distinct conditions.
+
+The Corsican and full repair-ledger suites pass; the ledger contains
+25,825 guarded corrections. All 21 human-preference checks pass. A new
+archive-tab browser case registers and checks the distinct empty-card,
+empty-list and empty-swimlane messages while rejecting prior Italian prose.
+It has not run against the application. Exact comparison preserves all
+38,430 protected Chinese values and limits this locale batch to the 52
+reviewed replacements. Broader language review remains unfinished.
+
 ## Corsican Trello import and cancellation controls — 2026-10-13
 
 Commit `b03a4afca6` repairs 43 values in the source-ordered review through

@@ -1744,6 +1744,19 @@ Existing Chinese text is unchanged; broader language review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/01e3a9542e">Correct Corsican board, archive and member controls</a>. Thanks to xet7.</summary>
+
+Repair 52 board, selection, archive and member values. Distinguish personal
+overrides from cancellation, remove an unrelated Gantt prefix, and retain
+assigned-only visibility, notification conditions and deletion warnings.
+
+The Corsican and repair-ledger suites and 21 human-preference checks pass.
+An archive-tab browser case registers; runtime execution remains pending.
+Existing Chinese text is unchanged; broader language review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
