@@ -280,3 +280,23 @@ assert.equal(latin['theme-category-clear'], 'Clarum');
 assert.notEqual(latin['theme-category-clear'], latin['theme-category-dark']);
 assert.match(latin.casSignIn, /CAS$/);
 assert.match(latin.samlSignIn, /SAML$/);
+
+const reviewedFontAgingKeys = ["font-preview-text", "font-size", "font-size-default", "font-size-smaller", "font-size-small", "font-size-large", "font-size-larger", "font-size-largest", "text-color", "text-background-color", "changeAvatarPopup-title", "delete-avatar-confirm", "deleteAvatarPopup-title", "changeLanguagePopup-title", "changePermissionsPopup-title", "changeSettingsPopup-title", "subtasks", "click-to-star", "click-to-unstar", "click-to-star-page", "click-to-unstar-page", "click-to-enable-auto-width", "click-to-disable-auto-width", "auto-list-width", "clipboard", "card-aging", "card-aging-days", "card-aging-tier1", "card-aging-tier2", "card-aging-tier3", "move-card-up", "move-card-down", "move-list-left", "move-list-right", "close-board"];
+for (const key of reviewedFontAgingKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Click|Tier|Fade|idle|Smaller|Largest|background|aging)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['font-preview-text'], /0123456789$/);
+assert.equal(new Set(['smaller', 'small', 'large', 'larger', 'largest'].map(size => latin[`font-size-${size}`])).size, 5);
+assert.match(latin['click-to-enable-auto-width'], /inactiva.*ut actives/);
+assert.match(latin['click-to-disable-auto-width'], / activa.*ut inactives/);
+for (const tier of [1, 2, 3]) assert.match(latin[`card-aging-tier${tier}`], /dies sine actione/);
+assert.match(latin['card-aging-tier1'], /leviter/);
+assert.match(latin['card-aging-tier2'], /mediocriter/);
+assert.match(latin['card-aging-tier3'], /valde/);
+assert.match(latin['move-card-up'], /sursum$/);
+assert.match(latin['move-card-down'], /deorsum$/);
+assert.match(latin['move-list-left'], /sinistrorsum$/);
+assert.match(latin['move-list-right'], /dextrorsum$/);
+assert.equal(latin['changeAvatarPopup-title'], latin['adminChangeAvatarPopup-title']);
+assert.equal(latin['changeSettingsPopup-title'], latin['change-settings']);

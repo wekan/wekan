@@ -191882,5 +191882,250 @@
     "before": "Latine: Praedefinitum (non custom font)",
     "after": "Praedefinitum (sine forma litterarum propria)",
     "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "font-preview-text",
+    "before": "Latine: The quick brown fox jumps over the lazy dog 0123456789",
+    "after": "Vulpes fusca celeris super canem pigrum salit 0123456789",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "font-size",
+    "before": "Latine: Font magnitudo",
+    "after": "Magnitudo litterarum",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "font-size-default",
+    "before": "Latine: Praedefinitum",
+    "after": "Praedefinita",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "font-size-smaller",
+    "before": "Latine: Smaller",
+    "after": "Minor",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "font-size-small",
+    "before": "Latine: Small",
+    "after": "Parva",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "font-size-large",
+    "before": "Latine: Large",
+    "after": "Magna",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "font-size-larger",
+    "before": "Latine: Larger",
+    "after": "Maior",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "font-size-largest",
+    "before": "Latine: Largest",
+    "after": "Maxima",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "text-color",
+    "before": "Latine: Textus color",
+    "after": "Color textus",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "text-background-color",
+    "before": "Latine: Textus background color",
+    "after": "Color fundi textus",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "changeAvatarPopup-title",
+    "before": "Latine: Muta Imago",
+    "after": "Muta imaginem usoris",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "delete-avatar-confirm",
+    "before": "Latine: certusne es tu want ad dele hoc imago?",
+    "after": "Certusne es te hanc imaginem usoris delere velle?",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "deleteAvatarPopup-title",
+    "before": "Latine: Dele Imago?",
+    "after": "Delere imaginem usoris?",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "changeLanguagePopup-title",
+    "before": "Latine: Muta Lingua",
+    "after": "Muta linguam",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "changePermissionsPopup-title",
+    "before": "Latine: Muta Facultates",
+    "after": "Muta facultates",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "changeSettingsPopup-title",
+    "before": "Latine: Muta Configurationes",
+    "after": "Muta optiones",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "subtasks",
+    "before": "Latine: Submunera",
+    "after": "Submunera",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "click-to-star",
+    "before": "Latine: Click ad star hoc tabula.",
+    "after": "Preme ut hanc tabulam stella notes.",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "click-to-unstar",
+    "before": "Latine: Click ad unstar hoc tabula.",
+    "after": "Preme ut stellam ab hac tabula removeas.",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "click-to-star-page",
+    "before": "Latine: Click ad star hoc pagina.",
+    "after": "Preme ut hanc paginam stella notes.",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "click-to-unstar-page",
+    "before": "Latine: Click ad unstar hoc pagina.",
+    "after": "Preme ut stellam ab hac pagina removeas.",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "click-to-enable-auto-width",
+    "before": "Latine: Auto index width inhabilitatum. Click ad habilita.",
+    "after": "Latitudo indicis automatica inactiva est. Preme ut actives.",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "click-to-disable-auto-width",
+    "before": "Latine: Auto index width habilitatum. Click ad inhabilita.",
+    "after": "Latitudo indicis automatica activa est. Preme ut inactives.",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "auto-list-width",
+    "before": "Latine: Auto index width",
+    "after": "Latitudo indicis automatica",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "clipboard",
+    "before": "Latine: Clipboard vel drag & drop",
+    "after": "Memoria temporaria vel tractio et depositio",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "card-aging",
+    "before": "Latine: Scheda aging (fade old schedae)",
+    "after": "Senescentia chartarum (chartas veteres pallidiores redde)",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "card-aging-days",
+    "before": "Latine: Fade after dies (3 tiers):",
+    "after": "Pallidiores redde post dies (3 gradus):",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "card-aging-tier1",
+    "before": "Latine: Tier 1 (clarum fade) after hoc many idle dies",
+    "after": "Gradus 1 (leviter pallidior) post tot dies sine actione",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "card-aging-tier2",
+    "before": "Latine: Tier 2 (medium fade) after hoc many idle dies",
+    "after": "Gradus 2 (mediocriter pallidior) post tot dies sine actione",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "card-aging-tier3",
+    "before": "Latine: Tier 3 (heavy fade) after hoc many idle dies",
+    "after": "Gradus 3 (valde pallidior) post tot dies sine actione",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "move-card-up",
+    "before": "Latine: Move scheda up",
+    "after": "Move chartam sursum",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "move-card-down",
+    "before": "Latine: Move scheda down",
+    "after": "Move chartam deorsum",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "move-list-left",
+    "before": "Latine: Move index left",
+    "after": "Move indicem sinistrorsum",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "move-list-right",
+    "before": "Latine: Move index right",
+    "after": "Move indicem dextrorsum",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "close-board",
+    "before": "Latine: Claude Tabula",
+    "after": "Claude tabulam",
+    "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
   }
 ]

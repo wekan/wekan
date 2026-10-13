@@ -13,4 +13,6 @@ test('Latin font popup labels the default as no custom font', async ({ boardPage
   const defaultFont = form.locator('.js-ui-font-btn[data-font=""]');
   await expect(defaultFont).toHaveText('Praedefinitum (sine forma litterarum propria)');
   await expect(defaultFont).not.toContainText('Latine:');
+  await expect(form.locator('.font-preview')).toHaveText('Vulpes fusca celeris super canem pigrum salit 0123456789');
+  await expect(form.locator('label').filter({ hasText: 'Magnitudo litterarum' })).toBeVisible();
 });
