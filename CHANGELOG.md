@@ -3707,6 +3707,20 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d1e8c955e3">Repair remaining prefixed Latin report translations</a>. Thanks to xet7.</summary>
+
+- Translate 65 report and flow-analysis entries, preserving thresholds,
+  forecast caveats, historical limitations and import scope. Add a catalog-wide
+  regression check against the legacy translation prefix.
+- Three translation suites and 21 human-preference checks pass. Existing Chinese
+  values remain unchanged. Five flow-report browser tests pass syntax and
+  discovery; execution remains pending.
+- No Latin values contain the legacy prefix. Review remains unfinished:
+  unprefixed English import instructions and other languages still need work.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

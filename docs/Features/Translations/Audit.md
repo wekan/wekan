@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin legacy-prefix cleanup and flow reports — 2026-10-14
+
+Commit `d1e8c955e3` repairs the final 65 Latin values containing “Latine:”.
+Regression checks retain report thresholds, UTC sampling, upper/lower-tail
+forecast distinctions, overlapping causes, missing-history rules and import
+scope. The full catalog now rejects any recurrence of that prefix.
+
+Three translation suites pass with 29,387 correction ledger entries. All 21
+human-preference checks pass, and exact comparison preserves 38,430 existing
+Chinese values. Five flow-report browser tests pass syntax and discovery;
+runtime remains pending.
+
+Zero legacy prefixes does not establish linguistic completion. A fresh scan
+finds English prose in `import-board-instruction-todoist` and
+`import-board-instruction-planner`. Other unprefixed values and all other
+languages still need semantic review. All-language verification is unfinished.
+
 ## Latin status, accounts and repair results — 2026-10-14
 
 Commit `6f0bbb9a34` repairs 70 status, repository, account and repair-result
