@@ -183503,5 +183503,334 @@
     "before": "Piattà la lista di controllo completata",
     "after": "Piattà a lista di cuntrollu compia",
     "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "create-task",
+    "before": "Creà compito",
+    "after": "Creà un compitu",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "domain",
+    "before": "Dominio",
+    "after": "Duminiu",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "add-domain",
+    "before": "Aghjunghje dominio",
+    "after": "Aghjunghje un duminiu",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "share-template-with",
+    "before": "Condividi template cù",
+    "after": "Sparte u mudellu cù",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "drag-template-here-to-share",
+    "before": "Trascina qui una tavula template per condividerla",
+    "after": "Trascinate una tavula mudellu quì per sparte la",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "shared-templates",
+    "before": "Template condivisi",
+    "after": "Mudelli spartuti",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "shared-templates-select-scope",
+    "before": "Selezziunà un ambito sopra (Organizzazioni, Team o Domini) per mostrare i template condivisi.",
+    "after": "Selezziunate un ambitu quì sopra (Urganizazioni, Squadre o Duminii) per mustrà i mudelli spartuti.",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "displayName",
+    "before": "Nome da visualizzare",
+    "after": "Nome da mustrà",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "shortName",
+    "before": "Nome abbreviato",
+    "after": "Nome cortu",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "autoAddUsersWithDomainName",
+    "before": "Aghjunghje automaticamente utilizatori cù il nome di dominio",
+    "after": "Aghjunghje automaticamente l’utilizatori cù u nome di duminiu",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "website",
+    "before": "Sito web",
+    "after": "Situ web",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "my-attachments",
+    "before": "E mo Alligati",
+    "after": "I mo appicci",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "context-separator",
+    "before": "In corsu: /",
+    "after": "/",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "myCardsViewChange-title",
+    "before": "Vista mie carte",
+    "after": "Vista di e mo carte",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "myCardsViewChangePopup-title",
+    "before": "Vista mie carte",
+    "after": "Vista di e mo carte",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "myCardsSortChange-title",
+    "before": "Ordina le mie carte...",
+    "after": "Urdinamentu di e mo carte",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "myCardsSortChangePopup-title",
+    "before": "Ordina le mie carte...",
+    "after": "Urdinamentu di e mo carte",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "dueCardsViewChange-choice-me",
+    "before": "Io",
+    "after": "Eiu",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "dueCardsViewChange-choice-all-description",
+    "before": "Visualizza tutte le carte non completate cù una data di *scadenza* dalle tavule in cui l'utilizatore ha il permesso.",
+    "after": "Mostra tutte e carte micca compie cù una data di *scadenza* nant’à e tavule per e quale l’utilizatore hà u permessu.",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearchViewChange-title",
+    "before": "Vista ricerca globale",
+    "after": "Vista di ricerca glubale",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearchViewChangePopup-title",
+    "before": "Vista ricerca globale",
+    "after": "Vista di ricerca glubale",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearchViewChange-choice-me",
+    "before": "Le mie carte",
+    "after": "E mo carte",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearchViewChange-choice-all",
+    "before": "Tutte le carte",
+    "after": "Tutte e carte",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearchViewChange-choice-all-description",
+    "before": "Circà in tutte le carte di e tavule per cui hai i permessi. Scegli *Le mie carte* per limitare i risultati alle carte in cui sei membru o assegnatario.",
+    "after": "Circà in tutte e carte di e tavule per e quale avete u permessu. Sceglite *E mo carte* per limità i risultati à e carte induve site membru o persona assignata.",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "dueCards-noResults-title",
+    "before": "Nessuna carta in scadenza trovata",
+    "after": "Nisuna carta cù scadenza truvata",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "dueCards-noResults-description",
+    "before": "Al momento non hai carte cù date di scadenza.",
+    "after": "Ùn avete nisuna carta cù data di scadenza à u mumentu.",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "board-title-not-found",
+    "before": "Tavula '%s' non trovata.",
+    "after": "Tavula '%s' micca truvata.",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "swimlane-title-not-found",
+    "before": "Swimlane '%s' micca truvata.",
+    "after": "Corsia '%s' micca truvata.",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "list-title-not-found",
+    "before": "Lista '%s' non trovata.",
+    "after": "Lista '%s' micca truvata.",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "label-color-not-found",
+    "before": "Culore etichetta %s non trovato.",
+    "after": "Culore d’etichetta %s micca truvatu.",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "comment-not-found",
+    "before": "Carte cù cummenti contenenti il testo '%s' non trovate.",
+    "after": "Carta cù un cummentu chì cuntene u testu '%s' micca truvata.",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "org-name-not-found",
+    "before": "Urganizazione '%s' non trovata",
+    "after": "Urganizazione '%s' micca truvata.",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "team-name-not-found",
+    "before": "Team '%s' non trovato.",
+    "after": "Squadra '%s' micca truvata.",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "no-cards-found",
+    "before": "Nessuna carta trovata",
+    "after": "Nisuna carta truvata",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "one-card-found",
+    "before": "Una carta trovata",
+    "after": "Una carta truvata",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "n-cards-found",
+    "before": "%s carta trovata",
+    "after": "%s carte truvate",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "n-n-of-n-cards-found",
+    "before": "__start__-__end__ di __total__ carte trovate",
+    "after": "__start__-__end__ nant’à __total__ carte truvate",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "operator-board-abbrev",
+    "before": "In corsu: b",
+    "after": "b",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "operator-swimlane-abbrev",
+    "before": "In corsu: s",
+    "after": "s",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "operator-list-abbrev",
+    "before": "In corsu: l",
+    "after": "l",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "operator-label-abbrev",
+    "before": "In corsu: #",
+    "after": "#",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "operator-user-abbrev",
+    "before": "In corsu: @",
+    "after": "@",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "operator-member-abbrev",
+    "before": "In corsu: m",
+    "after": "m",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "operator-assignee",
+    "before": "assegnatario",
+    "after": "assignatu",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "operator-assignee-abbrev",
+    "before": "In corsu: a",
+    "after": "a",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "operator-status",
+    "before": "stato",
+    "after": "statu",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "operator-created",
+    "before": "creato",
+    "after": "creatu",
+    "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
   }
 ]

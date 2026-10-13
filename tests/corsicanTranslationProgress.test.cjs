@@ -548,3 +548,15 @@ for (const literal of ['Enter', 'Shift+Enter', 'Ctrl/Cmd+Enter']) assert.ok(cors
 assert.match(corsican['submit-on-enter-description'], /attivatu.*Enter arregistra.*disattivatu.*Ctrl\/Cmd\+Enter arregistra è Enter inserisce/);
 assert.match(corsican['delete-linked-cards-before-this-list'], /Ùn pudete micca.*prima d’avè.*carte ligate.*sta lista/);
 assert.deepEqual(['monday','tuesday','wednesday','thursday','friday','saturday','sunday'].map(k => corsican[k]), ['Luni','Marti','Mercuri','Ghjovi','Vennari','Sabbatu','Dumenica']);
+
+const searchTemplateCorrectionKeys = ["create-task", "domain", "add-domain", "share-template-with", "drag-template-here-to-share", "shared-templates", "shared-templates-select-scope", "displayName", "shortName", "autoAddUsersWithDomainName", "website", "my-attachments", "context-separator", "myCardsViewChange-title", "myCardsViewChangePopup-title", "myCardsSortChange-title", "myCardsSortChangePopup-title", "dueCardsViewChange-choice-me", "dueCardsViewChange-choice-all-description", "globalSearchViewChange-title", "globalSearchViewChangePopup-title", "globalSearchViewChange-choice-me", "globalSearchViewChange-choice-all", "globalSearchViewChange-choice-all-description", "dueCards-noResults-title", "dueCards-noResults-description", "board-title-not-found", "swimlane-title-not-found", "list-title-not-found", "label-color-not-found", "comment-not-found", "org-name-not-found", "team-name-not-found", "no-cards-found", "one-card-found", "n-cards-found", "n-n-of-n-cards-found", "operator-board-abbrev", "operator-swimlane-abbrev", "operator-list-abbrev", "operator-label-abbrev", "operator-user-abbrev", "operator-member-abbrev", "operator-assignee", "operator-assignee-abbrev", "operator-status", "operator-created"];
+for (const key of searchTemplateCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /Creà compito|Condividi template|Trascina qui|template condivisi|Nome da visualizzare|nome di dominio|Sito web|Vista mie carte|Ordina le mie carte|Visualizza tutte le carte|per cui hai i permessi|Nessuna carta|Al momento non hai|non trovat|contenenti il testo|In corsu:/, key);
+}
+assert.match(corsican['dueCardsViewChange-choice-all-description'], /micca compie.*scadenza.*hà u permessu/);
+assert.match(corsican['globalSearchViewChange-choice-all-description'], /avete u permessu.*membru o persona assignata/);
+assert.match(corsican['shared-templates-select-scope'], /Urganizazioni, Squadre o Duminii/);
+assert.match(corsican['n-cards-found'], /%s carte truvate/);
+assert.equal(corsican['context-separator'], '/');
+for (const suffix of ['board','swimlane','list','label','user','member','assignee']) assert.equal(corsican[`operator-${suffix}-abbrev`], english[`operator-${suffix}-abbrev`]);

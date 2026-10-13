@@ -191,4 +191,7 @@ test('Corsican shared-template guidance preserves scopes and nonempty eligibilit
   await expect(description).toContainText('unu o parechji ambiti');
   await expect(description).toContainText('tavula Mudelli micca viota');
   await expect(description).not.toContainText('Sfoglia');
+  const hint = page.locator('#templates-setting .shared-templates-hint');
+  await expect(hint).toHaveText(require('../../../imports/i18n/data/co.i18n.json')['shared-templates-select-scope']);
+  await expect(hint).not.toContainText('template condivisi');
 });
