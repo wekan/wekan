@@ -531,7 +531,8 @@ Hub** are cut down to what has no fix yet. The image no longer carries
 **docker-cli** and its old Go, the bundled **FerretDB** and **MongoDB tools**
 are built with **Go 1.27.2**, and eight npm packages inside Meteor's own
 packages are raised to fixed releases. The **Android** and **FreeBSD** Bun
-builds are fixed, and the Docker job checks the bundle version again.
+builds are fixed, the Docker job checks the bundle version again, and **SAML**
+logs in users whose binding lacks the optional qualifiers.
 
 This release fixes the following SECURITY ISSUES found by container image scanning:
 
@@ -590,6 +591,24 @@ liblzma5. WeKan bundles them from their next releases.
 None of these is an attempt anybody can make against a running WeKan - they
 are what the image is built from - so nothing is recorded in Admin Panel →
 Problems. The remaining Debian findings have no fixed package yet.
+
+and fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9949bca0b9">SAML logs in a binding that lacks the optional qualifiers</a>. Thanks to xet7.</summary>
+
+A SAML binding stored with `issuer`, `nameID` and `nameIDFormat` but no
+`nameQualifier` / `spNameQualifier` keys at all was not found by identity,
+because a query for an empty string does not match a missing field. The user
+was then found by username and refused as `account-already-bound-to-saml`,
+shown as "SAML identity does not match this account". When the assertion's
+qualifier is empty, a missing stored one now matches too, and the next login
+writes both as empty strings so the record is exact from then on. A non-empty
+qualifier on either side, and a missing issuer, still fail closed.
+`tests/samlIdentityBinding.test.cjs` covers the login, the normalization and
+those refusals, and the same queries were checked against a real FerretDB.
+
+</details>
 
 and fixes the following build bugs:
 
