@@ -247,3 +247,19 @@ assert.match(latin.allowNonBoardMembers, /omnibus usoribus qui ingressi sunt/);
 assert.notEqual(latin['positiveVoteMembersPopup-title'], latin['negativeVoteMembersPopup-title']);
 assert.equal(latin['card-edit-custom-fields'], latin['cardCustomFieldsPopup-title']);
 assert.match(latin['card-members-title'], /chartae.*a charta remove/);
+
+const reviewedPokerKeys = ["vote-public", "vote-for-it", "vote-against", "deleteVotePopup-title", "vote-delete-pop", "cardStartPlanningPokerPopup-title", "card-edit-planning-poker", "editPokerEndDatePopup-title", "poker-question", "poker-one", "poker-two", "poker-three", "poker-five", "poker-eight", "poker-thirteen", "poker-twenty", "poker-forty", "poker-oneHundred", "poker-unsure", "poker-finish", "poker-result-votes", "poker-result-who", "poker-replay", "set-estimation", "deletePokerPopup-title", "poker-delete-pop", "cardArchivePopup-title", "cardDetailsActionsPopup-title", "cardDependenciesPopup-title", "cardDependencyIconPopup-title", "dependencyLinePopup-title", "importDependenciesPopup-title", "addBoardOrgPopup-title", "addBoardTeamPopup-title", "removeBoardOrgPopup-title", "removeBoardTeamPopup-title", "adminChangeAvatarPopup-title", "boardBackgroundsPopup-title", "deleteBoardBackgroundPopup-title", "deleteDuplicateListsPopup-title", "userDeletePopup-title", "userAnonymizePopup-title", "addBoardDomainPopup-title", "removeBoardDomainPopup-title", "mapImportedMemberPopup-title"];
+for (const key of reviewedPokerKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Deleting|There|Finish|Replay|Background|Account|existing)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+for (const key of ['one', 'two', 'three', 'five', 'eight', 'thirteen', 'twenty', 'forty', 'oneHundred', 'unsure']) assert.equal(latin[`poker-${key}`], english[`poker-${key}`]);
+assert.equal(latin['poker-question'], 'Planning Poker');
+assert.equal(latin['vote-for-it'], 'pro');
+assert.equal(latin['vote-against'], 'contra');
+for (const key of ['vote-delete-pop', 'poker-delete-pop']) assert.match(latin[key], /perpetua.*Omnes actiones.*amittes/);
+assert.match(latin['userAnonymizePopup-title'], /anonymam/);
+assert.doesNotMatch(latin['userAnonymizePopup-title'], /importa/i);
+assert.notEqual(latin['userAnonymizePopup-title'], latin['userDeletePopup-title']);
+assert.match(latin['mapImportedMemberPopup-title'], /usore iam exsistente/);
+assert.notEqual(latin['poker-finish'], latin['poker-replay']);

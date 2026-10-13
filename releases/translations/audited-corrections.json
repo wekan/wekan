@@ -191287,5 +191287,320 @@
     "before": "Latine: Voting question",
     "after": "Quaestio suffragii",
     "reason": "Repair mixed-language card archive and voting text, retaining irreversible deletion and reversible archive meanings."
+  },
+  {
+    "locale": "la",
+    "key": "vote-public",
+    "before": "Latine: Monstra quis voted quid",
+    "after": "Monstra quis quid suffragatus sit",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "vote-for-it",
+    "before": "Latine: for it",
+    "after": "pro",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "vote-against",
+    "before": "Latine: against",
+    "after": "contra",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "deleteVotePopup-title",
+    "before": "Latine: Dele vote?",
+    "after": "Delere suffragium?",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "vote-delete-pop",
+    "before": "Latine: Deleting est permanent. Tu erit lose omnia actiones associated cum hoc vote.",
+    "after": "Deletio perpetua est. Omnes actiones huic suffragio conexas amittes.",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "cardStartPlanningPokerPopup-title",
+    "before": "Latine: Incipe a Planning Poker",
+    "after": "Incipe Planning Poker",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "card-edit-planning-poker",
+    "before": "Latine: Muta Planning Poker",
+    "after": "Muta Planning Poker",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "editPokerEndDatePopup-title",
+    "before": "Latine: Muta Planning Poker vote dies finis",
+    "after": "Muta diem finis suffragii Planning Poker",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "poker-question",
+    "before": "Latine: Planning Poker",
+    "after": "Planning Poker",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "poker-one",
+    "before": "Latine: 1",
+    "after": "1",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "poker-two",
+    "before": "Latine: 2",
+    "after": "2",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "poker-three",
+    "before": "Latine: 3",
+    "after": "3",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "poker-five",
+    "before": "Latine: 5",
+    "after": "5",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "poker-eight",
+    "before": "Latine: 8",
+    "after": "8",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "poker-thirteen",
+    "before": "Latine: 13",
+    "after": "13",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "poker-twenty",
+    "before": "Latine: 20",
+    "after": "20",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "poker-forty",
+    "before": "Latine: 40",
+    "after": "40",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "poker-oneHundred",
+    "before": "Latine: 100",
+    "after": "100",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "poker-unsure",
+    "before": "Latine: ?",
+    "after": "?",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "poker-finish",
+    "before": "Latine: Finish",
+    "after": "Perfice",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "poker-result-votes",
+    "before": "Latine: Votes",
+    "after": "Suffragia",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "poker-result-who",
+    "before": "Latine: Quis",
+    "after": "Quis",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "poker-replay",
+    "before": "Latine: Replay",
+    "after": "Repete",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "set-estimation",
+    "before": "Latine: Set Estimation",
+    "after": "Constitue aestimationem",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "deletePokerPopup-title",
+    "before": "Latine: Dele planning poker?",
+    "after": "Delere Planning Poker?",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "poker-delete-pop",
+    "before": "Latine: Deleting est permanent. Tu erit lose omnia actiones associated cum hoc planning poker.",
+    "after": "Deletio perpetua est. Omnes actiones huic Planning Poker conexas amittes.",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "cardArchivePopup-title",
+    "before": "Latine: Archivum Scheda?",
+    "after": "Transferre chartam in archivum?",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "cardDetailsActionsPopup-title",
+    "before": "Latine: Scheda Actiones",
+    "after": "Actiones chartae",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "cardDependenciesPopup-title",
+    "before": "Latine: Adde dependency",
+    "after": "Adde dependentiam",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "cardDependencyIconPopup-title",
+    "before": "Latine: Dependency icon",
+    "after": "Icon dependentiae",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "dependencyLinePopup-title",
+    "before": "Latine: Muta dependency",
+    "after": "Muta dependentiam",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "importDependenciesPopup-title",
+    "before": "Latine: Importa dependencies",
+    "after": "Importa dependentias",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "addBoardOrgPopup-title",
+    "before": "Latine: Adde Organizatio",
+    "after": "Adde consociationem",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "addBoardTeamPopup-title",
+    "before": "Latine: Adde Manus",
+    "after": "Adde manum",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "removeBoardOrgPopup-title",
+    "before": "Latine: Remove Organizatio",
+    "after": "Remove consociationem",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "removeBoardTeamPopup-title",
+    "before": "Latine: Remove Manus",
+    "after": "Remove manum",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "adminChangeAvatarPopup-title",
+    "before": "Latine: Muta Imago",
+    "after": "Muta imaginem usoris",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "boardBackgroundsPopup-title",
+    "before": "Latine: Tabula backgrounds",
+    "after": "Fundi tabularum",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "deleteBoardBackgroundPopup-title",
+    "before": "Latine: Dele Background Imago",
+    "after": "Dele imaginem fundi",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "deleteDuplicateListsPopup-title",
+    "before": "Latine: Dele Duplicate Indices",
+    "after": "Dele indices duplicatos",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "userDeletePopup-title",
+    "before": "Latine: Dele Ratio",
+    "after": "Dele rationem usoris",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "userAnonymizePopup-title",
+    "before": "Latine: Anonymize importa usores",
+    "after": "Redde rationem usoris anonymam",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "addBoardDomainPopup-title",
+    "before": "Latine: Adde Domain",
+    "after": "Adde dominium",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "removeBoardDomainPopup-title",
+    "before": "Latine: Remove Domain",
+    "after": "Remove dominium",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "mapImportedMemberPopup-title",
+    "before": "Latine: Map ad existing usor",
+    "after": "Coniunge cum usore iam exsistente",
+    "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
   }
 ]
