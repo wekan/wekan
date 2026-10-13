@@ -297,3 +297,24 @@ assert.match(sesotho['field-link-not-allowed'], /hlophisa dikarete ka bobedi/);
 assert.match(sesotho['attach-card-self'], /e ke ke.*boyona/);
 assert.match(sesotho['attached-card-unavailable'], /sa kgoneng ho e bona/);
 assert.match(sesotho['cards-use-list-color'], /tse se nang mmala wa tsona/);
+
+const translatedImportHelpKeys = ["import-board-instruction-opml", "import-board-instruction-orgmode", "import-board-instruction-meistertask", "import-board-instruction-obsidian", "import-board-instruction-linear", "import-board-instruction-ticktick", "import-board-instruction-clickup", "import-board-instruction-nullboard", "import-board-instruction-kanri", "import-board-instruction-pivotal", "import-board-instruction-tasksorg", "import-board-instruction-monday", "import-board-instruction-superproductivity", "import-board-instruction-taiga", "import-board-instruction-vikunja", "import-board-instruction-quire", "import-board-instruction-wrike", "import-board-instruction-teamwork", "import-board-instruction-businessmap", "import-board-instruction-redmine", "import-board-instruction-notion", "import-board-instruction-plane"];
+for (const key of translatedImportHelpKeys) {
+  assert.notEqual(sesotho[key], english[key], `${key}: no English placeholder`);
+  assert.deepEqual(tokens(sesotho[key]), tokens(english[key]), key);
+}
+for (const format of ['taiga', 'vikunja']) {
+  assert.match(sesotho[`import-board-instruction-${format}`], /Diphuthelwana ha di kenngwe/);
+}
+assert.match(sesotho['import-board-instruction-quire'], /Ditshwaelo le diphuthelwana ha di yo/);
+assert.match(sesotho['import-board-instruction-notion'], /Dikamano, ditshwantsho le diphuthelwana ha di kenngwe/);
+assert.match(sesotho['import-board-instruction-notion'], /ha e le siyo.*kholomo ya pele.*tlaleho/);
+assert.match(sesotho['import-board-instruction-plane'], /ha e na ditlhaloso kapa diphuthelwana.*ha di kenngwe/);
+for (const format of ['nullboard', 'kanri']) assert.match(sesotho[`import-board-instruction-${format}`], /boto ya.*pele/);
+assert.match(sesotho['import-board-instruction-redmine'], /Senyesemane ho My account pele/);
+assert.match(sesotho['import-board-instruction-businessmap'], /mabitso.*Senyesemane.*Title, Column, Lane, Owner, Deadline/);
+assert.match(sesotho['import-board-instruction-teamwork'], /-, # kapa >.*--, ## kapa >>/);
+for (const literal of ['TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED']) assert.ok(sesotho['import-board-instruction-orgmode'].includes(literal), literal);
+for (const [format, literal] of [['obsidian', '.md'], ['nullboard', '.nbx'], ['taiga', '.json.gz'], ['vikunja', 'data.json'], ['monday', '.xlsx'], ['redmine', '% Done'], ['superproductivity', 'sp-backup']]) {
+  assert.ok(sesotho[`import-board-instruction-${format}`].includes(literal), literal);
+}
