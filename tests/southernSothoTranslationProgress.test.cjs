@@ -883,3 +883,15 @@ assert.notEqual(sesotho['blockly-SHORTCUTS_MOVE_UP'], sesotho['blockly-SHORTCUTS
 assert.match(sesotho['blockly-LOGIC_NEGATE_TOOLTIP'], /nnete haeba kenyo e se nnete.*ha se nnete haeba kenyo e le nnete/);
 assert.match(sesotho['blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_FIRST'], /Tlosa mme o kgutlise.*ya pele/);
 assert.match(sesotho['blockly-LISTS_GET_INDEX_TOOLTIP_GET_FIRST'], /^Kgutlisa.*ya pele/);
+
+// Historical review through key 4069: Scrum estimates and recovery boundaries.
+assert.equal(sesotho['scrum-estimate'], 'Tekanyo');
+assert.notEqual(sesotho['scrum-estimate'], 'Boholo');
+assert.match(sesotho['scrum-rollover-progress'], /potoloho ya Scrum.*__done__.*__total__/);
+assert.doesNotMatch(sesotho['scrum-rollover-progress'], /sprint/);
+assert.match(sesotho['scrum-report-help'], /sa tsejweng.*ka thoko.*ha se ditekanyo tsa lefela/);
+assert.match(sesotho['scrum-confirm-cancel'], /di dula e le karolo ya yona ho fihlela di abelwa hape/);
+assert.match(sesotho['sync-conflict-hint'], /Ha ho letho le romelwang tsamaisong ya mohlodi/);
+assert.match(sesotho['sync-conflict-review-complete'], /Lenane lohle ha le a amahanngwa/);
+assert.match(sesotho['email-recovery-confirm-cancel'], /di ke ke tsa kgutlisetswa.*kamora kopo ena e tla bolokwa/);
+assert.match(sesotho['activity-recovery-cancel-confirm'], /Sena se ke ke sa tswellwa hape.*ha di kgutliswe/);

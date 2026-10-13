@@ -189327,5 +189327,19 @@
     "before": "Kgutlisa thanjente ya sekhutlo ka dikereiti (eseng diradiane).",
     "after": "Kgutlisa thanjente ya sekhutlo ka dikhato (eseng diradiane).",
     "reason": "Translate inverse tangent and clarify angular degrees and vertical movement in Blockly."
+  },
+  {
+    "locale": "st",
+    "key": "scrum-estimate",
+    "before": "Boholo",
+    "after": "Tekanyo",
+    "reason": "Distinguish a Scrum estimate from size and translate the remaining English sprint term in rollover progress."
+  },
+  {
+    "locale": "st",
+    "key": "scrum-rollover-progress",
+    "before": "Ho isa dikarete tsa sprint pele: __done__ ho tse __total__",
+    "after": "Ho fetisetsa dikarete tsa potoloho ya Scrum pele: __done__ ho tse __total__",
+    "reason": "Distinguish a Scrum estimate from size and translate the remaining English sprint term in rollover progress."
   }
 ]
