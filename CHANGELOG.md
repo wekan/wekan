@@ -524,7 +524,7 @@ used.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.39 2026-10-13 WeKan ® release
 
 **In short:** the Docker image's vulnerability scans on **Quay** and **Artifact
 Hub** are cut down to what has no fix yet. The image no longer carries
