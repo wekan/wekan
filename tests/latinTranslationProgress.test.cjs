@@ -881,3 +881,20 @@ assert.equal(latin['dependency-color'], 'Color');
 assert.match(latin['import-dependencies-file'], /JSON vel SVG/);
 assert.match(latin['import-dependencies-empty'], /tabulam.*saltem unam lineam/);
 assert.match(latin['import-dependencies-done'], /sine congruentia: __unmatched__/);
+
+const reviewedLocationBackgroundKeys = ["board-backgrounds", "boardBackgrounds-title", "upload-background", "set-as-active", "background-too-big", "board-background-delete-pop", "location", "location-open-map", "add-location", "cardLocationsPopup-title", "location-name", "location-address", "location-latitude", "location-longitude", "location-detect-from-map", "location-detect", "location-detect-none", "location-detect-done", "location-open-map-at", "map-region-usa", "map-region-europe", "map-region-asia", "map-provider-saved", "server-error", "server-error-troubleshooting", "title-alphabetically", "created-at-newest-first", "created-at-oldest-first", "links-heading", "board-activities"];
+for (const key of reviewedLocationBackgroundKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:background|Upload|Location|Detect|Could|Filled|Default|Newest|Oldest)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.equal(latin['board-backgrounds'], latin['boardBackgrounds-title']);
+assert.equal(latin['add-location'], latin['cardLocationsPopup-title']);
+assert.match(latin['background-too-big'], /nimis magna.*{{size}}/);
+assert.equal(latin['location-latitude'], 'Latitudo');
+assert.equal(latin['location-longitude'], 'Longitudo');
+assert.match(latin['location-detect-none'], /inveniri non potuit/);
+assert.match(latin['location-detect-done'], /infra inserta sunt/);
+assert.equal(latin['map-region-asia'], 'Asia');
+for (const command of ['sudo snap logs wekan.wekan', 'sudo docker logs wekan-app']) assert.ok(latin['server-error-troubleshooting'].includes('`' + command + '`'));
+assert.match(latin['created-at-newest-first'], /recentissima primum/);
+assert.match(latin['created-at-oldest-first'], /antiquissima primum/);

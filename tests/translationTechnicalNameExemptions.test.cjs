@@ -56,3 +56,8 @@ for (const [value, expected] of [['Color', true], ['Dependency color', false]]) 
   const shared = vm.runInNewContext(latinSetExpression, { en: { 'dependency-color': value } });
   assert.equal(shared.has('dependency-color'), expected);
 }
+
+for (const [value, expected] of [['Asia', true], ['Maps in Asia', false]]) {
+  const shared = vm.runInNewContext(latinSetExpression, { en: { 'map-region-asia': value } });
+  assert.equal(shared.has('map-region-asia'), expected);
+}

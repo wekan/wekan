@@ -199995,5 +199995,215 @@
     "before": "Latine: Importatum __imported__ line(s), __unmatched__ unmatched",
     "after": "Lineae importatae: __imported__; sine congruentia: __unmatched__",
     "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "board-backgrounds",
+    "before": "Latine: Tabula backgrounds",
+    "after": "Fundi tabulae",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "boardBackgrounds-title",
+    "before": "Latine: Tabula backgrounds",
+    "after": "Fundi tabulae",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "upload-background",
+    "before": "Latine: Immitte background imago",
+    "after": "Immitte imaginem fundi",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "set-as-active",
+    "before": "Latine: Set as tabula background",
+    "after": "Constitue ut fundum tabulae",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "background-too-big",
+    "before": "Latine: Background imago est too big (Maximum {{size}}).",
+    "after": "Imago fundi nimis magna est (Maximum {{size}}).",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "board-background-delete-pop",
+    "before": "Latine: certusne es tu want ad dele hoc background imago?",
+    "after": "Certusne es te hanc imaginem fundi delere velle?",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "location",
+    "before": "Latine: Locus",
+    "after": "Locus",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "location-open-map",
+    "before": "Latine: Aperi in map",
+    "after": "Aperi in charta geographica",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "add-location",
+    "before": "Latine: Adde locus",
+    "after": "Adde locum",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "cardLocationsPopup-title",
+    "before": "Latine: Adde locus",
+    "after": "Adde locum",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "location-name",
+    "before": "Latine: Locus nomen",
+    "after": "Nomen loci",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "location-address",
+    "before": "Latine: Address",
+    "after": "Inscriptio loci",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "location-latitude",
+    "before": "Latine: Latitude",
+    "after": "Latitudo",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "location-longitude",
+    "before": "Latine: Longitude",
+    "after": "Longitudo",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "location-detect-from-map",
+    "before": "Latine: Detect locus ex ullum map vinculum",
+    "after": "Inveni locum ex quolibet ligamine chartae geographicae",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "location-detect",
+    "before": "Latine: Detect",
+    "after": "Inveni",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "location-detect-none",
+    "before": "Latine: Could non detect a locus ex hoc vinculum.",
+    "after": "Locus ex hoc ligamine inveniri non potuit.",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "location-detect-done",
+    "before": "Latine: Filled in the detected locus singula below.",
+    "after": "Singula loci inventi infra inserta sunt.",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "location-open-map-at",
+    "before": "Latine: Aperi map links at",
+    "after": "Aperi ligamina chartarum geographicarum apud",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "map-region-usa",
+    "before": "Latine: USA",
+    "after": "Civitates Foederatae Americae",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "map-region-europe",
+    "before": "Latine: Europe",
+    "after": "Europa",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "map-region-asia",
+    "before": "Latine: Asia",
+    "after": "Asia",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "map-provider-saved",
+    "before": "Latine: Praedefinitum map service servatum.",
+    "after": "Ministerium chartarum geographicarum praedefinitum servatum est.",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "server-error",
+    "before": "Latine: Ministrator Error",
+    "after": "Error servitoris",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "server-error-troubleshooting",
+    "before": "Latine: Please submit the error generated a the ministrator.\nFor a snap installation, run: `sudo snap logs wekan.wekan`\nFor a Docker installation, run: `sudo docker logs wekan-app`",
+    "after": "Mitte, quaeso, errorem a servitore generatum.\nPro institutione snap, exsequere: `sudo snap logs wekan.wekan`\nPro institutione Docker, exsequere: `sudo docker logs wekan-app`",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "title-alphabetically",
+    "before": "Latine: Titulus (Alphabetically)",
+    "after": "Titulus (ordine alphabetico)",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "created-at-newest-first",
+    "before": "Latine: creatum die (Newest Primus)",
+    "after": "Dies creationis (recentissima primum)",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "created-at-oldest-first",
+    "before": "Latine: creatum die (Oldest Primus)",
+    "after": "Dies creationis (antiquissima primum)",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "links-heading",
+    "before": "Latine: Links",
+    "after": "Ligamina",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
+  },
+  {
+    "locale": "la",
+    "key": "board-activities",
+    "before": "Latine: Tabula actiones",
+    "after": "Actiones tabulae",
+    "reason": "Repair Latin background, location, server-error and sorting labels; preserve coordinates, size placeholders and troubleshooting command literals."
   }
 ]
