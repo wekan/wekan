@@ -3379,6 +3379,23 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e3ea440a31">Repair Latin search predicates and introductory help</a>. Thanks to xet7.</summary>
+
+- Translate 40 mixed-language predicates, validation messages and help entries.
+  Preserve positive-integer constraints and placeholders, localize the list
+  example, and retain the exact shared word “selector”.
+- Latin, guarded-correction and shared-word suites pass with 28,502 corrections.
+  All 21 human-preference checks pass; 38,430 existing Chinese values are
+  preserved.
+  Added overdue-search browser coverage passes syntax and discovery; browser
+  execution remains pending.
+- Review remains unfinished: 885 Latin values contain the legacy “Latine:”
+  prefix.
+  Unprefixed values and other languages still require semantic review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

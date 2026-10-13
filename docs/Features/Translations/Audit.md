@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin search predicates and introductory help — 2026-10-14
+
+Commit `e3ea440a31` repairs 40 prefixed search predicates, validation errors,
+pagination and introductory help entries. Regression checks preserve predicate
+uniqueness and registration, positive-integer limits, placeholders, quoted values
+and a list example that uses the Latin operator. The shared word “selector” has
+an exact source/key exception with negative coverage for longer English text.
+
+The Latin, guarded-correction and shared-word suites pass with 28,502 ledger
+entries. All 21 human-preference checks pass. Overdue-search browser coverage
+requires a past-due card and excludes a future card; syntax and discovery pass,
+runtime remains pending. Exact comparison preserves 38,430 existing Chinese values.
+
+There remain 885 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin search messages and operators — 2026-10-14
 
 Commit `cb3da6ac52` repairs 48 prefixed search entries. Regression checks
