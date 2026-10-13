@@ -1270,6 +1270,22 @@ remain open, as does work in other languages. Chinese text is unchanged.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6d5ae79420">Translate Maltese prose hidden by fill-report exemptions</a>. Thanks to xet7.</summary>
+
+Repair 38 English storage descriptions, field labels and short rule terms
+excluded from the normal fill report. Preserve product names, endpoint
+examples, placeholders and already translated values. Record exact
+before/after values so newer translations cannot be overwritten.
+
+Five suites and 21 human-preference checks pass, including all 25,172
+correction records. The Maltese storage-settings browser case registers but
+has not run. The extra short-prose queue is empty; the exempt-prose queue
+retains Bytes, Logo and the Alt key legend. Broader composed-rule grammar
+and other languages remain under review. Chinese text is unchanged.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

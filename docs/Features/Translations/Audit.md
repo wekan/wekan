@@ -2,6 +2,35 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Maltese exempt prose and short labels — 2026-10-13
+
+Commit `6d5ae79420` repairs 38 English values hidden by the normal inventory:
+MongoDB and S3 storage prose, platform/geography labels, rule fragments,
+My Cards' person label, progress wording and Blockly announcements. The
+normal fill tool intentionally skipped these exempt values. Exact-English
+guards were therefore applied directly and all before/after pairs were
+recorded in the correction ledger. Concurrent new mail-report text was
+preserved and excluded from the commit.
+
+Maltese [EU terminology](https://eur-lex.europa.eu/legal-content/MT/ALL/?uri=LEGISSUM%3A4675300)
+supports `pjattaforma` and `ħażna`. The
+[dictionary entry attributing byte terminology to Microsoft Language Portal](https://pl.glosbe.com/pl/mt/bajt)
+uses `byte` and `bytes`, so the unit label stays unchanged rather than
+inventing a spelling. `Logo` and the physical `Alt` legend also remain.
+Product names, exact endpoint examples and all placeholders are retained.
+
+Five suites and 21 human-preference checks pass. The full ledger verifies
+25,172 records, exact-before application, idempotency and preservation of
+newer translations. All current Maltese keys and tokens match English;
+only the 38 audited pre-existing values changed, while all 38,079 protected
+Chinese values are unchanged. The S3 settings browser case registers with
+Maltese labels and descriptions; execution remains pending.
+
+The Maltese exempt-prose audit now lists only Bytes, Logo and Alt, and the
+short-prose audit returns an empty object. These queues do not certify all
+older wording. Rule fragments have been translated, but full composed-rule
+grammar and the broader all-language review remain open.
+
 ## Maltese filtered inventory completion — 2026-10-13
 
 Commit `f26aaac01e` fills the remaining 22 import-format instructions.
