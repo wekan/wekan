@@ -2,6 +2,27 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican import, export and board controls — 2026-10-13
+
+Commit `342e479ed9` fills 65 English values for imported-person choices,
+CSV mapping, batch import/export, Trello, Sandstorm, board settings, link
+patterns, Wrike workflows, LDAP, login restrictions and subtasks. Semantic
+checks preserve source-column correction, named placeholder users, single
+export ZIP exceptions, export permissions, required Sandstorm access,
+Wrike status mapping, read-only restrictions and subtask state negation.
+Technical literals and catalog-wide token and HTML inventories are checked.
+
+The Corsican suite and 21 human-preference checks pass. Eight browser cases
+register across seven existing workflows: CSV mapping, imported people,
+Trello export, calendar mode, Wrike workflows, LDAP and subtask completion
+(including the permission-denial case). They have not run against the app.
+
+Exact comparison confirms only these 65 English values changed; all 38,079
+protected Chinese values remain unchanged. Concurrent mail-report additions
+remain outside the commit. Corsican now has 22 import-format placeholders;
+the global filtered backlog is 53,246 across 114 catalogs. Fluent wording
+review, older mixed-language corrections and browser execution remain open.
+
 ## Corsican notification delivery — 2026-10-13
 
 Commit `877a3a7e81` fills 39 English notification and webhook messages.

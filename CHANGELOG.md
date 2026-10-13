@@ -132,7 +132,7 @@ releases.
   report counts **28,516 untranslated locale/string values in 42 languages**.
   It excludes **379 source keys tracked separately as pending Transifex**.
   With the newer email/chat strings included, full per-locale `--list`
-  reports, including pending keys, count **53,311 remaining values across
+  reports, including pending keys, count **53,246 remaining values across
   114 non-English locale files**. This fuller inventory remains the scope
   of the translation work.
   A separate short-prose audit flags 1,649 candidates across 180 locales.
@@ -1387,6 +1387,21 @@ The Corsican suite and 21 human-preference checks pass. The settings
 browser case registers for Corsican; application execution and fluent
 wording review remain pending. Corsican has 87 filtered placeholders left.
 Prior translations and protected Chinese values remain unchanged.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/342e479ed9">Translate Corsican import, export and board controls</a>. Thanks to xet7.</summary>
+
+Fill 65 messages for CSV mapping, imported people, batch import/export,
+Trello and Sandstorm, board controls, Wrike rules, LDAP and login settings.
+Preserve technical literals, archive exceptions, permission requirements
+and warnings about unsupported operations.
+
+The Corsican suite and 21 human-preference checks pass. Eight browser
+cases register across seven workflows; runtime execution remains pending.
+Corsican has 22 import-format placeholders left. Prior translations and
+protected Chinese values remain unchanged; broader language review continues.
 
 </details>
 
