@@ -188144,5 +188144,68 @@
     "before": "Ha ho dikarete tse fumanweng",
     "after": "Ha ho dikarete tse tsamaellanang tse fumanweng",
     "reason": "Repair title argument order, automatic template application, a positive-integer constraint and matching-card search scope."
+  },
+  {
+    "locale": "st",
+    "key": "avatar-too-big",
+    "before": "Setshwantsho sa mosebedisi se seholo haholo (boholo ke __size__)",
+    "after": "Setshwantsho sa mosebedisi se seholo haholo (boholo bo dumelletsweng ke __size__)",
+    "reason": "Restore board and card control meanings: limits, historical time, grouping, pulse, unread comments, due dates, account anonymization and labels."
+  },
+  {
+    "locale": "st",
+    "key": "board-view-timeline-showing",
+    "before": "E bontsha boemo ho tloha:",
+    "after": "E bontsha boemo ka nako ya:",
+    "reason": "Restore board and card control meanings: limits, historical time, grouping, pulse, unread comments, due dates, account anonymization and labels."
+  },
+  {
+    "locale": "st",
+    "key": "roadmap-group-by",
+    "before": "Sekaseka ka:",
+    "after": "Hlophisa ka dihlopha ho latela:",
+    "reason": "Restore board and card control meanings: limits, historical time, grouping, pulse, unread comments, due dates, account anonymization and labels."
+  },
+  {
+    "locale": "st",
+    "key": "board-view-pulse",
+    "before": "Kutlwelo",
+    "after": "Ho otla ha pelo",
+    "reason": "Restore board and card control meanings: limits, historical time, grouping, pulse, unread comments, due dates, account anonymization and labels."
+  },
+  {
+    "locale": "st",
+    "key": "card-has-unread-comments",
+    "before": "Ditlhaloso tse ntjha",
+    "after": "E na le ditshwaelo tse sa balwang",
+    "reason": "Restore board and card control meanings: limits, historical time, grouping, pulse, unread comments, due dates, account anonymization and labels."
+  },
+  {
+    "locale": "st",
+    "key": "due-today",
+    "before": "Letsatsi ke lena",
+    "after": "E lokela ho phethwa kajeno",
+    "reason": "Restore board and card control meanings: limits, historical time, grouping, pulse, unread comments, due dates, account anonymization and labels."
+  },
+  {
+    "locale": "st",
+    "key": "due-days-overdue",
+    "before": "matsatsi a %s a fetile",
+    "after": "E fetilwe ke nako ka matsatsi a %s",
+    "reason": "Restore board and card control meanings: limits, historical time, grouping, pulse, unread comments, due dates, account anonymization and labels."
+  },
+  {
+    "locale": "st",
+    "key": "userAnonymizePopup-title",
+    "before": "Pata boitsebiso ba basebedisi ba kenngwang",
+    "after": "Pata boitsebiso ba akhaonto",
+    "reason": "Restore board and card control meanings: limits, historical time, grouping, pulse, unread comments, due dates, account anonymization and labels."
+  },
+  {
+    "locale": "st",
+    "key": "cardLabelsPopup-title",
+    "before": "Ditlhaku",
+    "after": "Dileibole",
+    "reason": "Restore board and card control meanings: limits, historical time, grouping, pulse, unread comments, due dates, account anonymization and labels."
   }
 ]

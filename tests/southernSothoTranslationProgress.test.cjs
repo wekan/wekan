@@ -588,3 +588,18 @@ assert.doesNotMatch(sesotho['set-default-board-template'], /boitshepo/);
 assert.match(sesotho['swimlane-height-error-message'], /palo e felletseng e kgolo ho 0/);
 assert.doesNotMatch(sesotho['swimlane-height-error-message'], /e ntle/);
 assert.match(sesotho['add-existing-card-as-subtask-empty'], /tse tsamaellanang/);
+
+// Historical review through key 454: preserve the actual control meanings.
+assert.match(sesotho['avatar-too-big'], /boholo bo dumelletsweng.*__size__/);
+assert.match(sesotho['board-view-timeline-showing'], /ka nako ya/);
+assert.doesNotMatch(sesotho['board-view-timeline-showing'], /ho tloha/);
+assert.match(sesotho['roadmap-group-by'], /ka dihlopha/);
+assert.doesNotMatch(sesotho['roadmap-group-by'], /Sekaseka/);
+assert.equal(sesotho['board-view-pulse'], 'Ho otla ha pelo');
+assert.match(sesotho['card-has-unread-comments'], /ditshwaelo tse sa balwang/);
+assert.doesNotMatch(sesotho['card-has-unread-comments'], /ntjha/);
+assert.equal(sesotho['due-today'], 'E lokela ho phethwa kajeno');
+assert.match(sesotho['due-days-overdue'], /fetilwe ke nako.*%s/);
+assert.equal(sesotho['userAnonymizePopup-title'], 'Pata boitsebiso ba akhaonto');
+assert.doesNotMatch(sesotho['userAnonymizePopup-title'], /kenngwang/);
+assert.equal(sesotho['cardLabelsPopup-title'], 'Dileibole');
