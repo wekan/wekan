@@ -132,8 +132,8 @@ releases.
   report counts **28,516 untranslated locale/string values in 42 languages**.
   It excludes **379 source keys tracked separately as pending Transifex**.
   With the newer email/chat strings included, full per-locale `--list`
-  reports, including pending keys, count **53,662 remaining values across
-  116 non-English locale files**. This fuller inventory remains the scope
+  reports, including pending keys, count **53,640 remaining values across
+  115 non-English locale files**. This fuller inventory remains the scope
   of the translation work.
   A separate short-prose audit flags 1,649 candidates across 180 locales.
   The two notification At/To labels now have translations in all non-English
@@ -1251,6 +1251,22 @@ Four Maltese suites and 21 human-preference checks pass. Calendar, Wrike
 workflow and LDAP browser cases register in Maltese; execution remains
 pending. The remaining 22 Maltese placeholders are import-format guidance.
 Earlier translations and protected Chinese values remain unchanged.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f26aaac01e">Complete Maltese import-format instructions</a>. Thanks to xet7.</summary>
+
+Translate the final 22 filtered Maltese placeholders, covering import-format
+instructions and their limitations. Retain literal field names, menu names,
+syntax and the warnings about omitted data and first-board-only imports.
+The full filtered Maltese fill report is now empty after 223 feature fills.
+
+Four Maltese suites and 21 human-preference checks pass. Twenty-two browser
+instruction cases register with the local Playwright runner; they have not
+run against a rebuilt app. The full current inventory is now checked instead
+of the earlier catalog snapshot. Broader wording and exempt-string review
+remain open, as does work in other languages. Chinese text is unchanged.
 
 </details>
 

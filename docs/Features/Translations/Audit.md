@@ -2,6 +2,35 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Maltese filtered inventory completion — 2026-10-13
+
+Commit `f26aaac01e` fills the remaining 22 import-format instructions.
+Across the recent batches, 223 English feature placeholders were filled.
+`fill-translations.mjs --list mt` now returns `{}` including pending keys.
+The progress test checks this full current inventory rather than the old
+completed-catalog snapshot. This milestone is not full semantic certification:
+exempt English labels, short prose and older wording still need review.
+
+The new instructions retain source behavior: first-board-only imports for
+Nullboard and Kanri, unavailable attachments for Taiga and Vikunja, unavailable
+comments/attachments in Quire CSV, missing relations/images/attachments in
+Notion, and absent descriptions/attachments in Plane. Businessmap requires
+English headers and Redmine requires an English export. Org mode tokens,
+Teamwork headers and nesting symbols retain exact spelling.
+
+All four Maltese suites and 21 human-preference checks pass. Only the 22
+English values changed; earlier non-English Maltese text and all 38,079
+protected Chinese values match the parent. Twenty-two browser cases assert
+the Maltese instructions and reject full English fallback on the actual
+import pages. Initial discovery used the older external Playwright copy and
+hit a duplicate-runner error after local dependencies appeared. Discovery
+with `tests/playwright/node_modules/playwright/cli.js` succeeds with 22 cases.
+They have not been executed against a rebuilt app.
+
+The refreshed global filtered inventory is 53,640 values across 115 catalogs.
+Other languages, broader semantic review, exempt strings and browser
+execution remain unfinished.
+
 ## Maltese settings and workflow rules — 2026-10-13
 
 Commit `ce113b5a50` fills 23 English values for announcements, calendar mode,
