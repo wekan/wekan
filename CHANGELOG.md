@@ -2638,6 +2638,20 @@ English-equal candidates across 135 languages, requiring contextual review;
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6b97949c4a">Translate short labels and S3 fields in 22 locales</a>. Thanks to xet7.</summary>
+
+Fill 52 English placeholders in S3 labels, Blockly announcements and controls,
+Japanese alternatives and Belarusian negation. Valid shared words such as
+Spanish No and Dutch is remain intact. Existing Chinese values are unchanged.
+
+The two focused suites and all 21 preservation checks pass. Nineteen S3/Blockly
+browser cases pass syntax and discovery; runtime execution remains pending.
+The filtered queue is now 30,505 candidates across 122 languages, with 379
+pending Transifex source keys tracked separately. All-language review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

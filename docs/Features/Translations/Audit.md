@@ -2,6 +2,29 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Short-label and S3 gaps across 22 locales — 2026-10-13
+
+Commit `6b97949c4a` fills 52 English-equal placeholders using the guarded fill
+workflow. The batch covers Belarusian, both Japanese variants, Serbian, Turkish,
+Bosnian, Croatian, Slovak, Czech and its variant, Hungarian, Greek and its variant,
+Bislama, Esperanto, Armenian, Portuguese pt_PT, both Catalan variants, Colombian
+Spanish es_CO, Tok Pisin and Luxembourgish. It translates S3 field labels,
+Blockly ordinal announcements, pixel states, range endpoints and procedure
+prefixes, along with Japanese or, Belarusian No and Tok Pisin Me/of.
+
+The two focused suites pass: new coverage checks nonempty translated values,
+placeholder inventories, S3 names, distinct pixel states and preservation of
+valid shared words. All 21 human-preference checks pass. Ten added S3 cases and
+seven added Blockly cases join the existing Bislama/Tok Pisin cases; all 19 pass
+syntax and discovery. Runtime execution remains pending. Exact comparison
+preserves 38,430 existing Chinese values. Technical terminology remains open to
+native-speaker refinement.
+
+The filtered queue now contains 30,505 candidates across 122 languages, with
+379 pending Transifex source keys tracked separately. These counts exclude
+pending keys even though the default --list output includes them. Shared words
+still require contextual review; the all-language objective remains unfinished.
+
 ## Southern Sotho historical review: email and catalog end — 2026-10-13
 
 Commit `94f4cf2409` reviews source keys 4070–4269 and repairs eight values.
