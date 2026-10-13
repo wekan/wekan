@@ -2,6 +2,25 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Swahili import instructions — 2026-10-13
+
+Commit `d963a78bf4` fills the remaining 22 import-format instructions.
+Regression checks preserve Orgmode keywords, Teamwork headers and nesting
+syntax, first-board-only behavior, English-header requirements and warnings
+about data excluded from source exports or imports.
+
+Both Swahili suites and 21 human-preference checks pass. All 4,232 live
+source keys have matching Swahili key order and placeholder inventories.
+Only the 22 English values changed; prior Swahili translations and all
+38,079 protected Chinese values remain unchanged. Concurrent mail-report
+additions remain outside the commit.
+
+The shared Maltese/Swahili browser suite registers 44 importer cases;
+application execution remains pending. Swahili's full filtered report is
+empty. The global filtered backlog is 53,417 values across 114 catalogs.
+Exempt strings, short prose, broader language review and browser execution
+remain unfinished; a zero filtered count does not establish fluency.
+
 ## Swahili export guidance and settings — 2026-10-13
 
 Commit `e02fd383b5` fills 46 English values for batch import/export, Trello,
