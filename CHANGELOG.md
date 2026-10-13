@@ -3653,6 +3653,21 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5c32f58834">Repair Latin board migration translations</a>. Thanks to xet7.</summary>
+
+- Translate 44 board-migration and storage-action entries. Preserve
+  duplicate-list
+  conditions, restoration scope, field identifiers and administrator
+  restrictions.
+- Three translation suites and 21 human-preference checks pass. Existing Chinese
+  values remain unchanged. Filesystem browser coverage passes syntax and
+  discovery; execution remains pending.
+- Review remains unfinished: 240 Latin values contain the legacy prefix.
+  Unprefixed values and other languages still require semantic review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

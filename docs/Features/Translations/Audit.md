@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin board migrations — 2026-10-14
+
+Commit `5c32f58834` repairs 44 board-migration and storage-action entries.
+Regression checks retain the conjunction of empty and duplicate-list conditions,
+restoration of swimlanes/lists/cards, missing-field identifiers, board-local
+attachment repair scope and administrator-only migration access.
+
+Three translation suites pass with 29,147 correction ledger entries. All 21
+human-preference checks pass, and exact comparison preserves 38,430 existing
+Chinese values. Filesystem browser coverage checks the path label and read-only
+input; syntax and discovery pass, runtime remains pending.
+
+There remain 240 Latin values containing “Latine:”. Unprefixed values and other
+languages still require semantic review; all-language verification is unfinished.
+
 ## Latin migration status and S3 — 2026-10-14
 
 Commit `d9f565bdb7` repairs 44 migration-state and S3 entries. Regression checks
