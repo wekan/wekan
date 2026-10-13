@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican flow analysis and WIP groups — 2026-10-13
+
+Commit `1b73b3a0b9` repairs 47 values in the source-ordered review through
+key 3089. Flow notes now retain full methodology rather than abbreviated
+formulas: historical samples, overlapping blockers, retained snapshots,
+zero-throughput days, forecast tails, the 3,650-day horizon, no-guarantee
+qualification, date fallbacks and omitted invalid inputs. WIP controls name
+groups rather than enabling a list limit. Authentication and sync errors
+lose misleading or wrong-language wording. Statistical terms, including
+moving range, are lower confidence and need native review.
+
+The Corsican and full repair-ledger suites pass; the ledger verifies
+26,852 guarded corrections. All 21 human-preference checks pass. Five
+chart-methodology browser cases pass syntax checking and register, but
+runtime execution remains pending. Existing shared vocabulary is preserved.
+Exact comparison preserves 38,430 existing Chinese values. Broader language
+review remains unfinished.
+
 ## Corsican accounts, reports and scoped imports — 2026-10-13
 
 Commit `105eb49d8c` repairs 45 values in the source-ordered review through
