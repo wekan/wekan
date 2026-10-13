@@ -343,3 +343,26 @@ assert.ok(sesotho['external-link-rules-description'].includes('[{identifier}:{nu
 assert.match(sesotho['webhook-payload-description'], /peakanyo e futsitsweng.*ha ho sa behwa letho/);
 assert.match(sesotho['webhook-payload-field-standard'], /WEBHOOKS_ATTRIBUTES/);
 assert.match(sesotho['webhook-hide-identity'], /^Se kenye lebitso la ka/);
+
+const translatedNotificationSettingKeys = ["notification-delivery-layout-clear", "notification-delivery-parts", "notification-delivery-part-board", "notification-delivery-part-actor", "notification-delivery-part-card", "notification-delivery-part-details", "notification-delivery-part-dates", "notification-delivery-part-link", "notification-delivery-grouping", "notification-delivery-grouping-all", "notification-delivery-grouping-board", "notification-delivery-grouping-card", "notification-delivery-grouping-none", "notification-delivery-schedule", "notification-delivery-schedule-immediate", "notification-delivery-schedule-interval", "notification-delivery-schedule-daily", "notification-delivery-interval", "notification-delivery-minutes", "notification-delivery-quiet", "notification-delivery-quiet-clear", "notification-delivery-timezone", "notification-delivery-invalid", "notification-group-card", "notification-group-board", "read-only-field", "r-wrike-workflow", "r-wrike-workflow-note", "r-export-wrike-workflow", "r-import-wrike-workflow", "r-import-wrike-workflow-done", "r-moved-forward", "r-moved-back", "r-add-actinguser-assignee", "r-remove-all-assignees", "ldap-sync-now", "ldap-sync-now-done", "ldap-sync-now-error", "ldap-sync-now-nothing", "oauth-providers-allowed-email-domains", "card-field-visibility", "card-field-visibility-desc", "import-file-label", "subtask-mark-done", "subtask-mark-not-done", "subtask-done-no-permission"];
+for (const key of translatedNotificationSettingKeys) {
+  assert.notEqual(sesotho[key], english[key], `${key}: no English placeholder`);
+  assert.deepEqual(tokens(sesotho[key]), tokens(english[key]), key);
+}
+assert.match(sesotho['notification-delivery-quiet'], /ema ho fihlela di fela/);
+assert.equal(sesotho['notification-delivery-schedule-daily'], 'Hang ka letsatsi');
+assert.notEqual(sesotho['notification-delivery-grouping-card'], sesotho['notification-delivery-grouping-board']);
+assert.deepEqual(tokens(sesotho['notification-group-card']), ['__card__', '__count__']);
+assert.deepEqual(tokens(sesotho['notification-group-board']), ['__board__', '__count__']);
+assert.match(sesotho['read-only-field'], /setho se seng le se seng.*balaodi ba boto feela/);
+assert.match(sesotho['r-wrike-workflow-note'], /phethilwe.*Completed kapa Cancelled.*sa phethwa.*Active kapa Deferred/);
+assert.match(sesotho['r-wrike-workflow-note'], /GET \/workflows/);
+assert.match(sesotho['r-wrike-workflow-note'], /boiketsetso e ke ke ya ntshuwa/);
+assert.deepEqual(tokens(sesotho['r-import-wrike-workflow-done']), ['__lists__', '__name__', '__rules__', '__skipped__']);
+for (const variable of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS', 'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) assert.ok(sesotho['ldap-sync-now-nothing'].includes(variable), variable);
+assert.deepEqual(tokens(sesotho['ldap-sync-now-error']), ['%s']);
+assert.match(sesotho['oauth-providers-allowed-email-domains'], /dikoma.*ha ho sa ngolwa letho.*dumellwa tsohle/);
+assert.match(sesotho['card-field-visibility-desc'], /Ha ho data ya karete kapa peakanyo ya boto e fetohang/);
+assert.match(sesotho['card-field-visibility-desc'], /tshwaya hape.*kamoo e neng e behilwe kateng/);
+assert.match(sesotho['subtask-mark-not-done'], /o sa phethwa/);
+assert.match(sesotho['subtask-done-no-permission'], /O ke ke wa fetola/);
