@@ -23,19 +23,23 @@ async function expand(sectionLocator) {
   await sectionLocator.locator('summary').click();
 }
 
-for (const language of ['en', 'haw', 'lt', 'yi', 'wuu-Hans', 'xh', 'zu', 'zu-ZA', 'pap', 'eo', 'ar', 'fi', 'sv', 'nb', 'da', 'it', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-FR', 'fr-BE', 'fr-CA', 'fr-CH', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-BR', 'pt-PT', 'pt_PT', 'nl', 'nl-NL', 'pl', 'pl-PL', 'cs', 'cs-CZ', 'sk', 'hu', 'ro', 'ro-RO', 'ja', 'ja-JP', 'ja-HI', 'ko', 'ko-KR', 'id', 'ms', 'ms-MY', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valencia', 'gl', 'gl-ES', 'eu', 'vi', 'vi-VN', 'hr', 'sr', 'sl', 'sl_SI', 'bg', 'mk', 'lv', 'sq', 'bs', 'is', 'be', 'af', 'af_ZA', 'et-EE', 'fa', 'fa-IR', 'he', 'he-IL', 'ar-DZ', 'ar-EG', 'cmn', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-TW', 'zh-HK', 'hi', 'hi-IN', 'gu-IN', 'ru', 'ru_RU', 'ru-UA', 'tr', 'uk', 'uk-UA', 'zh-Hant', 'tlh', 'vo', 've', 've-CC', 've-PP', 'wa-RR', 'zgh', 'chr']) {
+for (const language of ['en', 'haw', 'lt', 'yi', 'wuu-Hans', 'xh', 'zu', 'zu-ZA', 'pap', 'eo', 'ar', 'fi', 'sv', 'nb', 'da', 'it', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-FR', 'fr-BE', 'fr-CA', 'fr-CH', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-BR', 'pt-PT', 'pt_PT', 'nl', 'nl-NL', 'pl', 'pl-PL', 'cs', 'cs-CZ', 'sk', 'hu', 'ro', 'ro-RO', 'ja', 'ja-JP', 'ja-HI', 'ko', 'ko-KR', 'id', 'ms', 'ms-MY', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valencia', 'gl', 'gl-ES', 'eu', 'vi', 'vi-VN', 'hr', 'sr', 'sl', 'sl_SI', 'bg', 'mk', 'lv', 'sq', 'bs', 'is', 'be', 'af', 'af_ZA', 'et-EE', 'fa', 'fa-IR', 'he', 'he-IL', 'ar-DZ', 'ar-EG', 'cmn', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-TW', 'zh-HK', 'hi', 'hi-IN', 'gu-IN', 'ru', 'ru_RU', 'ru-UA', 'tr', 'uk', 'uk-UA', 'zh-Hant', 'tlh', 'vo', 've', 've-CC', 've-PP', 'wa-RR', 'zgh', 'chr', 'mr', 'bn', 'lg', 'tn', 'to', 'ts', 'ay', 'qu', 'wal', 'ace']) {
 test(`#5171 member scope: layout, grouping, daily schedule and webhook identity in ${language}`, async ({ boardPage: page, user }) => {
   await page.evaluate(language => Meteor.callAsync('setLanguage', language), language === 'ja-HI' ? 'ja-Hira' : language === 'ca@valencia' ? 'ca-valencia' : language === 'zh_SG' ? 'zh-SG' : language);
   const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
   await openPopup(page, 'notificationSettings', { scope: 'member' });
   const email = section(page, 'member', 'email');
   await expand(email);
+  await expect(email.locator('label:has(select[data-key="layout"])')).toContainText(strings['notification-delivery-layout']);
   await expect(email.locator('select[data-key="layout"] option[value="clear"]')).toHaveText(strings['notification-delivery-layout-clear']);
   await expect(email.locator('select[data-key="grouping"] option[value="board"]')).toHaveText(strings['notification-delivery-grouping-board']);
   await expect(email.locator('select[data-key="schedule"] option[value="daily"]')).toHaveText(strings['notification-delivery-schedule-daily']);
   const read = () => ((db.findOne('users', { _id: user.id }).profile || {}).notificationDelivery || {}).email || {};
   await email.locator('select[data-key="layout"]').selectOption('clear');
   await expect.poll(() => read().layout).toBe('clear');
+  for (const part of ['list', 'swimlane']) {
+    await expect(email.locator(`.js-delivery-list-item[data-key="parts"][data-value="${part}"] span`)).toHaveText(strings[`notification-delivery-part-${part}`]);
+  }
   await email.locator('select[data-key="grouping"]').selectOption('board');
   await expect.poll(() => read().grouping).toBe('board');
   await email.locator('.js-delivery-list-item[data-key="parts"][data-value="swimlane"]').click();
@@ -43,6 +47,7 @@ test(`#5171 member scope: layout, grouping, daily schedule and webhook identity 
   await email.locator('select[data-key="schedule"]').selectOption('daily');
   await expect.poll(() => read().schedule).toBe('daily');
   await expect(email.locator('label:has(input[data-key="dailyTime"])')).toHaveText(strings['notification-delivery-daily-time']);
+  await expect(email.locator('label:has(input[data-key="quietStart"])')).toHaveText(strings['notification-delivery-quiet-from']);
   await expect(email.locator('label:has(input[data-key="quietEnd"])')).toHaveText(strings['notification-delivery-quiet-to']);
   expect(typeof read().timezone).toBe('string');
   await email.locator('select[data-key="schedule"]').selectOption('');

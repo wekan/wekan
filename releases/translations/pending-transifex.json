@@ -637,10 +637,6 @@
       "since": "2026-10-08"
     },
     {
-      "key": "r-assignee",
-      "since": "2026-10-08"
-    },
-    {
       "key": "r-add-actinguser-assignee",
       "since": "2026-10-08"
     },
@@ -673,14 +669,6 @@
       "since": "2026-10-08"
     },
     {
-      "key": "stuck-sync-operation-progress",
-      "since": "2026-10-08"
-    },
-    {
-      "key": "stuck-sync-operation-reason",
-      "since": "2026-10-08"
-    },
-    {
       "key": "stuck-sync-operation-applied",
       "since": "2026-10-08"
     },
@@ -709,15 +697,7 @@
       "since": "2026-10-08"
     },
     {
-      "key": "stuck-sync-operation-discard",
-      "since": "2026-10-08"
-    },
-    {
       "key": "stuck-sync-operation-discard-confirm",
-      "since": "2026-10-08"
-    },
-    {
-      "key": "stuck-sync-operation-refresh",
       "since": "2026-10-08"
     },
     {
@@ -746,10 +726,6 @@
     },
     {
       "key": "stuck-sync-operation-busy",
-      "since": "2026-10-08"
-    },
-    {
-      "key": "stuck-sync-operation-failed",
       "since": "2026-10-08"
     },
     {
@@ -841,10 +817,6 @@
       "since": "2026-10-08"
     },
     {
-      "key": "scrum-import-preview",
-      "since": "2026-10-08"
-    },
-    {
       "key": "scrum-import-choose-file",
       "since": "2026-10-08"
     },
@@ -905,10 +877,6 @@
       "since": "2026-10-08"
     },
     {
-      "key": "interrupted-import-board",
-      "since": "2026-10-08"
-    },
-    {
       "key": "interrupted-import-progress",
       "since": "2026-10-08"
     },
@@ -949,19 +917,11 @@
       "since": "2026-10-08"
     },
     {
-      "key": "interrupted-import-discard",
-      "since": "2026-10-08"
-    },
-    {
       "key": "interrupted-import-keep-confirm",
       "since": "2026-10-08"
     },
     {
       "key": "interrupted-import-discard-confirm",
-      "since": "2026-10-08"
-    },
-    {
-      "key": "interrupted-import-refresh",
       "since": "2026-10-08"
     },
     {
@@ -990,10 +950,6 @@
     },
     {
       "key": "interrupted-import-scrum-busy",
-      "since": "2026-10-08"
-    },
-    {
-      "key": "interrupted-import-failed",
       "since": "2026-10-08"
     },
     {
@@ -1405,10 +1361,6 @@
       "since": "2026-10-10"
     },
     {
-      "key": "notification-delivery-layout",
-      "since": "2026-10-10"
-    },
-    {
       "key": "notification-delivery-layout-classic",
       "since": "2026-10-10"
     },
@@ -1430,14 +1382,6 @@
     },
     {
       "key": "notification-delivery-part-card",
-      "since": "2026-10-10"
-    },
-    {
-      "key": "notification-delivery-part-list",
-      "since": "2026-10-10"
-    },
-    {
-      "key": "notification-delivery-part-swimlane",
       "since": "2026-10-10"
     },
     {
@@ -1502,10 +1446,6 @@
     },
     {
       "key": "notification-delivery-quiet",
-      "since": "2026-10-10"
-    },
-    {
-      "key": "notification-delivery-quiet-from",
       "since": "2026-10-10"
     },
     {

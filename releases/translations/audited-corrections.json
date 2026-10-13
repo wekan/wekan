@@ -172569,5 +172569,1174 @@
     "before": "Envellecemento de cartões — Lista",
     "after": "Envellecemento do traballo en curso",
     "reason": "Replace mixed Portuguese terminology with Galician and preserve the English behavior and variable inventory."
+  },
+  {
+    "locale": "ace",
+    "key": "layout",
+    "before": "Tata Letak",
+    "after": "Tata teumpat",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ace",
+    "key": "operator-assignee",
+    "before": "pemberi tugas",
+    "after": "ureueng nyang geubri buet",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ace",
+    "key": "progress",
+    "before": "Perkembangan",
+    "after": "Keumajuan",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ace",
+    "key": "reason",
+    "before": "Alasan",
+    "after": "Sabab",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ace",
+    "key": "discard",
+    "before": "Abaikan",
+    "after": "Boh",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ace",
+    "key": "color-green",
+    "before": "hijau",
+    "after": "ijo",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ace",
+    "key": "color-red",
+    "before": "merah",
+    "after": "mirah",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ace",
+    "key": "operator-number",
+    "before": "nombor",
+    "after": "angka",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ace",
+    "key": "r-d-send-email-message",
+    "before": "pesan",
+    "after": "peusan",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ace",
+    "key": "r-list",
+    "before": "daftar",
+    "after": "dapeuta",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ace",
+    "key": "r-in-list",
+    "before": "pada daftar",
+    "after": "lam dapeuta",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ace",
+    "key": "flow-unknown",
+    "before": "(tidak diketahui)",
+    "after": "(hana geuteupeu)",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ace",
+    "key": "preview",
+    "before": "Pratinjau",
+    "after": "Eu dilee",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ace",
+    "key": "completed",
+    "before": "Lengkap",
+    "after": "Ka leusoe",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ace",
+    "key": "closed",
+    "before": "Tutup",
+    "after": "Ka geutôb",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ace",
+    "key": "cancelled",
+    "before": "Batal",
+    "after": "Ka geupeubateuë",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ace",
+    "key": "done",
+    "before": "Selesai",
+    "after": "Ka leusoe",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ace",
+    "key": "link",
+    "before": "Pautan",
+    "after": "Peunawôt",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ace",
+    "key": "list",
+    "before": "Senarai",
+    "after": "Dapeuta",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ay",
+    "key": "layout",
+    "before": "Aymar aruna: Layout",
+    "after": "Wakichawi",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ay",
+    "key": "operator-assignee",
+    "before": "Aymar aruna: assignee",
+    "after": "lurawi katuqiri",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ay",
+    "key": "progress",
+    "before": "Aymar aruna: Progress",
+    "after": "Nayrar sartawi",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ay",
+    "key": "reason",
+    "before": "Aymar aruna: Reason",
+    "after": "Kunatsa",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ay",
+    "key": "discard",
+    "before": "Aymar aruna: Discard",
+    "after": "Jaqumukuña",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ay",
+    "key": "refresh",
+    "before": "Aymar aruna: Refresh",
+    "after": "Machaqar tukuyaña",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ay",
+    "key": "color-blue",
+    "before": "Aymar aruna: blue",
+    "after": "larama",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ay",
+    "key": "color-green",
+    "before": "Aymar aruna: green",
+    "after": "ch'uxña",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ay",
+    "key": "color-red",
+    "before": "Aymar aruna: red",
+    "after": "wila",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ay",
+    "key": "r-d-send-email-message",
+    "before": "Aymar aruna: message",
+    "after": "yatiyawi",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ay",
+    "key": "flow-unknown",
+    "before": "Aymar aruna: (unknown)",
+    "after": "(janiw uñt'atäkiti)",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ay",
+    "key": "preview",
+    "before": "Aymar aruna: Preview",
+    "after": "Nayraqat uñjaña",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ay",
+    "key": "closed",
+    "before": "Aymar aruna: Closed",
+    "after": "Jist'antata",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ay",
+    "key": "cancelled",
+    "before": "Aymar aruna: Cancelled",
+    "after": "Janiw luraskaniti",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "lg",
+    "key": "layout",
+    "before": "Layout (mu Luganda)",
+    "after": "Entegeka",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "lg",
+    "key": "operator-assignee",
+    "before": "assignee (mu Luganda)",
+    "after": "aweereddwa omulimu",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "lg",
+    "key": "reason",
+    "before": "Reason (mu Luganda)",
+    "after": "Ensonga",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "lg",
+    "key": "discard",
+    "before": "Discard (mu Luganda)",
+    "after": "Suula",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "lg",
+    "key": "refresh",
+    "before": "Refresh (mu Luganda)",
+    "after": "Ddamu otikke",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "lg",
+    "key": "color-blue",
+    "before": "blue (mu Luganda)",
+    "after": "bbululu",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "lg",
+    "key": "color-green",
+    "before": "green (mu Luganda)",
+    "after": "kiragala",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "lg",
+    "key": "color-red",
+    "before": "red (mu Luganda)",
+    "after": "myufu",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "lg",
+    "key": "r-d-send-email-message",
+    "before": "message (mu Luganda)",
+    "after": "obubaka",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "lg",
+    "key": "flow-unknown",
+    "before": "(unknown) (mu Luganda)",
+    "after": "(tekimanyiddwa)",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "lg",
+    "key": "r-item",
+    "before": "item (mu Luganda)",
+    "after": "ekintu",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "lg",
+    "key": "preview",
+    "before": "Preview (mu Luganda)",
+    "after": "Laba nga tonnaba",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "lg",
+    "key": "closed",
+    "before": "Closed (mu Luganda)",
+    "after": "Kiggaddwa",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "lg",
+    "key": "cancelled",
+    "before": "Cancelled (mu Luganda)",
+    "after": "Kisaziddwamu",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "qu",
+    "key": "layout",
+    "before": "Kay willaymi: Layoutta",
+    "after": "Allichay",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "qu",
+    "key": "operator-assignee",
+    "before": "Kay willaymi: assigneeta",
+    "after": "llamk'ay chaskiq",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "qu",
+    "key": "progress",
+    "before": "Kay willaymi: Progressta",
+    "after": "Ñawpaqman puriy",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "qu",
+    "key": "reason",
+    "before": "Kay willaymi: Reasonta",
+    "after": "Imarayku",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "qu",
+    "key": "discard",
+    "before": "Kay willaymi: Discardta",
+    "after": "Wikch'uy",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "qu",
+    "key": "refresh",
+    "before": "Kay willaymi: Refreshta",
+    "after": "Musuqyachiy",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "qu",
+    "key": "operator-number",
+    "before": "Kay willaymi: numberta",
+    "after": "yupay",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "qu",
+    "key": "r-d-send-email-message",
+    "before": "Kay willaymi: Willay",
+    "after": "willay",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "qu",
+    "key": "r-list",
+    "before": "Kay willaymi: Sinri",
+    "after": "sinri",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "qu",
+    "key": "r-in-list",
+    "before": "Kay willaymi: pi Sinri",
+    "after": "sinripi",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "qu",
+    "key": "flow-unknown",
+    "before": "Kay willaymi: (unknownta)",
+    "after": "(mana riqsisqa)",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "qu",
+    "key": "r-item",
+    "before": "Kay willaymi: itemta",
+    "after": "ima",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "qu",
+    "key": "preview",
+    "before": "Kay willaymi: Previewta",
+    "after": "Ñawpaqta qhaway",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "qu",
+    "key": "completed",
+    "before": "Kay willaymi: Tukusqa",
+    "after": "Tukusqa",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "qu",
+    "key": "active",
+    "before": "Kay willaymi: Activeta",
+    "after": "Llamk'achkan",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "qu",
+    "key": "closed",
+    "before": "Kay willaymi: Closedta",
+    "after": "Wisq'asqa",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "qu",
+    "key": "cancelled",
+    "before": "Kay willaymi: Cancelledta",
+    "after": "Sayachisqa",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "tlh",
+    "key": "layout",
+    "before": "Interface",
+    "after": "cha'meH mIw",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review)."
+  },
+  {
+    "locale": "tn",
+    "key": "layout",
+    "before": "Tshedimosetso: Layout",
+    "after": "Thulaganyo",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "tn",
+    "key": "operator-assignee",
+    "before": "Tshedimosetso: assignee",
+    "after": "yo o abetsweng tiro",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "tn",
+    "key": "reason",
+    "before": "Tshedimosetso: Reason",
+    "after": "Lebaka",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "tn",
+    "key": "refresh",
+    "before": "Tshedimosetso: Refresh",
+    "after": "Ntšhwafatsa",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "tn",
+    "key": "r-d-send-email-message",
+    "before": "Tshedimosetso: message",
+    "after": "molaetsa",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "tn",
+    "key": "closed",
+    "before": "Tshedimosetso: Closed",
+    "after": "E tswetswe",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "tn",
+    "key": "cancelled",
+    "before": "Tshedimosetso: Cancelled",
+    "after": "E khansetswe",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "to",
+    "key": "layout",
+    "before": "Faka-Tonga: Layout",
+    "after": "Fokotuʻutuʻu",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "to",
+    "key": "operator-assignee",
+    "before": "Faka-Tonga: assignee",
+    "after": "tokotaha kuo vahe ki ai",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "to",
+    "key": "progress",
+    "before": "Faka-Tonga: Progress",
+    "after": "Fakalakalaka",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "to",
+    "key": "reason",
+    "before": "Faka-Tonga: Reason",
+    "after": "ʻUhinga",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "to",
+    "key": "discard",
+    "before": "Faka-Tonga: Discard",
+    "after": "Liʻaki",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "to",
+    "key": "refresh",
+    "before": "Faka-Tonga: Refresh",
+    "after": "Fakafoʻou",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "to",
+    "key": "color-blue",
+    "before": "Faka-Tonga: blue",
+    "after": "pulū",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "to",
+    "key": "color-green",
+    "before": "Faka-Tonga: green",
+    "after": "mata",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "to",
+    "key": "color-red",
+    "before": "Faka-Tonga: red",
+    "after": "kulokula",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "to",
+    "key": "operator-number",
+    "before": "Faka-Tonga: number",
+    "after": "fika",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "to",
+    "key": "r-d-send-email-message",
+    "before": "Faka-Tonga: message",
+    "after": "pōpoaki",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "to",
+    "key": "r-list",
+    "before": "Faka-Tonga: lisi",
+    "after": "lisi",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "to",
+    "key": "r-in-list",
+    "before": "Faka-Tonga: in lisi",
+    "after": "ʻi he lisi",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "to",
+    "key": "flow-unknown",
+    "before": "Faka-Tonga: (unknown)",
+    "after": "(ʻikai ʻiloʻi)",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "to",
+    "key": "r-item",
+    "before": "Faka-Tonga: item",
+    "after": "meʻa",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "to",
+    "key": "preview",
+    "before": "Faka-Tonga: Preview",
+    "after": "Vakai tomuʻa",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "to",
+    "key": "completed",
+    "before": "Faka-Tonga: Completed",
+    "after": "Kuo kakato",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "to",
+    "key": "active",
+    "before": "Faka-Tonga: Active",
+    "after": "Lolotonga ngāue",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "to",
+    "key": "closed",
+    "before": "Faka-Tonga: tāpuni",
+    "after": "Kuo tāpuni",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "to",
+    "key": "cancelled",
+    "before": "Faka-Tonga: Cancelled",
+    "after": "Kuo fakapekia",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "to",
+    "key": "calendar",
+    "before": "Faka-Tonga: Calendar",
+    "after": "Tohi māhina",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ts",
+    "key": "layout",
+    "before": "Hi Xitsonga: mhaka",
+    "after": "Mavekelo",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ts",
+    "key": "operator-assignee",
+    "before": "Hi Xitsonga: mhaka",
+    "after": "loyi a averiweke",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ts",
+    "key": "progress",
+    "before": "Hi Xitsonga: mhaka",
+    "after": "Nhluvuko",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ts",
+    "key": "reason",
+    "before": "Hi Xitsonga: mhaka",
+    "after": "Xivangelo",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ts",
+    "key": "discard",
+    "before": "Hi Xitsonga: mhaka",
+    "after": "Cukumeta",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ts",
+    "key": "refresh",
+    "before": "Hi Xitsonga: mhaka",
+    "after": "Pfuxeta",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ts",
+    "key": "color-blue",
+    "before": "Hi Xitsonga: mhaka",
+    "after": "wasi",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ts",
+    "key": "color-green",
+    "before": "Hi Xitsonga: mhaka",
+    "after": "rihlaza",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ts",
+    "key": "color-red",
+    "before": "Hi Xitsonga: mhaka",
+    "after": "tshwuka",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ts",
+    "key": "operator-number",
+    "before": "Hi Xitsonga: mhaka",
+    "after": "nhlayo",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ts",
+    "key": "r-d-send-email-message",
+    "before": "Hi Xitsonga: mhaka",
+    "after": "rungula",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ts",
+    "key": "flow-unknown",
+    "before": "Hi Xitsonga: (mhaka)",
+    "after": "(a swi tiveki)",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ts",
+    "key": "r-item",
+    "before": "Hi Xitsonga: mhaka",
+    "after": "nchumu",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ts",
+    "key": "preview",
+    "before": "Hi Xitsonga: mhaka",
+    "after": "Languta ka ha ri nkarhi",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ts",
+    "key": "active",
+    "before": "Hi Xitsonga: mhaka",
+    "after": "Ya tirha",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ts",
+    "key": "closed",
+    "before": "Hi Xitsonga: mhaka",
+    "after": "Yi pfariwile",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ts",
+    "key": "cancelled",
+    "before": "Hi Xitsonga: mhaka",
+    "after": "Yi suriwile",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ve",
+    "key": "layout",
+    "before": "Isakhiwo",
+    "after": "Nzudzanyo",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ve",
+    "key": "operator-assignee",
+    "before": "owabelwe",
+    "after": "mushumi o avhelwaho",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ve",
+    "key": "progress",
+    "before": "Inqubekelaphambili",
+    "after": "Mvelaphanḓa",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ve",
+    "key": "discard",
+    "before": "Lahla",
+    "after": "Laṱa",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ve",
+    "key": "refresh",
+    "before": "Vuselela",
+    "after": "Vusuludza",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ve",
+    "key": "color-green",
+    "before": "eluhlaza",
+    "after": "dala",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ve",
+    "key": "color-red",
+    "before": "ebomvu",
+    "after": "tswuku",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ve",
+    "key": "operator-number",
+    "before": "inombolo",
+    "after": "nomboro",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ve",
+    "key": "r-d-send-email-message",
+    "before": "umyalezo",
+    "after": "mulaedza",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ve",
+    "key": "r-list",
+    "before": "uhlu",
+    "after": "mutevhe",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ve",
+    "key": "r-in-list",
+    "before": "ohlwini",
+    "after": "kha mutevhe",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ve",
+    "key": "flow-unknown",
+    "before": "(akwaziwa)",
+    "after": "(a zwi ḓivhei)",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ve",
+    "key": "r-item",
+    "before": "into",
+    "after": "tshithu",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ve",
+    "key": "preview",
+    "before": "Buka kuqala",
+    "after": "Lavhelesa hu tshee nga phanḓa",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ve",
+    "key": "completed",
+    "before": "Kuqediwe",
+    "after": "Zwo fhela",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ve",
+    "key": "active",
+    "before": "Iyasebenza",
+    "after": "Zwi khou shuma",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ve",
+    "key": "closed",
+    "before": "Kuvaliwe",
+    "after": "Zwo valiwa",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ve",
+    "key": "cancelled",
+    "before": "Kukhanseliwe",
+    "after": "Zwo phumulwa",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ve",
+    "key": "done",
+    "before": "Kwenziwe",
+    "after": "Zwo itwa",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ve",
+    "key": "link",
+    "before": "Isixhumanisi",
+    "after": "Vhuṱumani",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ve",
+    "key": "calendar",
+    "before": "Ikhalenda",
+    "after": "Khalenda",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ve",
+    "key": "time",
+    "before": "Isikhathi",
+    "after": "Tshifhinga",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "vo",
+    "key": "link",
+    "before": "Ligilo",
+    "after": "Yüm",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review)."
+  },
+  {
+    "locale": "wa",
+    "key": "operator-assignee",
+    "before": "personne assignée",
+    "after": "djin ki l' ovraedje est dné",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "wa",
+    "key": "flow-unknown",
+    "before": "(onbekend)",
+    "after": "(nén cnoxhou)",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "wa",
+    "key": "closed",
+    "before": "Clôturé",
+    "after": "Serré",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "wal",
+    "key": "layout",
+    "before": "Wolayttatto: Layout",
+    "after": "Giigissuwa",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "wal",
+    "key": "operator-assignee",
+    "before": "Wolayttatto: assignee",
+    "after": "oosoy imettida asi",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "wal",
+    "key": "progress",
+    "before": "Wolayttatto: Progress",
+    "after": "Diccaa",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "wal",
+    "key": "reason",
+    "before": "Wolayttatto: Reason",
+    "after": "Gaasuwa",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "wal",
+    "key": "discard",
+    "before": "Wolayttatto: Discard",
+    "after": "Yegga",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "wal",
+    "key": "color-blue",
+    "before": "Wolayttatto: blue",
+    "after": "salo mera",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "wal",
+    "key": "color-green",
+    "before": "Wolayttatto: green",
+    "after": "maata mera",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "wal",
+    "key": "color-red",
+    "before": "Wolayttatto: red",
+    "after": "zo'o",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "wal",
+    "key": "operator-number",
+    "before": "Wolayttatto: number",
+    "after": "qoodaa",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "wal",
+    "key": "r-d-send-email-message",
+    "before": "Wolayttatto: message",
+    "after": "kiitaa",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "wal",
+    "key": "r-list",
+    "before": "Wolayttatto: mazgabaa",
+    "after": "mazgabaa",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "wal",
+    "key": "r-in-list",
+    "before": "Wolayttatto: gidon mazgabaa",
+    "after": "mazgabaa gidon",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "wal",
+    "key": "flow-unknown",
+    "before": "Wolayttatto: (unknown)",
+    "after": "(erettibeenna)",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "wal",
+    "key": "r-item",
+    "before": "Wolayttatto: miishshaa",
+    "after": "miishshaa",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "wal",
+    "key": "preview",
+    "before": "Wolayttatto: Preview",
+    "after": "Kasetidi xeella",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "wal",
+    "key": "completed",
+    "before": "Wolayttatto: Polettiis",
+    "after": "Polettiis",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "wal",
+    "key": "active",
+    "before": "Wolayttatto: Active",
+    "after": "Oosettiza",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "wal",
+    "key": "closed",
+    "before": "Wolayttatto: Closed",
+    "after": "Gordettiis",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "wal",
+    "key": "cancelled",
+    "before": "Wolayttatto: Cancelled",
+    "after": "Aggida",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "wo",
+    "key": "operator-assignee",
+    "before": "personne assignée",
+    "after": "ki ñu dénk liggéey bi",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ay",
+    "key": "dependency-icon",
+    "before": "Aymar aruna: Icon",
+    "after": "Uñacht'ayiri",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "qu",
+    "key": "dependency-icon",
+    "before": "Kay willaymi: Iconta",
+    "after": "Unancha",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "qu",
+    "key": "flow-size",
+    "before": "Kay willaymi: Sizeta",
+    "after": "Chaninchay",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "tn",
+    "key": "dependency-icon",
+    "before": "Tshedimosetso: Icon",
+    "after": "Letshwao",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "to",
+    "key": "dependency-icon",
+    "before": "Faka-Tonga: Icon",
+    "after": "Fakaʻilonga",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "to",
+    "key": "flow-size",
+    "before": "Faka-Tonga: Size",
+    "after": "Fakafuofua",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ts",
+    "key": "dependency-icon",
+    "before": "Hi Xitsonga: mhaka",
+    "after": "Xifaniso",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "ts",
+    "key": "flow-size",
+    "before": "Hi Xitsonga: mhaka",
+    "after": "Ringanyeta",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "wal",
+    "key": "dependency-icon",
+    "before": "Wolayttatto: Icon",
+    "after": "Misiliyaa",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "wal",
+    "key": "flow-size",
+    "before": "Wolayttatto: Size",
+    "after": "Gidiyo keenaa qoodaa",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-assignee",
+    "before": "assignee",
+    "after": "ⴰⴼⴳⴰⵏ ⵉ ⵉⵜⵜⵓⵡⵛⴰⵏ ⵜⴰⵡⵓⵔⵉ",
+    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
   }
 ]
