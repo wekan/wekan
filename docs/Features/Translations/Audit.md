@@ -2,6 +2,25 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican notification delivery — 2026-10-13
+
+Commit `877a3a7e81` fills 39 English notification and webhook messages.
+Checks retain inherited settings and unchanged default payloads, literal
+`WEBHOOKS_ATTRIBUTES`, omission of the user's name, grouped versus separate
+messages, daily scheduling and waiting until quiet hours end. Tokens and
+HTML tags remain covered by the catalog-wide checks.
+
+The Corsican suite and 21 human-preference checks pass. The existing
+notification-settings browser workflow now includes Corsican and registers;
+it has not executed against the application. Only the 39 English values
+changed. All 38,079 protected Chinese values remain unchanged, with
+concurrent mail-report additions excluded from the commit.
+
+Corsican now has 87 filtered placeholders. The global filtered count is
+53,311 across 114 catalogs. Synchronization-planning strings were already
+translated and were left intact. Older mixed-language text, regional
+phrasing, exempt strings and browser execution remain under review.
+
 ## Corsican recovery decisions — 2026-10-13
 
 Commit `ef77f5a3f3` fills 37 English synchronization/import recovery
