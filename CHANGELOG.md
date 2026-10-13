@@ -131,11 +131,11 @@ releases.
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **28,516 untranslated locale/string values in 42 languages**.
   It excludes **379 source keys tracked separately as pending Transifex**.
-  After the Malayalam batch and new Trello strings, full per-locale `--list`
-  reports, including pending keys, count **55,201 remaining values across
-  122 non-English locale files**. This fuller inventory remains the scope
+  After the Azerbaijani feature batch, full per-locale `--list` reports,
+  including pending keys, count **54,532 remaining values across
+  119 non-English locale files**. This fuller inventory remains the scope
   of the translation work.
-  A separate short-prose audit flags 1,661 candidates across 180 locales.
+  A separate short-prose audit flags 1,649 candidates across 180 locales.
   The two notification At/To labels now have translations in all non-English
   locales;
   shared native words may equal English, so these require individual review.
@@ -148,8 +148,11 @@ releases.
 - Azerbaijani has 114 recorded terminology repairs across `az`, `az-AZ`
   and `az-LA`: Kanban boards, assigned people, creation commands, invitations
   and visibility wording. Two suites and 21 human-preference checks pass;
-  three browser cases register. These repairs do not reduce the fill count.
-  Each catalog still has 223 feature placeholders; broader review is open.
+  three terminology browser cases register. A subsequent batch fills 223
+  feature strings and seven exempt labels per catalog, 690 values total.
+  Four focused suites pass and 30 additional browser cases register. Full
+  fill reports are empty; browser execution and broader wording review remain
+  open, including older storage descriptions and composed rule grammar.
 - Malayalam now has no current fill candidates after 223 feature fills and
   thirteen exempt labels. Scrum matching, preservation and conflict warnings
   are covered, and rule rows omit a redundant linking verb. Six focused
@@ -193,7 +196,7 @@ releases.
 - Marathi now has no current fill candidates after 212 feature fills. Another
   55 English settings, rule and keyboard labels were hidden by the fill tool's
   technical-name and short-word exemptions; those are now translated too.
-  `node releases/translations/audit-exempt-prose.mjs` exposes 3,809 review
+  `node releases/translations/audit-exempt-prose.mjs` exposes 3,800 review
   candidates across 226 locales. They include intentional names and shared
   spellings, so they are not a confirmed untranslated count. Preserve existing
   human-verified `zh` wording; add only confirmed missing strings there.
@@ -594,8 +597,8 @@ through its API, with **swimlanes** kept as labels that WeKan's Trello import
 turns back into swimlanes; on **Sandstorm**, the **Powerbox** lets a grain
 reach Trello. **FreeBSD** Bun bundles, the **Launchpad snap** waits and the
 **Mac apps** release step are fixed. Missing Bengali, Marathi, Nepali and
-Tamil, Thai, Kannada, Urdu and Malayalam strings are filled, and
-wrong-language values and Azerbaijani terminology are corrected.
+Tamil, Thai, Kannada, Urdu, Malayalam and Azerbaijani strings are filled,
+and wrong-language values and Azerbaijani terminology are corrected.
 
 This release adds the following new features:
 
@@ -883,6 +886,24 @@ human-preference checks pass. Three browser cases register for board creation
 labels, visibility explanations and assigning a card; execution still needs a
 running rebuilt app. Existing Chinese wording is unchanged. Azerbaijani's
 remaining feature placeholders and broader language review stay open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9d8a48c4d8">Fill Azerbaijani feature, recovery and accessibility strings</a>. Thanks to xet7.</summary>
+
+Fill 223 feature placeholders and seven exempt labels in each of `az`,
+`az-AZ` and `az-LA`, preserving every existing non-English value. Translate
+linked fields, import formats, Trello export, notifications, Scrum planning
+and recovery warnings. Storage labels and Blockly accessibility text are
+translated too; fixed progress layouts use numerator/denominator notation.
+
+Four focused suites and 21 human-preference checks pass. All 246 catalogs
+retain exact source key order and placeholders. Thirty browser cases register
+for the three variants, covering feature flows, Scrum recovery, storage and
+Blockly; execution needs a running rebuilt app. Full Azerbaijani fill reports
+are empty, but broader wording and grammar review remain open. Existing
+Chinese text is unchanged.
 
 </details>
 
