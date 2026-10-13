@@ -2406,6 +2406,23 @@ repairing that inventory gap remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d223f4fd53">Expose untranslated storage prose and fill Southern Sotho labels</a>. Thanks to xet7.</summary>
+
+The translation inventory now exempts exact MongoDB, S3 and Azure Blob product
+names instead of every string beginning with those names. Descriptive status,
+credential and storage messages left in English are now reported. Filled 22
+Southern Sotho storage strings, preserving provider names and example hosts.
+The corrected filtered backlog is 29,110 strings across 77 languages, with
+379 pending-Transifex source keys reported separately.
+
+Southern Sotho, technical-name exemption and five Corsican/Maltese suites pass;
+all 21 human-preference checks pass. S3 settings browser coverage passes syntax
+and discovery; runtime execution remains pending. All 38,430 existing Chinese
+values are preserved. Translation and semantic-review work remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

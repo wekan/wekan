@@ -2,6 +2,28 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Storage inventory correction and Southern Sotho fill — 2026-10-13
+
+Commit `d223f4fd53` closes the broad-prefix inventory gap documented below.
+`isInvariantSource` now recognizes exact MongoDB, S3 and Azure Blob technical
+names; it no longer exempts descriptive prose merely because it begins with
+one of those names. Positive tests preserve product names, while negative tests
+require current and hypothetical status/error prose to remain translatable.
+
+Filled the 22 newly exposed Southern Sotho storage strings through the guarded
+fill tool, with no existing human translations skipped or overwritten. Provider
+names, technical identifiers and example hosts remain intact. Southern Sotho
+has no non-exempt exact-English placeholders under the corrected inventory.
+Its historical semantic review remains at key 1416.
+
+The corrected filtered backlog is **29,110 strings across 77 languages**;
+379 pending-Transifex source keys are reported separately. The larger backlog
+reflects newly visible work, not lost translations. Southern Sotho and inventory
+suites pass, as do five Corsican/Maltese suites and all 21 human-preference
+checks. The S3 settings browser case passes syntax and discovery; runtime
+execution remains pending. All 38,430 existing Chinese values are preserved.
+The complete repository suite was not run; all-language completion is unproven.
+
 ## Southern Sotho historical review: database status and ordering — 2026-10-13
 
 Commit `12b380b74d` reviews source keys 1280–1416 and repairs six values.
