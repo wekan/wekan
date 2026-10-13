@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican Blockly accessibility and list operations — 2026-10-13
+
+Commit `0b753e316d` extends the source-ordered review through key 3369.
+The reviewed accessibility, control-flow and list prose is largely already
+translated and is preserved. Eight physical keyboard legends retain their
+recognizable printed names instead of action words. An earlier map example
+no longer restricts a floor plan to the ground floor. The Corsican token
+check now includes numbered percent tokens, with negative cases for changed
+numbers and missing repeated tokens, alongside the existing ledger checks.
+
+The Corsican and full repair-ledger suites pass; the ledger verifies
+26,861 guarded corrections. All 21 human-preference checks pass. The existing
+map browser suite gains Corsican and a negative check for the old narrow
+example; syntax and discovery pass, but runtime execution remains pending.
+Exact comparison preserves 38,430 existing Chinese values. This review does
+not certify fluency or complete the broader language objective.
+
 ## Corsican flow analysis and WIP groups — 2026-10-13
 
 Commit `1b73b3a0b9` repairs 47 values in the source-ordered review through

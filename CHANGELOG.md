@@ -2060,6 +2060,19 @@ pending. Existing Chinese text is unchanged; broader review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0b753e316d">Review Corsican Blockly strings and preserve keyboard legends</a>. Thanks to xet7.</summary>
+
+Review Blockly accessibility, control-flow and list strings. Correct eight
+keyboard legends and a map example, and check numbered placeholder identity
+and multiplicity throughout the Corsican catalog.
+
+The Corsican and repair-ledger suites and 21 human-preference checks pass.
+The existing map browser suite now includes Corsican; runtime execution
+remains pending. Existing Chinese text is unchanged; broader review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
