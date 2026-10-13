@@ -187633,5 +187633,334 @@
     "before": "Impurtà da un schedariu di esportazione .json o .zip:",
     "after": "Impurtà da un schedariu d’espurtazione .json o .zip:",
     "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "twoFactorCode-invalid",
+    "before": "Codice d'autentificazione invalidu. Pruvate torna, ci vole à piace.",
+    "after": "Codice d’autentificazione micca validu. Pruvate torna.",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "wip-limit-groups",
+    "before": "Attiva limite Work In Progress (Lista)",
+    "after": "Gruppi di limiti WIP",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "wip-limit-group-name-placeholder",
+    "before": "Nome (facultativu)",
+    "after": "Nome di u gruppu (facultativu)",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "wip-limit-group-add",
+    "before": "Aghjunghje Attiva limite Work In Progress",
+    "after": "Aghjunghje un gruppu di limiti WIP",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "wip-limit-group-select-swimlane",
+    "before": "Selezziunà tavula Corsia",
+    "after": "Selezziunà una corsia",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "wip-limit-group-apply-swimlane",
+    "before": "Applica Corsia",
+    "after": "Appiecà à a corsia",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "list-sync-credential-placeholder",
+    "before": "Token API / parolla d'intesa",
+    "after": "Token API / parolla d’intrata",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "list-sync-now-error",
+    "before": "Sincronizazione fallita: %s",
+    "after": "Sincrunizazione fiascata: %s",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "board-view-aging-wip",
+    "before": "Invecchiamento carte — Lista",
+    "after": "Anzianità di u travagliu in corsu",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "board-view-blocker-analysis",
+    "before": "Dipendenze — Statistiche",
+    "after": "Analisi di i blocchi",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "board-view-monte-carlo",
+    "before": "Monte Carlo — Istograma di rendimentu",
+    "after": "Previsioni Monte Carlo",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "board-view-process-behavior",
+    "before": "XmR — Tempu di ciclu",
+    "after": "Cumportamentu di u prucessu (XmR)",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "board-view-size-cycle-time",
+    "before": "Dimensione / Tempu di ciclu",
+    "after": "Dimensione di u travagliu è tempu di ciclu",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-unknown",
+    "before": "(sconosciuto)",
+    "after": "Scunnisciutu",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-age-days",
+    "before": "Lista — Durata (ghjorni)",
+    "after": "Anzianità in a tappa (ghjorni)",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-p85",
+    "before": "Lista — P85 (ghjorni)",
+    "after": "85esimu percentile di a tappa (ghjorni)",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-samples",
+    "before": "Cronulugia — n",
+    "after": "Sughjorni passati",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-signal",
+    "before": "Limiti",
+    "after": "Signale",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-unusual",
+    "before": "Limiti ⚠",
+    "after": "Fora di u limitu",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-blocker",
+    "before": "Blocca",
+    "after": "Carta chì blocca",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-episodes",
+    "before": "Dipendenze — Cronulugia",
+    "after": "Episodii",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-active",
+    "before": "Dipendenze — Fine —",
+    "after": "Episodii aperti",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-blocked-days",
+    "before": "È bloccata da (Carte × ghjorni)",
+    "after": "Ghjorni-carta bluccati",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-unknown-start",
+    "before": "Principià — (sconosciuto)",
+    "after": "Principii scunnisciuti",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-confidence",
+    "before": "Statistiche (%)",
+    "after": "Cunfidenza",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-target-count",
+    "before": "Carte — Numero",
+    "after": "Numeru di carte da compie",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-finish-days",
+    "before": "Completato/a (ghjorni)",
+    "after": "Ghjorni per compie",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-finish-date",
+    "before": "Completato/a — Data",
+    "after": "Data di compiu",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-target-date",
+    "before": "Scadenza",
+    "after": "Data prevista",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-capacity",
+    "before": "Carte ≥",
+    "after": "Almenu stu numeru di carte",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-history-days",
+    "before": "Cronulugia (ghjorni)",
+    "after": "Ghjorni di cronulugia",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-beyond-horizon",
+    "before": "> 3650 ghjorni",
+    "after": "Al di là di l’orizonte di simulazione",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-mean",
+    "before": "Tempu di ciclu — x̄",
+    "after": "Media",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-moving-range",
+    "before": "|Δ Tempu di ciclu|",
+    "after": "Ampiezza mobile",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-mr-mean",
+    "before": "MR̄",
+    "after": "Media di l’ampiezza mobile",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-size-source",
+    "before": "Dimensione — Campi persunalizati",
+    "after": "Campu di dimensione",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-size",
+    "before": "Dimensione",
+    "after": "Stima",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-error",
+    "before": "Errore — Statistiche",
+    "after": "Ùn hè statu pussibule di caricà u raportu. Verificate i valori è pruvate torna.",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-details",
+    "before": "Dettagli — Cronulugia",
+    "after": "Cronulugia sottostante",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-note-agingWip",
+    "before": "Lista: Principià → Durata. P85: n ≥ 5. (sconosciuto): —.",
+    "after": "Carte aperte: ghjorni dapoi l’entrata in a tappa attuale. E barre rosse francanu u so 85esimu percentile storicu (almenu cinque sughjorni). S’ella manca a cronulugia d’entrata, u valore hè scunnisciutu.",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-note-blockerAnalysis",
+    "before": "Dipendenze: Cronulugia → Principià / Fine. Principià (sconosciuto): —.",
+    "after": "A cronulugia di e dipendenze dà l’ore di principiu è di fine di i blocchi per ogni tappa. I ligami più vechji ponu avè principii scunnisciuti. E carte squassate richiedenu copie cunservate di a so cronulugia. E cause chì si sovrapponenu sò cuntate separatamente.",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-note-monteCarlo",
+    "before": "Monte Carlo: 2000 × Cronulugia. ghjorni: UTC; 0 ✓. 50%, 70%, 85%, 95%. Carte ≥; Durata ≤. Limiti: 3650 ghjorni.",
+    "after": "2.000 prove piglianu campioni di ghjorni UTC cumpleti, cumpresi i ghjorni senza travagliu compiu. E date sò previsioni di a coda superiore; i numeri di carte sò impegni di a coda inferiore. Si suppone un ritmu di travagliu compiu simile in l’avvene; ùn hè micca una guaranzia. Orizonte massimu: 3.650 ghjorni. Senza carte compie, ùn ci hè previsione.",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-note-processBehavior",
+    "before": "XmR: Tempu di ciclu; Principià → Completato/a. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
+    "after": "U tempu di ciclu adopra u Principiu, o a creazione s’ellu manca, è a Fine, o l’archiviazione s’ella manca. XmR mostra i valori individuali è e differenze successive, cù a media è i limiti naturali di u prucessu; ci volenu almenu dui compii validi.",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "flow-note-sizeCycleTime",
+    "before": "X: In corsu: Planning Poker / Numero. Y: Tempu di ciclu (ghjorni). (sconosciuto): —.",
+    "after": "A stima attuale di Planning Poker o un campu persunalizatu numericu hè paragunatu à u tempu di ciclu compiu in ghjorni. E stime mancanti è e date micca valide sò omesse. S’ellu manca u Principiu, si adopra a creazione; s’ella manca a Fine, si adopra l’archiviazione.",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "move-reason",
+    "before": "Spustà a carta — Descrizzione",
+    "after": "Ragione di u spustamentu (facultativa)",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "ask-move-reason",
+    "before": "Spustà a carta → Descrizzione?",
+    "after": "Dumandà una ragione quandu si spostanu e carte",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "time-adjustments",
+    "before": "ore — Δ — Nome d'utilizatore",
+    "after": "Aghjustamenti di tempu per autore",
+    "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
   }
 ]

@@ -696,3 +696,17 @@ assert.match(corsican['problems-summary-help'], /Marcate.*esaminatu.*Cunfirmà.*
 assert.match(corsican['import-parts-instruction'], /Solu e parte marcate.*listessa scelta.*espurtazione/);
 assert.match(corsican['import-here-instruction'], /\.json o \.zip/);
 assert.equal(corsican['operator-number'], 'numeru');
+
+const flowAnalyticsCorrectionKeys = ["twoFactorCode-invalid", "wip-limit-groups", "wip-limit-group-name-placeholder", "wip-limit-group-add", "wip-limit-group-select-swimlane", "wip-limit-group-apply-swimlane", "list-sync-credential-placeholder", "list-sync-now-error", "board-view-aging-wip", "board-view-blocker-analysis", "board-view-monte-carlo", "board-view-process-behavior", "board-view-size-cycle-time", "flow-unknown", "flow-age-days", "flow-p85", "flow-samples", "flow-signal", "flow-unusual", "flow-blocker", "flow-episodes", "flow-active", "flow-blocked-days", "flow-unknown-start", "flow-confidence", "flow-target-count", "flow-finish-days", "flow-finish-date", "flow-target-date", "flow-capacity", "flow-history-days", "flow-beyond-horizon", "flow-mean", "flow-moving-range", "flow-mr-mean", "flow-size-source", "flow-size", "flow-error", "flow-details", "flow-note-agingWip", "flow-note-blockerAnalysis", "flow-note-monteCarlo", "flow-note-processBehavior", "flow-note-sizeCycleTime", "move-reason", "ask-move-reason", "time-adjustments"];
+for (const key of flowAnalyticsCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /ci vole à piace|Attiva limite|tavula Corsia|parolla d.intesa|fallita|Invecchiamento|sconosciuto|È bloccata|Completato|Dettagli|In corsu: Planning/, key);
+}
+assert.match(corsican['wip-limit-groups'], /Gruppi.*WIP/);
+assert.match(corsican['flow-note-agingWip'], /cinque sughjorni.*manca.*scunnisciutu/);
+assert.match(corsican['flow-note-blockerAnalysis'], /squassate.*copie cunservate.*sovrapponenu.*separatamente/);
+assert.match(corsican['flow-note-monteCarlo'], /2\.000.*UTC.*senza travagliu compiu.*coda superiore.*coda inferiore.*ùn hè micca una guaranzia.*3\.650.*Senza carte compie/);
+assert.match(corsican['flow-note-processBehavior'], /Principiu.*creazione.*Fine.*archiviazione.*XmR.*dui compii validi/);
+assert.match(corsican['flow-note-sizeCycleTime'], /Planning Poker.*numericu.*mancanti.*micca valide.*omesse.*creazione.*archiviazione/);
+assert.match(corsican['move-reason'], /facultativa/);
+assert.match(corsican['flow-error'], /Verificate i valori è pruvate torna/);
