@@ -69,6 +69,8 @@ const VIEWS = [
   { view: 'board-view-size-cycle-time', jsClass: 'js-open-size-cycle-time-view', icon: 'fa-braille', template: 'sizeCycleTimeView', helper: 'isViewSizeCycleTime', chart: true },
   // #3256: cards as markers on an uploaded image.
   { view: 'board-view-map', jsClass: 'js-open-map-view', icon: 'fa-map-marker', template: 'mapView', helper: 'isViewMap' },
+  { view: 'board-view-email', jsClass: 'js-open-email-view', icon: 'fa-envelope', template: 'emailView', helper: 'isViewEmail' },
+  { view: 'board-view-chat', jsClass: 'js-open-chat-view', icon: 'fa-comments', template: 'chatView', helper: 'isViewChat' },
 ];
 
 // Between Table and Calendar, between Timeline and Statistics, between

@@ -361,6 +361,16 @@ Users.attachSchema(
       type: Boolean,
       optional: true,
     },
+    'profile.chatViewLayout': {
+      /**
+       * Board View / Chat: { treeWidth, chatWidth, treeCollapsed,
+       * cardCollapsed, chatCollapsed } - the member's pane widths and which
+       * panes are folded (models/lib/chatView.js cleanChatLayout).
+       */
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
     'profile.emailToCard': {
       /**
        * Email to card (#794): { enabled, parts } - whether this member's
@@ -915,6 +925,8 @@ Users.attachSchema(
         'board-view-process-behavior',
         'board-view-size-cycle-time',
         'board-view-map',
+        'board-view-email',
+        'board-view-chat',
       ],
     },
     'profile.listSortBy': {

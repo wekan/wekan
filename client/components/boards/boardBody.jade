@@ -111,6 +111,10 @@ template(name="boardBody")
           +pulseView
         else if isViewMap
           +mapView
+        else if isViewEmail
+          +emailView
+        else if isViewChat
+          +chatView
         else
           // Default view - show swimlanes if they exist, otherwise show lists
           if hasSwimlanes

@@ -1,0 +1,247 @@
+/* Board View / Chat: Slack / Rocket.Chat's three panes in the board's own
+   theme. No colour of its own: the accent is the theme's (--theme-accent,
+   falling back to WeKan blue as paginationControls.css does), surfaces are
+   translucent over the board background, text inherits.
+
+   The container is laid out LEFT TO RIGHT in every language and the pane
+   order is decided in chatView.js (paneOrder), so a right-to-left language
+   gets the mirror image exactly once; the pane CONTENTS follow the page's own
+   direction. */
+
+.chat-view {
+  direction: ltr;
+  display: flex;
+  align-items: stretch;
+  height: calc(100vh - 110px);
+  min-height: 320px;
+  overflow: hidden;
+}
+
+.chat-view[data-dir="rtl"] .chat-view-pane {
+  direction: rtl;
+}
+
+.chat-view-pane {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.85);
+  color: #172b4d;
+}
+
+.chat-view-tree,
+.chat-view-chat {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.chat-view-card {
+  flex: 1 1 auto;
+}
+
+.chat-view-pane-folded {
+  flex: 0 0 36px;
+  align-items: center;
+  padding-top: 8px;
+}
+
+.chat-view-pane-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+}
+
+.chat-view-pane-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chat-view-pane-header button,
+.chat-view-pane-folded button {
+  margin: 0 !important;
+  padding: 4px 8px;
+  background: transparent;
+  color: inherit;
+  box-shadow: none;
+}
+
+/* The draggable borders. */
+.chat-view-resizer {
+  flex: 0 0 6px;
+  cursor: col-resize;
+  background: rgba(0, 0, 0, 0.08);
+  touch-action: none;
+}
+
+.chat-view-resizer:hover,
+.chat-view-resizer:focus {
+  background: var(--theme-accent, #01628c);
+  outline: none;
+}
+
+/* The tree. */
+.chat-view-tree ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.chat-view-workspaces {
+  overflow-y: auto;
+  padding: 6px 0;
+}
+
+.chat-view-node > ul {
+  padding-inline-start: 14px;
+}
+
+.chat-view-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 12px;
+  border-radius: 4px;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.chat-view-row:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.chat-view-row-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chat-view-node-heading {
+  margin: 10px 0 2px;
+  padding-inline-start: 12px;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.chat-view-board.is-current > .chat-view-row {
+  font-weight: bold;
+}
+
+.chat-view-hash {
+  opacity: 0.6;
+}
+
+.chat-view-channel.is-selected > .chat-view-row {
+  background: var(--theme-accent, #01628c);
+  color: #fff;
+}
+
+/* The card: the same card details as everywhere, held in the pane instead
+   of floating beside a minicard. */
+.chat-view-card-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
+.chat-view-card-body .card-details {
+  position: static !important;
+  inset: auto !important;
+  width: auto !important;
+  max-width: none !important;
+  height: auto !important;
+  max-height: none !important;
+  transform: none !important;
+  visibility: visible !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+}
+
+.chat-view-empty {
+  padding: 16px;
+}
+
+/* The chat. */
+.chat-view-messages {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 8px 12px;
+}
+
+.chat-view-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 0;
+}
+
+.chat-view-message-body {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.chat-view-message-author {
+  font-weight: bold;
+  margin-inline-end: 8px;
+}
+
+.chat-view-message-time {
+  font-size: 0.8em;
+}
+
+.chat-view-message-text {
+  overflow-wrap: anywhere;
+}
+
+.chat-view-message.is-mine .chat-view-message-author {
+  color: var(--theme-accent, #01628c);
+}
+
+.chat-view-compose {
+  display: flex;
+  gap: 8px;
+  padding: 8px 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.chat-view-compose textarea {
+  flex: 1 1 auto;
+  min-height: 2.5em;
+  margin: 0;
+  resize: vertical;
+}
+
+.chat-view-compose button {
+  margin: 0 !important;
+  align-self: flex-end;
+}
+
+/* A dark theme: the panes darken with it. */
+body.dark-mode .chat-view-pane,
+.board-color-dark .chat-view-pane {
+  background: rgba(30, 30, 30, 0.88);
+  color: #eee;
+}
+
+/* Narrow windows: one pane at a time is all that fits; the tree and the chat
+   stack above and below the card. */
+@media (max-width: 800px) {
+  .chat-view {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .chat-view-pane {
+    flex-basis: auto !important;
+  }
+
+  .chat-view-resizer {
+    display: none;
+  }
+}

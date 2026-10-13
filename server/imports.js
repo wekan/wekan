@@ -344,6 +344,7 @@ import '/server/routes/exportAllBoards';
 // endpoint the docs describe did not exist.
 import '/server/routes/inboundEmail';
 import '/server/emailToCard';
+import '/server/emailView';
 import '/server/lib/imapInbound';
 import '/server/sandstormEmail';
 import '/server/routes/legacyAttachments';

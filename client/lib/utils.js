@@ -351,6 +351,8 @@ export const Utils = {
         'board-view-process-behavior',
         'board-view-size-cycle-time',
         'board-view-map',
+        'board-view-email',
+        'board-view-chat',
       ].includes(view)
     ) {
       window.localStorage.setItem('boardView', view); //true
@@ -457,6 +459,8 @@ export const Utils = {
         'board-view-process-behavior',
         'board-view-size-cycle-time',
         'board-view-map',
+        'board-view-email',
+        'board-view-chat',
       ].includes(window.localStorage.getItem('boardView'))
     ) {
       return window.localStorage.getItem('boardView');

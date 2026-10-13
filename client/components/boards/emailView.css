@@ -1,0 +1,155 @@
+/* Board View / Email (#794): Gmail's layout - folders on the start side, the
+   message table beside them - in the board's own theme. No colour of its own:
+   the accent is the theme's (--theme-accent, falling back to WeKan blue, as
+   paginationControls.css does), and a label is the board label's own colour.
+   Logical properties, so a right-to-left language mirrors it. */
+
+.email-view {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 12px;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+.email-view-sidebar {
+  flex: 0 0 220px;
+  max-width: 220px;
+  position: sticky;
+  top: 0;
+}
+
+.email-view-compose {
+  display: inline-flex !important;
+  align-items: center;
+  margin: 0 0 12px 0 !important;
+  padding: 10px 20px;
+  border-radius: 16px;
+  background: var(--theme-accent, #01628c) !important;
+  color: #fff !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.email-view-folders {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.email-view-folder a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  border-start-end-radius: 16px;
+  border-end-end-radius: 16px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.email-view-folder a:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.email-view-folder.is-active a {
+  background: color-mix(in srgb, var(--theme-accent, #01628c) 18%, transparent);
+  font-weight: bold;
+}
+
+.email-view-folder-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.email-view-folder-heading {
+  margin: 12px 0 4px;
+  padding-inline-start: 12px;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.email-view-label-dot {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.email-view-main {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.email-view-hint {
+  margin: 0 0 8px;
+}
+
+.email-view-row {
+  cursor: pointer;
+}
+
+.email-view-row:hover {
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+/* Received and not yet sent by us: bold, the way Gmail marks what is new to
+   you. Sent mail reads plainly. */
+.email-view-row:not(.is-outgoing) .email-view-from,
+.email-view-row:not(.is-outgoing) .email-view-subject-title {
+  font-weight: bold;
+}
+
+.email-view-snippet {
+  opacity: 0.7;
+}
+
+.email-view-row-label {
+  margin-inline-start: 6px;
+  padding: 0 6px;
+  font-size: 0.8em;
+  vertical-align: middle;
+}
+
+.email-view-reply {
+  margin-inline-start: 8px;
+  opacity: 0;
+  color: inherit;
+}
+
+.email-view-row:hover .email-view-reply,
+.email-view-reply:focus {
+  opacity: 0.8;
+}
+
+.email-view-date {
+  white-space: nowrap !important;
+  text-align: end;
+}
+
+.email-compose label {
+  display: block;
+}
+
+.email-compose input,
+.email-compose textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Narrow windows: the folders above the messages, like Gmail's mobile menu. */
+@media (max-width: 800px) {
+  .email-view {
+    flex-direction: column;
+  }
+
+  .email-view-sidebar {
+    position: static;
+    flex: 0 0 auto;
+    max-width: none;
+    width: 100%;
+  }
+}

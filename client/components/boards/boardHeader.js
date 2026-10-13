@@ -434,6 +434,14 @@ Template.boardChangeViewPopup.events({
     Utils.setBoardView('board-view-map');
     Popup.back();
   },
+  'click .js-open-email-view'() {
+    Utils.setBoardView('board-view-email');
+    Popup.back();
+  },
+  'click .js-open-chat-view'() {
+    Utils.setBoardView('board-view-chat');
+    Popup.back();
+  },
   'click .js-open-pulse-view'() {
     Utils.setBoardView('board-view-pulse');
     Popup.back();
@@ -911,6 +919,8 @@ Template.boardViewMenu.helpers({
       'board-view-process-behavior': 'board-view-process-behavior',
       'board-view-size-cycle-time': 'board-view-size-cycle-time',
       'board-view-map': 'board-view-map',
+      'board-view-email': 'board-view-email',
+      'board-view-chat': 'board-view-chat',
     };
     return TAPi18n.__(names[Utils.boardView()] || 'board-view');
   },

@@ -1,0 +1,77 @@
+//- Board View / Email (#794): the board as a Gmail-like mailbox, in the
+  board's own theme. Design: docs/Features/Board/Email-View.md.
+//-
+//- Left: Compose, the folders (Inbox = the list email to card puts new cards
+  in, Sent, All mail), the board's lists as folders and its labels as Gmail
+  labels. Right: the shared table page (docs/Features/Page/Table.md) - one
+  page of messages, newest first. A row opens the card popup, as a message
+  opens in Gmail; its comments are the conversation.
+template(name="emailView")
+  .email-view
+    nav.email-view-sidebar(aria-label="{{_ 'board-view-email'}}")
+      button.primary.email-view-compose.js-email-compose(type="button")
+        i.fa.fa-pencil
+        | &nbsp;{{_ 'email-view-compose'}}
+      ul.email-view-folders
+        each systemFolders
+          li.email-view-folder(class="{{#if active}}is-active{{/if}}")
+            a.js-email-folder(href="#" data-folder="{{id}}")
+              i.fa(class="{{icon}}")
+              span.email-view-folder-name {{_ labelKey}}
+        if listFolders.length
+          li.email-view-folder-heading {{_ 'lists'}}
+          each listFolders
+            li.email-view-folder(class="{{#if active}}is-active{{/if}}")
+              a.js-email-folder(href="#" data-folder="{{id}}")
+                i.fa.fa-folder-o
+                span.email-view-folder-name {{title}}
+        if labelFolders.length
+          li.email-view-folder-heading {{_ 'labels'}}
+          each labelFolders
+            li.email-view-folder(class="{{#if active}}is-active{{/if}}")
+              a.js-email-folder(href="#" data-folder="{{id}}")
+                span.email-view-label-dot(class="{{labelColorClass color}}" style="{{labelColorStyle color}}")
+                span.email-view-folder-name {{name}}
+    .email-view-main
+      unless receiving
+        p.quiet.email-view-hint {{_ 'email-view-not-receiving'}}
+      +tablePage(tablePageData)
+
+//- One message. Cells match the header: From, Subject, Date.
+template(name="emailViewRow")
+  tr.email-view-row.js-email-open(data-card-id="{{_id}}" class="{{#if outgoing}}is-outgoing{{/if}}")
+    td.email-view-from
+      if outgoing
+        span.quiet {{_ 'email-view-to'}}&nbsp;
+      | {{sender}}
+    td.email-view-subject
+      span.email-view-subject-title {{title}}
+      if snippet
+        span.email-view-snippet  - {{snippet}}
+      each labels
+        span.card-label.email-view-row-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}" title=name) {{name}}
+      a.email-view-reply.js-email-reply(href="#" title="{{_ 'email-view-reply'}}" data-card-id="{{_id}}")
+        i.fa.fa-reply
+    td.email-view-date {{date}}
+
+//- Compose, or reply on a card. Sent From the member's own board address, so
+  the answer comes back to this board (server/emailView.js sendBoardEmail).
+template(name="emailComposePopup")
+  form.email-compose.js-email-compose-form
+    if replyTitle
+      p.quiet {{_ 'email-view-replying-to'}} {{replyTitle}}
+    label
+      | {{_ 'email-view-to'}}
+      input.js-email-to(type="text" value="{{to}}" placeholder="name@example.com" autocomplete="email" required)
+    label
+      | {{_ 'email-view-cc'}}
+      input.js-email-cc(type="text" autocomplete="email")
+    label
+      | {{_ 'email-view-subject'}}
+      input.js-email-subject(type="text" value="{{subject}}" required)
+    textarea.js-email-text(rows="10")
+    if error
+      p.warning {{error}}
+    button.primary(type="submit" disabled="{{#if sending}}disabled{{/if}}")
+      i.fa.fa-paper-plane
+      | &nbsp;{{_ 'email-view-send'}}

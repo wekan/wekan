@@ -49,6 +49,10 @@ const FEATURES = [
       'board-view-size-cycle-time'] },
   { key: 'views-map', labelKey: 'feature-views-map', descKey: 'feature-views-map-desc',
     views: ['board-view-map'] },
+  { key: 'views-email', labelKey: 'feature-views-email', descKey: 'feature-views-email-desc',
+    views: ['board-view-email'] },
+  { key: 'views-chat', labelKey: 'feature-views-chat', descKey: 'feature-views-chat-desc',
+    views: ['board-view-chat'] },
 ];
 
 const FEATURE_KEYS = FEATURES.map(feature => feature.key);

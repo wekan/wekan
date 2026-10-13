@@ -995,6 +995,17 @@ Meteor.methods({
     return newNode;
   },
 
+  // Board View / Chat: the member's pane widths and folds. Cleaned to the
+  // known keys and clamped widths (models/lib/chatView.js).
+  async setChatViewLayout(layout) {
+    check(layout, Object);
+    if (!this.userId) throw new Meteor.Error('not-logged-in');
+    const { cleanChatLayout } = require('/models/lib/chatView');
+    const clean = cleanChatLayout(layout);
+    await Users.updateAsync(this.userId, { $set: { 'profile.chatViewLayout': clean } });
+    return clean;
+  },
+
   async setWorkspacesTree(newTree) {
     check(newTree, Array);
     if (!this.userId) throw new Meteor.Error('not-logged-in');

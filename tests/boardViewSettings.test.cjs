@@ -326,8 +326,10 @@ test('moveBoardView moves one step, and the first up / last down / unknown are n
   const down = bvs.moveBoardView(up, 'board-view-lists', 'down');
   assert.deepStrictEqual(down, all, 'and back');
   assert.deepStrictEqual(bvs.moveBoardView(undefined, 'board-view-swimlanes', 'up'), all, 'first item up');
-  // #3256 appended the Map view, which is now the last row.
-  assert.deepStrictEqual(bvs.moveBoardView(undefined, 'board-view-map', 'down'), all, 'last item down');
+  // #3256 appended the Map view; the Email (#794) and Chat views followed it,
+  // so Chat is the last row now.
+  assert.deepStrictEqual(bvs.moveBoardView(undefined, 'board-view-chat', 'down'), all, 'last item down');
+  assert.notDeepStrictEqual(bvs.moveBoardView(undefined, 'board-view-map', 'down'), all, 'Map is no longer last');
   assert.deepStrictEqual(bvs.moveBoardView(undefined, 'board-view-nope', 'up'), all, 'unknown');
   // Once the unknown key is dropped Pulse IS the first row, so its up is a no-op.
   assert.deepStrictEqual(bvs.moveBoardView(['board-view-nope', 'board-view-pulse'], 'board-view-pulse', 'up'),
@@ -421,6 +423,9 @@ const PRE_FEATURE_MENU = [
   'board-view-size-cycle-time',
   // #3256: the Map view, appended at the bottom too.
   'board-view-map',
+  // #794: Email, then Chat - appended after Map, like it.
+  'board-view-email',
+  'board-view-chat',
 ];
 const bvsSrc = read('models/lib/boardViewSettings.js');
 const PRE_FEATURE_ORDER = PRE_FEATURE_MENU.filter(k => k !== 'hr');
@@ -442,8 +447,9 @@ test('#3194: a board that saved the default order before Calendar Mode still has
 
 test('the default order is the pre-feature menu order (525bcab1b), literally', () => {
   assert.deepStrictEqual(bvs.DEFAULT_BOARD_VIEW_ORDER, PRE_FEATURE_ORDER);
-  // 34 before the Map view (#3256) was appended, 35 before Calendar Mode (#3194).
-  assert.strictEqual(PRE_FEATURE_ORDER.length, 36);
+  // 34 before the Map view (#3256) was appended, 35 before Calendar Mode
+  // (#3194), 36 before Email (#794) and Chat.
+  assert.strictEqual(PRE_FEATURE_ORDER.length, 38);
   // The literal in the model is a list of its own, not a slice of the table
   // (negative: re-sorting BOARD_VIEWS must not be able to change the default).
   assert.match(bvsSrc, /const DEFAULT_BOARD_VIEW_ORDER = \[\n\s*'board-view-swimlanes',/);

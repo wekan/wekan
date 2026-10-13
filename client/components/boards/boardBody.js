@@ -943,6 +943,12 @@ Template.boardBody.helpers({
   isViewMap() {
     return Utils.boardView() === 'board-view-map';
   },
+  isViewEmail() {
+    return Utils.boardView() === 'board-view-email';
+  },
+  isViewChat() {
+    return Utils.boardView() === 'board-view-chat';
+  },
 
   isViewPulse() {
     return Utils.boardView() === 'board-view-pulse';

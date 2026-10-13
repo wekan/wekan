@@ -58,6 +58,12 @@ const BOARD_VIEWS = [
   { view: 'board-view-size-cycle-time', labelKey: 'board-view-size-cycle-time', icon: 'fa-braille' },
   // #3256: cards as markers on an uploaded image (client/components/boards/mapView.*).
   { view: 'board-view-map', labelKey: 'board-view-map', icon: 'fa-map-marker' },
+  // #794: the board as a Gmail-like mailbox - the email-to-card list is the
+  // Inbox, lists and labels are folders and labels (client/components/boards/emailView.*).
+  { view: 'board-view-email', labelKey: 'board-view-email', icon: 'fa-envelope' },
+  // The board as a Slack / Rocket.Chat workspace: channels in a tree, the card,
+  // its comments as chat (client/components/boards/chatView.*).
+  { view: 'board-view-chat', labelKey: 'board-view-chat', icon: 'fa-comments' },
 ];
 
 const DEFAULT_BOARD_VIEW = 'board-view-swimlanes';
@@ -110,12 +116,14 @@ const DEFAULT_BOARD_VIEW_ORDER = [
   'board-view-process-behavior',
   'board-view-size-cycle-time',
   'board-view-map',
+  'board-view-email',
+  'board-view-chat',
 ];
 
 // Views added to the default order after a board could save an order of its
 // own (Board Settings / Board View). A saved order that lacks only these is
 // the default order of its time, not a custom one (normalizeBoardViewOrder).
-const VIEWS_ADDED_LATER = ['board-view-calendar-mode'];
+const VIEWS_ADDED_LATER = ['board-view-calendar-mode', 'board-view-email', 'board-view-chat'];
 
 // After which entries the menu draws a separator - the same six `hr`s the
 // pre-feature template had, at the same places - only in the DEFAULT order,
