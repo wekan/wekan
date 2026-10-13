@@ -2921,6 +2921,21 @@ containing the old language prefix; all-language review remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/30024f1e66">Repair Latin colors and navigation labels</a>. Thanks to xet7.</summary>
+
+Repair 32 prefixed strings, including all 25 color labels, close/back controls
+and the skip link. Update the stale restoration message to point to Archive
+on All Boards. Less common shade descriptions still need linguistic review.
+
+The Latin and guarded-correction suites and all 21 preservation checks pass.
+The skip-link browser case passes syntax and discovery; runtime remains pending.
+Existing Chinese values are unchanged. There remain 1,905 Latin values
+containing
+the old language prefix; all-language review remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

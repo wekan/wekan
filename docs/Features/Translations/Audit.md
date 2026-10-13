@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin colors and navigation — 2026-10-14
+
+Commit `30024f1e66` repairs 32 prefixed strings: all 25 color labels, close/back
+controls, the skip link and a stale archive-restoration instruction. The latter
+now points to Archive on All Boards instead of the old Home header. Tests cover
+unique color names, basic color anchors, dark/pale distinctions, placeholders
+and the restoration destination. Less common shade descriptions are lower
+confidence and still need linguistic review; uniqueness is not proof of accuracy.
+
+The Latin and guarded-correction suites pass with 27,479 ledger entries. All 21
+human-preference checks pass. Skip-link browser coverage checks its Latin label,
+focus visibility and content target; syntax and discovery pass, runtime remains
+pending. Exact comparison preserves 38,430 existing Chinese values.
+
+There remain 1,905 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin fonts, card aging and movement — 2026-10-14
 
 Commit `35d2caec77` repairs 35 prefixed strings for font previews and sizes,
