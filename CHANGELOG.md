@@ -3299,6 +3299,23 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d0676f4a76">Repair Latin authentication and date activity labels</a>. Thanks to xet7.</summary>
+
+- Translate 30 mixed-language authentication, deletion and date activity
+  entries.
+  Preserve irreversible swimlane deletion, old/new date placeholders and
+  distinct
+  above/below/left/right placement labels.
+- Latin and guarded-correction suites pass with 28,304 corrections. All 21
+  human-preference checks pass; 38,430 existing Chinese values are preserved.
+  Added swimlane-warning browser coverage passes syntax and discovery; browser
+  execution remains pending.
+- Review remains unfinished: 1,083 Latin values contain the legacy “Latine:”
+  prefix. Unprefixed values and other languages still require semantic review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

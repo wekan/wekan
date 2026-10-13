@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin authentication and date activity — 2026-10-14
+
+Commit `d0676f4a76` repairs 30 prefixed authentication, duplication, deletion,
+date activity and placement entries. Regression checks preserve default/display
+settings, OIDC, irreversible deletion, restore/delete distinctions, old/new date
+placeholders, date-message line breaks and relative placement directions.
+
+The Latin and guarded-correction suites pass with 28,304 ledger entries. All 21
+human-preference checks pass. Swimlane-warning browser coverage checks the title,
+irreversible-deletion explanation and confirmation button. Syntax and discovery
+pass; browser runtime remains pending. Exact comparison preserves 38,430 existing
+Chinese values.
+
+There remain 1,083 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin rule hints and branding settings — 2026-10-14
 
 Commit `c59113bebf` repairs 40 prefixed rule hints, date controls, authentication
