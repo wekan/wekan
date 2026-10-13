@@ -188571,5 +188571,54 @@
     "before": "Tlosa dipheo tsohle karateng",
     "after": "Tlosa dileibole tsohle kareteng",
     "reason": "Restore rule-state, detection, assignee, date-trigger and remove-label meanings; translate short English fragments."
+  },
+  {
+    "locale": "st",
+    "key": "r-trigger-vars-hint",
+    "before": "Masimo a lenane, tsela, sehlooho, lenane la tlhahlobo le mosebelisi a boetse a amohela {creator}, {assignees}, {members} le {customField:Name}, tse balwang kareteng ha molao o hlahlojwa.",
+    "after": "Dikarolo tsa lenane, tsela, sehlooho, lenane la tlhahlobo le mosebelisi di boetse di amohela {creator}, {assignees}, {members} le {customField:Name}, tse balwang kareteng ha molao o hlahlojwa.",
+    "reason": "Clarify data fields, OAuth configuration precedence and server storage, board visibility and header-toggle behavior."
+  },
+  {
+    "locale": "st",
+    "key": "oauth-providers-hint",
+    "before": "Mofani e mong le e mong a ka buloa mona kapa ka OAUTH_*_ENABLED environment variable ya hae; boleng bo behiloeng mona bo feta environment variable. Sephiri se bolokoa seforong mme ha se bontšhoe le ka mohla.",
+    "after": "Mofani ka mong a ka bulelwa mona kapa ka phetoho ya tikoloho ya seva ya OAUTH_*_ENABLED; boleng bo behilweng mona bo nka sebaka sa boleng ba phetoho ya tikoloho. Sephiri se bolokwa ho seva mme ha se bontshwe le ka mohla.",
+    "reason": "Clarify data fields, OAuth configuration precedence and server storage, board visibility and header-toggle behavior."
+  },
+  {
+    "locale": "st",
+    "key": "default-on-public-board",
+    "before": "Kamehla boteng ba sechaba",
+    "after": "Ya kamehla botong ya setjhaba",
+    "reason": "Clarify data fields, OAuth configuration precedence and server storage, board visibility and header-toggle behavior."
+  },
+  {
+    "locale": "st",
+    "key": "show-on-public-board",
+    "before": "Bontša boteng ba sechaba",
+    "after": "Bontsha botong ya setjhaba",
+    "reason": "Clarify data fields, OAuth configuration precedence and server storage, board visibility and header-toggle behavior."
+  },
+  {
+    "locale": "st",
+    "key": "default-on-private-board",
+    "before": "Kamehla boteng ba lekunutu",
+    "after": "Ya kamehla botong ya poraefete",
+    "reason": "Clarify data fields, OAuth configuration precedence and server storage, board visibility and header-toggle behavior."
+  },
+  {
+    "locale": "st",
+    "key": "show-on-private-board",
+    "before": "Bontša boteng ba lekunutu",
+    "after": "Bontsha botong ya poraefete",
+    "reason": "Clarify data fields, OAuth configuration precedence and server storage, board visibility and header-toggle behavior."
+  },
+  {
+    "locale": "st",
+    "key": "toggle-header-icons-collapsed",
+    "before": "Kgutsufatsa/atolosa maswantšho a hlooho",
+    "after": "Kgutsufatsa/atolosa ditshwantsho tsa hlooho (fapoha ho ditsebiso mohaleng/komporong)",
+    "reason": "Clarify data fields, OAuth configuration precedence and server storage, board visibility and header-toggle behavior."
   }
 ]

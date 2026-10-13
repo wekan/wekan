@@ -13,3 +13,16 @@ test('Southern Sotho email settings distinguish invitation and activity template
   await expect(page.getByText('Mema Imeile Sehlooho', { exact: true })).toHaveCount(0);
   await expect(page.getByText('Ketsahalo Imeile Mongolo', { exact: true })).toHaveCount(0);
 });
+
+
+test('Southern Sotho OAuth help preserves precedence and secret handling', async ({ page, adminUser }) => {
+  await loginWithToken(page, adminUser.id, adminUser.token);
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'st'));
+  await navigateInApp(page, '/admin/people/oauth');
+  const hint = page.getByText(strings['oauth-providers-hint'], { exact: true });
+  await expect(hint).toBeVisible();
+  await expect(hint).toContainText('OAUTH_*_ENABLED');
+  await expect(hint).toContainText('bo behilweng mona bo nka sebaka');
+  await expect(hint).toContainText('Sephiri se bolokwa ho seva');
+  await expect(hint).not.toContainText('seforong');
+});

@@ -736,3 +736,19 @@ assert.equal(sesotho['blockly-CONTROLS_REPEAT_INPUT_DO'], 'etsa');
 assert.equal(sesotho['dueCardsViewChange-choice-me'], 'Nna');
 assert.equal(sesotho['r-of'], sesotho.of);
 assert.notEqual(sesotho['blockly-CONTROLS_IF_MSG_IF'], sesotho['blockly-CONTROLS_REPEAT_INPUT_DO']);
+
+// Historical review through key 1844: setting scope and configuration precedence.
+assert.match(sesotho['r-trigger-vars-hint'], /^Dikarolo tsa/);
+assert.doesNotMatch(sesotho['r-trigger-vars-hint'], /Masimo/);
+for (const token of ['{creator}', '{assignees}', '{members}', '{customField:Name}']) {
+  assert.ok(sesotho['r-trigger-vars-hint'].includes(token));
+}
+assert.match(sesotho['oauth-providers-hint'], /OAUTH_[*]_ENABLED.*bo behilweng mona bo nka sebaka/);
+assert.match(sesotho['oauth-providers-hint'], /Sephiri se bolokwa ho seva.*ha se bontshwe le ka mohla/);
+assert.doesNotMatch(sesotho['oauth-providers-hint'], /seforong|environment variable/);
+for (const [scope, term] of [['public', 'setjhaba'], ['private', 'poraefete']]) {
+  assert.equal(sesotho[`default-on-${scope}-board`], `Ya kamehla botong ya ${term}`);
+  assert.equal(sesotho[`show-on-${scope}-board`], `Bontsha botong ya ${term}`);
+  assert.doesNotMatch(sesotho[`show-on-${scope}-board`], /boteng/);
+}
+assert.match(sesotho['toggle-header-icons-collapsed'], /ditsebiso mohaleng\/komporong/);
