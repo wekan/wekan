@@ -2235,6 +2235,19 @@ runtime execution remains pending. Existing Chinese text is unchanged.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1128608ba5">Translate Southern Sotho Scrum import and sync guidance</a>. Thanks to xet7.</summary>
+
+Fill 50 import, conflict and preview placeholders. Preserve unchanged
+unmatched cards, source read-only behavior, assigned-card review scope,
+local-copy preservation and replacement reuse on retries.
+
+Translation checks and 21 human-preference checks pass. The Scrum import
+browser case now includes Southern Sotho; syntax and discovery pass, but
+runtime execution remains pending. Existing Chinese text is unchanged.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

@@ -2,6 +2,26 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho Scrum import and sync guidance — 2026-10-13
+
+Commit `1128608ba5` fills 50 daily-observation, Scrum-import, sync-conflict
+and preview placeholders. Checks retain no-duplicate record matching,
+unchanged unmatched and foreign-board cards, incomplete-import restrictions,
+no source-system writes, assigned-card review rather than full-list sync,
+local-copy preservation, unchanged subcards and replacement reuse on retries.
+Preview guidance retains saved-settings scope, source refetching, the first
+100 entries and possible parser omissions.
+
+The Southern Sotho regression suite and all 21 human-preference checks pass.
+The existing Scrum import browser case now includes Southern Sotho; syntax
+and discovery pass, but runtime execution remains pending without the UI
+stack. Exact comparison preserves 38,430 existing Chinese values and all
+existing translated Southern Sotho values.
+
+The full Southern Sotho placeholder count falls from 167 to 117. Its filtered
+inventory is 66; the global filtered backlog is 27,905 across 42 languages.
+Native review and the all-language objective remain unfinished.
+
 ## Southern Sotho Scrum planning and report guidance — 2026-10-13
 
 Commit `59b761f444` fills 75 planning, role, sprint, release and report
