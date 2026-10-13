@@ -173738,5 +173738,110 @@
     "before": "assignee",
     "after": "ⴰⴼⴳⴰⵏ ⵉ ⵉⵜⵜⵓⵡⵛⴰⵏ ⵜⴰⵡⵓⵔⵉ",
     "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
+  },
+  {
+    "locale": "tl",
+    "key": "s3-force-path-style",
+    "before": "Force landas-style URLs",
+    "after": "Laging gumamit ng mga path-style URL",
+    "reason": "Replace mixed English/Tagalog S3 instructions with Tagalog clauses; preserve literal AWS console labels, URLs and the one-time secret display warning (2026-10-13). Complete software wording remains provisional pending speaker review."
+  },
+  {
+    "locale": "tl",
+    "key": "s3-force-path-style-description",
+    "before": "Kailangan ni MinIO at most non-AWS S3-compatible servers.",
+    "after": "Kailangan ito ng MinIO at ng karamihan sa mga server na katugma sa S3 ngunit hindi AWS.",
+    "reason": "Replace mixed English/Tagalog S3 instructions with Tagalog clauses; preserve literal AWS console labels, URLs and the one-time secret display warning (2026-10-13). Complete software wording remains provisional pending speaker review."
+  },
+  {
+    "locale": "tl",
+    "key": "s3-endpoint-menu-path",
+    "before": "AWS: leave blank (uses the rehiyon endpoint). S3-compatible: the Endpoint URL mula sa iyong MinIO / Cloudflare R2 / Backblaze B2 / Wasabi / DigitalOcean Spaces console.",
+    "after": "AWS: iwang blangko (gagamitin ang endpoint ng rehiyon). Para sa katugma sa S3: gamitin ang Endpoint URL mula sa iyong MinIO / Cloudflare R2 / Backblaze B2 / Wasabi / DigitalOcean Spaces console.",
+    "reason": "Replace mixed English/Tagalog S3 instructions with Tagalog clauses; preserve literal AWS console labels, URLs and the one-time secret display warning (2026-10-13). Complete software wording remains provisional pending speaker review."
+  },
+  {
+    "locale": "tl",
+    "key": "s3-region-menu-path",
+    "before": "AWS Console → S3 → Buckets → iyong sisidlan → Properties → AWS Rehiyon.",
+    "after": "AWS Console → S3 → Buckets → ang iyong lalagyan → Properties → AWS Region.",
+    "reason": "Replace mixed English/Tagalog S3 instructions with Tagalog clauses; preserve literal AWS console labels, URLs and the one-time secret display warning (2026-10-13). Complete software wording remains provisional pending speaker review."
+  },
+  {
+    "locale": "tl",
+    "key": "s3-bucket-menu-path",
+    "before": "AWS Console → S3 → Buckets → iyong sisidlan pangalan (o Gumawa sisidlan → Sisidlan pangalan).",
+    "after": "AWS Console → S3 → Buckets → ang pangalan ng iyong lalagyan (o Create bucket → Bucket name).",
+    "reason": "Replace mixed English/Tagalog S3 instructions with Tagalog clauses; preserve literal AWS console labels, URLs and the one-time secret display warning (2026-10-13). Complete software wording remains provisional pending speaker review."
+  },
+  {
+    "locale": "tl",
+    "key": "s3-access-key-menu-path",
+    "before": "AWS Console → IAM → Mga gumagamit → iyong gumagamit → Seguridad credentials → Access keys → Gumawa access susi → pumili use case 'Application tumatakbo outside AWS' → Gumawa access susi. Shown bilang 'Access susi ID'.",
+    "after": "AWS Console → IAM → Users → ang iyong gumagamit → Security credentials → Access keys → Create access key → piliin ang gamit na 'Application running outside AWS' → Create access key. Ipinapakita ito bilang 'Access key ID'.",
+    "reason": "Replace mixed English/Tagalog S3 instructions with Tagalog clauses; preserve literal AWS console labels, URLs and the one-time secret display warning (2026-10-13). Complete software wording remains provisional pending speaker review."
+  },
+  {
+    "locale": "tl",
+    "key": "s3-secret-key-menu-path",
+    "before": "Pareho screen bilang the Access susi ID; 'Secret access susi' ay shown lamang minsan kapag the susi ay ginawa — kopyahin it then (o I-download .csv).",
+    "after": "Sa parehong pahina ng Access key ID; isang beses lamang ipinapakita ang 'Secret access key' kapag ginawa ang susi — kopyahin ito agad (o piliin ang Download .csv).",
+    "reason": "Replace mixed English/Tagalog S3 instructions with Tagalog clauses; preserve literal AWS console labels, URLs and the one-time secret display warning (2026-10-13). Complete software wording remains provisional pending speaker review."
+  },
+  {
+    "locale": "tl",
+    "key": "s3-access-key-description",
+    "before": "AWS S3 access susi para sa pagpapatunay",
+    "after": "Susi sa pag-access ng AWS S3 para sa pagpapatunay",
+    "reason": "Replace mixed English/Tagalog S3 instructions with Tagalog clauses; preserve literal AWS console labels, URLs and the one-time secret display warning (2026-10-13). Complete software wording remains provisional pending speaker review."
+  },
+  {
+    "locale": "tl",
+    "key": "s3-access-key-placeholder",
+    "before": "Ilagay S3 access susi",
+    "after": "Ilagay ang susi sa pag-access ng S3",
+    "reason": "Replace mixed English/Tagalog S3 instructions with Tagalog clauses; preserve literal AWS console labels, URLs and the one-time secret display warning (2026-10-13). Complete software wording remains provisional pending speaker review."
+  },
+  {
+    "locale": "tl",
+    "key": "s3-enabled-description",
+    "before": "Use AWS S3 o MinIO para sa talaksan imbakan",
+    "after": "Gamitin ang AWS S3 o MinIO para sa pag-iimbak ng mga talaksan",
+    "reason": "Replace mixed English/Tagalog S3 instructions with Tagalog clauses; preserve literal AWS console labels, URLs and the one-time secret display warning (2026-10-13). Complete software wording remains provisional pending speaker review."
+  },
+  {
+    "locale": "tl",
+    "key": "s3-region-description",
+    "before": "AWS S3 rehiyon (e.g., us-east-1)",
+    "after": "Rehiyon ng AWS S3 (hal., us-east-1)",
+    "reason": "Replace mixed English/Tagalog S3 instructions with Tagalog clauses; preserve literal AWS console labels, URLs and the one-time secret display warning (2026-10-13). Complete software wording remains provisional pending speaker review."
+  },
+  {
+    "locale": "tl",
+    "key": "s3-secret-key-description",
+    "before": "AWS S3 secret susi para sa pagpapatunay",
+    "after": "Lihim na susi ng AWS S3 para sa pagpapatunay",
+    "reason": "Replace mixed English/Tagalog S3 instructions with Tagalog clauses; preserve literal AWS console labels, URLs and the one-time secret display warning (2026-10-13). Complete software wording remains provisional pending speaker review."
+  },
+  {
+    "locale": "tl",
+    "key": "s3-secret-key-placeholder",
+    "before": "Ilagay S3 secret susi",
+    "after": "Ilagay ang lihim na susi ng S3",
+    "reason": "Replace mixed English/Tagalog S3 instructions with Tagalog clauses; preserve literal AWS console labels, URLs and the one-time secret display warning (2026-10-13). Complete software wording remains provisional pending speaker review."
+  },
+  {
+    "locale": "tl",
+    "key": "s3-settings-save-failed",
+    "before": "Nabigo sa i-save S3 mga setting",
+    "after": "Hindi na-save ang mga setting ng S3",
+    "reason": "Replace mixed English/Tagalog S3 instructions with Tagalog clauses; preserve literal AWS console labels, URLs and the one-time secret display warning (2026-10-13). Complete software wording remains provisional pending speaker review."
+  },
+  {
+    "locale": "tl",
+    "key": "s3-ssl-enabled-description",
+    "before": "Use SSL/TLS para sa S3 connections",
+    "after": "Gamitin ang SSL/TLS para sa mga koneksyon sa S3",
+    "reason": "Replace mixed English/Tagalog S3 instructions with Tagalog clauses; preserve literal AWS console labels, URLs and the one-time secret display warning (2026-10-13). Complete software wording remains provisional pending speaker review."
   }
 ]

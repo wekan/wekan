@@ -4,7 +4,7 @@
 const { test, expect } = require('../fixtures');
 const { loginWithToken, navigateInApp } = require('../helpers/auth');
 
-for (const language of ['en', 'mr']) {
+for (const language of ['en', 'mr', 'bn', 'is', 'tl', 'sq']) {
   test(`S3 settings show translated labels and descriptions in ${language}`, async ({ page, adminUser }) => {
     const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
     await loginWithToken(page, adminUser.id, adminUser.token);
@@ -19,6 +19,8 @@ for (const language of ['en', 'mr']) {
     for (const key of ['s3-endpoint-description', 's3-bucket-description']) {
       await expect(pane.getByText(strings[key], { exact: true })).toBeVisible();
     }
+    const secret = pane.locator('.form-group:has(#s3-secret-key)');
+    await expect(secret.getByText(strings['s3-secret-key-menu-path'], { exact: true })).toBeVisible();
     await expect(pane.locator('.js-save-cloud-settings')).toHaveText(strings.save);
   });
 }
