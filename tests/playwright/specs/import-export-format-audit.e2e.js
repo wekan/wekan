@@ -1684,7 +1684,10 @@ for (const source of ['csv', 'markdown', 'excel']) {
 // The column mapping step of the CSV/TSV import (client/components/import/csvMapping.js):
 // a file with no list column is not imported as one list per row - the step
 // asks for the one list every card goes into.
-test('CSV: the mapping step asks for a list when the file has none, and every card goes into it', async ({ loggedInPage: page }) => {
+for (const language of ['en', 'mt']) {
+test(`CSV: the mapping step asks for a list when the file has none, and every card goes into it in ${language}`, async ({ loggedInPage: page }) => {
+  await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
+  const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
   let boardId;
   try {
     await navigateInApp(page, '/import/csv');
@@ -1700,7 +1703,7 @@ test('CSV: the mapping step asks for a list when the file has none, and every ca
     // Negative: an empty list name is refused on the page.
     await page.locator('.js-csv-map-list-name').fill('');
     await page.locator('.js-csv-mapping-import').click();
-    await expect(page.locator('.js-csv-mapping-error')).toBeVisible();
+    await expect(page.locator('.js-csv-mapping-error')).toHaveText(strings['csv-mapping-list-required']);
     expect(page.url()).not.toMatch(/\/b\//);
     await page.locator('.js-csv-map-list-name').fill('Shopping');
     await page.locator('.js-csv-mapping-import').click();
@@ -1715,6 +1718,7 @@ test('CSV: the mapping step asks for a list when the file has none, and every ca
     await expect(page.locator('.minicard-title', { hasText: 'Buy milk, eggs' })).toBeVisible();
   } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
 });
+}
 
 test('CSV: a mapping whose columns are not in the file is refused without creating a board', async ({ loggedInPage: page, user }) => {
   const before = db.find('boards', { 'members.userId': user.id }).length;

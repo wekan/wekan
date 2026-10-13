@@ -47,3 +47,15 @@ assert.deepEqual(tokens(maltese['act-deleteCard']),
   ['__board__', '__card__', '__list__', '__swimlane__']);
 
 console.log('malteseTranslationProgress: earlier catalog and locale-wide token checks passed');
+
+for (const key of Object.keys(english).filter(k => /^(csv-mapping-|import-members-mode-|invalid-import-mapping$)/.test(k))) {
+  assert.notEqual(maltese[key], english[key], key);
+  assert.deepEqual(tokens(maltese[key]), tokens(english[key]), key);
+}
+assert.match(maltese['import-members-mode-placeholder'], /bl-ismijiet tagħhom stess.*utenti reali aktar tard/);
+assert.match(maltese['import-members-mode-map'], /utent eżistenti għal kull/);
+assert.match(maltese['import-members-mode-me'], /kollha jirrappreżentaw lili/);
+assert.match(maltese['csv-mapping-list-missing'], /lista waħda.*kull karta/);
+assert.match(maltese['csv-mapping-list-required'], /jew agħżel il-kolonna/);
+assert.match(maltese['csv-mapping-skipped-sheets'], /ma jiġux importati/);
+assert.match(maltese['invalid-import-mapping'], /ma jaqbilx mal-fajl/);
