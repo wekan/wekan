@@ -205707,5 +205707,19 @@
     "before": "Latine: Refresh",
     "after": "Renova",
     "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "import-board-instruction-todoist",
+    "before": "In Todoist, open the project menu and choose Export as a template, then paste the CSV file. Sections become lists, tasks become cards, sub-tasks become a checklist, notes become comments, and @labels and priorities p1 to p3 become labels.",
+    "after": "In Todoist, aperi propositum, elige indicem ⋯ in angulo dextro superiore, deinde Manage data > Export as CSV, et insere fasciculum CSV. Sectiones fiunt indices, munera fiunt chartae, submunera fiunt index probationis, adnotationes fiunt commentarii, et @labels atque prioritates p1 ad p3 fiunt tituli.",
+    "reason": "Translate stale English import guidance into Latin using the current source instructions, preserving literal menu labels and field mappings."
+  },
+  {
+    "locale": "la",
+    "key": "import-board-instruction-planner",
+    "before": "In Microsoft Planner, open the plan's menu and choose Export plan to Excel, then choose that .xlsx file. Buckets become lists and tasks become cards, with their assignees, dates, labels, checklist and description; Progress, Priority and Completed By become custom fields.",
+    "after": "In Microsoft Planner, aperi consilium, elige indicem ⋯ iuxta nomen eius, deinde Export as Excel (in Planner classico: Export plan to Excel), et elige illum fasciculum .xlsx. Receptacula fiunt indices et munera fiunt chartae, cum delegatis, diebus, titulis, indice probationis et descriptione; Progress, Priority et Completed By fiunt campi proprii.",
+    "reason": "Translate stale English import guidance into Latin using the current source instructions, preserving literal menu labels and field mappings."
   }
 ]

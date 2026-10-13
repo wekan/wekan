@@ -1223,3 +1223,16 @@ assert.match(latin['flow-note-processBehavior'], /XmR.*saltem duae completiones 
 assert.match(latin['flow-note-sizeCycleTime'], /Aestimationes absentes et dies invalidi omittuntur/);
 assert.equal(latin['stuck-sync-operation-discard'], latin['interrupted-import-discard']);
 assert.equal(latin['stuck-sync-operation-refresh'], latin['interrupted-import-refresh']);
+
+for (const format of ['todoist', 'planner']) {
+  const key = `import-board-instruction-${format}`;
+  assert.match(latin[key], /aperi.*elige/);
+  assert.doesNotMatch(latin[key], /\b(?:open the|then paste|Sections become|Buckets become|with their)\b/);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]));
+}
+assert.ok(latin['import-board-instruction-todoist'].includes('Manage data > Export as CSV'));
+assert.match(latin['import-board-instruction-todoist'], /@labels.*p1 ad p3/);
+assert.match(latin['import-board-instruction-todoist'], /submunera fiunt index probationis/);
+assert.ok(latin['import-board-instruction-planner'].includes('Export as Excel (in Planner classico: Export plan to Excel)'));
+assert.match(latin['import-board-instruction-planner'], /\.xlsx/);
+assert.match(latin['import-board-instruction-planner'], /Progress, Priority et Completed By fiunt campi proprii/);
