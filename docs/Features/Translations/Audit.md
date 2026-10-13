@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin migration confirmations and progress — 2026-10-14
+
+Commit `7991925d05` repairs 40 migration confirmation and progress entries.
+Regression checks retain shared-list conversion before deletion, duplicate-list
+conditions, archived-item exclusions, hard-to-undo restoration and field IDs.
+The Latin word “Status” has an exact source/key exception with negative coverage.
+
+Three translation suites pass with 29,187 correction ledger entries. All 21
+human-preference checks pass, and exact comparison preserves 38,430 existing
+Chinese values. Browser coverage renders the migration template with a temporary
+visibility helper, without running a migration. Syntax and discovery pass;
+runtime remains pending.
+
+There remain 200 Latin values containing “Latine:”. Unprefixed values and other
+languages still require semantic review; all-language verification is unfinished.
+
 ## Latin board migrations — 2026-10-14
 
 Commit `5c32f58834` repairs 44 board-migration and storage-action entries.
