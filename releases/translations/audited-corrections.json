@@ -190314,5 +190314,390 @@
     "before": "Latine: Set width",
     "after": "Constitue latitudinem",
     "reason": "Repair prefixed mixed-language activity and workspace controls, preserving actions and argument order."
+  },
+  {
+    "locale": "la",
+    "key": "set-list-width-value",
+    "before": "Latine: Index width (pixels)",
+    "after": "Latitudo indicis (in pixelis)",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "list-width-shared-note",
+    "before": "Latine: Hoc width est shared cum everyone adest hoc tabula.",
+    "after": "Haec latitudo communis est omnibus in hac tabula.",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "list-width-personal-note",
+    "before": "Latine: Hoc width est tantum for tu.",
+    "after": "Haec latitudo tibi soli est.",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "personal-list-width",
+    "before": "Latine: Personal index widths",
+    "after": "Latitudines indicum personales",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "personal-list-width-description",
+    "before": "Latine: Quando adest, quisque usor keeps their own index widths. Quando abest, index widths sunt shared cum everyone adest the tabula.",
+    "after": "Cum haec optio activa est, quisque usor suas latitudines indicum servat. Cum inactiva est, latitudines indicum communes sunt omnibus in tabula.",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "fixed-list-width",
+    "before": "Latine: Idem width for omnia indices",
+    "after": "Eadem latitudo omnibus indicibus",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "click-to-enable-fixed-list-width",
+    "before": "Latine: Idem width for omnia indices inhabilitatum. Click ad habilita.",
+    "after": "Eadem latitudo omnibus indicibus inactiva est. Preme ut actives.",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "click-to-disable-fixed-list-width",
+    "before": "Latine: Idem width for omnia indices habilitatum. Click ad inhabilita.",
+    "after": "Eadem latitudo omnibus indicibus activa est. Preme ut inactives.",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "fixed-list-width-note",
+    "before": "Latine: Quando adest, omnia indices have the idem width, et resizing one index resizes omnia indices. Hoc setting est tantum for tu.",
+    "after": "Cum haec optio activa est, omnes indices eandem latitudinem habent, et latitudinem unius indicis mutare latitudinem omnium mutat. Haec optio tibi soli est.",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "keyboard-shortcuts-enabled",
+    "before": "Latine: Keyboard shortcuts habilitatum. Click ad inhabilita.",
+    "after": "Compendia claviaturae activa sunt. Preme ut inactives.",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "keyboard-shortcuts-disabled",
+    "before": "Latine: Keyboard shortcuts inhabilitatum. Click ad habilita.",
+    "after": "Compendia claviaturae inactiva sunt. Preme ut actives.",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "setSwimlaneHeightPopup-title",
+    "before": "Latine: Set semita natatoria Height",
+    "after": "Constitue altitudinem semitae",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "set-swimlane-height",
+    "before": "Latine: Set semita natatoria Height",
+    "after": "Constitue altitudinem semitae",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "set-swimlane-height-value",
+    "before": "Latine: semita natatoria Height (pixels)",
+    "after": "Altitudo semitae (in pixelis)",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "swimlane-height-error-message",
+    "before": "Latine: semita natatoria height debet esse a positive integer",
+    "after": "Altitudo semitae numerus integer positivus esse debet",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "add-subtask",
+    "before": "Latine: Adde Submunus",
+    "after": "Adde submunus",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "add-existing-card-as-subtask-empty",
+    "before": "Latine: Non Schedae Found",
+    "after": "Nullae chartae congruentes inventae sunt",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "add-checklist",
+    "before": "Latine: Adde index probationis",
+    "after": "Adde indicem probationis",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "close-add-checklist-item",
+    "before": "Latine: Claude adde an res ad index probationis form",
+    "after": "Claude formam addendi rem indici probationis",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "close-edit-checklist-item",
+    "before": "Latine: Claude muta an res ad index probationis form",
+    "after": "Claude formam mutandi rem indicis probationis",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "convertChecklistItemToCardPopup-title",
+    "before": "Latine: Convert ad Scheda",
+    "after": "Converte in chartam",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "add-cover",
+    "before": "Latine: Adde cover imago ad minicard",
+    "after": "Adde imaginem tegminis chartulae",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "add-label",
+    "before": "Latine: Adde Titulus",
+    "after": "Adde titulum",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "add-after-list",
+    "before": "Latine: Adde After Index",
+    "after": "Adde post indicem",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "add-members",
+    "before": "Latine: Adde Sodales",
+    "after": "Adde membra",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "added",
+    "before": "Latine: Additum",
+    "after": "Additum",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "addMemberPopup-title",
+    "before": "Latine: Adde Sodales",
+    "after": "Adde membra",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "admin",
+    "before": "Latine: Administrator",
+    "after": "Administrator",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "admin-desc",
+    "before": "Latine: Potest vide et muta schedae, remove sodales, et muta configurationes for the tabula. Potest vide actiones.",
+    "after": "Potest chartas videre et mutare, membra removere et optiones tabulae mutare. Potest actiones videre.",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "admin-announcement",
+    "before": "Latine: Announcement",
+    "after": "Nuntius",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "admin-announcement-active",
+    "before": "Latine: Activum System-Wide Announcement",
+    "after": "Nuntius activus totius systematis",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "admin-announcement-title",
+    "before": "Latine: Announcement ex Administrator",
+    "after": "Nuntius ab administratore",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "all-boards-hide",
+    "before": "Latine: Omnia Tabulae: Cela",
+    "after": "Omnes tabulae: Cela",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "public-boards",
+    "before": "Latine: Publicum tabulae",
+    "after": "Tabulae publicae",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "and-n-other-card",
+    "before": "Latine: Et __count__ aliud scheda",
+    "after": "Et __count__ alia charta",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "and-n-other-card_plural",
+    "before": "Latine: Et __count__ aliud schedae",
+    "after": "Et __count__ aliae chartae",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "apply",
+    "before": "Latine: Apply",
+    "after": "Adhibe",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "app-is-offline",
+    "before": "Latine: Loading, please wait. Refreshing the pagina erit cause data loss. Si loading does non work, please check illud ministrator has non stopped.",
+    "after": "Oneratur, quaeso exspecta. Paginam renovare iacturam datorum efficiet. Si oneratio non procedit, quaeso verifica servitorem non substitisse.",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "app-try-reconnect",
+    "before": "Latine: Try ad reconnect.",
+    "after": "Tempta rursus conectere.",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "archive-board-confirm",
+    "before": "Latine: certusne es tu want ad archivum hoc tabula?",
+    "after": "Certusne es te hanc tabulam in archivum transferre velle?",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "archive-list",
+    "before": "Latine: Move Index ad Archivum",
+    "after": "Transfer indicem in archivum",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "archive-swimlane",
+    "before": "Latine: Move semita natatoria ad Archivum",
+    "after": "Transfer semitam in archivum",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "archive-selection",
+    "before": "Latine: Move selection ad Archivum",
+    "after": "Transfer res electas in archivum",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "archiveBoardPopup-title",
+    "before": "Latine: Move Tabula ad Archivum?",
+    "after": "Transferre tabulam in archivum?",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "archived-items",
+    "before": "Latine: Archivum",
+    "after": "Archivum",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "archived-boards",
+    "before": "Latine: Tabulae in Archivum",
+    "after": "Tabulae in archivo",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "restore-board",
+    "before": "Latine: Restitue Tabula",
+    "after": "Restitue tabulam",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "no-archived-boards",
+    "before": "Latine: Non Tabulae in Archivum.",
+    "after": "Nullae tabulae in archivo.",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "archives",
+    "before": "Latine: Archivum",
+    "after": "Archivum",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "template-container",
+    "before": "Latine: Template Container",
+    "after": "Receptaculum exemplarium",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "add-template-container",
+    "before": "Latine: Adde Template Container",
+    "after": "Adde receptaculum exemplarium",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "assign-member",
+    "before": "Latine: Assign sodalis",
+    "after": "Assigna membrum",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "attached",
+    "before": "Latine: attached",
+    "after": "adiunctum",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-delete-pop",
+    "before": "Latine: Deleting an adnexum est permanent. There est non solve.",
+    "after": "Deletio adiuncti perpetua est. Revocari non potest.",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
+  },
+  {
+    "locale": "la",
+    "key": "attachmentDeletePopup-title",
+    "before": "Latine: Dele Adnexum?",
+    "after": "Delere adiunctum?",
+    "reason": "Repair mixed-language sizing, archive and attachment controls; preserve scope, toggle direction and deletion warnings."
   }
 ]

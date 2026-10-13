@@ -258,3 +258,20 @@ test.describe('Fixed (same) width for all lists (#5729)', () => {
     expect(result.widthOther).toBe(220);
   });
 });
+
+test('Latin keyboard shortcut toggle describes both its current state and next action', async ({ boardPage }) => {
+  const BoardPage = require('../pages/BoardPage');
+  await boardPage.evaluate(() => Meteor.callAsync('setLanguage', 'la'));
+  const bp = new BoardPage(boardPage);
+  await bp.openSidebar();
+  const toggle = boardPage.locator('.js-keyboard-shortcuts-toggle');
+  const enabled = 'Compendia claviaturae activa sunt. Preme ut inactives.';
+  const disabled = 'Compendia claviaturae inactiva sunt. Preme ut actives.';
+  await expect(toggle).toHaveAttribute('title', /Compendia claviaturae/);
+  const before = await toggle.getAttribute('title');
+  expect([enabled, disabled]).toContain(before);
+  await toggle.click();
+  await expect(toggle).toHaveAttribute('title', before === enabled ? disabled : enabled);
+  await toggle.click();
+  await expect(toggle).toHaveAttribute('title', before);
+});

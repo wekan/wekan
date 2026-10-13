@@ -195,3 +195,23 @@ assert.match(latin['home-board-empty'], /Unam tantum.*post ingressum/);
 assert.match(latin['archive-permanent-delete-disabled-hint'], /Si.*administrator globalis.*in perpetuum.*hic apparebit/);
 assert.match(latin['add-card-to-top-of-list'], /initium/);
 assert.match(latin['add-card-to-bottom-of-list'], /finem/);
+
+const reviewedSizingKeys = ["set-list-width-value", "list-width-shared-note", "list-width-personal-note", "personal-list-width", "personal-list-width-description", "fixed-list-width", "click-to-enable-fixed-list-width", "click-to-disable-fixed-list-width", "fixed-list-width-note", "keyboard-shortcuts-enabled", "keyboard-shortcuts-disabled", "setSwimlaneHeightPopup-title", "set-swimlane-height", "set-swimlane-height-value", "swimlane-height-error-message", "add-subtask", "add-existing-card-as-subtask-empty", "add-checklist", "close-add-checklist-item", "close-edit-checklist-item", "convertChecklistItemToCardPopup-title", "add-cover", "add-label", "add-after-list", "add-members", "added", "addMemberPopup-title", "admin", "admin-desc", "admin-announcement", "admin-announcement-active", "admin-announcement-title", "all-boards-hide", "public-boards", "and-n-other-card", "and-n-other-card_plural", "apply", "app-is-offline", "app-try-reconnect", "archive-board-confirm", "archive-list", "archive-swimlane", "archive-selection", "archiveBoardPopup-title", "archived-items", "archived-boards", "restore-board", "no-archived-boards", "archives", "template-container", "add-template-container", "assign-member", "attached", "attachment-delete-pop", "attachmentDeletePopup-title"];
+for (const key of reviewedSizingKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:width|Height|shared|everyone|Keyboard|shortcuts|Loading|Deleting|There|Template)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['list-width-shared-note'], /omnibus/);
+assert.match(latin['list-width-personal-note'], /tibi soli/);
+assert.match(latin['fixed-list-width-note'], /unius indicis.*omnium.*tibi soli/);
+assert.match(latin['click-to-enable-fixed-list-width'], /inactiva.*ut actives/);
+assert.match(latin['click-to-disable-fixed-list-width'], / activa.*ut inactives/);
+assert.match(latin['keyboard-shortcuts-enabled'], /activa.*ut inactives/);
+assert.match(latin['keyboard-shortcuts-disabled'], /inactiva.*ut actives/);
+assert.match(latin['swimlane-height-error-message'], /integer positivus/);
+assert.match(latin['app-is-offline'], /renovare iacturam datorum efficiet/);
+assert.match(latin['attachment-delete-pop'], /perpetua.*Revocari non potest/);
+assert.equal(latin['set-swimlane-height'], latin['setSwimlaneHeightPopup-title']);
+assert.equal(latin['add-members'], latin['addMemberPopup-title']);
+assert.equal(latin['archived-items'], latin.archives);
+assert.notEqual(latin['and-n-other-card'], latin['and-n-other-card_plural']);
