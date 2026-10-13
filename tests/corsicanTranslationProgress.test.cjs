@@ -718,3 +718,15 @@ assert.notDeepEqual(tokens('bloccu %1'), tokens('block %2'));
 assert.notDeepEqual(tokens('bloccu %1'), tokens('block %1 %1'));
 assert.match(corsican['map-view-empty'], /pianu internu d’un bastimentu/);
 assert.doesNotMatch(corsican['map-view-empty'], /pianterrenu/);
+
+for (const key of ["blockly-OPTION_KEY", "blockly-PAGE_DOWN_KEY", "blockly-PAGE_UP_KEY", "blockly-PAUSE_KEY", "blockly-SHIFT_KEY", "blockly-SPACE_KEY"]) assert.equal(corsican[key], english[key], key);
+assert.match(corsican['blockly-LISTS_SORT_TOOLTIP'], /^Urdineghja.*copia/);
+assert.doesNotMatch(corsican['blockly-LISTS_SORT_TOOLTIP'], /Ordina/);
+for (const literal of ['Enter', 'Shift+Enter', 'Escape']) assert.ok(corsican['blockly-WORKSPACE_SEARCH_INPUT_LABEL'].includes(literal), literal);
+assert.doesNotMatch(corsican['blockly-WORKSPACE_SEARCH_INPUT_LABEL'], /Entrata|Maiuscule/);
+assert.match(corsican['blockly-MATH_RANDOM_FLOAT_TOOLTIP'], /0\.0 inclusu.*1\.0 esclusu/);
+assert.match(corsican['blockly-MATH_RANDOM_INT_TOOLTIP'], /limiti.*inclusi/);
+assert.match(corsican['blockly-LOGIC_OPERATION_TOOLTIP_AND'], /duie entrate sò vere/);
+assert.match(corsican['blockly-LOGIC_OPERATION_TOOLTIP_OR'], /almenu una entrata hè vera/);
+assert.notEqual(corsican['blockly-LOGIC_OPERATION_TOOLTIP_AND'], corsican['blockly-LOGIC_OPERATION_TOOLTIP_OR']);
+for (const key of ['COS', 'SIN', 'TAN']) assert.match(corsican[`blockly-MATH_TRIG_TOOLTIP_${key}`], /gradi, micca in radianti/);

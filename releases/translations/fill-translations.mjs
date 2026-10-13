@@ -357,6 +357,13 @@ const LOCALE_INVARIANTS = {
 
   // Corsican retains these printed key legends, product names and math symbols.
   'co': new Set([
+    'blockly-OPTION_KEY',
+    'blockly-PAGE_DOWN_KEY',
+    'blockly-PAGE_UP_KEY',
+    'blockly-PAUSE_KEY',
+    'blockly-SHIFT_KEY',
+    'blockly-SPACE_KEY',
+
     'blockly-BACKSPACE_KEY',
     'blockly-CAPS_LOCK_KEY',
     'blockly-CONTROL_KEY',

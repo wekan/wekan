@@ -188025,5 +188025,61 @@
     "before": "Sta tavula ùn hà ancu un'imaghjina di mappa. Un amministratore di a tavula pò caricà ne una - un pianu d’un pianterrenu, una mappa di situ o un disegnu - è e carte ponu tandu esse piazzate nant'à ella.",
     "after": "Sta tavula ùn hà ancu un’imagine di mappa. Un amministratore di a tavula pò caricà ne una — un pianu internu d’un bastimentu, una mappa di situ o un disegnu — è e carte ponu tandu esse piazzate nant’à ella.",
     "reason": "Keep physical keyboard legends recognizable; remove the ground-floor restriction from the map example."
+  },
+  {
+    "locale": "co",
+    "key": "blockly-OPTION_KEY",
+    "before": "Opzione",
+    "after": "Option",
+    "reason": "Align remaining Blockly physical keyboard names and search shortcuts; repair the Italian sorting verb."
+  },
+  {
+    "locale": "co",
+    "key": "blockly-PAGE_DOWN_KEY",
+    "before": "Pagina seguente",
+    "after": "Page Down",
+    "reason": "Align remaining Blockly physical keyboard names and search shortcuts; repair the Italian sorting verb."
+  },
+  {
+    "locale": "co",
+    "key": "blockly-PAGE_UP_KEY",
+    "before": "Pagina precedente",
+    "after": "Page Up",
+    "reason": "Align remaining Blockly physical keyboard names and search shortcuts; repair the Italian sorting verb."
+  },
+  {
+    "locale": "co",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Pausa",
+    "after": "Pause",
+    "reason": "Align remaining Blockly physical keyboard names and search shortcuts; repair the Italian sorting verb."
+  },
+  {
+    "locale": "co",
+    "key": "blockly-SHIFT_KEY",
+    "before": "Maiuscule",
+    "after": "Shift",
+    "reason": "Align remaining Blockly physical keyboard names and search shortcuts; repair the Italian sorting verb."
+  },
+  {
+    "locale": "co",
+    "key": "blockly-SPACE_KEY",
+    "before": "Spaziu",
+    "after": "Space",
+    "reason": "Align remaining Blockly physical keyboard names and search shortcuts; repair the Italian sorting verb."
+  },
+  {
+    "locale": "co",
+    "key": "blockly-LISTS_SORT_TOOLTIP",
+    "before": "Ordina una copia d’una lista.",
+    "after": "Urdineghja una copia d’una lista.",
+    "reason": "Align remaining Blockly physical keyboard names and search shortcuts; repair the Italian sorting verb."
+  },
+  {
+    "locale": "co",
+    "key": "blockly-WORKSPACE_SEARCH_INPUT_LABEL",
+    "before": "Circate in u spaziu di travagliu. Appughjate Entrata per a currispundenza seguente è Maiuscule+Entrata per a precedente. Appughjate Escape per chjode a ricerca è selezziunà a currispundenza attuale.",
+    "after": "Circate in u spaziu di travagliu. Appughjate Enter per a currispundenza seguente è Shift+Enter per a precedente. Appughjate Escape per chjode a ricerca è selezziunà a currispundenza attuale.",
+    "reason": "Align remaining Blockly physical keyboard names and search shortcuts; repair the Italian sorting verb."
   }
 ]
