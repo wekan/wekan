@@ -6,7 +6,7 @@ const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { openBoard } = require('../helpers/auth');
 
-for (const language of ['sw', 'en', 'ta', 'mt']) {
+for (const language of ['co', 'sw', 'en', 'ta', 'mt']) {
 test(`Calendar Mode shows due cards on their day with labels, in board order in ${language} (#3194)`, async ({ boardPage: page, board }) => {
   const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
   await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);

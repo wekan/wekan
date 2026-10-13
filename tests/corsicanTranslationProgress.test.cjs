@@ -107,3 +107,28 @@ assert.match(corsican['notification-delivery-grouping-none'], /separatamente/);
 assert.match(corsican['notification-delivery-schedule-daily'], /Una volta à ghjornu/);
 
 console.log('corsicanTranslationProgress: historical catalog and translated feature checks passed');
+
+const controlKeys = ["board-announcement", "board-announcement-enabled", "board-view-calendar-mode", "cards-use-list-color", "import-members-mode-heading", "import-members-mode-map", "import-members-mode-placeholder", "import-members-mode-me", "csv-mapping-title", "csv-mapping-description", "csv-mapping-not-in-file", "csv-mapping-column-number", "csv-mapping-list-missing", "csv-mapping-list-name", "csv-mapping-custom-fields", "csv-mapping-boards", "csv-mapping-skipped-sheets", "csv-mapping-title-required", "csv-mapping-list-required", "invalid-import-mapping", "import-many-boards", "import-many-boards-hint", "import-one-board-per-project", "import-one-board-per-project-hint", "import-many-progress", "import-many-results-heading", "import-many-imported", "export-all-boards", "export-selected-boards", "export-all-boards-hint", "exportAllBoardsPopup-title", "exportToTrelloPopup-title", "trello-export-desc", "trello-export-include-attachments", "trello-export-start", "trello-export-open-board", "trello-export-warnings", "sandstorm-trello-access-needed", "sandstorm-allow-trello-access", "sandstorm-trello-access-granted", "sandstorm-forget-access", "sandstorm-trello-save-label", "external-link-rules", "external-link-rules-description", "external-link-identifier-aliases", "read-only-field", "r-wrike-workflow", "r-wrike-workflow-note", "r-export-wrike-workflow", "r-import-wrike-workflow", "r-import-wrike-workflow-done", "r-moved-forward", "r-moved-back", "r-add-actinguser-assignee", "r-remove-all-assignees", "ldap-sync-now", "ldap-sync-now-done", "ldap-sync-now-error", "ldap-sync-now-nothing", "oauth-providers-allowed-email-domains", "import-file-label", "subtask-mark-done", "subtask-mark-not-done", "subtask-done-no-permission", "login-setting-env-only"];
+for (const key of controlKeys) {
+  assert.notEqual(corsican[key], english[key], key);
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+}
+for (const literal of ['{number}', '{identifier}', '[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}']) assert.ok(corsican['external-link-rules-description'].includes(literal));
+for (const literal of ['Active', 'Completed', 'Deferred', 'Cancelled', 'GET /workflows', 'JSON']) assert.ok(corsican['r-wrike-workflow-note'].includes(literal));
+for (const literal of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS', 'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) assert.ok(corsican['ldap-sync-now-nothing'].includes(literal));
+assert.match(corsican['trello-export-desc'], /Swimlane: …/);
+assert.match(corsican['import-members-mode-placeholder'], /utilizatori pruvisori cù i so nomi.*utilizatori veri più tardi/);
+assert.match(corsican['csv-mapping-description'], /curregite quelle sbagliate.*micca in u schedariu/);
+assert.match(corsican['import-many-boards-hint'], /senza associu di i membri/);
+assert.match(corsican['import-many-boards-hint'], /una sola espurtazione.*una sola tavula/);
+assert.match(corsican['export-all-boards-hint'], /chì pudete espurtà.*Excel.*fogliu.*altru furmatu.*\.zip/);
+assert.match(corsican['sandstorm-trello-access-needed'], /ùn hà micca accessu propiu.*prima/);
+assert.match(corsican['trello-export-warnings'], /Ùn hè statu pussibule/);
+assert.match(corsican['r-wrike-workflow-note'], /compia.*Completed o Cancelled.*micca compia.*Active o Deferred/);
+assert.match(corsican['r-wrike-workflow-note'], /ùn ponu micca esse espurtate/);
+assert.match(corsican['read-only-field'], /ogni membru vede.*solu l'amministratori/);
+assert.match(corsican['login-setting-env-only'], /Solu l'ambiente di u servore.*sola lettura/);
+assert.match(corsican['oauth-providers-allowed-email-domains'], /virgule; viotu permette tutti/);
+assert.match(corsican['subtask-mark-not-done'], /micca compiu/);
+assert.doesNotMatch(corsican['subtask-mark-done'], /micca/);
+assert.match(corsican['subtask-done-no-permission'], /Ùn pudete micca cambià/);
