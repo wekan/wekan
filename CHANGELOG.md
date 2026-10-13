@@ -2355,6 +2355,23 @@ of a fully translated catalog; semantic review and all-language work continue.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9b7942b661">Correct Southern Sotho labels and visibility controls</a>. Thanks to xet7.</summary>
+
+Reviewed source keys 930–1129 and corrected nine values. Labels no longer say
+letters. Card linking no longer specifies the current board, and creating a
+board identifies the source card. Public visibility is a state rather than
+an instruction to publish. Custom public/private descriptions and their
+empty-value fallback guidance are clarified, along with the message shown
+when no items have been starred.
+
+Southern Sotho and repair-ledger suites pass with 26,910 guarded corrections;
+all 21 human-preference checks pass. Card-link browser coverage passes syntax
+and discovery checks; runtime execution remains pending. All 38,430 existing
+Chinese values are preserved. Semantic review and all-language work continue.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

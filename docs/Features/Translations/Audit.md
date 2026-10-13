@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho historical review: labels and visibility — 2026-10-13
+
+Commit `9b7942b661` reviews source keys 930–1129 and repairs nine values.
+Labels identify labels rather than letters. Linking to a board no longer
+claims that it is the current board; creating a board identifies the source
+card. Public visibility is expressed as a state, and custom public/private
+description settings use coherent noun phrases with explicit default fallback
+when left empty. The empty starred-items message now says nothing has been
+starred yet. Other valid wording in this range is preserved.
+
+The Southern Sotho and repair-ledger suites pass with 26,910 guarded corrections;
+all 21 human-preference checks pass. A browser case checks the card-link action
+in the card menu, including absence of the incorrect current-board qualifier.
+Syntax and discovery pass; runtime execution remains pending. Exact comparison
+preserves 38,430 existing Chinese values. Historical review has reached key
+1129; all-language work remains unfinished.
+
 ## Southern Sotho historical review: stale import instructions — 2026-10-13
 
 Commit `126aaebb91` reviews source keys 814–929 and repairs six values.
