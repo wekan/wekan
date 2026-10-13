@@ -24,7 +24,7 @@ const openSyncPopup = (page, list) => page.evaluate(current => {
     target: document.body, preventDefault() {}, stopPropagation() {} });
 }, list);
 
-for (const language of ['en', 'mt']) {
+for (const language of ['sw', 'en', 'mt']) {
 test(`the Sync settings opt into sprint and releases, and a Sync plans the card on this board in ${language}`, async ({ page, user, board }) => {
   const listId = db.find('lists', { boardId: board.boardId })[0]._id;
   db.updateOne('boards', { _id: board.boardId }, { $set: { scrum: { enabled: true } } });

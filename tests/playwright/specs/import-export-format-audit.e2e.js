@@ -1684,7 +1684,7 @@ for (const source of ['csv', 'markdown', 'excel']) {
 // The column mapping step of the CSV/TSV import (client/components/import/csvMapping.js):
 // a file with no list column is not imported as one list per row - the step
 // asks for the one list every card goes into.
-for (const language of ['en', 'mt']) {
+for (const language of ['en', 'mt', 'sw']) {
 test(`CSV: the mapping step asks for a list when the file has none, and every card goes into it in ${language}`, async ({ loggedInPage: page }) => {
   await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
   const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
