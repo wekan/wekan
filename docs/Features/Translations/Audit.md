@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin list actions and board departure — 2026-10-14
+
+Commit `5cb027f4c4` repairs 30 prefixed messages for board departure, list
+archiving/deletion, moving and copying selections, settings and navigation.
+Tests preserve all-card scope, irreversible list deletion versus recoverable
+archiving, retained activity, top/bottom destinations and consistent popup labels.
+
+The Latin and guarded-correction suites pass with 27,769 ledger entries. All 21
+human-preference checks pass. A list-deletion browser case checks the permanent
+loss warning and archive alternative without deleting anything; syntax and
+discovery pass, runtime remains pending. Exact comparison preserves 38,430
+existing Chinese values.
+
+There remain 1,615 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin member mapping and validation — 2026-10-14
 
 Commit `0225b90529` repairs 25 prefixed strings for mapping, running/paused

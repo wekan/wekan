@@ -3050,6 +3050,20 @@ containing the old language prefix; all-language review remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5cb027f4c4">Repair Latin list actions and board departure messages</a>. Thanks to xet7.</summary>
+
+Repair 30 prefixed strings for leaving boards, list actions, settings and
+navigation. Preserve removal from all board cards, permanent list deletion,
+activity retention through archiving and move/copy distinctions.
+
+The Latin and guarded-correction suites and all 21 preservation checks pass.
+The list-warning browser case passes syntax and discovery; runtime remains
+pending. Existing Chinese values are unchanged. There remain 1,615 Latin values
+containing the old language prefix; all-language review remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
