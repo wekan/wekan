@@ -2,6 +2,25 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho Blockly accessibility and list operations — 2026-10-13
+
+Commit `c9fdb2f34c` fills 110 placeholders for input labels, keyboard
+navigation and list operations. Checks preserve numbered tokens, distinguish
+dividend/divisor and get/remove/get-and-remove, and retain first/last index
+direction, empty-list length, copying rather than mutating, insertion
+positions and the value returned when a searched item is absent.
+Programming terminology remains lower confidence pending native review.
+
+The Southern Sotho regression suite and all 21 human-preference checks pass.
+The existing Blockly drag, field-editing and context-menu browser case passes
+syntax and discovery checks; runtime execution remains pending without the
+UI stack. Exact comparison preserves 38,430 existing Chinese values and
+existing translated Southern Sotho values.
+
+The full Southern Sotho placeholder count falls from 652 to 542. Its filtered
+inventory is 474; the global filtered backlog is 28,313 across 42 languages.
+Native fluency and the all-language objective remain unverified and unfinished.
+
 ## Southern Sotho Blockly editor and control flow — 2026-10-13
 
 Commit `73e233a13b` fills 75 English placeholders for editor actions,

@@ -2168,6 +2168,19 @@ runtime execution remains pending. Existing Chinese text is unchanged.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c9fdb2f34c">Translate Southern Sotho Blockly accessibility and lists</a>. Thanks to xet7.</summary>
+
+Fill 110 input-label, keyboard-navigation and list-operation placeholders.
+Checks distinguish get/remove, first/last, dividend/divisor, copy semantics
+and not-found behavior. Programming terminology still needs native review.
+
+Translation checks and 21 human-preference checks pass. The existing
+Southern Sotho Blockly browser case passes syntax and discovery checks;
+runtime execution remains pending. Existing Chinese text is unchanged.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
