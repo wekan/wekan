@@ -188844,5 +188844,68 @@
     "before": "Lokisa dikarete tse se nang monga tsona",
     "after": "Lokisa dikarete tse se nang lehokelo le nepahetseng la lenane kapa tsela",
     "reason": "Translate remaining S3 prose and distinguish archived data and orphaned card references from saved data and ownership."
+  },
+  {
+    "locale": "st",
+    "key": "api-endpoints",
+    "before": "Dintlha tsa API",
+    "after": "Dibaka tsa kgokelo tsa API",
+    "reason": "Restore the meanings of API connection points, severity, custom-field summaries and WIP limit groups."
+  },
+  {
+    "locale": "st",
+    "key": "event-severity",
+    "before": "Bohloko",
+    "after": "Boima ba bothata",
+    "reason": "Restore the meanings of API connection points, severity, custom-field summaries and WIP limit groups."
+  },
+  {
+    "locale": "st",
+    "key": "sum-of-number-fields",
+    "before": "Kakaretso ya masimo a dinomoro a etselitsoeng a bontšoang holimo ho lenane",
+    "after": "Kakaretso ya dikarolo tse ikgethang tsa dinomoro tse tshwailweng ho bontshwa hodimo ho lenane",
+    "reason": "Restore the meanings of API connection points, severity, custom-field summaries and WIP limit groups."
+  },
+  {
+    "locale": "st",
+    "key": "date-range-of-fields",
+    "before": "Sebaka sa letsatsi sa dikarolo tse ikgethang tsa letsatsi tse tshwailweng ho bontshwa hodimo ho lenane",
+    "after": "Nako e pakeng tsa matsatsi a dikarolo tse ikgethang tsa letsatsi tse tshwailweng ho bontshwa hodimo ho lenane",
+    "reason": "Restore the meanings of API connection points, severity, custom-field summaries and WIP limit groups."
+  },
+  {
+    "locale": "st",
+    "key": "wip-limit-groups",
+    "before": "Bulela moedi wa WIP (Lenane)",
+    "after": "Dihlopha tsa moedi wa WIP",
+    "reason": "Restore the meanings of API connection points, severity, custom-field summaries and WIP limit groups."
+  },
+  {
+    "locale": "st",
+    "key": "wip-limit-group-name-placeholder",
+    "before": "Lebitso (boikhethelo)",
+    "after": "Lebitso la sehlopha (boikhethelo)",
+    "reason": "Restore the meanings of API connection points, severity, custom-field summaries and WIP limit groups."
+  },
+  {
+    "locale": "st",
+    "key": "wip-limit-group-add",
+    "before": "Eketsa Bulela moedi wa WIP",
+    "after": "Eketsa sehlopha sa moedi wa WIP",
+    "reason": "Restore the meanings of API connection points, severity, custom-field summaries and WIP limit groups."
+  },
+  {
+    "locale": "st",
+    "key": "wip-limit-group-select-swimlane",
+    "before": "Kgetha boto Tsela",
+    "after": "Kgetha tsela",
+    "reason": "Restore the meanings of API connection points, severity, custom-field summaries and WIP limit groups."
+  },
+  {
+    "locale": "st",
+    "key": "wip-limit-group-apply-swimlane",
+    "before": "Sebedisa Tsela",
+    "after": "Sebedisa tseleng",
+    "reason": "Restore the meanings of API connection points, severity, custom-field summaries and WIP limit groups."
   }
 ]

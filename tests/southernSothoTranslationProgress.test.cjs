@@ -826,3 +826,18 @@ assert.match(sesotho['run-restore-lost-cards-migration-confirm'], /feela dintho 
 assert.match(sesotho['run-restore-all-archived-migration-confirm'], /ha se kgutlisetswe habonolo/);
 assert.match(sesotho['step-fix-orphaned-cards'], /lehokelo le nepahetseng la lenane kapa tsela/);
 assert.doesNotMatch(sesotho['step-fix-orphaned-cards'], /monga/);
+
+// Historical review through key 2999: groups, data fields and severity.
+assert.equal(sesotho['event-severity'], sesotho['recovery-severity']);
+assert.notEqual(sesotho['event-severity'], 'Bohloko');
+assert.match(sesotho['api-endpoints'], /kgokelo.*API/);
+assert.match(sesotho['sum-of-number-fields'], /dikarolo tse ikgethang tsa dinomoro.*tshwailweng/);
+assert.doesNotMatch(sesotho['sum-of-number-fields'], /masimo/);
+assert.match(sesotho['date-range-of-fields'], /pakeng tsa matsatsi.*tshwailweng/);
+assert.match(sesotho['wip-limit-groups'], /Dihlopha.*WIP/);
+assert.match(sesotho['wip-limit-group-add'], /sehlopha.*WIP/);
+assert.doesNotMatch(sesotho['wip-limit-group-add'], /Bulela/);
+assert.match(sesotho['wip-limit-group-name-placeholder'], /sehlopha.*boikhethelo/);
+assert.equal(sesotho['wip-limit-group-select-swimlane'], 'Kgetha tsela');
+assert.doesNotMatch(sesotho['wip-limit-group-select-swimlane'], /boto/);
+assert.equal(sesotho['wip-limit-group-apply-swimlane'], 'Sebedisa tseleng');

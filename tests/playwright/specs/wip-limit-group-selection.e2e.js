@@ -45,3 +45,20 @@ test('#6699 rejects invalid lists and unauthorized group edits', async ({ boardP
   expect(await invoke({ enabled: false })).toBe('not-authorized');
   expect(db.findOne('boards', { _id: board.boardId }).wipLimitGroups).toEqual([group]);
 });
+
+test('Southern Sotho WIP dialog distinguishes groups from enabling a limit', async ({ boardPage: page }) => {
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'st'));
+  await page.evaluate(() => {
+    Popup.close();
+    Popup.open('wipLimitGroups', { titleKey: 'wip-limit-groups' })({
+      currentTarget: document.body, target: document.body, preventDefault() {},
+    });
+  });
+  await expect(page.locator('.js-pop-over .header-title')).toHaveText('Dihlopha tsa moedi wa WIP');
+  const form = page.locator('.wip-limit-group-new');
+  await expect(form.locator('.js-wip-limit-group-new-save')).toHaveValue('Eketsa sehlopha sa moedi wa WIP');
+  await expect(form.locator('.js-wip-limit-group-swimlane option[value=""]')).toHaveText('Kgetha tsela');
+  await expect(form.locator('.js-wip-limit-group-apply-swimlane')).toHaveText('Sebedisa tseleng');
+  await expect(form).not.toContainText('Kgetha boto');
+  await page.evaluate(() => Popup.close());
+});
