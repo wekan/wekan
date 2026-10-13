@@ -1,6 +1,25 @@
 # Translation audit progress
 
-Audit date: **2026-09-12**. Last updated: **2026-10-13**.
+Audit date: **2026-09-12**. Last updated: **2026-10-14**.
+
+## Latin activity-message review — 2026-10-14
+
+Commit `1e254be892` repairs 65 prefixed, mixed-language or grammatically broken
+strings for activity history, attachments, comments, checklist completion,
+card moves, membership restrictions and basic reply controls. The review found
+2,321 Latin strings prefixed with “Latine:” before this batch; 2,256 remain.
+This confirms that an empty English-placeholder report does not prove that a
+locale is correctly translated.
+
+Tests preserve the new-title/object order of positional arguments, old and new
+card locations, completed/incomplete states, label aliases and the restriction
+on administrators editing other users' comments. The Latin and repair-ledger
+suites pass with 27,128 guarded corrections; all 21 human-preference checks pass.
+The added card-history browser case passes syntax and discovery; runtime remains
+pending. Exact comparison preserves 38,430 existing Chinese values.
+
+Latin still needs extensive linguistic review, including unprefixed values.
+All-language translation and semantic verification remain unfinished.
 
 ## Latin synchronization and recovery — 2026-10-13
 

@@ -2799,6 +2799,22 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1e254be892">Repair mixed-language Latin activity messages</a>. Thanks to xet7.</summary>
+
+Repair 65 prefixed messages for activity history, card moves, comments,
+checklist
+completion and board membership restrictions. Preserve title argument order,
+source and destination, opposite checklist states and comment permissions.
+
+The Latin and guarded-correction suites and all 21 preservation checks pass.
+The Latin card-history browser case passes syntax and discovery; runtime remains
+pending. Existing Chinese values are unchanged. Review found 2,321 prefixed
+Latin strings before these repairs; 2,256 remain. All-language translation and
+semantic verification remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
