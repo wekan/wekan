@@ -3107,6 +3107,24 @@ containing the old language prefix; all-language review remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7842c44d16">Repair Latin upload and WIP messages</a>. Thanks to xet7.</summary>
+
+Repair 30 prefixed strings for uploads, logo settings, welcome content,
+templates
+and limits. Distinguish upload failure from completion, image URLs from link
+URLs,
+and both recovery choices when a list exceeds its WIP limit.
+
+The Latin and guarded-correction suites and all 21 preservation checks pass.
+The WIP-warning browser case passes syntax and discovery; runtime remains
+pending.
+Existing Chinese values are unchanged. There remain 1,495 Latin values
+containing
+the old language prefix; all-language review remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

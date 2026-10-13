@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin uploads, appearance and WIP warnings — 2026-10-14
+
+Commit `7842c44d16` repairs 30 prefixed messages for uploads, logo settings,
+welcome content, templates and WIP limits. Tests distinguish upload failure and
+completion, logo image/link URLs, upper-left placement and default height,
+one URL scheme per line, archived-list warnings, watching scope and both WIP
+recovery choices: move tasks out or raise the limit.
+
+The Latin and guarded-correction suites pass with 27,889 ledger entries. All 21
+human-preference checks pass. WIP-warning browser coverage checks the title and
+both choices; syntax and discovery pass, runtime remains pending. Exact comparison
+preserves 38,430 existing Chinese values.
+
+There remain 1,495 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin sidebar, default boards and tracking — 2026-10-14
 
 Commit `42ab802edd` repairs 30 prefixed messages for sidebar controls,
