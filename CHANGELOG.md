@@ -2950,6 +2950,21 @@ containing the old language prefix; all-language review remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9c5f1c6ad4">Repair Latin custom fields and account email messages</a>. Thanks to xet7.</summary>
+
+Repair 50 prefixed strings for custom fields, deletion settings, editing and
+account emails. Restore date-format tokens and email paragraphs. Preserve field
+history deletion and the warning that enabling permanent deletion deletes
+nothing.
+
+The Latin and guarded-correction suites and all 21 preservation checks pass.
+The custom-field browser case passes syntax and discovery; runtime remains
+pending. Existing Chinese values are unchanged. There remain 1,825 Latin values
+containing the old language prefix; all-language review remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

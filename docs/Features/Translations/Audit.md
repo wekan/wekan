@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin custom fields, deletion settings and account emails — 2026-10-14
+
+Commit `9c5f1c6ad4` repairs 50 prefixed strings for custom fields, editing,
+permanent-deletion settings and account emails. Tests preserve all-card field
+removal and history loss, the global-administrator boundary and the fact that
+enabling deletion does not itself delete data. Date-format tokens retain their
+literal spelling; enrollment email paragraphs, URL and named variables survive.
+
+The Latin and guarded-correction suites pass with 27,559 ledger entries. All 21
+human-preference checks pass. Custom-field browser coverage checks type labels
+and the empty dropdown-option input and its instructions; syntax and discovery
+pass, runtime remains pending. Exact comparison preserves 38,430 existing Chinese
+values.
+
+There remain 1,825 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin roles, comments and copy controls — 2026-10-14
 
 Commit `9b890bbe16` repairs 30 prefixed strings for assigned-card roles,
