@@ -188368,5 +188368,75 @@
     "before": "Ha ho ho o eso behe naleli.",
     "after": "Ha o eso tshwaye letho ka naledi.",
     "reason": "Restore label, card-link, visibility-description and empty-starred-state meanings."
+  },
+  {
+    "locale": "st",
+    "key": "automatic-linked-url-schemes",
+    "before": "Mekgwa e ikgethileng ya URL e lokelang ho tobetswa ka boiketsetso. Mokgwa o le mong wa URL moleng ka mong",
+    "after": "Mefuta e ikgethileng ya URL e lokelang ho etswa mahokelo a ka tobetsoang ka boiketsetso. Mofuta o le mong wa URL moleng ka mong",
+    "reason": "Clarify automatic clickable links, external tracker templates, positive numeric limits and email template labels."
+  },
+  {
+    "locale": "st",
+    "key": "external-link-pattern",
+    "before": "Kgokahanyo e ikahlaolang ho selekanyo sa mathata sa kantle",
+    "after": "Mahokelo a iketsang ho tsamaiso ya kantle ya ho sala ditaba morao",
+    "reason": "Clarify automatic clickable links, external tracker templates, positive numeric limits and email template labels."
+  },
+  {
+    "locale": "st",
+    "key": "external-link-pattern-description",
+    "before": "E kgokahanya ka boitshepo dipontsho tse jwalo ka \"#1234\" tse fumanwang mongolong wa karete ho selekanyo sa mathata sa kantle. Tlogela lebala le le leng le se na letho ho e thibela.",
+    "after": "E hokela ka boiketsetso matshwao a kang \"#1234\" a fumanwang mongolong wa karete ho tsamaiso ya kantle ya ho sala ditaba morao. Siya karolo efe kapa efe ho tsena tse pedi e se na letho ho tima sena.",
+    "reason": "Clarify automatic clickable links, external tracker templates, positive numeric limits and email template labels."
+  },
+  {
+    "locale": "st",
+    "key": "external-link-pattern-url",
+    "before": "Setshwantsho sa URL (sebedisa {number})",
+    "after": "Thempleite ya URL (sebedisa {number})",
+    "reason": "Clarify automatic clickable links, external tracker templates, positive numeric limits and email template labels."
+  },
+  {
+    "locale": "st",
+    "key": "attachment-transfer-limits-invalid-value",
+    "before": "Ka kopo kenya boleng bo nepahetseng ba moedi o motle",
+    "after": "Ka kopo kenya boleng bo nepahetseng ba moedi bo boholo ho 0",
+    "reason": "Clarify automatic clickable links, external tracker templates, positive numeric limits and email template labels."
+  },
+  {
+    "locale": "st",
+    "key": "email-templates-title",
+    "before": "Imeile Ditemplate",
+    "after": "Dithempleite tsa imeile",
+    "reason": "Clarify automatic clickable links, external tracker templates, positive numeric limits and email template labels."
+  },
+  {
+    "locale": "st",
+    "key": "email-templates-invite-subject",
+    "before": "Mema Imeile Sehlooho",
+    "after": "Sehlooho sa imeile ya memo",
+    "reason": "Clarify automatic clickable links, external tracker templates, positive numeric limits and email template labels."
+  },
+  {
+    "locale": "st",
+    "key": "email-templates-invite-body",
+    "before": "Mema Imeile Mongolo",
+    "after": "Mongolo wa imeile ya memo",
+    "reason": "Clarify automatic clickable links, external tracker templates, positive numeric limits and email template labels."
+  },
+  {
+    "locale": "st",
+    "key": "email-templates-activity-subject",
+    "before": "Ketsahalo Imeile Sehlooho",
+    "after": "Sehlooho sa imeile ya tsebiso ya ketsahalo",
+    "reason": "Clarify automatic clickable links, external tracker templates, positive numeric limits and email template labels."
+  },
+  {
+    "locale": "st",
+    "key": "email-templates-activity-body",
+    "before": "Ketsahalo Imeile Mongolo",
+    "after": "Mongolo wa imeile ya tsebiso ya ketsahalo",
+    "reason": "Clarify automatic clickable links, external tracker templates, positive numeric limits and email template labels."
   }
 ]

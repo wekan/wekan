@@ -659,3 +659,20 @@ for (const [mode, visibility] of [['public', 'setjhaba'], ['private', 'poraefete
   assert.notEqual(sesotho[`custom-${mode}-desc`], sesotho[`custom-${mode}-desc-placeholder`]);
 }
 assert.equal(sesotho['no-starred-items'], 'Ha o eso tshwaye letho ka naledi.');
+
+// Historical review through key 1279: link settings and email templates.
+assert.match(sesotho['automatic-linked-url-schemes'], /etswa mahokelo a ka tobetsoang ka boiketsetso/);
+assert.doesNotMatch(sesotho['automatic-linked-url-schemes'], /ho tobetswa ka boiketsetso/);
+assert.match(sesotho['external-link-pattern'], /tsamaiso ya kantle ya ho sala ditaba morao/);
+assert.match(sesotho['external-link-pattern-description'], /ka boiketsetso.*#1234.*efe kapa efe.*tse pedi.*se na letho.*tima/);
+assert.doesNotMatch(sesotho['external-link-pattern-description'], /boitshepo/);
+assert.match(sesotho['external-link-pattern-url'], /Thempleite.*[{]number[}]/);
+assert.doesNotMatch(sesotho['external-link-pattern-url'], /Setshwantsho/);
+assert.match(sesotho['attachment-transfer-limits-invalid-value'], /bo boholo ho 0/);
+assert.doesNotMatch(sesotho['attachment-transfer-limits-invalid-value'], /motle/);
+assert.equal(sesotho['email-templates-title'], 'Dithempleite tsa imeile');
+for (const [part, noun] of [['subject', 'Sehlooho'], ['body', 'Mongolo']]) {
+  assert.equal(sesotho[`email-templates-invite-${part}`], `${noun} ${part === 'subject' ? 'sa' : 'wa'} imeile ya memo`);
+  assert.equal(sesotho[`email-templates-activity-${part}`], `${noun} ${part === 'subject' ? 'sa' : 'wa'} imeile ya tsebiso ya ketsahalo`);
+  assert.notEqual(sesotho[`email-templates-invite-${part}`], sesotho[`email-templates-activity-${part}`]);
+}
