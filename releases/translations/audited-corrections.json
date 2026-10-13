@@ -185918,5 +185918,299 @@
     "before": "A tavula cum'è una tabella di carte chì si pò ordinà.",
     "after": "A tavula cum’è una tabella di carte chì si pò urdinà.",
     "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "cards-loading-auto",
+    "before": "Automatico (lazy solu per tavule grandi)",
+    "after": "Autumaticu (caricamentu differitu solu per e grande tavule)",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "cards-loading-all",
+    "before": "Tutte le carte (predefinito)",
+    "after": "Tutte e carte",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "cards-loading-lazy",
+    "before": "Lazy (solu le carte visibili)",
+    "after": "Differitu (solu e carte visibili)",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "cards-loading-description",
+    "before": "Come ogni tavula caricà le sue carte. Tutte le carte: ogni carta viene caricata in u browser (il più semplice, tutte le funzionalità funzionano, ma una tavula cù migliaia di carte invia molti dati a ogni visualizzatore). Lazy: ogni lista caricà solu le carte attualmente visibili (scorrimento infinito) più un conteggio in tempo reale, così le tavule molto grandi usano meno memoria e banda. Impostabile anche cù la variabile d'ambiente CARDS_LOADING.",
+    "after": "WeKan carica e carte di e tavule autumaticamente: una grande tavula (sopra à a soglia di dimensione) carica solu e carte attualmente visibili (scurrimentu infinitu) è un cuntu in tempu reale, per firmà rapida è aduprà menu memoria è larghezza di banda. E tavule più chjuche caricanu tutte e carte per un usu simplice cù tutte e funziunalità. Ùn ci hè nunda da cunfigurà. L’operatori ponu sempre impone un modu cù e variabili d’ambiente CARDS_LOADING (all/lazy/auto) è CARDS_LOADING_LAZY_THRESHOLD.",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "cards-loading-lazy-note",
+    "before": "Il caricamentu lazy di e carte è sperimentale: i contatori di e carte e i limiti WIP sono accurati, ma le viste Calendario/Tabella/Gantt e la multi-selezione riflettono solu le carte caricate finora. Ricarica le tavule aperte dopo aver cambiato questa impostazione.",
+    "after": "U caricamentu differitu di e carte hè sperimentale: i cuntatori di carte è i limiti WIP sò esatti, ma e viste Calendariu/Tabella/Gantt è a selezzione multipla riflettenu solu e carte digià caricate. Ricaricate e tavule aperte dopu avè cambiatu stu parametru.",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "render-links-as-plain-text",
+    "before": "Mustrà i link come testo semplice",
+    "after": "Mustrà i ligami cum’è testu simplice",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "render-links-as-plain-text-description",
+    "before": "Se abilitato, tutti i link (sia i link markdown come [etichetta](url) sia i tag HTML grezzi <a href>) vengono sempre mostrati come testo semplice non cliccabile in ogni campo di testo formattato (titoli di tavule e carte, descrizioni, cummenti, checklist, ecc.). Questu impedisce link cliccabili ingannevoli. Il valore predefinito è disattivato, quindi i link restano cliccabili.",
+    "after": "Quandu hè attivatu, tutti i ligami (sia i ligami Markdown cum’è [label](url), sia l’etichette HTML grezze <a href>) sò sempre mustrati cum’è testu simplice micca clicchevule in ogni campu di testu furmattatu (tituli di tavule è carte, descrizzioni, cummenti, liste di cuntrollu, ecc.). Questu impedisce i ligami clicchevuli ingannatori. Hè disattivatu per difettu, dunque i ligami fermanu clicchevuli.",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "always-show-code-as-text",
+    "before": "Mustrà sempre tutto il codice come testo semplice",
+    "after": "Mustrà sempre tuttu u codice cum’è testu simplice",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "always-show-code-as-text-description",
+    "before": "Se abilitato, il testo formattato non viene mai visualizzato come markdown o HTML: l'intero sorgente viene sempre mostrato come testo semplice in ogni campo di testo formattato (titoli di tavule e carte, descrizioni, cummenti, checklist, ecc.). Questu rivela il contenuto nascosto — cummenti HTML (<!-- -->), la destinazione dei link markdown, JavaScript e qualsiasi altro codice — così tutto il codice è sempre visibile, non cliccabile e non in esecuzione. Il valore predefinito è disattivato, quindi il markdown viene visualizzato normalmente.",
+    "after": "Quandu hè attivatu, u testu furmattatu ùn hè mai resu cum’è Markdown o HTML: tutta a surghjente hè sempre mustrata cum’è testu simplice in ogni campu di testu furmattatu (tituli di tavule è carte, descrizzioni, cummenti, liste di cuntrollu, ecc.). Questu palesa u cuntenutu piattatu — cummenti HTML (<!-- -->), a destinazione di i ligami Markdown, JavaScript è qualsiasi altru codice — cusì tuttu u codice hè sempre visibile, micca clicchevule è micca eseguitu. Hè disattivatu per difettu, dunque Markdown hè resu nurmalmente.",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "disable-all-import",
+    "before": "Disattivà tutte le importazioni",
+    "after": "Disattivà tutte l’impurtazioni",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "disable-all-import-description",
+    "before": "Se abilitato, tutte le funzionalità di importazione sono disattivate: importazione di una tavula da WeKan JSON, Trello, CSV/Excel, Jira, Kanboard, NextCloud Deck, OpenProject, GitHub, GitLab, Gitea e Forgejo, così come la clonazione di una tavula. Le opzioni del menu di importazione sono nascoste e il server rifiuta qualsiasi richiesta di importazione. Il valore predefinito è disattivato.",
+    "after": "Quandu hè attivatu, tutte e funziunalità d’impurtazione sò disattivate: impurtà una tavula da WeKan JSON, Trello, CSV/Excel, Jira, Kanboard, NextCloud Deck, OpenProject, GitHub, GitLab, Gitea è Forgejo, è ancu clunà una tavula. L’opzioni di u menù d’impurtazione sò piattate è u servitore ricusa ogni dumanda d’impurtazione. Hè disattivatu per difettu.",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "disable-all-export",
+    "before": "Disattivà tutte le esportazioni",
+    "after": "Disattivà tutte l’espurtazioni",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "disable-all-export-description",
+    "before": "Se abilitato, tutte le funzionalità di esportazione sono disattivate: esportazione di una tavula come WeKan JSON, CSV, Excel, Kanboard, o verso NextCloud Deck / OpenProject / GitHub / GitLab / Gitea / Forgejo, e l'esportazione di singoli allegati. Le opzioni del menu di esportazione sono nascoste e il server rifiuta qualsiasi richiesta di esportazione. Il valore predefinito è disattivato.",
+    "after": "Quandu hè attivatu, tutte e funziunalità d’espurtazione sò disattivate: espurtà una tavula in WeKan JSON, CSV, Excel, Kanboard, o versu NextCloud Deck / OpenProject / GitHub / GitLab / Gitea / Forgejo, è espurtà un appicciu solu. L’opzioni di u menù d’espurtazione sò piattate è u servitore ricusa ogni dumanda d’espurtazione. Hè disattivatu per difettu.",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "disable-import-avatars",
+    "before": "Disattivà l'importazione di i avatar",
+    "after": "Disattivà l’impurtazione di l’avatar",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "disable-export-avatars",
+    "before": "Disattivà l'esportazione di i avatar",
+    "after": "Disattivà l’espurtazione di l’avatar",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "anonymize-import-users-description",
+    "before": "Se abilitato, l'importazione di una tavula WeKan JSON sostituisce nome utilizatore, nome completo e iniziali di ogni utilizatore importato cù segnaposto progressivi (user1, user2, ...), rimuove il loro avatar e riscrive le menzioni @username (e i campi richiesto-da / assegnato-da) all'interno del contenuto di e carte e dei cummenti importati. Nessuna identità utilizatore reale di a tavula di origine viene memorizzata. La parola \"user\" segue la lingua di a persona che impurtà. Il valore predefinito è disattivato.",
+    "after": "Quandu hè attivatu, l’impurtazione d’una tavula JSON WeKan rimpiazza u nome d’utilizatore, u nome cumpletu è l’iniziali d’ogni utilizatore impurtatu cù valori numerati (user1, user2, ...), caccia u so avatar è riscrive e menzioni @username (è i campi dumandatu-da / assignatu-da) in u cuntenutu di e carte è di i cummenti impurtati. Nisuna identità vera d’utilizatore di a tavula d’origine hè arregistrata. A parolla \"user\" seguita a lingua di a persona chì impòrta. Hè disattivatu per difettu.",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "anonymize-export-users-description",
+    "before": "Se abilitato, l'esportazione di una tavula sostituisce nome utilizatore, nome completo e iniziali di ogni utilizatore esportato cù segnaposto progressivi (user1, user2, ...), rimuove il loro avatar e riscrive le menzioni @username (e i campi richiesto-da / assegnato-da) all'interno del contenuto di e carte e dei cummenti. Il schedariu esportato non contiene alcuna identità utilizatore reale. La parola \"user\" segue la lingua di a persona che spurtà. Il valore predefinito è disattivato.",
+    "after": "Quandu hè attivatu, l’espurtazione d’una tavula rimpiazza u nome d’utilizatore, u nome cumpletu è l’iniziali d’ogni utilizatore espurtatu cù valori numerati (user1, user2, ...), caccia u so avatar è riscrive e menzioni @username (è i campi dumandatu-da / assignatu-da) in u cuntenutu di e carte è di i cummenti. U schedariu espurtatu ùn cuntene nisuna identità vera d’utilizatore. A parolla \"user\" seguita a lingua di a persona chì espòrta. Hè disattivatu per difettu.",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "anonymize-account-confirm-popup",
+    "before": "Se abilitato, l'esportazione di una tavula sostituisce nome utilizatore, nome completo e iniziali di ogni utilizatore esportato cù segnaposto progressivi (user1, user2, ...), rimuove il loro avatar e riscrive le menzioni @username (e i campi richiesto-da / assegnato-da) all'interno del contenuto di e carte e dei cummenti. Il schedariu esportato non contiene alcuna identità utilizatore reale. La parola \"user\" segue la lingua di a persona che spurtà. Il valore predefinito è disattivato.",
+    "after": "Site sicuru di vulè anonimizà stu contu? Questu rimpiazza di manera permanente u nome d’utilizatore, u nome cumpletu è l’indirizzu email cù valori anonimizati, caccia l’avatar è disattiva a cunnessione. À a differenza di a suppressione, e tavule, e carte è i cummenti cunservanu a so cronulugia è mostranu sempre stu contu, solu anonimizatu. Ùn si pò annullà st’azzione.",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "features-notifications",
+    "before": "Notifiche",
+    "after": "Nutificazioni",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "disable-activities",
+    "before": "Disattivà tutte le attività",
+    "after": "Disattivà tutte l’attività",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "disable-activities-description",
+    "before": "Se abilitato, le voci del registro attività non vengono mai registrate né mostrate da nessuna parte (barra laterale di a tavula e carta attività). Non viene conservata alcuna cronulugia di chi ha fatto cosa. Il valore predefinito è disattivato.",
+    "after": "Quandu hè attivatu, e voci di u filu d’attività ùn sò mai arregistrate nè mustrate in nisun locu (barra laterale di a tavula è linguetta d’attività di a carta). Ùn hè cunservata nisuna cronulugia di quale hà fattu chì. Hè disattivatu per difettu.",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "disable-notifications",
+    "before": "Disattivà tutte le nutificazioni",
+    "after": "Disattivà tutte e nutificazioni",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "disable-notifications-description",
+    "before": "Se abilitato, WeKan non invia mai nutificazioni di monitoraggio (in-app, email o altri servizi) per alcuna attività. Le attività possono comunque essere registrate (a meno che non siano disabilitate anche sopra); vengono soppresse solu le nutificazioni. Il valore predefinito è disattivato.",
+    "after": "Quandu hè attivatu, WeKan ùn manda mai nutificazioni di seguitu (in l’applicazione, per email o altri servizii) per alcuna attività. L’attività ponu sempre esse arregistrate (à menu ch’elle sianu dinù disattivate sopra); solu e nutificazioni sò suprimesse. Hè disattivatu per difettu.",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "disable-watch",
+    "before": "Disattivà il monitoraggio",
+    "after": "Disattivà u seguitu",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "backup-data",
+    "before": "Dati (testo)",
+    "after": "Dati (testu)",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "backup-scope",
+    "before": "Ambito del backup",
+    "after": "Scopu di a copia di salvezza",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "backup-scope-instance",
+    "before": "Intera istanza",
+    "after": "Istanza sana",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "backup-scope-description",
+    "before": "L'intera istanza, oppure una singola urganizazione. Il backup di un'urganizazione contiene le sue tavule e tutto ciò che vi si trova, inclusi i loro allegati — ma nessun account utilizatore e nessuna impostazione dell'istanza, perché queste sono condivise da tutte le organizzazioni. Il ripristino del backup di un'urganizazione scrive solu su tavule che appartengono a quella urganizazione.",
+    "after": "L’istanza sana, o una sola urganizazione. A copia di salvezza d’una urganizazione cuntene e so tavule è tuttu ciò chì ci hè, cumpresi l’appicci di ste tavule — ma nisun contu d’utilizatore è nisun parametru d’istanza, postu ch’elli sò spartuti da tutte l’urganisazioni. A risturazione d’una copia di salvezza d’urganizazione scrive solu in e tavule chì appartenenu à quella urganizazione.",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "backup-storage",
+    "before": "Arregistrà in u storage",
+    "after": "Arregistrà in l’almacenamentu",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "backup-now",
+    "before": "Esegui backup ora",
+    "after": "Fà una copia di salvezza avà",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "backup-done",
+    "before": "Backup completato",
+    "after": "Copia di salvezza compia",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "backup-schedule",
+    "before": "Backup pianificati",
+    "after": "Copie di salvezza pianificate",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "backup-frequency-off",
+    "before": "Disattivato",
+    "after": "Disattivatu",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "backup-frequency-daily",
+    "before": "Giornaliero",
+    "after": "Ogni ghjornu",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "backup-frequency-weekly",
+    "before": "Settimanale",
+    "after": "Ogni settimana",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "backup-frequency-monthly",
+    "before": "Mensile",
+    "after": "Ogni mese",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "backup-day-of-month",
+    "before": "Ghjornu del mese (mensile, 1-28)",
+    "after": "Ghjornu di u mese (ogni mese, 1-28)",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "backup-list",
+    "before": "Elenca i backup",
+    "after": "Elencà e copie di salvezza",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "backup-datetime",
+    "before": "Data e ora",
+    "after": "Data è ora",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "backup-path",
+    "before": "Percorso del schedariu",
+    "after": "Percorsu di u schedariu",
+    "reason": "Repair Corsican feature and backup guidance, including stale loading instructions and incorrect account-anonymization confirmation."
+  },
+  {
+    "locale": "co",
+    "key": "backup-description",
+    "before": "Fate una copia di sicurità di l'allegati, di l'avatar è/o di i dati (tutte e cullezzione basate nant'à u testu chì ùn sò nè allegati nè avatar). U schedariu .zip hè mandatu direttamente à u spaziu di almacenamentu sceltu, senza schedariu pruvisoriu, cum'è backup/YYYY/MM/DD/HH_MM_SS/backup.zip, chì cuntene YYYY_MM_DD-HH_MM_SS/attachments, /avatars è /data. I spazii di almacenamentu in nuvola (S3/MinIO, Azure, GCS) adopranu e credenziali cunfigurate in e so linguette di almacenamentu.",
+    "after": "Fate una copia di sicurità di l'appicci, di l'avatar è/o di i dati (tutte e cullezzione basate nant'à u testu chì ùn sò nè appicci nè avatar). U schedariu .zip hè mandatu direttamente à u spaziu di almacenamentu sceltu, senza schedariu pruvisoriu, cum'è backup/YYYY/MM/DD/HH_MM_SS/backup.zip, chì cuntene YYYY_MM_DD-HH_MM_SS/attachments, /avatars è /data. I spazii di almacenamentu in nuvola (S3/MinIO, Azure, GCS) adopranu e credenziali cunfigurate in e so linguette di almacenamentu.",
+    "reason": "Use Corsican attachment wording in backup descriptions; preserve paths and scope."
+  },
+  {
+    "locale": "co",
+    "key": "continuous-backup-description",
+    "before": "Manda ogni cambiamentu di a basa di dati, di l'allegati, di l'avatar è di i registri in un cartulare in pochi sicondi, da pudè ristabilisce u statu di qualunque mumentu. Funziona inseme cù a copia di sicurità prugrammata, chì crea archivi cumpleti.",
+    "after": "Manda ogni cambiamentu di a basa di dati, di l'appicci, di l'avatar è di i registri in un cartulare in pochi sicondi, da pudè ristabilisce u statu di qualunque mumentu. Funziona inseme cù a copia di sicurità prugrammata, chì crea archivi cumpleti.",
+    "reason": "Use Corsican attachment wording in backup descriptions; preserve paths and scope."
   }
 ]

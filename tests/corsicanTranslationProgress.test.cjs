@@ -630,3 +630,20 @@ assert.match(corsican['database-migration-description'], /fora di l’appicci è
 assert.match(corsican['azure-connection-string-description'], /Facultativu.*invece di u nome.*chjave/);
 assert.match(corsican['cron-job-paused'], /pausa/);
 assert.match(corsican['cron-job-resumed'], /ripigliatu/);
+
+const featureBackupCorrectionKeys = ["cards-loading-auto", "cards-loading-all", "cards-loading-lazy", "cards-loading-description", "cards-loading-lazy-note", "render-links-as-plain-text", "render-links-as-plain-text-description", "always-show-code-as-text", "always-show-code-as-text-description", "disable-all-import", "disable-all-import-description", "disable-all-export", "disable-all-export-description", "disable-import-avatars", "disable-export-avatars", "anonymize-import-users-description", "anonymize-export-users-description", "anonymize-account-confirm-popup", "features-notifications", "disable-activities", "disable-activities-description", "disable-notifications", "disable-notifications-description", "disable-watch", "backup-data", "backup-scope", "backup-scope-instance", "backup-scope-description", "backup-storage", "backup-now", "backup-done", "backup-schedule", "backup-frequency-off", "backup-frequency-daily", "backup-frequency-weekly", "backup-frequency-monthly", "backup-day-of-month", "backup-list", "backup-datetime", "backup-path"];
+for (const key of featureBackupCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /Automatico|Tutte le carte|Come ogni tavula|Se abilitato|vengono|testo semplice|Nessuna identità|Il schedariu|La parola|Non viene|possono comunque|Ambito del|Intera istanza|Il ripristino|Esegui backup|Backup completato|Disattivato|Giornaliero|Settimanale|Mensile|Percorso/, key);
+}
+assert.match(corsican['cards-loading-description'], /autumaticamente.*soglia.*CARDS_LOADING \(all\/lazy\/auto\).*CARDS_LOADING_LAZY_THRESHOLD/);
+assert.doesNotMatch(corsican['cards-loading-all'], /predefinit/);
+assert.match(corsican['anonymize-account-confirm-popup'], /permanente.*nome d’utilizatore.*nome cumpletu.*indirizzu email.*caccia l’avatar.*disattiva a cunnessione.*cunservanu a so cronulugia.*Ùn si pò annullà/);
+assert.doesNotMatch(corsican['anonymize-account-confirm-popup'], /espurtazione|espurtatu|user1/);
+assert.match(corsican['backup-scope-description'], /nisun contu d’utilizatore.*nisun parametru d’istanza.*scrive solu.*appartenenu/);
+for (const key of ['anonymize-import-users-description', 'anonymize-export-users-description']) { assert.ok(corsican[key].includes('user1, user2, ...')); assert.ok(corsican[key].includes('@username')); }
+assert.ok(corsican['always-show-code-as-text-description'].includes('<!-- -->'));
+assert.ok(corsican['render-links-as-plain-text-description'].includes('[label](url)'));
+
+for (const key of ['backup-description', 'continuous-backup-description']) { assert.match(corsican[key], /appicci/); assert.doesNotMatch(corsican[key], /allegati/); }
+for (const literal of ['backup/YYYY/MM/DD/HH_MM_SS/backup.zip', 'YYYY_MM_DD-HH_MM_SS/attachments', '/avatars', '/data']) assert.ok(corsican['backup-description'].includes(literal), literal);
