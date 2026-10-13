@@ -2222,6 +2222,19 @@ runtime execution remains pending. Existing Chinese text is unchanged.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/59b761f444">Translate Southern Sotho Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+Fill 75 planning, sprint, release and report placeholders. Preserve
+cancellation and rollover behavior, partial reports, unknown estimates
+and daily first-observation caveats. Scrum terms need native review.
+
+Translation checks and 21 human-preference checks pass. The backlog paging
+browser case now includes Southern Sotho; syntax and discovery pass, but
+runtime execution remains pending. Existing Chinese text is unchanged.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

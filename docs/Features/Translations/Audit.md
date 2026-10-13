@@ -2,6 +2,26 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho Scrum planning and report guidance — 2026-10-13
+
+Commit `59b761f444` fills 75 planning, role, sprint, release and report
+placeholders. Semantic checks retain multiple-release selection, cancellation
+membership, rollover destinations and assigned-card report limits. Report
+help separates unknown estimates from zero and requires matching units and
+policies for velocity comparisons. Daily observations retain first-recorded
+UTC timestamps, omitted days, no every-change/end-of-day claim and separate
+export actions. Descriptive Scrum terminology needs native review.
+
+The Southern Sotho regression suite and all 21 human-preference checks pass.
+The existing backlog paging browser case now includes Southern Sotho;
+syntax and discovery pass, but runtime execution remains pending without
+the UI stack. Exact comparison preserves 38,430 existing Chinese values
+and existing Southern Sotho translations.
+
+The full Southern Sotho placeholder count falls from 242 to 167. Its filtered
+inventory is 101; the global filtered backlog is 27,940 across 42 languages.
+The all-language translation and fluency objective remains unfinished.
+
 ## Southern Sotho Blockly text and rule-editor messages — 2026-10-13
 
 Commit `b6740c17a0` fills 115 placeholders for text operations, shortcuts,
