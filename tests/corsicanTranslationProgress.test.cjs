@@ -68,4 +68,24 @@ assert.match(corsican['attach-card-not-found'], /nisuna carta chì pudete vede/)
 assert.match(corsican['field-link-self'], /ùn pò micca.*ella stessa/);
 assert.match(corsican['field-link-archived'], /archiviata ùn pò micca/);
 
-console.log('corsicanTranslationProgress: historical catalog and card-link checks passed');
+
+
+const recoveryKeys = Object.keys(english).filter(key => /^(stuck-sync-operation-|interrupted-import-)/.test(key));
+assert.equal(recoveryKeys.length, 48);
+for (const key of recoveryKeys) {
+  assert.notEqual(corsican[key], english[key], `${key}: recovery message translated`);
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+}
+assert.match(corsican['stuck-sync-operation-description'], /cambiamenti digià appiicati fermanu/);
+assert.match(corsican['stuck-sync-operation-description'], /ùn seranu mai scritti/);
+assert.match(corsican['stuck-sync-operation-description'], /paragunerà torna a lista cù a so fonte/);
+assert.match(corsican['stuck-sync-operation-replayable'], /ùn hè micca stata abbandunata/);
+assert.match(corsican['stuck-sync-operation-not-stuck'], /ùn pò micca esse abbandunata/);
+assert.match(corsican['interrupted-import-description'], /schedariu fonte ùn hè micca cunservatu/);
+assert.match(corsican['interrupted-import-description'], /ancu ciò chì ci hè statu aghjuntu dopu/);
+assert.match(corsican['interrupted-import-keep-confirm'], /Nunda hè squassatu/);
+assert.doesNotMatch(corsican['interrupted-import-keep-confirm'], /squassati definitivamente/);
+assert.match(corsican['interrupted-import-discard-confirm'], /tuttu ciò ch'ella cuntene sò squassati definitivamente/);
+assert.match(corsican['interrupted-import-foreign-board'], /ùn hè micca stata mudificata/);
+
+console.log('corsicanTranslationProgress: historical catalog, card-link and recovery checks passed');
