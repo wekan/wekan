@@ -24,7 +24,8 @@ const openSyncPopup = (page, list) => page.evaluate(current => {
     target: document.body, preventDefault() {}, stopPropagation() {} });
 }, list);
 
-test('the Sync settings opt into sprint and releases, and a Sync plans the card on this board', async ({ page, user, board }) => {
+for (const language of ['en', 'mt']) {
+test(`the Sync settings opt into sprint and releases, and a Sync plans the card on this board in ${language}`, async ({ page, user, board }) => {
   const listId = db.find('lists', { boardId: board.boardId })[0]._id;
   db.updateOne('boards', { _id: board.boardId }, { $set: { scrum: { enabled: true } } });
   issues = [{ iid: 7, title: 'Pump', state: 'opened',
@@ -32,6 +33,8 @@ test('the Sync settings opt into sprint and releases, and a Sync plans the card 
     milestone: { id: 12, iid: 3, title: '2026.10', state: 'active', due_date: '2026-10-31' } }];
   try {
     await loginWithToken(page, user.id, user.token);
+    await call(page, 'setLanguage', language);
+    const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
     await openBoard(page, board.boardId, board.slug);
     const config = { type: 'gitlab', url: base, projectKey: '42', token: 'planning-test-token' };
     await call(page, 'setListSyncSource', listId, config);
@@ -42,7 +45,7 @@ test('the Sync settings opt into sprint and releases, and a Sync plans the card 
     await expect(page.locator('.js-list-sync-planning-hint')).toHaveCount(0);
     await page.locator('.js-toggle-sync-field[data-field="sprint"]').click();
     await page.locator('.js-toggle-sync-field[data-field="releases"]').click();
-    await expect(page.locator('.js-list-sync-planning-hint')).toBeVisible();
+    await expect(page.locator('.js-list-sync-planning-hint')).toHaveText(strings['sync-planning-hint']);
     await page.locator('.js-list-sync-save').click();
     await expect.poll(() => db.findOne('lists', { _id: listId }).syncSource.fields).toEqual(
       expect.arrayContaining(['sprint', 'releases']));
@@ -76,6 +79,7 @@ test('the Sync settings opt into sprint and releases, and a Sync plans the card 
     db.deleteMany('listSyncCredentials', { listId });
   }
 });
+}
 
 test('without Scrum on the board, a Sync leaves planning alone', async ({ page, user, board }) => {
   const listId = db.find('lists', { boardId: board.boardId })[0]._id;
