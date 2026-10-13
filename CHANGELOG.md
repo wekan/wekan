@@ -3346,6 +3346,22 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/13f06820f7">Repair Latin template sharing and card view translations</a>. Thanks to xet7.</summary>
+
+- Translate 40 mixed-language shared-template, domain and card-view entries.
+  Preserve nonempty-template filtering, sharing scopes, domain examples and
+  access-controlled incomplete due-card views.
+- Latin and guarded-correction suites pass with 28,414 corrections. All 21
+  human-preference checks pass; 38,430 existing Chinese values are preserved.
+  Added template-settings browser coverage passes syntax and discovery; browser
+  execution remains pending.
+- Review remains unfinished: 973 Latin values contain the legacy “Latine:”
+  prefix.
+  Unprefixed values and other languages still require semantic review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

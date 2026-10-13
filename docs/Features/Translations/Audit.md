@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin template sharing and card views — 2026-10-14
+
+Commit `13f06820f7` repairs 40 prefixed shared-template, domain and card-view
+entries. Regression checks preserve domain examples, multiple sharing scopes,
+nonempty template-board filtering, view-title aliases, sort distinctions and
+the permission and incomplete-card restrictions of the all-users due view.
+
+The Latin and guarded-correction suites pass with 28,414 ledger entries. All 21
+human-preference checks pass. Template-settings browser coverage checks the
+scope explanation, nonempty-board condition and three scope controls. Syntax
+and discovery pass; browser runtime remains pending. Exact comparison preserves
+38,430 existing Chinese values.
+
+There remain 973 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin role explanations and weekdays — 2026-10-14
 
 Commit `61480096ba` repairs 35 prefixed role, weekday, deletion and checklist
