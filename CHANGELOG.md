@@ -2318,6 +2318,23 @@ placeholders; semantic review and the all-language translation work continue.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/44cc4c30ee">Repair Southern Sotho filter syntax and import guidance</a>. Thanks to xet7.</summary>
+
+Reviewed source keys 590–813 and corrected five values. Advanced-filter help
+preserves the literal escaped apostrophe example and identifies single quotes.
+Markdown help includes plain bullet lists importing as open cards. Excel export
+messages describe unused disk space rather than free-of-charge space, and custom
+fields use data terminology rather than agricultural fields.
+
+Southern Sotho and repair-ledger suites pass with 26,895 guarded corrections;
+all 21 human-preference checks pass. Two browser cases cover filter examples and
+Markdown help; syntax and discovery pass, with runtime execution pending.
+All 38,430 existing Chinese values are preserved. The remaining semantic review
+and all-language translation work continue.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

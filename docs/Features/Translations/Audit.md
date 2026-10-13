@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho historical review: fields, export and filter help — 2026-10-13
+
+Commit `44cc4c30ee` reviews source keys 590–813 and repairs five values.
+Custom fields no longer refer to agricultural fields. The Excel export failure
+and available-space label describe unused capacity instead of price. Advanced
+filter help specifies single quotation marks and preserves the literal escape
+syntax, replacing the incorrect curly apostrophe. Markdown import help restores
+the omitted plain-bullet-list support and open-card result. Other valid wording
+in this range is preserved.
+
+The Southern Sotho and repair-ledger suites pass with 26,895 guarded corrections;
+all 21 human-preference checks pass. Existing browser suites now include Southern
+Sotho filter examples and Markdown instructions. Syntax and discovery pass;
+runtime execution remains pending. Exact comparison preserves 38,430 existing
+Chinese values. Southern Sotho still has zero non-exempt English placeholders;
+historical review has reached key 813. The all-language objective is unfinished.
+
 ## Southern Sotho historical review: archive and template controls — 2026-10-13
 
 Commit `e69d2c7311` reviews source keys 455–589 and repairs three values.
