@@ -194591,5 +194591,215 @@
     "before": "Latine: Remove cover imago ex minicard",
     "after": "Remove imaginem tegminis a chartula",
     "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "remove-from-board",
+    "before": "Latine: Remove ex Tabula",
+    "after": "Remove e tabula",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "remove-label",
+    "before": "Latine: Remove Titulus",
+    "after": "Remove titulum",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "listDeletePopup-title",
+    "before": "Latine: Dele Index?",
+    "after": "Delere indicem?",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "remove-member",
+    "before": "Latine: Remove Sodalis",
+    "after": "Remove membrum",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "deleted-user",
+    "before": "Latine: Deletum usor",
+    "after": "Usor deletus",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "remove-member-from-card",
+    "before": "Latine: Remove ex Scheda",
+    "after": "Remove a charta",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "remove-member-pop",
+    "before": "Latine: Remove __name__ (__username__) ex __boardTitle__? The sodalis erit esse remotum ex omnia schedae adest hoc tabula. They erit receive a notificatio.",
+    "after": "Removere __name__ (__username__) e tabula __boardTitle__? Membrum ex omnibus chartis huius tabulae removebitur. Notificationem accipiet.",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "sandstorm-remove-member-warning",
+    "before": "Latine: Hoc tantum hides the sodalis inside WeKan. It does non revoke access ad the Sandstorm grain. Revoke their access in Sandstorm's Share access dialog too.",
+    "after": "Hoc membrum tantum intra WeKan celat. Accessum ad grain Sandstorm non revocat. Accessum eius etiam in dialogo 'Share access' Sandstorm revoca.",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "removeMemberPopup-title",
+    "before": "Latine: Remove Sodalis?",
+    "after": "Removere membrum?",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "rename-board",
+    "before": "Latine: Renomina Tabula",
+    "after": "Muta nomen tabulae",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "rescue-card-description",
+    "before": "Latine: Monstra rescue dialogue ante closing for unsaved scheda descriptions",
+    "after": "Monstra dialogum recuperationis ante clausuram si descriptiones chartarum non servatae sunt",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "rescue-card-description-dialogue",
+    "before": "Latine: Overwrite praesens scheda descriptio cum tuum mutationes?",
+    "after": "Reponere descriptionem praesentem chartae mutationibus tuis?",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "rules",
+    "before": "Latine: Regulae",
+    "after": "Regulae",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "search-cards",
+    "before": "Latine: Quaere ex scheda/index titles, descriptions et custom campi adest hoc tabula",
+    "after": "Quaere in titulis chartarum et indicum, descriptionibus et campis propriis huius tabulae",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "search-example",
+    "before": "Latine: Scribe textus tu quaere et press Enter",
+    "after": "Scribe textum quem quaeris et preme Enter",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "select-color",
+    "before": "Latine: Elige Color",
+    "after": "Elige colorem",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "select-board",
+    "before": "Latine: Elige Tabula",
+    "after": "Elige tabulam",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "set-wip-limit-value",
+    "before": "Latine: Set a limit for the maximum numerus de tasks in hoc index",
+    "after": "Constitue limitem maximi numeri munerum in hoc indice",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "setWipLimitPopup-title",
+    "before": "Latine: Set WIP Limit",
+    "after": "Constitue limitem WIP",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "shortcut-add-self",
+    "before": "Latine: Adde yourself ad praesens scheda",
+    "after": "Adde te ipsum chartae praesenti",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "shortcut-assign-self",
+    "before": "Latine: Assign yourself ad praesens scheda",
+    "after": "Assigna te ipsum chartae praesenti",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "shortcut-autocomplete-emoji",
+    "before": "Latine: Autocomplete emoji",
+    "after": "Comple automatice emoji",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "shortcut-autocomplete-members",
+    "before": "Latine: Autocomplete sodales",
+    "after": "Comple automatice membra",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "shortcut-clear-filters",
+    "before": "Latine: Purga omnia filters",
+    "after": "Purga omnia filtra",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "shortcut-close-dialog",
+    "before": "Latine: Claude Dialog",
+    "after": "Claude fenestram dialogi",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "shortcut-filter-my-cards",
+    "before": "Latine: Filtrum my schedae",
+    "after": "Filtra chartas meas",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "shortcut-filter-my-assigned-cards",
+    "before": "Latine: Filtrum my assigned schedae",
+    "after": "Filtra chartas mihi assignatas",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "shortcut-show-shortcuts",
+    "before": "Latine: Bring up hoc shortcuts index",
+    "after": "Monstra hunc indicem compendiorum",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "shortcut-toggle-filterbar",
+    "before": "Latine: Toggle Filtrum Sidebar",
+    "after": "Alterna visibilitatem lateris filtrorum",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "shortcut-toggle-searchbar",
+    "before": "Latine: Toggle Quaere Sidebar",
+    "after": "Alterna visibilitatem lateris quaestionis",
+    "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
   }
 ]

@@ -11,3 +11,13 @@ test('Latin skip link names the main content and retains its target', async ({ b
   await expect(link).not.toContainText('Latine:');
   await expect(page.locator('#content')).toHaveCount(1);
 });
+
+test('Latin shortcut page distinguishes joining and assigning a card', async ({ loggedInPage: page }) => {
+  const { navigateInApp } = require('../helpers/auth');
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'la'));
+  await navigateInApp(page, '/shortcuts');
+  await expect(page.locator('#content')).toContainText('Adde te ipsum chartae praesenti');
+  await expect(page.locator('#content')).toContainText('Assigna te ipsum chartae praesenti');
+  await expect(page.locator('#content')).toContainText('Filtra chartas mihi assignatas');
+  await expect(page.locator('#content')).not.toContainText('Latine: Adde yourself');
+});

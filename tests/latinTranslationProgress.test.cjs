@@ -471,3 +471,18 @@ assert.match(latin['notify-participate'], /creator vel membrum/);
 assert.match(latin['notify-watch'], /tabularum, indicum vel chartarum/);
 for (const key of ['previewAttachedImagePopup-title', 'previewClipboardImagePopup-title']) assert.equal(latin[key], latin.preview);
 assert.equal(new Set(['no-archived-cards', 'no-archived-lists', 'no-archived-swimlanes'].map(key => latin[key])).size, 3);
+
+const reviewedShortcutKeys = ["remove-from-board", "remove-label", "listDeletePopup-title", "remove-member", "deleted-user", "remove-member-from-card", "remove-member-pop", "sandstorm-remove-member-warning", "removeMemberPopup-title", "rename-board", "rescue-card-description", "rescue-card-description-dialogue", "rules", "search-cards", "search-example", "select-color", "select-board", "set-wip-limit-value", "setWipLimitPopup-title", "shortcut-add-self", "shortcut-assign-self", "shortcut-autocomplete-emoji", "shortcut-autocomplete-members", "shortcut-clear-filters", "shortcut-close-dialog", "shortcut-filter-my-cards", "shortcut-filter-my-assigned-cards", "shortcut-show-shortcuts", "shortcut-toggle-filterbar", "shortcut-toggle-searchbar"];
+for (const key of reviewedShortcutKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:They|yourself|Overwrite|Sidebar|Autocomplete|Bring up)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['remove-member-pop'], /omnibus chartis.*Notificationem accipiet/);
+assert.match(latin['sandstorm-remove-member-warning'], /tantum intra WeKan celat.*non revocat.*etiam.*Share access.*revoca/);
+assert.match(latin['rescue-card-description'], /ante clausuram.*non servatae/);
+assert.match(latin['set-wip-limit-value'], /maximi numeri munerum/);
+assert.notEqual(latin['shortcut-add-self'], latin['shortcut-assign-self']);
+assert.notEqual(latin['shortcut-filter-my-cards'], latin['shortcut-filter-my-assigned-cards']);
+assert.equal(latin['shortcut-close-dialog'], latin['close-dialog']);
+assert.equal(latin['rename-board'], latin['boardChangeTitlePopup-title']);
+assert.match(latin['search-cards'], /titulis chartarum et indicum, descriptionibus et campis propriis/);
