@@ -3267,6 +3267,22 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fd921c8fef">Repair Latin rule actions and saved descriptions</a>. Thanks to xet7.</summary>
+
+- Translate 50 action fragments and descriptions, preserving movement direction,
+  checklist polarity, membership scope and archive restoration. Recognize the
+  exact shared Latin imperative “Remove” without exempting longer English prose.
+- Latin, guarded-correction and shared-word tests pass with 28,234 corrections.
+  All 21 human-preference checks pass; 38,430 existing Chinese values are
+  preserved.
+  Added movement-control browser coverage passes syntax and discovery; browser
+  execution remains pending.
+- Review remains unfinished: 1,153 Latin values contain the legacy “Latine:”
+  prefix. Unprefixed values and other languages still require semantic review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

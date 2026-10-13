@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin rule actions and saved descriptions — 2026-10-14
+
+Commit `fd921c8fef` repairs 50 prefixed action fragments and descriptions.
+Regression coverage compares assembled movement and checklist labels with saved
+wording, and preserves top/bottom, check/uncheck, archive/restore and member scope.
+The exact Latin imperative “Remove” is a legitimate shared word; the filler now
+exempts only its exact source/key pair, with negative coverage for longer prose.
+
+The Latin, guarded-correction and shared-word suites pass with 28,234 ledger
+entries. All 21 human-preference checks pass. Movement-control browser coverage
+checks both options and selects bottom; syntax and discovery pass, runtime remains
+pending. Exact comparison preserves 38,430 existing Chinese values.
+
+There remain 1,153 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin trigger sentences and linking verbs — 2026-10-14
 
 Commit `61a2f68df0` repairs 33 prefixed trigger fragments and three unprefixed
