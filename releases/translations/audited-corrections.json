@@ -183195,5 +183195,313 @@
     "before": "__list__/__card__ ha un 1° sollecito [__board__]",
     "after": "__list__/__card__ hà u primu ramintamentu di scadenza [__board__]",
     "reason": "Repair mixed-language rule summaries, authentication and date activities; preserve environment identifiers, old/new values, movement direction and deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "act-atUserComment",
+    "before": "ti ha menzionato in a carta __card__: __comment__ in a lista __list__ in a swimlane __swimlane__ in a tavula __board__",
+    "after": "vi hà mintuvatu nant’à a carta __card__: __comment__ in a lista __list__ in a corsia __swimlane__ in a tavula __board__",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "accounts-allowUserDelete",
+    "before": "Permetti agli utilizatori di cancellare il loro profilo",
+    "after": "Permette à l’utilizatori di squassà u so contu",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "hide-minicard-label-text",
+    "before": "Piattà etichetta minicard",
+    "after": "Piattà u testu di l’etichette nant’à a minicarta",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "show-desktop-drag-handles",
+    "before": "Mustrà maniglie di trascinamento del desktop",
+    "after": "Mustrà e maniglie di trascinamentu nant’à l’urdinatore",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "lock-swimlane-height-resize",
+    "before": "Bluccà/sbluccà u cambiamentu d'altezza di a swimlane",
+    "after": "Bluccà/sbluccà u cambiamentu d’altezza di a corsia",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "same-width-for-all-lists",
+    "before": "Stessa larghezza per tutte e liste (tuttu u tavulinu)",
+    "after": "Listessa larghezza per tutte e liste (tutta a tavula)",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "toggle-header-icons-collapsed",
+    "before": "Chjode/apre l'icone di l'intestazione",
+    "after": "Riduce/espande l’icone di l’intestazione (passaghju mobile/urdinatore à e nutificazioni)",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "open-many-cards-at-once",
+    "before": "Apre più carte contemporaneamente",
+    "after": "Apre parechje carte à tempu",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "open-many-cards-at-once-description",
+    "before": "Ogni carta su cui fai clic resta aperta in una finestra propria. Quando questa opzione è disattivata, fare clic su una carta chiude quella che era aperta.",
+    "after": "Ogni carta chì cliccate ferma aperta in a so finestra. Quandu st’opzione hè disattivata, cliccà nant’à una carta chjode quella chì era aperta.",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "submit-on-enter-description",
+    "before": "Se attivu, premendo Enter si salvano il titulu di a carta, la descrizzione e altri editor in linea; Shift+Enter inserisce una nova riga. Se disattivu, Ctrl/Cmd+Enter arregistrà ed Enter inserisce una nova riga.",
+    "after": "Quandu hè attivatu, appughjà Enter arregistra u titulu di a carta, a discrizzione è l’altri editori in linea; Shift+Enter inserisce una linea nova. Quandu hè disattivatu, Ctrl/Cmd+Enter arregistra è Enter inserisce una linea nova.",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "show-on-minicard",
+    "before": "Mustrà nantu à a minischeda",
+    "after": "Mustrà nant’à a minicarta",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "editTeamPopup-title",
+    "before": "Mudificà team",
+    "after": "Mudificà a squadra",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "newTeamPopup-title",
+    "before": "Novu team",
+    "after": "Nova squadra",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "notifications",
+    "before": "Notifiche",
+    "after": "Nutificazioni",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "notification-settings-popup-description",
+    "before": "Cuntrollate quale nutificazione ricevite. Ordine di priorità: parametru di u Pannellu d'amministrazione, poi surclassamentu di u tavulone, poi u vostru propiu surclassamentu di parametru di membru.",
+    "after": "Cuntrollate e nutificazioni chì ricevite. Ordine di priorità: u paràmetru di u Pannellu d’amministrazione, po a persunalizazione di a tavula, po a vostra persunalizazione di membru.",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "help",
+    "before": "Aiuto",
+    "after": "Aiutu",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "filter-by-unread",
+    "before": "Filtra per non letto",
+    "after": "Filtrà secondu i micca letti",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "mark-all-as-read",
+    "before": "Segna tutto come letto",
+    "after": "Marcà tuttu cum’è lettu",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "remove-all-read",
+    "before": "Caccià tutti i già letti",
+    "after": "Caccià tutti quelli digià letti",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "allow-rename",
+    "before": "Consenti Rinomina",
+    "after": "Permette di rinuminà",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "allowRenamePopup-title",
+    "before": "Consenti Rinomina",
+    "after": "Permette di rinuminà",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "roles",
+    "before": "Ruoli",
+    "after": "Roli",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "roles-info",
+    "before": "Scegli quali ruoli di a tavula sono autorizzati a eseguire ciascuna azione. Gli utilizatori del Pannello di amministrazione (amministratori globali) hanno sempre tutti i diritti e non possono essere limitati qui.",
+    "after": "Sceglite i roli di tavula auturizati à fà ogni azzione. L’utilizatori di u Pannellu d’amministrazione (amministratori glubali) anu sempre tutti i diritti è ùn ponu micca esse limitati quì.",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "roles-status",
+    "before": "Stato dei ruoli",
+    "after": "Statu di i roli",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "roles-status-desc",
+    "before": "Che cosa può fare ogni ruolo di a tavula. Sola lettura: segue le caselle qui sopra, quindi mustrà la selezione prima del salvataggio.",
+    "after": "Ciò chì ogni rolu di tavula pò fà. Solu lettura: seguita e caselle quì sopra, dunque mostra ciò chì avete sceltu prima d’arregistrà.",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "roles-status-role",
+    "before": "Ruolo",
+    "after": "Rolu",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "roles-status-sees",
+    "before": "Vede le carte",
+    "after": "Vede e carte",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "roles-status-manage",
+    "before": "Impostazioni di a tavula",
+    "after": "Paràmetri di a tavula",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "roles-status-sees-assigned",
+    "before": "Solu assegnate",
+    "after": "Solu e carte assignate",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "start-day-of-week",
+    "before": "Imposta l'inizio del ghjornu di a settimana",
+    "after": "Definisce u primu ghjornu di a settimana",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "monday",
+    "before": "Lunedì",
+    "after": "Luni",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "tuesday",
+    "before": "Martedì",
+    "after": "Marti",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "wednesday",
+    "before": "Mercoledì",
+    "after": "Mercuri",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "thursday",
+    "before": "Giovedì",
+    "after": "Ghjovi",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "friday",
+    "before": "Venerdì",
+    "after": "Vennari",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "saturday",
+    "before": "Sabato",
+    "after": "Sabbatu",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "sunday",
+    "before": "Domenica",
+    "after": "Dumenica",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "status",
+    "before": "Stato",
+    "after": "Statu",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "owner",
+    "before": "Proprietario",
+    "after": "Pruprietariu",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "last-modified-at",
+    "before": "Ultima mudificà il",
+    "after": "Ultima mudificazione u",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "delete-linked-card-before-this-card",
+    "before": "Non puoi eliminare questa carta prima di avere squassatu una carta collegata che ha",
+    "after": "Ùn pudete micca squassà sta carta prima d’avè squassatu a carta ligata chì hà",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "delete-linked-cards-before-this-list",
+    "before": "Non puoi eliminare questa lista prima di avere squassatu le carte collegate che puntano su carte in questa lista",
+    "after": "Ùn pudete micca squassà sta lista prima d’avè squassatu e carte ligate chì puntanu à e carte di sta lista",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "hide-checked-items",
+    "before": "Piattà articoli controllati",
+    "after": "Piattà l’elementi marcati",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "hide-finished-checklist",
+    "before": "Piattà la lista di controllo completata",
+    "after": "Piattà a lista di cuntrollu compia",
+    "reason": "Repair mixed-language member preferences, role controls and weekdays; preserve keyboard combinations, admin rights, deletion ordering and notification placeholders."
   }
 ]

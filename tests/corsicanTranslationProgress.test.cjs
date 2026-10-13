@@ -535,3 +535,16 @@ assert.match(corsican['above-selected-card'], /^Sopra/);
 assert.match(corsican['below-selected-card'], /^Sottu/);
 assert.match(corsican['duenow'], /%s hè oghje$/);
 assert.match(corsican['act-newDue'], /primu ramintamentu di scadenza/);
+
+const memberPreferenceCorrectionKeys = ["act-atUserComment", "accounts-allowUserDelete", "hide-minicard-label-text", "show-desktop-drag-handles", "lock-swimlane-height-resize", "same-width-for-all-lists", "toggle-header-icons-collapsed", "open-many-cards-at-once", "open-many-cards-at-once-description", "submit-on-enter-description", "show-on-minicard", "editTeamPopup-title", "newTeamPopup-title", "notifications", "notification-settings-popup-description", "help", "filter-by-unread", "mark-all-as-read", "remove-all-read", "allow-rename", "allowRenamePopup-title", "roles", "roles-info", "roles-status", "roles-status-desc", "roles-status-role", "roles-status-sees", "roles-status-manage", "roles-status-sees-assigned", "start-day-of-week", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday", "status", "owner", "last-modified-at", "delete-linked-card-before-this-card", "delete-linked-cards-before-this-list", "hide-checked-items", "hide-finished-checklist"];
+for (const key of memberPreferenceCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /ti ha menzionato|Permetti agli|Ogni carta su cui|premendo Enter|Filtra per non letto|Segna tutto come letto|Scegli quali ruoli|Sola lettura: segue|Imposta l'inizio|Lunedì|Martedì|Mercoledì|Giovedì|Venerdì|Sabato|Domenica|Non puoi eliminare/, key);
+}
+assert.match(corsican['roles-info'], /amministratori glubali.*sempre tutti i diritti.*ùn ponu micca esse limitati/);
+assert.match(corsican['roles-status-desc'], /Solu lettura.*prima d’arregistrà/);
+assert.match(corsican['open-many-cards-at-once-description'], /so finestra.*disattivata.*chjode quella chì era aperta/);
+for (const literal of ['Enter', 'Shift+Enter', 'Ctrl/Cmd+Enter']) assert.ok(corsican['submit-on-enter-description'].includes(literal));
+assert.match(corsican['submit-on-enter-description'], /attivatu.*Enter arregistra.*disattivatu.*Ctrl\/Cmd\+Enter arregistra è Enter inserisce/);
+assert.match(corsican['delete-linked-cards-before-this-list'], /Ùn pudete micca.*prima d’avè.*carte ligate.*sta lista/);
+assert.deepEqual(['monday','tuesday','wednesday','thursday','friday','saturday','sunday'].map(k => corsican[k]), ['Luni','Marti','Mercuri','Ghjovi','Vennari','Sabbatu','Dumenica']);

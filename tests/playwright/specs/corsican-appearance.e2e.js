@@ -14,3 +14,18 @@ test('Corsican member font controls use translated size labels', async ({ boardP
   await expect(form.locator('.js-ui-font-size-btn[data-size="largest"]')).toHaveText('U più grande');
   await expect(form).not.toContainText('Grandissimo');
 });
+
+test('Corsican member preferences explain Enter and multiple-card behavior', async ({ boardPage: page }) => {
+  const strings = require('../../../imports/i18n/data/co.i18n.json');
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'co'));
+  await page.locator('.js-open-header-member-menu').first().click();
+  await page.locator('.js-change-settings').click();
+  for (const [selector, key] of [
+    ['.js-toggle-submit-on-enter', 'submit-on-enter-description'],
+    ['.js-toggle-open-many-cards-at-once', 'open-many-cards-at-once-description'],
+  ]) {
+    await expect(page.locator(selector)).toHaveAttribute('title', strings[key]);
+  }
+  await expect(page.locator('.js-toggle-open-many-cards-at-once')).toContainText('Apre parechje carte à tempu');
+  await expect(page.locator('.js-toggle-open-many-cards-at-once')).not.toContainText('contemporaneamente');
+});
