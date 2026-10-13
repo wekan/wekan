@@ -1178,9 +1178,23 @@ const BLOCKLY_TECHNICAL_VALUES = {
   'blockly-MATH_TRIG_SIN': 'sin',
   'blockly-MATH_TRIG_TAN': 'tan',
 };
+// Reviewed ordinary words shared with English. Restrict by locale, key and
+// exact source value: a longer replacement sentence must remain translatable.
+const SHARED_SOURCE_WORDS = {
+  ...Object.fromEntries(['es', 'es-AR', 'es-CL', 'es-CO', 'es_CO', 'es-LA',
+    'es-MX', 'es-PE', 'es-PY', 'it'].map(code => [code, { no: 'No' }])),
+  ...Object.fromEntries(['nl', 'nl-NL'].map(code => [code, { 'r-is': 'is' }])),
+  ...Object.fromEntries(['af', 'af_ZA'].map(code => [code,
+    { 'r-is': 'is', 'blockly-LISTS_SET_INDEX_INPUT_TO': 'as' }])),
+};
+const isSharedSourceWord = (code, key) =>
+  Object.hasOwn(SHARED_SOURCE_WORDS[code] || {}, key)
+  && SHARED_SOURCE_WORDS[code][key] === en[key];
+
 const isInvariantForLocale = (code, key) =>
   SHORT_TECHNICAL_VALUES[key] === en[key]
   || BLOCKLY_TECHNICAL_VALUES[key] === en[key]
+  || isSharedSourceWord(code, key)
   || isInvariantSource(en[key]) || Boolean(LOCALE_INVARIANTS[code]?.has(key)) || reviewedSourceTerms.has(`${code}:${key}`);
 
 function langFile(code) { return path.join(DATA_DIR, `${code}.i18n.json`); }

@@ -88,3 +88,22 @@ for (const [key, value, longer] of [['error', 'Error', 'An error occurred'], ['p
     assert.equal(shared.has(key), expected);
   }
 }
+
+const sharedStart = source.indexOf('const SHARED_SOURCE_WORDS =');
+const sharedEnd = source.indexOf('const isInvariantForLocale', sharedStart);
+const sharedCode = source.slice(sharedStart, sharedEnd) + '; ({ SHARED_SOURCE_WORDS, isSharedSourceWord })';
+const reviewedShared = vm.runInNewContext(sharedCode, { en: english });
+let sharedCount = 0;
+for (const [locale, words] of Object.entries(reviewedShared.SHARED_SOURCE_WORDS)) {
+  const translations = require(`../imports/i18n/data/${locale}.i18n.json`);
+  for (const [key, value] of Object.entries(words)) {
+    assert.equal(translations[key], value, `${locale}:${key}: preserve reviewed word`);
+    assert.equal(reviewedShared.isSharedSourceWord(locale, key), true);
+    assert.equal(reviewedShared.isSharedSourceWord('fi', key), false);
+    const changed = vm.runInNewContext(sharedCode, { en: { [key]: `${value} later` } });
+    assert.equal(changed.isSharedSourceWord(locale, key), false, 'changed prose is not exempt');
+    assert.equal(reviewedShared.isSharedSourceWord(locale, 'unrelated-key'), false);
+    sharedCount++;
+  }
+}
+assert.equal(sharedCount, 16);
