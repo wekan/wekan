@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin member mapping and appearance labels — 2026-10-14
+
+Commit `8e336c5a13` repairs 40 prefixed messages for import/restore popups,
+member mapping, sign-in labels, themes and fonts. The mapping instructions retain
+transfer of cards, comments and activity, the imported member's role limit and
+search by name, username or email across all users. The Clear theme category is
+now an adjective rather than a destructive command.
+
+The Latin and guarded-correction suites pass with 27,412 ledger entries. Checks
+cover permission limits, scope and consistent labels; all 21 human-preference
+checks pass. Font-popup browser coverage passes syntax and discovery; runtime
+remains pending. Exact comparison preserves 38,430 existing Chinese values.
+
+There remain 1,972 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin voting, Planning Poker and popup labels — 2026-10-14
 
 Commit `9c55d0f589` repairs 45 prefixed strings for voting, Planning Poker,

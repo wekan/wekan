@@ -2889,6 +2889,23 @@ the old language prefix; all-language review remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8e336c5a13">Repair Latin member mapping and appearance labels</a>. Thanks to xet7.</summary>
+
+Repair 40 mixed-language strings for imports, member mapping, themes and fonts.
+Preserve imported-role permission limits, transferred content and all-user
+search
+scope. Correct the Clear theme category, previously translated as a command.
+
+The Latin and guarded-correction suites and all 21 preservation checks pass.
+The font-popup browser case passes syntax and discovery; runtime remains
+pending.
+Existing Chinese values are unchanged. There remain 1,972 Latin values
+containing
+the old language prefix; all-language review remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
