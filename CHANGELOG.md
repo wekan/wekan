@@ -1925,6 +1925,18 @@ pending. Existing Chinese text is unchanged; broader review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9cb558de5f">Correct Corsican recurrence and account settings</a>. Thanks to xet7.</summary>
+
+Repair 46 upload, recurrence, support and lockout values. Distinguish card
+recurrence from reset, and wrong passwords from nonexistent usernames.
+
+The Corsican and repair-ledger suites and 21 human-preference checks pass.
+Lockout-settings browser coverage is registered; runtime execution remains
+pending. Existing Chinese text is unchanged; broader review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

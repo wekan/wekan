@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican recurrence, uploads and account controls — 2026-10-13
+
+Commit `9cb558de5f` repairs 46 values in the source-ordered review through
+key 2419. Card recurrence no longer says automatic reset: the scheduler
+creates the next occurrence. Upload guidance preserves invalid-name
+cancellation for both upload and rename, byte limits and PDF fallback.
+Lockout wording distinguishes a correct username with a wrong password
+from a username that does not exist. Support and visibility controls lose
+Italian wording; ISO 8601 and workspace placeholders remain intact.
+
+The Corsican and full repair-ledger suites pass; the ledger contains
+26,511 guarded corrections. All 21 human-preference checks pass. The new
+lockout-settings browser case passes syntax checking and registers, but
+has not run against the application. Exact comparison preserves 38,430
+existing Chinese values. Broader language review remains unfinished.
+
 ## Corsican checklists, storage and status — 2026-10-13
 
 Commit `588e39a31e` repairs 53 values in the source-ordered review through
