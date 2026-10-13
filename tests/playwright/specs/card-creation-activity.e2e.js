@@ -4,7 +4,7 @@ const db = require('../helpers/db');
 const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
 
-for (const language of ['en', 'co']) {
+for (const language of ['en', 'co', 'la']) {
 test(`ordinary card creation records one complete activity visible in card history in ${language}`, async ({ boardPage, board, user }) => {
   await boardPage.evaluate(language => Meteor.callAsync('setLanguage', language), language);
   const bp = new BoardPage(boardPage), title = 'Creation activity regression';
@@ -26,6 +26,10 @@ test(`ordinary card creation records one complete activity visible in card histo
   await heading.click();
   const entry = cp.root.locator(`.activity[data-id="${activity._id}"]`);
   await expect(entry).toBeVisible();
+  if (language === 'la') {
+    await expect(entry).toContainText('addidit');
+    await expect(entry).not.toContainText('Latine:');
+  }
   if (language === 'co') {
     await expect(entry).toContainText('hà aghjuntu');
     await expect(entry).not.toContainText('ha aghjuntu');

@@ -162,3 +162,18 @@ assert.match(latin['interrupted-import-foreign-board'], /ideo immutata mansit/);
 assert.match(latin['scrum-history-checkpoint-hint'], /tantum si nemo alius eas res postea mutavit/);
 assert.match(latin['scrum-history-checkpoint-hint'], /nullas res mutat/);
 assert.match(latin['login-setting-env-only'], /tantum per ambitum servitoris.*sine facultate mutandi/);
+
+const reviewedActivityKeys = ["accept", "activity-changedTitle", "activity-changedDescription", "act-deleteCard", "act-removeBoard", "act-removeList", "act-removeSwimlane", "board-members-same-org-only", "board-members-same-team-only", "comment-in-reply-to", "comment-reply", "restrict-comment-editing", "due-date-changes", "due-date-changed-times", "error-user-notSameOrgOrTeam", "act-activity-notify", "act-addAttachment", "act-deleteAttachment", "act-addSubtask", "act-addLabel", "act-addedLabel", "act-removeLabel", "act-removedLabel", "act-addChecklist", "act-addChecklistItem", "act-removeChecklist", "act-removeChecklistItem", "act-checkedItem", "act-uncheckedItem", "act-completeChecklist", "act-uncompleteChecklist", "act-addComment", "act-editComment", "act-deleteComment", "act-createBoard", "act-createSwimlane", "act-createCard", "act-createCustomField", "act-deleteCustomField", "act-setCustomField", "act-createList", "act-addBoardMember", "act-archivedBoard", "act-archivedCard", "act-archivedList", "act-archivedSwimlane", "act-importBoard", "act-importCard", "act-importList", "act-joinMember", "act-moveCard", "act-moveCardToOtherBoard", "act-removeBoardMember", "act-restoredCard", "act-unjoinMember", "actions", "activity-added", "activity-archived", "activity-attached", "activity-created", "activity-changedListTitle", "activity-customfield-created", "activity-excluded", "activity-imported", "activity-imported-board"];
+for (const key of reviewedActivityKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:checked|unchecked|uncompleted|commented|editing|deleting|times|at|the)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['activity-changedTitle'], /in %s rei %s/);
+assert.match(latin['act-moveCardToOtherBoard'], /ex indice __oldList__.*__oldSwimlane__.*__oldBoard__.*in indicem __list__.*__swimlane__.*__board__/);
+assert.match(latin['act-checkedItem'], / perfectam notavit/);
+assert.match(latin['act-uncheckedItem'], / imperfectam notavit/);
+assert.match(latin['restrict-comment-editing'], /Prohibe administratores.*aliorum usorum.*mutent vel deleant/);
+assert.equal(latin['act-addLabel'], latin['act-addedLabel']);
+assert.equal(latin['act-removeLabel'], latin['act-removedLabel']);
+assert.match(latin['act-restoredCard'], /restituit/);
+assert.match(latin['act-deleteCard'], /delevit/);

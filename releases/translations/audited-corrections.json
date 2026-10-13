@@ -189439,5 +189439,460 @@
     "before": "Latine: Historia",
     "after": "Historia",
     "reason": "Remove language-name prefixes and translate the Scrum preview label."
+  },
+  {
+    "locale": "la",
+    "key": "accept",
+    "before": "Latine: Accipe",
+    "after": "Accipe",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "activity-changedTitle",
+    "before": "Latine: mutatum titulus ad %s de %s",
+    "after": "titulum mutavit in %s rei %s",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "activity-changedDescription",
+    "before": "Latine: mutatum descriptio de %s",
+    "after": "descriptionem rei %s mutavit",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-deleteCard",
+    "before": "Latine: deletum scheda __card__ ex index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "chartam __card__ delevit ex indice __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-removeBoard",
+    "before": "Latine: deletum tabula __board__",
+    "after": "tabulam __board__ delevit",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-removeList",
+    "before": "Latine: deletum index __list__ at tabula __board__",
+    "after": "indicem __list__ delevit in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-removeSwimlane",
+    "before": "Latine: deletum semita natatoria __swimlane__ at tabula __board__",
+    "after": "semitam __swimlane__ delevit in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "board-members-same-org-only",
+    "before": "Latine: Adde tabula sodales tantum ex the idem Organizatio",
+    "after": "Adde membra tabulae tantum ex eadem consociatione",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "board-members-same-team-only",
+    "before": "Latine: Adde tabula sodales tantum ex the idem Manus",
+    "after": "Adde membra tabulae tantum ex eadem manu",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "comment-in-reply-to",
+    "before": "Latine: in responsione ad",
+    "after": "In responsione ad",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "comment-reply",
+    "before": "Latine: Responde",
+    "after": "Responde",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "restrict-comment-editing",
+    "before": "Latine: Restrict tabula admins ex editing vel deleting aliud usores' commentaria",
+    "after": "Prohibe administratores tabulae ne commentarios aliorum usorum mutent vel deleant",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "due-date-changes",
+    "before": "Latine: dies debitus mutationes",
+    "after": "Mutationes diei debiti",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "due-date-changed-times",
+    "before": "Latine: dies debitus mutatum %s times",
+    "after": "Dies debitus %s vicibus mutatus est",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "error-user-notSameOrgOrTeam",
+    "before": "Latine: tantum potes adde usores ex the idem Organizatio vel Manus",
+    "after": "Usores tantum ex eadem consociatione vel manu addere potes",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-activity-notify",
+    "before": "Latine: Actio Notificatio",
+    "after": "Notificatio actionis",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-addAttachment",
+    "before": "Latine: additum adnexum __attachment__ ad scheda __card__ at index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "adiunctum __attachment__ addidit chartae __card__ in indice __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-deleteAttachment",
+    "before": "Latine: deletum adnexum __attachment__ at scheda __card__ at index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "adiunctum __attachment__ delevit in charta __card__ in indice __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-addSubtask",
+    "before": "Latine: additum submunus __subtask__ ad scheda __card__ at index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "submunus __subtask__ addidit chartae __card__ in indice __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-addLabel",
+    "before": "Latine: Additum titulus __label__ ad scheda __card__ at index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "titulum __label__ addidit chartae __card__ in indice __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-addedLabel",
+    "before": "Latine: Additum titulus __label__ ad scheda __card__ at index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "titulum __label__ addidit chartae __card__ in indice __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-removeLabel",
+    "before": "Latine: Remotum titulus __label__ ex scheda __card__ at index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "titulum __label__ removit a charta __card__ in indice __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-removedLabel",
+    "before": "Latine: Remotum titulus __label__ ex scheda __card__ at index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "titulum __label__ removit a charta __card__ in indice __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-addChecklist",
+    "before": "Latine: additum index probationis __checklist__ ad scheda __card__ at index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "indicem probationis __checklist__ addidit chartae __card__ in indice __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-addChecklistItem",
+    "before": "Latine: additum res indicis __checklistItem__ ad index probationis __checklist__ at scheda __card__ at index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "rem __checklistItem__ addidit indici probationis __checklist__ in charta __card__ in indice __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-removeChecklist",
+    "before": "Latine: remotum index probationis __checklist__ ex scheda __card__ at index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "indicem probationis __checklist__ removit a charta __card__ in indice __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-removeChecklistItem",
+    "before": "Latine: remotum res indicis __checklistItem__ ex index probationis __checkList__ at scheda __card__ at index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "rem __checklistItem__ removit ex indice probationis __checkList__ in charta __card__ in indice __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-checkedItem",
+    "before": "Latine: checked __checklistItem__ de index probationis __checklist__ at scheda __card__ at index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "rem __checklistItem__ indicis probationis __checklist__ perfectam notavit in charta __card__ in indice __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-uncheckedItem",
+    "before": "Latine: unchecked __checklistItem__ de index probationis __checklist__ at scheda __card__ at index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "rem __checklistItem__ indicis probationis __checklist__ imperfectam notavit in charta __card__ in indice __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-completeChecklist",
+    "before": "Latine: perfectum index probationis __checklist__ at scheda __card__ at index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "indicem probationis __checklist__ perfecit in charta __card__ in indice __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-uncompleteChecklist",
+    "before": "Latine: uncompleted index probationis __checklist__ at scheda __card__ at index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "indicem probationis __checklist__ imperfectum notavit in charta __card__ in indice __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-addComment",
+    "before": "Latine: commented adest scheda __card__: __comment__ at index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "commentarium addidit chartae __card__: __comment__ in indice __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-editComment",
+    "before": "Latine: mutatum commentarium adest scheda __card__: __comment__ at index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "commentarium mutavit in charta __card__: __comment__ in indice __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-deleteComment",
+    "before": "Latine: deletum commentarium adest scheda __card__: __comment__ at index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "commentarium delevit in charta __card__: __comment__ in indice __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-createBoard",
+    "before": "Latine: creatum tabula __board__",
+    "after": "tabulam __board__ creavit",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-createSwimlane",
+    "before": "Latine: creatum semita natatoria __swimlane__ ad tabula __board__",
+    "after": "semitam __swimlane__ creavit in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-createCard",
+    "before": "Latine: creatum scheda __card__ ad index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "chartam __card__ creavit in indice __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-createCustomField",
+    "before": "Latine: creatum campus proprius __customField__ at tabula __board__",
+    "after": "campum proprium __customField__ creavit in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-deleteCustomField",
+    "before": "Latine: deletum campus proprius __customField__ at tabula __board__",
+    "after": "campum proprium __customField__ delevit in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-setCustomField",
+    "before": "Latine: mutatum campus proprius __customField__: __customFieldValue__ at scheda __card__ at index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "campum proprium __customField__ mutavit: __customFieldValue__ in charta __card__ in indice __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-createList",
+    "before": "Latine: additum index __list__ ad tabula __board__",
+    "after": "indicem __list__ addidit tabulae __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-addBoardMember",
+    "before": "Latine: additum sodalis __member__ ad tabula __board__",
+    "after": "membrum __member__ addidit tabulae __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-archivedBoard",
+    "before": "Latine: Tabula __board__ motum ad Archivum",
+    "after": "Tabula __board__ ad archivum mota est",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-archivedCard",
+    "before": "Latine: Scheda __card__ at index __list__ at semita natatoria __swimlane__ at tabula __board__ motum ad Archivum",
+    "after": "Charta __card__ in indice __list__ in semita __swimlane__ in tabula __board__ ad archivum mota est",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-archivedList",
+    "before": "Latine: Index __list__ at semita natatoria __swimlane__ at tabula __board__ motum ad Archivum",
+    "after": "Index __list__ in semita __swimlane__ in tabula __board__ ad archivum motus est",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-archivedSwimlane",
+    "before": "Latine: semita natatoria __swimlane__ at tabula __board__ motum ad Archivum",
+    "after": "Semita __swimlane__ in tabula __board__ ad archivum mota est",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-importBoard",
+    "before": "Latine: importatum tabula __board__",
+    "after": "tabulam __board__ importavit",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-importCard",
+    "before": "Latine: importatum scheda __card__ ad index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "chartam __card__ importavit in indicem __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-importList",
+    "before": "Latine: importatum index __list__ ad semita natatoria __swimlane__ at tabula __board__",
+    "after": "indicem __list__ importavit in semitam __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-joinMember",
+    "before": "Latine: additum sodalis __member__ ad scheda __card__ at index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "membrum __member__ addidit chartae __card__ in indice __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-moveCard",
+    "before": "Latine: motum scheda __card__ at tabula __board__ ex index __oldList__ at semita natatoria __oldSwimlane__ ad index __list__ at semita natatoria __swimlane__",
+    "after": "chartam __card__ in tabula __board__ movit ex indice __oldList__ in semita __oldSwimlane__ in indicem __list__ in semita __swimlane__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-moveCardToOtherBoard",
+    "before": "Latine: motum scheda __card__ ex index __oldList__ at semita natatoria __oldSwimlane__ at tabula __oldBoard__ ad index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "chartam __card__ movit ex indice __oldList__ in semita __oldSwimlane__ in tabula __oldBoard__ in indicem __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-removeBoardMember",
+    "before": "Latine: remotum sodalis __member__ ex tabula __board__",
+    "after": "membrum __member__ removit e tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-restoredCard",
+    "before": "Latine: restitutum scheda __card__ ad index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "chartam __card__ restituit in indicem __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "act-unjoinMember",
+    "before": "Latine: remotum sodalis __member__ ex scheda __card__ at index __list__ at semita natatoria __swimlane__ at tabula __board__",
+    "after": "membrum __member__ removit a charta __card__ in indice __list__ in semita __swimlane__ in tabula __board__",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "actions",
+    "before": "Latine: Actiones",
+    "after": "Actiones",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "activity-added",
+    "before": "Latine: additum %s ad %s",
+    "after": "addidit %s ad %s",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "activity-archived",
+    "before": "Latine: %s motum ad Archivum",
+    "after": "%s ad archivum translatum est",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "activity-attached",
+    "before": "Latine: attached %s ad %s",
+    "after": "adiunxit %s ad %s",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "activity-created",
+    "before": "Latine: creatum %s",
+    "after": "creavit %s",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "activity-changedListTitle",
+    "before": "Latine: renamed index ad %s",
+    "after": "nomen indicis mutavit in %s",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "activity-customfield-created",
+    "before": "Latine: creatum campus proprius %s",
+    "after": "campum proprium %s creavit",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "activity-excluded",
+    "before": "Latine: excluded %s ex %s",
+    "after": "exclusit %s ex %s",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "activity-imported",
+    "before": "Latine: importatum %s into %s ex %s",
+    "after": "importavit %s in %s ex %s",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
+  },
+  {
+    "locale": "la",
+    "key": "activity-imported-board",
+    "before": "Latine: importatum %s ex %s",
+    "after": "importavit %s ex %s",
+    "reason": "Replace prefixed mixed-language activity text with Latin and preserve action meaning and placeholder roles."
   }
 ]
