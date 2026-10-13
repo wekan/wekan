@@ -188438,5 +188438,47 @@
     "before": "Ketsahalo Imeile Mongolo",
     "after": "Mongolo wa imeile ya tsebiso ya ketsahalo",
     "reason": "Clarify automatic clickable links, external tracker templates, positive numeric limits and email template labels."
+  },
+  {
+    "locale": "st",
+    "key": "MongoDB_version",
+    "before": "MongoDB compatible version",
+    "after": "Mofuta o tsamaellanang le MongoDB",
+    "reason": "Translate MongoDB status descriptions and clarify card-field ordering and movement."
+  },
+  {
+    "locale": "st",
+    "key": "MongoDB_storage_engine",
+    "before": "MongoDB storage engine",
+    "after": "Enjene ya polokelo ya MongoDB",
+    "reason": "Translate MongoDB status descriptions and clarify card-field ordering and movement."
+  },
+  {
+    "locale": "st",
+    "key": "MongoDB_Oplog_enabled",
+    "before": "MongoDB Oplog enabled",
+    "after": "Oplog ya MongoDB e buletswe",
+    "reason": "Translate MongoDB status descriptions and clarify card-field ordering and movement."
+  },
+  {
+    "locale": "st",
+    "key": "card-field-order",
+    "before": "Tatellano ya masimo a karete",
+    "after": "Tatellano ya dikarolo tsa karete",
+    "reason": "Translate MongoDB status descriptions and clarify card-field ordering and movement."
+  },
+  {
+    "locale": "st",
+    "key": "card-field-order-move-up",
+    "before": "Sisa ka holimo",
+    "after": "Fallisetsa hodimo",
+    "reason": "Translate MongoDB status descriptions and clarify card-field ordering and movement."
+  },
+  {
+    "locale": "st",
+    "key": "card-field-order-move-down",
+    "before": "Sisa ka tlase",
+    "after": "Fallisetsa tlase",
+    "reason": "Translate MongoDB status descriptions and clarify card-field ordering and movement."
   }
 ]

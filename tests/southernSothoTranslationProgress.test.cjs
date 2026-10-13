@@ -676,3 +676,18 @@ for (const [part, noun] of [['subject', 'Sehlooho'], ['body', 'Mongolo']]) {
   assert.equal(sesotho[`email-templates-activity-${part}`], `${noun} ${part === 'subject' ? 'sa' : 'wa'} imeile ya tsebiso ya ketsahalo`);
   assert.notEqual(sesotho[`email-templates-invite-${part}`], sesotho[`email-templates-activity-${part}`]);
 }
+
+// Historical review through key 1416: technical names do not exempt prose.
+for (const key of ['MongoDB_version', 'MongoDB_storage_engine', 'MongoDB_Oplog_enabled']) {
+  assert.notEqual(sesotho[key], english[key]);
+  assert.match(sesotho[key], /MongoDB/);
+}
+assert.match(sesotho.MongoDB_version, /tsamaellanang/);
+assert.match(sesotho.MongoDB_storage_engine, /Enjene ya polokelo/);
+assert.match(sesotho.MongoDB_Oplog_enabled, /Oplog.*e buletswe/);
+assert.doesNotMatch(sesotho.MongoDB_Oplog_enabled, /enabled/);
+assert.equal(sesotho['card-field-order'], 'Tatellano ya dikarolo tsa karete');
+assert.doesNotMatch(sesotho['card-field-order'], /masimo/);
+assert.equal(sesotho['card-field-order-move-up'], 'Fallisetsa hodimo');
+assert.equal(sesotho['card-field-order-move-down'], 'Fallisetsa tlase');
+assert.notEqual(sesotho['card-field-order-move-up'], sesotho['card-field-order-move-down']);

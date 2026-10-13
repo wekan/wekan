@@ -50,3 +50,15 @@ test('Southern Sotho card linking names the destination without claiming the cur
   await expect(action).not.toContainText('ena');
   await page.evaluate(() => Popup.close());
 });
+
+
+test('Southern Sotho card settings identify data fields', async ({ boardPage: page }) => {
+  await page.evaluate(async () => {
+    await Meteor.callAsync('setLanguage', 'st');
+    Popup.open('boardCardSettings')({ currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
+  });
+  const heading = page.locator('.js-pop-over .card-field-order-heading');
+  await expect(heading).toHaveText('Tatellano ya dikarolo tsa karete');
+  await expect(heading).not.toContainText('masimo');
+  await page.evaluate(() => Popup.close());
+});
