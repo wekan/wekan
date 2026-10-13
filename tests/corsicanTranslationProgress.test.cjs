@@ -605,3 +605,16 @@ assert.match(corsican['mongodb-compact-warning'], /bluccante.*secundarii.*prima.
 assert.match(corsican['default-save-storage-description'], /novi appicci caricati/);
 assert.match(corsican['board-status-overtime-cards'], /tempu supplementariu/);
 assert.doesNotMatch(corsican['board-status-overtime-cards'], /scadenza|scadut/);
+
+const accountRecurrenceCorrectionKeys = ["password-again", "if-you-already-have-an-account", "minicardDetailsActionsPopup-title", "Mongo_sessions_count", "change-visibility", "max-upload-filesize", "allowed-upload-filetypes", "max-avatar-filesize", "allowed-avatar-filetypes", "invalid-file", "preview-pdf-not-supported", "drag-board", "drag-board-to-workspace", "newTranslationPopup-title", "translation", "text", "translation-text", "show-subtasks-field", "show-week-of-year", "convert-to-markdown", "collapse", "uncollapse", "card-recurrence-interval", "cardRecurrenceIntervalPopup-title", "card-recurrence-interval-none", "hideCompletedSubtasks", "support", "supportPopup-title", "support-info-not-added-yet", "support-title", "support-content", "accessibility-info-not-added-yet", "accounts-lockout-known-users", "accounts-lockout-unknown-users", "accounts-lockout-locked-users", "accounts-lockout-locked-users-info", "accounts-lockout-no-locked-users", "accounts-lockout-failed-attempts", "accounts-lockout-remaining-time", "accounts-lockout-user-unlocked", "accounts-lockout-user-locked", "accounts-lockout-click-to-unlock", "accounts-lockout-status", "admin-people-filter-locked", "admin-people-filter-inactive", "admin-people-active-status"];
+for (const key of accountRecurrenceCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /Se hai già|Dettagli carta|Numero sessioni|Cambia visibilità|consentiti|non è valido|Il vostro dispositivo|Trascina la|traduzione personalizzata|sottoattività|dell.anno|Non collassare|Ripristinazione|sottumissioni|Supporto|Contenuto del|non sono ancora|Impostazioni|sconosciuti|bloccati|Al momento|Tentativi Falliti|Tempo Rimanente|è stato sbloccato|Clicca per sbloccare|Non Attivu/, key);
+}
+assert.match(corsican['invalid-file'], /caricamentu o u cambiamentu di nome hè annullatu/);
+assert.match(corsican['show-week-of-year'], /ISO 8601/);
+assert.match(corsican['card-recurrence-interval'], /Ricurrenza di a carta/);
+assert.notEqual(corsican['card-recurrence-interval'], corsican['checklist-reset-interval']);
+assert.match(corsican['card-recurrence-interval-none'], /ùn ripete micca a carta/);
+assert.match(corsican['accounts-lockout-known-users'], /currettu.*parolla d’intrata sbagliata/);
+assert.match(corsican['accounts-lockout-unknown-users'], /ùn esiste micca/);

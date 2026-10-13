@@ -185253,5 +185253,327 @@
     "before": "Avanzamento",
     "after": "Avanzamentu",
     "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "password-again",
+    "before": "Parolla (di novu)",
+    "after": "Parolla d’intrata (di novu)",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "if-you-already-have-an-account",
+    "before": "Se hai già un account",
+    "after": "S’è vo avete digià un contu",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "minicardDetailsActionsPopup-title",
+    "before": "Dettagli carta",
+    "after": "Ditaglii di a carta",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "Mongo_sessions_count",
+    "before": "Numero sessioni Mongo",
+    "after": "Numeru di sessioni Mongo",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "change-visibility",
+    "before": "Cambia visibilità",
+    "after": "Mudificà a visibilità",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "max-upload-filesize",
+    "before": "Max dimensione di caricamentu del schedariu in byte.",
+    "after": "Dimensione massima di u schedariu da caricà in byte:",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "allowed-upload-filetypes",
+    "before": "I tipi di schedariu consentiti per l'upload sono:",
+    "after": "Tipi di schedarii auturizati à u caricamentu:",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "max-avatar-filesize",
+    "before": "Max dimensione di caricamentu dell'avatar in byte.",
+    "after": "Dimensione massima di u schedariu d’avatar in byte:",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "allowed-avatar-filetypes",
+    "before": "I tipi di schedariu consentiti per l'avatar sono:",
+    "after": "Tipi di schedarii d’avatar auturizati:",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "invalid-file",
+    "before": "Se il nome del schedariu non è valido, il caricamentu o la ridenominazione viene annullata.",
+    "after": "S’è u nome di u schedariu ùn hè micca validu, u caricamentu o u cambiamentu di nome hè annullatu.",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "preview-pdf-not-supported",
+    "before": "Il vostro dispositivo non supporta l'anteprima PDF. In alternativa provate a scaricare il schedariu.",
+    "after": "U vostru dispusitivu ùn permette micca a previsualizazione di PDF. Pruvate à scaricà u schedariu.",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "drag-board",
+    "before": "Muovi la tavula",
+    "after": "Trascinà a tavula",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "drag-board-to-workspace",
+    "before": "Trascina la tavula per assegnarla a __workspaces__ (rilascia sullo spaziu di travagliu in a barra laterale)",
+    "after": "Trascinà a tavula per assignà la à __workspaces__ (lascià la nant’à u spaziu di travagliu in a barra laterale)",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "newTranslationPopup-title",
+    "before": "Nova stringa di traduzione personalizzata",
+    "after": "Nova stringa di traduzzione persunalizata",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "translation",
+    "before": "Traduzione",
+    "after": "Traduzzione",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "text",
+    "before": "Testo",
+    "after": "Testu",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "translation-text",
+    "before": "Testo di a traduzione",
+    "after": "Testu di a traduzzione",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "show-subtasks-field",
+    "before": "Mustrà campo di e sottoattività",
+    "after": "Mustrà u campu di i sottucompiti",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "show-week-of-year",
+    "before": "Mustrà la settimana dell'anno (ISO 8601)",
+    "after": "Mustrà a settimana di l’annu (ISO 8601)",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "convert-to-markdown",
+    "before": "Converti in markdown",
+    "after": "Cunvertisce in Markdown",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "collapse",
+    "before": "Comprimi",
+    "after": "Ripiegà",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "uncollapse",
+    "before": "Non collassare",
+    "after": "Spiegà",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "card-recurrence-interval",
+    "before": "Ripristinazione automatica",
+    "after": "Ricurrenza di a carta",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "cardRecurrenceIntervalPopup-title",
+    "before": "Ripristinazione automatica",
+    "after": "Ricurrenza di a carta",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "card-recurrence-interval-none",
+    "before": "Spentu (ùn si ripristina micca automaticamente)",
+    "after": "Disattivata (ùn ripete micca a carta autumaticamente)",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "hideCompletedSubtasks",
+    "before": "Piatta e sottumissioni compie",
+    "after": "Piattà i sottucompiti compii",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "support",
+    "before": "Supporto",
+    "after": "Assistenza",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "supportPopup-title",
+    "before": "Supporto",
+    "after": "Assistenza",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "support-info-not-added-yet",
+    "before": "Le infurmazioni di supporto non sono ancora state aggiunte",
+    "after": "L’infurmazioni d’assistenza ùn sò ancu state aghjunte",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "support-title",
+    "before": "Titulu del supporto",
+    "after": "Titulu di l’assistenza",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "support-content",
+    "before": "Contenuto del supporto",
+    "after": "Cuntenutu di l’assistenza",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "accessibility-info-not-added-yet",
+    "before": "Le infurmazioni sull'accessibilità non sono ancora state aggiunte ",
+    "after": "L’infurmazioni d’accessibilità ùn sò ancu state aghjunte",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "accounts-lockout-known-users",
+    "before": "Impostazioni per utilizatori noti (nome utilizatore corretto, parolla errata)",
+    "after": "Parametri per l’utilizatori cunnisciuti (nome d’utilizatore currettu, parolla d’intrata sbagliata)",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "accounts-lockout-unknown-users",
+    "before": "Impostazioni per utilizatori sconosciuti (nome utilizatore inesistente)",
+    "after": "Parametri per l’utilizatori scunnisciuti (nome d’utilizatore chì ùn esiste micca)",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "accounts-lockout-locked-users",
+    "before": "Utilizatori bloccati",
+    "after": "Utilizatori bluccati",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "accounts-lockout-locked-users-info",
+    "before": "Utilizatori attualmente bloccati a causa di troppi tentativi di accesso non riusciti ",
+    "after": "Utilizatori attualmente bluccati per via di troppi tentativi di cunnessione fiascati",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "accounts-lockout-no-locked-users",
+    "before": "Al momento non ci sono utilizatori bloccati",
+    "after": "Ùn ci hè attualmente nisun utilizatore bluccatu",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "accounts-lockout-failed-attempts",
+    "before": "Tentativi Falliti",
+    "after": "Tentativi fiascati",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "accounts-lockout-remaining-time",
+    "before": "Tempo Rimanente",
+    "after": "Tempu chì ferma",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "accounts-lockout-user-unlocked",
+    "before": "L'utilizatore è stato sbloccato cù successo",
+    "after": "L’utilizatore hè statu sbluccatu cù successu",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "accounts-lockout-user-locked",
+    "before": "L'utilizatore è bloccato",
+    "after": "L’utilizatore hè bluccatu",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "accounts-lockout-click-to-unlock",
+    "before": "Clicca per sbloccare questu utilizatore",
+    "after": "Cliccate per sbluccà st’utilizatore",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "accounts-lockout-status",
+    "before": "Stato",
+    "after": "Statu",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "admin-people-filter-locked",
+    "before": "Solu utilizatori bloccati",
+    "after": "Solu l’utilizatori bluccati",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "admin-people-filter-inactive",
+    "before": "Non Attivu",
+    "after": "Micca attivu",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "admin-people-active-status",
+    "before": "Status Attivu",
+    "after": "Statu d’attività",
+    "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
   }
 ]
