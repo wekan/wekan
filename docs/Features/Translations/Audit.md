@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin storage and attachment repair — 2026-10-14
+
+Commit `104480b6cc` repairs 44 storage and progress entries. The descriptions
+retain the distinction between recorded storage and the actual file location,
+read-enabled storage scope, newly uploaded attachments and saved/failed states.
+Technical storage names stay literal; “Resume” is also the Latin imperative,
+protected by an exact-key/source exception and a negative longer-prose test.
+
+Three translation suites pass with 28,797 correction ledger entries. All 21
+human-preference checks pass, and exact comparison preserves 38,430 existing
+Chinese values. The admin storage browser test checks the repair explanation
+and default destination controls; syntax and discovery pass, runtime is pending.
+
+There remain 590 Latin values containing “Latine:”. Unprefixed values and other
+languages still require semantic review. All-language verification is unfinished.
+
 ## Latin checklist and attachment actions — 2026-10-14
 
 Commit `a83a794b12` repairs 32 mixed-language entries for checklist actions,

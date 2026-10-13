@@ -3528,6 +3528,20 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/104480b6cc">Repair Latin storage and attachment repair translations</a>. Thanks to xet7.</summary>
+
+- Translate 44 storage, repair and progress entries. Preserve technical names,
+  read-enabled storage scope, actual file location and distinct repair results.
+  Retain “Resume” as a Latin imperative with an exact shared-word exception.
+- Three translation suites and 21 human-preference checks pass; all 38,430
+  existing Chinese values are preserved. Storage browser coverage passes syntax
+  and discovery; execution remains pending.
+- Translation review remains unfinished: 590 Latin values contain the legacy
+  prefix. Unprefixed values and other languages still need semantic review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
