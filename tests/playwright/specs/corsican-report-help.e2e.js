@@ -14,3 +14,24 @@ test('Corsican recovery report explains automatic data protection and repair', a
   await expect(description).toContainText('riparazione autumatica');
   await expect(description).not.toContainText('ripristino dei dati');
 });
+
+test('Corsican problem summary explains reviewing and acknowledging new problems', async ({ page, adminUser }) => {
+  const db = require('../helpers/db');
+  const id = `corsican-report-${adminUser.id}`;
+  const ack = db.findOne('eventlogAcks', { stream: 'tests' });
+  const at = new Date(Math.max(Date.now(), new Date(ack?.at || 0).getTime()) + 1);
+  db.insertOne('eventlog', { _id: id, stream: 'tests', at, severity: 'medium', category: 'translation-test' });
+  try {
+    await loginWithToken(page, adminUser.id, adminUser.token);
+    await page.evaluate(() => Meteor.callAsync('setLanguage', 'co'));
+    await navigateInApp(page, '/admin/problems/summary');
+    const help = page.getByText(strings['problems-summary-help'], { exact: true });
+    await expect(help).toBeVisible();
+    await expect(help).toContainText('zone di prublemi chì avete esaminatu');
+    await expect(help).toContainText('Cunfirmà');
+    await expect(help).toContainText('rimette à zeru');
+    await expect(help).not.toContainText('che hai esaminato');
+  } finally {
+    db.deleteOne('eventlog', { _id: id });
+  }
+});

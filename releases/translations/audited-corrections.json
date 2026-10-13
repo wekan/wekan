@@ -187318,5 +187318,320 @@
     "before": "Creà account",
     "after": "Creà un contu",
     "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "available-repositories",
+    "before": "Repository disponibili",
+    "after": "Ripusitorii dispunibuli",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "repositories",
+    "before": "Repository",
+    "after": "Ripusitorii",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "repository",
+    "before": "Archiviu dei sorgenti",
+    "after": "Ripusitoriu",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "repository-name",
+    "before": "Nome del repository",
+    "after": "Nome di u ripusitoriu",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "last-modified",
+    "before": "Ultima mudificà",
+    "after": "Ultima mudificazione",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "create-repository",
+    "before": "Creà repository",
+    "after": "Creà un ripusitoriu",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "upload-repository",
+    "before": "Caricà/Aggiorna repository",
+    "after": "Caricà/Aghjurnà un ripusitoriu",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "api-endpoints",
+    "before": "Endpoint API",
+    "after": "Punti d’accessu API",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "otp-required",
+    "before": "Codice OTP richiesto",
+    "after": "Codice OTP necessariu",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "invalid-credentials",
+    "before": "Username o parolla non validi",
+    "after": "Nome d’utilizatore o parolla d’intrata micca validi",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "username-password-required",
+    "before": "Username e parolla sono obbligatori",
+    "after": "U nome d’utilizatore è a parolla d’intrata sò necessarii",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "password-mismatch",
+    "before": "Le parolla non corrispondono",
+    "after": "E parolle d’intrata ùn currispondenu micca",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "user-exists",
+    "before": "L'utilizatore esiste già",
+    "after": "L’utilizatore esiste digià",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "login",
+    "before": "Accesso",
+    "after": "Cunnessione",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "login-allow",
+    "before": "Accesso: consenti",
+    "after": "Cunnessione: auturizà",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "file",
+    "before": "Documento",
+    "after": "Schedariu",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "log",
+    "before": "Registro",
+    "after": "Registru",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "logout",
+    "before": "Esci",
+    "after": "Scunnettà si",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "server",
+    "before": "Elaboratore server",
+    "after": "Servitore",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "protocol",
+    "before": "Protocollo",
+    "after": "Prutucollu",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "summary",
+    "before": "Riepilogo",
+    "after": "Riassuntu",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "problems-summary-help",
+    "before": "Selezziunà le aree problematiche che hai esaminato, quindi fai clic su Cunfirmà per azzerare il conteggio dei nuovi problemi.",
+    "after": "Marcate e zone di prublemi chì avete esaminatu, po cliccate nant’à Cunfirmà per rimette à zeru u so numeru di prublemi novi.",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "problems-status-title",
+    "before": "Stato",
+    "after": "Statu",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "problems-in-progress-help",
+    "before": "Queste migrazioni o riparazioni sono in corso ora. Gli accessi possono essere lenti, o mostrare \"Devi effettuare l'accesso\" o l'indicatore \"Caricamentu, attendi\", finché non terminano e la CPU si libera.",
+    "after": "Ste migrazioni o riparazioni sò in corsu avà. E cunnessioni ponu esse lente, o mustrà «Must be logged in» o un indicatore «Loading, please wait», finu à ch’elle sianu compie è chì l’usu di a CPU cali.",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "repair-broken-cards",
+    "before": "Ripara le carte danneggiate",
+    "after": "Riparà e carte dannighjate",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "repairing",
+    "before": "Riparazione in corso…",
+    "after": "Riparazione in corsu…",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "repair-broken-cards-done-unfixable",
+    "before": "__fixed__ carta/e riparate. __unfixable__ carta/e non hanno una tavula e non possono essere riparate automaticamente.",
+    "after": "__fixed__ carta/e riparate. __unfixable__ carta/e ùn anu micca tavula è ùn ponu micca esse riparate autumaticamente.",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "cpu-usage-current",
+    "before": "Utilizzo attuale di a CPU",
+    "after": "Usu attuale di a CPU",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "cpu-load-average",
+    "before": "carico medio",
+    "after": "Carica media",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "event-datetime",
+    "before": "Data e ora",
+    "after": "Data è ora",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "event-action",
+    "before": "Azione",
+    "after": "Azzione",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "event-detail",
+    "before": "Dettaglio",
+    "after": "Ditagliu",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "event-ip",
+    "before": "Indirizzo IP",
+    "after": "Indirizzu IP",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "event-ipv4",
+    "before": "Indirizzo IPv4",
+    "after": "Indirizzu IPv4",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "event-ipv6",
+    "before": "Indirizzo IPv6",
+    "after": "Indirizzu IPv6",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "integrityReportTitle",
+    "before": "Integrità del schedariu system",
+    "after": "Integrità di u sistema di schedarii",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "export-select-what-to-include",
+    "before": "Selezziunà cosa includere:",
+    "after": "Selezziunate ciò chì vulete include:",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "export-card-details",
+    "before": "Dettagli di a carta (ogni carta come nell'esportazione di a carta)",
+    "after": "Ditaglii di e carte (ogni carta cum’è in l’espurtazione di carta)",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "import-here-instruction",
+    "before": "Impurtà qui un'esportazione di WeKan (.json o .zip):",
+    "after": "Impurtate quì un’espurtazione WeKan (.json o .zip):",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "import-not-wekan-export",
+    "before": "Questu schedariu non è un'esportazione di WeKan",
+    "after": "Stu schedariu ùn hè micca un’espurtazione WeKan",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "operator-number",
+    "before": "numero",
+    "after": "numeru",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-operator-number",
+    "before": "`__operator_number__:<number>` - carte il cui numero è *<number>*",
+    "after": "`__operator_number__:<number>` - carte chì anu u numeru di carta *<number>*",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "import-board-source",
+    "before": "Impurtà tavula (Trello, Jira, esportazione di WeKan, CSV, Excel, …)",
+    "after": "Impurtà una tavula (Trello, Jira, espurtazione WeKan, CSV, Excel, …)",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "import-parts-instruction",
+    "before": "Vengono importate solu le parti selezionate. La stessa scelta è usata durante l'esportazione.",
+    "after": "Solu e parte marcate sò impurtate. A listessa scelta hè aduprata per l’espurtazione.",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
+  },
+  {
+    "locale": "co",
+    "key": "import-wekan-file",
+    "before": "Impurtà da un schedariu di esportazione .json o .zip:",
+    "after": "Impurtà da un schedariu d’espurtazione .json o .zip:",
+    "reason": "Repair Corsican repository, account, problem-report and scoped-import wording; preserve search syntax and repair limits."
   }
 ]

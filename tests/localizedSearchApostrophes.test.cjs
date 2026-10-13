@@ -239,3 +239,8 @@ for (const [key, field] of [['predicate-due', 'dueAt'], ['predicate-created', 'c
   }
 }
 assert.equal(query(`${labels['operator-sort']}:not-a-sort`).hasErrors(), true);
+
+const corsicanCardNumber = query(`${labels['operator-number']}:42`);
+assert.equal(corsicanCardNumber.hasErrors(), false);
+assert.equal(corsicanCardNumber.getQueryParams().getPredicate('cardNumber'), 42);
+assert.equal(query(`${labels['operator-number']}:not-a-number`).hasErrors(), true);

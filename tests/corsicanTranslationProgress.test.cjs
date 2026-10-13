@@ -685,3 +685,14 @@ assert.match(corsican['migration-cpu-threshold-description'], /pausa.*CPU franca
 assert.match(corsican['migration-info-text'], /una sola volta.*cuntinueghja in fondu.*chjudite u navigatore/);
 for (const [key, target] of [['migrate-all-to-gridfs', 'GridFS'], ['migrate-all-to-s3', 'S3']]) assert.ok(corsican[key].endsWith(target));
 assert.match(corsican['migration-delay-ms'], /\(ms\)/);
+
+const importStatusCorrectionKeys = ["available-repositories", "repositories", "repository", "repository-name", "last-modified", "create-repository", "upload-repository", "api-endpoints", "otp-required", "invalid-credentials", "username-password-required", "password-mismatch", "user-exists", "login", "login-allow", "file", "log", "logout", "server", "protocol", "summary", "problems-summary-help", "problems-status-title", "problems-in-progress-help", "repair-broken-cards", "repairing", "repair-broken-cards-done-unfixable", "cpu-usage-current", "cpu-load-average", "event-datetime", "event-action", "event-detail", "event-ip", "event-ipv4", "event-ipv6", "integrityReportTitle", "export-select-what-to-include", "export-card-details", "import-here-instruction", "import-not-wekan-export", "operator-number", "globalSearch-instructions-operator-number", "import-board-source", "import-parts-instruction", "import-wekan-file"];
+for (const key of importStatusCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /Repository disponibili|dei sorgenti|del repository|Aggiorna|OTP richiesto|Username|non validi|sono obbligatori|non corrispondono|esiste già|Accesso|Documento|Registro|Elaboratore|Protocollo|Riepilogo|che hai esaminato|Queste migrazioni|Ripara le|in corso|non hanno|Utilizzo attuale|carico medio|Indirizzo|del schedariu system|cosa includere|Dettagli di a|qui un.esportazione|non è un.esportazione|il cui numero|Vengono importate|schedariu di esportazione/, key);
+}
+assert.match(corsican['repair-broken-cards-done-unfixable'], /__fixed__.*__unfixable__.*ùn anu micca tavula.*ùn ponu micca esse riparate autumaticamente/);
+assert.match(corsican['problems-summary-help'], /Marcate.*esaminatu.*Cunfirmà.*zeru.*prublemi novi/);
+assert.match(corsican['import-parts-instruction'], /Solu e parte marcate.*listessa scelta.*espurtazione/);
+assert.match(corsican['import-here-instruction'], /\.json o \.zip/);
+assert.equal(corsican['operator-number'], 'numeru');
