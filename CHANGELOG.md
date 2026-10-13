@@ -3413,6 +3413,24 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/959bfbcedc">Repair Latin sorting and dependency translations</a>. Thanks to xet7.</summary>
+
+- Translate 37 mixed-language sorting, completion and dependency entries.
+  Preserve relationship direction, import formats and unmatched counts, and
+  retain
+  the exact shared Latin word “Color”.
+- Latin, guarded-correction and shared-word suites pass with 28,571 corrections.
+  All 21 human-preference checks pass; 38,430 existing Chinese values are
+  preserved.
+  Added dependency-picker browser coverage passes syntax and discovery; browser
+  execution remains pending.
+- Review remains unfinished: 816 Latin values contain the legacy “Latine:”
+  prefix.
+  Unprefixed values and other languages still require semantic review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

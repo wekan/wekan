@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin sorting and dependencies — 2026-10-14
+
+Commit `959bfbcedc` repairs 37 prefixed sorting, completion, sticker and dependency
+entries. Regression checks preserve ascending/descending order, completion
+polarity, blocks/blocked-by and fixes/fixed-by direction, JSON/SVG formats,
+minimum import input and unmatched counts. The shared Latin word “Color” keeps
+an exact source/key exception with a negative test for longer English prose.
+
+The Latin, guarded-correction and shared-word suites pass with 28,571 ledger
+entries. All 21 human-preference checks pass. Dependency-picker browser coverage
+checks both relation directions and selects the blocked-by option, opening a
+collapsed section when necessary. Syntax and discovery pass; browser runtime
+remains pending. Exact comparison preserves 38,430 existing Chinese values.
+
+There remain 816 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin search instructions and examples — 2026-10-14
 
 Commit `30c12e510c` repairs 32 prefixed search-help, card-number and related
