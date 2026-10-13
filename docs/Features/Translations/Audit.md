@@ -2,6 +2,27 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho card links — 2026-10-13
+
+Commit `c6a5484608` fills 34 English placeholders for card attachments,
+linked custom fields, board announcements, calendar mode and inherited card
+colours. Matching requires both field name and type; fields present on only
+one card stay unchanged. One-way and two-way directions, unavailable-card
+privacy, archived-card restrictions and permission to edit both cards remain
+explicit. Existing translated values were not overwritten.
+
+The Southern Sotho regression suite and all 21 human-preference checks pass.
+The attached-card and linked-field browser cases now include Southern Sotho;
+syntax and discovery pass, but runtime execution remains pending without
+the UI stack. Exact comparison preserves 38,430 existing Chinese values.
+
+Southern Sotho has 677 filtered untranslated strings and 868 in the full
+list including pending feature strings. These 34 fills were pending feature
+strings, so the global filtered inventory remains 28,516 strings across
+42 languages, excluding 379 pending Transifex keys.
+These counts do not establish fluency; the all-language objective remains
+unfinished.
+
 ## Corsican final recovery and email review — 2026-10-13
 
 Commit `e88d2ebc11` reviews the final 440 strings, reaching all 4,270

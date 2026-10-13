@@ -2100,6 +2100,20 @@ execution remains pending. Existing Chinese text is unchanged.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c6a5484608">Translate Southern Sotho card attachments and linked fields</a>. Thanks to xet7.</summary>
+
+Fill 34 English placeholders for attached cards, linked custom fields,
+board announcements, calendar mode and inherited card colours. Preserve
+link direction, matching field names and types, and edit permissions.
+
+Translation regression checks and 21 human-preference checks pass. The
+two existing card-interaction browser cases now include Southern Sotho;
+syntax and discovery pass, but runtime execution remains pending. Existing
+Chinese text is unchanged. Translation work across languages continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
