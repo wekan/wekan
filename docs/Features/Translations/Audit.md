@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin organization permissions and tenant labels — 2026-10-14
+
+Commit `7729efb8e0` repairs 25 prefixed entries for tenant domains, organization
+administrators, membership, card dates and colors. Regression checks preserve
+comma-separated hostnames, MULTITENANCY=true, the empty-domain condition, limited
+organization administration, matching team/organization actions and distinct date
+and selection labels.
+
+The Latin and guarded-correction suites pass with 28,014 ledger entries. All 21
+human-preference checks pass. Organization-admin browser coverage passes syntax
+and discovery; runtime remains pending. Exact comparison preserves 38,430
+existing Chinese values.
+
+There remain 1,370 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin field policies and system metrics — 2026-10-14
 
 Commit `f8a09add9c` repairs 30 prefixed labels for OS metrics, time units,

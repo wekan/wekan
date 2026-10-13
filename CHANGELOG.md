@@ -3173,6 +3173,22 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7729efb8e0">Repair Latin organization permissions and tenant labels</a>. Thanks to xet7.</summary>
+
+- Replace 25 mixed-language organization, membership, date and color entries
+  with
+  Latin. Keep the tenant configuration requirement and organization-admin limits
+  explicit, and distinguish received/end dates and selection colors.
+- Latin and guarded-correction suites pass with 28,014 corrections; all 21
+  human-preference checks pass and 38,430 existing Chinese values are preserved.
+  Added organization-admin browser coverage passes syntax and discovery;
+  browser execution remains pending.
+- Translation review continues: 1,370 Latin values still contain the legacy
+  “Latine:” prefix. Unprefixed values and other languages still need review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
