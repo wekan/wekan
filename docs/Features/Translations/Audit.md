@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin waiting indicators and ticket labels — 2026-10-14
+
+Commit `5df2e188cc` repairs 30 prefixed waiting-indicator, window-control,
+deletion, ticket and history entries. Regression checks retain eight distinct
+indicator names, maximize/minimize actions, the remaining-user deletion
+restriction, Cc syntax, five ticket states and four history actions.
+
+The Latin and guarded-correction suites pass with 28,686 ledger entries. All 21
+human-preference checks pass. Card-window browser coverage checks both titles
+and toggles between maximized and normal views. Syntax and discovery pass;
+browser runtime remains pending. Exact comparison preserves 38,430 existing
+Chinese values.
+
+There remain 701 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin office, API and recovery reports — 2026-10-14
 
 Commit `1c0204e23e` repairs 25 prefixed office, API, recovery and swimlane-copy
