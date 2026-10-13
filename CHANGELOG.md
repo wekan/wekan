@@ -2609,6 +2609,19 @@ and discovery; runtime execution remains pending. All-language review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6d74dfa66f">Correct Southern Sotho Scrum estimate and progress labels</a>. Thanks to xet7.</summary>
+
+Distinguish an estimate from size and translate the remaining English sprint
+term in rollover progress. Historical review reaches source key 4069, preserving
+sync conflict rules and email/recovery warnings. All-language work continues.
+
+Both translation suites and all 21 preservation checks pass. Existing Chinese
+values remain unchanged. The extended backlog browser case checks the estimate
+heading; syntax and discovery pass, while runtime execution remains pending.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho historical review: Scrum and recovery — 2026-10-13
+
+Commit `6d74dfa66f` reviews source keys 3730–4069 and repairs two values.
+The Scrum estimate heading no longer means size, and rollover progress uses
+the translated sprint term. Existing source-conflict boundaries, missing/null
+value distinctions, delivery uncertainty and irreversible cancellation warnings
+are preserved, along with valid Blockly aliases and numeric colour constants.
+
+The Southern Sotho and repair-ledger suites pass with 27,049 guarded corrections;
+all 21 human-preference checks pass. The existing Southern Sotho backlog browser
+case now checks the estimate heading. Syntax and discovery pass; runtime remains
+pending. Exact comparison preserves 38,430 existing Chinese values. Historical
+review reaches key 4069; all-language translation and semantic review remain
+unfinished.
+
 ## Southern Sotho historical review: Blockly operations — 2026-10-13
 
 Commit `0056f57d79` reviews source keys 3170–3729 and repairs six values.
