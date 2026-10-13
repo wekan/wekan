@@ -2,6 +2,26 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican fields, accounts and exports — 2026-10-13
+
+Commit `4f89cd92e3` repairs 62 values in the source-ordered review through
+key 734. Enrollment, password reset and email verification retain their
+distinct purposes, placeholders and paragraph structure. Board-admin,
+member and role restrictions keep their negations. Permanent-delete
+settings retain both the global-admin scope and the fact that enabling the
+option does not delete content by itself. Export controls retain format,
+field selection and attachment metadata. Correct invitation prose and
+existing date-format abbreviations were left unchanged.
+
+The Corsican and full repair-ledger suites pass after the final wording
+revision; the ledger contains 25,702 guarded corrections. All 21
+human-preference checks pass. A new custom-field browser case registers,
+checking the creation heading and four translated field types and rejecting
+prior Italian text and the multi-selection typo. It has not run against the
+application. Exact comparison preserves all 38,430 protected Chinese values
+and limits this locale batch to the 62 reviewed replacements. Broader
+language review remains unfinished.
+
 ## Corsican navigation, colors and role controls — 2026-10-13
 
 Commit `dbaa663280` repairs 47 values in the source-ordered review through

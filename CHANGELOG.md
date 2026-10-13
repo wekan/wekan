@@ -1705,6 +1705,19 @@ execution remains pending. Existing Chinese text is unchanged.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4f89cd92e3">Correct Corsican fields, account messages and export controls</a>. Thanks to xet7.</summary>
+
+Repair 62 field, date, account, permission and export values. Preserve
+email placeholders and distinct enrollment, reset and verification actions.
+Clarify that enabling permanent deletion does not itself delete content.
+
+The Corsican and repair-ledger suites and 21 human-preference checks pass.
+A custom-field browser case registers; runtime execution remains pending.
+Existing Chinese text is unchanged; broader language review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
