@@ -181795,5 +181795,306 @@
     "before": "Tutte le liste, carte, etichette e azioni saranno rimosse e non sarai più in grado di recuperare il contenuto di a tavula. L'azione non è annullabile.",
     "after": "Tutte e liste, e carte, l’etichette è l’attività seranu squassate è ùn puderete micca ricuperà u cuntenutu di a tavula. Ùn si pò annullà st’azzione.",
     "reason": "Repair mixed-language invitation, system and organization controls; preserve tenant routing identifiers, admin permission boundaries and permanent board deletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "delete-all-notifications",
+    "before": "Squassà tutte le nutificazioni",
+    "after": "Squassà tutte e nutificazioni",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "default-subtasks-board",
+    "before": "Sottocompiti per la tavula __board__",
+    "after": "Sottucompiti per a tavula __board__",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "default",
+    "before": "Predefinito",
+    "after": "Predefinitu",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "defaultdefault",
+    "before": "Predefinito",
+    "after": "Predefinitu",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "card-settings",
+    "before": "Impostazioni carta",
+    "after": "Paràmetri di a carta",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "boardCardSettingsPopup-title",
+    "before": "Impostazioni carta",
+    "after": "Paràmetri di a carta",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "card-field-order-move-up",
+    "before": "Sposta insù",
+    "after": "Spustà in sù",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "card-field-order-move-down",
+    "before": "Sposta ingiù",
+    "after": "Spustà in ghjò",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "deposit-subtasks-board",
+    "before": "Deposita i sotto compiti in questa tavula",
+    "after": "Dipusità i sottucompiti nant’à sta tavula:",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "show-parent-in-minicard",
+    "before": "Mustrà genirotri in e mini carte:",
+    "after": "Mustrà a carta parente nant’à a minicarta:",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "description-on-minicard",
+    "before": "Descrizzione nantu à a minischeda",
+    "after": "Discrizzione nant’à a minicarta",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "badge-attachment-on-minicard",
+    "before": "Conteggio di i allegati nantu à a minicard",
+    "after": "Numeru d’appicci nant’à a minicarta",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "card-sorting-by-number-on-minicard",
+    "before": "La carta viene ordinata per numero nantu à a minicard",
+    "after": "Urdinamentu di e carte secondu u numeru nant’à a minicarta",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "checklist-count-on-minicard",
+    "before": "Conteggio elementi checklist (0/0) nantu à a minischeda",
+    "after": "Numeru d’elementi di a lista di cuntrollu (0/0) nant’à a minicarta",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-count",
+    "before": "Numero di allegati",
+    "after": "Numeru d’appicci",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "cover-image",
+    "before": "Immagine di copertina",
+    "after": "Imagine di cupertina",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "prefix-with-full-path",
+    "before": "Prefisso cù percorso completo",
+    "after": "Prefissu cù u percorsu sanu",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "prefix-with-parent",
+    "before": "Prefisso cù genitore",
+    "after": "Prefissu cù a carta parente",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "subtext-with-full-path",
+    "before": "Sottotesto cù percorso completo",
+    "after": "Testu sottu cù u percorsu sanu",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "subtext-with-parent",
+    "before": "Sotto-testo cù genitore",
+    "after": "Testu sottu cù a carta parente",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "change-card-parent",
+    "before": "Cambia la carta genitore",
+    "after": "Cambià a carta parente",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "parent-card",
+    "before": "Carta genitore",
+    "after": "Carta parente",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "no-parent",
+    "before": "Non mostrare i genitori",
+    "after": "Ùn mustrà a carta parente",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "activity-added-label",
+    "before": "ha aghjuntu l'etichetta  '%s' a %s",
+    "after": "hà aghjuntu l’etichetta '%s' à %s",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "activity-removed-label",
+    "before": "ha cacciatu l'etichetta '%s' da %s",
+    "after": "hà cacciatu l’etichetta '%s' da %s",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "activity-delete-attach",
+    "before": "cacciatu un allegatu da %s",
+    "after": "hà squassatu un appicciu da %s",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "activity-added-label-card",
+    "before": "aghjunta etichetta '%s'",
+    "after": "hà aghjuntu l’etichetta '%s'",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "activity-delete-attach-card",
+    "before": "cancella un allegatu",
+    "after": "hà squassatu un appicciu",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "r-rule",
+    "before": "Regola",
+    "after": "Regula",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "r-add-trigger",
+    "before": "Aghjunghje trigger",
+    "after": "Aghjunghje un attivatore",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "r-add-action",
+    "before": "Aghjunghje azione",
+    "after": "Aghjunghje un’azzione",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "r-board-rules",
+    "before": "Regole di a tavula",
+    "after": "Regule di a tavula",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "r-add-rule",
+    "before": "Aghjunghje regola",
+    "after": "Aghjunghje una regula",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "r-view-rule",
+    "before": "Visualizza regola",
+    "after": "Vede a regula",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "r-delete-rule",
+    "before": "Squassà regola",
+    "after": "Squassà a regula",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "r-new-rule-name",
+    "before": "Titulu nova regola",
+    "after": "Titulu di a nova regula",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "r-no-rules",
+    "before": "Nessuna regola",
+    "after": "Nisuna regula",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "r-select-all",
+    "before": "Selezziunà tutto",
+    "after": "Selezziunà tuttu",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "r-unselect-all",
+    "before": "Deseleziona tutto",
+    "after": "Caccià tutta a selezzione",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "r-delete-selected",
+    "before": "Squassà selezionati",
+    "after": "Squassà e regule scelte",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "r-export-selected",
+    "before": "Spurtà selezionati",
+    "after": "Espurtà e regule scelte",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "r-edit-rule",
+    "before": "Mudificà regola",
+    "after": "Mudificà a regula",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "r-edit-rule-trigger-action",
+    "before": "Mudificà regola (Attivatore/Azione)",
+    "after": "Mudificà l’attivatore/l’azzione",
+    "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
   }
 ]

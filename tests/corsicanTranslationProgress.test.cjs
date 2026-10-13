@@ -473,3 +473,17 @@ assert.match(corsican['org-admins-description'], /persone.*copie di salvezza.*nu
 assert.match(corsican['delete-board-confirm-popup'], /liste.*carte.*etichette.*attività.*ùn puderete micca ricuperà.*Ùn si pò annullà/);
 assert.match(corsican['automatically-field-on-card'], /carte nove$/);
 assert.match(corsican['always-field-on-card'], /tutte e carte$/);
+
+const hierarchyRuleCorrectionKeys = ["delete-all-notifications", "default-subtasks-board", "default", "defaultdefault", "card-settings", "boardCardSettingsPopup-title", "card-field-order-move-up", "card-field-order-move-down", "deposit-subtasks-board", "show-parent-in-minicard", "description-on-minicard", "badge-attachment-on-minicard", "card-sorting-by-number-on-minicard", "checklist-count-on-minicard", "attachment-count", "cover-image", "prefix-with-full-path", "prefix-with-parent", "subtext-with-full-path", "subtext-with-parent", "change-card-parent", "parent-card", "no-parent", "activity-added-label", "activity-removed-label", "activity-delete-attach", "activity-added-label-card", "activity-delete-attach-card", "r-rule", "r-add-trigger", "r-add-action", "r-board-rules", "r-add-rule", "r-view-rule", "r-delete-rule", "r-new-rule-name", "r-no-rules", "r-select-all", "r-unselect-all", "r-delete-selected", "r-export-selected", "r-edit-rule", "r-edit-rule-trigger-action"];
+for (const key of hierarchyRuleCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /\b(?:Sottocompiti|Predefinito|Impostazioni|Sposta|insù|ingiù|Deposita|sotto|questa|genirotri|minischeda|Conteggio|allegati|minicard|viene|ordinata|numero|Numero|Immagine|copertina|Prefisso|percorso|completo|genitore|Sottotesto|Cambia|mostrare|genitori|ha|allegatu|cancella|Regola|azione|Regole|regola|Visualizza|Nessuna|tutto|Deseleziona|selezionati|Attivatore|Azione)\b/, key);
+}
+assert.match(corsican['card-field-order-move-up'], /in sù$/);
+assert.match(corsican['card-field-order-move-down'], /in ghjò$/);
+assert.match(corsican['checklist-count-on-minicard'], /\(0\/0\).*minicarta/);
+assert.match(corsican['prefix-with-full-path'], /percorsu sanu/);
+assert.match(corsican['subtext-with-parent'], /carta parente/);
+for (const key of ['activity-added-label','activity-removed-label','activity-delete-attach','activity-added-label-card','activity-delete-attach-card']) assert.match(corsican[key], /^hà /);
+assert.match(corsican['activity-delete-attach-card'], /squassatu un appicciu/);
+assert.match(corsican['r-edit-rule-trigger-action'], /attivatore.*azzione/);
