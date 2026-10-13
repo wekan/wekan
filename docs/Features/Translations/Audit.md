@@ -2,6 +2,25 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin voting, Planning Poker and popup labels — 2026-10-14
+
+Commit `9c55d0f589` repairs 45 prefixed strings for voting, Planning Poker,
+dependencies, organization/team controls and account actions. Poker numbers and
+the uncertainty symbol now appear without a language prefix. Planning Poker
+remains its technical name. The anonymization label now describes anonymizing
+an account instead of importing users.
+
+Tests cover numeric choices, opposing votes, finish/replay distinctions,
+irreversible deletion and existing-user mapping. The Latin and guarded-correction
+suites pass with 27,372 ledger entries, along with all 21 human-preference checks.
+Two browser cases cover positive and negative vote labels and their recorded
+results; syntax and discovery pass, runtime remains pending. Exact comparison
+preserves 38,430 existing Chinese values.
+
+There remain 2,012 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin card archive and voting messages — 2026-10-14
 
 Commit `d3ea074216` repairs 40 prefixed messages for card archiving and deletion,

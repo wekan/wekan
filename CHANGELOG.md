@@ -2873,6 +2873,22 @@ values containing the old language prefix; all-language review is unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9c55d0f589">Repair Latin voting and Planning Poker labels</a>. Thanks to xet7.</summary>
+
+Repair 45 prefixed strings for voting, Planning Poker and popup actions. Restore
+numeric poker choices and correct the account-anonymization label, which wrongly
+referred to importing users. Preserve permanent-deletion warnings and vote
+roles.
+
+The Latin and guarded-correction suites and all 21 preservation checks pass.
+Two voting browser cases pass syntax and discovery; runtime remains pending.
+Existing Chinese values are unchanged. There remain 2,012 Latin values
+containing
+the old language prefix; all-language review remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
