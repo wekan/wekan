@@ -45,8 +45,11 @@ test('the workflow: skip without a Node.js, verify every download, build and sta
   assert.match(workflow, /echo "skip=true" >> "\$GITHUB_OUTPUT"\n\s*exit 0/, 'no Node.js yet is a skip, not a red job');
   for (const os of ['freebsd', 'openbsd', 'netbsd']) {
     assert.match(workflow, new RegExp(`matrix\\.os == '${os}'\\n\\s*uses: vmactions/${os}-vm@`), `${os} builds in a ${os} VM`);
-    assert.match(workflow, new RegExp(`run: bash releases/bsd/build-bundle\\.sh ${os} \\$\\{\\{ matrix\\.arch \\}\\}`));
+    assert.match(workflow, new RegExp(`bash releases/bsd/build-bundle\\.sh ${os} \\$\\{\\{ matrix\\.arch \\}\\}`));
   }
+  // OpenBSD: node runs only from a wxallowed filesystem; NetBSD: GCC 14 for Node 26's C++20.
+  assert.match(workflow, /mount -u -o wxallowed "\$\(df -P \. \| awk 'NR==2 \{print \$6\}'\)"/);
+  assert.match(workflow, /CC=\/usr\/pkg\/gcc14\/bin\/gcc CXX=\/usr\/pkg\/gcc14\/bin\/g\+\+/);
   assert.match(workflow, /uses: vmactions\/freebsd-vm@f0552d3b69211736abd97f02ff3d4674c56b73b1/, 'FreeBSD VM pinned to the commit node-patches uses');
   assert.match(workflow, /sha256sum -c "wekan-\$\{version\}-amd64\.zip\.sha256sum"/, 'the release bundle is verified');
   assert.match(workflow, /echo "\$NODE_SHA256  bsd-tools\/bin\/node" \| sha256sum -c -/, 'Node.js is verified');

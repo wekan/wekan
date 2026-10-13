@@ -164,10 +164,13 @@ jobs:
           arch: ${{ matrix.vm_arch }}
           sync: rsync
           copyback: true
-          # V8 writes and runs machine code: OpenBSD allows that only from a
-          # filesystem mounted wxallowed, which /usr/local is by default.
           prepare: pkg_add bash python%3 gmake curl
-          run: bash releases/bsd/build-bundle.sh openbsd ${{ matrix.arch }}
+          # V8 writes and runs machine code: OpenBSD allows that only from a
+          # filesystem mounted wxallowed (/usr/local is, by default). The
+          # bundle is started here, from the workspace, so that is mounted so.
+          run: |
+            mount -u -o wxallowed "$(df -P . | awk 'NR==2 {print $6}')" || true
+            bash releases/bsd/build-bundle.sh openbsd ${{ matrix.arch }}
 
       - name: Build and start in NetBSD
         if: steps.node.outputs.skip != 'true' && matrix.os == 'netbsd'
@@ -178,8 +181,13 @@ jobs:
           copyback: true
           prepare: |
             /usr/sbin/pkg_add pkgin
-            pkgin -y install bash python313 gmake curl
-          run: bash releases/bsd/build-bundle.sh netbsd ${{ matrix.arch }}
+            pkgin -y install bash python313 gmake curl gcc14
+          # Node 26's headers need C++20, which NetBSD 10's own GCC lacks: the
+          # native modules are compiled with pkgsrc's GCC 14, as Node.js itself
+          # is (wekan/node-patches dist/netbsd).
+          run: |
+            CC=/usr/pkg/gcc14/bin/gcc CXX=/usr/pkg/gcc14/bin/g++ \
+              bash releases/bsd/build-bundle.sh netbsd ${{ matrix.arch }}
 
       - name: Zip, checksum and attach
         if: steps.node.outputs.skip != 'true'
