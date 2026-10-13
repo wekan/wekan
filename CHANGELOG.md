@@ -3283,6 +3283,22 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c59113bebf">Repair Latin rule hints and branding settings</a>. Thanks to xet7.</summary>
+
+- Translate 40 mixed-language rule hints, date controls and branding settings.
+  Preserve wildcard matching, comma-separated checklist input, date
+  distinctions,
+  authentication names, JSON filenames and HTML tags.
+- Latin and guarded-correction suites pass with 28,274 corrections. All 21
+  human-preference checks pass; 38,430 existing Chinese values are preserved.
+  Added checklist-instructions browser coverage passes syntax and discovery;
+  browser execution remains pending.
+- Review remains unfinished: 1,113 Latin values contain the legacy “Latine:”
+  prefix. Unprefixed values and other languages still require semantic review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

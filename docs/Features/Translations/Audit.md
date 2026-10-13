@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin rule hints and branding settings — 2026-10-14
+
+Commit `c59113bebf` repairs 40 prefixed rule hints, date controls, authentication
+names and branding settings. Regression checks preserve empty-field matching,
+comma-separated checklist examples, another-list movement, date clearing and
+field distinctions, authentication names, HTML tags and assetlinks.json.
+
+The Latin and guarded-correction suites pass with 28,274 ledger entries. All 21
+human-preference checks pass. Checklist-instructions browser coverage checks the
+comma-separated placeholder, initially empty input and explanatory note. Syntax
+and discovery pass; browser runtime remains pending. Exact comparison preserves
+38,430 existing Chinese values.
+
+There remain 1,113 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin rule actions and saved descriptions — 2026-10-14
 
 Commit `fd921c8fef` repairs 50 prefixed action fragments and descriptions.
