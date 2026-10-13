@@ -946,3 +946,20 @@ for (const kind of ['org', 'team']) assert.match(latin[`delete-${kind}-warning-m
 assert.ok(latin['carbon-copy'].includes('(Cc:)'));
 assert.equal(new Set(['open', 'pending', 'closed', 'resolved', 'cancelled'].map(key => latin[key])).size, 5);
 assert.equal(new Set(['removed', 'edited', 'moved', 'restored'].map(kind => latin[`history-change-${kind}`])).size, 4);
+
+const reviewedMemoryInvitationKeys = ["requests", "help-request", "editCardSortOrderPopup-title", "cardDetailsPopup-title", "add-teams", "add-teams-label", "remove-team-from-table", "confirm-btn", "remove-btn", "filter-card-title-label", "invite-people-success", "invite-people-error", "email-domain-allowed-to-invite", "to-create-teams-contact-admin", "Node_heap_total_heap_size", "Node_heap_total_heap_size_executable", "Node_heap_total_physical_size", "Node_heap_total_available_size", "Node_heap_used_heap_size", "Node_heap_heap_size_limit", "Node_heap_malloced_memory", "Node_heap_peak_malloced_memory", "Node_heap_does_zap_garbage", "Node_heap_number_of_native_contexts", "Node_heap_number_of_detached_contexts", "Node_memory_usage_rss", "Node_memory_usage_heap_total", "Node_memory_usage_heap_used", "Node_memory_usage_external", "add-organizations", "add-organizations-label", "remove-organization-from-board", "to-create-organizations-contact-admin", "custom-legal-notice-link-url", "acceptance_of_our_legalNotice"];
+for (const key of reviewedMemoryInvitationKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Requests|Added|Invitation|allowed|heap size|memory usage|Custom|continuing)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.equal(latin['remove-btn'], latin['r-remove']);
+assert.match(latin['invite-people-success'], /feliciter missa/);
+assert.match(latin['invite-people-error'], /^Error/);
+assert.match(latin['email-domain-allowed-to-invite'], /cum propria inscriptio inactiva/);
+assert.match(latin.Node_heap_peak_malloced_memory, /maxima.*malloc/);
+assert.match(latin.Node_heap_does_zap_garbage, /exemplari bituum superscribitur/);
+assert.match(latin.Node_memory_usage_heap_total, /acervi assignati/);
+assert.match(latin.Node_memory_usage_heap_used, /re vera adhibita/);
+assert.match(latin.Node_memory_usage_rss, /RSS/);
+assert.notEqual(latin.Node_heap_number_of_native_contexts, latin.Node_heap_number_of_detached_contexts);
+for (const kind of ['teams', 'organizations']) assert.match(latin[`to-create-${kind}-contact-admin`], /administratorem conveni/);

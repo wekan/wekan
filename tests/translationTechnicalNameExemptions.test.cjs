@@ -61,3 +61,8 @@ for (const [value, expected] of [['Asia', true], ['Maps in Asia', false]]) {
   const shared = vm.runInNewContext(latinSetExpression, { en: { 'map-region-asia': value } });
   assert.equal(shared.has('map-region-asia'), expected);
 }
+
+for (const [value, expected] of [['Remove', true], ['Remove organization', false]]) {
+  const shared = vm.runInNewContext(latinSetExpression, { en: { 'remove-btn': value } });
+  assert.equal(shared.has('remove-btn'), expected);
+}

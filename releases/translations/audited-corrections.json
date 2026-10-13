@@ -200800,5 +200800,250 @@
     "before": "Latine: Request",
     "after": "Petitio",
     "reason": "Repair Latin waiting indicators, card window actions, deletion preconditions, ticket states and history labels; retain Cc syntax and distinct state meanings."
+  },
+  {
+    "locale": "la",
+    "key": "requests",
+    "before": "Latine: Requests",
+    "after": "Petitiones",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "help-request",
+    "before": "Latine: Auxilium Request",
+    "after": "Petitio auxilii",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "editCardSortOrderPopup-title",
+    "before": "Latine: Muta Sorting",
+    "after": "Muta ordinationem",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "cardDetailsPopup-title",
+    "before": "Latine: Scheda Singula",
+    "after": "Singula chartae",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "add-teams",
+    "before": "Latine: Adde manus",
+    "after": "Adde manus",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "add-teams-label",
+    "before": "Latine: Additum manus sunt displayed below:",
+    "after": "Manus additae infra monstrantur:",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "remove-team-from-table",
+    "before": "Latine: certusne es tu want ad remove hoc manus ex the tabula?",
+    "after": "Certusne es te hanc manum ex tabula removere velle?",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "confirm-btn",
+    "before": "Latine: Confirma",
+    "after": "Confirma",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "remove-btn",
+    "before": "Latine: Remove",
+    "after": "Remove",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "filter-card-title-label",
+    "before": "Latine: Filtrum a scheda titulus",
+    "after": "Filtra secundum titulum chartae",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "invite-people-success",
+    "before": "Latine: Invitation ad register missum cum successus",
+    "after": "Invitatio ad inscriptionem feliciter missa est",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "invite-people-error",
+    "before": "Latine: Error while sending invitation ad register",
+    "after": "Error dum invitatio ad inscriptionem mittebatur",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "email-domain-allowed-to-invite",
+    "before": "Latine: Epistula electronica domain permissum ad invita people, quando self-registration est inhabilitatum",
+    "after": "Dominium inscriptionis electronicae cui homines invitare licet, cum propria inscriptio inactiva est",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "to-create-teams-contact-admin",
+    "before": "Latine: Ad crea manus, please contact the administrator.",
+    "after": "Ut manus crees, administratorem conveni, quaeso.",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "Node_heap_total_heap_size",
+    "before": "Latine: Node heap: total heap magnitudo",
+    "after": "Acervus Node: magnitudo tota",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "Node_heap_total_heap_size_executable",
+    "before": "Latine: Node heap: total heap magnitudo executable",
+    "after": "Acervus Node: magnitudo tota partis exsequendae",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "Node_heap_total_physical_size",
+    "before": "Latine: Node heap: total physical magnitudo",
+    "after": "Acervus Node: magnitudo physica tota",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "Node_heap_total_available_size",
+    "before": "Latine: Node heap: total praesto magnitudo",
+    "after": "Acervus Node: magnitudo tota praesto",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "Node_heap_used_heap_size",
+    "before": "Latine: Node heap: used heap magnitudo",
+    "after": "Acervus Node: magnitudo adhibita",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "Node_heap_heap_size_limit",
+    "before": "Latine: Node heap: heap magnitudo limit",
+    "after": "Acervus Node: limes magnitudinis",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "Node_heap_malloced_memory",
+    "before": "Latine: Node heap: malloced memoria",
+    "after": "Acervus Node: memoria per malloc assignata",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Latine: Node heap: peak malloced memoria",
+    "after": "Acervus Node: maxima memoria per malloc assignata",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Latine: Node heap: does zap garbage",
+    "after": "Acervus Node: memoria inutilis exemplari bituum superscribitur",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "Node_heap_number_of_native_contexts",
+    "before": "Latine: Node heap: numerus de native contexts",
+    "after": "Acervus Node: numerus contextuum nativorum",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "Node_heap_number_of_detached_contexts",
+    "before": "Latine: Node heap: numerus de detached contexts",
+    "after": "Acervus Node: numerus contextuum seiunctorum",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "Node_memory_usage_rss",
+    "before": "Latine: Node memoria usage: resident set magnitudo",
+    "after": "Usus memoriae Node: magnitudo memoriae residentis (RSS)",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "Node_memory_usage_heap_total",
+    "before": "Latine: Node memoria usage: total magnitudo de the allocated heap",
+    "after": "Usus memoriae Node: magnitudo tota acervi assignati",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "Node_memory_usage_heap_used",
+    "before": "Latine: Node memoria usage: actual memoria used",
+    "after": "Usus memoriae Node: memoria re vera adhibita",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "Node_memory_usage_external",
+    "before": "Latine: Node memoria usage: external",
+    "after": "Usus memoriae Node: memoria externa",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "add-organizations",
+    "before": "Latine: Adde organizationes",
+    "after": "Adde consociationes",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "add-organizations-label",
+    "before": "Latine: Additum organizationes sunt displayed below:",
+    "after": "Consociationes additae infra monstrantur:",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "remove-organization-from-board",
+    "before": "Latine: certusne es tu want ad remove hoc organizatio ex hoc tabula?",
+    "after": "Certusne es te hanc consociationem ex hac tabula removere velle?",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "to-create-organizations-contact-admin",
+    "before": "Latine: Ad crea organizationes, please contact administrator.",
+    "after": "Ut consociationes crees, administratorem conveni, quaeso.",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "custom-legal-notice-link-url",
+    "before": "Latine: Custom legal notice pagina URL",
+    "after": "URL paginae propriae notitiae iuridicae",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "acceptance_of_our_legalNotice",
+    "before": "Latine: A continuing, tu accipe our",
+    "after": "Pergendo accipis nostram",
+    "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
   }
 ]
