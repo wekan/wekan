@@ -1648,6 +1648,19 @@ pending. Protected Chinese text is unchanged; broader review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/18278cce84">Correct Corsican profile and appearance controls</a>. Thanks to xet7.</summary>
+
+Repair 38 profile, import-member mapping, font, theme and card-aging values.
+Keep imported roles and permission limits, favorite toggle direction,
+automatic width and inactivity thresholds explicit.
+
+The Corsican suite, full repair-ledger suite and 21 human-preference checks
+pass. A font-controls browser case registers; runtime execution remains
+pending. Existing Chinese text is unchanged; broader review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

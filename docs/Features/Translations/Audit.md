@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican profile and appearance controls — 2026-10-13
+
+Commit `18278cce84` corrects 38 profile, member-mapping and appearance
+values. Member mapping retains cards, comments and activity, the imported
+role and the prohibition on extra permissions. Favorite toggles retain
+add/remove direction. Card aging keeps inactivity thresholds and reduced
+visibility rather than implying deletion.
+
+The Corsican and full repair-ledger suites pass; the ledger contains
+25,593 guarded corrections. All 21 human-preference checks pass. A new
+font-controls browser case registers and checks the menu and size labels;
+it has not run against the application. Exact comparison preserves all
+38,430 protected Chinese values and limits this locale batch to the 38
+reviewed replacements. Broader language review remains unfinished.
+
 ## Corsican card controls and Planning Poker — 2026-10-13
 
 Commit `a63e83ec5e` corrects 47 mixed-language or misleading card, archive,
