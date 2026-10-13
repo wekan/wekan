@@ -125,9 +125,13 @@ test('Header login is shown read-only, and a hand-made save is refused', async (
 // Admin Panel / People / LDAP / Sync now (maintainer decision of 2026-10-08):
 // the method is loaded and admin-only, and the pane reports its answer. The
 // test server has no directory, so LDAP is off and the answer is a refusal.
-test('LDAP Sync now answers in the pane, and ordinary users are refused', async ({ page, adminUser, user }) => {
+for (const language of ['en', 'mt']) {
+test(`LDAP Sync now answers in the pane, and ordinary users are refused in ${language}`, async ({ page, adminUser, user }) => {
   await loginWithToken(page, adminUser.id, adminUser.token);
+  await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
+  const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
   await navigateInApp(page, '/admin/people/ldap');
+  await expect(page.locator('.js-ldap-sync-now')).toHaveText(strings['ldap-sync-now']);
   await page.locator('.js-ldap-sync-now').click();
   await expect(page.locator('.js-ldap-sync-result')).toHaveClass(/ldap-test-error/);
   await expect(page.locator('.js-ldap-sync-result')).toContainText('LDAP_disabled');
@@ -137,6 +141,8 @@ test('LDAP Sync now answers in the pane, and ordinary users are refused', async 
   });
   expect(refused).toBe('error-notAuthorized');
 });
+
+}
 
 // Automatic logout (maintainer decision of 2026-10-08): LOGOUT_WITH_TIMER and
 // LOGOUT_IN set in Admin Panel / People / Login remove the login tokens that

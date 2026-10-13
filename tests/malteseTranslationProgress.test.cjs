@@ -89,3 +89,18 @@ assert.match(maltese['trello-export-desc'], /Swimlane: …/);
 assert.match(maltese['trello-export-desc'], /terġa' tibdel f'korsiji/);
 assert.match(maltese['sandstorm-trello-access-needed'], /m'għandux aċċess.*L-ewwel/);
 assert.match(maltese['trello-export-warnings'], /Ma setax jiġi esportat kollox/);
+
+for (const key of ['board-announcement', 'board-announcement-enabled', 'board-view-calendar-mode', 'cards-use-list-color', 'external-link-rules', 'external-link-rules-description', 'external-link-identifier-aliases', 'read-only-field', 'r-wrike-workflow', 'r-wrike-workflow-note', 'r-export-wrike-workflow', 'r-import-wrike-workflow', 'r-import-wrike-workflow-done', 'r-moved-forward', 'r-moved-back', 'r-add-actinguser-assignee', 'r-remove-all-assignees', 'ldap-sync-now', 'ldap-sync-now-done', 'ldap-sync-now-error', 'ldap-sync-now-nothing', 'oauth-providers-allowed-email-domains', 'login-setting-env-only']) {
+  assert.notEqual(maltese[key], english[key], key);
+  assert.deepEqual(tokens(maltese[key]), tokens(english[key]), key);
+}
+for (const literal of ['{number}', '{identifier}', '[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}']) assert.ok(maltese['external-link-rules-description'].includes(literal));
+for (const literal of ['TK=Task', 'IN=Incident']) assert.ok(maltese['external-link-identifier-aliases'].includes(literal));
+for (const literal of ['Active', 'Completed', 'Deferred', 'Cancelled', 'GET /workflows', 'JSON']) assert.ok(maltese['r-wrike-workflow-note'].includes(literal));
+assert.match(maltese['r-wrike-workflow-note'], /lesta meta.*Completed jew Cancelled.*mhux lesta.*Active jew Deferred/);
+assert.match(maltese['r-wrike-workflow-note'], /ma jistgħux jiġu esportati/);
+for (const literal of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS', 'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) assert.ok(maltese['ldap-sync-now-nothing'].includes(literal));
+assert.match(maltese['read-only-field'], /kull membru jara.*amministraturi tal-bord biss jibdluh/);
+assert.match(maltese['login-setting-env-only'], /biss mill-ambjent tas-server.*għall-qari biss/);
+assert.match(maltese['oauth-providers-allowed-email-domains'], /separati b'virgoli; vojt jippermetti lil kulħadd/);
+assert.match(maltese['cards-use-list-color'], /mingħajr kulur tagħhom stess/);

@@ -158,11 +158,14 @@ test.describe('Rules', () => {
   // /workflows becomes the board's lists and the rules that close and reopen
   // a card as Wrike's status groups do; a second import adds nothing, and the
   // export writes the board back as a workflow.
-  test('Import / Export applies a Wrike workflow as lists and rules, and exports one', async ({ boardPage, board }) => {
+  for (const language of ['en', 'mt']) {
+  test(`Import / Export applies a Wrike workflow as lists and rules, and exports one in ${language}`, async ({ boardPage, board }) => {
+    await boardPage.evaluate(language => Meteor.callAsync('setLanguage', language), language);
+    const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
     await openRulesPage(boardPage, board);
     await openRulesMenuEntry(boardPage, 'js-open-rules-import-export');
     const popup = boardPage.locator('.js-pop-over');
-    await expect(popup.locator('.js-rules-import-wrike')).toBeVisible({ timeout: 10_000 });
+    await expect(popup.locator('.js-rules-import-wrike')).toHaveText(strings['r-import-wrike-workflow'], { timeout: 10_000 });
 
     await popup.locator('.js-rules-import-text').fill('{ not json');
     await popup.locator('.js-rules-import-wrike').click();
@@ -197,7 +200,7 @@ test.describe('Rules', () => {
     ]);
 
     await popup.locator('.js-rules-import-wrike').click();
-    await expect(popup.locator('.rules-ie-message')).toContainText('0 list(s) and 0 rule(s)', { timeout: 15_000 });
+    await expect(popup.locator('.rules-ie-message')).toContainText(strings['r-import-wrike-workflow-done'].replace('__name__', 'Delivery').replace('__lists__', '0').replace('__rules__', '0').split('__skipped__')[0], { timeout: 15_000 });
     expect(added()).toHaveLength(4);
     expect(moveRules()).toHaveLength(4);
 
@@ -213,6 +216,8 @@ test.describe('Rules', () => {
     expect(statuses.find(status => status.name === 'Dropped').group).toBe('Cancelled');
     expect(statuses.find(status => status.name === 'Building')).toMatchObject({ group: 'Active', color: 'Orange' });
   });
+
+  }
 
   test('a board button rule renders a runnable button in the board header', async ({ boardPage, board }) => {
     await openRulesPage(boardPage, board);
