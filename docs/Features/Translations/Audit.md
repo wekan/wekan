@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho historical review: configuration and visibility — 2026-10-13
+
+Commit `08871f2aa6` reviews source keys 1590–1844 and repairs seven values.
+Rule-variable help describes data fields rather than agricultural fields.
+OAuth help clarifies the environment setting, the local override and server
+storage of the secret without displaying it. Public/private board controls
+identify boards rather than presence and distinguish defaults from visibility.
+The header-toggle hint restores the mobile/desktop notification behavior.
+Other valid wording is preserved, including all rule tokens.
+
+The final Southern Sotho and repair-ledger suites pass with 26,946 guarded
+corrections; all 21 human-preference checks pass. OAuth browser coverage passes
+syntax and discovery; runtime execution remains pending. Exact comparison
+preserves 38,430 existing Chinese values. Historical review reaches key 1844;
+all-language translation and semantic review remain unfinished.
+
 ## Short-string inventory correction and Southern Sotho fill — 2026-10-13
 
 Commit `15643364b0` removes the blanket exemption for strings with fewer than

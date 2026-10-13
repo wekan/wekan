@@ -2456,6 +2456,22 @@ preserved. All-language translation and semantic review remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/08871f2aa6">Clarify Southern Sotho configuration and visibility guidance</a>. Thanks to xet7.</summary>
+
+Reviewed source keys 1590–1844 and corrected seven values. Rule variables refer
+to data fields, and OAuth help clarifies local-setting precedence, server
+storage and never displaying the secret. Public/private controls refer to
+boards and distinguish defaults from showing fields. The header-toggle hint
+includes its mobile/desktop notification behavior.
+
+Southern Sotho and repair-ledger suites pass with 26,946 guarded corrections;
+all 21 human-preference checks pass. OAuth browser coverage passes syntax and
+discovery; runtime execution remains pending. All 38,430 existing Chinese
+values are preserved. All-language translation work remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
