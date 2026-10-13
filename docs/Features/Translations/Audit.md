@@ -2,6 +2,25 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican preferences, role controls and weekdays — 2026-10-13
+
+Commit `0343ff48a0` repairs 44 values in the source-ordered review through
+key 1844. Editor preferences retain Enter, Shift+Enter and Ctrl/Cmd+Enter
+behavior and the multiple-card setting retains its enabled/disabled window
+behavior. Role guidance preserves global-admin rights and the read-only
+preview of unsaved selections. Linked-card deletion keeps its prerequisite
+ordering. Weekday names follow the Corsican forms in Educorsica's
+[U Corsu Bellu Bellu 2.0](https://www.educorsica.fr/phocadownload/pdf/corsu_bellu_bellu_2.pdf).
+
+The Corsican and full repair-ledger suites pass; the ledger contains
+26,215 guarded corrections. All 21 human-preference checks pass. A new
+member-preference browser case registers for the two behavior tooltips and
+multiple-card label; it has not run against the application. Negative tests
+reject specific Italian phrases rather than valid shared words. Exact
+comparison preserves all 38,430 protected Chinese values and limits this
+locale batch to the 44 reviewed replacements. Broader language review
+remains unfinished.
+
 ## Corsican rule summaries, login settings and date activities — 2026-10-13
 
 Commit `f2b4ea8984` repairs 59 values in the source-ordered review through

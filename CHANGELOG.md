@@ -1848,6 +1848,19 @@ pending. Existing Chinese text is unchanged; broader review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0343ff48a0">Correct Corsican preferences, roles and weekdays</a>. Thanks to xet7.</summary>
+
+Repair 44 member-preference, notification, role and calendar values. Keep
+editor shortcuts, global-admin rights, role previews before saving and
+linked-card deletion ordering. Replace Italian weekday names.
+
+The Corsican and repair-ledger suites and 21 human-preference checks pass.
+A member-preference browser case registers; runtime execution remains
+pending. Existing Chinese text is unchanged; broader review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
