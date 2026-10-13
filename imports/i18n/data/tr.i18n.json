@@ -2700,7 +2700,7 @@
   "s3-access-key": "S3 Erişim Anahtarı",
   "s3-access-key-description": "Kimlik doğrulama için AWS S3 erişim anahtarı",
   "s3-access-key-placeholder": "S3 erişim anahtarını girin",
-  "s3-bucket": "S3 Bucket",
+  "s3-bucket": "S3 kovası",
   "s3-bucket-description": "Dosyaları depolamak için S3 bucket adı",
   "s3-connection-failed": "S3 bağlantısı başarısız",
   "s3-connection-success": "S3 bağlantısı başarılı",

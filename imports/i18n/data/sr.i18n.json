@@ -2700,7 +2700,7 @@
   "s3-access-key": "S3 приступни кључ",
   "s3-access-key-description": "AWS S3 приступни кључ за пријаву",
   "s3-access-key-placeholder": "Унесите S3 приступни кључ",
-  "s3-bucket": "S3 Bucket",
+  "s3-bucket": "S3 контејнер",
   "s3-bucket-description": "S3 bucket име где чувате предметну грађу",
   "s3-connection-failed": "S3 веза је у прекиду",
   "s3-connection-success": "Управо је остварена веза до S3",
