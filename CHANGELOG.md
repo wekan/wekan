@@ -637,12 +637,13 @@ Upcoming as it is committed. Builds run on GitHub Actions only.
 
 **In short:** **email to card** arrives on every platform, through provider
 webhooks, **IMAP** mailboxes or a **Sandstorm** grain's own address, which
-also sends WeKan's email; **bounces**, including **Amazon SES**'s, are handled
-in the Admin Panel. Two new board views show a board as a Gmail-like
-**Email** mailbox and as a Slack-like **Chat**. A board can be **exported to
-Trello** with its **swimlanes** kept as labels, and a grain reaches Trello
-through the **Powerbox**. **FreeBSD** Bun bundles, the **Launchpad snap** and
-the **Mac apps** step are fixed, and many languages are filled and corrected.
+also sends WeKan's email; **bounces** from **Amazon SES** and eight other
+sending services are handled in the Admin Panel. Two new board views show a
+board as a Gmail-like **Email** mailbox and as a Slack-like **Chat**. A board
+can be **exported to Trello** with its **swimlanes** kept as labels, and a grain
+reaches Trello through the **Powerbox**. **FreeBSD** Bun bundles, the
+**Launchpad snap** and the **Mac apps** step are fixed, and many languages are
+filled and corrected.
 
 This release adds the following new features:
 
@@ -736,6 +737,30 @@ transports against local SMTP and IMAP servers, a real Maildir and signed SNS
 messages. They found the server bundle's nodemailer import that broke every
 parsed email, and the Chat view's drag and drop and right-to-left faults, which
 are fixed here. See [Bounces](docs/Features/Email/Bounces.md).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/57e05c4304">Bounces from Mailgun, SendGrid, Postmark, Brevo, Mailjet, SparkPost, Mandrill and Resend</a>. Thanks to xet7.</summary>
+
+Besides Amazon SES, WeKan takes the bounce and spam-complaint webhooks of the
+other common sending services at `/api/inbound-email/bounces/<service>`. Each
+request is checked the way that service signs it:
+
+- Mailgun: HMAC-SHA256;
+- SendGrid: an ECDSA signature over the raw body;
+- Mandrill: HMAC-SHA1 over the address and fields;
+- Resend: a Svix signature;
+- Postmark, Brevo, Mailjet and SparkPost, which do not sign: a password in the
+  webhook address (Basic auth or `?secret=`).
+
+Each service's events become WeKan's hard, soft, automatic-reply and complaint
+bounces, so the same rules act on them. Bounces → Other sending services turns
+a service on with its key or password, which is never shown back. A forged
+request is refused and logged under Problems → Security. Mail systems without a
+webhook are still handled by reading their bounce emails over IMAP.
+`tests/emailBounce.test.cjs` checks every payload and signature, and the
+runtime test posts to each endpoint over HTTP.
 
 </details>
 
