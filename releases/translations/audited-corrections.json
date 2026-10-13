@@ -188767,5 +188767,33 @@
     "before": "Bohloko",
     "after": "Boima ba bothata",
     "reason": "Distinguish automatic checklist reset from card recurrence and clarify last activity and error severity."
+  },
+  {
+    "locale": "st",
+    "key": "anonymize-account",
+    "before": "Pata boitsebiso ba basebedisi ba kenngwang",
+    "after": "Pata boitsebiso ba akhaonto",
+    "reason": "Restore the account anonymization confirmation and distinguish the whole installation from an example in backup scope."
+  },
+  {
+    "locale": "st",
+    "key": "anonymize-account-confirm-popup",
+    "before": "Ha e butswe, ho ntsha boto ho nkela lebitso la mosebedisi, lebitso le felletseng le ditlhaku tsa pele tsa mosebedisi e mong le e mong ya ntshuwang sebaka ka disupa-palo (mosebedisi1, mosebedisi2, ...), ho lahla avatar ya hae, le ho ngola botjha ditshupo tsa @username (le mabala a kopilweng-ke / abetsweng-ke) ka hara dikahare tsa dikarete le ditshwaelo. Faele e ntshuwang ha e nke boitsebiso ba nnete ba mosebedisi. Lentswe \"mosebedisi\" le latela puo ya motho ya ntshang. Ka kamehla e timme.",
+    "after": "Na o netefatsa hore o batla ho pata boitsebiso ba akhaonto ena? Sena se nkela lebitso la mosebedisi, lebitso le felletseng le aterese ya imeile sebaka ka boleng bo sa bontsheng boitsebiso ka ho sa feleng, se tlosa setshwantsho sa mosebedisi mme se thibela ho kena. Ho fapana le ho hlakola, diboto, dikarete le ditshwaelo di boloka nalane ya tsona mme di ntse di bontsha akhaonto ena, empa boitsebiso ba yona bo patilwe. Ketso ena e ke ke ya etsollwa.",
+    "reason": "Restore the account anonymization confirmation and distinguish the whole installation from an example in backup scope."
+  },
+  {
+    "locale": "st",
+    "key": "backup-scope-instance",
+    "before": "Mohlala kaofela",
+    "after": "Tsamaiso ena yohle ya WeKan",
+    "reason": "Restore the account anonymization confirmation and distinguish the whole installation from an example in backup scope."
+  },
+  {
+    "locale": "st",
+    "key": "backup-scope-description",
+    "before": "Mohlala kaofela, kapa Mokgatlo o le mong. Bekapo ya Mokgatlo e na le diboto tsa wona le ntho e nngwe le e nngwe ho tsona, ho kenyeletswa diphuthelwana tsa diboto tseo — empa ha e na diakhaonto tsa basebedisi kapa ditlhophiso tsa mohlala, hobane tseo di arolelanwa ke Mokgatlo o mong le o mong. Ho kgutlisetsa bekapo ya Mokgatlo ho ngola feela dibotong tseo Mokgatlo oo o leng monga tsona.",
+    "after": "Tsamaiso ena yohle ya WeKan, kapa Mokgatlo o le mong. Bekapo ya Mokgatlo e na le diboto tsa wona le ntho e nngwe le e nngwe ho tsona, ho kenyeletswa diphuthelwana tsa diboto tseo — empa ha e na diakhaonto tsa basebedisi kapa ditlhophiso tsa tsamaiso ena ya WeKan, hobane tseo di arolelanwa ke Mokgatlo o mong le o mong. Ho kgutlisetsa bekapo ya Mokgatlo ho ngola feela dibotong tseo Mokgatlo oo o leng monga tsona.",
+    "reason": "Restore the account anonymization confirmation and distinguish the whole installation from an example in backup scope."
   }
 ]

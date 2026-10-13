@@ -800,3 +800,16 @@ for (const key of ['checklist-reset-interval', 'card-recurrence-interval']) asse
 assert.equal(sesotho['admin-people-last-active'], 'E qetetse ho sebetsa');
 assert.equal(sesotho['cron-error-severity'], sesotho['recovery-severity']);
 assert.notEqual(sesotho['cron-error-severity'], 'Bohloko');
+
+// Historical review through key 2599: account effects and backup boundaries.
+assert.equal(sesotho['anonymize-account'], sesotho['userAnonymizePopup-title']);
+const accountWarning = sesotho['anonymize-account-confirm-popup'];
+for (const phrase of ['lebitso la mosebedisi', 'lebitso le felletseng', 'aterese ya imeile', 'ka ho sa feleng', 'se tlosa setshwantsho', 'se thibela ho kena', 'di boloka nalane', 'e ke ke ya etsollwa']) {
+  assert.ok(accountWarning.includes(phrase), phrase);
+}
+assert.notEqual(accountWarning, sesotho['anonymize-export-users-description']);
+assert.doesNotMatch(accountWarning, /ho ntsha boto|Ka kamehla e timme/);
+assert.equal(sesotho['backup-scope-instance'], 'Tsamaiso ena yohle ya WeKan');
+assert.match(sesotho['backup-scope-description'], /ha e na diakhaonto tsa basebedisi kapa ditlhophiso tsa tsamaiso ena ya WeKan/);
+assert.match(sesotho['backup-scope-description'], /ho ngola feela dibotong tseo Mokgatlo oo o leng monga tsona/);
+assert.doesNotMatch(sesotho['backup-scope-description'], /Mohlala|mohlala/);

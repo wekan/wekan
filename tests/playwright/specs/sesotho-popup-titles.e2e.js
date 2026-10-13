@@ -19,6 +19,12 @@ test('Southern Sotho titles distinguish card labels and account anonymization', 
   });
   await expect(title).toHaveText('Pata boitsebiso ba akhaonto');
   await expect(title).not.toContainText('kenngwang');
+  const warning = page.locator('.js-pop-over');
+  await expect(warning).toContainText('se thibela ho kena');
+  await expect(warning).toContainText('di boloka nalane');
+  await expect(warning).toContainText('e ke ke ya etsollwa');
+  await expect(warning).not.toContainText('ho ntsha boto');
+
   await page.evaluate(() => Popup.close());
 });
 
