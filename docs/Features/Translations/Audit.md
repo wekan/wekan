@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho historical review: stale import instructions — 2026-10-13
+
+Commit `126aaebb91` reviews source keys 814–929 and repairs six values.
+Todoist and Planner had older English text, missed by the zero-placeholder gate
+because their values differed from current English. They now use Southern Sotho
+while preserving literal source menu names. Jira includes its fields parameter,
+ID-only warning, pagination token and options to combine or separately import
+pages. Excel includes ordinary tables, WeKan workbooks, column mapping and a
+board per sheet with a header. Taskwarrior and Focalboard labels no longer say
+letters. Other valid wording in this range is preserved.
+
+The Southern Sotho and repair-ledger suites pass with 26,901 guarded corrections;
+all 21 human-preference checks pass. Six import-help browser cases pass syntax
+and discovery; runtime execution remains pending. Exact comparison preserves
+38,430 existing Chinese values. The exact-match placeholder count remains zero,
+but this batch demonstrates why that count cannot establish translation
+completeness. Historical review has reached key 929; all-language work continues.
+
 ## Southern Sotho historical review: fields, export and filter help — 2026-10-13
 
 Commit `44cc4c30ee` reviews source keys 590–813 and repairs five values.

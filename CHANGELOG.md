@@ -2335,6 +2335,26 @@ and all-language translation work continue.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/126aaebb91">Translate stale Southern Sotho import instructions</a>. Thanks to xet7.</summary>
+
+Reviewed source keys 814–929 and corrected six values. Todoist and Planner help
+contained older English instructions, which differ from current English and
+therefore escaped the exact-match placeholder inventory. Both now use Southern
+Sotho with the source menu names preserved. Jira help includes fields,
+pagination
+and page-combination options; Excel help includes column mapping and one board
+per sheet with a header. Taskwarrior and Focalboard labels no longer say
+letters.
+
+Southern Sotho and repair-ledger suites pass with 26,901 guarded corrections;
+all 21 human-preference checks pass. Six import-help browser cases pass syntax
+and discovery checks; runtime execution remains pending. All 38,430 existing
+Chinese values are preserved. Zero exact-match English placeholders is not proof
+of a fully translated catalog; semantic review and all-language work continue.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
