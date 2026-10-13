@@ -1477,6 +1477,20 @@ broader language review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/724fd0730d">Correct Corsican permissions and board controls</a>. Thanks to xet7.</summary>
+
+Repair 37 mixed-language values for membership, comments, roles, subtasks,
+archives and board controls. Correct the account-anonymization title and
+retain the distinction between logged-in users and registered users.
+
+The Corsican suite, full repair-ledger suite and 21 human-preference checks
+pass. All 4,265 source keys have matching Corsican placeholder inventories.
+The subtask browser cases register with the corrected heading assertion;
+application execution remains pending. Protected Chinese values are unchanged.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

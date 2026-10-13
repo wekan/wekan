@@ -2,6 +2,29 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican permission and board controls — 2026-10-13
+
+Commit `724fd0730d` repairs 37 mixed-language values. Membership and
+comment restrictions, role descriptions, subtask labels, custom fields,
+archive advice, list widths and deletion titles now use Corsican. Two
+meaning errors are corrected: the account-anonymization title no longer
+refers to imported users, and access for logged-in users no longer says
+registered users. Archive advice retains restoration and activity retention.
+
+The Corsican and full repair-ledger suites pass; the ledger now records
+25,270 guarded corrections. All 21 human-preference checks pass. A complete
+key/token comparison covers 4,265 live source keys. Semantic assertions
+retain read-only and assigned-only restrictions, administrator comment
+restrictions, private-versus-shared widths and archive behavior.
+
+The two Corsican subtask browser cases register, with the completion case
+now checking the corrected `Sottucompiti` heading and rejecting its previous
+Italian form. They have not run against the application. Exact comparison
+preserves all 38,385 existing protected Chinese values and isolates the
+37 specified Corsican edits from concurrent additions. Broader language
+review remains unfinished; filtered placeholder totals do not measure these
+mixed-language corrections.
+
 ## Corsican activity notification wording — 2026-10-13
 
 Commit `f7e256b997` corrects 39 notification values containing Italian or
