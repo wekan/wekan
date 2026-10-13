@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin member removal and shortcuts — 2026-10-14
+
+Commit `7f256bce30` repairs 30 prefixed messages for member removal, unsaved
+descriptions, search, WIP limits and shortcuts. Tests retain all-card removal
+and notification, the separate Sandstorm access-revocation step, unsaved-change
+conditions, maximum task count, search scope and the distinction between joining
+a card and assigning it to oneself.
+
+The Latin and guarded-correction suites pass with 27,829 ledger entries. All 21
+human-preference checks pass. Shortcut-page browser coverage checks membership,
+assignment and assigned-card filter labels; syntax and discovery pass, runtime
+remains pending. Exact comparison preserves 38,430 existing Chinese values.
+
+There remain 1,555 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin visibility, notification and archive descriptions — 2026-10-14
 
 Commit `48a62a615e` repairs 30 prefixed messages for selection, roles,

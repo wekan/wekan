@@ -3078,6 +3078,21 @@ containing the old language prefix; all-language review remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7f256bce30">Repair Latin member removal and shortcut messages</a>. Thanks to xet7.</summary>
+
+Repair 30 prefixed strings for member removal, descriptions, search, WIP limits
+and shortcuts. Preserve removal notifications and the warning that hiding a
+member in WeKan does not revoke Sandstorm access. Distinguish joining from
+assignment.
+
+The Latin and guarded-correction suites and all 21 preservation checks pass.
+The shortcut-page browser case passes syntax and discovery; runtime remains
+pending. Existing Chinese values are unchanged. There remain 1,555 Latin values
+containing the old language prefix; all-language review remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
