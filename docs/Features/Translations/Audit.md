@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin maintenance and account controls — 2026-10-14
+
+Commit `5002df4c9d` repairs 44 maintenance, account, upload and custom-translation
+entries. Checks retain secondary-before-primary ordering, the single-node case,
+completion of bulk moves before compaction, byte units, irreversible deletion
+and checked-versus-all checklist scopes. Workspace placeholders remain exact.
+
+Three translation suites pass with 28,841 correction ledger entries. All 21
+human-preference checks pass. Exact comparison preserves 38,430 existing Chinese
+values. Maintenance browser coverage checks warning text without invoking the
+maintenance operation; syntax and discovery pass, runtime remains pending.
+
+There remain 546 Latin values containing “Latine:”. Unprefixed values and other
+languages still require semantic review; all-language verification is unfinished.
+
 ## Latin storage and attachment repair — 2026-10-14
 
 Commit `104480b6cc` repairs 44 storage and progress entries. The descriptions
