@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican remaining search help and controls — 2026-10-13
+
+Commit `5fce837d4e` repairs 50 values in the source-ordered review through
+key 2109. Search help preserves absence checks, descending-sort syntax,
+OR/AND behavior and case-insensitive matching. Dependency and map controls
+lose Italian wording. Arial, USA and Asia retain their proper names without
+invented language prefixes and have explicit invariant entries.
+
+The Corsican, full repair-ledger and actual-parser suites pass; the ledger
+contains 26,349 guarded corrections. Parser checks exercise ascending and
+descending sorts for due, created and modified dates, plus an invalid sort.
+All 21 human-preference checks pass. Two Corsican search browser cases
+register, including the new help-text case; syntax checks pass, but browser
+runtime execution remains pending. Exact comparison preserves 38,430
+existing Chinese values. Broader language review remains unfinished.
+
 ## Corsican search keywords and instructions — 2026-10-13
 
 Commit `d017d184dc` repairs 37 values in the source-ordered review through

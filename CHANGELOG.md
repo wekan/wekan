@@ -1887,6 +1887,19 @@ runtime execution remains pending. Existing Chinese text is unchanged.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5fce837d4e">Correct Corsican search help and dependency controls</a>. Thanks to xet7.</summary>
+
+Repair 50 search, dependency, background and map-control values. Preserve
+OR/AND guidance, absence checks and descending-sort syntax. Restore Arial
+and region names without invented language prefixes.
+
+The Corsican, repair-ledger and actual-parser suites pass, along with 21
+human-preference checks. Search-help browser coverage is registered;
+runtime execution remains pending. Existing Chinese text is unchanged.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
