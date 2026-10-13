@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin account emails and import errors — 2026-10-14
+
+Commit `737e8cd4d0` repairs 25 prefixed messages for email/push invitations,
+password reset, email verification, permissions and import errors. Tests retain
+named variables and URL paragraphs, matching email/push invitations,
+administrator versus member requirements, CSV/TSV delimiter meanings, empty
+export recovery instructions and linked-card cycle restrictions.
+
+The Latin and guarded-correction suites pass with 27,584 ledger entries. All 21
+human-preference checks pass. A malformed-JSON import browser case checks the
+translated error and retained input; syntax and discovery pass, runtime remains
+pending. Exact comparison preserves 38,430 existing Chinese values.
+
+There remain 1,800 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin custom fields, deletion settings and account emails — 2026-10-14
 
 Commit `9c5f1c6ad4` repairs 50 prefixed strings for custom fields, editing,
