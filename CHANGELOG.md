@@ -131,8 +131,8 @@ releases.
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **28,516 untranslated locale/string values in 42 languages**.
   It excludes **368 source keys tracked separately as pending Transifex**.
-  After the shared-label batch, full per-locale `--list` reports, including
-  pending keys, count **55,375 remaining values across 130 non-English locale
+  After the Bengali batch, full per-locale `--list` reports, including
+  pending keys, count **55,193 remaining values across 129 non-English locale
   files**. This fuller inventory remains the scope of the translation work.
   A separate short-prose audit flags 1,681 candidates across 183 locales.
   The two notification At/To labels now have translations in all non-English
@@ -144,6 +144,10 @@ releases.
   Earlier Xhosa completion checks predate the newer pending strings. The
   current broad run still exposes English placeholders in several catalogs;
   see the dated audit results. Empty reports do not establish fluency.
+- Bengali now has no remaining current fill candidates, including pending
+  keys, after translating 182 feature strings. Existing Bengali wording was
+  preserved. Linked-field, notification and recovery browser cases register;
+  execution needs a running app. Whole-catalog language review remains open.
 - The [2026-10-13 shared-label review](docs/Features/Translations/Shared-Labels-2026-10-13.md)
   fills 3,129 English values and repairs 167 seeded values across 130 locale
   paths. All 46 reviewed labels render through i18next; 15 completed keys leave
@@ -532,8 +536,9 @@ used.
 # Upcoming WeKan ® release
 
 **In short:** more **UI labels** now use their target language, and seeded
-wrong-language terminology is corrected. Existing verified translations remain
-intact while the wider language-quality review continues.
+wrong-language terminology is corrected. **Bengali** gains the remaining feature
+strings. Existing verified translations remain intact while the wider
+language-quality review continues.
 
 This release updates the following translations:
 
@@ -549,8 +554,24 @@ All 307 translation/Blockly suites and 21 human-preference checks pass.
 Source tokens match across all 246 catalogs. Expanded notification browser
 coverage registers 125 Chromium tests; execution still needs a running app.
 [Terminology evidence and review limits](docs/Features/Translations/Shared-Labels-2026-10-13.md)
-record provisional wording. The wider language audit and 55,375 untranslated
+record provisional wording. The wider language audit and 55,193 untranslated
 values remain in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/012ee1eb0c">Fill the remaining Bengali feature strings</a>. Thanks to xet7.</summary>
+
+Translate 182 English placeholders for linked cards and fields, import
+formats and mapping, notifications, webhooks, LDAP, Wrike and recovery.
+Existing Bengali translations remain unchanged. The current fill list is
+empty, including pending keys; broader wording review remains unfinished.
+
+Regression coverage checks permissions, import exclusions, recovery warnings,
+exact source placeholders and runtime interpolation. Three focused suites
+pass. Four Bengali browser cases register for linked fields, notification
+settings and both recovery views; execution still needs a running app.
+Longer technical wording remains provisional pending speaker review.
 
 </details>
 

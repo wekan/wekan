@@ -2,6 +2,33 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Bengali current fills — 2026-10-13
+
+Commit `012ee1eb0c` fills 182 English values, covering linked fields, 22 import
+formats, member and CSV mapping, bulk import/export, link rules, webhooks,
+notifications, Wrike workflows, LDAP, subtasks and interrupted-operation
+recovery. A comparison with the parent confirms that every changed value was
+English; existing Bengali translations remain untouched. The full current
+Bengali fill list is empty, including pending keys. The global full inventory
+now has 55,193 values across 129 non-English locale paths; the ordinary
+nonpending backlog remains 28,516 values across 42 locales.
+
+The extended Bengali suite preserves exact source tokens and key order and
+checks permission boundaries, field directions, required English import
+headers, first-board selection, import exclusions, subtask markers, workflow
+states, LDAP constants, inherited delivery settings and quiet hours. Recovery
+checks distinguish retaining applied changes from deleting an imported board,
+include later board additions, refuse to discard replayable operations, retain
+unrelated boards and preserve the oldest-50 limit. Runtime interpolation covers
+zero, counts, card names, stages and errors. Three focused suites pass.
+
+Four Bengali browser cases register for linked fields, notifications, List Sync
+recovery and import recovery. They remain unexecuted without the configured app.
+Longer Bengali software explanations are provisional pending speaker review;
+older non-English values have not been certified fluent or semantically correct.
+Existing human-verified `zh` translations remain unchanged. Their fill inventory
+currently has no gaps; future work may add missing strings only.
+
 ## Shared labels and seeded-value repairs — 2026-10-13
 
 The [shared-label review](Shared-Labels-2026-10-13.md) fills 3,129 English
