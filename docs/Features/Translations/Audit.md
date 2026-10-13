@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin string templates and reports — 2026-10-14
+
+Commit `bd9d654aae` repairs 30 prefixed field, activity and report entries.
+Regression checks preserve substitution tokens and space entities, invisible-file
+filtering, administrator/impersonated-user distinctions, IPv4/IPv6, optional
+country/city data and successful-login counts grouped by person.
+
+The Latin and guarded-correction suites pass with 28,631 ledger entries. All 21
+human-preference checks pass. Custom-field browser coverage now selects string
+templates, checks format/separator labels and verifies dropdown settings hide.
+Syntax and discovery pass; browser runtime remains pending. Exact comparison
+preserves 38,430 existing Chinese values.
+
+There remain 756 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin locations and backgrounds — 2026-10-14
 
 Commit `08c7d5314b` repairs 30 prefixed location, background, sorting and server

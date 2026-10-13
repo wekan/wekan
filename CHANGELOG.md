@@ -3448,6 +3448,22 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bd9d654aae">Repair Latin string template and report translations</a>. Thanks to xet7.</summary>
+
+- Translate 30 mixed-language field and report entries. Preserve substitution
+  tokens, space entities, invisible-filename filtering, impersonation roles and
+  successful-login reporting scope.
+- Latin and guarded-correction suites pass with 28,631 corrections. All 21
+  human-preference checks pass; 38,430 existing Chinese values are preserved.
+  Extended custom-field browser coverage passes syntax and discovery; browser
+  execution remains pending.
+- Review remains unfinished: 756 Latin values contain the legacy “Latine:”
+  prefix.
+  Unprefixed values and other languages still require semantic review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
