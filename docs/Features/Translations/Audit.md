@@ -2,6 +2,29 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Swahili notification, mapping and Scrum controls — 2026-10-13
+
+Commit `387b88c959` fills 79 English values: notification delivery and
+webhooks, planning synchronization, CSV and imported-person mapping, Scrum
+transfers and subtasks. The wording retains quiet-hour waiting, inherited
+defaults, identity omission, source-ID matching and the first-sync safeguard.
+Import messages distinguish named placeholders from real users, missing
+columns, ambiguous cards, unmatched data and completed work periods.
+
+Both Swahili suites and all 21 human-preference checks pass. The expanded
+feature suite covers at least 155 translated messages and verifies exact
+tokens, negative meanings, change direction and retained data. Guarded
+comparison confirms that only the 79 English values changed; prior Swahili
+translations and all 38,079 protected Chinese values remain unchanged.
+Concurrent mail-report additions were preserved outside this commit.
+
+Seven added browser cases register across notification settings, planning
+sync, person mapping, CSV mapping, Scrum transfer and subtask flows. They
+include missing-list validation, repeat import and comment-only permission
+refusal, but have not run against a rebuilt app. Swahili's filtered count
+falls from 147 to 68; the global inventory is 53,485 across 115 catalogs.
+Further fills, broader wording review and browser execution remain open.
+
 ## Swahili card links and recovery — 2026-10-13
 
 Commit `c4f4e465f2` fills 76 English placeholders: 30 attached-card and

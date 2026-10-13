@@ -132,7 +132,7 @@ releases.
   report counts **28,516 untranslated locale/string values in 42 languages**.
   It excludes **379 source keys tracked separately as pending Transifex**.
   With the newer email/chat strings included, full per-locale `--list`
-  reports, including pending keys, count **53,564 remaining values across
+  reports, including pending keys, count **53,485 remaining values across
   115 non-English locale files**. This fuller inventory remains the scope
   of the translation work.
   A separate short-prose audit flags 1,649 candidates across 180 locales.
@@ -1298,6 +1298,21 @@ Both Swahili suites and 21 human-preference checks pass. Seven browser
 cases register, covering normal actions, permissions and recovery conflicts;
 execution remains pending. Swahili has 147 filtered placeholders left.
 Existing translated values and protected Chinese text remain unchanged.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/387b88c959">Translate Swahili notification, mapping and Scrum controls</a>. Thanks to xet7.</summary>
+
+Fill 79 English messages for notification grouping and schedules, webhook
+privacy, planning synchronization, imported people, CSV mapping, Scrum
+transfers and subtask completion. Preserve quiet hours, first-sync safeguards,
+unmatched cards, permission refusals and literal tokens.
+
+Both Swahili suites and 21 human-preference checks pass. Seven additional
+browser cases register across six existing flows; execution remains pending.
+Swahili has 68 filtered placeholders left. Existing translated values and
+protected Chinese text remain unchanged.
 
 </details>
 
