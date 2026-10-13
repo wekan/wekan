@@ -162,3 +162,18 @@ assert.match(corsican['activity-checked-item'], /hà marcatu/);
 assert.match(corsican['activity-unchecked-item'], /hà cacciatu a marca/);
 assert.match(corsican['activity-checklist-item-added'], /à '%s' in %s/);
 assert.match(corsican['activity-checklist-item-removed'], /da '%s' in %s/);
+
+const notificationCorrectionKeys = ["act-deleteCard", "act-removeSwimlane", "act-addAttachment", "act-deleteAttachment", "act-addSubtask", "act-addLabel", "act-addedLabel", "act-removeLabel", "act-removedLabel", "act-addChecklist", "act-addChecklistItem", "act-removeChecklist", "act-removeChecklistItem", "act-checkedItem", "act-uncheckedItem", "act-completeChecklist", "act-uncompleteChecklist", "act-addComment", "act-editComment", "act-deleteComment", "act-createSwimlane", "act-createCard", "act-createCustomField", "act-deleteCustomField", "act-setCustomField", "act-createList", "act-addBoardMember", "act-archivedCard", "act-archivedList", "act-archivedSwimlane", "act-importBoard", "act-importCard", "act-importList", "act-joinMember", "act-moveCard", "act-moveCardToOtherBoard", "act-removeBoardMember", "act-restoredCard", "act-unjoinMember"];
+for (const key of notificationCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  const prose = corsican[key].replace(/__[A-Za-z0-9_]+__/g, '');
+  assert.doesNotMatch(prose, /\b(?:alla|dalla|swimlane|swim lane|allegatu|sottotask|Rimossa|rimossa|controllo|elemento|attivato|disattivato|completata|creato|campo|personalizzato|Corsia|importato|importata|spostata|ripristinata)\b/, key);
+}
+assert.match(corsican['act-moveCard'], /da a lista __oldList__.*à a lista __list__/);
+assert.match(corsican['act-moveCardToOtherBoard'], /__oldBoard__.*à a lista __list__.*__board__/);
+assert.match(corsican['act-removeChecklistItem'], /__checkList__/);
+assert.match(corsican['act-uncheckedItem'], /cacciatu a marca/);
+assert.match(corsican['act-uncompleteChecklist'], /micca compia/);
+assert.doesNotMatch(corsican['act-completeChecklist'], /micca/);
+assert.match(corsican['act-deleteCustomField'], /squassatu u campu persunalizatu/);
+assert.match(corsican['act-addAttachment'], /appicciu/);

@@ -176356,5 +176356,278 @@
     "before": "completata lista di controllo __checklist__  in a carta __card__ di a lista __list__ di a swimlane __swimlane__ in a tavula __board__",
     "after": "hà compiu a lista di cuntrollu __checklist__ di a carta __card__ di a lista __list__ di u curridore __swimlane__ di a tavula __board__",
     "reason": "Replace Italian or mixed-language activity prose with Corsican; preserve source placeholders and action direction."
+  },
+  {
+    "locale": "co",
+    "key": "act-deleteCard",
+    "before": "carta __card__ eliminata dalla lista __list__ in a swimlane __swimlane__ in a tavula __board__",
+    "after": "hà squassatu a carta __card__ da a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-removeSwimlane",
+    "before": "swimlane __swimlane__ eliminata in a tavula __board__",
+    "after": "hà squassatu u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-addAttachment",
+    "before": "Aghjuntu allegatu __attachment__ alla carta __card__ di a lista __list__ di a swimlane __swimlane__  in a tavula __board__",
+    "after": "hà aghjuntu l’appicciu __attachment__ à a carta __card__ di a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-deleteAttachment",
+    "before": "Squassatu allegatu __attachment__ dalla carta __card__ di a lista __list__ di a swimlane __swimlane__  in a tavula __board__",
+    "after": "hà squassatu l’appicciu __attachment__ di a carta __card__ di a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-addSubtask",
+    "before": "Aghjuntu sottotask __subtask__ alla carta __card__ di a lista __list__ di a swimlane __swimlane__  in a tavula __board__",
+    "after": "hà aghjuntu u sottucompitu __subtask__ à a carta __card__ di a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-addLabel",
+    "before": "Aghjunta etichetta __label__ alla carta __card__ di a lista __list__ di a swimlane __swimlane__  in a tavula __board__",
+    "after": "hà aghjuntu l’etichetta __label__ à a carta __card__ di a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-addedLabel",
+    "before": "Aghjunta etichetta __label__ alla carta __card__ di a lista __list__ di a swimlane __swimlane__  in a tavula __board__",
+    "after": "hà aghjuntu l’etichetta __label__ à a carta __card__ di a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-removeLabel",
+    "before": "Rimossa etichetta __label__ dalla carta __card__ di a lista __list__ di a swimlane __swimlane__  in a tavula __board__",
+    "after": "hà cacciatu l’etichetta __label__ da a carta __card__ di a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-removedLabel",
+    "before": "Rimossa etichetta __label__ dalla carta __card__ di a lista __list__ di a swimlane __swimlane__  in a tavula __board__",
+    "after": "hà cacciatu l’etichetta __label__ da a carta __card__ di a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-addChecklist",
+    "before": "aghjunta lista di controllo __checklist__ alla carta __card__ di a lista __list__ di a swimlane __swimlane__ in a tavula __board__",
+    "after": "hà aghjuntu a lista di cuntrollu __checklist__ à a carta __card__ di a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-addChecklistItem",
+    "before": "aghjuntu elemento __checklistItem__ alla lista di controllo __checklist__ di a carta __card__ di a lista __list__ di a swimlane __swimlane__  in a tavula __board__",
+    "after": "hà aghjuntu l’elementu __checklistItem__ à a lista di cuntrollu __checklist__ di a carta __card__ di a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-removeChecklist",
+    "before": "rimossa lista di controllo __checklist__ dalla carta __card__ di a lista __list__ di a swimlane __swimlane__  in a tavula __board__",
+    "after": "hà cacciatu a lista di cuntrollu __checklist__ da a carta __card__ di a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-removeChecklistItem",
+    "before": "cacciatu elemento __checklistItem__ dalla lista di controllo __checkList__ di a carta __card__ di a lista __list__ di a swimlane __swimlane__  in a tavula __board__",
+    "after": "hà cacciatu l’elementu __checklistItem__ da a lista di cuntrollu __checkList__ di a carta __card__ di a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-checkedItem",
+    "before": "attivato __checklistItem__ in a lista di controllo __checklist__ di a carta __card__ di a lista __list__ di a swimlane __swimlane__ in a tavula __board__",
+    "after": "hà marcatu __checklistItem__ in a lista di cuntrollu __checklist__ di a carta __card__ di a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-uncheckedItem",
+    "before": "disattivato __checklistItem__ di a lista di controllo __checklist__ dalla carta __card__ di a lista __list__ di a swimlane __swimlane__ in a tavula __board__",
+    "after": "hà cacciatu a marca di __checklistItem__ in a lista di cuntrollu __checklist__ di a carta __card__ di a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-completeChecklist",
+    "before": "completata lista di controllo __checklist__  in a carta __card__ di a lista __list__ di a swimlane __swimlane__ in a tavula __board__",
+    "after": "hà compiu a lista di cuntrollu __checklist__ di a carta __card__ di a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-uncompleteChecklist",
+    "before": "lista di controllo __checklist__ incompleta in a carta __card__ di a lista __list__ in swimlane __swimlane__ di a tavula __board__",
+    "after": "hà marcatu cum’è micca compia a lista di cuntrollu __checklist__ di a carta __card__ di a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-addComment",
+    "before": "cummentu nantu à a carta __card__: __comment__ in a lista __list__ di a swimlane __swimlane__ di a tavula __board__",
+    "after": "hà cummentatu a carta __card__: __comment__ di a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-editComment",
+    "before": "cummentu mudificatu nantu à a carta __card__: __comment__ in a lista __list__ in a swim lane __swimlane__ in a tavula __board__",
+    "after": "hà mudificatu u cummentu nant’à a carta __card__: __comment__ di a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-deleteComment",
+    "before": "cummentu squassatu nantu à a carta __card__: __comment__ in a lista __list__ in a swim lane __swimlane__ in a tavula __board__",
+    "after": "hà squassatu u cummentu nant’à a carta __card__: __comment__ di a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-createSwimlane",
+    "before": "creata swimlane __swimlane__ alla tavula __board__",
+    "after": "hà creatu u curridore __swimlane__ in a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-createCard",
+    "before": "carta __card__ creata in a lista __list__ di a swimlane __swimlane__ di a tavula __board__",
+    "after": "hà creatu a carta __card__ in a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-createCustomField",
+    "before": "creato campo personalizzato __customField__ in a tavula __board__",
+    "after": "hà creatu u campu persunalizatu __customField__ in a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-deleteCustomField",
+    "before": "campo personalizzato squassatu __customField__ in a tavula __board__",
+    "after": "hà squassatu u campu persunalizatu __customField__ in a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-setCustomField",
+    "before": "campo personalizzato mudificatu __customField__: __customFieldValue__ nantu à a carta __card__ nantu à a lista __list__ nantu à a swimlane __swimlane__ nantu à a tavula __board__",
+    "after": "hà mudificatu u campu persunalizatu __customField__: __customFieldValue__ di a carta __card__ di a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-createList",
+    "before": "aghjunta lista __list__ alla tavula __board__",
+    "after": "hà aghjuntu a lista __list__ à a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-addBoardMember",
+    "before": "aghjuntu membru __member__ alla tavula __board__",
+    "after": "hà aghjuntu u membru __member__ à a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-archivedCard",
+    "before": "Carta __card__ di a lista __list__ di a swimlane __swimlane__ di a tavula __board__ archiviata",
+    "after": "Carta __card__ di a lista __list__ di u curridore __swimlane__ di a tavula __board__ spustata in l’archiviu",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-archivedList",
+    "before": "Lista __list__ di a swimlane __swimlane__ di a tavula __board__ archiviata",
+    "after": "Lista __list__ di u curridore __swimlane__ di a tavula __board__ spustata in l’archiviu",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-archivedSwimlane",
+    "before": "Corsia __swimlane__ di a tavula __board__ archiviata",
+    "after": "Curridore __swimlane__ di a tavula __board__ spustatu in l’archiviu",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-importBoard",
+    "before": "importato la tavula __board__",
+    "after": "hà impurtatu a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-importCard",
+    "before": "carta importata  __card__ in a lista __list__ di a swimlane __swimlane__ di a tavula __board__",
+    "after": "hà impurtatu a carta __card__ in a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-importList",
+    "before": "lista __list__ importata in a swimlane __swimlane__ di a tavula __board__",
+    "after": "hà impurtatu a lista __list__ in u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-joinMember",
+    "before": "aghjuntu membru __member__  alla carta __card__ di a list __list__ in a swimlane __swimlane__ di a tavula __board__",
+    "after": "hà aghjuntu u membru __member__ à a carta __card__ di a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-moveCard",
+    "before": "spostata carta __card__ di a tavula __board__ dalla lista __oldList__ di a swimlane  __oldSwimlane__ alla lista __list__ di a swimlane __swimlane__",
+    "after": "hà spustatu a carta __card__ di a tavula __board__ da a lista __oldList__ di u curridore __oldSwimlane__ à a lista __list__ di u curridore __swimlane__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-moveCardToOtherBoard",
+    "before": "postata carta __card__ dalla lista __oldList__ di a swimlane __oldSwimlane__ di a tavula __oldBoard__ alla lista __list__ in a swimlane __swimlane__ di a tavula __board__",
+    "after": "hà spustatu a carta __card__ da a lista __oldList__ di u curridore __oldSwimlane__ di a tavula __oldBoard__ à a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-removeBoardMember",
+    "before": "cacciatu membru __member__ dalla tavula __board__",
+    "after": "hà cacciatu u membru __member__ da a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-restoredCard",
+    "before": "carta ripristinata __card__ di a lista __list__ in a swimlane __swimlane__ di a tavula __board__",
+    "after": "hà ristabilitu a carta __card__ in a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "act-unjoinMember",
+    "before": "cacciatu membru __member__ dalla carta __card__ di a lista __list__ di a swimlane __swimlane__ in a tavula __board__",
+    "after": "hà cacciatu u membru __member__ da a carta __card__ di a lista __list__ di u curridore __swimlane__ di a tavula __board__",
+    "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
   }
 ]

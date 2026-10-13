@@ -110,3 +110,30 @@ test('#5171 tray: an entry scheduled for later is not counted until its time', a
     db.deleteOne('activities', { _id: activityId });
   }
 });
+
+test('Corsican clear notification drawer renders corrected card activity', async ({ boardPage: page, board, user }) => {
+  const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+  const activityId = db.uid('corsican-clear-activity');
+  db.insertOne('activities', {
+    _id: activityId, userId: user.id, activityType: 'createCard',
+    boardId: board.boardId, cardId: card._id, cardTitle: card.title,
+    listId: card.listId, swimlaneId: card.swimlaneId, createdAt: new Date(),
+  });
+  db.updateOne('users', { _id: user.id }, { $set: {
+    'profile.notificationDelivery.tray': { layout: 'clear', grouping: 'none' },
+    'profile.notifications': [{ activity: activityId, read: null }],
+  } });
+  try {
+    await page.evaluate(() => Meteor.callAsync('setLanguage', 'co'));
+    await page.reload();
+    await page.locator('.notifications-drawer-toggle').first().click();
+    const item = page.locator('#notifications-drawer .notification-clear-item').filter({ hasText: card.title });
+    await expect(item).toBeVisible();
+    await expect(item).toContainText('hà creatu a carta');
+    await expect(item).not.toContainText('swimlane');
+    await expect(item).not.toContainText('__card__');
+  } finally {
+    db.updateOne('users', { _id: user.id }, { $set: { 'profile.notifications': [] } });
+    db.deleteOne('activities', { _id: activityId });
+  }
+});
