@@ -2,6 +2,47 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Azerbaijani board and assignee terminology — 2026-10-13
+
+Commit `30a92983f5` repairs 38 values in each of `az`, `az-AZ` and `az-LA`,
+114 exact locale/key changes. The catalogs used `şura` for Kanban boards,
+although that noun denotes a council or assembly. The repaired text uses
+`lövhə`, already present in other board strings and attested for board/panel.
+See [şura](https://en.wiktionary.org/wiki/şura) and
+[lövhə](https://en.wiktionary.org/wiki/lövhə). Declined forms are adjusted to
+their sentence roles, rather than replacing the noun stem mechanically.
+
+Assignee labels now use `Təyin edilmiş şəxs`, the singular of the catalog's
+existing assigned-people terminology, instead of a label suggesting the
+assigning person. Repairs also make Restore and Schedule Archive commands
+verbs, translate the English `public` inside preserved emphasis, retain the
+public-view/member-edit distinction, and fix invitation case endings. Source
+inspection confirms outgoing activity notifications prefix the actor name,
+so member-add/remove messages retain active predicates. Query syntax, name
+markers, invitation tokens and HTML tags remain exact.
+
+The first negative scan found two additional council labels in the regional
+card-to-board creation command. The base catalog used the word for a sheet
+there instead of card. All three now explicitly create a board from this
+card. The full repair set is recorded in the ledger, now 24,953 entries;
+parent comparison proves every unrelated value is unchanged. No `zh` catalog
+changed. This does not certify all Azerbaijani wording or rule grammar.
+
+The terminology suite and full correction-ledger suite pass, as do 21
+human-preference checks. Tests cover singular assigned-person labels, add
+versus remove, public visibility versus edit permission, invitation and search
+tokens, dictionary terminology and rendered notification substitution. Exact
+source key order and tokens match across 246 catalogs / 1,019,178 pairs.
+Three browser cases register for the three variants, reading the create-board
+and visibility dialogs and assigning a card through its corrected popup.
+They have not been executed against a rebuilt running app.
+
+These are wrong-meaning repairs to existing translations, not English fills.
+The filtered backlog remains 55,201 values across 122 non-English paths.
+Azerbaijani still has 223 current feature placeholders in each of its three
+catalogs; the next fills must use the corrected board and assignee terms.
+The overall translation and language-quality audit remains unfinished.
+
 ## Malayalam features and Scrum recovery — 2026-10-13
 
 Commit `0ae7f04e55` fills 223 current placeholders and thirteen labels hidden

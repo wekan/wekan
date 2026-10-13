@@ -145,6 +145,11 @@ releases.
   Earlier Xhosa completion checks predate the newer pending strings. The
   current broad run still exposes English placeholders in several catalogs;
   see the dated audit results. Empty reports do not establish fluency.
+- Azerbaijani has 114 recorded terminology repairs across `az`, `az-AZ`
+  and `az-LA`: Kanban boards, assigned people, creation commands, invitations
+  and visibility wording. Two suites and 21 human-preference checks pass;
+  three browser cases register. These repairs do not reduce the fill count.
+  Each catalog still has 223 feature placeholders; broader review is open.
 - Malayalam now has no current fill candidates after 223 feature fills and
   thirteen exempt labels. Scrum matching, preservation and conflict warnings
   are covered, and rule rows omit a redundant linking verb. Six focused
@@ -590,7 +595,7 @@ turns back into swimlanes; on **Sandstorm**, the **Powerbox** lets a grain
 reach Trello. **FreeBSD** Bun bundles, the **Launchpad snap** waits and the
 **Mac apps** release step are fixed. Missing Bengali, Marathi, Nepali and
 Tamil, Thai, Kannada, Urdu and Malayalam strings are filled, and
-wrong-language values are corrected.
+wrong-language values and Azerbaijani terminology are corrected.
 
 This release adds the following new features:
 
@@ -860,6 +865,24 @@ key order match across all 246 catalogs. Nine Malayalam browser cases
 register, including Scrum rollback, conflict and member restrictions;
 execution needs a running rebuilt app. The fill and short-prose queues are
 empty, but whole-catalog grammar and wording review remain unfinished.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/30a92983f5">Correct Azerbaijani board and assigned-person terminology</a>. Thanks to xet7.</summary>
+
+Repair 38 values in each of the three Azerbaijani catalogs. Kanban boards
+use `lövhə` instead of the word for a council; assignee labels describe the
+person assigned. Fix the card-to-board command, public-visibility text and
+invitation wording. Notification predicates fit the actor prefix, and all
+query literals, placeholders and HTML emphasis remain intact.
+
+Both terminology and correction-ledger suites pass; the ledger now verifies
+24,953 exact repairs and preservation of newer reviewed text. All 21
+human-preference checks pass. Three browser cases register for board creation
+labels, visibility explanations and assigning a card; execution still needs a
+running rebuilt app. Existing Chinese wording is unchanged. Azerbaijani's
+remaining feature placeholders and broader language review stay open.
 
 </details>
 
