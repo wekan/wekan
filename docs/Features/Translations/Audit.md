@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho historical review: link and email settings — 2026-10-13
+
+Commit `8cb58645cb` reviews source keys 1130–1279 and repairs ten values.
+URL schemes are made clickable rather than clicked automatically. External
+tracker settings describe automatic linking rather than confident linking,
+with either empty field disabling it. The URL template no longer says picture.
+The transfer-limit validation requires a value greater than zero rather than
+a good limit. Email-template headings and labels distinguish invitation and
+activity-notification subjects and bodies. Other valid wording is preserved.
+
+The Southern Sotho and repair-ledger suites pass with 26,920 guarded corrections;
+all 21 human-preference checks pass. A browser case checks the five email-template
+labels in administration settings without changing their contents. Syntax and
+discovery pass; runtime execution remains pending. Exact comparison preserves
+38,430 existing Chinese values. Historical review has reached key 1279;
+all-language work remains unfinished.
+
 ## Southern Sotho historical review: labels and visibility — 2026-10-13
 
 Commit `9b7942b661` reviews source keys 930–1129 and repairs nine values.

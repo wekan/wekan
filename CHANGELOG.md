@@ -2372,6 +2372,23 @@ Chinese values are preserved. Semantic review and all-language work continue.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8cb58645cb">Clarify Southern Sotho link and email settings</a>. Thanks to xet7.</summary>
+
+Reviewed source keys 1130–1279 and corrected ten values. URL schemes are made
+clickable, not clicked automatically. External tracker guidance now describes
+automatic links and disabling them by leaving either field empty; its URL is
+a template rather than a picture. The transfer limit explicitly exceeds zero.
+Email template labels distinguish invitation and activity-notification
+subjects and bodies.
+
+Southern Sotho and repair-ledger suites pass with 26,920 guarded corrections;
+all 21 human-preference checks pass. Email-settings browser coverage passes
+syntax and discovery checks; runtime execution remains pending. All 38,430
+existing Chinese values are preserved. All-language translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
