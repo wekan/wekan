@@ -178372,5 +178372,187 @@
     "before": "Clicca per aprire la tavula. Usa la maniglia per assegnare la tavula a __workspaces__ (rilascia sullo spaziu di travagliu in a barra laterale).",
     "after": "Cliccate per apre a tavula. Aduprate a maniglia di trascinamentu per assignà a tavula à __workspaces__ (lasciate la nant’à u spaziu di travagliu in a barra laterale).",
     "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "boardChangeColorPopup-title",
+    "before": "Cambia sfondo di a tavula",
+    "after": "Cambià u fondu di a tavula",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "changeColorPopup-title",
+    "before": "Cambia culore",
+    "after": "Cambià u culore",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "changeFontPopup-title",
+    "before": "Carattere",
+    "after": "Caratteru",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "allBoardsChangeColorPopup-title",
+    "before": "Cambia culore",
+    "after": "Cambià u culore",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "boardChangeTitlePopup-title",
+    "before": "Rinomina tavula",
+    "after": "Rinumà a tavula",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "boardChangeVisibilityPopup-title",
+    "before": "Cambia visibilità",
+    "after": "Cambià a visibilità",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "boardChangeWatchPopup-title",
+    "before": "Cambia nutificazioni",
+    "after": "Cambià u seguitu",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "desktop-mode",
+    "before": "Modalità desktop",
+    "after": "Modu desktop",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "mobile-mode",
+    "before": "Modalità mobile",
+    "after": "Modu mobile",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "zoom-in",
+    "before": "Ingrandisci",
+    "after": "Ingrandisce",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "zoom-out",
+    "before": "Riduci",
+    "after": "Riduce",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "zoom-level",
+    "before": "Livello di zoom",
+    "after": "Livellu di zoom",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "board-view-cal",
+    "before": "Calendario",
+    "after": "Calendariu",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "board-view-multiboard-cal",
+    "before": "Calendario (Tutte e tavule)",
+    "after": "Calendariu di parechje tavule",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "board-view-swimlanes",
+    "before": "Corsie",
+    "after": "Curridori",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "board-view-collapse",
+    "before": "Comprimi",
+    "after": "Ripiegà",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "board-view-gantt",
+    "before": "In corsu: Gantt",
+    "after": "Gantt",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "board-view-timeline-hint",
+    "before": "Cliccate nantu à un puntu in u tempu per vede cume era u pannellu à quellu mumentu.",
+    "after": "Cliccate nant’à un puntu in u tempu per vede a tavula cum’ella era tandu.",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "board-view-timeline-showing",
+    "before": "Statu affissatu da:",
+    "after": "Statu mustratu à a data di:",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "cardRestoreToTimelinePopup-title",
+    "before": "Restaurà a scheda?",
+    "after": "Ristabilisce a carta?",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "board-view-timeline-restore-confirm",
+    "before": "Questu ristabilisce u titulu, a descrizzione, a lista, l'etichette, i membri è a scadenza di a carta à i valori affissati. Nunda ùn hè cancellatu. Cuntinuà?",
+    "after": "Questu ristabilisce u titulu, a discrizzione, a lista, l’etichette, i membri è a data di scadenza di a carta à i valori mustrati. Nunda hè squassatu. Cuntinuà?",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "board-view-group-by-assignee",
+    "before": "Aggruppà per Assignatu",
+    "after": "Raggruppà per persona assignata",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "roadmap-no-cards",
+    "before": "Nisuna scheda.",
+    "after": "Nisuna carta.",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "roadmap-empty-no-custom-fields",
+    "before": "Stu tavulone ùn hà ancu campu persunalizatu. Aghjunghjite un campu persunalizatu di tippu \"Version\" o \"Release\" in i Parametri di u tavulone per aduprà a vista Tabella di rotta.",
+    "after": "Sta tavula ùn hà ancu campi persunalizati. Aghjunghjite un campu persunalizatu di tippu \"Version\" o \"Release\" in i paràmetri di a tavula per aduprà a vista Tabella di rotta.",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Gregorianu",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
+  },
+  {
+    "locale": "co",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "Calendariu gregorianu (simane ISO 8601)",
+    "reason": "Repair mixed-language board view labels and incomplete timeline/calendar meanings; preserve literal view names and restoration scope."
   }
 ]

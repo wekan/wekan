@@ -362,3 +362,16 @@ test('Greenlandic Member Settings shows the repaired Indian national calendar la
   await expectCalendarOption(page, selector, 'indian', 'Indiap nuna tamakkerlugu ullorsiutaa');
   await expect(selector).not.toContainText('Indian national');
 });
+
+test('Corsican calendar settings retain Gregorian and ISO week meanings', async ({ page, user, board }) => {
+  db.updateOne('users', { _id: user.id }, { $set: { 'profile.language': 'co' } });
+  await loginWithToken(page, user.id, user.token);
+  await openBoard(page, board.boardId, board.slug);
+  await page.locator('.js-open-header-member-menu').first().click();
+  await page.locator('.js-pop-over .content:not(.no-height) .js-member-date-settings').click();
+  const selector = page.locator('.js-pop-over .content:not(.no-height) #calendar-system');
+  await expect(selector).toBeVisible();
+  await expectCalendarOption(page, selector, 'gregory', 'Gregorianu');
+  await expectCalendarOption(page, selector, 'iso8601', 'Calendariu gregorianu (simane ISO 8601)');
+  expect(await selector.locator('option[value="iso8601"]').allTextContents()).not.toContain('ISO 8601');
+});

@@ -305,3 +305,16 @@ assert.match(corsican['board-creation-admin-only'], /Solu l’amministratori.*ta
 assert.match(corsican['auto-watch'], /automaticamente.*quand’elle sò create/);
 assert.match(corsican['board-drag-drop-reorder-or-click-open'], /riurdinà.*Cliccate.*apre la/);
 assert.match(corsican['board-open-and-move-between-remaining-and-workspaces'], /maniglia di trascinamentu.*__workspaces__.*barra laterale/);
+
+const viewCorrectionKeys = ["boardChangeColorPopup-title", "changeColorPopup-title", "changeFontPopup-title", "allBoardsChangeColorPopup-title", "boardChangeTitlePopup-title", "boardChangeVisibilityPopup-title", "boardChangeWatchPopup-title", "desktop-mode", "mobile-mode", "zoom-in", "zoom-out", "zoom-level", "board-view-cal", "board-view-multiboard-cal", "board-view-swimlanes", "board-view-collapse", "board-view-gantt", "board-view-timeline-hint", "board-view-timeline-showing", "cardRestoreToTimelinePopup-title", "board-view-timeline-restore-confirm", "board-view-group-by-assignee", "roadmap-no-cards", "roadmap-empty-no-custom-fields", "calendar-system-gregorian", "calendar-system-iso8601"];
+for (const key of viewCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /\b(?:Cambia|Rinomina|Modalità|Ingrandisci|Riduci|Livello|Calendario|Corsie|Comprimi|scheda|cancellatu)\b/, key);
+}
+assert.equal(corsican['board-view-gantt'], 'Gantt');
+assert.match(corsican['boardChangeWatchPopup-title'], /seguitu/);
+assert.doesNotMatch(corsican['boardChangeWatchPopup-title'], /nutificazioni/);
+assert.match(corsican['board-view-timeline-restore-confirm'], /titulu.*discrizzione.*lista.*etichette.*membri.*data di scadenza.*Nunda hè squassatu/);
+assert.match(corsican['board-view-timeline-showing'], /à a data di/);
+assert.match(corsican['calendar-system-iso8601'], /gregorianu.*simane ISO 8601/);
+assert.match(corsican['roadmap-empty-no-custom-fields'], /"Version" o "Release"/);
