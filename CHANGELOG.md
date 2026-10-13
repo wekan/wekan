@@ -2261,6 +2261,20 @@ runtime execution remains pending. Existing Chinese text is unchanged.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/80df25497d">Fill remaining Southern Sotho recovery translations</a>. Thanks to xet7.</summary>
+
+Translate 72 recovery placeholders and add a full-inventory no-placeholder
+gate. Retain permanent-cancellation warnings, partial-import deletion,
+already-applied sync changes and guarded Scrum rollback behavior.
+
+Translation checks and 21 human-preference checks pass. Six recovery browser
+cases pass syntax and discovery; runtime execution remains pending. Existing
+Chinese text is unchanged. Zero English placeholders does not certify fluency;
+native review and the all-language objective remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

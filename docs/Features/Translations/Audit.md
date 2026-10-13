@@ -2,6 +2,31 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho remaining recovery translations — 2026-10-13
+
+Commit `80df25497d` fills the final 72 non-exempt English placeholders.
+The full-inventory regression gate now requires zero placeholders across
+Southern Sotho, including pending feature strings. Recovery checks retain
+no activity recreation, no recall of queued email or delivered notifications,
+permanent cancellation, retained applied sync changes, no further saved
+writes after discard, and no resumption of imports whose source is not kept.
+Discarding a partial import includes later additions; foreign boards remain
+untouched. Scrum rollback requires no intervening edits, while keeping the
+board changes no records.
+
+The Southern Sotho regression suite and all 21 human-preference checks pass.
+Six browser cases register across activity recovery, interrupted imports,
+stuck sync and Scrum history recovery, including permission and intervening-
+edit negatives. Syntax and discovery pass; runtime execution remains pending
+without the UI stack. Exact comparison preserves 38,430 existing Chinese
+values and all previously translated Southern Sotho values.
+
+Southern Sotho has zero full-list and filtered English placeholders. The
+global filtered backlog remains 27,839 strings across 41 languages, excluding
+379 pending Transifex keys. Placeholder coverage is not native fluency or a
+complete review of historical text. Native review, runtime UI validation and
+the broader all-language objective remain unfinished.
+
 ## Southern Sotho sync diagnostics and planning — 2026-10-13
 
 Commit `b7fb228486` fills 45 placeholders for source reports, retention,
