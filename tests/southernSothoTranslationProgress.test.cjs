@@ -766,3 +766,13 @@ assert.match(sesotho['board-table-group-by-swimlane-off'], /lenane le bataletsen
 assert.match(sesotho['operator-limit-invalid'], /palo e felletseng e kgolo ho 0/);
 assert.doesNotMatch(sesotho['operator-limit-invalid'], /e ntle/);
 assert.deepEqual(tokens(sesotho['operator-limit-invalid']), ['%s']);
+
+// Historical review through key 2134: numeric constraints retain their signs.
+assert.match(sesotho['globalSearch-instructions-operator-limit'], /palo e felletseng e kgolo ho 0/);
+assert.match(sesotho['globalSearch-instructions-notes-3-2'], /palo e felletseng e kgolo ho 0 kapa e ka tlase ho 0/);
+for (const key of ['globalSearch-instructions-operator-limit', 'globalSearch-instructions-notes-3-2']) {
+  assert.doesNotMatch(sesotho[key], /e ntle|e mpe/);
+  assert.deepEqual(tokens(sesotho[key]), tokens(english[key]));
+}
+assert.match(sesotho['background-too-big'], /Boholo bo dumelletsweng.*[{][{]size[}][}]/);
+assert.deepEqual(tokens(sesotho['background-too-big']), tokens(english['background-too-big']));

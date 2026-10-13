@@ -60,6 +60,17 @@ test.describe('Search', () => {
     await expect(help).not.toContainText('Per impostazione predefinita');
   });
 
+  test('Southern Sotho search help explains positive and negative integer values', async ({ boardPage }) => {
+    await boardPage.evaluate(() => Meteor.callAsync('setLanguage', 'st'));
+    const sp = new SearchPage(boardPage);
+    await sp.navigateToGlobalSearch();
+    const help = boardPage.locator('.global-search-instructions');
+    await expect(help).toContainText('palo e felletseng e kgolo ho 0');
+    await expect(help).toContainText('kapa e ka tlase ho 0');
+    await expect(help).not.toContainText('nomoro e felletseng e ntle');
+    await expect(help).toContainText('has:-due');
+  });
+
   test('global search returns cards matching the query and excludes non-matching cards', async ({ boardPage, board }) => {
     const sp = new SearchPage(boardPage);
     await sp.navigateToGlobalSearch();

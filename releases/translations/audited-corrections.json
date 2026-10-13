@@ -188655,5 +188655,26 @@
     "before": "%s ha se moedi o nepahetseng. Moedi e lokela ho ba nomoro e felletseng e ntle.",
     "after": "%s ha se moedi o nepahetseng. Moedi o lokela ho ba palo e felletseng e kgolo ho 0.",
     "reason": "Clarify nonempty template eligibility, personal attachments, swimlane grouping and positive integer limits."
+  },
+  {
+    "locale": "st",
+    "key": "globalSearch-instructions-operator-limit",
+    "before": "`__operator_limit__:<n>` - moo *<n>* e leng nomoro e felletseng e ntle e bontshang palo ya dikarete tse bontshwang leqepheng ka leng.",
+    "after": "`__operator_limit__:<n>` - moo *<n>* e leng palo e felletseng e kgolo ho 0 e bontshang palo ya dikarete tse bontshwang leqepheng ka leng.",
+    "reason": "Express numerical signs and the maximum allowed image size explicitly."
+  },
+  {
+    "locale": "st",
+    "key": "globalSearch-instructions-notes-3-2",
+    "before": "Matsatsi a ka hlaloswa e le nomoro e felletseng e ntle kapa e mpe, kapa ka `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` kapa `__predicate_year__` bakeng sa nako ya jwale.",
+    "after": "Matsatsi a ka hlaloswa e le palo e felletseng e kgolo ho 0 kapa e ka tlase ho 0, kapa ka `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` kapa `__predicate_year__` bakeng sa nako ya jwale.",
+    "reason": "Express numerical signs and the maximum allowed image size explicitly."
+  },
+  {
+    "locale": "st",
+    "key": "background-too-big",
+    "before": "Setshwantsho sa bokamorao se seholo haholo (Boholo ke {{size}}).",
+    "after": "Setshwantsho sa bokamorao se seholo haholo (Boholo bo dumelletsweng ke {{size}}).",
+    "reason": "Express numerical signs and the maximum allowed image size explicitly."
   }
 ]
