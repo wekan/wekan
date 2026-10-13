@@ -37,3 +37,16 @@ test('Southern Sotho archive help points to All Boards', async ({ boardPage: pag
   // Inspect the help without confirming the archive operation.
   await page.evaluate(() => Popup.close());
 });
+
+
+test('Southern Sotho card linking names the destination without claiming the current board', async ({ boardPage: page, board }) => {
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'st'));
+  await new BoardPage(page).clickCard(board.listIds[0], 'Alpha Card');
+  const card = new CardPage(page);
+  await card.waitForOpen();
+  await card.openActionsMenu();
+  const action = page.locator('.js-pop-over .js-link-card-to-board');
+  await expect(action).toHaveText('Hokela botong');
+  await expect(action).not.toContainText('ena');
+  await page.evaluate(() => Popup.close());
+});

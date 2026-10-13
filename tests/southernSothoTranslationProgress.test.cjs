@@ -644,3 +644,18 @@ assert.match(sesotho['import-board-instruction-jira'], /nextPageToken.*maqephe o
 assert.match(sesotho['import-board-instruction-excel'], /karete e le nngwe moleng ka mong/);
 assert.match(sesotho['import-board-instruction-excel'], /Mohato o latelang.*kholomo/);
 assert.match(sesotho['import-board-instruction-excel'], /Leqephe ka leng le nang le mola wa dihlooho le fetoha boto/);
+
+// Historical review through key 1129: labels and visibility controls.
+assert.equal(sesotho.labels, sesotho['cardLabelsPopup-title']);
+assert.notEqual(sesotho.labels, 'Ditlhaku');
+assert.equal(sesotho['linkCardToBoardPopup-title'], 'Hokela botong');
+assert.doesNotMatch(sesotho['linkCardToBoardPopup-title'], /ena/);
+assert.match(sesotho.linkCardToNewBoard, /Theha boto ho tswa kareteng ena/);
+assert.equal(sesotho.public, 'Ya setjhaba');
+assert.notEqual(sesotho.public, 'Phatlalatsa');
+for (const [mode, visibility] of [['public', 'setjhaba'], ['private', 'poraefete']]) {
+  assert.equal(sesotho[`custom-${mode}-desc`], `Tlhaloso e ikgethileng ya boto ya ${visibility}`);
+  assert.equal(sesotho[`custom-${mode}-desc-placeholder`], `Siya e se na letho ho sebedisa tlhaloso ya kamehla ya boto ya ${visibility}`);
+  assert.notEqual(sesotho[`custom-${mode}-desc`], sesotho[`custom-${mode}-desc-placeholder`]);
+}
+assert.equal(sesotho['no-starred-items'], 'Ha o eso tshwaye letho ka naledi.');

@@ -188305,5 +188305,68 @@
     "before": "Kgetha spreadsheet ya .xlsx ya mokgwa wa WeKan (dikholomo tse tshwanang le tsa Excel export: Title, Description, Status/List, Members, Labels, dates, custom fields). Mola wa pele ke sehlooho.",
     "after": "Kgetha buka ya mosebetsi ya .xlsx: tafole e nang le karete e le nngwe moleng ka mong (dikholomo tse kang Title, Description, Status/List, Members, Labels, matsatsi le dikarolo tse ikgethileng), kapa buka ya mosebetsi e ntshitsweng ke WeKan, ho kenyeletswa e nang le boto ka nngwe leqepheng la yona. Mohato o latelang o bontsha hore kholomo ka nngwe ke karolo efe. Leqephe ka leng le nang le mola wa dihlooho le fetoha boto.",
     "reason": "Restore target-language import instructions, source format details and label meanings."
+  },
+  {
+    "locale": "st",
+    "key": "labels",
+    "before": "Ditlhaku",
+    "after": "Dileibole",
+    "reason": "Restore label, card-link, visibility-description and empty-starred-state meanings."
+  },
+  {
+    "locale": "st",
+    "key": "linkCardToBoardPopup-title",
+    "before": "Hokela Botong ena",
+    "after": "Hokela botong",
+    "reason": "Restore label, card-link, visibility-description and empty-starred-state meanings."
+  },
+  {
+    "locale": "st",
+    "key": "linkCardToNewBoard",
+    "before": "Theha boto (Karete)",
+    "after": "Theha boto ho tswa kareteng ena",
+    "reason": "Restore label, card-link, visibility-description and empty-starred-state meanings."
+  },
+  {
+    "locale": "st",
+    "key": "public",
+    "before": "Phatlalatsa",
+    "after": "Ya setjhaba",
+    "reason": "Restore label, card-link, visibility-description and empty-starred-state meanings."
+  },
+  {
+    "locale": "st",
+    "key": "custom-private-desc",
+    "before": "Khethilweng Poraefete tlhaloso",
+    "after": "Tlhaloso e ikgethileng ya boto ya poraefete",
+    "reason": "Restore label, card-link, visibility-description and empty-starred-state meanings."
+  },
+  {
+    "locale": "st",
+    "key": "custom-private-desc-placeholder",
+    "before": "Tlohela e se na letho ho sebedisa e tloaelehileng Poraefete tlhaloso ea boto",
+    "after": "Siya e se na letho ho sebedisa tlhaloso ya kamehla ya boto ya poraefete",
+    "reason": "Restore label, card-link, visibility-description and empty-starred-state meanings."
+  },
+  {
+    "locale": "st",
+    "key": "custom-public-desc",
+    "before": "Khethilweng Phatlalatsa tlhaloso",
+    "after": "Tlhaloso e ikgethileng ya boto ya setjhaba",
+    "reason": "Restore label, card-link, visibility-description and empty-starred-state meanings."
+  },
+  {
+    "locale": "st",
+    "key": "custom-public-desc-placeholder",
+    "before": "Tlohela e se na letho ho sebedisa e tloaelehileng Phatlalatsa tlhaloso ea boto",
+    "after": "Siya e se na letho ho sebedisa tlhaloso ya kamehla ya boto ya setjhaba",
+    "reason": "Restore label, card-link, visibility-description and empty-starred-state meanings."
+  },
+  {
+    "locale": "st",
+    "key": "no-starred-items",
+    "before": "Ha ho ho o eso behe naleli.",
+    "after": "Ha o eso tshwaye letho ka naledi.",
+    "reason": "Restore label, card-link, visibility-description and empty-starred-state meanings."
   }
 ]
