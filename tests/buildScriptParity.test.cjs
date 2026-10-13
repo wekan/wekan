@@ -397,6 +397,17 @@ test('every script in releases/ is reachable from BOTH menus', () => {
   // build on a developer's Linux machine. Covered by bsdBundles.
   SKIP['bsd/build-bundle.sh'] = 'BSD bundle build run by bsd.yml inside the BSD VM';
   SKIP['bsd/smoke.sh'] = 'BSD bundle start test run by bsd/build-bundle.sh inside the BSD VM';
+  // Single-file WeKan (docs/Platforms/Single-File.md): single-file.yml builds
+  // one per platform from that platform's published bundle; build.mjs needs
+  // such a bundle and its arguments, so it is run directly, not from a menu.
+  // The launcher and its lib run INSIDE the built executable. Covered by
+  // singleFile.
+  SKIP['single-file/build.mjs'] = 'single-file builder run by single-file.yml on an unpacked platform bundle';
+  SKIP['single-file/zip.mjs'] = 'archive writer imported by single-file/build.mjs';
+  SKIP['single-file/launcher.cjs'] = 'runs INSIDE the single-file executable, as its entry point';
+  for (const lib of fs.readdirSync(path.join(dir, 'single-file', 'lib'))) {
+    SKIP[`single-file/lib/${lib}`] = 'runs INSIDE the single-file executable, loaded by launcher.cjs';
+  }
 
   // These are explicit audit/internal helpers, not independent release-menu actions.
   SKIP['translations/audit-progress.mjs'] = 'read-only audit reporting; run directly';

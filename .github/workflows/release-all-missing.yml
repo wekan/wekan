@@ -370,6 +370,22 @@ jobs:
       tag: v${{ needs.plan.outputs.version }}
       publish: true
 
+  # A single file per platform, for every platform whose bundle the release
+  # has and whose single file it does not (docs/Platforms/Single-File.md).
+  # Not in expected-assets.sh: a platform without a bundle has no single file
+  # to miss. After extra-arches, which may have just published a bundle.
+  single-file:
+    name: Missing single-file WeKan
+    needs: [plan, extra-arches]
+    if: ${{ !cancelled() && needs.plan.result == 'success' }}
+    uses: ./.github/workflows/single-file.yml
+    permissions:
+      contents: write
+    with:
+      tag: v${{ needs.plan.outputs.version }}
+      publish: true
+      missing_only: true
+
 
   # ─── The Helm chart, for a release that never got one ───────────────────────
   #

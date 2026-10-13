@@ -14,6 +14,7 @@
 // Snap already appends '/files' to WRITABLE_PATH, so that case is detected and
 // '/files' is not appended twice.
 const path = require('path');
+const { isFilesRoot } = require('./filesRoot');
 
 /**
  * Compute the real attachment/avatar storage paths for a given base path.
@@ -22,7 +23,7 @@ const path = require('path');
  */
 function computeStoragePaths(basePath) {
   const base = basePath || process.cwd();
-  const endsWithFiles = base.endsWith('/files') || base.endsWith('\\files');
+  const endsWithFiles = isFilesRoot(base);
   const root = endsWithFiles ? base : path.join(base, 'files');
   return {
     writablePath: base,

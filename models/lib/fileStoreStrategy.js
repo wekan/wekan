@@ -18,6 +18,7 @@ import {
 } from './fileStoreConstants';
 import { getCloudAdapter, isCloudConfigured } from './cloudStorage';
 import { ObjectId } from 'bson';
+const { isFilesRoot } = require('./filesRoot');
 
 // Re-export constants from shared module (keeps existing import paths working)
 export {
@@ -512,7 +513,7 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
     const isAvatar = normalized.includes('/avatars/') || (this.fileObj.collectionName === 'avatars');
     const baseDir = isAvatar ? 'avatars' : 'attachments';
     const writableBase = process.env.WRITABLE_PATH || process.cwd();
-    const endsWithFiles = writableBase.endsWith('/files') || writableBase.endsWith('\\files');
+    const endsWithFiles = isFilesRoot(writableBase);
     const storageRoot = endsWithFiles
       ? path.join(writableBase, baseDir)
       : path.join(writableBase, 'files', baseDir);

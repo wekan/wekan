@@ -222,6 +222,8 @@ snap, or a snap that downloads a bundle nobody built.
 
 ## Related
 
+- [Single-File.md](Single-File.md) — one executable per platform, made from
+  that platform's bundle
 - [Snap-Core.md](FOSS/Container/Snap/Snap-Core.md) — why the exotic arches build on Launchpad
 - `.github/workflows/release-all.yml` — the bundle, snap and image jobs
 - `releases/resolve-node-source.sh` — which of the three sources serves a platform

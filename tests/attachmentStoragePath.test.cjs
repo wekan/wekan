@@ -69,15 +69,29 @@ test('windows-style base ending in \\files is treated as the files root', () => 
 // models/attachments.js + server/initializeDirs.js implement the same rule; if
 // either drifts, the Admin Panel would show a path files are not actually in.
 
-test('models/attachments.js uses the same ends-with-/files rule', () => {
+// The rule lives in ONE place now, models/lib/filesRoot.js, which every one of
+// these asks (it also knows the single-file layout, a WRITABLE_PATH named
+// wekan-files). So "the same rule" is checked as "the same function", and
+// tests/singleFile.test.cjs fails if a copy of the old inline check comes back.
+test('models/attachments.js uses the same files-root rule', () => {
   const src = read('models/attachments.js');
-  assert.ok(src.includes("endsWith('/files')"));
+  assert.ok(src.includes("require('/models/lib/filesRoot')"));
+  assert.ok(src.includes('isFilesRoot(basePath)'));
   assert.ok(src.includes("'/files/attachments'"));
 });
 
-test('server/initializeDirs.js uses the same ends-with-/files rule', () => {
+test('server/initializeDirs.js uses the same files-root rule', () => {
   const src = read('server/initializeDirs.js');
-  assert.ok(src.includes("endsWith('/files')"));
+  assert.ok(src.includes("require('/models/lib/filesRoot')"));
+  assert.ok(src.includes('isFilesRoot(basePath)'));
+});
+
+test('computeStoragePaths uses it too, so a single file\'s wekan-files is the files root', () => {
+  assert.ok(read('models/lib/attachmentStoragePath.js').includes('isFilesRoot(base)'));
+  const p = computeStoragePaths('/opt/wekan/wekan-files');
+  assert.equal(p.attachments, path.join('/opt/wekan/wekan-files', 'attachments'));
+  // Negative: a name that only ends in "-files" is not one.
+  assert.equal(computeStoragePaths('/srv/my-files').attachments, path.join('/srv/my-files', 'files', 'attachments'));
 });
 
 // --- the client no longer fabricates the path in the browser ------------------

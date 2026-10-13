@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
 import { FilesCollection } from 'meteor/ostrio:files';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
+const { isFilesRoot } = require('/models/lib/filesRoot');
 const { cleanFileName } = require('/imports/lib/fileNameDisplay');
 
 // Pure helper: build the activity document for a newly added attachment.
@@ -33,7 +34,7 @@ export function buildAttachmentAddedActivity(fileObj) {
 // - Snap (WRITABLE_PATH=$SNAP_COMMON/files): $SNAP_COMMON/files/attachments
 const computeAttachmentStoragePath = () => {
   const basePath = process.env.WRITABLE_PATH || process.cwd();
-  const endsWithFiles = basePath.endsWith('/files') || basePath.endsWith('\\files');
+  const endsWithFiles = isFilesRoot(basePath);
   if (endsWithFiles) {
     // Snap: WRITABLE_PATH already includes /files
     return basePath + '/attachments';

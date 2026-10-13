@@ -64,9 +64,9 @@ echo "WeKan memory budget: Node ${_heap_mb} MiB; FerretDB Go ${_go_mb} MiB; avai
 FERRETDB_BIN="$DIR/ferretdb"
 export WRITABLE_PATH="${WRITABLE_PATH:-$DIR/data}"
 # Files layout: <files>/attachments, <files>/avatars, <files>/db (FerretDB SQLite).
-# WeKan appends "files" to WRITABLE_PATH unless it already ends with it (matching
-# server/initializeDirs.js).
-case "$WRITABLE_PATH" in */files) FILES="$WRITABLE_PATH" ;; *) FILES="$WRITABLE_PATH/files" ;; esac
+# WeKan appends "files" to WRITABLE_PATH unless it already ends with it, or is a
+# directory named wekan-files (models/lib/filesRoot.js, start-wekan.bat).
+case "$WRITABLE_PATH" in */files|*/wekan-files|wekan-files) FILES="$WRITABLE_PATH" ;; *) FILES="$WRITABLE_PATH/files" ;; esac
 FERRETDB_SQLITE_DIR="${FERRETDB_SQLITE_DIR:-$FILES/db}"
 FERRETDB_LISTEN_ADDR="${FERRETDB_LISTEN_ADDR:-127.0.0.1:27017}"
 export PORT="${PORT:-8080}"

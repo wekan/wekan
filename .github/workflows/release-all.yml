@@ -1301,6 +1301,20 @@ jobs:
       tag: v${{ needs.prepare.outputs.version }}
       publish: true
 
+  # One executable per platform, repackaged from that platform's bundle, so it
+  # waits for every bundle job (docs/Platforms/Single-File.md). A platform
+  # whose bundle failed is skipped there, not here.
+  single-file:
+    name: Single-file WeKan
+    needs: [prepare, release, build-amd64, build-arm64, build-win64, build-win-arm64, build-win32, build-mac-arm64, build-mac-x64, build-extra-arches, bsd]
+    if: ${{ !cancelled() && needs.release.result == 'success' }}
+    uses: ./.github/workflows/single-file.yml
+    permissions:
+      contents: write
+    with:
+      tag: v${{ needs.prepare.outputs.version }}
+      publish: true
+
   mac-app:
     name: Mac apps
     needs: [prepare, release, build-mac-arm64, build-mac-x64]

@@ -108,6 +108,8 @@ are where progress is checked.
 
 ## See also
 
+- [Single-file WeKan](../../Single-File.md): each BSD bundle becomes one
+  executable too, built automatically once that bundle is published.
 - [Platforms](../../Platforms.md): every platform's bundle, FerretDB and Node.js
   assets.
 - [FreeBSD](FreeBSD.md): older FreeBSD notes.

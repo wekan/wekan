@@ -16,12 +16,13 @@ import { Meteor } from 'meteor/meteor';
 import fs from 'fs';
 import path from 'path';
 import v8 from 'v8';
+const { isFilesRoot } = require('/models/lib/filesRoot');
 const { heapHealth, diskHealth, DEFAULT_DISK_BYTES } = require('/models/lib/runtimeHealth');
 import { recordFailure } from '/server/lib/testLog';
 
 function filesRoot() {
   const base = process.env.WRITABLE_PATH || process.cwd();
-  return (base.endsWith('/files') || base.endsWith('\\files')) ? base : path.join(base, 'files');
+  return isFilesRoot(base) ? base : path.join(base, 'files');
 }
 
 // A trivial round-trip proves the database (FerretDB or MongoDB) is reachable

@@ -16,6 +16,7 @@ import Attachments, { normalizeRemovedFiles } from './attachments';
 import Boards from '/models/boards';
 import { allowIsBoardMember } from '/server/lib/utils';
 import { ensureIndex } from '/server/lib/mongoStartup';
+const { isFilesRoot } = require('/models/lib/filesRoot');
 const { readableWithoutMembership } = require('/models/lib/boardPermission');
 
 // ---------------------------------------------------------------------------
@@ -62,7 +63,7 @@ const attachmentBucket = createBucket('attachments');
 // - Docker (WRITABLE_PATH=/data): /data/files/attachments
 // - Snap (WRITABLE_PATH=$SNAP_COMMON/files): $SNAP_COMMON/files/attachments
 const basePath = process.env.WRITABLE_PATH || process.cwd();
-const endsWithFiles = basePath.endsWith('/files') || basePath.endsWith('\\files');
+const endsWithFiles = isFilesRoot(basePath);
 const storagePath = endsWithFiles
   ? path.join(basePath, 'attachments')
   : path.join(basePath, 'files', 'attachments');

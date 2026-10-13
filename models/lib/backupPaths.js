@@ -4,6 +4,7 @@
 // Unit-tested in tests/backupPaths.test.cjs. Used by server/methods/backup.js.
 
 const path = require('path');
+const { isFilesRoot } = require('./filesRoot');
 
 // Resolve the files root from a writable-path base. WeKan's WRITABLE_PATH is
 // either the parent of "files" (docker/dev: /data -> /data/files) or already
@@ -11,7 +12,7 @@ const path = require('path');
 // and '\\' separator so a Windows path is not double-suffixed.
 function filesRootFrom(base) {
   const b = base || '';
-  return b.endsWith('/files') || b.endsWith('\\files') ? b : path.join(b, 'files');
+  return isFilesRoot(b) ? b : path.join(b, 'files');
 }
 
 // Build the synced-cron schedule text for a saved backup schedule.

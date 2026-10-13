@@ -1,0 +1,321 @@
+name: Single-file WeKan
+
+# One executable per platform (docs/Platforms/Single-File.md): that
+# platform's published WeKan bundle - its Node.js, FerretDB and native
+# addons, all built where they run - repackaged by releases/single-file/
+# build.mjs as a Node.js single executable application whose ZIP Node mounts
+# as a virtual file system. Nothing is compiled here.
+#
+# Per platform: verify the bundle's checksum, build the single file (on a Mac
+# for macOS, which has to re-sign it), start it on a runner of that platform
+# where GitHub has one (with a browser test on amd64), and attach it to the
+# release. A platform whose bundle the release does not have yet - the BSDs
+# until their Node.js is published, Android until it has a bundle - is
+# SKIPPED, not failed, and starts building by itself once it does.
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing WeKan release tag (empty = latest published release)'
+        type: string
+        required: false
+      publish:
+        description: 'Attach the single files and checksums to that release'
+        type: boolean
+        default: true
+      only:
+        description: 'JSON target list, e.g. ["amd64","win64"] (empty = all)'
+        type: string
+        default: ''
+      missing_only:
+        description: 'Only the platforms whose single file the release does not have yet'
+        type: boolean
+        default: false
+  workflow_call:
+    inputs:
+      tag:
+        type: string
+        required: true
+      publish:
+        type: boolean
+        default: true
+      only:
+        type: string
+        default: ''
+      missing_only:
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wekan-single-file-${{ inputs.tag || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      tag: ${{ steps.plan.outputs.tag }}
+      matrix: ${{ steps.plan.outputs.matrix }}
+      any: ${{ steps.plan.outputs.any }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - id: plan
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
+          ONLY: ${{ inputs.only }}
+          MISSING_ONLY: ${{ inputs.missing_only }}
+        run: |
+          set -euo pipefail
+          tag="${TAG:-$(gh release view --repo "$GITHUB_REPOSITORY" --json tagName -q .tagName)}"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          : > existing.txt
+          if [ "$MISSING_ONLY" = true ]; then
+            gh release view "$tag" --repo "$GITHUB_REPOSITORY" --json assets -q '.assets[].name' > existing.txt
+          fi
+          matrix="$(VERSION="${tag#v}" python3 -c '
+          import json, os
+          targets = json.load(open("releases/single-file/targets.json"))
+          only = json.loads(os.environ.get("ONLY") or "[]")
+          if only:
+              targets = [t for t in targets if t["target"] in only]
+          existing = set(open("existing.txt").read().split())
+          def name(t):
+              ext = ".exe" if t["target"].startswith("win") else ""
+              return "wekan-%s-%s-single-file%s" % (os.environ["VERSION"], t["target"], ext)
+          targets = [t for t in targets if not (name(t) in existing and name(t) + ".sha256sum" in existing)]
+          print(json.dumps({"include": targets}))')"
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+          echo "any=$([ "$matrix" = '{"include": []}' ] && echo false || echo true)" >> "$GITHUB_OUTPUT"
+          echo "Release $tag; targets: $matrix"
+
+  build:
+    needs: plan
+    if: needs.plan.outputs.any == 'true'
+    name: Build ${{ matrix.target }}
+    runs-on: ${{ matrix.build_on }}
+    timeout-minutes: 60
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    env:
+      TAG: ${{ needs.plan.outputs.tag }}
+      TARGET: ${{ matrix.target }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          ref: ${{ needs.plan.outputs.tag }}
+
+      - name: Fetch and verify ${{ matrix.target }}'s published bundle
+        id: fetch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ZIP_PATTERN: ${{ matrix.zip }}
+        run: |
+          set -euo pipefail
+          version="${TAG#v}"
+          zip="${ZIP_PATTERN//\{version\}/$version}"
+          if ! gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --pattern "$zip" --pattern "$zip.sha256sum"; then
+            echo "::notice::$TARGET is not built this release: $TAG has no $zip."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          [ -f "$zip" ] || { echo "::notice::$TARGET: $TAG has no $zip."; echo "skip=true" >> "$GITHUB_OUTPUT"; exit 0; }
+          [ -f "$zip.sha256sum" ] || { echo "::error::$zip has no published .sha256sum; a single file is never built from an unverified bundle."; exit 1; }
+          if command -v sha256sum >/dev/null; then sha256sum -c "$zip.sha256sum"; else shasum -a 256 -c "$zip.sha256sum"; fi
+          unzip -q "$zip"
+          rm -f "$zip"
+          node_bin=bundle/node
+          [ -f "$node_bin" ] || node_bin=bundle/node.exe
+          node_version="$(grep -aoE 'nodejs\.org/download/release/v[0-9]+\.[0-9]+\.[0-9]+/' "$node_bin" | head -n1 | sed -E 's#.*/(v[0-9.]+)/#\1#')"
+          [ -n "$node_version" ] || { echo "::error::Could not read the Node.js version of $node_bin."; exit 1; }
+          echo "node_version=$node_version" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "$TARGET: bundle Node.js $node_version"
+
+      # The SEA blob format belongs to one Node.js version: the builder runs
+      # on the same version the bundle embeds (build.mjs checks it too).
+      - uses: actions/setup-node@v7
+        if: steps.fetch.outputs.skip != 'true'
+        with:
+          node-version: ${{ steps.fetch.outputs.node_version }}
+
+      - name: Build the single file
+        if: steps.fetch.outputs.skip != 'true'
+        env:
+          VERSION: ${{ steps.fetch.outputs.version }}
+        run: |
+          set -euo pipefail
+          case "$TARGET" in win*) ext=.exe ;; *) ext= ;; esac
+          out="wekan-${VERSION}-${TARGET}-single-file${ext}"
+          node releases/single-file/build.mjs --bundle bundle --target "$TARGET" --version "$VERSION" --out "$out"
+          ls -la "$out" "$out.sha256sum"
+          rm -rf bundle
+
+      - uses: actions/upload-artifact@v7
+        if: steps.fetch.outputs.skip != 'true'
+        with:
+          name: single-file-${{ matrix.target }}
+          path: wekan-*-${{ matrix.target }}-single-file*
+          retention-days: 3
+          compression-level: 0
+
+  smoke:
+    needs: [plan, build]
+    if: ${{ !cancelled() && needs.plan.outputs.any == 'true' }}
+    name: Start ${{ matrix.target }}
+    runs-on: ${{ matrix.smoke == 'none' && 'ubuntu-24.04' || matrix.smoke }}
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    env:
+      TARGET: ${{ matrix.target }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Get the single file
+        id: get
+        uses: actions/download-artifact@v7
+        continue-on-error: true
+        with:
+          name: single-file-${{ matrix.target }}
+          path: sf
+
+      - name: Is there one to start here?
+        id: what
+        run: |
+          set -euo pipefail
+          if [ "${{ steps.get.outcome }}" != success ]; then
+            echo "run=false" >> "$GITHUB_OUTPUT"; echo "::notice::$TARGET was not built this release."; exit 0
+          fi
+          if [ "${{ matrix.smoke }}" = none ]; then
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::GitHub has no runner for $TARGET: the single file is published without being started (its bundle was tested where it was built)."
+            mkdir -p ok && echo "$TARGET untested" > "ok/$TARGET"; exit 0
+          fi
+          exe="$(ls sf/wekan-*-single-file* | grep -v '\.sha256sum$' | head -n1)"
+          chmod +x "$exe"
+          echo "exe=$PWD/$exe" >> "$GITHUB_OUTPUT"
+          echo "run=true" >> "$GITHUB_OUTPUT"
+
+      - name: Start it, as a user starts it
+        if: steps.what.outputs.run == 'true'
+        env:
+          EXE: ${{ steps.what.outputs.exe }}
+        run: |
+          set -euo pipefail
+          cd "$(dirname "$EXE")"
+          "$EXE" version
+          "$EXE" set PORT 3456
+          # Fast polling, so a browser test sees a change made in the database
+          # within its timeout; the default is 30 s.
+          "$EXE" set METEOR_POLLING_INTERVAL_MS 2000
+          "$EXE" start --background
+          for i in $(seq 1 120); do
+            code="$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:3456/ || true)"
+            [ "$code" = 200 ] && break
+            sleep 3
+          done
+          "$EXE" status
+          if [ "$code" != 200 ]; then
+            echo "::error::$TARGET: WeKan did not answer HTTP 200 within 6 minutes."
+            tail -n 200 wekan-files/logs/wekan.log || true
+            exit 1
+          fi
+          ls wekan-files wekan-files/bin
+          echo "WeKan answered HTTP 200 from the $TARGET single file."
+
+      - uses: actions/checkout@v7
+        if: steps.what.outputs.run == 'true' && matrix.target == 'amd64'
+        with:
+          persist-credentials: false
+          ref: ${{ needs.plan.outputs.tag }}
+          path: src
+
+      - name: Browser test against the single file
+        if: steps.what.outputs.run == 'true' && matrix.target == 'amd64'
+        env:
+          EXE: ${{ steps.what.outputs.exe }}
+        run: |
+          set -euo pipefail
+          files="$(dirname "$EXE")/wekan-files"
+          cd src/tests/playwright
+          npm ci
+          npx playwright install --with-deps chromium
+          WEKAN_BASE_URL=http://localhost:3456 \
+          WEKAN_MONGO_URL=mongodb://127.0.0.1:27017/wekan \
+          WEKAN_SINGLE_FILE_FILES="$files" \
+          WEKAN_FILES_PATH="$files" \
+          WEKAN_PLAYWRIGHT_PROJECT=chromium \
+            npx playwright test specs/single-file.e2e.js specs/01-boards-users.e2e.js specs/07-attachments-links.e2e.js --reporter=line
+
+      - name: Stop it
+        if: always() && steps.what.outputs.run == 'true'
+        env:
+          EXE: ${{ steps.what.outputs.exe }}
+        run: |
+          cd "$(dirname "$EXE")"
+          "$EXE" stop || true
+          "$EXE" status || true
+          [ -f wekan-files/logs/wekan.log ] && tail -n 60 wekan-files/logs/wekan.log || true
+          mkdir -p ok && echo "$TARGET started" > "ok/$TARGET"
+
+      - uses: actions/upload-artifact@v7
+        if: success() && (steps.what.outputs.run == 'true' || matrix.smoke == 'none')
+        with:
+          name: single-file-ok-${{ matrix.target }}
+          path: |
+            ok
+            sf/ok
+          if-no-files-found: ignore
+          retention-days: 3
+
+  publish:
+    needs: [plan, build, smoke]
+    if: ${{ !cancelled() && inputs.publish && needs.plan.outputs.any == 'true' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v7
+        with:
+          pattern: single-file-*
+          path: artifacts
+      - name: Attach every single file that started, or has no runner to start on
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ needs.plan.outputs.tag }}
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          published=0
+          for dir in artifacts/single-file-*; do
+            target="${dir#artifacts/single-file-}"
+            case "$target" in ok-*) continue ;; esac
+            if [ ! -d "artifacts/single-file-ok-$target" ]; then
+              echo "::warning::$target: not published - it did not start on its runner."
+              continue
+            fi
+            for f in "$dir"/wekan-*-single-file*; do
+              case "$f" in *.sha256sum) continue ;; esac
+              (cd "$dir" && sha256sum -c "$(basename "$f").sha256sum")
+              bash releases/github-release-upload.sh "$GITHUB_REPOSITORY" "$TAG" "$f" "$f.sha256sum"
+              published=$((published + 1))
+            done
+          done
+          echo "Published $published single files to $TAG."

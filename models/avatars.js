@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
 import { Random } from 'meteor/random';
 const { safeUploadFileId } = require('/models/lib/uploadFileId');
+const { isFilesRoot } = require('/models/lib/filesRoot');
 import { generateUniversalAvatarUrl } from '/models/lib/universalUrlGenerator';
 const { cleanFileName } = require('/imports/lib/fileNameDisplay');
 
@@ -15,7 +16,7 @@ let avatarsUploadSize = 72000;
 // - Snap (WRITABLE_PATH=$SNAP_COMMON/files): $SNAP_COMMON/files/avatars
 const computeAvatarStoragePath = () => {
   const basePath = process.env.WRITABLE_PATH || process.cwd();
-  const endsWithFiles = basePath.endsWith('/files') || basePath.endsWith('\\files');
+  const endsWithFiles = isFilesRoot(basePath);
   if (endsWithFiles) {
     // Snap: WRITABLE_PATH already includes /files
     return basePath + '/avatars';

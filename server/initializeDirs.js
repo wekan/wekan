@@ -6,6 +6,7 @@
 
 import fs from 'fs';
 import path from 'path';
+const { isFilesRoot } = require('/models/lib/filesRoot');
 
 // Compute upload subdirectory path:
 // - On Docker (WRITABLE_PATH=/data): /data/files/attachments, /data/files/avatars
@@ -17,7 +18,7 @@ function getUploadPaths() {
   const basePath = process.env.WRITABLE_PATH || process.cwd();
   
   // Check if basePath already ends with '/files' (Snap case)
-  const endsWithFiles = basePath.endsWith('/files') || basePath.endsWith('\\files');
+  const endsWithFiles = isFilesRoot(basePath);
   
   if (endsWithFiles) {
     // Snap: WRITABLE_PATH is already $SNAP_COMMON/files, so append subdirectories directly
