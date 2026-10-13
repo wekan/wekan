@@ -1157,3 +1157,18 @@ assert.match(latin['fix-all-file-urls-migration-description'], /huic tabulae adi
 assert.notEqual(latin['migration-needed'], latin['migration-complete']);
 assert.notEqual(latin['migration-successful'], latin['migration-failed']);
 assert.match(latin['writable-path'], /scribere licet/);
+
+const reviewedMigrationConfirmationKeys = ["migrations-description", "no-issues-found", "run-migration", "run-comprehensive-migration-confirm", "run-delete-duplicate-empty-lists-migration-confirm", "run-restore-lost-cards-migration-confirm", "run-restore-all-archived-migration-confirm", "run-fix-missing-lists-migration-confirm", "run-fix-avatar-urls-migration-confirm", "run-fix-all-file-urls-migration-confirm", "restore-lost-cards-nothing-to-restore", "migration-progress-title", "migration-progress-overall", "migration-progress-current-step", "migration-progress-status", "migration-progress-details", "migration-progress-note", "steps", "view", "has-swimlanes", "step-analyze-board-structure", "step-fix-orphaned-cards", "step-convert-shared-lists", "step-ensure-per-swimlane-lists", "step-validate-migration", "step-fix-avatar-urls", "step-fix-attachment-urls", "step-analyze-lists", "step-create-missing-lists", "step-update-cards", "step-finalize", "step-delete-duplicate-empty-lists", "step-ensure-lost-cards-swimlane", "step-restore-lists", "step-restore-cards", "step-restore-swimlanes", "step-fix-missing-ids", "step-scan-users", "step-scan-files", "step-fix-file-urls"];
+for (const key of reviewedMigrationConfirmationKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:This will|Continue|Run Migration|Current Step|Fix|Analyze|Checking)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['run-delete-duplicate-empty-lists-migration-confirm'], /primum.*convertet, deinde.*delebit/);
+assert.match(latin['run-delete-duplicate-empty-lists-migration-confirm'], /eodem titulo chartas continens/);
+assert.match(latin['run-restore-lost-cards-migration-confirm'], /in archivum translatae non sunt/);
+for (const field of ['swimlaneId', 'listId']) assert.ok(latin['run-restore-lost-cards-migration-confirm'].includes(field));
+assert.match(latin['run-restore-all-archived-migration-confirm'], /OMNES semitas, indices et chartas/);
+assert.match(latin['run-restore-all-archived-migration-confirm'], /facile revocari non potest/);
+assert.match(latin['step-ensure-per-swimlane-lists'], /cuique semitae indices proprii/);
+assert.ok(latin['step-ensure-lost-cards-swimlane'].includes(latin['lost-cards']));
+assert.notEqual(latin['migration-progress-overall'], latin['migration-progress-current-step']);

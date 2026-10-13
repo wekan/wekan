@@ -76,3 +76,8 @@ for (const [value, expected] of [['Status', true], ['Lockout status', false]]) {
   const shared = vm.runInNewContext(latinSetExpression, { en: { 'accounts-lockout-status': value } });
   assert.equal(shared.has('accounts-lockout-status'), expected);
 }
+
+for (const [value, expected] of [['Status', true], ['Migration status', false]]) {
+  const shared = vm.runInNewContext(latinSetExpression, { en: { 'migration-progress-status': value } });
+  assert.equal(shared.has('migration-progress-status'), expected);
+}

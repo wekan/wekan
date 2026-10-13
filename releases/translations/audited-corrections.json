@@ -204027,5 +204027,285 @@
     "before": "Latine: Tantum tabula administrators potest run migrations",
     "after": "Tantum administratores tabulae migrationes exsequi possunt",
     "reason": "Translate board migration actions and conditions; preserve duplicate-list conjunction, restoration scope, missing field identifiers and administrator restriction."
+  },
+  {
+    "locale": "la",
+    "key": "migrations-description",
+    "before": "Latine: Run data integrity checks et repairs for hoc tabula. Quisque migration potest esse executed individually.",
+    "after": "Exsequere probationes et correctiones integritatis datorum huius tabulae. Quaeque migratio separatim exsequi potest.",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "no-issues-found",
+    "before": "Latine: Non issues found",
+    "after": "Nulla problemata inventa sunt",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "run-migration",
+    "before": "Latine: Run Migration",
+    "after": "Exsequere migrationem",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "run-comprehensive-migration-confirm",
+    "before": "Latine: Hoc erit perform a comprehensive migration ad check et fix tabula data integrity. Hoc potest take a few moments. Continue?",
+    "after": "Hoc migrationem integram exsequetur ut integritas datorum tabulae examinetur et corrigatur. Aliquantum temporis requirere potest. Pergere?",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "run-delete-duplicate-empty-lists-migration-confirm",
+    "before": "Latine: Hoc erit primus convert ullum shared indices ad per-semita natatoria indices, then dele vacuum indices illud have a duplicate index cum the idem titulus containing schedae. Tantum truly redundant vacuum indices erit esse remotum. Continue?",
+    "after": "Hoc primum indices communes in indices proprios cuique semitae convertet, deinde indices vacuos delebit quibus index duplicatus eodem titulo chartas continens est. Tantum indices vacui vere supervacui removebuntur. Pergere?",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "run-restore-lost-cards-migration-confirm",
+    "before": "Latine: Hoc erit crea a 'Lost Schedae' semita natatoria et restitue omnia schedae et indices cum missing swimlaneId vel listId. Hoc tantum affects non-archived res. Continue?",
+    "after": "Hoc semitam 'Chartae amissae' creabit et omnes chartas atque indices quibus swimlaneId vel listId deest restituet. Tantum res quae in archivum translatae non sunt afficit. Pergere?",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "run-restore-all-archived-migration-confirm",
+    "before": "Latine: Hoc erit restitue Omnia in archivum relatum swimlanes, indices, et schedae, making them visible again. Ullum res cum missing IDs erit esse automatice fixed. Hoc non potest esse easily undone. Continue?",
+    "after": "Hoc OMNES semitas, indices et chartas in archivum translatas restituet, ut rursus visibiles fiant. Res quibus identificatores desunt automatice corrigentur. Hoc facile revocari non potest. Pergere?",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "run-fix-missing-lists-migration-confirm",
+    "before": "Latine: Hoc erit detect et repair missing vel corrupted indices in the tabula structure. Continue?",
+    "after": "Hoc indices absentes vel corruptos in structura tabulae deteget et corriget. Pergere?",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "Latine: Hoc erit renova imago URLs for tabula sodales ad use the correct storage backend. Continue?",
+    "after": "Hoc URL imaginum membrorum tabulae renovabit ut repositorio recto utantur. Pergere?",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "run-fix-all-file-urls-migration-confirm",
+    "before": "Latine: Hoc erit renova omnia fasciculus adnexum URLs adest hoc tabula ad use the correct storage backend. Continue?",
+    "after": "Hoc omnia URL fasciculorum huic tabulae adiunctorum renovabit ut repositorio recto utantur. Pergere?",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "restore-lost-cards-nothing-to-restore",
+    "before": "Latine: Non lost swimlanes, indices, vel schedae ad restitue",
+    "after": "Nullae semitae, indices vel chartae amissae restituendae sunt",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "migration-progress-title",
+    "before": "Latine: Tabula Migration in Progress",
+    "after": "Migratio tabulae agitur",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "migration-progress-overall",
+    "before": "Latine: Overall Progress",
+    "after": "Progressus totus",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "migration-progress-current-step",
+    "before": "Latine: Praesens Step",
+    "after": "Gradus praesens",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "migration-progress-status",
+    "before": "Latine: Status",
+    "after": "Status",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "migration-progress-details",
+    "before": "Latine: Singula",
+    "after": "Singula",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "migration-progress-note",
+    "before": "Latine: Please wait while we migrate tuum tabula ad the latest structure...",
+    "after": "Exspecta, quaeso, dum tabulam tuam ad structuram novissimam migramus…",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "steps",
+    "before": "Latine: steps",
+    "after": "gradus",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "view",
+    "before": "Latine: Vide",
+    "after": "Prospectus",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "has-swimlanes",
+    "before": "Latine: Has Swimlanes",
+    "after": "Semitas habet",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "step-analyze-board-structure",
+    "before": "Latine: Analyze Tabula Structure",
+    "after": "Examina structuram tabulae",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "step-fix-orphaned-cards",
+    "before": "Latine: Fix Orphaned Schedae",
+    "after": "Corrige chartas sine nexu",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "step-convert-shared-lists",
+    "before": "Latine: Convert Shared Indices",
+    "after": "Converte indices communes",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "step-ensure-per-swimlane-lists",
+    "before": "Latine: Ensure Per-semita natatoria Indices",
+    "after": "Cura ut cuique semitae indices proprii sint",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "step-validate-migration",
+    "before": "Latine: Validate Migration",
+    "after": "Verifica migrationem",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "step-fix-avatar-urls",
+    "before": "Latine: Fix Imago URLs",
+    "after": "Corrige URL imaginum usorum",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "step-fix-attachment-urls",
+    "before": "Latine: Fix Adnexum URLs",
+    "after": "Corrige URL adiunctorum",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "step-analyze-lists",
+    "before": "Latine: Analyze Indices",
+    "after": "Examina indices",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "step-create-missing-lists",
+    "before": "Latine: Crea Missing Indices",
+    "after": "Crea indices absentes",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "step-update-cards",
+    "before": "Latine: Renova Schedae",
+    "after": "Renova chartas",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "step-finalize",
+    "before": "Latine: Finalize",
+    "after": "Perfice",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "step-delete-duplicate-empty-lists",
+    "before": "Latine: Dele Duplicate Vacuum Indices",
+    "after": "Dele indices duplicatos vacuos",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "step-ensure-lost-cards-swimlane",
+    "before": "Latine: Ensure Lost Schedae semita natatoria",
+    "after": "Cura ut semita 'Chartae amissae' sit",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "step-restore-lists",
+    "before": "Latine: Restitue Indices",
+    "after": "Restitue indices",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "step-restore-cards",
+    "before": "Latine: Restitue Schedae",
+    "after": "Restitue chartas",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "step-restore-swimlanes",
+    "before": "Latine: Restitue Swimlanes",
+    "after": "Restitue semitas",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "step-fix-missing-ids",
+    "before": "Latine: Fix Missing IDs",
+    "after": "Corrige identificatores absentes",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "step-scan-users",
+    "before": "Latine: Checking sodalis tabulae avatars",
+    "after": "Imagines membrorum tabulae examinantur",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "step-scan-files",
+    "before": "Latine: Checking tabula fasciculus adnexa",
+    "after": "Fasciculi tabulae adiuncti examinantur",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "step-fix-file-urls",
+    "before": "Latine: Fixing fasciculus URLs",
+    "after": "URL fasciculorum corriguntur",
+    "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
   }
 ]
