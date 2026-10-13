@@ -74,3 +74,18 @@ assert.match(maltese['scrum-releases-select-help'], /Ctrl.*Cmd.*Mac.*kull verżj
 assert.match(maltese['subtask-mark-not-done'], /mhux lest/);
 assert.doesNotMatch(maltese['subtask-mark-done'], /mhux lest/);
 assert.match(maltese['subtask-done-no-permission'], /Ma tistax tibdel/);
+
+for (const key of Object.keys(english).filter(k => /^(import-many-|import-one-board-per-project|export-all-boards|export-selected-boards$|exportAllBoardsPopup-title$|exportToTrelloPopup-title$|trello-export-|sandstorm-trello-|sandstorm-allow-trello-access$|sandstorm-forget-access$|import-file-label$)/.test(k))) {
+  assert.notEqual(maltese[key], english[key], key);
+  assert.deepEqual(tokens(maltese[key]), tokens(english[key]), key);
+}
+assert.match(maltese['import-many-boards-hint'], /mingħajr tqabbil tal-membri/);
+assert.match(maltese['import-many-boards-hint'], /esportazzjoni waħda.*bord wieħed/);
+assert.match(maltese['import-many-boards-hint'], /minflok it-test fil-kamp/);
+assert.match(maltese['import-one-board-per-project-hint'], /dipendenzi.*rapport tal-importazzjoni/);
+assert.match(maltese['export-all-boards-hint'], /li tista' tesporta/);
+assert.match(maltese['export-all-boards-hint'], /Excel.*folja għal kull bord.*format ieħor.*\.zip.*fajl għal kull bord/);
+assert.match(maltese['trello-export-desc'], /Swimlane: …/);
+assert.match(maltese['trello-export-desc'], /terġa' tibdel f'korsiji/);
+assert.match(maltese['sandstorm-trello-access-needed'], /m'għandux aċċess.*L-ewwel/);
+assert.match(maltese['trello-export-warnings'], /Ma setax jiġi esportat kollox/);
