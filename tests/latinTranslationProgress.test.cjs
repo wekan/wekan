@@ -486,3 +486,19 @@ assert.notEqual(latin['shortcut-filter-my-cards'], latin['shortcut-filter-my-ass
 assert.equal(latin['shortcut-close-dialog'], latin['close-dialog']);
 assert.equal(latin['rename-board'], latin['boardChangeTitlePopup-title']);
 assert.match(latin['search-cards'], /titulis chartarum et indicum, descriptionibus et campis propriis/);
+
+const reviewedSidebarKeys = ["shortcut-toggle-sidebar", "show-cards-minimum-count", "sidebar-open", "sidebar-close", "signupPopup-title", "star-board-title", "set-default-board-title", "unset-default-board-title", "starred-boards", "starred-boards-description", "subscribe", "team", "this-board", "this-card", "spent-time-hours", "overtime-hours", "overtime", "has-overtime-cards", "has-spenttime-cards", "toggle-assignees", "toggle-labels", "remove-labels-multiselect", "tracking", "tracking-info", "type", "unassign-member", "unsaved-description", "upload", "upload-avatar", "uploaded-avatar"];
+for (const key of reviewedSidebarKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Toggle|Sidebar|Starred|Tracking|Spent|Overtime|Unassign|unsaved)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['show-cards-minimum-count'], /plures continet quam$/);
+assert.match(latin['set-default-board-title'], /automatice post ingressum/);
+assert.match(latin['unset-default-board-title'], /desinat automatice aperiri/);
+assert.match(latin['toggle-assignees'], /1-9.*ordine quo tabulae additi/);
+assert.match(latin['toggle-labels'], /Electio plurium rerum titulos 1-9 addit/);
+assert.match(latin['remove-labels-multiselect'], /titulos 1-9 removet/);
+assert.match(latin['tracking-info'], /omnibus mutationibus.*creator vel membrum/);
+assert.notEqual(latin['unassign-member'], latin['remove-member']);
+assert.notEqual(latin['spent-time-hours'], latin['overtime-hours']);
+assert.equal(latin['starred-boards'], latin['bookmarksPopup-title']);

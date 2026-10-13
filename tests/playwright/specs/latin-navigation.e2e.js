@@ -19,5 +19,7 @@ test('Latin shortcut page distinguishes joining and assigning a card', async ({ 
   await expect(page.locator('#content')).toContainText('Adde te ipsum chartae praesenti');
   await expect(page.locator('#content')).toContainText('Assigna te ipsum chartae praesenti');
   await expect(page.locator('#content')).toContainText('Filtra chartas mihi assignatas');
+  await expect(page.locator('#content')).toContainText('Electio plurium rerum titulos 1-9 addit');
+  await expect(page.locator('#content')).toContainText('Electio plurium rerum titulos 1-9 removet');
   await expect(page.locator('#content')).not.toContainText('Latine: Adde yourself');
 });

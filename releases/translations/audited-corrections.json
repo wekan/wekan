@@ -194801,5 +194801,215 @@
     "before": "Latine: Toggle Quaere Sidebar",
     "after": "Alterna visibilitatem lateris quaestionis",
     "reason": "Repair member removal and shortcut messages, preserving notification, external-access revocation and self-assignment distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "shortcut-toggle-sidebar",
+    "before": "Latine: Toggle Tabula Sidebar",
+    "after": "Alterna visibilitatem lateris tabulae",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "show-cards-minimum-count",
+    "before": "Latine: Monstra schedae count si index contains plus than",
+    "after": "Monstra numerum chartarum si index plures continet quam",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "sidebar-open",
+    "before": "Latine: Aperi Sidebar",
+    "after": "Aperi latus",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "sidebar-close",
+    "before": "Latine: Claude Sidebar",
+    "after": "Claude latus",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "signupPopup-title",
+    "before": "Latine: Crea an Ratio",
+    "after": "Crea rationem usoris",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "star-board-title",
+    "before": "Latine: Click ad star hoc tabula. It erit monstra up at top de tuum tabulae index.",
+    "after": "Preme ut hanc tabulam stella notes. In summo indice tabularum tuarum apparebit.",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "set-default-board-title",
+    "before": "Latine: Click ad aperi hoc tabula automatice after tu intra.",
+    "after": "Preme ut haec tabula automatice post ingressum tuum aperiatur.",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "unset-default-board-title",
+    "before": "Latine: Hoc tabula opens after tu intra. Click ad siste opening it automatice.",
+    "after": "Haec tabula post ingressum tuum aperitur. Preme ut desinat automatice aperiri.",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "starred-boards",
+    "before": "Latine: Starred Tabulae",
+    "after": "Tabulae stella notatae",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "starred-boards-description",
+    "before": "Latine: Starred tabulae monstra up at the top de tuum tabulae index.",
+    "after": "Tabulae stella notatae in summo indice tabularum tuarum apparent.",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "subscribe",
+    "before": "Latine: Subscribe",
+    "after": "Subscribere",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "team",
+    "before": "Latine: Manus",
+    "after": "Manus",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "this-board",
+    "before": "Latine: hoc tabula",
+    "after": "haec tabula",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "this-card",
+    "before": "Latine: hoc scheda",
+    "after": "haec charta",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "spent-time-hours",
+    "before": "Latine: Spent tempus (horae)",
+    "after": "Tempus impensum (horae)",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "overtime-hours",
+    "before": "Latine: Overtime (horae)",
+    "after": "Tempus superadditum (horae)",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "overtime",
+    "before": "Latine: Overtime",
+    "after": "Tempus superadditum",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "has-overtime-cards",
+    "before": "Latine: Has overtime schedae",
+    "after": "Chartas cum tempore superaddito habet",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "has-spenttime-cards",
+    "before": "Latine: Has spent tempus schedae",
+    "after": "Chartas cum tempore impenso habet",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "toggle-assignees",
+    "before": "Latine: Toggle assignees 1-9 for scheda (A order de addition ad tabula).",
+    "after": "Adde vel remove eos quibus charta assignata est, clavibus 1-9 (ordine quo tabulae additi sunt).",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "toggle-labels",
+    "before": "Latine: Toggle tituli 1-9 for scheda. Multi-Selection adds tituli 1-9",
+    "after": "Adde vel remove titulos chartae clavibus 1-9. Electio plurium rerum titulos 1-9 addit",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "remove-labels-multiselect",
+    "before": "Latine: Multi-Selection removes tituli 1-9",
+    "after": "Electio plurium rerum titulos 1-9 removet",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "tracking",
+    "before": "Latine: Tracking",
+    "after": "Observatio participationis",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "tracking-info",
+    "before": "Latine: Tu erit esse notified de ullum mutationes ad illa schedae tu sunt involved as creator vel sodalis.",
+    "after": "De omnibus mutationibus chartarum quibus ut creator vel membrum participas certior fies.",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "type",
+    "before": "Latine: Genus",
+    "after": "Genus",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "unassign-member",
+    "before": "Latine: Unassign sodalis",
+    "after": "Remove assignationem membri",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "unsaved-description",
+    "before": "Latine: Tu have an unsaved descriptio.",
+    "after": "Descriptionem nondum servatam habes.",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "upload",
+    "before": "Latine: Immitte",
+    "after": "Immitte",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "upload-avatar",
+    "before": "Latine: Immitte an imago",
+    "after": "Immitte imaginem usoris",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "uploaded-avatar",
+    "before": "Latine: Immissum an imago",
+    "after": "Imaginem usoris immisit",
+    "reason": "Repair sidebar, tracking and shortcut labels, retaining login behavior, numeric ranges and add/remove distinctions."
   }
 ]
