@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin reminders and preference descriptions — 2026-10-14
+
+Commit `ee4ce8a1eb` repairs 35 prefixed reminder, deletion, preference and
+read-state entries. Regression checks preserve approaching/past/current due
+states, irreversible deletion, self-account scope, keyboard combinations,
+both preference modes, card/minicard distinctions and read/unread actions.
+
+The Latin and guarded-correction suites pass with 28,339 ledger entries. All 21
+human-preference checks pass. Preferences browser coverage checks translated
+labels and tooltips for keyboard modes and multiple card windows. Syntax and
+discovery pass; browser runtime remains pending. Exact comparison preserves
+38,430 existing Chinese values.
+
+There remain 1,048 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin authentication and date activity — 2026-10-14
 
 Commit `d0676f4a76` repairs 30 prefixed authentication, duplication, deletion,
