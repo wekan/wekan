@@ -2,6 +2,34 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Maltese attached cards and linked fields — 2026-10-13
+
+Commit `60528034c1` fills all 30 remaining English values for attached cards
+and linked custom fields in `mt`. It retains the catalog's card, board and
+custom-field terminology. The instructions distinguish matching name/type,
+untouched unmatched fields, one-way and two-way propagation, and outgoing
+versus incoming changes. Error messages preserve edit permission on both
+cards, inaccessible cards, self-link refusal, archived cards and limits.
+
+Three semantic tests pass, including negative assertions against reversed
+directions and read-only permission. All 21 human-preference checks pass.
+The complete Maltese key order and placeholder inventory match English.
+A comparison with the parent shows that only these 30 English placeholders
+changed and every existing non-English value was retained. All 38,079
+existing values in the nine protected Chinese catalogs are unchanged.
+
+The existing attached-card and custom-field-link browser flows now each
+include Maltese. They cover normal linking, propagation or opening,
+removal, and refusal of a card the user cannot read. Both cases register.
+The configured local application at `http://localhost:3000` returned
+`ECONNREFUSED` when probed, so browser execution remains pending.
+
+Maltese's full filtered fill report falls from 223 to 193 values. The global
+inventory is 53,833 across 116 non-English catalogs. This batch completes
+one feature group; it does not certify the rest of the Maltese catalog or
+complete the all-language objective. Further fills, semantic review and
+browser execution remain open.
+
 ## Time-history Khmer and regional-language review — 2026-10-13
 
 Commit `1a7fa67d94` completes the note in nine catalog paths: `km`, `km-KH`,

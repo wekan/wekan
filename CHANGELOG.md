@@ -132,7 +132,7 @@ releases.
   report counts **28,516 untranslated locale/string values in 42 languages**.
   It excludes **379 source keys tracked separately as pending Transifex**.
   With the newer email/chat strings included, full per-locale `--list`
-  reports, including pending keys, count **53,863 remaining values across
+  reports, including pending keys, count **53,833 remaining values across
   116 non-English locale files**. This fuller inventory remains the scope
   of the translation work.
   A separate short-prose audit flags 1,649 candidates across 180 locales.
@@ -1147,6 +1147,22 @@ records, together with unchanged acceptances. All 21 human-preference
 checks pass. The browser suite registers 143 language cases and three
 other cases; execution remains pending. Existing Chinese text is unchanged,
 and concurrent new email/chat translations are preserved.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/60528034c1">Translate Maltese attached cards and linked custom fields</a>. Thanks to xet7.</summary>
+
+Fill 30 English placeholders for attaching cards and linking custom fields.
+Explain which fields match, how changes flow in each direction, when a link
+is paused, and why both cards must be editable. Translate hidden-card,
+self-link, archive and limit errors. Existing translated values are retained.
+
+All three semantic checks and 21 human-preference checks pass. The existing
+attachment and custom-field-link browser flows now include Maltese, with
+positive and negative cases. Both register, but could not run because the
+local test app refuses connections. Maltese still has 193 filtered English
+placeholders; full wording review remains open. Chinese text is unchanged.
 
 </details>
 
