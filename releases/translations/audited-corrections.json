@@ -182096,5 +182096,411 @@
     "before": "Mudificà regola (Attivatore/Azione)",
     "after": "Mudificà l’attivatore/l’azzione",
     "reason": "Repair mixed-language card hierarchy, activity and rule controls; retain paths, movement direction, count notation and activity placeholders."
+  },
+  {
+    "locale": "co",
+    "key": "r-workflow-view",
+    "before": "Vista workflow",
+    "after": "Vista di u flussu di travagliu",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-when",
+    "before": "Quando",
+    "after": "Quandu",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-workflow-help",
+    "before": "Trascina un trigger e un'azione in u costruttore, poi aghjunghje la regola. Trascina un'azione su una regola esistente per cambiare ciò che fa.",
+    "after": "Trascinate un attivatore è un’azzione in u custruittore, po aghjunghjite a regula. Trascinate un’azzione nant’à una regula esistente per cambià ciò ch’ella face.",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-drop-trigger",
+    "before": "rilascia un trigger qui",
+    "after": "lasciate un attivatore quì",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-drop-action",
+    "before": "rilascia un'azione qui",
+    "after": "lasciate un’azzione quì",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-w-card-created",
+    "before": "Una carta viene creata",
+    "after": "Una carta hè creata",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-w-card-archived",
+    "before": "Una carta viene archiviata",
+    "after": "Una carta hè archiviata",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-w-card-unarchived",
+    "before": "Una carta viene ripristinata dall'archiviu",
+    "after": "Una carta hè ristabilita da l’archiviu",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-w-label-added",
+    "before": "Viene aghjunta una qualsiasi etichetta",
+    "after": "Una etichetta qualsiasi hè aghjunta",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-w-member-added",
+    "before": "Viene aghjuntu un membru",
+    "after": "Un membru hè aghjuntu",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-w-member-removed",
+    "before": "Viene cacciatu un membru",
+    "after": "Un membru hè cacciatu",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-w-assignee-added",
+    "before": "Viene aghjun Assignatu",
+    "after": "Una persona assignata hè aghjunta",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-w-assignee-removed",
+    "before": "Viene caccia Assignatu",
+    "after": "Una persona assignata hè cacciata",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-w-checklist-added",
+    "before": "Viene aghjunta una checklist",
+    "after": "Una lista di cuntrollu hè aghjunta",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-w-attachment-added",
+    "before": "Viene aghjuntu un allegatu",
+    "after": "Un appicciu hè aghjuntu",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-w-every-day-at",
+    "before": "Ogni ghjornu alle __time__",
+    "after": "Ogni ghjornu à __time__",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-export-json",
+    "before": "Spurtà regole in JSON",
+    "after": "Espurtà e regule in JSON",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-export-csv",
+    "before": "Spurtà regole in CSV",
+    "after": "Espurtà e regule in CSV",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-import-json",
+    "before": "Impurtà regole da JSON",
+    "after": "Impurtà e regule da JSON",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-import-csv",
+    "before": "Impurtà regole da CSV",
+    "after": "Impurtà e regule da CSV",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-import-trello",
+    "before": "Impurtà regole da Trello Butler (per quanto possibile)",
+    "after": "Impurtà e regule da Trello Butler (quantu pussibule)",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-import-done",
+    "before": "Importate __count__ regola/e",
+    "after": "__count__ regule impurtate",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-import-trello-note",
+    "before": "Le esportazioni di e tavule Trello non contengono le regole Butler. Incolla qui il testo dei comandi Butler per mappare il sottoinsieme supportato; le righe non mappate vengono segnalate.",
+    "after": "L’espurtazioni di e tavule Trello ùn cuntenenu micca e regule Butler. Incullate quì u testu di i cumandi Butler per cunvertisce a parte supportata; e linee micca cunvertite sò signalate.",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-all-boards",
+    "before": "Tutte le tavule",
+    "after": "Tutte e tavule",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-import-workflow",
+    "before": "Impurtà workflow visuale",
+    "after": "Impurtà un flussu di travagliu visuale",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-workflow-format",
+    "before": "Formato",
+    "after": "Furmatu",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-format-auto",
+    "before": "Rilevamento automatico",
+    "after": "Rilevamentu autumaticu",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-import-workflow-note",
+    "before": "Impurtà un workflow visuale esportato da n8n o Node-RED. I nodi trigger/azione riconosciuti sono mappati alle regole di WeKan; i nodi non mappati vengono segnalati.",
+    "after": "Impurtà un flussu di travagliu visuale espurtatu da n8n o Node-RED. I nodi d’attivatore/azzione ricunnisciuti sò cunvertiti in regule WeKan; i nodi micca cunvertiti sò signalati.",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-set-scheduled-triggers",
+    "before": "Trigger pianificati",
+    "after": "Attivatori pianificati",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-schedule-type",
+    "before": "Ripeti",
+    "after": "Ripete",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-schedule-at-time",
+    "before": "all'ora",
+    "after": "à l’ora",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-schedule-on-day",
+    "before": "in u ghjornu del mese",
+    "after": "u ghjornu di u mese",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-of-cards-in-list",
+    "before": "per le carte in a lista",
+    "after": "per e carte in a lista",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-when-due",
+    "before": "Quando la data di scadenza di una carta",
+    "after": "Quandu a data di scadenza d’una carta",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-due-is-set",
+    "before": "è impostata",
+    "after": "hè definita",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-due-soon",
+    "before": "si avvicina",
+    "after": "s’avvicina",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-due-overdue",
+    "before": "è scaduta",
+    "after": "hè passata",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-days-after",
+    "before": "ghjorni dopo",
+    "after": "ghjorni dopu",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-when-card-in-list",
+    "before": "Quando una carta è stata in a lista",
+    "after": "Quandu una carta hè stata in a lista",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-card-button",
+    "before": "Pulsante carta",
+    "after": "Buttone di carta",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-board-button",
+    "before": "Pulsante tavula",
+    "after": "Buttone di tavula",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-button-label",
+    "before": "Etichetta pulsante",
+    "after": "Etichetta di u buttone",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-run",
+    "before": "Esegui",
+    "after": "Eseguisce",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-sort-list",
+    "before": "Ordina lista",
+    "after": "Urdinà a lista",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-mark-complete",
+    "before": "Contrassegna carta come completata",
+    "after": "Marcà a carta cum’è compia",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-mark-incomplete",
+    "before": "Contrassegna carta come non completata",
+    "after": "Marcà a carta cum’è micca compia",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-move-all-cards",
+    "before": "Move tutte le carte in a lista",
+    "after": "Spustà tutte e carte di a lista",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-unit-minutes",
+    "before": "minuto/i",
+    "after": "minutu/i",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-action",
+    "before": "Azione",
+    "after": "Azzione",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-when-a-card",
+    "before": "Quando una carta",
+    "after": "Quandu una carta",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-is",
+    "before": "è",
+    "after": "hè",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-is-moved",
+    "before": "viene spostata",
+    "after": "hè spustata",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-added-to",
+    "before": "Aghjuntu/a a",
+    "after": "Aghjuntu/a à",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-attachment-added-to",
+    "before": "Aghjuntu/a a",
+    "after": "Aghjuntu/a à",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-the-board",
+    "before": "la tavula",
+    "after": "a tavula",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "set-filter",
+    "before": "Imposta un filtro",
+    "after": "Definisce un filtru",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-moved-to",
+    "before": "Spostato/a a",
+    "after": "Spustatu/a à",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
+  },
+  {
+    "locale": "co",
+    "key": "r-moved-from",
+    "before": "Spostato/a da",
+    "after": "Spustatu/a da",
+    "reason": "Repair mixed-language automation controls; preserve trigger/action distinction, import limitations, scheduling, direction and completion negation."
   }
 ]

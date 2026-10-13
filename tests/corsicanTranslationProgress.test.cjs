@@ -487,3 +487,18 @@ assert.match(corsican['subtext-with-parent'], /carta parente/);
 for (const key of ['activity-added-label','activity-removed-label','activity-delete-attach','activity-added-label-card','activity-delete-attach-card']) assert.match(corsican[key], /^hà /);
 assert.match(corsican['activity-delete-attach-card'], /squassatu un appicciu/);
 assert.match(corsican['r-edit-rule-trigger-action'], /attivatore.*azzione/);
+
+const workflowControlCorrectionKeys = ["r-workflow-view", "r-when", "r-workflow-help", "r-drop-trigger", "r-drop-action", "r-w-card-created", "r-w-card-archived", "r-w-card-unarchived", "r-w-label-added", "r-w-member-added", "r-w-member-removed", "r-w-assignee-added", "r-w-assignee-removed", "r-w-checklist-added", "r-w-attachment-added", "r-w-every-day-at", "r-export-json", "r-export-csv", "r-import-json", "r-import-csv", "r-import-trello", "r-import-done", "r-import-trello-note", "r-all-boards", "r-import-workflow", "r-workflow-format", "r-format-auto", "r-import-workflow-note", "r-set-scheduled-triggers", "r-schedule-type", "r-schedule-at-time", "r-schedule-on-day", "r-of-cards-in-list", "r-when-due", "r-due-is-set", "r-due-soon", "r-due-overdue", "r-days-after", "r-when-card-in-list", "r-card-button", "r-board-button", "r-button-label", "r-run", "r-sort-list", "r-mark-complete", "r-mark-incomplete", "r-move-all-cards", "r-unit-minutes", "r-action", "r-when-a-card", "r-is", "r-is-moved", "r-added-to", "r-attachment-added-to", "r-the-board", "set-filter", "r-moved-to", "r-moved-from"];
+for (const key of workflowControlCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /\b(?:Quando|Trascina|trigger|azione|costruttore|poi|regola|cambiare|rilascia|qui|viene|ripristinata|Viene|allegatu|alle|regole|quanto|possibile|Importate|esportazioni|contengono|dei|comandi|sottoinsieme|righe|mappate|vengono|segnalate|Formato|Rilevamento|automatico|esportato|riconosciuti|sono|mappati|segnalati|Ripeti|del|impostata|scaduta|dopo|Pulsante|pulsante|Esegui|Ordina|Contrassegna|come|completata|minuto|Azione|spostata|Imposta|filtro|Spostato)\b/, key);
+}
+assert.match(corsican['r-workflow-help'], /attivatore.*azzione.*regula esistente.*cambià/);
+assert.match(corsican['r-import-trello-note'], /ùn cuntenenu micca.*Butler.*parte supportata.*micca cunvertite sò signalate/);
+assert.match(corsican['r-import-workflow-note'], /n8n o Node-RED.*ricunnisciuti.*regule WeKan.*micca cunvertiti sò signalati/);
+assert.match(corsican['r-mark-complete'], /cum’è compia$/);
+assert.match(corsican['r-mark-incomplete'], /cum’è micca compia$/);
+assert.match(corsican['r-w-card-unarchived'], /ristabilita da l’archiviu/);
+assert.match(corsican['r-moved-to'], /à$/);
+assert.match(corsican['r-moved-from'], /da$/);
+assert.match(corsican['r-days-after'], /dopu$/);
