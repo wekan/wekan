@@ -100,3 +100,22 @@ test('Swahili export guidance retains archive exceptions and access restrictions
   assert.match(sw['oauth-providers-allowed-email-domains'], /tenganisha kwa koma; ukiacha tupu, vyote vinaruhusiwa/);
   assert.match(sw['cards-use-list-color'], /zisizo na rangi zao wenyewe/);
 });
+
+test('Swahili importer instructions keep literal syntax and data-loss limits', async () => {
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  for (const format of ['opml','orgmode','meistertask','obsidian','linear','ticktick','clickup','nullboard','kanri','pivotal','tasksorg','monday','superproductivity','taiga','vikunja','quire','wrike','teamwork','businessmap','redmine','notion','plane']) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(sw[key], en[key], key);
+    assert.deepEqual(translationTokens(sw[key]), translationTokens(en[key]), key);
+  }
+  for (const literal of ['TODO','DONE','SCHEDULED','DEADLINE','CLOSED']) assert.ok(sw['import-board-instruction-orgmode'].includes(literal));
+  for (const literal of ['Tasklist','Task','Description','Assign to','Start date','Due date','Priority','Estimated time','Tags','Status','--','##','>>']) assert.ok(sw['import-board-instruction-teamwork'].includes(literal));
+  for (const format of ['taiga','vikunja']) assert.match(sw['import-board-instruction-' + format], /Viambatisho haviagizwi/);
+  assert.match(sw['import-board-instruction-quire'], /Maoni na viambatisho havimo/);
+  assert.match(sw['import-board-instruction-notion'], /Mahusiano, picha na viambatisho haviagizwi/);
+  assert.match(sw['import-board-instruction-plane'], /haina maelezo au viambatisho.*haviagizwi/);
+  assert.match(sw['import-board-instruction-nullboard'], /bodi yake ya kwanza/);
+  assert.match(sw['import-board-instruction-kanri'], /bodi ya kwanza ndiyo huagizwa/);
+  assert.match(sw['import-board-instruction-businessmap'], /vichwa yawe ya Kiingereza kwanza/);
+  assert.match(sw['import-board-instruction-redmine'], /English katika My account kabla ya kuhamisha/);
+});

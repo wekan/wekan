@@ -1,12 +1,12 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Check the full current filtered inventory, including newer feature strings.
+// Empty reports do not certify fluency or cover exempt labels.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const root = path.resolve(__dirname, '..');
 const result = spawnSync(process.execPath, [
-  path.join(root, 'releases/translations/fill-translations.mjs'), '--completed-catalog', '--list', 'sw',
+  path.join(root, 'releases/translations/fill-translations.mjs'), '--list', 'sw',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
 assert.equal(result.stdout, '{}\n');
