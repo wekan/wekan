@@ -189418,5 +189418,12 @@
     "before": "Latine: Vinculum Scheda",
     "after": "Coniunge chartam",
     "reason": "Remove the language-name prefix and correct Latin card-link labels and inflection."
+  },
+  {
+    "locale": "la",
+    "key": "import-board-instruction-trello",
+    "before": "Latine: In tuum Trello tabula, i ad 'Tabula optionum', then 'Plus', 'Print et Exporta', 'Exporta JSON', et copia the resulting textus.",
+    "after": "In tabula tua Trello, aperi 'Menu', deinde 'More', 'Print and Export', 'Export JSON', et textum inde productum exscribe.",
+    "reason": "Replace mixed English/Latin Trello instructions with Latin prose while preserving literal menu names."
   }
 ]
