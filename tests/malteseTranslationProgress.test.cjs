@@ -117,3 +117,18 @@ assert.match(maltese['import-board-instruction-plane'], /m'għandhiex deskrizzjo
 for (const format of ['nullboard', 'kanri']) assert.match(maltese['import-board-instruction-' + format], /jiġi importat l-ewwel bord/);
 assert.match(maltese['import-board-instruction-businessmap'], /l-ewwel semmi mill-ġdid ir-ringiela tal-intestaturi bl-Ingliż/);
 assert.match(maltese['import-board-instruction-redmine'], /English f'My account qabel tesporta/);
+
+for (const key of ['Platform', 'MongoDB_version', 'MongoDB_storage_engine', 'MongoDB_Oplog_enabled', 'map-region-usa', 'map-region-asia', 's3-file-id', 's3-minio-storage-description', 's3-disabled', 'mongodb-gridfs-storage', 's3-access-key', 's3-bucket', 's3-bucket-description', 's3-connection-failed', 's3-connection-success', 's3-enabled', 's3-endpoint', 's3-endpoint-description', 's3-minio-storage', 's3-port', 's3-port-description', 's3-region', 's3-secret-key', 's3-secret-key-required', 's3-settings-saved', 's3-ssl-enabled', 's3-attachments', 's3-size', 'r-sort-by', 'r-is', 'r-to', 'r-of', 'r-d-send-email-to', 'r-by', 'dueCardsViewChange-choice-me', 'of', 'blockly-ANNOUNCE_MOVE_OF', 'blockly-FIELD_BITMAP_PIXEL_ON']) {
+  assert.notEqual(maltese[key], english[key], key);
+  assert.deepEqual(tokens(maltese[key]), tokens(english[key]), key);
+}
+for (const brand of ['AWS S3', 'MinIO', 'Cloudflare R2', 'Backblaze B2', 'Wasabi', 'DigitalOcean Spaces']) assert.ok(maltese['s3-minio-storage-description'].includes(brand));
+for (const host of ['s3.amazonaws.com', 'minio.example.com']) assert.ok(maltese['s3-endpoint-description'].includes(host));
+assert.match(maltese['s3-secret-key-required'], /hija meħtieġa/);
+assert.match(maltese['s3-disabled'], /diżattivata/);
+assert.match(maltese['s3-enabled'], /attivat/);
+assert.notEqual(maltese['s3-connection-failed'], maltese['s3-connection-success']);
+assert.equal(maltese['blockly-ANNOUNCE_MOVE_OF'], '%1 minn %2');
+assert.equal(maltese['blockly-FIELD_BITMAP_PIXEL_ON'], 'mixgħul');
+assert.equal(maltese['attachment-limit-unit-bytes'], 'Bytes');
+assert.equal(maltese['blockly-ALT_KEY'], 'Alt');
