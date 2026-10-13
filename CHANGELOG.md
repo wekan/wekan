@@ -2549,6 +2549,21 @@ existing Chinese values are preserved. All-language work continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a14536c444">Clarify Southern Sotho storage and migration translations</a>. Thanks to xet7.</summary>
+
+Translate S3 endpoint and region prose, distinguish archived records from saved
+records, and describe orphaned cards by missing list or swimlane links rather
+than ownership. Seven guarded repairs extend the historical review through
+source key 2839. Other valid wording and existing Chinese values are preserved.
+
+The Southern Sotho and repair-ledger suites pass, as do all 21 human-preference
+checks. The S3 settings browser case checks the translated hints; syntax and
+discovery pass, while browser runtime execution remains pending. All-language
+translation and semantic review remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

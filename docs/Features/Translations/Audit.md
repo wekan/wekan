@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho historical review: storage and migration — 2026-10-13
+
+Commit `a14536c444` reviews source keys 2600–2839 and repairs seven values.
+S3 endpoint and region prose is translated while literal service menu names
+remain intact. Restore messages distinguish archived records from saved data,
+and orphaned cards refer to missing list or swimlane links rather than owners.
+Other valid backup and recovery instructions are preserved.
+
+The Southern Sotho and repair-ledger suites pass with 26,978 guarded corrections;
+all 21 human-preference checks pass. The existing S3 settings browser case now
+checks translated endpoint and region hints. Syntax and discovery pass; runtime
+execution remains pending. Exact comparison preserves 38,430 existing Chinese
+values. Historical review reaches key 2839; all-language translation and
+semantic review remain unfinished.
+
 ## Southern Sotho historical review: anonymization and backup scope — 2026-10-13
 
 Commit `77c1437808` reviews source keys 2480–2599 and repairs four values.
