@@ -2844,6 +2844,20 @@ containing the old language prefix; all-language review remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/57534c06e9">Repair Latin board appearance and view labels</a>. Thanks to xet7.</summary>
+
+Repair 44 mixed-language strings for board backgrounds, visibility, members,
+assignees, zoom and view controls. Preserve private/public markup, current-card
+versus board-wide scope, placeholders and the zoom range.
+
+The Latin and guarded-correction suites and all 21 preservation checks pass.
+The calendar-menu browser case passes syntax and discovery; runtime remains
+pending. Existing Chinese values are unchanged. There remain 2,097 Latin values
+containing the old language prefix; all-language review remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin board appearance and view controls — 2026-10-14
+
+Commit `57534c06e9` repairs 44 mixed-language labels and messages for board
+backgrounds, colors, visibility, membership, assignees, zoom, desktop/mobile
+modes and views. Tests preserve private/public HTML, current-card versus
+board-wide assignment scope, avatar limits, drag-handle instructions, repeated
+popup labels and the 50–300% zoom range.
+
+The Latin and guarded-correction suites pass with 27,287 ledger entries. All 21
+human-preference checks pass. Calendar-menu browser coverage passes syntax and
+discovery; runtime remains pending. Exact comparison preserves 38,430 existing
+Chinese values.
+
+There remain 2,097 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin sizing and archive controls — 2026-10-14
 
 Commit `f6f05040ae` repairs 55 prefixed or mixed-language strings for list
