@@ -2,6 +2,50 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Further time-history meaning repairs — 2026-10-13
+
+Commit `44d8210a69` repairs 48 more catalog values. Forty-three cover Arabic,
+Persian, Hebrew, Bengali, Marathi, Nepali, Tamil, Thai, Kannada, Urdu,
+Malayalam, Telugu, Hindi, Gujarati, Esperanto, Catalan, Galician, Basque,
+Estonian, Latvian, Lithuanian, Icelandic, Afrikaans, Swahili, Tagalog,
+Albanian, Bosnian, Macedonian, Serbian, Armenian, Georgian, Kazakh, Kyrgyz
+and Mongolian, with their selected regional paths. Five English regional
+catalogs (`en_AU`, `en_ID`, `en_SG`, `en_TR`, `en_ZA`) also retained the
+abbreviated symbol-based note and now use the complete English explanation.
+
+All four source distinctions are restored: changes grouped by the person
+editing the total, not individual work sessions, negative values as
+corrections, and no attribution for earlier unrecorded time. Latvian had
+Lithuanian fragments, Bosnian a Cyrillic Serbian opening and Macedonian a
+Bulgarian username label; the complete replacement removes those fragments.
+The Urdu explanation also replaces a defective transcription of hours.
+Already complete notes such as Bulgarian are preserved.
+
+The two affected suites pass. The shared meaning fixture now covers 102
+catalogs, retaining positive checks for all four clauses and negative checks
+against their previous shorthand. English regional files must equal the
+English source; other locales must differ. The full correction-ledger suite
+passes all 25,094 rows, including exact-before repair matching, idempotency
+and preservation of newer reviewed translations. All 21 human-preference
+checks pass. The initial 43 catalogs were checked against all current source
+keys and tokens; the full ledger covers the five later English repairs too.
+
+The existing browser flow now registers 103 cases, including primary English.
+It tests translated report text after actual time corrections and rejection
+of a negative total. RTL catalogs additionally require an RTL page, and
+Valencian uses the registered `ca-valencia` language tag. Browser execution
+against a rebuilt app remains pending.
+
+Only the time-note hunks were staged in the locale files. The source commit
+preserves every other pre-existing value and does not include the concurrent
+new email keys. Existing Chinese values were compared individually and left
+unchanged. The filtered working-tree backlog remains 65,329 values across
+234 non-English paths. A shorthand scan still finds 110 further catalog
+paths and the eight protected `zh` paths; the latter must not be changed
+under the current instructions. The scan is a review queue, not permission
+to overwrite other existing translations. Broader language review and the
+all-language objective remain unfinished.
+
 ## Time-history explanation review — 2026-10-13
 
 Commit `3fe68ad266` repairs `time-adjustment-note` in 54 catalog paths.

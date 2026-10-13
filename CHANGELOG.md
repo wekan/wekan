@@ -148,11 +148,12 @@ releases.
 - Earlier empty fill reports below describe their recorded batches. The
   newly added email strings expand the backlog in every non-English catalog;
   they still need translation, including new Chinese keys only.
-- Time-history explanations have 54 recorded repairs: editor grouping,
-  individual-session exclusion, negative corrections and missing historical
-  attribution are now explicit. Two suites and 21 human-preference checks
-  pass; 55 browser cases register including English. Other locales and
-  browser execution remain under review.
+- The shared time-history audit covers 102 repaired explanations, including
+  five English regional catalogs. Editor grouping, individual-session
+  exclusion, negative corrections and missing historical attribution are
+  explicit. Two suites and 21 human-preference checks pass; 103 browser
+  cases register including English, with RTL checks where applicable.
+  Further catalogs and browser execution remain under review.
 - Latin Uzbek now has no current fill candidates after 223 feature fills,
   the Bytes label and fourteen Blockly key descriptions in each of `uz`,
   `uz-UZ` and `uz-LA`. Four focused suites and 21 human-preference checks
@@ -1000,6 +1001,23 @@ The meaning tests and all 25,046 correction-ledger entries pass, alongside
 report text and exports; it has not run against a rebuilt app. Existing
 Chinese wording is unchanged. Other time-history translations remain under
 review.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/44d8210a69">Restore time-history meaning in 48 more catalogs</a>. Thanks to xet7.</summary>
+
+Replace abbreviated explanations in 43 more translated catalogs and five
+English regional files. Restore all four source distinctions about the
+editor, separate work sessions, negative corrections and unrecorded time.
+Remove mixed-language fragments from Latvian, Bosnian and Macedonian notes;
+existing full explanations and verified Chinese wording are preserved.
+
+The shared meaning tests now cover 102 catalogs, and the full ledger passes
+with 25,094 corrections. All 21 human-preference checks pass. The browser
+flow registers in 103 locales including English, checks RTL page direction
+where needed, and uses the registered Valencian language tag. Execution
+against a rebuilt app and the remaining language reviews are still pending.
 
 </details>
 
