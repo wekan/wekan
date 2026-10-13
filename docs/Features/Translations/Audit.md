@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin support and lockout controls — 2026-10-14
+
+Commit `08137b1d4a` repairs 50 support, accessibility, lockout, scheduling and
+storage-path entries. Checks retain the support login restriction, missing-info
+states, known-user/wrong-password versus nonexistent-user distinction, timing
+units, all-user scope and opposing activation actions. The shared Latin word
+“Status” has an exact key/source exception with a negative longer-prose test.
+
+Three translation suites pass with 28,891 correction ledger entries. All 21
+human-preference checks pass, and exact comparison preserves 38,430 existing
+Chinese values. Existing lockout browser coverage now includes Latin; syntax
+and discovery pass, execution remains pending.
+
+There remain 496 Latin values containing “Latine:”. Unprefixed values and other
+languages still require semantic review; all-language verification is unfinished.
+
 ## Latin maintenance and account controls — 2026-10-14
 
 Commit `5002df4c9d` repairs 44 maintenance, account, upload and custom-translation

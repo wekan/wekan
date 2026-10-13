@@ -3556,6 +3556,20 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/08137b1d4a">Repair Latin support and lockout translations</a>. Thanks to xet7.</summary>
+
+- Translate 50 support, accessibility, lockout and scheduling entries. Preserve
+  login restrictions, known/unknown user distinctions, timing units and the
+  direction of activation controls. Retain the Latin word “Status”.
+- Three translation suites and 21 human-preference checks pass. Existing Chinese
+  values remain unchanged. Extended lockout browser coverage passes syntax and
+  discovery; execution remains pending.
+- Review remains unfinished: 496 Latin values contain the legacy prefix.
+  Unprefixed values and other languages still require semantic review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
