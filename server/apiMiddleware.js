@@ -25,6 +25,20 @@ function isApiPath(url) {
   return /^\/api(\/|$)/i.test(pathname);
 }
 
+// The inbound email endpoints are not the REST API: a mail provider (or Amazon
+// SES through SNS) posts email to them, and they have gates of their own - the
+// Admin Panel's email-to-card switch and webhook secret, the reply address's
+// signature, SNS's message signature (server/routes/inboundEmail.js,
+// server/emailBounces.js). Email to card must not need the whole REST API
+// turned on, so these exact POST paths pass the WITH_API gate.
+const INBOUND_EMAIL_PATHS = ['/api/inbound-email', '/api/inbound-email/ses'];
+function isInboundEmailPath(req) {
+  if (req.method !== 'POST') return false;
+  let pathname = String(req.url || '').split('?')[0];
+  try { pathname = decodeURIComponent(pathname); } catch (e) { return false; }
+  return INBOUND_EMAIL_PATHS.includes(pathname.replace(/\/+$/, ''));
+}
+
 WebApp.handlers.use(function apiGate(req, res, next) {
   const api = isApiPath(req.url);
   // CacheBleed, API sibling (2026-10-02): every API answer is the caller's -
@@ -32,7 +46,7 @@ WebApp.handlers.use(function apiGate(req, res, next) {
   // a shared cache was free to keep one by heuristics. A route may still set
   // its own policy.
   if (api) res.setHeader('Cache-Control', 'no-store');
-  if ((api && process.env.WITH_API === 'true') || !api) {
+  if ((api && process.env.WITH_API === 'true') || !api || isInboundEmailPath(req)) {
     return next();
   }
   // REFUSED, IN WORDS - not a redirect to the front page.

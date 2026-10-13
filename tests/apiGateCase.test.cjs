@@ -32,3 +32,25 @@ test('the gate uses it', () => {
   assert.match(src, /const api = isApiPath\(req\.url\);/);
   assert.doesNotMatch(src, /req\.url\.startsWith\('\/api'\)/);
 });
+
+// #794: the inbound email endpoints pass the WITH_API gate - and nothing else
+// does. A mail provider or Amazon SES posts there; those routes have gates of
+// their own.
+{
+  const at = src.indexOf('function isInboundEmailPath(req) {');
+  const inboundSrc = src.slice(src.indexOf('const INBOUND_EMAIL_PATHS'), src.indexOf('\n}\n', at) + 2);
+  const isInboundEmailPath = new Function(`${inboundSrc}\nreturn isInboundEmailPath;`)();
+  for (const url of ['/api/inbound-email', '/api/inbound-email?secret=x', '/api/inbound-email/', '/api/inbound-email/ses',
+    '/api/%69nbound-email']) {
+    assert.equal(isInboundEmailPath({ method: 'POST', url }), true, url);
+  }
+  // Negative: another method, another API path, a path that only starts the
+  // same, a traversal, an undecodable one.
+  for (const [method, url] of [['GET', '/api/inbound-email'], ['POST', '/api/boards'], ['POST', '/api/inbound-email-x'],
+    ['POST', '/api/inbound-email/../boards'], ['POST', '/api/inbound-email/ses/x'], ['POST', '/api/inbound-email%'],
+    ['POST', '/API/inbound-email']]) {
+    assert.equal(isInboundEmailPath({ method, url }), false, `${method} ${url}`);
+  }
+  assert.match(src, /if \(\(api && process\.env\.WITH_API === 'true'\) \|\| !api \|\| isInboundEmailPath\(req\)\) \{/);
+  console.log('  ok - only the inbound email endpoints pass the WITH_API gate');
+}

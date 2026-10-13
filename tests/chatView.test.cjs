@@ -96,6 +96,9 @@ test('wired like every other board view, the layout saved on the profile', () =>
   // Reordering uses the board's own paths, so the same permissions apply.
   assert.match(js, /Meteor\.callAsync\('updateListSort'/);
   assert.match(js, /card\.move\(boardId, swimlaneId, listId/);
+  // Where a card lands is read from the tree it was dropped on, not a cached
+  // copy of the target card (which can hold the list it was in before a move).
+  assert.match(js, /target\.closest\('\[data-kind="list"\]'\)\.dataset\.id/);
   assert.match(js, /Meteor\.call\('setWorkspacesTree', next\)/);
   // A comment is the same document the card's own comment form writes.
   assert.match(js, /CardComments\.insert\(\{ text, boardId: card\.boardId, cardId: card\._id/);

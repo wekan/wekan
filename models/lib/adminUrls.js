@@ -125,6 +125,8 @@ const ADMIN_PAGES = {
       api: 'report-api',
       database: 'report-database',
       integrity: 'report-integrity',
+      // Sending and receiving email (models/lib/mailProblems.js).
+      mail: 'report-mail',
     },
   },
   attachments: {
@@ -211,6 +213,7 @@ const ADMIN_PANE_TITLES = {
     api: { titleKey: 'apiReportTitle' },
     database: { titleKey: 'databaseReportTitle' },
     integrity: { titleKey: 'integrityReportTitle' },
+    mail: { titleKey: 'mailReportTitle' },
   },
   attachments: {
     backup: { titleKey: 'backup' },

@@ -3,8 +3,10 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Boards from '/models/boards';
 import CardComments from '/models/cardComments';
+import Cards from '/models/cards';
 import Swimlanes from '/models/swimlanes';
 import { Utils } from '/client/lib/utils';
+import { TAPi18n } from '/imports/i18n';
 
 const {
   DEFAULT_LAYOUT, cleanChatLayout, paneOrder, resizePane, buildBoardTree, buildWorkspaceTree,
@@ -19,10 +21,14 @@ const { dropPosition, moveWorkspace } = require('/models/lib/workspacesTree');
 const selectedCardId = new ReactiveVar(null);
 const dragLayout = new ReactiveVar(null);
 
+// The language's direction, reactively: the panes re-order the moment the
+// member switches to or from a right-to-left language.
 function isRtl() {
-  return document.documentElement.getAttribute('dir') === 'rtl'
-    || getComputedStyle(document.documentElement).direction === 'rtl';
+  return !!(TAPi18n.getLanguageDirection && TAPi18n.getLanguageDirection() === 'rtl');
 }
+
+// Blaze hands over jQuery's event when jQuery is there, the DOM's otherwise.
+const nativeEvent = event => event.originalEvent || event;
 
 function layout() {
   const live = dragLayout.get();
@@ -164,26 +170,18 @@ async function dropOn(target, position) {
     await Meteor.callAsync('updateListSort', id, boardId, update);
     return;
   }
-  // A card: before/after a card, or onto a list (its end).
-  const card = ReactiveCache.getCard(id);
+  // A card: before/after a card, or onto a list (its end). Where it lands is
+  // read from the TREE it was dropped on - the list and swimlane the member
+  // sees - not from a cached copy of the target card, which can still hold
+  // the list it was in before a move a moment ago.
+  const card = Cards.findOne(id);
   if (!card) return;
-  let listId;
-  let swimlaneId;
-  let neighbours;
-  if (targetKind === 'list') {
-    const listNode = target;
-    listId = targetId;
-    swimlaneId = listNode.closest('[data-kind="swimlane"]').dataset.id;
-    const siblings = ReactiveCache.getCards({ boardId, listId, swimlaneId, archived: false }) || [];
-    neighbours = dropNeighbours(siblings, id, null, 'after');
-  } else {
-    const targetCard = ReactiveCache.getCard(targetId);
-    if (!targetCard) return;
-    listId = targetCard.listId;
-    swimlaneId = targetCard.swimlaneId;
-    const siblings = ReactiveCache.getCards({ boardId, listId, swimlaneId, archived: false }) || [];
-    neighbours = dropNeighbours(siblings, id, targetId, position === 'before' ? 'before' : 'after');
-  }
+  const listId = targetKind === 'list' ? targetId : target.closest('[data-kind="list"]').dataset.id;
+  const swimlaneId = target.closest('[data-kind="swimlane"]').dataset.id;
+  const siblings = Cards.find({ boardId, listId, swimlaneId, archived: false }).fetch();
+  const neighbours = targetKind === 'list'
+    ? dropNeighbours(siblings, id, null, 'after')
+    : dropNeighbours(siblings, id, targetId, position === 'before' ? 'before' : 'after');
   await card.move(boardId, swimlaneId, listId, Utils.calculateIndexData(neighbours.prev, neighbours.next, 1).base);
 }
 
@@ -238,8 +236,11 @@ Template.chatView.events({
     event.stopPropagation();
     const node = event.currentTarget;
     dragged = { kind: node.dataset.kind, id: node.dataset.id };
-    event.originalEvent.dataTransfer.effectAllowed = 'move';
-    event.originalEvent.dataTransfer.setData('text/plain', node.dataset.id);
+    const dt = nativeEvent(event).dataTransfer;
+    if (dt) {
+      dt.effectAllowed = 'move';
+      dt.setData('text/plain', node.dataset.id);
+    }
   },
   'dragover .js-chat-drop'(event) {
     if (!dragged || !dropAllowed(dragged.kind, event.currentTarget.dataset.kind)) return;
@@ -253,7 +254,7 @@ Template.chatView.events({
     const target = event.currentTarget;
     const row = target.querySelector('.chat-view-row') || target;
     const rect = row.getBoundingClientRect();
-    const position = dropPosition(event.originalEvent.clientY - rect.top, rect.height);
+    const position = dropPosition(nativeEvent(event).clientY - rect.top, rect.height);
     try {
       await dropOn(target, position);
     } finally {

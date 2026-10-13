@@ -8,6 +8,7 @@ import '/client/components/settings/migrationProgress.jade';
 import '/client/components/settings/notificationSettingsPopup.jade';
 import '/client/components/settings/notificationDeliverySettings.jade';
 import '/client/components/settings/emailToCardSettings.jade';
+import '/client/components/settings/emailBounces.jade';
 import '/client/components/settings/peopleBody.jade';
 import '/client/components/settings/settingBody.jade';
 import '/client/components/settings/settingHeader.jade';
@@ -36,6 +37,8 @@ import '/client/components/settings/notificationSettingsPopup.js';
 import '/client/components/settings/notificationDeliverySettings.js';
 // #794: email to card, in the same popup.
 import '/client/components/settings/emailToCardSettings.js';
+// #794: Admin Panel -> E-mail -> Bounces.
+import '/client/components/settings/emailBounces.js';
 import '/client/components/settings/peopleBody.js';
 import '/client/components/settings/settingBody.js';
 import '/client/components/settings/settingHeader.js';

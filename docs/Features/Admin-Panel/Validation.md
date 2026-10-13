@@ -122,6 +122,7 @@ are not reachable from the current Admin Panel menu. Current storage panes use
 | API (`api`) | [eventLog.js](../../../models/eventLog.js) | Recorded REST endpoint usage and actors. |
 | Database problems (`database`) | [databaseProblems.js](../../../server/lib/databaseProblems.js) | Database event ingestion/classification and problem reporting. |
 | Filesystem integrity (`integrity`) | [fileIntegrityScan.js](../../../server/lib/fileIntegrityScan.js) | Integrity scans/baselines plus file-status audit; scans report their coverage limits. |
+| Email (`mail`) | [mailProblems.js](../../../models/lib/mailProblems.js) | Sends the mail server refused, IMAP mailboxes that cannot be read, unreadable email and email for a board that no longer takes it - one folded row per kind; runtime-tested against local SMTP and IMAP servers. |
 
 ## Reproduce the checks
 

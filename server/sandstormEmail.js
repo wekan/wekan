@@ -87,13 +87,24 @@ async function keepSession(sessionId) {
 // only one Sandstorm lets a grain use without a user's own session), keeping
 // the display name; Reply-To keeps the original From when there was none.
 async function sendThroughGrain({ packageSettings, ...message }) {
-  if (!context) {
-    await new Promise((resolve, reject) => {
-      const timer = setTimeout(() => reject(new Error('no Sandstorm session yet - open the grain once')), 10 * 60 * 1000);
-      waiting.push(() => { clearTimeout(timer); resolve(); });
-    });
+  try {
+    if (!context) {
+      await new Promise((resolve, reject) => {
+        const timer = setTimeout(() => reject(new Error('no Sandstorm session yet - open the grain once')), 10 * 60 * 1000);
+        waiting.push(() => { clearTimeout(timer); resolve(); });
+      });
+    }
+    await sendGrainMessage(await bridgeApi(), message);
+  } catch (error) {
+    // Sandstorm said no (over its daily limit, a From it does not allow) or
+    // nobody has opened the grain since it started: Problems -> Email.
+    require('/server/lib/mailProblems').recordMailProblem('send-failed', {
+      source: 'sandstorm-grain-email', detail: (error && error.message) || String(error) });
+    throw error;
   }
-  const a = await bridgeApi();
+}
+
+async function sendGrainMessage(a, message) {
   const { addressList, parseFrom } = require('/server/lib/inboundEmailPayload');
   const original = parseFrom(Array.isArray(message.from) ? message.from[0] : message.from);
   const asList = value => addressList(value).map(address => ({ address }));
@@ -128,8 +139,8 @@ export function installGrainTransport() {
 
 // --- Receiving: the grain's Maildir -------------------------------------
 
-async function receiveFile(fs, path, name) {
-  const file = path.join(MAILDIR, 'new', name);
+async function receiveFile(fs, path, maildir, name) {
+  const file = path.join(maildir, 'new', name);
   const { simpleParser } = require('mailparser');
   const { fromParsedMail } = require('/server/lib/inboundEmailPayload');
   const { receiveEmail } = require('/server/routes/inboundEmail');
@@ -141,7 +152,7 @@ async function receiveFile(fs, path, name) {
   } finally {
     // Read once, whatever became of it: a refused email does not get better
     // by being read again every five seconds.
-    await fs.promises.rename(file, path.join(MAILDIR, 'cur', `${name}:2,S`)).catch(() => fs.promises.unlink(file));
+    await fs.promises.rename(file, path.join(maildir, 'cur', `${name}:2,S`)).catch(() => fs.promises.unlink(file));
   }
 }
 
@@ -164,19 +175,25 @@ async function routeToBoard(message) {
   if (row) message.deliveredTo = [`board+${row.token}@${domain}`, ...(message.deliveredTo || [])];
 }
 
+// Read every message in <maildir>/new once. Exported for the tests, which
+// give it a Maildir of their own.
 let polling = false;
-async function pollMaildir() {
+export async function pollMaildir(maildir = MAILDIR) {
   if (polling) return;
   polling = true;
   try {
     const fs = require('fs');
     const path = require('path');
-    const names = await fs.promises.readdir(path.join(MAILDIR, 'new')).catch(() => []);
+    const names = await fs.promises.readdir(path.join(maildir, 'new')).catch(() => []);
     for (const name of names.filter(n => !n.startsWith('.')).sort()) {
       try {
-        await receiveFile(fs, path, name);
+        await receiveFile(fs, path, maildir, name);
       } catch (e) {
         console.warn('Sandstorm grain email: not processed:', name, e && e.message);
+        require('/server/lib/mailProblems').recordMailProblem('receive-unreadable', {
+          source: 'sandstorm-grain-email', detail: `${name}: ${e && e.message}` });
+        // An unreadable file is moved aside, not read again every five seconds.
+        await fs.promises.rename(path.join(maildir, 'new', name), path.join(maildir, 'cur', `${name}:2,F`)).catch(() => {});
       }
     }
   } finally {

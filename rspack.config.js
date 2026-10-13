@@ -47,6 +47,19 @@ module.exports = defineConfig(Meteor => ({
       },
     },
   }),
+  // mailparser (email to card, #794) does `require('nodemailer/lib/addressparser')`.
+  // nodemailer 10 publishes that subpath as ESM for `import` and CommonJS for
+  // `require`, and the server bundle resolved the require to the ESM build, so
+  // the function arrived as `{ default }` and every parsed email failed with
+  // "addressparser is not a function". Point the server at the CommonJS build,
+  // which exports the function itself. tests/emailToCard.test.cjs pins this.
+  ...(Meteor.isServer && {
+    resolve: {
+      alias: {
+        'nodemailer/lib/addressparser$': path.resolve(__dirname, 'node_modules/nodemailer/dist/cjs/addressparser/index.js'),
+      },
+    },
+  }),
   module: {
     rules: [
       ...(Meteor.isServer

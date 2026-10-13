@@ -197,6 +197,10 @@ export async function receiveReplyEmail({ to, from, text }, { source = 'webhook'
 // One parsed email, to whichever use its recipients name: a board address
 // (email to card) or a reply address (comment).
 export async function receiveEmail(message, { source = 'webhook', fields = {} } = {}) {
+  // A bounce or an auto-reply is never a card or a comment: it goes to
+  // Admin Panel -> E-mail -> Bounces (server/emailBounces.js).
+  const { handleBounceEmail } = require('/server/emailBounces');
+  if (await handleBounceEmail(message, { source })) return { handled: true, code: 200, bounce: true };
   const { receiveBoardEmail } = require('/server/emailToCard');
   const board = await receiveBoardEmail(message, { source });
   if (board.handled) return board;
@@ -227,6 +231,8 @@ WebApp.handlers.post('/api/inbound-email', async function inboundEmailHandler(re
       parsed = await readInboundMessage(req);
     } catch (e) {
       const tooLarge = e && e.message === 'too-large';
+      require('/server/lib/mailProblems').recordMailProblem('receive-unreadable', {
+        source: 'webhook', detail: tooLarge ? 'the email is over INBOUND_EMAIL_MAX_BYTES' : `unreadable: ${e && e.message}` });
       sendJsonResult(res, { code: tooLarge ? 413 : 400, data: { error: tooLarge ? 'Too large' : 'Unreadable email' } });
       return;
     }

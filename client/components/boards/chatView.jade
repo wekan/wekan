@@ -11,7 +11,7 @@
   to a thin bar, and the two borders between them are dragged to resize; both
   are saved on the member's profile (setChatViewLayout).
 template(name="chatView")
-  .chat-view(data-dir="{{dir}}")
+  .chat-view.nodragscroll(data-dir="{{dir}}")
     each panes
       if $eq this 'tree'
         +chatViewTreePane

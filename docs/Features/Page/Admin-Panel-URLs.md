@@ -93,6 +93,7 @@ OAuth providers and Passwordless login each have their own menu entry.
 | `/admin/problems/api` | API | `report-api` |
 | `/admin/problems/database` | Database problems | `report-database` |
 | `/admin/problems/integrity` | Filesystem integrity | `report-integrity` |
+| `/admin/problems/mail` | Email | `report-mail` |
 
 Two panes are called Security, and they are different things: the *settings*
 pane and the *report*. `security` is the settings one, beside `notifications`

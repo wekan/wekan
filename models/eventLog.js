@@ -104,7 +104,10 @@ EventLogAcks.attachSchema(
 // 'integrity' is what the FILESYSTEM said: a stored file that is not the file
 // WeKan stored (server/lib/fileIntegrityScan.js), and whether this server
 // stopped cleanly last time (server/lib/uptimeWatch.js).
-export const EVENT_STREAMS = ['security', 'speed', 'tests', 'cpu', 'database', 'integrity'];
+// 'mail' is what went wrong sending or receiving email: a send the mail server
+// refused, an IMAP mailbox that cannot be read, an email that could not be
+// read or was for a board that no longer takes email (models/lib/mailProblems.js).
+export const EVENT_STREAMS = ['security', 'speed', 'tests', 'cpu', 'database', 'integrity', 'mail'];
 
 if (Meteor.isServer) {
   // The Security/Speed/Tests report pages filter by `stream` and sort by `at`

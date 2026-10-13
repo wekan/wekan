@@ -30,7 +30,6 @@ const MAX_PER_POLL = 50;
 const MAX_MESSAGE_BYTES = Number(process.env.INBOUND_EMAIL_MAX_BYTES) || 30 * 1024 * 1024;
 
 let timer = null;
-let running = false;
 
 async function takeLease(accountId) {
   const now = new Date();
@@ -83,6 +82,8 @@ async function pollAccount(account, password) {
             handled = result.handled === true;
           } catch (e) {
             console.warn(`inbound IMAP ${account.id}: message ${uid} not processed:`, e && e.message);
+            require('/server/lib/mailProblems').recordMailProblem('receive-unreadable', {
+              source: `imap:${account.id}`, detail: `message ${uid} in ${account.mailbox}: ${e && e.message}` });
           }
         }
         if (handled) {
@@ -105,26 +106,38 @@ async function pollAccount(account, password) {
   }
 }
 
-async function pollAll() {
-  if (running) return;
-  running = true;
+// One poll of every mailbox. A poll already running is waited for and then
+// followed by a fresh one, so a caller (the Admin Panel's Save, a test) always
+// gets a poll that started after it asked.
+let inFlight = null;
+export async function pollAll() {
+  while (inFlight) await inFlight.catch(() => {});
+  inFlight = pollAllOnce();
   try {
-    const { inboundMailSettings } = require('/server/emailToCard');
-    const inboundMail = await inboundMailSettings();
-    if (inboundMail.enabled !== true) return;
-    for (const account of inboundMail.accounts || []) {
-      const password = inboundMail.passwords && inboundMail.passwords[account.id];
-      if (!account.enabled || !password) continue;
-      try {
-        await pollAccount(account, password);
-      } catch (e) {
-        const error = String((e && (e.responseText || e.message)) || e).slice(0, 500);
-        console.warn(`inbound IMAP ${account.id}:`, error);
-        try { await State.updateAsync(account.id, { $set: { lastError: error, lastPollAt: new Date() } }); } catch (x) { /* best effort */ }
-      }
-    }
+    return await inFlight;
   } finally {
-    running = false;
+    inFlight = null;
+  }
+}
+
+async function pollAllOnce() {
+  const { inboundMailSettings } = require('/server/emailToCard');
+  const inboundMail = await inboundMailSettings();
+  if (inboundMail.enabled !== true) return;
+  for (const account of inboundMail.accounts || []) {
+    const password = inboundMail.passwords && inboundMail.passwords[account.id];
+    if (!account.enabled || !password) continue;
+    try {
+      await pollAccount(account, password);
+    } catch (e) {
+      const error = String((e && (e.responseText || e.message)) || e).slice(0, 500);
+      console.warn(`inbound IMAP ${account.id}:`, error);
+      require('/server/lib/mailProblems').recordMailProblem('imap-failed', {
+        source: `imap:${account.id}`,
+        detail: `${account.label || account.id} (${account.username}@${account.host}:${account.port}): ${error}`,
+      });
+      try { await State.updateAsync(account.id, { $set: { lastError: error, lastPollAt: new Date() } }); } catch (x) { /* best effort */ }
+    }
   }
 }
 

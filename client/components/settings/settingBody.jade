@@ -219,6 +219,10 @@ template(name='email')
     li
       button.mail-settings-save.primary {{_ 'save'}}
 
+    //- #794: what WeKan does with email that comes back - bounces, out-of-office
+      replies, complaints - and the addresses that bounced (emailBounces.jade).
+    +emailBounces
+
     //- #2022: admin-customizable templates for WeKan's transactional emails.
     //- Each field is OPTIONAL and empty by default - left blank, WeKan sends
     //- its exact current hardcoded/i18n email content, unchanged. Filled in,

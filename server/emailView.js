@@ -139,7 +139,8 @@ Meteor.methods({
     const thread = card && card.email && Array.isArray(card.email.threadIds) ? card.email.threadIds : [];
 
     const { Email } = require('meteor/email');
-    await Email.sendAsync({
+    try {
+      await Email.sendAsync({
       from: name ? `"${name.replace(/["\\\r\n]/g, '')}" <${from}>` : from,
       replyTo: from,
       to: email.to,
@@ -149,7 +150,16 @@ Meteor.methods({
       messageId,
       inReplyTo: thread.length ? thread[thread.length - 1] : undefined,
       references: thread.length ? thread.slice(-20) : undefined,
-    });
+      });
+    } catch (error) {
+      // The mail server said no, or could not be reached: the member sees
+      // that it was not sent, and the administrator sees why.
+      require('/server/lib/mailProblems').recordMailProblem('send-failed', {
+        source: 'email-view', userId,
+        detail: `${(error && (error.responseCode || error.code)) || ''} ${(error && (error.response || error.message)) || error}`.trim(),
+      });
+      throw new Meteor.Error('email-view-send-failed');
+    }
 
     const { addEmailComment } = require('/server/emailToCard');
     if (card) {

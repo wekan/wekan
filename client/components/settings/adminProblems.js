@@ -341,6 +341,10 @@ const PROBLEMS_MENU = [
   // stored, and whether this server stopped cleanly
   // (docs/Security/Remediation/WeKan.md §13).
   { id: 'report-integrity', icon: 'fa-fingerprint', labelKey: 'integrityReportTitle' },
+  // What went wrong sending or receiving email: the mail server refused a send,
+  // an IMAP mailbox could not be read, an email for a board that no longer takes
+  // email (models/lib/mailProblems.js).
+  { id: 'report-mail', icon: 'fa-envelope', labelKey: 'mailReportTitle' },
 ];
 
 Template.adminProblems.helpers({
@@ -522,7 +526,7 @@ const SELF_LOADING_PANES = [
   'report-summary',
   'features-performance', 'features-security', 'features-delete', 'features-notifications',
   'report-security', 'report-speed', 'report-tests', 'report-cpu', 'report-instrumentation',
-  'report-database', 'report-integrity', 'report-office', 'report-api',
+  'report-database', 'report-integrity', 'report-office', 'report-api', 'report-mail',
 ];
 
 function openReportPane(tmpl, targetID) {

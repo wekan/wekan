@@ -196,6 +196,9 @@ test('the platform fetch() is used only for fixed, WeKan-chosen hosts (negative)
     'server/statistics.js': 'https://wekan.fi/version.txt',
     'server/trelloApiImport.js': 'the api.trello.com branch; downloads use fetchSafe',
     'server/lib/listSyncFetch.js': 'only a host in LIST_SYNC_ALLOWED_PRIVATE_HOSTS, set by the administrator',
+    // #794: Amazon SNS's signing certificate and subscription URL, and only
+    // when snsUrlAllowed() says https://sns.<region>.amazonaws.com.
+    'server/emailBounces.js': 'only https://sns.<region>.amazonaws.com, checked by snsUrlAllowed first',
   };
   const found = {};
   for (const file of sourceFiles()) {
@@ -205,7 +208,14 @@ test('the platform fetch() is used only for fixed, WeKan-chosen hosts (negative)
   }
   assert.deepEqual(Object.keys(found).sort(), Object.keys(FIXED).sort(),
     'a new platform fetch() call: use fetchSafe for any URL a user can choose');
-  for (const count of Object.values(found)) assert.equal(count, 1);
+  // Every SNS fetch is behind the amazonaws.com check (negative: a message
+  // naming another host is never fetched).
+  const bounces = fs.readFileSync(path.join(ROOT, 'server/emailBounces.js'), 'utf8');
+  assert.match(bounces, /if \(!msg \|\| !msg\.Signature \|\| !snsUrlAllowed\(msg\.SigningCertURL\)/);
+  assert.match(bounces, /if \(!snsUrlAllowed\(msg\.SubscribeURL\)\) \{ refuse\(/);
+  // One call each - the SNS file has two, the certificate and the subscribe
+  // URL, both behind snsUrlAllowed (pinned above).
+  for (const [file, count] of Object.entries(found)) assert.equal(count, file === 'server/emailBounces.js' ? 2 : 1, file);
 });
 
 test('no response text from a user-chosen server reaches an error message (negative)', () => {

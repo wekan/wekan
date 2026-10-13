@@ -1,0 +1,69 @@
+//- Admin Panel -> E-mail -> Bounces (#794): what WeKan does with email that
+  comes back - a mistyped invited address, a full mailbox, an out-of-office
+  reply, a spam complaint - and the addresses that bounced. Modelled on the
+  bounce settings of established mailing software (listmonk, Discourse): an
+  action per category after a count. server/emailBounces.js,
+  models/lib/emailBounce.js, docs/Features/Email/Bounces.md.
+template(name="emailBounces")
+  li.email-bounces
+    h2 {{_ 'email-bounces'}}
+    p.quiet {{_ 'email-bounces-description'}}
+    if settings
+      a.flex.js-bounce-enabled(role="checkbox" aria-checked="{{#if settings.enabled}}true{{else}}false{{/if}}")
+        .materialCheckBox(class="{{#if settings.enabled}}is-checked{{/if}}")
+        span {{_ 'email-bounces-enabled'}}
+      table.email-bounce-rules
+        thead
+          tr
+            th {{_ 'email-bounces-category'}}
+            each actionColumns
+              th {{_ labelKey}}
+            th {{_ 'email-bounces-threshold'}}
+        tbody
+          each ruleRows
+            tr(data-category="{{category}}")
+              td
+                strong {{_ labelKey}}
+                .quiet {{_ descKey}}
+              each actions
+                td
+                  a.js-bounce-action(data-category="{{../category}}" data-action="{{action}}" role="checkbox" aria-checked="{{#if on}}true{{else}}false{{/if}}" title="{{_ labelKey}}")
+                    .materialCheckBox(class="{{#if on}}is-checked{{/if}}")
+              td
+                input.js-bounce-threshold(type="number" min="1" max="100" value="{{threshold}}" data-category="{{category}}" aria-label="{{_ 'email-bounces-threshold'}}")
+      .title {{_ 'email-bounces-ses'}}
+      p.quiet {{_ 'email-bounces-ses-description'}}
+      p
+        code {{settings.sesEndpoint}}
+      label
+        | {{_ 'email-bounces-ses-topics'}}
+        textarea.js-bounce-topics(rows="3" placeholder="arn:aws:sns:eu-west-1:123456789012:wekan-bounces") {{topicsText}}
+      button.primary.js-bounce-save(type="button") {{_ 'save'}}
+      if message
+        p.quiet.js-bounce-message {{message}}
+      h3 {{_ 'email-bounces-addresses'}}
+      a.flex.js-bounce-stopped-only(role="checkbox" aria-checked="{{#if stoppedOnly}}true{{else}}false{{/if}}")
+        .materialCheckBox(class="{{#if stoppedOnly}}is-checked{{/if}}")
+        span {{_ 'email-bounces-stopped-only'}}
+      +tablePage(tablePageData)
+    else
+      p.quiet {{_ 'loading'}}
+
+//- One bounced address. Cells match the header: Address, Category, Counts,
+  Last, Status, action.
+template(name="emailBounceRow")
+  tr.email-bounce-row(data-email="{{email}}" class="{{#if stopped}}is-stopped{{/if}}")
+    td {{email}}
+    td {{_ categoryKey}}
+    td.quiet {{countsText}}
+    td
+      | {{lastAt}}
+      if lastDiagnostic
+        .quiet.email-bounce-diagnostic {{lastDiagnostic}}
+    td
+      if stopped
+        span.email-bounce-stopped {{_ 'email-bounces-stopped'}}
+      else
+        span.quiet {{_ 'email-bounces-recorded'}}
+    td
+      button.js-bounce-clear(type="button" data-email="{{email}}" title="{{_ 'email-bounces-clear-hint'}}") {{_ 'email-bounces-clear'}}

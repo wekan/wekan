@@ -344,7 +344,8 @@ test('an operator-supplied key is never written to the database', () => {
 });
 
 test('the integrity stream is registered everywhere it has to be', () => {
-  assert.ok(/'integrity'\]/.test(read('models/eventLog.js')), 'the stream list');
+  // The list goes on after it ('mail', #794); what matters is that it is in it.
+  assert.ok(/EVENT_STREAMS = \[[^\]]*'integrity'/.test(read('models/eventLog.js')), 'the stream list');
   assert.ok(/report-integrity/.test(read('client/components/settings/adminProblems.js')), 'the menu');
   assert.ok(/isPane 'report-integrity'/.test(read('client/components/settings/adminProblems.jade')), 'the pane');
   assert.ok(require('../imports/i18n/data/en.i18n.json').integrityReportTitle, 'a label');

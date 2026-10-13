@@ -81,6 +81,27 @@ function envelopeTo(value) {
   }
 }
 
+// The headers a provider passes along, as a Map of lower-case name -> value,
+// for telling a bounce or an auto-reply from an ordinary email
+// (models/lib/emailBounce.js): Mailgun's `message-headers` ([[name, value]]),
+// SendGrid's `headers` (the raw header block), Postmark's `Headers`.
+function providerHeaders(fields) {
+  const map = new Map();
+  const put = (name, value) => { if (name) map.set(String(name).toLowerCase(), String(value || '')); };
+  try {
+    const mg = typeof fields['message-headers'] === 'string' ? JSON.parse(fields['message-headers']) : fields['message-headers'];
+    if (Array.isArray(mg)) mg.forEach(pair => Array.isArray(pair) && put(pair[0], pair[1]));
+  } catch (e) { /* not JSON: ignored */ }
+  if (typeof fields.headers === 'string') {
+    for (const line of fields.headers.replace(/\r?\n[ \t]+/g, ' ').split(/\r?\n/)) {
+      const at = line.indexOf(':');
+      if (at > 0) put(line.slice(0, at).trim(), line.slice(at + 1).trim());
+    }
+  }
+  if (Array.isArray(fields.Headers)) fields.Headers.forEach(h => h && put(h.Name, h.Value));
+  return map;
+}
+
 // fields: the parsed form or JSON body. files: multipart file parts as
 // [{ fieldname, filename, contentType, content }].
 function fromProviderFields(fields = {}, files = []) {
@@ -114,6 +135,8 @@ function fromProviderFields(fields = {}, files = []) {
     messageId: first(fields, ['Message-Id', 'message-id', 'MessageID', 'MessageId']),
     inReplyTo: messageIds(first(fields, ['In-Reply-To', 'in-reply-to']) || headerField(fields, 'In-Reply-To')),
     references: messageIds(first(fields, ['References', 'references']) || headerField(fields, 'References')),
+    headers: providerHeaders(fields),
+    deliveryStatus: '',
     attachments,
   };
 }
@@ -139,6 +162,11 @@ function fromParsedMail(mail = {}) {
     messageId: str(mail.messageId),
     inReplyTo: messageIds(mail.inReplyTo),
     references: messageIds(mail.references),
+    headers: mail.headers instanceof Map ? mail.headers : new Map(),
+    // A delivery status notification's machine-readable part (RFC 3464).
+    deliveryStatus: (Array.isArray(mail.attachments) ? mail.attachments : [])
+      .filter(a => a && /^message\/(delivery-status|global-delivery-status)$/i.test(a.contentType || '') && Buffer.isBuffer(a.content))
+      .map(a => a.content.toString('utf8')).join('\n\n'),
     attachments: (Array.isArray(mail.attachments) ? mail.attachments : [])
       .filter(a => a && Buffer.isBuffer(a.content) && a.filename && a.contentDisposition !== 'inline')
       .map(a => ({ filename: a.filename, contentType: a.contentType || 'application/octet-stream', content: a.content })),

@@ -161,8 +161,14 @@ export async function receiveBoardEmail(message, { source = 'webhook' } = {}) {
 
   const inboundMail = await inboundMailSettings();
   const admin = adminGate(inboundMail);
+  // An email somebody really sent that cannot become a card - not an attack,
+  // so Problems -> Email, where the administrator sees that mail is bouncing.
+  const refused = (reason, result) => {
+    require('/server/lib/mailProblems').recordMailProblem('delivery-refused', { source, detail: reason });
+    return result;
+  };
   if (!admin.enabled || !admin.domain) {
-    return { handled: true, code: 404, error: 'Not found' };
+    return refused('email to card is turned off in the Admin Panel', { handled: true, code: 404, error: 'Not found' });
   }
 
   const row = await BoardEmailAddresses.findOneAsync({ token });
@@ -175,13 +181,14 @@ export async function receiveBoardEmail(message, { source = 'webhook' } = {}) {
   const user = await Meteor.users.findOneAsync(row.userId, { fields: { _id: 1, loginDisabled: 1 } });
   if (!board || board.archived || !user || user.loginDisabled
     || !allowIsBoardMemberWithWriteAccess(user._id, board)) {
-    return { handled: true, code: 403, error: 'Address no longer valid' };
+    return refused('the address\'s member has no write access to its board any more, or the board is archived',
+      { handled: true, code: 403, error: 'Address no longer valid' });
   }
   const resolved = resolveEmailToCard({
     admin, board: board.emailToCard || {}, member: await memberSettings(user._id),
   });
   if (!resolved.enabled) {
-    return { handled: true, code: 403, error: 'Email to card is off' };
+    return refused(`email to card is off (${resolved.reason})`, { handled: true, code: 403, error: 'Email to card is off' });
   }
   if (!allowAddress(token)) {
     logRefusal(source, 'board address over its hourly limit');
@@ -214,7 +221,7 @@ export async function receiveBoardEmail(message, { source = 'webhook' } = {}) {
 
   const { list, swimlane } = await placement(board, resolved);
   if (!list || !swimlane) {
-    return { handled: true, code: 409, error: 'The board has no list' };
+    return refused('the board has no list for new cards', { handled: true, code: 409, error: 'The board has no list' });
   }
   const siblings = await ReactiveCache.getCards({ listId: list._id, archived: false });
   const customFields = await ReactiveCache.getCustomFields({ boardIds: board._id });

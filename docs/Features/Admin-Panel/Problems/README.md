@@ -51,7 +51,8 @@ unsafe or noisy:
 
 **Reports** — Security Report, Impersonation Report, Performance, Speed, Tests, CPU
 usage, Instrumentation, Broken Cards, Files Report, Rules Report, Boards Report,
-Cards Report, Recovery, Offices, API, Database problems and Filesystem integrity.
+Cards Report, Recovery, Offices, API, Database problems, Filesystem integrity and
+Email.
 Report tables use the shared [table page](../../../Features/Page/Table.md):
 a search box, the total, `page X / N`, prev/next, and one page of rows fetched from
 the server at a time. **Performance** sits with the Speed / Tests / CPU usage streams
@@ -124,8 +125,9 @@ the address uses: `/admin/problems/<slug>`.
 | Problems / API | `api` | [API.md](API.md) |
 | Problems / Database problems | `database` | — |
 | Problems / Filesystem integrity | `integrity` | — |
+| Problems / Email | `mail` | [Bounces.md](../../Email/Bounces.md#when-something-goes-wrong) |
 
-15 of these 21 panes has no page of its own yet. A dash is a
+15 of these 22 panes has no page of its own yet. A dash is a
 gap to fill, not a pane that does nothing - what the pane shows is described in
 this README until somebody writes it up.
 

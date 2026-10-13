@@ -222,3 +222,31 @@ test('source guards: the author is the address member, secrets stay on the serve
   // Attachments obey the upload rule: no SVG.
   assert.match(server, /\.svg'\) \|\| type === 'image\/svg\+xml'/);
 });
+
+test('Problems -> Email: known kinds only, one row per kind, never a password', () => {
+  const { KINDS, mailProblemEvent, scrub } = require('../models/lib/mailProblems');
+  assert.deepEqual(Object.keys(KINDS).sort(), ['delivery-refused', 'imap-failed', 'receive-unreadable', 'send-failed']);
+  const evt = mailProblemEvent('send-failed', { source: 'email-view', detail: '550 rejected', userId: 'u1' });
+  assert.deepEqual(evt, { stream: 'mail', category: 'mail-send', bleed: 'MailSendFailed', severity: 'high', action: 'failed',
+    source: 'email-view', detail: '550 rejected', userId: 'u1' });
+  assert.equal(mailProblemEvent('anything-else', {}), null, 'a caller cannot invent a row (negative)');
+  for (const leaky of ['A1 LOGIN cards@x Secr3t!', 'AUTH PLAIN AGNhcmRzAFNlY3IzdA==', 'password=Secr3t!', 'secret: Secr3t!']) {
+    assert.doesNotMatch(scrub(leaky), /Secr3t|AGNhcmRzAFNlY3IzdA/, leaky);
+  }
+  assert.equal(scrub('a\r\nb').includes('\n'), false);
+  assert.equal(scrub('x'.repeat(900)).length, 500);
+  // Every place a mail problem can happen records one.
+  const sources = ['server/emailView.js', 'server/emailToCard.js', 'server/lib/imapInbound.js', 'server/sandstormEmail.js',
+    'server/routes/inboundEmail.js'].map(f => fs.readFileSync(path.join(ROOT, f), 'utf8'));
+  assert.match(sources[0], /recordMailProblem\('send-failed'/);
+  assert.match(sources[1], /recordMailProblem\('delivery-refused'/);
+  assert.match(sources[2], /recordMailProblem\('imap-failed'/);
+  assert.match(sources[2], /recordMailProblem\('receive-unreadable'/);
+  assert.match(sources[3], /recordMailProblem\('send-failed'/);
+  assert.match(sources[3], /recordMailProblem\('receive-unreadable'/);
+  assert.match(sources[4], /recordMailProblem\('receive-unreadable'/);
+  // ...and the Email stream is a pane of Admin Panel -> Problems.
+  assert.match(fs.readFileSync(path.join(ROOT, 'models/eventLog.js'), 'utf8'), /EVENT_STREAMS = \[[^\]]*'mail'\]/);
+  assert.match(fs.readFileSync(path.join(ROOT, 'client/components/settings/adminProblems.jade'), 'utf8'),
+    /else if isPane 'report-mail'\n\s*\+eventStreamReport\(stream="mail"\)/);
+});

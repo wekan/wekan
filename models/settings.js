@@ -227,6 +227,15 @@ Settings.attachSchema(
       optional: true,
       blackbox: true,
     },
+    // Email bounces (#794): Admin Panel -> E-mail -> Bounces. { enabled,
+    // rules: { hard|soft|auto-reply|complaint: { actions, threshold } },
+    // sesTopicArns } - what to do with mail that comes back, and which Amazon
+    // SNS topics may report it (models/lib/emailBounce.js, server/emailBounces.js).
+    emailBounces: {
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
     productName: {
       type: String,
       optional: true,
