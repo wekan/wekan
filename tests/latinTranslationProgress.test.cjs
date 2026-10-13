@@ -632,3 +632,20 @@ for (const format of ['json', 'csv']) {
   assert.equal(latin[`r-import-${format}`], `Importa regulas ex forma ${format.toUpperCase()}`);
 }
 for (const action of ['delete', 'export']) assert.match(latin[`r-${action}-selected`], /regulas electas$/);
+
+const reviewedRuleScheduleKeys = ["r-import-trello", "r-import-paste", "r-import-done", "r-import-trello-note", "r-import-target", "r-workspace", "r-all-boards", "r-import-workflow", "r-workflow-format", "r-format-auto", "r-import-workflow-note", "r-import-unmapped", "r-set-scheduled-triggers", "r-set-button-triggers", "r-when-scheduled", "r-schedule-type", "r-schedule-once", "r-schedule-daily", "r-schedule-weekday", "r-schedule-weekly", "r-schedule-monthly", "r-schedule-at-time", "r-schedule-on-weekday", "r-schedule-on-day", "r-schedule-on-date", "r-of-cards-in-list", "r-when-due", "r-due-is-set", "r-due-soon", "r-due-overdue"];
+for (const key of reviewedRuleScheduleKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Paste|Imported|Scheduled|Every|Repeat|weekday|overdue)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['r-import-trello'], /quantum fieri potest/);
+assert.match(latin['r-import-trello-note'], /regulas Butler non continent/);
+assert.match(latin['r-import-trello-note'], /partes quae sustinentur/);
+assert.match(latin['r-import-trello-note'], /lineae non conversae indicantur/);
+assert.match(latin['r-import-workflow-note'], /n8n aut Node-RED/);
+assert.match(latin['r-import-workflow-note'], /nodi non conversi indicantur/);
+assert.match(latin['r-schedule-weekday'], /a die Lunae ad diem Veneris/);
+assert.equal(new Set(['once', 'daily', 'weekday', 'weekly', 'monthly'].map(k => latin[`r-schedule-${k}`])).size, 5);
+assert.notEqual(latin['r-schedule-on-weekday'], latin['r-schedule-on-day']);
+assert.equal(new Set(['is-set', 'soon', 'overdue'].map(k => latin[`r-due-${k}`])).size, 3);
+assert.match(latin['r-due-overdue'], /praeteriit/);

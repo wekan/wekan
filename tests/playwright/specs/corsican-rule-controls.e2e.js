@@ -41,3 +41,18 @@ test('Corsican date triggers include both initial setting and later changes', as
     await expect(row).toContainText('hè definita o cambiata');
   }
 });
+
+
+test('Latin rule import dialog explains partial conversion and keeps format identifiers', async ({ boardPage: page }) => {
+  const { openRulesMenuEntry } = require('../helpers/rulesMenu');
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'la'));
+  await openRulesMenuEntry(page, 'js-open-rules-import-export');
+  const pop = page.locator('.js-pop-over');
+  await expect(pop).toContainText('Exportationes tabularum Trello regulas Butler non continent.');
+  await expect(pop).toContainText('lineae non conversae indicantur.');
+  await expect(pop).toContainText('nodi non conversi indicantur.');
+  await expect(pop.locator('.js-rules-import-text')).toHaveValue('');
+  await expect(pop.locator('.js-workflow-format option[value="auto"]')).toHaveText('Agnosce automatice');
+  await expect(pop.locator('.js-workflow-format option[value="n8n"]')).toHaveText('n8n');
+  await expect(pop.locator('.js-workflow-format option[value="nodered"]')).toHaveText('Node-RED');
+});

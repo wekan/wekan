@@ -196656,5 +196656,215 @@
     "before": "Latine: Importa regulae ex CSV",
     "after": "Importa regulas ex forma CSV",
     "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-import-trello",
+    "before": "Latine: Importa regulae ex Trello Butler (best effort)",
+    "after": "Importa regulas ex Trello Butler (quantum fieri potest)",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-import-paste",
+    "before": "Latine: Paste exported regulae (JSON vel CSV) vel Trello Butler commands here",
+    "after": "Insere hic regulas exportatas (JSON vel CSV) aut mandata Trello Butler",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-import-done",
+    "before": "Latine: Importatum __count__ regula(s)",
+    "after": "Regulae importatae: __count__",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-import-trello-note",
+    "before": "Latine: Trello tabula exports do non contain Butler regulae. Paste Butler command textus here ad map the supported subset; unmapped lines sunt reported.",
+    "after": "Exportationes tabularum Trello regulas Butler non continent. Insere hic textum mandatorum Butler ut partes quae sustinentur convertantur; lineae non conversae indicantur.",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-import-target",
+    "before": "Latine: Importa into",
+    "after": "Importa in",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-workspace",
+    "before": "Latine: Workspace",
+    "after": "Spatium laboris",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-all-boards",
+    "before": "Latine: Omnia tabulae",
+    "after": "Omnes tabulae",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-import-workflow",
+    "before": "Latine: Importa visual workflow",
+    "after": "Importa ordinem operum visualem",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-workflow-format",
+    "before": "Latine: Format",
+    "after": "Forma",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-format-auto",
+    "before": "Latine: Auto-detect",
+    "after": "Agnosce automatice",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-import-workflow-note",
+    "before": "Latine: Importa a visual workflow exported ex n8n vel Node-RED. Recognized trigger/actio nodes sunt mapped ad WeKan regulae; unmapped nodes sunt reported.",
+    "after": "Importa ordinem operum visualem ex n8n aut Node-RED exportatum. Nodi condicionum excitantium et actionum agniti in regulas WeKan convertuntur; nodi non conversi indicantur.",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-import-unmapped",
+    "before": "Latine: Could non map __count__ line(s)",
+    "after": "Lineae quae converti non potuerunt: __count__",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-set-scheduled-triggers",
+    "before": "Latine: Scheduled triggers",
+    "after": "Condiciones excitantes tempore statuto",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-set-button-triggers",
+    "before": "Latine: Buttons",
+    "after": "Bullae",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-when-scheduled",
+    "before": "Latine: Adest a schedule",
+    "after": "Tempore statuto",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-schedule-type",
+    "before": "Latine: Repeat",
+    "after": "Repete",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-schedule-once",
+    "before": "Latine: Semel",
+    "after": "Semel",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-schedule-daily",
+    "before": "Latine: Omnis dies",
+    "after": "Quotidie",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-schedule-weekday",
+    "before": "Latine: Omnis weekday (Mon–Fri)",
+    "after": "Singulis diebus ferialibus (a die Lunae ad diem Veneris)",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-schedule-weekly",
+    "before": "Latine: Omnis hebdomas",
+    "after": "Singulis hebdomadibus",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-schedule-monthly",
+    "before": "Latine: Omnis mensis",
+    "after": "Singulis mensibus",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-schedule-at-time",
+    "before": "Latine: at tempus",
+    "after": "hora",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-schedule-on-weekday",
+    "before": "Latine: adest weekday",
+    "after": "die hebdomadis",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-schedule-on-day",
+    "before": "Latine: adest dies de mensis",
+    "after": "die mensis",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-schedule-on-date",
+    "before": "Latine: adest dies",
+    "after": "die",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-of-cards-in-list",
+    "before": "Latine: for schedae in index",
+    "after": "pro chartis in indice",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-when-due",
+    "before": "Latine: Quando a card's dies debitus",
+    "after": "Cum dies debitus chartae",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-due-is-set",
+    "before": "Latine: est set",
+    "after": "constituitur",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-due-soon",
+    "before": "Latine: est approaching",
+    "after": "appropinquat",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
+  },
+  {
+    "locale": "la",
+    "key": "r-due-overdue",
+    "before": "Latine: est overdue",
+    "after": "praeteriit",
+    "reason": "Repair Latin rule import instructions and scheduling labels; retain limited conversion scope, unmapped reporting, weekday boundaries and due-date states."
   }
 ]
