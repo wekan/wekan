@@ -91,3 +91,12 @@ assert.match(bengali['login-setting-env-only'], /শুধু সার্ভা
   assert.equal(i18n.t('interrupted-import-state-failed', { stage: 'createCards', error: 'E_TEST' }), 'createCards ধাপে E_TEST ত্রুটিতে ব্যর্থ হয়েছে');
   console.log('Bengali current fills: complete inventory, exact tokens, decision meanings and runtime interpolation pass');
 })().catch(error => { console.error(error); process.exitCode = 1; });
+
+// Preserve export direction and permission-state meaning in the new API dialog.
+assert.ok(bengali['trello-export-desc'].includes('Swimlane: …'));
+assert.match(bengali['trello-export-desc'], /API কী ও টোকেন/);
+assert.match(bengali['trello-export-desc'], /আবার সাঁতারপথে রূপান্তর করে/);
+assert.match(bengali['trello-export-warnings'], /সবকিছু রপ্তানি করা যায়নি/);
+assert.match(bengali['sandstorm-trello-access-needed'], /নিজস্ব কোনো ইন্টারনেট প্রবেশাধিকার নেই/);
+assert.match(bengali['sandstorm-trello-access-needed'], /প্রথমে.*অনুমতি দিন/);
+assert.match(bengali['sandstorm-trello-access-granted'], /পৌঁছাতে পারে/);

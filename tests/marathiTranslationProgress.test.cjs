@@ -405,3 +405,12 @@ assert.notEqual(marathi['scrum-history-checkpoint-rollback'], marathi['scrum-his
     '3 पैकी 1 बदल लिहिले, 2 लिहिले नाहीत आणि 1 मध्ये त्यानंतर दुसऱ्या व्यक्तीने बदल केले.');
   console.log('Marathi current fills: full inventory, tokens, recovery meanings and runtime interpolation pass');
 })().catch(error => { console.error(error); process.exitCode = 1; });
+
+// Preserve export direction and permission-state meaning in the new API dialog.
+assert.ok(marathi['trello-export-desc'].includes('Swimlane: …'));
+assert.match(marathi['trello-export-desc'], /API की आणि टोकन/);
+assert.match(marathi['trello-export-desc'], /पुन्हा स्विमलेनमध्ये/);
+assert.match(marathi['trello-export-warnings'], /सर्व काही.*आले नाही/);
+assert.match(marathi['sandstorm-trello-access-needed'], /स्वतःचा इंटरनेट प्रवेश नसतो/);
+assert.match(marathi['sandstorm-trello-access-needed'], /आधी.*परवानगी द्या/);
+assert.match(marathi['sandstorm-trello-access-granted'], /जोडू शकतो/);
