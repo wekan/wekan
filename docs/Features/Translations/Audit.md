@@ -2,6 +2,26 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Maltese import people and column mapping — 2026-10-13
+
+Commit `f0c5c03cb1` fills 16 English values for imported-person choices and
+CSV column mapping. The options distinguish existing users, temporary users
+retaining their own names for later mapping, and the person importing.
+CSV guidance retains absent columns, skipped sheets, a required title and
+the single-list fallback when the file has no list column.
+
+All four Maltese suites and 21 human-preference checks pass. The existing
+progress suite now checks these messages and their distinctions. A parent
+comparison proves that only the 16 English placeholders changed; previous
+Maltese translations and all 38,079 protected Chinese values are preserved.
+
+Two browser cases register: assigning imported people to the importing user,
+and CSV mapping with a missing-list validation error followed by a successful
+import. The CSV case asserts the translated error. Neither has run against
+a rebuilt application. Maltese has 88 filtered placeholders remaining; the
+global inventory is 53,728 across 116 catalogs. The broader objective remains
+unfinished.
+
 ## Maltese notification delivery and planning sync — 2026-10-13
 
 Commit `1e6b6340df` fills 43 English placeholders for notification layout,

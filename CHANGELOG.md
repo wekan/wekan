@@ -132,7 +132,7 @@ releases.
   report counts **28,516 untranslated locale/string values in 42 languages**.
   It excludes **379 source keys tracked separately as pending Transifex**.
   With the newer email/chat strings included, full per-locale `--list`
-  reports, including pending keys, count **53,744 remaining values across
+  reports, including pending keys, count **53,728 remaining values across
   116 non-English locale files**. This fuller inventory remains the scope
   of the translation work.
   A separate short-prose audit flags 1,649 candidates across 180 locales.
@@ -1195,6 +1195,20 @@ Four Maltese suites and 21 human-preference checks pass. Two browser cases
 register for member notification settings and planning synchronization;
 execution remains pending. Maltese has 104 filtered English values left.
 Existing Maltese translations and Chinese text remain unchanged.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f0c5c03cb1">Translate Maltese import mapping controls</a>. Thanks to xet7.</summary>
+
+Fill 16 messages for imported people and CSV columns. Distinguish existing
+users, named placeholders and the person importing. Explain absent fields,
+skipped sheets and the single destination list when no list column exists.
+
+Four Maltese suites and 21 human-preference checks pass. Two existing
+browser flows now include Maltese, covering person mapping and missing-list
+validation; they register but have not run. Only English placeholders were
+changed. Maltese has 88 remaining; existing Chinese text is unchanged.
 
 </details>
 
