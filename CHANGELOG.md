@@ -2768,6 +2768,21 @@ all-language translation and semantic verification remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1212eb97c7">Translate Latin workflow and Scrum import messages</a>. Thanks to xet7.</summary>
+
+Fill 35 pending strings for Wrike workflows, LDAP synchronization, OAuth
+domains,
+subtasks and Scrum imports. Repair the preview and history labels. Preserve
+configuration names, import matching rules and restrictions on moving cards.
+
+The Latin and repair-ledger suites and all 21 preservation checks pass. The
+added Scrum browser case passes syntax and discovery; runtime remains pending.
+Existing Chinese values are unchanged. Latin has 51 English placeholders left;
+all-language translation and semantic verification remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

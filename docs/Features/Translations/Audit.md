@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Latin workflow and Scrum imports — 2026-10-13
+
+Commit `1212eb97c7` fills 35 pending strings for Wrike workflow import/export,
+LDAP synchronization, OAuth domains, subtasks and Scrum import previews and
+errors. Two guarded repairs remove language-name prefixes from preview and
+history labels. Tests preserve literal Wrike states and LDAP variables,
+comma-separated domain rules, opposite subtask actions, deduplication and
+matching precedence, foreign-board restrictions and completed-sprint behavior.
+
+The Latin and repair-ledger suites pass with 27,063 guarded corrections. All 21
+human-preference checks pass. Latin joins the existing Scrum import browser
+scenario; syntax and discovery pass, while runtime execution remains pending.
+Exact comparison preserves 38,430 existing Chinese values.
+
+Latin's default --list output now contains 51 English placeholders among keys
+marked pending Transifex. All-language translation and semantic verification
+remain unfinished, including review of older mixed-language Latin strings.
+
 ## Latin notification, webhook and link settings — 2026-10-13
 
 Commit `08eb3aabba` fills 46 pending strings for Sandstorm/Trello access,
