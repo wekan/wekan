@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Unusta selle aadressi tagastused ja saada sellele jälle e-kirju",
   "email-bounces-none": "Tagastusi pole.",
   "email-bounce-invalid-topic": "See pole SNS-teema ARN.",
-  "mailReportTitle": "E-post"
+  "mailReportTitle": "E-post",
+  "email-bounces-providers": "Muud saateteenused",
+  "email-bounces-providers-description": "Kui WeKan saadab kirju mõne neist teenustest kaudu, lülitage see sisse, andke teenusele see veebikonksu aadress tagastuste ja rämpsposti kaebuste sündmuste jaoks ning kleepige siia võti, millega teenus need allkirjastab, või parool, mille panite aadressi kujul https://user:password@… või ?secret=…",
+  "email-bounces-provider-key": "Veebikonksu allkirjastamisvõti",
+  "email-bounces-provider-password": "Veebikonksu parool",
+  "email-bounce-provider-secret-required": "Sisselülitatud teenus vajab oma allkirjastamisvõtit või parooli."
 }

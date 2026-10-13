@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "بو منزیل‌نینگ قایتیشلرینی اونوتیب، اونگه ینه خط یوباریش",
   "email-bounces-none": "قایتیشلر یۉق.",
   "email-bounce-invalid-topic": "بو SNS موضوع ARN ی ایمس.",
-  "mailReportTitle": "Elektron pochta"
+  "mailReportTitle": "Elektron pochta",
+  "email-bounces-providers": "باشقه ییباریش خذمتلری",
+  "email-bounces-providers-description": "اگر WeKan شو خذمتلردن بیری آرقه‌لی ییبارسه، اونی یاقینگ، خذمتگه قایتگن خطلر و سپم حقیده شکایت حادثه‌لری اوچون شو وب‌هوک منزیلینی بېرینگ، و بو ییرگه اولرنی امضالیدیگن کلیتنی، یاکی منزیلگه https://user:password@… یاکی ?secret=… قیلیب قۉیگن پرالینگیزنی قۉیینگ",
+  "email-bounces-provider-key": "وب‌هوک امضا کلیتی",
+  "email-bounces-provider-password": "وب‌هوک پرالی",
+  "email-bounce-provider-secret-required": "یاقیلگن خذمتگه اونینگ امضا کلیتی یاکی پرالی کېرک."
 }

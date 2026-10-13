@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Forgesi la resaltojn de ĉi tiu adreso kaj denove sendi retpoŝton al ĝi",
   "email-bounces-none": "Neniuj resaltoj.",
   "email-bounce-invalid-topic": "Tio ne estas ARN de SNS-temo.",
-  "mailReportTitle": "Retpoŝtadreso"
+  "mailReportTitle": "Retpoŝtadreso",
+  "email-bounces-providers": "Aliaj sendaj servoj",
+  "email-bounces-providers-description": "Se WeKan sendas per unu el ĉi tiuj servoj, ŝaltu ĝin, donu al la servo ĉi tiun Webhook-adreson por ĝiaj eventoj de resaltoj kaj plendoj pri trudmesaĝoj, kaj algluu ĉi tie la ŝlosilon, per kiu ĝi subskribas ilin, aŭ la pasvorton, kiun vi metis en la adreson kiel https://user:password@… aŭ ?secret=…",
+  "email-bounces-provider-key": "Subskriba ŝlosilo de Webhook",
+  "email-bounces-provider-password": "Pasvorto de Webhook",
+  "email-bounce-provider-secret-required": "Ŝaltita servo bezonas sian subskriban ŝlosilon aŭ pasvorton."
 }

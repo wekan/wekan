@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Lalekake balen alamat iki lan kirimi email maneh",
   "email-bounces-none": "Ora ana email bali.",
   "email-bounce-invalid-topic": "Iku dudu ARN topik SNS.",
-  "mailReportTitle": "Layang elektronik"
+  "mailReportTitle": "Layang elektronik",
+  "email-bounces-providers": "Layanan kirim liyane",
+  "email-bounces-providers-description": "Yen WeKan ngirim liwat salah siji layanan iki, uripna, wenehana layanan alamat webhook iki kanggo kedadeyan email bali lan aduan spam, banjur tempelna ing kene kunci sing dienggo layanan kanggo napak asma, utawa tembung sandi sing kok lebokake ing alamat minangka https://user:password@… utawa ?secret=…",
+  "email-bounces-provider-key": "Kunci tapak asma webhook",
+  "email-bounces-provider-password": "Tembung sandi webhook",
+  "email-bounce-provider-secret-required": "Layanan sing diuripake butuh kunci tapak asma utawa tembung sandine."
 }

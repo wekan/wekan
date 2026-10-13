@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Ehesarái ko kundaharape jevykuéragui ha emondo jey chupe ñanduti veve",
   "email-bounces-none": "Ndaipóri jevy.",
   "email-bounce-invalid-topic": "Upéva ndaha'éi SNS ñe'ẽmbyre ARN.",
-  "mailReportTitle": "Ñanduti veve"
+  "mailReportTitle": "Ñanduti veve",
+  "email-bounces-providers": "Ambue mba'epytyvõ ñanduti veve mondohápe",
+  "email-bounces-providers-description": "WeKan omondóramo peteĩ ko'ã mba'epytyvõ rupive, emyandy, eme'ẽ chupe ko webhook kundaharape ñanduti veve ojevýva ha ñembyasy spam rehegua, ha emoĩ ko'ápe pe ñe'ẽñemi okuatiaha hag̃ua, térã ñe'ẽñemi remoĩva'ekue kundaharapépe https://user:password@… térã ?secret=… ramo",
+  "email-bounces-provider-key": "Webhook ñe'ẽñemi kuatiaha",
+  "email-bounces-provider-password": "Webhook ñe'ẽñemi",
+  "email-bounce-provider-secret-required": "Mba'epytyvõ hendýva oikotevẽ ikuatiaha térã iñe'ẽñemi."
 }

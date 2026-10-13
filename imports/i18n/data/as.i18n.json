@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "এই ঠিকনাৰ ঘূৰি অহাবোৰ পাহৰি যাওক আৰু পুনৰ ইমেইল পঠাওক",
   "email-bounces-none": "কোনো ঘূৰি অহা ইমেইল নাই।",
   "email-bounce-invalid-topic": "সেয়া SNS বিষয়ৰ ARN নহয়।",
-  "mailReportTitle": "ইমেইল"
+  "mailReportTitle": "ইমেইল",
+  "email-bounces-providers": "অন্য প্ৰেৰণ সেৱা",
+  "email-bounces-providers-description": "যদি WeKan-এ এই সেৱাসমূহৰ কোনো এটাৰ জৰিয়তে পঠায়, তেন্তে সেৱাটো অন কৰক, ঘূৰি অহা ইমেইল আৰু স্পাম অভিযোগৰ ঘটনাৰ বাবে সেৱাটোক এই webhook ঠিকনাটো দিয়ক, আৰু সেৱাটোৱে সেইবোৰ চহী কৰা চাবি, বা আপুনি ঠিকনাত https://user:password@… বা ?secret=… হিচাপে দিয়া পাছৱৰ্ড ইয়াত পেষ্ট কৰক",
+  "email-bounces-provider-key": "Webhook চহী চাবি",
+  "email-bounces-provider-password": "Webhook পাছৱৰ্ড",
+  "email-bounce-provider-secret-required": "অন কৰা সেৱা এটাৰ বাবে তাৰ চহী চাবি বা পাছৱৰ্ড লাগে।"
 }

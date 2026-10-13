@@ -34,6 +34,7 @@ const {
   CATEGORIES, cleanBounceRules, classifySesNotification, classifyEmail, ruleDue,
 } = require('/models/lib/emailBounce');
 const { recordMailProblem } = require('/server/lib/mailProblems');
+const { PROVIDERS, SIGNED, parseProviderBounces, verifyProviderRequest } = require('/models/lib/emailBounceProviders');
 
 export const EmailBounces = new Mongo.Collection('email_bounces');
 const HISTORY = 10;
@@ -52,11 +53,31 @@ Meteor.startup(async () => {
 export async function bounceSettings() {
   const setting = await Settings.findOneAsync({}, { fields: { emailBounces: 1 } });
   const stored = (setting && setting.emailBounces) || {};
+  const providers = {};
+  for (const name of PROVIDERS) providers[name] = { enabled: !!(stored.providers && stored.providers[name] && stored.providers[name].enabled) };
   return {
     enabled: stored.enabled !== false,
     rules: cleanBounceRules(stored.rules),
     sesTopicArns: Array.isArray(stored.sesTopicArns) ? stored.sesTopicArns : [],
+    providers,
+    // Server-only: the keys and passwords that prove a webhook is the service's.
+    providerSecrets: (stored.providerSecrets && typeof stored.providerSecrets === 'object') ? stored.providerSecrets : {},
   };
+}
+
+// What the Admin Panel is shown: no secret, only whether one is saved.
+function bounceSettingsView(settings) {
+  const { providerSecrets, ...rest } = settings;
+  const providers = {};
+  for (const name of PROVIDERS) {
+    providers[name] = {
+      enabled: settings.providers[name].enabled,
+      secretSet: !!providerSecrets[name],
+      signed: !!SIGNED[name],
+      endpoint: Meteor.absoluteUrl(`api/inbound-email/bounces/${name}`),
+    };
+  }
+  return { ...rest, providers };
 }
 
 // --- Stopping email to an address ------------------------------------------
@@ -311,6 +332,43 @@ WebApp.handlers.post('/api/inbound-email/ses', async function sesHandler(req, re
   }
 });
 
+// --- The other sending services' bounce webhooks -----------------------------
+
+// One request from a service: is it the service (its signature, or the
+// password in the URL the admin gave it), and which bounces does it carry.
+export async function handleProviderWebhook(provider, { headers = {}, body, rawBody = '', url = '', querySecret = '' } = {}) {
+  if (!PROVIDERS.includes(provider)) return { code: 404 };
+  const settings = await bounceSettings();
+  if (!settings.enabled || !settings.providers[provider].enabled) return { code: 404 };
+  const secret = settings.providerSecrets[provider] || '';
+  const withQuery = querySecret && !SIGNED[provider] ? { ...headers, 'x-wekan-bounce-secret': querySecret } : headers;
+  if (!verifyProviderRequest(provider, { headers: withQuery, body, rawBody, url, secret })) {
+    refuse(`${provider} bounce webhook with a missing or wrong signature`);
+    return { code: 401 };
+  }
+  const bounces = parseProviderBounces(provider, body);
+  const { recorded } = await recordBounces(bounces, { source: provider });
+  return { code: 200, recorded };
+}
+
+WebApp.handlers.post('/api/inbound-email/bounces/:provider', async function providerBounceHandler(req, res) {
+  const provider = String(req.params.provider || '');
+  try {
+    const result = await handleProviderWebhook(provider, {
+      headers: req.headers || {},
+      body: req.body,
+      rawBody: req.rawBody || '',
+      // The URL the service posted to, as it signed it (Mandrill).
+      url: Meteor.absoluteUrl(`api/inbound-email/bounces/${provider}`),
+      querySecret: (req.query && typeof req.query.secret === 'string') ? req.query.secret : '',
+    });
+    sendJsonResult(res, { code: result.code, data: { ok: result.code === 200, recorded: result.recorded || 0 } });
+  } catch (error) {
+    recordMailProblem('receive-unreadable', { source: provider, detail: `bounce webhook: ${error && error.message}` });
+    sendJsonResult(res, { code: 500, data: { error: 'Internal error' } });
+  }
+});
+
 // --- Admin Panel ------------------------------------------------------------
 
 async function requireAdmin(userId) {
@@ -323,18 +381,30 @@ const escapeRegex = text => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 Meteor.methods({
   async getEmailBounceSettings() {
     await requireAdmin(this.userId);
-    return { ...(await bounceSettings()), categories: CATEGORIES, sesEndpoint: Meteor.absoluteUrl('api/inbound-email/ses') };
+    return { ...bounceSettingsView(await bounceSettings()), categories: CATEGORIES, sesEndpoint: Meteor.absoluteUrl('api/inbound-email/ses') };
   },
 
   async saveEmailBounceSettings(input) {
-    check(input, { enabled: Boolean, rules: Object, sesTopicArns: [String] });
+    check(input, { enabled: Boolean, rules: Object, sesTopicArns: [String],
+      providers: Match.Optional(Object), providerSecrets: Match.Optional(Object), clearProviderSecrets: Match.Optional([String]) });
     await requireAdmin(this.userId);
     const arns = [...new Set(input.sesTopicArns.map(s => s.trim()).filter(s => /^arn:aws[a-z-]*:sns:[a-z0-9-]+:\d{12}:[A-Za-z0-9_-]{1,256}$/.test(s)))];
     if (arns.length !== input.sesTopicArns.map(s => s.trim()).filter(Boolean).length) throw new Meteor.Error('email-bounce-invalid-topic');
-    const value = { enabled: input.enabled, rules: cleanBounceRules(input.rules), sesTopicArns: arns };
+    const previous = await bounceSettings();
+    const providers = {};
+    const providerSecrets = { ...previous.providerSecrets };
+    for (const name of PROVIDERS) {
+      providers[name] = { enabled: !!(input.providers && input.providers[name] && input.providers[name].enabled === true) };
+      // A secret is written only when one is typed, and removed only on request.
+      const typed = input.providerSecrets && typeof input.providerSecrets[name] === 'string' ? input.providerSecrets[name].trim() : '';
+      if (typed) providerSecrets[name] = typed.slice(0, 4096);
+      if ((input.clearProviderSecrets || []).includes(name)) delete providerSecrets[name];
+      if (providers[name].enabled && !providerSecrets[name]) throw new Meteor.Error('email-bounce-provider-secret-required');
+    }
+    const value = { enabled: input.enabled, rules: cleanBounceRules(input.rules), sesTopicArns: arns, providers, providerSecrets };
     const setting = await Settings.findOneAsync({});
     await Settings.updateAsync(setting._id, { $set: { emailBounces: value } });
-    return value;
+    return bounceSettingsView({ ...value, providers: Object.fromEntries(PROVIDERS.map(n => [n, providers[n]])) });
   },
 
   // One page of bounced addresses, newest first (docs/Features/Page/Table.md).

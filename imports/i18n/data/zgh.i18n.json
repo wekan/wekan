@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "ⵜⵜⵓ ⵉⵖⵓⵍⵏ ⵏ ⵓⵏⵙⴰ ⴰⴷ ⵜⴰⵣⵏⴷ ⴰⵙ ⵉⵎⴰⵢⵍⵏ ⴷⴰⵖ",
   "email-bounces-none": "ⵓⵔ ⵍⵍⵉⵏ ⵉⵖⵓⵍⵏ.",
   "email-bounce-invalid-topic": "ⵡⴰⴷ ⵓⵔ ⵉⴳⵉ ARN ⵏ ⵓⵙⵏⵜⵍ SNS.",
-  "mailReportTitle": "ⵉⵎⴰⵢⵍ"
+  "mailReportTitle": "ⵉⵎⴰⵢⵍ",
+  "email-bounces-providers": "ⵜⵉⵏⴰⴼⵓⵜⵉⵏ ⵢⴰⴹⵏ ⵏ ⵓⵣⵏ",
+  "email-bounces-providers-description": "ⵎⴽ ⵉⵜⵜⴰⵣⵏ WeKan ⵙ ⵢⴰⵜ ⵙⴳ ⵜⵏⴰⴼⵓⵜⵉⵏ ⴰ, ⵙⵔⵖ ⵜⵜ, ⴼⴽ ⵉ ⵜⵏⴰⴼⵓⵜ ⴰⵏⵙⴰ ⵏ webhook ⴰ ⵉ ⵜⵉⴷⵢⴰⵏⵉⵏ ⵏⵏⵙ ⵏ ⵉⵎⴰⵢⵍⵏ ⵢⵓⵖⵓⵍⵏ ⴷ ⵜⵖⵓⵢⵢⴰⵖⵉⵏ ⵏ spam, ⵜⵙⵏⵜⵎⵎⵓⵜ ⴷⵉⴳⵉ ⵜⴰⵙⴰⵔⵓⵜ ⵏ ⵓⵙⵙⴽⵍ ⵍⵍⵉ ⵜⵙⵙⵎⵔⴰⵙ, ⵏⵖ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⵍⵍⵉ ⵜⴳⵉⴷ ⴳ ⵓⵏⵙⴰ ⵣⵓⵏⴷ https://user:password@… ⵏⵖ ?secret=…",
+  "email-bounces-provider-key": "ⵜⴰⵙⴰⵔⵓⵜ ⵏ ⵓⵙⵙⴽⵍ ⵏ webhook",
+  "email-bounces-provider-password": "ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⵏ webhook",
+  "email-bounce-provider-secret-required": "ⵜⴰⵏⴰⴼⵓⵜ ⵉⵜⵜⵓⵙⵔⵖⵏ ⵜⵔⴰ ⵜⴰⵙⴰⵔⵓⵜ ⵏⵏⵙ ⵏ ⵓⵙⵙⴽⵍ ⵏⵖ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ."
 }

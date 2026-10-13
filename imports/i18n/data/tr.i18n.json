@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Bu adresin geri dönüşlerini unut ve yeniden e-posta gönder",
   "email-bounces-none": "Geri dönüş yok.",
   "email-bounce-invalid-topic": "Bu bir SNS konu ARN'si değil.",
-  "mailReportTitle": "E-posta"
+  "mailReportTitle": "E-posta",
+  "email-bounces-providers": "Diğer gönderim hizmetleri",
+  "email-bounces-providers-description": "WeKan bu hizmetlerden biri üzerinden gönderiyorsa, onu açın, hizmete geri dönen e-posta ve spam şikâyeti olayları için bu webhook adresini verin ve buraya olayları imzaladığı anahtarı ya da adrese https://user:password@… veya ?secret=… olarak koyduğunuz parolayı yapıştırın",
+  "email-bounces-provider-key": "Webhook imzalama anahtarı",
+  "email-bounces-provider-password": "Webhook parolası",
+  "email-bounce-provider-secret-required": "Açık olan bir hizmet için imzalama anahtarı veya parolası gerekir."
 }

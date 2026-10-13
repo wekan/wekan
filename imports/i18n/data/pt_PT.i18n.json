@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Esquecer as devoluções deste endereço e voltar a enviar-lhe e-mails",
   "email-bounces-none": "Nenhuma devolução.",
   "email-bounce-invalid-topic": "Isso não é um ARN de tópico SNS.",
-  "mailReportTitle": "E-mail"
+  "mailReportTitle": "E-mail",
+  "email-bounces-providers": "Outros serviços de envio",
+  "email-bounces-providers-description": "Se o WeKan enviar através de um destes serviços, ative-o, indique ao serviço este endereço de webhook para os seus eventos de devolução e de queixa de spam, e cole aqui a chave com que ele os assina, ou a palavra-passe que colocou no endereço como https://user:password@… ou ?secret=…",
+  "email-bounces-provider-key": "Chave de assinatura do webhook",
+  "email-bounces-provider-password": "Palavra-passe do webhook",
+  "email-bounce-provider-secret-required": "Um serviço ativado precisa da sua chave de assinatura ou palavra-passe."
 }

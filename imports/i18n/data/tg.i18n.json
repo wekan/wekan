@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Баргаштҳои ин суроғаро фаромӯш кун ва боз ба он почта фирист",
   "email-bounces-none": "Баргашт нест.",
   "email-bounce-invalid-topic": "Ин ARN-и мавзӯи SNS нест.",
-  "mailReportTitle": "Почтаи электронӣ"
+  "mailReportTitle": "Почтаи электронӣ",
+  "email-bounces-providers": "Хидматҳои дигари фиристодан",
+  "email-bounces-providers-description": "Агар WeKan тавассути яке аз ин хидматҳо фиристад, онро фаъол кунед, ба хидмат ин суроғаи вебҳукро барои рӯйдодҳои мактубҳои баргашта ва шикоятҳои спам диҳед ва дар ин ҷо калидеро, ки бо он онҳоро имзо мекунад, ё рамзеро, ки дар суроға ҳамчун https://user:password@… ё ?secret=… гузоштаед, гузоред",
+  "email-bounces-provider-key": "Калиди имзои вебҳук",
+  "email-bounces-provider-password": "Рамзи вебҳук",
+  "email-bounce-provider-secret-required": "Хидмати фаъол калиди имзо ё рамзи худро талаб мекунад."
 }

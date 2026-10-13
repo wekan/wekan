@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Khohlwa kubuya kwalelikheli bese uphindze utfumele kulo ema-imeyili",
   "email-bounces-none": "Kute kubuya.",
   "email-bounce-invalid-topic": "Leso akusiyo i-ARN yesihloko se-SNS.",
-  "mailReportTitle": "I-imeyili"
+  "mailReportTitle": "I-imeyili",
+  "email-bounces-providers": "Leminye imisebenti yekutfumela",
+  "email-bounces-providers-description": "Nangabe WeKan itfumela ngalomunye walemisebenti, wuvule, unike umsebenti lelikheli le-webhook kuticubuntu tawo tema-imeyili labuyile netikhalo te-spam, bese unamatsisela lapha sikhiya lesisayina ngaso, nobe liphasiwedi lolifake ekhelini njenge https://user:password@… nobe ?secret=…",
+  "email-bounces-provider-key": "Sikhiya sekusayina se-webhook",
+  "email-bounces-provider-password": "Liphasiwedi le-webhook",
+  "email-bounce-provider-secret-required": "Umsebenti lovuliwe udzinga sikhiya sawo sekusayina nobe liphasiwedi."
 }

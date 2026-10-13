@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "گەڕانەوەکانی ئەم ناونیشانە لەبیر بکە و دووبارە ئیمەیلی بۆ بنێرە",
   "email-bounces-none": "هیچ گەڕانەوەیەک نییە.",
   "email-bounce-invalid-topic": "ئەوە ARNی بابەتێکی SNS نییە.",
-  "mailReportTitle": "ئیمەیل"
+  "mailReportTitle": "ئیمەیل",
+  "email-bounces-providers": "خزمەتگوزارییەکانی تری ناردن",
+  "email-bounces-providers-description": "ئەگەر WeKan لە ڕێگەی یەکێک لەم خزمەتگوزارییانەوە دەنێرێت، چالاکی بکە، ئەم ناونیشانی webhookـە بدە بە خزمەتگوزارییەکە بۆ ڕووداوەکانی ئیمەیلە گەڕاوەکان و سکاڵای سپام، و لێرە ئەو کلیلە دابنێ کە پێی واژۆیان دەکات، یان ئەو وشەی نهێنییەی لە ناونیشانەکەدا وەک https://user:password@… یان ?secret=… داتناوە",
+  "email-bounces-provider-key": "کلیلی واژۆی webhook",
+  "email-bounces-provider-password": "وشەی نهێنیی webhook",
+  "email-bounce-provider-secret-required": "خزمەتگوزارییەکی چالاک پێویستی بە کلیلی واژۆ یان وشەی نهێنییەکەی هەیە."
 }

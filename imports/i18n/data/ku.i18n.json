@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Vegerên vê navnîşanê ji bîr bike û dîsa e-name bişîne",
   "email-bounces-none": "Veger tune.",
   "email-bounce-invalid-topic": "Ev ne ARN-a mijareke SNS ye.",
-  "mailReportTitle": "E-name"
+  "mailReportTitle": "E-name",
+  "email-bounces-providers": "Karûbarên şandinê yên din",
+  "email-bounces-providers-description": "Heke WeKan bi yek ji van karûbaran dişîne, wê vêxe, ji karûbarê re vê navnîşana webhook ji bo bûyerên e-nameyên vegeriyayî û giliyên spamê bide, û li vir mifteya ku pê wan îmze dike, an şîfreya ku te di navnîşanê de wekî https://user:password@… an ?secret=… danî, bizeliqîne",
+  "email-bounces-provider-key": "Mifteya îmzeyê ya webhook",
+  "email-bounces-provider-password": "Şîfreya webhook",
+  "email-bounce-provider-secret-required": "Karûbarekî vêxistî mifteya xwe ya îmzeyê an şîfreya xwe hewce dike."
 }

@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Kay tiyanapa kutimuyninkunata qunqay, hinaspa yapamanta correota kachay",
   "email-bounces-none": "Manam kutimuykuna kanchu.",
   "email-bounce-invalid-topic": "Chayqa manam SNS tema ARNchu.",
-  "mailReportTitle": "Elektroniku chaski"
+  "mailReportTitle": "Elektroniku chaski",
+  "email-bounces-providers": "Huk apachiq yanapakuykuna",
+  "email-bounces-providers-description": "Sichus WeKan kay yanapakuykunamanta hukninwan apachin chayqa, hap'ichiy, yanapakuyman kay webhook tiyanata quy kutimuq correokunapaq spam willakuykunapaqpas, kaypitaq k'askachiy llaveta chaywan paykunata silq'un, utaq pakasqa rimayta tiyanaman https://user:password@… utaq ?secret=… hina churasqaykita",
+  "email-bounces-provider-key": "Webhookpa silq'unan llave",
+  "email-bounces-provider-password": "Webhookpa pakasqa rimaynin",
+  "email-bounce-provider-secret-required": "Hap'ichisqa yanapakuyqa silq'unan llaventa utaq pakasqa rimaynintam munan."
 }

@@ -10,8 +10,13 @@ const { safeJsonStringify } = require('/server/lib/apiResponseHelpers');
 // ---------------------------------------------------------------------------
 // Reuse Meteor's Express parsers. Rspack 2 no longer brings body-parser into
 // the app's node_modules through its development server dependencies.
-WebApp.handlers.use(WebApp.express.urlencoded({ limit: '50mb', extended: false }));
-WebApp.handlers.use(WebApp.express.json({ limit: '50mb' }));
+// A bounce webhook's signature is over the bytes as they were sent (SendGrid,
+// Resend), so for those paths the raw body is kept beside the parsed one.
+const keepRawBody = (req, res, buf) => {
+  if (/^\/api\/inbound-email\/bounces\//.test(String(req.url || ''))) req.rawBody = buf.toString('utf8');
+};
+WebApp.handlers.use(WebApp.express.urlencoded({ limit: '50mb', extended: false, verify: keepRawBody }));
+WebApp.handlers.use(WebApp.express.json({ limit: '50mb', verify: keepRawBody }));
 
 // ---------------------------------------------------------------------------
 // 2. API gate — check WITH_API env var (previously in models/users.js)
@@ -32,11 +37,14 @@ function isApiPath(url) {
 // server/emailBounces.js). Email to card must not need the whole REST API
 // turned on, so these exact POST paths pass the WITH_API gate.
 const INBOUND_EMAIL_PATHS = ['/api/inbound-email', '/api/inbound-email/ses'];
+// The bounce webhooks of the other sending services (server/emailBounces.js).
+const BOUNCE_WEBHOOK_PATH = /^\/api\/inbound-email\/bounces\/(mailgun|sendgrid|postmark|brevo|mailjet|sparkpost|mandrill|resend)$/;
 function isInboundEmailPath(req) {
   if (req.method !== 'POST') return false;
   let pathname = String(req.url || '').split('?')[0];
   try { pathname = decodeURIComponent(pathname); } catch (e) { return false; }
-  return INBOUND_EMAIL_PATHS.includes(pathname.replace(/\/+$/, ''));
+  pathname = pathname.replace(/\/+$/, '');
+  return INBOUND_EMAIL_PATHS.includes(pathname) || BOUNCE_WEBHOOK_PATH.test(pathname);
 }
 
 WebApp.handlers.use(function apiGate(req, res, next) {

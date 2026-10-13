@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Oblida els rebots d'aquesta adreça i torna-li a enviar correus",
   "email-bounces-none": "Cap rebot.",
   "email-bounce-invalid-topic": "Això no és un ARN de tema SNS.",
-  "mailReportTitle": "Correu electrònic"
+  "mailReportTitle": "Correu electrònic",
+  "email-bounces-providers": "Altres serveis d'enviament",
+  "email-bounces-providers-description": "Si WeKan envia a través d'un d'aquests serveis, activeu-lo, doneu al servei aquesta adreça de webhook per als seus esdeveniments de correus retornats i de queixes de correu brossa, i enganxeu aquí la clau amb què els signa, o la contrasenya que heu posat a l'adreça com a https://user:password@… o ?secret=…",
+  "email-bounces-provider-key": "Clau de signatura del webhook",
+  "email-bounces-provider-password": "Contrasenya del webhook",
+  "email-bounce-provider-secret-required": "Un servei activat necessita la seva clau de signatura o contrasenya."
 }

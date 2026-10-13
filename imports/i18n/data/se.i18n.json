@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Vajáldahte dán čujuhusa máhccamiid ja sádde dasa fas e-boasttaid",
   "email-bounces-none": "Eai máhccamat.",
   "email-bounce-invalid-topic": "Dat ii leat SNS-fáttá ARN.",
-  "mailReportTitle": "E-boasta"
+  "mailReportTitle": "E-boasta",
+  "email-bounces-providers": "Eará sáddenbálvalusat",
+  "email-bounces-providers-description": "Jus WeKan sádde ovtta dáid bálvalusaid bokte, álggat dan, atte bálvalussii dán webhook-čujuhusa dan máhccan e-boasttaid ja spámmaváidagiid dáhpáhusaid várás, ja liigge dása čoavdaga mainna dat vuolláičállá daid, dahje beassansáni maid bidjet čujuhussii nugo https://user:password@… dahje ?secret=…",
+  "email-bounces-provider-key": "Webhook-vuolláičállinčoavddus",
+  "email-bounces-provider-password": "Webhook-beassansátni",
+  "email-bounce-provider-secret-required": "Álggahuvvon bálvalus dárbbaša iežas vuolláičállinčoavdaga dahje beassansáni."
 }

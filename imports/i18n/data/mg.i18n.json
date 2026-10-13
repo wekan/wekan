@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Hadino ny fiverenan'ity adiresy ity ary alefaso mailaka indray",
   "email-bounces-none": "Tsy misy fiverenana.",
   "email-bounce-invalid-topic": "Tsy ARN lohahevitra SNS izany.",
-  "mailReportTitle": "Mailaka"
+  "mailReportTitle": "Mailaka",
+  "email-bounces-providers": "Serivisy fandefasana hafa",
+  "email-bounces-providers-description": "Raha mandefa amin'ny alalan'ny iray amin'ireo serivisy ireo i WeKan, alefaso izy, omeo ny serivisy ity adiresy webhook ity ho an'ny zava-mitranga momba ny mailaka niverina sy ny fitarainana momba ny spam, ary apetaho eto ny lakile ampiasainy hanaovana sonia azy ireo, na ny teny miafina napetrakao tao amin'ny adiresy ho https://user:password@… na ?secret=…",
+  "email-bounces-provider-key": "Lakilen'ny sonia webhook",
+  "email-bounces-provider-password": "Teny miafin'ny webhook",
+  "email-bounce-provider-secret-required": "Mila ny lakilen'ny sonia na ny teny miafina ny serivisy alefa."
 }

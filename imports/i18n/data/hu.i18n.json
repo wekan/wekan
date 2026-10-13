@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "A cím visszapattanásainak elfelejtése és újbóli e-mail küldés",
   "email-bounces-none": "Nincsenek visszapattanások.",
   "email-bounce-invalid-topic": "Ez nem SNS-témakör ARN.",
-  "mailReportTitle": "E-mail"
+  "mailReportTitle": "E-mail",
+  "email-bounces-providers": "Egyéb küldőszolgáltatások",
+  "email-bounces-providers-description": "Ha a WeKan ezen szolgáltatások egyikén keresztül küld, kapcsolja be, adja meg a szolgáltatásnak ezt a webhook címet a visszapattanási és spampanasz eseményekhez, és illessze be ide a kulcsot, amellyel aláírja őket, vagy a jelszót, amelyet a címbe https://user:password@… vagy ?secret=… formában írt",
+  "email-bounces-provider-key": "Webhook aláírókulcs",
+  "email-bounces-provider-password": "Webhook jelszó",
+  "email-bounce-provider-secret-required": "A bekapcsolt szolgáltatásnak szüksége van az aláírókulcsára vagy a jelszavára."
 }

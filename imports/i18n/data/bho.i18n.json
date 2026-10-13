@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "एह पता के लौटाव भुला दीं आ फेर से ईमेल भेजीं",
   "email-bounces-none": "कवनो लौटल ईमेल नइखे।",
   "email-bounce-invalid-topic": "ई SNS विषय ARN ना ह।",
-  "mailReportTitle": "ईमेल"
+  "mailReportTitle": "ईमेल",
+  "email-bounces-providers": "दोसर भेजे वाला सेवा",
+  "email-bounces-providers-description": "अगर WeKan एह सेवा सब में से कवनो एक से भेजेला, त ओकरा के चालू करीं, लौटल ईमेल आ स्पैम के शिकायत के घटना खातिर सेवा के ई वेबहुक पता दीं, आ इहाँ ऊ कुंजी चिपकाईं जवना से ऊ ओह सब पर दस्तखत करेला, भा ऊ पासवर्ड जवन रउआ पता में https://user:password@… भा ?secret=… के रूप में डलले बानी",
+  "email-bounces-provider-key": "वेबहुक दस्तखत कुंजी",
+  "email-bounces-provider-password": "वेबहुक पासवर्ड",
+  "email-bounce-provider-secret-required": "चालू सेवा के ओकर दस्तखत कुंजी भा पासवर्ड चाहीं।"
 }

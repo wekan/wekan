@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Deebii teessoo kanaa irraanfadhuutii irra deebiin imeelii itti ergi",
   "email-bounces-none": "Deebiin hin jiru.",
   "email-bounce-invalid-topic": "Sun ARN mata duree SNS miti.",
-  "mailReportTitle": "Imeelii"
+  "mailReportTitle": "Imeelii",
+  "email-bounces-providers": "Tajaajiloota ergaa biroo",
+  "email-bounces-providers-description": "Yoo WeKan tajaajiloota kanneen keessaa tokkoon erge, isa banaa, tajaajilichaaf teessoo webhook kana taateewwan imeelii deebi'anii fi komii spam isaatiif kennaa, achiis furtuu ittiin mallatteessu ykn jecha darbii teessoo keessa akka https://user:password@… ykn ?secret=… tti keessan as maxxansaa",
+  "email-bounces-provider-key": "Furtuu mallattoo webhook",
+  "email-bounces-provider-password": "Jecha darbii webhook",
+  "email-bounce-provider-secret-required": "Tajaajilli banamee jiru furtuu mallattoo isaa ykn jecha darbii barbaada."
 }

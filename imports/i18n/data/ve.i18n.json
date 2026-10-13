@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Hangwa u vhuya ha ḓiresi iyi ni i rumele imeili hafhu",
   "email-bounces-none": "A hu na u vhuya.",
   "email-bounce-invalid-topic": "Hezwi a si ARN ya thero ya SNS.",
-  "mailReportTitle": "I-imeyili"
+  "mailReportTitle": "I-imeyili",
+  "email-bounces-providers": "Tshumelo dziṅwe dza u rumela",
+  "email-bounces-providers-description": "Arali WeKan i tshi rumela nga kha iṅwe ya tshumelo idzi, i shumiseni, ni ṋee tshumelo iyo ḓiresi iyi ya webhook ya zwiitea zwayo zwa dziimeili dzo vhuyaho na mbilaelo dza spam, ni nambatedze fhano khii ine ya zwi saina ngayo, kana iphasiwedi ye na i vhea kha ḓiresi sa https://user:password@… kana ?secret=…",
+  "email-bounces-provider-key": "Khii ya u saina ya webhook",
+  "email-bounces-provider-password": "Iphasiwedi ya webhook",
+  "email-bounce-provider-secret-required": "Tshumelo yo shumiswaho i ṱoḓa khii yayo ya u saina kana iphasiwedi."
 }

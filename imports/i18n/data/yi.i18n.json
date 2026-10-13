@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "פֿאַרגעסן די צוריקשיקן פֿון דעם אַדרעס און אים ווידער שיקן בליצבריוו",
   "email-bounces-none": "קיין צוריקשיקן.",
   "email-bounce-invalid-topic": "דאָס איז נישט קיין SNS טעמע ARN.",
-  "mailReportTitle": "בליצפּאָסט"
+  "mailReportTitle": "בליצפּאָסט",
+  "email-bounces-providers": "אַנדערע שיק־סערוויסן",
+  "email-bounces-providers-description": "אויב WeKan שיקט דורך איינעם פֿון די דאָזיקע סערוויסן, שאַלט אים אײַן, גיט דעם סערוויס דעם דאָזיקן webhook אַדרעס פֿאַר זײַנע געשעענישן פֿון צוריקגעשיקטע בליצבריוו און ספּאַם־קלאָגן, און לייגט דאָ אַרײַן דעם שליסל מיט וועלכן ער אונטערשרײַבט זיי, אָדער דאָס שפּריכוואָרט וואָס איר האָט אַרײַנגעלייגט אין אַדרעס ווי https://user:password@… אָדער ?secret=…",
+  "email-bounces-provider-key": "webhook אונטערשריפֿט־שליסל",
+  "email-bounces-provider-password": "webhook שפּריכוואָרט",
+  "email-bounce-provider-secret-required": "אַן אײַנגעשאַלטענער סערוויס דאַרף זײַן אונטערשריפֿט־שליסל אָדער שפּריכוואָרט."
 }

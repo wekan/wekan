@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "この あどれすの もどりを わすれて、また めーるを おくる",
   "email-bounces-none": "もどってきた めーるは ありません。",
   "email-bounce-invalid-topic": "それは SNS とぴっくの ARN では ありません。",
-  "mailReportTitle": "メールアドレス"
+  "mailReportTitle": "メールアドレス",
+  "email-bounces-providers": "ほかの そうしん さーびす",
+  "email-bounces-providers-description": "WeKan が これらの さーびすの どれかを つかって おくる ばあいは、それを おんに して、もどってきた めーると めいわくめーるの くじょうの いべんとの ために この Webhook あどれすを さーびすに わたし、さーびすが しょめいに つかう きー、または あどれすに https://user:password@… や ?secret=… として いれた ぱすわーどを ここに はりつけて ください",
+  "email-bounces-provider-key": "Webhook しょめい きー",
+  "email-bounces-provider-password": "Webhook ぱすわーど",
+  "email-bounce-provider-secret-required": "おんに した さーびすには しょめい きー または ぱすわーどが ひつようです。"
 }

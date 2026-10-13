@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Guilecava na lesu ni itikotiko oqo ka vakauta tale kina na imeli",
   "email-bounces-none": "Sega na lesu.",
   "email-bounce-invalid-topic": "Oqori e sega ni ARN ni ulutaga ni SNS.",
-  "mailReportTitle": "Imeli"
+  "mailReportTitle": "Imeli",
+  "email-bounces-providers": "Eso tale na veiqaravi ni vakau imeli",
+  "email-bounces-providers-description": "Kevaka e vakau imeli o WeKan mai na dua vei ira na veiqaravi oqo, vakayagataka, solia vua na veiqaravi na itikotiko ni webhook oqo me baleta na imeli lesu mai kei na veileti ni spam, ka vakacurumaka eke na kí e saini kina, se na vosa ni curu o a biuta ena itikotiko me vaka na https://user:password@… se ?secret=…",
+  "email-bounces-provider-key": "Kí ni saini ni webhook",
+  "email-bounces-provider-password": "Vosa ni curu ni webhook",
+  "email-bounce-provider-secret-required": "E dua na veiqaravi sa vakayagataki e gadreva na kena kí ni saini se vosa ni curu."
 }

@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Wróćenja tuteje adresy zabyć a jej zaso e-mejle słać",
   "email-bounces-none": "Žane wróćenja.",
   "email-bounce-invalid-topic": "To ARN SNS-temy njeje.",
-  "mailReportTitle": "E-mejl"
+  "mailReportTitle": "E-mejl",
+  "email-bounces-providers": "Druhe słužby za słanje",
+  "email-bounces-providers-description": "Jeli WeKan přez jednu z tutych słužbow sćele, zaswěćće ju, dajće słužbje tutu adresu webhooka za jeje podawki wróćenych e-mejlow a skóržbow wo spamje a zasadźće sem kluč, z kotrymž je podpisuje, abo hesło, kotrež sće do adresy jako https://user:password@… abo ?secret=… zapisał",
+  "email-bounces-provider-key": "Podpisowy kluč webhooka",
+  "email-bounces-provider-password": "Hesło webhooka",
+  "email-bounce-provider-secret-required": "Zaswěćena słužba trjeba swój podpisowy kluč abo swoje hesło."
 }

@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Kanganwa kudzoka kwekero iyi uye utumire kwairi maemail zvakare",
   "email-bounces-none": "Hapana kudzoka.",
   "email-bounce-invalid-topic": "Iyi haisi ARN yenyaya yeSNS.",
-  "mailReportTitle": "Tsamba yemagetsi"
+  "mailReportTitle": "Tsamba yemagetsi",
+  "email-bounces-providers": "Mamwe masevhisi ekutumira",
+  "email-bounces-providers-description": "Kana WeKan ichitumira kuburikidza neimwe yemasevhisi aya, ibatidze, ipa sevhisi kero iyi yewebhook yezviitiko zvayo zvemaemail akadzoka nezvichemo zvespam, wobva wanamira pano kiyi yainosaina nayo, kana pasiwedhi yawakaisa mukero se https://user:password@… kana ?secret=…",
+  "email-bounces-provider-key": "Kiyi yekusaina yewebhook",
+  "email-bounces-provider-password": "Pasiwedhi yewebhook",
+  "email-bounce-provider-secret-required": "Sevhisi yakabatidzwa inoda kiyi yayo yekusaina kana pasiwedhi."
 }

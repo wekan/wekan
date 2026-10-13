@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Libala ukubuya kwale dilesi uze uyithumelele ii-imeyile kwakhona",
   "email-bounces-none": "Akukho kubuya.",
   "email-bounce-invalid-topic": "Eso asiyo-ARN yesihloko se-SNS.",
-  "mailReportTitle": "I-imeyile"
+  "mailReportTitle": "I-imeyile",
+  "email-bounces-providers": "Ezinye iinkonzo zokuthumela",
+  "email-bounces-providers-description": "Ukuba iWeKan ithumela ngenye yezi nkonzo, yivule, unike inkonzo le dilesi ye-webhook yeziganeko zayo ze-imeyile ezibuyayo nezikhalazo ze-spam, uze uncamathisele apha isitshixo esizisayina ngaso, okanye inombolo yokuvula oyifake kwidilesi ngolu hlobo: https://user:password@… okanye ?secret=…",
+  "email-bounces-provider-key": "Isitshixo sokusayina se-webhook",
+  "email-bounces-provider-password": "Inombolo yokuvula ye-webhook",
+  "email-bounce-provider-secret-required": "Inkonzo evuliweyo idinga isitshixo sayo sokusayina okanye inombolo yokuvula."
 }

@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "የዚህን አድራሻ መመለሶች እርሳ እና እንደገና ኢሜይል ላክለት",
   "email-bounces-none": "ምንም የተመለሰ ኢሜይል የለም።",
   "email-bounce-invalid-topic": "ያ የSNS ርዕስ ARN አይደለም።",
-  "mailReportTitle": "ኢሜይል"
+  "mailReportTitle": "ኢሜይል",
+  "email-bounces-providers": "ሌሎች የመላኪያ አገልግሎቶች",
+  "email-bounces-providers-description": "WeKan ከእነዚህ አገልግሎቶች በአንዱ በኩል የሚልክ ከሆነ፣ ያብሩት፣ ለተመለሱ ኢሜይሎች እና ለአይፈለጌ መልዕክት ቅሬታ ክስተቶቹ ይህን የwebhook አድራሻ ለአገልግሎቱ ይስጡ፣ እና የሚፈርምበትን ቁልፍ፣ ወይም በአድራሻው ውስጥ እንደ https://user:password@… ወይም ?secret=… ያስገቡትን የይለፍ ቃል እዚህ ይለጥፉ",
+  "email-bounces-provider-key": "የwebhook መፈረሚያ ቁልፍ",
+  "email-bounces-provider-password": "የwebhook የይለፍ ቃል",
+  "email-bounce-provider-secret-required": "የበራ አገልግሎት የመፈረሚያ ቁልፉን ወይም የይለፍ ቃሉን ይፈልጋል።"
 }

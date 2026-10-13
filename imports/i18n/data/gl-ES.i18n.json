@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Esquecer os rebotes deste enderezo e volver enviarlle correos",
   "email-bounces-none": "Non hai rebotes.",
   "email-bounce-invalid-topic": "Iso non é un ARN de tema de SNS.",
-  "mailReportTitle": "Correo electrónico"
+  "mailReportTitle": "Correo electrónico",
+  "email-bounces-providers": "Outros servizos de envío",
+  "email-bounces-providers-description": "Se WeKan envía a través dun destes servizos, actívao, dálle ao servizo este enderezo de webhook para os seus eventos de rebote e de queixa de spam, e pega aquí a chave coa que os asina, ou o contrasinal que puxeches no enderezo como https://user:password@… ou ?secret=…",
+  "email-bounces-provider-key": "Chave de sinatura do webhook",
+  "email-bounces-provider-password": "Contrasinal do webhook",
+  "email-bounce-provider-secret-required": "Un servizo activado necesita a súa chave de sinatura ou o seu contrasinal."
 }

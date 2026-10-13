@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Agãrsheashti turnãrili a aishtei adresi shi pitreatsi-lj postã nãpoi",
   "email-bounces-none": "Vãrnã turnari.",
   "email-bounce-invalid-topic": "Aestu nu easti un ARN di tem SNS.",
-  "mailReportTitle": "Postã electronicã"
+  "mailReportTitle": "Postã electronicã",
+  "email-bounces-providers": "Alti servitsii di pitritseari",
+  "email-bounces-providers-description": "Ma s-pitreatsi WeKan prit unã di aesti servitsii, activeadzã-l, dã-lji a servitsiului aestã adresã webhook ti faptili a lui di postã turnatã şi plãngiri di spam, şi bagã aoa cheaia cu cari li semnã, i zborlu di intrari tsi l-bãgaşi tu adresã ca https://user:password@… i ?secret=…",
+  "email-bounces-provider-key": "Cheaia di semnari a webhook-lui",
+  "email-bounces-provider-password": "Zborlu di intrari a webhook-lui",
+  "email-bounce-provider-secret-required": "Un servitsiu activat ari ananghi di cheaia di semnari i di zborlu di intrari."
 }

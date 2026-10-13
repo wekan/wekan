@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Tuwo geuwoe alamat nyoe laju kirém emel lom",
   "email-bounces-none": "Hana emel nyang geuwoe.",
   "email-bounce-invalid-topic": "Nyan kon ARN topik SNS.",
-  "mailReportTitle": "Emel"
+  "mailReportTitle": "Emel",
+  "email-bounces-providers": "Layanan kirém laén",
+  "email-bounces-providers-description": "Meunyoe WeKan geukirém meulalui salah saboh layanan nyoe, peu-udép layanan nyan, bri keu layanan nyan alamat webhook nyoe keu peristiwa emel nyang geuwoe ngon keluhan spam, laju tempel keunoe kunci nyang geupeuet tanda, atawa kata sandi nyang neuboh lam alamat lagée https://user:password@… atawa ?secret=…",
+  "email-bounces-provider-key": "Kunci tanda webhook",
+  "email-bounces-provider-password": "Kata sandi webhook",
+  "email-bounce-provider-secret-required": "Layanan nyang ka geupeu-udép peureulee kunci tanda atawa kata sandi jih."
 }

@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Осы мекенжайдың қайтаруларын ұмытып, оған қайта хат жіберу",
   "email-bounces-none": "Қайтарулар жоқ.",
   "email-bounce-invalid-topic": "Бұл SNS тақырыбының ARN-і емес.",
-  "mailReportTitle": "Электрондық пошта"
+  "mailReportTitle": "Электрондық пошта",
+  "email-bounces-providers": "Басқа жіберу қызметтері",
+  "email-bounces-providers-description": "Егер WeKan осы қызметтердің біреуі арқылы жіберсе, оны қосыңыз, қызметке қайтарылған хаттар мен спам туралы шағым оқиғалары үшін осы webhook мекенжайын беріңіз және мұнда оларға қол қоятын кілтті немесе мекенжайға https://user:password@… не ?secret=… түрінде қойған құпия сөзді қойыңыз",
+  "email-bounces-provider-key": "Webhook қолтаңба кілті",
+  "email-bounces-provider-password": "Webhook құпия сөзі",
+  "email-bounce-provider-secret-required": "Қосылған қызметке оның қолтаңба кілті немесе құпия сөзі қажет."
 }

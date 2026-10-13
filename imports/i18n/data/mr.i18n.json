@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "या पत्त्याचे परतावे विसरा आणि त्याला पुन्हा ईमेल पाठवा",
   "email-bounces-none": "कोणतेही परतावे नाहीत.",
   "email-bounce-invalid-topic": "तो SNS विषय ARN नाही.",
-  "mailReportTitle": "ईमेल"
+  "mailReportTitle": "ईमेल",
+  "email-bounces-providers": "इतर पाठवण्याच्या सेवा",
+  "email-bounces-providers-description": "WeKan यापैकी एखाद्या सेवेद्वारे पाठवत असल्यास, ती चालू करा, सेवेला तिच्या परत आलेल्या ईमेल आणि स्पॅम तक्रारींच्या घटनांसाठी हा webhook पत्ता द्या, आणि ती ज्या कीने त्यांवर स्वाक्षरी करते ती की, किंवा तुम्ही पत्त्यात https://user:password@… किंवा ?secret=… म्हणून टाकलेला पासवर्ड येथे पेस्ट करा",
+  "email-bounces-provider-key": "Webhook स्वाक्षरी की",
+  "email-bounces-provider-password": "Webhook पासवर्ड",
+  "email-bounce-provider-secret-required": "चालू केलेल्या सेवेला तिची स्वाक्षरी की किंवा पासवर्ड आवश्यक आहे."
 }

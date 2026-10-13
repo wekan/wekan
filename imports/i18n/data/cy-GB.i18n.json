@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Anghofio adlamau'r cyfeiriad hwn ac anfon e-bost ato eto",
   "email-bounces-none": "Dim adlamau.",
   "email-bounce-invalid-topic": "Nid yw hwnnw'n ARN pwnc SNS.",
-  "mailReportTitle": "Ebost"
+  "mailReportTitle": "Ebost",
+  "email-bounces-providers": "Gwasanaethau anfon eraill",
+  "email-bounces-providers-description": "Os yw WeKan yn anfon drwy un o'r gwasanaethau hyn, trowch ef ymlaen, rhowch y cyfeiriad bachyn gwe hwn i'r gwasanaeth ar gyfer ei ddigwyddiadau adlamu a chwynion sbam, a gludwch yma'r allwedd y mae'n eu llofnodi â hi, neu'r cyfrinair a roesoch yn y cyfeiriad fel https://user:password@… neu ?secret=…",
+  "email-bounces-provider-key": "Allwedd llofnodi'r bachyn gwe",
+  "email-bounces-provider-password": "Cyfrinair y bachyn gwe",
+  "email-bounce-provider-secret-required": "Mae angen ei allwedd llofnodi neu ei gyfrinair ar wasanaeth sydd wedi'i droi ymlaen."
 }

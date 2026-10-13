@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Fakangaloʻi ʻa e ngaahi foki ʻo e tuʻasila ko ʻeni pea toe ʻīmeili ki ai",
   "email-bounces-none": "ʻIkai ha foki.",
   "email-bounce-invalid-topic": "ʻOku ʻikai ko ha ARN ia ʻo ha kaveinga SNS.",
-  "mailReportTitle": "ʻĪmeili"
+  "mailReportTitle": "ʻĪmeili",
+  "email-bounces-providers": "Ngaahi sēvesi fekau kehe",
+  "email-bounces-providers-description": "Kapau ʻoku fekau ʻe WeKan ʻo fakafou ʻi ha taha ʻo e ngaahi sēvesi ko ʻeni, fakaʻaongaʻi ia, ʻoatu ki he sēvesi ʻa e tuʻasila webhook ko ʻeni ki heʻene ngaahi meʻa ʻo e ʻīmeili kuo foki mai mo e lāunga ki he spam, pea pēsite heni ʻa e kī ʻoku ne fakamoʻoni ʻaki ia, pe ko e lea fufū naʻá ke tuku ʻi he tuʻasila ʻo hangē ko e https://user:password@… pe ?secret=…",
+  "email-bounces-provider-key": "Kī fakamoʻoni ʻo e webhook",
+  "email-bounces-provider-password": "Lea fufū ʻo e webhook",
+  "email-bounce-provider-secret-required": "ʻOku fiemaʻu ʻe ha sēvesi kuo fakaʻaongaʻi hono kī fakamoʻoni pe lea fufū."
 }

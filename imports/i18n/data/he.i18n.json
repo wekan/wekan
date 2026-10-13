@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "לשכוח את ההחזרות של כתובת זו ולשלוח אליה דואר שוב",
   "email-bounces-none": "אין החזרות.",
   "email-bounce-invalid-topic": "זה אינו ARN של נושא SNS.",
-  "mailReportTitle": "דוא״ל"
+  "mailReportTitle": "דוא״ל",
+  "email-bounces-providers": "שירותי שליחה אחרים",
+  "email-bounces-providers-description": "אם WeKan שולח דרך אחד מהשירותים האלה, יש להפעיל אותו, למסור לשירות את כתובת ה־webhook הזאת לאירועי החזרות ותלונות ספאם, ולהדביק כאן את המפתח שבו הוא חותם עליהם, או את הססמה שהכנסת לכתובת בצורה https://user:password@… או ?secret=…",
+  "email-bounces-provider-key": "מפתח חתימה של ה־webhook",
+  "email-bounces-provider-password": "ססמת ה־webhook",
+  "email-bounce-provider-secret-required": "שירות מופעל צריך את מפתח החתימה או את הססמה שלו."
 }

@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Энэ хаягийн буцалтыг мартаж дахин имэйл илгээх",
   "email-bounces-none": "Буцалт алга.",
   "email-bounce-invalid-topic": "Энэ бол SNS сэдвийн ARN биш.",
-  "mailReportTitle": "Имэйл"
+  "mailReportTitle": "Имэйл",
+  "email-bounces-providers": "Бусад илгээх үйлчилгээ",
+  "email-bounces-providers-description": "Хэрэв WeKan эдгээр үйлчилгээний аль нэгээр илгээдэг бол түүнийг асааж, буцсан захидал болон спамын гомдлын үйл явдлуудад зориулан энэ webhook хаягийг үйлчилгээнд өгч, түүний гарын үсэг зурдаг түлхүүр эсвэл хаягт https://user:password@… эсвэл ?secret=… хэлбэрээр оруулсан нууц үгээ энд буулгана уу",
+  "email-bounces-provider-key": "Webhook-ийн гарын үсгийн түлхүүр",
+  "email-bounces-provider-password": "Webhook-ийн нууц үг",
+  "email-bounce-provider-secret-required": "Асаалттай үйлчилгээнд гарын үсгийн түлхүүр эсвэл нууц үг шаардлагатай."
 }

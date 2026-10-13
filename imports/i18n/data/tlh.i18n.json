@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Daqvam cheghmey yIlIj, 'ej jabbI'ID yIngeHqa'",
   "email-bounces-none": "chegh pagh.",
   "email-bounce-invalid-topic": "SNS qech ARN 'oHbe' ghu'vam.",
-  "mailReportTitle": "jabbI'ID"
+  "mailReportTitle": "jabbI'ID",
+  "email-bounces-providers": "latlh QIn ngeHwI'mey",
+  "email-bounces-providers-description": "QIn ngeHwI'meyvam wa' lo'chugh WeKan, yIchu'; QIn cheghlu'pu'bogh, spam bep je wanI'meyvaD webhook Daqvam yInob; 'ej naDev yIlan qI'meH ngaQHa'moHwI' lo'bogh, pagh Daqvo' Dalanpu'bogh pegh mu': https://user:password@… pagh ?secret=…",
+  "email-bounces-provider-key": "webhook qI'meH ngaQHa'moHwI'",
+  "email-bounces-provider-password": "webhook pegh mu'",
+  "email-bounce-provider-secret-required": "QIn ngeHwI' chu'lu'pu'bogh poQ qI'meH ngaQHa'moHwI' pagh pegh mu'."
 }

@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "መየጣት ናይ ሃቲ ኣድራሻ ርሳዕ ወ ኢመይል ዕድ ለኣክ",
   "email-bounces-none": "መየጣት ኣለቦ።",
   "email-bounce-invalid-topic": "ሃቲ ARN ኣርእስት SNS ኢኮን።",
-  "mailReportTitle": "ኢመይል"
+  "mailReportTitle": "ኢመይል",
+  "email-bounces-providers": "ገይራም ኣገልግሎታት ፈንቶ",
+  "email-bounces-providers-description": "WeKan እብ ሕድ ሚን ሌጠ ኣገልግሎታት እንዴ ለአፍንት፡ ፍተሓ፡ ለኣገልግሎት ሌጠ ኣድራሻ webhook ሀቦ ለኢመይል ለተመየጠ ወ ኣክያስ ስፓም፡ ወ ቃል ሕትም ለሐትም ቢቱ፡ ወሎ ሚስጥር ቃል ለ'እት ኣድራሻ ከም https://user:password@… ወሎ ?secret=… ወዴካሁ፡ ሀዬ ለጥፍ",
+  "email-bounces-provider-key": "ቃል ሕትም Webhook",
+  "email-bounces-provider-password": "ሚስጥር ቃል Webhook",
+  "email-bounce-provider-secret-required": "ኣገልግሎት ለተፈትሐ ቃል ሕትሙ ወሎ ሚስጥር ቃሉ ይሐቴ።"
 }

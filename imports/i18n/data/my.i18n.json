@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "ဤလိပ်စာ၏ ပြန်လာမှုများကို မေ့ပြီး အီးမေးလ် ပြန်ပို့ရန်",
   "email-bounces-none": "ပြန်လာမှု မရှိပါ။",
   "email-bounce-invalid-topic": "၎င်းသည် SNS ခေါင်းစဉ် ARN မဟုတ်ပါ။",
-  "mailReportTitle": "အီးမေးလ်"
+  "mailReportTitle": "အီးမေးလ်",
+  "email-bounces-providers": "အခြား ပို့ဆောင်ရေး ဝန်ဆောင်မှုများ",
+  "email-bounces-providers-description": "WeKan သည် ဤဝန်ဆောင်မှုများထဲမှ တစ်ခုမှတစ်ဆင့် ပို့ပါက ၎င်းကို ဖွင့်ပါ၊ ပြန်လာသော အီးမေးလ်နှင့် စပမ်းတိုင်ကြားချက် ဖြစ်ရပ်များအတွက် ဤ webhook လိပ်စာကို ဝန်ဆောင်မှုသို့ ပေးပါ၊ ပြီးလျှင် ၎င်းတို့ကို လက်မှတ်ထိုးရာတွင် သုံးသော သော့ သို့မဟုတ် လိပ်စာထဲတွင် https://user:password@… သို့မဟုတ် ?secret=… အဖြစ် ထည့်ထားသော စကားဝှက်ကို ဤနေရာတွင် ကူးထည့်ပါ",
+  "email-bounces-provider-key": "Webhook လက်မှတ်ထိုး သော့",
+  "email-bounces-provider-password": "Webhook စကားဝှက်",
+  "email-bounce-provider-secret-required": "ဖွင့်ထားသော ဝန်ဆောင်မှုတွင် ၎င်း၏ လက်မှတ်ထိုး သော့ သို့မဟုတ် စကားဝှက် လိုအပ်သည်။"
 }

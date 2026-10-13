@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Fàtte delluwaat yu adrees bii te yónneewaat ko e-mail",
   "email-bounces-none": "Amul benn delluwaat.",
   "email-bounce-invalid-topic": "Loolu du ARN bu topic SNS.",
-  "mailReportTitle": "E-mail"
+  "mailReportTitle": "E-mail",
+  "email-bounces-providers": "Yeneen sarwiis yu yónnee",
+  "email-bounces-providers-description": "Su WeKan di yónnee jaare ci benn ci sarwiis yii, taal ko, jox sarwiis bi adrees webhook bii ngir xew-xewam yu e-mail yu dellusi ak tuuma spam, te taf fii caabi gi muy xaatime leen, walla baatu jall bi nga def ci adrees bi ni https://user:password@… walla ?secret=…",
+  "email-bounces-provider-key": "Caabiy xaatim bu webhook",
+  "email-bounces-provider-password": "Baatu jall bu webhook",
+  "email-bounce-provider-secret-required": "Sarwiis bu ñu taal soxla na caabiy xaatimam walla baatu jallam."
 }

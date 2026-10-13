@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Xiquilcahua inin cantlacatl imocuepaliz ihuan occepa xictitlani tlahcuilolli",
   "email-bounces-none": "Ahmo onca mocuepaliztli.",
   "email-bounce-invalid-topic": "Inon ahmo ARN in SNS tlamantli.",
-  "mailReportTitle": "Tlahcuilolli"
+  "mailReportTitle": "Tlahcuilolli",
+  "email-bounces-providers": "Occequin tequitl tlen tlatitlani",
+  "email-bounces-providers-description": "Intla WeKan tlatitlani ica centetl inin tequitl, xicpehualti, xicmaca tequitl inin cantlacatl webhook ic tlahcuilolli tlen mocuepa ihuan tlatelchihualiztli ica spam, ihuan nican xictlali tlatlapoloni ica quimachiyotia, noso ichtaca tlahtolli tlen otictlali ipan cantlacatl quen https://user:password@… noso ?secret=…",
+  "email-bounces-provider-key": "Tlatlapoloni ic machiyotl webhook",
+  "email-bounces-provider-password": "Ichtaca tlahtolli webhook",
+  "email-bounce-provider-secret-required": "Tequitl tlen pehualtilo quinequi itlatlapoloni machiyotl noso ichtaca tlahtolli."
 }

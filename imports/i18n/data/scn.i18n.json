@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Scurdari li turnati di stu nnirizzu e mannàricci arreri posta",
   "email-bounces-none": "Nudda turnata.",
   "email-bounce-invalid-topic": "Chistu nun è n'ARN di tema SNS.",
-  "mailReportTitle": "Posta elettronica"
+  "mailReportTitle": "Posta elettronica",
+  "email-bounces-providers": "Àutri sirvizzi di mannata",
+  "email-bounces-providers-description": "Si WeKan manna pi menzu di unu di sti sirvizzi, attivatilu, dati ô sirvizzu st'nnirizzu webhook pî so eventi di missaggi turnati e laminteli di spam, e 'mpiccicati ccà la chiavi cu cui li firma, o la palora d'ordini ca mittìstivu nta l'nnirizzu comu https://user:password@… o ?secret=…",
+  "email-bounces-provider-key": "Chiavi di firma dû webhook",
+  "email-bounces-provider-password": "Palora d'ordini dû webhook",
+  "email-bounce-provider-secret-required": "Un sirvizzu attivatu havi bisognu dâ so chiavi di firma o dâ palora d'ordini."
 }

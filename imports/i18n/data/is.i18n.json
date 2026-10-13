@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Gleyma endursendingum þessa netfangs og senda því póst aftur",
   "email-bounces-none": "Engar endursendingar.",
   "email-bounce-invalid-topic": "Þetta er ekki ARN SNS-efnis.",
-  "mailReportTitle": "Netfang"
+  "mailReportTitle": "Netfang",
+  "email-bounces-providers": "Aðrar sendiþjónustur",
+  "email-bounces-providers-description": "Ef WeKan sendir í gegnum eina af þessum þjónustum skaltu kveikja á henni, gefa þjónustunni þetta webhook-netfang fyrir atburði um endursendan póst og ruslpóstskvartanir, og líma hér lykilinn sem hún undirritar þá með, eða lykilorðið sem þú settir í netfangið sem https://user:password@… eða ?secret=…",
+  "email-bounces-provider-key": "Undirritunarlykill webhook",
+  "email-bounces-provider-password": "Lykilorð webhook",
+  "email-bounce-provider-secret-required": "Þjónusta sem kveikt er á þarf undirritunarlykil sinn eða lykilorð."
 }

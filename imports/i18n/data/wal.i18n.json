@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Ha sohuwaa simmidoyaa dogada qassi zaarada iimeeliyaa kiitta",
   "email-bounces-none": "Simmidoy baawa.",
   "email-bounce-invalid-topic": "Hagee SNS huu7e yohuwaa ARN gidenna.",
-  "mailReportTitle": "Iimeeliyaa"
+  "mailReportTitle": "Iimeeliyaa",
+  "email-bounces-providers": "Hara kiittiya oosuwaa",
+  "email-bounces-providers-description": "WeKan ha oosuwaappe issuwan kiittiyaaba gidikko, a dooya, oosuwaas simmido iimeeliyaa nne spamee zilppaa hanotaas ha webhook sohuwaa immaa, qassi a malaatiyo qulfiyaa, woy https://user:password@… woy ?secret=… gidi sohuwan wottido geeman qaalaa haan wottaa",
+  "email-bounces-provider-key": "Webhook malaatiya qulfiyaa",
+  "email-bounces-provider-password": "Webhook geeman qaalaa",
+  "email-bounce-provider-secret-required": "Doyettida oosuwaas ba malaatiya qulfiyaa woy geeman qaalaa koshshees."
 }

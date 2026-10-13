@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Werɛ fi adrɛs yi sanba na soma ɛmɛl kɔ hɔ bio",
   "email-bounces-none": "Sanba biara nni hɔ.",
   "email-bounce-invalid-topic": "Ɛno nyɛ SNS asɛmti ARN.",
-  "mailReportTitle": "Ɛmɛl"
+  "mailReportTitle": "Ɛmɛl",
+  "email-bounces-providers": "Ɛmɛl soma dwumadie foforo",
+  "email-bounces-providers-description": "Sɛ WeKan nam dwumadie yi mu baako so soma a, sɔ no, ma dwumadie no webhook adrɛs yi ma ne ɛmɛl a ɛsan ba ne spam ho anwiinwii nsɛm, na fa safe a ɛde hyɛ wɔn nsa ase no, anaa ahintasɛm a wode hyɛɛ adrɛs no mu sɛ https://user:password@… anaa ?secret=… bɛhyɛ ha",
+  "email-bounces-provider-key": "Webhook nsaanohyɛ safe",
+  "email-bounces-provider-password": "Webhook ahintasɛm",
+  "email-bounce-provider-secret-required": "Dwumadie a wɔasɔ no hia ne nsaanohyɛ safe anaa n'ahintasɛm."
 }

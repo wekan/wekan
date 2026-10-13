@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "De bounces van dit adres vergeten en het weer e-mailen",
   "email-bounces-none": "Geen teruggestuurde e-mails.",
   "email-bounce-invalid-topic": "Dat is geen SNS-onderwerp-ARN.",
-  "mailReportTitle": "E-mail"
+  "mailReportTitle": "E-mail",
+  "email-bounces-providers": "Andere verzenddiensten",
+  "email-bounces-providers-description": "Als WeKan via een van deze diensten verzendt, zet die dan aan, geef de dienst dit webhookadres voor zijn gebeurtenissen over teruggestuurde e-mails en spamklachten, en plak hier de sleutel waarmee hij ze ondertekent, of het wachtwoord dat u in het adres hebt gezet als https://user:password@… of ?secret=…",
+  "email-bounces-provider-key": "Ondertekeningssleutel van webhook",
+  "email-bounces-provider-password": "Webhookwachtwoord",
+  "email-bounce-provider-secret-required": "Een dienst die aanstaat, heeft zijn ondertekeningssleutel of wachtwoord nodig."
 }

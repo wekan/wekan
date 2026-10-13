@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Заборави враћања ове адресе и поново јој шаљи е-пошту",
   "email-bounces-none": "Нема враћене поште.",
   "email-bounce-invalid-topic": "То није ARN SNS теме.",
-  "mailReportTitle": "Е-пошта"
+  "mailReportTitle": "Е-пошта",
+  "email-bounces-providers": "Друге услуге слања",
+  "email-bounces-providers-description": "Ако WeKan шаље преко неке од ових услуга, укључите је, дајте услузи ову webhook адресу за њене догађаје враћене поште и пријава нежељене поште, и налепите овде кључ којим их потписује, или лозинку коју сте ставили у адресу као https://user:password@… или ?secret=…",
+  "email-bounces-provider-key": "Кључ за потписивање webhook-а",
+  "email-bounces-provider-password": "Лозинка webhook-а",
+  "email-bounce-provider-secret-required": "Укључена услуга захтева свој кључ за потписивање или лозинку."
 }

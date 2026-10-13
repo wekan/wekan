@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Lupakan pentalan alamat ini dan kirimi email lagi",
   "email-bounces-none": "Tidak ada pentalan.",
   "email-bounce-invalid-topic": "Itu bukan ARN topik SNS.",
-  "mailReportTitle": "Surel"
+  "mailReportTitle": "Surel",
+  "email-bounces-providers": "Layanan pengiriman lain",
+  "email-bounces-providers-description": "Jika WeKan mengirim melalui salah satu layanan ini, aktifkan, berikan alamat webhook ini kepada layanan untuk peristiwa email terpental dan keluhan spam, lalu tempelkan di sini kunci yang digunakan layanan untuk menandatanganinya, atau kata sandi yang Anda masukkan ke alamat sebagai https://user:password@… atau ?secret=…",
+  "email-bounces-provider-key": "Kunci penandatanganan webhook",
+  "email-bounces-provider-password": "Kata sandi webhook",
+  "email-bounce-provider-secret-required": "Layanan yang aktif memerlukan kunci penandatanganan atau kata sandinya."
 }

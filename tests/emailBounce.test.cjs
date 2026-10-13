@@ -138,3 +138,91 @@ test('server: SNS signature and topic are checked, bounces never become cards, s
   // The SES endpoint is reachable without the REST API, like the webhook.
   assert.match(read('server/apiMiddleware.js'), /INBOUND_EMAIL_PATHS = \['\/api\/inbound-email', '\/api\/inbound-email\/ses'\]/);
 });
+
+// --- The other sending services (models/lib/emailBounceProviders.js) ---------
+const crypto = require('node:crypto');
+const { PROVIDERS, parseProviderBounces, verifyProviderRequest } = require('../models/lib/emailBounceProviders');
+
+test('every provider\'s bounce payload, in the shape its documentation gives', () => {
+  const pairs = bounces => bounces.map(b => [b.email, b.category]);
+  assert.deepEqual(PROVIDERS, ['mailgun', 'sendgrid', 'postmark', 'brevo', 'mailjet', 'sparkpost', 'mandrill', 'resend']);
+  assert.deepEqual(pairs(parseProviderBounces('mailgun', { 'event-data': { event: 'failed', severity: 'permanent', recipient: 'Typo@X.org',
+    'delivery-status': { code: 550, description: 'No such user' } } })), [['typo@x.org', 'hard']]);
+  assert.deepEqual(pairs(parseProviderBounces('mailgun', { 'event-data': { event: 'failed', severity: 'temporary', recipient: 'full@x.org' } })), [['full@x.org', 'soft']]);
+  assert.deepEqual(pairs(parseProviderBounces('mailgun', { 'event-data': { event: 'complained', recipient: 'a@x.org' } })), [['a@x.org', 'complaint']]);
+  assert.deepEqual(pairs(parseProviderBounces('mailgun', { 'event-data': { event: 'delivered', recipient: 'a@x.org' } })), []);
+  assert.deepEqual(pairs(parseProviderBounces('sendgrid', [
+    { email: 'h@x.org', event: 'bounce', type: 'bounce', status: '5.1.1', reason: '550 no such user' },
+    { email: 'b@x.org', event: 'bounce', type: 'blocked', reason: 'blocked' },
+    { email: 'd@x.org', event: 'deferred', response: '421 try later' },
+    { email: 's@x.org', event: 'spamreport' },
+    { email: 'o@x.org', event: 'open' },
+  ])), [['h@x.org', 'hard'], ['b@x.org', 'soft'], ['d@x.org', 'soft'], ['s@x.org', 'complaint']]);
+  assert.deepEqual(pairs(parseProviderBounces('postmark', { RecordType: 'Bounce', Type: 'HardBounce', Email: 'h@x.org', Description: 'unknown' })), [['h@x.org', 'hard']]);
+  assert.deepEqual(pairs(parseProviderBounces('postmark', { RecordType: 'Bounce', Type: 'SoftBounce', Email: 's@x.org' })), [['s@x.org', 'soft']]);
+  assert.deepEqual(pairs(parseProviderBounces('postmark', { RecordType: 'Bounce', Type: 'AutoResponder', Email: 'away@x.org' })), [['away@x.org', 'auto-reply']]);
+  assert.deepEqual(pairs(parseProviderBounces('postmark', { RecordType: 'SpamComplaint', Email: 'c@x.org' })), [['c@x.org', 'complaint']]);
+  assert.deepEqual(pairs(parseProviderBounces('brevo', { event: 'hard_bounce', email: 'h@x.org', reason: 'unknown user' })), [['h@x.org', 'hard']]);
+  assert.deepEqual(pairs(parseProviderBounces('brevo', { event: 'soft_bounce', email: 's@x.org' })), [['s@x.org', 'soft']]);
+  assert.deepEqual(pairs(parseProviderBounces('brevo', { event: 'spam', email: 'c@x.org' })), [['c@x.org', 'complaint']]);
+  assert.deepEqual(pairs(parseProviderBounces('mailjet', [{ event: 'bounce', email: 'h@x.org', hard_bounce: true, error: 'user unknown' },
+    { event: 'bounce', email: 's@x.org', hard_bounce: false }, { event: 'spam', email: 'c@x.org' }])),
+  [['h@x.org', 'hard'], ['s@x.org', 'soft'], ['c@x.org', 'complaint']]);
+  assert.deepEqual(pairs(parseProviderBounces('sparkpost', [
+    { msys: { message_event: { type: 'bounce', rcpt_to: 'h@x.org', bounce_class: '10', reason: '550 invalid' } } },
+    { msys: { message_event: { type: 'bounce', rcpt_to: 's@x.org', bounce_class: '21' } } },
+    { msys: { message_event: { type: 'spam_complaint', rcpt_to: 'c@x.org' } } },
+    { msys: { message_event: { type: 'delivery', rcpt_to: 'ok@x.org' } } },
+  ])), [['h@x.org', 'hard'], ['s@x.org', 'soft'], ['c@x.org', 'complaint']]);
+  assert.deepEqual(pairs(parseProviderBounces('mandrill', { mandrill_events: JSON.stringify([
+    { event: 'hard_bounce', msg: { email: 'h@x.org', bounce_description: 'bad_mailbox' } },
+    { event: 'soft_bounce', msg: { email: 's@x.org' } }, { event: 'spam', msg: { email: 'c@x.org' } }, { event: 'open', msg: { email: 'o@x.org' } }]) })),
+  [['h@x.org', 'hard'], ['s@x.org', 'soft'], ['c@x.org', 'complaint']]);
+  assert.deepEqual(pairs(parseProviderBounces('resend', { type: 'email.bounced', data: { to: ['h@x.org'], bounce: { type: 'Permanent', message: 'no such user' } } })), [['h@x.org', 'hard']]);
+  assert.deepEqual(pairs(parseProviderBounces('resend', { type: 'email.complained', data: { to: ['c@x.org'] } })), [['c@x.org', 'complaint']]);
+  // Nothing from an unknown service, a broken payload or a non-address (negative).
+  assert.deepEqual(parseProviderBounces('evil', { event: 'hard_bounce', email: 'h@x.org' }), []);
+  assert.deepEqual(parseProviderBounces('mandrill', { mandrill_events: '{broken' }), []);
+  assert.deepEqual(parseProviderBounces('brevo', { event: 'hard_bounce', email: 'not an address' }), []);
+});
+
+test('each service is proven the way it signs its webhooks, and a forgery is refused (negative)', () => {
+  const now = Date.now();
+  const ts = Math.floor(now / 1000);
+  // Mailgun: HMAC-SHA256 of timestamp + token with the webhook signing key.
+  const mgBody = { signature: { timestamp: String(ts), token: 'tok', signature: crypto.createHmac('sha256', 'mg-key').update(`${ts}tok`).digest('hex') } };
+  assert.equal(verifyProviderRequest('mailgun', { body: mgBody, secret: 'mg-key', now }), true);
+  assert.equal(verifyProviderRequest('mailgun', { body: mgBody, secret: 'other', now }), false);
+  assert.equal(verifyProviderRequest('mailgun', { body: { signature: { ...mgBody.signature, timestamp: String(ts - 3600) } }, secret: 'mg-key', now }), false, 'a replay an hour later');
+  // SendGrid: ECDSA over timestamp + raw body, the public key in base64 DER.
+  const { privateKey, publicKey } = crypto.generateKeyPairSync('ec', { namedCurve: 'prime256v1' });
+  const pub = publicKey.export({ format: 'der', type: 'spki' }).toString('base64');
+  const raw = '[{"email":"h@x.org","event":"bounce"}]';
+  const sgSig = crypto.sign('sha256', Buffer.from(`${ts}${raw}`), privateKey).toString('base64');
+  const sgHeaders = { 'x-twilio-email-event-webhook-signature': sgSig, 'x-twilio-email-event-webhook-timestamp': String(ts) };
+  assert.equal(verifyProviderRequest('sendgrid', { headers: sgHeaders, rawBody: raw, secret: pub, now }), true);
+  assert.equal(verifyProviderRequest('sendgrid', { headers: sgHeaders, rawBody: raw.replace('h@', 'x@'), secret: pub, now }), false, 'a changed body');
+  // Mandrill: HMAC-SHA1 of the URL and the sorted form fields.
+  const url = 'https://wekan.example.com/api/inbound-email/bounces/mandrill';
+  const mdBody = { mandrill_events: '[]' };
+  const mdSig = crypto.createHmac('sha1', 'md-key').update(`${url}mandrill_events[]`).digest('base64');
+  assert.equal(verifyProviderRequest('mandrill', { headers: { 'x-mandrill-signature': mdSig }, body: mdBody, url, secret: 'md-key', now }), true);
+  assert.equal(verifyProviderRequest('mandrill', { headers: { 'x-mandrill-signature': mdSig }, body: mdBody, url: `${url}x`, secret: 'md-key', now }), false);
+  // Resend (Svix): HMAC-SHA256 of id.timestamp.body with the base64 secret.
+  const key = crypto.randomBytes(24);
+  const rsBody = '{"type":"email.bounced"}';
+  const rsSig = crypto.createHmac('sha256', key).update(`msg_1.${ts}.${rsBody}`).digest('base64');
+  const rsHeaders = { 'svix-id': 'msg_1', 'svix-timestamp': String(ts), 'svix-signature': `v1,bogus v1,${rsSig}` };
+  assert.equal(verifyProviderRequest('resend', { headers: rsHeaders, rawBody: rsBody, secret: `whsec_${key.toString('base64')}`, now }), true);
+  assert.equal(verifyProviderRequest('resend', { headers: { ...rsHeaders, 'svix-id': 'msg_2' }, rawBody: rsBody, secret: `whsec_${key.toString('base64')}`, now }), false);
+  // The basic-auth services: the password is the secret; the user name is anything.
+  const basic = pw => ({ authorization: `Basic ${Buffer.from(`wekan:${pw}`).toString('base64')}` });
+  for (const provider of ['postmark', 'brevo', 'mailjet', 'sparkpost']) {
+    assert.equal(verifyProviderRequest(provider, { headers: basic('s3cret'), secret: 's3cret', now }), true, provider);
+    assert.equal(verifyProviderRequest(provider, { headers: basic('wrong'), secret: 's3cret', now }), false, provider);
+    assert.equal(verifyProviderRequest(provider, { headers: { 'x-wekan-bounce-secret': 's3cret' }, secret: 's3cret', now }), true, provider);
+    assert.equal(verifyProviderRequest(provider, { headers: {}, secret: 's3cret', now }), false, `${provider} without anything`);
+  }
+  // No secret configured: nothing is accepted.
+  for (const provider of PROVIDERS) assert.equal(verifyProviderRequest(provider, { headers: basic(''), body: mgBody, secret: '', now }), false, provider);
+});

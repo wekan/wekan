@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "इस पते के बाउंस भूल जाएँ और इसे फिर से ईमेल भेजें",
   "email-bounces-none": "कोई बाउंस नहीं।",
   "email-bounce-invalid-topic": "यह SNS विषय ARN नहीं है।",
-  "mailReportTitle": "ईमेल"
+  "mailReportTitle": "ईमेल",
+  "email-bounces-providers": "अन्य भेजने वाली सेवाएँ",
+  "email-bounces-providers-description": "यदि WeKan इनमें से किसी सेवा के ज़रिए भेजता है, तो उसे चालू करें, सेवा को बाउंस और स्पैम शिकायत की घटनाओं के लिए यह Webhook पता दें, और यहाँ वह कुंजी चिपकाएँ जिससे वह उन पर हस्ताक्षर करती है, या वह पासवर्ड जो आपने पते में https://user:password@… या ?secret=… के रूप में डाला है",
+  "email-bounces-provider-key": "Webhook हस्ताक्षर कुंजी",
+  "email-bounces-provider-password": "Webhook पासवर्ड",
+  "email-bounce-provider-secret-required": "चालू की गई सेवा को उसकी हस्ताक्षर कुंजी या पासवर्ड चाहिए।"
 }

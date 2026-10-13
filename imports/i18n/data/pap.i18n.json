@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Lubidá e bolbementunan di e adrès aki i manda e e-mail atrobe",
   "email-bounces-none": "Ningun bolbementu.",
   "email-bounce-invalid-topic": "Esei no ta un ARN di tópiko SNS.",
-  "mailReportTitle": "E-mail"
+  "mailReportTitle": "E-mail",
+  "email-bounces-providers": "Otro servisionan di manda",
+  "email-bounces-providers-description": "Si WeKan ta manda via un di e servisionan aki, aktivá e, duna e servisio e adrès di webhook aki pa su eventonan di e-mail bolbí i keho di spam, i pega aki e yabi ku e ta firma nan kuné, of e kontraseña ku bo a pone den e adrès komo https://user:password@… of ?secret=…",
+  "email-bounces-provider-key": "Yabi di firma di webhook",
+  "email-bounces-provider-password": "Kontraseña di webhook",
+  "email-bounce-provider-secret-required": "Un servisio aktivá mester di su yabi di firma of su kontraseña."
 }

@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Энэ хаягай бусалгануудые мартажа, дахин захидал эльгээхэ",
   "email-bounces-none": "Бусаһан захидал үгы.",
   "email-bounce-invalid-topic": "Энэ SNS сэдэбэй ARN бэшэ.",
-  "mailReportTitle": "Сахим захидал"
+  "mailReportTitle": "Сахим захидал",
+  "email-bounces-providers": "Бусад эльгээхэ албанууд",
+  "email-bounces-providers-description": "Хэрбээ WeKan эдэ албануудай нэгээр дамжуулан эльгээдэг бол, тэрэниие асаагаад, бусаһан захидал ба спам тухай гомдолой үйлэ ябадалнуудта зориулан энэ вебхугай хаягые албанда үгэгты, тиигээд тэдэниие гарай үзэг табидаг түлхюур, али хаяг соо https://user:password@… али ?secret=… гэжэ оруулһан нюуса үгөө эндэ оруулагты",
+  "email-bounces-provider-key": "Вебхугай гарай үзэгэй түлхюур",
+  "email-bounces-provider-password": "Вебхугай нюуса үгэ",
+  "email-bounce-provider-secret-required": "Асаагдаһан албанда гарай үзэгэй түлхюур али нюуса үгэ хэрэгтэй."
 }

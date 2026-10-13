@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Rivala ku vuya ka adirese leyi kutani u yi rhumelela imeyili nakambe",
   "email-bounces-none": "Ku hava ku vuya.",
   "email-bounce-invalid-topic": "Leswi a hi ARN ya nhloko-mhaka ya SNS.",
-  "mailReportTitle": "Imeyili"
+  "mailReportTitle": "Imeyili",
+  "email-bounces-providers": "Vukorhokeri byin'wana byo rhumela",
+  "email-bounces-providers-description": "Loko WeKan yi rhumela hi vun'wana bya vukorhokeri lebyi, byi lumeke, nyika vukorhokeri adirese leyi ya webhook ya swiendlakalo swa byona swa ti-imeyili leti vuyeke ni swivilelo swa spam, kutani u namarheta laha xikhiya lexi byi swi sayinaka ha xona, kumbe xiletelo xa xihundla lexi u xi vekeke eka adirese tanihi https://user:password@… kumbe ?secret=…",
+  "email-bounces-provider-key": "Xikhiya xo sayina xa webhook",
+  "email-bounces-provider-password": "Xiletelo xa xihundla xa webhook",
+  "email-bounce-provider-secret-required": "Vukorhokeri lebyi lumekiweke byi lava xikhiya xa byona xo sayina kumbe xiletelo xa xihundla."
 }

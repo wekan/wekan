@@ -227,4 +227,70 @@ describe('Email bounces (runtime)', function () {
     await sns(notification({ notificationType: 'Bounce', bounce: { bounceType: 'Permanent', bouncedRecipients: [{ emailAddress: typo, status: '5.1.1' }] } }));
     assert.equal(await InvitationCodes.findOneAsync({ email: typo }), undefined);
   });
+
+  it('the other sending services: each webhook over HTTP, signed or with its password, and a forgery refused', async function () {
+    const ts = String(Math.floor(Date.now() / 1000));
+    const ec = crypto.generateKeyPairSync('ec', { namedCurve: 'prime256v1' });
+    const svixKey = crypto.randomBytes(24);
+    const secrets = {
+      mailgun: 'mg-signing-key', sendgrid: ec.publicKey.export({ format: 'der', type: 'spki' }).toString('base64'),
+      postmark: 'pm-pass', brevo: 'br-pass', mailjet: 'mj-pass', sparkpost: 'sp-pass', mandrill: 'md-key',
+      resend: `whsec_${svixKey.toString('base64')}`,
+    };
+    const providers = Object.fromEntries(Object.keys(secrets).map(n => [n, { enabled: true }]));
+    await call(admin, 'saveEmailBounceSettings', { enabled: true, rules: {}, sesTopicArns: [TOPIC], providers, providerSecrets: secrets });
+    const view = await call(admin, 'getEmailBounceSettings');
+    assert.doesNotMatch(JSON.stringify(view), /mg-signing-key|pm-pass|whsec_/, 'no key or password goes back to the browser');
+    assert.equal(view.providers.mailgun.secretSet, true);
+
+    const tag = Random.id(5).toLowerCase();
+    const who = name => `${name}-${tag}@example.org`;
+    const url = name => Meteor.absoluteUrl(`api/inbound-email/bounces/${name}`);
+    const basic = pw => `Basic ${Buffer.from(`hook:${pw}`).toString('base64')}`;
+    const post = (name, body, headers = {}, raw) => fetch(url(name), { method: 'POST',
+      headers: { 'content-type': 'application/json', ...headers }, body: raw || JSON.stringify(body) });
+
+    // Mailgun
+    const mg = { signature: { timestamp: ts, token: 'tok', signature: crypto.createHmac('sha256', secrets.mailgun).update(`${ts}tok`).digest('hex') },
+      'event-data': { event: 'failed', severity: 'permanent', recipient: who('mailgun'), 'delivery-status': { code: 550, description: 'No such user' } } };
+    assert.equal((await post('mailgun', mg)).status, 200);
+    // SendGrid, signed over the raw body
+    const sgRaw = JSON.stringify([{ email: who('sendgrid'), event: 'bounce', type: 'bounce', status: '5.1.1', reason: 'unknown' }]);
+    const sgSig = crypto.sign('sha256', Buffer.from(`${ts}${sgRaw}`), ec.privateKey).toString('base64');
+    assert.equal((await post('sendgrid', null, { 'x-twilio-email-event-webhook-signature': sgSig, 'x-twilio-email-event-webhook-timestamp': ts }, sgRaw)).status, 200);
+    // Postmark, Brevo, Mailjet, SparkPost: Basic auth, or ?secret=
+    assert.equal((await post('postmark', { RecordType: 'Bounce', Type: 'HardBounce', Email: who('postmark') }, { authorization: basic('pm-pass') })).status, 200);
+    assert.equal((await post('brevo', { event: 'hard_bounce', email: who('brevo') }, { authorization: basic('br-pass') })).status, 200);
+    assert.equal((await post('mailjet', [{ event: 'bounce', email: who('mailjet'), hard_bounce: true }], { authorization: basic('mj-pass') })).status, 200);
+    assert.equal((await fetch(`${url('sparkpost')}?secret=sp-pass`, { method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify([{ msys: { message_event: { type: 'bounce', rcpt_to: who('sparkpost'), bounce_class: '10' } } }]) })).status, 200);
+    // Mandrill: a form, signed over the URL and the fields
+    const mdEvents = JSON.stringify([{ event: 'hard_bounce', msg: { email: who('mandrill'), bounce_description: 'bad_mailbox' } }]);
+    const mdSig = crypto.createHmac('sha1', secrets.mandrill).update(`${url('mandrill')}mandrill_events${mdEvents}`).digest('base64');
+    assert.equal((await fetch(url('mandrill'), { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded', 'x-mandrill-signature': mdSig },
+      body: new URLSearchParams({ mandrill_events: mdEvents }).toString() })).status, 200);
+    // Resend (Svix)
+    const rsRaw = JSON.stringify({ type: 'email.bounced', data: { to: [who('resend')], bounce: { type: 'Permanent', message: 'no such user' } } });
+    const rsSig = crypto.createHmac('sha256', svixKey).update(`msg_${tag}.${ts}.${rsRaw}`).digest('base64');
+    assert.equal((await post('resend', null, { 'svix-id': `msg_${tag}`, 'svix-timestamp': ts, 'svix-signature': `v1,${rsSig}` }, rsRaw)).status, 200);
+
+    for (const name of Object.keys(secrets)) {
+      const row = await EmailBounces.findOneAsync({ email: who(name) });
+      assert.ok(row, `${name}: the bounce is recorded`);
+      assert.deepEqual([row.lastCategory, row.lastSource, row.stopped], ['hard', name, true], name);
+    }
+
+    // Forgeries: a wrong password, a wrong signature, a provider not turned on.
+    const forged = who('forged');
+    assert.equal((await post('postmark', { RecordType: 'Bounce', Type: 'HardBounce', Email: forged }, { authorization: basic('guess') })).status, 401);
+    assert.equal((await post('mailgun', { ...mg, 'event-data': { ...mg['event-data'], recipient: forged } , signature: { ...mg.signature, signature: 'f'.repeat(64) } })).status, 401);
+    assert.equal((await post('sendgrid', null, { 'x-twilio-email-event-webhook-signature': sgSig, 'x-twilio-email-event-webhook-timestamp': ts },
+      sgRaw.replace(who('sendgrid'), forged))).status, 401, 'a body changed after signing');
+    await call(admin, 'saveEmailBounceSettings', { enabled: true, rules: {}, sesTopicArns: [TOPIC], providers: { ...providers, brevo: { enabled: false } } });
+    assert.equal((await post('brevo', { event: 'hard_bounce', email: forged }, { authorization: basic('br-pass') })).status, 404, 'a service that is off is not there');
+    assert.equal(await EmailBounces.findOneAsync({ email: forged }), undefined);
+    // Turning a provider on without its key is refused.
+    await assert.rejects(() => call(admin, 'saveEmailBounceSettings', { enabled: true, rules: {}, sesTopicArns: [],
+      providers: { mailgun: { enabled: true } }, clearProviderSecrets: ['mailgun'] }), /email-bounce-provider-secret-required/);
+  });
 });

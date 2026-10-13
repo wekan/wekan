@@ -79,6 +79,51 @@ A message that fails either check is refused and shows in Admin Panel → Proble
 The endpoint works even when the REST API is turned off (`WITH_API`), as the
 email-to-card webhook does.
 
+### Other sending services
+
+If WeKan sends through one of these services, WeKan can take their bounce and
+spam-complaint webhooks directly. Turn the service on in **Bounces → Other
+sending services**, give the service the address shown there, and paste the
+service's signing key, or a password:
+
+| Service | Address | How WeKan knows it is the service | What to paste |
+| --- | --- | --- | --- |
+| Mailgun | `/api/inbound-email/bounces/mailgun` | HMAC-SHA256 signature of every event | the **HTTP webhook signing key** (Sending → Webhooks) |
+| SendGrid | `/api/inbound-email/bounces/sendgrid` | ECDSA signature of the body (Signed Event Webhook) | the **verification key** (Settings → Mail Settings → Event Webhook → Signature verification) |
+| Mandrill (Mailchimp Transactional) | `/api/inbound-email/bounces/mandrill` | HMAC-SHA1 of the address and the fields | the webhook's **key** |
+| Resend | `/api/inbound-email/bounces/resend` | Svix signature | the **signing secret** (`whsec_…`) |
+| Postmark | `/api/inbound-email/bounces/postmark` | a password you choose | the password; put it in the webhook address as `https://wekan:PASSWORD@wekan.example.com/…` (Basic auth) |
+| Brevo (Sendinblue) | `/api/inbound-email/bounces/brevo` | a password you choose | the password, as Basic auth in the address |
+| Mailjet | `/api/inbound-email/bounces/mailjet` | a password you choose | the password, as Basic auth in the address |
+| SparkPost | `/api/inbound-email/bounces/sparkpost` | a password you choose | the password, as Basic auth or `?secret=PASSWORD` |
+
+Choose these events in the service:
+
+| Service | Events |
+| --- | --- |
+| Mailgun | permanent failure, temporary failure, spam complaint |
+| SendGrid | bounce, dropped, deferred, spam report |
+| Postmark | Bounce, Spam Complaint |
+| Brevo | hard bounce, soft bounce, blocked, invalid, complaint |
+| Mailjet | bounce, blocked, spam |
+| SparkPost | bounce, out-of-band, spam complaint |
+| Mandrill | hard bounce, soft bounce, reject, spam |
+| Resend | `email.bounced`, `email.complained` |
+
+Each service's own categories become WeKan's:
+
+- a permanent failure or an invalid address is a **hard** bounce;
+- a temporary, deferred or blocked one is **soft**;
+- Postmark's *AutoResponder* is an **automatic reply**;
+- a spam report is a **complaint**.
+
+A request with a wrong or missing signature or password is refused (HTTP 401)
+and shows in Admin Panel → Problems → Security. A service that is turned off
+answers 404. Keys and passwords are written only when typed, and are never sent
+back to a browser.
+
+These endpoints work even when the REST API is turned off (`WITH_API`).
+
 ### Any other mail system
 
 Bounces also arrive as email, as delivery status notifications (RFC 3464,
@@ -118,6 +163,7 @@ wrong webhook secret, a forged SNS message.
 | File | |
 | --- | --- |
 | `models/lib/emailBounce.js` | Categories, actions, the rules, and SES/DSN/auto-reply classification. No Meteor code |
+| `models/lib/emailBounceProviders.js` | Each service's webhook, read into those categories, and each service's signature or password check. No Meteor code |
 | `server/emailBounces.js` | The SES endpoint, recording and actions, the send hook, the Admin Panel methods |
 | `client/components/settings/emailBounces.jade`, `.js` | The Admin Panel section |
 | `models/lib/mailProblems.js`, `server/lib/mailProblems.js` | Problems → Email |

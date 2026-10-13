@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "ลืมการตีกลับของที่อยู่นี้และส่งอีเมลถึงอีกครั้ง",
   "email-bounces-none": "ไม่มีการตีกลับ",
   "email-bounce-invalid-topic": "นั่นไม่ใช่ ARN ของหัวข้อ SNS",
-  "mailReportTitle": "อีเมล์"
+  "mailReportTitle": "อีเมล์",
+  "email-bounces-providers": "บริการส่งอีเมลอื่น ๆ",
+  "email-bounces-providers-description": "หาก WeKan ส่งผ่านบริการใดบริการหนึ่งเหล่านี้ ให้เปิดใช้งาน แล้วให้ที่อยู่ webhook นี้แก่บริการนั้นสำหรับเหตุการณ์อีเมลตีกลับและการร้องเรียนสแปม และวางคีย์ที่บริการใช้ลงนามเหตุการณ์เหล่านั้นไว้ที่นี่ หรือรหัสผ่านที่คุณใส่ไว้ในที่อยู่ในรูปแบบ https://user:password@… หรือ ?secret=…",
+  "email-bounces-provider-key": "คีย์ลงนาม webhook",
+  "email-bounces-provider-password": "รหัสผ่าน webhook",
+  "email-bounce-provider-secret-required": "บริการที่เปิดใช้งานต้องมีคีย์ลงนามหรือรหัสผ่าน"
 }

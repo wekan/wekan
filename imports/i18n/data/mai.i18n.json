@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "एहि पताक वापसी बिसरू आ फेर सँ ईमेल पठाउ",
   "email-bounces-none": "कोनो वापसी नहि।",
   "email-bounce-invalid-topic": "ई SNS विषय ARN नहि अछि।",
-  "mailReportTitle": "ईमेल"
+  "mailReportTitle": "ईमेल",
+  "email-bounces-providers": "आन पठाबऽ बला सेवा",
+  "email-bounces-providers-description": "जँ WeKan एहि सेवा सभ मे सँ कोनो एक द्वारा पठबैत अछि, तँ ओकरा चालू करू, सेवाकेँ ओकर घुरल ईमेल आ स्पाम शिकायतक घटना सभक लेल ई webhook पता दिअ, आ एतय ओ कुंजी चिपकाउ जाहि सँ ओ ओकरा सभ पर हस्ताक्षर करैत अछि, वा ओ पासवर्ड जे अहाँ पता मे https://user:password@… वा ?secret=… जकाँ रखलहुँ",
+  "email-bounces-provider-key": "Webhook हस्ताक्षर कुंजी",
+  "email-bounces-provider-password": "Webhook पासवर्ड",
+  "email-bounce-provider-secret-required": "चालू सेवाकेँ ओकर हस्ताक्षर कुंजी वा पासवर्डक आवश्यकता अछि।"
 }

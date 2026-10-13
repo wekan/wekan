@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "ఈ చిరునామా తిరుగుడులను మరచి మళ్ళీ ఇమెయిల్ పంపు",
   "email-bounces-none": "తిరుగుడులు లేవు.",
   "email-bounce-invalid-topic": "అది SNS అంశ ARN కాదు.",
-  "mailReportTitle": "ఇమెయిల్"
+  "mailReportTitle": "ఇమెయిల్",
+  "email-bounces-providers": "ఇతర పంపే సేవలు",
+  "email-bounces-providers-description": "WeKan ఈ సేవల్లో ఒకదాని ద్వారా పంపితే, దాన్ని ఆన్ చేయండి, తిరిగి వచ్చిన ఇమెయిల్స్ మరియు స్పామ్ ఫిర్యాదు ఈవెంట్‌ల కోసం ఈ వెబ్‌హుక్ చిరునామాను ఆ సేవకు ఇవ్వండి, మరియు వాటిపై సంతకం చేయడానికి అది ఉపయోగించే కీని, లేదా https://user:password@… లేదా ?secret=… గా చిరునామాలో మీరు పెట్టిన పాస్వర్డ్‌ను ఇక్కడ అతికించండి",
+  "email-bounces-provider-key": "వెబ్‌హుక్ సంతకం కీ",
+  "email-bounces-provider-password": "వెబ్‌హుక్ పాస్వర్డ్",
+  "email-bounce-provider-secret-required": "ఆన్ చేసిన సేవకు దాని సంతకం కీ లేదా పాస్వర్డ్ అవసరం."
 }

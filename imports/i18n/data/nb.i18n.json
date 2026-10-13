@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Glem returene for denne adressen og send e-post til den igjen",
   "email-bounces-none": "Ingen returer.",
   "email-bounce-invalid-topic": "Det er ikke en SNS-emne-ARN.",
-  "mailReportTitle": "E-post"
+  "mailReportTitle": "E-post",
+  "email-bounces-providers": "Andre sendetjenester",
+  "email-bounces-providers-description": "Hvis WeKan sender gjennom en av disse tjenestene, slå den på, gi tjenesten denne webhook-adressen for hendelsene om returnerte e-poster og spamklager, og lim inn her nøkkelen den signerer dem med, eller passordet du satte i adressen som https://user:password@… eller ?secret=…",
+  "email-bounces-provider-key": "Signeringsnøkkel for webhook",
+  "email-bounces-provider-password": "Webhook-passord",
+  "email-bounce-provider-secret-required": "En tjeneste som er slått på, trenger signeringsnøkkelen eller passordet sitt."
 }

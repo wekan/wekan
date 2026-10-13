@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "برگشت‌های این نشانی را فراموش کن و دوباره به آن ایمیل بفرست",
   "email-bounces-none": "هیچ برگشتی نیست.",
   "email-bounce-invalid-topic": "این یک ARN موضوع SNS نیست.",
-  "mailReportTitle": "پست الکترونیک"
+  "mailReportTitle": "پست الکترونیک",
+  "email-bounces-providers": "سایر سرویس‌های ارسال",
+  "email-bounces-providers-description": "اگر WeKan از طریق یکی از این سرویس‌ها ایمیل می‌فرستد، آن را روشن کنید، این نشانی وب‌هوک را برای رویدادهای ایمیل برگشتی و شکایت هرزنامه به سرویس بدهید، و کلیدی را که سرویس با آن رویدادها را امضا می‌کند، یا کلمه عبوری را که در نشانی به شکل https://user:password@… یا ?secret=… گذاشته‌اید، اینجا بچسبانید",
+  "email-bounces-provider-key": "کلید امضای وب‌هوک",
+  "email-bounces-provider-password": "کلمه عبور وب‌هوک",
+  "email-bounce-provider-secret-required": "سرویسی که روشن است به کلید امضا یا کلمه عبور خود نیاز دارد."
 }

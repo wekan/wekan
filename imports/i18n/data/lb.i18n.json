@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "D'Récklaf vun dëser Adress vergiessen an hir nees E-Mailen schécken",
   "email-bounces-none": "Keng Récklaf.",
   "email-bounce-invalid-topic": "Dat ass keen SNS-Thema-ARN.",
-  "mailReportTitle": "E-Mail"
+  "mailReportTitle": "E-Mail",
+  "email-bounces-providers": "Aner Versanddéngschter",
+  "email-bounces-providers-description": "Wann WeKan iwwer ee vun dësen Déngschter schéckt, schalt en an, gëff dem Déngscht dës Webhook-Adress fir seng Evenementer iwwer zréckgeschéckt Mailen a Spam-Plainten, a pecht hei de Schlëssel an, mat deem en se signéiert, oder d'Passwuert, dat s du an d'Adress als https://user:password@… oder ?secret=… gesat hues",
+  "email-bounces-provider-key": "Webhook-Signaturschlëssel",
+  "email-bounces-provider-password": "Webhook-Passwuert",
+  "email-bounce-provider-secret-required": "En ageschalten Déngscht brauch säi Signaturschlëssel oder säi Passwuert."
 }

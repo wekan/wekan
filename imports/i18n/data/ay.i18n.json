@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Aka chiqan kutt'äwinakap armaña ukat wasitat apayaña",
   "email-bounces-none": "Janiw kutt'äwinakax utjkiti.",
   "email-bounce-invalid-topic": "Ukax janiw SNS yatichäwi ARN ukäkiti.",
-  "mailReportTitle": "Aruskipäwi"
+  "mailReportTitle": "Aruskipäwi",
+  "email-bounces-providers": "Yaqha apayañ yanapt'awinaka",
+  "email-bounces-providers-description": "WeKan aka yanapt'awinakat maynimpi apayaspa ukhaxa, ch'amañchama, yanapt'awiru aka webhook chiqa churama kutt'anir aruskipäwinakataki ukhamarak spam kexanakataki, ukatxa aka chiqaru uchama kunampitix firmki uka llave, jan ukax chiqaru https://user:password@… jan ukax ?secret=… ukham uchkta uka imantata aru",
+  "email-bounces-provider-key": "Webhook firmañ llave",
+  "email-bounces-provider-password": "Webhook imantata aru",
+  "email-bounce-provider-secret-required": "Ch'amañchat yanapt'awixa firmañ llavepa jan ukax imantata arupa munaraki."
 }

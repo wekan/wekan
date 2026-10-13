@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "ምምላሳት ናይዚ ኣድራሻ ረስዕ ከምኡ'ውን ደጊምካ ኢመይል ስደደሉ",
   "email-bounces-none": "ምምላስ የለን።",
   "email-bounce-invalid-topic": "እዚ ናይ SNS ኣርእስቲ ARN ኣይኮነን።",
-  "mailReportTitle": "ኢመይል"
+  "mailReportTitle": "ኢመይል",
+  "email-bounces-providers": "ካልኦት ኣገልግሎታት ምልኣኽ",
+  "email-bounces-providers-description": "WeKan ብሓደ ካብዞም ኣገልግሎታት እንተ ሰዲዱ፣ ኣበርትዖ፣ ነቲ ኣገልግሎት ነዚ ኣድራሻ webhook ንፍጻመታት ዝተመልሱ ኢመይላትን ናይ ስፓም ጥርዓንን ሃቦ፣ ነቲ ዝፍርመሉ መፍትሕ፣ ወይ ኣብቲ ኣድራሻ ከም https://user:password@… ወይ ?secret=… ዘእቶኻዮ መሕለፊ ቃል ኣብዚ ለጥፎ",
+  "email-bounces-provider-key": "መፍትሕ ፊርማ Webhook",
+  "email-bounces-provider-password": "መሕለፊ ቃል Webhook",
+  "email-bounce-provider-secret-required": "ዝበርሀ ኣገልግሎት መፍትሕ ፊርምኡ ወይ መሕለፊ ቃሉ የድልዮ።"
 }

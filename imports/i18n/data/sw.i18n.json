@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Sahau barua zilizorudi za anwani hii na uitumie barua pepe tena",
   "email-bounces-none": "Hakuna barua zilizorudi.",
   "email-bounce-invalid-topic": "Hiyo si ARN ya mada ya SNS.",
-  "mailReportTitle": "Barua pepe"
+  "mailReportTitle": "Barua pepe",
+  "email-bounces-providers": "Huduma nyingine za kutuma",
+  "email-bounces-providers-description": "Ikiwa WeKan inatuma kupitia mojawapo ya huduma hizi, iwashe, ipe huduma hiyo anwani hii ya webhook kwa matukio yake ya barua zilizorudi na malalamiko ya barua taka, na ubandike hapa ufunguo inaotumia kuyatia sahihi, au nenosiri uliloweka kwenye anwani kama https://user:password@… au ?secret=…",
+  "email-bounces-provider-key": "Ufunguo wa sahihi wa webhook",
+  "email-bounces-provider-password": "Nenosiri la webhook",
+  "email-bounce-provider-secret-required": "Huduma iliyowashwa inahitaji ufunguo wake wa sahihi au nenosiri."
 }

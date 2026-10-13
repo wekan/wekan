@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Бу аадырыс төннүүлэрин умун уонна өссө сурук ыыт",
   "email-bounces-none": "Төннүү суох.",
   "email-bounce-invalid-topic": "Бу SNS тиэмэтин ARN-а буолбатах.",
-  "mailReportTitle": "Электроннай почта"
+  "mailReportTitle": "Электроннай почта",
+  "email-bounces-providers": "Атын ыытар сулууспалар",
+  "email-bounces-providers-description": "WeKan бу сулууспалартан биирдэстэринэн ыытар буоллаҕына, ону холбоо, сулууспаҕа төннүбүт суруктар уонна спам туһунан үҥсүүлэр түбэлтэлэрин иһин бу вебхук аадырыһын биэр, онтон манна кини кинилэргэ илии баттыыр күлүүһүн, эбэтэр аадырыска https://user:password@… эбэтэр ?secret=… курдук суруйбут кистэлэҥ тылгын киллэр",
+  "email-bounces-provider-key": "Вебхук илии баттыыр күлүүһэ",
+  "email-bounces-provider-password": "Вебхук кистэлэҥ тыла",
+  "email-bounce-provider-secret-required": "Холбоммут сулууспаҕа илии баттыыр күлүүһэ эбэтэр кистэлэҥ тыла наада."
 }

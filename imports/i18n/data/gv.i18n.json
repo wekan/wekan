@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Jarrood chyndaaghyn yn enmys shoh as cur post-l huic reesht",
   "email-bounces-none": "Gyn chyndaaghyn.",
   "email-bounce-invalid-topic": "Cha nel shen ARN cooish SNS.",
-  "mailReportTitle": "Post-l"
+  "mailReportTitle": "Post-l",
+  "email-bounces-providers": "Shirveishyn currey elley",
+  "email-bounces-providers-description": "My ta WeKan currey trooid unnane jeh ny shirveishyn shoh, cur er eh, cur da'n shirveish yn enmys webhook shoh son taghyrtyn post-l er chyndaa as plaiynt spam, as cur shoh yn eochr t'eh cur e ennym orroo lesh, ny yn fockle-arrey hug oo ayns yn enmys myr https://user:password@… ny ?secret=…",
+  "email-bounces-provider-key": "Eochr sinal y webhook",
+  "email-bounces-provider-password": "Fockle-arrey y webhook",
+  "email-bounce-provider-secret-required": "Ta feme ec shirveish ta er currit er er e eochr sinal ny e fockle-arrey."
 }

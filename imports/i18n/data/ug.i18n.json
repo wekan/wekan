@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "بۇ ئادرېسنىڭ قايتىشلىرىنى ئۇنتۇپ، ئۇنىڭغا قايتا ئېلخەت ئەۋەتىش",
   "email-bounces-none": "قايتىش يوق.",
   "email-bounce-invalid-topic": "بۇ SNS تېما ARN ى ئەمەس.",
-  "mailReportTitle": "ئېلخەت"
+  "mailReportTitle": "ئېلخەت",
+  "email-bounces-providers": "باشقا ئەۋەتىش مۇلازىمەتلىرى",
+  "email-bounces-providers-description": "ئەگەر WeKan بۇ مۇلازىمەتلەرنىڭ بىرى ئارقىلىق ئەۋەتسە، ئۇنى ئېچىڭ، مۇلازىمەتكە قايتىپ كەلگەن ئېلخەت ۋە ئەخلەت خەت ئەرزى ھادىسىلىرى ئۈچۈن بۇ Webhook ئادرېسىنى بېرىڭ، ھەمدە بۇ يەرگە ئۇلارنى ئىمزالايدىغان ئاچقۇچنى، ياكى ئادرېسقا https://user:password@… ياكى ?secret=… شەكلىدە قويغان پارولنى چاپلاڭ",
+  "email-bounces-provider-key": "Webhook ئىمزا ئاچقۇچى",
+  "email-bounces-provider-password": "Webhook پارولى",
+  "email-bounce-provider-secret-required": "ئېچىلغان مۇلازىمەتكە ئۆزىنىڭ ئىمزا ئاچقۇچى ياكى پارولى كېرەك."
 }

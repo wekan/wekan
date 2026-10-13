@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Die Rückläufer dieser Adresse vergessen und wieder E-Mails an sie senden",
   "email-bounces-none": "Keine unzustellbaren E-Mails.",
   "email-bounce-invalid-topic": "Das ist keine SNS-Themen-ARN.",
-  "mailReportTitle": "E-Mail"
+  "mailReportTitle": "E-Mail",
+  "email-bounces-providers": "Andere Versanddienste",
+  "email-bounces-providers-description": "Wenn WeKan über einen dieser Dienste sendet, schalten Sie ihn ein, geben Sie dem Dienst diese Webhook-Adresse für seine Ereignisse zu unzustellbaren E-Mails und Spam-Beschwerden, und fügen Sie hier den Schlüssel ein, mit dem er sie signiert, oder das Passwort, das Sie als https://user:password@… oder ?secret=… in die Adresse gesetzt haben",
+  "email-bounces-provider-key": "Webhook-Signaturschlüssel",
+  "email-bounces-provider-password": "Webhook-Passwort",
+  "email-bounce-provider-secret-required": "Ein eingeschalteter Dienst braucht seinen Signaturschlüssel oder sein Passwort."
 }

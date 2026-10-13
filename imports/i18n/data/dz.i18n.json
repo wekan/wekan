@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "ཁ་བྱང་འདི་གི་ ལོག་འོང་ཚུ་བརྗེད་ཞིནམ་ལས་ ལོག་སྟེ་ གློག་འཕྲིན་གཏང་།",
   "email-bounces-none": "ལོག་འོང་མེད།",
   "email-bounce-invalid-topic": "འདི་ SNS དོན་ཚན་ ARN མེན།",
-  "mailReportTitle": "གློག་འཕྲིན།"
+  "mailReportTitle": "གློག་འཕྲིན།",
+  "email-bounces-providers": "གཏང་ནིའི་ཞབས་ཏོག་གཞན།",
+  "email-bounces-providers-description": "གལ་སྲིད་ WeKan གིས་ ཞབས་ཏོག་འདི་ཚུ་ནང་ལས་ གཅིག་བརྒྱུད་དེ་ གཏངམ་ཨིན་པ་ཅིན་ དེ་ཁ་ཕྱེ། ལོག་འོང་བའི་གློག་འཕྲིན་དང་ ཁེ་མེད་གློག་འཕྲིན་གྱི་ཞུ་བའི་བྱུང་ལས་ཚུ་གི་དོན་ལུ་ ཞབས་ཏོག་དེ་ལུ་ webhook ཁ་བྱང་འདི་བྱིན། དེ་ལས་ ཁོང་ལུ་ མིང་རྟགས་བཀོད་ནིའི་ལྡེ་མིག་ ཡང་ན་ ཁྱོད་ཀྱིས་ ཁ་བྱང་ནང་ https://user:password@… ཡང་ན་ ?secret=… བཟུམ་སྦེ་ བཙུགས་མི་ཆོག་ཡིག་འདི་ ནཱ་ལུ་སྦྱར།",
+  "email-bounces-provider-key": "Webhook མིང་རྟགས་ལྡེ་མིག",
+  "email-bounces-provider-password": "Webhook ཆོག་ཡིག",
+  "email-bounce-provider-secret-required": "ཁ་ཕྱེ་ཡོད་པའི་ཞབས་ཏོག་ལུ་ རང་སོའི་མིང་རྟགས་ལྡེ་མིག་ ཡང་ན་ ཆོག་ཡིག་དགོཔ་ཨིན།"
 }

@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Yejjit ruttooji ñiiɓirde ndee, nelda ɗum iimeel kadi",
   "email-bounces-none": "Rutto alaa.",
   "email-bounce-invalid-topic": "Ɗum wonaa ARN toɓɓere SNS.",
-  "mailReportTitle": "Iimeel"
+  "mailReportTitle": "Iimeel",
+  "email-bounces-providers": "Carwe neldugol goɗɗe",
+  "email-bounces-providers-description": "So WeKan ina nelda e carwol gooto e ɗeen, huɓɓu ngol, rokku carwol ngol ñiiɓirde webhook nde ngam huunde iimeel ruttiiɗi e plent spam, ñooƴaa ɗoo coktirgal ngol fommbinirta ɗum, walla finnde suuraande nde ngaddu-ɗaa e ñiiɓirde nde no https://user:password@… walla ?secret=…",
+  "email-bounces-provider-key": "Coktirgal fommbinirgal webhook",
+  "email-bounces-provider-password": "Finnde suuraande webhook",
+  "email-bounce-provider-secret-required": "Carwol huɓɓaangol ina sokli coktirgal mum fommbinirgal walla finnde mum suuraande."
 }

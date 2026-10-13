@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Zapōmnij wrōcynia tyj adresy i posyłej na nia mejle zaś",
   "email-bounces-none": "Żŏdnych wrōcyń.",
   "email-bounce-invalid-topic": "To niy ma ARN tymatu SNS.",
-  "mailReportTitle": "Mejl"
+  "mailReportTitle": "Mejl",
+  "email-bounces-providers": "Inksze usugi wysyłanio",
+  "email-bounces-providers-description": "Jak WeKan wysyłŏ bez jedna z tych usug, załōncz jōm, dej usudze ta adresa webhooka do jeji zdarzyń ô wrōcōnych mejlach i skargach na spam, i wraź sam klucz, kerym ôna je podpisuje, abo hasło, kere żeś wraziył do adresy jako https://user:password@… abo ?secret=…",
+  "email-bounces-provider-key": "Klucz podpisu webhooka",
+  "email-bounces-provider-password": "Hasło webhooka",
+  "email-bounce-provider-secret-required": "Załōnczōnŏ usuga potrzebuje swojigo klucza podpisu abo hasła."
 }

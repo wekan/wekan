@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Scurdà 'e ritorne 'e st'indirizzo e mannarle n'ata vota mail",
   "email-bounces-none": "Nisciuno ritorno.",
   "email-bounce-invalid-topic": "Chesto nun è n'ARN 'e tema SNS.",
-  "mailReportTitle": "Posta elettronica"
+  "mailReportTitle": "Posta elettronica",
+  "email-bounces-providers": "Ati servizie 'e mannata",
+  "email-bounces-providers-description": "Si WeKan manna pe' mmiezo 'e uno 'e chiste servizie, appicciatelo, dàte ô servizio chist'indirizzo webhook pe' ll'evente suoje 'e mail turnate arreto e reclame 'e spam, e ncullate ccà 'a chiave cu cui 'e firma, o 'a parola d'ordine ca avite miso dint' a ll'indirizzo comme https://user:password@… o ?secret=…",
+  "email-bounces-provider-key": "Chiave 'e firma d' 'o webhook",
+  "email-bounces-provider-password": "Parola d'ordine d' 'o webhook",
+  "email-bounce-provider-secret-required": "Nu servizio appicciato tene bisogno d' 'a chiave 'e firma o d' 'a parola d'ordine soja."
 }

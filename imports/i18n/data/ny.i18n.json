@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Iwalani kubwerera kwa adilesiyi ndipo itumizireninso imelo",
   "email-bounces-none": "Palibe kubwerera.",
   "email-bounce-invalid-topic": "Imeneyo si ARN ya mutu wa SNS.",
-  "mailReportTitle": "Imelo"
+  "mailReportTitle": "Imelo",
+  "email-bounces-providers": "Ntchito zina zotumizira",
+  "email-bounces-providers-description": "Ngati WeKan imatumiza kudzera mu imodzi mwa ntchito izi, iyatseni, patsani ntchitoyo adilesi iyi ya webhook ya zochitika zake za maimelo obwerera ndi madandaulo a spam, ndipo matani apa kiyi yomwe imasaina nayo, kapena mawu achinsinsi omwe mudaika mu adilesi ngati https://user:password@… kapena ?secret=…",
+  "email-bounces-provider-key": "Kiyi yosainira ya webhook",
+  "email-bounces-provider-password": "Mawu achinsinsi a webhook",
+  "email-bounce-provider-secret-required": "Ntchito yoyatsidwa ikufunika kiyi yake yosainira kapena mawu achinsinsi."
 }

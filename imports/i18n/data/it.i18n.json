@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Dimentica i rimbalzi di questo indirizzo e torna a inviargli email",
   "email-bounces-none": "Nessun rimbalzo.",
   "email-bounce-invalid-topic": "Questo non è un ARN di argomento SNS.",
-  "mailReportTitle": "Posta elettronica"
+  "mailReportTitle": "Posta elettronica",
+  "email-bounces-providers": "Altri servizi di invio",
+  "email-bounces-providers-description": "Se WeKan invia tramite uno di questi servizi, attivalo, fornisci al servizio questo indirizzo webhook per i suoi eventi di rimbalzo e di segnalazione di spam, e incolla qui la chiave con cui li firma, oppure la parola d'accesso che hai inserito nell'indirizzo come https://user:password@… o ?secret=…",
+  "email-bounces-provider-key": "Chiave di firma del webhook",
+  "email-bounces-provider-password": "Parola d'accesso del webhook",
+  "email-bounce-provider-secret-required": "Un servizio attivo richiede la sua chiave di firma o la sua parola d'accesso."
 }

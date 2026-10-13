@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Zabëc wróceniô ti adresë ë znowa słac na niã lëstë",
   "email-bounces-none": "Nijednëch wróceniów.",
   "email-bounce-invalid-topic": "To nie je ARN témë SNS.",
-  "mailReportTitle": "Elektroniczny lëst"
+  "mailReportTitle": "Elektroniczny lëst",
+  "email-bounces-providers": "Jinszé słëżbë wësyłaniô",
+  "email-bounces-providers-description": "Jeżlë WeKan wësyłô przez jedną z tëch słëżbów, włączë ją, dôj słëżbie nen adres webhooka dlô ji zdarzeniów wróconëch lëstów ë skargów na spam, a wlepi tuwò klucz, chtërnym je pòdpisëje, abò parolã, jakô të wpisôł w adres jakno https://user:password@… abò ?secret=…",
+  "email-bounces-provider-key": "Klucz pòdpisënkù webhooka",
+  "email-bounces-provider-password": "Parola webhooka",
+  "email-bounce-provider-secret-required": "Włączonô słëżba brëkùje swòjégò klucza pòdpisënkù abò parolë."
 }

@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Vergeet hierdie adres se terugstuurs en e-pos dit weer",
   "email-bounces-none": "Geen teruggestuurde e-pos nie.",
   "email-bounce-invalid-topic": "Dit is nie 'n SNS-onderwerp-ARN nie.",
-  "mailReportTitle": "E-pos"
+  "mailReportTitle": "E-pos",
+  "email-bounces-providers": "Ander stuurdienste",
+  "email-bounces-providers-description": "As WeKan deur een van hierdie dienste stuur, skakel dit aan, gee die diens hierdie webhook-adres vir sy terugstuur- en strooiposklagte-gebeurtenisse, en plak hier die sleutel waarmee dit hulle onderteken, of die wagwoord wat jy in die adres gesit het as https://user:password@… of ?secret=…",
+  "email-bounces-provider-key": "Webhook-ondertekeningsleutel",
+  "email-bounces-provider-password": "Webhook-wagwoord",
+  "email-bounce-provider-secret-required": "'n Diens wat aangeskakel is, het sy ondertekeningsleutel of wagwoord nodig."
 }

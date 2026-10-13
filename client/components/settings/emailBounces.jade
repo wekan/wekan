@@ -38,6 +38,25 @@ template(name="emailBounces")
       label
         | {{_ 'email-bounces-ses-topics'}}
         textarea.js-bounce-topics(rows="3" placeholder="arn:aws:sns:eu-west-1:123456789012:wekan-bounces") {{topicsText}}
+      .title {{_ 'email-bounces-providers'}}
+      p.quiet {{_ 'email-bounces-providers-description'}}
+      table.email-bounce-providers
+        tbody
+          each providerRows
+            tr(data-provider="{{name}}")
+              td
+                a.flex.js-bounce-provider(data-provider="{{name}}" role="checkbox" aria-checked="{{#if enabled}}true{{else}}false{{/if}}")
+                  .materialCheckBox(class="{{#if enabled}}is-checked{{/if}}")
+                  span {{label}}
+              td
+                code.email-bounce-endpoint {{endpoint}}
+              td
+                label
+                  if signed
+                    | {{_ 'email-bounces-provider-key'}}
+                  else
+                    | {{_ 'email-bounces-provider-password'}}
+                  input.js-bounce-provider-secret(type="password" autocomplete="new-password" data-provider="{{name}}" placeholder="{{#if secretSet}}{{_ 'email-to-card-secret-saved'}}{{/if}}")
       button.primary.js-bounce-save(type="button") {{_ 'save'}}
       if message
         p.quiet.js-bounce-message {{message}}

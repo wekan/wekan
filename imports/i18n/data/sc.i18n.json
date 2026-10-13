@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Iscaressi sas torradas de custu indiritzu e torra a l'imbiare posta",
   "email-bounces-none": "Peruna torrada.",
   "email-bounce-invalid-topic": "Custu no est un'ARN de tema SNS.",
-  "mailReportTitle": "Posta eletrònica"
+  "mailReportTitle": "Posta eletrònica",
+  "email-bounces-providers": "Àteros servìtzios de imbiu",
+  "email-bounces-providers-description": "Si WeKan imbiat pro mèdiu de unu de custos servìtzios, ativa-lu, dona a su servìtziu custu indiritzu de webhook pro sos eventos suos de messàgios torrados e de denùntzias de spam, e incolla inoghe sa crae cun sa cale los firmat, o sa crae chi as postu in s'indiritzu comente https://user:password@… o ?secret=…",
+  "email-bounces-provider-key": "Crae de firma de su webhook",
+  "email-bounces-provider-password": "Crae de su webhook",
+  "email-bounce-provider-secret-required": "Unu servìtziu ativu tenet bisòngiu de sa crae de firma o de sa crae sua."
 }

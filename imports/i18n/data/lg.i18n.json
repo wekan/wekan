@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Erabira okukomawo kw'endagiriro eno era ogiweereze imeyilo nate",
   "email-bounces-none": "Tewali kukomawo.",
   "email-bounce-invalid-topic": "Ekyo si ARN y'omutwe gwa SNS.",
-  "mailReportTitle": "Imeyilo"
+  "mailReportTitle": "Imeyilo",
+  "email-bounces-providers": "Empeereza endala ez'okuweereza",
+  "email-bounces-providers-description": "WeKan bw'eba eweereza ng'eyita mu emu ku mpeereza zino, gikoleeze, wa empeereza endagiriro eno eya webhook ku bintu byayo eby'imeyilo ezikomawo n'okwemulugunya ku spam, era wano teekamu ekisumuluzo ky'ekozesa okubiteekako omukono, oba ekigambo ekyekusifu ky'otadde mu ndagiriro nga https://user:password@… oba ?secret=…",
+  "email-bounces-provider-key": "Ekisumuluzo ky'omukono gwa webhook",
+  "email-bounces-provider-password": "Ekigambo ekyekusifu ekya webhook",
+  "email-bounce-provider-secret-required": "Empeereza ekoleezeddwa yeetaaga ekisumuluzo kyayo eky'omukono oba ekigambo ekyekusifu."
 }

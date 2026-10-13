@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "এই ঠিকানার ফেরতগুলো ভুলে যান এবং আবার ইমেইল পাঠান",
   "email-bounces-none": "কোনো ফেরত নেই।",
   "email-bounce-invalid-topic": "এটি কোনো SNS টপিক ARN নয়।",
-  "mailReportTitle": "ইমেইল"
+  "mailReportTitle": "ইমেইল",
+  "email-bounces-providers": "অন্যান্য পাঠানোর পরিষেবা",
+  "email-bounces-providers-description": "WeKan যদি এই পরিষেবাগুলোর কোনো একটির মাধ্যমে পাঠায়, তবে সেটি চালু করুন, ফেরত আসা ইমেইল ও স্প্যাম অভিযোগের ঘটনার জন্য পরিষেবাটিকে এই webhook ঠিকানা দিন, এবং এখানে সেই কী পেস্ট করুন যা দিয়ে এটি সেগুলো স্বাক্ষর করে, অথবা ঠিকানায় https://user:password@… বা ?secret=… হিসেবে যে পাসওয়ার্ড দিয়েছেন",
+  "email-bounces-provider-key": "Webhook স্বাক্ষর কী",
+  "email-bounces-provider-password": "Webhook পাসওয়ার্ড",
+  "email-bounce-provider-secret-required": "চালু করা পরিষেবার জন্য এর স্বাক্ষর কী বা পাসওয়ার্ড প্রয়োজন।"
 }

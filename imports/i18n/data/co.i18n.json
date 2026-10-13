@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Scurdassi di i ritorni di stu indirizzu è mandalli torna posta",
   "email-bounces-none": "Nisun ritornu.",
   "email-bounce-invalid-topic": "Questu ùn hè micca un ARN di tema SNS.",
-  "mailReportTitle": "Posta elettronica"
+  "mailReportTitle": "Posta elettronica",
+  "email-bounces-providers": "Altri servizii di mandata",
+  "email-bounces-providers-description": "S'è WeKan manda per mezu di unu di sti servizii, attivatelu, date à u serviziu st'indirizzu di webhook per i so avvenimenti di ritorni è di lagnanze di spam, è incullate quì a chjave cù a quale li firma, o a parolla d'intrata chì avete messu in l'indirizzu cum'è https://user:password@… o ?secret=…",
+  "email-bounces-provider-key": "Chjave di firma di u webhook",
+  "email-bounces-provider-password": "Parolla d'intrata di u webhook",
+  "email-bounce-provider-secret-required": "Un serviziu attivatu hà bisognu di a so chjave di firma o di a so parolla d'intrata."
 }

@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Забравяне на връщанията на този адрес и повторно изпращане на имейли до него",
   "email-bounces-none": "Няма върнати имейли.",
   "email-bounce-invalid-topic": "Това не е ARN на SNS тема.",
-  "mailReportTitle": "Имейл"
+  "mailReportTitle": "Имейл",
+  "email-bounces-providers": "Други услуги за изпращане",
+  "email-bounces-providers-description": "Ако WeKan изпраща чрез една от тези услуги, включете я, дайте на услугата този webhook адрес за нейните събития за върнати имейли и оплаквания за спам и поставете тук ключа, с който тя ги подписва, или паролата, която сте сложили в адреса като https://user:password@… или ?secret=…",
+  "email-bounces-provider-key": "Ключ за подписване на webhook",
+  "email-bounces-provider-password": "Парола за webhook",
+  "email-bounce-provider-secret-required": "Включената услуга се нуждае от своя ключ за подписване или парола."
 }

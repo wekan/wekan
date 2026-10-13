@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Déan dearmad ar phreabanna an tseolta seo agus seol ríomhphost chuige arís",
   "email-bounces-none": "Gan phreabanna.",
   "email-bounce-invalid-topic": "Ní ARN ábhair SNS é sin.",
-  "mailReportTitle": "Ríomhphost"
+  "mailReportTitle": "Ríomhphost",
+  "email-bounces-providers": "Seirbhísí seolta eile",
+  "email-bounces-providers-description": "Má sheolann WeKan trí cheann de na seirbhísí seo, cas air é, tabhair an seoladh webhook seo don tseirbhís dá himeachtaí preabtha agus gearáin turscair, agus greamaigh anseo an eochair lena síníonn sí iad, nó an pasfhocal a chuir tú sa seoladh mar https://user:password@… nó ?secret=…",
+  "email-bounces-provider-key": "Eochair sínithe an webhook",
+  "email-bounces-provider-password": "Pasfhocal an webhook",
+  "email-bounce-provider-secret-required": "Teastaíonn a eochair sínithe nó a phasfhocal ó sheirbhís atá casta air."
 }

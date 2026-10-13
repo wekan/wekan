@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Pamiršti šio adreso grąžinimus ir vėl siųsti jam laiškus",
   "email-bounces-none": "Grąžinimų nėra.",
   "email-bounce-invalid-topic": "Tai nėra SNS temos ARN.",
-  "mailReportTitle": "El. paštas"
+  "mailReportTitle": "El. paštas",
+  "email-bounces-providers": "Kitos siuntimo paslaugos",
+  "email-bounces-providers-description": "Jei WeKan siunčia per vieną iš šių paslaugų, įjunkite ją, nurodykite paslaugai šį webhook adresą jos grąžintų laiškų ir skundų dėl šlamšto įvykiams ir įklijuokite čia raktą, kuriuo ji juos pasirašo, arba slaptažodį, kurį įrašėte adrese kaip https://user:password@… arba ?secret=…",
+  "email-bounces-provider-key": "Webhook pasirašymo raktas",
+  "email-bounces-provider-password": "Webhook slaptažodis",
+  "email-bounce-provider-secret-required": "Įjungtai paslaugai reikia jos pasirašymo rakto arba slaptažodžio."
 }

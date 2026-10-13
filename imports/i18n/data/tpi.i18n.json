@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Lusim tingting long ol kam bek bilong dispela adres na salim imel gen",
   "email-bounces-none": "I no gat kam bek.",
   "email-bounce-invalid-topic": "Dispela i no ARN bilong SNS topik.",
-  "mailReportTitle": "Imel"
+  "mailReportTitle": "Imel",
+  "email-bounces-providers": "Ol narapela sevis bilong salim",
+  "email-bounces-providers-description": "Sapos WeKan i salim long wanpela long ol dispela sevis, onim em, givim sevis dispela webhook adres long ol samting i kamap bilong imel i kam bek na toktok kros long spam, na pestim hia ki em i save sainim ol long en, o paswot yu putim long adres olsem https://user:password@… o ?secret=…",
+  "email-bounces-provider-key": "Ki bilong sainim webhook",
+  "email-bounces-provider-password": "Paswot bilong webhook",
+  "email-bounce-provider-secret-required": "Sevis i on i mas gat ki bilong sainim o paswot bilong en."
 }

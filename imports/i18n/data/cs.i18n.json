@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Zapomenout vrácení této adresy a znovu na ni posílat e-maily",
   "email-bounces-none": "Žádné nedoručitelné e-maily.",
   "email-bounce-invalid-topic": "To není ARN tématu SNS.",
-  "mailReportTitle": "E-mail"
+  "mailReportTitle": "E-mail",
+  "email-bounces-providers": "Další odesílací služby",
+  "email-bounces-providers-description": "Pokud WeKan odesílá přes jednu z těchto služeb, zapněte ji, dejte službě tuto adresu webhooku pro její události nedoručitelných e-mailů a stížností na spam a vložte sem klíč, kterým je podepisuje, nebo heslo, které jste vložili do adresy jako https://user:password@… nebo ?secret=…",
+  "email-bounces-provider-key": "Podpisový klíč webhooku",
+  "email-bounces-provider-password": "Heslo webhooku",
+  "email-bounce-provider-secret-required": "Zapnutá služba potřebuje svůj podpisový klíč nebo heslo."
 }

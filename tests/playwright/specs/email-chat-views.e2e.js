@@ -13,6 +13,7 @@ const db = require('../helpers/db');
 const { navigateInApp } = require('../helpers/auth');
 
 const DOMAIN = 'boards.e2e.example.test';
+const escapeRegExp = text => String(text).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 function enableInbound() {
   const setting = db.findOne('settings', {});
@@ -107,7 +108,7 @@ test.describe('Email view', () => {
       await expect.poll(() => db.findOne('cards', { boardId: board.boardId, title: 'Quote for the printer' })?.email?.direction)
         .toBe('out');
       const sentCard = db.findOne('cards', { boardId: board.boardId, title: 'Quote for the printer' });
-      expect(sentCard.email.from.address).toMatch(new RegExp(`^board\\+[A-Za-z0-9]{22}@${DOMAIN.replace(/\./g, '\\.')}$`));
+      expect(sentCard.email.from.address).toMatch(new RegExp(`^board\\+[A-Za-z0-9]{22}@${escapeRegExp(DOMAIN)}$`));
       expect(sentCard.userId).toBe(user.id);
       await view.locator('.js-email-folder', { hasText: 'Sent' }).click();
       const sentRow = view.locator('.email-view-row', { hasText: 'Quote for the printer' });
@@ -298,7 +299,7 @@ test.describe('Email to card settings', () => {
       await section.locator('select[data-key="listId"]').selectOption(board.listIds[1]);
       await expect.poll(() => db.findOne('boards', { _id: board.boardId }).emailToCard?.listId).toBe(board.listIds[1]);
       const address = section.locator('code.js-etc-copy');
-      await expect(address).toHaveText(new RegExp(`^board\\+[A-Za-z0-9]{22}@${DOMAIN.replace(/\./g, '\\.')}$`));
+      await expect(address).toHaveText(new RegExp(`^board\\+[A-Za-z0-9]{22}@${escapeRegExp(DOMAIN)}$`));
       const first = await address.textContent();
       await section.locator('.js-etc-new-address').click();
       await expect(address).not.toHaveText(first);
@@ -401,6 +402,42 @@ test.describe('Email bounces in the Admin Panel', () => {
       expect(db.findOne('email_bounces', { email })).toBeNull();
     } finally {
       db.deleteMany('email_bounces', { email });
+      db.updateOne('settings', { _id: setting._id }, previous === undefined ? { $unset: { emailBounces: '' } } : { $set: { emailBounces: previous } });
+    }
+  });
+
+  test('the other sending services: listed with their addresses, a key is required and never shown back', async ({ page, adminUser }) => {
+    const { loginWithToken } = require('../helpers/auth');
+    const setting = db.findOne('settings', {});
+    const previous = setting.emailBounces;
+    try {
+      await loginWithToken(page, adminUser.id, adminUser.token);
+      await navigateInApp(page, '/admin/people/email');
+      const section = page.locator('.email-bounces');
+      for (const name of ['Mailgun', 'SendGrid', 'Postmark', 'Brevo', 'Mailjet', 'SparkPost', 'Mandrill', 'Resend']) {
+        await expect(section.locator('.email-bounce-providers')).toContainText(name);
+      }
+      const mailgun = section.locator('tr[data-provider="mailgun"]');
+      await expect(mailgun.locator('.email-bounce-endpoint')).toContainText('/api/inbound-email/bounces/mailgun');
+      await expect(mailgun).toContainText('Webhook signing key');
+      await expect(section.locator('tr[data-provider="postmark"]')).toContainText('Webhook password');
+
+      // On without a key: refused, with a message (negative).
+      await mailgun.locator('.js-bounce-provider').click();
+      await section.locator('.js-bounce-save').click();
+      await expect(section.locator('.js-bounce-message')).toContainText('needs its signing key or password');
+
+      // With a key: saved; the field empties and says a key is kept.
+      await mailgun.locator('.js-bounce-provider-secret').fill('key-test-1234');
+      await section.locator('.js-bounce-save').click();
+      await expect(section.locator('.js-bounce-message')).toContainText('Saved.');
+      await expect(mailgun.locator('.js-bounce-provider-secret')).toHaveValue('');
+      await expect(mailgun.locator('.js-bounce-provider-secret')).toHaveAttribute('placeholder', /Saved/);
+      const stored = db.findOne('settings', {}).emailBounces;
+      expect(stored.providers.mailgun.enabled).toBe(true);
+      expect(stored.providerSecrets.mailgun).toBe('key-test-1234');
+      expect(await page.content()).not.toContain('key-test-1234');
+    } finally {
       db.updateOne('settings', { _id: setting._id }, previous === undefined ? { $unset: { emailBounces: '' } } : { $set: { emailBounces: previous } });
     }
   });

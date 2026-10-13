@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Gbàgbé ìpadà àdírẹ́sì yìí kí o sì tún fi imeeli ránṣẹ́ sí i",
   "email-bounces-none": "Kò sí ìpadà.",
   "email-bounce-invalid-topic": "Ìyẹn kì í ṣe ARN kókó SNS.",
-  "mailReportTitle": "Imeeli"
+  "mailReportTitle": "Imeeli",
+  "email-bounces-providers": "Àwọn iṣẹ́ ìfiránṣẹ́ mìíràn",
+  "email-bounces-providers-description": "Tí WeKan bá ń fi ránṣẹ́ nípasẹ̀ ọ̀kan nínú àwọn iṣẹ́ wọ̀nyí, tàn án, fún iṣẹ́ náà ní àdírẹ́sì webhook yìí fún àwọn ìṣẹ̀lẹ̀ imeeli tó padà àti ẹ̀sùn spam, kí o sì lẹ kọ́kọ́rọ́ tí ó fi ń buwọ́lù wọ́n síbí, tàbí ọrọigbaniwọle tí o fi sínú àdírẹ́sì gẹ́gẹ́ bí https://user:password@… tàbí ?secret=…",
+  "email-bounces-provider-key": "Kọ́kọ́rọ́ ìbuwọ́lù webhook",
+  "email-bounces-provider-password": "Ọrọigbaniwọle webhook",
+  "email-bounce-provider-secret-required": "Iṣẹ́ tí a tàn nílò kọ́kọ́rọ́ ìbuwọ́lù rẹ̀ tàbí ọrọigbaniwọle rẹ̀."
 }

@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Kalimtan an mga pagbalik hini nga adres ngan padad-i hin email utro",
   "email-bounces-none": "Waray pagbalik.",
   "email-bounce-invalid-topic": "Diri ito ARN han SNS topic.",
-  "mailReportTitle": "E-mail"
+  "mailReportTitle": "E-mail",
+  "email-bounces-providers": "Iba nga mga serbisyo han pagpadara",
+  "email-bounces-providers-description": "Kon nagpapadara an WeKan pinaagi ha usa hini nga mga serbisyo, i-on ito, ihatag ha serbisyo ini nga webhook nga adres para han iya mga panhitabo han ginbalik nga email ngan reklamo han spam, ngan i-paste dinhi an yawi nga iya ginagamit ha pagpirma hito, o an sekreto nga pulong nga imo ginbutang ha adres sugad han https://user:password@… o ?secret=…",
+  "email-bounces-provider-key": "Yawi han pagpirma han webhook",
+  "email-bounces-provider-password": "Sekreto nga pulong han webhook",
+  "email-bounce-provider-secret-required": "An serbisyo nga naka-on nagkikinahanglan han iya yawi han pagpirma o sekreto nga pulong."
 }

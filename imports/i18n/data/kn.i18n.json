@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "ಈ ವಿಳಾಸದ ಹಿಂತಿರುಗುವಿಕೆಗಳನ್ನು ಮರೆತು ಮತ್ತೆ ಇಮೇಲ್ ಕಳುಹಿಸಿ",
   "email-bounces-none": "ಹಿಂತಿರುಗುವಿಕೆಗಳಿಲ್ಲ.",
   "email-bounce-invalid-topic": "ಅದು SNS ವಿಷಯ ARN ಅಲ್ಲ.",
-  "mailReportTitle": "ಇಮೇಲ್"
+  "mailReportTitle": "ಇಮೇಲ್",
+  "email-bounces-providers": "ಇತರ ಕಳುಹಿಸುವ ಸೇವೆಗಳು",
+  "email-bounces-providers-description": "WeKan ಈ ಸೇವೆಗಳಲ್ಲಿ ಒಂದರ ಮೂಲಕ ಕಳುಹಿಸಿದರೆ, ಅದನ್ನು ಆನ್ ಮಾಡಿ, ಹಿಂತಿರುಗಿದ ಇಮೇಲ್ ಮತ್ತು ಸ್ಪ್ಯಾಮ್ ದೂರು ಘಟನೆಗಳಿಗಾಗಿ ಸೇವೆಗೆ ಈ Webhook ವಿಳಾಸವನ್ನು ನೀಡಿ, ಮತ್ತು ಅದು ಅವುಗಳಿಗೆ ಸಹಿ ಮಾಡುವ ಕೀಲಿಯನ್ನು, ಅಥವಾ ನೀವು ವಿಳಾಸದಲ್ಲಿ https://user:password@… ಅಥವಾ ?secret=… ಆಗಿ ಹಾಕಿದ ಪಾಸ್‌ವರ್ಡ್ ಅನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ",
+  "email-bounces-provider-key": "Webhook ಸಹಿ ಕೀಲಿ",
+  "email-bounces-provider-password": "Webhook ಪಾಸ್‌ವರ್ಡ್",
+  "email-bounce-provider-secret-required": "ಆನ್ ಮಾಡಿದ ಸೇವೆಗೆ ಅದರ ಸಹಿ ಕೀಲಿ ಅಥವಾ ಪಾಸ್‌ವರ್ಡ್ ಬೇಕು."
 }

@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "唔記呢個地址嘅彈返紀錄，再寄電郵俾佢",
   "email-bounces-none": "冇彈返嘅郵件。",
   "email-bounce-invalid-topic": "呢個唔係 SNS 主題 ARN。",
-  "mailReportTitle": "電子郵件"
+  "mailReportTitle": "電子郵件",
+  "email-bounces-providers": "其他發信服務",
+  "email-bounces-providers-description": "如果 WeKan 經呢啲服務其中一個發信，就開咗佢，將呢個 webhook 地址畀個服務，用嚟收彈返郵件同垃圾郵件投訴嘅事件，再將佢用嚟簽名嘅密鑰，或者你喺地址入面寫成 https://user:password@… 或者 ?secret=… 嘅密碼貼喺度",
+  "email-bounces-provider-key": "Webhook 簽名密鑰",
+  "email-bounces-provider-password": "Webhook 密碼",
+  "email-bounce-provider-secret-required": "已開咗嘅服務需要佢嘅簽名密鑰或者密碼。"
 }

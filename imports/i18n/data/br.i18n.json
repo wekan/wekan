@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Ankouaat distroioù ar chomlec'h-mañ ha kas postelloù dezhañ en-dro",
   "email-bounces-none": "Distro ebet.",
   "email-bounce-invalid-topic": "N'eo ket un ARN dodenn SNS.",
-  "mailReportTitle": "E-mail"
+  "mailReportTitle": "E-mail",
+  "email-bounces-providers": "Servijoù kas all",
+  "email-bounces-providers-description": "Ma kas WeKan dre unan eus ar servijoù-mañ, enaouit anezhañ, roit d'ar servij ar chomlec'h webhook-mañ evit e zarvoudoù postelloù distroet ha klemmoù a-zivout ar spam, ha pegit amañ an alc'hwez a sin anezho gantañ, pe ar ger-tremen hoc'h eus lakaet er chomlec'h evel https://user:password@… pe ?secret=…",
+  "email-bounces-provider-key": "Alc'hwez sinañ ar webhook",
+  "email-bounces-provider-password": "Ger-tremen ar webhook",
+  "email-bounce-provider-secret-required": "Ur servij enaouet en deus ezhomm eus e alc'hwez sinañ pe e c'her-tremen."
 }

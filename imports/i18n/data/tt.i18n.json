@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Бу адресның кире кайтуларын оныт һәм аңа кабат хат җибәр",
   "email-bounces-none": "Кире кайтулар юк.",
   "email-bounce-invalid-topic": "Бу SNS темасы ARN'ы түгел.",
-  "mailReportTitle": "Электрон почта"
+  "mailReportTitle": "Электрон почта",
+  "email-bounces-providers": "Башка җибәрү хезмәтләре",
+  "email-bounces-providers-description": "Әгәр WeKan шушы хезмәтләрнең берсе аша җибәрсә, аны кабызыгыз, хезмәткә кире кайткан хатлар һәм спам турында шикаять вакыйгалары өчен шушы вебхук адресын бирегез, һәм монда аларга имза салу өчен кулланган ачкычны, яки адреска https://user:password@… яки ?secret=… итеп куйган серсүзне кертегез",
+  "email-bounces-provider-key": "Вебхук имза ачкычы",
+  "email-bounces-provider-password": "Вебхук серсүзе",
+  "email-bounce-provider-secret-required": "Кабызылган хезмәткә аның имза ачкычы яки серсүзе кирәк."
 }

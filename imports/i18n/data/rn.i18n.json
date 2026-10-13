@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Kwibagira ibigaruka vy'iyi aderese no kuyirungikira imeyili kandi",
   "email-bounces-none": "Nta bigaruka.",
   "email-bounce-invalid-topic": "Ico si ARN y'ikiganiro ca SNS.",
-  "mailReportTitle": "Imeyili"
+  "mailReportTitle": "Imeyili",
+  "email-bounces-providers": "Ibindi bikorwa vyo kurungika",
+  "email-bounces-providers-description": "Nimba WeKan irungika biciye kuri kimwe muri ibi bikorwa, gicanire, uhe ico gikorwa iyi aderese ya webhook ku vyabaye vyaco vya meyili zigarutse n'ukwitotomba kuri spam, hanyuma ushiremwo ngaha urufunguzo gisinyisha, canke ijambo ry'ibanga washize muri aderese nka https://user:password@… canke ?secret=…",
+  "email-bounces-provider-key": "Urufunguzo rwo gusinya rwa webhook",
+  "email-bounces-provider-password": "Ijambo ry'ibanga rya webhook",
+  "email-bounce-provider-secret-required": "Igikorwa cacanywe gikeneye urufunguzo rwaco rwo gusinya canke ijambo ry'ibanga."
 }

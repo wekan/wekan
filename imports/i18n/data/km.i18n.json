@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "បំភ្លេចការត្រឡប់របស់អាសយដ្ឋាននេះ ហើយផ្ញើអ៊ីមែលទៅវាម្ដងទៀត",
   "email-bounces-none": "គ្មានការត្រឡប់ទេ។",
   "email-bounce-invalid-topic": "នោះមិនមែនជា ARN ប្រធានបទ SNS ទេ។",
-  "mailReportTitle": "អ៊ីមែល"
+  "mailReportTitle": "អ៊ីមែល",
+  "email-bounces-providers": "សេវាផ្ញើផ្សេងទៀត",
+  "email-bounces-providers-description": "ប្រសិនបើ WeKan ផ្ញើតាមរយៈសេវាណាមួយក្នុងចំណោមសេវាទាំងនេះ សូមបើកវា ផ្ដល់អាសយដ្ឋាន webhook នេះទៅសេវាសម្រាប់ព្រឹត្តិការណ៍អ៊ីមែលត្រឡប់មកវិញ និងការប្ដឹងសារឥតបានការ ហើយបិទភ្ជាប់នៅទីនេះនូវសោដែលវាប្រើដើម្បីចុះហត្ថលេខាលើពួកវា ឬពាក្យសម្ងាត់ដែលអ្នកបានដាក់ក្នុងអាសយដ្ឋានជា https://user:password@… ឬ ?secret=…",
+  "email-bounces-provider-key": "សោចុះហត្ថលេខា webhook",
+  "email-bounces-provider-password": "ពាក្យសម្ងាត់ webhook",
+  "email-bounce-provider-secret-required": "សេវាដែលបានបើកត្រូវការសោចុះហត្ថលេខា ឬពាក្យសម្ងាត់របស់វា។"
 }

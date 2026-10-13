@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Iska illow soo noqoshooyinka ciwaankan oo mar kale iimayl u dir",
   "email-bounces-none": "Wax soo noqosho ah ma jiraan.",
   "email-bounce-invalid-topic": "Taasi maaha ARN mawduuc SNS.",
-  "mailReportTitle": "Iimayl"
+  "mailReportTitle": "Iimayl",
+  "email-bounces-providers": "Adeegyo dir kale",
+  "email-bounces-providers-description": "Haddii WeKan uu ku diro mid ka mid ah adeegyadan, daar, sii adeegga ciwaankan webhook-ga dhacdooyinkiisa fariimaha soo noqday iyo cabashooyinka spam-ka, oo halkan ku dheji furaha uu ku saxiixo, ama furaha sirta ah ee aad ciwaanka ku dhex gelisay sida https://user:password@… ama ?secret=…",
+  "email-bounces-provider-key": "Furaha saxiixa webhook-ga",
+  "email-bounces-provider-password": "Furaha sirta webhook-ga",
+  "email-bounce-provider-secret-required": "Adeeg la daaray wuxuu u baahan yahay furihiisa saxiixa ama furaha sirta."
 }

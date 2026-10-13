@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Uită respingerile acestei adrese și trimite-i din nou e-mailuri",
   "email-bounces-none": "Nicio respingere.",
   "email-bounce-invalid-topic": "Acesta nu este un ARN de subiect SNS.",
-  "mailReportTitle": "Correo electrónico"
+  "mailReportTitle": "Correo electrónico",
+  "email-bounces-providers": "Alte servicii de trimitere",
+  "email-bounces-providers-description": "Dacă WeKan trimite printr-unul dintre aceste servicii, activați-l, dați serviciului această adresă de webhook pentru evenimentele sale de respingere și de plângere de spam și lipiți aici cheia cu care le semnează sau parola pe care ați pus-o în adresă ca https://user:password@… sau ?secret=…",
+  "email-bounces-provider-key": "Cheia de semnare a webhook-ului",
+  "email-bounces-provider-password": "Parola webhook-ului",
+  "email-bounce-provider-secret-required": "Un serviciu activat are nevoie de cheia de semnare sau de parolă."
 }

@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Ξέχνα τις επιστροφές αυτής της διεύθυνσης και στείλε της ξανά email",
   "email-bounces-none": "Καμία επιστροφή.",
   "email-bounce-invalid-topic": "Αυτό δεν είναι ARN θέματος SNS.",
-  "mailReportTitle": "Ηλεκτρονικό ταχυδρομείο"
+  "mailReportTitle": "Ηλεκτρονικό ταχυδρομείο",
+  "email-bounces-providers": "Άλλες υπηρεσίες αποστολής",
+  "email-bounces-providers-description": "Αν το WeKan στέλνει μέσω μιας από αυτές τις υπηρεσίες, ενεργοποιήστε την, δώστε στην υπηρεσία αυτή τη διεύθυνση webhook για τα συμβάντα επιστροφών και καταγγελιών ανεπιθύμητου, και επικολλήστε εδώ το κλειδί με το οποίο τα υπογράφει, ή τον κωδικό που βάλατε στη διεύθυνση ως https://user:password@… ή ?secret=…",
+  "email-bounces-provider-key": "Κλειδί υπογραφής webhook",
+  "email-bounces-provider-password": "Κωδικός webhook",
+  "email-bounce-provider-secret-required": "Μια ενεργοποιημένη υπηρεσία χρειάζεται το κλειδί υπογραφής ή τον κωδικό της."
 }

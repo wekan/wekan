@@ -41,14 +41,16 @@ test('the gate uses it', () => {
   const inboundSrc = src.slice(src.indexOf('const INBOUND_EMAIL_PATHS'), src.indexOf('\n}\n', at) + 2);
   const isInboundEmailPath = new Function(`${inboundSrc}\nreturn isInboundEmailPath;`)();
   for (const url of ['/api/inbound-email', '/api/inbound-email?secret=x', '/api/inbound-email/', '/api/inbound-email/ses',
-    '/api/%69nbound-email']) {
+    '/api/%69nbound-email', '/api/inbound-email/bounces/mailgun', '/api/inbound-email/bounces/postmark?secret=x',
+    '/api/inbound-email/bounces/resend']) {
     assert.equal(isInboundEmailPath({ method: 'POST', url }), true, url);
   }
   // Negative: another method, another API path, a path that only starts the
   // same, a traversal, an undecodable one.
   for (const [method, url] of [['GET', '/api/inbound-email'], ['POST', '/api/boards'], ['POST', '/api/inbound-email-x'],
     ['POST', '/api/inbound-email/../boards'], ['POST', '/api/inbound-email/ses/x'], ['POST', '/api/inbound-email%'],
-    ['POST', '/API/inbound-email']]) {
+    ['POST', '/API/inbound-email'], ['POST', '/api/inbound-email/bounces/evil'], ['POST', '/api/inbound-email/bounces/'],
+    ['POST', '/api/inbound-email/bounces/mailgun/x'], ['GET', '/api/inbound-email/bounces/mailgun']]) {
     assert.equal(isInboundEmailPath({ method, url }), false, `${method} ${url}`);
   }
   assert.match(src, /if \(\(api && process\.env\.WITH_API === 'true'\) \|\| !api \|\| isInboundEmailPath\(req\)\) \{/);

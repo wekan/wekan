@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Desmentié i retorns de chesta adressa y i mandé indò mail",
   "email-bounces-none": "Degun retorn.",
   "email-bounce-invalid-topic": "Chest ne n'é nia n ARN de tema SNS.",
-  "mailReportTitle": "Posta elettronica"
+  "mailReportTitle": "Posta elettronica",
+  "email-bounces-providers": "Autri servizs de spedizion",
+  "email-bounces-providers-description": "Sce WeKan spediësc tres un de chisc servizs, l'ativëia, da al servize chësta adressa webhook por si events de mail tornades zeruch y reclams de spam, y taca ite chilò la tle cun chëra che al les firma, o la parola de acess che t'as metù te l'adressa sciöche https://user:password@… o ?secret=…",
+  "email-bounces-provider-key": "Tle de firma dl webhook",
+  "email-bounces-provider-password": "Parola de acess dl webhook",
+  "email-bounce-provider-secret-required": "N servize ativé à de besëgn de si tle de firma o de si parola de acess."
 }

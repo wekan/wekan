@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "ଏହି ଠିକଣାର ଫେରସ୍ତ ଭୁଲିଯାଆନ୍ତୁ ଏବଂ ପୁଣି ଇମେଲ୍ ପଠାନ୍ତୁ",
   "email-bounces-none": "କୌଣସି ଫେରସ୍ତ ନାହିଁ।",
   "email-bounce-invalid-topic": "ଏହା SNS ବିଷୟ ARN ନୁହେଁ।",
-  "mailReportTitle": "ଇମେଲ୍ କରନ୍ତୁ |"
+  "mailReportTitle": "ଇମେଲ୍ କରନ୍ତୁ |",
+  "email-bounces-providers": "ଅନ୍ୟ ପଠାଇବା ସେବାଗୁଡ଼ିକ",
+  "email-bounces-providers-description": "ଯଦି WeKan ଏହି ସେବାଗୁଡ଼ିକ ମଧ୍ୟରୁ କୌଣସି ଗୋଟିଏ ଦେଇ ପଠାଏ, ତାହାକୁ ଚାଲୁ କରନ୍ତୁ, ଫେରିଆସିଥିବା ଇମେଲ୍ ଏବଂ ସ୍ପାମ୍ ଅଭିଯୋଗ ଘଟଣା ପାଇଁ ସେବାକୁ ଏହି webhook ଠିକଣା ଦିଅନ୍ତୁ, ଏବଂ ଏଠାରେ ସେ ସେଗୁଡ଼ିକରେ ସ୍ୱାକ୍ଷର କରୁଥିବା ଚାବି, କିମ୍ବା ଆପଣ ଠିକଣାରେ https://user:password@… କିମ୍ବା ?secret=… ଭାବରେ ରଖିଥିବା ପାସୱାର୍ଡ ପେଷ୍ଟ କରନ୍ତୁ",
+  "email-bounces-provider-key": "Webhook ସ୍ୱାକ୍ଷର ଚାବି",
+  "email-bounces-provider-password": "Webhook ପାସୱାର୍ଡ",
+  "email-bounce-provider-secret-required": "ଚାଲୁ ଥିବା ସେବାକୁ ଏହାର ସ୍ୱାକ୍ଷର ଚାବି କିମ୍ବା ପାସୱାର୍ଡ ଆବଶ୍ୟକ।"
 }

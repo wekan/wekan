@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Manta dawowar wannan adireshin kuma a sake aika masa imel",
   "email-bounces-none": "Babu dawowa.",
   "email-bounce-invalid-topic": "Wannan ba ARN na batun SNS ba ne.",
-  "mailReportTitle": "Imel"
+  "mailReportTitle": "Imel",
+  "email-bounces-providers": "Sauran ayyukan aikawa",
+  "email-bounces-providers-description": "Idan WeKan yana aikawa ta ɗaya daga cikin waɗannan ayyuka, kunna shi, ba aikin wannan adireshin webhook don abubuwan dawowar imel da ƙorafin spam, kuma liƙa a nan maɓallin da yake sa hannu da shi, ko kalmar sirrin da ka saka a adireshin kamar https://user:password@… ko ?secret=…",
+  "email-bounces-provider-key": "Maɓallin sa hannu na webhook",
+  "email-bounces-provider-password": "Kalmar sirri na webhook",
+  "email-bounce-provider-secret-required": "Aikin da aka kunna yana buƙatar maɓallin sa hannunsa ko kalmar sirrinsa."
 }

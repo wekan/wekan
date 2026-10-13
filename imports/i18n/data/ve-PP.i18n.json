@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Unohta necen adresan tagazetulendad da oigenda sille kirjoid udes",
   "email-bounces-none": "Ei ole tagazetulendoid.",
   "email-bounce-invalid-topic": "Nece ei ole SNS-teman ARN.",
-  "mailReportTitle": "Email-počt"
+  "mailReportTitle": "Email-počt",
+  "email-bounces-providers": "Toižed oigendamižen palvelused",
+  "email-bounces-providers-description": "Ku WeKan oigendab ühten näiden palveluzid kal'dme, kändke se päle, andke palvelusele nece webhook-adres sen tagaze tulnuziden kirjeiden da spamas kaivuziden tegoiden täht, i pangat tänna kluč, kudamal se pirdab niid, vai peitsana, kudamb pandoit adresaha muga https://user:password@… vai ?secret=…",
+  "email-bounces-provider-key": "Webhookan pirdandkluč",
+  "email-bounces-provider-password": "Webhookan peitsana",
+  "email-bounce-provider-secret-required": "Päle kändud palvelus tarbiž ičeze pirdandkluč vai peitsana."
 }

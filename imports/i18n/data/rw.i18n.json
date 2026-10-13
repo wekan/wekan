@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Kwibagirwa ibigaruka by'iyi aderesi no kongera kuyoherereza imeli",
   "email-bounces-none": "Nta bigaruka.",
   "email-bounce-invalid-topic": "Icyo si ARN y'insanganyamatsiko ya SNS.",
-  "mailReportTitle": "Imeyili"
+  "mailReportTitle": "Imeyili",
+  "email-bounces-providers": "Izindi serivisi zo kohereza",
+  "email-bounces-providers-description": "Niba WeKan yohereza inyuze kuri imwe muri izi serivisi, yifungure, uhe iyo serivisi iyi aderesi ya webhook ku byabaye byayo bya meli zagarutse n'ibirego bya spam, hanyuma ushyire hano urufunguzo isinyisha, cyangwa ijambobanga washyize muri aderesi nka https://user:password@… cyangwa ?secret=…",
+  "email-bounces-provider-key": "Urufunguzo rwo gusinya rwa webhook",
+  "email-bounces-provider-password": "Ijambobanga rya webhook",
+  "email-bounce-provider-secret-required": "Serivisi ifunguye ikeneye urufunguzo rwayo rwo gusinya cyangwa ijambobanga."
 }

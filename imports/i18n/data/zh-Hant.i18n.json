@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "忘記此地址的退信記錄並重新寄送電子郵件給它",
   "email-bounces-none": "沒有退信。",
   "email-bounce-invalid-topic": "這不是 SNS 主題 ARN。",
-  "mailReportTitle": "電子郵件"
+  "mailReportTitle": "電子郵件",
+  "email-bounces-providers": "其他寄信服務",
+  "email-bounces-providers-description": "如果 WeKan 透過其中某個服務寄信，請將其開啟，把這個 webhook 位址提供給該服務以接收退信和垃圾郵件檢舉事件，並在此貼上它用於簽署的金鑰，或您在位址中以 https://user:password@… 或 ?secret=… 形式設定的密碼",
+  "email-bounces-provider-key": "Webhook 簽署金鑰",
+  "email-bounces-provider-password": "Webhook 密碼",
+  "email-bounce-provider-secret-required": "已開啟的服務需要其簽署金鑰或密碼。"
 }

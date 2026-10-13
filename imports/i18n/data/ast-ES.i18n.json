@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Escaecer los rebotes d'esta direición y volver unviai corréos",
   "email-bounces-none": "Nun hai rebotes.",
   "email-bounce-invalid-topic": "Eso nun ye un ARN de tema SNS.",
-  "mailReportTitle": "Correo electrónico"
+  "mailReportTitle": "Correo electrónico",
+  "email-bounces-providers": "Otros servicios d'unviu",
+  "email-bounces-providers-description": "Si WeKan unvia per unu d'estos servicios, activalu, da-y al serviciu esta direición de webhook pa los sos eventos de corréos tornaos y quexes de spam, y apega equí la clave cola que los robla, o la contraseña que punxisti na direición como https://user:password@… o ?secret=…",
+  "email-bounces-provider-key": "Clave de robla del webhook",
+  "email-bounces-provider-password": "Contraseña del webhook",
+  "email-bounce-provider-secret-required": "Un serviciu activáu precisa la so clave de robla o contraseña."
 }

@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Ҫак адресӑн таврӑнӑвӗсене манса, ӑна каллех ҫыру ярас",
   "email-bounces-none": "Таврӑнусем ҫук.",
   "email-bounce-invalid-topic": "Ку SNS тема ARN-ӗ мар.",
-  "mailReportTitle": "Электронлӑ почта"
+  "mailReportTitle": "Электронлӑ почта",
+  "email-bounces-providers": "Ытти яракан службӑсем",
+  "email-bounces-providers-description": "WeKan ҫак службӑсенчен пӗри урлӑ ярать пулсан, ӑна ӗҫлеттерӗр, таврӑннӑ ҫырусен тата спам ҫинчен ӳпкевсен пулӑмӗсем валли службӑна ҫак webhook адресне парӑр, кунта вара вӗсене алӑ пусакан уҫҫие е адреса https://user:password@… е ?secret=… евӗр ҫырнӑ вӑрттӑн сӑмаха лартӑр",
+  "email-bounces-provider-key": "Webhook алӑ пусмалли уҫҫи",
+  "email-bounces-provider-password": "Webhook вӑрттӑн сӑмахӗ",
+  "email-bounce-provider-secret-required": "Ӗҫлекен службӑна хӑйӗн алӑ пусмалли уҫҫи е вӑрттӑн сӑмахӗ кирлӗ."
 }

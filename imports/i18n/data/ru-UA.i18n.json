@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Забыть возвраты этого адреса и снова отправлять на него письма",
   "email-bounces-none": "Возвратов нет.",
   "email-bounce-invalid-topic": "Это не ARN темы SNS.",
-  "mailReportTitle": "Эл.почта"
+  "mailReportTitle": "Эл.почта",
+  "email-bounces-providers": "Другие службы отправки",
+  "email-bounces-providers-description": "Если WeKan отправляет почту через одну из этих служб, включите её, укажите службе этот адрес вебхука для событий возвратов и жалоб на спам и вставьте сюда ключ, которым она их подписывает, или пароль, который вы указали в адресе как https://user:password@… или ?secret=…",
+  "email-bounces-provider-key": "Ключ подписи вебхука",
+  "email-bounces-provider-password": "Пароль вебхука",
+  "email-bounce-provider-secret-required": "Для включённой службы нужен её ключ подписи или пароль."
 }

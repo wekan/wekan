@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "هن پتي جون واپسيون وساريو ۽ ان کي ٻيهر اي ميل موڪليو",
   "email-bounces-none": "ڪا واپسي ناهي.",
   "email-bounce-invalid-topic": "اهو SNS موضوع جو ARN ناهي.",
-  "mailReportTitle": "اي ميل"
+  "mailReportTitle": "اي ميل",
+  "email-bounces-providers": "ٻيون موڪلڻ واريون خدمتون",
+  "email-bounces-providers-description": "جيڪڏهن WeKan انهن خدمتن مان ڪنهن هڪ ذريعي موڪلي ٿو، ته ان کي چالو ڪريو، خدمت کي ان جي موٽيل اي ميلن ۽ اسپام شڪايتن جي واقعن لاءِ هي webhook پتو ڏيو، ۽ هتي اها ڪنجي چسپان ڪريو جنهن سان اها انهن تي صحيح ڪري ٿي، يا اهو ڳجهو لفظ جيڪو توهان پتي ۾ https://user:password@… يا ?secret=… طور رکيو",
+  "email-bounces-provider-key": "Webhook جي صحيح جي ڪنجي",
+  "email-bounces-provider-password": "Webhook جو ڳجهو لفظ",
+  "email-bounce-provider-secret-required": "چالو خدمت کي ان جي صحيح جي ڪنجي يا ڳجهي لفظ جي ضرورت آهي."
 }

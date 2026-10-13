@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "이 주소의 반송 기록을 잊고 다시 이메일 보내기",
   "email-bounces-none": "반송이 없습니다.",
   "email-bounce-invalid-topic": "SNS 주제 ARN이 아닙니다.",
-  "mailReportTitle": "이메일"
+  "mailReportTitle": "이메일",
+  "email-bounces-providers": "기타 발송 서비스",
+  "email-bounces-providers-description": "WeKan이 이 서비스 중 하나를 통해 발송한다면 해당 서비스를 켜고, 반송 및 스팸 신고 이벤트용으로 이 Webhook 주소를 서비스에 등록한 뒤, 서비스가 서명에 사용하는 키 또는 주소에 https://user:password@… 또는 ?secret=… 형식으로 넣은 암호를 여기에 붙여 넣으세요",
+  "email-bounces-provider-key": "Webhook 서명 키",
+  "email-bounces-provider-password": "Webhook 암호",
+  "email-bounce-provider-secret-required": "켜져 있는 서비스에는 서명 키 또는 암호가 필요합니다."
 }

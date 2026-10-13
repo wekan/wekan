@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "نسى الرجوعات ديال هاد العنوان وعاود صيفط ليه",
   "email-bounces-none": "ماكاين حتى رجوع.",
   "email-bounce-invalid-topic": "هادا ماشي ARN ديال موضوع SNS.",
-  "mailReportTitle": "البريد الإلكتروني"
+  "mailReportTitle": "البريد الإلكتروني",
+  "email-bounces-providers": "خدمات خرين ديال الإرسال",
+  "email-bounces-providers-description": "إلا كان WeKan كيصيفط عبر شي وحدة من هاد الخدمات، شعلها، وعطي للخدمة هاد العنوان ديال الويبهوك باش تصيفط ليه الأحداث ديال الإيميلات اللي رجعو والشكايات ديال السبام، ولصق هنا الساروت اللي كتوقع بيه، ولا كلمة المرور اللي حطيتي ف العنوان بحال https://user:password@… ولا ?secret=…",
+  "email-bounces-provider-key": "الساروت ديال التوقيع ديال الويبهوك",
+  "email-bounces-provider-password": "كلمة المرور ديال الويبهوك",
+  "email-bounce-provider-secret-required": "الخدمة اللي مشعلة خاصها الساروت ديال التوقيع ديالها ولا كلمة المرور."
 }

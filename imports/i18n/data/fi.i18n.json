@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Unohda tämän osoitteen palautukset ja lähetä sille taas sähköpostia",
   "email-bounces-none": "Ei palautuksia.",
   "email-bounce-invalid-topic": "Tuo ei ole SNS-aiheen ARN.",
-  "mailReportTitle": "Sähköposti"
+  "mailReportTitle": "Sähköposti",
+  "email-bounces-providers": "Muut lähetyspalvelut",
+  "email-bounces-providers-description": "Jos WeKan lähettää viestit jonkin näistä palveluista kautta, ota se käyttöön, anna palvelulle tämä webhook-osoite sen palautus- ja roskapostivalitustapahtumia varten ja liitä tähän avain, jolla palvelu allekirjoittaa ne, tai salasana, jonka laitoit osoitteeseen muodossa https://user:password@… tai ?secret=…",
+  "email-bounces-provider-key": "Webhookin allekirjoitusavain",
+  "email-bounces-provider-password": "Webhookin salasana",
+  "email-bounce-provider-secret-required": "Käyttöön otettu palvelu tarvitsee allekirjoitusavaimensa tai salasanansa."
 }

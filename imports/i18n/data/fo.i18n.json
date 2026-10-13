@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Gloym afturkomurnar hjá hesi adressuni og send henni teldupost aftur",
   "email-bounces-none": "Ongar afturkomur.",
   "email-bounce-invalid-topic": "Tað er ikki eitt SNS-evnis-ARN.",
-  "mailReportTitle": "Teldupostur"
+  "mailReportTitle": "Teldupostur",
+  "email-bounces-providers": "Aðrar sendingartænastur",
+  "email-bounces-providers-description": "Um WeKan sendir gjøgnum eina av hesum tænastum, so tendra hana, gev tænastuni hesa webhook-adressuna til afturkomin teldubrøv og ruskpostklagur, og set her inn lykilin, sum hon undirskrivar tey við, ella loyniorðið, sum tú setti í adressuna sum https://user:password@… ella ?secret=…",
+  "email-bounces-provider-key": "Webhook-undirskriftarlykil",
+  "email-bounces-provider-password": "Webhook-loyniorð",
+  "email-bounce-provider-secret-required": "Ein tendrað tænasta má hava sín undirskriftarlykil ella sítt loyniorð."
 }

@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Bliye retou adrès sa a epi voye imèl ba li ankò",
   "email-bounces-none": "Pa gen retou.",
   "email-bounce-invalid-topic": "Sa a se pa yon ARN sijè SNS.",
-  "mailReportTitle": "Imèl"
+  "mailReportTitle": "Imèl",
+  "email-bounces-providers": "Lòt sèvis pou voye",
+  "email-bounces-providers-description": "Si WeKan voye atravè youn nan sèvis sa yo, aktive li, bay sèvis la adrès webhook sa a pou evènman imèl ki retounen ak plent spam li yo, epi kole isit la kle li itilize pou siyen yo, oswa modpas ou te mete nan adrès la tankou https://user:password@… oswa ?secret=…",
+  "email-bounces-provider-key": "Kle siyati webhook",
+  "email-bounces-provider-password": "Modpas webhook",
+  "email-bounce-provider-secret-required": "Yon sèvis ki aktive bezwen kle siyati li oswa modpas li."
 }

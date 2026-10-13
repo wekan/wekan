@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Insa r-ritorni ta' dan l-indirizz u erġa' ibgħatlu email",
   "email-bounces-none": "L-ebda ritorn.",
   "email-bounce-invalid-topic": "Dak mhuwiex ARN ta' suġġett SNS.",
-  "mailReportTitle": "Posta elettronika"
+  "mailReportTitle": "Posta elettronika",
+  "email-bounces-providers": "Servizzi oħra tal-bgħit",
+  "email-bounces-providers-description": "Jekk WeKan jibgħat permezz ta' wieħed minn dawn is-servizzi, ixgħlu, agħti lis-servizz dan l-indirizz tal-webhook għall-avvenimenti tiegħu ta' emails li rritornaw u lmenti ta' spam, u waħħal hawn iċ-ċavetta li biha jiffirmahom, jew il-kelma ta’ għassa li poġġejt fl-indirizz bħala https://user:password@… jew ?secret=…",
+  "email-bounces-provider-key": "Ċavetta tal-firma tal-webhook",
+  "email-bounces-provider-password": "Kelma ta’ għassa tal-webhook",
+  "email-bounce-provider-secret-required": "Servizz mixgħul jeħtieġ iċ-ċavetta tal-firma jew il-kelma ta’ għassa tiegħu."
 }

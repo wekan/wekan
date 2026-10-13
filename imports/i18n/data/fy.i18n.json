@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Ferjit de weromkearingen fan dit adres en mail it wer",
   "email-bounces-none": "Gjin weromkearingen.",
   "email-bounce-invalid-topic": "Dat is gjin SNS-ûnderwerp-ARN.",
-  "mailReportTitle": "E-mail"
+  "mailReportTitle": "E-mail",
+  "email-bounces-providers": "Oare ferstjoertsjinsten",
+  "email-bounces-providers-description": "As WeKan fia ien fan dizze tsjinsten ferstjoert, set dy oan, jou de tsjinst dit webhook-adres foar syn barrens fan weromkearde e-mails en spamklachten, en plak hjir de kaai dêr't er se mei ûndertekenet, of it wachtwurd dat jo yn it adres setten hawwe as https://user:password@… of ?secret=…",
+  "email-bounces-provider-key": "Webhook-ûndertekeningskaai",
+  "email-bounces-provider-password": "Webhook-wachtwurd",
+  "email-bounce-provider-secret-required": "In tsjinst dy't oanset is hat syn ûndertekeningskaai of wachtwurd nedich."
 }

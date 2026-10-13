@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Forget this address's bounces and email it again",
   "email-bounces-none": "No bounces.",
   "email-bounce-invalid-topic": "That is not an SNS topic ARN.",
-  "mailReportTitle": "Email"
+  "mailReportTitle": "Email",
+  "email-bounces-providers": "Other sending services",
+  "email-bounces-providers-description": "If WeKan sends through one of these services, turn it on, give the service this webhook address for its bounce and spam complaint events, and paste here the key it signs them with, or the password you put in the address as https://user:password@… or ?secret=…",
+  "email-bounces-provider-key": "Webhook signing key",
+  "email-bounces-provider-password": "Webhook password",
+  "email-bounce-provider-secret-required": "A service that is turned on needs its signing key or password."
 }

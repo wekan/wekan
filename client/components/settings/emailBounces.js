@@ -62,6 +62,13 @@ Template.emailBounces.helpers({
       };
     });
   },
+  // The sending services, by the names they use for themselves.
+  providerRows() {
+    const settings = Template.instance().settings.get();
+    const labels = { mailgun: 'Mailgun', sendgrid: 'SendGrid', postmark: 'Postmark', brevo: 'Brevo', mailjet: 'Mailjet',
+      sparkpost: 'SparkPost', mandrill: 'Mandrill (Mailchimp Transactional)', resend: 'Resend' };
+    return Object.keys(settings.providers || {}).map(name => ({ name, label: labels[name] || name, ...settings.providers[name] }));
+  },
   topicsText() {
     const settings = Template.instance().settings.get();
     return (settings.sesTopicArns || []).join('\n');
@@ -128,15 +135,30 @@ Template.emailBounces.events({
     const n = Math.max(1, Math.min(100, Math.floor(Number(event.currentTarget.value)) || 1));
     editRules(tpl, rules => { rules[category].threshold = n; });
   },
+  'click .js-bounce-provider'(event, tpl) {
+    event.preventDefault();
+    const name = event.currentTarget.dataset.provider;
+    const settings = tpl.settings.get();
+    const providers = { ...settings.providers, [name]: { ...settings.providers[name], enabled: !settings.providers[name].enabled } };
+    tpl.settings.set({ ...settings, providers });
+  },
   'click .js-bounce-save'(event, tpl) {
     event.preventDefault();
     const settings = tpl.settings.get();
     const sesTopicArns = String(tpl.$('.js-bounce-topics').val() || '').split(/\s+/).map(s => s.trim()).filter(Boolean);
-    Meteor.call('saveEmailBounceSettings', { enabled: settings.enabled, rules: settings.rules, sesTopicArns }, (error, result) => {
+    const providers = {};
+    const providerSecrets = {};
+    for (const name of Object.keys(settings.providers || {})) {
+      providers[name] = { enabled: !!settings.providers[name].enabled };
+      const typed = String(tpl.$(`.js-bounce-provider-secret[data-provider="${name}"]`).val() || '');
+      if (typed) providerSecrets[name] = typed;
+    }
+    Meteor.call('saveEmailBounceSettings', { enabled: settings.enabled, rules: settings.rules, sesTopicArns, providers, providerSecrets }, (error, result) => {
       if (error) {
         tpl.message.set(TAPi18n.__(String(error.error || 'error-notAuthorized')));
         return;
       }
+      tpl.$('.js-bounce-provider-secret').val('');
       tpl.settings.set({ ...settings, ...result });
       tpl.message.set(TAPi18n.__('email-to-card-saved'));
     });

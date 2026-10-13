@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Kalimutan ang mga pagtalbog ng address na ito at i-email ito muli",
   "email-bounces-none": "Walang pagtalbog.",
   "email-bounce-invalid-topic": "Hindi iyan ARN ng SNS topic.",
-  "mailReportTitle": "E-liham"
+  "mailReportTitle": "E-liham",
+  "email-bounces-providers": "Iba pang serbisyo sa pagpapadala",
+  "email-bounces-providers-description": "Kung nagpapadala ang WeKan sa pamamagitan ng isa sa mga serbisyong ito, i-on ito, ibigay sa serbisyo ang webhook address na ito para sa mga kaganapan nito ng tumalbog na email at reklamo ng spam, at i-paste dito ang key na ginagamit nito sa paglagda sa mga ito, o ang password na inilagay mo sa address bilang https://user:password@… o ?secret=…",
+  "email-bounces-provider-key": "Key sa paglagda ng webhook",
+  "email-bounces-provider-password": "Password ng webhook",
+  "email-bounce-provider-secret-required": "Ang serbisyong naka-on ay nangangailangan ng key sa paglagda o password nito."
 }

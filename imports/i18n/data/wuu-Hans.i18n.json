@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "忘记脱格个地址个退回记录，再拨伊发邮件",
   "email-bounces-none": "呒没退回来个邮件。",
   "email-bounce-invalid-topic": "格个勿是 SNS 主题 ARN。",
-  "mailReportTitle": "电子邮件"
+  "mailReportTitle": "电子邮件",
+  "email-bounces-providers": "别个发信服务",
+  "email-bounces-providers-description": "要是 WeKan 通过其中一个服务发信，就拿伊打开，拿搿个 webhook 地址拨服务，用来收退信搭垃圾邮件投诉个事件，再拿伊签名用个密钥，或者侬辣地址里向写成 https://user:password@… 或者 ?secret=… 个密码贴辣此地",
+  "email-bounces-provider-key": "Webhook 签名密钥",
+  "email-bounces-provider-password": "Webhook 密码",
+  "email-bounce-provider-secret-required": "开好个服务要有伊个签名密钥或者密码。"
 }

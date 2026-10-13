@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Warewaretia ngā hokinga o tēnei wāhitau, ā, tukuna anō he īmēra",
   "email-bounces-none": "Kāore he hokinga.",
   "email-bounce-invalid-topic": "Ehara tēnā i te ARN kaupapa SNS.",
-  "mailReportTitle": "Īmēra"
+  "mailReportTitle": "Īmēra",
+  "email-bounces-providers": "Ētahi atu ratonga tuku",
+  "email-bounces-providers-description": "Mēnā ka tuku a WeKan mā tētahi o ēnei ratonga, whakakāngia, hoatu ki te ratonga tēnei wāhitau webhook mō ōna takahanga īmēra hoki mai, amuamu pāme hoki, ā, whakapiria ki konei te kī e waitohu ai ia i aua mea, te kupuhipa rānei i whakauruhia e koe ki te wāhitau hei https://user:password@…, hei ?secret=… rānei",
+  "email-bounces-provider-key": "Kī waitohu webhook",
+  "email-bounces-provider-password": "Kupuhipa webhook",
+  "email-bounce-provider-secret-required": "Ka hiahia tētahi ratonga kua whakakāngia ki tōna kī waitohu, kupuhipa rānei."
 }

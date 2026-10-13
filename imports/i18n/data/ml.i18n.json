@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "ഈ വിലാസത്തിന്റെ മടക്കങ്ങൾ മറന്ന് വീണ്ടും ഇമെയിൽ അയക്കുക",
   "email-bounces-none": "മടക്കങ്ങളില്ല.",
   "email-bounce-invalid-topic": "അത് ഒരു SNS വിഷയ ARN അല്ല.",
-  "mailReportTitle": "ഇമെയിൽ"
+  "mailReportTitle": "ഇമെയിൽ",
+  "email-bounces-providers": "മറ്റ് അയയ്ക്കൽ സേവനങ്ങൾ",
+  "email-bounces-providers-description": "WeKan ഈ സേവനങ്ങളിൽ ഒന്നിലൂടെ അയയ്ക്കുന്നുവെങ്കിൽ, അത് ഓണാക്കുക, തിരികെ വന്ന ഇമെയിലുകളുടെയും സ്പാം പരാതികളുടെയും ഇവന്റുകൾക്കായി ഈ webhook വിലാസം സേവനത്തിന് നൽകുക, അവയിൽ ഒപ്പിടാൻ അത് ഉപയോഗിക്കുന്ന കീ, അല്ലെങ്കിൽ വിലാസത്തിൽ https://user:password@… അല്ലെങ്കിൽ ?secret=… ആയി നിങ്ങൾ ചേർത്ത പാസ്‌വേഡ് ഇവിടെ ഒട്ടിക്കുക",
+  "email-bounces-provider-key": "Webhook ഒപ്പിടൽ കീ",
+  "email-bounces-provider-password": "Webhook പാസ്‌വേഡ്",
+  "email-bounce-provider-secret-required": "ഓണാക്കിയ സേവനത്തിന് അതിന്റെ ഒപ്പിടൽ കീയോ പാസ്‌വേഡോ ആവശ്യമാണ്."
 }

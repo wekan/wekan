@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Desmentega i ritorni de sto indirisso e torna a mandarghe mail",
   "email-bounces-none": "Nissun ritorno.",
   "email-bounce-invalid-topic": "Questo no'l xe un ARN de argomento SNS.",
-  "mailReportTitle": "Correo electrónico"
+  "mailReportTitle": "Correo electrónico",
+  "email-bounces-providers": "Altri servisi de invio",
+  "email-bounces-providers-description": "Se WeKan el manda par un de sti servisi, impìsalo, dà al servisio sto indirisso webhook par i so eventi de mail tornà indrio e de reclami de spam, e incola qua la ciave co cui el li firma, o la parola segreta che te ghe messo nel indirisso come https://user:password@… o ?secret=…",
+  "email-bounces-provider-key": "Ciave de firma del webhook",
+  "email-bounces-provider-password": "Parola segreta del webhook",
+  "email-bounce-provider-secret-required": "Un servisio impisà el ga bisogno de la so ciave de firma o parola segreta."
 }

@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Najugaq manna pillugu utertut puiguk e-mailiorfigilerlugulu",
   "email-bounces-none": "Utertoqanngilaq.",
   "email-bounce-invalid-topic": "Tamanna SNS-imi sammisap ARN-iunngilaq.",
-  "mailReportTitle": "E-mail"
+  "mailReportTitle": "E-mail",
+  "email-bounces-providers": "Nassiussinermut sullissinerit allat",
+  "email-bounces-providers-description": "WeKan sullissinerit uku ilaatigut nassiussisarpat, aallartiguk, sullissinermut webhook-ip najugaa una tunniuguk e-mailinut utertunut spam-imullu naammagittaalliutinut, aamma maani ikkuguk isissutissiaq atiliinissamut atortagaa, imaluunniit isissutissaq najugamut https://user:password@… imaluunniit ?secret=… ikkussimasat",
+  "email-bounces-provider-key": "Webhook-ip atiliinissamut isissutissiaa",
+  "email-bounces-provider-password": "Webhook-ip isissutissaa",
+  "email-bounce-provider-secret-required": "Sullissineq aallartinneqarsimasoq atiliinissamut isissutissiaminik isissutissaminilluunniit pisariaqartitsivoq."
 }

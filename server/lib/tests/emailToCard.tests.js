@@ -18,6 +18,8 @@ import { BoardEmailAddresses, receiveBoardEmail } from '/server/emailToCard';
 // card is not made twice; addresses that are unknown, turned off or without
 // write access are refused; and Compose sends From the member's own board
 // address.
+const escapeRegExp = text => String(text).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
 describe('Email to card (runtime)', function () {
   this.timeout(60000);
   const call = (userId, name, ...args) => Meteor.server.method_handlers[name].apply({ userId }, args);
@@ -82,7 +84,7 @@ describe('Email to card (runtime)', function () {
 
   it('gives the member an address on this board, and a new one on request', async function () {
     const first = await memberAddress();
-    assert.match(first, new RegExp(`^board\\+[A-Za-z0-9]{22}@${domain.replace(/\./g, '\\.')}$`));
+    assert.match(first, new RegExp(`^board\\+[A-Za-z0-9]{22}@${escapeRegExp(domain)}$`));
     assert.equal(await memberAddress(), first, 'the same address is shown again');
     const renewed = await call(member, 'emailToCardNewAddress', boardId);
     assert.notEqual(renewed.address, first, 'New address replaces it');

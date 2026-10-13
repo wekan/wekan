@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Rovyî les rintoirnaedjes di cisse adresse ci et lyi evoyî co des emails",
   "email-bounces-none": "Nou rintoirnaedje.",
   "email-bounce-invalid-topic": "Ci n' est nén on ARN d' sudjet SNS.",
-  "mailReportTitle": "E-mail"
+  "mailReportTitle": "E-mail",
+  "email-bounces-providers": "Ôtes siervices d' evoyaedje",
+  "email-bounces-providers-description": "Si WeKan evoye pa onk di ces siervices la, metoz l' en alaedje, dinez å siervice cisse adresse di webhook po ses evenmints d' emails rintoirnés et d' plintes po spam, et coloz chal li clé k' i les sinne avou, ou l' sicret ki vos avoz metou dins l' adresse come https://user:password@… ou ?secret=…",
+  "email-bounces-provider-key": "Clé di sinateure do webhook",
+  "email-bounces-provider-password": "Sicret do webhook",
+  "email-bounce-provider-secret-required": "On siervice metou en alaedje a mezåjhe di s' clé di sinateure ou di s' sicret."
 }

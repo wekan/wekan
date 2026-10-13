@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "இந்த முகவரியின் திரும்பல்களை மறந்து மீண்டும் மின்னஞ்சல் அனுப்பு",
   "email-bounces-none": "திரும்பல்கள் இல்லை.",
   "email-bounce-invalid-topic": "அது ஒரு SNS தலைப்பு ARN அல்ல.",
-  "mailReportTitle": "மின் அஞ்சல்"
+  "mailReportTitle": "மின் அஞ்சல்",
+  "email-bounces-providers": "பிற அனுப்பும் சேவைகள்",
+  "email-bounces-providers-description": "WeKan இந்தச் சேவைகளில் ஒன்றின் வழியாக அனுப்பினால், அதை இயக்கி, திரும்பிய மின்னஞ்சல் மற்றும் ஸ்பேம் புகார் நிகழ்வுகளுக்காக இந்த webhook முகவரியை அந்தச் சேவைக்குக் கொடுத்து, அவற்றில் கையொப்பமிட அது பயன்படுத்தும் சாவியை, அல்லது https://user:password@… அல்லது ?secret=… என முகவரியில் நீங்கள் வைத்த கடவுச்சொல்லை இங்கே ஒட்டவும்",
+  "email-bounces-provider-key": "Webhook கையொப்பச் சாவி",
+  "email-bounces-provider-password": "Webhook கடவுச்சொல்",
+  "email-bounce-provider-secret-required": "இயக்கப்பட்ட சேவைக்கு அதன் கையொப்பச் சாவி அல்லது கடவுச்சொல் தேவை."
 }

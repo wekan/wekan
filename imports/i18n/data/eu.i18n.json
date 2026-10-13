@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Ahaztu helbide honen itzulerak eta bidali berriro mezuak",
   "email-bounces-none": "Ez dago itzulerarik.",
   "email-bounce-invalid-topic": "Hori ez da SNS gai baten ARN bat.",
-  "mailReportTitle": "e-posta"
+  "mailReportTitle": "e-posta",
+  "email-bounces-providers": "Bidalketa-zerbitzu gehiago",
+  "email-bounces-providers-description": "WeKanek zerbitzu hauetako baten bidez bidaltzen badu, aktibatu ezazu, eman zerbitzuari webhook helbide hau itzulera eta spam kexa gertaeretarako, eta itsatsi hemen haiek sinatzeko erabiltzen duen gakoa, edo helbidean https://user:password@… edo ?secret=… gisa jarri duzun pasahitza",
+  "email-bounces-provider-key": "Webhookaren sinadura-gakoa",
+  "email-bounces-provider-password": "Webhookaren pasahitza",
+  "email-bounce-provider-secret-required": "Aktibatuta dagoen zerbitzu batek bere sinadura-gakoa edo pasahitza behar du."
 }

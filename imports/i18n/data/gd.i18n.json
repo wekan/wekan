@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Dìochuimhnich tillidhean an t-seòlaidh seo is cuir post-d thuige a-rithist",
   "email-bounces-none": "Gun tillidhean.",
   "email-bounce-invalid-topic": "Chan e ARN cuspair SNS a tha sin.",
-  "mailReportTitle": "Post-d"
+  "mailReportTitle": "Post-d",
+  "email-bounces-providers": "Seirbheisean cuir eile",
+  "email-bounces-providers-description": "Ma chuireas WeKan tro aon de na seirbheisean seo, cuir air e, thoir an seòladh webhook seo dhan t-seirbheis airson tachartasan post-d air ais is gearan spama, agus cuir an-seo an iuchair leis an soidhnig i iad, no am facal-faire a chuir thu san t-seòladh mar https://user:password@… no ?secret=…",
+  "email-bounces-provider-key": "Iuchair soidhnidh an webhook",
+  "email-bounces-provider-password": "Facal-faire an webhook",
+  "email-bounce-provider-secret-required": "Feumaidh seirbheis a tha air a h-iuchair soidhnidh no a facal-faire."
 }

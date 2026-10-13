@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Olvidar los rebotes de esta dirección y volver a enviarle correos",
   "email-bounces-none": "Sin rebotes.",
   "email-bounce-invalid-topic": "Eso no es un ARN de tema de SNS.",
-  "mailReportTitle": "Correo electrónico"
+  "mailReportTitle": "Correo electrónico",
+  "email-bounces-providers": "Otros servicios de envío",
+  "email-bounces-providers-description": "Si WeKan envía a través de uno de estos servicios, actívelo, dé al servicio esta dirección de webhook para sus eventos de rebotes y quejas de spam, y pegue aquí la clave con la que los firma, o la contraseña que puso en la dirección como https://user:password@… o ?secret=…",
+  "email-bounces-provider-key": "Clave de firma del webhook",
+  "email-bounces-provider-password": "Contraseña del webhook",
+  "email-bounce-provider-secret-required": "Un servicio activado necesita su clave de firma o su contraseña."
 }

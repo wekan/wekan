@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Nin ladɛrɛsi seginw ɲinɛ ka imɛli ci a ma kokura",
   "email-bounces-none": "Segin si tɛ.",
   "email-bounce-invalid-topic": "O tɛ SNS kuma ARN ye.",
-  "mailReportTitle": "Imɛli"
+  "mailReportTitle": "Imɛli",
+  "email-bounces-providers": "Ciliko baarakɛyɔrɔ wɛrɛw",
+  "email-bounces-providers-description": "Ni WeKan bɛ ci bila nin baarakɛyɔrɔ dɔ fɛ, a yeelen, webhook ladɛrɛsi nin di baarakɛyɔrɔ ma a ka imɛli segintaw ni spam kan ŋunuŋunu kow kama, ka kile min b'a bolonɔ bila u la, walima gundo daɲɛ min i ye bila ladɛrɛsi la i n'a fɔ https://user:password@… walima ?secret=…, o bila yan",
+  "email-bounces-provider-key": "Webhook bolonɔbila kile",
+  "email-bounces-provider-password": "Webhook gundo daɲɛ",
+  "email-bounce-provider-secret-required": "Baarakɛyɔrɔ yeelennen mago bɛ a ka bolonɔbila kile walima a ka gundo daɲɛ na."
 }

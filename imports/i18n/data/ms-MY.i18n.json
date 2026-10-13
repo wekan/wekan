@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Lupakan lantunan alamat ini dan hantar e-mel kepadanya semula",
   "email-bounces-none": "Tiada lantunan.",
   "email-bounce-invalid-topic": "Itu bukan ARN topik SNS.",
-  "mailReportTitle": "Emel"
+  "mailReportTitle": "Emel",
+  "email-bounces-providers": "Perkhidmatan penghantaran lain",
+  "email-bounces-providers-description": "Jika WeKan menghantar melalui salah satu perkhidmatan ini, hidupkannya, berikan perkhidmatan itu alamat webhook ini untuk peristiwa e-mel lantun dan aduan spamnya, dan tampal di sini kunci yang digunakannya untuk menandatanganinya, atau kata laluan yang anda letakkan dalam alamat sebagai https://user:password@… atau ?secret=…",
+  "email-bounces-provider-key": "Kunci tandatangan webhook",
+  "email-bounces-provider-password": "Kata laluan webhook",
+  "email-bounce-provider-secret-required": "Perkhidmatan yang dihidupkan memerlukan kunci tandatangan atau kata laluannya."
 }

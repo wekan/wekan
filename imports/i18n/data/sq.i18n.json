@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Harro kthimet e kësaj adrese dhe dërgoji përsëri email",
   "email-bounces-none": "Asnjë kthim.",
   "email-bounce-invalid-topic": "Kjo nuk është ARN teme SNS.",
-  "mailReportTitle": "Postë elektronike"
+  "mailReportTitle": "Postë elektronike",
+  "email-bounces-providers": "Shërbime të tjera dërgimi",
+  "email-bounces-providers-description": "Nëse WeKan dërgon përmes njërit prej këtyre shërbimeve, aktivizojeni, jepini shërbimit këtë adresë webhook-u për ngjarjet e tij të kthimeve të postës dhe ankesave për spam, dhe ngjitni këtu çelësin me të cilin i nënshkruan, ose fjalëkalimin që vendosët në adresë si https://user:password@… ose ?secret=…",
+  "email-bounces-provider-key": "Çelësi i nënshkrimit të webhook-ut",
+  "email-bounces-provider-password": "Fjalëkalimi i webhook-ut",
+  "email-bounce-provider-secret-required": "Një shërbim i aktivizuar ka nevojë për çelësin e nënshkrimit ose fjalëkalimin e tij."
 }

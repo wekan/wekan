@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Ŋlɔ adrɛs sia ƒe gbugbɔgbɔwo be eye nàgaɖo e-mail ɖe eŋu",
   "email-bounces-none": "Gbugbɔgbɔ aɖeke meli o.",
   "email-bounce-invalid-topic": "Ema menye SNS ƒe nyati ARN o.",
-  "mailReportTitle": "E-mail"
+  "mailReportTitle": "E-mail",
+  "email-bounces-providers": "Ɖoɖo dɔwɔƒe bubuwo",
+  "email-bounces-providers-description": "Ne WeKan ɖoa nu to dɔwɔƒe siawo dometɔ ɖeka dzi la, ʋu eƒe mɔ, na webhook ƒe adrɛs sia dɔwɔƒe la hena e-mail siwo gbugbɔ kple nyatoƒoe le spam ŋu ƒe nudzɔdzɔwo, eye nàtsɔ safui si wòtsɔ dea asi wo te, alo ɣaɣlanya si nède adrɛs la me abe https://user:password@… alo ?secret=… ene la ade afisia",
+  "email-bounces-provider-key": "Webhook ƒe asidesi safui",
+  "email-bounces-provider-password": "Webhook ƒe ɣaɣlanya",
+  "email-bounce-provider-secret-required": "Dɔwɔƒe si ŋu woʋu la hiã eƒe asidesi safui alo ɣaɣlanya."
 }

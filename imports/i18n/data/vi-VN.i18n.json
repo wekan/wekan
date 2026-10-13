@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Quên các lần trả lại của địa chỉ này và gửi email lại cho nó",
   "email-bounces-none": "Không có thư bị trả lại.",
   "email-bounce-invalid-topic": "Đó không phải là ARN của chủ đề SNS.",
-  "mailReportTitle": "Emel"
+  "mailReportTitle": "Emel",
+  "email-bounces-providers": "Các dịch vụ gửi thư khác",
+  "email-bounces-providers-description": "Nếu WeKan gửi qua một trong các dịch vụ này, hãy bật nó, cung cấp cho dịch vụ địa chỉ webhook này cho các sự kiện thư bị trả lại và khiếu nại thư rác, rồi dán vào đây khóa mà dịch vụ dùng để ký chúng, hoặc mật khẩu bạn đã đặt trong địa chỉ dưới dạng https://user:password@… hoặc ?secret=…",
+  "email-bounces-provider-key": "Khóa ký webhook",
+  "email-bounces-provider-password": "Mật khẩu webhook",
+  "email-bounce-provider-secret-required": "Dịch vụ đã bật cần có khóa ký hoặc mật khẩu của nó."
 }

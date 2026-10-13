@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "ह्या पत्त्याचें परत येवप विसरात आनी ताका परत ईमेल धाडात",
   "email-bounces-none": "परत आयिल्ले ईमेल नात.",
   "email-bounce-invalid-topic": "तो SNS विशय ARN न्हय.",
-  "mailReportTitle": "ईमेल"
+  "mailReportTitle": "ईमेल",
+  "email-bounces-providers": "हेर धाडपाच्यो सेवा",
+  "email-bounces-providers-description": "WeKan ह्या सेवांतल्या एका सेवेवयल्यान धाडटा जाल्यार, ती सुरू करात, परत आयिल्ल्या ईमेलांच्या आनी स्पॅम कागाळींच्या घडणुकांखातीर सेवेक हो Webhook पत्तो दियात, आनी ती तांचेर सय करपाक वापरता ती कळ, वा तुमी पत्त्यांत https://user:password@… वा ?secret=… अशें घाल्लो पासवर्ड हांगा चिकटयात",
+  "email-bounces-provider-key": "Webhook सय कळ",
+  "email-bounces-provider-password": "Webhook पासवर्ड",
+  "email-bounce-provider-secret-required": "सुरू केल्ल्या सेवेक तिची सय कळ वा पासवर्ड जाय."
 }

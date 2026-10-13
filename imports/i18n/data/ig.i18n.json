@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Chefuo nlaghachi adreesị a ma zigakwa ya ozi ọzọ",
   "email-bounces-none": "Enweghị nlaghachi.",
   "email-bounce-invalid-topic": "Nke ahụ abụghị ARN isiokwu SNS.",
-  "mailReportTitle": "Ozi-e"
+  "mailReportTitle": "Ozi-e",
+  "email-bounces-providers": "Ọrụ izipu ozi ndị ọzọ",
+  "email-bounces-providers-description": "Ọ bụrụ na WeKan na-ezipu site n'otu n'ime ọrụ ndị a, gbanye ya, nye ọrụ ahụ adreesị webhook a maka ihe omume ozi laghachiri na mkpesa spam ya, ma mado ebe a igodo ọ na-eji abịanye aka na ha, ma ọ bụ okwuntughe i tinyere n'adreesị dị ka https://user:password@… ma ọ bụ ?secret=…",
+  "email-bounces-provider-key": "Igodo mbinye aka webhook",
+  "email-bounces-provider-password": "Okwuntughe webhook",
+  "email-bounce-provider-secret-required": "Ọrụ agbanyere chọrọ igodo mbinye aka ya ma ọ bụ okwuntughe ya."
 }

@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Dismentee i rimbalçs di cheste direzion e torne a mandâi e-mail",
   "email-bounces-none": "Nissun rimbalç.",
   "email-bounce-invalid-topic": "Chel nol è un ARN di argoment SNS.",
-  "mailReportTitle": "E-mail"
+  "mailReportTitle": "E-mail",
+  "email-bounces-providers": "Altris servizis di spedizion",
+  "email-bounces-providers-description": "Se WeKan al mande midiant un di chescj servizis, ativilu, da al servizi cheste direzion di webhook pai siei events di rimbalç e di reclam di spam, e tache achì la clâf cu la cuâl ju firme, o la peraule di ordin che tu âs metût te direzion come https://user:password@… o ?secret=…",
+  "email-bounces-provider-key": "Clâf di firme dal webhook",
+  "email-bounces-provider-password": "Peraule di ordin dal webhook",
+  "email-bounce-provider-secret-required": "Un servizi atîf al à bisugne de sô clâf di firme o de sô peraule di ordin."
 }

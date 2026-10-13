@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Glömön geleäktronikis ladeta at e sedön ladete dönu",
   "email-bounces-none": "Geleäktroniks nonik.",
   "email-bounce-invalid-topic": "Atos no binon ARN yega SNS.",
-  "mailReportTitle": "Ladet leäktronik"
+  "mailReportTitle": "Ladet leäktronik",
+  "email-bounces-providers": "Dünots sedama votik",
+  "email-bounces-providers-description": "If WeKan sedon me dünot bal pas dünotas at, nümätolös oni, givolös dünote ladeti webhook at pro jenots oka dö leäktroniks gekömöl e plons dö spam, e pladolös is kiki, me kel dispenon onis, u letavödi, keli epladol in ladet as https://user:password@… u ?secret=…",
+  "email-bounces-provider-key": "Dispenakik webhooka",
+  "email-bounces-provider-password": "Letavöd webhooka",
+  "email-bounce-provider-secret-required": "Dünot nümätöl neodon dispenakiki u letavödi oka."
 }

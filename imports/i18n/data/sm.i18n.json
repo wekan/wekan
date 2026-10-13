@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Faagalo le toe foʻi mai o lenei tuatusi ma toe lafo i ai imeli",
   "email-bounces-none": "Leai ni toe foʻi mai.",
   "email-bounce-invalid-topic": "E le o se ARN o se autu SNS lena.",
-  "mailReportTitle": "Imeli"
+  "mailReportTitle": "Imeli",
+  "email-bounces-providers": "Isi auaunaga e lafo ai",
+  "email-bounces-providers-description": "Afai e lafo e WeKan e ala i se tasi o nei auaunaga, ki ai, tuu atu i le auaunaga lenei tuatusi webhook mo ana mea e tutupu o imeli na toe foʻi mai ma faitioga o le spam, ma faapipii iinei le ki e sainia ai, po o le upu faataga na e tuuina i le tuatusi e pei o https://user:password@… po o ?secret=…",
+  "email-bounces-provider-key": "Ki saini o le webhook",
+  "email-bounces-provider-password": "Upu faataga o le webhook",
+  "email-bounce-provider-secret-required": "O se auaunaga ua ki e manaʻomia lana ki saini po o le upu faataga."
 }

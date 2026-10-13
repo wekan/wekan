@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Aizmirst šīs adreses atgriešanas un atkal sūtīt tai e-pastu",
   "email-bounces-none": "Nav atgriešanu.",
   "email-bounce-invalid-topic": "Tas nav SNS tēmas ARN.",
-  "mailReportTitle": "E-pasts"
+  "mailReportTitle": "E-pasts",
+  "email-bounces-providers": "Citi sūtīšanas pakalpojumi",
+  "email-bounces-providers-description": "Ja WeKan sūta caur kādu no šiem pakalpojumiem, ieslēdziet to, norādiet pakalpojumam šo webhook adresi tā atgriezto vēstuļu un sūdzību par mēstulēm notikumiem un ielīmējiet šeit atslēgu, ar ko tas tos paraksta, vai paroli, ko ievietojāt adresē kā https://user:password@… vai ?secret=…",
+  "email-bounces-provider-key": "Webhook parakstīšanas atslēga",
+  "email-bounces-provider-password": "Webhook parole",
+  "email-bounce-provider-secret-required": "Ieslēgtam pakalpojumam nepieciešama tā parakstīšanas atslēga vai parole."
 }

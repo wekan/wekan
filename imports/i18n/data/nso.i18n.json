@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Lebala go boela ga aterese ye gomme o e romele imeile gape",
   "email-bounces-none": "Ga go na go boela.",
   "email-bounce-invalid-topic": "Seo ga se ARN ya hlogo ya SNS.",
-  "mailReportTitle": "Imeile"
+  "mailReportTitle": "Imeile",
+  "email-bounces-providers": "Ditirelo tše dingwe tša go romela",
+  "email-bounces-providers-description": "Ge WeKan e romela ka go se sengwe sa ditirelo tše, se bulele, efa tirelo aterese ye ya webhook bakeng sa ditiragalo tša yona tša diimeile tše boelago le dingongorego tša spam, gomme o kgomaretše mo senotlelo seo e di saenago ka sona, goba lentšu la sephiri leo o le beilego ka gare ga aterese bjalo ka https://user:password@… goba ?secret=…",
+  "email-bounces-provider-key": "Senotlelo sa go saena sa webhook",
+  "email-bounces-provider-password": "Lentšu la sephiri la webhook",
+  "email-bounce-provider-secret-required": "Tirelo ye e bulegilego e nyaka senotlelo sa yona sa go saena goba lentšu la sephiri."
 }

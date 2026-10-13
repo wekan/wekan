@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Fogetem ol kambak blong adres ia mo sendem imel bakegen",
   "email-bounces-none": "I no gat imel we i kambak.",
   "email-bounce-invalid-topic": "Hemia i no wan SNS topik ARN.",
-  "mailReportTitle": "Imel"
+  "mailReportTitle": "Imel",
+  "email-bounces-providers": "Ol narafala seves blong sanem imel",
+  "email-bounces-providers-description": "Sapos WeKan i sanem imel tru long wan long ol seves ia, tanem i on, givim long seves ia adres blong webhook ia from ol imel we i kambak mo ol plen long spam, mo pastem long ples ia ki we seves i saenem olgeta wetem, o paswod we yu putum long adres olsem https://user:password@… o ?secret=…",
+  "email-bounces-provider-key": "Ki blong saenem webhook",
+  "email-bounces-provider-password": "Paswod blong webhook",
+  "email-bounce-provider-secret-required": "Wan seves we i on i nidim ki blong saenem blong hem o paswod blong hem."
 }

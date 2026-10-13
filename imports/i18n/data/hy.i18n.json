@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Մոռանալ այս հասցեի վերադարձները և կրկին նամակ ուղարկել",
   "email-bounces-none": "Վերադարձներ չկան։",
   "email-bounce-invalid-topic": "Սա SNS թեմայի ARN չէ։",
-  "mailReportTitle": "Էլ"
+  "mailReportTitle": "Էլ",
+  "email-bounces-providers": "Ուղարկման այլ ծառայություններ",
+  "email-bounces-providers-description": "Եթե WeKan-ը ուղարկում է այս ծառայություններից մեկի միջոցով, միացրեք այն, ծառայությանը տվեք այս webhook հասցեն վերադարձված նամակների և սպամի բողոքների իրադարձությունների համար, և այստեղ տեղադրեք այն բանալին, որով այն ստորագրում է դրանք, կամ այն գաղտնաբառը, որը դրել եք հասցեում որպես https://user:password@… կամ ?secret=…",
+  "email-bounces-provider-key": "Webhook-ի ստորագրման բանալի",
+  "email-bounces-provider-password": "Webhook-ի գաղտնաբառ",
+  "email-bounce-provider-secret-required": "Միացված ծառայությանն անհրաժեշտ է իր ստորագրման բանալին կամ գաղտնաբառը։"
 }

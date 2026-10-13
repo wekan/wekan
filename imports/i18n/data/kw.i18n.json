@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Ankevi dehwelyansow an drigva ma ha danvon ebost dhedhi arta",
   "email-bounces-none": "Nyns eus dehwelyans.",
   "email-bounce-invalid-topic": "Nyns yw hemma ARN mater SNS.",
-  "mailReportTitle": "Ebost"
+  "mailReportTitle": "Ebost",
+  "email-bounces-providers": "Gonisogethow danvon erell",
+  "email-bounces-providers-description": "Mars yw WeKan ow tanvon dre onan a'n gonisogethow ma, y enowi, ri dhe'n gonisogeth an drigva webhook ma rag y hwarvosow ebost dehwelys ha kroffal spam, ha glena omma an alhwedh may syn ev gans hi, po an ger-tremena a worsys y'n drigva avel https://user:password@… po ?secret=…",
+  "email-bounces-provider-key": "Alhwedh synya webhook",
+  "email-bounces-provider-password": "Ger-tremena webhook",
+  "email-bounce-provider-secret-required": "Gonisogeth enowys a'n jeves edhom a'y alhwedh synya po a'y er-tremena."
 }

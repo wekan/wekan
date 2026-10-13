@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "د دې پتې بیرته راګرځېدنې هېرې کړئ او بیا ورته برېښنالیک ولېږئ",
   "email-bounces-none": "هېڅ بیرته راګرځېدنه نشته.",
   "email-bounce-invalid-topic": "دا د SNS موضوع ARN نه دی.",
-  "mailReportTitle": "برېښنالیک"
+  "mailReportTitle": "برېښنالیک",
+  "email-bounces-providers": "نور د لېږلو خدمتونه",
+  "email-bounces-providers-description": "که WeKan د دې خدمتونو له یوه له لارې لېږي، هغه چالان کړئ، خدمت ته د بیرته راګرځېدلو برېښنالیکونو او د سپام د شکایتونو د پېښو لپاره دا webhook پته ورکړئ، او دلته هغه کیلي ونښلوئ چې پرې یې لاسلیک کوي، یا هغه پټنوم چې تاسو په پته کې د https://user:password@… یا ?secret=… په توګه ایښی",
+  "email-bounces-provider-key": "د webhook د لاسلیک کیلي",
+  "email-bounces-provider-password": "د webhook پټنوم",
+  "email-bounce-provider-secret-required": "چالان خدمت خپلې د لاسلیک کیلي یا پټنوم ته اړتیا لري."
 }

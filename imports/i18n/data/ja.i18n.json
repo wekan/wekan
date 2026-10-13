@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "このアドレスのバウンスを消去し、再びメールを送る",
   "email-bounces-none": "バウンスはありません。",
   "email-bounce-invalid-topic": "SNS トピックの ARN ではありません。",
-  "mailReportTitle": "メールアドレス"
+  "mailReportTitle": "メールアドレス",
+  "email-bounces-providers": "その他の送信サービス",
+  "email-bounces-providers-description": "WeKan がこれらのサービスのいずれかを使って送信する場合は、それをオンにし、バウンスと迷惑メール苦情のイベント用にこの Webhook アドレスをサービスに設定して、サービスが署名に使うキー、またはアドレスに https://user:password@… や ?secret=… として入れたパスワードをここに貼り付けてください",
+  "email-bounces-provider-key": "Webhook 署名キー",
+  "email-bounces-provider-password": "Webhook パスワード",
+  "email-bounce-provider-secret-required": "オンにしたサービスには署名キーまたはパスワードが必要です。"
 }

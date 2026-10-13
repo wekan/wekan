@@ -4263,5 +4263,10 @@
   "email-bounces-clear-hint": "Ixublidar os rebotes d'ista adreza y tornar a ninviar-le correus",
   "email-bounces-none": "Garra rebote.",
   "email-bounce-invalid-topic": "Ixo no ye un ARN de tema SNS.",
-  "mailReportTitle": "Correu electronico"
+  "mailReportTitle": "Correu electronico",
+  "email-bounces-providers": "Atros servicios de ninvío",
+  "email-bounces-providers-description": "Si WeKan ninvía a traviés d'un d'istos servicios, activa-lo, da-le a o servicio ista adreza de webhook pa os suyos eventos de correus tornaus y queixas de spam, y apega aquí la clau con que los firma, u la clau de paso que metiés en l'adreza como https://user:password@… u ?secret=…",
+  "email-bounces-provider-key": "Clau de firma d'o webhook",
+  "email-bounces-provider-password": "Clau de paso d'o webhook",
+  "email-bounce-provider-secret-required": "Un servicio activau amenista a suya clau de firma u clau de paso."
 }
