@@ -188620,5 +188620,40 @@
     "before": "Kgutsufatsa/atolosa maswantšho a hlooho",
     "after": "Kgutsufatsa/atolosa ditshwantsho tsa hlooho (fapoha ho ditsebiso mohaleng/komporong)",
     "reason": "Clarify data fields, OAuth configuration precedence and server storage, board visibility and header-toggle behavior."
+  },
+  {
+    "locale": "st",
+    "key": "shared-templates-info",
+    "before": "Sheba diboto tsa dithempleite tse arolelanwang tsa basebedisi, tse hlophisitsweng ka Mokgatlo, Sehlopha kapa domeine ya imeile. Kgetha sebaka se le seng kapa tse ngata ka tlase ho bontsha dithempleite tse tshwanang. Ho thathamiswa feela basebedisi bao boto ya bona ya Dithempleite e seng feela.",
+    "after": "Sheba diboto tsa dithempleite tse arolelanwang tsa basebedisi, tse hlophisitsweng ka Mokgatlo, Sehlopha kapa domeine ya imeile. Kgetha sebaka se le seng kapa tse ngata ka tlase ho bontsha dithempleite tse tshwanang. Ho thathamiswa feela basebedisi bao boto ya bona ya Dithempleite e nang le dikahare.",
+    "reason": "Clarify nonempty template eligibility, personal attachments, swimlane grouping and positive integer limits."
+  },
+  {
+    "locale": "st",
+    "key": "my-attachments",
+    "before": "tsa ka Tse kopantsoeng",
+    "after": "Diphuthelwana tsa ka",
+    "reason": "Clarify nonempty template eligibility, personal attachments, swimlane grouping and positive integer limits."
+  },
+  {
+    "locale": "st",
+    "key": "board-table-group-by-swimlane-on",
+    "before": "Dikarete di hlophisitswe ka mola. Tobetsa ho di bontsha e le lenane le bataletseng ho e-na le hoo.",
+    "after": "Dikarete di hlophisitswe ka tsela. Tobetsa ho di bontsha e le lenane le bataletseng ho e-na le hoo.",
+    "reason": "Clarify nonempty template eligibility, personal attachments, swimlane grouping and positive integer limits."
+  },
+  {
+    "locale": "st",
+    "key": "board-table-group-by-swimlane-off",
+    "before": "Dikarete di bontshitswe e le lenane le bataletseng. Tobetsa ho di hlophisa ka mola ho e-na le hoo.",
+    "after": "Dikarete di bontshitswe e le lenane le bataletseng. Tobetsa ho di hlophisa ka tsela ho e-na le hoo.",
+    "reason": "Clarify nonempty template eligibility, personal attachments, swimlane grouping and positive integer limits."
+  },
+  {
+    "locale": "st",
+    "key": "operator-limit-invalid",
+    "before": "%s ha se moedi o nepahetseng. Moedi e lokela ho ba nomoro e felletseng e ntle.",
+    "after": "%s ha se moedi o nepahetseng. Moedi o lokela ho ba palo e felletseng e kgolo ho 0.",
+    "reason": "Clarify nonempty template eligibility, personal attachments, swimlane grouping and positive integer limits."
   }
 ]

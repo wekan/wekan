@@ -752,3 +752,17 @@ for (const [scope, term] of [['public', 'setjhaba'], ['private', 'poraefete']]) 
   assert.doesNotMatch(sesotho[`show-on-${scope}-board`], /boteng/);
 }
 assert.match(sesotho['toggle-header-icons-collapsed'], /ditsebiso mohaleng\/komporong/);
+
+// Historical review through key 1989: eligibility and numeric constraints.
+assert.match(sesotho['shared-templates-info'], /feela basebedisi.*Dithempleite e nang le dikahare/);
+assert.doesNotMatch(sesotho['shared-templates-info'], /e seng feela/);
+assert.equal(sesotho['my-attachments'], 'Diphuthelwana tsa ka');
+for (const state of ['on', 'off']) {
+  assert.match(sesotho[`board-table-group-by-swimlane-${state}`], /ka tsela/);
+  assert.doesNotMatch(sesotho[`board-table-group-by-swimlane-${state}`], /ka mola/);
+}
+assert.match(sesotho['board-table-group-by-swimlane-on'], /di hlophisitswe.*Tobetsa.*lenane le bataletseng/);
+assert.match(sesotho['board-table-group-by-swimlane-off'], /lenane le bataletseng.*Tobetsa.*ka tsela/);
+assert.match(sesotho['operator-limit-invalid'], /palo e felletseng e kgolo ho 0/);
+assert.doesNotMatch(sesotho['operator-limit-invalid'], /e ntle/);
+assert.deepEqual(tokens(sesotho['operator-limit-invalid']), ['%s']);
