@@ -513,3 +513,23 @@ assert.match(sesotho['scrum-daily-observations-help'], /ha di rekote phetoho e n
 assert.match(sesotho['scrum-daily-observations-help'], /tse sa tsejweng ha se lefela/);
 assert.match(sesotho['scrum-daily-observations-help'], /karolo ena.*ditemoho.*bareng ya disebediswa.*diphetho/);
 assert.deepEqual(tokens(sesotho['scrum-total']), ['__count__', '__estimate__', '__unknown__']);
+
+const translatedScrumSyncKeys = ["scrum-daily-truncated", "scrum-daily-empty", "scrum-observed-scope", "scrum-daily-observations-export-help", "scrum-import-pending", "scrum-import-into-board", "scrum-import-into-board-hint", "scrum-import-choose-file", "scrum-import-invalid-file", "scrum-import-preview-sprints", "scrum-import-preview-releases", "scrum-import-preview-cards", "scrum-import-preview-nothing", "scrum-import-into-board-done", "scrum-import-card-not-matched", "scrum-import-card-ambiguous", "scrum-import-card-on-another-board", "scrum-import-record-ambiguous", "scrum-import-record-not-imported", "scrum-import-sprint-finished", "sync-conflict-heading", "sync-conflict-hint", "sync-conflict-local", "sync-conflict-keep-local", "sync-conflict-use-source", "sync-conflict-refresh", "sync-conflict-review-complete", "sync-conflict-duplicate", "sync-conflict-keep-mapping", "sync-conflict-detach", "sync-conflict-detach-hint", "sync-conflict-archive", "sync-conflict-archive-hint", "sync-conflict-keep-card-local", "sync-conflict-creation", "sync-conflict-creation-hint", "sync-conflict-create-replacement", "sync-preview-button", "sync-preview-heading", "sync-preview-saved", "sync-preview-unavailable", "sync-preview-blocked", "sync-preview-create", "sync-preview-update", "sync-preview-archive", "sync-preview-baseline", "sync-preview-truncated", "sync-preview-omissions", "sync-preview-scope", "sync-preview-excluded"];
+for (const key of translatedScrumSyncKeys) {
+  assert.notEqual(sesotho[key], english[key], `${key}: no English placeholder`);
+  assert.deepEqual(tokens(sesotho[key]), tokens(english[key]), key);
+}
+assert.match(sesotho['scrum-daily-truncated'], /366.*moraorao/);
+assert.match(sesotho['scrum-daily-observations-export-help'], /ya pele.*UTC.*ha a bontshwe.*ha di rekote.*ha se lefela/);
+assert.match(sesotho['scrum-import-pending'], /ha ho a phethwa.*ho ntsha ditlaleho ha ho fumanehe/);
+assert.match(sesotho['scrum-import-into-board-hint'], /ha di etswe habeli.*ID.*nomoro le sehlooho.*sa tsamaellaneng.*ha di fetolwe.*ponelopele pele/);
+assert.match(sesotho['scrum-import-card-ambiguous'], /tse fetang e le nngwe/);
+assert.match(sesotho['scrum-import-card-on-another-board'], /boto e nngwe.*ha e a fetolwa/);
+assert.match(sesotho['sync-conflict-hint'], /kgetho ka nngwe.*Ha ho letho le romelwang tsamaisong ya mohlodi/);
+assert.match(sesotho['sync-conflict-review-complete'], /o di abetsweng.*Lenane lohle ha le a amahanngwa/);
+assert.match(sesotho['sync-conflict-detach-hint'], /Tlosa feela.*di dula ho WeKan/);
+assert.match(sesotho['sync-conflict-archive-hint'], /ha e sa le teng.*di thibela.*Dikarete tse nyenyane ha di fetolwe/);
+assert.match(sesotho['sync-conflict-creation-hint'], /ya pele e sa fetolwa.*Ho leka hape.*eo hape/);
+assert.match(sesotho['sync-preview-saved'], /dipeakanyo tse bolokilweng.*hlahloba mohlodi hape/);
+assert.match(sesotho['sync-preview-scope'], /e nngwe e ka siuwa/);
+assert.match(sesotho['sync-preview-truncated'], /100 tsa pele/);
