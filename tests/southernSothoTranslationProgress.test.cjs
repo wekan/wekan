@@ -603,3 +603,11 @@ assert.match(sesotho['due-days-overdue'], /fetilwe ke nako.*%s/);
 assert.equal(sesotho['userAnonymizePopup-title'], 'Pata boitsebiso ba akhaonto');
 assert.doesNotMatch(sesotho['userAnonymizePopup-title'], /kenngwang/);
 assert.equal(sesotho['cardLabelsPopup-title'], 'Dileibole');
+
+// Historical review through key 589: archive location and reusable templates.
+assert.match(sesotho['close-board-pop'], /Polokelo.*leqepheng la Diboto tsohle/);
+assert.doesNotMatch(sesotho['close-board-pop'], /hloohong.*lapeng/);
+assert.equal(sesotho.worker, 'Mosebeletsi');
+assert.notEqual(sesotho.worker, 'Mosebetsi');
+assert.equal(sesotho['save-card-as-template'], 'Boloka e le thempleite');
+assert.doesNotMatch(sesotho['save-card-as-template'], /Setshwantsho/);

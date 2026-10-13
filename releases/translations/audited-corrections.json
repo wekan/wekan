@@ -188207,5 +188207,26 @@
     "before": "Ditlhaku",
     "after": "Dileibole",
     "reason": "Restore board and card control meanings: limits, historical time, grouping, pulse, unread comments, due dates, account anonymization and labels."
+  },
+  {
+    "locale": "st",
+    "key": "close-board-pop",
+    "before": "O tla kgona ho busetsa boto ka ho tobetsa konopo ya “Polokelo” hloohong ya leqephe la lapeng.",
+    "after": "O ka busetsa boto ho tswa ho “Polokelo” leqepheng la Diboto tsohle.",
+    "reason": "Point to Archive on All Boards instead of the obsolete home-page header."
+  },
+  {
+    "locale": "st",
+    "key": "worker",
+    "before": "Mosebetsi",
+    "after": "Mosebeletsi",
+    "reason": "Name the worker role as a person rather than work or a task."
+  },
+  {
+    "locale": "st",
+    "key": "save-card-as-template",
+    "before": "Boloka e le Setshwantsho",
+    "after": "Boloka e le thempleite",
+    "reason": "Save a reusable template rather than a picture."
   }
 ]

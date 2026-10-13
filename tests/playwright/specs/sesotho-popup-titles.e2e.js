@@ -21,3 +21,19 @@ test('Southern Sotho titles distinguish card labels and account anonymization', 
   await expect(title).not.toContainText('kenngwang');
   await page.evaluate(() => Popup.close());
 });
+
+
+test('Southern Sotho archive help points to All Boards', async ({ boardPage: page }) => {
+  await page.evaluate(() => {
+    return Meteor.callAsync('setLanguage', 'st');
+  });
+  await page.evaluate(() => {
+    Popup.open('archiveBoard')({ currentTarget: document.body, target: document.body, preventDefault() {} });
+  });
+  const popup = page.locator('.js-pop-over');
+  await expect(popup).toContainText('Polokelo');
+  await expect(popup).toContainText('leqepheng la Diboto tsohle');
+  await expect(popup).not.toContainText('hloohong ya leqephe la lapeng');
+  // Inspect the help without confirming the archive operation.
+  await page.evaluate(() => Popup.close());
+});
