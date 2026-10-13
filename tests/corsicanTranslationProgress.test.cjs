@@ -673,3 +673,15 @@ assert.match(corsican['migrations-description'], /Ogni migrazione.*individualmen
 assert.match(corsican['comprehensive-board-migration-description'], /ordine di e liste.*pusizioni di e carte.*struttura di e corsie/);
 assert.equal(corsican['step-delete-duplicate-empty-lists'], corsican['delete-duplicate-empty-lists-migration']);
 assert.match(corsican['restore-lost-cards-nothing-to-restore'], /Nisuna corsia, lista o carta/);
+
+const monitoringControlCorrectionKeys = ["every-1-minute", "export-monitoring", "filesystem-attachments", "filesystem-size", "filesystem-storage", "force-board-scan", "gridfs-attachments", "gridfs-storage", "hide-list-on-minicard", "job-description", "job-details", "job-name", "job-queue", "max-concurrent", "memory-usage", "migrate-all-to-filesystem", "migrate-all-to-gridfs", "migrate-all-to-s3", "migrated-attachments", "migration-batch-size", "migration-batch-size-description", "migration-cpu-threshold-description", "migration-delay-ms", "migration-info-text", "migration-log", "migration-resumed", "migration-steps", "next-run", "operation-type", "overall-progress", "refresh", "refresh-monitoring", "remaining-attachments", "resume-migration", "run-once", "s3-attachments", "s3-storage", "scanning-status", "show-list-on-minicard", "showChecklistAtMinicard", "showing", "start-test-operation", "start-time", "stop-migration", "storage-distribution", "total-attachments", "total-operations", "total-size", "unmigrated-boards", "weight", "current-step", "create-account"];
+for (const key of monitoringControlCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /Ogni minuto|monitoraggio|Allegati|In corsu:|minischeda|del processo|dei processi|Massimo concorrenti|Utilizzo|Migra tutto|del batch|allegati|Metti in pausa|quando|vengono eseguite|Passaggi|Prossima|Tipo di|Avanzamento|Aggiorna|Riprendi|Esegui una|Stato di a|Visualizzazione|Avvia operazione|di inizio|Arresta la|di u storage|Totale|non migrate|Peso|Passaggio corrente|Creà account/, key);
+}
+for (const key of ['gridfs-storage', 's3-storage']) assert.equal(corsican[key], english[key]);
+assert.match(corsican['migration-batch-size-description'], /ogni gruppu \(1-100\)/);
+assert.match(corsican['migration-cpu-threshold-description'], /pausa.*CPU franca.*\(10-90\)/);
+assert.match(corsican['migration-info-text'], /una sola volta.*cuntinueghja in fondu.*chjudite u navigatore/);
+for (const [key, target] of [['migrate-all-to-gridfs', 'GridFS'], ['migrate-all-to-s3', 'S3']]) assert.ok(corsican[key].endsWith(target));
+assert.match(corsican['migration-delay-ms'], /\(ms\)/);

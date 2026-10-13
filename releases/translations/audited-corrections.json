@@ -186954,5 +186954,369 @@
     "before": "Tempo stimato rimanente",
     "after": "Stima di u tempu chì ferma",
     "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "every-1-minute",
+    "before": "Ogni minuto",
+    "after": "Ogni minutu",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "export-monitoring",
+    "before": "Spurtà monitoraggio",
+    "after": "Espurtà i dati di surviglianza",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "filesystem-attachments",
+    "before": "Allegati su filesystem",
+    "after": "Appicci in u sistema di schedarii",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "filesystem-size",
+    "before": "Dimensione filesystem",
+    "after": "Dimensione di u sistema di schedarii",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "filesystem-storage",
+    "before": "Storage su filesystem",
+    "after": "Almacenamentu in u sistema di schedarii",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "force-board-scan",
+    "before": "Forza scansione tavula",
+    "after": "Furzà l’analisi di a tavula",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "gridfs-attachments",
+    "before": "Allegati GridFS",
+    "after": "Appicci GridFS",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "gridfs-storage",
+    "before": "In corsu: GridFS",
+    "after": "GridFS",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "hide-list-on-minicard",
+    "before": "Piattà lista nantu à a minischeda",
+    "after": "Piattà a lista nant’à a minicarta",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "job-description",
+    "before": "Descrizzione del processo",
+    "after": "Descrizzione di u travagliu",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "job-details",
+    "before": "Dettagli del processo",
+    "after": "Ditaglii di u travagliu",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "job-name",
+    "before": "Nome del processo",
+    "after": "Nome di u travagliu",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "job-queue",
+    "before": "Coda dei processi",
+    "after": "Coda di i travagli",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "max-concurrent",
+    "before": "Massimo concorrenti",
+    "after": "Massimu à tempu",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "memory-usage",
+    "before": "Utilizzo memoria",
+    "after": "Usu di memoria",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "migrate-all-to-filesystem",
+    "before": "Migra tutto nantu à u filesystem",
+    "after": "Migrà tuttu versu u sistema di schedarii",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "migrate-all-to-gridfs",
+    "before": "Migra tutto su GridFS",
+    "after": "Migrà tuttu versu GridFS",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "migrate-all-to-s3",
+    "before": "Migra tutto su S3",
+    "after": "Migrà tuttu versu S3",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "migrated-attachments",
+    "before": "Allegati migrati",
+    "after": "Appicci migrati",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "migration-batch-size",
+    "before": "Dimensione del batch",
+    "after": "Dimensione di u gruppu",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "migration-batch-size-description",
+    "before": "Numeru d’allegati da trattà in ogni gruppu (1-100)",
+    "after": "Numeru d’appicci da trattà in ogni gruppu (1-100)",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "migration-cpu-threshold-description",
+    "before": "Metti in pausa la migrazione quando l'utilizzo di a CPU supera questa percentuale (10-90)",
+    "after": "Mette in pausa a migrazione quandu l’usu di a CPU franca sta percentuale (10-90)",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "migration-delay-ms",
+    "before": "Ritardo (ms)",
+    "after": "Tempu d’attesa (ms)",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "migration-info-text",
+    "before": "Le migrazioni del database vengono eseguite una sola volta e migliorano le prestazioni del sistema. Il processo continua in background anche se chjode il browser.",
+    "after": "E migrazioni di a basa di dati sò fatte una sola volta è migliuranu e prestazioni di u sistema. U prucessu cuntinueghja in fondu ancu s’è vo chjudite u navigatore.",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "migration-log",
+    "before": "Log di a migrazione",
+    "after": "Registru di a migrazione",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "migration-resumed",
+    "before": "Migrazione ripresa",
+    "after": "Migrazione ripigliata",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "migration-steps",
+    "before": "Passaggi di a migrazione",
+    "after": "Passi di a migrazione",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "next-run",
+    "before": "Prossima esecuzione",
+    "after": "Prussima esecuzione",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "operation-type",
+    "before": "Tipo di operazione",
+    "after": "Tipu d’operazione",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "overall-progress",
+    "before": "Avanzamento complessivo",
+    "after": "Avanzamentu generale",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "refresh",
+    "before": "Aggiorna",
+    "after": "Aghjurnà",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "refresh-monitoring",
+    "before": "Aggiorna monitoraggio",
+    "after": "Aghjurnà i dati di surviglianza",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "remaining-attachments",
+    "before": "Allegati rimanenti",
+    "after": "Appicci chì fermanu",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "resume-migration",
+    "before": "Riprendi la migrazione",
+    "after": "Ripiglià a migrazione",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "run-once",
+    "before": "Esegui una volta",
+    "after": "Eseguisce una volta",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "s3-attachments",
+    "before": "Allegati S3",
+    "after": "Appicci S3",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "s3-storage",
+    "before": "In corsu: S3",
+    "after": "S3",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "scanning-status",
+    "before": "Stato di a scansione",
+    "after": "Statu di l’analisi",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "show-list-on-minicard",
+    "before": "Mustrà lista nantu à a minischeda",
+    "after": "Mustrà a lista nant’à a minicarta",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "showChecklistAtMinicard",
+    "before": "Mustrà checklist nantu à a minischeda",
+    "after": "Mustrà a lista di cuntrollu nant’à a minicarta",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "showing",
+    "before": "Visualizzazione",
+    "after": "Visualizazione",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "start-test-operation",
+    "before": "Avvia operazione di test",
+    "after": "Avvià un’operazione di prova",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "start-time",
+    "before": "Ora di inizio",
+    "after": "Ora di principiu",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "stop-migration",
+    "before": "Arresta la migrazione",
+    "after": "Piantà a migrazione",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "storage-distribution",
+    "before": "Distribuzione di u storage",
+    "after": "Distribuzione di l’almacenamentu",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "total-attachments",
+    "before": "Totale allegati",
+    "after": "Tutale di l’appicci",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "total-operations",
+    "before": "Totale operazioni",
+    "after": "Tutale d’operazioni",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "total-size",
+    "before": "Dimensione totale",
+    "after": "Dimensione tutale",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "unmigrated-boards",
+    "before": "Tavule non migrate",
+    "after": "Tavule micca migrate",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "weight",
+    "before": "Peso",
+    "after": "Pesu",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "current-step",
+    "before": "Passaggio corrente",
+    "after": "Passu attuale",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
+  },
+  {
+    "locale": "co",
+    "key": "create-account",
+    "before": "Creà account",
+    "after": "Creà un contu",
+    "reason": "Repair Corsican monitoring and migration-control wording; preserve numeric limits and background behavior."
   }
 ]
