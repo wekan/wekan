@@ -641,9 +641,10 @@ also sends WeKan's email; **bounces** from **Amazon SES** and eight other
 sending services are handled in the Admin Panel. Two new board views show a
 board as a Gmail-like **Email** mailbox and as a Slack-like **Chat**. A board
 can be **exported to Trello** with its **swimlanes** kept as labels, and a grain
-reaches Trello through the **Powerbox**. **FreeBSD** Bun bundles, the
-**Launchpad snap** and the **Mac apps** step are fixed, and many languages are
-filled and corrected.
+reaches Trello through the **Powerbox**. **Single-file WeKan** is one
+executable per platform, with a menu to update, back up and start at boot.
+**FreeBSD** Bun bundles, the **Launchpad snap** and the **Mac apps** step are
+fixed, and many languages are filled and corrected.
 
 This release adds the following new features:
 
@@ -791,6 +792,41 @@ on OpenBSD (under `/usr/local`, which is mounted `wxallowed`) and on NetBSD
 NetBSD job compiles native modules with pkgsrc's GCC 14.
 `tests/bsdBundles.test.cjs` covers the targets, the workflow and the start
 test.
+
+</details>
+
+**Single-file WeKan** - all of WeKan in one executable per platform, its data
+in wekan-files beside it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/31e569a18e">One executable per platform, with a menu to update, change version, back up and start at boot</a>. Thanks to xet7.</summary>
+
+Each platform's published bundle becomes a Node.js single executable whose ZIP
+Node.js 26.11 reads as a virtual file system, without unpacking it. Only
+FerretDB is copied out, once and checksum-verified, to `wekan-files/bin`.
+Everything WeKan writes goes in `wekan-files` beside the executable, which
+`WRITABLE_PATH` points at: `attachments`, `db`, `backup` and the rest. A
+`WRITABLE_PATH` named `wekan-files` is now a files root in WeKan itself
+(`models/lib/filesRoot.js`, now used everywhere the rule was copied).
+
+Started in a terminal, it shows a menu: start and stop, status, version info as
+Admin Panel / Version shows it, update to the newest release or change to any
+other (verified, backed up first, the old one kept), backup to
+`wekan-files/backup/YYYY-MM-DD_HH-MM-SS`, run at boot (systemd, launchd, Task
+Scheduler, cron, Termux:Boot), the log and settings. Every entry is also a
+command. Starting runs the `start-wekan.sh` loop.
+
+Meteor's `main.js` changes directory into the bundle, which no operating system
+can do inside a virtual file system, so the server keeps a virtual working
+directory. Node.js 26.11.1 breaks `fs.writev` and `fs.readv` while one is
+mounted, so those are rebuilt on `fs.write` and `fs.read`.
+
+`single-file.yml` builds every platform with a bundle, starts it where GitHub
+has a runner, and attaches what started. Tested here by building a real
+executable from a stand-in bundle (`tests/singleFile.test.cjs`, 20 tests), and
+with the v12.39 amd64 bundle: WeKan answered in 24 s, and 20 browser tests
+passed, including `tests/playwright/specs/single-file.e2e.js`. See
+[Single-file WeKan](docs/Platforms/Single-File.md).
 
 </details>
 
