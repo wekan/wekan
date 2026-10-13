@@ -637,10 +637,11 @@ Upcoming as it is committed. Builds run on GitHub Actions only.
 
 **In short:** **email to card** arrives on every platform, through provider
 webhooks, **IMAP** mailboxes or a **Sandstorm** grain's own address, which
-also sends WeKan's email. A board can be **exported to Trello** with its
-**swimlanes** kept as labels, and a grain reaches Trello through the
-**Powerbox**. **FreeBSD** Bun bundles, the **Launchpad snap** and the **Mac
-apps** step are fixed, and many languages are filled and corrected.
+also sends WeKan's email. Two new board views show a board as a Gmail-like
+**Email** mailbox and as a Slack-like **Chat**. A board can be **exported to
+Trello** with its **swimlanes** kept as labels, and a grain reaches Trello
+through the **Powerbox**. **FreeBSD** Bun bundles, the **Launchpad snap** and
+the **Mac apps** step are fixed, and many languages are filled and corrected.
 
 This release adds the following new features:
 
@@ -706,6 +707,39 @@ floods show in Admin Panel → Problems. See
 [Email to card](docs/Features/Email/Email-To-Card.md);
 `tests/emailToCard.test.cjs` covers the settings, the payloads, the capnp email
 and the guards.
+
+</details>
+
+**Board views** - the board as a mailbox and as a chat.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ddb33d21d0">Email view: the board as a Gmail-like mailbox</a>. Thanks to xet7.</summary>
+
+The Inbox is the list email to card puts new cards in; Sent and All mail
+follow the cards' email; the board's lists are folders and its labels are
+Gmail labels, coloured on each message. The messages are the shared table
+page, newest first and paged on the server. A message opens as the card popup,
+its comments the conversation. Compose and Reply send From the member's own
+board address, so the answer comes back to this board and, by `In-Reply-To`,
+to the same card as a comment; on Sandstorm the grain's address carries the
+board token in the subject. See [Email view](docs/Features/Board/Email-View.md);
+`tests/emailView.test.cjs` covers the folders, the search, header injection and
+the wiring.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ddb33d21d0">Chat view: the board as a Slack or Rocket.Chat workspace</a>. Thanks to xet7.</summary>
+
+A tree of Workspaces, boards, swimlanes, lists and cards as channels; the
+selected card in the middle; its comments as chat beside it, Enter to send.
+Left to right it is tree | card | chat, mirrored in a right-to-left language.
+Each pane folds, the borders between them drag (or move with the arrow keys),
+and widths and folds are saved on the member's profile. Swimlanes, lists,
+cards, workspaces and boards reorder by drag and drop through the same paths
+as on the board and All Boards. See [Chat view](docs/Features/Board/Chat-View.md);
+`tests/chatView.test.cjs` covers the layout, both directions, the tree and the
+drop rules.
 
 </details>
 
