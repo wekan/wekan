@@ -2,6 +2,38 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Time-history Khmer and regional-language review — 2026-10-13
+
+Commit `1a7fa67d94` completes the note in nine catalog paths: `km`, `km-KH`,
+`km_KH`, `my`, `am`, `yi`, `bho`, `mai` and `kok`. The Khmer regional hyphen
+path is a symlink to the underscore file, so this changes eight physical
+files while testing all nine paths. The symlink remains intact. The browser
+flow maps `km_KH` to the registered `km-KH` tag and checks Yiddish RTL layout.
+
+Each replacement states the four missing source meanings: grouping by the
+person editing the total, exclusion of individual work sessions, negative
+corrections, and inability to attribute earlier unrecorded time. The
+[Yiddish correction verb](https://en.wiktionary.org/wiki/פֿאַרריכטן)
+was checked as vocabulary support, not sentence certification. These seven
+languages' technical prose is provisional pending fluent review, as recorded
+in the commit. Bhojpuri, Maithili and Konkani use their respective grammatical
+forms rather than a shared Hindi sentence; script alone is not the check.
+
+Three suites pass: 142 meaning fixtures, all 25,134 recorded corrections,
+and unchanged acceptances. All 21 human-preference checks pass. Every key
+and placeholder in the nine paths matches the current 4,231-key English
+source. Only the note hunks entered the commit; the 39 concurrently added
+email/chat keys remain separate. All 37,728 earlier values in the protected
+Chinese catalogs match the parent commit.
+
+The browser suite registers 143 language cases including English and three
+other cases, 146 total. This is discovery verification; the cases have not
+run against a rebuilt app. Seventy-eight abbreviated notes remain, including
+eight protected `zh` catalogs. The refreshed filtered inventory is 53,863
+values across 116 catalogs; the ordinary report has 28,516 across 42,
+excluding 379 pending source keys. Broader semantic review and browser
+execution remain unfinished.
+
 ## Time-history Kurdish, Asian and African review — 2026-10-13
 
 Commit `021d016f5d` restores the complete explanation in eight catalogs:

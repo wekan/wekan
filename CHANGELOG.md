@@ -131,7 +131,7 @@ releases.
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **28,516 untranslated locale/string values in 42 languages**.
   It excludes **379 source keys tracked separately as pending Transifex**.
-  With 49 new email strings in the working tree, full per-locale `--list`
+  With the newer email/chat strings included, full per-locale `--list`
   reports, including pending keys, count **53,863 remaining values across
   116 non-English locale files**. This fuller inventory remains the scope
   of the translation work.
@@ -149,10 +149,10 @@ releases.
   new email strings now have no filtered English fill candidates. Nine Chinese
   catalogs passed review of all 441 new values; their 37,287 earlier values
   remain unchanged. Empty reports alone do not establish fluent translation.
-- The shared time-history audit covers 133 repaired explanations, including
+- The shared time-history audit covers 142 repaired explanations, including
   five English regional catalogs. Editor grouping, individual-session
   exclusion, negative corrections and missing historical attribution are
-  explicit. Three suites and 21 human-preference checks pass; 134 language
+  explicit. Three suites and 21 human-preference checks pass; 143 language
   browser cases register including English, with RTL checks where applicable.
   Further catalogs and browser execution remain under review.
 - Latin Uzbek now has no current fill candidates after 223 feature fills,
@@ -1131,6 +1131,22 @@ suite registers 134 language cases and three other cases, with RTL
 checks extended to the newly covered scripts; execution remains pending.
 The seven non-Japanese technical translations are provisional pending
 fluent review. Existing Chinese wording is unchanged.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1a7fa67d94">Complete time-history explanations in Khmer and six more languages</a>. Thanks to xet7.</summary>
+
+Restore the four source meanings in Khmer and both regional catalog paths,
+Burmese, Amharic, Yiddish, Bhojpuri, Maithili and Konkani. Preserve the Khmer
+symlink, use its registered browser language tag, and extend the browser
+RTL check to Yiddish. Technical prose remains provisional for fluent review.
+
+Three suites pass, covering 142 explanations and all 25,134 correction
+records, together with unchanged acceptances. All 21 human-preference
+checks pass. The browser suite registers 143 language cases and three
+other cases; execution remains pending. Existing Chinese text is unchanged,
+and concurrent new email/chat translations are preserved.
 
 </details>
 
