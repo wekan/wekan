@@ -2073,6 +2073,19 @@ remains pending. Existing Chinese text is unchanged; broader review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6d22052060">Review Corsican Blockly math and text operations</a>. Thanks to xet7.</summary>
+
+Review the remaining Blockly operations and following Scrum labels. Correct
+eight keyboard, shortcut and sorting values; verify logical and mathematical
+distinctions while preserving the existing translated prose.
+
+The Corsican and repair-ledger suites and 21 human-preference checks pass.
+The existing Blockly interaction suite now includes Corsican; runtime
+execution remains pending. Existing Chinese text is unchanged.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

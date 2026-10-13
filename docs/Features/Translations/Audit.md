@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican remaining Blockly operations and Scrum labels — 2026-10-13
+
+Commit `6d22052060` extends the source-ordered review through key 3829.
+The 460 reviewed strings include list, logic, math, procedure and text
+operations, Blockly aliases and the following Scrum labels. Existing
+translated prose is largely preserved. Eight corrections align remaining
+physical keyboard names and workspace search shortcuts and repair the
+sorting verb. Regression checks distinguish AND/OR, inclusive integer
+bounds, exclusive floating-point upper bounds, and degrees versus radians.
+
+The Corsican and full repair-ledger suites pass; the ledger verifies
+26,869 guarded corrections. All 21 human-preference checks pass. The existing
+Blockly drag, field-editing and context-menu browser case now includes
+Corsican; syntax and discovery pass, but runtime execution remains pending.
+Exact comparison preserves 38,430 existing Chinese values. Fluency and the
+broader language objective remain unverified and unfinished.
+
 ## Corsican Blockly accessibility and list operations — 2026-10-13
 
 Commit `0b753e316d` extends the source-ordered review through key 3369.
