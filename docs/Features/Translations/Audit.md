@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin Trello import messages — 2026-10-14
+
+Commit `2e641f3fb7` repairs 40 prefixed messages for Trello JSON/ZIP imports,
+workspace placement, API credentials, progress and cancellation. Tests distinguish
+whole-archive size, file count and individual-file limits, unsafe paths, both
+required credentials, at-least-one-board selection and irreversible deletion of
+boards already imported by the current job. Cancel and resume remain distinct.
+
+The Latin and guarded-correction suites pass with 27,714 ledger entries. All 21
+human-preference checks pass. Browser coverage checks ZIP and credential labels
+and password-field masking without contacting Trello; syntax and discovery pass,
+runtime remains pending. Exact comparison preserves 38,430 existing Chinese values.
+
+There remain 1,670 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin advanced filters and import guides — 2026-10-14
 
 Commit `7f26a7e7a9` repairs 30 prefixed messages, including advanced-filter
