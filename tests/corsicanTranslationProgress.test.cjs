@@ -210,3 +210,16 @@ assert.match(corsican['import-board-instruction-jira'], /senza fields.*solu l’
 assert.match(corsican['import-board-instruction-jira'], /tutte e pagine.*ogni pagina/);
 assert.match(corsican['import-board-instruction-excel'], /Ogni fogliu cù una linea d’intestazione diventa una tavula/);
 assert.equal(corsican['email-invite-text'], corsican['push-invite-text']);
+
+const filterCorrectionKeys = ["advanced-filter-description", "import-trello-json-file-hint", "import-trello-zip-no-boards", "import-trello-parent-workspace", "trello-list-workspaces", "trello-api-credentials-saved", "just-invited", "leave-board-pop", "list-archive-cards-pop", "list-delete-suggest-archive", "normal-desc", "private-desc", "public-desc", "remove-from-board", "listDeletePopup-title", "remove-member-from-card", "sandstorm-remove-member-warning", "search-cards", "shortcut-add-self", "shortcut-assign-self"];
+for (const key of filterCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /\b(?:Puoi|Sei sicuro|Questa|Nessun|dalla|alla|modificare|personalizzati|salvati|reinserirli)\b/, key);
+}
+assert.match(corsican['normal-desc'], /Ùn pò micca cambià i paràmetri/);
+assert.match(corsican['private-desc'], /Solu e persone aghjunte.*vede la è mudificà la/);
+assert.match(corsican['public-desc'], /visibile à tutti.*Google.*Solu e persone aghjunte.*mudificà la/);
+assert.match(corsican['sandstorm-remove-member-warning'], /Ùn revoca micca l’accessu.*Revucate dinù/);
+assert.match(corsican['leave-board-pop'], /tutte e carte/);
+assert.match(corsican['list-delete-suggest-archive'], /cunservà a so attività/);
+assert.match(corsican['import-trello-json-file-hint'], /chjave API è u gettone.*appicci.*fondu.*avatar/);

@@ -177119,5 +177119,145 @@
     "before": "Scegli un foglio di calcolo .xlsx in stile WeKan (le stesse colonne dell'esportazione Excel: Titulu, Descrizzione, Stato/Lista, Membri, Etichette, date, campi personalizzati). La prima riga è l'intestazione.",
     "after": "Sceglite un libru di travagliu .xlsx: una tabella cù una carta per linea (culonne cum’è Title, Description, Status/List, Members, Labels, date è campi persunalizati), o un libru di travagliu espurtatu da WeKan, ancu unu cù ogni tavula nant’à un fogliu distintu. A tappa dopu mostra quale culonna currisponde à quale campu. Ogni fogliu cù una linea d’intestazione diventa una tavula.",
     "reason": "Repair mixed Italian/Corsican board prose and restore current import instructions; preserve placeholders, markup and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "advanced-filter-description",
+    "before": "Il filtro avanzato permette di scrivere una stringa contenente i seguenti operatori: == != <= >= && || ( ) Uno spaziu è usato come separatore tra gli operatori. Si può filtrare per tutti i campi personalizzati, scrivendo i loro nomi e valori. Per esempio: Campo1 == Valore1. Nota: Se i campi o i valori contengono spazi, è necessario incapsularli all'interno di apici singoli. Per esempio: 'Campo 1' == 'Valore 1'. Per i singoli caratteri di controllo (' \\\\/) che devono essere ignorati, si può usare \\\\. Per esempio: C1 == Campo1 == L'\\\\ho. Si possono anche combinare condizioni multiple. Per esempio: C1 == V1 || C1 ==V2. Di norma tutti gli operatori vengono letti da sinistra a destra. Si può cambiare l'ordine posizionando di e parentesi. Per esempio: C1 == V1 && ( C2 == V2 || C2 == V3) . Inoltre è possibile cercare nei campi di testo usando le espressioni regolari (n.d.t. regex): F1 ==/Tes.*/i",
+    "after": "U filtru avanzatu permette di scrive una stringa cù sti operatori: == != <= >= && || ( ) Un spaziu serve à separà l’operatori. Pudete filtrà tutti i campi persunalizati scrivendu i so nomi è valori. Per esempiu: Field1 == Value1. Nota: s’è i campi o i valori cuntenenu spazii, ci vole à mette li trà virgulette simplice. Per esempiu: 'Field 1' == 'Value 1'. Per trattà caratteri speciali (' \\/) cum’è caratteri litterali, pudete aduprà \\. Per esempiu: Field1 == I\\'m. Pudete dinù cumbinà parechje cundizioni. Per esempiu: F1 == V1 || F1 == V2. Di regula, tutti l’operatori sò interpretati da manca à diritta. Pudete cambià l’ordine aduprendu parentesi. Per esempiu: F1 == V1 && ( F2 == V2 || F2 == V3 ). Pudete dinù circà in i campi di testu cù espressioni regulare: F1 == /Tes.*/i",
+    "reason": "Replace mixed Italian/Corsican prose; restore exact filter examples and preserve visibility, access and archive semantics."
+  },
+  {
+    "locale": "co",
+    "key": "import-trello-json-file-hint",
+    "before": "Una tavula Trello esportata come .json. Se hai salvato la chiave API e il token di Trello, vengono scaricati anche i suoi allegati, lo sfondo di a tavula e gli avatar dei membri.",
+    "after": "Una tavula Trello espurtata cum’è .json. S’è vo avete arregistratu a chjave API è u gettone Trello, i so appicci, u fondu di a tavula è l’avatar di i membri sò scaricati dinù.",
+    "reason": "Replace mixed Italian/Corsican prose; restore exact filter examples and preserve visibility, access and archive semantics."
+  },
+  {
+    "locale": "co",
+    "key": "import-trello-zip-no-boards",
+    "before": "Nessun schedariu .json di tavula Trello trovato in u .zip.",
+    "after": "Nisun schedariu .json di tavula Trello hè statu trovu in u .zip.",
+    "reason": "Replace mixed Italian/Corsican prose; restore exact filter examples and preserve visibility, access and archive semantics."
+  },
+  {
+    "locale": "co",
+    "key": "import-trello-parent-workspace",
+    "before": "Colloca gli spazi di travagliu importati sotto",
+    "after": "Piazzà i spazii di travagliu impurtati sottu à",
+    "reason": "Replace mixed Italian/Corsican prose; restore exact filter examples and preserve visibility, access and archive semantics."
+  },
+  {
+    "locale": "co",
+    "key": "trello-list-workspaces",
+    "before": "Elenca gli spazi di travagliu di Trello",
+    "after": "Elencà i spazii di travagliu Trello",
+    "reason": "Replace mixed Italian/Corsican prose; restore exact filter examples and preserve visibility, access and archive semantics."
+  },
+  {
+    "locale": "co",
+    "key": "trello-api-credentials-saved",
+    "before": "La chiave API e il token di Trello sono salvati. Puoi elencare gli spazi di travagliu senza reinserirli.",
+    "after": "A chjave API è u gettone Trello sò arregistrati. Pudete elencà i spazii di travagliu senza entre li torna.",
+    "reason": "Replace mixed Italian/Corsican prose; restore exact filter examples and preserve visibility, access and archive semantics."
+  },
+  {
+    "locale": "co",
+    "key": "just-invited",
+    "before": "Sei stato appena invitato a questa tavula",
+    "after": "Site statu invitatu avà à sta tavula",
+    "reason": "Replace mixed Italian/Corsican prose; restore exact filter examples and preserve visibility, access and archive semantics."
+  },
+  {
+    "locale": "co",
+    "key": "leave-board-pop",
+    "before": "Sei sicuro di voler abbandonare __boardTitle__? Sarai cacciatu da tutte le carte in questa tavula.",
+    "after": "Site sicuru di vulè lascià __boardTitle__? Sarete cacciatu da tutte e carte di sta tavula.",
+    "reason": "Replace mixed Italian/Corsican prose; restore exact filter examples and preserve visibility, access and archive semantics."
+  },
+  {
+    "locale": "co",
+    "key": "list-archive-cards-pop",
+    "before": "Questu rimuoverà tutte le carte nell'lista dalla tavula. Per vedere le carte nell'archiviu e portarle dov'erano  in a tavula, clicca su \"Menu\"  > \"Archiviu\".",
+    "after": "Tutte e carte di sta lista seranu cacciate da a tavula. Per vede e carte in l’archiviu è rimette le nant’à a tavula, cliccate “Menù” > “Archiviu”.",
+    "reason": "Replace mixed Italian/Corsican prose; restore exact filter examples and preserve visibility, access and archive semantics."
+  },
+  {
+    "locale": "co",
+    "key": "list-delete-suggest-archive",
+    "before": "Puoi spostare un lista nell'archiviu per rimuoverlo dalla tavula e mantentere la sua attività.",
+    "after": "Pudete spustà una lista in l’archiviu per caccià la da a tavula è cunservà a so attività.",
+    "reason": "Replace mixed Italian/Corsican prose; restore exact filter examples and preserve visibility, access and archive semantics."
+  },
+  {
+    "locale": "co",
+    "key": "normal-desc",
+    "before": "Può visionare e modificare le carte. Non può cambiare le impostazioni.",
+    "after": "Pò vede è mudificà e carte. Ùn pò micca cambià i paràmetri.",
+    "reason": "Replace mixed Italian/Corsican prose; restore exact filter examples and preserve visibility, access and archive semantics."
+  },
+  {
+    "locale": "co",
+    "key": "private-desc",
+    "before": "Questa tavula è privata. Solu le persone aggiunte alla tavula possono vederla e modificarla.",
+    "after": "Sta tavula hè privata. Solu e persone aghjunte à a tavula ponu vede la è mudificà la.",
+    "reason": "Replace mixed Italian/Corsican prose; restore exact filter examples and preserve visibility, access and archive semantics."
+  },
+  {
+    "locale": "co",
+    "key": "public-desc",
+    "before": "Questa tavula è pubblica. È visibile a chiunque abbia il link e sarà mostrata dai motori di ricerca come Google. Solu le persone aggiunte alla tavula possono modificarla.",
+    "after": "Sta tavula hè publica. Hè visibile à tutti quelli chì anu u ligame è serà mustrata in i mutori di ricerca cum’è Google. Solu e persone aghjunte à a tavula ponu mudificà la.",
+    "reason": "Replace mixed Italian/Corsican prose; restore exact filter examples and preserve visibility, access and archive semantics."
+  },
+  {
+    "locale": "co",
+    "key": "remove-from-board",
+    "before": "Caccià dalla tavula",
+    "after": "Caccià da a tavula",
+    "reason": "Replace mixed Italian/Corsican prose; restore exact filter examples and preserve visibility, access and archive semantics."
+  },
+  {
+    "locale": "co",
+    "key": "listDeletePopup-title",
+    "before": "Eliminare lista?",
+    "after": "Squassà a lista?",
+    "reason": "Replace mixed Italian/Corsican prose; restore exact filter examples and preserve visibility, access and archive semantics."
+  },
+  {
+    "locale": "co",
+    "key": "remove-member-from-card",
+    "before": "Caccià dalla carta",
+    "after": "Caccià da a carta",
+    "reason": "Replace mixed Italian/Corsican prose; restore exact filter examples and preserve visibility, access and archive semantics."
+  },
+  {
+    "locale": "co",
+    "key": "sandstorm-remove-member-warning",
+    "before": "Questu nasconde il membru solu all'interno di WeKan. Non revoca l'accesso al grain di Sandstorm. Revoca il suo accesso anche dalla finestra di dialogo Condividi accesso di Sandstorm.",
+    "after": "Questu piatta solu u membru in WeKan. Ùn revoca micca l’accessu à u grain Sandstorm. Revucate dinù u so accessu in u dialogu di spartera d’accessu di Sandstorm.",
+    "reason": "Replace mixed Italian/Corsican prose; restore exact filter examples and preserve visibility, access and archive semantics."
+  },
+  {
+    "locale": "co",
+    "key": "search-cards",
+    "before": "Ricerca per titulu, descrizzione carta/lista e campi personalizzati su questa tavula",
+    "after": "Circà in i tituli è e discrizzioni di carte/liste è in i campi persunalizati di sta tavula",
+    "reason": "Replace mixed Italian/Corsican prose; restore exact filter examples and preserve visibility, access and archive semantics."
+  },
+  {
+    "locale": "co",
+    "key": "shortcut-add-self",
+    "before": "Aghjunghje te stesso alla carta corrente",
+    "after": "Aghjunghje si à a carta attuale",
+    "reason": "Replace mixed Italian/Corsican prose; restore exact filter examples and preserve visibility, access and archive semantics."
+  },
+  {
+    "locale": "co",
+    "key": "shortcut-assign-self",
+    "before": "Assegna te stesso alla carta corrente",
+    "after": "Assignà si a carta attuale",
+    "reason": "Replace mixed Italian/Corsican prose; restore exact filter examples and preserve visibility, access and archive semantics."
   }
 ]

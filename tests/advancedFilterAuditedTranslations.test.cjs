@@ -9,7 +9,7 @@ const examples = ['== != <= >= && || ( )', 'Field1 == Value1', "'Field 1' == 'Va
 (async () => {
   const { repairProgress } = await import('../releases/translations/audit-progress.mjs');
   const result = repairProgress();
-  for (const locale of ['ar', 'ar-DZ', 'ar-EG', 'lt', 'mn', 'el', 'el-GR', 'sk', 'eo']) {
+  for (const locale of ['co', 'ar', 'ar-DZ', 'ar-EG', 'lt', 'mn', 'el', 'el-GR', 'sk', 'eo']) {
     const data = read(locale);
     const help = data['advanced-filter-description'];
     assert.notEqual(help, source, locale);
