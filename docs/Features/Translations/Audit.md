@@ -2,6 +2,25 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Short rule labels in four more locales — 2026-10-13
+
+Commit `abf6ab4137` fills 40 English-equal values in Javanese jv, Kazakh kk,
+Tajik tg and Somali so. These cover sorting, copulas, recipients, actors,
+self-selection and numeric counts; Somali also receives its remaining Blockly
+ordinal, condition and action labels. The Kazakh count separator is a slash,
+matching the numeric template without forcing inflected word order. Full
+rule-sentence grammar remains unverified and requires contextual review.
+
+Two focused suites pass, with 273 reviewed values across 38 locales. New checks
+preserve Somali control aliases and distinguish conditions from actions. All 21
+human-preference checks pass. The four existing Blockly browser cases pass
+syntax and discovery; runtime execution remains pending. Exact comparison
+preserves 38,430 existing Chinese values; no non-English value was overwritten.
+
+The filtered inventory is 30,285 candidates across 105 locales, plus 379 pending
+Transifex source keys tracked separately. All-language translation and semantic
+verification remain unfinished.
+
 ## Short Blockly controls in ten locales — 2026-10-13
 
 Commit `0e554efcaf` fills 126 English values in nine physical locale files:

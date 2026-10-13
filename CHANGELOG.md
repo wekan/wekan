@@ -2683,6 +2683,20 @@ All-language semantic review and native-speaker refinement remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/abf6ab4137">Translate short rules in Javanese, Kazakh, Tajik and Somali</a>. Thanks to xet7.</summary>
+
+Fill 40 English placeholders for sorting, actors, recipients, self-selection,
+counts and Somali Blockly conditions/actions. Existing translations, including
+Chinese values, remain unchanged. Full rule-sentence grammar still needs review.
+
+Both focused suites and all 21 preservation checks pass. The four existing
+Blockly browser cases pass syntax and discovery; runtime remains pending. The
+filtered queue is 30,285 candidates across 105 locales, with 379 pending
+Transifex source keys tracked separately. All-language verification continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
