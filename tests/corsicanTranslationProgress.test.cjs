@@ -280,3 +280,16 @@ assert.match(corsican['run-restore-all-archived-migration-confirm'], /TUTTI.*arc
 assert.match(corsican['migrations-admin-only'], /Solu l’amministratori di a tavula/);
 assert.match(corsican['conversion-info-text'], /una sola volta per tavula.*cuntinuà.*nurmalmente/);
 for (const literal of ['AWS','MinIO','Cloudflare R2','Backblaze B2','Wasabi','DigitalOcean Spaces']) assert.ok(corsican['s3-endpoint-menu-path'].includes(literal));
+
+const workspaceCorrectionKeys = ["activity-receivedDate", "activity-startDate", "activity-dueDate", "activity-endDate", "allboards.add-subworkspace", "allboards.add-subworkspace-prompt", "workspace-settings", "workspaceActionsPopup-title", "allboards.delete-workspace-confirm-check", "multi-selection-active", "archive-permanent-delete-disabled-hint", "no-boards-selected", "selected-label", "set-selected-starred", "set-selected-unstarred", "set-selected-home", "unset-selected-home", "home-board-badge", "home-board-empty", "home-board-remove-confirm", "add-template", "setListWidthPopup-title", "set-list-width", "personal-list-width", "setSwimlaneHeightPopup-title", "set-swimlane-height", "set-swimlane-height-value", "swimlane-height-error-message", "add-swimlane", "add-subtask", "add-existing-card-as-subtask-empty", "addExistingSubtaskPopup-title", "add-checklist", "convertChecklistItemToCardPopup-title", "convertChecklistItemToSubtask-title", "checklistItem-linked-subtask", "add-cover"];
+for (const key of workspaceCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /\b(?:Impostazioni|Clicca|Selezionate|Imposta|Impostare|deve essere|Nessuna|Converti|immagine|sotto-compito|sottutask)\b/, key);
+}
+assert.match(corsican['home-board-empty'], /una sola tavula.*dopu a cunnessione/);
+assert.match(corsican['home-board-remove-confirm'], /tavula stessa ùn hè micca squassata/);
+assert.match(corsican['no-boards-selected'], /Ùn avete sceltu nisuna tavula/);
+assert.match(corsican['set-selected-starred'], /Aghjunghje.*preferite/);
+assert.match(corsican['set-selected-unstarred'], /Caccià.*preferite/);
+assert.match(corsican['swimlane-height-error-message'], /numeru interu pusitivu/);
+assert.match(corsican['archive-permanent-delete-disabled-hint'], /amministratore glubale.*marcatu.*buttone Squassà diventerà visibile/);

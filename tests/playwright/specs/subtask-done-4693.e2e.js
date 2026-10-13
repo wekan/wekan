@@ -36,6 +36,7 @@ test.describe(`Subtask done checkbox in ${language} (#4693)`, () => {
     if (language === 'co') {
       await expect(heading).toContainText('Sottucompiti');
       await expect(heading).not.toContainText('Sotto-compiti');
+      await expect(cp.root.locator('a.js-open-inlined-form[title="Aghjunghje un sottucompitu"]')).toHaveCount(1);
     }
     const row = cp.root.locator('.card-subtasks-items .js-subtasks').filter({ hasText: 'Beta Card' });
     const box = row.locator('.js-toggle-subtask-done');

@@ -177924,5 +177924,264 @@
     "before": "Nessun novu problema.",
     "after": "Nisun novu prublema.",
     "reason": "Replace mixed Italian/Corsican repair guidance; preserve migration scope, permission requirements, technical identifiers and reversibility limits."
+  },
+  {
+    "locale": "co",
+    "key": "activity-receivedDate",
+    "before": "ha mudificatu la data di ricevuta a %s di %s",
+    "after": "hà mudificatu a data di ricezione in %s di %s",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "activity-startDate",
+    "before": "ha mudificatu la data di inizio a %s di %s",
+    "after": "hà mudificatu a data d’iniziu in %s di %s",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "activity-dueDate",
+    "before": "ha mudificatu la data di scadenza a %s di %s",
+    "after": "hà mudificatu a data di scadenza in %s di %s",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "activity-endDate",
+    "before": "ha mudificatu la data di fine a %s di %s",
+    "after": "hà mudificatu a data di fine in %s di %s",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "allboards.add-subworkspace",
+    "before": "Aghjunghje sotto-spaziu di travagliu",
+    "after": "Aghjunghje un sottuspaziu di travagliu",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "allboards.add-subworkspace-prompt",
+    "before": "Nome del sotto-spaziu di travagliu",
+    "after": "Nome di u sottuspaziu di travagliu",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "workspace-settings",
+    "before": "Impostazioni spaziu di travagliu",
+    "after": "Paràmetri di u spaziu di travagliu",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "workspaceActionsPopup-title",
+    "before": "Impostazioni spaziu di travagliu",
+    "after": "Paràmetri di u spaziu di travagliu",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "allboards.delete-workspace-confirm-check",
+    "before": "Cunfirmà eliminazione di u spaziu di travagliu",
+    "after": "Cunfirmà a squassatura di u spaziu di travagliu",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "multi-selection-active",
+    "before": "Clicca le caselle per selezionare le tavule",
+    "after": "Cliccate e caselle per sceglie e tavule",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "archive-permanent-delete-disabled-hint",
+    "before": "Se in Pannello di amministrazione / Problemi / Squassà è selezionato Attivà l'eliminazione permanente per l'amministratore globale, qui verrà visualizzato il pulsante Squassà.",
+    "after": "S’è Attivà a squassatura permanente per l’amministratore glubale hè marcatu in Pannellu d’amministrazione / Prublemi / Squassà, u buttone Squassà diventerà visibile quì.",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "no-boards-selected",
+    "before": "Non hai selezionato alcuna tavula.",
+    "after": "Ùn avete sceltu nisuna tavula.",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "selected-label",
+    "before": "Selezionate:",
+    "after": "Scelte:",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "set-selected-starred",
+    "before": "Aghjunghje le tavule selezionate ai preferiti",
+    "after": "Aghjunghje e tavule scelte à e preferite",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "set-selected-unstarred",
+    "before": "Togli le tavule selezionate dai preferiti",
+    "after": "Caccià e tavule scelte da e preferite",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "set-selected-home",
+    "before": "Imposta come tavula Home (aperta dopo il login)",
+    "after": "Definisce cum’è tavula iniziale (aperta dopu a cunnessione)",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "unset-selected-home",
+    "before": "Non usare più come tavula iniziale",
+    "after": "Ùn aduprà più cum’è tavula iniziale",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "home-board-badge",
+    "before": "Tavula Home (aperta dopo il login)",
+    "after": "Tavula iniziale (aperta dopu a cunnessione)",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "home-board-empty",
+    "before": "Trascina qui una tavula per aprirla dopo il login",
+    "after": "Trascinate una sola tavula quì per apre la dopu a cunnessione",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "home-board-remove-confirm",
+    "before": "Rimuovere questa tavula da Home? La tavula non viene eliminata.",
+    "after": "Caccià sta tavula da l’accolta? A tavula stessa ùn hè micca squassata.",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "add-template",
+    "before": "Aghjunghje Template",
+    "after": "Aghjunghje un mudellu",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "setListWidthPopup-title",
+    "before": "Imposta larghezza",
+    "after": "Definisce a larghezza",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "set-list-width",
+    "before": "Imposta larghezza",
+    "after": "Definisce a larghezza",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "personal-list-width",
+    "before": "Larghezze personali di e liste",
+    "after": "Larghezze persunale di e liste",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "setSwimlaneHeightPopup-title",
+    "before": "Impostare l'altezza di a corsia",
+    "after": "Definisce l’altezza di u curridore",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "set-swimlane-height",
+    "before": "Impostare l'altezza di a corsia",
+    "after": "Definisce l’altezza di u curridore",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "set-swimlane-height-value",
+    "before": "Altezza di a corsia (in pixel)",
+    "after": "Altezza di u curridore (pixel)",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "swimlane-height-error-message",
+    "before": "L'altezza di a corsia deve essere un intero positivo",
+    "after": "L’altezza di u curridore deve esse un numeru interu pusitivu",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "add-swimlane",
+    "before": "Aghjunghje una corsia",
+    "after": "Aghjunghje un curridore",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "add-subtask",
+    "before": "Aghjunghje sotto-compito",
+    "after": "Aghjunghje un sottucompitu",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "add-existing-card-as-subtask-empty",
+    "before": "Nessuna carta trovata",
+    "after": "Nisuna carta currispundente trova",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "addExistingSubtaskPopup-title",
+    "before": "Aghjunghje una suttatarea esistente",
+    "after": "Aghjunghje un sottucompitu esistente",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "add-checklist",
+    "before": "Aghjunghje checklist",
+    "after": "Aghjunghje una lista di cuntrollu",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "convertChecklistItemToCardPopup-title",
+    "before": "Converti in carta",
+    "after": "Cunvertisce in carta",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "convertChecklistItemToSubtask-title",
+    "before": "Cunvertisce in sottutask",
+    "after": "Cunvertisce in sottucompitu",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "checklistItem-linked-subtask",
+    "before": "Sottutask ligatu",
+    "after": "Sottucompitu ligatu",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "add-cover",
+    "before": "Aghjunghje immagine di copertina a minicard",
+    "after": "Aghjunghje una maghjina di cupertina à a minicarta",
+    "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
   }
 ]
