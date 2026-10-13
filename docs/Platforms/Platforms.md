@@ -193,13 +193,18 @@ rebuild the native modules in. The matrix leg stays in place and is skipped, so
 it shows on every run. Even when the bundle exists, loong64 is not a snap
 architecture.
 
-**Ready on the binary side, but no bundle job yet.** Both repositories already
-publish both binaries for these, so what remains is a build job and a host to
-rebuild the native modules on:
+**The BSDs** have their own workflow, `.github/workflows/bsd.yml`. It takes
+the release's amd64 bundle and adds this BSD's Node.js and FerretDB. It then
+compiles the native modules inside a FreeBSD, OpenBSD or NetBSD VM, starts the
+bundle there with its own `start-wekan.sh`, and attaches
+`wekan-<version>-<os>-<arch>.zip`.
 
 | Platform | FerretDB | Node.js |
 | --- | --- | --- |
-| FreeBSD amd64 | `ferretdb-freebsd-amd64` | `node-freebsd-x64` (node-patches only) |
+| FreeBSD amd64 | `ferretdb-freebsd-amd64` | `node-freebsd-x64` (node-patches only): built |
+| FreeBSD arm64, OpenBSD amd64/arm64, NetBSD amd64 | published | skipped until node-patches publishes their Node.js |
+
+The plan, and where each BSD stands: [BSD](FOSS/OS/BSD.md).
 
 **FerretDB only, no Node.js anywhere:** FreeBSD arm64/i386/armv7/armv6/armel,
 OpenBSD amd64/arm64, NetBSD amd64 and Android arm64. Each of these becomes

@@ -46,7 +46,10 @@ import { pathToFileURL } from 'node:url';
 import { gunzipSync } from 'node:zlib';
 import { checkAddonArch, packageAllows, ELF_MACHINE, MACHO_CPU, PE_MACHINE } from './check-addon-arch.mjs';
 
-export const TARGETS = { win32: Object.keys(PE_MACHINE), linux: Object.keys(ELF_MACHINE), darwin: Object.keys(MACHO_CPU) };
+export const TARGETS = { win32: Object.keys(PE_MACHINE), linux: Object.keys(ELF_MACHINE), darwin: Object.keys(MACHO_CPU),
+  // The BSDs: sharp publishes no BSD binary, so they keep @img/sharp-wasm32
+  // (step 3), and native modules are compiled on the BSD itself (releases/bsd/).
+  freebsd: ['x64', 'arm64'], openbsd: ['x64', 'arm64'], netbsd: ['x64'] };
 const REGISTRY = 'https://registry.npmjs.org';
 const WASM = '@img/sharp-wasm32';
 
@@ -295,7 +298,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1]
   const args = process.argv.slice(2).filter((a) => a !== '--dry-run');
   const [bundle, platform, arch] = args;
   if (!bundle || !platform || !arch) {
-    console.error('usage: platform-native-packages.mjs <bundle dir> <win32|linux|darwin> <arch> [--dry-run]');
+    console.error('usage: platform-native-packages.mjs <bundle dir> <win32|linux|darwin|freebsd|openbsd|netbsd> <arch> [--dry-run]');
     process.exit(2);
   }
   addPlatformNativePackages(bundle, platform, arch, { dryRun: process.argv.includes('--dry-run') })

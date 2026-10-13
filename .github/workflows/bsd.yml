@@ -1,0 +1,211 @@
+name: BSD bundles
+
+# WeKan Node.js bundles for the BSDs (docs/Platforms/FOSS/OS/BSD.md): the
+# release's amd64 bundle, with this BSD's Node.js (wekan/node-patches) and
+# FerretDB (wekan/FerretDB), its native modules compiled inside a VM of that
+# BSD, started there with its own start-wekan.sh, and attached to the release.
+#
+# A target whose Node.js is not published anywhere yet is SKIPPED, not failed:
+# the same rule as every other bundle (releases/resolve-node-source.sh). So
+# OpenBSD and NetBSD start building by themselves the day node-patches
+# publishes their Node.js.
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing WeKan release tag (empty = latest published release)'
+        type: string
+        required: false
+      publish:
+        description: 'Attach tested BSD bundles and checksums to that release'
+        type: boolean
+        default: true
+      only:
+        description: 'JSON target list, e.g. ["freebsd-x64"] (empty = all)'
+        type: string
+        default: ''
+  workflow_call:
+    inputs:
+      tag:
+        type: string
+        required: true
+      publish:
+        type: boolean
+        default: true
+      only:
+        type: string
+        default: ''
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wekan-bsd-${{ inputs.tag || github.ref }}
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: '26'
+
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      tag: ${{ steps.plan.outputs.tag }}
+      matrix: ${{ steps.plan.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - id: plan
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
+          ONLY: ${{ inputs.only }}
+        run: |
+          set -euo pipefail
+          tag="${TAG:-$(gh release view --repo "$GITHUB_REPOSITORY" --json tagName -q .tagName)}"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          matrix="$(python3 -c '
+          import json, os
+          targets = json.load(open("releases/bsd/targets.json"))
+          only = json.loads(os.environ.get("ONLY") or "[]")
+          if only:
+              targets = [t for t in targets if t["target"] in only]
+          print(json.dumps({"include": targets}))')"
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+          echo "Release $tag; targets: $matrix"
+
+  build:
+    needs: plan
+    name: BSD ${{ matrix.target }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    env:
+      TAG: ${{ needs.plan.outputs.tag }}
+      TARGET: ${{ matrix.target }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      # Node.js first: no Node.js for this BSD anywhere means no bundle this
+      # release, which is a skip, not a failure.
+      - name: Where this BSD's Node.js comes from
+        id: node
+        run: |
+          set -euo pipefail
+          out="$(bash releases/resolve-node-source.sh "$TARGET" "$NODE_VERSION")" || rc=$?
+          if [ "${rc:-0}" = 3 ] || ! printf '%s\n' "$out" | grep -q '^node_found=true'; then
+            echo "::notice::$TARGET is not built this release: wekan/node-patches has no node-$TARGET yet."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          printf '%s\n' "$out" | grep -E '^node_(full|from|url|kind|sha256)=' >> "$GITHUB_OUTPUT"
+          printf '%s\n' "$out"
+
+      - name: Fetch and verify the release bundle, Node.js, npm and FerretDB
+        if: steps.node.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NODE_URL: ${{ steps.node.outputs.node_url }}
+          NODE_SHA256: ${{ steps.node.outputs.node_sha256 }}
+          NODE_FULL: ${{ steps.node.outputs.node_full }}
+          FERRETDB_ARCH: ${{ matrix.ferretdb_arch }}
+        run: |
+          set -euo pipefail
+          version="${TAG#v}"
+          gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --pattern "wekan-${version}-amd64.zip" --pattern "wekan-${version}-amd64.zip.sha256sum"
+          sha256sum -c "wekan-${version}-amd64.zip.sha256sum"
+          unzip -q "wekan-${version}-amd64.zip"
+          mkdir -p bsd-tools/bin bsd-tools/npm
+          bash releases/fetch.sh -o bsd-tools/bin/node "$NODE_URL"
+          [ -z "$NODE_SHA256" ] || echo "$NODE_SHA256  bsd-tools/bin/node" | sha256sum -c -
+          # npm is JavaScript: the one in nodejs.org's Linux tarball of the same
+          # version runs on any Node.js 26.
+          bash releases/fetch.sh -o npm.tar.xz "https://nodejs.org/dist/${NODE_FULL}/node-${NODE_FULL}-linux-x64.tar.xz"
+          tar -xJf npm.tar.xz --strip-components=4 -C bsd-tools/npm "node-${NODE_FULL}-linux-x64/lib/node_modules/npm"
+          rm -f npm.tar.xz
+          ferret="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-${FERRETDB_ARCH}"
+          bash releases/fetch.sh -o bundle/ferretdb "$ferret"
+          if bash releases/fetch.sh --optional -o ferretdb.sha256sum "${ferret}.sha256sum"; then
+            echo "$(awk '{print $1; exit}' ferretdb.sha256sum)  bundle/ferretdb" | sha256sum -c -
+          else
+            echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-${FERRETDB_ARCH}, so it is unverified."
+          fi
+          # The inherited amd64 Linux MongoDB Database Tools are the wrong OS
+          # here: replaced by this BSD's, or removed when there are none.
+          rc=0; bash releases/fetch-mongo-tools.sh bundle "$FERRETDB_ARCH" || rc=$?
+          [ "$rc" != 2 ] || { echo "::error::A MongoDB Database Tools download did not match its checksum."; exit 1; }
+          [ "$rc" = 0 ] || echo "::warning::No MongoDB Database Tools for ${FERRETDB_ARCH}; the bundle ships without them."
+          file bsd-tools/bin/node bundle/ferretdb
+
+      - name: Build and start in FreeBSD
+        if: steps.node.outputs.skip != 'true' && matrix.os == 'freebsd'
+        uses: vmactions/freebsd-vm@f0552d3b69211736abd97f02ff3d4674c56b73b1
+        with:
+          release: ${{ matrix.release }}
+          arch: ${{ matrix.vm_arch }}
+          sync: rsync
+          copyback: true
+          prepare: pkg install -y bash python3 gmake pkgconf curl
+          run: bash releases/bsd/build-bundle.sh freebsd ${{ matrix.arch }}
+
+      - name: Build and start in OpenBSD
+        if: steps.node.outputs.skip != 'true' && matrix.os == 'openbsd'
+        uses: vmactions/openbsd-vm@v1
+        with:
+          release: ${{ matrix.release }}
+          arch: ${{ matrix.vm_arch }}
+          sync: rsync
+          copyback: true
+          # V8 writes and runs machine code: OpenBSD allows that only from a
+          # filesystem mounted wxallowed, which /usr/local is by default.
+          prepare: pkg_add bash python%3 gmake curl
+          run: bash releases/bsd/build-bundle.sh openbsd ${{ matrix.arch }}
+
+      - name: Build and start in NetBSD
+        if: steps.node.outputs.skip != 'true' && matrix.os == 'netbsd'
+        uses: vmactions/netbsd-vm@v1
+        with:
+          release: ${{ matrix.release }}
+          sync: rsync
+          copyback: true
+          prepare: |
+            /usr/sbin/pkg_add pkgin
+            pkgin -y install bash python313 gmake curl
+          run: bash releases/bsd/build-bundle.sh netbsd ${{ matrix.arch }}
+
+      - name: Zip, checksum and attach
+        if: steps.node.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PUBLISH: ${{ inputs.publish }}
+        run: |
+          set -euo pipefail
+          version="${TAG#v}"
+          zip="wekan-${version}-${TARGET}.zip"
+          python3 releases/check-telemetry.py --bundle bundle
+          zip -qr "$zip" bundle
+          unzip -l "$zip" > zip-listing.txt
+          for want in bundle/main.js bundle/node bundle/ferretdb bundle/start-wekan.sh; do
+            grep -q " $want$" zip-listing.txt || { echo "::error::$zip has no $want."; exit 1; }
+          done
+          sha256sum "$zip" > "$zip.sha256sum"
+          cat "$zip.sha256sum"
+          if [ "$PUBLISH" = true ]; then
+            bash releases/github-release-upload.sh "$GITHUB_REPOSITORY" "$TAG" "$zip" "$zip.sha256sum"
+          fi
+
+      - uses: actions/upload-artifact@v7
+        if: steps.node.outputs.skip != 'true'
+        with:
+          name: bundle-${{ matrix.target }}
+          path: wekan-*-${{ matrix.target }}.zip*
+          retention-days: 3
+          compression-level: 0

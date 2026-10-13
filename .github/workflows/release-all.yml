@@ -1287,6 +1287,20 @@ jobs:
       tag: v${{ needs.prepare.outputs.version }}
       publish: true
 
+  # The BSDs (docs/Platforms/FOSS/OS/BSD.md): the amd64 bundle, attached by
+  # build-amd64, rebuilt inside a VM of each BSD whose Node.js wekan/node-patches
+  # publishes; the others are skipped until it does.
+  bsd:
+    name: BSD bundles
+    needs: [prepare, release, build-amd64]
+    if: ${{ !cancelled() && needs.release.result == 'success' && needs.build-amd64.result == 'success' }}
+    uses: ./.github/workflows/bsd.yml
+    permissions:
+      contents: write
+    with:
+      tag: v${{ needs.prepare.outputs.version }}
+      publish: true
+
   mac-app:
     name: Mac apps
     needs: [prepare, release, build-mac-arm64, build-mac-x64]

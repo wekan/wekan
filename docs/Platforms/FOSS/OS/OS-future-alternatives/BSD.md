@@ -74,4 +74,6 @@ favors manual control).
 
 ## See also
 
+- What runs on each BSD now, and the plan: [../BSD.md](../BSD.md)
+
 - Linux: [Linux.md](Linux.md) · macOS: [Mac.md](Mac.md) · Windows: [Windows.md](Windows.md)

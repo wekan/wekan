@@ -30,7 +30,8 @@
 #   platform   what WeKan calls the CPU: amd64/x64, arm64, i386, armhf, armv7,
 #              armv6, ppc64le, s390x, riscv64, loong64, win64, win32, win-arm64,
 #              mac-x64,
-#              mac-arm64. A node-patches asset name (node-x64, node-win64.exe)
+#              mac-arm64, freebsd-x64, freebsd-arm64, openbsd-x64,
+#              openbsd-arm64, netbsd-x64. A node-patches asset name (node-x64, node-win64.exe)
 #              is accepted too, so callers that already hold one need not
 #              translate it.
 #   major      the pinned Node MAJOR, e.g. 24 - then the NEWEST version any
@@ -124,6 +125,14 @@ case "$platform" in
   win-arm64) nodename="win-arm64"     ; asset="node-win-arm64.exe"; ext="zip"    ;;
   mac-x64)   nodename="darwin-x64"    ; asset="node-mac-x64"      ; ext="tar.xz" ;;
   mac-arm64) nodename="darwin-arm64"  ; asset="node-mac-arm64"    ; ext="tar.xz" ;;
+  # The BSDs (docs/Platforms/FOSS/OS/BSD.md). Neither nodejs.org nor
+  # unofficial-builds publishes any, so these resolve to wekan/node-patches -
+  # or, until it has built one, to "not built this release".
+  freebsd-x64)   nodename="freebsd-x64"   ; asset="node-freebsd-x64"   ; ext="tar.xz" ;;
+  freebsd-arm64) nodename="freebsd-arm64" ; asset="node-freebsd-arm64" ; ext="tar.xz" ;;
+  openbsd-x64)   nodename="openbsd-x64"   ; asset="node-openbsd-x64"   ; ext="tar.xz" ;;
+  openbsd-arm64) nodename="openbsd-arm64" ; asset="node-openbsd-arm64" ; ext="tar.xz" ;;
+  netbsd-x64)    nodename="netbsd-x64"    ; asset="node-netbsd-x64"    ; ext="tar.xz" ;;
   *)
     log "::error::resolve-node-source.sh does not know the platform '${1}'. Add it to the mapping table if WeKan builds for it now."
     exit 1

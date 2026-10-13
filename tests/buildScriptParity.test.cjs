@@ -392,6 +392,11 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     SKIP[`bun/${helper}`] = 'Bun target-build internal run by bun.yml on the target runner';
   }
   SKIP['bun/start-wekan.sh'] = 'runs INSIDE the built Bun bundle, to start it';
+  // BSD bundles are built by .github/workflows/bsd.yml INSIDE a FreeBSD,
+  // OpenBSD or NetBSD VM (docs/Platforms/FOSS/OS/BSD.md); there is nothing to
+  // build on a developer's Linux machine. Covered by bsdBundles.
+  SKIP['bsd/build-bundle.sh'] = 'BSD bundle build run by bsd.yml inside the BSD VM';
+  SKIP['bsd/smoke.sh'] = 'BSD bundle start test run by bsd/build-bundle.sh inside the BSD VM';
 
   // These are explicit audit/internal helpers, not independent release-menu actions.
   SKIP['translations/audit-progress.mjs'] = 'read-only audit reporting; run directly';

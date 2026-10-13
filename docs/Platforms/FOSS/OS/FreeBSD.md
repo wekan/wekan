@@ -1,3 +1,5 @@
+**Current state and plan for FreeBSD, OpenBSD, NetBSD and DragonFly BSD: [BSD.md](BSD.md).**
+
 Newest info at https://github.com/wekan/wekan/issues/2662
 
 Old disappeared info [this comment](https://github.com/wekan/wekan/issues/1155#issuecomment-326734403) instructions:

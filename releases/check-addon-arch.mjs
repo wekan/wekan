@@ -35,8 +35,11 @@ export const ELF_MACHINE = {
   ia32: 3, x64: 62, arm: 40, arm64: 183, ppc64: 21, s390x: 22, riscv64: 243, loong64: 258,
 };
 export const MACHO_CPU = { x64: 0x01000007, arm64: 0x0100000c };
-const FORMAT = { win32: 'PE', linux: 'ELF', darwin: 'Mach-O' };
-const MACHINES = { win32: PE_MACHINE, linux: ELF_MACHINE, darwin: MACHO_CPU };
+// The BSDs use ELF and the same machine numbers as Linux
+// (docs/Platforms/FOSS/OS/BSD.md).
+const FORMAT = { win32: 'PE', linux: 'ELF', darwin: 'Mach-O', freebsd: 'ELF', openbsd: 'ELF', netbsd: 'ELF' };
+const MACHINES = { win32: PE_MACHINE, linux: ELF_MACHINE, darwin: MACHO_CPU,
+  freebsd: ELF_MACHINE, openbsd: ELF_MACHINE, netbsd: ELF_MACHINE };
 
 // The binary format, and the CPU(s) it is for.
 export function readBinaryKind(file) {
