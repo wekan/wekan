@@ -2114,6 +2114,19 @@ Chinese text is unchanged. Translation work across languages continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/42d5187bf6">Translate Southern Sotho import instructions</a>. Thanks to xet7.</summary>
+
+Translate instructions for 22 import formats, preserving menu and column
+names, file extensions, field mappings and exclusions. Regression checks
+cover first-board selection, English headers and omitted attachments.
+
+The translation suite and 21 human-preference checks pass. All 22 import-help
+browser cases register for Southern Sotho and pass syntax checks; runtime
+execution remains pending. Existing Chinese text is unchanged.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

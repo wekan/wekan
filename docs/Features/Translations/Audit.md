@@ -2,6 +2,25 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho import format instructions — 2026-10-13
+
+Commit `42d5187bf6` fills 22 English import-help placeholders. Instructions
+preserve source menu names, file formats, field mappings and restrictions:
+first-board selection for Nullboard and Kanri, English column names for
+Businessmap and Redmine, and omitted comments, attachments or descriptions
+where the source format lacks them. Org mode keywords and Teamwork hierarchy
+markers remain literal. Existing translated values are preserved.
+
+The Southern Sotho regression suite and all 21 human-preference checks pass.
+All 22 existing import-help browser cases now include Southern Sotho; syntax
+and discovery pass, but runtime execution remains pending without the UI
+stack. Exact comparison preserves 38,430 existing Chinese values.
+
+The full Southern Sotho placeholder inventory falls from 868 to 846. These
+are pending feature strings, so its filtered inventory remains 677 and the
+global filtered backlog remains 28,516 across 42 languages. Native fluency
+and the full all-language objective remain unverified and unfinished.
+
 ## Southern Sotho card links — 2026-10-13
 
 Commit `c6a5484608` fills 34 English placeholders for card attachments,
