@@ -492,3 +492,24 @@ const fullSesothoInventory = spawnSync(process.execPath, [
 assert.equal(fullSesothoInventory.status, 0, fullSesothoInventory.stderr);
 assert.deepEqual(Object.keys(JSON.parse(fullSesothoInventory.stdout)).filter(key => key.startsWith('blockly-')), [],
   'Southern Sotho Blockly has no remaining non-exempt English placeholders');
+
+const translatedScrumPlanningKeys = ["board-view-product-backlog", "board-view-sprints", "board-view-sprint-report", "board-view-velocity", "scrum-settings", "scrum-product-owner", "scrum-master", "scrum-developers", "scrum-working-days", "scrum-enabled", "scrum-product-goal", "scrum-definition-of-done", "scrum-estimate-source", "scrum-estimate-unit", "scrum-completion-policy", "scrum-source-poker", "scrum-source-customField", "scrum-policy-dueComplete", "scrum-policy-doneLists", "scrum-sprints", "scrum-sprint", "scrum-start-sprint", "scrum-close-sprint", "scrum-cancel-sprint", "scrum-rollover-sprint", "scrum-cancel-reason", "scrum-product-backlog", "scrum-edit-sprint", "scrum-sprint-goal", "scrum-capacity", "scrum-new-sprint", "scrum-releases", "scrum-release", "scrum-release-scope", "scrum-releases-select-help", "scrum-select-sprint", "scrum-backlog", "scrum-backlog-help", "scrum-backlog-rank", "scrum-issue-type", "scrum-acceptance-criteria", "scrum-events", "scrum-event-kind", "scrum-timebox", "scrum-notes", "scrum-event-planning", "scrum-event-daily", "scrum-event-review", "scrum-event-retrospective", "scrum-committed", "scrum-added", "scrum-removed", "scrum-incomplete", "scrum-no-closed-sprints", "scrum-report-help", "scrum-total", "scrum-state-planned", "scrum-unknown-estimate", "scrum-confirm-close", "scrum-confirm-cancel", "scrum-past-sprints", "scrum-list-category", "scrum-swimlane-purpose", "scrum-category-backlog", "scrum-category-todo", "scrum-category-doing", "scrum-partial-report", "scrum-state-released", "scrum-released-at", "scrum-follow-up-cards", "scrum-import-reference-omitted", "scrum-partial-snapshot", "scrum-resume-close", "scrum-daily-observations", "scrum-daily-observations-help"];
+for (const key of translatedScrumPlanningKeys) {
+  assert.notEqual(sesotho[key], english[key], `${key}: no English placeholder`);
+  assert.deepEqual(tokens(sesotho[key]), tokens(english[key]), key);
+}
+assert.equal(sesotho['board-view-product-backlog'], sesotho['scrum-product-backlog']);
+assert.equal(sesotho['board-view-sprints'], sesotho['scrum-sprints']);
+assert.equal(sesotho['scrum-backlog'], sesotho['scrum-category-backlog']);
+assert.match(sesotho['scrum-releases-select-help'], /tse mmalwa.*Ctrl.*Cmd.*Mac.*tlosa dikgetho tsohle.*dintshong tsohle/);
+assert.match(sesotho['scrum-report-help'], /tse sa tsejweng.*ka thoko.*ha se ditekanyo tsa lefela/);
+assert.match(sesotho['scrum-report-help'], /feela ha diyuniti tsa tekanyo le melao di tshwana/);
+assert.match(sesotho['scrum-confirm-close'], /sa phethwang.*sebakeng se kgethilweng/);
+assert.match(sesotho['scrum-confirm-cancel'], /di dula e le karolo ya yona ho fihlela di abelwa hape/);
+assert.match(sesotho['scrum-partial-report'], /feela dikarete tseo o di abetsweng hona jwale/);
+assert.match(sesotho['scrum-daily-observations-help'], /ya pele e rekotilweng.*UTC.*nako e bontshitsweng/);
+assert.match(sesotho['scrum-daily-observations-help'], /se nang data ha a bontshwe/);
+assert.match(sesotho['scrum-daily-observations-help'], /ha di rekote phetoho e nngwe le e nngwe.*qetellong ya letsatsi/);
+assert.match(sesotho['scrum-daily-observations-help'], /tse sa tsejweng ha se lefela/);
+assert.match(sesotho['scrum-daily-observations-help'], /karolo ena.*ditemoho.*bareng ya disebediswa.*diphetho/);
+assert.deepEqual(tokens(sesotho['scrum-total']), ['__count__', '__estimate__', '__unknown__']);

@@ -4,7 +4,7 @@ const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { loginWithToken, openBoard } = require('../helpers/auth');
 
-for (const language of ['en', 'haw']) {
+for (const language of ['st', 'en', 'haw']) {
 test(`Product Backlog shows a page of rows at a time, in Scrum order, and more on request in ${language}`, async ({ page, user, board }) => {
   const [card] = db.find('cards', { boardId: board.boardId });
   const ids = [];
