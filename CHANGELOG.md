@@ -3584,6 +3584,20 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e949142731">Repair Latin migration and card loading translations</a>. Thanks to xet7.</summary>
+
+- Translate 26 migration and loading entries. Preserve database prerequisites,
+  commands, paths, environment variables, irreversible-deletion warnings and
+  experimental lazy-loading limitations.
+- Three translation suites and 21 human-preference checks pass. Existing Chinese
+  values remain unchanged. Migration browser coverage passes syntax and
+  discovery; execution remains pending.
+- Review remains unfinished: 418 Latin values contain the legacy prefix.
+  Unprefixed values and other languages still require semantic review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

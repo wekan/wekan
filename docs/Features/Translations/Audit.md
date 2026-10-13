@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin migration and card loading — 2026-10-14
+
+Commit `e949142731` repairs 26 database migration and card-loading entries.
+Regression checks retain connection URLs, environment variables, Snap commands,
+Sandstorm file paths, target availability, first-launch timing, irreversible
+file deletion and the experimental limits of lazy loading. Attachments remain
+explicitly excluded from the text-data migration.
+
+Three translation suites pass with 28,969 correction ledger entries. All 21
+human-preference checks pass, and exact comparison preserves 38,430 existing
+Chinese values. Migration browser coverage checks the explanatory text without
+starting migration; syntax and discovery pass, runtime remains pending.
+
+There remain 418 Latin values containing “Latine:”. Unprefixed values and other
+languages still require semantic review; all-language verification is unfinished.
+
 ## Latin scheduling and cloud storage — 2026-10-14
 
 Commit `8cf28c4464` repairs 52 scheduled-job and cloud storage entries. Checks
