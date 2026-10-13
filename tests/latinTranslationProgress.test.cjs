@@ -108,3 +108,22 @@ assert.match(latin['import-one-board-per-project-hint'], /necessitudines inter i
 assert.match(latin['export-all-boards-hint'], /quas exportare potes.*unus liber.*ceterae formae.*[.]zip/);
 assert.match(latin['trello-export-desc'], /Swimlane: ….*rursus in semitas/);
 assert.match(latin['sandstorm-trello-access-needed'], /nullum proprium accessum.*Primum permitte/);
+
+const notificationKeys = ["sandstorm-trello-access-granted", "sandstorm-forget-access", "sandstorm-trello-save-label", "external-link-rules", "external-link-rules-description", "external-link-identifier-aliases", "webhook-payload-heading", "webhook-payload-description", "webhook-payload-text", "webhook-payload-fields", "webhook-payload-field-standard", "webhook-payload-field-ids", "webhook-payload-field-names", "webhook-payload-field-links", "webhook-payload-field-actor", "webhook-payload-field-people", "webhook-payload-field-details", "webhook-hide-identity", "webhook-someone", "notification-delivery-layout-classic", "notification-delivery-layout-clear", "notification-delivery-parts", "notification-delivery-part-board", "notification-delivery-part-actor", "notification-delivery-part-card", "notification-delivery-part-details", "notification-delivery-part-dates", "notification-delivery-part-link", "notification-delivery-grouping", "notification-delivery-grouping-all", "notification-delivery-grouping-board", "notification-delivery-grouping-card", "notification-delivery-grouping-none", "notification-delivery-schedule", "notification-delivery-schedule-immediate", "notification-delivery-schedule-interval", "notification-delivery-schedule-daily", "notification-delivery-interval", "notification-delivery-minutes", "notification-delivery-quiet", "notification-delivery-quiet-clear", "notification-delivery-timezone", "notification-delivery-invalid", "notification-group-card", "notification-group-board", "read-only-field"];
+for (const key of notificationKeys) {
+  assert.notEqual(latin[key], english[key], key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['webhook-payload-description'], /optionem hereditatam servat.*si nihil definitum est.*semper miserunt/);
+assert.ok(latin['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+assert.match(latin['webhook-hide-identity'], /Nomen meum.*omitte/);
+assert.match(latin['notification-delivery-grouping-all'], /Omnia mittenda in uno nuntio/);
+assert.notEqual(latin['notification-delivery-grouping-board'], latin['notification-delivery-grouping-card']);
+assert.match(latin['notification-delivery-quiet'], /exspecta donec finiantur/);
+assert.match(latin['read-only-field'], /omne membrum.*soli administratores tabulae.*mutant/);
+for (const key of ['external-link-rules-description', 'external-link-identifier-aliases']) {
+  const braces = text => (text.match(/[{](?:number|identifier)[}]/g) || []).sort();
+  assert.deepEqual(braces(latin[key]), braces(english[key]));
+}
+assert.ok(latin['external-link-rules-description'].includes('[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
+assert.ok(latin['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
