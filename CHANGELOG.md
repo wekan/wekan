@@ -2472,6 +2472,22 @@ values are preserved. All-language translation work remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/19cc07f1ed">Correct Southern Sotho template and table guidance</a>. Thanks to xet7.</summary>
+
+Reviewed source keys 1845–1989 and corrected five values. Shared-template
+help specifies users with nonempty template boards. My Attachments uses
+clear word order; table grouping identifies swimlanes rather than rows.
+Search-limit validation requires an integer greater than zero rather than
+a good integer.
+
+Southern Sotho and repair-ledger suites pass with 26,951 guarded corrections;
+all 21 human-preference checks pass. Shared-template browser coverage passes
+syntax and discovery; runtime execution remains pending. All 38,430 existing
+Chinese values are preserved. All-language work remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
