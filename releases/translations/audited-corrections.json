@@ -204307,5 +204307,460 @@
     "before": "Latine: Fixing fasciculus URLs",
     "after": "URL fasciculorum corriguntur",
     "reason": "Translate migration confirmations and progress stages while preserving archive exclusions, ordering and reversibility warnings."
+  },
+  {
+    "locale": "la",
+    "key": "cleanup",
+    "before": "Latine: Cleanup",
+    "after": "Purgatio",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "cleanup-old-jobs",
+    "before": "Latine: Cleanup Old Jobs",
+    "after": "Purga munera vetera",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "completed",
+    "before": "Latine: Perfectum",
+    "after": "Perfectum",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "conversion-info-text",
+    "before": "Latine: Hoc conversion est performed semel per tabula et improves effectus. Tu potest continue using the tabula normally.",
+    "after": "Haec conversio semel pro quaque tabula fit et efficientiam auget. Tabula more solito uti pergere potes.",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "converting-board",
+    "before": "Latine: Converting Tabula",
+    "after": "Tabula convertitur",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "converting-board-description",
+    "before": "Latine: Converting tabula structure for improved functionality. Hoc potest take a few moments.",
+    "after": "Structura tabulae convertitur ut melius fungatur. Aliquantum temporis requirere potest.",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "cpu-cores",
+    "before": "Latine: CPU Cores",
+    "after": "Nuclei CPU",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "cpu-usage",
+    "before": "Latine: CPU Usage",
+    "after": "Usus CPU",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "current-action",
+    "before": "Latine: Praesens Actio",
+    "after": "Actio praesens",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "database-migrations",
+    "before": "Latine: Repositorio datorum Migrations",
+    "after": "Migrationes datorum repositorii",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "days-old",
+    "before": "Latine: Dies Old",
+    "after": "Dies ab initio",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "duration",
+    "before": "Latine: Duration",
+    "after": "Duratio",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "errors",
+    "before": "Latine: Errors",
+    "after": "Errores",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "estimated-time-remaining",
+    "before": "Latine: Estimated tempus remaining",
+    "after": "Tempus reliquum aestimatum",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "every-1-day",
+    "before": "Latine: Omnis 1 dies",
+    "after": "Quoque die",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "every-1-hour",
+    "before": "Latine: Omnis 1 hora",
+    "after": "Quaque hora",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "every-1-minute",
+    "before": "Latine: Omnis 1 minutum",
+    "after": "Quoque minuto",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "every-10-minutes",
+    "before": "Latine: Omnis 10 minuta",
+    "after": "Quibusque 10 minutis",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "every-30-minutes",
+    "before": "Latine: Omnis 30 minuta",
+    "after": "Quibusque 30 minutis",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "every-5-minutes",
+    "before": "Latine: Omnis 5 minuta",
+    "after": "Quibusque 5 minutis",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "every-6-hours",
+    "before": "Latine: Omnis 6 horae",
+    "after": "Quibusque 6 horis",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "export-monitoring",
+    "before": "Latine: Exporta Monitoring",
+    "after": "Exporta data observationis",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "filesystem-attachments",
+    "before": "Latine: Filesystem Adnexa",
+    "after": "Adiuncta in systemate fasciculorum",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "filesystem-size",
+    "before": "Latine: Filesystem Magnitudo",
+    "after": "Magnitudo systematis fasciculorum",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "filesystem-storage",
+    "before": "Latine: Filesystem Storage",
+    "after": "Repositorium in systemate fasciculorum",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "force-board-scan",
+    "before": "Latine: Force Tabula Scan",
+    "after": "Coge examen tabulae",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "gridfs-attachments",
+    "before": "Latine: GridFS Adnexa",
+    "after": "Adiuncta GridFS",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "gridfs-size",
+    "before": "Latine: GridFS Magnitudo",
+    "after": "Magnitudo GridFS",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "gridfs-storage",
+    "before": "Latine: GridFS",
+    "after": "GridFS",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "hide-list-on-minicard",
+    "before": "Latine: Cela Index adest Minicard",
+    "after": "Cela indicem in parva charta",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "idle-migration",
+    "before": "Latine: Idle Migration",
+    "after": "Migratio otiosa",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "job-description",
+    "before": "Latine: Job Descriptio",
+    "after": "Descriptio muneris",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "job-details",
+    "before": "Latine: Job Singula",
+    "after": "Singula muneris",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "job-name",
+    "before": "Latine: Job Nomen",
+    "after": "Nomen muneris",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "job-queue",
+    "before": "Latine: Job Queue",
+    "after": "Ordo munerum exspectantium",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "last-run",
+    "before": "Latine: Ultimus Run",
+    "after": "Ultima exsecutio",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "max-concurrent",
+    "before": "Latine: Max Concurrent",
+    "after": "Maximus numerus simul exsequendorum",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "memory-usage",
+    "before": "Latine: Memoria Usage",
+    "after": "Usus memoriae",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "migrate-all-to-filesystem",
+    "before": "Latine: Migrate Omnia ad Filesystem",
+    "after": "Migra omnia ad systema fasciculorum",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "migrate-all-to-gridfs",
+    "before": "Latine: Migrate Omnia ad GridFS",
+    "after": "Migra omnia ad GridFS",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "migrate-all-to-s3",
+    "before": "Latine: Migrate Omnia ad S3",
+    "after": "Migra omnia ad S3",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "migrated-attachments",
+    "before": "Latine: Migrated Adnexa",
+    "after": "Adiuncta migrata",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "migration-batch-size",
+    "before": "Latine: Batch Magnitudo",
+    "after": "Magnitudo gregis",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "migration-batch-size-description",
+    "before": "Latine: Numerus de adnexa ad process in quisque batch (1-100)",
+    "after": "Numerus adiunctorum in quoque grege tractandorum (1-100)",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "migration-cpu-threshold",
+    "before": "Latine: CPU Threshold (%)",
+    "after": "Limen CPU (%)",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "migration-cpu-threshold-description",
+    "before": "Latine: Pause migration quando CPU usage exceeds hoc percentage (10-90)",
+    "after": "Intermitte migrationem cum usus CPU hanc partem centesimam excedit (10-90)",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "migration-delay-ms",
+    "before": "Latine: Delay (ms)",
+    "after": "Mora (ms)",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "migration-delay-ms-description",
+    "before": "Latine: Delay inter batches in milliseconds (100-10000)",
+    "after": "Mora inter greges in millesimis secundae (100-10000)",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "migration-detector",
+    "before": "Latine: Migration Detector",
+    "after": "Detector migrationum",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "migration-info-text",
+    "before": "Latine: Repositorio datorum migrations sunt performed semel et improve system effectus. The process continues in the background even si tu claude tuum browser.",
+    "after": "Migrationes datorum repositorii semel fiunt et efficientiam systematis augent. Processus in recessu pergit etiam si navigatrum claudis.",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "migration-log",
+    "before": "Latine: Migration Log",
+    "after": "Diarium migrationis",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "migration-markers",
+    "before": "Latine: Migration Markers",
+    "after": "Signa migrationum",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "migration-resume-failed",
+    "before": "Latine: Defecit ad resume migration",
+    "after": "Migratio resumi non potuit",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "migration-resumed",
+    "before": "Latine: Migration resumed",
+    "after": "Migratio resumpta est",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "migration-steps",
+    "before": "Latine: Migration Steps",
+    "after": "Gradus migrationis",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "migration-warning-text",
+    "before": "Latine: Please do non claude tuum browser during migration. The process erit continue in the background but potest take longer ad perfice.",
+    "after": "Navigatrum durante migratione ne claudas, quaeso. Processus in recessu perget, sed diutius durare potest.",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "monitoring-export-failed",
+    "before": "Latine: Defecit ad exporta monitoring data",
+    "after": "Data observationis exportari non potuerunt",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "monitoring-refresh-failed",
+    "before": "Latine: Defecit ad refresh monitoring data",
+    "after": "Data observationis renovari non potuerunt",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "next",
+    "before": "Latine: Proximum",
+    "after": "Sequens",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "next-run",
+    "before": "Latine: Proximum Run",
+    "after": "Proxima exsecutio",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "of",
+    "before": "Latine: de",
+    "after": "ex",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "operation-type",
+    "before": "Latine: Operation Genus",
+    "after": "Genus operationis",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "overall-progress",
+    "before": "Latine: Overall Progress",
+    "after": "Progressus totus",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "page",
+    "before": "Latine: Pagina",
+    "after": "Pagina",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
+  },
+  {
+    "locale": "la",
+    "key": "pause-migration",
+    "before": "Latine: Pause Migration",
+    "after": "Intermitte migrationem",
+    "reason": "Translate monitoring and conversion progress while preserving interval values, numeric bounds, units and background continuation semantics."
   }
 ]

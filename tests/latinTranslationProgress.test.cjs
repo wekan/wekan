@@ -1172,3 +1172,19 @@ assert.match(latin['run-restore-all-archived-migration-confirm'], /facile revoca
 assert.match(latin['step-ensure-per-swimlane-lists'], /cuique semitae indices proprii/);
 assert.ok(latin['step-ensure-lost-cards-swimlane'].includes(latin['lost-cards']));
 assert.notEqual(latin['migration-progress-overall'], latin['migration-progress-current-step']);
+
+const reviewedMonitoringProgressKeys = ["cleanup", "cleanup-old-jobs", "completed", "conversion-info-text", "converting-board", "converting-board-description", "cpu-cores", "cpu-usage", "current-action", "database-migrations", "days-old", "duration", "errors", "estimated-time-remaining", "every-1-day", "every-1-hour", "every-1-minute", "every-10-minutes", "every-30-minutes", "every-5-minutes", "every-6-hours", "export-monitoring", "filesystem-attachments", "filesystem-size", "filesystem-storage", "force-board-scan", "gridfs-attachments", "gridfs-size", "gridfs-storage", "hide-list-on-minicard", "idle-migration", "job-description", "job-details", "job-name", "job-queue", "last-run", "max-concurrent", "memory-usage", "migrate-all-to-filesystem", "migrate-all-to-gridfs", "migrate-all-to-s3", "migrated-attachments", "migration-batch-size", "migration-batch-size-description", "migration-cpu-threshold", "migration-cpu-threshold-description", "migration-delay-ms", "migration-delay-ms-description", "migration-detector", "migration-info-text", "migration-log", "migration-markers", "migration-resume-failed", "migration-resumed", "migration-steps", "migration-warning-text", "monitoring-export-failed", "monitoring-refresh-failed", "next", "next-run", "of", "operation-type", "overall-progress", "page", "pause-migration"];
+for (const key of reviewedMonitoringProgressKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Cleanup|Completed|Converting|Current|Every|Migration Progress|background|browser|Failed)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['conversion-info-text'], /semel pro quaque tabula/);
+assert.match(latin['conversion-info-text'], /more solito uti pergere potes/);
+for (const [key, range] of [['migration-batch-size-description', '1-100'], ['migration-cpu-threshold-description', '10-90'], ['migration-delay-ms-description', '100-10000']]) assert.ok(latin[key].includes(range));
+assert.match(latin['migration-cpu-threshold-description'], /Intermitte.*excedit/);
+assert.match(latin['migration-info-text'], /in recessu pergit etiam si navigatrum claudis/);
+assert.match(latin['migration-warning-text'], /ne claudas.*in recessu perget.*diutius/);
+for (const n of [5, 10, 30]) assert.ok(latin[`every-${n}-minutes`].includes(String(n)));
+assert.equal(latin['gridfs-storage'], 'GridFS');
+assert.notEqual(latin['last-run'], latin['next-run']);
+assert.notEqual(latin['monitoring-export-failed'], latin['monitoring-refresh-failed']);
