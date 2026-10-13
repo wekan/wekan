@@ -37,7 +37,7 @@ async function stoppedUndo(page, user, board, state) {
   return { card, revision, row, key: `op-${board.boardId}` };
 }
 
-for (const language of ['en', 'mr', 'ml']) {
+for (const language of ['en', 'mr', 'ml', 'az', 'az-AZ', 'az-LA']) {
 const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
 
 test(`a board admin rolls back a stopped Scrum undo from the recovery notice in ${language}`, async ({ page, user, board }) => {
