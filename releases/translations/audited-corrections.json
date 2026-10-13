@@ -188116,5 +188116,33 @@
     "before": "Alligati",
     "after": "Appicci",
     "reason": "Replace remaining Italian recovery and email attachment labels with Corsican."
+  },
+  {
+    "locale": "st",
+    "key": "activity-changedTitle",
+    "before": "o fetotse sehlooho sa %s ho %s",
+    "after": "o fetotse sehlooho ho %s bakeng sa %s",
+    "reason": "Repair title argument order, automatic template application, a positive-integer constraint and matching-card search scope."
+  },
+  {
+    "locale": "st",
+    "key": "set-default-board-template",
+    "before": "Beha e le mohlala oa boto oa tlwaelo (o sebediswa ka boitshepo ha ho hlahisoa boto e ncha)",
+    "after": "Beha e le thempleite ya kamehla ya boto (e sebediswa ka boiketsetso ha ho thehwa boto)",
+    "reason": "Repair title argument order, automatic template application, a positive-integer constraint and matching-card search scope."
+  },
+  {
+    "locale": "st",
+    "key": "swimlane-height-error-message",
+    "before": "Bophahamo ba tsela e lokela ho ba nomoro e felletseng e ntle",
+    "after": "Bophahamo ba tsela bo lokela ho ba palo e felletseng e kgolo ho 0",
+    "reason": "Repair title argument order, automatic template application, a positive-integer constraint and matching-card search scope."
+  },
+  {
+    "locale": "st",
+    "key": "add-existing-card-as-subtask-empty",
+    "before": "Ha ho dikarete tse fumanweng",
+    "after": "Ha ho dikarete tse tsamaellanang tse fumanweng",
+    "reason": "Repair title argument order, automatic template application, a positive-integer constraint and matching-card search scope."
   }
 ]

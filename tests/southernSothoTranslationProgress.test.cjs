@@ -577,3 +577,14 @@ for (const key of ['stuck-sync-operation-truncated', 'interrupted-import-truncat
 assert.match(sesotho['scrum-history-checkpoint-hint'], /feela ha ho se motho e mong ya fetotseng.*ha ho fetole direkoto/);
 assert.match(sesotho['scrum-history-checkpoint-stuck'], /ho thibetswe ho fihlela e rarollwa/);
 assert.match(sesotho['login-setting-env-only'], /tikoloho ya seva feela.*ho bala feela/);
+
+// Historical review through source key 219: meaning, not merely tokens.
+const titleArguments = ['New title', 'Original card'];
+const renderedTitleActivity = sesotho['activity-changedTitle'].replace(/%s/g, () => titleArguments.shift());
+assert.equal(renderedTitleActivity, 'o fetotse sehlooho ho New title bakeng sa Original card');
+assert.notEqual(renderedTitleActivity, 'o fetotse sehlooho sa New title ho Original card');
+assert.match(sesotho['set-default-board-template'], /ka boiketsetso.*ha ho thehwa boto/);
+assert.doesNotMatch(sesotho['set-default-board-template'], /boitshepo/);
+assert.match(sesotho['swimlane-height-error-message'], /palo e felletseng e kgolo ho 0/);
+assert.doesNotMatch(sesotho['swimlane-height-error-message'], /e ntle/);
+assert.match(sesotho['add-existing-card-as-subtask-empty'], /tse tsamaellanang/);

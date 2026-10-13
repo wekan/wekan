@@ -4,9 +4,10 @@ const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
 
 test.describe.configure({ mode: 'serial' });
-for (const policy of ['formatted', 'plain-links', 'plain-source']) {
-  test(`card and sidebar activities obey ${policy}`, async ({ boardPage, board, user }) => {
+for (const [language, policy] of [['en', 'formatted'], ['en', 'plain-links'], ['en', 'plain-source'], ['st', 'formatted']]) {
+  test(`card and sidebar activities obey ${policy} in ${language}`, async ({ boardPage, board, user }) => {
     if (policy === 'plain-source') test.setTimeout(90_000);
+    await boardPage.evaluate(language => Meteor.callAsync('setLanguage', language), language);
     const setting = db.findOne('settings', {});
     const activityId = db.uid('activity-viewer');
     const title = '# Demo :thumbsup: <strong>allowed</strong> [link](https://example.com/) <img src="x" onerror="window.activityViewerAttack=1">';
@@ -36,6 +37,11 @@ for (const policy of ['formatted', 'plain-links', 'plain-source']) {
         const activity = root.locator(`.activity[data-id="${activityId}"]`);
         await expect(activity).toBeVisible();
         await expect(activity.locator('.activity-desc')).not.toContainText('%s');
+        if (language === 'st') {
+          await expect(activity.locator('.activity-desc')).toContainText('o fetotse sehlooho ho');
+          await expect(activity.locator('.activity-desc')).toContainText('bakeng sa Alpha Card');
+          await expect(activity.locator('.activity-desc')).not.toContainText('o fetotse sehlooho sa');
+        }
         await expect(activity.locator('[onerror], script')).toHaveCount(0);
         expect(await boardPage.evaluate(() => window.activityViewerAttack)).toBeUndefined();
         if (policy === 'plain-source') {
