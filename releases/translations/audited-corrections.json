@@ -186569,5 +186569,390 @@
     "before": "Prova la connessione S3",
     "after": "Pruvà a cunnessione S3",
     "reason": "Repair Corsican restore and cloud-storage wording, retaining provider menu labels, credential choices and migration states."
+  },
+  {
+    "locale": "co",
+    "key": "writable-path",
+    "before": "Percorso scrivibile",
+    "after": "Percorsu induve si pò scrive",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "writable-path-description",
+    "before": "Percorso di a directory base per lo storage dei schedariu",
+    "after": "Percorsu di u cartulare di basa per arregistrà i schedarii",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "add-job",
+    "before": "Aghjunghje processo",
+    "after": "Aghjunghje un travagliu",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-migration",
+    "before": "Migrazione allegati",
+    "after": "Migrazione di l’appicci",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-monitoring",
+    "before": "Monitoraggio allegati",
+    "after": "Surveglianza di l’appicci",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-settings",
+    "before": "Impostazioni allegati",
+    "after": "Parametri di l’appicci",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-storage-settings",
+    "before": "Impostazioni storage",
+    "after": "Parametri d’almacenamentu",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "back-to-settings",
+    "before": "Torna alle impostazioni",
+    "after": "Vultà à i parametri",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "card-show-lists-on-minicard",
+    "before": "Mustrà le liste nantu à a minischeda",
+    "after": "Mustrà e liste nant’à a minicarta",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "comprehensive-board-migration",
+    "before": "Migrazione completa di a tavula",
+    "after": "Migrazione cumpleta di a tavula",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "comprehensive-board-migration-description",
+    "before": "Esegue controlli e correzioni completi per l'integrità dei dati di a tavula, inclusi l'ordinamento di e liste, le posizioni di e carte e la struttura di e swimlane.",
+    "after": "Face verificazioni è currezzioni cumplette di l’integrità di i dati di a tavula, cumpresi l’ordine di e liste, e pusizioni di e carte è a struttura di e corsie.",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "delete-duplicate-empty-lists-migration",
+    "before": "Squassà liste vuote duplicate",
+    "after": "Squassà e liste viote duplicate",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "delete-duplicate-empty-lists-migration-description",
+    "before": "Squassà in sicurità le liste vuote duplicate. Rimuove solu le liste che non hanno carte E che hanno un'altra lista cù lo stesso titulu contenente carte.",
+    "after": "Squassa in modu sicuru e liste viote duplicate. Caccia solu e liste senza carte È chì anu un’altra lista cù u listessu titulu chì cuntene carte.",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "lost-cards-list",
+    "before": "Elementi ripristinati",
+    "after": "Elementi risturati",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "fix-missing-lists-migration",
+    "before": "Correggi liste mancanti",
+    "after": "Currege e liste mancanti",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "fix-missing-lists-migration-description",
+    "before": "Rileva e ripara le liste mancanti o corrotte in a struttura di a tavula.",
+    "after": "Rileva è ripara e liste mancanti o currutte in a struttura di a tavula.",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "fix-avatar-urls-migration",
+    "before": "Correggi URL di i avatar",
+    "after": "Currege l’URL di l’avatar",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "migration-complete",
+    "before": "Completato",
+    "after": "Compiu",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "migration-successful",
+    "before": "Migrazione completata cù successo",
+    "after": "Migrazione compia cù successu",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "migration-failed",
+    "before": "Migrazione non riuscita",
+    "after": "Migrazione fiascata",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "migrations-description",
+    "before": "Esegui controlli e riparazioni dell'integrità dei dati per questa tavula. Ogni migrazione può essere eseguita individualmente.",
+    "after": "Eseguite verificazioni è riparazioni di l’integrità di i dati di sta tavula. Ogni migrazione pò esse eseguita individualmente.",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "run-migration",
+    "before": "Esegui migrazione",
+    "after": "Eseguisce a migrazione",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "run-comprehensive-migration-confirm",
+    "before": "Verrà eseguita una migrazione completa per controllare e correggere l'integrità dei dati di a tavula. Potrebbe richiedere qualche momento. Continuare?",
+    "after": "Serà fatta una migrazione cumpleta per verificà è currege l’integrità di i dati di a tavula. Pò piglià qualchì mumentu. Cuntinuà?",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "run-delete-duplicate-empty-lists-migration-confirm",
+    "before": "Verranno prima convertite le eventuali liste condivise in liste per swimlane, poi eliminate le liste vuote che hanno una lista duplicata cù lo stesso titulu contenente carte. Verranno rimosse solu le liste vuote realmente ridondanti. Continuare?",
+    "after": "Prima, e liste spartute seranu cunvertite in liste per corsia, po seranu squassate e liste viote chì anu una lista duplicata cù u listessu titulu chì cuntene carte. Solu e liste viote veramente ridundanti seranu cacciate. Cuntinuà?",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "run-fix-missing-lists-migration-confirm",
+    "before": "Verranno rilevate e riparate le liste mancanti o corrotte in a struttura di a tavula. Continuare?",
+    "after": "E liste mancanti o currutte in a struttura di a tavula seranu rilevate è riparate. Cuntinuà?",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "restore-lost-cards-nothing-to-restore",
+    "before": "Nessuna swimlane, lista o carta persa da ripristinare",
+    "after": "Nisuna corsia, lista o carta persa da ristabilisce",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "migration-progress-title",
+    "before": "Migrazione di a tavula in corso",
+    "after": "Migrazione di a tavula in corsu",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "migration-progress-overall",
+    "before": "Avanzamento complessivo",
+    "after": "Avanzamentu generale",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "migration-progress-current-step",
+    "before": "Passaggio corrente",
+    "after": "Passu attuale",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "migration-progress-status",
+    "before": "Stato",
+    "after": "Statu",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "migration-progress-details",
+    "before": "Dettagli",
+    "after": "Ditaglii",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "has-swimlanes",
+    "before": "Ha swimlane",
+    "after": "Hà corsie",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "step-analyze-board-structure",
+    "before": "Analizza la struttura di a tavula",
+    "after": "Analizà a struttura di a tavula",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "step-fix-orphaned-cards",
+    "before": "Correggi carte orfane",
+    "after": "Currege e carte orfane",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "step-convert-shared-lists",
+    "before": "Converti liste condivise",
+    "after": "Cunvertisce e liste spartute",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "step-ensure-per-swimlane-lists",
+    "before": "Assicurà liste per ogni swimlane",
+    "after": "Assicurà liste per ogni corsia",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "step-validate-migration",
+    "before": "Convalida migrazione",
+    "after": "Validà a migrazione",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "step-fix-avatar-urls",
+    "before": "Correggi URL di i avatar",
+    "after": "Currege l’URL di l’avatar",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "step-fix-attachment-urls",
+    "before": "Correggi URL di i allegati",
+    "after": "Currege l’URL di l’appicci",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "step-analyze-lists",
+    "before": "Analizza liste",
+    "after": "Analizà e liste",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "step-update-cards",
+    "before": "Aggiorna carte",
+    "after": "Aghjurnà e carte",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "step-finalize",
+    "before": "Finalizza",
+    "after": "Compie",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "step-delete-duplicate-empty-lists",
+    "before": "Squassà liste vuote duplicate",
+    "after": "Squassà e liste viote duplicate",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "step-ensure-lost-cards-swimlane",
+    "before": "Garantisci la swimlane di e carte perse",
+    "after": "Assicurà a corsia di e carte perse",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "step-restore-swimlanes",
+    "before": "Ristabilisce swimlane",
+    "after": "Ristabilisce e corsie",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "step-fix-missing-ids",
+    "before": "Correggi ID mancanti",
+    "after": "Currege l’ID mancanti",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "step-scan-users",
+    "before": "Controllo di i avatar dei membri di a tavula",
+    "after": "Verificazione di l’avatar di i membri di a tavula",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "step-scan-files",
+    "before": "Controllo di i allegati di a tavula",
+    "after": "Verificazione di l’appicci di a tavula",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "step-fix-file-urls",
+    "before": "Correzione di i URL dei schedariu",
+    "after": "Currezzione di l’URL di i schedarii",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "completed",
+    "before": "Completato/a",
+    "after": "Compiu",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "converting-board-description",
+    "before": "Conversione di a struttura di a tavula per una migliore funzionalità. Potrebbe richiedere qualche momento.",
+    "after": "Cunversione di a struttura di a tavula per migliurà e funziunalità. Pò piglià qualchì mumentu.",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "cpu-usage",
+    "before": "Utilizzo CPU",
+    "after": "Usu di a CPU",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "current-action",
+    "before": "Azione corrente",
+    "after": "Azzione attuale",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "database-migrations",
+    "before": "Migrazioni del database",
+    "after": "Migrazioni di a basa di dati",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
+  },
+  {
+    "locale": "co",
+    "key": "estimated-time-remaining",
+    "before": "Tempo stimato rimanente",
+    "after": "Stima di u tempu chì ferma",
+    "reason": "Repair Corsican board-migration and progress wording; preserve repair conditions and conversion ordering."
   }
 ]

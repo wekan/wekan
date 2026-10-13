@@ -661,3 +661,15 @@ assert.match(corsican['gcs-permissions-note'], /lettura è scrittura/);
 assert.match(corsican['s3-secret-key-menu-path'], /una sola volta/);
 assert.ok(corsican['s3-secret-key-menu-path'].includes('Download .csv'));
 assert.ok(corsican['s3-access-key-menu-path'].includes('Application running outside AWS'));
+
+const boardMigrationCorrectionKeys = ["writable-path", "writable-path-description", "add-job", "attachment-migration", "attachment-monitoring", "attachment-settings", "attachment-storage-settings", "back-to-settings", "card-show-lists-on-minicard", "comprehensive-board-migration", "comprehensive-board-migration-description", "delete-duplicate-empty-lists-migration", "delete-duplicate-empty-lists-migration-description", "lost-cards-list", "fix-missing-lists-migration", "fix-missing-lists-migration-description", "fix-avatar-urls-migration", "migration-complete", "migration-successful", "migration-failed", "migrations-description", "run-migration", "run-comprehensive-migration-confirm", "run-delete-duplicate-empty-lists-migration-confirm", "run-fix-missing-lists-migration-confirm", "restore-lost-cards-nothing-to-restore", "migration-progress-title", "migration-progress-overall", "migration-progress-current-step", "migration-progress-status", "migration-progress-details", "has-swimlanes", "step-analyze-board-structure", "step-fix-orphaned-cards", "step-convert-shared-lists", "step-ensure-per-swimlane-lists", "step-validate-migration", "step-fix-avatar-urls", "step-fix-attachment-urls", "step-analyze-lists", "step-update-cards", "step-finalize", "step-delete-duplicate-empty-lists", "step-ensure-lost-cards-swimlane", "step-restore-swimlanes", "step-fix-missing-ids", "step-scan-users", "step-scan-files", "step-fix-file-urls", "completed", "converting-board-description", "cpu-usage", "current-action", "database-migrations", "estimated-time-remaining"];
+for (const key of boardMigrationCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /Percorso|processo|allegati|Impostazioni|Torna alle|minischeda|Esegue controlli|liste vuote|Rimuove|ripristinati|Correggi|Completato|cù successo|non riuscita|Esegui |Verranno|Verrà|Continuare|Nessuna swimlane|in corso|Avanzamento|Passaggio corrente|Analizza|Converti|Convalida|Aggiorna|Finalizza|Garantisci|Controllo|Correzione|Potrebbe|Utilizzo|Azione corrente|del database|Tempo stimato/, key);
+}
+assert.match(corsican['delete-duplicate-empty-lists-migration-description'], /senza carte È.*altra lista.*listessu titulu.*cuntene carte/);
+assert.match(corsican['run-delete-duplicate-empty-lists-migration-confirm'], /Prima.*spartute.*per corsia.*po.*squassate.*listessu titulu.*cuntene carte/);
+assert.match(corsican['migrations-description'], /Ogni migrazione.*individualmente/);
+assert.match(corsican['comprehensive-board-migration-description'], /ordine di e liste.*pusizioni di e carte.*struttura di e corsie/);
+assert.equal(corsican['step-delete-duplicate-empty-lists'], corsican['delete-duplicate-empty-lists-migration']);
+assert.match(corsican['restore-lost-cards-nothing-to-restore'], /Nisuna corsia, lista o carta/);
