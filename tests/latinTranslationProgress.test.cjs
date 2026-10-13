@@ -1204,3 +1204,22 @@ assert.match(latin['problems-summary-help'], /quas recensuisti.*ad zerum/);
 assert.match(latin['repair-broken-cards-done-unfixable'], /nullam tabulam habent et automatice corrigi non possunt/);
 assert.match(latin['restore-list-swimlanes-done'], /__remaining__ restitui non potuerunt/);
 assert.equal(latin['s3-storage'], 'S3');
+
+const reviewedFlowReportKeys = ["cpu-usage-current", "cpu-cores-suffix", "cpu-load-average", "event-datetime", "event-category", "event-severity", "event-action", "event-source", "event-detail", "event-ip", "event-ipv4", "event-ipv6", "event-attempts", "integrityReportTitle", "export-select-what-to-include", "export-card-details", "import-here-instruction", "import-scoped-failed", "import-not-wekan-export", "import-board-source", "import-source-heading", "import-parts-instruction", "import-wekan-file", "wip-limit-groups", "wip-limit-group-add", "wip-limit-group-select-swimlane", "wip-limit-group-apply-swimlane", "board-view-aging-wip", "board-view-blocker-analysis", "board-view-size-cycle-time", "flow-unknown", "flow-cycle-days", "flow-age-days", "flow-p85", "flow-samples", "flow-signal", "flow-unusual", "flow-blocker", "flow-episodes", "flow-active", "flow-blocked-days", "flow-unknown-start", "flow-confidence", "flow-target-count", "flow-finish-days", "flow-finish-date", "flow-target-date", "flow-history-days", "flow-beyond-horizon", "flow-size-source", "flow-size", "flow-error", "flow-details", "flow-note-agingWip", "flow-note-blockerAnalysis", "flow-note-monteCarlo", "flow-note-processBehavior", "flow-note-sizeCycleTime", "time-adjustments", "stuck-sync-operation-progress", "stuck-sync-operation-reason", "stuck-sync-operation-discard", "stuck-sync-operation-refresh", "interrupted-import-discard", "interrupted-import-refresh"];
+for (const key of reviewedFlowReportKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Unknown|Import failed|Blocking card|Open episodes|Could not load|Discard|Refresh)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+for (const [key, value] of Object.entries(latin)) assert.doesNotMatch(value, /Latine:/, key);
+assert.match(latin['import-parts-instruction'], /Tantum partes signatae.*Eadem electio/);
+assert.match(latin['flow-note-agingWip'], /85.*saltem quinque morae/);
+assert.match(latin['flow-note-agingWip'], /historia ingressus deest, aetas ignota/);
+assert.match(latin['flow-note-blockerAnalysis'], /tempore coincidunt separatim numerantur/);
+for (const literal of ['2,000', 'UTC', '3,650']) assert.ok(latin['flow-note-monteCarlo'].includes(literal));
+assert.match(latin['flow-note-monteCarlo'], /dies quibus nihil perficitur/);
+assert.match(latin['flow-note-monteCarlo'], /cauda superiore.*cauda inferiore/);
+assert.match(latin['flow-note-monteCarlo'], /nulla cautio.*nihil perfectum.*nulla praedictio/);
+assert.match(latin['flow-note-processBehavior'], /XmR.*saltem duae completiones validae/);
+assert.match(latin['flow-note-sizeCycleTime'], /Aestimationes absentes et dies invalidi omittuntur/);
+assert.equal(latin['stuck-sync-operation-discard'], latin['interrupted-import-discard']);
+assert.equal(latin['stuck-sync-operation-refresh'], latin['interrupted-import-refresh']);

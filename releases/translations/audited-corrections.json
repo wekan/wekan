@@ -205252,5 +205252,460 @@
     "before": "Latine: Restitutum __restored__ index(s). __remaining__ could non esse restitutum.",
     "after": "Indices __restored__ restituti sunt. __remaining__ restitui non potuerunt.",
     "reason": "Translate status, repository and account messages; preserve temporary lockout, required credentials, minimum length and repair counters."
+  },
+  {
+    "locale": "la",
+    "key": "cpu-usage-current",
+    "before": "Latine: Praesens CPU usage",
+    "after": "Usus CPU praesens",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "cpu-cores-suffix",
+    "before": "Latine: cores",
+    "after": "nuclei",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "cpu-load-average",
+    "before": "Latine: load average",
+    "after": "onus medium",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "event-datetime",
+    "before": "Latine: Dies et tempus",
+    "after": "Dies et hora",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "event-category",
+    "before": "Latine: Category",
+    "after": "Categoria",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "event-severity",
+    "before": "Latine: Severity",
+    "after": "Gravitas",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "event-action",
+    "before": "Latine: Actio",
+    "after": "Actio",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "event-source",
+    "before": "Latine: Fons",
+    "after": "Fons",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "event-detail",
+    "before": "Latine: Detail",
+    "after": "Singula",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "event-ip",
+    "before": "Latine: inscriptio IP",
+    "after": "Inscriptio IP",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "event-ipv4",
+    "before": "Latine: IPv4 address",
+    "after": "Inscriptio IPv4",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "event-ipv6",
+    "before": "Latine: IPv6 address",
+    "after": "Inscriptio IPv6",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "event-attempts",
+    "before": "Latine: Attempts",
+    "after": "Conatus",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "integrityReportTitle",
+    "before": "Latine: Filesystem integrity",
+    "after": "Integritas systematis fasciculorum",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "export-select-what-to-include",
+    "before": "Latine: Elige quid ad include:",
+    "after": "Elige quae includantur:",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "export-card-details",
+    "before": "Latine: Scheda singula (quisque scheda as in scheda exporta)",
+    "after": "Singula chartarum (quaeque charta sicut in exportatione chartae)",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "import-here-instruction",
+    "before": "Latine: Importa a WeKan exporta (.json vel.zip) here:",
+    "after": "Importa exportationem WeKan (.json vel .zip) hic:",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "import-scoped-failed",
+    "before": "Latine: Importa defecit",
+    "after": "Importatio defecit",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "import-not-wekan-export",
+    "before": "Latine: Illud fasciculus est non a WeKan exporta",
+    "after": "Ille fasciculus exportatio WeKan non est",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "import-board-source",
+    "before": "Latine: Importa tabula (Trello, Jira, WeKan exporta, CSV, Excel, …)",
+    "after": "Importa tabulam (Trello, Jira, exportatio WeKan, CSV, Excel, …)",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "import-source-heading",
+    "before": "Latine: Importa ex:",
+    "after": "Importa ex:",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "import-parts-instruction",
+    "before": "Latine: Tantum the ticked parts sunt importatum. The idem choice est used quando exporting.",
+    "after": "Tantum partes signatae importantur. Eadem electio in exportatione adhibetur.",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "import-wekan-file",
+    "before": "Latine: Importa ex a.json vel.zip exporta fasciculus:",
+    "after": "Importa ex fasciculo exportationis .json vel .zip:",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "wip-limit-groups",
+    "before": "Latine: Habilita WIP Limit (Index)",
+    "after": "Greges limitum WIP",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "wip-limit-group-add",
+    "before": "Adde Latine: Habilita WIP Limit",
+    "after": "Adde gregem limitis WIP",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "wip-limit-group-select-swimlane",
+    "before": "Latine: Elige Semita",
+    "after": "Elige semitam",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "wip-limit-group-apply-swimlane",
+    "before": "Latine: Apply Semita",
+    "after": "Applica semitae",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "board-view-aging-wip",
+    "before": "Latine: Scheda aging — Index",
+    "after": "Aetas operis in progressu (WIP)",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "board-view-blocker-analysis",
+    "before": "Latine: Dependencies — Latine: Statistics",
+    "after": "Analysis impedimentorum",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "board-view-size-cycle-time",
+    "before": "Latine: Magnitudo / Tempus cycli",
+    "after": "Magnitudo operis et tempus cycli",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-unknown",
+    "before": "Latine: (ignotum)",
+    "after": "Ignotum",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-cycle-days",
+    "before": "Tempus cycli (Latine: dies)",
+    "after": "Tempus cycli (dies)",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-age-days",
+    "before": "Index — Latine: Duration (Latine: dies)",
+    "after": "Aetas in gradu (dies)",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-p85",
+    "before": "Index — P85 (Latine: dies)",
+    "after": "Percentilis 85 gradus (dies)",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-samples",
+    "before": "Latine: Historia — n",
+    "after": "Morae praeteritae",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-signal",
+    "before": "Latine: Limits",
+    "after": "Signum",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-unusual",
+    "before": "Latine: Limits ⚠",
+    "after": "Extra limitem",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-blocker",
+    "before": "Latine: Blocks",
+    "after": "Charta impediens",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-episodes",
+    "before": "Latine: Dependencies — Latine: Historia",
+    "after": "Periodi",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-active",
+    "before": "Latine: Dependencies — Latine: End —",
+    "after": "Periodi apertae",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-blocked-days",
+    "before": "Latine: Est obstructum a (Chartae × Latine: dies)",
+    "after": "Dies chartarum impeditarum",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-unknown-start",
+    "before": "Incipe — Latine: (ignotum)",
+    "after": "Initia ignota",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-confidence",
+    "before": "Latine: Statistics (%)",
+    "after": "Fiducia",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-target-count",
+    "before": "Chartae — Latine: Numerus",
+    "after": "Numerus chartarum destinatus",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-finish-days",
+    "before": "Latine: Perfectum (Latine: dies)",
+    "after": "Dies ad perficiendum",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-finish-date",
+    "before": "Latine: Perfectum — Dies",
+    "after": "Dies completionis",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-target-date",
+    "before": "Latine: Due",
+    "after": "Dies destinatus",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-history-days",
+    "before": "Latine: Historia (Latine: dies)",
+    "after": "Dies historiae",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-beyond-horizon",
+    "before": "> 3650 Latine: dies",
+    "after": "Ultra finem simulationis",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-size-source",
+    "before": "Latine: Magnitudo — Campi proprii",
+    "after": "Campus magnitudinis",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-size",
+    "before": "Latine: Magnitudo",
+    "after": "Aestimatio",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-error",
+    "before": "Latine: Error — Latine: Statistics",
+    "after": "Relatio onerari non potuit. Verifica valores et iterum conare.",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-details",
+    "before": "Latine: Singula — Latine: Historia",
+    "after": "Historia subiacens",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-note-agingWip",
+    "before": "Index: Incipe → Latine: Duration. P85: n ≥ 5. Latine: (ignotum): —.",
+    "after": "Chartae apertae: dies ab ingressu in gradum praesentem. Lineae rubrae percentilem 85 eius gradus ex historia excedunt (saltem quinque morae). Si historia ingressus deest, aetas ignota est.",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-note-blockerAnalysis",
+    "before": "Latine: Dependencies: Latine: Historia → Incipe / Latine: End. Incipe Latine: (ignotum): —.",
+    "after": "Historia dependentiarum tempora initii et finis impedimentorum pro quoque gradu praebet. Nexus antiquiores initia ignota habere possunt. Chartae deletae exemplaria historiae servata requirunt. Causae quae tempore coincidunt separatim numerantur.",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-note-monteCarlo",
+    "before": "Monte Carlo: 2000 × Latine: Historia. Latine: dies: UTC; 0 ✓. 50%, 70%, 85%, 95%. Chartae ≥; Latine: Duration ≤. Latine: Limits: 3650 Latine: dies.",
+    "after": "2,000 experimenta dies integros calendarii UTC eligunt, etiam dies quibus nihil perficitur. Dies praedicti e cauda superiore distributionis sumuntur; numeri promissi e cauda inferiore. Similem copiam operis futuri per tempus perfecti supponit; nulla cautio est. Maximus ambitus: 3,650 dies. Si nihil perfectum est, nulla praedictio fit.",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-note-processBehavior",
+    "before": "XmR: Tempus cycli; Incipe → Latine: Perfectum. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
+    "after": "Tempus cycli Initio utitur, vel die creationis si deest, et Fine, vel die translationis in archivum si deest. XmR valores singulos et differentias successivas monstrat, cum medio et limitibus naturalibus processus; saltem duae completiones validae requiruntur.",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "flow-note-sizeCycleTime",
+    "before": "X: Latine: Planning Poker / Latine: Numerus. Y: Tempus cycli (Latine: dies). Latine: (ignotum): —.",
+    "after": "Aestimatio praesens Planning Poker vel unus campus proprius numericus comparatur cum tempore cycli perfecti in diebus. Aestimationes absentes et dies invalidi omittuntur. Si Initium deest, dies creationis adhibetur; si Finis deest, dies translationis in archivum adhibetur.",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "time-adjustments",
+    "before": "Latine: horae — Δ — Nomen usoris",
+    "after": "Correctiones temporis secundum auctorem",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "stuck-sync-operation-progress",
+    "before": "Latine: Progress",
+    "after": "Progressus",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "stuck-sync-operation-reason",
+    "before": "Latine: Reason",
+    "after": "Causa",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "stuck-sync-operation-discard",
+    "before": "Latine: Discard",
+    "after": "Abice",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "stuck-sync-operation-refresh",
+    "before": "Latine: Refresh",
+    "after": "Renova",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "interrupted-import-discard",
+    "before": "Latine: Discard",
+    "after": "Abice",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
+  },
+  {
+    "locale": "la",
+    "key": "interrupted-import-refresh",
+    "before": "Latine: Refresh",
+    "after": "Renova",
+    "reason": "Translate report and flow-analysis messages with exact thresholds, forecast caveats, historical limits and import scope."
   }
 ]
