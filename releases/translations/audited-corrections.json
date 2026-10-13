@@ -203411,5 +203411,313 @@
     "before": "Latine: S3/MinIO Storage Inhabilitatum",
     "after": "Repositorium S3/MinIO inactivum est",
     "reason": "Translate cloud configuration guidance while retaining literal console labels, credential keys and alternative setup paths."
+  },
+  {
+    "locale": "la",
+    "key": "all-migrations",
+    "before": "Latine: Omnia Migrations",
+    "after": "Omnes migrationes",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "select-migration",
+    "before": "Latine: Elige Migration",
+    "after": "Elige migrationem",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "pause",
+    "before": "Latine: Pause",
+    "after": "Intermitte",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "stop",
+    "before": "Latine: Siste",
+    "after": "Siste",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "migration-starting",
+    "before": "Latine: Starting migrations...",
+    "after": "Migrationes incipiuntur…",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "migration-pausing",
+    "before": "Latine: Pausing migrations...",
+    "after": "Migrationes intermittuntur…",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "migration-stopping",
+    "before": "Latine: Stopping migrations...",
+    "after": "Migrationes sistuntur…",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "migration-pause-failed",
+    "before": "Latine: Defecit ad pause migrations",
+    "after": "Migrationes intermitti non potuerunt",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "migration-paused",
+    "before": "Latine: Migrations paused successfully",
+    "after": "Migrationes feliciter intermissae sunt",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "migration-progress",
+    "before": "Latine: Migration Progress",
+    "after": "Progressus migrationis",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "migration-start-failed",
+    "before": "Latine: Defecit ad incipe migrations",
+    "after": "Migrationes incipi non potuerunt",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "migration-started",
+    "before": "Latine: Migrations started successfully",
+    "after": "Migrationes feliciter inceptae sunt",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "migration-not-needed",
+    "before": "Latine: Non migration needed",
+    "after": "Migratio non necessaria est",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "migration-status",
+    "before": "Latine: Migration Status",
+    "after": "Status migrationis",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "migration-stop-confirm",
+    "before": "Latine: certusne es tu want ad siste omnia migrations?",
+    "after": "Certusne es te omnes migrationes sistere velle?",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "migration-stop-failed",
+    "before": "Latine: Defecit ad siste migrations",
+    "after": "Migrationes sisti non potuerunt",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "migration-stopped",
+    "before": "Latine: Migrations stopped successfully",
+    "after": "Migrationes feliciter steterunt",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "mongodb-gridfs-storage",
+    "before": "Latine: MongoDB GridFS Storage",
+    "after": "Repositorium MongoDB GridFS",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "gridfs-move-collectionfs-note",
+    "before": "Latine: Ad have adnexa et avatars visible, move them ex CollectionFS ad ullum aliud Storage.",
+    "after": "Ut adiuncta et imagines usorum visibilia sint, transfer ea ex CollectionFS in quodlibet aliud repositorium.",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "pause-all-migrations",
+    "before": "Latine: Pause Omnia Migrations",
+    "after": "Intermitte omnes migrationes",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "s3-access-key",
+    "before": "Latine: S3 Access Key",
+    "after": "Clavis accessus S3",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "s3-access-key-description",
+    "before": "Latine: AWS S3 access key for authenticatio",
+    "after": "Clavis accessus AWS S3 ad authentificationem",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "s3-access-key-placeholder",
+    "before": "Latine: Enter S3 access key",
+    "after": "Insere clavem accessus S3",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "s3-bucket",
+    "before": "Latine: S3 Bucket",
+    "after": "Receptaculum S3",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "s3-bucket-description",
+    "before": "Latine: S3 bucket nomen for storing fasciculi",
+    "after": "Nomen receptaculi S3 ad fasciculos servandos",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "s3-connection-failed",
+    "before": "Latine: S3 coniunctio defecit",
+    "after": "Connexio S3 defecit",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "s3-connection-success",
+    "before": "Latine: S3 coniunctio felix",
+    "after": "Connexio S3 successit",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "s3-enabled",
+    "before": "Latine: S3 Habilitatum",
+    "after": "S3 activum est",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "s3-enabled-description",
+    "before": "Latine: Use AWS S3 vel MinIO for fasciculus storage",
+    "after": "Utere AWS S3 vel MinIO ad fasciculos servandos",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "s3-endpoint",
+    "before": "Latine: S3 Endpoint",
+    "after": "Punctum accessus S3",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "s3-endpoint-description",
+    "before": "Latine: S3 endpoint URL (e.g., s3.amazonaws.com vel minio.example.com)",
+    "after": "URL puncti accessus S3 (exempli gratia s3.amazonaws.com vel minio.example.com)",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "s3-minio-storage",
+    "before": "Latine: S3/MinIO Storage",
+    "after": "Repositorium S3/MinIO",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "s3-port",
+    "before": "Latine: S3 Port",
+    "after": "Porta S3",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "s3-port-description",
+    "before": "Latine: S3 endpoint port numerus",
+    "after": "Numerus portae puncti accessus S3",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "s3-region",
+    "before": "Latine: S3 Region",
+    "after": "Regio S3",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "s3-region-description",
+    "before": "Latine: AWS S3 region (e.g., us-east-1)",
+    "after": "Regio AWS S3 (exempli gratia us-east-1)",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "s3-secret-key",
+    "before": "Latine: S3 Secret Key",
+    "after": "Clavis secreta S3",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "s3-secret-key-description",
+    "before": "Latine: AWS S3 secret key for authenticatio",
+    "after": "Clavis secreta AWS S3 ad authentificationem",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "s3-secret-key-placeholder",
+    "before": "Latine: Enter S3 secret key",
+    "after": "Insere clavem secretam S3",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "s3-secret-key-required",
+    "before": "Latine: S3 secret key est necessarium",
+    "after": "Clavis secreta S3 requiritur",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "s3-settings-save-failed",
+    "before": "Latine: Defecit ad serva S3 configurationes",
+    "after": "Configurationes S3 servari non potuerunt",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "s3-settings-saved",
+    "before": "Latine: S3 configurationes servatum successfully",
+    "after": "Configurationes S3 feliciter servatae sunt",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "s3-ssl-enabled",
+    "before": "Latine: S3 SSL Habilitatum",
+    "after": "SSL S3 activum est",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
+  },
+  {
+    "locale": "la",
+    "key": "s3-ssl-enabled-description",
+    "before": "Latine: Use SSL/TLS for S3 connections",
+    "after": "Utere SSL/TLS ad connexiones S3",
+    "reason": "Translate migration states and S3 fields; preserve action/state distinctions, secret versus access key and literal endpoint examples."
   }
 ]

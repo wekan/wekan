@@ -1120,3 +1120,22 @@ assert.match(latin['cloud-secret-set'], /relinque vacuum/);
 assert.notEqual(latin['cloud-connection-success'], latin['cloud-connection-failed']);
 assert.notEqual(latin['gridfs-enabled'], latin['gridfs-disabled']);
 for (const key of ['move-storage-azure', 'move-storage-gcs']) assert.equal(latin[key], english[key]);
+
+const reviewedMigrationS3Keys = ["all-migrations", "select-migration", "pause", "stop", "migration-starting", "migration-pausing", "migration-stopping", "migration-pause-failed", "migration-paused", "migration-progress", "migration-start-failed", "migration-started", "migration-not-needed", "migration-status", "migration-stop-confirm", "migration-stop-failed", "migration-stopped", "mongodb-gridfs-storage", "gridfs-move-collectionfs-note", "pause-all-migrations", "s3-access-key", "s3-access-key-description", "s3-access-key-placeholder", "s3-bucket", "s3-bucket-description", "s3-connection-failed", "s3-connection-success", "s3-enabled", "s3-enabled-description", "s3-endpoint", "s3-endpoint-description", "s3-minio-storage", "s3-port", "s3-port-description", "s3-region", "s3-region-description", "s3-secret-key", "s3-secret-key-description", "s3-secret-key-placeholder", "s3-secret-key-required", "s3-settings-save-failed", "s3-settings-saved", "s3-ssl-enabled", "s3-ssl-enabled-description"];
+for (const key of reviewedMigrationS3Keys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Migrations|Starting|Pausing|Stopping|Failed|successful|Enter|Enabled|Required)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.notEqual(latin.pause, latin.stop);
+assert.equal(new Set(['starting', 'pausing', 'stopping'].map(state => latin[`migration-${state}`])).size, 3);
+for (const action of ['start', 'pause', 'stop']) assert.match(latin[`migration-${action}-failed`], /non potuerunt/);
+assert.match(latin['migration-stop-confirm'], /omnes migrationes/);
+assert.match(latin['gridfs-move-collectionfs-note'], /ex CollectionFS in quodlibet aliud repositorium/);
+assert.notEqual(latin['s3-access-key'], latin['s3-secret-key']);
+assert.match(latin['s3-access-key-placeholder'], /clavem accessus/);
+assert.match(latin['s3-secret-key-placeholder'], /clavem secretam/);
+for (const host of ['s3.amazonaws.com', 'minio.example.com']) assert.ok(latin['s3-endpoint-description'].includes(host));
+assert.ok(latin['s3-region-description'].includes('us-east-1'));
+assert.ok(latin['s3-ssl-enabled-description'].includes('SSL/TLS'));
+assert.match(latin['s3-secret-key-required'], /requiritur/);
+assert.notEqual(latin['s3-connection-success'], latin['s3-connection-failed']);

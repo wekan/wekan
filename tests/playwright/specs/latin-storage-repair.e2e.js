@@ -64,3 +64,17 @@ test('Latin backup settings distinguish schedule frequencies', async ({ page, ad
   await expect(frequency.locator('option[value="off"]')).toHaveText('Inactiva');
   await expect(page.locator('.js-backup-time')).toHaveAttribute('type', 'time');
 });
+
+test('Latin S3 settings distinguish access keys from secret keys', async ({ page, adminUser }) => {
+  await loginWithToken(page, adminUser.id, adminUser.token);
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'la'));
+  await navigateInApp(page, '/admin/attachments/s3');
+  const access = page.locator('.form-group').filter({ has: page.locator('#s3-access-key') });
+  const secret = page.locator('.form-group').filter({ has: page.locator('#s3-secret-key') });
+  await expect(access.locator('.cloud-input-label-tr')).toHaveText('Clavis accessus S3');
+  await expect(secret.locator('.cloud-input-label-tr')).toHaveText('Clavis secreta S3');
+  await expect(secret.locator('input')).toHaveAttribute('type', 'password');
+  const endpoint = page.locator('.form-group').filter({ has: page.locator('#s3-endpoint') });
+  await expect(endpoint).toContainText('URL puncti accessus S3 (exempli gratia s3.amazonaws.com vel minio.example.com)');
+  await expect(endpoint.locator('.cloud-input-label-tr')).not.toContainText('Latine:');
+});
