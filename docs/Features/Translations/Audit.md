@@ -2,6 +2,25 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican settings, shortcuts and membership — 2026-10-13
+
+Commit `6f2e4740ab` repairs 42 values in the source-ordered review through
+key 1129. Member removal retains removal from all board cards and the
+notification sent to the member. Unsaved descriptions retain the recovery
+prompt before closing and replacement of the current description. Empty
+custom visibility descriptions retain their default fallback. Time-tracking
+labels distinguish overtime from overdue cards. Pomodoro loses its
+unrelated time suffix and is recorded as an invariant technique name in
+the existing Corsican exception set.
+
+The Corsican suite passes after correcting the test variable and preserving
+existing invariant key legends; the full repair-ledger suite passes with
+25,867 guarded corrections. All 21 human-preference checks pass. A new
+shortcuts browser case registers for filter and sidebar actions; it has not
+run against the application. Exact comparison preserves all 38,430
+protected Chinese values and limits this locale batch to the 42 reviewed
+replacements. Broader language review remains unfinished.
+
 ## Corsican board, archive and member controls — 2026-10-13
 
 Commit `01e3a9542e` repairs 52 values in the source-ordered review through

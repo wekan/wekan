@@ -1757,6 +1757,19 @@ Existing Chinese text is unchanged; broader language review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6f2e4740ab">Correct Corsican settings, shortcuts and membership messages</a>. Thanks to xet7.</summary>
+
+Repair 42 settings, shortcut, membership and time-tracking values. Keep
+member-removal notifications, unsaved-description recovery and overtime
+distinct from overdue dates. Preserve the Pomodoro technique name.
+
+The Corsican and repair-ledger suites and 21 human-preference checks pass.
+A shortcuts browser case registers; runtime execution remains pending.
+Existing Chinese text is unchanged; broader language review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
