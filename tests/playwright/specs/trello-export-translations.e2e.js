@@ -3,7 +3,7 @@
 const { test, expect } = require('../fixtures');
 const BoardPage = require('../pages/BoardPage');
 
-for (const language of ['mt', 'en', 'bn', 'mr', 'ne', 'cmn', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-HK', 'zh-Hant', 'zh-TW', 'ta', 'th', 'kn', 'ur', 'ml', 'az', 'az-AZ', 'az-LA', 'uz', 'uz-UZ', 'uz-LA']) {
+for (const language of ['sw', 'mt', 'en', 'bn', 'mr', 'ne', 'cmn', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-HK', 'zh-Hant', 'zh-TW', 'ta', 'th', 'kn', 'ur', 'ml', 'az', 'az-AZ', 'az-LA', 'uz', 'uz-UZ', 'uz-LA']) {
   test(`Trello export dialog preserves translated instructions in ${language}`, async ({ boardPage: page }) => {
     const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
     await page.evaluate(language => Meteor.callAsync('setLanguage', language), language === 'zh_SG' ? 'zh-SG' : language);

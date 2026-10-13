@@ -74,3 +74,29 @@ test('Swahili import matching and subtasks preserve refusal and no-change meanin
   assert.doesNotMatch(sw['subtask-mark-done'], /haijakamilika/);
   assert.match(sw['subtask-done-no-permission'], /Huwezi kubadilisha/);
 });
+
+test('Swahili export and settings labels retain tokens and technical literals', async () => {
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  const keys = ["import-many-boards", "import-many-boards-hint", "import-one-board-per-project", "import-one-board-per-project-hint", "import-many-progress", "import-many-results-heading", "import-many-imported", "export-all-boards", "export-selected-boards", "export-all-boards-hint", "exportAllBoardsPopup-title", "exportToTrelloPopup-title", "trello-export-desc", "trello-export-include-attachments", "trello-export-start", "trello-export-open-board", "trello-export-warnings", "sandstorm-trello-access-needed", "sandstorm-allow-trello-access", "sandstorm-trello-access-granted", "sandstorm-forget-access", "sandstorm-trello-save-label", "import-file-label", "board-announcement", "board-announcement-enabled", "board-view-calendar-mode", "cards-use-list-color", "external-link-rules", "external-link-rules-description", "external-link-identifier-aliases", "read-only-field", "r-wrike-workflow", "r-wrike-workflow-note", "r-export-wrike-workflow", "r-import-wrike-workflow", "r-import-wrike-workflow-done", "r-moved-forward", "r-moved-back", "r-add-actinguser-assignee", "r-remove-all-assignees", "ldap-sync-now", "ldap-sync-now-done", "ldap-sync-now-error", "ldap-sync-now-nothing", "oauth-providers-allowed-email-domains", "login-setting-env-only"];
+  for (const k of keys) { assert.notEqual(sw[k], en[k], k); assert.deepEqual(translationTokens(sw[k]), translationTokens(en[k]), k); }
+  for (const literal of ['{number}', '{identifier}', '[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}']) assert.ok(sw['external-link-rules-description'].includes(literal));
+  for (const literal of ['TK=Task', 'IN=Incident']) assert.ok(sw['external-link-identifier-aliases'].includes(literal));
+  for (const literal of ['Active', 'Completed', 'Deferred', 'Cancelled', 'GET /workflows', 'JSON']) assert.ok(sw['r-wrike-workflow-note'].includes(literal));
+  for (const literal of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS','LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) assert.ok(sw['ldap-sync-now-nothing'].includes(literal));
+  assert.match(sw['trello-export-desc'], /Swimlane: …/);
+});
+test('Swahili export guidance retains archive exceptions and access restrictions', () => {
+  assert.match(sw['import-many-boards-hint'], /bila kuoanisha wanachama/);
+  assert.match(sw['import-many-boards-hint'], /uhamisho mmoja.*bodi moja/);
+  assert.match(sw['import-many-boards-hint'], /badala ya maandishi/);
+  assert.match(sw['export-all-boards-hint'], /unayoweza kuhamisha/);
+  assert.match(sw['export-all-boards-hint'], /Excel.*lahajedwali.*umbizo jingine.*\.zip/);
+  assert.match(sw['sandstorm-trello-access-needed'], /haina ufikiaji.*kwanza/);
+  assert.match(sw['trello-export-warnings'], /Si kila kitu/);
+  assert.match(sw['r-wrike-workflow-note'], /imekamilika.*Completed au Cancelled.*haijakamilika.*Active au Deferred/);
+  assert.match(sw['r-wrike-workflow-note'], /haziwezi kuhamishwa kutoka Wrike/);
+  assert.match(sw['read-only-field'], /kila mwanachama anaona.*wasimamizi wa bodi pekee/);
+  assert.match(sw['login-setting-env-only'], /tu kupitia mazingira ya seva.*kusoma tu/);
+  assert.match(sw['oauth-providers-allowed-email-domains'], /tenganisha kwa koma; ukiacha tupu, vyote vinaruhusiwa/);
+  assert.match(sw['cards-use-list-color'], /zisizo na rangi zao wenyewe/);
+});

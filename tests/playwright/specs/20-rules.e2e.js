@@ -158,7 +158,7 @@ test.describe('Rules', () => {
   // /workflows becomes the board's lists and the rules that close and reopen
   // a card as Wrike's status groups do; a second import adds nothing, and the
   // export writes the board back as a workflow.
-  for (const language of ['en', 'mt']) {
+  for (const language of ['en', 'mt', 'sw']) {
   test(`Import / Export applies a Wrike workflow as lists and rules, and exports one in ${language}`, async ({ boardPage, board }) => {
     await boardPage.evaluate(language => Meteor.callAsync('setLanguage', language), language);
     const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
