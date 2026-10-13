@@ -35,8 +35,13 @@ jobs:
         set -euo pipefail
         VERSION="$(sed -n 's/^ARG VERSION=//p' Dockerfile | head -1)"
         asset="wekan-${VERSION}-amd64.zip"
-        if gh release view "v${VERSION}" --repo "${{ github.repository }}" \
-             --json assets --jq '.assets[].name' 2>/dev/null | grep -qx "$asset"; then
+        # The list is read whole BEFORE matching. `gh … | grep -q` lets grep exit
+        # at the first match while gh is still writing; gh gets SIGPIPE, pipefail
+        # makes the pipeline fail, and a PUBLISHED asset was reported missing - the
+        # v12.39 Mac apps were skipped that way, with the bundles already attached.
+        assets="$(gh release view "v${VERSION}" --repo "${{ github.repository }}" \
+             --json assets --jq '.assets[].name' 2>/dev/null || true)"
+        if grep -qx "$asset" <<< "$assets"; then
           echo "build=yes" >> "$GITHUB_OUTPUT"
           echo "OK: $asset is on the v${VERSION} release; building the image."
         else

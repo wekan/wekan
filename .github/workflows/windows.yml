@@ -76,8 +76,13 @@ jobs:
           [ -n "$tag" ] || { echo "::error::No release to wrap."; exit 1; }
           version="${tag#v}"
           available=false
-          if gh release view "$tag" --repo "${{ github.repository }}" --json assets \
-               --jq '.assets[].name' | grep -qx "wekan-${version}-win64.zip"; then
+          # The list is read whole BEFORE matching. `gh … | grep -q` lets grep exit
+          # at the first match while gh is still writing; gh gets SIGPIPE, pipefail
+          # makes the pipeline fail, and a PUBLISHED asset was reported missing - the
+          # v12.39 Mac apps were skipped that way, with the bundles already attached.
+          assets="$(gh release view "$tag" --repo "${{ github.repository }}" --json assets \
+               --jq '.assets[].name')"
+          if grep -qx "wekan-${version}-win64.zip" <<< "$assets"; then
             available=true
           else
             echo "::notice::wekan-${version}-win64.zip is not published; there is no Windows bundle to wrap."

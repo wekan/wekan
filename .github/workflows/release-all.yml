@@ -4813,8 +4813,13 @@ jobs:
           esac
           asset="wekan-${VERSION}-${bundle_arch}.zip"
           echo "asset=$asset" >> "$GITHUB_OUTPUT"
-          if gh release view "v${VERSION}" --repo "${GITHUB_REPOSITORY}" \
-            --json assets --jq '.assets[].name' | grep -qxF "$asset"; then
+          # The list is read whole BEFORE matching. `gh … | grep -q` lets grep exit
+          # at the first match while gh is still writing; gh gets SIGPIPE, pipefail
+          # makes the pipeline fail, and a PUBLISHED asset was reported missing - the
+          # v12.39 Mac apps were skipped that way, with the bundles already attached.
+          assets="$(gh release view "v${VERSION}" --repo "${GITHUB_REPOSITORY}" \
+            --json assets --jq '.assets[].name')"
+          if grep -qxF "$asset" <<< "$assets"; then
             echo "available=true" >> "$GITHUB_OUTPUT"
             echo "Found $asset; Launchpad can build ${{ matrix.arch }}."
           else

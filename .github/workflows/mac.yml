@@ -95,8 +95,13 @@ jobs:
         run: |
           set -euo pipefail
           zip="wekan-${VERSION}-${BUNDLE_ARCH}.zip"
-          if ! gh release view "$TAG" --repo "$GITHUB_REPOSITORY" \
-            --json assets --jq '.assets[].name' | grep -qxF "$zip"; then
+          # The list is read whole BEFORE matching. `gh … | grep -q` lets grep exit
+          # at the first match while gh is still writing; gh gets SIGPIPE, pipefail
+          # makes the pipeline fail, and a PUBLISHED asset was reported missing - the
+          # v12.39 Mac apps were skipped that way, with the bundles already attached.
+          assets="$(gh release view "$TAG" --repo "$GITHUB_REPOSITORY" \
+            --json assets --jq '.assets[].name')"
+          if ! grep -qxF "$zip" <<< "$assets"; then
             echo "::notice::$zip has not been published yet; this app cannot be wrapped."
             echo "available=false" >> "$GITHUB_OUTPUT"
             exit 0
