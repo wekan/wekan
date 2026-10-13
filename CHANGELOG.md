@@ -3221,6 +3221,21 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1f11631552">Repair Latin rule import and scheduling translations</a>. Thanks to xet7.</summary>
+
+- Translate 30 mixed-language import and scheduling entries, retaining partial
+  conversion limits, unmapped-item reports, weekday boundaries and due-date
+  states.
+- Latin and guarded-correction suites pass with 28,124 corrections; all 21
+  human-preference checks pass and 38,430 existing Chinese values are preserved.
+  Added import-dialog browser coverage passes syntax and discovery; browser
+  execution remains pending.
+- Review remains unfinished: 1,260 Latin values contain the legacy “Latine:”
+  prefix. Unprefixed values and other languages still require semantic review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

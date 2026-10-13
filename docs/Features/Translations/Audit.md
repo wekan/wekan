@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin rule import and scheduling — 2026-10-14
+
+Commit `1f11631552` repairs 30 prefixed import and scheduling entries. Regression
+checks preserve Butler export limitations, supported-subset conversion, unmapped
+line/node reporting, n8n and Node-RED names, Monday–Friday boundaries, distinct
+repeat intervals and approaching versus overdue dates.
+
+The Latin and guarded-correction suites pass with 28,124 ledger entries. All 21
+human-preference checks pass. Import-dialog browser coverage checks limitations,
+an initially empty input and unchanged format identifiers. Syntax and discovery
+pass; browser runtime remains pending. Exact comparison preserves 38,430 existing
+Chinese values.
+
+There remain 1,260 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin rule builder and activity messages — 2026-10-14
 
 Commit `6150377ef5` repairs 40 prefixed rule-builder and activity entries.
