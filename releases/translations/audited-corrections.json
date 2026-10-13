@@ -189285,5 +189285,47 @@
     "before": "Nalane: Δ dihora; Lebitso la mosebedisi ≠ Ba abetsoeng.",
     "after": "Diphetoho tsa dihora tse tlalehilweng, tse hlophisitsweng ho ya ka motho ya fetolang kakaretso. Tsena ha se dinako tsa mosebetsi ka bonngwe. Boleng bo ka tlase ho lefela ke ditokiso. Nako ya pele e sa tlalehwang e ke ke ya abelwa motho.",
     "reason": "Restore full analytics methodology, uncertainty and time-correction explanations; distinguish synchronization and credentials from agreement and permission."
+  },
+  {
+    "locale": "st",
+    "key": "blockly-MATH_ATAN2_TOOLTIP",
+    "before": "Kgutlisa arctangent ya ntlha (X, Y) ka dikereiti ho tloha ho -180 ho ya ho 180.",
+    "after": "Kgutlisa thanjente e kgutlisetsang morao ya ntlha (X, Y) ka dikhato ho tloha ho -180 ho ya ho 180.",
+    "reason": "Translate inverse tangent and clarify angular degrees and vertical movement in Blockly."
+  },
+  {
+    "locale": "st",
+    "key": "blockly-SHORTCUTS_MOVE_DOWN",
+    "before": "Sisa ka tlase",
+    "after": "Suthisetsa tlase",
+    "reason": "Translate inverse tangent and clarify angular degrees and vertical movement in Blockly."
+  },
+  {
+    "locale": "st",
+    "key": "blockly-SHORTCUTS_MOVE_UP",
+    "before": "Sisa ka holimo",
+    "after": "Suthisetsa hodimo",
+    "reason": "Translate inverse tangent and clarify angular degrees and vertical movement in Blockly."
+  },
+  {
+    "locale": "st",
+    "key": "blockly-MATH_TRIG_TOOLTIP_COS",
+    "before": "Kgutlisa khosaine ya sekhutlo ka dikereiti (eseng diradiane).",
+    "after": "Kgutlisa khosaine ya sekhutlo ka dikhato (eseng diradiane).",
+    "reason": "Translate inverse tangent and clarify angular degrees and vertical movement in Blockly."
+  },
+  {
+    "locale": "st",
+    "key": "blockly-MATH_TRIG_TOOLTIP_SIN",
+    "before": "Kgutlisa saine ya sekhutlo ka dikereiti (eseng diradiane).",
+    "after": "Kgutlisa saine ya sekhutlo ka dikhato (eseng diradiane).",
+    "reason": "Translate inverse tangent and clarify angular degrees and vertical movement in Blockly."
+  },
+  {
+    "locale": "st",
+    "key": "blockly-MATH_TRIG_TOOLTIP_TAN",
+    "before": "Kgutlisa thanjente ya sekhutlo ka dikereiti (eseng diradiane).",
+    "after": "Kgutlisa thanjente ya sekhutlo ka dikhato (eseng diradiane).",
+    "reason": "Translate inverse tangent and clarify angular degrees and vertical movement in Blockly."
   }
 ]

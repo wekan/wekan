@@ -431,7 +431,7 @@ for (const inclusive of ['GTE', 'LTE']) assert.match(sesotho[`blockly-LOGIC_COMP
 assert.match(sesotho['blockly-LOGIC_COMPARE_TOOLTIP_NEQ'], /di sa lekane/);
 assert.match(sesotho['blockly-LOGIC_NEGATE_TOOLTIP'], /nnete haeba kenyo e se nnete.*ha se nnete haeba kenyo e le nnete/);
 for (const branch of ['IF_TRUE', 'IF_FALSE', 'CONDITION']) assert.ok(sesotho['blockly-LOGIC_TERNARY_TOOLTIP'].includes(sesotho[`blockly-LOGIC_TERNARY_${branch}`]));
-assert.match(sesotho['blockly-MATH_ATAN2_TOOLTIP'], /dikereiti.*-180.*180/);
+assert.match(sesotho['blockly-MATH_ATAN2_TOOLTIP'], /dikhato.*-180.*180/);
 assert.match(sesotho['blockly-MATH_CONSTRAIN_TOOLTIP'], /ho kenyelletswa meedi eo/);
 assert.match(sesotho['blockly-MATH_IS_PRIME'], /kgolo ho 1.*ntle le masalla feela ka 1 le ka boyona/);
 assert.match(sesotho['blockly-MATH_IS_NEGATIVE'], /tlase ho 0/);
@@ -449,7 +449,7 @@ assert.match(sesotho['blockly-MATH_RANDOM_FLOAT_TOOLTIP'], /0[.]0 [(]e kenyeledi
 assert.match(sesotho['blockly-MATH_RANDOM_INT_TOOLTIP'], /ho kenyelletswa meedi eo/);
 assert.match(sesotho['blockly-MATH_ROUND_OPERATOR_ROUNDDOWN'], /tlase/);
 assert.match(sesotho['blockly-MATH_ROUND_OPERATOR_ROUNDUP'], /hodimo/);
-for (const key of ['COS', 'SIN', 'TAN']) assert.match(sesotho[`blockly-MATH_TRIG_TOOLTIP_${key}`], /dikereiti [(]eseng diradiane[)]/);
+for (const key of ['COS', 'SIN', 'TAN']) assert.match(sesotho[`blockly-MATH_TRIG_TOOLTIP_${key}`], /dikhato [(]eseng diradiane[)]/);
 assert.match(sesotho['blockly-MATH_SINGLE_TOOLTIP_NEG'], /letshwao le fetotsweng/);
 assert.match(sesotho['blockly-MATH_SINGLE_TOOLTIP_ABS'], /ntle le letshwao/);
 assert.match(sesotho['blockly-PROCEDURES_DEFNORETURN_TOOLTIP'], /sa kgutliseng sephetho/);
@@ -867,3 +867,19 @@ assert.match(sesotho['move-reason'], /boikhethelo/);
 assert.match(sesotho['flow-error'], /Hlahloba boleng mme o leke hape/);
 assert.notEqual(sesotho['flow-size'], sesotho['flow-mean']);
 assert.doesNotMatch(sesotho['flow-size-source'], /Masimo/);
+
+// Historical review through key 3729: angle units and movement instructions.
+assert.match(sesotho['blockly-MATH_ATAN2_TOOLTIP'], /thanjente e kgutlisetsang morao.*[(]X, Y[)].*dikhato.*-180.*180/);
+assert.doesNotMatch(sesotho['blockly-MATH_ATAN2_TOOLTIP'], /arctangent|dikereiti/);
+for (const suffix of ['COS', 'SIN', 'TAN']) {
+  const text = sesotho[`blockly-MATH_TRIG_TOOLTIP_${suffix}`];
+  assert.match(text, /ka dikhato [(]eseng diradiane[)]/);
+  assert.doesNotMatch(text, /dikereiti/);
+}
+assert.match(sesotho['blockly-SHORTCUTS_MOVE_UP'], /Suthisetsa hodimo/);
+assert.match(sesotho['blockly-SHORTCUTS_MOVE_DOWN'], /Suthisetsa tlase/);
+assert.notEqual(sesotho['blockly-SHORTCUTS_MOVE_UP'], sesotho['blockly-SHORTCUTS_MOVE_DOWN']);
+// Keep the already correct endpoints, negation and destructive list operations.
+assert.match(sesotho['blockly-LOGIC_NEGATE_TOOLTIP'], /nnete haeba kenyo e se nnete.*ha se nnete haeba kenyo e le nnete/);
+assert.match(sesotho['blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_FIRST'], /Tlosa mme o kgutlise.*ya pele/);
+assert.match(sesotho['blockly-LISTS_GET_INDEX_TOOLTIP_GET_FIRST'], /^Kgutlisa.*ya pele/);
