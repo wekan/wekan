@@ -39,3 +39,15 @@ test('Latin Azure settings explain the optional connection string', async ({ pag
   await expect(field.locator('.cloud-input-label-tr')).not.toContainText('Latine:');
   await expect(field.locator('input')).toHaveAttribute('type', 'password');
 });
+
+test('Latin database migration pane preserves prerequisites and connection instructions', async ({ page, adminUser }) => {
+  await loginWithToken(page, adminUser.id, adminUser.token);
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'la'));
+  await navigateInApp(page, '/admin/attachments/database-migration');
+  const description = page.locator('.description').filter({ hasText: 'Migra data textualia' });
+  await expect(description).toContainText('currere et adiri posse debet');
+  await expect(description).toContainText('mongodb://127.0.0.1:27018');
+  await expect(description).toContainText('WEKAN_FERRETDB_URL / WEKAN_MONGODB_URL');
+  await expect(description).toContainText('snap set wekan database=ferretdb vel =mongodb');
+  await expect(description).not.toContainText('Latine:');
+});

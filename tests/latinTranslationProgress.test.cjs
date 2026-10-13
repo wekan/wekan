@@ -1051,3 +1051,20 @@ assert.match(latin['azure-connection-string-description'], /Ad libitum:.*loco no
 assert.match(latin['s3-force-path-style-description'], /MinIO.*praeter AWS/);
 for (const name of ['AWS S3', 'MinIO', 'Cloudflare R2', 'Backblaze B2', 'Wasabi', 'DigitalOcean Spaces']) assert.ok(latin['s3-minio-storage-description'].includes(name));
 for (const key of ['azure-blob-storage', 'azure-blob-storage-description', 'gcs-storage', 'gcs-storage-description']) assert.equal(latin[key], english[key]);
+
+const reviewedDatabaseMigrationKeys = ["database-migration-description", "database-migrate-to-ferretdb", "database-migrate-to-mongodb", "database-migration-confirm", "database-migration-phase", "database-migration-done", "sandstorm-migration-description", "sandstorm-migration-status", "sandstorm-migration-success", "sandstorm-migration-failed", "sandstorm-migration-pending", "sandstorm-storage-item", "sandstorm-disk-usage", "sandstorm-raw-mongodb", "sandstorm-delete-raw-mongodb", "sandstorm-delete-raw-mongodb-description", "sandstorm-delete-raw-mongodb-confirm", "sandstorm-raw-mongodb-deleted", "collections", "features-performance", "cards-loading", "cards-loading-auto", "cards-loading-all", "cards-loading-lazy", "cards-loading-description", "cards-loading-lazy-note"];
+for (const key of reviewedDatabaseMigrationKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Migrate|database files|Succeeded|Failed|Automatic|experimental|currently visible)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+for (const literal of ['mongodb://127.0.0.1:27018', 'mongodb://127.0.0.1:27019', 'WEKAN_FERRETDB_URL', 'WEKAN_MONGODB_URL', 'MONGO_URL', 'snap set wekan database=ferretdb', '=mongodb']) assert.ok(latin['database-migration-description'].includes(literal));
+assert.match(latin['database-migration-confirm'], /non mutantur/);
+assert.match(latin['database-migration-confirm'], /currere debet/);
+for (const path of ['files/attachments', 'files/avatars']) assert.ok(latin['sandstorm-migration-description'].includes(path));
+assert.match(latin['sandstorm-migration-description'], /in primo initio/);
+for (const suffix of ['description', 'confirm']) assert.match(latin[`sandstorm-delete-raw-mongodb-${suffix}`], /Hoc revocari non potest/);
+assert.equal(new Set(['success', 'failed', 'pending'].map(suffix => latin[`sandstorm-migration-${suffix}`])).size, 3);
+for (const literal of ['CARDS_LOADING', '(all/lazy/auto)', 'CARDS_LOADING_LAZY_THRESHOLD']) assert.ok(latin['cards-loading-description'].includes(literal));
+assert.match(latin['cards-loading-lazy-note'], /experimentalis.*limites WIP recti/);
+assert.match(latin['cards-loading-lazy-note'], /tantum chartas adhuc oneratas/);
+assert.match(latin['cards-loading-lazy-note'], /tabulas apertas denuo onera/);
