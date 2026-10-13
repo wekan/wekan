@@ -2,6 +2,25 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Latin import instructions, first batch — 2026-10-13
+
+Commit `ec0e77480e` fills twelve pending guides: OPML, Org mode, MeisterTask,
+Obsidian, Linear, TickTick, ClickUp, Nullboard, Kanri, Pivotal Tracker, Tasks.org
+and monday.com. A guarded repair replaces mixed English in the Trello guide.
+Literal source menu labels, extensions, Org markers, hierarchy mappings,
+completion dates and first-board-only behavior remain intact.
+
+The Latin and repair-ledger suites pass with 27,061 guarded corrections. Added
+semantic checks cover the hierarchy, completion dates, first-board restriction,
+raw-note labels, all-column selection and custom-field/comment mappings. All 21
+human-preference checks pass. Thirteen Latin import browser cases pass syntax
+and discovery; runtime execution remains pending. Exact comparison preserves
+38,430 existing Chinese values.
+
+The Latin default --list output is down to 177 English placeholders. This batch
+reduces pending-Transifex values rather than the filtered --missing summary.
+All-language translation and semantic verification remain unfinished.
+
 ## Latin pending card-linking strings — 2026-10-13
 
 Commit `90ed19f207` fills 34 English placeholders for attached cards, linked

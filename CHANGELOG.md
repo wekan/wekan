@@ -2712,6 +2712,20 @@ which are excluded from the filtered inventory. All-language review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ec0e77480e">Translate Latin import guides and repair Trello instructions</a>. Thanks to xet7.</summary>
+
+Translate twelve pending guides from OPML through monday.com and repair mixed
+English in the Trello guide. Preserve literal source menus, file extensions,
+hierarchy mappings, completion dates and first-board limits.
+
+Both translation suites and all 21 preservation checks pass. Thirteen browser
+cases pass syntax and discovery; runtime remains pending. Existing Chinese
+values are unchanged. Latin has 177 English placeholders left; all-language
+translation and semantic review remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
