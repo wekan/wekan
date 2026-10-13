@@ -2533,6 +2533,22 @@ Chinese values are preserved. All-language translation work continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/77c1437808">Restore Southern Sotho account anonymization warning</a>. Thanks to xet7.</summary>
+
+Reviewed source keys 2480–2599 and corrected four values. Account anonymization
+no longer displays the unrelated export-anonymization description. Its warning
+explains permanent identity replacement, avatar removal, disabled login,
+retained history and no undo. Backup scope identifies the whole WeKan
+installation rather than an example, preserving organization boundaries.
+
+Southern Sotho and repair-ledger suites pass with 26,971 guarded corrections;
+all 21 human-preference checks pass. Confirmation-dialog browser coverage
+passes syntax and discovery; runtime execution remains pending. All 38,430
+existing Chinese values are preserved. All-language work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
