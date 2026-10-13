@@ -2,6 +2,26 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Latin pending card-linking strings — 2026-10-13
+
+Commit `90ed19f207` fills 34 English placeholders for attached cards, linked
+custom fields, announcements, calendar mode and list-colour inheritance.
+Two guarded repairs remove Latine prefixes and correct card-link inflection.
+The existing Charta, Tabula and Campi proprii terminology is retained.
+
+The Latin and repair-ledger suites pass with 27,060 guarded corrections. Added
+checks cover direction, matching field names/types, one-card-only fields,
+permissions, archived cards and self-link rejection. All 21 human-preference
+checks pass. Latin joins the existing attachment and custom-field-link browser
+suites; syntax and discovery pass, while runtime execution remains pending.
+Exact comparison preserves 38,430 existing Chinese values.
+
+The default Latin --list output now contains 189 English placeholders. The
+filtered --missing count excludes them because their source keys are pending
+Transifex; that exclusion does not make them translated or remove them from the
+user's objective. Esperanto's default --list was also checked and is empty.
+All-language translation and semantic verification remain unfinished.
+
 ## Short rule labels in four more locales — 2026-10-13
 
 Commit `abf6ab4137` fills 40 English-equal values in Javanese jv, Kazakh kk,

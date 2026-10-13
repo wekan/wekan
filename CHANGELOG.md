@@ -2697,6 +2697,21 @@ Transifex source keys tracked separately. All-language verification continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/90ed19f207">Translate Latin card attachments and field links</a>. Thanks to xet7.</summary>
+
+Fill 34 pending English strings for card attachments, field links, announcements
+and colour inheritance. Repair two older card-link labels with language-name
+prefixes and incorrect inflection. Existing Chinese values remain unchanged.
+
+Both translation suites and all 21 preservation checks pass. The added
+attachment
+and field-link browser cases pass syntax and discovery; runtime remains pending.
+Latin still has 189 English placeholders among keys marked pending Transifex,
+which are excluded from the filtered inventory. All-language review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
