@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin migration status and S3 — 2026-10-14
+
+Commit `d9f565bdb7` repairs 44 migration-state and S3 entries. Regression checks
+distinguish pausing from stopping, progress from completed actions, successful
+from failed connections and access keys from secret keys. Endpoint examples,
+region examples, CollectionFS source and SSL/TLS remain explicit.
+
+Three translation suites pass with 29,103 correction ledger entries. All 21
+human-preference checks pass, and exact comparison preserves 38,430 existing
+Chinese values. S3 browser coverage checks translated key labels, secret input
+masking and endpoint guidance; syntax and discovery pass, runtime is pending.
+
+There remain 284 Latin values containing “Latine:”. Unprefixed values and other
+languages still require semantic review; all-language verification is unfinished.
+
 ## Latin cloud configuration guidance — 2026-10-14
 
 Commit `efbff09543` repairs 29 cloud guidance and status entries. Literal console

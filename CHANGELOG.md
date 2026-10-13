@@ -3640,6 +3640,19 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d9f565bdb7">Repair Latin migration status and S3 translations</a>. Thanks to xet7.</summary>
+
+- Translate 44 migration-state and S3 entries. Preserve pause/stop distinctions,
+  progress and result states, access/secret keys, endpoint examples and SSL/TLS.
+- Three translation suites and 21 human-preference checks pass. Existing Chinese
+  values remain unchanged. S3 browser coverage passes syntax and discovery;
+  execution remains pending.
+- Review remains unfinished: 284 Latin values contain the legacy prefix.
+  Unprefixed values and other languages still require semantic review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
