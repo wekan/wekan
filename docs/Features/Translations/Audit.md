@@ -2,6 +2,27 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican settings and confirmations — 2026-10-13
+
+Commit `f4e5519c87` repairs 25 mixed-language settings, rule actions and
+confirmation messages. Duplicate-list deletion retains both conditions:
+matching names and no cards. Card movement retains top/bottom and own-list
+versus specified-list distinctions. Avatar guidance retains upload blocking,
+synchronization context and the enabled default. Custom HTML and assetlinks
+labels retain literal markup and filenames.
+
+The Corsican and full repair-ledger suites pass; the ledger now contains
+25,348 guarded corrections. All 21 human-preference checks pass. A new
+notification-drawer browser case registers for the localized delete-all
+confirmation, dismisses it and checks that the notification remains. It has
+not run against the application. All 38,385 protected Chinese values remain
+unchanged, and only the 25 reviewed locale values enter this commit.
+
+A follow-up phrase scan still flags 70 Corsican candidates containing
+selected Italian forms. This is a review queue, not a complete measure of
+wrong-language content: other phrases may be missed and shared words need
+individual judgment. Broader language review remains unfinished.
+
 ## Corsican filter help and access guidance — 2026-10-13
 
 Commit `e7a4eb0ffd` repairs 20 mixed-language values. Advanced-filter prose

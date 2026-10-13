@@ -1518,6 +1518,19 @@ Protected Chinese values remain unchanged. Broader language review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f4e5519c87">Correct Corsican settings, rules and deletion confirmations</a>. Thanks to xet7.</summary>
+
+Repair 25 mixed-language values for board preferences, avatars, rule actions,
+custom web settings and deletion. Preserve duplicate-list conditions,
+movement direction, technical literals and irreversible-action warnings.
+
+The Corsican suite, repair-ledger suite and 21 human-preference checks pass.
+A delete-all notification browser case registers and checks cancellation;
+application execution remains pending. Protected Chinese text is unchanged.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
