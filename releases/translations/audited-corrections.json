@@ -191602,5 +191602,285 @@
     "before": "Latine: Map ad existing usor",
     "after": "Coniunge cum usore iam exsistente",
     "reason": "Repair voting, Planning Poker and popup labels; restore numeric choices and distinguish anonymization from importing users."
+  },
+  {
+    "locale": "la",
+    "key": "exportChecklistPopup-title",
+    "before": "Latine: Exporta index probationis",
+    "after": "Exporta indicem probationis",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "importSwimlanePopup-title",
+    "before": "Latine: Importa semita natatoria",
+    "after": "Importa semitam",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "importListPopup-title",
+    "before": "Latine: Importa index",
+    "after": "Importa indicem",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "importCardPopup-title",
+    "before": "Latine: Importa scheda",
+    "after": "Importa chartam",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "importBoardIntoPopup-title",
+    "before": "Latine: Importa into tabula",
+    "after": "Importa in tabulam",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "userPopup-title",
+    "before": "Latine: Sodalis",
+    "after": "Membrum",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "cardMemberPopup-title",
+    "before": "Latine: Sodalis",
+    "after": "Membrum",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "cardStickersPopup-title",
+    "before": "Latine: Stickers",
+    "after": "Imagines adhaesivae",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "invitePeoplePopup-title",
+    "before": "Latine: Invita people",
+    "after": "Invita homines",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "listsortPopup-title",
+    "before": "Latine: Ordina index",
+    "after": "Ordina indicem",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "listWidthErrorPopup-title",
+    "before": "Latine: Index width error",
+    "after": "Error latitudinis indicis",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "restoreArchivedCardToListPopup-title",
+    "before": "Latine: Restitue scheda ad index",
+    "after": "Restitue chartam in indicem",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "restoreArchivedListToSwimlanePopup-title",
+    "before": "Latine: Restitue index ad semita natatoria",
+    "after": "Restitue indicem in semitam",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "rulesImportExportPopup-title",
+    "before": "Latine: Importa / Exporta regulae",
+    "after": "Importa / exporta regulas",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "swimlaneHeightErrorPopup-title",
+    "before": "Latine: semita natatoria height error",
+    "after": "Error altitudinis semitae",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "bookmarksPopup-title",
+    "before": "Latine: Starred tabulae",
+    "after": "Tabulae stella notatae",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "cardTemplatePopup-title",
+    "before": "Latine: Crea template",
+    "after": "Crea exemplar",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "casSignIn",
+    "before": "Latine: intra cum CAS",
+    "after": "Ingredere per CAS",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "samlSignIn",
+    "before": "Latine: intra cum SAML",
+    "after": "Ingredere per SAML",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "cardType-linkedBoard",
+    "before": "Latine: Linked Tabula",
+    "after": "Tabula coniuncta",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "change",
+    "before": "Latine: Muta",
+    "after": "Muta",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "change-avatar",
+    "before": "Latine: Muta Imago",
+    "after": "Muta imaginem usoris",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "change-color",
+    "before": "Latine: Muta Color",
+    "after": "Muta colorem",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "change-permissions",
+    "before": "Latine: Muta facultates",
+    "after": "Muta facultates",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "map-to-existing-user",
+    "before": "Latine: Map ad existing usor",
+    "after": "Coniunge cum usore iam exsistente",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "map-to-existing-user-desc",
+    "before": "Latine: Pick the real usor hoc importatum (virtual) sodalis really est. Their schedae, commentaria et actio move ad illud usor. Quaere ad find anyone; a usor quis est non adest hoc tabula yet est additum cum the importatum member's own munus, so mapping potest numquam grant plus facultates than the importa did.",
+    "after": "Elige usorem verum quem hoc membrum importatum (virtuale) repraesentat. Chartae, commentarii et actiones eius ad illum usorem transferuntur. Quaere ut quemlibet invenias; usor qui nondum membrum huius tabulae est additur cum eodem munere quod membrum importatum habuit, ita coniunctio numquam plures facultates concedere potest quam importatio concessit.",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "map-to-existing-user-search",
+    "before": "Latine: Quaere omnia usores a nomen, nomen usoris vel epistula electronica",
+    "after": "Quaere omnes usores per nomen, nomen usoris vel inscriptionem electronicam",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "map-to-existing-user-not-member",
+    "before": "Latine: non a sodalis tabulae yet",
+    "after": "nondum membrum tabulae",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "map-to-existing-user-none",
+    "before": "Latine: Non aliud real sodales adest hoc tabula yet. Quaere above ad find ullum usor.",
+    "after": "Nulla alia membra vera adhuc in hac tabula sunt. Quaere supra ut quemlibet usorem invenias.",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "map-to-existing-user-no-results",
+    "before": "Latine: Non matching usores found.",
+    "after": "Nulli usores congruentes inventi sunt.",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "change-settings",
+    "before": "Latine: Muta Configurationes",
+    "after": "Muta optiones",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "theme-default",
+    "before": "Latine: Praedefinitum (non override)",
+    "after": "Praedefinitum (sine substitutione)",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "theme-category",
+    "before": "Latine: Category",
+    "after": "Genus",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "theme-category-flat",
+    "before": "Latine: Flat",
+    "after": "Planum",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "theme-category-clear",
+    "before": "Latine: Purga",
+    "after": "Clarum",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "theme-category-dark",
+    "before": "Latine: Obscurum",
+    "after": "Obscurum",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "theme-category-special",
+    "before": "Latine: Special",
+    "after": "Speciale",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "change-font",
+    "before": "Latine: Font",
+    "after": "Forma litterarum",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "font",
+    "before": "Latine: Font",
+    "after": "Forma litterarum",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
+  },
+  {
+    "locale": "la",
+    "key": "font-default",
+    "before": "Latine: Praedefinitum (non custom font)",
+    "after": "Praedefinitum (sine forma litterarum propria)",
+    "reason": "Repair mixed-language import, member mapping and appearance labels while preserving role limits and search scope."
   }
 ]

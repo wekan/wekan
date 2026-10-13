@@ -263,3 +263,20 @@ assert.doesNotMatch(latin['userAnonymizePopup-title'], /importa/i);
 assert.notEqual(latin['userAnonymizePopup-title'], latin['userDeletePopup-title']);
 assert.match(latin['mapImportedMemberPopup-title'], /usore iam exsistente/);
 assert.notEqual(latin['poker-finish'], latin['poker-replay']);
+
+const reviewedMemberKeys = ["exportChecklistPopup-title", "importSwimlanePopup-title", "importListPopup-title", "importCardPopup-title", "importBoardIntoPopup-title", "userPopup-title", "cardMemberPopup-title", "cardStickersPopup-title", "invitePeoplePopup-title", "listsortPopup-title", "listWidthErrorPopup-title", "restoreArchivedCardToListPopup-title", "restoreArchivedListToSwimlanePopup-title", "rulesImportExportPopup-title", "swimlaneHeightErrorPopup-title", "bookmarksPopup-title", "cardTemplatePopup-title", "casSignIn", "samlSignIn", "cardType-linkedBoard", "change", "change-avatar", "change-color", "change-permissions", "map-to-existing-user", "map-to-existing-user-desc", "map-to-existing-user-search", "map-to-existing-user-not-member", "map-to-existing-user-none", "map-to-existing-user-no-results", "change-settings", "theme-default", "theme-category", "theme-category-flat", "theme-category-clear", "theme-category-dark", "theme-category-special", "change-font", "font", "font-default"];
+for (const key of reviewedMemberKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Pick|Their|Search|matching|existing|Category|Font|override|custom)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['map-to-existing-user-desc'], /Chartae, commentarii et actiones.*transferuntur/);
+assert.match(latin['map-to-existing-user-desc'], /nondum membrum.*eodem munere.*numquam plures facultates/);
+assert.match(latin['map-to-existing-user-search'], /omnes usores.*nomen, nomen usoris vel inscriptionem electronicam/);
+assert.equal(latin['map-to-existing-user'], latin['mapImportedMemberPopup-title']);
+assert.equal(latin.font, latin['change-font']);
+assert.equal(latin.font, latin['changeFontPopup-title']);
+assert.equal(latin['userPopup-title'], latin['cardMemberPopup-title']);
+assert.equal(latin['theme-category-clear'], 'Clarum');
+assert.notEqual(latin['theme-category-clear'], latin['theme-category-dark']);
+assert.match(latin.casSignIn, /CAS$/);
+assert.match(latin.samlSignIn, /SAML$/);
