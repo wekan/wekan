@@ -1874,6 +1874,19 @@ remains pending. Existing Chinese text is unchanged; broader review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d017d184dc">Correct Corsican search keywords and instructions</a>. Thanks to xet7.</summary>
+
+Repair 37 search values, preserving executable examples and the meaning of
+created or modified within the last N days. Translated existence checks
+retain positive and negative forms.
+
+The Corsican, repair-ledger and actual-parser suites pass, along with 21
+human-preference checks. An overdue-search browser case is registered;
+runtime execution remains pending. Existing Chinese text is unchanged.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

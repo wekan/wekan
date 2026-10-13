@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican search keywords and instructions — 2026-10-13
+
+Commit `d017d184dc` repairs 37 values in the source-ordered review through
+key 2009. Search help retains literal examples, interpolation tokens and
+syntax metavariables. Created/modified filters now correctly describe the
+last N days, rather than reversing the time direction. Native keywords
+replace Italian wording, including existence and overdue predicates.
+
+Three suites pass: Corsican, the full repair ledger (26,299 corrections),
+and the actual search-parser harness. The latter covers quoted text,
+positive/negative existence, overdue dates and rejected invalid predicates.
+All 21 human-preference checks pass. A browser case for overdue results
+and exclusion of future cards passes syntax checking and registers; it has
+not run against the application. Exact comparison preserves 38,430 existing
+Chinese values. Broader language review remains unfinished.
+
 ## Corsican templates and search results — 2026-10-13
 
 Commit `930fd9fe2b` repairs 47 values in the source-ordered review through
