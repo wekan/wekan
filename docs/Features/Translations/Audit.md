@@ -2,6 +2,27 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Maltese multiple-board import and export — 2026-10-13
+
+Commit `bbe5b139d2` fills 23 English values for multiple-board imports,
+project splitting, export selection, Trello exports and Sandstorm access.
+The guidance distinguishes an archive of exports from one export packaged
+as ZIP, retains the absence of member mapping, and explains workbook sheets
+versus individual files. The Trello round-trip label `Swimlane: …` and all
+product names remain literal. Sandstorm access must be granted first.
+
+Four Maltese suites and all 21 human-preference checks pass. Semantic checks
+cover the archive exception, input precedence, cross-board dependency report,
+export permissions and partial export warnings. A parent comparison verifies
+that only 23 English values changed and all 38,079 protected Chinese values
+remain unchanged. The existing Trello export-dialog browser case includes
+Maltese and checks instructions, attachment selection, empty credentials
+and absent results without contacting Trello. It registers but has not run.
+
+Maltese has 45 filtered English values left. The global inventory is 53,685
+across 116 catalogs. Remaining translations, broader wording review and
+browser execution are still required.
+
 ## Maltese Scrum transfers and subtasks — 2026-10-13
 
 Commit `c87fcb37ec` fills 20 English values for Scrum transfer previews,

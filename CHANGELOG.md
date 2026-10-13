@@ -132,7 +132,7 @@ releases.
   report counts **28,516 untranslated locale/string values in 42 languages**.
   It excludes **379 source keys tracked separately as pending Transifex**.
   With the newer email/chat strings included, full per-locale `--list`
-  reports, including pending keys, count **53,708 remaining values across
+  reports, including pending keys, count **53,685 remaining values across
   116 non-English locale files**. This fuller inventory remains the scope
   of the translation work.
   A separate short-prose audit flags 1,649 candidates across 180 locales.
@@ -1223,6 +1223,20 @@ Four Maltese suites and 21 human-preference checks pass. Three browser cases
 register for Scrum import, subtask completion and comment-only restrictions;
 execution remains pending. Maltese has 68 filtered placeholders left.
 Earlier translations and protected Chinese values remain unchanged.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bbe5b139d2">Translate Maltese batch import and export guidance</a>. Thanks to xet7.</summary>
+
+Fill 23 messages for multiple-board imports, workbook and ZIP exports,
+Trello export and Sandstorm access. Preserve the single-export ZIP exception,
+export permissions, omitted member mapping and the literal Swimlane label.
+
+Four Maltese suites and 21 human-preference checks pass. The Maltese Trello
+export-dialog case registers without submitting credentials or contacting
+Trello; execution remains pending. Maltese has 45 filtered placeholders left.
+Existing translated values and Chinese text remain unchanged.
 
 </details>
 
