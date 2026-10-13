@@ -28,3 +28,13 @@ test('Latin malformed JSON import reports the translated error and retains the i
   await expect(page.locator('.warning')).not.toContainText('Latine:');
   await expect(input).toHaveValue('{ invalid JSON');
 });
+
+test('Latin Trello import labels identify files and credential inputs', async ({ loggedInPage: page }) => {
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'la'));
+  await navigateInApp(page, '/import/trello');
+  await expect(page.locator('label[for="import-zip-file"]')).toHaveText('Fasciculus .zip Trello');
+  await expect(page.locator('label[for="trello-api-key"]')).toContainText('Clavis API Trello');
+  await expect(page.locator('label[for="trello-api-token"]')).toContainText('Tessera API Trello');
+  await expect(page.locator('#trello-api-token')).toHaveAttribute('type', 'password');
+  await expect(page.locator('.js-trello-list-workspaces')).toHaveText('Enumera spatia laboris Trello');
+});

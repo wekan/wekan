@@ -193716,5 +193716,285 @@
     "before": "Latine: Advanced Filtrum allows ad scribe a string containing following operators: ==!= <= >= && || ( ) A space est used as a separator inter the Operators. Tu potest filtrum for omnia Custom Campi a typing their names et valores. For Example: Field1 == Value1. Note: Si campi vel valores contains spaces, tu need ad encapsulate them into single quotes. For Example: 'Campus 1' == 'Valor 1'. For single control characters (' \\/) ad esse skipped, tu potest use \\. For example: Field1 == I\\'m. Also tu potest combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally omnia operators sunt interpreted ex left ad right. Tu potest muta the order a placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also tu potest quaere textus campi using regex: F1 == /Tes.*/i",
     "after": "Filtrum provectum sinit textum scribere cum his operatoribus: == != <= >= && || ( ) Spatium operatoria separat. Omnes campos proprios filtrare potes nominibus et valoribus eorum scriptis. Exempli gratia: Field1 == Value1. Nota: si nomina camporum vel valores spatia continent, eos signis citationis simplicibus includere debes. Exempli gratia: 'Field 1' == 'Value 1'. Ut singula signa specialia (' \\/) ut textum litteralem tractes, uti potes signo \\. Exempli gratia: Field1 == I\\'m. Plures condiciones etiam coniungere potes. Exempli gratia: F1 == V1 || F1 == V2. Solent omnia operatoria a sinistra ad dextram interpretari. Ordinem parenthesibus mutare potes. Exempli gratia: F1 == V1 && ( F2 == V2 || F2 == V3 ). Campos textus etiam expressionibus regularibus quaerere potes: F1 == /Tes.*/i",
     "reason": "Repair advanced-filter and import prose, including current Jira pagination and Excel sheet behavior, while preserving executable examples."
+  },
+  {
+    "locale": "la",
+    "key": "import-trello-json-file-hint",
+    "before": "Latine: One Trello tabula exported as.json. Si tu have servatum Trello clavis API et tessera, its adnexa, tabula background et sodalis avatars sunt depromptum too.",
+    "after": "Una tabula Trello ut .json exportata. Si clavem API et tesseram Trello servavisti, adiuncta eius, fundus tabulae et imagines membrorum quoque recipiuntur.",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "import-trello-zip-file",
+    "before": "Latine: Trello.zip fasciculus",
+    "after": "Fasciculus .zip Trello",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "import-trello-zip-file-hint",
+    "before": "Latine: A.zip cum one vel plus tabula.json fasciculi et their adnexa in board-name subfolders (ex the Trello Scheda Adnexa Downloader). Omnia tabulae sunt importatum.",
+    "after": "Fasciculus .zip cum uno vel pluribus fasciculis .json tabularum et adiunctis eorum in subdirectoriis nomine tabulae appellatis (ex Trello Card Attachments Downloader). Omnes tabulae importantur.",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "import-trello-zip-no-boards",
+    "before": "Latine: Non Trello tabula.json fasciculi erant found in the.zip.",
+    "after": "Nulli fasciculi .json tabularum Trello in .zip inventi sunt.",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "import-trello-zip-progress",
+    "before": "Latine: Importing tabulae ex.zip, please wait…",
+    "after": "Tabulae ex .zip importantur, quaeso exspecta…",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "import-trello-failed",
+    "before": "Latine: Importing ex Trello defecit.",
+    "after": "Importatio ex Trello defecit.",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "import-timeout",
+    "before": "Latine: Importa took too long et erat stopped. Please iterum conare; si it keeps happening, the tabula potest esse too large vel the repositorio datorum potest esse busy.",
+    "after": "Importatio nimis diu duravit et interclusa est. Quaeso rursus tempta; si hoc iterum accidit, tabula nimis magna esse potest aut repositorium datorum occupatum esse potest.",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "import-trello-zip-failed",
+    "before": "Latine: Importing the.zip defecit.",
+    "after": "Importatio fasciculi .zip defecit.",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "import-trello-zip-read-failed",
+    "before": "Latine: Could non lege the immissum.zip.",
+    "after": "Fasciculus .zip immissus legi non potuit.",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "import-trello-zip-too-large",
+    "before": "Latine: The.zip est too large ad importa.",
+    "after": "Fasciculus .zip nimis magnus est ut importetur.",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "import-trello-zip-too-many-files",
+    "before": "Latine: The.zip has too many fasciculi ad importa.",
+    "after": "Fasciculus .zip nimis multos fasciculos continet ut importetur.",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "import-trello-zip-file-too-large",
+    "before": "Latine: A fasciculus inside the.zip est too large ad importa.",
+    "after": "Fasciculus intra .zip nimis magnus est ut importetur.",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "import-trello-zip-unsafe-path",
+    "before": "Latine: The.zip contains unsafe fasciculus paths et erat reiectum.",
+    "after": "Fasciculus .zip itinera fasciculorum non tuta continet et reiectus est.",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "import-trello-workspace",
+    "before": "Latine: Personal workspace nomen (optional)",
+    "after": "Nomen spatii laboris personalis (optionale)",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "import-trello-workspace-placeholder",
+    "before": "Latine: Importatum tabula est placed under hoc workspace, creatum si it does non exist",
+    "after": "Tabula importata sub hoc spatio laboris ponitur; spatium creatur si non exsistit",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "import-trello-parent-workspace",
+    "before": "Latine: Place importatum workspaces under",
+    "after": "Pone spatia laboris importata sub",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "trello-api-import",
+    "before": "Latine: Importa directly ex Trello cum clavis API et tessera",
+    "after": "Importa recta ex Trello cum clave API et tessera",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "trello-api-import-desc",
+    "before": "Latine: Paste tuum Trello clavis API et tessera ad index tuum Trello workspaces et tabulae, then importa the electum ones cum their adnexa.",
+    "after": "Insere clavem API et tesseram Trello ut spatia laboris et tabulas tuas Trello enumeres, deinde electa cum adiunctis importa.",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "trello-api-key",
+    "before": "Latine: Trello clavis API (ex https://trello.com/app-key)",
+    "after": "Clavis API Trello (ex https://trello.com/app-key)",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "trello-api-token",
+    "before": "Latine: Trello API tessera (manually generated below the clavis API)",
+    "after": "Tessera API Trello (manu generata infra clavem API)",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "trello-list-workspaces",
+    "before": "Latine: Index Trello workspaces",
+    "after": "Enumera spatia laboris Trello",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "trello-parent-workspace-top",
+    "before": "Latine: Top level",
+    "after": "Gradus summus",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "trello-import-selected",
+    "before": "Latine: Importa electum tabulae",
+    "after": "Importa tabulas electas",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "trello-importing",
+    "before": "Latine: Importing tabulae…",
+    "after": "Tabulae importantur…",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "trello-import-results",
+    "before": "Latine: Importa results",
+    "after": "Exitus importationis",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "trello-api-credentials-required",
+    "before": "Latine: Please enter both the Trello clavis API et tessera.",
+    "after": "Quaeso insere et clavem API et tesseram Trello.",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "trello-api-credentials-saved",
+    "before": "Latine: Trello clavis API et tessera sunt servatum. Tu potest index workspaces sine re-entering them.",
+    "after": "Clavis API et tessera Trello servatae sunt. Spatia laboris enumerare potes sine eis rursus inserendis.",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "trello-select-boards",
+    "before": "Latine: Please elige at least one tabula ad importa.",
+    "after": "Quaeso saltem unam tabulam importandam elige.",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "select-all",
+    "before": "Latine: omnia elige",
+    "after": "Elige omnia",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "select-none",
+    "before": "Latine: Elige nihil",
+    "after": "Nihil elige",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "unselect-all",
+    "before": "Latine: Unselect omnia",
+    "after": "Tolle omnes electiones",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "trello-import-more",
+    "before": "Latine: Importa plus tabulae",
+    "after": "Importa plures tabulas",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "trello-import-progress",
+    "before": "Latine: Importa progress",
+    "after": "Progressus importationis",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "trello-cancel",
+    "before": "Latine: Cancella importa",
+    "after": "Interrumpe importationem",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "trello-cancel-delete",
+    "before": "Latine: Cancella et dele importatum",
+    "after": "Interrumpe et dele importata",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "trello-cancel-delete-confirm",
+    "before": "Latine: Cancella the importa et dele the tabulae already importatum a hoc job? Hoc non potest esse undone.",
+    "after": "Interrumpere importationem et delere tabulas iam hac operatione importatas? Hoc revocari non potest.",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "trello-resume",
+    "before": "Latine: Resume importa",
+    "after": "Continua importationem",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "trello-delete-imported",
+    "before": "Latine: Dele importatum tabulae",
+    "after": "Dele tabulas importatas",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "trello-clear-job",
+    "before": "Latine: Purga",
+    "after": "Purga",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "trello-import-errors",
+    "before": "Latine: Importa errors",
+    "after": "Errores importationis",
+    "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
   }
 ]

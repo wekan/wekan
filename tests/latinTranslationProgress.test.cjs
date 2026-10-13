@@ -407,3 +407,20 @@ assert.match(latin['import-board-instruction-jira'], /sine fields tantum ID reru
 assert.match(latin['import-board-instruction-excel'], /una charta in quaque linea.*Omne folium cum linea titulorum fit tabula/);
 assert.match(latin['import-board-instruction-about-errors'], /interdum.*tamen succedit/);
 assert.match(latin['import-without-mapping-members'], /postea coniunge/);
+
+const reviewedTrelloKeys = ["import-trello-json-file-hint", "import-trello-zip-file", "import-trello-zip-file-hint", "import-trello-zip-no-boards", "import-trello-zip-progress", "import-trello-failed", "import-timeout", "import-trello-zip-failed", "import-trello-zip-read-failed", "import-trello-zip-too-large", "import-trello-zip-too-many-files", "import-trello-zip-file-too-large", "import-trello-zip-unsafe-path", "import-trello-workspace", "import-trello-workspace-placeholder", "import-trello-parent-workspace", "trello-api-import", "trello-api-import-desc", "trello-api-key", "trello-api-token", "trello-list-workspaces", "trello-parent-workspace-top", "trello-import-selected", "trello-importing", "trello-import-results", "trello-api-credentials-required", "trello-api-credentials-saved", "trello-select-boards", "select-all", "select-none", "unselect-all", "trello-import-more", "trello-import-progress", "trello-cancel", "trello-cancel-delete", "trello-cancel-delete-confirm", "trello-resume", "trello-delete-imported", "trello-clear-job", "trello-import-errors"];
+for (const key of reviewedTrelloKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Please|Importing|Cancel|Resume|Top level|workspaces|already|re-entering)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['import-trello-zip-file-hint'], /Omnes tabulae importantur/);
+assert.ok(latin['import-trello-zip-file-hint'].includes('Trello Card Attachments Downloader'));
+assert.match(latin['import-trello-zip-too-many-files'], /nimis multos fasciculos/);
+assert.match(latin['import-trello-zip-file-too-large'], /Fasciculus intra/);
+assert.match(latin['import-trello-zip-unsafe-path'], /non tuta.*reiectus/);
+assert.match(latin['trello-api-credentials-required'], /et clavem API et tesseram/);
+assert.match(latin['trello-select-boards'], /saltem unam tabulam/);
+assert.match(latin['trello-cancel-delete-confirm'], /iam hac operatione importatas.*revocari non potest/);
+assert.notEqual(latin['trello-cancel'], latin['trello-cancel-delete']);
+assert.notEqual(latin['trello-cancel'], latin['trello-resume']);
+assert.ok(latin['trello-api-key'].includes('https://trello.com/app-key'));
