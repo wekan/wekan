@@ -2783,6 +2783,22 @@ all-language translation and semantic verification remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dc4ea4984b">Translate Latin synchronization and recovery messages</a>. Thanks to xet7.</summary>
+
+Fill 51 pending strings for planning synchronization, stuck list operations,
+interrupted imports, Scrum history recovery and environment-only settings.
+Tests preserve matching precedence, retained changes, permanent deletion and
+restrictions on recovery actions.
+
+The Latin suite and all 21 preservation checks pass. Five added browser cases
+pass syntax and discovery; runtime remains pending. Existing Chinese values
+are unchanged. Latin has no English-equal placeholders left in the fill report,
+but older mixed-language strings and all-language verification remain
+unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

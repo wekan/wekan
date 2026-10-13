@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Latin synchronization and recovery — 2026-10-13
+
+Commit `dc4ea4984b` fills the remaining 51 pending English-equal placeholders
+for planning synchronization, stuck list operations, interrupted board imports,
+Scrum history recovery and environment-only settings. Regression checks preserve
+source-ID/name matching precedence, first-sync retention, retained applied
+changes, permanent deletion of imported boards including later additions,
+untouched foreign boards and rollback restrictions after concurrent edits.
+
+The Latin suite and all 21 human-preference checks pass. Five Latin browser
+cases cover list recovery, interrupted imports, rollback, concurrent changes
+and member permissions. Syntax and discovery pass; runtime execution remains
+pending. Exact comparison preserves 38,430 existing Chinese values.
+
+Latin's default --list output is now empty. This is a placeholder milestone,
+not a completed linguistic audit: older mixed-language Latin strings still
+need review. All-language translation and semantic verification remain unfinished.
+
 ## Latin workflow and Scrum imports — 2026-10-13
 
 Commit `1212eb97c7` fills 35 pending strings for Wrike workflow import/export,
