@@ -18,6 +18,7 @@ import Checklists from '/models/checklists';
 import CustomFields from './customFields';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
+const { swimlaneFromLabelName, swimlanesFromTrelloBoard } = require('/models/lib/trelloExportPlan');
 import {
   formatDateTime,
   formatDate,
@@ -71,6 +72,11 @@ export class TrelloCreator {
     this.labels = {};
     // Default swimlane
     this.swimlane = null;
+    // Trello labels that stand for a WeKan swimlane (a board exported by
+    // server/trelloApiExport.js, or one arranged the same way by hand): Trello
+    // label id -> swimlane title, and swimlane title -> WeKan swimlane id.
+    this.swimlaneLabels = {};
+    this.swimlanesByTitle = {};
     // Map of lists Trello ID => Wekan ID
     this.lists = {};
     // Map of cards Trello ID => Wekan ID
@@ -283,6 +289,12 @@ export class TrelloCreator {
     }
     if (trelloBoard.labels) {
       trelloBoard.labels.forEach(label => {
+        // A marked label is a swimlane, not a label (createSwimlanes).
+        const swimlaneTitle = swimlaneFromLabelName(label.name);
+        if (swimlaneTitle) {
+          this.swimlaneLabels[label.id] = swimlaneTitle;
+          return;
+        }
         const labelToCreate = {
           _id: Random.id(6),
           color: this.mapToWekanColor(label.color) || 'black',
@@ -423,7 +435,7 @@ export class TrelloCreator {
         dateLastActivity: this._now(),
         description: card.desc,
         listId: this.lists[card.idList],
-        swimlaneId: this.swimlane,
+        swimlaneId: this.cardSwimlane(card),
         sort: card.pos,
         title: card.name,
         // we attribute the card to its creator if available
@@ -474,9 +486,10 @@ export class TrelloCreator {
       }
       // add labels
       if (card.idLabels) {
-        cardToCreate.labelIds = card.idLabels.map(trelloId => {
-          return this.labels[trelloId];
-        });
+        // Swimlane labels are not WeKan labels and have no mapping here.
+        cardToCreate.labelIds = card.idLabels
+          .map(trelloId => this.labels[trelloId])
+          .filter(Boolean);
       }
       // add members {
       if (card.idMembers) {
@@ -816,8 +829,10 @@ export class TrelloCreator {
         // Attach the list to the imported board's default swimlane so it shows
         // in Swimlane View (a list appears under a swimlane only when its
         // swimlaneId matches that swimlane or is empty). createSwimlanes runs
-        // before createLists, so this.swimlane is set.
-        swimlaneId: this.swimlane,
+        // before createLists, so this.swimlane is set. With swimlanes from
+        // marked labels the list is in EVERY swimlane, which an empty
+        // swimlaneId means.
+        swimlaneId: this.multipleSwimlanes ? '' : this.swimlane,
         // We are being defensing here by providing a default date (now) if the
         // creation date wasn't found on the action log. This happen on old
         // Trello boards (eg from 2013) that didn't log the 'createList' action
@@ -834,22 +849,37 @@ export class TrelloCreator {
     }
   }
 
-  async createSwimlanes(_board, boardId) {
-    const swimlaneToCreate = {
-      archived: false,
-      boardId,
-      // We are being defensing here by providing a default date (now) if the
-      // creation date wasn't found on the action log. This happen on old
-      // Wekan boards (eg from 2013) that didn't log the 'createList' action
-      // we require.
-      createdAt: this._now(),
-      title: 'Default',
-      sort: 1,
-    };
-    const swimlaneId = await writeImportedEntity(Swimlanes, swimlaneToCreate, {
-      touch: { updatedAt: this._now() },
-    });
-    this.swimlane = swimlaneId;
+  // One swimlane per marked label, in the labels' order, so a board exported
+  // to Trello comes back with its swimlanes; plus 'Default' for cards with no
+  // such label, as before. models/lib/trelloExportPlan.js
+  // swimlanesFromTrelloBoard decides; this only writes them.
+  async createSwimlanes(board, boardId) {
+    const plan = swimlanesFromTrelloBoard(board);
+    this.swimlanePlan = plan;
+    this.multipleSwimlanes = plan.titles.length > 1;
+    for (const [index, title] of plan.titles.entries()) {
+      const swimlaneToCreate = {
+        archived: false,
+        boardId,
+        // We are being defensing here by providing a default date (now) if the
+        // creation date wasn't found on the action log. This happen on old
+        // Wekan boards (eg from 2013) that didn't log the 'createList' action
+        // we require.
+        createdAt: this._now(),
+        title,
+        sort: index + 1,
+      };
+      const swimlaneId = await writeImportedEntity(Swimlanes, swimlaneToCreate, {
+        touch: { updatedAt: this._now() },
+      });
+      this.swimlanesByTitle[title] = swimlaneId;
+      if (index === 0) this.swimlane = swimlaneId;
+    }
+  }
+
+  cardSwimlane(card) {
+    const title = this.swimlanePlan ? this.swimlanePlan.titleForCard(card) : 'Default';
+    return this.swimlanesByTitle[title] || this.swimlane;
   }
 
   async createChecklists(trelloChecklists, boardId) {

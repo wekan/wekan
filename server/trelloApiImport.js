@@ -13,6 +13,7 @@ import TrelloImportJobs from '/models/trelloImportJobs';
 import { generateUniversalAvatarUrl } from '/models/lib/universalUrlGenerator';
 import { validateAttachmentUrl } from '/models/lib/attachmentUrlValidation';
 import { fetchSafe } from '/server/lib/ssrfGuard';
+import { isSandstormServer, sandstormFetch, runAsEgressUser } from '/server/sandstormEgress';
 
 // Server-only collection holding each user's saved Trello API key + token.
 // It is defined here (not under /models) and never published, so the
@@ -141,13 +142,19 @@ const MAX_DOWNLOAD_REDIRECTS = 5;
 // its owner chose, so it goes through fetchSafe: DNS resolved once and pinned,
 // blocked ranges refused, and every redirect validated the same way before it
 // is followed (FollowBleed, GHSA-j9p2-jm73-p549).
-async function trelloFetch(url, options = {}, { untrusted = false } = {}) {
+// `idempotent: false` is for a request that creates something (the export's
+// POSTs): it is retried only on 429, which Trello answers before doing
+// anything. A 5xx or a dropped connection may have created the object already,
+// and a retry would create it twice.
+async function trelloFetch(url, options = {}, { untrusted = false, idempotent = true } = {}) {
   let lastError;
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt += 1) {
     await throttle();
     let res;
     try {
-      res = untrusted
+      res = isSandstormServer()
+        ? await sandstormTrelloFetch(url, options, untrusted)
+        : untrusted
         ? await fetchSafe(url, {
           ...options,
           maxRedirects: MAX_DOWNLOAD_REDIRECTS,
@@ -159,6 +166,11 @@ async function trelloFetch(url, options = {}, { untrusted = false } = {}) {
           signal: options.signal || AbortSignal.timeout(REQUEST_TIMEOUT_MS),
         });
     } catch (networkErr) {
+      // Sandstorm's answers - no grant, or an address a grain cannot reach -
+      // are verdicts too: retrying cannot change them.
+      if (networkErr instanceof Meteor.Error && /^sandstorm-/.test(networkErr.error)) {
+        throw networkErr;
+      }
       // A refusal by the SSRF guard is a verdict, not a hiccup: retrying it
       // just repeats the same blocked request five more times.
       if (/^SSRF_GUARD:/.test(networkErr && networkErr.message)) {
@@ -166,14 +178,14 @@ async function trelloFetch(url, options = {}, { untrusted = false } = {}) {
       }
       // Transient network failure — back off and retry.
       lastError = networkErr;
-      if (attempt < MAX_RETRIES) {
+      if (attempt < MAX_RETRIES && idempotent) {
         await sleep(Math.min(BASE_BACKOFF_MS * 2 ** attempt, MAX_BACKOFF_MS));
         continue;
       }
       throw new Meteor.Error('trello-api-error', `Trello request failed: ${networkErr.message}`);
     }
 
-    if ([408, 425, 429].includes(res.status) || res.status >= 500) {
+    if (idempotent ? ([408, 425, 429].includes(res.status) || res.status >= 500) : res.status === 429) {
       lastError = res;
       // A streamed body that is not used is let go before the retry.
       if (res.body && typeof res.body.destroy === 'function') res.body.destroy();
@@ -194,6 +206,38 @@ async function trelloFetch(url, options = {}, { untrusted = false } = {}) {
     'trello-api-rate-limited',
     `Trello API still failing after ${MAX_RETRIES} retries (status ${status || 'network error'})`,
   );
+}
+
+// A Trello REST call that changes something (POST/PUT), for the export
+// (server/trelloApiExport.js). The same throttle, rate-limit handling and, on
+// Sandstorm, the same Powerbox route as the import; never retried after Trello
+// may have acted (see trelloFetch).
+export async function trelloSend(method, path, key, token, params = {}, body) {
+  const search = new URLSearchParams({ key, token, ...params });
+  const res = await trelloFetch(`${TRELLO_API}${path}?${search.toString()}`, { method, body }, { idempotent: false });
+  if (!res.ok) {
+    const text = await res.text().catch(() => '');
+    if (res.status === 401) {
+      throw new Meteor.Error('trello-api-unauthorized', 'Trello rejected the API key or token (401)');
+    }
+    throw new Meteor.Error('trello-api-error', `Trello API ${res.status} for ${method} ${path}: ${text.slice(0, 200)}`);
+  }
+  return res.json();
+}
+
+// On Sandstorm a grain has no network of its own: a Trello REST call goes
+// through the Powerbox grant for api.trello.com (server/sandstormEgress.js). A
+// DOWNLOAD cannot: an uploaded file is on trello.com and needs an
+// `Authorization: OAuth` header, and the bridge proxy keeps Authorization for
+// its own token. Such a download is refused at once instead of being tried and
+// retried; the board is imported without the file, and the job says how many
+// were left out (they can be added from Trello's attachments ZIP).
+async function sandstormTrelloFetch(url, options, untrusted) {
+  if (untrusted) {
+    throw new Meteor.Error('sandstorm-download-unavailable',
+      'Files uploaded to Trello cannot be downloaded through the Sandstorm Powerbox.');
+  }
+  return sandstormFetch(url, options);
 }
 
 async function trelloGet(path, key, token, params = {}) {
@@ -301,6 +345,8 @@ async function fetchBoard(boardId, key, token) {
 // attachment. Trello backgrounds are usually public (S3), so try without auth
 // first and fall back to the OAuth header (custom backgrounds may need it).
 export async function inlineBoardBackground(board, key, token) {
+  // Images live on other hosts than the granted API; a grain cannot reach them.
+  if (isSandstormServer()) return;
   const prefs = board.prefs || {};
   const scaled = Array.isArray(prefs.backgroundImageScaled)
     ? prefs.backgroundImageScaled
@@ -360,6 +406,8 @@ export async function inlineBoardBackground(board, key, token) {
 // maps a Trello member id to a WeKan user id. Best-effort: a failed download
 // never aborts the import.
 export async function inlineMemberAvatars(board, membersMapping, key, token) {
+  // Images live on other hosts than the granted API; a grain cannot reach them.
+  if (isSandstormServer()) return 0;
   // Admin Panel / Features / Security: skip importing Trello member avatars when
   // import avatars is disabled.
   try {
@@ -434,6 +482,8 @@ export async function inlineMemberAvatars(board, membersMapping, key, token) {
 // and fill them in for any card that has none. TrelloCreator maps each
 // sticker.image to a WeKan sticker icon. Best-effort: a failure never aborts.
 export async function inlineStickers(board, key, token) {
+  // Images live on other hosts than the granted API; a grain cannot reach them.
+  if (isSandstormServer()) return 0;
   if (!board.id || !(board.cards || []).length) return 0;
   const needsStickers = (board.cards || []).filter(
     c => !(Array.isArray(c.stickers) && c.stickers.length),
@@ -566,45 +616,48 @@ Meteor.methods({
     check(key, String);
     check(token, String);
     if (!this.userId) throw new Meteor.Error('error-notAuthorized');
-
-    const creds = await resolveCreds(this.userId, key, token);
-    if (!creds) throw new Meteor.Error('trello-api-credentials-required');
-    ({ key, token } = creds);
-
-    const orgs = await trelloGet('/members/me/organizations', key, token, {
-      fields: 'id,name,displayName',
-    });
-    const boards = await trelloGet('/members/me/boards', key, token, {
-      fields: 'id,name,closed,idOrganization',
-      filter: 'all',
-    });
-
-    const byOrg = new Map();
-    orgs.forEach(org => {
-      byOrg.set(org.id, {
-        id: org.id,
-        name: org.displayName || org.name,
-        boards: [],
-      });
-    });
-    const personal = { id: 'personal', name: 'Personal Boards', boards: [] };
-
-    boards.forEach(board => {
-      const entry = {
-        id: board.id,
-        name: board.name,
-        closed: !!board.closed,
-      };
-      const ws = board.idOrganization && byOrg.get(board.idOrganization);
-      (ws || personal).boards.push(entry);
-    });
-
-    const result = Array.from(byOrg.values()).filter(ws => ws.boards.length);
-    if (personal.boards.length) result.push(personal);
-    return result;
+    return runAsEgressUser(this.userId, () => listWorkspaces(this.userId, key, token));
   },
 
 });
+
+async function listWorkspaces(userId, key, token) {
+  const creds = await resolveCreds(userId, key, token);
+  if (!creds) throw new Meteor.Error('trello-api-credentials-required');
+  ({ key, token } = creds);
+
+  const orgs = await trelloGet('/members/me/organizations', key, token, {
+    fields: 'id,name,displayName',
+  });
+  const boards = await trelloGet('/members/me/boards', key, token, {
+    fields: 'id,name,closed,idOrganization',
+    filter: 'all',
+  });
+
+  const byOrg = new Map();
+  orgs.forEach(org => {
+    byOrg.set(org.id, {
+      id: org.id,
+      name: org.displayName || org.name,
+      boards: [],
+    });
+  });
+  const personal = { id: 'personal', name: 'Personal Boards', boards: [] };
+
+  boards.forEach(board => {
+    const entry = {
+      id: board.id,
+      name: board.name,
+      closed: !!board.closed,
+    };
+    const ws = board.idOrganization && byOrg.get(board.idOrganization);
+    (ws || personal).boards.push(entry);
+  });
+
+  const result = Array.from(byOrg.values()).filter(ws => ws.boards.length);
+  if (personal.boards.length) result.push(personal);
+  return result;
+}
 
 // ---------------------------------------------------------------------------
 // Background import jobs.
@@ -791,7 +844,11 @@ async function runJob(jobId) {
         const board = await fetchBoard(trelloBoardId, creds.key, creds.token);
         // Attachments stream from Trello into storage as the creator reaches
         // them, instead of every file downloaded first as base64.
-        const attachmentsImported = countUploadedAttachments(board);
+        // On Sandstorm the uploaded files cannot be downloaded (see
+        // sandstormTrelloFetch): they are counted as left out, not imported.
+        const uploadedAttachments = countUploadedAttachments(board);
+        const attachmentsImported = isSandstormServer() ? 0 : uploadedAttachments;
+        const attachmentsSkipped = isSandstormServer() ? uploadedAttachments : 0;
         await inlineBoardBackground(board, creds.key, creds.token);
         const membersMapping = await buildMembersMapping(board);
         const sanitized = require('/server/lib/secureTransfer').secureTransfer(board, {
@@ -827,6 +884,7 @@ async function runJob(jobId) {
               boardId: newBoardId,
               title: sanitized.name,
               attachmentsImported,
+              attachmentsSkipped,
               success: true,
             },
             createdBoardIds: newBoardId,
@@ -866,10 +924,14 @@ async function runJob(jobId) {
 
 // Launch the loop detached so the Meteor method returns immediately and the
 // import keeps running on the server.
+// A job runs as the user who created it, so on Sandstorm its Trello requests
+// use that user's Powerbox grant (server/sandstormEgress.js).
 function launchJob(jobId) {
-  runJob(jobId).catch(e => {
-    console.error('Trello import job crashed', jobId, e);
-  });
+  TrelloImportJobs.findOneAsync(jobId)
+    .then(job => runAsEgressUser(job && job.userId, () => runJob(jobId)))
+    .catch(e => {
+      console.error('Trello import job crashed', jobId, e);
+    });
 }
 
 Meteor.methods({

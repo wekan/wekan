@@ -1296,6 +1296,7 @@ Template.exportBoardPopup.helpers({
 });
 
 Template.exportBoardPopup.events({
+  'click .js-export-to-trello': Popup.open('exportToTrello'),
   'click .html-export-board': async event => {
     event.preventDefault();
     const { default: createHtmlExport } = await import('/client/lib/exportHTML');

@@ -49,6 +49,29 @@ image, member avatars and stickers from Trello during the import.
    **Import progress** shows it, and it can be cancelled, resumed, or
    cancelled with the boards it already made deleted.
 
+Labels whose name starts with `Swimlane: ` are imported as **swimlanes**, not
+labels: one swimlane per such label, and each card goes to the swimlane of its
+first one (cards without one go to **Default**). This is how a board exported
+to Trello by WeKan (below) comes back with its swimlanes, and a Trello board
+can be arranged the same way by hand.
+
+### On Sandstorm
+
+A Sandstorm grain has no Internet access of its own. The Trello import page
+shows **Allow access to Trello**: it opens the Sandstorm Powerbox, where you
+let the grain reach `https://api.trello.com/1`, the same way the Sandstorm
+WordPress app is allowed to reach wordpress.org for plugin updates. WeKan keeps
+the access for your user; the connection is listed, and can be revoked, in the
+grain's Sandstorm settings. **Forget** removes it from WeKan.
+
+Through the Powerbox, WeKan reaches only Trello's API. Files uploaded to Trello
+cannot be downloaded that way (Trello needs an `Authorization` header that the
+Sandstorm proxy keeps for its own token), so they are left out and counted in
+the import result; add them with the attachments `.zip` above. Board
+backgrounds, member avatars and stickers are on other hosts and are skipped
+too. See
+[Sandstorm Powerbox: external APIs](../../../Platforms/FOSS/Container/Sandstorm/Powerbox-External-APIs.md).
+
 ## How to import many boards at once
 
 - On the import page, under **Import many boards**, choose several Trello JSON
@@ -72,6 +95,29 @@ image, member avatars and stickers from Trello during the import.
   directories of files, or `.zip` files.
 
 ## How to export
+
+### Directly into Trello, through Trello's API
+
+1. Open the board, then **Board Settings → Export**, and choose **Trello**
+   under the formats written for other tools.
+2. In **Export to Trello**, enter your Trello API key and token, unless they
+   are already saved by the import above. On Sandstorm, click **Allow access to
+   Trello** first.
+3. Tick or untick **Include attachments**, and click **Export to Trello**.
+4. The board is created in Trello as a private board, with its labels, lists,
+   cards (description, start and due dates, labels), checklists, comments
+   (each starting with its author and time, since in Trello every comment is
+   by you) and attachment files. Archived lists and cards are archived in
+   Trello too. Progress is shown; when it is done, **Open the board in
+   Trello**. Anything Trello refused is listed and the rest is still exported.
+
+Trello has no swimlanes. A board with more than one swimlane gets one label per
+swimlane, named `Swimlane: <title>`, on each card of that swimlane. The free
+**Swimlanes by Blue Cat** Power-Up groups a Trello board into rows by label, so
+Trello shows the swimlanes again, and dragging a card between rows moves the
+label. WeKan's Trello import turns those labels back into swimlanes.
+
+### As a Trello JSON file
 
 1. In WeKan, open the board, then **Board Settings → Export**.
 2. Under **Select what to include:**, tick the parts to export.
@@ -199,6 +245,18 @@ the Admin Panel switch that turns imports off.
   `models/trelloImportJobs.js` tracks API import jobs.
 - `models/lib/externalExportFormatters.js` (`trello`) writes the export, from
   what `models/lib/externalExporters.js` collects.
+- `server/trelloApiExport.js` exports a board into Trello through its API, from
+  the plan `models/lib/trelloExportPlan.js` builds out of the board export
+  (`models/exporter.js`, with its access check). The same file's
+  `swimlanesFromTrelloBoard` turns `Swimlane: ` labels back into swimlanes on
+  import. On Sandstorm, `server/sandstormEgress.js` and
+  `imports/sandstorm/egress.mjs` route the Trello requests through the
+  Powerbox grant.
+- `tests/trelloExportPlan.test.cjs` (the mapping and the swimlane round trip),
+  `tests/trelloApiExport.test.cjs` (the export against a fake Trello API, with
+  its warnings and refusals), `tests/sandstormApiEgress.test.mjs` (the Powerbox
+  descriptor, the claim and the proxied requests against a fake bridge proxy)
+  and `tests/relayBleed.test.cjs` (no download leaves a Sandstorm grain).
 - Unit tests: `tests/trelloCreator.import.test.js`,
   `tests/trelloImport.maplink.test.js`, `tests/trelloImport.zip.test.js`,
   `tests/durableTrelloImport.test.cjs`, `tests/externalScrumPlanning.test.cjs`

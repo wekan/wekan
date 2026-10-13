@@ -139,6 +139,7 @@ template(name="importTrelloApi")
     p.trello-api-creds-buttons
       button.primary.js-trello-save-creds(type="button") {{_ 'save'}}
       button.negate.js-trello-delete-creds(type="button") {{_ 'delete'}}
+    +sandstormExternalApiGrant(service="trello")
     if credsSaved
       p.quiet.trello-creds-saved
         i.fa.fa-check

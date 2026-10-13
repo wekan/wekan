@@ -207,6 +207,7 @@ import '/server/dynamicImportOrigin';
 // ----------------------------------------------------------------------------
 import '/server/import-users-for-methods';
 import '/server/trelloApiImport';
+import '/server/trelloApiExport';
 
 // ----------------------------------------------------------------------------
 // 9. Server — lib (utilities, sanitizers, guards)
@@ -427,6 +428,7 @@ import '/server/importedUserReconciliation';
 // ----------------------------------------------------------------------------
 import '/sandstorm';
 import '/server/sandstorm';
+import '/server/sandstormEgress';
 
 import '/server/methods/fileStatusAudit';
 import '/server/methods/instrumentationReport';

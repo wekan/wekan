@@ -1471,6 +1471,50 @@
     {
       "key": "notification-group-board",
       "since": "2026-10-10"
+    },
+    {
+      "key": "exportToTrelloPopup-title",
+      "since": "2026-10-13"
+    },
+    {
+      "key": "trello-export-desc",
+      "since": "2026-10-13"
+    },
+    {
+      "key": "trello-export-include-attachments",
+      "since": "2026-10-13"
+    },
+    {
+      "key": "trello-export-start",
+      "since": "2026-10-13"
+    },
+    {
+      "key": "trello-export-open-board",
+      "since": "2026-10-13"
+    },
+    {
+      "key": "trello-export-warnings",
+      "since": "2026-10-13"
+    },
+    {
+      "key": "sandstorm-trello-access-needed",
+      "since": "2026-10-13"
+    },
+    {
+      "key": "sandstorm-allow-trello-access",
+      "since": "2026-10-13"
+    },
+    {
+      "key": "sandstorm-trello-access-granted",
+      "since": "2026-10-13"
+    },
+    {
+      "key": "sandstorm-forget-access",
+      "since": "2026-10-13"
+    },
+    {
+      "key": "sandstorm-trello-save-label",
+      "since": "2026-10-13"
     }
   ]
 }

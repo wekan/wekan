@@ -124,6 +124,32 @@ if (isSandstorm && Meteor.isClient) {
     });
   };
 
+  // External HTTP APIs a user can let this grain reach, the way the Sandstorm
+  // WordPress app reaches wordpress.org for plugin updates: an ApiSession
+  // Powerbox request for the service's canonicalUrl. Each descriptor is built
+  // by apiSessionDescriptor() on the server side, and
+  // tests/sandstormApiEgress.test.cjs rebuilds it from
+  // imports/sandstorm/egress.mjs EXTERNAL_APIS so the two cannot drift.
+  const externalApiDescriptors = {
+    // apiSessionDescriptor('https://api.trello.com/1')
+    trello: 'EA1QAQEAABEBF1EEAQH_x80lxnnjecgAQAMRCcoAAf9odHRwczovLwJhcGkudHJlbGxvLmNvbS8xAAA=',
+  };
+
+  // Ask the user, through the Powerbox, to let this grain reach an external
+  // API; the server redeems the claim and keeps the access token for this
+  // user. Resolves true when granted, false when the user closed the Powerbox.
+  window.sandstormRequestExternalApi = function(service, saveLabel) {
+    const descriptor = externalApiDescriptors[service];
+    if (!descriptor) return Promise.reject(new Error(`Unknown external API: ${service}`));
+    return sendRpc('powerboxRequest', {
+      query: [descriptor],
+      saveLabel: { defaultText: saveLabel },
+    }).then(response => {
+      if (response.canceled) return false;
+      return Meteor.callAsync('sandstormClaimApiGrant', service, response.token).then(() => true);
+    });
+  };
+
   // Since the Sandstorm grain is displayed in an iframe of the Sandstorm shell,
   // we need to explicitly expose meta data like the page title or the URL path
   // so that they could appear in the browser window.

@@ -48,7 +48,7 @@ test('the README links the page from its import and export lists', () => {
 // docs/Features/ImportExport, with the steps and the details, linked from the
 // coverage index (which used to hold every format's details in one table).
 const DIRECTORY = {
-  wekan: 'WeKan', json: 'WeKan', 'json-no-attachments': 'WeKan', zip: 'WeKan', trello: 'Trello', csv: 'CSV', scsv: 'CSV', tsv: 'CSV',
+  wekan: 'WeKan', json: 'WeKan', 'json-no-attachments': 'WeKan', zip: 'WeKan', trello: 'Trello', 'trello-api': 'Trello', csv: 'CSV', scsv: 'CSV', tsv: 'CSV',
   excel: 'Excel', pdf: 'PDF', html: 'HTML', ical: 'iCalendar', 'dep-json': 'Dependencies', 'dep-svg': 'Dependencies', jira: 'Jira',
   kanboard: 'Kanboard', deck: 'Nextcloud-Deck', openproject: 'OpenProject', github: 'GitHub', gitlab: 'GitLab', gitea: 'Gitea',
   forgejo: 'Forgejo', asana: 'Asana', zenkit: 'ZenKit', markdown: 'Markdown', leo: 'Leo', opml: 'OPML', orgmode: 'Org-mode',

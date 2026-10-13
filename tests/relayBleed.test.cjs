@@ -24,7 +24,7 @@ const ROOT = path.join(__dirname, '..');
 const read = file => fs.readFileSync(path.join(ROOT, file), 'utf8');
 const KEY = 'victim-key', TOKEN = 'victim-token';
 
-function harness({ respond = () => ({ ok: true, status: 200 }) } = {}) {
+function harness({ respond = () => ({ ok: true, status: 200 }), sandstorm = false } = {}) {
   const requests = [];
   const ok = (url, options) => {
     requests.push({ url, auth: (options && options.headers && options.headers.Authorization) || null });
@@ -43,6 +43,11 @@ function harness({ respond = () => ({ ok: true, status: 200 }) } = {}) {
     validateAttachmentUrl: async () => ({ valid: true }),
     fetchSafe: async (url, options) => ok(url, options),
     fetch: async (url, options) => ok(url, options),
+    // server/sandstormEgress.js: off Sandstorm unless asked; on Sandstorm only
+    // the granted API is reachable, through sandstormFetch.
+    isSandstormServer: () => sandstorm,
+    sandstormFetch: async (url, options) => ok(url, options),
+    runAsEgressUser: (userId, fn) => fn(),
     require: name => {
       if (name === '/models/lib/importExportSecurity') return { getImportExportSecuritySettings: async () => ({}) };
       if (name === '/server/lib/securityLog') return { record() {} };
@@ -98,6 +103,25 @@ test('the background and avatar credential retries go only to Trello', async () 
     await context.inlineMemberAvatars({ members: [{ id: 'm', avatarUrl: url }] }, { m: 'wekan-user' }, KEY, TOKEN);
     assert.deepEqual(credentialHosts(requests), expected, url);
   }
+});
+
+test('on Sandstorm no download leaves the grain, so no credential can either (negative)', async () => {
+  // A grain reaches only the Powerbox-granted Trello API; an uploaded file
+  // needs a header the bridge proxy keeps for itself. Every download is
+  // refused before any request, and the images are skipped without one.
+  const { context, requests } = harness({ sandstorm: true });
+  const streamFor = context.trelloAttachmentStreamer(KEY, TOKEN);
+  for (const url of ['https://trello.com/1/cards/c/attachments/u/download/photo.png', 'https://attacker.example/collect']) {
+    await new Promise(resolve => {
+      const stream = streamFor({ id: url, name: 'f.png', url });
+      stream.on('error', resolve);
+      stream.on('end', resolve);
+      stream.resume();
+    });
+  }
+  await context.inlineBoardBackground({ prefs: { backgroundImage: 'https://trello.com/b/bg.jpg' } }, KEY, TOKEN);
+  assert.equal(await context.inlineMemberAvatars({ members: [{ id: 'm', avatarUrl: 'https://api.trello.com/1/members/m/avatar.png' }] }, { m: 'u' }, KEY, TOKEN), 0);
+  assert.deepEqual(requests, []);
 });
 
 test('isTrelloCredentialHost accepts only Trello\'s own HTTPS hosts', () => {

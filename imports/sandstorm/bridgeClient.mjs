@@ -23,6 +23,7 @@ import { Identity, Identity$Client, Identity_PowerboxTag, Profile_Pronouns } fro
 import { StaticAsset_Protocol } from './capnp/util.mjs';
 import { PowerboxDescriptor } from './capnp/powerbox.mjs';
 import { BridgeConfig } from './capnp/package.mjs';
+import { ApiSession$Client, ApiSession_PowerboxTag } from './capnp/api-session.mjs';
 
 export const SANDSTORM_API_SOCKET = '/tmp/sandstorm-api';
 
@@ -125,6 +126,38 @@ export function parseIdentityRequestPermissions(descriptorBase64) {
   if (granted.length > 1 && granted.get(1)) permissions.push('configure');
   if (granted.length > 0 && granted.get(0)) permissions.push('participate');
   return permissions;
+}
+
+// The Powerbox query for an external HTTP API (an ApiSession) at canonicalUrl:
+// a PowerboxDescriptor with one tag, ApiSession's type id, whose value is an
+// ApiSession.PowerboxTag. Packed and base64'd the way the shell wants it, with
+// '/' and '+' replaced as for the identity descriptor in /sandstorm.js. The
+// client embeds the result as a constant; tests/sandstormApiEgress.test.cjs
+// rebuilds it here so the two cannot drift.
+export function apiSessionDescriptor(canonicalUrl) {
+  if (!/^https?:\/\/[^/]+(\/.*[^/])?$/.test(canonicalUrl)) {
+    throw new Error('canonicalUrl must be an http(s) URL without a trailing slash');
+  }
+  const message = new Message();
+  const descriptor = message.initRoot(PowerboxDescriptor);
+  const tag = descriptor._initTags(1).get(0);
+  tag.id = ApiSession$Client.interfaceId;
+  const value = new Message().initRoot(ApiSession_PowerboxTag);
+  value.canonicalUrl = canonicalUrl;
+  tag.value = value;
+  return Buffer.from(message.toPackedArrayBuffer()).toString('base64')
+    .replace(/\//g, '_').replace(/\+/g, '-');
+}
+
+// The other direction, for the tests: which ApiSession URL a descriptor asks for.
+export function parseApiSessionDescriptor(descriptorBase64) {
+  const bytes = Buffer.from(descriptorBase64.replace(/_/g, '/').replace(/-/g, '+'), 'base64');
+  const descriptor = new Message(toArrayBuffer(bytes), true).getRoot(PowerboxDescriptor);
+  const tag = descriptor.tags.get(0);
+  return {
+    tagId: tag.id,
+    canonicalUrl: utils.getAs(ApiSession_PowerboxTag, tag.value).canonicalUrl,
+  };
 }
 
 async function sessionContext(bridge, sessionId) {

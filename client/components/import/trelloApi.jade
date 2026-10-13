@@ -1,0 +1,63 @@
+//- On Sandstorm a grain has no network of its own. Before WeKan can reach
+  Trello, the user lets it through the Sandstorm Powerbox - the same way the
+  Sandstorm WordPress app is allowed to reach wordpress.org for plugin updates.
+  Off Sandstorm this renders nothing. server/sandstormEgress.js
+template(name="sandstormExternalApiGrant")
+  if isSandstorm
+    .sandstorm-api-grant
+      if granted.get
+        p.quiet
+          i.fa.fa-check
+          span  {{_ 'sandstorm-trello-access-granted'}}
+          a.js-sandstorm-forget-api(style="margin-inline-start: 0.5em") {{_ 'sandstorm-forget-access'}}
+      else
+        p.quiet {{_ 'sandstorm-trello-access-needed'}}
+        p
+          button.primary.js-sandstorm-grant-api(type="button") {{_ 'sandstorm-allow-trello-access'}}
+      if error.get
+        .warning {{error.get}}
+
+//- Export the open board to Trello, through Trello's API: the counterpart of
+  the live Trello import, with the same saved key and token.
+  server/trelloApiExport.js
+template(name="exportToTrelloPopup")
+  .export-to-trello
+    p.quiet {{_ 'trello-export-desc'}}
+    +sandstormExternalApiGrant(service="trello")
+    unless credsSaved
+      p.import-file-row
+        label(for='trello-export-key') {{_ 'trello-api-key'}}
+        input.js-trello-export-key(id='trello-export-key' type="text" autocomplete="off")
+      p.import-file-row
+        label(for='trello-export-token') {{_ 'trello-api-token'}}
+        input.js-trello-export-token(id='trello-export-token' type="password" autocomplete="off")
+    else
+      p.quiet
+        i.fa.fa-check
+        span  {{_ 'trello-api-credentials-saved'}}
+    label.trello-export-option
+      input.js-trello-export-attachments(type="checkbox" checked)
+      span  {{_ 'trello-export-include-attachments'}}
+    if job
+      p.trello-export-progress
+        if $eq job.status 'running'
+          i.fa.fa-spinner.fa-spin
+        else if $eq job.status 'done'
+          i.fa.fa-check
+        else
+          i.fa.fa-warning
+        span  {{job.done}} / {{job.total}}
+      if job.trelloBoardUrl
+        p
+          a(href="{{job.trelloBoardUrl}}" target="_blank" rel="noopener noreferrer") {{_ 'trello-export-open-board'}}
+      if job.error
+        .warning {{job.error}}
+      if job.warnings.length
+        details
+          summary {{_ 'trello-export-warnings'}} ({{job.warnings.length}})
+          ul
+            each job.warnings
+              li= this
+    if error.get
+      .warning {{error.get}}
+    button.primary.wide.js-trello-export-start(type="button" disabled="{{#if running}}disabled{{/if}}") {{_ 'trello-export-start'}}
