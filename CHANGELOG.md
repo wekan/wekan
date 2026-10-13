@@ -1822,6 +1822,19 @@ pending. Existing Chinese text is unchanged; broader review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ed0c2c3ffc">Correct Corsican date triggers and automation actions</a>. Thanks to xet7.</summary>
+
+Repair 40 trigger and action values. Restore both initial setting and later
+changes in date conditions, full assignee conditions, checklist negations
+and movement/email destinations.
+
+The Corsican and repair-ledger suites and 21 human-preference checks pass.
+A date-trigger browser case registers; runtime execution remains pending.
+Existing Chinese text is unchanged; broader language review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

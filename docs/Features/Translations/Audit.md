@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican date triggers and action fragments — 2026-10-13
+
+Commit `ed0c2c3ffc` repairs 40 values in the source-ordered review through
+key 1604. Due, start, end and received-date conditions again say the date
+is set or changed. Assignee fragments regain their condition wording.
+Checklist complete/incomplete and checked/unchecked states retain their
+negations. Movement destinations distinguish top from bottom, restoration
+from archiving, and email destination from a time-range endpoint.
+
+The Corsican and full repair-ledger suites pass; the ledger contains
+26,112 guarded corrections. All 21 human-preference checks pass. A new
+date-trigger browser case registers alongside the two existing Corsican
+rule cases, checking all four date conditions for initial setting and later
+changes. It has not run against the application. Exact comparison preserves
+all 38,430 protected Chinese values and limits this locale batch to the 40
+reviewed replacements. Broader language review remains unfinished.
+
 ## Corsican automation workflows and scheduling — 2026-10-13
 
 Commit `2c787355da` repairs 58 values in the source-ordered review through
