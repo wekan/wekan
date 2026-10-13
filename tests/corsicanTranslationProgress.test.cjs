@@ -444,3 +444,18 @@ assert.match(corsican['has-overtime-cards'], /tempu supplementare/);
 assert.doesNotMatch(corsican['has-overtime-cards'], /scadut/);
 assert.equal(corsican.pomodoro, 'Pomodoro');
 assert.match(corsican['toggle-labels'], /Attivà\/disattivà.*1-9.*selezzione multipla aghjunghje.*1-9/);
+
+const uploadLimitCorrectionKeys = ["tracking", "tracking-info", "type", "unassign-member", "unsaved-description", "uploaded-avatar", "uploading-files", "upload-failed", "upload-completed", "import-usernames", "view-it", "warn-list-archived", "watching", "watching-info", "welcome-board", "welcome-swimlane", "welcome-list2", "card-templates-swimlane", "list-templates-swimlane", "board-templates-swimlane", "what-to-do", "wipLimitErrorPopup-dialog-pt2", "attachment-transfer-limits-title", "attachment-transfer-limits-description", "attachment-transfer-limits-saved", "attachment-transfer-limits-save-failed", "attachment-transfer-limits-invalid-value", "attachment-upload-limit-label", "attachment-download-limit-label", "api-upload-limit-label", "api-download-limit-label", "attachment-limit-mode-unlimited", "attachment-limit-mode-max-size", "attachment-limit-mode-blocked", "attachment-limit-unit-gb", "attachment-limit-unit-mb", "attachment-limit-unit-bytes", "invite", "invite-people", "to-boards", "smtp-tls-description", "smtp-port"];
+for (const key of uploadLimitCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /\b(?:Monitoraggio|Sarai|notificato|modifiche|alle|quali|sei|Tipo|Hai|salvata|caricato|corso|riuscito|completato|username|Visualizza|attenzione|questa|Stai|seguendo|benvenuto|Traguardo|Template|Cosa|vuoi|fare|alcuni|dei|fuori|oppure|imposta|alto|allegati|Configura|download|Il|del|trasferimento|lato|Inserite|Illimitato|Bloccato|Alla|supporto)\b/, key);
+}
+assert.match(corsican['tracking-info'], /creatore o membru/);
+assert.match(corsican['watching-info'], /tutti i cambiamenti.*sta tavula/);
+assert.match(corsican['unassign-member'], /assignazione/);
+assert.match(corsican['wipLimitErrorPopup-dialog-pt2'], /fora di sta lista, o.*limita WIP più alta/);
+assert.match(corsican['attachment-transfer-limits-description'], /caricamenti.*scaricate.*memoria tampone.*API.*limiti di sicurità distinti.*servitore/);
+for (const key of ['attachment-upload-limit-label','api-upload-limit-label']) assert.match(corsican[key], /caricamentu/);
+for (const key of ['attachment-download-limit-label','api-download-limit-label']) assert.match(corsican[key], /scaricata/);
+for (const suffix of ['gb','mb','bytes']) assert.equal(corsican[`attachment-limit-unit-${suffix}`], english[`attachment-limit-unit-${suffix}`]);
+assert.match(corsican['attachment-transfer-limits-invalid-value'], /pusitivu è validu/);

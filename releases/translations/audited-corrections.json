@@ -181067,5 +181067,299 @@
     "before": "Attiva/disattiva le etichette 1-9 per la carta. La multi-selezione aggiunge le etichette 1-9",
     "after": "Attivà/disattivà l’etichette 1-9 per a carta. A selezzione multipla aghjunghje l’etichette 1-9",
     "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "tracking",
+    "before": "Monitoraggio",
+    "after": "Seguitu",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "tracking-info",
+    "before": "Sarai notificato per tutte le modifiche alle carte di e quali sei creatore o membru.",
+    "after": "Riceverete nutificazioni di tutti i cambiamenti à e carte induve participate cum’è creatore o membru.",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "type",
+    "before": "Tipo",
+    "after": "Tippu",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "unassign-member",
+    "before": "Caccià membru",
+    "after": "Caccià l’assignazione di u membru",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "unsaved-description",
+    "before": "Hai una descrizzione non salvata",
+    "after": "Avete una discrizzione micca arregistrata.",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "uploaded-avatar",
+    "before": "Avatar caricato",
+    "after": "Avatar caricatu",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "uploading-files",
+    "before": "Caricamentu schedariu in corso",
+    "after": "Caricamentu di schedarii in corsu",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "upload-failed",
+    "before": "Caricamentu non riuscito",
+    "after": "Caricamentu fiascatu",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "upload-completed",
+    "before": "Caricamentu completato",
+    "after": "Caricamentu compiu",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "import-usernames",
+    "before": "Impurtà username",
+    "after": "Impurtà i nomi d’utilizatore",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "view-it",
+    "before": "Visualizza",
+    "after": "Vede lu",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "warn-list-archived",
+    "before": "attenzione: questa carta si trova in una lista nell'archiviu",
+    "after": "Avvertimentu: sta carta hè in una lista archiviata",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "watching",
+    "before": "Stai seguendo",
+    "after": "In seguitu",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "watching-info",
+    "before": "Sarai notificato per tutte le modifiche in questa tavula",
+    "after": "Riceverete nutificazioni di tutti i cambiamenti nant’à sta tavula",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "welcome-board",
+    "before": "Tavula di benvenuto",
+    "after": "Tavula di benvenuta",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "welcome-swimlane",
+    "before": "Traguardo 1",
+    "after": "Tappa impurtante 1",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "welcome-list2",
+    "before": "Avanzate",
+    "after": "Avanzatu",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "card-templates-swimlane",
+    "before": "Template carte",
+    "after": "Mudelli di carte",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "list-templates-swimlane",
+    "before": "Template liste",
+    "after": "Mudelli di liste",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "board-templates-swimlane",
+    "before": "Template tavule",
+    "after": "Mudelli di tavule",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "what-to-do",
+    "before": "Cosa vuoi fare?",
+    "after": "Chì vulete fà?",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "wipLimitErrorPopup-dialog-pt2",
+    "before": "Per favore, move alcuni dei compiti fuori da questa lista, oppure imposta un limite di work in progress più alto.",
+    "after": "Spustate certi compiti fora di sta lista, o definite una limita WIP più alta.",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-transfer-limits-title",
+    "before": "Limiti di dimensione dei schedariu per allegati e API",
+    "after": "Limiti di dimensione di i schedarii per appicci è API",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-transfer-limits-description",
+    "before": "Configura i limiti massimi di dimensione dei schedariu per caricamenti e download. Il buffering del trasferimento API ha limiti di sicurità separati lato server.",
+    "after": "Definite i limiti massimi di dimensione di i schedarii per i caricamenti è e scaricate. A memoria tampone di i trasferimenti API hà limiti di sicurità distinti nant’à u servitore.",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-transfer-limits-saved",
+    "before": "Limite di trasferimentu di l’allegati arregistrate.",
+    "after": "Limiti di trasferimentu di l’appicci arregistrati.",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-transfer-limits-save-failed",
+    "before": "Ùn hè statu pussibule d’arregistrà e limite di trasferimentu di l’allegati",
+    "after": "Ùn hè statu pussibule d’arregistrà i limiti di trasferimentu di l’appicci",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-transfer-limits-invalid-value",
+    "before": "Inserite un valore di limita pusitivu validu",
+    "after": "Scrivite un valore di limita pusitivu è validu",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-upload-limit-label",
+    "before": "Dimensione massima schedariu per il caricamentu di i allegati",
+    "after": "Dimensione massima di schedariu per u caricamentu d’appicci",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-download-limit-label",
+    "before": "Dimensione massima schedariu per il download di i allegati",
+    "after": "Dimensione massima di schedariu per a scaricata d’appicci",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "api-upload-limit-label",
+    "before": "Dimensione massima schedariu per il caricamentu via API",
+    "after": "Dimensione massima di schedariu per u caricamentu via API",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "api-download-limit-label",
+    "before": "Dimensione massima schedariu per il download via API",
+    "after": "Dimensione massima di schedariu per a scaricata via API",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-limit-mode-unlimited",
+    "before": "Illimitato",
+    "after": "Senza limita",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-limit-mode-max-size",
+    "before": "Dimensione massima schedariu",
+    "after": "Dimensione massima di schedariu",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-limit-mode-blocked",
+    "before": "Bloccato",
+    "after": "Bluccatu",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-limit-unit-gb",
+    "before": "In corsu: GB",
+    "after": "GB",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-limit-unit-mb",
+    "before": "In corsu: MB",
+    "after": "MB",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-limit-unit-bytes",
+    "before": "In corsu: Bytes",
+    "after": "Bytes",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "invite",
+    "before": "Invita",
+    "after": "Invità",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "invite-people",
+    "before": "Invita persone",
+    "after": "Invità e persone",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "to-boards",
+    "before": "Alla/e tavula/e",
+    "after": "À a tavula o à e tavule",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "smtp-tls-description",
+    "before": "Attivà supporto TLS per server SMTP",
+    "after": "Attivà u sustegnu TLS per u servitore SMTP",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
+  },
+  {
+    "locale": "co",
+    "key": "smtp-port",
+    "before": "Porta SMTP",
+    "after": "Portu SMTP",
+    "reason": "Repair mixed-language watching, upload and attachment-limit prose; retain distinct transfer directions, server buffering caps and invariant units."
   }
 ]
