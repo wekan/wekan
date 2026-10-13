@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican hierarchy, activities and rules — 2026-10-13
+
+Commit `6ad1329613` repairs 43 values in the source-ordered review through
+key 1434. Minicard settings retain card-parent relationships and distinguish
+prefixes from text below the card and full paths from the immediate parent.
+Movement controls retain up/down direction and checklist counts retain
+`(0/0)`. Label and attachment activities use completed-action wording with
+all percent placeholders unchanged. Rule controls distinguish adding,
+viewing, deleting and editing the trigger/action.
+
+The Corsican and full repair-ledger suites pass; the ledger contains
+26,014 guarded corrections. All 21 human-preference checks pass. A new
+empty-rules-page browser case registers for the heading, empty state,
+creation action and title placeholder; it has not run against the
+application. Exact comparison preserves all 38,430 protected Chinese values
+and limits this locale batch to the 43 reviewed replacements. Broader
+language review remains unfinished.
+
 ## Corsican invitations and organization administration — 2026-10-13
 
 Commit `1eb90ef43f` repairs 62 values in the source-ordered review through

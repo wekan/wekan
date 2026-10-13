@@ -1796,6 +1796,19 @@ execution remains pending. Existing Chinese text is unchanged.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6ad1329613">Correct Corsican card hierarchy, activities and rules</a>. Thanks to xet7.</summary>
+
+Repair 43 hierarchy, minicard, activity and rule values. Retain parent-card
+relationships, full paths, movement direction, checklist counts and exact
+activity placeholders.
+
+The Corsican and repair-ledger suites and 21 human-preference checks pass.
+An empty-rules-page browser case registers; runtime execution remains
+pending. Existing Chinese text is unchanged; broader review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
