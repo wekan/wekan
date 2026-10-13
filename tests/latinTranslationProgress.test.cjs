@@ -996,3 +996,23 @@ assert.equal(new Set(['scanned', 'repaired', 'broken'].map(suffix => latin[`atta
 for (const key of ['move-storage-collectionfs', 'move-storage-gridfs', 'move-storage-s3', 'stats-collectionfs', 'stats-mongo-files']) {
   assert.equal(latin[key], english[key]);
 }
+
+const reviewedMaintenanceAccountKeys = ["mongodb-compact", "mongodb-compact-description", "mongodb-compact-warning", "mongodb-compact-run", "mongodb-compact-running", "mongodb-compact-success", "mongodb-compact-error", "board-status", "board-status-loading-mode", "board-status-time-summary", "board-status-time-spent-total", "board-status-cards-with-time", "board-status-overtime-cards", "password-again", "if-you-already-have-an-account", "minicardDetailsActionsPopup-title", "Mongo_sessions_count", "change-visibility", "max-upload-filesize", "allowed-upload-filetypes", "max-avatar-filesize", "allowed-avatar-filetypes", "invalid-file", "preview-pdf-not-supported", "drag-board", "drag-board-to-workspace", "translation-number", "delete-translation-confirm-popup", "newTranslationPopup-title", "editTranslationPopup-title", "settingsTranslationPopup-title", "translation", "text", "translation-text", "show-subtasks-field", "show-week-of-year", "convert-to-markdown", "import-board-zip", "collapse", "collapse-checklist", "expand-checklist", "uncollapse", "hideCheckedChecklistItems", "hideAllChecklistItems"];
+for (const key of reviewedMaintenanceAccountKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:After|Warning|secondaries|completed|Password|Visibility|filename|Collapse|custom translation)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.equal(latin['mongodb-compact'], english['mongodb-compact']);
+assert.match(latin['mongodb-compact-description'], /non sponte minuitur/);
+assert.match(latin['mongodb-compact-description'], /tantum postquam.*perfectae sunt/);
+assert.match(latin['mongodb-compact-warning'], /secundaria primum.*deinde primarium/);
+assert.match(latin['mongodb-compact-warning'], /unius nodi.*solum primarium/);
+assert.match(latin['mongodb-compact-error'], /defecit/);
+for (const key of ['max-upload-filesize', 'max-avatar-filesize']) assert.match(latin[key], /in octetis:/);
+assert.match(latin['invalid-file'], /immissio vel mutatio nominis revocatur/);
+assert.match(latin['delete-translation-confirm-popup'], /Revocari non potest/);
+assert.equal(latin['show-week-of-year'], 'Monstra hebdomadem anni (ISO 8601)');
+assert.match(latin['import-board-zip'], /\.zip.*JSON.*subdirectoria/);
+assert.notEqual(latin['collapse-checklist'], latin['expand-checklist']);
+assert.match(latin.hideCheckedChecklistItems, /res signatas/);
+assert.match(latin.hideAllChecklistItems, /omnes res/);

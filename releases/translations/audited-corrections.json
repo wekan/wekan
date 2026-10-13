@@ -201577,5 +201577,313 @@
     "before": "Latine: Progress",
     "after": "Progressus",
     "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "mongodb-compact",
+    "before": "Latine: MongoDB Compact",
+    "after": "MongoDB Compact",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "mongodb-compact-description",
+    "before": "Latine: After moving fasciculi out de MongoDB GridFS, the repositorio datorum fasciculus adest discus does non shrink automatice. Currens Compact reclaims freed space a rewriting the collection data. Tantum run hoc after bulk fasciculus moves sunt perfice.",
+    "after": "Postquam fasciculi ex MongoDB GridFS translati sunt, fasciculus datorum repositorii in disco non sponte minuitur. Compact spatium liberatum recuperat, datis collectionum rescriptis. Hoc exsequere tantum postquam translationes fasciculorum in massa perfectae sunt.",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "mongodb-compact-warning",
+    "before": "Latine: Monitum: Compact est a blocking operation illud potest take several minuta adest large databases. Adest replica sets, omnia secondaries sunt compacted primus (automatice), then the primary. Adest single-node replica sets used for oplog (common Meteor setup), tantum the primary est compacted.",
+    "after": "Monitum: Compact est operatio quae alias operationes impedit et in magnis datorum repositoriis plura minuta durare potest. In gregibus exemplorum, omnia exempla secundaria primum sponte comprimuntur, deinde primarium. In gregibus unius nodi ad oplog adhibitis (configuratio Meteor usitata), solum primarium comprimitur.",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "mongodb-compact-run",
+    "before": "Latine: Run MongoDB Compact",
+    "after": "Exsequere MongoDB Compact",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "mongodb-compact-running",
+    "before": "Latine: Currens compact, hoc potest take several minuta...",
+    "after": "Compact exsequitur; hoc plura minuta durare potest…",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "mongodb-compact-success",
+    "before": "Latine: Compact perfectum. Collections compacted:",
+    "after": "Compact perfectum est. Collectiones compressae:",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "mongodb-compact-error",
+    "before": "Latine: Compact defecit:",
+    "after": "Compact defecit:",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "board-status",
+    "before": "Latine: Tabula status",
+    "after": "Status tabulae",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "board-status-loading-mode",
+    "before": "Latine: Scheda loading",
+    "after": "Chartae onerandae",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "board-status-time-summary",
+    "before": "Latine: Tempus spent summarium",
+    "after": "Summa temporis consumpti",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "board-status-time-spent-total",
+    "before": "Latine: Total tempus spent",
+    "after": "Tempus totum consumptum",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "board-status-cards-with-time",
+    "before": "Latine: Schedae cum tempus spent",
+    "after": "Chartae cum tempore consumpto",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "board-status-overtime-cards",
+    "before": "Latine: Overtime schedae",
+    "after": "Chartae tempore excedente",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "password-again",
+    "before": "Latine: Tessera (again)",
+    "after": "Tessera (iterum)",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "if-you-already-have-an-account",
+    "before": "Latine: Si tu already have an ratio",
+    "after": "Si iam rationem habes",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "minicardDetailsActionsPopup-title",
+    "before": "Latine: Scheda Singula",
+    "after": "Singula chartae",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "Mongo_sessions_count",
+    "before": "Latine: Mongo sessions count",
+    "after": "Numerus sessionum Mongo",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "change-visibility",
+    "before": "Latine: Muta Visibility",
+    "after": "Muta visibilitatem",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "max-upload-filesize",
+    "before": "Latine: Max immitte filesize in bytes:",
+    "after": "Maxima magnitudo fasciculi immittendi in octetis:",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "allowed-upload-filetypes",
+    "before": "Latine: Permissum immitte filetypes:",
+    "after": "Genera fasciculorum quae immittere licet:",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "max-avatar-filesize",
+    "before": "Latine: Max imago filesize in bytes:",
+    "after": "Maxima magnitudo imaginis usoris in octetis:",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "allowed-avatar-filetypes",
+    "before": "Latine: Permissum imago filetypes:",
+    "after": "Genera fasciculorum imaginum usorum quae licent:",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "invalid-file",
+    "before": "Latine: Si filename est invalidum, immitte vel renomina est cancelled.",
+    "after": "Si nomen fasciculi invalidum est, immissio vel mutatio nominis revocatur.",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "preview-pdf-not-supported",
+    "before": "Latine: Tuum device does non support previewing PDF. Try downloading instead.",
+    "after": "Instrumentum tuum praevisionem PDF non sustinet. Conare potius fasciculum extrahere.",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "drag-board",
+    "before": "Latine: Drag tabula",
+    "after": "Trahe tabulam",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "drag-board-to-workspace",
+    "before": "Latine: Drag tabula ad assign ad __workspaces__ (drop adest workspace in sidebar)",
+    "after": "Trahe tabulam ut eam ad __workspaces__ assignes (depone in spatio laboris in latere)",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "translation-number",
+    "before": "Latine: The numerus de custom translation strings est:",
+    "after": "Numerus locutionum translationis propriae est:",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "delete-translation-confirm-popup",
+    "before": "Latine: certusne es tu want ad dele hoc custom translation string? There est non solve.",
+    "after": "Certusne es te hanc locutionem translationis propriae delere velle? Revocari non potest.",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "newTranslationPopup-title",
+    "before": "Latine: Novum custom translation string",
+    "after": "Nova locutio translationis propriae",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "editTranslationPopup-title",
+    "before": "Latine: Muta custom translation string",
+    "after": "Muta locutionem translationis propriae",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "settingsTranslationPopup-title",
+    "before": "Latine: Dele hoc custom translation string?",
+    "after": "Delere hanc locutionem translationis propriae?",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "translation",
+    "before": "Latine: Translation",
+    "after": "Translatio",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "text",
+    "before": "Latine: Textus",
+    "after": "Textus",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "translation-text",
+    "before": "Latine: Translation textus",
+    "after": "Textus translationis",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "show-subtasks-field",
+    "before": "Latine: Monstra submunera campus",
+    "after": "Monstra campum submunerum",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "show-week-of-year",
+    "before": "Latine: Monstra hebdomas de year (ISO 8601)",
+    "after": "Monstra hebdomadem anni (ISO 8601)",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "convert-to-markdown",
+    "before": "Latine: Convert ad markdown",
+    "after": "Converte in Markdown",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "import-board-zip",
+    "before": "Latine: Adde.zip fasciculus illud has tabula JSON fasciculi, et tabula nomen subdirectories cum adnexa",
+    "after": "Adde fasciculum .zip qui fasciculos JSON tabularum et subdirectoria nominibus tabularum cum adiunctis continet",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "collapse",
+    "before": "Latine: Collapse",
+    "after": "Contrahe",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "collapse-checklist",
+    "before": "Latine: Collapse index probationis",
+    "after": "Contrahe indicem probationis",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "expand-checklist",
+    "before": "Latine: Expand index probationis",
+    "after": "Expande indicem probationis",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "uncollapse",
+    "before": "Latine: Uncollapse",
+    "after": "Expande",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "hideCheckedChecklistItems",
+    "before": "Latine: Cela checked index probationis res",
+    "after": "Cela res signatas indicis probationis",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "hideAllChecklistItems",
+    "before": "Latine: Cela omnia index probationis res",
+    "after": "Cela omnes res indicis probationis",
+    "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
   }
 ]
