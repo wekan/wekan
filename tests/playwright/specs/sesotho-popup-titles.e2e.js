@@ -87,3 +87,19 @@ test('Southern Sotho due-card view translates the short personal filter', async 
   await expect(option).not.toHaveText('Me');
   await page.evaluate(() => Popup.close());
 });
+
+
+test('Southern Sotho checklist copying identifies the template source', async ({ boardPage: page, board }) => {
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'st'));
+  await new BoardPage(page).clickCard(board.listIds[0], 'Alpha Card');
+  const card = new CardPage(page);
+  await card.waitForOpen();
+  const action = card.root.locator('.js-copy-checklist-from-template');
+  await expect(action).toHaveAttribute('title', 'Kopitsa lenane la tlhahlobo ho tswa thempleiteng');
+  await action.click();
+  const title = page.locator('.js-pop-over .header-title');
+  await expect(title).toHaveText('Kopitsa lenane la tlhahlobo ho tswa thempleiteng');
+  await expect(title).not.toContainText('Mohlala');
+  // Inspect only; do not choose a template or copy its contents.
+  await page.evaluate(() => Popup.close());
+});

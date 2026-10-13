@@ -776,3 +776,14 @@ for (const key of ['globalSearch-instructions-operator-limit', 'globalSearch-ins
 }
 assert.match(sesotho['background-too-big'], /Boholo bo dumelletsweng.*[{][{]size[}][}]/);
 assert.deepEqual(tokens(sesotho['background-too-big']), tokens(english['background-too-big']));
+
+// Historical review through key 2349: report metrics and template source.
+assert.equal(sesotho['recovery-severity'], 'Boima ba bothata');
+assert.notEqual(sesotho['recovery-severity'], 'Bohloko');
+assert.equal(sesotho.copyChecklistFromTemplate, sesotho['copyChecklistFromTemplatePopup-title']);
+assert.match(sesotho.copyChecklistFromTemplate, /ho tswa thempleiteng/);
+assert.doesNotMatch(sesotho.copyChecklistFromTemplate, /Mohlala/);
+assert.match(sesotho['translation-number'], /Palo ya mela.*phetolelo/);
+assert.doesNotMatch(sesotho['translation-number'], /meretlwa/);
+assert.match(sesotho['board-status-remaining-time-total'], /letsatsing la ho qetela/);
+assert.doesNotMatch(sesotho['board-status-remaining-time-total'], /ho fela/);

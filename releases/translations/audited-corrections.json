@@ -188676,5 +188676,40 @@
     "before": "Setshwantsho sa bokamorao se seholo haholo (Boholo ke {{size}}).",
     "after": "Setshwantsho sa bokamorao se seholo haholo (Boholo bo dumelletsweng ke {{size}}).",
     "reason": "Express numerical signs and the maximum allowed image size explicitly."
+  },
+  {
+    "locale": "st",
+    "key": "recovery-severity",
+    "before": "Bohloko",
+    "after": "Boima ba bothata",
+    "reason": "Clarify recovery severity, copying from templates, translation-string counts and time until due."
+  },
+  {
+    "locale": "st",
+    "key": "copyChecklistFromTemplate",
+    "before": "Kopitsa lenane la tlhahlobo - Mohlala",
+    "after": "Kopitsa lenane la tlhahlobo ho tswa thempleiteng",
+    "reason": "Clarify recovery severity, copying from templates, translation-string counts and time until due."
+  },
+  {
+    "locale": "st",
+    "key": "copyChecklistFromTemplatePopup-title",
+    "before": "Kopitsa lenane la tlhahlobo - Mohlala",
+    "after": "Kopitsa lenane la tlhahlobo ho tswa thempleiteng",
+    "reason": "Clarify recovery severity, copying from templates, translation-string counts and time until due."
+  },
+  {
+    "locale": "st",
+    "key": "translation-number",
+    "before": "Palo ya meretlwa e ikgethileng ya phetolelo ke:",
+    "after": "Palo ya mela e ikgethileng ya phetolelo ke:",
+    "reason": "Clarify recovery severity, copying from templates, translation-string counts and time until due."
+  },
+  {
+    "locale": "st",
+    "key": "board-status-remaining-time-total",
+    "before": "Nako e setseng ho fihla letsatsing la ho fela",
+    "after": "Nako e setseng ho fihla letsatsing la ho qetela",
+    "reason": "Clarify recovery severity, copying from templates, translation-string counts and time until due."
   }
 ]
