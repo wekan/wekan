@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican rule summaries, login settings and date activities — 2026-10-13
+
+Commit `f2b4ea8984` repairs 59 values in the source-ordered review through
+key 1739. Rule summaries retain email destinations, archive restoration,
+checklist actions and current date/time. Passwordless guidance retains
+`MAIL_URL` and `PASSWORDLESS_ENABLED`. LDAP, OAuth2, CAS, URL and Logo lose
+unrelated in-progress prefixes. Date activities retain old/new value order,
+placement labels retain above/below and left/right directions, and swimlane
+deletion retains activity loss and inability to recover.
+
+The Corsican and full repair-ledger suites pass; the ledger contains
+26,171 guarded corrections. All 21 human-preference checks pass. A new
+passwordless-settings browser case registers and checks the localized hint,
+both prerequisite identifiers and the enabled-setting label without changing
+settings. It has not run against the application. Exact comparison preserves
+all 38,430 protected Chinese values and limits this locale batch to the 59
+reviewed replacements. Broader language review remains unfinished.
+
 ## Corsican date triggers and action fragments — 2026-10-13
 
 Commit `ed0c2c3ffc` repairs 40 values in the source-ordered review through

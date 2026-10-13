@@ -1835,6 +1835,19 @@ Existing Chinese text is unchanged; broader language review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f2b4ea8984">Correct Corsican rule summaries, login settings and date activities</a>. Thanks to xet7.</summary>
+
+Repair 59 rule, authentication, activity and placement values. Preserve
+login prerequisites, old/new date placeholders, deletion warnings and
+movement direction. Restore technical names without unrelated prefixes.
+
+The Corsican and repair-ledger suites and 21 human-preference checks pass.
+A passwordless-settings browser case registers; runtime execution remains
+pending. Existing Chinese text is unchanged; broader review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
