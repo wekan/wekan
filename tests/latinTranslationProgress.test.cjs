@@ -609,3 +609,26 @@ assert.match(latin['no-parent'], /^Noli monstrare/);
 assert.equal(latin['checklist-count-on-minicard'], latin['checklist-count'] + ' in chartula');
 assert.match(latin['activity-added-label'], /^addidit/);
 assert.match(latin['activity-removed-label'], /^removit/);
+
+const reviewedRuleBuilderKeys = ["activity-delete-attach-card", "activity-set-customfield", "activity-unset-customfield", "r-rule", "r-add-trigger", "r-add-action", "r-board-rules", "r-add-rule", "r-view-rule", "r-delete-rule", "r-new-rule-name", "r-no-rules", "r-import-export", "r-select-all", "r-unselect-all", "r-delete-selected", "r-export-selected", "r-edit-rule", "r-edit-rule-trigger-action", "r-workflow-view", "r-list-view", "r-when", "r-workflow-help", "r-drop-trigger", "r-drop-action", "r-w-card-created", "r-w-card-archived", "r-w-card-unarchived", "r-w-label-added", "r-w-label-removed", "r-w-member-added", "r-w-member-removed", "r-w-checklist-added", "r-w-attachment-added", "r-w-every-day-at", "r-w-set-received-now", "r-export-json", "r-export-csv", "r-import-json", "r-import-csv"];
+for (const key of reviewedRuleBuilderKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Rule|trigger|action|Workflow|When|Every|selected|custom field)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['activity-set-customfield'], /^constituit valorem/);
+assert.match(latin['activity-unset-customfield'], /^removit valorem/);
+assert.match(latin['r-drop-trigger'], /condicionem excitantem/);
+assert.match(latin['r-drop-action'], /actionem/);
+assert.match(latin['r-workflow-help'], /deinde adde regulam/);
+assert.match(latin['r-workflow-help'], /in regulam iam existentem/);
+assert.match(latin['r-w-card-archived'], /in archivum transfertur/);
+assert.match(latin['r-w-card-unarchived'], /ex archivo restituitur/);
+assert.match(latin['r-w-label-added'], /Quilibet.*additur/);
+assert.match(latin['r-w-label-removed'], /Quilibet.*removetur/);
+assert.match(latin['r-w-every-day-at'], /^Quotidie/);
+assert.match(latin['r-w-set-received-now'], /receptionis ad tempus praesens/);
+for (const format of ['json', 'csv']) {
+  assert.equal(latin[`r-export-${format}`], `Exporta regulas in forma ${format.toUpperCase()}`);
+  assert.equal(latin[`r-import-${format}`], `Importa regulas ex forma ${format.toUpperCase()}`);
+}
+for (const action of ['delete', 'export']) assert.match(latin[`r-${action}-selected`], /regulas electas$/);

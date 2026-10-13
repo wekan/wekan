@@ -196376,5 +196376,285 @@
     "before": "Latine: remotum titulus '%s'",
     "after": "removit titulum '%s'",
     "reason": "Repair mixed-language deletion warnings, subtask hierarchy settings, minicard labels and activity messages; preserve destructive-action limits and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "activity-delete-attach-card",
+    "before": "Latine: deletum an adnexum",
+    "after": "delevit adiunctum",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "activity-set-customfield",
+    "before": "Latine: set campus proprius '%s' ad '%s' in %s",
+    "after": "constituit valorem campi proprii '%s' ad '%s' in charta %s",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "activity-unset-customfield",
+    "before": "Latine: unset campus proprius '%s' in %s",
+    "after": "removit valorem campi proprii '%s' in charta %s",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-rule",
+    "before": "Latine: Regula",
+    "after": "Regula",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-add-trigger",
+    "before": "Latine: Adde trigger",
+    "after": "Adde condicionem excitantem",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-add-action",
+    "before": "Latine: Adde actio",
+    "after": "Adde actionem",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-board-rules",
+    "before": "Latine: Tabula regulae",
+    "after": "Regulae tabulae",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-add-rule",
+    "before": "Latine: Adde regula",
+    "after": "Adde regulam",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-view-rule",
+    "before": "Latine: Vide regula",
+    "after": "Vide regulam",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-delete-rule",
+    "before": "Latine: Dele regula",
+    "after": "Dele regulam",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-new-rule-name",
+    "before": "Latine: Novum regula titulus",
+    "after": "Titulus novae regulae",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-no-rules",
+    "before": "Latine: Non regulae",
+    "after": "Nullae regulae",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-import-export",
+    "before": "Latine: Importa / Exporta",
+    "after": "Importa / Exporta",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-select-all",
+    "before": "Latine: omnia elige",
+    "after": "Elige omnia",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-unselect-all",
+    "before": "Latine: Unselect omnia",
+    "after": "Deselege omnia",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-delete-selected",
+    "before": "Latine: Dele electum",
+    "after": "Dele regulas electas",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-export-selected",
+    "before": "Latine: Exporta electum",
+    "after": "Exporta regulas electas",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-edit-rule",
+    "before": "Latine: Muta regula",
+    "after": "Muta regulam",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-edit-rule-trigger-action",
+    "before": "Latine: Muta regula (Latine: Trigger/Latine: Actio)",
+    "after": "Muta condicionem excitantem vel actionem",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-workflow-view",
+    "before": "Latine: Workflow vide",
+    "after": "Aspectus ordinis operum",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-list-view",
+    "before": "Latine: Index vide",
+    "after": "Aspectus indicis",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-when",
+    "before": "Latine: Quando",
+    "after": "Cum",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-workflow-help",
+    "before": "Latine: Drag a trigger et an actio into the builder, then adde the regula. Drag an actio onto an existing regula ad muta quid it does.",
+    "after": "Trahe condicionem excitantem et actionem in editorem, deinde adde regulam. Trahe actionem in regulam iam existentem ut mutes quid faciat.",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-drop-trigger",
+    "before": "Latine: drop a trigger here",
+    "after": "depone condicionem excitantem hic",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-drop-action",
+    "before": "Latine: drop an actio here",
+    "after": "depone actionem hic",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-w-card-created",
+    "before": "Latine: Scheda est creatum",
+    "after": "Charta creatur",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-w-card-archived",
+    "before": "Latine: Scheda est in archivum relatum",
+    "after": "Charta in archivum transfertur",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-w-card-unarchived",
+    "before": "Latine: Scheda est unarchived",
+    "after": "Charta ex archivo restituitur",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-w-label-added",
+    "before": "Latine: Ullum titulus est additum",
+    "after": "Quilibet titulus additur",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-w-label-removed",
+    "before": "Latine: Ullum titulus est remotum",
+    "after": "Quilibet titulus removetur",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-w-member-added",
+    "before": "Latine: A sodalis est additum",
+    "after": "Membrum additur",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-w-member-removed",
+    "before": "Latine: A sodalis est remotum",
+    "after": "Membrum removetur",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-w-checklist-added",
+    "before": "Latine: A index probationis est additum",
+    "after": "Index probationis additur",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-w-attachment-added",
+    "before": "Latine: An adnexum est additum",
+    "after": "Adiunctum additur",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-w-every-day-at",
+    "before": "Latine: Omnis dies at __time__",
+    "after": "Quotidie hora __time__",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-w-set-received-now",
+    "before": "Latine: Set received dies ad nunc",
+    "after": "Constitue diem receptionis ad tempus praesens",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-export-json",
+    "before": "Latine: Exporta regulae ad JSON",
+    "after": "Exporta regulas in forma JSON",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-export-csv",
+    "before": "Latine: Exporta regulae ad CSV",
+    "after": "Exporta regulas in forma CSV",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-import-json",
+    "before": "Latine: Importa regulae ex JSON",
+    "after": "Importa regulas ex forma JSON",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
+  },
+  {
+    "locale": "la",
+    "key": "r-import-csv",
+    "before": "Latine: Importa regulae ex CSV",
+    "after": "Importa regulas ex forma CSV",
+    "reason": "Translate mixed-language rule-builder controls and activity messages into Latin; retain trigger/action distinctions, archive direction, selection scope and format literals."
   }
 ]
