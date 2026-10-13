@@ -1986,6 +1986,18 @@ broader review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c1cc3c49cd">Correct Corsican monitoring and job-control translations</a>. Thanks to xet7.</summary>
+
+Repair 52 monitoring, scheduling and migration-control values. Preserve
+numeric limits, background behavior and literal storage product names.
+
+The Corsican and repair-ledger suites and 21 human-preference checks pass.
+Browser validation remains pending. Existing Chinese text is unchanged;
+broader review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican monitoring and job controls — 2026-10-13
+
+Commit `c1cc3c49cd` repairs 52 values in the source-ordered review through
+key 2899. Monitoring exports, queue labels and migration actions lose
+Italian wording. Batch size retains 1-100, the CPU pause threshold retains
+10-90, and the delay remains in milliseconds. Migration guidance retains
+one-time execution and continued background work after the browser closes.
+GridFS and S3 remain literal without invented language prefixes.
+
+The Corsican and full repair-ledger suites pass; the ledger verifies
+26,760 guarded corrections. All 21 human-preference checks pass. Browser
+validation remains pending with the local app unavailable. Exact comparison
+preserves 38,430 existing Chinese values. A fresh filtered inventory finds
+28,516 English placeholders across 42 locales, excluding 379 keys marked
+pending Transifex. This count does not verify target-language correctness;
+the broader review remains unfinished.
+
 ## Corsican board migrations and progress — 2026-10-13
 
 Commit `f4d12f7b0f` repairs 55 values in the source-ordered review through
