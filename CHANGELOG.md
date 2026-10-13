@@ -131,9 +131,9 @@ releases.
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **28,516 untranslated locale/string values in 42 languages**.
   It excludes **379 source keys tracked separately as pending Transifex**.
-  After the Nepali batch and new Trello strings, full per-locale `--list`
-  reports, including pending keys, count **56,196 remaining values across
-  127 non-English locale files**. This fuller inventory remains the scope
+  After the Tamil batch and new Trello strings, full per-locale `--list`
+  reports, including pending keys, count **56,003 remaining values across
+  126 non-English locale files**. This fuller inventory remains the scope
   of the translation work.
   A separate short-prose audit flags 1,673 candidates across 182 locales.
   The two notification At/To labels now have translations in all non-English
@@ -145,6 +145,11 @@ releases.
   Earlier Xhosa completion checks predate the newer pending strings. The
   current broad run still exposes English placeholders in several catalogs;
   see the dated audit results. Empty reports do not establish fluency.
+- Tamil now has no current fill candidates after 193 feature fills. The
+  exempt Bytes label is translated too, and four misspelled calendar labels
+  are corrected. Four relevant suites and 21 human-preference checks pass.
+  Six Tamil browser cases register; execution and broader wording review
+  remain open. Existing verified Chinese values are unchanged.
 - Nepali now has no current fill candidates after 193 feature fills, including
   eleven newly added Trello/Sandstorm strings. Nine Chinese catalog paths get
   only those eleven new strings; all earlier Chinese values are unchanged.
@@ -164,7 +169,7 @@ releases.
 - Marathi now has no current fill candidates after 212 feature fills. Another
   55 English settings, rule and keyboard labels were hidden by the fill tool's
   technical-name and short-word exemptions; those are now translated too.
-  `node releases/translations/audit-exempt-prose.mjs` exposes 3,821 review
+  `node releases/translations/audit-exempt-prose.mjs` exposes 3,820 review
   candidates across 226 locales. They include intentional names and shared
   spellings, so they are not a confirmed untranslated count. Preserve existing
   human-verified `zh` wording; add only confirmed missing strings there.
@@ -562,7 +567,8 @@ used.
 
 **In short:** more **UI labels and storage settings** now use their target
 language, and seeded wrong-language instructions are corrected. Missing
-Bengali, Marathi and Nepali feature strings are filled. New Trello strings
+Bengali, Marathi, Nepali and Tamil feature strings are filled. Tamil calendar
+spelling is corrected. New Trello strings
 are translated in Chinese and Marathi, and a new audit exposes
 English prose hidden by technical-name exemptions. Existing verified
 translations remain intact while the wider language-quality review continues.
@@ -668,6 +674,24 @@ permissions, destructive consequences, import exclusions and Trello's literal
 `Swimlane: …` marker. Thirteen export-dialog browser cases and four Nepali
 feature cases register; execution needs a running rebuilt app. Empty fill
 reports do not establish whole-catalog fluency. Broader review stays open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5de70e0399">Fill Tamil feature strings and correct calendar spelling</a>. Thanks to xet7.</summary>
+
+Translate 193 current placeholders for linked fields, import formats,
+notifications, recovery and Trello, plus the Bytes label hidden by an
+exemption. Correct four existing calendar labels, recording the exact
+before/after values in the correction ledger. Other existing translations
+and all verified Chinese wording stay unchanged.
+
+Four relevant suites and 21 human-preference checks pass. Source key order
+and exact tokens match across all 246 catalogs. Tests check permissions,
+import exclusions, permanent removal versus keeping data, source literals
+and runtime substitution. Six Tamil browser cases register, including
+calendar labels; execution needs a running rebuilt app. The current Tamil
+fill list is empty, but broader wording review remains unfinished.
 
 </details>
 

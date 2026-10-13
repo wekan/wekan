@@ -2,6 +2,44 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Tamil feature fills and calendar spelling — 2026-10-13
+
+Commit `5de70e0399` fills 193 feature placeholders and the exempt Bytes label.
+A parent comparison confirms 183 existing values were English; eleven keys
+were newly added. Four other changed values are explicit calendar spelling
+repairs; all remaining existing values are unchanged. No `zh` catalog changed.
+
+The misspelling `நாள்கட்டி` is corrected to `நாள்காட்டி` in the board calendar,
+multi-board calendar, iCal export and generic calendar labels, as well as the
+new calendar-mode fill. This agrees with existing calendar-system and feature
+labels. [Wiktionary's நாள்காட்டி entry](https://en.wiktionary.org/wiki/நாள்காட்டி)
+records it as a form of [நாட்காட்டி, calendar](https://ta.wiktionary.org/wiki/நாட்காட்டி).
+Four exact before/after repairs bring the ledger to 24,839 records; its tests
+also verify that a newer reviewed translation is not replaced by an old repair.
+
+Review of unchanged English source values leaves product names, abbreviations,
+mathematical functions and physical keyboard legends. The five supplemental
+Tamil candidates are Alt, Command, Option, Shift and Tab, retained as printed
+key names. That retention does not certify the language or semantics of every
+other Tamil value. Longer new technical wording remains provisional pending
+speaker review; it follows the catalog's board/card/list/field terminology.
+
+Four relevant suites pass: Telugu/Tamil, shared labels, exempt prose and the
+correction ledger. Checks cover two-card permissions, one-way field direction,
+fields left unchanged, imported versus excluded data, irreversible deletion,
+source retention, notification inheritance, literal format identifiers, Trello
+round-trip markers and runtime substitution including zero. Exact key order
+and token inventories match across 1,019,178 locale/key pairs; 21
+human-preference checks pass. Six Tamil browser cases register for linked
+fields, notification settings, both recovery views, Trello export and calendar
+mode. Browser execution still needs a rebuilt running app.
+
+The full filtered inventory is now 56,003 values across 126 non-English paths;
+the ordinary report remains 28,516 values across 42 locales, excluding 379
+pending keys. The supplemental queue falls by one to 3,820 candidates across
+226 locales. Tamil's current fill list is empty. Whole-catalog semantic and
+wrong-language review, browser execution and the overall task remain open.
+
 ## Nepali features and new Trello labels — 2026-10-13
 
 Commit `9384c350fa` fills 193 Nepali strings: 182 existing English placeholders
