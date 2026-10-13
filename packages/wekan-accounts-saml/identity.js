@@ -16,8 +16,24 @@ function samlIdentity(profile) {
   if (identity.nameIDFormat === 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient') return null;
   return identity;
 }
+// The two qualifiers are optional in SAML, and identity bindings written before
+// they were stored have no such keys at all. A query for '' does not match a
+// MISSING field, so a returning user with such a binding was not found by
+// identity, was then found by username, and was refused as
+// "account-already-bound-to-saml". When the assertion's qualifier is empty, an
+// absent stored qualifier means the same thing: match '' or missing (null
+// matches missing in MongoDB and FerretDB). A non-empty qualifier, and every
+// other field - a missing issuer included - still must match exactly.
+const OPTIONAL_QUALIFIERS = ['nameQualifier', 'spNameQualifier'];
 function samlIdentitySelector(identity) {
-  return Object.fromEntries(fields.map(field => [`services.saml.${field}`, identity[field]]));
+  return Object.fromEntries(fields.map(field => [`services.saml.${field}`,
+    OPTIONAL_QUALIFIERS.includes(field) && identity[field] === '' ? { $in: ['', null] } : identity[field]]));
+}
+// Written on every successful login, so an older binding gains the explicit
+// empty qualifiers and is exact from then on. Only the matched values are
+// written: the selector above has already proved they are the same identity.
+function samlIdentityNormalization(identity) {
+  return Object.fromEntries(OPTIONAL_QUALIFIERS.map(field => [`services.saml.${field}`, identity[field]]));
 }
 function samlEmailVerified(profile) {
   // SAML has no standard email-verification flag. Only an explicit boolean
@@ -64,4 +80,4 @@ function samlLinkRefusal({ user, email, profile, mergeAllowed }) {
   return null;
 }
 
-module.exports = { samlIdentity, samlIdentitySelector, samlEmailVerified, samlLinkRefusal, GENERIC_CONFLICT };
+module.exports = { samlIdentity, samlIdentitySelector, samlIdentityNormalization, samlEmailVerified, samlLinkRefusal, GENERIC_CONFLICT };

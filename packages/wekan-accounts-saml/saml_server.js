@@ -12,7 +12,7 @@
 // docs/Features/Login/SAML.md.
 
 import { createResponseReplayGuard } from './responseReplay';
-import { samlIdentity, samlIdentitySelector, samlEmailVerified, samlLinkRefusal, GENERIC_CONFLICT } from './identity';
+import { samlIdentity, samlIdentitySelector, samlIdentityNormalization, samlEmailVerified, samlLinkRefusal, GENERIC_CONFLICT } from './identity';
 import bodyParser from 'body-parser';
 
 const urlEncodedParser = bodyParser.urlencoded({ extended: false });
@@ -320,9 +320,14 @@ Accounts.registerLoginHandler(async (options) => {
     }
   }
 
-  // Only session metadata is mutable. Recheck the binding atomically at login.
+  // Only session metadata is mutable, plus the empty qualifiers an older
+  // binding never stored (samlIdentityNormalization). Recheck the binding
+  // atomically at login.
   const updated = await Meteor.users.updateAsync({ _id: user._id, ...identitySelector }, {
-    $set: { 'services.saml.sessionIndex': typeof profile.sessionIndex === 'string' ? profile.sessionIndex : '' },
+    $set: {
+      ...samlIdentityNormalization(identity),
+      'services.saml.sessionIndex': typeof profile.sessionIndex === 'string' ? profile.sessionIndex : '',
+    },
   });
   if (!updated) conflict();
   return { userId: user._id };

@@ -15,6 +15,8 @@ function matches(doc, query) {
       if ('$exists' in expected) return (actual !== undefined) === expected.$exists;
       if ('$ne' in expected) return actual !== expected.$ne;
       if ('$elemMatch' in expected) return actual?.some(value => matches(value, expected.$elemMatch));
+      // MongoDB and FerretDB: null in $in also matches a missing field.
+      if ('$in' in expected) return expected.$in.some(value => (value === null ? actual == null : actual === value));
     }
     return actual === expected;
   });
@@ -79,6 +81,48 @@ test('legacy identities never trust the next assertion to establish missing issu
     await assert.rejects(h.login(subject), { error: 'saml-account-conflict' });
     assert.deepEqual(h.users, [old]);
   }
+});
+
+// A binding stored before the optional qualifiers were written has no
+// nameQualifier / spNameQualifier keys at all. A query for '' does not match a
+// missing field, so the returning user was found only by username and refused
+// as account-already-bound-to-saml.
+const withoutQualifiers = (user) => {
+  delete user.services.saml.nameQualifier; delete user.services.saml.spNameQualifier; return user;
+};
+
+test('a binding without the optional qualifiers logs in, and is normalized', async () => {
+  const old = withoutQualifiers({ ...victim(), authenticationMethod: 'ldap' });
+  for (const mergeExistingUsers of [false, true]) {
+    const h = harness([clone(old)], { mergeExistingUsers });
+    assert.equal((await h.login(subject)).userId, 'victim');
+    assert.equal(h.users.length, 1, 'no second account');
+    assert.equal(h.users[0].services.saml.nameQualifier, '');
+    assert.equal(h.users[0].services.saml.spNameQualifier, '');
+    // and the normalized record matches exactly on the next login
+    assert.equal((await h.login(subject)).userId, 'victim');
+  }
+});
+
+test('a missing qualifier never matches a NON-empty one, and a missing issuer stays refused (negative)', async () => {
+  const old = withoutQualifiers(victim());
+  for (const patch of [{ nameQualifier: 'idp-scope' }, { spNameQualifier: 'sp-scope' }]) {
+    const h = harness([clone(old)], { mergeExistingUsers: true });
+    await assert.rejects(h.login({ ...subject, ...patch }), { error: 'saml-account-conflict' });
+    assert.deepEqual(h.users, [old], 'nothing was written');
+  }
+  // A stored non-empty qualifier is not matched by an empty one either.
+  const scoped = victim(); scoped.services.saml.nameQualifier = 'idp-scope';
+  const h = harness([clone(scoped)], { mergeExistingUsers: true });
+  await assert.rejects(h.login(subject), { error: 'saml-account-conflict' });
+  assert.equal(h.users[0].services.saml.nameQualifier, 'idp-scope');
+  // Only the two optional qualifiers are tolerant.
+  const sel = identity.samlIdentitySelector(identity.samlIdentity(subject));
+  assert.deepEqual(sel['services.saml.nameQualifier'], { $in: ['', null] });
+  assert.deepEqual(sel['services.saml.spNameQualifier'], { $in: ['', null] });
+  for (const field of ['issuer', 'nameID', 'nameIDFormat']) assert.equal(typeof sel[`services.saml.${field}`], 'string', field);
+  const exact = identity.samlIdentitySelector(identity.samlIdentity({ ...subject, nameQualifier: 'q' }));
+  assert.equal(exact['services.saml.nameQualifier'], 'q');
 });
 
 test('missing, malformed and transient subjects cannot fall back to email', async () => {

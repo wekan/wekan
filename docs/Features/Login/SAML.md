@@ -234,7 +234,14 @@ login. Use an IdP subject that is stable and never reassigned; transient NameIDs
 are rejected. An email-address NameID is only as stable as the IdP's policy for
 reassigning addresses. Attribute changes do not rename or merge existing accounts.
 
-**Upgrade:** older SAML records store NameID but not issuer/qualifiers. They fail
+**Optional qualifiers:** a binding that has `issuer`, `nameID` and
+`nameIDFormat` but no `nameQualifier` / `spNameQualifier` keys at all matches an
+assertion whose qualifiers are empty, and the next successful login writes them
+as empty strings. Before this, such a user was refused as
+`account-already-bound-to-saml`. A missing qualifier never matches a non-empty
+one, and a stored non-empty qualifier still has to match exactly.
+
+**Upgrade:** older SAML records store NameID but not the issuer. They fail
 closed, including with `SAML_MERGE_EXISTING_USERS=true`. Before restoring SAML
 access, an administrator must independently verify the account owner's identity
 with the IdP administrator, then populate `services.saml.issuer`, `nameID`,
