@@ -2578,6 +2578,23 @@ checks; browser runtime execution remains pending.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2bc93bdfde">Restore Southern Sotho analytics explanations and sync labels</a>. Thanks to xet7.</summary>
+
+Replace abbreviated chart notes with full explanations of missing history,
+forecast uncertainty, simulation limits and cycle-time fallbacks. Time
+adjustment
+help distinguishes corrections from work sessions. Sync and credential labels
+identify synchronization and login credentials. This adds 54 guarded repairs;
+statistical terminology still benefits from native-speaker review.
+
+Both translation suites and all 21 preservation checks pass. Seven browser cases
+pass syntax and discovery checks; runtime execution remains pending. Existing
+Chinese values remain unchanged. Historical review reaches source key 3169;
+all-language translation and semantic review remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
