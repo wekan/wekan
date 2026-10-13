@@ -238,3 +238,18 @@ assert.match(corsican['r-d-move-to-bottom-gen'], /in fondu à a so lista/);
 assert.match(corsican['r-checklist-note'], /separati da virgule/);
 assert.match(corsican['avatars-upload-blocked-description'], /novi avatar.*sincrunizati.*attivati di manera predefinita/);
 assert.match(corsican['custom-assetlinks-enabled'], /assetlinks\.json/);
+
+const adminCorrectionKeys = ["delete-org-confirm-popup", "submit-on-enter", "allow-invite-to-board", "roles-status-invite", "roles-status-write", "roles-status-empty", "remove-domain-from-board", "no-items-message", "shared-templates-info", "dueCardsViewChange-choice-all", "globalSearch-instructions-notes-3", "import-dependencies-parse-error", "location-detect-none", "created-at-newest-first", "delete-org-warning-message", "delete-team-warning-message", "remove-team-from-table", "remove-organization-from-board", "custom-legal-notice-link-url", "move-all-attachments-to-fs", "move-all-attachments-to-gridfs", "move-all-attachments-to-s3", "move-all-attachments-of-board-to-fs", "move-all-attachments-of-board-to-gridfs", "move-all-attachments-of-board-to-s3"];
+for (const key of adminCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /\b(?:Sei sicuro|gli|dalla|alla|Impossibile|Nessun|personalizzato|allegati|ruolo|Creare)\b/, key);
+}
+for (const key of ['delete-org-warning-message','delete-team-warning-message']) assert.match(corsican[key], /Ùn si pò squassà.*almenu un utilizatore ne face parte/);
+assert.match(corsican['shared-templates-info'], /unu o parechji ambiti.*tavula Mudelli micca viota/);
+assert.match(corsican['globalSearch-instructions-notes-3'], /\*AND\*.*tutti l’operatori sfarenti/);
+assert.ok(corsican['globalSearch-instructions-notes-3'].includes('`__operator_list__:Available __operator_label__:red`'));
+for (const backend of ['gridfs','s3']) {
+  const literal = backend === 'gridfs' ? 'GridFS' : 'S3';
+  assert.ok(corsican['move-all-attachments-to-' + backend].endsWith(literal));
+  assert.match(corsican['move-all-attachments-of-board-to-' + backend], /di a tavula/);
+}

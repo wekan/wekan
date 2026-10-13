@@ -181,3 +181,14 @@ test.describe('Admin – shared templates', () => {
     await expect(scopeCheckbox(page, 'teams')).not.toHaveClass(/is-checked/);
   });
 });
+
+test('Corsican shared-template guidance preserves scopes and nonempty eligibility', async ({ page, adminUser }) => {
+  await loginWithToken(page, adminUser.id, adminUser.token);
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'co'));
+  await navigateInApp(page, '/admin/people/shared-templates');
+  const description = page.locator('#templates-setting .templates-description');
+  await expect(description).toHaveText(require('../../../imports/i18n/data/co.i18n.json')['shared-templates-info']);
+  await expect(description).toContainText('unu o parechji ambiti');
+  await expect(description).toContainText('tavula Mudelli micca viota');
+  await expect(description).not.toContainText('Sfoglia');
+});

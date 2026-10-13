@@ -177434,5 +177434,180 @@
     "before": "Sei sicuro di voler eliminare questu team? Non è possibile annullare.",
     "after": "Site sicuru di vulè squassà sta squadra? Ùn si pò annullà st’azzione.",
     "reason": "Replace mixed Italian/Corsican settings, rules and confirmation prose while preserving conditions, irreversibility and technical literals."
+  },
+  {
+    "locale": "co",
+    "key": "delete-org-confirm-popup",
+    "before": "Sei sicuro di voler eliminare questa urganizazione? Non è possibile annullare.",
+    "after": "Site sicuru di vulè squassà st’urganizazione? Ùn si pò annullà st’azzione.",
+    "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
+  },
+  {
+    "locale": "co",
+    "key": "submit-on-enter",
+    "before": "Arregistrà gli editor cù Enter",
+    "after": "Cunvalidà l’editori cù Enter",
+    "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
+  },
+  {
+    "locale": "co",
+    "key": "allow-invite-to-board",
+    "before": "Consenti l'invito alla tavula",
+    "after": "Permette l’invitu à a tavula",
+    "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
+  },
+  {
+    "locale": "co",
+    "key": "roles-status-invite",
+    "before": "Invita alla tavula",
+    "after": "Invità à a tavula",
+    "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
+  },
+  {
+    "locale": "co",
+    "key": "roles-status-write",
+    "before": "Creare e modificare",
+    "after": "Creà è mudificà",
+    "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
+  },
+  {
+    "locale": "co",
+    "key": "roles-status-empty",
+    "before": "Nessun ruolo di a tavula.",
+    "after": "Nisun rolu di tavula.",
+    "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
+  },
+  {
+    "locale": "co",
+    "key": "remove-domain-from-board",
+    "before": "Sei sicuro di voler rimuovere questu dominio da questa tavula?",
+    "after": "Site sicuru di vulè caccià stu duminiu da sta tavula?",
+    "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
+  },
+  {
+    "locale": "co",
+    "key": "no-items-message",
+    "before": "Nessun elemento.",
+    "after": "Nisun elementu.",
+    "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
+  },
+  {
+    "locale": "co",
+    "key": "shared-templates-info",
+    "before": "Sfoglia le tavule template condivisibili di i utilizatori, raggruppate per Urganizazione, Team o Dominio email. Selezziunà uno o più ambiti sotto per mostrare i template condivisi corrispondenti. Sono elencati solu gli utilizatori la cui tavula Template non è vuota.",
+    "after": "Sfugliate e tavule mudellu spartibili di l’utilizatori, raggruppate per urganizazione, squadra o duminiu email. Sceglite unu o parechji ambiti quì sottu per vede i mudelli spartuti currispundenti. Solu l’utilizatori chì anu una tavula Mudelli micca viota sò elencati.",
+    "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
+  },
+  {
+    "locale": "co",
+    "key": "dueCardsViewChange-choice-all",
+    "before": "Tutti gli utilizatori",
+    "after": "Tutti l’utilizatori",
+    "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-notes-3",
+    "before": "Più criteri di ricerca sono combinati cù l'operatore *AND*. Vengono selezionate solu le carte che soddisfano tutti gli operatori. `__operator_list__:Available __operator_label__:red` selezziunà solu le carte in a lista *Available* che hanno una etichetta *red*.",
+    "after": "L’operatori sfarenti sò cumbinati cù *AND*. Solu e carte chì currispondenu à tutti l’operatori sfarenti sò riturnate. `__operator_list__:Available __operator_label__:red` riturna solu e carte di a lista *Available* cù un’etichetta *red*.",
+    "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
+  },
+  {
+    "locale": "co",
+    "key": "import-dependencies-parse-error",
+    "before": "Impossibile analizzare il schedariu di e dipendenze",
+    "after": "Ùn hè statu pussibule d’analizà u schedariu di e dipendenze",
+    "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
+  },
+  {
+    "locale": "co",
+    "key": "location-detect-none",
+    "before": "Impossibile rilevare una posizione da questu link.",
+    "after": "Ùn hè statu pussibule di rilevà una pusizione da stu ligame.",
+    "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
+  },
+  {
+    "locale": "co",
+    "key": "created-at-newest-first",
+    "before": "Data di creazione (dalla più nova)",
+    "after": "Data di creazione (e più nove prima)",
+    "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
+  },
+  {
+    "locale": "co",
+    "key": "delete-org-warning-message",
+    "before": "Non posso cancellare questa urganizazione: c'è almeno un utilizatore che gli appartiene",
+    "after": "Ùn si pò squassà st’urganizazione: almenu un utilizatore ne face parte",
+    "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
+  },
+  {
+    "locale": "co",
+    "key": "delete-team-warning-message",
+    "before": "Impossibile eliminare questu team, c'è almeno un utilizatore che vi appartiene",
+    "after": "Ùn si pò squassà sta squadra: almenu un utilizatore ne face parte",
+    "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
+  },
+  {
+    "locale": "co",
+    "key": "remove-team-from-table",
+    "before": "Sei sicuro di voler rimuovere questu team dalla tavula?",
+    "after": "Site sicuru di vulè caccià sta squadra da a tavula?",
+    "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
+  },
+  {
+    "locale": "co",
+    "key": "remove-organization-from-board",
+    "before": "Sei sicuro di voler rimuovere questa urganizazione da questa tavula?",
+    "after": "Site sicuru di vulè caccià st’urganizazione da sta tavula?",
+    "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
+  },
+  {
+    "locale": "co",
+    "key": "custom-legal-notice-link-url",
+    "before": "URL personalizzato di a pagina di e note legali",
+    "after": "URL persunalizatu di a pagina di l’avvisu legale",
+    "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
+  },
+  {
+    "locale": "co",
+    "key": "move-all-attachments-to-fs",
+    "before": "Move tutti gli allegati in u filesystem",
+    "after": "Spustà tutti l’appicci in u sistema di schedarii",
+    "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
+  },
+  {
+    "locale": "co",
+    "key": "move-all-attachments-to-gridfs",
+    "before": "Move tutti gli allegati in GridFS",
+    "after": "Spustà tutti l’appicci in GridFS",
+    "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
+  },
+  {
+    "locale": "co",
+    "key": "move-all-attachments-to-s3",
+    "before": "Move tutti gli allegati in S3",
+    "after": "Spustà tutti l’appicci in S3",
+    "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
+  },
+  {
+    "locale": "co",
+    "key": "move-all-attachments-of-board-to-fs",
+    "before": "Move tutti gli allegati di a tavula in u filesystem",
+    "after": "Spustà tutti l’appicci di a tavula in u sistema di schedarii",
+    "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
+  },
+  {
+    "locale": "co",
+    "key": "move-all-attachments-of-board-to-gridfs",
+    "before": "Move tutti gli allegati di a tavula in GridFS",
+    "after": "Spustà tutti l’appicci di a tavula in GridFS",
+    "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
+  },
+  {
+    "locale": "co",
+    "key": "move-all-attachments-of-board-to-s3",
+    "before": "Move tutti gli allegati di a tavula in S3",
+    "after": "Spustà tutti l’appicci di a tavula in S3",
+    "reason": "Replace Italian/Corsican mixed administrative prose; preserve role scope, search conjunction, deletion refusal and storage destinations."
   }
 ]
