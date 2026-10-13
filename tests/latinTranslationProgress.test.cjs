@@ -300,3 +300,20 @@ assert.match(latin['move-list-left'], /sinistrorsum$/);
 assert.match(latin['move-list-right'], /dextrorsum$/);
 assert.equal(latin['changeAvatarPopup-title'], latin['adminChangeAvatarPopup-title']);
 assert.equal(latin['changeSettingsPopup-title'], latin['change-settings']);
+
+const reviewedColorKeys = ["close-dialog", "close-popup", "go-back", "modal-title", "skip-to-content", "close-board-pop", "close-card", "color-black", "color-blue", "color-crimson", "color-darkgreen", "color-gold", "color-gray", "color-green", "color-indigo", "color-lime", "color-magenta", "color-mistyrose", "color-navy", "color-orange", "color-paleturquoise", "color-peachpuff", "color-pink", "color-plum", "color-purple", "color-red", "color-saddlebrown", "color-silver", "color-sky", "color-slateblue", "color-white", "color-yellow"];
+for (const key of reviewedColorKeys) {
+  assert.doesNotMatch(latin[key], /Latine:/, key);
+  assert.notEqual(latin[key], english[key], key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+const colorKeys = Object.keys(english).filter(key => key.startsWith('color-'));
+assert.equal(new Set(colorKeys.map(key => latin[key])).size, colorKeys.length);
+assert.equal(latin['color-black'], 'niger');
+assert.equal(latin['color-white'], 'albus');
+assert.equal(latin['color-red'], 'ruber');
+assert.match(latin['color-darkgreen'], /viridis obscurus/);
+assert.match(latin['color-paleturquoise'], /pallidus/);
+assert.match(latin['skip-to-content'], /materiam principalem/);
+assert.match(latin['close-board-pop'], /Archivo.*pagina omnium tabularum/);
+assert.doesNotMatch(latin['close-board-pop'], /domus header/);

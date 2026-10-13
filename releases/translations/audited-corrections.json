@@ -192127,5 +192127,229 @@
     "before": "Latine: Claude Tabula",
     "after": "Claude tabulam",
     "reason": "Repair Latin font, appearance and movement controls, preserving degree, direction and idle-day thresholds."
+  },
+  {
+    "locale": "la",
+    "key": "close-dialog",
+    "before": "Latine: Claude dialog",
+    "after": "Claude fenestram dialogi",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "close-popup",
+    "before": "Latine: Claude popup",
+    "after": "Claude fenestram emergentem",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "go-back",
+    "before": "Latine: I retro",
+    "after": "Redi",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "modal-title",
+    "before": "Latine: Dialog",
+    "after": "Dialogus",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "skip-to-content",
+    "before": "Latine: Skip ad main content",
+    "after": "Transi ad materiam principalem",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "close-board-pop",
+    "before": "Latine: Tu erit esse able ad restitue the tabula a clicking the “Archivum” globulus ex the domus header.",
+    "after": "Tabulam restituere potes ex «Archivo» in pagina omnium tabularum.",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "close-card",
+    "before": "Latine: Claude Scheda",
+    "after": "Claude chartam",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "color-black",
+    "before": "Latine: black",
+    "after": "niger",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "color-blue",
+    "before": "Latine: blue",
+    "after": "caeruleus",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "color-crimson",
+    "before": "Latine: crimson",
+    "after": "coccineus",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "color-darkgreen",
+    "before": "Latine: darkgreen",
+    "after": "viridis obscurus",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "color-gold",
+    "before": "Latine: gold",
+    "after": "aureus",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "color-gray",
+    "before": "Latine: gray",
+    "after": "cinereus",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "color-green",
+    "before": "Latine: green",
+    "after": "viridis",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "color-indigo",
+    "before": "Latine: indigo",
+    "after": "indicus",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "color-lime",
+    "before": "Latine: lime",
+    "after": "viridis vividus",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "color-magenta",
+    "before": "Latine: magenta",
+    "after": "purpureus rubens",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "color-mistyrose",
+    "before": "Latine: mistyrose",
+    "after": "roseus pallidissimus",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "color-navy",
+    "before": "Latine: navy",
+    "after": "caeruleus obscurissimus",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "color-orange",
+    "before": "Latine: orange",
+    "after": "aurantiacus",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "color-paleturquoise",
+    "before": "Latine: paleturquoise",
+    "after": "caeruleoviridis pallidus",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "color-peachpuff",
+    "before": "Latine: peachpuff",
+    "after": "persicinus pallidus",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "color-pink",
+    "before": "Latine: pink",
+    "after": "roseus",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "color-plum",
+    "before": "Latine: plum",
+    "after": "prunicolor",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "color-purple",
+    "before": "Latine: purple",
+    "after": "purpureus",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "color-red",
+    "before": "Latine: red",
+    "after": "ruber",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "color-saddlebrown",
+    "before": "Latine: saddlebrown",
+    "after": "fuscus coriaceus",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "color-silver",
+    "before": "Latine: silver",
+    "after": "argenteus",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "color-sky",
+    "before": "Latine: sky",
+    "after": "caeruleus caelestis",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "color-slateblue",
+    "before": "Latine: slateblue",
+    "after": "caeruleus violaceus",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "color-white",
+    "before": "Latine: white",
+    "after": "albus",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "color-yellow",
+    "before": "Latine: yellow",
+    "after": "flavus",
+    "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
   }
 ]
