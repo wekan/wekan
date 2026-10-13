@@ -2,6 +2,44 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Kannada features, exempt labels and rule helper — 2026-10-13
+
+Commit `10c4cc3bfa` fills 193 current feature placeholders and nine labels
+hidden by exemptions: Bytes, Platform, Logo, USA, Asia, the generic linking
+verb, recipient label and two count separators. A parent comparison confirms
+all 202 previous values were English. Every earlier non-English Kannada
+value is unchanged, and no `zh` catalog changed. Product names, abbreviations,
+format/query literals and physical key legends remain intentional.
+
+Actual template inspection found count order fixed as current / total in
+card vote/poker summaries and migration progress. Both translated separators
+use `/` so the existing layout does not put a Kannada postposition before its
+noun. The generic `r-is` label becomes `ಇದೆ`, but the rule-trigger helper omits
+it in Kannada rows: the existing action phrases already contain their verb,
+such as `ಪೂರ್ಣಗೊಂಡಿದೆ` and `ಅಪೂರ್ಣಗೊಳಿಸಲಾಗಿದೆ`. This removes the redundant
+inserted word; it does not claim to repair every full trigger clause's word
+order. The change uses the existing language-aware helper, retains Basque
+and Thai behavior, and does not alter other locales or subject ordering.
+
+Five suites pass: Kannada, Basque rule grammar, browser-language fallback,
+shared labels and exempt prose. Tests check locale aliases and prefix
+boundaries, existing predicates, field directions, permissions, import
+exclusions, irreversible deletion versus retention, source literals and
+runtime interpolation including zero. All 21 human-preference checks pass;
+source key order and tokens match across 246 catalogs / 1,019,178 pairs.
+Six browser cases register for Kannada linked fields, notifications, both
+recovery views, Trello export and rule rows with a saved description. They
+still require a rebuilt running app. Full sentence grammar and longer new
+technical wording remain provisional pending speaker review.
+
+The full filtered inventory is 55,617 values across 124 non-English paths.
+The ordinary report remains 28,516 values across 42 locales, excluding 379
+pending keys. Supplemental candidates fall to 3,814 across 226 locales; the
+short-prose queue falls to 1,669 across 181 locales. Kannada's full fill list
+and short-prose queue are empty; its five supplemental candidates are physical
+key legends. Whole-catalog semantic verification and the overall translation
+task remain unfinished.
+
 ## Thai feature fills — 2026-10-13
 
 Commit `0a7eba3e4e` fills 193 current placeholders and the exempt Bytes label.

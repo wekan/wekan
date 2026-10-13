@@ -131,11 +131,11 @@ releases.
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **28,516 untranslated locale/string values in 42 languages**.
   It excludes **379 source keys tracked separately as pending Transifex**.
-  After the Thai batch and new Trello strings, full per-locale `--list`
-  reports, including pending keys, count **55,810 remaining values across
-  125 non-English locale files**. This fuller inventory remains the scope
+  After the Kannada batch and new Trello strings, full per-locale `--list`
+  reports, including pending keys, count **55,617 remaining values across
+  124 non-English locale files**. This fuller inventory remains the scope
   of the translation work.
-  A separate short-prose audit flags 1,673 candidates across 182 locales.
+  A separate short-prose audit flags 1,669 candidates across 181 locales.
   The two notification At/To labels now have translations in all non-English
   locales;
   shared native words may equal English, so these require individual review.
@@ -145,6 +145,11 @@ releases.
   Earlier Xhosa completion checks predate the newer pending strings. The
   current broad run still exposes English placeholders in several catalogs;
   see the dated audit results. Empty reports do not establish fluency.
+- Kannada now has no current fill candidates after 193 feature fills and
+  nine exempt labels. Rule rows omit a redundant linking verb, and progress
+  counts use numerator/denominator notation. Five relevant suites and 21
+  human-preference checks pass; six Kannada browser cases register.
+  Browser execution and broader language-quality review remain open.
 - Thai now has no current fill candidates after 193 feature fills, plus the
   exempt Bytes label. Existing non-English values are unchanged. Three
   focused suites and 21 human-preference checks pass; five Thai browser
@@ -173,7 +178,7 @@ releases.
 - Marathi now has no current fill candidates after 212 feature fills. Another
   55 English settings, rule and keyboard labels were hidden by the fill tool's
   technical-name and short-word exemptions; those are now translated too.
-  `node releases/translations/audit-exempt-prose.mjs` exposes 3,819 review
+  `node releases/translations/audit-exempt-prose.mjs` exposes 3,814 review
   candidates across 226 locales. They include intentional names and shared
   spellings, so they are not a confirmed untranslated count. Preserve existing
   human-verified `zh` wording; add only confirmed missing strings there.
@@ -574,7 +579,8 @@ through its API, with **swimlanes** kept as labels that WeKan's Trello import
 turns back into swimlanes; on **Sandstorm**, the **Powerbox** lets a grain
 reach Trello. **FreeBSD** Bun bundles, the **Launchpad snap** waits and the
 **Mac apps** release step are fixed. Missing Bengali, Marathi, Nepali and
-Tamil and Thai strings are filled, and wrong-language values are corrected.
+Tamil, Thai and Kannada strings are filled, and wrong-language values are
+corrected.
 
 This release adds the following new features:
 
@@ -791,6 +797,24 @@ import exclusions, irreversible removal versus keeping data, technical
 identifiers and runtime substitution. Five Thai browser cases register;
 execution needs a running rebuilt app. The current fill list is empty, but
 whole-catalog semantic review remains unfinished.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/10c4cc3bfa">Fill Kannada feature strings and remove a redundant rule linking verb</a>. Thanks to xet7.</summary>
+
+Translate 193 feature placeholders and nine labels hidden by exemptions,
+including units, regions and short rule text. All existing non-English
+Kannada values and verified Chinese wording remain unchanged. Rule rows omit
+an extra linking verb before Kannada action phrases that already contain a
+verb; progress counts use `1 / 10` in the existing fixed-order layout.
+
+Five relevant suites and 21 human-preference checks pass. Tests cover
+language-tag boundaries, preservation of other languages, import exclusions,
+permissions, recovery consequences, exact source tokens and runtime values.
+Six Kannada browser cases register, including rule rows and saved descriptions;
+execution needs a running rebuilt app. The fill list and short-prose queue
+are empty, but complete sentence grammar and broader wording review stay open.
 
 </details>
 
