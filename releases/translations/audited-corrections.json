@@ -201269,5 +201269,313 @@
     "before": "Latine: Nothing est stored adest the electum fons storage, so there est nothing ad move.",
     "after": "Nihil in repositorio fontis electo servatum est; itaque nihil transferendum est.",
     "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "move-storage-collectionfs",
+    "before": "Latine: MongoDB CollectionFS",
+    "after": "MongoDB CollectionFS",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "move-storage-gridfs",
+    "before": "Latine: MongoDB Meteor-Files",
+    "after": "MongoDB Meteor-Files",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "move-storage-s3",
+    "before": "Latine: S3/MinIO",
+    "after": "S3/MinIO",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-last-move",
+    "before": "Latine: Ultimus move",
+    "after": "Ultima translatio",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-repair-locations",
+    "before": "Latine: Repair fasciculus locations",
+    "after": "Corrige locos fasciculorum",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-repair-locations-description",
+    "before": "Latine: Find adnexa et avatars whose recorded storage (filesystem / GridFS / cloud) non longer matches ubi the fasciculus est, et fix the repositorio datorum ad point at the real locus.",
+    "after": "Quaere adiuncta et imagines usorum quorum repositorium relatum (systema fasciculorum / GridFS / nubes) iam non congruit cum loco fasciculi, et corrige datorum repositorium ut verum locum indicet.",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-repair-running",
+    "before": "Latine: Searching et repairing…",
+    "after": "Quaeritur et corrigitur…",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-repair-done",
+    "before": "Latine: Repair finitum.",
+    "after": "Correctio perfecta est.",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-repair-scanned",
+    "before": "Latine: Searched",
+    "after": "Examinata",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-repair-repaired",
+    "before": "Latine: Repaired",
+    "after": "Correcta",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-repair-broken",
+    "before": "Latine: non inventum",
+    "after": "Non inventa",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "move-scope",
+    "before": "Latine: Move",
+    "after": "Transfer",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "move-scope-avatars",
+    "before": "Latine: Avatars",
+    "after": "Imagines usorum",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "move-scope-both",
+    "before": "Latine: Adnexa et Avatars",
+    "after": "Adiuncta et imagines usorum",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "move-storage-all",
+    "before": "Latine: Omnia Read-enabled storages",
+    "after": "Omnia repositoria ex quibus legere licet",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "default-save-storage",
+    "before": "Latine: Praedefinitum Serva Storage",
+    "after": "Repositorium praedefinitum ad servandum",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "default-save-storage-description",
+    "before": "Latine: Elige the storage backend ubi newly immissum adnexa sunt servatum.",
+    "after": "Elige repositorium in quo adiuncta nuper immissa serventur.",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "default-save-storage-saved",
+    "before": "Latine: Praedefinitum serva storage servatum",
+    "after": "Repositorium praedefinitum servatum est",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "default-save-storage-save-failed",
+    "before": "Latine: Defecit ad serva praedefinitum storage",
+    "after": "Repositorium praedefinitum servari non potuit",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "move-progress-file",
+    "before": "Latine: Fasciculus",
+    "after": "Fasciculus",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "move-progress-pause",
+    "before": "Latine: Pause",
+    "after": "Intermitte",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "move-progress-resume",
+    "before": "Latine: Resume",
+    "after": "Resume",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "calculate-file-counts",
+    "before": "Latine: Calculate fasciculus counts",
+    "after": "Computa numeros fasciculorum",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "calculating-counts",
+    "before": "Latine: Calculating counts...",
+    "after": "Numeri computantur…",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "stats-scope",
+    "before": "Latine: Genus",
+    "after": "Genus",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "stats-collectionfs",
+    "before": "Latine: CollectionFS",
+    "after": "CollectionFS",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "stats-mongo-files",
+    "before": "Latine: Meteor-Files",
+    "after": "Meteor-Files",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "stats-count",
+    "before": "Latine: Count",
+    "after": "Numerus",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "avatars",
+    "before": "Latine: Avatars",
+    "after": "Imagines usorum",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "card-id",
+    "before": "Latine: Scheda ID",
+    "after": "Identificator chartae",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-id",
+    "before": "Latine: Adnexum ID",
+    "after": "Identificator adiuncti",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "board-id",
+    "before": "Latine: Tabula ID",
+    "after": "Identificator tabulae",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "gridfs-file-id",
+    "before": "Latine: GridFS Fasciculus ID",
+    "after": "Identificator fasciculi GridFS",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "s3-file-id",
+    "before": "Latine: S3 Fasciculus ID",
+    "after": "Identificator fasciculi S3",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "path",
+    "before": "Latine: Path",
+    "after": "Iter",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "version-name",
+    "before": "Latine: Version-Name",
+    "after": "Nomen versionis",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "size",
+    "before": "Latine: Magnitudo",
+    "after": "Magnitudo",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "storage",
+    "before": "Latine: Storage",
+    "after": "Repositorium",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "action",
+    "before": "Latine: Actio",
+    "after": "Actio",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "board-title",
+    "before": "Latine: Tabula Titulus",
+    "after": "Titulus tabulae",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "uploading",
+    "before": "Latine: Uploading",
+    "after": "Immittitur",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "remaining_time",
+    "before": "Latine: Remaining tempus",
+    "after": "Tempus reliquum",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "speed",
+    "before": "Latine: Celeritas",
+    "after": "Celeritas",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
+  },
+  {
+    "locale": "la",
+    "key": "progress",
+    "before": "Latine: Progress",
+    "after": "Progressus",
+    "reason": "Translate storage repair and progress messages into Latin, preserving technical names, read-enabled scope and distinct result states."
   }
 ]

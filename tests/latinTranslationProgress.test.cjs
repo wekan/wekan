@@ -980,3 +980,19 @@ for (const [storage, name] of [['gridfs', 'GridFS'], ['s3', 'S3'], ['fs', 'syste
   assert.ok(latin[`move-all-attachments-of-board-to-${storage}`].includes('omnia adiuncta tabulae'));
 }
 assert.match(latin['move-attachments-none-found'], /Nihil.*electo.*nihil transferendum/);
+
+const reviewedStorageRepairKeys = ["move-storage-collectionfs", "move-storage-gridfs", "move-storage-s3", "attachment-last-move", "attachment-repair-locations", "attachment-repair-locations-description", "attachment-repair-running", "attachment-repair-done", "attachment-repair-scanned", "attachment-repair-repaired", "attachment-repair-broken", "move-scope", "move-scope-avatars", "move-scope-both", "move-storage-all", "default-save-storage", "default-save-storage-description", "default-save-storage-saved", "default-save-storage-save-failed", "move-progress-file", "move-progress-pause", "move-progress-resume", "calculate-file-counts", "calculating-counts", "stats-scope", "stats-collectionfs", "stats-mongo-files", "stats-count", "avatars", "card-id", "attachment-id", "board-id", "gridfs-file-id", "s3-file-id", "path", "version-name", "size", "storage", "action", "board-title", "uploading", "remaining_time", "speed", "progress"];
+for (const key of reviewedStorageRepairKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Searching|Repair|Avatars|Default|Choose|Failed|Calculating|Remaining)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['attachment-repair-locations-description'], /iam non congruit cum loco fasciculi/);
+assert.match(latin['attachment-repair-locations-description'], /verum locum indicet/);
+assert.match(latin['move-storage-all'], /ex quibus legere licet/);
+assert.notEqual(latin['move-progress-pause'], latin['move-progress-resume']);
+assert.match(latin['default-save-storage-description'], /adiuncta nuper immissa/);
+assert.match(latin['default-save-storage-save-failed'], /non potuit/);
+assert.equal(new Set(['scanned', 'repaired', 'broken'].map(suffix => latin[`attachment-repair-${suffix}`])).size, 3);
+for (const key of ['move-storage-collectionfs', 'move-storage-gridfs', 'move-storage-s3', 'stats-collectionfs', 'stats-mongo-files']) {
+  assert.equal(latin[key], english[key]);
+}
