@@ -1937,6 +1937,18 @@ pending. Existing Chinese text is unchanged; broader review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f8c5783f41">Correct Corsican scheduling and migration translations</a>. Thanks to xet7.</summary>
+
+Repair 49 scheduling, storage and database-migration values. Preserve product
+names, migration prerequisites, file exclusions and configuration commands.
+
+The Corsican and repair-ledger suites and 21 human-preference checks pass.
+Migration-help browser coverage is registered; runtime execution remains
+pending. Existing Chinese text is unchanged; broader review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

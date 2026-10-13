@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican scheduling, cloud storage and migration — 2026-10-13
+
+Commit `f8c5783f41` repairs 49 values in the source-ordered review through
+key 2509. Scheduled-job controls distinguish pause, resume, start and retry.
+Cloud names remain literal and Azure connection-string guidance retains
+its optional replacement of account name and key. Database migration keeps
+its attachment/avatar exclusion, running-target prerequisite, both local
+URLs, environment variable names, restart and Snap configuration commands.
+Sandstorm migration states and raw-file labels lose Italian wording.
+
+The Corsican and full repair-ledger suites pass; the ledger contains
+26,560 guarded corrections. All 21 human-preference checks pass. Three
+Corsican attachment browser cases register, including migration help;
+syntax checking passes, but runtime execution remains pending. Exact
+comparison preserves 38,430 existing Chinese values. Broader language
+review remains unfinished.
+
 ## Corsican recurrence, uploads and account controls — 2026-10-13
 
 Commit `9cb558de5f` repairs 46 values in the source-ordered review through
