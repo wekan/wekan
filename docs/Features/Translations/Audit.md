@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin card archive and voting messages — 2026-10-14
+
+Commit `d3ea074216` repairs 40 prefixed messages for card archiving and deletion,
+list/swimlane restoration, card editing and voting. Gantt remains its technical
+name. Semantic tests preserve permanent loss of actions on deletion, retained
+history when archiving, later restoration, card membership scope, authenticated
+voter eligibility and opposing vote roles.
+
+The Latin and guarded-correction suites pass with 27,327 ledger entries. All 21
+human-preference checks pass. An archive-confirmation browser case checks the
+restoration message and that the card remains unarchived before confirmation;
+syntax and discovery pass, runtime remains pending. Exact comparison preserves
+38,430 existing Chinese values.
+
+There remain 2,057 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin board appearance and view controls — 2026-10-14
 
 Commit `57534c06e9` repairs 44 mixed-language labels and messages for board

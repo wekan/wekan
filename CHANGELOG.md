@@ -2858,6 +2858,21 @@ containing the old language prefix; all-language review remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d3ea074216">Repair Latin card archive and voting messages</a>. Thanks to xet7.</summary>
+
+Repair 40 mixed-language strings for card archives, deletion, editing and
+voting.
+Preserve reversible archiving versus permanent deletion, activity retention,
+member scope and voting roles. Retain Gantt as a technical name.
+
+The Latin and guarded-correction suites and all 21 preservation checks pass.
+The archive-confirmation browser case passes syntax and discovery; runtime
+remains pending. Existing Chinese values are unchanged. There remain 2,057 Latin
+values containing the old language prefix; all-language review is unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
