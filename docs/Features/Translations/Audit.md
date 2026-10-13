@@ -2,6 +2,34 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Chinese email-to-card review — 2026-10-13
+
+Commit `f84a8e3a83` adds semantic and browser coverage for the 49 new email
+strings in `cmn`, `zh`, `zh-CN`, `zh-GB`, `zh-Hans`, `zh_SG`, `zh-HK`,
+`zh-Hant` and `zh-TW`. The feature and translations were already present
+in concurrent working-tree changes. This review did not rewrite them.
+All 441 new values contain Chinese text, differ from English, preserve
+placeholders and retain required protocol and provider names. Checks cover
+identity, write permission, secret retention, old-address invalidation,
+Sandstorm subjects, quoted-message omission, and read versus delete choices.
+All 37,287 pre-existing values in these catalogs match parent `706c9f34c1`.
+
+Both focused suites pass, including all nine new semantic cases without
+skips, and all 21 human-preference checks pass. Eighteen browser cases
+register for board destinations and administrator controls. They have not
+run against a rebuilt app. Unsaved mailbox rows are removed without saving
+credentials or contacting mail servers. Both test files explicitly skip
+when the independently developed feature's English source strings are
+absent; the current working tree includes those strings.
+
+A refreshed inventory after concurrent email translations counts 53,863
+filtered English candidates across 116 non-English catalogs, including
+pending keys. The ordinary report counts 28,516 values across 42 catalogs,
+excluding 379 pending source keys. No email keys remain in the filtered
+fill inventory. These counts do not certify the semantic quality of all
+translations. Broader language review, the remaining time-history notes,
+and browser execution remain unfinished.
+
 ## Time-history regional and South Asian review — 2026-10-13
 
 Commit `c6aa8490d0` repairs 23 more abbreviated notes: Belarusian, Assamese,

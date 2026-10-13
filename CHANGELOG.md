@@ -129,11 +129,11 @@ previously held for Transifex. Completed work is recorded in Upcoming and
 releases.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **39,982 untranslated locale/string values in 234 languages**.
+  report counts **28,516 untranslated locale/string values in 42 languages**.
   It excludes **379 source keys tracked separately as pending Transifex**.
   With 49 new email strings in the working tree, full per-locale `--list`
-  reports, including pending keys, count **65,329 remaining values across
-  234 non-English locale files**. This fuller inventory remains the scope
+  reports, including pending keys, count **53,863 remaining values across
+  116 non-English locale files**. This fuller inventory remains the scope
   of the translation work.
   A separate short-prose audit flags 1,649 candidates across 180 locales.
   The two notification At/To labels now have translations in all non-English
@@ -146,8 +146,9 @@ releases.
   current broad run still exposes English placeholders in several catalogs;
   see the dated audit results. Empty reports do not establish fluency.
 - Earlier empty fill reports below describe their recorded batches. The
-  newly added email strings expand the backlog in every non-English catalog;
-  they still need translation, including new Chinese keys only.
+  new email strings now have no filtered English fill candidates. Nine Chinese
+  catalogs passed review of all 441 new values; their 37,287 earlier values
+  remain unchanged. Empty reports alone do not establish fluent translation.
 - The shared time-history audit covers 125 repaired explanations, including
   five English regional catalogs. Editor grouping, individual-session
   exclusion, negative corrections and missing historical attribution are
@@ -1035,6 +1036,23 @@ and 21 human-preference checks pass. The browser flow registers 126 cases
 including English but has not run against a rebuilt app. Some regional
 technical wording is provisional pending fluent review. Existing Chinese
 text and unrelated translations remain unchanged.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f84a8e3a83">Verify new Chinese email-to-card translations</a>. Thanks to xet7.</summary>
+
+Review all 49 new strings in nine Chinese catalogs, covering 441 values.
+Check identity and write-permission warnings, secret retention, invalidated
+addresses, and the distinction between marking mail read and deleting it.
+All 37,287 earlier values remain unchanged; this review adds tests without
+rewriting the translations being developed with the email feature.
+
+Two focused suites and 21 human-preference checks pass. Eighteen browser
+cases register for board destinations and administrator mailbox controls;
+they have not run against a rebuilt app. The tests explicitly skip on
+branches without the email feature's source strings. All nine semantic
+cases ran without skips against the current working tree.
 
 </details>
 
