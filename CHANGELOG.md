@@ -764,6 +764,36 @@ runtime test posts to each endpoint over HTTP.
 
 </details>
 
+**BSD** - WeKan on FreeBSD, OpenBSD and NetBSD.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1cbd7df31f">A Node.js bundle for FreeBSD, and the bundles for OpenBSD and NetBSD ready</a>. Thanks to xet7.</summary>
+
+`.github/workflows/bsd.yml`, called by Release All, takes the release's amd64
+bundle and adds the BSD's Node.js (wekan/node-patches) and FerretDB. It then
+compiles the native modules inside a VM of that BSD, starts the bundle there
+with its own `start-wekan.sh`, and attaches the zip once it answers HTTP 200.
+FreeBSD x64 builds now. OpenBSD amd64/arm64 and NetBSD amd64 build
+automatically once node-patches publishes their Node.js, which it now builds
+from the OS packagers' own patch sets. Where each BSD stands, and which patches
+exist for it, is in [BSD](docs/Platforms/FOSS/OS/BSD.md).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/58f8b67904">Each platform's existing Node.js patches are listed; OpenBSD and NetBSD build settings</a>. Thanks to xet7.</summary>
+
+The BSD page lists the patch sets FreeBSD ports, OpenBSD ports, pkgsrc and
+DragonFly's DeltaPorts keep for Node.js, and what WeKan does with each. It also
+covers Bun, sharp/libvips, bcrypt and FerretDB on every BSD, and how to install
+on OpenBSD (under `/usr/local`, which is mounted `wxallowed`) and on NetBSD
+(`paxctl`). The OpenBSD bundle job mounts its workspace `wxallowed`, and the
+NetBSD job compiles native modules with pkgsrc's GCC 14.
+`tests/bsdBundles.test.cjs` covers the targets, the workflow and the start
+test.
+
+</details>
+
 **Board views** - the board as a mailbox and as a chat.
 
 <details>
