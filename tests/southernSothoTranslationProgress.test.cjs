@@ -318,3 +318,28 @@ for (const literal of ['TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED']) asser
 for (const [format, literal] of [['obsidian', '.md'], ['nullboard', '.nbx'], ['taiga', '.json.gz'], ['vikunja', 'data.json'], ['monday', '.xlsx'], ['redmine', '% Done'], ['superproductivity', 'sp-backup']]) {
   assert.ok(sesotho[`import-board-instruction-${format}`].includes(literal), literal);
 }
+
+const translatedImportControlKeys = ["import-members-mode-heading", "import-members-mode-map", "import-members-mode-placeholder", "import-members-mode-me", "csv-mapping-title", "csv-mapping-description", "csv-mapping-not-in-file", "csv-mapping-column-number", "csv-mapping-list-missing", "csv-mapping-list-name", "csv-mapping-custom-fields", "csv-mapping-boards", "csv-mapping-skipped-sheets", "csv-mapping-title-required", "csv-mapping-list-required", "invalid-import-mapping", "import-many-boards", "import-many-boards-hint", "import-one-board-per-project", "import-one-board-per-project-hint", "import-many-progress", "import-many-results-heading", "import-many-imported", "export-all-boards", "export-selected-boards", "export-all-boards-hint", "exportAllBoardsPopup-title", "exportToTrelloPopup-title", "trello-export-desc", "trello-export-include-attachments", "trello-export-start", "trello-export-open-board", "trello-export-warnings", "sandstorm-trello-access-needed", "sandstorm-allow-trello-access", "sandstorm-trello-access-granted", "sandstorm-forget-access", "sandstorm-trello-save-label", "external-link-rules", "external-link-rules-description", "external-link-identifier-aliases", "webhook-payload-heading", "webhook-payload-description", "webhook-payload-text", "webhook-payload-fields", "webhook-payload-field-standard", "webhook-payload-field-ids", "webhook-payload-field-names", "webhook-payload-field-links", "webhook-payload-field-actor", "webhook-payload-field-people", "webhook-payload-field-details", "webhook-hide-identity", "webhook-someone", "notification-delivery-layout-classic"];
+for (const key of translatedImportControlKeys) {
+  assert.notEqual(sesotho[key], english[key], `${key}: no English placeholder`);
+  assert.deepEqual(tokens(sesotho[key]), tokens(english[key]), key);
+}
+assert.match(sesotho['import-members-mode-placeholder'], /mabitso a bona.*basebedisi ba nnete hamorao/);
+assert.equal(sesotho['import-members-mode-me'], 'Ba etse bohle nna');
+assert.match(sesotho['csv-mapping-description'], /fetola tse fosahetseng.*ha e yo faeleng/);
+assert.match(sesotho['csv-mapping-list-missing'], /ha e na kholomo.*lenane le le leng.*dikarete tsohle/);
+assert.deepEqual(tokens(sesotho['csv-mapping-column-number']), ['__number__']);
+assert.deepEqual(tokens(sesotho['import-many-progress']), ['__done__', '__name__', '__total__']);
+assert.match(sesotho['import-many-boards-hint'], /ntle le ho hokahanya ditho.*Vikunja, Notion, Plane.*WeKan.*boto e le nngwe/);
+assert.match(sesotho['import-many-boards-hint'], /ho ena le karolo e ka hodimo/);
+assert.match(sesotho['export-all-boards-hint'], /eo o ka e ntshang.*Excel.*leqephe.*\.zip.*faele/);
+assert.ok(sesotho['trello-export-desc'].includes('"Swimlane: …"'));
+assert.match(sesotho['sandstorm-trello-access-needed'], /ha e na phihlello.*Qala ka ho dumella/);
+for (const key of ['external-link-rules-description', 'external-link-identifier-aliases']) {
+  const braces = value => value.match(/\{(?:number|identifier)\}/g) || [];
+  assert.deepEqual(braces(sesotho[key]), braces(english[key]), key);
+}
+assert.ok(sesotho['external-link-rules-description'].includes('[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
+assert.match(sesotho['webhook-payload-description'], /peakanyo e futsitsweng.*ha ho sa behwa letho/);
+assert.match(sesotho['webhook-payload-field-standard'], /WEBHOOKS_ATTRIBUTES/);
+assert.match(sesotho['webhook-hide-identity'], /^Se kenye lebitso la ka/);
