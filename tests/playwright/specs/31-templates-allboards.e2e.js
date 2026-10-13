@@ -446,3 +446,13 @@ test.describe('#2339 #5850 All Boards / Templates redesign', () => {
     }
   });
 });
+
+test('Corsican template container action shows corrected wording', async ({ page, user }) => {
+  await loginWithToken(page, user.id, user.token);
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'co'));
+  await navigateInApp(page, '/templates');
+  const action = page.locator('a.board-list-item.is-template-container[title="Aghjunghje un cuntenitore di mudelli"]');
+  await expect(action).toBeVisible();
+  await expect(action).toContainText('Aghjunghje un cuntenitore di mudelli');
+  await expect(action).not.toContainText('contenitore di Template');
+});

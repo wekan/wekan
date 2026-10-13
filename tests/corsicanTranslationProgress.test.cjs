@@ -293,3 +293,15 @@ assert.match(corsican['set-selected-starred'], /Aghjunghje.*preferite/);
 assert.match(corsican['set-selected-unstarred'], /Caccià.*preferite/);
 assert.match(corsican['swimlane-height-error-message'], /numeru interu pusitivu/);
 assert.match(corsican['archive-permanent-delete-disabled-hint'], /amministratore glubale.*marcatu.*buttone Squassà diventerà visibile/);
+
+const displayCorrectionKeys = ["add-after-list", "admin-announcement", "all-boards-hide", "public-boards", "board-creation-admin-only", "app-is-offline", "app-try-reconnect", "archive-list", "archive-swimlane", "archive-selection", "archiveBoardPopup-title", "archived-boards", "no-archived-boards", "template-container", "add-template-container", "assign-member", "attached", "attachment-delete-pop", "auto-watch", "show-at-all-boards-page", "board-info-on-my-boards", "boardInfoOnMyBoardsPopup-title", "boardInfoOnMyBoards-title", "show-card-counter-per-list", "board-not-found", "board-drag-drop-reorder-or-click-open", "board-open-and-move-between-remaining-and-workspaces"];
+for (const key of displayCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /\b(?:Dopo|Annunci|Impostazioni|attendere|Aggiornare|Move|nell|Spostare|Nessuna|Contenitore|Assegna|allegatu|Segui|numero|non trovata|Trascina|Clicca|quatretti)\b/, key);
+}
+assert.match(corsican['app-is-offline'], /Attualizà a pagina causerà una perdita di dati.*servore.*piantatu/);
+assert.match(corsican['attachment-delete-pop'], /permanente.*Ùn si pò annullà/);
+assert.match(corsican['board-creation-admin-only'], /Solu l’amministratori.*tavule/);
+assert.match(corsican['auto-watch'], /automaticamente.*quand’elle sò create/);
+assert.match(corsican['board-drag-drop-reorder-or-click-open'], /riurdinà.*Cliccate.*apre la/);
+assert.match(corsican['board-open-and-move-between-remaining-and-workspaces'], /maniglia di trascinamentu.*__workspaces__.*barra laterale/);

@@ -178183,5 +178183,194 @@
     "before": "Aghjunghje immagine di copertina a minicard",
     "after": "Aghjunghje una maghjina di cupertina à a minicarta",
     "reason": "Replace Italian or mixed-language workspace and card controls with Corsican; preserve date tokens, selection scope and nondeletion warnings."
+  },
+  {
+    "locale": "co",
+    "key": "add-after-list",
+    "before": "Aghjunghje Dopo la Lista",
+    "after": "Aghjunghje dopu a lista",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "admin-announcement",
+    "before": "Annunci",
+    "after": "Annunziu",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "all-boards-hide",
+    "before": "Tutte le tavule: piattà",
+    "after": "Tutte e tavule: piattà",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "public-boards",
+    "before": "Tavule pubbliche",
+    "after": "Tavule publiche",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "board-creation-admin-only",
+    "before": "Solu l'amministratori ponu creà i quatretti",
+    "after": "Solu l’amministratori ponu creà tavule",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "app-is-offline",
+    "before": "Caricamentu, attendere prego. Aggiornare la pagina porterà ad una perdita dei dati. Se il caricamentu non dovesse funzionare, per favore controlla che il server non sia stato fermato.",
+    "after": "Caricamentu, aspittate. Attualizà a pagina causerà una perdita di dati. S’è u caricamentu ùn funziona micca, verificate chì u servore ùn sia micca piantatu.",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "app-try-reconnect",
+    "before": "Prova a ricollegarti",
+    "after": "Pruvà à cunnettassi torna.",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "archive-list",
+    "before": "Move lista nell'archiviu",
+    "after": "Spustà a lista in l’archiviu",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "archive-swimlane",
+    "before": "Move swimlane nell'archiviu",
+    "after": "Spustà u curridore in l’archiviu",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "archive-selection",
+    "before": "Move elementi selezionati nell'archiviu",
+    "after": "Spustà l’elementi scelti in l’archiviu",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "archiveBoardPopup-title",
+    "before": "Spostare tavula nell'archiviu?",
+    "after": "Spustà a tavula in l’archiviu?",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "archived-boards",
+    "before": "Tavule nell'archiviu",
+    "after": "Tavule in l’archiviu",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "no-archived-boards",
+    "before": "Nessuna tavula presente nell'archiviu.",
+    "after": "Nisuna tavula in l’archiviu.",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "template-container",
+    "before": "Contenitore dei Template",
+    "after": "Cuntenitore di mudelli",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "add-template-container",
+    "before": "Aghjunghje contenitore di Template",
+    "after": "Aghjunghje un cuntenitore di mudelli",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "assign-member",
+    "before": "Assegna a un membru",
+    "after": "Assignà un membru",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "attached",
+    "before": "allegatu",
+    "after": "in appicciu",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-delete-pop",
+    "before": "L'eliminazione di un allegatu è permanente. Non è possibile tornare indietro.",
+    "after": "A squassatura d’un appicciu hè permanente. Ùn si pò annullà st’azzione.",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "auto-watch",
+    "before": "Segui automaticamente le tavule quando vengono create.",
+    "after": "Seguità automaticamente e tavule quand’elle sò create",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "show-at-all-boards-page",
+    "before": "Mustrà in a pagina Tutte le tavule",
+    "after": "Mustrà in a pagina Tutte e tavule",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "board-info-on-my-boards",
+    "before": "Impostazioni di tutte le tavule",
+    "after": "Paràmetri di tutte e tavule",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "boardInfoOnMyBoardsPopup-title",
+    "before": "Impostazioni di tutte le tavule",
+    "after": "Paràmetri di tutte e tavule",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "boardInfoOnMyBoards-title",
+    "before": "Impostazioni di tutte le tavule",
+    "after": "Paràmetri di tutte e tavule",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "show-card-counter-per-list",
+    "before": "Mustrà numero carte per lista",
+    "after": "Mustrà u numeru di carte per lista",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "board-not-found",
+    "before": "Tavula non trovata",
+    "after": "Tavula micca truvata",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "board-drag-drop-reorder-or-click-open",
+    "before": "Trascina e rilascia per riordinare le icone di e tavule. Clicca l'icona di una tavula per aprirla.",
+    "after": "Trascinate è lasciate per riurdinà l’icone di e tavule. Cliccate l’icona d’una tavula per apre la.",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
+  },
+  {
+    "locale": "co",
+    "key": "board-open-and-move-between-remaining-and-workspaces",
+    "before": "Clicca per aprire la tavula. Usa la maniglia per assegnare la tavula a __workspaces__ (rilascia sullo spaziu di travagliu in a barra laterale).",
+    "after": "Cliccate per apre a tavula. Aduprate a maniglia di trascinamentu per assignà a tavula à __workspaces__ (lasciate la nant’à u spaziu di travagliu in a barra laterale).",
+    "reason": "Repair Italian or mixed-language board display and attachment prose; preserve offline data-loss warning, archive behavior and drag/drop instructions."
   }
 ]
