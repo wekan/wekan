@@ -3,9 +3,11 @@ const { test, expect } = require('../fixtures');
 const { loginWithToken, navigateInApp } = require('../helpers/auth');
 const strings = require('../../../imports/i18n/data/co.i18n.json');
 
-test('Corsican attachment limits preserve transfer directions and unit labels', async ({ page, adminUser }) => {
+for (const language of ['co', 'la']) {
+const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
+test(`Attachment limits preserve transfer directions and unit labels in ${language}`, async ({ page, adminUser }) => {
   await loginWithToken(page, adminUser.id, adminUser.token);
-  await page.evaluate(() => Meteor.callAsync('setLanguage', 'co'));
+  await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
   await navigateInApp(page, '/admin/attachments/limits');
   const pane = page.locator('#attachment-limits-setting');
   await expect(pane.locator('h3')).toHaveText(strings['attachment-transfer-limits-title']);
@@ -20,8 +22,9 @@ test('Corsican attachment limits preserve transfer directions and unit labels', 
   for (const [value, label] of [['gb', 'GB'], ['mb', 'MB'], ['bytes', 'Bytes']]) {
     await expect(units.locator(`option[value="${value}"]`)).toHaveText(label);
   }
-  await expect(units).not.toContainText('In corsu');
+  await expect(units).not.toContainText(language === 'la' ? 'Latine:' : 'In corsu');
 });
+}
 
 test('Corsican default storage describes newly uploaded attachments', async ({ page, adminUser }) => {
   await loginWithToken(page, adminUser.id, adminUser.token);

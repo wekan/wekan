@@ -195221,5 +195221,285 @@
     "before": "Latine: Limits",
     "after": "Limites",
     "reason": "Repair upload, appearance and WIP messages, preserving success/failure states, URL placement and limit recovery choices."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-transfer-limits-description",
+    "before": "Latine: Configure maximum fasciculus magnitudo limits for uploads et downloads. API transfer buffering has separate server-side safety caps.",
+    "after": "Constitue limites maximae magnitudinis fasciculorum immittendorum et recipiendorum. Memoria temporaria translationum API proprios limites securitatis in servitore habet.",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-transfer-limits-saved",
+    "before": "Latine: Adnexum transfer limits servatum.",
+    "after": "Limites translationis adiunctorum servati sunt.",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-transfer-limits-save-failed",
+    "before": "Latine: Defecit ad serva adnexum transfer limits",
+    "after": "Limites translationis adiunctorum servari non potuerunt",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-transfer-limits-invalid-value",
+    "before": "Latine: Please enter a validum positive limit valor",
+    "after": "Quaeso valorem limitis validum et positivum insere",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-upload-limit-label",
+    "before": "Latine: Adnexa immitte max fasciculus magnitudo",
+    "after": "Maxima magnitudo adiuncti immittendi",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "avatars-upload-blocked-label",
+    "before": "Latine: Avatars",
+    "after": "Imagines usorum",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "avatars-upload-blocked-description",
+    "before": "Latine: Block usores ex uploading novum avatars (useful quando avatars sunt synced ex another fons). Avatars sunt habilitatum a praedefinitum.",
+    "after": "Prohibe usores ne novas imagines usorum immittant (utile cum imagines ex alio fonte synchronizantur). Imagines usorum praedefinite permissae sunt.",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-download-limit-label",
+    "before": "Latine: Adnexa deposce max fasciculus magnitudo",
+    "after": "Maxima magnitudo adiuncti recipiendi",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "api-upload-limit-label",
+    "before": "Latine: API immitte max fasciculus magnitudo",
+    "after": "Maxima magnitudo fasciculi per API immittendi",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "api-download-limit-label",
+    "before": "Latine: API deposce max fasciculus magnitudo",
+    "after": "Maxima magnitudo fasciculi per API recipiendi",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-limit-mode-unlimited",
+    "before": "Latine: Unlimited",
+    "after": "Sine limite",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-limit-mode-max-size",
+    "before": "Latine: Maximum fasciculus magnitudo",
+    "after": "Maxima magnitudo fasciculi",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-limit-mode-blocked",
+    "before": "Latine: Obstructum",
+    "after": "Prohibitum",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-limit-unit-gb",
+    "before": "Latine: GB",
+    "after": "GB",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-limit-unit-mb",
+    "before": "Latine: MB",
+    "after": "MB",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-limit-unit-bytes",
+    "before": "Latine: Bytes",
+    "after": "Bytes",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "registration",
+    "before": "Latine: Registration",
+    "after": "Adscriptio",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "self-registration",
+    "before": "Latine: Self-Registration",
+    "after": "Adscriptio propria",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "invite",
+    "before": "Latine: Invita",
+    "after": "Invita",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "invite-people",
+    "before": "Latine: Invita People",
+    "after": "Invita homines",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "to-boards",
+    "before": "Latine: Ad tabula(s)",
+    "after": "Ad tabulam vel tabulas",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "email-addresses",
+    "before": "Latine: Epistula electronica Addresses",
+    "after": "Inscriptiones electronicae",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "smtp-host-description",
+    "before": "Latine: The address de the SMTP ministrator illud handles tuum emails.",
+    "after": "Inscriptio servitoris SMTP qui epistulas tuas electronicas tractat.",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "smtp-port-description",
+    "before": "Latine: The port tuum SMTP ministrator uses for outgoing emails.",
+    "after": "Portus quo servitor tuus SMTP ad epistulas electronicas mittendas utitur.",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "smtp-tls-description",
+    "before": "Latine: Habilita TLS support for SMTP ministrator",
+    "after": "Activa usum TLS pro servitore SMTP",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "smtp-host",
+    "before": "Latine: SMTP Host",
+    "after": "Servitor SMTP",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "smtp-port",
+    "before": "Latine: SMTP Port",
+    "after": "Portus SMTP",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "smtp-tls",
+    "before": "Latine: TLS support",
+    "after": "Usus TLS",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "send-from",
+    "before": "Latine: Ex",
+    "after": "A",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "send-smtp-test",
+    "before": "Latine: Mitte a probatio epistula electronica ad yourself",
+    "after": "Mitte epistulam electronicam probationis tibi ipsi",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "email-templates-invite-subject",
+    "before": "Latine: Invita Litterae electronicae Latine: Subject",
+    "after": "Argumentum epistulae invitationis",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "email-templates-invite-body",
+    "before": "Latine: Invita Litterae electronicae Latine: Textus",
+    "after": "Textus epistulae invitationis",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "invitation-code",
+    "before": "Latine: Invitation Code",
+    "after": "Codex invitationis",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "email-invite-register-subject",
+    "before": "Latine: __inviter__ missum tu an invitation",
+    "after": "__inviter__ invitationem tibi misit",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "email-invite-register-text",
+    "before": "Latine: Dear __user__, __inviter__ invites tu ad kanban tabula for collaborations. Please follow the vinculum below:\n__url__ Et tuum invitation code est: __icode__ Thanks.",
+    "after": "Salve __user__,\n\n__inviter__ te invitat ad tabulam kanban pro opere communi.\n\nQuaeso sequere ligamen infra:\n__url__\n\nCodex invitationis tuae est: __icode__\n\nGratias.",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "email-smtp-test-subject",
+    "before": "Latine: SMTP Probatio Epistula electronica",
+    "after": "Epistula electronica probationis SMTP",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "email-smtp-test-text",
+    "before": "Latine: Tu have successfully missum an epistula electronica",
+    "after": "Epistulam electronicam feliciter misisti",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "error-invitation-code-not-exist",
+    "before": "Latine: Invitation code doesn't exist",
+    "after": "Codex invitationis non exsistit",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "error-notAuthorized",
+    "before": "Latine: Tu sunt non authorized ad vide hoc pagina.",
+    "after": "Hanc paginam videre tibi non licet.",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
+  },
+  {
+    "locale": "la",
+    "key": "webhook-title",
+    "before": "Latine: hamus interretialis Nomen",
+    "after": "Nomen hami interretialis",
+    "reason": "Repair transfer limits, SMTP and invitation messages, preserving units, separate server caps and invitation variables."
   }
 ]

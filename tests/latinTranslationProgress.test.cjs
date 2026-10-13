@@ -519,3 +519,20 @@ assert.match(latin['watching-info'], /omni mutatione/);
 assert.match(latin['wipLimitErrorPopup-dialog-pt1'], /maior est quam limes WIP/);
 assert.match(latin['wipLimitErrorPopup-dialog-pt2'], /ex hoc indice move, aut maiorem limitem/);
 assert.equal(new Set(['card', 'list', 'board'].map(kind => latin[`${kind}-templates-swimlane`])).size, 3);
+
+const reviewedTransferKeys = ["attachment-transfer-limits-description", "attachment-transfer-limits-saved", "attachment-transfer-limits-save-failed", "attachment-transfer-limits-invalid-value", "attachment-upload-limit-label", "avatars-upload-blocked-label", "avatars-upload-blocked-description", "attachment-download-limit-label", "api-upload-limit-label", "api-download-limit-label", "attachment-limit-mode-unlimited", "attachment-limit-mode-max-size", "attachment-limit-mode-blocked", "attachment-limit-unit-gb", "attachment-limit-unit-mb", "attachment-limit-unit-bytes", "registration", "self-registration", "invite", "invite-people", "to-boards", "email-addresses", "smtp-host-description", "smtp-port-description", "smtp-tls-description", "smtp-host", "smtp-port", "smtp-tls", "send-from", "send-smtp-test", "email-templates-invite-subject", "email-templates-invite-body", "invitation-code", "email-invite-register-subject", "email-invite-register-text", "email-smtp-test-subject", "email-smtp-test-text", "error-invitation-code-not-exist", "error-notAuthorized", "webhook-title"];
+for (const key of reviewedTransferKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Avatars|Unlimited|Registration|Addresses|support|yourself|Dear|Thanks|authorized)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+for (const [key, value] of [['gb', 'GB'], ['mb', 'MB'], ['bytes', 'Bytes']]) assert.equal(latin[`attachment-limit-unit-${key}`], value);
+assert.match(latin['attachment-transfer-limits-description'], /API proprios limites securitatis in servitore/);
+assert.match(latin['attachment-transfer-limits-invalid-value'], /validum et positivum/);
+assert.match(latin['avatars-upload-blocked-description'], /Prohibe.*novas.*praedefinite permissae/);
+assert.equal(new Set(['unlimited', 'max-size', 'blocked'].map(mode => latin[`attachment-limit-mode-${mode}`])).size, 3);
+assert.match(latin['smtp-port-description'], /mittendas/);
+assert.match(latin['send-smtp-test'], /tibi ipsi$/);
+assert.equal(latin['email-invite-register-subject'], latin['email-invite-subject']);
+assert.ok(latin['email-invite-register-text'].includes('\n__url__\n\n'));
+assert.ok(latin['email-invite-register-text'].includes('__icode__'));
+assert.notEqual(latin['email-templates-invite-subject'], latin['email-templates-invite-body']);
