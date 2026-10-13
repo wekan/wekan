@@ -2,6 +2,27 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican final recovery and email review — 2026-10-13
+
+Commit `e88d2ebc11` reviews the final 440 strings, reaching all 4,270
+English source keys. Five Italian labels become Corsican: sync progress,
+reason, two refresh buttons and incoming email attachments. Existing
+translated Scrum, sync, import, email and chat prose is preserved.
+Regression checks retain partial-import and permanent-deletion warnings,
+idempotent history retries, private address permissions and recipient limits.
+
+The Corsican suite and full ledger verification pass; the ledger contains
+26,874 guarded corrections. All 21 human-preference checks pass. Recovery
+browser assertions for both refresh buttons pass syntax and discovery;
+runtime execution remains pending without the UI stack. Exact comparison
+preserves 38,430 existing Chinese values.
+
+The refreshed filtered inventory still contains 28,516 untranslated strings
+across 42 languages, excluding 379 pending Transifex keys. Corsican has no
+filtered English backlog. Source-ordered review is not native-speaker
+certification, and the all-language translation and fluency audit remains
+unfinished.
+
 ## Corsican remaining Blockly operations and Scrum labels — 2026-10-13
 
 Commit `6d22052060` extends the source-ordered review through key 3829.

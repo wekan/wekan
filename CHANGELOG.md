@@ -2086,6 +2086,20 @@ execution remains pending. Existing Chinese text is unchanged.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e88d2ebc11">Complete the source-ordered Corsican catalog review</a>. Thanks to xet7.</summary>
+
+Review the final 440 strings and correct five Italian recovery and email
+attachment labels. Preserve existing warnings about partial imports, sync
+recovery and private email addresses. The review now reaches all 4,270 keys;
+it does not certify native fluency or complete the all-language audit.
+
+The Corsican and repair-ledger checks and 21 human-preference checks pass.
+Recovery-button browser assertions pass syntax and discovery checks; runtime
+execution remains pending. Existing Chinese text is unchanged.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
