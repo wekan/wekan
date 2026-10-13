@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican storage migration and avatar guidance — 2026-10-13
+
+Commit `78d684e364` repairs 25 mixed-language storage, account and scheduling
+values. Migration text retains the running-target prerequisite, unaffected
+filesystem files, first-launch Sandstorm migration, exact attachment/avatar
+paths and irreversible cleanup after successful migration. Compact guidance
+retains the lack of automatic shrinking and the requirement to finish file
+moves first. Avatar settings retain other data and their disabled defaults.
+
+The Corsican and full repair-ledger suites pass, bringing the ledger to
+25,398 guarded repairs. All 21 human-preference checks pass. The S3 settings
+browser suite now includes Corsican and verifies path-style guidance along
+with existing field descriptions; its Corsican case registers but has not
+run against the application. Exact comparison preserves all 38,385 existing
+protected Chinese values and limits locale changes to the 25 reviewed keys.
+Broader language review remains unfinished.
+
 ## Corsican administrative and storage wording — 2026-10-13
 
 Commit `1e10d606b5` corrects 25 mixed-language role, membership, shared-template, search and storage messages. Deletion refusals retain the

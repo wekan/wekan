@@ -1544,6 +1544,19 @@ Existing protected Chinese values are unchanged. Broader review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/78d684e364">Correct Corsican storage migration and avatar guidance</a>. Thanks to xet7.</summary>
+
+Repair 25 mixed-language values for storage repair, database migration,
+Sandstorm cleanup, avatars, account unlocking and scheduled operations.
+Preserve migration prerequisites, retained data and irreversible warnings.
+
+The Corsican suite, full repair-ledger suite and 21 human-preference checks
+pass. The S3 settings browser case registers for Corsican; execution remains
+pending. Protected Chinese values are unchanged; broader review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
