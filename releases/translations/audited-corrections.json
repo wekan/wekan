@@ -197034,5 +197034,257 @@
     "before": "Latine: Actio",
     "after": "Actio",
     "reason": "Repair Latin rule action, duration and button labels; retain completion polarity, all-card scope and relative-date meaning."
+  },
+  {
+    "locale": "la",
+    "key": "r-when-a-card",
+    "before": "Latine: Quando a scheda",
+    "after": "Cum charta",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-is",
+    "before": "Latine: est",
+    "after": "est",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-is-moved",
+    "before": "Latine: est motum",
+    "after": "movetur",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-added-to",
+    "before": "Latine: additum ad",
+    "after": "additur in",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-attachment-added-to",
+    "before": "Latine: additum ad",
+    "after": "additur in",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-removed-from",
+    "before": "Latine: remotum ex",
+    "after": "removetur ex",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-attachment-removed-from",
+    "before": "Latine: remotum ex",
+    "after": "removetur ex",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-the-board",
+    "before": "Latine: the tabula",
+    "after": "in tabula",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-list",
+    "before": "Latine: index",
+    "after": "indice",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "set-filter",
+    "before": "Latine: Set Filtrum",
+    "after": "Constitue filtrum",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-moved-to",
+    "before": "Latine: Motum ad",
+    "after": "collocatur in",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-moved-from",
+    "before": "Latine: Motum ex",
+    "after": "removetur ex",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-archived",
+    "before": "Latine: Motum ad Archivum",
+    "after": "in archivum transfertur",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-unarchived",
+    "before": "Latine: Restitutum ex Archivum",
+    "after": "ex archivo restituitur",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-a-card",
+    "before": "Latine: a scheda",
+    "after": "charta",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-when-a-label-is",
+    "before": "Latine: Quando a titulus est",
+    "after": "Cum titulus",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-when-the-label",
+    "before": "Latine: Quando the titulus",
+    "after": "Cum titulus",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-list-name",
+    "before": "Latine: index nomen",
+    "after": "nomen indicis",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-when-a-member",
+    "before": "Latine: Quando a sodalis est",
+    "after": "Cum membrum",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-when-the-member",
+    "before": "Latine: Quando the sodalis",
+    "after": "Cum membrum",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-name",
+    "before": "Latine: nomen",
+    "after": "nomen",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-when-a-attach",
+    "before": "Latine: Quando an adnexum",
+    "after": "Cum adiunctum",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-when-a-due-date-changed",
+    "before": "Latine: Due: dies mutata est",
+    "after": "Cum dies debitus constituitur vel mutatur",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-when-a-end-date-changed",
+    "before": "Latine: End: dies mutata est",
+    "after": "Cum dies finis constituitur vel mutatur",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-when-a-received-date-changed",
+    "before": "Latine: Received: dies mutata est",
+    "after": "Cum dies receptionis constituitur vel mutatur",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-when-a-checklist",
+    "before": "Latine: Quando a index probationis est",
+    "after": "Cum index probationis",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-when-the-checklist",
+    "before": "Latine: Quando the index probationis",
+    "after": "Cum index probationis",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-completed",
+    "before": "Latine: Perfectum",
+    "after": "perficitur",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-made-incomplete",
+    "before": "Latine: Made incomplete",
+    "after": "imperfectus redditur",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-when-a-item",
+    "before": "Latine: Quando a res indicis est",
+    "after": "Cum res indicis probationis",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-when-the-item",
+    "before": "Latine: Quando the res indicis",
+    "after": "Cum res indicis probationis",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-checked",
+    "before": "Latine: Checked",
+    "after": "signatur",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-unchecked",
+    "before": "Latine: Unchecked",
+    "after": "signo privatur",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-when-a-assignee",
+    "before": "Delegatus a sodalis est",
+    "after": "Cum delegatus",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-when-the-assignee",
+    "before": "Delegatus the sodalis",
+    "after": "Cum delegatus",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
+  },
+  {
+    "locale": "la",
+    "key": "r-when-a-start-date-changed",
+    "before": "Incipe: dies mutata est",
+    "after": "Cum dies initii constituitur vel mutatur",
+    "reason": "Repair Latin rule-trigger fragments and mixed assignee/date labels; use finite passive predicates without a redundant linking verb, and preserve initial date setting and later changes."
   }
 ]

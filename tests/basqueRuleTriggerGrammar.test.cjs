@@ -46,6 +46,8 @@ activeLanguage = 'eu';
 assert.equal(helpers.ruleTriggerCopula(), '');
 activeLanguage = 'th';
 assert.equal(helpers.ruleTriggerCopula(), '');
+activeLanguage = 'la';
+assert.equal(helpers.ruleTriggerCopula(), '', 'Latin finite predicates omit the extra copula');
 const assemble = (locale, subject, action, name = '') => {
   const d = read(locale);
   return [d[subject], name, ruleTriggerCopula(locale, d['r-is']), d[action], d['r-a-card']].filter(Boolean).join(' ');

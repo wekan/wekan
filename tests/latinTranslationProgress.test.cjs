@@ -665,3 +665,27 @@ assert.match(latin['r-move-all-cards'], /omnes chartas/);
 assert.match(latin['r-set-date-relative'], /temporis praesentis/);
 assert.equal(new Set(['minutes', 'hours', 'days', 'weeks', 'months'].map(k => latin[`r-unit-${k}`])).size, 5);
 assert.notEqual(latin['r-trigger'], latin['r-action']);
+
+const reviewedTriggerGrammarKeys = ["r-when-a-card", "r-is", "r-is-moved", "r-added-to", "r-attachment-added-to", "r-removed-from", "r-attachment-removed-from", "r-the-board", "r-list", "set-filter", "r-moved-to", "r-moved-from", "r-archived", "r-unarchived", "r-a-card", "r-when-a-label-is", "r-when-the-label", "r-list-name", "r-when-a-member", "r-when-the-member", "r-name", "r-when-a-attach", "r-when-a-due-date-changed", "r-when-a-end-date-changed", "r-when-a-received-date-changed", "r-when-a-checklist", "r-when-the-checklist", "r-completed", "r-made-incomplete", "r-when-a-item", "r-when-the-item", "r-checked", "r-unchecked", "r-when-a-assignee", "r-when-the-assignee", "r-when-a-start-date-changed"];
+for (const key of reviewedTriggerGrammarKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:When|Moved|Restored|Added|Removed|Completed|Unchecked|the)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+const { ruleTriggerCopula: latinCopula } = require('../imports/i18n/ruleGrammar');
+for (const locale of ['la', 'la-VA', 'la_VA', 'LA']) assert.equal(latinCopula(locale, 'est'), '');
+for (const locale of ['en', 'lat', 'lan', undefined]) assert.equal(latinCopula(locale, 'is'), 'is');
+assert.equal(latin['r-is'], 'est');
+for (const subject of ['member', 'assignee', 'label', 'checklist']) {
+  for (const action of ['r-added-to', 'r-removed-from']) {
+    const sentence = [latin[`r-when-the-${subject}`], 'Alpha', latinCopula('la', latin['r-is']), latin[action], latin['r-a-card']].filter(Boolean).join(' ');
+    assert.doesNotMatch(sentence, /\best\b|Latine:/);
+    assert.match(sentence, /Alpha (additur in|removetur ex) charta$/);
+  }
+}
+assert.match(latin['r-archived'], /in archivum/);
+assert.match(latin['r-unarchived'], /ex archivo/);
+assert.notEqual(latin['r-checked'], latin['r-unchecked']);
+assert.notEqual(latin['r-completed'], latin['r-made-incomplete']);
+for (const kind of ['due', 'start', 'end', 'received']) {
+  assert.match(latin[`r-when-a-${kind}-date-changed`], /constituitur vel mutatur$/);
+}
