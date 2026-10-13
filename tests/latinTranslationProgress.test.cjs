@@ -1016,3 +1016,20 @@ assert.match(latin['import-board-zip'], /\.zip.*JSON.*subdirectoria/);
 assert.notEqual(latin['collapse-checklist'], latin['expand-checklist']);
 assert.match(latin.hideCheckedChecklistItems, /res signatas/);
 assert.match(latin.hideAllChecklistItems, /omnes res/);
+
+const reviewedSupportLockoutKeys = ["support", "supportPopup-title", "support-page-enabled", "support-info-not-added-yet", "support-info-only-for-logged-in-users", "support-title", "support-content", "accessibility", "accessibility-page-enabled", "accessibility-info-not-added-yet", "accessibility-title", "accessibility-content", "accounts-lockout-settings", "accounts-lockout-info", "accounts-lockout-known-users", "accounts-lockout-unknown-users", "accounts-lockout-failures-before", "accounts-lockout-period", "accounts-lockout-failure-window", "accounts-lockout-settings-updated", "accounts-lockout-locked-users", "accounts-lockout-locked-users-info", "accounts-lockout-no-locked-users", "accounts-lockout-failed-attempts", "accounts-lockout-remaining-time", "accounts-lockout-user-unlocked", "accounts-lockout-confirm-unlock", "accounts-lockout-confirm-unlock-all", "accounts-lockout-show-locked-users", "accounts-lockout-user-locked", "accounts-lockout-click-to-unlock", "accounts-lockout-status", "admin-people-filter-show", "admin-people-filter-all", "admin-people-filter-locked", "admin-people-filter-active", "admin-people-filter-inactive", "admin-people-active-status", "admin-people-user-active", "admin-people-user-inactive", "accounts-lockout-all-users-unlocked", "accounts-lockout-unlock-all", "active-cron-jobs", "add-cron-job", "add-cron-job-placeholder", "attachment-storage-configuration", "attachments-path", "attachments-path-description", "avatars-path", "avatars-path-description"];
+for (const key of reviewedSupportLockoutKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Support|Accessibility|Settings|known users|Lockout|Failed|Active|coming soon)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.equal(latin.support, latin['supportPopup-title']);
+assert.match(latin['support-info-only-for-logged-in-users'], /tantum usoribus qui ingressi sunt/);
+for (const kind of ['support', 'accessibility']) assert.match(latin[`${kind}-info-not-added-yet`], /nondum additae sunt/);
+assert.match(latin['accounts-lockout-known-users'], /nomen usoris rectum, tessera falsa/);
+assert.match(latin['accounts-lockout-unknown-users'], /nomen usoris quod non exstat/);
+for (const kind of ['period', 'failure-window']) assert.match(latin[`accounts-lockout-${kind}`], /\(secunda\)/);
+assert.notEqual(latin['accounts-lockout-period'], latin['accounts-lockout-failure-window']);
+assert.match(latin['accounts-lockout-confirm-unlock-all'], /omnibus usoribus exclusis/);
+assert.match(latin['admin-people-user-active'], /ut inactivum facias/);
+assert.match(latin['admin-people-user-inactive'], /ut activum facias/);
+assert.match(latin['add-cron-job-placeholder'], /mox aderit/);

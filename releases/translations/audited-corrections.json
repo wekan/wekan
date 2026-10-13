@@ -201885,5 +201885,355 @@
     "before": "Latine: Cela omnia index probationis res",
     "after": "Cela omnes res indicis probationis",
     "reason": "Translate database maintenance, account controls and custom-translation messages; preserve warnings, scopes, units and placeholders."
+  },
+  {
+    "locale": "la",
+    "key": "support",
+    "before": "Latine: Support",
+    "after": "Auxilium",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "supportPopup-title",
+    "before": "Latine: Support",
+    "after": "Auxilium",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "support-page-enabled",
+    "before": "Latine: Support pagina habilitatum",
+    "after": "Pagina auxilii activa est",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "support-info-not-added-yet",
+    "before": "Latine: Support informatio has non fuit additum yet",
+    "after": "Notitiae de auxilio nondum additae sunt",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "support-info-only-for-logged-in-users",
+    "before": "Latine: Support informatio est tantum for logged in usores.",
+    "after": "Notitiae de auxilio tantum usoribus qui ingressi sunt praesto sunt.",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "support-title",
+    "before": "Latine: Support titulus",
+    "after": "Titulus auxilii",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "support-content",
+    "before": "Latine: Support content",
+    "after": "Textus auxilii",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accessibility",
+    "before": "Latine: Accessibility",
+    "after": "Accessibilitas",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accessibility-page-enabled",
+    "before": "Latine: Accessibility pagina habilitatum",
+    "after": "Pagina accessibilitatis activa est",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accessibility-info-not-added-yet",
+    "before": "Latine: Accessibility informatio has non fuit additum yet",
+    "after": "Notitiae de accessibilitate nondum additae sunt",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accessibility-title",
+    "before": "Latine: Accessibility titulus",
+    "after": "Titulus accessibilitatis",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accessibility-content",
+    "before": "Latine: Accessibility content",
+    "after": "Textus accessibilitatis",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accounts-lockout-settings",
+    "before": "Latine: Brute Force Protection Configurationes",
+    "after": "Configurationes tutelae contra impetus crebrarum coniecturarum",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accounts-lockout-info",
+    "before": "Latine: Haec configurationes control quomodo introitus attempts sunt protected against brute force attacks.",
+    "after": "Hae configurationes regunt quomodo conatus ingrediendi contra impetus crebrarum coniecturarum protegantur.",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accounts-lockout-known-users",
+    "before": "Latine: Configurationes for known usores (correct nomen usoris, wrong tessera)",
+    "after": "Configurationes usorum notorum (nomen usoris rectum, tessera falsa)",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accounts-lockout-unknown-users",
+    "before": "Latine: Configurationes for ignotum usores (non-existent nomen usoris)",
+    "after": "Configurationes usorum ignotorum (nomen usoris quod non exstat)",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accounts-lockout-failures-before",
+    "before": "Latine: Failures ante lockout",
+    "after": "Numerus conatuum infelicium ante exclusionem",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accounts-lockout-period",
+    "before": "Latine: Lockout period (seconds)",
+    "after": "Duratio exclusionis (secunda)",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accounts-lockout-failure-window",
+    "before": "Latine: Defectus window (seconds)",
+    "after": "Intervallum conatuum infelicium (secunda)",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accounts-lockout-settings-updated",
+    "before": "Latine: Brute force protection configurationes have fuit renovatum",
+    "after": "Configurationes tutelae contra impetus crebrarum coniecturarum renovatae sunt",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accounts-lockout-locked-users",
+    "before": "Latine: Clausum Usores",
+    "after": "Usores exclusi",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accounts-lockout-locked-users-info",
+    "before": "Latine: Usores currently clausum out due ad too many defecit introitus attempts",
+    "after": "Usores nunc exclusi propter nimios conatus ingrediendi infelices",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accounts-lockout-no-locked-users",
+    "before": "Latine: There sunt currently non clausum usores",
+    "after": "Nulli usores nunc exclusi sunt",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accounts-lockout-failed-attempts",
+    "before": "Latine: Defecit Attempts",
+    "after": "Conatus infelices",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accounts-lockout-remaining-time",
+    "before": "Latine: Remaining Tempus",
+    "after": "Tempus reliquum",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accounts-lockout-user-unlocked",
+    "before": "Latine: Usor has fuit unlocked successfully",
+    "after": "Usori feliciter rursus ingredi licet",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accounts-lockout-confirm-unlock",
+    "before": "Latine: certusne es tu want ad unlock hoc usor?",
+    "after": "Certusne es te huic usori rursus ingredi permittere velle?",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "before": "Latine: certusne es tu want ad unlock omnia clausum usores?",
+    "after": "Certusne es te omnibus usoribus exclusis rursus ingredi permittere velle?",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accounts-lockout-show-locked-users",
+    "before": "Latine: Monstra clausum usores tantum",
+    "after": "Monstra tantum usores exclusos",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accounts-lockout-user-locked",
+    "before": "Latine: Usor est clausum",
+    "after": "Usor exclusus est",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accounts-lockout-click-to-unlock",
+    "before": "Latine: Click ad unlock hoc usor",
+    "after": "Preme ut huic usori rursus ingredi liceat",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accounts-lockout-status",
+    "before": "Latine: Status",
+    "after": "Status",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "admin-people-filter-show",
+    "before": "Latine: Monstra:",
+    "after": "Monstra:",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "admin-people-filter-all",
+    "before": "Latine: Omnia Usores",
+    "after": "Omnes usores",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "admin-people-filter-locked",
+    "before": "Latine: Clausum Usores Tantum",
+    "after": "Tantum usores exclusi",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "admin-people-filter-active",
+    "before": "Latine: Activum",
+    "after": "Activi",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "admin-people-filter-inactive",
+    "before": "Latine: Non Activum",
+    "after": "Inactivi",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "admin-people-active-status",
+    "before": "Latine: Activum Status",
+    "after": "Status activitatis",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "admin-people-user-active",
+    "before": "Latine: Usor est activum - click ad deactivate",
+    "after": "Usor activus est — preme ut inactivum facias",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "admin-people-user-inactive",
+    "before": "Latine: Usor est inactivum - click ad activate",
+    "after": "Usor inactivus est — preme ut activum facias",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accounts-lockout-all-users-unlocked",
+    "before": "Latine: Omnia clausum usores have fuit unlocked",
+    "after": "Omnibus usoribus exclusis rursus ingredi licet",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "accounts-lockout-unlock-all",
+    "before": "Latine: Unlock Omnia",
+    "after": "Permitte omnibus rursus ingredi",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "active-cron-jobs",
+    "before": "Latine: Activum Scheduled Jobs",
+    "after": "Munera tempori destinata activa",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "add-cron-job",
+    "before": "Latine: Adde Scheduled Job",
+    "after": "Adde munus tempori destinatum",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "add-cron-job-placeholder",
+    "before": "Latine: Adde Scheduled Job functionality coming soon",
+    "after": "Facultas munus tempori destinatum addendi mox aderit",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-storage-configuration",
+    "before": "Latine: Adnexum Storage Configuration",
+    "after": "Configuratio repositorii adiunctorum",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "attachments-path",
+    "before": "Latine: Adnexa Path",
+    "after": "Iter adiunctorum",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "attachments-path-description",
+    "before": "Latine: Path ubi adnexum fasciculi sunt stored",
+    "after": "Iter ubi fasciculi adiuncti servantur",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "avatars-path",
+    "before": "Latine: Avatars Path",
+    "after": "Iter imaginum usorum",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "avatars-path-description",
+    "before": "Latine: Path ubi imago fasciculi sunt stored",
+    "after": "Iter ubi fasciculi imaginum usorum servantur",
+    "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
   }
 ]
