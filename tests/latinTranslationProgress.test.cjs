@@ -711,3 +711,22 @@ assert.equal(latin['r-send-email'], latin['r-d-send-email']);
 assert.equal(latin['r-subject'], latin['r-d-send-email-subject']);
 assert.notEqual(latin['r-d-add-member'], latin['r-d-remove-member']);
 assert.notEqual(latin['r-in-list'], latin['r-in-swimlane']);
+
+const reviewedRuleBrandingKeys = ["r-by", "r-add-checklist", "r-with-items", "r-items-list", "r-add-swimlane", "r-swimlane-name", "r-board-note", "r-checklist-note", "r-when-a-card-is-moved", "r-set", "r-update", "r-datefield", "r-df-start-at", "r-df-due-at", "r-df-end-at", "r-df-received-at", "r-to-current-datetime", "r-remove-value-from", "r-link-card", "ldap", "oauth2", "cas", "authentication-method", "authentication-type", "custom-product-name", "settings-group-url", "settings-group-logo", "custom-head-tags-enabled", "custom-head-meta-tags", "custom-head-link-tags", "custom-manifest-enabled", "custom-head-manifest-content", "custom-assetlinks-enabled", "custom-assetlinks-content", "layout", "hide-logo", "card-counter-list", "board-member-list", "add-custom-html-after-body-start", "add-custom-html-before-body-end"];
+for (const key of reviewedRuleBrandingKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Note|empty|comma|Custom|Enable|Hide|Layout|current|another)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['r-board-note'], /campum vacuum ut quilibet valor congruat/);
+assert.match(latin['r-checklist-note'], /commatibus separati/);
+assert.equal(latin['r-items-list'].split(',').length, 3);
+assert.match(latin['r-when-a-card-is-moved'], /in alium indicem/);
+assert.equal(`${latin['r-remove-value-from']} ${latin['r-datefield']}`, 'Vacua campum diei');
+assert.notEqual(latin['r-set'], latin['r-update']);
+assert.equal(new Set(['start', 'due', 'end', 'received'].map(k => latin[`r-df-${k}-at`])).size, 4);
+for (const [key, value] of [['ldap', 'LDAP'], ['oauth2', 'OAuth2'], ['cas', 'CAS'], ['settings-group-url', 'URL']]) assert.equal(latin[key], value);
+assert.match(latin['custom-head-meta-tags'], /meta.*HTML/);
+assert.match(latin['custom-head-link-tags'], /link.*HTML/);
+assert.match(latin['custom-assetlinks-content'], /assetlinks\.json.*JSON/);
+assert.match(latin['add-custom-html-after-body-start'], /post initium <body>/);
+assert.match(latin['add-custom-html-before-body-end'], /ante finem <\/body>/);

@@ -197636,5 +197636,285 @@
     "before": "Latine: Remove index probationis",
     "after": "Remove indicem probationis",
     "reason": "Repair Latin rule action fragments and saved descriptions, preserving movement direction, archive restoration, membership scope and checklist polarity."
+  },
+  {
+    "locale": "la",
+    "key": "r-by",
+    "before": "Latine: a",
+    "after": "auctore",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "r-add-checklist",
+    "before": "Latine: Adde index probationis",
+    "after": "Adde indicem probationis",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "r-with-items",
+    "before": "Latine: cum res",
+    "after": "cum rebus",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "r-items-list",
+    "before": "Latine: item1,item2,item3",
+    "after": "res1,res2,res3",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "r-add-swimlane",
+    "before": "Latine: Adde semita natatoria",
+    "after": "Adde semitam",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "r-swimlane-name",
+    "before": "Latine: semita natatoria nomen",
+    "after": "nomen semitae",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "r-board-note",
+    "before": "Latine: Note: leave a campus vacuum ad match omnis possible valor.",
+    "after": "Nota: relinque campum vacuum ut quilibet valor congruat.",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "r-checklist-note",
+    "before": "Latine: Note: index probationis's res have ad esse written as comma separated valores.",
+    "after": "Nota: res indicis probationis scribendae sunt ut valores commatibus separati.",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "r-when-a-card-is-moved",
+    "before": "Latine: Quando a scheda est motum ad another index",
+    "after": "Cum charta in alium indicem movetur",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "r-set",
+    "before": "Latine: Set",
+    "after": "Constitue",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "r-update",
+    "before": "Latine: Renova",
+    "after": "Renova",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "r-datefield",
+    "before": "Latine: dies campus",
+    "after": "campum diei",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "r-df-start-at",
+    "before": "Latine: incipe",
+    "after": "initii",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "r-df-due-at",
+    "before": "Latine: due",
+    "after": "debiti",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "r-df-end-at",
+    "before": "Latine: end",
+    "after": "finis",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "r-df-received-at",
+    "before": "Latine: received",
+    "after": "receptionis",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "r-to-current-datetime",
+    "before": "Latine: ad praesens dies/tempus",
+    "after": "ad diem et horam praesentem",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "r-remove-value-from",
+    "before": "Latine: Remove valor ex",
+    "after": "Vacua",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "r-link-card",
+    "before": "Latine: Vinculum scheda ad",
+    "after": "Coniunge chartam",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "ldap",
+    "before": "Latine: LDAP",
+    "after": "LDAP",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "oauth2",
+    "before": "Latine: OAuth2",
+    "after": "OAuth2",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "cas",
+    "before": "Latine: CAS",
+    "after": "CAS",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "authentication-method",
+    "before": "Latine: Authenticatio method",
+    "after": "Modus authenticationis",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "authentication-type",
+    "before": "Latine: Authenticatio genus",
+    "after": "Genus authenticationis",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "custom-product-name",
+    "before": "Latine: Custom Product Nomen",
+    "after": "Nomen proprium producti",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "settings-group-url",
+    "before": "Latine: URL",
+    "after": "URL",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "settings-group-logo",
+    "before": "Latine: Logo",
+    "after": "Insigne",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "custom-head-tags-enabled",
+    "before": "Latine: Habilita custom head tags",
+    "after": "Activa notas proprias in capite HTML",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "custom-head-meta-tags",
+    "before": "Latine: Custom meta tags (HTML)",
+    "after": "Notae meta propriae (HTML)",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "custom-head-link-tags",
+    "before": "Latine: Custom vinculum tags (HTML)",
+    "after": "Notae link propriae (HTML)",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "custom-manifest-enabled",
+    "before": "Latine: Habilita custom web manifest",
+    "after": "Activa manifestum interretiale proprium",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "custom-head-manifest-content",
+    "before": "Latine: Custom web manifest content (JSON)",
+    "after": "Contenta manifesti interretialis proprii (JSON)",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "custom-assetlinks-enabled",
+    "before": "Latine: Habilita custom assetlinks.json",
+    "after": "Activa assetlinks.json proprium",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "custom-assetlinks-content",
+    "before": "Latine: Custom assetlinks.json content (JSON)",
+    "after": "Contenta propria assetlinks.json (JSON)",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "layout",
+    "before": "Latine: Layout",
+    "after": "Dispositio",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "hide-logo",
+    "before": "Latine: Cela Logo",
+    "after": "Cela insigne",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "card-counter-list",
+    "before": "Latine: Scheda counter index",
+    "after": "Index cum numero chartarum",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "board-member-list",
+    "before": "Latine: sodalis tabulae index",
+    "after": "Index membrorum tabulae",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "add-custom-html-after-body-start",
+    "before": "Latine: Adde Custom HTML after <body> incipe",
+    "after": "Adde HTML proprium post initium <body>",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
+  },
+  {
+    "locale": "la",
+    "key": "add-custom-html-before-body-end",
+    "before": "Latine: Adde Custom HTML ante </body> end",
+    "after": "Adde HTML proprium ante finem </body>",
+    "reason": "Repair Latin rule hints, date actions, authentication names and branding settings while retaining format identifiers and HTML tags."
   }
 ]

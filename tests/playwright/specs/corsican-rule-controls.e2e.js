@@ -84,3 +84,16 @@ test('Latin rule actions distinguish top and bottom of the current list', async 
   await expect(row.locator('select')).toHaveValue('bottom');
   await expect(row).not.toContainText('Latine:');
 });
+
+
+test('Latin checklist action instructions explain comma separated items', async ({ boardPage: page, board }) => {
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'la'));
+  await navigateInApp(page, `/b/${board.boardId}/${board.slug}/rules`);
+  await page.locator('#ruleTitle').fill('Probatio rerum');
+  await page.locator('.js-goto-trigger').click();
+  await page.locator('.js-add-gen-moved-trigger.js-goto-action').click();
+  await page.locator('.js-set-checklist-actions').click();
+  await expect(page.locator('#checklist-items')).toHaveAttribute('placeholder', 'res1,res2,res3');
+  await expect(page.locator('#checklist-items')).toHaveValue('');
+  await expect(page.locator('.rules-page')).toContainText('Nota: res indicis probationis scribendae sunt ut valores commatibus separati.');
+});
