@@ -183832,5 +183832,264 @@
     "before": "creato",
     "after": "creatu",
     "reason": "Repair mixed-language template and search controls; preserve authorized-board scope, member-or-assignee filters, result placeholders and parser abbreviations."
+  },
+  {
+    "locale": "co",
+    "key": "operator-sort",
+    "before": "ordina",
+    "after": "urdinà",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "operator-has",
+    "before": "possiede",
+    "after": "hà",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "operator-customfield",
+    "before": "campopersonalizzato",
+    "after": "campupersunalizatu",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "operator-attachment-text",
+    "before": "allegatu",
+    "after": "appicciu",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "operator-checklist-text",
+    "before": "listadicontrollo",
+    "after": "listadicuntrollu",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "predicate-archived",
+    "before": "archiviato",
+    "after": "archiviatu",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "predicate-open",
+    "before": "aperto/a",
+    "after": "apertu",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "predicate-ended",
+    "before": "finito",
+    "after": "finitu",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "predicate-all",
+    "before": "tutto",
+    "after": "tuttu",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "predicate-overdue",
+    "before": "in ritardo",
+    "after": "scadutu",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "predicate-year",
+    "before": "anno",
+    "after": "annu",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "predicate-created",
+    "before": "creato",
+    "after": "creatu",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "predicate-attachment",
+    "before": "allegatu",
+    "after": "appicciu",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "predicate-checklist",
+    "before": "lista di controllo",
+    "after": "listadicuntrollu",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "predicate-start",
+    "before": "inizio",
+    "after": "principiu",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "predicate-assignee",
+    "before": "assegnatario",
+    "after": "assignatu",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "operator-unknown-error",
+    "before": "%s non è un operatore",
+    "after": "%s ùn hè micca un operatore",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-heading",
+    "before": "Istruzioni ricerca",
+    "after": "Istruzzioni di ricerca",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-description",
+    "before": "Per affinare le ricerche si possono includere di i operatori. Questi vanno specificati indicandone il nome ed il valore separati dai due punti. Ad esempio, specificare `list:Blocked` limita la ricerca alle carte contenute in a lista denominata *Blocked*. Se il valore del criterio contiene spazi o caratteri speciali, va racchiuso tra virgolette (es.: `__operator_list__:\"Da Controllare\"`)",
+    "after": "E ricerche ponu cuntene operatori per precisà a ricerca. L’operatori si scrivenu cù u nome è u valore siparati da dui punti. Per esempiu, `list:Blocked` limita a ricerca à e carte chì sò in una lista chjamata *Blocked*. S’è u valore cuntene spazii o caratteri speciali, ci vole à mette lu trà virgulette (per esempiu, `__operator_list__:\"To Review\"`).",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-operators",
+    "before": "Operatori disponibili:",
+    "after": "Operatori dispunibuli:",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-operator-board",
+    "before": "`__operator_board__:<title>` - carte in e tavule corrispondenti a *<title>*",
+    "after": "`__operator_board__:<title>` - carte in e tavule chì currispondenu à u *<title>* specificatu",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-operator-list",
+    "before": "`__operator_list__:<title>` - carte in e liste corrispondenti a *<title>*",
+    "after": "`__operator_list__:<title>` - carte in e liste chì currispondenu à u *<title>* specificatu",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-operator-swimlane",
+    "before": "`__operator_swimlane__:<title>` - carte in swimlane corrispondenti a *<title>*",
+    "after": "`__operator_swimlane__:<title>` - carte in e corsie chì currispondenu à u *<title>* specificatu",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-operator-comment",
+    "before": "`__operator_comment__:<text>` - carte cù cummenti contenenti *<text>*.",
+    "after": "`__operator_comment__:<text>` - carte cù un cummentu chì cuntene *<text>*.",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-operator-label",
+    "before": "`__operator_label__:<color>` `__operator_label__:<name>` - carte aventi un'etichetta corrispondente a *<color>* oppure *<name>*",
+    "after": "`__operator_label__:<color>` `__operator_label__:<name>` - carte cù un’etichetta chì currisponde à *<color>* o *<name>*",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-operator-user",
+    "before": "`__operator_user__:<username>` - carte dove *<username>* è un *membru* oppure *assegnatario*",
+    "after": "`__operator_user__:<username>` - carte induve *<username>* hè un *membru* o un *assignatu*",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-operator-member",
+    "before": "`__operator_member__:<username>` - carte dove *<username>* è un *membru*",
+    "after": "`__operator_member__:<username>` - carte induve *<username>* hè un *membru*",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<username>` - carte dove *<username>* è un *assegnatario*",
+    "after": "`__operator_assignee__:<username>` - carte induve *<username>* hè un *assignatu*",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-operator-creator",
+    "before": "`__operator_creator__:<username>` - carte in cui *<username>* è il creatore di a carta",
+    "after": "`__operator_creator__:<username>` - carte induve *<username>* hè u creatore di a carta",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-operator-org",
+    "before": "`__operator_org__:<display name|short name>` - carte appartenenti a una tavula assegnata all'urganizazione *<name>*",
+    "after": "`__operator_org__:<display name|short name>` - carte chì appartenenu à una tavula assignata à l’urganizazione *<name>*",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-operator-team",
+    "before": "`__operator_team__:<display name|short name>` - carte appartenenti a una tavula assegnata al team *<name>*",
+    "after": "`__operator_team__:<display name|short name>` - carte chì appartenenu à una tavula assignata à a squadra *<name>*",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-operator-due",
+    "before": "`__operator_due__:<n>` - carte in scadenza entro *<n>* ghjorni da adesso.  `__operator_due__:__predicate_overdue__ elenca tutte le carte oltre la loro data di scadenza.",
+    "after": "`__operator_due__:<n>` - carte chì scadenu da quì à *<n>* ghjorni. `__operator_due__:__predicate_overdue__ elenca tutte e carte chì anu francatu a so data di scadenza.",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-operator-created",
+    "before": "`__operator_created__:<n>` - carte create *<n>* ghjorni fa o prima",
+    "after": "`__operator_created__:<n>` - carte create *<n>* ghjorni fà o menu",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-operator-modified",
+    "before": "`__operator_modified__:<n>` - carte modificate *<n>* ghjorni fa o prima",
+    "after": "`__operator_modified__:<n>` - carte mudificate *<n>* ghjorni fà o menu",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-status-all",
+    "before": "`__predicate_all__` - tutte le carte archiviate e non archiviate",
+    "after": "`__predicate_all__` - tutte e carte archiviate è micca archiviate",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-status-ended",
+    "before": "`__predicate_ended__` - carte aventi una data di fine",
+    "after": "`__predicate_ended__` - carte cù una data di fine",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-status-public",
+    "before": "`__predicate_public__` - carte soltanto in tavule pubbliche",
+    "after": "`__predicate_public__` - carte solu in tavule publiche",
+    "reason": "Replace Italian search wording with Corsican; preserve executable syntax and date direction."
   }
 ]

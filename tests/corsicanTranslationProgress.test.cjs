@@ -560,3 +560,12 @@ assert.match(corsican['shared-templates-select-scope'], /Urganizazioni, Squadre 
 assert.match(corsican['n-cards-found'], /%s carte truvate/);
 assert.equal(corsican['context-separator'], '/');
 for (const suffix of ['board','swimlane','list','label','user','member','assignee']) assert.equal(corsican[`operator-${suffix}-abbrev`], english[`operator-${suffix}-abbrev`]);
+
+const searchHelpCorrectionKeys = ["operator-sort", "operator-has", "operator-customfield", "operator-attachment-text", "operator-checklist-text", "predicate-archived", "predicate-open", "predicate-ended", "predicate-all", "predicate-overdue", "predicate-year", "predicate-created", "predicate-attachment", "predicate-checklist", "predicate-start", "predicate-assignee", "operator-unknown-error", "globalSearch-instructions-heading", "globalSearch-instructions-description", "globalSearch-instructions-operators", "globalSearch-instructions-operator-board", "globalSearch-instructions-operator-list", "globalSearch-instructions-operator-swimlane", "globalSearch-instructions-operator-comment", "globalSearch-instructions-operator-label", "globalSearch-instructions-operator-user", "globalSearch-instructions-operator-member", "globalSearch-instructions-operator-assignee", "globalSearch-instructions-operator-creator", "globalSearch-instructions-operator-org", "globalSearch-instructions-operator-team", "globalSearch-instructions-operator-due", "globalSearch-instructions-operator-created", "globalSearch-instructions-operator-modified", "globalSearch-instructions-status-all", "globalSearch-instructions-status-ended", "globalSearch-instructions-status-public"];
+for (const key of searchHelpCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /possiede|personalizzato|controllo|archiviato|aperto\/a|assegnatario|Per affinare|correspondenti|corrispondenti|carte dove|ghjorni fa o prima|soltanto/, key);
+}
+for (const key of ['globalSearch-instructions-operator-created', 'globalSearch-instructions-operator-modified']) assert.match(corsican[key], /ghjorni fà o menu$/);
+assert.match(corsican['globalSearch-instructions-description'], /`list:Blocked`/);
+assert.match(corsican['globalSearch-instructions-description'], /`__operator_list__:"To Review"`/);
