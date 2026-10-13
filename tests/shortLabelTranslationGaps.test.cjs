@@ -162,6 +162,58 @@ const blocklyShortLocales = ["ka", "km", "la", "tt", "jv", "kk", "tg", "sn", "km
 const blocklyShortKeys = ["blockly-ANNOUNCE_MOVE_OF", "blockly-CONTROLS_IF_MSG_IF", "blockly-CONTROLS_IF_IF_TITLE_IF", "blockly-CONTROLS_REPEAT_INPUT_DO", "blockly-CONTROLS_FOREACH_INPUT_DO", "blockly-CONTROLS_FOR_INPUT_DO", "blockly-CONTROLS_IF_MSG_THEN", "blockly-CONTROLS_WHILEUNTIL_INPUT_DO", "blockly-FIELD_BITMAP_PIXEL_ON", "blockly-LISTS_GET_SUBLIST_END_FROM_START", "blockly-LISTS_SET_INDEX_INPUT_TO", "blockly-LOGIC_OPERATION_OR", "blockly-PROCEDURES_DEFNORETURN_TITLE", "blockly-PROCEDURES_DEFRETURN_TITLE"];
 for (const locale of blocklyShortLocales) reviewed[locale] = blocklyShortKeys;
 
+const additionalRuleKeys = {
+  "jv": [
+    "r-sort-by",
+    "r-is",
+    "r-to",
+    "r-of",
+    "r-d-send-email-to",
+    "r-by",
+    "dueCardsViewChange-choice-me",
+    "of"
+  ],
+  "kk": [
+    "r-sort-by",
+    "r-is",
+    "r-to",
+    "r-of",
+    "r-d-send-email-to",
+    "r-by",
+    "dueCardsViewChange-choice-me",
+    "of"
+  ],
+  "tg": [
+    "r-sort-by",
+    "r-is",
+    "r-to",
+    "r-of",
+    "r-d-send-email-to",
+    "r-by",
+    "dueCardsViewChange-choice-me",
+    "of"
+  ],
+  "so": [
+    "r-sort-by",
+    "r-is",
+    "r-to",
+    "r-of",
+    "r-d-send-email-to",
+    "r-by",
+    "dueCardsViewChange-choice-me",
+    "of",
+    "blockly-ANNOUNCE_MOVE_OF",
+    "blockly-CONTROLS_IF_MSG_IF",
+    "blockly-CONTROLS_REPEAT_INPUT_DO",
+    "blockly-CONTROLS_FOREACH_INPUT_DO",
+    "blockly-CONTROLS_FOR_INPUT_DO",
+    "blockly-CONTROLS_IF_IF_TITLE_IF",
+    "blockly-CONTROLS_IF_MSG_THEN",
+    "blockly-CONTROLS_WHILEUNTIL_INPUT_DO"
+  ]
+};
+for (const [locale, keys] of Object.entries(additionalRuleKeys)) reviewed[locale] = [...new Set([...(reviewed[locale] || []), ...keys])];
+
 (async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   let count = 0;
@@ -193,6 +245,11 @@ for (const locale of blocklyShortLocales) reviewed[locale] = blocklyShortKeys;
     assert.equal(strings['blockly-PROCEDURES_DEFRETURN_TITLE'], strings['blockly-PROCEDURES_DEFNORETURN_TITLE']);
     assert.ok(strings['blockly-LISTS_GET_SUBLIST_END_FROM_START'].includes('#'));
   }
+  const somali = require('../imports/i18n/data/so.i18n.json');
+  assert.equal(somali['blockly-CONTROLS_IF_MSG_IF'], somali['blockly-CONTROLS_IF_IF_TITLE_IF']);
+  assert.notEqual(somali['blockly-CONTROLS_IF_MSG_IF'], somali['blockly-CONTROLS_REPEAT_INPUT_DO']);
+  for (const alias of ['FOREACH_INPUT_DO', 'FOR_INPUT_DO', 'IF_MSG_THEN', 'WHILEUNTIL_INPUT_DO']) assert.equal(somali[`blockly-CONTROLS_${alias}`], somali['blockly-CONTROLS_REPEAT_INPUT_DO']);
+  assert.equal(require('../imports/i18n/data/kk.i18n.json')['r-of'], '/');
   // Shared words remain valid; this batch does not replace them to force zero.
   for (const locale of ['es', 'it', 'ca']) assert.equal(require(`../imports/i18n/data/${locale}.i18n.json`).no, 'No');
   for (const locale of ['nl', 'nl-NL']) assert.equal(require(`../imports/i18n/data/${locale}.i18n.json`)['r-is'], 'is');
