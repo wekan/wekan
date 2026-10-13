@@ -88,4 +88,22 @@ assert.doesNotMatch(corsican['interrupted-import-keep-confirm'], /squassati defi
 assert.match(corsican['interrupted-import-discard-confirm'], /tuttu ciò ch'ella cuntene sò squassati definitivamente/);
 assert.match(corsican['interrupted-import-foreign-board'], /ùn hè micca stata mudificata/);
 
-console.log('corsicanTranslationProgress: historical catalog, card-link and recovery checks passed');
+
+
+const notificationKeys = Object.keys(english).filter(key => /^(webhook-payload-|webhook-hide-identity$|webhook-someone$|notification-delivery-|notification-group-)/.test(key));
+assert.ok(notificationKeys.length >= 39);
+for (const key of notificationKeys) {
+  assert.notEqual(corsican[key], english[key], `${key}: notification message translated`);
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+}
+assert.match(corsican['webhook-payload-description'], /paràmetru ereditatu/);
+assert.match(corsican['webhook-payload-description'], /s'ellu ùn hè definitu nunda.*sempre mandatu/);
+assert.match(corsican['webhook-payload-field-standard'], /WEBHOOKS_ATTRIBUTES/);
+assert.match(corsican['webhook-hide-identity'], /Ùn mette micca u mo nome/);
+assert.match(corsican['notification-delivery-quiet'], /aspittà ch'elle finiscanu/);
+assert.doesNotMatch(corsican['notification-delivery-quiet'], /squassà|abbandunà/);
+assert.match(corsican['notification-delivery-grouping-all'], /un solu messagiu/);
+assert.match(corsican['notification-delivery-grouping-none'], /separatamente/);
+assert.match(corsican['notification-delivery-schedule-daily'], /Una volta à ghjornu/);
+
+console.log('corsicanTranslationProgress: historical catalog and translated feature checks passed');
