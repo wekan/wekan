@@ -2,6 +2,28 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Short-string inventory correction and Southern Sotho fill — 2026-10-13
+
+Commit `15643364b0` removes the blanket exemption for strings with fewer than
+three letters. Exact key/value pairs preserve reviewed units, list shortcuts,
+operator abbreviations and mathematical symbols. Short words such as by, is,
+if, do and phrases such as `%1 of %2` remain translatable. Tests distinguish
+these cases and preserve exact technical names from the previous correction.
+
+Filled 20 Southern Sotho strings through the guarded fill tool, with no human
+translations overwritten. The full non-exempt exact-English inventory for
+Southern Sotho remains empty; semantic review is still at key 1589. The updated
+filtered inventory reports **30,557 candidate strings across 135 languages**,
+with 379 pending-Transifex source keys separately tracked. This larger count
+exposes previously hidden work. Valid shared words may need documented
+locale-specific exemptions rather than translation; the count is an audit
+queue, not a claim that every identical word is incorrect.
+
+Seven Southern Sotho, inventory, Corsican and Maltese suites pass, along with
+all 21 human-preference checks. The personal due-card filter browser case passes
+syntax and discovery; runtime execution remains pending. Exact comparison
+preserves 38,430 existing Chinese values. All-language completion is unproven.
+
 ## Southern Sotho historical review: automation conditions — 2026-10-13
 
 Commit `9dc53b66f9` reviews source keys 1417–1589 and repairs 13 values.

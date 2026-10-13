@@ -2439,6 +2439,23 @@ needs review; all-language translation work remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/15643364b0">Count short translation phrases and fill Southern Sotho words</a>. Thanks to xet7.</summary>
+
+The translation inventory no longer exempts every string with fewer than
+three letters. Exact key/value exemptions preserve reviewed symbols, units
+and abbreviations while exposing short words and Blockly phrases. Filled 20
+Southern Sotho strings, including control words, counting phrases and the
+personal due-card filter. The inventory now reports 30,557 candidate strings
+across 135 languages; valid shared words still require locale-specific review.
+
+Seven translation and inventory suites pass, with all 21 human-preference
+checks. Personal-filter browser coverage passes syntax and discovery;
+runtime execution remains pending. All 38,430 existing Chinese values are
+preserved. All-language translation and semantic review remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
