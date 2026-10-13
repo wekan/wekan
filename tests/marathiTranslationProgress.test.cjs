@@ -1,5 +1,5 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// The current Marathi inventory includes pending feature keys. Structural
+// completeness does not certify the quality of every older translation.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -8,7 +8,7 @@ const { spawnSync } = require('node:child_process');
 const root = path.resolve(__dirname, '..');
 const fillScript = path.join(root,
   'releases/translations/fill-translations.mjs');
-const result = spawnSync(process.execPath, [fillScript, '--completed-catalog', '--list', 'mr'], {
+const result = spawnSync(process.execPath, [fillScript, '--list', 'mr'], {
   cwd: root,
   encoding: 'utf8',
 });
@@ -329,3 +329,79 @@ for (const key of ['import-here-instruction', 'import-wekan-file']) {
 }
 
 console.log('Marathi translation progress checks passed.');
+
+// Meaning checks for the newly filled decision and import messages.
+assert.match(marathi['field-link-not-allowed'], /दोन्ही कार्डे संपादित करण्याची परवानगी/);
+assert.match(marathi['custom-field-links-hint'], /समान नावाची व प्रकाराची/);
+assert.match(marathi['custom-field-links-hint'], /फक्त एका कार्डवर असलेली क्षेत्रे बदलत नाहीत/);
+assert.match(marathi['custom-field-link-send'], /या कार्डवरील बदल मुख्य कार्डवर जातात/);
+assert.match(marathi['custom-field-link-receives'], /त्या कार्डवरील बदल या कार्डवर येतात/);
+assert.match(marathi['read-only-field'], /सर्व सदस्य.*फक्त फलकाचे प्रशासक/);
+assert.match(marathi['webhook-payload-description'], /वरच्या स्तरावरून मिळालेली सेटिंग/);
+assert.match(marathi['notification-delivery-quiet'], /ती संपेपर्यंत थांबा/);
+assert.match(marathi['stuck-sync-operation-discard-confirm'], /आधी लागू केलेले बदल राहतील/);
+assert.match(marathi['stuck-sync-operation-discard-confirm'], /उरलेले कधीही लिहिले जाणार नाहीत/);
+assert.match(marathi['stuck-sync-operation-replayable'], /आपोआप पूर्ण होईल.*रद्द केली नाही/);
+assert.match(marathi['interrupted-import-description'], /स्रोत फाइल ठेवली जात नसल्याने/);
+assert.match(marathi['interrupted-import-description'], /त्यानंतर जोडलेल्या गोष्टींसह/);
+assert.match(marathi['interrupted-import-keep-confirm'], /काहीही काढले जाणार नाही/);
+assert.match(marathi['interrupted-import-discard-confirm'], /कायमचे काढले जाईल/);
+assert.match(marathi['interrupted-import-foreign-board'], /हात लावला नाही/);
+for (const key of ['interrupted-import-truncated', 'stuck-sync-operation-truncated']) {
+  assert.match(marathi[key], /सर्वांत जुन्या 50/);
+}
+for (const key of ['taiga', 'vikunja', 'notion']) {
+  assert.match(marathi['import-board-instruction-' + key], /संलग्नके आयात होत नाहीत/);
+}
+assert.match(marathi['import-board-instruction-quire'], /टिप्पण्या व संलग्नके नसतात/);
+assert.match(marathi['import-board-instruction-plane'], /वर्णने व संलग्नके नसतात/);
+for (const key of ['nullboard', 'kanri']) assert.match(marathi['import-board-instruction-' + key], /पहिला फलक आयात/);
+for (const token of ['TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED']) {
+  assert.ok(marathi['import-board-instruction-orgmode'].includes(token));
+}
+for (const token of ['Tasklist', 'Task', 'Description', 'Assign to', 'Start date',
+  'Due date', 'Priority', 'Estimated time', 'Tags', 'Status', '--', '##', '>>']) {
+  assert.ok(marathi['import-board-instruction-teamwork'].includes(token));
+}
+assert.match(marathi['import-board-instruction-businessmap'], /शीर्षकांची ओळ इंग्रजीत/);
+assert.match(marathi['import-board-instruction-redmine'], /भाषा English/);
+assert.match(marathi['import-many-boards-hint'], /सदस्यांची जुळवणी न करता/);
+assert.match(marathi['import-many-boards-hint'], /वरील क्षेत्राऐवजी/);
+assert.match(marathi['r-wrike-workflow-note'], /Completed किंवा Cancelled.*पूर्ण.*Active किंवा Deferred.*अपूर्ण/);
+for (const token of ['GET /workflows', 'JSON']) assert.ok(marathi['r-wrike-workflow-note'].includes(token));
+for (const token of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS', 'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) {
+  assert.ok(marathi['ldap-sync-now-nothing'].includes(token));
+}
+for (const token of ['{number}', '{identifier}', ' = ', 'https://tracker.example.com/{identifier}/{number}']) {
+  assert.ok(marathi['external-link-rules-description'].includes(token));
+}
+assert.ok(marathi['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+assert.match(marathi['login-setting-env-only'], /फक्त सर्व्हरच्या वातावरणातून.*केवळ वाचनासाठी/);
+assert.match(marathi['scrum-import-into-board-hint'], /प्रती तयार होत नाहीत/);
+assert.match(marathi['scrum-import-into-board-hint'], /न जुळलेली कार्डे.*बदल न करता/);
+assert.match(marathi['scrum-import-card-on-another-board'], /बदल न करता/);
+assert.match(marathi['scrum-import-sprint-finished'], /पूर्ण झालेल्या स्प्रिंटमध्ये हलवले नाही/);
+assert.match(marathi['sync-planning-hint'], /Scrum सुरू असेल तेव्हाच/);
+assert.match(marathi['sync-planning-hint'], /पहिल्या समक्रमणात नियोजन कधीही काढले जात नाही/);
+assert.match(marathi['scrum-history-checkpoint-hint'], /कोणीही त्या नोंदी बदललेल्या नसतील तेव्हाच/);
+assert.match(marathi['scrum-history-checkpoint-hint'], /कोणतीही नोंद बदलत नाही/);
+assert.match(marathi['scrum-history-checkpoint-ask-admin'], /फलकाचा प्रशासक/);
+assert.notEqual(marathi['scrum-history-checkpoint-rollback'], marathi['scrum-history-checkpoint-discard']);
+
+(async () => {
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  assert.deepEqual(Object.keys(marathi), Object.keys(english));
+  for (const key of Object.keys(english)) {
+    assert.deepEqual(translationTokens(marathi[key]), translationTokens(english[key]), key);
+  }
+  const i18n = require('i18next').createInstance();
+  await i18n.init({ lng: 'mr', fallbackLng: 'en', initImmediate: false,
+    interpolation: { prefix: '__', suffix: '__', escapeValue: false },
+    resources: { en: { translation: english }, mr: { translation: marathi } } });
+  assert.equal(i18n.t('notification-group-card', { count: 3, card: 'चाचणी' }), 'चाचणी कार्डवर 3 सूचना');
+  assert.equal(i18n.t('stuck-sync-operation-applied', { applied: 0, total: 2 }), '2 पैकी 0 बदल लागू झाले');
+  assert.equal(i18n.t('interrupted-import-state-failed', { stage: 'createCards', error: 'E_TEST' }), 'createCards येथे E_TEST मुळे अयशस्वी झाली');
+  assert.equal(i18n.t('scrum-history-checkpoint-counts', { applied: 1, total: 3, pending: 2, conflicted: 1 }),
+    '3 पैकी 1 बदल लिहिले, 2 लिहिले नाहीत आणि 1 मध्ये त्यानंतर दुसऱ्या व्यक्तीने बदल केले.');
+  console.log('Marathi current fills: full inventory, tokens, recovery meanings and runtime interpolation pass');
+})().catch(error => { console.error(error); process.exitCode = 1; });

@@ -55,19 +55,20 @@ Cover image
 
 Download Official Version
 
-- [Official Sandstorm Store](https://apps.sandstorm.io/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h)
+1. Please backup first.
+
+2. [Official Sandstorm Store](https://apps.sandstorm.io/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h)
 
 Download Newest WeKan Test Version
 
 1. Please backup first.
 
-2. Install newest WeKan from [Experimental](https://apps.sandstorm.io/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h?experimental=true)
-   or [Official](https://apps.sandstorm.io/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h) Sandstorm Store.
+2. [Experimental Sandstorm Store](https://apps.sandstorm.io/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h?experimental=true)
 
 About CloudFlare and uploading wekan.spk file
 
 1. If you use CloudFlare at front of your Sandstorm, there may be 100 MB file size upload limit,
-  it prevents uploading wekan.spk as file to your Sandstorm
+   it prevents uploading wekan.spk as file to your Sandstorm
 2. So instead you can use [Sandstorm Test App Loader](https://mnutt.github.io/sandstorm-test-app-loader/?spk_url=https%3A%2F%2Fgithub.com%2Fwekan%2Fwekan%2Freleases%2Fdownload%2Fv12.35%2Fwekan-12.35-sandstorm.spk&package_id=1c39541fb4710bdb04a68d0b66e9d634)
 3. Copy newest wekan.spk URL from https://github.com/wekan/wekan/releases to Sandstorm Test App Loader page,
 4. Write your Sandstorm Instance URL to Sandstorm Test Loader page

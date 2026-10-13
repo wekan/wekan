@@ -6,7 +6,6 @@
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { loginWithToken, openBoard } = require('../helpers/auth');
-const en = require('../../../imports/i18n/data/en.i18n.json');
 
 const call = (page, method, ...args) => page.evaluate(async ({ method, args }) => {
   try { return await Meteor.callAsync(method, ...args); } catch (e) { throw new Error(`${e.error}: ${e.reason || e.message}`); }
@@ -38,9 +37,13 @@ async function stoppedUndo(page, user, board, state) {
   return { card, revision, row, key: `op-${board.boardId}` };
 }
 
-test('a board admin rolls back a stopped Scrum undo from the recovery notice', async ({ page, user, board }) => {
+for (const language of ['en', 'mr']) {
+const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
+
+test(`a board admin rolls back a stopped Scrum undo from the recovery notice in ${language}`, async ({ page, user, board }) => {
   try {
     await loginWithToken(page, user.id, user.token);
+    await call(page, 'setLanguage', language);
     await openBoard(page, board.boardId, board.slug);
     const { card, revision, row } = await stoppedUndo(page, user, board, 'applied');
     // Blocked, as before.
@@ -48,8 +51,9 @@ test('a board admin rolls back a stopped Scrum undo from the recovery notice', a
     await page.reload({ waitUntil: 'domcontentloaded' });
     const notice = page.locator('.js-history-checkpoint-notice');
     await expect(notice).toBeVisible();
-    await expect(notice.locator('p').first()).toHaveText(en['scrum-history-checkpoint-stuck']);
-    await expect(notice.locator('.js-history-checkpoint-counts')).toContainText('1 of 1');
+    await expect(notice.locator('p').first()).toHaveText(strings['scrum-history-checkpoint-stuck']);
+    await expect(notice.locator('.js-history-checkpoint-counts')).toHaveText(strings['scrum-history-checkpoint-counts']
+      .replace('__applied__', '1').replace('__total__', '1').replace('__pending__', '0').replace('__conflicted__', '0'));
     await notice.locator('.js-history-checkpoint-rollback').click();
     await expect(notice).toHaveCount(0);
     expect(db.findOne('scrumHistoryPending', { _id: board.boardId })).toBeNull();
@@ -66,9 +70,10 @@ test('a board admin rolls back a stopped Scrum undo from the recovery notice', a
   } finally { clean(board.boardId); }
 });
 
-test('a record changed by someone else leaves only "keep the board as it is"', async ({ page, user, board }) => {
+test(`a record changed by someone else leaves only "keep the board as it is" in ${language}`, async ({ page, user, board }) => {
   try {
     await loginWithToken(page, user.id, user.token);
+    await call(page, 'setLanguage', language);
     await openBoard(page, board.boardId, board.slug);
     const { card } = await stoppedUndo(page, user, board, 'conflict');
     await page.reload({ waitUntil: 'domcontentloaded' });
@@ -77,6 +82,7 @@ test('a record changed by someone else leaves only "keep the board as it is"', a
     await expect(notice.locator('.js-history-checkpoint-rollback')).toHaveCount(0);
     await expect(call(page, 'scrum.resolveHistoryCheckpoint', board.boardId, `op-${board.boardId}`, 'rollback'))
       .rejects.toThrow(/scrum-history-recovery/);
+    await expect(notice.locator('.js-history-checkpoint-discard')).toHaveText(strings['scrum-history-checkpoint-discard']);
     // Declining the confirmation changes nothing.
     page.once('dialog', dialog => dialog.dismiss());
     await notice.locator('.js-history-checkpoint-discard').click();
@@ -89,17 +95,19 @@ test('a record changed by someone else leaves only "keep the board as it is"', a
   } finally { clean(board.boardId); }
 });
 
-test('an ordinary member sees the board is blocked but cannot resolve it', async ({ page, user, user2, board }) => {
+test(`an ordinary member sees the board is blocked but cannot resolve it in ${language}`, async ({ page, user, user2, board }) => {
   try {
     db.addBoardMember({ boardId: board.boardId, userId: user2.id });
     await loginWithToken(page, user.id, user.token);
+    await call(page, 'setLanguage', language);
     await openBoard(page, board.boardId, board.slug);
     const { key } = await stoppedUndo(page, user, board, 'applied');
     await loginWithToken(page, user2.id, user2.token);
+    await call(page, 'setLanguage', language);
     await openBoard(page, board.boardId, board.slug);
     const notice = page.locator('.js-history-checkpoint-notice');
     await expect(notice).toBeVisible();
-    await expect(notice.locator('p.quiet')).toHaveText(en['scrum-history-checkpoint-ask-admin']);
+    await expect(notice.locator('p.quiet')).toHaveText(strings['scrum-history-checkpoint-ask-admin']);
     await expect(notice.locator('button')).toHaveCount(0);
     for (const action of ['rollback', 'discard']) {
       await expect(call(page, 'scrum.resolveHistoryCheckpoint', board.boardId, key, action)).rejects.toThrow(/not-authorized/);
@@ -110,3 +118,5 @@ test('an ordinary member sees the board is blocked but cannot resolve it', async
     expect(db.findOne('scrumHistoryPending', { _id: board.boardId })).not.toBeNull();
   } finally { clean(board.boardId); }
 });
+
+}
