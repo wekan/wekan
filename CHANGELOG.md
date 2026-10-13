@@ -2740,6 +2740,20 @@ translation and semantic verification remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6f71d68317">Translate Latin import mapping and export controls</a>. Thanks to xet7.</summary>
+
+Fill 35 pending strings for member mapping, CSV columns, multiple-board imports,
+board exports and Trello access. Preserve ZIP boundaries, field placeholders,
+export permissions and the literal Swimlane label used for round trips.
+
+The Latin suite and all 21 preservation checks pass. The added Trello dialog
+case passes syntax and discovery; runtime remains pending. Existing Chinese
+values are unchanged. Latin has 132 English placeholders left; all-language
+translation and semantic verification remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Latin import mapping and export controls — 2026-10-13
+
+Commit `6f71d68317` fills 35 pending strings for member mapping, CSV column
+mapping, multiple-board imports, all/selected-board exports, Trello export and
+Sandstorm access. Tests preserve named placeholder users, missing-column choices,
+ZIP boundaries, precedence of selected files, cross-board relationship reports,
+export permissions and the literal Swimlane label used for round trips.
+
+The Latin suite and all 21 human-preference checks pass. The added Trello export
+dialog browser case passes syntax and discovery without providing credentials
+or contacting Trello; runtime execution remains pending. Exact comparison
+preserves 38,430 existing Chinese values. Only English-equal values changed.
+
+Latin's default --list output now contains 132 English placeholders, among keys
+marked pending Transifex. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin import instructions, second batch — 2026-10-13
 
 Commit `8d76a58ff8` fills ten pending guides for Super Productivity, Taiga,
