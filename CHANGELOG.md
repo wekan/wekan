@@ -2652,6 +2652,21 @@ pending Transifex source keys tracked separately. All-language review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8685cab6a7">Translate short rule labels in six languages</a>. Thanks to xet7.</summary>
+
+Fill 40 English placeholders in Bengali, Nepali, Hungarian, Icelandic, Albanian
+and Tagalog. Numeric counts use a slash where the template cannot accommodate
+inflected word order. Correct a Tagalog Blockly range endpoint from from to to.
+Existing Chinese values and valid shared words remain unchanged.
+
+Three focused suites and all 21 preservation checks pass. Six added Blockly
+browser cases pass syntax and discovery; runtime remains pending. The filtered
+queue is 30,465 candidates across 116 languages, with 379 pending Transifex
+source keys tracked separately. All-language semantic review remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

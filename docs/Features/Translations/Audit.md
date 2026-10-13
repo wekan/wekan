@@ -2,6 +2,25 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Short rule and Blockly labels in six languages — 2026-10-13
+
+Commit `8685cab6a7` fills 40 English placeholders in bn, ne, hu, is, sq and tl,
+and repairs the Tagalog sublist endpoint from mula # to hanggang #. Source
+inspection confirms that r-of and of appear between counts: Bengali, Nepali and
+Hungarian use a slash instead of a fragment with incorrect word order. Other
+fills distinguish sorting, acting users, email recipients, self-selection and
+Blockly pixel/procedure labels. Full rule-sentence grammar still needs review.
+
+Three focused suites pass, including 93 reviewed short-label values across 27
+locales and 27,058 guarded corrections. All 21 preservation checks pass. Six
+added Blockly browser cases pass syntax and discovery; runtime execution remains
+pending. Exact comparison preserves 38,430 existing Chinese values. No existing
+non-English value changed except the explicitly guarded Tagalog endpoint.
+
+The filtered inventory is 30,465 candidates across 116 languages, plus 379
+pending Transifex source keys tracked separately. All-language translation and
+semantic verification remain unfinished.
+
 ## Short-label and S3 gaps across 22 locales — 2026-10-13
 
 Commit `6b97949c4a` fills 52 English-equal placeholders using the guarded fill
