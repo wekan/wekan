@@ -2,6 +2,26 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Short Blockly controls in ten locales — 2026-10-13
+
+Commit `0e554efcaf` fills 126 English values in nine physical locale files:
+ka, km, km_KH, la, tt, jv, kk, tg and sn. The existing km-KH symlink resolves to
+km_KH, so ten locale names receive 140 translated entries without changing the
+symlink. The batch covers ordinal announcements, if/do aliases, pixel on states,
+range endpoints, assignment connectors, logical or and procedure prefixes.
+Existing translated tooltips and controls supplied the terminology reference.
+
+Two focused suites pass, including 233 reviewed values across 37 locale names.
+Alias consistency, placeholders, numeric markers, distinct on/off states and
+valid shared words are checked. All 21 human-preference checks pass. Nine added
+Blockly browser cases join the existing Tatar case; all ten pass syntax and
+discovery. Runtime execution remains pending. Exact comparison preserves
+38,430 existing Chinese values. Native-speaker refinement remains welcome.
+
+The filtered inventory is 30,325 candidates across 109 locales, plus 379 pending
+Transifex source keys tracked separately. All-language translation and semantic
+verification remain unfinished.
+
 ## Short rule and Blockly labels in six languages — 2026-10-13
 
 Commit `8685cab6a7` fills 40 English placeholders in bn, ne, hu, is, sq and tl,

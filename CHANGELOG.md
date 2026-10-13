@@ -2667,6 +2667,22 @@ source keys tracked separately. All-language semantic review remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0e554efcaf">Translate short Blockly controls in ten locales</a>. Thanks to xet7.</summary>
+
+Fill 126 English file values for Georgian, Khmer, Latin, Tatar, Javanese,
+Kazakh, Tajik and Shona. The Khmer locale alias makes these 140 locale entries.
+Conditions, actions, pixel states, range endpoints and procedure labels retain
+their placeholders and consistent aliases. Existing Chinese values are
+unchanged.
+
+Both focused suites and all 21 preservation checks pass. Ten Blockly browser
+cases pass syntax and discovery; runtime remains pending. The filtered queue is
+30,325 candidates across 109 locales, plus 379 pending Transifex source keys.
+All-language semantic review and native-speaker refinement remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
