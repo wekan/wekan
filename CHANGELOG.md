@@ -1912,6 +1912,19 @@ pending. Existing Chinese text is unchanged; broader review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/588e39a31e">Correct Corsican checklist and storage translations</a>. Thanks to xet7.</summary>
+
+Repair 53 checklist, attachment-storage and status values. Preserve item
+ordering, storage product names, Compact replica ordering and the distinction
+between overtime and overdue deadlines.
+
+The Corsican and repair-ledger suites and 21 human-preference checks pass.
+Default-storage browser coverage is registered; runtime execution remains
+pending. Existing Chinese text is unchanged; broader review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

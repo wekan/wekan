@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican checklists, storage and status — 2026-10-13
+
+Commit `588e39a31e` repairs 53 values in the source-ordered review through
+key 2329. Checklist text keeps one item per line and original ordering.
+Storage controls retain backend names, source selection and newly uploaded
+attachment scope. The Compact warning keeps blocking behavior, secondary
+replicas before the primary, and primary-only behavior for a single-node
+oplog replica set. Overtime remains distinct from overdue deadlines.
+
+The Corsican and full repair-ledger suites pass; the ledger contains
+26,465 guarded corrections. All 21 human-preference checks pass. Both
+Corsican attachment browser cases register, including the new default-storage
+case; syntax checking passes, but runtime execution remains pending.
+Exact comparison preserves all 38,430 existing Chinese values. Broader
+language review remains unfinished.
+
 ## Corsican reports, recovery and tickets — 2026-10-13
 
 Commit `5c96e8b59e` repairs 63 values in the source-ordered review through
