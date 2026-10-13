@@ -199736,5 +199736,264 @@
     "before": "Latine: `__operator_number__:<number>` - schedae whose scheda numerus est *<number>*",
     "after": "`__operator_number__:<number>` - chartae quarum numerus est *<number>*",
     "reason": "Repair the remaining card-number search operator and help entry."
+  },
+  {
+    "locale": "la",
+    "key": "label-colors",
+    "before": "Latine: Titulus Colors",
+    "after": "Colores titulorum",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "label-names",
+    "before": "Latine: Titulus Names",
+    "after": "Nomina titulorum",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "archived-at",
+    "before": "Latine: in archivum relatum at",
+    "after": "in archivum translatum die",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "sort-cards",
+    "before": "Latine: Ordina Schedae",
+    "after": "Ordina chartas",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "sort-boards",
+    "before": "Latine: Ordina Tabulae",
+    "after": "Ordina tabulas",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "search-boards",
+    "before": "Latine: Quaere tabulae",
+    "after": "Quaere tabulas",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "sort-boards-custom",
+    "before": "Latine: Custom (drag order)",
+    "after": "Proprius (ordo trahendo constitutus)",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "sort-boards-title-asc",
+    "before": "Latine: Titulus (A → Z)",
+    "after": "Titulus (A → Z)",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "sort-boards-title-desc",
+    "before": "Latine: Titulus (Z → A)",
+    "after": "Titulus (Z → A)",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "sort-is-on",
+    "before": "Latine: Ordina est adest",
+    "after": "Ordinatio activa est",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "cardsSortPopup-title",
+    "before": "Latine: Ordina Schedae",
+    "after": "Ordina chartas",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "due-complete",
+    "before": "Latine: Due perfice",
+    "after": "Terminus notatus ut completus",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "card-mark-complete",
+    "before": "Latine: Mark as perfice",
+    "after": "Nota chartam perfectam",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "card-mark-incomplete",
+    "before": "Latine: Mark as incomplete",
+    "after": "Nota chartam imperfectam",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "stickers",
+    "before": "Latine: Stickers",
+    "after": "Tesserae adhaesivae",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "add-sticker",
+    "before": "Latine: Adde sticker",
+    "after": "Adde tesseram adhaesivam",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "remove-sticker",
+    "before": "Latine: Remove sticker",
+    "after": "Remove tesseram adhaesivam",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "card-dependencies",
+    "before": "Latine: Dependencies",
+    "after": "Dependentiae",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "add-dependency",
+    "before": "Latine: Adde dependency",
+    "after": "Adde dependentiam",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "remove-dependency",
+    "before": "Latine: Remove dependency",
+    "after": "Remove dependentiam",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "show-dependencies",
+    "before": "Latine: Monstra dependencies",
+    "after": "Monstra dependentias",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "hide-dependencies",
+    "before": "Latine: Cela dependencies",
+    "after": "Cela dependentias",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "drag-to-connect",
+    "before": "Latine: Drag ad connect ad another scheda",
+    "after": "Trahe ut cum alia charta coniungas",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "dependency-type",
+    "before": "Latine: Relation genus",
+    "after": "Genus relationis",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "dependency-color",
+    "before": "Latine: Color",
+    "after": "Color",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "dependency-icon",
+    "before": "Latine: Icon",
+    "after": "Imago",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "dependency-type-related-to",
+    "before": "Latine: Related ad",
+    "after": "Pertinet ad",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "dependency-type-blocks",
+    "before": "Latine: Blocks",
+    "after": "Impedit",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "dependency-type-is-blocked-by",
+    "before": "Latine: Est obstructum a",
+    "after": "Impeditur a",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "dependency-type-fixes",
+    "before": "Latine: Fixes",
+    "after": "Corrigit",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "dependency-type-is-fixed-by",
+    "before": "Latine: Est fixed a",
+    "after": "Corrigitur a",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "filter-dependencies-label",
+    "before": "Latine: Filtrum a dependencies",
+    "after": "Filtra secundum dependentias",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "import-dependencies-file",
+    "before": "Latine: Dependencies fasciculus (JSON vel SVG)",
+    "after": "Fasciculus dependentiarum (JSON vel SVG)",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "import-dependencies-placeholder",
+    "before": "Latine: Vel paste dependencies JSON / SVG here",
+    "after": "Aut insere hic dependentias in forma JSON / SVG",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "import-dependencies-parse-error",
+    "before": "Latine: Could non parse the dependencies fasciculus",
+    "after": "Fasciculus dependentiarum resolvi non potuit",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "import-dependencies-empty",
+    "before": "Latine: Elige a tabula et provide at least one dependency line",
+    "after": "Elige tabulam et praebe saltem unam lineam dependentiae",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
+  },
+  {
+    "locale": "la",
+    "key": "import-dependencies-done",
+    "before": "Latine: Importatum __imported__ line(s), __unmatched__ unmatched",
+    "after": "Lineae importatae: __imported__; sine congruentia: __unmatched__",
+    "reason": "Repair Latin sorting, completion and dependency labels; preserve relationship direction, import formats and unmatched counts."
   }
 ]

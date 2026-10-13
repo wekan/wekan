@@ -51,3 +51,8 @@ for (const [value, expected] of [['selector', true], ['invalid selector', false]
   const shared = vm.runInNewContext(latinSetExpression, { en: { 'predicate-selector': value } });
   assert.equal(shared.has('predicate-selector'), expected);
 }
+
+for (const [value, expected] of [['Color', true], ['Dependency color', false]]) {
+  const shared = vm.runInNewContext(latinSetExpression, { en: { 'dependency-color': value } });
+  assert.equal(shared.has('dependency-color'), expected);
+}

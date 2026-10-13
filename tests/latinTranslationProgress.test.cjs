@@ -863,3 +863,21 @@ assert.match(latin['globalSearch-instructions-operator-number'], /chartae quarum
 for (const [key, value] of Object.entries(latin)) {
   if (key.startsWith('globalSearch-instructions') || key.startsWith('operator-')) assert.doesNotMatch(value, /Latine:/, key);
 }
+
+const reviewedSortDependencyKeys = ["label-colors", "label-names", "archived-at", "sort-cards", "sort-boards", "search-boards", "sort-boards-custom", "sort-boards-title-asc", "sort-boards-title-desc", "sort-is-on", "cardsSortPopup-title", "due-complete", "card-mark-complete", "card-mark-incomplete", "stickers", "add-sticker", "remove-sticker", "card-dependencies", "add-dependency", "remove-dependency", "show-dependencies", "hide-dependencies", "drag-to-connect", "dependency-type", "dependency-color", "dependency-icon", "dependency-type-related-to", "dependency-type-blocks", "dependency-type-is-blocked-by", "dependency-type-fixes", "dependency-type-is-fixed-by", "filter-dependencies-label", "import-dependencies-file", "import-dependencies-placeholder", "import-dependencies-parse-error", "import-dependencies-empty", "import-dependencies-done"];
+for (const key of reviewedSortDependencyKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Label|Sort|Title|Custom|sticker|Dependencies|Relation|Blocks|Imported)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.equal(latin['sort-cards'], latin['cardsSortPopup-title']);
+assert.match(latin['sort-boards-title-asc'], /A → Z/);
+assert.match(latin['sort-boards-title-desc'], /Z → A/);
+assert.notEqual(latin['card-mark-complete'], latin['card-mark-incomplete']);
+assert.equal(latin['dependency-type-blocks'], 'Impedit');
+assert.equal(latin['dependency-type-is-blocked-by'], 'Impeditur a');
+assert.equal(latin['dependency-type-fixes'], 'Corrigit');
+assert.equal(latin['dependency-type-is-fixed-by'], 'Corrigitur a');
+assert.equal(latin['dependency-color'], 'Color');
+assert.match(latin['import-dependencies-file'], /JSON vel SVG/);
+assert.match(latin['import-dependencies-empty'], /tabulam.*saltem unam lineam/);
+assert.match(latin['import-dependencies-done'], /sine congruentia: __unmatched__/);
