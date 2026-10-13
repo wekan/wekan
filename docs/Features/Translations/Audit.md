@@ -2,6 +2,28 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican filtering and importer guidance — 2026-10-13
+
+Commit `8b9c88ba25` repairs 28 values in the source-ordered review through
+key 834. Todoist and Planner contained older English sentences differing
+from the current source, demonstrating why a zero exact-English inventory
+cannot establish completion. Their replacements retain the current export
+paths, classic Planner alternative, field mappings and supported file type.
+Kanboard, Deck, OpenProject, issue and Focalboard guidance keeps literal
+properties, endpoint and placeholder tokens, and the image/attachment
+exclusion. Filter controls and imported-member labels lose mixed Italian
+wording and an unrelated in-progress prefix. An already-correct archive
+label was left unchanged.
+
+The Corsican and full repair-ledger suites pass after the final review;
+the ledger contains 25,730 guarded corrections. All 21 human-preference
+checks pass. Six additional importer browser cases register, bringing that
+shared suite to 75 cases; Planner checks the file input because it does not
+accept pasted text. These cases have not run against the application.
+Exact comparison preserves all 38,430 protected Chinese values and limits
+this locale batch to the 28 reviewed replacements. Broader language review
+remains unfinished.
+
 ## Corsican fields, accounts and exports — 2026-10-13
 
 Commit `4f89cd92e3` repairs 62 values in the source-ordered review through

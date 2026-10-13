@@ -1718,6 +1718,19 @@ Existing Chinese text is unchanged; broader language review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8b9c88ba25">Correct Corsican filters and importer guidance</a>. Thanks to xet7.</summary>
+
+Repair 28 filter, member and importer values, including older English
+Todoist and Planner instructions. Keep the current export-menu paths,
+import mappings, literal field names and attachment exclusions.
+
+The Corsican and repair-ledger suites and 21 human-preference checks pass.
+Six importer browser cases register; runtime execution remains pending.
+Existing Chinese text is unchanged; broader language review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
