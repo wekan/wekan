@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin stale-English import instructions — 2026-10-14
+
+Commit `96e2c6f620` translates Todoist and Planner import instructions that were
+still English but differed from the current English source. This demonstrates
+why English-equality counts alone cannot prove completion. The translations
+follow the current source guidance, retaining literal menu labels and mappings
+for sections, tasks, subtasks, labels, priorities and custom fields.
+
+Three translation suites pass with 29,389 correction ledger entries. All 21
+human-preference checks pass, and exact comparison preserves 38,430 existing
+Chinese values. The existing import browser suite now includes both Latin
+instructions; syntax and discovery pass, runtime remains pending.
+
+The refreshed `fill-translations.mjs --missing` inventory reports 30,285 values
+across 105 languages. It separately excludes 379 pending keys; those exclusions
+are not evidence of translation completeness. Latin has no legacy prefix, but
+unprefixed semantic review and the all-language objective remain unfinished.
+
 ## Latin legacy-prefix cleanup and flow reports — 2026-10-14
 
 Commit `d1e8c955e3` repairs the final 65 Latin values containing “Latine:”.

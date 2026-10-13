@@ -3721,6 +3721,20 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/96e2c6f620">Translate stale Latin Todoist and Planner import guidance</a>. Thanks to xet7.</summary>
+
+- Replace two unprefixed English instructions with Latin matching the current
+  source guidance. Preserve literal menu labels and imported field mappings.
+- Three translation suites and 21 human-preference checks pass. Existing Chinese
+  values remain unchanged. Both import browser tests pass syntax and discovery;
+  execution remains pending.
+- All-language review remains unfinished: the current inventory reports 30,285
+  missing values across 105 languages, excluding 379 pending keys. Semantic
+  review is also required because stale English can differ from today's source.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
