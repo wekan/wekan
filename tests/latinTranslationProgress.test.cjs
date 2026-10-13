@@ -455,3 +455,19 @@ assert.notEqual(latin['moveCardToTop-title'], latin['moveCardToBottom-title']);
 assert.equal(latin.calendar, latin['board-view-cal']);
 assert.equal(latin.gantt, 'Gantt');
 assert.equal(latin['log-in'], latin['loginPopup-title']);
+
+const reviewedVisibilityKeys = ["selection-color", "multi-selection", "multi-selection-label", "multi-selection-member", "multi-selection-on", "multi-selection-off", "muted", "muted-info", "my-boards", "no-archived-cards", "no-archived-lists", "no-archived-swimlanes", "normal", "normal-desc", "normal-assigned-only", "normal-assigned-only-desc", "not-accepted-yet", "notify-participate", "notify-watch", "page-maybe-private", "page-not-found", "paste-or-dragdrop", "participating", "preview", "previewAttachedImagePopup-title", "previewClipboardImagePopup-title", "private-desc", "public-desc", "quick-access-description", "remove-cover"];
+for (const key of reviewedVisibilityKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Preview|Receive|Participating|people|anyone|watching|logging in|minicard)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['normal-desc'], /videre et mutare potest.*Optiones mutare non potest/);
+assert.match(latin['normal-assigned-only-desc'], /Solum chartae assignatae visibiles/);
+assert.match(latin['private-desc'], /Solum homines tabulae additi.*videre et mutare/);
+assert.match(latin['public-desc'], /Quivis ligamen habens.*Google.*Solum homines tabulae additi eam mutare/);
+assert.ok(latin['page-maybe-private'].includes("<a href='%s'>ingrederis</a>"));
+assert.match(latin['muted-info'], /nullis mutationibus.*umquam/);
+assert.match(latin['notify-participate'], /creator vel membrum/);
+assert.match(latin['notify-watch'], /tabularum, indicum vel chartarum/);
+for (const key of ['previewAttachedImagePopup-title', 'previewClipboardImagePopup-title']) assert.equal(latin[key], latin.preview);
+assert.equal(new Set(['no-archived-cards', 'no-archived-lists', 'no-archived-swimlanes'].map(key => latin[key])).size, 3);

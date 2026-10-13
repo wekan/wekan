@@ -194381,5 +194381,215 @@
     "before": "Latine: Copia selection",
     "after": "Copia res electas",
     "reason": "Repair board departure, list actions and navigation labels, retaining all-card scope and archive-versus-delete distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "selection-color",
+    "before": "Latine: Selection Color",
+    "after": "Color rerum electarum",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "multi-selection",
+    "before": "Latine: Multi-Selection",
+    "after": "Electio plurium rerum",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "multi-selection-label",
+    "before": "Latine: Set titulus for selection",
+    "after": "Constitue titulum rebus electis",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "multi-selection-member",
+    "before": "Latine: Set sodalis for selection",
+    "after": "Constitue membrum rebus electis",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "multi-selection-on",
+    "before": "Latine: Multi-Selection est adest",
+    "after": "Electio plurium rerum activa est",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "multi-selection-off",
+    "before": "Latine: Turn Multi-Selection abest",
+    "after": "Inactiva electionem plurium rerum",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "muted",
+    "before": "Latine: Muted",
+    "after": "Silentium",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "muted-info",
+    "before": "Latine: Tu erit numquam esse notified de ullum mutationes in hoc tabula",
+    "after": "De nullis mutationibus in hac tabula umquam certior fies",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "my-boards",
+    "before": "Latine: My Tabulae",
+    "after": "Tabulae meae",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "no-archived-cards",
+    "before": "Latine: Non schedae in Archivum.",
+    "after": "Nullae chartae in archivo.",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "no-archived-lists",
+    "before": "Latine: Non indices in Archivum.",
+    "after": "Nulli indices in archivo.",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "no-archived-swimlanes",
+    "before": "Latine: Non swimlanes in Archivum.",
+    "after": "Nullae semitae in archivo.",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "normal",
+    "before": "Latine: Normalis",
+    "after": "Normalis",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "normal-desc",
+    "before": "Latine: Potest vide et muta schedae. Can't muta configurationes.",
+    "after": "Chartas videre et mutare potest. Optiones mutare non potest.",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "normal-assigned-only",
+    "before": "Latine: Tantum Assigned Normalis",
+    "after": "Usor normalis tantum chartarum assignatarum",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "normal-assigned-only-desc",
+    "before": "Latine: Tantum assigned schedae visible. Muta as Normalis usor.",
+    "after": "Solum chartae assignatae visibiles sunt. Mutare potest ut usor normalis.",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "not-accepted-yet",
+    "before": "Latine: Invitation non acceptum yet",
+    "after": "Invitatio nondum accepta est",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "notify-participate",
+    "before": "Latine: Receive updates ad ullum schedae tu participate as creator vel sodalis",
+    "after": "Accipe nuntios mutationum omnium chartarum quibus ut creator vel membrum participas",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "notify-watch",
+    "before": "Latine: Receive updates ad ullum tabulae, indices, vel schedae tu’re watching",
+    "after": "Accipe nuntios mutationum omnium tabularum, indicum vel chartarum quas observas",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "page-maybe-private",
+    "before": "Latine: Hoc pagina potest esse privatum. Tu potest esse able ad vide it a <a href='%s'>logging in</a>.",
+    "after": "Haec pagina privata esse potest. Fortasse eam videre poteris si <a href='%s'>ingrederis</a>.",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "page-not-found",
+    "before": "Latine: Pagina non inventum.",
+    "after": "Pagina non inventa est.",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "paste-or-dragdrop",
+    "before": "Latine: ad paste, vel drag & drop imago fasciculus ad it (imago tantum)",
+    "after": "ut inseras, vel fasciculum imaginis huc trahe et depone (tantum imaginem)",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "participating",
+    "before": "Latine: Participating",
+    "after": "Participans",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "preview",
+    "before": "Latine: Preview",
+    "after": "Praevisio",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "previewAttachedImagePopup-title",
+    "before": "Latine: Preview",
+    "after": "Praevisio",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "previewClipboardImagePopup-title",
+    "before": "Latine: Preview",
+    "after": "Praevisio",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "private-desc",
+    "before": "Latine: Hoc tabula est privatum. Tantum people additum ad the tabula potest vide et muta it.",
+    "after": "Haec tabula privata est. Solum homines tabulae additi eam videre et mutare possunt.",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "public-desc",
+    "before": "Latine: Hoc tabula est publicum. It's visible ad anyone cum the vinculum et erit monstra up in quaere engines like Google. Tantum people additum ad the tabula potest muta.",
+    "after": "Haec tabula publica est. Quivis ligamen habens eam videre potest, et in quaesitoriis ut Google apparebit. Solum homines tabulae additi eam mutare possunt.",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "quick-access-description",
+    "before": "Latine: Star a tabula ad adde a shortcut in hoc bar.",
+    "after": "Tabulam stella nota ut compendium in hoc vecte addas.",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
+  },
+  {
+    "locale": "la",
+    "key": "remove-cover",
+    "before": "Latine: Remove cover imago ex minicard",
+    "after": "Remove imaginem tegminis a chartula",
+    "reason": "Repair selection, visibility and notification descriptions, preserving public-read/member-edit limits and assigned-card scope."
   }
 ]
