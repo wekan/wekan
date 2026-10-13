@@ -177784,5 +177784,145 @@
     "before": "Anonimizza gli utilizatori in importazione",
     "after": "Anonimizà l’utilizatori impurtati",
     "reason": "Repair Italian/Corsican mixed storage and account prose; preserve migration preconditions, data retention, technical paths and irreversible-action warnings."
+  },
+  {
+    "locale": "co",
+    "key": "anonymize-export-users",
+    "before": "Anonimizza gli utilizatori in esportazione",
+    "after": "Anonimizà l’utilizatori espurtati",
+    "reason": "Replace mixed Italian/Corsican repair guidance; preserve migration scope, permission requirements, technical identifiers and reversibility limits."
+  },
+  {
+    "locale": "co",
+    "key": "anonymize-account",
+    "before": "Anonimizza gli utilizatori in importazione",
+    "after": "Anonimizà u contu",
+    "reason": "Replace mixed Italian/Corsican repair guidance; preserve migration scope, permission requirements, technical identifiers and reversibility limits."
+  },
+  {
+    "locale": "co",
+    "key": "disable-watch-description",
+    "before": "Se abilitato, la funzione di monitoraggio è disattivata — gli utilizatori non possono iscriversi a tavule, liste o carte per ricevere nutificazioni, e qualsiasi tentativo di cambiare il livello di monitoraggio viene rifiutato. Il valore predefinito è disattivato.",
+    "after": "Quandu hè attivatu, a funzione di seguitu hè disattivata: l’utilizatori ùn ponu micca abbunassi à tavule, liste o carte per riceve nutificazioni, è ogni prova di cambià u livellu di seguitu hè ricusata. Hè disattivatu di manera predefinita.",
+    "reason": "Replace mixed Italian/Corsican repair guidance; preserve migration scope, permission requirements, technical identifiers and reversibility limits."
+  },
+  {
+    "locale": "co",
+    "key": "s3-endpoint-menu-path",
+    "before": "AWS: lascia vuoto (usa l'endpoint di a regione). Compatibile cù S3: l'URL dell'endpoint dalla console del tuo MinIO / Cloudflare R2 / Backblaze B2 / Wasabi / DigitalOcean Spaces.",
+    "after": "AWS: lasciate viotu (adopra u puntu d’accessu di a regione). Cumpatibile cù S3: l’URL Endpoint da a cunsola MinIO / Cloudflare R2 / Backblaze B2 / Wasabi / DigitalOcean Spaces.",
+    "reason": "Replace mixed Italian/Corsican repair guidance; preserve migration scope, permission requirements, technical identifiers and reversibility limits."
+  },
+  {
+    "locale": "co",
+    "key": "cloud-settings-save-failed",
+    "before": "Impossibile salvare le impostazioni di u storage",
+    "after": "Ùn hè statu pussibule d’arregistrà i paràmetri d’almacenamentu",
+    "reason": "Replace mixed Italian/Corsican repair guidance; preserve migration scope, permission requirements, technical identifiers and reversibility limits."
+  },
+  {
+    "locale": "co",
+    "key": "restore-lost-cards-migration-description",
+    "before": "Trova e ristabilisce carte e liste cù swimlaneId o listId mancante. Creà una swimlane 'Carte perse' per rendere di novu visibili tutti gli elementi persi.",
+    "after": "Trova è ristabilisce e carte è e liste cù swimlaneId o listId mancante. Crea un curridore ‘Lost Cards’ per rende torna visibili tutti l’elementi persi.",
+    "reason": "Replace mixed Italian/Corsican repair guidance; preserve migration scope, permission requirements, technical identifiers and reversibility limits."
+  },
+  {
+    "locale": "co",
+    "key": "restore-all-archived-migration",
+    "before": "Ristabilisce tutti gli archiviati",
+    "after": "Ristabilisce tutti l’elementi archiviati",
+    "reason": "Replace mixed Italian/Corsican repair guidance; preserve migration scope, permission requirements, technical identifiers and reversibility limits."
+  },
+  {
+    "locale": "co",
+    "key": "restore-all-archived-migration-description",
+    "before": "Ristabilisce tutte le swimlane, le liste e le carte archiviate. Corregge automaticamente qualsiasi swimlaneId o listId mancante per rendere visibili gli elementi.",
+    "after": "Ristabilisce tutti i curridori, e liste è e carte archiviate. Currege automaticamente ogni swimlaneId o listId mancante per rende visibili l’elementi.",
+    "reason": "Replace mixed Italian/Corsican repair guidance; preserve migration scope, permission requirements, technical identifiers and reversibility limits."
+  },
+  {
+    "locale": "co",
+    "key": "fix-avatar-urls-migration-description",
+    "before": "Aggiorna gli URL di i avatar dei membri di a tavula per usare il backend di storage corretto e corregge i riferimenti agli avatar non funzionanti.",
+    "after": "Aghjorna l’URL di l’avatar di i membri di a tavula per aduprà u sistema d’almacenamentu currettu è currege i riferimenti d’avatar rotti.",
+    "reason": "Replace mixed Italian/Corsican repair guidance; preserve migration scope, permission requirements, technical identifiers and reversibility limits."
+  },
+  {
+    "locale": "co",
+    "key": "fix-all-file-urls-migration",
+    "before": "Correggi tutti gli URL dei schedariu",
+    "after": "Currege tutti l’URL di i schedarii",
+    "reason": "Replace mixed Italian/Corsican repair guidance; preserve migration scope, permission requirements, technical identifiers and reversibility limits."
+  },
+  {
+    "locale": "co",
+    "key": "fix-all-file-urls-migration-description",
+    "before": "Aggiorna tutti gli URL di i allegati di questa tavula per usare il backend di storage corretto e corregge i riferimenti ai schedariu non funzionanti.",
+    "after": "Aghjorna tutti l’URL di i schedarii in appicciu nant’à sta tavula per aduprà u sistema d’almacenamentu currettu è currege i riferimenti di schedarii rotti.",
+    "reason": "Replace mixed Italian/Corsican repair guidance; preserve migration scope, permission requirements, technical identifiers and reversibility limits."
+  },
+  {
+    "locale": "co",
+    "key": "migrations-admin-only",
+    "before": "Solu gli amministratori di a tavula possono eseguire le migrazioni",
+    "after": "Solu l’amministratori di a tavula ponu eseguisce e migrazioni",
+    "reason": "Replace mixed Italian/Corsican repair guidance; preserve migration scope, permission requirements, technical identifiers and reversibility limits."
+  },
+  {
+    "locale": "co",
+    "key": "no-issues-found",
+    "before": "Nessun problema trovato",
+    "after": "Nisun prublema trovu",
+    "reason": "Replace mixed Italian/Corsican repair guidance; preserve migration scope, permission requirements, technical identifiers and reversibility limits."
+  },
+  {
+    "locale": "co",
+    "key": "run-restore-lost-cards-migration-confirm",
+    "before": "Verrà creata una swimlane 'Carte perse' e ripristinate tutte le carte e le liste cù swimlaneId o listId mancante. Questu riguarda solu gli elementi non archiviati. Continuare?",
+    "after": "Questu creerà un curridore ‘Lost Cards’ è ristabilirà tutte e carte è e liste cù swimlaneId o listId mancante. Solu l’elementi micca archiviati sò affettati. Cuntinuà?",
+    "reason": "Replace mixed Italian/Corsican repair guidance; preserve migration scope, permission requirements, technical identifiers and reversibility limits."
+  },
+  {
+    "locale": "co",
+    "key": "run-restore-all-archived-migration-confirm",
+    "before": "Verranno ripristinate TUTTE le swimlane, le liste e le carte archiviate, rendendole di novu visibili. Qualsiasi elemento cù ID mancante verrà corretto automaticamente. Questa operazione non può essere annullata facilmente. Continuare?",
+    "after": "Questu ristabilirà TUTTI i curridori, e liste è e carte archiviate, rendendu li torna visibili. Ogni elementu cù identificatori mancanti serà currettu automaticamente. Ùn si pò annullà facilmente st’azzione. Cuntinuà?",
+    "reason": "Replace mixed Italian/Corsican repair guidance; preserve migration scope, permission requirements, technical identifiers and reversibility limits."
+  },
+  {
+    "locale": "co",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "Verranno aggiornati gli URL di i avatar dei membri di a tavula per usare il backend di storage corretto. Continuare?",
+    "after": "Questu aghjurnerà l’URL di l’avatar di i membri di a tavula per aduprà u sistema d’almacenamentu currettu. Cuntinuà?",
+    "reason": "Replace mixed Italian/Corsican repair guidance; preserve migration scope, permission requirements, technical identifiers and reversibility limits."
+  },
+  {
+    "locale": "co",
+    "key": "run-fix-all-file-urls-migration-confirm",
+    "before": "Verranno aggiornati tutti gli URL di i allegati di questa tavula per usare il backend di storage corretto. Continuare?",
+    "after": "Questu aghjurnerà tutti l’URL di i schedarii in appicciu nant’à sta tavula per aduprà u sistema d’almacenamentu currettu. Cuntinuà?",
+    "reason": "Replace mixed Italian/Corsican repair guidance; preserve migration scope, permission requirements, technical identifiers and reversibility limits."
+  },
+  {
+    "locale": "co",
+    "key": "migration-progress-note",
+    "before": "Attendi mentre migriamo la tua tavula alla struttura più recente...",
+    "after": "Aspittate mentre migremu a vostra tavula versu a struttura più recente...",
+    "reason": "Replace mixed Italian/Corsican repair guidance; preserve migration scope, permission requirements, technical identifiers and reversibility limits."
+  },
+  {
+    "locale": "co",
+    "key": "conversion-info-text",
+    "before": "Questa conversione viene eseguita una sola volta per tavula e migliora le prestazioni. Puoi continuare a usare la tavula normalmente.",
+    "after": "Sta cunversione hè fatta una sola volta per tavula è migliora e prestazioni. Pudete cuntinuà à aduprà a tavula nurmalmente.",
+    "reason": "Replace mixed Italian/Corsican repair guidance; preserve migration scope, permission requirements, technical identifiers and reversibility limits."
+  },
+  {
+    "locale": "co",
+    "key": "no-new-problems",
+    "before": "Nessun novu problema.",
+    "after": "Nisun novu prublema.",
+    "reason": "Replace mixed Italian/Corsican repair guidance; preserve migration scope, permission requirements, technical identifiers and reversibility limits."
   }
 ]

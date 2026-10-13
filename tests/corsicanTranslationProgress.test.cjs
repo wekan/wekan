@@ -266,3 +266,17 @@ for (const key of ['sandstorm-delete-raw-mongodb-description','sandstorm-delete-
 assert.match(corsican['disable-import-avatars-description'], /LDAP, OIDC\/OAuth2.*altri dati sò sempre impurtati.*solu l’avatar.*disattivatu/);
 assert.match(corsican['disable-export-avatars-description'], /altri dati sò sempre espurtati.*solu l’avatar.*disattivatu/);
 assert.notEqual(corsican.hideCheckedChecklistItems, corsican.hideAllChecklistItems);
+
+const repairCorrectionKeys = ["anonymize-export-users", "anonymize-account", "disable-watch-description", "s3-endpoint-menu-path", "cloud-settings-save-failed", "restore-lost-cards-migration-description", "restore-all-archived-migration", "restore-all-archived-migration-description", "fix-avatar-urls-migration-description", "fix-all-file-urls-migration", "fix-all-file-urls-migration-description", "migrations-admin-only", "no-issues-found", "run-restore-lost-cards-migration-confirm", "run-restore-all-archived-migration-confirm", "run-fix-avatar-urls-migration-confirm", "run-fix-all-file-urls-migration-confirm", "migration-progress-note", "conversion-info-text", "no-new-problems"];
+for (const key of repairCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /\b(?:gli|alla|dalla|Impossibile|Nessun|Questa|Puoi|viene|Verranno|Continuare)\b/, key);
+}
+assert.equal(corsican['anonymize-account'], 'Anonimizà u contu');
+assert.match(corsican['disable-watch-description'], /ùn ponu micca abbunassi.*ogni prova.*ricusata.*disattivatu/);
+for (const key of ['restore-lost-cards-migration-description','run-restore-lost-cards-migration-confirm']) for (const literal of ['Lost Cards','swimlaneId','listId']) assert.ok(corsican[key].includes(literal));
+assert.match(corsican['run-restore-lost-cards-migration-confirm'], /Solu l’elementi micca archiviati/);
+assert.match(corsican['run-restore-all-archived-migration-confirm'], /TUTTI.*archiviate.*Ùn si pò annullà facilmente/);
+assert.match(corsican['migrations-admin-only'], /Solu l’amministratori di a tavula/);
+assert.match(corsican['conversion-info-text'], /una sola volta per tavula.*cuntinuà.*nurmalmente/);
+for (const literal of ['AWS','MinIO','Cloudflare R2','Backblaze B2','Wasabi','DigitalOcean Spaces']) assert.ok(corsican['s3-endpoint-menu-path'].includes(literal));

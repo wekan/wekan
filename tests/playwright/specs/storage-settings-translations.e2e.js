@@ -16,7 +16,7 @@ for (const language of ['co', 'mt', 'en', 'mr', 'bn', 'is', 'tl', 'sq', 'ne', 'k
       const group = pane.locator(`.form-group:has(#s3-${field})`);
       await expect(group.locator('.cloud-input-label-tr')).toHaveText(strings[`s3-${field}`]);
     }
-    for (const key of ['s3-endpoint-description', 's3-bucket-description', 's3-force-path-style-description']) {
+    for (const key of ['s3-endpoint-description', 's3-bucket-description', 's3-force-path-style-description', 's3-endpoint-menu-path']) {
       await expect(pane.getByText(strings[key], { exact: true })).toBeVisible();
     }
     const secret = pane.locator('.form-group:has(#s3-secret-key)');
