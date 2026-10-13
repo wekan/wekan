@@ -25,7 +25,11 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
       assert.deepEqual(tokens(data[row.key]), tokens(english[row.key]), identity);
       assert.deepEqual(tokens(row.after), tokens(english[row.key]), identity);
     }
-    assert.ok(row.after.trim(), identity);
+    if (english[row.key] === '') {
+      assert.equal(row.after, '', `${identity}: intentionally empty source`);
+    } else {
+      assert.ok(row.after.trim(), identity);
+    }
     assert.notEqual(row.before, row.after, identity);
     assert.equal(repairLocale(row.locale, { [row.key]: row.before }).data[row.key], latest.get(identity));
     assert.equal(repairLocale(row.locale, { [row.key]: 'NEW REVIEWED TRANSLATION' }).data[row.key], 'NEW REVIEWED TRANSLATION', 'preserve newer wording');

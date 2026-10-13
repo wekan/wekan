@@ -28,7 +28,7 @@ test.describe('#6748 rule Set color action', () => {
     db.deleteMany('actions', { boardId: board.boardId });
   });
 
-  for (const language of ['en', 'ar', 'ar-DZ', 'ar-EG']) {
+  for (const language of ['en', 'ar', 'ar-DZ', 'ar-EG', 'co']) {
   test(`a color other than green can be picked and is saved in ${language}`, async ({ boardPage: page, board }) => {
     await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
     const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);

@@ -179149,5 +179149,334 @@
     "before": "Livello 1 (sbiadimento leggero) dopo questu numero di ghjorni di inattività",
     "after": "Livellu 1 (ligera riduzzione di visibilità) dopu stu numeru di ghjorni d’inattività",
     "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "card-aging-tier2",
+    "before": "Livello 2 (sbiadimento medio) dopo questu numero di ghjorni di inattività",
+    "after": "Livellu 2 (riduzzione media di visibilità) dopu stu numeru di ghjorni d’inattività",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "card-aging-tier3",
+    "before": "Livello 3 (sbiadimento forte) dopo questu numero di ghjorni di inattività",
+    "after": "Livellu 3 (forte riduzzione di visibilità) dopu stu numeru di ghjorni d’inattività",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "move-card-up",
+    "before": "Move carta su",
+    "after": "Spustà a carta in sù",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "move-card-down",
+    "before": "Move carta giù",
+    "after": "Spustà a carta in ghjò",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "move-list-left",
+    "before": "Move lista a sinistra",
+    "after": "Spustà a lista à manca",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "move-list-right",
+    "before": "Move lista a destra",
+    "after": "Spustà a lista à diritta",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "close-dialog",
+    "before": "Chjode finestra di dialogo",
+    "after": "Chjode a finestra di dialogu",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "go-back",
+    "before": "Torna indietro",
+    "after": "Vultà in daretu",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "modal-title",
+    "before": "Finestra di dialogo",
+    "after": "Finestra di dialogu",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "close-board-pop",
+    "before": "Potrai ripristinare la tavula cliccando nantu à u tasto \"Archiviu\"  presente nell'intestazione di a home.",
+    "after": "Pudete ristabilisce a tavula da « Archiviu » nant’à a pagina Tutte e tavule.",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "color-black",
+    "before": "nero",
+    "after": "neru",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "color-crimson",
+    "before": "Rosso cremisi",
+    "after": "rossu carminu",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "color-darkgreen",
+    "before": "verde scuro",
+    "after": "verde scuru",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "color-gold",
+    "before": "oro",
+    "after": "oru",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "color-gray",
+    "before": "grigio",
+    "after": "grisgiu",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "color-indigo",
+    "before": "Indaco",
+    "after": "turchinu viulettu scuru",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "color-mistyrose",
+    "before": "Mistyrose",
+    "after": "rosa assai pallidu",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "color-navy",
+    "before": "Navy",
+    "after": "turchinu scuru",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "color-orange",
+    "before": "arancione",
+    "after": "aranciu",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "color-paleturquoise",
+    "before": "Turchese chiaro",
+    "after": "turchese chjaru",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "color-peachpuff",
+    "before": "Pesca",
+    "after": "culore di pesca pallidu",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "color-red",
+    "before": "rosso",
+    "after": "rossu",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "color-saddlebrown",
+    "before": "Saddlebrown",
+    "after": "marrone di coghju",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "color-silver",
+    "before": "argento",
+    "after": "argentu",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "color-sky",
+    "before": "azzurro",
+    "after": "turchinu di celu",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "color-slateblue",
+    "before": "Ardesia",
+    "after": "turchinu d’ardesia",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "color-white",
+    "before": "bianco",
+    "after": "biancu",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "color-yellow",
+    "before": "giallo",
+    "after": "ghjallu",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "unset-color",
+    "before": "Non impostato",
+    "after": "Micca definitu",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "comment-placeholder",
+    "before": "In corsu: ",
+    "after": "",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "comment-assigned-only",
+    "before": "Solu cummentu assegnato",
+    "after": "Cummentà solu e carte assignate",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "comment-assigned-only-desc",
+    "before": "Sono visibili solu le carte assegnate. Può solu commentare.",
+    "after": "Solu e carte assignate sò visibili. Pò solu cummentà.",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "no-comments-desc",
+    "before": "Non può vedere i cummenti.",
+    "after": "Ùn pò micca vede i cummenti.",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "read-only",
+    "before": "Sola lettura",
+    "after": "Solu lettura",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "read-assigned-only",
+    "before": "Solu lettura assegnate",
+    "after": "Leghje solu e carte assignate",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "worker",
+    "before": "Lavoratore",
+    "after": "Travagliadore",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "worker-desc",
+    "before": "Può solu spostare carte, assegnarsi una carta e commentare.",
+    "after": "Pò solu spustà e carte, assignà si à una carta è cummentà.",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "confirm-move-list-to-swimlane",
+    "before": "Spostare questa lista e tutte le sue carte nell'altra swimlane?",
+    "after": "Spustà sta lista è tutte e so carte in l’altra corsia?",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "copy-card-link-to-clipboard",
+    "before": "Cupià link di a carta negli appunti",
+    "after": "Cupià u ligame di a carta in l’appunti",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "copy-link-to-clipboard",
+    "before": "Cupià il link negli appunti",
+    "after": "Cupià u ligame in l’appunti",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "copy-text-to-clipboard",
+    "before": "Cupià il testo negli appunti",
+    "after": "Cupià u testu in l’appunti",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "linkCardPopup-title",
+    "before": "Collega carta",
+    "after": "Ligà a carta",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "save-card-as-template",
+    "before": "Salva cum'è Mudellu",
+    "after": "Arregistrà cum’è mudellu",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "copyManyCardsPopup-title",
+    "before": "Cupià template su molte carte",
+    "after": "Cupià u mudellu in parechje carte",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "copyManyCardsPopup-instructions",
+    "before": "Titulu e la descrizzione di a carta di destinazione in questu formato JSON",
+    "after": "Tituli è discrizzioni di e carte di destinazione in stu furmatu JSON",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "createTemplateContainerPopup-title",
+    "before": "Aghjunghje contenitore di Template",
+    "after": "Aghjunghje un cuntenitore di mudelli",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
+  },
+  {
+    "locale": "co",
+    "key": "createCustomField",
+    "before": "Creà campo",
+    "after": "Creà un campu",
+    "reason": "Repair mixed-language navigation, color and role labels; retain permission limits, movement direction and the intentionally empty source placeholder."
   }
 ]

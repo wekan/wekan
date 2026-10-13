@@ -343,3 +343,22 @@ assert.match(corsican['click-to-disable-auto-width'], /hè attivata.*disattivà 
 assert.match(corsican['click-to-star'], /aghjunghje.*preferite/);
 assert.match(corsican['click-to-unstar'], /caccià.*preferite/);
 assert.match(corsican['card-aging-tier1'], /Livellu 1.*ghjorni d’inattività/);
+
+const navigationCorrectionKeys = ["card-aging-tier2", "card-aging-tier3", "move-card-up", "move-card-down", "move-list-left", "move-list-right", "close-dialog", "go-back", "modal-title", "close-board-pop", "color-black", "color-crimson", "color-darkgreen", "color-gold", "color-gray", "color-indigo", "color-mistyrose", "color-navy", "color-orange", "color-paleturquoise", "color-peachpuff", "color-red", "color-saddlebrown", "color-silver", "color-sky", "color-slateblue", "color-white", "color-yellow", "unset-color", "comment-placeholder", "comment-assigned-only", "comment-assigned-only-desc", "no-comments-desc", "read-only", "read-assigned-only", "worker", "worker-desc", "confirm-move-list-to-swimlane", "copy-card-link-to-clipboard", "copy-link-to-clipboard", "copy-text-to-clipboard", "linkCardPopup-title", "save-card-as-template", "copyManyCardsPopup-title", "copyManyCardsPopup-instructions", "createTemplateContainerPopup-title", "createCustomField"];
+for (const key of navigationCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /\b(?:Livello|sbiadimento|dopo|numero|Potrai|ripristinare|cliccando|nell|nero|rosso|bianco|giallo|arancione|grigio|argento|assegnato|assegnate|Sono|Può|Lavoratore|spostare|commentare|negli|testo|template|molte|formato|campo)\b/, key);
+}
+assert.equal(corsican['comment-placeholder'], '');
+assert.match(corsican['comment-assigned-only-desc'], /Solu e carte assignate sò visibili.*Pò solu cummentà/);
+assert.match(corsican['no-comments-desc'], /Ùn pò micca vede/);
+assert.match(corsican['worker-desc'], /Pò solu spustà.*assignà si.*cummentà/);
+assert.match(corsican['confirm-move-list-to-swimlane'], /sta lista.*tutte e so carte.*l’altra corsia/);
+assert.match(corsican['close-board-pop'], /Archiviu.*Tutte e tavule/);
+assert.match(corsican['move-card-up'], /in sù$/);
+assert.match(corsican['move-card-down'], /in ghjò$/);
+assert.match(corsican['move-list-left'], /à manca$/);
+assert.match(corsican['move-list-right'], /à diritta$/);
+assert.equal(corsican['color-red'], 'rossu');
+assert.equal(corsican['color-white'], 'biancu');
+assert.equal(corsican['color-yellow'], 'ghjallu');
