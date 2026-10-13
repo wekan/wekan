@@ -2,6 +2,27 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican import instructions — 2026-10-13
+
+Commit `9198e84b39` fills 22 English import-format instructions. Checks
+preserve literal Orgmode keywords and Teamwork headers, nesting syntax,
+first-board limits, English-header requirements and unsupported-data
+warnings. Taiga retains separate epic/issue swimlanes; Vikunja retains
+percent-complete and completion custom fields; Quire retains the warning
+that comments and attachments are absent from its CSV.
+
+The Corsican suite now runs the full filtered inventory, including pending
+keys, and passes with zero placeholders. All 21 human-preference checks
+pass. The shared importer browser suite registers 66 cases across Corsican,
+Maltese and Swahili, including 22 added Corsican cases; application execution
+is still pending. Only the 22 English values changed, with all 38,079
+protected Chinese values preserved and concurrent mail-report additions
+excluded from the commit.
+
+The global filtered count is 53,224 across 113 catalogs. A zero filtered
+count does not certify Corsican fluency: older Italian wording, exempt
+prose, regional phrasing and browser execution remain to be reviewed.
+
 ## Corsican import, export and board controls — 2026-10-13
 
 Commit `342e479ed9` fills 65 English values for imported-person choices,

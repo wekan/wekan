@@ -132,8 +132,8 @@ releases.
   report counts **28,516 untranslated locale/string values in 42 languages**.
   It excludes **379 source keys tracked separately as pending Transifex**.
   With the newer email/chat strings included, full per-locale `--list`
-  reports, including pending keys, count **53,246 remaining values across
-  114 non-English locale files**. This fuller inventory remains the scope
+  reports, including pending keys, count **53,224 remaining values across
+  113 non-English locale files**. This fuller inventory remains the scope
   of the translation work.
   A separate short-prose audit flags 1,649 candidates across 180 locales.
   The two notification At/To labels now have translations in all non-English
@@ -1402,6 +1402,21 @@ The Corsican suite and 21 human-preference checks pass. Eight browser
 cases register across seven workflows; runtime execution remains pending.
 Corsican has 22 import-format placeholders left. Prior translations and
 protected Chinese values remain unchanged; broader language review continues.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9198e84b39">Complete Corsican import-format instructions</a>. Thanks to xet7.</summary>
+
+Translate 22 import instructions, preserving format syntax, column names,
+first-board limits and warnings about omitted data. The Corsican suite now
+checks the full filtered inventory, which is empty; older mixed-language
+text and exempt prose still need review.
+
+The translation suite and 21 human-preference checks pass. The shared
+importer browser suite registers 66 cases across Corsican, Maltese and
+Swahili; runtime execution remains pending. Prior translations and all
+protected Chinese values remain unchanged by this batch.
 
 </details>
 
