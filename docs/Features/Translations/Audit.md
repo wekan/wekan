@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho historical review: board and card controls — 2026-10-13
+
+Commit `397ea42870` reviews source keys 220–454 and repairs nine values.
+Avatar help specifies the allowed limit. Timeline wording refers to the
+state at a time rather than since that time. Roadmap grouping no longer says
+analyze, and Pulse no longer says sympathy. Unread comments remain distinct
+from new descriptions; due-today and overdue messages explicitly identify
+the deadline. Account anonymization no longer refers to imported users, and
+card labels no longer say letters. Valid existing translations are preserved.
+
+The Southern Sotho and full repair-ledger suites pass, verifying 26,887
+guarded corrections. All 21 human-preference checks pass. A new browser case
+opens card labels and the account-anonymization confirmation and checks their
+titles without submitting the account mutation. Syntax and discovery pass;
+runtime execution remains pending. Exact comparison preserves 38,430 existing
+Chinese values. Full placeholder coverage remains zero; historical review
+has reached key 454 and the all-language objective remains unfinished.
+
 ## Southern Sotho historical review: activity and controls — 2026-10-13
 
 Commit `ef05274b3c` reviews source keys 0–219 and repairs four values.
