@@ -592,3 +592,16 @@ assert.match(corsican['office-report-desc'], /per persona.*IPv4.*IPv6.*paese.*ci
 assert.match(corsican['api-report-desc'], /Una linea per contu.*puntu d’accessu.*mai una linea per dumanda/);
 assert.match(corsican['recovery-report-desc'], /copie di salvezza.*risturazioni.*MongoDB.*riparazione autumatica/);
 assert.match(corsican['carbon-copy'], /\(Cc:\)/);
+
+const checklistStorageCorrectionKeys = ["add-organizations", "copied", "checklistActionsPopup-title", "moveChecklist", "moveChecklistPopup-title", "newlineBecomesNewChecklistItem", "newLineNewItem", "newlineBecomesNewChecklistItemOriginOrder", "copyChecklist", "copyChecklistPopup-title", "copyChecklistFromTemplate", "copyChecklistFromTemplatePopup-title", "attachmentActionsPopup-title", "attachment-move-storage-fs", "attachment-move-storage-gridfs", "attachment-move-storage-s3", "attachment-move", "move-storage-collectionfs", "move-storage-gridfs", "move-storage-fs", "move-storage-s3", "move-attachments-none-found", "attachment-last-move", "attachment-repair-locations", "attachment-repair-done", "attachment-repair-scanned", "attachment-repair-broken", "move-scope", "move-scope-both", "default-save-storage-description", "move-progress-resume", "calculate-file-counts", "stats-scope", "stats-collectionfs", "stats-mongo-files", "stats-count", "attachment-id", "mongodb-compact", "mongodb-compact-warning", "mongodb-compact-run", "mongodb-compact-running", "mongodb-compact-error", "path", "storage", "action", "board-status", "board-status-time-spent-total", "board-status-cards-with-time", "board-status-overtime-cards", "board-status-remaining-time-total", "uploading", "remaining_time", "progress"];
+for (const key of checklistStorageCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /In corsu:|organizzazioni|Copiato|riga di testo|controllo|Azioni allegatu|Muovi allegatu|Ultimo spostamento|Non trovati|Riprendi|Calcola il|Conteggio|che può richiedere|vengono compattati|non riuscito|Tempo totale|tempo impiegato|in straordinario|in corso|Avanzamento/, key);
+}
+for (const key of ['move-storage-collectionfs', 'move-storage-gridfs', 'move-storage-s3', 'stats-collectionfs', 'stats-mongo-files', 'mongodb-compact']) assert.equal(corsican[key], english[key]);
+assert.match(corsican['newlineBecomesNewChecklistItemOriginOrder'], /Ogni linea.*un elementu.*ordine originale/);
+assert.match(corsican['move-attachments-none-found'], /d’origine sceltu.*nunda da spustà/);
+assert.match(corsican['mongodb-compact-warning'], /bluccante.*secundarii.*prima.*po u primariu.*un solu nodu.*oplog.*solu u primariu/);
+assert.match(corsican['default-save-storage-description'], /novi appicci caricati/);
+assert.match(corsican['board-status-overtime-cards'], /tempu supplementariu/);
+assert.doesNotMatch(corsican['board-status-overtime-cards'], /scadenza|scadut/);

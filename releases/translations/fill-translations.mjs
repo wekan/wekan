@@ -357,6 +357,13 @@ const LOCALE_INVARIANTS = {
 
   // Corsican retains these printed key legends, product names and math symbols.
   'co': new Set([
+    'move-storage-collectionfs',
+    'move-storage-gridfs',
+    'move-storage-s3',
+    'move-scope',
+    'stats-collectionfs',
+    'stats-mongo-files',
+    'mongodb-compact',
     'apiReportTitle',
     'api-endpoint',
     'excel-font',

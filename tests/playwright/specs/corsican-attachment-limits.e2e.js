@@ -22,3 +22,15 @@ test('Corsican attachment limits preserve transfer directions and unit labels', 
   }
   await expect(units).not.toContainText('In corsu');
 });
+
+test('Corsican default storage describes newly uploaded attachments', async ({ page, adminUser }) => {
+  await loginWithToken(page, adminUser.id, adminUser.token);
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'co'));
+  await navigateInApp(page, '/admin/attachments/default-save-storage');
+  const pane = page.locator('#attachment-default-storage-setting');
+  await expect(pane.locator('.description')).toHaveText(strings['default-save-storage-description']);
+  await expect(pane.locator('.description')).toContainText('novi appicci caricati');
+  await expect(pane.locator('.description')).not.toContainText('allegati');
+  await expect(pane.locator('.js-default-save-storage')).toBeVisible();
+  await expect(pane.locator('.js-default-save-storage')).not.toContainText('In corsu:');
+});

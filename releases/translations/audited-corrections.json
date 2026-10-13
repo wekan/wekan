@@ -184882,5 +184882,376 @@
     "before": "Errore durante l'invio di i inviti di registrazione",
     "after": "Errore mentre si mandava l’invitu à registrà si",
     "reason": "Repair Italian and mixed-language report, recovery and ticket wording in Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "add-organizations",
+    "before": "Aghjunta organizzazioni",
+    "after": "Aghjunghje urganisazioni",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "copied",
+    "before": "Copiato!",
+    "after": "Cupiatu!",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "checklistActionsPopup-title",
+    "before": "Azioni checklist",
+    "after": "Azzioni di a lista di cuntrollu",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "moveChecklist",
+    "before": "Move checklist",
+    "after": "Move a lista di cuntrollu",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "moveChecklistPopup-title",
+    "before": "Move checklist",
+    "after": "Move a lista di cuntrollu",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "newlineBecomesNewChecklistItem",
+    "before": "Ogni riga di testo diventa uno di i elementi di a lista di controllo",
+    "after": "Ogni linea di testu diventa un elementu di a lista di cuntrollu",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "newLineNewItem",
+    "before": "Una riga di testo = un elemento di a lista di controllo",
+    "after": "Una linea di testu = un elementu di a lista di cuntrollu",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "before": "Ogni riga di testo diventa uno di i elementi di a lista di controllo, ordine originale",
+    "after": "Ogni linea di testu diventa un elementu di a lista di cuntrollu, in l’ordine originale",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "copyChecklist",
+    "before": "Cupià checklist",
+    "after": "Cupià a lista di cuntrollu",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "copyChecklistPopup-title",
+    "before": "Cupià checklist",
+    "after": "Cupià a lista di cuntrollu",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "copyChecklistFromTemplate",
+    "before": "Cupià checklist - Mudellu",
+    "after": "Cupià a lista di cuntrollu da un mudellu",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "copyChecklistFromTemplatePopup-title",
+    "before": "Cupià checklist - Mudellu",
+    "after": "Cupià a lista di cuntrollu da un mudellu",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "attachmentActionsPopup-title",
+    "before": "Azioni allegatu",
+    "after": "Azzioni di l’appicciu",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-move-storage-fs",
+    "before": "Move allegatu in u filesystem",
+    "after": "Move l’appicciu in u sistema di schedarii",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-move-storage-gridfs",
+    "before": "Move allegatu su GridFS",
+    "after": "Move l’appicciu in GridFS",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-move-storage-s3",
+    "before": "Move allegatu su S3",
+    "after": "Move l’appicciu in S3",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-move",
+    "before": "Muovi allegatu",
+    "after": "Move l’appicciu",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "move-storage-collectionfs",
+    "before": "In corsu: MongoDB CollectionFS",
+    "after": "MongoDB CollectionFS",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "move-storage-gridfs",
+    "before": "In corsu: MongoDB Meteor-Files",
+    "after": "MongoDB Meteor-Files",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "move-storage-fs",
+    "before": "Schedariu system",
+    "after": "Sistema di schedarii",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "move-storage-s3",
+    "before": "In corsu: S3/MinIO",
+    "after": "S3/MinIO",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "move-attachments-none-found",
+    "before": "Nulla è memorizzato in u storage di origine selezionato, quindi non c'è nulla da spostare.",
+    "after": "Ùn ci hè nunda arregistratu in u sistema d’almacenamentu d’origine sceltu, dunque ùn ci hè nunda da spustà.",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-last-move",
+    "before": "Ultimo spostamento",
+    "after": "Ultimu spustamentu",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-repair-locations",
+    "before": "Ripara le posizioni dei schedariu",
+    "after": "Riparà i lochi di i schedarii",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-repair-done",
+    "before": "Riparazione completata.",
+    "after": "Riparazione compia.",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-repair-scanned",
+    "before": "Analizzati",
+    "after": "Circati",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-repair-broken",
+    "before": "Non trovati",
+    "after": "Micca truvati",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "move-scope",
+    "before": "In corsu: Move",
+    "after": "Move",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "move-scope-both",
+    "before": "Allegati e avatar",
+    "after": "Appicci è avatar",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "default-save-storage-description",
+    "before": "Sceglite u sistema d’arregistramentu induve sò arregistrati i novi allegati caricati.",
+    "after": "Sceglite u sistema d’arregistramentu induve sò arregistrati i novi appicci caricati.",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "move-progress-resume",
+    "before": "Riprendi",
+    "after": "Ripiglià",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "calculate-file-counts",
+    "before": "Calcola il numero di schedariu",
+    "after": "Calculà u numeru di schedarii",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "stats-scope",
+    "before": "Tipo",
+    "after": "Tipu",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "stats-collectionfs",
+    "before": "In corsu: CollectionFS",
+    "after": "CollectionFS",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "stats-mongo-files",
+    "before": "In corsu: Meteor-Files",
+    "after": "Meteor-Files",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "stats-count",
+    "before": "Conteggio",
+    "after": "Numeru",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-id",
+    "before": "ID allegatu",
+    "after": "ID di l’appicciu",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "mongodb-compact",
+    "before": "In corsu: MongoDB Compact",
+    "after": "MongoDB Compact",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "mongodb-compact-warning",
+    "before": "Attenzione: Compact è un'operazione bloccante che può richiedere diversi minuti su database di grandi dimensioni. Sui replica set, tutti i secondari vengono compattati per primi (automaticamente), poi il primario. Sui replica set a nodo singolo usati per l'oplog (comune configurazione Meteor), viene compattato solu il primario.",
+    "after": "Attenti: Compact hè un’operazione bluccante chì pò piglià parechji minuti nant’à e grande basi di dati. Nant’à i gruppi di repliche, tutti i nodi secundarii sò cumpattati prima (autumaticamente), po u primariu. Nant’à i gruppi di repliche cù un solu nodu aduprati per l’oplog (cunfigurazione Meteor cumuna), solu u primariu hè cumpattatu.",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "mongodb-compact-run",
+    "before": "Esegui MongoDB Compact",
+    "after": "Eseguisce MongoDB Compact",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "mongodb-compact-running",
+    "before": "Esecuzione di compact in corsu; pò piglià parechji minuti...",
+    "after": "Esecuzione di Compact in corsu; pò piglià parechji minuti...",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "mongodb-compact-error",
+    "before": "Compact non riuscito:",
+    "after": "Compact hà fiascatu:",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "path",
+    "before": "Percorso",
+    "after": "Percorsu",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "storage",
+    "before": "Archiviazione",
+    "after": "Almacenamentu",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "action",
+    "before": "Azione",
+    "after": "Azzione",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "board-status",
+    "before": "Stato di a tavula",
+    "after": "Statu di a tavula",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "board-status-time-spent-total",
+    "before": "Tempo totale impiegato",
+    "after": "Tempu tutale passatu",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "board-status-cards-with-time",
+    "before": "Carte cù tempo impiegato",
+    "after": "Carte cù tempu passatu",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "board-status-overtime-cards",
+    "before": "Carte in straordinario",
+    "after": "Carte cù tempu supplementariu",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "board-status-remaining-time-total",
+    "before": "Tempu chi resta fin'a a scadenza",
+    "after": "Tempu chì ferma fin’à a scadenza",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "uploading",
+    "before": "Caricamentu in corso",
+    "after": "Caricamentu in corsu",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "remaining_time",
+    "before": "Tempo rimanente",
+    "after": "Tempu chì ferma",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
+  },
+  {
+    "locale": "co",
+    "key": "progress",
+    "before": "Avanzamento",
+    "after": "Avanzamentu",
+    "reason": "Repair mixed-language checklist and storage wording; retain ordering, backend names and operational warnings."
   }
 ]
