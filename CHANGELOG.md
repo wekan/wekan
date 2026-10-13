@@ -3064,6 +3064,20 @@ containing the old language prefix; all-language review remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/48a62a615e">Repair Latin visibility and notification descriptions</a>. Thanks to xet7.</summary>
+
+Repair 30 prefixed strings for selection, archives, roles, notifications and
+board visibility. Preserve public viewing versus member editing, assigned-card
+limits and notification scope, including muting all board changes.
+
+The Latin and guarded-correction suites and all 21 preservation checks pass.
+The Latin archive-tab browser case passes syntax and discovery; runtime remains
+pending. Existing Chinese values are unchanged. There remain 1,585 Latin values
+containing the old language prefix; all-language review remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

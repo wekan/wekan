@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin visibility, notification and archive descriptions — 2026-10-14
+
+Commit `48a62a615e` repairs 30 prefixed messages for selection, roles,
+notifications, private/public boards, previews and empty archives. Tests preserve
+public viewing versus editing by added members, assigned-card visibility,
+notification participation and watch scopes, muting all changes, HTML login links
+and consistent preview labels.
+
+The Latin and guarded-correction suites pass with 27,799 ledger entries. All 21
+human-preference checks pass. The existing archive-tab browser scenario now also
+covers Latin, distinguishing empty cards, lists and swimlanes; syntax and discovery
+pass, runtime remains pending. Exact comparison preserves 38,430 existing Chinese
+values.
+
+There remain 1,585 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin list actions and board departure — 2026-10-14
 
 Commit `5cb027f4c4` repairs 30 prefixed messages for board departure, list
