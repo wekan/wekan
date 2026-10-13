@@ -188795,5 +188795,54 @@
     "before": "Mohlala kaofela, kapa Mokgatlo o le mong. Bekapo ya Mokgatlo e na le diboto tsa wona le ntho e nngwe le e nngwe ho tsona, ho kenyeletswa diphuthelwana tsa diboto tseo — empa ha e na diakhaonto tsa basebedisi kapa ditlhophiso tsa mohlala, hobane tseo di arolelanwa ke Mokgatlo o mong le o mong. Ho kgutlisetsa bekapo ya Mokgatlo ho ngola feela dibotong tseo Mokgatlo oo o leng monga tsona.",
     "after": "Tsamaiso ena yohle ya WeKan, kapa Mokgatlo o le mong. Bekapo ya Mokgatlo e na le diboto tsa wona le ntho e nngwe le e nngwe ho tsona, ho kenyeletswa diphuthelwana tsa diboto tseo — empa ha e na diakhaonto tsa basebedisi kapa ditlhophiso tsa tsamaiso ena ya WeKan, hobane tseo di arolelanwa ke Mokgatlo o mong le o mong. Ho kgutlisetsa bekapo ya Mokgatlo ho ngola feela dibotong tseo Mokgatlo oo o leng monga tsona.",
     "reason": "Restore the account anonymization confirmation and distinguish the whole installation from an example in backup scope."
+  },
+  {
+    "locale": "st",
+    "key": "s3-endpoint-menu-path",
+    "before": "AWS: tlohela ho se na letho (e sebedisa endpoint ya region). E tsamaellanang le S3: URL ya Endpoint ho tswa khonsoleng ya hao ya MinIO / Cloudflare R2 / Backblaze B2 / Wasabi / DigitalOcean Spaces.",
+    "after": "AWS: tlohela ho se na letho (e sebedisa sebaka sa kgokelo sa sebaka se kgethilweng). E tsamaellanang le S3: URL ya Endpoint ho tswa khonsoleng ya hao ya MinIO / Cloudflare R2 / Backblaze B2 / Wasabi / DigitalOcean Spaces.",
+    "reason": "Translate remaining S3 prose and distinguish archived data and orphaned card references from saved data and ownership."
+  },
+  {
+    "locale": "st",
+    "key": "s3-region-description",
+    "before": "Region ya AWS S3 (mohl., us-east-1)",
+    "after": "Sebaka sa AWS S3 (mohlala, us-east-1)",
+    "reason": "Translate remaining S3 prose and distinguish archived data and orphaned card references from saved data and ownership."
+  },
+  {
+    "locale": "st",
+    "key": "restore-all-archived-migration",
+    "before": "Kgutlisetsa tsohle tse bolokilweng",
+    "after": "Kgutlisetsa tsohle tse isitsweng polokelong",
+    "reason": "Translate remaining S3 prose and distinguish archived data and orphaned card references from saved data and ownership."
+  },
+  {
+    "locale": "st",
+    "key": "restore-all-archived-migration-description",
+    "before": "E kgutlisetsa ditsela, manane le dikarete tsohle tse bolokilweng. E lokisa swimlaneId kapa listId efe kapa efe e sieo ka boiketsetso ho etsa hore dintho di bonahale.",
+    "after": "E kgutlisetsa ditsela, manane le dikarete tsohle tse isitsweng polokelong. E lokisa swimlaneId kapa listId efe kapa efe e sieo ka boiketsetso ho etsa hore dintho di bonahale.",
+    "reason": "Translate remaining S3 prose and distinguish archived data and orphaned card references from saved data and ownership."
+  },
+  {
+    "locale": "st",
+    "key": "run-restore-lost-cards-migration-confirm",
+    "before": "Sena se tla theha tsela ya 'Dikarete tse lahlehileng' mme se kgutlisetse dikarete le manane ohle a hlokang swimlaneId kapa listId. Sena se ama feela dintho tse sa bolokwang. Tswela pele?",
+    "after": "Sena se tla theha tsela ya 'Dikarete tse lahlehileng' mme se kgutlisetse dikarete le manane ohle a hlokang swimlaneId kapa listId. Sena se ama feela dintho tse sa iswang polokelong. Tswela pele?",
+    "reason": "Translate remaining S3 prose and distinguish archived data and orphaned card references from saved data and ownership."
+  },
+  {
+    "locale": "st",
+    "key": "run-restore-all-archived-migration-confirm",
+    "before": "Sena se tla kgutlisetsa ditsela, manane le dikarete TSOHLE tse bolokilweng, se etse hore di bonahale hape. Dintho dife kapa dife tse hlokang di-ID di tla lokiswa ka boiketsetso. Sena ha se kgutlisetswe habonolo. Tswela pele?",
+    "after": "Sena se tla kgutlisetsa ditsela, manane le dikarete TSOHLE tse isitsweng polokelong, se etse hore di bonahale hape. Dintho dife kapa dife tse hlokang di-ID di tla lokiswa ka boiketsetso. Sena ha se kgutlisetswe habonolo. Tswela pele?",
+    "reason": "Translate remaining S3 prose and distinguish archived data and orphaned card references from saved data and ownership."
+  },
+  {
+    "locale": "st",
+    "key": "step-fix-orphaned-cards",
+    "before": "Lokisa dikarete tse se nang monga tsona",
+    "after": "Lokisa dikarete tse se nang lehokelo le nepahetseng la lenane kapa tsela",
+    "reason": "Translate remaining S3 prose and distinguish archived data and orphaned card references from saved data and ownership."
   }
 ]

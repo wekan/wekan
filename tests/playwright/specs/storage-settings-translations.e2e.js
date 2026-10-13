@@ -19,6 +19,12 @@ for (const language of ['st', 'co', 'mt', 'en', 'mr', 'bn', 'is', 'tl', 'sq', 'n
     for (const key of ['s3-endpoint-description', 's3-bucket-description', 's3-force-path-style-description', 's3-endpoint-menu-path']) {
       await expect(pane.getByText(strings[key], { exact: true })).toBeVisible();
     }
+
+    if (language === 'st') {
+      await expect(pane.getByText(strings['s3-endpoint-menu-path'], { exact: true })).toContainText('sebaka sa kgokelo sa sebaka se kgethilweng');
+      await expect(pane.getByText(strings['s3-region-description'], { exact: true })).toBeVisible();
+      await expect(pane).not.toContainText('endpoint ya region');
+    }
     const secret = pane.locator('.form-group:has(#s3-secret-key)');
     await expect(secret.getByText(strings['s3-secret-key-menu-path'], { exact: true })).toBeVisible();
     await expect(pane.locator('.js-save-cloud-settings')).toHaveText(strings.save);

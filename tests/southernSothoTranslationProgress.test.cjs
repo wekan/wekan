@@ -813,3 +813,16 @@ assert.equal(sesotho['backup-scope-instance'], 'Tsamaiso ena yohle ya WeKan');
 assert.match(sesotho['backup-scope-description'], /ha e na diakhaonto tsa basebedisi kapa ditlhophiso tsa tsamaiso ena ya WeKan/);
 assert.match(sesotho['backup-scope-description'], /ho ngola feela dibotong tseo Mokgatlo oo o leng monga tsona/);
 assert.doesNotMatch(sesotho['backup-scope-description'], /Mohlala|mohlala/);
+
+// Historical review through key 2839: archive state is not saved state.
+assert.match(sesotho['s3-endpoint-menu-path'], /sebaka sa kgokelo sa sebaka se kgethilweng/);
+assert.doesNotMatch(sesotho['s3-endpoint-menu-path'], /endpoint ya region/);
+assert.equal(sesotho['s3-region-description'], 'Sebaka sa AWS S3 (mohlala, us-east-1)');
+for (const key of ['restore-all-archived-migration', 'restore-all-archived-migration-description', 'run-restore-all-archived-migration-confirm']) {
+  assert.match(sesotho[key], /tse isitsweng polokelong/);
+  assert.doesNotMatch(sesotho[key], /tse bolokilweng/);
+}
+assert.match(sesotho['run-restore-lost-cards-migration-confirm'], /feela dintho tse sa iswang polokelong/);
+assert.match(sesotho['run-restore-all-archived-migration-confirm'], /ha se kgutlisetswe habonolo/);
+assert.match(sesotho['step-fix-orphaned-cards'], /lehokelo le nepahetseng la lenane kapa tsela/);
+assert.doesNotMatch(sesotho['step-fix-orphaned-cards'], /monga/);
