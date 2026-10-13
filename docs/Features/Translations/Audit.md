@@ -2,6 +2,29 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Maltese settings and workflow rules — 2026-10-13
+
+Commit `ce113b5a50` fills 23 English values for announcements, calendar mode,
+list colors, external-link patterns, read-only fields, Wrike workflows,
+rule actions, LDAP and login restrictions. Literal placeholders, example
+URLs, alias examples, Wrike statuses, `GET /workflows` and LDAP environment
+variables retain their exact spelling. The workflow note distinguishes
+completed/cancelled from active/deferred states and retains the limitation
+on exporting Wrike's own automation rules.
+
+All four Maltese suites and 21 human-preference checks pass. Checks cover
+read-only permissions, color fallback, environment-only controls, empty
+allowed-domain lists and technical literals. Only 23 English values changed;
+previous Maltese translations and all 38,079 protected Chinese values match
+the parent. Three browser cases register for calendar mode, Wrike workflow
+round trips and LDAP synchronization refusal. They retain their behavior
+checks and add localized labels. Execution remains pending.
+
+Maltese's filtered inventory now contains 22 import-format instructions.
+The global count is 53,662 across 116 catalogs. Completing this inventory
+will still require broader wording review and browser execution; it does
+not imply completion of every language.
+
 ## Maltese multiple-board import and export — 2026-10-13
 
 Commit `bbe5b139d2` fills 23 English values for multiple-board imports,

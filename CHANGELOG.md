@@ -132,7 +132,7 @@ releases.
   report counts **28,516 untranslated locale/string values in 42 languages**.
   It excludes **379 source keys tracked separately as pending Transifex**.
   With the newer email/chat strings included, full per-locale `--list`
-  reports, including pending keys, count **53,685 remaining values across
+  reports, including pending keys, count **53,662 remaining values across
   116 non-English locale files**. This fuller inventory remains the scope
   of the translation work.
   A separate short-prose audit flags 1,649 candidates across 180 locales.
@@ -1237,6 +1237,20 @@ Four Maltese suites and 21 human-preference checks pass. The Maltese Trello
 export-dialog case registers without submitting credentials or contacting
 Trello; execution remains pending. Maltese has 45 filtered placeholders left.
 Existing translated values and Chinese text remain unchanged.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ce113b5a50">Translate Maltese settings and workflow rules</a>. Thanks to xet7.</summary>
+
+Fill 23 messages for board controls, link patterns, Wrike workflows, LDAP
+synchronization and login restrictions. Preserve literal examples, status
+names, endpoints and configuration variables, including their spelling.
+
+Four Maltese suites and 21 human-preference checks pass. Calendar, Wrike
+workflow and LDAP browser cases register in Maltese; execution remains
+pending. The remaining 22 Maltese placeholders are import-format guidance.
+Earlier translations and protected Chinese values remain unchanged.
 
 </details>
 
