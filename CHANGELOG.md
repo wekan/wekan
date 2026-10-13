@@ -3681,6 +3681,19 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2e4f49297e">Repair Latin monitoring and conversion progress translations</a>. Thanks to xet7.</summary>
+
+- Translate 65 monitoring and progress entries. Preserve numeric bounds, units,
+  interval values, background continuation and continued board use.
+- Three translation suites and 21 human-preference checks pass. Existing Chinese
+  values remain unchanged. Progress/conversion browser coverage passes syntax
+  and discovery; execution remains pending.
+- Review remains unfinished: 135 Latin values contain the legacy prefix.
+  Unprefixed values and other languages still require semantic review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

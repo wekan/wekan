@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin monitoring and conversion progress — 2026-10-14
+
+Commit `2e4f49297e` repairs 65 monitoring and progress entries. Regression checks
+retain batch and CPU bounds, millisecond units, interval values, one conversion
+per board, continued board use and background continuation after browser closure.
+Error states, previous/next runs and migration destinations stay distinct.
+
+Three translation suites pass with 29,252 correction ledger entries. All 21
+human-preference checks pass, and exact comparison preserves 38,430 existing
+Chinese values. Browser coverage renders progress and conversion templates and
+checks translated counts and guidance; syntax and discovery pass, runtime is pending.
+
+There remain 135 Latin values containing “Latine:”. Unprefixed values and other
+languages still require semantic review; all-language verification is unfinished.
+
 ## Latin migration confirmations and progress — 2026-10-14
 
 Commit `7991925d05` repairs 40 migration confirmation and progress entries.
