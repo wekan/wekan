@@ -963,3 +963,20 @@ assert.match(latin.Node_memory_usage_heap_used, /re vera adhibita/);
 assert.match(latin.Node_memory_usage_rss, /RSS/);
 assert.notEqual(latin.Node_heap_number_of_native_contexts, latin.Node_heap_number_of_detached_contexts);
 for (const kind of ['teams', 'organizations']) assert.match(latin[`to-create-${kind}-contact-admin`], /administratorem conveni/);
+
+const reviewedChecklistStorageKeys = ["email-templates-activity-subject", "email-templates-activity-body", "legalNotice", "copied", "checklistActionsPopup-title", "moveChecklist", "moveChecklistPopup-title", "newlineBecomesNewChecklistItem", "newLineNewItem", "newlineBecomesNewChecklistItemOriginOrder", "originOrder", "copyChecklist", "copyChecklistPopup-title", "copyChecklistFromTemplate", "copyChecklistFromTemplatePopup-title", "subtaskActionsPopup-title", "attachmentActionsPopup-title", "attachment-move-storage-fs", "attachment-move-storage-gridfs", "attachment-move-storage-s3", "attachment-move", "move-all-attachments-to-fs", "move-all-attachments-to-gridfs", "move-all-attachments-to-s3", "move-all-attachments-of-board-to-fs", "move-all-attachments-of-board-to-gridfs", "move-all-attachments-of-board-to-s3", "move-source", "move-destination", "move-storage-fs", "move-all-attachments", "move-attachments-none-found"];
+for (const key of reviewedChecklistStorageKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Move|Copy|Each|original|Nothing|stored|filesystem|Subject)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+for (const action of ['moveChecklist', 'copyChecklist', 'copyChecklistFromTemplate']) {
+  assert.equal(latin[action], latin[`${action}Popup-title`]);
+}
+assert.notEqual(latin.moveChecklist, latin.copyChecklist);
+assert.match(latin.newlineBecomesNewChecklistItemOriginOrder, /ordine pristino servato/);
+assert.equal(`${latin.acceptance_of_our_legalNotice} ${latin.legalNotice}`, 'Pergendo accipis nostram notitiam iuridicam');
+for (const [storage, name] of [['gridfs', 'GridFS'], ['s3', 'S3'], ['fs', 'systema fasciculorum']]) {
+  assert.ok(latin[`attachment-move-storage-${storage}`].endsWith(name));
+  assert.ok(latin[`move-all-attachments-of-board-to-${storage}`].includes('omnia adiuncta tabulae'));
+}
+assert.match(latin['move-attachments-none-found'], /Nihil.*electo.*nihil transferendum/);

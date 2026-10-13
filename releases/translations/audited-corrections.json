@@ -201045,5 +201045,229 @@
     "before": "Latine: A continuing, tu accipe our",
     "after": "Pergendo accipis nostram",
     "reason": "Repair Latin invitations, team/organization controls and Node memory labels; preserve allocated/used/peak distinctions and diagnostic overwrite semantics."
+  },
+  {
+    "locale": "la",
+    "key": "email-templates-activity-subject",
+    "before": "Actio Litterae electronicae Latine: Subject",
+    "after": "Argumentum litterarum electronicarum de actione",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "email-templates-activity-body",
+    "before": "Actio Litterae electronicae Latine: Textus",
+    "after": "Textus litterarum electronicarum de actione",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "legalNotice",
+    "before": "Latine: legal notice",
+    "after": "notitiam iuridicam",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "copied",
+    "before": "Latine: Copied!",
+    "after": "Exscriptum!",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "checklistActionsPopup-title",
+    "before": "Latine: index probationis Actiones",
+    "after": "Actiones indicis probationis",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "moveChecklist",
+    "before": "Latine: Move index probationis",
+    "after": "Transfer indicem probationis",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "moveChecklistPopup-title",
+    "before": "Latine: Move index probationis",
+    "after": "Transfer indicem probationis",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "newlineBecomesNewChecklistItem",
+    "before": "Latine: Quisque line de textus becomes one de the index probationis res",
+    "after": "Quaeque linea textus fit res indicis probationis",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "newLineNewItem",
+    "before": "Latine: One line de textus = one res indicis",
+    "after": "Una linea textus = una res indicis probationis",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "before": "Latine: Quisque line de textus becomes one de the index probationis res, original order",
+    "after": "Quaeque linea textus fit res indicis probationis, ordine pristino servato",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "originOrder",
+    "before": "Latine: original order",
+    "after": "ordo pristinus",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "copyChecklist",
+    "before": "Latine: Copia index probationis",
+    "after": "Exscribe indicem probationis",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "copyChecklistPopup-title",
+    "before": "Latine: Copia index probationis",
+    "after": "Exscribe indicem probationis",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "copyChecklistFromTemplate",
+    "before": "Latine: Copia index probationis - Exemplar",
+    "after": "Exscribe indicem probationis ex exemplari",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "copyChecklistFromTemplatePopup-title",
+    "before": "Latine: Copia index probationis - Exemplar",
+    "after": "Exscribe indicem probationis ex exemplari",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "subtaskActionsPopup-title",
+    "before": "Latine: Submunus Actiones",
+    "after": "Actiones submuneris",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "attachmentActionsPopup-title",
+    "before": "Latine: Adnexum Actiones",
+    "after": "Actiones adiuncti",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-move-storage-fs",
+    "before": "Latine: Move adnexum ad filesystem",
+    "after": "Transfer adiunctum in systema fasciculorum",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-move-storage-gridfs",
+    "before": "Latine: Move adnexum ad GridFS",
+    "after": "Transfer adiunctum in GridFS",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-move-storage-s3",
+    "before": "Latine: Move adnexum ad S3",
+    "after": "Transfer adiunctum in S3",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "attachment-move",
+    "before": "Latine: Move Adnexum",
+    "after": "Transfer adiunctum",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "move-all-attachments-to-fs",
+    "before": "Latine: Move omnia adnexa ad filesystem",
+    "after": "Transfer omnia adiuncta in systema fasciculorum",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "move-all-attachments-to-gridfs",
+    "before": "Latine: Move omnia adnexa ad GridFS",
+    "after": "Transfer omnia adiuncta in GridFS",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "move-all-attachments-to-s3",
+    "before": "Latine: Move omnia adnexa ad S3",
+    "after": "Transfer omnia adiuncta in S3",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "move-all-attachments-of-board-to-fs",
+    "before": "Latine: Move omnia adnexa de tabula ad filesystem",
+    "after": "Transfer omnia adiuncta tabulae in systema fasciculorum",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "move-all-attachments-of-board-to-gridfs",
+    "before": "Latine: Move omnia adnexa de tabula ad GridFS",
+    "after": "Transfer omnia adiuncta tabulae in GridFS",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "move-all-attachments-of-board-to-s3",
+    "before": "Latine: Move omnia adnexa de tabula ad S3",
+    "after": "Transfer omnia adiuncta tabulae in S3",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "move-source",
+    "before": "Latine: Fons",
+    "after": "Fons",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "move-destination",
+    "before": "Latine: Destinatio",
+    "after": "Destinatio",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "move-storage-fs",
+    "before": "Latine: Filesystem",
+    "after": "Systema fasciculorum",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "move-all-attachments",
+    "before": "Latine: Move omnia adnexa",
+    "after": "Transfer omnia adiuncta",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
+  },
+  {
+    "locale": "la",
+    "key": "move-attachments-none-found",
+    "before": "Latine: Nothing est stored adest the electum fons storage, so there est nothing ad move.",
+    "after": "Nihil in repositorio fontis electo servatum est; itaque nihil transferendum est.",
+    "reason": "Replace mixed English/Latin with Latin checklist and attachment actions; preserve destination names, scope, order and legal-notice case."
   }
 ]
