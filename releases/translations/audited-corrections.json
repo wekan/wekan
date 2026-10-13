@@ -192911,5 +192911,180 @@
     "before": "Latine: __inviter__ missum tu an invitation",
     "after": "__inviter__ invitationem tibi misit",
     "reason": "Repair custom-field, permanent-deletion and account-email translations; preserve date formats and email variables."
+  },
+  {
+    "locale": "la",
+    "key": "email-invite-text",
+    "before": "Latine: Dear __user__, __inviter__ invites tu ad join tabula \"__board__\" for collaborations. Please follow the vinculum below: __url__ Thanks.",
+    "after": "Salve __user__,\n\n__inviter__ te invitat ut tabulae \"__board__\" adiungaris ad opus commune.\n\nQuaeso sequere ligamen infra:\n\n__url__\n\nGratias.",
+    "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
+  },
+  {
+    "locale": "la",
+    "key": "push-invite-title",
+    "before": "Latine: __inviter__ missum tu an invitation",
+    "after": "__inviter__ invitationem tibi misit",
+    "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
+  },
+  {
+    "locale": "la",
+    "key": "push-invite-text",
+    "before": "Latine: Dear __user__, __inviter__ invites tu ad join tabula \"__board__\" for collaborations. Please follow the vinculum below: __url__ Thanks.",
+    "after": "Salve __user__,\n\n__inviter__ te invitat ut tabulae \"__board__\" adiungaris ad opus commune.\n\nQuaeso sequere ligamen infra:\n\n__url__\n\nGratias.",
+    "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
+  },
+  {
+    "locale": "la",
+    "key": "email-resetPassword-subject",
+    "before": "Latine: Restitue tuum tessera adest __siteName__",
+    "after": "Restitue tesseram tuam in __siteName__",
+    "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
+  },
+  {
+    "locale": "la",
+    "key": "email-resetPassword-text",
+    "before": "Latine: Hello __user__, Ad restitue tuum tessera, simply click the vinculum below. __url__ Thanks.",
+    "after": "Salve __user__,\n\nUt tesseram tuam restituas, preme ligamen infra.\n\n__url__\n\nGratias.",
+    "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
+  },
+  {
+    "locale": "la",
+    "key": "email-sent",
+    "before": "Latine: Epistula electronica missum",
+    "after": "Epistula electronica missa est",
+    "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
+  },
+  {
+    "locale": "la",
+    "key": "email-verifyEmail-subject",
+    "before": "Latine: Verifica tuum inscriptio electronica adest __siteName__",
+    "after": "Confirma inscriptionem tuam electronicam in __siteName__",
+    "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
+  },
+  {
+    "locale": "la",
+    "key": "email-verifyEmail-text",
+    "before": "Latine: Hello __user__, Ad verifica tuum ratio epistula electronica, simply click the vinculum below. __url__ Thanks.",
+    "after": "Salve __user__,\n\nUt inscriptionem electronicam rationis tuae confirmes, preme ligamen infra.\n\n__url__\n\nGratias.",
+    "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
+  },
+  {
+    "locale": "la",
+    "key": "enable-vertical-scrollbars",
+    "before": "Latine: Habilita vertical scrollbars",
+    "after": "Activa vectes volubiles verticales",
+    "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
+  },
+  {
+    "locale": "la",
+    "key": "enable-wip-limit",
+    "before": "Latine: Habilita WIP Limit",
+    "after": "Activa limitem WIP",
+    "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
+  },
+  {
+    "locale": "la",
+    "key": "error-board-doesNotExist",
+    "before": "Latine: Hoc tabula does non exist",
+    "after": "Haec tabula non exsistit",
+    "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
+  },
+  {
+    "locale": "la",
+    "key": "error-board-notAdmin",
+    "before": "Latine: Tu need ad esse administrator de hoc tabula ad do illud",
+    "after": "Administrator huius tabulae esse debes ut hoc facias",
+    "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
+  },
+  {
+    "locale": "la",
+    "key": "error-board-notAMember",
+    "before": "Latine: Tu need ad esse a sodalis de hoc tabula ad do illud",
+    "after": "Membrum huius tabulae esse debes ut hoc facias",
+    "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
+  },
+  {
+    "locale": "la",
+    "key": "error-watch-disabled",
+    "before": "Latine: Watching tabulae et schedae est turned abest a the administrator",
+    "after": "Observatio tabularum et chartarum ab administratore inactiva reddita est",
+    "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
+  },
+  {
+    "locale": "la",
+    "key": "error-notAllowed",
+    "before": "Latine: Tuum tabula munus est non permissum ad do illud",
+    "after": "Munus tuum in tabula hoc facere non permittit",
+    "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
+  },
+  {
+    "locale": "la",
+    "key": "error-json-malformed",
+    "before": "Latine: Tuum textus est non validum JSON",
+    "after": "Textus tuus non est JSON validum",
+    "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
+  },
+  {
+    "locale": "la",
+    "key": "error-json-schema",
+    "before": "Latine: Tuum JSON data does non include the proper informatio in the correct format",
+    "after": "Data tua JSON informationem debitam forma recta non continent",
+    "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
+  },
+  {
+    "locale": "la",
+    "key": "error-csv-schema",
+    "before": "Latine: Tuum CSV(Comma Separated Valores)/TSV (Tab Separated Valores) does non include the proper informatio in the correct format",
+    "after": "Data tua CSV (valores commatibus separati) / TSV (valores tabulatoribus separati) informationem debitam forma recta non continent",
+    "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
+  },
+  {
+    "locale": "la",
+    "key": "error-import-empty-board",
+    "before": "Latine: Hoc exporta contains non tabula content (non swimlanes, indices vel schedae). It potest have fuit creatum a an older WeKan versio cum a known exporta bug. Please re-export the tabula cum the praesens versio et importa the novum fasciculus.",
+    "after": "Haec exportatio nullam materiam tabulae continet (nullas semitas, indices vel chartas). Fortasse a versione WeKan vetustiore creata est quae vitium exportationis notum habuit. Quaeso tabulam rursus exporta versione praesenti et novum fasciculum importa.",
+    "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
+  },
+  {
+    "locale": "la",
+    "key": "error-list-doesNotExist",
+    "before": "Latine: Hoc index does non exist",
+    "after": "Hic index non exsistit",
+    "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
+  },
+  {
+    "locale": "la",
+    "key": "error-linked-card-not-allowed",
+    "before": "Latine: tantum potes vinculum ad a normalis scheda. Linking ad another linked scheda, vel ad a scheda illud links retro ad hoc tabula, est non permissum because it esset make the schedae inaccessible.",
+    "after": "Tantum chartam ordinariam coniungere potes. Aliam chartam coniunctam, vel chartam quae ad hanc tabulam rursus ducit, coniungere non licet, quia chartae sic inaccessibiles fierent.",
+    "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
+  },
+  {
+    "locale": "la",
+    "key": "error-user-disabled",
+    "before": "Latine: Hoc usor ratio est inhabilitatum",
+    "after": "Haec ratio usoris inactiva est",
+    "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
+  },
+  {
+    "locale": "la",
+    "key": "error-user-doesNotExist",
+    "before": "Latine: Hoc usor does non exist",
+    "after": "Hic usor non exsistit",
+    "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
+  },
+  {
+    "locale": "la",
+    "key": "error-user-notAllowSelf",
+    "before": "Latine: Tu potest non invita yourself",
+    "after": "Te ipsum invitare non potes",
+    "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
+  },
+  {
+    "locale": "la",
+    "key": "error-user-notCreated",
+    "before": "Latine: Hoc usor est non creatum",
+    "after": "Hic usor creatus non est",
+    "reason": "Repair invitation and account emails and permission/import errors, preserving named variables, paragraph breaks and restrictions."
   }
 ]

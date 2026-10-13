@@ -345,3 +345,19 @@ assert.ok(latin['email-enrollAccount-text'].includes('\n\n__url__\n\n'));
 assert.equal(latin['createCustomField'], latin['createCustomFieldPopup-title']);
 assert.equal(latin['edit-profile'], latin['editProfilePopup-title']);
 assert.notEqual(latin['custom-field-dropdown-none'], latin['custom-field-dropdown-unknown']);
+
+const reviewedEmailErrorKeys = ["email-invite-text", "push-invite-title", "push-invite-text", "email-resetPassword-subject", "email-resetPassword-text", "email-sent", "email-verifyEmail-subject", "email-verifyEmail-text", "enable-vertical-scrollbars", "enable-wip-limit", "error-board-doesNotExist", "error-board-notAdmin", "error-board-notAMember", "error-watch-disabled", "error-notAllowed", "error-json-malformed", "error-json-schema", "error-csv-schema", "error-import-empty-board", "error-list-doesNotExist", "error-linked-card-not-allowed", "error-user-disabled", "error-user-doesNotExist", "error-user-notAllowSelf", "error-user-notCreated"];
+for (const key of reviewedEmailErrorKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Dear|Hello|Please|Thanks|Your|This|because|another|yourself)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+for (const key of ['email-invite-text', 'push-invite-text', 'email-resetPassword-text', 'email-verifyEmail-text']) assert.ok(latin[key].includes('\n\n__url__\n\n'), key);
+assert.equal(latin['email-invite-text'], latin['push-invite-text']);
+assert.equal(latin['push-invite-title'], latin['email-invite-subject']);
+assert.match(latin['error-board-notAdmin'], /^Administrator/);
+assert.match(latin['error-board-notAMember'], /^Membrum/);
+assert.match(latin['error-import-empty-board'], /nullas semitas, indices vel chartas.*rursus exporta versione praesenti.*novum fasciculum importa/);
+assert.match(latin['error-linked-card-not-allowed'], /chartam ordinariam.*Aliam chartam coniunctam.*ad hanc tabulam rursus ducit.*inaccessibiles/);
+assert.match(latin['error-user-notAllowSelf'], /Te ipsum.*non potes/);
+assert.match(latin['error-csv-schema'], /CSV.*commatibus.*TSV.*tabulatoribus/);
+assert.notEqual(latin['email-resetPassword-text'], latin['email-verifyEmail-text']);

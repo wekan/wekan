@@ -17,3 +17,14 @@ for (const format of [...(language === 'la' ? ['trello'] : []), ...(language ===
   });
 }
 }
+
+test('Latin malformed JSON import reports the translated error and retains the input', async ({ loggedInPage: page }) => {
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'la'));
+  await navigateInApp(page, '/import/wekan');
+  const input = page.locator('#import-textarea');
+  await input.fill('{ invalid JSON');
+  await input.locator('xpath=ancestor::form').locator('input[type="submit"]').click();
+  await expect(page.locator('.warning')).toContainText('Textus tuus non est JSON validum');
+  await expect(page.locator('.warning')).not.toContainText('Latine:');
+  await expect(input).toHaveValue('{ invalid JSON');
+});
