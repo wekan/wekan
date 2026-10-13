@@ -34,3 +34,15 @@ test('Corsican default storage describes newly uploaded attachments', async ({ p
   await expect(pane.locator('.js-default-save-storage')).toBeVisible();
   await expect(pane.locator('.js-default-save-storage')).not.toContainText('In corsu:');
 });
+
+test('Corsican database migration help preserves prerequisites and literal commands', async ({ page, adminUser }) => {
+  await loginWithToken(page, adminUser.id, adminUser.token);
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'co'));
+  await navigateInApp(page, '/admin/attachments/database-migration');
+  const description = page.getByText(strings['database-migration-description'], { exact: true });
+  await expect(description).toBeVisible();
+  for (const text of ['fora di l’appicci è di l’avatar', 'in funzione è accessibile', 'WEKAN_FERRETDB_URL', 'WEKAN_MONGODB_URL', 'snap set wekan database=ferretdb']) {
+    await expect(description).toContainText(text);
+  }
+  await expect(description).not.toContainText('tutto tranne');
+});

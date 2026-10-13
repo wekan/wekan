@@ -618,3 +618,15 @@ assert.notEqual(corsican['card-recurrence-interval'], corsican['checklist-reset-
 assert.match(corsican['card-recurrence-interval-none'], /ùn ripete micca a carta/);
 assert.match(corsican['accounts-lockout-known-users'], /currettu.*parolla d’intrata sbagliata/);
 assert.match(corsican['accounts-lockout-unknown-users'], /ùn esiste micca/);
+
+const migrationScheduleCorrectionKeys = ["admin-people-user-active", "admin-people-user-inactive", "accounts-lockout-unlock-all", "add-cron-job", "add-cron-job-placeholder", "attachment-storage-configuration", "attachments-path", "attachments-path-description", "avatars-path", "avatars-path-description", "board-archive-scheduled", "board-backup-scheduled", "board-cleanup-scheduled", "cron-jobs", "cron-job-deleted", "cron-job-paused", "cron-job-resumed", "cron-job-started", "cron-error-details", "cron-migrations-resumed", "cron-migrations-retried", "complete", "idle", "filesystem-path-description", "filesystem-enabled-description", "storage-enabled", "s3-minio-storage-description", "s3-force-path-style", "azure-blob-storage", "azure-blob-storage-description", "azure-account-name", "azure-account-key", "azure-connection-string", "azure-connection-string-description", "gcs-storage", "gcs-storage-description", "database-migration", "database-migration-description", "sandstorm-migration-status", "sandstorm-migration-success", "sandstorm-migration-failed", "sandstorm-migration-pending", "sandstorm-storage-item", "sandstorm-disk-usage", "sandstorm-raw-mongodb", "sandstorm-delete-raw-mongodb", "sandstorm-raw-mongodb-deleted", "collections", "feature-views-table-desc"];
+for (const key of migrationScheduleCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /In corsu:|clicca per|Sblocca Tutti|processo pianificato|Processo pianificato|Percorso|cù successo|messo in pausa|non riuscite|Completato|Inattivo|Usa il filesystem|Abilitato|Nome account|Chiave account|Stringa di connessione|Facoltativo: usa|del database|tutto tranne|deve essere|Stato di a|Non riuscita|Non ancora migrato|Utilizzo del|raccolte/, key);
+}
+for (const key of ['azure-blob-storage', 'azure-blob-storage-description', 'gcs-storage', 'gcs-storage-description']) assert.equal(corsican[key], english[key]);
+for (const literal of ['mongodb://127.0.0.1:27018', 'mongodb://127.0.0.1:27019', 'WEKAN_FERRETDB_URL', 'WEKAN_MONGODB_URL', 'MONGO_URL', 'snap set wekan database=ferretdb', '=mongodb']) assert.ok(corsican['database-migration-description'].includes(literal), literal);
+assert.match(corsican['database-migration-description'], /fora di l’appicci è di l’avatar.*fermanu.*in funzione è accessibile.*riavviate WeKan/);
+assert.match(corsican['azure-connection-string-description'], /Facultativu.*invece di u nome.*chjave/);
+assert.match(corsican['cron-job-paused'], /pausa/);
+assert.match(corsican['cron-job-resumed'], /ripigliatu/);

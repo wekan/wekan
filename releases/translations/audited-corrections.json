@@ -185575,5 +185575,348 @@
     "before": "Status Attivu",
     "after": "Statu d’attività",
     "reason": "Repair Corsican upload, recurrence, support and account-lockout wording; distinguish recurrence from reset."
+  },
+  {
+    "locale": "co",
+    "key": "admin-people-user-active",
+    "before": "L'utilizatore è attivu - clicca per disattivarlo",
+    "after": "L’utilizatore hè attivu - cliccate per disattivà lu",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "admin-people-user-inactive",
+    "before": "L'utilizatore è inattivo: clicca per attivarlo",
+    "after": "L’utilizatore hè inattivu - cliccate per attivà lu",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "accounts-lockout-unlock-all",
+    "before": "Sblocca Tutti",
+    "after": "Sbluccà tutti",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "add-cron-job",
+    "before": "Aghjunghje processo pianificato",
+    "after": "Aghjunghje un travagliu pianificatu",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "add-cron-job-placeholder",
+    "before": "La funzionalità Aghjunghje processo pianificato sarà disponibile presto",
+    "after": "A funziunalità per aghjunghje un travagliu pianificatu serà dispunibule prestu",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-storage-configuration",
+    "before": "Configurazione di u storage di i allegati",
+    "after": "Cunfigurazione di l’almacenamentu di l’appicci",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "attachments-path",
+    "before": "Percorso di i allegati",
+    "after": "Percorsu di l’appicci",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "attachments-path-description",
+    "before": "Percorso in cui sono memorizzati i schedariu di i allegati",
+    "after": "Percorsu induve sò arregistrati i schedarii di l’appicci",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "avatars-path",
+    "before": "Percorso di i avatar",
+    "after": "Percorsu di l’avatar",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "avatars-path-description",
+    "before": "Percorso in cui sono memorizzati i schedariu di i avatar",
+    "after": "Percorsu induve sò arregistrati i schedarii di l’avatar",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "board-archive-scheduled",
+    "before": "Archiviazione di a tavula pianificata cù successo",
+    "after": "Archiviazione di a tavula pianificata cù successu",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "board-backup-scheduled",
+    "before": "Backup di a tavula pianificato cù successo",
+    "after": "Copia di salvezza di a tavula pianificata cù successu",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "board-cleanup-scheduled",
+    "before": "Pulizia di a tavula pianificata cù successo",
+    "after": "Pulizia di a tavula pianificata cù successu",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "cron-jobs",
+    "before": "Processi pianificati",
+    "after": "Travagli pianificati",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "cron-job-deleted",
+    "before": "Processo pianificato squassatu cù successo",
+    "after": "Travagliu pianificatu squassatu cù successu",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "cron-job-paused",
+    "before": "Processo pianificato messo in pausa cù successo",
+    "after": "Travagliu pianificatu messu in pausa cù successu",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "cron-job-resumed",
+    "before": "Processo pianificato ripreso cù successo",
+    "after": "Travagliu pianificatu ripigliatu cù successu",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "cron-job-started",
+    "before": "Processo pianificato avviato cù successo",
+    "after": "Travagliu pianificatu avviatu cù successu",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "cron-error-details",
+    "before": "Dettagli",
+    "after": "Ditaglii",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "cron-migrations-resumed",
+    "before": "Migrazioni riprese cù successo",
+    "after": "Migrazioni ripigliate cù successu",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "cron-migrations-retried",
+    "before": "Migrazioni non riuscite riprovate cù successo",
+    "after": "Migrazioni fiascate pruvate torna cù successu",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "complete",
+    "before": "Completato",
+    "after": "Compiu",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "idle",
+    "before": "Inattivo",
+    "after": "Inattivu",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "filesystem-path-description",
+    "before": "Percorso base per lo storage dei schedariu",
+    "after": "Percorsu di basa per l’almacenamentu di i schedarii",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "filesystem-enabled-description",
+    "before": "Usa il filesystem locale per lo storage dei schedariu",
+    "after": "Aduprà u sistema di schedarii lucale per arregistrà i schedarii",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "storage-enabled",
+    "before": "Abilitato",
+    "after": "Attivatu",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "s3-minio-storage-description",
+    "before": "Object storage compatibile cù S3: AWS S3, MinIO, Cloudflare R2, Backblaze B2, Wasabi, DigitalOcean Spaces e altri.",
+    "after": "Almacenamentu d’ogetti cumpatibile cù S3: AWS S3, MinIO, Cloudflare R2, Backblaze B2, Wasabi, DigitalOcean Spaces è altri.",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "s3-force-path-style",
+    "before": "Forza URL in stile path",
+    "after": "Impone URL di tipu percorsu",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "azure-blob-storage",
+    "before": "In corsu: Azure Blob Storage",
+    "after": "Azure Blob Storage",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "azure-blob-storage-description",
+    "before": "Arregistramentu Microsoft Azure Blob.",
+    "after": "Microsoft Azure Blob Storage.",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "azure-account-name",
+    "before": "Nome account",
+    "after": "Nome di u contu",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "azure-account-key",
+    "before": "Chiave account",
+    "after": "Chjave di u contu",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "azure-connection-string",
+    "before": "Stringa di connessione",
+    "after": "Stringa di cunnessione",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "azure-connection-string-description",
+    "before": "Facoltativo: usa una stringa di connessione completa invece del nome e di a chiave dell'account.",
+    "after": "Facultativu: aduprà una stringa di cunnessione cumpleta invece di u nome è di a chjave di u contu.",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "gcs-storage",
+    "before": "In corsu: Google Cloud Storage",
+    "after": "Google Cloud Storage",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "gcs-storage-description",
+    "before": "Arregistramentu Google Cloud.",
+    "after": "Google Cloud Storage.",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "database-migration",
+    "before": "Migrazione del database",
+    "after": "Migrazione di a basa di dati",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "database-migration-description",
+    "before": "Migra i dati testuali (tutto tranne allegati e avatar, che restano nantu à u filesystem) tra MongoDB e FerretDB v1 (SQLite). L'altro database deve essere in esecuzione e raggiungibile (porte predefinite: FerretDB mongodb://127.0.0.1:27018, MongoDB mongodb://127.0.0.1:27019; sovrascrivi cù WEKAN_FERRETDB_URL / WEKAN_MONGODB_URL). Al termine, punta MONGO_URL all'altro database e riavvia WeKan (su Snap: snap set wekan database=ferretdb o =mongodb).",
+    "after": "Migrà i dati testuali (tuttu fora di l’appicci è di l’avatar, chì fermanu in u sistema di schedarii) trà MongoDB è FerretDB v1 (SQLite). L’altra basa di dati deve esse in funzione è accessibile (porti predefiniti: FerretDB mongodb://127.0.0.1:27018, MongoDB mongodb://127.0.0.1:27019; rimpiazzà cù WEKAN_FERRETDB_URL / WEKAN_MONGODB_URL). À a fine, fate puntà MONGO_URL versu l’altra basa di dati è riavviate WeKan (nant’à Snap: snap set wekan database=ferretdb o =mongodb).",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "sandstorm-migration-status",
+    "before": "Stato di a migrazione",
+    "after": "Statu di a migrazione",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "sandstorm-migration-success",
+    "before": "Riuscita",
+    "after": "Riesciuta",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "sandstorm-migration-failed",
+    "before": "Non riuscita",
+    "after": "Fiascata",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "sandstorm-migration-pending",
+    "before": "Non ancora migrato",
+    "after": "Micca ancu migratu",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "sandstorm-storage-item",
+    "before": "Archiviazione",
+    "after": "Almacenamentu",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "sandstorm-disk-usage",
+    "before": "Utilizzo del disco",
+    "after": "Usu di u discu",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "sandstorm-raw-mongodb",
+    "before": "Schedariu grezzi del database MongoDB 3",
+    "after": "Schedarii grezzi di a basa di dati MongoDB 3",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "sandstorm-delete-raw-mongodb",
+    "before": "Squassà i schedariu grezzi del database MongoDB",
+    "after": "Squassà i schedarii grezzi di a basa di dati MongoDB",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "sandstorm-raw-mongodb-deleted",
+    "before": "Schedariu grezzi del database MongoDB eliminati, liberati",
+    "after": "Schedarii grezzi di a basa di dati MongoDB squassati, spaziu liberatu",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "collections",
+    "before": "raccolte",
+    "after": "cullezzioni",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
+  },
+  {
+    "locale": "co",
+    "key": "feature-views-table-desc",
+    "before": "A tavula cum'è una tabella di carte chì si pò ordinà.",
+    "after": "A tavula cum’è una tabella di carte chì si pò urdinà.",
+    "reason": "Repair Italian and mixed Corsican scheduling, storage and database-migration wording; preserve commands and product names."
   }
 ]
