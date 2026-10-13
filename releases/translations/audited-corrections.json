@@ -176629,5 +176629,264 @@
     "before": "cacciatu membru __member__ dalla carta __card__ di a lista __list__ di a swimlane __swimlane__ in a tavula __board__",
     "after": "hà cacciatu u membru __member__ da a carta __card__ di a lista __list__ di u curridore __swimlane__ di a tavula __board__",
     "reason": "Replace Italian or English fragments in Corsican activity notifications; preserve action, direction and exact tokens."
+  },
+  {
+    "locale": "co",
+    "key": "board-members-same-org-only",
+    "before": "Aghjunghje membri alla tavula solu dalla stessa urganizazione",
+    "after": "Aghjunghje membri à a tavula solu da a stessa urganizazione",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "board-members-same-team-only",
+    "before": "Aghjunghje membri alla tavula solu dallo stesso team",
+    "after": "Aghjunghje membri à a tavula solu da a stessa squadra",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "comment-in-reply-to",
+    "before": "In risposta a",
+    "after": "In risposta à",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "comment-reply",
+    "before": "Rispondi",
+    "after": "Risponde",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "restrict-comment-editing",
+    "before": "Impedisci agli amministratori di a tavula di modificare o eliminare i cummenti di altri utilizatori",
+    "after": "Impedisce à l’amministratori di a tavula di mudificà o squassà i cummenti d’altri utilizatori",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "error-user-notSameOrgOrTeam",
+    "before": "Puoi aggiungere solu utilizatori di a stessa Urganizazione o Team",
+    "after": "Pudete aghjunghje solu utilizatori di a stessa urganizazione o squadra",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "subtasks",
+    "before": "Sotto-compiti",
+    "after": "Sottucompiti",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "subtaskDeletePopup-title",
+    "before": "Eliminare il sotto-task?",
+    "after": "Squassà u sottucompitu?",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "subtaskActionsPopup-title",
+    "before": "Azioni sotto-task",
+    "after": "Azzioni di u sottucompitu",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "task",
+    "before": "Compito",
+    "after": "Compitu",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "card-delete-suggest-archive",
+    "before": "Puoi spostare una carta nell'archiviu per rimuoverla dalla tavula e mantenere la sua attività.",
+    "after": "Pudete spustà una carta in l’archiviu per caccià la da a tavula è cunservà a so attività.",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "card-edit-custom-fields",
+    "before": "Mudificà campi personalizzati",
+    "after": "Mudificà i campi persunalizati",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "cardCustomFieldsPopup-title",
+    "before": "Mudificà campi personalizzati",
+    "after": "Mudificà i campi persunalizati",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "map-to-existing-user-search",
+    "before": "Circà tra tutti gli utilizatori per nome, nome utilizatore o email",
+    "after": "Circà trà tutti l’utilizatori per nome, nome d’utilizatore o email",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "add-card-to-top-of-list",
+    "before": "Aghjunghje Carta in cima alla Lista",
+    "after": "Aghjunghje una carta in cima à a lista",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "add-card-to-bottom-of-list",
+    "before": "Aghjunghje Carta in fondo alla Lista",
+    "after": "Aghjunghje una carta in fondu à a lista",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "list-width-shared-note",
+    "before": "Questa larghezza è condivisa cù tutti gli utilizatori di questa tavula.",
+    "after": "Sta larghezza hè spartuta cù tutti nant’à sta tavula.",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "personal-list-width-description",
+    "before": "Se attivu, ogni utilizatore mantiene le proprie larghezze di e liste. Se disattivu, le larghezze di e liste sono condivise cù tutti gli utilizatori di a tavula.",
+    "after": "S’ellu hè attivu, ogni utilizatore cunserva e so larghezze di liste. S’ellu hè disattivu, e larghezze di liste sò spartute cù tutti nant’à a tavula.",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "close-add-checklist-item",
+    "before": "Chjode il modulo per aggiungere un elemento alla checklist",
+    "after": "Chjode u furmulariu per aghjunghje un elementu à a lista di cuntrollu",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "close-edit-checklist-item",
+    "before": "Chjode il modulo per modificare un elemento di a checklist",
+    "after": "Chjode u furmulariu per mudificà un elementu di a lista di cuntrollu",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "admin-desc",
+    "before": "Può visualizzare e modificare carte, rimuovere membri e cambiare le impostazioni di a tavula. Può visualizzare le attività.",
+    "after": "Pò vede è mudificà e carte, caccià membri è cambià i paràmetri di a tavula. Pò vede l’attività.",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "attachmentDeletePopup-title",
+    "before": "Eliminare l'allegatu?",
+    "after": "Squassà l’appicciu?",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "show-board_members-avatar",
+    "before": "Mustrà gli avatar dei membri di a tavula",
+    "after": "Mustrà l’avatar di i membri di a tavula",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "board_assignees",
+    "before": "Tutti gli assegnatari di tutte le carte in questa tavula",
+    "after": "Tutte e persone assignate à tutte e carte di sta tavula",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "card_assignees",
+    "before": "Tutti gli assegnatari di a carta corrente in questa tavula",
+    "after": "Tutte e persone assignate à a carta attuale di sta tavula",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "card-archive-suggest-cancel",
+    "before": "Puoi ripristinare la carta più tardi dall'archiviu",
+    "after": "Pudete ristabilisce a carta da l’archiviu più tardi.",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "list-archive-suggest",
+    "before": "Puoi ripristinare la lista in seguito dall'Archiviu in e Impostazioni di a tavula.",
+    "after": "Pudete ristabilisce a lista più tardi da l’archiviu in i paràmetri di a tavula.",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "swimlane-archive-suggest",
+    "before": "Puoi ripristinare la swimlane in seguito dall'Archiviu in e Impostazioni di a tavula.",
+    "after": "Pudete ristabilisce u curridore più tardi da l’archiviu in i paràmetri di a tavula.",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "allowNonBoardMembers",
+    "before": "Consenti tutti gli utilizatori registrati",
+    "after": "Permette tutti l’utilizatori cunnessi",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "deleteVotePopup-title",
+    "before": "Eliminare il voto?",
+    "after": "Squassà u votu?",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "userAnonymizePopup-title",
+    "before": "Anonimizza gli utilizatori in importazione",
+    "after": "Anonimizà u contu",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "deleteAvatarPopup-title",
+    "before": "Eliminare l'avatar?",
+    "after": "Squassà l’avatar?",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "comment-only-desc",
+    "before": "Puoi commentare solu le carte.",
+    "after": "Pò solu cummentà e carte.",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "deleteCommentPopup-title",
+    "before": "Eliminare cummentu?",
+    "after": "Squassà u cummentu?",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "read-only-desc",
+    "before": "Può solu visualizzare le carte. Non può modificare.",
+    "after": "Pò solu vede e carte. Ùn pò micca mudificà le.",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "read-assigned-only-desc",
+    "before": "Sono visibili solu le carte assegnate. Non può modificare.",
+    "after": "Solu e carte assignate sò visibili. Ùn pò micca mudificà le.",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
+  },
+  {
+    "locale": "co",
+    "key": "checklistDeletePopup-title",
+    "before": "Eliminare checklist?",
+    "after": "Squassà a lista di cuntrollu?",
+    "reason": "Replace Italian or mixed-language controls with Corsican; preserve role restrictions and archive behavior, and correct the account anonymization title."
   }
 ]

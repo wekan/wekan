@@ -177,3 +177,19 @@ assert.match(corsican['act-uncompleteChecklist'], /micca compia/);
 assert.doesNotMatch(corsican['act-completeChecklist'], /micca/);
 assert.match(corsican['act-deleteCustomField'], /squassatu u campu persunalizatu/);
 assert.match(corsican['act-addAttachment'], /appicciu/);
+
+const permissionCorrectionKeys = ["board-members-same-org-only", "board-members-same-team-only", "comment-in-reply-to", "comment-reply", "restrict-comment-editing", "error-user-notSameOrgOrTeam", "subtasks", "subtaskDeletePopup-title", "subtaskActionsPopup-title", "task", "card-delete-suggest-archive", "card-edit-custom-fields", "cardCustomFieldsPopup-title", "map-to-existing-user-search", "add-card-to-top-of-list", "add-card-to-bottom-of-list", "list-width-shared-note", "personal-list-width-description", "close-add-checklist-item", "close-edit-checklist-item", "admin-desc", "attachmentDeletePopup-title", "show-board_members-avatar", "board_assignees", "card_assignees", "card-archive-suggest-cancel", "list-archive-suggest", "swimlane-archive-suggest", "allowNonBoardMembers", "deleteVotePopup-title", "userAnonymizePopup-title", "deleteAvatarPopup-title", "comment-only-desc", "deleteCommentPopup-title", "read-only-desc", "read-assigned-only-desc", "checklistDeletePopup-title"];
+for (const key of permissionCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /\b(?:Puoi|Può|gli|dallo|dalla|alla|Eliminare|modificare|personalizzati|Compito|Sotto-compiti|assegnatari|registrati|importazione)\b/, key);
+}
+assert.match(corsican['restrict-comment-editing'], /Impedisce.*amministratori.*mudificà o squassà.*altri utilizatori/);
+assert.match(corsican['read-only-desc'], /Ùn pò micca mudificà/);
+assert.match(corsican['read-assigned-only-desc'], /Solu e carte assignate.*Ùn pò micca mudificà/);
+assert.match(corsican['comment-only-desc'], /solu cummentà/);
+assert.match(corsican['allowNonBoardMembers'], /cunnessi/);
+assert.doesNotMatch(corsican['allowNonBoardMembers'], /arregistrati/);
+assert.equal(corsican['userAnonymizePopup-title'], 'Anonimizà u contu');
+assert.match(corsican['card-delete-suggest-archive'], /archiviu.*cunservà a so attività/);
+assert.match(corsican['personal-list-width-description'], /attivu.*ogni utilizatore.*disattivu.*spartute cù tutti/);
+assert.equal(corsican.subtasks, 'Sottucompiti');
