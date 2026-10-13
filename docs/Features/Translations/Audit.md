@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin search instructions and examples — 2026-10-14
+
+Commit `30c12e510c` repairs 32 prefixed search-help, card-number and related
+entries. Regression checks preserve query tokens, localized user and absent-date
+examples, descending sorting, per-page positive limits, OR/AND distinctions,
+positive/negative date ranges, case insensitivity and archive defaults. All search
+instruction and operator entries are checked for remaining legacy prefixes.
+
+The Latin and guarded-correction suites pass with 28,534 ledger entries. All 21
+human-preference checks pass. Search-help browser coverage checks rendered
+explanations and syntax; discovery and syntax checks pass, runtime remains pending.
+Exact comparison preserves 38,430 existing Chinese values.
+
+There remain 853 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin search predicates and introductory help — 2026-10-14
 
 Commit `e3ea440a31` repairs 40 prefixed search predicates, validation errors,

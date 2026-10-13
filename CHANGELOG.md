@@ -3396,6 +3396,23 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/30c12e510c">Repair Latin search instructions and examples</a>. Thanks to xet7.</summary>
+
+- Translate 32 mixed-language entries, explaining OR/AND, absent-field searches,
+  descending order, date ranges and archive defaults. Preserve query
+  placeholders
+  and localize user, absence and card-number examples.
+- Latin and guarded-correction suites pass with 28,534 corrections. All 21
+  human-preference checks pass; 38,430 existing Chinese values are preserved.
+  Added search-help browser coverage passes syntax and discovery; browser
+  execution remains pending.
+- Review remains unfinished: 853 Latin values contain the legacy “Latine:”
+  prefix.
+  Unprefixed values and other languages still require semantic review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
