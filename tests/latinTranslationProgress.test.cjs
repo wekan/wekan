@@ -1068,3 +1068,23 @@ for (const literal of ['CARDS_LOADING', '(all/lazy/auto)', 'CARDS_LOADING_LAZY_T
 assert.match(latin['cards-loading-lazy-note'], /experimentalis.*limites WIP recti/);
 assert.match(latin['cards-loading-lazy-note'], /tantum chartas adhuc oneratas/);
 assert.match(latin['cards-loading-lazy-note'], /tabulas apertas denuo onera/);
+
+const reviewedSecuritySettingKeys = ["features-security", "render-links-as-plain-text", "render-links-as-plain-text-description", "always-show-code-as-text", "always-show-code-as-text-description", "anonymized-user", "disable-all-import", "disable-all-import-description", "disable-all-export", "disable-all-export-description", "disable-import-avatars", "disable-import-avatars-description", "disable-export-avatars", "disable-export-avatars-description", "anonymize-import-users", "anonymize-import-users-description", "anonymize-export-users", "anonymize-export-users-description", "anonymize-account", "anonymize-account-confirm-popup", "disable-activities", "disable-activities-description", "disable-notifications", "disable-notifications-description", "disable-watch", "disable-watch-description"];
+for (const key of reviewedSecuritySettingKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:When enabled|Default|Disable|Anonymize|never rendered|clickable|notifications)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+  if (key.endsWith('-description')) assert.match(latin[key], /Optio initio inactiva est/);
+}
+for (const literal of ['[label](url)', '<a href>']) assert.ok(latin['render-links-as-plain-text-description'].includes(literal));
+assert.ok(latin['always-show-code-as-text-description'].includes('<!-- -->'));
+for (const kind of ['import', 'export']) {
+  assert.match(latin[`disable-all-${kind}-description`], /serviens quamlibet petitionem.*recusat/);
+  for (const literal of ['user1, user2, ...', '@username', 'requested-by / assigned-by']) assert.ok(latin[`anonymize-${kind}-users-description`].includes(literal));
+}
+assert.match(latin['disable-import-avatars-description'], /Nomina et alia data adhuc importantur/);
+assert.match(latin['disable-export-avatars-description'], /Nomina usorum et alia data adhuc exportantur/);
+assert.match(latin['anonymize-account-confirm-popup'], /ingressum prohibet/);
+assert.match(latin['anonymize-account-confirm-popup'], /historiam servant/);
+assert.match(latin['anonymize-account-confirm-popup'], /revocari non potest/);
+assert.match(latin['disable-notifications-description'], /Actiones adhuc notari possunt/);
+assert.match(latin['disable-watch-description'], /omnis conatus gradum observationis mutandi recusatur/);

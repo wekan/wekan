@@ -202781,5 +202781,187 @@
     "before": "Latine: Lazy scheda loading est experimental: scheda counters et WIP limits sunt accurate, but the Calendar/Table/Gantt views et multi-select reflect tantum the schedae loaded so far. Reload aperi tabulae after changing hoc.",
     "after": "Pigra chartarum oneratio experimentalis est: numeri chartarum et limites WIP recti sunt, sed prospectus Calendarium/Tabula/Gantt et selectio multiplex tantum chartas adhuc oneratas ostendunt. Post hanc mutationem tabulas apertas denuo onera.",
     "reason": "Translate migration and loading explanations; preserve prerequisites, paths, environment variables, destructive-action warnings and experimental limitations."
+  },
+  {
+    "locale": "la",
+    "key": "features-security",
+    "before": "Latine: Securitas",
+    "after": "Securitas",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "render-links-as-plain-text",
+    "before": "Latine: Render links as plain textus",
+    "after": "Monstra nexus ut textum simplicem",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "render-links-as-plain-text-description",
+    "before": "Latine: Quando habilitatum, omnia links (both markdown links like [titulus](URL) et raw HTML <a href> tags) sunt semper shown as plain, non-clickable textus in omnis rich textus campus (tabula et scheda titles, descriptions, commentaria, checklists, etc.). Hoc prevents misleading clickable links. Praedefinitum est abest, so links stay clickable.",
+    "after": "Cum haec optio activa est, omnes nexus (tam nexus Markdown ut [label](url) quam notae HTML <a href>) semper ut textus simplex qui premi non potest in omnibus campis textus formati monstrantur (titulis tabularum et chartarum, descriptionibus, commentariis, indicibus probationis, etc.). Hoc nexus fallaces qui premi possunt impedit. Optio initio inactiva est, itaque nexus premi possunt.",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "always-show-code-as-text",
+    "before": "Latine: Semper monstra omnia code as plain textus",
+    "after": "Semper monstra omnem codicem ut textum simplicem",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "always-show-code-as-text-description",
+    "before": "Latine: Quando habilitatum, rich textus est numquam rendered as markdown vel HTML: the entire fons est semper shown as plain textus in omnis rich textus campus (tabula et scheda titles, descriptions, commentaria, checklists, etc.). Hoc reveals hidden content — HTML commentaria (<!-- -->), the target de markdown links, JavaScript et ullum aliud code — so omnia code est semper visible, non clickable, et non currens. Praedefinitum est abest, so markdown est rendered normally.",
+    "after": "Cum haec optio activa est, textus formatus numquam ut Markdown vel HTML redditur: totus fons semper ut textus simplex in omnibus campis textus formati monstratur (titulis tabularum et chartarum, descriptionibus, commentariis, indicibus probationis, etc.). Hoc res occultas patefacit — commentarios HTML (<!-- -->), destinationes nexuum Markdown, JavaScript et quemlibet alium codicem — ut omnis codex semper visibilis sit, nec premi nec exsequi possit. Optio initio inactiva est, itaque Markdown more solito redditur.",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "anonymized-user",
+    "before": "Latine: usor",
+    "after": "usor",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "disable-all-import",
+    "before": "Latine: Inhabilita omnia importa",
+    "after": "Prohibe omnem importationem",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "disable-all-import-description",
+    "before": "Latine: Quando habilitatum, omnia importa features sunt turned abest: importing a tabula ex WeKan JSON, Trello, CSV/Excel, Jira, Kanboard, NextCloud Deck, OpenProject, GitHub, GitLab, Gitea et Forgejo, as well as cloning a tabula. The importa tabula optionum optiones sunt hidden et the ministrator rejects ullum importa request. Praedefinitum est abest.",
+    "after": "Cum haec optio activa est, omnes facultates importandi prohibentur: importatio tabulae ex WeKan JSON, Trello, CSV/Excel, Jira, Kanboard, NextCloud Deck, OpenProject, GitHub, GitLab, Gitea et Forgejo, atque duplicatio tabulae. Optiones importandi in indice occultantur et serviens quamlibet petitionem importandi recusat. Optio initio inactiva est.",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "disable-all-export",
+    "before": "Latine: Inhabilita omnia exporta",
+    "after": "Prohibe omnem exportationem",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "disable-all-export-description",
+    "before": "Latine: Quando habilitatum, omnia exporta features sunt turned abest: exporting a tabula as WeKan JSON, CSV, Excel, Kanboard, vel ad NextCloud Deck / OpenProject / GitHub / GitLab / Gitea / Forgejo, et single-attachment exporta. The exporta tabula optionum optiones sunt hidden et the ministrator rejects ullum exporta request. Praedefinitum est abest.",
+    "after": "Cum haec optio activa est, omnes facultates exportandi prohibentur: exportatio tabulae ut WeKan JSON, CSV, Excel, Kanboard, vel ad NextCloud Deck / OpenProject / GitHub / GitLab / Gitea / Forgejo, atque exportatio unius adiuncti. Optiones exportandi in indice occultantur et serviens quamlibet petitionem exportandi recusat. Optio initio inactiva est.",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "disable-import-avatars",
+    "before": "Latine: Inhabilita importa avatars",
+    "after": "Prohibe importationem imaginum usorum",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "disable-import-avatars-description",
+    "before": "Latine: Quando habilitatum, avatars (usor forma usoris pictures) sunt numquam importatum. Hoc covers WeKan JSON importa, Trello importa, et imago sync ex external identity providers adest introitus (LDAP, OIDC/OAuth2). Names et aliud data sunt still importatum; tantum avatars sunt skipped. Praedefinitum est abest.",
+    "after": "Cum haec optio activa est, imagines usorum numquam importantur. Hoc importationem WeKan JSON, importationem Trello et synchronizationem imaginum a provisoribus identitatis externis in ingressu (LDAP, OIDC/OAuth2) complectitur. Nomina et alia data adhuc importantur; tantum imagines usorum omittuntur. Optio initio inactiva est.",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "disable-export-avatars",
+    "before": "Latine: Inhabilita exporta avatars",
+    "after": "Prohibe exportationem imaginum usorum",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "disable-export-avatars-description",
+    "before": "Latine: Quando habilitatum, avatars (usor forma usoris pictures) sunt numquam included quando exporting a tabula (WeKan JSON et CSV exporta). Usernames et aliud data sunt still exported; tantum avatars sunt omitted. Praedefinitum est abest.",
+    "after": "Cum haec optio activa est, imagines usorum numquam includuntur cum tabula exportatur (exportatio WeKan JSON et CSV). Nomina usorum et alia data adhuc exportantur; tantum imagines usorum omittuntur. Optio initio inactiva est.",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "anonymize-import-users",
+    "before": "Latine: Anonymize importa usores",
+    "after": "Redde usores importatos anonymos",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "anonymize-import-users-description",
+    "before": "Latine: Quando habilitatum, importing a WeKan JSON tabula replaces omnis importatum user's nomen usoris, nomen plenum et initials cum counter placeholders (user1, user2,...), drops their imago, et rewrites @nomen usoris mentions (et the requested-by / assigned-by campi) inside importatum scheda et commentarium content. Non real usor identity ex the fons tabula est stored. The word \"usor\" follows the lingua de the person importing. Praedefinitum est abest.",
+    "after": "Cum haec optio activa est, importatio tabulae WeKan JSON nomen usoris, nomen plenum et litteras initiales cuiusque usoris importati signis numeratis (user1, user2, ...) substituit, imaginem eius omittit et mentiones @username (atque campos requested-by / assigned-by) intra textum chartarum et commentariorum importatorum rescribit. Nulla vera identitas usoris e tabula fonte servatur. Vox \"user\" linguam personae importantis sequitur. Optio initio inactiva est.",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "anonymize-export-users",
+    "before": "Latine: Anonymize exporta usores",
+    "after": "Redde usores exportatos anonymos",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "anonymize-export-users-description",
+    "before": "Latine: Quando habilitatum, exporting a tabula replaces omnis exported user's nomen usoris, nomen plenum et initials cum counter placeholders (user1, user2,...), drops their imago, et rewrites @nomen usoris mentions (et the requested-by / assigned-by campi) inside scheda et commentarium content. The exported fasciculus carries non real usor identity. The word \"usor\" follows the lingua de the person exporting. Praedefinitum est abest.",
+    "after": "Cum haec optio activa est, exportatio tabulae nomen usoris, nomen plenum et litteras initiales cuiusque usoris exportati signis numeratis (user1, user2, ...) substituit, imaginem eius omittit et mentiones @username (atque campos requested-by / assigned-by) intra textum chartarum et commentariorum rescribit. Fasciculus exportatus nullam veram identitatem usoris continet. Vox \"user\" linguam personae exportantis sequitur. Optio initio inactiva est.",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "anonymize-account",
+    "before": "Latine: Anonymize importa usores",
+    "after": "Redde rationem anonymam",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "anonymize-account-confirm-popup",
+    "before": "Latine: Quando habilitatum, exporting a tabula replaces omnis exported user's nomen usoris, nomen plenum et initials cum counter placeholders (user1, user2,...), drops their imago, et rewrites @nomen usoris mentions (et the requested-by / assigned-by campi) inside scheda et commentarium content. The exported fasciculus carries non real usor identity. The word \"usor\" follows the lingua de the person exporting. Praedefinitum est abest.",
+    "after": "Certusne es te hanc rationem anonymam reddere velle? Hoc nomen usoris, nomen plenum et inscriptionem electronicam perpetuo valoribus anonymis substituit, imaginem usoris removet et ingressum prohibet. Aliter quam in deletione, tabulae, chartae et commentarii historiam servant et hanc rationem adhuc monstrant, sed anonymam. Haec actio revocari non potest.",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "disable-activities",
+    "before": "Latine: Inhabilita omnia actiones",
+    "after": "Prohibe omnes actionum notationes",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "disable-activities-description",
+    "before": "Latine: Quando habilitatum, activity-feed entries sunt numquam recorded et numquam shown anywhere (tabula sidebar et scheda actio tab). Non historia de quis did quid est kept. Praedefinitum est abest.",
+    "after": "Cum haec optio activa est, actionum notationes numquam servantur nec usquam monstrantur (in latere tabulae et in pagina actionum chartae). Nulla historia quis quid fecerit servatur. Optio initio inactiva est.",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "disable-notifications",
+    "before": "Latine: Inhabilita omnia notificationes",
+    "after": "Prohibe omnes notificationes",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "disable-notifications-description",
+    "before": "Latine: Quando habilitatum, WeKan numquam sends watch notificationes (in-app, epistula electronica vel aliud services) for ullum actio. Actiones potest still esse recorded (unless also inhabilitatum above); tantum the notificationes sunt suppressed. Praedefinitum est abest.",
+    "after": "Cum haec optio activa est, WeKan notificationes observationis (in applicatione, per litteras electronicas vel alia servitia) de ulla actione numquam mittit. Actiones adhuc notari possunt (nisi supra quoque prohibitae sunt); tantum notificationes supprimuntur. Optio initio inactiva est.",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "disable-watch",
+    "before": "Latine: Inhabilita watch",
+    "after": "Prohibe observationem",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
+  },
+  {
+    "locale": "la",
+    "key": "disable-watch-description",
+    "before": "Latine: Quando habilitatum, the watch feature est turned abest — usores non potest subscribe ad tabulae, indices vel schedae ad receive notificationes, et ullum attempt ad muta a watch level est reiectum. Praedefinitum est abest.",
+    "after": "Cum haec optio activa est, facultas observandi prohibetur — usores tabulas, indices vel chartas observare non possunt ut notificationes accipiant, et omnis conatus gradum observationis mutandi recusatur. Optio initio inactiva est.",
+    "reason": "Translate security controls with explicit defaults, enforcement scope, anonymization effects and exact code examples."
   }
 ]
