@@ -187962,5 +187962,68 @@
     "before": "ore — Δ — Nome d'utilizatore",
     "after": "Aghjustamenti di tempu per autore",
     "reason": "Restore full Corsican flow-analysis meaning and repair WIP group and authentication wording; statistical terminology needs native review."
+  },
+  {
+    "locale": "co",
+    "key": "blockly-BACKSPACE_KEY",
+    "before": "Ritornu in daretu",
+    "after": "Backspace",
+    "reason": "Keep physical keyboard legends recognizable; remove the ground-floor restriction from the map example."
+  },
+  {
+    "locale": "co",
+    "key": "blockly-CAPS_LOCK_KEY",
+    "before": "Bloccu maiuscule",
+    "after": "Caps Lock",
+    "reason": "Keep physical keyboard legends recognizable; remove the ground-floor restriction from the map example."
+  },
+  {
+    "locale": "co",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Cuntrollu",
+    "after": "Control",
+    "reason": "Keep physical keyboard legends recognizable; remove the ground-floor restriction from the map example."
+  },
+  {
+    "locale": "co",
+    "key": "blockly-END_KEY",
+    "before": "Fine",
+    "after": "End",
+    "reason": "Keep physical keyboard legends recognizable; remove the ground-floor restriction from the map example."
+  },
+  {
+    "locale": "co",
+    "key": "blockly-ENTER_KEY",
+    "before": "Entrata",
+    "after": "Enter",
+    "reason": "Keep physical keyboard legends recognizable; remove the ground-floor restriction from the map example."
+  },
+  {
+    "locale": "co",
+    "key": "blockly-ESCAPE",
+    "before": "Scappà",
+    "after": "Escape",
+    "reason": "Keep physical keyboard legends recognizable; remove the ground-floor restriction from the map example."
+  },
+  {
+    "locale": "co",
+    "key": "blockly-HOME_KEY",
+    "before": "Principiu",
+    "after": "Home",
+    "reason": "Keep physical keyboard legends recognizable; remove the ground-floor restriction from the map example."
+  },
+  {
+    "locale": "co",
+    "key": "blockly-INSERT_KEY",
+    "before": "Inserisce",
+    "after": "Insert",
+    "reason": "Keep physical keyboard legends recognizable; remove the ground-floor restriction from the map example."
+  },
+  {
+    "locale": "co",
+    "key": "map-view-empty",
+    "before": "Sta tavula ùn hà ancu un'imaghjina di mappa. Un amministratore di a tavula pò caricà ne una - un pianu d’un pianterrenu, una mappa di situ o un disegnu - è e carte ponu tandu esse piazzate nant'à ella.",
+    "after": "Sta tavula ùn hà ancu un’imagine di mappa. Un amministratore di a tavula pò caricà ne una — un pianu internu d’un bastimentu, una mappa di situ o un disegnu — è e carte ponu tandu esse piazzate nant’à ella.",
+    "reason": "Keep physical keyboard legends recognizable; remove the ground-floor restriction from the map example."
   }
 ]

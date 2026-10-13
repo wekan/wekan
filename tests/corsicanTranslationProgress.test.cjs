@@ -13,7 +13,7 @@ const readLocale = code => JSON.parse(fs.readFileSync(
 const english = readLocale('en');
 const corsican = readLocale('co');
 const tokens = value => [...value.matchAll(
-  /__[A-Za-z0-9_]+__|%[A-Za-z]|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g,
+  /__[A-Za-z0-9_]+__|%(?:\d+\$)?[A-Za-z]|%\d+|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g,
 )].map(([token]) => token).sort();
 const tags = value => [...value.matchAll(/<\/?[A-Za-z][^>]*>/g)]
   .map(([tag]) => tag).sort();
@@ -710,3 +710,11 @@ assert.match(corsican['flow-note-processBehavior'], /Principiu.*creazione.*Fine.
 assert.match(corsican['flow-note-sizeCycleTime'], /Planning Poker.*numericu.*mancanti.*micca valide.*omesse.*creazione.*archiviazione/);
 assert.match(corsican['move-reason'], /facultativa/);
 assert.match(corsican['flow-error'], /Verificate i valori è pruvate torna/);
+
+const blocklyKeyLegends = ["blockly-BACKSPACE_KEY", "blockly-CAPS_LOCK_KEY", "blockly-CONTROL_KEY", "blockly-END_KEY", "blockly-ENTER_KEY", "blockly-ESCAPE", "blockly-HOME_KEY", "blockly-INSERT_KEY"];
+for (const key of blocklyKeyLegends) assert.equal(corsican[key], english[key], key);
+assert.deepEqual(tokens('bloccu %1 dopu à %2; %1'), ['%1', '%1', '%2']);
+assert.notDeepEqual(tokens('bloccu %1'), tokens('block %2'));
+assert.notDeepEqual(tokens('bloccu %1'), tokens('block %1 %1'));
+assert.match(corsican['map-view-empty'], /pianu internu d’un bastimentu/);
+assert.doesNotMatch(corsican['map-view-empty'], /pianterrenu/);
