@@ -2127,6 +2127,19 @@ execution remains pending. Existing Chinese text is unchanged.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d33245d26b">Translate Southern Sotho import and webhook controls</a>. Thanks to xet7.</summary>
+
+Fill 55 placeholders for people and CSV mapping, batch import/export,
+Trello access, link rules and webhook payloads. Preserve substitution
+tokens, interchange markers, inherited settings and permission limits.
+
+Translation checks and 21 human-preference checks pass. CSV validation and
+member-mapping browser cases now include Southern Sotho; syntax and discovery
+pass, but runtime execution remains pending. Existing Chinese text is unchanged.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

@@ -2,6 +2,26 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho import and webhook controls — 2026-10-13
+
+Commit `d33245d26b` fills 55 placeholders for member mapping, CSV columns,
+batch import/export, Trello access, link rules, webhook payloads and the
+classic notification layout. Checks retain no-member-mapping behavior,
+ZIP-as-one-export handling, export permission limits, the literal
+`Swimlane:` marker, link-rule token inventories and inherited webhook settings.
+Existing translated values were not overwritten.
+
+The Southern Sotho regression suite and all 21 human-preference checks pass.
+Two existing browser cases gain Southern Sotho: missing-list CSV validation
+and mapping all imported people to the current user. Syntax and discovery
+pass; runtime execution remains pending without the UI stack. Exact
+comparison preserves 38,430 existing Chinese values.
+
+The full Southern Sotho English-placeholder inventory falls from 846 to 791.
+Its filtered inventory is 677; the global filtered backlog is 28,516 across
+42 languages, excluding pending Transifex strings. Native fluency and the
+all-language objective remain unverified and unfinished.
+
 ## Southern Sotho import format instructions — 2026-10-13
 
 Commit `42d5187bf6` fills 22 English import-help placeholders. Instructions
