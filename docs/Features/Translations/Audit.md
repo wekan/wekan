@@ -2,6 +2,26 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho Blockly text and rule-editor messages — 2026-10-13
+
+Commit `b6740c17a0` fills 115 placeholders for text operations, shortcuts,
+workspace messages and the rule editor. Checks retain counting spaces,
+replacing all matches, index direction, not-found values, trim-copy semantics,
+search-key legends and leading spaces for concatenated announcements. Alias
+strings match their base labels. Rule help retains one trigger and one action,
+disconnected-block rejection, reload-after-conflict and board-admin permission.
+A full-inventory gate finds no remaining non-exempt English Blockly strings.
+Descriptive programming terminology still needs native review.
+
+The Southern Sotho regression suite and all 21 human-preference checks pass.
+The existing Blockly interaction browser case passes syntax and discovery;
+runtime execution remains pending without the UI stack. Exact comparison
+preserves 38,430 existing Chinese values and existing Southern Sotho text.
+
+The full Southern Sotho placeholder count falls from 357 to 242. Its filtered
+inventory is 174; the global filtered backlog is 28,013 across 42 languages.
+The all-language translation and fluency objective remains unfinished.
+
 ## Southern Sotho Blockly procedures and math controls — 2026-10-13
 
 Commit `b54fe95288` fills 95 placeholders for random numbers, rounding,
