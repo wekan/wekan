@@ -2488,6 +2488,21 @@ Chinese values are preserved. All-language work remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d50db7b0bc">Clarify Southern Sotho numeric search constraints</a>. Thanks to xet7.</summary>
+
+Reviewed source keys 1990–2134 and corrected three values. Search help now
+expresses positive and negative integers as greater than or less than zero,
+rather than good or bad numbers. The background-image warning identifies
+the maximum allowed size. Search operators, examples and tokens are preserved.
+
+Southern Sotho and repair-ledger suites pass with 26,954 guarded corrections;
+all 21 human-preference checks pass. Search-help browser coverage passes
+syntax and discovery; runtime execution remains pending. All 38,430 existing
+Chinese values are preserved. All-language translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

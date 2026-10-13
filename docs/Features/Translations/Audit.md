@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho historical review: search constraints — 2026-10-13
+
+Commit `d50db7b0bc` reviews source keys 1990–2134 and repairs three values.
+Search-limit help explicitly requires an integer greater than zero. Day-offset
+help distinguishes integers greater than zero from those below zero instead
+of calling them good and bad. The background-image error names the maximum
+allowed size. Valid search operators, examples, tokens and other wording in
+this range are preserved.
+
+The Southern Sotho and repair-ledger suites pass with 26,954 guarded corrections;
+all 21 human-preference checks pass. Search-help browser coverage passes syntax
+and discovery; runtime execution remains pending. Exact comparison preserves
+38,430 existing Chinese values. Historical review reaches key 2134;
+all-language translation and semantic review remain unfinished.
+
 ## Southern Sotho historical review: templates and table controls — 2026-10-13
 
 Commit `19cc07f1ed` reviews source keys 1845–1989 and repairs five values.
