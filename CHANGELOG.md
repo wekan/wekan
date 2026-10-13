@@ -2726,6 +2726,20 @@ translation and semantic review remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8d76a58ff8">Translate ten more Latin import guides</a>. Thanks to xet7.</summary>
+
+Translate guides for Super Productivity, Taiga, Vikunja, Quire, Wrike, Teamwork,
+Businessmap, Redmine, Notion and Plane. Preserve omitted-data warnings, required
+English columns, nested-task markers, archive state and file choices.
+
+The Latin suite and all 21 preservation checks pass. All 23 Latin import browser
+cases pass syntax and discovery; runtime remains pending. Existing Chinese
+values are unchanged. Latin has 167 English placeholders left; all-language
+translation and semantic verification remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

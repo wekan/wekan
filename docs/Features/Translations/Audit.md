@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Latin import instructions, second batch — 2026-10-13
+
+Commit `8d76a58ff8` fills ten pending guides for Super Productivity, Taiga,
+Vikunja, Quire, Wrike, Teamwork, Businessmap, Redmine, Notion and Plane.
+Checks cover attachment/comment/description exclusions, required English column
+names, Org-independent task nesting markers, compressed Taiga input, Notion's
+fallback status column and preserved archive state. Source menu labels and
+file-format names remain literal where users need to find them.
+
+The Latin suite and all 21 human-preference checks pass. Ten additional browser
+cases bring Latin import-instruction coverage to 23; syntax and discovery pass,
+while runtime remains pending. Exact comparison preserves 38,430 existing
+Chinese values. Only English-equal placeholders were changed.
+
+Latin's default --list output now contains 167 English placeholders. These are
+pending-Transifex values excluded from the filtered --missing summary. All-language
+translation and semantic verification remain unfinished.
+
 ## Latin import instructions, first batch — 2026-10-13
 
 Commit `ec0e77480e` fills twelve pending guides: OPML, Org mode, MeisterTask,
