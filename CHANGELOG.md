@@ -588,6 +588,32 @@ used.
 
 </details>
 
+<details>
+<summary>Planned: email to card, Sandstorm integrations, Android, single-file and musl builds.</summary>
+
+Requested on 2026-10-13 and being implemented in this order; each moves to
+Upcoming as it is committed. Builds run on GitHub Actions only.
+
+- Email to card, on every platform, like Trello's email-to-board
+  ([#794](https://github.com/wekan/wekan/issues/794),
+  [#3948](https://github.com/wekan/wekan/issues/3948)): sending and receiving
+  are configured in Notification Settings. Allowed mail servers and their
+  passwords are set only in the Admin Panel; Board and Member Settings only
+  choose whether it is on and which parts of an email are included. Today a
+  reply to a notification becomes a comment, but nothing creates a card.
+- Sandstorm: import, export, sync, the REST API and webhooks reach outside
+  services through the Powerbox, or reach the grain through a grain API key.
+  Trello import and export already do (see Upcoming).
+- Android on the WeKan platforms: `android-*` bundles for all four Android
+  CPUs, once wekan/node-patches has published its `node-android-*` binaries.
+  AppImage, snap, Flatpak and Docker cannot run on Android without root.
+- Single-file Bun and Node.js executables that read only the files they need
+  from inside themselves (a mount where the OS allows one, otherwise a virtual
+  filesystem), with the database included; and musl bundles and AppImages for
+  Alpine and other musl systems.
+
+</details>
+
 </details>
 
 # Upcoming WeKan ® release
