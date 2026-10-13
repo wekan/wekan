@@ -3,7 +3,7 @@
 /**
  * Spec 18 — RTL / LTR layout across all pages
  *
- * Verifies that when an RTL language (Arabic) is selected the whole UI mirrors,
+ * Verifies that when an RTL language (Arabic or Urdu) is selected the whole UI mirrors,
  * and when an LTR language (English) is selected it does not — on every major
  * page. For each page we assert three things:
  *
@@ -33,6 +33,7 @@ const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
 const LANGS = [
   { lang: 'en', dir: 'ltr', label: 'LTR (English)' },
   { lang: 'ar', dir: 'rtl', label: 'RTL (Arabic)' },
+  { lang: 'ur', dir: 'rtl', label: 'RTL (Urdu)' },
 ];
 
 // --- helpers ---------------------------------------------------------------
