@@ -198371,5 +198371,250 @@
     "before": "Latine: Mark omnia as non lectum",
     "after": "Nota omnia ut non lecta",
     "reason": "Repair Latin reminder, deletion and preference text; preserve due-state distinctions, account ownership, keyboard combinations and enabled/disabled behavior."
+  },
+  {
+    "locale": "la",
+    "key": "remove-all-read",
+    "before": "Latine: Remove omnia lege",
+    "after": "Remove omnia lecta",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "allow-rename",
+    "before": "Latine: Permitte Renomina",
+    "after": "Permitte mutationem nominis",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "allowRenamePopup-title",
+    "before": "Latine: Permitte Renomina",
+    "after": "Permitte mutationem nominis",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "roles",
+    "before": "Latine: Roles",
+    "after": "Partes",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "roles-info",
+    "before": "Latine: Elige which tabula roles sunt permissum ad perform quisque actio. Administrator Panel usores (global admins) semper have omnia rights et non potest esse restricted here.",
+    "after": "Elige quibus partibus tabulae quamque actionem exsequi liceat. Usores tabulae administrationis (administratores totius situs) semper omnia iura habent neque hic restringi possunt.",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "allow-invite-to-board",
+    "before": "Latine: Permitte Invita ad Tabula",
+    "after": "Permitte invitationes ad tabulam",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "all-board-members",
+    "before": "Latine: Omnia Tabula Sodales",
+    "after": "Omnia membra tabulae",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "board-admin",
+    "before": "Latine: Tabula Administrator",
+    "after": "Administrator tabulae",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "roles-status",
+    "before": "Latine: Roles Status",
+    "after": "Status partium",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "roles-status-desc",
+    "before": "Latine: Quid quisque tabula munus potest do. Read-only: it follows the checkboxes above, so it shows quid tu have electum ante tu serva.",
+    "after": "Quid cuique parti tabulae liceat. Tantum legitur: sequitur optiones supra electas, itaque monstrat quid elegeris antequam serves.",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "roles-status-role",
+    "before": "Latine: Munus",
+    "after": "Pars",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "roles-status-invite",
+    "before": "Latine: Invita ad tabula",
+    "after": "Invitare ad tabulam",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "roles-status-sees",
+    "before": "Latine: Sees schedae",
+    "after": "Chartae visibiles",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "roles-status-write",
+    "before": "Latine: Crea et muta",
+    "after": "Creare et mutare",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "roles-status-manage",
+    "before": "Latine: Tabula configurationes",
+    "after": "Configurationes tabulae",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "roles-status-sees-all",
+    "before": "Latine: Omnia",
+    "after": "Omnes",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "roles-status-sees-assigned",
+    "before": "Latine: Assigned tantum",
+    "after": "Tantum assignatae",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "roles-status-empty",
+    "before": "Latine: Non tabula roles.",
+    "after": "Nullae partes tabulae.",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "start-day-of-week",
+    "before": "Latine: Set dies de the hebdomas incipe",
+    "after": "Constitue primum diem hebdomadis",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "monday",
+    "before": "Latine: Monday",
+    "after": "Dies Lunae",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "tuesday",
+    "before": "Latine: Tuesday",
+    "after": "Dies Martis",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "wednesday",
+    "before": "Latine: Wednesday",
+    "after": "Dies Mercurii",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "thursday",
+    "before": "Latine: Thursday",
+    "after": "Dies Iovis",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "friday",
+    "before": "Latine: Friday",
+    "after": "Dies Veneris",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "saturday",
+    "before": "Latine: Saturday",
+    "after": "Dies Saturni",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "sunday",
+    "before": "Latine: Sunday",
+    "after": "Dies Solis",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "status",
+    "before": "Latine: Status",
+    "after": "Condicio",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "owner",
+    "before": "Latine: Dominus",
+    "after": "Possessor",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "last-modified-at",
+    "before": "Latine: novissime mutatum at",
+    "after": "Ultima mutatio die",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "last-activity",
+    "before": "Latine: Ultimus actio",
+    "after": "Ultima actio",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "voting",
+    "before": "Latine: Voting",
+    "after": "Suffragatio",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "delete-linked-card-before-this-card",
+    "before": "Latine: Tu potest non dele hoc scheda ante primus deleting linked scheda illud has",
+    "after": "Hanc chartam delere non potes antequam chartam coniunctam deleveris quae habet",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "delete-linked-cards-before-this-list",
+    "before": "Latine: Tu potest non dele hoc index ante primus deleting linked schedae illud sunt pointing ad schedae in hoc index",
+    "after": "Hunc indicem delere non potes antequam chartas coniunctas deleveris quae ad chartas huius indicis spectant",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "hide-checked-items",
+    "before": "Latine: Cela checked res",
+    "after": "Cela res signatas",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
+  },
+  {
+    "locale": "la",
+    "key": "hide-finished-checklist",
+    "before": "Latine: Cela finitum index probationis",
+    "after": "Cela indicem probationis perfectum",
+    "reason": "Repair Latin role permission explanations, weekdays, linked-card deletion warnings and checklist visibility; retain global-admin rights and unsaved preview meaning."
   }
 ]

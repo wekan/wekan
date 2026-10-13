@@ -771,3 +771,19 @@ assert.match(latin['open-many-cards-at-once-description'], /inactiva est.*claudi
 assert.notEqual(latin['show-on-card'], latin['show-on-minicard']);
 assert.equal(latin['mark-all-as-read'], 'Nota omnia ut lecta');
 assert.equal(latin['mark-all-as-unread'], 'Nota omnia ut non lecta');
+
+const reviewedRoleWeekdayKeys = ["remove-all-read", "allow-rename", "allowRenamePopup-title", "roles", "roles-info", "allow-invite-to-board", "all-board-members", "board-admin", "roles-status", "roles-status-desc", "roles-status-role", "roles-status-invite", "roles-status-sees", "roles-status-write", "roles-status-manage", "roles-status-sees-all", "roles-status-sees-assigned", "roles-status-empty", "start-day-of-week", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday", "status", "owner", "last-modified-at", "last-activity", "voting", "delete-linked-card-before-this-card", "delete-linked-cards-before-this-list", "hide-checked-items", "hide-finished-checklist"];
+for (const key of reviewedRoleWeekdayKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Allow|Roles|Choose|Read-only|Assigned|Monday|Owner|linked|Hide)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.equal(latin['allow-rename'], latin['allowRenamePopup-title']);
+assert.match(latin['roles-info'], /administratores totius situs.*semper omnia iura habent neque hic restringi possunt/);
+assert.match(latin['roles-status-desc'], /Tantum legitur/);
+assert.match(latin['roles-status-desc'], /antequam serves/);
+assert.equal(latin['roles-status-sees-assigned'], 'Tantum assignatae');
+assert.notEqual(latin['roles-status-sees-all'], latin['roles-status-sees-assigned']);
+assert.equal(new Set(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map(k => latin[k])).size, 7);
+assert.match(latin['delete-linked-cards-before-this-list'], /antequam chartas coniunctas deleveris/);
+assert.match(latin['delete-linked-cards-before-this-list'], /ad chartas huius indicis spectant/);
+assert.notEqual(latin['hide-checked-items'], latin['hide-finished-checklist']);
