@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin role explanations and weekdays — 2026-10-14
+
+Commit `61480096ba` repairs 35 prefixed role, weekday, deletion and checklist
+visibility entries. Regression checks preserve unrestricted global-admin rights,
+read-only previews before saving, assigned-only visibility, seven distinct weekdays,
+linked-card deletion prerequisites and item/checklist visibility distinctions.
+
+The Latin and guarded-correction suites pass with 28,374 ledger entries. All 21
+human-preference checks pass. Role-settings browser coverage checks the rights and
+preview explanations and save button. Syntax and discovery pass; browser runtime
+remains pending. Exact comparison preserves 38,430 existing Chinese values.
+
+There remain 1,013 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin reminders and preference descriptions — 2026-10-14
 
 Commit `ee4ce8a1eb` repairs 35 prefixed reminder, deletion, preference and
