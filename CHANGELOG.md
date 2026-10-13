@@ -132,7 +132,7 @@ releases.
   report counts **28,516 untranslated locale/string values in 42 languages**.
   It excludes **379 source keys tracked separately as pending Transifex**.
   With the newer email/chat strings included, full per-locale `--list`
-  reports, including pending keys, count **53,787 remaining values across
+  reports, including pending keys, count **53,744 remaining values across
   116 non-English locale files**. This fuller inventory remains the scope
   of the translation work.
   A separate short-prose audit flags 1,649 candidates across 180 locales.
@@ -1180,6 +1180,21 @@ ordinary members; execution remains pending. Maltese has 147 filtered
 placeholders left. The older progress test now reports its actual earlier
 catalog scope instead of claiming the whole locale is complete. Existing
 Chinese values remain unchanged.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1e6b6340df">Translate Maltese notification delivery and planning sync</a>. Thanks to xet7.</summary>
+
+Fill 43 English messages for webhook contents and identity, notification
+grouping, schedules, quiet hours and Scrum planning synchronization. Retain
+inherited settings, delayed delivery, source-ID matching, local planning
+changes and the non-destructive first-sync guarantee.
+
+Four Maltese suites and 21 human-preference checks pass. Two browser cases
+register for member notification settings and planning synchronization;
+execution remains pending. Maltese has 104 filtered English values left.
+Existing Maltese translations and Chinese text remain unchanged.
 
 </details>
 

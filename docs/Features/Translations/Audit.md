@@ -2,6 +2,30 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Maltese notification delivery and planning sync — 2026-10-13
+
+Commit `1e6b6340df` fills 43 English placeholders for notification layout,
+grouping and scheduling, outgoing webhook contents and identity, and Scrum
+planning sync. Existing Maltese Scrum terminology is retained. The planning
+hint keeps the requirement to enable Scrum, source dates and ID-before-name
+matching, retention of local changes until the source changes, and the
+promise that a first sync never removes planning.
+
+Four Maltese suites and all 21 human-preference checks pass. The new checks
+cover quiet hours as waiting rather than deletion, grouping by card versus
+board, inherited defaults, identity omission, protocol names and exact
+tokens. An initial assertion used a different spelling of the verb for
+keeping; it was corrected to match the translation, and all suites reran.
+Only the intended 43 English values changed. Every earlier non-English
+Maltese value and all 38,079 protected Chinese values remain unchanged.
+
+Two browser cases register in the existing member-notification and planning
+sync flows. The latter selects Maltese and asserts the entire translated
+planning hint while retaining its functional sync checks. Browser execution
+is still pending. Maltese's filtered inventory falls from 147 to 104, and
+the global inventory from 53,787 to 53,744 across 116 catalogs. Further
+translation, semantic review and browser execution remain required.
+
 ## Maltese recovery messages — 2026-10-13
 
 Commit `57a10d1ac9` fills 46 English placeholders for stopped list sync,
