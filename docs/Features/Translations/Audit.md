@@ -2,6 +2,27 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican filter help and access guidance — 2026-10-13
+
+Commit `e7a4eb0ffd` repairs 20 mixed-language values. Advanced-filter prose
+now uses Corsican while preserving the source operators, quoted examples,
+escaped apostrophe, precedence examples and regex literally. The existing
+advanced-filter audit now includes Corsican. Trello guidance retains saved
+credentials and attachment/background/avatar downloads. Visibility text
+separates public viewing and search indexing from member-only editing.
+Sandstorm's warning explicitly retains the separate access-revocation step.
+
+The Corsican, advanced-filter and full repair-ledger suites pass; the
+ledger contains 25,323 guarded corrections. All 21 human-preference checks
+pass. The new sidebar-help browser case registers, checking the localized
+text and exact examples while rejecting previous Italian wording. It has
+not executed against the application.
+
+Exact comparison preserves all 38,385 protected Chinese values and limits
+the locale commit to the 20 reviewed replacements. Filtered placeholder
+counts do not measure these non-English repairs. Older Corsican strings
+and fluent phrasing still require review.
+
 ## Corsican board warnings and import guidance — 2026-10-13
 
 Commit `d07120761b` repairs 33 mixed-language values for board visibility,

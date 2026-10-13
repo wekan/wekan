@@ -1505,6 +1505,19 @@ and broader language review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e7a4eb0ffd">Correct Corsican filter help and access guidance</a>. Thanks to xet7.</summary>
+
+Repair 20 mixed-language values for advanced filters, Trello, archives,
+board visibility and access. Restore exact filter examples and retain the
+warning that removing a member in WeKan does not revoke Sandstorm access.
+
+Three translation suites and 21 human-preference checks pass. The filter
+help browser case registers; application execution remains pending.
+Protected Chinese values remain unchanged. Broader language review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
