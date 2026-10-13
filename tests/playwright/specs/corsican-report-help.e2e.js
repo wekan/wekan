@@ -13,6 +13,10 @@ test('Corsican recovery report explains automatic data protection and repair', a
   await expect(description).toContainText('nova migrazione da MongoDB');
   await expect(description).toContainText('riparazione autumatica');
   await expect(description).not.toContainText('ripristino dei dati');
+  for (const selector of ['.js-list-sync-stuck-refresh', '.js-interrupted-import-refresh']) {
+    await expect(page.locator(selector)).toHaveText('Attualizà');
+    await expect(page.locator(selector)).not.toHaveText('Aggiorna');
+  }
 });
 
 test('Corsican problem summary explains reviewing and acknowledging new problems', async ({ page, adminUser }) => {

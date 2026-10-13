@@ -730,3 +730,23 @@ assert.match(corsican['blockly-LOGIC_OPERATION_TOOLTIP_AND'], /duie entrate sò 
 assert.match(corsican['blockly-LOGIC_OPERATION_TOOLTIP_OR'], /almenu una entrata hè vera/);
 assert.notEqual(corsican['blockly-LOGIC_OPERATION_TOOLTIP_AND'], corsican['blockly-LOGIC_OPERATION_TOOLTIP_OR']);
 for (const key of ['COS', 'SIN', 'TAN']) assert.match(corsican[`blockly-MATH_TRIG_TOOLTIP_${key}`], /gradi, micca in radianti/);
+
+// Final source-ordered pass: recovery controls and email attachment labels.
+const finalRecoveryLabels = {
+  'stuck-sync-operation-progress': 'Avanzamentu',
+  'stuck-sync-operation-reason': 'Mutivu',
+  'stuck-sync-operation-refresh': 'Attualizà',
+  'interrupted-import-refresh': 'Attualizà',
+  'email-to-card-part-attachments': 'Appicci',
+};
+for (const [key, value] of Object.entries(finalRecoveryLabels)) {
+  assert.equal(corsican[key], value);
+  assert.doesNotMatch(corsican[key], /Avanzamento|Motivo|Aggiorna|Alligati/);
+}
+assert.match(corsican['stuck-sync-operation-description'], /digià appiicati fermanu.*ùn seranu mai scritti/);
+assert.match(corsican['interrupted-import-description'], /ùn pò micca esse ripigliata.*schedariu fonte.*micca cunservatu/);
+assert.match(corsican['interrupted-import-discard-confirm'], /tuttu.*squassati definitivamente/);
+assert.match(corsican['history-request-hint'], /listessa dumanda.*ùn pò mai annullà un secondu/);
+assert.match(corsican['email-to-card-address-private'], /quellu chì l[’']hà/);
+assert.match(corsican['email-to-card-address-private'], /in u vostru nome/);
+assert.match(corsican['email-view-too-many-recipients'], /À u più 20/);

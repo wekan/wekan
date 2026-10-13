@@ -188081,5 +188081,40 @@
     "before": "Circate in u spaziu di travagliu. Appughjate Entrata per a currispundenza seguente è Maiuscule+Entrata per a precedente. Appughjate Escape per chjode a ricerca è selezziunà a currispundenza attuale.",
     "after": "Circate in u spaziu di travagliu. Appughjate Enter per a currispundenza seguente è Shift+Enter per a precedente. Appughjate Escape per chjode a ricerca è selezziunà a currispundenza attuale.",
     "reason": "Align remaining Blockly physical keyboard names and search shortcuts; repair the Italian sorting verb."
+  },
+  {
+    "locale": "co",
+    "key": "stuck-sync-operation-progress",
+    "before": "Avanzamento",
+    "after": "Avanzamentu",
+    "reason": "Replace remaining Italian recovery and email attachment labels with Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "stuck-sync-operation-reason",
+    "before": "Motivo",
+    "after": "Mutivu",
+    "reason": "Replace remaining Italian recovery and email attachment labels with Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "stuck-sync-operation-refresh",
+    "before": "Aggiorna",
+    "after": "Attualizà",
+    "reason": "Replace remaining Italian recovery and email attachment labels with Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "interrupted-import-refresh",
+    "before": "Aggiorna",
+    "after": "Attualizà",
+    "reason": "Replace remaining Italian recovery and email attachment labels with Corsican."
+  },
+  {
+    "locale": "co",
+    "key": "email-to-card-part-attachments",
+    "before": "Alligati",
+    "after": "Appicci",
+    "reason": "Replace remaining Italian recovery and email attachment labels with Corsican."
   }
 ]
