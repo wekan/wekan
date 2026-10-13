@@ -317,3 +317,17 @@ assert.match(latin['color-paleturquoise'], /pallidus/);
 assert.match(latin['skip-to-content'], /materiam principalem/);
 assert.match(latin['close-board-pop'], /Archivo.*pagina omnium tabularum/);
 assert.doesNotMatch(latin['close-board-pop'], /domus header/);
+
+const reviewedRoleKeys = ["unset-color", "comment-placeholder", "comment-only", "comment-only-desc", "comment-assigned-only", "comment-assigned-only-desc", "comment-delete", "deleteCommentPopup-title", "no-comments", "no-comments-desc", "read-only", "read-only-desc", "read-assigned-only", "read-assigned-only-desc", "worker", "worker-desc", "computer", "confirm-subtask-delete-popup", "confirm-checklist-delete-popup", "confirm-checklist-item-delete-popup", "confirm-move-list-to-swimlane", "subtaskDeletePopup-title", "checklistDeletePopup-title", "checklistItemDeletePopup-title", "copy-card-link-to-clipboard", "copy-link-to-clipboard", "copy-text-to-clipboard", "copyListPopup-title", "copyManyCardsPopup-title", "copyManyCardsPopup-instructions"];
+for (const key of reviewedRoleKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Assigned|Worker|Computer|Clipboard|Template|Titles|Descriptions)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.equal(latin['comment-placeholder'], '');
+for (const key of ['comment-assigned-only-desc', 'read-assigned-only-desc']) assert.match(latin[key], /Solum chartae assignatae visibiles/);
+for (const key of ['read-only-desc', 'read-assigned-only-desc']) assert.match(latin[key], /Mutare non potest/);
+assert.match(latin['no-comments-desc'], /videre non potest/);
+assert.match(latin['worker-desc'], /Tantum chartas movere, se ipsum chartae assignare et commentarios addere/);
+assert.match(latin['confirm-move-list-to-swimlane'], /omnes eius chartas in aliam semitam/);
+assert.match(latin['copyManyCardsPopup-instructions'], /Tituli et descriptiones.*JSON$/);
+assert.notEqual(latin['checklistDeletePopup-title'], latin['checklistItemDeletePopup-title']);

@@ -19,3 +19,13 @@ test('Latin card archive confirmation explains restoration without archiving bef
   const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
   expect(card.archived).not.toBe(true);
 });
+
+test('Latin comment editor keeps the intentionally empty placeholder', async ({ boardPage: page, board }) => {
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'la'));
+  await new BoardPage(page).clickCard(board.listIds[0], 'Alpha Card');
+  const cp = new CardPage(page);
+  await cp.waitForOpen();
+  const editor = cp.root.locator('form.js-new-comment-form textarea.editor');
+  await expect(editor).toHaveAttribute('placeholder', '');
+  await expect(editor).toHaveValue('');
+});

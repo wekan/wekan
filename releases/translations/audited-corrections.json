@@ -192351,5 +192351,215 @@
     "before": "Latine: yellow",
     "after": "flavus",
     "reason": "Translate English color labels and navigation controls; correct the stale board restoration location."
+  },
+  {
+    "locale": "la",
+    "key": "unset-color",
+    "before": "Latine: Unset",
+    "after": "Remove colorem electum",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "comment-placeholder",
+    "before": "Latine: ",
+    "after": "",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "comment-only",
+    "before": "Latine: Commentarium tantum",
+    "after": "Tantum commentari",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "comment-only-desc",
+    "before": "Latine: Potest commentarium adest schedae tantum.",
+    "after": "Tantum commentarios ad chartas addere potest.",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "comment-assigned-only",
+    "before": "Latine: Tantum Assigned Commentarium",
+    "after": "Tantum in chartis assignatis commentari",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "comment-assigned-only-desc",
+    "before": "Latine: Tantum assigned schedae visible. Potest commentarium tantum.",
+    "after": "Solum chartae assignatae visibiles sunt. Tantum commentarios addere potest.",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "comment-delete",
+    "before": "Latine: certusne es tu want ad dele the commentarium?",
+    "after": "Certusne es te commentarium delere velle?",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "deleteCommentPopup-title",
+    "before": "Latine: Dele commentarium?",
+    "after": "Delere commentarium?",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "no-comments",
+    "before": "Latine: Non commentaria",
+    "after": "Sine commentariis",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "no-comments-desc",
+    "before": "Latine: Potest non see commentaria.",
+    "after": "Commentarios videre non potest.",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "read-only",
+    "before": "Latine: solum legendum",
+    "after": "Tantum legere",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "read-only-desc",
+    "before": "Latine: Potest vide schedae tantum. Potest non muta.",
+    "after": "Tantum chartas videre potest. Mutare non potest.",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "read-assigned-only",
+    "before": "Latine: Tantum Assigned Lege",
+    "after": "Tantum chartas assignatas legere",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "read-assigned-only-desc",
+    "before": "Latine: Tantum assigned schedae visible. Potest non muta.",
+    "after": "Solum chartae assignatae visibiles sunt. Mutare non potest.",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "worker",
+    "before": "Latine: Worker",
+    "after": "Operarius",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "worker-desc",
+    "before": "Latine: Potest tantum move schedae, assign itself ad scheda et commentarium.",
+    "after": "Tantum chartas movere, se ipsum chartae assignare et commentarios addere potest.",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "computer",
+    "before": "Latine: Computer",
+    "after": "Computatrum",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "confirm-subtask-delete-popup",
+    "before": "Latine: certusne es tu want ad dele submunus?",
+    "after": "Certusne es te submunus delere velle?",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "confirm-checklist-delete-popup",
+    "before": "Latine: certusne es tu want ad dele the index probationis?",
+    "after": "Certusne es te indicem probationis delere velle?",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "confirm-checklist-item-delete-popup",
+    "before": "Latine: certusne es tu want ad dele the res indicis?",
+    "after": "Certusne es te rem indicis probationis delere velle?",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "confirm-move-list-to-swimlane",
+    "before": "Latine: Move hoc index et omnia its schedae ad the aliud semita natatoria?",
+    "after": "Movere hunc indicem et omnes eius chartas in aliam semitam?",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "subtaskDeletePopup-title",
+    "before": "Latine: Dele Submunus?",
+    "after": "Delere submunus?",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "checklistDeletePopup-title",
+    "before": "Latine: Dele index probationis?",
+    "after": "Delere indicem probationis?",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "checklistItemDeletePopup-title",
+    "before": "Latine: Dele res indicis?",
+    "after": "Delere rem indicis probationis?",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "copy-card-link-to-clipboard",
+    "before": "Latine: Copia scheda vinculum ad clipboard",
+    "after": "Copia ligamen chartae in memoriam temporariam",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "copy-link-to-clipboard",
+    "before": "Latine: Copia vinculum ad clipboard",
+    "after": "Copia ligamen in memoriam temporariam",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "copy-text-to-clipboard",
+    "before": "Latine: Copia textus ad clipboard",
+    "after": "Copia textum in memoriam temporariam",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "copyListPopup-title",
+    "before": "Latine: Copia Index",
+    "after": "Copia indicem",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "copyManyCardsPopup-title",
+    "before": "Latine: Copia Template ad Many Schedae",
+    "after": "Copia exemplar in multas chartas",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
+  },
+  {
+    "locale": "la",
+    "key": "copyManyCardsPopup-instructions",
+    "before": "Latine: Destinatio Scheda Titles et Descriptions in hoc JSON format",
+    "after": "Tituli et descriptiones chartarum destinatarum hac forma JSON",
+    "reason": "Repair role permissions, deletion and copy controls; restore the intentionally empty comment placeholder."
   }
 ]
