@@ -2,6 +2,32 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Maltese recovery messages — 2026-10-13
+
+Commit `57a10d1ac9` fills 46 English placeholders for stopped list sync,
+interrupted board imports and Scrum history recovery. The translations
+preserve the different outcomes: already applied sync changes remain,
+unwritten changes are abandoned, discarding an import permanently deletes
+its board and later additions, keeping a board removes nothing, and
+rollback is available only without intervening changes. The separate Scrum
+stage is explicitly named to avoid mistaking it for the board itself.
+
+All three Maltese suites and 21 human-preference checks pass. Semantic
+checks distinguish destructive and retaining actions, preserve the oldest-50
+limit, and verify every token against English. The older progress test's
+success message now identifies its earlier-catalog scope. A parent comparison
+confirms only the 46 English values changed; earlier non-English Maltese
+text and all 38,079 protected Chinese values remain unchanged.
+
+Five cases register in the existing list-sync, interrupted-import and Scrum
+history browser flows. They cover successful recovery, intervening conflicts
+and ordinary-member restrictions. Browser execution is pending; the preceding
+batch found the configured local application unavailable.
+
+Maltese now has 147 filtered English placeholders, down from 193. The full
+inventory falls by 46 to 53,787 values across 116 catalogs. Remaining fills,
+broader language review and browser execution are still required.
+
 ## Maltese attached cards and linked fields — 2026-10-13
 
 Commit `60528034c1` fills all 30 remaining English values for attached cards

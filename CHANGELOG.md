@@ -132,7 +132,7 @@ releases.
   report counts **28,516 untranslated locale/string values in 42 languages**.
   It excludes **379 source keys tracked separately as pending Transifex**.
   With the newer email/chat strings included, full per-locale `--list`
-  reports, including pending keys, count **53,833 remaining values across
+  reports, including pending keys, count **53,787 remaining values across
   116 non-English locale files**. This fuller inventory remains the scope
   of the translation work.
   A separate short-prose audit flags 1,649 candidates across 180 locales.
@@ -1163,6 +1163,23 @@ attachment and custom-field-link browser flows now include Maltese, with
 positive and negative cases. Both register, but could not run because the
 local test app refuses connections. Maltese still has 193 filtered English
 placeholders; full wording review remains open. Chinese text is unchanged.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/57a10d1ac9">Translate Maltese recovery decisions and warnings</a>. Thanks to xet7.</summary>
+
+Fill 46 English messages for interrupted imports, stopped list
+synchronizations and Scrum history recovery. Distinguish retained changes,
+unwritten changes, permanent board deletion and restoring previous records.
+Preserve placeholder tokens and existing translations.
+
+Three Maltese suites and 21 human-preference checks pass. Five browser
+recovery cases register, covering administrator actions, conflicts and
+ordinary members; execution remains pending. Maltese has 147 filtered
+placeholders left. The older progress test now reports its actual earlier
+catalog scope instead of claiming the whole locale is complete. Existing
+Chinese values remain unchanged.
 
 </details>
 
