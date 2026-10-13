@@ -2,6 +2,26 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho notifications and automation settings — 2026-10-13
+
+Commit `7c10778dac` fills 46 English placeholders. Delivery settings retain
+grouping scope, quiet-hour waiting and daily frequency. Wrike help preserves
+completed/cancelled versus active/deferred states and the unavailable export
+of native automation rules. LDAP environment names stay literal; OAuth
+email-domain help preserves empty-means-all. Field visibility explains that
+hiding does not change card data or board settings and that showing restores
+each board's configuration. Subtask permission restrictions remain explicit.
+
+The Southern Sotho regression suite and all 21 human-preference checks pass.
+Three browser cases register: member notification settings and positive and
+negative subtask-permission cases. Syntax and discovery pass; runtime
+execution remains pending without the UI stack. Exact comparison preserves
+38,430 existing Chinese values; existing translated Southern Sotho is intact.
+
+The full Southern Sotho placeholder count falls from 791 to 745. Its filtered
+inventory is 677; the global filtered backlog is 28,516 across 42 languages.
+Fluency review and the all-language objective remain unfinished.
+
 ## Southern Sotho import and webhook controls — 2026-10-13
 
 Commit `d33245d26b` fills 55 placeholders for member mapping, CSV columns,
