@@ -47,4 +47,19 @@ assert.deepEqual(tokens(latin['act-deleteCard']),
 assert.deepEqual(tokens(latin['restore-list-swimlanes-done']),
   ['__remaining__', '__restored__']);
 
-console.log('latinTranslationProgress: complete locale passed');
+console.log('latinTranslationProgress: historical catalog and reviewed additions passed');
+
+const cardLinkKeys = ["attach-card", "attachCardPopup-title", "attach-card-hint", "attached-card-unavailable", "detach-card", "attach-card-self", "attach-card-limit", "attach-card-not-found", "board-announcement", "board-announcement-enabled", "board-view-calendar-mode", "custom-field-links", "custom-field-links-hint", "custom-field-links-none", "custom-field-link-unavailable", "custom-field-link-fields", "custom-field-link-no-fields", "custom-field-link-inactive", "custom-field-unlink", "custom-field-link-target", "custom-field-link-direction", "custom-field-link-both", "custom-field-link-send", "custom-field-link-sends", "custom-field-link-receives", "custom-field-link-add", "field-link-self", "field-link-limit", "field-link-archived", "field-link-invalid", "field-link-not-found", "field-link-not-allowed", "cardCustomFieldLinksPopup-title", "cards-use-list-color"];
+for (const key of cardLinkKeys) {
+  assert.notEqual(latin[key], english[key], key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.equal(latin['attach-card'], latin['attachCardPopup-title']);
+assert.match(latin['custom-field-links-hint'], /eiusdem nominis et generis.*una tantum charta.*non mutantur/);
+assert.match(latin['custom-field-link-both'], /In utramque partem/);
+assert.match(latin['custom-field-link-send'], /In unam partem.*ad chartam principalem/);
+assert.notEqual(latin['custom-field-link-sends'], latin['custom-field-link-receives']);
+assert.match(latin['custom-field-link-inactive'], /recensere iam non potest.*aut charta in tabulario/);
+assert.match(latin['field-link-not-allowed'], /Utramque chartam/);
+assert.match(latin['field-link-self'], /sibi ipsi.*non potest/);
+for (const key of ['link-card', 'linkCardPopup-title']) assert.doesNotMatch(latin[key], /^Latine:/);

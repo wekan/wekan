@@ -189404,5 +189404,19 @@
     "before": "mula #",
     "after": "hanggang #",
     "reason": "Correct the Tagalog sublist end position from a starting point to an inclusive endpoint."
+  },
+  {
+    "locale": "la",
+    "key": "link-card",
+    "before": "Latine: Vinculum ad hoc scheda",
+    "after": "Ligamen ad hanc chartam",
+    "reason": "Remove the language-name prefix and correct Latin card-link labels and inflection."
+  },
+  {
+    "locale": "la",
+    "key": "linkCardPopup-title",
+    "before": "Latine: Vinculum Scheda",
+    "after": "Coniunge chartam",
+    "reason": "Remove the language-name prefix and correct Latin card-link labels and inflection."
   }
 ]
