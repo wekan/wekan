@@ -2,6 +2,28 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho Blockly procedures and math controls — 2026-10-13
+
+Commit `b54fe95288` fills 95 placeholders for random numbers, rounding,
+unary math, trigonometry, variables, procedures, accessibility and shortcuts.
+Checks retain exclusive floating-point upper bounds, inclusive integer
+bounds, degrees rather than radians, sign reversal and absolute magnitude.
+Procedure checks distinguish returning and non-returning functions, disabled
+definitions and scope restrictions. Screen-reader instructions retain the
+opposite action for each current state, and numbered tokens are unchanged.
+Mathematical and programming terms remain lower confidence pending native
+review.
+
+The Southern Sotho regression suite and all 21 human-preference checks pass.
+The existing Blockly interaction browser case passes syntax and discovery;
+runtime execution remains pending without the UI stack. Exact comparison
+preserves 38,430 existing Chinese values and existing translated Southern
+Sotho values.
+
+The full Southern Sotho placeholder count falls from 452 to 357. Its filtered
+inventory is 289; the global filtered backlog is 28,128 across 42 languages.
+The all-language translation and fluency objective remains unfinished.
+
 ## Southern Sotho Blockly logic and mathematics — 2026-10-13
 
 Commit `fb193ebb80` fills 90 placeholders for list sorting and splitting,
