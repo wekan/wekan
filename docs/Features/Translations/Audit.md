@@ -2,6 +2,46 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Nepali features and new Trello labels — 2026-10-13
+
+Commit `9384c350fa` fills 193 Nepali strings: 182 existing English placeholders
+and eleven Trello/Sandstorm keys added to English during this batch. It also
+adds those eleven new keys in nine Chinese paths (`cmn` and the eight `zh`
+paths). A parent comparison confirms all 182 replacements were English and
+all original non-English values are unchanged. Every earlier human-verified
+`zh` value is preserved; only the new keys were added. The round-trip label
+marker `Swimlane: …` remains literal in every new description.
+
+Commit `66bd077c36` fills the eleven new Marathi keys. Bengali translations
+arrived from concurrent work before the fill attempt; the helper skipped all
+eleven, preserving them. Tests were matched to that existing wording after
+checking the same meaning. The new English source, source-key propagation and
+other concurrent feature work are outside these two translation commits.
+
+Eight focused suites pass: Nepali, Bengali, Marathi, upcoming Chinese,
+traditional Chinese, Chinese list widths, shared labels and exempt prose.
+The audit checks permission directions, inherited notification settings,
+quiet periods, import exclusions, permanent removal versus keeping data,
+API keys/tokens and missing versus granted network access. Exact source key
+order and placeholder inventories match across 246 catalogs / 1,019,178 pairs;
+21 human-preference checks pass. These are structural and selected semantic
+checks, not a certification of every sentence's language or fluency.
+
+Playwright discovery registers 13 export-dialog cases (English, Bengali,
+Marathi, Nepali and nine Chinese paths), plus four Nepali feature cases for
+linked fields, notification settings and recovery. The export-dialog tests
+inspect labels, descriptions and initial controls without starting an export.
+Browser execution remains unverified without a rebuilt running application.
+Longer technical compounds remain provisional pending speaker review.
+
+Snapshot after the batch and concurrent new-string fills: the ordinary report
+has 28,516 values across 42 locales and excludes 379 pending source keys.
+The full filtered inventory has 56,196 values across 127 non-English paths.
+The supplemental queue still has 3,821 candidates across 226 locales. Shared
+spellings and physical key names require individual review; these are not all
+errors. Whole-catalog wrong-language review and the overall translation task
+remain unfinished. No external translation service or remote upload was used.
+
 ## Eight additional storage catalogs — 2026-10-13
 
 Commit `49b1e07a48` fills 200 English MongoDB/S3 settings values: 25 each in

@@ -130,10 +130,11 @@ releases.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **28,516 untranslated locale/string values in 42 languages**.
-  It excludes **368 source keys tracked separately as pending Transifex**.
-  After the Marathi batch, full per-locale `--list` reports, including
-  pending keys, count **54,981 remaining values across 128 non-English locale
-  files**. This fuller inventory remains the scope of the translation work.
+  It excludes **379 source keys tracked separately as pending Transifex**.
+  After the Nepali batch and new Trello strings, full per-locale `--list`
+  reports, including pending keys, count **56,196 remaining values across
+  127 non-English locale files**. This fuller inventory remains the scope
+  of the translation work.
   A separate short-prose audit flags 1,673 candidates across 182 locales.
   The two notification At/To labels now have translations in all non-English
   locales;
@@ -144,6 +145,13 @@ releases.
   Earlier Xhosa completion checks predate the newer pending strings. The
   current broad run still exposes English placeholders in several catalogs;
   see the dated audit results. Empty reports do not establish fluency.
+- Nepali now has no current fill candidates after 193 feature fills, including
+  eleven newly added Trello/Sandstorm strings. Nine Chinese catalog paths get
+  only those eleven new strings; all earlier Chinese values are unchanged.
+  Marathi also gets the eleven new strings. Eight focused suites and 21
+  human-preference checks pass. Thirteen Trello browser cases and four Nepali
+  feature cases register; execution and whole-catalog wording review remain
+  open.
 - Nepali, Kannada, Malayalam, Javanese, Kazakh, Kyrgyz, Tajik and Somali now
   have 200 translated MongoDB/S3 settings values that the fill report had
   excluded. Their existing translations remain unchanged. Thirteen suites
@@ -554,7 +562,8 @@ used.
 
 **In short:** more **UI labels and storage settings** now use their target
 language, and seeded wrong-language instructions are corrected. Missing
-Bengali and Marathi feature strings are filled, and a new audit exposes
+Bengali, Marathi and Nepali feature strings are filled. New Trello strings
+are translated in Chinese and Marathi, and a new audit exposes
 English prose hidden by technical-name exemptions. Existing verified
 translations remain intact while the wider language-quality review continues.
 
@@ -572,8 +581,8 @@ All 307 translation/Blockly suites and 21 human-preference checks pass.
 Source tokens match across all 246 catalogs. Expanded notification browser
 coverage registers 125 Chromium tests; execution still needs a running app.
 [Terminology evidence and review limits](docs/Features/Translations/Shared-Labels-2026-10-13.md)
-record provisional wording. The wider language audit and 54,981 filtered fill
-values remain in TODO Later.
+record provisional wording. The wider language audit and current filtered
+fill inventory remain in TODO Later.
 
 </details>
 
@@ -640,6 +649,25 @@ All 13 relevant suites pass. Storage-settings browser coverage registers 14
 locales; execution needs a running rebuilt app. The supplemental queue falls
 to 3,821 candidates. Complete software compounds remain provisional pending
 speaker review, and the wider translation audit is unfinished.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9384c350fa">Fill Nepali feature strings and add missing Chinese Trello labels</a>. Thanks to xet7.</summary>
+
+Translate 193 Nepali placeholders for linked fields, import formats, recovery,
+notifications, settings and Trello. Add eleven new Trello/Sandstorm strings
+in each of nine Chinese catalog paths, preserving every earlier Chinese
+value. The [Marathi follow-up](https://github.com/wekan/wekan/commit/66bd077c36)
+adds the same eleven new strings and extends checks for Bengali wording
+supplied concurrently. Existing non-English values remain unchanged.
+
+Eight focused suites and 21 human-preference checks pass. Exact source-token
+inventories and key order match across 1,019,178 locale/key pairs. Tests check
+permissions, destructive consequences, import exclusions and Trello's literal
+`Swimlane: …` marker. Thirteen export-dialog browser cases and four Nepali
+feature cases register; execution needs a running rebuilt app. Empty fill
+reports do not establish whole-catalog fluency. Broader review stays open.
 
 </details>
 
