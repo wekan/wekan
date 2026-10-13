@@ -2936,6 +2936,20 @@ the old language prefix; all-language review remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9b890bbe16">Repair Latin role and comment controls</a>. Thanks to xet7.</summary>
+
+Repair 30 prefixed strings for roles, comment visibility, deletion and copying.
+Preserve assigned-card limits, read-only restrictions, worker actions and moving
+all cards with a list. Restore the intentionally empty comment placeholder.
+
+The Latin and guarded-correction suites and all 21 preservation checks pass.
+The comment-editor browser case passes syntax and discovery; runtime remains
+pending. Existing Chinese values are unchanged. There remain 1,875 Latin values
+containing the old language prefix; all-language review remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

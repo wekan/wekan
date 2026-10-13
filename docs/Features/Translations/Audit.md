@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin roles, comments and copy controls — 2026-10-14
+
+Commit `9b890bbe16` repairs 30 prefixed strings for assigned-card roles,
+read-only access, hidden comments, worker actions, checklist deletion and copy
+controls. The intentionally empty comment placeholder no longer contains a
+language-name prefix. Tests preserve assigned-card visibility, no-edit clauses,
+worker self-assignment, moving all cards with a list, JSON format instructions
+and the distinction between deleting a checklist and an item.
+
+The Latin and guarded-correction suites pass with 27,509 ledger entries. All 21
+human-preference checks pass. Comment-editor browser coverage checks the empty
+placeholder and initial value; syntax and discovery pass, runtime remains
+pending. Exact comparison preserves 38,430 existing Chinese values.
+
+There remain 1,875 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin colors and navigation — 2026-10-14
 
 Commit `30024f1e66` repairs 32 prefixed strings: all 25 color labels, close/back
