@@ -2,6 +2,28 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Swahili export guidance and settings — 2026-10-13
+
+Commit `e02fd383b5` fills 46 English values for batch import/export, Trello,
+Sandstorm access, board settings, external-link patterns, Wrike workflows,
+LDAP and login restrictions. The text preserves the single-export ZIP
+exception, workbook-versus-file output, omitted member mapping, export
+permissions, required Sandstorm access and partial-export warnings.
+
+Both Swahili suites and all 21 human-preference checks pass. The feature
+suite verifies tokens and technical literals, including `Swimlane: …`, link
+pattern examples, Wrike status groups, `GET /workflows` and LDAP variables.
+Semantic checks retain read-only roles, environment-only settings, empty
+allowed-domain behavior and color fallback. Only the 46 English values
+changed; prior Swahili translations and all 38,079 protected Chinese values
+match the parent. Concurrent mail-report additions remain separate.
+
+Four added browser cases register for calendar, Trello dialog, Wrike round
+trip and LDAP refusal. They have not run against a rebuilt application.
+Swahili now has 22 import-format instructions in the filtered inventory;
+the global count is 53,439 across 115 catalogs. Remaining fills, exempt
+strings, wider wording review and browser execution remain unfinished.
+
 ## Swahili notification, mapping and Scrum controls — 2026-10-13
 
 Commit `387b88c959` fills 79 English values: notification delivery and

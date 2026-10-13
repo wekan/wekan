@@ -132,7 +132,7 @@ releases.
   report counts **28,516 untranslated locale/string values in 42 languages**.
   It excludes **379 source keys tracked separately as pending Transifex**.
   With the newer email/chat strings included, full per-locale `--list`
-  reports, including pending keys, count **53,485 remaining values across
+  reports, including pending keys, count **53,439 remaining values across
   115 non-English locale files**. This fuller inventory remains the scope
   of the translation work.
   A separate short-prose audit flags 1,649 candidates across 180 locales.
@@ -1313,6 +1313,21 @@ Both Swahili suites and 21 human-preference checks pass. Seven additional
 browser cases register across six existing flows; execution remains pending.
 Swahili has 68 filtered placeholders left. Existing translated values and
 protected Chinese text remain unchanged.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e02fd383b5">Translate Swahili export guidance and settings</a>. Thanks to xet7.</summary>
+
+Fill 46 messages for multiple-board import/export, Trello and Sandstorm,
+board controls, link patterns, Wrike workflows, LDAP and login restrictions.
+Keep literal examples and configuration names, archive exceptions, export
+permissions and unsupported-operation warnings.
+
+Both Swahili suites and 21 human-preference checks pass. Four additional
+browser cases register for Trello, calendar mode, Wrike and LDAP; execution
+remains pending. Swahili has 22 import-format placeholders left. Existing
+translated values and protected Chinese text remain unchanged.
 
 </details>
 
