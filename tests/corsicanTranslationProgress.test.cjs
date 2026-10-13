@@ -331,3 +331,15 @@ for (const key of ['poker-question','poker-one','poker-two','poker-three','poker
 assert.match(corsican['card-delete-pop'], /Tutte l’azzioni.*ùn puderete più apre torna.*Ùn si pò annullà/);
 assert.match(corsican['poker-delete-pop'], /permanente.*tutte l’azzioni/);
 for (const key of ['card-archive-pop','list-archive-pop','swimlane-archive-pop']) assert.match(corsican[key], /ùn serà più visibile.*dopu l’archiviazione/);
+
+const profileCorrectionKeys = ["exportChecklistPopup-title", "restoreArchivedListToSwimlanePopup-title", "rulesImportExportPopup-title", "swimlaneHeightErrorPopup-title", "cardTemplatePopup-title", "invitePeoplePopup-title", "listsortPopup-title", "cardType-linkedBoard", "change-avatar", "change-color", "map-to-existing-user", "map-to-existing-user-desc", "map-to-existing-user-not-member", "map-to-existing-user-none", "change-settings", "theme-category-flat", "theme-category-clear", "theme-category-dark", "change-font", "font", "font-size", "font-size-default", "font-size-smaller", "font-size-small", "font-size-largest", "text-color", "text-background-color", "cardTextNoteEditPopup-title", "changeAvatarPopup-title", "changeLanguagePopup-title", "changeSettingsPopup-title", "click-to-star", "click-to-unstar", "click-to-disable-auto-width", "clipboard", "card-aging", "card-aging-days", "card-aging-tier1"];
+for (const key of profileCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /\b(?:Spurtà la checklist|swimlane|regole|template|Cambia|Associa|Scegli|impostazioni|Piatto|Chiaro|Scuro|Carattere|Predefinito|piccolo|Piccolo|Grandissimo|testo|Clicca|Invecchiamento|sbiadimento)\b/, key);
+}
+assert.match(corsican['map-to-existing-user-desc'], /carte.*cummenti.*attività.*rolu propiu.*ùn pò.*mai dà più permessi/);
+assert.match(corsican['map-to-existing-user-not-member'], /ùn hè ancu membru/);
+assert.match(corsican['click-to-disable-auto-width'], /hè attivata.*disattivà la/);
+assert.match(corsican['click-to-star'], /aghjunghje.*preferite/);
+assert.match(corsican['click-to-unstar'], /caccià.*preferite/);
+assert.match(corsican['card-aging-tier1'], /Livellu 1.*ghjorni d’inattività/);

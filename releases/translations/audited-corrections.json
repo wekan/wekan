@@ -178883,5 +178883,271 @@
     "before": "Associa a un utilizatore esistente",
     "after": "Assucià à un utilizatore esistente",
     "reason": "Repair mixed-language card controls and remove unrelated in-progress prefixes from Planning Poker values; preserve destructive-action warnings and literal scores."
+  },
+  {
+    "locale": "co",
+    "key": "exportChecklistPopup-title",
+    "before": "Spurtà la checklist",
+    "after": "Espurtà a lista di cuntrollu",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "restoreArchivedListToSwimlanePopup-title",
+    "before": "Ristabilisce lista in a swimlane",
+    "after": "Ristabilisce a lista in u curridore",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "rulesImportExportPopup-title",
+    "before": "Impurtà / Spurtà regole",
+    "after": "Impurtà / espurtà e regule",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "swimlaneHeightErrorPopup-title",
+    "before": "Errore altezza swimlane",
+    "after": "Errore d’altezza di u curridore",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "cardTemplatePopup-title",
+    "before": "Creà un template",
+    "after": "Creà un mudellu",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "invitePeoplePopup-title",
+    "before": "Invita persone",
+    "after": "Invità persone",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "listsortPopup-title",
+    "before": "Ordina lista",
+    "after": "Ordinà a lista",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "cardType-linkedBoard",
+    "before": "Tavula collegata",
+    "after": "Tavula ligata",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "change-avatar",
+    "before": "Cambia avatar",
+    "after": "Cambià l’avatar",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "change-color",
+    "before": "Cambia culore",
+    "after": "Cambià u culore",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "map-to-existing-user",
+    "before": "Associa a un utilizatore esistente",
+    "after": "Assucià à un utilizatore esistente",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "map-to-existing-user-desc",
+    "before": "Scegli l'utilizatore reale che questu membru (virtuale) importato è in realtà. Le sue carte, i cummenti e le attività passano a quell'utilizatore. Circà per trovare chiunque; un utilizatore che non è ancora su questa tavula viene aghjuntu cù il ruolo proprio del membru importato, quindi l'associazione non può mai concedere più permessi di quanti ne abbia concessi l'importazione.",
+    "after": "Sceglite l’utilizatore veru chì currisponde à stu membru impurtatu (virtuale). E so carte, i so cummenti è a so attività passanu à quellu utilizatore. Aduprate a ricerca per truvà qualunque utilizatore; s’ellu ùn hè ancu membru di sta tavula, hè aghjuntu cù u rolu propiu di u membru impurtatu. L’associu ùn pò dunque mai dà più permessi cà quelli dati da l’impurtazione.",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "map-to-existing-user-not-member",
+    "before": "non è ancora membru di a tavula",
+    "after": "ùn hè ancu membru di a tavula",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "map-to-existing-user-none",
+    "before": "Non ci sono ancora altri membri reali su questa tavula. Circà sopra per trovare un utilizatore qualsiasi.",
+    "after": "Ùn ci hè ancu altri membri veri nant’à sta tavula. Circate quì sopra per truvà qualunque utilizatore.",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "change-settings",
+    "before": "Mudificà impostazioni",
+    "after": "Mudificà i paràmetri",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "theme-category-flat",
+    "before": "Piatto",
+    "after": "Piattu",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "theme-category-clear",
+    "before": "Chiaro",
+    "after": "Chjaru",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "theme-category-dark",
+    "before": "Scuro",
+    "after": "Scuru",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "change-font",
+    "before": "Carattere",
+    "after": "Pulizza",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "font",
+    "before": "Carattere",
+    "after": "Pulizza",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "font-size",
+    "before": "Dimensione font",
+    "after": "Dimensione di a pulizza",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "font-size-default",
+    "before": "Predefinito",
+    "after": "Predefinitu",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "font-size-smaller",
+    "before": "Più piccolo",
+    "after": "Più chjucu",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "font-size-small",
+    "before": "Piccolo",
+    "after": "Chjucu",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "font-size-largest",
+    "before": "Grandissimo",
+    "after": "U più grande",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "text-color",
+    "before": "Culore del testo",
+    "after": "Culore di u testu",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "text-background-color",
+    "before": "Culore di sfondo del testo",
+    "after": "Culore di fondu di u testu",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "cardTextNoteEditPopup-title",
+    "before": "Note di testu",
+    "after": "Nota di testu",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "changeAvatarPopup-title",
+    "before": "Cambia avatar",
+    "after": "Cambià l’avatar",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "changeLanguagePopup-title",
+    "before": "Cambia lingua",
+    "after": "Cambià a lingua",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "changeSettingsPopup-title",
+    "before": "Mudificà impostazioni",
+    "after": "Mudificà i paràmetri",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "click-to-star",
+    "before": "Clicca per stellare questa tavula",
+    "after": "Cliccate per aghjunghje sta tavula à e preferite.",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "click-to-unstar",
+    "before": "Clicca per togliere la stella da questa tavula.",
+    "after": "Cliccate per caccià sta tavula da e preferite.",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "click-to-disable-auto-width",
+    "before": "Larghezza automatica di a lista abilitata. Clicca per disabilitarla.",
+    "after": "A larghezza autumatica di e liste hè attivata. Cliccate per disattivà la.",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "clipboard",
+    "before": "Appunti o trascinamento",
+    "after": "Appunti o trascinamentu",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "card-aging",
+    "before": "Invecchiamento carte (sbiadisci le carte vecchie)",
+    "after": "Invechjamentu di e carte (rende menu visibili e carte vechje)",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "card-aging-days",
+    "before": "Sbiadisci dopo ghjorni (3 livelli):",
+    "after": "Rende menu visibili dopu ghjorni (3 livelli):",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
+  },
+  {
+    "locale": "co",
+    "key": "card-aging-tier1",
+    "before": "Livello 1 (sbiadimento leggero) dopo questu numero di ghjorni di inattività",
+    "after": "Livellu 1 (ligera riduzzione di visibilità) dopu stu numeru di ghjorni d’inattività",
+    "reason": "Repair mixed Italian/Corsican profile and appearance prose; retain imported-member permission limits, toggle direction and inactivity thresholds."
   }
 ]
