@@ -412,3 +412,20 @@ assert.match(corsican['trello-select-boards'], /almenu una tavula/);
 assert.match(corsican['import-trello-workspace-placeholder'], /creatu s’ellu ùn esiste micca/);
 assert.match(corsican['trello-api-credentials-required'], /à tempu.*chjave API.*gettone/);
 assert.match(corsican['import-board-instruction-about-errors'], /qualchì volta.*quantunque.*Tutte e tavule/);
+
+const boardMemberCorrectionKeys = ["joined", "keyboard-shortcuts", "label-default", "label-delete-pop", "label-text-overridden", "label-text-override", "leave-board", "leaveBoardPopup-title", "link-card", "linkCardToBoardPopup-title", "linkCardToNewBoard", "createBoardFromCardPopup-title", "list-archive-cards", "listArchiveCardsPopup-title", "list-move-cards", "list-select-cards", "set-color-list", "settingsUserPopup-title", "settingsTeamPopup-title", "settingsOrgPopup-title", "orgAdminsPopup-title", "swimlaneActionPopup-title", "swimlaneAddPopup-title", "link-list", "calendar", "gantt", "log-in", "loginPopup-title", "move-selection", "copy-selection", "moveListPopup-title", "moveCardToBottom-title", "moveCardToTop-title", "moveSelectionPopup-title", "copySelectionPopup-title", "selection-color", "multi-selection", "multi-selection-label", "multi-selection-member", "muted", "muted-info", "my-boards", "no-archived-cards", "no-archived-lists", "no-archived-swimlanes", "normal-assigned-only", "normal-assigned-only-desc", "notify-participate", "notify-watch", "page-not-found", "paste-or-dragdrop", "participating"];
+for (const key of boardMemberCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /\b(?:unito|Scorciatoie|Non|potrai|tornare|indietro|Procedendo|rimuoverai|questa|distruggerai|sua|Abbandonare|scheda|schede|Imposta|Impostazioni|dell|Azioni|swimlane|sotto|Calendario|Accedi|selezionati|fondo|Selezione|Selezionare|Silenziato|sarai|notificato|modifiche|mie|sono|assegnate|come|Ricevi|aggiornamenti|qualsiasi|partecipi|seguendo|trovata|incollare|oppure|rilascia|immagine|immagini|Partecipando)\b/, key);
+}
+assert.equal(corsican.gantt, 'Gantt');
+assert.match(corsican['label-delete-pop'], /Ùn si pò annullà.*tutte e carte.*cronulugia serà distrutta/);
+assert.doesNotMatch(corsican['label-text-overridden'], /annulatu/);
+assert.match(corsican['normal-assigned-only-desc'], /Solu e carte assignate sò visibili.*mudificà.*utilizatore nurmale/);
+assert.match(corsican['muted-info'], /Ùn riceverete mai.*nutificazioni/);
+assert.match(corsican['notify-participate'], /creatore o membru/);
+assert.match(corsican['notify-watch'], /tavule, liste o carte chì seguitate/);
+assert.match(corsican['moveCardToBottom-title'], /in fondu$/);
+assert.match(corsican['moveCardToTop-title'], /in cima$/);
+for (const key of ['multi-selection-label','multi-selection-member']) assert.match(corsican[key], /per a selezzione$/);
+assert.match(corsican['paste-or-dragdrop'], /solu imagine/);

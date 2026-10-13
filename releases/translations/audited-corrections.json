@@ -180409,5 +180409,369 @@
     "before": "Utilizatore non valido",
     "after": "Utilizatore micca validu",
     "reason": "Repair mixed Italian/Corsican Trello import, cancellation and member mapping prose; preserve optional inputs, archive rejection and irreversible deletion limits."
+  },
+  {
+    "locale": "co",
+    "key": "joined",
+    "before": "si è unito a",
+    "after": "hè entratu in",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "keyboard-shortcuts",
+    "before": "Scorciatoie da tastiera",
+    "after": "Accurtatoghji di tastiera",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "label-default",
+    "before": "%s etichetta (default)",
+    "after": "Etichetta %s (predefinita)",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "label-delete-pop",
+    "before": "Non potrai tornare indietro. Procedendo, rimuoverai questa etichetta da tutte le carte e distruggerai la sua cronulugia.",
+    "after": "Ùn si pò annullà st’azzione. St’etichetta serà cacciata da tutte e carte è a so cronulugia serà distrutta.",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "label-text-overridden",
+    "before": "annulatu",
+    "after": "persunalizatu",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "label-text-override",
+    "before": "(annulazione persunale)",
+    "after": "(valore persunale)",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "leave-board",
+    "before": "Abbandona tavula",
+    "after": "Lascià a tavula",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "leaveBoardPopup-title",
+    "before": "Abbandonare la tavula?",
+    "after": "Lascià a tavula?",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "link-card",
+    "before": "Link a questa carta",
+    "after": "Ligame à sta carta",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "linkCardToBoardPopup-title",
+    "before": "Link a questa Tavula",
+    "after": "Ligame à a tavula",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "linkCardToNewBoard",
+    "before": "Creà una tavula (Carta)",
+    "after": "Creà una tavula da sta carta",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "createBoardFromCardPopup-title",
+    "before": "Creà un tavulone da a scheda",
+    "after": "Creà una tavula da a carta",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "list-archive-cards",
+    "before": "Move tutte le carte in questa lista nell'archiviu",
+    "after": "Archivià tutte e carte di sta lista",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "listArchiveCardsPopup-title",
+    "before": "Archivà tutte e schede?",
+    "after": "Archivià tutte e carte?",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "list-move-cards",
+    "before": "Move tutte le carte in questa lista",
+    "after": "Spustà tutte e carte di sta lista",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "list-select-cards",
+    "before": "Selezziunà tutte le carte in questa lista",
+    "after": "Selezziunà tutte e carte di sta lista",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "set-color-list",
+    "before": "Imposta culore",
+    "after": "Definisce u culore",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "settingsUserPopup-title",
+    "before": "Impostazioni utilizatore",
+    "after": "Paràmetri di l’utilizatore",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "settingsTeamPopup-title",
+    "before": "Impostazioni team",
+    "after": "Paràmetri di a squadra",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "settingsOrgPopup-title",
+    "before": "Impostazioni urganizazione",
+    "after": "Paràmetri di l’urganizazione",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "orgAdminsPopup-title",
+    "before": "Amministratori dell'urganizazione",
+    "after": "Amministratori di l’urganizazione",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "swimlaneActionPopup-title",
+    "before": "Azioni swimlane",
+    "after": "Azzioni di a corsia",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "swimlaneAddPopup-title",
+    "before": "Aghjunghje swimlane sotto",
+    "after": "Aghjunghje una corsia sottu",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "link-list",
+    "before": "Link a questa lista",
+    "after": "Ligame à sta lista",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "calendar",
+    "before": "Calendario",
+    "after": "Calendariu",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "gantt",
+    "before": "In corsu: Gantt",
+    "after": "Gantt",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "log-in",
+    "before": "Accedi",
+    "after": "Cunnettassi",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "loginPopup-title",
+    "before": "Accedi",
+    "after": "Cunnettassi",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "move-selection",
+    "before": "Move elementi selezionati",
+    "after": "Spustà a selezzione",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "copy-selection",
+    "before": "Cupià elementi selezionati",
+    "after": "Cupià a selezzione",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "moveListPopup-title",
+    "before": "Move lista",
+    "after": "Spustà a lista",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "moveCardToBottom-title",
+    "before": "Move in fondo",
+    "after": "Spustà in fondu",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "moveCardToTop-title",
+    "before": "Move in cima",
+    "after": "Spustà in cima",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "moveSelectionPopup-title",
+    "before": "Move elementi selezionati",
+    "after": "Spustà a selezzione",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "copySelectionPopup-title",
+    "before": "Cupià selezione",
+    "after": "Cupià a selezzione",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "selection-color",
+    "before": "Culore selezione",
+    "after": "Culore di a selezzione",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "multi-selection",
+    "before": "Selezione multipla",
+    "after": "Selezzione multipla",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "multi-selection-label",
+    "before": "Selezionare etichetta",
+    "after": "Definisce l’etichetta per a selezzione",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "multi-selection-member",
+    "before": "Selezionare membru",
+    "after": "Definisce u membru per a selezzione",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "muted",
+    "before": "Silenziato",
+    "after": "Silenziatu",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "muted-info",
+    "before": "Non sarai mai notificato di e modifiche in questa tavula",
+    "after": "Ùn riceverete mai nutificazioni di i cambiamenti nant’à sta tavula",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "my-boards",
+    "before": "Le mie tavule",
+    "after": "E mo tavule",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "no-archived-cards",
+    "before": "Non ci sono carte nell'archiviu.",
+    "after": "Ùn ci hè nisuna carta in l’archiviu.",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "no-archived-lists",
+    "before": "Non ci sono liste nell'archiviu.",
+    "after": "Ùn ci hè nisuna lista in l’archiviu.",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "no-archived-swimlanes",
+    "before": "Non ci sono swimlane nell'archiviu.",
+    "after": "Ùn ci hè nisuna corsia in l’archiviu.",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "normal-assigned-only",
+    "before": "Solu normale assegnate",
+    "after": "Nurmale solu per e carte assignate",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "normal-assigned-only-desc",
+    "before": "Sono visibili solu le carte assegnate. Mudificà come utilizatore normale.",
+    "after": "Solu e carte assignate sò visibili. Si ponu mudificà cum’è utilizatore nurmale.",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "notify-participate",
+    "before": "Ricevi aggiornamenti su qualsiasi carta a cui partecipi come creatore o membru",
+    "after": "Riceve aghjurnamenti di tutte e carte induve participate cum’è creatore o membru",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "notify-watch",
+    "before": "Ricevi aggiornamenti per tutte le tavule, liste o carte che stai seguendo",
+    "after": "Riceve aghjurnamenti di tutte e tavule, liste o carte chì seguitate",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "page-not-found",
+    "before": "Pagina non trovata.",
+    "after": "Pagina micca truvata.",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "paste-or-dragdrop",
+    "before": "per incollare, oppure trascina & rilascia il schedariu immagine (solu immagini)",
+    "after": "per incullà, o trascinate è lasciate ci u schedariu d’imagine (solu imagine)",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "participating",
+    "before": "Partecipando",
+    "after": "Participendu",
+    "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
   }
 ]
