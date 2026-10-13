@@ -1,5 +1,5 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Check the full filtered inventory, including pending feature strings.
+// This does not certify fluency or cover exempt prose.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -20,7 +20,7 @@ const tags = value => [...value.matchAll(/<\/?[A-Za-z][^>]*>/g)]
 
 const fillResult = spawnSync(process.execPath, [
   path.join(root, 'releases/translations/fill-translations.mjs'),
-  '--completed-catalog', '--list',
+  '--list',
   'co',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
@@ -132,3 +132,20 @@ assert.match(corsican['oauth-providers-allowed-email-domains'], /virgule; viotu 
 assert.match(corsican['subtask-mark-not-done'], /micca compiu/);
 assert.doesNotMatch(corsican['subtask-mark-done'], /micca/);
 assert.match(corsican['subtask-done-no-permission'], /Ùn pudete micca cambià/);
+
+for (const format of ['opml','orgmode','meistertask','obsidian','linear','ticktick','clickup','nullboard','kanri','pivotal','tasksorg','monday','superproductivity','taiga','vikunja','quire','wrike','teamwork','businessmap','redmine','notion','plane']) {
+  const key = 'import-board-instruction-' + format;
+  assert.notEqual(corsican[key], english[key], key);
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+}
+for (const literal of ['TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED']) assert.ok(corsican['import-board-instruction-orgmode'].includes(literal));
+for (const literal of ['Tasklist', 'Task', 'Description', 'Assign to', 'Start date', 'Due date', 'Priority', 'Estimated time', 'Tags', 'Status', '--', '##', '>>']) assert.ok(corsican['import-board-instruction-teamwork'].includes(literal));
+for (const format of ['nullboard','kanri']) assert.match(corsican['import-board-instruction-' + format], /solu a prima tavula hè impurtata/);
+for (const format of ['taiga','vikunja']) assert.match(corsican['import-board-instruction-' + format], /appicci ùn sò micca impurtati/);
+assert.match(corsican['import-board-instruction-taiga'], /epiche è e richieste anu i so curridori distinti/);
+assert.match(corsican['import-board-instruction-vikunja'], /percentuale di compimentu è statu compiu diventanu campi persunalizati/);
+assert.match(corsican['import-board-instruction-quire'], /cummenti è l'appicci ùn sò micca in u CSV/);
+assert.match(corsican['import-board-instruction-notion'], /rilazioni, imagine è appicci ùn sò micca impurtati/);
+assert.match(corsican['import-board-instruction-plane'], /ùn cuntene nè discrizzioni nè appicci/);
+assert.match(corsican['import-board-instruction-businessmap'], /rinumate prima a linea d'intestazione in inglese/);
+assert.match(corsican['import-board-instruction-redmine'], /English in My account prima d'espurtà/);

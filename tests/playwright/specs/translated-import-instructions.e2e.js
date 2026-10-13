@@ -2,7 +2,7 @@
 const { test, expect } = require('../fixtures');
 const { navigateInApp } = require('../helpers/auth');
 const en = require('../../../imports/i18n/data/en.i18n.json');
-for (const language of ['mt', 'sw']) {
+for (const language of ['mt', 'sw', 'co']) {
 const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
 for (const format of ['opml', 'orgmode', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri', 'pivotal', 'tasksorg', 'monday', 'superproductivity', 'taiga', 'vikunja', 'quire', 'wrike', 'teamwork', 'businessmap', 'redmine', 'notion', 'plane']) {
   test(`Import instructions and limits for ${format} in ${language}`, async ({ loggedInPage: page }) => {
