@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin trigger sentences and linking verbs — 2026-10-14
+
+Commit `61a2f68df0` repairs 33 prefixed trigger fragments and three unprefixed
+assignee/date labels. Latin predicates contain finite verbs, so the shared
+rule-grammar helper now omits the separate linking verb for Latin. Regression
+coverage checks assembled named-subject sentences, locale matching boundaries,
+live language changes, archive direction and initial/later date changes.
+
+The Latin, guarded-correction and shared grammar suites pass with 28,184 ledger
+entries. All 21 human-preference checks pass. Existing browser coverage for rows
+and saved descriptions now includes Latin; syntax and discovery pass, runtime
+remains pending. Exact comparison preserves 38,430 existing Chinese values.
+
+There remain 1,203 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. This repairs the linking-verb issue identified in the
+previous batch; it does not establish fluency of every remaining rule action.
+All-language translation and semantic verification remain unfinished.
+
 ## Latin rule actions and durations — 2026-10-14
 
 Commit `5e94c5e2a0` repairs 24 prefixed rule-action, duration and button labels.

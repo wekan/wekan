@@ -3251,6 +3251,22 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/61a2f68df0">Repair Latin rule trigger sentences and linking verbs</a>. Thanks to xet7.</summary>
+
+- Repair 36 Latin trigger entries, including three unprefixed assignee/date
+  translations. Use finite predicates and omit the extra linking verb in Latin
+  rule rows; retain initial date setting as well as later changes.
+- Translation, guarded-correction and shared grammar suites pass with 28,184
+  corrections. All 21 human-preference checks pass; 38,430 existing Chinese
+  values
+  are preserved. Browser coverage for rule rows and saved descriptions includes
+  Latin; syntax and discovery pass, runtime remains pending.
+- Review remains unfinished: 1,203 Latin values contain the legacy “Latine:”
+  prefix. Unprefixed values and other languages still require semantic review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
