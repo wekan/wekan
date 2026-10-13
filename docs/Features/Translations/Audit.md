@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin advanced filters and import guides — 2026-10-14
+
+Commit `7f26a7e7a9` repairs 30 prefixed messages, including advanced-filter
+syntax and import guides for Kanboard, Deck, OpenProject, issues, Asana, ZenKit,
+CSV, Jira, Excel and WeKan. Stale Jira instructions now retain the full endpoint,
+required fields, pagination and automation rules. Excel describes column mapping
+and a board for every sheet with a header. Filter examples retain literal
+operators, quotes, escapes, parentheses and the regular expression.
+
+The Latin and guarded-correction suites pass with 27,674 ledger entries. All 21
+human-preference checks pass. Nine added import-instruction browser cases pass
+syntax and discovery; runtime remains pending. Exact comparison preserves
+38,430 existing Chinese values.
+
+There remain 1,710 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin sorting and filter controls — 2026-10-14
 
 Commit `9860c8a248` repairs 30 prefixed strings for sort labels and abbreviations,

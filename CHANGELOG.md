@@ -3008,6 +3008,20 @@ containing the old language prefix; all-language review remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7f26a7e7a9">Repair Latin advanced filter and import instructions</a>. Thanks to xet7.</summary>
+
+Repair 30 mixed-language strings, including advanced-filter examples and import
+guides. Update stale Jira pagination and required-field guidance and Excel
+column-mapping and per-sheet behavior. Preserve literal operators and examples.
+
+The Latin and guarded-correction suites and all 21 preservation checks pass.
+Nine added import browser cases pass syntax and discovery; runtime remains
+pending. Existing Chinese values are unchanged. There remain 1,710 Latin values
+containing the old language prefix; all-language review remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
