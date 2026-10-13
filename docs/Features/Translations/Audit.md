@@ -2,6 +2,39 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Storage settings in four languages — 2026-10-13
+
+Commit `3e10d0aa1d` fills 25 English MongoDB/S3 settings values each in Bengali,
+Icelandic, Tagalog and Albanian: 100 fills that the main tool had excluded as
+technical names. A parent comparison verifies every original value was English.
+The other existing Bengali, Icelandic and Albanian S3 instructions were read and
+preserved. Tagalog's 15 remaining S3 clauses contained mixed English and Tagalog
+or translated literal AWS console labels; exact before/after repairs are recorded
+in the correction ledger, now 24,835 records. No other non-English value changed.
+Existing human-verified `zh` catalogs remain unchanged.
+
+The settings review preserves compatibility, enabled/disabled and success/failure
+states, required secret keys, ports, regions, endpoint examples, authentication
+and attachment meaning. The Tagalog rewrite preserves MinIO/non-AWS requirements,
+the blank AWS endpoint default, literal menu labels and the one-time secret-key
+warning. It uses native connecting clauses around technical terms rather than
+English sentence fragments. Whole software wording is provisional pending speaker
+review; this batch does not certify the rest of these four catalogs.
+
+The four locale suites and correction-ledger suite passed. The supplemental audit
+suite initially caught a faulty negative test: it matched the English `it` inside
+Tagalog `ito`. Word boundaries now distinguish them, and all five tests in that
+suite pass, including i18next rendering, source tokens, state distinctions and
+preservation of newer human wording. Six browser settings cases register for
+English, Marathi and these four locales. Execution remains unverified without a
+running rebuilt app; no cloud configuration or credential was changed.
+
+The supplemental queue now has 4,021 candidates across 226 locales, down by 100.
+Intentional names and native shared spellings still require individual retention
+review; they are not automatically errors. The filtered fill inventory remains
+54,981 values across 128 locale paths because it never counted this prose.
+The wider wrong-language, semantic and browser review remains unfinished.
+
 ## Marathi fills and hidden source-equal prose — 2026-10-13
 
 Commit `f263dd0b8d` fills 212 current placeholders plus 55 English settings,

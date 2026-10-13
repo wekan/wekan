@@ -144,10 +144,14 @@ releases.
   Earlier Xhosa completion checks predate the newer pending strings. The
   current broad run still exposes English placeholders in several catalogs;
   see the dated audit results. Empty reports do not establish fluency.
+- Bengali, Icelandic, Tagalog and Albanian now have translated MongoDB and
+  S3 settings prose that the fill report exempted. Fifteen mixed-language
+  Tagalog instructions are repaired. This removes 100 supplemental candidates;
+  intentional keyboard names and shared spellings remain for review.
 - Marathi now has no current fill candidates after 212 feature fills. Another
   55 English settings, rule and keyboard labels were hidden by the fill tool's
   technical-name and short-word exemptions; those are now translated too.
-  `node releases/translations/audit-exempt-prose.mjs` exposes 4,121 review
+  `node releases/translations/audit-exempt-prose.mjs` exposes 4,021 review
   candidates across 226 locales. They include intentional names and shared
   spellings, so they are not a confirmed untranslated count. Preserve existing
   human-verified `zh` wording; add only confirmed missing strings there.
@@ -543,11 +547,11 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** more **UI labels** now use their target language, and seeded
-wrong-language terminology is corrected. **Bengali and Marathi** gain missing
-feature strings, and a new audit exposes English settings prose previously
-hidden by technical-name exemptions. Existing verified translations remain
-intact while the wider language-quality review continues.
+**In short:** more **UI labels and storage settings** now use their target
+language, and seeded wrong-language instructions are corrected. Missing
+Bengali and Marathi feature strings are filled, and a new audit exposes
+English prose hidden by technical-name exemptions. Existing verified
+translations remain intact while the wider language-quality review continues.
 
 This release updates the following translations:
 
@@ -599,6 +603,22 @@ supplemental audit and Scrum recovery suites pass. Eight Marathi browser cases
 register, including storage settings and Scrum rollback/conflict controls;
 execution needs a rebuilt running app. The Marathi fill and supplemental
 queues are empty, but broader language-quality review remains unfinished.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3e10d0aa1d">Translate storage settings in four languages and repair mixed Tagalog instructions</a>. Thanks to xet7.</summary>
+
+Fill 100 English MongoDB and S3 values in Bengali, Icelandic, Tagalog and
+Albanian. Repair 15 mixed English/Tagalog instructions, preserving AWS menu
+labels, endpoint examples and the warning that the secret key is shown once.
+Other translations and all existing human-verified `zh` wording stay intact.
+
+Locale, correction-ledger, supplemental audit and runtime checks pass. Storage
+settings browser coverage registers six locales, including the translated
+secret-key guidance; execution needs a running rebuilt app. The supplemental
+queue falls to 4,021 candidates, which still need individual language review.
+Longer software wording remains provisional pending speaker review.
 
 </details>
 
