@@ -2,6 +2,41 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Latin Uzbek assignee and time-history repairs — 2026-10-13
+
+Commit `6c10d035c2` repairs thirteen values in each of `uz`, `uz-UZ` and
+`uz-LA`, 39 recorded corrections. `Tayinlovchi` names the assigning party,
+whereas `tayinlangan shaxs` names the person assigned. The contrast is
+attested in [UzA's Uzbek usage](https://uza.uz/oz/posts/muvofiqlikni-baholash-organlarini-tayinlash-tartibi-togrisidagi-nizom-tasdiqlandi_739868),
+which uses the active and passive forms for the appointing and appointed
+bodies. This is language evidence, not application-specific terminology.
+The correction covers singular/plural labels, popups, rule labels, export
+fields, keyboard guidance and user/assignee searches. Query literals and
+username placeholders are preserved.
+
+The previous time-history note was only an abbreviated symbol-based line.
+The repaired text follows the full English source: changes to totals are
+grouped by the editor, are not individual work sessions, negative amounts
+are corrections, and earlier unrecorded time cannot be attributed. Regression
+assertions check all four distinctions, rather than only the assignee noun.
+
+Both the locale suite and full correction-ledger suite pass; the ledger now
+contains 24,992 repairs and verifies exact-before matching, idempotency and
+preservation of newer reviewed text. All 21 human-preference checks pass.
+The three catalogs retain exact source key order and placeholder inventories;
+parent comparison proves that every changed value has its exact ledger row
+and all unrelated values remain untouched. Six browser cases register for
+assigning a card through its popup and reading the time-history note. They
+have not run against a rebuilt app.
+
+This batch does not reduce the English fill backlog: 53,863 values across
+116 paths remain in the filtered inventory. Existing Chinese text and the
+Arabic-script `uz-AR` file are unchanged. That file also contains the older
+Latin assignee labels and needs a separate script-aware correction. This
+batch repairs the nouns in rule fragments; it does not certify the assembled
+rule sentences, whose word order remains under review. Broader semantic
+review and the full all-language objective remain unfinished.
+
 ## Latin Uzbek features and recovery — 2026-10-13
 
 Commit `6825f00ac7` fills 238 source-identical values in each of `uz`, `uz-UZ`
