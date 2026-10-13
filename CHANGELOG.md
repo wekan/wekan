@@ -1809,6 +1809,19 @@ pending. Existing Chinese text is unchanged; broader review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2c787355da">Correct Corsican automation workflows and scheduling</a>. Thanks to xet7.</summary>
+
+Repair 58 workflow, trigger, scheduling and action values. Retain Butler
+and visual-workflow import limitations, unmapped-node reporting, movement
+direction and complete/incomplete distinctions.
+
+The Corsican and repair-ledger suites and 21 human-preference checks pass.
+A workflow-builder browser case registers; runtime execution remains
+pending. Existing Chinese text is unchanged; broader review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

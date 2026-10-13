@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican automation workflows and scheduling — 2026-10-13
+
+Commit `2c787355da` repairs 58 values in the source-ordered review through
+key 1534. Workflow help distinguishes triggers from actions and creation
+from replacing an existing rule's action. Butler guidance retains the lack
+of rules in board exports, supported-subset conversion and reporting of
+unmapped lines. n8n and Node-RED guidance retains unmapped-node reporting.
+Scheduling, movement and complete/incomplete actions keep their direction,
+placeholders and negation. Valid shared terminology is retained.
+
+The Corsican and full repair-ledger suites pass; the ledger contains
+26,072 guarded corrections. All 21 human-preference checks pass. A new
+workflow-builder case registers alongside the existing empty-rules-page
+case; it checks help, separate trigger/action slots and disabled creation
+without a rule. It has not run against the application. Exact comparison
+preserves all 38,430 protected Chinese values and limits this locale batch
+to the 58 reviewed replacements. Broader language review remains unfinished.
+
 ## Corsican hierarchy, activities and rules — 2026-10-13
 
 Commit `6ad1329613` repairs 43 values in the source-ordered review through
