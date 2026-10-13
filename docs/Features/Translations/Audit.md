@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin member mapping and validation — 2026-10-14
+
+Commit `0225b90529` repairs 25 prefixed strings for mapping, running/paused
+statuses, version checks, date validation, labels and board membership. Tests
+preserve assigning unmapped members to the current user, selecting an existing
+user, four-digit year entry, irreversible label history loss and retaining at
+least one administrator.
+
+The Latin and guarded-correction suites pass with 27,739 ledger entries. All 21
+human-preference checks pass. The existing keyboard-shortcut browser case also
+checks the translated menu label; syntax and discovery pass, runtime remains
+pending. Exact comparison preserves 38,430 existing Chinese values.
+
+There remain 1,645 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin Trello import messages — 2026-10-14
 
 Commit `2e641f3fb7` repairs 40 prefixed messages for Trello JSON/ZIP imports,

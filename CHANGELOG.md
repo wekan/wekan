@@ -3036,6 +3036,20 @@ containing the old language prefix; all-language review remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0225b90529">Repair Latin member mapping and validation messages</a>. Thanks to xet7.</summary>
+
+Repair 25 prefixed strings for member mapping, statuses, validation and labels.
+Preserve assignment to the current user for unmapped members, four-digit years,
+irreversible label deletion and the last-administrator restriction.
+
+The Latin and guarded-correction suites and all 21 preservation checks pass.
+Extended shortcut browser coverage passes syntax and discovery; runtime remains
+pending. Existing Chinese values are unchanged. There remain 1,645 Latin values
+containing the old language prefix; all-language review remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
