@@ -149,11 +149,11 @@ releases.
   new email strings now have no filtered English fill candidates. Nine Chinese
   catalogs passed review of all 441 new values; their 37,287 earlier values
   remain unchanged. Empty reports alone do not establish fluent translation.
-- The shared time-history audit covers 125 repaired explanations, including
+- The shared time-history audit covers 133 repaired explanations, including
   five English regional catalogs. Editor grouping, individual-session
   exclusion, negative corrections and missing historical attribution are
-  explicit. Two suites and 21 human-preference checks pass; 126 browser
-  cases register including English, with RTL checks where applicable.
+  explicit. Three suites and 21 human-preference checks pass; 134 language
+  browser cases register including English, with RTL checks where applicable.
   Further catalogs and browser execution remain under review.
 - Latin Uzbek now has no current fill candidates after 223 feature fills,
   the Bytes label and fourteen Blockly key descriptions in each of `uz`,
@@ -1079,6 +1079,24 @@ cases register for board destinations and administrator mailbox controls;
 they have not run against a rebuilt app. The tests explicitly skip on
 branches without the email feature's source strings. All nine semantic
 cases ran without skips against the current working tree.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/021d016f5d">Restore time-history explanations in eight more catalogs</a>. Thanks to xet7.</summary>
+
+Replace abbreviated notes in Kurmanji, Sorani, Pashto, Sindhi, Uyghur,
+Hausa, Somali and Japanese Hiragana. State that changes are grouped by
+editor, are not individual work sessions, may be negative corrections,
+and cannot attribute earlier unrecorded time. Use Hiragana for that
+Japanese variant and its registered language tag in browser coverage.
+
+Three suites verify 133 explanations, 25,125 recorded corrections and
+unchanged acceptances. All 21 human-preference checks pass. The browser
+suite registers 134 language cases and three other cases, with RTL
+checks extended to the newly covered scripts; execution remains pending.
+The seven non-Japanese technical translations are provisional pending
+fluent review. Existing Chinese wording is unchanged.
 
 </details>
 

@@ -2,6 +2,38 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Time-history Kurdish, Asian and African review — 2026-10-13
+
+Commit `021d016f5d` restores the complete explanation in eight catalogs:
+Kurmanji (`ku`), Sorani (`ckb`), Pashto (`ps`), Sindhi (`sd`), Uyghur (`ug`),
+Hausa (`ha`), Somali (`so`) and Japanese Hiragana (`ja-HI`). The last is
+registered as `ja-Hira`: its note now uses Hiragana, and the browser flow
+selects the registered tag. A script check rejects Han and Katakana in
+that note. The original shortened value already contained Kanji; this
+repair addresses both missing meaning and the variant's declared script.
+
+The [Kurmanji correction entry](https://ku.wiktionary.org/wiki/sererast_kirin)
+supports correction terminology; it does not certify the complete phrase.
+The seven non-Japanese technical translations are provisional pending
+fluent review, as recorded in the commit. All four source distinctions
+are explicit: grouping by the editor of the total, exclusion of individual
+work sessions, negative corrections and unavailable earlier attribution.
+
+All three selected suites pass: the shared fixture covers 133 explanations,
+the correction ledger has 25,125 rows, and the unchanged-acceptance suite
+passes. All 21 human-preference checks pass. Every key and placeholder in
+the eight catalogs was checked against English. Only the intended note
+changed in each catalog. All 37,728 values in the nine protected Chinese
+catalogs were compared with HEAD after the email feature landed and match.
+
+The existing browser flow registers 134 language cases including English,
+plus three other cases (137 total). RTL checks now include Sorani, Pashto,
+Sindhi and Uyghur. This is syntax/discovery verification only; execution
+against a rebuilt app remains pending. Eighty-seven abbreviated notes
+remain, including the eight protected `zh` catalogs. Other protected
+Chinese varieties are also retained. The full all-language review and
+English-fill backlog remain unfinished.
+
 ## Chinese email-to-card review — 2026-10-13
 
 Commit `f84a8e3a83` adds semantic and browser coverage for the 49 new email
