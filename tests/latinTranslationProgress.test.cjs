@@ -424,3 +424,17 @@ assert.match(latin['trello-cancel-delete-confirm'], /iam hac operatione importat
 assert.notEqual(latin['trello-cancel'], latin['trello-cancel-delete']);
 assert.notEqual(latin['trello-cancel'], latin['trello-resume']);
 assert.ok(latin['trello-api-key'].includes('https://trello.com/app-key'));
+
+const reviewedMappingStatusKeys = ["copy-to-clipboard", "running", "paused", "import-map-members", "import-members-map", "import-members-map-note", "import-show-user-mapping", "import-user-select", "importMapMembersAddPopup-title", "info", "check-version", "version-check-failed", "initials", "invalid-date", "invalid-time", "invalid-year", "invalid-user", "joined", "just-invited", "keyboard-shortcuts", "label-create", "label-default", "label-delete-pop", "last-admin-desc", "leave-board"];
+for (const key of reviewedMappingStatusKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Paused|Review|Pick|Initials|Keyboard|There|roles|Leave)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['import-members-map-note'], /non coniuncta usori praesenti assignabuntur/);
+assert.match(latin['import-user-select'], /iam exsistentem.*pro hoc membro/);
+assert.match(latin['invalid-year'], /omnes quattuor cifras.*2026/);
+assert.match(latin['last-admin-desc'], /mutare non potes.*saltem unus administrator/);
+assert.match(latin['label-delete-pop'], /Revocari non potest.*omnibus chartis.*historia eius delebitur/);
+assert.equal(latin['label-create'], latin['createLabelPopup-title']);
+assert.notEqual(latin.running, latin.paused);
+assert.notEqual(latin['invalid-date'], latin['invalid-time']);

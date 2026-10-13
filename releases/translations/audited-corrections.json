@@ -193996,5 +193996,180 @@
     "before": "Latine: Importa errors",
     "after": "Errores importationis",
     "reason": "Repair Trello import guidance and controls, retaining ZIP limits, credential requirements and destructive cancellation scope."
+  },
+  {
+    "locale": "la",
+    "key": "copy-to-clipboard",
+    "before": "Latine: copia ad clipboard",
+    "after": "Copia in memoriam temporariam",
+    "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
+  },
+  {
+    "locale": "la",
+    "key": "running",
+    "before": "Latine: Currens",
+    "after": "In cursu",
+    "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
+  },
+  {
+    "locale": "la",
+    "key": "paused",
+    "before": "Latine: Paused",
+    "after": "Suspensum",
+    "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
+  },
+  {
+    "locale": "la",
+    "key": "import-map-members",
+    "before": "Latine: Map sodales",
+    "after": "Coniunge membra",
+    "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
+  },
+  {
+    "locale": "la",
+    "key": "import-members-map",
+    "before": "Latine: Tuum importatum tabula has some sodales. Please map the sodales tu want ad importa ad tuum usores",
+    "after": "Tabula tua importata quaedam membra habet. Quaeso membra quae importare vis cum usoribus tuis coniunge",
+    "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
+  },
+  {
+    "locale": "la",
+    "key": "import-members-map-note",
+    "before": "Latine: Note: Unmapped sodales erit esse assigned ad the praesens usor.",
+    "after": "Nota: membra non coniuncta usori praesenti assignabuntur.",
+    "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
+  },
+  {
+    "locale": "la",
+    "key": "import-show-user-mapping",
+    "before": "Latine: Review sodales mapping",
+    "after": "Recognosce coniunctionem membrorum",
+    "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
+  },
+  {
+    "locale": "la",
+    "key": "import-user-select",
+    "before": "Latine: Pick tuum existing usor tu want ad use as hoc sodalis",
+    "after": "Elige usorem tuum iam exsistentem quem pro hoc membro adhibere vis",
+    "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
+  },
+  {
+    "locale": "la",
+    "key": "importMapMembersAddPopup-title",
+    "before": "Latine: Elige sodalis",
+    "after": "Elige membrum",
+    "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
+  },
+  {
+    "locale": "la",
+    "key": "info",
+    "before": "Latine: Versio",
+    "after": "Versio",
+    "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
+  },
+  {
+    "locale": "la",
+    "key": "check-version",
+    "before": "Latine: Check Versio",
+    "after": "Examina versionem",
+    "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
+  },
+  {
+    "locale": "la",
+    "key": "version-check-failed",
+    "before": "Latine: It erat non possible ad check the versio numerus.",
+    "after": "Numerus versionis examinari non potuit.",
+    "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
+  },
+  {
+    "locale": "la",
+    "key": "initials",
+    "before": "Latine: Initials",
+    "after": "Litterae initiales",
+    "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
+  },
+  {
+    "locale": "la",
+    "key": "invalid-date",
+    "before": "Latine: Invalidum dies",
+    "after": "Dies invalidus",
+    "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
+  },
+  {
+    "locale": "la",
+    "key": "invalid-time",
+    "before": "Latine: Invalidum tempus",
+    "after": "Tempus invalidum",
+    "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
+  },
+  {
+    "locale": "la",
+    "key": "invalid-year",
+    "before": "Latine: Invalidum year. Please genus omnia four digits, for example 2026.",
+    "after": "Annus invalidus. Quaeso omnes quattuor cifras insere, exempli gratia 2026.",
+    "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
+  },
+  {
+    "locale": "la",
+    "key": "invalid-user",
+    "before": "Latine: Invalidum usor",
+    "after": "Usor invalidus",
+    "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
+  },
+  {
+    "locale": "la",
+    "key": "joined",
+    "before": "Latine: joined",
+    "after": "se adiunxit",
+    "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
+  },
+  {
+    "locale": "la",
+    "key": "just-invited",
+    "before": "Latine: Tu sunt just invitatus ad hoc tabula",
+    "after": "Modo ad hanc tabulam invitatus es",
+    "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
+  },
+  {
+    "locale": "la",
+    "key": "keyboard-shortcuts",
+    "before": "Latine: Keyboard shortcuts",
+    "after": "Compendia claviaturae",
+    "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
+  },
+  {
+    "locale": "la",
+    "key": "label-create",
+    "before": "Latine: Crea Titulus",
+    "after": "Crea titulum",
+    "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
+  },
+  {
+    "locale": "la",
+    "key": "label-default",
+    "before": "Latine: %s titulus (praedefinitum)",
+    "after": "Titulus %s (praedefinitus)",
+    "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
+  },
+  {
+    "locale": "la",
+    "key": "label-delete-pop",
+    "before": "Latine: There est non solve. Hoc erit remove hoc titulus ex omnia schedae et destroy its historia.",
+    "after": "Revocari non potest. Hic titulus ex omnibus chartis removebitur et historia eius delebitur.",
+    "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
+  },
+  {
+    "locale": "la",
+    "key": "last-admin-desc",
+    "before": "Latine: Tu potest’t muta roles because there debet esse at least one administrator.",
+    "after": "Munera mutare non potes, quia saltem unus administrator esse debet.",
+    "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
+  },
+  {
+    "locale": "la",
+    "key": "leave-board",
+    "before": "Latine: Leave Tabula",
+    "after": "Relinque tabulam",
+    "reason": "Repair member-mapping, status and validation messages, preserving current-user fallback, four-digit years and last-administrator limits."
   }
 ]

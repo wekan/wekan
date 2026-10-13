@@ -264,6 +264,7 @@ test('Latin keyboard shortcut toggle describes both its current state and next a
   await boardPage.evaluate(() => Meteor.callAsync('setLanguage', 'la'));
   const bp = new BoardPage(boardPage);
   await bp.openSidebar();
+  await expect(boardPage.locator('.sidebar-shortcuts .js-shortcuts')).toContainText('Compendia claviaturae');
   const toggle = boardPage.locator('.js-keyboard-shortcuts-toggle');
   const enabled = 'Compendia claviaturae activa sunt. Preme ut inactives.';
   const disabled = 'Compendia claviaturae inactiva sunt. Preme ut actives.';
