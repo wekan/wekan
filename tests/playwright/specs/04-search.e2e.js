@@ -18,6 +18,20 @@ const SearchPage = require('../pages/SearchPage');
 const BoardPage = require('../pages/BoardPage');
 
 test.describe('Search', () => {
+  test('Latin search help explains negation, conjunction and archive defaults', async ({ boardPage }) => {
+    await boardPage.evaluate(() => Meteor.callAsync('setLanguage', 'la'));
+    const sp = new SearchPage(boardPage);
+    await sp.navigateToGlobalSearch();
+    const help = boardPage.locator('.global-search-instructions');
+    await expect(help).toContainText('habet:-debitum');
+    await expect(help).toContainText('sine die debito');
+    await expect(help).toContainText('Pro ordine descendente');
+    await expect(help).toContainText('cuilibet condicionum');
+    await expect(help).toContainText('omnibus operatoribus');
+    await expect(help).toContainText('Praedefinite chartae in archivo non quaeruntur.');
+    await expect(help).not.toContainText('Latine:');
+  });
+
   test('Latin overdue predicate excludes future cards', async ({ boardPage, board, user }) => {
     db.updateOne('users', { _id: user.id }, { $set: { 'profile.language': 'la' } });
     db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' }, { $set: { dueAt: new Date(Date.now() - 86400000) } });

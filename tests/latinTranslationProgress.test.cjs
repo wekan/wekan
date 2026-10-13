@@ -840,3 +840,26 @@ assert.ok(latin['globalSearch-instructions-description'].includes('`' + latin['o
 assert.match(latin['globalSearch-instructions-description'], /spatia aut characteres speciales/);
 assert.match(latin['globalSearch-instructions-description'], /signa citationis/);
 assert.equal(latin['predicate-overdue'], 'praeteritum');
+
+const reviewedSearchHelpKeys = ["globalSearch-instructions-operator-label", "globalSearch-instructions-operator-hash", "globalSearch-instructions-operator-user", "globalSearch-instructions-operator-at", "globalSearch-instructions-operator-member", "globalSearch-instructions-operator-assignee", "globalSearch-instructions-operator-creator", "globalSearch-instructions-operator-org", "globalSearch-instructions-operator-team", "globalSearch-instructions-operator-due", "globalSearch-instructions-operator-created", "globalSearch-instructions-operator-modified", "globalSearch-instructions-operator-status", "globalSearch-instructions-status-archived", "globalSearch-instructions-status-all", "globalSearch-instructions-status-ended", "globalSearch-instructions-status-public", "globalSearch-instructions-status-private", "globalSearch-instructions-operator-has", "globalSearch-instructions-operator-sort", "globalSearch-instructions-operator-limit", "globalSearch-instructions-notes-1", "globalSearch-instructions-notes-2", "globalSearch-instructions-notes-3", "globalSearch-instructions-notes-3-2", "globalSearch-instructions-notes-4", "globalSearch-instructions-notes-5", "link-to-search", "excel-font", "number"];
+for (const key of reviewedSearchHelpKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:shorthand|matching|where|following|absence|Multiple|Differing|insensitive)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.ok(latin['globalSearch-instructions-operator-at'].includes('`' + latin['operator-user'] + ':<username>`'));
+assert.ok(latin['globalSearch-instructions-operator-has'].includes('`' + latin['operator-has'] + ':-' + latin['predicate-due'] + '`'));
+assert.match(latin['globalSearch-instructions-operator-has'], /sine die debito/);
+assert.match(latin['globalSearch-instructions-operator-sort'], /ordine descendente.*`-`/);
+assert.match(latin['globalSearch-instructions-operator-limit'], /integer positivus.*in quaque pagina/);
+assert.match(latin['globalSearch-instructions-notes-2'], /OR.*cuilibet condicionum/);
+assert.match(latin['globalSearch-instructions-notes-3'], /AND.*omnibus operatoribus/);
+assert.match(latin['globalSearch-instructions-notes-3-2'], /positivo aut negativo/);
+assert.match(latin['globalSearch-instructions-notes-4'], /maiusculas a minusculis non distinguunt/);
+assert.match(latin['globalSearch-instructions-notes-5'], /in archivo non quaeruntur/);
+assert.equal(latin['excel-font'], 'Arial');
+
+assert.equal(latin['operator-number'], 'numerus');
+assert.match(latin['globalSearch-instructions-operator-number'], /chartae quarum numerus est/);
+for (const [key, value] of Object.entries(latin)) {
+  if (key.startsWith('globalSearch-instructions') || key.startsWith('operator-')) assert.doesNotMatch(value, /Latine:/, key);
+}
