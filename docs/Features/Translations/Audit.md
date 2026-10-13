@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin office, API and recovery reports — 2026-10-14
+
+Commit `1c0204e23e` repairs 25 prefixed office, API, recovery and swimlane-copy
+entries. Regression checks distinguish first/last observations and retain
+per-account/endpoint aggregation, the exclusion of per-request rows, WITH_API=true,
+text backups, re-migration from MongoDB and automatic continuation after recovery.
+
+The Latin and guarded-correction suites pass with 28,656 ledger entries. All 21
+human-preference checks pass. Office-report browser coverage checks translated
+login and first/last observation headers. Syntax and discovery pass; browser
+runtime remains pending. Exact comparison preserves 38,430 existing Chinese values.
+
+There remain 731 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin string templates and reports — 2026-10-14
 
 Commit `bd9d654aae` repairs 30 prefixed field, activity and report entries.

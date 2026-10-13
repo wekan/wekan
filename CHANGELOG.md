@@ -3464,6 +3464,23 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1c0204e23e">Repair Latin office API and recovery reports</a>. Thanks to xet7.</summary>
+
+- Translate 25 mixed-language reporting entries. Preserve first/last
+  observations,
+  API aggregation and configuration, recovery actions and automatic
+  continuation.
+- Latin and guarded-correction suites pass with 28,656 corrections. All 21
+  human-preference checks pass; 38,430 existing Chinese values are preserved.
+  Added office-report browser coverage passes syntax and discovery; browser
+  execution remains pending.
+- Review remains unfinished: 731 Latin values contain the legacy “Latine:”
+  prefix.
+  Unprefixed values and other languages still require semantic review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
