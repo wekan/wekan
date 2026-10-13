@@ -357,6 +357,7 @@ const LOCALE_INVARIANTS = {
 
   // Corsican retains these printed key legends, product names and math symbols.
   'co': new Set([
+    'pomodoro',
     'blockly-ALT_KEY',
     'blockly-CHROME_OS',
     'blockly-COMMAND_KEY',

@@ -180773,5 +180773,299 @@
     "before": "Partecipando",
     "after": "Participendu",
     "reason": "Repair mixed-language board, archive, selection and member controls; retain deletion warnings, assigned-only scope and notification conditions."
+  },
+  {
+    "locale": "co",
+    "key": "custom-private-desc",
+    "before": "Persunalizatu Privatu descrizzione",
+    "after": "Discrizzione persunalizata per e tavule private",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "custom-private-desc-placeholder",
+    "before": "Lascià biotu per aduprà a predefinita Privatu descrizzione di u pannellu",
+    "after": "Lascià viotu per aduprà a discrizzione predefinita di e tavule private",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "custom-public-desc",
+    "before": "Persunalizatu Pubblicu descrizzione",
+    "after": "Discrizzione persunalizata per e tavule publiche",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "custom-public-desc-placeholder",
+    "before": "Lascià biotu per aduprà a predefinita Pubblicu descrizzione di u pannellu",
+    "after": "Lascià viotu per aduprà a discrizzione predefinita di e tavule publiche",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "quick-access-description",
+    "before": "Stella una tavula per aggiungere una scorciatoia in questa barra.",
+    "after": "Mettite una tavula trà e preferite per aghjunghje un accurtatoghju in sta barra.",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "remove-member",
+    "before": "Caccià utilizatore",
+    "after": "Caccià u membru",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "remove-member-pop",
+    "before": "Rimuovere __name__ (__username__) da __boardTitle__? L'utilizatore sarà cacciatu da tutte le carte in questa tavula. Riceveranno una nutificazione.",
+    "after": "Caccià __name__ (__username__) da __boardTitle__? U membru serà cacciatu da tutte e carte di sta tavula. Riceverà una nutificazione.",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "removeMemberPopup-title",
+    "before": "Rimuovere membru?",
+    "after": "Caccià u membru?",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "rename-board",
+    "before": "Rinomina tavula",
+    "after": "Rinuminà a tavula",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "rescue-card-description",
+    "before": "Mustrà una finestra di dialogo di salvataggio prima di chiudere per le descrizioni di e carte non salvate",
+    "after": "Mustrà un dialogu di ricuperazione prima di chjode quandu a discrizzione di a carta ùn hè micca arregistrata",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "rescue-card-description-dialogue",
+    "before": "Sovrascrivere la descrizzione attuale di a carta cù le tue modifiche?",
+    "after": "Rimpiazzà a discrizzione attuale di a carta cù i vostri cambiamenti?",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "rules",
+    "before": "Regole",
+    "after": "Regule",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "select-color",
+    "before": "Scegli un culore",
+    "after": "Sceglie un culore",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "set-wip-limit-value",
+    "before": "Selezziunà un limite per il massimo numero di attività in questa lista",
+    "after": "Definisce una limita per u numeru massimu di compiti in sta lista",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "shortcut-autocomplete-emoji",
+    "before": "Autocompletamento emoji",
+    "after": "Cumpletà automaticamente l’emoji",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "shortcut-autocomplete-members",
+    "before": "Autocompletamento membri",
+    "after": "Cumpletà automaticamente i membri",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "shortcut-clear-filters",
+    "before": "Pulisci tutti i filtri",
+    "after": "Sguassà tutti i filtri",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "shortcut-close-dialog",
+    "before": "Chjode finestra di dialogo",
+    "after": "Chjode a finestra di dialogu",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "shortcut-filter-my-cards",
+    "before": "Filtra le mie carte",
+    "after": "Filtrà e mo carte",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "shortcut-show-shortcuts",
+    "before": "Apre questa lista di scorciatoie",
+    "after": "Mustrà sta lista d’accurtatoghji",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "shortcut-toggle-filterbar",
+    "before": "Apre/chjode la barra laterale dei filtri",
+    "after": "Apre/chjode a barra laterale di i filtri",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "shortcut-toggle-searchbar",
+    "before": "Apre/chjode la barra laterale di ricerca",
+    "after": "Apre/chjode a barra laterale di ricerca",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "shortcut-toggle-sidebar",
+    "before": "Apre/chjode la barra laterale di a tavula",
+    "after": "Apre/chjode a barra laterale di a tavula",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "show-cards-minimum-count",
+    "before": "Mustrà il contatore di e carte se la lista ne contiene più di",
+    "after": "Mustrà u numeru di carte s’è a lista ne cuntene più di",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "sidebar-open",
+    "before": "Apre sidebar",
+    "after": "Apre a barra laterale",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "sidebar-close",
+    "before": "Chjode sidebar",
+    "after": "Chjode a barra laterale",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "signupPopup-title",
+    "before": "Creà un account",
+    "after": "Creà un contu",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "star-board-title",
+    "before": "Clicca per stellare questa tavula. Sarà mostrata all'inizio di a tua lista tavule.",
+    "after": "Cliccate per mette sta tavula trà e preferite. Serà mustrata in cima à a vostra lista di tavule.",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "set-default-board-title",
+    "before": "Clicca per aprire automaticamente questa tavula dopo il login.",
+    "after": "Cliccate per apre sta tavula automaticamente dopu a cunnessione.",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "subscribe",
+    "before": "Iscriviti",
+    "after": "Abbunassi",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "team",
+    "before": "Gruppo di travagliu",
+    "after": "Squadra",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "this-board",
+    "before": "questa tavula",
+    "after": "sta tavula",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "this-card",
+    "before": "questa carta",
+    "after": "sta carta",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "spent-time-hours",
+    "before": "Tempo trascorso (ore)",
+    "after": "Tempu passatu (ore)",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "overtime-hours",
+    "before": "Overtime (ore)",
+    "after": "Tempu supplementare (ore)",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "overtime",
+    "before": "Straordinario",
+    "after": "Tempu supplementare",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "flow-interruptions",
+    "before": "%s interruzzione",
+    "after": "%s interruzzioni",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "pomodoro",
+    "before": "Pomodoro (Ora)",
+    "after": "Pomodoro",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "pomodoro-completed",
+    "before": "%s compiuti",
+    "after": "%s compii",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "has-overtime-cards",
+    "before": "Ci sono carte scadute",
+    "after": "Cuntene carte cù tempu supplementare",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "has-spenttime-cards",
+    "before": "Ci sono carte cù tempo impiegato",
+    "after": "Cuntene carte cù tempu passatu",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
+  },
+  {
+    "locale": "co",
+    "key": "toggle-labels",
+    "before": "Attiva/disattiva le etichette 1-9 per la carta. La multi-selezione aggiunge le etichette 1-9",
+    "after": "Attivà/disattivà l’etichette 1-9 per a carta. A selezzione multipla aghjunghje l’etichette 1-9",
+    "reason": "Repair mixed-language settings, membership and shortcut prose; retain removal notifications, unsaved-description recovery and overtime distinct from overdue dates."
   }
 ]

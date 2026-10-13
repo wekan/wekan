@@ -429,3 +429,18 @@ assert.match(corsican['moveCardToBottom-title'], /in fondu$/);
 assert.match(corsican['moveCardToTop-title'], /in cima$/);
 for (const key of ['multi-selection-label','multi-selection-member']) assert.match(corsican[key], /per a selezzione$/);
 assert.match(corsican['paste-or-dragdrop'], /solu imagine/);
+
+const membershipSettingsCorrectionKeys = ["custom-private-desc", "custom-private-desc-placeholder", "custom-public-desc", "custom-public-desc-placeholder", "quick-access-description", "remove-member", "remove-member-pop", "removeMemberPopup-title", "rename-board", "rescue-card-description", "rescue-card-description-dialogue", "rules", "select-color", "set-wip-limit-value", "shortcut-autocomplete-emoji", "shortcut-autocomplete-members", "shortcut-clear-filters", "shortcut-close-dialog", "shortcut-filter-my-cards", "shortcut-show-shortcuts", "shortcut-toggle-filterbar", "shortcut-toggle-searchbar", "shortcut-toggle-sidebar", "show-cards-minimum-count", "sidebar-open", "sidebar-close", "signupPopup-title", "star-board-title", "set-default-board-title", "subscribe", "team", "this-board", "this-card", "spent-time-hours", "overtime-hours", "overtime", "flow-interruptions", "pomodoro", "pomodoro-completed", "has-overtime-cards", "has-spenttime-cards", "toggle-labels"];
+for (const key of membershipSettingsCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /\b(?:aggiungere|scorciatoia|questa|Rimuovere|sarà|Riceveranno|Rinomina|salvataggio|chiudere|descrizioni|salvate|Sovrascrivere|tue|modifiche|Regole|Scegli|massimo|numero|Autocompletamento|Pulisci|mie|scorciatoie|dei|contatore|contiene|Clicca|stellare|mostrata|inizio|tua|aprire|dopo|Iscriviti|Gruppo|Tempo|trascorso|Straordinario|compiuti|sono|scadute|impiegato|Attiva|disattiva|aggiunge)\b/, key);
+}
+assert.match(corsican['remove-member-pop'], /tutte e carte.*Riceverà una nutificazione/);
+assert.match(corsican['rescue-card-description'], /prima di chjode.*ùn hè micca arregistrata/);
+assert.match(corsican['rescue-card-description-dialogue'], /Rimpiazzà.*attuale.*vostri cambiamenti/);
+for (const key of ['custom-private-desc-placeholder','custom-public-desc-placeholder']) assert.match(corsican[key], /Lascià viotu.*predefinita/);
+assert.match(corsican['show-cards-minimum-count'], /più di$/);
+assert.match(corsican['has-overtime-cards'], /tempu supplementare/);
+assert.doesNotMatch(corsican['has-overtime-cards'], /scadut/);
+assert.equal(corsican.pomodoro, 'Pomodoro');
+assert.match(corsican['toggle-labels'], /Attivà\/disattivà.*1-9.*selezzione multipla aghjunghje.*1-9/);
