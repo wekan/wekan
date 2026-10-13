@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican card controls and Planning Poker — 2026-10-13
+
+Commit `a63e83ec5e` corrects 47 mixed-language or misleading card, archive,
+voting and account values. The Planning Poker name, numeric scores and
+unknown score now exactly match the invariant source values rather than
+carrying an unrelated in-progress prefix. Card deletion retains loss of
+all activities, inability to reopen and irreversibility. Archive messages
+retain disappearance from the list or board without claiming deletion.
+
+The Corsican and full repair-ledger suites pass; the ledger contains
+25,555 guarded corrections. All 21 human-preference checks pass. A new
+Planning Poker browser case registers, checking its heading and all ten
+score labels while rejecting the prior prefix. It has not executed against
+the application. Exact comparison preserves all 38,430 protected Chinese
+values and limits locale changes to the 47 reviewed replacements. Broader
+language review remains unfinished.
+
 ## Corsican board views and timeline wording — 2026-10-13
 
 Commit `b61c0df17f` repairs 26 menu, view, calendar and timeline values.

@@ -1635,6 +1635,19 @@ pending. Protected Chinese values are unchanged; broader review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a63e83ec5e">Correct Corsican card controls and Planning Poker scores</a>. Thanks to xet7.</summary>
+
+Repair 47 card, archive, voting and account values. Remove unrelated
+in-progress prefixes from Planning Poker's name and all numeric/unknown
+scores. Retain permanent-deletion warnings and archive visibility behavior.
+
+The Corsican suite, full repair-ledger suite and 21 human-preference checks
+pass. A Planning Poker browser case registers; runtime execution remains
+pending. Protected Chinese text is unchanged; broader review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
