@@ -21,12 +21,14 @@ class BadRequest(Exception):
         self.content = content
 
 class Tests(unittest.TestCase):
-    def service(self, recipe=None, fetch=None):
+    def service(self, recipe=None, fetch=None, states=None):
         class Service:
             def _new_recipe(self, *args, **kwargs):
                 return recipe(*args, **kwargs) if recipe else 'recipe'
             def fetch_artifacts(self, directory):
                 return fetch(directory) if fetch else []
+            def _get_build_states(self):
+                return states() if states else {'armhf': 'Uploading'}
         now = [0]
         def sleep(seconds):
             now[0] += seconds
@@ -55,6 +57,37 @@ class Tests(unittest.TestCase):
         self.assertEqual(len(calls), 3)
         self.assertEqual(now[0], 30)
         self.assertTrue(all(call == calls[0] for call in calls))
+
+    # v12.39 armhf and s390x: the builds succeeded, then the runner's
+    # connection to Launchpad dropped while polling, and each blip ended an
+    # attempt ("Network is unreachable", or a socket timeout reported as
+    # "Timed out waiting for build").
+    def test_poll_survives_network_blips_without_ending_the_attempt(self):
+        failures = [OSError(101, 'Network is unreachable'), TimeoutError('timed out'), ConnectionResetError()]
+        def states():
+            if failures:
+                raise failures.pop(0)
+            return {'armhf': 'Uploading'}
+        service, now = self.service(states=states)
+        self.assertEqual(service._get_build_states(), {'armhf': 'Uploading'})
+        self.assertEqual(now[0], 30 + 60 + 120, 'backs off between polls')
+
+    def test_poll_retry_is_bounded_and_never_hides_other_errors(self):
+        def unreachable():
+            raise OSError(101, 'Network is unreachable')
+        service, now = self.service(states=unreachable)
+        with self.assertRaises(OSError):
+            service._get_build_states()
+        self.assertGreaterEqual(now[0], compat.POLL_RETRY_WINDOW)
+        self.assertLess(now[0], compat.POLL_RETRY_WINDOW + 300)
+        # Not network: raised at once, without waiting.
+        for error in [PermissionError('denied'), FileNotFoundError('x'), ValueError('bad state'), BadRequest(b'nope')]:
+            def broken(error=error):
+                raise error
+            service, now = self.service(states=broken)
+            with self.assertRaises(type(error)):
+                service._get_build_states()
+            self.assertEqual(now[0], 0, repr(error))
 
     def test_unrelated_errors_fail_immediately_and_ref_wait_is_bounded(self):
         for error in [BadRequest(b'name: already exists'), PermissionError('401'), BadRequest(b'git_ref: invalid format')]:
