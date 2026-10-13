@@ -2,6 +2,30 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican navigation, colors and role controls — 2026-10-13
+
+Commit `dbaa663280` repairs 47 values in the source-ordered review through
+key 614. Corrections retain movement direction, both remaining card-aging
+thresholds, the Archive location on All Boards, assigned-card visibility,
+comment-only restrictions and the worker's limited actions. The unrelated
+in-progress prefix is removed from the intentionally empty comment
+placeholder. The repair-ledger test now requires exact emptiness when the
+English source is empty, while retaining its nonempty check elsewhere.
+
+Basic color terms were checked against a [Corsican vocabulary list](https://fichesvocabulaire.com/liste-de-vocabulaire-corse-pour-debutant-les-couleurs).
+The [Collectivity of Corsica garden description](https://www.giardini.corsica/co/i-spezii/bellombra/)
+attests the color term `carminu`. Specialized shade paraphrases remain
+lower confidence and open to native-speaker refinement; this is not a
+certification of fluency.
+
+The Corsican and full repair-ledger suites pass with 25,640 guarded
+corrections. All 21 human-preference checks pass. The existing color-rule
+browser suite registers an additional Corsican case, verifying translated
+labels and saved color selection; it has not run against the application.
+Exact comparison preserves all 38,430 protected Chinese values and limits
+this locale batch to the 47 reviewed replacements. Broader language review
+remains unfinished.
+
 ## Corsican profile and appearance controls — 2026-10-13
 
 Commit `18278cce84` corrects 38 profile, member-mapping and appearance

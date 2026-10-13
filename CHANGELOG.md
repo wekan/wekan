@@ -1661,6 +1661,20 @@ pending. Existing Chinese text is unchanged; broader review continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dbaa663280">Correct Corsican navigation, colors and role permissions</a>. Thanks to xet7.</summary>
+
+Repair 47 navigation, color, role and template controls. Restore the empty
+comment placeholder, movement directions, board recovery location and
+comment-only/worker permission limits. Specialized color shade wording
+remains open to native-speaker refinement.
+
+The Corsican and repair-ledger suites and 21 human-preference checks pass.
+The existing color-rule browser test now includes Corsican; its runtime
+execution remains pending. Existing Chinese text is unchanged.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
