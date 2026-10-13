@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin field policies and system metrics — 2026-10-14
+
+Commit `f8a09add9c` repairs 30 prefixed labels for OS metrics, time units,
+custom-field scope, account settings, board visibility and organizations. Tests
+preserve free versus total memory, new versus all cards, sums at the list top,
+private-only visibility, created/modified dates and membership propagation versus
+synchronization from the authentication provider.
+
+The Latin and guarded-correction suites pass with 27,989 ledger entries. All 21
+human-preference checks pass. Existing custom-field browser coverage now checks
+both card scopes; syntax and discovery pass, runtime remains pending. Exact
+comparison preserves 38,430 existing Chinese values.
+
+There remain 1,395 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin webhooks and system information — 2026-10-14
 
 Commit `0dda250d79` repairs 30 prefixed labels for webhooks, notification layout,

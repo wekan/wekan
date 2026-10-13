@@ -3157,6 +3157,22 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f8a09add9c">Repair Latin field policies and system metrics</a>. Thanks to xet7.</summary>
+
+Repair 30 prefixed labels for system metrics, custom fields, account settings
+and
+organizations. Preserve free/total memory, new/all-card scope, private-only
+visibility and membership synchronization direction.
+
+The Latin and guarded-correction suites and all 21 preservation checks pass.
+Extended custom-field browser coverage passes syntax and discovery; runtime
+remains pending. Existing Chinese values are unchanged. There remain 1,395 Latin
+values containing the old language prefix; all-language review remains
+unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
