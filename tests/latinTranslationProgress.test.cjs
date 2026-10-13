@@ -824,3 +824,19 @@ assert.notEqual(latin['operator-title'], latin['operator-label']);
 const latinSearchParserSource = fs.readFileSync(path.join(root, 'config/query-classes.js'), 'utf8');
 for (const key of latinOperators) assert.ok(latinSearchParserSource.includes(`'${key}':`), `${key}: registered in search parser`);
 assert.match(latinSearchParserSource, /operatorMap\[TAPi18n\.\_\_\(key\)\.toLowerCase\(\)\] = value/);
+
+const reviewedSearchPredicateKeys = ["predicate-archived", "predicate-open", "predicate-ended", "predicate-all", "predicate-overdue", "predicate-week", "predicate-month", "predicate-quarter", "predicate-year", "predicate-due", "predicate-modified", "predicate-created", "predicate-attachment", "predicate-description", "predicate-checklist", "predicate-start", "predicate-end", "predicate-assignee", "predicate-member", "predicate-public", "predicate-private", "predicate-selector", "predicate-projection", "operator-unknown-error", "operator-number-expected", "operator-sort-invalid", "operator-status-invalid", "operator-has-invalid", "operator-limit-invalid", "operator-debug-invalid", "next-page", "previous-page", "heading-notes", "globalSearch-instructions-heading", "globalSearch-instructions-description", "globalSearch-instructions-operators", "globalSearch-instructions-operator-board", "globalSearch-instructions-operator-list", "globalSearch-instructions-operator-swimlane", "globalSearch-instructions-operator-comment"];
+for (const key of reviewedSearchPredicateKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:archived|overdue|positive integer|Available|Searches|quotation|matching|containing)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+const latinPredicates = reviewedSearchPredicateKeys.filter(key => key.startsWith('predicate-'));
+assert.equal(new Set(latinPredicates.map(key => latin[key])).size, latinPredicates.length);
+for (const key of latinPredicates) assert.ok(latinSearchParserSource.includes(`'${key}':`), `${key}: registered predicate`);
+assert.match(latin['operator-limit-invalid'], /numerus integer positivus/);
+assert.match(latin['operator-number-expected'], /__operator__.*'__value__'/);
+assert.notEqual(latin['next-page'], latin['previous-page']);
+assert.ok(latin['globalSearch-instructions-description'].includes('`' + latin['operator-list'] + ':Impedita`'));
+assert.match(latin['globalSearch-instructions-description'], /spatia aut characteres speciales/);
+assert.match(latin['globalSearch-instructions-description'], /signa citationis/);
+assert.equal(latin['predicate-overdue'], 'praeteritum');

@@ -18,6 +18,20 @@ const SearchPage = require('../pages/SearchPage');
 const BoardPage = require('../pages/BoardPage');
 
 test.describe('Search', () => {
+  test('Latin overdue predicate excludes future cards', async ({ boardPage, board, user }) => {
+    db.updateOne('users', { _id: user.id }, { $set: { 'profile.language': 'la' } });
+    db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' }, { $set: { dueAt: new Date(Date.now() - 86400000) } });
+    db.updateOne('cards', { boardId: board.boardId, title: 'Beta Card' }, { $set: { dueAt: new Date(Date.now() + 7 * 86400000) } });
+    await boardPage.reload();
+    await expect(boardPage.locator('html')).toHaveAttribute('lang', 'la');
+    const sp = new SearchPage(boardPage);
+    await sp.navigateToGlobalSearch();
+    await sp.globalSearch('debitum:praeteritum');
+    await expect.poll(() => sp.globalSearchResultTitles(), { timeout: 20000 }).toContain('Alpha Card');
+    expect(await sp.globalSearchResultTitles()).not.toContain('Beta Card');
+    await expect(boardPage.locator('.global-search-error-messages')).toHaveCount(0);
+  });
+
   test('Latin title operator finds a matching card and excludes other titles', async ({ boardPage, user }) => {
     db.updateOne('users', { _id: user.id }, { $set: { 'profile.language': 'la' } });
     await boardPage.reload();

@@ -45,3 +45,9 @@ for (const [value, expected] of [['Remove', true], ['Remove all cards', false]])
   const shared = vm.runInNewContext(latinSetExpression, { en: { 'r-remove': value } });
   assert.equal(shared.has('r-remove'), expected);
 }
+
+// Latin selector is a shared noun, not an exemption for arbitrary search help.
+for (const [value, expected] of [['selector', true], ['invalid selector', false]]) {
+  const shared = vm.runInNewContext(latinSetExpression, { en: { 'predicate-selector': value } });
+  assert.equal(shared.has('predicate-selector'), expected);
+}

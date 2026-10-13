@@ -199232,5 +199232,285 @@
     "before": "Latine: index probationis",
     "after": "indexprobationis",
     "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "predicate-archived",
+    "before": "Latine: in archivum relatum",
+    "after": "archivatae",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "predicate-open",
+    "before": "Latine: aperi",
+    "after": "apertae",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "predicate-ended",
+    "before": "Latine: ended",
+    "after": "finitae",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "predicate-all",
+    "before": "Latine: omnia",
+    "after": "omnes",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "predicate-overdue",
+    "before": "Latine: overdue",
+    "after": "praeteritum",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "predicate-week",
+    "before": "Latine: hebdomas",
+    "after": "hebdomas",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "predicate-month",
+    "before": "Latine: mensis",
+    "after": "mensis",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "predicate-quarter",
+    "before": "Latine: quarter",
+    "after": "trimestre",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "predicate-year",
+    "before": "Latine: year",
+    "after": "annus",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "predicate-due",
+    "before": "Latine: due",
+    "after": "debitum",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "predicate-modified",
+    "before": "Latine: modified",
+    "after": "mutatum",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "predicate-created",
+    "before": "Latine: creatum",
+    "after": "creatum",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "predicate-attachment",
+    "before": "Latine: adnexum",
+    "after": "adiunctum",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "predicate-description",
+    "before": "Latine: descriptio",
+    "after": "descriptio",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "predicate-checklist",
+    "before": "Latine: index probationis",
+    "after": "indexprobationis",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "predicate-start",
+    "before": "Latine: incipe",
+    "after": "initium",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "predicate-end",
+    "before": "Latine: end",
+    "after": "finis",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "predicate-assignee",
+    "before": "Latine: assignee",
+    "after": "delegatus",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "predicate-member",
+    "before": "Latine: sodalis",
+    "after": "membrum",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "predicate-public",
+    "before": "Latine: publicum",
+    "after": "publicae",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "predicate-private",
+    "before": "Latine: privatum",
+    "after": "privatae",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "predicate-selector",
+    "before": "Latine: selector",
+    "after": "selector",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "predicate-projection",
+    "before": "Latine: projection",
+    "after": "proiectio",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "operator-unknown-error",
+    "before": "Latine: %s est non an operator",
+    "after": "%s non est operator",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "operator-number-expected",
+    "before": "Latine: operator __operator__ expected a numerus, got '__value__'",
+    "after": "operator __operator__ numerum exspectabat, sed '__value__' accepit",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "operator-sort-invalid",
+    "before": "Latine: ordina de '%s' est invalidum",
+    "after": "ordo '%s' invalidus est",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "operator-status-invalid",
+    "before": "Latine: '%s' est non a validum status",
+    "after": "'%s' non est condicio valida",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "operator-has-invalid",
+    "before": "Latine: %s est non a validum existence check",
+    "after": "%s non est probatio exsistentiae valida",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "operator-limit-invalid",
+    "before": "Latine: %s est non a validum limit. Limit debet esse a positive integer.",
+    "after": "%s non est limes validus. Limes debet esse numerus integer positivus.",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "operator-debug-invalid",
+    "before": "Latine: %s est non a validum debug predicate",
+    "after": "%s non est praedicatum diagnosticum validum",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "next-page",
+    "before": "Latine: Proximum Pagina",
+    "after": "Pagina sequens",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "previous-page",
+    "before": "Latine: Praecedens Pagina",
+    "after": "Pagina prior",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "heading-notes",
+    "before": "Latine: Notes",
+    "after": "Notae",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "globalSearch-instructions-heading",
+    "before": "Latine: Quaere Instructions",
+    "after": "Praecepta quaerendi",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "globalSearch-instructions-description",
+    "before": "Latine: Searches potest include operators ad refine the quaere. Operators sunt specified a writing the operator nomen et valor separated a a colon. For example, an operator specification de `index:Obstructum` esset limit the quaere ad schedae illud sunt contained in a index named *Obstructum*. Si the valor contains spaces vel special characters it debet esse enclosed in quotation marks (e.g. `__operator_list__:\"Ad Review\"`).",
+    "after": "Quaestiones operatores continere possunt ut quaestionem definiant. Operatores indicantur scribendo nomen operatoris et valorem duobus punctis separatos. Exempli gratia, `index:Impedita` quaestionem ad chartas in indice nomine *Impedita* restringit. Si valor spatia aut characteres speciales continet, inter signa citationis ponendus est (exempli gratia `__operator_list__:\"Ad recensendum\"`).",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "globalSearch-instructions-operators",
+    "before": "Latine: Praesto operators:",
+    "after": "Operatores praesto:",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "globalSearch-instructions-operator-board",
+    "before": "Latine: `__operator_board__:<title>` - schedae in tabulae matching the specified *<title>*",
+    "after": "`__operator_board__:<title>` - chartae in tabulis titulo *<title>* congruentibus",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "globalSearch-instructions-operator-list",
+    "before": "Latine: `__operator_list__:<title>` - schedae in indices matching the specified *<title>*",
+    "after": "`__operator_list__:<title>` - chartae in indicibus titulo *<title>* congruentibus",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "globalSearch-instructions-operator-swimlane",
+    "before": "Latine: `__operator_swimlane__:<title>` - schedae in swimlanes matching the specified *<title>*",
+    "after": "`__operator_swimlane__:<title>` - chartae in semitis titulo *<title>* congruentibus",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
+  },
+  {
+    "locale": "la",
+    "key": "globalSearch-instructions-operator-comment",
+    "before": "Latine: `__operator_comment__:<text>` - schedae cum a commentarium containing *<text>*.",
+    "after": "`__operator_comment__:<text>` - chartae cum commentario textum *<text>* continente.",
+    "reason": "Repair Latin search predicates, validation errors and introductory help; preserve token inventories and use the localized list operator in the example."
   }
 ]
