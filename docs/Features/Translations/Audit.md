@@ -2,6 +2,27 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho Blockly logic and mathematics — 2026-10-13
+
+Commit `fb193ebb80` fills 90 placeholders for list sorting and splitting,
+Boolean logic, comparisons, arithmetic, constants and statistics. Semantic
+checks preserve copy behavior, case-insensitive sorting, AND/OR, strict versus
+inclusive comparisons, negation and matching ternary branch labels. Numeric
+checks retain degrees and -180/180 limits, inclusive bounds, prime-number
+restrictions, positive/negative zero boundaries, remainders and constants.
+Statistical and trigonometric terms remain lower confidence pending native
+review.
+
+The Southern Sotho regression suite and all 21 human-preference checks pass.
+The existing Blockly interaction browser case passes syntax and discovery;
+runtime execution remains pending without the UI stack. Exact comparison
+preserves 38,430 existing Chinese values and all existing translated Southern
+Sotho values.
+
+The full Southern Sotho placeholder count falls from 542 to 452. Its filtered
+inventory is 384; the global filtered backlog is 28,223 across 42 languages.
+The all-language translation and fluency objective remains unfinished.
+
 ## Southern Sotho Blockly accessibility and list operations — 2026-10-13
 
 Commit `c9fdb2f34c` fills 110 placeholders for input labels, keyboard

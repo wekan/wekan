@@ -2181,6 +2181,20 @@ runtime execution remains pending. Existing Chinese text is unchanged.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fb193ebb80">Translate Southern Sotho Blockly logic and mathematics</a>. Thanks to xet7.</summary>
+
+Fill 90 list-sorting, logic, arithmetic and statistics placeholders.
+Checks retain AND/OR, strict/inclusive comparisons, negation, sorting a
+copy, numeric bounds and constants. Statistical and trigonometric
+terminology remains lower confidence pending native review.
+
+Translation checks and 21 human-preference checks pass. The existing
+Southern Sotho Blockly browser case passes syntax and discovery checks;
+runtime execution remains pending. Existing Chinese text is unchanged.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
