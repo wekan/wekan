@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Latin notification, webhook and link settings — 2026-10-13
+
+Commit `08eb3aabba` fills 46 pending strings for Sandstorm/Trello access,
+external-link rules, webhook contents and identity, notification layouts,
+grouping, schedules, quiet hours and read-only fields. Tests preserve inheritance,
+omitted identity, grouping distinctions, waiting until quiet hours end and
+administrator-only writes. Named link variables, example URLs, aliases and
+WEBHOOKS_ATTRIBUTES remain literal.
+
+The Latin suite and all 21 human-preference checks pass. Latin joins the existing
+notification-delivery settings browser test; syntax and discovery pass, while
+runtime execution remains pending. Exact comparison preserves 38,430 existing
+Chinese values. Only English-equal placeholders changed.
+
+Latin's default --list output now contains 86 English placeholders among keys
+marked pending Transifex. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin import mapping and export controls — 2026-10-13
 
 Commit `6f71d68317` fills 35 pending strings for member mapping, CSV column

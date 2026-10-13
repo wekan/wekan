@@ -2754,6 +2754,20 @@ translation and semantic verification remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/08eb3aabba">Translate Latin notification, webhook and link settings</a>. Thanks to xet7.</summary>
+
+Fill 46 pending strings for webhook contents and identity, notification layout,
+grouping, scheduling and quiet hours, external-link rules, Sandstorm access and
+read-only fields. Preserve configuration names, variables and literal examples.
+
+The Latin suite and all 21 preservation checks pass. The added notification
+settings browser case passes syntax and discovery; runtime remains pending.
+Existing Chinese values are unchanged. Latin has 86 English placeholders left;
+all-language translation and semantic verification remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
