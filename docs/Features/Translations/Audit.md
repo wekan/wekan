@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho historical review: archive and template controls — 2026-10-13
+
+Commit `e69d2c7311` reviews source keys 455–589 and repairs three values.
+Archive restoration points to Archive on All Boards, replacing the obsolete
+home-page header directions. Worker identifies a person instead of work, and
+Save as Template identifies a reusable template instead of a picture. Valid
+existing account, theme, comment-permission and checklist wording is preserved.
+
+The Southern Sotho and repair-ledger suites pass with 26,890 guarded corrections.
+All 21 human-preference checks pass. A browser case checks the archive help
+without confirming the archive operation; syntax and discovery pass, while
+runtime execution remains pending. Exact comparison preserves 38,430 existing
+Chinese values. Full placeholder coverage remains zero; historical review has
+reached key 589. The all-language objective remains unfinished.
+
 ## Southern Sotho historical review: board and card controls — 2026-10-13
 
 Commit `397ea42870` reviews source keys 220–454 and repairs nine values.

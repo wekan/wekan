@@ -2303,6 +2303,21 @@ execution remains pending. Existing Chinese text is unchanged.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e69d2c7311">Correct Southern Sotho archive help and template terminology</a>. Thanks to xet7.</summary>
+
+Reviewed source keys 455–589, preserving valid translations. Archive restoration
+now points to All Boards instead of the obsolete home-page header. The Worker
+role names a person, and Save as Template no longer says save as a picture.
+
+Southern Sotho and repair-ledger suites pass with 26,890 guarded corrections;
+all 21 human-preference checks pass. Archive-help browser coverage passes syntax
+and discovery checks; runtime execution remains pending. All 38,430 existing
+Chinese values are preserved. Southern Sotho has no remaining non-exempt English
+placeholders; semantic review and the all-language translation work continue.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
