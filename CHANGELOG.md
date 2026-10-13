@@ -144,6 +144,11 @@ releases.
   Earlier Xhosa completion checks predate the newer pending strings. The
   current broad run still exposes English placeholders in several catalogs;
   see the dated audit results. Empty reports do not establish fluency.
+- Nepali, Kannada, Malayalam, Javanese, Kazakh, Kyrgyz, Tajik and Somali now
+  have 200 translated MongoDB/S3 settings values that the fill report had
+  excluded. Their existing translations remain unchanged. Thirteen suites
+  pass and the storage-settings browser spec registers 14 locales; execution
+  and broader native wording review remain open.
 - Bengali, Icelandic, Tagalog and Albanian now have translated MongoDB and
   S3 settings prose that the fill report exempted. Fifteen mixed-language
   Tagalog instructions are repaired. This removes 100 supplemental candidates;
@@ -151,7 +156,7 @@ releases.
 - Marathi now has no current fill candidates after 212 feature fills. Another
   55 English settings, rule and keyboard labels were hidden by the fill tool's
   technical-name and short-word exemptions; those are now translated too.
-  `node releases/translations/audit-exempt-prose.mjs` exposes 4,021 review
+  `node releases/translations/audit-exempt-prose.mjs` exposes 3,821 review
   candidates across 226 locales. They include intentional names and shared
   spellings, so they are not a confirmed untranslated count. Preserve existing
   human-verified `zh` wording; add only confirmed missing strings there.
@@ -619,6 +624,22 @@ settings browser coverage registers six locales, including the translated
 secret-key guidance; execution needs a running rebuilt app. The supplemental
 queue falls to 4,021 candidates, which still need individual language review.
 Longer software wording remains provisional pending speaker review.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/49b1e07a48">Fill storage settings in eight more languages</a>. Thanks to xet7.</summary>
+
+Translate 200 English MongoDB and S3 values in Nepali, Kannada, Malayalam,
+Javanese, Kazakh, Kyrgyz, Tajik and Somali, using each catalog's existing
+terminology. Existing translations and verified `zh` wording stay intact.
+Enabled/disabled, success/failure, required-key and endpoint meanings are
+covered alongside exact source tokens and runtime rendering.
+
+All 13 relevant suites pass. Storage-settings browser coverage registers 14
+locales; execution needs a running rebuilt app. The supplemental queue falls
+to 3,821 candidates. Complete software compounds remain provisional pending
+speaker review, and the wider translation audit is unfinished.
 
 </details>
 

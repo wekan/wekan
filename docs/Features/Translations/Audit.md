@@ -2,6 +2,30 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Eight additional storage catalogs — 2026-10-13
+
+Commit `49b1e07a48` fills 200 English MongoDB/S3 settings values: 25 each in
+Nepali, Kannada, Malayalam, Javanese, Kazakh, Kyrgyz, Tajik and Somali. Each
+replacement was compared with the parent commit and was identical to the
+English source. Existing translations and all human-verified `zh` catalogs
+remain unchanged. The surrounding S3 instructions were read and retained;
+new labels follow their existing access-key, secret-key, region, endpoint and
+storage terminology. Brands, host examples and literal console labels remain
+recognizable. Longer software compounds are provisional pending speaker review.
+
+The expanded supplemental suite checks enabled versus disabled, successful
+versus failed connections, mandatory secret keys, source key order and exact
+token inventories, plus i18next rendering without English fallback. All 13
+relevant locale and audit suites pass. Storage-settings browser discovery
+registers 14 locale cases, including secret-key guidance; those cases still
+need a running app rebuilt with the new catalogs. No browser pass is claimed.
+
+The supplemental review queue falls from 4,021 to 3,821 candidates across 226
+locales. The ordinary filtered inventory remains 54,981 values across 128
+locale paths because it excluded these technical-prefix strings. Neither
+count establishes that all remaining non-English values are correct; broader
+wrong-language, semantic and native-grammar review remains unfinished.
+
 ## Storage settings in four languages — 2026-10-13
 
 Commit `3e10d0aa1d` fills 25 English MongoDB/S3 settings values each in Bengali,
