@@ -3514,6 +3514,20 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a83a794b12">Repair Latin checklist and attachment action translations</a>. Thanks to xet7.</summary>
+
+- Translate 32 mixed-language checklist, attachment and notification entries.
+  Preserve copying versus moving, board-wide scope, destination names and
+  original item order. Correct the legal-notice link's case in its sentence.
+- Three translation suites and all 21 human-preference checks pass; all 38,430
+  existing Chinese values are preserved. Checklist browser coverage passes
+  syntax and discovery; browser execution remains pending.
+- Review remains unfinished: 634 Latin values contain the legacy prefix.
+  Unprefixed values and other languages still need semantic review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

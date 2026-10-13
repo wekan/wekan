@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin checklist and attachment actions — 2026-10-14
+
+Commit `a83a794b12` repairs 32 mixed-language entries for checklist actions,
+attachment moves and notification email fields. Source inspection confirms the
+legal-notice link follows the acceptance fragment; its accusative case now
+completes “Pergendo accipis nostram notitiam iuridicam”.
+
+Regression checks distinguish copying from moving, retain original item order,
+board-wide attachment scope, destination names and the empty-source condition.
+All three translation suites pass with 28,753 correction ledger entries. All
+21 human-preference checks pass, and exact comparison preserves 38,430 existing
+Chinese values. The new checklist menu browser test passes syntax and discovery;
+its runtime remains unverified.
+
+There remain 634 Latin values containing “Latine:”. Unprefixed values and other
+languages still require semantic review; all-language verification is unfinished.
+
 ## Latin invitations and Node memory — 2026-10-14
 
 Commit `2dd8c45cab` repairs 35 prefixed invitation, organization, memory and
