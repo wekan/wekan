@@ -804,3 +804,23 @@ assert.match(latin['dueCardsViewChange-choice-all-description'], /chartas imperf
 assert.match(latin['dueCardsViewChange-choice-all-description'], /cum \*die debito\*/);
 assert.match(latin['dueCardsViewChange-choice-all-description'], /ad quas usor aditum habet/);
 assert.notEqual(latin['dueCardsViewChange-choice-me'], latin['dueCardsViewChange-choice-all']);
+
+const reviewedSearchOperatorKeys = ["globalSearchViewChange-choice-all", "globalSearchViewChange-choice-all-description", "dueCards-noResults-title", "dueCards-noResults-description", "board-title-not-found", "swimlane-title-not-found", "list-title-not-found", "label-not-found", "label-color-not-found", "user-username-not-found", "comment-not-found", "org-name-not-found", "team-name-not-found", "no-cards-found", "one-card-found", "n-cards-found", "n-n-of-n-cards-found", "operator-board", "operator-board-abbrev", "operator-swimlane", "operator-swimlane-abbrev", "operator-list", "operator-list-abbrev", "operator-label", "operator-label-abbrev", "operator-user", "operator-user-abbrev", "operator-member", "operator-member-abbrev", "operator-assignee", "operator-assignee-abbrev", "operator-creator", "operator-status", "operator-due", "operator-created", "operator-modified", "operator-sort", "operator-comment", "operator-has", "operator-limit", "operator-debug", "operator-org", "operator-team", "operator-title", "operator-description", "operator-customfield", "operator-attachment-text", "operator-checklist-text"];
+for (const key of reviewedSearchOperatorKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:All cards|Search|permission|Found|not found|Username|Organization)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+assert.match(latin['globalSearchViewChange-choice-all-description'], /ad quas aditum habes/);
+assert.match(latin['globalSearchViewChange-choice-all-description'], /membrum vel delegatus es/);
+assert.match(latin['dueCards-noResults-description'], /cum die debito nunc/);
+assert.match(latin['comment-not-found'], /textum '%s' continente/);
+assert.notEqual(latin['no-cards-found'], latin['one-card-found']);
+const latinOperators = reviewedSearchOperatorKeys.filter(key => key.startsWith('operator-'));
+assert.equal(new Set(latinOperators.map(key => latin[key])).size, latinOperators.length, 'operator aliases do not collide');
+for (const key of latinOperators.filter(key => key.endsWith('-abbrev'))) assert.equal(latin[key], english[key]);
+assert.equal(latin['operator-board'], 'tabula');
+assert.equal(latin['operator-title'], 'tituluschartae');
+assert.notEqual(latin['operator-title'], latin['operator-label']);
+const latinSearchParserSource = fs.readFileSync(path.join(root, 'config/query-classes.js'), 'utf8');
+for (const key of latinOperators) assert.ok(latinSearchParserSource.includes(`'${key}':`), `${key}: registered in search parser`);
+assert.match(latinSearchParserSource, /operatorMap\[TAPi18n\.\_\_\(key\)\.toLowerCase\(\)\] = value/);

@@ -198896,5 +198896,341 @@
     "before": "Latine: My schedae",
     "after": "Chartae meae",
     "reason": "Repair Latin shared-template, domain and card-view labels; preserve nonempty-template filtering, permission scope and incomplete due-card meaning."
+  },
+  {
+    "locale": "la",
+    "key": "globalSearchViewChange-choice-all",
+    "before": "Latine: Omnia schedae",
+    "after": "Omnes chartae",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "globalSearchViewChange-choice-all-description",
+    "before": "Latine: Quaere omnia schedae adest tabulae for which tu have facultas. Elige *My schedae* ad limit results ad schedae ubi tu sunt a sodalis vel assignee.",
+    "after": "Quaere omnes chartas in tabulis ad quas aditum habes. Elige *Chartae meae* ut eventus ad chartas tantum restringas quarum membrum vel delegatus es.",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "dueCards-noResults-title",
+    "before": "Latine: Non Due Schedae Found",
+    "after": "Nullae chartae cum die debito inventae",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "dueCards-noResults-description",
+    "before": "Latine: Tu don't have ullum schedae cum due dates at the moment.",
+    "after": "Nullas chartas cum die debito nunc habes.",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "board-title-not-found",
+    "before": "Latine: Tabula '%s' non inventum.",
+    "after": "Tabula '%s' non inventa.",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "swimlane-title-not-found",
+    "before": "Latine: semita natatoria '%s' non inventum.",
+    "after": "Semita '%s' non inventa.",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "list-title-not-found",
+    "before": "Latine: Index '%s' non inventum.",
+    "after": "Index '%s' non inventus.",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "label-not-found",
+    "before": "Latine: Titulus '%s' non inventum.",
+    "after": "Titulus '%s' non inventus.",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "label-color-not-found",
+    "before": "Latine: Titulus color %s non inventum.",
+    "after": "Color tituli %s non inventus.",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "user-username-not-found",
+    "before": "Latine: nomen usoris '%s' non inventum.",
+    "after": "Nomen usoris '%s' non inventum.",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "comment-not-found",
+    "before": "Latine: Scheda cum commentarium containing textus '%s' non inventum.",
+    "after": "Charta cum commentario textum '%s' continente non inventa.",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "org-name-not-found",
+    "before": "Latine: Organizatio '%s' non inventum.",
+    "after": "Consociatio '%s' non inventa.",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "team-name-not-found",
+    "before": "Latine: Manus '%s' non inventum.",
+    "after": "Manus '%s' non inventa.",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "no-cards-found",
+    "before": "Latine: Non Schedae Found",
+    "after": "Nullae chartae inventae",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "one-card-found",
+    "before": "Latine: One Scheda Found",
+    "after": "Una charta inventa",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "n-cards-found",
+    "before": "Latine: %s Schedae Found",
+    "after": "%s chartae inventae",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "n-n-of-n-cards-found",
+    "before": "Latine: __start__-__end__ de __total__ Schedae Found",
+    "after": "__start__-__end__ ex __total__ chartis inventis",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-board",
+    "before": "Latine: tabula",
+    "after": "tabula",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-board-abbrev",
+    "before": "Latine: b",
+    "after": "b",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-swimlane",
+    "before": "Latine: semita natatoria",
+    "after": "semita",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-swimlane-abbrev",
+    "before": "Latine: s",
+    "after": "s",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-list",
+    "before": "Latine: index",
+    "after": "index",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-list-abbrev",
+    "before": "Latine: l",
+    "after": "l",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-label",
+    "before": "Latine: titulus",
+    "after": "titulus",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-label-abbrev",
+    "before": "Latine: #",
+    "after": "#",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-user",
+    "before": "Latine: usor",
+    "after": "usor",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-user-abbrev",
+    "before": "Latine: @",
+    "after": "@",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-member",
+    "before": "Latine: sodalis",
+    "after": "membrum",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-member-abbrev",
+    "before": "Latine: m",
+    "after": "m",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-assignee",
+    "before": "Latine: assignee",
+    "after": "delegatus",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-assignee-abbrev",
+    "before": "Latine: a",
+    "after": "a",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-creator",
+    "before": "Latine: creator",
+    "after": "auctor",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-status",
+    "before": "Latine: status",
+    "after": "condicio",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-due",
+    "before": "Latine: due",
+    "after": "debitum",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-created",
+    "before": "Latine: creatum",
+    "after": "creatum",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-modified",
+    "before": "Latine: modified",
+    "after": "mutatum",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-sort",
+    "before": "Latine: ordina",
+    "after": "ordo",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-comment",
+    "before": "Latine: commentarium",
+    "after": "commentarium",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-has",
+    "before": "Latine: has",
+    "after": "habet",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-limit",
+    "before": "Latine: limit",
+    "after": "limes",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-debug",
+    "before": "Latine: debug",
+    "after": "diagnostica",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-org",
+    "before": "Latine: org",
+    "after": "consociatio",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-team",
+    "before": "Latine: manus",
+    "after": "manus",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-title",
+    "before": "Latine: titulus",
+    "after": "tituluschartae",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-description",
+    "before": "Latine: descriptio",
+    "after": "descriptio",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-customfield",
+    "before": "Latine: customfield",
+    "after": "campusproprius",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-attachment-text",
+    "before": "Latine: adnexum",
+    "after": "adiunctum",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
+  },
+  {
+    "locale": "la",
+    "key": "operator-checklist-text",
+    "before": "Latine: index probationis",
+    "after": "indexprobationis",
+    "reason": "Repair Latin search scopes, missing-result messages and localized operators; preserve operator abbreviations, placeholders and member/assignee access distinctions."
   }
 ]
