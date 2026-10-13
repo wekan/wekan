@@ -156,3 +156,26 @@ for (const code of ['cmn', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG']) {
   assert.doesNotMatch(locale['interrupted-import-description'], /匯入|檔案|伺服器/);
 }
 console.log('Simplified Chinese import, recovery, notification and Scrum meanings pass in all six catalogs');
+
+// Newly added Trello strings only: keep the round-trip marker literal, and
+// distinguish missing network permission from access that is already granted.
+for (const code of ['cmn', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-HK', 'zh-Hant', 'zh-TW']) {
+  const locale = read(code);
+  const trad = ['zh-HK', 'zh-Hant', 'zh-TW'].includes(code);
+  for (const key of ['exportToTrelloPopup-title', 'trello-export-desc',
+    'trello-export-include-attachments', 'trello-export-start', 'trello-export-open-board',
+    'trello-export-warnings', 'sandstorm-trello-access-needed', 'sandstorm-allow-trello-access',
+    'sandstorm-trello-access-granted', 'sandstorm-forget-access', 'sandstorm-trello-save-label']) {
+    assert.notEqual(locale[key], en[key], `${code}:${key}`);
+    assert.match(locale[key], /\p{Script=Han}/u, `${code}:${key}`);
+  }
+  assert.ok(locale['trello-export-desc'].includes('Swimlane: …'), code);
+  assert.match(locale['trello-export-desc'], trad ? /API 金鑰和權杖/ : /API 密钥和令牌/);
+  assert.match(locale['trello-export-desc'], trad ? /還原為泳道/ : /还原为泳道/);
+  assert.match(locale['trello-export-warnings'], trad ? /部分內容無法匯出/ : /部分内容未能导出/);
+  assert.match(locale['sandstorm-trello-access-needed'], trad ? /無法存取網際網路.*請先允許/ : /无法访问互联网.*请先允许/);
+  assert.match(locale['sandstorm-trello-access-granted'], trad ? /已獲准存取/ : /已获准访问/);
+  assert.notEqual(locale['sandstorm-trello-access-needed'], locale['sandstorm-trello-access-granted']);
+  assert.match(locale['trello-export-start'], trad ? /匯出/ : /导出/);
+  assert.doesNotMatch(locale['trello-export-start'], trad ? /導入|导入|導出/ : /导入|匯出/);
+}

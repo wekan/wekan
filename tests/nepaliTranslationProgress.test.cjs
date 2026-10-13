@@ -1,5 +1,5 @@
-// The completed catalog predates newer features; keep its no-regression gate.
-// Full translation work remains visible through fill-translations.mjs --list.
+// Current Nepali fills include pending feature keys; full language-quality
+// review remains separate from this structural and semantic regression gate.
 'use strict';
 
 const assert = require('node:assert/strict');
@@ -10,7 +10,7 @@ const { spawnSync } = require('node:child_process');
 const root = path.resolve(__dirname, '..');
 const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
-    '--completed-catalog', '--list', 'ne'], { cwd: root, encoding: 'utf8' });
+    '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
 assert.equal(Object.keys(JSON.parse(result.stdout)).length, 0);
 
@@ -330,3 +330,78 @@ assert.deepEqual(tags(nepali[
 assert.match(nepali['import-board-source'], /Trello.*Jira.*WeKan.*CSV.*Excel/);
 
 console.log('Nepali translation progress checks passed.');
+
+// Check decisions, not only that a value differs from the English source.
+assert.match(nepali['field-link-not-allowed'], /दुवै कार्ड सम्पादन गर्ने अनुमति/);
+assert.match(nepali['custom-field-links-hint'], /उही नाम र प्रकार/);
+assert.match(nepali['custom-field-links-hint'], /एउटा कार्डमा मात्र.*अपरिवर्तित/);
+assert.match(nepali['custom-field-link-send'], /यस कार्डका परिवर्तनहरू मुख्य कार्डमा जान्छन्/);
+assert.match(nepali['custom-field-link-receives'], /त्यो कार्डका परिवर्तनहरू यस कार्डमा आउँछन्/);
+assert.match(nepali['read-only-field'], /सबै सदस्यले.*प्रशासकले मात्र/);
+assert.match(nepali['notification-delivery-quiet'], /सकिन्जेल पर्खनुहोस्/);
+assert.match(nepali['webhook-payload-description'], /माथिल्लो तहबाट आएको सेटिङ/);
+assert.match(nepali['stuck-sync-operation-discard-confirm'], /पहिले लागू गरेका परिवर्तन रहन्छन्/);
+assert.match(nepali['stuck-sync-operation-discard-confirm'], /बाँकी कहिल्यै लेखिँदैनन्/);
+assert.match(nepali['stuck-sync-operation-not-stuck'], /रद्द गर्न सकिँदैन/);
+assert.match(nepali['stuck-sync-operation-replayable'], /आफैँ पूरा हुन्छ.*रद्द गरिएन/);
+assert.match(nepali['interrupted-import-description'], /स्रोत फाइल राखिँदैन/);
+assert.match(nepali['interrupted-import-description'], /पछि थपिएका कुरा समेत/);
+assert.match(nepali['interrupted-import-keep-confirm'], /केही हटाइँदैन/);
+assert.match(nepali['interrupted-import-discard-confirm'], /स्थायी रूपमा हट्छन्/);
+assert.match(nepali['interrupted-import-foreign-board'], /कुनै परिवर्तन गरिएन/);
+for (const key of ['interrupted-import-truncated', 'stuck-sync-operation-truncated']) {
+  assert.match(nepali[key], /सबैभन्दा पुराना 50/);
+}
+for (const format of ['taiga', 'vikunja', 'notion']) {
+  assert.match(nepali['import-board-instruction-' + format], /संलग्नक आयात हुँदैनन्/);
+}
+assert.match(nepali['import-board-instruction-quire'], /टिप्पणी र संलग्नक हुँदैनन्/);
+assert.match(nepali['import-board-instruction-plane'], /वर्णन वा संलग्नक हुँदैनन्/);
+for (const format of ['nullboard', 'kanri']) {
+  assert.match(nepali['import-board-instruction-' + format], /पहिलो बोर्ड आयात/);
+}
+for (const token of ['TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED']) {
+  assert.ok(nepali['import-board-instruction-orgmode'].includes(token));
+}
+for (const token of ['Tasklist', 'Task', 'Description', 'Assign to', 'Start date',
+  'Due date', 'Priority', 'Estimated time', 'Tags', 'Status', '--', '##', '>>']) {
+  assert.ok(nepali['import-board-instruction-teamwork'].includes(token));
+}
+assert.match(nepali['import-board-instruction-businessmap'], /शीर्षकको पङ्क्ति अङ्ग्रेजीमा/);
+assert.match(nepali['import-board-instruction-redmine'], /भाषा English/);
+assert.match(nepali['import-many-boards-hint'], /सदस्य मिलान नगरी/);
+assert.match(nepali['import-many-boards-hint'], /माथिको क्षेत्रको सट्टा/);
+assert.match(nepali['r-wrike-workflow-note'], /Completed वा Cancelled.*पूर्ण.*Active वा Deferred.*अपूर्ण/);
+for (const token of ['GET /workflows', 'JSON']) assert.ok(nepali['r-wrike-workflow-note'].includes(token));
+for (const token of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS', 'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) {
+  assert.ok(nepali['ldap-sync-now-nothing'].includes(token));
+}
+for (const token of ['{number}', '{identifier}', ' = ', 'https://tracker.example.com/{identifier}/{number}']) {
+  assert.ok(nepali['external-link-rules-description'].includes(token));
+}
+assert.ok(nepali['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+assert.match(nepali['login-setting-env-only'], /सर्भरको वातावरणबाट मात्र.*पढ्न मात्र/);
+
+assert.ok(nepali['trello-export-desc'].includes('Swimlane: …'));
+assert.match(nepali['trello-export-desc'], /API कुञ्जी र टोकन/);
+assert.match(nepali['trello-export-desc'], /फेरि मार्गमा बदल्छ/);
+assert.match(nepali['trello-export-warnings'], /सबै कुरा.*सकिएन/);
+assert.match(nepali['sandstorm-trello-access-needed'], /आफ्नै इन्टरनेट पहुँच हुँदैन.*पहिले.*अनुमति/);
+assert.match(nepali['sandstorm-trello-access-granted'], /पुग्न सक्छ/);
+
+(async () => {
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  assert.deepEqual(Object.keys(nepali), Object.keys(english));
+  for (const key of Object.keys(english)) {
+    assert.deepEqual(translationTokens(nepali[key]), translationTokens(english[key]), key);
+  }
+  const i18n = require('i18next').createInstance();
+  await i18n.init({ lng: 'ne', fallbackLng: 'en', initImmediate: false,
+    interpolation: { prefix: '__', suffix: '__', escapeValue: false },
+    resources: { en: { translation: english }, ne: { translation: nepali } } });
+  assert.equal(i18n.t('notification-group-card', { count: 3, card: 'परीक्षण' }), 'परीक्षण कार्डमा 3 सूचना');
+  assert.equal(i18n.t('stuck-sync-operation-applied', { applied: 0, total: 2 }), '2 मध्ये 0 परिवर्तन लागू भए');
+  assert.equal(i18n.t('interrupted-import-state-failed', { stage: 'createCards', error: 'E_TEST' }),
+    'createCards मा E_TEST का कारण असफल भयो');
+  console.log('Nepali current fills: inventory, exact tokens, decision meanings and runtime interpolation pass');
+})().catch(error => { console.error(error); process.exitCode = 1; });
