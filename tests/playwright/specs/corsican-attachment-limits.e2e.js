@@ -46,3 +46,18 @@ test('Corsican database migration help preserves prerequisites and literal comma
   }
   await expect(description).not.toContainText('tutto tranne');
 });
+
+test('Corsican cloud help retains credential alternatives and provider menu labels', async ({ page, adminUser }) => {
+  await loginWithToken(page, adminUser.id, adminUser.token);
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'co'));
+  await navigateInApp(page, '/admin/attachments/gcs');
+  for (const key of ['gcs-key-filename-description', 'gcs-credentials-description', 'gcs-permissions-note']) {
+    const description = page.getByText(strings[key], { exact: true });
+    await expect(description).toBeVisible();
+    await expect(description).not.toContainText('Facoltativo');
+  }
+  await expect(page.getByText(strings['gcs-credentials-description'], { exact: true })).toContainText('Lasciate viotu');
+  const permissions = page.getByText(strings['gcs-permissions-note'], { exact: true });
+  await expect(permissions).toContainText('client_email');
+  await expect(permissions).toContainText('Storage Object Admin');
+});

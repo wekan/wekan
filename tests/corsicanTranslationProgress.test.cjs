@@ -647,3 +647,17 @@ assert.ok(corsican['render-links-as-plain-text-description'].includes('[label](u
 
 for (const key of ['backup-description', 'continuous-backup-description']) { assert.match(corsican[key], /appicci/); assert.doesNotMatch(corsican[key], /allegati/); }
 for (const literal of ['backup/YYYY/MM/DD/HH_MM_SS/backup.zip', 'YYYY_MM_DD-HH_MM_SS/attachments', '/avatars', '/data']) assert.ok(corsican['backup-description'].includes(literal), literal);
+
+const cloudRestoreCorrectionKeys = ["backup-restore-mode", "backup-restore-replace-all", "backup-restore-select-first", "backup-restore-confirm", "gcs-project-id", "gcs-key-filename", "gcs-key-filename-description", "gcs-credentials-description", "gcs-permissions-note", "azure-container-description", "gcs-bucket-description", "s3-access-key-menu-path", "s3-secret-key-menu-path", "gcs-key-filename-menu-path", "gcs-credentials-menu-path", "cloud-secret-none", "test-cloud-connection", "cloud-connection-success", "cloud-connection-failed", "cloud-settings-saved", "move-storage-azure", "move-storage-gcs", "attachment-move-storage-azure", "attachment-move-storage-gcs", "gridfs-enabled", "gridfs-disabled", "gridfs-enabled-description", "all-migrations", "migration-starting", "migration-stopping", "migration-paused", "migration-progress", "migration-started", "migration-status", "migration-stopped", "gridfs-move-collectionfs-note", "s3-access-key", "s3-bucket-description", "s3-connection-success", "s3-enabled", "s3-enabled-description", "s3-minio-storage", "s3-port", "s3-secret-key", "s3-settings-saved", "s3-ssl-enabled", "save-s3-settings", "schedule-board-archive", "schedule-board-backup", "schedule-board-cleanup", "test-s3-connection"];
+for (const key of cloudRestoreCorrectionKeys) {
+  assert.deepEqual(tokens(corsican[key]), tokens(english[key]), key);
+  assert.doesNotMatch(corsican[key], /In corsu:|Modalità di ripristino|Sostituisci|dall.lista|ID progetto|Percorso|Facoltativo|Concedi|Il container|Il nome del|il tuo utilizatore|scegli il caso|Stessa schermata|il tuo account|non impostato|Prova la connessione|Connessione|Impostazioni|allegatu su|abilitato|Tutte le migrazioni|cù successo|Avanzamento|Stato di a|Nome del|Archiviazione|Pianifica /, key);
+}
+for (const key of ['move-storage-azure', 'move-storage-gcs']) assert.equal(corsican[key], english[key]);
+assert.match(corsican['backup-restore-confirm'], /appicci.*avatar.*sistema di schedarii.*dati.*basa di dati.*modu sceltu/);
+assert.match(corsican['gcs-credentials-description'], /Facultativu.*Lasciate viotu.*schedariu di chjave o i dati d’accessu predefiniti/);
+for (const literal of ['New principals', 'client_email', 'Storage Object Admin', 'Grant access']) assert.ok(corsican['gcs-permissions-note'].includes(literal), literal);
+assert.match(corsican['gcs-permissions-note'], /lettura è scrittura/);
+assert.match(corsican['s3-secret-key-menu-path'], /una sola volta/);
+assert.ok(corsican['s3-secret-key-menu-path'].includes('Download .csv'));
+assert.ok(corsican['s3-access-key-menu-path'].includes('Application running outside AWS'));

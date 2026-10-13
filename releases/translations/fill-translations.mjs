@@ -357,6 +357,8 @@ const LOCALE_INVARIANTS = {
 
   // Corsican retains these printed key legends, product names and math symbols.
   'co': new Set([
+    'move-storage-azure',
+    'move-storage-gcs',
     'azure-blob-storage',
     'azure-blob-storage-description',
     'gcs-storage',
