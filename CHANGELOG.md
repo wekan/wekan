@@ -3497,6 +3497,23 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2dd8c45cab">Repair Latin invitation and Node memory translations</a>. Thanks to xet7.</summary>
+
+- Translate 35 mixed-language invitation, organization and memory entries.
+  Preserve registration conditions, allocated/used/peak memory distinctions and
+  diagnostic overwrite semantics. Retain the shared Latin imperative “Remove”.
+- Latin, guarded-correction and shared-word suites pass with 28,721 corrections.
+  All 21 human-preference checks pass; 38,430 existing Chinese values are
+  preserved.
+  Added memory-label browser coverage passes syntax and discovery; browser
+  execution remains pending.
+- Review remains unfinished: 666 Latin values contain the legacy “Latine:”
+  prefix.
+  Unprefixed values and other languages still require semantic review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

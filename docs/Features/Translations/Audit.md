@@ -2,6 +2,27 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin invitations and Node memory — 2026-10-14
+
+Commit `2dd8c45cab` repairs 35 prefixed invitation, organization, memory and
+related entries. Regression checks preserve registration conditions, administrator
+contact instructions, allocated/used/peak memory, RSS, native/detached contexts
+and diagnostic heap overwriting. The shared Latin imperative “Remove” retains an
+exact source/key exception with negative coverage for longer English prose.
+
+Memory terminology was checked against the
+[Node.js V8 documentation](https://github.com/nodejs/node/blob/main/doc/api/v8.md),
+including the bit-pattern overwrite behavior of does_zap_garbage.
+
+The Latin, guarded-correction and shared-word suites pass with 28,721 ledger
+entries. All 21 human-preference checks pass. Memory-label browser coverage
+checks the distinct statistics; syntax and discovery pass, runtime remains pending.
+Exact comparison preserves 38,430 existing Chinese values.
+
+There remain 666 Latin values containing “Latine:”. Unprefixed values also
+require linguistic review. All-language translation and semantic verification
+remain unfinished.
+
 ## Latin waiting indicators and ticket labels — 2026-10-14
 
 Commit `5df2e188cc` repairs 30 prefixed waiting-indicator, window-control,
