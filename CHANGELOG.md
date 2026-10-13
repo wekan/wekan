@@ -124,15 +124,15 @@ a publishing step.
 <details>
 <summary>Translation work in progress: remaining new strings in all languages.</summary>
 
-Status checked on 2026-10-10. Translation work has resumed, including keys
+Status checked on 2026-10-13. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming and
 releases.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **29,735 untranslated locale/string values in 42 languages**.
-  It excludes **383 source keys tracked separately as pending Transifex**.
-  After the Gujarati batch, full per-locale `--list` reports, including pending
-  keys, count **58,504 remaining values across 130 non-English locale
+  report counts **28,516 untranslated locale/string values in 42 languages**.
+  It excludes **368 source keys tracked separately as pending Transifex**.
+  After the shared-label batch, full per-locale `--list` reports, including
+  pending keys, count **55,375 remaining values across 130 non-English locale
   files**. This fuller inventory remains the scope of the translation work.
   A separate short-prose audit flags 1,681 candidates across 183 locales.
   The two notification At/To labels now have translations in all non-English
@@ -144,6 +144,11 @@ releases.
   Earlier Xhosa completion checks predate the newer pending strings. The
   current broad run still exposes English placeholders in several catalogs;
   see the dated audit results. Empty reports do not establish fluency.
+- The [2026-10-13 shared-label review](docs/Features/Translations/Shared-Labels-2026-10-13.md)
+  fills 3,129 English values and repairs 167 seeded values across 130 locale
+  paths. All 46 reviewed labels render through i18next; 15 completed keys leave
+  the pending queue. Human-verified `zh` Chinese catalogs remain unchanged.
+  Provisional native terminology and broader wrong-language review remain open.
 - Placeholder inventories match English across all 246 locale paths. Fill now
   rejects damaged token batches before writing. Both card-field visibility
   keys are translated in 181 non-English paths; 53 paths still need them.
@@ -249,7 +254,7 @@ No external translation service or remote translation upload was used.
 </details>
 
 <details>
-<summary>Local translation repairs and validation paused; review remains.</summary>
+<summary>Local translation repairs and validation resumed; review remains.</summary>
 
 Wrong-language and wrong-meaning repairs resumed at the maintainer's request
 after the 2026-09-27 Transifex download. The first reviewed batch corrects 487
@@ -523,6 +528,33 @@ used.
 </details>
 
 </details>
+
+# Upcoming WeKan ® release
+
+**In short:** more **UI labels** now use their target language, and seeded
+wrong-language terminology is corrected. Existing verified translations remain
+intact while the wider language-quality review continues.
+
+This release updates the following translations:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/67d1ad324f">Translate shared UI labels and repair seeded terminology</a>. Thanks to xet7.</summary>
+
+Fill 3,129 English values and repair 167 seeded values across 130
+locale paths. Notification delivery, Blockly, Scrum and recovery reuse
+reviewed same-language labels. Fifteen completed keys leave the pending queue.
+Existing correct-language text and human-verified `zh` catalogs stay intact.
+
+All 307 translation/Blockly suites and 21 human-preference checks pass.
+Source tokens match across all 246 catalogs. Expanded notification browser
+coverage registers 125 Chromium tests; execution still needs a running app.
+[Terminology evidence and review limits](docs/Features/Translations/Shared-Labels-2026-10-13.md)
+record provisional wording. The wider language audit and 55,375 untranslated
+values remain in TODO Later.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
 

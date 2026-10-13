@@ -1,6 +1,21 @@
 # Translation audit progress
 
-Audit date: **2026-09-12**. Last updated: **2026-10-10**.
+Audit date: **2026-09-12**. Last updated: **2026-10-13**.
+
+## Shared labels and seeded-value repairs — 2026-10-13
+
+The [shared-label review](Shared-Labels-2026-10-13.md) fills 3,129 English
+placeholders and repairs 167 wrong-language or prefixed-English values across
+130 locale paths. All 46 reviewed labels have native text or an explicitly
+reviewed shared spelling. Existing correct-language values and all `zh`
+catalogs remain unchanged. The correction ledger now contains 24,820 records.
+Exact source token inventories match across 1,016,472 locale/key pairs.
+
+The full inventory remains 55,375 values across 130 non-English locale paths.
+Excluding the 368 pending source keys, it reports 28,516 values in 42 locales.
+Neither inventory establishes the language or quality of non-English values;
+whole-catalog wrong-language review and low-confidence terminology remain open.
+The configured Transifex executable and running browser test app are unavailable.
 
 ## Gujarati current fills — 2026-10-10
 
