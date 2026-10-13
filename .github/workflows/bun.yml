@@ -223,7 +223,7 @@ jobs:
           sync: rsync
           copyback: true
           cache-after-prepare: true
-          prepare: pkg install -y bash node24 npm-node24 python3 gmake pkgconf
+          prepare: pkg install -y bash node24 npm-node24 python3 gmake pkgconf vips
           run: bash releases/bun/build-target.sh
       - name: Check finished archive exists
         id: ready

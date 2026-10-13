@@ -62,6 +62,13 @@ export function probeAddon(bun, dir, cwd, timeout = 30000) {
 
 // Sharp has no Android prebuilt addon. Build against Termux's libvips and
 // install only its declared addon headers, not its development/test toolchain.
+// FreeBSD is built the same way, against the system libvips (pkg vips): its
+// only prebuilt is @img/sharp-freebsd-wasm32, whose threads are Web Workers,
+// and under Bun on FreeBSD the first image operation never returned - the
+// native check stopped at `native check: sharp` in both FreeBSD jobs, while
+// the same wasm build works under Bun on Linux. A Worker that never finishes
+// matches Bun's open FreeBSD thread-suspend deadlock (oven-sh/bun#44595).
+export const SHARP_SOURCE_PLATFORMS = ['android', 'freebsd'];
 export function buildSharpFromSource(dir, server, npm) {
   const pkg = JSON.parse(readFileSync(join(dir, 'package.json'), 'utf8'));
   const addonApi = pkg.devDependencies?.['node-addon-api'];
@@ -95,7 +102,7 @@ export function rebuild(bundle) {
     // Install optional packages on the TARGET, including musl/Bionic distinctions.
     // This is deliberately not a cross-platform npm_config_arch override.
     run(npm, ['install', '--omit=dev', '--include=optional', '--ignore-scripts', '--package-lock=false'], dir);
-    if (name === 'sharp' && process.platform === 'android') {
+    if (name === 'sharp' && SHARP_SOURCE_PLATFORMS.includes(process.platform)) {
       buildSharpFromSource(dir, server, npm);
     }
     if (name === 'bcrypt' || name === 'argon2') {

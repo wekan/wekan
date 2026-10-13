@@ -17,7 +17,7 @@ After extracting, set `MONGO_URL` and `ROOT_URL`, optionally `PORT` (3000 by
 default), and run `bundle/start-wekan.sh` or `bundle/start-wekan.cmd` on
 Windows. Android bundles run inside Termux, with its standard libraries and
 prefix; install `libc++` and `libvips` in Termux before starting the bundle.
-Sharp is compiled against Termux libvips because it has no Android prebuilt addon. Keep the whole
+Sharp is compiled against Termux libvips because it has no Android prebuilt addon. FreeBSD bundles likewise need `pkg install vips`: Sharp is compiled against it there, because its only FreeBSD prebuilt (WebAssembly, with Worker threads) hangs under Bun on FreeBSD. Keep the whole
 bundle together. `index.mjs` is used on every platform; the optional Unix
 socket based `bun-host.mjs` is not the portable Windows entry point.
 
