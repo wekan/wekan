@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho historical review: reset and recurrence — 2026-10-13
+
+Commit `e9479f0b07` reviews source keys 2350–2479 and repairs eight values.
+Automatic checklist reset and card recurrence no longer share unclear wording:
+labels and dialog titles distinguish resetting from repeating a card, and off
+options negate the corresponding action. The last-active label identifies user
+activity, and migration severity describes seriousness rather than pain.
+Other valid wording is preserved.
+
+The Southern Sotho and repair-ledger suites pass with 26,967 guarded corrections;
+all 21 human-preference checks pass. The browser case opens card recurrence and
+checks its title and off option without changing the schedule. Syntax and
+discovery pass; runtime execution remains pending. Exact comparison preserves
+38,430 existing Chinese values. Historical review reaches key 2479;
+all-language translation and semantic review remain unfinished.
+
 ## Southern Sotho historical review: report metrics and templates — 2026-10-13
 
 Commit `26090b467a` reviews source keys 2135–2349 and repairs five values.

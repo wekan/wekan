@@ -2518,6 +2518,21 @@ Chinese values are preserved. All-language translation work continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e9479f0b07">Distinguish Southern Sotho reset and recurrence controls</a>. Thanks to xet7.</summary>
+
+Reviewed source keys 2350–2479 and corrected eight values. Automatic checklist
+reset and card recurrence use distinct labels and off options. Last activity
+identifies when the user was active, and migration severity describes
+seriousness rather than pain.
+
+Southern Sotho and repair-ledger suites pass with 26,967 guarded corrections;
+all 21 human-preference checks pass. Card-recurrence browser coverage passes
+syntax and discovery; runtime execution remains pending. All 38,430 existing
+Chinese values are preserved. All-language translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
