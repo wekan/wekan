@@ -189425,5 +189425,19 @@
     "before": "Latine: In tuum Trello tabula, i ad 'Tabula optionum', then 'Plus', 'Print et Exporta', 'Exporta JSON', et copia the resulting textus.",
     "after": "In tabula tua Trello, aperi 'Menu', deinde 'More', 'Print and Export', 'Export JSON', et textum inde productum exscribe.",
     "reason": "Replace mixed English/Latin Trello instructions with Latin prose while preserving literal menu names."
+  },
+  {
+    "locale": "la",
+    "key": "scrum-import-preview",
+    "before": "Latine: Preview",
+    "after": "Praevisio",
+    "reason": "Remove language-name prefixes and translate the Scrum preview label."
+  },
+  {
+    "locale": "la",
+    "key": "history",
+    "before": "Latine: Historia",
+    "after": "Historia",
+    "reason": "Remove language-name prefixes and translate the Scrum preview label."
   }
 ]

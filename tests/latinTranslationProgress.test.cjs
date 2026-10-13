@@ -127,3 +127,20 @@ for (const key of ['external-link-rules-description', 'external-link-identifier-
 }
 assert.ok(latin['external-link-rules-description'].includes('[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
 assert.ok(latin['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+
+const workflowScrumKeys = ["r-wrike-workflow", "r-wrike-workflow-note", "r-export-wrike-workflow", "r-import-wrike-workflow", "r-import-wrike-workflow-done", "r-moved-forward", "r-moved-back", "r-add-actinguser-assignee", "r-remove-all-assignees", "ldap-sync-now", "ldap-sync-now-done", "ldap-sync-now-error", "ldap-sync-now-nothing", "oauth-providers-allowed-email-domains", "import-file-label", "subtask-mark-done", "subtask-mark-not-done", "subtask-done-no-permission", "scrum-release-scope", "scrum-releases-select-help", "scrum-import-into-board", "scrum-import-into-board-hint", "scrum-import-choose-file", "scrum-import-invalid-file", "scrum-import-preview-sprints", "scrum-import-preview-releases", "scrum-import-preview-cards", "scrum-import-preview-nothing", "scrum-import-into-board-done", "scrum-import-card-not-matched", "scrum-import-card-ambiguous", "scrum-import-card-on-another-board", "scrum-import-record-ambiguous", "scrum-import-record-not-imported", "scrum-import-sprint-finished"];
+for (const key of workflowScrumKeys) {
+  assert.notEqual(latin[key], english[key], key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+for (const literal of ['Active', 'Completed', 'Deferred', 'Cancelled', 'GET /workflows']) assert.ok(latin['r-wrike-workflow-note'].includes(literal));
+assert.match(latin['r-wrike-workflow-note'], /exportari non possunt/);
+for (const name of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS', 'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) assert.ok(latin['ldap-sync-now-nothing'].includes(name));
+assert.match(latin['oauth-providers-allowed-email-domains'], /commatibus separatis.*si vacuum est, omnibus licet/);
+assert.notEqual(latin['subtask-mark-done'], latin['subtask-mark-not-done']);
+assert.match(latin['scrum-import-into-board-hint'], /numquam duplicantur.*per ID.*numerum chartae et titulum.*immutatae relinquuntur.*Primum praevisionem/);
+assert.match(latin['scrum-import-card-on-another-board'], /aliam tabulam.*immutata/);
+assert.match(latin['scrum-import-sprint-finished'], /perfectum non mota/);
+assert.match(latin['scrum-releases-select-help'], /Ctrl.*Cmd.*omnes electiones tolle.*omnibus editionibus/);
+assert.equal(latin['scrum-import-preview'], 'Praevisio');
+assert.equal(latin.history, 'Historia');
