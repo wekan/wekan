@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Latin cloud configuration guidance — 2026-10-14
+
+Commit `efbff09543` repairs 29 cloud guidance and status entries. Literal console
+labels and credential identifiers remain unchanged; surrounding instructions
+are Latin. Regression checks retain one-time secret display, blank-value
+preservation and the choice between a key file and pasted JSON. These edits
+translate the existing instructions, without revalidating external console layouts.
+
+Three translation suites pass with 29,059 correction ledger entries. All 21
+human-preference checks pass, and exact comparison preserves 38,430 existing
+Chinese values. Extended Azure browser coverage checks the translated path;
+syntax and discovery pass, runtime remains pending.
+
+There remain 328 Latin values containing “Latine:”. Unprefixed values and other
+languages still require semantic review; all-language verification is unfinished.
+
 ## Latin backup scope and credentials — 2026-10-14
 
 Commit `6bfdbc9179` repairs 35 backup and cloud credential entries. Regression

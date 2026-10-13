@@ -3627,6 +3627,19 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/efbff09543">Repair Latin cloud configuration guidance</a>. Thanks to xet7.</summary>
+
+- Translate 29 cloud guidance entries. Preserve literal console labels,
+  credential identifiers, one-time secret display and alternative setup paths.
+- Three translation suites and 21 human-preference checks pass. Existing Chinese
+  values remain unchanged. Extended Azure browser coverage passes syntax and
+  discovery; execution remains pending.
+- Review remains unfinished: 328 Latin values contain the legacy prefix.
+  Unprefixed values and other languages still require semantic review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
