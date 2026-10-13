@@ -28,3 +28,14 @@ test('Latin maintenance pane retains the compact operation warnings', async ({ p
   await expect(panel).not.toContainText('Latine:');
   await expect(panel.locator('button')).toHaveText('Exsequere MongoDB Compact');
 });
+
+test('Latin Azure settings explain the optional connection string', async ({ page, adminUser }) => {
+  await loginWithToken(page, adminUser.id, adminUser.token);
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'la'));
+  await navigateInApp(page, '/admin/attachments/azure');
+  const field = page.locator('.form-group').filter({ has: page.locator('#azure-connection-string') });
+  await expect(field.locator('.cloud-input-label-tr')).toHaveText('Series connexionis');
+  await expect(field).toContainText('Ad libitum: utere integra serie connexionis loco nominis et clavis rationis.');
+  await expect(field.locator('.cloud-input-label-tr')).not.toContainText('Latine:');
+  await expect(field.locator('input')).toHaveAttribute('type', 'password');
+});

@@ -202235,5 +202235,369 @@
     "before": "Latine: Path ubi imago fasciculi sunt stored",
     "after": "Iter ubi fasciculi imaginum usorum servantur",
     "reason": "Translate support, accessibility and lockout controls; retain login restrictions, known/unknown user distinction, timing units and activation directions."
+  },
+  {
+    "locale": "la",
+    "key": "board-archive-failed",
+    "before": "Latine: Defecit ad schedule tabula archivum",
+    "after": "Tabula in archivum transferenda tempori destinari non potuit",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "board-archive-scheduled",
+    "before": "Latine: Tabula archivum scheduled successfully",
+    "after": "Tabula in archivum transferenda feliciter tempori destinata est",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "board-backup-failed",
+    "before": "Latine: Defecit ad schedule tabula exemplar subsidiarium",
+    "after": "Exemplar subsidiarium tabulae tempori destinari non potuit",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "board-backup-scheduled",
+    "before": "Latine: Tabula exemplar subsidiarium scheduled successfully",
+    "after": "Exemplar subsidiarium tabulae feliciter tempori destinatum est",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "board-cleanup-failed",
+    "before": "Latine: Defecit ad schedule tabula cleanup",
+    "after": "Purgatio tabulae tempori destinari non potuit",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "board-cleanup-scheduled",
+    "before": "Latine: Tabula cleanup scheduled successfully",
+    "after": "Purgatio tabulae feliciter tempori destinata est",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "board-operations",
+    "before": "Latine: Tabula Operations",
+    "after": "Operationes tabulae",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "cron-jobs",
+    "before": "Latine: Scheduled Jobs",
+    "after": "Munera tempori destinata",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "cron-migrations",
+    "before": "Latine: Scheduled Migrations",
+    "after": "Migrationes tempori destinatae",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "cron-job-delete-confirm",
+    "before": "Latine: certusne es tu want ad dele hoc scheduled job?",
+    "after": "Certusne es te hoc munus tempori destinatum delere velle?",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "cron-job-delete-failed",
+    "before": "Latine: Defecit ad dele scheduled job",
+    "after": "Munus tempori destinatum deleri non potuit",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "cron-job-deleted",
+    "before": "Latine: Scheduled job deletum successfully",
+    "after": "Munus tempori destinatum feliciter deletum est",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "cron-job-pause-failed",
+    "before": "Latine: Defecit ad pause scheduled job",
+    "after": "Munus tempori destinatum intermitti non potuit",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "cron-job-paused",
+    "before": "Latine: Scheduled job paused successfully",
+    "after": "Munus tempori destinatum feliciter intermissum est",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "cron-job-resume-failed",
+    "before": "Latine: Defecit ad resume scheduled job",
+    "after": "Munus tempori destinatum resumi non potuit",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "cron-job-resumed",
+    "before": "Latine: Scheduled job resumed successfully",
+    "after": "Munus tempori destinatum feliciter resumptum est",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "cron-job-start-failed",
+    "before": "Latine: Defecit ad incipe scheduled job",
+    "after": "Munus tempori destinatum incipi non potuit",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "cron-job-started",
+    "before": "Latine: Scheduled job started successfully",
+    "after": "Munus tempori destinatum feliciter inceptum est",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "cron-migration-errors",
+    "before": "Latine: Migration Errors",
+    "after": "Errores migrationum",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "cron-migration-warnings",
+    "before": "Latine: Migration Warnings",
+    "after": "Monita migrationum",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "cron-no-errors",
+    "before": "Latine: Non errors ad ostende",
+    "after": "Nulli errores monstrandi sunt",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "cron-error-severity",
+    "before": "Latine: Severity",
+    "after": "Gravitas",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "cron-error-message",
+    "before": "Latine: Error Nuntius",
+    "after": "Nuntius erroris",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "cron-error-details",
+    "before": "Latine: Singula",
+    "after": "Singula",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "cron-clear-errors",
+    "before": "Latine: Purga Omnia Errors",
+    "after": "Dele omnes errores",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "cron-retry-failed",
+    "before": "Latine: Iterum conare Defecit Migrations",
+    "after": "Itera migrationes quae defecerunt",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "cron-resume-paused",
+    "before": "Latine: Resume Paused Migrations",
+    "after": "Resume migrationes intermissas",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "cron-errors-cleared",
+    "before": "Latine: Omnia errors cleared successfully",
+    "after": "Omnes errores feliciter deleti sunt",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "cron-no-failed-migrations",
+    "before": "Latine: Non defecit migrations ad iterum conare",
+    "after": "Nullae migrationes quae defecerunt iterandae sunt",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "cron-no-paused-migrations",
+    "before": "Latine: Non paused migrations ad resume",
+    "after": "Nullae migrationes intermissae resumendae sunt",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "cron-migrations-resumed",
+    "before": "Latine: Migrations resumed successfully",
+    "after": "Migrationes feliciter resumptae sunt",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "cron-migrations-retried",
+    "before": "Latine: Defecit migrations retried successfully",
+    "after": "Migrationes quae defecerunt feliciter iteratae sunt",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "complete",
+    "before": "Latine: Perfice",
+    "after": "Perfectum",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "idle",
+    "before": "Latine: Idle",
+    "after": "Otiosum",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "filesystem-path-description",
+    "before": "Latine: Base path for fasciculus storage",
+    "after": "Iter fundamentale repositorii fasciculorum",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "filesystem-enabled",
+    "before": "Latine: Filesystem Storage Habilitatum",
+    "after": "Repositorium in systemate fasciculorum activum est",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "filesystem-disabled",
+    "before": "Latine: Filesystem Storage Inhabilitatum",
+    "after": "Repositorium in systemate fasciculorum inactivum est",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "filesystem-enabled-description",
+    "before": "Latine: Use local filesystem for fasciculus storage",
+    "after": "Utere systemate fasciculorum locali ad fasciculos servandos",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "storage-read",
+    "before": "Latine: Lege",
+    "after": "Lectio",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "storage-enabled",
+    "before": "Latine: Habilitatum",
+    "after": "Activum",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "s3-minio-storage-description",
+    "before": "Latine: S3-compatible object storage: AWS S3, MinIO, Cloudflare R2, Backblaze B2, Wasabi, DigitalOcean Spaces et others.",
+    "after": "Repositorium obiectorum cum S3 congruens: AWS S3, MinIO, Cloudflare R2, Backblaze B2, Wasabi, DigitalOcean Spaces et alia.",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "s3-force-path-style",
+    "before": "Latine: Force path-style URLs",
+    "after": "Coge URL formam itineris sequi",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "s3-force-path-style-description",
+    "before": "Latine: Necessarium a MinIO et most non-AWS S3-compatible servers.",
+    "after": "Hoc MinIO et plerisque servientibus cum S3 congruentibus praeter AWS requiritur.",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "azure-blob-storage",
+    "before": "Latine: Azure Blob Storage",
+    "after": "Azure Blob Storage",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "azure-blob-storage-description",
+    "before": "Latine: Microsoft Azure Blob Storage.",
+    "after": "Microsoft Azure Blob Storage.",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "azure-account-name",
+    "before": "Latine: Ratio nomen",
+    "after": "Nomen rationis",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "azure-account-key",
+    "before": "Latine: Ratio key",
+    "after": "Clavis rationis",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "azure-connection-string",
+    "before": "Latine: Coniunctio string",
+    "after": "Series connexionis",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "azure-connection-string-description",
+    "before": "Latine: Optional: use a full coniunctio string instead de ratio nomen et key.",
+    "after": "Ad libitum: utere integra serie connexionis loco nominis et clavis rationis.",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "azure-container",
+    "before": "Latine: Container",
+    "after": "Receptaculum",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "gcs-storage",
+    "before": "Latine: Google Cloud Storage",
+    "after": "Google Cloud Storage",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
+  },
+  {
+    "locale": "la",
+    "key": "gcs-storage-description",
+    "before": "Latine: Google Cloud Storage.",
+    "after": "Google Cloud Storage.",
+    "reason": "Translate scheduled job results and cloud storage configuration; preserve success/failure, retry/resume, optional credentials and technical service names."
   }
 ]

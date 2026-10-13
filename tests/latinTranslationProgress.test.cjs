@@ -1033,3 +1033,21 @@ assert.match(latin['accounts-lockout-confirm-unlock-all'], /omnibus usoribus exc
 assert.match(latin['admin-people-user-active'], /ut inactivum facias/);
 assert.match(latin['admin-people-user-inactive'], /ut activum facias/);
 assert.match(latin['add-cron-job-placeholder'], /mox aderit/);
+
+const reviewedSchedulingCloudKeys = ["board-archive-failed", "board-archive-scheduled", "board-backup-failed", "board-backup-scheduled", "board-cleanup-failed", "board-cleanup-scheduled", "board-operations", "cron-jobs", "cron-migrations", "cron-job-delete-confirm", "cron-job-delete-failed", "cron-job-deleted", "cron-job-pause-failed", "cron-job-paused", "cron-job-resume-failed", "cron-job-resumed", "cron-job-start-failed", "cron-job-started", "cron-migration-errors", "cron-migration-warnings", "cron-no-errors", "cron-error-severity", "cron-error-message", "cron-error-details", "cron-clear-errors", "cron-retry-failed", "cron-resume-paused", "cron-errors-cleared", "cron-no-failed-migrations", "cron-no-paused-migrations", "cron-migrations-resumed", "cron-migrations-retried", "complete", "idle", "filesystem-path-description", "filesystem-enabled", "filesystem-disabled", "filesystem-enabled-description", "storage-read", "storage-enabled", "s3-minio-storage-description", "s3-force-path-style", "s3-force-path-style-description", "azure-blob-storage", "azure-blob-storage-description", "azure-account-name", "azure-account-key", "azure-connection-string", "azure-connection-string-description", "azure-container", "gcs-storage", "gcs-storage-description"];
+for (const key of reviewedSchedulingCloudKeys) {
+  assert.doesNotMatch(latin[key], /Latine:|\b(?:Failed|Scheduled|successfully|Retry|Paused|Enabled|Disabled|Optional|Required)\b/, key);
+  assert.deepEqual(tokens(latin[key]), tokens(english[key]), key);
+}
+for (const kind of ['archive', 'backup', 'cleanup']) {
+  assert.match(latin[`board-${kind}-failed`], /tempori destinari non potuit/);
+  assert.match(latin[`board-${kind}-scheduled`], /feliciter tempori destinat/);
+}
+for (const kind of ['delete', 'pause', 'resume', 'start']) assert.match(latin[`cron-job-${kind}-failed`], /non potuit/);
+assert.match(latin['cron-retry-failed'], /Itera.*quae defecerunt/);
+assert.match(latin['cron-resume-paused'], /Resume.*intermissas/);
+assert.notEqual(latin['filesystem-enabled'], latin['filesystem-disabled']);
+assert.match(latin['azure-connection-string-description'], /Ad libitum:.*loco nominis et clavis rationis/);
+assert.match(latin['s3-force-path-style-description'], /MinIO.*praeter AWS/);
+for (const name of ['AWS S3', 'MinIO', 'Cloudflare R2', 'Backblaze B2', 'Wasabi', 'DigitalOcean Spaces']) assert.ok(latin['s3-minio-storage-description'].includes(name));
+for (const key of ['azure-blob-storage', 'azure-blob-storage-description', 'gcs-storage', 'gcs-storage-description']) assert.equal(latin[key], english[key]);
