@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Reviewed words shared with English — 2026-10-14
+
+Commit `db56686e35` recognizes 16 valid words across 14 locales: Spanish/Italian
+“No”, Dutch “is”, and Afrikaans “is”/“as”. Existing locale values are unchanged.
+Matching requires the exact locale, key and current source value. Tests reject
+longer source phrases, unrelated keys and unrelated locales.
+
+The Dutch catalog, reviewed-source and technical/shared-name suites all pass,
+as do all 21 human-preference checks. This is a translation-tool correction;
+no product UI changes or new browser tests are needed.
+
+The refreshed inventory reports 30,269 missing values across 91 languages,
+excluding 379 pending keys. The reduction is removal of false positives, not
+newly translated text. Pending keys and semantic review remain part of the
+unfinished all-language objective.
+
 ## Latin stale-English import instructions — 2026-10-14
 
 Commit `96e2c6f620` translates Todoist and Planner import instructions that were

@@ -3735,6 +3735,21 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/db56686e35">Preserve reviewed shared words in translation inventory</a>. Thanks to xet7.</summary>
+
+- Recognize 16 valid shared words across 14 Spanish, Italian, Dutch and
+  Afrikaans
+  locales without changing their translations. Match locale, key and exact
+  source value so longer English phrases remain translatable.
+- Three focused suites and 21 human-preference checks pass, including Dutch
+  catalog coverage and negative tests for changed source text and other locales.
+- The inventory now reports 30,269 missing values across 91 languages, excluding
+  379 pending keys. This removes false positives; all-language translation and
+  semantic verification remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
