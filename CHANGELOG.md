@@ -132,7 +132,7 @@ releases.
   report counts **28,516 untranslated locale/string values in 42 languages**.
   It excludes **379 source keys tracked separately as pending Transifex**.
   With the newer email/chat strings included, full per-locale `--list`
-  reports, including pending keys, count **53,640 remaining values across
+  reports, including pending keys, count **53,564 remaining values across
   115 non-English locale files**. This fuller inventory remains the scope
   of the translation work.
   A separate short-prose audit flags 1,649 candidates across 180 locales.
@@ -1283,6 +1283,21 @@ correction records. The Maltese storage-settings browser case registers but
 has not run. The extra short-prose queue is empty; the exempt-prose queue
 retains Bytes, Logo and the Alt key legend. Broader composed-rule grammar
 and other languages remain under review. Chinese text is unchanged.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c4f4e465f2">Translate Swahili card links and recovery decisions</a>. Thanks to xet7.</summary>
+
+Fill 76 English placeholders for attached cards, linked custom fields,
+interrupted imports, stopped list synchronization and Scrum recovery.
+Preserve matching rules, edit permissions, change direction and the
+differences between keeping data and permanently removing imported boards.
+
+Both Swahili suites and 21 human-preference checks pass. Seven browser
+cases register, covering normal actions, permissions and recovery conflicts;
+execution remains pending. Swahili has 147 filtered placeholders left.
+Existing translated values and protected Chinese text remain unchanged.
 
 </details>
 

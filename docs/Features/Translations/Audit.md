@@ -2,6 +2,32 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Swahili card links and recovery — 2026-10-13
+
+Commit `c4f4e465f2` fills 76 English placeholders: 30 attached-card and
+linked-field messages, and 46 recovery messages. The linked-field guidance
+preserves matching name/type, untouched unmatched fields, edit access on
+both cards and one-way versus two-way propagation. Recovery guidance keeps
+already applied sync changes, rejects replayable-operation discards, explains
+permanent deletion of imported boards including later additions, and limits
+rollback to records without intervening edits.
+
+Both Swahili suites and all 21 human-preference checks pass. Positive and
+negative semantic checks distinguish directions, permissions and destructive
+versus retaining actions. All current keys and tokens match English. Only
+the 76 English values were changed; earlier non-English Swahili values and
+all 38,079 protected Chinese values remain unchanged. Concurrent mail-report
+additions were preserved and excluded from the commit.
+
+Seven existing browser cases register with Swahili: attachment, linked-field,
+list-sync recovery, interrupted-import recovery and three Scrum conflict or
+permission paths. They have not run against a rebuilt application. Broader
+Swahili terminology and composed grammar still require review.
+
+Swahili's filtered inventory falls from 223 to 147. The global inventory is
+53,564 across 115 catalogs. Further fills, semantic review and browser
+execution remain unfinished.
+
 ## Maltese exempt prose and short labels — 2026-10-13
 
 Commit `6d5ae79420` repairs 38 English values hidden by the normal inventory:
