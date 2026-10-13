@@ -2,6 +2,44 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Urdu feature fills and RTL coverage — 2026-10-13
+
+Commit `762bb1df85` fills 193 current English placeholders. A parent comparison
+confirms every replaced value was English and all earlier non-English Urdu
+values are unchanged. No `zh` catalog changed. The fills use the catalog's
+existing board, card, list, lane, field and assignee terminology; literal
+source menu names, column headers, file extensions, APIs and Trello's
+`Swimlane: …` marker remain usable. Longer technical clauses are provisional
+pending speaker review.
+
+The full current fill list is empty, including pending keys. Review of
+remaining Latin-containing source-equal values leaves product names, physical
+keyboard legends and mathematical notation. An Arabic-script check on new
+values is only structural evidence: Persian, Arabic and Urdu share a script,
+so it does not prove target-language accuracy or whole-catalog fluency.
+
+Three focused suites pass: Urdu, shared labels and exempt prose. They check
+permissions, one-way field directions, values left unchanged, import
+exclusions and first-board behavior, inherited settings, irreversible removal
+versus retaining a board, discarded changes never being written, source-file
+retention, Trello access states and runtime substitution including zero.
+The static RTL suite passes all seven checks; 21 human-preference checks pass.
+Exact source-token inventories and key order match across 246 catalogs /
+1,019,178 pairs. These do not prove visual mixed-direction text layout.
+
+Browser discovery registers ten Urdu cases: five feature flows for linked
+fields, notification settings, both recovery views and Trello export, plus
+five existing RTL layout cases for the home page, board, card details, list
+pages and administration. The export dialog explicitly checks the document's
+RTL direction. Browser execution remains open until a rebuilt running app
+is available; no rendered-layout pass is claimed.
+
+The full filtered inventory falls to 55,424 values across 123 non-English
+paths. The ordinary report remains 28,516 values across 42 locales, excluding
+379 pending keys. Supplemental and short-prose snapshots remain 3,814 across
+226 locales and 1,669 across 181 locales respectively. Whole-catalog language
+verification and the overall task remain unfinished.
+
 ## Kannada features, exempt labels and rule helper — 2026-10-13
 
 Commit `10c4cc3bfa` fills 193 current feature placeholders and nine labels

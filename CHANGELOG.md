@@ -131,9 +131,9 @@ releases.
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **28,516 untranslated locale/string values in 42 languages**.
   It excludes **379 source keys tracked separately as pending Transifex**.
-  After the Kannada batch and new Trello strings, full per-locale `--list`
-  reports, including pending keys, count **55,617 remaining values across
-  124 non-English locale files**. This fuller inventory remains the scope
+  After the Urdu batch and new Trello strings, full per-locale `--list`
+  reports, including pending keys, count **55,424 remaining values across
+  123 non-English locale files**. This fuller inventory remains the scope
   of the translation work.
   A separate short-prose audit flags 1,669 candidates across 181 locales.
   The two notification At/To labels now have translations in all non-English
@@ -145,6 +145,11 @@ releases.
   Earlier Xhosa completion checks predate the newer pending strings. The
   current broad run still exposes English placeholders in several catalogs;
   see the dated audit results. Empty reports do not establish fluency.
+- Urdu now has no current fill candidates after 193 feature fills. Existing
+  non-English values are unchanged. Three focused suites, seven static RTL
+  checks and 21 human-preference checks pass. Ten Urdu browser cases register,
+  covering feature flows and page direction; execution and broader wording
+  review remain open.
 - Kannada now has no current fill candidates after 193 feature fills and
   nine exempt labels. Rule rows omit a redundant linking verb, and progress
   counts use numerator/denominator notation. Five relevant suites and 21
@@ -579,8 +584,8 @@ through its API, with **swimlanes** kept as labels that WeKan's Trello import
 turns back into swimlanes; on **Sandstorm**, the **Powerbox** lets a grain
 reach Trello. **FreeBSD** Bun bundles, the **Launchpad snap** waits and the
 **Mac apps** release step are fixed. Missing Bengali, Marathi, Nepali and
-Tamil, Thai and Kannada strings are filled, and wrong-language values are
-corrected.
+Tamil, Thai, Kannada and Urdu strings are filled, and wrong-language values
+are corrected.
 
 This release adds the following new features:
 
@@ -815,6 +820,22 @@ permissions, recovery consequences, exact source tokens and runtime values.
 Six Kannada browser cases register, including rule rows and saved descriptions;
 execution needs a running rebuilt app. The fill list and short-prose queue
 are empty, but complete sentence grammar and broader wording review stay open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/762bb1df85">Fill Urdu feature strings and extend right-to-left browser coverage</a>. Thanks to xet7.</summary>
+
+Translate 193 current placeholders for linked fields, import formats,
+notifications, recovery and Trello. Existing non-English Urdu text and
+verified Chinese wording remain unchanged. Literal API names, column
+headers, format markers and placeholders are preserved.
+
+Three focused suites, seven static RTL checks and 21 human-preference
+checks pass. Source tokens and key order match across all 246 catalogs.
+Ten Urdu browser cases register for feature flows, page direction, visible
+text and mirrored placement; execution needs a running rebuilt app. The
+current fill list is empty, but whole-catalog wording review remains open.
 
 </details>
 
