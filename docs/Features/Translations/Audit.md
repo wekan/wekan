@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican administrative and storage wording — 2026-10-13
+
+Commit `1e10d606b5` corrects 25 mixed-language role, membership, shared-template, search and storage messages. Deletion refusals retain the
+presence of at least one member. Shared-template help retains multiple
+scope selection and the nonempty-template requirement. Search guidance
+retains AND across differing operators and the literal placeholder example.
+Storage controls retain global versus board scope and GridFS/S3 destinations.
+
+The Corsican and full repair-ledger suites pass, bringing the ledger to
+25,373 guarded repairs. All 21 human-preference checks pass. The new
+shared-template browser case registers and checks the corrected description,
+multiple scopes and nonempty eligibility; runtime execution remains pending.
+Exact comparison preserves all 38,385 existing protected Chinese values
+and isolates the 25 reviewed locale edits. Broader language review remains
+unfinished; filtered English-placeholder counts are unaffected.
+
 ## Corsican settings and confirmations — 2026-10-13
 
 Commit `f4e5519c87` repairs 25 mixed-language settings, rule actions and

@@ -1531,6 +1531,19 @@ application execution remains pending. Protected Chinese text is unchanged.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1e10d606b5">Correct Corsican administrative and storage wording</a>. Thanks to xet7.</summary>
+
+Repair 25 mixed-language values for roles, shared templates, organization
+and team membership, search guidance and attachment storage. Preserve
+nonempty-template eligibility, deletion refusal and storage destinations.
+
+The Corsican suite, full repair-ledger suite and 21 human-preference checks
+pass. A shared-template browser case registers; execution remains pending.
+Existing protected Chinese values are unchanged. Broader review continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
