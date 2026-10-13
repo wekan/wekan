@@ -2,6 +2,28 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Southern Sotho historical review: database status and ordering — 2026-10-13
+
+Commit `12b380b74d` reviews source keys 1280–1416 and repairs six values.
+MongoDB status labels translate compatible version, storage engine and enabled
+Oplog while retaining technical names. Card-field ordering uses data-field
+terminology rather than agricultural fields, with clear up/down movement labels.
+The Southern Sotho and repair-ledger suites pass with 26,926 guarded corrections;
+all 21 human-preference checks pass. Card-settings browser coverage passes syntax
+and discovery; runtime execution remains pending. Exact comparison preserves
+38,430 existing Chinese values. Historical review has reached key 1416.
+
+**New inventory gap:** `isInvariantSource` in `fill-translations.mjs` exempts
+whole strings matching `MongoDB.*`, `S3.*` and `Azure Blob.*`. These include
+25 descriptive source strings, not just product names. Exact comparison against
+English found 1,293 untranslated values for those keys across 68 non-English
+locale files after this batch, including 22 remaining in Southern Sotho.
+This count excludes English locale variants and the actual technical names
+MongoDB CollectionFS, MongoDB Meteor-Files, MongoDB Compact, S3, S3/MinIO,
+Azure Blob and Azure Blob Storage. Narrowing these exemptions and translating
+the uncovered prose remain necessary. The previous zero-placeholder gate is
+not proof of completeness. Existing Chinese values remain protected.
+
 ## Southern Sotho historical review: link and email settings — 2026-10-13
 
 Commit `8cb58645cb` reviews source keys 1130–1279 and repairs ten values.

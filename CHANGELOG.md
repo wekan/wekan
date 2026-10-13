@@ -2389,6 +2389,23 @@ existing Chinese values are preserved. All-language translation work continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/12b380b74d">Translate Southern Sotho database status and field ordering</a>. Thanks to xet7.</summary>
+
+Reviewed source keys 1280–1416 and corrected six values. MongoDB status
+labels now translate compatible version, storage engine and enabled Oplog.
+Card-field ordering no longer refers to agricultural fields; movement labels
+identify up and down.
+
+Southern Sotho and repair-ledger suites pass with 26,926 guarded corrections;
+all 21 human-preference checks pass. Card-settings browser coverage passes
+syntax and discovery; runtime execution remains pending. All 38,430 existing
+Chinese values are preserved. Broad MongoDB/S3/Azure prefix exemptions in the
+placeholder inventory still hide untranslated prose; all-language work and
+repairing that inventory gap remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
