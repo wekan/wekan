@@ -75,3 +75,15 @@ test('Southern Sotho workflow format automatically detects rather than learns', 
   await expect(page.locator('.js-pop-over .js-rules-import-text')).toBeEmpty();
   await page.evaluate(() => Popup.close());
 });
+
+
+test('Southern Sotho due-card view translates the short personal filter', async ({ boardPage: page }) => {
+  await page.evaluate(async () => {
+    await Meteor.callAsync('setLanguage', 'st');
+    Popup.open('dueCardsViewChange')({ currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
+  });
+  const option = page.locator('.js-pop-over .js-due-cards-view-me');
+  await expect(option).toHaveText('Nna');
+  await expect(option).not.toHaveText('Me');
+  await page.evaluate(() => Popup.close());
+});

@@ -723,3 +723,16 @@ for (const kind of ['due', 'start', 'end', 'received']) {
 }
 assert.equal(sesotho['r-remove-all-labels'], 'Tlosa dileibole tsohle kareteng');
 assert.doesNotMatch(sesotho['r-remove-all-labels'], /dipheo/);
+
+// Short function words are translations, not technical-name exemptions.
+for (const key of ["r-to", "r-of", "r-d-send-email-to", "r-by", "dueCardsViewChange-choice-me", "of", "blockly-ANNOUNCE_MOVE_OF", "blockly-CONTROLS_IF_MSG_IF", "blockly-CONTROLS_REPEAT_INPUT_DO", "blockly-FIELD_BITMAP_PIXEL_ON", "blockly-LISTS_GET_SUBLIST_END_FROM_START", "blockly-LISTS_SET_INDEX_INPUT_TO", "blockly-LOGIC_OPERATION_OR", "blockly-PROCEDURES_DEFNORETURN_TITLE", "blockly-CONTROLS_FOREACH_INPUT_DO", "blockly-CONTROLS_FOR_INPUT_DO", "blockly-CONTROLS_IF_IF_TITLE_IF", "blockly-CONTROLS_IF_MSG_THEN", "blockly-CONTROLS_WHILEUNTIL_INPUT_DO", "blockly-PROCEDURES_DEFRETURN_TITLE"]) {
+  assert.notEqual(sesotho[key], english[key], key);
+  assert.deepEqual(tokens(sesotho[key]), tokens(english[key]), key);
+}
+assert.equal(sesotho['blockly-ANNOUNCE_MOVE_OF'], '%1 ho tse %2');
+assert.equal(sesotho['blockly-LOGIC_OPERATION_OR'], 'kapa');
+assert.equal(sesotho['blockly-CONTROLS_IF_MSG_IF'], 'ha');
+assert.equal(sesotho['blockly-CONTROLS_REPEAT_INPUT_DO'], 'etsa');
+assert.equal(sesotho['dueCardsViewChange-choice-me'], 'Nna');
+assert.equal(sesotho['r-of'], sesotho.of);
+assert.notEqual(sesotho['blockly-CONTROLS_IF_MSG_IF'], sesotho['blockly-CONTROLS_REPEAT_INPUT_DO']);

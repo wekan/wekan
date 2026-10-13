@@ -18,3 +18,15 @@ for (const prose of ['MongoDB connection failed', 'S3 credentials required', 'Az
   assert.equal(isInvariantSource(prose), false, prose);
 }
 console.log('translationTechnicalNameExemptions: exact names preserved; descriptive prose remains translatable');
+
+for (const word of ['by', 'is', 'if', 'do', 'or', 'No', 'To', 'At', 'Me', 'of', 'as', '%1 of %2', 'to #']) {
+  assert.equal(isInvariantSource(word), false, word);
+}
+const shortStart = source.indexOf('const SHORT_TECHNICAL_VALUES =');
+const shortEnd = source.indexOf('// Blockly', shortStart);
+const symbols = vm.runInNewContext(source.slice(shortStart, shortEnd) + '; SHORT_TECHNICAL_VALUES');
+for (const [key, value] of Object.entries(symbols)) assert.equal(english[key], value, key);
+assert.equal(symbols['attachment-limit-unit-gb'], 'GB');
+assert.equal(symbols['blockly-MATH_CONSTANT_PI_ARIA'], 'pi');
+assert.equal(symbols['r-is'], undefined);
+assert.equal(symbols['blockly-CONTROLS_IF_MSG_IF'], undefined);

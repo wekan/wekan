@@ -1129,7 +1129,6 @@ const reviewedSourceTerms = new Set((readJson(
 // sentence containing an application placeholder is still translatable.
 const isInvariantSource = value => {
   if (!/\p{Letter}/u.test(value)) return true;
-  if (value.replace(/[^\p{Letter}]/gu, '').length < 3) return true;
   const withoutPlaceholders = value.replace(/__[a-zA-Z0-9_-]+__/g, '');
   if (!/\p{Letter}/u.test(withoutPlaceholders)) return true;
   if (/^(?:YYYY-MM-DD|DD-MM-YYYY|MM-DD-YYYY)$/.test(value)) return true;
@@ -1145,6 +1144,22 @@ const isInvariantSource = value => {
 const pendingTransifex = new Set(((readJson('releases/translations/pending-transifex.json') || {}).keys || [])
   .filter(row => row && typeof row.key === 'string' && row.key in en)
   .map(row => row.key));
+
+// Only these reviewed short symbols are language-independent; short prose is not.
+const SHORT_TECHNICAL_VALUES = {
+  "list-label-short-modifiedAt": "(L)",
+  "list-label-short-title": "(N)",
+  "list-label-short-sort": "(M)",
+  "attachment-limit-unit-gb": "GB",
+  "attachment-limit-unit-mb": "MB",
+  "operator-board-abbrev": "b",
+  "operator-swimlane-abbrev": "s",
+  "operator-list-abbrev": "l",
+  "operator-member-abbrev": "m",
+  "operator-assignee-abbrev": "a",
+  "blockly-MATH_CONSTANT_E_ARIA": "e",
+  "blockly-MATH_CONSTANT_PI_ARIA": "pi"
+};
 
 // Blockly's operating-system names and compact mathematical/code symbols are
 // valid as written in any locale. Match BOTH key and value: their explanatory
@@ -1164,7 +1179,8 @@ const BLOCKLY_TECHNICAL_VALUES = {
   'blockly-MATH_TRIG_TAN': 'tan',
 };
 const isInvariantForLocale = (code, key) =>
-  BLOCKLY_TECHNICAL_VALUES[key] === en[key]
+  SHORT_TECHNICAL_VALUES[key] === en[key]
+  || BLOCKLY_TECHNICAL_VALUES[key] === en[key]
   || isInvariantSource(en[key]) || Boolean(LOCALE_INVARIANTS[code]?.has(key)) || reviewedSourceTerms.has(`${code}:${key}`);
 
 function langFile(code) { return path.join(DATA_DIR, `${code}.i18n.json`); }
