@@ -2979,6 +2979,21 @@ containing the old language prefix; all-language review remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/855b54d55a">Repair Latin export labels and name collision errors</a>. Thanks to xet7.</summary>
+
+Repair 30 prefixed strings for export options, duplicate-name errors and
+sorting.
+Preserve denied export actions, date fields, uploader/time distinctions and
+available versus required disk space.
+
+The Latin and guarded-correction suites and all 21 preservation checks pass.
+The export-popup browser case passes syntax and discovery; runtime remains
+pending. Existing Chinese values are unchanged. There remain 1,770 Latin values
+containing the old language prefix; all-language review remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
