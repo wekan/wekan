@@ -3078,7 +3078,7 @@
   "move-reason": "ካርድ አንቀሳቅስ — መግለጫ",
   "ask-move-reason": "ካርድ አንቀሳቅስ → መግለጫ?",
   "time-adjustments": "ሰዓታት — Δ — የተጠቃሚ ስም",
-  "time-adjustment-note": "ታሪክ: Δ ሰዓታት; የተጠቃሚ ስም ≠ ኃላፊዎች.",
+  "time-adjustment-note": "በተመዘገቡ ሰዓታት ላይ የተደረጉ ለውጦች ድምሩን በሚያስተካክለው ሰው መሠረት ይመደባሉ። እነዚህ የተናጠል የሥራ ጊዜያት አይደሉም። አሉታዊ እሴቶች ማስተካከያዎች ናቸው። ቀደም ሲል ያልተመዘገበ ጊዜ ለማንም ሰው ሊመደብ አይችልም።",
   "blockly-ADD_COMMENT": "ማስታወሻ ያክሉ",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "ከዚህ በላይ ማሸብለል አይቻልም።",
