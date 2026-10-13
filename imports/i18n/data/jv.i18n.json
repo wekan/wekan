@@ -3078,7 +3078,7 @@
   "move-reason": "Pindhah kertu — Katrangan",
   "ask-move-reason": "Pindhah kertu → Katrangan?",
   "time-adjustments": "jam — Δ — Jeneng panganggo",
-  "time-adjustment-note": "Riwayat: Δ jam; Jeneng panganggo ≠ Sing ditugasi.",
+  "time-adjustment-note": "Owah-owahan jam sing dicathet, diklompokake miturut wong sing nyunting gunggung wektu. Iki dudu sesi kerja siji-siji. Nilai negatif iku koreksi. Wektu sadurunge sing ora dicathet ora bisa digandhengake karo sapa wae.",
   "blockly-ADD_COMMENT": "Tambah komentar",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Ora bisa nggulung luwih adoh.",

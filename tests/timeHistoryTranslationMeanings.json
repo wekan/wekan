@@ -680,5 +680,238 @@
       "Negative values are corrections",
       "Earlier unrecorded time cannot be attributed"
     ]
+  },
+  {
+    "locales": [
+      "be"
+    ],
+    "meanings": [
+      "чалавека, які рэдагуе агульную колькасць",
+      "не асобныя працоўныя сеансы",
+      "Адмоўныя значэнні — выпраўленні",
+      "незапісаны час нельга прыпісаць"
+    ]
+  },
+  {
+    "locales": [
+      "as"
+    ],
+    "meanings": [
+      "মুঠ সময় সম্পাদনা কৰা ব্যক্তিৰ ভিত্তিত",
+      "পৃথক কামৰ অধিৱেশন নহয়",
+      "ঋণাত্মক মানবোৰ সংশোধন",
+      "নথিভুক্ত নকৰা সময় কোনো ব্যক্তিৰ নামত দেখুৱাব নোৱাৰি"
+    ]
+  },
+  {
+    "locales": [
+      "or_IN"
+    ],
+    "meanings": [
+      "ମୋଟ ସମୟ ସମ୍ପାଦନ କରୁଥିବା ବ୍ୟକ୍ତିଙ୍କ ଅନୁସାରେ",
+      "ପୃଥକ କାର୍ଯ୍ୟ ଅଧିବେଶନ ନୁହେଁ",
+      "ଋଣାତ୍ମକ ମୂଲ୍ୟଗୁଡ଼ିକ ସଂଶୋଧନ",
+      "ଲିପିବଦ୍ଧ ହୋଇନଥିବା ସମୟକୁ କୌଣସି ବ୍ୟକ୍ତିଙ୍କ ନାମରେ ଦର୍ଶାଇହେବ ନାହିଁ"
+    ]
+  },
+  {
+    "locales": [
+      "pa"
+    ],
+    "meanings": [
+      "ਕੁੱਲ ਸਮਾਂ ਸੋਧਣ ਵਾਲੇ ਵਿਅਕਤੀ ਅਨੁਸਾਰ",
+      "ਵੱਖਰੇ ਕੰਮ ਦੇ ਸੈਸ਼ਨ ਨਹੀਂ ਹਨ",
+      "ਰਿਣਾਤਮਕ ਮੁੱਲ ਸੋਧਾਂ ਹਨ",
+      "ਦਰਜ ਨਾ ਕੀਤੇ ਸਮੇਂ ਨੂੰ ਕਿਸੇ ਵਿਅਕਤੀ ਨਾਲ ਨਹੀਂ ਜੋੜਿਆ ਜਾ ਸਕਦਾ"
+    ]
+  },
+  {
+    "locales": [
+      "si"
+    ],
+    "meanings": [
+      "මුළු එකතුව සංස්කරණය කරන පුද්ගලයා අනුව",
+      "තනි තනි වැඩ සැසි නොවේ",
+      "ඍණ අගයන් නිවැරදි කිරීම් වේ",
+      "සටහන් නොකළ කාලය කිසිදු පුද්ගලයෙකුට ආරෝපණය කළ නොහැක"
+    ]
+  },
+  {
+    "locales": [
+      "jv"
+    ],
+    "meanings": [
+      "wong sing nyunting gunggung wektu",
+      "dudu sesi kerja siji-siji",
+      "Nilai negatif iku koreksi",
+      "ora dicathet ora bisa digandhengake karo sapa wae"
+    ]
+  },
+  {
+    "locales": [
+      "ht"
+    ],
+    "meanings": [
+      "moun ki modifye total la",
+      "pa sesyon travay endividyèl",
+      "Valè negatif yo se koreksyon",
+      "pa ka atribye tan anvan ki pa t anrejistre"
+    ]
+  },
+  {
+    "locales": [
+      "fy",
+      "fy-NL"
+    ],
+    "meanings": [
+      "persoan dy't it totaal bewurket",
+      "gjin aparte wurksesjes",
+      "Negative wearden binne korreksjes",
+      "net-registrearre tiid kin net oan immen taskreaun wurde"
+    ]
+  },
+  {
+    "locales": [
+      "lb"
+    ],
+    "meanings": [
+      "Persoun, déi den Total ännert",
+      "keng eenzel Aarbechtssessiounen",
+      "Negativ Wäerter si Korrekturen",
+      "net erfaasst gouf, kann kenger Persoun zougeuerdent ginn"
+    ]
+  },
+  {
+    "locales": [
+      "la"
+    ],
+    "meanings": [
+      "eum qui summam mutat",
+      "non sunt singulae sessiones laboris",
+      "Numeri negativi emendationes indicant",
+      "non notatum nulli homini attribui potest"
+    ]
+  },
+  {
+    "locales": [
+      "fo"
+    ],
+    "meanings": [
+      "persóni, sum broytir samlaða talið",
+      "ikki einstakar arbeiðsløtur",
+      "Negativ virði eru rættingar",
+      "ikki varð skrásett áður, kann ikki knýtast"
+    ]
+  },
+  {
+    "locales": [
+      "cy",
+      "cy-GB"
+    ],
+    "meanings": [
+      "person sy'n golygu'r cyfanswm",
+      "Nid sesiynau gwaith unigol yw'r rhain",
+      "Cywiriadau yw gwerthoedd negyddol",
+      "Ni ellir priodoli amser blaenorol na chafodd ei gofnodi"
+    ]
+  },
+  {
+    "locales": [
+      "ga"
+    ],
+    "meanings": [
+      "duine a chuireann an t-iomlán in eagar",
+      "Ní seisiúin oibre aonair iad seo",
+      "Is ceartúcháin iad luachanna diúltacha",
+      "Ní féidir am roimhe seo nár taifeadadh a lua"
+    ]
+  },
+  {
+    "locales": [
+      "gd"
+    ],
+    "meanings": [
+      "neach a dheasaicheas an t-suim iomlan",
+      "Chan e seiseanan obrach fa leth",
+      "luachan àicheil nan ceartachaidhean",
+      "nach deach a chlàradh a chur às leth duine sam bith"
+    ]
+  },
+  {
+    "locales": [
+      "oc"
+    ],
+    "meanings": [
+      "persona que modifica lo total",
+      "Son pas de sesilhas de trabalh individualas",
+      "valors negativas son de correccions",
+      "temps anterior pas enregistrat pòt pas èsser atribuït"
+    ]
+  },
+  {
+    "locales": [
+      "ast-ES"
+    ],
+    "meanings": [
+      "persona que modifica'l total",
+      "Nun son sesiones de trabayu individuales",
+      "valores negativos son correiciones",
+      "tiempu anterior non rexistráu nun se pue atribuyir"
+    ]
+  },
+  {
+    "locales": [
+      "an"
+    ],
+    "meanings": [
+      "persona que modifica o total",
+      "No son sesions de treballo individuals",
+      "valors negativos son correccions",
+      "tiempo anterior no rechistrau no se puede atribuir"
+    ]
+  },
+  {
+    "locales": [
+      "co"
+    ],
+    "meanings": [
+      "persona chì mudifica u tutale",
+      "Ùn sò micca sessioni di travagliu individuale",
+      "valori negativi sò currezzioni",
+      "tempu precedente micca arregistratu ùn pò esse attribuitu"
+    ]
+  },
+  {
+    "locales": [
+      "sc"
+    ],
+    "meanings": [
+      "persone chi modìficat su totale",
+      "Non sunt sessiones de traballu individuales",
+      "valores negativos sunt curretziones",
+      "tempus de in antis non registradu non si podet atribuire"
+    ]
+  },
+  {
+    "locales": [
+      "scn"
+    ],
+    "meanings": [
+      "pirsuna chi cancia lu tutali",
+      "Nun sunnu sissioni di travagghiu individuali",
+      "valuri nigativi sunnu currizzioni",
+      "tempu pricidenti nun riggistratu nun si pò attribuiri"
+    ]
+  },
+  {
+    "locales": [
+      "tg"
+    ],
+    "meanings": [
+      "шахсе, ки шумораи умумии соатҳоро таҳрир мекунад",
+      "ҷаласаҳои алоҳидаи корӣ нестанд",
+      "Қиматҳои манфӣ ислоҳот мебошанд",
+      "сабтнашударо ба ягон шахс нисбат додан мумкин нест"
+    ]
   }
 ]

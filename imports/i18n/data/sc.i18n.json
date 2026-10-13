@@ -3078,7 +3078,7 @@
   "move-reason": "Move sa carta — Descritzione",
   "ask-move-reason": "Move sa carta → Descritzione?",
   "time-adjustments": "ore — Δ — Nùmene de s'utente",
-  "time-adjustment-note": "Cronologia: Δ ore; Nùmene de s'utente ≠ Assignados.",
+  "time-adjustment-note": "Modìficas a sas oras registradas, agrupadas segundu sa persone chi modìficat su totale. Non sunt sessiones de traballu individuales. Sos valores negativos sunt curretziones. Su tempus de in antis non registradu non si podet atribuire a nemos.",
   "blockly-ADD_COMMENT": "Agiunghe unu cumentu",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Non si podet iscurre prus.",

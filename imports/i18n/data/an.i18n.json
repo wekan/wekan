@@ -3078,7 +3078,7 @@
   "move-reason": "Mover a tarcheta — Descripción",
   "ask-move-reason": "Mover a tarcheta → Descripción?",
   "time-adjustments": "horas — Δ — Nombre d'usuario",
-  "time-adjustment-note": "Historial: Δ horas; Nombre d'usuario ≠ Asignaus.",
+  "time-adjustment-note": "Cambios en as horas rechistradas, agrupaus seguntes a persona que modifica o total. No son sesions de treballo individuals. Os valors negativos son correccions. O tiempo anterior no rechistrau no se puede atribuir a denguna persona.",
   "blockly-ADD_COMMENT": "Adhibir un comentario",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "No se puede desplazar más.",

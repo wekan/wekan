@@ -3078,7 +3078,7 @@
   "move-reason": "Flyt kortið — Lýsing",
   "ask-move-reason": "Flyt kortið → Lýsing?",
   "time-adjustments": "tímar — Δ — Brúkaranavn",
-  "time-adjustment-note": "Søga: Δ tímar; Brúkaranavn ≠ Ábyrgdarar.",
+  "time-adjustment-note": "Broytingar í skrásettum tímum, bólkaðar eftir tí persóni, sum broytir samlaða talið. Hetta eru ikki einstakar arbeiðsløtur. Negativ virði eru rættingar. Tíð, sum ikki varð skrásett áður, kann ikki knýtast at nøkrum persóni.",
   "blockly-ADD_COMMENT": "Viðmerk",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Kann ikki rulla longur.",

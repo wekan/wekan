@@ -3078,7 +3078,7 @@
   "move-reason": "Cerdyn Symud — Disgrifiad",
   "ask-move-reason": "Cerdyn Symud → Disgrifiad?",
   "time-adjustments": "oriau — Δ — Enw defnyddiwr",
-  "time-adjustment-note": "Hanes: Δ oriau; Enw defnyddiwr ≠ Aseinwyr.",
+  "time-adjustment-note": "Newidiadau i'r oriau a gofnodwyd, wedi'u grwpio yn ôl y person sy'n golygu'r cyfanswm. Nid sesiynau gwaith unigol yw'r rhain. Cywiriadau yw gwerthoedd negyddol. Ni ellir priodoli amser blaenorol na chafodd ei gofnodi i unrhyw berson.",
   "blockly-ADD_COMMENT": "Ychwanegu sylw",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Methu sgrolio ymhellach.",

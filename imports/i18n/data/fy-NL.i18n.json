@@ -3078,7 +3078,7 @@
   "move-reason": "Kaart ferpleatse — Beskriuwing",
   "ask-move-reason": "Kaart ferpleatse → Beskriuwing?",
   "time-adjustments": "oeren — Δ — Brûkersnamme",
-  "time-adjustment-note": "Skiednis: Δ oeren; Brûkersnamme ≠ Oanwêzigen.",
+  "time-adjustment-note": "Feroarings oan registrearre oeren, groepearre neffens de persoan dy't it totaal bewurket. Dit binne gjin aparte wurksesjes. Negative wearden binne korreksjes. Eardere net-registrearre tiid kin net oan immen taskreaun wurde.",
   "blockly-ADD_COMMENT": "Opmerking tafoegje",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Kin net fierder skowe.",

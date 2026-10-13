@@ -3078,7 +3078,7 @@
   "move-reason": "Kaart réckelen — Beschreiwung",
   "ask-move-reason": "Kaart réckelen → Beschreiwung?",
   "time-adjustments": "Stonnen — Δ — Benotzernumm",
-  "time-adjustment-note": "Verlauf: Δ Stonnen; Benotzernumm ≠ Zoustänneg.",
+  "time-adjustment-note": "Ännerunge vun den erfaasste Stonnen, gruppéiert no der Persoun, déi den Total ännert. Dëst si keng eenzel Aarbechtssessiounen. Negativ Wäerter si Korrekturen. Zäit, déi virdrun net erfaasst gouf, kann kenger Persoun zougeuerdent ginn.",
   "blockly-ADD_COMMENT": "Bemierkung derbäisetzen",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Dir kënnt net méi wäit scrollen.",

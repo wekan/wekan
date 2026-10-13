@@ -3078,7 +3078,7 @@
   "move-reason": "Spustà a carta — Descrizzione",
   "ask-move-reason": "Spustà a carta → Descrizzione?",
   "time-adjustments": "ore — Δ — Nome d'utilizatore",
-  "time-adjustment-note": "Cronulugia: Δ ore; Nome d'utilizatore ≠ Assignati.",
+  "time-adjustment-note": "Mudifiche à l'ore arregistrate, raggruppate secondu a persona chì mudifica u tutale. Ùn sò micca sessioni di travagliu individuale. I valori negativi sò currezzioni. U tempu precedente micca arregistratu ùn pò esse attribuitu à nimu.",
   "blockly-ADD_COMMENT": "Aghjunghje un cummentariu",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Ùn si pò fà scorre più luntanu.",

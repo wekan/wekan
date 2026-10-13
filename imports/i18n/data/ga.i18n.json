@@ -3078,7 +3078,7 @@
   "move-reason": "Bog an cárta — Cur síos",
   "ask-move-reason": "Bog an cárta → Cur síos?",
   "time-adjustments": "uaireanta — Δ — Ainm úsáideora",
-  "time-adjustment-note": "Stair: Δ uaireanta; Ainm úsáideora ≠ Sannaithe.",
+  "time-adjustment-note": "Athruithe ar na huaireanta taifeadta, grúpáilte de réir an duine a chuireann an t-iomlán in eagar. Ní seisiúin oibre aonair iad seo. Is ceartúcháin iad luachanna diúltacha. Ní féidir am roimhe seo nár taifeadadh a lua le duine ar bith.",
   "blockly-ADD_COMMENT": "Cuir ráiteas",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Ní féidir scrollú níos faide.",

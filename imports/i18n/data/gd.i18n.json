@@ -3078,7 +3078,7 @@
   "move-reason": "Gluais a' chairt — Tuairisgeul",
   "ask-move-reason": "Gluais a' chairt → Tuairisgeul?",
   "time-adjustments": "uairean — Δ — Ainm-cleachdaiche",
-  "time-adjustment-note": "Eachdraidh: Δ uairean; Ainm-cleachdaiche ≠ Luchd-obrach.",
+  "time-adjustment-note": "Atharrachaidhean air na h-uairean clàraichte, air an cruinneachadh a rèir an neach a dheasaicheas an t-suim iomlan. Chan e seiseanan obrach fa leth a tha seo. Tha luachan àicheil nan ceartachaidhean. Cha ghabh ùine roimhe nach deach a chlàradh a chur às leth duine sam bith.",
   "blockly-ADD_COMMENT": "Cuir beachd ris",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Chan urrainnear sgroladh nas fhaide.",

@@ -3078,7 +3078,7 @@
   "move-reason": "Mover la tarjeta — Descripción",
   "ask-move-reason": "Mover la tarjeta → Descripción?",
   "time-adjustments": "horas — Δ — Nombre de usuario",
-  "time-adjustment-note": "Historial: Δ horas; Nombre de usuario ≠ Asignaos.",
+  "time-adjustment-note": "Cambeos nes hores rexistraes, agrupaos pola persona que modifica'l total. Nun son sesiones de trabayu individuales. Los valores negativos son correiciones. El tiempu anterior non rexistráu nun se pue atribuyir a nenguna persona.",
   "blockly-ADD_COMMENT": "Amestar un comentariu",
   "blockly-ALT_KEY": "Alt",
   "blockly-ANNOUNCE_CANT_SCROLL_FURTHER": "Nun se pue desplazar más.",
