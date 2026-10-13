@@ -637,7 +637,8 @@ Upcoming as it is committed. Builds run on GitHub Actions only.
 
 **In short:** **email to card** arrives on every platform, through provider
 webhooks, **IMAP** mailboxes or a **Sandstorm** grain's own address, which
-also sends WeKan's email. Two new board views show a board as a Gmail-like
+also sends WeKan's email; **bounces**, including **Amazon SES**'s, are handled
+in the Admin Panel. Two new board views show a board as a Gmail-like
 **Email** mailbox and as a Slack-like **Chat**. A board can be **exported to
 Trello** with its **swimlanes** kept as labels, and a grain reaches Trello
 through the **Powerbox**. **FreeBSD** Bun bundles, the **Launchpad snap** and
@@ -707,6 +708,34 @@ floods show in Admin Panel → Problems. See
 [Email to card](docs/Features/Email/Email-To-Card.md);
 `tests/emailToCard.test.cjs` covers the settings, the payloads, the capnp email
 and the guards.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/79ac301675">Bounces are handled in the Admin Panel, with Amazon SES, and mail problems are in Problems</a>. Thanks to xet7.</summary>
+
+Email that comes back no longer lands in the administrator's own inbox.
+Admin Panel → E-mail → Bounces sorts it into hard bounces (a mistyped invited
+address), soft bounces, automatic replies and spam complaints, each with
+actions done after a count, as listmonk and Discourse do it: list it, stop
+emailing the address, tell who invited it, delete the invitation, or ignore.
+A list of the addresses that bounced lets an admin clear one to email it
+again. Amazon SES Bounce and Complaint notifications, and mail SES receives,
+arrive through SNS at `/api/inbound-email/ses`; they are checked against
+Amazon's signing certificate and accepted only from the topics the Admin Panel
+lists. Delivery status notifications and out-of-office replies that arrive by
+IMAP, webhook or Sandstorm count as bounces too, and never become cards.
+Admin Panel → Problems → Email shows what went wrong sending or receiving:
+- a refused or unreachable send;
+- an IMAP mailbox that cannot be read (never with its password);
+- an unreadable email;
+- an email for a board that no longer takes email.
+
+The inbound endpoints no longer need `WITH_API`. Runtime tests run WeKan's own
+transports against local SMTP and IMAP servers, a real Maildir and signed SNS
+messages. They found the server bundle's nodemailer import that broke every
+parsed email, and the Chat view's drag and drop and right-to-left faults, which
+are fixed here. See [Bounces](docs/Features/Email/Bounces.md).
 
 </details>
 
