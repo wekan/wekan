@@ -132,7 +132,7 @@ releases.
   report counts **28,516 untranslated locale/string values in 42 languages**.
   It excludes **379 source keys tracked separately as pending Transifex**.
   With the newer email/chat strings included, full per-locale `--list`
-  reports, including pending keys, count **53,417 remaining values across
+  reports, including pending keys, count **53,387 remaining values across
   114 non-English locale files**. This fuller inventory remains the scope
   of the translation work.
   A separate short-prose audit flags 1,649 candidates across 180 locales.
@@ -1343,6 +1343,21 @@ suite registers 44 cases; application execution remains pending.
 Swahili's full filtered placeholder report is empty. Exempt strings and
 broader wording review remain unfinished. Existing Swahili translations
 and all 38,079 protected Chinese values remain unchanged.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cdb2405e93">Translate Corsican card attachments and linked fields</a>. Thanks to xet7.</summary>
+
+Fill 30 English messages for attached cards and linked custom fields.
+Retain propagation direction, edit-permission requirements, archived-card
+restrictions and warnings about inaccessible cards. The Corsican suite and
+21 human-preference checks pass; two browser cases register but have not
+run against the application.
+
+Corsican has 163 filtered placeholders left. Regional wording and older
+mixed-language text still need review. Prior translations and all protected
+Chinese values remain unchanged by this batch.
 
 </details>
 

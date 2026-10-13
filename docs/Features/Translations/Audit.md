@@ -2,6 +2,33 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-13**.
 
+## Corsican card attachments and linked fields — 2026-10-13
+
+Commit `cdb2405e93` fills 30 English placeholders. Checks cover matching
+field names/types, one-way and two-way propagation, untouched unmatched
+fields, edit permission, paused links, archived cards and unreadable cards.
+The historical catalog gate remains separate from the pending-feature
+inventory. Its success message now describes that narrower scope.
+
+The Corsican suite and all 21 human-preference checks pass. Two existing
+browser workflows now include Corsican and register successfully; they have
+not run against the application. Exact comparison confirms only these 30
+English values changed, and all 38,079 protected Chinese values remain
+unchanged. Concurrent mail-report additions remain outside the commit.
+
+The full filtered inventory now has 163 Corsican placeholders and 53,387
+values across 114 catalogs globally. Older Corsican text visibly mixes
+Italian wording (for example `campo personalizzato` and `Puoi spostare`);
+it remains a separate correction task, not a completed language audit.
+Regional phrasing in this batch is provisional pending fluent review.
+The attachment term `appicciu` is supported by the Corsican authority's
+[mail-writing vocabulary](https://paesidei.isula.corsica/wp-content/uploads/2024/09/2024-03-12_Arnesi-da-currieri-mail_FG-PL.pdf).
+
+Swahili's supplementary exempt/short queues contain only `Bytes`, `Asia`,
+`Alt` and `Command`. These were left unchanged for individual review;
+there are no short-prose candidates in that locale. This does not certify
+the wider catalog's fluency.
+
 ## Swahili import instructions — 2026-10-13
 
 Commit `d963a78bf4` fills the remaining 22 import-format instructions.
