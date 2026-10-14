@@ -571,3 +571,14 @@ assert.match(creole['scrum-import-into-board-hint'], /Gade apèsi a anvan/);
 assert.doesNotMatch(creole['scrum-import-into-board-hint'], /aperçu/);
 assert.match(creole['list-sync-description'], /sistèm swivi ekstèn.*aryèplan.*15 minit.*Senkwonize kounye a.*imedyatman/);
 assert.doesNotMatch(creole['list-sync-description'], /swiv-mak/);
+
+for (const key of ['version-check-failed', 'linkCardToBoardPopup-title', 'linkCardToNewBoard', 'email-bounces-description']) {
+  assert.deepEqual(tokens(creole[key]), tokens(english[key]), key);
+  assert.notEqual(creole[key], english[key], key);
+}
+assert.match(creole['version-check-failed'], /pa t posib.*verifye nimewo vèsyon/);
+assert.equal(creole['linkCardToBoardPopup-title'], 'Lye ak yon tablo');
+assert.doesNotMatch(creole['linkCardToBoardPopup-title'], /sa a/);
+assert.match(creole['linkCardToNewBoard'], /Kreye yon tablo apati kat sa a/);
+assert.match(creole['email-bounces-description'], /Chak kalite.*pwòp aksyon.*kantite retou.*papòt ki fikse/);
+assert.doesNotMatch(creole['email-bounces-description'], /konbyen fwa sa a/);

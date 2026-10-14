@@ -49,3 +49,13 @@ test('Haitian email settings identify the SMTP server and template purposes', as
   await expect(page.getByText('Lame SMTP', { exact: true })).toHaveCount(0);
   await expect(page.getByText('Envite Imèl Sijè', { exact: true })).toHaveCount(0);
 });
+
+test('Haitian bounce help explains configured action thresholds', async ({ page, adminUser }) => {
+  await loginWithToken(page, adminUser.id, adminUser.token);
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'ht'));
+  await navigateInApp(page, '/admin/people/email');
+  const section = page.locator('.email-bounces');
+  await expect(section).toContainText('Chak kalite gen pwòp aksyon pa li');
+  await expect(section).toContainText('kantite retou yo rive nan papòt ki fikse a');
+  await expect(section).not.toContainText('konbyen fwa sa a');
+});

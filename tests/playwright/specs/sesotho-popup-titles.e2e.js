@@ -144,3 +144,24 @@ test('Haitian account anonymization warns about permanent changes and retained h
   // Inspect the warning without confirming an account mutation.
   await page.evaluate(() => Popup.close());
 });
+
+test('Haitian card actions identify destination linking and creation from a card', async ({ boardPage: page, board }) => {
+  const db = require('../helpers/db');
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'ht'));
+  await new BoardPage(page).clickCard(board.listIds[0], 'Alpha Card');
+  const card = new CardPage(page);
+  await card.waitForOpen();
+  await card.openActionsMenu();
+  const action = page.locator('.js-pop-over .js-link-card-to-board');
+  await expect(action).toHaveText('Lye ak yon tablo');
+  await expect(action).not.toContainText('sa a');
+  const source = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+  await page.evaluate(source => {
+    Popup.close();
+    Popup.open('createBoardFromCard', { dataContext: source })({
+      currentTarget: document.body, target: document.body, preventDefault() {},
+    });
+  }, source);
+  await expect(page.locator('.js-pop-over .js-submit')).toHaveText('Kreye yon tablo apati kat sa a');
+  await page.evaluate(() => Popup.close());
+});

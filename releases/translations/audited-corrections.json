@@ -209340,5 +209340,33 @@
     "before": "Kenbe lis sa a ajou apati yon swiv-mak deyò. Yon travay fondal tcheke chak 15 minit; itilize \"Senkwonize kounye a\" pou tcheke imedyatman.",
     "after": "Kenbe lis sa a ajou apati yon sistèm swivi ekstèn. Yon travay nan aryèplan verifye li chak 15 minit; sèvi ak \"Senkwonize kounye a\" pou verifye li imedyatman.",
     "reason": "Restore current import pagination and worksheet behavior; remove French preview wording and clarify external tracker synchronization."
+  },
+  {
+    "locale": "ht",
+    "key": "version-check-failed",
+    "before": "Tcheke Vèsyon: Erè.",
+    "after": "Li pa t posib pou verifye nimewo vèsyon an.",
+    "reason": "Clarify card-derived board creation, destination linking, failed version lookup and configured bounce thresholds."
+  },
+  {
+    "locale": "ht",
+    "key": "linkCardToBoardPopup-title",
+    "before": "Lyen pou Tablo sa a",
+    "after": "Lye ak yon tablo",
+    "reason": "Clarify card-derived board creation, destination linking, failed version lookup and configured bounce thresholds."
+  },
+  {
+    "locale": "ht",
+    "key": "linkCardToNewBoard",
+    "before": "Kreye yon tablo (Kat)",
+    "after": "Kreye yon tablo apati kat sa a",
+    "reason": "Clarify card-derived board creation, destination linking, failed version lookup and configured bounce thresholds."
+  },
+  {
+    "locale": "ht",
+    "key": "email-bounces-description",
+    "before": "Sa WeKan fè ak imèl ki retounen: yon adrès ki mal ekri, yon bwat lèt ki plen, yon repons absans, yon plent spam. Chak kalite gen pwòp aksyon pa li, ki fèt lè li retounen konbyen fwa sa a.",
+    "after": "Sa WeKan fè ak imèl ki retounen: yon adrès ki mal ekri, yon bwat lèt ki plen, yon repons absans, yon plent spam. Chak kalite gen pwòp aksyon pa li, ki fèt lè kantite retou yo rive nan papòt ki fikse a.",
+    "reason": "Clarify card-derived board creation, destination linking, failed version lookup and configured bounce thresholds."
   }
 ]
