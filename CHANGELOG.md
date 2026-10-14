@@ -493,7 +493,7 @@ there.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.44 2026-10-14 WeKan ® release
 
 **In short:** sign in with a **passkey** or **SQRL**, and **log out
 everywhere**. **Browser push**, an **activity feed** and **ntfy** bring

@@ -51,7 +51,9 @@ check('listBody cardsWithLimit tiebreaks the sort before observing', () => {
   const src = fs.readFileSync(path.join(__dirname, '..', 'client', 'components', 'lists', 'listBody.js'), 'utf8');
   assert.ok(/from '\/models\/lib\/cardSortTiebreaker'/.test(src), 'imports the helper');
   const at = src.indexOf('cardsWithLimit(');
-  const body = src.slice(at, at + 1800);
+  // The whole method: a fixed 1800 characters fell short once #3050 and
+  // #2040 explained their display-only sorts above the tiebreaker.
+  const body = src.slice(at, src.indexOf('\n  },\n', at));
   assert.ok(/sortBy = sortWithIdTiebreaker\(sortBy\)/.test(body),
     'the limited card cursor sort gets an _id tiebreaker');
 });
