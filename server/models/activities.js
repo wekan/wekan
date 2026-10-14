@@ -513,6 +513,9 @@ Activities.after.insert(async (userId, doc) => {
   // #5148: and to each recipient's own ntfy topic, when they set one.
   try { require('/server/notifications/ntfy').sendActivityToNtfy(prepared); }
   catch (error) { console.warn('ntfy notifications skipped'); }
+  // #2026 / #1377: and to each recipient's browsers, when they turned push on.
+  try { require('/server/webPush').sendActivityToWebPush(prepared); }
+  catch (error) { console.warn('browser push skipped'); }
 
   const integrations = await activityWebhookIntegrations(board, description);
   if (integrations.length > 0) {

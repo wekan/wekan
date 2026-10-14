@@ -25,3 +25,17 @@ tap opens the card.
 - It is best effort, like any phone push: an ntfy server that is down only
   leaves a line in WeKan's server log, and your e-mail and in-app
   notifications are unaffected.
+
+## Browser notifications
+
+[#2026](https://github.com/wekan/wekan/issues/2026). Without any app: Member
+Settings → Notification Settings → **Browser notifications on this device** →
+**Turn on for this device**. The browser asks for permission, and from then on
+every notification you get in WeKan also pops up from that browser - even when
+WeKan's tab is closed - and a click opens the card. Turn it on in each browser
+and device you use; up to ten per account.
+
+WeKan makes its own key pair for this once, keeps the private key on the
+server, and sends only to the push services browsers use (Google, Mozilla,
+Apple, Microsoft), so a member cannot point it anywhere else. It is not
+offered on Sandstorm.

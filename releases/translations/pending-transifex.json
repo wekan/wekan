@@ -2387,6 +2387,30 @@
     {
       "key": "activity-feed-more",
       "since": "2026-10-14"
+    },
+    {
+      "key": "web-push",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "web-push-description",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "web-push-enable",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "web-push-disable",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "web-push-denied",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "web-push-failed",
+      "since": "2026-10-14"
     }
   ]
 }

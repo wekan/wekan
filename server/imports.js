@@ -370,6 +370,8 @@ import '/server/tableViewCards';
 import '/server/allBoardsFacets';
 // #2026 / #1377: the all-boards activity feed.
 import '/server/activityFeed';
+// #2026 / #1377: browser push notifications.
+import '/server/webPush';
 
 // ----------------------------------------------------------------------------
 // 14. Server — routes (REST API, file serving)

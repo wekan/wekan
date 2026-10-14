@@ -357,6 +357,18 @@ Users.attachSchema(
       type: Object,
       blackbox: true,
     },
+    webPushSubscriptions: {
+      /**
+       * #2026 / #1377: this member's browsers' push subscriptions
+       * (models/lib/webPush.js). Never published, not client-writable.
+       */
+      type: Array,
+      optional: true,
+    },
+    'webPushSubscriptions.$': {
+      type: Object,
+      blackbox: true,
+    },
     ntfy: {
       /**
        * #5148: the member's own ntfy topic (models/lib/ntfy.js):
