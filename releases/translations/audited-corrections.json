@@ -211657,5 +211657,33 @@
     "before": "Manaova tahiry fiarovana ny Rakitra miaraka, Sarin'ny mpampiasa ary/na Angona (fanangonana mifototra amin'ny lahatsoratra rehetra izay tsy rakitra miaraka na sary). Alefa mivantana any amin'ny fitahirizana voafidy ny .zip — tsy misy rakitra vonjimaika — ho backup/YYYY/MM/DD/HH_MM_SS/backup.zip, ahitana YYYY_MM_DD-HH_MM_SS/attachments, /avatars ary /data. Ny fitahirizana rahona (S3/MinIO, Azure, GCS) dia mampiasa ny fahazoan-dalana voalamina ao amin'ny kiheban'ny fitahirizana.",
     "after": "Manaova tahiry fiarovana ny Rakitra miaraka, Sarin'ny mpampiasa ary/na Angona (fanangonana mifototra amin'ny lahatsoratra rehetra izay tsy rakitra miaraka na sary). Alefa mivantana any amin'ny fitahirizana voafidy ny .zip — tsy misy rakitra vonjimaika — ho backup/YYYY/MM/DD/HH_MM_SS/backup.zip, ahitana YYYY_MM_DD-HH_MM_SS/attachments, /avatars ary /data. Ny fitahirizana rahona (S3/MinIO, Azure, GCS) dia mampiasa ny antsipiriany fanamarinana voalamina ao amin'ny kiheban'ny fitahirizana.",
     "reason": "Distinguish authentication credentials from access permissions in storage settings and backup help."
+  },
+  {
+    "locale": "mg",
+    "key": "move-reason",
+    "before": "Hamindra ny karatra — Famaritana",
+    "after": "Antony famindrana (tsy voatery)",
+    "reason": "Restore omitted optionality, action meaning and version-check failure information from the English source."
+  },
+  {
+    "locale": "mg",
+    "key": "ask-move-reason",
+    "before": "Hamindra ny karatra → Famaritana?",
+    "after": "Angataho ny antony rehefa mamindra karatra",
+    "reason": "Restore omitted optionality, action meaning and version-check failure information from the English source."
+  },
+  {
+    "locale": "mg",
+    "key": "version-check-failed",
+    "before": "Mariho Kinova: Hadisoana.",
+    "after": "Tsy azo nohamarinina ny laharan’ny kinova.",
+    "reason": "Restore omitted optionality, action meaning and version-check failure information from the English source."
+  },
+  {
+    "locale": "mg",
+    "key": "toggle-header-icons-collapsed",
+    "before": "Hakelezo/hovelarina ny kônika lohapejy",
+    "after": "Aforitra/avelaro ny kisary eo amin’ny lohapejy (amin’ny finday/solosaina, hatramin’ny fampahafantarana)",
+    "reason": "Restore omitted optionality, action meaning and version-check failure information from the English source."
   }
 ]

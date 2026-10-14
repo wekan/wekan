@@ -59,3 +59,21 @@ test('Malagasy card recurrence is distinct from resetting a card', async ({ boar
   await expect(popup).not.toContainText('voalohany');
   await page.evaluate(() => Popup.close());
 });
+
+test('Malagasy move reason is explicitly optional and header toggle retains its scope', async ({ boardPage: page, board }) => {
+  const db = require('../helpers/db');
+  const source = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+  await page.evaluate(async source => {
+    await Meteor.callAsync('setLanguage', 'mg');
+    Popup.close();
+    Popup.open('moveCard', { dataContext: source })({
+      currentTarget: document.body, target: document.body, preventDefault() {},
+    });
+  }, source);
+  const label = page.locator('label[for="move-card-reason"]');
+  await expect(label).toHaveText('Antony famindrana (tsy voatery)');
+  await expect(label).not.toContainText('Famaritana');
+  await expect(page.locator('#move-card-reason')).toBeEmpty();
+  await page.evaluate(() => Popup.close());
+  await expect(page.locator('.js-toggle-header-icons-collapsed')).toHaveAttribute('title', strings['toggle-header-icons-collapsed']);
+});

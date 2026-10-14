@@ -557,3 +557,9 @@ for (const key of ['gcs-credentials', 'gcs-credentials-description', 'backup-des
   assert.deepEqual(tokens(malagasy[key]), tokens(english[key]), key);
 }
 assert.match(malagasy['gcs-credentials-description'], /Tsy voatery.*Avelao ho banga.*rakitra fanalahidy.*na.*mahazatra/);
+
+assert.match(malagasy['move-reason'], /Antony famindrana.*tsy voatery/);
+assert.match(malagasy['ask-move-reason'], /Angataho ny antony.*mamindra karatra/);
+assert.doesNotMatch(malagasy['ask-move-reason'], /→|Famaritana/);
+assert.match(malagasy['version-check-failed'], /Tsy azo nohamarinina.*laharan’ny kinova/);
+assert.match(malagasy['toggle-header-icons-collapsed'], /kisary.*finday\/solosaina.*fampahafantarana/);
