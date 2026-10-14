@@ -26,6 +26,7 @@ import { SYNC_CAPABLE_SOURCES } from '/models/lib/externalParsers';
 import { syncOneList } from '/server/listSync';
 import { withListSyncLease } from '/server/lib/listSyncLease';
 const { normalizeSyncSource, syncSourceKey } = require('/models/lib/listSyncSourceIdentity');
+const { ISSUE_DETAIL_SOURCES } = require('/models/lib/listSyncIssueDetails');
 const { readSyncCredential, commitSyncConfiguration } = require('/server/lib/listSyncConfiguration');
 const { assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 
@@ -58,6 +59,7 @@ Meteor.methods({
       enabled: Match.Optional(Boolean),
       createCards: Match.Optional(Boolean),
       archiveCards: Match.Optional(Boolean),
+      issueDetails: Match.Optional(Boolean),
       estimateCustomFieldId: Match.Optional(String),
       estimateSourceField: Match.Optional(Match.OneOf('weight', 'time_estimate')),
       // `sprint` and `releases`: Scrum planning (models/lib/listSyncPlanning.js).
@@ -131,6 +133,8 @@ Meteor.methods({
         enabled: config.enabled !== false,
         createCards: config.createCards !== false,
         archiveCards: config.archiveCards !== false,
+        // Off unless chosen: it writes comments and files into the cards.
+        ...(config.issueDetails === true && ISSUE_DETAIL_SOURCES.includes(source.type) ? { issueDetails: true } : {}),
         fields: config.fields || ['title', 'description'],
         ...(Object.keys(timeMappings).length ? { timeMappingIdentities: timeMappingIdentities(timeMappings) } : {}),
         ...(estimateMapping ? { estimateCustomFieldId: estimateMapping.localFieldId,

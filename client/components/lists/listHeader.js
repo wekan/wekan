@@ -35,6 +35,7 @@ import {
 // methods validate `type` against, reused here so the picker can never offer
 // a source the backend would reject.
 import { SYNC_CAPABLE_SOURCES } from '/models/lib/externalParsers';
+const { ISSUE_DETAIL_SOURCES } = require('/models/lib/listSyncIssueDetails');
 import { fromNow } from '/imports/lib/dateUtils';
 
 let listsColors;
@@ -920,6 +921,7 @@ Template.listSyncPopup.onCreated(function () {
   tpl.selectedSyncOperations = new ReactiveVar({
     createCards: list?.syncSource?.createCards !== false,
     archiveCards: list?.syncSource?.archiveCards !== false,
+    issueDetails: list?.syncSource?.issueDetails === true,
   });
   tpl.hasCredential = new ReactiveVar(false);
   tpl.syncNowResult = new ReactiveVar('');
@@ -999,6 +1001,10 @@ Template.listSyncPopup.helpers({
     return [
       { operation: 'createCards', label: 'add-card', checked: selected.createCards },
       { operation: 'archiveCards', label: 'archive-card', checked: selected.archiveCards },
+      // GitHub, GitLab, Gitea and Forgejo issues: their comments, labels,
+      // state and files too (models/lib/listSyncIssueDetails.js).
+      ...(ISSUE_DETAIL_SOURCES.includes(Template.instance().selectedSyncType.get())
+        ? [{ operation: 'issueDetails', label: 'sync-issue-details', checked: selected.issueDetails }] : []),
     ];
   },
   syncEstimateEnabled() {

@@ -11,6 +11,9 @@ const context = {
   // #6736: no instance feature is disabled here; tests/instanceFeatures.test.cjs
   // covers boardView() with disabled views.
   allowBoardView: () => true,
+  // boardView() passes the viewer, so a public board's visitors get its
+  // public views (boardViewAudience); here the member is the viewer.
+  Meteor: { userId: () => 'member' },
   pendingBoardView: { get: () => pending, set: value => { pending = value; } },
   ReactiveCache: { getCurrentUser: () => user },
   // #6745: storedBoardView reads the user through currentUserWith (only the two

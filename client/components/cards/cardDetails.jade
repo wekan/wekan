@@ -1084,6 +1084,12 @@ template(name="cardDetailsActionsPopup")
         a.js-copy-card-link
           i.fa.fa-link
           |  {{_ 'copy-link-to-clipboard'}}
+      //- #2015: the same link as a QR code, drawn in the browser
+        (models/lib/qrCode.js), to open the card on a phone.
+      li
+        a.js-card-qr-code
+          i.fa.fa-qrcode
+          |  {{_ 'card-qr-code'}}
     span.copied-tooltip {{_ 'copied'}}
     hr
     //- History of the whole card (docs/Features/Reports/History/History.md §7a).
@@ -1727,3 +1733,14 @@ template(name="cardDependencyIconPopup")
         li
           a.js-pick-dependency-icon(data-icon="{{name}}" title="{{name}}")
             i.fa(class="fa-{{name}}")
+
+//- #2015: the card's link as a QR code. An img of an SVG the browser drew
+  from the link (models/lib/qrCode.js): nothing is sent to a QR service.
+template(name="cardQrCodePopup")
+  .card-qr-code
+    if qrDataUri
+      img.card-qr-code-image(src="{{qrDataUri}}" alt="{{_ 'card-qr-code'}}: {{cardUrl}}" width="264" height="264")
+      p.quiet {{_ 'card-qr-code-desc'}}
+      p.card-qr-code-url {{cardUrl}}
+    else
+      p.warning {{_ 'card-qr-code-too-long'}}

@@ -18,6 +18,7 @@ import { fetchSafe } from '/server/lib/ssrfGuard';
 // Powerbox grant a board member gave the list's tracker (server/sandstormEgress.js).
 import { isSandstormServer, syncFetch } from '/server/sandstormEgress';
 import { validateAttachmentUrl } from '/models/lib/attachmentUrlValidation';
+import { attachRepositoryComments, rateLimitWait } from '/models/lib/listSyncIssueDetails';
 // Jira's Sprint field schema, as models/lib/jiraScrumPlanning.js
 // JIRA_PLANNING_SCHEMA.sprint names it (tests/listSyncPlanning.test.cjs keeps
 // the two the same).
@@ -91,7 +92,13 @@ async function fetchOperatorHost(url, headers) {
   return response;
 }
 
-async function fetchJson(url, headers) {
+// A rate-limited answer is waited out once when the API says it frees up
+// within this long (GitHub's secondary limit asks for about a minute at most);
+// a longer wait ends the run with the time to try again, and the next
+// scheduled run picks it up - git-bug's and Gitea's migrations do the same.
+const RATE_LIMIT_WAIT_MS = 60 * 1000;
+
+async function fetchJson(url, headers, retried = false) {
   const origin = new URL(url).origin;
   let response;
   try {
@@ -108,6 +115,17 @@ async function fetchJson(url, headers) {
     throw syncFetchError(error);
   }
   if (!response.ok) {
+    const wait = rateLimitWait(response.status, response.headers);
+    if (wait !== null) {
+      if (!retried && wait <= RATE_LIMIT_WAIT_MS) {
+        await new Promise(resolve => setTimeout(resolve, wait + 1000));
+        return fetchJson(url, headers, true);
+      }
+      const error = new Error(`${origin} rate limit reached; try again after ${new Date(Date.now() + wait).toISOString()}`);
+      error.status = response.status;
+      error.rateLimited = true;
+      throw error;
+    }
     const error = new Error(`${origin} responded with HTTP ${response.status}`);
     error.status = response.status;
     throw error;
@@ -235,19 +253,33 @@ export async function fetchJiraIssues(syncSource, credential) {
 }
 
 // GET /repos/{owner}/{repo}/issues?state=all
+// With "Comments, labels, state and files" (syncSource.issueDetails), also
+// GET /repos/{owner}/{repo}/issues/comments - every comment of the repository
+// in one paged list, each naming its issue - rather than one call per issue
+// (models/lib/listSyncIssueDetails.js).
 export async function fetchGithubIssues(syncSource, credential) {
   const url = `https://api.github.com/repos/${syncSource.projectKey}/issues?state=all&per_page=100`;
-  return fetchArrayPages(url, {
+  const headers = {
     Authorization: `token ${credential.token}`,
     Accept: 'application/vnd.github+json',
-  });
+  };
+  const issues = await fetchArrayPages(url, headers);
+  if (!syncSource.issueDetails) return issues;
+  const comments = await fetchArrayPages(`https://api.github.com/repos/${syncSource.projectKey}/issues/comments?per_page=100`, headers);
+  return attachRepositoryComments(issues, comments);
 }
 
 // GET /projects/{id-or-path}/issues?state=all - Gitea shares GitHub's issue shape.
+// type=issues: without it Gitea lists pull requests too, which the parser
+// would only drop again. Comments as for GitHub: GET .../issues/comments.
 export async function fetchGiteaIssues(syncSource, credential) {
   const base = String(syncSource.url || '').replace(/\/+$/, '');
-  const url = `${base}/api/v1/repos/${syncSource.projectKey}/issues?state=all&limit=100`;
-  return fetchArrayPages(url, { Authorization: `token ${credential.token}` });
+  const url = `${base}/api/v1/repos/${syncSource.projectKey}/issues?state=all&type=issues&limit=100`;
+  const headers = { Authorization: `token ${credential.token}` };
+  const issues = await fetchArrayPages(url, headers);
+  if (!syncSource.issueDetails) return issues;
+  const comments = await fetchArrayPages(`${base}/api/v1/repos/${syncSource.projectKey}/issues/comments?limit=100`, headers);
+  return attachRepositoryComments(issues, comments);
 }
 
 // GET /projects/{id}/issues - GitLab, project id or URL-encoded path.
@@ -256,12 +288,24 @@ export async function fetchGitlabIssues(syncSource, credential) {
   const project = encodeURIComponent(syncSource.projectKey);
   // In a grain the bridge forwards only whitelisted headers, so PRIVATE-TOKEN
   // would be dropped; GitLab also takes the token as private_token.
-  if (inGrain()) {
-    const query = credential.token ? `&private_token=${encodeURIComponent(credential.token)}` : '';
-    return fetchArrayPages(`${base}/api/v4/projects/${project}/issues?per_page=100${query}`, {});
+  const grain = inGrain();
+  const query = grain && credential.token ? `&private_token=${encodeURIComponent(credential.token)}` : '';
+  const headers = grain ? {} : { 'PRIVATE-TOKEN': credential.token };
+  const issues = await fetchArrayPages(`${base}/api/v4/projects/${project}/issues?per_page=100${query}`, headers);
+  if (!syncSource.issueDetails) return issues;
+  // GitLab has no project-wide notes list: GET .../issues/{iid}/notes, only
+  // for the issues that have comments, as Gitea's migration does.
+  const withNotes = [];
+  for (const issue of issues) {
+    if (!issue || !(Number(issue.user_notes_count) > 0) || !Number.isSafeInteger(Number(issue.iid))) {
+      withNotes.push(issue);
+      continue;
+    }
+    // eslint-disable-next-line no-await-in-loop
+    const notes = await fetchArrayPages(`${base}/api/v4/projects/${project}/issues/${Number(issue.iid)}/notes?per_page=100&sort=asc${query}`, headers);
+    withNotes.push({ ...issue, notes });
   }
-  const url = `${base}/api/v4/projects/${project}/issues?per_page=100`;
-  return fetchArrayPages(url, { 'PRIVATE-TOKEN': credential.token });
+  return withNotes;
 }
 
 export const LIST_SYNC_FETCHERS = {

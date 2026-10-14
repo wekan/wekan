@@ -25,6 +25,7 @@ import { parseQuireCsv } from './quireCsvFormat.js';
 import { parseNotionExport } from './notionFormat.js';
 import { parsePlaneExport } from './planeFormat.js';
 import { parseOrgMode } from './orgModeFormat.js';
+import { issueAttachments } from './issueAttachments.js';
 import {
   gitlabScrumPlanning, openProjectScrumPlanning, asanaScrumPlanning, STORY_POINTS_FIELD,
 } from './externalScrumPlanning.js';
@@ -550,6 +551,9 @@ function issueComments(issue, path, unsupported) {
       text: body,
       ...(author ? { author: String(author) } : {}),
       ...(c.created_at || c.date ? { date: c.created_at || c.date } : {}),
+      // The tracker's comment id: list sync keys the card comment by it
+      // (models/lib/listSyncIssueDetails.js).
+      ...(c.id != null ? { externalId: String(c.id) } : {}),
     });
   });
   const counted = Number(issue.comments);
@@ -561,6 +565,13 @@ function issueComments(issue, path, unsupported) {
     });
   }
   return comments;
+}
+
+// The files an issue links or carries (models/lib/issueAttachments.js), as the
+// task's `attachments`; KanboardCreator downloads them into the card.
+function withAttachments(issue) {
+  const attachments = issueAttachments(issue);
+  return attachments.length ? { attachments } : {};
 }
 
 function parseIssuesArray(data, system) {
@@ -615,6 +626,8 @@ function parseIssuesArray(data, system) {
           || undefined,
         tags,
         ...(comments.length ? { comments } : {}),
+        // The issue's files, downloaded into the board's attachments.
+        ...withAttachments(issue),
       };
     });
   return {
@@ -682,7 +695,7 @@ export function parseGitlab(data) {
     const comments = (notes || [])
       .filter(note => note && !note.system && typeof note.body === 'string' && note.body.trim())
       .map(note => ({ text: note.body, author: gitlabUser(note.author), authorName: note.author && note.author.name,
-        date: note.created_at }));
+        date: note.created_at, ...(note.id != null ? { externalId: String(note.id) } : {}) }));
     if (!notes && Number(issue.user_notes_count) > 0) {
       unsupported.push({ path: `${path}/user_notes_count`,
         reason: `${issue.user_notes_count} comment(s) exist upstream but were not embedded in this export` });
@@ -717,6 +730,7 @@ export function parseGitlab(data) {
       ...(Object.keys(custom).length ? { custom_fields: custom } : {}),
       ...(comments.length ? { comments } : {}),
       ...(dependencies.length ? { dependencies } : {}),
+      ...withAttachments(issue),
     };
   });
   // Iterations as sprints and milestones as releases.

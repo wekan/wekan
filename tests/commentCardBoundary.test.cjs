@@ -57,7 +57,13 @@ test('negative: every externally supplied REST comment insert is preceded by the
   });
   const paths = walk(path.join(root, 'server')).filter(file => /CardComments\.(?:direct\.)?insertAsync\(/.test(fs.readFileSync(file, 'utf8')));
   assert.deepEqual(paths.map(file => path.relative(root, file)).sort(),
-    ['server/emailToCard.js', 'server/models/cardComments.js', 'server/routes/inboundEmail.js']);
+    ['server/emailToCard.js', 'server/lib/listSyncIssueDetails.js', 'server/models/cardComments.js', 'server/routes/inboundEmail.js']);
+  // List sync's issue comments go only onto cards found ON the synced list's
+  // own board and list, and are written with that board's id - the tracker
+  // never names a card.
+  const issueDetails = read('server/lib/listSyncIssueDetails.js');
+  assert.match(issueDetails, /Cards\.find\(\{\s*boardId: list\.boardId, listId: list\._id, syncSourceKey: sourceKey,/);
+  assert.match(issueDetails, /CardComments\.insertAsync\(\{\s*boardId: list\.boardId, cardId: card\._id,/);
   // #794: an emailed reply is a comment on a card found ON the board of the
   // address it was sent to, by a member with write access there - the card is
   // never named by the sender.

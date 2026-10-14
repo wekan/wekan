@@ -50,6 +50,7 @@ const { describeSyncConflict, planSyncConflictResolution } = require('/server/li
 const { readSyncTarget, replaceSyncTarget, describeCreationConflict } = require('/server/lib/listSyncTarget');
 const { syncCoverage, prepareSyncWrites, describeSyncPreview } = require('/server/lib/listSyncPreview');
 const { describeSyncSourceCoverage } = require('/server/lib/listSyncSourceCoverage');
+import { syncIssueDetails } from '/server/lib/listSyncIssueDetails';
 // Empty/whitespace source text is a real comparison baseline. Keep schema
 // validation and hooks, but do not clean these values into missing/trimmed data.
 const SYNC_TEXT_WRITE_OPTIONS = { removeEmptyStrings: false, trimStrings: false };
@@ -362,6 +363,22 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
   const board = await Boards.findOneAsync(list.boardId);
   const now = new Date();
   const runActor = currentSyncActor();
+  // "Comments, labels, state and files" (server/lib/listSyncIssueDetails.js),
+  // after the run succeeded: its own step, so a failure in it is recorded and
+  // retried next run, and never undoes the title / description sync.
+  const withIssueDetails = async (result) => {
+    if (!source.issueDetails) return result;
+    try {
+      await assertCurrent();
+      const details = await syncIssueDetails({ list, source, sourceKey, tasks: parsed.tasks, actorId: runActor });
+      return { ...result, details };
+    } catch (e) {
+      console.error('listSync: issue details stopped for list', list._id, String((e && (e.code || e.message)) || e).slice(0, 120));
+      await Lists.updateAsync(listSelector, { $set: { 'syncSource.lastSyncError':
+        'Comments, labels, state and files did not finish; the next Sync tries again.' } });
+      return result;
+    }
+  };
   if (planningCreate.length) {
     // The board must still take planning when its records are made; the card
     // writes below compare each card's planning themselves.
@@ -439,8 +456,8 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
     await Lists.updateAsync(listSelector, {
       $set: { 'syncSource.lastSyncedAt': now, 'syncSource.lastSyncError': '' },
     });
-    return { created: plan.toCreate.length, updated: plan.toUpdate.length, archived: plan.toArchive.length, durable: true,
-      ...(planningSkipped ? { planningSkipped } : {}) };
+    return withIssueDetails({ created: plan.toCreate.length, updated: plan.toUpdate.length, archived: plan.toArchive.length, durable: true,
+      ...(planningSkipped ? { planningSkipped } : {}) });
   }
 
   for (const task of plan.toCreate) {
@@ -509,12 +526,12 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
     $set: { 'syncSource.lastSyncedAt': now, 'syncSource.lastSyncError': '' },
   });
 
-  return {
+  return withIssueDetails({
     created: plan.toCreate.length,
     updated: plan.toUpdate.length,
     archived: plan.toArchive.length,
     ...(planningSkipped ? { planningSkipped } : {}),
-  };
+  });
 }
 
 export async function scanListSync() {

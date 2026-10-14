@@ -159,6 +159,14 @@ CardComments.attachSchema(
         }
       },
     },
+    syncCommentId: {
+      /**
+       * List sync: the tracker's own id of the comment this one mirrors
+       * (models/lib/listSyncIssueDetails.js). Unset on comments written in WeKan.
+       */
+      type: String,
+      optional: true,
+    },
     // XXX Should probably be called `authorId`
     userId: {
       /**

@@ -1795,6 +1795,7 @@ Template.cardDetailsActionsPopup.events({
   // and it is here now beside the swimlane's and the list's, so all three are
   // copied the same way from the same kind of menu.
   // docs/Features/Page/Board-Item-Links.md
+  'click .js-card-qr-code': Popup.open('cardQrCode'),
   'click .js-copy-card-link'(event, tpl) {
     event.preventDefault();
     const card = Template.currentData();
@@ -3375,5 +3376,21 @@ Template.cardRecurrenceIntervalPopup.events({
       card.setRecurrenceInterval(interval);
     }
     Popup.back();
+  },
+});
+
+// #2015: the card's link as a QR code, drawn here (models/lib/qrCode.js).
+Template.cardQrCodePopup.helpers({
+  cardUrl() {
+    const card = Template.currentData();
+    return (card && typeof card.absoluteUrl === 'function' && card.absoluteUrl()) || '';
+  },
+  qrDataUri() {
+    const card = Template.currentData();
+    const url = card && typeof card.absoluteUrl === 'function' ? card.absoluteUrl() : '';
+    const { qrSvg } = require('/models/lib/qrCode');
+    const svg = url ? qrSvg(url, { scale: 6 }) : '';
+    // The SVG is the encoder's own ASCII markup, never the link's text.
+    return svg ? `data:image/svg+xml;base64,${window.btoa(svg)}` : '';
   },
 });

@@ -134,6 +134,14 @@ What the current code does (`models/lib/externalParsers.js`,
   that WeKan user and the text is unchanged.
 - The issue number is kept as the card's sync key, so a list can be kept up to
   date with [List Sync](../Sync.md).
+- The issue's files - the `user-attachments` and `user-images` links in its
+  body and comments - are downloaded through the import's SSRF guard and
+  attached to the card, in Admin Panel → Attachments → Default Storage. A file
+  that cannot be fetched is on the loss report.
+- The whole board can be read as GitHub's issue tracker in
+  [Board View / Version Control](../../Board/Version-Control-View.md), and List
+  Sync's **Comments, labels, state and files** keeps comments, labels, state
+  and files up to date too.
 
 The audit lists more than the code reads: the code does not read label colors,
 creation or close dates, relationships or events.
@@ -161,6 +169,7 @@ again.
 | `user.login` | Requested By |
 | `number`, `html_url` | `Source:` line in the description, and the sync key |
 | `comments_data` (added by your script): `body`, `user.login`, `created_at` | Card comments, with their author and date |
+| Files linked in the issue or its comments (`github.com/user-attachments/…`, `user-images.githubusercontent.com/…`) | Card attachments, downloaded into Admin Panel → Attachments → Default Storage (`models/lib/issueAttachments.js`) |
 
 ## What is not kept
 

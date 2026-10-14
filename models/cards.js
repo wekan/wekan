@@ -369,6 +369,12 @@ Cards.attachSchema(
     // matches an already-imported card back to its external item on the next
     // run, instead of creating a duplicate.
     syncSourceKey: { type: String, optional: true },
+    // "Comments, labels, state and files" (models/lib/listSyncIssueDetails.js):
+    // the labels sync put on the card - the only ones it ever takes off - and
+    // the issue's state upstream, which Board View / Version Control shows.
+    syncLabelIds: { type: Array, optional: true },
+    'syncLabelIds.$': { type: String },
+    syncIssueState: { type: String, optional: true, allowedValues: ['open', 'closed'] },
     syncLastSource: { type: Object, optional: true },
     'syncLastSource.title': { type: String, optional: true },
     'syncLastSource.description': { type: String, optional: true },

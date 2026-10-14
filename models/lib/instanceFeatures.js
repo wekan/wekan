@@ -53,6 +53,8 @@ const FEATURES = [
     views: ['board-view-email'] },
   { key: 'views-chat', labelKey: 'feature-views-chat', descKey: 'feature-views-chat-desc',
     views: ['board-view-chat'] },
+  { key: 'views-version-control', labelKey: 'feature-views-version-control', descKey: 'feature-views-version-control-desc',
+    views: ['board-view-version-control'] },
 ];
 
 const FEATURE_KEYS = FEATURES.map(feature => feature.key);

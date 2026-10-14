@@ -195,7 +195,7 @@ const LOCALE_INVARIANTS = {
   // Romansh shares these words, key legends, brands and mathematical symbols.
   rm: new Set(["problems", "text", "blockly-ALT_KEY", "blockly-CHROME_OS", "blockly-CONTEXT_MENU_KEY", "blockly-INPUT_LABEL_NUMBER_MAX", "blockly-INPUT_LABEL_NUMBER_MIN", "blockly-LINUX", "blockly-LISTS_SORT_TYPE_NUMERIC", "blockly-LOGIC_NULL", "blockly-MAC_OS", "blockly-MATH_ADDITION_SYMBOL_ARIA", "blockly-MATH_ONLIST_OPERATOR_MAX_ARIA", "blockly-MATH_ONLIST_OPERATOR_MIN_ARIA", "blockly-MATH_SUBTRACTION_SYMBOL_ARIA", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN", "blockly-WINDOWS"]),
   // Frisian retains brands, key legends, math symbols and list/test/minimum/plus.
-  "fy": new Set(["blockly-ALT_KEY", "blockly-CHROME_OS", "blockly-CONTEXT_MENU_KEY", "blockly-INPUT_LABEL_NUMBER_MIN", "blockly-LINUX", "blockly-LISTS_CREATE_WITH_CONTAINER_TITLE_ADD", "blockly-LOGIC_TERNARY_CONDITION", "blockly-MAC_OS", "blockly-MATH_ADDITION_SYMBOL_ARIA", "blockly-MATH_ONLIST_OPERATOR_MIN_ARIA", "blockly-WINDOWS", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN"]),
+  "fy": new Set(["vcs-issues", "blockly-ALT_KEY", "blockly-CHROME_OS", "blockly-CONTEXT_MENU_KEY", "blockly-INPUT_LABEL_NUMBER_MIN", "blockly-LINUX", "blockly-LISTS_CREATE_WITH_CONTAINER_TITLE_ADD", "blockly-LOGIC_TERNARY_CONDITION", "blockly-MAC_OS", "blockly-MATH_ADDITION_SYMBOL_ARIA", "blockly-MATH_ONLIST_OPERATOR_MIN_ARIA", "blockly-WINDOWS", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN"]),
   "fy-NL": new Set(["blockly-ALT_KEY", "blockly-CHROME_OS", "blockly-CONTEXT_MENU_KEY", "blockly-INPUT_LABEL_NUMBER_MIN", "blockly-LINUX", "blockly-LISTS_CREATE_WITH_CONTAINER_TITLE_ADD", "blockly-LOGIC_TERNARY_CONDITION", "blockly-MAC_OS", "blockly-MATH_ADDITION_SYMBOL_ARIA", "blockly-MATH_ONLIST_OPERATOR_MIN_ARIA", "blockly-WINDOWS", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN"]),
   // Friulian retains brands, Alt, trig symbols and date/increment/numeric/Pause.
   // no, date: the Friulian words, spelled as in English (2026-10-14; they had
@@ -874,6 +874,8 @@ const LOCALE_INVARIANTS = {
   // Dutch and Flemish share these mathematical labels (including "is even") and Scrum
   // terms; product names and printed keyboard legends stay recognizable.
   ...Object.fromEntries(['nl', 'nl-NL', 'vl-SS'].map(code => [code, new Set([
+    // Version Control view: GitHub's own words, used as they are in Dutch.
+    'vcs-issues', 'vcs-open', 'vcs-open-issues',
     'blockly-ALT_KEY', 'blockly-BACKSPACE_KEY', 'blockly-BLOCK_LABEL_BEGIN_PREFIX',
     'blockly-CAPS_LOCK_KEY', 'blockly-CHROME_OS', 'blockly-COMMAND_KEY',
     'blockly-CONTEXT_MENU_KEY', 'blockly-ENTER_KEY', 'blockly-HOME_KEY',
@@ -929,6 +931,8 @@ const LOCALE_INVARIANTS = {
   // German shared labels, Scrum terms, product names and mathematical notation.
   ...Object.fromEntries(['de', 'de-AT', 'de-CH', 'de_DE'].map(code =>
     [code, new Set([
+      // Version Control view: "Issues", GitHub's word, as German uses it.
+      'vcs-issues',
       'blockly-ALT_KEY', 'blockly-CHROME_OS', 'blockly-FIELD_LABEL_OPTION_INDEX',
       'blockly-FIELD_LABEL_VARIABLE', 'blockly-LINUX', 'blockly-LOGIC_NULL',
       'blockly-MAC_OS', 'blockly-MATH_ADDITION_SYMBOL_ARIA',
@@ -996,6 +1000,8 @@ const LOCALE_INVARIANTS = {
   ])])),
   // Portuguese menu/math vocabulary, keyboard legends and Scrum terminology.
   ...Object.fromEntries(['pt', 'pt-PT', 'pt_PT', 'pt-BR'].map(code => [code, new Set([
+    // Version Control view: "Issues", GitHub's word, as Brazilian Portuguese uses it.
+    'vcs-issues',
     'blockly-ALT_KEY', 'blockly-CHROME_OS', 'blockly-CONTEXT_MENU_KEY',
     'blockly-ENTER_KEY', 'blockly-INPUT_LABEL_MATH_DIVISOR', 'blockly-LINUX',
     'blockly-MAC_OS', 'blockly-MATH_TRIG_ACOS', 'blockly-MATH_TRIG_ASIN',

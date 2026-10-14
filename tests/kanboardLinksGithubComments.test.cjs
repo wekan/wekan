@@ -215,9 +215,11 @@ async function main() {
       ],
     }]);
     const [task] = parsed.tasks;
+    // externalId: the tracker's comment id, which list sync's "Comments,
+    // labels, state and files" keys each card comment by.
     assert.deepEqual(task.comments, [
-      { text: 'First reply', author: 'alice', date: '2026-09-01T10:00:00Z' },
-      { text: 'Second', author: 'bob', date: '2026-09-02T10:00:00Z' },
+      { text: 'First reply', author: 'alice', date: '2026-09-01T10:00:00Z', externalId: '1' },
+      { text: 'Second', author: 'bob', date: '2026-09-02T10:00:00Z', externalId: '2' },
     ]);
     assert.equal(task.description, 'Original body\n\nSource: #7', 'the description is not changed by comments');
     assert.deepEqual(parsed.unsupported, [], 'all counted comments are embedded');

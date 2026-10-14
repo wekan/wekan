@@ -165,10 +165,21 @@ view added to WeKan later appears at the end of an existing custom order.
 
 ## How the settings apply
 
+- **Who sees which side.** The *Public* columns are for **the public**: on a
+  public board, a visitor who is not logged in, or who is logged in but not a
+  member of the board, gets *Show on / Default on Public Board*. The board's
+  own members get the *Private* columns, as on a private board
+  (`boardViewAudience` in `models/lib/boardViewSettings.js`). So a public
+  board can open read-only in, for example, **Version Control** or **Email**
+  for the world and offer the world only those two views in its Board View
+  menu, while its members keep every view. Any view can be the public
+  default: Version Control, Email, Chat, Roadmap and the others. A visitor
+  can not write: every view draws its controls for the person's rights,
+  and the server refuses a write without them.
 - **The Board View menu** (`boardChangeViewPopup`) is rendered from the
   board: `boardViewMenuEntries` gives it the views whose *Show* box is ticked
-  for the board's current visibility (`board.permission` is `public` or
-  `private`), in the board's order, each with the `js-open-<view>-view` class
+  for the side that applies to the person looking (above), in the board's
+  order, each with the `js-open-<view>-view` class
   its click handler listens for. A view hidden here is also not opened by the
   keyboard or by an old link: the view WeKan renders is always resolved
   through the board's settings (below).

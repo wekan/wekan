@@ -247,7 +247,9 @@ test('resolveBoardView never leaves a user on a hidden view: it falls back to th
 // ------------------------------------------------------- applied in the UI
 
 test('the Board View menu lists only the views shown for the board\'s visibility, in the board\'s order', () => {
-  assert.ok(/boardViewMenuEntries\(\) \{[\s\S]*?return boardViewMenuEntries\(board, Utils\.boardView\(\), allowBoardView\)/.test(boardHeaderJs), 'the menu also leaves out views the instance disabled (#6736)');
+  // The viewer is passed too, deliberately: a public board shows its public
+  // views to visitors and its private views to members (boardViewAudience).
+  assert.ok(/boardViewMenuEntries\(\) \{[\s\S]*?return boardViewMenuEntries\(board, Utils\.boardView\(\), allowBoardView, Meteor\.userId\(\)\)/.test(boardHeaderJs), 'the menu also leaves out views the instance disabled (#6736)');
   assert.ok(boardHeaderJs.includes("require('/models/lib/boardViewSettings')"));
   const board = {
     permission: 'public',
@@ -326,9 +328,10 @@ test('moveBoardView moves one step, and the first up / last down / unknown are n
   const down = bvs.moveBoardView(up, 'board-view-lists', 'down');
   assert.deepStrictEqual(down, all, 'and back');
   assert.deepStrictEqual(bvs.moveBoardView(undefined, 'board-view-swimlanes', 'up'), all, 'first item up');
-  // #3256 appended the Map view; the Email (#794) and Chat views followed it,
-  // so Chat is the last row now.
-  assert.deepStrictEqual(bvs.moveBoardView(undefined, 'board-view-chat', 'down'), all, 'last item down');
+  // #3256 appended the Map view; the Email (#794), Chat and Version Control
+  // views followed it, so Version Control is the last row now.
+  assert.deepStrictEqual(bvs.moveBoardView(undefined, 'board-view-version-control', 'down'), all, 'last item down');
+  assert.notDeepStrictEqual(bvs.moveBoardView(undefined, 'board-view-chat', 'down'), all, 'Chat is no longer last');
   assert.notDeepStrictEqual(bvs.moveBoardView(undefined, 'board-view-map', 'down'), all, 'Map is no longer last');
   assert.deepStrictEqual(bvs.moveBoardView(undefined, 'board-view-nope', 'up'), all, 'unknown');
   // Once the unknown key is dropped Pulse IS the first row, so its up is a no-op.
@@ -340,7 +343,7 @@ test('moveBoardView moves one step, and the first up / last down / unknown are n
 });
 
 test('Utils.boardView() resolves the stored choice through the current board', () => {
-  assert.ok(/boardView\(\) \{\s*const stored = Utils\.storedBoardView\(\);\s*const board = Utils\.getCurrentBoard\(\);\s*return board \? resolveBoardView\(board, stored, allowBoardView\) : stored;/.test(utilsJs), 'a view the instance disabled falls back too (#6736)');
+  assert.ok(/boardView\(\) \{\s*const stored = Utils\.storedBoardView\(\);\s*const board = Utils\.getCurrentBoard\(\);\s*return board \? resolveBoardView\(board, stored, allowBoardView, Meteor\.userId\(\)\) : stored;/.test(utilsJs), 'a view the instance disabled falls back too (#6736); the viewer decides public or private');
   // #4906 / #4256: the stored choice is this board's own, else the shared one.
   assert.ok(/storedBoardView\(\) \{\s*const pendingChoice = pendingBoardView\.get\(\);/.test(utilsJs), 'the previous body is the stored choice');
   assert.ok(utilsJs.includes("require('/models/lib/boardViewSettings')"));
@@ -426,6 +429,8 @@ const PRE_FEATURE_MENU = [
   // #794: Email, then Chat - appended after Map, like it.
   'board-view-email',
   'board-view-chat',
+  // Version Control, appended after Chat.
+  'board-view-version-control',
 ];
 const bvsSrc = read('models/lib/boardViewSettings.js');
 const PRE_FEATURE_ORDER = PRE_FEATURE_MENU.filter(k => k !== 'hr');
@@ -448,8 +453,8 @@ test('#3194: a board that saved the default order before Calendar Mode still has
 test('the default order is the pre-feature menu order (525bcab1b), literally', () => {
   assert.deepStrictEqual(bvs.DEFAULT_BOARD_VIEW_ORDER, PRE_FEATURE_ORDER);
   // 34 before the Map view (#3256) was appended, 35 before Calendar Mode
-  // (#3194), 36 before Email (#794) and Chat.
-  assert.strictEqual(PRE_FEATURE_ORDER.length, 38);
+  // (#3194), 36 before Email (#794) and Chat, 38 before Version Control.
+  assert.strictEqual(PRE_FEATURE_ORDER.length, 39);
   // The literal in the model is a list of its own, not a slice of the table
   // (negative: re-sorting BOARD_VIEWS must not be able to change the default).
   assert.match(bvsSrc, /const DEFAULT_BOARD_VIEW_ORDER = \[\n\s*'board-view-swimlanes',/);
@@ -491,6 +496,46 @@ test('views missing from a stored order follow it in the pre-feature order', () 
   // Negative: a view the table knows but the literal forgot still reaches the
   // menu at the end instead of vanishing.
   assert.match(bvsSrc, /DEFAULT_BOARD_VIEW_ORDER\.concat\(VIEW_KEYS\)\.forEach/);
+});
+
+// Public settings are for the PUBLIC: on a public board, a visitor who is not
+// logged in or not a member gets Show on / Default on Public Board, and the
+// board's own members the private side - so a public board can open read-only
+// in Version Control or Email for the world, offering only those views, while
+// its members keep every view.
+test('a public board shows its public views to visitors and its private views to members', () => {
+  const board = {
+    permission: 'public',
+    members: [{ userId: 'member', isActive: true }, { userId: 'gone', isActive: false }],
+    defaultPublicBoardView: 'board-view-version-control',
+    boardViewSettings: Object.fromEntries(bvs.BOARD_VIEWS.map(v => [v.view, {
+      showOnPublic: ['board-view-version-control', 'board-view-email'].includes(v.view),
+    }])),
+  };
+  assert.strictEqual(bvs.boardViewAudience(board, undefined), 'public', 'not logged in');
+  assert.strictEqual(bvs.boardViewAudience(board, 'stranger'), 'public', 'logged in, not a member');
+  assert.strictEqual(bvs.boardViewAudience(board, 'gone'), 'public', 'a former member');
+  assert.strictEqual(bvs.boardViewAudience(board, 'member'), 'private');
+  assert.strictEqual(bvs.boardViewAudience({ ...board, permission: 'private' }, undefined), 'private');
+
+  const visitorMenu = bvs.boardViewMenuEntries(board, null, undefined, undefined).map(e => e.view);
+  assert.deepStrictEqual(visitorMenu, ['board-view-email', 'board-view-version-control']);
+  assert.strictEqual(bvs.resolveBoardView(board, undefined, undefined, undefined), 'board-view-version-control',
+    'a first visit opens in the public default');
+  assert.strictEqual(bvs.resolveBoardView(board, 'board-view-swimlanes', undefined, 'stranger'),
+    'board-view-version-control', 'negative: a view not offered to the public falls back to the public default');
+  assert.strictEqual(bvs.resolveBoardView(board, 'board-view-email', undefined, 'stranger'), 'board-view-email');
+
+  const memberMenu = bvs.boardViewMenuEntries(board, null, undefined, 'member').map(e => e.view);
+  assert.strictEqual(memberMenu.length, bvs.BOARD_VIEWS.length, 'members keep every view');
+  assert.strictEqual(bvs.resolveBoardView(board, 'board-view-swimlanes', undefined, 'member'), 'board-view-swimlanes');
+});
+
+test('the client resolves and draws the menu for the person looking', () => {
+  const utils = read('client/lib/utils.js');
+  const header = read('client/components/boards/boardHeader.js');
+  assert.match(utils, /resolveBoardView\(board, stored, allowBoardView, Meteor\.userId\(\)\)/);
+  assert.match(header, /boardViewMenuEntries\(board, Utils\.boardView\(\), allowBoardView, Meteor\.userId\(\)\)/);
 });
 
 console.log(`boardViewSettings: ${passed} passed`);

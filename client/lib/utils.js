@@ -361,6 +361,7 @@ export const Utils = {
         'board-view-map',
         'board-view-email',
         'board-view-chat',
+        'board-view-version-control',
       ].includes(view)
     ) {
       window.localStorage.setItem('boardView', view); //true
@@ -388,7 +389,7 @@ export const Utils = {
   boardView() {
     const stored = Utils.storedBoardView();
     const board = Utils.getCurrentBoard();
-    return board ? resolveBoardView(board, stored, allowBoardView) : stored;
+    return board ? resolveBoardView(board, stored, allowBoardView, Meteor.userId()) : stored;
   },
 
   storedBoardView() {
@@ -469,6 +470,7 @@ export const Utils = {
         'board-view-map',
         'board-view-email',
         'board-view-chat',
+        'board-view-version-control',
       ].includes(window.localStorage.getItem('boardView'))
     ) {
       return window.localStorage.getItem('boardView');

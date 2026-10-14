@@ -1,7 +1,7 @@
 'use strict';
 const {test}=require('node:test');const assert=require('node:assert/strict');const fs=require('node:fs');const vm=require('node:vm');
 function harness(responses){
- const calls=[];const context={URL,Buffer,AbortController,setTimeout,clearTimeout,process:{env:{}},
+ const calls=[];const context={URL,Buffer,AbortController,setTimeout,clearTimeout,process:{env:{}},...require('../models/lib/listSyncIssueDetails.js'),
  // SyncBleed: every request goes through the SSRF guard; stub it in its place.
  fetchSafe:async(url,options)=>{calls.push({url,options});const response=responses.shift();if(!response)throw new Error('Unexpected request');if(response.error)throw new Error(response.error);return {ok:true,headers:new Headers(response.headers),json:async()=>response.body};}};
  vm.createContext(context);vm.runInContext(fs.readFileSync('server/lib/listSyncFetch.js','utf8').replace(/^import .*$/gm,'').replace(/export /g,''),context);

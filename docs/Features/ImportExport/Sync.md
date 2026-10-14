@@ -499,6 +499,22 @@ Configuration methods: `setListSyncSource`, `hasListSyncCredential`,
 `syncListNow`, `previewListSync` (`server/methods/listSync.js`), all requiring board write
 access.
 
+### Comments, labels, state and files (GitHub, GitLab, Gitea, Forgejo)
+
+A sync option of its own, off by default, beside **Add card** and **Archive
+card** in the Sync popup. With it, a list synced from an issue tracker also
+brings each issue's comments, labels, open or closed state and files, so the
+board works as that repository's issue tracker in
+[Board View / Version Control](../Board/Version-Control-View.md), where the
+details are described.
+
+It runs after a successful sync, as a step of its own: if it fails, the
+list's Sync status says so and the next run tries again, and the title and
+description sync is not undone. Everything is keyed by the tracker's own ids
+(the comment id, the file's URL, the labels sync itself added), so a second
+run writes only what changed upstream, and nothing written in WeKan is
+changed or removed.
+
 ### Sprints and releases (Scrum planning)
 
 The Sync settings offer **Sprint (Scrum planning)** and **Releases (Scrum

@@ -1631,6 +1631,166 @@
     {
       "key": "sandstorm-sync-granted",
       "since": "2026-10-14"
+    },
+    {
+      "key": "board-view-version-control",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "feature-views-version-control",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "feature-views-version-control-desc",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-issues",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-milestones",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-new-issue",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-submit-issue",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-open",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-closed",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-sort-created-desc",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-sort-created-asc",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-sort-updated-desc",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-sort-comments-desc",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-opened-by",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-comment-count",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-open-issues",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-due",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-no-due-date",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-no-issues",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-no-milestones",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-no-labels",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-no-files",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-no-description",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-none",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-leave-comment",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-close",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-reopen",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-open-card",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-issue-title-required",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-issue-title-too-long",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-issue-body-too-long",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-no-list",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "card-qr-code",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "card-qr-code-desc",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "card-qr-code-too-long",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-sync-now",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-synced-from",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-synced-issue",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "sync-issue-details",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "cardQrCodePopup-title",
+      "since": "2026-10-14"
     }
   ]
 }

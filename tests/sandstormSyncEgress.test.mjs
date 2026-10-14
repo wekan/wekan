@@ -78,7 +78,12 @@ test('the sync job uses the grant in a grain, and the SSRF guard everywhere else
   assert.match(fetchFile, /response = inGrain\(\) \? await syncFetch\(url,/);
   assert.match(fetchFile, /: operatorAllowedHost\(url\) \? await fetchOperatorHost\(url, headers\) : await fetchSafe\(url,/);
   // The GitLab token moves to the query only in a grain.
-  assert.match(fetchFile, /if \(inGrain\(\)\) \{\s*const query = credential\.token \? `&private_token=\$\{encodeURIComponent\(credential\.token\)\}` : '';/);
+  // The issue and notes requests share one decision (the notes fetch of
+  // "Comments, labels, state and files" was added beside the issue list), so
+  // the guard pins that decision: the query only in a grain, the header only
+  // outside one.
+  assert.match(fetchFile, /const grain = inGrain\(\);\s*const query = grain && credential\.token \? `&private_token=\$\{encodeURIComponent\(credential\.token\)\}` : '';\s*const headers = grain \? \{\} : \{ 'PRIVATE-TOKEN': credential\.token \};/);
+  assert.match(fetchFile, /\/notes\?per_page=100&sort=asc\$\{query\}`, headers\)/);
   const server = read('server/sandstormEgress.js');
   const body = server.slice(server.indexOf('export async function syncFetch('), server.indexOf('async function syncTarget('));
   assert.match(body, /findOneAsync\(syncGrantId\(root\)\)/, 'found by id, never by a search');

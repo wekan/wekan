@@ -47,6 +47,8 @@ function harness(respond, { validate, env = {} } = {}) {
     },
     validateAttachmentUrl: validate || (async url => (INTERNAL.test(new URL(url).host)
       ? { valid: false, reason: 'IP address is not allowed' } : { valid: true })),
+    // The real helpers the stripped import line names (pure modules).
+    ...require('../models/lib/listSyncIssueDetails.js'),
   };
   vm.createContext(context);
   vm.runInContext(read('server/lib/listSyncFetch.js').replace(/^import .*$/gm, '').replace(/export /g, ''), context);

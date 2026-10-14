@@ -298,7 +298,7 @@ Template.boardChangeViewPopup.helpers({
   boardViewMenuEntries() {
     const board = Utils.getCurrentBoard();
     // #6736: a view the instance disabled is not drawn at all.
-    return boardViewMenuEntries(board, Utils.boardView(), allowBoardView).map(entry => ({
+    return boardViewMenuEntries(board, Utils.boardView(), allowBoardView, Meteor.userId()).map(entry => ({
       ...entry,
       icon: `fa ${entry.icon}`,
     }));
@@ -462,6 +462,10 @@ Template.boardChangeViewPopup.events({
   },
   'click .js-open-chat-view'() {
     Utils.setBoardView('board-view-chat');
+    Popup.back();
+  },
+  'click .js-open-version-control-view'() {
+    Utils.setBoardView('board-view-version-control');
     Popup.back();
   },
   'click .js-open-pulse-view'() {
@@ -957,6 +961,7 @@ Template.boardViewMenu.helpers({
       'board-view-map': 'board-view-map',
       'board-view-email': 'board-view-email',
       'board-view-chat': 'board-view-chat',
+      'board-view-version-control': 'board-view-version-control',
     };
     return TAPi18n.__(names[Utils.boardView()] || 'board-view');
   },

@@ -64,6 +64,9 @@ const BOARD_VIEWS = [
   // The board as a Slack / Rocket.Chat workspace: channels in a tree, the card,
   // its comments as chat (client/components/boards/chatView.*).
   { view: 'board-view-chat', labelKey: 'board-view-chat', icon: 'fa-comments' },
+  // The board as a GitHub / Gitea issue tracker: issues, milestones, labels,
+  // files and the history with its undo (client/components/boards/versionControlView.*).
+  { view: 'board-view-version-control', labelKey: 'board-view-version-control', icon: 'fa-code-fork' },
 ];
 
 const DEFAULT_BOARD_VIEW = 'board-view-swimlanes';
@@ -118,12 +121,13 @@ const DEFAULT_BOARD_VIEW_ORDER = [
   'board-view-map',
   'board-view-email',
   'board-view-chat',
+  'board-view-version-control',
 ];
 
 // Views added to the default order after a board could save an order of its
 // own (Board Settings / Board View). A saved order that lacks only these is
 // the default order of its time, not a custom one (normalizeBoardViewOrder).
-const VIEWS_ADDED_LATER = ['board-view-calendar-mode', 'board-view-email', 'board-view-chat'];
+const VIEWS_ADDED_LATER = ['board-view-calendar-mode', 'board-view-email', 'board-view-chat', 'board-view-version-control'];
 
 // After which entries the menu draws a separator - the same six `hr`s the
 // pre-feature template had, at the same places - only in the DEFAULT order,
@@ -253,6 +257,21 @@ function defaultField(visibility) {
     : 'defaultPrivateBoardView';
 }
 
+// Which side's settings apply to the person looking. A PUBLIC board shows its
+// public settings - Show on / Default on Public Board - to the public: a
+// visitor who is not logged in, or is logged in and not a member. Its own
+// members work on it, so they get the private side, the same as on a private
+// board. So a public board can open read-only in, say, Version Control or
+// Email for the world, and offer the world only those views, while its
+// members keep every view. Without a userId (old callers) a public board is
+// public to everybody, as it was before.
+function boardViewAudience(board, userId) {
+  if (normalizeVisibility(board && board.permission) !== 'public') return 'private';
+  const member = !!userId && Array.isArray(board.members)
+    && board.members.some(m => m && m.userId === userId && m.isActive !== false);
+  return member ? 'private' : 'public';
+}
+
 function isBoardViewShown(board, view, visibility) {
   const settings = (board && board.boardViewSettings) || {};
   const entry = settings[view];
@@ -275,8 +294,8 @@ function visibleBoardViews(board, visibility, allowView = allowAll) {
 // each with the class its click handler listens for, whether it is the one
 // currently rendered, and whether a separator follows it (default order
 // only). `currentView` is what Utils.boardView() returns.
-function boardViewMenuEntries(board, currentView, allowView = allowAll) {
-  const visibility = board && board.permission;
+function boardViewMenuEntries(board, currentView, allowView = allowAll, userId) {
+  const visibility = boardViewAudience(board, userId);
   const defaultOrder = isDefaultBoardViewOrder(board && board.boardViewOrder);
   const visible = visibleBoardViews(board, visibility, allowView);
   return visible.map((v, i) => ({
@@ -294,9 +313,9 @@ function boardViewMenuEntries(board, currentView, allowView = allowAll) {
 // is always shown (the setters keep that invariant), but a document edited
 // by hand could break it, so the last resort is Swimlanes regardless - a
 // user is never left on a view that renders nothing.
-function resolveBoardView(board, requestedView, allowView = allowAll) {
+function resolveBoardView(board, requestedView, allowView = allowAll, userId) {
   if (!board) return requestedView;
-  const visibility = board.permission;
+  const visibility = boardViewAudience(board, userId);
   if (isKnownBoardView(requestedView) && allowView(requestedView) &&
       isBoardViewShown(board, requestedView, visibility)) {
     return requestedView;
@@ -459,6 +478,7 @@ module.exports = {
   moveBoardView,
   reorderVisibleBoardViews,
   boardViewMenuEntries,
+  boardViewAudience,
   isKnownBoardView,
   normalizeVisibility,
   isBoardViewShown,

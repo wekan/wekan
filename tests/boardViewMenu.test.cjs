@@ -71,6 +71,7 @@ const VIEWS = [
   { view: 'board-view-map', jsClass: 'js-open-map-view', icon: 'fa-map-marker', template: 'mapView', helper: 'isViewMap' },
   { view: 'board-view-email', jsClass: 'js-open-email-view', icon: 'fa-envelope', template: 'emailView', helper: 'isViewEmail' },
   { view: 'board-view-chat', jsClass: 'js-open-chat-view', icon: 'fa-comments', template: 'chatView', helper: 'isViewChat' },
+  { view: 'board-view-version-control', jsClass: 'js-open-version-control-view', icon: 'fa-code-fork', template: 'versionControlView', helper: 'isViewVersionControl' },
 ];
 
 // Between Table and Calendar, between Timeline and Statistics, between

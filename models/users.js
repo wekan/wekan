@@ -927,6 +927,7 @@ Users.attachSchema(
         'board-view-map',
         'board-view-email',
         'board-view-chat',
+        'board-view-version-control',
       ],
     },
     'profile.listSortBy': {

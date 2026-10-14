@@ -1365,3 +1365,23 @@ body.desktop-mode .card-details.card-details-position-pending:not(.card-details-
   gap: 4px;
   opacity: 0.8;
 }
+
+/* #2015: the card's link as a QR code - always black on white with its quiet
+   zone, whatever the theme, so a phone camera can read it. */
+.card-qr-code {
+  text-align: center;
+}
+
+.card-qr-code-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto 8px;
+  background: #fff;
+  image-rendering: pixelated;
+}
+
+.card-qr-code-url {
+  font-size: 0.8em;
+  word-break: break-all;
+}

@@ -1,0 +1,404 @@
+/* Board View / Version Control: GitHub's and Gitea's repository layout - a
+   header, tabs, a bordered box of issues - in the board's own theme. No colour
+   of its own: the accent is the theme's (--theme-accent, falling back to
+   WeKan blue, as emailView.css does), a label is the board label's own colour,
+   and the boxes are drawn with currentColor, so a dark theme stays dark.
+   Logical properties, so a right-to-left language mirrors it. */
+
+.vcs-view {
+  padding: 12px 16px;
+  min-height: 100%;
+  box-sizing: border-box;
+  max-width: 1280px;
+}
+
+.vcs-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.vcs-repo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 1.3em;
+}
+
+.vcs-repo-name {
+  font-weight: bold;
+  color: var(--theme-accent, #01628c);
+}
+
+.vcs-badge {
+  font-size: 0.65em;
+  font-weight: normal;
+  padding: 1px 8px;
+  border: 1px solid currentColor;
+  border-radius: 2em;
+  opacity: 0.75;
+}
+
+.vcs-header-actions,
+.vcs-import {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.vcs-import-link,
+.vcs-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+  border-radius: 6px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.vcs-import-link:hover,
+.vcs-button:hover {
+  background: color-mix(in srgb, currentColor 8%, transparent);
+}
+
+.vcs-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 12px 0 16px;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+}
+
+.vcs-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-bottom: 2px solid transparent;
+  color: inherit;
+  text-decoration: none;
+}
+
+.vcs-tab.is-active {
+  border-bottom-color: var(--theme-accent, #01628c);
+  font-weight: bold;
+}
+
+.vcs-counter {
+  min-width: 1.5em;
+  padding: 0 6px;
+  border-radius: 2em;
+  font-size: 0.85em;
+  text-align: center;
+  background: color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.vcs-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.vcs-search {
+  flex: 1 1 280px;
+  margin: 0 !important;
+}
+
+.vcs-new,
+.vcs-view button.primary {
+  background: var(--theme-accent, #01628c) !important;
+  color: #fff !important;
+}
+
+.vcs-box {
+  border: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.vcs-box-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 16px;
+  background: color-mix(in srgb, currentColor 5%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+}
+
+.vcs-state {
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.7;
+}
+
+.vcs-state.is-active {
+  font-weight: bold;
+  opacity: 1;
+}
+
+.vcs-sort {
+  margin: 0 0 0 auto !important;
+  margin-inline-start: auto !important;
+  width: auto !important;
+}
+
+.vcs-issues,
+.vcs-milestones,
+.vcs-labels {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.vcs-issue,
+.vcs-milestone,
+.vcs-label-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 16px;
+  border-top: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.vcs-issue:first-child,
+.vcs-milestone:first-child,
+.vcs-label-row:first-child {
+  border-top: 0;
+}
+
+.vcs-issue:hover {
+  background: color-mix(in srgb, currentColor 4%, transparent);
+}
+
+.vcs-issue-icon {
+  margin-top: 3px;
+}
+
+/* Open and closed are told apart by the icon as well as the colour. */
+.vcs-issue-icon.is-open,
+.vcs-state-badge.is-open {
+  color: #1a7f37;
+}
+
+.vcs-issue-icon.is-closed,
+.vcs-state-badge.is-closed {
+  color: #8250df;
+}
+
+.vcs-issue-main,
+.vcs-milestone-main {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.vcs-issue-title,
+.vcs-milestone-title {
+  font-weight: bold;
+  color: inherit;
+  text-decoration: none;
+  margin-inline-end: 6px;
+}
+
+.vcs-issue-title:hover,
+.vcs-milestone-title:hover {
+  color: var(--theme-accent, #01628c);
+  text-decoration: underline;
+}
+
+.vcs-label {
+  display: inline-block;
+  margin: 2px 4px 2px 0;
+  text-decoration: none;
+}
+
+.vcs-issue-meta {
+  font-size: 0.85em;
+  margin-top: 2px;
+}
+
+.vcs-issue-milestone {
+  margin-inline-start: 8px;
+  color: inherit;
+}
+
+.vcs-issue-side {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+}
+
+.vcs-issue-side .member {
+  width: 22px;
+  height: 22px;
+}
+
+.vcs-empty {
+  padding: 24px 16px;
+  text-align: center;
+}
+
+.vcs-milestone-progress {
+  flex: 0 0 40%;
+}
+
+.vcs-progress {
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.vcs-progress-bar {
+  height: 100%;
+  background: #1a7f37;
+}
+
+.vcs-overdue {
+  color: #cf222e;
+}
+
+.vcs-files {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.vcs-files td {
+  padding: 8px 16px;
+  border-top: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+}
+
+/* One issue */
+.vcs-back {
+  color: inherit;
+}
+
+.vcs-issue-heading {
+  margin: 8px 0 4px;
+  font-size: 1.6em;
+  font-weight: normal;
+}
+
+.vcs-issue-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+}
+
+.vcs-state-badge {
+  padding: 4px 12px;
+  border: 1px solid currentColor;
+  border-radius: 2em;
+  font-weight: bold;
+}
+
+.vcs-issue-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.vcs-timeline {
+  flex: 1 1 520px;
+  min-width: 0;
+}
+
+.vcs-sidebar {
+  flex: 0 1 240px;
+}
+
+.vcs-side-block {
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.vcs-side-block h3 {
+  margin: 0 0 6px;
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+.vcs-comment {
+  margin-bottom: 16px;
+  border: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+  border-radius: 6px;
+}
+
+.vcs-comment-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: color-mix(in srgb, currentColor 5%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+}
+
+.vcs-comment-header .member {
+  width: 22px;
+  height: 22px;
+}
+
+.vcs-comment-body {
+  padding: 8px 12px;
+}
+
+.vcs-comment-form textarea,
+.vcs-new-issue textarea,
+.vcs-new-issue input[type="text"] {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.vcs-comment-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.vcs-new-issue {
+  max-width: 900px;
+}
+
+.vcs-new-labels {
+  border: 0;
+  padding: 0;
+  margin: 8px 0;
+}
+
+.vcs-new-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-inline-end: 12px;
+}
+
+@media (max-width: 640px) {
+  .vcs-milestone {
+    flex-wrap: wrap;
+  }
+
+  .vcs-milestone-progress {
+    flex-basis: 100%;
+  }
+
+  .vcs-sidebar {
+    flex-basis: 100%;
+  }
+}
+
+.vcs-synced {
+  align-self: center;
+  margin-inline-end: auto;
+}

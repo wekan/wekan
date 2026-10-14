@@ -115,6 +115,8 @@ template(name="boardBody")
           +emailView
         else if isViewChat
           +chatView
+        else if isViewVersionControl
+          +versionControlView
         else
           // Default view - show swimlanes if they exist, otherwise show lists
           if hasSwimlanes

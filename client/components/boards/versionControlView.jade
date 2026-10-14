@@ -1,0 +1,251 @@
+//- Board View / Version Control: the board as a GitHub / Gitea repository's
+  issue tracker, in the board's own theme. Design:
+  docs/Features/Board/Version-Control-View.md. A card is an issue, the board's
+  labels are its labels, a label with a due date is a milestone, the comments
+  are the conversation, the attachments are the files and the board's change
+  history is the history, with its undo.
+template(name="versionControlView")
+  .vcs-view
+    header.vcs-header
+      h2.vcs-repo
+        i.fa.fa-code-fork
+        span.vcs-repo-name {{boardTitle}}
+        if isPublic
+          span.vcs-badge {{_ 'public'}}
+      .vcs-header-actions
+        if canWrite
+          .vcs-import
+            span.quiet {{_ 'import'}}:
+            each importSources
+              a.vcs-import-link(href="{{pathFor 'import' source=key}}") {{name}}
+        if canWrite
+          each syncedLists
+            button.vcs-button.js-vcs-sync(type="button" data-list-id="{{_id}}" disabled="{{#if busy}}disabled{{/if}}" title="{{source}} {{project}}{{#if error}} - {{error}}{{/if}}")
+              i.fa.fa-refresh(class="{{#if busy}}fa-spin{{/if}}")
+              | &nbsp;{{_ 'vcs-sync-now' source}}: {{title}}
+        a.vcs-button.js-vcs-export(href="#")
+          i.fa.fa-download
+          | &nbsp;{{_ 'export-board'}}
+    nav.vcs-tabs(role="tablist" aria-label="{{_ 'board-view-version-control'}}")
+      each tabs
+        a.vcs-tab.js-vcs-tab(href="#" role="tab" data-tab="{{id}}" aria-selected="{{#if active}}true{{else}}false{{/if}}" class="{{#if active}}is-active{{/if}}")
+          i.fa(class="{{icon}}")
+          span {{_ labelKey}}
+          if count
+            span.vcs-counter {{count}}
+
+    if isTab 'issues'
+      if creating
+        +versionControlNewIssue
+      else if selectedIssue
+        +versionControlIssue(selectedIssue)
+      else
+        .vcs-toolbar
+          input.vcs-search.js-vcs-search(type="search" value="{{query}}" aria-label="{{_ 'search'}}" placeholder="is:open label:bug milestone:v1 author:@me")
+          a.vcs-button.js-vcs-tab(href="#" data-tab="labels")
+            i.fa.fa-tag
+            | &nbsp;{{_ 'labels'}}
+          a.vcs-button.js-vcs-tab(href="#" data-tab="milestones")
+            i.fa.fa-map-signs
+            | &nbsp;{{_ 'vcs-milestones'}}
+          if canWrite
+            button.primary.vcs-new.js-vcs-new(type="button") {{_ 'vcs-new-issue'}}
+        .vcs-box
+          .vcs-box-header
+            a.vcs-state.js-vcs-state(href="#" data-state="open" class="{{#if stateIs 'open'}}is-active{{/if}}")
+              i.fa.fa-dot-circle-o
+              | &nbsp;{{counts.open}} {{_ 'vcs-open'}}
+            a.vcs-state.js-vcs-state(href="#" data-state="closed" class="{{#if stateIs 'closed'}}is-active{{/if}}")
+              i.fa.fa-check
+              | &nbsp;{{counts.closed}} {{_ 'vcs-closed'}}
+            select.vcs-sort.js-vcs-sort(aria-label="{{_ 'sort'}}")
+              each sorts
+                option(value="{{id}}" selected="{{#if active}}selected{{/if}}") {{_ labelKey}}
+          ul.vcs-issues
+            each issues
+              li.vcs-issue
+                i.fa.vcs-issue-icon(class="{{#if closed}}fa-check-circle is-closed{{else}}fa-dot-circle-o is-open{{/if}}" aria-hidden="true")
+                .vcs-issue-main
+                  a.vcs-issue-title.js-vcs-open-issue(href="#" data-card-id="{{_id}}") {{title}}
+                  each labels
+                    a.card-label.vcs-label.js-vcs-label(href="#" data-name="{{name}}" class="{{labelColorClass color}}" style="{{labelColorStyle color}}") {{name}}
+                  .vcs-issue-meta.quiet
+                    if number
+                      | {{numberText}}&nbsp;
+                    | {{_ 'vcs-opened-by' date author}}
+                    each milestones
+                      a.vcs-issue-milestone.js-vcs-milestone(href="#" data-title="{{title}}")
+                        i.fa.fa-map-signs
+                        | &nbsp;{{title}}
+                .vcs-issue-side
+                  each assignees
+                    +userAvatar(userId=this noRemove=true)
+                  if comments
+                    span.vcs-issue-comments(title="{{_ 'comments'}}")
+                      i.fa.fa-comment-o
+                      | &nbsp;{{comments}}
+            else
+              li.vcs-empty.quiet {{_ 'vcs-no-issues'}}
+
+    if isTab 'milestones'
+      .vcs-box
+        ul.vcs-milestones
+          each milestones
+            li.vcs-milestone
+              .vcs-milestone-main
+                a.vcs-milestone-title.js-vcs-milestone(href="#" data-title="{{title}}") {{title}}
+                .quiet(class="{{#if overdue}}vcs-overdue{{/if}}")
+                  if dueAt
+                    i.fa.fa-calendar
+                    | &nbsp;{{_ 'vcs-due' due}}
+                  else
+                    | {{_ 'vcs-no-due-date'}}
+              .vcs-milestone-progress
+                .vcs-progress(role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{percent}}")
+                  .vcs-progress-bar(style="width: {{percent}}%")
+                .quiet {{percent}}% · {{open}} {{_ 'vcs-open'}} · {{closed}} {{_ 'vcs-closed'}}
+          else
+            li.vcs-empty.quiet {{_ 'vcs-no-milestones'}}
+
+    if isTab 'labels'
+      .vcs-box
+        ul.vcs-labels
+          each labelRows
+            li.vcs-label-row
+              a.card-label.vcs-label.js-vcs-label(href="#" data-name="{{name}}" class="{{labelColorClass color}}" style="{{labelColorStyle color}}") {{#if name}}{{name}}{{else}}{{color}}{{/if}}
+              span.quiet {{_ 'vcs-open-issues' open}}
+          else
+            li.vcs-empty.quiet {{_ 'vcs-no-labels'}}
+
+    if isTab 'files'
+      .vcs-box
+        table.vcs-files
+          tbody
+            each files
+              tr
+                td
+                  i.fa.fa-file-o
+                  | &nbsp;
+                  a(href="{{link}}" target="_blank" rel="noopener noreferrer") {{name}}
+                td.quiet {{size}}
+                td
+                  a.js-vcs-open-issue(href="#" data-card-id="{{cardId}}")
+                    if number
+                      | {{numberText}}&nbsp;
+                    | {{issueTitle}}
+                td.quiet {{date}}
+            else
+              tr
+                td.vcs-empty.quiet {{_ 'vcs-no-files'}}
+
+    if isTab 'history'
+      //- The board's change history, as git log: who changed what, when -
+        and Restore undoes it, through the same history every board has.
+      +historyTable(scope="board" scopeId=boardId)
+
+//- One issue: the conversation on the left, labels, people, milestone and
+  files on the right - GitHub's issue page.
+template(name="versionControlIssue")
+  .vcs-issue-page
+    a.vcs-back.js-vcs-back(href="#")
+      i.fa.fa-arrow-left
+      | &nbsp;{{_ 'vcs-issues'}}
+    h2.vcs-issue-heading
+      | {{title}}&nbsp;
+      if number
+        span.quiet {{numberText}}
+    .vcs-issue-status
+      span.vcs-state-badge(class="{{#if closed}}is-closed{{else}}is-open{{/if}}")
+        i.fa(class="{{#if closed}}fa-check-circle{{else}}fa-dot-circle-o{{/if}}")
+        | &nbsp;{{#if closed}}{{_ 'vcs-closed'}}{{else}}{{_ 'vcs-open'}}{{/if}}
+      span.quiet {{_ 'vcs-opened-by' date author}} · {{_ 'vcs-comment-count' comments}}
+    .vcs-issue-layout
+      .vcs-timeline
+        .vcs-comment
+          .vcs-comment-header
+            strong {{author}}
+            span.quiet &nbsp;{{date}}
+          .vcs-comment-body
+            if body
+              +viewer
+                = body
+            else
+              p.quiet {{_ 'vcs-no-description'}}
+        each conversation
+          .vcs-comment
+            .vcs-comment-header
+              +userAvatar(userId=userId noRemove=true)
+              strong {{author}}
+              span.quiet &nbsp;{{time}}
+            .vcs-comment-body
+              +viewer
+                = text
+        if canComment
+          form.vcs-comment-form.js-vcs-comment
+            textarea.js-vcs-comment-text(rows="4" aria-label="{{_ 'vcs-leave-comment'}}" placeholder="{{_ 'vcs-leave-comment'}}")
+            .vcs-comment-actions
+              if synced
+                span.quiet.vcs-synced
+                  i.fa.fa-refresh
+                  | &nbsp;{{_ 'vcs-synced-from' syncSource}}
+              else if canWrite
+                if closed
+                  button.js-vcs-set-state(type="button" data-state="open")
+                    i.fa.fa-dot-circle-o
+                    | &nbsp;{{_ 'vcs-reopen'}}
+                else
+                  button.js-vcs-set-state(type="button" data-state="closed")
+                    i.fa.fa-check-circle
+                    | &nbsp;{{_ 'vcs-close'}}
+              button.primary(type="submit") {{_ 'comment'}}
+      aside.vcs-sidebar
+        .vcs-side-block
+          h3 {{_ 'assignee'}}
+          each assignees
+            +userAvatar(userId=this noRemove=true)
+          else
+            p.quiet {{_ 'vcs-none'}}
+        .vcs-side-block
+          h3 {{_ 'labels'}}
+          each labels
+            span.card-label.vcs-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}") {{name}}
+          else
+            p.quiet {{_ 'vcs-none'}}
+        .vcs-side-block
+          h3 {{_ 'vcs-milestones'}}
+          each milestones
+            p
+              i.fa.fa-map-signs
+              | &nbsp;{{title}}
+          else
+            p.quiet {{_ 'vcs-none'}}
+        .vcs-side-block
+          h3 {{_ 'attachments'}}
+          each issueFiles
+            p
+              a(href="{{link}}" target="_blank" rel="noopener noreferrer") {{name}}
+          else
+            p.quiet {{_ 'vcs-none'}}
+        //- Everything else - editing labels, people, dates, uploading files to
+          the Admin Panel's default storage - is the card's own popup.
+        button.js-vcs-open-card(type="button" data-card-id="{{_id}}")
+          i.fa.fa-id-card-o
+          | &nbsp;{{_ 'vcs-open-card'}}
+
+template(name="versionControlNewIssue")
+  form.vcs-new-issue.js-vcs-create
+    h2 {{_ 'vcs-new-issue'}}
+    input.js-vcs-new-title(type="text" required aria-label="{{_ 'title'}}" placeholder="{{_ 'title'}}" autofocus)
+    textarea.js-vcs-new-body(rows="10" aria-label="{{_ 'description'}}" placeholder="{{_ 'description'}}")
+    if boardLabels.length
+      fieldset.vcs-new-labels
+        legend {{_ 'labels'}}
+        each boardLabels
+          label.vcs-new-label
+            input.js-vcs-new-label(type="checkbox" value="{{_id}}")
+            span.card-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}") {{#if name}}{{name}}{{else}}{{color}}{{/if}}
+    if error
+      p.warning {{error}}
+    .vcs-comment-actions
+      button.js-vcs-cancel(type="button") {{_ 'cancel'}}
+      button.primary(type="submit") {{_ 'vcs-submit-issue'}}

@@ -21,6 +21,8 @@ function buildCopiedSubtaskFields(subtask, { newParentId, boardId, swimlaneId, l
   delete fields.syncSourceType;
   delete fields.syncLastSource;
   delete fields.syncSourceKey;
+  delete fields.syncLabelIds;
+  delete fields.syncIssueState;
   delete fields.scrum;
   delete fields.scrumRevision;
   // On another board, its sprint and release by name (scrumCopy.js).

@@ -94,6 +94,14 @@
       "https://api\\.trello\\.com/1",
       "https://api\\.github\\.com",
       "https://gitlab\\.com"
+    ],
+    "models/lib/githubWiki.js": [
+      "https://github\\.com/"
+    ],
+    "models/lib/issueAttachments.js": [
+      "https://github\\.com/user-attachments/assets/",
+      "https://github\\.com/user-attachments/files/",
+      "https://user-images\\.githubusercontent\\.com/"
     ]
   },
   "files": {

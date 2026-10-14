@@ -367,6 +367,8 @@ Lists.attachSchema(
     'syncSource.fields': { type: Array, optional: true },
     'syncSource.createCards': { type: Boolean, optional: true },
     'syncSource.archiveCards': { type: Boolean, optional: true },
+    // Comments, labels, state and files of GitHub / GitLab / Gitea / Forgejo issues.
+    'syncSource.issueDetails': { type: Boolean, optional: true },
     // `sprint` and `releases`: the card's Scrum planning (models/lib/listSyncPlanning.js).
     'syncSource.fields.$': { type: String, allowedValues: ['title', 'description', 'spentTime', 'estimate', 'originalEstimate', 'remainingEstimate', 'sprint', 'releases'] },
     'syncSource.enabled': {

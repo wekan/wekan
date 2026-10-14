@@ -949,6 +949,9 @@ Template.boardBody.helpers({
   isViewChat() {
     return Utils.boardView() === 'board-view-chat';
   },
+  isViewVersionControl() {
+    return Utils.boardView() === 'board-view-version-control';
+  },
 
   isViewPulse() {
     return Utils.boardView() === 'board-view-pulse';
