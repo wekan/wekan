@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Malagasy report labels and WIP groups — 2026-10-14
+
+Commit `e6d688867c` corrects 35 entries. Numeric summaries now describe the sum
+of values, WIP groups name groups instead of enabling limits, and selection
+labels distinguish swimlanes from boards. Report labels clarify forecasts,
+confidence, open episodes, cycle duration and minimum predicted capacity.
+
+The Malagasy catalog and guarded-correction suites pass with 30,220 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. Eight browser cases cover numeric
+summaries, WIP groups, report menus and the existing account warning. Syntax
+and discovery pass; runtime remains pending.
+
+Malagasy and all-language semantic review remain unfinished.
+
 ## Malagasy account consequences and report explanations — 2026-10-14
 
 Commit `01204a94f0` corrects eight entries. Account anonymization used unrelated

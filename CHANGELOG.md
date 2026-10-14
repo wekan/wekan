@@ -4197,6 +4197,21 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e6d688867cc8a24795be7d9125cac8cfb44825ab">Correct Malagasy report labels and WIP group terminology</a>. Thanks to xet7.</summary>
+
+Correct 35 translations for numeric value sums, WIP groups, swimlane selection,
+report measures and forecasts. Preserve the distinctions between open episodes,
+confidence levels, minimum capacity and cycle duration.
+
+The Malagasy catalog and guarded-correction suites pass with 30,220 audited
+corrections. All 21 human-preference checks pass; 38,430 existing Chinese values
+remain unchanged. Eight browser cases pass syntax and discovery checks; browser
+runtime remains pending. Malagasy and all-language semantic review remain
+unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
