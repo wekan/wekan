@@ -70,6 +70,48 @@ And in GitLab you have to set the same scopes inside the created Application:
 
 The redirect URL is described in the wekan wiki: https://wekan.example.com/_oauth/oidc
 
+## Bitbucket providing OAuth2 login to WeKan
+
+[#1324](https://github.com/wekan/wekan/issues/1324). Bitbucket Cloud logs in to
+WeKan through these generic OAuth2 settings; it needs no provider of its own.
+
+1. In Bitbucket: **Workspace settings → OAuth consumers → Add consumer**.
+   - **Callback URL**: `https://wekan.example.com/_oauth/oidc` (your
+     `ROOT_URL` followed by `/_oauth/oidc`).
+   - **This is a private consumer**: on.
+   - **Permissions**: *Account: Read*, and *Account: Email* if you want the
+     email scope.
+   - Save, and open the consumer for its **Key** and **Secret**.
+2. Set WeKan's environment (or Admin Panel → Authentication → OAuth2):
+
+```
+OAUTH2_ENABLED=true
+OAUTH2_CLIENT_ID=<the consumer's Key>
+OAUTH2_SECRET=<the consumer's Secret>
+OAUTH2_SERVER_URL=https://bitbucket.org
+OAUTH2_AUTH_ENDPOINT=/site/oauth2/authorize
+OAUTH2_TOKEN_ENDPOINT=/site/oauth2/access_token
+OAUTH2_USERINFO_ENDPOINT=https://api.bitbucket.org/2.0/user
+OAUTH2_REQUEST_PERMISSIONS=account
+OAUTH2_ID_MAP=uuid
+OAUTH2_USERNAME_MAP=nickname
+OAUTH2_FULLNAME_MAP=display_name
+OAUTH2_EMAIL_MAP=email
+```
+
+The user information is on another host than the login pages
+(`api.bitbucket.org`), which is why that endpoint is a full URL: an endpoint
+given as a full URL is used as it is (`packages/wekan-oidc/endpoint.js`).
+Bitbucket accepts the client secret in the token request, as WeKan sends it.
+
+**Email.** Bitbucket's `/2.0/user` does not include the email address (it is
+at a separate endpoint), so `OAUTH2_EMAIL_MAP=email` finds nothing and a
+Bitbucket login has no email until the person adds one in Member Settings.
+For the same reason `OAUTH2_ALLOWED_EMAIL_DOMAINS` can not be used with
+Bitbucket: a login without an email does not match a domain. Since 2019
+Bitbucket no longer returns `username`. `nickname` is the closest, and `uuid`
+is the stable id.
+
 ## Rocket.Chat providing OAuth2 login to Wekan
 
 - [More RocketChat fixes here](../Webhooks/Chat/RocketChat.md)
