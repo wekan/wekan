@@ -214863,5 +214863,138 @@
     "before": "__count__ notifications on board __board__",
     "after": "__count__ brath air bòrd __board__",
     "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "read-only-field",
+    "before": "Read-only: every member sees the value, only board admins change it",
+    "after": "Ri leughadh a-mhàin: chì gach ball an luach, ach chan atharraich ach rianairean a’ bhùird e",
+    "reason": "Translate Scottish Gaelic workflow and permission messages with restrictions, status mapping and setting names retained; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "r-wrike-workflow",
+    "before": "Wrike workflow",
+    "after": "Sruth-obrach Wrike",
+    "reason": "Translate Scottish Gaelic workflow and permission messages with restrictions, status mapping and setting names retained; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "r-wrike-workflow-note",
+    "before": "A Wrike workflow is a list of statuses, each in the Active, Completed, Deferred or Cancelled group. Export writes this board's lists as one, named after the board, in the JSON Wrike's API returns for workflows: create that workflow in Wrike before importing the board's Wrike Excel export, so its statuses are applied. Import reads that JSON pasted above, from WeKan or from Wrike's GET /workflows, into the chosen board: a status without a list becomes a list, and a rule marks a card complete when it is moved into a Completed or Cancelled status and incomplete in an Active or Deferred one. Wrike's own automation rules cannot be exported from Wrike.",
+    "after": "Tha sruth-obrach Wrike na liosta de staidhean, gach tè sa bhuidheann Active, Completed, Deferred no Cancelled. Sgrìobhaidh Às-phortaich liostaichean a’ bhùird seo mar aon sruth-obrach, leis an ainm a’ bhùird, san JSON a bheir API Wrike air ais airson sruthan-obrach: cruthaich an sruth-obrach sin ann an Wrike mus ion-phortaich thu às-phortadh Wrike Excel a’ bhùird, gus an tèid na staidhean aige a chur an sàs. Leughaidh Ion-phortaich an JSON sin a chaidh a chur a-steach gu h-àrd, à WeKan no à GET /workflows Wrike, dhan bhòrd a thagh thu: thèid staid gun liosta na liosta, agus comharraichidh riaghailt cairt mar chrìochnaichte nuair a thèid a gluasad gu staid Completed no Cancelled agus mar neo-chrìochnaichte ann an Active no Deferred. Chan urrainnear riaghailtean fèin-obrachail Wrike fhèin às-phortadh à Wrike.",
+    "reason": "Translate Scottish Gaelic workflow and permission messages with restrictions, status mapping and setting names retained; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "r-export-wrike-workflow",
+    "before": "Export Wrike workflow",
+    "after": "Às-phortaich sruth-obrach Wrike",
+    "reason": "Translate Scottish Gaelic workflow and permission messages with restrictions, status mapping and setting names retained; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "r-import-wrike-workflow",
+    "before": "Import Wrike workflow",
+    "after": "Ion-phortaich sruth-obrach Wrike",
+    "reason": "Translate Scottish Gaelic workflow and permission messages with restrictions, status mapping and setting names retained; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "r-import-wrike-workflow-done",
+    "before": "Wrike workflow \"__name__\": __lists__ list(s) and __rules__ rule(s) added, __skipped__ part(s) not read",
+    "after": "Sruth-obrach Wrike \"__name__\": chaidh __lists__ liosta agus __rules__ riaghailt a chur ris, cha deach __skipped__ pàirt a leughadh",
+    "reason": "Translate Scottish Gaelic workflow and permission messages with restrictions, status mapping and setting names retained; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "r-moved-forward",
+    "before": "moved forward to a later list",
+    "after": "air a gluasad air adhart gu liosta nas anmoiche",
+    "reason": "Translate Scottish Gaelic workflow and permission messages with restrictions, status mapping and setting names retained; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "r-moved-back",
+    "before": "moved back to an earlier list",
+    "after": "air a gluasad air ais gu liosta nas tràithe",
+    "reason": "Translate Scottish Gaelic workflow and permission messages with restrictions, status mapping and setting names retained; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "r-add-actinguser-assignee",
+    "before": "Add the user who triggered this rule as an assignee",
+    "after": "Cuir an cleachdaiche a bhrosnaich an riaghailt seo ris mar neach-obrach",
+    "reason": "Translate Scottish Gaelic workflow and permission messages with restrictions, status mapping and setting names retained; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "r-remove-all-assignees",
+    "before": "Remove all assignees from the card",
+    "after": "Thoir a h-uile neach-obrach air falbh bhon chairt",
+    "reason": "Translate Scottish Gaelic workflow and permission messages with restrictions, status mapping and setting names retained; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "ldap-sync-now",
+    "before": "Sync LDAP users now",
+    "after": "Sioncronaich cleachdaichean LDAP an-dràsta",
+    "reason": "Translate Scottish Gaelic workflow and permission messages with restrictions, status mapping and setting names retained; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "ldap-sync-now-done",
+    "before": "LDAP sync finished",
+    "after": "Tha sioncronachadh LDAP deiseil",
+    "reason": "Translate Scottish Gaelic workflow and permission messages with restrictions, status mapping and setting names retained; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "ldap-sync-now-error",
+    "before": "LDAP sync failed: %s",
+    "after": "Dh’fhàillig sioncronachadh LDAP: %s",
+    "reason": "Translate Scottish Gaelic workflow and permission messages with restrictions, status mapping and setting names retained; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "ldap-sync-now-nothing",
+    "before": "Nothing to sync: turn on LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS or LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED first.",
+    "after": "Chan eil dad ri shioncronachadh: cuir LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS no LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED an comas an toiseach.",
+    "reason": "Translate Scottish Gaelic workflow and permission messages with restrictions, status mapping and setting names retained; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "oauth-providers-allowed-email-domains",
+    "before": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
+    "after": "Chan fhaod ach na h-àrainnean puist-d seo clàradh a-steach leis na solaraichean seo (sgaraichte le cromagan; ceadaichear a h-uile fear ma tha e falamh)",
+    "reason": "Translate Scottish Gaelic workflow and permission messages with restrictions, status mapping and setting names retained; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "import-file-label",
+    "before": "Choose the export file, or paste its text below:",
+    "after": "Tagh am faidhle às-phortaidh, no cuir a-steach an teacsa aige gu h-ìosal:",
+    "reason": "Translate Scottish Gaelic workflow and permission messages with restrictions, status mapping and setting names retained; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "subtask-mark-done",
+    "before": "Mark subtask as done",
+    "after": "Comharraich am fo-ghnìomh mar dheiseil",
+    "reason": "Translate Scottish Gaelic workflow and permission messages with restrictions, status mapping and setting names retained; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "subtask-mark-not-done",
+    "before": "Mark subtask as not done",
+    "after": "Comharraich am fo-ghnìomh mar neo-dheiseil",
+    "reason": "Translate Scottish Gaelic workflow and permission messages with restrictions, status mapping and setting names retained; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "subtask-done-no-permission",
+    "before": "You cannot change whether this subtask is done",
+    "after": "Chan urrainn dhut atharrachadh a bheil am fo-ghnìomh seo deiseil",
+    "reason": "Translate Scottish Gaelic workflow and permission messages with restrictions, status mapping and setting names retained; technical prose needs fluent review."
   }
 ]

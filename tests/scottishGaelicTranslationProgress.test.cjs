@@ -100,3 +100,15 @@ assert.match(gaelic['sandstorm-trello-access-needed'], /Chan eil.*an toiseach/);
 assert.match(gaelic['webhook-payload-description'], /dhìleab.*mur eil dad suidhichte/);
 assert.match(gaelic['notification-delivery-quiet'], /fuirich gus am bi iad seachad/);
 assert.notEqual(gaelic['notification-delivery-grouping-board'], gaelic['notification-delivery-grouping-card']);
+
+const workflowKeys = ["read-only-field", "r-wrike-workflow", "r-wrike-workflow-note", "r-export-wrike-workflow", "r-import-wrike-workflow", "r-import-wrike-workflow-done", "r-moved-forward", "r-moved-back", "r-add-actinguser-assignee", "r-remove-all-assignees", "ldap-sync-now", "ldap-sync-now-done", "ldap-sync-now-error", "ldap-sync-now-nothing", "oauth-providers-allowed-email-domains", "import-file-label", "subtask-mark-done", "subtask-mark-not-done", "subtask-done-no-permission"];
+for (const key of workflowKeys) {
+  assert.notEqual(gaelic[key], english[key], key);
+  assert.deepEqual(tokens(gaelic[key]), tokens(english[key]), key);
+}
+assert.match(gaelic['read-only-field'], /gach ball.*ach chan atharraich ach rianairean/);
+assert.match(gaelic['r-wrike-workflow-note'], /GET \/workflows.*Completed no Cancelled.*Active no Deferred.*Chan urrainnear riaghailtean/);
+assert.match(gaelic['ldap-sync-now-nothing'], /LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS.*LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED/);
+assert.match(gaelic['oauth-providers-allowed-email-domains'], /cromagan.*ceadaichear a h-uile fear.*falamh/);
+assert.notEqual(gaelic['subtask-mark-done'], gaelic['subtask-mark-not-done']);
+assert.match(gaelic['subtask-done-no-permission'], /Chan urrainn dhut/);
