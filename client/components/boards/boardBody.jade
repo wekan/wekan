@@ -31,7 +31,8 @@ template(name="boardBody")
         class="{{#if MultiSelection.isActive}}is-multiselection-active{{/if}}"
         class="{{#if draggingActive}}is-dragging-active{{/if}}"
         class="{{#unless isVerticalScrollbars}}no-scrollbars{{/unless}}"
-        class="{{#if isMiniScreen}}mobile-view{{/if}}")
+        class="{{#if isMiniScreen}}mobile-view{{/if}}"
+        class="{{#if currentBoard.hasSharedListHeaders}}shared-list-headers{{/if}}")
         //- #6732: drawn when THIS user shows My or Board Dependencies.
         if showAnyDependencies
           +dependencyOverlay

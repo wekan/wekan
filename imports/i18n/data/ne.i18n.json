@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "डेस्कटप तान्ने ह्यान्डलहरू देखाउनुहोस्",
   "lock-list-width-resize": "सूचीहरू बीच सूचीको चौडाइ परिवर्तन लक/अनलक गर्नुहोस्",
   "lock-swimlane-height-resize": "स्विमलेनको उचाइ परिवर्तन लक/अनलक गर्नुहोस्",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "सबै सूचीका लागि उही चौडाइ (सम्पूर्ण बोर्ड)",
   "toggle-header-icons-collapsed": "हेडर आइकनहरू संक्षिप्त/विस्तृत गर्नुहोस्",
   "drag-to-resize-sidebar": "छेउपट्टीको आकार बदल्न तान्नुहोस्",

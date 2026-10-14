@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Vakaraitaka na idre ena kompiuta",
   "lock-list-width-resize": "Sokota/sereki na veisautaki ni balebale ni lisi ena maliwa ni lisi",
   "lock-swimlane-height-resize": "Sokota/sereki na veisautaki ni cecere ni swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Balebale vata ga ni veilisi kece (iVola taucoko)",
   "toggle-header-icons-collapsed": "Vakalailaitaka/vakalevutaka na aikoni ni ulutaga",
   "drag-to-resize-sidebar": "Dreta mo veisautaka na levu ni menu e yasa",

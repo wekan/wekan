@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Fakahā ʻa e ngaahi kau toho ʻi he komipiuta",
   "lock-list-width-resize": "Loka/fakaava e liliu ʻo e fālahi ʻo e lisi ʻi he vahaʻa ʻo e ngaahi lisi",
   "lock-swimlane-height-resize": "Loka/fakaava e liliu ʻo e māʻolunga ʻo e swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Fālahi tatau ki he ngaahi lisi kotoa (papa kātoa)",
   "toggle-header-icons-collapsed": "Fakasi'isi'i/fakalahi ai ʻa e ngaahi ʻaikoni ʻo e tumu'aki",
   "drag-to-resize-sidebar": "Toho ke liliu ʻa e lahi ʻo e kiʻi peesi tafaʻaki",

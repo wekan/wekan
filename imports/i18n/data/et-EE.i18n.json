@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Näita töölaua lohistuskäepidemeid",
   "lock-list-width-resize": "Lukusta/vabasta loendite vahelise loendi laiuse muutmine",
   "lock-swimlane-height-resize": "Lukusta/vabasta ujumisraja kõrguse muutmine",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Sama laius kõigile loenditele (kogu tahvel)",
   "toggle-header-icons-collapsed": "Ahenda/laienda päise ikoonid",
   "drag-to-resize-sidebar": "Lohista külgriba suuruse muutmiseks",

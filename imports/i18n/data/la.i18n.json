@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Monstra ansas trahendi in computatro mensali",
   "lock-list-width-resize": "Claude/reclude mutationem latitudinis indicis inter indices",
   "lock-swimlane-height-resize": "Claude/reclude mutationem altitudinis viae natatoriae (swimlane)",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Eadem latitudo omnibus indicibus (tota tabula)",
   "toggle-header-icons-collapsed": "Imagines capitis coartare/expandere",
   "drag-to-resize-sidebar": "Trahe ut magnitudinem columnae lateralis mutes",

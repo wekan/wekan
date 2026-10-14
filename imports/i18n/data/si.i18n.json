@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "ඩෙස්ක්ටොප් ඇදීමේ හැඬල පෙන්වන්න",
   "lock-list-width-resize": "ලැයිස්තු අතර ලැයිස්තු පළල වෙනස් කිරීම අගුළු දමන්න/විවෘත කරන්න",
   "lock-swimlane-height-resize": "ස්විම්ලේන් උස වෙනස් කිරීම අගුළු දමන්න/විවෘත කරන්න",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "සියලුම ලැයිස්තු සඳහා එකම පළල (සම්පූර්ණ පුවරුව)",
   "toggle-header-icons-collapsed": "ශීර්ෂ අයිකන හකුළන්න/විහිදන්න",
   "drag-to-resize-sidebar": "පැති තීරුවේ ප්‍රමාණය වෙනස් කිරීමට ඇද දමන්න",

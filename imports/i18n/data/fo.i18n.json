@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Vís dráttarhandtøk á skriviborði",
   "lock-list-width-resize": "Læs/loys upp fyri broyting av listubreidd millum listar",
   "lock-swimlane-height-resize": "Læs/loys upp fyri broyting av svimjurein hædd",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Sama breidd fyri allar listar (alt tavlan)",
   "toggle-header-icons-collapsed": "Fjal/vís yvirskriftartekn",
   "drag-to-resize-sidebar": "Drag fyri at broyta stødd á liðbjálka",

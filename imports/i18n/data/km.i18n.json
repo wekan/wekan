@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "បង្ហាញចំណុចទាញអូសលើតុ",
   "lock-list-width-resize": "ចាក់សោ/ដោះសោការផ្លាស់ប្តូរទទឹងបញ្ជីរវាងបញ្ជី",
   "lock-swimlane-height-resize": "ចាក់សោ/ដោះសោការផ្លាស់ប្តូរកម្ពស់ស្វីមឡេន (swimlane)",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "ទទឹងដូចគ្នាសម្រាប់គ្រប់បញ្ជីទាំងអស់ (ក្តារទាំងមូល)",
   "toggle-header-icons-collapsed": "បង្រួម/ពង្រីក រូបតំណាងក្បាល",
   "drag-to-resize-sidebar": "អូសដើម្បីប្តូរទំហំរបារចំហៀង",

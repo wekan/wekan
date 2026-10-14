@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Pokoż przeciągnięcia na pulpit",
   "lock-list-width-resize": "Zablokuj/ôdblokuj zmiana szyrokości listy między listami",
   "lock-swimlane-height-resize": "Zablokuj/ôdblokuj zmiana wysokości swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Ta sama szyrokość dlo wszyjskich list (cołko tabla)",
   "toggle-header-icons-collapsed": "Zwiń/rozwiń ikōny nagōwka",
   "drag-to-resize-sidebar": "Przeciōngnij, coby zmiynić rozmiar bocznygo paska",

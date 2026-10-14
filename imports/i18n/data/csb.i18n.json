@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Pòkôżë ùchwëtë przecyganiô na kòmpùtrze",
   "lock-list-width-resize": "Zamknąc/òdemknąc zmianã szérokòscë lëstë midzë lëstama",
   "lock-swimlane-height-resize": "Zamknąc/òdemknąc zmianã wësokòscë torë",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Ta sama szérokòsc dlô wszëtczich lëstów (całô tabla)",
   "toggle-header-icons-collapsed": "Zwiń/rozwiń ikony nagłówka",
   "drag-to-resize-sidebar": "Przecygni, żebë zmienic miarã bòcznégò panelu",

@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Жұмыс үстеліндегі сүйреу тұтқаларын көрсету",
   "lock-list-width-resize": "Тізімдер арасында тізім енін өзгертуді құлыптау/құлыптан шығару",
   "lock-swimlane-height-resize": "Жүзу жолағының биіктігін өзгертуді құлыптау/құлыптан шығару",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Барлық тізімдер үшін бірдей ен (бүкіл тақта)",
   "toggle-header-icons-collapsed": "Тақырып белгішелерін жию/жаю",
   "drag-to-resize-sidebar": "Бүйірлік тақта өлшемін өзгерту үшін сүйреу",

@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Gosi aka ịdọrọ desktọpụ",
   "lock-list-width-resize": "Kpọchie/mepee mgbanwe obosara ndepụta n'etiti ndepụta",
   "lock-swimlane-height-resize": "Kpọchie/mepee mgbanwe ịdị elu nke swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Otu obosara maka ndepụta niile (bọọdụ ahụ dum)",
   "toggle-header-icons-collapsed": "Mechie/meghee akara isiokwu",
   "drag-to-resize-sidebar": "Dọrọ iji gbanwee nha bar akụkụ",

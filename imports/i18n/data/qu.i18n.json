@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Escritorio aysana hap'inakunata rikuchiy",
   "lock-list-width-resize": "Listakunapa kikinchasqan patanta hukchayta wichq'ay/kichay",
   "lock-swimlane-height-resize": "Swimlanepa sayayninta hukchayta wichq'ay/kichay",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Llapan listakunapaq kikin patan (tukuy tabla)",
   "toggle-header-icons-collapsed": "Umalliq unanchakunata kichiy/kicharichiy",
   "drag-to-resize-sidebar": "Waqta qhawanap hatun kayninta tikranapaq aysay",

@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Εμφάνιση λαβών μεταφοράς για υπολογιστή",
   "lock-list-width-resize": "Κλείδωμα/ξεκλείδωμα αλλαγής πλάτους λίστας μεταξύ λιστών",
   "lock-swimlane-height-resize": "Κλείδωμα/ξεκλείδωμα αλλαγής ύψους διαδρόμου (swimlane)",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Ίδιο πλάτος για όλες τις λίστες (ολόκληρος ο πίνακας)",
   "toggle-header-icons-collapsed": "Σύμπτυξη/επέκταση εικονιδίων κεφαλίδας",
   "drag-to-resize-sidebar": "Σύρετε για αλλαγή του πλάτους της πλαϊνής μπάρας",

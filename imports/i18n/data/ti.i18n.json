@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "መትሓዚታት ምጉታት ዴስክቶፕ ኣርኢ",
   "lock-list-width-resize": "ኣብ መንጎ ዝርዝራት ስፍሓት ዝርዝር ምቕያር ቆልፍ/ክፈት",
   "lock-swimlane-height-resize": "ስፍሓት swimlane ምቕያር ቆልፍ/ክፈት",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "ንኹሎም ዝርዝራት ማዕረ ስፍሓት (ምሉእ ቦርድ)",
   "toggle-header-icons-collapsed": "ኣይኮናት ርእሲ ምጥርናፍ/ምስፍሕፋሕ",
   "drag-to-resize-sidebar": "ጎድናዊ ኣሞሌ ዳግም ንምዕቃን ጎትት",

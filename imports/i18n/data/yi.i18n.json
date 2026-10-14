@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "ווייַזן דעסקטאַפּ שלעפּן כאַנדאַלז",
   "lock-list-width-resize": "פֿאַרשליסן/אויפֿשליסן די ענדערונג פֿון ליסטע ברייט צווישן ליסטעס",
   "lock-swimlane-height-resize": "פֿאַרשליסן/אויפֿשליסן די ענדערונג פֿון סוימלעין הייך",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "זעלביקע ברייט פֿאַר אַלע ליסטעס (גאַנצער באָרד)",
   "toggle-header-icons-collapsed": "פֿאַרמאַכן/עפֿענען העדער-איקאָנס",
   "drag-to-resize-sidebar": "שלעפּ צו טוישן די גרייס פֿון זײַטבאַלקן",

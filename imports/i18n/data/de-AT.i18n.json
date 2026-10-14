@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Desktop-Ziehpunkte anzeigen",
   "lock-list-width-resize": "Sperren/Entsperren der Listenbreitenänderung zwischen Listen",
   "lock-swimlane-height-resize": "Sperren/Entsperren der Änderung der Swimlane-Höhe",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Gleiche Breite für alle Listen (gesamtes Board)",
   "toggle-header-icons-collapsed": "Kopfzeilen-Symbole ein-/ausblenden",
   "drag-to-resize-sidebar": "Zum Ändern der Seitenleistenbreite ziehen",

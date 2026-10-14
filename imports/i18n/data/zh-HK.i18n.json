@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "顯示桌面拖曳工具",
   "lock-list-width-resize": "鎖定/解鎖清單之間的欄寬調整",
   "lock-swimlane-height-resize": "鎖定/解鎖泳道高度調整",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "所有清單使用相同寬度（整個看板）",
   "toggle-header-icons-collapsed": "收合/展開標題圖示",
   "drag-to-resize-sidebar": "拖曳以調整側邊欄寬度",

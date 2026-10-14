@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Показать ярлыки для перетаскивания",
   "lock-list-width-resize": "Заблокировать/разблокировать изменение ширины списка между списками",
   "lock-swimlane-height-resize": "Заблокировать/разблокировать изменение высоты дорожки (swimlane)",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Одинаковая ширина для всех списков (вся доска)",
   "toggle-header-icons-collapsed": "Свернуть/развернуть значки заголовка",
   "drag-to-resize-sidebar": "Перетащите, чтобы изменить размер боковой панели",

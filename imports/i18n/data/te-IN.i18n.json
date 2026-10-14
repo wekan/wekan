@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "డెస్క్‌టాప్ డ్రాగ్ హ్యాండిల్‌లను చూపండి",
   "lock-list-width-resize": "జాబితాల మధ్య జాబితా వెడల్పు మార్చడాన్ని లాక్/అన్‌లాక్ చేయండి",
   "lock-swimlane-height-resize": "స్విమ్‌లేన్ ఎత్తు మార్చడాన్ని లాక్/అన్‌లాక్ చేయండి",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "అన్ని జాబితాలకు ఒకే వెడల్పు (మొత్తం బోర్డు)",
   "toggle-header-icons-collapsed": "హెడర్ చిహ్నాలను కుదించు/విస్తరించు",
   "drag-to-resize-sidebar": "సైడ్‌బార్ పరిమాణాన్ని మార్చడానికి లాగండి",

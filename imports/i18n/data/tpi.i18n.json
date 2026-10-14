@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Soim desktop drag handles",
   "lock-list-width-resize": "Pasim/opim senisim widt bilong lis namel long ol lis",
   "lock-swimlane-height-resize": "Pasim/opim senisim antap bilong swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Wankain widt long olgeta lis (bord olgeta)",
   "toggle-header-icons-collapsed": "Pasim/opim ol piksa bilong het",
   "drag-to-resize-sidebar": "Drag long resize sidebar",

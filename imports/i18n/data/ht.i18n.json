@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Montre manch pou glise sou òdinatè",
   "lock-list-width-resize": "Bloke/debloke chanjman lajè lis ant lis yo",
   "lock-swimlane-height-resize": "Bloke/debloke chanjman wotè kouloir",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Menm lajè pou tout lis (tout tablo a)",
   "toggle-header-icons-collapsed": "Redui/elaji ikòn antèt yo (soti nan bouton pou chanje ant mobil ak òdinatè rive nan notifikasyon yo)",
   "drag-to-resize-sidebar": "Glise pou chanje gwosè ba lateral",

@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "ڈیسک ٹاپ ڈریگ ہینڈل ہٲویو",
   "lock-list-width-resize": "فہرستن درمیان فہرست چہ چوڑائی بدلاو لاک/ان لاک کریو",
   "lock-swimlane-height-resize": "سوِم لین چہ اُچائی بدلاو لاک/ان لاک کریو",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "تمام فہرستن ہِنٛدِس خٲطرٕ سٲری چوڑائی (سارٕ بورڈ)",
   "toggle-header-icons-collapsed": "ہیڈر آئیکن سنکوچ/وسیع کرِو",
   "drag-to-resize-sidebar": "سائڈبارُک سائز بدلاونہٕ خٲطرٕ اَنِتھ تراویو",

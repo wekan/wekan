@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Xiquinnexti tlahcuiloltepoztli huilanalizmananah",
   "lock-list-width-resize": "Xitzacua/xitlapo ipatlaliz ipatlahuaca tlapohualli itzalan tlapohualmeh",
   "lock-swimlane-height-resize": "Xitzacua/xitlapo ipatlaliz iahcohuiaca swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Cē patlahuaca nochi tlapohualmeh (nochi tlapechtli)",
   "toggle-header-icons-collapsed": "Xitlatzacua/xitlazohuali in machiotl icuac tzontecomatl",
   "drag-to-resize-sidebar": "Xicuilana inic ticpatlas nentenextiloni ihueyica",

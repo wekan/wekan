@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Ćahadła za desktop pokazać",
   "lock-list-width-resize": "Změnu šěrokosće lisćinow mjez lisćinami zamknyć/wotamknyć",
   "lock-swimlane-height-resize": "Změnu wysokosće dróhi zamknyć/wotamknyć",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Samsna šěrokosć za wšě lisćiny (cyła tafla)",
   "toggle-header-icons-collapsed": "Symbole hłowoweje lajsty zwinyć/rozwinyć (mobilny/desktop přepinak k zdźělenkam)",
   "drag-to-resize-sidebar": "Ćehńće, zo byšće šěrokosć bóčneje lajsty změnił",

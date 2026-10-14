@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Wone jàppukaay yi ngir xëcc ci doxinu ordineer",
   "lock-list-width-resize": "Tëj/ubbi coppite gëwéel bii ci diggante limu yi",
   "lock-swimlane-height-resize": "Tëj/ubbi coppite kawe swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Genn gëwéel bu yem ci limu yépp (mbédd bi yépp)",
   "toggle-header-icons-collapsed": "Dëj/ubbi limi bindu bopp",
   "drag-to-resize-sidebar": "Reew ngir soppi yaatu bàru wetu",

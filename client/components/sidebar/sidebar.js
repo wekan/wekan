@@ -769,6 +769,10 @@ Template.boardSwimlaneSettingsPopup.helpers({
     const board = Utils.getCurrentBoard();
     return Boolean(board && board.getSwimlaneHeightResizeLocked());
   },
+  hasSharedListHeaders() {
+    const board = Utils.getCurrentBoard();
+    return Boolean(board && board.hasSharedListHeaders());
+  },
 });
 
 Template.boardSwimlaneSettingsPopup.events({
@@ -776,6 +780,12 @@ Template.boardSwimlaneSettingsPopup.events({
     const board = Utils.getCurrentBoard();
     if (!board) return;
     board.setSwimlaneHeightResizeLocked(!board.getSwimlaneHeightResizeLocked());
+  },
+  // #2805: one shared, sticky list header row (models/boards.js).
+  'click .js-toggle-shared-list-headers'() {
+    const board = Utils.getCurrentBoard();
+    if (!board) return;
+    board.setSharedListHeaders(!board.hasSharedListHeaders());
   },
   // #2489: Board Settings / Swimlane / WIP Limit Groups. Opened from inside
   // this popup, so Popup.open stacks it and its back arrow returns here.

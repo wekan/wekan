@@ -2307,6 +2307,14 @@
     {
       "key": "checklistItemAssigneePopup-title",
       "since": "2026-10-14"
+    },
+    {
+      "key": "shared-list-headers",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "shared-list-headers-desc",
+      "since": "2026-10-14"
     }
   ]
 }

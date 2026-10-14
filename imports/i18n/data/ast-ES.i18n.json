@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Amosar los controles d’arrastre del escritoriu",
   "lock-list-width-resize": "Bloquiar/desbloquiar el cambéu d'anchu de llista ente llistes",
   "lock-swimlane-height-resize": "Bloquiar/desbloquiar el cambéu d'altor del swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Mesmu anchu pa toles llistes (tol tableru)",
   "toggle-header-icons-collapsed": "Contrayer/estender iconos de testera",
   "drag-to-resize-sidebar": "Arrastra pa camudar l'anchor de la barra llateral",

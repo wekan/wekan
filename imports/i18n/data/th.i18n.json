@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "แสดงที่จับสำหรับลากบนเดสก์ท็อป",
   "lock-list-width-resize": "ล็อก/ปลดล็อกการปรับขนาดความกว้างของลิสต์ระหว่างลิสต์",
   "lock-swimlane-height-resize": "ล็อก/ปลดล็อกการปรับขนาดความสูงของสวิมเลน",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "ความกว้างเท่ากันสำหรับทุกลิสต์ (ทั้งบอร์ด)",
   "toggle-header-icons-collapsed": "ยุบ/ขยายไอคอนส่วนหัว",
   "drag-to-resize-sidebar": "ลากเพื่อปรับขนาดแถบด้านข้าง",

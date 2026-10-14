@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Sumbedzani zwifaro zwa u kokodza kha dekhisithopo",
   "lock-list-width-resize": "Valela/vulela u shandula vhuphara ha mitevhe vhukati ha mitevhe",
   "lock-swimlane-height-resize": "Valela/vulesa u shandukisa vhulapfu ha swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Vhuphara vhu fanaho kha mitevhe yoṱhe (bodo yoṱhe)",
   "toggle-header-icons-collapsed": "Peta/ṱanḓavhudza zwiga zwa nṱha (founu/dekhisithopo i shandukela kha nḓivhadzo)",
   "drag-to-resize-sidebar": "Kokodza u shandukisa vhuhulwane ha bara ya thungo",

@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Prikaži ručke za povlačenje u načinu rada za računar",
   "lock-list-width-resize": "Zaključaj/otključaj promjenu širine liste između lista",
   "lock-swimlane-height-resize": "Zaključaj/otključaj promjenu visine trake (swimlane)",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Ista širina za sve liste (cijela tabla)",
   "toggle-header-icons-collapsed": "Skupi/proširi ikone zaglavlja",
   "drag-to-resize-sidebar": "Povucite za promjenu veličine bočne trake",

@@ -3,6 +3,7 @@ template(name="swimlane")
     +swimlaneHeader
   unless collapseSwimlane
     .swimlane.js-lists.js-swimlane.dragscroll(id="swimlane-{{_id}}"
+                                   class="{{#if isFirstSwimlane}}is-first-swimlane{{/if}}"
                                    data-board-id="{{boardId}}"
                                    style="height:{{swimlaneHeight}};")
       .swimlane-resize-handle.js-swimlane-resize-handle.nodragscroll

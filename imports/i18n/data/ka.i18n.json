@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "გადათრევის სახელურების ჩვენება",
   "lock-list-width-resize": "სიების სიგანის ცვლილების ჩაკეტვა/განბლოკვა სიებს შორის",
   "lock-swimlane-height-resize": "საცურაო ზოლის სიმაღლის ცვლილების ჩაკეტვა/განბლოკვა",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "ერთნაირი სიგანე ყველა სიისთვის (მთელი დაფა)",
   "toggle-header-icons-collapsed": "თავსართის ხატულების ჩაკეცვა/გაშლა",
   "drag-to-resize-sidebar": "გადაათრიეთ გვერდითი პანელის ზომის შესაცვლელად",

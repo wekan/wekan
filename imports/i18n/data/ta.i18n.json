@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "மேசைக்கணினி இழுப்புக் கைப்பிடிகளைக் காட்டு",
   "lock-list-width-resize": "பட்டியல்களுக்கு இடையே பட்டியல் அகலத்தை மாற்றுவதை பூட்டு/திறக்கவும்",
   "lock-swimlane-height-resize": "ஸ்விம்லேன் உயரத்தை மாற்றுவதை பூட்டு/திறக்கவும்",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "எல்லா பட்டியல்களுக்கும் ஒரே அகலம் (முழு பலகை)",
   "toggle-header-icons-collapsed": "தலைப்பு சின்னங்களை சுருக்கு/விரிவாக்கு",
   "drag-to-resize-sidebar": "பக்கப்பட்டியை மறுஅளவிட இழுக்கவும்",

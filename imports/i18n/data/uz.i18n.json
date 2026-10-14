@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Ish stoli sudrab tortish tutqichlarini ko'rsatish",
   "lock-list-width-resize": "Ro'yxatlar orasida ro'yxat kengligini o'zgartirishni bloklash/blokdan chiqarish",
   "lock-swimlane-height-resize": "Suzish yo'lagi balandligini o'zgartirishni bloklash/blokdan chiqarish",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Barcha ro'yxatlar uchun bir xil kenglik (butun doska)",
   "toggle-header-icons-collapsed": "Sarlavha belgilarini yig'ish/yoyish",
   "drag-to-resize-sidebar": "Yon panel oʻlchamini oʻzgartirish uchun torting",

@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Visa greppytor i desktop",
   "lock-list-width-resize": "Lås/lås upp ändring av listbredd mellan listor",
   "lock-swimlane-height-resize": "Lås/lås upp ändring av simbanans höjd",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Samma bredd för alla listor (hela tavlan)",
   "toggle-header-icons-collapsed": "Fäll ihop/ut header-ikoner",
   "drag-to-resize-sidebar": "Dra för att ändra storlek på sidofältet",

@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Bontšha diswaro tša go goga tša teseketopo",
   "lock-list-width-resize": "Notlela/notlolla phetogo ya bophara bja lelokelelo magareng ga malokelelo",
   "lock-swimlane-height-resize": "Notlela/notlolla phetogo ya bophagamo bja swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Bophara bo swanago bakeng sa malokelelo ka moka (boto ka moka)",
   "toggle-header-icons-collapsed": "Khuputsa/katološa diswantšho tša hlogo",
   "drag-to-resize-sidebar": "Goga go fetoša bogolo bja para ya ka thoko",

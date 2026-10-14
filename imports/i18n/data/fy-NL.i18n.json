@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Toan buroblêd slepehandgrepen",
   "lock-list-width-resize": "Grendelje/ûntgrendelje it wizigjen fan listbreedte tusken listen",
   "lock-swimlane-height-resize": "Grendelje/ûntgrendelje it wizigjen fan swimbaanhichte",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Deselde breedte foar alle listen (hiele boerd)",
   "toggle-header-icons-collapsed": "Kopikoanen ynklappe/útklappe",
   "drag-to-resize-sidebar": "Sleep om de sydbalke fan grutte te feroarjen",

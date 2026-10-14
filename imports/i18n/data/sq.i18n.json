@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Shfaq dorezat e tërheqjes në desktop",
   "lock-list-width-resize": "Kyçe/zhbllokoje ndryshimin e gjerësisë së listës mes listave",
   "lock-swimlane-height-resize": "Kyçe/zhbllokoje ndryshimin e lartësisë së korsisë (swimlane)",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "E njëjta gjerësi për të gjitha listat (i gjithë bordi)",
   "toggle-header-icons-collapsed": "Palos/zgjero ikonat e kokës",
   "drag-to-resize-sidebar": "Tërhiq për të ndryshuar madhësinë e shiritit anësor",

@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Čájet beavdeordinmoduvlla geassandoallaniid",
   "lock-list-width-resize": "Lohkka/rabas listtu govdodaga rievdadeami listtuid gaskkas",
   "lock-swimlane-height-resize": "Lohkka/rabas swimlane allodaga rievdadeami",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Seamma govdodat buot listtuide (olles board)",
   "toggle-header-icons-collapsed": "Čoahkkil/govčč oaivvis ikoniid",
   "drag-to-resize-sidebar": "Gease rievdadit siidoholgá sturrodaga",

@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Aratã mãnerili di tragiri pi desktop",
   "lock-list-width-resize": "Ncljidi/discljidi ndreptarea largheatiljei di lista namisa di listi",
   "lock-swimlane-height-resize": "Ncljidi/discljidi ndreptarea analtimiljei di swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Idyea largheatã ti tuti listili (tutã scãndura)",
   "toggle-header-icons-collapsed": "Adunã/discljidi iconili di caplu",
   "drag-to-resize-sidebar": "Tradzi ta s-alãxeshti mãrimea a barãljei di mardzini",

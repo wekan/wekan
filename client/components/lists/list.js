@@ -780,7 +780,8 @@ Template.list.helpers({
   stickyListHeaders() {
     const list = Template.currentData();
     const board = list && ReactiveCache.getBoard(list.boardId);
-    return !!(board && board.getStickyListHeaders());
+    // #2805: the shared list header row is the sticky one, so it pins too.
+    return !!(board && (board.getStickyListHeaders() || (board.hasSharedListHeaders && board.hasSharedListHeaders())));
   },
 });
 

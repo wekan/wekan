@@ -457,3 +457,11 @@ body.swimlane-resizing-active * {
   min-height: 0;
   margin: 0;
 }
+
+/* #2805: one shared list header row for all swimlanes (Board Settings /
+   Swimlane). The other swimlanes do not repeat the first swimlane's list
+   headers; those stay at the top through the same sticky rule as Sticky list
+   headers (#3847, lists/list.css), which the setting turns on. */
+.board-canvas.shared-list-headers .js-swimlane:not(.is-first-swimlane) .list-header {
+  display: none;
+}

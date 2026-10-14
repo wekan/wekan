@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "ئۈستەل يۈزى سۆرەش تۇتقۇچىنى كۆرسەت",
   "lock-list-width-resize": "تىزىملىكلەر ئارىسىدا تىزىملىك كەڭلىكىنى ئۆزگەرتىشنى قۇلۇپلاش/قۇلۇپسىزلاش",
   "lock-swimlane-height-resize": "سۈزۈش يولى ئېگىزلىكىنى ئۆزگەرتىشنى قۇلۇپلاش/قۇلۇپسىزلاش",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "بارلىق تىزىملىكلەر ئۈچۈن ئوخشاش كەڭلىك (پۈتۈن تاختا)",
   "toggle-header-icons-collapsed": "بېشى سىنبەلگىلىرىنى قاتلاش/يېيىش",
   "drag-to-resize-sidebar": "يان بالداقنىڭ چوڭلۇقىنى ئۆزگەرتىش ئۈچۈن سۆرەڭ",

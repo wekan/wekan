@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Ipakita an mga desktop drag handle",
   "lock-list-width-resize": "I-lock o i-unlock an pagbag-o han kahilapad han lista ha butnga han mga lista",
   "lock-swimlane-height-resize": "I-lock o i-unlock an pagbag-o han kahitaas han linya han mga kard",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Pariho nga kahilapad para ha ngatanan nga lista (bug-os nga board)",
   "toggle-header-icons-collapsed": "Itago o ipakita an mga icon ha ulohan (pagbalhin ngadto ha mga pahibaro ha mobile o desktop)",
   "drag-to-resize-sidebar": "Guyora basi bag-uhon an kadako han panel ha ligid",

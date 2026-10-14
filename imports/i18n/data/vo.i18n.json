@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Jonön gleipedis pro tränön pö mod ela Desktop",
   "lock-list-width-resize": "Lökofärmükön/maifükön votükami bredota lisedas",
   "lock-swimlane-height-resize": "Lökofärmükön/maifükön votükami geilota dilas horitätik",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Bredot ot pro liseds valik (tab lölik)",
   "toggle-header-icons-collapsed": "Klänedön/jonön magodilis tiäda (mod pro telefon polovik/mod ela Desktop lü nunäds)",
   "drag-to-resize-sidebar": "Tränolös ad votükön gretoti flanapada",

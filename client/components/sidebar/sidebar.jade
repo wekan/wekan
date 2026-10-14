@@ -794,6 +794,13 @@ template(name="boardSwimlaneSettingsPopup")
         span
           i.fa.fa-arrows-v
           | {{_ 'lock-swimlane-height-resize'}}
+    //- #2805: one sticky list header row for all swimlanes.
+    div.check-div
+      a.flex.js-toggle-shared-list-headers(title="{{_ 'shared-list-headers-desc'}}" class="{{#if hasSharedListHeaders}}is-checked{{/if}}")
+        i.fa(class="{{#if hasSharedListHeaders}}fa-check{{else}}fa-square-o{{/if}}")
+        span
+          i.fa.fa-header
+          | {{_ 'shared-list-headers'}}
   //- Board Settings / Swimlane / WIP Limit Groups (#2489). Used to be its own
     top-level Board Settings entry; it opens the unchanged wipLimitGroupsPopup
     below, stacked on this one so the popup's back arrow returns here.

@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Показване на дръжките за плъзгане в настолен режим",
   "lock-list-width-resize": "Заключване/отключване на промяната на ширината на списъка между списъци",
   "lock-swimlane-height-resize": "Заключване/отключване на промяната на височината на пътеката",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Еднаква ширина за всички списъци (цялата дъска)",
   "toggle-header-icons-collapsed": "Свиване/разгъване на иконите на заглавието",
   "drag-to-resize-sidebar": "Плъзнете, за да промените ширината на страничната лента",

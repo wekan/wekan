@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Destikên kişandina sermaseyê nîşan bide",
   "lock-list-width-resize": "Guherîna firehiya lîsteyê di navbera lîsteyan de qufl bike/veke",
   "lock-swimlane-height-resize": "Guherîna bilindahiya swimlane qufl bike/veke",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Ji bo hemû lîsteyan heman firehî (tevahiya lewhê)",
   "toggle-header-icons-collapsed": "Îkonên sernavî berhev bike/fireh bike",
   "drag-to-resize-sidebar": "Bikişîne da ku mezinahiya kêlekê biguherînî",

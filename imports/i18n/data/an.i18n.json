@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Mostrar os controles de arrastre d'o escritorio",
   "lock-list-width-resize": "Blocar/desbloquiar lo cambio d'amplaria d'a lista entre listas",
   "lock-swimlane-height-resize": "Blocar/desbloquiar lo cambio d'altaria d'o swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Mesma amplaria pa todas as listas (tot lo tablero)",
   "toggle-header-icons-collapsed": "Contrayer/expandir iconas de capitero",
   "drag-to-resize-sidebar": "Arrastra ta redimensionar la barra lateral",

@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Bonisa izibambo zokuhudula kudeskithophu",
   "lock-list-width-resize": "Vala/vula ukuguqulwa kobubanzi bohlelo phakathi kwezinhlelo",
   "lock-swimlane-height-resize": "Vala/vula ukuguqulwa kobude be-swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Ububanzi obufananayo kuzo zonke izinhlelo (ibhodi lonke)",
   "toggle-header-icons-collapsed": "Vala/vula izithonjana zesihloko",
   "drag-to-resize-sidebar": "Hudula ukuze utshintshe ubukhulu bebha eseceleni",

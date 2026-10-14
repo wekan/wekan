@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Ṣe afihan awọn ọwọ fa tabili tabili",
   "lock-list-width-resize": "Ti/ṣi iyipada ìbú àtòjọ láàrin àwọn àtòjọ",
   "lock-swimlane-height-resize": "Ti/ṣi iyipada gíga swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Ìbú kan náà fún gbogbo àtòjọ (pátákó gbogbo)",
   "toggle-header-icons-collapsed": "Ṣíwọ́/ṣí àwọn àmì orí sílẹ̀",
   "drag-to-resize-sidebar": "Fà láti ṣàtúnṣe ìwọ̀n pákó ẹ̀gbẹ́",

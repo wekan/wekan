@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "デスクトップへのドラッグハンドルを表示",
   "lock-list-width-resize": "リスト間のリスト幅のサイズ変更をロック/ロック解除",
   "lock-swimlane-height-resize": "スイムレーンの高さのサイズ変更をロック/ロック解除",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "すべてのリストで同じ幅にする（ボード全体）",
   "toggle-header-icons-collapsed": "ヘッダーアイコンの折りたたみ/展開",
   "drag-to-resize-sidebar": "ドラッグしてサイドバーのサイズを変更",

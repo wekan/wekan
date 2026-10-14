@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Иш тактадагы сүйрөө туткаларын көрсөтүү",
   "lock-list-width-resize": "Тизмелердин ортосунда тизме энин өзгөртүүнү кулпулоо/кулпудан чыгаруу",
   "lock-swimlane-height-resize": "Сүзүү жолунун бийиктигин өзгөртүүнү кулпулоо/кулпудан чыгаруу",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Бардык тизмелер үчүн бирдей эн (бүт такта)",
   "toggle-header-icons-collapsed": "Аталык сүрөтчөлөрдү жыйыштыруу/жайып көрсөтүү",
   "drag-to-resize-sidebar": "Каптал тилкесинин өлчөмүн өзгөртүү үчүн сүйрөө",

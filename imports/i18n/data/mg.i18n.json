@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Asehoy ny tahony fitarihana amin'ny solosaina",
   "lock-list-width-resize": "Hidio/esory ny fanidiana ny fanovana ny sakan'ny lisitra eo anelanelan'ny lisitra",
   "lock-swimlane-height-resize": "Hidio/esory ny fanidiana ny fanovana ny hahavon'ny swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Sakany mitovy ho an'ny lisitra rehetra (ny board manontolo)",
   "toggle-header-icons-collapsed": "Aforitra/avelaro ny kisary eo amin’ny lohapejy (amin’ny finday/solosaina, hatramin’ny fampahafantarana)",
   "drag-to-resize-sidebar": "Tariho hanovana ny haben'ny sisiny",

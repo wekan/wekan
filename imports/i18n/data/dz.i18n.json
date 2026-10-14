@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "མདུན་ངོས་ཀྱི་འདྲུད་འཛིན་སྟོན།",
   "lock-list-width-resize": "ཐོ་ཡིག་ཀྱི་བར་ན་ཐོ་ཡིག་གི་རྒྱ་ཚད་སོར་བསྒྱུར་ལྡེ་མིག་བརྒྱབ/ཕྱེ",
   "lock-swimlane-height-resize": "swimlane མཐོ་ཚད་སོར་བསྒྱུར་ལྡེ་མིག་བརྒྱབ/ཕྱེ",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "ཐོ་ཡིག་ཆ་མཉམ་ལུ་རྒྱ་ཚད་གཅིག་པ (ཨིསྤ་བརྡ་ཧྲིལམ)",
   "toggle-header-icons-collapsed": "མགོ་ཡིག་གི་མཚོན་རིས་བསྡུས/བརྐྱངས",
   "drag-to-resize-sidebar": "ཟུར་སྒྲོམ་གྱི་ཆེ་ཆུང་བསྒྱུར་བར་འདྲུད།",

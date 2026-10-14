@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Hiển thị nút kéo thả trên Desktop",
   "lock-list-width-resize": "Khóa/mở khóa việc thay đổi chiều rộng danh sách giữa các danh sách",
   "lock-swimlane-height-resize": "Khóa/mở khóa việc thay đổi chiều cao làn bơi (swimlane)",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Cùng chiều rộng cho tất cả danh sách (toàn bộ bảng)",
   "toggle-header-icons-collapsed": "Thu gọn/mở rộng biểu tượng tiêu đề",
   "drag-to-resize-sidebar": "Kéo để thay đổi kích thước thanh bên",

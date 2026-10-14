@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Mostra łe manije par strasinar so desktop",
   "lock-list-width-resize": "Bloca/sbloca el ridimensionamento de ła łarghesa tra łe liste",
   "lock-swimlane-height-resize": "Bloca/sbloca el ridimensionamento de l'altesa de ła corsia",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Stessa łarghesa par tute łe liste (tuto el quadro)",
   "toggle-header-icons-collapsed": "Strenzi/slarga łe icone de l'intestasion (canbio tełefonin/scritorio a łe notìfeghe)",
   "drag-to-resize-sidebar": "Strasina par ridimensionar ła bara łaterałe",

@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Voir les poignées de déplacement du bureau",
   "lock-list-width-resize": "Verrouiller/déverrouiller le redimensionnement de la largeur des listes",
   "lock-swimlane-height-resize": "Verrouiller/déverrouiller le redimensionnement de la hauteur du couloir (swimlane)",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Même largeur pour toutes les listes (tout le tableau)",
   "toggle-header-icons-collapsed": "Réduire/développer les icônes d'en-tête",
   "drag-to-resize-sidebar": "Faites glisser pour redimensionner la barre latérale",

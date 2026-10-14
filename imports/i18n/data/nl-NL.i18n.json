@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Toon sleep gereedschap op werkblad",
   "lock-list-width-resize": "Vergrendel/ontgrendel het aanpassen van lijstbreedte tussen lijsten",
   "lock-swimlane-height-resize": "Vergrendel/ontgrendel het aanpassen van swimlane-hoogte",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Dezelfde breedte voor alle lijsten (heel bord)",
   "toggle-header-icons-collapsed": "Kop-iconen in-/uitklappen",
   "drag-to-resize-sidebar": "Sleep om de zijbalk te vergroten of verkleinen",

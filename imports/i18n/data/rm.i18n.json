@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Mussar ils manetschs da trair dal desktop",
   "lock-list-width-resize": "Bloccar/debloccar la midada da la largezza da la glista tranter glistas",
   "lock-swimlane-height-resize": "Bloccar/debloccar la midada da l'autezza da la swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "La medema largezza per tut las glistas (l'entira tabella)",
   "toggle-header-icons-collapsed": "Reducir/expander las iconas da l'entestaziun (midar tranter mobil/desktop per las notificaziuns)",
   "drag-to-resize-sidebar": "Trair per midar la grondezza da la barra laterala",

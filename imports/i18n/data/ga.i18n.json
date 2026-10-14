@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Taispeáin hanlaí tarraingthe deisce",
   "lock-list-width-resize": "Cuir glas/bain glas de athrú leithead an liosta idir liostaí",
   "lock-swimlane-height-resize": "Cuir glas/bain glas de athrú airde an linn snámha (swimlane)",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "An leithead céanna do gach liosta (an clár ar fad)",
   "toggle-header-icons-collapsed": "Laghdaigh/leathnaigh deilbhíní an cheanntásca (ar fhón póca/ríomhaire, go dtí na fógraí)",
   "drag-to-resize-sidebar": "Tarraing chun méid an bharra taoibh a athrú",

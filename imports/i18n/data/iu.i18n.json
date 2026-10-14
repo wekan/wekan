@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "ᖃᕆᑕᐅᔭᒥ ᑎᒍᓯᓗᓂ ᓄᒃᑕᐅᑏᑦ ᑕᑯᑎᓪᓗᒋᑦ",
   "lock-list-width-resize": "Matujaq/matuinnaijaq allanguqtitsivik titiqqat akunnganit silattuqutik",
   "lock-swimlane-height-resize": "Matujaq/matuinnaijaq swimlane qatsungujjutik allanguqtitsivik",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Ataasiq silattuqutik titiqqat tamainnut (board tamaat)",
   "toggle-header-icons-collapsed": "ᖁᓪᓕᖅᑐᐃᓯᐊᖅ/ᐊᖑᒻᒥᑦᑎᐊᖅ ᐊᑦᑕᖓᖓ ᑎᑎᕋᐅᔭᒃᑯᑦ",
   "drag-to-resize-sidebar": "ᓴᓂᕌ ᐊᖏᓂᖓ ᐊᓯᔾᔨᕐᓗᒍ ᑎᒍᓯᓗᒍ ᓄᒃᑎᕐᓗᒍ",

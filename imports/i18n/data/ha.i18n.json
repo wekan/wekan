@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Nuna hannayen ja na kwamfutar tebur",
   "lock-list-width-resize": "Kulle/buɗe canza fadin jeri tsakanin jeri",
   "lock-swimlane-height-resize": "Kulle/buɗe canza tsawon swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Fadi ɗaya ga dukkan jeri (dukkan allo)",
   "toggle-header-icons-collapsed": "Rufe/buɗe alamomin kai",
   "drag-to-resize-sidebar": "Ja don canza girman mashigin gefe",

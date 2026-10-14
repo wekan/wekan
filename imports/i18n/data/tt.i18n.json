@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Компьютерда сөйрәү тоткаларын күрсәтү",
   "lock-list-width-resize": "Исемлекләр арасында исемлек киңлеген үзгәртүне бикләү/бикне алу",
   "lock-swimlane-height-resize": "Йөзү юлы биеклеген үзгәртүне бикләү/бикне алу",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Барлык исемлекләр өчен бертигез киңлек (бөтен такта)",
   "toggle-header-icons-collapsed": "Башлам сүрәтчекләрен җыю/җәю (мобиль җайланмада һәм компьютерда белдерүләргә күчү)",
   "drag-to-resize-sidebar": "Ян панельнең зурлыгын үзгәртү өчен сөйрәгез",

@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Soem ol handel blong pulum long kompiuta",
   "lock-list-width-resize": "Lokem/anlokem jenis blong waed blong lis bitwin ol lis",
   "lock-swimlane-height-resize": "Lokem/anlokem jenis blong hae blong swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Sem waed blong evri lis (olgeta bod)",
   "toggle-header-icons-collapsed": "Fasem/openem ol aekon blong hed",
   "drag-to-resize-sidebar": "Pulum blong jenisim saes blong saedba",

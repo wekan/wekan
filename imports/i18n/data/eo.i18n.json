@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Montri trentenilojn por labortablo",
   "lock-list-width-resize": "Ŝlosi/malŝlosi la ŝanĝon de listlarĝo inter listoj",
   "lock-swimlane-height-resize": "Ŝlosi/malŝlosi la ŝanĝon de naĝvoja alteco",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Sama larĝo por ĉiuj listoj (tuta tabulo)",
   "toggle-header-icons-collapsed": "Kunfaldi/malfaldi kap-piktogramojn",
   "drag-to-resize-sidebar": "Trenu por regrandigi flankan panelon",

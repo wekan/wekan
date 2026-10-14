@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Десктопка көһөрөр туткалары көрдөр",
   "lock-list-width-resize": "Испииһэктэр икки ардыгар испииһэк кэтэҕин уларытыыны күүлэйдээ/арый",
   "lock-swimlane-height-resize": "Swimlane үрдүгүн уларытыыны күүлэйдээ/арый",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Бары испииһэккэ биир кэтэх (бары дуска)",
   "toggle-header-icons-collapsed": "Титул бэлиэлэрин хомуйуу/арыйыы",
   "drag-to-resize-sidebar": "Ойоҕос панель кээмэйин уларытарга көһөр",

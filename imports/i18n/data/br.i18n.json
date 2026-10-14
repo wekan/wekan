@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Diskouez an dornelloù riklañ er mod burev",
   "lock-list-width-resize": "Prennañ/dibrennañ kemm ledander ar roll etre rolloù",
   "lock-swimlane-height-resize": "Prennañ/dibrennañ kemm uhelder ar swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Memes ledander evit an holl rolloù (ar follenn a-bezh)",
   "toggle-header-icons-collapsed": "Bihanaat/astenn arlunioù an talbenn",
   "drag-to-resize-sidebar": "Ruilhañ evit kemmañ ledander ar varrenn-gostez",

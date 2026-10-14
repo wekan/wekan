@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "डेस्कटॉप ड्रॅग हँडल दाखवा",
   "lock-list-width-resize": "याद्यांमध्ये यादीची रुंदी बदलणे लॉक/अनलॉक करा",
   "lock-swimlane-height-resize": "स्विमलेनची उंची बदलणे लॉक/अनलॉक करा",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "सर्व याद्यांसाठी समान रुंदी (संपूर्ण बोर्ड)",
   "toggle-header-icons-collapsed": "हेडर आयकॉन आकुंचित/विस्तृत करा",
   "drag-to-resize-sidebar": "बाजूच्या पट्टीचा आकार बदलण्यासाठी ओढा",

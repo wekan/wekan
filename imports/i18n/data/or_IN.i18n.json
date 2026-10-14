@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "ଡେସ୍କଟପ୍ ଡ୍ରାଗ୍ ହ୍ୟାଣ୍ଡଲ୍ସ ଦେଖାନ୍ତୁ |",
   "lock-list-width-resize": "ତାଲିକା ମଧ୍ୟରେ ତାଲିକା ଓସାର ପରିବର୍ତ୍ତନ ଲକ୍/ଅନଲକ୍ କରନ୍ତୁ",
   "lock-swimlane-height-resize": "ସ୍ୱିମଲେନ ଉଚ୍ଚତା ପରିବର୍ତ୍ତନ ଲକ୍/ଅନଲକ୍ କରନ୍ତୁ",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "ସମସ୍ତ ତାଲିକା ପାଇଁ ସମାନ ଓସାର (ସମ୍ପୂର୍ଣ୍ଣ ବୋର୍ଡ)",
   "toggle-header-icons-collapsed": "ହେଡର ଆଇକନଗୁଡ଼ିକ ସଙ୍କୁଚିତ/ବିସ୍ତାର କରନ୍ତୁ",
   "drag-to-resize-sidebar": "ପାର୍ଶ୍ୱପଟିର ଆକାର ବଦଳାଇବାକୁ ଟାଣନ୍ତୁ",

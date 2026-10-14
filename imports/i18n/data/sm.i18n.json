@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Faaali au toso i le komepiuta",
   "lock-list-width-resize": "Loka/tatala le suia o le lautele o le lisi i le va o lisi",
   "lock-swimlane-height-resize": "Loka/tatala le suia o le maualuga o le swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Lautele tutusa mo lisi uma (laupapa atoa)",
   "toggle-header-icons-collapsed": "Fa'apipi'i/fa'alautele ata fa'ailoga o le ulutala",
   "drag-to-resize-sidebar": "Toso e sui le tele o le itu lisi",

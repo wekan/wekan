@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "የዴስክቶፕ መጎተቻ መያዣዎችን አሳይ",
   "lock-list-width-resize": "የዝርዝር ስፋትን በዝርዝሮች መካከል መቀየርን ቆልፍ/ክፈት",
   "lock-swimlane-height-resize": "የስዊምሌን ቁመትን መቀየር ቆልፍ/ክፈት",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "ለሁሉም ዝርዝሮች ተመሳሳይ ስፋት (ሙሉ ሰሌዳ)",
   "toggle-header-icons-collapsed": "የራስጌ አዶዎችን አሳንስ/አስፋ",
   "drag-to-resize-sidebar": "የጎን አሞሌን መጠን ለመቀየር ጎትት",

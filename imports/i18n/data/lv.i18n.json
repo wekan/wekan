@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Rādīt darba virsmas vilkšanas simbolus",
   "lock-list-width-resize": "Bloķēt/atbloķēt saraksta platuma maiņu starp sarakstiem",
   "lock-swimlane-height-resize": "Bloķēt/atbloķēt joslas augstuma maiņu",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Vienāds platums visiem sarakstiem (visa dēlis)",
   "toggle-header-icons-collapsed": "Sakļaut/izvērst galvenes ikonas",
   "drag-to-resize-sidebar": "Velciet, lai mainītu sānjoslas izmēru",

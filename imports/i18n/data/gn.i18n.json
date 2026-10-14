@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Ehechauka mohendaha mesa rehegua jegueraha pytyvõha",
   "lock-list-width-resize": "Mboty/mboty'ỹ lista pyahuha jehechauka tenda mbytépe",
   "lock-swimlane-height-resize": "Mboty/mboty'ỹ swimlane yvateha jehechauka",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Peteĩcha pyahuha opa listápe (tabla entero)",
   "toggle-header-icons-collapsed": "Mbotypeka/mbojere ta'ãnga apyta renda",
   "drag-to-resize-sidebar": "Egueraha emoambue hag̃ua yke renda tuichakue",

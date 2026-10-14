@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Desktopiyaa goochchiyo oykkiyaabata bessa",
   "lock-list-width-resize": "Doonata giddon doona bagatethaa laammiyo qachcho/dooya",
   "lock-swimlane-height-resize": "Swimlane adussatethaa laammiyo qachcho/dooya",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Ubba doonatas issi bagatethi (kumetha bordde)",
   "toggle-header-icons-collapsed": "Huuphaa malaata shiishshiyoogaa/gakkaiyoogaa",
   "drag-to-resize-sidebar": "Bagga sinttaa gitatettaa laammanaw goochcha",

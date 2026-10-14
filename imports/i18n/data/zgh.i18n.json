@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "ⵙⵙⴽⵏ ⵜⵉⵇⴱⴱⵉⴹⵉⵏ ⵏ ⵓⴽⵔⵉⵔⵓ ⴳ Desktop",
   "lock-list-width-resize": "Rgel/serwet asnfel n tehri n umuɣ gar yimuɣan",
   "lock-swimlane-height-resize": "Rgel/serwet asnfel n tuzzuft n swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Tehri yiwen i yimuɣan meṛṛa (tafelwit meṛṛa)",
   "toggle-header-icons-collapsed": "ⵙⴽⵎⵎⵣ/ⵣⵣⵔⵔⵉⴳ ⵜⵉⵎⴰⵜⴰⵔⵉⵏ ⵏ ⵓⵣⵡⵍ",
   "drag-to-resize-sidebar": "ⵣⵣⵓⵖ ⴰⴼⴰⴷ ⴰⴷ ⵜⵙⵏⴼⵍⴷ ⵜⵉⵀⵓⵔⵉ ⵏ ⵓⴼⴳⴳⵓ ⵏ ⵜⴰⵎⴰ",

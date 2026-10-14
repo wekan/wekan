@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Uri desktop drag handles",
   "lock-list-width-resize": "Issakkar/iftaħ il-bidla fil-wisa' tal-lista bejn il-listi",
   "lock-swimlane-height-resize": "Issakkar/iftaħ il-bidla fl-għoli tal-swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "L-istess wisa' għal-listi kollha (il-bord kollu)",
   "toggle-header-icons-collapsed": "Ġbid/wessa' l-ikoni tal-intestatura",
   "drag-to-resize-sidebar": "Drag għal resize sidebar",

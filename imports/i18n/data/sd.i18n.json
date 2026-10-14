@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "ڊيسڪ ٽاپ ڇڪڻ جا هٿيا ڏيکاريو",
   "lock-list-width-resize": "لسٽن جي وچ ۾ لسٽ جي ويڪر ۾ تبديلي کي لاڪ/ان لاڪ ڪريو",
   "lock-swimlane-height-resize": "سوئم لين جي بلندي ۾ تبديلي کي لاڪ/ان لاڪ ڪريو",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "سمورين لسٽن لاءِ ساڳي ويڪر (سڄو بورڊ)",
   "toggle-header-icons-collapsed": "هيڊر آئڪن سُسائڻ/پکيڙڻ",
   "drag-to-resize-sidebar": "پاسي واري پٽي جو قد بدلائڻ لاءِ ڇڪيو",

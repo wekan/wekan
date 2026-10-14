@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Erekana utwuma two gukwega kuri mudasobwa",
   "lock-list-width-resize": "Kuzimya/gukingura ihinduka ry'ubugari bw'urutonde hagati y'imirongo",
   "lock-swimlane-height-resize": "Kuzimya/gukingura ihinduka ry'uburebure bwa swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Ubugari busa ku mirongo yose (ikibaho cose)",
   "toggle-header-icons-collapsed": "Gufunga/gufungura udushushanyo tw'umutwe",
   "drag-to-resize-sidebar": "Kwega kugira uhindure ubwaguke bw'uruhande",

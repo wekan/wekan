@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "uñachtʼayaña desktop drag handles",
   "lock-list-width-resize": "Listanaka jach'anchaña wakiykipaña jark'aña/jist'araña",
   "lock-swimlane-height-resize": "Swimlane jach'a wakiykipaña jark'aña/jist'araña",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Taqi listanakataki mä jach'a (taqpacha tablero)",
   "toggle-header-icons-collapsed": "Jistʼantaña/jaljaña uñachtʼayirinaka p'iqincha",
   "drag-to-resize-sidebar": "Drag ukaru resize sidebar",

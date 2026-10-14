@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Erakutsi mahaigaineko arrastatze-heldulekuak",
   "lock-list-width-resize": "Blokeatu/desblokeatu zerrenden arteko zerrenda-zabalera aldatzea",
   "lock-swimlane-height-resize": "Blokeatu/desblokeatu igerilekuaren (swimlane) altuera aldatzea",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Zabalera bera zerrenda guztientzat (arbel osoa)",
   "toggle-header-icons-collapsed": "Tolestu/zabaldu goiburuko ikonoak",
   "drag-to-resize-sidebar": "Arrastatu alboko barra tamainaz aldatzeko",

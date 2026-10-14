@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Whakaatu kakau tō papamahi",
   "lock-list-width-resize": "Rakaia/wetekina te whakarerekē whānui rārangi i waenga i ngā rārangi",
   "lock-swimlane-height-resize": "Rakaia/wetekina te whakarerekē teitei o te swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "He whānui ōrite mō ngā rārangi katoa (te papa katoa)",
   "toggle-header-icons-collapsed": "Kōpiri/whakawhānui ngā ata pane",
   "drag-to-resize-sidebar": "Tōia hei huri rahi i te paetaha",

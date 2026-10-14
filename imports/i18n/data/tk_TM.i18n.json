@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Iş stolunyň süýrüji tutawaçlaryny görkeziň",
   "lock-list-width-resize": "Sanawlaryň arasynda sanaw ininiň üýtgemegini gulplamak/gulpdan açmak",
   "lock-swimlane-height-resize": "Ýüzülýän ýodanyň belentliginiň üýtgemegini gulplamak/gulpdan açmak",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Ähli sanawlar üçin deň in (bütin tagta)",
   "toggle-header-icons-collapsed": "Sözbaşy nyşanlaryny ýygnamak/giňeltmek",
   "drag-to-resize-sidebar": "Gapdal paneliň ölçegini üýtgetmek üçin süýräň",

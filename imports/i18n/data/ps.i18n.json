@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "د ډېسکټاپ د راکشولو لاستي وښيئ",
   "lock-list-width-resize": "د لیستونو ترمنځ د لیست د پلنوالي بدلون تړل/خلاصول",
   "lock-swimlane-height-resize": "د سوېمي لین لوړوالي بدلون تړل/خلاصول",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "ټولو لیستونو ته ورته پلنوالی (ټول بورډ)",
   "toggle-header-icons-collapsed": "د سرلیک نښې راونشلول/غځول",
   "drag-to-resize-sidebar": "د اړخپټې د کچې بدلولو لپاره يې راکش کړئ",

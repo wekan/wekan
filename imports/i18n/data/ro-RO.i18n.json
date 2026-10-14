@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Afișează mânerele de tragere pe desktop",
   "lock-list-width-resize": "Blocați/deblocați redimensionarea lățimii listei între liste",
   "lock-swimlane-height-resize": "Blocați/deblocați redimensionarea înălțimii culoarului (swimlane)",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Aceeași lățime pentru toate listele (întreg panoul)",
   "toggle-header-icons-collapsed": "Restrânge/extinde pictogramele din antet",
   "drag-to-resize-sidebar": "Trageți pentru a redimensiona bara laterală",

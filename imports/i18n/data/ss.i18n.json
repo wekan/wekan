@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Khombisa tibambo tekuhudvula tekhompyutha",
   "lock-list-width-resize": "Vala/vula kushintjwa kwebubanzi belusto emkhatsini walolusto",
   "lock-swimlane-height-resize": "Vala/vula kushintjwa kwebudze beswimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Bubanzi lobufananako kuto tonkhe tinhlelo (lonkhe bhodi)",
   "toggle-header-icons-collapsed": "Vala/vula timfanekiso tesihloko",
   "drag-to-resize-sidebar": "Hudvula kuze ushintje bungako beluhlangotsi",

@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Fia heƒewo le kplɔ̃dzi mɔ me",
   "lock-list-width-resize": "Do/ʋu vovototɔ na xexlẽme ƒe kekeme trɔtrɔ le xexlẽmewo dome",
   "lock-swimlane-height-resize": "Do/ʋu vovototɔ na swimlane ƒe kɔkɔme trɔtrɔ",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Kekeme ɖeka ma na xexlẽme siwo katã (board bliboa)",
   "toggle-header-icons-collapsed": "Fifoƒe legbawo lɔ ɖe eme/keke",
   "drag-to-resize-sidebar": "He be nàtrɔ̃ gbɔgbɔmenu ƒe lolome",

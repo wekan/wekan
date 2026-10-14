@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Ipakita desktop drag handles",
   "lock-list-width-resize": "I-lock/i-unlock ang pagbabago ng lapad ng listahan sa pagitan ng mga listahan",
   "lock-swimlane-height-resize": "I-lock/i-unlock ang pagbabago ng taas ng swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Parehong lapad para sa lahat ng listahan (buong board)",
   "toggle-header-icons-collapsed": "I-collapse/i-expand ang mga icon ng header",
   "drag-to-resize-sidebar": "Drag sa resize sidebar",

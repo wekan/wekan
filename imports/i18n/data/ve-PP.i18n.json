@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Ozuta radpöudon vedändan pidimed",
   "lock-list-width-resize": "Valela/vulesa u shandukisa vhupamhi ha bugu vhukati ha bugu",
   "lock-swimlane-height-resize": "Valela/vulesa u shandukisa vhulapfu ha swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Vhupamhi vhu fanaho kha bugu dzoṱhe (bodo yoṱhe)",
   "toggle-header-icons-collapsed": "Sokou/phadzisa zwifanyiso zwa header",
   "drag-to-resize-sidebar": "Vedä, miše vajehtada čuramenülistan suruz’",

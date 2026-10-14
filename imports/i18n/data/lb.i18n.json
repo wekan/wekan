@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Desktop-Ziehpunkte uweisen",
   "lock-list-width-resize": "Ännerung vun der Lëschtebreet tëscht Lëschten spären/entspären",
   "lock-swimlane-height-resize": "Ännerung vun der Swimlane-Héicht spären/entspären",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Selwecht Breet fir all Lëschten (ganzt Bord)",
   "toggle-header-icons-collapsed": "Header-Symboler zesummeklappen/opklappen",
   "drag-to-resize-sidebar": "Zum Änneren den Seitenleistenbreite zéien",

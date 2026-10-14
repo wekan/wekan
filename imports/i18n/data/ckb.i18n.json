@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "دەسکەکانی ڕاکێشانی ڕوومێز پیشان بدە",
   "lock-list-width-resize": "قوفڵکردن/کردنەوەی گۆڕینی پانی لیست لەنێوان لیستەکان",
   "lock-swimlane-height-resize": "قوفڵکردن/کردنەوەی گۆڕینی بەرزی ڕیزی مەلەکردن (swimlane)",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "هەمان پانی بۆ هەموو لیستەکان (هەموو تەختە)",
   "toggle-header-icons-collapsed": "کۆکردنەوە/کردنەوەی ئایکۆنەکانی سەرپەڕە",
   "drag-to-resize-sidebar": "ڕابکێشە بۆ گۆڕینی قەبارەی لاتەنیشت",

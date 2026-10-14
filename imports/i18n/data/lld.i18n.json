@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Mustré i maniesc per tiré sun l desktop",
   "lock-list-width-resize": "Bloché/dessblochè le cambiamënt de largheza dla lista danter listes",
   "lock-swimlane-height-resize": "Bloché/dessblochè le cambiamënt de altëza dla swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "La medema lerghëza per dutes la listes (dut la tofl)",
   "toggle-header-icons-collapsed": "Stlù/giaurì la icones dla testa (mudé mobil/desktop per la notificazions)",
   "drag-to-resize-sidebar": "Tira per mudé la grandëza dla bara da lat",

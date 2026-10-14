@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Mutassa a fogd-és-vidd eseményeket",
   "lock-list-width-resize": "Lista szélességének listák közötti átméretezésének zárolása/feloldása",
   "lock-swimlane-height-resize": "Sáv magasságának átméretezésének zárolása/feloldása",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Azonos szélesség minden listának (teljes tábla)",
   "toggle-header-icons-collapsed": "Fejléc ikonok összecsukása/kibontása",
   "drag-to-resize-sidebar": "Húzással átméretezheti az oldalsávot",

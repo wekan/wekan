@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Mostra les nanses d'arrossegament de l'escriptori",
   "lock-list-width-resize": "Bloqueja/desbloqueja el canvi d'amplada de llista entre llistes",
   "lock-swimlane-height-resize": "Bloqueja/desbloqueja el canvi d'alçada del carril (swimlane)",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Mateixa amplada per a totes les llistes (tot el tauler)",
   "toggle-header-icons-collapsed": "Redueix/expandeix les icones de la capçalera",
   "drag-to-resize-sidebar": "Arrossega per canviar l'amplada de la barra lateral",

@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Mostra maniglie di trascinamento d' 'o desktop",
   "lock-list-width-resize": "Blocca/sblocca 'o cagnamento d''a larghezza d''a lista tra liste",
   "lock-swimlane-height-resize": "Blocca/sblocca 'o cagnamento d''a auteza d''a swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Stessa larghezza pe' tutte 'e liste (tutt' 'a lavagna)",
   "toggle-header-icons-collapsed": "Struje/scapizza ll'icone d''a 'ntestazione",
   "drag-to-resize-sidebar": "Trascina pe ridimensionare la barra laterale",

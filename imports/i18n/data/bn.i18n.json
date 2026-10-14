@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "ডেস্কটপে টানার হাতল দেখান",
   "lock-list-width-resize": "তালিকাগুলোর মধ্যে তালিকার প্রস্থ পরিবর্তন লক/আনলক করুন",
   "lock-swimlane-height-resize": "সুইমলেনের উচ্চতা পরিবর্তন লক/আনলক করুন",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "সব তালিকার জন্য একই প্রস্থ (সম্পূর্ণ বোর্ড)",
   "toggle-header-icons-collapsed": "হেডার আইকনগুলি সংকুচিত/প্রসারিত করুন",
   "drag-to-resize-sidebar": "পার্শ্বদণ্ডের আকার বদলাতে টানুন",

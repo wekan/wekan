@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Show desktop drag handles",
   "lock-list-width-resize": "Lock/unlock resizing list width between lists",
   "lock-swimlane-height-resize": "Lock/unlock resizing swimlane height",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Same width for all lists (whole board)",
   "toggle-header-icons-collapsed": "Collapse/expand header icons (mobile/desktop toggle to notifications)",
   "drag-to-resize-sidebar": "Drag to resize sidebar",

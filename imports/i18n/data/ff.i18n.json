@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Hollu jaggirɗe daasgol biro",
   "lock-list-width-resize": "Soke/urñitu waylitagol njaajeendi doggol hakkunde doggi",
   "lock-swimlane-height-resize": "Soke/urñitu waylitagol toownde swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Njaajeendi gooto wonande dogi fof (walaa fof)",
   "toggle-header-icons-collapsed": "Taƴude/yaaƴinde maandeeje hobre",
   "drag-to-resize-sidebar": "Daas ngam waylude mawneendi palal sera",

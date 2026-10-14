@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Rodyti darbalaukio vilkimo rankenas",
   "lock-list-width-resize": "Užrakinti / atrakinti sąrašo pločio keitimą tarp sąrašų",
   "lock-swimlane-height-resize": "Užrakinti / atrakinti takelio aukščio keitimą",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Vienodas plotis visiems sąrašams (visa lenta)",
   "toggle-header-icons-collapsed": "Suskleisti / išskleisti antraštės piktogramas",
   "drag-to-resize-sidebar": "Vilkite, kad pakeistumėte šoninės juostos dydį",

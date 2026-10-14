@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Паказваць настольныя ручкі перацягвання",
   "lock-list-width-resize": "Заблакаваць/разблакаваць змену шырыні спіса паміж спісамі",
   "lock-swimlane-height-resize": "Заблакаваць/разблакаваць змену вышыні дарожкі",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Аднолькавая шырыня для ўсіх спісаў (уся дошка)",
   "toggle-header-icons-collapsed": "Згарнуць/разгарнуць значкі загалоўка",
   "drag-to-resize-sidebar": "Пацягніце, каб змяніць шырыню бакавой панэлі",

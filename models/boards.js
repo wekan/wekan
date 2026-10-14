@@ -1425,6 +1425,16 @@ Boards.attachSchema(
       optional: true,
       defaultValue: false,
     },
+    sharedListHeaders: {
+      /**
+       * #2805: one shared list header row for all swimlanes - the first
+       * swimlane's, sticky at the top while the board scrolls - instead of the
+       * same headers repeated in every swimlane. A board view setting (Board
+       * Settings / Swimlane), off by default.
+       */
+      type: Boolean,
+      optional: true,
+    },
     swimlaneHeightResizeLocked: {
       /**
        * #6680: when true, the swimlane-height drag-resize handle at the top
@@ -3254,6 +3264,14 @@ Boards.helpers({
     return await Boards.updateAsync(this._id, {
       $set: { listWidthResizeLocked: !!listWidthResizeLocked },
     });
+  },
+
+  hasSharedListHeaders() {
+    return this.sharedListHeaders === true;
+  },
+
+  async setSharedListHeaders(sharedListHeaders) {
+    return await Boards.updateAsync(this._id, { $set: { sharedListHeaders: !!sharedListHeaders } });
   },
 
   getSwimlaneHeightResizeLocked() {

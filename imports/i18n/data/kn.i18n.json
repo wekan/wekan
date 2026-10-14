@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "ಡೆಸ್ಕ್‌ಟಾಪ್ ಎಳೆಯುವ ಹಿಡಿಕೆಗಳನ್ನು ತೋರಿಸಿ",
   "lock-list-width-resize": "ಪಟ್ಟಿಗಳ ನಡುವೆ ಪಟ್ಟಿಯ ಅಗಲ ಬದಲಾವಣೆಯನ್ನು ಲಾಕ್/ಅನ್‌ಲಾಕ್ ಮಾಡಿ",
   "lock-swimlane-height-resize": "ಸ್ವಿಮ್‌ಲೇನ್ ಎತ್ತರ ಬದಲಾವಣೆಯನ್ನು ಲಾಕ್/ಅನ್‌ಲಾಕ್ ಮಾಡಿ",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "ಎಲ್ಲಾ ಪಟ್ಟಿಗಳಿಗೆ ಒಂದೇ ಅಗಲ (ಸಂಪೂರ್ಣ ಬೋರ್ಡ್)",
   "toggle-header-icons-collapsed": "ಹೆಡರ್ ಐಕಾನ್‌ಗಳನ್ನು ಸಂಕುಚಿಸಿ/ವಿಸ್ತರಿಸಿ",
   "drag-to-resize-sidebar": "ಪಾರ್ಶ್ವಪಟ್ಟಿಯ ಗಾತ್ರ ಬದಲಿಸಲು ಎಳೆಯಿರಿ",

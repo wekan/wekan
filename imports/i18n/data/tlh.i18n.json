@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "De'wI' raSDaq luHmeH leQmey 'ang",
   "lock-list-width-resize": "tebHa' SIQ chaw'moH/chaw'Ha'moH tlhabmey botlh",
   "lock-swimlane-height-resize": "swimlane jen chaw'moH/chaw'Ha'moH",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Hoch tlhabmey rap SIQ (pIn Hoch)",
   "toggle-header-icons-collapsed": "nach beq mIw tI'ang/tI'angHa'",
   "drag-to-resize-sidebar": "'ay'Hom 'aqroS DachoHmeH yISErgh",

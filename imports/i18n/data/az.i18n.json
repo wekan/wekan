@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "İş masasının sürükləmə tutacaqlarını göstərin",
   "lock-list-width-resize": "Siyahılar arasında siyahı enini dəyişməni kilidləmək/kiliddən çıxarmaq",
   "lock-swimlane-height-resize": "İş zolağı hündürlüyünü dəyişməni kilidləmək/kiliddən çıxarmaq",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Bütün siyahılar üçün eyni en (bütün lövhə)",
   "toggle-header-icons-collapsed": "Başlıq nişanlarını yığ/aç",
   "drag-to-resize-sidebar": "Yan panelin enini dəyişmək üçün sürüşdürün",

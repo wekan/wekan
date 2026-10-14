@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "ဒက်စ်တော့ ဆွဲလက်များ ပြရန်",
   "lock-list-width-resize": "စာရင်းများကြား စာရင်းအကျယ်ပြောင်းလဲခြင်းကို လော့ခ်ချ/ဖွင့်ရန်",
   "lock-swimlane-height-resize": "swimlane အမြင့်ပြောင်းလဲခြင်းကို လော့ခ်ချ/ဖွင့်ရန်",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "စာရင်းအားလုံးအတွက် တူညီသောအကျယ် (ဘုတ်တစ်ခုလုံး)",
   "toggle-header-icons-collapsed": "ခေါင်းစီး အိုင်ကွန်များကို ချုံ့/ဖြန့်ရန်",
   "drag-to-resize-sidebar": "ဘေးဘားအရွယ်ပြောင်းရန် ဆွဲပါ",

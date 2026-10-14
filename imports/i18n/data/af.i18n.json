@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Wys lessenaar sleephandvatsels",
   "lock-list-width-resize": "Sluit/ontsluit die verstel van lysbreedte tussen lyste",
   "lock-swimlane-height-resize": "Sluit/ontsluit die verstel van baanhoogte",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Dieselfde breedte vir alle lyste (hele bord)",
   "toggle-header-icons-collapsed": "Vou/brei kopikone uit",
   "drag-to-resize-sidebar": "Sleep om die sybalk se breedte te verander",

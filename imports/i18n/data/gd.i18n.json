@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Seall làmhan-slaodaidh deasg",
   "lock-list-width-resize": "Glais/dì-ghlais atharrachadh leud liosta eadar liostaichean",
   "lock-swimlane-height-resize": "Glais/dì-ghlais atharrachadh àirde an t-slighe-snàmha",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "An aon leud dha na liostaichean uile (am bòrd air fad)",
   "toggle-header-icons-collapsed": "Co-theannaich/leudaich ìomhaighean a’ bhanna-chinn (tionndaidh gu brathan air fòn-làimhe/deasg)",
   "drag-to-resize-sidebar": "Slaod gus am bàr-taoibh ath-mheudachadh",

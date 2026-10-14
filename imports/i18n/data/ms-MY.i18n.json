@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Tunjukkan pemegang seret desktop",
   "lock-list-width-resize": "Kunci/buka kunci saiz semula lebar senarai antara senarai",
   "lock-swimlane-height-resize": "Kunci/buka kunci saiz semula ketinggian swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Lebar sama untuk semua senarai (seluruh papan)",
   "toggle-header-icons-collapsed": "Kuncupkan/kembangkan ikon pengepala",
   "drag-to-resize-sidebar": "Seret untuk mengubah saiz bar sisi",

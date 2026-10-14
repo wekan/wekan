@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Ցույց տալ աշխատասեղանի քաշման բռնակները",
   "lock-list-width-resize": "Ցուցակների միջև ցուցակի լայնության փոփոխման կողպում/ապակողպում",
   "lock-swimlane-height-resize": "Swimlane-ի բարձրության փոփոխման կողպում/ապակողպում",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Նույն լայնությունը բոլոր ցուցակների համար (ամբողջ գրատախտակը)",
   "toggle-header-icons-collapsed": "Ծալել/բացել վերնագրի պատկերակները",
   "drag-to-resize-sidebar": "Քաշեք՝ կողագոտու չափը փոխելու համար",

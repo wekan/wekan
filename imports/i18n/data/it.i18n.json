@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Mostra maniglie di trascinamento del desktop",
   "lock-list-width-resize": "Blocca/sblocca il ridimensionamento della larghezza dell'elenco tra elenchi",
   "lock-swimlane-height-resize": "Blocca/sblocca il ridimensionamento dell'altezza della corsia (swimlane)",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Stessa larghezza per tutti gli elenchi (intera bacheca)",
   "toggle-header-icons-collapsed": "Comprimi/espandi le icone dell'intestazione",
   "drag-to-resize-sidebar": "Trascina per ridimensionare la barra laterale",

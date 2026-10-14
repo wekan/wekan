@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Mostrer les pougnêyes di haetchaedje do scribanne",
   "lock-list-width-resize": "Serer/di-serer li candjmint del lårdjeur del djivêye inte djivêyes",
   "lock-swimlane-height-resize": "Serer/di-serer li candjmint del hôteur del swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Minme lårdjeur po totes les djivêyes (tot l'plantche)",
   "toggle-header-icons-collapsed": "Serer/drovri les imådjetes d'astampe",
   "drag-to-resize-sidebar": "Bodjî po candjî l' grandeu del bår di costé",

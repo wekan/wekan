@@ -1815,6 +1815,8 @@
   "show-desktop-drag-handles": "Muuji gacmaha jiidista kombiyuutarka",
   "lock-list-width-resize": "Xidh/fur beddelka ballaca liiska ee u dhexeeya liisaska",
   "lock-swimlane-height-resize": "Xidh/fur beddelka dhererka swimlane",
+  "shared-list-headers": "One shared list header row",
+  "shared-list-headers-desc": "Show the list headers once, at the top, for all swimlanes, and keep them there while the board scrolls, instead of repeating them in every swimlane.",
   "same-width-for-all-lists": "Ballac isku mid ah liisaska oo dhan (guddiga oo dhan)",
   "toggle-header-icons-collapsed": "Balaadhi/soo koobi sumadaha madaxa",
   "drag-to-resize-sidebar": "Jiid si aad u beddesho cabbirka dhinaca",
