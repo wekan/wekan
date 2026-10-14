@@ -4255,6 +4255,23 @@ All-language translation and semantic review remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f71a482f02942f2a41967e0b8037e2eaaaa4cb8e">Translate Irish card links and remaining legacy storage labels</a>. Thanks to xet7.</summary>
+
+Translate 67 English placeholders for attached cards, linked custom fields,
+announcements, calendar mode, list colours, storage settings and rule
+connectors.
+Retain link direction, permission requirements and access/secret-key
+distinctions.
+
+The Irish catalog and guarded-correction suites pass with 30,308 audited
+corrections. The older completed-catalog placeholder gate passes; newer feature
+strings and semantic review remain unfinished. All 21 human-preference checks
+pass, and 38,430 existing Chinese values remain unchanged. Four browser cases
+pass syntax and discovery; runtime remains pending.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Irish card links and legacy storage placeholders — 2026-10-14
+
+Commit `f71a482f02` translates 67 English placeholders. Card attachments and
+custom-field links retain self-link rejection, inaccessible-card messages,
+permission requirements, paused-link conditions and one-way/two-way behaviour.
+Announcements, calendar mode and list colours are translated too. The existing
+regression gate exposed 33 older storage labels and rule connectors, now filled.
+
+The Irish catalog and guarded-correction suites pass with 30,308 correction
+ledger entries. All 21 human-preference checks pass; exact comparison preserves
+38,430 existing Chinese values. Four browser cases cover attachments, field
+links, announcements and S3 key fields. Syntax and discovery pass; runtime
+remains pending.
+
+The older completed-catalog placeholder gate now passes. Newer Irish feature
+text remains untranslated, and Irish and all-language semantic review remain
+unfinished. Zero placeholders in the older subset is not full verification.
+
 ## Malagasy action labels and refreshed inventory — 2026-10-14
 
 Commit `aaaa3391bc` corrects four labels: the optional move reason, the setting
