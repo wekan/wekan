@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.40
+  version: v12.41
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -5347,6 +5347,20 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/BoardsMembers"
+      key:
+        description: |
+           The board's key (#2449, #2450): 2-10 capital letters and digits,
+           unique in the instance, so a card's number shows as KEY-7. Given when
+           the board is created (server/boardKeys.js); a board admin may change it.
+        type: string
+        x-nullable: true
+      allowsInstanceEditing:
+        description: |
+           Every signed-in user may edit this open board (#4575), where Admin
+           Panel / Settings / Visibility allows it. Their first edit makes them a
+           Normal member.
+        type: boolean
+        x-nullable: true
       permission:
         description: |
            visibility of the board
@@ -6225,6 +6239,11 @@ definitions:
            Since #5514 a label color may also be a custom '#rrggbb' hex chosen
            from the color wheel, in addition to the named palette colors above.
         type: string
+      sharedLabelId:
+        description: |
+           This label is the board's copy of a shared label (#2761, #4698,
+           models/lib/sharedLabels.js): its name and colour follow the shared one.
+        type: string
       dueAt:
         description: |
            Optional due date carried by the label itself (#2802), e.g. a
@@ -6279,6 +6298,20 @@ definitions:
         description: |
            Is the member only allowed to read assigned cards (no comments, no editing)
         type: boolean
+      grantedBy:
+        description: |
+           The teams and organizations this membership came through (#4178),
+           e.g. ['team:<id>']. Absent: a direct membership. Leaving the last of
+           them deactivates it (models/lib/groupBoardMembership.js).
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      customRoleId:
+        description: |
+           A custom board role (#3022, models/customBoardRoles.js). The flags above
+           then carry the strongest built-in role that grants nothing more.
+        type: string
     required:
       - userId
       - isAdmin
@@ -7518,6 +7551,14 @@ definitions:
            #6465: default width is 220 pixels (was 272) so more lists fit on
            screen; kept in sync with DEFAULT_LIST_WIDTH in models/lib/listWidth.js.
         type: number
+        x-nullable: true
+      roleExceptions:
+        description: |
+           #4527: what each role may do in this list, over the board's own rule:
+           { <role>: { write?: Boolean, comment?: Boolean } }
+           (models/lib/listPermissions.js). Only the lists.setRoleExceptions
+           method writes it; a direct client write is refused.
+        type: object
         x-nullable: true
       syncRevision:
         type: string
