@@ -1342,7 +1342,7 @@
   "admin-only-field": "బోర్డు నిర్వాహకులకు మాత్రమే కనిపిస్తుంది",
   "read-only-field": "Read-only: every member sees the value, only board admins change it",
   "yes": "అవును",
-  "no": "నం",
+  "no": "కాదు",
   "accounts": "ఖాతాలు",
   "accounts-allowEmailChange": "ఇమెయిల్ మార్పును అనుమతించండి",
   "accounts-allowUserNameChange": "వినియోగదారు పేరు మార్పును అనుమతించండి",

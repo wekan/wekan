@@ -198,7 +198,9 @@ const LOCALE_INVARIANTS = {
   "fy": new Set(["blockly-ALT_KEY", "blockly-CHROME_OS", "blockly-CONTEXT_MENU_KEY", "blockly-INPUT_LABEL_NUMBER_MIN", "blockly-LINUX", "blockly-LISTS_CREATE_WITH_CONTAINER_TITLE_ADD", "blockly-LOGIC_TERNARY_CONDITION", "blockly-MAC_OS", "blockly-MATH_ADDITION_SYMBOL_ARIA", "blockly-MATH_ONLIST_OPERATOR_MIN_ARIA", "blockly-WINDOWS", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN"]),
   "fy-NL": new Set(["blockly-ALT_KEY", "blockly-CHROME_OS", "blockly-CONTEXT_MENU_KEY", "blockly-INPUT_LABEL_NUMBER_MIN", "blockly-LINUX", "blockly-LISTS_CREATE_WITH_CONTAINER_TITLE_ADD", "blockly-LOGIC_TERNARY_CONDITION", "blockly-MAC_OS", "blockly-MATH_ADDITION_SYMBOL_ARIA", "blockly-MATH_ONLIST_OPERATOR_MIN_ARIA", "blockly-WINDOWS", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN"]),
   // Friulian retains brands, Alt, trig symbols and date/increment/numeric/Pause.
-  fur: new Set(["blockly-PAUSE_KEY", "blockly-ALT_KEY", "blockly-ARIA_TYPE_FIELD_DATE", "blockly-CHROME_OS", "blockly-INPUT_LABEL_LOOP_BY", "blockly-LINUX", "blockly-LISTS_SORT_TYPE_NUMERIC", "blockly-MAC_OS", "blockly-WINDOWS", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN"]),
+  // no, date: the Friulian words, spelled as in English (2026-10-14; they had
+  // carried a leftover "Par furlan:" prefix).
+  fur: new Set(["no", "date", "custom-field-date", "blockly-PAUSE_KEY", "blockly-ALT_KEY", "blockly-ARIA_TYPE_FIELD_DATE", "blockly-CHROME_OS", "blockly-INPUT_LABEL_LOOP_BY", "blockly-LINUX", "blockly-LISTS_SORT_TYPE_NUMERIC", "blockly-MAC_OS", "blockly-WINDOWS", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN"]),
   // Faroese retains brands, Alt, trig symbols, minus and the imperative set.
   fo: new Set(["blockly-ALT_KEY", "blockly-CHROME_OS", "blockly-LINUX", "blockly-MAC_OS", "blockly-WINDOWS", "blockly-MATH_SUBTRACTION_SYMBOL_ARIA", "blockly-LISTS_SET_INDEX_SET", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN"]),
   // Luxembourgish retains OS brands, math terms, key legends and Scrum loanwords.
@@ -324,7 +326,9 @@ const LOCALE_INVARIANTS = {
   ]),
 
   // Aragonese retains these printed key legends, product names and math symbols.
-  'an': new Set([
+  // 'no': the Aragonese word, spelled as in English (2026-10-14; it had
+  // carried a leftover "En aragonés:" prefix).
+  'an': new Set(['no', 
     'blockly-ARIA_TYPE_FIELD_COLOUR',
     'blockly-INPUT_LABEL_MATH_DIVISOR',
     'blockly-CONTROL_KEY',

@@ -32,7 +32,11 @@ test('every repaired locale has the English placeholder inventory', () => {
   }
 });
 
-test('Venda repairs reject their Italian seed prose', () => {
+// ve-CC is Venetian ("Vèneto" in imports/i18n/languages.js), not Venda: this
+// repair once put Venda words into it, and on 2026-10-14 the file was
+// rewritten in Venetian (tests/wrongLanguageLocales.test.cjs). Still no
+// Italian seed prose.
+test('Venetian repairs reject their Italian seed prose', () => {
   const translated = readLanguage('ve-CC');
   const values = [
     translated['act-addChecklist'],
@@ -42,7 +46,8 @@ test('Venda repairs reject their Italian seed prose', () => {
     translated['activity-checklist-uncompleted'],
     translated['act-a-dueAt'],
   ].join('\n');
-  assert.match(values, /mutevhe|tshimu|bodo|Lini|Ngafhi/);
+  assert.match(values, /zont|quadro|corsia|lista de contro|scheda/);
+  assert.doesNotMatch(values, /mutevhe|tshimu|bodo|Lini|Ngafhi/, 'no Venda in a Venetian file');
   assert.doesNotMatch(values, /aggiunta|campo personalizzato|lista rinominata|Scadenza/);
 });
 

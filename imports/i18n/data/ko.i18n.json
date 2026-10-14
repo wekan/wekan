@@ -985,7 +985,7 @@
   "list-move-cards": "목록에 있는 모든 카드를 이동",
   "list-select-cards": "목록에 있는 모든 카드를 선택",
   "set-color-list": "색 설정",
-  "listActionPopup-title": "동작 목록",
+  "listActionPopup-title": "목록 동작",
   "settingsUserPopup-title": "사용자 설정",
   "settingsTeamPopup-title": "팀 설정",
   "settingsOrgPopup-title": "조직 설정",

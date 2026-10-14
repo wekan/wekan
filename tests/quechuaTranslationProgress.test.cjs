@@ -36,7 +36,9 @@ for (const [key, value] of Object.entries(quechua)) {
     `${key}: locale-wide HTML tag inventory`);
 }
 
-assert.equal(quechua.accept, 'Kay willaymi: Chaskiy');
+// 2026-10-14: the leftover machine-fill prefix "Kay willaymi:" was removed
+// from every value (tests/wrongLanguageLocales.test.cjs); the word stays.
+assert.equal(quechua.accept, 'Chaskiy');
 assert.equal(quechua.settings, 'Allichaykuna');
 // Chilean Ministry of Education, native Cusco Collao dictionary (2019), p. 18.
 assert.equal(quechua.calendar, 'Watanqillqa');

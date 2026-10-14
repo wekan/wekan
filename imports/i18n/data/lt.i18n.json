@@ -1342,7 +1342,7 @@
   "admin-only-field": "Matoma tik lentos administratoriams",
   "read-only-field": "Tik skaityti: kiekvienas narys mato reikšmę, ją keičia tik lentos administratoriai",
   "yes": "Taip",
-  "no": "Nr",
+  "no": "Ne",
   "accounts": "Sąskaitos",
   "accounts-allowEmailChange": "Leisti pakeisti el. pašto adresą",
   "accounts-allowUserNameChange": "Leisti keisti vartotojo vardą",
