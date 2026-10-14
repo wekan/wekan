@@ -493,6 +493,38 @@ there.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** the **Latvian** translation, which was largely **Lithuanian**, is
+Latvian now, and the same wrong words are gone from **Macedonian**, **Persian**,
+**Cantonese** and **Occitan**.
+
+This release fixes the following translations:
+
+**Languages updated:** Latvian, Macedonian, Persian, Cantonese, Occitan.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e0649b0cfb">Latvian is Latvian, and wrong words are gone wherever they were</a>. Thanks to xet7.</summary>
+
+The first half shipped in v12.44 with Updated translations: Spanish Save is
+Guardar, the Bosnian file is in Latin script and Romanian's Italian words are
+Romanian. This finishes it: 225 Lithuanian values in the Latvian file are
+Latvian, in the file's own words, and the same wrong words are replaced under
+every key - Macedonian Настройки, the Persian settings typo, Cantonese 依戀 in
+the attachment search operator and Occitan "mot de Santa-Clara" for password.
+`tests/wrongLanguageCorrections20261014.test.cjs` fails on any Lithuanian left
+in the Latvian file and checks its placeholders.
+
+</details>
+
+and has the following developer-tooling fix:
+
+- [problemsMenuOrder and sandstormWebhookEgress follow two v12.43 changes](https://github.com/wekan/wekan/commit/c11fd215c4):
+  the recovery list's toolbar actions are not menu panes, and webhooks to a
+  site admin's internal hosts are not fetchSafe's. Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.44 2026-10-14 WeKan ® release
 
 **In short:** sign in with a **passkey** or **SQRL**, and **log out
