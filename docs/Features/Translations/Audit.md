@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Irish import and export controls — 2026-10-14
+
+Commit `1c92a11f39` translates 38 controls for user matching, column mapping,
+bulk imports and exports, Trello export and Sandstorm access. Placeholder-user
+names, separate sheets and boards, single-export ZIP exceptions, permission
+requirements and the literal Trello round-trip label remain explicit.
+
+The Irish catalog and guarded-correction suites pass with 30,368 correction
+ledger entries. All 21 human-preference checks pass; exact comparison preserves
+38,430 existing Chinese values. Two browser cases cover user-matching choices
+and bulk export layout. Syntax and discovery pass; runtime remains pending.
+
+A fresh full Irish placeholder inventory reports 99 entries, including keys
+marked pending Transifex. These remain in scope. Irish semantic review and the
+all-language objective remain unfinished.
+
 ## Irish import guidance, second batch — 2026-10-14
 
 Commit `bc97a96117` translates twelve guides: Tasks.org, monday.com, Super

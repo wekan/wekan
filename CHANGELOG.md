@@ -4303,6 +4303,21 @@ discovery; runtime remains pending. All-language review remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1c92a11f39b6b4121efe30a406db424bea5da069">Translate Irish import and export controls</a>. Thanks to xet7.</summary>
+
+Translate 38 controls for user matching, column mapping, bulk imports and
+exports, Trello export and Sandstorm access. Preserve placeholder-user choices,
+ZIP handling, workbook layout and the Trello round-trip label format.
+
+The Irish catalog and guarded-correction suites pass with 30,368 audited
+corrections. All 21 human-preference checks pass; 38,430 existing Chinese values
+remain unchanged. Two browser cases pass syntax and discovery; runtime remains
+pending. Irish still has 99 detected placeholders including pending-Transifex
+keys. All-language translation and semantic review remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
