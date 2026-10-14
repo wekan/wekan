@@ -48,7 +48,10 @@ const EXTENSIONS = ['.js', '.cjs', '.mjs', '.jsx', '.ts'];
 
 function sources(dir = ROOT, out = []) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (SKIP.has(entry.name)) continue;
+    // _build, _build-local-test, ...: rspack's compiled output, a bundled
+    // second copy of every source file (CLAUDE.md). A stale one reported a
+    // replacement the source had already fixed.
+    if (SKIP.has(entry.name) || entry.name.startsWith('_build')) continue;
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) sources(full, out);
     else if (EXTENSIONS.includes(path.extname(entry.name))) out.push(full);
