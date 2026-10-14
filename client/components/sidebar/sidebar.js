@@ -539,6 +539,7 @@ function openRulesViewFromBoardMenu(mode) {
 Template.boardMenuPopup.events({
   'click .js-open-rules-list-view'(event) { event.preventDefault(); openRulesViewFromBoardMenu('list'); },
   'click .js-open-rules-workflow-view'(event) { event.preventDefault(); openRulesViewFromBoardMenu('workflow'); },
+  'click .js-open-rules-bots-view'(event) { event.preventDefault(); openRulesViewFromBoardMenu('bots'); },
   'click .js-open-rules-blocks-view'(event) { event.preventDefault(); openRulesViewFromBoardMenu('blocks'); },
   'click .js-open-rules-history'(event) { event.preventDefault(); openRulesViewFromBoardMenu('history'); },
   'click .js-open-rules-import-export': Popup.open('rulesImportExport'),

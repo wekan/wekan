@@ -1101,6 +1101,13 @@ export const RulesHelper = {
         boardId: target.boardId,
       });
     }
+    // Board Settings / Bots: hand the card to a bot of its own board
+    // (server/bots.js). The bot has no rights of its own; this sends it the
+    // card through the outgoing-webhook queue, and nothing else.
+    if (action.actionType === 'dispatchBot' && action.integrationId) {
+      await require('/server/bots').dispatchToBot({ integrationId: action.integrationId, cardId: card._id,
+        userId: resolveActingUserId(activity) || activity.userId, source: 'rule' });
+    }
     // Add a comment to the card (GitHub Actions' create-comment steps). The
     // text takes the rule variables ({cardTitle}, {user}, ...). It is
     // written as the person whose change ran the rule, under that person's

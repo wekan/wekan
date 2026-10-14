@@ -202,7 +202,7 @@ const LOCALE_INVARIANTS = {
   // carried a leftover "Par furlan:" prefix).
   fur: new Set(["no", "date", "custom-field-date", "blockly-PAUSE_KEY", "blockly-ALT_KEY", "blockly-ARIA_TYPE_FIELD_DATE", "blockly-CHROME_OS", "blockly-INPUT_LABEL_LOOP_BY", "blockly-LINUX", "blockly-LISTS_SORT_TYPE_NUMERIC", "blockly-MAC_OS", "blockly-WINDOWS", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN"]),
   // Faroese retains brands, Alt, trig symbols, minus and the imperative set.
-  fo: new Set(["blockly-ALT_KEY", "blockly-CHROME_OS", "blockly-LINUX", "blockly-MAC_OS", "blockly-WINDOWS", "blockly-MATH_SUBTRACTION_SYMBOL_ARIA", "blockly-LISTS_SET_INDEX_SET", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN"]),
+  fo: new Set(["bots-send", "blockly-ALT_KEY", "blockly-CHROME_OS", "blockly-LINUX", "blockly-MAC_OS", "blockly-WINDOWS", "blockly-MATH_SUBTRACTION_SYMBOL_ARIA", "blockly-LISTS_SET_INDEX_SET", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN"]),
   // Luxembourgish retains OS brands, math terms, key legends and Scrum loanwords.
   lb: new Set(["blockly-ALT_KEY", "blockly-CHROME_OS", "blockly-LINUX", "blockly-LOGIC_NULL", "blockly-MAC_OS", "blockly-MATH_ADDITION_SYMBOL_ARIA", "blockly-MATH_SUBTRACTION_SYMBOL_ARIA", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN", "blockly-WINDOWS", "board-view-sprints", "scrum-sprints", "scrum-sprint", "scrum-backlog", "scrum-category-backlog"]),
   // Maltese retains the Alt key legend, OS brands and these trig symbols.
@@ -891,6 +891,8 @@ const LOCALE_INVARIANTS = {
   ])])),
   // Bokmål shared mathematics and Scrum labels, plus product/keyboard names.
   nb: new Set([
+    // Bots: "Send" is the Norwegian imperative too.
+    'bots-send',
     'blockly-ALT_KEY', 'blockly-CHROME_OS', 'blockly-COMMAND_KEY',
     'blockly-ENTER_KEY', 'blockly-INPUT_LABEL_MATH_DIVIDEND',
     'blockly-INPUT_LABEL_MATH_DIVISOR', 'blockly-INPUT_LABEL_NUMBER_MIN',
@@ -1148,7 +1150,7 @@ const isInvariantSource = value => {
   if (!/\p{Letter}/u.test(withoutPlaceholders)) return true;
   if (/^(?:YYYY-MM-DD|DD-MM-YYYY|MM-DD-YYYY)$/.test(value)) return true;
   if (/^https?:\/\/\S+$/.test(value)) return true; // example/placeholder URLs stay identical in every locale
-  return /^(Meteor|Node|MongoDB|MongoDB CollectionFS|MongoDB Meteor-Files|OAuth2|LDAP|CAS|GridFS|Arial|Gantt|Frappe Gantt|DHTMLX Gantt|S3|S3\/MinIO|CollectionFS|Google Cloud Storage\.?|Azure Blob|Azure Blob Storage|Meteor-Files|Microsoft Azure Blob Storage\.?|MongoDB Compact|Bytes|URL|Logo|Cron|OS|Platform|USA|Asia|OK|Planning Poker|API|Wiki|Bigboard|Google|GitHub|Facebook|X \(Twitter\)|Meteor Developer|Weibo|Meetup)$/.test(value);
+  return /^(Meteor|Node|MongoDB|MongoDB CollectionFS|MongoDB Meteor-Files|OAuth2|LDAP|CAS|GridFS|Arial|Gantt|Frappe Gantt|DHTMLX Gantt|S3|S3\/MinIO|CollectionFS|Google Cloud Storage\.?|Azure Blob|Azure Blob Storage|Meteor-Files|Microsoft Azure Blob Storage\.?|MongoDB Compact|Bytes|URL|Logo|Cron|OS|Platform|USA|Asia|OK|Planning Poker|API|Wiki|Bots|Bigboard|Google|GitHub|Facebook|X \(Twitter\)|Meteor Developer|Weibo|Meetup)$/.test(value);
 };
 // Keys added in English on purpose while they wait for Transifex
 // (pending-transifex.json, written by add-pending-keys.mjs). A locale value

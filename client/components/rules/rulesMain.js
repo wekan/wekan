@@ -22,7 +22,7 @@ Template.rulesMain.onCreated(function () {
   // the list tab here, where the tab state lives.
   this.autorun(() => {
     Session.get('rulesViewRequest');
-    if (['list', 'workflow', 'blocks', 'history'].includes(Session.get('rulesViewMode'))) {
+    if (['list', 'workflow', 'bots', 'blocks', 'history'].includes(Session.get('rulesViewMode'))) {
       this.rulesCurrentTab.set('rulesList');
     }
   });
@@ -64,6 +64,8 @@ Template.rulesMain.helpers({
   isWorkflowView() {
     return Session.get('rulesViewMode') === 'workflow';
   },
+  // Board Settings / Bots: the alternative workflow view for bots.
+  isBotsView() { return Session.get('rulesViewMode') === 'bots'; },
 });
 
 function sanitizeObject(obj) {

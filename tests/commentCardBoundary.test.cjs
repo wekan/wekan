@@ -57,8 +57,12 @@ test('negative: every externally supplied REST comment insert is preceded by the
   });
   const paths = walk(path.join(root, 'server')).filter(file => /CardComments\.(?:direct\.)?insertAsync\(/.test(fs.readFileSync(file, 'utf8')));
   assert.deepEqual(paths.map(file => path.relative(root, file)).sort(),
-    ['server/emailToCard.js', 'server/lib/listSyncIssueDetails.js', 'server/models/cardComments.js', 'server/routes/inboundEmail.js',
+    ['server/bots.js', 'server/emailToCard.js', 'server/lib/listSyncIssueDetails.js', 'server/models/cardComments.js', 'server/routes/inboundEmail.js',
       'server/rulesHelper.js']);
+  // A reply or an answer to a bot is a comment on the run's own card, by a
+  // board admin who may comment in that list, with the card's own board id.
+  const bots = read('server/bots.js');
+  assert.match(bots, /if \(!card \|\| !\(await canCommentInList\(userId, board, card\.listId\)\)\) throw new Meteor\.Error\('not-authorized'\);\s*const commentId = await CardComments\.insertAsync\(\{ text, boardId: card\.boardId, cardId: card\._id, userId \}\);/);
   // A rule's "add comment" writes on the card the rule ran for, with that
   // card's own board id, as a person who may comment there.
   const rulesHelper = read('server/rulesHelper.js');

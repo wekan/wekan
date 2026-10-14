@@ -348,6 +348,8 @@ import '/server/githubOrgImport';
 import '/server/compatApi/trello';
 import '/server/compatApi/jira';
 import '/server/compatApi/githubLike';
+// Board Settings / Bots: dispatches, the run report route, runs for admins.
+import '/server/bots';
 
 // ----------------------------------------------------------------------------
 // 14. Server — routes (REST API, file serving)

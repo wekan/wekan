@@ -9,6 +9,8 @@ template(name="rulesMain")
       if($eq rulesCurrentTab.get 'rulesList')
         if isWorkflowView
           +rulesWorkflow
+        else if isBotsView
+          +rulesBots
         else if isBlocksView
           +rulesBlocks
         else if isRulesHistoryView

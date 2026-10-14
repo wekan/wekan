@@ -1,0 +1,130 @@
+//- Board Settings / Bots: the Rules page's view for bots - external runners a
+  board admin connects to this board and hands cards to, laid out as kanbots
+  does, in the board's theme. Design: docs/Features/Automation/Bots.md.
+  A bot has no rights of its own: WeKan sends it a dispatch, and its runner
+  works on the board through WeKan's REST API as an ordinary member.
+template(name="rulesBots")
+  .bots-view
+    aside.bots-rail
+      section.bots-rail-section
+        h3
+          i.fa.fa-android
+          | &nbsp;{{_ 'bots'}}
+        ul.bots-list
+          each bots
+            li.bots-bot(class="{{#unless enabled}}is-disabled{{/unless}}")
+              span.bots-bot-name {{title}}
+              span.quiet.bots-bot-host {{host}}
+              a.js-bots-remove(href="#" data-id="{{_id}}" title="{{_ 'delete'}}")
+                i.fa.fa-trash-o
+          else
+            li.quiet {{_ 'bots-none'}}
+        form.bots-add.js-bots-add
+          input.js-bots-title(type="text" required placeholder="{{_ 'bots-name'}}" aria-label="{{_ 'bots-name'}}")
+          input.js-bots-url(type="url" required placeholder="{{_ 'bots-url'}}" aria-label="{{_ 'bots-url'}}")
+          input.js-bots-token(type="password" autocomplete="off" placeholder="{{_ 'bots-token'}}" aria-label="{{_ 'bots-token'}}")
+          button.primary(type="submit")
+            i.fa.fa-plus
+            | &nbsp;{{_ 'bots-add'}}
+          if addError
+            p.warning {{addError}}
+      section.bots-rail-section
+        h3
+          i.fa.fa-bolt
+          | &nbsp;{{_ 'bots-live'}}
+        ul.bots-live
+          each liveRuns
+            li
+              a.js-bots-select(href="#" data-card-id="{{cardId}}")
+                span.bots-pill(class="is-{{status}}") {{_ statusKey}}
+                | &nbsp;{{cardTitle}}
+              if ticker
+                .bots-ticker.quiet {{ticker}}
+          else
+            li.quiet {{_ 'bots-no-runs'}}
+      section.bots-rail-section
+        h3
+          i.fa.fa-history
+          | &nbsp;{{_ 'activity'}}
+        ul.bots-activity
+          each activity
+            li.quiet
+              strong {{botTitle}}
+              | : {{text}}
+    main.bots-board
+      header.bots-header
+        h2
+          | {{boardTitle}}&nbsp;/&nbsp;{{_ 'bots'}}
+        span.quiet {{_ 'bots-summary' runningCount waitingCount}}
+      .bots-columns
+        each columns
+          section.bots-column.js-bots-drop(data-list-id="{{_id}}")
+            header.bots-column-header
+              span.bots-column-title {{title}}
+              span.bots-counter {{cards.length}}
+            each cards
+              article.bots-card.js-bots-card(draggable="true" data-card-id="{{_id}}" class="{{#if selected}}is-selected{{/if}}")
+                .bots-card-top
+                  if tag
+                    span.card-label.bots-tag(class="{{labelColorClass tag.color}}" style="{{labelColorStyle tag.color}}") {{tag.name}}
+                  if number
+                    span.quiet {{number}}
+                  if run
+                    span.bots-pill(class="is-{{run.status}}") {{_ run.statusKey}}
+                a.bots-card-title.js-bots-select(href="#" data-card-id="{{_id}}") {{title}}
+                if run.ticker
+                  .bots-ticker
+                    i.fa.fa-terminal
+                    | &nbsp;{{run.ticker}}
+                if run.question
+                  .bots-question
+                    i.fa.fa-question-circle
+                    | &nbsp;{{run.question}}
+                  .bots-options
+                    each run.options
+                      button.js-bots-answer(type="button" data-run-id="{{runId}}" data-value="{{value}}") {{label}}
+                .bots-card-meta.quiet
+                  each members
+                    +userAvatar(userId=this noRemove=true)
+                  span {{age}}
+    if selectedCard
+      aside.bots-drawer
+        with selectedCard
+          header.bots-drawer-header
+            h3 {{title}}
+            a.js-bots-close(href="#" title="{{_ 'close'}}")
+              i.fa.fa-times
+          .bots-dispatch
+            if botsList.length
+              select.js-bots-choose(aria-label="{{_ 'bots'}}")
+                each botsList
+                  option(value="{{_id}}") {{title}}
+              button.primary.js-bots-dispatch(type="button")
+                i.fa.fa-play
+                | &nbsp;{{_ 'bots-dispatch'}}
+            if run
+              if run.active
+                button.js-bots-stop(type="button" data-run-id="{{run._id}}")
+                  i.fa.fa-stop
+                  | &nbsp;{{_ 'bots-stop'}}
+          if run
+            p
+              span.bots-pill(class="is-{{run.status}}") {{_ run.statusKey}}
+              if run.costText
+                span.quiet  {{run.costText}}
+          ul.bots-thread
+            each thread
+              li.bots-thread-item(class="is-{{kind}}")
+                .bots-thread-meta.quiet
+                  if isEvent
+                    i.fa.fa-cog
+                  else
+                    i.fa.fa-comment-o
+                  | &nbsp;{{who}} · {{when}}
+                .bots-thread-text
+                  +viewer
+                    = text
+          if run.active
+            form.bots-reply.js-bots-reply(data-run-id="{{run._id}}")
+              textarea.js-bots-reply-text(rows="3" placeholder="{{_ 'bots-reply'}}" aria-label="{{_ 'bots-reply'}}")
+              button.primary(type="submit") {{_ 'bots-send'}}

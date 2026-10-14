@@ -167,6 +167,19 @@ template(name="cardActions")
     button.trigger-button.js-add-comment-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
       i.fa.fa-plus(aria-hidden="true")
 
+  //- Board Settings / Bots: hand the card to one of this board's bots.
+  if boardBots.length
+    div.trigger-item
+      div.trigger-content
+        div.trigger-text
+          | {{_'r-dispatch-bot'}}
+        div.trigger-dropdown
+          select#dispatch-bot-action(aria-label="{{_ 'r-dispatch-bot'}}")
+            each boardBots
+              option(value="{{_id}}") {{title}}
+      button.trigger-button.js-add-dispatch-bot-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+        i.fa.fa-plus(aria-hidden="true")
+
 template(name="setCardActionsColorPopup")
   form.edit-label
     .palette-colors: each colors

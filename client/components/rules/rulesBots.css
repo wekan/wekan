@@ -1,0 +1,263 @@
+/* Board Settings / Bots: kanbots' layout - a rail of bots, live runs and
+   activity, the board's lists as columns, a card's thread in a drawer - in
+   the board's own theme. The accent is the theme's (--theme-accent); the run
+   states are told apart by their words as well as their colours. Logical
+   properties, so a right-to-left language mirrors it. */
+
+.bots-view {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+  min-height: calc(100vh - 120px);
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+.bots-rail {
+  flex: 0 0 240px;
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+
+.bots-rail-section h3 {
+  margin: 0 0 6px;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.bots-list,
+.bots-live,
+.bots-activity,
+.bots-thread {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bots-bot {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+}
+
+.bots-bot.is-disabled {
+  opacity: 0.5;
+}
+
+.bots-bot-name {
+  font-weight: bold;
+}
+
+.bots-bot-host {
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.85em;
+}
+
+.bots-add {
+  display: grid;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.bots-add input {
+  margin: 0 !important;
+}
+
+.bots-board {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.bots-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.bots-header h2 {
+  margin: 0 0 8px;
+}
+
+.bots-columns {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  align-items: flex-start;
+  padding-bottom: 8px;
+}
+
+.bots-column {
+  flex: 0 0 260px;
+  padding: 8px;
+  border-radius: 6px;
+  background: color-mix(in srgb, currentColor 6%, transparent);
+}
+
+.bots-column.is-drop-target {
+  outline: 2px dashed var(--theme-accent, #01628c);
+}
+
+.bots-column-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.85em;
+}
+
+.bots-counter {
+  padding: 0 6px;
+  border-radius: 2em;
+  background: color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.bots-card {
+  margin-bottom: 8px;
+  padding: 8px;
+  border-radius: 6px;
+  background: var(--card-background, #fff);
+  color: var(--card-text, inherit);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  cursor: grab;
+}
+
+.bots-card.is-selected {
+  outline: 2px solid var(--theme-accent, #01628c);
+}
+
+.bots-card-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  font-size: 0.8em;
+}
+
+.bots-card-title {
+  display: block;
+  margin: 4px 0;
+  font-weight: bold;
+  color: inherit;
+  text-decoration: none;
+}
+
+.bots-pill {
+  padding: 0 6px;
+  border-radius: 2em;
+  font-size: 0.75em;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+}
+
+.bots-pill.is-running { color: #0969da; }
+.bots-pill.is-awaiting_input { color: #bf8700; }
+.bots-pill.is-review { color: #8250df; }
+.bots-pill.is-done { color: #1a7f37; }
+.bots-pill.is-failed { color: #cf222e; }
+.bots-pill.is-queued,
+.bots-pill.is-stopped { color: inherit; opacity: 0.7; }
+
+.bots-ticker {
+  font-family: monospace;
+  font-size: 0.8em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bots-question {
+  font-size: 0.85em;
+  margin-top: 4px;
+}
+
+.bots-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.bots-options button {
+  margin: 0 !important;
+  padding: 2px 8px;
+}
+
+.bots-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+  font-size: 0.8em;
+}
+
+.bots-card-meta .member {
+  width: 20px;
+  height: 20px;
+}
+
+.bots-drawer {
+  flex: 0 0 340px;
+  padding: 12px;
+  border-inline-start: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+  overflow-y: auto;
+}
+
+.bots-drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.bots-drawer-header h3 {
+  margin: 0;
+}
+
+.bots-drawer-header a {
+  color: inherit;
+}
+
+.bots-dispatch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0;
+}
+
+.bots-thread-item {
+  padding: 6px 0;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.bots-thread-item.is-event {
+  opacity: 0.85;
+}
+
+.bots-thread-meta {
+  font-size: 0.8em;
+}
+
+.bots-reply textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+  .bots-view {
+    flex-direction: column;
+  }
+
+  .bots-rail,
+  .bots-drawer {
+    flex-basis: auto;
+  }
+}

@@ -70,6 +70,8 @@ const sequence = lines
   .filter(Boolean);
 
 const RULES_VIEWS = ['js-open-rules-list-view', 'js-open-rules-workflow-view',
+    // Bots: the alternative workflow view, below Workflow (board admins only).
+    'js-open-rules-bots-view',
   'js-open-rules-blocks-view', 'js-open-rules-history', 'js-open-rules-import-export'];
 const EXPECTED = [
   'js-open-rules-view',

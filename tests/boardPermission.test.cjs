@@ -73,6 +73,7 @@ const REVIEWED = {
   'models/lib/importedBoardPermission.js': [1, 'import keeps public and instance'],
   'models/lib/listPermissions.js': [1, '#4527 "everyone signed in": public AND instance boards, both listed'],
   'models/trelloCreator.js': [1, 'Trello visibility mapping; Trello "org" stays private'],
+  'models/lib/trelloCompatApi.js': [1, 'the Trello-compatible API names the level; instance is Trello "org"'],
   'server/lib/schemaUpgradeSteps.js': [1, 'case repair of stored values'],
   'server/models/boards.js': [1, '/api/boards_count counts each kind'],
   'server/publications/boards.js': [1, 'the admin report filter lists instance beside it'],

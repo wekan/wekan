@@ -1947,6 +1947,102 @@
     {
       "key": "optional-api-gitea-desc",
       "since": "2026-10-14"
+    },
+    {
+      "key": "bots",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "bots-none",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "bots-name",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "bots-url",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "bots-token",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "bots-add",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "bots-live",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "bots-no-runs",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "bots-summary",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "bots-status-queued",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "bots-status-running",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "bots-status-awaiting_input",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "bots-status-review",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "bots-status-done",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "bots-status-failed",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "bots-status-stopped",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "bots-dispatch",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "bots-stop",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "bots-reply",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "bots-send",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "r-dispatch-bot",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "bot-not-found",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "bot-option-not-found",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "bot-reply-empty",
+      "since": "2026-10-14"
     }
   ]
 }

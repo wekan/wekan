@@ -1,5 +1,6 @@
 import { CARD_COLORS } from '/models/metadata/colors';
 import { Utils } from '/client/lib/utils';
+import { ReactiveCache } from '/imports/reactiveCache';
 import { saveRuleTriggerAction } from '/client/components/rules/rulesSaveHelper';
 import { RULE_ACTING_USER_SENTINEL } from '/models/lib/ruleActingUser';
 
@@ -19,6 +20,10 @@ Template.cardActions.onCreated(function () {
 });
 
 Template.cardActions.helpers({
+  // This board's bots (Board Settings / Bots), for "Dispatch to bot".
+  boardBots() {
+    return ReactiveCache.getIntegrations({ boardId: Session.get('currentBoard'), bot: true }) || [];
+  },
   cardColorButton() {
     return Template.instance().cardColorButtonValue.get();
   },
@@ -137,6 +142,18 @@ Template.cardActions.events({
     });
   },
 
+  'click .js-add-dispatch-bot-action'(event, tpl) {
+    const data = Template.currentData();
+    const integrationId = tpl.find('#dispatch-bot-action').value;
+    if (!integrationId) return;
+    const boardId = Session.get('currentBoard');
+    saveRuleTriggerAction(boardId, data.ruleId, data.ruleName.get(), data.triggerVar.get(), {
+      actionType: 'dispatchBot',
+      integrationId,
+      boardId,
+      desc: Utils.getTriggerActionDesc(event, tpl),
+    });
+  },
   'click .js-add-comment-action'(event, tpl) {
     const data = Template.currentData();
     const commentText = String(tpl.find('#comment-action-text').value || '').trim();

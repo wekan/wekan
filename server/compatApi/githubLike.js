@@ -85,13 +85,12 @@ async function applyChange(ctx, data, card, change) {
 }
 
 function routesFor() {
-  const R = '^\\/repos\\/[^/]+\\/([^/]+)';
   return [
     { method: 'GET', path: /^\/user\/?$/, run: async (ctx) => { const me = await ctx.wekan('GET', '/api/user'); return { login: me.username, id: me._id, name: (me.profile && me.profile.fullname) || me.username }; } },
     { method: 'GET', path: /^\/user\/repos\/?$/, run: async ctx => (await myBoards(ctx)).boards.map(b => g.repo(b, OWNER)) },
-    { method: 'GET', path: new RegExp(`${R}\\/?$`), run: async (ctx, m) => g.repo(await boardFor(ctx, m[1]), OWNER) },
+    { method: 'GET', path: /^\/repos\/[^/]+\/([^/]+)\/?$/, run: async (ctx, m) => g.repo(await boardFor(ctx, m[1]), OWNER) },
     {
-      method: 'GET', path: new RegExp(`${R}\\/issues\\/?$`),
+      method: 'GET', path: /^\/repos\/[^/]+\/([^/]+)\/issues\/?$/,
       run: async (ctx, m) => {
         const data = await load(ctx, await boardFor(ctx, m[1]));
         const page = g.listIssues(data.issues.map(x => x.issue), { state: ctx.query.state || 'open', labels: ctx.query.labels,
@@ -101,7 +100,7 @@ function routesFor() {
       },
     },
     {
-      method: 'POST', path: new RegExp(`${R}\\/issues\\/?$`),
+      method: 'POST', path: /^\/repos\/[^/]+\/([^/]+)\/issues\/?$/,
       run: async (ctx, m) => {
         const board = await boardFor(ctx, m[1]);
         const change = g.issueChange({ title: '', ...ctx.body });
@@ -117,9 +116,9 @@ function routesFor() {
         return { status: 201, body: g.issue(await ctx.wekan('GET', `/api/cards/${id(made._id)}`), { board, listTitle: 'Open' }) };
       },
     },
-    { method: 'GET', path: new RegExp(`${R}\\/issues\\/(\\d+)\\/?$`), run: async (ctx, m) => (await findIssue(ctx, await boardFor(ctx, m[1]), m[2])).issue },
+    { method: 'GET', path: /^\/repos\/[^/]+\/([^/]+)\/issues\/(\d+)\/?$/, run: async (ctx, m) => (await findIssue(ctx, await boardFor(ctx, m[1]), m[2])).issue },
     {
-      method: 'PATCH', path: new RegExp(`${R}\\/issues\\/(\\d+)\\/?$`),
+      method: 'PATCH', path: /^\/repos\/[^/]+\/([^/]+)\/issues\/(\d+)\/?$/,
       run: async (ctx, m) => {
         const board = await boardFor(ctx, m[1]);
         const { data, card } = await findIssue(ctx, board, m[2]);
@@ -130,14 +129,14 @@ function routesFor() {
       },
     },
     {
-      method: 'GET', path: new RegExp(`${R}\\/issues\\/(\\d+)\\/comments\\/?$`),
+      method: 'GET', path: /^\/repos\/[^/]+\/([^/]+)\/issues\/(\d+)\/comments\/?$/,
       run: async (ctx, m) => {
         const { card } = await findIssue(ctx, await boardFor(ctx, m[1]), m[2]);
         return (await ctx.wekan('GET', `/api/boards/${id(card.boardId)}/cards/${id(card._id)}/comments`)).map(c => g.comment(c));
       },
     },
     {
-      method: 'POST', path: new RegExp(`${R}\\/issues\\/(\\d+)\\/comments\\/?$`),
+      method: 'POST', path: /^\/repos\/[^/]+\/([^/]+)\/issues\/(\d+)\/comments\/?$/,
       run: async (ctx, m) => {
         const { card } = await findIssue(ctx, await boardFor(ctx, m[1]), m[2]);
         const body = String((ctx.body && ctx.body.body) || '').slice(0, 65536);
@@ -146,9 +145,9 @@ function routesFor() {
         return { status: 201, body: g.comment({ _id: made._id, comment: body, createdAt: new Date() }) };
       },
     },
-    { method: 'GET', path: new RegExp(`${R}\\/labels\\/?$`), run: async (ctx, m) => vcs.boardPlainLabels((await boardFor(ctx, m[1])).labels || []).map(g.label) },
+    { method: 'GET', path: /^\/repos\/[^/]+\/([^/]+)\/labels\/?$/, run: async (ctx, m) => vcs.boardPlainLabels((await boardFor(ctx, m[1])).labels || []).map(g.label) },
     {
-      method: 'GET', path: new RegExp(`${R}\\/milestones\\/?$`),
+      method: 'GET', path: /^\/repos\/[^/]+\/([^/]+)\/milestones\/?$/,
       run: async (ctx, m) => {
         const data = await load(ctx, await boardFor(ctx, m[1]));
         const issues = data.issues.map(x => ({ state: x.issue.state, milestoneIds: (x.card.labelIds || []) }));

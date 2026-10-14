@@ -45,7 +45,8 @@ function board(b, { baseUrl = '' } = {}) {
     url: `${baseUrl}/b/${b._id}/${b.slug || 'board'}`,
     shortLink: shortLink(b._id),
     shortUrl: `${baseUrl}/b/${b._id}/${b.slug || 'board'}`,
-    prefs: { permissionLevel: b.permission === 'public' ? 'public' : 'private', background: b.color || 'blue' },
+    // An instance board (every signed-in user) is Trello's organization level.
+    prefs: { permissionLevel: b.permission === 'public' ? 'public' : (b.permission === 'instance' ? 'org' : 'private'), background: b.color || 'blue' },
     labelNames: Object.fromEntries((b.labels || []).filter(l => trelloColor(l.color)).map(l => [trelloColor(l.color), l.name || ''])),
     dateLastActivity: iso(b.modifiedAt || b.createdAt),
   };

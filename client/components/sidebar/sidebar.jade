@@ -545,6 +545,13 @@ template(name="boardMenuPopup")
         a.js-open-rules-workflow-view(title="{{_ 'r-workflow-view'}}")
           i.fa.fa-sitemap
           | {{_ 'r-workflow-view'}}
+      //- Bots: the alternative workflow view - external runners this board
+        hands cards to (client/components/rules/rulesBots.*). Board admins
+        only, as every entry of this group.
+      li
+        a.js-open-rules-bots-view(title="{{_ 'bots'}}")
+          i.fa.fa-android
+          | {{_ 'bots'}}
       li
         a.js-open-rules-blocks-view(title="{{_ 'r-blocks-view'}}")
           i.fa.fa-puzzle-piece
