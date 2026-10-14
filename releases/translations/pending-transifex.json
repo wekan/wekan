@@ -2779,6 +2779,18 @@
     {
       "key": "act-unjoinAssignee",
       "since": "2026-10-14"
+    },
+    {
+      "key": "chat-view-unread",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "chat-view-all-cards",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "chat-view-message-cards",
+      "since": "2026-10-14"
     }
   ]
 }

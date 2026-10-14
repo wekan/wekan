@@ -25,7 +25,7 @@ console.log('  ok - inlineViewer is the viewer, laid out inline');
 // rendered HTML, are not text on the page and are allowed.
 const FIELDS = ['title', 'name', 'boardTitle', 'cardTitle', 'issueTitle', 'description', 'snippet', 'selectedCard.title'];
 const VIEWS = ['client/components/boards/emailView.jade', 'client/components/boards/versionControlView.jade',
-  'client/components/main/activityFeed.jade'];
+  'client/components/boards/chatView.jade', 'client/components/main/activityFeed.jade'];
 for (const view of VIEWS) {
   const offenders = read(view).split('\n').map((line, i) => [line, i + 1]).filter(([line]) => {
     if (/^\s*option\b/.test(line)) return false;
@@ -40,7 +40,7 @@ for (const view of VIEWS) {
   });
   assert.deepEqual(offenders.map(([line, n]) => `${view}:${n}: ${line.trim()}`), [], `${view}: render it with +inlineViewer`);
 }
-console.log('  ok - the email list, Version Control and the activity feed render every title');
+console.log('  ok - the email list, Version Control, Chat and the activity feed render every title');
 
 // A rendered title can hold a link, and a link inside a link is not one: in
 // these views a clickable title is a span with role=link, which Enter opens.

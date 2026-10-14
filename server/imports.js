@@ -385,6 +385,7 @@ import '/server/sharedDescription';
 import '/server/sqrl';
 import '/server/windowsSso';
 import '/server/apiImport';
+import '/server/chatView';
 
 // ----------------------------------------------------------------------------
 // 14. Server — routes (REST API, file serving)

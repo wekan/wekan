@@ -97,8 +97,94 @@
   padding: 6px 0;
 }
 
-.chat-view-node > ul {
+.chat-view-node > ul,
+.chat-view-collapse > ul {
   padding-inline-start: 14px;
+}
+
+/* The caret before the icon: it points to where the text runs (right, or
+   left in a right-to-left language) when closed, and down when open. */
+.chat-view-caret {
+  flex: 0 0 auto;
+  width: 0.8em;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+.chat-view-tree[dir="rtl"] .chat-view-caret {
+  transform: scaleX(-1);
+}
+.chat-view-node.is-open > .chat-view-row > .chat-view-caret {
+  transform: rotate(90deg);
+}
+.chat-view-tree[dir="rtl"] .chat-view-node.is-open > .chat-view-row > .chat-view-caret {
+  transform: rotate(90deg) scaleX(-1);
+}
+/* A card has no caret: its # holds the same place. */
+.chat-view-channel > .chat-view-row > .chat-view-hash {
+  width: 0.8em;
+  text-align: center;
+}
+
+/* Opening and closing slide: the rows under a node grow from nothing to
+   their height (a 0fr to 1fr grid row) - and simply show or hide for a
+   member who asked the system for reduced motion. */
+.chat-view-collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.2s ease;
+}
+.chat-view-collapse > ul {
+  overflow: hidden;
+  min-height: 0;
+  visibility: hidden;
+  transition: visibility 0.2s;
+}
+.chat-view-node.is-open > .chat-view-collapse {
+  grid-template-rows: 1fr;
+}
+.chat-view-node.is-open > .chat-view-collapse > ul {
+  visibility: visible;
+}
+@media (prefers-reduced-motion: reduce) {
+  .chat-view-collapse,
+  .chat-view-collapse > ul,
+  .chat-view-caret {
+    transition: none;
+  }
+}
+
+/* Messages this member has not read, under that row. */
+.chat-view-unread {
+  flex: 0 0 auto;
+  margin-inline-start: auto;
+  min-width: 1.6em;
+  padding: 0 6px;
+  border-radius: 9px;
+  background: var(--theme-accent, #01628c);
+  color: #fff;
+  font-size: 0.75em;
+  font-weight: bold;
+  line-height: 1.6;
+  text-align: center;
+}
+.chat-view-all-cards {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  color: inherit;
+  opacity: 0.5;
+  cursor: pointer;
+}
+.chat-view-row:hover .chat-view-all-cards,
+.chat-view-all-cards:focus-visible,
+.chat-view-all-cards[aria-pressed="true"] {
+  opacity: 1;
+}
+.chat-view-row:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: -2px;
 }
 
 .chat-view-row {
@@ -117,6 +203,7 @@
 }
 
 .chat-view-row-title {
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

@@ -1,7 +1,6 @@
 import { ReactiveVar } from 'meteor/reactive-var';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { ReactiveCache } from '/imports/reactiveCache';
-import Boards from '/models/boards';
 import CardComments from '/models/cardComments';
 import Cards from '/models/cards';
 import Swimlanes from '/models/swimlanes';
@@ -9,7 +8,7 @@ import { Utils } from '/client/lib/utils';
 import { TAPi18n } from '/imports/i18n';
 
 const {
-  DEFAULT_LAYOUT, cleanChatLayout, paneOrder, resizePane, buildBoardTree, buildWorkspaceTree,
+  DEFAULT_LAYOUT, cleanChatLayout, paneOrder, resizePane, buildChannelTree,
   dropNeighbours, dropAllowed,
 } = require('/models/lib/chatView');
 const { dropPosition, moveWorkspace } = require('/models/lib/workspacesTree');
@@ -20,6 +19,86 @@ const { dropPosition, moveWorkspace } = require('/models/lib/workspacesTree');
 
 const selectedCardId = new ReactiveVar(null);
 const dragLayout = new ReactiveVar(null);
+
+// The channel tree (server/chatView.js): the summary of the member's
+// conversations, the boards opened with all their cards, and which rows are
+// open - kept in this browser, a per-viewer convenience.
+const channelSummary = new ReactiveVar(null);
+const fullBoards = new ReactiveVar({});
+// The board the member is on shows all its cards unless they chose only
+// the ones with messages; its cards come from the board's own subscription,
+// so a card dragged to another list moves in the tree at once.
+const messagesOnly = new ReactiveVar(new Set());
+function currentBoardStructure() {
+  const boardId = Utils.getCurrentBoardId();
+  if (!boardId || messagesOnly.get().has(boardId)) return null;
+  const live = item => item && !item.archived;
+  return {
+    swimlanes: (ReactiveCache.getSwimlanes({ boardId, archived: false }) || []).filter(live)
+      .map(s => ({ _id: s._id, boardId, title: s.title || '', sort: s.sort })),
+    lists: (ReactiveCache.getLists({ boardId, archived: false }) || []).filter(live)
+      .map(l => ({ _id: l._id, boardId, title: l.title || '', sort: l.sort, swimlaneId: l.swimlaneId || '' })),
+    cards: (ReactiveCache.getCards({ boardId, archived: false }) || []).filter(live)
+      .map(c => ({ cardId: c._id, boardId, swimlaneId: c.swimlaneId, listId: c.listId, title: c.title || '', sort: c.sort })),
+  };
+}
+// { 'board:<id>': true, 'list:<id>': false, ... }: what the member opened
+// or closed; every other row is as defaultOpen says.
+const OPEN_KEY = 'wekan-chat-view-open';
+const readOpen = () => {
+  try {
+    const stored = JSON.parse(window.localStorage.getItem(OPEN_KEY) || '{}');
+    return stored && typeof stored === 'object' && !Array.isArray(stored) ? stored : {};
+  } catch (e) { return {}; }
+};
+const openRows = new ReactiveVar(readOpen());
+function setOpen(key, open) {
+  const next = { ...openRows.get(), [key]: !!open };
+  const keys = Object.keys(next);
+  for (const old of keys.slice(0, Math.max(0, keys.length - 500))) delete next[old];
+  openRows.set(next);
+  try { window.localStorage.setItem(OPEN_KEY, JSON.stringify(next)); } catch (e) { /* not kept */ }
+}
+let reloadTimer = null;
+function loadChannels(delay = 0) {
+  clearTimeout(reloadTimer);
+  reloadTimer = setTimeout(() => Meteor.call('chatViewChannels', (error, summary) => {
+    if (!error) channelSummary.set(summary);
+  }), delay);
+}
+function loadFullBoard(boardId) {
+  Meteor.call('chatViewBoardChannels', boardId, (error, full) => {
+    if (!error) fullBoards.set({ ...fullBoards.get(), [boardId]: full });
+  });
+}
+// The rows open before the member opened or closed any: the board they are
+// on and the workspaces above it.
+function defaultOpen(key) {
+  const boardId = Utils.getCurrentBoardId();
+  if (key === `board:${boardId}`) return true;
+  // Under a board that is open, its swimlanes and lists are too.
+  if (key.startsWith('swimlane:') || key.startsWith('list:')) return true;
+  if (!key.startsWith('workspace:')) return false;
+  const user = ReactiveCache.getCurrentUser();
+  const profile = (user && user.profile) || {};
+  const assigned = profile.boardWorkspaceAssignments && profile.boardWorkspaceAssignments[boardId];
+  if (!assigned) return false;
+  const find = (nodes, id) => {
+    for (const node of nodes || []) {
+      if (node.id === id) return node;
+      const inner = find(node.children, id);
+      if (inner) return inner;
+    }
+    return null;
+  };
+  const holds = node => !!node && (node.id === assigned || (node.children || []).some(holds));
+  return holds(find(profile.boardWorkspacesTree, key.slice('workspace:'.length)));
+}
+const isOpen = (kind, id) => {
+  const key = `${kind}:${id}`;
+  const chosen = openRows.get();
+  return Object.prototype.hasOwnProperty.call(chosen, key) ? chosen[key] === true : defaultOpen(key);
+};
 
 // The language's direction, reactively: the panes re-order the moment the
 // member switches to or from a right-to-left language.
@@ -84,15 +163,44 @@ const paneHelpers = {
   width(pane) { return layout()[`${pane}Width`] || DEFAULT_LAYOUT[`${pane}Width`]; },
   selectedCard,
 };
+Template.chatViewTreePane.onCreated(function () {
+  loadChannels();
+  // A message written on this board - here or anywhere - is a reason to look
+  // again: a board's first message moves it out of Other boards.
+  this.autorun(() => {
+    const boardId = Utils.getCurrentBoardId();
+    if (boardId) CardComments.find({ boardId }).count();
+    loadChannels(500);
+  });
+  this.refresh = Meteor.setInterval(() => loadChannels(), 60000);
+});
+Template.chatViewTreePane.onDestroyed(function () {
+  Meteor.clearInterval(this.refresh);
+});
 Template.chatViewTreePane.helpers({
   ...paneHelpers,
-  workspaceTree() {
+  treeDir() { return isRtl() ? 'rtl' : 'ltr'; },
+  channelTree() {
     const user = ReactiveCache.getCurrentUser();
     const profile = (user && user.profile) || {};
-    const boards = (ReactiveCache.getBoards({ archived: false, type: 'board', 'members.userId': user && user._id },
-      { sort: { title: 1 } }) || []).map(b => ({ _id: b._id, title: b.title, slug: b.slug }));
-    return buildWorkspaceTree(profile.boardWorkspacesTree, profile.boardWorkspaceAssignments, boards);
+    const full = { ...fullBoards.get() };
+    const current = currentBoardStructure();
+    if (current) full[Utils.getCurrentBoardId()] = current;
+    return buildChannelTree(channelSummary.get(), profile.boardWorkspacesTree, profile.boardWorkspaceAssignments, full);
   },
+});
+
+const treeHelpers = {
+  isOpen,
+  // On the board the member is on: only there can rows be dragged, since a
+  // drop moves things on the open board.
+  isCurrentNode() { return this.boardId === Utils.getCurrentBoardId(); },
+  isSelected(id) { return selectedCardId.get() === id; },
+};
+Template.chatViewWorkspaceNode.helpers(treeHelpers);
+Template.chatViewBoardNode.helpers(treeHelpers);
+Template.chatViewUnread.helpers({
+  countText() { return this.count > 99 ? '99+' : String(this.count); },
 });
 Template.chatViewCardPane.helpers(paneHelpers);
 Template.chatViewChatPane.helpers({
@@ -116,19 +224,6 @@ Template.chatViewChatPane.helpers({
   canComment() {
     // The comment capability, as the server decides (read-only roles too).
     return !!(selectedCard() && Utils.currentUserCan('comment'));
-  },
-});
-
-Template.chatViewBoard.helpers({
-  isCurrentBoard() { return this._id === Utils.getCurrentBoardId(); },
-  isSelected(id) { return selectedCardId.get() === id; },
-  boardTree() {
-    const boardId = Utils.getCurrentBoardId();
-    return buildBoardTree({
-      swimlanes: ReactiveCache.getSwimlanes({ boardId, archived: false }) || [],
-      lists: ReactiveCache.getLists({ boardId, archived: false }) || [],
-      cards: ReactiveCache.getCards({ boardId, archived: false }) || [],
-    });
   },
 });
 
@@ -194,16 +289,53 @@ Template.chatView.events({
     event.preventDefault();
     saveLayout({ ...layout(), [`${event.currentTarget.dataset.pane}Collapsed`]: false });
   },
+  // A card is a channel: it opens here. One on another board takes the
+  // member to that board, still in the Chat view, with the card selected.
   'click .js-chat-select-card'(event) {
+    const link = event.target.closest && event.target.closest('a[href]');
+    if (link && event.currentTarget.contains(link)) return;
     event.preventDefault();
-    selectedCardId.set(event.currentTarget.dataset.cardId);
+    const { cardId, boardId } = event.currentTarget.dataset;
+    selectedCardId.set(cardId);
+    if (boardId && boardId !== Utils.getCurrentBoardId()) {
+      const board = (channelSummary.get() || { boards: [] }).boards.find(b => b._id === boardId);
+      FlowRouter.go('board', { id: boardId, slug: (board && board.slug) || 'board' });
+    }
   },
-  'click .js-chat-open-board'(event) {
+  // A workspace, board, swimlane or list folds or unfolds; a board without
+  // a conversation shows all its cards when opened, to write the first one.
+  'click .js-chat-toggle'(event) {
+    const link = event.target.closest && event.target.closest('a[href], button');
+    if (link && event.currentTarget.contains(link)) return;
     event.preventDefault();
+    const key = event.currentTarget.dataset.key;
+    const [kind, id] = [key.slice(0, key.indexOf(':')), key.slice(key.indexOf(':') + 1)];
+    const open = !isOpen(kind, id);
+    setOpen(key, open);
+    if (open && kind === 'board' && id !== Utils.getCurrentBoardId()) {
+      const summary = channelSummary.get();
+      const talking = summary && summary.channels.some(c => c.boardId === id);
+      if (!talking && !fullBoards.get()[id]) loadFullBoard(id);
+    }
+  },
+  'keydown .js-chat-toggle, keydown .js-chat-select-card'(event) {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    event.currentTarget.click();
+  },
+  'click .js-chat-all-cards'(event) {
+    event.preventDefault();
+    event.stopPropagation();
     const boardId = event.currentTarget.dataset.boardId;
-    if (boardId === Utils.getCurrentBoardId()) return;
-    const board = Boards.findOne(boardId);
-    if (board) FlowRouter.go('board', { id: boardId, slug: board.slug });
+    if (boardId === Utils.getCurrentBoardId()) {
+      const only = new Set(messagesOnly.get());
+      if (only.has(boardId)) only.delete(boardId); else only.add(boardId);
+      messagesOnly.set(only);
+    } else {
+      const full = { ...fullBoards.get() };
+      if (full[boardId]) { delete full[boardId]; fullBoards.set(full); } else loadFullBoard(boardId);
+    }
+    setOpen(`board:${boardId}`, true);
   },
 
   // Resize: the pointer is captured on the handle, the width follows it
@@ -271,6 +403,7 @@ Template.chatView.events({
     if (!text || !card) return;
     CardComments.insert({ text, boardId: card.boardId, cardId: card._id, parentId: '' });
     input.val('');
+    loadChannels(500);
   },
   // Enter sends, Shift+Enter is a new line - as in Slack and Rocket.Chat.
   'keydown .js-chat-input'(event) {
@@ -279,6 +412,20 @@ Template.chatView.events({
       $(event.currentTarget).closest('form').trigger('submit');
     }
   },
+});
+
+// The open channel is read: a message arriving while it is open is seen, so
+// its unread count does not grow.
+Template.chatViewChatPane.onCreated(function () {
+  this.autorun(() => {
+    const id = selectedCardId.get();
+    if (!id) return;
+    CardComments.find({ cardId: id }).count();
+    Tracker.nonreactive(() => {
+      const user = ReactiveCache.getCurrentUser();
+      if (user && typeof user.setCardLastViewed === 'function') Promise.resolve(user.setCardLastViewed(id)).then(() => loadChannels(1000), () => {});
+    });
+  });
 });
 
 // Keep the newest message in view, as a chat does.

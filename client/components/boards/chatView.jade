@@ -28,54 +28,93 @@ template(name="chatViewTreePane")
       button.js-chat-unfold(data-pane="tree" title="{{_ 'chat-view-show-channels'}}")
         i.fa.fa-sitemap
   else
-    nav.chat-view-pane.chat-view-tree(style="flex-basis: {{width 'tree'}}px" aria-label="{{_ 'chat-view-channels'}}")
+    nav.chat-view-pane.chat-view-tree(style="flex-basis: {{width 'tree'}}px" aria-label="{{_ 'chat-view-channels'}}" dir="{{treeDir}}")
       .chat-view-pane-header
         span.chat-view-pane-title {{_ 'chat-view-channels'}}
         button.js-chat-fold(data-pane="tree" title="{{_ 'chat-view-hide'}}")
           i.fa.fa-angle-double-left
-      ul.chat-view-workspaces
-        each workspaceTree.workspaces
-          +chatViewWorkspace
-        if workspaceTree.unassigned.length
-          li.chat-view-node.chat-view-node-heading {{_ 'chat-view-other-boards'}}
-          each workspaceTree.unassigned
-            +chatViewBoard
+      //- Workspaces > boards > swimlanes > lists > cards that have a
+        conversation (server/chatView.js), each level folding open under its
+        caret; every board without one is under Other boards, until its first
+        message moves it up to its place.
+      with channelTree
+        ul.chat-view-workspaces(role="tree")
+          each workspaces
+            +chatViewWorkspaceNode
+          each unassigned
+            +chatViewBoardNode
+          if other.length
+            li.chat-view-node.chat-view-node-heading {{_ 'chat-view-other-boards'}}
+            each other
+              +chatViewBoardNode
 
-template(name="chatViewWorkspace")
-  li.chat-view-node.chat-view-workspace.js-chat-draggable.js-chat-drop(draggable="true" data-kind="workspace" data-id="{{id}}")
-    .chat-view-row
-      i.fa.fa-folder-open-o
-      span.chat-view-row-title {{name}}
-    ul
-      each children
-        +chatViewWorkspace
-      each boards
-        +chatViewBoard
+//- A row: the caret before the icon (after it, mirrored, right to left),
+  the name as Markdown, and the messages this member has not read.
+template(name="chatViewWorkspaceNode")
+  li.chat-view-node.chat-view-workspace.js-chat-draggable.js-chat-drop(draggable="true" data-kind="workspace" data-id="{{id}}" role="treeitem" aria-expanded="{{#if isOpen 'workspace' id}}true{{else}}false{{/if}}" class="{{#if isOpen 'workspace' id}}is-open{{/if}}")
+    .chat-view-row.js-chat-toggle(data-key="workspace:{{id}}" tabindex="0")
+      i.chat-view-caret.fa.fa-caret-right(aria-hidden="true")
+      i.fa(class="{{#if isOpen 'workspace' id}}fa-folder-open-o{{else}}fa-folder-o{{/if}}" aria-hidden="true")
+      span.chat-view-row-title
+        +inlineViewer
+          = name
+      +chatViewUnread(count=unread)
+    .chat-view-collapse
+      ul(role="group")
+        each children
+          +chatViewWorkspaceNode
+        each boards
+          +chatViewBoardNode
 
-template(name="chatViewBoard")
-  li.chat-view-node.chat-view-board.js-chat-draggable(draggable="true" data-kind="board" data-id="{{_id}}" class="{{#if isCurrentBoard}}is-current{{/if}}")
-    a.chat-view-row.js-chat-open-board(href="#" data-board-id="{{_id}}")
-      i.fa.fa-columns
-      span.chat-view-row-title {{title}}
-    if isCurrentBoard
-      ul
-        each boardTree
-          li.chat-view-node.js-chat-draggable.js-chat-drop(draggable="true" data-kind="swimlane" data-id="{{_id}}")
-            .chat-view-row
-              i.fa.fa-th-large
-              span.chat-view-row-title {{title}}
-            ul
-              each lists
-                li.chat-view-node.js-chat-draggable.js-chat-drop(draggable="true" data-kind="list" data-id="{{_id}}" data-swimlane-id="{{swimlaneId}}")
-                  .chat-view-row
-                    i.fa.fa-list
-                    span.chat-view-row-title {{title}}
-                  ul
-                    each cards
-                      li.chat-view-node.chat-view-channel.js-chat-draggable.js-chat-drop(draggable="true" data-kind="card" data-id="{{_id}}" class="{{#if isSelected _id}}is-selected{{/if}}")
-                        a.chat-view-row.js-chat-select-card(href="#" data-card-id="{{_id}}")
-                          span.chat-view-hash #
-                          span.chat-view-row-title {{title}}
+template(name="chatViewBoardNode")
+  li.chat-view-node.chat-view-board.js-chat-draggable(draggable="true" data-kind="board" data-id="{{_id}}" role="treeitem" aria-expanded="{{#if isOpen 'board' _id}}true{{else}}false{{/if}}" class="{{#if isOpen 'board' _id}}is-open{{/if}} {{#if isCurrentNode}}is-current{{/if}}")
+    //- Clicking a board folds or unfolds it here; it does not leave the Chat view.
+    .chat-view-row.js-chat-toggle(data-key="board:{{_id}}" data-board-id="{{_id}}" tabindex="0")
+      i.chat-view-caret.fa.fa-caret-right(aria-hidden="true")
+      i.fa.fa-columns(aria-hidden="true")
+      span.chat-view-row-title
+        +inlineViewer
+          = title
+      +chatViewUnread(count=unread)
+      if hasMessages
+        button.chat-view-all-cards.js-chat-all-cards(type="button" data-board-id="{{_id}}" title="{{#if full}}{{_ 'chat-view-message-cards'}}{{else}}{{_ 'chat-view-all-cards'}}{{/if}}" aria-pressed="{{#if full}}true{{else}}false{{/if}}")
+          i.fa(class="{{#if full}}fa-comments{{else}}fa-list-ul{{/if}}")
+    .chat-view-collapse
+      ul(role="group")
+        each swimlanes
+          li.chat-view-node.js-chat-drop(class="{{#if isCurrentNode}}js-chat-draggable{{/if}} {{#if isOpen 'swimlane' _id}}is-open{{/if}}" draggable="{{#if isCurrentNode}}true{{else}}false{{/if}}" data-kind="swimlane" data-id="{{_id}}" role="treeitem" aria-expanded="{{#if isOpen 'swimlane' _id}}true{{else}}false{{/if}}")
+            .chat-view-row.js-chat-toggle(data-key="swimlane:{{_id}}" tabindex="0")
+              i.chat-view-caret.fa.fa-caret-right(aria-hidden="true")
+              i.fa.fa-th-large(aria-hidden="true")
+              span.chat-view-row-title
+                +inlineViewer
+                  = title
+              +chatViewUnread(count=unread)
+            .chat-view-collapse
+              ul(role="group")
+                each lists
+                  li.chat-view-node.js-chat-drop(class="{{#if isCurrentNode}}js-chat-draggable{{/if}} {{#if isOpen 'list' _id}}is-open{{/if}}" draggable="{{#if isCurrentNode}}true{{else}}false{{/if}}" data-kind="list" data-id="{{_id}}" data-swimlane-id="{{swimlaneId}}" role="treeitem" aria-expanded="{{#if isOpen 'list' _id}}true{{else}}false{{/if}}")
+                    .chat-view-row.js-chat-toggle(data-key="list:{{_id}}" tabindex="0")
+                      i.chat-view-caret.fa.fa-caret-right(aria-hidden="true")
+                      i.fa.fa-list(aria-hidden="true")
+                      span.chat-view-row-title
+                        +inlineViewer
+                          = title
+                      +chatViewUnread(count=unread)
+                    .chat-view-collapse
+                      ul(role="group")
+                        each cards
+                          li.chat-view-node.chat-view-channel.js-chat-drop(class="{{#if isCurrentNode}}js-chat-draggable{{/if}} {{#if isSelected _id}}is-selected{{/if}}" draggable="{{#if isCurrentNode}}true{{else}}false{{/if}}" data-kind="card" data-id="{{_id}}" role="treeitem")
+                            .chat-view-row.js-chat-select-card(data-card-id="{{_id}}" data-board-id="{{boardId}}" tabindex="0")
+                              span.chat-view-hash #
+                              span.chat-view-row-title
+                                +inlineViewer
+                                  = title
+                              +chatViewUnread(count=unread)
+
+template(name="chatViewUnread")
+  if count
+    span.chat-view-unread(title="{{_ 'chat-view-unread' count=count}}" aria-label="{{_ 'chat-view-unread' count=count}}") {{countText}}
 
 template(name="chatViewCardPane")
   if collapsed 'card'
@@ -104,7 +143,9 @@ template(name="chatViewChatPane")
       .chat-view-pane-header
         span.chat-view-pane-title
           if selectedCard
-            | # {{selectedCard.title}}
+            | # 
+            +inlineViewer
+              = selectedCard.title
           else
             | {{_ 'comments'}}
         button.js-chat-fold(data-pane="chat" title="{{_ 'chat-view-hide'}}")

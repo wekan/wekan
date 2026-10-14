@@ -127,7 +127,70 @@ function dropAllowed(dragKind, targetKind) {
     || (dragKind === 'board' && targetKind === 'workspace');
 }
 
+// The channel tree (server/chatView.js chatViewChannels): workspaces >
+// boards > swimlanes > lists > cards, holding only the cards that have a
+// conversation; every board without one is in `other`. Each level carries the
+// unread messages under it. A board opened with all its cards (fullBoards,
+// from chatViewBoardChannels) shows every card of it instead.
+//   summary     { boards, channels, swimlanes, lists }
+//   workspaces  profile.boardWorkspacesTree; assignments profile.boardWorkspaceAssignments
+function buildChannelTree(summary, workspaces, assignments, fullBoards = {}) {
+  const data = summary && typeof summary === 'object' ? summary : {};
+  const boards = (Array.isArray(data.boards) ? data.boards : []).slice()
+    .sort((a, b) => String(a.title).localeCompare(String(b.title)));
+  const channels = Array.isArray(data.channels) ? data.channels : [];
+  const swimlaneById = new Map((data.swimlanes || []).map(s => [s._id, s]));
+  const listById = new Map((data.lists || []).map(l => [l._id, l]));
+  const talking = new Set(channels.map(c => c.boardId));
+
+  const boardNode = board => {
+    const full = fullBoards[board._id];
+    const cards = full ? full.cards.map(card => ({ ...card,
+      ...(channels.find(c => c.cardId === card.cardId) || { comments: 0, unread: 0 }) }))
+      : channels.filter(c => c.boardId === board._id);
+    const lanes = full ? full.swimlanes : [...new Set(cards.map(c => c.swimlaneId))].map(id => swimlaneById.get(id)).filter(Boolean);
+    const laneLists = lane => (full
+      ? full.lists.filter(l => !l.swimlaneId || l.swimlaneId === lane._id)
+      : [...new Set(cards.filter(c => c.swimlaneId === lane._id).map(c => c.listId))].map(id => listById.get(id)).filter(Boolean));
+    const swimlanes = lanes.slice().sort(bySort).map(lane => {
+      const lists = laneLists(lane).slice().sort(bySort).map(list => {
+        const listCards = cards.filter(c => c.swimlaneId === lane._id && c.listId === list._id).slice().sort(bySort)
+          .map(c => ({ _id: c.cardId, boardId: board._id, title: c.title, comments: c.comments || 0, unread: c.unread || 0 }));
+        return { _id: list._id, boardId: board._id, swimlaneId: lane._id, title: list.title, cards: listCards, unread: sum(listCards) };
+      }).filter(list => full || list.cards.length);
+      return { _id: lane._id, boardId: board._id, title: lane.title, lists, unread: sum(lists) };
+    }).filter(lane => full || lane.lists.length);
+    return { _id: board._id, boardId: board._id, title: board.title, slug: board.slug, full: !!full,
+      hasMessages: talking.has(board._id), swimlanes, unread: sum(swimlanes) };
+  };
+
+  const map = assignments && typeof assignments === 'object' ? assignments : {};
+  const placed = new Set();
+  const walk = nodes => (Array.isArray(nodes) ? nodes : []).map(node => {
+    const inside = boards.filter(b => talking.has(b._id) && map[b._id] === node.id);
+    inside.forEach(b => placed.add(b._id));
+    const children = walk(node.children);
+    const nodeBoards = inside.map(boardNode);
+    // Every workspace, also one with nothing said in it yet: a board is
+    // dragged into it here, as on All Boards.
+    return { id: node.id, name: node.name, boards: nodeBoards, children,
+      unread: sum(nodeBoards) + sum(children) };
+  });
+  const tree = walk(workspaces);
+  return {
+    workspaces: tree,
+    // Boards with a conversation that are in no workspace.
+    unassigned: boards.filter(b => talking.has(b._id) && !placed.has(b._id)).map(boardNode),
+    // And every board without one - opened, its cards are shown to start one.
+    other: boards.filter(b => !talking.has(b._id)).map(boardNode),
+  };
+}
+function sum(items) {
+  return (Array.isArray(items) ? items : []).reduce((n, item) => n + (Number(item.unread) || 0), 0);
+}
+
 module.exports = {
+  buildChannelTree,
   PANES,
   MIN_WIDTH,
   MAX_WIDTH,

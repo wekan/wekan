@@ -139,6 +139,7 @@ import './jiraScrumImport.tests';
 import './externalScrumImport.tests';
 import './listSyncGitlabEstimate.tests';
 import './listSyncWriteBack.tests';
+import './chatViewChannels.tests';
 import './scrumScopeHistory.tests';
 import './scrumSnapshotRows.tests';
 import './scrumTransferMerge.tests';
