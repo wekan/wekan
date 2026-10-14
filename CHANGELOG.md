@@ -587,7 +587,7 @@ bundles and AppImages** for Alpine; on **Sandstorm**, webhooks and list sync
 leave through the Powerbox and the REST API takes a grain API key. Seventeen
 locale files that held **another
 language**, and six full of machine-fill prefixes, are rewritten in their
-own, and thirteen **GitHub CodeQL** alerts are fixed.
+own, and fourteen **GitHub CodeQL** alerts are fixed.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
@@ -629,6 +629,16 @@ those cases, and `tests/tagStrippingFixedPoint.test.cjs` no longer accepts a
 fixed-point helper and now also catches a whole element removed by pattern,
 in every file. Nearly every HTML email has a `<style>`, so a removed element
 is ordinary use, not an attempt: no Admin Panel / Problems key is added.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/73fcfb8545">No HTTP response sends the request back, tests included</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+CodeQL alert #583: the HTTPS test's server answered with the request's own
+URL in the body, the shape of reflected cross-site scripting. It now names
+the page by comparison. `tests/noReflectedRequest.test.cjs` keeps the shape
+out of every file. Test code only, so no Admin Panel / Problems key is added.
 
 </details>
 
