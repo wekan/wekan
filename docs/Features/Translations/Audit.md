@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Malagasy storage authentication terminology — 2026-10-14
+
+Commit `7ec01cb14e` corrects three Google Cloud and backup help entries that
+called authentication credentials permissions. Optional JSON keys, key-file
+fallback and default credentials remain explicit; permission instructions are
+unchanged. External provider interfaces were not revalidated.
+
+The Malagasy catalog and guarded-correction suites pass with 30,237 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. One new browser case passes syntax
+and discovery; browser runtime remains pending.
+
+Malagasy and all-language semantic review remain unfinished. The optional
+move-reason label still needs correction in a following review.
+
 ## Malagasy scheduling and time attribution — 2026-10-14
 
 Commit `bd274fb312` corrects 14 entries. The card model confirms that recurrence

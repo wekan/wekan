@@ -4227,6 +4227,20 @@ runtime remains pending. All-language semantic review remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7ec01cb14e2521c98da803ca3384066a7b399ad6">Distinguish Malagasy storage credentials from permissions</a>. Thanks to xet7.</summary>
+
+Correct three Google Cloud and backup help strings that confused authentication
+credentials with access permissions. Preserve optional key-file and default
+credential fallback choices.
+
+Translation suites pass with 30,237 audited corrections, as do all 21
+human-preference checks. All 38,430 existing Chinese values remain unchanged.
+The new browser case passes syntax and discovery; runtime remains pending.
+All-language semantic review remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
