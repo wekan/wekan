@@ -665,6 +665,9 @@ and has the following developer-tooling fix:
 - [Three guards follow the History fork and GitLab write-back fixes](https://github.com/wekan/wekan/commit/5fee137f01):
   Sync admission pins the tip walk, the write-back's read is not named
   fetch, and the new card field is in the e-mail inventory. Thanks to xet7.
+- [Three more guards follow the importers and the feed](https://github.com/wekan/wekan/commit/a6a1d3c1a6):
+  the feed's stylesheet is imported, two importers strip tags to a fixed
+  point, and a guard escapes every special character. Thanks to xet7.
 
 and fixes the following translations:
 
