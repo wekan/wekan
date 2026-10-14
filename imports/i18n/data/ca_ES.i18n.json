@@ -1334,6 +1334,8 @@
   "disable-webhook": "Desactiveu aquest webhook",
   "webhook-mattermost-dm": "Envia també un missatge directe de Mattermost als membres i assignats de la fitxa",
   "webhook-mattermost-dm-desc": "Cada missatge sobre una fitxa també s'envia a cadascun dels seus membres i assignats com a missatge directe de Mattermost, al seu nom d'usuari de WeKan. A Mattermost, el webhook entrant no ha d'estar bloquejat al seu canal.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Permet que aquest grain arribi a aquesta adreça",
   "sandstorm-webhook-granted": "Aquest grain pot arribar a aquesta adreça",
   "sandstorm-sync-grant": "Permet que aquest grain arribi a aquest rastrejador",

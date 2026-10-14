@@ -1334,6 +1334,8 @@
   "disable-webhook": "禁用訂閱 (Webhooks)",
   "webhook-mattermost-dm": "同時向卡片的成員和負責人傳送 Mattermost 私人訊息",
   "webhook-mattermost-dm-desc": "關於卡片的每則訊息也會以 Mattermost 私人訊息的形式傳送給它的每位成員和負責人，傳到他們的 WeKan 使用者名稱。在 Mattermost 中，傳入 Webhook 不能鎖定在它的頻道上。",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "允許此 grain 存取此位址",
   "sandstorm-webhook-granted": "此 grain 已獲准存取此位址",
   "sandstorm-sync-grant": "允許此 grain 存取此追蹤系統",

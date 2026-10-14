@@ -1334,6 +1334,8 @@
   "disable-webhook": "Gbanyụọ nko webụ a",
   "webhook-mattermost-dm": "Zigakwa ndị otu kaadị na ndị e kenyere ya ozi Mattermost ozugbo",
   "webhook-mattermost-dm-desc": "Ozi ọ bụla gbasara kaadị na-agakwa n'aka onye otu ọ bụla na onye e kenyere ya ọ bụla dị ka ozi Mattermost ozugbo, gaa n'aha njirimara WeKan ha. Na Mattermost, a gaghị akpọchi webhook na-abata na ọwa ya.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Kwe ka grain a ruo adreesị a",
   "sandstorm-webhook-granted": "Grain a nwere ike iru adreesị a",
   "sandstorm-sync-grant": "Kwe ka grain a ruo ngwa nlekọta a",

@@ -1334,6 +1334,8 @@
   "disable-webhook": "Tiltsd le ezt a webhurkot",
   "webhook-mattermost-dm": "Közvetlen Mattermost-üzenet küldése a kártya tagjainak és felelőseinek is",
   "webhook-mattermost-dm-desc": "Egy kártyáról szóló minden üzenet közvetlen Mattermost-üzenetként is eljut minden tagjához és felelőséhez, a WeKan-felhasználónevükre. A Mattermostban a bejövő webhurok nem lehet a csatornájához zárolva.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Engedélyezés, hogy ez a grain elérje ezt a címet",
   "sandstorm-webhook-granted": "Ez a grain elérheti ezt a címet",
   "sandstorm-sync-grant": "Engedélyezés, hogy ez a grain elérje ezt a nyomkövetőt",

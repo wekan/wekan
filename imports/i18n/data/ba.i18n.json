@@ -1334,6 +1334,8 @@
   "disable-webhook": "Был веб-хукты һүндерергә",
   "webhook-mattermost-dm": "Шулай уҡ карточканың ағзаларына һәм яуаплыларына Mattermost-та туранан-тура хәбәр ебәреү",
   "webhook-mattermost-dm-desc": "Карточка тураһындағы һәр хәбәр шулай уҡ уның һәр ағзаһына һәм яуаплыһына Mattermost туранан-тура хәбәре булараҡ, уларҙың WeKan ҡулланыусы исеменә китә. Mattermost-та инеүсе веб-хук үҙенең каналына бикләнмәгән булырға тейеш.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Был grain-ға был адресҡа барып етергә рөхсәт итергә",
   "sandstorm-webhook-granted": "Был grain был адресҡа барып етә ала",
   "sandstorm-sync-grant": "Был grain-ға был трекерға барып етергә рөхсәт итергә",

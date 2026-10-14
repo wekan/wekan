@@ -1334,6 +1334,8 @@
   "disable-webhook": "Atspējot šo Webhook",
   "webhook-mattermost-dm": "Sūtīt arī Mattermost tiešo ziņu kartiņas dalībniekiem un atbildīgajiem",
   "webhook-mattermost-dm-desc": "Katra ziņa par kartiņu tiek nosūtīta arī katram tās dalībniekam un atbildīgajam kā Mattermost tiešā ziņa uz viņu WeKan lietotājvārdu. Mattermost ienākošajam tīmekļa āķim nedrīkst būt piesaistīts tikai tā kanāls.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Atļaut šim grain sasniegt šo adresi",
   "sandstorm-webhook-granted": "Šis grain drīkst sasniegt šo adresi",
   "sandstorm-sync-grant": "Atļaut šim grain sasniegt šo izsekošanas sistēmu",

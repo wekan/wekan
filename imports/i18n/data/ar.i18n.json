@@ -1334,6 +1334,8 @@
   "disable-webhook": "تعطيل خطاف الويب هذا",
   "webhook-mattermost-dm": "إرسال رسالة مباشرة على Mattermost أيضًا إلى أعضاء البطاقة والمكلَّفين بها",
   "webhook-mattermost-dm-desc": "كل رسالة عن بطاقة تُرسل أيضًا إلى كل عضو ومكلَّف بها كرسالة مباشرة على Mattermost، إلى اسم المستخدم الخاص به في WeKan. في Mattermost، يجب ألا يكون خطاف الويب الوارد مقفلًا على قناته.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "السماح لهذه الحاوية (grain) بالوصول إلى هذا العنوان",
   "sandstorm-webhook-granted": "يمكن لهذه الحاوية (grain) الوصول إلى هذا العنوان",
   "sandstorm-sync-grant": "السماح لهذه الحاوية (grain) بالوصول إلى هذا المتتبع",

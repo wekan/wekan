@@ -1334,6 +1334,8 @@
   "disable-webhook": "このWebフックを無効化",
   "webhook-mattermost-dm": "カードのメンバーと担当者にも Mattermost のダイレクトメッセージを送信する",
   "webhook-mattermost-dm-desc": "カードに関する各メッセージは、そのカードの各メンバーと担当者にも、WeKan のユーザー名宛ての Mattermost ダイレクトメッセージとして送信されます。Mattermost では、受信 Webフックをそのチャンネルに固定しないでください。",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "このグレインにこのアドレスへのアクセスを許可",
   "sandstorm-webhook-granted": "このグレインはこのアドレスにアクセスできます",
   "sandstorm-sync-grant": "このグレインにこのトラッカーへのアクセスを許可",

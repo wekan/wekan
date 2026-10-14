@@ -1334,6 +1334,8 @@
   "disable-webhook": "Энэ вебхук унтарааха",
   "webhook-mattermost-dm": "Мүн карточкын гэшүүдтэ болон даалгагдаһан хүнүүдтэ Mattermost-ой шууд захяа эльгээхэ",
   "webhook-mattermost-dm-desc": "Карточкын тухай захяа бүхэн мүн тэрэнэй гэшүүн болон даалгагдаһан хүн бүхэндэ Mattermost-ой шууд захяа болон, тэдэнэй WeKan хэрэглэгшын нэрэ руу ошоно. Mattermost соо орохо вебхук өөрынгөө сувагта түгжэгдэһэн байха ёһогүй.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Энэ grain-да энэ хаягта хүрэхые зүбшөөхэ",
   "sandstorm-webhook-granted": "Энэ grain энэ хаягта хүрэжэ болоно",
   "sandstorm-sync-grant": "Энэ grain-да энэ трекертэ хүрэхые зүбшөөхэ",

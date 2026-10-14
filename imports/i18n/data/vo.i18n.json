@@ -1334,6 +1334,8 @@
   "disable-webhook": "Neaktivükön webhook at",
   "webhook-mattermost-dm": "Sedön i penedi stedik Mattermost limanes e gebanes pejonidüköl kada",
   "webhook-mattermost-dm-desc": "Pened alik dö kad pasedon i limane e gebane pejonidüköl alik oma as pened stedik Mattermost, gebananeme WeKan ota. In Mattermost, webhook nüikömöl no muton binön pelökofärmüköl kanale okik.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Dälön grain at ad rivön ladeti at",
   "sandstorm-webhook-granted": "Grain at dalon rivön ladeti at",
   "sandstorm-sync-grant": "Dälön grain at ad rivön sukaparati at",

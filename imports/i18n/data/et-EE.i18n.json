@@ -1334,6 +1334,8 @@
   "disable-webhook": "Lülita see veebikonks välja",
   "webhook-mattermost-dm": "Saada ka Mattermosti otsesõnum kaardi liikmetele ja vastutajatele",
   "webhook-mattermost-dm-desc": "Iga kaarti puudutav sõnum läheb ka igale selle liikmele ja vastutajale Mattermosti otsesõnumina, nende WeKani kasutajanimele. Mattermostis ei tohi sissetulev veebikonks olla oma kanaliga lukustatud.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Luba sellel grainil sellele aadressile ühenduda",
   "sandstorm-webhook-granted": "See grain võib sellele aadressile ühenduda",
   "sandstorm-sync-grant": "Luba sellel grainil selle jälgimissüsteemiga ühenduda",

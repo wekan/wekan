@@ -1334,6 +1334,8 @@
   "disable-webhook": "حذف این وب‌هوک",
   "webhook-mattermost-dm": "صيفط حتى ميساج مباشر ف Mattermost للأعضاء ديال البطاقة وللمكلَّفين",
   "webhook-mattermost-dm-desc": "كل ميساج على شي بطاقة كيمشي حتى لكل واحد من الأعضاء والمكلَّفين ديالها كميساج مباشر ف Mattermost، لسمية المستخدم ديالهم ف WeKan. ف Mattermost، خاص الـwebhook الداخل ما يكونش مسدود على القناة ديالو.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "سمح لهاد grain يوصل لهاد العنوان",
   "sandstorm-webhook-granted": "هاد grain يقدر يوصل لهاد العنوان",
   "sandstorm-sync-grant": "سمح لهاد grain يوصل لهاد المتتبع",

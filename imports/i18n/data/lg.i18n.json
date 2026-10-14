@@ -1334,6 +1334,8 @@
   "disable-webhook": "Lemesa Kino Webhook",
   "webhook-mattermost-dm": "Era sindika obubaka obutereevu mu Mattermost eri ba memba n'abakwasiddwa ekaadi",
   "webhook-mattermost-dm-desc": "Buli bubaka obukwata ku kaadi era bugenda eri buli memba n'akwasiddwa wa kaadi eyo ng'obubaka obutereevu mu Mattermost, ku linnya lyabwe ery'omukozesa mu WeKan. Mu Mattermost, webhook eyingira tekirina kusibibwa ku mukutu gwayo.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Kkiriza grain eno okutuuka ku ndagiriro eno",
   "sandstorm-webhook-granted": "Grain eno esobola okutuuka ku ndagiriro eno",
   "sandstorm-sync-grant": "Kkiriza grain eno okutuuka ku nkola eno ey'okulondoola",

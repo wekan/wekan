@@ -1334,6 +1334,8 @@
   "disable-webhook": "આ વેબહૂકને અક્ષમ કરો",
   "webhook-mattermost-dm": "કાર્ડના સભ્યો અને સોંપાયેલા લોકોને Mattermost ડાયરેક્ટ મેસેજ પણ મોકલો",
   "webhook-mattermost-dm-desc": "કાર્ડ વિશેનો દરેક સંદેશ તેના દરેક સભ્ય અને સોંપાયેલી વ્યક્તિને પણ Mattermost ડાયરેક્ટ મેસેજ તરીકે, તેમના WeKan વપરાશકર્તા નામ પર જાય છે. Mattermost માં, ઇનકમિંગ વેબહૂક તેની ચેનલ પર લૉક થયેલું ન હોવું જોઈએ.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "આ grain ને આ સરનામા સુધી પહોંચવાની મંજૂરી આપો",
   "sandstorm-webhook-granted": "આ grain આ સરનામા સુધી પહોંચી શકે છે",
   "sandstorm-sync-grant": "આ grain ને આ ટ્રેકર સુધી પહોંચવાની મંજૂરી આપો",

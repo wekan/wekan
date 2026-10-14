@@ -1334,6 +1334,8 @@
   "disable-webhook": "یِہ ویب ہُک بند کریو",
   "webhook-mattermost-dm": "کارڈٕ کِس ممبرن تہٕ ذمہٕ دارن تہِ سوزِو Mattermost پؠٹھ سیٚدھ پیغام",
   "webhook-mattermost-dm-desc": "کارڈٕ متعلق پرٛتھ پیغام گژھِ تہِ اَمہِ کِس پرٛتھ ممبرس تہٕ ذمہٕ دارس Mattermost کِس سیٚدِس پیغامس ہِنٛد پٲٹھۍ، تِہندِس WeKan استعمال کرن والٕکِس ناوس پؠٹھ۔ Mattermost منٛز پَزِ نہٕ اَنَن وول webhook پننِس چینلس سٟتۍ بنٛد آسُن۔",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "یتھ grain یَس یتھ پَتس تام واتنٕچ اِجازت دِیِو",
   "sandstorm-webhook-granted": "یہ grain ہیٚکہِ یتھ پَتس تام واتِتھ",
   "sandstorm-sync-grant": "یتھ grain یَس یتھ ٹریکرس تام واتنٕچ اِجازت دِیِو",

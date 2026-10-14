@@ -1334,6 +1334,8 @@
   "disable-webhook": "Ushbu veb-hukni o'chirib qo'ying",
   "webhook-mattermost-dm": "Kartaning a'zolari va mas'ullariga Mattermost shaxsiy xabarini ham yuborish",
   "webhook-mattermost-dm-desc": "Karta haqidagi har bir xabar uning har bir a'zosi va mas'uliga ham Mattermost shaxsiy xabari sifatida, ularning WeKan foydalanuvchi nomiga boradi. Mattermost'da kiruvchi webhook o'z kanaliga qulflanmagan bo'lishi kerak.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Ushbu grain-ga bu manzilga ulanishga ruxsat berish",
   "sandstorm-webhook-granted": "Ushbu grain bu manzilga ulanishi mumkin",
   "sandstorm-sync-grant": "Ushbu grain-ga bu kuzatuv tizimiga ulanishga ruxsat berish",

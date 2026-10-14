@@ -1334,6 +1334,8 @@
   "disable-webhook": "Inactiva hunc hamum interretialem",
   "webhook-mattermost-dm": "Nuntium directum Mattermost etiam sodalibus et designatis chartae mitte",
   "webhook-mattermost-dm-desc": "Omne nuntium de charta etiam unicuique sodali et designato eius ut nuntium directum Mattermost mittitur, ad nomen usoris eorum in WeKan. In Mattermost, hamus interretialis adveniens ad canalem suum clausus esse non debet.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Permitte huic grano ad hanc inscriptionem accedere",
   "sandstorm-webhook-granted": "Hoc granum ad hanc inscriptionem accedere potest",
   "sandstorm-sync-grant": "Permitte huic grano ad hunc tractatorem accedere",

@@ -1334,6 +1334,8 @@
   "disable-webhook": "Far sa webhook bi",
   "webhook-mattermost-dm": "Yónnee itam bataaxal bu jub ci Mattermost ñi bokk ci karta bi ak ñi ñu ko sas",
   "webhook-mattermost-dm-desc": "Bataaxal bu nekk bu jëm ci karta dina dem itam ci ku nekk ci ñi ci bokk ak ñi ñu ko sas, niki bataaxal bu jub ci Mattermost, ci seen turu jëfandikukat ci WeKan. Ci Mattermost, webhook bi di dugg warul a tëju ci kanaal bi.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "May grain bii mu agsi ci adrees bii",
   "sandstorm-webhook-granted": "Grain bii man na agsi ci adrees bii",
   "sandstorm-sync-grant": "May grain bii mu agsi ci tracker bii",

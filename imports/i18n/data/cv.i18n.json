@@ -1334,6 +1334,8 @@
   "disable-webhook": "Ҫак webhookа хутмас",
   "webhook-mattermost-dm": "Карточкӑн хутшӑнакансемпе яваплисене Mattermost-ра тӳрӗ ҫыру та яр",
   "webhook-mattermost-dm-desc": "Карточка ҫинчен кашни ҫыру унӑн кашни хутшӑнакан тата яваплӑ ҫынне те Mattermost тӳрӗ ҫырӑвӗ пек вӗсен WeKan усӑҫӑ ячӗ ҫине каять. Mattermost-ра кӗрекен webhook хӑйӗн каналӗпе ҫыхӑнса тӑмалла мар.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Ҫак grain-а ҫак адреса ҫитме ирӗк пар",
   "sandstorm-webhook-granted": "Ҫак grain ҫак адреса ҫитме пултарать",
   "sandstorm-sync-grant": "Ҫак grain-а ҫак трекера ҫитме ирӗк пар",

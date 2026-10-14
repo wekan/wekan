@@ -1334,6 +1334,8 @@
   "disable-webhook": "Embogue ko Webhook",
   "webhook-mattermost-dm": "Emondo avei peteĩ ñe'ẽmondo tapykueho Mattermost-pe kuatia'i ñemoirũha ha omba'apótavape",
   "webhook-mattermost-dm-desc": "Opa ñe'ẽmondo kuatia'i rehegua oho avei peteĩteĩ ñemoirũha ha omba'apótavape ñe'ẽmondo tapykueho Mattermost-pe ramo, ijepuruhára réra WeKan-pe. Mattermost-pe, webhook oúva ndaikatúi oñemboty ikanal-pe.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Emoneĩ ko grain oho hag̃ua ko rendápe",
   "sandstorm-webhook-granted": "Ko grain ikatu oho ko rendápe",
   "sandstorm-sync-grant": "Emoneĩ ko grain oho hag̃ua ko marandu rógape",

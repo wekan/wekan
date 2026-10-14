@@ -1334,6 +1334,8 @@
   "disable-webhook": "Desgaitu Webhook hau",
   "webhook-mattermost-dm": "Bidali Mattermost mezu zuzena ere txartelaren kideei eta esleituei",
   "webhook-mattermost-dm-desc": "Txartel bati buruzko mezu bakoitza bere kide eta esleitu bakoitzari ere bidaltzen zaio Mattermost mezu zuzen gisa, bere WeKan erabiltzaile-izenera. Mattermost-en, sarrerako webhook-a ez da bere kanalera blokeatuta egon behar.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Baimendu grain honi helbide honetara iristea",
   "sandstorm-webhook-granted": "Grain hau helbide honetara irits daiteke",
   "sandstorm-sync-grant": "Baimendu grain honi jarraipen-sistema honetara iristea",

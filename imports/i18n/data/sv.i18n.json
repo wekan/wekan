@@ -1334,6 +1334,8 @@
   "disable-webhook": "Avaktivera Denna Webhook",
   "webhook-mattermost-dm": "Skicka även ett direktmeddelande i Mattermost till kortets medlemmar och tilldelade",
   "webhook-mattermost-dm-desc": "Varje meddelande om ett kort skickas även till var och en av dess medlemmar och tilldelade som ett direktmeddelande i Mattermost, till deras WeKan-användarnamn. I Mattermost får den inkommande webhooken inte vara låst till sin kanal.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Tillåt denna grain att nå den här adressen",
   "sandstorm-webhook-granted": "Denna grain får nå den här adressen",
   "sandstorm-sync-grant": "Tillåt denna grain att nå det här ärendehanteringssystemet",

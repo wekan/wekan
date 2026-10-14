@@ -1334,6 +1334,8 @@
   "disable-webhook": "මෙම Webhook අක්‍රිය කරන්න",
   "webhook-mattermost-dm": "කාඩ්පතේ සාමාජිකයින්ට සහ පවරා ඇති අයට Mattermost සෘජු පණිවිඩයක් ද යවන්න",
   "webhook-mattermost-dm-desc": "කාඩ්පතක් ගැන සෑම පණිවිඩයක්ම එහි සෑම සාමාජිකයෙකුටම සහ පවරා ඇති අයෙකුටම Mattermost සෘජු පණිවිඩයක් ලෙස, ඔවුන්ගේ WeKan පරිශීලක නාමයට ද යයි. Mattermost හි, පැමිණෙන webhook එහි නාලිකාවට අගුළු දමා නොතිබිය යුතුය.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "මෙම grain හට මෙම ලිපිනයට ළඟා වීමට ඉඩ දෙන්න",
   "sandstorm-webhook-granted": "මෙම grain හට මෙම ලිපිනයට ළඟා විය හැක",
   "sandstorm-sync-grant": "මෙම grain හට මෙම ට්‍රැකරයට ළඟා වීමට ඉඩ දෙන්න",

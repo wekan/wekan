@@ -1334,6 +1334,8 @@
   "disable-webhook": "Désactive ce webhook",
   "webhook-mattermost-dm": "Evoyî eto on messaedje direk Mattermost ås mimbes et ås rsponsåves del cåte",
   "webhook-mattermost-dm-desc": "Tchaeke messaedje so ene cåte est eto evoyî a tchaeke mimbe et rsponsåve del cåte come messaedje direk Mattermost, a leu no d' uzeu WeKan. Dins Mattermost, li webhook k' arive ni doet nén esse eclawé a s' canå.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Leyî ci grain chal ariver a cisse adresse ci",
   "sandstorm-webhook-granted": "Ci grain chal pout ariver a cisse adresse ci",
   "sandstorm-sync-grant": "Leyî ci grain chal ariver a cist ecråjeu chal",

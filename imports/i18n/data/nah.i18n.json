@@ -1334,6 +1334,8 @@
   "disable-webhook": "Xictzacua inin webhook",
   "webhook-mattermost-dm": "No xictitlani ce Mattermost tlahtolli zan iuhqui ica amatlapalli itlacahuan ihuan itlanahuatilhuan",
   "webhook-mattermost-dm-desc": "Ce ce tlahtolli amatlapalli ipampa no yauh ce ce itlacauh ihuan itlanahuatil quemeh Mattermost tlahtolli zan iuhqui, ica intequitini itoca ipan WeKan. Ipan Mattermost, in webhook tlen calaqui amo monequi tzacualli ica ioh.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Xiquincahua inin grain ma ahsi inin tlacan",
   "sandstorm-webhook-granted": "Inin grain huelis ahsi inin tlacan",
   "sandstorm-sync-grant": "Xiquincahua inin grain ma ahsi inin tlachiani",

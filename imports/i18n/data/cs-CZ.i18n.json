@@ -1334,6 +1334,8 @@
   "disable-webhook": "Zakázat tento webhook",
   "webhook-mattermost-dm": "Poslat také přímou zprávu Mattermost členům a řešitelům karty",
   "webhook-mattermost-dm-desc": "Každá zpráva o kartě se také pošle každému z jejích členů a řešitelů jako přímá zpráva Mattermost, na jejich uživatelské jméno ve WeKanu. V Mattermostu nesmí být příchozí webhook uzamčen na svůj kanál.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Povolit tomuto grainu přístup na tuto adresu",
   "sandstorm-webhook-granted": "Tento grain smí přistupovat na tuto adresu",
   "sandstorm-sync-grant": "Povolit tomuto grainu přístup k tomuto trackeru",

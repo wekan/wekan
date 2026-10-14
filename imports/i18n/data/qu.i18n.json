@@ -1334,6 +1334,8 @@
   "disable-webhook": "Kay Webhook-ta wañuchiy",
   "webhook-mattermost-dm": "Kartapa ayllumasinkunaman, ruranankunamanpas Mattermost-pi chiqan willayta kachaypas",
   "webhook-mattermost-dm-desc": "Kartamanta sapa willayqa sapa ayllumasinmanpas, ruranqanmanpas Mattermost-pi chiqan willay hina rin, WeKan-pi llamkaqpa sutinkuman. Mattermost-pi, yaykumuq webhook-qa manam kanalninman wichqasqachu kanan.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Kay grain-ta kay tiyanaman chayananpaq saqiy",
   "sandstorm-webhook-granted": "Kay grain kay tiyanaman chayanman",
   "sandstorm-sync-grant": "Kay grain-ta kay qhaway-machinaman chayananpaq saqiy",

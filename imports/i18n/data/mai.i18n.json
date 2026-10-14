@@ -1334,6 +1334,8 @@
   "disable-webhook": "ई वेबहुक निष्क्रिय करू",
   "webhook-mattermost-dm": "कार्डक सदस्य आ उत्तरदायी लोकनि केँ Mattermost सोझ संदेश सेहो पठाउ",
   "webhook-mattermost-dm-desc": "कोनो कार्डक बारेमे प्रत्येक संदेश ओकर प्रत्येक सदस्य आ उत्तरदायी केँ सेहो Mattermost सोझ संदेशक रूपमे, हुनकर WeKan प्रयोगकर्ता नाम पर जाइत अछि। Mattermost मे, आबऽ वला वेबहुक अपन चैनल पर बन्द नहि हेबाक चाही।",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "एहि ग्रेनकेँ एहि पता धरि पहुँचबाक अनुमति दिअ",
   "sandstorm-webhook-granted": "ई ग्रेन एहि पता धरि पहुँचि सकैत अछि",
   "sandstorm-sync-grant": "एहि ग्रेनकेँ एहि ट्रैकर धरि पहुँचबाक अनुमति दिअ",

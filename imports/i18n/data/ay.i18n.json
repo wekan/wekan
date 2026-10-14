@@ -1334,6 +1334,8 @@
   "disable-webhook": "jiwtʼayaña aka Webhook",
   "webhook-mattermost-dm": "Ukhamaraki Mattermost chiqa yatiyawi kartan masinakaparu, lurañataki churatanakaparu apayaña",
   "webhook-mattermost-dm-desc": "Sapa karta tuqit yatiyawixa ukhamaraki sapa masiparu, lurañataki churataparu Mattermost chiqa yatiyawjam apayatawa, WeKan apnaqirin sutiparu. Mattermost ukanxa, mantir webhook ukaxa janiw kanaliparu jist'antatäkaspati.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Aka grain ukaxa aka chiqaru purinxañapataki jaysañamawa",
   "sandstorm-webhook-granted": "Aka grain ukaxa aka chiqaru purinxaspawa",
   "sandstorm-sync-grant": "Aka grain ukaxa aka tracker ukaru purinxañapataki jaysañamawa",

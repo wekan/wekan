@@ -1334,6 +1334,8 @@
   "disable-webhook": "اوشبو ویب-هوکی اۉچیریب قۉیینگ",
   "webhook-mattermost-dm": "کارت اعضالری و تعیینلاوچیلریگه Mattermost شخصی خبرینی هم یوباریش",
   "webhook-mattermost-dm-desc": "کارت حقیده‌گی هر بیر خبر اونینگ هر بیر اعضاسی و تعیینلاوچیسیگه هم Mattermost شخصی خبری صفتیده، اولرنینگ WeKan فایدلنووچی نامیگه یوباریله‌دی. Mattermost ده کیروچی ویب‌هوک اوز کنالیگه قولفلنگن بولمسلیگی کېرک.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "بو grain گه شو منزلگه اولنیشگه رخصت بیریش",
   "sandstorm-webhook-granted": "بو grain شو منزلگه اولنیشی ممکن",
   "sandstorm-sync-grant": "بو grain گه شو کوزتوو تیزیمیگه اولنیشگه رخصت بیریش",

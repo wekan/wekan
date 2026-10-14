@@ -1334,6 +1334,8 @@
   "disable-webhook": "Disattiva custu webhook",
   "webhook-mattermost-dm": "Imbia fintzas unu messàgiu diretu de Mattermost a sos sòtzios e a sos assignatàrios de sa carta",
   "webhook-mattermost-dm-desc": "Onni messàgiu subra de una carta est imbiadu fintzas a cadaunu de sos sòtzios e assignatàrios suos comente messàgiu diretu de Mattermost, a su nùmene de utente de WeKan issoro. In Mattermost, su webhook in intrada non depet èssere blocadu a su canale suo.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Permite a custu grain de lòmpere a custu indiritzu",
   "sandstorm-webhook-granted": "Custu grain podet lòmpere a custu indiritzu",
   "sandstorm-sync-grant": "Permite a custu grain de lòmpere a custu trackeri",

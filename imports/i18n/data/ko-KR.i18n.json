@@ -1334,6 +1334,8 @@
   "disable-webhook": "이 웹훅 비활성화",
   "webhook-mattermost-dm": "카드의 멤버와 담당자에게도 Mattermost 다이렉트 메시지 보내기",
   "webhook-mattermost-dm-desc": "카드에 관한 각 메시지는 해당 카드의 각 멤버와 담당자에게도 Mattermost 다이렉트 메시지로, 그들의 WeKan 사용자 이름으로 전송됩니다. Mattermost에서 수신 웹훅이 해당 채널에 고정되어 있으면 안 됩니다.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "이 grain이 이 주소에 접근하도록 허용",
   "sandstorm-webhook-granted": "이 grain은 이 주소에 접근할 수 있습니다",
   "sandstorm-sync-grant": "이 grain이 이 트래커에 접근하도록 허용",

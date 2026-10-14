@@ -1334,6 +1334,8 @@
   "disable-webhook": "Webhook una atorunnaarsiguk",
   "webhook-mattermost-dm": "Aamma kortsip ilaasortaanut akisussaasunullu Mattermost-ikkut toqqaannartumik nalunaarut nassiuguk",
   "webhook-mattermost-dm-desc": "Kortsimut tunngasumik nalunaarut tamarmi aamma ilaasortaanut akisussaasunullu tamanut Mattermost-ikkut toqqaannartumik nalunaarutitut, WeKan-imi atuisup aqqanut nassiunneqartarpoq. Mattermost-imi webhook iserfiusoq kanaalimut nammineq parnaarsimassanngilaq.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Grain-ip uunga najugaqarfimmut anguniarnissaa akuerijuk",
   "sandstorm-webhook-granted": "Grain-ip uunga najugaqarfimmut anguniarsinnaavoq",
   "sandstorm-sync-grant": "Grain-ip uunga malittarinnittumut anguniarnissaa akuerijuk",

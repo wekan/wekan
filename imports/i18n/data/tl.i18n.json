@@ -1334,6 +1334,8 @@
   "disable-webhook": "Huwag paganahin Ito Webhook",
   "webhook-mattermost-dm": "Magpadala rin ng direktang mensahe sa Mattermost sa mga miyembro at nakatalaga ng kard",
   "webhook-mattermost-dm-desc": "Ang bawat mensahe tungkol sa isang kard ay ipinapadala rin sa bawat miyembro at nakatalaga nito bilang direktang mensahe sa Mattermost, sa kanilang pangalan ng gumagamit sa WeKan. Sa Mattermost, hindi dapat naka-lock sa channel nito ang papasok na webhook.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Payagan ang grain na ito na maabot ang address na ito",
   "sandstorm-webhook-granted": "Maaaring maabot ng grain na ito ang address na ito",
   "sandstorm-sync-grant": "Payagan ang grain na ito na maabot ang tracker na ito",

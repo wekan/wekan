@@ -1334,6 +1334,8 @@
   "disable-webhook": "Diesen Webhook desaktivéieren",
   "webhook-mattermost-dm": "Och e Mattermost-Direktmessage un d'Memberen an d'Zoustänneg vun der Kaart schécken",
   "webhook-mattermost-dm-desc": "All Message iwwer eng Kaart geet och un all eenzelt vun hire Memberen an Zoustännegen als Mattermost-Direktmessage, un hire WeKan-Benotzernumm. A Mattermost däerf den erakommenden Webhook net op säi Kanal gespaart sinn.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Dësem Grain erlaben, dës Adress z'erreechen",
   "sandstorm-webhook-granted": "Dëse Grain däerf dës Adress erreechen",
   "sandstorm-sync-grant": "Dësem Grain erlaben, dësen Tracker z'erreechen",

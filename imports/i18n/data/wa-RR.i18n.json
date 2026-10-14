@@ -1334,6 +1334,8 @@
   "disable-webhook": "I-disable Ini nga Webhook",
   "webhook-mattermost-dm": "Igpadara liwat an direkta nga mensahe ha Mattermost ngadto ha mga membro ngan mga gin-asignaran han card",
   "webhook-mattermost-dm-desc": "Kada mensahe mahitungod ha usa nga card ginpapadara liwat ha kada membro ngan gin-asignaran hini sugad nga direkta nga mensahe ha Mattermost, ngadto ha ira ngaran han gumaramit ha WeKan. Ha Mattermost, an sumusulod nga webhook diri dapat naka-lock ha iya channel.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Tuguti ini nga grain nga umabot hini nga adres",
   "sandstorm-webhook-granted": "Puydi umabot ini nga grain hini nga adres",
   "sandstorm-sync-grant": "Tuguti ini nga grain nga umabot hini nga sistema han pagsubay",

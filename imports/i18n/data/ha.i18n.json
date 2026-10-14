@@ -1334,6 +1334,8 @@
   "disable-webhook": "Kashe wannan webhook",
   "webhook-mattermost-dm": "Kuma aika saƙon kai tsaye na Mattermost ga mambobin kati da waɗanda aka ɗora wa aiki",
   "webhook-mattermost-dm-desc": "Kowane saƙo game da kati kuma yana zuwa ga kowane mamba da wanda aka ɗora wa aiki a matsayin saƙon kai tsaye na Mattermost, zuwa sunan mai amfani na WeKan nasu. A cikin Mattermost, kada a kulle webhook mai shigowa a tasharsa.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Bari wannan grain ya isa wannan adireshi",
   "sandstorm-webhook-granted": "Wannan grain zai iya isa wannan adireshi",
   "sandstorm-sync-grant": "Bari wannan grain ya isa wannan na'urar bibiya",

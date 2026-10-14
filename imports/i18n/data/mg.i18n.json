@@ -1334,6 +1334,8 @@
   "disable-webhook": "Vonoy ity webhook ity",
   "webhook-mattermost-dm": "Mandefasa hafatra mivantana Mattermost koa amin'ireo mpikambana sy voatendry amin'ny karatra",
   "webhook-mattermost-dm-desc": "Ny hafatra rehetra momba ny karatra iray dia alefa koa amin'ny mpikambana sy voatendry tsirairay ao aminy ho hafatra mivantana Mattermost, amin'ny anaram-pikambana WeKan-ny. Ao amin'ny Mattermost, ny webhook miditra dia tsy tokony hohidiana amin'ny fantsony.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Avelao hifandray amin'ity adiresy ity ity grain ity",
   "sandstorm-webhook-granted": "Afaka mifandray amin'ity adiresy ity ity grain ity",
   "sandstorm-sync-grant": "Avelao hifandray amin'ity mpanara-maso ity ity grain ity",

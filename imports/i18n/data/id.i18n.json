@@ -1334,6 +1334,8 @@
   "disable-webhook": "Nonaktifkan Webhook Ini",
   "webhook-mattermost-dm": "Kirim juga pesan langsung Mattermost ke anggota dan penerima tugas kartu",
   "webhook-mattermost-dm-desc": "Setiap pesan tentang sebuah kartu juga dikirim ke setiap anggota dan penerima tugasnya sebagai pesan langsung Mattermost, ke nama pengguna WeKan mereka. Di Mattermost, webhook masuk tidak boleh dikunci ke kanalnya.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Izinkan grain ini menjangkau alamat ini",
   "sandstorm-webhook-granted": "Grain ini boleh menjangkau alamat ini",
   "sandstorm-sync-grant": "Izinkan grain ini menjangkau pelacak ini",

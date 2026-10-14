@@ -1334,6 +1334,8 @@
   "disable-webhook": "Désactiver ce webhook",
   "webhook-mattermost-dm": "Envoyer aussi un message direct Mattermost aux participants et intervenants de la carte",
   "webhook-mattermost-dm-desc": "Chaque message concernant une carte est aussi envoyé à chacun de ses participants et intervenants sous forme de message direct Mattermost, à leur nom d'utilisateur WeKan. Dans Mattermost, le webhook entrant ne doit pas être verrouillé sur son canal.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Autoriser ce grain à joindre cette adresse",
   "sandstorm-webhook-granted": "Ce grain peut joindre cette adresse",
   "sandstorm-sync-grant": "Autoriser ce grain à joindre cet outil de suivi",

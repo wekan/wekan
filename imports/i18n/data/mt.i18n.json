@@ -1334,6 +1334,8 @@
   "disable-webhook": "Iddiżattiva Dan Webhook",
   "webhook-mattermost-dm": "Ibgħat ukoll messaġġ dirett ta' Mattermost lill-membri u lill-assenjati tal-karta",
   "webhook-mattermost-dm-desc": "Kull messaġġ dwar karta jmur ukoll għand kull wieħed mill-membri u l-assenjati tagħha bħala messaġġ dirett ta' Mattermost, fuq l-isem tal-utent tagħhom f'WeKan. F'Mattermost, il-webhook li jidħol m'għandux ikun imsakkar mal-kanal tiegħu.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Ħalli dan il-grain jilħaq dan l-indirizz",
   "sandstorm-webhook-granted": "Dan il-grain jista' jilħaq dan l-indirizz",
   "sandstorm-sync-grant": "Ħalli dan il-grain jilħaq dan it-tracker",

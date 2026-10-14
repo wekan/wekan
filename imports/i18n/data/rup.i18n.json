@@ -1334,6 +1334,8 @@
   "disable-webhook": "Dizactiveadzã aestu webhook",
   "webhook-mattermost-dm": "Pitreați și unã njiveastã directã Mattermost a membrilor și a responsabililor a cartãljei",
   "webhook-mattermost-dm-desc": "Cathi njiveastã ti unã cartã s-duțe și la cathi membru și responsabil a ljei ca njiveastã directã Mattermost, la numa a lor di ufilisitor WeKan. Tu Mattermost, webhook-lu ți intrã nu lipseashti s-hibã ncljis pi canalu a lui.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Alasã aestu grain s-agiungã la aestã adresã",
   "sandstorm-webhook-granted": "Aestu grain poati s-agiungã la aestã adresã",
   "sandstorm-sync-grant": "Alasã aestu grain s-agiungã la aestu tracker",

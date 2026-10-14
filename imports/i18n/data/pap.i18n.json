@@ -1334,6 +1334,8 @@
   "disable-webhook": "Deshabilitá e Webhook",
   "webhook-mattermost-dm": "Manda tambe un mensahe direkto di Mattermost na e miembronan i enkargánan di e karchi",
   "webhook-mattermost-dm-desc": "Kada mensahe tokante un karchi ta bai tambe na kada un di su miembronan i enkargánan komo mensahe direkto di Mattermost, na nan nòmber di usuario di WeKan. Den Mattermost, e webhook ku ta drenta no mag ta sera na su kanal.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Permití e grain aki yega na e adrès aki",
   "sandstorm-webhook-granted": "E grain aki por yega na e adrès aki",
   "sandstorm-sync-grant": "Permití e grain aki yega na e tracker aki",

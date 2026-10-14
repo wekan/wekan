@@ -1216,6 +1216,17 @@ Template.membersWidget.events({
 });
 
 Template.outgoingWebhooksPopup.helpers({
+  // #2026 / #1377: the activity picker of an existing webhook (this).
+  webhookPicker() {
+    const { pickerState } = require('/models/lib/webhookActivityPicker');
+    return pickerState(this.activities);
+  },
+  webhookActivityGroups() {
+    const { pickerState } = require('/models/lib/webhookActivityPicker');
+    const { GROUP_KEYS } = require('/models/lib/notificationActivityGroups');
+    const state = pickerState(this.activities);
+    return GROUP_KEYS.map(key => ({ key, labelKey: `notification-activity-${key}`, checked: !state.all && state.groups.includes(key) }));
+  },
   webhookGranted(integrationId) {
     return webhookGrants.get(integrationId) === true;
   },
@@ -1266,7 +1277,7 @@ Template.outgoingWebhooksPopup.events({
       console.error('sandstormRequestWebhook', error);
     }
   },
-  'click .js-toggle-webhook-enabled, click .js-toggle-webhook-mattermost-dm'(evt) {
+  'click .js-toggle-webhook-enabled, click .js-toggle-webhook-mattermost-dm, click .js-toggle-webhook-activity-all, click .js-toggle-webhook-activity-group'(evt) {
     evt.preventDefault();
     $(evt.currentTarget).find(MCB).toggleClass(CKCLS);
   },
@@ -1284,6 +1295,15 @@ Template.outgoingWebhooksPopup.events({
       .find(MCB)
       .hasClass(CKCLS);
     let remove = false;
+    // #2026 / #1377: the picked activities, in an existing webhook's form.
+    const allToggle = $(evt.target).find('.js-toggle-webhook-activity-all');
+    let pickedActivities;
+    if (allToggle.length) {
+      const { activitiesFor } = require('/models/lib/webhookActivityPicker');
+      pickedActivities = activitiesFor({ all: allToggle.find(MCB).hasClass(CKCLS),
+        groups: $(evt.target).find('.js-toggle-webhook-activity-group').toArray()
+          .filter(el => $(el).find(MCB).hasClass(CKCLS)).map(el => el.dataset.group) });
+    }
     // #1297: present only in an existing webhook's form.
     const dmToggle = $(evt.target).find('.js-toggle-webhook-mattermost-dm');
     const values = {
@@ -1293,6 +1313,7 @@ Template.outgoingWebhooksPopup.events({
       title,
       enabled,
       ...(dmToggle.length ? { mattermostDirectMessages: dmToggle.find(MCB).hasClass(CKCLS) } : {}),
+      ...(pickedActivities ? { activities: pickedActivities } : {}),
     };
 
     const findIntegration = function(cond) {

@@ -1334,6 +1334,8 @@
   "disable-webhook": "Disattiva chest webhook",
   "webhook-mattermost-dm": "Mande ancje un messaç diret di Mattermost ai membris e ai assegnâts de cjarte",
   "webhook-mattermost-dm-desc": "Ogni messaç suntune cjarte al va ancje a ogni so membri e assegnât come messaç diret di Mattermost, al lôr non utent di WeKan. In Mattermost, il webhook in jentrade nol à di jessi blocât al so canâl.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Permet a chest grain di rivâ a cheste direzion",
   "sandstorm-webhook-granted": "Chest grain al pues rivâ a cheste direzion",
   "sandstorm-sync-grant": "Permet a chest grain di rivâ a chest traçadôr",

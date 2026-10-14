@@ -1334,6 +1334,8 @@
   "disable-webhook": "Webhook འདི་སྤྱོད་མི་ཐུབ་བཟོ།",
   "webhook-mattermost-dm": "ཤོག་བྱང་གི་ཚོགས་མི་དང་འགན་འཁུར་བ་ཚོར་ Mattermost ཀྱི་ཐད་ཀའི་འཕྲིན་ཡང་གཏོང་བ།",
   "webhook-mattermost-dm-desc": "ཤོག་བྱང་སྐོར་གྱི་འཕྲིན་རེ་རེ་དེའི་ཚོགས་མི་དང་འགན་འཁུར་བ་རེ་རེར་ Mattermost ཀྱི་ཐད་ཀའི་འཕྲིན་དུ་ཁོང་ཚོའི་ WeKan བེད་སྤྱོད་མཁན་གྱི་མིང་ལ་གཏོང་། Mattermost ནང་ནང་འཇུག་ webhook དེ་རང་གི་ལམ་ཕྲན་ལ་ཟྭ་བརྒྱབ་མི་རུང་།",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "grain འདི་ས་གནས་འདིར་འབྱོར་བར་ཆོག་མཆན་སྤྲོད།",
   "sandstorm-webhook-granted": "grain འདི་ས་གནས་འདིར་འབྱོར་ཆོག",
   "sandstorm-sync-grant": "grain འདི་རྗེས་འདེད་པ་འདིར་འབྱོར་བར་ཆོག་མཆན་སྤྲོད།",

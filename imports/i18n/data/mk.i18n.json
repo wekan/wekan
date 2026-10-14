@@ -1334,6 +1334,8 @@
   "disable-webhook": "Оневозможи ја оваа веб-кука",
   "webhook-mattermost-dm": "Испрати и директна порака на Mattermost до членовите и задолжените на картата",
   "webhook-mattermost-dm-desc": "Секоја порака за картата се испраќа и до секој нејзин член и задолжено лице како директна порака на Mattermost, на нивното корисничко име во WeKan. Во Mattermost, дојдовната веб-кука не смее да биде заклучена на својот канал.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Дозволи ова зрно (grain) да пристапува до оваа адреса",
   "sandstorm-webhook-granted": "Ова зрно (grain) може да пристапува до оваа адреса",
   "sandstorm-sync-grant": "Дозволи ова зрно (grain) да пристапува до овој систем за следење",

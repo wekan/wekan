@@ -1334,6 +1334,8 @@
   "disable-webhook": "Wëłączë nen webhook",
   "webhook-mattermost-dm": "Wësëłôj téż bezpòstrzédną wiadomòsc w Mattermost do nôleżników ë òdpòwiedzalnëch za kôrtã",
   "webhook-mattermost-dm-desc": "Kòżdô wiadomòsc ò kôrce jidze téż do kòżdégò ji nôleżnika ë òdpòwiedzalnégò jakno bezpòstrzédnô wiadomòsc w Mattermost, na jich miono brëkòwnika we WeKan. W Mattermost przëchôdający webhook nie mòże bëc zamkłi do swòjégò kanału.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Pòzwôlôj temù grainowi dosëgnąc tegò adresë",
   "sandstorm-webhook-granted": "Nen grain mòże dosëgnąc tegò adresë",
   "sandstorm-sync-grant": "Pòzwôlôj temù grainowi dosëgnąc tegò tracëra",

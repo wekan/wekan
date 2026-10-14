@@ -1334,6 +1334,8 @@
   "disable-webhook": "Dami Webhook-kan",
   "webhook-mattermost-dm": "Sidoo kale u dir fariin toos ah oo Mattermost ah xubnaha iyo kuwa loo xilsaaray kaarka",
   "webhook-mattermost-dm-desc": "Fariin kasta oo ku saabsan kaar waxay sidoo kale u gudbaysaa xubin kasta iyo qof kasta oo loo xilsaaray sida fariin toos ah oo Mattermost ah, magacooda isticmaalaha ee WeKan. Mattermost gudihiisa, webhook-ga soo galaya waa inaanu ku xidhnaan kanaalkiisa.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "U oggolow grain-kan inuu gaaro cinwaankan",
   "sandstorm-webhook-granted": "Grain-kan wuu gaari karaa cinwaankan",
   "sandstorm-sync-grant": "U oggolow grain-kan inuu gaaro raad-raacahan",

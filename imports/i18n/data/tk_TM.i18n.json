@@ -1334,6 +1334,8 @@
   "disable-webhook": "Bu web sahypasyny öçüriň",
   "webhook-mattermost-dm": "Kartyň agzalaryna we jogapkärlerine hem Mattermost-da göni hat iber",
   "webhook-mattermost-dm-desc": "Kart barada her bir hat onuň her bir agzasyna we jogapkärine hem Mattermost göni haty hökmünde, olaryň WeKan ulanyjy adyna gidýär. Mattermost-da gelýän webhook öz kanalyna gulplanan bolmaly däl.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Bu grain-e bu salga ýetmäge rugsat ber",
   "sandstorm-webhook-granted": "Bu grain bu salga ýetip biler",
   "sandstorm-sync-grant": "Bu grain-e bu yzarlaýja ýetmäge rugsat ber",

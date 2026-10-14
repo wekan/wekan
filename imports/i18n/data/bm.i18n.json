@@ -1334,6 +1334,8 @@
   "disable-webhook": "Webhook in datugu",
   "webhook-mattermost-dm": "Mattermost cikan tilennen fana ci karti tɔndenw ni a baarakɛlaw ma",
   "webhook-mattermost-dm-desc": "Cikan o cikan min ye karti dɔ ko ye, o bɛ taa a tɔnden ni a baarakɛla kelen-kelen bɛɛ fana ma i n'a fɔ Mattermost cikan tilennen, u ka WeKan baarakɛla tɔgɔ ma. Mattermost kɔnɔ, webhook min bɛ don, o man kan ka datugu a ka kanali dama ma.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "A to grain nin ka se ladɛrɛsi nin ma",
   "sandstorm-webhook-granted": "Grain nin bɛ se ka se ladɛrɛsi nin ma",
   "sandstorm-sync-grant": "A to grain nin ka se kɔfɛla weleke nin ma",

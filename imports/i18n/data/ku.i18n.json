@@ -1334,6 +1334,8 @@
   "disable-webhook": "Vî Webhook neçalak bike",
   "webhook-mattermost-dm": "Herwiha peyameke rasterast a Mattermost ji endam û berpirsyarên kartê re bişîne",
   "webhook-mattermost-dm-desc": "Her peyameke derbarê kartekê de herwiha wekî peyameke rasterast a Mattermost ji her endam û berpirsyarê wê re, bo navê wan ê bikarhêner ê WeKan, diçe. Di Mattermost de, divê webhooka tê ne li kanala xwe were girtin.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Destûrê bide vê grainê ku bigihîje vê navnîşanê",
   "sandstorm-webhook-granted": "Ev grain dikare bigihîje vê navnîşanê",
   "sandstorm-sync-grant": "Destûrê bide vê grainê ku bigihîje vê şopandinê",

@@ -1334,6 +1334,8 @@
   "disable-webhook": "Monokia Tēnei Webhook",
   "webhook-mattermost-dm": "Tukuna hoki he karere tōtika Mattermost ki ngā mema me ngā kaiwhakahaere o te kāri",
   "webhook-mattermost-dm-desc": "Ka haere anō ia karere mō tētahi kāri ki ia mema me ia kaiwhakahaere o taua kāri hei karere tōtika Mattermost, ki tō rātou ingoa kaiwhakamahi WeKan. I Mattermost, kaua te webhook taumai e rakaina ki tōna hongere.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Tukua tēnei grain kia tae ki tēnei wāhitau",
   "sandstorm-webhook-granted": "Ka āhei tēnei grain ki te tae ki tēnei wāhitau",
   "sandstorm-sync-grant": "Tukua tēnei grain kia tae ki tēnei kaiwhāi",

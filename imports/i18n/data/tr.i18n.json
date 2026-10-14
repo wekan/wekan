@@ -1334,6 +1334,8 @@
   "disable-webhook": "Bu bağlantıyı devre dışı bırak",
   "webhook-mattermost-dm": "Kartın üyelerine ve atananlarına da Mattermost doğrudan mesajı gönder",
   "webhook-mattermost-dm-desc": "Bir kartla ilgili her mesaj, kartın her üyesine ve atananına da WeKan kullanıcı adlarına Mattermost doğrudan mesajı olarak gider. Mattermost'ta gelen webhook kendi kanalına kilitlenmiş olmamalıdır.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Bu grain'in bu adrese erişmesine izin ver",
   "sandstorm-webhook-granted": "Bu grain bu adrese erişebilir",
   "sandstorm-sync-grant": "Bu grain'in bu izleyiciye erişmesine izin ver",

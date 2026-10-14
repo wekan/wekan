@@ -1334,6 +1334,8 @@
   "disable-webhook": "ይህን Webhook አሰናክል",
   "webhook-mattermost-dm": "እንዲሁም ለካርዱ አባላት እና ተመዳቢዎች ቀጥታ የMattermost መልዕክት ላክ",
   "webhook-mattermost-dm-desc": "ስለ ካርድ የሚላክ እያንዳንዱ መልዕክት ለእያንዳንዱ አባሉ እና ተመዳቢው በWeKan የተጠቃሚ ስማቸው ቀጥታ የMattermost መልዕክት ሆኖ ይላካል። በMattermost ውስጥ ገቢው webhook በቻናሉ ላይ መቆለፍ የለበትም።",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "ይህ grain ወደዚህ አድራሻ እንዲደርስ ፍቀድ",
   "sandstorm-webhook-granted": "ይህ grain ወደዚህ አድራሻ መድረስ ይችላል",
   "sandstorm-sync-grant": "ይህ grain ወደዚህ መከታተያ እንዲደርስ ፍቀድ",

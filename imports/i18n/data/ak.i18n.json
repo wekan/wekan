@@ -1334,6 +1334,8 @@
   "disable-webhook": "Gyae Eyi Webhook",
   "webhook-mattermost-dm": "Fa Mattermost nkra tẽẽ nso kɔma kaad no amanfoɔ ne wɔn a wɔde adwuma ama wɔn",
   "webhook-mattermost-dm-desc": "Nkra biara a ɛfa kaad bi ho nso kɔ ne amanfoɔ ne wɔn a wɔde adwuma ama wɔn mu biara hɔ sɛ Mattermost nkra tẽẽ, kɔ wɔn WeKan dwumadini din so. Wɔ Mattermost mu no, ɛnsɛ sɛ webhook a ɛba mu no tom ne kwan (channel) no nko ara.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Ma grain yi kwan ma ɛnkɔ address yi so",
   "sandstorm-webhook-granted": "Grain yi tumi kɔ address yi so",
   "sandstorm-sync-grant": "Ma grain yi kwan ma ɛnkɔ adwuma nhwɛfo yi so",

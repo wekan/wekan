@@ -1334,6 +1334,8 @@
   "disable-webhook": "Kwala webhook ena",
   "webhook-mattermost-dm": "Romela hape molaetsa o tobileng wa Mattermost ho litho le ba abetsoeng karete",
   "webhook-mattermost-dm-desc": "Molaetsa o mong le o mong mabapi le karete o ya hape ho setho se seng le se seng le ea abetsoeng ka mong e le molaetsa o tobileng wa Mattermost, lebitsong la bona la mosebedisi la WeKan. Ho Mattermost, webhook e kenang ha ea lokela ho notleloa kanaleng ya yona.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Dumella grain ena ho fihlella aterese ena",
   "sandstorm-webhook-granted": "Grain ena e ka fihlella aterese ena",
   "sandstorm-sync-grant": "Dumella grain ena ho fihlella tsamaiso ena ya ho latela",

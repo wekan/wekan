@@ -1334,6 +1334,8 @@
   "disable-webhook": "Dezaktive webhook sa a",
   "webhook-mattermost-dm": "Voye yon mesaj dirèk Mattermost tou bay manm ak moun ki asiyen sou kat la",
   "webhook-mattermost-dm-desc": "Chak mesaj sou yon kat ale tou bay chak manm ak chak moun ki asiyen sou li kòm mesaj dirèk Mattermost, sou non itilizatè WeKan yo. Nan Mattermost, webhook k ap antre a pa dwe bloke sou chanèl li.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Pèmèt grain sa a rive nan adrès sa a",
   "sandstorm-webhook-granted": "Grain sa a ka rive nan adrès sa a",
   "sandstorm-sync-grant": "Pèmèt grain sa a rive nan sistèm swivi sa a",

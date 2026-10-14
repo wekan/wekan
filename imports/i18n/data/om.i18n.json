@@ -1334,6 +1334,8 @@
   "disable-webhook": "Webhook Kana Dhaamsi",
   "webhook-mattermost-dm": "Miseensotaa fi kanneen kaardii itti kennamaniif ergaa kallattii Mattermost illee ergi",
   "webhook-mattermost-dm-desc": "Ergaan kaardii tokko ilaalchisu hundi miseensota isaa fi kanneen itti kennaman hundaaf ergaa kallattii Mattermost ta'ee, gara maqaa fayyadamaa WeKan isaaniitti ni deema. Mattermost keessatti, webhook seenu chaanaala isaatti cufamuu hin qabu.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Grain kun teessoo kana akka gahu hayyami",
   "sandstorm-webhook-granted": "Grain kun teessoo kana gahuu danda'a",
   "sandstorm-sync-grant": "Grain kun meeshaa hordoffii kana akka gahu hayyami",

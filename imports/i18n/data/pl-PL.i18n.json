@@ -1334,6 +1334,8 @@
   "disable-webhook": "Wyłącz tego webhooka",
   "webhook-mattermost-dm": "Wysyłaj też bezpośrednią wiadomość Mattermost do użytkowników i osób przypisanych do karty",
   "webhook-mattermost-dm-desc": "Każda wiadomość o karcie trafia też do każdego z jej użytkowników i osób przypisanych jako bezpośrednia wiadomość Mattermost, na ich nazwę użytkownika WeKan. W Mattermost przychodzący webhook nie może być zablokowany na swoim kanale.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Zezwól temu grainowi na dostęp do tego adresu",
   "sandstorm-webhook-granted": "Ten grain może łączyć się z tym adresem",
   "sandstorm-sync-grant": "Zezwól temu grainowi na dostęp do tego systemu śledzenia",

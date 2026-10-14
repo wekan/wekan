@@ -1334,6 +1334,8 @@
   "disable-webhook": "Tima Eno Webhook",
   "webhook-mattermost-dm": "Romela gape molaetsa o o tlhamaletseng wa Mattermost go maloko le batho ba ba neetsweng karata tiro",
   "webhook-mattermost-dm-desc": "Molaetsa mongwe le mongwe ka ga karata o ya gape kwa go leloko lengwe le lengwe le yo o neetsweng tiro jaaka molaetsa o o tlhamaletseng wa Mattermost, kwa leineng la bone la modirisi la WeKan. Mo Mattermost, webhook e e tsenang ga e a tshwanela go lotlelelwa mo kanaleng ya yone.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Letla grain eno go fitlha aterese eno",
   "sandstorm-webhook-granted": "Grain eno e ka fitlha aterese eno",
   "sandstorm-sync-grant": "Letla grain eno go fitlha tracker eno",

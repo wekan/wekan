@@ -1334,6 +1334,8 @@
   "disable-webhook": "Dzima webhook iyi",
   "webhook-mattermost-dm": "Rumelani na mulaedza wa nga ho livhaho wa Mattermost kha miraḓo na vho avhelwaho mushumo vha garaṱa",
   "webhook-mattermost-dm-desc": "Mulaedza muṅwe na muṅwe nga ha garaṱa u ya na kha muraḓo muṅwe na muṅwe na o avhelwaho mushumo muṅwe na muṅwe sa mulaedza wa nga ho livhaho wa Mattermost, kha dzina ḽavho ḽa mushumisi ḽa WeKan. Kha Mattermost, webhook i dzhenaho a i fanela u kiyelwa kha tshanele yayo.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Tendelani grain iyi uri i swike kha ḓiresi iyi",
   "sandstorm-webhook-granted": "Grain iyi i nga swika kha ḓiresi iyi",
   "sandstorm-sync-grant": "Tendelani grain iyi uri i swike kha tshiṱaraka itshi",

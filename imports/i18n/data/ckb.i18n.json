@@ -1334,6 +1334,8 @@
   "disable-webhook": "ئەم Webhookە ناچالاک بکە",
   "webhook-mattermost-dm": "هەروەها نامەی ڕاستەوخۆی Mattermost بنێرە بۆ ئەندامان و بەرپرسانی کارتەکە",
   "webhook-mattermost-dm-desc": "هەر نامەیەک دەربارەی کارتێک هەروەها وەک نامەی ڕاستەوخۆی Mattermost دەچێت بۆ هەر یەک لە ئەندامان و بەرپرسانی، بۆ ناوی بەکارهێنەری WeKanـیان. لە Mattermost، نابێت webhookـی هاتوو بە کەناڵەکەیەوە قوفڵ کرابێت.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "ڕێگە بدە بەم grainە بگاتە ئەم ناونیشانە",
   "sandstorm-webhook-granted": "ئەم grainە دەتوانێت بگاتە ئەم ناونیشانە",
   "sandstorm-sync-grant": "ڕێگە بدە بەم grainە بگاتە ئەم شوێنپێگرە",

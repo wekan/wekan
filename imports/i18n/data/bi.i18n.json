@@ -1334,6 +1334,8 @@
   "disable-webhook": "Mekem Webhook ia i no wok",
   "webhook-mattermost-dm": "Sanem tu wan dairek mesej long Mattermost i go long ol memba mo ol man we oli asaenem long kad",
   "webhook-mattermost-dm-desc": "Evri mesej long saed blong wan kad i go tu long evri memba mo man we oli asaenem long hem olsem wan dairek mesej long Mattermost, long nem blong yusa blong olgeta long WeKan. Long Mattermost, webhook we i kam insaed i no mas lok long janel blong hem nomo.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Letem grain ya i go kasem adres ya",
   "sandstorm-webhook-granted": "Grain ya i save go kasem adres ya",
   "sandstorm-sync-grant": "Letem grain ya i go kasem trakem samting ya",

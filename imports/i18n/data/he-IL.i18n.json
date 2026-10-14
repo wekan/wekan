@@ -1334,6 +1334,8 @@
   "disable-webhook": "השבתת ההתלייה הזאת",
   "webhook-mattermost-dm": "לשלוח גם הודעה ישירה ב־Mattermost לחברי הכרטיס ולגורמים האחראיים עליו",
   "webhook-mattermost-dm-desc": "כל הודעה על כרטיס נשלחת גם לכל אחד מחבריו ומהגורמים האחראיים עליו כהודעה ישירה ב־Mattermost, לשם המשתמש שלהם ב־WeKan. ב־Mattermost, ההתלייה הנכנסת לא יכולה להיות נעולה לערוץ שלה.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "לאפשר ל־grain הזה לגשת לכתובת הזו",
   "sandstorm-webhook-granted": "ה־grain הזה רשאי לגשת לכתובת הזו",
   "sandstorm-sync-grant": "לאפשר ל־grain הזה לגשת למערכת המעקב הזו",

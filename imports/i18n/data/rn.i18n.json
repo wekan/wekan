@@ -1334,6 +1334,8 @@
   "disable-webhook": "Zimya iyi Webhook",
   "webhook-mattermost-dm": "Rungika kandi ubutumwa butaziguye bwa Mattermost ku banywanyi n'abahawe igikorwa b'ikarata",
   "webhook-mattermost-dm-desc": "Ubutumwa bwose bwerekeye ikarata buja kandi kuri buri munywanyi n'uwahawe igikorwa bayo nk'ubutumwa butaziguye bwa Mattermost, ku izina ryabo ry'ukoresha rya WeKan. Muri Mattermost, webhook yinjira ntiyategerezwa kuba yugaye ku muyoboro wayo.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Emera iyi grain gushika kuri iyi aderese",
   "sandstorm-webhook-granted": "Iyi grain irashobora gushika kuri iyi aderese",
   "sandstorm-sync-grant": "Emera iyi grain gushika kuri iki gikoresho co gukurikirana",

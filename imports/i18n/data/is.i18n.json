@@ -1334,6 +1334,8 @@
   "disable-webhook": "Gera þessa vefkrækju óvirka",
   "webhook-mattermost-dm": "Senda einnig bein skilaboð í Mattermost til meðlima og ábyrgðaraðila spjaldsins",
   "webhook-mattermost-dm-desc": "Hver skilaboð um spjald fara einnig til hvers meðlims og ábyrgðaraðila þess sem bein skilaboð í Mattermost, á WeKan-notandanafn þeirra. Í Mattermost má innkomandi vefkrækjan ekki vera læst við sína rás.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Leyfa þessu graini að ná í þetta vistfang",
   "sandstorm-webhook-granted": "Þetta grain má ná í þetta vistfang",
   "sandstorm-sync-grant": "Leyfa þessu graini að ná í þetta verkbeiðnakerfi",

@@ -1334,6 +1334,8 @@
   "disable-webhook": "Lemaza Kitabu hiki cha Wavuti",
   "webhook-mattermost-dm": "Tuma pia ujumbe wa moja kwa moja wa Mattermost kwa wanachama na wakabidhiwa wa kadi",
   "webhook-mattermost-dm-desc": "Kila ujumbe kuhusu kadi pia unakwenda kwa kila mwanachama na mkabidhiwa wake kama ujumbe wa moja kwa moja wa Mattermost, kwa jina lao la mtumiaji la WeKan. Katika Mattermost, webhook inayoingia haipaswi kufungwa kwenye chaneli yake.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Ruhusu grain hii kufikia anwani hii",
   "sandstorm-webhook-granted": "Grain hii inaweza kufikia anwani hii",
   "sandstorm-sync-grant": "Ruhusu grain hii kufikia kifuatiliaji hiki",

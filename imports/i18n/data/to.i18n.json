@@ -1334,6 +1334,8 @@
   "disable-webhook": "Taʻofi ʻa e Webhook ni",
   "webhook-mattermost-dm": "Fekau foki ha pōpoaki hangatonu ʻi Mattermost ki he kau mēmipa mo e kau kuo tuku ki ai ʻa e kaati",
   "webhook-mattermost-dm-desc": "Ko e pōpoaki kotoa pē fekauʻaki mo ha kaati ʻoku ʻalu foki ki hono mēmipa taki taha mo e tokotaha kuo tuku ki ai ko ha pōpoaki hangatonu ʻi Mattermost, ki honau hingoa ʻo e tokotaha ngāue ʻi WeKan. ʻI Mattermost, ʻoku ʻikai totonu ke loka ʻa e webhook ʻoku hū mai ki hono chaneli.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Tuku ke aʻu ʻa e grain ni ki he tuʻasila ko ʻeni",
   "sandstorm-webhook-granted": "ʻE lava ke aʻu ʻa e grain ni ki he tuʻasila ko ʻeni",
   "sandstorm-sync-grant": "Tuku ke aʻu ʻa e grain ni ki he founga muimuiʻi ko ʻeni",

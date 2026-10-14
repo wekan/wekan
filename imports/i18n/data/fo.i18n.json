@@ -1334,6 +1334,8 @@
   "disable-webhook": "Óvirkja henda webhook",
   "webhook-mattermost-dm": "Send eisini beinleiðis Mattermost-boð til limirnar og ábyrgdararnar á kortinum",
   "webhook-mattermost-dm-desc": "Hvørt boð um eitt kort fer eisini til hvønn lim og ábyrgdara á tí sum beinleiðis Mattermost-boð, til teirra WeKan brúkaranavn. Í Mattermost má innkomandi webhook ikki vera læstur til sína rás.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Loyv hesum grain at røkka hesa adressuna",
   "sandstorm-webhook-granted": "Hetta grain kann røkka hesa adressuna",
   "sandstorm-sync-grant": "Loyv hesum grain at røkka hendan rakaran",

@@ -1334,6 +1334,8 @@
   "disable-webhook": "Tape Lenei Webhook",
   "webhook-mattermost-dm": "Auina atu foi se feau tuusao Mattermost i sui ma e ua tofia i le pepa",
   "webhook-mattermost-dm-desc": "O feau uma e uiga i se pepa e alu atu foi i sui taitasi ma e ua tofia i ai o se feau tuusao Mattermost, i lo latou igoa o le tagata faaaoga WeKan. I le Mattermost, e le tatau ona lokaina le webhook o loo sau i lona alāvai.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Faataga lenei grain e oo atu i lenei tuatusi",
   "sandstorm-webhook-granted": "E mafai e lenei grain ona oo atu i lenei tuatusi",
   "sandstorm-sync-grant": "Faataga lenei grain e oo atu i lenei mea suʻesuʻe",

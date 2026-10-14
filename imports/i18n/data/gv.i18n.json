@@ -1334,6 +1334,8 @@
   "disable-webhook": "Jean y webhook shoh ass",
   "webhook-mattermost-dm": "Cur chaghteraght jeeragh Mattermost neesht gys olteynyn as currit daue y kaart",
   "webhook-mattermost-dm-desc": "Ta dagh chaghteraght mychione kaart goll neesht gys dagh olteyn as currit da echey myr chaghteraght jeeragh Mattermost, gys nyn ennym ymmydeyr WeKan. Ayns Mattermost, cha nhegin da'n webhook cheet stiagh ve glassit gys e chanel.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Lhig da'n grain shoh roshtyn er yn enmys shoh",
   "sandstorm-webhook-granted": "Foddee yn grain shoh roshtyn er yn enmys shoh",
   "sandstorm-sync-grant": "Lhig da'n grain shoh roshtyn er y tracker shoh",

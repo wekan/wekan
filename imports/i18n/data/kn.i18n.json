@@ -1334,6 +1334,8 @@
   "disable-webhook": "ಈ ವೆಬ್‌ಹುಕ್ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ",
   "webhook-mattermost-dm": "ಕಾರ್ಡ್‌ನ ಸದಸ್ಯರು ಮತ್ತು ನಿಯೋಜಿತರಿಗೆ Mattermost ನೇರ ಸಂದೇಶವನ್ನೂ ಕಳುಹಿಸಿ",
   "webhook-mattermost-dm-desc": "ಕಾರ್ಡ್ ಕುರಿತ ಪ್ರತಿಯೊಂದು ಸಂದೇಶವು ಅದರ ಪ್ರತಿಯೊಬ್ಬ ಸದಸ್ಯ ಮತ್ತು ನಿಯೋಜಿತರಿಗೆ Mattermost ನೇರ ಸಂದೇಶವಾಗಿ, ಅವರ WeKan ಬಳಕೆದಾರ ಹೆಸರಿಗೆ ಹೋಗುತ್ತದೆ. Mattermost ನಲ್ಲಿ, ಒಳಬರುವ ವೆಬ್‌ಹುಕ್ ಅದರ ಚಾನಲ್‌ಗೆ ಲಾಕ್ ಆಗಿರಬಾರದು.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "ಈ grain ಈ ವಿಳಾಸವನ್ನು ತಲುಪಲು ಅನುಮತಿಸಿ",
   "sandstorm-webhook-granted": "ಈ grain ಈ ವಿಳಾಸವನ್ನು ತಲುಪಬಹುದು",
   "sandstorm-sync-grant": "ಈ grain ಈ ಟ್ರ್ಯಾಕರ್ ಅನ್ನು ತಲುಪಲು ಅನುಮತಿಸಿ",

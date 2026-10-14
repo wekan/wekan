@@ -1334,6 +1334,8 @@
   "disable-webhook": "Անջատել այս Webhook-ը",
   "webhook-mattermost-dm": "Նաև ուղարկել Mattermost-ի անմիջական հաղորդագրություն քարտի անդամներին և պատասխանատուներին",
   "webhook-mattermost-dm-desc": "Քարտի մասին յուրաքանչյուր հաղորդագրություն նաև ուղարկվում է նրա յուրաքանչյուր անդամին և պատասխանատուին որպես Mattermost-ի անմիջական հաղորդագրություն՝ նրանց WeKan օգտվողի անվանը։ Mattermost-ում մուտքային webhook-ը չպետք է կողպված լինի իր ալիքին։",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Թույլատրել այս grain-ին հասնել այս հասցեին",
   "sandstorm-webhook-granted": "Այս grain-ը կարող է հասնել այս հասցեին",
   "sandstorm-sync-grant": "Թույլատրել այս grain-ին հասնել այս համակարգին",

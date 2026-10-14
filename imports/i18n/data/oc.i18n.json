@@ -1334,6 +1334,8 @@
   "disable-webhook": "Desactivar aquesta webhook",
   "webhook-mattermost-dm": "Mandar tanben un messatge dirècte Mattermost als membres e als responsables de la carta",
   "webhook-mattermost-dm-desc": "Cada messatge a prepaus d'una carta es tanben mandat a cadun de sos membres e responsables coma messatge dirècte Mattermost, a lor nom d'utilizaire WeKan. Dins Mattermost, lo webhook entrant deu pas èsser verrolhat sus son canal.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Autorizar aqueste grain a jónher aquesta adreça",
   "sandstorm-webhook-granted": "Aqueste grain pòt jónher aquesta adreça",
   "sandstorm-sync-grant": "Autorizar aqueste grain a jónher aqueste gestionari",

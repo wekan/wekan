@@ -2367,6 +2367,14 @@
     {
       "key": "card-has-unread-changes",
       "since": "2026-10-14"
+    },
+    {
+      "key": "webhook-activities",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "webhook-activities-all",
+      "since": "2026-10-14"
     }
   ]
 }

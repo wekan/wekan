@@ -1334,6 +1334,8 @@
   "disable-webhook": "Khubaza Le Webbhook",
   "webhook-mattermost-dm": "Thumela futhi umlayezo oqondile weMattermost kumalungu nakulabo abanikezwe ikhadi",
   "webhook-mattermost-dm-desc": "Umlayezo ngamunye mayelana nekhadi uphinde uye kulelo nalelo lungu nakulowo nalowo onikezwe ikhadi njengomlayezo oqondile weMattermost, egameni lomsebenzisi labo leWeKan. KuMattermost, i-webhook engenayo akufanele ikhiyelwe esiteshini sayo.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Vumela le grain ukufinyelela leli kheli",
   "sandstorm-webhook-granted": "Le grain ingafinyelela leli kheli",
   "sandstorm-sync-grant": "Vumela le grain ukufinyelela kulesi silandeleli",

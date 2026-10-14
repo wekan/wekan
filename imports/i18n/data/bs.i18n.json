@@ -1334,6 +1334,8 @@
   "disable-webhook": "Онеспособи ову дојаву догађаја",
   "webhook-mattermost-dm": "Pošalji i direktnu Mattermost poruku članovima i zaduženima na kartici",
   "webhook-mattermost-dm-desc": "Svaka poruka o kartici ide i svakom njenom članu i zaduženom kao direktna Mattermost poruka, na njihovo WeKan korisničko ime. U Mattermostu dolazni webhook ne smije biti zaključan na svoj kanal.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Dozvoli ovom grainu da pristupi ovoj adresi",
   "sandstorm-webhook-granted": "Ovaj grain smije pristupiti ovoj adresi",
   "sandstorm-sync-grant": "Dozvoli ovom grainu da pristupi ovom sistemu praćenja",

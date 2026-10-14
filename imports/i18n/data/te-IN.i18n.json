@@ -1334,6 +1334,8 @@
   "disable-webhook": "ఈ వెబ్‌హుక్‌ని నిలిపివేయండి",
   "webhook-mattermost-dm": "కార్డ్ సభ్యులకు మరియు అసైనీలకు Mattermost నేరుగా సందేశాన్ని కూడా పంపండి",
   "webhook-mattermost-dm-desc": "కార్డ్ గురించిన ప్రతి సందేశం దాని ప్రతి సభ్యుడికి మరియు అసైనీకి కూడా Mattermost నేరుగా సందేశంగా, వారి WeKan వినియోగదారు పేరుకు వెళుతుంది. Mattermostలో, ఇన్‌కమింగ్ వెబ్‌హుక్ దాని ఛానెల్‌కు లాక్ చేయబడి ఉండకూడదు.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "ఈ grain ఈ చిరునామాను చేరుకోవడానికి అనుమతించండి",
   "sandstorm-webhook-granted": "ఈ grain ఈ చిరునామాను చేరుకోవచ్చు",
   "sandstorm-sync-grant": "ఈ grain ఈ ట్రాకర్‌ను చేరుకోవడానికి అనుమతించండి",

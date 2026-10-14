@@ -1334,6 +1334,8 @@
   "disable-webhook": "Poista käytöstä tämä Webkoukku",
   "webhook-mattermost-dm": "Lähetä myös suora Mattermost-viesti kortin jäsenille ja vastuuhenkilöille",
   "webhook-mattermost-dm-desc": "Jokainen korttia koskeva viesti menee myös jokaiselle sen jäsenelle ja vastuuhenkilölle suorana Mattermost-viestinä heidän WeKan-käyttäjätunnukselleen. Mattermostissa saapuvaa webkoukkua ei saa lukita sen kanavaan.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Salli tämän grainin tavoittaa tämä osoite",
   "sandstorm-webhook-granted": "Tämä grain saa tavoittaa tämän osoitteen",
   "sandstorm-sync-grant": "Salli tämän grainin tavoittaa tämä seurantajärjestelmä",

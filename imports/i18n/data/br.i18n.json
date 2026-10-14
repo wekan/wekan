@@ -1334,6 +1334,8 @@
   "disable-webhook": "Diweredekaat ar webhook-mañ",
   "webhook-mattermost-dm": "Kas ivez ur gemennadenn war-eeun Mattermost da izili ha d'an dud deverket d'ar gartenn",
   "webhook-mattermost-dm-desc": "Pep kemennadenn diwar-benn ur gartenn a ya ivez da bep ezel ha den deverket anezhi evel kemennadenn war-eeun Mattermost, d'o anv implijer WeKan. E Mattermost, ne rank ket ar webhook o tont e-barzh bezañ prennet d'e ganol.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Aotren ar grain-mañ da dizhout ar chomlec'h-mañ",
   "sandstorm-webhook-granted": "Gallout a ra ar grain-mañ tizhout ar chomlec'h-mañ",
   "sandstorm-sync-grant": "Aotren ar grain-mañ da dizhout an heuliad-mañ",

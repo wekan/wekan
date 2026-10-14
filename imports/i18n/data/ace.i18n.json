@@ -1334,6 +1334,8 @@
   "disable-webhook": "Peumate webhook nyoe",
   "webhook-mattermost-dm": "Kirém cit peusan langsong Mattermost u anggota ngon ureueng nyang geubri buet bak kad",
   "webhook-mattermost-dm-desc": "Tiep peusan keu kad cit geukirém u tiep anggota ngon ureueng nyang geubri buet bak kad nyan sibagoe peusan langsong Mattermost, u nan ureueng ngui WeKan jih. Lam Mattermost, webhook nyang teuka hana jeut geukonci u saluran jih.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Bri izin grain nyoe jak u alamat nyoe",
   "sandstorm-webhook-granted": "Grain nyoe jeuet jak u alamat nyoe",
   "sandstorm-sync-grant": "Bri izin grain nyoe jak u tracker nyoe",

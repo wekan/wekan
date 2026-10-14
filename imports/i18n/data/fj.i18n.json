@@ -1334,6 +1334,8 @@
   "disable-webhook": "Bokoca na Webhook Oqo",
   "webhook-mattermost-dm": "Vakauta tale ga e dua na itukutuku vakadodonu ni Mattermost vei ira na lewe ni soqosoqo kei ira era lesi kina na kadi",
   "webhook-mattermost-dm-desc": "Na itukutuku kece me baleta e dua na kadi e vakau tale ga vei ira yadua na lewe ni soqosoqo kei ira era lesi kina me itukutuku vakadodonu ni Mattermost, ki na nodra yaca ni dauvakayagataka ena WeKan. Ena Mattermost, na Webhook e curu mai e sega ni dodonu me lokataki ena nona sala.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Vakatara me yaco rawa na grain oqo ki na itikotiko oqo",
   "sandstorm-webhook-granted": "E rawa ni yaco na grain oqo ki na itikotiko oqo",
   "sandstorm-sync-grant": "Vakatara me yaco rawa na grain oqo ki na iVola vakayasa oqo",

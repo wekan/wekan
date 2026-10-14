@@ -1334,6 +1334,8 @@
   "disable-webhook": "Vô hiệu hóa Webhook này",
   "webhook-mattermost-dm": "Đồng thời gửi tin nhắn trực tiếp Mattermost đến các thành viên và người được giao của thẻ",
   "webhook-mattermost-dm-desc": "Mỗi tin nhắn về một thẻ cũng được gửi đến từng thành viên và người được giao của thẻ dưới dạng tin nhắn trực tiếp Mattermost, theo tên người dùng WeKan của họ. Trong Mattermost, webhook đến không được khóa vào kênh của nó.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Cho phép grain này truy cập địa chỉ này",
   "sandstorm-webhook-granted": "Grain này được phép truy cập địa chỉ này",
   "sandstorm-sync-grant": "Cho phép grain này truy cập trình theo dõi này",

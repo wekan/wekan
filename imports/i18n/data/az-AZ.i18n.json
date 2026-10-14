@@ -1334,6 +1334,8 @@
   "disable-webhook": "Bu Webhooku söndürün",
   "webhook-mattermost-dm": "Kartın üzvlərinə və təyin olunanlarına Mattermost birbaşa mesajı da göndər",
   "webhook-mattermost-dm-desc": "Kart haqqında hər mesaj həmçinin onun hər üzvünə və təyin olunanına Mattermost birbaşa mesajı kimi, onların WeKan istifadəçi adına gedir. Mattermost-da daxil olan webhook öz kanalına kilidlənməməlidir.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Bu grain-ə bu ünvana qoşulmağa icazə verin",
   "sandstorm-webhook-granted": "Bu grain bu ünvana qoşula bilər",
   "sandstorm-sync-grant": "Bu grain-ə bu izləyiciyə qoşulmağa icazə verin",

@@ -1334,6 +1334,8 @@
   "disable-webhook": "dzima This Webhook",
   "webhook-mattermost-dm": "Tumirawo meseji yakananga paMattermost kunhengo nevakapiwa basa pakadhi",
   "webhook-mattermost-dm-desc": "Meseji imwe neimwe pamusoro pekadhi inoendawo kunhengo yega yega nemunhu wakapiwa basa semeseji yakananga yeMattermost, kuzita ravo rekushandisa reWeKan. MuMattermost, webhook inopinda haifanirwe kukiyirwa kuchiteshi chayo.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Bvumira grain iyi kusvika pakero iyi",
   "sandstorm-webhook-granted": "Grain iyi inogona kusvika pakero iyi",
   "sandstorm-sync-grant": "Bvumira grain iyi kusvika pachinocherechedza ichi",

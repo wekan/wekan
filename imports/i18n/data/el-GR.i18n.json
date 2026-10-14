@@ -1334,6 +1334,8 @@
   "disable-webhook": "Απενεργοποίηση αυτού του Webhook",
   "webhook-mattermost-dm": "Αποστολή και άμεσου μηνύματος Mattermost στα μέλη και τους υπευθύνους της κάρτας",
   "webhook-mattermost-dm-desc": "Κάθε μήνυμα για μια κάρτα πηγαίνει επίσης σε κάθε μέλος και υπεύθυνό της ως άμεσο μήνυμα Mattermost, στο όνομα χρήστη τους στο WeKan. Στο Mattermost, το εισερχόμενο webhook δεν πρέπει να είναι κλειδωμένο στο κανάλι του.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Να επιτρέπεται σε αυτό το grain να φτάνει σε αυτή τη διεύθυνση",
   "sandstorm-webhook-granted": "Αυτό το grain μπορεί να φτάνει σε αυτή τη διεύθυνση",
   "sandstorm-sync-grant": "Να επιτρέπεται σε αυτό το grain να φτάνει σε αυτόν τον ανιχνευτή",

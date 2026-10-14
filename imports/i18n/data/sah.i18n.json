@@ -1334,6 +1334,8 @@
   "disable-webhook": "Бу Webhook-у араар",
   "webhook-mattermost-dm": "Карточка кыттыылаахтарыгар уонна эппиэттииллэригэр Mattermost-ка туспа сурук эмиэ ыыт",
   "webhook-mattermost-dm-desc": "Карточка туһунан хас биирдии сурук кини хас биирдии кыттыылааҕар уонна эппиэттииригэр Mattermost-ка туспа сурук быһыытынан, кинилэр WeKan туттааччы аатыгар эмиэ барар. Mattermost-ка киирэр webhook бэйэтин каналыгар хатаныллыа суохтаах.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Бу grain бу аадырыска тиийэрин көҥүллээ",
   "sandstorm-webhook-granted": "Бу grain бу аадырыска тиийиэн сөп",
   "sandstorm-sync-grant": "Бу grain бу трекергэ тиийэрин көҥүллээ",

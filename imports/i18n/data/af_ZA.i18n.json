@@ -1334,6 +1334,8 @@
   "disable-webhook": "Deaktiveer hierdie webhaak",
   "webhook-mattermost-dm": "Stuur ook 'n direkte Mattermost-boodskap aan die kaart se lede en toegewysdes",
   "webhook-mattermost-dm-desc": "Elke boodskap oor 'n kaart gaan ook as 'n direkte Mattermost-boodskap na elk van sy lede en toegewysdes, na hul WeKan-gebruikersnaam. In Mattermost mag die inkomende webhook nie aan sy kanaal gesluit wees nie.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Laat hierdie grein toe om hierdie adres te bereik",
   "sandstorm-webhook-granted": "Hierdie grein mag hierdie adres bereik",
   "sandstorm-sync-grant": "Laat hierdie grein toe om hierdie spoorder te bereik",

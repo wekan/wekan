@@ -1334,6 +1334,8 @@
   "disable-webhook": "Pasim dispela webhuk",
   "webhook-mattermost-dm": "Salim tu wanpela stret toksave long Mattermost i go long ol memba na ol man i gat wok bilong kat",
   "webhook-mattermost-dm-desc": "Olgeta toksave long wanpela kat i go tu long olgeta memba na man i gat wok bilong en olsem stret toksave long Mattermost, long nem bilong yusa bilong ol long WeKan. Long Mattermost, webhuk i kam insait i no ken lok long chanel bilong en tasol.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Larim dispela grain i go long dispela adres",
   "sandstorm-webhook-granted": "Dispela grain inap go long dispela adres",
   "sandstorm-sync-grant": "Larim dispela grain i go long dispela tracker",

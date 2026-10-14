@@ -1334,6 +1334,8 @@
   "disable-webhook": "Ha Webhookiyaa digga",
   "webhook-mattermost-dm": "Kaardiyaa yaraatussinne oosoy imettidoogeetussi Mattermost suuraa kiitaa qassi kiitta",
   "webhook-mattermost-dm-desc": "Kaardiyaa xeelliya kiitay ubbay qassi a yaraa ubbaassinne oosoy imettido ubbaassi Mattermost suuraa kiitaadan, eta WeKan oosanchchaa sunttaa bolli biyees. Mattermost giddon, geliya webhookiyay ba kanaalaa bolli qolpettidi deennan aggana.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Ha grain ha teesuwaa gakkanaadan maata imma",
   "sandstorm-webhook-granted": "Ha grain ha teesuwaa gakkana danda'ees",
   "sandstorm-sync-grant": "Ha grain ha tracker-ppe gakkanaadan maata imma",

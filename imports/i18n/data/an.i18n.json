@@ -1334,6 +1334,8 @@
   "disable-webhook": "Deshabilitar iste Webhook",
   "webhook-mattermost-dm": "Ninviar tamién un mensache directo de Mattermost a os miembros y asignaus d'a tarcheta",
   "webhook-mattermost-dm-desc": "Cada mensache sobre una tarcheta va tamién a cadaguno d'os suyos miembros y asignaus como mensache directo de Mattermost, a o suyo nombre d'usuario de WeKan. En Mattermost, o webhook dentrant no ha d'estar blocau a la suya canal.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Permitir que iste grain plegue a ista adreza",
   "sandstorm-webhook-granted": "Iste grain puede plegar a ista adreza",
   "sandstorm-sync-grant": "Permitir que iste grain plegue a iste rastrejador",

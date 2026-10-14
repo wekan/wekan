@@ -1334,6 +1334,8 @@
   "disable-webhook": "Хомӯш кардани ин вебҳук",
   "webhook-mattermost-dm": "Инчунин ба аъзоён ва масъулони корт паёми мустақими Mattermost фиристодан",
   "webhook-mattermost-dm-desc": "Ҳар паём дар бораи корт инчунин ба ҳар як аъзо ва масъули он ҳамчун паёми мустақими Mattermost, ба номи корбари WeKan-и онҳо меравад. Дар Mattermost, вебҳуки воридотӣ набояд ба канали худ қулф шуда бошад.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Ба ин grain иҷозат диҳед, ки ба ин суроға дастрасӣ ёбад",
   "sandstorm-webhook-granted": "Ин grain метавонад ба ин суроға дастрасӣ ёбад",
   "sandstorm-sync-grant": "Ба ин grain иҷозат диҳед, ки ба ин пайгир дастрасӣ ёбад",

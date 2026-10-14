@@ -1334,6 +1334,8 @@
   "disable-webhook": "Disattiva chistu webhook",
   "webhook-mattermost-dm": "Mannari puru un missaggiu direttu di Mattermost ê membri e all'assignati dâ carta",
   "webhook-mattermost-dm-desc": "Ogni missaggiu supra na carta va puru a ognunu dî so membri e assignati comu missaggiu direttu di Mattermost, ô so nomu di l'utenti di WeKan. N Mattermost, lu webhook ca trasi nun havi a èssiri bluccatu ô so canali.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Pirmèttiri a stu grain di arrivari a st'indirizzu",
   "sandstorm-webhook-granted": "Stu grain pò arrivari a st'indirizzu",
   "sandstorm-sync-grant": "Pirmèttiri a stu grain di arrivari a stu tracker",

@@ -1334,6 +1334,8 @@
   "disable-webhook": "Cuir an Webhook Seo À Comas",
   "webhook-mattermost-dm": "Cuir teachdaireachd dhìreach Mattermost cuideachd gu buill is sannaichean na cairte",
   "webhook-mattermost-dm-desc": "Thèid gach teachdaireachd mu chairt cuideachd gu gach ball is sannaiche aice mar theachdaireachd dhìreach Mattermost, chun an ainm-cleachdaiche WeKan aca. Ann am Mattermost, cha bu chòir an webhook a-steach a bhith glaiste ris an t-seanail aige.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Leig leis a’ grain seo an seòladh seo a ruigsinn",
   "sandstorm-webhook-granted": "Faodaidh an grain seo an seòladh seo a ruigsinn",
   "sandstorm-sync-grant": "Leig leis a’ grain seo an lorgaire seo a ruigsinn",

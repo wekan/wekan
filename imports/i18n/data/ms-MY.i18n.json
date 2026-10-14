@@ -1334,6 +1334,8 @@
   "disable-webhook": "Lumpuhkan Cangkuk Web Ini",
   "webhook-mattermost-dm": "Hantar juga mesej langsung Mattermost kepada ahli dan penerima tugasan kad",
   "webhook-mattermost-dm-desc": "Setiap mesej tentang kad juga dihantar kepada setiap ahli dan penerima tugasannya sebagai mesej langsung Mattermost, kepada nama pengguna WeKan mereka. Dalam Mattermost, cangkuk web masuk tidak boleh dikunci pada salurannya.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Benarkan grain ini mencapai alamat ini",
   "sandstorm-webhook-granted": "Grain ini boleh mencapai alamat ini",
   "sandstorm-sync-grant": "Benarkan grain ini mencapai penjejak ini",

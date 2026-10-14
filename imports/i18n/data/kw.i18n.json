@@ -1334,6 +1334,8 @@
   "disable-webhook": "Marowa an webhook ma",
   "webhook-mattermost-dm": "Danvon ynwedh messach direkt Mattermost dhe eseli ha dhe apoyntysi an garten",
   "webhook-mattermost-dm-desc": "Pub messach a-dro dhe garten a wra mos ynwedh dhe bub esel hag apoyntys anedhi avel messach direkt Mattermost, dh'aga hanow devnydhyer WeKan. Yn Mattermost, ny dal an webhook ow tos a-ji bos alhwedhys dh'y janel.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Gasa an grain ma dhe dhrehedhes an trigva ma",
   "sandstorm-webhook-granted": "An grain ma a yll drehedhes an trigva ma",
   "sandstorm-sync-grant": "Gasa an grain ma dhe dhrehedhes an trakyer ma",

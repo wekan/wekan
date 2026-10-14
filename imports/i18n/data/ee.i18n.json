@@ -1334,6 +1334,8 @@
   "disable-webhook": "Xe mɔ na webhook sia",
   "webhook-mattermost-dm": "Ɖo Mattermost gbedeasi tẽe ɖe agbalẽvia ƒe hametɔwo kple amesiwo wode asi na hã",
   "webhook-mattermost-dm-desc": "Gbedeasi ɖesiaɖe si ku ɖe agbalẽvi ŋu yia eƒe hametɔ ɖesiaɖe kple amesi wode asi na ɖesiaɖe gbɔ hã abe Mattermost gbedeasi tẽe ene, ɖe woƒe WeKan zãla ŋkɔ dzi. Le Mattermost me la, mele be woatu webhook si gena la ɖe eƒe kanaa ŋu o.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Na mɔ grain sia be wòaɖo adrɛs sia gbɔ",
   "sandstorm-webhook-granted": "Grain sia ate ŋu aɖo adrɛs sia gbɔ",
   "sandstorm-sync-grant": "Na mɔ grain sia be wòaɖo didila sia gbɔ",

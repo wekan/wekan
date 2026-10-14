@@ -1334,6 +1334,8 @@
   "disable-webhook": "Thibela Webhook ye",
   "webhook-mattermost-dm": "Romela le molaetša o lebanyago wa Mattermost go maloko le baabelwa ba karata",
   "webhook-mattermost-dm-desc": "Molaetša o mongwe le o mongwe ka ga karata o ya gape go leloko le lengwe le le lengwe le moabelwa wa yona bjalo ka molaetša o lebanyago wa Mattermost, go leina la bona la mošomiši la WeKan. Ka go Mattermost, webhook ye e tsenago ga se ya swanela go notlelwa kanaleng ya yona.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Dumelela grain ye go fihlelela atrese ye",
   "sandstorm-webhook-granted": "Grain ye e ka fihlelela atrese ye",
   "sandstorm-sync-grant": "Dumelela grain ye go fihlelela motlhomi yo",

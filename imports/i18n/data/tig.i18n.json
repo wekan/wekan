@@ -1334,6 +1334,8 @@
   "disable-webhook": "እዚ Webhook ዕጾ",
   "webhook-mattermost-dm": "ለአባላት ወሓለፍቲ ወረቀት ካርድ እት Mattermost ቀጥታ ለአኮት ሌጠ ለአክ",
   "webhook-mattermost-dm-desc": "ኵል ለአኮት እብ ወረቀት ካርድ ለአባላቱ ወሓለፍቱ ኵሎም ከም Mattermost ቀጥታ ለአኮት፡ እብ ስሜት መትነፍዓይ WeKan ዲቦም ሌጠ ልትለአክ። እት Mattermost፡ እቱ ልትአቴ webhook ዲብ መሐበሩ ኢልትቀፈል።",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "ለእሊ grain እሊ ዕንዋን ለአብጽሕ ፍቀድ",
   "sandstorm-webhook-granted": "እሊ grain እሊ ዕንዋን ለአብጽሕ ፍቁድ ሉ",
   "sandstorm-sync-grant": "ለእሊ grain እሊ ትራከር ለአብጽሕ ፍቀድ",

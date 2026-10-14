@@ -1334,6 +1334,8 @@
   "disable-webhook": "ⴽⴽⵙ webhook ⵏ ⴰⵙⵏⵓ",
   "webhook-mattermost-dm": "ⴰⵣⵏ ⴰⵡⴷ ⵜⵓⵣⵉⵏⵜ ⵜⵓⵙⵔⵉⴷⵜ ⵙ Mattermost ⵉ ⵉⴳⵎⴰⵎⵏ ⴷ ⵉⵏⵎⵙⵓⵍⵏ ⵏ ⵜⴽⴰⵕⴹⴰ",
   "webhook-mattermost-dm-desc": "ⴽⵓ ⵜⵓⵣⵉⵏⵜ ⵅⴼ ⵜⴽⴰⵕⴹⴰ ⵜⴷⴷⴰ ⴰⵡⴷ ⵖⵔ ⴽⵓ ⴰⴳⵎⴰⵎ ⴷ ⵓⵏⵎⵙⵓⵍ ⵏⵏⵙ ⵙ ⵜⵓⵣⵉⵏⵜ ⵜⵓⵙⵔⵉⴷⵜ ⵏ Mattermost, ⵖⵔ ⵉⵙⵎ ⵏⵏⵙⵏ ⵏ ⵓⵏⵙⵙⵎⵔⵙ ⴳ WeKan. ⴳ Mattermost, ⵓⵔ ⵉⵇⵇⵉⵍ ⴰⴷ ⵉⵜⵜⵓⵔⴳⵍ webhook ⵏ ⵓⴽⵛⵓⵎ ⵖⵔ ⵓⴱⵔⵉⴷ ⵏⵏⵙ.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "ⴰⵊⵊ ⴰⴷ ⵢⴰⵡⴹ grain ⴰⴷ ⵖⵔ ⵓⵏⵙⴰ ⴰⴷ",
   "sandstorm-webhook-granted": "ⵉⵣⵎⵔ grain ⴰⴷ ⴰⴷ ⵢⴰⵡⴹ ⵖⵔ ⵓⵏⵙⴰ ⴰⴷ",
   "sandstorm-sync-grant": "ⴰⵊⵊ ⴰⴷ ⵢⴰⵡⴹ grain ⴰⴷ ⵖⵔ ⵓⵎⴹⴼⴰⵕ ⴰⴷ",

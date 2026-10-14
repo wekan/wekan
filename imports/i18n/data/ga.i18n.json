@@ -1334,6 +1334,8 @@
   "disable-webhook": "Díchumasaigh an Webhook Seo",
   "webhook-mattermost-dm": "Seol teachtaireacht dhíreach Mattermost freisin chuig baill agus sannaithe an chárta",
   "webhook-mattermost-dm-desc": "Téann gach teachtaireacht faoi chárta freisin chuig gach duine dá bhaill agus dá shannaithe mar theachtaireacht dhíreach Mattermost, chuig a n-ainm úsáideora WeKan. In Mattermost, níor cheart an webhook isteach a bheith glasáilte dá chainéal.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Ceadaigh don grain seo an seoladh seo a bhaint amach",
   "sandstorm-webhook-granted": "Tá cead ag an grain seo an seoladh seo a bhaint amach",
   "sandstorm-sync-grant": "Ceadaigh don grain seo an rianaire seo a bhaint amach",

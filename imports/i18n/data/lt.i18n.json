@@ -1334,6 +1334,8 @@
   "disable-webhook": "Išjungti šį Webhook",
   "webhook-mattermost-dm": "Taip pat siųsti Mattermost tiesioginę žinutę kortelės nariams ir perėmėjams",
   "webhook-mattermost-dm-desc": "Kiekviena žinutė apie kortelę taip pat siunčiama kiekvienam jos nariui ir perėmėjui kaip Mattermost tiesioginė žinutė, jų WeKan vartotojo vardu. Mattermost sistemoje gaunamasis webhook neturi būti užrakintas savo kanalui.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Leisti šiam grain pasiekti šį adresą",
   "sandstorm-webhook-granted": "Šis grain gali pasiekti šį adresą",
   "sandstorm-sync-grant": "Leisti šiam grain pasiekti šią stebėjimo sistemą",

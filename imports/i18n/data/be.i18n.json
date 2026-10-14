@@ -1334,6 +1334,8 @@
   "disable-webhook": "Адключыць гэты вэб-хук",
   "webhook-mattermost-dm": "Таксама адпраўляць асабістае паведамленне Mattermost удзельнікам і прызначаным карткі",
   "webhook-mattermost-dm-desc": "Кожнае паведамленне пра картку таксама адпраўляецца кожнаму з яе ўдзельнікаў і прызначаных як асабістае паведамленне Mattermost, на іх імя карыстальніка WeKan. У Mattermost уваходны вэб-хук не павінен быць прывязаны да свайго канала.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Дазволіць гэтаму грэйну звяртацца да гэтага адраса",
   "sandstorm-webhook-granted": "Гэты грэйн можа звяртацца да гэтага адраса",
   "sandstorm-sync-grant": "Дазволіць гэтаму грэйну звяртацца да гэтага трэкера",

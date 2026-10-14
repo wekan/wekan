@@ -1334,6 +1334,8 @@
   "disable-webhook": "Pateni Webhook Iki",
   "webhook-mattermost-dm": "Uga kirim pesen langsung Mattermost menyang anggota lan sing ditugasi ing kertu",
   "webhook-mattermost-dm-desc": "Saben pesen babagan kertu uga dikirim menyang saben anggota lan sing ditugasi minangka pesen langsung Mattermost, menyang jeneng panganggo WeKan-e. Ing Mattermost, webhook mlebu ora kena dikunci ing kanale.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Idini grain iki tekan alamat iki",
   "sandstorm-webhook-granted": "Grain iki oleh tekan alamat iki",
   "sandstorm-sync-grant": "Idini grain iki tekan pelacak iki",

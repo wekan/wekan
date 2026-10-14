@@ -1334,6 +1334,8 @@
   "disable-webhook": "Malŝalti ĉi tiun Webhook",
   "webhook-mattermost-dm": "Sendi ankaŭ rektan Mattermost-mesaĝon al la membroj kaj asignitoj de la karto",
   "webhook-mattermost-dm-desc": "Ĉiu mesaĝo pri karto iras ankaŭ al ĉiu el ĝiaj membroj kaj asignitoj kiel rekta Mattermost-mesaĝo, al ilia WeKan-uzantnomo. En Mattermost, la envena retkroĉilo ne devas esti ŝlosita al sia kanalo.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Permesi al ĉi tiu grajno atingi ĉi tiun adreson",
   "sandstorm-webhook-granted": "Ĉi tiu grajno rajtas atingi ĉi tiun adreson",
   "sandstorm-sync-grant": "Permesi al ĉi tiu grajno atingi ĉi tiun spurilon",

@@ -1334,6 +1334,8 @@
   "disable-webhook": "Deactivar quest webhook",
   "webhook-mattermost-dm": "Trametter era in messadi direct da Mattermost als commembers ed a las persunas incumbensadas da la carta",
   "webhook-mattermost-dm-desc": "Mintga messadi davart ina carta va era a mintga commember e persuna incumbensada sco messadi direct da Mattermost, a lur num d'utilisader da WeKan. En Mattermost na dastga il webhook entrant betg esser bloccà sin ses chanal.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Permetter a quest grain d'acceder a questa adressa",
   "sandstorm-webhook-granted": "Quest grain dastga acceder a questa adressa",
   "sandstorm-sync-grant": "Permetter a quest grain d'acceder a quest sistem da persecuziun",

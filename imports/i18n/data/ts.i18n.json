@@ -1334,6 +1334,8 @@
   "disable-webhook": "pfala mhaka mhaka",
   "webhook-mattermost-dm": "Rhumela na rungula ro kongoma ra Mattermost eka swirho na lava nyikiweke ntirho wa khadi",
   "webhook-mattermost-dm-desc": "Rungula rin'wana na rin'wana malunghana na khadi ri ya na le ka xirho xin'wana na xin'wana na la nyikiweke ntirho wa rona tanihi rungula ro kongoma ra Mattermost, eka vito ra vona ro tirhisa ra WeKan. Eka Mattermost, webhook leyi nghenaka a yi fanelanga ku lotleriwa eka chanele ya yona.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Pfumelela grain leyi ku fika eka adirese leyi",
   "sandstorm-webhook-granted": "Grain leyi yi nga fika eka adirese leyi",
   "sandstorm-sync-grant": "Pfumelela grain leyi ku fika eka xilandzeleri lexi",

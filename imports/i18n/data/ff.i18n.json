@@ -1334,6 +1334,8 @@
   "disable-webhook": "Dartin webhook oo",
   "webhook-mattermost-dm": "Neldu kadi mesaas tigi Mattermost e terɗe e halfinaaɓe kartal ngal",
   "webhook-mattermost-dm-desc": "Mesaas kala baɗɗo e kartal yahay kadi e mo kala e terɗe mayre e halfinaaɓe mayre no mesaas tigi Mattermost, e innde kuutorɗo WeKan maɓɓe. Nder Mattermost, webhook naatoowo ngoo fotaani uddeede e kanaal mum.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Yamir grain ngal yottaade ñiiɓirde nde",
   "sandstorm-webhook-granted": "Grain ngal no waawi yottaade ñiiɓirde nde",
   "sandstorm-sync-grant": "Yamir grain ngal yottaade njoftaari ndi",

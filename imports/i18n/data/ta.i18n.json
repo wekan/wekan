@@ -1334,6 +1334,8 @@
   "disable-webhook": "இந்த Webhook ஐ முடக்கு",
   "webhook-mattermost-dm": "அட்டையின் உறுப்பினர்களுக்கும் பொறுப்பாளர்களுக்கும் Mattermost நேரடிச் செய்தியையும் அனுப்பு",
   "webhook-mattermost-dm-desc": "ஓர் அட்டையைப் பற்றிய ஒவ்வொரு செய்தியும் அதன் ஒவ்வொரு உறுப்பினருக்கும் பொறுப்பாளருக்கும் Mattermost நேரடிச் செய்தியாக, அவர்களின் WeKan பயனர்பெயருக்கு அனுப்பப்படும். Mattermost இல், உள்வரும் webhook அதன் அலைவரிசையுடன் பூட்டப்பட்டிருக்கக் கூடாது.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "இந்த grain இந்த முகவரியை அடைய அனுமதி",
   "sandstorm-webhook-granted": "இந்த grain இந்த முகவரியை அடையலாம்",
   "sandstorm-sync-grant": "இந்த grain இந்த கண்காணிப்பு அமைப்பை அடைய அனுமதி",

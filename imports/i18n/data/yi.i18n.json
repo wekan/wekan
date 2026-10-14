@@ -1334,6 +1334,8 @@
   "disable-webhook": "דיסייבאַל דעם וועבהאָאָק",
   "webhook-mattermost-dm": "שיקט אויך אַ דירעקטע Mattermost־מעלדונג צו די מיטגלידער און באַשטימטע פֿון דער קאָרט",
   "webhook-mattermost-dm-desc": "יעדע מעלדונג וועגן אַ קאָרט גייט אויך צו יעדן פֿון אירע מיטגלידער און באַשטימטע ווי אַ דירעקטע Mattermost־מעלדונג, צו זייער WeKan באַניצער־נאָמען. אין Mattermost טאָר דער אַרײַנקומענדיקער webhook נישט זײַן פֿאַרשלאָסן צו זײַן קאַנאַל.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "דערלויבן דעם grain צו דערגרייכן דעם אַדרעס",
   "sandstorm-webhook-granted": "דער grain מעג דערגרייכן דעם אַדרעס",
   "sandstorm-sync-grant": "דערלויבן דעם grain צו דערגרייכן דעם טרעקער",

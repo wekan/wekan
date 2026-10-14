@@ -1334,6 +1334,8 @@
   "disable-webhook": "Wyłōncz tego webhooka",
   "webhook-mattermost-dm": "Posyłej tyż wiadōmość bezpostrzednio we Mattermost do czōnkōw i ôdpowiedzialnych za karta",
   "webhook-mattermost-dm-desc": "Kŏżdo wiadōmość ô karcie idzie tyż do kŏżdego jeji czōnka i ôdpowiedzialnego jako bezpostrzednio wiadōmość we Mattermost, na jejich miano używŏcza we WeKan. We Mattermost przichodzōncy webhook niy może być zawarty na swojim kanale.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Zezwōl tymu grainowi łōnczyć sie z tym adresym",
   "sandstorm-webhook-granted": "Tyn grain może łōnczyć sie z tym adresym",
   "sandstorm-sync-grant": "Zezwōl tymu grainowi łōnczyć sie z tym trakerym",

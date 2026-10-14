@@ -1334,6 +1334,8 @@
   "disable-webhook": "Tutón webhook znjemóžnić",
   "webhook-mattermost-dm": "Tež direktnu powěsć Mattermost čłonam a přirjadowanym wosobam karty pósłać",
   "webhook-mattermost-dm-desc": "Kóžda powěsć wo karće so tež kóždemu z jeje čłonow a přirjadowanych wosobow jako direktna powěsć Mattermost pósćele, na jich wužiwarske mjeno we WeKanje. W Mattermost njesmě přichadźacy webhook na swój kanal zawrjeny być.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Tutomu grainej přistup na tutu adresu dowolić",
   "sandstorm-webhook-granted": "Tutón grain smě na tutu adresu přistupować",
   "sandstorm-sync-grant": "Tutomu grainej přistup k tutomu trackerej dowolić",

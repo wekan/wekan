@@ -1334,6 +1334,8 @@
   "disable-webhook": "हो वेबहूक बंद करात",
   "webhook-mattermost-dm": "कार्डाच्या सदस्यांक आनी जापसालदारांक Mattermost थेट संदेशय धाडात",
   "webhook-mattermost-dm-desc": "कार्डा विशीं दर एक संदेश ताच्या दर एका सदस्याक आनी जापसालदाराक लेगीत Mattermost थेट संदेश म्हूण, तांच्या WeKan वापरपी नांवाक वता. Mattermost त, भितर येवपी वेबहूक आपल्या चॅनेलाक कुलूप घालून दवरूंक जायना.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "ह्या grain क ह्या पत्त्यार पावपाक परवानगी दियात",
   "sandstorm-webhook-granted": "हो grain ह्या पत्त्यार पावूं येता",
   "sandstorm-sync-grant": "ह्या grain क ह्या ट्रॅकराक पावपाक परवानगी दियात",

@@ -493,6 +493,16 @@ template(name="outgoingWebhooksPopup")
       a.flex.js-toggle-webhook-enabled
         .materialCheckBox(class="{{#unless enabled}}is-checked{{/unless}}")
         span {{_ 'disable-webhook'}}
+      //- #2026 / #1377: which activities this webhook is sent.
+      .webhook-activity-picker
+        span.quiet {{_ 'webhook-activities'}}
+        a.flex.js-toggle-webhook-activity-all
+          .materialCheckBox(class="{{#if webhookPicker.all}}is-checked{{/if}}")
+          span {{_ 'webhook-activities-all'}}
+        each webhookActivityGroups
+          a.flex.js-toggle-webhook-activity-group(data-group=key)
+            .materialCheckBox(class="{{#if checked}}is-checked{{/if}}")
+            span {{_ labelKey}}
       //- #1297: also each card member and assignee, as a Mattermost direct message.
       a.flex.js-toggle-webhook-mattermost-dm(title="{{_ 'webhook-mattermost-dm-desc'}}")
         .materialCheckBox(class="{{#if mattermostDirectMessages}}is-checked{{/if}}")

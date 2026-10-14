@@ -1334,6 +1334,8 @@
   "disable-webhook": "Analluoga'r Llyfr Gwe Hwn",
   "webhook-mattermost-dm": "Anfon neges uniongyrchol Mattermost hefyd at aelodau ac aseinwyr y cerdyn",
   "webhook-mattermost-dm-desc": "Mae pob neges am gerdyn hefyd yn mynd at bob un o'i aelodau a'i aseinwyr fel neges uniongyrchol Mattermost, i'w henw defnyddiwr WeKan. Yn Mattermost, rhaid i'r bachyn gwe sy'n dod i mewn beidio â bod wedi'i gloi i'w sianel.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Caniatáu i'r grain hwn gyrraedd y cyfeiriad hwn",
   "sandstorm-webhook-granted": "Caiff y grain hwn gyrraedd y cyfeiriad hwn",
   "sandstorm-sync-grant": "Caniatáu i'r grain hwn gyrraedd y system olrhain hon",

@@ -1334,6 +1334,8 @@
   "disable-webhook": "Váldde dán webhooka eret",
   "webhook-mattermost-dm": "Sádde maiddái njuolggodieđu Mattermostas goartta lahtuide ja ovddasvástideddjiide",
   "webhook-mattermost-dm-desc": "Juohke dieđáhus goartta birra manná maiddái juohke lahttui ja ovddasvástideaddjái Mattermost-njuolggodiehtun, sin WeKan-geavaheaddjinamma ala. Mattermostas boahtti webhook ii galgga leat lohkkaduvvon iežas kanálii.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Divtte dán grain olahit dán čujuhussii",
   "sandstorm-webhook-granted": "Dát grain oažžu olahit dán čujuhussii",
   "sandstorm-sync-grant": "Divtte dán grain olahit dán čuovvunsystemii",

@@ -1334,6 +1334,8 @@
   "disable-webhook": "Desativé chësc webhook",
   "webhook-mattermost-dm": "Mané ence n messaje diret de Mattermost ai mëmbri y ai respunsabli dla ciarta",
   "webhook-mattermost-dm-desc": "Vigni messaje sun na ciarta vá ence a vigni mëmber y respunsabl de chëra sciöche messaje diret de Mattermost, a so inom utënt de WeKan. Te Mattermost ne mëss le webhook en entrada nia ester blocé sun so canal.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Lascé che chest grain ruve a chest indirizo",
   "sandstorm-webhook-granted": "Chest grain possa ruvé a chest indirizo",
   "sandstorm-sync-grant": "Lascé che chest grain ruve a chest tracker",

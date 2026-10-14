@@ -1334,6 +1334,8 @@
   "disable-webhook": "webhookvam yIchu'Ha'",
   "webhook-mattermost-dm": "Mattermost QIn qell je yIngeH 'echletHom chuDpu'vaD Qu' HevwI'pu'vaD je",
   "webhook-mattermost-dm-desc": "'echletHom QIn Hoch ngeHlu'DI', 'echletHom chuDpu' Qu' HevwI'pu' je Hoch ngeHlu' je Mattermost QIn qell rur, WeKan lo'wI' pongchajvaD. Mattermost Daq, webhook ghoSbogh ghochDaq ngaQmoHlu'be'nIS.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Daq vam SIchmeH grain vam 'e' chaw'",
   "sandstorm-webhook-granted": "Daq vam SIchlaH grain vam",
   "sandstorm-sync-grant": "tracker vam SIchmeH grain vam 'e' chaw'",

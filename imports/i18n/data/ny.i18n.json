@@ -1334,6 +1334,8 @@
   "disable-webhook": "Zimitsani webhook iyi",
   "webhook-mattermost-dm": "Tumizaninso uthenga wachindunji wa Mattermost kwa mamembala ndi operekedwa ntchito a khadi",
   "webhook-mattermost-dm-desc": "Uthenga uliwonse wokhudza khadi umapitanso kwa membala aliyense ndi woperekedwa ntchito aliyense ngati uthenga wachindunji wa Mattermost, ku dzina lawo logwiritsa ntchito la WeKan. Mu Mattermost, webhook yolowera isatsekeredwe ku njira yake.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "Lolani grain iyi kufika pa adilesi iyi",
   "sandstorm-webhook-granted": "Grain iyi ikhoza kufika pa adilesi iyi",
   "sandstorm-sync-grant": "Lolani grain iyi kufika pa chowunikira ichi",

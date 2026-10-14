@@ -1334,6 +1334,8 @@
   "disable-webhook": "بۇ Webhook نى چەكلەڭ",
   "webhook-mattermost-dm": "كارتا ئەزالىرى ۋە مەسئۇللىرىغا Mattermost بىۋاسىتە ئۇچۇرىمۇ ئەۋەتىلسۇن",
   "webhook-mattermost-dm-desc": "كارتا ھەققىدىكى ھەر بىر ئۇچۇر ئۇنىڭ ھەر بىر ئەزاسى ۋە مەسئۇلىغا WeKan ئىشلەتكۈچى ئىسمى بويىچە Mattermost بىۋاسىتە ئۇچۇرى سۈپىتىدە ئەۋەتىلىدۇ. Mattermost دا كىرىدىغان webhook ئۆز قانىلىغا قۇلۇپلانماسلىقى كېرەك.",
+  "webhook-activities": "Send this webhook:",
+  "webhook-activities-all": "Every activity",
   "sandstorm-webhook-grant": "بۇ grain نىڭ بۇ ئادرېسقا يېتىشىگە يول قويۇش",
   "sandstorm-webhook-granted": "بۇ grain بۇ ئادرېسقا يېتەلەيدۇ",
   "sandstorm-sync-grant": "بۇ grain نىڭ بۇ ئىز قوغلىغۇچقا يېتىشىگە يول قويۇش",
