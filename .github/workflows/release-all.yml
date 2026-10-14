@@ -1345,7 +1345,7 @@ jobs:
   # whose bundle failed is skipped there, not here.
   single-file:
     name: Single-file WeKan
-    needs: [prepare, release, build-amd64, build-arm64, build-win64, build-win-arm64, build-win32, build-mac-arm64, build-mac-x64, build-extra-arches, bsd]
+    needs: [prepare, release, build-amd64, build-arm64, build-win64, build-win-arm64, build-win32, build-mac-arm64, build-mac-x64, build-extra-arches, bsd, android]
     if: ${{ !cancelled() && needs.release.result == 'success' }}
     uses: ./.github/workflows/single-file.yml
     permissions:

@@ -53,3 +53,32 @@ This way, you have:
 - Big TV display
 - Full size keyboard and mouse
 - Full featured Firefox at Ubuntu Desktop using Wekan
+## WeKan bundles for Termux
+
+Every release that has wekan/node-patches' Android Node.js also has, for each
+Android CPU, `wekan-<version>-android-arm64.zip`, `-android-x64.zip`,
+`-android-armv7.zip` and `-android-x86.zip`: the ordinary bundle, with
+FerretDB, rebuilt for Termux. In Termux:
+
+```
+pkg install libvips unzip
+unzip wekan-<version>-android-arm64.zip
+cd bundle
+./start-wekan.sh
+```
+
+`libvips` is what sharp uses for thumbnails; Node.js itself carries its C++
+library and needs only Android's own libc.
+
+How it is made (`.github/workflows/android.yml`,
+`releases/android/build-bundle.sh`): the release's Linux bundle of that CPU is
+rebuilt inside Termux's own image - Android's libc and Android clang, the ARM
+ones on ARM runners - with `node-android-<cpu>` from wekan/node-patches,
+checked against its SHA256. npm reinstalls the server's packages run by that
+Node.js, so every native addon is built for it, and sharp from source against
+Termux's libvips. Each addon's architecture is checked, sharp must load, and
+the bundle must start and answer HTTP 200 before it is published. FerretDB
+and the MongoDB Database Tools are static Go programs and run as they are. A
+CPU whose Android Node.js is not published yet is skipped, and builds by
+itself the release it appears. `tests/androidBundles.test.cjs` covers the
+build and the workflow.
