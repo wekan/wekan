@@ -28,6 +28,12 @@ test(`#5171 member scope: layout, grouping, daily schedule and webhook identity 
   await page.evaluate(language => Meteor.callAsync('setLanguage', language), language === 'ja-HI' ? 'ja-Hira' : language === 'ca@valencia' ? 'ca-valencia' : language === 'zh_SG' ? 'zh-SG' : language);
   const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
   await openPopup(page, 'notificationSettings', { scope: 'member' });
+  if (language === 'ht') {
+    const precedence = page.getByText(strings['notification-settings-popup-description'], { exact: true });
+    await expect(precedence).toBeVisible();
+    await expect(precedence).toContainText('paramèt tablo a ki ranplase li');
+    await expect(precedence).not.toContainText('Anilasyon');
+  }
   const email = section(page, 'member', 'email');
   await expand(email);
   await expect(email.locator('label:has(select[data-key="layout"])')).toContainText(strings['notification-delivery-layout']);

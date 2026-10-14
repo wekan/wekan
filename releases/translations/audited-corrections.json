@@ -208710,5 +208710,103 @@
     "before": "Aktivite Imèl Tèks",
     "after": "Tèks imèl notifikasyon aktivite a",
     "reason": "Correct Haitian settings grammar and false meanings: SMTP host, clickable links, visibility descriptions, starred swimlanes and email templates."
+  },
+  {
+    "locale": "ht",
+    "key": "Platform",
+    "before": "Platform",
+    "after": "Platfòm",
+    "reason": "Correct Haitian administration and notification semantics: hostnames, administrator status, setting overrides and assignee terminology."
+  },
+  {
+    "locale": "ht",
+    "key": "org-domains-description",
+    "before": "Non lame kote Òganizasyon sa a sèvi, separe ak vigil — pa egzanp a.example.com, kanban.example.org. Yon demann pou youn ladan yo se yon demann Òganizasyon sa a, epi mak ki anba a ranplase mak enstans lan pou li. Sa anvigè sèlman lè sèvè a demare avèk MULTITENANCY=true. Kite vid lè Òganizasyon sa a pa yon lokatè.",
+    "after": "Non sèvè kote Òganizasyon sa a disponib yo, separe ak vigil — pa egzanp a.example.com, kanban.example.org. Yon demann pou youn ladan yo se yon demann Òganizasyon sa a, epi idantite vizyèl ki anba a ranplase idantite vizyèl enstans lan pou li. Sa anvigè sèlman lè sèvè a demare avèk MULTITENANCY=true. Kite vid lè Òganizasyon sa a pa yon lokatè.",
+    "reason": "Correct Haitian administration and notification semantics: hostnames, administrator status, setting overrides and assignee terminology."
+  },
+  {
+    "locale": "ht",
+    "key": "org-admins-description",
+    "before": "Manm Òganizasyon sa a ki ka administre li: moun li yo ak sovgad li yo, epi anyen ankò. Yo pa janm ka bay drapo Administratè pou tout sit la, epi yo pa janm ka jere yon administratè sit.",
+    "after": "Manm Òganizasyon sa a ki ka administre li: moun li yo ak sovgad li yo, epi anyen ankò. Yo pa janm ka bay estati Administratè pou tout sit la, epi yo pa janm ka jere yon administratè sit.",
+    "reason": "Correct Haitian administration and notification semantics: hostnames, administrator status, setting overrides and assignee terminology."
+  },
+  {
+    "locale": "ht",
+    "key": "lock-list-width-resize",
+    "before": "Fèmen/debloke chanjman lajè lis ant lis yo",
+    "after": "Bloke/debloke chanjman lajè lis ant lis yo",
+    "reason": "Correct Haitian administration and notification semantics: hostnames, administrator status, setting overrides and assignee terminology."
+  },
+  {
+    "locale": "ht",
+    "key": "lock-swimlane-height-resize",
+    "before": "Fèmen/debloke chanjman wotè swimlane",
+    "after": "Bloke/debloke chanjman wotè kouloir",
+    "reason": "Correct Haitian administration and notification semantics: hostnames, administrator status, setting overrides and assignee terminology."
+  },
+  {
+    "locale": "ht",
+    "key": "toggle-header-icons-collapsed",
+    "before": "Fèmen/louvri ikòn antèt",
+    "after": "Redui/elaji ikòn antèt yo (soti nan bouton pou chanje ant mobil ak òdinatè rive nan notifikasyon yo)",
+    "reason": "Correct Haitian administration and notification semantics: hostnames, administrator status, setting overrides and assignee terminology."
+  },
+  {
+    "locale": "ht",
+    "key": "assignee",
+    "before": "Responsab",
+    "after": "Moun ki asiyen",
+    "reason": "Correct Haitian administration and notification semantics: hostnames, administrator status, setting overrides and assignee terminology."
+  },
+  {
+    "locale": "ht",
+    "key": "assignees",
+    "before": "Responsab yo",
+    "after": "Moun ki asiyen yo",
+    "reason": "Correct Haitian administration and notification semantics: hostnames, administrator status, setting overrides and assignee terminology."
+  },
+  {
+    "locale": "ht",
+    "key": "no-assignee",
+    "before": "Pa gen moun ki responsab",
+    "after": "Pa gen moun ki asiyen",
+    "reason": "Correct Haitian administration and notification semantics: hostnames, administrator status, setting overrides and assignee terminology."
+  },
+  {
+    "locale": "ht",
+    "key": "cardAssigneesPopup-title",
+    "before": "Responsab",
+    "after": "Moun ki asiyen",
+    "reason": "Correct Haitian administration and notification semantics: hostnames, administrator status, setting overrides and assignee terminology."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-settings-popup-description",
+    "before": "Kontwole ki notifikasyon ou resevwa. Lòd priyorite: Paramèt Panèl Administratè, epi Anilasyon Tablo, epi anfen pwòp Anilasyon Paramèt Manm pa ou.",
+    "after": "Kontwole ki notifikasyon ou resevwa. Lòd priyorite: paramèt Panno administrasyon an, apre sa paramèt tablo a ki ranplase li, epi finalman pwòp paramèt manm ou ki ranplase yo.",
+    "reason": "Correct Haitian administration and notification semantics: hostnames, administrator status, setting overrides and assignee terminology."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-activity-assignees",
+    "before": "Responsab yo ajoute oswa retire",
+    "after": "Moun ki asiyen yo ajoute oswa retire",
+    "reason": "Correct Haitian administration and notification semantics: hostnames, administrator status, setting overrides and assignee terminology."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-activity-created",
+    "before": "Kat, lis ak koulwa ki kreye",
+    "after": "Kat, lis ak kouloir ki kreye",
+    "reason": "Correct Haitian administration and notification semantics: hostnames, administrator status, setting overrides and assignee terminology."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-settings-tray",
+    "before": "Twè notifikasyon",
+    "after": "Panno notifikasyon",
+    "reason": "Correct Haitian administration and notification semantics: hostnames, administrator status, setting overrides and assignee terminology."
   }
 ]

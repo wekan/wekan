@@ -426,3 +426,18 @@ for (const part of ['subject', 'body']) {
 }
 assert.match(creole['starred-swimlanes'], /Kouloir/);
 assert.doesNotMatch(creole['starred-swimlanes'], /naje/);
+
+const reviewedAdminPrecedenceKeys = ["Platform", "org-domains-description", "org-admins-description", "lock-list-width-resize", "lock-swimlane-height-resize", "toggle-header-icons-collapsed", "assignee", "assignees", "no-assignee", "cardAssigneesPopup-title", "notification-settings-popup-description", "notification-activity-assignees", "notification-activity-created", "notification-settings-tray"];
+for (const key of reviewedAdminPrecedenceKeys) {
+  assert.notEqual(creole[key], english[key], key);
+  assert.deepEqual(tokens(creole[key]), tokens(english[key]), key);
+}
+assert.equal(creole.Platform, 'Platfòm');
+assert.match(creole['org-domains-description'], /Non sèvè.*a\.example\.com.*kanban\.example\.org.*MULTITENANCY=true.*Kite vid/);
+assert.doesNotMatch(creole['org-domains-description'], /lame/i);
+assert.match(creole['org-admins-description'], /pa janm.*estati Administratè.*pa janm.*administratè sit/);
+assert.doesNotMatch(creole['org-admins-description'], /drapo/);
+assert.match(creole['notification-settings-popup-description'], /Panno administrasyon.*paramèt tablo.*ranplase.*paramèt manm.*ranplase/);
+assert.doesNotMatch(creole['notification-settings-popup-description'], /Anilasyon/);
+assert.equal(creole['cardAssigneesPopup-title'], creole['cardAssigneePopup-title']);
+assert.match(creole['toggle-header-icons-collapsed'], /mobil ak òdinatè.*notifikasyon/);
