@@ -133,6 +133,10 @@ template(name="addListInline")
               span.quiet
                 | {{_ 'or'}}
                 a.js-list-template {{_ 'template'}}
+          //- #2809: a live mirror of a list on another board.
+          span.quiet
+            |  {{_ 'or'}}
+            a.js-link-list {{_ 'link-list-from-board'}}
 
 //- WHERE A SWIMLANE GOES: its title, the board, which swimlane to go above or
   below, and Done. Move swimlane and Copy swimlane asked it with the same form -
@@ -173,3 +177,19 @@ template(name="copySwimlanePopup")
   if currentUser
     unless currentUser.isWorker
       +swimlaneDestinationPicker(dialog=dialog titleId="copy-swimlane-title")
+
+//- #2809: link a list from another board - a live mirror of it.
+template(name="linkListPopup")
+  form.js-link-list-form
+    label
+      | {{_ 'link-list-board'}}
+      select.js-link-list-board
+        option(value="") —
+        each linkableBoards
+          option(value=_id) {{title}}
+    label
+      | {{_ 'link-list-list'}}
+      select.js-link-list-list(disabled=noSourceLists)
+        each sourceLists
+          option(value=_id) {{title}}
+    button.primary.js-link-list-create(type="submit" disabled=noSourceLists) {{_ 'link-list-create'}}

@@ -372,6 +372,8 @@ import '/server/allBoardsFacets';
 import '/server/activityFeed';
 // #2026 / #1377: browser push notifications.
 import '/server/webPush';
+// #2809: linked whole lists.
+import '/server/linkedLists';
 
 // ----------------------------------------------------------------------------
 // 14. Server — routes (REST API, file serving)

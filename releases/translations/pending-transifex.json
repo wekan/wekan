@@ -2411,6 +2411,26 @@
     {
       "key": "web-push-failed",
       "since": "2026-10-14"
+    },
+    {
+      "key": "link-list-from-board",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "link-list-create",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "linkListPopup-title",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "link-list-board",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "link-list-list",
+      "since": "2026-10-14"
     }
   ]
 }

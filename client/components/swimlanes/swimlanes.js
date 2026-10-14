@@ -1023,6 +1023,8 @@ Template.addListInline.events({
   },
   // Restore the "or template" option: create the list from a template.
   'click .js-list-template': Popup.open('searchElement'),
+  // #2809
+  'click .js-link-list': Popup.open('linkList'),
   'click .js-close-add-list-inline'() {
     Session.set('wekan-add-list-after', null);
     Session.set('wekan-add-list-swimlane', null);
@@ -1301,5 +1303,41 @@ Template.swimlaneDestinationPicker.helpers({
   },
   isSelectedSwimlane(swimlaneId) {
     return Template.instance().dialog.selectedSwimlaneId.get() === swimlaneId;
+  },
+});
+
+// #2809: Template.currentData() of the popup is the board the list is added to.
+Template.linkListPopup.onCreated(function () {
+  this.sourceLists = new ReactiveVar([]);
+});
+
+Template.linkListPopup.helpers({
+  linkableBoards() {
+    const current = Utils.getCurrentBoard();
+    return ReactiveCache.getBoards({ archived: false, type: 'board', _id: { $ne: current && current._id } }, { sort: { title: 1 } });
+  },
+  sourceLists() { return Template.instance().sourceLists.get(); },
+  noSourceLists() { return Template.instance().sourceLists.get().length === 0; },
+});
+
+Template.linkListPopup.events({
+  'change .js-link-list-board'(event, tpl) {
+    const boardId = event.currentTarget.value;
+    tpl.sourceLists.set([]);
+    if (!boardId) return;
+    Meteor.call('linkableLists', boardId, (error, lists) => { if (!error) tpl.sourceLists.set(lists || []); });
+  },
+  async 'click .js-link-list-create, submit .js-link-list-form'(event, tpl) {
+    event.preventDefault();
+    const board = Utils.getCurrentBoard();
+    const sourceBoardId = tpl.$('.js-link-list-board').val();
+    const sourceListId = tpl.$('.js-link-list-list').val();
+    if (!board || !sourceBoardId || !sourceListId) return;
+    try {
+      await Meteor.callAsync('createLinkedList', { boardId: board._id, sourceBoardId, sourceListId });
+      Popup.back();
+    } catch (error) {
+      alert(error?.reason || error?.message || 'Could not link the list.');
+    }
   },
 });

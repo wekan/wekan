@@ -316,6 +316,14 @@ Template.listBody.onCreated(function () {
           if (assignees.length) {
             cardFields.assignees = assignees;
           }
+          // #2809: in a linked list the card goes to the source list, by the
+          // source board's rules.
+          if (data.linkedListId) {
+            await Meteor.callAsync('addCardToLinkedList', data._id, title);
+            titleIndex += 1;
+            formComponent.saveTitleDraft(titles.slice(titleIndex).join('\n'));
+            continue;
+          }
           const _id = await Cards.insertAsync(cardFields);
           titleIndex += 1;
           formComponent.saveTitleDraft(titles.slice(titleIndex).join('\n'));
@@ -589,6 +597,16 @@ Template.listBody.helpers({
     // #6443: in the first swimlane also surface orphaned cards (a swimlaneId
     // pointing at a deleted swimlane) so they are not invisible in swimlane view.
     const list = Template.currentData();
+    // #2809: a linked whole list shows its source list's cards
+    // (server/linkedLists.js publishes them to those who may see both boards).
+    const { isLinkedList, linkedListCardsSelector } = require('/models/lib/linkedList');
+    if (isLinkedList(list)) {
+      tpl.subscribe('linkedListCards', list._id);
+      const board = ReactiveCache.getBoard(list.boardId);
+      const first = board && board.swimlanes && board.swimlanes()[0];
+      return ReactiveCache.getCards(Filter.mongoSelector(linkedListCardsSelector(list,
+        { swimlaneId, firstSwimlaneId: first && first._id })), { sort: sortWithIdTiebreaker({ sort: 1 }), limit });
+    }
     const selector = listCardsSelector(
       list._id,
       swimlaneId,

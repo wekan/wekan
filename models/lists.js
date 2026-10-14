@@ -276,6 +276,19 @@ Lists.attachSchema(
       type: String,
       defaultValue: 'list',
     },
+    linkedBoardId: {
+      /**
+       * #2809: a linked whole list mirrors a list of this other board
+       * (models/lib/linkedList.js).
+       */
+      type: String,
+      optional: true,
+    },
+    linkedListId: {
+      /** #2809: the mirrored list. */
+      type: String,
+      optional: true,
+    },
     width: {
       /**
        * The width of the list in pixels (100-1000).
