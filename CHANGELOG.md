@@ -4041,6 +4041,19 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/50955434aa">Clarify Haitian card actions and bounce thresholds</a>. Thanks to xet7.</summary>
+
+- Correct four entries: identify the card used to create a board, avoid implying
+  a fixed destination when linking, explain version lookup failure and describe
+  configured bounce thresholds.
+- Translation suites and 21 human-preference checks pass. Existing Chinese
+  values remain unchanged. Card-action and bounce-help browser cases pass syntax
+  and discovery; runtime execution remains pending.
+- All-language semantic review and remaining translations continue.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

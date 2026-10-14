@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Haitian Creole card actions and bounce thresholds — 2026-10-14
+
+Commit `50955434aa` corrects four entries. Board creation identifies its source
+card, linking no longer implies a fixed board, version-check failure explains
+what could not be checked, and bounce help describes the configured threshold.
+
+The Haitian catalog and guarded-correction suites pass with 29,910 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. Two browser cases inspect the card
+actions and bounce help. Syntax and discovery pass; runtime remains pending.
+
+A refreshed inventory counts 30,222 untranslated strings in 90 languages,
+excluding 379 keys marked pending Transifex. Those pending keys also remain
+within the requested translation scope. Catalog counts do not establish
+semantic correctness. Haitian and all-language review remain unfinished.
+
 ## Haitian Creole import and synchronization guidance — 2026-10-14
 
 Commit `4063ccbbc8` corrects four entries. Jira help restores pagination,
