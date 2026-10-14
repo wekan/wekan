@@ -426,8 +426,6 @@ with next and previous),
 [#2110](https://github.com/wekan/wekan/issues/2110) (minicard avatars in the order people were added, a name tooltip,
 and a lasting colour per person),
 [#2040](https://github.com/wekan/wekan/issues/2040) (a board-defined label order that a list can be sorted by),
-[#2015](https://github.com/wekan/wekan/issues/2015) (a QR code of the card link in the card menu, drawn in the
-browser),
 [#1953](https://github.com/wekan/wekan/issues/1953) (a Board Settings picker for the swimlane new subtasks go to),
 [#1931](https://github.com/wekan/wekan/issues/1931) (an existing card from another board as a subtask, for users who
 may write both boards),
@@ -580,15 +578,131 @@ there.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** a new **Version Control** board view shows a board as a
+**GitHub** or **Gitea** issue tracker, with milestones, labels, files and the
+board history with undo; imported issues bring their **files**, and list sync
+can keep **comments, labels, state and files** up to date. Any board view can
+be a public board's **read-only public view**. Cards get a **QR code** of
+their link, and WeKan has **Android** bundles for Termux.
+
+This release adds the following new features:
+
+**Board views** - a repository's issue tracker as a view, and which views the
+public sees.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/326d9bbf61">Version Control: the board as a GitHub or Gitea issue tracker</a>. Thanks to xet7.</summary>
+
+Board → View → **Version Control**, in the board's own theme. A card is an
+issue: open, or closed when archived, in a list named *Closed*, *Done*,
+*Resolved*, *Merged* or *Wontfix*, or closed upstream. The issue number is
+the upstream one of an imported issue, else the card number. The board's
+labels are labels, and labels with a due date and the importers'
+`milestone:` labels are milestones, with progress bars. Comments are the
+conversation, attachments the files. The search box takes GitHub's words:
+`is:open`, `label:`, `-label:`, `milestone:`, `author:`, `assignee:@me`,
+`no:label` and `sort:`. **New issue**, **Close** and **Reopen** write through
+the ordinary collections, so the **History** tab (the board's history table)
+shows them and **Restore** undoes them. A synced issue is closed in its
+tracker. **Import** opens the GitHub, GitLab, Gitea and Forgejo importers, and
+each synced list has a **Sync now** button. Visitors see it read-only. Tested
+by `tests/versionControlView.test.cjs`. See
+[Version Control view](docs/Features/Board/Version-Control-View.md).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/326d9bbf61">A public board's public views are for the public; its members keep theirs</a>. Thanks to xet7.</summary>
+
+Board Settings → Board View's *Show on* and *Default on Public Board* now
+apply to the people looking who are not members: visitors who are not logged
+in, and logged-in users who are not on the board. The board's members get the
+*Private* columns. So a public board can open read-only in Version Control,
+Email, Chat or any other view for the world, and list only the views chosen
+for it, while its members keep every view. Before, a public board's members
+had the public menu too. `boardViewAudience` in
+`models/lib/boardViewSettings.js`; `tests/boardViewSettings.test.cjs` covers
+visitors, non-members, former members and members.
+
+</details>
+
+**Import and sync** - what an issue tracker's issues bring with them.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/326d9bbf61">GitHub, GitLab, Gitea and Forgejo issues bring their files</a>. Thanks to xet7.</summary>
+
+The files an issue or its comments link or carry become card attachments in
+Admin Panel → Attachments → Default Storage. These are GitHub
+`user-attachments` and `user-images` links, GitLab `/uploads/` links, and
+Gitea and Forgejo assets and `/attachments/<uuid>` links, at most 50 per
+issue. Each one is downloaded through the import's SSRF guard, which checks
+every redirect hop, and the upload checks its type and size. One that cannot
+be fetched is on the import's loss report. Ordinary links are not files.
+`models/lib/issueAttachments.js`; `tests/issueAttachments.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/326d9bbf61">List sync can bring each issue's comments, labels, state and files</a>. Thanks to xet7.</summary>
+
+A new Sync option for GitHub, GitLab, Gitea and Forgejo, off by default.
+Comments come from one paged repository-wide list (GitHub and Gitea), or
+from each issue's notes (GitLab). They are keyed by the tracker's comment id,
+and an edit upstream updates them. A label sync added and the issue lost is
+taken off, and labels added in WeKan stay. Each file is downloaded once. It
+runs after a successful sync as a step of its own, so a failure is shown and
+retried and never undoes the title and description sync. Gitea issues are
+fetched with `type=issues`. A rate-limited answer is waited out once when it
+frees up within a minute; otherwise the run ends with the time to try again.
+`tests/listSyncIssueDetails.test.cjs`.
+
+</details>
+
+**Cards** - opening a card on a phone.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/326d9bbf61">A QR code of the card's link in the card menu</a>. Thanks to xet7.</summary>
+
+Card menu → **QR code** shows the card's link as a QR code, to open the card
+on a phone or tablet. It is drawn in the browser by WeKan's own encoder
+(`models/lib/qrCode.js`: byte mode, level M, versions 1–10), so the link is
+sent to no QR service. `tests/qrCode.test.cjs` checks the encoder module for
+module against qrcode-svg, which Meteor's accounts-2fa ships, and checks that
+no outside QR service is used anywhere.
+
+</details>
+
+**Platforms** - where WeKan runs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b8d9cb2565">Android bundles for Termux, for all four Android CPUs</a>. Thanks to xet7.</summary>
+
+Every release that has wekan/node-patches' Android Node.js also has
+`wekan-<version>-android-arm64.zip`, `-x64`, `-armv7` and `-x86`, with
+FerretDB. Each is the release's Linux bundle rebuilt inside Termux's own
+image with that Node.js, checked against its SHA256: every native addon is
+built for it, and sharp against Termux's libvips. Before it is published,
+each addon's architecture is checked, sharp must load, and the bundle must
+start and answer HTTP 200. A CPU whose Android Node.js is not published yet
+is skipped and builds by itself once it is. `tests/androidBundles.test.cjs`
+covers the build and the workflow. See [Android](docs/Platforms/FOSS/OS/Android.md).
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.41 2026-10-14 WeKan ® release
 
 **In short:** **custom board roles**, **per-list permissions** and boards
 **every signed-in user may edit**; board **keys** (`DEV-7`) and **shared
-labels**; **HTTPS** in WeKan itself; **Bun single files**, **musl** bundles
-for Alpine and **Android** bundles for Termux; on **Sandstorm**, webhooks,
-list sync and the REST API work. Twenty-three locale files that held
-**another language** or machine-fill prefixes are rewritten in their own,
-and fourteen **GitHub CodeQL** alerts are fixed.
+labels**; WeKan serves **HTTPS** itself; **Bun single files** and **musl
+bundles and AppImages** for Alpine; on **Sandstorm**, webhooks and list sync
+leave through the Powerbox and the REST API takes a grain API key. Seventeen
+locale files that held **another
+language**, and six full of machine-fill prefixes, are rewritten in their
+own, and fourteen **GitHub CodeQL** alerts are fixed.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
@@ -809,21 +923,6 @@ compiled against musl. Before it is published, each addon's architecture is
 checked, sharp must load, and the bundle must start and answer HTTP 200; the
 AppImages are started inside Alpine too. `tests/muslBundles.test.cjs`
 covers the build and the workflows. See [Alpine](docs/Platforms/FOSS/OS/Alpine.md).
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/b8d9cb2565">Android bundles for Termux, for all four Android CPUs</a>. Thanks to xet7.</summary>
-
-Every release that has wekan/node-patches' Android Node.js also has
-`wekan-<version>-android-arm64.zip`, `-x64`, `-armv7` and `-x86`, with
-FerretDB. Each is the release's Linux bundle rebuilt inside Termux's own
-image with that Node.js, checked against its SHA256: every native addon is
-built for it, and sharp against Termux's libvips. Before it is published,
-each addon's architecture is checked, sharp must load, and the bundle must
-start and answer HTTP 200. A CPU whose Android Node.js is not published yet
-is skipped and builds by itself once it is. `tests/androidBundles.test.cjs`
-covers the build and the workflow. See [Android](docs/Platforms/FOSS/OS/Android.md).
 
 </details>
 
