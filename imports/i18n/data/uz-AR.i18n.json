@@ -4533,5 +4533,20 @@
   "webdav-endpoint": "WebDAV منزیلی",
   "webdav-password": "ایلووه پارولی",
   "webdav-folder": "پپکه",
-  "move-storage-webdav": "WebDAV امباری (Nextcloud Files)"
+  "move-storage-webdav": "WebDAV امباری (Nextcloud Files)",
+  "sqrl-enabled": "Sign in with SQRL",
+  "sqrl-desc": "Off by default. With it on, the sign-in page offers SQRL, and members add their SQRL identity in Member Settings first. SQRL needs WeKan at an https:// address.",
+  "sqrl-sign-in": "Sign in with SQRL",
+  "sqrl-scan": "Scan the code with your SQRL app, or open your SQRL client on this device.",
+  "sqrl-open-client": "Open SQRL client",
+  "sqrl-expired": "This SQRL code has expired. Start again.",
+  "sqrl-sign-in-failed": "SQRL sign-in failed.",
+  "sqrl-needs-https": "SQRL needs WeKan at an https:// address.",
+  "sqrlPopup-title": "SQRL",
+  "sqrl-description": "Sign in with your SQRL identity instead of a password. Add it here once with your SQRL client; you can remove it here at any time.",
+  "sqrl-add": "Add my SQRL identity",
+  "sqrl-added": "Your SQRL identity is added.",
+  "sqrl-none": "No SQRL identity is added.",
+  "sqrl-remove": "Remove my SQRL identity",
+  "sqrl-disabled-by-client": "SQRL sign-in is disabled for this account from your SQRL client. Re-enable it there with your rescue code."
 }

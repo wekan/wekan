@@ -151,4 +151,5 @@ import './listSyncPlanning.tests';
 import './notificationDelivery.tests';
 import './customFieldLinks.tests';
 import './passkeys.tests';
+import './sqrl.tests';
 import './webPush.tests';

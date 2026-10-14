@@ -365,6 +365,16 @@ Users.attachSchema(
       type: Object,
       blackbox: true,
     },
+    sqrl: {
+      /**
+       * #2460: this account's SQRL identity (server/sqrl.js): { idk, suk, vuk,
+       * disabled, addedAt } - public keys only. Never published, and not
+       * writable from the client.
+       */
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
     webPushSubscriptions: {
       /**
        * #2026 / #1377: this member's browsers' push subscriptions

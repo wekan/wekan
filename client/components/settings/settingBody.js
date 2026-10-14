@@ -1046,6 +1046,15 @@ Template.tableVisibilityModeSettings.events({
   // ── Features (#6736) ──────────────────────────────────────────────────────
   // Every feature row's tick, the two policies and the pilot users, in one
   // server method that validates them against the catalog.
+  // #2460
+  async 'click .js-toggle-sqrl'(event, instance) {
+    event.preventDefault();
+    try {
+      await Meteor.callAsync('saveSqrlEnabled', !instance.$('#sqrl-enabled').hasClass('is-checked'));
+    } catch (error) {
+      console.error(error);
+    }
+  },
   // #4198
   async 'click .js-toggle-activity-pub'(event, instance) {
     event.preventDefault();

@@ -149,6 +149,9 @@
     ],
     "client/components/forms/dateFormatSettings.jade": [
       "https://cloud\\.example\\.com(/[^\\s]*)?"
+    ],
+    "models/lib/sqrl.js": [
+      "https://www\\.grc\\.com/sqrl/sqrl\\.htm"
     ]
   },
   "files": {

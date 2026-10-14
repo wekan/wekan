@@ -2575,6 +2575,66 @@
     {
       "key": "move-storage-webdav",
       "since": "2026-10-14"
+    },
+    {
+      "key": "sqrl-enabled",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "sqrl-desc",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "sqrl-sign-in",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "sqrl-scan",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "sqrl-open-client",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "sqrl-expired",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "sqrl-sign-in-failed",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "sqrl-needs-https",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "sqrlPopup-title",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "sqrl-description",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "sqrl-add",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "sqrl-added",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "sqrl-none",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "sqrl-remove",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "sqrl-disabled-by-client",
+      "since": "2026-10-14"
     }
   ]
 }

@@ -91,6 +91,18 @@ template(name="userFormsLayout")
             | {{_ 'passkey-sign-in'}}
           if passkeyMessage
             p.quiet.js-passkey-message= passkeyMessage
+        //- #2460: sign in with SQRL (client/lib/sqrl.js).
+        if sqrlOffered
+          button.primary.js-sqrl-sign-in(type="button")
+            i.fa.fa-qrcode
+            | {{_ 'sqrl-sign-in'}}
+          if sqrlShown
+            .sqrl-box
+              a.sqrl-qr(href=sqrlShown.link aria-label="{{_ 'sqrl-open-client'}}") {{{sqrlShown.svg}}}
+              p.quiet {{_ 'sqrl-scan'}}
+              a.button.js-sqrl-open(href=sqrlShown.link) {{_ 'sqrl-open-client'}}
+          if sqrlMessage
+            p.quiet.js-sqrl-message= sqrlMessage
         // accounts-passwordless: e-mailed one-time sign-in code.
         if passwordlessEnabled
           if passwordlessCodeStep

@@ -131,6 +131,12 @@ template(name="memberMenuPopup")
           a.js-passkeys
             i.fa.fa-key
             | {{_ 'passkeysPopup-title'}}
+      //- #2460: sign in with a SQRL identity.
+      if sqrlOffered
+        li
+          a.js-sqrl
+            i.fa.fa-qrcode
+            | {{_ 'sqrlPopup-title'}}
       li
         a.js-change-language
           i.fa.fa-flag
@@ -250,6 +256,31 @@ template(name="passkeysPopup")
         button.primary.js-add-passkey-button(type="submit") {{_ 'passkey-add'}}
     else
       p.quiet {{_ 'passkeys-unsupported'}}
+    if message
+      p.quiet= message
+
+//- #2460: this account's SQRL identity (server/sqrl.js): added with the
+  member's SQRL client, removed from here.
+template(name="sqrlPopup")
+  .sqrl-popup
+    p.quiet {{_ 'sqrl-description'}}
+    if mine
+      if mine.added
+        p
+          i.fa.fa-check
+          |  {{_ 'sqrl-added'}}
+        if mine.disabled
+          p.quiet {{_ 'sqrl-disabled-by-client'}}
+        button.js-sqrl-remove(type="button") {{_ 'sqrl-remove'}}
+      else
+        p.quiet {{_ 'sqrl-none'}}
+        if shown
+          .sqrl-box
+            a.sqrl-qr(href=shown.link aria-label="{{_ 'sqrl-open-client'}}") {{{shown.svg}}}
+            p.quiet {{_ 'sqrl-scan'}}
+            a.button(href=shown.link) {{_ 'sqrl-open-client'}}
+        else
+          button.primary.js-sqrl-add(type="button") {{_ 'sqrl-add'}}
     if message
       p.quiet= message
 

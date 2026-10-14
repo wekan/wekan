@@ -308,6 +308,11 @@ Settings.attachSchema(
       optional: true,
       blackbox: true,
     },
+    // #2460: SQRL sign-in (server/sqrl.js). Off by default.
+    sqrlEnabled: {
+      type: Boolean,
+      optional: true,
+    },
     // #4198: public boards publish their card activity over ActivityPub
     // (models/lib/activityPub.js). Off by default.
     activityPubEnabled: {

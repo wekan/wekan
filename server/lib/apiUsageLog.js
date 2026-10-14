@@ -36,7 +36,7 @@ let timer = null;
 // login throttle and the lockout: X-Forwarded-For only as far as
 // HTTP_FORWARDED_COUNT says to trust it, and the socket address otherwise. A
 // column an attacker can write by sending a header is worse than no column.
-function clientAddress(req) {
+export function clientAddress(req) {
   const hops = parseInt(process.env.HTTP_FORWARDED_COUNT, 10);
   const forwarded = req.headers && req.headers['x-forwarded-for'];
   if (hops > 0 && forwarded) {

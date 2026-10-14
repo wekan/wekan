@@ -1361,3 +1361,23 @@ a:not(.disabled).is-active i.fa {
 .history-checkpoint-notice .warning {
   color: #b00020;
 }
+
+/* #2460: the SQRL link's QR code, on the sign-in page and in Member Settings.
+   A QR code needs a light quiet zone around it to scan, in either theme. */
+.sqrl-box {
+  margin: 0.75em 0;
+  text-align: center;
+}
+.sqrl-box .sqrl-qr {
+  display: inline-block;
+  width: 12em;
+  max-width: 100%;
+  padding: 0.5em;
+  background: #fff;
+  border-radius: 4px;
+}
+.sqrl-box .sqrl-qr svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}

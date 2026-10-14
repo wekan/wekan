@@ -381,6 +381,8 @@ import '/server/activityPub';
 // #687: CalDAV sync of card due dates.
 import '/server/caldavSync';
 import '/server/sharedDescription';
+// #2460: SQRL sign-in.
+import '/server/sqrl';
 
 // ----------------------------------------------------------------------------
 // 14. Server — routes (REST API, file serving)

@@ -22,6 +22,8 @@ Template.memberMenuPopup.onCreated(function () {
 });
 
 Template.memberMenuPopup.helpers({
+  // #2460: Member Settings / SQRL, when the site admin offers SQRL.
+  sqrlOffered() { return require('/client/lib/sqrl').sqrlOffered(ReactiveCache.getCurrentSetting()); },
   isSupportPageEnabled() {
     const setting = ReactiveCache.getCurrentSetting();
     return setting && setting.supportPageEnabled;
@@ -102,6 +104,7 @@ Template.memberMenuPopup.events({
   'click .js-change-password': Popup.open('changePassword'),
   'click .js-two-factor-auth': Popup.open('twoFactorAuth'),
   'click .js-passkeys': Popup.open('passkeys'),
+  'click .js-sqrl': Popup.open('sqrl'),
   'click .js-hidden-boards': Popup.open('hiddenBoards'),
   'click .js-change-language': Popup.open('changeLanguage'),
   'click .js-support': Popup.open('support'),
@@ -726,6 +729,52 @@ Template.passkeysPopup.events({
   async 'click .js-remove-passkey'(event, tpl) {
     event.preventDefault();
     await Meteor.callAsync('passkeyRemove', event.currentTarget.dataset.id);
+    tpl.load();
+  },
+});
+
+// #2460: Member Settings / SQRL - add this account's SQRL identity with the
+// SQRL client, or remove it (client/lib/sqrl.js).
+Template.sqrlPopup.onCreated(function () {
+  this.mine = new ReactiveVar(null);
+  this.shown = new ReactiveVar(null);
+  this.message = new ReactiveVar('');
+  this.load = () => Meteor.call('sqrlMine', (error, mine) => { if (!error) this.mine.set(mine); });
+  this.load();
+});
+
+Template.sqrlPopup.onDestroyed(function () {
+  this.cancelled = true;
+});
+
+Template.sqrlPopup.helpers({
+  mine() { return Template.instance().mine.get(); },
+  shown() { return Template.instance().shown.get(); },
+  message() { return Template.instance().message.get(); },
+});
+
+Template.sqrlPopup.events({
+  async 'click .js-sqrl-add'(event, tpl) {
+    event.preventDefault();
+    tpl.message.set('');
+    try {
+      const ended = await require('/client/lib/sqrl').runSqrlSession('associate', {
+        show: shown => tpl.shown.set(shown),
+        cancelled: () => tpl.cancelled,
+      });
+      tpl.shown.set(null);
+      if (ended === 'done') tpl.message.set(TAPi18n.__('sqrl-added'));
+      else if (ended === 'expired') tpl.message.set(TAPi18n.__('sqrl-expired'));
+      tpl.load();
+    } catch (error) {
+      tpl.shown.set(null);
+      tpl.message.set(TAPi18n.__(error && error.error === 'sqrl-needs-https' ? 'sqrl-needs-https' : 'sqrl-sign-in-failed'));
+    }
+  },
+  async 'click .js-sqrl-remove'(event, tpl) {
+    event.preventDefault();
+    await Meteor.callAsync('sqrlRemoveMine');
+    tpl.message.set('');
     tpl.load();
   },
 });

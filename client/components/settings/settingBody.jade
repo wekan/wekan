@@ -442,6 +442,16 @@ template(name='tableVisibilityModeSettings')
 
       li.admin-pane-group-separator
         hr
+      //- #2460: SQRL sign-in. Off by default.
+      li
+        h2.admin-pane-group-title SQRL
+      li.tableVisibilityMode-form
+        a.flex.js-toggle-sqrl
+          .materialCheckBox#sqrl-enabled(class="{{#if currentSetting.sqrlEnabled}}is-checked{{/if}}")
+          span {{_ 'sqrl-enabled'}}
+        .feature-desc {{_ 'sqrl-desc'}}
+      li.admin-pane-group-separator
+        hr
       //- #4198: public boards on the fediverse (ActivityPub). Off by default.
       li
         h2.admin-pane-group-title ActivityPub
