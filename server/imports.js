@@ -358,6 +358,8 @@ import '/server/webhookInternalHosts';
 import '/server/accountWebhook';
 // #1040: the JS Web Labels page for LibreJS.
 import '/server/jsWebLabels';
+// #1293: Android share target.
+import '/server/shareTarget';
 
 // ----------------------------------------------------------------------------
 // 14. Server — routes (REST API, file serving)

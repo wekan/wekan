@@ -82,3 +82,16 @@ and the MongoDB Database Tools are static Go programs and run as they are. A
 CPU whose Android Node.js is not published yet is skipped, and builds by
 itself the release it appears. `tests/androidBundles.test.cjs` covers the
 build and the workflow.
+
+## Share to WeKan from other apps
+
+[#1293](https://github.com/wekan/wekan/issues/1293). Install WeKan on the phone
+as an app: open your WeKan in Chrome (or another browser that installs web
+apps) and choose **Install app** / **Add to Home screen**. WeKan then appears in
+Android's **Share** menu. Sharing a web page, a note or a message to it opens
+**Add to WeKan**: pick a board and a list, and what was shared becomes a card
+there - the page's title or the text's first line as the card title, the text
+and the address in its description - and the card opens.
+
+Only boards you may add cards to are offered, and the server checks your right
+to write in the chosen list, as it does for any card you add.

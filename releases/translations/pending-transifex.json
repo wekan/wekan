@@ -2191,6 +2191,22 @@
     {
       "key": "webhook-mattermost-dm-desc",
       "since": "2026-10-14"
+    },
+    {
+      "key": "share-target-title",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "share-target-pick-board",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "share-target-create",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "share-target-empty",
+      "since": "2026-10-14"
     }
   ]
 }

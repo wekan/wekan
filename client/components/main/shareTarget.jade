@@ -1,0 +1,29 @@
+//- #1293: WeKan as an Android share target (models/lib/shareTarget.js). What
+  was shared becomes a card on the board and list picked here.
+template(name="shareTarget")
+  .wrapper.share-target
+    h2
+      i.fa.fa-share-alt
+      | {{_ 'share-target-title'}}
+    if preview.title
+      .share-target-preview
+        strong= preview.title
+        if preview.description
+          p.quiet= preview.description
+      form.js-share-target-form
+        label
+          | {{_ 'boards'}}
+          select.js-share-target-board
+            option(value="") {{_ 'share-target-pick-board'}}
+            each writableBoards
+              option(value=_id selected=isSelectedBoard) {{title}}
+        label
+          | {{_ 'list'}}
+          select.js-share-target-list(disabled=noBoard)
+            each boardLists
+              option(value=_id) {{title}}
+        button.primary.js-share-target-create(type="submit" disabled=noBoard) {{_ 'share-target-create'}}
+        if message
+          p.quiet= message
+    else
+      p.quiet {{_ 'share-target-empty'}}
