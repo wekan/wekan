@@ -212868,5 +212868,138 @@
     "before": "__count__ notifications on board __board__",
     "after": "__count__ fógra ar chlár __board__",
     "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "read-only-field",
+    "before": "Read-only: every member sees the value, only board admins change it",
+    "after": "Inléite amháin: feiceann gach ball an luach, ach ní féidir ach le riarthóirí an chláir é a athrú",
+    "reason": "Translate Irish workflow and permission controls while retaining authorization limits, status mapping and environment variable names."
+  },
+  {
+    "locale": "ga",
+    "key": "r-wrike-workflow",
+    "before": "Wrike workflow",
+    "after": "Sreabhadh oibre Wrike",
+    "reason": "Translate Irish workflow and permission controls while retaining authorization limits, status mapping and environment variable names."
+  },
+  {
+    "locale": "ga",
+    "key": "r-wrike-workflow-note",
+    "before": "A Wrike workflow is a list of statuses, each in the Active, Completed, Deferred or Cancelled group. Export writes this board's lists as one, named after the board, in the JSON Wrike's API returns for workflows: create that workflow in Wrike before importing the board's Wrike Excel export, so its statuses are applied. Import reads that JSON pasted above, from WeKan or from Wrike's GET /workflows, into the chosen board: a status without a list becomes a list, and a rule marks a card complete when it is moved into a Completed or Cancelled status and incomplete in an Active or Deferred one. Wrike's own automation rules cannot be exported from Wrike.",
+    "after": "Is liosta stádas é sreabhadh oibre Wrike, agus gach stádas sa ghrúpa Active, Completed, Deferred nó Cancelled. Scríobhann Easpórtáil liostaí an chláir seo mar shreabhadh oibre amháin, ainmnithe i ndiaidh an chláir, sa JSON a thugann API Wrike ar ais do shreafaí oibre: cruthaigh an sreabhadh oibre sin in Wrike sula n-iompórtálann tú easpórtáil Wrike Excel an chláir, ionas go gcuirfear a stádais i bhfeidhm. Léann Iompórtáil an JSON sin atá greamaithe thuas, ó WeKan nó ó GET /workflows Wrike, isteach sa chlár roghnaithe: déantar liosta de stádas gan liosta, agus marcálann riail cárta mar chríochnaithe nuair a bhogtar é go stádas Completed nó Cancelled, agus mar neamhchríochnaithe i stádas Active nó Deferred. Ní féidir rialacha uathoibrithe Wrike féin a easpórtáil ó Wrike.",
+    "reason": "Translate Irish workflow and permission controls while retaining authorization limits, status mapping and environment variable names."
+  },
+  {
+    "locale": "ga",
+    "key": "r-export-wrike-workflow",
+    "before": "Export Wrike workflow",
+    "after": "Easpórtáil sreabhadh oibre Wrike",
+    "reason": "Translate Irish workflow and permission controls while retaining authorization limits, status mapping and environment variable names."
+  },
+  {
+    "locale": "ga",
+    "key": "r-import-wrike-workflow",
+    "before": "Import Wrike workflow",
+    "after": "Iompórtáil sreabhadh oibre Wrike",
+    "reason": "Translate Irish workflow and permission controls while retaining authorization limits, status mapping and environment variable names."
+  },
+  {
+    "locale": "ga",
+    "key": "r-import-wrike-workflow-done",
+    "before": "Wrike workflow \"__name__\": __lists__ list(s) and __rules__ rule(s) added, __skipped__ part(s) not read",
+    "after": "Sreabhadh oibre Wrike \"__name__\": cuireadh __lists__ liosta agus __rules__ riail leis, níor léadh __skipped__ cuid",
+    "reason": "Translate Irish workflow and permission controls while retaining authorization limits, status mapping and environment variable names."
+  },
+  {
+    "locale": "ga",
+    "key": "r-moved-forward",
+    "before": "moved forward to a later list",
+    "after": "bogtha ar aghaidh go liosta níos déanaí",
+    "reason": "Translate Irish workflow and permission controls while retaining authorization limits, status mapping and environment variable names."
+  },
+  {
+    "locale": "ga",
+    "key": "r-moved-back",
+    "before": "moved back to an earlier list",
+    "after": "bogtha siar go liosta níos luaithe",
+    "reason": "Translate Irish workflow and permission controls while retaining authorization limits, status mapping and environment variable names."
+  },
+  {
+    "locale": "ga",
+    "key": "r-add-actinguser-assignee",
+    "before": "Add the user who triggered this rule as an assignee",
+    "after": "Cuir an t-úsáideoir a spreag an riail seo leis mar shannaí",
+    "reason": "Translate Irish workflow and permission controls while retaining authorization limits, status mapping and environment variable names."
+  },
+  {
+    "locale": "ga",
+    "key": "r-remove-all-assignees",
+    "before": "Remove all assignees from the card",
+    "after": "Bain gach sannaí den chárta",
+    "reason": "Translate Irish workflow and permission controls while retaining authorization limits, status mapping and environment variable names."
+  },
+  {
+    "locale": "ga",
+    "key": "ldap-sync-now",
+    "before": "Sync LDAP users now",
+    "after": "Sioncrónaigh úsáideoirí LDAP anois",
+    "reason": "Translate Irish workflow and permission controls while retaining authorization limits, status mapping and environment variable names."
+  },
+  {
+    "locale": "ga",
+    "key": "ldap-sync-now-done",
+    "before": "LDAP sync finished",
+    "after": "Sioncrónú LDAP críochnaithe",
+    "reason": "Translate Irish workflow and permission controls while retaining authorization limits, status mapping and environment variable names."
+  },
+  {
+    "locale": "ga",
+    "key": "ldap-sync-now-error",
+    "before": "LDAP sync failed: %s",
+    "after": "Theip ar shioncrónú LDAP: %s",
+    "reason": "Translate Irish workflow and permission controls while retaining authorization limits, status mapping and environment variable names."
+  },
+  {
+    "locale": "ga",
+    "key": "ldap-sync-now-nothing",
+    "before": "Nothing to sync: turn on LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS or LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED first.",
+    "after": "Níl aon rud le sioncrónú: cumasaigh LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS nó LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED ar dtús.",
+    "reason": "Translate Irish workflow and permission controls while retaining authorization limits, status mapping and environment variable names."
+  },
+  {
+    "locale": "ga",
+    "key": "oauth-providers-allowed-email-domains",
+    "before": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
+    "after": "Ní fhéadfaidh ach na fearainn ríomhphoist seo síniú isteach leis na soláthraithe seo (scartha le camóga; ceadaítear gach ceann má fhágtar folamh é)",
+    "reason": "Translate Irish workflow and permission controls while retaining authorization limits, status mapping and environment variable names."
+  },
+  {
+    "locale": "ga",
+    "key": "import-file-label",
+    "before": "Choose the export file, or paste its text below:",
+    "after": "Roghnaigh an comhad easpórtála, nó greamaigh a théacs thíos:",
+    "reason": "Translate Irish workflow and permission controls while retaining authorization limits, status mapping and environment variable names."
+  },
+  {
+    "locale": "ga",
+    "key": "subtask-mark-done",
+    "before": "Mark subtask as done",
+    "after": "Marcáil an fo-thasc mar dhéanta",
+    "reason": "Translate Irish workflow and permission controls while retaining authorization limits, status mapping and environment variable names."
+  },
+  {
+    "locale": "ga",
+    "key": "subtask-mark-not-done",
+    "before": "Mark subtask as not done",
+    "after": "Marcáil an fo-thasc mar neamhdhéanta",
+    "reason": "Translate Irish workflow and permission controls while retaining authorization limits, status mapping and environment variable names."
+  },
+  {
+    "locale": "ga",
+    "key": "subtask-done-no-permission",
+    "before": "You cannot change whether this subtask is done",
+    "after": "Ní féidir leat a athrú an bhfuil an fo-thasc seo déanta",
+    "reason": "Translate Irish workflow and permission controls while retaining authorization limits, status mapping and environment variable names."
   }
 ]

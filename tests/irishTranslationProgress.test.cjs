@@ -120,3 +120,15 @@ assert.match(irish['webhook-payload-description'], /socrú oidhreachta.*mura bhf
 assert.match(irish['notification-delivery-quiet'], /fan go dtí go mbeidh siad thart/);
 assert.match(irish['notification-delivery-grouping-all'], /aon teachtaireacht amháin/);
 assert.notEqual(irish['notification-delivery-grouping-board'], irish['notification-delivery-grouping-card']);
+
+const workflowKeys = ["read-only-field", "r-wrike-workflow", "r-wrike-workflow-note", "r-export-wrike-workflow", "r-import-wrike-workflow", "r-import-wrike-workflow-done", "r-moved-forward", "r-moved-back", "r-add-actinguser-assignee", "r-remove-all-assignees", "ldap-sync-now", "ldap-sync-now-done", "ldap-sync-now-error", "ldap-sync-now-nothing", "oauth-providers-allowed-email-domains", "import-file-label", "subtask-mark-done", "subtask-mark-not-done", "subtask-done-no-permission"];
+for (const key of workflowKeys) {
+  assert.notEqual(irish[key], english[key], key);
+  assert.deepEqual(tokens(irish[key]), tokens(english[key]), key);
+}
+assert.match(irish['read-only-field'], /gach ball.*ach ní féidir ach le riarthóirí/);
+assert.match(irish['r-wrike-workflow-note'], /GET \/workflows.*Completed nó Cancelled.*Active nó Deferred.*Ní féidir rialacha uathoibrithe Wrike féin a easpórtáil/);
+assert.match(irish['ldap-sync-now-nothing'], /LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS.*LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED/);
+assert.match(irish['oauth-providers-allowed-email-domains'], /camóga.*ceadaítear gach ceann.*folamh/);
+assert.notEqual(irish['subtask-mark-done'], irish['subtask-mark-not-done']);
+assert.match(irish['subtask-done-no-permission'], /Ní féidir leat/);
