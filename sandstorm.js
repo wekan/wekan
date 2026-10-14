@@ -180,6 +180,17 @@ if (isSandstorm && Meteor.isClient) {
       });
   };
 
+  // #1188: share a page of this grain - Sandstorm's Share Access dialog, whose
+  // link opens the grain at that page (models/lib/sandstormShare.js). Returns
+  // false when the address has no path the shell would accept.
+  window.sandstormShareUrl = function(url) {
+    const { startSharingMessage } = require('/models/lib/sandstormShare');
+    const message = startSharingMessage(url);
+    if (!message) return false;
+    window.parent.postMessage(message, '*');
+    return true;
+  };
+
   // Since the Sandstorm grain is displayed in an iframe of the Sandstorm shell,
   // we need to explicitly expose meta data like the page title or the URL path
   // so that they could appear in the browser window.

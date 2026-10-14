@@ -1802,6 +1802,10 @@ Template.cardDetailsActionsPopup.events({
     if (!card) return;
     const url = card.absoluteUrl();
     if (!url) return;
+    // #1188: inside a Sandstorm grain the address reaches nobody; Sandstorm's
+    // Share Access dialog makes a link that opens the grain at this card.
+    if (Meteor.settings?.public?.sandstorm && typeof window.sandstormShareUrl === 'function' &&
+        window.sandstormShareUrl(url)) return;
     Utils.showCopied(Utils.copyTextToClipboard(url), tpl.$('.copied-tooltip'));
   },
   // #1172: star/unstar this card for the current user only.
@@ -2847,6 +2851,9 @@ Template.cardMorePopup.events({
     if (card) card.removeParent(event.currentTarget.dataset.id);
   },
   'click .js-copy-card-link-to-clipboard'(event, tpl) {
+    // #1188: on Sandstorm, share the card through the shell instead.
+    if (Meteor.settings?.public?.sandstorm && typeof window.sandstormShareUrl === 'function' &&
+        window.sandstormShareUrl(document.getElementById('cardURL').value)) return;
     const promise = Utils.copyTextToClipboard(location.origin + document.getElementById('cardURL').value);
 
     const $tooltip = tpl.$('.copied-tooltip');
