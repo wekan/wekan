@@ -125,6 +125,57 @@ is the stable id.
 
 Also, if you have Rocket.Chat using LDAP/SAML/Google/etc for logging into Rocket.Chat, then same users can login to Wekan when Rocket.Chat is providing OAuth2 login to Wekan.
 
+### Rocket.Chat signing in with SAML (G Suite / Google Workspace), then WeKan
+
+[#6549](https://github.com/wekan/wekan/issues/6549): WeKan → Rocket.Chat
+(OAuth2) → Google (SAML) is a chain of three sign-ins, and it only completes
+when each step returns to the page that started it. The symptom when it does
+not: "Sign in with Oidc" seems to do nothing unless you were already logged in
+to Rocket.Chat, while Rocket.Chat's log and the Google Admin Console both show a
+successful SAML login.
+
+What happens: with the *popup* login style, WeKan opens Rocket.Chat's
+`/oauth/authorize` page in a popup. Rocket.Chat is not logged in, so it starts
+its own SAML login with Google, which leaves the authorize page. When Google
+returns, Rocket.Chat is now logged in, but the authorize request that WeKan
+waits for is gone, so WeKan never gets a code. Logging in to Rocket.Chat first
+works only because the authorize page then has nothing to leave for.
+
+Configure it like this:
+
+1. **Use the redirect login style.** It is the default in current WeKan. Check
+   that nothing sets it back to popup:
+   ```
+   sudo snap set wekan oauth2-login-style='redirect'
+   ```
+   Docker / environment: `OAUTH2_LOGIN_STYLE=redirect`. It is also in Admin
+   Panel → Authentication → OAuth2. With redirect, the whole browser tab goes
+   WeKan → Rocket.Chat → Google → Rocket.Chat → WeKan, and nothing is lost on
+   the way.
+2. **In Rocket.Chat → Administration → SAML**, set the *Custom Provider*
+   *Custom Entry Point* to the G Suite SSO URL, and check that Rocket.Chat's
+   own SAML login completes in a plain browser tab before chaining WeKan to it.
+   If that step fails on its own, WeKan's step cannot succeed.
+3. **In the G Suite / Google Workspace SAML app**, the ACS URL is Rocket.Chat's
+   `https://chat.example.com/_saml/validate/<provider>`, and the Entity ID is
+   Rocket.Chat's *Custom Issuer*. Google must send the e-mail address as the
+   NameID, because WeKan maps the account by `OAUTH2_EMAIL_MAP='email'` from
+   Rocket.Chat's user info.
+4. **In Rocket.Chat → Administration → OAuth Apps**, the WeKan app's Redirect
+   URI is exactly `https://boards.example.com/_oauth/oidc`, the same scheme and
+   host as WeKan's `ROOT_URL`.
+5. Same `ROOT_URL` scheme everywhere: WeKan, Rocket.Chat and both SAML URLs on
+   `https://`. A mixed http/https chain drops the session cookie on the way back.
+
+If the chain still stops, set `sudo snap set wekan debug='true'`, click the
+Oidc button once, and read `sudo snap logs wekan.wekan` together with
+Rocket.Chat's SAML log. A line with `profile:` in WeKan's log means the code
+reached WeKan. No such line means the authorize step never returned (step 1 or 2).
+
+To avoid the chain altogether, WeKan can use Google directly: Google OIDC
+(`OAUTH2_SERVER_URL=https://accounts.google.com`) or WeKan's own SAML login
+with the G Suite app ([SAML](SAML.md)).
+
 If there is existing username/password account in Wekan, OAuth2 merges both logins.
 
 Source: [OAuth2 Pull Request](https://github.com/wekan/wekan/pull/1578)
