@@ -365,7 +365,9 @@ export class JiraCreator {
   async createScrumPlanning(boardId) {
     if (!this.planning || !this.planning.transfer) return;
     const { importScrumTransfer } = require('/server/lib/scrumTransferImport');
-    await importScrumTransfer({ cards: this.cardsByKey, lists: {}, swimlanes: {}, members: {},
+    // Lists by status name: a closed sprint's snapshot rows name the list of
+    // each issue's status then (jiraScrumPlanning.js closedSprintRecords).
+    await importScrumTransfer({ cards: this.cardsByKey, lists: this.lists, swimlanes: {}, members: {},
       customFields: this.estimateFieldId ? { 'jira-estimate': this.estimateFieldId } : {} },
     { scrumTransfer: this.planning.transfer }, boardId);
   }
@@ -384,7 +386,7 @@ export class JiraCreator {
     // checked as a native Scrum transfer before anything is written.
     try {
       this.planning = jiraScrumPlanning(board, { estimate: this.estimateMapping
-        ? { sourceId: 'jira-estimate', unit: this.estimateMapping.estimateUnit } : null });
+        ? { sourceId: 'jira-estimate', unit: this.estimateMapping.estimateUnit, mapping: this.estimateMapping } : null });
       if (this.planning.transfer) normalizeScrumTransfer(this.planning.transfer);
     } catch (error) { throw new Meteor.Error('invalid-jira-scrum', error.message); }
     const isSandstorm =

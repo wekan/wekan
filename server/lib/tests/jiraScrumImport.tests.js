@@ -11,6 +11,7 @@ import ScrumSprints from '/models/scrumSprints';
 import ScrumReleases from '/models/scrumReleases';
 import { JiraCreator } from '/models/jiraCreator';
 import RecoveryEvents from '/models/recoveryEvents';
+import { ScrumSnapshotRows } from '/server/lib/scrumSnapshotStore';
 
 // Jira sprints, fix versions, rank and epic links become WeKan Scrum planning
 // data through a real import (models/lib/jiraScrumPlanning.js).
@@ -30,6 +31,8 @@ describe('Jira import of Scrum planning data', function () {
         { key: 'P-2', fields: { summary: 'Story', status: { name: 'To Do' }, issuetype: { name: 'Story' },
           customfield_10014: 'P-1', customfield_10019: '0|i0000f:',
           customfield_10020: [{ id: 8, name: 'Sprint 8', state: 'closed' },
+            { id: 7, name: 'Sprint 7', state: 'closed', startDate: '2026-08-01T09:00:00.000Z',
+              endDate: '2026-08-14T17:00:00.000Z', completeDate: '2026-08-14T18:00:00.000Z' },
             { id: 9, name: 'Sprint 9', state: 'active', goal: 'Pumps', startDate: '2026-08-15T09:00:00.000Z',
               endDate: '2026-08-28T17:00:00.000Z' }],
           fixVersions: [{ id: '100', name: '1.0', released: true, releaseDate: '2026-08-30' },
@@ -40,9 +43,18 @@ describe('Jira import of Scrum planning data', function () {
     try {
       await Meteor.users.rawCollection().insertOne({ _id: actor, username: `jira-scrum-${actor}`, isAdmin: true });
       boardId = await DDP._CurrentMethodInvocation.withValue(context, () => new JiraCreator(data).create(data));
-      const sprints = await ScrumSprints.rawCollection().find({ boardId }).toArray();
+      const all = await ScrumSprints.rawCollection().find({ boardId }).toArray();
+      // A closed sprint with dates is a closed sprint, its snapshots rebuilt
+      // from the issues (2026-10-15); one without dates is still not invented.
+      const closed = all.find(s => s.name === 'Sprint 7');
+      assert.deepEqual([closed.state, closed.provenance.recordId, closed.startSnapshot.partial], ['closed', '7', true]);
+      assert.ok(closed.reportTotals, 'its report is there');
+      const rows = await ScrumSnapshotRows.rawCollection().find({ sprintId: closed._id }).toArray();
+      const listIds = new Set((await Lists.rawCollection().find({ boardId }).toArray()).map(l => l._id));
+      assert.ok(rows.length > 0 && rows.every(r => (r.rows || []).every(c => listIds.has(c.listId))), 'its rows name this board\'s lists');
+      const sprints = all.filter(s => s.state !== 'closed');
       assert.deepEqual(sprints.map(s => [s.name, s.state, s.goal, s.provenance.system, s.provenance.recordId]),
-        [['Sprint 9', 'planned', 'Pumps', 'jira', '9']], 'the active sprint, planned; the closed one not invented');
+        [['Sprint 9', 'planned', 'Pumps', 'jira', '9']], 'the active sprint, planned; the undated closed one not invented');
       assert.equal(sprints[0].scrumImportPending, undefined, 'the import finished');
       const releases = (await ScrumReleases.rawCollection().find({ boardId }).toArray())
         .sort((a, b) => a.name.localeCompare(b.name));
@@ -63,11 +75,11 @@ describe('Jira import of Scrum planning data', function () {
       assert.equal(board.scrum.enabled, true);
       // Reported: the closed sprint and the active one's missing snapshot.
       const report = JSON.stringify(await RecoveryEvents.rawCollection().find({ boardIds: boardId }).toArray());
-      assert.ok(report.includes('closed sprint \\"Sprint 8\\" is not imported'), report.slice(0, 600));
+      assert.ok(report.includes('closed sprint \\"Sprint 8\\" is not imported: Jira gives no start and completion date'), report.slice(0, 600));
       assert.ok(report.includes('active sprint \\"Sprint 9\\" is imported as planned'));
     } finally {
       if (boardId) {
-        for (const model of [Cards, Lists, Swimlanes, ScrumSprints, ScrumReleases]) {
+        for (const model of [Cards, Lists, Swimlanes, ScrumSprints, ScrumReleases, ScrumSnapshotRows]) {
           await model.rawCollection().deleteMany({ boardId });
         }
         await CustomFields.rawCollection().deleteMany({ boardIds: boardId });

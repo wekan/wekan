@@ -215,7 +215,7 @@ names; it never guesses a `customfield_*` number. Then:
 | --- | --- |
 | Future sprint | Planned sprint with its goal and dates; the card's sprint |
 | Active sprint | Planned sprint, reported in Admin Panel → Problems → Recovery: issue search has no commitment snapshot, so start it in WeKan to begin measuring |
-| Closed sprint | Not imported, reported: WeKan does not invent a commitment or close snapshot |
+| Closed sprint | A closed sprint, with its start and close snapshots rebuilt from the issues and marked partial (below); one without a start and completion date is reported instead |
 | Fix version | Release, released with its date or planned. Every fix version is one of the card's releases (a card can be in several since 2026-10-08). Versions still also become `version:` labels |
 | Rank | Backlog order: backlog rank 1, 2, ... in Jira's rank order |
 | Epic Link | The card's parent when the epic is imported too; otherwise reported. Newer Jira's `parent` was already followed |
@@ -285,13 +285,26 @@ with a `names` map. With an estimate mapping it also writes
 
 ## What is not kept
 
+A closed sprint's report: Jira's sprint report has no documented API, so the
+import rebuilds it from documented issue data. Committed at the start are the
+issues whose Sprint field named the sprint at its start date; at the close,
+those naming it at its completion, each done when its status was in Jira's
+Done category then. Both come from each issue's change history - export with
+`expand=changelog` (`GET /rest/api/3/search/jql?fields=*all&expand=changelog`)
+for that; without it, the issues naming the sprint now, done when resolved by
+the close. The list is the status then, or the status now when that one has no
+list on the board, and the estimate is the estimate now. The snapshots are
+marked partial, because a rebuilt one cannot see what changed between two
+history entries.
+
 The import reports these on the loss report:
 
 - attachments (the search API carries metadata, not file contents);
 - a parent or Epic Link to an issue that is not in the file;
 - more result pages than the file holds (`nextPageToken`, or a `total`
   larger than the issues in the file);
-- active sprints (imported as planned) and closed sprints;
+- active sprints (imported as planned), closed sprints rebuilt from the issues,
+  and closed sprints without dates (not imported);
 - more than 50 custom fields.
 
 Invalid estimate values, invalid issue types and conflicting status categories
