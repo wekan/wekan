@@ -4605,6 +4605,23 @@ All-language translation and semantic review remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8b46431477f8c69212b09c164fb04eec4a16c20e">Restore Scottish Gaelic report methodology and limits</a>. Thanks to xet7.</summary>
+
+Replace five shorthand report notes with translated assumptions, sample limits,
+missing-history handling and fallback dates. Clarify five headings and the
+report error. Statistical terminology is lower confidence and needs fluent
+review.
+
+The catalog and guarded-correction checks pass with 30,777 audited corrections;
+a test spelling assertion was corrected before the catalog rerun passed.
+All 21 human-preference checks pass; 38,430 existing Chinese values are
+unchanged.
+Five browser cases pass syntax and discovery; execution remains pending.
+All-language translation and semantic review remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

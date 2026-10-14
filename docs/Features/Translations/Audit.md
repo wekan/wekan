@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Scottish Gaelic report explanations — 2026-10-14
+
+Commit `8b46431477` corrects eleven report strings: five headings, five
+methodology notes and the error message. The notes now retain historical
+sample minimums, unknown entry history, overlapping blocker counting, Monte
+Carlo assumptions and limits, and cycle-time fallback dates. Statistical
+terminology is lower confidence and requires fluent review.
+
+The guarded-correction suite passes with 30,777 ledger entries. The catalog
+suite initially failed on an assertion using an unlenited spelling; correcting
+that test made its rerun pass. All 21 human-preference checks pass, and exact
+comparison preserves 38,430 existing Chinese values. Five browser cases pass
+syntax and discovery; runtime remains pending.
+
+Full semantic and all-language verification remain unfinished.
+
 ## Scottish Gaelic dates and card-link actions — 2026-10-14
 
 Commit `19f5807e04` corrects four date triggers that omitted initial setting,
