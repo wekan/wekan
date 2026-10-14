@@ -76,3 +76,13 @@ assert.match(gaelic['import-board-instruction-businessmap'], /gu Beurla an toise
 assert.match(gaelic['import-board-instruction-redmine'], /gu Beurla.*My account mus/);
 assert.match(gaelic['import-board-instruction-notion'], /Cha tèid dàimhean, dealbhan no ceanglachain/);
 assert.match(gaelic['import-board-instruction-plane'], /Chan eil tuairisgeulan no ceanglachain.*cha tèid an ion-phortadh/);
+
+const importControlKeys = ["import-members-mode-heading", "import-members-mode-map", "import-members-mode-placeholder", "import-members-mode-me", "csv-mapping-title", "csv-mapping-description", "csv-mapping-not-in-file", "csv-mapping-column-number", "csv-mapping-list-missing", "csv-mapping-list-name", "csv-mapping-custom-fields", "csv-mapping-boards", "csv-mapping-skipped-sheets", "csv-mapping-title-required", "csv-mapping-list-required", "invalid-import-mapping", "import-many-boards", "import-many-boards-hint", "import-one-board-per-project", "import-one-board-per-project-hint", "import-many-progress", "import-many-results-heading", "import-many-imported", "export-all-boards", "export-selected-boards", "export-all-boards-hint", "exportAllBoardsPopup-title"];
+for (const key of importControlKeys) {
+  assert.notEqual(gaelic[key], english[key], key);
+  assert.deepEqual(tokens(gaelic[key]), tokens(english[key]), key);
+}
+assert.match(gaelic['import-members-mode-placeholder'], /h-ainmean aca fhèin.*fìor chleachdaichean nas anmoiche/);
+assert.match(gaelic['import-many-boards-hint'], /gun mhaidseadh bhall.*na aon bhòrd.*an àite an raoin gu h-àrd/);
+assert.match(gaelic['export-all-boards-hint'], /aon leabhar-obrach.*siota airson gach bòrd.*\.zip.*faidhle airson gach bòrd/);
+assert.match(gaelic['csv-mapping-title-required'], /tiotalan nan cairtean/);

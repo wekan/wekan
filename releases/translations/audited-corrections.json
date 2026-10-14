@@ -214303,5 +214303,194 @@
     "before": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
     "after": "Ann am Plane, fosgail Workspace Settings, tagh Exports, às-phortaich na pròiseactan mar JSON, CSV no Excel agus luchdaich a-nuas am faidhle .zip, agus tagh am faidhle sin, no aon fhaidhle na bhroinn, no cuir a-steach an JSON no CSV. Thèid staidhean nan liostaichean, pròiseactan nan slighean, agus cùisean nan cairtean leis an aithnichear, pàrant, luchd-obrach, leubailean, cinn-là, ceanglaichean agus beachdan aca; thèid prìomhachas, tuairmse, cearcall agus mòideal nan raointean gnàthaichte. Chan eil tuairisgeulan no ceanglachain ann an às-phortadh Plane, mar sin cha tèid an ion-phortadh.",
     "reason": "Translate Scottish Gaelic import instructions with prerequisites and omitted-content warnings; technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "import-members-mode-heading",
+    "before": "People in the file:",
+    "after": "Daoine san fhaidhle:",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "import-members-mode-map",
+    "before": "Choose an existing user for each of them",
+    "after": "Tagh cleachdaiche a tha ann mu thràth airson gach duine dhiubh",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "import-members-mode-placeholder",
+    "before": "Keep them as placeholder users with their own names, to map to real users later",
+    "after": "Cùm iad mar chleachdaichean ionaid leis na h-ainmean aca fhèin, gus an co-fhreagairt ri fìor chleachdaichean nas anmoiche",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "import-members-mode-me",
+    "before": "Make them all me",
+    "after": "Cuir mise nan àite uile",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "csv-mapping-title",
+    "before": "Which column is which?",
+    "after": "Dè an colbh a fhreagras ri gach raon?",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "csv-mapping-description",
+    "before": "Choose the column of the file that holds each card field. The choices were made from the column names; change any that are wrong, and choose (not in the file) for a field the file does not have.",
+    "after": "Tagh colbh an fhaidhle anns a bheil gach raon cairt. Chaidh na roghainnean a dhèanamh a-rèir ainmean nan colbhan; atharraich gin a tha ceàrr, agus tagh (chan eil san fhaidhle) airson raon nach eil san fhaidhle.",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "csv-mapping-not-in-file",
+    "before": "(not in the file)",
+    "after": "(chan eil san fhaidhle)",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "csv-mapping-column-number",
+    "before": "Column __number__",
+    "after": "Colbh __number__",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "csv-mapping-list-missing",
+    "before": "The file has no column for the list. Choose one above, or type the name of the one list every card goes into.",
+    "after": "Chan eil colbh airson na liosta san fhaidhle. Tagh fear gu h-àrd, no sgrìobh ainm na h-aon liosta dhan tèid gach cairt.",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "csv-mapping-list-name",
+    "before": "List for every card",
+    "after": "Liosta airson gach cairt",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "csv-mapping-custom-fields",
+    "before": "Other columns to import as text custom fields:",
+    "after": "Colbhan eile ri ion-phortadh mar raointean teacsa gnàthaichte:",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "csv-mapping-boards",
+    "before": "Each sheet becomes its own board:",
+    "after": "Thèid gach siota na bhòrd fa leth:",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "csv-mapping-skipped-sheets",
+    "before": "Sheets that are not imported:",
+    "after": "Siotaichean nach tèid ion-phortadh:",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "csv-mapping-title-required",
+    "before": "Choose the column that holds the card titles.",
+    "after": "Tagh an colbh anns a bheil tiotalan nan cairtean.",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "csv-mapping-list-required",
+    "before": "Type the name of the list every card goes into, or choose the column that holds the list.",
+    "after": "Sgrìobh ainm na liosta dhan tèid gach cairt, no tagh an colbh anns a bheil an liosta.",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "invalid-import-mapping",
+    "before": "The column mapping does not match the file.",
+    "after": "Chan eil mapadh nan colbhan a’ freagairt ris an fhaidhle.",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "import-many-boards",
+    "before": "Import many boards",
+    "after": "Ion-phortaich grunn bhùird",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "import-many-boards-hint",
+    "before": "Choose several export files of this tool, or one .zip that holds them: each file becomes its own board, imported without member mapping. A .zip that is itself one export (Vikunja, Notion, Plane, or WeKan with attachments) is one board. When files are chosen here, Import imports them instead of the field above.",
+    "after": "Tagh grunn fhaidhlichean às-phortaidh den inneal seo, no aon .zip anns a bheil iad: thèid gach faidhle na bhòrd fa leth, air ion-phortadh gun mhaidseadh bhall. Tha .zip a tha na aon às-phortadh fhèin (Vikunja, Notion, Plane, no WeKan le ceanglachain) na aon bhòrd. Nuair a thaghas tu faidhlichean an-seo, ion-phortaichidh Ion-phortaich iad an àite an raoin gu h-àrd.",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "import-one-board-per-project",
+    "before": "One board per project",
+    "after": "Aon bhòrd airson gach pròiseact",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "import-one-board-per-project-hint",
+    "before": "Each swimlane the import would make (a project, folder or list of the tool) becomes its own board. Parent cards and dependencies between those boards are listed in the import report.",
+    "after": "Thèid gach slighe a chruthaicheadh an ion-phortadh (pròiseact, pasgan no liosta san inneal) na bhòrd fa leth. Tha cairtean pàrant agus eisimeileachdan eadar na bùird sin air an liostadh san aithisg ion-phortaidh.",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "import-many-progress",
+    "before": "Importing __done__ of __total__: __name__",
+    "after": "Ag ion-phortadh __done__ de __total__: __name__",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "import-many-results-heading",
+    "before": "Imported files",
+    "after": "Faidhlichean air an ion-phortadh",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "import-many-imported",
+    "before": "imported",
+    "after": "air ion-phortadh",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "export-all-boards",
+    "before": "Export all boards",
+    "after": "Às-phortaich a h-uile bòrd",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "export-selected-boards",
+    "before": "Export selected boards",
+    "after": "Às-phortaich na bùird a thagh thu",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "export-all-boards-hint",
+    "before": "Every board you can export, in one download: Excel as one workbook with a sheet per board named after it, every other format as a .zip with a file per board.",
+    "after": "A h-uile bòrd as urrainn dhut às-phortadh, ann an aon luchdadh a-nuas: Excel mar aon leabhar-obrach le siota airson gach bòrd leis an ainm aige, agus gach fòrmat eile mar .zip le faidhle airson gach bòrd.",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "exportAllBoardsPopup-title",
+    "before": "Export all boards",
+    "after": "Às-phortaich a h-uile bòrd",
+    "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
   }
 ]
