@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Irish integration and notification settings — 2026-10-14
+
+Commit `b3a554e748` translates 42 strings covering link rules, webhook payloads,
+identity omission, notification content, grouping, schedules and quiet hours.
+Link-rule placeholders and the example URL remain literal. Grouping by card
+and board stays distinct, and quiet hours explicitly defer delivery until they
+end. Unset webhook settings retain inherited behaviour.
+
+The Irish catalog and guarded-correction suites pass with 30,410 correction
+ledger entries. All 21 human-preference checks pass; exact comparison preserves
+38,430 existing Chinese values. The Irish notification browser case passes
+syntax and discovery; runtime remains pending.
+
+Remaining Irish feature text and all-language semantic review are unfinished.
+
 ## Irish import and export controls — 2026-10-14
 
 Commit `1c92a11f39` translates 38 controls for user matching, column mapping,

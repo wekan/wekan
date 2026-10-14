@@ -4318,6 +4318,21 @@ keys. All-language translation and semantic review remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b3a554e74895440cc40cffd25ff2c6fbd01efce0">Translate Irish integration and notification controls</a>. Thanks to xet7.</summary>
+
+Translate 42 strings for external-link rules, webhook content, notification
+layout, grouping, schedules and quiet hours. Preserve literal template tokens,
+link examples and inherited-setting behaviour.
+
+The Irish catalog and guarded-correction suites pass with 30,410 audited
+corrections. All 21 human-preference checks pass; 38,430 existing Chinese values
+remain unchanged. The notification browser case passes syntax and discovery;
+runtime remains pending. All-language translation and semantic review remain
+unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
