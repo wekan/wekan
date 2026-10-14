@@ -413,16 +413,14 @@ flows, which needs the running app and a screen reader).
 </details>
 
 <details>
-<summary>The 10,500-card Scrum test runs past its 15 minutes.</summary>
+<summary>Batch undo and redo of a large sprint take minutes.</summary>
 
-`server/lib/tests/scrumSnapshotRows.tests.js` "starts, closes, undoes and
-redoes a sprint past the old 10,000-card limit" times out in every full Meteor
-run, and did before 2026-10-14 too (run at 8fd04f9984^). Measured at 3,000
-cards: start 0.4 s, close 0.2 s, then 10.2 s reading the Scrum board data
-while the background rollover runs, and 4.5 s for the rollover itself. It
-cannot be run smaller: below about 10,000 cards its assertions about batches
-of more than 1,000 no longer hold. What remains is profiling the board data
-read and the rollover at full size, which needs the running test server.
+Measured with `server/lib/tests/scrumSnapshotRows.tests.js` at 10,500 cards: a
+sprint's start and close take 2 s and its rollover 36 s, but undoing the close
+takes 282 s and redoing it 578 s - about 27 ms a card, written one by one in the
+background (`server/lib/scrumBatchJobs.js`). The test passes (15 min 25 s) and
+has 30 minutes now; what remains is making the batch faster, which needs
+profiling one card's undo against the running server.
 
 </details>
 
