@@ -581,11 +581,12 @@ there.
 # Upcoming WeKan ® release
 
 **In short:** a new **Version Control** board view shows a board as a
-**GitHub** or **Gitea** issue tracker, with milestones, labels, files and the
-board history with undo; imported issues bring their **files**, and list sync
-can keep **comments, labels, state and files** up to date. Any board view can
-be a public board's **read-only public view**. Cards get a **QR code** of
-their link, and WeKan has **Android** bundles for Termux.
+**GitHub** or **Gitea** issue tracker, with milestones, labels, releases, a
+**wiki** and the board history with undo, and a whole **GitHub organization**
+imports into it: issues with their files, releases, **GitHub Actions** as
+Rules and wikis with their history. List sync can keep **comments, labels,
+state and files** current, any board view can be a public board's
+**read-only public view**, and WeKan has **Android** bundles for Termux.
 
 This release adds the following new features:
 
@@ -660,6 +661,51 @@ frees up within a minute; otherwise the run ends with the time to try again.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/935e68dfdd">A whole GitHub organization imports, each repository as its own board</a>. Thanks to xet7.</summary>
+
+Import → GitHub → **Import a whole GitHub organization**: every repository of
+an organization or user becomes a board named `owner/repository`, opening in
+Version Control. Issues go through the ordinary `importBoard`, run as the
+person who started the job, with their comments, labels and files. Releases
+are cards in a *Releases* list, with their files attached only when chosen.
+`.github/workflows` files become Rules. Each wiki is read from its git
+repository with isomorphic-git (1.42.4, pinned), with every request through
+the SSRF guard and only to github.com. A page is a card in the *Wiki* list:
+its `[[links]]` point at the linked pages' cards and are attached to them,
+and each commit that changed it is a dated edit in the card's history, so
+**Restore** brings back an older version. Version Control gains **Releases**
+and **Wiki** tabs, the wiki laid out as on GitHub. The job shows progress, can
+be cancelled, pauses on a restart and stops at a rate limit. The token is
+kept in memory only. Tests: `tests/githubOrgImport.test.cjs`,
+`tests/githubWiki.test.cjs` and `tests/workflowYaml.test.cjs`, the last
+checking 52 real workflow files against js-yaml.
+
+</details>
+
+**Rules** - what GitHub Actions workflows needed, for everyone.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/935e68dfdd">GitHub Actions workflows become Rules; Rules gain comments, cron and descriptions</a>. Thanks to xet7.</summary>
+
+Issue events become triggers. Label, close, reopen, comment, assign and
+create steps become actions, from the well-known actions or from `gh issue`
+commands, and `actions/stale` becomes an aging rule. A build, test or script
+is never run: such a workflow is a disabled rule with its YAML as its
+description. For this, WeKan's Rules gain several parts, available to every
+board:
+
+- a **commented on** trigger;
+- an **add comment** action, written as the person whose change ran the rule
+  and only where they may comment;
+- **cron schedules** in UTC (`models/lib/cronSchedule.js`);
+- a rule **description**, shown on the rule.
+
+Tests: `tests/githubActionsRules.test.cjs`, `tests/cronSchedule.test.cjs` and
+`tests/ruleCommentCron.test.cjs`.
+
+</details>
+
 **Cards** - opening a card on a phone.
 
 <details>
@@ -688,6 +734,19 @@ each addon's architecture is checked, sharp must load, and the bundle must
 start and answer HTTP 200. A CPU whose Android Node.js is not published yet
 is skipped and builds by itself once it is. `tests/androidBundles.test.cjs`
 covers the build and the workflow. See [Android](docs/Platforms/FOSS/OS/Android.md).
+
+</details>
+
+and fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/935e68dfdd">A disabled rule no longer runs on a schedule or from its button</a>. Thanks to xet7.</summary>
+
+Turning a rule off (#2322) stopped it only for card events: the scheduler and
+the rule's button ran it anyway, because neither looked at `enabled`. Both
+check it now. Imported GitHub Actions workflows rely on this, since a
+workflow that is code is imported disabled. Pinned by
+`tests/ruleCommentCron.test.cjs`.
 
 </details>
 
