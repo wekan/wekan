@@ -1630,6 +1630,8 @@
   "r-of": "dari",
   "r-subject": "subyek",
   "r-email-vars-hint": "Tag yang tersedia: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Kolom daftar, jalur, judul, daftar periksa, dan pengguna juga menerima {creator}, {assignees}, {members}, dan {customField:Name}, yang nilainya dibaca dari kartu saat aturan diperiksa.",
   "r-insert-variable": "Sisipkan variabel ke kolom teks terakhir:",
   "r-vars-people-hint": "Juga: {creator}, {assignees}, {members} (nama pengguna dalam teks, alamat email dalam Kepada) dan {customField:Field name}. Ini juga berfungsi pada nama anggota, daftar, dan jalur dalam tindakan lain.",

@@ -1630,6 +1630,8 @@
   "r-of": "ya",
   "r-subject": "ṱhoho",
   "r-email-vars-hint": "Zwiredzo zwi wanalaho: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Fhethu ha mutevhe, nḓila, ṱhoho, mutevhe wa u ṱola na mushumisi hu dovha ha ṱanganedza {creator}, {assignees}, {members} na {customField:Name}. Ndeme dzazwo dzi vhaliwa kha garaṱa musi mulayo u tshi ṱolwa.",
   "r-insert-variable": "Dzhenisani tshiga tshine tsha imela ndeme ine ya shanduka fhethu ha maṅwalwa he na khetha lwa u fhedzisela:",
   "r-vars-people-hint": "Na: {creator}, {assignees}, {members} (madzina a vhashumisi kha maṅwalwa, ḓiresi dza imeiḽi kha fhethu ha muṱanganedzi) na {customField:Field name}. Izwi zwi dovha zwa shuma kha madzina a miraḓo, mitevhe na nḓila dza miṅwe mishumo.",

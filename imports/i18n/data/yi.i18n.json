@@ -1630,6 +1630,8 @@
   "r-of": "פון",
   "r-subject": "אונטערטעניק",
   "r-email-vars-hint": "פֿאַראַנענע טאַגן: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "די פֿעלדער פֿאַר רשימה, סווימלאַנע, טיטל, טשעקליסט און באַניצער נעמען אויך אָן {creator}, {assignees}, {members} און {customField:Name}. זייערע ווערטן ווערן געלייענט פֿונעם קאַרטל ווען די רעגל ווערט קאָנטראָלירט.",
   "r-insert-variable": "לייגט אַרײַן אַ וואַריאַבל אינעם טעקסטפֿעלד וואָס איר האָט לעצטנס אויסגעקליבן:",
   "r-vars-people-hint": "אויך: {creator}, {assignees}, {members} (באַניצערנעמען אינעם טעקסט, בליצפּאָסט־אַדרעסן אינעם „צו“־פֿעלד) און {customField:Field name}. די אַרבעטן אויך אין די נעמען פֿון מיטגלידער, רשימות און סווימליינס בײַ אַנדערע אַקציעס.",

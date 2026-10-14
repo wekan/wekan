@@ -1630,6 +1630,8 @@
   "r-of": "de",
   "r-subject": "cuspair",
   "r-email-vars-hint": "Tagaichean a tha ri fhaighinn: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Gabhaidh raointean liosta, slighe, tiotail, liosta-dearbhaidh agus cleachdaiche ri {creator}, {assignees}, {members} agus {customField:Name} cuideachd, a leughar bhon chairt nuair a thèid an riaghailt a sgrùdadh.",
   "r-insert-variable": "Cuir caochladair san raon teacsa mu dheireadh:",
   "r-vars-people-hint": "Cuideachd: {creator}, {assignees}, {members} (ainmean-cleachdaiche ann an teacsa, seòlaidhean puist-d ann an Gu) agus {customField:Field name}. Obraichidh iad seo ann an ainmean bhall, liostaichean agus shlighean ann an gnìomhan eile cuideachd.",

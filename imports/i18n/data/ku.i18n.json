@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "mijar",
   "r-email-vars-hint": "Nîşaneyên berdest: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Qadên lîste, rêç, sernav, lîsteya kontrolê û bikarhêneran her wiha {creator}, {assignees}, {members} û {customField:Name} qebûl dikin; dema rêzik tê kontrolkirin, ev ji kartê tên xwendin.",
   "r-insert-variable": "Guherbarekê têxe qada nivîsê ya ku te herî dawî hilbijart:",
   "r-vars-people-hint": "Her wiha: {creator}, {assignees}, {members} (navên bikarhêneran di nivîsê de, navnîşanên e-nameyê di qada Ji bo de) û {customField:Field name}. Ev di navên endam, lîste û rêçan ên kiryarên din de jî dixebitin.",

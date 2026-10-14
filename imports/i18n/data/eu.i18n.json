@@ -1630,6 +1630,8 @@
   "r-of": "de",
   "r-subject": "gaia",
   "r-email-vars-hint": "Erabilgarri dauden etiketak: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Zerrenda, errail, izenburu, egiaztapen-zerrenda eta erabiltzaile eremuek {creator}, {assignees}, {members} eta {customField:Name} ere onartzen dituzte; araua egiaztatzean txarteletik irakurtzen dira.",
   "r-insert-variable": "Txertatu aldagaia azken testu-eremuan:",
   "r-vars-people-hint": "Halaber: {creator}, {assignees}, {members} (erabiltzaile-izenak testuan, helbide elektronikoak Nori eremuan) eta {customField:Field name}. Beste ekintza batzuetako kide, zerrenda eta errail izenetan ere funtzionatzen dute.",

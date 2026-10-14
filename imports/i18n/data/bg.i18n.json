@@ -1630,6 +1630,8 @@
   "r-of": "от",
   "r-subject": "Тема",
   "r-email-vars-hint": "Налични етикети: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Полетата за списък, коридор, заглавие, чеклист и потребител приемат също {creator}, {assignees}, {members} и {customField:Name}, прочетени от картата при проверката на правилото.",
   "r-insert-variable": "Вмъкване на променлива в последното текстово поле:",
   "r-vars-people-hint": "Също: {creator}, {assignees}, {members} (потребителски имена в текста, имейл адреси в полето До) и {customField:Field name}. Те работят и в имената на членове, списъци и коридори в други действия.",

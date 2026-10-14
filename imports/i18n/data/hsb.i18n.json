@@ -1630,6 +1630,8 @@
   "r-of": "z",
   "r-subject": "tema",
   "r-email-vars-hint": "K dispoziciji stejace wobznamjenja: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Pola za lisćinu, dróhu, titul, kontrolnu lisćinu a wužiwarja tež {creator}, {assignees}, {members} a {customField:Name} akceptuja, kotrež so při přepruwowanju prawidła z karty čitaja.",
   "r-insert-variable": "Wariablu do poslednjeho tekstoweho pola zasadźić:",
   "r-vars-people-hint": "Tež: {creator}, {assignees}, {members} (wužiwarske mjena w teksće, e-mejlowe adresy w polu Komu) a {customField:Field name}. Tute tež w mjenach čłonow, lisćinow a dróhow druhich akcijow funguja.",

@@ -1630,6 +1630,8 @@
   "r-of": "de",
   "r-subject": "ogeto",
   "r-email-vars-hint": "Segni disponibiłi: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "I canpi de lista, corsia, tìtoło, lista de controło e utente i aceta anca {creator}, {assignees}, {members} e {customField:Name}. I so vałori i vien łeti da ła scheda co se controła ła regoła.",
   "r-insert-variable": "Insarisi na variàbiłe inte l'ultimo canpo de testo che te gà sełesionà:",
   "r-vars-people-hint": "Anca: {creator}, {assignees}, {members} (nomi utente inte el testo, indirisi email inte el campo del destinatario) e {customField:Field name}. I funsiona anca inte i nomi dei membri, de le liste e de le corsie de altre asion.",

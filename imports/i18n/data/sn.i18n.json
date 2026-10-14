@@ -1630,6 +1630,8 @@
   "r-of": "ye",
   "r-subject": "musoro wenyaya",
   "r-email-vars-hint": "Zviratidzo zviripo: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Minda yerondedzero, mutsetse wekuronga mabasa, musoro, rondedzero yekutarisa nemushandisi inobvumawo {creator}, {assignees}, {members} uye {customField:Name}, zvinoverengwa kubva pakadhi apo mutemo unotariswa.",
   "r-insert-variable": "Isa chinotsiviwa nemashoko mumunda wemavara wekupedzisira:",
   "r-vars-people-hint": "Zvakare: {creator}, {assignees}, {members} (mazita evashandisi mumavara, kero dzetsamba dzemagetsi mumunda weanogamuchira) uye {customField:Field name}. Izvi zvinoshandawo mumazita enhengo, rondedzero nemitsetse yekuronga mabasa mune zvimwe zviito.",

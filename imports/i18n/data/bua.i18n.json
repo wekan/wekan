@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "гаршаг",
   "r-email-vars-hint": "Абаха тегүүд: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Жагсаалта, зам, гаршаг, шалгалтын жагсаалта болон хэрэглэгчын талбарнууд {creator}, {assignees}, {members} болон {customField:Name} гэһэн хубисагшануудые мүн хүлеэн абана. Дүрим шалгахада тэдэнэй удханууд карточкаһаа уншагдана.",
   "r-insert-variable": "Һүүлшын удаа шэлэһэн текстын талмайда хубилдаг удхын тэмдэг оруулагты:",
   "r-vars-people-hint": "Мүн: {creator}, {assignees}, {members} (текст соо хэрэглэгчэдэй нэрэнүүд, абагшын талбар соо электрон хаягууд) болон {customField:Field name}. Эдэ бусад үйлэнүүдэй гэшүүдэй, жагсаалтануудай болон замуудай нэрэнүүд соо мүн хүдэлнэ.",

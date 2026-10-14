@@ -1630,6 +1630,8 @@
   "r-of": "di",
   "r-subject": "ughjettu",
   "r-email-vars-hint": "Etichette dispunibule: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "I campi di lista, corsia, titulu, lista di verificazione è utilizatore accettanu dinù {creator}, {assignees}, {members} è {customField:Name}, letti da a carta quandu a regula hè verificata.",
   "r-insert-variable": "Inserisce una variabile in l'ultimu campu di testu:",
   "r-vars-people-hint": "Dinù: {creator}, {assignees}, {members} (nomi d'utilizatori in u testu, indirizzi di posta in À) è {customField:Field name}. Funziunanu dinù in i nomi di membri, liste è corsie d'altre azzioni.",

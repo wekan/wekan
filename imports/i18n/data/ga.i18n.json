@@ -1630,6 +1630,8 @@
   "r-of": "de",
   "r-subject": "ábhar",
   "r-email-vars-hint": "Clibeanna atá ar fáil: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Glacann réimsí liosta, lána snámha, teidil, seicliosta agus úsáideora le {creator}, {assignees}, {members} agus {customField:Name} freisin, a léitear ón gcárta nuair a sheiceáiltear an riail.",
   "r-insert-variable": "Cuir athróg isteach sa réimse téacs deireanach:",
   "r-vars-people-hint": "Freisin: {creator}, {assignees}, {members} (ainmneacha úsáideora sa téacs, seoltaí ríomhphoist in Chuig) agus {customField:Field name}. Oibríonn siad seo freisin in ainmneacha ball, liostaí agus lánaí snámha i ngníomhartha eile.",

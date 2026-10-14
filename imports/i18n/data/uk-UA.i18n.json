@@ -1630,6 +1630,8 @@
   "r-of": "з",
   "r-subject": "Тема",
   "r-email-vars-hint": "Доступні теги: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Поля списку, лінії, назви, контрольного списку та користувача також приймають {creator}, {assignees}, {members} і {customField:Name}. Їхні значення зчитуються з картки під час перевірки правила.",
   "r-insert-variable": "Вставити змінну в останнє текстове поле:",
   "r-vars-people-hint": "Також: {creator}, {assignees}, {members} (імена користувачів у тексті, адреси електронної пошти в полі Кому) та {customField:Field name}. Вони також працюють в іменах учасників, назвах списків і ліній інших дій.",

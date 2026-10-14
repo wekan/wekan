@@ -1630,6 +1630,8 @@
   "r-of": "/",
   "r-subject": "ವಿಷಯ",
   "r-email-vars-hint": "ಲಭ್ಯವಿರುವ ಟ್ಯಾಗ್‌ಗಳು: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "ಪಟ್ಟಿ, ಸ್ವಿಮ್‌ಲೇನ್, ಶೀರ್ಷಿಕೆ, ಪರಿಶೀಲನಾಪಟ್ಟಿ ಮತ್ತು ಬಳಕೆದಾರ ಕ್ಷೇತ್ರಗಳು {creator}, {assignees}, {members} ಮತ್ತು {customField:Name} ಕೂಡ ಸ್ವೀಕರಿಸುತ್ತವೆ. ನಿಯಮ ಪರಿಶೀಲಿಸುವಾಗ ಇವನ್ನು ಕಾರ್ಡ್‌ನಿಂದ ಓದಲಾಗುತ್ತದೆ.",
   "r-insert-variable": "ಕೊನೆಯ ಪಠ್ಯ ಕ್ಷೇತ್ರದಲ್ಲಿ ಚರವನ್ನು ಸೇರಿಸಿ:",
   "r-vars-people-hint": "ಇವು ಕೂಡ: {creator}, {assignees}, {members} (ಪಠ್ಯದಲ್ಲಿ ಬಳಕೆದಾರ ಹೆಸರುಗಳು, ಸ್ವೀಕರಿಸುವವರ ಕ್ಷೇತ್ರದಲ್ಲಿ ಇಮೇಲ್ ವಿಳಾಸಗಳು) ಮತ್ತು {customField:Field name}. ಇತರ ಕ್ರಿಯೆಗಳ ಸದಸ್ಯ, ಪಟ್ಟಿ ಮತ್ತು ಸ್ವಿಮ್‌ಲೇನ್ ಹೆಸರುಗಳಲ್ಲಿಯೂ ಇವು ಕೆಲಸ ಮಾಡುತ್ತವೆ.",

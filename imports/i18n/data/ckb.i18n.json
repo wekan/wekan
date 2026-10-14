@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "بابەت",
   "r-email-vars-hint": "تاگە بەردەستەکان: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "خانەکانی لیست، ڕێڕەو، ناونیشان، لیستی پشکنین و بەکارهێنەر هەروەها {creator}، {assignees}، {members} و {customField:Name} وەردەگرن؛ کاتێک یاساکە دەپشکنرێت، ئەمانە لە کارتەکەوە دەخوێنرێنەوە.",
   "r-insert-variable": "گۆڕاوێک بخەرە ناو ئەو خانەی دەقەی دوا جار هەڵتبژاردووە:",
   "r-vars-people-hint": "هەروەها: {creator}، {assignees}، {members} (ناوی بەکارهێنەران لە دەق، ناونیشانی ئیمەیڵ لە خانەی بۆ) و {customField:Field name}. ئەمانە لە ناوی ئەندام، لیست و ڕێڕەوی کردارەکانی تریشدا کار دەکەن.",

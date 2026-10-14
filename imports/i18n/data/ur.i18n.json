@@ -1630,6 +1630,8 @@
   "r-of": "کا",
   "r-subject": "سوبجےکت",
   "r-email-vars-hint": "دستیاب ٹیگز: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "فہرست، سوئم لین، عنوان، پڑتال کی فہرست اور صارف کے خانے {creator}، {assignees}، {members} اور {customField:Name} بھی قبول کرتے ہیں۔ قاعدہ جانچتے وقت یہ کارڈ سے پڑھے جاتے ہیں۔",
   "r-insert-variable": "آخری متنی خانے میں متغیر داخل کریں:",
   "r-vars-people-hint": "مزید: {creator}، {assignees}، {members} (متن میں صارف نام، وصول کنندہ کے خانے میں ای میل پتے) اور {customField:Field name}۔ یہ دوسرے اعمال کے رکن، فہرست اور سوئم لین کے ناموں میں بھی کام کرتے ہیں۔",

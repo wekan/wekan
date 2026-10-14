@@ -1630,6 +1630,8 @@
   "r-of": "/",
   "r-subject": "വിഷയം",
   "r-email-vars-hint": "ലഭ്യമായ ടാഗുകൾ: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "പട്ടിക, പാത, തലക്കെട്ട്, ചെക്ക്‌ലിസ്റ്റ്, ഉപയോക്താവ് എന്നീ ഫീൽഡുകളിൽ {creator}, {assignees}, {members}, {customField:Name} എന്നിവയും ഉപയോഗിക്കാം; നിയമം പരിശോധിക്കുമ്പോൾ ഇവ കാർഡിൽനിന്ന് വായിക്കും.",
   "r-insert-variable": "അവസാന ടെക്സ്റ്റ് ഫീൽഡിൽ വേരിയബിൾ ചേർക്കുക:",
   "r-vars-people-hint": "കൂടാതെ: {creator}, {assignees}, {members} (ടെക്സ്റ്റിൽ ഉപയോക്തൃനാമങ്ങൾ, To ഫീൽഡിൽ ഇമെയിൽ വിലാസങ്ങൾ), {customField:Field name}. മറ്റു പ്രവർത്തനങ്ങളിലെ അംഗം, പട്ടിക, പാത എന്നിവയുടെ പേരുകളിലും ഇവ ഉപയോഗിക്കാം.",

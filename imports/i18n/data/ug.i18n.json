@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "تېما",
   "r-email-vars-hint": "ئىشلىتىلىشچان بەلگىلەر: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "تىزىملىك، يول، ماۋزۇ، تەكشۈرۈش تىزىملىكى ۋە ئىشلەتكۈچى مەيدانلىرى {creator}، {assignees}، {members} ۋە {customField:Name} نىمۇ قوبۇل قىلىدۇ؛ بۇلار قائىدە تەكشۈرۈلگەندە كارتىدىن ئوقۇلىدۇ.",
   "r-insert-variable": "ئاخىرقى تېكىست مەيدانىغا ئۆزگەرگۈچى قىستۇرۇڭ:",
   "r-vars-people-hint": "يەنە: {creator}، {assignees}، {members} (تېكىستتە ئىشلەتكۈچى نامى، قوبۇل قىلغۇچى مەيدانىدا ئېلخەت ئادرېسى) ۋە {customField:Field name}. بۇلار باشقا مەشغۇلاتلاردىكى ئەزا، تىزىملىك ۋە يول ناملىرىدىمۇ ئىشلەيدۇ.",

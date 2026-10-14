@@ -1630,6 +1630,8 @@
   "r-of": "di",
   "r-subject": "ogjet",
   "r-email-vars-hint": "Etichetis disponibilis: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "I cjamps pe liste, pe corsie, pal titul, pe liste di control e pai utents a acetin ancje {creator}, {assignees}, {members} e {customField:Name}, lets de cjarte cuant che la regule e ven controlade.",
   "r-insert-variable": "Inserìs une variabile tal ultin cjamp di test:",
   "r-vars-people-hint": "Ancje: {creator}, {assignees}, {members} (nons utent tal test, direzions di pueste tal cjamp A) e {customField:Field name}. Chestis variabilis a funzionin ancje tai nons dai membris, des listis e des corsiis di altris azions.",

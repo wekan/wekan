@@ -1630,6 +1630,8 @@
   "r-of": "de",
   "r-subject": "argumënt",
   "r-email-vars-hint": "Etichetes a dispusizion: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "I ciamps per lista, streda, titul, lista de control y utënt tol ënce {creator}, {assignees}, {members} y {customField:Name}, liec dala ciarta canche la regola vën cuntroleda.",
   "r-insert-variable": "Mëter ite na variabla tl ultim ciamp de test:",
   "r-vars-people-hint": "Nce: {creator}, {assignees}, {members} (inoms utënt tl test, adresses e-mail te To) y {customField:Field name}. Chisc jëina nce ti inoms de mëmbri, listes y swimlanes de autra azions.",

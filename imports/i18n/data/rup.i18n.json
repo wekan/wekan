@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "tema",
   "r-email-vars-hint": "Eticheti tsi ari: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Cãmpurili di listã, cali, titlu, listã di verificari shi utilizator primescu shi {creator}, {assignees}, {members} shi {customField:Name}. Valorili a lor s’ citescu di tu cartu cãndu s’ verificã regula.",
   "r-insert-variable": "Bagã un semnu trã unã valoari tsi s'ascãmbã tu cãmpulu di textu tsi lu alepsişi ma dit soni:",
   "r-vars-people-hint": "Shi: {creator}, {assignees}, {members} (numili di utilizator tu text, adresili di email tu Cãtrã) shi {customField:Field name}. Aesti lucreadzã shi tu numili di membri, listi shi cãljuri a altor actsiuni.",

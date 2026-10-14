@@ -1630,6 +1630,8 @@
   "r-of": "/",
   "r-subject": "विषय",
   "r-email-vars-hint": "उपलब्ध टॅग्ज: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "यादी, मार्गिका, शीर्षक, तपासणी यादी आणि वापरकर्ता क्षेत्रांमध्ये {creator}, {assignees}, {members} आणि {customField:Name} देखील वापरता येतात. नियम तपासताना ही मूल्ये कार्डातून घेतली जातात.",
   "r-insert-variable": "शेवटच्या मजकूर क्षेत्रात चल घाला:",
   "r-vars-people-hint": "तसेच: {creator}, {assignees}, {members} (मजकुरात वापरकर्तानावे, प्राप्तकर्ता क्षेत्रात ईमेल पत्ते) आणि {customField:Field name}. इतर कृतींच्या सदस्य, यादी आणि मार्गिकांच्या नावांतही हे वापरता येतात.",

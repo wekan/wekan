@@ -1630,6 +1630,8 @@
   "r-of": "个",
   "r-subject": "主题",
   "r-email-vars-hint": "可用标签：{card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "列表、泳道、标题、检查列表搭用户字段也接受 {creator}、{assignees}、{members} 搭 {customField:Name}，检查规则个辰光从卡片里读取。",
   "r-insert-variable": "拿变量插进最后一个文本字段里：",
   "r-vars-people-hint": "也好用：{creator}、{assignees}、{members}（文本里是用户名，收件人字段里是邮件地址）搭 {customField:Field name}。搿些变量勒别个操作个成员、列表搭泳道名字里也好用。",

@@ -1630,6 +1630,8 @@
   "r-of": "o",
   "r-subject": "kupakekaka",
   "r-email-vars-hint": "Nā puni loaʻa: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "ʻAe pū nā kahua papa inoa, ala, poʻo inoa, papa hōʻoia a me ka mea hoʻohana iā {creator}, {assignees}, {members} a me {customField:Name}. Heluhelu ʻia kēia mau mea mai ke kāleka ke nānā ʻia ka lula.",
   "r-insert-variable": "Hoʻokomo i kekahi hōʻailona no ka waiwai loli i ke kahua kikokikona āu i koho hope ai:",
   "r-vars-people-hint": "Eia pū: {creator}, {assignees}, {members} (nā inoa mea hoʻohana ma ke kikokikona, nā helu leka uila ma ke kahua Iā) a me {customField:Field name}. Hiki nō ke hoʻohana i kēia mau mea ma nā inoa lālā, papa inoa a me nā ala o nā hana ʻē aʻe.",

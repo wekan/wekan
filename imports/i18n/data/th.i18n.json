@@ -1630,6 +1630,8 @@
   "r-of": "ของ",
   "r-subject": "หัวเรื่อง",
   "r-email-vars-hint": "แท็กที่มีอยู่: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "ช่องรายการ สวิมเลน ชื่อเรื่อง รายการตรวจสอบ และผู้ใช้ รองรับ {creator}, {assignees}, {members} และ {customField:Name} ด้วย โดยอ่านจากการ์ดเมื่อตรวจสอบกฎ",
   "r-insert-variable": "แทรกตัวแปรลงในช่องข้อความล่าสุด:",
   "r-vars-people-hint": "เพิ่มเติม: {creator}, {assignees}, {members} (ชื่อผู้ใช้ในข้อความ ที่อยู่อีเมลในช่องถึง) และ {customField:Field name} ใช้ในชื่อสมาชิก รายการ และสวิมเลนของการกระทำอื่นได้ด้วย",

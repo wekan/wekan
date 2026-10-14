@@ -1630,6 +1630,8 @@
   "r-of": "ye",
   "r-subject": "umxholo",
   "r-email-vars-hint": "Iitegi ezikhoyo: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Iindawo zoluhlu, umzila, isihloko, uluhlu lokukhangela nomsebenzisi zikwamkela i-{creator}, {assignees}, {members} kunye ne-{customField:Name}, ezifundwa ekhadini xa kuhlolwa umgaqo.",
   "r-insert-variable": "Faka okuguquguqukayo kwindawo yombhalo oyikhethe mva nje:",
   "r-vars-people-hint": "Kwakhona: {creator}, {assignees}, {members} (amagama abasebenzisi kumbhalo, iidilesi ze-imeyile kwindawo ethi Iya ku) kunye ne-{customField:Field name}. Ezi zikwasebenza kumagama amalungu, izintlu nemizila yezinye izenzo.",

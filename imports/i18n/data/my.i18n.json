@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "အကြောင်းအရာ",
   "r-email-vars-hint": "ရရှိနိုင်သော tag: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "စာရင်း၊ လမ်းကြောင်း၊ ခေါင်းစဉ်၊ စစ်ဆေးစာရင်းနှင့် အသုံးပြုသူအကွက်များတွင် {creator}၊ {assignees}၊ {members} နှင့် {customField:Name} တို့ကိုလည်း ထည့်နိုင်သည်။ စည်းမျဉ်းကို စစ်ဆေးသည့်အခါ ကတ်မှ ဖတ်ယူသည်။",
   "r-insert-variable": "နောက်ဆုံးစာသားအကွက်ထဲသို့ ကိန်းရှင် ထည့်ရန် -",
   "r-vars-people-hint": "ထို့အပြင် - {creator}၊ {assignees}၊ {members} (စာသားတွင် အသုံးပြုသူအမည်များ၊ To တွင် အီးမေးလ်လိပ်စာများ) နှင့် {customField:Field name}။ ၎င်းတို့ကို အခြားလုပ်ဆောင်ချက်များ၏ အဖွဲ့ဝင်၊ စာရင်းနှင့် လမ်းကြောင်းအမည်များတွင်လည်း အသုံးပြုနိုင်သည်။",

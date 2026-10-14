@@ -1630,6 +1630,8 @@
   "r-of": "bilong",
   "r-subject": "het tok",
   "r-email-vars-hint": "Ol tag i stap: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Ol hap bilong lista, rot, taitel, lista bilong sekim na yusa i ken kisim tu {creator}, {assignees}, {members} na {customField:Name}. Sistem i ritim ol dispela long kat taim em i sekim lo.",
   "r-insert-variable": "Putim wanpela mak bilong makim wanpela veliu i save senis long bokis bilong rait yu bin makim las:",
   "r-vars-people-hint": "Na tu: {creator}, {assignees}, {members} (nem bilong ol yusa insait long teks, adres imel long hap I go long) na {customField:Field name}. Ol dispela i wok tu insait long nem bilong memba, lista na rot bilong ol arapela wok.",

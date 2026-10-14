@@ -1630,6 +1630,8 @@
   "r-of": "од",
   "r-subject": "Тема",
   "r-email-vars-hint": "Достапни ознаки: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Полињата за листа, лента, наслов, контролен список и корисник прифаќаат и {creator}, {assignees}, {members} и {customField:Name}, прочитани од картичката при проверката на правилото.",
   "r-insert-variable": "Вметнете променлива во последното текстуално поле:",
   "r-vars-people-hint": "Исто така: {creator}, {assignees}, {members} (кориснички имиња во текстот, адреси за е-пошта во полето До) и {customField:Field name}. Тие важат и во имињата на членовите, листите и лентите на другите дејства.",

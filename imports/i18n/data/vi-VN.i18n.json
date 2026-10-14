@@ -1630,6 +1630,8 @@
   "r-of": "của",
   "r-subject": "Chủ đề",
   "r-email-vars-hint": "Thẻ có sẵn: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Các trường danh sách, làn ngang, tiêu đề, danh sách kiểm tra và người dùng cũng chấp nhận {creator}, {assignees}, {members} và {customField:Name}, được đọc từ thẻ khi kiểm tra quy tắc.",
   "r-insert-variable": "Chèn biến vào trường văn bản cuối cùng:",
   "r-vars-people-hint": "Ngoài ra: {creator}, {assignees}, {members} (tên người dùng trong văn bản, địa chỉ thư điện tử trong trường Người nhận) và {customField:Field name}. Các biến này cũng dùng được trong tên thành viên, danh sách và làn ngang của các hành động khác.",

@@ -1630,6 +1630,8 @@
   "r-of": "de",
   "r-subject": "asunto",
   "r-email-vars-hint": "Etiquetes disponibles: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Los campos de lista, carril, títulu, llista de comprobación y usuariu tamién acepten {creator}, {assignees}, {members} y {customField:Name}, lleíos de la tarxeta cuando se comprueba la regla.",
   "r-insert-variable": "Inxertar una variable nel últimu campu de testu:",
   "r-vars-people-hint": "Tamién: {creator}, {assignees}, {members} (nomes d'usuariu nel testu, direiciones de corréu en Pa) y {customField:Field name}. Tamién funcionen nos nomes de miembros, listes y carriles d'otres aiciones.",

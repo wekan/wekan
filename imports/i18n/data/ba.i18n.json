@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "тема",
   "r-email-vars-hint": "Булатыусы тегтар: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Исемлек, юл, исем, тикшереү исемлеге һәм ҡулланыусы ҡырҙары {creator}, {assignees}, {members} һәм {customField:Name} үҙгәрмәләрен дә ҡабул итә; улар ҡағиҙә тикшерелгәндә карточканан уҡыла.",
   "r-insert-variable": "Һуңғы текст ҡырына үҙгәрмә өҫтәргә:",
   "r-vars-people-hint": "Шулай уҡ: {creator}, {assignees}, {members} (текста ҡулланыусы исемдәре, алыусы ҡырында электрон почта адрестары) һәм {customField:Field name}. Улар башҡа ғәмәлдәрҙең ҡатнашыусы, исемлек һәм юл исемдәрендә лә эшләй.",

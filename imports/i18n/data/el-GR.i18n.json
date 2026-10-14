@@ -1630,6 +1630,8 @@
   "r-of": "di",
   "r-subject": "θέμα",
   "r-email-vars-hint": "Διαθέσιμες ετικέτες: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Τα πεδία λίστας, διαδρόμου, τίτλου, λίστας ελέγχου και χρήστη δέχονται επίσης {creator}, {assignees}, {members} και {customField:Name}, που διαβάζονται από την κάρτα όταν ελέγχεται ο κανόνας.",
   "r-insert-variable": "Εισαγωγή μεταβλητής στο τελευταίο πεδίο κειμένου:",
   "r-vars-people-hint": "Επίσης: {creator}, {assignees}, {members} (ονόματα χρηστών στο κείμενο, διευθύνσεις ηλεκτρονικού ταχυδρομείου στο Προς) και {customField:Field name}. Λειτουργούν επίσης σε ονόματα μελών, λιστών και διαδρόμων άλλων ενεργειών.",

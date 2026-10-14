@@ -1630,6 +1630,8 @@
   "r-of": "nan",
   "r-subject": "sijè",
   "r-email-vars-hint": "Tag ki disponib: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Chan lis, koulwa, tit, lis verifikasyon ak itilizatè yo aksepte tou {creator}, {assignees}, {members} ak {customField:Name}; yo li valè sa yo nan kat la lè yo verifye règ la.",
   "r-insert-variable": "Antre varyab la nan dènye chan tèks la:",
   "r-vars-people-hint": "Epitou: {creator}, {assignees}, {members} (non itilizatè nan tèks, adrès imèl nan chan Pou) ak {customField:Field name}. Yo mache tou nan non manm, lis ak koulwa nan lòt aksyon.",

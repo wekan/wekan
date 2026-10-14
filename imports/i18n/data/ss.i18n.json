@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "sihloko",
   "r-email-vars-hint": "Tiphawulo letikhona: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Tinkhaba teluhla, indlela, sihloko, luhla lwekuhlola nemsebentisi temukela ne-{creator}, {assignees}, {members} kanye ne-{customField:Name}. Emanani ato afundvwa ekhadini nakuhlolwa umtsetfo.",
   "r-insert-variable": "Faka lokugucukako endzaweni yembhalo loyikhetse kwekugcina:",
   "r-vars-people-hint": "Futsi: {creator}, {assignees}, {members} (emagama ebasebentisi embhalweni, emakheli e-imeyili enkhabeni yemamukeli) kanye ne-{customField:Field name}. Loku kuyasebenta nasemagameni emalunga, tinhluhla netindlela taletinye tento.",

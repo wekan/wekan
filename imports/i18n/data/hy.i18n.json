@@ -1630,6 +1630,8 @@
   "r-of": "-ից",
   "r-subject": "առարկա",
   "r-email-vars-hint": "Հասանելի պիտակներ: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Ցուցակի, ուղու, վերնագրի, ստուգաթերթիկի և օգտատիրոջ դաշտերը նաև ընդունում են {creator}, {assignees}, {members} և {customField:Name} փոփոխականները, որոնք կարդացվում են քարտից կանոնը ստուգելիս։",
   "r-insert-variable": "Տեղադրել փոփոխական վերջին տեքստային դաշտում՝",
   "r-vars-people-hint": "Նաև՝ {creator}, {assignees}, {members} (օգտանուններ՝ տեքստում, էլփոստի հասցեներ՝ Ում դաշտում) և {customField:Field name}։ Սրանք աշխատում են նաև այլ գործողությունների անդամների, ցուցակների և ուղիների անուններում։",

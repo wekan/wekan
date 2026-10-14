@@ -1630,6 +1630,8 @@
   "r-of": "యొక్క",
   "r-subject": "విషయం",
   "r-email-vars-hint": "అందుబాటులో ఉన్న ట్యాగ్‌లు: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "జాబితా, స్విమ్లేన్, శీర్షిక, తనిఖీ జాబితా మరియు వినియోగదారు ఫీల్డ్‌లు {creator}, {assignees}, {members} మరియు {customField:Name} ను కూడా అంగీకరిస్తాయి. నియమాన్ని తనిఖీ చేసేటప్పుడు వీటిని కార్డు నుండి చదువుతుంది.",
   "r-insert-variable": "చివరి టెక్స్ట్ ఫీల్డ్‌లో చరరాశిని చేర్చండి:",
   "r-vars-people-hint": "ఇవి కూడా: {creator}, {assignees}, {members} (టెక్స్ట్‌లో వినియోగదారు పేర్లు, To లో ఇమెయిల్ చిరునామాలు) మరియు {customField:Field name}. ఇతర చర్యలలో సభ్యులు, జాబితాలు మరియు స్విమ్లేన్‌ల పేర్లలో కూడా ఇవి పనిచేస్తాయి.",

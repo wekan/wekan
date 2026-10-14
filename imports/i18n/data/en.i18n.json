@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "subject",
   "r-email-vars-hint": "Available tags: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "List, swimlane, title, checklist and user fields also accept {creator}, {assignees}, {members} and {customField:Name}, read from the card when the rule is checked.",
   "r-insert-variable": "Insert variable into the last text field:",
   "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",

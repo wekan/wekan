@@ -1630,6 +1630,8 @@
   "r-of": "ta'",
   "r-subject": "suġġett",
   "r-email-vars-hint": "Tikketti disponibbli: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "L-oqsma tal-lista, tal-korsija, tat-titlu, tal-lista ta’ kontroll u tal-utent jaċċettaw ukoll {creator}, {assignees}, {members} u {customField:Name}, li jinqraw mill-karta meta tiġi ċċekkjata r-regola.",
   "r-insert-variable": "Daħħal varjabbli fl-aħħar qasam tat-test:",
   "r-vars-people-hint": "Ukoll: {creator}, {assignees}, {members} (ismijiet tal-utenti fit-test, indirizzi tal-posta elettronika f’Lil) u {customField:Field name}. Dawn jaħdmu wkoll fl-ismijiet tal-membri, tal-listi u tal-korsiji ta’ azzjonijiet oħra.",

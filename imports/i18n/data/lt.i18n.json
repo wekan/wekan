@@ -1630,6 +1630,8 @@
   "r-of": "iš",
   "r-subject": "tema",
   "r-email-vars-hint": "Prieinamos žymos: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Sąrašo, juostos, pavadinimo, kontrolinio sąrašo ir naudotojo laukuose taip pat galima naudoti {creator}, {assignees}, {members} ir {customField:Name}, kurių reikšmės nuskaitomos iš kortelės tikrinant taisyklę.",
   "r-insert-variable": "Įterpti kintamąjį į paskutinį teksto lauką:",
   "r-vars-people-hint": "Taip pat: {creator}, {assignees}, {members} (naudotojų vardai tekste, el. pašto adresai gavėjų lauke) ir {customField:Field name}. Jie taip pat veikia kitų veiksmų narių, sąrašų ir juostų pavadinimuose.",

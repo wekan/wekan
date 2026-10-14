@@ -1630,6 +1630,8 @@
   "r-of": "از",
   "r-subject": "عنوان",
   "r-email-vars-hint": "برچسب‌های موجود: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "فیلدهای فهرست، مسیر، عنوان، چک‌لیست و کاربر همچنین {creator}، {assignees}، {members} و {customField:Name} را می‌پذیرند که هنگام بررسی قانون از کارت خوانده می‌شوند.",
   "r-insert-variable": "درج متغیر در آخرین کادر متن:",
   "r-vars-people-hint": "همچنین: {creator}، {assignees}، {members} (نام کاربری در متن و نشانی ایمیل در فیلد گیرنده) و {customField:Field name}. این‌ها در نام اعضا، فهرست‌ها و مسیرهای سایر عملیات نیز کار می‌کنند.",

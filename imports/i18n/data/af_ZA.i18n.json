@@ -1630,6 +1630,8 @@
   "r-of": "van",
   "r-subject": "onderwerp",
   "r-email-vars-hint": "Beskikbare merkers: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Lys-, swembaan-, titel-, kontrolelys- en gebruikervelde aanvaar ook {creator}, {assignees}, {members} en {customField:Name}, wat uit die kaart gelees word wanneer die reël nagegaan word.",
   "r-insert-variable": "Voeg veranderlike in die laaste teksveld in:",
   "r-vars-people-hint": "Ook: {creator}, {assignees}, {members} (gebruikersname in teks, e-posadresse in Aan) en {customField:Field name}. Dit werk ook in lid-, lys- en swembaanname van ander handelinge.",

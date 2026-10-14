@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "বিষয়",
   "r-email-vars-hint": "উপলব্ধ টেগসমূহ: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "তালিকা, পথ, শিৰোনাম, পৰীক্ষা তালিকা আৰু ব্যৱহাৰকাৰীৰ ক্ষেত্ৰত {creator}, {assignees}, {members} আৰু {customField:Name} ও গ্ৰহণ কৰা হয়; নিয়ম পৰীক্ষা কৰাৰ সময়ত এইবোৰ কাৰ্ডৰ পৰা পঢ়া হয়।",
   "r-insert-variable": "শেষৰ পাঠ্য ক্ষেত্ৰত চলক সুমুৱাওক:",
   "r-vars-people-hint": "লগতে: {creator}, {assignees}, {members} (পাঠত ব্যৱহাৰকাৰীৰ নাম, প্ৰাপক ক্ষেত্ৰত ইমেইল ঠিকনা) আৰু {customField:Field name}। এইবোৰ অন্য কাৰ্যৰ সদস্য, তালিকা আৰু পথৰ নামতো কাম কৰে।",

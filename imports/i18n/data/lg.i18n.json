@@ -1630,6 +1630,8 @@
   "r-of": "lya",
   "r-subject": "omutwe",
   "r-email-vars-hint": "Obubonero obuliwo: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Ebifo by’olukalala, akakubo, omutwe, olukalala lw’okukebera n’omukozesa bikkiriza ne {creator}, {assignees}, {members} ne {customField:Name}. Emiwendo gyabyo gisomebwa okuva ku kaadi nga etteeka likeberwa.",
   "r-insert-variable": "Teeka akabonero akakiikirira omuwendo ogukyuka mu kifo ky'ebiwandiiko kye wasembyeyo okulonda:",
   "r-vars-people-hint": "Nabyo: {creator}, {assignees}, {members} (amannya g’abakozesa mu biwandiiko, endagiriro za imeyiri mu kifo ky’oyo afuna) ne {customField:Field name}. Bino bikola ne mu mannya g’abammemba, enkalala n’obukubo eby’ebikolwa ebirala.",

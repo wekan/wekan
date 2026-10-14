@@ -1630,6 +1630,8 @@
   "r-of": "з",
   "r-subject": "тэма",
   "r-email-vars-hint": "Даступныя тэгі: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Палі спіса, дарожкі, назвы, кантрольнага спіса і карыстальніка таксама прымаюць {creator}, {assignees}, {members} і {customField:Name}, прачытаныя з карткі падчас праверкі правіла.",
   "r-insert-variable": "Устаўце зменную ў апошняе тэкставае поле:",
   "r-vars-people-hint": "Таксама: {creator}, {assignees}, {members} (імёны карыстальнікаў у тэксце, адрасы электроннай пошты ў полі Каму) і {customField:Field name}. Яны таксама працуюць у імёнах удзельнікаў, назвах спісаў і дарожак іншых дзеянняў.",

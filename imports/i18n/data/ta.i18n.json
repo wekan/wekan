@@ -1630,6 +1630,8 @@
   "r-of": "இன்",
   "r-subject": "பொருள்",
   "r-email-vars-hint": "கிடைக்கக்கூடிய குறிச்சொற்கள்: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "பட்டியல், நீச்சல் தடம், தலைப்பு, சரிபார்ப்புப் பட்டியல் மற்றும் பயனர் புலங்கள் {creator}, {assignees}, {members} மற்றும் {customField:Name} ஆகியவற்றையும் ஏற்கும். விதி சரிபார்க்கப்படும்போது இவை அட்டையிலிருந்து படிக்கப்படும்.",
   "r-insert-variable": "கடைசி உரைப் புலத்தில் மாறியைச் செருகவும்:",
   "r-vars-people-hint": "மேலும்: {creator}, {assignees}, {members} (உரையில் பயனர்பெயர்கள், பெறுநர் புலத்தில் மின்னஞ்சல் முகவரிகள்) மற்றும் {customField:Field name}. மற்ற செயல்களின் உறுப்பினர், பட்டியல் மற்றும் நீச்சல் தடப் பெயர்களிலும் இவை வேலை செய்யும்.",

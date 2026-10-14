@@ -5,6 +5,14 @@ template(name="mailActions")
         | {{_'r-send-email'}}
       div.trigger-dropdown-mail
         input(id="email-to",type=text,placeholder="{{_'r-to'}}")
+      //- #2435: pick board members with autocomplete; each is added to To as
+        @username and reaches that member's own address when the rule runs.
+        Free addresses are typed into To as before.
+      div.trigger-dropdown-mail
+        input.js-email-to-member(type="text" list="email-to-members" placeholder="{{_ 'r-email-add-member'}}" aria-label="{{_ 'r-email-add-member'}}" autocomplete="off")
+        datalist#email-to-members
+          each memberChoices
+            option(value=value)= label
       input(id="email-subject",type=text,placeholder="{{_'r-subject'}}")
       textarea(id="email-msg" data-editor-submit=".js-mail-action")
       label
@@ -20,5 +28,7 @@ template(name="mailActions")
         | {{_'r-email-vars-hint'}}
       div.trigger-hint.trigger-hint-people-vars
         | {{_'r-vars-people-hint'}}
+      div.trigger-hint.trigger-hint-email-members
+        | {{_'r-email-members-hint'}}
     button.trigger-button.trigger-button-email.js-mail-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
       i.fa.fa-plus(aria-hidden="true")

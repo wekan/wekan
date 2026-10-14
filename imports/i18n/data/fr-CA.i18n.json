@@ -1630,6 +1630,8 @@
   "r-of": "sur",
   "r-subject": "sujet",
   "r-email-vars-hint": "Balises disponibles: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Les champs de liste, de couloir, de titre, de liste de contrôle et d’utilisateur acceptent aussi {creator}, {assignees}, {members} et {customField:Name}, dont les valeurs sont lues depuis la carte lors de la vérification de la règle.",
   "r-insert-variable": "Insérer une variable dans le dernier champ de texte :",
   "r-vars-people-hint": "Également : {creator}, {assignees}, {members} (noms d’utilisateur dans le texte, adresses électroniques dans le champ À) et {customField:Field name}. Ces variables fonctionnent aussi dans les noms de membres, de listes et de couloirs des autres actions.",

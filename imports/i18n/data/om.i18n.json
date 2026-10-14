@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "dhimma",
   "r-email-vars-hint": "Mallattoowwan jiran: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Dirreewwan tarree, karaa, mata-duree, tarree qorannoo fi fayyadamaa {creator}, {assignees}, {members} fi {customField:Name} ni fudhatu. Gatiiwwan isaanii yeroo seerri sakatta’amu kaardii irraa dubbifamu.",
   "r-insert-variable": "Jijjiiramaa gara dirree barruu isa dhuma filatteetti galchi:",
   "r-vars-people-hint": "Dabalataan: {creator}, {assignees}, {members} (barreeffama keessatti maqaa fayyadamtootaa, dirree fudhataa keessatti teessoo imeelii) fi {customField:Field name}. Isaan kun maqaa miseensotaa, tarreewwanii fi karaawwan tarkaanfiiwwan biroo keessattis ni hojjetu.",

@@ -1630,6 +1630,8 @@
   "r-of": "sus",
   "r-subject": "sujèt",
   "r-email-vars-hint": "Etiquetas disponiblas: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Los camps de lista, corredor, títol, lista de verificacion e utilizaire acceptan tanben {creator}, {assignees}, {members} e {customField:Name}, legits dins la carta quand la règla es verificada.",
   "r-insert-variable": "Inserir una variabla dins lo darrièr camp de tèxte :",
   "r-vars-people-hint": "Tanben : {creator}, {assignees}, {members} (noms d'utilizaire dins lo tèxte, adreças de corrièl dins A) e {customField:Field name}. Aquò fonciona tanben dins los noms de membres, listas e corredors d'autras accions.",

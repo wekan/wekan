@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "huuphe qofaa",
   "r-email-vars-hint": "De’iya malaatiya: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Mazgabaa, ogiyaa, huuphe sunttaa, paccissiya mazgabaa nne oosanchchaa sohotikka {creator}, {assignees}, {members} nne {customField:Name} ekkiyoosona. Seeray paccettiyo wode, hageeti kaardiyappe nabbabettiyoosona.",
   "r-insert-variable": "Neeni wurssettan doorido xaafuwaa sa'aa giddon laamettana danddayiya gatiyaa bessa malaataa gelissa:",
   "r-vars-people-hint": "Qassi: {creator}, {assignees}, {members} (xaafuwan oosanchchatu sunttata, yeddiyoosan iimeeliyaa sohotaa) nne {customField:Field name}. Hageeti hara oosotu yaraata, mazgabaa nne ogiyaa sunttatunkka oottiyoosona.",

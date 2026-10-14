@@ -1630,6 +1630,8 @@
   "r-of": "af",
   "r-subject": "efni",
   "r-email-vars-hint": "Tiltæk merki: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Reitir fyrir lista, braut, titil, gátlista og notanda samþykkja einnig {creator}, {assignees}, {members} og {customField:Name}, sem eru lesin úr spjaldinu þegar reglan er athuguð.",
   "r-insert-variable": "Setja breytu inn í síðasta textareit:",
   "r-vars-people-hint": "Einnig: {creator}, {assignees}, {members} (notendanöfn í texta, netföng í viðtakandareit) og {customField:Field name}. Þetta virkar einnig í nöfnum meðlima, lista og brauta í öðrum aðgerðum.",

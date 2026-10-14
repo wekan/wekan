@@ -1630,6 +1630,8 @@
   "r-of": "blong",
   "r-subject": "stamba tok",
   "r-email-vars-hint": "Ol tag we i stap: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Ol bokis blong lis, rod, taetol, lis blong jekem mo yusa oli akseptem tu {creator}, {assignees}, {members} mo {customField:Name}. Sistem i ridim olgeta ya long kad taem hem i jekem rul.",
   "r-insert-variable": "Putum wan mak we i tekem ples blong wan valiu we i save jenis long bokis blong teks we yu jusum laswan:",
   "r-vars-people-hint": "Mo tu: {creator}, {assignees}, {members} (ol nem blong yusa insaed long teks, ol imel adres long bokis I go long) mo {customField:Field name}. Olgeta ya oli wok tu long ol nem blong memba, lis mo rod blong ol narafala aksen.",

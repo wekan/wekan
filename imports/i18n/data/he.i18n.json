@@ -1630,6 +1630,8 @@
   "r-of": "מתוך",
   "r-subject": "נושא",
   "r-email-vars-hint": "תגיות זמינות: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "שדות הרשימה, המסלול, הכותרת, רשימת התיוג והמשתמש מקבלים גם את {creator}, {assignees}, {members} ו־{customField:Name}, שנקראים מהכרטיס בעת בדיקת הכלל.",
   "r-insert-variable": "הוספת משתנה לשדה הטקסט האחרון:",
   "r-vars-people-hint": "בנוסף: {creator}, {assignees}, {members} (שמות משתמש בטקסט, כתובות דואר בשדה הנמענים) ו־{customField:Field name}. הם פועלים גם בשמות חברים, רשימות ומסלולים בפעולות אחרות.",

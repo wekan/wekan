@@ -1630,6 +1630,8 @@
   "r-of": "/",
   "r-subject": "тақырып",
   "r-email-vars-hint": "Қолжетімді тегтер: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Тізім, жолақ, атау, бақылау тізімі және пайдаланушы өрістері ереже тексерілген кезде карточкадан оқылатын {creator}, {assignees}, {members} және {customField:Name} мәндерін де қабылдайды.",
   "r-insert-variable": "Соңғы мәтін өрісіне айнымалы енгізу:",
   "r-vars-people-hint": "Сондай-ақ: {creator}, {assignees}, {members} (мәтінде пайдаланушы аттары, ал алушы өрісінде электрондық пошта мекенжайлары) және {customField:Field name}. Бұлар басқа әрекеттердегі қатысушы, тізім және жолақ атауларында да жұмыс істейді.",

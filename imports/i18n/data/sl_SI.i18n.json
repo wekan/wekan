@@ -1630,6 +1630,8 @@
   "r-of": "od",
   "r-subject": "zadeva",
   "r-email-vars-hint": "Razpoložljive oznake: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Polja za seznam, plavalno stezo, naslov, kontrolni seznam in uporabnika sprejemajo tudi {creator}, {assignees}, {members} in {customField:Name}, prebrane s kartice ob preverjanju pravila.",
   "r-insert-variable": "Vstavite spremenljivko v zadnje besedilno polje:",
   "r-vars-people-hint": "Tudi: {creator}, {assignees}, {members} (uporabniška imena v besedilu, e-poštni naslovi v polju Za) in {customField:Field name}. Delujejo tudi v imenih članov, seznamov in plavalnih stez drugih dejanj.",

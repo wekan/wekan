@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "object",
   "r-email-vars-hint": "Etichettas disponiblas: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Ils champs per glista, swimlane, titel, glista da controlla ed utilisader acceptan era {creator}, {assignees}, {members} e {customField:Name}. Questas valurs vegnan legidas da la carta cur che la regla vegn controllada.",
   "r-insert-variable": "Inserir ina variabla en l’ultim champ da text:",
   "r-vars-people-hint": "Era: {creator}, {assignees}, {members} (nums d’utilisader en il text, adressas dad e-mail en il champ dals destinataris) e {customField:Field name}. Questas variablas funcziunan era en nums da commembers, glistas e swimlanes dad autras acziuns.",

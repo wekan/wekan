@@ -1630,6 +1630,8 @@
   "r-of": "аз",
   "r-subject": "мавзуъ",
   "r-email-vars-hint": "Тегҳои дастрас: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Майдонҳои рӯйхат, хат, сарлавҳа, рӯйхати санҷишӣ ва корбар инчунин {creator}, {assignees}, {members} ва {customField:Name}-ро қабул мекунанд, ки ҳангоми санҷиши қоида аз корт хонда мешаванд.",
   "r-insert-variable": "Ба майдони матнии охирин тағйирёбанда гузоред:",
   "r-vars-people-hint": "Инчунин: {creator}, {assignees}, {members} (номҳои корбар дар матн, суроғаҳои почтаи электронӣ дар майдони гиранда) ва {customField:Field name}. Инҳо инчунин дар номҳои аъзо, рӯйхат ва хати амалҳои дигар кор мекунанд.",

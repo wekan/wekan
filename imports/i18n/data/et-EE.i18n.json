@@ -1630,6 +1630,8 @@
   "r-of": "/",
   "r-subject": "teema",
   "r-email-vars-hint": "Saadaolevad sildid: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Loendi, raja, pealkirja, kontrollnimekirja ja kasutaja väljad toetavad ka muutujaid {creator}, {assignees}, {members} ja {customField:Name}, mille väärtused loetakse kaardilt reegli kontrollimisel.",
   "r-insert-variable": "Lisa muutuja viimati kasutatud tekstiväljale:",
   "r-vars-people-hint": "Veel: {creator}, {assignees}, {members} (tekstis kasutajanimed, saajaväljal e-posti aadressid) ja {customField:Field name}. Need toimivad ka teiste toimingute liikmete, loendite ja radade nimedes.",

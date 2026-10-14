@@ -1630,6 +1630,8 @@
   "r-of": "ti",
   "r-subject": "koko ọrọ",
   "r-email-vars-hint": "Àmì tí ó wà: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Àwọn ààyè àkọjọ, ọ̀nà iṣẹ́, àkọlé, àkọjọ àyẹ̀wò àti olùlò tún gba {creator}, {assignees}, {members} àti {customField:Name}, tí a kà láti káàdì nígbà tí a bá ṣàyẹ̀wò òfin.",
   "r-insert-variable": "Fi oníyípadà sínú ààyè ọ̀rọ̀ tó kẹ́yìn:",
   "r-vars-people-hint": "Pẹ̀lú: {creator}, {assignees}, {members} (orúkọ olùlò nínú ọ̀rọ̀, àdírẹ́sì ímeèlì nínú ààyè Olùgbà) àti {customField:Field name}. Àwọn wọ̀nyí tún ṣiṣẹ́ nínú orúkọ ọmọ ẹgbẹ́, àkọjọ àti ọ̀nà iṣẹ́ ti àwọn ìgbésẹ̀ mìíràn.",

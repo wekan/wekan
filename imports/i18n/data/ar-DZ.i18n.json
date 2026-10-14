@@ -1630,6 +1630,8 @@
   "r-of": "من",
   "r-subject": "عنوان",
   "r-email-vars-hint": "الوسوم المتاحة: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "تقبل حقول القائمة والمسار والعنوان وقائمة التحقق والمستخدم أيضًا {creator} و{assignees} و{members} و{customField:Name}، وتُقرأ قيمها من البطاقة عند التحقق من القاعدة.",
   "r-insert-variable": "أدرج متغيرًا في آخر حقل نصي:",
   "r-vars-people-hint": "أيضًا: {creator} و{assignees} و{members} (أسماء المستخدمين في النص وعناوين البريد الإلكتروني في حقل المستلم) و{customField:Field name}. تعمل هذه المتغيرات أيضًا في أسماء الأعضاء والقوائم والمسارات في الإجراءات الأخرى.",

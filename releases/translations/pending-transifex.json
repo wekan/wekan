@@ -2147,6 +2147,14 @@
     {
       "key": "account-webhook-field-authMethod",
       "since": "2026-10-14"
+    },
+    {
+      "key": "r-email-add-member",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "r-email-members-hint",
+      "since": "2026-10-14"
     }
   ]
 }

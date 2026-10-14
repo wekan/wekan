@@ -1630,6 +1630,8 @@
   "r-of": "នៃ",
   "r-subject": "ប្រធានបទ",
   "r-email-vars-hint": "ស្លាកដែលអាចប្រើបាន: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "វាលបញ្ជី ផ្លូវហែលទឹក ចំណងជើង បញ្ជីត្រួតពិនិត្យ និងអ្នកប្រើក៏ទទួលយក {creator}, {assignees}, {members} និង {customField:Name} ដែលអានពីកាតនៅពេលពិនិត្យច្បាប់ផងដែរ។",
   "r-insert-variable": "បញ្ចូលអថេរទៅក្នុងវាលអត្ថបទចុងក្រោយ៖",
   "r-vars-people-hint": "ផងដែរ៖ {creator}, {assignees}, {members} (ឈ្មោះអ្នកប្រើក្នុងអត្ថបទ អាសយដ្ឋានអ៊ីមែលក្នុង To) និង {customField:Field name}។ វាក៏អាចប្រើក្នុងឈ្មោះសមាជិក បញ្ជី និងផ្លូវហែលទឹកនៃសកម្មភាពផ្សេងទៀតបានដែរ។",

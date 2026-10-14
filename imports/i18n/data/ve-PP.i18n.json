@@ -1630,6 +1630,8 @@
   "r-of": "/",
   "r-subject": "azj",
   "r-email-vars-hint": "Zwiredzo zwi wanalaho: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Lugetižen, ujundšoidan, nimen, kodvindlugetižen da kävutajan palad ottas mugažo {creator}, {assignees}, {members} da {customField:Name}. Nende arvod lugetas kartaspäi, ku sändad kodvindas.",
   "r-insert-variable": "Liža muutujan merk tekstpol'he, kudamban valičid jäl'gmäižeks:",
   "r-vars-people-hint": "Völ: {creator}, {assignees}, {members} (kävutajiden nimed tekstas, e-počtan adresad sajan palas) da {customField:Field name}. Nece toimib mugažo toižiden tegendiden členiden, lugetižiden da ujundšoididen nimiš.",

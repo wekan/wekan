@@ -1630,6 +1630,8 @@
   "r-of": "no",
   "r-subject": "subjekts",
   "r-email-vars-hint": "Pieejamie tagi: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Saraksta, joslas, nosaukuma, kontrolsaraksta un lietotāja laukos var izmantot arī {creator}, {assignees}, {members} un {customField:Name}, kuru vērtības tiek nolasītas no kartiņas nosacījuma pārbaudes laikā.",
   "r-insert-variable": "Ievietot mainīgo pēdējā teksta laukā:",
   "r-vars-people-hint": "Arī: {creator}, {assignees}, {members} (lietotājvārdi tekstā, e-pasta adreses saņēmēju laukā) un {customField:Field name}. Tie darbojas arī citu darbību dalībnieku, sarakstu un joslu nosaukumos.",

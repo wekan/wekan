@@ -1630,6 +1630,8 @@
   "r-of": "از",
   "r-subject": "عنوان",
   "r-email-vars-hint": "الوسوم المتوفرة: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "خانات اللائحة والمسار والعنوان ولائحة التحقق والمستخدم كتقبل حتى {creator} و{assignees} و{members} و{customField:Name}. القيم ديالهم كتتقرا من البطاقة ملي كتتفحص القاعدة.",
   "r-insert-variable": "زيد متغيّر فخانة النص اللي ختاريتي آخر مرة:",
   "r-vars-people-hint": "وزيد عليهم: {creator} و{assignees} و{members} (سميات المستخدمين فالنص، وعناوين الإيميل فخانة المرسل إليه) و{customField:Field name}. هادو كيخدمو حتى فسميات الأعضاء واللوائح والمسارات ديال الإجراءات الأخرى.",

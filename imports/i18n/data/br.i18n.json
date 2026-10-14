@@ -1630,6 +1630,8 @@
   "r-of": "eus",
   "r-subject": "titlenn",
   "r-email-vars-hint": "Balizennoù hegerz: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Maeziennoù roll, trepas, titl, roll gwiriañ hag implijer a zegemer ivez {creator}, {assignees}, {members} ha {customField:Name}, lennet diwar ar gartenn pa vez gwiriet ar reolenn.",
   "r-insert-variable": "Enlakaat ur varienn er vaezienn destenn diwezhañ:",
   "r-vars-people-hint": "Ivez: {creator}, {assignees}, {members} (anvioù implijer er destenn, chomlec'hioù postel e Da) ha {customField:Field name}. Labourat a reont ivez en anvioù izili, rolloù ha trepasoù an oberioù all.",

@@ -1630,6 +1630,8 @@
   "r-of": "dari",
   "r-subject": "judul",
   "r-email-vars-hint": "Tag nyang na: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Teumpat dapeuta, jalur, judul, dapeuta peumeriksa ngon ureuëng ngui cit jiteurimong {creator}, {assignees}, {members} ngon {customField:Name}. Nilè jih jibeuet nibak kad watee atôran jipeurèksa.",
   "r-insert-variable": "Peutamong variabel bak kotak teks nyang droeneuh pileh paléng akhé:",
   "r-vars-people-hint": "Meunan cit: {creator}, {assignees}, {members} (nan ureuëng ngui lam teks, alamat email lam teumpat ureuëng teurimong) ngon {customField:Field name}. Nyang nyoe cit jeuet jingui lam nan anggota, dapeuta ngon jalur nibak buët laén.",

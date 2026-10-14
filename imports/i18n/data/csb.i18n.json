@@ -1630,6 +1630,8 @@
   "r-of": "z",
   "r-subject": "téma",
   "r-email-vars-hint": "Dostãpné etiketë: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Pòla lëstë, stegnë, titla, lëstë kòntrólny i brëkòwnika przëjimają téż {creator}, {assignees}, {members} i {customField:Name}, òdczëtiwóné z kôrtë przë sprôwdzanim reglë.",
   "r-insert-variable": "Wstaw zmienną do slédnégò tekstowégò pòla:",
   "r-vars-people-hint": "Téż: {creator}, {assignees}, {members} (miona brëkòwników w teksce, adresë pòcztë w Do) i {customField:Field name}. Dzejają téż w mionach człónków, lëstów i stegnów jinëch dzejbów.",

@@ -1630,6 +1630,8 @@
   "r-of": "нәрсәнең",
   "r-subject": "тема",
   "r-email-vars-hint": "Файдаланырлык теглар: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Исемлек, юл, исем, тикшерү исемлеге һәм кулланучы кырлары шулай ук {creator}, {assignees}, {members} һәм {customField:Name} үзгәрешлеләрен кабул итә; алар кагыйдә тикшерелгәндә карточкадан укыла.",
   "r-insert-variable": "Үзгәрешчене соңгы тапкыр сайланган текст кырына өстәгез:",
   "r-vars-people-hint": "Шулай ук: {creator}, {assignees}, {members} (текстта — кулланучы исемнәре, Кемгә кырында — электрон почта адреслары) һәм {customField:Field name}. Болар башка гамәлләрнең әгъза, исемлек һәм юл исемнәрендә дә эшли.",

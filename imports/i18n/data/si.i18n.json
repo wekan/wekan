@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "විෂය",
   "r-email-vars-hint": "තිබෙන ටැග්: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "ලැයිස්තුව, පථය, මාතෘකාව, පිරික්සුම් ලැයිස්තුව සහ පරිශීලක ක්ෂේත්‍රවලටද {creator}, {assignees}, {members} සහ {customField:Name} යෙදිය හැක. නීතිය පරීක්ෂා කරන විට මේවා කාඩ්පතෙන් කියවනු ලැබේ.",
   "r-insert-variable": "අවසන් පෙළ ක්ෂේත්‍රයට විචල්‍යයක් ඇතුළු කරන්න:",
   "r-vars-people-hint": "එසේම: {creator}, {assignees}, {members} (පෙළ තුළ පරිශීලක නාම, ලබන්නා ක්ෂේත්‍රයේ ඊමේල් ලිපින) සහ {customField:Field name}. වෙනත් ක්‍රියාවල සාමාජික, ලැයිස්තු සහ පථ නාමවලද මේවා ක්‍රියා කරයි.",

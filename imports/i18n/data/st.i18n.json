@@ -1630,6 +1630,8 @@
   "r-of": "ho tse",
   "r-subject": "sehlooho",
   "r-email-vars-hint": "Ditshwaontlha tse teng: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Dikarolo tsa lenane, tsela, sehlooho, lenane la tlhahlobo le mosebelisi di boetse di amohela {creator}, {assignees}, {members} le {customField:Name}, tse balwang kareteng ha molao o hlahlojwa.",
   "r-insert-variable": "Kenya letshwao le emelang boleng bo fetohang sebakeng sa mongolo seo u se khethileng la ho qetela:",
   "r-vars-people-hint": "Hape: {creator}, {assignees}, {members} (mabitso a basebelisi mongolong, liaterese tsa imeile karolong ea E eang ho) le {customField:Field name}. Tsena li sebetsa le mabitsong a litho, manane le litsela tsa liketso tse ling.",

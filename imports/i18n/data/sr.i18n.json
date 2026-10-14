@@ -1630,6 +1630,8 @@
   "r-of": "од",
   "r-subject": "наслов",
   "r-email-vars-hint": "Доступне ознаке: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Поља за листу, пливачку стазу, наслов, контролну листу и корисника прихватају и {creator}, {assignees}, {members} и {customField:Name}, прочитане са картице при провери правила.",
   "r-insert-variable": "Уметните променљиву у последње текстуално поље:",
   "r-vars-people-hint": "Такође: {creator}, {assignees}, {members} (корисничка имена у тексту, адресе е-поште у пољу За) и {customField:Field name}. Важе и у именима чланова, листа и пливачких стаза других радњи.",

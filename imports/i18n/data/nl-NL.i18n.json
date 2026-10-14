@@ -1630,6 +1630,8 @@
   "r-of": "van",
   "r-subject": "onderwerp",
   "r-email-vars-hint": "Beschikbare tags: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "De velden voor lijst, zwembaan, titel, checklist en gebruiker accepteren ook {creator}, {assignees}, {members} en {customField:Name}. De waarden worden uit de kaart gelezen wanneer de regel wordt gecontroleerd.",
   "r-insert-variable": "Variabele invoegen in het laatste tekstveld:",
   "r-vars-people-hint": "Ook: {creator}, {assignees}, {members} (gebruikersnamen in tekst, e-mailadressen in Aan) en {customField:Field name}. Deze werken ook in namen van leden, lijsten en werkbanen bij andere acties.",

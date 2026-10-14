@@ -1630,6 +1630,8 @@
   "r-of": "的",
   "r-subject": "主旨",
   "r-email-vars-hint": "可用標籤：{card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "列表、泳道、標題、檢查清單和使用者欄位也支援 {creator}、{assignees}、{members} 和 {customField:Name}，其值會在檢查規則時從卡片讀取。",
   "r-insert-variable": "在上一個文字欄位中插入變數：",
   "r-vars-people-hint": "也可使用 {creator}、{assignees}、{members}（在文字中為使用者名稱，在收件者欄位中為電子郵件地址）及 {customField:Field name}。這些變數也可用於其他動作中的成員、清單及泳道名稱。",

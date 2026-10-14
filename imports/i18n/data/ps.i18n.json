@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "موضوع",
   "r-email-vars-hint": "شته ټاګونه: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "د لړليک، کرښې، سرليک، کتنليک او کارن ډګرونه {creator}، {assignees}، {members} او {customField:Name} هم مني، چې د قاعدې د کتلو پر مهال له کارت څخه لوستل کېږي.",
   "r-insert-variable": "په وروستي متن ډګر کې متغير ور دننه کړئ:",
   "r-vars-people-hint": "همدارنګه: {creator}، {assignees}، {members} (په متن کې د کارن نومونه، په To کې د برېښناليک پتې) او {customField:Field name}. دا د نورو کړنو د غړو، لړليکونو او کرښو په نومونو کې هم کار کوي.",

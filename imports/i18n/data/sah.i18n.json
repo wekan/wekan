@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "темата",
   "r-email-vars-hint": "Баар тэгтэр: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Испииһэк, суол, баһа, бэрэбиэркэ испииһэгэ уонна туһанааччы хонуулара {creator}, {assignees}, {members} уонна {customField:Name} ылыналлар. Быраабыланы бэрэбиэркэлииргэ, кинилэр суолталара карточкаттан ааҕыллаллар.",
   "r-insert-variable": "Бүтэһик талбыт тиэкис хонуугар уларыйар суолтаны бэлиэтиир бэлиэни угуҥ:",
   "r-vars-people-hint": "Өссө: {creator}, {assignees}, {members} (тиэкискэ туһанааччылар ааттара, ылааччы хонуутагар электроннай почта аадырыстара) уонна {customField:Field name}. Булар атын дьайыылар кыттааччыларын, испииһэктэрин уонна суолларын ааттарыгар эмиэ үлэлииллэр.",

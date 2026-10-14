@@ -1630,6 +1630,8 @@
   "r-of": "ghajbogh:",
   "r-subject": "QIn pong",
   "r-email-vars-hint": "maqmey: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "tetlh, He, pong, ghItlhHommey tetlh, lo'wI' je De' DaqmeyDaq {creator}, {assignees}, {members} {customField:Name} je Dalo'laH je. chut nuDlu'DI', card De' laDlu' 'ej De'vetlh lo'lu'.",
   "r-insert-variable": "ghItlh Daq DawIvta'bogh QavDaq choHlaHbogh De' 'oSbogh per yIlan:",
   "r-vars-people-hint": "{creator}, {assignees}, {members} {customField:Field name} je Dalo'laH je. ghItlhDaq lo'wI' pongmey cha'; HevwI' DaqDaq jabbI'ID Quvmey cha'. latlh ta'mey ghom jeSwI' pongmey, tetlh pongmey, He pongmey jeDaq bIH Dalo'laH je.",

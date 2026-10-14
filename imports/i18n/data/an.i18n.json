@@ -1630,6 +1630,8 @@
   "r-of": "de",
   "r-subject": "asunto",
   "r-email-vars-hint": "Etiquetas disponibles: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Os campos de lista, carril, titol, lista de comprebación y usuario tamién acceptan {creator}, {assignees}, {members} y {customField:Name}, leitos d'a tarcheta quan se compreba a regla.",
   "r-insert-variable": "Fica una variable en o zaguer campo de texto:",
   "r-vars-people-hint": "Tamién: {creator}, {assignees}, {members} (nombres d'usuario en o texto, adrezas de correu en Ta) y {customField:Field name}. Tamién funcionan en os nombres de miembros, listas y carrils d'atras accions.",

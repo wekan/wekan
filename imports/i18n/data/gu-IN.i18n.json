@@ -1630,6 +1630,8 @@
   "r-of": "ના",
   "r-subject": "વિષય",
   "r-email-vars-hint": "ઉપલબ્ધ ટૅગ્સ: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "યાદી, સ્વિમલેન, શીર્ષક, ચકાસણી યાદી અને વપરાશકર્તાના ક્ષેત્રો {creator}, {assignees}, {members} અને {customField:Name} પણ સ્વીકારે છે. નિયમ તપાસતી વખતે તે કાર્ડમાંથી વાંચવામાં આવે છે.",
   "r-insert-variable": "છેલ્લા લખાણ ક્ષેત્રમાં ચલ ઉમેરો:",
   "r-vars-people-hint": "આ પણ: {creator}, {assignees}, {members} (લખાણમાં વપરાશકર્તાનામ, પ્રાપ્તકર્તાના ક્ષેત્રમાં ઈમેલ સરનામાં) અને {customField:Field name}. તે અન્ય કાર્યોના સભ્ય, યાદી અને સ્વિમલેનના નામમાં પણ કામ કરે છે.",

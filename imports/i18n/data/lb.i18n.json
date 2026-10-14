@@ -1630,6 +1630,8 @@
   "r-of": "vun",
   "r-subject": "Betreff",
   "r-email-vars-hint": "Verfügbar Tags: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Felder fir Lëschten, Bunnen, Titelen, Checklëschten a Benotzer akzeptéieren och {creator}, {assignees}, {members} an {customField:Name}, déi aus der Kaart gelies ginn, wann d’Reegel iwwerpréift gëtt.",
   "r-insert-variable": "Variabel an dat lescht Textfeld afügen:",
   "r-vars-people-hint": "Och: {creator}, {assignees}, {members} (Benotzernimm am Text, E-Mail-Adressen am Empfängerfeld) an {customField:Field name}. Dës funktionéieren och an den Nimm vu Memberen, Lëschten a Bunne vun aneren Aktiounen.",

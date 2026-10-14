@@ -1630,6 +1630,8 @@
   "r-of": "fan",
   "r-subject": "ûnderwerp",
   "r-email-vars-hint": "Beskikbere tags: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Fjilden foar oersjochslist, swimbaan, titel, kontrôlelist en brûker akseptearje ek {creator}, {assignees}, {members} en {customField:Name}, lêzen út de kaart as de regel kontrolearre wurdt.",
   "r-insert-variable": "Foegje in fariabele yn it lêste tekstfjild yn:",
   "r-vars-people-hint": "Ek: {creator}, {assignees}, {members} (brûkersnammen yn tekst, e-mailadressen yn Oan) en {customField:Field name}. Dizze wurkje ek yn de nammen fan leden, oersjochslisten en swimbanen fan oare aksjes.",

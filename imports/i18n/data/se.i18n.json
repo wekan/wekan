@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "ášši",
   "r-email-vars-hint": "Fidnemis mearkkat: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Listu-, bálggis-, namahus-, dárkkistanlistu- ja geavaheaddjigiettit dohkkehit maiddái {creator}, {assignees}, {members} ja {customField:Name}. Daid árvvut lohkojuvvojit kárttas go njuolggadus dárkkistuvvo.",
   "r-insert-variable": "Bija rievdavaš árvvu mearkka maŋemuš geardde válljejuvvon teakstagieddái:",
   "r-vars-people-hint": "Maid: {creator}, {assignees}, {members} (geavaheaddjinamat teavsttas, e-boastačujuhusat vuostáiváldi-giettis) ja {customField:Field name}. Dát doibmet maiddái eará doaimmaid lahtuid, listtuid ja bálgáid namain.",

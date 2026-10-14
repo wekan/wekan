@@ -1630,6 +1630,8 @@
   "r-of": "ning",
   "r-subject": "موضوع",
   "r-email-vars-hint": "موجود تیگلر: {card}، {cardLink}، {list}، {board}، {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "رۉیخت، ایش یۉلگی، سرلوحه، تیکشیروو رۉیختی و فایدلنووچی میدانلری {creator}، {assignees}، {members} و {customField:Name} نی هم قبول قیله‌دی؛ اولر قاعده تیکشیریلگنده کارتدن اۉقیله‌دی.",
   "r-insert-variable": "آخرگی متن میدانیگه اۉزگرووچی کیریتینگ:",
   "r-vars-people-hint": "شونینگدیک: {creator}، {assignees}، {members} (متنده فایدلنووچی ناملری، کیمگه میدانیده الکترون پاچته منزللری) و {customField:Field name}. بولر باشقه عمللرنینگ عضو، رۉیخت و ایش یۉلگی ناملریده هم ایشلیدی.",

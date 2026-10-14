@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "oggetto",
   "r-email-vars-hint": "Etichetti dispunibbili: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Li campi di lista, cursìa, tìtulu, lista di virìfica e utenti accèttanu macari {creator}, {assignees}, {members} e {customField:Name}, liggiuti di la carta quannu la règula veni virificata.",
   "r-insert-variable": "Nserisci na variàbbili nta l'ùrtimu campu di testu:",
   "r-vars-people-hint": "Macari: {creator}, {assignees}, {members} (nomi utenti nta lu testu, nnirizzi di posta nta A) e {customField:Field name}. Funziùnanu macari nta li nomi di membri, listi e cursìi d'àutri azzioni.",

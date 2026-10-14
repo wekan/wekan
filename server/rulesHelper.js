@@ -3,6 +3,8 @@ import { copyRuleCard } from '/server/lib/ruleCopyCard';
 import { requireButtonRuleContext } from '/models/lib/buttonRulePermission';
 import { DDP } from 'meteor/ddp';
 import { Meteor } from 'meteor/meteor';
+// #2435: `@username` recipients of a rule email.
+import { mentionedUsernames, expandMemberMentions } from '/models/lib/ruleEmailMembers';
 
 // BypassBleed, its denial-of-service part (2026-10-02): a rule's action writes
 // a card, the write inserts an activity, and the activity runs the rules
@@ -656,8 +658,20 @@ export const RulesHelper = {
     }
     // People tokens in the recipient are email addresses; empty entries left
     // by a token nobody matched are dropped.
-    const to = String(substituteVars(action.emailTo, recipientVars(ruleVars, ruleVars.people)) || '')
+    let to = String(substituteVars(action.emailTo, recipientVars(ruleVars, ruleVars.people)) || '')
       .split(',').map(address => address.trim()).filter(Boolean).join(', ');
+    // #2435: `@username` recipients are the board's active members' current
+    // addresses (models/lib/ruleEmailMembers.js); anybody else is dropped.
+    const mentioned = mentionedUsernames(to);
+    if (mentioned.length) {
+      const board = await ReactiveCache.getBoard(card.boardId);
+      const memberIds = new Set(((board && board.members) || []).filter(m => m && m.isActive !== false).map(m => m.userId));
+      const users = await Meteor.users.find({ username: { $in: mentioned } },
+        { fields: { username: 1, emails: 1 } }).fetchAsync();
+      const addresses = new Map(users.filter(u => memberIds.has(u._id))
+        .map(u => [u.username, Array.isArray(u.emails) && u.emails[0] && u.emails[0].address]));
+      to = expandMemberMentions(to, username => addresses.get(username) || null);
+    }
     const body = substituteVars(action.emailMsg || '', ruleVars);
     const subject = substituteVars(action.emailSubject || '', ruleVars);
     // #3301: the email used to carry no reference to the card that

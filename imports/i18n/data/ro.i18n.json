@@ -1630,6 +1630,8 @@
   "r-of": "din",
   "r-subject": "subiect",
   "r-email-vars-hint": "Etichete disponibile: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Câmpurile pentru listă, culoar, titlu, listă de verificare și utilizator acceptă și {creator}, {assignees}, {members} și {customField:Name}, ale căror valori sunt citite din card la verificarea regulii.",
   "r-insert-variable": "Inserează o variabilă în ultimul câmp de text:",
   "r-vars-people-hint": "De asemenea: {creator}, {assignees}, {members} (nume de utilizator în text, adrese de e-mail în Către) și {customField:Field name}. Acestea funcționează și în numele membrilor, listelor și culoarelor din alte acțiuni.",

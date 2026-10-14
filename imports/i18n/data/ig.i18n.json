@@ -1630,6 +1630,8 @@
   "r-of": "nke",
   "r-subject": "isiokwu",
   "r-email-vars-hint": "Akara ndị dị: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Oghere ndepụta, ahịrị ọrụ, aha, ndepụta nlele na onye ọrụ na-anabatakwa {creator}, {assignees}, {members} na {customField:Name}, nke a na-agụ na kaadị mgbe a na-enyocha iwu.",
   "r-insert-variable": "Tinye mgbanwe nʼoghere ederede ikpeazụ:",
   "r-vars-people-hint": "Ọzọkwa: {creator}, {assignees}, {members} (aha ndị ọrụ nʼederede, adreesị ozi eletrọnịkị nʼoghere onye nnata) na {customField:Field name}. Ha na-arụkwa ọrụ nʼaha ndị otu, ndepụta na ahịrị ọrụ nke omume ndị ọzọ.",

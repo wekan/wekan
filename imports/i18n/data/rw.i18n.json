@@ -1630,6 +1630,8 @@
   "r-of": "ya",
   "r-subject": "umutwe",
   "r-email-vars-hint": "Ibimenyetso bihari: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Imyanya y’urutonde, umurongo, umutwe, urutonde rwo kugenzura n’umukoresha na yo yemera {creator}, {assignees}, {members} na {customField:Name}, bisomwa ku ikarita igihe itegeko rigenzurwa.",
   "r-insert-variable": "Shyira impinduragaciro mu mwanya w'inyandiko wahisemo bwa nyuma:",
   "r-vars-people-hint": "Nanone: {creator}, {assignees}, {members} (amazina y’abakoresha mu nyandiko, aderesi za imeyili mu mwanya wa Uwohererezwa) na {customField:Field name}. Ibi binakora mu mazina y’abanyamuryango, intonde n’imirongo y’ibindi bikorwa.",

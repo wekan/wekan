@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "ኣርእስ፡",
   "r-email-vars-hint": "ዘሎ ምልክታት: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "ለሳሕታት ለዝርዝር፣ ለመገዲ፣ ለኣርእስት፣ ለዝርዝር ፍትሽ ወለምስተዕምል፣ {creator}፣ {assignees}፣ {members} ወ{customField:Name} ከአ ልትቀበሎ። ለሕግ ዶል ልትፈተሽ፣ እሊ ምን ለወረቀት ካርድ ልትቀርኦ።",
   "r-insert-variable": "እት ለቦታ ክታብ ኣንታ እት ሓር ለሓረካሁ ምልክት ናይ ዋጋ ለይትቀየር አእቱ:",
   "r-vars-people-hint": "ወከአ፦ {creator}፣ {assignees}፣ {members} (ዲብ ጽሕፈት አስማይ ለምስተዕምሊን፣ ዲብ ለልትለአክ አድራሻት ኢመይል) ወ{customField:Field name}። እሊ ዲብ አስማይ ለአባል፣ ለዝርዝር ወለመገዲ ለካልእ ሸቀል ከአ ልሸቅሎ።",

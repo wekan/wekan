@@ -1630,6 +1630,8 @@
   "r-of": "an’ny",
   "r-subject": "lohahevitra",
   "r-email-vars-hint": "Marika azo ampiasaina: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Ny saha lisitra, lalana, lohateny, lisitra fanamarinana ary mpampiasa dia manaiky koa ny {creator}, {assignees}, {members} ary {customField:Name}, izay vakina avy amin'ny karatra rehefa hamarinina ny fitsipika.",
   "r-insert-variable": "Ampidiro ao amin'ny saha lahatsoratra farany ny miovaova:",
   "r-vars-people-hint": "Ankoatra izany: {creator}, {assignees}, {members} (anaran'ny mpampiasa ao amin'ny lahatsoratra, adiresy mailaka ao amin'ny Ho an'ny) ary {customField:Field name}. Miasa koa ireo ao amin'ny anaran'ny mpikambana, lisitra ary lalana amin'ny hetsika hafa.",

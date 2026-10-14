@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "isihloko",
   "r-email-vars-hint": "Izimpawu ezitholakalayo: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Izindawo zohlu, umzila, isihloko, uhlu lokuhlola lomsebenzisi ziyamukela le-{creator}, {assignees}, {members} kanye le-{customField:Name}. Amanani azo afundwa ekhadini nxa kuhlolwa umthetho.",
   "r-insert-variable": "Faka okuguquguqukayo endaweni yombhalo oyikhethe okokucina:",
   "r-vars-people-hint": "Njalo: {creator}, {assignees}, {members} (amabizo abasebenzisi embhalweni, amakheli e-imeyili endaweni yomamukeli) kanye le-{customField:Field name}. Lokhu kuyasebenza lasemabizweni amalunga, izinhlu lemizila yezinye izenzo.",

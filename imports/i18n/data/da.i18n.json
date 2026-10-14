@@ -1630,6 +1630,8 @@
   "r-of": "af",
   "r-subject": "emne",
   "r-email-vars-hint": "Tilgængelige tags: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Felterne for liste, svømmebane, titel, tjekliste og bruger accepterer også {creator}, {assignees}, {members} og {customField:Name}, hvis værdier læses fra kortet, når reglen kontrolleres.",
   "r-insert-variable": "Indsæt en variabel i det sidste tekstfelt:",
   "r-vars-people-hint": "Også: {creator}, {assignees}, {members} (brugernavne i tekst, e-mailadresser i Til) og {customField:Field name}. Disse virker også i navne på medlemmer, lister og svømmebaner i andre handlinger.",

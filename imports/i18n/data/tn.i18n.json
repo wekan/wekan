@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "setlhogo",
   "r-email-vars-hint": "Matshwao a a leng teng: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Mafelo a lenane, tsela, setlhogo, lenane la tlhahlobo le modirisi a amogela gape {creator}, {assignees}, {members} le {customField:Name}, tse di balwang mo karateng fa molao o tlhatlhobiwa.",
   "r-insert-variable": "Tsenya letshwao le le emelang boleng jo bo fetogang mo lefelong la mokwalo le o le tlhophileng la bofelo:",
   "r-vars-people-hint": "Gape: {creator}, {assignees}, {members} (maina a badirisi mo mokwalong, diaterese tsa imeile mo karolong ya Go ya go) le {customField:Field name}. Tseno di dira gape mo maineng a maloko, manane le ditsela tsa ditiro tse dingwe.",

@@ -1630,6 +1630,8 @@
   "r-of": "ⴷ",
   "r-subject": "ⵉⵎⵔⵙⵉ",
   "r-email-vars-hint": "ⵉⵙⵎⵍⵍ ⵉⵍⴰⵏ: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "ⵉⴳⵔⴰⵏ ⵏ ⵜⴱⴷⴰⵔⵜ, ⵓⴱⵔⵉⴷ, ⵓⵣⵡⵍ, ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵜⵎⵏⵥⵉⵜ ⴷ ⵓⵙⵎⵔⴰⵙ ⴰⵔ ⵜⵜⵇⴱⴰⵍⵏ ⴰⵡⴷ {creator}, {assignees}, {members} ⴷ {customField:Name}. ⴰⵔ ⵜⵜⵡⴰⵖⵔⴰⵏⵜ ⵜⴰⵏⵣⴰⵍⵉⵏ ⵏⵏⵙⵏ ⵙⴳ ⵜⴽⴰⵕⴹⴰ ⵎⴽ ⵉⵜⵜⵡⴰⵙⵙⵉⴷⴷⵏ ⵓⵍⵓⴳⵏ.",
   "r-insert-variable": "ⵙⴽⵛⵎ ⴰⵎⵓⵜⵜⵉ ⴳ ⵓⵔⵜⵉ ⵏ ⵓⴹⵕⵉⵚ ⵉ ⵜⴼⵔⵏⴷ ⴳ ⵜⵉⴽⴽⵍⵜ ⵜⴰⵏⴳⴳⴰⵔⵓⵜ:",
   "r-vars-people-hint": "ⴰⵡⴷ: {creator}, {assignees}, {members} (ⵉⵙⵎⴰⵡⵏ ⵏ ⵉⵙⵎⵔⴰⵙⵏ ⴳ ⵓⴹⵕⵉⵚ, ⵜⴰⵙⵏⵉⵡⵉⵏ ⵏ ⵉⵎⴰⵢⵍ ⴳ ⵉⴳⵔ ⵏ ⵓⵎⴰⵟⵟⴰⴼ) ⴷ {customField:Field name}. ⵣⵎⵔⵏ ⴰⴷ ⵜⵜⵓⵙⵎⵔⵙⵏ ⴰⵡⴷ ⴳ ⵉⵙⵎⴰⵡⵏ ⵏ ⵉⴳⵎⴰⵎⵏ, ⵜⵉⴱⴷⴰⵔⵉⵏ ⴷ ⵉⴱⵔⴷⴰⵏ ⵏ ⵜⵉⴳⴰⵡⵉⵏ ⵢⴰⴹⵏⵉⵏ.",

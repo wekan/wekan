@@ -1630,6 +1630,8 @@
   "r-of": "ka mid ah",
   "r-subject": "mawduuc",
   "r-email-vars-hint": "Calaamadaha diyaarka ah: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Goobaha liiska, waddada, cinwaanka, liiska hubinta iyo isticmaalaha waxay sidoo kale aqbalaan {creator}, {assignees}, {members} iyo {customField:Name}, kuwaas oo laga akhriyo kaarka marka xeerka la hubinayo.",
   "r-insert-variable": "Ku dar doorsoome goobta qoraalka ee aad ugu dambayn dooratay:",
   "r-vars-people-hint": "Sidoo kale: {creator}, {assignees}, {members} (magacyada isticmaaleyaasha qoraalka dhexdiisa, cinwaannada iimaylka goobta Ku socota) iyo {customField:Field name}. Kuwani waxay sidoo kale ka shaqeeyaan magacyada xubnaha, liisaska iyo waddooyinka ee ficillada kale.",

@@ -1630,6 +1630,8 @@
   "r-of": "manta",
   "r-subject": "uma rimay",
   "r-email-vars-hint": "Kaq etiquetakuna: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Sutisuyu, ñan, uma suti, qhawana sutisuyu, llamk’achiq kasillakunaqa {creator}, {assignees}, {members} chaymanta {customField:Name} nisqakunatapas chaskinku. Kamachiyta qhawachkaptinmi chaykunap chaninkuna tarjetamanta ñawinchakun.",
   "r-insert-variable": "Qhipa akllasqayki qillqa pampaman huk tikraqta churay:",
   "r-vars-people-hint": "Hinallataq: {creator}, {assignees}, {members} (qillqasqapi llamk’achiqkunap sutinkuna, chaskiqpa kasillanpi correo electrónico tiyayninkuna) chaymanta {customField:Field name}. Kaykunaqa huk ruranakunap masinkuna, sutisuyukuna, ñankuna sutinkunapipas llamk’anku.",

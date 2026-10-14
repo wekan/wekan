@@ -1630,6 +1630,8 @@
   "r-of": "/",
   "r-subject": "বিষয়",
   "r-email-vars-hint": "উপলব্ধ ট্যাগ: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "তালিকা, সুইমলেন, শিরোনাম, চেকলিস্ট ও ব্যবহারকারীর ঘরে {creator}, {assignees}, {members} এবং {customField:Name} ব্যবহার করা যায়। নিয়ম যাচাই করার সময় এগুলো কার্ড থেকে পড়া হয়।",
   "r-insert-variable": "শেষ টেক্সট ঘরে ভেরিয়েবল ঢোকান:",
   "r-vars-people-hint": "এছাড়াও: {creator}, {assignees}, {members} (টেক্সটে ব্যবহারকারীর নাম, প্রাপকের ঘরে ইমেইল ঠিকানা) এবং {customField:Field name}। এগুলো অন্য কাজের সদস্য, তালিকা ও সুইমলেনের নামেও কাজ করে।",

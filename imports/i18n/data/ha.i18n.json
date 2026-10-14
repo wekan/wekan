@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "take",
   "r-email-vars-hint": "Alamomin da ake da su: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Filayen jeri, layin aiki, take, jerin dubawa da mai amfani suna karɓar {creator}, {assignees}, {members} da {customField:Name}, waɗanda ake karantawa daga katin lokacin duba ƙa’idar.",
   "r-insert-variable": "Saka mai sauyawa cikin filin rubutu na ƙarshe:",
   "r-vars-people-hint": "Haka kuma: {creator}, {assignees}, {members} (sunayen masu amfani a rubutu, adiresoshin imel a filin mai karɓa) da {customField:Field name}. Waɗannan suna aiki a sunayen mambobi, jeri da layin aiki na sauran ayyuka.",

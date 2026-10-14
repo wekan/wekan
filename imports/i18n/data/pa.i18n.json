@@ -1630,6 +1630,8 @@
   "r-of": "ਦੇ",
   "r-subject": "ਵਿਸ਼ਾ",
   "r-email-vars-hint": "ਉਪਲਬਧ ਟੈਗ: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "ਸੂਚੀ, ਸਵਿਮਲੇਨ, ਸਿਰਲੇਖ, ਚੈੱਕਲਿਸਟ ਅਤੇ ਵਰਤੋਂਕਾਰ ਖੇਤਰ {creator}, {assignees}, {members} ਅਤੇ {customField:Name} ਵੀ ਸਵੀਕਾਰ ਕਰਦੇ ਹਨ, ਜੋ ਨਿਯਮ ਦੀ ਜਾਂਚ ਵੇਲੇ ਕਾਰਡ ਤੋਂ ਪੜ੍ਹੇ ਜਾਂਦੇ ਹਨ।",
   "r-insert-variable": "ਆਖਰੀ ਪਾਠ ਖੇਤਰ ਵਿੱਚ ਵੇਰੀਏਬਲ ਪਾਓ:",
   "r-vars-people-hint": "ਇਹ ਵੀ: {creator}, {assignees}, {members} (ਪਾਠ ਵਿੱਚ ਵਰਤੋਂਕਾਰ ਨਾਮ, To ਵਿੱਚ ਈਮੇਲ ਪਤੇ) ਅਤੇ {customField:Field name}. ਇਹ ਹੋਰ ਕਾਰਵਾਈਆਂ ਦੇ ਮੈਂਬਰ, ਸੂਚੀ ਅਤੇ ਸਵਿਮਲੇਨ ਦੇ ਨਾਮਾਂ ਵਿੱਚ ਵੀ ਕੰਮ ਕਰਦੇ ਹਨ।",

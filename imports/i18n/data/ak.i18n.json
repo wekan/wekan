@@ -1630,6 +1630,8 @@
   "r-of": "a ɛfa ho",
   "r-subject": "asɛmti",
   "r-email-vars-hint": "Nsɛnkyerɛnne a ɛwɔ hɔ: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Afã a ɛfa din a wɔahyehyɛ, kwan, asɛmti, nhwehwɛmu din a wɔahyehyɛ ne nea ɔde di dwuma ho no nso gye {creator}, {assignees}, {members} ne {customField:Name}. Wɔkenkan wɔn bo fi kaad no so bere a wɔrehwɛ mmara no mu no.",
   "r-insert-variable": "Fa agyiraehyɛde a egyina hɔ ma bo a ɛsakra hyɛ nsɛm no afã a wopaw no nea etwa to no mu:",
   "r-vars-people-hint": "Afei nso: {creator}, {assignees}, {members} (wɔn a wɔde di dwuma no din wɔ nkyerɛwee mu, wɔn imel address wɔ nea ogye no afã) ne {customField:Field name}. Eyinom nso yɛ adwuma wɔ dwumadi afoforo no mufo, din a wɔahyehyɛ ne akwan din mu.",

@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "موضوع",
   "r-email-vars-hint": "موجود ٽيگ: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "فهرست، لڪير، عنوان، چڪاس فهرست ۽ استعمال ڪندڙ جا خانا {creator}، {assignees}، {members} ۽ {customField:Name} به قبول ڪن ٿا، جيڪي قاعدي جي چڪاس وقت ڪارڊ مان پڙهيا وڃن ٿا.",
   "r-insert-variable": "آخري متن واري خاني ۾ متغير داخل ڪريو:",
   "r-vars-people-hint": "پڻ: {creator}، {assignees}، {members} (متن ۾ استعمال ڪندڙن جا نالا، وصول ڪندڙ واري خاني ۾ اي ميل پتا) ۽ {customField:Field name}. اهي ٻين عملن جي ميمبر، فهرست ۽ لڪير جي نالن ۾ به ڪم ڪن ٿا.",

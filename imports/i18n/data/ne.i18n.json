@@ -1630,6 +1630,8 @@
   "r-of": "/",
   "r-subject": "विषय",
   "r-email-vars-hint": "उपलब्ध ट्याग: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "सूची, स्विमलेन, शीर्षक, जाँचसूची र प्रयोगकर्ता फिल्डहरूले {creator}, {assignees}, {members} र {customField:Name} पनि स्वीकार गर्छन्। नियम जाँच गर्दा यी कार्डबाट पढिन्छन्।",
   "r-insert-variable": "अन्तिम पाठ फिल्डमा चर राख्नुहोस्:",
   "r-vars-people-hint": "साथै: {creator}, {assignees}, {members} (पाठमा प्रयोगकर्ता नाम, प्रापकमा इमेल ठेगाना) र {customField:Field name}। यी अरू कार्यका सदस्य, सूची र स्विमलेनका नाममा पनि काम गर्छन्।",

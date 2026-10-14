@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "cooish",
   "r-email-vars-hint": "Bolagyn t’astoilagh: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Ta ny magheryn son rolley, cassan, ard-ennym, rolley scrutaghey as ymmydeyr goaill rish {creator}, {assignees}, {members} as {customField:Name} myrgeddin. Ta ny leaghyn oc goll er lhaih veih’n kaart tra ta’n reill goll er scrutaghey.",
   "r-insert-variable": "Cur cowrey son leagh caghlaaee 'sy vagher teks ren oo reih dy s'jerree:",
   "r-vars-people-hint": "Myrgeddin: {creator}, {assignees}, {members} (enmyn ymmydeyryn ayns y teks, enmyssyn post-l ayns y vagher «Da») as {customField:Field name}. T’ad gobbraghey myrgeddin ayns enmyn olteynyn, rolleyghyn as cassanyn jeh jantyssyn elley.",

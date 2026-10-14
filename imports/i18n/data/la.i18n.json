@@ -1630,6 +1630,8 @@
   "r-of": "de",
   "r-subject": "argumentum",
   "r-email-vars-hint": "Tesserae disponibiles: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Campi indicis, semitae, tituli, indicis probationis et utentis etiam accipiunt {creator}, {assignees}, {members} et {customField:Name}, quae ex charta leguntur cum regula examinatur.",
   "r-insert-variable": "Variabile in ultimum campum textus insere:",
   "r-vars-people-hint": "Etiam: {creator}, {assignees}, {members} (nomina utentium in textu, inscriptiones electronicae in campo destinatariorum) et {customField:Field name}. Haec etiam in nominibus sodalium, indicum et semitarum aliarum actionum valent.",

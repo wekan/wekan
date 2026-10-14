@@ -1630,6 +1630,8 @@
   "r-of": "de",
   "r-subject": "temo",
   "r-email-vars-hint": "Disponeblaj etikedoj: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Kampoj por listo, naĝlinio, titolo, kontrollisto kaj uzanto ankaŭ akceptas {creator}, {assignees}, {members} kaj {customField:Name}, legitajn el la karto kiam la regulo estas kontrolata.",
   "r-insert-variable": "Enmeti variablon en la lastan tekstkampon:",
   "r-vars-people-hint": "Ankaŭ: {creator}, {assignees}, {members} (uzantnomoj en teksto, retpoŝtadresoj en Al) kaj {customField:Field name}. Ĉi tiuj ankaŭ funkcias en nomoj de membroj, listoj kaj naĝlinioj de aliaj agoj.",

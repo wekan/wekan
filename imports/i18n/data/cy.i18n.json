@@ -1630,6 +1630,8 @@
   "r-of": "o",
   "r-subject": "pwnc",
   "r-email-vars-hint": "Tagiau sydd ar gael: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Mae meysydd rhestr, lôn nofio, teitl, rhestr wirio a defnyddiwr hefyd yn derbyn {creator}, {assignees}, {members} a {customField:Name}, a ddarllenir o'r cerdyn pan wirir y rheol.",
   "r-insert-variable": "Mewnosod newidyn yn y maes testun olaf:",
   "r-vars-people-hint": "Hefyd: {creator}, {assignees}, {members} (enwau defnyddwyr mewn testun, cyfeiriadau ebost yn At) a {customField:Field name}. Mae'r rhain hefyd yn gweithio mewn enwau aelodau, rhestrau a lonydd nofio gweithredoedd eraill.",

@@ -1630,6 +1630,8 @@
   "r-of": "/",
   "r-subject": "mövzu",
   "r-email-vars-hint": "Mövcud teqlər: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Siyahı, zolaq, başlıq, yoxlama siyahısı və istifadəçi sahələri həmçinin {creator}, {assignees}, {members} və {customField:Name} dəyişənlərini qəbul edir; onların qiymətləri qayda yoxlanılarkən kartdan oxunur.",
   "r-insert-variable": "Son mətn sahəsinə dəyişən daxil edin:",
   "r-vars-people-hint": "Həmçinin: {creator}, {assignees}, {members} (mətndə istifadəçi adları, Kimə sahəsində e-poçt ünvanları) və {customField:Field name}. Bunlar digər əməliyyatların üzv, siyahı və zolaq adlarında da işləyir.",

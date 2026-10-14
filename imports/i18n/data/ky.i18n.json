@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "темасы",
   "r-email-vars-hint": "Жеткиликтүү тегдер: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Тизме, жол, аталыш, текшерүү тизмеси жана колдонуучу талаалары {creator}, {assignees}, {members} жана {customField:Name} маанилерин да кабыл алат; алар эреже текшерилгенде карточкадан окулат.",
   "r-insert-variable": "Акыркы текст талаасына өзгөрмө кыстаруу:",
   "r-vars-people-hint": "Ошондой эле: {creator}, {assignees}, {members} (текстте колдонуучу аттары, Кимге талаасында электрондук почта даректери) жана {customField:Field name}. Булар башка аракеттердеги мүчө, тизме жана жол аттарында да иштейт.",

@@ -1630,6 +1630,8 @@
   "r-of": "de",
   "r-subject": "asunto",
   "r-email-vars-hint": "Etiquetas disponibles: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Los campos de lista, carril, título, lista de verificación y usuario también aceptan {creator}, {assignees}, {members} y {customField:Name}, cuyos valores se leen de la tarjeta al comprobar la regla.",
   "r-insert-variable": "Insertar una variable en el último campo de texto:",
   "r-vars-people-hint": "También: {creator}, {assignees}, {members} (nombres de usuario en el texto y direcciones de correo en Para) y {customField:Field name}. También funcionan en los nombres de miembros, listas y carriles de otras acciones.",

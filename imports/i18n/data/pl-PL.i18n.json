@@ -1630,6 +1630,8 @@
   "r-of": "z",
   "r-subject": "temat",
   "r-email-vars-hint": "Dostępne znaczniki: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Pola listy, ścieżki, tytułu, checklisty i użytkownika przyjmują również {creator}, {assignees}, {members} i {customField:Name}. Ich wartości są odczytywane z karty podczas sprawdzania reguły.",
   "r-insert-variable": "Wstaw zmienną do ostatniego pola tekstowego:",
   "r-vars-people-hint": "Także: {creator}, {assignees}, {members} (nazwy użytkowników w tekście, adresy e-mail w polu Do) oraz {customField:Field name}. Działają również w nazwach członków, list i ścieżek w innych działaniach.",

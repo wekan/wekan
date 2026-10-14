@@ -1630,6 +1630,8 @@
   "r-of": "ning",
   "r-subject": "mavzu",
   "r-email-vars-hint": "Mavjud teglar: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Roʻyxat, ish yoʻlagi, sarlavha, tekshiruv roʻyxati va foydalanuvchi maydonlari {creator}, {assignees}, {members} va {customField:Name} ni ham qabul qiladi; ular qoida tekshirilganda kartadan oʻqiladi.",
   "r-insert-variable": "Oxirgi matn maydoniga oʻzgaruvchi kiriting:",
   "r-vars-people-hint": "Shuningdek: {creator}, {assignees}, {members} (matnda foydalanuvchi nomlari, Kimga maydonida elektron pochta manzillari) va {customField:Field name}. Bular boshqa amallarning aʼzo, roʻyxat va ish yoʻlagi nomlarida ham ishlaydi.",

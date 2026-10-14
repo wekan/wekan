@@ -1630,6 +1630,8 @@
   "r-of": "de",
   "r-subject": "assignatura",
   "r-email-vars-hint": "Etiquetes disponibles: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Els camps de llista, carril, títol, llista de comprovació i usuari també accepten {creator}, {assignees}, {members} i {customField:Name}, que es llegeixen de la fitxa quan es comprova la regla.",
   "r-insert-variable": "Insereix una variable a l'últim camp de text:",
   "r-vars-people-hint": "També: {creator}, {assignees}, {members} (noms d'usuari al text, adreces de correu a Per a) i {customField:Field name}. També funcionen en noms de membres, llistes i carrils d'altres accions.",

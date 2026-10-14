@@ -1630,6 +1630,8 @@
   "r-of": "sa",
   "r-subject": "paksa",
   "r-email-vars-hint": "Mga tag na magagamit: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Tumatanggap din ang mga field ng listahan, daanan, pamagat, checklist at gumagamit ng {creator}, {assignees}, {members} at {customField:Name}, na binabasa mula sa kard kapag sinusuri ang tuntunin.",
   "r-insert-variable": "Magpasok ng variable sa huling field ng teksto:",
   "r-vars-people-hint": "Gayundin: {creator}, {assignees}, {members} (mga username sa teksto, mga email address sa Para kay) at {customField:Field name}. Gumagana rin ang mga ito sa mga pangalan ng miyembro, listahan at daanan ng ibang pagkilos.",

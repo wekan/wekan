@@ -1630,6 +1630,8 @@
   "r-of": "di",
   "r-subject": "oggetto",
   "r-email-vars-hint": "Etichetas disponìbilis: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Is campos de lista, corsia, tìtulu, lista de verìfica e utente atzetant fintzas {creator}, {assignees}, {members} e {customField:Name}, lèghidos dae sa carta cando sa règula est verificada.",
   "r-insert-variable": "Inserta una variàbile in s'ùrtimu campu de testu:",
   "r-vars-people-hint": "Fintzas: {creator}, {assignees}, {members} (nòmenes de utente in su testu, indiritzos de posta in A) e {customField:Field name}. Funtzionant fintzas in is nòmenes de membros, listas e corsias de àteras atziones.",

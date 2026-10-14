@@ -1630,6 +1630,8 @@
   "r-of": "of",
   "r-subject": "ርዕሰ ጉዳይ",
   "r-email-vars-hint": "ያሉ መለያዎች: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "የዝርዝር፣ የመስመር፣ የርዕስ፣ የማረጋገጫ ዝርዝር እና የተጠቃሚ መስኮች {creator}፣ {assignees}፣ {members} እና {customField:Name} ይቀበላሉ። እነዚህ ደንቡ ሲመረመር ከካርዱ ይነበባሉ።",
   "r-insert-variable": "በመጨረሻው የጽሑፍ መስክ ውስጥ ተለዋዋጭ አስገባ፦",
   "r-vars-people-hint": "እንዲሁም፦ {creator}፣ {assignees}፣ {members} (በጽሑፍ ውስጥ የተጠቃሚ ስሞች፣ በተቀባይ መስክ ውስጥ የኢሜይል አድራሻዎች) እና {customField:Field name}። እነዚህ በሌሎች ድርጊቶች የአባል፣ የዝርዝር እና የመስመር ስሞች ውስጥም ይሠራሉ።",

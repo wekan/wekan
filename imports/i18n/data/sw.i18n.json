@@ -1630,6 +1630,8 @@
   "r-of": "ya",
   "r-subject": "somo",
   "r-email-vars-hint": "Lebo zinazopatikana: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Sehemu za orodha, njia, kichwa, orodha ya ukaguzi na mtumiaji pia zinakubali {creator}, {assignees}, {members} na {customField:Name}, zinazosomewa kwenye kadi wakati kanuni inakaguliwa.",
   "r-insert-variable": "Ingiza kigezo katika sehemu ya mwisho ya maandishi:",
   "r-vars-people-hint": "Pia: {creator}, {assignees}, {members} (majina ya watumiaji katika maandishi, anwani za barua pepe katika Kwa) na {customField:Field name}. Hivi pia hufanya kazi katika majina ya wanachama, orodha na njia za vitendo vingine.",

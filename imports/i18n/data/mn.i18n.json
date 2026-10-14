@@ -1630,6 +1630,8 @@
   "r-of": "-ийн",
   "r-subject": "гарчиг",
   "r-email-vars-hint": "Боломжит шошго: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Жагсаалт, эгнээ, гарчиг, шалгах жагсаалт болон хэрэглэгчийн талбарууд {creator}, {assignees}, {members}, {customField:Name} хувьсагчдыг мөн хүлээн авна. Дүрмийг шалгах үед эдгээрийг картаас уншина.",
   "r-insert-variable": "Сүүлийн текст талбарт хувьсагч оруулах:",
   "r-vars-people-hint": "Мөн: {creator}, {assignees}, {members} (текстэд хэрэглэгчийн нэр, Хэнд талбарт имэйл хаяг) болон {customField:Field name}. Эдгээр нь бусад үйлдлийн гишүүн, жагсаалт, эгнээний нэрэнд мөн ажиллана.",

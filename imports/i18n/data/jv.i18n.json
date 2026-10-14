@@ -1630,6 +1630,8 @@
   "r-of": "saka",
   "r-subject": "jejer",
   "r-email-vars-hint": "Tag sing kasedhiya: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Kolom dhaptar, lajur, judhul, dhaptar priksa lan pangguna uga nampa {creator}, {assignees}, {members} lan {customField:Name}, sing diwaca saka kertu nalika aturan dipriksa.",
   "r-insert-variable": "Lebokake variabel menyang kolom teks pungkasan:",
   "r-vars-people-hint": "Uga: {creator}, {assignees}, {members} (jeneng pangguna ing teks, alamat layang ing kolom panampa) lan {customField:Field name}. Iki uga bisa digunakake ing jeneng anggota, dhaptar lan lajur ing tumindak liyane.",

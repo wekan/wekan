@@ -1630,6 +1630,8 @@
   "r-of": "z",
   "r-subject": "předmět",
   "r-email-vars-hint": "Dostupné značky: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Pole seznamu, dráhy, názvu, kontrolního seznamu a uživatele přijímají také {creator}, {assignees}, {members} a {customField:Name}. Jejich hodnoty se načítají z karty při kontrole pravidla.",
   "r-insert-variable": "Vložit proměnnou do posledního textového pole:",
   "r-vars-people-hint": "Také: {creator}, {assignees}, {members} (uživatelská jména v textu, e-mailové adresy v poli Komu) a {customField:Field name}. Fungují také v názvech členů, seznamů a drah u dalších akcí.",

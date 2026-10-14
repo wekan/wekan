@@ -1630,6 +1630,8 @@
   "r-of": "nga",
   "r-subject": "subjekti",
   "r-email-vars-hint": "Etiketat në dispozicion: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "Fushat e listës, korsisë, titullit, listës së kontrollit dhe përdoruesit pranojnë edhe {creator}, {assignees}, {members} dhe {customField:Name}, të lexuara nga karta kur kontrollohet rregulli.",
   "r-insert-variable": "Fut ndryshore në fushën e fundit të tekstit:",
   "r-vars-people-hint": "Gjithashtu: {creator}, {assignees}, {members} (emra përdoruesish në tekst, adresa emaili te Për) dhe {customField:Field name}. Këto funksionojnë edhe në emrat e anëtarëve, listave dhe korsive të veprimeve të tjera.",

@@ -1630,6 +1630,8 @@
   "r-of": "di",
   "r-subject": "oggetto",
   "r-email-vars-hint": "Etichette disponibbele: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-email-add-member": "Add a board member…",
+  "r-email-members-hint": "A board member added from the list goes into To as @username and is sent to that member's own email address. Other email addresses can still be typed into To.",
   "r-trigger-vars-hint": "'E campe 'e lista, corsia, titolo, lista 'e cuntrollo e utente accettano pure {creator}, {assignees}, {members} e {customField:Name}, lette dâ carta quanno 'a regula vene cuntrullata.",
   "r-insert-variable": "Miette na variabbile dint'a ll'ùrdemo campo 'e testo:",
   "r-vars-people-hint": "Pure: {creator}, {assignees}, {members} (nomme utiente dint'ô testo, indirizze 'e posta dint'a A) e {customField:Field name}. Funzionano pure dint'ê nomme 'e membre, liste e corsie 'e ll'ate azzione.",
