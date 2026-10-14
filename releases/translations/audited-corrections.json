@@ -215948,5 +215948,89 @@
     "before": "In Pivotal Tracker, open the project's MORE tab and choose Export CSV (or select stories and choose Bulk Actions, CSV), then paste the CSV. Each story state becomes a list and stories become cards, with their type and labels, owners, requester, dates, comments, tasks and blockers; Estimate becomes Story points and iterations become sprints.",
     "after": "Na Pivotal Tracker, mepee taabụ MORE nke ọrụ ahụ wee họrọ Bupụ CSV (ma ọ bụ họrọ akụkọ wee họrọ Omume n’ìgwè, CSV), tinyezie CSV ebe a. Ọnọdụ akụkọ ọ bụla na-aghọ ndepụta, akụkọ na-aghọkwa kaadị nwere ụdị na akara ha, ndị nwe ha, onye rịọrọ, ụbọchị, nkọwa, ọrụ na ihe na-egbochi ha; atụmatụ nha na-aghọ akara akụkọ, ugboro ọrụ na-aghọkwa sprint.",
     "reason": "Translate import mappings and limits in Igbo while preserving technical file and field identifiers; longer technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-board-instruction-tasksorg",
+    "before": "In Tasks.org, open Settings, Backups and choose Export tasks, then paste the contents of that .json file. Lists become lists and tasks become cards, with their notes, tags, dates, comments and subtasks; completed tasks keep their completion date, and priority becomes a custom field.",
+    "after": "Na Tasks.org, mepee Ntọala, Ndabere wee họrọ Bupụ ọrụ, tinyezie ọdịnaya faịlụ .json ahụ ebe a. Ndepụta na-anọgide dịka ndepụta, ọrụ na-aghọkwa kaadị nwere ndetu, mkpado, ụbọchị, nkọwa na obere ọrụ ha; ọrụ emechara na-edobe ụbọchị e mechara ha, mkpa na-aghọkwa oghere ahaziri.",
+    "reason": "Translate remaining modern import guides with exclusions and required literal headers; direct Igbo technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-board-instruction-monday",
+    "before": "In monday.com, open the board menu, choose More actions and Export board to Excel (with updates and subitems if you like), then choose that .xlsx file. The Status column becomes lists and groups become swimlanes; people, dates, timeline and tags keep their places, other columns become custom fields and updates become comments.",
+    "after": "Na monday.com, mepee nhọrọ bọọdụ, họrọ Omume ndị ọzọ na Bupụ bọọdụ na Excel (tinyere mmelite na obere ihe ma ọ bụrụ na ịchọrọ), họrọzie faịlụ .xlsx ahụ. Kọlụm Status na-aghọ ndepụta, ìgwè na-aghọkwa ahịrị igwu mmiri; ndị mmadụ, ụbọchị, usoro oge na mkpado na-edobe ọnọdụ ha, kọlụm ndị ọzọ na-aghọ oghere ahaziri, mmelite na-aghọkwa nkọwa.",
+    "reason": "Translate remaining modern import guides with exclusions and required literal headers; direct Igbo technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-board-instruction-superproductivity",
+    "before": "In Super Productivity, open Settings, then Sync & Backup, choose Export Data and paste the contents of the sp-backup .json file. Each project becomes a swimlane and tasks become cards in To Do, In Progress, Backlog or Done, with their notes, tags, due date, time spent and sub-tasks; archived tasks become archived cards.",
+    "after": "Na Super Productivity, mepee Ntọala, wee Mmekọrịta & Ndabere, họrọ Bupụ data ma tapawa ọdịnaya faịlụ sp-backup .json. Ọrụ ukwu ọ bụla na-aghọ ahịrị igwu mmiri, ọrụ ndị a ga-eme na-aghọkwa kaadị na Ime, Na-aga n’ihu, Ọrụ fọdụrụ ma ọ bụ Emechara, tinyere ndetu, mkpado, ụbọchị njedebe, oge ejiri na obere ọrụ ha; ọrụ echekwara na-aghọ kaadị echekwara.",
+    "reason": "Translate remaining modern import guides with exclusions and required literal headers; direct Igbo technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-board-instruction-taiga",
+    "before": "In Taiga, open Admin > Project > Export and download the project dump (unpack a .json.gz file first), then paste its JSON. User story statuses become lists, user stories become cards with their tasks as subtasks, epics and issues get swimlanes of their own, and sprints, tags, comments and custom attributes come along. Attachments are not imported.",
+    "after": "Na Taiga, mepee Nchịkwa > Ọrụ > Mbupụ wee budata data ọrụ ahụ (buru ụzọ wepụ mkpakọ faịlụ .json.gz), tinyezie JSON ya ebe a. Ọnọdụ akụkọ onye ọrụ na-aghọ ndepụta, akụkọ ndị ahụ na-aghọ kaadị nwere ọrụ ha dịka obere ọrụ, epic na nsogbu na-enweta ahịrị igwu mmiri nke ha, sprint, mkpado, nkọwa na njirimara ahaziri na-esokwa. A naghị ebubata mgbakwunye.",
+    "reason": "Translate remaining modern import guides with exclusions and required literal headers; direct Igbo technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-board-instruction-vikunja",
+    "before": "In Vikunja, open Settings, choose Data Export and download the .zip file it sends you, then choose that file, or paste the data.json inside it. Kanban buckets become lists and tasks become cards, with their labels, assignees, dates, description, task lists as checklists and comments; priority, percent done and done become custom fields. Attachments are not imported.",
+    "after": "Na Vikunja, mepee Ntọala, họrọ Mbupụ data wee budata faịlụ .zip ọ na-ezigara gị, họrọzie faịlụ ahụ, ma ọ bụ tapawa data.json dị n’ime ya. Nkewa Kanban na-aghọ ndepụta, ọrụ na-aghọkwa kaadị nwere akara, ndị e kenyere, ụbọchị, nkọwa, ndepụta ọrụ dịka ndepụta nyocha na ozi nkọwa; mkpa, pasent emechara na ọnọdụ emechara na-aghọ oghere ahaziri. A naghị ebubata mgbakwunye.",
+    "reason": "Translate remaining modern import guides with exclusions and required literal headers; direct Igbo technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-board-instruction-quire",
+    "before": "In Quire, open the project menu and choose Export CSV, then paste the CSV. Statuses become lists and tasks become cards, with their subtasks as child cards, assignees, tags as labels, start, due and completed dates, description and priority as a custom field. Comments and attachments are not in Quire's CSV.",
+    "after": "Na Quire, mepee nhọrọ ọrụ wee họrọ Bupụ CSV, tinyezie CSV ebe a. Ọnọdụ na-aghọ ndepụta, ọrụ na-aghọkwa kaadị nwere obere ọrụ dịka kaadị ụmụ, ndị e kenyere, mkpado dịka akara, ụbọchị mmalite, njedebe na mmecha, nkọwa na mkpa dịka oghere ahaziri. Ozi nkọwa na mgbakwunye adịghị na CSV Quire.",
+    "reason": "Translate remaining modern import guides with exclusions and required literal headers; direct Igbo technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-board-instruction-wrike",
+    "before": "In Wrike, export a project or folder to Excel, or fill in Wrike's Excel import template, then choose that .xlsx file. Folder and project rows become swimlanes, Status becomes lists and tasks become cards, with their Key, parent task, assignees, start and end dates, dependencies and description; Priority, Duration and other columns become custom fields.",
+    "after": "Na Wrike, bupụ ọrụ ukwu ma ọ bụ nchekwa na Excel, ma ọ bụ dejupụta ndebiri mbubata Excel nke Wrike, họrọzie faịlụ .xlsx ahụ. Ahịrị nchekwa na ọrụ ukwu na-aghọ ahịrị igwu mmiri, Status na-aghọ ndepụta, ọrụ ndị a ga-eme na-aghọkwa kaadị nwere Key, ọrụ nne na nna, ndị e kenyere, ụbọchị mmalite na njedebe, ihe ha dabere na ya na nkọwa; Priority, Duration na kọlụm ndị ọzọ na-aghọ oghere ahaziri.",
+    "reason": "Translate remaining modern import guides with exclusions and required literal headers; direct Igbo technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-board-instruction-teamwork",
+    "before": "In Teamwork.com, fill in the Excel task import template (Tasklist, Task, Description, Assign to, Start date, Due date, Priority, Estimated time, Tags, Status) and save it as .xlsx, then choose that file. Task lists become lists and tasks become cards; a task starting with -, # or > becomes a subtask of the task above it (--, ## or >> one level deeper). Assignees, dates and tags keep their places; Priority, Estimated time and Complete become custom fields.",
+    "after": "Na Teamwork.com, dejupụta ndebiri mbubata ọrụ Excel (Tasklist, Task, Description, Assign to, Start date, Due date, Priority, Estimated time, Tags, Status) ma chekwaa ya dịka .xlsx, họrọzie faịlụ ahụ. Ndepụta ọrụ na-aghọ ndepụta, ọrụ na-aghọkwa kaadị; ọrụ malitere na -, # ma ọ bụ > na-aghọ obere ọrụ nke ọrụ dị n’elu ya (--, ## ma ọ bụ >> bụ otu ọkwa ọzọ n’okpuru). Ndị e kenyere, ụbọchị na mkpado na-edobe ọnọdụ ha; Priority, Estimated time na Complete na-aghọ oghere ahaziri.",
+    "reason": "Translate remaining modern import guides with exclusions and required literal headers; direct Igbo technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-board-instruction-businessmap",
+    "before": "In Businessmap (formerly Kanbanize), open Advanced Search, choose Configure results to pick the columns, download the Excel file, then choose that .xlsx file. Columns are read by their English names (Title, Column, Lane, Owner, Deadline ...): if your account uses another language, rename the header row to English first. Column becomes lists and Lane swimlanes; owners, tags, color, dates, comments and parent links keep their places, and Priority, Size, Type and other columns become custom fields.",
+    "after": "Na Businessmap (nke a na-akpọbu Kanbanize), mepee Nchọgharị dị elu, họrọ Hazie nsonaazụ iji họrọ kọlụm, budata faịlụ Excel, họrọzie faịlụ .xlsx ahụ. A na-agụ kọlụm site n’aha Bekee ha (Title, Column, Lane, Owner, Deadline ...): ọ bụrụ na akaụntụ gị na-eji asụsụ ọzọ, buru ụzọ gbanwee aha dị n’ahịrị isiokwu ka ha bụrụ Bekee. Column na-aghọ ndepụta, Lane na-aghọkwa ahịrị igwu mmiri; ndị nwe, mkpado, agba, ụbọchị, nkọwa na njikọ nne na nna na-edobe ọnọdụ ha, Priority, Size, Type na kọlụm ndị ọzọ na-aghọkwa oghere ahaziri.",
+    "reason": "Translate remaining modern import guides with exclusions and required literal headers; direct Igbo technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-board-instruction-redmine",
+    "before": "In Redmine, open the project's Issues, choose Also available in: CSV at the bottom of the list, pick the columns (All columns, with Description) and export, then paste the CSV. Redmine names the columns in your language, so set your language to English in My account before exporting. Each status becomes a list and issues become cards, with the tracker as a label, assignee, author, dates, parent task and related issues; priority, category, target version, estimated time, % Done and custom fields become custom fields.",
+    "after": "Na Redmine, mepee Nsogbu nke ọrụ ahụ, họrọ Dịkwa na: CSV n’okpuru ndepụta, họrọ kọlụm (Kọlụm niile, tinyere Nkọwa) wee bupụ, tinyezie CSV ebe a. Redmine na-akpọ kọlụm n’asụsụ gị, ya mere họrọ Bekee dịka asụsụ gị na Akaụntụ m tupu mbupụ. Ọnọdụ ọ bụla na-aghọ ndepụta, nsogbu na-aghọkwa kaadị nwere ụdị nsuso dịka akara, onye e kenyere, onye dere, ụbọchị, ọrụ nne na nna na nsogbu ndị metụtara ya; mkpa, ngalaba, ụdị a chọrọ, oge a tụrụ anya ya, % Done na oghere ahaziri na-aghọ oghere ahaziri.",
+    "reason": "Translate remaining modern import guides with exclusions and required literal headers; direct Igbo technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-board-instruction-notion",
+    "before": "In Notion, open the database as a full page, choose ••• and Export, pick Markdown & CSV, and choose the .zip file it downloads, or one database CSV from it, or paste that CSV. A column named Status becomes the lists (without one, the first column that looks like a select does, and the import report says which); rows become cards with their title, tags as labels, people as members, dates, and the page text as the description; other columns become custom fields. Relations, images and attachments are not imported.",
+    "after": "Na Notion, mepee nchekwa data dịka peeji zuru ezu, họrọ ••• na Mbupụ, họrọ Markdown & CSV, wee họrọ faịlụ .zip ọ budatara, ma ọ bụ otu CSV nchekwa data dị n’ime ya, ma ọ bụ tapawa CSV ahụ. Kọlụm aha ya bụ Status na-aghọ ndepụta (ọ bụrụ na ọ dịghị, a na-eji kọlụm mbụ yiri nhọrọ, akụkọ mbubata na-egosikwa nke ahụ); ahịrị na-aghọ kaadị nwere aha ha, mkpado dịka akara, ndị mmadụ dịka ndị otu, ụbọchị, na ederede peeji dịka nkọwa; kọlụm ndị ọzọ na-aghọ oghere ahaziri. A naghị ebubata mmekọrịta, onyonyo na mgbakwunye.",
+    "reason": "Translate remaining modern import guides with exclusions and required literal headers; direct Igbo technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-board-instruction-plane",
+    "before": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
+    "after": "Na Plane, mepee Ntọala ebe ọrụ, họrọ Mbupụ, bupụ ọrụ ukwu dịka JSON, CSV ma ọ bụ Excel wee budata faịlụ .zip, họrọzie faịlụ ahụ, ma ọ bụ otu faịlụ dị n’ime ya, ma ọ bụ tapawa JSON ma ọ bụ CSV. Ọnọdụ na-aghọ ndepụta, ọrụ ukwu na-aghọ ahịrị igwu mmiri, nsogbu na-aghọkwa kaadị nwere njirimara, nne na nna, ndị e kenyere, akara, ụbọchị, njikọ na nkọwa ha; mkpa, atụmatụ nha, okirikiri na modul na-aghọ oghere ahaziri. Mbupụ Plane enweghị nkọwa ọdịnaya ma ọ bụ mgbakwunye, ya mere a naghị ebubata ha.",
+    "reason": "Translate remaining modern import guides with exclusions and required literal headers; direct Igbo technical prose is lower confidence and needs fluent review."
   }
 ]

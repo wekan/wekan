@@ -231,3 +231,14 @@ assert.match(locales.ig['import-board-instruction-meistertask'], /ọrụ emecha
 assert.match(locales.ig['import-board-instruction-nullboard'], /akara raw.*bọọdụ mbụ/);
 assert.match(locales.ig['import-board-instruction-kanri'], /data niile.*bọọdụ mbụ/);
 assert.match(locales.ig['import-board-instruction-clickup'], /kọlụm niile/);
+
+for (const format of ['tasksorg', 'monday', 'superproductivity', 'taiga', 'vikunja', 'quire', 'wrike', 'teamwork', 'businessmap', 'redmine', 'notion', 'plane']) {
+  assert.match(locales.ig[`import-board-instruction-${format}`], /^Na /);
+  assert.doesNotMatch(locales.ig[`import-board-instruction-${format}`], /then paste|become lists|Attachments are not imported/);
+}
+for (const format of ['taiga', 'vikunja']) assert.match(locales.ig[`import-board-instruction-${format}`], /A naghị ebubata mgbakwunye/);
+assert.match(locales.ig['import-board-instruction-businessmap'], /Title, Column, Lane, Owner, Deadline.*Bekee/);
+assert.match(locales.ig['import-board-instruction-redmine'], /Bekee.*tupu mbupụ/);
+assert.match(locales.ig['import-board-instruction-teamwork'], /--, ##.*>>.*ọkwa/);
+assert.match(locales.ig['import-board-instruction-notion'], /Status.*kọlụm mbụ.*akụkọ mbubata.*A naghị ebubata mmekọrịta, onyonyo na mgbakwunye/);
+assert.match(locales.ig['import-board-instruction-plane'], /enweghị nkọwa ọdịnaya ma ọ bụ mgbakwunye/);
