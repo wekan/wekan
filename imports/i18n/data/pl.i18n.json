@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Ustawienia miniatur kart",
   "deposit-subtasks-board": "Twórz podzadania na tablicy:",
   "deposit-subtasks-list": "Początkowa lista dla podzadań jest przechowywana w:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Pokaż rodzica w minikarcie:",
   "description-on-minicard": "Opis na miniaturze karty",
   "cover-attachment-on-minicard": "Obraz okładki na miniaturze karty",

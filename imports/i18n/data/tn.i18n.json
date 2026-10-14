@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Dipeakanyo tsa karata e nnye",
   "deposit-subtasks-board": "Deposit ditiro tse dinnye go ya mo botong eno:",
   "deposit-subtasks-list": "Landing lenaane go ditiro tse dinnye deposited fano:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Bontsha motsadi mo karata e nnye:",
   "description-on-minicard": "Tlhaloso mo karata e nnye",
   "cover-attachment-on-minicard": "Cover setshwantsho mo karata e nnye",

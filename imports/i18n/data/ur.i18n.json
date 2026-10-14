@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "چھوٹے کارڈ کی ترتیبات",
   "deposit-subtasks-board": "دےپوسیت سوبتاسکس کو تہیس بورڈ:",
   "deposit-subtasks-list": "لاندینگ فہرست فور سوبتاسکس دےپوسیتےد ہےرے:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "دکھائیں پارےنت میں مینیکارد:",
   "description-on-minicard": "تفصیل پر مینیکارد",
   "cover-attachment-on-minicard": "کووےر یماگے پر مینیکارد",

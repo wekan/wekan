@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Issettjar tal-minikarta",
   "deposit-subtasks-board": "Deposit subtasks għal dan bord:",
   "deposit-subtasks-list": "Landing lista għal subtasks deposited here:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Uri parent ġewwa minicard:",
   "description-on-minicard": "Deskrizzjoni fuq minicard",
   "cover-attachment-on-minicard": "Cover image fuq minicard",

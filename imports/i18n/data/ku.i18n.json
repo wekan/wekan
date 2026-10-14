@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Mîhengên kartika biçûk",
   "deposit-subtasks-board": "Erkên biçûk li vê depoyê dayne:",
   "deposit-subtasks-list": "Lîsteya armancê ji bo erkên biçûk ên ku li vir tên danîn:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Dêûbav li kartika biçûk nîşan bide:",
   "description-on-minicard": "Danasîn li kartika biçûk",
   "cover-attachment-on-minicard": "Wêneyê bergê li kartika biçûk",

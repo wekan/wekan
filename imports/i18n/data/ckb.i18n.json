@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "ڕێکخستنەکانی کارتی بچووک",
   "deposit-subtasks-board": "ئەرکە لاوەکییەکان لەم تەختەیە دابنێ:",
   "deposit-subtasks-list": "لیستی نیشتنەوە بۆ ئەرکە لاوەکییەکانی لێرە دادەنرێن:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "باوک لە کارتی بچووک پیشان بدە:",
   "description-on-minicard": "وەسف لە کارتی بچووک",
   "cover-attachment-on-minicard": "وێنەی بەرگ لە کارتی بچووک",

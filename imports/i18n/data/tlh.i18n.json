@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "'echletHomHom DuHmey",
   "deposit-subtasks-board": "raSvamDaq Qu'Hommey tIchel:",
   "deposit-subtasks-list": "naDev luchellu'bogh Qu'HommeyvaD tetlh:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "'echletHomHomDaq qup 'ang:",
   "description-on-minicard": "'echletHom machDaq QIjmeH De'",
   "cover-attachment-on-minicard": "'echletHomHom nach mIllogh",

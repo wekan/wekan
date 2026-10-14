@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Cilësimet e minikartës",
   "deposit-subtasks-board": "Depozito nëndetyrat në këtë tabelë:",
   "deposit-subtasks-list": "Lista e mbërritjes për nëndetyrat e depozituara këtu:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Shfaq prindin në minikartë:",
   "description-on-minicard": "Përshkrimi në minikartë",
   "cover-attachment-on-minicard": "Imazhi i kopertinës në minikartë",

@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "మినీకార్డ్ సెట్టింగ్‌లు",
   "deposit-subtasks-board": "ఈ బోర్డుకి సబ్‌టాస్క్‌లను జమ చేయండి:",
   "deposit-subtasks-list": "సబ్‌టాస్క్‌ల కోసం ల్యాండింగ్ జాబితా ఇక్కడ జమ చేయబడింది:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "మినీకార్డ్‌లో తల్లిదండ్రులను చూపించు:",
   "description-on-minicard": "మినీకార్డ్‌పై వివరణ",
   "cover-attachment-on-minicard": "మినీకార్డ్‌పై కవర్ చిత్రం",

@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "മിനികാർഡ് ക്രമീകരണങ്ങൾ",
   "deposit-subtasks-board": "ഉപചുമതലകൾ ഈ ബോർഡിൽ നിക്ഷേപിക്കുക:",
   "deposit-subtasks-list": "ഇവിടെ നിക്ഷേപിക്കുന്ന ഉപചുമതലകൾക്കുള്ള ലക്ഷ്യ പട്ടിക:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "മിനികാർഡിൽ പാരന്റ് കാണിക്കുക:",
   "description-on-minicard": "മിനികാർഡിലെ വിവരണം",
   "cover-attachment-on-minicard": "മിനികാർഡിലെ കവർ ചിത്രം",

@@ -1831,6 +1831,24 @@ Template.boardSubtaskSettingsBody.helpers({
     );
     return lists.length > 0;
   },
+  // #1953: the deposit board's swimlanes, for the landing swimlane picker.
+  depositSwimlanes() {
+    const tpl = Template.instance();
+    const depositBoardId =
+      tpl.currentBoard.subtasksDefaultBoardId || tpl.currentBoard._id;
+    return ReactiveCache.getSwimlanes(
+      { boardId: depositBoardId, archived: false },
+      { sort: { sort: 1 } },
+    );
+  },
+  isSwimlaneSelected() {
+    const tpl = Template.instance();
+    return tpl.currentBoard.subtasksDefaultSwimlaneId === Template.currentData()._id;
+  },
+  isNullSwimlaneSelected() {
+    const tpl = Template.instance();
+    return !tpl.currentBoard.subtasksDefaultSwimlaneId;
+  },
   isListSelected() {
     // #3876 / #4947: the selected landing list must be compared against
     // subtasksDefaultListId (the stored list id), NOT subtasksDefaultBoardId.
@@ -1871,6 +1889,8 @@ Template.boardSubtaskSettingsBody.events({
     // newly-selected board starts fresh.
     if (value !== tpl.currentBoard.subtasksDefaultBoardId) {
       tpl.currentBoard.setSubtasksDefaultListId(null);
+      // #1953: the swimlane belonged to the old board as well.
+      tpl.currentBoard.setSubtasksDefaultSwimlaneId(null);
     }
     tpl.currentBoard.setSubtasksDefaultBoardId(value);
     evt.preventDefault();
@@ -1881,6 +1901,14 @@ Template.boardSubtaskSettingsBody.events({
       value = null;
     }
     tpl.currentBoard.setSubtasksDefaultListId(value);
+    evt.preventDefault();
+  },
+  'change .js-field-deposit-swimlane'(evt, tpl) {
+    let value = evt.target.value;
+    if (value === 'null' || value === '') {
+      value = null;
+    }
+    tpl.currentBoard.setSubtasksDefaultSwimlaneId(value);
     evt.preventDefault();
   },
   'click .js-field-show-parent-in-minicard'(evt, tpl) {

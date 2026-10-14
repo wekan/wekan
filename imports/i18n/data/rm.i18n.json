@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Parameters da la mini-carta",
   "deposit-subtasks-board": "Deponer las sutincumbensas en questa tabella:",
   "deposit-subtasks-list": "Glista da destinaziun per las sutincumbensas deponidas qua:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Mussar la carta superiura sin la minicarta:",
   "description-on-minicard": "Descripziun sin la minicarta",
   "cover-attachment-on-minicard": "Maletg da cuverta sin la minicarta",

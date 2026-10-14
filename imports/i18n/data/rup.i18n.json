@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Sitãri di minicarti",
   "deposit-subtasks-board": "Puni sublucrãrili tu aesta tabelã:",
   "deposit-subtasks-list": "Lista di destinatsie ti sublucrãrili pusi aua:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Aratã carta pãrinti pi minicartã:",
   "description-on-minicard": "Discriirea pi carta njicã",
   "cover-attachment-on-minicard": "Imaghinã di cupertã pi minicartã",

@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Roghainnean na mion-chairte",
   "deposit-subtasks-board": "Cuir fo-ghnìomhan dhan bhòrd seo:",
   "deposit-subtasks-list": "Liosta tighinn air tìr airson fo-ghnìomhan a chuirear an seo:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Seall am pàrant sa mhion-chairt:",
   "description-on-minicard": "Tuairisgeul air a' mhion-chairt",
   "cover-attachment-on-minicard": "Dealbh còmhdaich air a' mhion-chairt",

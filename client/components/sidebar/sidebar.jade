@@ -423,6 +423,20 @@ template(name="boardSubtaskSettingsBody")
             else
               option(value=_id) {{title}}
 
+    //- #1953: the swimlane new subtasks land in on the deposit board.
+    label
+      | {{_ 'deposit-subtasks-swimlane'}}
+      select.js-field-deposit-swimlane(disabled="{{#unless allowsSubtasks}}disabled{{/unless}}")
+          if isNullSwimlaneSelected
+            option(value='null' selected="selected") {{_ 'deposit-subtasks-swimlane-auto'}}
+          else
+            option(value='null') {{_ 'deposit-subtasks-swimlane-auto'}}
+          each depositSwimlanes
+            if isSwimlaneSelected
+              option(value=_id selected="selected") {{title}}
+            else
+              option(value=_id) {{title}}
+
 template(name="boardSubtaskSettingsPopup")
   +boardSubtaskSettingsBody
 

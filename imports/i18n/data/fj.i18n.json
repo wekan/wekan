@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Veisautaki ni kadi lailai",
   "deposit-subtasks-board": "Biuta na cakacaka lalai ki na vola oqo:",
   "deposit-subtasks-list": "Lisi ni yaco ni cakacaka lalai e biu eke:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Vakaraitaka na itubutubu ena kadi lailai:",
   "description-on-minicard": "iVakamacala ena kadi lailai",
   "cover-attachment-on-minicard": "iYaloyalo ni waqana ena kadi lailai",

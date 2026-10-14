@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Minikaart instellings",
   "deposit-subtasks-board": "Deponeer subtake op hierdie bord:",
   "deposit-subtasks-list": "Landingslys vir subtake wat hier gedeponeer word:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Wys ouer in minikaart:",
   "description-on-minicard": "Beskrywing op minikaart",
   "cover-attachment-on-minicard": "Omslagprent op minikaart",

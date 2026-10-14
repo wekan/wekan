@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Mpustazzioni dâ minicarta",
   "deposit-subtasks-board": "Deposita i sutta compiti in chista tàvula",
   "deposit-subtasks-list": "Lista di destinaizoni pi questi sutta-compiti",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Mostra genirotri nelli mini schede:",
   "description-on-minicard": "Discrizzzioni sulla minicarta",
   "cover-attachment-on-minicard": "Immagine di copertina su minicard",

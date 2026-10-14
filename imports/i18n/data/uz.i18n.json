@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Minikarta sozlamalari",
   "deposit-subtasks-board": "Ushbu taxtaga quyi vazifalarni kiriting:",
   "deposit-subtasks-list": "Bu yerga qoʻyilgan quyi vazifalar roʻyxati:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Minikartada ota-onani ko'rsatish:",
   "description-on-minicard": "Minikartadagi tavsif",
   "cover-attachment-on-minicard": "Minikartadagi muqova rasmi",

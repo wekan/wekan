@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Impostazioni minischeda",
   "deposit-subtasks-board": "Deposita i sotto compiti in questa bacheca",
   "deposit-subtasks-list": "Lista di destinaizoni per questi sotto-compiti",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Mostra genirotri nelle mini schede:",
   "description-on-minicard": "Descrizione sulla minischeda",
   "cover-attachment-on-minicard": "Immagine di copertina su minicard",

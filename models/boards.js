@@ -726,6 +726,17 @@ Boards.attachSchema(
       defaultValue: null,
     },
 
+    subtasksDefaultSwimlaneId: {
+      /**
+       * #1953: the swimlane new subtasks land in on the deposit board
+       * (models/lib/subtaskLandingSwimlane.js). Unset: the swimlane with the
+       * parent card's swimlane title, else the default swimlane.
+       */
+      type: String,
+      optional: true,
+      defaultValue: null,
+    },
+
     dateSettingsDefaultBoardId: {
       type: String,
       optional: true,
@@ -3420,6 +3431,10 @@ Boards.helpers({
 
   async setSubtasksDefaultListId(subtasksDefaultListId) {
     return await Boards.updateAsync(this._id, { $set: { subtasksDefaultListId } });
+  },
+
+  async setSubtasksDefaultSwimlaneId(subtasksDefaultSwimlaneId) {
+    return await Boards.updateAsync(this._id, { $set: { subtasksDefaultSwimlaneId } });
   },
 
   async setPresentParentTask(presentParentTask) {

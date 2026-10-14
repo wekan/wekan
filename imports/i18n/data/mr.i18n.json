@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "छोट्या कार्डाची सेटिंग्ज",
   "deposit-subtasks-board": "या फलकावर उपकार्ये जमा करा:",
   "deposit-subtasks-list": "येथे जमा केलेल्या उपकार्यांची आगमन यादी:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "मिनिकार्डावर पालक दाखवा:",
   "description-on-minicard": "मिनिकार्डावरील वर्णन",
   "cover-attachment-on-minicard": "मिनिकार्डावरील मुखपृष्ठ प्रतिमा",

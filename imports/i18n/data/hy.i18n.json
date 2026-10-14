@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Minicard-ի կարգավորումներ",
   "deposit-subtasks-board": "Ներդրեք ենթաառաջադրանքները այս տախտակին.",
   "deposit-subtasks-list": "Այստեղ պահված ենթաառաջադրանքների վայրէջքի ցուցակը՝",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Ցույց տալ ծնողին մինի քարտում՝",
   "description-on-minicard": "Նկարագրություն մինի քարտի վրա",
   "cover-attachment-on-minicard": "Շապիկի պատկեր մինի քարտի վրա",

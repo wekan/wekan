@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Nastavení minikarty",
   "deposit-subtasks-board": "Vložit podúkoly do tohoto tabla",
   "deposit-subtasks-list": "Cílový seznam pro sem uložené podúkoly:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Ukázat předka na minikartě",
   "description-on-minicard": "Popis na minikartě",
   "cover-attachment-on-minicard": "Titulní obrázek na minikartě",

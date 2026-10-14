@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "ಚಿಕ್ಕ ಕಾರ್ಡ್ ಸಂಯೋಜನೆಗಳು",
   "deposit-subtasks-board": "ಉಪಕಾರ್ಯಗಳನ್ನು ಈ ಫಲಕಕ್ಕೆ ಜಮಾ ಮಾಡಿ:",
   "deposit-subtasks-list": "ಇಲ್ಲಿ ಜಮಾ ಮಾಡಿದ ಉಪಕಾರ್ಯಗಳ ಗಮ್ಯ ಪಟ್ಟಿ:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "ಮಿನಿಕಾರ್ಡ್‌ನಲ್ಲಿ ಪೋಷಕವನ್ನು ತೋರಿಸಿ:",
   "description-on-minicard": "ಮಿನಿಕಾರ್ಡ್‌ನಲ್ಲಿ ವಿವರಣೆ",
   "cover-attachment-on-minicard": "ಮಿನಿಕಾರ್ಡ್‌ನಲ್ಲಿ ಮುಖಪುಟ ಚಿತ್ರ",

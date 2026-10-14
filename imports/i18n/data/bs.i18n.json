@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Postavke minikartice",
   "deposit-subtasks-board": "Депонуј издвојене послове у списе:",
   "deposit-subtasks-list": "Odredišna lista za podzadatke pohranjene ovdje:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Испис порекла на омоту предмета:",
   "description-on-minicard": "Пун опис",
   "cover-attachment-on-minicard": "Мотив из предметне грађе",

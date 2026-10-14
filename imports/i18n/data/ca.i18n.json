@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Configuració de la minifitxa",
   "deposit-subtasks-board": "Diposita subtasques a aquest tauler:",
   "deposit-subtasks-list": "Llista de destinació de subtasques dipositades aquí:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Mostra els pares a la minifitxa:",
   "description-on-minicard": "Descripció a la minifitxa",
   "cover-attachment-on-minicard": "Imatge de portada a la minifitxa",

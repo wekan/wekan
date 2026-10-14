@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Поставки за миникарти",
   "deposit-subtasks-board": "Додади подзадачи на оваа табла:",
   "deposit-subtasks-list": "Одредишен список за подзадачите додадени овде:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Прикажи ја родителската карта на миникартата:",
   "description-on-minicard": "Пун опис",
   "cover-attachment-on-minicard": "Насловна слика на миникартата",

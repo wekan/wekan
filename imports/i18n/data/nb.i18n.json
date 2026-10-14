@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Minikortinnstillinger",
   "deposit-subtasks-board": "Sett inn Underoppgave på Tavle:",
   "deposit-subtasks-list": "Mottakende liste for underoppgaver satt inn her:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Vis kilde i minikort",
   "description-on-minicard": "Beskrivelse på minikort",
   "cover-attachment-on-minicard": "Omslagsbilde på minikort",

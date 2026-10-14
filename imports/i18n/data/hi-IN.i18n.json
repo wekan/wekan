@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "मिनीकार्ड सेटिंग्स",
   "deposit-subtasks-board": "Deposit subtasks तक  यह बोर्ड:",
   "deposit-subtasks-list": "Landing सूची for subtasks deposited here:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Show parent अंदर में minicard:",
   "description-on-minicard": "मिनीकार्ड पर विवरण",
   "cover-attachment-on-minicard": "मिनकार्ड पर कवर छवि",

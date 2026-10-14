@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Tetapan kadmini",
   "deposit-subtasks-board": "Masukkan subtugas kepada papan ini:",
   "deposit-subtasks-list": "senarai subtugas dimasukkan di sini:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Papar induk dalam kadmini:",
   "description-on-minicard": "Keterangan pada kadmini",
   "cover-attachment-on-minicard": "Imej depan kad mini",

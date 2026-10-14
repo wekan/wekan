@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Ol seting bilong liklik kat",
   "deposit-subtasks-board": "Putim ol liklik wok long dispela bot:",
   "deposit-subtasks-list": "Lis bilong kisim ol liklik wok yu putim long hia:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Soim kat papamama long liklik kat:",
   "description-on-minicard": "Toksave long liklik kat",
   "cover-attachment-on-minicard": "Piksa bilong fran long liklik kat",

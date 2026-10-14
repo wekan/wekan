@@ -18,6 +18,7 @@ function remapCopiedBoardDefaults(board, oldId, newId) {
   if (board && board.subtasksDefaultBoardId === oldId) {
     patch.subtasksDefaultBoardId = newId;
     patch.subtasksDefaultListId = null;
+    patch.subtasksDefaultSwimlaneId = null;
   }
   if (board && board.dateSettingsDefaultBoardId === oldId) {
     patch.dateSettingsDefaultBoardId = newId;

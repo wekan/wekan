@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Fandrindrana ny karatra kely",
   "deposit-subtasks-board": "Apetraho amin'ity solaitra ity ny zana-asa:",
   "deposit-subtasks-list": "Lisitra fandraisana ireo zana-asa apetraka eto:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Asehoy amin'ny karatra kely ny ray aman-dreny:",
   "description-on-minicard": "Famaritana amin'ny karatra kely",
   "cover-attachment-on-minicard": "Sary fonony amin'ny karatra kely",

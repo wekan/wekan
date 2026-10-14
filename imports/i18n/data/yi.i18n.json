@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "מיניקאַרד סעטטינגס",
   "deposit-subtasks-board": "אַוועקלייגן סאַבטאַסקס צו דעם ברעט:",
   "deposit-subtasks-list": "לאַנדינג רשימה פֿאַר סאַבטאַסקס דאַפּאַזיטיד דאָ:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "ווייַזן פאָטער אין מיניקאַרד:",
   "description-on-minicard": "באַשרייַבונג אויף מיניקאַרד",
   "cover-attachment-on-minicard": "דעקן בילד אויף מיניקאַרד",

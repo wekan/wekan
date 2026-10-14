@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Ρυθμίσεις μίνι κάρτας",
   "deposit-subtasks-board": "Απόθεση υποεργασιών σε αυτόν τον πίνακα:",
   "deposit-subtasks-list": "Λίστα υποδοχής για τις υποεργασίες που αποτίθενται εδώ:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Εμφάνιση γονικής κάρτας στη μίνι κάρτα:",
   "description-on-minicard": "Περιγραφή στη μίνι κάρτα",
   "cover-attachment-on-minicard": "Εικόνα εξωφύλλου στη μίνι κάρτα",

@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Awọn Eto Minikaadi",
   "deposit-subtasks-board": "Fi awọn iṣẹ-ṣiṣe idogo si igbimọ yii:",
   "deposit-subtasks-list": "Akojọ ibalẹ fun awọn iṣẹ abẹlẹ ti a fi silẹ nibi:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Ṣe afihan obi ni minikaadi:",
   "description-on-minicard": "Apejuwe lori minicard",
   "cover-attachment-on-minicard": "Bo aworan lori minicard",

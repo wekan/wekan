@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Mini Kart Ayarları",
   "deposit-subtasks-board": "Alt görevleri bu panoda sakla:",
   "deposit-subtasks-list": "Alt görevlerin açılacağı liste:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Mini kart içinde üst kartı göster",
   "description-on-minicard": "Mini kartta açıklama",
   "cover-attachment-on-minicard": "Mini kartta kapak görseli",

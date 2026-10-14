@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Ntọala Minikaadị",
   "deposit-subtasks-board": "Nyefee ntinye ego na bọọdụ a:",
   "deposit-subtasks-list": "Ndepụta ọdịda maka obere ọrụ echekwara ebe a:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Gosi nne na nna na minikaadị:",
   "description-on-minicard": "Nkọwa na minikaadị",
   "cover-attachment-on-minicard": "Ihe mkpuchi mkpuchi na minikaadị",

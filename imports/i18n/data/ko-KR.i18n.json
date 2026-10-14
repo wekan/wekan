@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "미니카드 설정",
   "deposit-subtasks-board": "하위 작업을 넣을 보드:",
   "deposit-subtasks-list": "여기에 넣은 하위 작업이 도착할 리스트:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "미니카드에 상위 항목 표시:",
   "description-on-minicard": "미니카드의 설명",
   "cover-attachment-on-minicard": "미니카드의 표지 이미지",

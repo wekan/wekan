@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Inpostasion de ła scheda picenina",
   "deposit-subtasks-board": "Mete i sotoconpiti in sto quadro:",
   "deposit-subtasks-list": "Lista de destinasion par i sotoconpiti messi qua:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Mostra ła scheda mare so ła scheda picenina:",
   "description-on-minicard": "Descrision so ła scheda picenina",
   "cover-attachment-on-minicard": "Imàjine de covertina so ła scheda picenina",

@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Dipeakanyo tša karata ye nnyane",
   "deposit-subtasks-board": "Bea mešomo ye menyenyane botong ye:",
   "deposit-subtasks-list": "Lenaneo la go amogela mešomo ye menyenyane ye e beilwego mo:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Bontšha motswadi karataneng:",
   "description-on-minicard": "Tlhaloso karataneng",
   "cover-attachment-on-minicard": "Seswantšho sa khabara karataneng",

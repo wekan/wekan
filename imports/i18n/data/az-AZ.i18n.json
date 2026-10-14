@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Minikart Parametrləri",
   "deposit-subtasks-board": "Bu lövhəyə alt tapşırıqları depozit edin:",
   "deposit-subtasks-list": "Burada saxlanılan alt tapşırıqlar üçün açılış siyahısı:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Minikartda valideyni göstərin:",
   "description-on-minicard": "Minikartda təsvir",
   "cover-attachment-on-minicard": "Minikartda örtük şəkli",

@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Ibigenwa vy'agakarata",
   "deposit-subtasks-board": "Shira ibikorwa bitoyi kuri iki capa:",
   "deposit-subtasks-list": "Urutonde ibikorwa bitoyi bishizwe hano bijako:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Erekana umuvyeyi ku karata gatoyi:",
   "description-on-minicard": "Insiguro ku karata gatoyi",
   "cover-attachment-on-minicard": "Ishusho y'igifuniko ku karata gatoyi",

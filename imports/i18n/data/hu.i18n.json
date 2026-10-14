@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Minikártya beállításai",
   "deposit-subtasks-board": "Helyezd a Rész-feladatokat erre a Táblára:",
   "deposit-subtasks-list": "A Rész-feladatok Teendő-listája ide lett helyezve:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Mutasd a szülőt a mini-kártyán:",
   "description-on-minicard": "Leírás a minikártyán",
   "cover-attachment-on-minicard": "Borítókép a minikártyán",

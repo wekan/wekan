@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "إعدادات البطاقة المصغرة",
   "deposit-subtasks-board": "افزودن ریزکار به برد:",
   "deposit-subtasks-list": "قائمة استقبال المهام الفرعية المضافة هنا:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "عرض البطاقة الأصلية على البطاقة المصغرة:",
   "description-on-minicard": "الوصف على البطاقة المصغرة",
   "cover-attachment-on-minicard": "صورة الغلاف على البطاقة الصغيرة",

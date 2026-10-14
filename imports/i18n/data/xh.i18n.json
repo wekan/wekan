@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Izicwangciso zeMinicard",
   "deposit-subtasks-board": "Deposit subtasks kule bhodi:",
   "deposit-subtasks-list": "Uluhlu lokufikela lwemisebenzi engaphantsi efakwe apha:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Bonisa umzali kwikhadi elincinci:",
   "description-on-minicard": "Inkcazo kwikhadi elincinci",
   "cover-attachment-on-minicard": "Umfanekiso wekhava kwikhadi elincinci",

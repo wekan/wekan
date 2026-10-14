@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Nastajenja minikarty",
   "deposit-subtasks-board": "Podnadawki na tutu taflu złožić:",
   "deposit-subtasks-list": "Cilowa lisćina za tu złožene podnadawki:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Nadrjadowanu kartu na minikarće pokazać:",
   "description-on-minicard": "Wopisanje na minikarće",
   "cover-attachment-on-minicard": "Titulny wobraz na minikarće",

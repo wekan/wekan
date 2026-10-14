@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Zokonda za khadi laling'ono",
   "deposit-subtasks-board": "Ikani ntchito zazing'ono pa bolodi ili:",
   "deposit-subtasks-list": "Mndandanda wolandirira ntchito zazing'ono zoikidwa apa:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Onetsani kholo pa khadi laling'ono:",
   "description-on-minicard": "Mafotokozedwe pa khadi laling'ono",
   "cover-attachment-on-minicard": "Chithunzi chakutsogolo pa khadi laling'ono",

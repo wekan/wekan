@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Stillingar smáspjalds",
   "deposit-subtasks-board": "Setja undirverk á þessa töflu:",
   "deposit-subtasks-list": "Móttökulisti fyrir undirverk sem eru sett hér:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Sýna foreldri á smáspjaldi:",
   "description-on-minicard": "Lýsing á smáspjaldi",
   "cover-attachment-on-minicard": "Forsíðumynd á smáspjaldi",

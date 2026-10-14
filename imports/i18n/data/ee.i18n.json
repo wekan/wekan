@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Agbalẽvi sue ƒe ɖoɖowo",
   "deposit-subtasks-board": "Tsɔ dɔviwo ɖo kpekpeɖeŋu sia dzi:",
   "deposit-subtasks-list": "Xexlẽdzesi si me dɔvi siwo wotsɔ va afisia aɖo:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Fia dzila le kaɖivi dzi:",
   "description-on-minicard": "Numeɖeɖe le kaɖivi dzi",
   "cover-attachment-on-minicard": "Xɔxɔmetata le kaɖivi dzi",

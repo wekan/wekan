@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Konfigurashon di minikarchi",
   "deposit-subtasks-board": "Depositar subtareas den e tabla:",
   "deposit-subtasks-list": "Lista di destino pa subtareas depositadas aki:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Mustra e padre den un minikarchi:",
   "description-on-minicard": "Deskripshon den e minikarchi",
   "cover-attachment-on-minicard": "Imagen di portada di e minikarchi",

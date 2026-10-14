@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Setări minicard",
   "deposit-subtasks-board": "Depune subsarcinile în acest panou:",
   "deposit-subtasks-list": "Lista de destinație pentru subsarcinile depuse aici:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Afișează cardul părinte pe minicard:",
   "description-on-minicard": "Descriere pe minicard",
   "cover-attachment-on-minicard": "Imagine de copertă pe minicard",

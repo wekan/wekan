@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Мини картын тохиргоо",
   "deposit-subtasks-board": "Дэд даалгавруудыг энэ самбарт байрлуулах:",
   "deposit-subtasks-list": "Энд байрлуулсан дэд даалгаврын очих жагсаалт:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Мини картад эцгийг харуулах:",
   "description-on-minicard": "Мини карт дээрх тайлбар",
   "cover-attachment-on-minicard": "Мини карт дээрх нүүр зураг",

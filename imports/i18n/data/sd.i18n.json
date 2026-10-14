@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "ننڍي ڪارڊ جون سيٽنگون",
   "deposit-subtasks-board": "ذيلي ڪم هن بورڊ ۾ رکو:",
   "deposit-subtasks-list": "هتي رکيل ذيلي ڪمن جي منزل فهرست:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "ننڍي ڪارڊ تي والد ڏيکاريو:",
   "description-on-minicard": "ننڍي ڪارڊ تي وضاحت",
   "cover-attachment-on-minicard": "ننڍي ڪارڊ تي ڍڪ واري تصوير",

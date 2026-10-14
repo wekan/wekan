@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Socruithe an mhionchárta",
   "deposit-subtasks-board": "Cuir fothascanna sa chlár seo:",
   "deposit-subtasks-list": "Liosta tuirlingthe d'fhothascanna a chuirtear anseo:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Taispeáin tuismitheoir ar mhionchárta:",
   "description-on-minicard": "Cur síos ar mhionchárta",
   "cover-attachment-on-minicard": "Íomhá chumhdaigh ar mhionchárta",

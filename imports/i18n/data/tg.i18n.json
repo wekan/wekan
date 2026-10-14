@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Танзимоти корти хурд",
   "deposit-subtasks-board": "Зервазифаҳоро ба ин тахта ҷойгир кунед:",
   "deposit-subtasks-list": "Рӯйхати қабули зервазифаҳои дар ин ҷо ҷойгиршуда:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Нишон додани волидайн дар корти хурд:",
   "description-on-minicard": "Тавсиф дар корти хурд",
   "cover-attachment-on-minicard": "Тасвири муқова дар корти хурд",

@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "کیچیک کارت سازلمه‌لری",
   "deposit-subtasks-board": "اوشبو تخته‌گه قویی وظیفه‌لرنی کیریتینگ:",
   "deposit-subtasks-list": "بو ییرگه قۉییلگن قویی وظیفه‌لر رۉیختی:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "کیچیک کارتده آته-آنه‌نی کۉرستیش:",
   "description-on-minicard": "کیچیک کارتدگی توصیف",
   "cover-attachment-on-minicard": "کیچیک کارتدگی مقوا رسمی",

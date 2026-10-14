@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Jisk'a karta wakichawinaka",
   "deposit-subtasks-board": "Deposit subtasks ukaru aka pirqa:",
   "deposit-subtasks-list": "Landing lista for subtasks deposited here:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "uñachtʼayaña parent mana minicard:",
   "description-on-minicard": "qhanañchäwi patana minicard",
   "cover-attachment-on-minicard": "Cover jamuqa patana minicard",

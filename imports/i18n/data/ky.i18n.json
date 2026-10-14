@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Чакан карточка жөндөөлөрү",
   "deposit-subtasks-board": "Кошумча тапшырмаларды бул тактага жайгаштыруу:",
   "deposit-subtasks-list": "Бул жерге жайгаштырылган кошумча тапшырмалардын көздөгөн тизмеси:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Ата-энесин кичи карточкада көрсөтүү:",
   "description-on-minicard": "Сүрөттөмөнү кичи карточкада көрсөтүү",
   "cover-attachment-on-minicard": "Мукаба сүрөтүн кичи карточкада көрсөтүү",

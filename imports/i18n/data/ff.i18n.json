@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Teelte kartal tokoosal",
   "deposit-subtasks-board": "Joɗɗin golle pamare e alluwal ngal:",
   "deposit-subtasks-list": "Doggol joɗɗingol golle pamare joɗɗinaaɗe ɗoo:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Hollu jinnuɗo e kartal pamarel:",
   "description-on-minicard": "Cifagol e kartal pamarel",
   "cover-attachment-on-minicard": "Natal suddiiɗo e kartal pamarel",

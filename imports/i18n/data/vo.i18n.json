@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Väls kadila",
   "deposit-subtasks-board": "Topätükön donabligädis lü tab at:",
   "deposit-subtasks-list": "Lised zeila pro donabligäds is patopätüköl:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Jonön kadi löpikum su kadil:",
   "description-on-minicard": "Bepenam su kadil",
   "cover-attachment-on-minicard": "Magod tega su kadil",

@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Minikortelės nustatymai",
   "deposit-subtasks-board": "Įdėkite antrines užduotis į šią lentą:",
   "deposit-subtasks-list": "Čia patalpintų papildomų užduočių sąrašas:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Rodyti tėvą mini kortelėje:",
   "description-on-minicard": "Aprašymas mini kortelėje",
   "cover-attachment-on-minicard": "Viršelio vaizdas mini kortelėje",

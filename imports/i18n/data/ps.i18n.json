@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "د وړوکي کارت امستنې",
   "deposit-subtasks-board": "فرعي دندې دې تختې ته واچوئ:",
   "deposit-subtasks-list": "دلته د اچول شويو فرعي دندو د رسېدو لړليک:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "اصلي کارت په کوچني کارت کې وښيئ:",
   "description-on-minicard": "څرګندونه په کوچني کارت کې",
   "cover-attachment-on-minicard": "د پوښ انځور په کوچني کارت کې",

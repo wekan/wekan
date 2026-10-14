@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Ùstôwë minikôrtë",
   "deposit-subtasks-board": "Twòrz podzadania na tôblëcë:",
   "deposit-subtasks-list": "Początkowô lësta dla podzadań jest przechowywana w:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Pòkôżë nadrzãdną kôrtã na minikôrce:",
   "description-on-minicard": "Òpisënk na miniaturze kôrtë",
   "cover-attachment-on-minicard": "Obraz okładki na miniaturze kôrtë",

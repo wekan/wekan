@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "মিনিকাৰ্ডৰ ছেটিংছ",
   "deposit-subtasks-board": "উপকাৰ্যসমূহ এই ব'ৰ্ডত জমা কৰক:",
   "deposit-subtasks-list": "ইয়াত জমা কৰা উপকাৰ্যৰ গন্তব্য তালিকা:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "সৰু কাৰ্ডত মূল কাৰ্ড দেখুৱাওক:",
   "description-on-minicard": "সৰু কাৰ্ডত বিৱৰণ",
   "cover-attachment-on-minicard": "সৰু কাৰ্ডত আৱৰণ ছবি",

@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Ngā tautuhinga kāri iti",
   "deposit-subtasks-board": "Whakatakotoria ngā tūmahi-iti ki tēnei papa:",
   "deposit-subtasks-list": "Rārangi taunga mō ngā tūmahi-iti ka whakatakotoria ki konei:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Whakaatu matua ki te kāri iti:",
   "description-on-minicard": "Whakaahuatanga ki te kāri iti",
   "cover-attachment-on-minicard": "Atahanga uhi ki te kāri iti",

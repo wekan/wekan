@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Ol seting blong smol kad",
   "deposit-subtasks-board": "Putum ol smol wok long bod ia:",
   "deposit-subtasks-list": "Lis we ol smol wok oli putum long hem i kam long ples ia:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Soemaot stamba kad insaed long smol kad:",
   "description-on-minicard": "Diskripsen long smol kad",
   "cover-attachment-on-minicard": "Pikja antap long smol kad",

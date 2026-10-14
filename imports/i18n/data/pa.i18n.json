@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "ਮਿਨੀਕਾਰਡ ਸੈਟਿੰਗਾਂ",
   "deposit-subtasks-board": "ਇਸ ਬੋਰਡ ਵਿੱਚ ਸਬਟਾਸਕ ਜਮ੍ਹਾਂ ਕਰੋ:",
   "deposit-subtasks-list": "ਇੱਥੇ ਜਮ੍ਹਾਂ ਸਬਟਾਸਕਾਂ ਲਈ ਲੈਂਡਿੰਗ ਸੂਚੀ:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "ਮਿਨੀਕਾਰਡ ਵਿੱਚ ਮਾਪੇ ਦਿਖਾਓ:",
   "description-on-minicard": "ਮਿਨੀਕਾਰਡ 'ਤੇ ਵਰਣਨ",
   "cover-attachment-on-minicard": "ਮਿਨੀਕਾਰਡ 'ਤੇ ਕਵਰ ਚਿੱਤਰ",

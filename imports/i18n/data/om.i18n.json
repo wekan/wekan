@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Qindaa'ina kaardii xiqqaa",
   "deposit-subtasks-board": "Hojiiwwan xixiqqaa gabatee kanatti kuusi:",
   "deposit-subtasks-list": "Tarree hojiiwwan xixiqqaa as kuufamaniif qubannaa:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Abbaa kaardii xiqqaa irratti agarsiisi:",
   "description-on-minicard": "Ibsa kaardii xiqqaa irratti",
   "cover-attachment-on-minicard": "Fakkii haguuggii kaardii xiqqaa irratti",

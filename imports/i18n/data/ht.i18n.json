@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Paramèt mini kat",
   "deposit-subtasks-board": "Depoze sou-travay sou tablo sa a:",
   "deposit-subtasks-list": "Lis destinasyon pou sou-travay ki depoze isit la:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Montre paran an sou mini-kat:",
   "description-on-minicard": "Deskripsyon sou mini-kat",
   "cover-attachment-on-minicard": "Imaj kouvèti sou mini-kat",

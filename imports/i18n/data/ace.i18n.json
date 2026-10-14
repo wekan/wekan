@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Peuatôran Kad Ubit",
   "deposit-subtasks-board": "Peutamong subtugas u papan nyoe:",
   "deposit-subtasks-list": "Senarai tujuan subtugas nyang geupeutamong keunoe:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Peuleumah induk bak kad ubit:",
   "description-on-minicard": "Deskripsi bak kad ubit",
   "cover-attachment-on-minicard": "Gamba sampul bak kad ubit",

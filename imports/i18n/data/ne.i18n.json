@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "सानो कार्ड सेटिङ",
   "deposit-subtasks-board": "उपकार्यहरू यो बोर्डमा राख्नुहोस्:",
   "deposit-subtasks-list": "यहाँ राखिएका उपकार्यहरूको गन्तव्य सूची:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "सानो कार्डमा अभिभावक देखाउनुहोस्:",
   "description-on-minicard": "सानो कार्डमा विवरण",
   "cover-attachment-on-minicard": "सानो कार्डमा आवरण चित्र",

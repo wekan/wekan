@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Apontiaedjes del minicåte",
   "deposit-subtasks-board": "Mete les sos-bouyes so ci tåvlea ci:",
   "deposit-subtasks-list": "Djivêye di destinåcion des sos-bouyes metowes cial:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Mostrer l' cåte parint sol minicåte:",
   "description-on-minicard": "Discrijhaedje sol minicåte",
   "cover-attachment-on-minicard": "Imådje di coviete sol minicåte",

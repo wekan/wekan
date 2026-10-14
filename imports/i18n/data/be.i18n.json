@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Налады мінікарткі",
   "deposit-subtasks-board": "Размяшчаць падзадачы на гэтай дошцы:",
   "deposit-subtasks-list": "Спіс для падзадач, размешчаных тут:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Паказваць бацькоўскую картку ў мінікартцы:",
   "description-on-minicard": "Апісанне на мінікартцы",
   "cover-attachment-on-minicard": "Вокладка на мінікартцы",

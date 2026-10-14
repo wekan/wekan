@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "කුඩා කාඩ්පත් සැකසුම්",
   "deposit-subtasks-board": "උපකාර්ය මෙම පුවරුවට තැන්පත් කරන්න:",
   "deposit-subtasks-list": "මෙහි තැන්පත් කරන උපකාර්ය සඳහා ගමනාන්ත ලැයිස්තුව:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "කුඩා කාඩ්පතේ මව් කාඩ්පත පෙන්වන්න:",
   "description-on-minicard": "කුඩා කාඩ්පතේ විස්තරය",
   "cover-attachment-on-minicard": "කුඩා කාඩ්පතේ කවර රූපය",

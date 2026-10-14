@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Reaghyssyn y veg-kaart",
   "deposit-subtasks-board": "Cur far-obbraghyn er y voayrd shoh:",
   "deposit-subtasks-list": "Rolley roshtyn son far-obbraghyn currit ayns shoh:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Taishbyn ayr er kaart veg:",
   "description-on-minicard": "Coontey er kaart veg",
   "cover-attachment-on-minicard": "Jalloo coodaghey er kaart veg",

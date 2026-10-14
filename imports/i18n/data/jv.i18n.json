@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Setelan kertu cilik",
   "deposit-subtasks-board": "Lebokake subtugas menyang papan iki:",
   "deposit-subtasks-list": "Dhaptar tujuan kanggo subtugas sing dilebokake ing kene:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Tampilake induk ing kertu cilik:",
   "description-on-minicard": "Katrangan ing kertu cilik",
   "cover-attachment-on-minicard": "Gambar sampul ing kertu cilik",

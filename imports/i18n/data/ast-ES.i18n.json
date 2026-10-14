@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Preferencies de les minitarxetes",
   "deposit-subtasks-board": "Depositar subtarees nesti tableru:",
   "deposit-subtasks-list": "Llista de destín pa les subtarees depositaes equí:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Amosar la tarxeta madre na minitarxeta:",
   "description-on-minicard": "Descripció a la minifitxa",
   "cover-attachment-on-minicard": "Imaxe de portada na minitarxeta",

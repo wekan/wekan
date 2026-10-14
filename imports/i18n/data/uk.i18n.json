@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Налаштування міні-картки",
   "deposit-subtasks-board": "Перенести підзадачі на цю дошку:",
   "deposit-subtasks-list": "Список приземлення для підзадач, що переносяться сюди:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Показати батька на міні-картці:",
   "description-on-minicard": "Опис на міні-картці",
   "cover-attachment-on-minicard": "Зображення обкладинки на міні-картці",

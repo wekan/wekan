@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "ཤོག་བྱང་ཆུང་ངུའི་སྒྲིག་འགོད།",
   "deposit-subtasks-board": "ལས་ཕྲན་ལས་སྒྲོམ་འདིར་འཇོག",
   "deposit-subtasks-list": "འདིར་བཞག་པའི་ལས་ཕྲན་གྱི་འབབ་ས་ཐོ་གཞུང་།",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "བྱང་བུ་ཆུང་བར་ཕ་བྱང་སྟོན།",
   "description-on-minicard": "བྱང་བུ་ཆུང་བའི་འགྲེལ་བཤད།",
   "cover-attachment-on-minicard": "བྱང་བུ་ཆུང་བའི་ཁེབས་རིས།",

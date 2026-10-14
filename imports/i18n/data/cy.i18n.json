@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Gosodiadau Cerdyn Mini",
   "deposit-subtasks-board": "Adneuo is-dasgau i'r bwrdd hwn:",
   "deposit-subtasks-list": "Rhestr lanio ar gyfer is-dasgau a adneuwyd yma:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Dangos rhiant mewn minicard:",
   "description-on-minicard": "Disgrifiad ar minicard",
   "cover-attachment-on-minicard": "Llun clawr ar minicard",

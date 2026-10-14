@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Izilungiselelo zekhadi elincane",
   "deposit-subtasks-board": "Beka imisebenzi emincane kuleli bhodi:",
   "deposit-subtasks-list": "Uluhlu lokufikela lwemisebenzi emincane ebekwa lapha:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Bonisa umzali ekhadini elincane:",
   "description-on-minicard": "Incazelo ekhadini elincane",
   "cover-attachment-on-minicard": "Isithombe sekhava ekhadini elincane",

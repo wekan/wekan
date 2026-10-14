@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Кыра карточка туруоруулара",
   "deposit-subtasks-board": "Эбии сорудахтары бу дуоскаҕа уур:",
   "deposit-subtasks-list": "Манна ууруллубут эбии сорудахтар киирэр испииһэктэрэ:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Төрөппүт карточканы кыра карточкаҕа көрдөр:",
   "description-on-minicard": "Кыра карточкаҕа ойуулааһын",
   "cover-attachment-on-minicard": "Кыра карточкаҕа тас ойуу",

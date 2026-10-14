@@ -418,22 +418,19 @@ Meteor.methods({
     }
     if (!targetList) return undefined;
 
-    // Reuse a swimlane on the destination board: prefer one whose title matches
-    // the parent card's swimlane, otherwise the destination board's default
-    // swimlane. Both branches reuse an existing swimlane (no insert here).
-    let swimlaneId;
+    // #1953: the swimlane chosen in Board Settings / Subtasks (the main
+    // board's on a shared deposit board, else the deposit board's own), else
+    // as before: the destination swimlane with the parent's swimlane title,
+    // else the default swimlane (models/lib/subtaskLandingSwimlane.js).
+    const { chooseSubtaskSwimlane } = require('/models/lib/subtaskLandingSwimlane');
     const parentSwimlane = parentCard.swimlaneId
       ? await Swimlanes.findOneAsync(parentCard.swimlaneId)
       : null;
-    const targetSwimlane = parentSwimlane
-      ? await Swimlanes.findOneAsync({
-          boardId: targetBoard._id,
-          title: parentSwimlane.title,
-        })
-      : null;
-    if (targetSwimlane) {
-      swimlaneId = targetSwimlane._id;
-    } else {
+    const landingSwimlane = chooseSubtaskSwimlane({ parentBoard, targetBoard,
+      swimlanes: await Swimlanes.find({ boardId: targetBoard._id, archived: { $ne: true } }).fetchAsync(),
+      parentSwimlaneTitle: parentSwimlane ? parentSwimlane.title : undefined });
+    let swimlaneId = landingSwimlane.swimlaneId;
+    if (!swimlaneId) {
       const defaultSwimlane = await targetBoard.getDefaultSwimlineAsync();
       swimlaneId = defaultSwimlane && defaultSwimlane._id;
     }

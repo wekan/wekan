@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Dejinta kaarka yar",
   "deposit-subtasks-board": "Hawlaha hoose dhig sabuuraddan:",
   "deposit-subtasks-list": "Liiska soo degista ee hawlaha hoose ee halkan la dhigo:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Ku muuji waalidka kaarka yar:",
   "description-on-minicard": "Sharraxaadda kaarka yar",
   "cover-attachment-on-minicard": "Sawirka daboolka ee kaarka yar",

@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Minicard Settings",
   "deposit-subtasks-board": "Deposit subtasks to this board:",
   "deposit-subtasks-list": "Landing list for subtasks deposited here:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Show parent in minicard:",
   "description-on-minicard": "Description on minicard",
   "cover-attachment-on-minicard": "Cover image on minicard",

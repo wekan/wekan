@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Nastavitve minikartice",
   "deposit-subtasks-board": "Deponiraj podopravila na tablo:",
   "deposit-subtasks-list": "Ciljni seznam za deponirana podopravila:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Pokaži starša na mini-kartici:",
   "description-on-minicard": "Opis na minikartici",
   "cover-attachment-on-minicard": "Naslovna slika na minikartici",

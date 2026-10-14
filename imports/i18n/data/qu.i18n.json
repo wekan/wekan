@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Huch'uy karta allichaykuna",
   "deposit-subtasks-board": "Uchuy ruranakunata kay pirqaman churay:",
   "deposit-subtasks-list": "Kaypi churasqa uchuy ruranakunapaq chayana sutisuyu:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Huch'uy kartapi taytanta rikuchiy:",
   "description-on-minicard": "Huch'uy kartapi willakuy",
   "cover-attachment-on-minicard": "Huch'uy kartapi qata rikch'ay",

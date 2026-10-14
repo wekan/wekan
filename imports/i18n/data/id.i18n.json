@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Pengaturan Kartu Mini",
   "deposit-subtasks-board": "Masukkan subtugas kepada papan ini:",
   "deposit-subtasks-list": "Daftar tujuan untuk subtugas yang ditempatkan di sini:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Tampilkan induk pada kartu mini:",
   "description-on-minicard": "Deskripsi pada kartu mini",
   "cover-attachment-on-minicard": "Gambar sampul untuk kartu kecil",

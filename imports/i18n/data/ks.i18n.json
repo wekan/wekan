@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "لۆکُٹ کارڈ ترتیبات",
   "deposit-subtasks-board": "ذیلی کام یَتھ بورڈس منٛز تھاویو:",
   "deposit-subtasks-list": "یَتھ تھٲونہٕ آمتؠن ذیلی کامن خٲطرٕ منزل فہرست:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "لۄکٹس کارڈس پؠٹھ والد ہٲویو:",
   "description-on-minicard": "لۄکٹس کارڈس پؠٹھ تفصیل",
   "cover-attachment-on-minicard": "لۄکٹس کارڈس پؠٹھ پوش تصویر",

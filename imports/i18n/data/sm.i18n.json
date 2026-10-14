@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Faatulagaga o le pepa laitiiti",
   "deposit-subtasks-board": "Tuu galuega laiti i lenei laupapa:",
   "deposit-subtasks-list": "Lisi e taunuu ai galuega laiti ua tuu iinei:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Faaali le matua i le pepa laitiiti:",
   "description-on-minicard": "Faamatalaga i le pepa laitiiti",
   "cover-attachment-on-minicard": "Ata ufiufi i le pepa laitiiti",

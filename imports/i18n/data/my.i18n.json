@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "ကတ်ငယ် ဆက်တင်များ",
   "deposit-subtasks-board": "လုပ်ငန်းခွဲများကို ဤဘုတ်သို့ ထည့်ရန်:",
   "deposit-subtasks-list": "ဤနေရာတွင် ထည့်သော လုပ်ငန်းခွဲများအတွက် ရောက်ရှိရာစာရင်း:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "ကတ်ငယ်တွင် မိဘကို ပြရန်:",
   "description-on-minicard": "ကတ်ငယ်ပေါ်ရှိ ဖော်ပြချက်",
   "cover-attachment-on-minicard": "ကတ်ငယ်ပေါ်ရှိ မျက်နှာဖုံးပုံ",

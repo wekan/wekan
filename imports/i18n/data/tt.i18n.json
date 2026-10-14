@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Кечкенә карточка көйләүләре",
   "deposit-subtasks-board": "Өстәмә биремнәрне бу тактага урнаштыру:",
   "deposit-subtasks-list": "Монда урнаштырылган өстәмә биремнәр өчен исемлек:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Миникарточкада төп карточканы күрсәтү:",
   "description-on-minicard": "Миникарточкада тасвирлама",
   "cover-attachment-on-minicard": "Миникарточкада тышлык рәсеме",

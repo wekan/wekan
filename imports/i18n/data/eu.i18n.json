@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Minitxartelaren ezarpenak",
   "deposit-subtasks-board": "Ipini azpiatazak arbel honetan:",
   "deposit-subtasks-list": "Hemen utzitako azpiatazen helburuko zerrenda:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Erakutsi gurasoa minitxartelean:",
   "description-on-minicard": "Deskribapena minitxartelean",
   "cover-attachment-on-minicard": "minitxartelaren azalaren irudia",

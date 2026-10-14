@@ -56,30 +56,26 @@ test('#2732: looks up the parent card\'s own swimlane before choosing a target',
   );
 });
 
+// #1953 moved the choice into models/lib/subtaskLandingSwimlane.js, so a
+// swimlane picked in Board Settings / Subtasks comes first; with none picked,
+// the #2732 title match and the default-swimlane fallback are unchanged, and
+// are now checked by running the chooser rather than by reading the source.
+const { chooseSubtaskSwimlane } = require('../models/lib/subtaskLandingSwimlane.js');
+const target = { _id: 'T' };
+const lanes = [{ _id: 's1', boardId: 'T', title: 'Default' }, { _id: 's2', boardId: 'T', title: 'Backend' }];
+
 test('#2732: reuses a target-board swimlane whose title matches the parent swimlane\'s title', () => {
-  assert.ok(
-    /Swimlanes\.findOneAsync\(\{\s*boardId: targetBoard\._id,\s*title: parentSwimlane\.title,\s*\}\)/.test(
-      fn,
-    ),
-    'addSubtaskCard must look up the destination swimlane by matching title, scoped to the destination board',
-  );
+  assert.ok(/chooseSubtaskSwimlane\(\{ parentBoard, targetBoard,[\s\S]*?parentSwimlaneTitle: parentSwimlane \? parentSwimlane\.title : undefined/.test(fn));
+  assert.deepStrictEqual(chooseSubtaskSwimlane({ parentBoard: { _id: 'P' }, targetBoard: target, swimlanes: lanes, parentSwimlaneTitle: 'Backend' }), { swimlaneId: 's2' });
+  assert.deepStrictEqual(chooseSubtaskSwimlane({ parentBoard: { _id: 'P' }, targetBoard: target,
+    swimlanes: [...lanes, { _id: 'x', boardId: 'OTHER', title: 'Ops' }], parentSwimlaneTitle: 'Ops' }), { fallback: true },
+  'scoped to the destination board');
 });
 
 test('#2732: only falls back to the destination board\'s default swimlane when no title match exists', () => {
-  // The default-swimlane fallback must be reached through the "no match"
-  // branch (targetSwimlane falsy), not unconditionally before the lookup.
-  const ifIndex = fn.indexOf('if (targetSwimlane)');
-  const elseIndex = fn.indexOf('} else {', ifIndex);
-  const defaultCallIndex = fn.indexOf('getDefaultSwimlineAsync()', elseIndex);
-  assert.ok(ifIndex !== -1, 'must branch on whether a matching swimlane was found');
-  assert.ok(
-    elseIndex !== -1 && elseIndex > ifIndex,
-    'the default-swimlane fallback must live in the else branch',
-  );
-  assert.ok(
-    defaultCallIndex !== -1 && defaultCallIndex > elseIndex,
-    'getDefaultSwimlineAsync must only run in the no-match fallback branch',
-  );
+  assert.ok(/let swimlaneId = landingSwimlane\.swimlaneId;\s*\n\s*if \(!swimlaneId\) \{\s*\n\s*const defaultSwimlane = await targetBoard\.getDefaultSwimlineAsync\(\);/.test(fn),
+    'getDefaultSwimlineAsync must only run when the chooser found nothing');
+  assert.deepStrictEqual(chooseSubtaskSwimlane({ parentBoard: { _id: 'P' }, targetBoard: target, swimlanes: lanes, parentSwimlaneTitle: 'Nope' }), { fallback: true });
 });
 
 test('#2732 negative: the inserted card actually carries the resolved swimlaneId, not a hardcoded default', () => {

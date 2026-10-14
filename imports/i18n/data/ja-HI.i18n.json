@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "ミニカード設定",
   "deposit-subtasks-board": "サブタスクの作成先ボード：",
   "deposit-subtasks-list": "サブタスクの作成先リスト：",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "ミニカード上の親表示",
   "description-on-minicard": "ミニカードの説明",
   "cover-attachment-on-minicard": "ミニカードの表紙画像",

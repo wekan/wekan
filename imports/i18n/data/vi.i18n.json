@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Tetapan kadmini",
   "deposit-subtasks-board": "Gửi các nhiệm vụ phụ vào bảng này:",
   "deposit-subtasks-list": "Danh sách đích cho các nhiệm vụ phụ được gửi tại đây:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Hiện cha mẹ trong minicard:",
   "description-on-minicard": "Keterangan pada kadmini",
   "cover-attachment-on-minicard": "Gambar sampul untuk kartu kecil",

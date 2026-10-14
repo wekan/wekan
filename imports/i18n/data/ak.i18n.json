@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Kaad ketewa nhyehyɛeɛ",
   "deposit-subtasks-board": "Deposit adwuma ketewas kɔ eyi bɔɔd:",
   "deposit-subtasks-list": "Din a wɔahyehyɛ a adwuma nketewa a wɔde ba ha no bɛkɔ mu: ",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Kyerɛ parent wɔ minikaad:",
   "description-on-minicard": "Nkyerɛmu wɔ minikaad",
   "cover-attachment-on-minicard": "Anim mfonini wɔ kaad ketewa so",

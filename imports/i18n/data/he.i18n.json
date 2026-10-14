@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "הגדרות כרטיסון",
   "deposit-subtasks-board": "הפקדת תת־משימות ללוח הזה:",
   "deposit-subtasks-list": "רשימות נחיתה עבור תת־משימות שהופקדו כאן:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "הצגת ההורה בכרטיסון:",
   "description-on-minicard": "תיאור בכרטיסון",
   "cover-attachment-on-minicard": "תמונת כותרת על כרטיסון",

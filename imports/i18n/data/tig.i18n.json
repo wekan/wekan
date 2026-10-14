@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "ናይ ንኡስ ካርድ ምድላው",
   "deposit-subtasks-board": "ንኡሳት ዕዮታት ናብዚ ምዱድ ኣንብር፦",
   "deposit-subtasks-list": "ኣብዚ ንዝተቐመጡ ንኡሳት ዕዮታት መዕረፊ ዝርዝር፦",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "ወላዲ ዲብ ንኡስ ወረቀት ካርድ ኣርኤ፦",
   "description-on-minicard": "ዋስፎ ዲብ ንኡስ ወረቀት ካርድ",
   "cover-attachment-on-minicard": "ስእሊ ሽፋን ኣብ ንኡስ ወረቀት ካርድ",

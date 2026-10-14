@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Settyansow an garten vyghan",
   "deposit-subtasks-board": "Gorra is-oberennow y'n estyllen ma:",
   "deposit-subtasks-list": "Rol tir rag is-oberennow gorres omma:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Diskwedhes karer war garten vyghan:",
   "description-on-minicard": "Deskrifans war garten vyghan",
   "cover-attachment-on-minicard": "Skeusen kudh war garten vyghan",

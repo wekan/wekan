@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Marongero ekadhi diki",
   "deposit-subtasks-board": "Deposit subtasks ku bhodhi iri:",
   "deposit-subtasks-list": "Landing rondedzero for subtasks deposited here:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "ratidza parent mu minicard:",
   "description-on-minicard": "tsananguro pa minicard",
   "cover-attachment-on-minicard": "Cover image pa minicard",

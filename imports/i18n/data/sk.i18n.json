@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Nastavenia minikariet",
   "deposit-subtasks-board": "Vložiť podúlohy do tejto nástenky:",
   "deposit-subtasks-list": "Cieľový zoznam pre podúlohy uložené tu:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Zobraziť nadradenú kartu na minikarte:",
   "description-on-minicard": "Popis na minikarte",
   "cover-attachment-on-minicard": "Titulný obrázok na minikarte",

@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Багахан карточкын тохируулганууд",
   "deposit-subtasks-board": "Дэд-даабаринуудые энэ самбарта табиха:",
   "deposit-subtasks-list": "Эндэ табигдаһан дэд-даабаринуудай зорилгын жагсаалта:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Бишыхан картада эхэ картые харуулха:",
   "description-on-minicard": "Бишыхан картада тайлбари",
   "cover-attachment-on-minicard": "Бишыхан картада бүрхүүлэй зураг",

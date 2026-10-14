@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Configuración da minitarxeta",
   "deposit-subtasks-board": "Depositar as subtarefas neste taboleiro:",
   "deposit-subtasks-list": "Lista de destino das subtarefas depositadas aquí:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Mostrar o pai na minitarxeta:",
   "description-on-minicard": "Descrición na minitarxeta",
   "cover-attachment-on-minicard": "Imaxe de portada na minitarxeta",

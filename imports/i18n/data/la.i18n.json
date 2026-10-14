@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Optiones chartulae",
   "deposit-subtasks-board": "Depone submunera in hac tabula:",
   "deposit-subtasks-list": "Index in quem submunera hic deposita recipiuntur:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Monstra chartam superiorem in chartula:",
   "description-on-minicard": "Descriptio in chartula",
   "cover-attachment-on-minicard": "Imago tegumenti in chartula",

@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "მინიბარათის პარამეტრები",
   "deposit-subtasks-board": "ქვეამოცანების განთავსება ამ დაფაზე:",
   "deposit-subtasks-list": "სია, სადაც აქ განთავსებული ქვეამოცანები მოხვდება:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "მშობლის ჩვენება მინიბარათზე:",
   "description-on-minicard": "აღწერა მინიბარათზე",
   "cover-attachment-on-minicard": "ყდის სურათი მინიბარათზე",

@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "சிற்றட்டை அமைப்புகள்",
   "deposit-subtasks-board": "துணைப்பணிகளை இந்தப் பலகையில் வை:",
   "deposit-subtasks-list": "இங்கே வைக்கப்படும் துணைப்பணிகள் சேரும் பட்டியல்:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "சிற்றட்டையில் மூல அட்டையைக் காட்டு:",
   "description-on-minicard": "சிற்றட்டையில் விவரம்",
   "cover-attachment-on-minicard": "சிற்றட்டையில் அட்டைப்படம்",

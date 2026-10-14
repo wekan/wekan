@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Mga Setting han Minicard",
   "deposit-subtasks-board": "Ibutang an mga subtask hini nga board:",
   "deposit-subtasks-list": "Landing nga lista para ha mga subtask nga ginbutang dinhi:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Ipakita an ginikanan ha minicard:",
   "description-on-minicard": "Deskripsyon ha minicard",
   "cover-attachment-on-minicard": "Cover nga imahe ha minicard",

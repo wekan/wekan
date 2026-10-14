@@ -2087,6 +2087,14 @@
     {
       "key": "keep-title-tags-description",
       "since": "2026-10-14"
+    },
+    {
+      "key": "deposit-subtasks-swimlane",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "deposit-subtasks-swimlane-auto",
+      "since": "2026-10-14"
     }
   ]
 }

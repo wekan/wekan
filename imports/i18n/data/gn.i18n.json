@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Kuatia'i michĩva ñemboheko",
   "deposit-subtasks-board": "Emoĩ tembiapo'ikuéra ko peteĩchápe:",
   "deposit-subtasks-list": "Ysaja og̃uahẽhápe tembiapo'i oñemoĩva ápe:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Ehechauka túva kuatia'i michĩme:",
   "description-on-minicard": "Ñemyesakã kuatia'i michĩme",
   "cover-attachment-on-minicard": "Ta'anga ape kuatia'i michĩme",

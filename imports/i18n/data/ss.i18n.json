@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Tilungiselelo telikhadi lelincane",
   "deposit-subtasks-board": "Beka imisebenti lemincane kulelibhodi:",
   "deposit-subtasks-list": "Luhlu lwekwehla lwemisebenti lemincane lebekwe lapha:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Khombisa umtali ekhadini lelincane:",
   "description-on-minicard": "Inchazelo ekhadini lelincane",
   "cover-attachment-on-minicard": "Sitfombe sekumbonya ekhadini lelincane",

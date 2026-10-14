@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "छोट कार्ड के सेटिंग",
   "deposit-subtasks-board": "उपकाम एह बोर्ड पर जमा करीं:",
   "deposit-subtasks-list": "इहाँ जमा उपकाम खातिर पहुँच सूची:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "छोट कार्ड पर जनक देखाईं:",
   "description-on-minicard": "छोट कार्ड पर विवरण",
   "cover-attachment-on-minicard": "छोट कार्ड पर आवरण तस्वीर",

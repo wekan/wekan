@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "迷你卡設定",
   "deposit-subtasks-board": "將子任務存入該板：",
   "deposit-subtasks-list": "存放在這裡的子任務的登陸清單：",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "在迷你卡中顯示父項：",
   "description-on-minicard": "迷你卡說明",
   "cover-attachment-on-minicard": "迷你卡上的封面圖片",

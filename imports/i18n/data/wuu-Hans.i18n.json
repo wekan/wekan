@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "迷你卡片设置",
   "deposit-subtasks-board": "拿子任务放到搿块看板：",
   "deposit-subtasks-list": "放到搿搭个子任务要进个列表：",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "勒迷你卡片浪显示父项：",
   "description-on-minicard": "迷你卡片浪个描述",
   "cover-attachment-on-minicard": "迷你卡片浪个封面图片",

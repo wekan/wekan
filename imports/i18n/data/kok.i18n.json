@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "ल्हान कार्डाची स्थापणूक",
   "deposit-subtasks-board": "ह्या फळ्याचेर उपकामां दवरात:",
   "deposit-subtasks-list": "हांगा दवरिल्ल्या उपकामांची लक्ष्य वळेरी:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "ल्हानकार्डांत पालक दाखयात:",
   "description-on-minicard": "ल्हानकार्डाचेर वर्णन",
   "cover-attachment-on-minicard": "ल्हानकार्डाचेर मुखपृष्ठ चित्र",

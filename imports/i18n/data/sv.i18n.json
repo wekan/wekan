@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Minikort inställningar",
   "deposit-subtasks-board": "Lägg till deluppgifter till denna tavla:",
   "deposit-subtasks-list": "Landningslista för deluppgifter läggs här:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Visa överordnad i minikort:",
   "description-on-minicard": "Beskrivning på minikort",
   "cover-attachment-on-minicard": "Omslagsbild på minikort",

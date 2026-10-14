@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "Entegeka za kaadi ntono",
   "deposit-subtasks-board": "Deposit subtasks eri kino lubaawo:",
   "deposit-subtasks-list": "Landing lukalala ku lwa subtasks deposited here:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "Laga parent mu minicard:",
   "description-on-minicard": "Kunnyonnyola ku minicard",
   "cover-attachment-on-minicard": "Cover kifaananyi ku minicard",

@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "تنظیمات کارت کوچک",
   "deposit-subtasks-board": "افزودن ریزکار به برد:",
   "deposit-subtasks-list": "لیست برای ریزکار های افزوده شده",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "نمایش خانواده در ریز کارت",
   "description-on-minicard": "توضیحات روی کارت کوچک",
   "cover-attachment-on-minicard": "عکس کاور بر روی مینی کارت",

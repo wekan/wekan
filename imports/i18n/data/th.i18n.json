@@ -1412,6 +1412,8 @@
   "boardMinicardSettingsPopup-title": "การตั้งค่ามินิการ์ด",
   "deposit-subtasks-board": "เก็บงานย่อยไว้ที่บอร์ดนี้:",
   "deposit-subtasks-list": "รายการปลายทางสำหรับงานย่อยที่เก็บไว้ที่นี่:",
+  "deposit-subtasks-swimlane": "Landing swimlane for subtasks",
+  "deposit-subtasks-swimlane-auto": "Same name as the parent card's swimlane, else the default",
   "show-parent-in-minicard": "แสดงการ์ดแม่ในมินิการ์ด:",
   "description-on-minicard": "คำอธิบายบนมินิการ์ด",
   "cover-attachment-on-minicard": "ภาพปกบนมินิการ์ด",
