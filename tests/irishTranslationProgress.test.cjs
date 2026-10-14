@@ -83,3 +83,15 @@ assert.match(irish['import-board-instruction-meistertask'], /tascanna críochnai
 assert.match(irish['import-board-instruction-nullboard'], /lipéad raw.*an chéad chlár/);
 assert.match(irish['import-board-instruction-kanri'], /an chéad chlár/);
 assert.match(irish['import-board-instruction-clickup'], /colúin go léir/);
+
+const moreImportGuideKeys = ["import-board-instruction-tasksorg", "import-board-instruction-monday", "import-board-instruction-superproductivity", "import-board-instruction-taiga", "import-board-instruction-vikunja", "import-board-instruction-quire", "import-board-instruction-wrike", "import-board-instruction-teamwork", "import-board-instruction-businessmap", "import-board-instruction-redmine", "import-board-instruction-notion", "import-board-instruction-plane"];
+for (const key of moreImportGuideKeys) {
+  assert.notEqual(irish[key], english[key], key);
+  assert.deepEqual(tokens(irish[key]), tokens(english[key]), key);
+}
+for (const format of ['taiga', 'vikunja']) assert.match(irish[`import-board-instruction-${format}`], /Ní iompórtáiltear ceangaltáin/);
+assert.match(irish['import-board-instruction-quire'], /Níl nótaí tráchta ná ceangaltáin/);
+assert.match(irish['import-board-instruction-businessmap'], /Béarla ar dtús/);
+assert.match(irish['import-board-instruction-redmine'], /Bhéarla in My account sula/);
+assert.match(irish['import-board-instruction-notion'], /Ní iompórtáiltear gaolta, íomhánna ná ceangaltáin/);
+assert.match(irish['import-board-instruction-plane'], /Níl cur síos ná ceangaltáin.*ní iompórtáiltear iad/);

@@ -212224,5 +212224,89 @@
     "before": "In Pivotal Tracker, open the project's MORE tab and choose Export CSV (or select stories and choose Bulk Actions, CSV), then paste the CSV. Each story state becomes a list and stories become cards, with their type and labels, owners, requester, dates, comments, tasks and blockers; Estimate becomes Story points and iterations become sprints.",
     "after": "In Pivotal Tracker, oscail cluaisín MORE an tionscadail agus roghnaigh Export CSV (nó roghnaigh scéalta agus roghnaigh Bulk Actions, CSV), ansin greamaigh an CSV. Déantar liosta de gach staid scéil agus cártaí de scéalta, lena gcineál agus lipéid, úinéirí, iarrthóir, dátaí, nótaí tráchta, tascanna agus bacainní; déantar pointí scéil de Estimate agus ráigeanna d’atriallta.",
     "reason": "Translate English import guidance into Irish while preserving file formats, source menu labels and mapping limitations."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-tasksorg",
+    "before": "In Tasks.org, open Settings, Backups and choose Export tasks, then paste the contents of that .json file. Lists become lists and tasks become cards, with their notes, tags, dates, comments and subtasks; completed tasks keep their completion date, and priority becomes a custom field.",
+    "after": "In Tasks.org, oscail Settings, Backups agus roghnaigh Export tasks, ansin greamaigh a bhfuil sa chomhad .json sin. Déantar liostaí de liostaí agus cártaí de thascanna, lena nótaí, clibeanna, dátaí, nótaí tráchta agus fo-thascanna; coinníonn tascanna críochnaithe a ndáta críochnaithe, agus déantar réimse saincheaptha den tosaíocht.",
+    "reason": "Translate remaining English import guides into Irish with export prerequisites, mapping and omission warnings intact."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-monday",
+    "before": "In monday.com, open the board menu, choose More actions and Export board to Excel (with updates and subitems if you like), then choose that .xlsx file. The Status column becomes lists and groups become swimlanes; people, dates, timeline and tags keep their places, other columns become custom fields and updates become comments.",
+    "after": "In monday.com, oscail roghchlár an chláir, roghnaigh More actions agus Export board to Excel (le nuashonruithe agus fo-mhíreanna más mian leat), ansin roghnaigh an comhad .xlsx sin. Déantar liostaí den cholún Status agus lánaí de ghrúpaí; coinníonn daoine, dátaí, amlíne agus clibeanna a n-áiteanna, déantar réimsí saincheaptha de cholúin eile agus nótaí tráchta de nuashonruithe.",
+    "reason": "Translate remaining English import guides into Irish with export prerequisites, mapping and omission warnings intact."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-superproductivity",
+    "before": "In Super Productivity, open Settings, then Sync & Backup, choose Export Data and paste the contents of the sp-backup .json file. Each project becomes a swimlane and tasks become cards in To Do, In Progress, Backlog or Done, with their notes, tags, due date, time spent and sub-tasks; archived tasks become archived cards.",
+    "after": "In Super Productivity, oscail Settings, ansin Sync & Backup, roghnaigh Export Data agus greamaigh a bhfuil sa chomhad sp-backup .json. Déantar lána de gach tionscadal agus cártaí de thascanna in To Do, In Progress, Backlog nó Done, lena nótaí, clibeanna, spriocdháta, am caite agus fo-thascanna; déantar cártaí sa chartlann de thascanna sa chartlann.",
+    "reason": "Translate remaining English import guides into Irish with export prerequisites, mapping and omission warnings intact."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-taiga",
+    "before": "In Taiga, open Admin > Project > Export and download the project dump (unpack a .json.gz file first), then paste its JSON. User story statuses become lists, user stories become cards with their tasks as subtasks, epics and issues get swimlanes of their own, and sprints, tags, comments and custom attributes come along. Attachments are not imported.",
+    "after": "In Taiga, oscail Admin > Project > Export agus íoslódáil dumpa an tionscadail (díphacáil comhad .json.gz ar dtús), ansin greamaigh a JSON. Déantar liostaí de stádais scéalta úsáideora, cártaí de scéalta úsáideora lena dtascanna mar fho-thascanna, agus faigheann eipicí agus saincheisteanna a lánaí féin. Tugtar ráigeanna, clibeanna, nótaí tráchta agus tréithe saincheaptha isteach freisin. Ní iompórtáiltear ceangaltáin.",
+    "reason": "Translate remaining English import guides into Irish with export prerequisites, mapping and omission warnings intact."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-vikunja",
+    "before": "In Vikunja, open Settings, choose Data Export and download the .zip file it sends you, then choose that file, or paste the data.json inside it. Kanban buckets become lists and tasks become cards, with their labels, assignees, dates, description, task lists as checklists and comments; priority, percent done and done become custom fields. Attachments are not imported.",
+    "after": "In Vikunja, oscail Settings, roghnaigh Data Export agus íoslódáil an comhad .zip a sheolann sé chugat, ansin roghnaigh an comhad sin, nó greamaigh an data.json atá istigh ann. Déantar liostaí de bhuicéid Kanban agus cártaí de thascanna, lena lipéid, sannaithe, dátaí, cur síos, liostaí tascanna mar sheicliostaí agus nótaí tráchta; déantar réimsí saincheaptha de thosaíocht, céatadán déanta agus déanta. Ní iompórtáiltear ceangaltáin.",
+    "reason": "Translate remaining English import guides into Irish with export prerequisites, mapping and omission warnings intact."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-quire",
+    "before": "In Quire, open the project menu and choose Export CSV, then paste the CSV. Statuses become lists and tasks become cards, with their subtasks as child cards, assignees, tags as labels, start, due and completed dates, description and priority as a custom field. Comments and attachments are not in Quire's CSV.",
+    "after": "In Quire, oscail roghchlár an tionscadail agus roghnaigh Export CSV, ansin greamaigh an CSV. Déantar liostaí de stádais agus cártaí de thascanna, lena bhfo-thascanna mar fho-chártaí, sannaithe, clibeanna mar lipéid, dátaí tosaithe, sprice agus críochnaithe, cur síos agus tosaíocht mar réimse saincheaptha. Níl nótaí tráchta ná ceangaltáin i CSV Quire.",
+    "reason": "Translate remaining English import guides into Irish with export prerequisites, mapping and omission warnings intact."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-wrike",
+    "before": "In Wrike, export a project or folder to Excel, or fill in Wrike's Excel import template, then choose that .xlsx file. Folder and project rows become swimlanes, Status becomes lists and tasks become cards, with their Key, parent task, assignees, start and end dates, dependencies and description; Priority, Duration and other columns become custom fields.",
+    "after": "In Wrike, easpórtáil tionscadal nó fillteán go Excel, nó líon isteach teimpléad iompórtála Excel Wrike, ansin roghnaigh an comhad .xlsx sin. Déantar lánaí de rónna fillteán agus tionscadal, liostaí de Status agus cártaí de thascanna, lena Key, máthair-thasc, sannaithe, dátaí tosaithe agus deiridh, spleáchais agus cur síos; déantar réimsí saincheaptha de Priority, Duration agus colúin eile.",
+    "reason": "Translate remaining English import guides into Irish with export prerequisites, mapping and omission warnings intact."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-teamwork",
+    "before": "In Teamwork.com, fill in the Excel task import template (Tasklist, Task, Description, Assign to, Start date, Due date, Priority, Estimated time, Tags, Status) and save it as .xlsx, then choose that file. Task lists become lists and tasks become cards; a task starting with -, # or > becomes a subtask of the task above it (--, ## or >> one level deeper). Assignees, dates and tags keep their places; Priority, Estimated time and Complete become custom fields.",
+    "after": "In Teamwork.com, líon isteach teimpléad iompórtála tascanna Excel (Tasklist, Task, Description, Assign to, Start date, Due date, Priority, Estimated time, Tags, Status) agus sábháil mar .xlsx é, ansin roghnaigh an comhad sin. Déantar liostaí de liostaí tascanna agus cártaí de thascanna; déantar fo-thasc den tasc os a chionn de thasc a thosaíonn le -, # nó > (--, ## nó >> le haghaidh leibhéal amháin níos doimhne). Coinníonn sannaithe, dátaí agus clibeanna a n-áiteanna; déantar réimsí saincheaptha de Priority, Estimated time agus Complete.",
+    "reason": "Translate remaining English import guides into Irish with export prerequisites, mapping and omission warnings intact."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-businessmap",
+    "before": "In Businessmap (formerly Kanbanize), open Advanced Search, choose Configure results to pick the columns, download the Excel file, then choose that .xlsx file. Columns are read by their English names (Title, Column, Lane, Owner, Deadline ...): if your account uses another language, rename the header row to English first. Column becomes lists and Lane swimlanes; owners, tags, color, dates, comments and parent links keep their places, and Priority, Size, Type and other columns become custom fields.",
+    "after": "In Businessmap (Kanbanize roimhe seo), oscail Advanced Search, roghnaigh Configure results chun na colúin a roghnú, íoslódáil an comhad Excel, ansin roghnaigh an comhad .xlsx sin. Léitear colúin de réir a n-ainmneacha Béarla (Title, Column, Lane, Owner, Deadline ...): má úsáideann do chuntas teanga eile, athainmnigh an ró ceanntásca go Béarla ar dtús. Déantar liostaí de Column agus lánaí de Lane; coinníonn úinéirí, clibeanna, dath, dátaí, nótaí tráchta agus naisc le máthair-chártaí a n-áiteanna, agus déantar réimsí saincheaptha de Priority, Size, Type agus colúin eile.",
+    "reason": "Translate remaining English import guides into Irish with export prerequisites, mapping and omission warnings intact."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-redmine",
+    "before": "In Redmine, open the project's Issues, choose Also available in: CSV at the bottom of the list, pick the columns (All columns, with Description) and export, then paste the CSV. Redmine names the columns in your language, so set your language to English in My account before exporting. Each status becomes a list and issues become cards, with the tracker as a label, assignee, author, dates, parent task and related issues; priority, category, target version, estimated time, % Done and custom fields become custom fields.",
+    "after": "In Redmine, oscail Issues an tionscadail, roghnaigh Also available in: CSV ag bun an liosta, roghnaigh na colúin (All columns, le Description) agus easpórtáil, ansin greamaigh an CSV. Ainmníonn Redmine na colúin i do theanga, mar sin socraigh do theanga mar Bhéarla in My account sula n-easpórtálann tú. Déantar liosta de gach stádas agus cártaí de shaincheisteanna, leis an rianaire mar lipéad, sannaí, údar, dátaí, máthair-thasc agus saincheisteanna gaolmhara; déantar réimsí saincheaptha de thosaíocht, catagóir, spriocleagan, am measta, % Done agus réimsí saincheaptha.",
+    "reason": "Translate remaining English import guides into Irish with export prerequisites, mapping and omission warnings intact."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-notion",
+    "before": "In Notion, open the database as a full page, choose ••• and Export, pick Markdown & CSV, and choose the .zip file it downloads, or one database CSV from it, or paste that CSV. A column named Status becomes the lists (without one, the first column that looks like a select does, and the import report says which); rows become cards with their title, tags as labels, people as members, dates, and the page text as the description; other columns become custom fields. Relations, images and attachments are not imported.",
+    "after": "In Notion, oscail an bunachar sonraí mar leathanach iomlán, roghnaigh ••• agus Export, roghnaigh Markdown & CSV, agus roghnaigh an comhad .zip a íoslódálann sé, nó CSV bunachair sonraí amháin uaidh, nó greamaigh an CSV sin. Déantar na liostaí de cholún darb ainm Status (mura bhfuil ceann ann, úsáidtear an chéad cholún a bhfuil cuma roghnóra air, agus deir an tuairisc iompórtála cén ceann); déantar cártaí de rónna lena dteideal, clibeanna mar lipéid, daoine mar bhaill, dátaí, agus téacs an leathanaigh mar chur síos; déantar réimsí saincheaptha de cholúin eile. Ní iompórtáiltear gaolta, íomhánna ná ceangaltáin.",
+    "reason": "Translate remaining English import guides into Irish with export prerequisites, mapping and omission warnings intact."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-plane",
+    "before": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
+    "after": "In Plane, oscail Workspace Settings, roghnaigh Exports, easpórtáil na tionscadail mar JSON, CSV nó Excel agus íoslódáil an comhad .zip, ansin roghnaigh an comhad sin, nó comhad amháin uaidh, nó greamaigh an JSON nó CSV. Déantar liostaí de staideanna, lánaí de thionscadail, agus cártaí de shaincheisteanna lena n-aitheantóir, máthair-mhír, sannaithe, lipéid, dátaí, naisc agus nótaí tráchta; déantar réimsí saincheaptha de thosaíocht, meastachán, timthriall agus modúl. Níl cur síos ná ceangaltáin in easpórtáil Plane, mar sin ní iompórtáiltear iad.",
+    "reason": "Translate remaining English import guides into Irish with export prerequisites, mapping and omission warnings intact."
   }
 ]
