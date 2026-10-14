@@ -1300,6 +1300,8 @@
   "disable-webhook": "Disattiva chistu webhook",
   "sandstorm-webhook-grant": "Pirmèttiri a stu grain di arrivari a st'indirizzu",
   "sandstorm-webhook-granted": "Stu grain pò arrivari a st'indirizzu",
+  "sandstorm-sync-grant": "Pirmèttiri a stu grain di arrivari a stu tracker",
+  "sandstorm-sync-granted": "Stu grain pò arrivari a stu tracker",
   "global-webhook": "Webhook globali",
   "new-outgoing-webhook": "Novu webhook in uscita",
   "no-name": "(Sconosciuto)",

@@ -1300,6 +1300,8 @@
   "disable-webhook": "pfala mhaka mhaka",
   "sandstorm-webhook-grant": "Pfumelela grain leyi ku fika eka adirese leyi",
   "sandstorm-webhook-granted": "Grain leyi yi nga fika eka adirese leyi",
+  "sandstorm-sync-grant": "Pfumelela grain leyi ku fika eka xilandzeleri lexi",
+  "sandstorm-sync-granted": "Grain leyi yi nga fika eka xilandzeleri lexi",
   "global-webhook": "Hi Xitsonga: mhaka mhaka",
   "new-outgoing-webhook": "ntshwa mhaka mhaka",
   "no-name": "Hi Xitsonga: (mhaka)",

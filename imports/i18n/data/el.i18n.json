@@ -1300,6 +1300,8 @@
   "disable-webhook": "Απενεργοποίηση αυτού του Webhook",
   "sandstorm-webhook-grant": "Να επιτρέπεται σε αυτό το grain να φτάνει σε αυτή τη διεύθυνση",
   "sandstorm-webhook-granted": "Αυτό το grain μπορεί να φτάνει σε αυτή τη διεύθυνση",
+  "sandstorm-sync-grant": "Να επιτρέπεται σε αυτό το grain να φτάνει σε αυτόν τον ανιχνευτή",
+  "sandstorm-sync-granted": "Αυτό το grain μπορεί να φτάνει σε αυτόν τον ανιχνευτή",
   "global-webhook": "Καθολικά Webhooks",
   "new-outgoing-webhook": "Νέο Εξερχόμενο Webhook",
   "no-name": "(Άγνωστο)",

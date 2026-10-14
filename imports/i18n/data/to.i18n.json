@@ -1300,6 +1300,8 @@
   "disable-webhook": "Taʻofi ʻa e Webhook ni",
   "sandstorm-webhook-grant": "Tuku ke aʻu ʻa e grain ni ki he tuʻasila ko ʻeni",
   "sandstorm-webhook-granted": "ʻE lava ke aʻu ʻa e grain ni ki he tuʻasila ko ʻeni",
+  "sandstorm-sync-grant": "Tuku ke aʻu ʻa e grain ni ki he founga muimuiʻi ko ʻeni",
+  "sandstorm-sync-granted": "ʻE lava ke aʻu ʻa e grain ni ki he founga muimuiʻi ko ʻeni",
   "global-webhook": "Ngaahi Webhook Fakalūkufua",
   "new-outgoing-webhook": "Webhook Foʻou ʻOku ʻAve ki Tuʻa",
   "no-name": "(ʻIkai ʻiloʻi)",

@@ -1300,6 +1300,8 @@
   "disable-webhook": "Gbanyụọ nko webụ a",
   "sandstorm-webhook-grant": "Kwe ka grain a ruo adreesị a",
   "sandstorm-webhook-granted": "Grain a nwere ike iru adreesị a",
+  "sandstorm-sync-grant": "Kwe ka grain a ruo ngwa nlekọta a",
+  "sandstorm-sync-granted": "Grain a nwere ike iru ngwa nlekọta a",
   "global-webhook": "Webhook zuru ụwa ọnụ",
   "new-outgoing-webhook": "Webhook ọhụrụ na-apụ apụ",
   "no-name": "(Amaghị)",

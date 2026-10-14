@@ -1300,6 +1300,8 @@
   "disable-webhook": "Tiltsd le ezt a webhurkot",
   "sandstorm-webhook-grant": "Engedélyezés, hogy ez a grain elérje ezt a címet",
   "sandstorm-webhook-granted": "Ez a grain elérheti ezt a címet",
+  "sandstorm-sync-grant": "Engedélyezés, hogy ez a grain elérje ezt a nyomkövetőt",
+  "sandstorm-sync-granted": "Ez a grain elérheti ezt a nyomkövetőt",
   "global-webhook": "Globális webhurkok",
   "new-outgoing-webhook": "Új kimenő webhurok",
   "no-name": "(Ismeretlen)",

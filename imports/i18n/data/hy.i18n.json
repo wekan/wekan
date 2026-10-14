@@ -1300,6 +1300,8 @@
   "disable-webhook": "Անջատել այս Webhook-ը",
   "sandstorm-webhook-grant": "Թույլատրել այս grain-ին հասնել այս հասցեին",
   "sandstorm-webhook-granted": "Այս grain-ը կարող է հասնել այս հասցեին",
+  "sandstorm-sync-grant": "Թույլատրել այս grain-ին հասնել այս համակարգին",
+  "sandstorm-sync-granted": "Այս grain-ը կարող է հասնել այս համակարգին",
   "global-webhook": "Համաշխարհային վեբ-կեռիկներ",
   "new-outgoing-webhook": "Նոր ելքային Webhook",
   "no-name": "(Անհայտ)",

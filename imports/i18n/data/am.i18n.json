@@ -1300,6 +1300,8 @@
   "disable-webhook": "ይህን Webhook አሰናክል",
   "sandstorm-webhook-grant": "ይህ grain ወደዚህ አድራሻ እንዲደርስ ፍቀድ",
   "sandstorm-webhook-granted": "ይህ grain ወደዚህ አድራሻ መድረስ ይችላል",
+  "sandstorm-sync-grant": "ይህ grain ወደዚህ መከታተያ እንዲደርስ ፍቀድ",
+  "sandstorm-sync-granted": "ይህ grain ወደዚህ መከታተያ መድረስ ይችላል",
   "global-webhook": "ዓለም አቀፍ Webhooks",
   "new-outgoing-webhook": "አዲስ ወጪ Webhook",
   "no-name": "(ያልታወቀ)",

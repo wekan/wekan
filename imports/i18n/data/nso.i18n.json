@@ -1300,6 +1300,8 @@
   "disable-webhook": "Thibela Webhook ye",
   "sandstorm-webhook-grant": "Dumelela grain ye go fihlelela atrese ye",
   "sandstorm-webhook-granted": "Grain ye e ka fihlelela atrese ye",
+  "sandstorm-sync-grant": "Dumelela grain ye go fihlelela motlhomi yo",
+  "sandstorm-sync-granted": "Grain ye e ka fihlelela motlhomi yo",
   "global-webhook": "Di-Webhook tša Lefase ka Bophara",
   "new-outgoing-webhook": "Webhook ye Mpsha ye e Tšwago",
   "no-name": "(Ga e Tsebjwe)",

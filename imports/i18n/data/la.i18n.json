@@ -1300,6 +1300,8 @@
   "disable-webhook": "Inactiva hunc hamum interretialem",
   "sandstorm-webhook-grant": "Permitte huic grano ad hanc inscriptionem accedere",
   "sandstorm-webhook-granted": "Hoc granum ad hanc inscriptionem accedere potest",
+  "sandstorm-sync-grant": "Permitte huic grano ad hunc tractatorem accedere",
+  "sandstorm-sync-granted": "Hoc granum ad hunc tractatorem accedere potest",
   "global-webhook": "Hami interretiales globales",
   "new-outgoing-webhook": "Novus hamus interretialis exiens",
   "no-name": "(Ignotum)",

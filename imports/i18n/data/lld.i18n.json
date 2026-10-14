@@ -1300,6 +1300,8 @@
   "disable-webhook": "Desativé chësc webhook",
   "sandstorm-webhook-grant": "Lascé che chest grain ruve a chest indirizo",
   "sandstorm-webhook-granted": "Chest grain possa ruvé a chest indirizo",
+  "sandstorm-sync-grant": "Lascé che chest grain ruve a chest tracker",
+  "sandstorm-sync-granted": "Chest grain possa ruvé a chest tracker",
   "global-webhook": "Webhooks globai",
   "new-outgoing-webhook": "Webhook nuef che va ora",
   "no-name": "(Nia cunesciù)",

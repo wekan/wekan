@@ -1300,6 +1300,8 @@
   "disable-webhook": "اوشبو ویب-هوکی اۉچیریب قۉیینگ",
   "sandstorm-webhook-grant": "بو grain گه شو منزلگه اولنیشگه رخصت بیریش",
   "sandstorm-webhook-granted": "بو grain شو منزلگه اولنیشی ممکن",
+  "sandstorm-sync-grant": "بو grain گه شو کوزتوو تیزیمیگه اولنیشگه رخصت بیریش",
+  "sandstorm-sync-granted": "بو grain شو کوزتوو تیزیمیگه اولنیشی ممکن",
   "global-webhook": "گلابال Webhooks",
   "new-outgoing-webhook": "ینگی چیقووچی ویب‌هوک",
   "no-name": "(نامعلوم)",

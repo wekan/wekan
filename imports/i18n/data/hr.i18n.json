@@ -1300,6 +1300,8 @@
   "disable-webhook": "Onemogući ovaj webhook",
   "sandstorm-webhook-grant": "Dopusti ovom grainu pristup ovoj adresi",
   "sandstorm-webhook-granted": "Ovaj grain smije pristupiti ovoj adresi",
+  "sandstorm-sync-grant": "Dopusti ovom grainu pristup ovom sustavu praćenja",
+  "sandstorm-sync-granted": "Ovaj grain smije pristupiti ovom sustavu praćenja",
   "global-webhook": "Globalni webhookovi",
   "new-outgoing-webhook": "Novi odlazni webhook",
   "no-name": "(Nepoznato)",

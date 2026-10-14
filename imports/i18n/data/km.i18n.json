@@ -1300,6 +1300,8 @@
   "disable-webhook": "បិទ Webhook នេះ។",
   "sandstorm-webhook-grant": "អនុញ្ញាតឱ្យ grain នេះទៅដល់អាសយដ្ឋាននេះ",
   "sandstorm-webhook-granted": "grain នេះអាចទៅដល់អាសយដ្ឋាននេះ",
+  "sandstorm-sync-grant": "អនុញ្ញាតឱ្យ grain នេះទៅដល់កម្មវិធីតាមដាននេះ",
+  "sandstorm-sync-granted": "grain នេះអាចទៅដល់កម្មវិធីតាមដាននេះ",
   "global-webhook": "គេហទំព័រសកល",
   "new-outgoing-webhook": "Webhook ចេញថ្មី។",
   "no-name": "(មិនស្គាល់)",

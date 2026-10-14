@@ -1300,6 +1300,8 @@
   "disable-webhook": "Lemaza Kitabu hiki cha Wavuti",
   "sandstorm-webhook-grant": "Ruhusu grain hii kufikia anwani hii",
   "sandstorm-webhook-granted": "Grain hii inaweza kufikia anwani hii",
+  "sandstorm-sync-grant": "Ruhusu grain hii kufikia kifuatiliaji hiki",
+  "sandstorm-sync-granted": "Grain hii inaweza kufikia kifuatiliaji hiki",
   "global-webhook": "Mtandao wa Kimataifa",
   "new-outgoing-webhook": "Mtandao Mpya Unaotoka",
   "no-name": "(Haijulikani)",

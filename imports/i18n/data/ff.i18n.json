@@ -1300,6 +1300,8 @@
   "disable-webhook": "Dartin webhook oo",
   "sandstorm-webhook-grant": "Yamir grain ngal yottaade ñiiɓirde nde",
   "sandstorm-webhook-granted": "Grain ngal no waawi yottaade ñiiɓirde nde",
+  "sandstorm-sync-grant": "Yamir grain ngal yottaade njoftaari ndi",
+  "sandstorm-sync-granted": "Grain ngal no waawi yottaade njoftaari ndi",
   "global-webhook": "Webhooks kuuɓɗe",
   "new-outgoing-webhook": "Webhook yaltuɗo keso",
   "no-name": "(Anndaaka)",

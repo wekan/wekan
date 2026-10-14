@@ -1300,6 +1300,8 @@
   "disable-webhook": "Webhook una atorunnaarsiguk",
   "sandstorm-webhook-grant": "Grain-ip uunga najugaqarfimmut anguniarnissaa akuerijuk",
   "sandstorm-webhook-granted": "Grain-ip uunga najugaqarfimmut anguniarsinnaavoq",
+  "sandstorm-sync-grant": "Grain-ip uunga malittarinnittumut anguniarnissaa akuerijuk",
+  "sandstorm-sync-granted": "Grain-ip uunga malittarinnittumut anguniarsinnaavoq",
   "global-webhook": "Webhooks nunarsuaq tamakkerlugu atuuttut",
   "new-outgoing-webhook": "Webhook anisoq nutaaq",
   "no-name": "(Ilisimaneqanngilaq)",

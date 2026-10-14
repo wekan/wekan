@@ -1300,6 +1300,8 @@
   "disable-webhook": "Dzima webhook iyi",
   "sandstorm-webhook-grant": "Tendelani grain iyi uri i swike kha ḓiresi iyi",
   "sandstorm-webhook-granted": "Grain iyi i nga swika kha ḓiresi iyi",
+  "sandstorm-sync-grant": "Tendelani grain iyi uri i swike kha tshiṱaraka itshi",
+  "sandstorm-sync-granted": "Grain iyi i nga swika kha tshiṱaraka itshi",
   "global-webhook": "Webhook dza sisiteme yoṱhe",
   "new-outgoing-webhook": "Webhook ntswa ya u bva",
   "no-name": "(A zwi ḓivhei)",

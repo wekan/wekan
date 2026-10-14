@@ -1300,6 +1300,8 @@
   "disable-webhook": "ปิดใช้ Webhook นี้",
   "sandstorm-webhook-grant": "อนุญาตให้ grain นี้เข้าถึงที่อยู่นี้",
   "sandstorm-webhook-granted": "grain นี้สามารถเข้าถึงที่อยู่นี้ได้",
+  "sandstorm-sync-grant": "อนุญาตให้ grain นี้เข้าถึงตัวติดตามนี้",
+  "sandstorm-sync-granted": "grain นี้สามารถเข้าถึงตัวติดตามนี้ได้",
   "global-webhook": "Webhook ส่วนกลาง",
   "new-outgoing-webhook": "Webhook ขาออกใหม่",
   "no-name": "(ไม่ทราบ)",

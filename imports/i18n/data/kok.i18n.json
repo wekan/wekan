@@ -1300,6 +1300,8 @@
   "disable-webhook": "हो वेबहूक बंद करात",
   "sandstorm-webhook-grant": "ह्या grain क ह्या पत्त्यार पावपाक परवानगी दियात",
   "sandstorm-webhook-granted": "हो grain ह्या पत्त्यार पावूं येता",
+  "sandstorm-sync-grant": "ह्या grain क ह्या ट्रॅकराक पावपाक परवानगी दियात",
+  "sandstorm-sync-granted": "हो grain ह्या ट्रॅकराक पावूं येता",
   "global-webhook": "जागतिक वेबहूक",
   "new-outgoing-webhook": "नवो भायर वचपी वेबहूक",
   "no-name": "(अज्ञात)",

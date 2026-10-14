@@ -1300,6 +1300,8 @@
   "disable-webhook": "Far sa webhook bi",
   "sandstorm-webhook-grant": "May grain bii mu agsi ci adrees bii",
   "sandstorm-webhook-granted": "Grain bii man na agsi ci adrees bii",
+  "sandstorm-sync-grant": "May grain bii mu agsi ci tracker bii",
+  "sandstorm-sync-granted": "Grain bii man na agsi ci tracker bii",
   "global-webhook": "Webhooks global",
   "new-outgoing-webhook": "Webhook boppam bi",
   "no-name": "(xameesul)",

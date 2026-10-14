@@ -1300,6 +1300,8 @@
   "disable-webhook": "Dizze webhook útskeakelje",
   "sandstorm-webhook-grant": "Dizze grain tastean om dit adres te berikken",
   "sandstorm-webhook-granted": "Dizze grain mei dit adres berikke",
+  "sandstorm-sync-grant": "Dizze grain tastean om dizze tracker te berikken",
+  "sandstorm-sync-granted": "Dizze grain mei dizze tracker berikke",
   "global-webhook": "Globale webhooks",
   "new-outgoing-webhook": "Nije útgeande webhook",
   "no-name": "(Ûnbekend)",

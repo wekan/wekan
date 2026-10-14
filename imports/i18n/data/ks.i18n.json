@@ -1300,6 +1300,8 @@
   "disable-webhook": "یِہ ویب ہُک بند کریو",
   "sandstorm-webhook-grant": "یتھ grain یَس یتھ پَتس تام واتنٕچ اِجازت دِیِو",
   "sandstorm-webhook-granted": "یہ grain ہیٚکہِ یتھ پَتس تام واتِتھ",
+  "sandstorm-sync-grant": "یتھ grain یَس یتھ ٹریکرس تام واتنٕچ اِجازت دِیِو",
+  "sandstorm-sync-granted": "یہ grain ہیٚکہِ یتھ ٹریکرس تام واتِتھ",
   "global-webhook": "گلوبل ویب ہُک",
   "new-outgoing-webhook": "نوٚو نؠبر سوزنہٕ یِنہٕ وول ویب ہُک",
   "no-name": "(نامعلوم)",

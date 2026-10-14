@@ -1300,6 +1300,8 @@
   "disable-webhook": "השבתת ההתלייה הזאת",
   "sandstorm-webhook-grant": "לאפשר ל-grain הזה להגיע לכתובת הזו",
   "sandstorm-webhook-granted": "ה-grain הזה רשאי להגיע לכתובת הזו",
+  "sandstorm-sync-grant": "לאפשר ל-grain הזה להגיע למערכת המעקב הזו",
+  "sandstorm-sync-granted": "ה-grain הזה רשאי להגיע למערכת המעקב הזו",
   "global-webhook": "התליות גלובליות",
   "new-outgoing-webhook": "קרסי רשת יוצאים חדשים",
   "no-name": "(לא ידוע)",

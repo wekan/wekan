@@ -1300,6 +1300,8 @@
   "disable-webhook": "Wyłōncz tego webhooka",
   "sandstorm-webhook-grant": "Zezwōl tymu grainowi łōnczyć sie z tym adresym",
   "sandstorm-webhook-granted": "Tyn grain może łōnczyć sie z tym adresym",
+  "sandstorm-sync-grant": "Zezwōl tymu grainowi łōnczyć sie z tym trakerym",
+  "sandstorm-sync-granted": "Tyn grain może łōnczyć sie z tym trakerym",
   "global-webhook": "Globalne webhooki",
   "new-outgoing-webhook": "Nowy wychodzący webhook",
   "no-name": "(nieznany)",

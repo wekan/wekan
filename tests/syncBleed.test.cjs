@@ -222,7 +222,10 @@ test('no response text from a user-chosen server reaches an error message (negat
   const fetchFile = read('server/lib/listSyncFetch.js');
   assert.doesNotMatch(fetchFile, /\.text\(\)|statusText|body\.slice/);
   // Its one platform fetch() is behind the administrator's allow-list.
-  assert.match(fetchFile, /response = operatorAllowedHost\(url\) \? await fetchOperatorHost\(url, headers\) : await fetchSafe\(url,/);
+  // In a Sandstorm grain the only way out is the Powerbox grant for the
+  // list's tracker (server/sandstormEgress.js syncFetch); everywhere else it is
+  // the SSRF guard, exactly as before.
+  assert.match(fetchFile, /response = inGrain\(\) \? await syncFetch\(url, \{[^}]*\}\)\s*: operatorAllowedHost\(url\) \? await fetchOperatorHost\(url, headers\) : await fetchSafe\(url,/);
   // Response bodies copied into an error: only the fixed Trello API host.
   const echoes = [];
   for (const file of sourceFiles()) {

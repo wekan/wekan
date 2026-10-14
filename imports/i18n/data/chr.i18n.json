@@ -1300,6 +1300,8 @@
   "disable-webhook": "ᎯᎠ Webhook ᎠᏍᏚᎲ",
   "sandstorm-webhook-grant": "ᎯᎠ grain ᎠᎵᏍᏓᏁᏗ ᎯᎠ ᎦᏁᎸ ᏩᎷᎯᏍᏗ",
   "sandstorm-webhook-granted": "ᎯᎠ grain ᎬᏩᎷᎯᏍᏗ ᎯᎠ ᎦᏁᎸ",
+  "sandstorm-sync-grant": "ᎯᎠ grain ᎠᎵᏍᏓᏁᏗ ᎯᎠ tracker ᏩᎷᎯᏍᏗ",
+  "sandstorm-sync-granted": "ᎯᎠ grain ᎬᏩᎷᎯᏍᏗ ᎯᎠ tracker",
   "global-webhook": "ᎡᎶᎯ Webhooks",
   "new-outgoing-webhook": "ᎢᏤ ᎦᏄᎪᎬ Webhook",
   "no-name": "(ᏄᏙᎥᏒᎾ)",

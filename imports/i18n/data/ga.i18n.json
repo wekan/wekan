@@ -1300,6 +1300,8 @@
   "disable-webhook": "Díchumasaigh an Webhook Seo",
   "sandstorm-webhook-grant": "Ceadaigh don grain seo an seoladh seo a bhaint amach",
   "sandstorm-webhook-granted": "Tá cead ag an grain seo an seoladh seo a bhaint amach",
+  "sandstorm-sync-grant": "Ceadaigh don grain seo an rianaire seo a bhaint amach",
+  "sandstorm-sync-granted": "Tá cead ag an grain seo an rianaire seo a bhaint amach",
   "global-webhook": "Webhooks Domhanda",
   "new-outgoing-webhook": "Webhook Amach Nua",
   "no-name": "(Anaithnid)",

@@ -1300,6 +1300,8 @@
   "disable-webhook": "dzima This Webhook",
   "sandstorm-webhook-grant": "Bvumira grain iyi kusvika pakero iyi",
   "sandstorm-webhook-granted": "Grain iyi inogona kusvika pakero iyi",
+  "sandstorm-sync-grant": "Bvumira grain iyi kusvika pachinocherechedza ichi",
+  "sandstorm-sync-granted": "Grain iyi inogona kusvika pachinocherechedza ichi",
   "global-webhook": "Mawebhook ehurongwa hwese",
   "new-outgoing-webhook": "itsva Outgoing Webhook",
   "no-name": "(Hazvizivikanwi)",

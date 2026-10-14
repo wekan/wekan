@@ -103,7 +103,12 @@ export async function webhookFetch(url, options = {}) {
     body: options.body,
     timeoutMs: options.totalTimeoutMs || options.timeoutMs || 30000,
   });
-  // A response is read whole, with fetchSafe's size limit.
+  return readWhole(res, options);
+}
+
+// A proxied response, read whole with fetchSafe's size limit, in the shape
+// fetchSafe answers with.
+async function readWhole(res, options = {}) {
   const limit = Number.isFinite(options.maxResponseBytes) ? options.maxResponseBytes : 10 * 1024 * 1024;
   const bytes = Buffer.from(await res.arrayBuffer());
   if (bytes.length > limit) throw new Error(`outbound response exceeds ${limit} bytes`);
@@ -115,6 +120,46 @@ export async function webhookFetch(url, options = {}) {
     json: async () => JSON.parse(bytes.toString('utf8')),
     arrayBuffer: async () => bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength),
   };
+}
+
+// ── List sync through the Powerbox ──────────────────────────────────────────
+// The periodic sync job has no user to act as, so, like a webhook, its grant
+// belongs to the destination: the tracker's API root (egress.mjs syncApiRoot),
+// approved once by a board member with write access, and found by the URL
+// being fetched (grantRootCandidates), never by a search.
+const syncGrantId = root => `sync:${root}`;
+
+export async function syncFetch(url, options = {}) {
+  const api = await egress();
+  for (const root of api.grantRootCandidates(url)) {
+    const grant = await SandstormApiGrants.findOneAsync(syncGrantId(root));
+    if (grant && api.grantCovers(grant, url)) {
+      const res = await api.proxyFetch(url, {
+        grant, method: 'GET', headers: options.headers || {}, timeoutMs: options.timeoutMs || 20000,
+      });
+      return readWhole(res, options);
+    }
+  }
+  throw new Meteor.Error('sandstorm-sync-not-granted',
+    'Allow this grain to reach the tracker first: List Sync, then the Sandstorm Powerbox button.');
+}
+
+async function syncTarget(userId, listId) {
+  const Lists = require('/models/lists').default;
+  const Boards = require('/models/boards').default;
+  const { allowIsBoardMemberWithWriteAccess } = require('/server/lib/utils');
+  const list = await Lists.findOneAsync(listId, { fields: { boardId: 1, syncSource: 1 } });
+  const board = list && await Boards.findOneAsync(list.boardId);
+  if (!board || !allowIsBoardMemberWithWriteAccess(userId, board)) throw new Meteor.Error('error-notAuthorized');
+  const source = list.syncSource || {};
+  const api = await egress();
+  const { root, reason } = api.syncApiRoot(source.type, source.url);
+  if (!root) {
+    throw new Meteor.Error('sandstorm-sync-unsupported', reason === 'jira-basic-auth'
+      ? 'Jira signs in with an Authorization header, which a Sandstorm grain cannot send.'
+      : 'This tracker address cannot be granted.');
+  }
+  return { api, root };
 }
 
 if (isSandstorm) {
@@ -159,6 +204,40 @@ if (isSandstorm) {
         },
       });
       return { granted: true, canonicalUrl: target.canonicalUrl };
+    },
+
+    // List sync: the Powerbox query for the list's tracker API.
+    async sandstormSyncDescriptor(listId) {
+      check(listId, String);
+      if (!this.userId) throw new Meteor.Error('error-notAuthorized');
+      const { root } = await syncTarget(this.userId, listId);
+      const { apiSessionDescriptor } = await import('/imports/sandstorm/bridgeClient.mjs');
+      return { descriptor: apiSessionDescriptor(root), canonicalUrl: root };
+    },
+
+    async sandstormClaimSyncGrant(listId, requestToken) {
+      check(listId, String);
+      check(requestToken, String);
+      if (!this.userId) throw new Meteor.Error('error-notAuthorized');
+      const { api, root } = await syncTarget(this.userId, listId);
+      let cap;
+      try {
+        cap = await api.claimApiGrant(this.connection.sandstormSessionId(), requestToken);
+      } catch (e) {
+        throw new Meteor.Error('sandstorm-claim-failed', e.message);
+      }
+      await SandstormApiGrants.upsertAsync(syncGrantId(root), {
+        $set: { service: 'sync', listId, canonicalUrl: root, cap, grantedBy: this.userId, grantedAt: new Date() },
+      });
+      return { granted: true, canonicalUrl: root };
+    },
+
+    async sandstormSyncGrantStatus(listId) {
+      check(listId, String);
+      if (!this.userId) throw new Meteor.Error('error-notAuthorized');
+      const { root } = await syncTarget(this.userId, listId);
+      const grant = await SandstormApiGrants.findOneAsync(syncGrantId(root), { fields: { canonicalUrl: 1 } });
+      return { granted: !!grant, canonicalUrl: root };
     },
 
     async sandstormWebhookGrantStatus(integrationId) {

@@ -1300,6 +1300,8 @@
   "disable-webhook": "Dezactivează acest webhook",
   "sandstorm-webhook-grant": "Permite acestui grain să acceseze această adresă",
   "sandstorm-webhook-granted": "Acest grain poate accesa această adresă",
+  "sandstorm-sync-grant": "Permite acestui grain să acceseze acest sistem de urmărire",
+  "sandstorm-sync-granted": "Acest grain poate accesa acest sistem de urmărire",
   "global-webhook": "Webhook-uri globale",
   "new-outgoing-webhook": "Webhook nou de ieșire",
   "no-name": "(Necunoscut)",

@@ -1300,6 +1300,8 @@
   "disable-webhook": "ଏହି ୱେବ୍ ହକ୍ ଅକ୍ଷମ କରନ୍ତୁ |",
   "sandstorm-webhook-grant": "ଏହି grain କୁ ଏହି ଠିକଣାରେ ପହଞ୍ଚିବାକୁ ଅନୁମତି ଦିଅନ୍ତୁ",
   "sandstorm-webhook-granted": "ଏହି grain ଏହି ଠିକଣାରେ ପହଞ୍ଚିପାରିବ",
+  "sandstorm-sync-grant": "ଏହି grain କୁ ଏହି ଟ୍ରାକରରେ ପହଞ୍ଚିବାକୁ ଅନୁମତି ଦିଅନ୍ତୁ",
+  "sandstorm-sync-granted": "ଏହି grain ଏହି ଟ୍ରାକରରେ ପହଞ୍ଚିପାରିବ",
   "global-webhook": "ଗ୍ଲୋବାଲ୍ ୱେବହକ୍ସ |",
   "new-outgoing-webhook": "ନୂତନ ଆଉଟକିଙ୍ଗ୍ ୱେବ୍ ହକ୍ |",
   "no-name": "(ଅଜ୍ଞାତ)",

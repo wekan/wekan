@@ -1300,6 +1300,8 @@
   "disable-webhook": "Khubaza Le Webbhook",
   "sandstorm-webhook-grant": "Vumela le grain ukufinyelela leli kheli",
   "sandstorm-webhook-granted": "Le grain ingafinyelela leli kheli",
+  "sandstorm-sync-grant": "Vumela le grain ukufinyelela kulesi silandeleli",
+  "sandstorm-sync-granted": "Le grain ingafinyelela kulesi silandeleli",
   "global-webhook": "Global Webhook",
   "new-outgoing-webhook": "I-Webhook Entsha Ephumayo",
   "no-name": "(Akwaziwa)",

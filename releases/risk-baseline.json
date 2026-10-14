@@ -91,7 +91,9 @@
     "imports/sandstorm/egress.mjs": [
       "http://\\$\\{new",
       "http://http-bridge/session/(\\$\\{sessionId)?",
-      "https://api\\.trello\\.com/1"
+      "https://api\\.trello\\.com/1",
+      "https://api\\.github\\.com",
+      "https://gitlab\\.com"
     ]
   },
   "files": {

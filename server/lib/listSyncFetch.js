@@ -14,6 +14,9 @@
 // HTTP status, never the response, because the error text is returned by the
 // preview and stored in syncSource.lastSyncError for the board to read.
 import { fetchSafe } from '/server/lib/ssrfGuard';
+// In a Sandstorm grain the bridge proxy is the only way out: through the
+// Powerbox grant a board member gave the list's tracker (server/sandstormEgress.js).
+import { isSandstormServer, syncFetch } from '/server/sandstormEgress';
 import { validateAttachmentUrl } from '/models/lib/attachmentUrlValidation';
 // Jira's Sprint field schema, as models/lib/jiraScrumPlanning.js
 // JIRA_PLANNING_SCHEMA.sprint names it (tests/listSyncPlanning.test.cjs keeps
@@ -24,6 +27,8 @@ const FETCH_TIMEOUT_MS = 20000;
 const MAX_RESPONSE_BYTES = 32 * 1024 * 1024;
 const MAX_SYNC_PAGES = 1000;
 const MAX_SYNC_ITEMS = 100000;
+// typeof: the source-loading tests strip the import, which reads as "not a grain".
+const inGrain = () => typeof isSandstormServer === 'function' && isSandstormServer();
 export const SYNC_URL_BLOCKED_MESSAGE =
   'The Sync server address is not allowed: private, loopback and link-local addresses are refused.';
 
@@ -90,7 +95,8 @@ async function fetchJson(url, headers) {
   const origin = new URL(url).origin;
   let response;
   try {
-    response = operatorAllowedHost(url) ? await fetchOperatorHost(url, headers) : await fetchSafe(url, {
+    response = inGrain() ? await syncFetch(url, { headers, timeoutMs: FETCH_TIMEOUT_MS, maxResponseBytes: MAX_RESPONSE_BYTES })
+      : operatorAllowedHost(url) ? await fetchOperatorHost(url, headers) : await fetchSafe(url, {
       headers, timeoutMs: FETCH_TIMEOUT_MS, totalTimeoutMs: FETCH_TIMEOUT_MS,
       maxRedirects: 0, maxResponseBytes: MAX_RESPONSE_BYTES,
       // server/listSync.js records a refusal as SyncBleed; a second DnsBleed
@@ -248,6 +254,12 @@ export async function fetchGiteaIssues(syncSource, credential) {
 export async function fetchGitlabIssues(syncSource, credential) {
   const base = String(syncSource.url || 'https://gitlab.com').replace(/\/+$/, '');
   const project = encodeURIComponent(syncSource.projectKey);
+  // In a grain the bridge forwards only whitelisted headers, so PRIVATE-TOKEN
+  // would be dropped; GitLab also takes the token as private_token.
+  if (inGrain()) {
+    const query = credential.token ? `&private_token=${encodeURIComponent(credential.token)}` : '';
+    return fetchArrayPages(`${base}/api/v4/projects/${project}/issues?per_page=100${query}`, {});
+  }
   const url = `${base}/api/v4/projects/${project}/issues?per_page=100`;
   return fetchArrayPages(url, { 'PRIVATE-TOKEN': credential.token });
 }

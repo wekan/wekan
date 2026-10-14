@@ -1300,6 +1300,8 @@
   "disable-webhook": "Peumate webhook nyoe",
   "sandstorm-webhook-grant": "Bri izin grain nyoe jak u alamat nyoe",
   "sandstorm-webhook-granted": "Grain nyoe jeuet jak u alamat nyoe",
+  "sandstorm-sync-grant": "Bri izin grain nyoe jak u tracker nyoe",
+  "sandstorm-sync-granted": "Grain nyoe jeuet jak u tracker nyoe",
   "global-webhook": "Webhook Global",
   "new-outgoing-webhook": "Webhook Teubiet Barô",
   "no-name": "(Hana geuteupeue)",

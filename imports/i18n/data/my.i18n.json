@@ -1300,6 +1300,8 @@
   "disable-webhook": "ဤ Webhook ကို ပိတ်ရန်",
   "sandstorm-webhook-grant": "ဤ grain ကို ဤလိပ်စာသို့ ရောက်ရှိခွင့်ပြုရန်",
   "sandstorm-webhook-granted": "ဤ grain သည် ဤလိပ်စာသို့ ရောက်ရှိနိုင်သည်",
+  "sandstorm-sync-grant": "ဤ grain ကို ဤခြေရာခံစနစ်သို့ ရောက်ရှိခွင့်ပြုရန်",
+  "sandstorm-sync-granted": "ဤ grain သည် ဤခြေရာခံစနစ်သို့ ရောက်ရှိနိုင်သည်",
   "global-webhook": "ကမ္ဘာလုံးဆိုင်ရာ Webhooks",
   "new-outgoing-webhook": "အထွက် Webhook အသစ်",
   "no-name": "(မသိ)",

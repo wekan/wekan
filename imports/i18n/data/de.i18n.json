@@ -1300,6 +1300,8 @@
   "disable-webhook": "Diesen Webhook deaktivieren",
   "sandstorm-webhook-grant": "Diesem Grain den Zugriff auf diese Adresse erlauben",
   "sandstorm-webhook-granted": "Dieses Grain darf diese Adresse erreichen",
+  "sandstorm-sync-grant": "Diesem Grain den Zugriff auf diesen Tracker erlauben",
+  "sandstorm-sync-granted": "Dieses Grain darf diesen Tracker erreichen",
   "global-webhook": "Globale Webhooks",
   "new-outgoing-webhook": "Neuer ausgehender Webhook",
   "no-name": "(Unbekannt)",

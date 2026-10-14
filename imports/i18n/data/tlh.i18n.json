@@ -1300,6 +1300,8 @@
   "disable-webhook": "webhookvam yIchu'Ha'",
   "sandstorm-webhook-grant": "Daq vam SIchmeH grain vam 'e' chaw'",
   "sandstorm-webhook-granted": "Daq vam SIchlaH grain vam",
+  "sandstorm-sync-grant": "tracker vam SIchmeH grain vam 'e' chaw'",
+  "sandstorm-sync-granted": "tracker vam SIchlaH grain vam",
   "global-webhook": "HochvaD QIn rarmeH mIwmey",
   "new-outgoing-webhook": "ngeHmeH webhook chu'",
   "no-name": "(Sovlu'be')",

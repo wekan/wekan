@@ -1300,6 +1300,8 @@
   "disable-webhook": "Vala Le-Webhook",
   "sandstorm-webhook-grant": "Vumela le-grain kutsi ifike kulelikheli",
   "sandstorm-webhook-granted": "Le-grain ingafika kulelikheli",
+  "sandstorm-sync-grant": "Vumela le-grain kutsi ifike kulesilandzeli",
+  "sandstorm-sync-granted": "Le-grain ingafika kulesilandzeli",
   "global-webhook": "Ema-Webhook Omhlaba Wonkhe",
   "new-outgoing-webhook": "I-Webhook Lensha Lephumako",
   "no-name": "(Akwatiwa)",

@@ -75,6 +75,44 @@ export function webhookGrantFor(rawUrl) {
   return { canonicalUrl, url: `${url.origin}${url.pathname === '/' ? '' : url.pathname}${url.search}` };
 }
 
+// List sync from a grain: the API root a board member approves in the
+// Powerbox for one list's tracker - the part of every request URL that
+// listSyncFetch.js builds below it. Jira authenticates only with a Basic
+// Authorization header, which the bridge proxy replaces with the grant, so it
+// cannot be reached from a grain: null, with the reason.
+export function syncApiRoot(type, rawUrl) {
+  const base = String(rawUrl || '').replace(/\/+$/, '');
+  const root = {
+    github: () => 'https://api.github.com',
+    gitlab: () => `${base || 'https://gitlab.com'}/api/v4`,
+    gitea: () => `${base}/api/v1`,
+    forgejo: () => `${base}/api/v1`,
+  }[type];
+  if (!root) return { root: null, reason: type === 'jira' ? 'jira-basic-auth' : 'unknown-type' };
+  const value = root();
+  try {
+    const url = new URL(value);
+    if ((url.protocol !== 'https:' && url.protocol !== 'http:') || url.username || url.password || url.search || url.hash) {
+      return { root: null, reason: 'bad-url' };
+    }
+  } catch (e) {
+    return { root: null, reason: 'bad-url' };
+  }
+  return { root: value, reason: null };
+}
+
+// The roots a URL could have been granted under, longest first: its path
+// cut back one segment at a time, down to the bare origin. A grant is found
+// by looking each up, never by searching the grants.
+export function grantRootCandidates(rawUrl) {
+  let url;
+  try { url = new URL(rawUrl); } catch (e) { return []; }
+  const segments = url.pathname.split('/').filter(Boolean);
+  const out = [];
+  for (let n = segments.length; n >= 0; n -= 1) out.push(`${url.origin}${segments.slice(0, n).map(s => `/${s}`).join('')}`);
+  return out;
+}
+
 // The absolute-form request target the bridge proxy expects. Only the part
 // after canonicalUrl is meaningful to it; the host is informational.
 export function proxyTarget(canonicalUrl, url) {

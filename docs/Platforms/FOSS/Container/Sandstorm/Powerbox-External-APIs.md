@@ -113,3 +113,25 @@ bridge says who is calling instead, and WeKan acts as that user
   answered as nobody. Board roles apply on top, as for every API call.
 - Off Sandstorm the `X-Sandstorm-*` headers are never believed - anybody
   could send them - and only WeKan tokens count.
+
+## List sync
+
+A list that syncs from an issue tracker (List menu → List Sync) reaches it
+from a grain the same way: save the source, then **Allow this grain to reach
+this tracker** opens the Powerbox for the tracker's API -
+`https://api.github.com`, `<GitLab>/api/v4` or `<Gitea/Forgejo>/api/v1`. The
+grant belongs to that tracker, so every list syncing from it uses it, and the
+periodic sync job needs no signed-in user.
+
+| Tracker | From a grain |
+| --- | --- |
+| GitHub | public repositories (GitHub reads its token only from the `Authorization` header, which the bridge replaces) |
+| GitLab | public and private: the token is sent as the `private_token` query parameter, because the bridge drops `PRIVATE-TOKEN` |
+| Gitea, Forgejo | public repositories (their token headers are dropped, and query-string tokens are off by default) |
+| Jira | not possible: Jira signs in only with a Basic `Authorization` header |
+
+`imports/sandstorm/egress.mjs` (`syncApiRoot`, `grantRootCandidates`) decides
+what is approved; `server/sandstormEgress.js` (`syncFetch`) fetches, and
+`server/lib/listSyncFetch.js` uses it only in a grain - everywhere else the
+SSRF guard, as before. `tests/sandstormSyncEgress.test.cjs` runs it against a
+fake bridge proxy.

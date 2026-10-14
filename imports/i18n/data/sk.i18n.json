@@ -1300,6 +1300,8 @@
   "disable-webhook": "Zakázať tento webhook",
   "sandstorm-webhook-grant": "Povoliť tomuto grainu prístup na túto adresu",
   "sandstorm-webhook-granted": "Tento grain môže pristupovať na túto adresu",
+  "sandstorm-sync-grant": "Povoliť tomuto grainu prístup k tomuto trackeru",
+  "sandstorm-sync-granted": "Tento grain môže pristupovať k tomuto trackeru",
   "global-webhook": "Globálne webhooky",
   "new-outgoing-webhook": "Nový odchádzajúci webhook",
   "no-name": "(Neznáme)",

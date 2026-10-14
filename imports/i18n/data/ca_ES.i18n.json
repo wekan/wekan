@@ -1300,6 +1300,8 @@
   "disable-webhook": "Desactiveu aquest webhook",
   "sandstorm-webhook-grant": "Permet que aquest grain arribi a aquesta adreça",
   "sandstorm-webhook-granted": "Aquest grain pot arribar a aquesta adreça",
+  "sandstorm-sync-grant": "Permet que aquest grain arribi a aquest rastrejador",
+  "sandstorm-sync-granted": "Aquest grain pot arribar a aquest rastrejador",
   "global-webhook": "Webhooks globals",
   "new-outgoing-webhook": "Nou Webbook sortt",
   "no-name": "Importa tauler des de Wekan",

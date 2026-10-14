@@ -1300,6 +1300,8 @@
   "disable-webhook": "Schakel deze Webhook uit",
   "sandstorm-webhook-grant": "Laat deze grain dit adres bereiken",
   "sandstorm-webhook-granted": "Deze grain mag dit adres bereiken",
+  "sandstorm-sync-grant": "Laat deze grain deze tracker bereiken",
+  "sandstorm-sync-granted": "Deze grain mag deze tracker bereiken",
   "global-webhook": "Globale Webhooks",
   "new-outgoing-webhook": "Nieuwe uitgaande webhook",
   "no-name": "(Onbekend)",

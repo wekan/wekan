@@ -1300,6 +1300,8 @@
   "disable-webhook": "Бу Webhook-у араар",
   "sandstorm-webhook-grant": "Бу grain бу аадырыска тиийэрин көҥүллээ",
   "sandstorm-webhook-granted": "Бу grain бу аадырыска тиийиэн сөп",
+  "sandstorm-sync-grant": "Бу grain бу трекергэ тиийэрин көҥүллээ",
+  "sandstorm-sync-granted": "Бу grain бу трекергэ тиийиэн сөп",
   "global-webhook": "Систиэмэ барытыгар Webhook-тар",
   "new-outgoing-webhook": "Саҥа тахсар Webhook",
   "no-name": "(Биллибэт)",

@@ -1300,6 +1300,8 @@
   "disable-webhook": "Бул Webhook'ту өчүрүү",
   "sandstorm-webhook-grant": "Бул grain'ге ушул дарекке жетүүгө уруксат берүү",
   "sandstorm-webhook-granted": "Бул grain ушул дарекке жете алат",
+  "sandstorm-sync-grant": "Бул grain'ге ушул трекерге жетүүгө уруксат берүү",
+  "sandstorm-sync-granted": "Бул grain ушул трекерге жете алат",
   "global-webhook": "Глобалдык Webhook'тор",
   "new-outgoing-webhook": "Жаңы чыгуучу Webhook",
   "no-name": "(Белгисиз)",

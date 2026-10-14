@@ -1300,6 +1300,8 @@
   "disable-webhook": "Энэ вебхук унтарааха",
   "sandstorm-webhook-grant": "Энэ grain-да энэ хаягта хүрэхые зүбшөөхэ",
   "sandstorm-webhook-granted": "Энэ grain энэ хаягта хүрэжэ болоно",
+  "sandstorm-sync-grant": "Энэ grain-да энэ трекертэ хүрэхые зүбшөөхэ",
+  "sandstorm-sync-granted": "Энэ grain энэ трекертэ хүрэжэ болоно",
   "global-webhook": "Юрэнхы вебхукүүд",
   "new-outgoing-webhook": "Шэнэ гараха вебхук",
   "no-name": "(Мэдэгдээгүй)",

@@ -943,9 +943,20 @@ Template.listSyncPopup.onCreated(function () {
   if (list && list.syncSource && list.syncSource.type) {
     refreshCredentialStatus();
   }
+  // Sandstorm: may this grain already reach the list's tracker?
+  tpl.syncGranted = new ReactiveVar(false);
+  tpl.syncGrantError = new ReactiveVar('');
+  if (Meteor.settings.public?.sandstorm && list?.syncSource?.type) {
+    Meteor.callAsync('sandstormSyncGrantStatus', list._id)
+      .then(({ granted }) => tpl.syncGranted.set(!!granted))
+      .catch(error => tpl.syncGrantError.set(error.reason || error.message));
+  }
 });
 
 Template.listSyncPopup.helpers({
+  syncSourceSaved() { return !!Template.currentData()?.syncSource?.type; },
+  syncGranted() { return Template.instance().syncGranted.get(); },
+  syncGrantError() { return Template.instance().syncGrantError.get(); },
   syncReportsBusy() { return Template.instance().reportsBusy.get(); },
   syncReportError() { return Template.instance().reportError.get(); },
   syncReportsLoaded() { return Template.instance().runReports.get() !== null; },
@@ -1085,6 +1096,16 @@ Template.listSyncPopup.helpers({
 });
 
 Template.listSyncPopup.events({
+  async 'click .js-sandstorm-sync-grant'(evt, tpl) {
+    evt.preventDefault();
+    tpl.syncGrantError.set('');
+    try {
+      const granted = await window.sandstormRequestListSync(Template.currentData()._id, Template.currentData().title);
+      tpl.syncGranted.set(!!granted);
+    } catch (error) {
+      tpl.syncGrantError.set(error.reason || error.message);
+    }
+  },
   'click .js-list-sync-reports'(event, tpl) {
     event.preventDefault();
     if (tpl.reportsBusy.get()) return;

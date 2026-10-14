@@ -1300,6 +1300,8 @@
   "disable-webhook": "Webhook འདི་སྤྱོད་མེད་བཟོ།",
   "sandstorm-webhook-grant": "གྲེན་འདི་ ཁ་བྱང་འདི་ལུ་ལྷོད་ནིའི་གནང་བ་བྱིན།",
   "sandstorm-webhook-granted": "གྲེན་འདི་ ཁ་བྱང་འདི་ལུ་ལྷོད་ཆོག།",
+  "sandstorm-sync-grant": "གྲེན་འདི་ རྗེས་འདེད་པ་འདི་ལུ་ལྷོད་ནིའི་གནང་བ་བྱིན།",
+  "sandstorm-sync-granted": "གྲེན་འདི་ རྗེས་འདེད་པ་འདི་ལུ་ལྷོད་ཆོག།",
   "global-webhook": "སྤྱི་ཡོངས་ Webhook རྣམས།",
   "new-outgoing-webhook": "ཕྱིར་གཏོང་ Webhook གསར་པ།",
   "no-name": "(ངོ་མ་ཤེས་པ།)",

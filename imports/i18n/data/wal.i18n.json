@@ -1300,6 +1300,8 @@
   "disable-webhook": "Ha Webhookiyaa digga",
   "sandstorm-webhook-grant": "Ha grain ha teesuwaa gakkanaadan maata imma",
   "sandstorm-webhook-granted": "Ha grain ha teesuwaa gakkana danda'ees",
+  "sandstorm-sync-grant": "Ha grain ha tracker-ppe gakkanaadan maata imma",
+  "sandstorm-sync-granted": "Ha grain ha tracker-ppe gakkana danda'ees",
   "global-webhook": "Ubbaas de'iya Webhookata",
   "new-outgoing-webhook": "Ooratha kare kiittiya Webhookiyaa",
   "no-name": "(Erettibeenna)",

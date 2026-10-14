@@ -1300,6 +1300,8 @@
   "disable-webhook": "Atspējot šo Webhook",
   "sandstorm-webhook-grant": "Atļaut šim grain sasniegt šo adresi",
   "sandstorm-webhook-granted": "Šis grain drīkst sasniegt šo adresi",
+  "sandstorm-sync-grant": "Atļaut šim grain sasniegt šo izsekošanas sistēmu",
+  "sandstorm-sync-granted": "Šis grain drīkst sasniegt šo izsekošanas sistēmu",
   "global-webhook": "Globālie Webhook",
   "new-outgoing-webhook": "Jauns izejošais Webhook",
   "no-name": "(Nezināms)",

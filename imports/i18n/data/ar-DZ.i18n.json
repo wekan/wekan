@@ -1300,6 +1300,8 @@
   "disable-webhook": "تعطيل خطاف الويب هذا",
   "sandstorm-webhook-grant": "اسمح لهذه الحبة (grain) بالوصول إلى هذا العنوان",
   "sandstorm-webhook-granted": "يمكن لهذه الحبة (grain) الوصول إلى هذا العنوان",
+  "sandstorm-sync-grant": "اسمح لهذه الحبة (grain) بالوصول إلى هذا المتتبع",
+  "sandstorm-sync-granted": "يمكن لهذه الحبة (grain) الوصول إلى هذا المتتبع",
   "global-webhook": "خطافات الويب العامة",
   "new-outgoing-webhook": "ويبهوك جديدة",
   "no-name": "(غير معروف)",

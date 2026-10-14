@@ -1300,6 +1300,8 @@
   "disable-webhook": "Deactivar quest webhook",
   "sandstorm-webhook-grant": "Permetter a quest grain d'acceder a questa adressa",
   "sandstorm-webhook-granted": "Quest grain dastga acceder a questa adressa",
+  "sandstorm-sync-grant": "Permetter a quest grain d'acceder a quest sistem da persecuziun",
+  "sandstorm-sync-granted": "Quest grain dastga acceder a quest sistem da persecuziun",
   "global-webhook": "Webhooks globals",
   "new-outgoing-webhook": "Nov webhook sortint",
   "no-name": "(Nunenconuschent)",

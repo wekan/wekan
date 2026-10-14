@@ -1300,6 +1300,8 @@
   "disable-webhook": "Deaktiveer hierdie webhaak",
   "sandstorm-webhook-grant": "Laat hierdie grain toe om hierdie adres te bereik",
   "sandstorm-webhook-granted": "Hierdie grain mag hierdie adres bereik",
+  "sandstorm-sync-grant": "Laat hierdie grain toe om hierdie spoorder te bereik",
+  "sandstorm-sync-granted": "Hierdie grain mag hierdie spoorder bereik",
   "global-webhook": "Globale Webhooks",
   "new-outgoing-webhook": "Nuwe Uitgaande Webhook",
   "no-name": "(Onbekend)",

@@ -1300,6 +1300,8 @@
   "disable-webhook": "Xe mɔ na webhook sia",
   "sandstorm-webhook-grant": "Na mɔ grain sia be wòaɖo adrɛs sia gbɔ",
   "sandstorm-webhook-granted": "Grain sia ate ŋu aɖo adrɛs sia gbɔ",
+  "sandstorm-sync-grant": "Na mɔ grain sia be wòaɖo didila sia gbɔ",
+  "sandstorm-sync-granted": "Grain sia ate ŋu aɖo didila sia gbɔ",
   "global-webhook": "Xexeame katã ƒe webhookwo",
   "new-outgoing-webhook": "Webhook yeye si yina go",
   "no-name": "(Womenya o)",

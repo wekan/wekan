@@ -1300,6 +1300,8 @@
   "disable-webhook": "Disattiva custu webhook",
   "sandstorm-webhook-grant": "Permite a custu grain de lòmpere a custu indiritzu",
   "sandstorm-webhook-granted": "Custu grain podet lòmpere a custu indiritzu",
+  "sandstorm-sync-grant": "Permite a custu grain de lòmpere a custu trackeri",
+  "sandstorm-sync-granted": "Custu grain podet lòmpere a custu trackeri",
   "global-webhook": "Webhook globali",
   "new-outgoing-webhook": "Nou webhook in uscita",
   "no-name": "(Sconosciuto)",

@@ -1300,6 +1300,8 @@
   "disable-webhook": "Bu bağlantıyı devre dışı bırak",
   "sandstorm-webhook-grant": "Bu grain'in bu adrese erişmesine izin ver",
   "sandstorm-webhook-granted": "Bu grain bu adrese erişebilir",
+  "sandstorm-sync-grant": "Bu grain'in bu izleyiciye erişmesine izin ver",
+  "sandstorm-sync-granted": "Bu grain bu izleyiciye erişebilir",
   "global-webhook": "Global Bağlantılar",
   "new-outgoing-webhook": "Yeni Dışarı Giden Web Bağlantısı",
   "no-name": "(Bilinmeyen)",

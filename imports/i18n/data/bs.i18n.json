@@ -1300,6 +1300,8 @@
   "disable-webhook": "Онеспособи ову дојаву догађаја",
   "sandstorm-webhook-grant": "Dozvoli ovom grainu da pristupi ovoj adresi",
   "sandstorm-webhook-granted": "Ovaj grain smije pristupiti ovoj adresi",
+  "sandstorm-sync-grant": "Dozvoli ovom grainu da pristupi ovom sistemu praćenja",
+  "sandstorm-sync-granted": "Ovaj grain smije pristupiti ovom sistemu praćenja",
   "global-webhook": "Дојава догађаја",
   "new-outgoing-webhook": "Нова дојава догађаја",
   "no-name": "(Nepoznato)",

@@ -1300,6 +1300,8 @@
   "disable-webhook": "Monokia Tēnei Webhook",
   "sandstorm-webhook-grant": "Tukua tēnei grain kia tae ki tēnei wāhitau",
   "sandstorm-webhook-granted": "Ka āhei tēnei grain ki te tae ki tēnei wāhitau",
+  "sandstorm-sync-grant": "Tukua tēnei grain kia tae ki tēnei kaiwhāi",
+  "sandstorm-sync-granted": "Ka āhei tēnei grain ki te tae ki tēnei kaiwhāi",
   "global-webhook": "Ngā Webhook Ao",
   "new-outgoing-webhook": "Webhook Puta Hou",
   "no-name": "(Tē Mōhiotia)",

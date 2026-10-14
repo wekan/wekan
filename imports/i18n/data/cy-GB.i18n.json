@@ -1300,6 +1300,8 @@
   "disable-webhook": "Analluoga'r Llyfr Gwe Hwn",
   "sandstorm-webhook-grant": "Caniatáu i'r grain hwn gyrraedd y cyfeiriad hwn",
   "sandstorm-webhook-granted": "Caiff y grain hwn gyrraedd y cyfeiriad hwn",
+  "sandstorm-sync-grant": "Caniatáu i'r grain hwn gyrraedd y system olrhain hon",
+  "sandstorm-sync-granted": "Caiff y grain hwn gyrraedd y system olrhain hon",
   "global-webhook": "Bachau Gwe Byd-eang",
   "new-outgoing-webhook": "Llyfr Gwe Allan Newydd",
   "no-name": "(Anhysbys)",

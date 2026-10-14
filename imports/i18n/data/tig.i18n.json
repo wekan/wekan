@@ -1300,6 +1300,8 @@
   "disable-webhook": "እዚ Webhook ዕጾ",
   "sandstorm-webhook-grant": "ለእሊ grain እሊ ዕንዋን ለአብጽሕ ፍቀድ",
   "sandstorm-webhook-granted": "እሊ grain እሊ ዕንዋን ለአብጽሕ ፍቁድ ሉ",
+  "sandstorm-sync-grant": "ለእሊ grain እሊ ትራከር ለአብጽሕ ፍቀድ",
+  "sandstorm-sync-granted": "እሊ grain እሊ ትራከር ለአብጽሕ ፍቁድ ሉ",
   "global-webhook": "ዓለማዊ Webhooks",
   "new-outgoing-webhook": "ሐዲስ ወጻኢ Webhook",
   "no-name": "(ለይትኣመራ)",

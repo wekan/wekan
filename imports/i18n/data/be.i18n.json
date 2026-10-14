@@ -1300,6 +1300,8 @@
   "disable-webhook": "Адключыць гэты вэб-хук",
   "sandstorm-webhook-grant": "Дазволіць гэтаму грэйну звяртацца да гэтага адраса",
   "sandstorm-webhook-granted": "Гэты грэйн можа звяртацца да гэтага адраса",
+  "sandstorm-sync-grant": "Дазволіць гэтаму грэйну звяртацца да гэтага трэкера",
+  "sandstorm-sync-granted": "Гэты грэйн можа звяртацца да гэтага трэкера",
   "global-webhook": "Глабальныя вэб-хукі",
   "new-outgoing-webhook": "Новы выходны вэб-хук",
   "no-name": "(Невядома)",

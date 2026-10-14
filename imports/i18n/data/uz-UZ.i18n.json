@@ -1300,6 +1300,8 @@
   "disable-webhook": "Ushbu veb-hukni o'chirib qo'ying",
   "sandstorm-webhook-grant": "Ushbu grain-ga bu manzilga ulanishga ruxsat berish",
   "sandstorm-webhook-granted": "Ushbu grain bu manzilga ulanishi mumkin",
+  "sandstorm-sync-grant": "Ushbu grain-ga bu kuzatuv tizimiga ulanishga ruxsat berish",
+  "sandstorm-sync-granted": "Ushbu grain bu kuzatuv tizimiga ulanishi mumkin",
   "global-webhook": "Global Webhooklar",
   "new-outgoing-webhook": "Yangi chiquvchi vebhuk",
   "no-name": "(Noma'lum)",

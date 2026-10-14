@@ -1300,6 +1300,8 @@
   "disable-webhook": "Avaktivera Denna Webhook",
   "sandstorm-webhook-grant": "Tillåt denna grain att nå den här adressen",
   "sandstorm-webhook-granted": "Denna grain får nå den här adressen",
+  "sandstorm-sync-grant": "Tillåt denna grain att nå det här ärendehanteringssystemet",
+  "sandstorm-sync-granted": "Denna grain får nå det här ärendehanteringssystemet",
   "global-webhook": "Globala Webhooks",
   "new-outgoing-webhook": "Ny utgående webhook",
   "no-name": "(Okänd)",

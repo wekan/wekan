@@ -1300,6 +1300,8 @@
   "disable-webhook": "Vô hiệu hóa Webhook này",
   "sandstorm-webhook-grant": "Cho phép grain này truy cập địa chỉ này",
   "sandstorm-webhook-granted": "Grain này được phép truy cập địa chỉ này",
+  "sandstorm-sync-grant": "Cho phép grain này truy cập trình theo dõi này",
+  "sandstorm-sync-granted": "Grain này được phép truy cập trình theo dõi này",
   "global-webhook": "Webhook toàn cầu",
   "new-outgoing-webhook": "Webhook gửi đi mới",
   "no-name": "(Không xác định)",

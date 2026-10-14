@@ -1300,6 +1300,8 @@
   "disable-webhook": "Bokoca na Webhook Oqo",
   "sandstorm-webhook-grant": "Vakatara me yaco rawa na grain oqo ki na itikotiko oqo",
   "sandstorm-webhook-granted": "E rawa ni yaco na grain oqo ki na itikotiko oqo",
+  "sandstorm-sync-grant": "Vakatara me yaco rawa na grain oqo ki na iVola vakayasa oqo",
+  "sandstorm-sync-granted": "E rawa ni yaco na grain oqo ki na iVola vakayasa oqo",
   "global-webhook": "Webhook Raraba",
   "new-outgoing-webhook": "Webhook Vou e Lako Tani",
   "no-name": "(Sega ni kilai)",

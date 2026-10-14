@@ -1300,6 +1300,8 @@
   "disable-webhook": "Disattiva chest webhook",
   "sandstorm-webhook-grant": "Permet a chest grain di rivâ a cheste direzion",
   "sandstorm-webhook-granted": "Chest grain al pues rivâ a cheste direzion",
+  "sandstorm-sync-grant": "Permet a chest grain di rivâ a chest traçadôr",
+  "sandstorm-sync-granted": "Chest grain al pues rivâ a chest traçadôr",
   "global-webhook": "Webhook globâi",
   "new-outgoing-webhook": "Gnûf webhook in uscita",
   "no-name": "(No cognossût)",

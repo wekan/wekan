@@ -1300,6 +1300,8 @@
   "disable-webhook": "Deaktiver denne webhooken",
   "sandstorm-webhook-grant": "La dette grainet nå denne adressen",
   "sandstorm-webhook-granted": "Dette grainet kan nå denne adressen",
+  "sandstorm-sync-grant": "La dette grainet nå dette sakssystemet",
+  "sandstorm-sync-granted": "Dette grainet kan nå dette sakssystemet",
   "global-webhook": "Globale webhooks",
   "new-outgoing-webhook": "Ny utgående webhook",
   "no-name": "(Ukjent)",

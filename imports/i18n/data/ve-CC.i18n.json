@@ -1300,6 +1300,8 @@
   "disable-webhook": "Desativa sto webhook",
   "sandstorm-webhook-grant": "Parmeti a sto grain de rivar a sto indirizo",
   "sandstorm-webhook-granted": "Sto grain el pol rivar a sto indirizo",
+  "sandstorm-sync-grant": "Parmeti a sto grain de rivar a sto tracker",
+  "sandstorm-sync-granted": "Sto grain el pol rivar a sto tracker",
   "global-webhook": "Webhook globałi",
   "new-outgoing-webhook": "Webhook novo in uscita",
   "no-name": "(Sconosùo)",

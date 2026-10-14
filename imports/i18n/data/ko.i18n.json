@@ -1300,6 +1300,8 @@
   "disable-webhook": "이 웹훅 비활성화",
   "sandstorm-webhook-grant": "이 그레인(grain)이 이 주소에 접근하도록 허용",
   "sandstorm-webhook-granted": "이 그레인(grain)은 이 주소에 접근할 수 있습니다",
+  "sandstorm-sync-grant": "이 그레인(grain)이 이 트래커에 접근하도록 허용",
+  "sandstorm-sync-granted": "이 그레인(grain)은 이 트래커에 접근할 수 있습니다",
   "global-webhook": "전역 웹훅",
   "new-outgoing-webhook": "새 발신 웹훅",
   "no-name": "(알 수 없음)",

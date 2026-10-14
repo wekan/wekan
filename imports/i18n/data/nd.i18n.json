@@ -1300,6 +1300,8 @@
   "disable-webhook": "Vala le webhook",
   "sandstorm-webhook-grant": "Vumela le grain ukufinyelela kulelikheli",
   "sandstorm-webhook-granted": "Le grain ingafinyelela kulelikheli",
+  "sandstorm-sync-grant": "Vumela le grain ukufinyelela kulesi silandeleli",
+  "sandstorm-sync-granted": "Le grain ingafinyelela kulesi silandeleli",
   "global-webhook": "Ama-webhook omhlaba wonke",
   "new-outgoing-webhook": "I-webhook entsha ephumayo",
   "no-name": "(Akwaziwa)",

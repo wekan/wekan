@@ -1300,6 +1300,8 @@
   "disable-webhook": "ئەم Webhookە ناچالاک بکە",
   "sandstorm-webhook-grant": "ڕێگە بدە بەم grainە بگاتە ئەم ناونیشانە",
   "sandstorm-webhook-granted": "ئەم grainە دەتوانێت بگاتە ئەم ناونیشانە",
+  "sandstorm-sync-grant": "ڕێگە بدە بەم grainە بگاتە ئەم شوێنپێگرە",
+  "sandstorm-sync-granted": "ئەم grainە دەتوانێت بگاتە ئەم شوێنپێگرە",
   "global-webhook": "Webhookە گشتییەکان",
   "new-outgoing-webhook": "Webhookی دەرچووی نوێ",
   "no-name": "(نەناسراو)",

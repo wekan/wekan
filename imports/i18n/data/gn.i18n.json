@@ -1300,6 +1300,8 @@
   "disable-webhook": "Embogue ko Webhook",
   "sandstorm-webhook-grant": "Emoneĩ ko grain oho hag̃ua ko rendápe",
   "sandstorm-webhook-granted": "Ko grain ikatu oho ko rendápe",
+  "sandstorm-sync-grant": "Emoneĩ ko grain oho hag̃ua ko marandu rógape",
+  "sandstorm-sync-granted": "Ko grain ikatu oho ko marandu rógape",
   "global-webhook": "Webhook opavavegua",
   "new-outgoing-webhook": "Webhook osẽva pyahu",
   "no-name": "(Ojekuaa'ỹva)",

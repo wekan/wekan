@@ -1300,6 +1300,8 @@
   "disable-webhook": "Хомӯш кардани ин вебҳук",
   "sandstorm-webhook-grant": "Ба ин grain иҷозат диҳед, ки ба ин суроға дастрасӣ ёбад",
   "sandstorm-webhook-granted": "Ин grain метавонад ба ин суроға дастрасӣ ёбад",
+  "sandstorm-sync-grant": "Ба ин grain иҷозат диҳед, ки ба ин пайгир дастрасӣ ёбад",
+  "sandstorm-sync-granted": "Ин grain метавонад ба ин пайгир дастрасӣ ёбад",
   "global-webhook": "Вебҳукҳои умумӣ",
   "new-outgoing-webhook": "Вебҳуки нави содиротӣ",
   "no-name": "(Номаълум)",

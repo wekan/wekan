@@ -1300,6 +1300,8 @@
   "disable-webhook": "דיסייבאַל דעם וועבהאָאָק",
   "sandstorm-webhook-grant": "דערלויבן דעם grain צו דערגרייכן דעם אַדרעס",
   "sandstorm-webhook-granted": "דער grain מעג דערגרייכן דעם אַדרעס",
+  "sandstorm-sync-grant": "דערלויבן דעם grain צו דערגרייכן דעם טרעקער",
+  "sandstorm-sync-granted": "דער grain מעג דערגרייכן דעם טרעקער",
   "global-webhook": "גלאבאלע וועבהאָאָקס",
   "new-outgoing-webhook": "ניו אַוטגאָוינג וועבהאָאָק",
   "no-name": "(אומבאַקאַנט)",

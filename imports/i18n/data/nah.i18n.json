@@ -1300,6 +1300,8 @@
   "disable-webhook": "Xictzacua inin webhook",
   "sandstorm-webhook-grant": "Xiquincahua inin grain ma ahsi inin tlacan",
   "sandstorm-webhook-granted": "Inin grain huelis ahsi inin tlacan",
+  "sandstorm-sync-grant": "Xiquincahua inin grain ma ahsi inin tlachiani",
+  "sandstorm-sync-granted": "Inin grain huelis ahsi inin tlachiani",
   "global-webhook": "Hueyi webhooks",
   "new-outgoing-webhook": "Yancuic webhook tlen quisa",
   "no-name": "(amo mixmati)",

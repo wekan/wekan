@@ -1300,6 +1300,8 @@
   "disable-webhook": "Dezaktive webhook sa a",
   "sandstorm-webhook-grant": "Pèmèt grain sa a rive nan adrès sa a",
   "sandstorm-webhook-granted": "Grain sa a ka rive nan adrès sa a",
+  "sandstorm-sync-grant": "Pèmèt grain sa a rive nan sistèm swivi sa a",
+  "sandstorm-sync-granted": "Grain sa a ka rive nan sistèm swivi sa a",
   "global-webhook": "Webhook global",
   "new-outgoing-webhook": "Nouvo webhook k ap soti",
   "no-name": "(Enkoni)",

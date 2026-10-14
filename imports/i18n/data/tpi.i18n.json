@@ -1300,6 +1300,8 @@
   "disable-webhook": "Pasim dispela webhuk",
   "sandstorm-webhook-grant": "Larim dispela grain i go long dispela adres",
   "sandstorm-webhook-granted": "Dispela grain inap go long dispela adres",
+  "sandstorm-sync-grant": "Larim dispela grain i go long dispela tracker",
+  "sandstorm-sync-granted": "Dispela grain inap go long dispela tracker",
   "global-webhook": "Bilong olgeta Webhooks",
   "new-outgoing-webhook": "Nupela Outgoing webhuk",
   "no-name": "(I no save)",

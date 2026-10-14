@@ -1300,6 +1300,8 @@
   "disable-webhook": "Deshabilitá e Webhook",
   "sandstorm-webhook-grant": "Permití e grain aki yega na e adrès aki",
   "sandstorm-webhook-granted": "E grain aki por yega na e adrès aki",
+  "sandstorm-sync-grant": "Permití e grain aki yega na e tracker aki",
+  "sandstorm-sync-granted": "E grain aki por yega na e tracker aki",
   "global-webhook": "Webhooks globales",
   "new-outgoing-webhook": "Nobo webhook saliente",
   "no-name": "(Desconosido)",

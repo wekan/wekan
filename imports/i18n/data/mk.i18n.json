@@ -1300,6 +1300,8 @@
   "disable-webhook": "Оневозможи ја оваа веб-кука",
   "sandstorm-webhook-grant": "Дозволи ова зрно (grain) да пристапува до оваа адреса",
   "sandstorm-webhook-granted": "Ова зрно (grain) може да пристапува до оваа адреса",
+  "sandstorm-sync-grant": "Дозволи ова зрно (grain) да пристапува до овој систем за следење",
+  "sandstorm-sync-granted": "Ова зрно (grain) може да пристапува до овој систем за следење",
   "global-webhook": "Глобални веб-куки",
   "new-outgoing-webhook": "Нова излезна веб-кука",
   "no-name": "(Непознат)",

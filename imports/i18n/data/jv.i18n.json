@@ -1300,6 +1300,8 @@
   "disable-webhook": "Pateni Webhook Iki",
   "sandstorm-webhook-grant": "Idini grain iki tekan alamat iki",
   "sandstorm-webhook-granted": "Grain iki oleh tekan alamat iki",
+  "sandstorm-sync-grant": "Idini grain iki tekan pelacak iki",
+  "sandstorm-sync-granted": "Grain iki oleh tekan pelacak iki",
   "global-webhook": "Webhook Global",
   "new-outgoing-webhook": "Webhook Metu Anyar",
   "no-name": "(Ora dingerteni)",

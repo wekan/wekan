@@ -1300,6 +1300,8 @@
   "disable-webhook": "Váldde dán webhooka eret",
   "sandstorm-webhook-grant": "Divtte dán grain olahit dán čujuhussii",
   "sandstorm-webhook-granted": "Dát grain oažžu olahit dán čujuhussii",
+  "sandstorm-sync-grant": "Divtte dán grain olahit dán čuovvunsystemii",
+  "sandstorm-sync-granted": "Dát grain oažžu olahit dán čuovvunsystemii",
   "global-webhook": "Globála webhookat",
   "new-outgoing-webhook": "Ođđa olggos manni webhook",
   "no-name": "(Amas)",

@@ -1300,6 +1300,8 @@
   "disable-webhook": "Désactive ce webhook",
   "sandstorm-webhook-grant": "Leyî ci grain chal ariver a cisse adresse ci",
   "sandstorm-webhook-granted": "Ci grain chal pout ariver a cisse adresse ci",
+  "sandstorm-sync-grant": "Leyî ci grain chal ariver a cist ecråjeu chal",
+  "sandstorm-sync-granted": "Ci grain chal pout ariver a cist ecråjeu chal",
   "global-webhook": "Webhooks global",
   "new-outgoing-webhook": "Novea webhook ki rexhowe",
   "no-name": "(Nén cnoxhou)",

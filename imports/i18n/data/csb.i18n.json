@@ -1300,6 +1300,8 @@
   "disable-webhook": "Wëłączë nen webhook",
   "sandstorm-webhook-grant": "Pòzwôlôj temù grainowi dosëgnąc tegò adresë",
   "sandstorm-webhook-granted": "Nen grain mòże dosëgnąc tegò adresë",
+  "sandstorm-sync-grant": "Pòzwôlôj temù grainowi dosëgnąc tegò tracëra",
+  "sandstorm-sync-granted": "Nen grain mòże dosëgnąc tegò tracëra",
   "global-webhook": "Globalné webhooki",
   "new-outgoing-webhook": "Nowi wychodzący webhook",
   "no-name": "(Nieznóné)",

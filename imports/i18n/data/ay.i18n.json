@@ -1300,6 +1300,8 @@
   "disable-webhook": "jiwtʼayaña aka Webhook",
   "sandstorm-webhook-grant": "Aka grain ukaxa aka chiqaru purinxañapataki jaysañamawa",
   "sandstorm-webhook-granted": "Aka grain ukaxa aka chiqaru purinxaspawa",
+  "sandstorm-sync-grant": "Aka grain ukaxa aka tracker ukaru purinxañapataki jaysañamawa",
+  "sandstorm-sync-granted": "Aka grain ukaxa aka tracker ukaru purinxaspawa",
   "global-webhook": "Aymar aruna: Global Webhooks",
   "new-outgoing-webhook": "machaqa Outgoing Webhook",
   "no-name": "Aymar aruna: (Unknown)",

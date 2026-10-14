@@ -1300,6 +1300,8 @@
   "disable-webhook": "Vonoy ity webhook ity",
   "sandstorm-webhook-grant": "Avelao hifandray amin'ity adiresy ity ity grain ity",
   "sandstorm-webhook-granted": "Afaka mifandray amin'ity adiresy ity ity grain ity",
+  "sandstorm-sync-grant": "Avelao hifandray amin'ity mpanara-maso ity ity grain ity",
+  "sandstorm-sync-granted": "Afaka mifandray amin'ity mpanara-maso ity ity grain ity",
   "global-webhook": "Webhook manerantany",
   "new-outgoing-webhook": "Webhook mivoaka vaovao",
   "no-name": "(Tsy fantatra)",

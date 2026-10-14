@@ -1300,6 +1300,8 @@
   "disable-webhook": "Lemesa Kino Webhook",
   "sandstorm-webhook-grant": "Kkiriza grain eno okutuuka ku ndagiriro eno",
   "sandstorm-webhook-granted": "Grain eno esobola okutuuka ku ndagiriro eno",
+  "sandstorm-sync-grant": "Kkiriza grain eno okutuuka ku nkola eno ey'okulondoola",
+  "sandstorm-sync-granted": "Grain eno esobola okutuuka ku nkola eno ey'okulondoola",
   "global-webhook": "Webhooks za wonna",
   "new-outgoing-webhook": "Kipya Outgoing Webhook",
   "no-name": "(Tekimanyiddwa)",

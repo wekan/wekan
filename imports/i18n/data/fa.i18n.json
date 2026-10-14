@@ -1300,6 +1300,8 @@
   "disable-webhook": "حذف این وب‌هوک",
   "sandstorm-webhook-grant": "اجازه دادن به این grain برای دسترسی به این نشانی",
   "sandstorm-webhook-granted": "این grain می‌تواند به این نشانی دسترسی داشته باشد",
+  "sandstorm-sync-grant": "اجازه دادن به این grain برای دسترسی به این ردیاب",
+  "sandstorm-sync-granted": "این grain می‌تواند به این ردیاب دسترسی داشته باشد",
   "global-webhook": "وب‌هوک‌های سراسری",
   "new-outgoing-webhook": "ويبهوك جديدة",
   "no-name": "(ناشناخته)",

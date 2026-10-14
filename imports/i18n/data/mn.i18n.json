@@ -1300,6 +1300,8 @@
   "disable-webhook": "Энэ webhook-ийг идэвхгүй болгох",
   "sandstorm-webhook-grant": "Энэ grain-д энэ хаяг руу хандахыг зөвшөөрөх",
   "sandstorm-webhook-granted": "Энэ grain энэ хаяг руу хандаж болно",
+  "sandstorm-sync-grant": "Энэ grain-д энэ хяналтын систем рүү хандахыг зөвшөөрөх",
+  "sandstorm-sync-granted": "Энэ grain энэ хяналтын систем рүү хандаж болно",
   "global-webhook": "Глобал webhook-ууд",
   "new-outgoing-webhook": "Шинэ гарах webhook",
   "no-name": "(Тодорхойгүй)",

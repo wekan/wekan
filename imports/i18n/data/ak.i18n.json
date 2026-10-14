@@ -1300,6 +1300,8 @@
   "disable-webhook": "Gyae Eyi Webhook",
   "sandstorm-webhook-grant": "Ma grain yi kwan ma ɛnkɔ address yi so",
   "sandstorm-webhook-granted": "Grain yi tumi kɔ address yi so",
+  "sandstorm-sync-grant": "Ma grain yi kwan ma ɛnkɔ adwuma nhwɛfo yi so",
+  "sandstorm-sync-granted": "Grain yi tumi kɔ adwuma nhwɛfo yi so",
   "global-webhook": "Webhook a ɛfa nhyehyɛe no nyinaa ho",
   "new-outgoing-webhook": "Webhook foforo a ɛkɔ abɔnten",
   "no-name": "(Wonnim)",

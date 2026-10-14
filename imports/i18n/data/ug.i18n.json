@@ -1300,6 +1300,8 @@
   "disable-webhook": "بۇ Webhook نى چەكلەڭ",
   "sandstorm-webhook-grant": "بۇ grain نىڭ بۇ ئادرېسقا يېتىشىگە يول قويۇش",
   "sandstorm-webhook-granted": "بۇ grain بۇ ئادرېسقا يېتەلەيدۇ",
+  "sandstorm-sync-grant": "بۇ grain نىڭ بۇ ئىز قوغلىغۇچقا يېتىشىگە يول قويۇش",
+  "sandstorm-sync-granted": "بۇ grain بۇ ئىز قوغلىغۇچقا يېتەلەيدۇ",
   "global-webhook": "ئومۇمىي Webhook لار",
   "new-outgoing-webhook": "يېڭى چىققان Webhook",
   "no-name": "(نامەلۇم)",

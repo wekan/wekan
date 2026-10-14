@@ -1300,6 +1300,8 @@
   "disable-webhook": "Óvirkja henda webhook",
   "sandstorm-webhook-grant": "Loyv hesum grain at røkka hesa adressuna",
   "sandstorm-webhook-granted": "Hetta grain kann røkka hesa adressuna",
+  "sandstorm-sync-grant": "Loyv hesum grain at røkka hendan rakaran",
+  "sandstorm-sync-granted": "Hetta grain kann røkka hendan rakaran",
   "global-webhook": "Altøk webhooks",
   "new-outgoing-webhook": "Nýtt útrættað webhook",
   "no-name": "(Ókent)",

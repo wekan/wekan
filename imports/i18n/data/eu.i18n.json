@@ -1300,6 +1300,8 @@
   "disable-webhook": "Desgaitu Webhook hau",
   "sandstorm-webhook-grant": "Baimendu grain honi helbide honetara iristea",
   "sandstorm-webhook-granted": "Grain hau helbide honetara irits daiteke",
+  "sandstorm-sync-grant": "Baimendu grain honi jarraipen-sistema honetara iristea",
+  "sandstorm-sync-granted": "Grain hau jarraipen-sistema honetara irits daiteke",
   "global-webhook": "Webhook globalak",
   "new-outgoing-webhook": "Irteera-webhook berria",
   "no-name": "(Ezezaguna)",

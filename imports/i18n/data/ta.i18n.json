@@ -1300,6 +1300,8 @@
   "disable-webhook": "இந்த Webhook ஐ முடக்கு",
   "sandstorm-webhook-grant": "இந்த grain இந்த முகவரியை அடைய அனுமதி",
   "sandstorm-webhook-granted": "இந்த grain இந்த முகவரியை அடையலாம்",
+  "sandstorm-sync-grant": "இந்த grain இந்த கண்காணிப்பு அமைப்பை அடைய அனுமதி",
+  "sandstorm-sync-granted": "இந்த grain இந்த கண்காணிப்பு அமைப்பை அடையலாம்",
   "global-webhook": "உலகளாவிய Webhook கள்",
   "new-outgoing-webhook": "புதிய வெளிச்செல்லும் Webhook",
   "no-name": "(தெரியவில்லை)",

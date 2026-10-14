@@ -1300,6 +1300,8 @@
   "disable-webhook": "এই Webhook বন্ধ করুন",
   "sandstorm-webhook-grant": "এই grain-কে এই ঠিকানায় পৌঁছানোর অনুমতি দিন",
   "sandstorm-webhook-granted": "এই grain এই ঠিকানায় পৌঁছাতে পারে",
+  "sandstorm-sync-grant": "এই grain-কে এই ট্র্যাকারে পৌঁছানোর অনুমতি দিন",
+  "sandstorm-sync-granted": "এই grain এই ট্র্যাকারে পৌঁছাতে পারে",
   "global-webhook": "বৈশ্বিক Webhook",
   "new-outgoing-webhook": "নতুন বহির্গামী Webhook",
   "no-name": "(অজানা)",

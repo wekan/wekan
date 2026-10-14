@@ -1300,6 +1300,8 @@
   "disable-webhook": "ಈ ವೆಬ್‌ಹುಕ್ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ",
   "sandstorm-webhook-grant": "ಈ grain ಈ ವಿಳಾಸವನ್ನು ತಲುಪಲು ಅನುಮತಿಸಿ",
   "sandstorm-webhook-granted": "ಈ grain ಈ ವಿಳಾಸವನ್ನು ತಲುಪಬಹುದು",
+  "sandstorm-sync-grant": "ಈ grain ಈ ಟ್ರ್ಯಾಕರ್ ಅನ್ನು ತಲುಪಲು ಅನುಮತಿಸಿ",
+  "sandstorm-sync-granted": "ಈ grain ಈ ಟ್ರ್ಯಾಕರ್ ಅನ್ನು ತಲುಪಬಹುದು",
   "global-webhook": "ಜಾಗತಿಕ ವೆಬ್‌ಹುಕ್‌ಗಳು",
   "new-outgoing-webhook": "ಹೊಸ ಹೊರಹೋಗುವ ವೆಬ್‌ಹುಕ್",
   "no-name": "(ತಿಳಿದಿಲ್ಲ)",

@@ -1300,6 +1300,8 @@
   "disable-webhook": "Tima Eno Webhook",
   "sandstorm-webhook-grant": "Letla grain eno go fitlha aterese eno",
   "sandstorm-webhook-granted": "Grain eno e ka fitlha aterese eno",
+  "sandstorm-sync-grant": "Letla grain eno go fitlha tracker eno",
+  "sandstorm-sync-granted": "Grain eno e ka fitlha tracker eno",
   "global-webhook": "Ya lefatshe lotlhe Dikgokagano tsa webe",
   "new-outgoing-webhook": "Ntšhwa E e tswang Webhook",
   "no-name": "Tshedimosetso: (Unknown)",

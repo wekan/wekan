@@ -166,6 +166,20 @@ if (isSandstorm && Meteor.isClient) {
       });
   };
 
+  // A list's sync tracker, through the Powerbox: the server builds the query
+  // for the tracker's API root and keeps the grant for that destination.
+  window.sandstormRequestListSync = function(listId, saveLabel) {
+    return Meteor.callAsync('sandstormSyncDescriptor', listId)
+      .then(({ descriptor }) => sendRpc('powerboxRequest', {
+        query: [descriptor],
+        saveLabel: { defaultText: saveLabel },
+      }))
+      .then(response => {
+        if (response.canceled) return false;
+        return Meteor.callAsync('sandstormClaimSyncGrant', listId, response.token).then(() => true);
+      });
+  };
+
   // Since the Sandstorm grain is displayed in an iframe of the Sandstorm shell,
   // we need to explicitly expose meta data like the page title or the URL path
   // so that they could appear in the browser window.

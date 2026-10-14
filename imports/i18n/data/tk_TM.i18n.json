@@ -1300,6 +1300,8 @@
   "disable-webhook": "Bu web sahypasyny öçüriň",
   "sandstorm-webhook-grant": "Bu grain-e bu salga ýetmäge rugsat ber",
   "sandstorm-webhook-granted": "Bu grain bu salga ýetip biler",
+  "sandstorm-sync-grant": "Bu grain-e bu yzarlaýja ýetmäge rugsat ber",
+  "sandstorm-sync-granted": "Bu grain bu yzarlaýja ýetip biler",
   "global-webhook": "Global webhooks",
   "new-outgoing-webhook": "Täze çykýan webhook",
   "no-name": "(Näbelli)",

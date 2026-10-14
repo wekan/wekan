@@ -1300,6 +1300,8 @@
   "disable-webhook": "禁用搿只 Webhook",
   "sandstorm-webhook-grant": "允许搿个 grain 访问搿只地址",
   "sandstorm-webhook-granted": "搿个 grain 可以访问搿只地址",
+  "sandstorm-sync-grant": "允许搿个 grain 访问搿只跟踪系统",
+  "sandstorm-sync-granted": "搿个 grain 可以访问搿只跟踪系统",
   "global-webhook": "全局 Webhooks",
   "new-outgoing-webhook": "新的传出 Webhook",
   "no-name": "（未知）",

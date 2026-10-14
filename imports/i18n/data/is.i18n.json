@@ -1300,6 +1300,8 @@
   "disable-webhook": "Gera þessa vefkrækju óvirka",
   "sandstorm-webhook-grant": "Leyfa þessu graini að ná í þetta vistfang",
   "sandstorm-webhook-granted": "Þetta grain má ná í þetta vistfang",
+  "sandstorm-sync-grant": "Leyfa þessu graini að ná í þetta verkbeiðnakerfi",
+  "sandstorm-sync-granted": "Þetta grain má ná í þetta verkbeiðnakerfi",
   "global-webhook": "Altækar vefkrækjur",
   "new-outgoing-webhook": "Ný útfarandi vefkrækja",
   "no-name": "(Óþekkt)",

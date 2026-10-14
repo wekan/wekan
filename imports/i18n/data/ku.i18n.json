@@ -1300,6 +1300,8 @@
   "disable-webhook": "Vî Webhook neçalak bike",
   "sandstorm-webhook-grant": "Destûrê bide vê grainê ku bigihîje vê navnîşanê",
   "sandstorm-webhook-granted": "Ev grain dikare bigihîje vê navnîşanê",
+  "sandstorm-sync-grant": "Destûrê bide vê grainê ku bigihîje vê şopandinê",
+  "sandstorm-sync-granted": "Ev grain dikare bigihîje vê şopandinê",
   "global-webhook": "Webhookên giştî",
   "new-outgoing-webhook": "Webhooka derketî ya nû",
   "no-name": "(Nenas)",

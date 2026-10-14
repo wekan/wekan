@@ -1300,6 +1300,8 @@
   "disable-webhook": "Изключи този Webhook",
   "sandstorm-webhook-grant": "Разрешаване на този grain да достига този адрес",
   "sandstorm-webhook-granted": "Този grain може да достига този адрес",
+  "sandstorm-sync-grant": "Разрешаване на този grain да достига тази система за проследяване",
+  "sandstorm-sync-granted": "Този grain може да достига тази система за проследяване",
   "global-webhook": "Глобални Webhooks",
   "new-outgoing-webhook": "Нов Изходящ Webhook",
   "no-name": "(Непознат)",

@@ -1300,6 +1300,8 @@
   "disable-webhook": "Kay Webhook-ta wañuchiy",
   "sandstorm-webhook-grant": "Kay grain-ta kay tiyanaman chayananpaq saqiy",
   "sandstorm-webhook-granted": "Kay grain kay tiyanaman chayanman",
+  "sandstorm-sync-grant": "Kay grain-ta kay qhaway-machinaman chayananpaq saqiy",
+  "sandstorm-sync-granted": "Kay grain kay qhaway-machinaman chayanman",
   "global-webhook": "Tukuypaq Webhook-kuna",
   "new-outgoing-webhook": "Musuq lluqsiq Webhook",
   "no-name": "(Mana riqsisqa)",

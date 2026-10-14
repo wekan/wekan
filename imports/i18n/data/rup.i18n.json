@@ -1300,6 +1300,8 @@
   "disable-webhook": "Dizactiveadzã aestu webhook",
   "sandstorm-webhook-grant": "Alasã aestu grain s-agiungã la aestã adresã",
   "sandstorm-webhook-granted": "Aestu grain poati s-agiungã la aestã adresã",
+  "sandstorm-sync-grant": "Alasã aestu grain s-agiungã la aestu tracker",
+  "sandstorm-sync-granted": "Aestu grain poati s-agiungã la aestu tracker",
   "global-webhook": "Webhook-uri globali",
   "new-outgoing-webhook": "Webhook nou di ishiri",
   "no-name": "(Nicunuscut)",

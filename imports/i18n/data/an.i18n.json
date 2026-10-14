@@ -1300,6 +1300,8 @@
   "disable-webhook": "Deshabilitar iste Webhook",
   "sandstorm-webhook-grant": "Permitir que iste grain plegue a ista adreza",
   "sandstorm-webhook-granted": "Iste grain puede plegar a ista adreza",
+  "sandstorm-sync-grant": "Permitir que iste grain plegue a iste rastrejador",
+  "sandstorm-sync-granted": "Iste grain puede plegar a iste rastrejador",
   "global-webhook": "Webhooks globales",
   "new-outgoing-webhook": "Nuevo webhook saliente",
   "no-name": "(Desconocido)",

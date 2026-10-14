@@ -1300,6 +1300,8 @@
   "disable-webhook": "Bu Webhooku söndürün",
   "sandstorm-webhook-grant": "Bu grain-ə bu ünvana qoşulmağa icazə verin",
   "sandstorm-webhook-granted": "Bu grain bu ünvana qoşula bilər",
+  "sandstorm-sync-grant": "Bu grain-ə bu izləyiciyə qoşulmağa icazə verin",
+  "sandstorm-sync-granted": "Bu grain bu izləyiciyə qoşula bilər",
   "global-webhook": "Qlobal Webhooks",
   "new-outgoing-webhook": "Yeni Gedən Webhook",
   "no-name": "(Naməlum)",

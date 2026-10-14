@@ -1623,6 +1623,14 @@
     {
       "key": "sandstorm-webhook-granted",
       "since": "2026-10-14"
+    },
+    {
+      "key": "sandstorm-sync-grant",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "sandstorm-sync-granted",
+      "since": "2026-10-14"
     }
   ]
 }

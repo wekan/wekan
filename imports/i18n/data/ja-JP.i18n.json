@@ -1300,6 +1300,8 @@
   "disable-webhook": "このWebフックを無効化",
   "sandstorm-webhook-grant": "このグレインにこのアドレスへのアクセスを許可",
   "sandstorm-webhook-granted": "このグレインはこのアドレスにアクセスできます",
+  "sandstorm-sync-grant": "このグレインにこのトラッカーへのアクセスを許可",
+  "sandstorm-sync-granted": "このグレインはこのトラッカーにアクセスできます",
   "global-webhook": "グローバルWebフック",
   "new-outgoing-webhook": "発信Webフックの作成",
   "no-name": "(名前なし)",

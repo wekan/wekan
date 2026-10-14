@@ -1300,6 +1300,8 @@
   "disable-webhook": "Malŝalti ĉi tiun Webhook",
   "sandstorm-webhook-grant": "Permesi al ĉi tiu grajno atingi ĉi tiun adreson",
   "sandstorm-webhook-granted": "Ĉi tiu grajno rajtas atingi ĉi tiun adreson",
+  "sandstorm-sync-grant": "Permesi al ĉi tiu grajno atingi ĉi tiun spurilon",
+  "sandstorm-sync-granted": "Ĉi tiu grajno rajtas atingi ĉi tiun spurilon",
   "global-webhook": "Ĝeneralaj Webhook-oj",
   "new-outgoing-webhook": "Nova eliranta Webhook",
   "no-name": "(Nekonata)",

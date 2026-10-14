@@ -1300,6 +1300,8 @@
   "disable-webhook": "Lülita see veebikonks välja",
   "sandstorm-webhook-grant": "Luba sellel grainil sellele aadressile ühenduda",
   "sandstorm-webhook-granted": "See grain võib sellele aadressile ühenduda",
+  "sandstorm-sync-grant": "Luba sellel grainil selle jälgimissüsteemiga ühenduda",
+  "sandstorm-sync-granted": "See grain võib selle jälgimissüsteemiga ühenduda",
   "global-webhook": "Globaalsed veebikonksud",
   "new-outgoing-webhook": "Uus väljaminev veebikonks",
   "no-name": "(Tundmatu)",

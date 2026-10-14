@@ -1300,6 +1300,8 @@
   "disable-webhook": "हा Webhook बंद करा",
   "sandstorm-webhook-grant": "या ग्रेनला या पत्त्यापर्यंत पोहोचण्याची परवानगी द्या",
   "sandstorm-webhook-granted": "हा ग्रेन या पत्त्यापर्यंत पोहोचू शकतो",
+  "sandstorm-sync-grant": "या ग्रेनला या ट्रॅकरपर्यंत पोहोचण्याची परवानगी द्या",
+  "sandstorm-sync-granted": "हा ग्रेन या ट्रॅकरपर्यंत पोहोचू शकतो",
   "global-webhook": "जागतिक Webhooks",
   "new-outgoing-webhook": "नवीन बाहेर जाणारा Webhook",
   "no-name": "(अज्ञात)",

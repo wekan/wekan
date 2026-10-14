@@ -1300,6 +1300,8 @@
   "disable-webhook": "Lumpuhkan Cangkuk Web Ini",
   "sandstorm-webhook-grant": "Benarkan grain ini mencapai alamat ini",
   "sandstorm-webhook-granted": "Grain ini boleh mencapai alamat ini",
+  "sandstorm-sync-grant": "Benarkan grain ini mencapai penjejak ini",
+  "sandstorm-sync-granted": "Grain ini boleh mencapai penjejak ini",
   "global-webhook": "Cangkuk Web Global",
   "new-outgoing-webhook": "Cangkuk Web Keluar Baru",
   "no-name": "(Tidak Diketahui)",

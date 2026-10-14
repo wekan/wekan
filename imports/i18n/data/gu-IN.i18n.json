@@ -1300,6 +1300,8 @@
   "disable-webhook": "આ વેબહૂકને અક્ષમ કરો",
   "sandstorm-webhook-grant": "આ grain ને આ સરનામા સુધી પહોંચવાની મંજૂરી આપો",
   "sandstorm-webhook-granted": "આ grain આ સરનામા સુધી પહોંચી શકે છે",
+  "sandstorm-sync-grant": "આ grain ને આ ટ્રેકર સુધી પહોંચવાની મંજૂરી આપો",
+  "sandstorm-sync-granted": "આ grain આ ટ્રેકર સુધી પહોંચી શકે છે",
   "global-webhook": "વૈશ્વિક વેબહુક્સ",
   "new-outgoing-webhook": "નવું આઉટગોઇંગ વેબહૂક",
   "no-name": "(અજ્ઞાત)",

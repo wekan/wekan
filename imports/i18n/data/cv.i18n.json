@@ -1300,6 +1300,8 @@
   "disable-webhook": "Ҫак webhookа хутмас",
   "sandstorm-webhook-grant": "Ҫак grain-а ҫак адреса ҫитме ирӗк пар",
   "sandstorm-webhook-granted": "Ҫак grain ҫак адреса ҫитме пултарать",
+  "sandstorm-sync-grant": "Ҫак grain-а ҫак трекера ҫитме ирӗк пар",
+  "sandstorm-sync-granted": "Ҫак grain ҫак трекера ҫитме пултарать",
   "global-webhook": "Тӗп webhookсем",
   "new-outgoing-webhook": "Ҫӗнӗ тухакан webhook",
   "no-name": "(Паллӑ мар)",

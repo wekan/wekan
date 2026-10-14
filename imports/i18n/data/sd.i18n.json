@@ -1300,6 +1300,8 @@
   "disable-webhook": "هي ويب هُڪ غير فعال ڪريو",
   "sandstorm-webhook-grant": "هن grain کي هن پتي تائين پهچڻ جي اجازت ڏيو",
   "sandstorm-webhook-granted": "هي grain هن پتي تائين پهچي سگهي ٿو",
+  "sandstorm-sync-grant": "هن grain کي هن ٽريڪر تائين پهچڻ جي اجازت ڏيو",
+  "sandstorm-sync-granted": "هي grain هن ٽريڪر تائين پهچي سگهي ٿو",
   "global-webhook": "عالمي ويب هُڪ",
   "new-outgoing-webhook": "نئون ٻاهر ويندڙ ويب هُڪ",
   "no-name": "(اڻڄاتل)",

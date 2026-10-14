@@ -1300,6 +1300,8 @@
   "disable-webhook": "Kwala webhook ena",
   "sandstorm-webhook-grant": "Dumella grain ena ho fihlella aterese ena",
   "sandstorm-webhook-granted": "Grain ena e ka fihlella aterese ena",
+  "sandstorm-sync-grant": "Dumella grain ena ho fihlella tsamaiso ena ya ho latela",
+  "sandstorm-sync-granted": "Grain ena e ka fihlella tsamaiso ena ya ho latela",
   "global-webhook": "Di-webhook tsa lefatshe",
   "new-outgoing-webhook": "Webhook e ntjha e tswang",
   "no-name": "(Ha e tsejwe)",

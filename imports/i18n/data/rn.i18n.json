@@ -1300,6 +1300,8 @@
   "disable-webhook": "Zimya iyi Webhook",
   "sandstorm-webhook-grant": "Emera iyi grain gushika kuri iyi aderese",
   "sandstorm-webhook-granted": "Iyi grain irashobora gushika kuri iyi aderese",
+  "sandstorm-sync-grant": "Emera iyi grain gushika kuri iki gikoresho co gukurikirana",
+  "sandstorm-sync-granted": "Iyi grain irashobora gushika kuri iki gikoresho co gukurikirana",
   "global-webhook": "Webhooks zo hose",
   "new-outgoing-webhook": "Webhook nshasha isohoka",
   "no-name": "(Ntibizwi)",
