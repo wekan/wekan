@@ -4288,6 +4288,21 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bc97a96117452f461fd9300b399c68255aa96263">Translate twelve more Irish import guides</a>. Thanks to xet7.</summary>
+
+Translate Tasks.org, monday.com, Super Productivity, Taiga, Vikunja, Quire,
+Wrike, Teamwork, Businessmap, Redmine, Notion and Plane import instructions.
+Keep required English column names, nested-task markers, field mappings and
+warnings about content missing from exports explicit.
+
+The Irish catalog and guarded-correction suites pass with 30,330 audited
+corrections. All 21 human-preference checks pass; 38,430 existing Chinese values
+remain unchanged. All 22 Irish import-help browser cases pass syntax and
+discovery; runtime remains pending. All-language review remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

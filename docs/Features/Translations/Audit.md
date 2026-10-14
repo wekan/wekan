@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Irish import guidance, second batch — 2026-10-14
+
+Commit `bc97a96117` translates twelve guides: Tasks.org, monday.com, Super
+Productivity, Taiga, Vikunja, Quire, Wrike, Teamwork, Businessmap, Redmine,
+Notion and Plane. English column-name requirements, nested-task markers,
+completion dates and omitted attachments, comments, relations or descriptions
+remain explicit. External provider interfaces were not revalidated.
+
+The Irish catalog and guarded-correction suites pass with 30,330 correction
+ledger entries. All 21 human-preference checks pass; exact comparison preserves
+38,430 existing Chinese values. All 22 Irish import-help browser cases pass
+syntax and discovery; runtime remains pending.
+
+Remaining Irish feature text and all-language semantic review are unfinished.
+
 ## Irish import guidance, first batch — 2026-10-14
 
 Commit `6be0ca89dc` translates ten English guides: OPML, Org mode, MeisterTask,
