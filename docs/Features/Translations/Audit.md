@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Malagasy workflows and administration — 2026-10-14
+
+Commit `9c09c273d4` translates 25 messages for Wrike workflows, LDAP sync,
+OAuth domain restrictions, import selection, subtask permissions and Blockly
+fragments. Status mappings, read-only scope, empty-domain behavior, technical
+identifiers and numeric placeholders remain intact.
+
+The Malagasy catalog and guarded-correction suites pass with 30,104 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. Two subtask cases and one LDAP case
+cover successful actions and denied access. Syntax and discovery pass; runtime
+execution remains pending. Wrike guidance follows the current English source;
+external provider behavior was not revalidated.
+
+Further Malagasy translations and all-language semantic review remain unfinished.
+
 ## Malagasy integrations and notification delivery — 2026-10-14
 
 Commit `519e99e4f3` translates 45 messages for Sandstorm access, external-link
