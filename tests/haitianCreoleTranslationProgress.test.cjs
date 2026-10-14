@@ -529,3 +529,30 @@ for (const key of ['wip-limit-group-select-swimlane', 'wip-limit-group-apply-swi
 }
 assert.match(creole['sum-of-number-fields'], /Sòm valè.*nimerik.*ki make.*anlè lis/);
 assert.doesNotMatch(creole['sum-of-number-fields'], /kantite chan/);
+
+const reviewedFlowMeaningKeys = ["list-sync-last-synced-never", "drag-to-reorder", "board-view-aging-wip", "board-view-blocker-analysis", "board-view-monte-carlo", "board-view-process-behavior", "board-view-size-cycle-time", "flow-age-days", "flow-p85", "flow-samples", "flow-signal", "flow-unusual", "flow-blocker", "flow-episodes", "flow-active", "flow-blocked-days", "flow-unknown-start", "flow-confidence", "flow-target-count", "flow-finish-days", "flow-finish-date", "flow-target-date", "flow-capacity", "flow-beyond-horizon", "flow-mean", "flow-moving-range", "flow-mr-mean", "flow-size-source", "flow-size", "flow-error", "flow-details", "flow-note-agingWip", "flow-note-blockerAnalysis", "flow-note-monteCarlo", "flow-note-processBehavior", "flow-note-sizeCycleTime", "move-reason", "ask-move-reason", "time-adjustments"];
+
+for (const key of reviewedFlowMeaningKeys) {
+  assert.notEqual(creole[key], english[key], key);
+  assert.deepEqual(tokens(creole[key]), tokens(english[key]), key);
+}
+assert.equal(creole['list-sync-last-synced-never'], 'Pa janm');
+assert.match(creole['drag-to-reorder'], /^Trennen.*Touch flèch monte ak desann/);
+assert.match(creole['board-view-monte-carlo'], /Previzyon/);
+assert.doesNotMatch(creole['board-view-monte-carlo'], /Istogram/);
+assert.match(creole['board-view-blocker-analysis'], /Analiz blokaj/);
+assert.match(creole['flow-active'], /toujou ouvè/);
+assert.match(creole['flow-confidence'], /konfyans/);
+assert.match(creole['flow-error'], /chaje rapò.*Verifye valè.*eseye ankò/);
+assert.match(creole['flow-capacity'], /Omwen/);
+assert.match(creole['flow-note-agingWip'], /etap aktyèl.*Ba wouj.*85%.*omwen senk.*istorik antre.*manke.*enkoni/);
+assert.match(creole['flow-note-blockerAnalysis'], /kòmanse ak fini.*ansyen lyen.*enkoni.*kat ki efase.*istorik.*konsève.*sipèpoze.*apa/);
+assert.match(creole['flow-note-monteCarlo'], /2,000.*UTC.*okenn kat pa fini.*siperyè.*enferyè.*sipoze.*pa yon garanti.*3,650.*pa gen previzyon/);
+assert.match(creole['flow-note-processBehavior'], /Kòmansman.*kreyasyon.*Fen.*achiv.*youn apre lòt.*limit natirèl.*omwen de.*valab/);
+assert.match(creole['flow-note-sizeCycleTime'], /Planning Poker.*nimerik.*an jou.*pa pran.*manke.*pa valab.*Kòmansman.*kreyasyon.*Fen.*achiv/);
+for (const key of ['flow-note-agingWip', 'flow-note-blockerAnalysis', 'flow-note-monteCarlo', 'flow-note-processBehavior', 'flow-note-sizeCycleTime']) {
+  assert.doesNotMatch(creole[key], /→|≥|≤|✓|MR̄/);
+}
+assert.match(creole['move-reason'], /Rezon.*opsyonèl/);
+assert.match(creole['ask-move-reason'], /rezon.*deplase kat/);
+assert.match(creole['time-adjustments'], /Ajisteman tan selon otè/);

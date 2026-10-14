@@ -209039,5 +209039,278 @@
     "before": "Total kantite chan nimewo pèsonalize ki montre anwo lis la",
     "after": "Sòm valè chan pèsonalize nimerik ki make pou parèt anlè lis la",
     "reason": "Correct WIP group versus enable-limit wording, swimlane scope and numeric-value sum versus field-count meaning."
+  },
+  {
+    "locale": "ht",
+    "key": "list-sync-last-synced-never",
+    "before": "Janm",
+    "after": "Pa janm",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "drag-to-reorder",
+    "before": "Trage pou chanje lòd la. Kle flèch monte ak desann yo deplase yon pozisyon.",
+    "after": "Trennen pou chanje lòd la. Touch flèch monte ak desann yo deplase yon pozisyon.",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "board-view-aging-wip",
+    "before": "Vyeyisman kat — Lis",
+    "after": "Laj travay an kou (WIP)",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "board-view-blocker-analysis",
+    "before": "Depandans — Estatistik",
+    "after": "Analiz blokaj",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "board-view-monte-carlo",
+    "before": "Monte Carlo — Istogram pwodiktivite",
+    "after": "Previzyon Monte Carlo",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "board-view-process-behavior",
+    "before": "XmR — Tan sik",
+    "after": "Konpòtman pwosesis (XmR)",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "board-view-size-cycle-time",
+    "before": "Gwosè / Tan sik",
+    "after": "Gwosè eleman travay parapò ak tan sik",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-age-days",
+    "before": "Lis — Dire (jou)",
+    "after": "Laj nan etap la (jou)",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-p85",
+    "before": "Lis — P85 (jou)",
+    "after": "Valè ki depase 85% sejou istorik etap la (jou)",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-samples",
+    "before": "Istorik — n",
+    "after": "Sejou nan istorik la",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-signal",
+    "before": "Limit",
+    "after": "Siyal",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-unusual",
+    "before": "Limit ⚠",
+    "after": "Depase limit",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-blocker",
+    "before": "Bloke",
+    "after": "Kat ki bloke lòt kat",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-episodes",
+    "before": "Depandans — Istorik",
+    "after": "Epizòd",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-active",
+    "before": "Depandans — Fen —",
+    "after": "Epizòd ki toujou ouvè",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-blocked-days",
+    "before": "Bloke pa (Kat yo × jou)",
+    "after": "Jou-kat bloke",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-unknown-start",
+    "before": "Kòmanse — (enkoni)",
+    "after": "Kòmansman enkoni",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-confidence",
+    "before": "Estatistik (%)",
+    "after": "Nivo konfyans",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-target-count",
+    "before": "Kat yo — Nimewo",
+    "after": "Kantite kat sib",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-finish-days",
+    "before": "Fini (jou)",
+    "after": "Kantite jou pou fini",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-finish-date",
+    "before": "Fini — Dat",
+    "after": "Dat pou fini",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-target-date",
+    "before": "Dat limit",
+    "after": "Dat sib",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-capacity",
+    "before": "Kat yo ≥",
+    "after": "Omwen kantite kat sa a",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-beyond-horizon",
+    "before": "> 3650 jou",
+    "after": "Depase peryòd simulasyon an",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-mean",
+    "before": "Tan sik — x̄",
+    "after": "Mwayèn",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-moving-range",
+    "before": "|Δ Tan sik|",
+    "after": "Diferans absoli ant de valè youn apre lòt",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-mr-mean",
+    "before": "MR̄",
+    "after": "Mwayèn diferans absoli ant valè youn apre lòt",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-size-source",
+    "before": "Gwosè — Chan pèsonalize",
+    "after": "Chan gwosè",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-size",
+    "before": "Gwosè",
+    "after": "Estimasyon",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-error",
+    "before": "Erè — Estatistik",
+    "after": "Pa t kapab chaje rapò a. Verifye valè yo epi eseye ankò.",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-details",
+    "before": "Detay — Istorik",
+    "after": "Istorik ki sèvi kòm baz",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-note-agingWip",
+    "before": "Lis: Kòmanse → Dire. P85: n ≥ 5. (enkoni): —.",
+    "after": "Kat ki ouvè yo: kantite jou depi yo antre nan etap aktyèl la. Ba wouj yo depase valè ki kouvri 85% sejou istorik etap la (omwen senk sejou). Lè istorik antre a manke, laj la enkoni.",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-note-blockerAnalysis",
+    "before": "Depandans: Istorik → Kòmanse / Fen. Kòmanse (enkoni): —.",
+    "after": "Istorik depandans lan bay lè blokaj yo kòmanse ak fini pou chak etap. Lè ansyen lyen yo kòmanse ka enkoni. Pou kat ki efase yo, fòk kopi istorik yo te konsève. Kòz ki sipèpoze yo konte apa.",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-note-monteCarlo",
+    "before": "Monte Carlo: 2000 × Istorik. jou: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kat yo ≥; Dire ≤. Limit: 3650 jou.",
+    "after": "2,000 esè pran echantiyon nan jou kalandriye UTC antye, menm jou kote okenn kat pa fini. Dat yo se previzyon nan pati siperyè distribisyon an; kantite yo se angajman nan pati enferyè a. Sa sipoze pwodiktivite a ap sanble nan lavni; se pa yon garanti. Peryòd maksimòm: 3,650 jou. Si okenn kat pa fini, pa gen previzyon.",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-note-processBehavior",
+    "before": "XmR: Tan sik; Kòmanse → Fini. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
+    "after": "Tan sik la sèvi ak dat Kòmansman an, oswa dat kreyasyon an si li manke, epi ak dat Fen an, oswa dat achiv la si li manke. XmR montre valè endividyèl yo ak diferans ant valè youn apre lòt, ansanm ak mwayèn nan ak limit natirèl pwosesis la; fòk gen omwen de kat ki fini ak done valab.",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "flow-note-sizeCycleTime",
+    "before": "X: Planning Poker / Nimewo. Y: Tan sik (jou). (enkoni): —.",
+    "after": "Estimasyon Planning Poker aktyèl la oswa yon chan pèsonalize nimerik parapò ak tan sik travay ki fini yo an jou. Yo pa pran estimasyon ki manke ak dat ki pa valab yo an kont. Si dat Kòmansman an manke, yo sèvi ak dat kreyasyon an; si dat Fen an manke, yo sèvi ak dat achiv la.",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "move-reason",
+    "before": "Deplase kat la — Deskripsyon",
+    "after": "Rezon deplasman an (opsyonèl)",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "ask-move-reason",
+    "before": "Deplase kat la → Deskripsyon?",
+    "after": "Mande yon rezon lè yo deplase kat",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "time-adjustments",
+    "before": "èdtan — Δ — Non itilizatè",
+    "after": "Ajisteman tan selon otè",
+    "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
   }
 ]
