@@ -31,7 +31,19 @@ test('the bundle is rebuilt by the Android Node.js itself, checked and started',
   const build = read('releases/android/build-bundle.sh');
   assert.match(build, /process\.platform !== "android"/, 'an Android Node.js, not Termux\'s or the host\'s');
   assert.match(build, /npm\(\) \{ "\$node" "\$npm_cli" "\$@"; \}/, 'npm run by that Node.js, so addons build for it');
-  assert.match(build, /npm_config_build_from_source=sharp npm install/);
+  // sharp is an application package (programs/server/npm/node_modules): its
+  // glibc packages go from there, and it is built from source in its own
+  // directory, falling back to WebAssembly with a warning. Until v12.44 both
+  // happened in programs/server/node_modules, where sharp is not.
+  assert.match(build, /appmods="\$server\/npm\/node_modules"\nrm -rf "\$appmods\/@img\/sharp-linux-"\*/);
+  assert.doesNotMatch(build, /rm -rf "\$server\/node_modules\/@img/, 'not the wrong directory');
+  assert.match(build, /cd "\$appmods\/sharp" && npm install --no-save --omit=dev node-addon-api node-gyp && "\$node" install\/build\.js/);
+  assert.match(build, /::warning::sharp could not be built[^\n]*WebAssembly/);
+  // Termux's user does not own the bind mount: chmod only what is not
+  // already executable (v12.43-v12.44 stopped at "Operation not permitted").
+  assert.match(build, /\[ -x "\$node" \] \|\| chmod \+x "\$node"/);
+  assert.doesNotMatch(build, /^chmod \+x/m, 'no unconditional chmod');
+  assert.match(build, /\(cd "\$server\/npm" && "\$root\/bundle\/node" -e 'const s = require\("sharp"\)/, 'sharp resolves where the application resolves it');
   assert.match(build, /rm -rf "\$root\/bundle\/node-runtime"/);
   assert.match(build, /check-addon-arch\.mjs" "\$root\/bundle" "\$arch" --platform linux/);
   assert.match(build, /require\("sharp"\)/);

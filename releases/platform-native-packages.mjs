@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 // Give a bundle the platform packages its own platform and CPU load.
 //
-//     node releases/platform-native-packages.mjs <bundle dir> <win32|linux|darwin> <arch> [--dry-run]
+//     node releases/platform-native-packages.mjs <bundle dir> <win32|linux|darwin> <arch> [--libc glibc|musl] [--dry-run]
+//
+// --libc musl is for the Alpine bundles (releases/musl/build-bundle.sh): sharp's
+// @img/sharp-linuxmusl-<arch> and canvas's -musl package instead of glibc's.
 //
 // <arch> is Node's name for the CPU (process.arch): x64, arm64, ia32, arm,
 // ppc64, s390x, riscv64, loong64. ppc64le is `ppc64` to Node, and armv6,
@@ -55,24 +58,27 @@ const WASM = '@img/sharp-wasm32';
 
 // The package sharp loads on <platform>-<arch>, at the version sharp pins -
 // or null when sharp publishes none and falls back to WebAssembly.
-export function sharpPlatformSpec(sharpPackageJson, platform, arch) {
+// On musl Linux sharp's packages are named linuxmusl (@img/sharp-linuxmusl-x64).
+export function sharpPlatformSpec(sharpPackageJson, platform, arch, libc = 'glibc') {
   if (noNativeReason(platform, arch)) return null;
-  const name = `@img/sharp-${platform}-${arch}`;
+  const name = `@img/sharp-${platform === 'linux' && libc === 'musl' ? 'linuxmusl' : platform}-${arch}`;
   const version = sharpPackageJson.optionalDependencies?.[name];
   return version ? { name, version } : null;
 }
 
-// The package @napi-rs/canvas loads on <platform>-<arch>: glibc on Linux, MSVC
-// on Windows, never musl. pdfjs-dist 6 needs it to load AT ALL (it builds a
+// The package @napi-rs/canvas loads on <platform>-<arch>: glibc on Linux (or
+// -musl for the Alpine bundles), MSVC on Windows. pdfjs-dist 6 needs it to load AT ALL (it builds a
 // DOMMatrix at module load), so without it PDF attachment text is not indexed
 // for search. There is no fallback, and none for ppc64, s390x, ia32, loong64.
 // The candidate names are compared as strings, never compiled into a RegExp:
 // platform and arch come from the command line (CodeQL alert #564).
-export function canvasPlatformSpec(canvasPackageJson, platform, arch) {
+export function canvasPlatformSpec(canvasPackageJson, platform, arch, libc = 'glibc') {
   if (noNativeReason(platform, arch)) return null;
   const deps = canvasPackageJson.optionalDependencies || {};
   const base = `@napi-rs/canvas-${platform}-${arch}`;
-  const candidates = [base, `${base}-gnu`, `${base}-gnueabihf`, `${base}-msvc`];
+  const candidates = platform === 'linux' && libc === 'musl'
+    ? [`${base}-musl`]
+    : [base, `${base}-gnu`, `${base}-gnueabihf`, `${base}-msvc`];
   const name = Object.keys(deps).find((n) => candidates.includes(n));
   return name ? { name, version: deps[name] } : null;
 }
@@ -179,7 +185,7 @@ function packageDirs(root, out = []) {
 }
 
 // Packages npm would not install on <platform>-<arch>.
-export function foreignPackages(serverDir, platform, arch) {
+export function foreignPackages(serverDir, platform, arch, libc = 'glibc') {
   const foreign = [];
   for (const dir of new Set(packageDirs(serverDir))) {
     const manifest = join(dir, 'package.json');
@@ -190,7 +196,7 @@ export function foreignPackages(serverDir, platform, arch) {
     } catch {
       continue;
     }
-    if (!packageAllows(pkg, platform, arch)) foreign.push(dir);
+    if (!packageAllows(pkg, platform, arch, libc)) foreign.push(dir);
   }
   // A removed package takes its own nested node_modules with it.
   return foreign.filter((d) => !foreign.some((o) => o !== d && d.startsWith(o + sep)));
@@ -226,7 +232,7 @@ function writePackage(dest, files) {
   }
 }
 
-export async function addPlatformNativePackages(bundle, platform, arch, { dryRun = false, log = console.log } = {}) {
+export async function addPlatformNativePackages(bundle, platform, arch, { dryRun = false, log = console.log, libc = 'glibc' } = {}) {
   if (!TARGETS[platform]?.includes(arch)) {
     throw new Error(`unknown target ${platform}-${arch}; expected one of ${Object.entries(TARGETS).map(([p, a]) => `${p}-{${a.join(',')}}`).join(' ')}`);
   }
@@ -236,7 +242,7 @@ export async function addPlatformNativePackages(bundle, platform, arch, { dryRun
   if (!existsSync(sharpManifest)) throw new Error(`no sharp in ${relative(bundle, modules)}`);
   const sharp = JSON.parse(readFileSync(sharpManifest, 'utf8'));
 
-  const removed = foreignPackages(server, platform, arch);
+  const removed = foreignPackages(server, platform, arch, libc);
   for (const dir of removed) {
     log(`remove  ${relative(bundle, dir)} (its package.json names another platform)`);
     if (!dryRun) rmSync(dir, { recursive: true, force: true });
@@ -261,7 +267,7 @@ export async function addPlatformNativePackages(bundle, platform, arch, { dryRun
   };
   const why = noNativeReason(platform, arch);
 
-  const spec = sharpPlatformSpec(sharp, platform, arch);
+  const spec = sharpPlatformSpec(sharp, platform, arch, libc);
   if (spec) {
     await install(spec);
   } else {
@@ -282,13 +288,13 @@ export async function addPlatformNativePackages(bundle, platform, arch, { dryRun
 
   const canvasManifest = join(modules, '@napi-rs', 'canvas', 'package.json');
   if (existsSync(canvasManifest)) {
-    const cspec = canvasPlatformSpec(JSON.parse(readFileSync(canvasManifest, 'utf8')), platform, arch);
+    const cspec = canvasPlatformSpec(JSON.parse(readFileSync(canvasManifest, 'utf8')), platform, arch, libc);
     if (cspec) await install(cspec);
     else log(`none    @napi-rs/canvas for ${platform}-${arch} (${why || 'none is published'}): PDF attachment text is not indexed for search here`);
   }
 
   if (dryRun) return { removed: removed.map((d) => relative(bundle, d)), added, errors: [] };
-  const { errors, good, skipped } = checkAddonArch(bundle, arch, required, { platform });
+  const { errors, good, skipped } = checkAddonArch(bundle, arch, required, { platform, libc });
   for (const g of good) log(`ok      ${g}`);
   for (const s of skipped) log(`--      ${s} (another platform's package)`);
   return { removed: removed.map((d) => relative(bundle, d)), added, errors };
@@ -296,12 +302,18 @@ export async function addPlatformNativePackages(bundle, platform, arch, { dryRun
 
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
   const args = process.argv.slice(2).filter((a) => a !== '--dry-run');
-  const [bundle, platform, arch] = args;
-  if (!bundle || !platform || !arch) {
-    console.error('usage: platform-native-packages.mjs <bundle dir> <win32|linux|darwin|freebsd|openbsd|netbsd> <arch> [--dry-run]');
+  const li = args.indexOf('--libc');
+  const libc = li === -1 ? 'glibc' : args.splice(li, 2)[1];
+  if (!['glibc', 'musl'].includes(libc)) {
+    console.error(`--libc is glibc or musl, not ${libc}`);
     process.exit(2);
   }
-  addPlatformNativePackages(bundle, platform, arch, { dryRun: process.argv.includes('--dry-run') })
+  const [bundle, platform, arch] = args;
+  if (!bundle || !platform || !arch) {
+    console.error('usage: platform-native-packages.mjs <bundle dir> <win32|linux|darwin|freebsd|openbsd|netbsd> <arch> [--libc glibc|musl] [--dry-run]');
+    process.exit(2);
+  }
+  addPlatformNativePackages(bundle, platform, arch, { dryRun: process.argv.includes('--dry-run'), libc })
     .then(({ errors }) => {
       for (const e of errors) console.log(`::error::${e}`);
       if (errors.length) process.exit(1);

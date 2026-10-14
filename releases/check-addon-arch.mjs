@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Check that a bundle's native addons are built for its own platform and CPU.
 //
-//     node releases/check-addon-arch.mjs <bundle dir> <arch> [package ...] [--platform win32|linux|darwin]
+//     node releases/check-addon-arch.mjs <bundle dir> <arch> [package ...] [--platform win32|linux|darwin] [--libc glibc|musl]
 //
 // <arch> is Node's name for the CPU (process.arch): x64, arm64, ia32, arm,
 // ppc64, s390x, riscv64, loong64. --platform defaults to win32.
@@ -91,21 +91,23 @@ export function listAllows(list, value) {
   return positive.length === 0 || positive.includes(value);
 }
 
-export function packageAllows(pkg, platform, arch) {
+// `libc` is the Linux C library the bundle runs on: glibc, or musl for the
+// Alpine bundles (releases/musl/).
+export function packageAllows(pkg, platform, arch, libc = 'glibc') {
   return listAllows(pkg.os, platform) && listAllows(pkg.cpu, arch) &&
-    (platform !== 'linux' || listAllows(pkg.libc, 'glibc'));
+    (platform !== 'linux' || listAllows(pkg.libc, libc));
 }
 
 // The package a file belongs to, if its package.json declares a platform
 // this target is not: such a package is never loaded here.
-function foreignPlatformPackage(bundle, file, platform, arch) {
+function foreignPlatformPackage(bundle, file, platform, arch, libc) {
   let dir = dirname(file);
   while (dir.length >= bundle.length) {
     const manifest = join(dir, 'package.json');
     if (existsSync(manifest)) {
       try {
         const pkg = JSON.parse(readFileSync(manifest, 'utf8'));
-        if (!packageAllows(pkg, platform, arch)) return relative(bundle, dir);
+        if (!packageAllows(pkg, platform, arch, libc)) return relative(bundle, dir);
       } catch {
         // An unreadable manifest declares nothing.
       }
@@ -140,7 +142,7 @@ const describe = (k) => {
 };
 const PLATFORM_NAME = { win32: 'Windows', linux: 'Linux', darwin: 'macOS' };
 
-export function checkAddonArch(bundle, arch, packages = [], { platform = 'win32' } = {}) {
+export function checkAddonArch(bundle, arch, packages = [], { platform = 'win32', libc = 'glibc' } = {}) {
   if (MACHINES[platform]?.[arch] === undefined) {
     throw new Error(`unknown target ${platform}-${arch}; ${platform} CPUs: ${Object.keys(MACHINES[platform] || {}).join(', ')}`);
   }
@@ -150,7 +152,7 @@ export function checkAddonArch(bundle, arch, packages = [], { platform = 'win32'
   const skipped = [];
   const files = walk(bundle);
   for (const f of files) {
-    if (foreignPlatformPackage(bundle, f, platform, arch)) {
+    if (foreignPlatformPackage(bundle, f, platform, arch, libc)) {
       skipped.push(relative(bundle, f));
       continue;
     }
@@ -200,12 +202,14 @@ if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1]
   const args = process.argv.slice(2);
   const pi = args.indexOf('--platform');
   const platform = pi === -1 ? 'win32' : args.splice(pi, 2)[1];
+  const li = args.indexOf('--libc');
+  const libc = li === -1 ? 'glibc' : args.splice(li, 2)[1];
   const [bundle, arch, ...packages] = args;
   if (!bundle || !arch || !statSync(bundle, { throwIfNoEntry: false })?.isDirectory()) {
-    console.error('usage: check-addon-arch.mjs <bundle dir> <arch> [package ...] [--platform win32|linux|darwin]');
+    console.error('usage: check-addon-arch.mjs <bundle dir> <arch> [package ...] [--platform win32|linux|darwin] [--libc glibc|musl]');
     process.exit(2);
   }
-  const { errors, good, skipped } = checkAddonArch(bundle, arch, packages, { platform });
+  const { errors, good, skipped } = checkAddonArch(bundle, arch, packages, { platform, libc });
   for (const g of good) console.log(`ok  ${g}`);
   for (const s of skipped) console.log(`--  ${s} (its package is for another platform)`);
   for (const e of errors) console.log(`::error::${e}`);

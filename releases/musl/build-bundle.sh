@@ -8,11 +8,15 @@
 #   - bundle/node becomes the musl Node.js of the same version, already
 #     downloaded and checked against its SHASUMS256 into musl-tools/;
 #   - bundle/node-runtime, the glibc libraries Node.js needed, goes;
-#   - npm reinstalls programs/server here, so every native addon is compiled
-#     against musl and npm picks the musl platform packages (sharp's
-#     @img/sharp-linuxmusl-*, @napi-rs/canvas-linux-*-musl), which it chooses
-#     by package.json `libc` - releases/platform-native-packages.mjs assumes
-#     glibc, so it is not run here;
+#   - npm reinstalls programs/server here, so every native addon Meteor's own
+#     server packages build is compiled against musl;
+#   - the application's packages (programs/server/npm/node_modules) are not
+#     what that install touches: their platform packages are swapped by
+#     releases/platform-native-packages.mjs --libc musl, which removes the
+#     glibc ones (sharp's @img/sharp-linux-*, @napi-rs/canvas-linux-*-gnu)
+#     and adds sharp's @img/sharp-linuxmusl-* and canvas's -musl package,
+#     sha512-checked. (v12.41-v12.44 removed the glibc ones from the wrong
+#     directory and never added the musl ones, so sharp did not load.)
 #   - check-addon-arch.mjs then reads every .node header, and the bundle is
 #     started as a user starts it and must answer HTTP 200.
 #
@@ -33,9 +37,6 @@ node -e 'const h = process.report.getReport().header; if (h.glibcVersionRuntime)
 node -e 'if (process.arch !== process.argv[1]) { console.error(`node says ${process.arch}, expected ${process.argv[1]}`); process.exit(1); }' "$arch"
 
 server="$root/bundle/programs/server"
-# glibc platform packages the glibc install left: npm adds the musl ones.
-rm -rf "$server/node_modules/@img/sharp-linux-"* "$server/node_modules/@img/sharp-libvips-linux-"* \
-  "$server/node_modules/@napi-rs/canvas-linux-"*"-gnu"
 bcrypt="$server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
 if [ -d "$bcrypt" ]; then
   (cd "$bcrypt" && npm install --no-save node-addon-api@^8 >/dev/null 2>&1 || true)
@@ -51,7 +52,9 @@ cp "$root/musl-tools/bin/node" "$root/bundle/node"
 chmod +x "$root/bundle/node" "$root/bundle/ferretdb"
 touch "$root/bundle/.ferretdb-default"
 
-node "$root/releases/check-addon-arch.mjs" "$root/bundle" "$arch" --platform linux
-# sharp must load here, with its musl package: thumbnails depend on it.
-(cd "$server" && "$root/bundle/node" -e 'require("sharp"); console.log("sharp loads on musl")')
+node "$root/releases/platform-native-packages.mjs" "$root/bundle" linux "$arch" --libc musl
+node "$root/releases/check-addon-arch.mjs" "$root/bundle" "$arch" --platform linux --libc musl
+# sharp must load here, with its musl package: thumbnails depend on it. It is
+# an application package, so it resolves from programs/server/npm.
+(cd "$server/npm" && "$root/bundle/node" -e 'require("sharp"); console.log("sharp loads on musl")')
 bash "$root/releases/bsd/smoke.sh" "$root/bundle"

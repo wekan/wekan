@@ -32,9 +32,14 @@ test('the bundle is rebuilt for musl, checked, and started before it ships', () 
   assert.match(build, /glibcVersionRuntime/, 'refuses a glibc Node.js');
   assert.match(build, /rm -rf "\$root\/bundle\/node-runtime"/, 'no glibc libraries left');
   assert.match(build, /npm-retry\.sh" npm install/, 'native addons compiled against musl');
-  assert.doesNotMatch(build, /^node .*platform-native-packages\.mjs/m, 'its glibc filter would delete the musl packages');
-  assert.match(build, /check-addon-arch\.mjs" "\$root\/bundle" "\$arch" --platform linux/);
-  assert.match(build, /require\("sharp"\)/, 'sharp loads with its musl package');
+  // The application's packages (programs/server/npm/node_modules) get their
+  // musl platform packages here; npm install above does not touch them.
+  // v12.41-v12.44 removed the glibc ones from programs/server/node_modules,
+  // where they are not, and sharp failed to load.
+  assert.match(build, /platform-native-packages\.mjs" "\$root\/bundle" linux "\$arch" --libc musl/);
+  assert.doesNotMatch(build, /rm -rf "\$server\/node_modules\/@img/, 'no removal from the wrong directory');
+  assert.match(build, /check-addon-arch\.mjs" "\$root\/bundle" "\$arch" --platform linux --libc musl/);
+  assert.match(build, /\(cd "\$server\/npm" && "\$root\/bundle\/node" -e 'require\("sharp"\)/, 'sharp loads from where the application resolves it');
   assert.match(build, /releases\/bsd\/smoke\.sh" "\$root\/bundle"/, 'started as a user starts it');
 });
 

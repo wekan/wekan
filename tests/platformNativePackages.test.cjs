@@ -227,6 +227,47 @@ await test('Linux s390x: sharp and its libvips arrive, and the x64 ones go', asy
   }
 });
 
+// The Alpine bundles (releases/musl/build-bundle.sh, --libc musl). v12.41-v12.44
+// removed the glibc packages from the wrong directory and never added the
+// musl ones, so sharp did not load on musl and the build failed.
+await test('musl: sharp\'s linuxmusl and canvas\'s -musl packages arrive, the glibc ones go', async () => {
+  const MUSL_SHARP = { ...SHARP, optionalDependencies: { ...SHARP.optionalDependencies, '@img/sharp-linuxmusl-x64': '0.35.5' } };
+  assert.deepStrictEqual(sharpPlatformSpec(MUSL_SHARP, 'linux', 'x64', 'musl'), { name: '@img/sharp-linuxmusl-x64', version: '0.35.5' });
+  assert.deepStrictEqual(sharpPlatformSpec(MUSL_SHARP, 'linux', 'x64'), { name: '@img/sharp-linux-x64', version: '0.35.5' }, 'glibc stays the default');
+  assert.deepStrictEqual(canvasPlatformSpec(CANVAS, 'linux', 'x64', 'musl'), { name: '@napi-rs/canvas-linux-x64-musl', version: '1.0.10' });
+  assert.strictEqual(canvasPlatformSpec(CANVAS, 'linux', 's390x', 'musl'), null, 'no musl canvas for s390x, and no glibc one instead');
+  const dir = tree({
+    [`${NM}/sharp/package.json`]: pkg(MUSL_SHARP),
+    [`${NM}/@napi-rs/canvas/package.json`]: pkg(CANVAS),
+    [`${NM}/@img/sharp-linux-x64/package.json`]: pkg({ os: ['linux'], cpu: ['x64'], libc: ['glibc'] }),
+    [`${NM}/@img/sharp-linux-x64/lib/sharp-linux-x64.node`]: elf(62),
+    [`${NM}/@napi-rs/canvas-linux-x64-gnu/package.json`]: pkg({ os: ['linux'], cpu: ['x64'], libc: ['glibc'] }),
+  });
+  const reg = registry({
+    '@img/sharp-linuxmusl-x64@0.35.5': {
+      optionalDependencies: { '@img/sharp-libvips-linuxmusl-x64': '1.3.4' },
+      files: [['package.json', pkg({ os: ['linux'], cpu: ['x64'], libc: ['musl'] })], ['lib/sharp-linuxmusl-x64.node', elf(62)]],
+    },
+    '@img/sharp-libvips-linuxmusl-x64@1.3.4': {
+      files: [['package.json', pkg({ os: ['linux'], cpu: ['x64'], libc: ['musl'] })], ['lib/libvips-cpp.so.8.18.7', 'so']],
+    },
+    '@napi-rs/canvas-linux-x64-musl@1.0.10': {
+      files: [['package.json', pkg({ os: ['linux'], cpu: ['x64'], libc: ['musl'] })], ['skia.linux-x64-musl.node', elf(62)]],
+    },
+  });
+  try {
+    const r = await withFetch(reg.fetch, () => addPlatformNativePackages(dir, 'linux', 'x64', { ...quiet, libc: 'musl' }));
+    assert.deepStrictEqual(r.errors, []);
+    assert.deepStrictEqual(r.added.map((a) => a.name),
+      ['@img/sharp-linuxmusl-x64', '@img/sharp-libvips-linuxmusl-x64', '@napi-rs/canvas-linux-x64-musl']);
+    assert.ok(!fs.existsSync(path.join(dir, NM, '@img/sharp-linux-x64')), 'the glibc sharp goes');
+    assert.ok(!fs.existsSync(path.join(dir, NM, '@napi-rs/canvas-linux-x64-gnu')), 'the glibc canvas goes');
+    assert.ok(fs.existsSync(path.join(dir, NM, '@img/sharp-linuxmusl-x64/lib/sharp-linuxmusl-x64.node')));
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 // Negative, and the reason v12.33's 32-bit ARM bundles were dangerous: sharp's
 // linux-arm .node is ARMv7 and its libvips ARMv8, canvas's ARMv7. On an ARMv6
 // board (Raspberry Pi 1, Zero) that is a SIGILL that kills WeKan. 32-bit ARM
@@ -253,7 +294,7 @@ await test('32-bit ARM gets no native sharp or canvas, only the WebAssembly shar
   }
 });
 
-await test('canvas: the glibc / MSVC package for the CPU, never musl', async () => {
+await test('canvas: the glibc / MSVC package for the CPU, not musl unless asked', async () => {
   assert.deepStrictEqual(canvasPlatformSpec(CANVAS, 'linux', 'arm64'), { name: '@napi-rs/canvas-linux-arm64-gnu', version: '1.0.10' });
   assert.deepStrictEqual(canvasPlatformSpec(CANVAS, 'linux', 'x64'), { name: '@napi-rs/canvas-linux-x64-gnu', version: '1.0.10' });
   assert.deepStrictEqual(canvasPlatformSpec(CANVAS, 'win32', 'x64'), { name: '@napi-rs/canvas-win32-x64-msvc', version: '1.0.10' });
