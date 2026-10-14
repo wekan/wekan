@@ -1,4 +1,6 @@
 'use strict';
+// Board is "tabla" throughout the Bosnian file (maintainer's decision,
+// 2026-10-14): the expectations below follow it, case for case.
 const assert = require('node:assert/strict');
 const data = require('../imports/i18n/data/bs.i18n.json');
 const corrections = require('../releases/translations/audited-corrections.json').filter(row => row.locale === 'bs');
@@ -41,7 +43,7 @@ console.log('bosnianAuditedTranslations: account scope, credentials and lockout 
   }
   assert.equal(translator.t('activity-dueDate', { sprintf: ['DATE', 'CARD'] }), 'promijenio rok na DATE za karticu CARD');
   const mention = translator.t('act-atUserComment', { card: 'CARD', comment: 'COMMENT', list: 'LIST', swimlane: 'LANE', board: 'BOARD' });
-  assert.equal(mention, 'spomenuo vas na kartici CARD: COMMENT u listi LIST u stazi LANE na ploči BOARD');
+  assert.equal(mention, 'spomenuo vas na kartici CARD: COMMENT u listi LIST u stazi LANE na tabli BOARD');
   assert.match(data['act-newDue'], /prvi podsjetnik/);
   assert.doesNotMatch(data['act-newDue'], /jedan podsjetnik/);
   assert.match(data['act-duenow'], /upravo sada/);
@@ -53,7 +55,7 @@ console.log('bosnianAuditedTranslations: account scope, credentials and lockout 
   assert.equal(translator.t('operator-number-expected', { operator: 'LIMIT', value: 'BAD' }), "Operator LIMIT očekivao je broj, a dobio je 'BAD'");
   assert.equal(translator.t('page-maybe-private', { sprintf: ['/login'] }), "Ova stranica je možda privatna. Možda je možete pregledati ako se <a href='/login'>prijavite</a>.");
   const removal = translator.t('remove-member-pop', { name: 'NAME', username: 'USER', boardTitle: 'BOARD' });
-  assert.equal(removal, 'Ukloniti NAME (USER) s ploče BOARD? Član će biti uklonjen sa svih kartica na ovoj ploči. Primit će obavještenje.');
+  assert.equal(removal, 'Ukloniti NAME (USER) s table BOARD? Član će biti uklonjen sa svih kartica na ovoj tabli. Primit će obavještenje.');
   const invitation = translator.t('email-invite-text', { user: 'USER', inviter: 'INVITER', board: 'BOARD', url: 'LOCAL_URL' });
   for (const token of ['USER', 'INVITER', 'BOARD', 'LOCAL_URL']) assert.ok(invitation.includes(token));
   assert.match(invitation, /vas poziva da se pridružite/);
@@ -67,7 +69,7 @@ console.log('bosnianAuditedTranslations: account scope, credentials and lockout 
 })().catch(error => { console.error(error); process.exitCode = 1; });
 
 assert.match(data['admin-desc'], /uklanjati članove/);
-assert.match(data['admin-desc'], /mijenjati postavke ploče/);
+assert.match(data['admin-desc'], /mijenjati postavke table/);
 assert.doesNotMatch(data['admin-people-filter-inactive'], /platn|plać/);
 assert.match(data['admin-people-user-active'], /aktivan.*deaktivirate/);
 assert.match(data['admin-people-user-inactive'], /neaktivan.*aktivirate/);
@@ -97,11 +99,11 @@ for (const operation of ['archive', 'backup', 'cleanup']) {
   assert.match(data[`board-${operation}-failed`], /Zakazivanje.*nije uspjelo/);
   assert.match(data[`board-${operation}-scheduled`], /uspješno je zakazan/);
 }
-for (const key of ['board-info-on-my-boards', 'boardInfoOnMyBoards-title', 'boardInfoOnMyBoardsPopup-title']) assert.equal(data[key], 'Postavke svih ploča');
-assert.match(data['board-drag-drop-reorder-or-click-open'], /Kliknite ikonu ploče/);
+for (const key of ['board-info-on-my-boards', 'boardInfoOnMyBoards-title', 'boardInfoOnMyBoardsPopup-title']) assert.equal(data[key], 'Postavke svih tabli');
+assert.match(data['board-drag-drop-reorder-or-click-open'], /Kliknite ikonu table/);
 assert.doesNotMatch(data['board-drag-drop-reorder-or-click-open'], /delovodni|djelovodni/);
-assert.equal(data['board-migrations'], 'Migracije ploča');
-assert.match(data.board_assignees, /svih kartica na ovoj ploči/);
+assert.equal(data['board-migrations'], 'Migracije tabli');
+assert.match(data.board_assignees, /svih kartica na ovoj tabli/);
 assert.match(data['bucket-example'], /Lista životnih želja/);
 assert.doesNotMatch(data['bucket-example'], /4\/2025/);
 assert.match(data['card-archive-pop'], /više neće biti vidljiva u ovoj listi/);
@@ -117,7 +119,7 @@ assert.match(data['comment-not-found'], /^Kartica s komentarom/);
 assert.match(data['card-sorting-by-number-on-minicard'], /na minikartici/);
 assert.match(data.card_members, /Svi članovi trenutne kartice/);
 assert.match(data.card_assignees, /Svi zaduženi korisnici trenutne kartice/);
-assert.match(data['conversion-info-text'], /jednom po ploči/);
+assert.match(data['conversion-info-text'], /jednom po tabli/);
 assert.match(data['conversion-info-text'], /nastaviti normalno koristiti/);
 assert.match(data['comprehensive-board-migration-description'], /redoslijed lista, položaje kartica i strukturu staza/);
 console.log('bosnianAuditedTranslations: checklist entities, comment-only restrictions and conversion scope passed');
@@ -173,12 +175,12 @@ assert.equal(data['filter-due-next-week'], 'Rok sljedeće sedmice');
 assert.equal(data['filter-due-this-week'], 'Rok ove sedmice');
 assert.equal(data['filter-member-label'], 'Filtriraj po članu');
 assert.equal(data['filter-show-archive'], 'Prikaži arhivirane liste');
-assert.match(data['fix-all-file-urls-migration-description'], /svih datotečnih priloga na ovoj ploči/);
+assert.match(data['fix-all-file-urls-migration-description'], /svih datotečnih priloga na ovoj tabli/);
 assert.match(data['fix-all-file-urls-migration-description'], /odgovarajući sistem pohrane/);
 assert.match(data['fix-all-file-urls-migration-description'], /popravlja neispravne reference/);
 console.log('bosnianAuditedTranslations: file URL repair scope, CSV separators and week filters passed');
 
-assert.match(data['fix-avatar-urls-migration-description'], /članova ploče.*odgovarajući sistem pohrane.*neispravne reference/);
+assert.match(data['fix-avatar-urls-migration-description'], /članova table.*odgovarajući sistem pohrane.*neispravne reference/);
 assert.match(data['fix-missing-lists-migration-description'], /nedostajuće ili oštećene liste/);
 assert.match(data['globalSearch-instructions-notes-2'], /logičkim \*ILI\*/);
 assert.match(data['globalSearch-instructions-notes-3'], /logičkim \*I\*/);
@@ -205,16 +207,16 @@ console.log('bosnianAuditedTranslations: search operator syntax, negation, label
 
 assert.match(data['globalSearch-instructions-status-ended'], /s datumom završetka/);
 assert.doesNotMatch(data['globalSearch-instructions-status-ended'], /dovršene|okončane/);
-assert.match(data['globalSearch-instructions-status-private'], /samo na privatnim pločama/);
-assert.match(data['globalSearch-instructions-operator-org'], /ploči dodijeljenoj organizaciji/);
-assert.match(data['globalSearch-instructions-operator-team'], /ploči dodijeljenoj timu/);
+assert.match(data['globalSearch-instructions-status-private'], /samo na privatnim tablama/);
+assert.match(data['globalSearch-instructions-operator-org'], /tabli dodijeljenoj organizaciji/);
+assert.match(data['globalSearch-instructions-operator-team'], /tabli dodijeljenoj timu/);
 assert.match(data['globalSearch-instructions-operator-user'], /član ili zaduženi korisnik/);
 assert.match(data['globalSearch-instructions-operator-sort'], /opadajuće.*`-`/);
 assert.match(data['globalSearch-instructions-operator-modified'], /dana ili manje/);
 assert.match(data['globalSearch-instructions-status-all'], /arhivirane i nearhivirane/);
 console.log('bosnianAuditedTranslations: end-date status, private-board scope, assignment and descending sort passed');
 
-assert.match(data['globalSearch-instructions-status-public'], /samo na javnim pločama/);
+assert.match(data['globalSearch-instructions-status-public'], /samo na javnim tablama/);
 assert.doesNotMatch(data['globalSearch-instructions-status-public'], /Internet|internet/);
 assert.equal(data['gridfs-enabled-description'], 'Koristi MongoDB GridFS za pohranu datoteka');
 assert.equal(data['hide-finished-checklist'], 'Sakrij dovršenu kontrolnu listu');
@@ -227,10 +229,10 @@ assert.equal(data['impersonate-user'], 'Preuzmi identitet korisnika');
 console.log('bosnianAuditedTranslations: public-board scope, GridFS and checklist visibility passed');
 
 for (const menu of ['Menu', 'More', 'Print and Export', 'Export JSON']) assert.ok(data['import-board-instruction-trello'].includes(`'${menu}'`));
-assert.match(data['import-board-instruction-wekan'], /Izvezi ploču/);
-assert.doesNotMatch(data['import-board-instruction-wekan'], /Uvezi ploču/);
+assert.match(data['import-board-instruction-wekan'], /Izvezi tablu/);
+assert.doesNotMatch(data['import-board-instruction-wekan'], /Uvezi tablu/);
 assert.match(data['import-board-instruction-about-errors'], /ponekad ipak uspije/);
-assert.match(data['import-board-instruction-about-errors'], /Sve ploče/);
+assert.match(data['import-board-instruction-about-errors'], /Sve table/);
 assert.match(data['import-board-zip'], /\.zip.*JSON.*poddirektorijima.*priloge/);
 assert.match(data['import-members-map-note'], /nepovezani članovi.*trenutnom korisniku/);
 assert.match(data['import-user-select'], /postojećeg korisnika/);
@@ -244,7 +246,7 @@ assert.match(data['label-delete-pop'], /sa svih kartica.*uništiti njenu histori
 assert.match(data['label-delete-pop'], /Poništavanje nije moguće/);
 assert.match(data['list-delete-pop'], /nećete moći oporaviti listu/);
 assert.match(data['list-delete-pop'], /Poništavanje nije moguće/);
-assert.match(data['leave-board-pop'], /sa svih kartica na ovoj ploči/);
+assert.match(data['leave-board-pop'], /sa svih kartica na ovoj tabli/);
 assert.equal(data['list-sort-by'], 'Sortiraj listu po:');
 assert.match(data['invalid-file'], /učitavanje ili preimenovanje se otkazuje/);
 console.log('bosnianAuditedTranslations: keyboard toggles, registration invitations and deletion scope passed');
@@ -271,11 +273,11 @@ for (const key of ['migration-paused', 'migration-started', 'migration-stopped',
 assert.doesNotMatch(data['migration-started'], /oštećen.*spis/);
 console.log('bosnianAuditedTranslations: background continuation, browser warning and migration results passed');
 
-assert.equal(data['migrations-admin-only'], 'Samo administratori ploče mogu pokretati migracije');
-assert.match(data['migrations-description'], /ove ploče.*pojedinačno/);
+assert.equal(data['migrations-admin-only'], 'Samo administratori table mogu pokretati migracije');
+assert.match(data['migrations-description'], /ove table.*pojedinačno/);
 assert.match(data['mobile-desktop-toggle'], /mobilnog.*za računar/);
 for (const destination of ['fs', 'gridfs', 's3']) {
-  assert.match(data[`move-all-attachments-of-board-to-${destination}`], /sve priloge ploče/);
+  assert.match(data[`move-all-attachments-of-board-to-${destination}`], /sve priloge table/);
   assert.match(data[`move-all-attachments-to-${destination}`], /sve priloge u/);
   assert.notEqual(data[`move-all-attachments-of-board-to-${destination}`], data[`move-all-attachments-to-${destination}`]);
 }
@@ -286,8 +288,8 @@ assert.match(data['monitoring-refresh-failed'], /Osvježavanje.*nije uspjelo/);
 console.log('bosnianAuditedTranslations: administrator restriction, per-board movement and monitoring failures passed');
 
 assert.equal(data['myCardsSortChange-title'], data['myCardsSortChangePopup-title']);
-assert.equal(data['myCardsSortChange-choice-board'], 'Po ploči');
-assert.match(data['multi-selection-active'], /polja za potvrdu.*ploče/);
+assert.equal(data['myCardsSortChange-choice-board'], 'Po tabli');
+assert.match(data['multi-selection-active'], /polja za potvrdu.*table/);
 assert.match(data['newlineBecomesNewChecklistItemOriginOrder'], /izvornim redoslijedom/);
 assert.equal(data['no-comments-desc'], 'Ne može vidjeti komentare.');
 assert.doesNotMatch(data['no-comments-desc'], /aktivnosti|zapisnik/);
@@ -303,8 +305,8 @@ assert.match(data['oidc-button-text'], /OIDC dugmeta/);
 assert.equal(data['org-number'], 'Broj organizacija je:');
 console.log('bosnianAuditedTranslations: notification scope, debug predicates and numeric limits passed');
 
-assert.match(data['private-desc'], /Samo osobe dodane na ploču/);
-assert.match(data['public-desc'], /Samo osobe dodane na ploču mogu je uređivati/);
+assert.match(data['private-desc'], /Samo osobe dodane na tablu/);
+assert.match(data['public-desc'], /Samo osobe dodane na tablu mogu je uređivati/);
 assert.doesNotMatch(data['public-desc'], /Svi mogu.*uređivati/);
 assert.equal(data['push-invite-text'], data['email-invite-text']);
 assert.doesNotMatch(data['push-invite-text'], /pun uvid|potpun pristup/);
@@ -329,7 +331,7 @@ console.log('bosnianAuditedTranslations: rule direction, value clearing and assi
 
 assert.equal(data['read-only-desc'], 'Može samo pregledati kartice. Ne može uređivati.');
 assert.match(data['remove-labels-multiselect'], /uklanja oznake 1-9/);
-assert.match(data['remove-member-pop'], /sa svih kartica na ovoj ploči.*obavještenje/);
+assert.match(data['remove-member-pop'], /sa svih kartica na ovoj tabli.*obavještenje/);
 assert.doesNotMatch(data['remove-team-from-table'], /pravni|ukinuti uvid/);
 assert.match(data['rescue-card-description'], /nesačuvanih opisa kartica prije zatvaranja/);
 assert.match(data['rescue-card-description-dialogue'], /Prepisati trenutni opis/);
@@ -342,14 +344,14 @@ assert.match(data['restore-lost-cards-migration-description'], /Kreira stazu/);
 assert.match(data['restore-lost-cards-nothing-to-restore'], /staza, lista ili kartica/);
 assert.match(data['run-delete-duplicate-empty-lists-migration-confirm'], /prvo.*liste po stazama.*zatim.*prazne liste.*istog naziva.*sadrži kartice/);
 assert.match(data['run-delete-duplicate-empty-lists-migration-confirm'], /samo stvarno suvišne prazne liste/);
-assert.match(data['run-fix-all-file-urls-migration-confirm'], /svih datotečnih priloga na ovoj ploči/);
+assert.match(data['run-fix-all-file-urls-migration-confirm'], /svih datotečnih priloga na ovoj tabli/);
 console.log('bosnianAuditedTranslations: recovery entities, field identifiers and migration confirmation scope passed');
 
 assert.match(data['run-restore-all-archived-migration-confirm'], /SVE arhivirane staze, liste i kartice/);
 assert.match(data['run-restore-all-archived-migration-confirm'], /nije lako poništiti/);
 assert.match(data['run-restore-lost-cards-migration-confirm'], /samo na nearhivirane stavke/);
 assert.ok(data['run-restore-lost-cards-migration-confirm'].includes('swimlaneId ili listId'));
-assert.match(data['run-fix-avatar-urls-migration-confirm'], /članova ploče.*odgovarajući sistem pohrane/);
+assert.match(data['run-fix-avatar-urls-migration-confirm'], /članova table.*odgovarajući sistem pohrane/);
 assert.match(data['run-fix-missing-lists-migration-confirm'], /nedostajuće ili oštećene liste/);
 assert.equal(data['s3-attachments'], 'S3 prilozi');
 assert.doesNotMatch(data['s3-attachments'], /Amazon|oblak/);
@@ -363,10 +365,10 @@ assert.match(data['s3-secret-key-description'], /tajni ključ za autentifikaciju
 assert.equal(data['s3-ssl-enabled-description'], 'Koristi SSL/TLS za S3 veze');
 assert.doesNotMatch(data['s3-ssl-enabled-description'], /Amazon/);
 assert.match(data['s3-settings-save-failed'], /nije uspjelo/);
-assert.match(data['schedule-board-backup'], /kopiju ploče/);
+assert.match(data['schedule-board-backup'], /kopiju table/);
 console.log('bosnianAuditedTranslations: MinIO choice, literal endpoints, TLS and board backup passed');
 
-assert.match(data['search-cards'], /naslove kartica i lista, opise i prilagođena polja na ovoj ploči/);
+assert.match(data['search-cards'], /naslove kartica i lista, opise i prilagođena polja na ovoj tabli/);
 for (const command of ['sudo snap logs wekan.wekan', 'sudo docker logs wekan-app']) assert.ok(data['server-error-troubleshooting'].includes('`' + command + '`'));
 assert.equal(data['set-swimlane-height-value'], 'Visina staze (pikseli)');
 assert.equal(data['setSwimlaneHeightPopup-title'], data['set-swimlane-height']);
@@ -376,16 +378,16 @@ console.log('bosnianAuditedTranslations: search scope, literal commands, pixel u
 
 assert.match(data['showSum-field-on-list'], /zbir vrijednosti polja na vrhu liste/);
 assert.doesNotMatch(data['showSum-field-on-list'], /broj polja/);
-assert.equal(data['show-at-all-boards-page'], 'Prikaži na stranici Sve ploče');
+assert.equal(data['show-at-all-boards-page'], 'Prikaži na stranici Sve table');
 assert.match(data['show-card-counter-per-list'], /broj kartica po listi/);
-assert.match(data['show-board_members-avatar'], /avatare članova ploče/);
+assert.match(data['show-board_members-avatar'], /avatare članova table/);
 assert.match(data['show-list-on-minicard'], /listu na minikartici/);
 assert.match(data.showChecklistAtMinicard, /kontrolnu listu na minikartici/);
 assert.equal(data['show-subtasks-field'], 'Prikaži polje podzadataka');
 assert.equal(data['sort-desc'], 'Kliknite da sortirate listu');
 console.log('bosnianAuditedTranslations: field sums, per-list counts and minicard display scope passed');
 
-assert.match(data['star-board-title'], /na vrhu vaše liste ploča/);
+assert.match(data['star-board-title'], /na vrhu vaše liste tabli/);
 assert.equal(data['start-day-of-week'], 'Postavi početni dan sedmice');
 assert.equal(data['step-delete-duplicate-empty-lists'], 'Izbriši prazne duplikate lista');
 assert.match(data['step-ensure-lost-cards-swimlane'], /stazu za izgubljene kartice/);
@@ -398,7 +400,7 @@ console.log('bosnianAuditedTranslations: starred-board ordering, week start and 
 assert.match(data['support-info-only-for-logged-in-users'], /samo prijavljenim korisnicima/);
 assert.match(data['swimlane-delete-pop'], /nećete moći oporaviti stazu.*Poništavanje nije moguće/);
 assert.match(data['swimlane-height-error-message'], /pozitivan cijeli broj/);
-assert.match(data['toggle-assignees'], /1-9.*redoslijedu dodavanja na ploču/);
+assert.match(data['toggle-assignees'], /1-9.*redoslijedu dodavanja na tablu/);
 assert.match(data['toggle-labels'], /Višestruki odabir dodaje oznake 1-9/);
 assert.equal(data['vote-public'], 'Prikaži ko je kako glasao');
 assert.doesNotMatch(data['vote-public'], /rezultate/);

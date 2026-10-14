@@ -27051,7 +27051,7 @@
     "locale": "bs",
     "key": "act-atUserComment",
     "before": "споменути сте у расправи у предмету __card__: __comment__ у делу __list__ поступка __swimlane__ у списима __board__",
-    "after": "spomenuo vas na kartici __card__: __comment__ u listi __list__ u stazi __swimlane__ na ploči __board__",
+    "after": "spomenuo vas na kartici __card__: __comment__ u listi __list__ u stazi __swimlane__ na tabli __board__",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -27198,7 +27198,7 @@
     "locale": "bs",
     "key": "admin-desc",
     "before": "Има увид и пун приступ у све предмете из ових списа. У овим списима може да бира сараднике, поставља правила рада и чита записник.",
-    "after": "Može pregledati i uređivati kartice, uklanjati članove i mijenjati postavke ploče. Može pregledati aktivnosti.",
+    "after": "Može pregledati i uređivati kartice, uklanjati članove i mijenjati postavke table. Može pregledati aktivnosti.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -27296,7 +27296,7 @@
     "locale": "bs",
     "key": "archive-board-confirm",
     "before": "Да ли сте сигурни да желите да спакујете ове списе у архив?",
-    "after": "Jeste li sigurni da želite arhivirati ovu ploču?",
+    "after": "Jeste li sigurni da želite arhivirati ovu tablu?",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -27422,70 +27422,70 @@
     "locale": "bs",
     "key": "board-archive-failed",
     "before": "Није успело заказивање архивирања списа",
-    "after": "Zakazivanje arhiviranja ploče nije uspjelo",
+    "after": "Zakazivanje arhiviranja table nije uspjelo",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "board-archive-scheduled",
     "before": "Заказано је паковање списа у архиву",
-    "after": "Arhiviranje ploče uspješno je zakazano",
+    "after": "Arhiviranje table uspješno je zakazano",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "board-backup-failed",
     "before": "Није успело заказивање израде резервног примерка списа",
-    "after": "Zakazivanje sigurnosne kopije ploče nije uspjelo",
+    "after": "Zakazivanje sigurnosne kopije table nije uspjelo",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "board-backup-scheduled",
     "before": "Заказана је израда резервног примерка списа",
-    "after": "Sigurnosna kopija ploče uspješno je zakazana",
+    "after": "Sigurnosna kopija table uspješno je zakazana",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "board-cleanup-failed",
     "before": "Није успело заказивање чишћења списа",
-    "after": "Zakazivanje čišćenja ploče nije uspjelo",
+    "after": "Zakazivanje čišćenja table nije uspjelo",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "board-cleanup-scheduled",
     "before": "Заказано је чишћење списа",
-    "after": "Čišćenje ploče uspješno je zakazano",
+    "after": "Čišćenje table uspješno je zakazano",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "board-drag-drop-reorder-or-click-open",
     "before": "Притисните и задржите, превуците па отпустите да би пресложили списе. Притисните на деловодни број да би отворили ове списе.",
-    "after": "Povucite i ispustite ikone ploča da promijenite njihov redoslijed. Kliknite ikonu ploče da otvorite ploču.",
+    "after": "Povucite i ispustite ikone tabli da promijenite njihov redoslijed. Kliknite ikonu table da otvorite tablu.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "board-info-on-my-boards",
     "before": "Списи у мојој надлежности",
-    "after": "Postavke svih ploča",
+    "after": "Postavke svih tabli",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "board-migrations",
     "before": "Поступци обнове оштећених списа",
-    "after": "Migracije ploča",
+    "after": "Migracije tabli",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "board-title-not-found",
     "before": "Списи под деловодним бројем '%s' нису пронађени.",
-    "after": "Ploča '%s' nije pronađena.",
+    "after": "Tabla '%s' nije pronađena.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -27499,21 +27499,21 @@
     "locale": "bs",
     "key": "boardInfoOnMyBoards-title",
     "before": "Списи у мојој надлежности",
-    "after": "Postavke svih ploča",
+    "after": "Postavke svih tabli",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "boardInfoOnMyBoardsPopup-title",
     "before": "Списи у мојој надлежности",
-    "after": "Postavke svih ploča",
+    "after": "Postavke svih tabli",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "board_assignees",
     "before": "Сви пуномоћници из свих предмета у овим списима",
-    "after": "Svi zaduženi korisnici svih kartica na ovoj ploči",
+    "after": "Svi zaduženi korisnici svih kartica na ovoj tabli",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -27562,14 +27562,14 @@
     "locale": "bs",
     "key": "card_assignees",
     "before": "Сви пуномоћници текућег предмета у овим списима",
-    "after": "Svi zaduženi korisnici trenutne kartice na ovoj ploči",
+    "after": "Svi zaduženi korisnici trenutne kartice na ovoj tabli",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "card_members",
     "before": "Мрежа сарадника на овом предмету у овим списима",
-    "after": "Svi članovi trenutne kartice na ovoj ploči",
+    "after": "Svi članovi trenutne kartice na ovoj tabli",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -27639,7 +27639,7 @@
     "locale": "bs",
     "key": "comprehensive-board-migration-description",
     "before": "Изводе се свеобухватне провера и врше поправке целовитости података у списима - што укључује провере и поправке редоследа делова поступака, места где се тачно предмети налазе и структуре поступака.",
-    "after": "Obavlja sveobuhvatne provjere i popravke integriteta podataka ploče, uključujući redoslijed lista, položaje kartica i strukturu staza.",
+    "after": "Obavlja sveobuhvatne provjere i popravke integriteta podataka table, uključujući redoslijed lista, položaje kartica i strukturu staza.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -27653,7 +27653,7 @@
     "locale": "bs",
     "key": "conversion-info-text",
     "before": "Ово преслагање се изводи само једном по спису и то после олакшава читање.  Без сметњи настављате да читате спис након тога.",
-    "after": "Ova konverzija obavlja se jednom po ploči i poboljšava performanse. Ploču možete nastaviti normalno koristiti.",
+    "after": "Ova konverzija obavlja se jednom po tabli i poboljšava performanse. Tablu možete nastaviti normalno koristiti.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -27667,7 +27667,7 @@
     "locale": "bs",
     "key": "converting-board-description",
     "before": "Преслагање списа олакшава употребу. Ово може потрајати неколико тренутака.",
-    "after": "Konverzija strukture ploče radi poboljšanja funkcionalnosti. Ovo može potrajati nekoliko trenutaka.",
+    "after": "Konverzija strukture table radi poboljšanja funkcionalnosti. Ovo može potrajati nekoliko trenutaka.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -28059,7 +28059,7 @@
     "locale": "bs",
     "key": "dueCardsViewChange-choice-all-description",
     "before": "Приказује све нерешене предмете који имају постављен рок решавања из оних списа за које корисник има одобрење.",
-    "after": "Prikazuje sve nedovršene kartice s *rokom* s ploča za koje korisnik ima dozvolu.",
+    "after": "Prikazuje sve nedovršene kartice s *rokom* s tabli za koje korisnik ima dozvolu.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -28094,14 +28094,14 @@
     "locale": "bs",
     "key": "email-invite-register-text",
     "before": "Поштовани __user__,\n\n__inviter__ Вас позива да користите kanban списе за заједнички рад.\n\nМолим испратите везу испод:\n__url__\n\nИ да, Ваш позивни код је: __icode__\n\nХвала.",
-    "after": "Poštovani __user__,\n\n__inviter__ vas poziva na kanban ploču radi saradnje.\n\nSlijedite poveznicu ispod:\n__url__\n\nVaš pozivni kod je: __icode__\n\nHvala.",
+    "after": "Poštovani __user__,\n\n__inviter__ vas poziva na kanban tablu radi saradnje.\n\nSlijedite poveznicu ispod:\n__url__\n\nVaš pozivni kod je: __icode__\n\nHvala.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "email-invite-text",
     "before": "Поштовани __user__,\n\n__inviter__ Вам је омогућио пун увид у \"__board__\" списе и нада се заједничкој сарадњи.\n\nМолим да испратите везу испод:\n\n__url__\n\nХвала.",
-    "after": "Poštovani __user__,\n\n__inviter__ vas poziva da se pridružite ploči \"__board__\" radi saradnje.\n\nSlijedite poveznicu ispod:\n\n__url__\n\nHvala.",
+    "after": "Poštovani __user__,\n\n__inviter__ vas poziva da se pridružite tabli \"__board__\" radi saradnje.\n\nSlijedite poveznicu ispod:\n\n__url__\n\nHvala.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -28241,7 +28241,7 @@
     "locale": "bs",
     "key": "fix-all-file-urls-migration-description",
     "before": "Преусмерава везу ка складишту где се стварно налази предметна грађа из ових списа.",
-    "after": "Ažurira URL-ove svih datotečnih priloga na ovoj ploči da koriste odgovarajući sistem pohrane i popravlja neispravne reference na datoteke.",
+    "after": "Ažurira URL-ove svih datotečnih priloga na ovoj tabli da koriste odgovarajući sistem pohrane i popravlja neispravne reference na datoteke.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -28255,7 +28255,7 @@
     "locale": "bs",
     "key": "fix-avatar-urls-migration-description",
     "before": "Исправља везу до складишта са сликама сарадника из ових списа.",
-    "after": "Ažurira URL-ove avatara članova ploče da koriste odgovarajući sistem pohrane i popravlja neispravne reference na avatare.",
+    "after": "Ažurira URL-ove avatara članova table da koriste odgovarajući sistem pohrane i popravlja neispravne reference na avatare.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -28269,7 +28269,7 @@
     "locale": "bs",
     "key": "fix-missing-lists-migration-description",
     "before": "Открива и поправља сваки део поступка који недостаје или који је оштећен.",
-    "after": "Otkriva i popravlja nedostajuće ili oštećene liste u strukturi ploče.",
+    "after": "Otkriva i popravlja nedostajuće ili oštećene liste u strukturi table.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -28346,7 +28346,7 @@
     "locale": "bs",
     "key": "globalSearch-instructions-operator-board",
     "before": "`__operator_board__:<наслов>` - сви предмети у списима са задатим *<насловом>*",
-    "after": "`__operator_board__:<title>` - kartice na pločama koje odgovaraju navedenom *<title>*",
+    "after": "`__operator_board__:<title>` - kartice na tablama koje odgovaraju navedenom *<title>*",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -28430,7 +28430,7 @@
     "locale": "bs",
     "key": "globalSearch-instructions-operator-org",
     "before": "`__operator_org__:<име или пословно име|скраћено пословно име>` - предмети у вези са *<странком>*",
-    "after": "`__operator_org__:<display name|short name>` - kartice na ploči dodijeljenoj organizaciji *<name>*",
+    "after": "`__operator_org__:<display name|short name>` - kartice na tabli dodijeljenoj organizaciji *<name>*",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -28458,7 +28458,7 @@
     "locale": "bs",
     "key": "globalSearch-instructions-operator-team",
     "before": "`__operator_team__:<назив тима|скраћени назив>` - предмети које обрађује правни тим *<назив>*",
-    "after": "`__operator_team__:<display name|short name>` - kartice na ploči dodijeljenoj timu *<name>*",
+    "after": "`__operator_team__:<display name|short name>` - kartice na tabli dodijeljenoj timu *<name>*",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -28493,14 +28493,14 @@
     "locale": "bs",
     "key": "globalSearch-instructions-status-private",
     "before": "`__predicate_private__` - предмети видљиви искључиво сарадницима",
-    "after": "`__predicate_private__` - kartice samo na privatnim pločama",
+    "after": "`__predicate_private__` - kartice samo na privatnim tablama",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "globalSearch-instructions-status-public",
     "before": "`__predicate_public__` - предмети видљиви свима на интернету",
-    "after": "`__predicate_public__` - kartice samo na javnim pločama",
+    "after": "`__predicate_public__` - kartice samo na javnim tablama",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -28584,7 +28584,7 @@
     "locale": "bs",
     "key": "import-board-instruction-about-errors",
     "before": "Ако се јаве грешке при уношењу списа то не значи да унос није успео!Проверите јел се спис појавио у одељку „Списи у мојој надлежности“.",
-    "after": "Ako se pojave greške prilikom uvoza ploče, uvoz ponekad ipak uspije i ploča se nalazi na stranici Sve ploče.",
+    "after": "Ako se pojave greške prilikom uvoza table, uvoz ponekad ipak uspije i tabla se nalazi na stranici Sve table.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -28598,21 +28598,21 @@
     "locale": "bs",
     "key": "import-board-instruction-trello",
     "before": "У Вашоим Trello списима, идите у 'Menu', затим 'More', 'Print and Export', 'Export JSON', и умножите представљени текст.",
-    "after": "Na svojoj Trello ploči otvorite 'Menu', zatim 'More', 'Print and Export', 'Export JSON' i kopirajte dobiveni tekst.",
+    "after": "Na svojoj Trello tabli otvorite 'Menu', zatim 'More', 'Print and Export', 'Export JSON' i kopirajte dobiveni tekst.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "import-board-instruction-wekan",
     "before": "У Вашим списима, изаберите ставке 'Мени', затим 'Унеси списе' и на крају умножите сав садржај/текст из преузете датотеке.",
-    "after": "Na svojoj ploči otvorite 'Meni', zatim 'Izvezi ploču' i kopirajte tekst iz preuzete datoteke.",
+    "after": "Na svojoj tabli otvorite 'Meni', zatim 'Izvezi tablu' i kopirajte tekst iz preuzete datoteke.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "import-board-zip",
     "before": "Додај .zip архиву која има списе у json облику и фасцикле по имену списа где је предметна грађа",
-    "after": "Dodaj .zip datoteku s JSON datotekama ploča i poddirektorijima nazvanim po pločama koji sadrže priloge",
+    "after": "Dodaj .zip datoteku s JSON datotekama tabli i poddirektorijima nazvanim po tablama koji sadrže priloge",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -28626,7 +28626,7 @@
     "locale": "bs",
     "key": "import-members-map",
     "before": "Списи које сте унели имају постављену мрежу сарадника. Молим да мапирате сараднике из те мреже на Ваше сараднике",
-    "after": "Vaša uvezena ploča ima članove. Članove koje želite uvesti povežite sa svojim korisnicima.",
+    "after": "Vaša uvezena tabla ima članove. Članove koje želite uvesti povežite sa svojim korisnicima.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -28710,7 +28710,7 @@
     "locale": "bs",
     "key": "leave-board-pop",
     "before": "Да ли сте сигурни да желите да раздужите предмете из списа __boardTitle__? Бићете одстрањени са свих тих предмета.",
-    "after": "Jeste li sigurni da želite napustiti __boardTitle__? Bit ćete uklonjeni sa svih kartica na ovoj ploči.",
+    "after": "Jeste li sigurni da želite napustiti __boardTitle__? Bit ćete uklonjeni sa svih kartica na ovoj tabli.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -28843,7 +28843,7 @@
     "locale": "bs",
     "key": "migration-progress-note",
     "before": "Молимо да будете стрпљиви док траје препакивање Ваших списа...",
-    "after": "Molimo pričekajte dok migriramo vašu ploču na najnoviju strukturu...",
+    "after": "Molimo pričekajte dok migriramo vašu tablu na najnoviju strukturu...",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -28906,14 +28906,14 @@
     "locale": "bs",
     "key": "migrations-admin-only",
     "before": "За обнову ових списа надлежан је једино онај ко је њихов управник",
-    "after": "Samo administratori ploče mogu pokretati migracije",
+    "after": "Samo administratori table mogu pokretati migracije",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "migrations-description",
     "before": "Овде може да се изврши провера целовитости података и поправка оштећења. Сваки поступак обнове се може спровести независно један од другог",
-    "after": "Pokrenite provjere i popravke integriteta podataka ove ploče. Svaka migracija može se izvršiti pojedinačno.",
+    "after": "Pokrenite provjere i popravke integriteta podataka ove table. Svaka migracija može se izvršiti pojedinačno.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -28948,21 +28948,21 @@
     "locale": "bs",
     "key": "move-all-attachments-of-board-to-fs",
     "before": "Премести предметну грађу ових списа у локални систем датотека",
-    "after": "Premjesti sve priloge ploče u sistem datoteka",
+    "after": "Premjesti sve priloge table u sistem datoteka",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "move-all-attachments-of-board-to-gridfs",
     "before": "Премести предметну грађу ових списа у MongoDB GridFS",
-    "after": "Premjesti sve priloge ploče u GridFS",
+    "after": "Premjesti sve priloge table u GridFS",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "move-all-attachments-of-board-to-s3",
     "before": "Премести предметну грађу ових списа у облак на Amazon S3",
-    "after": "Premjesti sve priloge ploče u S3",
+    "after": "Premjesti sve priloge table u S3",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -28990,7 +28990,7 @@
     "locale": "bs",
     "key": "multi-selection-active",
     "before": "Штиклирајте да би изабрали списе",
-    "after": "Kliknite polja za potvrdu da odaberete ploče",
+    "after": "Kliknite polja za potvrdu da odaberete table",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -29004,7 +29004,7 @@
     "locale": "bs",
     "key": "myCardsSortChange-choice-board",
     "before": "По деловодном броју списа",
-    "after": "Po ploči",
+    "after": "Po tabli",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -29193,28 +29193,28 @@
     "locale": "bs",
     "key": "private-desc",
     "before": "Ови списи су тајни. Само одобрени сарадници могу да их читају и уређују.",
-    "after": "Ova ploča je privatna. Samo osobe dodane na ploču mogu je pregledati i uređivati.",
+    "after": "Ova tabla je privatna. Samo osobe dodane na tablu mogu je pregledati i uređivati.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "public-desc",
     "before": "Ови списи су потпуно јавни. Видљиви су сваком ко има везу до њих и појавиће се и у google претрагама. Једино одобрени сарадници могу бити уредници.",
-    "after": "Ova ploča je javna. Vidljiva je svima koji imaju poveznicu i pojavit će se u pretraživačima poput Googlea. Samo osobe dodane na ploču mogu je uređivati.",
+    "after": "Ova tabla je javna. Vidljiva je svima koji imaju poveznicu i pojavit će se u pretraživačima poput Googlea. Samo osobe dodane na tablu mogu je uređivati.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "push-invite-text",
     "before": "Поштовани __user__,\n\n__inviter__ Вам је омогућио пун увид у \"__board__\" списе и нада се заједничкој сарадњи.\n\nМолим да испратите везу испод:\n\n__url__\n\nХвала.",
-    "after": "Poštovani __user__,\n\n__inviter__ vas poziva da se pridružite ploči \"__board__\" radi saradnje.\n\nSlijedite poveznicu ispod:\n\n__url__\n\nHvala.",
+    "after": "Poštovani __user__,\n\n__inviter__ vas poziva da se pridružite tabli \"__board__\" radi saradnje.\n\nSlijedite poveznicu ispod:\n\n__url__\n\nHvala.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "quick-access-description",
     "before": "Означите списе звездицом да би овде стајала пречица.",
-    "after": "Označite ploču zvjezdicom da dodate prečicu na ovu traku.",
+    "after": "Označite tablu zvjezdicom da dodate prečicu na ovu traku.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -29354,21 +29354,21 @@
     "locale": "bs",
     "key": "remove-member-pop",
     "before": "Изузећете __name__ (__username__) из списа __boardTitle__? Сарадник ће бити изузет са свих предмета у списима. Примиће обавештење о томе.",
-    "after": "Ukloniti __name__ (__username__) s ploče __boardTitle__? Član će biti uklonjen sa svih kartica na ovoj ploči. Primit će obavještenje.",
+    "after": "Ukloniti __name__ (__username__) s table __boardTitle__? Član će biti uklonjen sa svih kartica na ovoj tabli. Primit će obavještenje.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "remove-organization-from-board",
     "before": "Да ли сте сигурни да желите да овој странци забраните увид у ове списе ?",
-    "after": "Jeste li sigurni da želite ukloniti ovu organizaciju s ove ploče?",
+    "after": "Jeste li sigurni da želite ukloniti ovu organizaciju s ove table?",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "remove-team-from-table",
     "before": "Да ли сте сигурни да желите да овом правном тиму укинете увид у ове списе ?",
-    "after": "Jeste li sigurni da želite ukloniti ovaj tim s ploče?",
+    "after": "Jeste li sigurni da želite ukloniti ovaj tim s table?",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -29431,7 +29431,7 @@
     "locale": "bs",
     "key": "run-comprehensive-migration-confirm",
     "before": "Овим ће бити изведене свеобухватне провере и поправке целовитости података у списима. То би кратко трајало уколико сте сагласни?",
-    "after": "Ovo će izvršiti sveobuhvatnu migraciju radi provjere i popravke integriteta podataka ploče. Može potrajati nekoliko trenutaka. Nastaviti?",
+    "after": "Ovo će izvršiti sveobuhvatnu migraciju radi provjere i popravke integriteta podataka table. Može potrajati nekoliko trenutaka. Nastaviti?",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -29445,21 +29445,21 @@
     "locale": "bs",
     "key": "run-fix-all-file-urls-migration-confirm",
     "before": "Овим ће бити исправљене све везе у списима да упућују на стварно складиште предметне грађе. Да ли сте сагласни?",
-    "after": "Ovo će ažurirati URL-ove svih datotečnih priloga na ovoj ploči da koriste odgovarajući sistem pohrane. Nastaviti?",
+    "after": "Ovo će ažurirati URL-ove svih datotečnih priloga na ovoj tabli da koriste odgovarajući sistem pohrane. Nastaviti?",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "run-fix-avatar-urls-migration-confirm",
     "before": "Овим се исправља веза до складишта са сликама сарадника из ових списа. Да ли сте сагласни?",
-    "after": "Ovo će ažurirati URL-ove avatara članova ploče da koriste odgovarajući sistem pohrane. Nastaviti?",
+    "after": "Ovo će ažurirati URL-ove avatara članova table da koriste odgovarajući sistem pohrane. Nastaviti?",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "run-fix-missing-lists-migration-confirm",
     "before": "Овим се откривају и поправљају они делови поступака који недостају или који су оштећени. Да ли сте сагласни?",
-    "after": "Ovo će otkriti i popraviti nedostajuće ili oštećene liste u strukturi ploče. Nastaviti?",
+    "after": "Ovo će otkriti i popraviti nedostajuće ili oštećene liste u strukturi table. Nastaviti?",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -29571,28 +29571,28 @@
     "locale": "bs",
     "key": "schedule-board-backup",
     "before": "Закажи израду резервног примерка",
-    "after": "Zakaži sigurnosnu kopiju ploče",
+    "after": "Zakaži sigurnosnu kopiju table",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "scheduled-board-operations",
     "before": "Заказане радње на списима",
-    "after": "Zakazane radnje na pločama",
+    "after": "Zakazane radnje na tablama",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "search-boards-or-operations",
     "before": "Претрага списа или радњи...",
-    "after": "Pretraži ploče ili radnje...",
+    "after": "Pretraži table ili radnje...",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "search-cards",
     "before": "Тражи у насловима предмета, делова поступака и рубрика у овим списима",
-    "after": "Pretraži naslove kartica i lista, opise i prilagođena polja na ovoj ploči",
+    "after": "Pretraži naslove kartica i lista, opise i prilagođena polja na ovoj tabli",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -29655,14 +29655,14 @@
     "locale": "bs",
     "key": "show-at-all-boards-page",
     "before": "Смести на полицу са списима",
-    "after": "Prikaži na stranici Sve ploče",
+    "after": "Prikaži na stranici Sve table",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "show-board_members-avatar",
     "before": "Прикажи слике сарадника на омоту списа",
-    "after": "Prikaži avatare članova ploče",
+    "after": "Prikaži avatare članova table",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -29718,7 +29718,7 @@
     "locale": "bs",
     "key": "star-board-title",
     "before": "Означите спис звездицом. Имаће већу тежину и биће постављен на чело.",
-    "after": "Kliknite da označite ovu ploču zvjezdicom. Pojavit će se na vrhu vaše liste ploča.",
+    "after": "Kliknite da označite ovu tablu zvjezdicom. Pojavit će se na vrhu vaše liste tabli.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -29816,14 +29816,14 @@
     "locale": "bs",
     "key": "step-scan-files",
     "before": "Проверавам предметну грађу",
-    "after": "Provjera datotečnih priloga ploče",
+    "after": "Provjera datotečnih priloga table",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "bs",
     "key": "step-scan-users",
     "before": "Проверавам слике сарадника на списима",
-    "after": "Provjera avatara članova ploče",
+    "after": "Provjera avatara članova table",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -29907,7 +29907,7 @@
     "locale": "bs",
     "key": "tableVisibilityMode-allowPrivateOnly",
     "before": "Тајност списа: Дозволи приступ искључиво затвореном кругу сарадника",
-    "after": "Vidljivost ploča: dopusti samo privatne ploče",
+    "after": "Vidljivost tabli: dopusti samo privatne table",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -29942,7 +29942,7 @@
     "locale": "bs",
     "key": "toggle-assignees",
     "before": "Одабери пуномоћника на предмету по редоследу додавања у увид у списе.",
-    "after": "Uključi ili isključi zadužene korisnike 1-9 na kartici (prema redoslijedu dodavanja na ploču).",
+    "after": "Uključi ili isključi zadužene korisnike 1-9 na kartici (prema redoslijedu dodavanja na tablu).",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -132261,7 +132261,7 @@
     "locale": "bs",
     "key": "close-board-pop",
     "before": "Ploču ćete moći vratiti klikom na gumb \"Arhiviraj\" u zaglavlju.",
-    "after": "Ploču možete vratiti iz odjeljka „Arhiva” na stranici „Sve table”.",
+    "after": "Tablu možete vratiti iz odjeljka „Arhiva” na stranici „Sve table”.",
     "reason": "2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
   },
   {

@@ -112,7 +112,9 @@ assert.match(read('nd')['auto-archive-hint'], /kawayiswa esiphaleni loba nini/);
 assert.match(read('ss')['auto-archive-hint'], /awayiswa esigcinweni nanini/);
 assert.match(read('nd')['filter-column-age-hint'], /akuqalisi kutsha/);
 assert.match(read('ss')['filter-column-age-hint'], /akucali kabusha/);
-assert.match(read('ts')['auto-archive-hint'], /a ti yisiwi eka vuhlayiselo nikatsongo/);
+// Tsonga: the Archive is "vuhlayiselo bya swa khale", kept apart from plain storage
+// (maintainer decision 2026-10-14).
+assert.match(read('ts')['auto-archive-hint'], /a ti yisiwi eka vuhlayiselo bya swa khale nikatsongo/);
 assert.match(read('ts')['filter-column-age-hint'], /a swi sunguli nkarhi wa rona/);
 assert.match(read('om')['auto-archive-hint'], /matumaa gara kuusaatti hin galan/);
 assert.match(read('om')['filter-column-age-hint'], /irra deebi'ee hin jalqabsiisu/);

@@ -2834,7 +2834,7 @@
   "s3-endpoint": "Krajnja točka S3",
   "s3-endpoint-description": "URL krajnje točke S3 (npr. s3.amazonaws.com ili minio.example.com)",
   "s3-minio-storage": "Pohrana S3/MinIO",
-  "s3-port": "S3 Port",
+  "s3-port": "S3 port",
   "s3-port-description": "Broj priključka krajnje točke S3",
   "s3-region": "S3 regija",
   "s3-region-description": "Regija AWS S3 (npr. us-east-1)",

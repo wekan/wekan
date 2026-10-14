@@ -37,7 +37,16 @@ const tokens = value => (String(value).match(/__[A-Za-z0-9_]+__|%(?:\d+\$)?[sd]/
   for (const [key, value] of Object.entries(bs)) {
     assert.doesNotMatch(value, /\b(premest|uneti|neraspodelj|istorij|nedelj[ae]?\b|sledeć|vreme\b|mesec)/i, `bs ${key} is ijekavian Bosnian`);
   }
-  console.log('  ok - Bosnian in Latin script and ijekavian, placeholders intact');
+  // Board is "tabla" throughout (the maintainer's decision); "ploča" stays only
+  // in "administratorska ploča" (Admin Panel) and "kontrolna ploča" (dashboard).
+  assert.equal(bs.board, 'Tabla');
+  assert.equal(bs['operator-board-abbrev'], 'tb', 'not "t", which is traka (swimlane)');
+  for (const [key, value] of Object.entries(bs)) {
+    for (const m of value.matchAll(/(\S+\s+)?\bplo(?:ča|če|či|ču|čom|čama)\b/gi)) {
+      assert.match(m[1] || '', /^(administratorsk|kontroln)/i, `bs ${key}: "${m[0]}" - board is tabla`);
+    }
+  }
+  console.log('  ok - Bosnian in Latin script and ijekavian, board is tabla, placeholders intact');
 
   // One value each, in the locale's own language.
   const expected = {
@@ -88,6 +97,17 @@ const tokens = value => (String(value).match(/__[A-Za-z0-9_]+__|%(?:\d+\$)?[sd]/
     assert.doesNotMatch(value, /Hi Xitsonga/, `ts ${key}`);
     assert.ok((value.match(/\bmhaka\b/g) || []).length < 2, `ts ${key} is not padded with mhaka`);
     if (key in en2) assert.deepEqual(tokens(value), tokens(en2[key]), `ts ${key} keeps its placeholders`);
+  }
+  // Tsonga: archive and storage are different words (the maintainer's
+  // decision): "vuhlayiselo bya swa khale" for the Archive, "vuhlayiselo" alone
+  // for storage.
+  const ts = locale('ts');
+  assert.equal(ts.storage, 'Vuhlayiselo');
+  assert.equal(ts.archives, 'Vuhlayiselo bya swa khale');
+  for (const [key, value] of Object.entries(ts)) {
+    if (/archiv/i.test(en2[key] || '') && !/storage|database|\.boardarchive/i.test(en2[key] || '') && /vuhlayiselo/i.test(value)) {
+      assert.match(value, /vuhlayiselo bya swa khale/i, `ts ${key}: the Archive, not storage`);
+    }
   }
   console.log('  ok - and nowhere else in those files');
   console.log('\nwrongLanguageCorrections20261014: all tests passed');
