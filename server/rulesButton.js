@@ -23,6 +23,8 @@ Meteor.methods({
 
     const rule = await ReactiveCache.getRule(ruleId);
     if (!rule) throw new Meteor.Error('not-found', 'Rule not found');
+    // A disabled rule never fires (#2322), its button included.
+    if (rule.enabled === false) throw new Meteor.Error('rule-disabled', 'Rule is disabled');
 
     const trigger = await ReactiveCache.getTrigger(rule.triggerId);
     if (!trigger || trigger.activityType !== 'button') {

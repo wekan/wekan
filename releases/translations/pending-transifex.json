@@ -1791,6 +1791,122 @@
     {
       "key": "cardQrCodePopup-title",
       "since": "2026-10-14"
+    },
+    {
+      "key": "r-commented",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "r-add-comment",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "r-add-comment-placeholder",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "r-on-cron-schedule",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "r-for-cards-in-list",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "r-cron-invalid",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "rule-disabled",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-releases",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-wiki",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-wiki-pages",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-no-releases",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "vcs-no-wiki",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "github-org-import",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "github-org-import-desc",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "github-org-import-owner",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "github-org-import-token",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "github-org-import-token-hint",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "github-org-import-issues",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "github-org-import-releases",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "github-org-import-release-files",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "github-org-import-actions",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "github-org-import-wiki",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "github-org-import-forks",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "github-org-import-start",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "github-org-import-progress",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "github-org-import-result",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "github-org-import-owner-invalid",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "github-org-import-no-repos",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "github-org-import-running",
+      "since": "2026-10-14"
     }
   ]
 }

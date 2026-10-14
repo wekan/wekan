@@ -156,6 +156,17 @@ template(name="cardActions")
     button.trigger-button.js-set-reldate-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
       i.fa.fa-plus(aria-hidden="true")
 
+  //- Add a comment, written as the person whose change ran the rule, with
+    the rule variables ({cardTitle}, {user}, ...).
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text
+        | {{_'r-add-comment'}}
+      div.trigger-dropdown
+        input(id="comment-action-text" type="text" placeholder="{{_ 'r-add-comment-placeholder'}}" aria-label="{{_ 'r-add-comment'}}")
+    button.trigger-button.js-add-comment-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")
+
 template(name="setCardActionsColorPopup")
   form.edit-label
     .palette-colors: each colors

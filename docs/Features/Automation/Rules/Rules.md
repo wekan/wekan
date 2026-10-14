@@ -41,7 +41,8 @@ On the Rules page you can:
 ## Triggers
 
 ### Event triggers
-- **Board:** card created / moved (to or from a list) / archived / unarchived.
+- **Board:** card created / moved (to or from a list) / archived / unarchived /
+  **commented on** (a comment was added to the card).
 - **Card:** label added/removed, member added/removed, attachment added/removed.
 - **Checklist:** checklist added/removed/completed, item checked/unchecked.
 
@@ -54,6 +55,14 @@ Evaluated by a server cron job every minute:
 - **Due date:** when a card's due date is set, is approaching (N days before), or is
   overdue (N days after), at a chosen time.
 - **Card aging / time-in-list:** when a card has been in a list for N days.
+- **Cron schedule (UTC):** a five-field cron expression, `minute hour day month
+  weekday` (`*`, lists, ranges, `*/N` steps, `MON`-`SUN`, `JAN`-`DEC`), in UTC as
+  GitHub Actions runs them, optionally limited to cards in a named list. An
+  invalid expression is not saved. A cron rule, like every scheduled rule, acts
+  on each card of its list, or of the board when no list is named.
+
+A **disabled** rule never fires: not on an event, not on a schedule and not
+from its button.
 
 ### Button triggers (manual)
 - **Card button:** appears on the card detail; runs the action on that card when
@@ -68,7 +77,9 @@ Evaluated by a server cron job every minute:
   name / created / modified), **move all cards** from one list to another.
 - **Card:** set/update/remove a date, **set a date relative to now** ("+N days"),
   add/remove label, add/remove member, remove all members, set color,
-  **mark complete / incomplete**.
+  **mark complete / incomplete**, **add a comment** (the text takes the
+  [variables](#variables); it is written as the person whose change ran the rule,
+  and only on a board where that person may comment).
 - **Checklist:** add/remove checklist, check/uncheck all, check/uncheck an item, add
   a checklist with items.
 - **Mail:** send an email.
@@ -236,6 +247,21 @@ reported. The rules are created in the **board you selected** under *Import targ
 > These formats are arbitrary-integration graphs, so the mapping is **best-effort**.
 > Importing rules/workflows *with* a whole board is supported for WeKan→WeKan (see
 > below); n8n/Node-RED bring workflows only, into a chosen existing board.
+
+### GitHub Actions workflows
+
+The [GitHub organization import](../../Board/Version-Control-View.md#github-organization)
+turns each `.github/workflows/*.yml` file of a repository into rules on that
+repository's board. Issue events become triggers (opened, closed, reopened,
+labeled, assigned, edited, commented on, a cron schedule, a manual run as a
+board button). Issue steps become actions: add or remove labels, close,
+reopen, comment, assign and create issues, from the well-known actions or
+from `gh issue ...` commands. `actions/stale` becomes an aging rule. A
+workflow whose every step maps is imported **enabled**. A build, a test, a
+script or any other code is never run by WeKan: such a workflow is imported
+**disabled**, with its YAML as the rule's description, and the import lists
+what did not map. The rule keeps WeKan's own permissions: it can do only what
+a rule can do on that board.
 
 ### Wrike workflows
 

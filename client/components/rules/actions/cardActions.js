@@ -137,6 +137,19 @@ Template.cardActions.events({
     });
   },
 
+  'click .js-add-comment-action'(event, tpl) {
+    const data = Template.currentData();
+    const commentText = String(tpl.find('#comment-action-text').value || '').trim();
+    if (!commentText) return;
+    const boardId = Session.get('currentBoard');
+    saveRuleTriggerAction(boardId, data.ruleId, data.ruleName.get(), data.triggerVar.get(), {
+      actionType: 'addComment',
+      commentText,
+      boardId,
+      desc: Utils.getTriggerActionDesc(event, tpl),
+    });
+  },
+
   'click .js-add-removeall-action'(event, tpl) {
     const data = Template.currentData();
     const ruleName = data.ruleName.get();

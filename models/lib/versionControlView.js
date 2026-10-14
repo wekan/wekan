@@ -15,7 +15,11 @@
 // Pure CommonJS, no Meteor: the client, the server methods and
 // tests/versionControlView.test.cjs load the same rules.
 
-const TABS = ['issues', 'milestones', 'labels', 'files', 'history'];
+const TABS = ['issues', 'milestones', 'labels', 'releases', 'wiki', 'files', 'history'];
+// The lists the GitHub organization import fills (models/lib/githubOrgImport.js,
+// models/lib/githubWiki.js): their cards are releases and wiki pages, not issues.
+const RELEASES_LIST_TITLE = 'Releases';
+const WIKI_LIST_TITLE = 'Wiki';
 
 // A list with one of these names holds closed issues. The GitHub, GitLab,
 // Gitea and Forgejo importers create "Open" and "Closed"
@@ -244,6 +248,8 @@ function stateTarget(lists, state) {
 
 module.exports = {
   TABS,
+  RELEASES_LIST_TITLE,
+  WIKI_LIST_TITLE,
   SORTS,
   CLOSED_LIST_NAMES,
   MILESTONE_PREFIX,

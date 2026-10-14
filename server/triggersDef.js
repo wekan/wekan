@@ -35,6 +35,11 @@ export const TriggersDef = {
   archivedCard: {
     matchingFields: ['boardId', 'userId', 'cardTitle'],
   },
+  // A comment added to a card (GitHub's issue_comment: created). The comment
+  // activity names the card, not its list, so a list cannot be matched.
+  addComment: {
+    matchingFields: ['boardId', 'userId', 'cardTitle'],
+  },
   restoredCard: {
     matchingFields: ['boardId', 'userId', 'cardTitle'],
   },

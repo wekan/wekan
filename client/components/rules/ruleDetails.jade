@@ -35,6 +35,13 @@ template(name="ruleDetails")
                 button.js-add-rule-part(type="button" data-rule-id="{{currentRuleId}}" data-kind="action")
                   i.fa.fa-plus
                   | {{_ 'r-add-action-to-rule'}}
+    //- What the rule is for; an imported GitHub Actions workflow keeps its
+      YAML here, so a disabled one shows what it did in GitHub.
+    if ruleDescription
+      .rule-description
+        h4 {{_ 'description'}}
+        +viewer
+          = ruleDescription
     div.rules-back
         button.primary.wide.js-goback(type="submit")
           i.fa.fa-arrow-left

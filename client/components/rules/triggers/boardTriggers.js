@@ -174,6 +174,15 @@ Template.boardTriggers.events({
         desc,
       });
     }
+    // A comment added to the card (GitHub's issue_comment: created).
+    if (actionSelected === 'commented') {
+      datas.triggerVar.set({
+        activityType: 'addComment',
+        boardId,
+        cardTitle,
+        desc,
+      });
+    }
   },
 });
 

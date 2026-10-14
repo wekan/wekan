@@ -876,6 +876,7 @@ const LOCALE_INVARIANTS = {
   ...Object.fromEntries(['nl', 'nl-NL', 'vl-SS'].map(code => [code, new Set([
     // Version Control view: GitHub's own words, used as they are in Dutch.
     'vcs-issues', 'vcs-open', 'vcs-open-issues',
+    'vcs-releases', 'github-org-import-releases',
     'blockly-ALT_KEY', 'blockly-BACKSPACE_KEY', 'blockly-BLOCK_LABEL_BEGIN_PREFIX',
     'blockly-CAPS_LOCK_KEY', 'blockly-CHROME_OS', 'blockly-COMMAND_KEY',
     'blockly-CONTEXT_MENU_KEY', 'blockly-ENTER_KEY', 'blockly-HOME_KEY',
@@ -933,6 +934,7 @@ const LOCALE_INVARIANTS = {
     [code, new Set([
       // Version Control view: "Issues", GitHub's word, as German uses it.
       'vcs-issues',
+      'vcs-releases', 'github-org-import-releases',
       'blockly-ALT_KEY', 'blockly-CHROME_OS', 'blockly-FIELD_LABEL_OPTION_INDEX',
       'blockly-FIELD_LABEL_VARIABLE', 'blockly-LINUX', 'blockly-LOGIC_NULL',
       'blockly-MAC_OS', 'blockly-MATH_ADDITION_SYMBOL_ARIA',
@@ -946,6 +948,8 @@ const LOCALE_INVARIANTS = {
   // retain their conventional spelling. No descriptive prose is exempted.
   ...Object.fromEntries(['fr', 'fr-FR', 'fr-BE', 'fr-CH', 'fr-CA'].map(code =>
     [code, new Set([
+      // Version Control view's wiki: "Pages" is French as well.
+      'vcs-wiki-pages',
       // Native French plurals (Académie: date A9D0115, heure A9H0629).
       // Require exact source values so changed prose is offered for translation.
       ...Object.entries({
@@ -1002,6 +1006,7 @@ const LOCALE_INVARIANTS = {
   ...Object.fromEntries(['pt', 'pt-PT', 'pt_PT', 'pt-BR'].map(code => [code, new Set([
     // Version Control view: "Issues", GitHub's word, as Brazilian Portuguese uses it.
     'vcs-issues',
+    'vcs-releases', 'github-org-import-releases',
     'blockly-ALT_KEY', 'blockly-CHROME_OS', 'blockly-CONTEXT_MENU_KEY',
     'blockly-ENTER_KEY', 'blockly-INPUT_LABEL_MATH_DIVISOR', 'blockly-LINUX',
     'blockly-MAC_OS', 'blockly-MATH_TRIG_ACOS', 'blockly-MATH_TRIG_ASIN',
@@ -1143,7 +1148,7 @@ const isInvariantSource = value => {
   if (!/\p{Letter}/u.test(withoutPlaceholders)) return true;
   if (/^(?:YYYY-MM-DD|DD-MM-YYYY|MM-DD-YYYY)$/.test(value)) return true;
   if (/^https?:\/\/\S+$/.test(value)) return true; // example/placeholder URLs stay identical in every locale
-  return /^(Meteor|Node|MongoDB|MongoDB CollectionFS|MongoDB Meteor-Files|OAuth2|LDAP|CAS|GridFS|Arial|Gantt|Frappe Gantt|DHTMLX Gantt|S3|S3\/MinIO|CollectionFS|Google Cloud Storage\.?|Azure Blob|Azure Blob Storage|Meteor-Files|Microsoft Azure Blob Storage\.?|MongoDB Compact|Bytes|URL|Logo|Cron|OS|Platform|USA|Asia|OK|Planning Poker|API|Bigboard|Google|GitHub|Facebook|X \(Twitter\)|Meteor Developer|Weibo|Meetup)$/.test(value);
+  return /^(Meteor|Node|MongoDB|MongoDB CollectionFS|MongoDB Meteor-Files|OAuth2|LDAP|CAS|GridFS|Arial|Gantt|Frappe Gantt|DHTMLX Gantt|S3|S3\/MinIO|CollectionFS|Google Cloud Storage\.?|Azure Blob|Azure Blob Storage|Meteor-Files|Microsoft Azure Blob Storage\.?|MongoDB Compact|Bytes|URL|Logo|Cron|OS|Platform|USA|Asia|OK|Planning Poker|API|Wiki|Bigboard|Google|GitHub|Facebook|X \(Twitter\)|Meteor Developer|Weibo|Meetup)$/.test(value);
 };
 // Keys added in English on purpose while they wait for Transifex
 // (pending-transifex.json, written by add-pending-keys.mjs). A locale value

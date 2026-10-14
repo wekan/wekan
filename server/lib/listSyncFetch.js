@@ -253,16 +253,28 @@ export async function fetchJiraIssues(syncSource, credential) {
 }
 
 // GET /repos/{owner}/{repo}/issues?state=all
+// A public repository or organization needs no token: none is sent then.
+function githubHeaders(token) {
+  return { Accept: 'application/vnd.github+json', ...(token ? { Authorization: `token ${token}` } : {}) };
+}
+
+// The GitHub REST API for the GitHub organization import
+// (server/githubOrgImport.js): one answer, or every page of a list, through
+// the same SSRF guard, pagination checks and rate-limit handling as sync.
+export async function fetchGithubApi(pathAndQuery, token) {
+  return (await fetchJson(`https://api.github.com${pathAndQuery}`, githubHeaders(token))).body;
+}
+export async function fetchGithubApiPages(pathAndQuery, token) {
+  return fetchArrayPages(`https://api.github.com${pathAndQuery}`, githubHeaders(token));
+}
+
 // With "Comments, labels, state and files" (syncSource.issueDetails), also
 // GET /repos/{owner}/{repo}/issues/comments - every comment of the repository
 // in one paged list, each naming its issue - rather than one call per issue
 // (models/lib/listSyncIssueDetails.js).
 export async function fetchGithubIssues(syncSource, credential) {
   const url = `https://api.github.com/repos/${syncSource.projectKey}/issues?state=all&per_page=100`;
-  const headers = {
-    Authorization: `token ${credential.token}`,
-    Accept: 'application/vnd.github+json',
-  };
+  const headers = githubHeaders(credential.token);
   const issues = await fetchArrayPages(url, headers);
   if (!syncSource.issueDetails) return issues;
   const comments = await fetchArrayPages(`https://api.github.com/repos/${syncSource.projectKey}/issues/comments?per_page=100`, headers);

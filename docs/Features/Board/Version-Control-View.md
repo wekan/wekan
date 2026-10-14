@@ -57,6 +57,15 @@ theme. It uses the board's own data, and no second copy of anything is kept:
   and new issues are ordinary card changes, so they appear here and can be
   undone like any other.
 
+- **Releases**: the cards of the board's *Releases* list, newest first, with
+  their notes and files, as GitHub's releases page.
+- **Wiki**: the cards of the board's *Wiki* list as a GitHub wiki: the page
+  list at the side (`Home` first), `_Sidebar` under it and `_Footer` under
+  the page, and a link to another page opens that page in the tab.
+  **History** shows the page's history - each commit that changed it, dated
+  as committed, by its author - and **Restore** brings an older text back.
+  **Edit** opens the page's card.
+
 ## Closing and reopening
 
 **Close issue** moves the card to the board's *Closed* list, or to the first
@@ -110,6 +119,42 @@ up. These are the same request patterns as git-bug's GitHub and GitLab
 bridges and Gitea's repository migrations. Gitea issues are fetched with
 `type=issues`, so pull requests are not downloaded only to be dropped.
 
+## GitHub organization
+
+Import → GitHub → **Import a whole GitHub organization** imports every
+repository of an organization, or of a user (`wekan` or
+`https://github.com/wekan`). Each repository becomes its **own board**, named
+`owner/repository`, opening in this view:
+
+| Part | Becomes |
+| --- | --- |
+| Issues | Cards in *Open* and *Closed*, with their comments, labels, milestones and files (always) |
+| Releases | A card per release in *Releases*: tag and name, notes, date |
+| Release files | The release's files attached to its card (off by default: they can be large) |
+| GitHub Actions | Rules, as [Rules → GitHub Actions workflows](../Automation/Rules/Rules.md#github-actions-workflows) describes |
+| Wiki | A card per page in *Wiki*, with links and history (below) |
+
+The wiki is a git repository (`<repository>.wiki.git`), because GitHub has no
+API for it. WeKan reads it with isomorphic-git, a JavaScript git, so nothing
+is installed. Every request, the clone included, goes through the SSRF guard
+and may only reach github.com. The clone is made in a temporary directory and
+removed afterwards. A page is a card: its title on the minicard and its text in
+the card's details. A `[[link]]`, `[[text|Page]]` or Markdown link `[text]` `(Page)` to another
+page points at that page's card and is attached to the card as a **link to
+card**. Each commit that changed the page is an edit of the description in the
+card's **history**, dated as committed. So **Restore** and undo bring back an
+older version, and the Wiki tab shows the history as GitHub does.
+
+The import runs on the server as a job: the page shows its progress, and it
+can be cancelled. It runs **as the person who started it**, through the
+same import every other source uses, with that person's rights. A token is
+optional: it is needed for private repositories and for GitHub's higher API
+limit. It is kept only in the server's memory while the job runs, never saved.
+After a server restart the job is paused and continues with the token given
+again. When GitHub's rate limit is reached the job stops at that repository and
+can be continued later. Admin Panel → Features → Security can turn every
+import off, this one included.
+
 ## Public boards
 
 Like every view, Version Control can be offered on a public board, and be the
@@ -127,4 +172,7 @@ refuses them anyway.
 | `models/lib/versionControlView.js` | State, number, milestones, search, progress. No Meteor code |
 | `models/lib/issueAttachments.js` | Which links of an issue are its files |
 | `models/lib/listSyncIssueDetails.js`, `server/lib/listSyncIssueDetails.js` | Sync's comments, labels, state and files |
+| `server/githubOrgImport.js`, `models/lib/githubOrgImport.js`, `models/githubImportJobs.js` | The organization import |
+| `models/lib/githubActionsRules.js`, `models/lib/workflowYaml.js`, `models/lib/cronSchedule.js` | GitHub Actions as Rules |
+| `models/lib/githubWiki.js`, `server/lib/githubWiki.js` | The wiki as cards |
 | `tests/versionControlView.test.cjs`, `tests/issueAttachments.test.cjs`, `tests/listSyncIssueDetails.test.cjs` | The tests |

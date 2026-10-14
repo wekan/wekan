@@ -125,6 +125,9 @@ template(name="importTextarea")
   if isTrelloImport
     hr
     +importTrelloApi
+  if isGithubImport
+    hr
+    +importGithubOrg
 
 template(name="importTrelloApi")
   .trello-api-import
@@ -219,6 +222,62 @@ template(name="importTrelloApi")
               if copied.get
                 span.quiet  {{_ 'copied'}}
             textarea.js-trello-errors-text(readonly rows="8" wrap="off")= jobErrorText
+
+//- A whole GitHub organization (or user): every repository as its own
+  board, opened in Board View / Version Control (server/githubOrgImport.js).
+template(name="importGithubOrg")
+  .github-org-import
+    h2 {{_ 'github-org-import'}}
+    p.quiet {{_ 'github-org-import-desc'}}
+    form.js-github-org-form
+      p.import-file-row
+        label(for='github-org-owner') {{_ 'github-org-import-owner'}}
+        input.js-github-org-owner(id='github-org-owner' type="text" autocomplete="off" placeholder="wekan" required)
+      p.import-file-row
+        label(for='github-org-token') {{_ 'github-org-import-token'}}
+        input.js-github-org-token(id='github-org-token' type="password" autocomplete="off")
+      p.quiet {{_ 'github-org-import-token-hint'}}
+      .github-org-parts
+        each orgParts
+          label.flex
+            input.js-github-org-part(type="checkbox" value="{{key}}" checked="{{#if checked}}checked{{/if}}" disabled="{{#if fixed}}disabled{{/if}}")
+            span  {{_ labelKey}}
+        label.flex
+          input.js-github-org-forks(type="checkbox")
+          span  {{_ 'github-org-import-forks'}}
+      if error.get
+        .warning {{_ error.get}}
+      unless jobIsRunning
+        button.primary.wide(type="submit") {{_ 'github-org-import-start'}}
+    if currentJob
+      hr
+      with currentJob
+        h3 {{_ 'github-org-import-progress'}} {{options.owner}}
+        p
+          b {{_ 'status'}}:
+          span  {{_ status}} ({{currentIndex}} / {{total}})
+        .trello-progress-bar
+          .trello-progress-fill(class="{{#if $eq status 'running'}}is-running{{/if}}" style="width: {{percent}}%")
+        if lastError
+          .warning {{lastError}}
+      p.trello-job-controls
+        if jobIsRunning
+          button.primary.js-github-org-cancel(type="button") {{_ 'trello-cancel'}}
+        if jobCanResume
+          button.primary.js-github-org-resume(type="button") {{_ 'trello-resume'}}
+        unless jobIsRunning
+          button.primary.js-github-org-clear(type="button") {{_ 'trello-clear-job'}}
+      .trello-import-results
+        each jobResults
+          p.trello-import-result(class="{{#if success}}is-ok{{else}}is-error{{/if}}")
+            if success
+              i.fa.fa-check
+              |  
+              a(href="{{boardUrl}}") {{repo}}
+              span.quiet  {{_ 'github-org-import-result' issues releases rules wikiPages}}
+            else
+              i.fa.fa-warning
+              span  {{repo}}: {{this.error}}
 
 template(name="importMapMembers")
   h2 {{_ 'import-map-members'}}

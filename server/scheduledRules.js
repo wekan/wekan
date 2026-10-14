@@ -9,6 +9,7 @@ import Cards from '/models/cards';
 import Activities from '/models/activities';
 import { matchesScheduledDate } from '/models/lib/scheduledDueFilter';
 import { ruleActionIds, ruleForTriggerSelector } from '/models/lib/ruleParts';
+import { isValidCron, cronMatches } from '/models/lib/cronSchedule';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 const BOARD_LEVEL_ACTIONS = ['createCard', 'addSwimlane', 'moveAllCardsInList'];
@@ -85,7 +86,9 @@ async function runDueTrigger(trigger, slotKey, now) {
   // The trigger may be one of several the rule has; the rule runs each of its
   // actions in order (models/lib/ruleParts.js).
   const rule = await ReactiveCache.getRule(ruleForTriggerSelector(trigger._id));
-  if (!rule) return;
+  // A disabled rule keeps its configuration and never fires (#2322) - on a
+  // schedule too, as activity rules already did (RulesHelper.findMatchingRules).
+  if (!rule || rule.enabled === false) return;
   const actions = [];
   for (const actionId of ruleActionIds(rule)) {
     // eslint-disable-next-line no-await-in-loop
@@ -129,6 +132,7 @@ async function runDueTrigger(trigger, slotKey, now) {
   });
 }
 
+
 // Evaluate every scheduled trigger once per minute.
 export async function scanScheduledRules(now = new Date()) {
   const hhmm = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
@@ -143,6 +147,14 @@ export async function scanScheduledRules(now = new Date()) {
   for (const trigger of triggers) {
     try {
       if (trigger.lastRunKey === slotKey) continue; // already ran this minute
+      // A cron schedule (models/lib/cronSchedule.js), in UTC as GitHub Actions
+      // runs it: an imported workflow keeps its exact times.
+      if (trigger.scheduleKind === 'cron') {
+        if (!trigger.cron || !isValidCron(trigger.cron) || !cronMatches(trigger.cron, now)) continue;
+        // eslint-disable-next-line no-await-in-loop
+        await runDueTrigger(trigger, slotKey, now);
+        continue;
+      }
       if (trigger.atTime && trigger.atTime !== hhmm) continue; // not the chosen time
       if (trigger.scheduleKind === 'calendar' && !calendarDue(trigger, now)) continue;
       // 'due' and 'aging' fire daily at atTime; card-level filtering is in selectCards.

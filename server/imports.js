@@ -341,6 +341,8 @@ import '/server/publications/userDesktopDragHandles';
 import '/server/publications/userBoardView';
 import '/server/publications/users';
 import '/server/publications/trelloImportJobs';
+import '/server/publications/githubImportJobs';
+import '/server/githubOrgImport';
 
 // ----------------------------------------------------------------------------
 // 14. Server — routes (REST API, file serving)

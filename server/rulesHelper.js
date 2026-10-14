@@ -17,6 +17,7 @@ import { TAPi18n } from '/imports/i18n';
 import { TriggersDef } from '/server/triggersDef';
 import EmailLocalization from '/server/lib/emailLocalization';
 import Cards from '/models/cards';
+import CardComments from '/models/cardComments';
 import ChecklistItems from '/models/checklistItems';
 import Checklists from '/models/checklists';
 import Swimlanes from '/models/swimlanes';
@@ -33,6 +34,7 @@ import { cardMatchesAdvancedFilter } from '/server/lib/advancedFilterMatch';
 import { cardTextContainsMatch } from '/models/lib/ruleTextContainsMatch';
 import { RULE_ACTING_USER_SENTINEL, resolveActingUserId } from '/models/lib/ruleActingUser';
 import { ruleActionIds, uniqueRules } from '/models/lib/ruleParts';
+const { memberCan } = require('/models/lib/boardRoleCapabilities');
 
 // #5536: robustly resolve a destination board's default swimlane, tolerating a
 // board that lacks a swimlane literally titled 'Default' (renamed/translated) or
@@ -1098,6 +1100,18 @@ export const RulesHelper = {
         sort: 0,
         boardId: target.boardId,
       });
+    }
+    // Add a comment to the card (GitHub Actions' create-comment steps). The
+    // text takes the rule variables ({cardTitle}, {user}, ...). It is
+    // written as the person whose change ran the rule, under that person's
+    // own right to comment: a rule never comments where they could not.
+    if (action.actionType === 'addComment') {
+      const text = String(substituteVars(action.commentText || '', await buildRuleVars(activity, card)) || '').trim();
+      const authorId = resolveActingUserId(activity) || activity.userId;
+      const board = await ReactiveCache.getBoard(card.boardId);
+      if (text && authorId && board && memberCan(board, authorId, 'comment')) {
+        await CardComments.insertAsync({ text: text.slice(0, 65536), boardId: card.boardId, cardId: card._id, userId: authorId });
+      }
     }
     if (action.actionType === 'copyCard') {
       return await copyRuleCard({ activity, action, cache: ReactiveCache, canWrite: allowIsBoardMemberWithWriteAccess });

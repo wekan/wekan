@@ -1,4 +1,7 @@
 import { Utils } from '/client/lib/utils';
+import { TAPi18n } from '/imports/i18n';
+
+const { isValidCron } = require('/models/lib/cronSchedule');
 
 // All triggers here are time-based: they are evaluated by the server SyncedCron
 // scanner in server/scheduledRules.js rather than by activity matching. They all
@@ -66,6 +69,30 @@ Template.scheduledTriggers.events({
       swimlaneName: '*',
       boardId,
       desc,
+    });
+  },
+  // A cron schedule in UTC (models/lib/cronSchedule.js); an invalid one is
+  // not saved.
+  'click .js-add-cron-trigger'(event, tpl) {
+    const datas = Template.currentData();
+    const cron = String(tpl.find('#cron-expression').value || '').trim().replace(/\s+/g, ' ');
+    if (!isValidCron(cron)) {
+      // Stay on this page: the outer .js-goto-action handler must not run.
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+      tpl.find('#cron-expression').setCustomValidity(TAPi18n.__('r-cron-invalid'));
+      tpl.find('#cron-expression').reportValidity();
+      return;
+    }
+    tpl.find('#cron-expression').setCustomValidity('');
+    datas.triggerVar.set({
+      activityType: 'scheduledTrigger',
+      scheduleKind: 'cron',
+      cron,
+      listName: tpl.find('#cron-list-name').value || '*',
+      swimlaneName: '*',
+      boardId: Session.get('currentBoard'),
+      desc: Utils.getTriggerActionDesc(event, tpl),
     });
   },
 });

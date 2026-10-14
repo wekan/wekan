@@ -83,3 +83,18 @@ template(name="scheduledTriggers")
         +calendarTimeInput(inputId="aging-time" value="09:00")
     button.trigger-button.js-add-aging-trigger.js-goto-action(type="button" aria-label="{{_ 'r-add-trigger'}}")
       i.fa.fa-plus(aria-hidden="true")
+
+  //- A cron schedule in UTC, the schedule GitHub Actions workflows use
+    (models/lib/cronSchedule.js): minute hour day month weekday.
+  div.trigger-item#trigger-cron(data-editor-scope)
+    div.trigger-content
+      div.trigger-text
+        | {{_'r-on-cron-schedule'}}
+      div.trigger-dropdown
+        input#cron-expression(type="text" value="0 9 * * 1-5" aria-label="{{_ 'r-on-cron-schedule'}}" placeholder="0 9 * * 1-5")
+      div.trigger-text
+        | {{_'r-for-cards-in-list'}}
+      div.trigger-dropdown
+        textarea#cron-list-name(rows="2" data-editor-submit=".js-goto-action, .js-goto-rules" placeholder="{{_'r-list-name'}}")
+    button.trigger-button.js-add-cron-trigger.js-goto-action(type="button" aria-label="{{_ 'r-add-trigger'}}")
+      i.fa.fa-plus(aria-hidden="true")

@@ -37,6 +37,10 @@ Template.ruleDetails.helpers({
   currentRuleId() {
     return Template.currentData().ruleId.get();
   },
+  ruleDescription() {
+    const rule = ReactiveCache.getRule(Template.currentData().ruleId.get());
+    return (rule && rule.description) || '';
+  },
   extraTriggers() {
     return extraParts(Template.currentData().ruleId, 'trigger');
   },

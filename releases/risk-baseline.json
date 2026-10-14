@@ -102,6 +102,21 @@
       "https://github\\.com/user-attachments/assets/",
       "https://github\\.com/user-attachments/files/",
       "https://user-images\\.githubusercontent\\.com/"
+    ],
+    "server/githubOrgImport.js": [
+      "https://github\\.com/\\$\\{owner"
+    ],
+    "server/lib/githubWiki.js": [
+      "https://github\\.com"
+    ],
+    "server/lib/listSyncFetch.js": [
+      "https://api\\.github\\.com\\$\\{pathAndQuery"
+    ],
+    "models/lib/githubOrgImport.js": [
+      "https://github\\.com/wekan"
+    ],
+    "server/compatApi/core.js": [
+      "http://127\\.0\\.0\\.1:\\$\\{process\\.env\\.PORT"
     ]
   },
   "files": {

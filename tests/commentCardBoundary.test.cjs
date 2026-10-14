@@ -57,7 +57,12 @@ test('negative: every externally supplied REST comment insert is preceded by the
   });
   const paths = walk(path.join(root, 'server')).filter(file => /CardComments\.(?:direct\.)?insertAsync\(/.test(fs.readFileSync(file, 'utf8')));
   assert.deepEqual(paths.map(file => path.relative(root, file)).sort(),
-    ['server/emailToCard.js', 'server/lib/listSyncIssueDetails.js', 'server/models/cardComments.js', 'server/routes/inboundEmail.js']);
+    ['server/emailToCard.js', 'server/lib/listSyncIssueDetails.js', 'server/models/cardComments.js', 'server/routes/inboundEmail.js',
+      'server/rulesHelper.js']);
+  // A rule's "add comment" writes on the card the rule ran for, with that
+  // card's own board id, as a person who may comment there.
+  const rulesHelper = read('server/rulesHelper.js');
+  assert.match(rulesHelper, /const board = await ReactiveCache\.getBoard\(card\.boardId\);[\s\S]{0,120}memberCan\(board, authorId, 'comment'\)[\s\S]{0,40}CardComments\.insertAsync\(\{ text: text\.slice\(0, 65536\), boardId: card\.boardId, cardId: card\._id,/);
   // List sync's issue comments go only onto cards found ON the synced list's
   // own board and list, and are written with that board's id - the tracker
   // never names a card.

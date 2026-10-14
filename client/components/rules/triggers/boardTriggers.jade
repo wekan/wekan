@@ -102,6 +102,7 @@ template(name="boardTriggers")
         select(id="arch-action")
           option(value="archived") {{_'r-archived'}}
           option(value="unarchived") {{_'r-unarchived'}}
+          option(value="commented") {{_'r-commented'}}
       button.trigger-button.trigger-button-person.js-show-user-field(type="button" aria-label="{{_ 'username'}}")
         i.fa.fa-user(aria-hidden="true")
       div.user-details.hide-element

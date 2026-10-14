@@ -13,8 +13,8 @@ const vcs = require('/models/lib/versionControlView');
 // already on the client; the two writes that need the server (New issue,
 // Close / Reopen) are methods, and a comment is an ordinary card comment.
 
-const TAB_ICONS = { issues: 'fa-dot-circle-o', milestones: 'fa-map-signs', labels: 'fa-tag', files: 'fa-file-o', history: 'fa-history' };
-const TAB_LABELS = { issues: 'vcs-issues', milestones: 'vcs-milestones', labels: 'labels', files: 'attachments', history: 'history' };
+const TAB_ICONS = { issues: 'fa-dot-circle-o', milestones: 'fa-map-signs', labels: 'fa-tag', releases: 'fa-tags', wiki: 'fa-book', files: 'fa-file-o', history: 'fa-history' };
+const TAB_LABELS = { issues: 'vcs-issues', milestones: 'vcs-milestones', labels: 'labels', releases: 'vcs-releases', wiki: 'vcs-wiki', files: 'attachments', history: 'history' };
 const SOURCES = ['github', 'gitlab', 'gitea', 'forgejo'];
 const SOURCE_NAMES = { github: 'GitHub', gitlab: 'GitLab', gitea: 'Gitea', forgejo: 'Forgejo', jira: 'Jira' };
 
@@ -26,6 +26,8 @@ const selectedId = new ReactiveVar(null);
 const creating = new ReactiveVar(false);
 const createError = new ReactiveVar('');
 const syncing = new ReactiveVar(null);
+const wikiPageId = new ReactiveVar(null);
+const wikiHistory = new ReactiveVar(false);
 
 function userName(userId) {
   const user = userId && ReactiveCache.getUser(userId);
@@ -56,7 +58,11 @@ function boardIssues() {
   CardComments.find({ boardId: board._id }, { fields: { cardId: 1 } }).forEach((c) => {
     commentCount.set(c.cardId, (commentCount.get(c.cardId) || 0) + 1);
   });
-  const cards = ReactiveCache.getCards({ boardId: board._id, type: { $nin: ['template-card', 'cardType-linkedBoard'] } }) || [];
+  // Releases and wiki pages have lists of their own; they are not issues.
+  const notIssues = new Set((ReactiveCache.getLists({ boardId: board._id }) || [])
+    .filter(l => [vcs.RELEASES_LIST_TITLE, vcs.WIKI_LIST_TITLE].includes(l.title)).map(l => l._id));
+  const cards = (ReactiveCache.getCards({ boardId: board._id, type: { $nin: ['template-card', 'cardType-linkedBoard'] } }) || [])
+    .filter(card => !notIssues.has(card.listId));
   return cards.map((card) => {
     const labelIds = card.labelIds || [];
     const plain = labelIds.filter(id => labelById.has(id) && !milestoneById.has(id));
@@ -116,6 +122,26 @@ function openCardPopup(event, cardId) {
   });
 }
 
+const SPECIAL_WIKI = ['_Sidebar', '_Footer'];
+
+function specialList(title) {
+  const boardId = Utils.getCurrentBoardId();
+  return boardId ? ReactiveCache.getList({ boardId, title, archived: false }) : null;
+}
+
+function wikiCards() {
+  const list = specialList(vcs.WIKI_LIST_TITLE);
+  return list ? (ReactiveCache.getCards({ boardId: list.boardId, listId: list._id, archived: false }, { sort: { sort: 1 } }) || []) : [];
+}
+
+// The page shown: the chosen one, else Home, else the first.
+function selectedWikiPage() {
+  const cards = wikiCards().filter(c => !SPECIAL_WIKI.includes(c.title));
+  return cards.find(c => c._id === wikiPageId.get()) || cards.find(c => /^home$/i.test(c.title)) || cards[0] || null;
+}
+
+const fileRow = file => ({ name: file.name, link: typeof file.link === 'function' ? file.link() : '' });
+
 function filesOf(cardIds) {
   if (!cardIds.length) return [];
   return ReactiveCache.getAttachments(liveAttachments({ 'meta.cardId': { $in: cardIds } })) || [];
@@ -123,6 +149,8 @@ function filesOf(cardIds) {
 
 Template.versionControlView.onCreated(() => {
   tab.set('issues');
+  wikiPageId.set(null);
+  wikiHistory.set(false);
   query.set('is:open');
   selectedId.set(null);
   creating.set(false);
@@ -190,6 +218,27 @@ Template.versionControlView.helpers({
     const board = Utils.getCurrentBoard();
     return vcs.labelUsage((board && board.labels) || [], boardIssues());
   },
+  // Releases: the cards of the Releases list, newest first.
+  releases() {
+    const list = specialList(vcs.RELEASES_LIST_TITLE);
+    if (!list) return [];
+    return (ReactiveCache.getCards({ boardId: list.boardId, listId: list._id, archived: false }) || [])
+      .map(card => ({ _id: card._id, title: card.title, body: vcs.issueBody(card.description), date: shortDate(card.receivedAt || card.createdAt),
+        at: new Date(card.receivedAt || card.createdAt || 0).getTime(), files: filesOf([card._id]).map(fileRow) }))
+      .sort((a, b) => b.at - a.at);
+  },
+  // Wiki: the pages are the cards of the Wiki list (models/lib/githubWiki.js).
+  wikiPages() {
+    const current = selectedWikiPage();
+    return wikiCards().filter(c => !SPECIAL_WIKI.includes(c.title)).map(c => ({ _id: c._id, title: c.title, active: current && current._id === c._id }));
+  },
+  wikiPage() {
+    const page = selectedWikiPage();
+    return page && { _id: page._id, title: page.title, text: page.description || '' };
+  },
+  wikiSidebar() { const c = wikiCards().find(x => x.title === '_Sidebar'); return c ? c.description || '' : ''; },
+  wikiFooter() { const c = wikiCards().find(x => x.title === '_Footer'); return c ? c.description || '' : ''; },
+  wikiHistory() { return wikiHistory.get(); },
   files() {
     const issues = new Map(boardIssues().map(i => [i._id, i]));
     return filesOf([...issues.keys()]).map((file) => {
@@ -258,6 +307,29 @@ Template.versionControlView.events({
     if (!listId || syncing.get()) return;
     syncing.set(listId);
     Meteor.call('syncListNow', listId, () => syncing.set(null));
+  },
+  'click .js-vcs-wiki-page'(event) {
+    event.preventDefault();
+    wikiPageId.set(event.currentTarget.dataset.cardId);
+    wikiHistory.set(false);
+  },
+  // A link between pages points at the other page's card: stay in the wiki.
+  'click .vcs-wiki-body a'(event) {
+    const href = event.currentTarget.getAttribute('href') || '';
+    const target = wikiCards().find(c => href.endsWith(`/${c._id}`));
+    if (!target) return;
+    event.preventDefault();
+    wikiPageId.set(target._id);
+    wikiHistory.set(false);
+  },
+  'click .js-vcs-wiki-history'(event) {
+    event.preventDefault();
+    wikiHistory.set(!wikiHistory.get());
+  },
+  'click .js-vcs-wiki-edit'(event) {
+    event.preventDefault();
+    const page = selectedWikiPage();
+    if (page) openCardPopup(event, page._id);
   },
   'click .js-vcs-export'(event) {
     event.preventDefault();

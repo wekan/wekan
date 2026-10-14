@@ -20,6 +20,7 @@ import { expandFiles, documentForFile, isGeneralizedSource } from '/models/lib/i
 import { IMPORT_SOURCES, importSource as importSourceSpec, acceptFor } from '/models/lib/importSources';
 import { TAPi18n } from '/imports/i18n';
 import TrelloImportJobs from '/models/trelloImportJobs';
+import GithubImportJobs from '/models/githubImportJobs';
 import { csvMappingData, parseCsvImportText, startCsvMapping } from './csvMapping';
 
 const { jiraEstimateCandidates, discoveredJiraEstimateMapping } = require('/models/lib/jiraEstimateMapping');
@@ -695,6 +696,9 @@ Template.importTextarea.helpers({
   isTrelloImport() {
     return Session.get('importSource') === 'trello';
   },
+  isGithubImport() {
+    return Session.get('importSource') === 'github';
+  },
   // #1173: a previous export of this WeKan, as a .json or as a .zip.
   // What the one file chooser accepts for this source, and whether its
   // export can be pasted (models/lib/importSources.js).
@@ -1313,5 +1317,75 @@ Template.importTrelloApi.events({
         }
       }
     }
+  },
+});
+
+// --- A whole GitHub organization (server/githubOrgImport.js) ---------------
+
+const ORG_PARTS = [
+  { key: 'issues', labelKey: 'github-org-import-issues', fixed: true },
+  { key: 'releases', labelKey: 'github-org-import-releases' },
+  { key: 'releaseFiles', labelKey: 'github-org-import-release-files', off: true },
+  { key: 'actions', labelKey: 'github-org-import-actions' },
+  { key: 'wiki', labelKey: 'github-org-import-wiki' },
+];
+
+function currentOrgJob() {
+  return GithubImportJobs.findOne({ userId: Meteor.userId() }, { sort: { createdAt: -1 } });
+}
+
+Template.importGithubOrg.onCreated(function () {
+  this.error = new ReactiveVar('');
+  this.subscribe('githubImportJobs');
+});
+
+Template.importGithubOrg.helpers({
+  error() { return Template.instance().error; },
+  orgParts() { return ORG_PARTS.map(p => ({ ...p, checked: !p.off })); },
+  currentJob() {
+    const job = currentOrgJob();
+    return job && { ...job, percent: job.total ? Math.round((job.currentIndex * 100) / job.total) : 0 };
+  },
+  jobIsRunning() { const job = currentOrgJob(); return !!(job && job.status === 'running'); },
+  jobCanResume() { const job = currentOrgJob(); return !!(job && ['paused', 'error'].includes(job.status)); },
+  jobResults() {
+    const job = currentOrgJob();
+    return ((job && job.results) || []).map(r => ({ ...r, boardUrl: r.boardId ? FlowRouter.path('board', { id: r.boardId, slug: 'board' }) : '#',
+      issues: r.issues || 0, releases: r.releases || 0, rules: r.rules || 0, wikiPages: r.wikiPages || 0 }));
+  },
+});
+
+Template.importGithubOrg.events({
+  'submit .js-github-org-form'(event, tpl) {
+    event.preventDefault();
+    tpl.error.set('');
+    const input = {
+      owner: String(tpl.$('.js-github-org-owner').val() || ''),
+      parts: tpl.$('.js-github-org-part:checked').toArray().map(el => el.value),
+      includeForks: tpl.$('.js-github-org-forks').is(':checked'),
+    };
+    const token = String(tpl.$('.js-github-org-token').val() || '');
+    if (token) input.token = token;
+    Meteor.call('githubOrgStartImport', input, (error) => {
+      if (error) tpl.error.set(String(error.error || error.reason || 'error'));
+      // The token is not kept on the page once it was handed to the server.
+      tpl.$('.js-github-org-token').val('');
+    });
+  },
+  'click .js-github-org-cancel'() {
+    const job = currentOrgJob();
+    if (job) Meteor.call('githubOrgCancelImport', job._id);
+  },
+  'click .js-github-org-resume'(event, tpl) {
+    const job = currentOrgJob();
+    const token = String(tpl.$('.js-github-org-token').val() || '');
+    if (job) Meteor.call('githubOrgResumeImport', job._id, token || undefined, (error) => {
+      if (error) tpl.error.set(String(error.error || error.reason || 'error'));
+      tpl.$('.js-github-org-token').val('');
+    });
+  },
+  'click .js-github-org-clear'() {
+    const job = currentOrgJob();
+    if (job) Meteor.call('githubOrgClearImport', job._id);
   },
 });

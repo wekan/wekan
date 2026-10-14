@@ -402,3 +402,68 @@
   align-self: center;
   margin-inline-end: auto;
 }
+
+/* Releases and the wiki, as GitHub draws them. */
+.vcs-releases {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+}
+
+.vcs-wiki {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.vcs-wiki-main {
+  flex: 1 1 560px;
+  min-width: 0;
+}
+
+.vcs-wiki-side {
+  flex: 0 1 260px;
+  display: grid;
+  gap: 16px;
+}
+
+.vcs-wiki-tools {
+  display: flex;
+  gap: 16px;
+}
+
+.vcs-wiki-tools a {
+  color: inherit;
+}
+
+.vcs-wiki-footer {
+  margin-top: 24px;
+  padding-top: 12px;
+  border-top: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+}
+
+.vcs-wiki-pages {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.vcs-wiki-pages li a {
+  display: block;
+  padding: 6px 16px;
+  color: inherit;
+  text-decoration: none;
+  border-top: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.vcs-wiki-pages li.is-active a {
+  font-weight: bold;
+  color: var(--theme-accent, #01628c);
+}
+
+.vcs-wiki-sidebar {
+  padding: 8px 16px;
+}

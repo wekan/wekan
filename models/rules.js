@@ -89,6 +89,15 @@ Rules.attachSchema(
     // before - only an explicit flip to `false` (rules.setEnabled) stops a
     // rule's trigger/action from being evaluated; its Trigger/Action
     // documents and the rule's own configuration are untouched either way.
+    description: {
+      /**
+       * What the rule is for, in Markdown. An imported GitHub Actions
+       * workflow keeps its YAML here (models/lib/githubActionsRules.js).
+       */
+      type: String,
+      optional: true,
+      max: 200000,
+    },
     enabled: {
       type: Boolean,
       optional: true,

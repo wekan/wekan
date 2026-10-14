@@ -117,6 +117,71 @@ template(name="versionControlView")
           else
             li.vcs-empty.quiet {{_ 'vcs-no-labels'}}
 
+    if isTab 'releases'
+      ul.vcs-releases
+        each releases
+          li.vcs-box.vcs-release
+            .vcs-comment-header
+              i.fa.fa-tag
+              strong  {{title}}
+              span.quiet  {{date}}
+            .vcs-comment-body
+              +viewer
+                = body
+              if files.length
+                h4 {{_ 'attachments'}}
+                each files
+                  p
+                    i.fa.fa-file-archive-o
+                    |  
+                    a(href="{{link}}" target="_blank" rel="noopener noreferrer") {{name}}
+        else
+          li.vcs-empty.quiet {{_ 'vcs-no-releases'}}
+
+    if isTab 'wiki'
+      if wikiPage
+        .vcs-wiki
+          .vcs-wiki-main
+            with wikiPage
+              h2.vcs-issue-heading {{title}}
+            p.vcs-wiki-tools
+              a.js-vcs-wiki-history(href="#")
+                i.fa.fa-history
+                |  {{_ 'history'}}
+              if canWrite
+                a.js-vcs-wiki-edit(href="#")
+                  i.fa.fa-pencil
+                  |  {{_ 'edit'}}
+            if wikiHistory
+              //- The page's history: each commit's edit, and Restore brings
+                an older text back - the card's own history table.
+              with wikiPage
+                +historyTable(scope="card" scopeId=_id)
+            else
+              .vcs-wiki-body
+                with wikiPage
+                  +viewer
+                    = text
+                if wikiFooter
+                  .vcs-wiki-footer
+                    +viewer
+                      = wikiFooter
+          aside.vcs-wiki-side
+            .vcs-box
+              .vcs-box-header
+                strong {{_ 'vcs-wiki-pages'}}
+              ul.vcs-wiki-pages
+                each wikiPages
+                  li(class="{{#if active}}is-active{{/if}}")
+                    a.js-vcs-wiki-page(href="#" data-card-id="{{_id}}") {{title}}
+            if wikiSidebar
+              .vcs-box.vcs-wiki-sidebar
+                .vcs-wiki-body
+                  +viewer
+                    = wikiSidebar
+      else
+        p.vcs-empty.quiet {{_ 'vcs-no-wiki'}}
+
     if isTab 'files'
       .vcs-box
         table.vcs-files
