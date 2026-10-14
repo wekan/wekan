@@ -17,11 +17,26 @@ function identity(activity) {
   return { activityId: activity._id, activityHash: sha256(canonical(activity)),
     boardId: activity.boardId, cardId: activity.cardId ?? null, actorId: activity.userId };
 }
+// The e-mail job is what emailOutbox.enqueue takes: seven fields, and the
+// three it accepts optionally (#5171) - `text` (the clear layout's plain-text
+// part, the default since #4434), `groupKey` and `deliverAt`. Checked as
+// enqueue checks them, so a plan never holds a job the replay would refuse.
+const EMAIL_JOB_KEYS = ['userId', 'eventId', 'subject', 'html', 'language', 'cardId', 'boardId'];
+const EMAIL_JOB_OPTIONAL = ['text', 'groupKey', 'deliverAt'];
+function emailJobShape(job) {
+  if (!job || Array.isArray(job) || typeof job !== 'object') return false;
+  const names = Object.keys(job);
+  return EMAIL_JOB_KEYS.every(key => names.includes(key)) &&
+    names.every(key => EMAIL_JOB_KEYS.includes(key) || EMAIL_JOB_OPTIONAL.includes(key)) &&
+    (job.text === undefined || typeof job.text === 'string') &&
+    (job.groupKey === undefined || (typeof job.groupKey === 'string' && job.groupKey.length > 0 && job.groupKey.length <= 300)) &&
+    (job.deliverAt === undefined || Number.isFinite(job.deliverAt));
+}
 function validateRecipient(row, plan) {
   if (!keys(row,'userId,tray,email') || !text(row.userId) || typeof row.tray !== 'boolean') fail();
   const job = row.email;
   if (job === null) return;
-  if (!keys(job,'userId,eventId,subject,html,language,cardId,boardId') || job.userId !== row.userId ||
+  if (!emailJobShape(job) || job.userId !== row.userId ||
       job.eventId !== plan.activityId || job.cardId !== plan.cardId || job.boardId !== plan.boardId ||
       !text(job.language) || typeof job.subject !== 'string' || job.subject.length > 10000 ||
       /[\r\n]/.test(job.subject) || typeof job.html !== 'string') fail();

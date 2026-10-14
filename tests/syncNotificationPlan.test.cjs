@@ -35,3 +35,26 @@ test('fresh recipient checks and exact service receipts are required for acknowl
  const emailOnly=structuredClone(plan);emailOnly.recipients[0].tray=false;
  await assert.rejects(deliverNotificationPlan({...opts,plan:emailOnly,assertRecipient:async()=>true}),/email-unconfirmed/);assert.equal(writes,2);
 });
+// The clear layout became the notification e-mail default (#4434), and with it
+// every job carries `text`: the validator refused it, so every Sync notification
+// plan failed. The optional fields are the ones emailOutbox.enqueue accepts.
+test('a job with the clear layout\'s text, a group and a schedule is a valid plan',async()=>{
+ const full=userId=>({...job(userId),text:'Plain part',groupKey:'board:board',deliverAt:Date.now()+60000});
+ const plan=await prepareNotificationPlan({...options,prepareEmail:async user=>full(user._id)});
+ assert.equal(validateNotificationPlan(plan,activity),true);
+ assert.equal(plan.recipients[0].email.text,'Plain part');
+ for(const change of [e=>{e.text=7;},e=>{e.groupKey='';},e=>{e.groupKey='x'.repeat(301);},e=>{e.deliverAt='soon';},e=>{e.extra='unknown';},e=>{delete e.html;}]){
+  const bad=structuredClone(plan);change(bad.recipients[0].email);
+  assert.throws(()=>validateNotificationPlan(bad,activity),/plan-invalid/);
+ }
+});
+test('the validator\'s optional e-mail fields are exactly enqueue\'s',()=>{
+ const fs=require('node:fs');
+ const outbox=fs.readFileSync(require.resolve('../server/lib/emailOutbox.js'),'utf8');
+ const params=/async function enqueue\(\{([^}]*)\}\)/.exec(outbox)[1].split(',').map(s=>s.trim().split(/\s*=/)[0]).filter(Boolean);
+ const plan=fs.readFileSync(require.resolve('../server/lib/syncNotificationPlan.js'),'utf8');
+ const listed=s=>JSON.parse(s.replace(/'/g,'"'));
+ const required=listed(/const EMAIL_JOB_KEYS = (\[[^\]]*\]);/.exec(plan)[1]);
+ const optional=listed(/const EMAIL_JOB_OPTIONAL = (\[[^\]]*\]);/.exec(plan)[1]);
+ assert.deepEqual([...required,...optional].sort(),params.sort());
+});
