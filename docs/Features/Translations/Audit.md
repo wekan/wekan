@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Haitian Creole workflows and planning — 2026-10-14
+
+Commit `8c8c00546d` translates 45 administration, workflow, Blockly and Scrum
+entries. Checks preserve read-only permissions, Wrike completion groups,
+LDAP variable names, OAuth empty-field behavior, subtask state distinctions,
+planning matching rules and positional/interpolation placeholders. The Wrike
+state meanings match `models/lib/wrikeWorkflow.js`.
+
+The Haitian catalog and guarded-correction suites pass with 29,603 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. Haitian Creole joins both existing
+subtask browser cases: successful editing and denied comment-only access.
+Syntax and discovery pass; browser runtime remains pending.
+
+Further Haitian strings and other languages still require translation and
+semantic review. The all-language objective remains unfinished.
+
 ## Haitian Creole integrations and notifications — 2026-10-14
 
 Commit `38e2004f8e` translates 49 entries for Trello/Sandstorm access, link rules,

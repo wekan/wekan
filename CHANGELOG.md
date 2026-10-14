@@ -3829,6 +3829,19 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8c8c00546d">Translate Haitian workflow and planning messages</a>. Thanks to xet7.</summary>
+
+- Translate 45 administration, workflow, Blockly and Scrum entries. Preserve
+  permissions, completion groups, planning matching rules and placeholders.
+- Haitian catalog and guarded-correction suites pass, with 21 human-preference
+  checks. Existing Chinese values remain unchanged. Two subtask browser cases
+  cover editing and denied access; syntax and discovery pass, runtime is
+  pending.
+- Further translations and all-language semantic review remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
