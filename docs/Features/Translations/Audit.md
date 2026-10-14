@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Haitian Creole linked cards and storage — 2026-10-14
+
+Commit `4ac5621e64` translates 66 English placeholders: 33 linked-card and
+announcement entries, followed by 33 storage and rule fragments exposed by the
+existing catalog test. Checks preserve matching names/types, one-way/two-way
+propagation, permission failures, archived-card restrictions and storage states.
+The email-recipient placeholder uses “bay”, based on its rule-editor context.
+
+The Haitian catalog and guarded-correction suites pass with 29,455 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. Haitian Creole is registered in the
+existing linked-field browser test; syntax and discovery pass, runtime is pending.
+
+The older catalog gate now passes, but newer Haitian import instructions remain
+English. That gate does not prove full completion. Other languages and semantic
+verification remain part of the unfinished objective.
+
 ## Reviewed words shared with English — 2026-10-14
 
 Commit `db56686e35` recognizes 16 valid words across 14 locales: Spanish/Italian

@@ -3750,6 +3750,21 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4ac5621e64">Translate Haitian Creole linked cards and storage controls</a>. Thanks to xet7.</summary>
+
+- Translate 66 linked-card, announcement, storage and rule-fragment entries.
+  Preserve permission checks, field matching, link directions and secret/access
+  key distinctions. Repair the existing Haitian catalog regression failures.
+- Haitian catalog and guarded-correction suites pass. All 21 human-preference
+  checks pass, and existing Chinese values remain unchanged. Linked-field
+  browser
+  coverage passes syntax and discovery; execution remains pending.
+- Newer Haitian import instructions and other languages still need translation
+  and semantic review. The all-language objective remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
