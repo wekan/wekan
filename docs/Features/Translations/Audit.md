@@ -2,6 +2,19 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Igbo attachments and refreshed inventory — 2026-10-14
+
+Commit `4e80dcf3ba` translates nine attachment and storage strings. The shared
+Igbo/Swedish suite and guarded-correction suite pass with 30,813 ledger entries.
+All 21 human-preference checks pass; exact comparison preserves 38,430 existing
+Chinese values. One attachment browser case passes syntax and discovery;
+execution and fluent review remain pending.
+
+After this batch, the filtered `--missing` report counts 30,116 values in
+87 languages. It excludes 379 pending source keys, which remain in scope.
+This is not a full per-locale inventory or proof that other text is correct.
+All-language semantic and translation work remain unfinished.
+
 ## Scottish Gaelic import details and header tooltip — 2026-10-14
 
 Commit `399e9a19d7` restores three incomplete translations: Jira search fields,

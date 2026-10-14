@@ -125,15 +125,16 @@ a publishing step.
 <details>
 <summary>Translation work in progress: remaining new strings in all languages.</summary>
 
-Status checked on 2026-10-13. Translation work has resumed, including keys
+Status checked on 2026-10-14. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming and
 releases.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **28,516 untranslated locale/string values in 42 languages**.
+  report counts **30,116 untranslated locale/string values in 87 languages**.
   It excludes **379 source keys tracked separately as pending Transifex**.
-  With the newer email/chat strings included, full per-locale `--list`
-  reports, including pending keys, count **53,224 remaining values across
+  The earlier 2026-10-13 inventory, with newer email/chat strings and full
+  `--list`
+  reports including pending keys, counted **53,224 remaining values across
   113 non-English locale files**. This fuller inventory remains the scope
   of the translation work.
   A separate short-prose audit flags 1,649 candidates across 180 locales.
@@ -4655,6 +4656,22 @@ All 21 human-preference checks pass; 38,430 existing Chinese values are
 unchanged.
 Four browser cases pass syntax and discovery; execution remains pending.
 All-language translation and semantic verification remain unfinished.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4e80dcf3ba6c08af1a42e2764cfd1982d4739323">Translate Igbo card attachment controls and storage identifier</a>. Thanks to xet7.</summary>
+
+Translate nine strings for attaching and detaching cards, visibility, self-link
+and count limits, and the S3 file identifier. Direct wording needs fluent
+review.
+
+Both translation and guarded-correction suites pass with 30,813 corrections.
+All 21 human-preference checks pass; 38,430 existing Chinese values are
+unchanged.
+One attachment browser case passes syntax and discovery; execution is pending.
+The refreshed filtered inventory still covers 87 languages, and pending keys
+remain in scope. All-language translation and semantic review are unfinished.
 
 </details>
 
