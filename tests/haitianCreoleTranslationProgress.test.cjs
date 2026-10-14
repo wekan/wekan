@@ -278,3 +278,20 @@ assert.match(creole['external-link-rules-description'], /\[\{identifier\}:\{numb
 assert.ok(creole['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
 assert.ok(creole['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
 assert.match(creole['sandstorm-trello-access-needed'], /pa gen aksè Entènèt poukont li/);
+
+const reviewedWorkflowPlanningKeys = ["read-only-field", "r-wrike-workflow", "r-wrike-workflow-note", "r-export-wrike-workflow", "r-import-wrike-workflow", "r-import-wrike-workflow-done", "r-moved-forward", "r-moved-back", "r-add-actinguser-assignee", "r-remove-all-assignees", "ldap-sync-now", "ldap-sync-now-done", "ldap-sync-now-error", "ldap-sync-now-nothing", "oauth-providers-allowed-email-domains", "import-file-label", "subtask-mark-done", "subtask-mark-not-done", "subtask-done-no-permission", "blockly-ANNOUNCE_MOVE_OF", "blockly-CONTROLS_IF_MSG_IF", "blockly-CONTROLS_REPEAT_INPUT_DO", "blockly-FIELD_BITMAP_PIXEL_ON", "blockly-LISTS_GET_SUBLIST_END_FROM_START", "blockly-LISTS_SET_INDEX_INPUT_TO", "blockly-LOGIC_OPERATION_OR", "blockly-PROCEDURES_DEFNORETURN_TITLE", "blockly-CONTROLS_FOREACH_INPUT_DO", "blockly-CONTROLS_FOR_INPUT_DO", "blockly-CONTROLS_IF_IF_TITLE_IF", "blockly-CONTROLS_IF_MSG_THEN", "blockly-CONTROLS_WHILEUNTIL_INPUT_DO", "blockly-PROCEDURES_DEFRETURN_TITLE", "scrum-release-scope", "scrum-releases-select-help", "scrum-import-into-board", "scrum-import-into-board-hint", "scrum-import-choose-file", "scrum-import-invalid-file", "scrum-import-preview-sprints", "scrum-import-preview-releases", "scrum-import-preview-cards", "scrum-import-preview-nothing", "scrum-import-into-board-done", "scrum-import-card-not-matched"];
+for (const key of reviewedWorkflowPlanningKeys) {
+  assert.notEqual(creole[key], english[key], key);
+  assert.deepEqual(tokens(creole[key]), tokens(english[key]), key);
+  assert.deepEqual([...creole[key].matchAll(/%\d+/g)].map(m => m[0]).sort(), [...english[key].matchAll(/%\d+/g)].map(m => m[0]).sort(), key);
+}
+assert.match(creole['read-only-field'], /tout manm wè.*sèlman administratè/);
+assert.match(creole['r-wrike-workflow-note'], /GET \/workflows/);
+assert.match(creole['r-wrike-workflow-note'], /Fini oswa Anile.*pa fini.*Aktif oswa Ranvwaye/);
+assert.match(creole['r-wrike-workflow-note'], /pa ka ekspòte soti nan Wrike/);
+for (const variable of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS', 'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) assert.ok(creole['ldap-sync-now-nothing'].includes(variable));
+assert.match(creole['oauth-providers-allowed-email-domains'], /si li vid, tout domèn/);
+assert.notEqual(creole['subtask-mark-done'], creole['subtask-mark-not-done']);
+assert.match(creole['subtask-done-no-permission'], /pa ka chanje/);
+assert.match(creole['scrum-import-into-board-hint'], /pa janm double.*ID.*nimewo ak tit.*san chanjman/);
+assert.match(creole['scrum-releases-select-help'], /Ctrl.*Cmd.*tout seleksyon.*tout vèsyon/);

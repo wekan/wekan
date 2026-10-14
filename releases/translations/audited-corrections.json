@@ -206904,5 +206904,320 @@
     "before": "__count__ notifications on board __board__",
     "after": "__count__ notifikasyon sou tablo __board__",
     "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "read-only-field",
+    "before": "Read-only: every member sees the value, only board admins change it",
+    "after": "Lekti sèlman: tout manm wè valè a, se sèlman administratè tablo a ki ka chanje li",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "r-wrike-workflow",
+    "before": "Wrike workflow",
+    "after": "Sik travay Wrike",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "r-wrike-workflow-note",
+    "before": "A Wrike workflow is a list of statuses, each in the Active, Completed, Deferred or Cancelled group. Export writes this board's lists as one, named after the board, in the JSON Wrike's API returns for workflows: create that workflow in Wrike before importing the board's Wrike Excel export, so its statuses are applied. Import reads that JSON pasted above, from WeKan or from Wrike's GET /workflows, into the chosen board: a status without a list becomes a list, and a rule marks a card complete when it is moved into a Completed or Cancelled status and incomplete in an Active or Deferred one. Wrike's own automation rules cannot be exported from Wrike.",
+    "after": "Yon sik travay Wrike se yon lis estati, chak nan gwoup Aktif, Fini, Ranvwaye oswa Anile. Ekspòtasyon an ekri lis tablo sa a kòm yon sik travay ki pote non tablo a, nan JSON API Wrike a retounen pou sik travay yo: kreye sik travay sa a nan Wrike anvan ou enpòte ekspòtasyon Excel Wrike tablo a, pou estati li yo aplike. Enpòtasyon an li JSON ki kole anlè a, ki soti nan WeKan oswa nan GET /workflows Wrike a, pou mete li nan tablo ou chwazi a: yon estati ki pa gen lis vin yon lis, epi yon règ make yon kat kòm fini lè li deplase nan yon estati Fini oswa Anile, epi kòm pa fini nan yon estati Aktif oswa Ranvwaye. Règ otomatik Wrike yo menm pa ka ekspòte soti nan Wrike.",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "r-export-wrike-workflow",
+    "before": "Export Wrike workflow",
+    "after": "Ekspòte sik travay Wrike",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "r-import-wrike-workflow",
+    "before": "Import Wrike workflow",
+    "after": "Enpòte sik travay Wrike",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "r-import-wrike-workflow-done",
+    "before": "Wrike workflow \"__name__\": __lists__ list(s) and __rules__ rule(s) added, __skipped__ part(s) not read",
+    "after": "Sik travay Wrike \"__name__\": __lists__ lis ak __rules__ règ ajoute, __skipped__ pati pa li",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "r-moved-forward",
+    "before": "moved forward to a later list",
+    "after": "deplase annavan nan yon lis ki pi lwen",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "r-moved-back",
+    "before": "moved back to an earlier list",
+    "after": "deplase dèyè nan yon lis ki pi bonè",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "r-add-actinguser-assignee",
+    "before": "Add the user who triggered this rule as an assignee",
+    "after": "Ajoute itilizatè ki deklanche règ sa a kòm yon moun ki asiyen",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "r-remove-all-assignees",
+    "before": "Remove all assignees from the card",
+    "after": "Retire tout moun ki asiyen sou kat la",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "ldap-sync-now",
+    "before": "Sync LDAP users now",
+    "after": "Senkronize itilizatè LDAP yo kounye a",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "ldap-sync-now-done",
+    "before": "LDAP sync finished",
+    "after": "Senkronizasyon LDAP fini",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "ldap-sync-now-error",
+    "before": "LDAP sync failed: %s",
+    "after": "Senkronizasyon LDAP echwe: %s",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "ldap-sync-now-nothing",
+    "before": "Nothing to sync: turn on LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS or LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED first.",
+    "after": "Pa gen anyen pou senkronize: aktive LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS oswa LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED anvan.",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "oauth-providers-allowed-email-domains",
+    "before": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
+    "after": "Se sèlman domèn imel sa yo ki ka konekte ak founisè sa yo (separe ak vigil; si li vid, tout domèn yo gen pèmisyon)",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "import-file-label",
+    "before": "Choose the export file, or paste its text below:",
+    "after": "Chwazi fichye ekspòtasyon an, oswa kole tèks li anba a:",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "subtask-mark-done",
+    "before": "Mark subtask as done",
+    "after": "Make sou-travay la kòm fini",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "subtask-mark-not-done",
+    "before": "Mark subtask as not done",
+    "after": "Make sou-travay la kòm pa fini",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "subtask-done-no-permission",
+    "before": "You cannot change whether this subtask is done",
+    "after": "Ou pa ka chanje si sou-travay sa a fini oswa non",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%1 nan %2",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "blockly-CONTROLS_IF_MSG_IF",
+    "before": "if",
+    "after": "si",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "blockly-CONTROLS_REPEAT_INPUT_DO",
+    "before": "do",
+    "after": "fè",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "blockly-FIELD_BITMAP_PIXEL_ON",
+    "before": "on",
+    "after": "aktive",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "blockly-LISTS_GET_SUBLIST_END_FROM_START",
+    "before": "to #",
+    "after": "jiska #",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "blockly-LISTS_SET_INDEX_INPUT_TO",
+    "before": "as",
+    "after": "kòm",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "blockly-LOGIC_OPERATION_OR",
+    "before": "or",
+    "after": "oswa",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "blockly-PROCEDURES_DEFNORETURN_TITLE",
+    "before": "to",
+    "after": "pou",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "blockly-CONTROLS_FOREACH_INPUT_DO",
+    "before": "do",
+    "after": "fè",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "blockly-CONTROLS_FOR_INPUT_DO",
+    "before": "do",
+    "after": "fè",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "blockly-CONTROLS_IF_IF_TITLE_IF",
+    "before": "if",
+    "after": "si",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "blockly-CONTROLS_IF_MSG_THEN",
+    "before": "do",
+    "after": "fè",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "blockly-CONTROLS_WHILEUNTIL_INPUT_DO",
+    "before": "do",
+    "after": "fè",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "blockly-PROCEDURES_DEFRETURN_TITLE",
+    "before": "to",
+    "after": "pou",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "scrum-release-scope",
+    "before": "Cards in this release",
+    "after": "Kat nan vèsyon sa a",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "scrum-releases-select-help",
+    "before": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
+    "after": "Yon kat ka fè pati plizyè vèsyon. Kenbe Ctrl (Cmd sou Mac) pou chwazi plis pase youn; retire tout seleksyon yo pou retire kat la nan tout vèsyon yo.",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "scrum-import-into-board",
+    "before": "Import Scrum planning into this board",
+    "after": "Enpòte planifikasyon Scrum nan tablo sa a",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "scrum-import-into-board-hint",
+    "before": "Choose a WeKan board export or Scrum transfer file. Sprints and releases this board already has are linked, never duplicated. Cards are matched by ID, or by card number and title; cards that do not match are listed and left unchanged. Preview first to see what will change.",
+    "after": "Chwazi yon ekspòtasyon tablo WeKan oswa yon fichye transfè Scrum. Sprint ak vèsyon tablo sa a deja genyen yo lye, yo pa janm double. Kat yo koresponn dapre ID yo, oswa dapre nimewo ak tit kat la; kat ki pa koresponn yo parèt nan yon lis epi yo rete san chanjman. Gade aperçu a anvan pou wè sa ki pral chanje.",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "scrum-import-choose-file",
+    "before": "Choose a file first.",
+    "after": "Chwazi yon fichye anvan.",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "scrum-import-invalid-file",
+    "before": "This file is not valid JSON.",
+    "after": "Fichye sa a pa JSON valab.",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "scrum-import-preview-sprints",
+    "before": "Sprints: __created__ new, __matched__ already on this board, __skipped__ not imported",
+    "after": "Sprint: __created__ nouvo, __matched__ deja sou tablo sa a, __skipped__ pa enpòte",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "scrum-import-preview-releases",
+    "before": "Releases: __created__ new, __matched__ already on this board, __skipped__ not imported",
+    "after": "Vèsyon: __created__ nouvo, __matched__ deja sou tablo sa a, __skipped__ pa enpòte",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "scrum-import-preview-cards",
+    "before": "Cards: __updated__ to update, __unchanged__ unchanged, __unmatched__ not matched",
+    "after": "Kat: __updated__ pou mete ajou, __unchanged__ san chanjman, __unmatched__ pa koresponn",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "scrum-import-preview-nothing",
+    "before": "Nothing to change: this board already has this planning.",
+    "after": "Pa gen anyen pou chanje: tablo sa a deja gen planifikasyon sa a.",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "scrum-import-into-board-done",
+    "before": "The Scrum planning was imported and recorded in History.",
+    "after": "Planifikasyon Scrum nan enpòte epi li anrejistre nan Istwa.",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
+  },
+  {
+    "locale": "ht",
+    "key": "scrum-import-card-not-matched",
+    "before": "A card was not found on this board: __reference__",
+    "after": "Yo pa jwenn yon kat sou tablo sa a: __reference__",
+    "reason": "Translate Haitian workflow, administration, Blockly fragments and Scrum planning; preserve permissions, matching rules and syntax tokens."
   }
 ]
