@@ -35,6 +35,11 @@ Meteor.publish('team', async function(query, limit, skip = 0) {
       },
       true,
     );
+  } else if (user) {
+    // #5141: anybody else gets their OWN teams' names, so a board admin can
+    // add them to a board (and only them: setBoardTeams checks).
+    const ownIds = (user.teams || []).map(t => t && t.teamId).filter(Boolean);
+    ret = await ReactiveCache.getTeams({ _id: { $in: ownIds } }, { fields: { teamDisplayName: 1, teamShortName: 1 } }, true);
   }
 
   return ret;

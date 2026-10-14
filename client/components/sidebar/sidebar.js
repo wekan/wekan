@@ -3145,9 +3145,12 @@ Template.addBoardOrgPopup.onRendered(function() {
 });
 
 Template.addBoardOrgPopup.helpers({
+  // #5141: only the admin's own organizations (all of them for a site admin).
   orgsDatas() {
-    let ret = ReactiveCache.getOrgs({}, {sort: { orgDisplayName: 1 }});
-    return ret;
+    const user = ReactiveCache.getCurrentUser();
+    const { offeredGroups } = require('/models/lib/boardGroupLinks');
+    return offeredGroups(ReactiveCache.getOrgs({}, { sort: { orgDisplayName: 1 } }),
+      ((user && user.orgs) || []).map(o => o && o.orgId), !!(user && user.isAdmin));
   },
 });
 
@@ -3367,9 +3370,12 @@ Template.addBoardTeamPopup.onRendered(function() {
 });
 
 Template.addBoardTeamPopup.helpers({
+  // #5141: only the admin's own teams (all of them for a site admin).
   teamsDatas() {
-    let ret = ReactiveCache.getTeams({}, {sort: { teamDisplayName: 1 }});
-    return ret;
+    const user = ReactiveCache.getCurrentUser();
+    const { offeredGroups } = require('/models/lib/boardGroupLinks');
+    return offeredGroups(ReactiveCache.getTeams({}, { sort: { teamDisplayName: 1 } }),
+      ((user && user.teams) || []).map(t => t && t.teamId), !!(user && user.isAdmin));
   },
 });
 

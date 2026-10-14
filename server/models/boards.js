@@ -557,6 +557,13 @@ Meteor.methods({
       check(org.orgDisplayName, String);
       check(org.isActive, Boolean);
     }
+    // #5141: only organizations the board admin belongs to may be added.
+    const orgUser = await Meteor.users.findOneAsync(userId, { fields: { orgs: 1, isAdmin: 1 } });
+    const { forbiddenNewGroupIds } = require('/models/lib/boardGroupLinks');
+    if (forbiddenNewGroupIds({ previous: board.orgs, next: boardOrgsArray, key: 'orgId',
+      ownIds: ((orgUser && orgUser.orgs) || []).map(o => o && o.orgId), isSiteAdmin: !!(orgUser && orgUser.isAdmin) }).length) {
+      throw new Meteor.Error('not-authorized', 'You can add only organizations you belong to.');
+    }
 
     await Boards.updateAsync(currBoardId, {
       $set: {
@@ -587,6 +594,13 @@ Meteor.methods({
       check(team.teamId, String);
       check(team.teamDisplayName, String);
       check(team.isActive, Boolean);
+    }
+    // #5141: only teams the board admin belongs to may be added.
+    const teamUser = await Meteor.users.findOneAsync(userId, { fields: { teams: 1, isAdmin: 1 } });
+    const { forbiddenNewGroupIds } = require('/models/lib/boardGroupLinks');
+    if (forbiddenNewGroupIds({ previous: board.teams, next: boardTeamsArray, key: 'teamId',
+      ownIds: ((teamUser && teamUser.teams) || []).map(t => t && t.teamId), isSiteAdmin: !!(teamUser && teamUser.isAdmin) }).length) {
+      throw new Meteor.Error('not-authorized', 'You can add only teams you belong to.');
     }
 
     for (const member of membersArray) {

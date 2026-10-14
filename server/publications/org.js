@@ -55,6 +55,11 @@ Meteor.publish('org', async function(query, limit, skip = 0) {
       },
       true,
     );
+  } else if (user) {
+    // #5141: anybody else gets their OWN organizations' names, so a board
+    // admin can add them to a board (and only them: setBoardOrgs checks).
+    const ownIds = (user.orgs || []).map(o => o && o.orgId).filter(Boolean);
+    ret = await ReactiveCache.getOrgs({ _id: { $in: ownIds } }, { fields: { orgDisplayName: 1, orgShortName: 1 } }, true);
   }
 
   return ret;
