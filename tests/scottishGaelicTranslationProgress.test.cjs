@@ -53,3 +53,14 @@ assert.match(gaelic['custom-field-link-inactive'], /an dà chairt a dheasachadh 
 assert.match(gaelic['field-link-not-allowed'], /an dà chairt a dheasachadh/);
 assert.match(gaelic['custom-field-links-hint'], /Chan atharraichear.*aon chairt/);
 assert.match(gaelic['field-link-self'], /Chan urrainn.*rithe fhèin/);
+
+const importGuideKeys = ["import-board-instruction-opml", "import-board-instruction-orgmode", "import-board-instruction-meistertask", "import-board-instruction-obsidian", "import-board-instruction-linear", "import-board-instruction-ticktick", "import-board-instruction-clickup", "import-board-instruction-nullboard", "import-board-instruction-kanri", "import-board-instruction-pivotal"];
+for (const key of importGuideKeys) {
+  assert.notEqual(gaelic[key], english[key], key);
+  assert.deepEqual(tokens(gaelic[key]), tokens(english[key]), key);
+}
+assert.match(gaelic['import-board-instruction-orgmode'], /TODO agus DONE.*SCHEDULED, DEADLINE agus CLOSED/);
+assert.match(gaelic['import-board-instruction-meistertask'], /gnìomhan crìochnaichte an ceann-là crìochnachaidh/);
+assert.match(gaelic['import-board-instruction-nullboard'], /leubail raw.*a’ chiad bhòrd/);
+assert.match(gaelic['import-board-instruction-kanri'], /a’ chiad bhòrd/);
+assert.match(gaelic['import-board-instruction-clickup'], /a h-uile colbh/);
