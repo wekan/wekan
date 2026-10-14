@@ -372,3 +372,22 @@ assert.match(creole['copyChecklistFromTemplate'], /soti nan modèl/);
 assert.equal(creole['copyChecklistFromTemplate'], creole['copyChecklistFromTemplatePopup-title']);
 assert.match(creole['checklist-ding-sound-description'], /lis verifikasyon.*dezaktive pa defo/);
 assert.match(creole['attachment-soft-delete-pop'], /^Pyès atache a retire.*fichye li a konsève/);
+
+const reviewedCalendarCoreKeys = ["calendar-system", "calendar-system-gregorian", "calendar-system-jalali", "calendar-system-buddhist", "calendar-system-chinese", "calendar-system-coptic", "calendar-system-dangi", "calendar-system-ethioaa", "calendar-system-ethiopic", "calendar-system-hebrew", "calendar-system-indian", "calendar-system-iso8601", "calendar-system-japanese", "calendar-system-roc", "board-view-roadmap", "roadmap-empty-no-custom-fields", "bucket-example", "userAnonymizePopup-title", "board-view-timeline-showing", "cardAssigneePopup-title"];
+for (const key of reviewedCalendarCoreKeys) {
+  assert.notEqual(creole[key], english[key], key);
+  assert.deepEqual(tokens(creole[key]), tokens(english[key]), key);
+}
+for (const [key, value] of Object.entries(creole)) {
+  if (key.startsWith('calendar-system')) assert.doesNotMatch(value, /calendrier|grégorien|hébraïque|japonais/i, key);
+}
+assert.match(creole['calendar-system-iso8601'], /gregoryen.*semèn ISO 8601/);
+assert.match(creole['calendar-system-indian'], /nasyonal.*End/);
+assert.notEqual(creole['calendar-system-ethioaa'], creole['calendar-system-ethiopic']);
+assert.match(creole['calendar-system-jalali'], /Jalali.*pès/);
+assert.equal(creole['calendar-system-roc'], 'Kalandriye Minguo');
+assert.match(creole['bucket-example'], /bagay mwen vle fè nan lavi/);
+assert.doesNotMatch(creole['bucket-example'], /Bokit/);
+assert.match(creole['userAnonymizePopup-title'], /kont.*anonim/);
+assert.doesNotMatch(creole['userAnonymizePopup-title'], /enpòte/);
+assert.doesNotMatch(creole['board-view-timeline-showing'], /apati/);

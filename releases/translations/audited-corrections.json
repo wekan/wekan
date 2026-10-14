@@ -208402,5 +208402,145 @@
     "before": "Pyès atache nan retire nan kat sa a epi fichye li a konsève. Nenpòt moun ki ka modifye kat la ka retabli li nan istorik kat la.",
     "after": "Pyès atache a retire nan kat sa a epi fichye li a konsève. Nenpòt moun ki ka modifye kat la ka retabli li nan istorik kat la.",
     "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "calendar-system",
+    "before": "calendrier",
+    "after": "Sistèm kalandriye (afichaj dat)",
+    "reason": "Replace French calendar labels with Haitian Creole; preserve calendar variants and correct roadmap, anonymization and snapshot meanings."
+  },
+  {
+    "locale": "ht",
+    "key": "calendar-system-gregorian",
+    "before": "calendrier grégorien",
+    "after": "Gregoryen",
+    "reason": "Replace French calendar labels with Haitian Creole; preserve calendar variants and correct roadmap, anonymization and snapshot meanings."
+  },
+  {
+    "locale": "ht",
+    "key": "calendar-system-jalali",
+    "before": "calendrier persan",
+    "after": "Jalali (pès)",
+    "reason": "Replace French calendar labels with Haitian Creole; preserve calendar variants and correct roadmap, anonymization and snapshot meanings."
+  },
+  {
+    "locale": "ht",
+    "key": "calendar-system-buddhist",
+    "before": "calendrier bouddhiste",
+    "after": "Kalandriye boudis",
+    "reason": "Replace French calendar labels with Haitian Creole; preserve calendar variants and correct roadmap, anonymization and snapshot meanings."
+  },
+  {
+    "locale": "ht",
+    "key": "calendar-system-chinese",
+    "before": "calendrier chinois",
+    "after": "Kalandriye chinwa",
+    "reason": "Replace French calendar labels with Haitian Creole; preserve calendar variants and correct roadmap, anonymization and snapshot meanings."
+  },
+  {
+    "locale": "ht",
+    "key": "calendar-system-coptic",
+    "before": "calendrier copte",
+    "after": "Kalandriye kopt",
+    "reason": "Replace French calendar labels with Haitian Creole; preserve calendar variants and correct roadmap, anonymization and snapshot meanings."
+  },
+  {
+    "locale": "ht",
+    "key": "calendar-system-dangi",
+    "before": "calendrier dangi",
+    "after": "Kalandriye Dangi",
+    "reason": "Replace French calendar labels with Haitian Creole; preserve calendar variants and correct roadmap, anonymization and snapshot meanings."
+  },
+  {
+    "locale": "ht",
+    "key": "calendar-system-ethioaa",
+    "before": "calendrier éthiopien Amete Alem",
+    "after": "Kalandriye etyopyen Amete Alem",
+    "reason": "Replace French calendar labels with Haitian Creole; preserve calendar variants and correct roadmap, anonymization and snapshot meanings."
+  },
+  {
+    "locale": "ht",
+    "key": "calendar-system-ethiopic",
+    "before": "calendrier éthiopien",
+    "after": "Kalandriye etyopyen",
+    "reason": "Replace French calendar labels with Haitian Creole; preserve calendar variants and correct roadmap, anonymization and snapshot meanings."
+  },
+  {
+    "locale": "ht",
+    "key": "calendar-system-hebrew",
+    "before": "calendrier hébraïque",
+    "after": "Kalandriye ebre",
+    "reason": "Replace French calendar labels with Haitian Creole; preserve calendar variants and correct roadmap, anonymization and snapshot meanings."
+  },
+  {
+    "locale": "ht",
+    "key": "calendar-system-indian",
+    "before": "calendrier indien",
+    "after": "Kalandriye nasyonal peyi End",
+    "reason": "Replace French calendar labels with Haitian Creole; preserve calendar variants and correct roadmap, anonymization and snapshot meanings."
+  },
+  {
+    "locale": "ht",
+    "key": "calendar-system-iso8601",
+    "before": "calendrier ISO 8601",
+    "after": "Kalandriye gregoryen (semèn ISO 8601)",
+    "reason": "Replace French calendar labels with Haitian Creole; preserve calendar variants and correct roadmap, anonymization and snapshot meanings."
+  },
+  {
+    "locale": "ht",
+    "key": "calendar-system-japanese",
+    "before": "calendrier japonais",
+    "after": "Kalandriye japonè",
+    "reason": "Replace French calendar labels with Haitian Creole; preserve calendar variants and correct roadmap, anonymization and snapshot meanings."
+  },
+  {
+    "locale": "ht",
+    "key": "calendar-system-roc",
+    "before": "calendrier républicain chinois",
+    "after": "Kalandriye Minguo",
+    "reason": "Replace French calendar labels with Haitian Creole; preserve calendar variants and correct roadmap, anonymization and snapshot meanings."
+  },
+  {
+    "locale": "ht",
+    "key": "board-view-roadmap",
+    "before": "Fewy Wout",
+    "after": "Fèy wout",
+    "reason": "Replace French calendar labels with Haitian Creole; preserve calendar variants and correct roadmap, anonymization and snapshot meanings."
+  },
+  {
+    "locale": "ht",
+    "key": "roadmap-empty-no-custom-fields",
+    "before": "Tablo sa a poko gen okenn chan pèsonalize. Ajoute yon chan pèsonalize tankou \"Vèsyon\" oswa \"Sòti\" nan Paramèt Tablo pou itilize vi Fewy Wout la.",
+    "after": "Tablo sa a poko gen okenn chan pèsonalize. Ajoute yon chan pèsonalize tankou \"Vèsyon\" oswa \"Piblikasyon\" nan Paramèt tablo pou itilize afichaj Fèy wout la.",
+    "reason": "Replace French calendar labels with Haitian Creole; preserve calendar variants and correct roadmap, anonymization and snapshot meanings."
+  },
+  {
+    "locale": "ht",
+    "key": "bucket-example",
+    "before": "Tankou \"Lis Bokit\" pa egzanp",
+    "after": "Pa egzanp, \"Lis bagay mwen vle fè nan lavi mwen\"",
+    "reason": "Replace French calendar labels with Haitian Creole; preserve calendar variants and correct roadmap, anonymization and snapshot meanings."
+  },
+  {
+    "locale": "ht",
+    "key": "userAnonymizePopup-title",
+    "before": "Anonimize itilizatè enpòte yo",
+    "after": "Rann kont lan anonim",
+    "reason": "Replace French calendar labels with Haitian Creole; preserve calendar variants and correct roadmap, anonymization and snapshot meanings."
+  },
+  {
+    "locale": "ht",
+    "key": "board-view-timeline-showing",
+    "before": "Montre eta a apati de:",
+    "after": "Eta tablo a nan dat:",
+    "reason": "Replace French calendar labels with Haitian Creole; preserve calendar variants and correct roadmap, anonymization and snapshot meanings."
+  },
+  {
+    "locale": "ht",
+    "key": "cardAssigneePopup-title",
+    "before": "Responsab",
+    "after": "Moun ki asiyen",
+    "reason": "Replace French calendar labels with Haitian Creole; preserve calendar variants and correct roadmap, anonymization and snapshot meanings."
   }
 ]
