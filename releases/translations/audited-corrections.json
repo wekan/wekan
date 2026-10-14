@@ -210726,5 +210726,152 @@
     "before": "to",
     "after": "mba",
     "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "scrum-release-scope",
+    "before": "Cards in this release",
+    "after": "Karatra ao amin’ity famoahana ity",
+    "reason": "Translate Scrum transfer matching, preview outcomes and planning synchronization safeguards into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "scrum-releases-select-help",
+    "before": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
+    "after": "Afaka ao amin’ny famoahana maromaro ny karatra iray. Tazomy ny Ctrl (Cmd amin’ny Mac) hisafidianana mihoatra ny iray; esory ny safidy rehetra hanesorana ny karatra amin’ny famoahana rehetra.",
+    "reason": "Translate Scrum transfer matching, preview outcomes and planning synchronization safeguards into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "scrum-import-into-board",
+    "before": "Import Scrum planning into this board",
+    "after": "Ampidiro eto amin’ity solaitra ity ny drafitra Scrum",
+    "reason": "Translate Scrum transfer matching, preview outcomes and planning synchronization safeguards into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "scrum-import-into-board-hint",
+    "before": "Choose a WeKan board export or Scrum transfer file. Sprints and releases this board already has are linked, never duplicated. Cards are matched by ID, or by card number and title; cards that do not match are listed and left unchanged. Preview first to see what will change.",
+    "after": "Misafidiana fanondranana solaitra WeKan na rakitra famindrana Scrum. Ampifandraisina ny tsingerin’asa sy famoahana efa ao amin’ity solaitra ity, fa tsy averina foronina. Ampifanarahina araka ny ID ny karatra, na araka ny laharana sy lohatenin’ny karatra; tanisaina ary avela tsy hiova ny karatra tsy mifanaraka. Jereo aloha ny topimaso hahitana izay hiova.",
+    "reason": "Translate Scrum transfer matching, preview outcomes and planning synchronization safeguards into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "scrum-import-choose-file",
+    "before": "Choose a file first.",
+    "after": "Misafidiana rakitra aloha.",
+    "reason": "Translate Scrum transfer matching, preview outcomes and planning synchronization safeguards into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "scrum-import-invalid-file",
+    "before": "This file is not valid JSON.",
+    "after": "Tsy JSON manan-kery ity rakitra ity.",
+    "reason": "Translate Scrum transfer matching, preview outcomes and planning synchronization safeguards into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "scrum-import-preview-sprints",
+    "before": "Sprints: __created__ new, __matched__ already on this board, __skipped__ not imported",
+    "after": "Tsingerin’asa: __created__ vaovao, __matched__ efa eto amin’ity solaitra ity, __skipped__ tsy nampidirina",
+    "reason": "Translate Scrum transfer matching, preview outcomes and planning synchronization safeguards into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "scrum-import-preview-releases",
+    "before": "Releases: __created__ new, __matched__ already on this board, __skipped__ not imported",
+    "after": "Famoahana: __created__ vaovao, __matched__ efa eto amin’ity solaitra ity, __skipped__ tsy nampidirina",
+    "reason": "Translate Scrum transfer matching, preview outcomes and planning synchronization safeguards into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "scrum-import-preview-cards",
+    "before": "Cards: __updated__ to update, __unchanged__ unchanged, __unmatched__ not matched",
+    "after": "Karatra: __updated__ havaozina, __unchanged__ tsy niova, __unmatched__ tsy nifanaraka",
+    "reason": "Translate Scrum transfer matching, preview outcomes and planning synchronization safeguards into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "scrum-import-preview-nothing",
+    "before": "Nothing to change: this board already has this planning.",
+    "after": "Tsy misy hovaina: efa manana ity drafitra ity ny solaitra.",
+    "reason": "Translate Scrum transfer matching, preview outcomes and planning synchronization safeguards into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "scrum-import-into-board-done",
+    "before": "The Scrum planning was imported and recorded in History.",
+    "after": "Nampidirina ny drafitra Scrum ary voarakitra ao amin’ny Tantara.",
+    "reason": "Translate Scrum transfer matching, preview outcomes and planning synchronization safeguards into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "scrum-import-card-not-matched",
+    "before": "A card was not found on this board: __reference__",
+    "after": "Tsy hita teto amin’ity solaitra ity ny karatra iray: __reference__",
+    "reason": "Translate Scrum transfer matching, preview outcomes and planning synchronization safeguards into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "scrum-import-card-ambiguous",
+    "before": "A card matches more than one card on this board: __reference__",
+    "after": "Mifanaraka amin’ny karatra mihoatra ny iray eto amin’ity solaitra ity ny karatra iray: __reference__",
+    "reason": "Translate Scrum transfer matching, preview outcomes and planning synchronization safeguards into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "scrum-import-card-on-another-board",
+    "before": "A card belongs to another board and was left unchanged: __reference__",
+    "after": "An’ny solaitra hafa ny karatra iray ka navela tsy hiova: __reference__",
+    "reason": "Translate Scrum transfer matching, preview outcomes and planning synchronization safeguards into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "scrum-import-record-ambiguous",
+    "before": "A sprint or release matches more than one on this board: __reference__",
+    "after": "Mifanaraka amin’ny mihoatra ny iray eto amin’ity solaitra ity ny tsingerin’asa na famoahana iray: __reference__",
+    "reason": "Translate Scrum transfer matching, preview outcomes and planning synchronization safeguards into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "scrum-import-record-not-imported",
+    "before": "A sprint, release or event could not be imported: __reference__",
+    "after": "Tsy azo nampidirina ny tsingerin’asa, famoahana na hetsika iray: __reference__",
+    "reason": "Translate Scrum transfer matching, preview outcomes and planning synchronization safeguards into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "scrum-import-sprint-finished",
+    "before": "A card was not moved into a finished sprint: __reference__",
+    "after": "Tsy nafindra tao amin’ny tsingerin’asa efa vita ny karatra iray: __reference__",
+    "reason": "Translate Scrum transfer matching, preview outcomes and planning synchronization safeguards into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "sync-planning-sprint",
+    "before": "Sprint (Scrum planning)",
+    "after": "Tsingerin’asa (drafitra Scrum)",
+    "reason": "Translate Scrum transfer matching, preview outcomes and planning synchronization safeguards into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "sync-planning-releases",
+    "before": "Releases (Scrum planning)",
+    "after": "Famoahana (drafitra Scrum)",
+    "reason": "Translate Scrum transfer matching, preview outcomes and planning synchronization safeguards into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "sync-planning-fields",
+    "before": "Sprint and releases",
+    "after": "Tsingerin’asa sy famoahana",
+    "reason": "Translate Scrum transfer matching, preview outcomes and planning synchronization safeguards into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "sync-planning-hint",
+    "before": "Sprint and releases are synced only while Scrum is enabled on this board. A sprint or release that is missing is created on this board, with the dates the source gives; an existing one is matched by its source ID first, then by name. A local planning change stays until the source changes that issue's planning, and a first Sync never removes planning.",
+    "after": "Ampifanarahana ny tsingerin’asa sy famoahana raha mandeha eto amin’ity solaitra ity ny Scrum ihany. Foronina eto amin’ity solaitra ity ny tsingerin’asa na famoahana tsy misy, miaraka amin’ny daty omen’ny loharano; izay efa misy dia ampifanarahina araka ny ID ao amin’ny loharano aloha, avy eo araka ny anarany. Mijanona ny fanovana drafitra eto an-toerana mandra-panovan’ny loharano ny drafitr’io olana io, ary tsy manaisotra drafitra mihitsy ny fampifanarahana voalohany.",
+    "reason": "Translate Scrum transfer matching, preview outcomes and planning synchronization safeguards into Malagasy."
   }
 ]

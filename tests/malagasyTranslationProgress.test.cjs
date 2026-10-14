@@ -444,3 +444,16 @@ assert.match(malagasy['oauth-providers-allowed-email-domains'], /faingo.*raha ba
 assert.match(malagasy['subtask-mark-not-done'], /tsy vita/);
 assert.match(malagasy['subtask-done-no-permission'], /^Tsy afaka/);
 assert.notEqual(malagasy['subtask-mark-done'], malagasy['subtask-mark-not-done']);
+
+const scrumPlanningKeys = ["scrum-release-scope", "scrum-releases-select-help", "scrum-import-into-board", "scrum-import-into-board-hint", "scrum-import-choose-file", "scrum-import-invalid-file", "scrum-import-preview-sprints", "scrum-import-preview-releases", "scrum-import-preview-cards", "scrum-import-preview-nothing", "scrum-import-into-board-done", "scrum-import-card-not-matched", "scrum-import-card-ambiguous", "scrum-import-card-on-another-board", "scrum-import-record-ambiguous", "scrum-import-record-not-imported", "scrum-import-sprint-finished", "sync-planning-sprint", "sync-planning-releases", "sync-planning-fields", "sync-planning-hint"];
+
+for (const key of scrumPlanningKeys) {
+  assert.notEqual(malagasy[key], english[key], key);
+  assert.deepEqual(tokens(malagasy[key]), tokens(english[key]), key);
+}
+assert.match(malagasy['scrum-releases-select-help'], /Ctrl.*Cmd.*esory ny safidy rehetra.*famoahana rehetra/);
+assert.match(malagasy['scrum-import-into-board-hint'], /tsy averina foronina.*ID.*laharana sy lohatenin’ny.*avela tsy hiova.*topimaso/);
+assert.match(malagasy['scrum-import-card-on-another-board'], /solaitra hafa.*tsy hiova/);
+assert.match(malagasy['scrum-import-sprint-finished'], /Tsy nafindra.*efa vita/);
+assert.match(malagasy['scrum-import-into-board-done'], /voarakitra.*Tantara/);
+assert.match(malagasy['sync-planning-hint'], /Scrum ihany.*ID.*aloha.*anarany.*Mijanona.*eto an-toerana.*tsy manaisotra.*voalohany/);

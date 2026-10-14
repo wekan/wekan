@@ -13,7 +13,7 @@ const call = (page, method, ...args) => page.evaluate(async ({ method, args }) =
   catch (error) { throw new Error(`${error.error}: ${error.reason || error.message}`); }
 }, { method, args });
 
-for (const language of ['ht', 'la', 'st', 'sw', 'en', 'mt']) {
+for (const language of ['mg', 'ht', 'la', 'st', 'sw', 'en', 'mt']) {
 test(`Scrum planning imports into an existing board once, matching its cards in ${language}`, async ({ page, browser, request, user, board }) => {
   const destination = db.seedBoard({ ownerId: user.id, title: 'Scrum import destination',
     cardTitlesPerList: [['Alpha Card'], ['Beta Card'], ['Not the same card']] });
