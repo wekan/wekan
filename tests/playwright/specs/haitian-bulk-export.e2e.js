@@ -29,3 +29,17 @@ test('Malagasy bulk export explains workbook and ZIP layouts', async ({ boardPag
   await expect(popup.locator('p.quiet')).toContainText('.zip misy rakitra isaky ny solaitra');
   await expect(popup.locator('p.quiet')).not.toContainText('Every board');
 });
+
+test('Irish bulk export explains workbook and ZIP layouts', async ({ boardPage: page }) => {
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'ga'));
+  await navigateInApp(page, '/');
+  const settings = page.locator('.js-export-all-boards');
+  if (!(await settings.isVisible())) await page.locator('.js-toggle-page-sidebar').first().click();
+  await settings.click();
+  const popup = page.locator('.js-pop-over');
+  await expect(popup.locator('.header-title')).toHaveText('Easpórtáil gach clár');
+  await expect(popup.locator('p.quiet')).toContainText('Gach clár is féidir leat a easpórtáil');
+  await expect(popup.locator('p.quiet')).toContainText('bileog do gach clár');
+  await expect(popup.locator('p.quiet')).toContainText('.zip le comhad do gach clár');
+  await expect(popup.locator('p.quiet')).not.toContainText('Every board');
+});

@@ -95,3 +95,14 @@ assert.match(irish['import-board-instruction-businessmap'], /Béarla ar dtús/);
 assert.match(irish['import-board-instruction-redmine'], /Bhéarla in My account sula/);
 assert.match(irish['import-board-instruction-notion'], /Ní iompórtáiltear gaolta, íomhánna ná ceangaltáin/);
 assert.match(irish['import-board-instruction-plane'], /Níl cur síos ná ceangaltáin.*ní iompórtáiltear iad/);
+
+const importControlKeys = ["import-members-mode-heading", "import-members-mode-map", "import-members-mode-placeholder", "import-members-mode-me", "csv-mapping-title", "csv-mapping-description", "csv-mapping-not-in-file", "csv-mapping-column-number", "csv-mapping-list-missing", "csv-mapping-list-name", "csv-mapping-custom-fields", "csv-mapping-boards", "csv-mapping-skipped-sheets", "csv-mapping-title-required", "csv-mapping-list-required", "invalid-import-mapping", "import-many-boards", "import-many-boards-hint", "import-one-board-per-project", "import-one-board-per-project-hint", "import-many-progress", "import-many-results-heading", "import-many-imported", "export-all-boards", "export-selected-boards", "export-all-boards-hint", "exportAllBoardsPopup-title", "exportToTrelloPopup-title", "trello-export-desc", "trello-export-include-attachments", "trello-export-start", "trello-export-open-board", "trello-export-warnings", "sandstorm-trello-access-needed", "sandstorm-allow-trello-access", "sandstorm-trello-access-granted", "sandstorm-forget-access", "sandstorm-trello-save-label"];
+for (const key of importControlKeys) {
+  assert.notEqual(irish[key], english[key], key);
+  assert.deepEqual(tokens(irish[key]), tokens(english[key]), key);
+}
+assert.match(irish['import-members-mode-placeholder'], /ainmneacha féin.*fíorúsáideoirí níos déanaí/);
+assert.match(irish['import-many-boards-hint'], /gan baill a mheaitseáil.*Is clár amháin.*in ionad an réimse thuas/);
+assert.match(irish['export-all-boards-hint'], /leabhar oibre amháin.*bileog do gach clár.*\.zip.*comhad do gach clár/);
+assert.match(irish['trello-export-desc'], /Swimlane: …/);
+assert.match(irish['sandstorm-trello-access-needed'], /Níl rochtain Idirlín.*ar dtús/);

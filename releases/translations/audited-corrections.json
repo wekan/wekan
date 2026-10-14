@@ -212308,5 +212308,271 @@
     "before": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
     "after": "In Plane, oscail Workspace Settings, roghnaigh Exports, easpórtáil na tionscadail mar JSON, CSV nó Excel agus íoslódáil an comhad .zip, ansin roghnaigh an comhad sin, nó comhad amháin uaidh, nó greamaigh an JSON nó CSV. Déantar liostaí de staideanna, lánaí de thionscadail, agus cártaí de shaincheisteanna lena n-aitheantóir, máthair-mhír, sannaithe, lipéid, dátaí, naisc agus nótaí tráchta; déantar réimsí saincheaptha de thosaíocht, meastachán, timthriall agus modúl. Níl cur síos ná ceangaltáin in easpórtáil Plane, mar sin ní iompórtáiltear iad.",
     "reason": "Translate remaining English import guides into Irish with export prerequisites, mapping and omission warnings intact."
+  },
+  {
+    "locale": "ga",
+    "key": "import-members-mode-heading",
+    "before": "People in the file:",
+    "after": "Daoine sa chomhad:",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "import-members-mode-map",
+    "before": "Choose an existing user for each of them",
+    "after": "Roghnaigh úsáideoir atá ann cheana do gach duine acu",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "import-members-mode-placeholder",
+    "before": "Keep them as placeholder users with their own names, to map to real users later",
+    "after": "Coinnigh iad mar úsáideoirí ionaid lena n-ainmneacha féin, chun iad a mheaitseáil le fíorúsáideoirí níos déanaí",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "import-members-mode-me",
+    "before": "Make them all me",
+    "after": "Cuir mise ina n-áit go léir",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "csv-mapping-title",
+    "before": "Which column is which?",
+    "after": "Cén colún atá i gceist le gach réimse?",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "csv-mapping-description",
+    "before": "Choose the column of the file that holds each card field. The choices were made from the column names; change any that are wrong, and choose (not in the file) for a field the file does not have.",
+    "after": "Roghnaigh colún an chomhaid ina bhfuil gach réimse cárta. Roghnaíodh na colúin de réir a n-ainmneacha; athraigh aon rogha atá mícheart, agus roghnaigh (níl sa chomhad) do réimse nach bhfuil sa chomhad.",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "csv-mapping-not-in-file",
+    "before": "(not in the file)",
+    "after": "(níl sa chomhad)",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "csv-mapping-column-number",
+    "before": "Column __number__",
+    "after": "Colún __number__",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "csv-mapping-list-missing",
+    "before": "The file has no column for the list. Choose one above, or type the name of the one list every card goes into.",
+    "after": "Níl colún don liosta sa chomhad. Roghnaigh ceann thuas, nó clóscríobh ainm an liosta aonair a rachaidh gach cárta isteach ann.",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "csv-mapping-list-name",
+    "before": "List for every card",
+    "after": "Liosta do gach cárta",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "csv-mapping-custom-fields",
+    "before": "Other columns to import as text custom fields:",
+    "after": "Colúin eile le hiompórtáil mar réimsí téacs saincheaptha:",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "csv-mapping-boards",
+    "before": "Each sheet becomes its own board:",
+    "after": "Déantar clár ar leith de gach bileog:",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "csv-mapping-skipped-sheets",
+    "before": "Sheets that are not imported:",
+    "after": "Bileoga nach n-iompórtáiltear:",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "csv-mapping-title-required",
+    "before": "Choose the column that holds the card titles.",
+    "after": "Roghnaigh an colún ina bhfuil teidil na gcártaí.",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "csv-mapping-list-required",
+    "before": "Type the name of the list every card goes into, or choose the column that holds the list.",
+    "after": "Clóscríobh ainm an liosta a rachaidh gach cárta isteach ann, nó roghnaigh an colún ina bhfuil an liosta.",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "invalid-import-mapping",
+    "before": "The column mapping does not match the file.",
+    "after": "Ní mheaitseálann an mhapáil colún an comhad.",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "import-many-boards",
+    "before": "Import many boards",
+    "after": "Iompórtáil roinnt clár",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "import-many-boards-hint",
+    "before": "Choose several export files of this tool, or one .zip that holds them: each file becomes its own board, imported without member mapping. A .zip that is itself one export (Vikunja, Notion, Plane, or WeKan with attachments) is one board. When files are chosen here, Import imports them instead of the field above.",
+    "after": "Roghnaigh roinnt comhad easpórtála ón uirlis seo, nó comhad .zip amháin ina bhfuil siad: déantar clár ar leith de gach comhad, a iompórtáiltear gan baill a mheaitseáil. Is clár amháin é comhad .zip ar easpórtáil aonair é féin (Vikunja, Notion, Plane, nó WeKan le ceangaltáin). Nuair a roghnaítear comhaid anseo, iompórtálann Iompórtáil iad in ionad an réimse thuas.",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "import-one-board-per-project",
+    "before": "One board per project",
+    "after": "Clár amháin in aghaidh an tionscadail",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "import-one-board-per-project-hint",
+    "before": "Each swimlane the import would make (a project, folder or list of the tool) becomes its own board. Parent cards and dependencies between those boards are listed in the import report.",
+    "after": "Déantar clár ar leith de gach lána a chruthódh an iompórtáil (tionscadal, fillteán nó liosta ón uirlis). Liostaítear máthair-chártaí agus spleáchais idir na cláir sin sa tuairisc iompórtála.",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "import-many-progress",
+    "before": "Importing __done__ of __total__: __name__",
+    "after": "Á iompórtáil __done__ as __total__: __name__",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "import-many-results-heading",
+    "before": "Imported files",
+    "after": "Comhaid iompórtáilte",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "import-many-imported",
+    "before": "imported",
+    "after": "iompórtáilte",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "export-all-boards",
+    "before": "Export all boards",
+    "after": "Easpórtáil gach clár",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "export-selected-boards",
+    "before": "Export selected boards",
+    "after": "Easpórtáil na cláir roghnaithe",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "export-all-boards-hint",
+    "before": "Every board you can export, in one download: Excel as one workbook with a sheet per board named after it, every other format as a .zip with a file per board.",
+    "after": "Gach clár is féidir leat a easpórtáil, in aon íoslódáil amháin: Excel mar leabhar oibre amháin le bileog do gach clár agus ainm an chláir uirthi, agus gach formáid eile mar chomhad .zip le comhad do gach clár.",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "exportAllBoardsPopup-title",
+    "before": "Export all boards",
+    "after": "Easpórtáil gach clár",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "exportToTrelloPopup-title",
+    "before": "Export to Trello",
+    "after": "Easpórtáil go Trello",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "trello-export-desc",
+    "before": "Create a copy of this board in Trello through Trello's API, with your Trello API key and token. Swimlanes become labels named \"Swimlane: …\", which WeKan's Trello import turns back into swimlanes.",
+    "after": "Cruthaigh cóip den chlár seo in Trello trí API Trello, le d’eochair API agus comhartha Trello. Déantar lipéid darb ainm \"Swimlane: …\" de lánaí, agus athraíonn iompórtáil Trello WeKan ar ais ina lánaí iad.",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "trello-export-include-attachments",
+    "before": "Include attachments",
+    "after": "Cuir ceangaltáin san áireamh",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "trello-export-start",
+    "before": "Export to Trello",
+    "after": "Easpórtáil go Trello",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "trello-export-open-board",
+    "before": "Open the board in Trello",
+    "after": "Oscail an clár in Trello",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "trello-export-warnings",
+    "before": "Not everything could be exported",
+    "after": "Níorbh fhéidir gach rud a easpórtáil",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "sandstorm-trello-access-needed",
+    "before": "A Sandstorm grain has no Internet access of its own. Allow this grain to reach Trello first.",
+    "after": "Níl rochtain Idirlín dá chuid féin ag grain Sandstorm. Ceadaigh don grain seo Trello a bhaint amach ar dtús.",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "sandstorm-allow-trello-access",
+    "before": "Allow access to Trello",
+    "after": "Ceadaigh rochtain ar Trello",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "sandstorm-trello-access-granted",
+    "before": "This grain may reach Trello.",
+    "after": "Tá cead ag an grain seo Trello a bhaint amach.",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "sandstorm-forget-access",
+    "before": "Forget",
+    "after": "Déan dearmad",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "sandstorm-trello-save-label",
+    "before": "Trello, for importing and exporting boards",
+    "after": "Trello, chun cláir a iompórtáil agus a easpórtáil",
+    "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
   }
 ]
