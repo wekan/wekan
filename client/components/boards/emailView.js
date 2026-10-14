@@ -6,7 +6,7 @@ import { Utils } from '/client/lib/utils';
 import { reportPageDocs } from '/client/lib/reportPages';
 import { buildHeader, docsByIds, pageInfo } from '/models/lib/tablePage';
 
-const { EMAIL_VIEW_PAGE_ID, parseFolder, snippet } = require('/models/lib/emailView');
+const { EMAIL_VIEW_PAGE_ID, parseFolder, previewMarkdown } = require('/models/lib/emailView');
 
 // Board View / Email (emailView.jade, server/emailView.js). The folder, the
 // page and the search are this view's state; the rows are the page the server
@@ -100,7 +100,7 @@ Template.emailView.helpers({
       return {
         _id: card._id,
         title: card.title,
-        snippet: snippet(card.description),
+        snippet: previewMarkdown(card.description),
         outgoing,
         sender,
         date: formatDate(card.receivedAt || card.createdAt),

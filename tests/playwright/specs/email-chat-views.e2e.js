@@ -133,6 +133,32 @@ test.describe('Email view', () => {
     }
   });
 
+  test('a row renders its subject and preview as Markdown, like every card title in WeKan', async ({ boardPage: page, board }) => {
+    const restore = enableInbound();
+    try {
+      db.updateOne('boards', { _id: board.boardId }, { $set: { emailToCard: { enabled: true, listId: board.listIds[0] } } });
+      const alpha = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+      db.updateOne('cards', { _id: alpha._id }, { $set: {
+        title: '# Alpha **bold** card',
+        description: 'From: Sam Sender <sam@example.test>\n\nSee [the docs](https://example.org/docs) and **this**.',
+        receivedAt: new Date(),
+        email: { direction: 'in', from: { name: 'Sam Sender', address: 'sam@example.test' }, to: [], cc: [],
+          subject: 'Alpha', messageId: '<md1@example.test>', threadIds: ['<md1@example.test>'], at: new Date() },
+      } });
+      await openView(page, board, 'board-view-email');
+      const row = page.locator('.email-view-row', { hasText: 'Alpha' });
+      await expect(row.locator('.email-view-subject-title strong')).toHaveText('bold');
+      await expect(row.locator('.email-view-snippet a[href="https://example.org/docs"]')).toHaveText('the docs');
+      await expect(row.locator('.email-view-snippet strong')).toHaveText('this');
+      // Negative: no Markdown shown as text, and the sender line is not in the preview.
+      for (const cell of ['.email-view-subject-title', '.email-view-snippet']) {
+        const text = await row.locator(cell).innerText();
+        expect(text).not.toMatch(/\*\*|^#|\]\(/m);
+      }
+      await expect(row.locator('.email-view-snippet')).not.toContainText('From:');
+    } finally { restore(); }
+  });
+
   test('says where to turn email on when the board does not receive it', async ({ boardPage: page, board }) => {
     await openView(page, board, 'board-view-email');
     await expect(page.locator('.email-view-hint')).toContainText('does not receive email yet');

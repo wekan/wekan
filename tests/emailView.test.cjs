@@ -9,7 +9,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const {
-  parseFolder, emailFolderSelector, emailSearchSelector, cleanOutgoingEmail, snippet, MAX_RECIPIENTS,
+  parseFolder, emailFolderSelector, emailSearchSelector, cleanOutgoingEmail, snippet, previewMarkdown, MAX_RECIPIENTS,
 } = require('../models/lib/emailView');
 const { fromProviderFields, messageIds } = require('../server/lib/inboundEmailPayload');
 
@@ -66,6 +66,22 @@ test('a row preview leaves out the sender line and is one line', () => {
   assert.equal(snippet('From: Ann <a@x>\n\nHello\nthere'), 'Hello there');
   assert.equal(snippet('x'.repeat(200), 10), `${'x'.repeat(9)}…`);
   assert.equal(snippet(undefined), '');
+});
+
+test('a row renders its subject and preview as Markdown, cut at a line end', () => {
+  assert.equal(previewMarkdown('From: Ann <a@x>\n\n# Hello\nSee [docs](https://x.example) **now**'),
+    '# Hello\nSee [docs](https://x.example) **now**', 'the Markdown kept, the sender line left out');
+  assert.equal(previewMarkdown(['a', 'b', 'c'].join('\n'), 2), 'a\nb');
+  // Negative: never cut inside a line (a link or a tag), and nothing for nothing.
+  const long = `${'x'.repeat(30)}\n[link](https://example.org/${'y'.repeat(50)})`;
+  assert.equal(previewMarkdown(long, 8, 60), 'x'.repeat(30));
+  assert.equal(previewMarkdown(undefined), '');
+  const jade = fs.readFileSync(path.join(__dirname, '../client/components/boards/emailView.jade'), 'utf8');
+  assert.match(jade, /\.email-view-subject-title\s*\n\s*\+viewer\s*\n\s*= title/);
+  assert.match(jade, /\.email-view-snippet\s*\n\s*\+viewer\s*\n\s*= snippet/);
+  // Negative: no row text interpolated raw.
+  assert.doesNotMatch(jade, /email-view-subject-title \{\{title\}\}|email-view-snippet[^\n]*\{\{snippet\}\}/);
+  assert.match(fs.readFileSync(path.join(__dirname, '../client/components/boards/emailView.js'), 'utf8'), /snippet: previewMarkdown\(card\.description\)/);
 });
 
 test('threading: In-Reply-To and References are read from every provider shape', () => {

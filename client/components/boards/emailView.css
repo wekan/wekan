@@ -105,6 +105,31 @@
 
 .email-view-snippet {
   opacity: 0.7;
+  /* Two lines of the rendered message, then an ellipsis. */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+/* Rendered Markdown in a row reads as the row's text: a heading or a
+   paragraph keeps the row's size and flows on one line with the rest. */
+.email-view-subject-title .viewer :is(h1, h2, h3, h4, h5, h6, p),
+.email-view-snippet .viewer :is(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote) {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+.email-view-snippet .viewer :is(h1, h2, h3, h4, h5, h6, p, li)::after {
+  content: ' ';
+}
+.email-view-subject-title .viewer img,
+.email-view-snippet .viewer img {
+  max-height: 1.4em;
+  vertical-align: middle;
 }
 
 .email-view-row-label {

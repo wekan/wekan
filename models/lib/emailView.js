@@ -81,7 +81,24 @@ function snippet(description, max = 120) {
   return line.length > max ? `${line.slice(0, max - 1)}…` : line;
 }
 
+// The message's text for the row's preview, rendered as Markdown like the
+// rest of WeKan (the viewer applies the Admin Panel's security settings): the
+// e-mail's From line left out, and only its start - cut at a line end, never
+// inside a link or a tag the way a character count cuts it. The row shows
+// two lines of it (emailView.css).
+function previewMarkdown(description, maxLines = 8, maxLength = 2000) {
+  const text = String(description || '').replace(/^From: .*\n+/, '').trim();
+  const lines = text.split('\n').slice(0, maxLines);
+  let out = '';
+  for (const line of lines) {
+    if (out.length + line.length + 1 > maxLength) break;
+    out += (out ? '\n' : '') + line;
+  }
+  return out;
+}
+
 module.exports = {
+  previewMarkdown,
   EMAIL_VIEW_PAGE_ID,
   MAX_RECIPIENTS,
   parseFolder,
