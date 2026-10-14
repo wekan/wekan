@@ -334,133 +334,32 @@ No external translation service or remote translation upload was used.
 </details>
 
 <details>
-<summary>Local translation repairs and validation resumed; review remains.</summary>
+<summary>Local translation repairs: wrong-language and low-confidence review remains.</summary>
 
-Wrong-language and wrong-meaning repairs resumed at the maintainer's request
-after the 2026-09-27 Transifex download. The first reviewed batch corrects 487
-locale/key pairs and retains valid downloaded translations. The broader
-semantic audit remains in progress; filling untranslated strings in every
-language resumed on 2026-10-07; the dated pause below is historical.
-See the [download review](docs/Features/Translations/Transifex-2026-09-27.md).
-The dated findings below remain historical checkpoints, not proof of global
-translation completion.
+All 20,081 originally flagged findings were classified by 2026-09-16: 15,880
+corrected and 4,201 reviewed and retained. The correction inventory records
+22,302 exact before/after values. See the
+[translation audit status](docs/Features/Translations/Audit.md), the
+[detailed evidence](docs/Features/Translations/Audit-Evidence.md) and the
+[2026-09-27 download review](docs/Features/Translations/Transifex-2026-09-27.md).
+Still open:
 
-Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
-As of 2026-09-16, all 20,081 original findings are classified:
-15,880 corrected, 4,201 reviewed and retained, and zero restored or
-pending. The correction inventory records 22,302 exact before/after
-values, including repairs outside the original findings. This closes
-the original flagged queue; broader wrong-language, low-confidence
-wording and browser review remain unfinished.
-Global completeness and terminology review remains separate from the
-original queue.
-
-All 361 originally flagged Klingon findings are repaired. The broader review
-of 829
-German-identical Klingon values repaired all 829, including the mistaken
-German cron label, which now uses the actual tool name Cron.
-The original Standard Moroccan Tamazight, Inuktitut and Veps queues are
-classified. Silesian database terminology, Tigre calendar wording and
-unflagged values still need language-specific review. Low-confidence
-wording and browser rendering remain unverified.
-The latest committed Tamazight card/list URL repair is 1cf93f7e52
-(2026-09-15); its two exact correction records bring the ledger to
-22,302. The zgh file still has 102 Arabic-script values awaiting
-semantic classification. The translation working tree was clean at
-this 2026-09-16 interruption checkpoint; no remote upload occurred.
-Kashmiri reference review 0db69cf6c (2026-09-14) identifies provisional
-civil wording and unresolved sighting/tabular/epoch terminology; no values
-changed.
-
-[Translation audit status](docs/Features/Translations/Audit.md) is the short
-resume record; [detailed evidence](docs/Features/Translations/Audit-Evidence.md)
-retains the categorized findings. Not all wrong translations originated on
-Transifex: the evidence includes 4,061 pulled changes and 16,020 additional
-local findings, and Bosnian errors predate the pull. No remote uploads were
-performed. Preserve correct translations and source placeholders during repairs.
-The requested organization, linked-file/static-archive and rate-limit mirror
-changes are implemented in local commit 02383521a; translation repairs have
-resumed.
-Latest translation fix/review is 3b4941c34 (2026-09-14): Valencian error
-count corrected and nine completion labels retained against historical
-percentage and finished-state badge contexts. Broader verification stays open.
-Of 611 restored Danish values reviewed, 606 are retained and five repaired.
-Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
-retaining 156 correct Danish storage, migration and monitoring/account labels.
-Ambiguous
-export and Complete wording remains open. Requested wekansec21 security
-repairs are
-prioritized while remaining translation review stays open.
-Archive provenance follow-up fbe388603 (2026-09-14) directly inspects the
-native Archives du Maroc logo in a university PDF, corroborating the noun
-beyond indexed evidence. Nine records updated; no values/counts changed.
-Full kanban labels remain low confidence.
-Logo provenance follow-up 89f36d41f (2026-09-14) applies the dictionary's
-cross-variety preface to two earlier URL records. Native caption evidence
-remains separate; full labels stay low confidence. No values/counts changed.
-Conversion review ecae7d919 (2026-09-14) distinguishes native Return/date-back
-from the proposed checklist Become verb; confidence remains low and the
-original-order variant is repaired in 996cc65c7 with low-confidence
-candidates. No values/counts changed.
-Checklist completion evidence follow-ups 9de9f2c15 and 4139001a3 distinguish
-legal supplementation from directly attested software Complete Login. Past
-actor form and full checklist grammar remain low confidence. Values/counts
-unchanged.
-Start spelling follow-up 2219d5358 distinguishes plain Begin/Start from
-emphatic Share/Divide in indexed IRCAM entries; direct PDF and full command
-verification remain open. No values or counts changed.
-Subtask terminology finding 92f69f58d is repaired in 23c82a5c1. Full
-hierarchical phrases remain low confidence; added-subtask activity is repaired
-in b26d1ddc1, and Linked Subtask in af33f6640. Full wording needs review.
-Bambara calendar follow-up 5610dff52 confirms current CLDR lacks native
-Hijri variant names; Era vocabulary does not establish reference-date
-Epoch. Both tabular calendar labels remain pending.
-
-Node regressions resolved on 2026-09-13: the original audit ran 986 suites
-with 19 failures. After the recorded source and guard repairs and one new
-regression suite, the final full run completed **987 suites, zero failures**.
-Calendar/date-popup, OAuth2, correction/review, progress and mocked upload
-checks pass. Sardinian magenta remains an explicit language-review item;
-the completeness guard permits only that exact known pending value.
-
-The first complete EVERYTHING run passed Meteor, Node, import, Node E2E,
-all three browsers, four database conformance runs and FerretDB tests.
-The second EVERYTHING run passed #6691 in all three browsers, but Chromium
-board-export popup readiness remains unresolved; the Fossil menu check is fixed.
-Live external identity-provider validation and fluent-speaker translation review
-remain outstanding. The latest full Node run passes **1,010 suites, zero
-failures**, including
-mirror-script and offline archive checks; no
-remote mirror or translation upload was executed.
-
-
-Field-sum terminology review (2026-09-14): the list sum display remains
-pending. Addition-operation and sum-of-money references do not establish
-the resulting numeric field sum; no count or operation was substituted.
-
-
-Reference review 7b9e343b6 (2026-09-14) corrects source attribution in 98
-Tamazight records: CNAM MC£ is Tuareg and MC is Mokrane Chemim, not
-Central Moroccan dialect labels. Affected terminology needs renewed review.
-
-Silesian database follow-up 45d98c94f (2026-09-14) corroborates regional
-human usage of the shared database term. The raw-file qualifier and full
-label remain pending; translation counts are unchanged.
-
-Authentication reference review 9bcb5e162 (2026-09-14) directly verifies
-MC£ (Tuareg) in the dictionary where the search index renders MCF. Do not
-accept that candidate as Moroccan proof; authentication labels remain
-under review with unchanged counts.
+- wrong-language and wrong-meaning review beyond that queue, low-confidence
+  wording, and browser rendering;
+- terminology still pending per language: Silesian database labels, Tigre
+  calendar wording, the 102 Arabic-script values in the Standard Moroccan
+  Tamazight file, Tamazight terms after the 2026-09-14 source correction (MC£
+  is Tuareg), Kashmiri calendar terms, Bambara Hijri and epoch labels,
+  Sardinian magenta, Danish export and Complete wording, and the list sum
+  label;
+- Chromium readiness of the board-export popup in the EVERYTHING run;
+- live identity-provider validation and fluent-speaker review.
 
 </details>
 
 <details>
 <summary>Need specific infrastructure / a running server stack we cannot reproduce here (left for environment owners).</summary>
 
-[#3318](https://github.com/wekan/wekan/issues/3318) (outgoing webhooks from a
-Sandstorm grain require a user-granted Powerbox network capability and a
-Node-26-compatible bridge implementation; direct HTTP is intentionally blocked
-by the grain sandbox),
 [#6549](https://github.com/wekan/wekan/issues/6549) (OAuth2 through
 Rocket.Chat's G Suite SAML app: WeKan logs in only when the Rocket.Chat session
 already exists — the behaviour is on the identity-provider side, and reproducing
@@ -483,34 +382,6 @@ People either way.
 </details>
 
 <details>
-<summary>Pending affected-data or database-backend verification.</summary>
-
-[#6692](https://github.com/wekan/wekan/issues/6692#issuecomment-5811473169)
-(the invitation account-block and anonymous metadata-subscription defects are
-fixed; the separate HistoryIntegrity checksum mismatch needs the affected
-stored row and predecessor to reproduce. Do not regenerate hashes to hide it.
-See [investigation notes](docs/DeveloperDocs/LDAP-6692.md)).
-
-</details>
-
-<details>
-<summary>FerretDB v1 fork backend parity: SAP HANA verification remains.</summary>
-
-Range and `$in` pushdown, the external-database snap launcher and the OpLog
-`ts` index in each backend's `collectionCreate` are in wekan/FerretDB. The
-live check the previous entry asked for was done on 2026-09-29 against MySQL
-9.7, MariaDB 12.3 and PostgreSQL 18 (see Upcoming): the pushed range did not
-match the index on any of them, and the assumption that this was only a
-selectivity question was wrong for MySQL, whose `UNSIGNED INTEGER` JSON type
-made its range pushdown drop documents. Both are fixed and verified with
-EXPLAIN and the conformance catalogue. What remains of
-[#6509](https://github.com/wekan/wekan/issues/6509) is SAP HANA: its DocStore
-index and range pushdown need a live HANA, which needs an amd64 machine, a
-licence and about 16 GB of memory.
-
-</details>
-
-<details>
 <summary>Feature requests / behaviour-by-design rather than bugs.</summary>
 
 The #4790 split is prepared and waits for the maintainer to file it (see
@@ -523,6 +394,113 @@ iteration, weight, time, comments, links and the issue link (see Upcoming).
 Writing changes back to GitLab, `#number` linking and embedding need a GitLab
 server and API credentials to build and verify, which this environment does
 not have).
+
+</details>
+
+<details>
+<summary>Open requests checked on 2026-10-14: roles, permissions, organizations and teams.</summary>
+
+Each was read with its comments and checked against the code; what exists is
+noted, and what is missing is why it is still open.
+[#3022](https://github.com/wekan/wekan/issues/3022) (more fixed board roles and a per-role invite toggle exist; no
+custom roles or per-permission matrix),
+[#802](https://github.com/wekan/wekan/issues/802) (board orgs/teams, All Boards filters and LDAP group sync exist; no
+per-org/team tabs or member management there, no write-back to LDAP),
+[#5141](https://github.com/wekan/wekan/issues/5141) (board admins may add orgs/teams on the server, but the picker lists
+nothing for them: the org and team publications are admin-only),
+[#4178](https://github.com/wekan/wekan/issues/4178) (joining a team adds its boards; joining an org without the
+propagate flag does not, and removal deliberately removes nothing),
+[#4265](https://github.com/wekan/wekan/issues/4265) (leaving a board shared through a team keeps it visible; no hidden
+boards list or membership reorganizing),
+[#4575](https://github.com/wekan/wekan/issues/4575) (instance visibility grants reading only; writing still needs
+membership),
+[#4527](https://github.com/wekan/wekan/issues/4527) (no per-list permissions),
+[#2217](https://github.com/wekan/wekan/issues/2217) (Rules are board-admin only, with no setting to show them to others),
+[#5847](https://github.com/wekan/wekan/issues/5847) (2FA, SAML, CAS and OIDC redirect exist; the other listed logins and
+a log-out-everywhere are missing),
+[#1324](https://github.com/wekan/wekan/issues/1324) (no Bitbucket login).
+
+</details>
+
+<details>
+<summary>Open requests checked on 2026-10-14: boards, lists and cards.</summary>
+
+[#2805](https://github.com/wekan/wekan/issues/2805) (sticky list headers exist; one shared header row for all
+swimlanes does not),
+[#2809](https://github.com/wekan/wekan/issues/2809) (linked cards and boards exist; a linked whole list does not),
+[#2761](https://github.com/wekan/wekan/issues/2761) and [#4698](https://github.com/wekan/wekan/issues/4698) (labels are per board; no shared label catalog),
+[#2450](https://github.com/wekan/wekan/issues/2450) (atomic per-board card numbers `#7` exist; no board-key prefix like
+`DEV-7`), [#2449](https://github.com/wekan/wekan/issues/2449) (no board key),
+[#2171](https://github.com/wekan/wekan/issues/2171) (`/` opens the sidebar search; nothing scrolls the board to a match),
+[#2110](https://github.com/wekan/wekan/issues/2110) (minicard avatars are still in reverse order; no per-card avatar
+colour or tooltip),
+[#2040](https://github.com/wekan/wekan/issues/2040) (no sort by an ordered list of labels),
+[#2015](https://github.com/wekan/wekan/issues/2015) (no QR code for a card link),
+[#1953](https://github.com/wekan/wekan/issues/1953) (subtasks land in the parent's swimlane by default; no Board
+Settings picker for it),
+[#1931](https://github.com/wekan/wekan/issues/1931) (an existing card can be a subtask, but only from the same board),
+[#1618](https://github.com/wekan/wekan/issues/1618) (checklist items have due dates, but no leader, and are not in the
+calendar or Gantt),
+[#864](https://github.com/wekan/wekan/issues/864) (the Table view lists every card; no drag-and-drop or adding cards
+there),
+[#211](https://github.com/wekan/wekan/issues/211) (no user-defined column sets over the same cards),
+[#140](https://github.com/wekan/wekan/issues/140) (no real-time collaborative text editing),
+[#1273](https://github.com/wekan/wekan/issues/1273) (no option to keep the `#label`/`@member` text in the title),
+[#1178](https://github.com/wekan/wekan/issues/1178) (no sketching onto a card),
+[#4791](https://github.com/wekan/wekan/issues/4791) (Workspaces exist; grouping by first letter, board labels and org
+subgroups do not),
+[#2012](https://github.com/wekan/wekan/issues/2012) (the hour picker is done; story/task card types are not).
+
+</details>
+
+<details>
+<summary>Open requests checked on 2026-10-14: notifications, webhooks and integrations.</summary>
+
+[#2111](https://github.com/wekan/wekan/issues/2111) and [#1604](https://github.com/wekan/wekan/issues/1604) (unread comments are marked on cards; other kinds of
+change are not, and there is no per-user switch),
+[#2026](https://github.com/wekan/wekan/issues/2026) and [#1377](https://github.com/wekan/wekan/issues/1377) (delivery settings, muting, reminders and the
+notification drawer exist; no browser push notifications, no webhook activity
+picker in the UI, no all-boards activity feed),
+[#1297](https://github.com/wekan/wekan/issues/1297) (the webhook payload names member and assignee; no per-recipient
+Mattermost direct message),
+[#2290](https://github.com/wekan/wekan/issues/2290) (no webhook on login or registration),
+[#1455](https://github.com/wekan/wekan/issues/1455) (outgoing webhooks are pinned to the resolved IP and do not use an
+HTTP proxy),
+[#1100](https://github.com/wekan/wekan/issues/1100) (no Matrix notifications or bot),
+[#2435](https://github.com/wekan/wekan/issues/2435) (rule emails can go to the card's creator, assignees and members; the
+To field has no autocomplete or member picker),
+[#4434](https://github.com/wekan/wekan/issues/4434) (an optional clear HTML layout exists for notifications; account
+emails are still plain and the default layout is classic),
+[#2017](https://github.com/wekan/wekan/issues/2017) (no Node-RED how-to, nor how to reach the host from Docker),
+[#5148](https://github.com/wekan/wekan/issues/5148) (no smartwatch client or ntfy integration),
+[#4198](https://github.com/wekan/wekan/issues/4198) (no ActivityPub),
+[#4930](https://github.com/wekan/wekan/issues/4930) (no Trellinator-compatible API),
+[#6554](https://github.com/wekan/wekan/issues/6554) (Gogs is a separate project, not shipped with the snap or Compose
+files),
+[#1126](https://github.com/wekan/wekan/issues/1126) (no RFID integration or guide),
+[#1293](https://github.com/wekan/wekan/issues/1293) (email to card exists; no Android share target in the web app
+manifest),
+[#1188](https://github.com/wekan/wekan/issues/1188) (Copy card URL on Sandstorm copies the sandboxed address, not a grain
+sharing link).
+
+</details>
+
+<details>
+<summary>Open requests checked on 2026-10-14: platforms, accessibility and documentation.</summary>
+
+[#2662](https://github.com/wekan/wekan/issues/2662) (FreeBSD Bun bundles ship and the Node.js bundle is in progress; no
+FreeBSD port or rc.d script),
+[#916](https://github.com/wekan/wekan/issues/916) (TLS through Caddy or a proxy is documented; WeKan's own Node.js server
+does not serve HTTPS),
+[#687](https://github.com/wekan/wekan/issues/687) (the Nextcloud ExApp, Nextcloud login and Deck import exist; the app
+is not published, and there is no WebDAV storage or CalDAV sync),
+[#632](https://github.com/wekan/wekan/issues/632) (the Rancher catalog entry is outside this repository and the Rancher
+doc is outdated),
+[#2009](https://github.com/wekan/wekan/issues/2009) (the Uberspace page links the U7 guide but not its update and
+MAIL_URL steps),
+[#337](https://github.com/wekan/wekan/issues/337) (move buttons, focus trap, landmarks and many labels exist; many links
+still lack `href` and many icons lack labels),
+[#1040](https://github.com/wekan/wekan/issues/1040) (no LibreJS license markers in the Meteor bundle).
 
 </details>
 
@@ -608,28 +586,22 @@ used.
 </details>
 
 <details>
-<summary>Planned: email to card, Sandstorm integrations, Android, single-file and musl builds.</summary>
+<summary>Planned: Sandstorm integrations, Android bundles, single-file Bun and musl builds.</summary>
 
-Requested on 2026-10-13 and being implemented in this order; each moves to
-Upcoming as it is committed. Builds run on GitHub Actions only.
+Requested on 2026-10-13; each moves to Upcoming as it is committed. Email to
+card and the Node.js single files shipped in v12.40. Builds run on GitHub
+Actions only.
 
-- Email to card, on every platform, like Trello's email-to-board
-  ([#794](https://github.com/wekan/wekan/issues/794),
-  [#3948](https://github.com/wekan/wekan/issues/3948)): sending and receiving
-  are configured in Notification Settings. Allowed mail servers and their
-  passwords are set only in the Admin Panel; Board and Member Settings only
-  choose whether it is on and which parts of an email are included. Today a
-  reply to a notification becomes a comment, but nothing creates a card.
-- Sandstorm: import, export, sync, the REST API and webhooks reach outside
-  services through the Powerbox, or reach the grain through a grain API key.
-  Trello import and export already do (see Upcoming).
+- Sandstorm ([#2208](https://github.com/wekan/wekan/issues/2208),
+  [#2167](https://github.com/wekan/wekan/issues/2167)): import, export, sync,
+  the REST API and webhooks reach outside services through the Powerbox, or
+  reach the grain through a grain API key. Trello import and export, and a
+  grain's own email, already do.
 - Android on the WeKan platforms: `android-*` bundles for all four Android
   CPUs, once wekan/node-patches has published its `node-android-*` binaries.
-  AppImage, snap, Flatpak and Docker cannot run on Android without root.
-- Single-file Bun and Node.js executables that read only the files they need
-  from inside themselves (a mount where the OS allows one, otherwise a virtual
-  filesystem), with the database included; and musl bundles and AppImages for
-  Alpine and other musl systems.
+  The single-file workflow builds them as soon as those bundles exist.
+- Single-file Bun executables, like the Node.js ones; and musl bundles and
+  AppImages for Alpine and other musl systems.
 
 </details>
 
@@ -637,10 +609,17 @@ Upcoming as it is committed. Builds run on GitHub Actions only.
 
 # Upcoming WeKan ® release
 
-**In short:** Igbo notification, integration, workflow and permission settings
-are translated, with regression checks and further language review in progress.
+**In short:** **per-member notification frequency** (#2141) is confirmed
+already done and closed. Igbo notification, integration, workflow and
+permission settings are translated, with regression checks and further
+language review in progress.
 
-This release updates the following translations:
+This release closes the following already-done feature request:
+
+- [Each member chooses how often email notifications come: never, periodically or instantly](https://github.com/wekan/wekan/commit/3f88fb39a5).
+  Thanks to saurabharch and xet7.
+
+and updates the following translations:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/238354f6a54a234c9db1cf88a9436d15087c6ba0">Translate Igbo notification delivery and integration settings</a>. Thanks to xet7.</summary>
@@ -656,6 +635,7 @@ One notification browser case passes syntax and discovery; execution is pending.
 All-language translation and semantic verification remain unfinished.
 
 </details>
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/daac3ead0dceb451bdb69970cc5b19678d17ce6d">Translate Igbo workflow and permission controls</a>. Thanks to xet7.</summary>
 
