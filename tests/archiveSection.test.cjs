@@ -176,7 +176,8 @@ test('and a board in the Archive can be opened', () => {
   assert.ok(/archived: isArchived/.test(pub),
     'lists, swimlanes and cards still follow the isArchived argument');
   const client = read('client/components/boards/boardBody.js');
-  assert.ok(/Meteor\.subscribe\(\s*'board',\s*currentBoardId,\s*false,\s*subscriptionGeneration,\s*\)/s.test(client),
+  // An onStop callbacks object may follow (a failed load is shown, 2026-10-15).
+  assert.ok(/Meteor\.subscribe\(\s*'board',\s*currentBoardId,\s*false,\s*subscriptionGeneration,\s*(?:\{\s*onStop:[\s\S]*?\},\s*)?\)/s.test(client),
     'and the board page still asks for the live ones');
 });
 
