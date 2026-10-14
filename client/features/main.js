@@ -33,6 +33,7 @@ import '/client/components/main/support.jade';
 import '/client/components/main/shareTarget.jade';
 // #2026 / #1377: the all-boards activity feed.
 import '/client/components/main/activityFeed.jade';
+import '/client/components/main/activityFeed.css';
 
 import '/client/lib/keyboard';
 import '/client/lib/popup';

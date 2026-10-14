@@ -36,7 +36,10 @@ for (const view of VIEWS) {
     // models/lib/importSources.js - not something a member wrote.
     if (/^\s*a\.vcs-import-link\(/.test(line)) return false;
     const text = line.replace(/\([^()]*(\([^()]*\)[^()]*)*\)/g, '');
-    return FIELDS.some(field => new RegExp(`\\{\\{\\s*${field.replace('.', '\\.')}\\s*\\}\\}`).test(text) || new RegExp(`^\\s*[\\w.#-]*=\\s*${field.replace('.', '\\.')}\\s*$`).test(text) && !/^\s*=/.test(text));
+    return FIELDS.some(field => {
+      const name = field.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return new RegExp(`\\{\\{\\s*${name}\\s*\\}\\}`).test(text) || (new RegExp(`^\\s*[\\w.#-]*=\\s*${name}\\s*$`).test(text) && !/^\s*=/.test(text));
+    });
   });
   assert.deepEqual(offenders.map(([line, n]) => `${view}:${n}: ${line.trim()}`), [], `${view}: render it with +inlineViewer`);
 }

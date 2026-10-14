@@ -39,12 +39,23 @@ export function mstodoBodyText(body) {
   if (!isObject(body)) return '';
   const content = text(body.content);
   if (text(body.contentType).toLowerCase() !== 'html') return content.trim();
-  return content
-    .replace(/<(head|style|script)\b[\s\S]*?<\/\1\s*>/gi, '')
+  // Each removal until nothing changes: removing one element or tag can
+  // splice the text around it into another ("<<b>b>").
+  let out = content;
+  let prev;
+  do {
+    prev = out;
+    out = out.replace(/<(head|style|script)\b[\s\S]*?<\/\1\s*>/gi, '');
+  } while (out !== prev);
+  out = out
     .replace(/<br\s*\/?>/gi, '\n')
     .replace(/<\/(p|div|li|h[1-6]|tr)\s*>/gi, '\n')
-    .replace(/<li\b[^>]*>/gi, '- ')
-    .replace(/<[^>]*>/g, '')
+    .replace(/<li\b[^>]*>/gi, '- ');
+  do {
+    prev = out;
+    out = out.replace(/<[^>]*>/g, '');
+  } while (out !== prev);
+  return out
     .replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (whole, code) => {
       if (code[0] === '#') {
         const n = code[1].toLowerCase() === 'x' ? parseInt(code.slice(2), 16) : parseInt(code.slice(1), 10);

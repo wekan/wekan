@@ -30,10 +30,17 @@ const ENTITIES = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' }
 // a paragraph, block or list item, every other tag dropped, the common
 // entities decoded.
 export function basecampText(html) {
-  return text(html)
+  let out = text(html)
     .replace(/<br\s*\/?>/gi, '\n')
-    .replace(/<\/(p|div|li|h[1-6]|blockquote|pre)\s*>/gi, '\n')
-    .replace(/<[^>]*>/g, '')
+    .replace(/<\/(p|div|li|h[1-6]|blockquote|pre)\s*>/gi, '\n');
+  // Until nothing changes: removing one tag can splice the text around it
+  // into another ("<<b>b>").
+  let prev;
+  do {
+    prev = out;
+    out = out.replace(/<[^>]*>/g, '');
+  } while (out !== prev);
+  return out
     .replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (whole, name) => {
       if (name[0] === '#') {
         const code = name[1].toLowerCase() === 'x' ? parseInt(name.slice(2), 16) : parseInt(name.slice(1), 10);
