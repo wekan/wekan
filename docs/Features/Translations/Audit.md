@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Malagasy linked cards and storage placeholders — 2026-10-14
+
+Commit `7d10b098f8` translates 67 English placeholders. The first 34 cover
+linked cards, custom-field matching and directions, access restrictions,
+announcements, calendar mode and color inheritance. The existing legacy
+catalog test then exposed 33 older English storage labels and rule connectors;
+these were translated too, without weakening the check.
+
+The Malagasy catalog and guarded-correction suites pass with 29,977 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. Four browser cases cover attached
+cards, custom-field links, announcement help and S3 credentials. Syntax and
+discovery pass; runtime execution remains pending.
+
+Malagasy still has newer untranslated messages. Neither the legacy catalog
+gate nor this batch proves complete semantic review. The full all-language
+objective remains unfinished.
+
 ## Haitian Creole card actions and bounce thresholds — 2026-10-14
 
 Commit `50955434aa` corrects four entries. Board creation identifies its source
