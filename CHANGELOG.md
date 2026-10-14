@@ -354,14 +354,11 @@ Still open:
   label;
 - Chromium readiness of the board-export popup in the EVERYTHING run;
 - live identity-provider validation and fluent-speaker review;
-- locale files found on 2026-10-14 to be in another language, to be
-  rewritten in their own: `ro`, `ro-RO`, `rup`, `lld` and `ve-CC` (Italian),
-  `gl` and `gl-ES` (Portuguese), `ace` (Malay/Indonesian), `ve` (Zulu), `sk`
-  (Czech), `vo` (Esperanto-like); `uz-AR` mixes scripts; `to` holds about
-  2,265 "Faka-Tonga:" placeholders, `qu` "Kay willaymi:" ones, and `an`,
-  `fur`, `wal` and `lg` leftover prefixes or notes; `cmn` and `yue_CN` call a
-  board a wooden plank (木板); List actions reads as "list the actions" in
-  `pa`, `pt`, `pt-BR`, `ru_RU`, `vi-VN`, `hu`, `ko` and `gl-ES`.
+- the locale files rewritten on 2026-10-14 from another language (see
+  Upcoming) need a native speaker: Tongan, Quechua, Wolaytta, Luganda,
+  Bislama, Volapük, Ladin, Aromanian, Venda, Acehnese, Upper Sorbian,
+  Romansh and Uzbek in Arabic script, where whether Afghan Uzbek writes `ې`
+  is for a speaker to settle (the file now mostly writes `ی`).
 
 </details>
 
@@ -563,22 +560,29 @@ used.
 </details>
 
 <details>
-<summary>Planned: Sandstorm integrations, Android bundles, single-file Bun and musl builds.</summary>
+<summary>Planned: Android bundles; Sandstorm sync and import; Node.js musl bundles.</summary>
 
-Requested on 2026-10-13; each moves to Upcoming as it is committed. Email to
-card and the Node.js single files shipped in v12.40. Builds run on GitHub
-Actions only.
+Requested on 2026-10-13. Done since: Bun single files (musl included),
+outgoing webhooks through the Powerbox and the REST API with a Sandstorm API
+key (see Upcoming); Trello import and export and a grain's own email shipped
+earlier. Builds run on GitHub Actions only. Left:
 
-- Sandstorm ([#2208](https://github.com/wekan/wekan/issues/2208),
-  [#2167](https://github.com/wekan/wekan/issues/2167)): import, export, sync,
-  the REST API and webhooks reach outside services through the Powerbox, or
-  reach the grain through a grain API key. Trello import and export, and a
-  grain's own email, already do.
 - Android on the WeKan platforms: `android-*` bundles for all four Android
   CPUs, once wekan/node-patches has published its `node-android-*` binaries.
   The single-file workflow builds them as soon as those bundles exist.
-- Single-file Bun executables, like the Node.js ones; and musl bundles and
-  AppImages for Alpine and other musl systems.
+- Sandstorm ([#2208](https://github.com/wekan/wekan/issues/2208),
+  [#2167](https://github.com/wekan/wekan/issues/2167)) list sync and the
+  JSON importers through the Powerbox: GitHub and Jira send their credential
+  in the `Authorization` header and GitLab in `PRIVATE-TOKEN`, and the bridge
+  proxy replaces the first and drops the second, so only public repositories,
+  read without a credential, could be reached that way. A question for the
+  maintainer: is reading public repositories through the Powerbox wanted?
+- Node.js musl bundles and a musl AppImage: Alpine is now served by the Bun
+  musl bundles and Bun musl single files. A Node.js musl bundle needs Node.js
+  from unofficial-builds and every native addon rebuilt in Alpine, on a
+  runner; a question for the maintainer: is it still wanted beside the Bun
+  ones, and is an AppImage wanted on musl systems, where AppImage itself is
+  uncommon?
 
 </details>
 
@@ -586,11 +590,13 @@ Actions only.
 
 # Upcoming WeKan ® release
 
-**In short:** **custom board roles** are built in the Admin Panel, and **lists
-can allow or refuse editing per role**; a board can let **every signed-in user
-edit**; boards get **keys** (`DEV-7`) and **shared labels**; WeKan can serve
-**HTTPS** itself; outgoing **webhooks go through a proxy**; **archiving a list
-archives its cards**. Thirteen **GitHub CodeQL** alerts are fixed.
+**In short:** **custom board roles**, **per-list permissions** and boards
+**every signed-in user may edit**; board **keys** (`DEV-7`) and **shared
+labels**; WeKan serves **HTTPS** itself; **Bun single files**, Alpine
+included; on **Sandstorm**, webhooks leave through the Powerbox and the REST
+API takes a grain API key. Seventeen locale files that held **another
+language** are rewritten in their own, and thirteen **GitHub CodeQL** alerts
+are fixed.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
@@ -768,6 +774,57 @@ See [HTTPS without a proxy](docs/Platforms/Webserver/HTTPS-without-proxy.md).
 
 </details>
 
+**Platforms** - more ways to run WeKan.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b1e58094f4">Bun single files: one executable per Bun platform, musl included</a>. Thanks to xet7.</summary>
+
+Each Bun bundle also comes as one executable:
+`wekan-<version>-bun-<target>-single-file` for Linux x64 and arm64 (glibc
+and musl, so Alpine too), macOS and Windows. It is the published bundle ZIP,
+unchanged, inside that bundle's own Bun, built on the platform itself, so the
+runtime is the one the bundle was tested with. The first start unpacks the
+bundle once into a cache directory, without a second Bun, and every start
+runs it with the executable itself as Bun. Like the Bun bundle it needs
+`MONGO_URL` and `ROOT_URL`. Its ZIP reader refuses any entry or link that
+would land outside the cache directory. Before it is published each file is
+checked: it names itself, refuses to start without a database, unpacks once
+and loads every native addon of the bundle. `tests/bunSingleFile.test.cjs`
+covers the reader and its refusals. See
+[Single file](docs/Platforms/Single-File.md#bun-single-files).
+
+</details>
+
+**Sandstorm** - reaching out of a grain, and into it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2cc0b59a51">Outgoing webhooks leave a grain through the Powerbox</a>. Thanks to xet7.</summary>
+
+A grain has no network but the bridge proxy, so a webhook was never sent.
+Each saved webhook now offers "Allow this grain to reach this address", which
+opens the Powerbox for exactly that address; once approved, the webhook goes
+through the bridge with that grant. The grant belongs to the destination, not
+to a person, and is approved as the address's parent path so the bridge
+delivers to the exact address. Off Sandstorm nothing changes: every sender
+still goes through the SSRF guard. `tests/sandstormWebhookEgress.test.cjs`
+runs it against a fake bridge proxy. See
+[Powerbox](docs/Platforms/FOSS/Container/Sandstorm/Powerbox-External-APIs.md#outgoing-webhooks).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2cc0b59a51">The REST API works with a Sandstorm API key</a>. Thanks to xet7.</summary>
+
+A Sandstorm API key keeps the Authorization header for itself, so WeKan saw
+no user. In a grain the bridge says who is calling, and WeKan now acts as
+that user - only in a grain, only for an account that exists and is enabled,
+and a key without the participate permission reads only. Off Sandstorm the
+`X-Sandstorm-*` headers are never believed.
+`tests/sandstormApiIdentity.test.cjs`
+covers both sides.
+
+</details>
+
 and closes the following already-done feature request:
 
 - [Each member chooses how often email notifications come: never, periodically or instantly](https://github.com/wekan/wekan/commit/3f88fb39a5).
@@ -810,6 +867,30 @@ and updates the following documentation:
   Thanks to jeyca and xet7.
 
 and updates the following translations:
+
+**Languages that held another language** - each locale file now says what its
+tag says.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ba6d0014f7">Locale files that held another language are rewritten in their own</a>. Thanks to xet7.</summary>
+
+Romanian held Italian, French and Spanish; Aromanian, Ladin, Romansh and
+Venetian held Italian; Galician held Portuguese, Acehnese Malay, Venda Zulu,
+Slovak Czech and Polish, Upper Sorbian Czech, Volapük Esperanto and Bislama
+Tok Pisin, and Uzbek in Arabic script was half Latin script. Each is now in
+its own language. Machine-fill prefixes and notes ("Faka-Tonga:", "Kay
+willaymi:", "Wolayttatto:", "WeKan:" and others) are gone from Tongan,
+Quechua, Wolaytta, Upper Sorbian, Aragonese, Friulian and Luganda. Chinese
+no longer calls a board a wooden plank, and List actions no longer reads as
+"list the actions" in seven languages. Values already reviewed - pinned by a
+test, corrected by an audit, or quoted by another string - are kept.
+`tests/wrongLanguageLocales.test.cjs` keeps the old languages and prefixes
+out and checks every placeholder against English. Native speakers are asked
+to review these languages.
+
+</details>
+
+**Igbo** - notification, integration, workflow and recovery settings.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/238354f6a54a234c9db1cf88a9436d15087c6ba0">Translate Igbo notification delivery and integration settings</a>. Thanks to xet7.</summary>
