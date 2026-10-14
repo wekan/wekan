@@ -44,7 +44,7 @@ function glabToken() {
 export default async function run({ log = console.log } = {}) {
   const token = process.env.GITLAB_TOKEN || glabToken();
   if (!token) {
-    log(`SKIP gitlab-write-back: no GitLab login for ${HOST} (glab auth login, or GITLAB_TOKEN)`);
+    log('SKIP gitlab-write-back: no GitLab login here (glab auth login, or GITLAB_TOKEN)');
     return 'skipped';
   }
   const api = async (method, endpoint, body) => {
@@ -75,7 +75,7 @@ export default async function run({ log = console.log } = {}) {
     if (error.status !== 404 || process.env.WEKAN_LIVE_GITLAB_PROJECT) throw error;
     project = await api('POST', 'projects', { name: 'wekan-live-test', path: 'wekan-live-test', visibility: 'private',
       description: 'Scratch project for WeKan\'s live List Sync tests (releases/live-tests). Safe to delete.' });
-    log(`  created private project ${project.path_with_namespace}`);
+    log('  created the private scratch project');
   }
   const projectId = encodeURIComponent(project.path_with_namespace);
   // As server/lib/listSyncFetch.js gitlabWrite: PUT or POST below the project.
@@ -84,7 +84,8 @@ export default async function run({ log = console.log } = {}) {
     return api(method, `projects/${projectId}/${rest}`, body);
   };
 
-  log(`gitlab-write-back: ${BASE}/${project.path_with_namespace}`);
+  // Nothing from the login or its configuration is logged (CodeQL #586).
+  log('gitlab-write-back: the scratch project of the signed-in account');
   const stamp = new Date().toISOString();
   let issue = await api('POST', `projects/${projectId}/issues`, { title: `WeKan write-back live test ${stamp}`, description: 'Original text' });
   try {

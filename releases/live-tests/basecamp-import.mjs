@@ -45,7 +45,8 @@ export default async function run({ log = console.log } = {}) {
   const { parseBasecampApi } = await import(pathToFileURL(path.join(ROOT, 'models/lib/basecampApiFormat.js')).href);
   const credentials = { account, token };
 
-  log(`basecamp-import: account ${account}`);
+  // Nothing from the login is logged, not even the account id (CodeQL #586).
+  log('basecamp-import: the configured account');
   const projects = await client.list(credentials, request);
   check(Array.isArray(projects) && projects.length > 0, `the account lists projects (${projects.length})`);
   const first = projects[0];

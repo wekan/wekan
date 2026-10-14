@@ -52,7 +52,8 @@ export default async function run({ log = console.log } = {}) {
   };
   const credentials = { url: url.replace(/\/+$/, ''), username, password };
 
-  log(`planka-import: ${new URL(credentials.url).origin}`);
+  // Nothing from the login is logged, the address included (CodeQL #586).
+  log('planka-import: the configured Planka');
   const boards = await client.list(credentials, request);
   check(Array.isArray(boards) && boards.length > 0, `the account sees ${boards.length} board(s)`);
   check(boards.every(board => board.id && board.name), 'every board has an id and a name');
