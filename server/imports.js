@@ -317,6 +317,8 @@ import '/server/recovery';
 import '/server/publications/inviteToBoardRolesSettings';
 // Custom board roles (#3022): the permission lookup, publication and methods.
 import '/server/customBoardRoles';
+// Optional HTTPS in WeKan's own server (#916).
+import '/server/httpsServer';
 import '/server/publications/lockoutSettings';
 import '/server/publications/notifications';
 import '/server/publications/org';
