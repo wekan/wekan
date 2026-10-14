@@ -208871,5 +208871,61 @@
     "before": "pyès-jwenn",
     "after": "pyès-atache",
     "reason": "Correct Haitian due-card scope and attachment search terminology; preserve token syntax and consistent swimlane naming."
+  },
+  {
+    "locale": "ht",
+    "key": "checkAllItems",
+    "before": "Mete tout eleman yo",
+    "after": "Mete mak sou tout eleman yo",
+    "reason": "Distinguish Haitian card recurrence from checklist reset, clarify checking items and identify known accounts correctly."
+  },
+  {
+    "locale": "ht",
+    "key": "checklist-reset-interval",
+    "before": "Reyajisteman otomatik",
+    "after": "Retire mak yo otomatikman",
+    "reason": "Distinguish Haitian card recurrence from checklist reset, clarify checking items and identify known accounts correctly."
+  },
+  {
+    "locale": "ht",
+    "key": "checklistResetIntervalPopup-title",
+    "before": "Reyajisteman otomatik",
+    "after": "Retire mak yo otomatikman",
+    "reason": "Distinguish Haitian card recurrence from checklist reset, clarify checking items and identify known accounts correctly."
+  },
+  {
+    "locale": "ht",
+    "key": "checklist-reset-interval-none",
+    "before": "Etenn (li pa reyajiste otomatikman)",
+    "after": "Dezaktive (pa retire mak yo otomatikman)",
+    "reason": "Distinguish Haitian card recurrence from checklist reset, clarify checking items and identify known accounts correctly."
+  },
+  {
+    "locale": "ht",
+    "key": "card-recurrence-interval",
+    "before": "Reyajisteman otomatik",
+    "after": "Repetisyon kat la",
+    "reason": "Distinguish Haitian card recurrence from checklist reset, clarify checking items and identify known accounts correctly."
+  },
+  {
+    "locale": "ht",
+    "key": "cardRecurrenceIntervalPopup-title",
+    "before": "Reyajisteman otomatik",
+    "after": "Repetisyon kat la",
+    "reason": "Distinguish Haitian card recurrence from checklist reset, clarify checking items and identify known accounts correctly."
+  },
+  {
+    "locale": "ht",
+    "key": "card-recurrence-interval-none",
+    "before": "Etenn (li pa reyajiste otomatikman)",
+    "after": "Dezaktive (pa repete kat la otomatikman)",
+    "reason": "Distinguish Haitian card recurrence from checklist reset, clarify checking items and identify known accounts correctly."
+  },
+  {
+    "locale": "ht",
+    "key": "accounts-lockout-known-users",
+    "before": "Paramèt pou itilizatè ki konnen (non itilizatè kòrèk, move modpas)",
+    "after": "Paramèt pou itilizatè sistèm nan rekonèt (non itilizatè kòrèk, move modpas)",
+    "reason": "Distinguish Haitian card recurrence from checklist reset, clarify checking items and identify known accounts correctly."
   }
 ]

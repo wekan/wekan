@@ -472,3 +472,18 @@ for (const absent of [false, true]) {
 const invalidAttachmentQuery = new searchContext.Query();
 invalidAttachmentQuery.buildParams(`${creole['operator-has']}:nonexistent-field`);
 assert.equal(invalidAttachmentQuery.hasErrors(), true);
+
+const reviewedRecurrenceKeys = ["checkAllItems", "checklist-reset-interval", "checklistResetIntervalPopup-title", "checklist-reset-interval-none", "card-recurrence-interval", "cardRecurrenceIntervalPopup-title", "card-recurrence-interval-none", "accounts-lockout-known-users"];
+for (const key of reviewedRecurrenceKeys) {
+  assert.notEqual(creole[key], english[key], key);
+  assert.deepEqual(tokens(creole[key]), tokens(english[key]), key);
+}
+assert.match(creole.checkAllItems, /Mete mak/);
+assert.match(creole['checklist-reset-interval'], /Retire mak/);
+assert.match(creole['card-recurrence-interval'], /Repetisyon kat/);
+assert.notEqual(creole['card-recurrence-interval'], creole['checklist-reset-interval']);
+assert.equal(creole['card-recurrence-interval'], creole['cardRecurrenceIntervalPopup-title']);
+assert.equal(creole['checklist-reset-interval'], creole['checklistResetIntervalPopup-title']);
+assert.match(creole['card-recurrence-interval-none'], /pa repete kat/);
+assert.match(creole['checklist-reset-interval-none'], /pa retire mak/);
+assert.match(creole['accounts-lockout-known-users'], /sistèm nan rekonèt.*non itilizatè kòrèk, move modpas/);
