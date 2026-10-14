@@ -34,7 +34,7 @@ assert.deepEqual(LICENSES.map(l => l.name), ['Expat', 'Apache-2.0', 'Modified BS
 console.log('  ok - a labels table of the served scripts, linked from the page');
 
 // Negative.
-assert.doesNotMatch(renderJsWebLabels({ scripts: ['/a.js?x="><script>alert(1)</script>'] }), /<script>alert/, 'escaped');
+assert.doesNotMatch(renderJsWebLabels({ scripts: ['/a.js?x="><script>alert(1)</script>'] }), /<script\b/i, 'escaped: no script tag, in any letter case');
 assert.match(renderJsWebLabels({ scripts: [] }), /<table id="jslicense-labels1">\n\n<\/table>/, 'no scripts, no rows');
 assert.deepEqual(bundleScripts(null), []);
 assert.match(renderJsWebLabels({ scripts: ['/a.js'] }), /href="https:\/\/github\.com\/wekan\/wekan"/, 'no version: the repository');

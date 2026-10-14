@@ -370,7 +370,7 @@ const work = fs.mkdtempSync(path.join(process.env.TMPDIR, 'mirror-fixtures-'));
       assert.match(git, /-C .*\/wekan-github fetch --progress --prune --no-tags https:\/\/github\.com\/wekan\/wekan\.git/);
       assert.match(git, /clone --progress https:\/\/github\.com\/wekan\/wekan\.git/);
       assert.match(git, /for-each-ref --format=%\(refname\) refs\/mirror-source\/github\/heads refs\/mirror-source\/github\/tags/);
-      assert.match(git, /push --progress git@gitlab.com:wekan\/wekan refs\/mirror-source\/github\/heads\/main:refs\/heads\/main/);
+      assert.match(git, /push --progress git@gitlab\.com:wekan\/wekan refs\/mirror-source\/github\/heads\/main:refs\/heads\/main/);
       assert.ok(!/--force|refs\/codex|--all/.test(git));
       const report = JSON.parse(fs.readFileSync(path.join(logdir, 'report.json'), 'utf8'));
       assert.ok(report.mirrors.gitlab.some(v => v.status === 'copied'));

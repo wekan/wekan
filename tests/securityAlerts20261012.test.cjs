@@ -8,6 +8,10 @@
 //       `</script foo="bar">`, which a browser still accepts as the end tag
 //   567, 568 js/bad-code-sanitization: file paths spliced into generated code
 //       with JSON.stringify, in a test and in the i18n loader the test drives
+//   584 js/bad-tag-filter: `/<img|<script|<b>/` in accountEmailHtml.test.cjs -
+//       the 566 shape again; that test now checks an allow-list of tags
+//   585 js/incomplete-hostname-regexp: an address made into a RegExp in the
+//       same test; pinned as any regex literal with an unescaped `.` in a host
 // Run: node tests/securityAlerts20261012.test.cjs
 
 const { test } = require('node:test');
@@ -107,4 +111,37 @@ test('567/568: no source splices JSON.stringify into an import, require or asset
     && f !== 'tests/securityAlerts20261012.test.cjs');
   assert.deepEqual(offenders, [], 'pass the value as an argument or keep the generated source constant');
   assert.ok(shape.test('`exports.fr = () => import(${JSON.stringify(french)});`'), 'the reported shape is caught');
+});
+
+// 585: a dot in a regex is any character, so `/https:\/\/idp.example\//` also
+// matches `idpXexample`. A host name in a pattern has its dots escaped.
+const HOST_DOT = /[A-Za-z0-9-](?<!\\)\.(?:com|org|net|io|fi|example|test|local)(?![A-Za-z0-9])/;
+function allRegexLiterals(file) {
+  const src = fs.readFileSync(path.join(ROOT, file), 'utf8');
+  if (!HOST_DOT.test(src)) return [];
+  let ast;
+  try {
+    ast = acorn.parse(src, { ecmaVersion: 'latest', sourceType: 'module', allowHashBang: true,
+      allowReturnOutsideFunction: true, allowAwaitOutsideFunction: true, locations: true });
+  } catch (e) { return []; }
+  const found = [];
+  walk.full(ast, (n) => { if (n.regex) found.push({ ...n.regex, line: n.loc.start.line }); });
+  return found;
+}
+
+test('585: no regex literal leaves a host name\'s dot unescaped', () => {
+  const offenders = [];
+  for (const file of sources()) {
+    for (const re of allRegexLiterals(file)) if (HOST_DOT.test(re.pattern)) offenders.push(`${file}:${re.line} /${re.pattern}/`);
+  }
+  assert.deepEqual(offenders, [], 'escape it: example\\.com');
+  assert.ok(HOST_DOT.test('^https:\\/\\/idp.example\\/logout'), 'the shape is caught');
+  assert.ok(!HOST_DOT.test('^https:\\/\\/idp\\.example\\/logout'), 'and the escaped form passes');
+});
+
+test('584/585: the reported test checks markup by allow-list and addresses as text', () => {
+  const src = fs.readFileSync(path.join(ROOT, 'tests/accountEmailHtml.test.cjs'), 'utf8');
+  assert.match(src, /const LAYOUT_TAGS = \['div', 'p', 'a', 'br'\];/);
+  assert.match(src, /assert\.deepEqual\(foreignTags\(shouting\), \[\]/, 'upper-case tags are tried');
+  assert.doesNotMatch(src, /new RegExp\(`<a href="\$\{url/, 'no RegExp made from the address');
 });

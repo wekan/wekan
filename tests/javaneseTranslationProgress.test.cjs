@@ -113,7 +113,7 @@ assert.equal(javanese['advanced-filter-label'], 'Saringan Lanjut');
 assert.deepEqual(tokens(javanese['import-board-instruction-issues']),
   ['__endpoint__', '__sourceName__']);
 assert.equal(javanese['import-trello-failed'], 'Impor saka Trello gagal.');
-assert.match(javanese['trello-api-key'], /https:\/\/trello.com\/app-key/);
+assert.match(javanese['trello-api-key'], /https:\/\/trello\.com\/app-key/);
 assert.equal(javanese['importMapMembersAddPopup-title'], 'Pilih anggota');
 assert.deepEqual(tokens(javanese['label-default']), ['%s']);
 assert.deepEqual(tokens(javanese['leave-board-pop']), ['__boardTitle__']);

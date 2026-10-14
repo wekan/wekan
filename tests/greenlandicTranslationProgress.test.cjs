@@ -91,7 +91,7 @@ assert.deepEqual(tokens(greenlandic['import-board-instruction-issues']),
 assert.equal(greenlandic['import-trello-failed'],
   'Trello-mit eqqussineq iluatsinngilaq.');
 assert.match(greenlandic['trello-api-key'],
-  /https:\/\/trello.com\/app-key/);
+  /https:\/\/trello\.com\/app-key/);
 assert.equal(greenlandic['importMapMembersAddPopup-title'],
   'Ilaasortaq toqqaruk');
 assert.deepEqual(tokens(greenlandic['label-default']), ['%s']);

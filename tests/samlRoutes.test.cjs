@@ -41,7 +41,7 @@ function request(route, method, url, body) {
   user = { authenticationMethod: 'password', services: { saml: { nameID: 'subject' } } };
   assert.equal(await methods.getSamlLogoutUrl(), null);
   user.authenticationMethod = 'saml';
-  assert.match(await methods.getSamlLogoutUrl(), /^https:\/\/idp.example\/logout/);
+  assert.match(await methods.getSamlLogoutUrl(), /^https:\/\/idp\.example\/logout/);
   assert.equal((await request('/_saml/logout', 'GET', '/idp?SAMLResponse=valid')).status, 302);
   assert.equal(validated, 1);
   reject = true;

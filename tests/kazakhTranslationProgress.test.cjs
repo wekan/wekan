@@ -85,7 +85,7 @@ assert.deepEqual(tokens(kazakh['import-board-instruction-issues']),
   ['__endpoint__', '__sourceName__']);
 assert.equal(kazakh['import-trello-failed'],
   'Trello-дан импорттау сәтсіз аяқталды.');
-assert.match(kazakh['trello-api-key'], /https:\/\/trello.com\/app-key/);
+assert.match(kazakh['trello-api-key'], /https:\/\/trello\.com\/app-key/);
 assert.equal(kazakh['importMapMembersAddPopup-title'], 'Мүшені таңдау');
 assert.deepEqual(tokens(kazakh['label-default']), ['%s']);
 assert.deepEqual(tokens(kazakh['leave-board-pop']), ['__boardTitle__']);

@@ -213,7 +213,7 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.equal(data['set-swimlane-height'], data['setSwimlaneHeightPopup-title']);
 
   assert.match(data['s3-enabled-description'], /AWS S3 ali MinIO.*shranjevanje datotek/);
-  assert.match(data['s3-endpoint-description'], /URL.*s3.amazonaws.com ali minio.example.com/);
+  assert.match(data['s3-endpoint-description'], /URL.*s3\.amazonaws\.com ali minio\.example\.com/);
   assert.match(data['s3-region-description'], /us-east-1/);
   assert.match(data['s3-ssl-enabled-description'], /SSL\/TLS.*povezave s S3/);
   assert.doesNotMatch(data['s3-ssl-enabled-description'], /Amazon/);

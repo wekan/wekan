@@ -49,7 +49,7 @@ function go {
     assert.equal(result.status, fail ? 1 : 0, result.stdout + result.stderr);
     assert.match(result.stdout, /MOCK OPENSSH/);
     assert.match(result.stdout, /MOCK GO install gitea.dev\/tea@latest/);
-    assert.match(result.stdout, /MOCK GO install github.com\/git-pkgs\/forge\/cmd\/forge@latest/);
+    assert.match(result.stdout, /MOCK GO install github\.com\/git-pkgs\/forge\/cmd\/forge@latest/);
     if (fail) assert.ok(result.stdout.includes(`MISSING ${fail}`));
     else assert.doesNotMatch(result.stdout, /MISSING/);
   }

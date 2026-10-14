@@ -20,7 +20,9 @@ const url = 'https://wekan.example.com/#/reset-password/abc_DEF-123';
 const html = renderAccountEmailHtml({ text: fill('email-resetPassword-text', { user: 'Alice', url }), siteName: 'WeKan' });
 assert.match(html, /^<div style="font-family:/);
 assert.match(html, /<p style="margin:0 0 16px 0">Hello Alice,<\/p>/);
-assert.match(html, new RegExp(`<a href="${url.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')}" style="display:inline-block;[^"]*">`), 'the link is a button');
+// Compared as text, not as a RegExp made from the address: an address is not
+// a pattern (CodeQL js/incomplete-hostname-regexp, alert #585).
+assert.ok(html.includes(`<a href="${url}" style="display:inline-block;`), 'the link is a button');
 assert.match(html, /font-weight:bold;margin:0 0 20px 0">WeKan<\/div>/);
 const invite = renderAccountEmailHtml({ text: fill('email-invite-register-text', { user: 'Bob', inviter: 'Carol', url: 'https://w.example/sign-up', icode: 'XYZ' }) });
 assert.match(invite, /<a href="https:\/\/w\.example\/sign-up" style="color:#0b6bcb">https:\/\/w\.example\/sign-up<\/a>/, 'a link inside a paragraph is linked');
@@ -31,7 +33,18 @@ console.log('  ok - account e-mails and notifications in the clear layout');
 // Negative: nothing anybody typed becomes markup; only http(s) is linked.
 const evil = renderAccountEmailHtml({ text: 'Dear <img src=x onerror=alert(1)>,\n\n"Board" & <b>x</b> invites you\n\njavascript:alert(1)\n\nhttps://ok.example/a?b=1&c="><script>',
   siteName: '<script>alert(1)</script>' });
-assert.doesNotMatch(evil, /<img|<script|<b>|onerror=alert\(1\)>/);
+// Every tag in the output is one the layout makes itself, in any letter case -
+// an allow-list of what is there, not a deny-list of a few spellings of what
+// should not be (CodeQL js/bad-tag-filter, alert #584: <SCRIPT> got past it).
+const LAYOUT_TAGS = ['div', 'p', 'a', 'br'];
+const foreignTags = out => [...new Set([...out.matchAll(/<\/?\s*([a-z][a-z0-9-]*)/gi)].map(m => m[1].toLowerCase()))]
+  .filter(tag => !LAYOUT_TAGS.includes(tag));
+assert.match(evil, /<p /, 'the scan sees the layout\'s own tags');
+assert.deepEqual(foreignTags(evil), [], 'only the layout\'s own tags');
+assert.doesNotMatch(evil, /<[^>]*\son[a-z]+\s*=/i, 'no event-handler attribute on any tag');
+const shouting = renderAccountEmailHtml({ text: '<SCRIPT>alert(1)</SCRIPT> <ScRiPt>x</sCrIpT> <IMG SRC=x ONERROR=alert(1)>' });
+assert.deepEqual(foreignTags(shouting), [], 'upper and mixed case are escaped too');
+assert.match(shouting, /&lt;SCRIPT&gt;/);
 assert.match(evil, /&lt;img src=x onerror=alert\(1\)&gt;/);
 assert.doesNotMatch(evil, /href="javascript:/);
 assert.match(evil, /href="https:\/\/ok\.example\/a\?b=1&amp;c=&quot;&gt;&lt;script&gt;" style=/, 'a quote in an address cannot close the attribute');

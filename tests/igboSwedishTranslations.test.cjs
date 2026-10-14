@@ -262,7 +262,7 @@ assert.match(locales.ig['export-selected-boards'], /ndị ahọpụtara/);
 assert.notEqual(locales.ig['export-selected-boards'], locales.ig['export-all-boards']);
 assert.match(locales.ig['import-one-board-per-project'], /Otu bọọdụ.*ọ bụla/);
 
-assert.match(locales.ig['external-link-rules-description'], /\[\{identifier\}:\{number\}\] = https:\/\/tracker.example.com\/\{identifier\}\/\{number\}/);
+assert.match(locales.ig['external-link-rules-description'], /\[\{identifier\}:\{number\}\] = https:\/\/tracker\.example\.com\/\{identifier\}\/\{number\}/);
 assert.match(locales.ig['webhook-payload-field-standard'], /WEBHOOKS_ATTRIBUTES/);
 assert.match(locales.ig['webhook-payload-description'], /ntọala e ketara.*e debeghị ihe ọ bụla.*ihe ha na-ezigabu/);
 assert.match(locales.ig['webhook-hide-identity'], /E tinyela aha m/);

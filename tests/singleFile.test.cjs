@@ -432,23 +432,26 @@ function vfsChild(code) {
 test('Node.js 26.11.1 breaks fs.writev/readv while a VFS is mounted, and the workaround fixes both', { skip: !HAS_VFS && 'needs node:vfs (Node.js 26.11+)' }, () => {
   const dir = tmp('sf-writev-');
   try {
-    const target = JSON.stringify(path.join(dir, 'out.txt'));
+    // The paths reach the child through its environment, so the code it runs
+    // is a constant (CodeQL js/bad-code-sanitization, as alerts 567/568).
+    const env = { ...process.env, SF_TARGET: path.join(dir, 'out.txt'), SF_WORKAROUNDS: path.join(SF, 'lib', 'vfsWorkarounds.cjs') };
     const body = `
       const fs = require('fs');
+      const target = process.env.SF_TARGET;
       const v = require('node:vfs').create(); v.writeFileSync('/x', 'x'); v.mount();
-      if (process.argv[1] === 'fix') require(${JSON.stringify(path.join(SF, 'lib', 'vfsWorkarounds.cjs'))}).patchVectoredIo(fs);
-      const ws = fs.createWriteStream(${target});
+      if (process.argv[1] === 'fix') require(process.env.SF_WORKAROUNDS).patchVectoredIo(fs);
+      const ws = fs.createWriteStream(target);
       ws.cork(); for (let i = 0; i < 5; i++) ws.write('chunk' + i + '\\n'); process.nextTick(() => ws.uncork());
       ws.on('error', e => { console.log('ERR ' + e.message); process.exit(2); });
       ws.end(() => {
-        const fd = fs.openSync(${target}, 'r'); const a = Buffer.alloc(7), b = Buffer.alloc(7);
-        fs.readv(fd, [a, b], 0, (e, n) => console.log('OK ' + fs.readFileSync(${target}, 'utf8').split('\\n').length + ' ' + n + ' ' + JSON.stringify(a + '' + b)));
+        const fd = fs.openSync(target, 'r'); const a = Buffer.alloc(7), b = Buffer.alloc(7);
+        fs.readv(fd, [a, b], 0, (e, n) => console.log('OK ' + fs.readFileSync(target, 'utf8').split('\\n').length + ' ' + n + ' ' + JSON.stringify(a + '' + b)));
       });`;
-    const broken = spawnSync(process.execPath, ['--no-warnings', '--experimental-vfs', '-e', body, 'nofix'], { encoding: 'utf8' });
+    const broken = spawnSync(process.execPath, ['--no-warnings', '--experimental-vfs', '-e', body, 'nofix'], { encoding: 'utf8', env });
     // When this assertion fails, Node.js has fixed it: the workaround and this
     // half of the test can go.
     assert.match(broken.stdout + broken.stderr, /h\.writev is not a function/, 'Node.js still has the bug the workaround is for');
-    const fixed = spawnSync(process.execPath, ['--no-warnings', '--experimental-vfs', '-e', body, 'fix'], { encoding: 'utf8' });
+    const fixed = spawnSync(process.execPath, ['--no-warnings', '--experimental-vfs', '-e', body, 'fix'], { encoding: 'utf8', env });
     assert.equal(fixed.stdout.trim(), 'OK 6 14 "chunk0\\nchunk1\\n"', fixed.stderr);
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });

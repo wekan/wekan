@@ -43,7 +43,7 @@ for (const fallback of [false, true]) {
     assert.equal(f.mails.length, 1);
     assert.equal(f.mails[0].to, action.emailTo);
     assert.equal(f.mails[0].subject, action.emailSubject);
-    assert.match(f.mails[0].text, /Body[\s\S]*Card: Card[\s\S]*Description: Description[\s\S]*Link: https:\/\/example.org\/card/);
+    assert.match(f.mails[0].text, /Body[\s\S]*Card: Card[\s\S]*Description: Description[\s\S]*Link: https:\/\/example\.org\/card/);
     if (!fallback) assert.equal(f.mails[0].language, 'fi');
     f.resolve(); await run;
     assert.equal(f.mails.length, 2);

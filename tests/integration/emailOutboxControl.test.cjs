@@ -80,7 +80,7 @@ test('report merges paused recipients and pending summaries with literal search 
   assert.equal(first.total, 14); assert.equal(first.rows.length, 10); assert.equal(first.rows[0].queued, 2); assert.equal(first.rows[0].paused, true);
   const last = await emailOutboxReport(f, { search: 'match.*', page: 999 });
   assert.equal(last.page, 2); assert.equal(last.rows.length, 4); assert.equal(last.rows.at(-1).queued, 0);
-  assert.doesNotMatch(JSON.stringify(first), /Private|SECRET|example.test|html|subject|eventId/);
+  assert.doesNotMatch(JSON.stringify(first), /Private|SECRET|example\.test|html|subject|eventId/);
   await assert.rejects(emailOutboxReport(f, { search: 'x'.repeat(101), page: 1 }), /invalid-email-report/);
 });
 test('lost and false write acknowledgements require saved control state, and request identities cannot change', { skip: !uri }, async t => {
