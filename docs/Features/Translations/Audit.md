@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Haitian Creole planning sync and recovery — 2026-10-14
+
+Commit `940aee620b` translates 48 Scrum matching, planning-sync, blocked-sync
+and interrupted-import entries. Checks retain source-ID precedence, local
+planning preservation, first-sync behavior, already-applied changes, missing
+source-file restrictions, permanent deletion and protection of unrelated boards.
+
+The Haitian catalog and guarded-correction suites pass with 29,651 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. Haitian Creole joins three existing
+browser cases for planning sync, stuck-operation discard and interrupted-import
+discard. They verify labels, persisted behavior and unrelated-data protection.
+Syntax and discovery pass; runtime remains pending.
+
+Further Haitian strings and other languages still require translation and
+semantic review. The all-language objective remains unfinished.
+
 ## Haitian Creole workflows and planning — 2026-10-14
 
 Commit `8c8c00546d` translates 45 administration, workflow, Blockly and Scrum

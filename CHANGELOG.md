@@ -3842,6 +3842,18 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/940aee620b">Translate Haitian planning sync and recovery messages</a>. Thanks to xet7.</summary>
+
+- Translate 48 planning-sync and recovery entries. Preserve source matching,
+  retained changes, permanent-deletion warnings and restrictions on resuming.
+- Haitian catalog and guarded-correction suites pass, with 21 human-preference
+  checks. Existing Chinese values remain unchanged. Three planning/recovery
+  browser cases pass syntax and discovery; runtime execution remains pending.
+- Further translations and all-language semantic review remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
