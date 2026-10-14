@@ -2,6 +2,20 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Scottish Gaelic import mapping and bulk exports — 2026-10-14
+
+Commit `6a028b4327` translates 27 strings for user matching, column mapping,
+bulk-file import and bulk export. Placeholder-user names, later matching,
+required title columns, single-list fallback, single-export ZIP exceptions and
+per-board workbook sheets remain explicit. Technical prose needs fluent review.
+
+The Scottish Gaelic catalog and guarded-correction suites pass with 30,642
+correction ledger entries. All 21 human-preference checks pass; exact comparison
+preserves 38,430 existing Chinese values. Two browser cases cover user choices
+and workbook/ZIP layout. Syntax and discovery pass; runtime remains pending.
+
+Scottish Gaelic and all-language translation and semantic review are unfinished.
+
 ## Scottish Gaelic import guidance, second batch — 2026-10-14
 
 Commit `c5f86df1a3` translates twelve guides: Tasks.org, monday.com, Super

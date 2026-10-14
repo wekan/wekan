@@ -4512,6 +4512,21 @@ syntax and discovery; runtime remains pending. All-language work is unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6a028b4327c07344d427e77173c60f48dc3638b0">Translate Scottish Gaelic import mapping and bulk export controls</a>. Thanks to xet7.</summary>
+
+Translate 27 controls for user matching, column mapping, bulk imports and
+exports. Preserve placeholder-user choices, single-export ZIP exceptions and
+per-board workbook sheets. Technical prose needs fluent review.
+
+The Scottish Gaelic catalog and guarded-correction suites pass with 30,642
+audited corrections. All 21 human-preference checks pass; 38,430 existing
+Chinese
+values remain unchanged. Two browser cases pass syntax and discovery; runtime
+remains pending. All-language translation and semantic review remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
