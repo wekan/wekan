@@ -18,6 +18,7 @@ import { getFeatureFlags } from '/models/lib/featureFlags';
 import { ACTIVITY_NOTIFICATION_TITLE } from '/server/lib/activityNotificationTitle';
 import { isDueReminderDescription } from '/models/lib/dueNotificationConfig';
 const { webhookActivitySelection, webhookDescriptionFor, webhookParamsFor } = require('/models/lib/editCardWebhook');
+const { activityTitleParams } = require('/models/lib/activityFeed');
 const {
   boardNotificationRecipients,
 } = require('/models/lib/boardNotificationRecipients');
@@ -240,6 +241,11 @@ export async function prepareActivityNotification(userId, doc) {
     const swimlane = await activity.swimlane();
     params.swimlane = normalizeActivityText(swimlane?.title);
     params.swimlaneId = activity.swimlaneId;
+  }
+  // A rename or a restore names the new title itself; a swimlane's activity
+  // keeps the swimlane's id in listId (models/lib/activityFeed.js).
+  for (const [key, value] of Object.entries(activityTitleParams(activity))) {
+    if (!params[key]) params[key] = normalizeActivityText(value);
   }
 
   if (activity.commentId) {

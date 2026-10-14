@@ -17,13 +17,14 @@ const NOTIFICATION_ACTIVITY_GROUPS = {
   members: ['joinMember', 'unjoinMember', 'addBoardMember', 'removeBoardMember'],
   assignees: ['joinAssignee', 'unjoinAssignee'],
   comments: ['addComment', 'editComment', 'deleteComment'],
-  moves: ['moveCard', 'moveCardToOtherBoard'],
+  moves: ['moveCard', 'moveCardToOtherBoard', 'moveCardBoard'],
   dates: ['a-dueAt', 'a-endAt', 'a-startAt', 'a-receivedAt'],
-  checklists: ['addChecklist', 'addChecklistItem', 'removeChecklist', 'removeChecklistItem',
+  checklists: ['addChecklist', 'addChecklistItem', 'removeChecklist', 'removeChecklistItem', 'removedChecklistItem',
     'checkedItem', 'uncheckedItem', 'completeChecklist', 'uncompleteChecklist'],
   attachments: ['addAttachment', 'deleteAttachment'],
   customFields: ['setCustomField'],
-  archive: ['archivedCard', 'restoredCard', 'archivedList', 'archivedSwimlane', 'deleteCard'],
+  archive: ['archivedCard', 'restoredCard', 'archivedList', 'archivedSwimlane', 'deleteCard', 'restoredList',
+    'restoredSwimlane'],
   created: ['createCard', 'createList', 'createSwimlane', 'addSubtask', 'importCard', 'importList'],
 };
 

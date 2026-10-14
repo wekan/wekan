@@ -2739,6 +2739,46 @@
     {
       "key": "import-board-instruction-googlekeep",
       "since": "2026-10-14"
+    },
+    {
+      "key": "act-removedChecklistItem",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "act-moveCardBoard",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "act-deleteBoard",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "act-changedBoardTitle",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "act-changedListTitle",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "act-changedSwimlaneTitle",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "act-restoredList",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "act-restoredSwimlane",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "act-joinAssignee",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "act-unjoinAssignee",
+      "since": "2026-10-14"
     }
   ]
 }

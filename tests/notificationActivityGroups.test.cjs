@@ -40,7 +40,9 @@ console.log('  ok - a muted kind of activity is muted, and nothing else');
 const NEVER_MUTED = new Set(['almostdue', 'pastdue', 'duenow', 'newDue', 'atUserComment', 'activity-notify',
   // Board-level structure changes: not card activity a member follows.
   'removeBoard', 'removeList', 'removeSwimlane', 'addLabel', 'removeLabel', 'createBoard', 'createCustomField',
-  'deleteCustomField', 'archivedBoard', 'importBoard',
+  'deleteCustomField', 'archivedBoard', 'importBoard', 'deleteBoard',
+  // Renaming a board, a list or a swimlane: the same, and rare.
+  'changedBoardTitle', 'changedListTitle', 'changedSwimlaneTitle',
   // #4912: a webhook-only event name, never an activity. The edits it reports
   // are the a-changedTitle / a-changedDescription activities, muted as those.
   'editCard']);

@@ -3,6 +3,8 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { TAPi18n } from '/imports/i18n';
 import { formatDateForDisplay } from '/client/lib/dateDisplay';
 
+const { activitySentenceKey, withoutUnfilledPlaceholders, humanActivityType } = require('/models/lib/activityFeed');
+
 const PAGE = 50;
 
 // #2026 / #1377: the all-boards activity feed, a page at a time.
@@ -21,11 +23,15 @@ Template.activityFeed.helpers({
   entries() { return Template.instance().entries.get(); },
   hasMore() { return Template.instance().hasMore.get(); },
   timeText() { return this.createdAt ? formatDateForDisplay(new Date(this.createdAt), true) : ''; },
-  // The same sentence the notifications use for this kind of activity.
+  // The same sentence the notifications use for this kind of activity, with
+  // what it names filled in (models/lib/activityFeed.js feedParams).
   description() {
-    const key = `act-${this.activityType}`;
-    const text = TAPi18n.__(key, { card: this.cardTitle, list: this.listTitle, board: this.boardTitle, swimlane: '' });
-    return text === key ? this.activityType : text.replace(/\s+/g, ' ').trim();
+    const key = this.sentenceKey || activitySentenceKey(this.activityType);
+    const params = this.params || { card: this.cardTitle, list: this.listTitle, board: this.boardTitle };
+    const text = TAPi18n.__(key, params);
+    // A kind of activity with no sentence of its own reads as its words.
+    if (text === key) return humanActivityType(this.activityType);
+    return withoutUnfilledPlaceholders(text);
   },
   cardUrl() {
     return FlowRouter.path('card', { boardId: this.boardId, slug: this.boardSlug, cardId: this.cardId });
