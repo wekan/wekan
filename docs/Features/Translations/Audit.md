@@ -2,6 +2,19 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Igbo linked fields and board controls — 2026-10-14
+
+Commit `77218ed315` translates 26 pending strings and repairs the custom-fields
+label, previously a repetition of culture. Link directions, same-name/type
+matching, unmatched fields, authorization, archive restrictions and announcement
+audiences now have Igbo text. Direct technical wording needs fluent review.
+
+The Igbo/Swedish and guarded-correction suites pass with 30,840 ledger entries;
+all 21 human-preference checks pass. Exact comparison preserves 38,430 existing
+Chinese values. Two browser cases pass syntax and discovery; execution remains
+pending. The full Igbo placeholder list still contains 191 entries, including
+pending keys. All-language translation and semantic review are unfinished.
+
 ## Igbo attachments and refreshed inventory — 2026-10-14
 
 Commit `4e80dcf3ba` translates nine attachment and storage strings. The shared

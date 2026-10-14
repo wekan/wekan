@@ -4675,6 +4675,22 @@ remain in scope. All-language translation and semantic review are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/77218ed315b1d34f8cddfc47eddd72b513f9bf69">Translate Igbo linked fields and board controls</a>. Thanks to xet7.</summary>
+
+Translate 26 pending strings for linked-field directions, permissions, paused
+links and board controls. Correct the custom-fields label, which repeated
+culture. Direct technical wording needs fluent review.
+
+Both translation and guarded-correction suites pass with 30,840 corrections.
+All 21 human-preference checks pass; 38,430 existing Chinese values are
+unchanged.
+Two browser cases pass syntax and discovery; execution remains pending.
+Igbo still has 191 detected placeholders including pending keys. All-language
+translation and semantic review remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
