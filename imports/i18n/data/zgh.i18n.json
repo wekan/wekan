@@ -1299,6 +1299,8 @@
   "outgoingWebhooksPopup-title": "الويبهوك الصادرة",
   "boardCardTitlePopup-title": "ⵜⴰⵎⵣⵉⵣⴷⴳⵜ ⵏ ⵓⵣⵡⵍ ⵏ ⵜⴽⴰⵕⴹⴰ",
   "disable-webhook": "ⴽⴽⵙ webhook ⵏ ⴰⵙⵏⵓ",
+  "webhook-mattermost-dm": "Also send a Mattermost direct message to the card's members and assignees",
+  "webhook-mattermost-dm-desc": "Each message about a card also goes to each of its members and assignees as a Mattermost direct message, to their WeKan user name. In Mattermost, the incoming webhook must not be locked to its channel.",
   "sandstorm-webhook-grant": "ⴰⵊⵊ ⴰⴷ ⵢⴰⵡⴹ grain ⴰⴷ ⵖⵔ ⵓⵏⵙⴰ ⴰⴷ",
   "sandstorm-webhook-granted": "ⵉⵣⵎⵔ grain ⴰⴷ ⴰⴷ ⵢⴰⵡⴹ ⵖⵔ ⵓⵏⵙⴰ ⴰⴷ",
   "sandstorm-sync-grant": "ⴰⵊⵊ ⴰⴷ ⵢⴰⵡⴹ grain ⴰⴷ ⵖⵔ ⵓⵎⴹⴼⴰⵕ ⴰⴷ",

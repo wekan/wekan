@@ -145,6 +145,14 @@ Integrations.attachSchema(
        */
       type: String,
     },
+    mattermostDirectMessages: {
+      /**
+       * #1297: also send each message to the card's members and assignees as
+       * Mattermost direct messages (models/lib/mattermostDirectMessages.js).
+       */
+      type: Boolean,
+      optional: true,
+    },
     bot: {
       /**
        * Board Settings / Bots (models/lib/botRuns.js): this outgoing webhook

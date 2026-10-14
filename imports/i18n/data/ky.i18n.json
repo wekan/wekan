@@ -1299,6 +1299,8 @@
   "outgoingWebhooksPopup-title": "Чыгуучу Webhook'тор",
   "boardCardTitlePopup-title": "Карточка аталышынын чыпкасы",
   "disable-webhook": "Бул Webhook'ту өчүрүү",
+  "webhook-mattermost-dm": "Also send a Mattermost direct message to the card's members and assignees",
+  "webhook-mattermost-dm-desc": "Each message about a card also goes to each of its members and assignees as a Mattermost direct message, to their WeKan user name. In Mattermost, the incoming webhook must not be locked to its channel.",
   "sandstorm-webhook-grant": "Бул grain'ге ушул дарекке жетүүгө уруксат берүү",
   "sandstorm-webhook-granted": "Бул grain ушул дарекке жете алат",
   "sandstorm-sync-grant": "Бул grain'ге ушул трекерге жетүүгө уруксат берүү",

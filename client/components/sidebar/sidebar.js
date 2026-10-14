@@ -1256,7 +1256,7 @@ Template.outgoingWebhooksPopup.events({
       console.error('sandstormRequestWebhook', error);
     }
   },
-  'click .js-toggle-webhook-enabled'(evt) {
+  'click .js-toggle-webhook-enabled, click .js-toggle-webhook-mattermost-dm'(evt) {
     evt.preventDefault();
     $(evt.currentTarget).find(MCB).toggleClass(CKCLS);
   },
@@ -1274,12 +1274,15 @@ Template.outgoingWebhooksPopup.events({
       .find(MCB)
       .hasClass(CKCLS);
     let remove = false;
+    // #1297: present only in an existing webhook's form.
+    const dmToggle = $(evt.target).find('.js-toggle-webhook-mattermost-dm');
     const values = {
       url,
       type,
       token,
       title,
       enabled,
+      ...(dmToggle.length ? { mattermostDirectMessages: dmToggle.find(MCB).hasClass(CKCLS) } : {}),
     };
 
     const findIntegration = function(cond) {

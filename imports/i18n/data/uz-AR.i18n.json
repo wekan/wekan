@@ -1299,6 +1299,8 @@
   "outgoingWebhooksPopup-title": "چیقیش ویب‌هوکلری",
   "boardCardTitlePopup-title": "کارت سرلوحه‌سی فیلتری",
   "disable-webhook": "اوشبو ویب-هوکی اۉچیریب قۉیینگ",
+  "webhook-mattermost-dm": "Also send a Mattermost direct message to the card's members and assignees",
+  "webhook-mattermost-dm-desc": "Each message about a card also goes to each of its members and assignees as a Mattermost direct message, to their WeKan user name. In Mattermost, the incoming webhook must not be locked to its channel.",
   "sandstorm-webhook-grant": "بو grain گه شو منزلگه اولنیشگه رخصت بیریش",
   "sandstorm-webhook-granted": "بو grain شو منزلگه اولنیشی ممکن",
   "sandstorm-sync-grant": "بو grain گه شو کوزتوو تیزیمیگه اولنیشگه رخصت بیریش",

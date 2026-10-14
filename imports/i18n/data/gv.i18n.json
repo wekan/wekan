@@ -1299,6 +1299,8 @@
   "outgoingWebhooksPopup-title": "Webhookyn goll magh",
   "boardCardTitlePopup-title": "Screeu ennym kaart",
   "disable-webhook": "Jean y webhook shoh ass",
+  "webhook-mattermost-dm": "Also send a Mattermost direct message to the card's members and assignees",
+  "webhook-mattermost-dm-desc": "Each message about a card also goes to each of its members and assignees as a Mattermost direct message, to their WeKan user name. In Mattermost, the incoming webhook must not be locked to its channel.",
   "sandstorm-webhook-grant": "Lhig da'n grain shoh roshtyn er yn enmys shoh",
   "sandstorm-webhook-granted": "Foddee yn grain shoh roshtyn er yn enmys shoh",
   "sandstorm-sync-grant": "Lhig da'n grain shoh roshtyn er y tracker shoh",

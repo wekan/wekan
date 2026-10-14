@@ -1299,6 +1299,8 @@
   "outgoingWebhooksPopup-title": "Çykýan web sahypalary",
   "boardCardTitlePopup-title": "Kartyň ady süzgüji",
   "disable-webhook": "Bu web sahypasyny öçüriň",
+  "webhook-mattermost-dm": "Also send a Mattermost direct message to the card's members and assignees",
+  "webhook-mattermost-dm-desc": "Each message about a card also goes to each of its members and assignees as a Mattermost direct message, to their WeKan user name. In Mattermost, the incoming webhook must not be locked to its channel.",
   "sandstorm-webhook-grant": "Bu grain-e bu salga ýetmäge rugsat ber",
   "sandstorm-webhook-granted": "Bu grain bu salga ýetip biler",
   "sandstorm-sync-grant": "Bu grain-e bu yzarlaýja ýetmäge rugsat ber",

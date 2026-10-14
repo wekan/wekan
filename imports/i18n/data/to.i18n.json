@@ -1299,6 +1299,8 @@
   "outgoingWebhooksPopup-title": "Ngaahi Webhook ʻOku ʻAve ki Tuʻa",
   "boardCardTitlePopup-title": "Fakamaʻa ʻo e Kaveinga Kaati",
   "disable-webhook": "Taʻofi ʻa e Webhook ni",
+  "webhook-mattermost-dm": "Also send a Mattermost direct message to the card's members and assignees",
+  "webhook-mattermost-dm-desc": "Each message about a card also goes to each of its members and assignees as a Mattermost direct message, to their WeKan user name. In Mattermost, the incoming webhook must not be locked to its channel.",
   "sandstorm-webhook-grant": "Tuku ke aʻu ʻa e grain ni ki he tuʻasila ko ʻeni",
   "sandstorm-webhook-granted": "ʻE lava ke aʻu ʻa e grain ni ki he tuʻasila ko ʻeni",
   "sandstorm-sync-grant": "Tuku ke aʻu ʻa e grain ni ki he founga muimuiʻi ko ʻeni",

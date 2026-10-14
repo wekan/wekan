@@ -1299,6 +1299,8 @@
   "outgoingWebhooksPopup-title": "Ol webhook i go aut",
   "boardCardTitlePopup-title": "Kat nem sivim",
   "disable-webhook": "Pasim dispela webhuk",
+  "webhook-mattermost-dm": "Also send a Mattermost direct message to the card's members and assignees",
+  "webhook-mattermost-dm-desc": "Each message about a card also goes to each of its members and assignees as a Mattermost direct message, to their WeKan user name. In Mattermost, the incoming webhook must not be locked to its channel.",
   "sandstorm-webhook-grant": "Larim dispela grain i go long dispela adres",
   "sandstorm-webhook-granted": "Dispela grain inap go long dispela adres",
   "sandstorm-sync-grant": "Larim dispela grain i go long dispela tracker",

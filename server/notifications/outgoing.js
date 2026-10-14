@@ -227,6 +227,24 @@ export async function prepareOutgoingWebhook({ integration, description, params,
       ? hideIdentityFields({ description, ...clonedParams }, params, hiddenUserIds) : value),
     is2way, language };
 }
+async function sendMattermostDirectMessages(integration, prepared, params) {
+  const { directMessageUsernames, directMessageBodies } = require('/models/lib/mattermostDirectMessages');
+  const card = await ReactiveCache.getCard(params.cardId);
+  if (!card || (card.boardId !== integration.boardId && integration.boardId !== Integrations.Const.GLOBAL_WEBHOOK_ID)) return;
+  const ids = [...new Set([...(card.members || []), ...(card.assignees || [])])];
+  const users = await Meteor.users.find({ _id: { $in: ids } }, { fields: { username: 1 } }).fetchAsync();
+  const names = new Map(users.map(u => [u._id, u.username]));
+  const usernames = directMessageUsernames({ members: card.members, assignees: card.assignees,
+    actorId: params.userId, usernameOf: id => names.get(id) });
+  for (const body of directMessageBodies(prepared.body, usernames)) {
+    try {
+      await webhookFetch(prepared.url, { method: 'POST', totalTimeoutMs: 30000, headers: prepared.headers, body });
+    } catch (error) {
+      console.warn(`Mattermost direct message not delivered: ${error && error.message}`);
+    }
+  }
+}
+
 Meteor.methods({
     async outgoingWebhooks(integration, description, params) {
       if (this.userId) {
@@ -281,6 +299,13 @@ Meteor.methods({
         const prepared = await prepareOutgoingWebhook({ integration: storedIntegration, description, params, actorId: this.userId });
         if (!prepared) return;
         const { is2way } = prepared;
+
+        // #1297: and as a Mattermost direct message to each of the card's
+        // members and assignees, at once and best effort, beside the channel
+        // message (which may be grouped or scheduled below).
+        if (!is2way && storedIntegration.mattermostDirectMessages === true && typeof params.cardId === 'string') {
+          sendMattermostDirectMessages(storedIntegration, prepared, params).catch(() => {});
+        }
 
         // #3695: a one-way webhook whose delivery settings group or schedule
         // its notifications goes through the durable queue

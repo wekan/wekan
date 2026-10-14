@@ -1299,6 +1299,8 @@
   "outgoingWebhooksPopup-title": "Webhook siwo yina go",
   "boardCardTitlePopup-title": "Kaɖi ƒe ŋkɔ mɔɖeɖe",
   "disable-webhook": "Xe mɔ na webhook sia",
+  "webhook-mattermost-dm": "Also send a Mattermost direct message to the card's members and assignees",
+  "webhook-mattermost-dm-desc": "Each message about a card also goes to each of its members and assignees as a Mattermost direct message, to their WeKan user name. In Mattermost, the incoming webhook must not be locked to its channel.",
   "sandstorm-webhook-grant": "Na mɔ grain sia be wòaɖo adrɛs sia gbɔ",
   "sandstorm-webhook-granted": "Grain sia ate ŋu aɖo adrɛs sia gbɔ",
   "sandstorm-sync-grant": "Na mɔ grain sia be wòaɖo didila sia gbɔ",

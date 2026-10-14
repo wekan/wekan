@@ -1299,6 +1299,8 @@
   "outgoingWebhooksPopup-title": "বাহিৰলৈ যোৱা Webhooks",
   "boardCardTitlePopup-title": "কাৰ্ড শিৰোনামৰ ফিল্টাৰ",
   "disable-webhook": "এই Webhook বন্ধ কৰক",
+  "webhook-mattermost-dm": "Also send a Mattermost direct message to the card's members and assignees",
+  "webhook-mattermost-dm-desc": "Each message about a card also goes to each of its members and assignees as a Mattermost direct message, to their WeKan user name. In Mattermost, the incoming webhook must not be locked to its channel.",
   "sandstorm-webhook-grant": "এই grain-ক এই ঠিকনালৈ যাবলৈ অনুমতি দিয়ক",
   "sandstorm-webhook-granted": "এই grain-এ এই ঠিকনালৈ যাব পাৰে",
   "sandstorm-sync-grant": "এই grain-ক এই ট্ৰেকাৰলৈ যাবলৈ অনুমতি দিয়ক",

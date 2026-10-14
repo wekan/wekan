@@ -493,6 +493,10 @@ template(name="outgoingWebhooksPopup")
       a.flex.js-toggle-webhook-enabled
         .materialCheckBox(class="{{#unless enabled}}is-checked{{/unless}}")
         span {{_ 'disable-webhook'}}
+      //- #1297: also each card member and assignee, as a Mattermost direct message.
+      a.flex.js-toggle-webhook-mattermost-dm(title="{{_ 'webhook-mattermost-dm-desc'}}")
+        .materialCheckBox(class="{{#if mattermostDirectMessages}}is-checked{{/if}}")
+        span {{_ 'webhook-mattermost-dm'}}
       textarea.js-outgoing-webhooks-title(rows="2" placeholder="{{_ 'webhook-title'}}" name="title")= title
       input.js-outgoing-webhooks-url(type="text" name="url" value=url)
       input.js-outgoing-webhooks-token(placeholder="{{_ 'webhook-token' }}" type="text" value=token name="token")

@@ -1299,6 +1299,8 @@
   "outgoingWebhooksPopup-title": "وتونکي وېب‌هوکونه",
   "boardCardTitlePopup-title": "د کارت د سرليک چاڼ",
   "disable-webhook": "دا وېب‌هوک بند کړئ",
+  "webhook-mattermost-dm": "Also send a Mattermost direct message to the card's members and assignees",
+  "webhook-mattermost-dm-desc": "Each message about a card also goes to each of its members and assignees as a Mattermost direct message, to their WeKan user name. In Mattermost, the incoming webhook must not be locked to its channel.",
   "sandstorm-webhook-grant": "دې grain ته اجازه ورکړئ چې دې پتې ته ورسېږي",
   "sandstorm-webhook-granted": "دا grain کولی شي دې پتې ته ورسېږي",
   "sandstorm-sync-grant": "دې grain ته اجازه ورکړئ چې دې تعقیب کوونکي ته ورسېږي",

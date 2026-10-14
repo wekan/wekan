@@ -1299,6 +1299,8 @@
   "outgoingWebhooksPopup-title": "ٻاهر ويندڙ ويب هُڪ",
   "boardCardTitlePopup-title": "ڪارڊ عنوان ڇاڻ",
   "disable-webhook": "هي ويب هُڪ غير فعال ڪريو",
+  "webhook-mattermost-dm": "Also send a Mattermost direct message to the card's members and assignees",
+  "webhook-mattermost-dm-desc": "Each message about a card also goes to each of its members and assignees as a Mattermost direct message, to their WeKan user name. In Mattermost, the incoming webhook must not be locked to its channel.",
   "sandstorm-webhook-grant": "هن grain کي هن پتي تائين پهچڻ جي اجازت ڏيو",
   "sandstorm-webhook-granted": "هي grain هن پتي تائين پهچي سگهي ٿو",
   "sandstorm-sync-grant": "هن grain کي هن ٽريڪر تائين پهچڻ جي اجازت ڏيو",

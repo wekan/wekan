@@ -1299,6 +1299,8 @@
   "outgoingWebhooksPopup-title": "Webhookە دەرچووەکان",
   "boardCardTitlePopup-title": "پاڵاوتنی ناونیشانی کارت",
   "disable-webhook": "ئەم Webhookە ناچالاک بکە",
+  "webhook-mattermost-dm": "Also send a Mattermost direct message to the card's members and assignees",
+  "webhook-mattermost-dm-desc": "Each message about a card also goes to each of its members and assignees as a Mattermost direct message, to their WeKan user name. In Mattermost, the incoming webhook must not be locked to its channel.",
   "sandstorm-webhook-grant": "ڕێگە بدە بەم grainە بگاتە ئەم ناونیشانە",
   "sandstorm-webhook-granted": "ئەم grainە دەتوانێت بگاتە ئەم ناونیشانە",
   "sandstorm-sync-grant": "ڕێگە بدە بەم grainە بگاتە ئەم شوێنپێگرە",

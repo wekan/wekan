@@ -1299,6 +1299,8 @@
   "outgoingWebhooksPopup-title": "발신 웹훅",
   "boardCardTitlePopup-title": "카드 제목 필터",
   "disable-webhook": "이 웹훅 비활성화",
+  "webhook-mattermost-dm": "Also send a Mattermost direct message to the card's members and assignees",
+  "webhook-mattermost-dm-desc": "Each message about a card also goes to each of its members and assignees as a Mattermost direct message, to their WeKan user name. In Mattermost, the incoming webhook must not be locked to its channel.",
   "sandstorm-webhook-grant": "이 그레인(grain)이 이 주소에 접근하도록 허용",
   "sandstorm-webhook-granted": "이 그레인(grain)은 이 주소에 접근할 수 있습니다",
   "sandstorm-sync-grant": "이 그레인(grain)이 이 트래커에 접근하도록 허용",

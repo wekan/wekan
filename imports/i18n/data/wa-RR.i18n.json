@@ -1299,6 +1299,8 @@
   "outgoingWebhooksPopup-title": "Mga Papagawas nga Webhook",
   "boardCardTitlePopup-title": "Filter han Titulo han Card",
   "disable-webhook": "I-disable Ini nga Webhook",
+  "webhook-mattermost-dm": "Also send a Mattermost direct message to the card's members and assignees",
+  "webhook-mattermost-dm-desc": "Each message about a card also goes to each of its members and assignees as a Mattermost direct message, to their WeKan user name. In Mattermost, the incoming webhook must not be locked to its channel.",
   "sandstorm-webhook-grant": "Tuguti ini nga grain nga umabot hini nga adres",
   "sandstorm-webhook-granted": "Puydi umabot ini nga grain hini nga adres",
   "sandstorm-sync-grant": "Tuguti ini nga grain nga umabot hini nga sistema han pagsubay",

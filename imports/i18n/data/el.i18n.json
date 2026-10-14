@@ -1299,6 +1299,8 @@
   "outgoingWebhooksPopup-title": "Εξερχόμενα Webhooks",
   "boardCardTitlePopup-title": "Φίλτρο τίτλου κάρτας",
   "disable-webhook": "Απενεργοποίηση αυτού του Webhook",
+  "webhook-mattermost-dm": "Also send a Mattermost direct message to the card's members and assignees",
+  "webhook-mattermost-dm-desc": "Each message about a card also goes to each of its members and assignees as a Mattermost direct message, to their WeKan user name. In Mattermost, the incoming webhook must not be locked to its channel.",
   "sandstorm-webhook-grant": "Να επιτρέπεται σε αυτό το grain να φτάνει σε αυτή τη διεύθυνση",
   "sandstorm-webhook-granted": "Αυτό το grain μπορεί να φτάνει σε αυτή τη διεύθυνση",
   "sandstorm-sync-grant": "Να επιτρέπεται σε αυτό το grain να φτάνει σε αυτόν τον ανιχνευτή",

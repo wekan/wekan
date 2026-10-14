@@ -1299,6 +1299,8 @@
   "outgoingWebhooksPopup-title": "Wavuti zinazotoka",
   "boardCardTitlePopup-title": "Kichujio cha Kichwa cha Kadi",
   "disable-webhook": "Lemaza Kitabu hiki cha Wavuti",
+  "webhook-mattermost-dm": "Also send a Mattermost direct message to the card's members and assignees",
+  "webhook-mattermost-dm-desc": "Each message about a card also goes to each of its members and assignees as a Mattermost direct message, to their WeKan user name. In Mattermost, the incoming webhook must not be locked to its channel.",
   "sandstorm-webhook-grant": "Ruhusu grain hii kufikia anwani hii",
   "sandstorm-webhook-granted": "Grain hii inaweza kufikia anwani hii",
   "sandstorm-sync-grant": "Ruhusu grain hii kufikia kifuatiliaji hiki",

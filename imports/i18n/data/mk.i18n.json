@@ -1299,6 +1299,8 @@
   "outgoingWebhooksPopup-title": "Излезни веб-куки",
   "boardCardTitlePopup-title": "Филтер за наслов на карта",
   "disable-webhook": "Оневозможи ја оваа веб-кука",
+  "webhook-mattermost-dm": "Also send a Mattermost direct message to the card's members and assignees",
+  "webhook-mattermost-dm-desc": "Each message about a card also goes to each of its members and assignees as a Mattermost direct message, to their WeKan user name. In Mattermost, the incoming webhook must not be locked to its channel.",
   "sandstorm-webhook-grant": "Дозволи ова зрно (grain) да пристапува до оваа адреса",
   "sandstorm-webhook-granted": "Ова зрно (grain) може да пристапува до оваа адреса",
   "sandstorm-sync-grant": "Дозволи ова зрно (grain) да пристапува до овој систем за следење",

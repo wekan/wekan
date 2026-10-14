@@ -1299,6 +1299,8 @@
   "outgoingWebhooksPopup-title": "設定訂閱 (Webhooks)",
   "boardCardTitlePopup-title": "卡片標題過濾器",
   "disable-webhook": "禁用訂閱 (Webhooks)",
+  "webhook-mattermost-dm": "Also send a Mattermost direct message to the card's members and assignees",
+  "webhook-mattermost-dm-desc": "Each message about a card also goes to each of its members and assignees as a Mattermost direct message, to their WeKan user name. In Mattermost, the incoming webhook must not be locked to its channel.",
   "sandstorm-webhook-grant": "允許此 grain 存取此位址",
   "sandstorm-webhook-granted": "此 grain 已獲准存取此位址",
   "sandstorm-sync-grant": "允許此 grain 存取此追蹤系統",

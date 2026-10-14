@@ -1299,6 +1299,8 @@
   "outgoingWebhooksPopup-title": "קרסי רשת יוצאים",
   "boardCardTitlePopup-title": "מסנן כותרת כרטיס",
   "disable-webhook": "השבתת ההתלייה הזאת",
+  "webhook-mattermost-dm": "Also send a Mattermost direct message to the card's members and assignees",
+  "webhook-mattermost-dm-desc": "Each message about a card also goes to each of its members and assignees as a Mattermost direct message, to their WeKan user name. In Mattermost, the incoming webhook must not be locked to its channel.",
   "sandstorm-webhook-grant": "לאפשר ל-grain הזה להגיע לכתובת הזו",
   "sandstorm-webhook-granted": "ה-grain הזה רשאי להגיע לכתובת הזו",
   "sandstorm-sync-grant": "לאפשר ל-grain הזה להגיע למערכת המעקב הזו",

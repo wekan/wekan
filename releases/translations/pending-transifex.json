@@ -2183,6 +2183,14 @@
     {
       "key": "ntfy-invalid-token",
       "since": "2026-10-14"
+    },
+    {
+      "key": "webhook-mattermost-dm",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "webhook-mattermost-dm-desc",
+      "since": "2026-10-14"
     }
   ]
 }

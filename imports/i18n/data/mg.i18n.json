@@ -1299,6 +1299,8 @@
   "outgoingWebhooksPopup-title": "Webhook mivoaka",
   "boardCardTitlePopup-title": "Sivana lohatenin'ny karatra",
   "disable-webhook": "Vonoy ity webhook ity",
+  "webhook-mattermost-dm": "Also send a Mattermost direct message to the card's members and assignees",
+  "webhook-mattermost-dm-desc": "Each message about a card also goes to each of its members and assignees as a Mattermost direct message, to their WeKan user name. In Mattermost, the incoming webhook must not be locked to its channel.",
   "sandstorm-webhook-grant": "Avelao hifandray amin'ity adiresy ity ity grain ity",
   "sandstorm-webhook-granted": "Afaka mifandray amin'ity adiresy ity ity grain ity",
   "sandstorm-sync-grant": "Avelao hifandray amin'ity mpanara-maso ity ity grain ity",

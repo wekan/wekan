@@ -1299,6 +1299,8 @@
   "outgoingWebhooksPopup-title": "Webhooks Baxaya",
   "boardCardTitlePopup-title": "Shaandhaynta Cinwaanka Kaarka",
   "disable-webhook": "Dami Webhook-kan",
+  "webhook-mattermost-dm": "Also send a Mattermost direct message to the card's members and assignees",
+  "webhook-mattermost-dm-desc": "Each message about a card also goes to each of its members and assignees as a Mattermost direct message, to their WeKan user name. In Mattermost, the incoming webhook must not be locked to its channel.",
   "sandstorm-webhook-grant": "U oggolow grain-kan inuu gaaro cinwaankan",
   "sandstorm-webhook-granted": "Grain-kan wuu gaari karaa cinwaankan",
   "sandstorm-sync-grant": "U oggolow grain-kan inuu gaaro raad-raacahan",

@@ -1299,6 +1299,8 @@
   "outgoingWebhooksPopup-title": "Webhook in uscita",
   "boardCardTitlePopup-title": "Filtra par tìtoło de ła scheda",
   "disable-webhook": "Desativa sto webhook",
+  "webhook-mattermost-dm": "Also send a Mattermost direct message to the card's members and assignees",
+  "webhook-mattermost-dm-desc": "Each message about a card also goes to each of its members and assignees as a Mattermost direct message, to their WeKan user name. In Mattermost, the incoming webhook must not be locked to its channel.",
   "sandstorm-webhook-grant": "Parmeti a sto grain de rivar a sto indirizo",
   "sandstorm-webhook-granted": "Sto grain el pol rivar a sto indirizo",
   "sandstorm-sync-grant": "Parmeti a sto grain de rivar a sto tracker",

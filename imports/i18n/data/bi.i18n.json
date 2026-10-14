@@ -1299,6 +1299,8 @@
   "outgoingWebhooksPopup-title": "Ol webhook we oli go aot",
   "boardCardTitlePopup-title": "Filta blong Taetol blong Kad",
   "disable-webhook": "Mekem Webhook ia i no wok",
+  "webhook-mattermost-dm": "Also send a Mattermost direct message to the card's members and assignees",
+  "webhook-mattermost-dm-desc": "Each message about a card also goes to each of its members and assignees as a Mattermost direct message, to their WeKan user name. In Mattermost, the incoming webhook must not be locked to its channel.",
   "sandstorm-webhook-grant": "Letem grain ya i go kasem adres ya",
   "sandstorm-webhook-granted": "Grain ya i save go kasem adres ya",
   "sandstorm-sync-grant": "Letem grain ya i go kasem trakem samting ya",

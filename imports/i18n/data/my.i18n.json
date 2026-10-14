@@ -1299,6 +1299,8 @@
   "outgoingWebhooksPopup-title": "အထွက် Webhooks",
   "boardCardTitlePopup-title": "ကတ်ခေါင်းစဉ် စစ်ထုတ်မှု",
   "disable-webhook": "ဤ Webhook ကို ပိတ်ရန်",
+  "webhook-mattermost-dm": "Also send a Mattermost direct message to the card's members and assignees",
+  "webhook-mattermost-dm-desc": "Each message about a card also goes to each of its members and assignees as a Mattermost direct message, to their WeKan user name. In Mattermost, the incoming webhook must not be locked to its channel.",
   "sandstorm-webhook-grant": "ဤ grain ကို ဤလိပ်စာသို့ ရောက်ရှိခွင့်ပြုရန်",
   "sandstorm-webhook-granted": "ဤ grain သည် ဤလိပ်စာသို့ ရောက်ရှိနိုင်သည်",
   "sandstorm-sync-grant": "ဤ grain ကို ဤခြေရာခံစနစ်သို့ ရောက်ရှိခွင့်ပြုရန်",
