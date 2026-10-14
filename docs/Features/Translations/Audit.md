@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Igbo stopped list sync recovery — 2026-10-14
+
+Commit `5c5391fb98` translates 18 recovery messages. Assertions preserve
+applied changes, unwritten remaining changes, replay restrictions and the
+oldest-50 limit. Direct recovery prose needs fluent review.
+
+The Igbo/Swedish and guarded-correction suites pass with 30,980 ledger entries;
+all 21 human-preference checks pass. Exact comparison preserves 38,430 existing
+Chinese values. One recovery browser case passes syntax and discovery; execution
+is pending. All-language semantic and translation verification remain unfinished.
+
 ## Igbo workflows and permission messages — 2026-10-14
 
 Commit `daac3ead0d` translates 19 workflow and permission strings, including

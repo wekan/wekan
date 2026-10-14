@@ -652,6 +652,21 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5c5391fb98d3619308aa2ba3328f47db870e5655">Translate Igbo stopped list sync recovery messages</a>. Thanks to xet7.</summary>
+
+Translate 18 recovery messages, preserving applied changes, discarded pending
+writes, replay restrictions and the oldest-50 display limit. Recovery prose
+needs fluent review.
+
+Both translation and guarded-correction suites pass with 30,980 corrections.
+All 21 human-preference checks pass; 38,430 existing Chinese values are
+unchanged.
+One browser case passes syntax and discovery; execution remains pending.
+All-language translation and semantic verification remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.40 2026-10-14 WeKan ® release
