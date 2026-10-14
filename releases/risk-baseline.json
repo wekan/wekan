@@ -68,7 +68,8 @@
       "https://ko\\-fi\\.com/rebeccastevens",
       "https://opencollective\\.com/express",
       "https://opencollective\\.com/fastify",
-      "https://tidelift\\.com/funding/github/npm/deepmerge\\-ts"
+      "https://tidelift\\.com/funding/github/npm/deepmerge\\-ts",
+      "https://github\\.com/sponsors/dmonad"
     ],
     "imports/sandstorm/capnp/api-session.mjs": [
       "https://api\\.github\\.com",
@@ -140,13 +141,13 @@
       "https://www\\.w3\\.org/ns/activitystreams(#Public)?",
       "https://w3id\\.org/security/v1"
     ],
-    "client/components/forms/dateFormatSettings.jade": [
-      "https://cloud\\.example\\.com(/[^\\s]*)?"
-    ],
     "client/components/settings/attachments.jade": [
       "https://cloud\\.example\\.com(/[^\\s]*)?"
     ],
     "server/models/attachmentStorageSettings.js": [
+      "https://cloud\\.example\\.com(/[^\\s]*)?"
+    ],
+    "client/components/forms/dateFormatSettings.jade": [
       "https://cloud\\.example\\.com(/[^\\s]*)?"
     ]
   },

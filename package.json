@@ -121,7 +121,8 @@
     "underscore": "^1.13.8",
     "unzipper": "^0.12.5",
     "wasmagic": "1.0.11",
-    "web-push": "3.6.7"
+    "web-push": "3.6.7",
+    "yjs": "13.6.33"
   },
   "overrides": {
     "sourcemap-codec": "npm:@jridgewell/sourcemap-codec@^1.4.15",

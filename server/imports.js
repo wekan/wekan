@@ -380,6 +380,7 @@ import '/server/groupMembers';
 import '/server/activityPub';
 // #687: CalDAV sync of card due dates.
 import '/server/caldavSync';
+import '/server/sharedDescription';
 
 // ----------------------------------------------------------------------------
 // 14. Server — routes (REST API, file serving)
