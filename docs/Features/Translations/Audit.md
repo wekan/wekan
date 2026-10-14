@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Malagasy scheduling and time attribution — 2026-10-14
+
+Commit `bd274fb312` corrects 14 entries. The card model confirms that recurrence
+creates a fresh copy rather than resetting the original. Date triggers retain
+both setting and changing a date. Time-adjustment help now explains grouping by
+the editor of the total, the difference from work sessions, negative corrections
+and the inability to attribute previously unrecorded time. Calendar, timeline
+and reminder labels retain information omitted or blurred by earlier wording.
+
+The Malagasy catalog and guarded-correction suites pass with 30,234 correction
+ledger entries. All 21 human-preference checks pass; exact comparison preserves
+38,430 existing Chinese values. Two new browser cases cover recurrence and time
+adjustments. Syntax and discovery pass; browser runtime remains pending.
+
+Malagasy and all-language semantic review remain unfinished.
+
 ## Malagasy report labels and WIP groups — 2026-10-14
 
 Commit `e6d688867c` corrects 35 entries. Numeric summaries now describe the sum

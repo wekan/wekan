@@ -4212,6 +4212,21 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bd274fb3126e15cac7093b85a1fa485dc403eb3d">Correct Malagasy recurrence and time-adjustment explanations</a>. Thanks to xet7.</summary>
+
+Correct 14 scheduling and time-report translations. Card recurrence is no longer
+described as resetting a card. Date triggers retain both setting and changing a
+date, and time adjustments explain attribution limits and negative corrections.
+Restore Gregorian ISO week information and clarify reminder input limits.
+
+The Malagasy catalog and guarded-correction suites pass with 30,234 audited
+corrections. All 21 human-preference checks pass, and 38,430 existing Chinese
+values remain unchanged. Two new browser cases pass syntax and discovery;
+runtime remains pending. All-language semantic review remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
