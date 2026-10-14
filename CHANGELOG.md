@@ -497,9 +497,16 @@ there.
 
 **In short:** the **Latvian** translation, which was largely **Lithuanian**, is
 Latvian now, and the same wrong words are gone from **Macedonian**, **Persian**,
-**Cantonese** and **Occitan**.
+**Cantonese** and **Occitan**. The attachment viewer's picture gets **alt
+text**.
 
-This release fixes the following translations:
+This release fixes the following bug:
+
+- [The attachment viewer's picture has alt text](https://github.com/wekan/wekan/commit/a530a3c673):
+  "Preview" until a picture opens, then the file's name; a guard fails on any
+  image without alt. Part of #337. Thanks to ndarilek and xet7.
+
+and fixes the following translations:
 
 **Languages updated:** Latvian, Macedonian, Persian, Cantonese, Occitan.
 
