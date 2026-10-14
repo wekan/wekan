@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Haitian Creole recurrence and checklist reset — 2026-10-14
+
+Commit `95f0938b36` corrects eight labels. Card recurrence and checklist reset
+previously used identical wording. Their labels now distinguish repeating a
+card from removing checklist marks automatically, including their disabled
+options. The distinction matches `server/cardRecurrenceSchedule.js` and the
+checklist reset model. Checking all items explicitly sets check marks, and
+known-account help describes recognized usernames with incorrect passwords.
+
+The Haitian catalog and guarded-correction suites pass with 29,847 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. A browser case compares both popups
+without changing their schedules. Syntax and discovery pass; runtime remains
+pending.
+
+Haitian semantic review and the all-language objective remain unfinished.
+
 ## Haitian Creole due-card scope and search — 2026-10-14
 
 Commit `7c5571248e` corrects nine entries. Due Cards labels now include cards

@@ -3961,6 +3961,19 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/95f0938b36">Distinguish Haitian card recurrence from checklist reset</a>. Thanks to xet7.</summary>
+
+- Correct eight labels. Card recurrence is separate from automatic checklist
+  unchecking; checking all items explicitly sets check marks. Known-account
+  help identifies users recognized by the system with incorrect passwords.
+- Haitian catalog and guarded-correction suites pass, with 21 human-preference
+  checks. Existing Chinese values remain unchanged. The popup browser case
+  passes syntax and discovery; runtime execution remains pending.
+- All-language semantic review and remaining translations continue.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
