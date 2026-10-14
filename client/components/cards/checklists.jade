@@ -192,6 +192,12 @@ template(name='checklistItemDetail')
       else
         a.checklist-item-due-date-add.js-checklist-item-due-date(title="{{_ 'card-due'}}")
           i.fa.fa-clock-o
+      //- #1618: who is responsible for this item.
+      a.checklist-item-assignee.js-checklist-item-assignee(title="{{_ 'checklist-item-assignee'}}")
+        if item.assigneeId
+          +userAvatar(userId=item.assigneeId noRemove=true)
+        else
+          i.fa.fa-user-plus
     else
       .item-title(class="{{#if item.isFinished }}is-checked{{/if}}")
         +viewer
@@ -201,6 +207,23 @@ template(name='checklistItemDetail')
           i.fa.fa-sitemap
       if item.getDue
         +checklistItemDueDate(item=item canModifyCard=false)
+      if item.assigneeId
+        span.checklist-item-assignee
+          +userAvatar(userId=item.assigneeId noRemove=true)
+
+//- #1618: the board's active members; picking one makes them responsible
+  for the item, "Nobody" clears it.
+template(name="checklistItemAssigneePopup")
+  ul.pop-over-list
+    li
+      a.js-set-checklist-item-assignee(data-user-id="")
+        i.fa.fa-ban
+        |  {{_ 'checklist-item-assignee-none'}}
+    each assigneeChoices
+      li
+        a.js-set-checklist-item-assignee(data-user-id=_id class="{{#if isCurrentAssignee}}is-active{{/if}}")
+          +userAvatar(userId=_id noRemove=true)
+          |  {{displayName}}
 
 template(name="checklistActionsPopup")
   //- #1173: a checklist exports like everything else - the same popup body, with

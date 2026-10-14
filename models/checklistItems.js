@@ -37,6 +37,14 @@ ChecklistItems.attachSchema(
       type: Date,
       optional: true,
     },
+    assigneeId: {
+      /**
+       * #1618: the board member responsible for this item (models/lib/
+       * checklistItemSchedule.js); unset is nobody.
+       */
+      type: String,
+      optional: true,
+    },
     checklistId: {
       /**
        * the checklist ID the item is attached to
@@ -135,6 +143,12 @@ ChecklistItems.helpers({
   // resolve.
   getDue() {
     return this.dueAt;
+  },
+  // #1618: '' or null is nobody.
+  async setAssignee(assigneeId) {
+    return assigneeId
+      ? await ChecklistItems.updateAsync(this._id, { $set: { assigneeId } })
+      : await ChecklistItems.updateAsync(this._id, { $unset: { assigneeId: '' } });
   },
   async setDue(dueAt) {
     return await ChecklistItems.updateAsync(this._id, { $set: { dueAt } });

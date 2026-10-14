@@ -188,7 +188,19 @@ Template.frappeGanttView.onRendered(function() {
         { boardId: board._id },
         { sort: { startAt: 1, dueAt: 1 } },
       ).fetch();
-      const tasks = cardsToTasks(cards);
+      // #1618: and the board's dated checklist items, a day ending on their
+      // due date, as "card: item" (models/lib/checklistItemSchedule.js).
+      const { datedChecklistItems } = require('/models/lib/checklistItemSchedule');
+      const itemTasks = datedChecklistItems(
+        ReactiveCache.getChecklistItems({ boardId: board._id, dueAt: { $exists: true } }),
+        id => ReactiveCache.getCard(id),
+      ).map(item => {
+        const end = toISODate(item.dueAt);
+        return { id: item.id, name: titleViewerSvgText(item.title), _titleHtml: titleViewerHtml(item.title),
+          start: addDays(end, -1), end, progress: item.isFinished ? 100 : 0,
+          custom_class: 'gantt-task-checklist-item', _cardId: item.cardId, _due: formatDate(item.dueAt) };
+      });
+      const tasks = [...cardsToTasks(cards), ...itemTasks];
       templateInstance.taskCount.set(tasks.length);
       container.innerHTML = '';
       if (!tasks.length) return;
@@ -230,7 +242,7 @@ Template.frappeGanttView.onRendered(function() {
           set_details(popupDetailsHtml(task));
         },
         on_click(task) {
-          const card = ReactiveCache.getCard(task.id);
+          const card = ReactiveCache.getCard(task._cardId || task.id);
           if (!card) return;
           const cardBoard = card.board();
           FlowRouter.go('card', {
@@ -246,6 +258,14 @@ Template.frappeGanttView.onRendered(function() {
         // view already uses for its own drag-to-edit (boardBody.js
         // eventDrop/eventResize).
         on_date_change(task, start, end) {
+          // #1618: a checklist item moves only its own due date.
+          const { checklistItemIdOf } = require('/models/lib/checklistItemSchedule');
+          const itemId = checklistItemIdOf(task.id);
+          if (itemId) {
+            const item = ReactiveCache.getChecklistItem(itemId);
+            if (item) item.setDue(end);
+            return;
+          }
           const card = ReactiveCache.getCard(task.id);
           if (!card) return;
           if (task._startField === 'receivedAt') card.setReceived(start);

@@ -48,17 +48,20 @@ assert.match(
   'ChecklistItems must have an unsetDue() that $unset-s dueAt',
 );
 
-// Negative: no member-assignment field/method was added alongside it - the
-// issue asks for due dates ONLY, not assignment.
+// #4755 asked for due dates only. A person responsible for an item came later,
+// as its own decided feature (#1618): `assigneeId`, its own schema field with
+// its own #1618 comment, set by setAssignee - not part of the due date, which
+// is still dueAt alone (tests/checklistItemSchedule.test.cjs covers it).
 assert.doesNotMatch(
-  dueAtFieldMatch.input.slice(dueAtFieldMatch.index, dueAtFieldMatch.index + 400),
-  /assignee|memberId|members:/i,
-  'no member-assignment field should ride along with dueAt',
+  dueAtFieldMatch.input.slice(dueAtFieldMatch.index, dueAtFieldMatch.index + 200),
+  /memberId|members:/i,
+  'no member field rides along inside the dueAt field',
 );
+assert.match(checklistItemsSrc, /assigneeId: \{\s*\/\*\*\s*\* #1618:/, 'the assignee is #1618\'s own field');
 assert.doesNotMatch(
   checklistItemsSrc,
   /assignChecklistItemMember|setChecklistItemAssignee/,
-  'no member-assignment method should be added for this issue',
+  'no second assignment method beside #1618\'s setAssignee',
 );
 
 // --- 3. Client: the badge/popup templates and their wiring exist. ---

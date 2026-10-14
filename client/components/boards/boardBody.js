@@ -1363,6 +1363,24 @@ Template.calendarView.helpers({
               'calendar-event-end',
             );
           });
+        // #1618: dated checklist items, as "card: item", opening their card.
+        // Their `ci:` ids never match a card, so dragging one is reverted.
+        const { datedChecklistItems } = require('/models/lib/checklistItemSchedule');
+        datedChecklistItems(
+          ReactiveCache.getChecklistItems({ boardId: currentBoard._id, dueAt: { $exists: true } }),
+          id => ReactiveCache.getCard(id), { from: fetchInfo.start, to: fetchInfo.end },
+        ).forEach(item => {
+          events.push({
+            id: item.id,
+            title: item.title,
+            start: item.dueAt,
+            end: new Date(item.dueAt.getTime() + 36e5),
+            allDay: false,
+            editable: false,
+            url: FlowRouter.path('card', { boardId: currentBoard._id, slug: currentBoard.slug, cardId: item.cardId }),
+            className: `calendar-event-checklist-item${item.isFinished ? ' is-finished' : ''}`,
+          });
+        });
         events.sort(function (first, second) {
           return first.id > second.id ? 1 : -1;
         });

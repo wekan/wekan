@@ -126,7 +126,16 @@ Template.dhtmlxGanttView.onRendered(function() {
         { boardId: board._id },
         { sort: { startAt: 1, dueAt: 1 } },
       ).fetch();
-      const tasks = cardsToTasks(cards);
+      // #1618: and the board's dated checklist items, one day ending on their
+      // due date, as "card: item" (models/lib/checklistItemSchedule.js).
+      const { datedChecklistItems } = require('/models/lib/checklistItemSchedule');
+      const itemTasks = datedChecklistItems(
+        ReactiveCache.getChecklistItems({ boardId: board._id, dueAt: { $exists: true } }),
+        id => ReactiveCache.getCard(id),
+      ).map(item => ({ id: item.id, text: titleViewerHtml(item.title),
+        start_date: addDays(toISODate(item.dueAt), -1), duration: 1, progress: item.isFinished ? 1 : 0,
+        color: '#8e44ad', _cardId: item.cardId, _due: formatDate(item.dueAt) }));
+      const tasks = [...cardsToTasks(cards), ...itemTasks];
       templateInstance.taskCount.set(tasks.length);
       gantt.clearAll();
       // Matches Kanboard's Gantt: dragging/resizing bars is gated on the
@@ -149,7 +158,8 @@ Template.dhtmlxGanttView.onRendered(function() {
         // hover-for-details, and drag-to-reschedule.
         gantt.attachEvent('onBeforeLightbox', () => false);
         gantt.attachEvent('onTaskClick', id => {
-          const card = ReactiveCache.getCard(id);
+          const clicked = gantt.isTaskExists(id) ? gantt.getTask(id) : null;
+          const card = ReactiveCache.getCard((clicked && clicked._cardId) || id);
           if (!card) return true;
           const cardBoard = card.board();
           FlowRouter.go('card', {
@@ -170,6 +180,15 @@ Template.dhtmlxGanttView.onRendered(function() {
         // unrelated Cards change) fires only for an actual drag/resize.
         gantt.attachEvent('onAfterTaskDrag', (id, mode) => {
           if (mode === 'progress' || mode === 'ignore') return;
+          // #1618: a checklist item moves only its own due date (its end).
+          const { checklistItemIdOf } = require('/models/lib/checklistItemSchedule');
+          const itemId = checklistItemIdOf(String(id));
+          if (itemId) {
+            const item = ReactiveCache.getChecklistItem(itemId);
+            const dragged = gantt.getTask(id);
+            if (item && dragged) item.setDue(dragged.end_date);
+            return;
+          }
           const card = ReactiveCache.getCard(id);
           const task = gantt.getTask(id);
           if (!card || !task) return;

@@ -665,6 +665,13 @@ Template.checklistItemDetail.events({
   // #4755: open the checklist item's own due-date popup. Bound to the ITEM
   // (not the {item, checklist, card} data this template's events normally see)
   // so it opens exactly like a card's own due-date popup does for a card.
+  // #1618: pick the person responsible for this item.
+  'click .js-checklist-item-assignee'(event, tpl) {
+    event.preventDefault();
+    event.stopPropagation();
+    const item = Template.currentData().item;
+    if (item) Popup.open('checklistItemAssignee').call(item, event, tpl);
+  },
   'click .js-checklist-item-due-date'(event, tpl) {
     event.preventDefault();
     event.stopPropagation();
@@ -1024,5 +1031,30 @@ Template.checklistDueDateAdd.events({
     event.stopPropagation();
     Popup.open('editChecklistDueDate', { titleKey: 'editCardDueDatePopup-title' })
       .call(Template.currentData().checklist, event, tpl);
+  },
+});
+
+// #1618: Template.currentData() is the checklist item.
+Template.checklistItemAssigneePopup.helpers({
+  assigneeChoices() {
+    const board = Utils.getCurrentBoard();
+    const ids = ((board && board.members) || []).filter(m => m && m.isActive !== false).map(m => m.userId);
+    return ReactiveCache.getUsers({ _id: { $in: ids } }, { sort: { username: 1 } })
+      .map(u => ({ _id: u._id, displayName: (u.profile && u.profile.fullname) || u.username }));
+  },
+  isCurrentAssignee() {
+    const item = Template.parentData(1);
+    return !!(item && item.assigneeId === this._id);
+  },
+});
+
+Template.checklistItemAssigneePopup.events({
+  async 'click .js-set-checklist-item-assignee'(event) {
+    event.preventDefault();
+    const item = ReactiveCache.getChecklistItem(Template.currentData()._id) || Template.currentData();
+    if (item && typeof item.setAssignee === 'function') {
+      try { await item.setAssignee(event.currentTarget.dataset.userId || null); } catch (error) { console.error(error); }
+    }
+    Popup.back();
   },
 });

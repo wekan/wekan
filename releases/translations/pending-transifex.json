@@ -2295,6 +2295,18 @@
     {
       "key": "subtask-from-board",
       "since": "2026-10-14"
+    },
+    {
+      "key": "checklist-item-assignee",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "checklist-item-assignee-none",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "checklistItemAssigneePopup-title",
+      "since": "2026-10-14"
     }
   ]
 }

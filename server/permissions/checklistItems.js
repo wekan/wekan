@@ -34,6 +34,18 @@ ChecklistItems.allow({
 // into a private board it is not a member of by $set-ting a new cardId or
 // checklistId (boardId is then denormalized from the destination card). Deny any
 // move whose destination board the caller cannot write to.
+// #1618: the person responsible for an item must be an active member of its
+// board (models/lib/checklistItemSchedule.js).
+ChecklistItems.deny({
+  async update(userId, doc, fieldNames, modifier) {
+    const set = modifier && modifier.$set;
+    if (!set || !Object.prototype.hasOwnProperty.call(set, 'assigneeId')) return false;
+    const { mayBeAssigned } = require('/models/lib/checklistItemSchedule');
+    return !mayBeAssigned(await Boards.findOneAsync(doc.boardId), set.assigneeId);
+  },
+  fetch: ['boardId'],
+});
+
 ChecklistItems.deny({
   async update(userId, doc, fieldNames, modifier) {
     if (!(await denyCrossBoardMoveByChecklistItem(userId, modifier))) return false;
