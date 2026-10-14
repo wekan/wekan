@@ -248,3 +248,18 @@ assert.match(creole['import-members-mode-placeholder'], /non pa yo.*itilizatè r
 assert.equal(new Set(['map', 'placeholder', 'me'].map(mode => creole[`import-members-mode-${mode}`])).size, 3);
 assert.match(creole['csv-mapping-list-missing'], /sèl lis kote tout kat yo/);
 assert.deepEqual(tokens(creole['csv-mapping-column-number']), ['__number__']);
+
+const reviewedBulkImportKeys = ["csv-mapping-boards", "csv-mapping-skipped-sheets", "csv-mapping-title-required", "csv-mapping-list-required", "invalid-import-mapping", "import-many-boards", "import-many-boards-hint", "import-one-board-per-project", "import-one-board-per-project-hint", "import-many-progress", "import-many-results-heading", "import-many-imported", "export-all-boards", "export-selected-boards", "export-all-boards-hint", "exportAllBoardsPopup-title", "exportToTrelloPopup-title", "trello-export-desc", "trello-export-include-attachments", "trello-export-start"];
+for (const key of reviewedBulkImportKeys) {
+  assert.notEqual(creole[key], english[key], key);
+  assert.deepEqual(tokens(creole[key]), tokens(english[key]), key);
+  assert.doesNotMatch(creole[key], /\b(?:Each sheet|Choose several|Export all boards|without member mapping|Include attachments)\b/, key);
+}
+assert.match(creole['import-many-boards-hint'], /san asosye manm yo/);
+assert.match(creole['import-many-boards-hint'], /yon sèl ekspòtasyon.*yon sèl tablo/);
+assert.match(creole['import-many-boards-hint'], /olye de sa ki nan chan anlè/);
+assert.match(creole['import-one-board-per-project-hint'], /depandans ant tablo sa yo.*rapò/);
+assert.match(creole['export-all-boards-hint'], /gen dwa ekspòte.*yon sèl liv travay.*\.zip/);
+assert.equal(creole['export-all-boards'], creole['exportAllBoardsPopup-title']);
+assert.ok(creole['trello-export-desc'].includes('Swimlane: …'));
+assert.match(creole['trello-export-desc'], /tounen kouloir ankò/);

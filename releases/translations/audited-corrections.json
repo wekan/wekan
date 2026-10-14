@@ -206421,5 +206421,145 @@
     "before": "Other columns to import as text custom fields:",
     "after": "Lòt kolòn pou enpòte kòm chan tèks pèsonalize:",
     "reason": "Translate remaining advanced import guides and mapping controls, preserving English-header requirements, exclusions and user mapping alternatives."
+  },
+  {
+    "locale": "ht",
+    "key": "csv-mapping-boards",
+    "before": "Each sheet becomes its own board:",
+    "after": "Chak fèy vin yon tablo apa:",
+    "reason": "Translate bulk import/export and CSV validation messages, preserving ZIP distinctions, permissions, progress tokens and Trello round-trip labels."
+  },
+  {
+    "locale": "ht",
+    "key": "csv-mapping-skipped-sheets",
+    "before": "Sheets that are not imported:",
+    "after": "Fèy ki pa enpòte yo:",
+    "reason": "Translate bulk import/export and CSV validation messages, preserving ZIP distinctions, permissions, progress tokens and Trello round-trip labels."
+  },
+  {
+    "locale": "ht",
+    "key": "csv-mapping-title-required",
+    "before": "Choose the column that holds the card titles.",
+    "after": "Chwazi kolòn ki gen tit kat yo.",
+    "reason": "Translate bulk import/export and CSV validation messages, preserving ZIP distinctions, permissions, progress tokens and Trello round-trip labels."
+  },
+  {
+    "locale": "ht",
+    "key": "csv-mapping-list-required",
+    "before": "Type the name of the list every card goes into, or choose the column that holds the list.",
+    "after": "Tape non lis kote tout kat yo pral ale a, oswa chwazi kolòn ki gen lis la.",
+    "reason": "Translate bulk import/export and CSV validation messages, preserving ZIP distinctions, permissions, progress tokens and Trello round-trip labels."
+  },
+  {
+    "locale": "ht",
+    "key": "invalid-import-mapping",
+    "before": "The column mapping does not match the file.",
+    "after": "Korespondans kolòn yo pa mache ak fichye a.",
+    "reason": "Translate bulk import/export and CSV validation messages, preserving ZIP distinctions, permissions, progress tokens and Trello round-trip labels."
+  },
+  {
+    "locale": "ht",
+    "key": "import-many-boards",
+    "before": "Import many boards",
+    "after": "Enpòte plizyè tablo",
+    "reason": "Translate bulk import/export and CSV validation messages, preserving ZIP distinctions, permissions, progress tokens and Trello round-trip labels."
+  },
+  {
+    "locale": "ht",
+    "key": "import-many-boards-hint",
+    "before": "Choose several export files of this tool, or one .zip that holds them: each file becomes its own board, imported without member mapping. A .zip that is itself one export (Vikunja, Notion, Plane, or WeKan with attachments) is one board. When files are chosen here, Import imports them instead of the field above.",
+    "after": "Chwazi plizyè fichye ekspòtasyon zouti sa a, oswa yon .zip ki gen yo: chak fichye vin yon tablo apa, ki enpòte san asosye manm yo. Yon .zip ki se yon sèl ekspòtasyon poukont li (Vikunja, Notion, Plane, oswa WeKan ak pyès atache) se yon sèl tablo. Lè ou chwazi fichye isit la, Enpòte enpòte yo olye de sa ki nan chan anlè a.",
+    "reason": "Translate bulk import/export and CSV validation messages, preserving ZIP distinctions, permissions, progress tokens and Trello round-trip labels."
+  },
+  {
+    "locale": "ht",
+    "key": "import-one-board-per-project",
+    "before": "One board per project",
+    "after": "Yon tablo pou chak pwojè",
+    "reason": "Translate bulk import/export and CSV validation messages, preserving ZIP distinctions, permissions, progress tokens and Trello round-trip labels."
+  },
+  {
+    "locale": "ht",
+    "key": "import-one-board-per-project-hint",
+    "before": "Each swimlane the import would make (a project, folder or list of the tool) becomes its own board. Parent cards and dependencies between those boards are listed in the import report.",
+    "after": "Chak kouloir enpòtasyon an ta kreye (yon pwojè, dosye oswa lis zouti a) vin yon tablo apa. Kat paran ak depandans ant tablo sa yo parèt nan rapò enpòtasyon an.",
+    "reason": "Translate bulk import/export and CSV validation messages, preserving ZIP distinctions, permissions, progress tokens and Trello round-trip labels."
+  },
+  {
+    "locale": "ht",
+    "key": "import-many-progress",
+    "before": "Importing __done__ of __total__: __name__",
+    "after": "Ap enpòte __done__ sou __total__: __name__",
+    "reason": "Translate bulk import/export and CSV validation messages, preserving ZIP distinctions, permissions, progress tokens and Trello round-trip labels."
+  },
+  {
+    "locale": "ht",
+    "key": "import-many-results-heading",
+    "before": "Imported files",
+    "after": "Fichye enpòte yo",
+    "reason": "Translate bulk import/export and CSV validation messages, preserving ZIP distinctions, permissions, progress tokens and Trello round-trip labels."
+  },
+  {
+    "locale": "ht",
+    "key": "import-many-imported",
+    "before": "imported",
+    "after": "enpòte",
+    "reason": "Translate bulk import/export and CSV validation messages, preserving ZIP distinctions, permissions, progress tokens and Trello round-trip labels."
+  },
+  {
+    "locale": "ht",
+    "key": "export-all-boards",
+    "before": "Export all boards",
+    "after": "Ekspòte tout tablo yo",
+    "reason": "Translate bulk import/export and CSV validation messages, preserving ZIP distinctions, permissions, progress tokens and Trello round-trip labels."
+  },
+  {
+    "locale": "ht",
+    "key": "export-selected-boards",
+    "before": "Export selected boards",
+    "after": "Ekspòte tablo ki chwazi yo",
+    "reason": "Translate bulk import/export and CSV validation messages, preserving ZIP distinctions, permissions, progress tokens and Trello round-trip labels."
+  },
+  {
+    "locale": "ht",
+    "key": "export-all-boards-hint",
+    "before": "Every board you can export, in one download: Excel as one workbook with a sheet per board named after it, every other format as a .zip with a file per board.",
+    "after": "Tout tablo ou gen dwa ekspòte yo nan yon sèl telechajman: Excel kòm yon sèl liv travay ak yon fèy pou chak tablo ki pote non li, tout lòt fòma yo kòm yon .zip ak yon fichye pou chak tablo.",
+    "reason": "Translate bulk import/export and CSV validation messages, preserving ZIP distinctions, permissions, progress tokens and Trello round-trip labels."
+  },
+  {
+    "locale": "ht",
+    "key": "exportAllBoardsPopup-title",
+    "before": "Export all boards",
+    "after": "Ekspòte tout tablo yo",
+    "reason": "Translate bulk import/export and CSV validation messages, preserving ZIP distinctions, permissions, progress tokens and Trello round-trip labels."
+  },
+  {
+    "locale": "ht",
+    "key": "exportToTrelloPopup-title",
+    "before": "Export to Trello",
+    "after": "Ekspòte nan Trello",
+    "reason": "Translate bulk import/export and CSV validation messages, preserving ZIP distinctions, permissions, progress tokens and Trello round-trip labels."
+  },
+  {
+    "locale": "ht",
+    "key": "trello-export-desc",
+    "before": "Create a copy of this board in Trello through Trello's API, with your Trello API key and token. Swimlanes become labels named \"Swimlane: …\", which WeKan's Trello import turns back into swimlanes.",
+    "after": "Kreye yon kopi tablo sa a nan Trello atravè API Trello a, ak kle API ak jeton Trello ou. Kouloir yo vin etikèt ki rele \"Swimlane: …\", epi enpòtasyon Trello WeKan an fè yo tounen kouloir ankò.",
+    "reason": "Translate bulk import/export and CSV validation messages, preserving ZIP distinctions, permissions, progress tokens and Trello round-trip labels."
+  },
+  {
+    "locale": "ht",
+    "key": "trello-export-include-attachments",
+    "before": "Include attachments",
+    "after": "Mete pyès atache yo ladan",
+    "reason": "Translate bulk import/export and CSV validation messages, preserving ZIP distinctions, permissions, progress tokens and Trello round-trip labels."
+  },
+  {
+    "locale": "ht",
+    "key": "trello-export-start",
+    "before": "Export to Trello",
+    "after": "Ekspòte nan Trello",
+    "reason": "Translate bulk import/export and CSV validation messages, preserving ZIP distinctions, permissions, progress tokens and Trello round-trip labels."
   }
 ]
