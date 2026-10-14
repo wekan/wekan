@@ -408,25 +408,13 @@ not have).
 The maintainer answered every open design question; each is built as decided.
 [#802](https://github.com/wekan/wekan/issues/802) (a tab per organization and team in All Boards, where their admins
 manage members; LDAP groups are only read, never written back),
-[#5141](https://github.com/wekan/wekan/issues/5141) (a board admin may add only the organizations and teams they belong
-to),
-[#2805](https://github.com/wekan/wekan/issues/2805) (one shared, sticky list header row for all swimlanes, as a board
-view setting),
 [#2809](https://github.com/wekan/wekan/issues/2809) (a linked whole list: a live mirror of another board's list,
 editable by whoever may write the source board),
-[#1931](https://github.com/wekan/wekan/issues/1931) (an existing card from another board as a subtask, for users who
-may write both boards),
-[#1618](https://github.com/wekan/wekan/issues/1618) (a person responsible for each checklist item, and dated items in
-the calendar and Gantt),
-[#864](https://github.com/wekan/wekan/issues/864) (drag-and-drop and adding cards in the Table view),
 [#211](https://github.com/wekan/wekan/issues/211) (named column sets over the same cards, per board),
 [#140](https://github.com/wekan/wekan/issues/140) (real-time shared editing of descriptions with Yjs and the current
 editor),
 [#1178](https://github.com/wekan/wekan/issues/1178) (drawing onto a card, saved as both PNG and SVG and editable later,
 reusing the drawing code of the "Red Strings" issue),
-[#4791](https://github.com/wekan/wekan/issues/4791) (All Boards grouped by first letter, by board labels and by
-organization subgroups),
-[#2012](https://github.com/wekan/wekan/issues/2012) (story and task card types with custom fields of their own),
 [#2111](https://github.com/wekan/wekan/issues/2111) and [#1604](https://github.com/wekan/wekan/issues/1604) (every change to any field of a card is marked unread
 - title, description, attachments, checklists, members, dates, labels - with
 a per-user switch),
@@ -544,12 +532,13 @@ there.
 # Upcoming WeKan ® release
 
 **In short:** sign in with a **passkey**, and **log out everywhere**. Phones
-get **ntfy** notifications and **Share to WeKan** on Android, and webhooks can
-**direct-message** a card's people on **Mattermost**. Board admins can show
-**Rules read-only** to members, pick where new **subtasks** land and choose
-rule e-mail recipients from the **members**. E-mails use the **clear HTML
-layout** by default, a **login webhook** reports sign-ins, a board that came
-through a team can be **hidden**, and **LibreJS** recognises the bundle.
+get **ntfy** and **Share to WeKan**, webhooks **direct-message** on
+**Mattermost**, and **All Boards** groups boards by letter, team and label.
+Cards can be **Stories** or **Tasks**, checklist items get a **person
+responsible** and appear in the **calendar and Gantt**, the **Table view**
+adds and drags cards, and swimlanes can share **one list header row**.
+E-mails use a **clear HTML layout**, Rules can be shown **read-only**, and
+**LibreJS** recognises the bundle.
 
 This release adds the following new features:
 
@@ -635,7 +624,7 @@ somebody outside the board is dropped. `tests/ruleEmailMembers.test.cjs`.
 
 </details>
 
-**Boards** - subtasks and leaving a board.
+**Boards** - subtasks, teams and leaving a board.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/740c3920eb">Board Settings / Subtasks picks the swimlane new subtasks land in</a>. Thanks to BjoernLudwig and xet7.</summary>
@@ -651,6 +640,76 @@ default. `tests/subtaskLandingSwimlane.test.cjs`.
 Such a board goes into the member's hidden list, out of All Boards, and Member
 Settings / Hidden boards restores it; the team membership is untouched.
 `tests/hiddenBoards.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ed2649f702">A board admin may add only the organizations and teams they belong to</a>. Thanks to chrisi51 and xet7.</summary>
+
+Site admins may add any; links already on a board stay, and removing is always
+allowed. The pickers offer only the admin's own groups.
+`tests/boardGroupLinks.test.cjs`.
+
+</details>
+
+**Cards and checklists** - kinds of card, subtasks from other boards, and
+who does each checklist item.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0d77882c3b">Story and Task cards, with custom fields of their own</a>. Thanks to nightwind27 and xet7.</summary>
+
+Card menu / Card kind makes a card a Story or a Task, with a badge on the
+minicard. A custom field limited to a kind is added to a card when it gets
+that kind and shown only on cards of it. `tests/cardKinds.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e9af50ff07">An existing card from another board as a subtask</a>. Thanks to TiibCD and xet7.</summary>
+
+The existing-card picker gets a board picker; another board's card is
+attached on the server, which checks write access to both boards and loops
+through every parent. `tests/crossBoardSubtasks.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7ca1489279">A person responsible for each checklist item, and dated items in the calendar and Gantt</a>. Thanks to martinbruno90 and xet7.</summary>
+
+Each item gets a responsible board member. Items with a due date appear in
+the calendar and both Gantt views as "card: item"; moving one moves only the
+item's date. `tests/checklistItemSchedule.test.cjs`.
+
+</details>
+
+**Board views** - the Table and Swimlanes views.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0a566dc9ac">The Table view adds cards, and moves them by dragging a row onto another</a>. Thanks to guakamole and xet7.</summary>
+
+An add row under the table takes a title, list and swimlane, checked on the
+server; dropping a row puts its card just before the target card.
+`tests/tableViewDrop.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9d95bda245">One shared, sticky list header row for all swimlanes</a>. Thanks to mikesutton and xet7.</summary>
+
+A Board Settings / Swimlane setting, off by default: the first swimlane's list
+headers stay at the top, through the existing sticky rule, and the others are
+not repeated. `tests/sharedListHeaders.test.cjs`.
+
+</details>
+
+**All Boards** - finding boards among many.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/000bc1c490">Boards grouped by first character, organization, team and board label</a>. Thanks to xet7.</summary>
+
+A facet bar shows each group with its count, and a click shows only that
+group. Board labels are the member's own, applied to every board whose name
+includes some text. `tests/allBoardsFacets.test.cjs`.
 
 </details>
 
@@ -685,6 +744,7 @@ every page links it with `rel="jslicense"`. `tests/jsWebLabels.test.cjs`.
 and has the following developer-tooling and translation changes:
 
 - [The new strings translated in all 234 locales](https://github.com/wekan/wekan/commit/fdc52787e1). Thanks to xet7.
+- [The Mattermost, Share to WeKan, passkey and hidden board strings translated](https://github.com/wekan/wekan/commit/5409e059ae). Thanks to xet7.
 - [The risk baseline allows the Sandstorm share helper's addresses](https://github.com/wekan/wekan/commit/a4727e6764). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
