@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Malagasy stopped synchronization recovery — 2026-10-14
+
+Commit `8422cc349c` translates 18 recovery messages. They retain the distinction
+between applied changes that remain and pending writes that are abandoned.
+Lost access, changed lists, resumable operations, busy operations and the
+oldest-50 display limit remain explicit.
+
+The Malagasy catalog and guarded-correction suites pass with 30,143 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. The sync-recovery browser case covers
+administrator discard behavior. Syntax and discovery pass; runtime remains
+pending.
+
+Further Malagasy translations and all-language semantic review remain unfinished.
+
 ## Malagasy Scrum planning transfers — 2026-10-14
 
 Commit `36647667e6` translates 21 entries for release selection, Scrum import
