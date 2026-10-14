@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Irish report metric labels — 2026-10-14
+
+Commit `36579f0e7c` corrects 24 labels. Report metrics now identify age in stage,
+percentiles, historical stays, signals, blocking cards, open episodes, confidence
+and minimum predicted capacity. Moving-range labels describe absolute successive
+differences. The numeric summary explicitly sums values of marked fields, and
+the WIP action names the swimlane it applies to.
+
+The Irish catalog and guarded-correction suites pass with 30,510 correction
+ledger entries. All 21 human-preference checks pass; exact comparison preserves
+38,430 existing Chinese values. Six browser cases cover report help, report
+controls and numeric sums excluding hidden fields. Syntax and discovery pass;
+runtime remains pending.
+
+Irish and all-language semantic review remain unfinished.
+
 ## Irish report explanations — 2026-10-14
 
 Commit `7676469d0e` corrects eleven analytics strings. Five report titles now

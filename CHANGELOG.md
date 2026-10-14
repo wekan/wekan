@@ -4391,6 +4391,20 @@ pending. Irish and all-language semantic review remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/36579f0e7c9ef7ad5cd3438832656e40972554bf">Clarify Irish report metrics and numeric summary labels</a>. Thanks to xet7.</summary>
+
+Correct 24 labels for report quantities, confidence, open episodes, minimum
+capacity and moving-range values. Clarify the numeric value sum and applying a
+WIP group to a swimlane.
+
+The Irish catalog and guarded-correction suites pass with 30,510 audited
+corrections. All 21 human-preference checks pass; 38,430 existing Chinese values
+remain unchanged. Six browser cases pass syntax and discovery; runtime remains
+pending. Irish and all-language semantic review remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
