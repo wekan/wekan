@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Malagasy account consequences and report explanations — 2026-10-14
+
+Commit `01204a94f0` corrects eight entries. Account anonymization used unrelated
+export help and mislabeled the action and dialog. The warning now explains
+permanent identity replacement, avatar removal, disabled login, retained
+history and irreversibility. Five analytics notes replace fragments with full
+explanations of missing history, overlapping blockers, forecast uncertainty,
+minimum samples and date fallbacks.
+
+The Malagasy catalog and guarded-correction suites pass with 30,185 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. Six browser cases inspect report
+help and the account warning without confirming the account action. Syntax
+and discovery pass; runtime remains pending.
+
+Malagasy and all-language semantic review remain unfinished.
+
 ## Malagasy stale import guidance — 2026-10-14
 
 Commit `0e518992bb` repairs five guides. Todoist and Planner retained old

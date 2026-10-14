@@ -4184,6 +4184,19 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/01204a94f0">Restore Malagasy account warning and report explanations</a>. Thanks to xet7.</summary>
+
+- Correct eight entries. Account anonymization now explains permanent identity
+  replacement, disabled login and retained history. Five report notes restore
+  missing-data rules, forecast uncertainty and methodological limits.
+- Translation suites and 21 human-preference checks pass. Existing Chinese
+  values remain unchanged. Six browser cases pass syntax and discovery;
+  runtime execution remains pending.
+- All-language semantic review and remaining translations continue.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
