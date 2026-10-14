@@ -352,6 +352,8 @@ import '/server/compatApi/githubLike';
 import '/server/bots';
 // Admin Panel / Settings / Global Webhooks / Internal destinations.
 import '/server/webhookInternalHosts';
+// Admin Panel / Settings / Global Webhooks / Login and registration (#2290).
+import '/server/accountWebhook';
 
 // ----------------------------------------------------------------------------
 // 14. Server — routes (REST API, file serving)

@@ -2111,6 +2111,42 @@
     {
       "key": "r-rules-not-shown",
       "since": "2026-10-14"
+    },
+    {
+      "key": "account-webhook",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "account-webhook-desc",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "account-webhook-on-login",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "account-webhook-on-register",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "account-webhook-fields",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "account-webhook-field-email",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "account-webhook-field-ip",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "account-webhook-field-fullname",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "account-webhook-field-authMethod",
+      "since": "2026-10-14"
     }
   ]
 }

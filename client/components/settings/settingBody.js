@@ -1799,6 +1799,9 @@ Template.email.events({
 // never published.
 Template.webhookSettings.onCreated(function () {
   this.internalHosts = new ReactiveVar('');
+  // #2290: the login and registration webhook, through site-admin methods.
+  this.accountWebhook = new ReactiveVar({ url: '', token: '', onLogin: false, onRegister: false, fields: [] });
+  Meteor.call('getAccountWebhook', (error, value) => { if (!error && value) this.accountWebhook.set(value); });
   Meteor.call('getWebhookInternalHosts', (error, hosts) => {
     if (!error) this.internalHosts.set((hosts || []).join('\n'));
   });
@@ -1806,9 +1809,43 @@ Template.webhookSettings.onCreated(function () {
 
 Template.webhookSettings.helpers({
   internalHosts() { return Template.instance().internalHosts.get(); },
+  accountWebhook() { return Template.instance().accountWebhook.get(); },
+  accountWebhookFields() {
+    const { EXTRA_FIELDS } = require('/models/lib/accountWebhook');
+    const on = Template.instance().accountWebhook.get().fields || [];
+    return EXTRA_FIELDS.map(key => ({ key, on: on.includes(key), labelKey: `account-webhook-field-${key}` }));
+  },
 });
 
 Template.webhookSettings.events({
+  'click .js-account-webhook-tick'(event, tpl) {
+    event.preventDefault();
+    const key = event.currentTarget.dataset.key;
+    const value = { ...tpl.accountWebhook.get() };
+    value[key] = !value[key];
+    tpl.accountWebhook.set(value);
+  },
+  'click .js-account-webhook-field'(event, tpl) {
+    event.preventDefault();
+    const field = event.currentTarget.dataset.field;
+    const value = { ...tpl.accountWebhook.get() };
+    const fields = new Set(value.fields || []);
+    if (fields.has(field)) fields.delete(field); else fields.add(field);
+    value.fields = [...fields];
+    tpl.accountWebhook.set(value);
+  },
+  'click .js-save-account-webhook'(event, tpl) {
+    event.preventDefault();
+    const status = tpl.$('.js-account-webhook-status');
+    const value = { ...tpl.accountWebhook.get(),
+      url: String(tpl.$('.js-account-webhook-url').val() || ''),
+      token: String(tpl.$('.js-account-webhook-token').val() || '') };
+    Meteor.call('saveAccountWebhook', value, (error, saved) => {
+      if (error) { status.text(error.reason || error.message); return; }
+      tpl.accountWebhook.set(saved);
+      status.text(TAPi18n.__('feature-saved'));
+    });
+  },
   'click .js-save-webhook-internal-hosts'(event, tpl) {
     event.preventDefault();
     const status = tpl.$('.js-webhook-internal-hosts-status');

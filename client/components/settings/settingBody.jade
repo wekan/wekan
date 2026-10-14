@@ -51,6 +51,26 @@ template(name="webhookSettings")
     textarea.wekan-form-control.js-webhook-internal-hosts(rows="4" placeholder="nodered.lan&#10;10.0.0.5:1880" aria-label="{{_ 'webhook-internal-hosts'}}")= internalHosts
     button.primary.js-save-webhook-internal-hosts(type="button") {{_ 'save'}}
     span.js-webhook-internal-hosts-status
+  //- #2290: one address told about logins and new accounts. Off until an
+    event is ticked; only the user name and time unless more is ticked.
+  .account-webhook
+    h2.admin-pane-group-title {{_ 'account-webhook'}}
+    p.quiet {{_ 'account-webhook-desc'}}
+    input.wekan-form-control.js-account-webhook-url(type="url" placeholder="https://" aria-label="{{_ 'URL'}}" value=accountWebhook.url)
+    input.wekan-form-control.js-account-webhook-token(type="text" placeholder="{{_ 'webhook-token'}}" aria-label="{{_ 'webhook-token'}}" value=accountWebhook.token)
+    a.flex.js-account-webhook-tick(data-key="onLogin")
+      .materialCheckBox(class="{{#if accountWebhook.onLogin}}is-checked{{/if}}")
+      span {{_ 'account-webhook-on-login'}}
+    a.flex.js-account-webhook-tick(data-key="onRegister")
+      .materialCheckBox(class="{{#if accountWebhook.onRegister}}is-checked{{/if}}")
+      span {{_ 'account-webhook-on-register'}}
+    p.quiet {{_ 'account-webhook-fields'}}
+    each accountWebhookFields
+      a.flex.js-account-webhook-field(data-field=key)
+        .materialCheckBox(class="{{#if on}}is-checked{{/if}}")
+        span {{_ labelKey}}
+    button.primary.js-save-account-webhook(type="button") {{_ 'save'}}
+    span.js-account-webhook-status
 
 //- The Login pane. Admin Panel / PEOPLE renders this now (peopleBody.jade); it is
 //- defined here, with the other admin settings panes, because Blaze templates are

@@ -301,6 +301,13 @@ Settings.attachSchema(
     'webhookInternalHosts.$': {
       type: String,
     },
+    // #2290: the login and registration webhook (models/lib/accountWebhook.js):
+    // { url, token, onLogin, onRegister, fields }. Never published.
+    accountWebhook: {
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
     // #2217: boards may show their Rules to members, read-only
     // (models/lib/rulesReadOnly.js). Off by default.
     rulesReadOnlyForMembers: {
