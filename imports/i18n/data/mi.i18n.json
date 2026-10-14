@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Mēnā ka tuku a WeKan mā tētahi o ēnei ratonga, whakakāngia, hoatu ki te ratonga tēnei wāhitau webhook mō ōna takahanga īmēra hoki mai, amuamu pāme hoki, ā, whakapiria ki konei te kī e waitohu ai ia i aua mea, te kupuhipa rānei i whakauruhia e koe ki te wāhitau hei https://user:password@…, hei ?secret=… rānei",
   "email-bounces-provider-key": "Kī waitohu webhook",
   "email-bounces-provider-password": "Kupuhipa webhook",
-  "email-bounce-provider-secret-required": "Ka hiahia tētahi ratonga kua whakakāngia ki tōna kī waitohu, kupuhipa rānei."
+  "email-bounce-provider-secret-required": "Ka hiahia tētahi ratonga kua whakakāngia ki tōna kī waitohu, kupuhipa rānei.",
+  "activity-pub-enabled": "Ka whakaputa ngā papa tūmatanui i ā rātou mahi kāri ki te fediverse (ActivityPub)",
+  "activity-pub-desc": "Kua weto ā-taunoa. Ina whakakāngia, ka taea te whai i ia papa tūmatanui mai i Mastodon me ētahi atu tūmau fediverse hei @board-<id> i te wāhitau o tēnei WeKan, ā, ka tae ngā mahi kāri hou ki ōna kaiwhai. He pānui anake: kāore he mea ka tukuna mai e tētahi tūmau fediverse e huri i tētahi papa, ā, kāore rawa ngā papa tūmataiti e whakaputaina.",
+  "caldav-sync": "Tukutahi maramataka (CalDAV)",
+  "caldav-sync-desc": "Whakaurua ngā rā tika o ngā kāri o tēnei papa ki tētahi maramataka - Nextcloud Calendar, tētahi maramataka CalDAV rānei. Ka hoki mai ki te kāri tētahi rā tika ka nekehia i te maramataka. Whakamahia tētahi kupuhipa taupānga, kaua ko tōu ake.",
+  "caldav-url": "Wāhitau maramataka",
+  "caldav-app-password": "Kupuhipa taupānga",
+  "caldav-enabled": "Tukutahitia ngā rā tika ki tēnei maramataka",
+  "caldav-sync-now": "Tukutahitia katoa ināianei",
+  "caldav-invalid-url": "Me noho te wāhitau maramataka hei wāhitau http:// hei wāhitau https:// rānei, kāore he ingoa kaiwhakamahi, kupuhipa rānei i roto.",
+  "caldav-not-linked": "Tiakina tētahi wāhitau maramataka, ka whakakā ai i te tukutahi i te tuatahi.",
+  "webdav-storage": "Rokiroki WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Rokiroki ai ngā āpitihanga ki tētahi kōpaki i tētahi tūmau WebDAV - Nextcloud Files, ownCloud, tētahi atu rānei. Whakamahia tētahi kupuhipa taupānga i hangaia mō WeKan. Ka taea te whakamahi i konei tētahi tūmau kei te whatunga ake o WeKan, nā te mea ko te kaiwhakahaere pae anake e whakarite ana i tēnei wāhitau.",
+  "webdav-endpoint": "Wāhitau WebDAV",
+  "webdav-password": "Kupuhipa taupānga",
+  "webdav-folder": "Kōpaki",
+  "move-storage-webdav": "Rokiroki WebDAV (Nextcloud Files)"
 }

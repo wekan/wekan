@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Meunyoe WeKan geukirém meulalui salah saboh layanan nyoe, peu-udép layanan nyan, bri keu layanan nyan alamat webhook nyoe keu haba emel nyang geuwoe ngon keuluhan spam, laju pasoe keunoe gunci nyang geungui keu teken, atawa sandi nyang neuboh lam alamat lagée https://user:password@… atawa ?secret=…",
   "email-bounces-provider-key": "Gunci tanda webhook",
   "email-bounces-provider-password": "Sandi webhook",
-  "email-bounce-provider-secret-required": "Layanan nyang ka geupeu-udép peureulee gunci tanda atawa sandi jih."
+  "email-bounce-provider-secret-required": "Layanan nyang ka geupeu-udép peureulee gunci tanda atawa sandi jih.",
+  "activity-pub-enabled": "Papan publik geupeuteubiet buet kad jih bak fediverse (ActivityPub)",
+  "activity-pub-desc": "Geupadam meunurot asai. Meunyoe geupeuudep, tiep papan publik jeuet geuseutot nibak Mastodon ngon server fediverse laen sebagai @board-<id> bak alamat WeKan nyoe, ngon buet kad baro trôh bak ureuëng nyang seutot. Nyoe keu beuet mantong: hana sapeue nyang geukirém lé server fediverse jeuet geugantoe papan, ngon papan pribadi hana tom geupeuteubiet.",
+  "caldav-sync": "Sinkronisasi almanak (CalDAV)",
+  "caldav-sync-desc": "Peuduek uroe bataih kad papan nyoe lam almanak - Nextcloud Calendar atawa almanak CalDAV laen. Uroe bataih nyang geupinah lam almanak jigisa u kad. Ngui kata sandi aplikasi, kon kata sandi droeneuh.",
+  "caldav-url": "Alamat almanak",
+  "caldav-app-password": "Kata sandi aplikasi",
+  "caldav-enabled": "Sinkronkan uroe bataih ngon almanak nyoe",
+  "caldav-sync-now": "Sinkronkan mandum jinoe",
+  "caldav-invalid-url": "Alamat almanak wajeb alamat http:// atawa https://, hana nan ureuëng ngui atawa kata sandi lam jih.",
+  "caldav-not-linked": "Keubah alamat almanak dilèe ngon peuudep sinkronisasi.",
+  "webdav-storage": "Peunyimpanan WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Keubah lampiran lam map bak server WebDAV - Nextcloud Files, ownCloud atawa nyang laen. Ngui kata sandi aplikasi nyang geupeugöt keu WeKan. Server bak jaringan WeKan keudroe jeuet geungui ino, sabab admin situs mantong nyang peuteutap alamat nyoe.",
+  "webdav-endpoint": "Alamat WebDAV",
+  "webdav-password": "Kata sandi aplikasi",
+  "webdav-folder": "Map",
+  "move-storage-webdav": "Peunyimpanan WebDAV (Nextcloud Files)"
 }

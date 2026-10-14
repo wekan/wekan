@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "यदि WeKan इनमें से किसी सेवा के ज़रिए भेजता है, तो उसे चालू करें, सेवा को बाउंस और स्पैम शिकायत की घटनाओं के लिए यह Webhook पता दें, और यहाँ वह कुंजी चिपकाएँ जिससे वह उन पर हस्ताक्षर करती है, या वह पासवर्ड जो आपने पते में https://user:password@… या ?secret=… के रूप में डाला है",
   "email-bounces-provider-key": "Webhook हस्ताक्षर कुंजी",
   "email-bounces-provider-password": "Webhook पासवर्ड",
-  "email-bounce-provider-secret-required": "चालू की गई सेवा को उसकी हस्ताक्षर कुंजी या पासवर्ड चाहिए।"
+  "email-bounce-provider-secret-required": "चालू की गई सेवा को उसकी हस्ताक्षर कुंजी या पासवर्ड चाहिए।",
+  "activity-pub-enabled": "सार्वजनिक बोर्ड अपनी कार्ड गतिविधि फ़ेडिवर्स पर प्रकाशित करते हैं (ActivityPub)",
+  "activity-pub-desc": "डिफ़ॉल्ट रूप से बंद। चालू होने पर, हर सार्वजनिक बोर्ड को Mastodon और अन्य फ़ेडिवर्स सर्वरों से इस WeKan के पते पर @board-<id> के रूप में फ़ॉलो किया जा सकता है, और नई कार्ड गतिविधि उसके फ़ॉलोअर्स तक पहुँचती है। यह केवल-पढ़ने के लिए है: फ़ेडिवर्स सर्वर जो कुछ भी भेजे, उससे बोर्ड नहीं बदलता, और निजी बोर्ड कभी प्रकाशित नहीं होते।",
+  "caldav-sync": "कैलेंडर सिंक (CalDAV)",
+  "caldav-sync-desc": "इस बोर्ड के कार्डों की नियत तिथियाँ किसी कैलेंडर में रखें - Nextcloud Calendar या कोई भी CalDAV कैलेंडर। कैलेंडर में बदली गई नियत तिथि कार्ड पर वापस आ जाती है। अपना पासवर्ड नहीं, ऐप पासवर्ड इस्तेमाल करें।",
+  "caldav-url": "कैलेंडर का पता",
+  "caldav-app-password": "ऐप पासवर्ड",
+  "caldav-enabled": "नियत तिथियों को इस कैलेंडर के साथ सिंक करें",
+  "caldav-sync-now": "अभी सब सिंक करें",
+  "caldav-invalid-url": "कैलेंडर का पता http:// या https:// पता होना चाहिए, उसमें उपयोगकर्ता नाम या पासवर्ड नहीं होना चाहिए।",
+  "caldav-not-linked": "पहले कैलेंडर का पता सहेजें और सिंक चालू करें।",
+  "webdav-storage": "WebDAV भंडारण (Nextcloud Files)",
+  "webdav-storage-description": "संलग्नकों को WebDAV सर्वर के किसी फ़ोल्डर में रखें - Nextcloud Files, ownCloud या कोई अन्य। WeKan के लिए बनाया गया ऐप पासवर्ड इस्तेमाल करें। यहाँ WeKan के अपने नेटवर्क का सर्वर इस्तेमाल किया जा सकता है, क्योंकि यह पता केवल साइट व्यवस्थापक ही सेट करता है।",
+  "webdav-endpoint": "WebDAV पता",
+  "webdav-password": "ऐप पासवर्ड",
+  "webdav-folder": "फ़ोल्डर",
+  "move-storage-webdav": "WebDAV भंडारण (Nextcloud Files)"
 }

@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Kui WeKan saadab kirju mõne neist teenustest kaudu, lülitage see sisse, andke teenusele see veebikonksu aadress tagastuste ja rämpsposti kaebuste sündmuste jaoks ning kleepige siia võti, millega teenus need allkirjastab, või parool, mille panite aadressi kujul https://user:password@… või ?secret=…",
   "email-bounces-provider-key": "Veebikonksu allkirjastamisvõti",
   "email-bounces-provider-password": "Veebikonksu parool",
-  "email-bounce-provider-secret-required": "Sisselülitatud teenus vajab oma allkirjastamisvõtit või parooli."
+  "email-bounce-provider-secret-required": "Sisselülitatud teenus vajab oma allkirjastamisvõtit või parooli.",
+  "activity-pub-enabled": "Avalikud tahvlid avaldavad oma kaartide tegevuse fediversumis (ActivityPub)",
+  "activity-pub-desc": "Vaikimisi väljas. Sisselülitatuna saab iga avalikku tahvlit jälgida Mastodonist ja teistest fediversumi serveritest kui @board-<id> selle WeKani aadressil ning uus kaarditegevus jõuab tema jälgijateni. See on ainult lugemiseks: miski, mida fediversumi server saadab, ei muuda tahvlit ja privaatseid tahvleid ei avaldata kunagi.",
+  "caldav-sync": "Kalendri sünkroonimine (CalDAV)",
+  "caldav-sync-desc": "Paneb selle tahvli kaartide tähtajad kalendrisse - Nextcloud Calendar või mis tahes CalDAV-kalender. Kalendris nihutatud tähtaeg jõuab tagasi kaardile. Kasuta rakenduse parooli, mitte oma parooli.",
+  "caldav-url": "Kalendri aadress",
+  "caldav-app-password": "Rakenduse parool",
+  "caldav-enabled": "Sünkrooni tähtajad selle kalendriga",
+  "caldav-sync-now": "Sünkrooni kõik kohe",
+  "caldav-invalid-url": "Kalendri aadress peab olema http:// või https:// aadress, ilma kasutajanime ja paroolita.",
+  "caldav-not-linked": "Salvesta esmalt kalendri aadress ja lülita sünkroonimine sisse.",
+  "webdav-storage": "WebDAV-salvestis (Nextcloud Files)",
+  "webdav-storage-description": "Salvestab manused WebDAV-serveri kausta - Nextcloud Files, ownCloud või mõni muu. Kasuta WeKani jaoks loodud rakenduse parooli. Siin võib kasutada ka WeKani enda võrgus olevat serverit, sest seda aadressi määrab ainult saidi administraator.",
+  "webdav-endpoint": "WebDAV-aadress",
+  "webdav-password": "Rakenduse parool",
+  "webdav-folder": "Kaust",
+  "move-storage-webdav": "WebDAV-salvestis (Nextcloud Files)"
 }

@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Heke WeKan bi yek ji van karûbaran dişîne, wê vêxe, ji karûbarê re vê navnîşana webhook ji bo bûyerên e-nameyên vegeriyayî û giliyên spamê bide, û li vir mifteya ku pê wan îmze dike, an şîfreya ku te di navnîşanê de wekî https://user:password@… an ?secret=… danî, bizeliqîne",
   "email-bounces-provider-key": "Mifteya îmzeyê ya webhook",
   "email-bounces-provider-password": "Şîfreya webhook",
-  "email-bounce-provider-secret-required": "Karûbarekî vêxistî mifteya xwe ya îmzeyê an şîfreya xwe hewce dike."
+  "email-bounce-provider-secret-required": "Karûbarekî vêxistî mifteya xwe ya îmzeyê an şîfreya xwe hewce dike.",
+  "activity-pub-enabled": "Depoyên giştî çalakiya kartên xwe li fediverseê weşan dikin (ActivityPub)",
+  "activity-pub-desc": "Bi awayê standard girtî ye. Dema vekirî be, her depoyeke giştî ji Mastodon û serverên din ên fediverseê wekî @board-<id> li ser navnîşana vê WeKanê dikare were şopandin, û çalakiya nû ya kartan digihîje şopînerên wê. Tenê ji bo xwendinê ye: tiştekî ku serverek fediverseê dişîne depoyekê naguherîne, û depoyên taybet qet nayên weşandin.",
+  "caldav-sync": "Hevdemkirina salnameyê (CalDAV)",
+  "caldav-sync-desc": "Dîrokên dawî yên kartên vê depoyê dixe salnameyekê - Nextcloud Calendar an her salnameyeke CalDAV. Dîroka dawî ya ku di salnameyê de tê guhertin vedigere kartê. Şîfreyeke sepanê bi kar bîne, ne ya xwe.",
+  "caldav-url": "Navnîşana salnameyê",
+  "caldav-app-password": "Şîfreya sepanê",
+  "caldav-enabled": "Dîrokên dawî bi vê salnameyê re hevdem bike",
+  "caldav-sync-now": "Niha hemûyan hevdem bike",
+  "caldav-invalid-url": "Navnîşana salnameyê divê navnîşaneke http:// an https:// be, bêyî navê bikarhêner an şîfreyê tê de.",
+  "caldav-not-linked": "Pêşî navnîşaneke salnameyê tomar bike û hevdemkirinê veke.",
+  "webdav-storage": "Hilanîna WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Pêvekan di peldankekê de li ser serverekî WebDAV hilîne - Nextcloud Files, ownCloud an yekî din. Şîfreyeke sepanê ya ji bo WeKanê hatî çêkirin bi kar bîne. Serverekî li ser tora WeKanê bi xwe dikare li vir were bikaranîn, ji ber ku tenê rêveberê malperê vê navnîşanê diyar dike.",
+  "webdav-endpoint": "Navnîşana WebDAV",
+  "webdav-password": "Şîfreya sepanê",
+  "webdav-folder": "Peldank",
+  "move-storage-webdav": "Hilanîna WebDAV (Nextcloud Files)"
 }

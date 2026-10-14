@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Jei WeKan siunčia per vieną iš šių paslaugų, įjunkite ją, nurodykite paslaugai šį webhook adresą jos grąžintų laiškų ir skundų dėl šlamšto įvykiams ir įklijuokite čia raktą, kuriuo ji juos pasirašo, arba slaptažodį, kurį įrašėte adrese kaip https://user:password@… arba ?secret=…",
   "email-bounces-provider-key": "Webhook pasirašymo raktas",
   "email-bounces-provider-password": "Webhook slaptažodis",
-  "email-bounce-provider-secret-required": "Įjungtai paslaugai reikia jos pasirašymo rakto arba slaptažodžio."
+  "email-bounce-provider-secret-required": "Įjungtai paslaugai reikia jos pasirašymo rakto arba slaptažodžio.",
+  "activity-pub-enabled": "Viešos lentos skelbia savo kortelių veiklą fediverse tinkle (ActivityPub)",
+  "activity-pub-desc": "Pagal numatytuosius nustatymus išjungta. Įjungus kiekvieną viešą lentą galima sekti iš Mastodon ir kitų fediverse serverių kaip @board-<id> šio WeKan adresu, o nauja kortelių veikla pasiekia jos sekėjus. Tik skaitymui: niekas, ką siunčia fediverse serveris, nekeičia lentos, o privačios lentos niekada neskelbiamos.",
+  "caldav-sync": "Kalendoriaus sinchronizavimas (CalDAV)",
+  "caldav-sync-desc": "Įkelkite šios lentos kortelių terminus į kalendorių - Nextcloud Calendar ar bet kurį CalDAV kalendorių. Kalendoriuje perkeltas terminas grįžta į kortelę. Naudokite programėlės slaptažodį, o ne savo.",
+  "caldav-url": "Kalendoriaus adresas",
+  "caldav-app-password": "Programėlės slaptažodis",
+  "caldav-enabled": "Sinchronizuoti terminus su šiuo kalendoriumi",
+  "caldav-sync-now": "Sinchronizuoti viską dabar",
+  "caldav-invalid-url": "Kalendoriaus adresas turi būti http:// arba https:// adresas, be naudotojo vardo ar slaptažodžio jame.",
+  "caldav-not-linked": "Pirmiausia išsaugokite kalendoriaus adresą ir įjunkite sinchronizavimą.",
+  "webdav-storage": "WebDAV saugykla (Nextcloud Files)",
+  "webdav-storage-description": "Laikykite priedus aplanke WebDAV serveryje - Nextcloud Files, ownCloud ar bet kuriame kitame. Naudokite WeKan sukurtą programėlės slaptažodį. Čia galima naudoti serverį paties WeKan tinkle, nes šį adresą nustato tik svetainės administratorius.",
+  "webdav-endpoint": "WebDAV adresas",
+  "webdav-password": "Programėlės slaptažodis",
+  "webdav-folder": "Aplankas",
+  "move-storage-webdav": "WebDAV saugykla (Nextcloud Files)"
 }

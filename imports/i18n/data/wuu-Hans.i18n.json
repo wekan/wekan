@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "要是 WeKan 通过其中一个服务发信，就拿伊打开，拿搿个 webhook 地址拨服务，用来收退信搭垃圾邮件投诉个事件，再拿伊签名用个密钥，或者侬辣地址里向写成 https://user:password@… 或者 ?secret=… 个密码贴辣此地",
   "email-bounces-provider-key": "Webhook 签名密钥",
   "email-bounces-provider-password": "Webhook 密码",
-  "email-bounce-provider-secret-required": "开好个服务要有伊个签名密钥或者密码。"
+  "email-bounce-provider-secret-required": "开好个服务要有伊个签名密钥或者密码。",
+  "activity-pub-enabled": "公开看板拿卡片动态发布到联邦宇宙浪 (ActivityPub)",
+  "activity-pub-desc": "默认是关脱个。开起来以后，每只公开看板侪好勒 Mastodon 搭别个联邦宇宙服务器浪向本 WeKan 地址下头个 @board-<id> 关注，新个卡片动态会送到关注者搭。伊是只读个：联邦宇宙服务器发过来个物事一样也改勿脱看板，私有看板也永远勿会发布。",
+  "caldav-sync": "日历同步 (CalDAV)",
+  "caldav-sync-desc": "拿搿只看板卡片个到期日放到日历里向 - Nextcloud Calendar 或者随便啥 CalDAV 日历。勒日历里向移动个到期日会回到卡片浪。请用应用专用密码，勿要用侬自家个密码。",
+  "caldav-url": "日历地址",
+  "caldav-app-password": "应用专用密码",
+  "caldav-enabled": "拿到期日搭搿只日历同步",
+  "caldav-sync-now": "现在全部同步",
+  "caldav-invalid-url": "日历地址必须是 http:// 或者 https:// 地址，里向勿好有用户名或者密码。",
+  "caldav-not-linked": "请先保存日历地址，再拿同步开起来。",
+  "webdav-storage": "WebDAV 存储 (Nextcloud Files)",
+  "webdav-storage-description": "拿附件存到 WebDAV 服务器浪个文件夹里向 - Nextcloud Files、ownCloud 或者别个随便啥。请用为 WeKan 做个应用专用密码。搿搭好用 WeKan 自家网络里向个服务器，因为只有站点管理员好设定搿只地址。",
+  "webdav-endpoint": "WebDAV 地址",
+  "webdav-password": "应用专用密码",
+  "webdav-folder": "文件夹",
+  "move-storage-webdav": "WebDAV 存储 (Nextcloud Files)"
 }

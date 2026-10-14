@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Si WeKan ta manda via un di e servisionan aki, aktivá e, duna e servisio e adrès di webhook aki pa su eventonan di e-mail bolbí i keho di spam, i pega aki e yabi ku e ta firma nan kuné, of e kontraseña ku bo a pone den e adrès komo https://user:password@… of ?secret=…",
   "email-bounces-provider-key": "Yabi di firma di webhook",
   "email-bounces-provider-password": "Kontraseña di webhook",
-  "email-bounce-provider-secret-required": "Un servisio aktivá mester di su yabi di firma of su kontraseña."
+  "email-bounce-provider-secret-required": "Un servisio aktivá mester di su yabi di firma of su kontraseña.",
+  "activity-pub-enabled": "Tablanan públiko ta publiká aktividat di nan karchinan riba fediverse (ActivityPub)",
+  "activity-pub-desc": "Paga di manera standard. Ora e ta sendé, kada tabla públiko por wòrdu sigui for di Mastodon i otro sèrvernan di fediverse komo @board-<id> na e adrès di e WeKan aki, i aktividat nobo di karchi ta yega na su siguidónan. E ta solamente pa lesa: nada ku un sèrver di fediverse manda no ta kambia un tabla, i tablanan privá nunka no ta wòrdu publiká.",
+  "caldav-sync": "Sinkronisashon di kalènder (CalDAV)",
+  "caldav-sync-desc": "Pone e fechanan límite di e karchinan di e tabla aki den un kalènder - Nextcloud Calendar òf kualke kalènder CalDAV. Un fecha límite move den e kalènder ta bolbe na e karchi. Usa un kontraseña di aplikashon, no bo mes kontraseña.",
+  "caldav-url": "Adrès di kalènder",
+  "caldav-app-password": "Kontraseña di aplikashon",
+  "caldav-enabled": "Sinkronisá fechanan límite ku e kalènder aki",
+  "caldav-sync-now": "Sinkronisá tur kos awor",
+  "caldav-invalid-url": "E adrès di kalènder mester ta un adrès http:// òf https://, sin nòmber di usuario òf kontraseña aden.",
+  "caldav-not-linked": "Promé warda un adrès di kalènder i sende sinkronisashon.",
+  "webdav-storage": "Wardamentu WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Warda adhuntonan den un mapa riba un sèrver WebDAV - Nextcloud Files, ownCloud òf kualke otro. Usa un kontraseña di aplikashon traha pa WeKan. Un sèrver riba e mes red di WeKan por wòrdu usá akinan, pasobra solamente un atministradó di e sitio ta pone e adrès aki.",
+  "webdav-endpoint": "Adrès WebDAV",
+  "webdav-password": "Kontraseña di aplikashon",
+  "webdav-folder": "Mapa",
+  "move-storage-webdav": "Wardamentu WebDAV (Nextcloud Files)"
 }

@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Si WeKan unvia per unu d'estos servicios, activalu, da-y al serviciu esta direición de webhook pa los sos eventos de corréos tornaos y quexes de spam, y apega equí la clave cola que los robla, o la contraseña que punxisti na direición como https://user:password@… o ?secret=…",
   "email-bounces-provider-key": "Clave de robla del webhook",
   "email-bounces-provider-password": "Contraseña del webhook",
-  "email-bounce-provider-secret-required": "Un serviciu activáu precisa la so clave de robla o contraseña."
+  "email-bounce-provider-secret-required": "Un serviciu activáu precisa la so clave de robla o contraseña.",
+  "activity-pub-enabled": "Los tableros públicos espublicen l'actividá de les sos tarxetes nel fediversu (ActivityPub)",
+  "activity-pub-desc": "Desactiváu de mou predetermináu. Si s'activa, cada tableru públicu pue siguise dende Mastodon y otros sirvidores del fediversu como @board-<id> na direición d'esti WeKan, y l'actividá nueva de les tarxetes llega a los sos siguidores. Ye de namái llectura: nada de lo qu'unvie un sirvidor del fediversu camuda un tableru, y los tableros privaos enxamás s'espublicen.",
+  "caldav-sync": "Sincronización del calendariu (CalDAV)",
+  "caldav-sync-desc": "Pon les feches de vencimientu de les tarxetes d'esti tableru nun calendariu - Nextcloud Calendar o cualquier calendariu CalDAV. Una fecha de vencimientu movida nel calendariu vuelve a la tarxeta. Usa una contraseña d'aplicación, non la tuya.",
+  "caldav-url": "Direición del calendariu",
+  "caldav-app-password": "Contraseña d'aplicación",
+  "caldav-enabled": "Sincronizar les feches de vencimientu con esti calendariu",
+  "caldav-sync-now": "Sincronizar too agora",
+  "caldav-invalid-url": "La direición del calendariu tien de ser una direición http:// o https://, ensin nome d'usuariu nin contraseña dientro.",
+  "caldav-not-linked": "Guarda primero una direición de calendariu y activa la sincronización.",
+  "webdav-storage": "Almacenamientu WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Guarda los axuntos nuna carpeta d'un sirvidor WebDAV - Nextcloud Files, ownCloud o cualquier otru. Usa una contraseña d'aplicación fecha pa WeKan. Equí pue usase un sirvidor de la rede propia de WeKan, yá que namái un alministrador del sitiu configura esta direición.",
+  "webdav-endpoint": "Direición WebDAV",
+  "webdav-password": "Contraseña d'aplicación",
+  "webdav-folder": "Carpeta",
+  "move-storage-webdav": "Almacenamientu WebDAV (Nextcloud Files)"
 }

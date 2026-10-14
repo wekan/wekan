@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Jos WeKan lähettää viestit jonkin näistä palveluista kautta, ota se käyttöön, anna palvelulle tämä webhook-osoite sen palautus- ja roskapostivalitustapahtumia varten ja liitä tähän avain, jolla palvelu allekirjoittaa ne, tai salasana, jonka laitoit osoitteeseen muodossa https://user:password@… tai ?secret=…",
   "email-bounces-provider-key": "Webhookin allekirjoitusavain",
   "email-bounces-provider-password": "Webhookin salasana",
-  "email-bounce-provider-secret-required": "Käyttöön otettu palvelu tarvitsee allekirjoitusavaimensa tai salasanansa."
+  "email-bounce-provider-secret-required": "Käyttöön otettu palvelu tarvitsee allekirjoitusavaimensa tai salasanansa.",
+  "activity-pub-enabled": "Julkiset taulut julkaisevat korttiensa tapahtumat fediversumiin (ActivityPub)",
+  "activity-pub-desc": "Oletuksena pois päältä. Kun se on päällä, jokaista julkista taulua voi seurata Mastodonista ja muilta fediversumin palvelimilta nimellä @board-<id> tämän WeKanin osoitteessa, ja uudet korttitapahtumat tavoittavat sen seuraajat. Se on vain luku -tilassa: mikään, mitä fediversumin palvelin lähettää, ei muuta taulua, eikä yksityisiä tauluja julkaista koskaan.",
+  "caldav-sync": "Kalenterisynkronointi (CalDAV)",
+  "caldav-sync-desc": "Vie tämän taulun korttien eräpäivät kalenteriin - Nextcloud Calendariin tai mihin tahansa CalDAV-kalenteriin. Kalenterissa siirretty eräpäivä palaa korttiin. Käytä sovellussalasanaa, älä omaa salasanaasi.",
+  "caldav-url": "Kalenterin osoite",
+  "caldav-app-password": "Sovellussalasana",
+  "caldav-enabled": "Synkronoi eräpäivät tämän kalenterin kanssa",
+  "caldav-sync-now": "Synkronoi kaikki nyt",
+  "caldav-invalid-url": "Kalenterin osoitteen on oltava http://- tai https://-osoite, eikä siinä saa olla käyttäjänimeä tai salasanaa.",
+  "caldav-not-linked": "Tallenna ensin kalenterin osoite ja ota synkronointi käyttöön.",
+  "webdav-storage": "WebDAV-tallennus (Nextcloud Files)",
+  "webdav-storage-description": "Tallenna liitteet WebDAV-palvelimen kansioon - Nextcloud Files, ownCloud tai mikä tahansa muu. Käytä WeKania varten luotua sovellussalasanaa. Tässä voi käyttää myös WeKanin omassa verkossa olevaa palvelinta, koska vain sivuston ylläpitäjä asettaa tämän osoitteen.",
+  "webdav-endpoint": "WebDAV-osoite",
+  "webdav-password": "Sovellussalasana",
+  "webdav-folder": "Kansio",
+  "move-storage-webdav": "WebDAV-tallennus (Nextcloud Files)"
 }

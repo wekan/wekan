@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Ma s-pitreatsi WeKan prit unã di aesti servitsii, activeadzã-l, dã-lji a servitsiului aestã adresã webhook ti faptili a lui di postã turnatã şi plãngiri di spam, şi bagã aoa cheaia cu cari li semnã, i zborlu di intrari tsi l-bãgaşi tu adresã ca https://user:password@… i ?secret=…",
   "email-bounces-provider-key": "Cheaia di semnari a webhook-lui",
   "email-bounces-provider-password": "Zborlu di intrari a webhook-lui",
-  "email-bounce-provider-secret-required": "Un servitsiu activat ari ananghi di cheaia di semnari i di zborlu di intrari."
+  "email-bounce-provider-secret-required": "Un servitsiu activat ari ananghi di cheaia di semnari i di zborlu di intrari.",
+  "activity-pub-enabled": "Tabelili publitsi publicã activitatea a cartãlor a lor tu fediverse (ActivityPub)",
+  "activity-pub-desc": "Ahãrzit nchis. Cãndu easti dishcljis, cathi tabelã publicã poati s-hibã urmãritã di Mastodon shi di alti servere di fediverse ca @board-<id> la adresa a aishtui WeKan, shi activitatea noauã a cartãlor agiundzi la urmãrtorlji a ljei. Easti mash ti ghivãsiri: tsiva tsi pitreatsi un server di fediverse nu alãxeashti unã tabelã, shi tabelili privati vãrnãoarã nu suntu publicati.",
+  "caldav-sync": "Sincronizari a calendarlui (CalDAV)",
+  "caldav-sync-desc": "Bagã datili di scadentsã a cartãlor di aistã tabelã tu un calendar - Nextcloud Calendar i cari s-hibã calendar CalDAV. Unã datã di scadentsã mutatã tu calendar s-toarnã pi cartã. Ufilisea unã zbor di intrari di aplicatsii, nu a tãu.",
+  "caldav-url": "Adresa a calendarlui",
+  "caldav-app-password": "Zbor di intrari di aplicatsii",
+  "caldav-enabled": "Sincronizeadzã datili di scadentsã cu aestu calendar",
+  "caldav-sync-now": "Sincronizeadzã tuti tora",
+  "caldav-invalid-url": "Adresa a calendarlui lipseashti s-hibã unã adresã http:// i https://, fãrã numã di ufilisitor i zbor di intrari tu nãsã.",
+  "caldav-not-linked": "Avleadzi ninti unã adresã di calendar shi dishcljidi sincronizarea.",
+  "webdav-storage": "Tsãneari WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Tsãni atashamentili tu unã dosarã pi un server WebDAV - Nextcloud Files, ownCloud i cari s-hibã altu. Ufilisea unã zbor di intrari di aplicatsii faptu ti WeKan. Un server di pi arada a WeKan-lui poati s-hibã ufilisit aoa, tsi mash un administrator a saitlui bagã aistã adresã.",
+  "webdav-endpoint": "Adresã WebDAV",
+  "webdav-password": "Zbor di intrari di aplicatsii",
+  "webdav-folder": "Dosarã",
+  "move-storage-webdav": "Tsãneari WebDAV (Nextcloud Files)"
 }

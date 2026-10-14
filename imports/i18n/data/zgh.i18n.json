@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "ⵎⴽ ⵉⵜⵜⴰⵣⵏ WeKan ⵙ ⵢⴰⵜ ⵙⴳ ⵜⵏⴰⴼⵓⵜⵉⵏ ⴰ, ⵙⵔⵖ ⵜⵜ, ⴼⴽ ⵉ ⵜⵏⴰⴼⵓⵜ ⴰⵏⵙⴰ ⵏ webhook ⴰ ⵉ ⵜⵉⴷⵢⴰⵏⵉⵏ ⵏⵏⵙ ⵏ ⵉⵎⴰⵢⵍⵏ ⵢⵓⵖⵓⵍⵏ ⴷ ⵜⵖⵓⵢⵢⴰⵖⵉⵏ ⵏ spam, ⵜⵙⵏⵜⵎⵎⵓⵜ ⴷⵉⴳⵉ ⵜⴰⵙⴰⵔⵓⵜ ⵏ ⵓⵙⵙⴽⵍ ⵍⵍⵉ ⵜⵙⵙⵎⵔⴰⵙ, ⵏⵖ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⵍⵍⵉ ⵜⴳⵉⴷ ⴳ ⵓⵏⵙⴰ ⵣⵓⵏⴷ https://user:password@… ⵏⵖ ?secret=…",
   "email-bounces-provider-key": "ⵜⴰⵙⴰⵔⵓⵜ ⵏ ⵓⵙⵙⴽⵍ ⵏ webhook",
   "email-bounces-provider-password": "ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⵏ webhook",
-  "email-bounce-provider-secret-required": "ⵜⴰⵏⴰⴼⵓⵜ ⵉⵜⵜⵓⵙⵔⵖⵏ ⵜⵔⴰ ⵜⴰⵙⴰⵔⵓⵜ ⵏⵏⵙ ⵏ ⵓⵙⵙⴽⵍ ⵏⵖ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ."
+  "email-bounce-provider-secret-required": "ⵜⴰⵏⴰⴼⵓⵜ ⵉⵜⵜⵓⵙⵔⵖⵏ ⵜⵔⴰ ⵜⴰⵙⴰⵔⵓⵜ ⵏⵏⵙ ⵏ ⵓⵙⵙⴽⵍ ⵏⵖ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ.",
+  "activity-pub-enabled": "ⵜⵉⴼⵍⵡⵉⵏ ⵜⵉⴳⴷⵓⴷⴰⵏⵉⵏ ⵙⵙⵓⴼⵓⵖⵏⵜ ⵜⵉⵎⵙⴽⴰⵔⵉⵏ ⵏ ⵜⴽⴰⵔⴹⵉⵡⵉⵏ ⵏⵏⵙⵏⵜ ⴳ ⴼⵉⴷⵉⴼⵉⵔⵙ (ActivityPub)",
+  "activity-pub-desc": "ⵙ ⵓⵙⵖⵡⵙⵓ ⴰⵎⵣⵡⴰⵔⵓ, ⵉⵅⵙⵉ. ⵎⴽ ⵜⵔⵎⴷ ⵜ, ⵜⴰⴼⵍⵡⵉⵜ ⵜⴰⴳⴷⵓⴷⴰⵏⵜ ⴽⵓ ⵢⴰⵜ ⵜⵥⴹⴰⵕ ⴰⴷ ⵜⵜⵓⴹⴼⴰⵕ ⵙⴳ Mastodon ⴷ ⵉⵎⵙⵜⴰⵢⵏ ⵢⴰⴹⵏ ⵏ ⴼⵉⴷⵉⴼⵉⵔⵙ ⵣⵓⵏⴷ @board-<id> ⴳ ⵓⵏⵙⴰ ⵏ WeKan ⴰ, ⴷ ⵜⵉⵎⵙⴽⴰⵔⵉⵏ ⵜⵉⵎⴰⵢⵏⵓⵜⵉⵏ ⵏ ⵜⴽⴰⵔⴹⵉⵡⵉⵏ ⴰⴷ ⵍⴽⵎⵏⵜ ⵉⵎⴹⴼⴰⵕⵏ ⵏⵏⵙ. ⵉ ⵜⵖⵓⵔⵉ ⴽⴰ: ⵓⵔ ⵉⵍⵍⵉ ⴽⵔⴰ ⵏ ⵎⴰ ⵢⴰⵣⵏ ⵓⵎⵙⵜⴰⵢ ⵏ ⴼⵉⴷⵉⴼⵉⵔⵙ ⴰⴷ ⵢⵙⵏⴼⵍ ⵜⴰⴼⵍⵡⵉⵜ, ⴷ ⵜⵉⴼⵍⵡⵉⵏ ⵜⵓⵙⵍⵉⴳⵉⵏ ⵓⵔ ⵜⵜⵓⵙⵙⵓⴼⵖⵏⵜ ⵙⵔⵙ.",
+  "caldav-sync": "ⴰⵎⵜⴰⵡⵉ ⵏ ⵓⵙⵎⵍⵓⵙⵙⴰⵏ (CalDAV)",
+  "caldav-sync-desc": "ⵙⵔⵙ ⵉⵙⴰⴽⵓⴷⵏ ⵉⵎⴳⴳⴰⵔⵓⵜⵏ ⵏ ⵜⴽⴰⵔⴹⵉⵡⵉⵏ ⵏ ⵜⴼⵍⵡⵉⵜ ⴰ ⴳ ⵓⵙⵎⵍⵓⵙⵙⴰⵏ - Nextcloud Calendar ⵏⵖ ⴽⵔⴰ ⵏ ⵓⵙⵎⵍⵓⵙⵙⴰⵏ CalDAV. ⴰⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⵍⵍⵉ ⵉⵜⵜⵓⵙⵎⴰⵜⴰⵢⵏ ⴳ ⵓⵙⵎⵍⵓⵙⵙⴰⵏ ⵉⵜⵜⵓⵖⵓⵍ ⵖⵔ ⵜⴽⴰⵔⴹⴰ. ⵙⵎⵔⵙ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⵏ ⵓⵙⵏⵙ, ⵓⵔ ⵜⴳⵉ ⵜⴰⵏⵏⴽ.",
+  "caldav-url": "ⴰⵏⵙⴰ ⵏ ⵓⵙⵎⵍⵓⵙⵙⴰⵏ",
+  "caldav-app-password": "ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⵏ ⵓⵙⵏⵙ",
+  "caldav-enabled": "ⵎⵜⴰⵡⵉ ⵉⵙⴰⴽⵓⴷⵏ ⵉⵎⴳⴳⴰⵔⵓⵜⵏ ⴷ ⵓⵙⵎⵍⵓⵙⵙⴰⵏ ⴰ",
+  "caldav-sync-now": "ⵎⵜⴰⵡⵉ ⴽⵓⵍⵍⵓ ⴷⵖⵉ",
+  "caldav-invalid-url": "ⴰⵏⵙⴰ ⵏ ⵓⵙⵎⵍⵓⵙⵙⴰⵏ ⵉⵇⵇⴰⵏ ⴰⴷ ⵉⴳ ⴰⵏⵙⴰ http:// ⵏⵖ https://, ⴱⵍⴰ ⵉⵙⵎ ⵏ ⵓⵙⵎⵔⴰⵙ ⵏⵖ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⴳⵉⵙ.",
+  "caldav-not-linked": "ⵃⴹⵓ ⵣⵡⴰⵔ ⴰⵏⵙⴰ ⵏ ⵓⵙⵎⵍⵓⵙⵙⴰⵏ ⵜⵔⵎⴷⴷ ⴰⵎⵜⴰⵡⵉ.",
+  "webdav-storage": "ⴰⵃⵔⴰⵣ ⵏ WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "ⵃⴹⵓ ⵜⵉⵙⵉⵡⴰⵢ ⵢⵔⵏⴰⵏ ⴳ ⵢⴰⵏ ⵓⴽⴰⵔⴰⵎ ⴳ ⵓⵎⵙⵜⴰⵢ WebDAV - Nextcloud Files, ownCloud ⵏⵖ ⴽⵔⴰ ⵏ ⵡⴰⵢⴹ. ⵙⵎⵔⵙ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⵏ ⵓⵙⵏⵙ ⵍⵍⵉ ⵜⵜⵓⴳⴰⵏ ⵉ WeKan. ⵉⵣⵎⵔ ⴰⴷ ⵉⵜⵜⵓⵙⵎⵔⵙ ⴷⵉⴽⵉ ⵓⵎⵙⵜⴰⵢ ⵍⵍⵉ ⵉⵍⵍⴰⵏ ⴳ ⵓⵥⵟⵟⴰ ⵏ WeKan ⵙ ⵉⵎⴰⵏ ⵏⵏⵙ, ⴰⵛⴽⵓ ⵖⴰⵙ ⴰⵎⵙⵙⵓⴳⵓⵔ ⵏ ⵓⵙⵉⵜ ⴰⵢ ⵉⵙⵔⵙⴰⵏ ⴰⵏⵙⴰ ⴰ.",
+  "webdav-endpoint": "ⴰⵏⵙⴰ ⵏ WebDAV",
+  "webdav-password": "ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⵏ ⵓⵙⵏⵙ",
+  "webdav-folder": "ⴰⴽⴰⵔⴰⵎ",
+  "move-storage-webdav": "ⴰⵃⵔⴰⵣ ⵏ WebDAV (Nextcloud Files)"
 }

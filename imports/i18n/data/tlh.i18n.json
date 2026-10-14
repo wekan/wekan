@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "QIn ngeHwI'meyvam wa' lo'chugh WeKan, yIchu'; QIn cheghlu'pu'bogh, spam bep je wanI'meyvaD webhook Daqvam yInob; 'ej naDev yIlan qI'meH ngaQHa'moHwI' lo'bogh, pagh Daqvo' Dalanpu'bogh pegh mu': https://user:password@… pagh ?secret=…",
   "email-bounces-provider-key": "webhook qI'meH ngaQHa'moHwI'",
   "email-bounces-provider-password": "webhook pegh mu'",
-  "email-bounce-provider-secret-required": "QIn ngeHwI' chu'lu'pu'bogh poQ qI'meH ngaQHa'moHwI' pagh pegh mu'."
+  "email-bounce-provider-secret-required": "QIn ngeHwI' chu'lu'pu'bogh poQ qI'meH ngaQHa'moHwI' pagh pegh mu'.",
+  "activity-pub-enabled": "'echletmey 'anglu'bogh: 'echletHom Qu'mey fediverse Daq ngeHlu' (ActivityPub)",
+  "activity-pub-desc": "motlhbe'ghachDaq chu'Ha'lu'. chu'lu'DI', Mastodon latlh fediverse jabwI'mey je vo' 'echlet 'anglu'bogh Hoch tlha'laH vay' - @board-<id> 'oH pongDaj, WeKanvam Daq - 'ej 'echletHom Qu' chu' tlha'wI'pu'Daq paw. laDmeH neH: fediverse jabwI' ngeHbogh vay' 'echlet choHbe', 'ej not 'echlet pegh 'anglu'.",
+  "caldav-sync": "'ISjaH rapmoHghach (CalDAV)",
+  "caldav-sync-desc": "'echletvam 'echletHommey qaSmeH jajmey 'ISjaHDaq yIlan - Nextcloud Calendar pagh CalDAV 'ISjaH. 'ISjaHDaq qaSmeH jaj vIHmoHlu'DI', 'echletHomDaq chegh. ghun pegh mu' yIlo', pegh mu'lIj yIlo'Qo'.",
+  "caldav-url": "'ISjaH Daq",
+  "caldav-app-password": "ghun pegh mu'",
+  "caldav-enabled": "'ISjaHvam qaSmeH jajmey rapmoH",
+  "caldav-sync-now": "DaH Hoch rapmoH",
+  "caldav-invalid-url": "http:// pagh https:// Daq 'oHnIS 'ISjaH Daq'e', lo'wI' pong pagh pegh mu' ghajbe'nIS.",
+  "caldav-not-linked": "wa'DIch 'ISjaH Daq yIpol 'ej rapmoHghach yIchu'.",
+  "webdav-storage": "WebDAV polmeH Daq (Nextcloud Files)",
+  "webdav-storage-description": "WebDAV jabwI' Daq rarDochmey yIpol - Nextcloud Files, ownCloud pagh latlh. WeKan ghun pegh mu' chenmoHlu'pu'bogh yIlo'. naDev WeKan De'wI' mIr jabwI' lo'laH, Daqvam cher che'wI' neH.",
+  "webdav-endpoint": "WebDAV Daq",
+  "webdav-password": "ghun pegh mu'",
+  "webdav-folder": "ngaSwI'",
+  "move-storage-webdav": "WebDAV polmeH Daq (Nextcloud Files)"
 }

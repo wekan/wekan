@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Uma iWeKan ithumela ngenye yalezi zinsizakalo, yivule, unikeze insizakalo leli kheli le-webhook lezehlakalo zayo zama-imeyili abuyayo nezikhalazo ze-spam, bese unamathisela lapha ukhiye eyisayina ngawo, noma iphasiwedi oyifake ekhelini ngale ndlela: https://user:password@… noma ?secret=…",
   "email-bounces-provider-key": "Ukhiye wokusayina we-webhook",
   "email-bounces-provider-password": "Iphasiwedi ye-webhook",
-  "email-bounce-provider-secret-required": "Insizakalo evuliwe idinga ukhiye wayo wokusayina noma iphasiwedi."
+  "email-bounce-provider-secret-required": "Insizakalo evuliwe idinga ukhiye wayo wokusayina noma iphasiwedi.",
+  "activity-pub-enabled": "Amabhodi asesidlangalaleni ashicilela umsebenzi wamakhadi awo ku-fediverse (ActivityPub)",
+  "activity-pub-desc": "Kuvaliwe ngokuzenzakalelayo. Uma kuvuliwe, ibhodi ngalinye lasesidlangalaleni lingalandelwa kusuka ku-Mastodon nakwamanye amaseva e-fediverse njenge-@board-<id> ekhelini lale WeKan, futhi umsebenzi omusha wamakhadi ufinyelela kubalandeli balo. Kungokufunda kuphela: akukho okuthunyelwa iseva ye-fediverse okushintsha ibhodi, futhi amabhodi ayimfihlo awashicilelwa neze.",
+  "caldav-sync": "Ukuvumelanisa ikhalenda (CalDAV)",
+  "caldav-sync-desc": "Ifaka izinsuku zokugcina zamakhadi alebhodi ekhalendeni - Nextcloud Calendar noma iyiphi ikhalenda ye-CalDAV. Usuku lokugcina oluhanjiswe ekhalendeni lubuyela ekhadini. Sebenzisa iphasiwedi yohlelo lokusebenza, hhayi eyakho.",
+  "caldav-url": "Ikheli lekhalenda",
+  "caldav-app-password": "Iphasiwedi yohlelo lokusebenza",
+  "caldav-enabled": "Vumelanisa izinsuku zokugcina nale khalenda",
+  "caldav-sync-now": "Vumelanisa konke manje",
+  "caldav-invalid-url": "Ikheli lekhalenda kufanele libe ikheli le-http:// noma le-https://, ngaphandle kwegama lomsebenzisi noma iphasiwedi kulo.",
+  "caldav-not-linked": "Qala ngokulondoloza ikheli lekhalenda bese uvula ukuvumelanisa.",
+  "webdav-storage": "Isitoreji se-WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Igcina okunamathiselwe kufolda kuseva ye-WebDAV - Nextcloud Files, ownCloud noma enye. Sebenzisa iphasiwedi yohlelo lokusebenza eyenzelwe i-WeKan. Iseva esenethiwekhini ye-WeKan uqobo ingasetshenziswa lapha, ngoba umlawuli wesayithi kuphela obeka leli kheli.",
+  "webdav-endpoint": "Ikheli le-WebDAV",
+  "webdav-password": "Iphasiwedi yohlelo lokusebenza",
+  "webdav-folder": "Ifolda",
+  "move-storage-webdav": "Isitoreji se-WebDAV (Nextcloud Files)"
 }

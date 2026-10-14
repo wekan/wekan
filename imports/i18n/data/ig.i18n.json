@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Ọ bụrụ na WeKan na-ezipu site n'otu n'ime ọrụ ndị a, gbanye ya, nye ọrụ ahụ adreesị webhook a maka ihe omume ozi laghachiri na mkpesa spam ya, ma mado ebe a igodo ọ na-eji abịanye aka na ha, ma ọ bụ okwuntughe i tinyere n'adreesị dị ka https://user:password@… ma ọ bụ ?secret=…",
   "email-bounces-provider-key": "Igodo mbinye aka webhook",
   "email-bounces-provider-password": "Okwuntughe webhook",
-  "email-bounce-provider-secret-required": "Ọrụ agbanyere chọrọ igodo mbinye aka ya ma ọ bụ okwuntughe ya."
+  "email-bounce-provider-secret-required": "Ọrụ agbanyere chọrọ igodo mbinye aka ya ma ọ bụ okwuntughe ya.",
+  "activity-pub-enabled": "Bọọdụ ọha na-ebipụta ọrụ kaadị ha na fediverse (ActivityPub)",
+  "activity-pub-desc": "Agbanyụrụ ya na mbụ. Mgbe agbanyere ya, enwere ike ịgbaso bọọdụ ọha ọ bụla site na Mastodon na sava fediverse ndị ọzọ dị ka @board-<id> na adreesị WeKan a, ọrụ kaadị ọhụrụ na-erutekwa ndị na-eso ya. Ọ bụ naanị maka ịgụ: ọ dịghị ihe sava fediverse zitere na-agbanwe bọọdụ, a naghịkwa ebipụta bọọdụ nkeonwe ma ọlị.",
+  "caldav-sync": "Ndakọrịta kalenda (CalDAV)",
+  "caldav-sync-desc": "Tinye ụbọchị ngwụcha kaadị bọọdụ a na kalenda - Nextcloud Calendar ma ọ bụ kalenda CalDAV ọ bụla. Ụbọchị ngwụcha a kwagara na kalenda na-alaghachi na kaadị ahụ. Jiri okwuntughe ngwa, ọ bụghị nke gị.",
+  "caldav-url": "Adreesị kalenda",
+  "caldav-app-password": "Okwuntughe ngwa",
+  "caldav-enabled": "Dakọrịta ụbọchị ngwụcha na kalenda a",
+  "caldav-sync-now": "Dakọrịta ihe niile ugbu a",
+  "caldav-invalid-url": "Adreesị kalenda ga-abụrịrị adreesị http:// ma ọ bụ https://, na-enweghị aha onye ọrụ ma ọ bụ okwuntughe n'ime ya.",
+  "caldav-not-linked": "Buru ụzọ chekwaa adreesị kalenda ma gbanye ndakọrịta.",
+  "webdav-storage": "Nchekwa WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Chekwaa mgbakwụnye n'ime folda na sava WebDAV - Nextcloud Files, ownCloud ma ọ bụ nke ọzọ ọ bụla. Jiri okwuntughe ngwa e mere maka WeKan. Enwere ike iji sava dị na netwọk WeKan n'onwe ya ebe a, ebe ọ bụ naanị onye nchịkwa saịtị na-edozi adreesị a.",
+  "webdav-endpoint": "Adreesị WebDAV",
+  "webdav-password": "Okwuntughe ngwa",
+  "webdav-folder": "Folda",
+  "move-storage-webdav": "Nchekwa WebDAV (Nextcloud Files)"
 }

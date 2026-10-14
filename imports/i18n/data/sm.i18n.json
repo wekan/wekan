@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Afai e lafo e WeKan e ala i se tasi o nei auaunaga, ki ai, tuu atu i le auaunaga lenei tuatusi webhook mo ana mea e tutupu o imeli na toe foʻi mai ma faitioga o le spam, ma faapipii iinei le ki e sainia ai, po o le upu faataga na e tuuina i le tuatusi e pei o https://user:password@… po o ?secret=…",
   "email-bounces-provider-key": "Ki saini o le webhook",
   "email-bounces-provider-password": "Upu faataga o le webhook",
-  "email-bounce-provider-secret-required": "O se auaunaga ua ki e manaʻomia lana ki saini po o le upu faataga."
+  "email-bounce-provider-secret-required": "O se auaunaga ua ki e manaʻomia lana ki saini po o le upu faataga.",
+  "activity-pub-enabled": "O laupapa faitele e lolomi ai a latou gaoioiga o pepa i le fediverse (ActivityPub)",
+  "activity-pub-desc": "E tapuni i le amataga. A ki, e mafai ona mulimuli i laupapa faitele taitasi mai Mastodon ma isi 'auʻaunaga fediverse e pei o @board-<id> i le tuatusi o lenei WeKan, ma o gaoioiga fou o pepa e oo atu i e mulimuli ai. E faitau na o le pau: e leai se mea e auina mai e se ʻauʻaunaga fediverse e suia ai se laupapa, ma e le lolomiina lava laupapa tumaoti.",
+  "caldav-sync": "Faatasiga o le kalena (CalDAV)",
+  "caldav-sync-desc": "Tuu aso e tatau ai o pepa o lenei laupapa i se kalena - Nextcloud Calendar po o soo se kalena CalDAV. O se aso e tatau ai ua siitia i le kalena e toe foi mai i le pepa. Faaaoga se upu faataga o le polokalama, ae le o lau lava upu faataga.",
+  "caldav-url": "Tuatusi o le kalena",
+  "caldav-app-password": "Upu faataga o le polokalama",
+  "caldav-enabled": "Faatasi aso e tatau ai ma lenei kalena",
+  "caldav-sync-now": "Faatasi uma nei",
+  "caldav-invalid-url": "O le tuatusi o le kalena e tatau ona avea ma tuatusi http:// po o https://, e aunoa ma se igoa o le tagata faaaoga po o se upu faataga i totonu.",
+  "caldav-not-linked": "Sefe muamua se tuatusi o le kalena ma ki le faatasiga.",
+  "webdav-storage": "Teuga WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Teu faapipiiga i se faila i luga o se ʻauʻaunaga WebDAV - Nextcloud Files, ownCloud po o soo se isi. Faaaoga se upu faataga o le polokalama na faia mo WeKan. E mafai ona faaaoga iinei se ʻauʻaunaga i luga o le fesootaiga a WeKan lava ia, aua e na o le pule o le saite e seti lenei tuatusi.",
+  "webdav-endpoint": "Tuatusi WebDAV",
+  "webdav-password": "Upu faataga o le polokalama",
+  "webdav-folder": "Faila",
+  "move-storage-webdav": "Teuga WebDAV (Nextcloud Files)"
 }

@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "WeKan omondóramo peteĩ ko'ã mba'epytyvõ rupive, emyandy, eme'ẽ chupe ko webhook kundaharape ñanduti veve ojevýva ha ñembyasy spam rehegua, ha emoĩ ko'ápe pe ñe'ẽñemi okuatiaha hag̃ua, térã ñe'ẽñemi remoĩva'ekue kundaharapépe https://user:password@… térã ?secret=… ramo",
   "email-bounces-provider-key": "Webhook ñe'ẽñemi kuatiaha",
   "email-bounces-provider-password": "Webhook ñe'ẽñemi",
-  "email-bounce-provider-secret-required": "Mba'epytyvõ hendýva oikotevẽ ikuatiaha térã iñe'ẽñemi."
+  "email-bounce-provider-secret-required": "Mba'epytyvõ hendýva oikotevẽ ikuatiaha térã iñe'ẽñemi.",
+  "activity-pub-enabled": "Peteĩchakuéra opavavépe ĝuarã ohechauka hi'kuatia'ikuéra rembiapo fediverso-pe (ActivityPub)",
+  "activity-pub-desc": "Ojedesactiva ñepyrũrã. Embojukýramo, peteĩchakuéra opavavépe ĝuarã ikatu ojesareko Mastodon ha ambue fediverso mohendahavusu guive @board-<id> ramo ko WeKan kundaharape-pe, ha kuatia'i rembiapo pyahu og̃uahẽ umi osegíva hese. Oñemoñe'ẽ añoite: mba'eve fediverso mohendahavusu omondóva ndomoambuéi peteĩchakuéra, ha umi peteĩchakuéra ñemi araka'eve noñehechaukái.",
+  "caldav-sync": "Arapapaha ñembojoja (CalDAV)",
+  "caldav-sync-desc": "Emoĩ ko peteĩchakuéra kuatia'i ára paha arapapaha-pe - Nextcloud Calendar térã oimeraẽ arapapaha CalDAV. Ára paha oñemongu'éva arapapaha-pe ojevy kuatia'i-pe. Eipuru app ñe'ẽñemi, ndaha'éi nde ñe'ẽñemi.",
+  "caldav-url": "Arapapaha kundaharape",
+  "caldav-app-password": "App ñe'ẽñemi",
+  "caldav-enabled": "Ombojoja ára paha ko arapapaha ndive",
+  "caldav-sync-now": "Ombojoja opavave ko'ág̃a",
+  "caldav-invalid-url": "Arapapaha kundaharape ha'eva'erã http:// térã https:// kundaharape, ndorekóiva puruhára réra térã ñe'ẽñemi ipype.",
+  "caldav-not-linked": "Eñongatu raẽ peteĩ arapapaha kundaharape ha embojuky ñembojoja.",
+  "webdav-storage": "WebDAV ñongatuha (Nextcloud Files)",
+  "webdav-storage-description": "Eñongatu mba'e ojejokuáva peteĩ kuatia ryru-pe WebDAV mohendahavusu-pe - Nextcloud Files, ownCloud térã ambue. Eipuru app ñe'ẽñemi ojejapova'ekue WeKan-pe g̃uarã. Ikatu ojeipuru ko'ápe peteĩ mohendahavusu WeKan ñanduti tee-pegua, sãmbyhyhára añoite omoĩgui ko kundaharape.",
+  "webdav-endpoint": "WebDAV kundaharape",
+  "webdav-password": "App ñe'ẽñemi",
+  "webdav-folder": "Kuatia ryru",
+  "move-storage-webdav": "WebDAV ñongatuha (Nextcloud Files)"
 }

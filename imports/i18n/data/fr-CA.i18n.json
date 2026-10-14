@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Si WeKan envoie par l'un de ces services, activez-le, donnez au service cette adresse de webhook pour ses événements de rebond et de plainte pour spam, et collez ici la clé avec laquelle il les signe, ou le mot de passe que vous avez mis dans l'adresse sous la forme https://user:password@… ou ?secret=…",
   "email-bounces-provider-key": "Clé de signature du webhook",
   "email-bounces-provider-password": "Mot de passe du webhook",
-  "email-bounce-provider-secret-required": "Un service activé a besoin de sa clé de signature ou de son mot de passe."
+  "email-bounce-provider-secret-required": "Un service activé a besoin de sa clé de signature ou de son mot de passe.",
+  "activity-pub-enabled": "Les tableaux publics publient l'activité de leurs cartes dans le fédivers (ActivityPub)",
+  "activity-pub-desc": "Désactivé par défaut. Lorsque c'est activé, chaque tableau public peut être suivi depuis Mastodon et d'autres serveurs du fédivers sous le nom @board-<id> à l'adresse de ce WeKan, et la nouvelle activité des cartes parvient à ses abonnés. C'est en lecture seule : rien de ce qu'envoie un serveur du fédivers ne modifie un tableau, et les tableaux privés ne sont jamais publiés.",
+  "caldav-sync": "Synchronisation du calendrier (CalDAV)",
+  "caldav-sync-desc": "Mettez les dates d'échéance des cartes de ce tableau dans un calendrier : Nextcloud Calendar ou tout calendrier CalDAV. Une date d'échéance déplacée dans le calendrier est reportée sur la carte. Utilisez un mot de passe d'application, pas le vôtre.",
+  "caldav-url": "Adresse du calendrier",
+  "caldav-app-password": "Mot de passe d'application",
+  "caldav-enabled": "Synchroniser les dates d'échéance avec ce calendrier",
+  "caldav-sync-now": "Tout synchroniser maintenant",
+  "caldav-invalid-url": "L'adresse du calendrier doit être une adresse http:// ou https://, sans nom d'utilisateur ni mot de passe.",
+  "caldav-not-linked": "Enregistrez d'abord une adresse de calendrier et activez la synchronisation.",
+  "webdav-storage": "Stockage WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Stockez les pièces jointes dans un dossier sur un serveur WebDAV : Nextcloud Files, ownCloud ou tout autre. Utilisez un mot de passe d'application créé pour WeKan. Un serveur du réseau de WeKan lui-même peut être utilisé ici, puisque seul un administrateur du site définit cette adresse.",
+  "webdav-endpoint": "Adresse WebDAV",
+  "webdav-password": "Mot de passe d'application",
+  "webdav-folder": "Dossier",
+  "move-storage-webdav": "Stockage WebDAV (Nextcloud Files)"
 }

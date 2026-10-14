@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Se WeKan sendas per unu el ĉi tiuj servoj, ŝaltu ĝin, donu al la servo ĉi tiun Webhook-adreson por ĝiaj eventoj de resaltoj kaj plendoj pri trudmesaĝoj, kaj algluu ĉi tie la ŝlosilon, per kiu ĝi subskribas ilin, aŭ la pasvorton, kiun vi metis en la adreson kiel https://user:password@… aŭ ?secret=…",
   "email-bounces-provider-key": "Subskriba ŝlosilo de Webhook",
   "email-bounces-provider-password": "Pasvorto de Webhook",
-  "email-bounce-provider-secret-required": "Ŝaltita servo bezonas sian subskriban ŝlosilon aŭ pasvorton."
+  "email-bounce-provider-secret-required": "Ŝaltita servo bezonas sian subskriban ŝlosilon aŭ pasvorton.",
+  "activity-pub-enabled": "Publikaj tabuloj publikigas sian kartan aktivecon en la fediverso (ActivityPub)",
+  "activity-pub-desc": "Defaŭlte malŝaltita. Kiam ŝaltita, ĉiun publikan tabulon oni povas sekvi el Mastodon kaj aliaj fedivers-serviloj kiel @board-<id> ĉe la adreso de ĉi tiu WeKan, kaj nova karta aktiveco atingas ĝiajn sekvantojn. Ĝi estas nurlega: nenio, kion fedivers-servilo sendas, ŝanĝas tabulon, kaj privataj tabuloj neniam estas publikigataj.",
+  "caldav-sync": "Kalendara sinkronigo (CalDAV)",
+  "caldav-sync-desc": "Metu la limdatojn de la kartoj de ĉi tiu tabulo en kalendaron - Nextcloud Calendar aŭ ian ajn CalDAV-kalendaron. Limdato movita en la kalendaro revenas al la karto. Uzu aplikaĵan pasvorton, ne vian propran.",
+  "caldav-url": "Kalendara adreso",
+  "caldav-app-password": "Aplikaĵa pasvorto",
+  "caldav-enabled": "Sinkronigi limdatojn kun ĉi tiu kalendaro",
+  "caldav-sync-now": "Sinkronigi ĉion nun",
+  "caldav-invalid-url": "La kalendara adreso devas esti http://- aŭ https://-adreso, sen uzantnomo aŭ pasvorto en ĝi.",
+  "caldav-not-linked": "Unue konservu kalendaran adreson kaj ŝaltu sinkronigon.",
+  "webdav-storage": "WebDAV-konservejo (Nextcloud Files)",
+  "webdav-storage-description": "Konservu aldonaĵojn en dosierujo sur WebDAV-servilo - Nextcloud Files, ownCloud aŭ ia ajn alia. Uzu aplikaĵan pasvorton kreitan por WeKan. Servilo en la propra reto de WeKan povas esti uzata ĉi tie, ĉar nur retejo-administranto agordas ĉi tiun adreson.",
+  "webdav-endpoint": "WebDAV-adreso",
+  "webdav-password": "Aplikaĵa pasvorto",
+  "webdav-folder": "Dosierujo",
+  "move-storage-webdav": "WebDAV-konservejo (Nextcloud Files)"
 }

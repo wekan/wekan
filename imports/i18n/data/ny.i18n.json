@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Ngati WeKan imatumiza kudzera mu imodzi mwa ntchito izi, iyatseni, patsani ntchitoyo adilesi iyi ya webhook ya zochitika zake za maimelo obwerera ndi madandaulo a spam, ndipo matani apa kiyi yomwe imasaina nayo, kapena mawu achinsinsi omwe mudaika mu adilesi ngati https://user:password@… kapena ?secret=…",
   "email-bounces-provider-key": "Kiyi yosainira ya webhook",
   "email-bounces-provider-password": "Mawu achinsinsi a webhook",
-  "email-bounce-provider-secret-required": "Ntchito yoyatsidwa ikufunika kiyi yake yosainira kapena mawu achinsinsi."
+  "email-bounce-provider-secret-required": "Ntchito yoyatsidwa ikufunika kiyi yake yosainira kapena mawu achinsinsi.",
+  "activity-pub-enabled": "Mabolodi apoyera amafalitsa zochitika za makhadi awo pa fediverse (ActivityPub)",
+  "activity-pub-desc": "Kozimitsidwa mwachisawawa. Ikayatsidwa, bolodi lililonse lapoyera litha kutsatiridwa kuchokera ku Mastodon ndi ma seva ena a fediverse ngati @board-<id> pa adilesi ya WeKan iyi, ndipo zochitika zatsopano za makhadi zimafika kwa otsatira ake. Ndi zowerenga zokha: palibe chimene seva ya fediverse imatumiza chimasintha bolodi, ndipo mabolodi achinsinsi sasindikizidwa konse.",
+  "caldav-sync": "Kulumikiza kalendala (CalDAV)",
+  "caldav-sync-desc": "Ikani masiku omaliza a makhadi a bolodi ili mu kalendala - Nextcloud Calendar kapena kalendala iliyonse ya CalDAV. Tsiku lomaliza losunthidwa mu kalendala limabwerera ku khadi. Gwiritsani ntchito mawu achinsinsi a pulogalamu, osati anu.",
+  "caldav-url": "Adilesi ya kalendala",
+  "caldav-app-password": "Mawu achinsinsi a pulogalamu",
+  "caldav-enabled": "Lumikizani masiku omaliza ndi kalendala iyi",
+  "caldav-sync-now": "Lumikizani zonse tsopano",
+  "caldav-invalid-url": "Adilesi ya kalendala iyenera kukhala adilesi ya http:// kapena https://, yopanda dzina la wogwiritsa ntchito kapena mawu achinsinsi.",
+  "caldav-not-linked": "Choyamba sungani adilesi ya kalendala ndipo yatsani kulumikiza.",
+  "webdav-storage": "Chosungira cha WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Sungani zolumikizidwa mu foda pa seva ya WebDAV - Nextcloud Files, ownCloud kapena ina iliyonse. Gwiritsani ntchito mawu achinsinsi a pulogalamu opangidwira WeKan. Seva ya pa netiweki ya WeKan yokha ingagwiritsidwe ntchito pano, chifukwa woyang'anira tsamba yekha ndi amene amaika adilesi iyi.",
+  "webdav-endpoint": "Adilesi ya WebDAV",
+  "webdav-password": "Mawu achinsinsi a pulogalamu",
+  "webdav-folder": "Foda",
+  "move-storage-webdav": "Chosungira cha WebDAV (Nextcloud Files)"
 }

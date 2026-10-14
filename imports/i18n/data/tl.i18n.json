@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Kung nagpapadala ang WeKan sa pamamagitan ng isa sa mga serbisyong ito, i-on ito, ibigay sa serbisyo ang webhook address na ito para sa mga kaganapan nito ng tumalbog na email at reklamo ng spam, at i-paste dito ang key na ginagamit nito sa paglagda sa mga ito, o ang password na inilagay mo sa address bilang https://user:password@… o ?secret=…",
   "email-bounces-provider-key": "Key sa paglagda ng webhook",
   "email-bounces-provider-password": "Password ng webhook",
-  "email-bounce-provider-secret-required": "Ang serbisyong naka-on ay nangangailangan ng key sa paglagda o password nito."
+  "email-bounce-provider-secret-required": "Ang serbisyong naka-on ay nangangailangan ng key sa paglagda o password nito.",
+  "activity-pub-enabled": "Inilalathala ng mga pampublikong pisara ang aktibidad ng kanilang mga kard sa fediverse (ActivityPub)",
+  "activity-pub-desc": "Naka-off bilang default. Kapag naka-on, maaaring sundan ang bawat pampublikong pisara mula sa Mastodon at iba pang server ng fediverse bilang @board-<id> sa address ng WeKan na ito, at umaabot ang bagong aktibidad ng kard sa mga tagasunod nito. Pagbasa lamang ito: walang anumang ipinapadala ng isang server ng fediverse ang nagbabago sa isang pisara, at hindi kailanman inilalathala ang mga pribadong pisara.",
+  "caldav-sync": "Pag-sync ng kalendaryo (CalDAV)",
+  "caldav-sync-desc": "Inilalagay ang mga takdang petsa ng mga kard ng pisarang ito sa isang kalendaryo - Nextcloud Calendar o anumang kalendaryong CalDAV. Ang takdang petsang inilipat sa kalendaryo ay bumabalik sa kard. Gumamit ng password ng app, hindi ang sarili mong password.",
+  "caldav-url": "Address ng kalendaryo",
+  "caldav-app-password": "Password ng app",
+  "caldav-enabled": "I-sync ang mga takdang petsa sa kalendaryong ito",
+  "caldav-sync-now": "I-sync ang lahat ngayon",
+  "caldav-invalid-url": "Ang address ng kalendaryo ay dapat na http:// o https:// na address, nang walang user name o password dito.",
+  "caldav-not-linked": "I-save muna ang address ng kalendaryo at i-on ang pag-sync.",
+  "webdav-storage": "Imbakang WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Iniimbak ang mga kalakip sa isang polder sa isang server ng WebDAV - Nextcloud Files, ownCloud o iba pa. Gumamit ng password ng app na ginawa para sa WeKan. Maaaring gamitin dito ang isang server sa sariling network ng WeKan, dahil tanging isang administrator ng site ang nagtatakda ng address na ito.",
+  "webdav-endpoint": "Address ng WebDAV",
+  "webdav-password": "Password ng app",
+  "webdav-folder": "Polder",
+  "move-storage-webdav": "Imbakang WebDAV (Nextcloud Files)"
 }

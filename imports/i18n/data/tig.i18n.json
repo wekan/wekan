@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "WeKan እብ ሕድ ሚን ሌጠ ኣገልግሎታት እንዴ ለአፍንት፡ ፍተሓ፡ ለኣገልግሎት ሌጠ ኣድራሻ webhook ሀቦ ለኢመይል ለተመየጠ ወ ኣክያስ ስፓም፡ ወ ቃል ሕትም ለሐትም ቢቱ፡ ወሎ ሚስጥር ቃል ለ'እት ኣድራሻ ከም https://user:password@… ወሎ ?secret=… ወዴካሁ፡ ሀዬ ለጥፍ",
   "email-bounces-provider-key": "ቃል ሕትም Webhook",
   "email-bounces-provider-password": "ሚስጥር ቃል Webhook",
-  "email-bounce-provider-secret-required": "ኣገልግሎት ለተፈትሐ ቃል ሕትሙ ወሎ ሚስጥር ቃሉ ይሐቴ።"
+  "email-bounce-provider-secret-required": "ኣገልግሎት ለተፈትሐ ቃል ሕትሙ ወሎ ሚስጥር ቃሉ ይሐቴ።",
+  "activity-pub-enabled": "ምዱዳት ገቢል ዕማም ካርዳቶም ዲብ ፌዲቨርስ ለአፍግሮ (ActivityPub)",
+  "activity-pub-desc": "ብቀዳማይ ምድላው መጽዉቕ ቱ። ዶል ልትፈትሕ፡ ኩሉ ምዱድ ገቢል ምን Mastodon ወምን ገሌ ሰርቨራት ፌዲቨርስ ክም @board-<id> ዲብ አድራሻ እሊ WeKan ልትለኬ ቀድር፡ ወዕማም ሐዳስ ካርዳት ለተለክዩ ብጽሕ። ለቅራይ ባሕቱ ቱ፡ ሰርቨር ፌዲቨርስ እት ለፈኖ ምንመ ምዱድ ኢልበድል፡ ወምዱዳት ውልቂ ዓመት ኢልትፈግሮ።",
+  "caldav-sync": "ትስናይ ካለንደር (CalDAV)",
+  "caldav-sync-desc": "አምዐላት መዋዕድ ካርዳት እሊ ምዱድ ዲብ ካለንደር ሕበር - Nextcloud Calendar ወለ ኩሉ ካለንደር CalDAV። አምዐል መዋዕድ እት ካለንደር ለተሐወለ ለካርድ ገብእ። ሚስጥር ቃል አፕ ሸቅል፡ ኢኮን ናይከ።",
+  "caldav-url": "አድራሻ ካለንደር",
+  "caldav-app-password": "ሚስጥር ቃል አፕ",
+  "caldav-enabled": "አምዐላት መዋዕድ ምስ እሊ ካለንደር አትስኒ",
+  "caldav-sync-now": "ኩሉ ሐዜ አትስኒ",
+  "caldav-invalid-url": "አድራሻ ካለንደር አድራሻ http:// ወለ https:// ገብእ ሎ፡ ሱም ሸቃሊ ወለ ሚስጥር ቃል ዲበ ኢሀሌ።",
+  "caldav-not-linked": "ቀደም አድራሻ ካለንደር ክዘን ወትስናይ ፍቴሕ።",
+  "webdav-storage": "መክዘን WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "ተለጠፍቲ ዲብ ፎልደር ዲብ ሰርቨር WebDAV ክዘን - Nextcloud Files, ownCloud ወለ ገሌ። ሚስጥር ቃል አፕ ለእግል WeKan ተሰርሐ ሸቅል። ሰርቨር ዲብ መርበብ WeKan ናይ ሓሉ ህቱ ሀዬ ልትሸቀል ቀድር፡ ሰበት አድራሻ እሊ ሓኪም ሳይት ባሕቱ ለአቅዕድ።",
+  "webdav-endpoint": "አድራሻ WebDAV",
+  "webdav-password": "ሚስጥር ቃል አፕ",
+  "webdav-folder": "ፎልደር",
+  "move-storage-webdav": "መክዘን WebDAV (Nextcloud Files)"
 }

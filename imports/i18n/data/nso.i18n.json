@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Ge WeKan e romela ka go se sengwe sa ditirelo tše, se bulele, efa tirelo aterese ye ya webhook bakeng sa ditiragalo tša yona tša diimeile tše boelago le dingongorego tša spam, gomme o kgomaretše mo senotlelo seo e di saenago ka sona, goba lentšu la sephiri leo o le beilego ka gare ga aterese bjalo ka https://user:password@… goba ?secret=…",
   "email-bounces-provider-key": "Senotlelo sa go saena sa webhook",
   "email-bounces-provider-password": "Lentšu la sephiri la webhook",
-  "email-bounce-provider-secret-required": "Tirelo ye e bulegilego e nyaka senotlelo sa yona sa go saena goba lentšu la sephiri."
+  "email-bounce-provider-secret-required": "Tirelo ye e bulegilego e nyaka senotlelo sa yona sa go saena goba lentšu la sephiri.",
+  "activity-pub-enabled": "Dipoto tša setšhaba di phatlalatša mediro ya dikarata tša tšona go fediverse (ActivityPub)",
+  "activity-pub-desc": "E tima ka tlwaelo. Ge e bulegile, poto ye nngwe le ye nngwe ya setšhaba e ka latelwa go tšwa go Mastodon le diseva tše dingwe tša fediverse bjalo ka @board-<id> atreseng ya WeKan ye, gomme mediro ye mefsa ya dikarata e fihla go balatedi ba yona. Ke ya go balwa fela: ga go selo seo seva ya fediverse e se romelago se fetošago poto, gomme dipoto tša sephiri ga di phatlalatšwe le ka mohla.",
+  "caldav-sync": "Go sepedišana ga khalentara (CalDAV)",
+  "caldav-sync-desc": "Bea matšatši a mafelelo a dikarata tša poto ye ka khalentareng - Nextcloud Calendar goba khalentara efe goba efe ya CalDAV. Letšatši la mafelelo leo le šuthišitšwego ka khalentareng le boela karateng. Šomiša lentšu la sephiri la sedirišwa, e sego la gago.",
+  "caldav-url": "Atrese ya khalentara",
+  "caldav-app-password": "Lentšu la sephiri la sedirišwa",
+  "caldav-enabled": "Sepedišana matšatši a mafelelo le khalentara ye",
+  "caldav-sync-now": "Sepedišana tšohle bjale",
+  "caldav-invalid-url": "Atrese ya khalentara e swanetše go ba atrese ya http:// goba https://, ntle le leina la mosediriši goba lentšu la sephiri ka gare ga yona.",
+  "caldav-not-linked": "Pele, boloka atrese ya khalentara gomme o bule go sepedišana.",
+  "webdav-storage": "Polokelo ya WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Boloka ditlaleletšo ka foldareng go seva ya WebDAV - Nextcloud Files, ownCloud goba efe goba efe e nngwe. Šomiša lentšu la sephiri la sedirišwa leo le diretšwego WeKan. Seva yeo e lego netweking ya WeKan ka boyona e ka šomišwa mo, ka ge ke molaodi wa saete fela yo a beago atrese ye.",
+  "webdav-endpoint": "Atrese ya WebDAV",
+  "webdav-password": "Lentšu la sephiri la sedirišwa",
+  "webdav-folder": "Foldara",
+  "move-storage-webdav": "Polokelo ya WebDAV (Nextcloud Files)"
 }

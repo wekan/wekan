@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Jus WeKan sádde ovtta dáid bálvalusaid bokte, álggat dan, atte bálvalussii dán webhook-čujuhusa dan máhccan e-boasttaid ja spámmaváidagiid dáhpáhusaid várás, ja liigge dása čoavdaga mainna dat vuolláičállá daid, dahje beassansáni maid bidjet čujuhussii nugo https://user:password@… dahje ?secret=…",
   "email-bounces-provider-key": "Webhook-vuolláičállinčoavddus",
   "email-bounces-provider-password": "Webhook-beassansátni",
-  "email-bounce-provider-secret-required": "Álggahuvvon bálvalus dárbbaša iežas vuolláičállinčoavdaga dahje beassansáni."
+  "email-bounce-provider-secret-required": "Álggahuvvon bálvalus dárbbaša iežas vuolláičállinčoavdaga dahje beassansáni.",
+  "activity-pub-enabled": "Almmolaš távvalat almmuhit iežaset goartadoaimmaid fediversumis (ActivityPub)",
+  "activity-pub-desc": "Álgoárvun ii doaimma. Go dat lea doaimmas, juohke almmolaš távvala sáhttá čuovvut Mastodonas ja eará fediversuma bálvváin nugo @board-<id> dán WeKan čujuhusas, ja ođđa goartadoaimmat olahit dan čuovvuid. Dat lea dušše lohkamii: mihkkege maid fediversuma bálvá sádde ii rievdat távvala, ja priváhta távvalat eai goassege almmuhuvvo.",
+  "caldav-sync": "Kaleanddarsynkroniseren (CalDAV)",
+  "caldav-sync-desc": "Bija dán távvala goarttaid mearreáiggiid kaleandarii - Nextcloud Calendar dahje makkár bakkán CalDAV-kaleandarii. Mearreáigi mii sirdojuvvo kaleandaris máhcca goartii. Geavat prográmmabeassansáni, ii iežat.",
+  "caldav-url": "Kaleanddarčujuhus",
+  "caldav-app-password": "Prográmmabeassansátni",
+  "caldav-enabled": "Synkronisere mearreáiggiid dáinna kaleandariin",
+  "caldav-sync-now": "Synkronisere buot dál",
+  "caldav-invalid-url": "Kaleanddarčujuhus ferte leat http:// dahje https:// čujuhus, almmá geavaheaddjinamma dahje beassansáni haga.",
+  "caldav-not-linked": "Vurke vuos kaleanddarčujuhusa ja álggat synkroniserema.",
+  "webdav-storage": "WebDAV-vuorká (Nextcloud Files)",
+  "webdav-storage-description": "Vurke mildosiid máhppii WebDAV-bálvvá alde - Nextcloud Files, ownCloud dahje makkár bakkán eará. Geavat prográmmabeassansáni mii lea ráhkaduvvon WeKanii. Bálvá WeKan iežas fierpmádagas sáhttá geavahuvvot dáppe, danin go dušše neahttabáikki hálddašeaddji bidjá dán čujuhusa.",
+  "webdav-endpoint": "WebDAV-čujuhus",
+  "webdav-password": "Prográmmabeassansátni",
+  "webdav-folder": "Máhppa",
+  "move-storage-webdav": "WebDAV-vuorká (Nextcloud Files)"
 }

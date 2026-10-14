@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "जँ WeKan एहि सेवा सभ मे सँ कोनो एक द्वारा पठबैत अछि, तँ ओकरा चालू करू, सेवाकेँ ओकर घुरल ईमेल आ स्पाम शिकायतक घटना सभक लेल ई webhook पता दिअ, आ एतय ओ कुंजी चिपकाउ जाहि सँ ओ ओकरा सभ पर हस्ताक्षर करैत अछि, वा ओ पासवर्ड जे अहाँ पता मे https://user:password@… वा ?secret=… जकाँ रखलहुँ",
   "email-bounces-provider-key": "Webhook हस्ताक्षर कुंजी",
   "email-bounces-provider-password": "Webhook पासवर्ड",
-  "email-bounce-provider-secret-required": "चालू सेवाकेँ ओकर हस्ताक्षर कुंजी वा पासवर्डक आवश्यकता अछि।"
+  "email-bounce-provider-secret-required": "चालू सेवाकेँ ओकर हस्ताक्षर कुंजी वा पासवर्डक आवश्यकता अछि।",
+  "activity-pub-enabled": "सार्वजनिक पट्ट अपन कार्डक गतिविधि फ़ेडिवर्स पर प्रकाशित करैत अछि (ActivityPub)",
+  "activity-pub-desc": "पूर्वनिर्धारित रूपसँ बन्द। चालू केलापर, प्रत्येक सार्वजनिक पट्टकेँ Mastodon आ आन फ़ेडिवर्स सर्वरसँ एहि WeKan क पता पर @board-<id> क रूपमे फ़ॉलो कएल जा सकैत अछि, आ कार्डक नव गतिविधि ओकर फ़ॉलोअर धरि पहुँचैत अछि। ई केवल पढ़बाक लेल अछि: फ़ेडिवर्स सर्वर जे किछु पठबैत अछि ओ पट्टकेँ नहि बदलैत अछि, आ निजी पट्ट कहियो प्रकाशित नहि होइत अछि।",
+  "caldav-sync": "कैलेंडर समकालन (CalDAV)",
+  "caldav-sync-desc": "एहि पट्टक कार्डक नियत तिथि कोनो कैलेंडरमे राखू - Nextcloud Calendar वा कोनो CalDAV कैलेंडर। कैलेंडरमे बदलल नियत तिथि कार्ड पर घुरि अबैत अछि। अपन पासवर्ड नहि, ऐप पासवर्ड प्रयोग करू।",
+  "caldav-url": "कैलेंडरक पता",
+  "caldav-app-password": "ऐप पासवर्ड",
+  "caldav-enabled": "नियत तिथिकेँ एहि कैलेंडरक संग समकालित करू",
+  "caldav-sync-now": "एखन सभटा समकालित करू",
+  "caldav-invalid-url": "कैलेंडरक पता http:// वा https:// पता हेबाक चाही, ओहिमे प्रयोक्ता नाम वा पासवर्ड नहि हेबाक चाही।",
+  "caldav-not-linked": "पहिने कैलेंडरक पता सहेजू आ समकालन चालू करू।",
+  "webdav-storage": "WebDAV भंडारण (Nextcloud Files)",
+  "webdav-storage-description": "संलग्नककेँ WebDAV सर्वरक कोनो फ़ोल्डरमे राखू - Nextcloud Files, ownCloud वा कोनो आन। WeKan क लेल बनाओल ऐप पासवर्ड प्रयोग करू। एतय WeKan क अपन नेटवर्कक सर्वर प्रयोग कएल जा सकैत अछि, कारण ई पता केवल साइट प्रशासक सेट करैत छथि।",
+  "webdav-endpoint": "WebDAV पता",
+  "webdav-password": "ऐप पासवर्ड",
+  "webdav-folder": "फ़ोल्डर",
+  "move-storage-webdav": "WebDAV भंडारण (Nextcloud Files)"
 }

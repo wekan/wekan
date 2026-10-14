@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "ਜੇ WeKan ਇਹਨਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਇੱਕ ਸੇਵਾ ਰਾਹੀਂ ਭੇਜਦਾ ਹੈ, ਤਾਂ ਇਸਨੂੰ ਚਾਲੂ ਕਰੋ, ਸੇਵਾ ਨੂੰ ਇਸਦੀਆਂ ਵਾਪਸ ਆਈਆਂ ਈਮੇਲਾਂ ਅਤੇ ਸਪੈਮ ਸ਼ਿਕਾਇਤਾਂ ਦੀਆਂ ਘਟਨਾਵਾਂ ਲਈ ਇਹ webhook ਪਤਾ ਦਿਓ, ਅਤੇ ਇੱਥੇ ਉਹ ਕੁੰਜੀ ਪੇਸਟ ਕਰੋ ਜਿਸ ਨਾਲ ਇਹ ਉਹਨਾਂ 'ਤੇ ਦਸਤਖਤ ਕਰਦੀ ਹੈ, ਜਾਂ ਉਹ ਪਾਸਵਰਡ ਜੋ ਤੁਸੀਂ ਪਤੇ ਵਿੱਚ https://user:password@… ਜਾਂ ?secret=… ਵਜੋਂ ਰੱਖਿਆ ਹੈ",
   "email-bounces-provider-key": "Webhook ਦਸਤਖਤ ਕੁੰਜੀ",
   "email-bounces-provider-password": "Webhook ਪਾਸਵਰਡ",
-  "email-bounce-provider-secret-required": "ਚਾਲੂ ਕੀਤੀ ਸੇਵਾ ਨੂੰ ਉਸਦੀ ਦਸਤਖਤ ਕੁੰਜੀ ਜਾਂ ਪਾਸਵਰਡ ਦੀ ਲੋੜ ਹੈ।"
+  "email-bounce-provider-secret-required": "ਚਾਲੂ ਕੀਤੀ ਸੇਵਾ ਨੂੰ ਉਸਦੀ ਦਸਤਖਤ ਕੁੰਜੀ ਜਾਂ ਪਾਸਵਰਡ ਦੀ ਲੋੜ ਹੈ।",
+  "activity-pub-enabled": "ਜਨਤਕ ਬੋਰਡ ਆਪਣੀ ਕਾਰਡ ਗਤੀਵਿਧੀ ਫੈਡੀਵਰਸ ਉੱਤੇ ਪ੍ਰਕਾਸ਼ਿਤ ਕਰਦੇ ਹਨ (ActivityPub)",
+  "activity-pub-desc": "ਮੂਲ ਰੂਪ ਵਿੱਚ ਬੰਦ। ਚਾਲੂ ਹੋਣ 'ਤੇ ਹਰ ਜਨਤਕ ਬੋਰਡ ਨੂੰ Mastodon ਅਤੇ ਹੋਰ ਫੈਡੀਵਰਸ ਸਰਵਰਾਂ ਤੋਂ ਇਸ WeKan ਦੇ ਪਤੇ 'ਤੇ @board-<id> ਵਜੋਂ ਫਾਲੋ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ, ਅਤੇ ਨਵੀਂ ਕਾਰਡ ਗਤੀਵਿਧੀ ਇਸਦੇ ਫਾਲੋਅਰਾਂ ਤੱਕ ਪਹੁੰਚਦੀ ਹੈ। ਇਹ ਸਿਰਫ਼ ਪੜ੍ਹਨ ਲਈ ਹੈ: ਫੈਡੀਵਰਸ ਸਰਵਰ ਵੱਲੋਂ ਭੇਜੀ ਕੋਈ ਵੀ ਚੀਜ਼ ਬੋਰਡ ਨੂੰ ਨਹੀਂ ਬਦਲਦੀ, ਅਤੇ ਨਿਜੀ ਬੋਰਡ ਕਦੇ ਪ੍ਰਕਾਸ਼ਿਤ ਨਹੀਂ ਹੁੰਦੇ।",
+  "caldav-sync": "ਕੈਲੰਡਰ ਸਿੰਕ (CalDAV)",
+  "caldav-sync-desc": "ਇਸ ਬੋਰਡ ਦੇ ਕਾਰਡਾਂ ਦੀਆਂ ਅਦਾਇਗੀ ਤਾਰੀਖਾਂ ਕੈਲੰਡਰ ਵਿੱਚ ਪਾਓ - Nextcloud Calendar ਜਾਂ ਕੋਈ ਵੀ CalDAV ਕੈਲੰਡਰ। ਕੈਲੰਡਰ ਵਿੱਚ ਖਿਸਕਾਈ ਅਦਾਇਗੀ ਤਾਰੀਖ ਕਾਰਡ 'ਤੇ ਵਾਪਸ ਆ ਜਾਂਦੀ ਹੈ। ਆਪਣਾ ਨਹੀਂ, ਐਪ ਪਾਸਵਰਡ ਵਰਤੋ।",
+  "caldav-url": "ਕੈਲੰਡਰ ਪਤਾ",
+  "caldav-app-password": "ਐਪ ਪਾਸਵਰਡ",
+  "caldav-enabled": "ਅਦਾਇਗੀ ਤਾਰੀਖਾਂ ਨੂੰ ਇਸ ਕੈਲੰਡਰ ਨਾਲ ਸਿੰਕ ਕਰੋ",
+  "caldav-sync-now": "ਹੁਣੇ ਸਭ ਸਿੰਕ ਕਰੋ",
+  "caldav-invalid-url": "ਕੈਲੰਡਰ ਪਤਾ http:// ਜਾਂ https:// ਪਤਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ, ਜਿਸ ਵਿੱਚ ਯੂਜ਼ਰ ਨਾਂ ਜਾਂ ਪਾਸਵਰਡ ਨਾ ਹੋਵੇ।",
+  "caldav-not-linked": "ਪਹਿਲਾਂ ਕੈਲੰਡਰ ਪਤਾ ਸੇਵ ਕਰੋ ਅਤੇ ਸਿੰਕ ਚਾਲੂ ਕਰੋ।",
+  "webdav-storage": "WebDAV ਸਟੋਰੇਜ (Nextcloud Files)",
+  "webdav-storage-description": "ਅਟੈਚਮੈਂਟਾਂ ਨੂੰ WebDAV ਸਰਵਰ ਉੱਤੇ ਇੱਕ ਫੋਲਡਰ ਵਿੱਚ ਸਟੋਰ ਕਰੋ - Nextcloud Files, ownCloud ਜਾਂ ਕੋਈ ਹੋਰ। WeKan ਲਈ ਬਣਾਇਆ ਐਪ ਪਾਸਵਰਡ ਵਰਤੋ। ਇੱਥੇ WeKan ਦੇ ਆਪਣੇ ਨੈੱਟਵਰਕ ਦਾ ਸਰਵਰ ਵਰਤਿਆ ਜਾ ਸਕਦਾ ਹੈ, ਕਿਉਂਕਿ ਇਹ ਪਤਾ ਸਿਰਫ਼ ਸਾਈਟ ਪ੍ਰਸ਼ਾਸਕ ਹੀ ਸੈੱਟ ਕਰਦਾ ਹੈ।",
+  "webdav-endpoint": "WebDAV ਪਤਾ",
+  "webdav-password": "ਐਪ ਪਾਸਵਰਡ",
+  "webdav-folder": "ਫੋਲਡਰ",
+  "move-storage-webdav": "WebDAV ਸਟੋਰੇਜ (Nextcloud Files)"
 }

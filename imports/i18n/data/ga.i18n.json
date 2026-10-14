@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Má sheolann WeKan trí cheann de na seirbhísí seo, cas air é, tabhair an seoladh webhook seo don tseirbhís dá himeachtaí preabtha agus gearáin turscair, agus greamaigh anseo an eochair lena síníonn sí iad, nó an pasfhocal a chuir tú sa seoladh mar https://user:password@… nó ?secret=…",
   "email-bounces-provider-key": "Eochair sínithe an webhook",
   "email-bounces-provider-password": "Pasfhocal an webhook",
-  "email-bounce-provider-secret-required": "Teastaíonn a eochair sínithe nó a phasfhocal ó sheirbhís atá casta air."
+  "email-bounce-provider-secret-required": "Teastaíonn a eochair sínithe nó a phasfhocal ó sheirbhís atá casta air.",
+  "activity-pub-enabled": "Foilsíonn cláir phoiblí gníomhaíocht a gcártaí ar an bhfeidiléas (ActivityPub)",
+  "activity-pub-desc": "As de réir réamhshocraithe. Nuair atá sé ar siúl, is féidir gach clár poiblí a leanúint ó Mastodon agus ó fhreastalaithe eile an fheidiléis mar @board-<id> ag seoladh an WeKan seo, agus sroicheann gníomhaíocht nua cártaí a leantóirí. Is inléite amháin é: ní athraíonn aon rud a sheolann freastalaí feidiléis clár, agus ní fhoilsítear cláir phríobháideacha riamh.",
+  "caldav-sync": "Sioncrónú féilire (CalDAV)",
+  "caldav-sync-desc": "Cuir spriocdhátaí chártaí an chláir seo i bhféilire - Nextcloud Calendar nó aon fhéilire CalDAV. Tagann spriocdháta a bhogtar san fhéilire ar ais chuig an gcárta. Úsáid pasfhocal aipe, ní do phasfhocal féin.",
+  "caldav-url": "Seoladh an fhéilire",
+  "caldav-app-password": "Pasfhocal aipe",
+  "caldav-enabled": "Sioncrónaigh spriocdhátaí leis an bhféilire seo",
+  "caldav-sync-now": "Sioncrónaigh gach rud anois",
+  "caldav-invalid-url": "Caithfidh seoladh an fhéilire a bheith ina sheoladh http:// nó https://, gan ainm úsáideora ná pasfhocal ann.",
+  "caldav-not-linked": "Sábháil seoladh féilire agus cas an sioncrónú air ar dtús.",
+  "webdav-storage": "Stóras WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Stóráil ceangaltáin i bhfillteán ar fhreastalaí WebDAV - Nextcloud Files, ownCloud nó aon cheann eile. Úsáid pasfhocal aipe a rinneadh do WeKan. Is féidir freastalaí ar líonra WeKan féin a úsáid anseo, mar nach socraíonn ach riarthóir an tsuímh an seoladh seo.",
+  "webdav-endpoint": "Seoladh WebDAV",
+  "webdav-password": "Pasfhocal aipe",
+  "webdav-folder": "Fillteán",
+  "move-storage-webdav": "Stóras WebDAV (Nextcloud Files)"
 }

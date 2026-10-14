@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Nangabe WeKan itfumela ngalomunye walemisebenti, wuvule, unike umsebenti lelikheli le-webhook kuticubuntu tawo tema-imeyili labuyile netikhalo te-spam, bese unamatsisela lapha sikhiya lesisayina ngaso, nobe liphasiwedi lolifake ekhelini njenge https://user:password@… nobe ?secret=…",
   "email-bounces-provider-key": "Sikhiya sekusayina se-webhook",
   "email-bounces-provider-password": "Liphasiwedi le-webhook",
-  "email-bounce-provider-secret-required": "Umsebenti lovuliwe udzinga sikhiya sawo sekusayina nobe liphasiwedi."
+  "email-bounce-provider-secret-required": "Umsebenti lovuliwe udzinga sikhiya sawo sekusayina nobe liphasiwedi.",
+  "activity-pub-enabled": "Emabhodi emphakatsi ashicilela umsebenti wemakhadi awo ku-fediverse (ActivityPub)",
+  "activity-pub-desc": "Kuvaliwe ngekwendlela lejwayelekile. Nakuvuliwe, libhodi ngalinye lemphakatsi lingalandzelwa kusuka ku-Mastodon nakulamanye emasevha e-fediverse njenge @board-<id> kulikheli lalesi WeKan, futsi umsebenti lomusha wemakhadi ufika kubalandzeli balo. Kufundvwa kuphela: kute lokutfunyelwa lisevha le-fediverse lokuntjintja libhodi, futsi emabhodi langasese akashicilelwa nanini.",
+  "caldav-sync": "Kuvumelanisa likhalenda (CalDAV)",
+  "caldav-sync-desc": "Ifaka emalanga ekugcina emakhadi alelibhodi elikhalendeni - Nextcloud Calendar nobe nguliphi nje likhalenda le-CalDAV. Lusuku lekugcina loluhanjiswe elikhalendeni lubuyela elikhadini. Sebentisa liphasiwedi leluhlelo lwekusebenta, hhayi lelakho.",
+  "caldav-url": "Likheli lelikhalenda",
+  "caldav-app-password": "Liphasiwedi leluhlelo lwekusebenta",
+  "caldav-enabled": "Vumelanisa emalanga ekugcina nalelikhalenda",
+  "caldav-sync-now": "Vumelanisa konkhe nyalo",
+  "caldav-invalid-url": "Likheli lelikhalenda kufanele libe likheli le-http:// nobe le-https://, ngaphandle kwelibito lemsebentisi nobe liphasiwedi kulo.",
+  "caldav-not-linked": "Gcina likheli lelikhalenda kucala bese uvula kuvumelanisa.",
+  "webdav-storage": "Indzawo yekugcina ye-WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Igcina lokunamatsiselwe kulifolda kulisevha le-WebDAV - Nextcloud Files, ownCloud nobe lenye. Sebentisa liphasiwedi leluhlelo lwekusebenta lelentelwe WeKan. Lisevha lelikulinethiwekhi ya-WeKan ngekwayo lingasetjentiswa lapha, ngoba ngumlawuli wesayithi kuphela lobeka lelikheli.",
+  "webdav-endpoint": "Likheli le-WebDAV",
+  "webdav-password": "Liphasiwedi leluhlelo lwekusebenta",
+  "webdav-folder": "Lifolda",
+  "move-storage-webdav": "Indzawo yekugcina ye-WebDAV (Nextcloud Files)"
 }

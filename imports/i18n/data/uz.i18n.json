@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Agar WeKan shu xizmatlardan biri orqali yuborsa, uni yoqing, xizmatga qaytgan xatlar va spam haqida shikoyat hodisalari uchun ushbu vebhuk manzilini bering va bu yerga ularni imzolaydigan kalitni yoki manzilga https://user:password@… yoki ?secret=… tarzida qo‘ygan parolingizni joylang",
   "email-bounces-provider-key": "Vebhuk imzo kaliti",
   "email-bounces-provider-password": "Vebhuk paroli",
-  "email-bounce-provider-secret-required": "Yoqilgan xizmatga uning imzo kaliti yoki paroli kerak."
+  "email-bounce-provider-secret-required": "Yoqilgan xizmatga uning imzo kaliti yoki paroli kerak.",
+  "activity-pub-enabled": "Ommaviy taxtalar kartalaridagi faoliyatni fediverseda e'lon qiladi (ActivityPub)",
+  "activity-pub-desc": "Standart holatda o'chiq. Yoqilganda har bir ommaviy taxtani Mastodon va boshqa fediverse serverlaridan ushbu WeKan manzilida @board-<id> sifatida kuzatish mumkin, kartalardagi yangi faoliyat esa uning kuzatuvchilariga yetib boradi. Faqat o'qish uchun: fediverse serveri yuborgan hech narsa taxtani o'zgartirmaydi, shaxsiy taxtalar esa hech qachon e'lon qilinmaydi.",
+  "caldav-sync": "Kalendar sinxronlash (CalDAV)",
+  "caldav-sync-desc": "Ushbu taxta kartalarining muddatlarini kalendarga joylaydi - Nextcloud Calendar yoki istalgan CalDAV kalendari. Kalendarda surilgan muddat kartaga qaytadi. O'z parolingizni emas, ilova parolini ishlating.",
+  "caldav-url": "Kalendar manzili",
+  "caldav-app-password": "Ilova paroli",
+  "caldav-enabled": "Muddatlarni ushbu kalendar bilan sinxronlash",
+  "caldav-sync-now": "Hammasini hozir sinxronlash",
+  "caldav-invalid-url": "Kalendar manzili http:// yoki https:// manzil bo'lishi kerak, unda foydalanuvchi nomi yoki parol bo'lmasligi lozim.",
+  "caldav-not-linked": "Avval kalendar manzilini saqlang va sinxronlashni yoqing.",
+  "webdav-storage": "WebDAV xotirasi (Nextcloud Files)",
+  "webdav-storage-description": "Qo'shimchalarni WebDAV serveridagi jildda saqlaydi - Nextcloud Files, ownCloud yoki boshqasi. WeKan uchun yaratilgan ilova parolini ishlating. Bu yerda WeKanning o'z tarmog'idagi serverdan foydalanish mumkin, chunki bu manzilni faqat sayt administratori belgilaydi.",
+  "webdav-endpoint": "WebDAV manzili",
+  "webdav-password": "Ilova paroli",
+  "webdav-folder": "Jild",
+  "move-storage-webdav": "WebDAV xotirasi (Nextcloud Files)"
 }

@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "WeKan ह्या सेवांतल्या एका सेवेवयल्यान धाडटा जाल्यार, ती सुरू करात, परत आयिल्ल्या ईमेलांच्या आनी स्पॅम कागाळींच्या घडणुकांखातीर सेवेक हो Webhook पत्तो दियात, आनी ती तांचेर सय करपाक वापरता ती कळ, वा तुमी पत्त्यांत https://user:password@… वा ?secret=… अशें घाल्लो पासवर्ड हांगा चिकटयात",
   "email-bounces-provider-key": "Webhook सय कळ",
   "email-bounces-provider-password": "Webhook पासवर्ड",
-  "email-bounce-provider-secret-required": "सुरू केल्ल्या सेवेक तिची सय कळ वा पासवर्ड जाय."
+  "email-bounce-provider-secret-required": "सुरू केल्ल्या सेवेक तिची सय कळ वा पासवर्ड जाय.",
+  "activity-pub-enabled": "भौशीक फळे आपल्या कार्डांची हालचाल फेडिवर्सार उजवाडायतात (ActivityPub)",
+  "activity-pub-desc": "मुळावें बंद. चालू केल्यार, दरेक भौशीक फळो Mastodon आनी हेर फेडिवर्स सर्व्हरांतल्यान ह्या WeKan च्या पत्त्यार @board-<id> म्हूण फॉलो करूं येता, आनी कार्डांची नवी हालचाल ताच्या फॉलोअरां मेरेन पावता. हें फकत वाचपा खातीर: फेडिवर्स सर्व्हर जें कितें धाडटा तें फळो बदलना, आनी खाजगी फळे केन्नाच उजवाडायनात.",
+  "caldav-sync": "दिनदर्शिका सिंक (CalDAV)",
+  "caldav-sync-desc": "ह्या फळ्याच्या कार्डांच्यो निमाण्यो तारखो दिनदर्शिकेंत घालात - Nextcloud Calendar वा खंयचीय CalDAV दिनदर्शिका. दिनदर्शिकेंत हालयल्ली निमाणी तारीख परत कार्डाचेर येता. तुमचो स्वताचो न्हय, ॲप पासवर्ड वापरात.",
+  "caldav-url": "दिनदर्शिकेचो पत्तो",
+  "caldav-app-password": "ॲप पासवर्ड",
+  "caldav-enabled": "निमाण्यो तारखो ह्या दिनदर्शिके कडेन सिंक करात",
+  "caldav-sync-now": "आतां सगळें सिंक करात",
+  "caldav-invalid-url": "दिनदर्शिकेचो पत्तो http:// वा https:// पत्तो आसूंक जाय, ताचे भितर वापरप्याचें नांव वा पासवर्ड नासतना.",
+  "caldav-not-linked": "पयलीं दिनदर्शिकेचो पत्तो सांबाळात आनी सिंक चालू करात.",
+  "webdav-storage": "WebDAV साठवण (Nextcloud Files)",
+  "webdav-storage-description": "जोडण्यो WebDAV सर्व्हराचेर एका फोल्डरांत सांबाळात - Nextcloud Files, ownCloud वा हेर खंयचोय. WeKan खातीर केल्लो ॲप पासवर्ड वापरात. WeKan च्याच नेटवर्कांतलो सर्व्हर हांगा वापरूं येता, कारण हो पत्तो फकत सायट प्रशासकूच थारायता.",
+  "webdav-endpoint": "WebDAV पत्तो",
+  "webdav-password": "ॲप पासवर्ड",
+  "webdav-folder": "फोल्डर",
+  "move-storage-webdav": "WebDAV साठवण (Nextcloud Files)"
 }

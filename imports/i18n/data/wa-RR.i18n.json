@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Kon nagpapadara an WeKan pinaagi ha usa hini nga mga serbisyo, i-on ito, ihatag ha serbisyo ini nga webhook nga adres para han iya mga panhitabo han ginbalik nga email ngan reklamo han spam, ngan i-paste dinhi an yawi nga iya ginagamit ha pagpirma hito, o an sekreto nga pulong nga imo ginbutang ha adres sugad han https://user:password@… o ?secret=…",
   "email-bounces-provider-key": "Yawi han pagpirma han webhook",
   "email-bounces-provider-password": "Sekreto nga pulong han webhook",
-  "email-bounce-provider-secret-required": "An serbisyo nga naka-on nagkikinahanglan han iya yawi han pagpirma o sekreto nga pulong."
+  "email-bounce-provider-secret-required": "An serbisyo nga naka-on nagkikinahanglan han iya yawi han pagpirma o sekreto nga pulong.",
+  "activity-pub-enabled": "An mga publiko nga pisara nagpapagawas han ira kalihokan han kard ha fediverse (ActivityPub)",
+  "activity-pub-desc": "Patay ha default. Kon gin-on, an tagsa nga publiko nga pisara mahimo sundon tikang ha Mastodon ngan iba pa nga server han fediverse sugad nga @board-<id> ha adres hini nga WeKan, ngan an bag-o nga kalihokan han kard naabot ha iya mga sumurunod. Para la ha pagbasa: waray bisan ano nga iginpapadara han server han fediverse an nagbabag-o han pisara, ngan an mga pribado nga pisara diri gud igpapagawas.",
+  "caldav-sync": "Pagpasibo han kalendaryo (CalDAV)",
+  "caldav-sync-desc": "Igbubutang an mga takdang petsa han mga kard hini nga pisara ha usa nga kalendaryo - Nextcloud Calendar o bisan ano nga kalendaryo nga CalDAV. An takdang petsa nga ginbalhin ha kalendaryo nabalik ha kard. Gamita an sekreto nga pulong han app, diri an imo kalugaringon.",
+  "caldav-url": "Adres han kalendaryo",
+  "caldav-app-password": "Sekreto nga pulong han app",
+  "caldav-enabled": "Ipasibo an mga takdang petsa hini nga kalendaryo",
+  "caldav-sync-now": "Ipasibo an ngatanan yana",
+  "caldav-invalid-url": "An adres han kalendaryo kinahanglan usa nga adres nga http:// o https://, nga waray ngaran han gumamit o sekreto nga pulong ha sulod.",
+  "caldav-not-linked": "Tipiga anay an adres han kalendaryo ngan i-on an pagpasibo.",
+  "webdav-storage": "Tipiganan nga WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Igtitipig an mga attachment ha usa nga polder ha server nga WebDAV - Nextcloud Files, ownCloud o iba pa. Gamita an sekreto nga pulong han app nga ginhimo para ha WeKan. Mahimo gamiton dinhi an server ha kalugaringon nga network han WeKan, kay an administrador la han site an nagbubutang hini nga adres.",
+  "webdav-endpoint": "Adres han WebDAV",
+  "webdav-password": "Sekreto nga pulong han app",
+  "webdav-folder": "Polder",
+  "move-storage-webdav": "Tipiganan nga WebDAV (Nextcloud Files)"
 }

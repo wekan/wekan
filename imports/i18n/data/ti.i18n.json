@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "WeKan ብሓደ ካብዞም ኣገልግሎታት እንተ ሰዲዱ፣ ኣበርትዖ፣ ነቲ ኣገልግሎት ነዚ ኣድራሻ webhook ንፍጻመታት ዝተመልሱ ኢመይላትን ናይ ስፓም ጥርዓንን ሃቦ፣ ነቲ ዝፍርመሉ መፍትሕ፣ ወይ ኣብቲ ኣድራሻ ከም https://user:password@… ወይ ?secret=… ዘእቶኻዮ መሕለፊ ቃል ኣብዚ ለጥፎ",
   "email-bounces-provider-key": "መፍትሕ ፊርማ Webhook",
   "email-bounces-provider-password": "መሕለፊ ቃል Webhook",
-  "email-bounce-provider-secret-required": "ዝበርሀ ኣገልግሎት መፍትሕ ፊርምኡ ወይ መሕለፊ ቃሉ የድልዮ።"
+  "email-bounce-provider-secret-required": "ዝበርሀ ኣገልግሎት መፍትሕ ፊርምኡ ወይ መሕለፊ ቃሉ የድልዮ።",
+  "activity-pub-enabled": "ህዝባዊ ሰሌዳታት ንጥፈታት ካርድታቶም ኣብ ፈዲቨርስ የሕትሙ (ActivityPub)",
+  "activity-pub-desc": "ብንቡር ዕጹው እዩ። ምስ ተኸፍተ፡ ነፍሲ ወከፍ ህዝባዊ ሰሌዳ ካብ Mastodon ከምኡ'ውን ካልኦት ኣገልገልቲ ፈዲቨርስ ከም @board-<id> ኣብ ኣድራሻ እዚ WeKan ክስዕብ ይኽእል፡ ሓድሽ ንጥፈታት ካርድ ድማ ናብ ሰዓብቱ ይበጽሕ። ንምንባብ ጥራይ እዩ፡ ኣገልጋሊ ፈዲቨርስ ዝሰደዶ ዋላ ሓንቲ ንሰሌዳ ኣይቕይሮን፡ ብሕታውያን ሰሌዳታት ድማ ፈጺሞም ኣይሕተሙን።",
+  "caldav-sync": "ምትእስሳር ዓውደ ኣዋርሕ (CalDAV)",
+  "caldav-sync-desc": "ዕለት ገደብ ካርድታት እዚ ሰሌዳ ኣብ ዓውደ ኣዋርሕ ኣእትዉ - Nextcloud Calendar ወይ ዝኾነ CalDAV ዓውደ ኣዋርሕ። ኣብ ዓውደ ኣዋርሕ ዝተቐየረ ዕለት ገደብ ናብ ካርድ ይምለስ። ናይ ገዛእ ርእስኹም ዘይኮነስ፡ ናይ ኣፕ መሕለፊ ቃል ተጠቐሙ።",
+  "caldav-url": "ኣድራሻ ዓውደ ኣዋርሕ",
+  "caldav-app-password": "ናይ ኣፕ መሕለፊ ቃል",
+  "caldav-enabled": "ዕለታት ገደብ ምስዚ ዓውደ ኣዋርሕ ኣተኣሳስር",
+  "caldav-sync-now": "ኩሉ ሕጂ ኣተኣሳስር",
+  "caldav-invalid-url": "ኣድራሻ ዓውደ ኣዋርሕ ኣድራሻ http:// ወይ https:// ክኸውን ኣለዎ፡ ኣብ ውሽጡ ስም ተጠቃሚ ወይ መሕለፊ ቃል ከይሃለወ።",
+  "caldav-not-linked": "መጀመርታ ኣድራሻ ዓውደ ኣዋርሕ ዕቀቡ እሞ ምትእስሳር ክፈቱ።",
+  "webdav-storage": "መኽዘን WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "መተሓሓዝቲ ኣብ ማህደር ናይ WebDAV ኣገልጋሊ ዕቀቡ - Nextcloud Files፡ ownCloud ወይ ዝኾነ ካልእ። ንWeKan ዝተሰርሐ ናይ ኣፕ መሕለፊ ቃል ተጠቐሙ። ነዚ ኣድራሻ ዝውስኖ ኣመሓዳሪ መርበብ ጥራይ ስለዝኾነ፡ ኣብ ናይ WeKan ገዛእ ርእሱ መርበብ ዘሎ ኣገልጋሊ ኣብዚ ክጥቀመሉ ይከኣል።",
+  "webdav-endpoint": "ኣድራሻ WebDAV",
+  "webdav-password": "ናይ ኣፕ መሕለፊ ቃል",
+  "webdav-folder": "ማህደር",
+  "move-storage-webdav": "መኽዘን WebDAV (Nextcloud Files)"
 }

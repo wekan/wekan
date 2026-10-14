@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Om WeKan skickar via en av dessa tjänster, slå på den, ge tjänsten den här webhook-adressen för dess händelser om studsar och spamklagomål, och klistra in här nyckeln den signerar dem med, eller lösenordet du lade i adressen som https://user:password@… eller ?secret=…",
   "email-bounces-provider-key": "Webhook-signeringsnyckel",
   "email-bounces-provider-password": "Webhook-lösenord",
-  "email-bounce-provider-secret-required": "En tjänst som är påslagen behöver sin signeringsnyckel eller sitt lösenord."
+  "email-bounce-provider-secret-required": "En tjänst som är påslagen behöver sin signeringsnyckel eller sitt lösenord.",
+  "activity-pub-enabled": "Offentliga tavlor publicerar sin kortaktivitet i fediversum (ActivityPub)",
+  "activity-pub-desc": "Av som standard. När det är på kan varje offentlig tavla följas från Mastodon och andra fediversum-servrar som @board-<id> på denna WeKans adress, och ny kortaktivitet når dess följare. Det är skrivskyddat: inget som en fediversum-server skickar ändrar en tavla, och privata tavlor publiceras aldrig.",
+  "caldav-sync": "Kalendersynkronisering (CalDAV)",
+  "caldav-sync-desc": "Lägg den här tavlans förfallodatum för kort i en kalender - Nextcloud Calendar eller valfri CalDAV-kalender. Ett förfallodatum som flyttas i kalendern kommer tillbaka till kortet. Använd ett applösenord, inte ditt eget.",
+  "caldav-url": "Kalenderadress",
+  "caldav-app-password": "Applösenord",
+  "caldav-enabled": "Synkronisera förfallodatum med denna kalender",
+  "caldav-sync-now": "Synkronisera allt nu",
+  "caldav-invalid-url": "Kalenderadressen måste vara en http://- eller https://-adress, utan användarnamn eller lösenord i den.",
+  "caldav-not-linked": "Spara först en kalenderadress och slå på synkronisering.",
+  "webdav-storage": "WebDAV-lagring (Nextcloud Files)",
+  "webdav-storage-description": "Lagra bilagor i en mapp på en WebDAV-server - Nextcloud Files, ownCloud eller någon annan. Använd ett applösenord som skapats för WeKan. En server i WeKans eget nätverk kan användas här, eftersom bara en webbplatsadministratör anger denna adress.",
+  "webdav-endpoint": "WebDAV-adress",
+  "webdav-password": "Applösenord",
+  "webdav-folder": "Mapp",
+  "move-storage-webdav": "WebDAV-lagring (Nextcloud Files)"
 }

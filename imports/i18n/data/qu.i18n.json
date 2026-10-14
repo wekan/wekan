@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Sichus WeKan kay yanapakuykunamanta hukninwan apachin chayqa, hap'ichiy, yanapakuyman kay webhook tiyanata quy kutimuq correokunapaq spam willakuykunapaqpas, kaypitaq k'askachiy llaveta chaywan paykunata silq'un, utaq pakasqa rimayta tiyanaman https://user:password@… utaq ?secret=… hina churasqaykita",
   "email-bounces-provider-key": "Webhookpa silq'unan llave",
   "email-bounces-provider-password": "Webhookpa pakasqa rimaynin",
-  "email-bounce-provider-secret-required": "Hap'ichisqa yanapakuyqa silq'unan llaventa utaq pakasqa rimaynintam munan."
+  "email-bounce-provider-secret-required": "Hap'ichisqa yanapakuyqa silq'unan llaventa utaq pakasqa rimaynintam munan.",
+  "activity-pub-enabled": "Llapapaq pirqakunaqa kartankunapa ruranankunata fediverse nisqapi willanku (ActivityPub)",
+  "activity-pub-desc": "Ñawpaqmantaqa wañusqam. Kawsachiptiykiqa, sapa llapapaq pirqatam Mastodon nisqamanta hinaspa huk fediverse sirwiqkunamanta @board-<id> hina kay WeKanpa tiyananpi qatipayta atikun, musuq karta ruranakunapas qatipaqninkunaman chayan. Ñawinchanallapaqmi: fediverse sirwiqpa kachasqanqa manam ima pirqatapas tikranchu, sapallanpaq pirqakunaqa manam haykappas willakunchu.",
+  "caldav-sync": "Watanqillqa kuskachay (CalDAV)",
+  "caldav-sync-desc": "Kay pirqapa kartankunapa tukuy pachankunata huk watanqillqaman churay - Nextcloud Calendar utaq mayqan CalDAV watanqillqapas. Watanqillqapi kuyuchisqa tukuy pachaqa kartaman kutimun. Huk app pakasqa rimayta llamk'achiy, manam qampa kikiykitachu.",
+  "caldav-url": "Watanqillqapa tiyanan",
+  "caldav-app-password": "App pakasqa rimay",
+  "caldav-enabled": "Tukuy pachakunata kay watanqillqawan kuskachay",
+  "caldav-sync-now": "Kunanpacha llapanta kuskachay",
+  "caldav-invalid-url": "Watanqillqapa tiyananqa http:// utaq https:// tiyananmi kanan, mana ruraqpa sutinwan nitaq pakasqa rimaywan.",
+  "caldav-not-linked": "Ñawpaqta huk watanqillqa tiyananta waqaychay, kuskachaytataq kawsachiy.",
+  "webdav-storage": "WebDAV waqaychana (Nextcloud Files)",
+  "webdav-storage-description": "Watasqakunata huk WebDAV sirwiqpi huk q'epipi waqaychay - Nextcloud Files, ownCloud utaq mayqan hukpas. WeKanpaq ruwasqa app pakasqa rimayta llamk'achiy. WeKanpa kikin llikanpi kaq sirwiqtam kaypi llamk'achiyta atikun, kay tiyanatataq sitio kamachiqllam churan.",
+  "webdav-endpoint": "WebDAV tiyana",
+  "webdav-password": "App pakasqa rimay",
+  "webdav-folder": "Q'epi",
+  "move-storage-webdav": "WebDAV waqaychana (Nextcloud Files)"
 }

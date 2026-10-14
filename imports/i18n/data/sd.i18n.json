@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "جيڪڏهن WeKan انهن خدمتن مان ڪنهن هڪ ذريعي موڪلي ٿو، ته ان کي چالو ڪريو، خدمت کي ان جي موٽيل اي ميلن ۽ اسپام شڪايتن جي واقعن لاءِ هي webhook پتو ڏيو، ۽ هتي اها ڪنجي چسپان ڪريو جنهن سان اها انهن تي صحيح ڪري ٿي، يا اهو ڳجهو لفظ جيڪو توهان پتي ۾ https://user:password@… يا ?secret=… طور رکيو",
   "email-bounces-provider-key": "Webhook جي صحيح جي ڪنجي",
   "email-bounces-provider-password": "Webhook جو ڳجهو لفظ",
-  "email-bounce-provider-secret-required": "چالو خدمت کي ان جي صحيح جي ڪنجي يا ڳجهي لفظ جي ضرورت آهي."
+  "email-bounce-provider-secret-required": "چالو خدمت کي ان جي صحيح جي ڪنجي يا ڳجهي لفظ جي ضرورت آهي.",
+  "activity-pub-enabled": "عوامي بورڊ پنهنجي ڪارڊن جي سرگرمي فيڊيورس تي شايع ڪن ٿا (ActivityPub)",
+  "activity-pub-desc": "ڊفالٽ طور بند. چالو ڪرڻ تي، هر عوامي بورڊ کي Mastodon ۽ ٻين فيڊيورس سرورن مان هن WeKan جي پتي تي @board-<id> طور فالو ڪري سگهجي ٿو، ۽ ڪارڊن جي نئين سرگرمي ان جي فالوورز تائين پهچي ٿي. اهو صرف پڙهڻ لاءِ آهي: فيڊيورس سرور جو موڪليل ڪجهه به بورڊ کي نٿو بدلائي، ۽ خانگي بورڊ ڪڏهن به شايع نه ٿيندا آهن.",
+  "caldav-sync": "ڪئلينڊر هم وقت سازي (CalDAV)",
+  "caldav-sync-desc": "هن بورڊ جي ڪارڊن جون آخري تاريخون ڪئلينڊر ۾ رکو - Nextcloud Calendar يا ڪو به CalDAV ڪئلينڊر. ڪئلينڊر ۾ منتقل ڪيل آخري تاريخ واپس ڪارڊ تي اچي ٿي. پنهنجو ڳجهو لفظ نه، پر ايپ جو ڳجهو لفظ استعمال ڪريو.",
+  "caldav-url": "ڪئلينڊر جو پتو",
+  "caldav-app-password": "ايپ جو ڳجهو لفظ",
+  "caldav-enabled": "آخري تاريخون هن ڪئلينڊر سان هم وقت ڪريو",
+  "caldav-sync-now": "هاڻي سڀ هم وقت ڪريو",
+  "caldav-invalid-url": "ڪئلينڊر جو پتو http:// يا https:// وارو پتو هجڻ گهرجي، ان ۾ صارف جو نالو يا ڳجهو لفظ نه هجي.",
+  "caldav-not-linked": "پهريان ڪئلينڊر جو پتو محفوظ ڪريو ۽ هم وقت سازي چالو ڪريو.",
+  "webdav-storage": "WebDAV اسٽوريج (Nextcloud Files)",
+  "webdav-storage-description": "منسلڪات WebDAV سرور جي فولڊر ۾ محفوظ ڪريو - Nextcloud Files، ownCloud يا ڪو ٻيو. WeKan لاءِ ٺاهيل ايپ جو ڳجهو لفظ استعمال ڪريو. WeKan جي پنهنجي نيٽ ورڪ تي سرور هتي استعمال ڪري سگهجي ٿو، ڇاڪاڻ ته هي پتو صرف سائيٽ جو منتظم مقرر ڪري ٿو.",
+  "webdav-endpoint": "WebDAV پتو",
+  "webdav-password": "ايپ جو ڳجهو لفظ",
+  "webdav-folder": "فولڊر",
+  "move-storage-webdav": "WebDAV اسٽوريج (Nextcloud Files)"
 }

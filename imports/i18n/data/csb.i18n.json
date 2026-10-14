@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Jeżlë WeKan wësyłô przez jedną z tëch słëżbów, włączë ją, dôj słëżbie nen adres webhooka dlô ji zdarzeniów wróconëch lëstów ë skargów na spam, a wlepi tuwò klucz, chtërnym je pòdpisëje, abò parolã, jakô të wpisôł w adres jakno https://user:password@… abò ?secret=…",
   "email-bounces-provider-key": "Klucz pòdpisënkù webhooka",
   "email-bounces-provider-password": "Parola webhooka",
-  "email-bounce-provider-secret-required": "Włączonô słëżba brëkùje swòjégò klucza pòdpisënkù abò parolë."
+  "email-bounce-provider-secret-required": "Włączonô słëżba brëkùje swòjégò klucza pòdpisënkù abò parolë.",
+  "activity-pub-enabled": "Pùbliczné tôfle pùblikùją dzejanié swòjich kôrtów w fediwersu (ActivityPub)",
+  "activity-pub-desc": "Wëłączoné domëslno. Czedë je włączoné, kòżdą pùbliczną tôflã mòże sledzëc z Mastodona ë jinszich serwerów fediwersu jakno @board-<id> pòd adresą tegò WeKana, a nowé dzejanié kôrtów dochôdô do jejich sledzącëch. To je blós do czëtaniô: nic, co sélô serwer fediwersu, nie zmieniô tôfle, a prywatné tôfle nigdë nie są pùblikòwóné.",
+  "caldav-sync": "Synchronizacjô kalãdôrza (CalDAV)",
+  "caldav-sync-desc": "Wstôwi terminë kôrtów z ti tôfle do kalãdôrza - Nextcloud Calendar abò jaczégòlwiek kalãdôrza CalDAV. Termin przeniosłi w kalãdôrzu wrôcô do kôrtë. Brëkùj parolë aplikacji, a nie swòji.",
+  "caldav-url": "Adresa kalãdôrza",
+  "caldav-app-password": "Parola aplikacji",
+  "caldav-enabled": "Synchronizëjë terminë z tim kalãdôrzã",
+  "caldav-sync-now": "Synchronizëjë wszëtkò terô",
+  "caldav-invalid-url": "Adresa kalãdôrza mùszi bëc adresą http:// abò https://, bez miona brëkòwnika ë parolë w ni.",
+  "caldav-not-linked": "Nôprzód zapiszë adresã kalãdôrza ë włączë synchronizacjã.",
+  "webdav-storage": "Skłôd WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Trzëmôj załączniczi w katalogù na serwerze WebDAV - Nextcloud Files, ownCloud abò jinszim. Brëkùj parolë aplikacji zrobiony dlô WeKana. Serwer we włôsny sécë WeKana mòże tu bëc brëkòwóny, bò le administratora starnë ùstôwiô tã adresã.",
+  "webdav-endpoint": "Adresa WebDAV",
+  "webdav-password": "Parola aplikacji",
+  "webdav-folder": "Katalog",
+  "move-storage-webdav": "Skłôd WebDAV (Nextcloud Files)"
 }

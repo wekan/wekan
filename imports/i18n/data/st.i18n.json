@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Haeba WeKan e romela ka e 'ngoe ea litšebeletso tsena, e bulele, fa tšebeletso aterese ena ea webhook bakeng sa liketsahalo tsa eona tsa li-imeile tse khutlileng le litletlebo tsa spam, 'me u khomarele mona senotlolo seo e li saenang ka sona, kapa phasewete eo u e kentseng atereseng joaloka https://user:password@… kapa ?secret=…",
   "email-bounces-provider-key": "Senotlolo sa ho saena sa webhook",
   "email-bounces-provider-password": "Phasewete ea webhook",
-  "email-bounce-provider-secret-required": "Tšebeletso e buletsoeng e hloka senotlolo sa eona sa ho saena kapa phasewete."
+  "email-bounce-provider-secret-required": "Tšebeletso e buletsoeng e hloka senotlolo sa eona sa ho saena kapa phasewete.",
+  "activity-pub-enabled": "Diboto tsa setjhaba di phatlalatsa mesebetsi ya dikarete tsa tsona ho fediverse (ActivityPub)",
+  "activity-pub-desc": "E tjhesitswe ka kamehla. Ha e butswe, boto e nngwe le e nngwe ya setjhaba e ka latelwa ho tswa ho Mastodon le diseva tse ding tsa fediverse jwalo ka @board-<id> atereseng ya WeKan ena, mme mesebetsi e metjha ya dikarete e fihla ho balatedi ba yona. E bale feela: ha ho letho leo seva ya fediverse e le romelang le fetolang boto, mme diboto tsa poraefete ha di ke di phatlalatswa.",
+  "caldav-sync": "Ho tsamaisana ha khalendara (CalDAV)",
+  "caldav-sync-desc": "Kenya matsatsi a ho qetela a dikarete tsa boto ena khalendareng - Nextcloud Calendar kapa khalendara efe kapa efe ya CalDAV. Letsatsi la ho qetela le tsamaiswang khalendareng le kgutlela kareteng. Sebedisa phasewete ya app, eseng ya hao.",
+  "caldav-url": "Aterese ya khalendara",
+  "caldav-app-password": "Phasewete ya app",
+  "caldav-enabled": "Tsamaisa matsatsi a ho qetela le khalendara ena",
+  "caldav-sync-now": "Tsamaisa tsohle hona jwale",
+  "caldav-invalid-url": "Aterese ya khalendara e tlameha ho ba aterese ya http:// kapa https://, ntle le lebitso la mosebedisi kapa phasewete ho yona.",
+  "caldav-not-linked": "Pele boloka aterese ya khalendara mme o bulele ho tsamaisana.",
+  "webdav-storage": "Polokelo ya WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Boloka tse kopantsoeng fodareng ho seva ya WebDAV - Nextcloud Files, ownCloud kapa efe kapa efe e nngwe. Sebedisa phasewete ya app e etseditsweng WeKan. Seva e marangrang a WeKan ka boyona e ka sebediswa mona, hobane ke motsamaisi wa saete feela ya beang aterese ena.",
+  "webdav-endpoint": "Aterese ya WebDAV",
+  "webdav-password": "Phasewete ya app",
+  "webdav-folder": "Fodara",
+  "move-storage-webdav": "Polokelo ya WebDAV (Nextcloud Files)"
 }

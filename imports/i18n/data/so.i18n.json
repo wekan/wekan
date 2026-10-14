@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Haddii WeKan uu ku diro mid ka mid ah adeegyadan, daar, sii adeegga ciwaankan webhook-ga dhacdooyinkiisa fariimaha soo noqday iyo cabashooyinka spam-ka, oo halkan ku dheji furaha uu ku saxiixo, ama furaha sirta ah ee aad ciwaanka ku dhex gelisay sida https://user:password@… ama ?secret=…",
   "email-bounces-provider-key": "Furaha saxiixa webhook-ga",
   "email-bounces-provider-password": "Furaha sirta webhook-ga",
-  "email-bounce-provider-secret-required": "Adeeg la daaray wuxuu u baahan yahay furihiisa saxiixa ama furaha sirta."
+  "email-bounce-provider-secret-required": "Adeeg la daaray wuxuu u baahan yahay furihiisa saxiixa ama furaha sirta.",
+  "activity-pub-enabled": "Sabuuradaha dadweynuhu waxay dhaqdhaqaaqa kaararkooda ku daabacaan fediverse-ka (ActivityPub)",
+  "activity-pub-desc": "Si caadi ah waa dansan yahay. Marka la shido, sabuurad kasta oo dadweyne waxaa laga raaci karaa Mastodon iyo adeegayaasha kale ee fediverse-ka iyadoo ah @board-<id> ee cinwaanka WeKan-kan, dhaqdhaqaaqa cusub ee kaararkuna wuxuu gaaraa kuwa raacaya. Waa akhris oo keliya: wax kasta oo adeegaha fediverse-ku soo diro ma beddelo sabuurad, sabuuradaha gaarka ahna weligood lama daabaco.",
+  "caldav-sync": "Isku-waafajinta kalandarka (CalDAV)",
+  "caldav-sync-desc": "Taariikhaha ugu dambeeya ee kaararka sabuuraddan geli kalandar - Nextcloud Calendar ama kalandar kasta oo CalDAV ah. Taariikh ugu dambeysa oo kalandarka lagu dhaqaajiyo waxay dib ugu soo noqotaa kaarka. Isticmaal furaha sirta ee app-ka, ha isticmaalin kaaga gaarka ah.",
+  "caldav-url": "Cinwaanka kalandarka",
+  "caldav-app-password": "Furaha sirta ee app-ka",
+  "caldav-enabled": "Taariikhaha ugu dambeeya la waafaji kalandarkan",
+  "caldav-sync-now": "Hadda dhammaan isku waafaji",
+  "caldav-invalid-url": "Cinwaanka kalandarku waa inuu noqdaa cinwaan http:// ama https:// ah, oo aan lahayn magac isticmaale ama furaha sirta.",
+  "caldav-not-linked": "Marka hore kaydi cinwaan kalandar oo shid isku-waafajinta.",
+  "webdav-storage": "Kaydinta WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Ku kaydi lifaaqyada gal ku jira adeegaha WebDAV - Nextcloud Files, ownCloud ama mid kale oo kasta. Isticmaal furaha sirta app-ka ee loo sameeyay WeKan. Halkan waxaa lagu isticmaali karaa adeege ku jira shabakadda WeKan laftigeeda, maadaama maamulaha goobta oo keliya uu dejiyo cinwaankan.",
+  "webdav-endpoint": "Cinwaanka WebDAV",
+  "webdav-password": "Furaha sirta ee app-ka",
+  "webdav-folder": "Gal",
+  "move-storage-webdav": "Kaydinta WebDAV (Nextcloud Files)"
 }

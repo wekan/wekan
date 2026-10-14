@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Si WeKan ninvía a traviés d'un d'istos servicios, activa-lo, da-le a o servicio ista adreza de webhook pa os suyos eventos de correus tornaus y queixas de spam, y apega aquí la clau con que los firma, u la clau de paso que metiés en l'adreza como https://user:password@… u ?secret=…",
   "email-bounces-provider-key": "Clau de firma d'o webhook",
   "email-bounces-provider-password": "Clau de paso d'o webhook",
-  "email-bounce-provider-secret-required": "Un servicio activau amenista a suya clau de firma u clau de paso."
+  "email-bounce-provider-secret-required": "Un servicio activau amenista a suya clau de firma u clau de paso.",
+  "activity-pub-enabled": "Os tableros publicos publican a suya actividat de tarchetas en o fediverso (ActivityPub)",
+  "activity-pub-desc": "Desactivau por defecto. Si ye activau, cada tablero publico se puede seguir dende Mastodon y atros servidors d'o fediverso como @board-<id> en l'adreza d'este WeKan, y a nueva actividat d'as tarchetas plega a os suyos seguidors. Ye nomás de lectura: cosa que ninvie un servidor d'o fediverso cambia un tablero, y os tableros privaus no se publican nunca.",
+  "caldav-sync": "Sincronización de calendario (CalDAV)",
+  "caldav-sync-desc": "Mete as calendatas de vencimiento d'as tarchetas d'este tablero en un calendario - Nextcloud Calendar u qualsequier calendario CalDAV. Una calendata de vencimiento cambiada en o calendario torna ta la tarcheta. Fe servir una clau de paso d'aplicación, no a tuya propia.",
+  "caldav-url": "Adreza d'o calendario",
+  "caldav-app-password": "Clau de paso d'aplicación",
+  "caldav-enabled": "Sincronizar as calendatas de vencimiento con este calendario",
+  "caldav-sync-now": "Sincronizar-lo tot agora",
+  "caldav-invalid-url": "L'adreza d'o calendario ha d'estar una adreza http:// u https://, sin nombre d'usuario ni clau de paso en ella.",
+  "caldav-not-linked": "Alza primero una adreza de calendario y activa a sincronización.",
+  "webdav-storage": "Almacenamiento WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Alza os adchuntos en una carpeta d'un servidor WebDAV - Nextcloud Files, ownCloud u qualsequier atro. Fe servir una clau de paso d'aplicación feita ta WeKan. Aquí se puede fer servir un servidor d'o rete propio de WeKan, porque nomás un administrador d'o puesto establece esta adreza.",
+  "webdav-endpoint": "Adreza WebDAV",
+  "webdav-password": "Clau de paso d'aplicación",
+  "webdav-folder": "Carpeta",
+  "move-storage-webdav": "Almacenamiento WebDAV (Nextcloud Files)"
 }

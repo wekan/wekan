@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Kana WeKan ichitumira kuburikidza neimwe yemasevhisi aya, ibatidze, ipa sevhisi kero iyi yewebhook yezviitiko zvayo zvemaemail akadzoka nezvichemo zvespam, wobva wanamira pano kiyi yainosaina nayo, kana pasiwedhi yawakaisa mukero se https://user:password@… kana ?secret=…",
   "email-bounces-provider-key": "Kiyi yekusaina yewebhook",
   "email-bounces-provider-password": "Pasiwedhi yewebhook",
-  "email-bounce-provider-secret-required": "Sevhisi yakabatidzwa inoda kiyi yayo yekusaina kana pasiwedhi."
+  "email-bounce-provider-secret-required": "Sevhisi yakabatidzwa inoda kiyi yayo yekusaina kana pasiwedhi.",
+  "activity-pub-enabled": "Mabhodhi eruzhinji anoburitsa zviitiko zvemakadhi awo pafediverse (ActivityPub)",
+  "activity-pub-desc": "Yakadzimwa nekutanga. Kana yabatidzwa, bhodhi rega rega reruzhinji rinogona kuteverwa kubva kuMastodon nemamwe maseva efediverse se@board-<id> pakero yeWeKan iyi, uye zviitiko zvitsva zvemakadhi zvinosvika kuvateveri varo. Ndezvekuverenga chete: hapana chinotumirwa neseva yefediverse chinoshandura bhodhi, uye mabhodhi akavanzika haamboburitswe.",
+  "caldav-sync": "Kuenderanisa karenda (CalDAV)",
+  "caldav-sync-desc": "Isa mazuva ekupedzisira emakadhi ebhodhi rino mukarenda - Nextcloud Calendar kana chero karenda reCalDAV. Zuva rekupedzisira rinofambiswa mukarenda rinodzokera pakadhi. Shandisa pasiwedhi yeapp, kwete yako.",
+  "caldav-url": "Kero yekarenda",
+  "caldav-app-password": "Pasiwedhi yeapp",
+  "caldav-enabled": "Enderanisa mazuva ekupedzisira nekarenda iri",
+  "caldav-sync-now": "Enderanisa zvese izvozvi",
+  "caldav-invalid-url": "Kero yekarenda inofanira kuva kero ye http:// kana https://, isina zita remushandisi kana pasiwedhi mukati mayo.",
+  "caldav-not-linked": "Tanga wachengeta kero yekarenda uye batidza kuenderanisa.",
+  "webdav-storage": "Kuchengetedza kweWebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Chengeta zvakabatanidzwa mufoodha paseva yeWebDAV - Nextcloud Files, ownCloud kana imwe chero ipi. Shandisa pasiwedhi yeapp yakagadzirirwa WeKan. Seva iri panetiweki yeWeKan pachayo inogona kushandiswa pano, nekuti mutariri wesaiti chete ndiye anoisa kero iyi.",
+  "webdav-endpoint": "Kero yeWebDAV",
+  "webdav-password": "Pasiwedhi yeapp",
+  "webdav-folder": "Foodha",
+  "move-storage-webdav": "Kuchengetedza kweWebDAV (Nextcloud Files)"
 }

@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Sapos WeKan i sendem imel tru long wan long ol seves ia, tanem i on, givim long seves ia adres blong webhook ia from ol imel we i kambak mo ol plen long spam, mo pastem long ples ia ki we seves i saenem olgeta wetem, o paswod we yu putum long adres olsem https://user:password@… o ?secret=…",
   "email-bounces-provider-key": "Ki blong saenem webhook",
   "email-bounces-provider-password": "Paswod blong webhook",
-  "email-bounce-provider-secret-required": "Wan seves we i on i nidim ki blong saenem blong hem o paswod blong hem."
+  "email-bounce-provider-secret-required": "Wan seves we i on i nidim ki blong saenem blong hem o paswod blong hem.",
+  "activity-pub-enabled": "Ol bod blong evriwan oli putum wok blong ol kad long fediverse (ActivityPub)",
+  "activity-pub-desc": "Hem i of fastaem. Taem yu putum i on, evri bod blong evriwan i save gat ol man we oli folem long Mastodon mo ol narafala seva blong fediverse olsem @board-<id> long adres blong WeKan ia, mo ol nyu wok blong kad i kasem ol man we oli folem. Hem i blong rid nomo: nating we wan seva blong fediverse i sendem i no save jenisim wan bod, mo ol bod blong yu nomo oli neva putum aot.",
+  "caldav-sync": "Joenem kalenda (CalDAV)",
+  "caldav-sync-desc": "Putum ol dedlaen blong ol kad blong bod ia long wan kalenda - Nextcloud Calendar o eni CalDAV kalenda. Sapos yu mufum wan dedlaen long kalenda, hem i kambak long kad. Yusum wan paswod blong app, i no paswod blong yu.",
+  "caldav-url": "Adres blong kalenda",
+  "caldav-app-password": "Paswod blong app",
+  "caldav-enabled": "Joenem ol dedlaen wetem kalenda ia",
+  "caldav-sync-now": "Joenem evriwan naoia",
+  "caldav-invalid-url": "Adres blong kalenda i mas wan adres http:// o https://, i no gat nem blong yusa o paswod insaed.",
+  "caldav-not-linked": "Fastaem, sevem wan adres blong kalenda mo putum joenem i on.",
+  "webdav-storage": "Ples blong kipim long WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Kipim ol atajmen long wan folda long wan seva blong WebDAV - Nextcloud Files, ownCloud o eni narawan. Yusum wan paswod blong app we yu mekem blong WeKan. Yu save yusum wan seva long netwok blong WeKan hem wan, from se admin blong saet nomo i putum adres ia.",
+  "webdav-endpoint": "Adres blong WebDAV",
+  "webdav-password": "Paswod blong app",
+  "webdav-folder": "Folda",
+  "move-storage-webdav": "Ples blong kipim long WebDAV (Nextcloud Files)"
 }

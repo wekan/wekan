@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "S'è WeKan manda per mezu di unu di sti servizii, attivatelu, date à u serviziu st'indirizzu di webhook per i so avvenimenti di ritorni è di lagnanze di spam, è incullate quì a chjave cù a quale li firma, o a parolla d'intrata chì avete messu in l'indirizzu cum'è https://user:password@… o ?secret=…",
   "email-bounces-provider-key": "Chjave di firma di u webhook",
   "email-bounces-provider-password": "Parolla d'intrata di u webhook",
-  "email-bounce-provider-secret-required": "Un serviziu attivatu hà bisognu di a so chjave di firma o di a so parolla d'intrata."
+  "email-bounce-provider-secret-required": "Un serviziu attivatu hà bisognu di a so chjave di firma o di a so parolla d'intrata.",
+  "activity-pub-enabled": "E tavule publiche publicanu l'attività di e so carte nant'à u fediversu (ActivityPub)",
+  "activity-pub-desc": "Disattivatu per difettu. Quand'ellu hè attivatu, ogni tavula publica pò esse seguitata da Mastodon è d'altri servori di u fediversu cum'è @board-<id> à l'indirizzu di stu WeKan, è a nova attività di e carte ghjunghje à i so seguitori. Hè solu in lettura: nunda di ciò chì un servore di u fediversu manda ùn cambia una tavula, è e tavule private ùn sò mai publicate.",
+  "caldav-sync": "Sincrunizazione di u calendariu (CalDAV)",
+  "caldav-sync-desc": "Mettite e date di scadenza di e carte di sta tavula in un calendariu: Nextcloud Calendar o qualsiasi calendariu CalDAV. Una data di scadenza spustata in u calendariu volta à a carta. Aduprate una parolla d'intrata d'appiecazione, micca a vostra.",
+  "caldav-url": "Indirizzu di u calendariu",
+  "caldav-app-password": "Parolla d'intrata d'appiecazione",
+  "caldav-enabled": "Sincrunizà e date di scadenza cù stu calendariu",
+  "caldav-sync-now": "Sincrunizà tuttu avà",
+  "caldav-invalid-url": "L'indirizzu di u calendariu deve esse un indirizzu http:// o https://, senza nome d'utilizatore nè parolla d'intrata.",
+  "caldav-not-linked": "Arregistrate prima un indirizzu di calendariu è attivate a sincrunizazione.",
+  "webdav-storage": "Almacenamentu WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Almacenate l'alligati in un cartulare nant'à un servore WebDAV: Nextcloud Files, ownCloud o qualsiasi altru. Aduprate una parolla d'intrata d'appiecazione fatta per WeKan. Un servore di a reta stessa di WeKan pò esse adupratu quì, postu chì solu un amministratore di u situ definisce st'indirizzu.",
+  "webdav-endpoint": "Indirizzu WebDAV",
+  "webdav-password": "Parolla d'intrata d'appiecazione",
+  "webdav-folder": "Cartulare",
+  "move-storage-webdav": "Almacenamentu WebDAV (Nextcloud Files)"
 }

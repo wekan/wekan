@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Ja WeKan sūta caur kādu no šiem pakalpojumiem, ieslēdziet to, norādiet pakalpojumam šo webhook adresi tā atgriezto vēstuļu un sūdzību par mēstulēm notikumiem un ielīmējiet šeit atslēgu, ar ko tas tos paraksta, vai paroli, ko ievietojāt adresē kā https://user:password@… vai ?secret=…",
   "email-bounces-provider-key": "Webhook parakstīšanas atslēga",
   "email-bounces-provider-password": "Webhook parole",
-  "email-bounce-provider-secret-required": "Ieslēgtam pakalpojumam nepieciešama tā parakstīšanas atslēga vai parole."
+  "email-bounce-provider-secret-required": "Ieslēgtam pakalpojumam nepieciešama tā parakstīšanas atslēga vai parole.",
+  "activity-pub-enabled": "Publiskie dēļi publicē savu kartiņu aktivitāti fediversā (ActivityPub)",
+  "activity-pub-desc": "Pēc noklusējuma izslēgts. Kad tas ir ieslēgts, katram publiskam dēlim var sekot no Mastodon un citiem fediversa serveriem kā @board-<id> šī WeKan adresē, un jaunā kartiņu aktivitāte nonāk pie tā sekotājiem. Tas ir tikai lasāms: nekas, ko sūta fediversa serveris, nemaina dēli, un privātie dēļi nekad netiek publicēti.",
+  "caldav-sync": "Kalendāra sinhronizācija (CalDAV)",
+  "caldav-sync-desc": "Ievietojiet šī dēļa kartiņu termiņus kalendārā - Nextcloud Calendar vai jebkurā CalDAV kalendārā. Kalendārā pārvietots termiņš atgriežas kartiņā. Izmantojiet lietotnes paroli, nevis savu.",
+  "caldav-url": "Kalendāra adrese",
+  "caldav-app-password": "Lietotnes parole",
+  "caldav-enabled": "Sinhronizēt termiņus ar šo kalendāru",
+  "caldav-sync-now": "Sinhronizēt visu tagad",
+  "caldav-invalid-url": "Kalendāra adresei jābūt http:// vai https:// adresei, bez lietotājvārda vai paroles tajā.",
+  "caldav-not-linked": "Vispirms saglabājiet kalendāra adresi un ieslēdziet sinhronizāciju.",
+  "webdav-storage": "WebDAV krātuve (Nextcloud Files)",
+  "webdav-storage-description": "Glabājiet pielikumus mapē WebDAV serverī - Nextcloud Files, ownCloud vai jebkurā citā. Izmantojiet WeKan izveidotu lietotnes paroli. Šeit var izmantot serveri WeKan paša tīklā, jo šo adresi iestata tikai vietnes administrators.",
+  "webdav-endpoint": "WebDAV adrese",
+  "webdav-password": "Lietotnes parole",
+  "webdav-folder": "Mape",
+  "move-storage-webdav": "WebDAV krātuve (Nextcloud Files)"
 }

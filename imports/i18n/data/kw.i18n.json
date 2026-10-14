@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Mars yw WeKan ow tanvon dre onan a'n gonisogethow ma, y enowi, ri dhe'n gonisogeth an drigva webhook ma rag y hwarvosow ebost dehwelys ha kroffal spam, ha glena omma an alhwedh may syn ev gans hi, po an ger-tremena a worsys y'n drigva avel https://user:password@… po ?secret=…",
   "email-bounces-provider-key": "Alhwedh synya webhook",
   "email-bounces-provider-password": "Ger-tremena webhook",
-  "email-bounce-provider-secret-required": "Gonisogeth enowys a'n jeves edhom a'y alhwedh synya po a'y er-tremena."
+  "email-bounce-provider-secret-required": "Gonisogeth enowys a'n jeves edhom a'y alhwedh synya po a'y er-tremena.",
+  "activity-pub-enabled": "Estyllennow poblek a dhyllo aga gwrians kartennow y'n fediverse (ActivityPub)",
+  "activity-pub-desc": "Dhe-ves dre dhefowt. Pan vo enowys, pub estyllen poblek a yll bos holys a-dhyworth Mastodon ha servyoryon fediverse erell avel @board-<id> orth trigva an WeKan ma, ha gwrians nowydh an kartennow a dhrehedh hy holyoryon. Rag redya yn unnik yw: travyth a dhannvon servyor fediverse ny janj estyllen, ha nevra ny vydh dyllys estyllennow priva.",
+  "caldav-sync": "Kesseni an kalender (CalDAV)",
+  "caldav-sync-desc": "Gorra dedhyasow termyn kartennow an estyllen ma yn kalender - Nextcloud Calendar po kalender CalDAV vyth. Dedhyas termyn gwayys y'n kalender a dhe dhe'n karten arta. Usyewgh ger-tremena app, a-der agas honan.",
+  "caldav-url": "Trigva an kalender",
+  "caldav-app-password": "Ger-tremena app",
+  "caldav-enabled": "Kesseni dedhyasow termyn gans an kalender ma",
+  "caldav-sync-now": "Kesseni oll lemmyn",
+  "caldav-invalid-url": "Trigva an kalender a res bos trigva http:// po https://, heb hanow devnydhyer po ger-tremena ynno.",
+  "caldav-not-linked": "Gwithewgh trigva kalender ha gorrewgh kesseni yn fyw kyns.",
+  "webdav-storage": "Gwithva WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Gwithewgh stagellow yn plegel war servyor WebDAV - Nextcloud Files, ownCloud po onan arall vyth. Usyewgh ger-tremena app gwrys rag WeKan. Servyor war rosweyth WeKan y honan a yll bos usys omma, drefen nag usi saw menystrer an wiasva ow settya an drigva ma.",
+  "webdav-endpoint": "Trigva WebDAV",
+  "webdav-password": "Ger-tremena app",
+  "webdav-folder": "Plegel",
+  "move-storage-webdav": "Gwithva WebDAV (Nextcloud Files)"
 }

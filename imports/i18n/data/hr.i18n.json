@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Ako WeKan šalje putem jedne od ovih usluga, uključite je, dajte usluzi ovu webhook adresu za njezine događaje vraćene e-pošte i prijava neželjene pošte te ovdje zalijepite ključ kojim ih potpisuje ili lozinku koju ste stavili u adresu kao https://user:password@… ili ?secret=…",
   "email-bounces-provider-key": "Ključ za potpisivanje webhooka",
   "email-bounces-provider-password": "Lozinka webhooka",
-  "email-bounce-provider-secret-required": "Uključena usluga treba svoj ključ za potpisivanje ili lozinku."
+  "email-bounce-provider-secret-required": "Uključena usluga treba svoj ključ za potpisivanje ili lozinku.",
+  "activity-pub-enabled": "Javne ploče objavljuju aktivnost svojih kartica na fediverzumu (ActivityPub)",
+  "activity-pub-desc": "Zadano isključeno. Kad je uključeno, svaku javnu ploču može se pratiti s Mastodona i drugih poslužitelja fediverzuma kao @board-<id> na adresi ovog WeKana, a nova aktivnost kartica stiže do njezinih pratitelja. Samo je za čitanje: ništa što pošalje poslužitelj fediverzuma ne mijenja ploču, a privatne ploče nikad se ne objavljuju.",
+  "caldav-sync": "Sinkronizacija kalendara (CalDAV)",
+  "caldav-sync-desc": "Stavite rokove kartica ove ploče u kalendar - Nextcloud Calendar ili bilo koji CalDAV kalendar. Rok premješten u kalendaru vraća se na karticu. Koristite lozinku aplikacije, ne svoju.",
+  "caldav-url": "Adresa kalendara",
+  "caldav-app-password": "Lozinka aplikacije",
+  "caldav-enabled": "Sinkroniziraj rokove s ovim kalendarom",
+  "caldav-sync-now": "Sinkroniziraj sve sada",
+  "caldav-invalid-url": "Adresa kalendara mora biti http:// ili https:// adresa, bez korisničkog imena ili lozinke u njoj.",
+  "caldav-not-linked": "Najprije spremite adresu kalendara i uključite sinkronizaciju.",
+  "webdav-storage": "WebDAV pohrana (Nextcloud Files)",
+  "webdav-storage-description": "Pohranite privitke u mapu na WebDAV poslužitelju - Nextcloud Files, ownCloud ili bilo kojem drugom. Koristite lozinku aplikacije izrađenu za WeKan. Ovdje se može koristiti poslužitelj u WeKanovoj vlastitoj mreži jer ovu adresu postavlja samo administrator stranice.",
+  "webdav-endpoint": "WebDAV adresa",
+  "webdav-password": "Lozinka aplikacije",
+  "webdav-folder": "Mapa",
+  "move-storage-webdav": "WebDAV pohrana (Nextcloud Files)"
 }

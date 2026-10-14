@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Ma kas WeKan dre unan eus ar servijoù-mañ, enaouit anezhañ, roit d'ar servij ar chomlec'h webhook-mañ evit e zarvoudoù postelloù distroet ha klemmoù a-zivout ar spam, ha pegit amañ an alc'hwez a sin anezho gantañ, pe ar ger-tremen hoc'h eus lakaet er chomlec'h evel https://user:password@… pe ?secret=…",
   "email-bounces-provider-key": "Alc'hwez sinañ ar webhook",
   "email-bounces-provider-password": "Ger-tremen ar webhook",
-  "email-bounce-provider-secret-required": "Ur servij enaouet en deus ezhomm eus e alc'hwez sinañ pe e c'her-tremen."
+  "email-bounce-provider-secret-required": "Ur servij enaouet en deus ezhomm eus e alc'hwez sinañ pe e c'her-tremen.",
+  "activity-pub-enabled": "An taolennoù foran a embann obererezh o c'hartennoù war ar fedibed (ActivityPub)",
+  "activity-pub-desc": "Lazhet dre ziouer. Pa vez enaouet, e c'haller heuliañ pep taolenn foran eus Mastodon hag eus servijerioù all ar fedibed evel @board-<id> e chomlec'h ar WeKan-mañ, hag obererezh nevez ar c'hartennoù a dizh he heulierien. Evit lenn hepken eo: netra a gas ur servijer eus ar fedibed ne cheñch un daolenn, ha biskoazh ne vez embannet an taolennoù prevez.",
+  "caldav-sync": "Kemprenañ an deiziadur (CalDAV)",
+  "caldav-sync-desc": "Lakaat deiziadoù termen kartennoù an daolenn-mañ en un deiziadur - Nextcloud Calendar pe forzh peseurt deiziadur CalDAV. Un deiziad termen dilec'hiet en deiziadur a zeu en-dro war ar gartenn. Implijit ur ger-tremen arload, ket ho hini deoc'h.",
+  "caldav-url": "Chomlec'h an deiziadur",
+  "caldav-app-password": "Ger-tremen arload",
+  "caldav-enabled": "Kemprenañ an deiziadoù termen gant an deiziadur-mañ",
+  "caldav-sync-now": "Kemprenañ pep tra bremañ",
+  "caldav-invalid-url": "Chomlec'h an deiziadur a rank bezañ ur chomlec'h http:// pe https://, hep anv implijer na ger-tremen ennañ.",
+  "caldav-not-linked": "Enrollit ur chomlec'h deiziadur ha gweredekait ar c'hemprenañ da gentañ.",
+  "webdav-storage": "Kadavadur WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Kadavit ar stagadennoù en un teuliad war ur servijer WebDAV - Nextcloud Files, ownCloud pe unan all. Implijit ur ger-tremen arload krouet evit WeKan. Ur servijer war rouedad WeKan e-unan a c'haller implijout amañ, rak merour al lec'hienn hepken a ziviz ar chomlec'h-mañ.",
+  "webdav-endpoint": "Chomlec'h WebDAV",
+  "webdav-password": "Ger-tremen arload",
+  "webdav-folder": "Teuliad",
+  "move-storage-webdav": "Kadavadur WebDAV (Nextcloud Files)"
 }

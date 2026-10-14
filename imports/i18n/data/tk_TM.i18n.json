@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Eger WeKan şu hyzmatlaryň biri arkaly iberýän bolsa, ony açyň, hyzmata yzyna gaýdan hatlar we spam şikaýaty wakalary üçin şu webhook salgysyny beriň we şol wakalara gol çekýän açaryny ýa-da salga https://user:password@… ýa-da ?secret=… görnüşinde goýan parolyňyzy şu ýere goýuň",
   "email-bounces-provider-key": "Webhook gol açary",
   "email-bounces-provider-password": "Webhook paroly",
-  "email-bounce-provider-secret-required": "Açyk hyzmata öz gol açary ýa-da paroly gerek."
+  "email-bounce-provider-secret-required": "Açyk hyzmata öz gol açary ýa-da paroly gerek.",
+  "activity-pub-enabled": "Köpçülik geňeşleri kartlarynyň işjeňligini fediwersde çap edýär (ActivityPub)",
+  "activity-pub-desc": "Deslapky ýagdaýda öçük. Açylanda, her köpçülik geňeşini Mastodon we beýleki fediwers serwerlerinden şu WeKan-yň salgysynda @board-<id> hökmünde yzarlap bolýar we täze kart işjeňligi onuň yzarlaýjylaryna barýar. Ol diňe okamak üçin: fediwers serweriniň iberen hiç zady geňeşi üýtgetmeýär we hususy geňeşler hiç haçan çap edilmeýär.",
+  "caldav-sync": "Senenama sinhronlamak (CalDAV)",
+  "caldav-sync-desc": "Bu geňeşiň kartlarynyň berlen senelerini senenama goýuň - Nextcloud Calendar ýa-da islendik CalDAV senenamasy. Senenamada süýşürilen berlen sene karta yzyna gaýdyp gelýär. Öz parolyňyzy däl, programma parolyny ulanyň.",
+  "caldav-url": "Senenamanyň salgysy",
+  "caldav-app-password": "Programma paroly",
+  "caldav-enabled": "Berlen seneleri bu senenama bilen sinhronla",
+  "caldav-sync-now": "Hemmesini häzir sinhronla",
+  "caldav-invalid-url": "Senenamanyň salgysy içinde ulanyjy ady ýa-da parol bolmadyk http:// ýa-da https:// salgy bolmaly.",
+  "caldav-not-linked": "Ilki senenamanyň salgysyny saklaň we sinhronlamagy açyň.",
+  "webdav-storage": "WebDAV ammary (Nextcloud Files)",
+  "webdav-storage-description": "Goşundylary WebDAV serweriniň bukjasynda saklaň - Nextcloud Files, ownCloud ýa-da islendik başga. WeKan üçin döredilen programma parolyny ulanyň. Bu ýerde WeKan-yň öz ulgamyndaky serweri ulanyp bolýar, sebäbi bu salgyny diňe saýtyň administratory belleýär.",
+  "webdav-endpoint": "WebDAV salgysy",
+  "webdav-password": "Programma paroly",
+  "webdav-folder": "Bukja",
+  "move-storage-webdav": "WebDAV ammary (Nextcloud Files)"
 }

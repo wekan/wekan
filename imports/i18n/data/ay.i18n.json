@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "WeKan aka yanapt'awinakat maynimpi apayaspa ukhaxa, ch'amañchama, yanapt'awiru aka webhook chiqa churama kutt'anir aruskipäwinakataki ukhamarak spam kexanakataki, ukatxa aka chiqaru uchama kunampitix firmki uka llave, jan ukax chiqaru https://user:password@… jan ukax ?secret=… ukham uchkta uka imantata aru",
   "email-bounces-provider-key": "Webhook firmañ llave",
   "email-bounces-provider-password": "Webhook imantata aru",
-  "email-bounce-provider-secret-required": "Ch'amañchat yanapt'awixa firmañ llavepa jan ukax imantata arupa munaraki."
+  "email-bounce-provider-secret-required": "Ch'amañchat yanapt'awixa firmañ llavepa jan ukax imantata arupa munaraki.",
+  "activity-pub-enabled": "Taqini uñjañ pirqanakax kartanakapan luräwinakap fediverse ukan uñstayapxi (ActivityPub)",
+  "activity-pub-desc": "Qalltatpachax jiwt'ayatawa. Sartayatäkipanxa, sapa taqini uñjañ pirqax Mastodon ukatsa yaqha fediverse serviriranakatsa @board-<id> ukham aka WeKan chiqapan arkatäspawa, machaq karta luräwinakas arkirinakaparuw puri. Liyiñatakikiwa: kunatix fediverse serviriranakax apayki ukax janiw pirqa mayjt'aykiti, sapa jaqin pirqanakapas janipuniw uñstayatäkiti.",
+  "caldav-sync": "Pachachimpu chikancht'aña (CalDAV)",
+  "caldav-sync-desc": "Aka pirqan kartanakapan tukuyaña urunakap mä pachachimpur uchaña - Nextcloud Calendar jan ukax kuna CalDAV pachachimpusa. Pachachimpun unxtayat tukuyaña urux kartaruw kutt'ani. Mä aplikasyun imantata aru apnaqam, janiw jumankirikiti.",
+  "caldav-url": "Pachachimpun utt'awipa",
+  "caldav-app-password": "Aplikasyun imantata aru",
+  "caldav-enabled": "Tukuyaña urunak aka pachachimpump chikancht'aña",
+  "caldav-sync-now": "Jichhpach taqi chikancht'aña",
+  "caldav-invalid-url": "Pachachimpun utt'awipax http:// jan ukax https:// utt'awiñapawa, janiw apnaqirin sutipas imantata arupas utjañapakiti.",
+  "caldav-not-linked": "Nayraqatax mä pachachimpun utt'awip imam, ukat chikancht'aña sartayam.",
+  "webdav-storage": "WebDAV imaña (Nextcloud Files)",
+  "webdav-storage-description": "Chinutanak mä WebDAV serviriran q'ipiparu imam - Nextcloud Files, ownCloud jan ukax yaqhasa. WeKan ukatak lurat aplikasyun imantata aru apnaqam. Aka chiqanx WeKan pachpan red ukan serviriraparus apnaqasispawa, sitio apnaqirikiw aka utt'awi uchaspa.",
+  "webdav-endpoint": "WebDAV utt'awi",
+  "webdav-password": "Aplikasyun imantata aru",
+  "webdav-folder": "Q'ipi",
+  "move-storage-webdav": "WebDAV imaña (Nextcloud Files)"
 }

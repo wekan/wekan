@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Se o WeKan envia por meio de um destes serviços, ative-o, informe ao serviço este endereço de webhook para os eventos de devolução e de denúncia de spam, e cole aqui a chave com que ele os assina, ou a senha que você colocou no endereço como https://user:password@… ou ?secret=…",
   "email-bounces-provider-key": "Chave de assinatura do webhook",
   "email-bounces-provider-password": "Senha do webhook",
-  "email-bounce-provider-secret-required": "Um serviço ativado precisa da chave de assinatura ou da senha."
+  "email-bounce-provider-secret-required": "Um serviço ativado precisa da chave de assinatura ou da senha.",
+  "activity-pub-enabled": "Quadros públicos publicam a atividade de seus cartões no fediverso (ActivityPub)",
+  "activity-pub-desc": "Desligado por padrão. Quando ligado, cada quadro público pode ser seguido a partir do Mastodon e de outros servidores do fediverso como @board-<id> no endereço deste WeKan, e a nova atividade dos cartões chega aos seus seguidores. É somente leitura: nada do que um servidor do fediverso envia altera um quadro, e quadros privados nunca são publicados.",
+  "caldav-sync": "Sincronização de calendário (CalDAV)",
+  "caldav-sync-desc": "Coloque os prazos finais dos cartões deste quadro em um calendário - Nextcloud Calendar ou qualquer calendário CalDAV. Um prazo movido no calendário volta para o cartão. Use uma senha de aplicativo, não a sua própria.",
+  "caldav-url": "Endereço do calendário",
+  "caldav-app-password": "Senha de aplicativo",
+  "caldav-enabled": "Sincronizar prazos com este calendário",
+  "caldav-sync-now": "Sincronizar tudo agora",
+  "caldav-invalid-url": "O endereço do calendário deve ser um endereço http:// ou https://, sem nome de usuário ou senha nele.",
+  "caldav-not-linked": "Salve um endereço de calendário e ative a sincronização primeiro.",
+  "webdav-storage": "Armazenamento WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Armazene anexos em uma pasta de um servidor WebDAV - Nextcloud Files, ownCloud ou qualquer outro. Use uma senha de aplicativo criada para o WeKan. Um servidor na própria rede do WeKan pode ser usado aqui, pois somente um administrador do site define este endereço.",
+  "webdav-endpoint": "Endereço WebDAV",
+  "webdav-password": "Senha de aplicativo",
+  "webdav-folder": "Pasta",
+  "move-storage-webdav": "Armazenamento WebDAV (Nextcloud Files)"
 }

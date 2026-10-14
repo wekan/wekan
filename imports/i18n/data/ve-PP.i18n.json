@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Ku WeKan oigendab ühten näiden palveluzid kal'dme, kändke se päle, andke palvelusele nece webhook-adres sen tagaze tulnuziden kirjeiden da spamas kaivuziden tegoiden täht, i pangat tänna kluč, kudamal se pirdab niid, vai peitsana, kudamb pandoit adresaha muga https://user:password@… vai ?secret=…",
   "email-bounces-provider-key": "Webhookan pirdandkluč",
   "email-bounces-provider-password": "Webhookan peitsana",
-  "email-bounce-provider-secret-required": "Päle kändud palvelus tarbiž ičeze pirdandkluč vai peitsana."
+  "email-bounce-provider-secret-required": "Päle kändud palvelus tarbiž ičeze pirdandkluč vai peitsana.",
+  "activity-pub-enabled": "Üleižed laudad julgištoitta ičeze kartoiden radod fediversas (ActivityPub)",
+  "activity-pub-desc": "Augotižjärgendusen mödhe sauptud. Konz om kändud, kaikid üleižid laudoid voib jäl'gitada Mastodonaspäi da toižiš fediversan serveriš kut @board-<id> necen WeKanan adresal, i uz' kartoiden rad tuleb sen jäl'gijoile. Se om vaiše lugemižeks: ni mi, midä fediversan server oigendab, ei vajehta lauddad, a personaližid laudoid ei julgištoitta nikonz.",
+  "caldav-sync": "Kalendaran sinhronizacii (CalDAV)",
+  "caldav-sync-desc": "Paneb necen laudan kartoiden märaitud päivmärad kalendarhaze - Nextcloud Calendar vai kudamb-ni CalDAV-kalendar'. Kalendaras sirdud märaitud päivmär tuleb tagaze kartaha. Kävutagat programman peitsanad, ei ičeiden.",
+  "caldav-url": "Kalendaran adres",
+  "caldav-app-password": "Programman peitsana",
+  "caldav-enabled": "Sinhroniziruida märaitud päivmärad necen kalendarhanke",
+  "caldav-sync-now": "Sinhroniziruida kaik nügüd'",
+  "caldav-invalid-url": "Kalendaran adres pidab olda http:// vai https:// adres, ilman kävutajan nimed vai peitsanad siš.",
+  "caldav-not-linked": "Kaičkat edel kalendaran adres i kändkat sinhronizacii.",
+  "webdav-storage": "WebDAV-kaicend (Nextcloud Files)",
+  "webdav-storage-description": "Kaičeb tartutadud failad WebDAV-serveran papkas - Nextcloud Files, ownCloud vai toine. Kävutagat WeKanan täht tehtud programman peitsanad. Täs voib kävutada serverad WeKanan ičeze verkos, sikš ku vaiše saitan administrator märičeb necen adresan.",
+  "webdav-endpoint": "WebDAV-adres",
+  "webdav-password": "Programman peitsana",
+  "webdav-folder": "Papk",
+  "move-storage-webdav": "WebDAV-kaicend (Nextcloud Files)"
 }

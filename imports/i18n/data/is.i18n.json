@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Ef WeKan sendir í gegnum eina af þessum þjónustum skaltu kveikja á henni, gefa þjónustunni þetta webhook-netfang fyrir atburði um endursendan póst og ruslpóstskvartanir, og líma hér lykilinn sem hún undirritar þá með, eða lykilorðið sem þú settir í netfangið sem https://user:password@… eða ?secret=…",
   "email-bounces-provider-key": "Undirritunarlykill webhook",
   "email-bounces-provider-password": "Lykilorð webhook",
-  "email-bounce-provider-secret-required": "Þjónusta sem kveikt er á þarf undirritunarlykil sinn eða lykilorð."
+  "email-bounce-provider-secret-required": "Þjónusta sem kveikt er á þarf undirritunarlykil sinn eða lykilorð.",
+  "activity-pub-enabled": "Opinberar töflur birta virkni spjalda sinna á fediverse (ActivityPub)",
+  "activity-pub-desc": "Slökkt sjálfgefið. Þegar kveikt er á því er hægt að fylgja hverri opinberri töflu frá Mastodon og öðrum fediverse-þjónum sem @board-<id> á vistfangi þessa WeKan, og ný virkni spjalda berst fylgjendum hennar. Það er aðeins til lestrar: ekkert sem fediverse-þjónn sendir breytir töflu, og einkatöflur eru aldrei birtar.",
+  "caldav-sync": "Samstilling dagatals (CalDAV)",
+  "caldav-sync-desc": "Setur skiladaga spjaldanna á þessari töflu í dagatal - Nextcloud Calendar eða hvaða CalDAV-dagatal sem er. Skiladagur sem er færður í dagatalinu skilar sér aftur í spjaldið. Notaðu forritslykilorð, ekki þitt eigið.",
+  "caldav-url": "Vistfang dagatals",
+  "caldav-app-password": "Forritslykilorð",
+  "caldav-enabled": "Samstilla skiladaga við þetta dagatal",
+  "caldav-sync-now": "Samstilla allt núna",
+  "caldav-invalid-url": "Vistfang dagatalsins verður að vera http:// eða https:// vistfang, án notandanafns eða lykilorðs í því.",
+  "caldav-not-linked": "Vistaðu fyrst vistfang dagatals og kveiktu á samstillingu.",
+  "webdav-storage": "WebDAV-geymsla (Nextcloud Files)",
+  "webdav-storage-description": "Geymir viðhengi í möppu á WebDAV-þjóni - Nextcloud Files, ownCloud eða einhverjum öðrum. Notaðu forritslykilorð sem búið var til fyrir WeKan. Hér má nota þjón á eigin neti WeKan, þar sem aðeins vefstjóri setur þetta vistfang.",
+  "webdav-endpoint": "WebDAV-vistfang",
+  "webdav-password": "Forritslykilorð",
+  "webdav-folder": "Mappa",
+  "move-storage-webdav": "WebDAV-geymsla (Nextcloud Files)"
 }

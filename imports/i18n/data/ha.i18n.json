@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Idan WeKan yana aikawa ta ɗaya daga cikin waɗannan ayyuka, kunna shi, ba aikin wannan adireshin webhook don abubuwan dawowar imel da ƙorafin spam, kuma liƙa a nan maɓallin da yake sa hannu da shi, ko kalmar sirrin da ka saka a adireshin kamar https://user:password@… ko ?secret=…",
   "email-bounces-provider-key": "Maɓallin sa hannu na webhook",
   "email-bounces-provider-password": "Kalmar sirri na webhook",
-  "email-bounce-provider-secret-required": "Aikin da aka kunna yana buƙatar maɓallin sa hannunsa ko kalmar sirrinsa."
+  "email-bounce-provider-secret-required": "Aikin da aka kunna yana buƙatar maɓallin sa hannunsa ko kalmar sirrinsa.",
+  "activity-pub-enabled": "Allunan jama'a suna wallafa ayyukan katunansu a fediverse (ActivityPub)",
+  "activity-pub-desc": "A kashe yake ta asali. Idan aka kunna shi, ana iya bin kowane allon jama'a daga Mastodon da sauran sabobin fediverse a matsayin @board-<id> a adireshin wannan WeKan, kuma sabbin ayyukan kati suna isa ga mabiyansa. Karatu kawai ne: babu abin da sabar fediverse ta aiko da zai canza allo, kuma ba a taɓa wallafa allunan sirri ba.",
+  "caldav-sync": "Daidaita kalanda (CalDAV)",
+  "caldav-sync-desc": "Saka ranakun ƙarshe na katunan wannan allo a cikin kalanda - Nextcloud Calendar ko kowace kalandar CalDAV. Ranar ƙarshe da aka matsar a kalanda tana dawowa kan katin. Yi amfani da kalmar sirri ta manhaja, ba taka ba.",
+  "caldav-url": "Adireshin kalanda",
+  "caldav-app-password": "Kalmar sirri ta manhaja",
+  "caldav-enabled": "Daidaita ranakun ƙarshe da wannan kalanda",
+  "caldav-sync-now": "Daidaita duka yanzu",
+  "caldav-invalid-url": "Dole adireshin kalanda ya zama adireshin http:// ko https://, ba tare da sunan mai amfani ko kalmar sirri a ciki ba.",
+  "caldav-not-linked": "Da farko ajiye adireshin kalanda kuma ka kunna daidaitawa.",
+  "webdav-storage": "Ma'ajiyar WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Ajiye abubuwan haɗawa a cikin babban fayil a kan sabar WebDAV - Nextcloud Files, ownCloud ko wata daban. Yi amfani da kalmar sirri ta manhaja da aka ƙirƙira don WeKan. Ana iya amfani da sabar da ke kan cibiyar sadarwar WeKan kanta a nan, tunda mai gudanar da shafin ne kaɗai ke saita wannan adireshin.",
+  "webdav-endpoint": "Adireshin WebDAV",
+  "webdav-password": "Kalmar sirri ta manhaja",
+  "webdav-folder": "Babban fayil",
+  "move-storage-webdav": "Ma'ajiyar WebDAV (Nextcloud Files)"
 }

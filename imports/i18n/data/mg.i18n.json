@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Raha mandefa amin'ny alalan'ny iray amin'ireo serivisy ireo i WeKan, alefaso izy, omeo ny serivisy ity adiresy webhook ity ho an'ny zava-mitranga momba ny mailaka niverina sy ny fitarainana momba ny spam, ary apetaho eto ny lakile ampiasainy hanaovana sonia azy ireo, na ny teny miafina napetrakao tao amin'ny adiresy ho https://user:password@… na ?secret=…",
   "email-bounces-provider-key": "Lakilen'ny sonia webhook",
   "email-bounces-provider-password": "Teny miafin'ny webhook",
-  "email-bounce-provider-secret-required": "Mila ny lakilen'ny sonia na ny teny miafina ny serivisy alefa."
+  "email-bounce-provider-secret-required": "Mila ny lakilen'ny sonia na ny teny miafina ny serivisy alefa.",
+  "activity-pub-enabled": "Mamoaka ny asa amin'ny karatrany ao amin'ny fediverse ireo solaitra ho an'ny besinimaro (ActivityPub)",
+  "activity-pub-desc": "Maty raha tsy ovaina. Rehefa velona, ny solaitra ho an'ny besinimaro tsirairay dia azo arahina avy amin'ny Mastodon sy ny lohamilina fediverse hafa ho @board-<id> amin'ny adiresin'ity WeKan ity, ary tonga any amin'ireo mpanaraka azy ny asa vaovao amin'ny karatra. Famakiana ihany izy io: tsy misy na inona na inona alefan'ny lohamilina fediverse manova solaitra, ary tsy avoaka mihitsy ireo solaitra manokana.",
+  "caldav-sync": "Fampifanarahana kalandrie (CalDAV)",
+  "caldav-sync-desc": "Apetraho ao anaty kalandrie ny daty farany amin'ny karatr'ity solaitra ity - Nextcloud Calendar na kalandrie CalDAV rehetra. Ny daty farany afindra ao amin'ny kalandrie dia miverina any amin'ny karatra. Mampiasà teny miafina fampiharana, fa tsy ny anao manokana.",
+  "caldav-url": "Adiresin'ny kalandrie",
+  "caldav-app-password": "Teny miafina fampiharana",
+  "caldav-enabled": "Ampifanaraho amin'ity kalandrie ity ny daty farany",
+  "caldav-sync-now": "Ampifanaraho izao ny rehetra",
+  "caldav-invalid-url": "Tsy maintsy adiresy http:// na https:// ny adiresin'ny kalandrie, tsy misy anaran'ny mpampiasa na teny miafina ao anatiny.",
+  "caldav-not-linked": "Tehirizo aloha ny adiresin'ny kalandrie ary alefaso ny fampifanarahana.",
+  "webdav-storage": "Fitahirizana WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Tehirizo ao anaty lahatahiry ao amin'ny lohamilina WebDAV ny rakitra miaraka - Nextcloud Files, ownCloud na hafa. Mampiasà teny miafina fampiharana noforonina ho an'ny WeKan. Azo ampiasaina eto ny lohamilina ao amin'ny tamba-jotran'ny WeKan ihany, satria ny mpitantana ny tranonkala ihany no mametraka ity adiresy ity.",
+  "webdav-endpoint": "Adiresy WebDAV",
+  "webdav-password": "Teny miafina fampiharana",
+  "webdav-folder": "Lahatahiry",
+  "move-storage-webdav": "Fitahirizana WebDAV (Nextcloud Files)"
 }

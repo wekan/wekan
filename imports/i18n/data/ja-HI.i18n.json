@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "WeKan が これらの さーびすの どれかを つかって おくる ばあいは、それを おんに して、もどってきた めーると めいわくめーるの くじょうの いべんとの ために この Webhook あどれすを さーびすに わたし、さーびすが しょめいに つかう きー、または あどれすに https://user:password@… や ?secret=… として いれた ぱすわーどを ここに はりつけて ください",
   "email-bounces-provider-key": "Webhook しょめい きー",
   "email-bounces-provider-password": "Webhook ぱすわーど",
-  "email-bounce-provider-secret-required": "おんに した さーびすには しょめい きー または ぱすわーどが ひつようです。"
+  "email-bounce-provider-secret-required": "おんに した さーびすには しょめい きー または ぱすわーどが ひつようです。",
+  "activity-pub-enabled": "こうかい ぼーどは かーどの かつどうを ふぇでぃばーすに こうかい します (ActivityPub)",
+  "activity-pub-desc": "はじめは おふです。おんに すると、こうかい ぼーどは どれも Mastodon や ほかの ふぇでぃばーすの さーばーから、この WeKan の あどれすで @board-<id> として ふぉろー できます。あたらしい かーどの かつどうは ふぉろわーに とどきます。よみとり せんよう です: ふぇでぃばーすの さーばーが おくる ものは なにも ぼーどを かえません。ひこうかいの ぼーどは けっして こうかい されません。",
+  "caldav-sync": "かれんだー どうき (CalDAV)",
+  "caldav-sync-desc": "この ぼーどの かーどの きげんびを かれんだーに いれます - Nextcloud Calendar や どんな CalDAV かれんだーでも。かれんだーで うごかした きげんびは かーどに もどります。じぶんの ぱすわーどではなく、あぷり ぱすわーどを つかって ください。",
+  "caldav-url": "かれんだーの あどれす",
+  "caldav-app-password": "あぷり ぱすわーど",
+  "caldav-enabled": "きげんびを この かれんだーと どうき する",
+  "caldav-sync-now": "いますぐ ぜんぶ どうき",
+  "caldav-invalid-url": "かれんだーの あどれすは http:// か https:// の あどれすで、ゆーざーめいや ぱすわーどを ふくまない ひつようが あります。",
+  "caldav-not-linked": "さきに かれんだーの あどれすを ほぞんして、どうきを おんに して ください。",
+  "webdav-storage": "WebDAV すとれーじ (Nextcloud Files)",
+  "webdav-storage-description": "てんぷ ふぁいるを WebDAV さーばーの ふぉるだに ほぞんします - Nextcloud Files、ownCloud、または ほかの どれでも。WeKan ように つくった あぷり ぱすわーどを つかって ください。この あどれすを きめるのは さいとの かんりしゃ だけ なので、WeKan じしんの ねっとわーくに ある さーばーも ここで つかえます。",
+  "webdav-endpoint": "WebDAV あどれす",
+  "webdav-password": "あぷり ぱすわーど",
+  "webdav-folder": "ふぉるだ",
+  "move-storage-webdav": "WebDAV すとれーじ (Nextcloud Files)"
 }

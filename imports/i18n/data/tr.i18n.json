@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "WeKan bu hizmetlerden biri üzerinden gönderiyorsa, onu açın, hizmete geri dönen e-posta ve spam şikâyeti olayları için bu webhook adresini verin ve buraya olayları imzaladığı anahtarı ya da adrese https://user:password@… veya ?secret=… olarak koyduğunuz parolayı yapıştırın",
   "email-bounces-provider-key": "Webhook imzalama anahtarı",
   "email-bounces-provider-password": "Webhook parolası",
-  "email-bounce-provider-secret-required": "Açık olan bir hizmet için imzalama anahtarı veya parolası gerekir."
+  "email-bounce-provider-secret-required": "Açık olan bir hizmet için imzalama anahtarı veya parolası gerekir.",
+  "activity-pub-enabled": "Herkese açık panolar kart etkinliklerini fediverse'te yayımlar (ActivityPub)",
+  "activity-pub-desc": "Varsayılan olarak kapalı. Açıldığında her herkese açık pano, Mastodon ve diğer fediverse sunucularından bu WeKan'ın adresinde @board-<id> olarak takip edilebilir ve yeni kart etkinlikleri takipçilerine ulaşır. Salt okunurdur: bir fediverse sunucusunun gönderdiği hiçbir şey panoyu değiştirmez ve özel panolar asla yayımlanmaz.",
+  "caldav-sync": "Takvim eşitleme (CalDAV)",
+  "caldav-sync-desc": "Bu panonun kartlarının bitiş tarihlerini bir takvime koyun - Nextcloud Calendar veya herhangi bir CalDAV takvimi. Takvimde taşınan bir bitiş tarihi karta geri gelir. Kendi parolanızı değil, bir uygulama parolası kullanın.",
+  "caldav-url": "Takvim adresi",
+  "caldav-app-password": "Uygulama parolası",
+  "caldav-enabled": "Bitiş tarihlerini bu takvimle eşitle",
+  "caldav-sync-now": "Şimdi tümünü eşitle",
+  "caldav-invalid-url": "Takvim adresi, içinde kullanıcı adı veya parola bulunmayan bir http:// ya da https:// adresi olmalıdır.",
+  "caldav-not-linked": "Önce bir takvim adresi kaydedin ve eşitlemeyi açın.",
+  "webdav-storage": "WebDAV depolama (Nextcloud Files)",
+  "webdav-storage-description": "Ekleri bir WebDAV sunucusundaki bir klasörde saklayın - Nextcloud Files, ownCloud veya başka herhangi biri. WeKan için oluşturulmuş bir uygulama parolası kullanın. Bu adresi yalnızca site yöneticisi ayarladığından, WeKan'ın kendi ağındaki bir sunucu burada kullanılabilir.",
+  "webdav-endpoint": "WebDAV adresi",
+  "webdav-password": "Uygulama parolası",
+  "webdav-folder": "Klasör",
+  "move-storage-webdav": "WebDAV depolama (Nextcloud Files)"
 }

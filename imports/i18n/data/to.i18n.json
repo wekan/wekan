@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Kapau ʻoku fekau ʻe WeKan ʻo fakafou ʻi ha taha ʻo e ngaahi sēvesi ko ʻeni, fakaʻaongaʻi ia, ʻoatu ki he sēvesi ʻa e tuʻasila webhook ko ʻeni ki heʻene ngaahi meʻa ʻo e ʻīmeili kuo foki mai mo e lāunga ki he spam, pea pēsite heni ʻa e kī ʻoku ne fakamoʻoni ʻaki ia, pe ko e lea fufū naʻá ke tuku ʻi he tuʻasila ʻo hangē ko e https://user:password@… pe ?secret=…",
   "email-bounces-provider-key": "Kī fakamoʻoni ʻo e webhook",
   "email-bounces-provider-password": "Lea fufū ʻo e webhook",
-  "email-bounce-provider-secret-required": "ʻOku fiemaʻu ʻe ha sēvesi kuo fakaʻaongaʻi hono kī fakamoʻoni pe lea fufū."
+  "email-bounce-provider-secret-required": "ʻOku fiemaʻu ʻe ha sēvesi kuo fakaʻaongaʻi hono kī fakamoʻoni pe lea fufū.",
+  "activity-pub-enabled": "ʻOku pulusi ʻe he ngaahi papa fakapuleʻanga ʻa e ngāue ʻa honau ngaahi kaati ʻi he fediverse (ActivityPub)",
+  "activity-pub-desc": "ʻOku tāmateʻi ia ʻi he tuʻunga angamaheni. ʻI hono fakaʻā, ʻe lava ke muimui ki he papa fakapuleʻanga kotoa pē mei he Mastodon mo e ngaahi sevā fediverse kehe ʻo hangē ko e @board-<id> ʻi he tuʻasila ʻo e WeKan ko ʻeni, pea ʻoku aʻu ʻa e ngāue foʻou ʻa e kaati ki hono kau muimui. ʻOku lau pē: ʻoku ʻikai ha meʻa ʻe fekau mai ʻe ha sevā fediverse te ne liliu ha papa, pea ʻoku ʻikai ʻaupito pulusi ʻa e ngaahi papa fakafoʻituitui.",
+  "caldav-sync": "Fakahoa tohi māhina (CalDAV)",
+  "caldav-sync-desc": "Tuku ʻa e ngaahi ʻaho ngataʻanga ʻo e ngaahi kaati ʻo e papa ko ʻeni ki ha tohi māhina - Nextcloud Calendar pe ha tohi māhina CalDAV pē. Ko ha ʻaho ngataʻanga ʻoku hiki ʻi he tohi māhina ʻoku foki ia ki he kaati. Ngāueʻaki ha lea fufū ʻa e polokalama, ʻo ʻikai ko hoʻo lea fufū ʻaʻau.",
+  "caldav-url": "Tuʻasila ʻo e tohi māhina",
+  "caldav-app-password": "Lea fufū ʻa e polokalama",
+  "caldav-enabled": "Fakahoa ʻa e ngaahi ʻaho ngataʻanga mo e tohi māhina ko ʻeni",
+  "caldav-sync-now": "Fakahoa kotoa ʻeni",
+  "caldav-invalid-url": "Kuo pau ke hoko ʻa e tuʻasila ʻo e tohi māhina ko ha tuʻasila http:// pe https://, ʻo ʻikai ha hingoa ʻo e tokotaha ngāue pe lea fufū ʻi loto.",
+  "caldav-not-linked": "ʻUluaki seivi ha tuʻasila ʻo e tohi māhina pea fakaʻā ʻa e fakahoa.",
+  "webdav-storage": "Feituʻu tauhiʻanga WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Tauhi ʻa e ngaahi meʻa fakapipiki ʻi ha kato ʻi ha sevā WebDAV - Nextcloud Files, ownCloud pe ha taha kehe pē. Ngāueʻaki ha lea fufū ʻa e polokalama naʻe ngaohi maʻa WeKan. ʻE lava ke ngāueʻaki heni ha sevā ʻi he netiueka pē ʻa WeKan, koeʻuhi ko e pule ʻo e uepisaiti pē ʻoku ne fokotuʻu ʻa e tuʻasila ko ʻeni.",
+  "webdav-endpoint": "Tuʻasila WebDAV",
+  "webdav-password": "Lea fufū ʻa e polokalama",
+  "webdav-folder": "Kato",
+  "move-storage-webdav": "Feituʻu tauhiʻanga WebDAV (Nextcloud Files)"
 }

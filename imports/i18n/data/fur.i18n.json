@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Se WeKan al mande midiant un di chescj servizis, ativilu, da al servizi cheste direzion di webhook pai siei events di rimbalç e di reclam di spam, e tache achì la clâf cu la cuâl ju firme, o la peraule di ordin che tu âs metût te direzion come https://user:password@… o ?secret=…",
   "email-bounces-provider-key": "Clâf di firme dal webhook",
   "email-bounces-provider-password": "Peraule di ordin dal webhook",
-  "email-bounce-provider-secret-required": "Un servizi atîf al à bisugne de sô clâf di firme o de sô peraule di ordin."
+  "email-bounce-provider-secret-required": "Un servizi atîf al à bisugne de sô clâf di firme o de sô peraule di ordin.",
+  "activity-pub-enabled": "Lis taulis publichis a publichin la ativitât des lôr cjartis tal fediviers (ActivityPub)",
+  "activity-pub-desc": "Distudât par impostazion predefinide. Cuant che al è impiât, ogni taule publiche e pues jessi seguide di Mastodon e di altris servidôrs dal fediviers come @board-<id> ae direzion di chest WeKan, e la gnove ativitât des cjartis e rive ai siei seguidôrs. Al è dome di leture: nuie di ce che al mande un servidôr dal fediviers al cambie une taule, e lis taulis privadis no vegnin mai publicadis.",
+  "caldav-sync": "Sincronizazion dal calendari (CalDAV)",
+  "caldav-sync-desc": "Met lis datis di scjadence des cjartis di cheste taule intun calendari - Nextcloud Calendar o cualsisei calendari CalDAV. Une date di scjadence spostade tal calendari e torne su la cjarte. Dopre une peraule di ordin pe aplicazion, no la tô.",
+  "caldav-url": "Direzion dal calendari",
+  "caldav-app-password": "Peraule di ordin pe aplicazion",
+  "caldav-enabled": "Sincronize lis datis di scjadence cun chest calendari",
+  "caldav-sync-now": "Sincronize dut cumò",
+  "caldav-invalid-url": "La direzion dal calendari e à di jessi une direzion http:// o https://, cence non utent o peraule di ordin dentri.",
+  "caldav-not-linked": "Salve prime une direzion di calendari e impie la sincronizazion.",
+  "webdav-storage": "Archiviazion WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Archivie i alegâts intune cartele suntun servidôr WebDAV - Nextcloud Files, ownCloud o cualsisei altri. Dopre une peraule di ordin pe aplicazion fate par WeKan. Achì si pues doprâ un servidôr te rêt di WeKan stes, parcè che dome un aministradôr dal sît al stabilìs cheste direzion.",
+  "webdav-endpoint": "Direzion WebDAV",
+  "webdav-password": "Peraule di ordin pe aplicazion",
+  "webdav-folder": "Cartele",
+  "move-storage-webdav": "Archiviazion WebDAV (Nextcloud Files)"
 }

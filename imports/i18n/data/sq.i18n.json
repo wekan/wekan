@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Nëse WeKan dërgon përmes njërit prej këtyre shërbimeve, aktivizojeni, jepini shërbimit këtë adresë webhook-u për ngjarjet e tij të kthimeve të postës dhe ankesave për spam, dhe ngjitni këtu çelësin me të cilin i nënshkruan, ose fjalëkalimin që vendosët në adresë si https://user:password@… ose ?secret=…",
   "email-bounces-provider-key": "Çelësi i nënshkrimit të webhook-ut",
   "email-bounces-provider-password": "Fjalëkalimi i webhook-ut",
-  "email-bounce-provider-secret-required": "Një shërbim i aktivizuar ka nevojë për çelësin e nënshkrimit ose fjalëkalimin e tij."
+  "email-bounce-provider-secret-required": "Një shërbim i aktivizuar ka nevojë për çelësin e nënshkrimit ose fjalëkalimin e tij.",
+  "activity-pub-enabled": "Tabelat publike publikojnë aktivitetin e kartave të tyre në fedivers (ActivityPub)",
+  "activity-pub-desc": "Joaktive si parazgjedhje. Kur aktivizohet, çdo tabelë publike mund të ndiqet nga Mastodon dhe serverë të tjerë të fediversit si @board-<id> në adresën e këtij WeKan-i, dhe aktiviteti i ri i kartave u arrin ndjekësve të saj. Është vetëm për lexim: asgjë që dërgon një server fediversi nuk ndryshon një tabelë, dhe tabelat private nuk publikohen kurrë.",
+  "caldav-sync": "Sinkronizimi i kalendarit (CalDAV)",
+  "caldav-sync-desc": "Vendosni datat e afatit të kartave të kësaj tabele në një kalendar - Nextcloud Calendar ose çdo kalendar CalDAV. Një datë afati e zhvendosur në kalendar kthehet te karta. Përdorni një fjalëkalim aplikacioni, jo tuajin.",
+  "caldav-url": "Adresa e kalendarit",
+  "caldav-app-password": "Fjalëkalim aplikacioni",
+  "caldav-enabled": "Sinkronizo datat e afatit me këtë kalendar",
+  "caldav-sync-now": "Sinkronizo gjithçka tani",
+  "caldav-invalid-url": "Adresa e kalendarit duhet të jetë një adresë http:// ose https://, pa emër përdoruesi apo fjalëkalim në të.",
+  "caldav-not-linked": "Ruani së pari një adresë kalendari dhe aktivizoni sinkronizimin.",
+  "webdav-storage": "Hapësirë ruajtjeje WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Ruani bashkëngjitjet në një dosje në një server WebDAV - Nextcloud Files, ownCloud ose çdo tjetër. Përdorni një fjalëkalim aplikacioni të krijuar për WeKan. Këtu mund të përdoret një server në rrjetin e vetë WeKan-it, pasi vetëm një administrator i sajtit e cakton këtë adresë.",
+  "webdav-endpoint": "Adresa WebDAV",
+  "webdav-password": "Fjalëkalim aplikacioni",
+  "webdav-folder": "Dosja",
+  "move-storage-webdav": "Hapësirë ruajtjeje WebDAV (Nextcloud Files)"
 }

@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Als WeKan via een van deze diensten verzendt, zet die dan aan, geef de dienst dit webhookadres voor zijn gebeurtenissen over teruggestuurde e-mails en spamklachten, en plak hier de sleutel waarmee hij ze ondertekent, of het wachtwoord dat u in het adres hebt gezet als https://user:password@… of ?secret=…",
   "email-bounces-provider-key": "Ondertekeningssleutel van webhook",
   "email-bounces-provider-password": "Webhookwachtwoord",
-  "email-bounce-provider-secret-required": "Een dienst die aanstaat, heeft zijn ondertekeningssleutel of wachtwoord nodig."
+  "email-bounce-provider-secret-required": "Een dienst die aanstaat, heeft zijn ondertekeningssleutel of wachtwoord nodig.",
+  "activity-pub-enabled": "Openbare borden publiceren hun kaartactiviteit in de fediverse (ActivityPub)",
+  "activity-pub-desc": "Standaard uit. Als het aan staat, kan elk openbaar bord gevolgd worden vanuit Mastodon en andere fediverse-servers als @board-<id> op het adres van deze WeKan, en nieuwe kaartactiviteit bereikt de volgers. Het is alleen-lezen: niets wat een fediverse-server stuurt verandert een bord, en privéborden worden nooit gepubliceerd.",
+  "caldav-sync": "Agendasynchronisatie (CalDAV)",
+  "caldav-sync-desc": "Zet de vervaldatums van de kaarten van dit bord in een agenda - Nextcloud Calendar of elke CalDAV-agenda. Een vervaldatum die in de agenda wordt verplaatst, komt terug op de kaart. Gebruik een app-wachtwoord, niet je eigen wachtwoord.",
+  "caldav-url": "Agenda-adres",
+  "caldav-app-password": "App-wachtwoord",
+  "caldav-enabled": "Vervaldatums synchroniseren met deze agenda",
+  "caldav-sync-now": "Nu alles synchroniseren",
+  "caldav-invalid-url": "Het agenda-adres moet een http://- of https://-adres zijn, zonder gebruikersnaam of wachtwoord erin.",
+  "caldav-not-linked": "Sla eerst een agenda-adres op en zet synchronisatie aan.",
+  "webdav-storage": "WebDAV-opslag (Nextcloud Files)",
+  "webdav-storage-description": "Bewaar bijlagen in een map op een WebDAV-server - Nextcloud Files, ownCloud of een andere. Gebruik een app-wachtwoord dat voor WeKan is gemaakt. Een server op het eigen netwerk van WeKan kan hier gebruikt worden, omdat alleen een sitebeheerder dit adres instelt.",
+  "webdav-endpoint": "WebDAV-adres",
+  "webdav-password": "App-wachtwoord",
+  "webdav-folder": "Map",
+  "move-storage-webdav": "WebDAV-opslag (Nextcloud Files)"
 }

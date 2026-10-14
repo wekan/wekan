@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "WeKanek zerbitzu hauetako baten bidez bidaltzen badu, aktibatu ezazu, eman zerbitzuari webhook helbide hau itzulera eta spam kexa gertaeretarako, eta itsatsi hemen haiek sinatzeko erabiltzen duen gakoa, edo helbidean https://user:password@… edo ?secret=… gisa jarri duzun pasahitza",
   "email-bounces-provider-key": "Webhookaren sinadura-gakoa",
   "email-bounces-provider-password": "Webhookaren pasahitza",
-  "email-bounce-provider-secret-required": "Aktibatuta dagoen zerbitzu batek bere sinadura-gakoa edo pasahitza behar du."
+  "email-bounce-provider-secret-required": "Aktibatuta dagoen zerbitzu batek bere sinadura-gakoa edo pasahitza behar du.",
+  "activity-pub-enabled": "Arbel publikoek beren txartelen jarduera fedibertsoan argitaratzen dute (ActivityPub)",
+  "activity-pub-desc": "Lehenespenez desaktibatuta. Aktibatuta dagoenean, arbel publiko bakoitza Mastodon-etik eta fedibertsoko beste zerbitzarietatik jarrai daiteke @board-<id> gisa WeKan honen helbidean, eta txartelen jarduera berria bere jarraitzaileengana iristen da. Irakurtzeko soilik da: fedibertsoko zerbitzari batek bidaltzen duen ezerk ez du arbela aldatzen, eta arbel pribatuak ez dira inoiz argitaratzen.",
+  "caldav-sync": "Egutegiaren sinkronizazioa (CalDAV)",
+  "caldav-sync-desc": "Jarri arbel honetako txartelen epemugak egutegi batean - Nextcloud Calendar edo edozein CalDAV egutegi. Egutegian mugitutako epemuga txartelera itzultzen da. Erabili aplikazio-pasahitz bat, ez zurea.",
+  "caldav-url": "Egutegiaren helbidea",
+  "caldav-app-password": "Aplikazio-pasahitza",
+  "caldav-enabled": "Sinkronizatu epemugak egutegi honekin",
+  "caldav-sync-now": "Sinkronizatu dena orain",
+  "caldav-invalid-url": "Egutegiaren helbideak http:// edo https:// helbidea izan behar du, erabiltzaile-izenik edo pasahitzik gabe.",
+  "caldav-not-linked": "Gorde lehenik egutegi-helbide bat eta aktibatu sinkronizazioa.",
+  "webdav-storage": "WebDAV biltegiratzea (Nextcloud Files)",
+  "webdav-storage-description": "Gorde eranskinak WebDAV zerbitzari bateko karpeta batean - Nextcloud Files, ownCloud edo beste edozein. Erabili WeKan-entzat sortutako aplikazio-pasahitz bat. WeKan-en sare propioko zerbitzari bat erabil daiteke hemen, gunearen administratzaile batek bakarrik ezartzen baitu helbide hau.",
+  "webdav-endpoint": "WebDAV helbidea",
+  "webdav-password": "Aplikazio-pasahitza",
+  "webdav-folder": "Karpeta",
+  "move-storage-webdav": "WebDAV biltegiratzea (Nextcloud Files)"
 }

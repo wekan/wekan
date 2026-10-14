@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "WeKan ከእነዚህ አገልግሎቶች በአንዱ በኩል የሚልክ ከሆነ፣ ያብሩት፣ ለተመለሱ ኢሜይሎች እና ለአይፈለጌ መልዕክት ቅሬታ ክስተቶቹ ይህን የwebhook አድራሻ ለአገልግሎቱ ይስጡ፣ እና የሚፈርምበትን ቁልፍ፣ ወይም በአድራሻው ውስጥ እንደ https://user:password@… ወይም ?secret=… ያስገቡትን የይለፍ ቃል እዚህ ይለጥፉ",
   "email-bounces-provider-key": "የwebhook መፈረሚያ ቁልፍ",
   "email-bounces-provider-password": "የwebhook የይለፍ ቃል",
-  "email-bounce-provider-secret-required": "የበራ አገልግሎት የመፈረሚያ ቁልፉን ወይም የይለፍ ቃሉን ይፈልጋል።"
+  "email-bounce-provider-secret-required": "የበራ አገልግሎት የመፈረሚያ ቁልፉን ወይም የይለፍ ቃሉን ይፈልጋል።",
+  "activity-pub-enabled": "ይፋዊ ሰሌዳዎች የካርድ እንቅስቃሴያቸውን በፌዲቨርስ ላይ ያትማሉ (ActivityPub)",
+  "activity-pub-desc": "በነባሪ ጠፍቷል። ሲበራ እያንዳንዱ ይፋዊ ሰሌዳ ከMastodon እና ከሌሎች የፌዲቨርስ አገልጋዮች በዚህ WeKan አድራሻ ላይ እንደ @board-<id> ሊከተል ይችላል፣ አዲስ የካርድ እንቅስቃሴም ለተከታዮቹ ይደርሳል። ለንባብ ብቻ ነው፦ የፌዲቨርስ አገልጋይ የሚልከው ምንም ነገር ሰሌዳን አይቀይርም፣ የግል ሰሌዳዎችም በጭራሽ አይታተሙም።",
+  "caldav-sync": "የቀን መቁጠሪያ ማመሳሰል (CalDAV)",
+  "caldav-sync-desc": "የዚህን ሰሌዳ የካርድ የመጨረሻ ቀኖች በቀን መቁጠሪያ ውስጥ ያስቀምጡ - Nextcloud Calendar ወይም ማንኛውም CalDAV የቀን መቁጠሪያ። በቀን መቁጠሪያው ውስጥ የተዛወረ የመጨረሻ ቀን ወደ ካርዱ ይመለሳል። የራስዎን ሳይሆን የመተግበሪያ የይለፍ ቃል ይጠቀሙ።",
+  "caldav-url": "የቀን መቁጠሪያ አድራሻ",
+  "caldav-app-password": "የመተግበሪያ የይለፍ ቃል",
+  "caldav-enabled": "የመጨረሻ ቀኖችን ከዚህ የቀን መቁጠሪያ ጋር አመሳስል",
+  "caldav-sync-now": "ሁሉንም አሁን አመሳስል",
+  "caldav-invalid-url": "የቀን መቁጠሪያው አድራሻ http:// ወይም https:// አድራሻ መሆን አለበት፣ በውስጡ የተጠቃሚ ስም ወይም የይለፍ ቃል ሳይኖር።",
+  "caldav-not-linked": "መጀመሪያ የቀን መቁጠሪያ አድራሻ ያስቀምጡ እና ማመሳሰልን ያብሩ።",
+  "webdav-storage": "WebDAV ማከማቻ (Nextcloud Files)",
+  "webdav-storage-description": "አባሪዎችን በWebDAV አገልጋይ ላይ ባለ አቃፊ ውስጥ ያከማቹ - Nextcloud Files፣ ownCloud ወይም ሌላ ማንኛውም። ለWeKan የተፈጠረ የመተግበሪያ የይለፍ ቃል ይጠቀሙ። ይህን አድራሻ የሚያዘጋጀው የጣቢያ አስተዳዳሪ ብቻ ስለሆነ በWeKan የራሱ አውታረ መረብ ላይ ያለ አገልጋይ እዚህ መጠቀም ይቻላል።",
+  "webdav-endpoint": "የWebDAV አድራሻ",
+  "webdav-password": "የመተግበሪያ የይለፍ ቃል",
+  "webdav-folder": "አቃፊ",
+  "move-storage-webdav": "WebDAV ማከማቻ (Nextcloud Files)"
 }

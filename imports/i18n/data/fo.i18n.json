@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Um WeKan sendir gjøgnum eina av hesum tænastum, so tendra hana, gev tænastuni hesa webhook-adressuna til afturkomin teldubrøv og ruskpostklagur, og set her inn lykilin, sum hon undirskrivar tey við, ella loyniorðið, sum tú setti í adressuna sum https://user:password@… ella ?secret=…",
   "email-bounces-provider-key": "Webhook-undirskriftarlykil",
   "email-bounces-provider-password": "Webhook-loyniorð",
-  "email-bounce-provider-secret-required": "Ein tendrað tænasta má hava sín undirskriftarlykil ella sítt loyniorð."
+  "email-bounce-provider-secret-required": "Ein tendrað tænasta má hava sín undirskriftarlykil ella sítt loyniorð.",
+  "activity-pub-enabled": "Almennar talvur almannagera kortvirksemi sína á fediversinum (ActivityPub)",
+  "activity-pub-desc": "Sløkt sum standard. Tá ið tað er tendrað, kann hvør almenn talva fylgjast úr Mastodon og øðrum fediverse-ambætarum sum @board-<id> á adressuni hjá hesum WeKan, og nýggj kortvirksemi røkkur fylgjarar hennara. Tað er bert til lesturs: einki, ið ein fediverse-ambætari sendir, broytir eina talvu, og privatar talvur verða ongantíð almannagjørdar.",
+  "caldav-sync": "Kalendarasamstilling (CalDAV)",
+  "caldav-sync-desc": "Set freistirnar á kortunum á hesi talvuni í ein kalendara - Nextcloud Calendar ella hvønn CalDAV-kalendara. Ein freist, ið verður flutt í kalendaranum, kemur aftur á kortið. Brúka eitt app-loyniorð, ikki títt egna.",
+  "caldav-url": "Kalendaraadressa",
+  "caldav-app-password": "App-loyniorð",
+  "caldav-enabled": "Samstilla freistir við hesum kalendaranum",
+  "caldav-sync-now": "Samstilla alt nú",
+  "caldav-invalid-url": "Kalendaraadressan má vera ein http:// ella https:// adressa, uttan brúkaranavn ella loyniorð í.",
+  "caldav-not-linked": "Goym fyrst eina kalendaraadressu og tendra samstilling.",
+  "webdav-storage": "WebDAV-goymsla (Nextcloud Files)",
+  "webdav-storage-description": "Goym viðheft í eini mappu á einum WebDAV-ambætara - Nextcloud Files, ownCloud ella hvørjum øðrum. Brúka eitt app-loyniorð, ið er gjørt til WeKan. Ein ambætari á WeKan sínum egna netverki kann brúkast her, tí bert ein umsitari av síðuni setur hesa adressuna.",
+  "webdav-endpoint": "WebDAV-adressa",
+  "webdav-password": "App-loyniorð",
+  "webdav-folder": "Mappa",
+  "move-storage-webdav": "WebDAV-goymsla (Nextcloud Files)"
 }

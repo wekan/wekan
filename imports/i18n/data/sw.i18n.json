@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Ikiwa WeKan inatuma kupitia mojawapo ya huduma hizi, iwashe, ipe huduma hiyo anwani hii ya webhook kwa matukio yake ya barua zilizorudi na malalamiko ya barua taka, na ubandike hapa ufunguo inaotumia kuyatia sahihi, au nenosiri uliloweka kwenye anwani kama https://user:password@… au ?secret=…",
   "email-bounces-provider-key": "Ufunguo wa sahihi wa webhook",
   "email-bounces-provider-password": "Nenosiri la webhook",
-  "email-bounce-provider-secret-required": "Huduma iliyowashwa inahitaji ufunguo wake wa sahihi au nenosiri."
+  "email-bounce-provider-secret-required": "Huduma iliyowashwa inahitaji ufunguo wake wa sahihi au nenosiri.",
+  "activity-pub-enabled": "Bodi za hadharani huchapisha shughuli za kadi zao kwenye fediverse (ActivityPub)",
+  "activity-pub-desc": "Imezimwa kwa chaguo-msingi. Ikiwashwa, kila bodi ya hadharani inaweza kufuatwa kutoka Mastodon na seva nyingine za fediverse kama @board-<id> kwenye anwani ya WeKan hii, na shughuli mpya za kadi huwafikia wafuasi wake. Ni ya kusoma tu: hakuna kitu ambacho seva ya fediverse hutuma kinachobadilisha bodi, na bodi za faragha hazichapishwi kamwe.",
+  "caldav-sync": "Usawazishaji wa kalenda (CalDAV)",
+  "caldav-sync-desc": "Weka tarehe za mwisho za kadi za bodi hii kwenye kalenda - Nextcloud Calendar au kalenda yoyote ya CalDAV. Tarehe ya mwisho iliyosogezwa kwenye kalenda hurudi kwenye kadi. Tumia nenosiri la programu, si lako mwenyewe.",
+  "caldav-url": "Anwani ya kalenda",
+  "caldav-app-password": "Nenosiri la programu",
+  "caldav-enabled": "Sawazisha tarehe za mwisho na kalenda hii",
+  "caldav-sync-now": "Sawazisha yote sasa",
+  "caldav-invalid-url": "Anwani ya kalenda lazima iwe anwani ya http:// au https://, bila jina la mtumiaji au nenosiri ndani yake.",
+  "caldav-not-linked": "Kwanza hifadhi anwani ya kalenda na uwashe usawazishaji.",
+  "webdav-storage": "Hifadhi ya WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Hifadhi viambatisho kwenye folda katika seva ya WebDAV - Nextcloud Files, ownCloud au nyingine yoyote. Tumia nenosiri la programu lililotengenezwa kwa ajili ya WeKan. Seva iliyo kwenye mtandao wa WeKan yenyewe inaweza kutumika hapa, kwa kuwa ni msimamizi wa tovuti pekee anayeweka anwani hii.",
+  "webdav-endpoint": "Anwani ya WebDAV",
+  "webdav-password": "Nenosiri la programu",
+  "webdav-folder": "Folda",
+  "move-storage-webdav": "Hifadhi ya WebDAV (Nextcloud Files)"
 }

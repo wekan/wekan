@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Si WeKan manna pe' mmiezo 'e uno 'e chiste servizie, appicciatelo, dàte ô servizio chist'indirizzo webhook pe' ll'evente suoje 'e mail turnate arreto e reclame 'e spam, e ncullate ccà 'a chiave cu cui 'e firma, o 'a parola d'ordine ca avite miso dint' a ll'indirizzo comme https://user:password@… o ?secret=…",
   "email-bounces-provider-key": "Chiave 'e firma d' 'o webhook",
   "email-bounces-provider-password": "Parola d'ordine d' 'o webhook",
-  "email-bounce-provider-secret-required": "Nu servizio appicciato tene bisogno d' 'a chiave 'e firma o d' 'a parola d'ordine soja."
+  "email-bounce-provider-secret-required": "Nu servizio appicciato tene bisogno d' 'a chiave 'e firma o d' 'a parola d'ordine soja.",
+  "activity-pub-enabled": "'E tavule pubbleche pubblecano ll'attività d''e carte lloro ncopp'ô fediverso (ActivityPub)",
+  "activity-pub-desc": "Stutato comme predefinito. Quanno è appicciato, ogne tavula pubbleca se pò seguì 'a Mastodon e 'a ll'ati server d''o fediverso comme @board-<id> a ll'indirizzo 'e stu WeKan, e 'a nova attività d''e carte arriva a chi 'a segue. È sulo pe' leggere: niente 'e chello ca manna nu server d''o fediverso cagna na tavula, e 'e tavule private nun se pubblecano maje.",
+  "caldav-sync": "Sincronizzazzione d''o calendario (CalDAV)",
+  "caldav-sync-desc": "Mette 'e date 'e scadenza d''e carte 'e chesta tavula dint'a nu calendario - Nextcloud Calendar o qualunque calendario CalDAV. Na data 'e scadenza spustata dint'ô calendario torna 'ncopp'â carta. Ausa na parola d'ordine 'e ll'applicazzione, no 'a toja.",
+  "caldav-url": "Indirizzo d''o calendario",
+  "caldav-app-password": "Parola d'ordine 'e ll'applicazzione",
+  "caldav-enabled": "Sincronizza 'e date 'e scadenza cu stu calendario",
+  "caldav-sync-now": "Sincronizza tutto mo",
+  "caldav-invalid-url": "L'indirizzo d''o calendario adda essere n'indirizzo http:// o https://, senza nomme utente o parola d'ordine dinto.",
+  "caldav-not-linked": "Primma sarva n'indirizzo 'e calendario e appiccia 'a sincronizzazzione.",
+  "webdav-storage": "Archivio WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Astipa ll'allegate dint'a na cartella 'ncopp'a nu server WebDAV - Nextcloud Files, ownCloud o qualunque ato. Ausa na parola d'ordine 'e ll'applicazzione fatta pe' WeKan. Ccà se pò ausà nu server d''a rete stessa 'e WeKan, pecché sulo n'ammenistratore d''o sito mette chist'indirizzo.",
+  "webdav-endpoint": "Indirizzo WebDAV",
+  "webdav-password": "Parola d'ordine 'e ll'applicazzione",
+  "webdav-folder": "Cartella",
+  "move-storage-webdav": "Archivio WebDAV (Nextcloud Files)"
 }

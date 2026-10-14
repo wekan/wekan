@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Se WeKan manda per un d'aqueles servicis, activatz-lo, donatz al servici aquesta adreça de webhook per sos eveniments de corrièls tornats e de reclamacions d'espam, e pegatz aquí la clau amb la quala los signa, o lo senhal qu'avètz mes dins l'adreça coma https://user:password@… o ?secret=…",
   "email-bounces-provider-key": "Clau de signatura del webhook",
   "email-bounces-provider-password": "Senhal del webhook",
-  "email-bounce-provider-secret-required": "Un servici activat a besonh de sa clau de signatura o de son senhal."
+  "email-bounce-provider-secret-required": "Un servici activat a besonh de sa clau de signatura o de son senhal.",
+  "activity-pub-enabled": "Los tablèus publics publican l'activitat de lors cartas sul fedivèrs (ActivityPub)",
+  "activity-pub-desc": "Desactivat per defaut. Quand es activat, cada tablèu public pòt èsser seguit dempuèi Mastodon e d'autres servidors del fedivèrs coma @board-<id> a l'adreça d'aqueste WeKan, e la novèla activitat de las cartas arriba a sos seguidors. Es en lectura sola : res de çò que manda un servidor del fedivèrs modifica pas un tablèu, e los tablèus privats son pas jamai publicats.",
+  "caldav-sync": "Sincronizacion del calendièr (CalDAV)",
+  "caldav-sync-desc": "Metètz las datas de fin de las cartas d'aqueste tablèu dins un calendièr - Nextcloud Calendar o quin calendièr CalDAV que siá. Una data de fin desplaçada dins lo calendièr torna a la carta. Utilizatz un senhal d'aplicacion, pas lo vòstre.",
+  "caldav-url": "Adreça del calendièr",
+  "caldav-app-password": "Senhal d'aplicacion",
+  "caldav-enabled": "Sincronizar las datas de fin amb aqueste calendièr",
+  "caldav-sync-now": "O sincronizar tot ara",
+  "caldav-invalid-url": "L'adreça del calendièr deu èsser una adreça http:// o https://, sens nom d'utilizaire ni senhal dedins.",
+  "caldav-not-linked": "Enregistratz d'en primièr una adreça de calendièr e activatz la sincronizacion.",
+  "webdav-storage": "Emmagazinatge WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Gardar las pèças jonchas dins un dorsièr sus un servidor WebDAV - Nextcloud Files, ownCloud o quin que siá mai. Utilizatz un senhal d'aplicacion creat per WeKan. Un servidor sul ret pròpri de WeKan pòt èsser utilizat aquí, perque sonque un administrator del site definís aquesta adreça.",
+  "webdav-endpoint": "Adreça WebDAV",
+  "webdav-password": "Senhal d'aplicacion",
+  "webdav-folder": "Dorsièr",
+  "move-storage-webdav": "Emmagazinatge WebDAV (Nextcloud Files)"
 }

@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Jeli WeKan přez jednu z tutych słužbow sćele, zaswěćće ju, dajće słužbje tutu adresu webhooka za jeje podawki wróćenych e-mejlow a skóržbow wo spamje a zasadźće sem kluč, z kotrymž je podpisuje, abo hesło, kotrež sće do adresy jako https://user:password@… abo ?secret=… zapisał",
   "email-bounces-provider-key": "Podpisowy kluč webhooka",
   "email-bounces-provider-password": "Hesło webhooka",
-  "email-bounce-provider-secret-required": "Zaswěćena słužba trjeba swój podpisowy kluč abo swoje hesło."
+  "email-bounce-provider-secret-required": "Zaswěćena słužba trjeba swój podpisowy kluč abo swoje hesło.",
+  "activity-pub-enabled": "Zjawne tafle wozjewjeja aktiwitu swojich kartow we fediwersumje (ActivityPub)",
+  "activity-pub-desc": "Po standardźe wupinjene. Hdyž je zapinjene, móže so kóždej zjawnej tafli z Mastodona a druhich serwerow fediwersuma jako @board-<id> pod adresu tutoho WeKan sćěhować, a nowa aktiwita kartow dóńdźe k jeje sćěhowarjam. Je jenož za čitanje: ničo, štož serwer fediwersuma pósćele, taflu njezměni, a priwatne tafle so ženje njewozjewjeja.",
+  "caldav-sync": "Synchronizacija protyki (CalDAV)",
+  "caldav-sync-desc": "Staja terminy dospěća kartow tuteje tafle do protyki - Nextcloud Calendar abo kóžda protyka CalDAV. Termin dospěća, kotryž so w protyce přesunje, so do karty wróći. Wužiwajće hesło nałoženja, nic swoje hesło.",
+  "caldav-url": "Adresa protyki",
+  "caldav-app-password": "Hesło nałoženja",
+  "caldav-enabled": "Terminy dospěća z tutej protyku synchronizować",
+  "caldav-sync-now": "Wšitko nětko synchronizować",
+  "caldav-invalid-url": "Adresa protyki dyrbi adresa http:// abo https:// być, bjez wužiwarskeho mjena abo hesła w njej.",
+  "caldav-not-linked": "Składujće najprjedy adresu protyki a zapińće synchronizaciju.",
+  "webdav-storage": "Składowak WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Składuje přiwěški w rjadowaku na serwerje WebDAV - Nextcloud Files, ownCloud abo kóžde druhe. Wužiwajće hesło nałoženja, wutworjene za WeKan. Serwer we swójskej syći WeKan da so tu wužiwać, dokelž jenož administrator sydła tutu adresu postaja.",
+  "webdav-endpoint": "Adresa WebDAV",
+  "webdav-password": "Hesło nałoženja",
+  "webdav-folder": "Rjadowak",
+  "move-storage-webdav": "Składowak WebDAV (Nextcloud Files)"
 }

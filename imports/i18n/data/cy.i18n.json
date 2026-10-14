@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Os yw WeKan yn anfon drwy un o'r gwasanaethau hyn, trowch ef ymlaen, rhowch y cyfeiriad bachyn gwe hwn i'r gwasanaeth ar gyfer ei ddigwyddiadau adlamu a chwynion sbam, a gludwch yma'r allwedd y mae'n eu llofnodi â hi, neu'r cyfrinair a roesoch yn y cyfeiriad fel https://user:password@… neu ?secret=…",
   "email-bounces-provider-key": "Allwedd llofnodi'r bachyn gwe",
   "email-bounces-provider-password": "Cyfrinair y bachyn gwe",
-  "email-bounce-provider-secret-required": "Mae angen ei allwedd llofnodi neu ei gyfrinair ar wasanaeth sydd wedi'i droi ymlaen."
+  "email-bounce-provider-secret-required": "Mae angen ei allwedd llofnodi neu ei gyfrinair ar wasanaeth sydd wedi'i droi ymlaen.",
+  "activity-pub-enabled": "Mae byrddau cyhoeddus yn cyhoeddi gweithgarwch eu cardiau ar y ffedifyd (ActivityPub)",
+  "activity-pub-desc": "I ffwrdd yn ddiofyn. Pan fydd ymlaen, gellir dilyn pob bwrdd cyhoeddus o Mastodon a gweinyddion ffedifyd eraill fel @board-<id> yng nghyfeiriad y WeKan hwn, ac mae gweithgarwch cardiau newydd yn cyrraedd ei ddilynwyr. Darllen yn unig ydyw: nid yw dim y mae gweinydd ffedifyd yn ei anfon yn newid bwrdd, ac ni chyhoeddir byrddau preifat byth.",
+  "caldav-sync": "Cydweddu calendr (CalDAV)",
+  "caldav-sync-desc": "Rhowch ddyddiadau dyledus cardiau'r bwrdd hwn mewn calendr - Nextcloud Calendar neu unrhyw galendr CalDAV. Mae dyddiad dyledus a symudir yn y calendr yn dod yn ôl i'r cerdyn. Defnyddiwch gyfrinair ap, nid eich un chi.",
+  "caldav-url": "Cyfeiriad y calendr",
+  "caldav-app-password": "Cyfrinair ap",
+  "caldav-enabled": "Cydweddu dyddiadau dyledus â'r calendr hwn",
+  "caldav-sync-now": "Cydweddu'r cyfan nawr",
+  "caldav-invalid-url": "Rhaid i gyfeiriad y calendr fod yn gyfeiriad http:// neu https://, heb enw defnyddiwr na chyfrinair ynddo.",
+  "caldav-not-linked": "Cadwch gyfeiriad calendr a throi cydweddu ymlaen yn gyntaf.",
+  "webdav-storage": "Storfa WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Storio ymlyniadau mewn ffolder ar weinydd WebDAV - Nextcloud Files, ownCloud neu unrhyw un arall. Defnyddiwch gyfrinair ap a wnaed ar gyfer WeKan. Gellir defnyddio gweinydd ar rwydwaith WeKan ei hun yma, gan mai dim ond gweinyddwr y wefan sy'n gosod y cyfeiriad hwn.",
+  "webdav-endpoint": "Cyfeiriad WebDAV",
+  "webdav-password": "Cyfrinair ap",
+  "webdav-folder": "Ffolder",
+  "move-storage-webdav": "Storfa WebDAV (Nextcloud Files)"
 }

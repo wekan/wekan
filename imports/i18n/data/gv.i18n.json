@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "My ta WeKan currey trooid unnane jeh ny shirveishyn shoh, cur er eh, cur da'n shirveish yn enmys webhook shoh son taghyrtyn post-l er chyndaa as plaiynt spam, as cur shoh yn eochr t'eh cur e ennym orroo lesh, ny yn fockle-arrey hug oo ayns yn enmys myr https://user:password@… ny ?secret=…",
   "email-bounces-provider-key": "Eochr sinal y webhook",
   "email-bounces-provider-password": "Fockle-arrey y webhook",
-  "email-bounce-provider-secret-required": "Ta feme ec shirveish ta er currit er er e eochr sinal ny e fockle-arrey."
+  "email-bounce-provider-secret-required": "Ta feme ec shirveish ta er currit er er e eochr sinal ny e fockle-arrey.",
+  "activity-pub-enabled": "Ta boayrdyn theayagh soilshaghey magh obbyr nyn gaartyn er y fediverse (ActivityPub)",
+  "activity-pub-desc": "Jeant ass myr cadjin. Tra t'eh jeant er, oddys dy chooilley voayrd theayagh ve eiyrit veih Mastodon as serveryn fediverse elley myr @board-<id> ec enmys y WeKan shoh, as ta obbyr noa ny kaartyn roshtyn e eiyrtee. Cha nod eh agh ve lhaiht: cha vel red erbee ta serveyr fediverse cur caghlaa boayrd, as cha bee boayrdyn preevaadjagh soilshit magh dy bragh.",
+  "caldav-sync": "Co-rheaghey feaillere (CalDAV)",
+  "caldav-sync-desc": "Cur traaghyn jerrinagh kaartyn y voayrd shoh ayns feaillere - Nextcloud Calendar ny feaillere CalDAV erbee. Ta traa jerrinagh scughit ayns y feaillere cheet reesht gys y kaart. Jean ymmyd jeh fockle-arrey app, cha nee dty fockle-arrey hene.",
+  "caldav-url": "Enmys y feaillere",
+  "caldav-app-password": "Fockle-arrey app",
+  "caldav-enabled": "Co-rheaghey traaghyn jerrinagh lesh y feaillere shoh",
+  "caldav-sync-now": "Co-rheaghey dy chooilley nhee nish",
+  "caldav-invalid-url": "Shegin da enmys y feaillere ve enmys http:// ny https://, gyn ennym ymmydeyr ny fockle-arrey ayn.",
+  "caldav-not-linked": "Sauail enmys feaillere as cur co-rheaghey er hoshiaght.",
+  "webdav-storage": "Stoyr WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Stoyr coyrtyn ayns filleyder er serveyr WebDAV - Nextcloud Files, ownCloud ny fer erbee elley. Jean ymmyd jeh fockle-arrey app jeant son WeKan. Oddys serveyr er lieen WeKan hene ve ymmydit ayns shoh, er yn oyr nagh vel agh reireyder yn ynnyd soiaghey yn enmys shoh.",
+  "webdav-endpoint": "Enmys WebDAV",
+  "webdav-password": "Fockle-arrey app",
+  "webdav-folder": "Filleyder",
+  "move-storage-webdav": "Stoyr WebDAV (Nextcloud Files)"
 }

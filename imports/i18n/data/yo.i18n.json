@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Tí WeKan bá ń fi ránṣẹ́ nípasẹ̀ ọ̀kan nínú àwọn iṣẹ́ wọ̀nyí, tàn án, fún iṣẹ́ náà ní àdírẹ́sì webhook yìí fún àwọn ìṣẹ̀lẹ̀ imeeli tó padà àti ẹ̀sùn spam, kí o sì lẹ kọ́kọ́rọ́ tí ó fi ń buwọ́lù wọ́n síbí, tàbí ọrọigbaniwọle tí o fi sínú àdírẹ́sì gẹ́gẹ́ bí https://user:password@… tàbí ?secret=…",
   "email-bounces-provider-key": "Kọ́kọ́rọ́ ìbuwọ́lù webhook",
   "email-bounces-provider-password": "Ọrọigbaniwọle webhook",
-  "email-bounce-provider-secret-required": "Iṣẹ́ tí a tàn nílò kọ́kọ́rọ́ ìbuwọ́lù rẹ̀ tàbí ọrọigbaniwọle rẹ̀."
+  "email-bounce-provider-secret-required": "Iṣẹ́ tí a tàn nílò kọ́kọ́rọ́ ìbuwọ́lù rẹ̀ tàbí ọrọigbaniwọle rẹ̀.",
+  "activity-pub-enabled": "Àwọn pátákó gbangba ń tẹ ìṣe káàdì wọn jáde lórí fediverse (ActivityPub)",
+  "activity-pub-desc": "Ó wà ní pípa ní àìyípadà. Tí a bá tàn án, a lè tẹ̀lé pátákó gbangba kọ̀ọ̀kan láti Mastodon àti àwọn olùpín fediverse mìíràn gẹ́gẹ́ bí @board-<id> ní àdírẹ́sì WeKan yìí, ìṣe káàdì tuntun sì ń dé ọ̀dọ̀ àwọn olùtẹ̀lé rẹ̀. Kíkà nìkan ni: kò sí ohun tí olùpín fediverse bá fi ránṣẹ́ tí ó lè yí pátákó padà, a kò sì ní tẹ àwọn pátákó àdáni jáde láéláé.",
+  "caldav-sync": "Ìmúṣiṣẹ́pọ̀ kàlẹ́ńdà (CalDAV)",
+  "caldav-sync-desc": "Ó ń fi ọjọ́ ìparí àwọn káàdì pátákó yìí sínú kàlẹ́ńdà kan - Nextcloud Calendar tàbí kàlẹ́ńdà CalDAV èyíkéyìí. Ọjọ́ ìparí tí a bá yí padà nínú kàlẹ́ńdà yóò padà sí káàdì náà. Lo ọ̀rọ̀ìgbaniwọlé ìṣàfilọ́lẹ̀, kì í ṣe tìrẹ.",
+  "caldav-url": "Àdírẹ́sì kàlẹ́ńdà",
+  "caldav-app-password": "Ọ̀rọ̀ìgbaniwọlé ìṣàfilọ́lẹ̀",
+  "caldav-enabled": "Mú ọjọ́ ìparí ṣiṣẹ́pọ̀ pẹ̀lú kàlẹ́ńdà yìí",
+  "caldav-sync-now": "Mú gbogbo rẹ̀ ṣiṣẹ́pọ̀ nísinsìnyí",
+  "caldav-invalid-url": "Àdírẹ́sì kàlẹ́ńdà gbọ́dọ̀ jẹ́ àdírẹ́sì http:// tàbí https://, láìsí orúkọ oníṣe tàbí ọ̀rọ̀ìgbaniwọlé nínú rẹ̀.",
+  "caldav-not-linked": "Kọ́kọ́ fi àdírẹ́sì kàlẹ́ńdà pamọ́ kí o sì tan ìmúṣiṣẹ́pọ̀.",
+  "webdav-storage": "Ibi ìpamọ́ WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Ó ń tọ́jú àwọn àsomọ́ sínú fódà kan lórí olùpín WebDAV - Nextcloud Files, ownCloud tàbí èyíkéyìí mìíràn. Lo ọ̀rọ̀ìgbaniwọlé ìṣàfilọ́lẹ̀ tí a ṣe fún WeKan. A lè lo olùpín tó wà lórí nẹ́tíwọ̀ọ̀kì WeKan fúnra rẹ̀ níbí, nítorí pé alábòójútó ojú-òpó nìkan ló ń ṣètò àdírẹ́sì yìí.",
+  "webdav-endpoint": "Àdírẹ́sì WebDAV",
+  "webdav-password": "Ọ̀rọ̀ìgbaniwọlé ìṣàfilọ́lẹ̀",
+  "webdav-folder": "Fódà",
+  "move-storage-webdav": "Ibi ìpamọ́ WebDAV (Nextcloud Files)"
 }

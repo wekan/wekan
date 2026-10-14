@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Jika WeKan mengirim melalui salah satu layanan ini, aktifkan, berikan alamat webhook ini kepada layanan untuk peristiwa email terpental dan keluhan spam, lalu tempelkan di sini kunci yang digunakan layanan untuk menandatanganinya, atau kata sandi yang Anda masukkan ke alamat sebagai https://user:password@… atau ?secret=…",
   "email-bounces-provider-key": "Kunci penandatanganan webhook",
   "email-bounces-provider-password": "Kata sandi webhook",
-  "email-bounce-provider-secret-required": "Layanan yang aktif memerlukan kunci penandatanganan atau kata sandinya."
+  "email-bounce-provider-secret-required": "Layanan yang aktif memerlukan kunci penandatanganan atau kata sandinya.",
+  "activity-pub-enabled": "Papan publik menerbitkan aktivitas kartunya di fediverse (ActivityPub)",
+  "activity-pub-desc": "Nonaktif secara bawaan. Jika diaktifkan, setiap papan publik dapat diikuti dari Mastodon dan server fediverse lainnya sebagai @board-<id> di alamat WeKan ini, dan aktivitas kartu baru sampai ke para pengikutnya. Ini hanya-baca: apa pun yang dikirim server fediverse tidak mengubah papan, dan papan pribadi tidak pernah diterbitkan.",
+  "caldav-sync": "Sinkronisasi kalender (CalDAV)",
+  "caldav-sync-desc": "Masukkan tanggal jatuh tempo kartu di papan ini ke kalender - Nextcloud Calendar atau kalender CalDAV apa pun. Tanggal jatuh tempo yang dipindahkan di kalender akan kembali ke kartu. Gunakan kata sandi aplikasi, bukan kata sandi Anda sendiri.",
+  "caldav-url": "Alamat kalender",
+  "caldav-app-password": "Kata sandi aplikasi",
+  "caldav-enabled": "Sinkronkan tanggal jatuh tempo dengan kalender ini",
+  "caldav-sync-now": "Sinkronkan semua sekarang",
+  "caldav-invalid-url": "Alamat kalender harus berupa alamat http:// atau https://, tanpa nama pengguna atau kata sandi di dalamnya.",
+  "caldav-not-linked": "Simpan alamat kalender dan aktifkan sinkronisasi terlebih dahulu.",
+  "webdav-storage": "Penyimpanan WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Simpan lampiran di map pada server WebDAV - Nextcloud Files, ownCloud, atau lainnya. Gunakan kata sandi aplikasi yang dibuat untuk WeKan. Server di jaringan WeKan sendiri dapat digunakan di sini, karena hanya administrator situs yang mengatur alamat ini.",
+  "webdav-endpoint": "Alamat WebDAV",
+  "webdav-password": "Kata sandi aplikasi",
+  "webdav-folder": "Map",
+  "move-storage-webdav": "Penyimpanan WebDAV (Nextcloud Files)"
 }

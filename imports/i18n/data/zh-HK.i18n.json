@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "如果 WeKan 透過其中某個服務寄信，請將其開啟，把這個 webhook 位址提供給該服務以接收退信和垃圾郵件檢舉事件，並在此貼上它用於簽署的金鑰，或您在位址中以 https://user:password@… 或 ?secret=… 形式設定的密碼",
   "email-bounces-provider-key": "Webhook 簽署金鑰",
   "email-bounces-provider-password": "Webhook 密碼",
-  "email-bounce-provider-secret-required": "已開啟的服務需要其簽署金鑰或密碼。"
+  "email-bounce-provider-secret-required": "已開啟的服務需要其簽署金鑰或密碼。",
+  "activity-pub-enabled": "公開看板會將卡片活動發佈到聯邦宇宙 (ActivityPub)",
+  "activity-pub-desc": "預設為關閉。開啟後，每個公開看板都可以從 Mastodon 及其他聯邦宇宙伺服器以 @board-<id>（位於此 WeKan 的網址）追蹤，新的卡片活動會傳送給其追蹤者。此功能為唯讀：聯邦宇宙伺服器傳來的任何內容都不會更改看板，而私有看板永遠不會發佈。",
+  "caldav-sync": "日曆同步 (CalDAV)",
+  "caldav-sync-desc": "將此看板卡片的到期日放入日曆 - Nextcloud Calendar 或任何 CalDAV 日曆。在日曆中移動的到期日會同步回卡片。請使用應用程式密碼，而不是你自己的密碼。",
+  "caldav-url": "日曆網址",
+  "caldav-app-password": "應用程式密碼",
+  "caldav-enabled": "將到期日與此日曆同步",
+  "caldav-sync-now": "立即全部同步",
+  "caldav-invalid-url": "日曆網址必須是 http:// 或 https:// 網址，且不可包含使用者名稱或密碼。",
+  "caldav-not-linked": "請先儲存日曆網址並開啟同步。",
+  "webdav-storage": "WebDAV 儲存空間 (Nextcloud Files)",
+  "webdav-storage-description": "將附件儲存在 WebDAV 伺服器上的資料夾中 - Nextcloud Files、ownCloud 或其他任何伺服器。請使用為 WeKan 建立的應用程式密碼。由於只有網站管理員才能設定此網址，因此可在此使用位於 WeKan 自身網絡上的伺服器。",
+  "webdav-endpoint": "WebDAV 網址",
+  "webdav-password": "應用程式密碼",
+  "webdav-folder": "資料夾",
+  "move-storage-webdav": "WebDAV 儲存空間 (Nextcloud Files)"
 }

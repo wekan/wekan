@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Sche WeKan spedescha tras in da quests servetschs, activescha el, dà al servetsch questa adressa da webhook per ses eveniments da returs d'e-mail e da reclamaziuns da spam, e tacca qua la clav cun la quala el als suttascriva, u il pled-clav che ti has mess en l'adressa sco https://user:password@… u ?secret=…",
   "email-bounces-provider-key": "Clav da signatura dal webhook",
   "email-bounces-provider-password": "Pled-clav dal webhook",
-  "email-bounce-provider-secret-required": "In servetsch activà dovra sia clav da signatura u ses pled-clav."
+  "email-bounce-provider-secret-required": "In servetsch activà dovra sia clav da signatura u ses pled-clav.",
+  "activity-pub-enabled": "Tabellas publicas publitgeschan l'activitad da lur cartas en il fediverse (ActivityPub)",
+  "activity-pub-desc": "Deactivà per standard. Sch'el è activà, po mintga tabella publica vegnir suandada da Mastodon e d'auters servers dal fediverse sco @board-<id> a l'adressa da quest WeKan, e la nova activitad da las cartas arriva tar ses suandaders. I sa tracta mo da lectura: nagut da quai ch'in server dal fediverse trametta na mida ina tabella, e tabellas privatas na vegnan mai publitgadas.",
+  "caldav-sync": "Sincronisaziun dal chalender (CalDAV)",
+  "caldav-sync-desc": "Metta las datas da scadenza da las cartas da questa tabella en in chalender - Nextcloud Calendar u mintga chalender CalDAV. Ina data da scadenza spustada en il chalender returna en la carta. Dovra in pled-clav d'applicaziun, betg tes agen.",
+  "caldav-url": "Adressa dal chalender",
+  "caldav-app-password": "Pled-clav d'applicaziun",
+  "caldav-enabled": "Sincronisar las datas da scadenza cun quest chalender",
+  "caldav-sync-now": "Sincronisar tut ussa",
+  "caldav-invalid-url": "L'adressa dal chalender sto esser ina adressa http:// u https://, senza num d'utilisader u pled-clav en ella.",
+  "caldav-not-linked": "Memorisescha l'emprim ina adressa dal chalender ed activescha la sincronisaziun.",
+  "webdav-storage": "Deposit WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Memorisescha las agiuntas en in ordinatur sin in server WebDAV - Nextcloud Files, ownCloud u in auter. Dovra in pled-clav d'applicaziun creà per WeKan. In server en l'atgna rait da WeKan po vegnir duvrà qua, perquai che mo in administratur da la website fixescha questa adressa.",
+  "webdav-endpoint": "Adressa WebDAV",
+  "webdav-password": "Pled-clav d'applicaziun",
+  "webdav-folder": "Ordinatur",
+  "move-storage-webdav": "Deposit WebDAV (Nextcloud Files)"
 }

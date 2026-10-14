@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Loko WeKan yi rhumela hi vun'wana bya vukorhokeri lebyi, byi lumeke, nyika vukorhokeri adirese leyi ya webhook ya swiendlakalo swa byona swa ti-imeyili leti vuyeke ni swivilelo swa spam, kutani u namarheta laha xikhiya lexi byi swi sayinaka ha xona, kumbe xiletelo xa xihundla lexi u xi vekeke eka adirese tanihi https://user:password@… kumbe ?secret=…",
   "email-bounces-provider-key": "Xikhiya xo sayina xa webhook",
   "email-bounces-provider-password": "Xiletelo xa xihundla xa webhook",
-  "email-bounce-provider-secret-required": "Vukorhokeri lebyi lumekiweke byi lava xikhiya xa byona xo sayina kumbe xiletelo xa xihundla."
+  "email-bounce-provider-secret-required": "Vukorhokeri lebyi lumekiweke byi lava xikhiya xa byona xo sayina kumbe xiletelo xa xihundla.",
+  "activity-pub-enabled": "Tibodo ta vanhu hinkwavo ti humesa mintirho ya tikhadi ta tona eka fediverse (ActivityPub)",
+  "activity-pub-desc": "Ri timiwile hi ndlela ya ntolovelo. Loko ri vulekile, bodo yin'wana na yin'wana ya vanhu hinkwavo yi nga landzeriwa ku suka eka Mastodon na tisevha tin'wana ta fediverse tanihi @board-<id> eka adirese ya WeKan leyi, naswona ntirho lowuntshwa wa tikhadi wu fika eka valandzeri va yona. I ku hlaya ntsena: a ku na nchumu lowu rhumeriwaka hi sevha ya fediverse lowu cincaka bodo, naswona tibodo ta xihundla a ti humesiwi nikatsongo.",
+  "caldav-sync": "Ku fambelanisa khalendara (CalDAV)",
+  "caldav-sync-desc": "Yi veka masiku yo hetelela ya tikhadi ta bodo leyi eka khalendara - Nextcloud Calendar kumbe khalendara yin'wana ya CalDAV. Siku ro hetelela leri susiweke eka khalendara ri vuyela eka khadi. Tirhisa xiletelo xa xihundla xa app, ku nga ri xa wena.",
+  "caldav-url": "Adirese ya khalendara",
+  "caldav-app-password": "Xiletelo xa xihundla xa app",
+  "caldav-enabled": "Fambelanisa masiku yo hetelela na khalendara leyi",
+  "caldav-sync-now": "Fambelanisa hinkwaswo sweswi",
+  "caldav-invalid-url": "Adirese ya khalendara yi fanele ku va adirese ya http:// kumbe https://, handle ka vito ra mutirhisi kumbe xiletelo xa xihundla eka yona.",
+  "caldav-not-linked": "Hlayisa adirese ya khalendara ku sungula ivi u pfula ku fambelanisa.",
+  "webdav-storage": "Vuhlayiselo bya WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Yi hlayisa swihlanganisi eka folidara eka sevha ya WebDAV - Nextcloud Files, ownCloud kumbe yin'wana. Tirhisa xiletelo xa xihundla xa app lexi endleriweke WeKan. Sevha leyi nga eka netiweke ya WeKan hi yoxe yi nga tirhisiwa laha, hikuva i mulawuri wa saiti ntsena loyi a vekaka adirese leyi.",
+  "webdav-endpoint": "Adirese ya WebDAV",
+  "webdav-password": "Xiletelo xa xihundla xa app",
+  "webdav-folder": "Folidara",
+  "move-storage-webdav": "Vuhlayiselo bya WebDAV (Nextcloud Files)"
 }

@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Se WeKan el manda par un de sti servisi, impìsalo, dà al servisio sto indirisso webhook par i so eventi de mail tornà indrio e de reclami de spam, e incola qua la ciave co cui el li firma, o la parola segreta che te ghe messo nel indirisso come https://user:password@… o ?secret=…",
   "email-bounces-provider-key": "Ciave de firma del webhook",
   "email-bounces-provider-password": "Parola segreta del webhook",
-  "email-bounce-provider-secret-required": "Un servisio impisà el ga bisogno de la so ciave de firma o parola segreta."
+  "email-bounce-provider-secret-required": "Un servisio impisà el ga bisogno de la so ciave de firma o parola segreta.",
+  "activity-pub-enabled": "I quadri pùblici i publica l'atività de łe so schede sul fediverso (ActivityPub)",
+  "activity-pub-desc": "Destuà par defolt. Co el xe inpisà, ogni quadro pùblico el pol èser seguìo da Mastodon e da altri server del fediverso come @board-<id> a l'indariso de sto WeKan, e ła nova atività de łe schede ła riva ai so seguaci. El xe soło in łetura: gnente de quel che manda un server del fediverso el canbia un quadro, e i quadri privà no i vien mai publicài.",
+  "caldav-sync": "Sincronizasion del calendario (CalDAV)",
+  "caldav-sync-desc": "Meti łe date de scadensa de łe schede de sto quadro inte un calendario - Nextcloud Calendar o qualsiasi calendario CalDAV. Na data de scadensa spostà nel calendario ła torna inte ła scheda. Dòpara na password de l'aplicasion, no ła tua.",
+  "caldav-url": "Indariso del calendario",
+  "caldav-app-password": "Password de l'aplicasion",
+  "caldav-enabled": "Sincroniza łe date de scadensa co sto calendario",
+  "caldav-sync-now": "Sincroniza tuto deso",
+  "caldav-invalid-url": "L'indariso del calendario el ga da èser un indariso http:// o https://, sensa nome utente o password drento.",
+  "caldav-not-linked": "Prima salva un indariso de calendario e inpisa ła sincronizasion.",
+  "webdav-storage": "Archiviasion WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Archivia i ałegati inte na carteła de un server WebDAV - Nextcloud Files, ownCloud o qualsiasi altro. Dòpara na password de l'aplicasion creà par WeKan. Qua se pol doparar un server su ła rede propria de WeKan, parché soło un aministrador del sito el inposta sto indariso.",
+  "webdav-endpoint": "Indariso WebDAV",
+  "webdav-password": "Password de l'aplicasion",
+  "webdav-folder": "Carteła",
+  "move-storage-webdav": "Archiviasion WebDAV (Nextcloud Files)"
 }

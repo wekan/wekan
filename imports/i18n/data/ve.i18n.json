@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Arali WeKan i tshi rumela nga kha iṅwe ya tshumelo idzi, i shumiseni, ni ṋee tshumelo iyo ḓiresi iyi ya webhook ya zwiitea zwayo zwa dziimeili dzo vhuyaho na mbilaelo dza spam, ni nambatedze fhano khii ine ya zwi saina ngayo, kana phasiwede ye na i vhea kha ḓiresi sa https://user:password@… kana ?secret=…",
   "email-bounces-provider-key": "Khii ya u saina ya webhook",
   "email-bounces-provider-password": "Phasiwede ya webhook",
-  "email-bounce-provider-secret-required": "Tshumelo yo vulwaho i ṱoḓa khii yayo ya u saina kana phasiwede."
+  "email-bounce-provider-secret-required": "Tshumelo yo vulwaho i ṱoḓa khii yayo ya u saina kana phasiwede.",
+  "activity-pub-enabled": "Dzibodo dza tshitshavha dzi andadza mishumo ya garaṱa dzadzo kha fediverse (ActivityPub)",
+  "activity-pub-desc": "Yo dzimwa u bva mathomoni. Musi yo vulwa, bodo iṅwe na iṅwe ya tshitshavha i nga tevhelwa u bva kha Mastodon na maseva maṅwe a fediverse sa @board-<id> kha diresi ya WeKan iyi, nahone mishumo miswa ya garaṱa i swika kha vhatevheli vhayo. Ndi ya u vhala fhedzi: a hu na tshithu tshine seva ya fediverse ya tshi rumela tsha shandukisa bodo, nahone dzibodo dza tshiphiri a dzi nga ḓo andadzwa.",
+  "caldav-sync": "U ṱanganya khalenda (CalDAV)",
+  "caldav-sync-desc": "Vhea maḓuvha a u fhedza a garaṱa dza bodo iyi kha khalenda - Nextcloud Calendar kana khalenda iṅwe na iṅwe ya CalDAV. Ḓuvha ḽa u fhedza ḽo shandukiswaho kha khalenda ḽi vhuyelela kha garaṱa. Shumisani phasiwede ya aplikheisheni, hu si yaṋu.",
+  "caldav-url": "Diresi ya khalenda",
+  "caldav-app-password": "Phasiwede ya aplikheisheni",
+  "caldav-enabled": "Ṱanganyani maḓuvha a u fhedza na khalenda iyi",
+  "caldav-sync-now": "Ṱanganyani zwoṱhe zwino",
+  "caldav-invalid-url": "Diresi ya khalenda i fanela u vha diresi ya http:// kana https://, i si na dzina ḽa mushumisi kana phasiwede.",
+  "caldav-not-linked": "Tshi thoma vhulungani diresi ya khalenda nahone ni vule u ṱanganya.",
+  "webdav-storage": "Vhuvhulungo ha WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Vhulungani zwiṱumetshedzwa kha folodo kha seva ya WebDAV - Nextcloud Files, ownCloud kana iṅwe. Shumisani phasiwede ya aplikheisheni yo itelwaho WeKan. Seva i re kha netiweke ya WeKan yone iṋe i nga shumiswa fhano, ngauri ndi mulanguli wa saithi fhedzi ane a vhea diresi iyi.",
+  "webdav-endpoint": "Diresi ya WebDAV",
+  "webdav-password": "Phasiwede ya aplikheisheni",
+  "webdav-folder": "Folodo",
+  "move-storage-webdav": "Vhuvhulungo ha WebDAV (Nextcloud Files)"
 }

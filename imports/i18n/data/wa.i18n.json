@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Si WeKan evoye pa onk di ces siervices la, metoz l' en alaedje, dinez å siervice cisse adresse di webhook po ses evenmints d' emails rintoirnés et d' plintes po spam, et coloz chal li clé k' i les sinne avou, ou l' sicret ki vos avoz metou dins l' adresse come https://user:password@… ou ?secret=…",
   "email-bounces-provider-key": "Clé di sinateure do webhook",
   "email-bounces-provider-password": "Sicret do webhook",
-  "email-bounce-provider-secret-required": "On siervice metou en alaedje a mezåjhe di s' clé di sinateure ou di s' sicret."
+  "email-bounce-provider-secret-required": "On siervice metou en alaedje a mezåjhe di s' clé di sinateure ou di s' sicret.",
+  "activity-pub-enabled": "Les tåvleas publikes publiynut l' activité di leus cåtes sol fedivers (ActivityPub)",
+  "activity-pub-desc": "Dismetou d' prumetire. Cwand c' est metou en alaedje, on pout shuve tchaeke tåvlea publike a pårti d' Mastodon et d' ôtes sierveus do fedivers come @board-<id> a l' adresse di ç' WeKan ci, et l' novele activité des cåtes arive a ses shuveus. C' est seulmint e lijhaedje: rén di çou k' on sierveu do fedivers evoye ni candje ene tåvlea, et les tåvleas privêyes ni sont måy publiyeyes.",
+  "caldav-sync": "Sincronijhaedje do calindrî (CalDAV)",
+  "caldav-sync-desc": "Metoz les dates di fén des cåtes di cisse tåvlea ci dins on calindrî - Nextcloud Calendar ou nén impoite kéne calindrî CalDAV. Ene date di fén displaecêye dins l' calindrî rivént sol cåte. Eployîz on sicret d' aplicåcion, nén l' vosse.",
+  "caldav-url": "Adresse do calindrî",
+  "caldav-app-password": "Sicret d' aplicåcion",
+  "caldav-enabled": "Sincronijhî les dates di fén avou ç' calindrî ci",
+  "caldav-sync-now": "Tot sincronijhî asteure",
+  "caldav-invalid-url": "L' adresse do calindrî doet esse ene adresse http:// ou https://, sins no d' uzeu ni sicret dvins.",
+  "caldav-not-linked": "Edjîstrez dabôrd ene adresse di calindrî et metoz l' sincronijhaedje en alaedje.",
+  "webdav-storage": "Wårdaedje WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Wårder les ataetches dins on ridant so on sierveu WebDAV - Nextcloud Files, ownCloud ou nén impoite kéne ôte. Eployîz on sicret d' aplicåcion fwait po WeKan. On sierveu sol rantoele da WeKan pout esse eployî chal, paski c' est seulmint on manaedjeu do site ki defini ciste adresse.",
+  "webdav-endpoint": "Adresse WebDAV",
+  "webdav-password": "Sicret d' aplicåcion",
+  "webdav-folder": "Ridant",
+  "move-storage-webdav": "Wårdaedje WebDAV (Nextcloud Files)"
 }

@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Yoo WeKan tajaajiloota kanneen keessaa tokkoon erge, isa banaa, tajaajilichaaf teessoo webhook kana taateewwan imeelii deebi'anii fi komii spam isaatiif kennaa, achiis furtuu ittiin mallatteessu ykn jecha darbii teessoo keessa akka https://user:password@… ykn ?secret=… tti keessan as maxxansaa",
   "email-bounces-provider-key": "Furtuu mallattoo webhook",
   "email-bounces-provider-password": "Jecha darbii webhook",
-  "email-bounce-provider-secret-required": "Tajaajilli banamee jiru furtuu mallattoo isaa ykn jecha darbii barbaada."
+  "email-bounce-provider-secret-required": "Tajaajilli banamee jiru furtuu mallattoo isaa ykn jecha darbii barbaada.",
+  "activity-pub-enabled": "Gabateewwan uummataa sochii kaardii isaanii fediverse irratti maxxansu (ActivityPub)",
+  "activity-pub-desc": "Durtiin cufaadha. Yeroo banamu, gabateen uummataa tokkoon tokkoon isaa Mastodon fi sarvarootaa fediverse biroo irraa akka @board-<id> teessoo WeKan kanaa irratti hordofamuu danda'a, sochiin kaardii haaraan immoo hordoftoota isaa bira ga'a. Dubbisuuf qofa: wanti sarvariin fediverse ergu kamiyyuu gabatee hin jijjiiru, gabateewwan dhuunfaa gonkumaa hin maxxanfaman.",
+  "caldav-sync": "Walsimsiisa kaalaandarii (CalDAV)",
+  "caldav-sync-desc": "Guyyaa dhumaa kaardiiwwan gabatee kanaa kaalaandarii tokko keessa kaa'a - Nextcloud Calendar ykn kaalaandarii CalDAV kamiyyuu. Guyyaan dhumaa kaalaandarii keessatti socho'e gara kaardiitti deebi'a. Jecha darbii appii fayyadami, kan kee miti.",
+  "caldav-url": "Teessoo kaalaandarii",
+  "caldav-app-password": "Jecha darbii appii",
+  "caldav-enabled": "Guyyaa dhumaa kaalaandarii kana waliin walsimsiisi",
+  "caldav-sync-now": "Amma hunda walsimsiisi",
+  "caldav-invalid-url": "Teessoon kaalaandarii teessoo http:// ykn https:// ta'uu qaba, maqaa fayyadamaa ykn jecha darbii of keessaa malee.",
+  "caldav-not-linked": "Dura teessoo kaalaandarii olkaa'iitii walsimsiisa bani.",
+  "webdav-storage": "Kuusaa WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Maxxansaalee foolderii sarvarii WebDAV irra jiru keessatti kuusa - Nextcloud Files, ownCloud ykn kan biroo. Jecha darbii appii WeKaniif uumame fayyadami. Sarvariin networkii WeKan mataa isaa irra jiru asitti fayyadamuu ni danda'ama, sababni isaas bulchaan saayitii qofatu teessoo kana qindeessa.",
+  "webdav-endpoint": "Teessoo WebDAV",
+  "webdav-password": "Jecha darbii appii",
+  "webdav-folder": "Foolderii",
+  "move-storage-webdav": "Kuusaa WebDAV (Nextcloud Files)"
 }

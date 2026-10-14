@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Yen WeKan ngirim liwat salah siji layanan iki, uripna, wenehana layanan alamat webhook iki kanggo kedadeyan email bali lan aduan spam, banjur tempelna ing kene kunci sing dienggo layanan kanggo napak asma, utawa tembung sandi sing kok lebokake ing alamat minangka https://user:password@… utawa ?secret=…",
   "email-bounces-provider-key": "Kunci tapak asma webhook",
   "email-bounces-provider-password": "Tembung sandi webhook",
-  "email-bounce-provider-secret-required": "Layanan sing diuripake butuh kunci tapak asma utawa tembung sandine."
+  "email-bounce-provider-secret-required": "Layanan sing diuripake butuh kunci tapak asma utawa tembung sandine.",
+  "activity-pub-enabled": "Papan umum nerbitake kagiyatan kertune ing fediverse (ActivityPub)",
+  "activity-pub-desc": "Mati kanthi gawan. Yen diuripake, saben papan umum bisa diikuti saka Mastodon lan server fediverse liyane minangka @board-<id> ing alamat WeKan iki, lan kagiyatan kertu anyar tekan para pandhereke. Iki mung kanggo diwaca: ora ana sing dikirim server fediverse sing ngowahi papan, lan papan pribadi ora tau diterbitake.",
+  "caldav-sync": "Sinkronisasi tanggalan (CalDAV)",
+  "caldav-sync-desc": "Nglebokake tanggal wates kertu ing papan iki menyang tanggalan - Nextcloud Calendar utawa tanggalan CalDAV apa wae. Tanggal wates sing dipindhah ing tanggalan bali menyang kertu. Gunakake tembung sandi aplikasi, dudu tembung sandimu dhewe.",
+  "caldav-url": "Alamat tanggalan",
+  "caldav-app-password": "Tembung sandi aplikasi",
+  "caldav-enabled": "Sinkronake tanggal wates karo tanggalan iki",
+  "caldav-sync-now": "Sinkronake kabeh saiki",
+  "caldav-invalid-url": "Alamat tanggalan kudu alamat http:// utawa https://, tanpa jeneng panganggo utawa tembung sandi ing njerone.",
+  "caldav-not-linked": "Simpen alamat tanggalan dhisik lan uripake sinkronisasi.",
+  "webdav-storage": "Panyimpenan WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Nyimpen lampiran ing map ing server WebDAV - Nextcloud Files, ownCloud utawa liyane. Gunakake tembung sandi aplikasi sing digawe kanggo WeKan. Server ing jaringan WeKan dhewe bisa digunakake ing kene, amarga mung administrator situs sing nyetel alamat iki.",
+  "webdav-endpoint": "Alamat WebDAV",
+  "webdav-password": "Tembung sandi aplikasi",
+  "webdav-folder": "Map",
+  "move-storage-webdav": "Panyimpenan WebDAV (Nextcloud Files)"
 }

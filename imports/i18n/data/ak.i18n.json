@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Sɛ WeKan nam dwumadie yi mu baako so soma a, sɔ no, ma dwumadie no webhook adrɛs yi ma ne ɛmɛl a ɛsan ba ne spam ho anwiinwii nsɛm, na fa safe a ɛde hyɛ wɔn nsa ase no, anaa ahintasɛm a wode hyɛɛ adrɛs no mu sɛ https://user:password@… anaa ?secret=… bɛhyɛ ha",
   "email-bounces-provider-key": "Webhook nsaanohyɛ safe",
   "email-bounces-provider-password": "Webhook ahintasɛm",
-  "email-bounce-provider-secret-required": "Dwumadie a wɔasɔ no hia ne nsaanohyɛ safe anaa n'ahintasɛm."
+  "email-bounce-provider-secret-required": "Dwumadie a wɔasɔ no hia ne nsaanohyɛ safe anaa n'ahintasɛm.",
+  "activity-pub-enabled": "Baguam bɔɔd ahorow de wɔn kaad dwumadie to dwa wɔ fediverse so (ActivityPub)",
+  "activity-pub-desc": "Wɔadum no ara kwa. Sɛ wɔsɔ a, obiara betumi adi baguam bɔɔd biara akyi afi Mastodon ne fediverse sɛɛva afoforo so sɛ @board-<id> wɔ WeKan yi adrɛse so, na kaad dwumadie foforo du n'akyidifo nkyɛn. Ɛyɛ akenkan nko: biribiara a fediverse sɛɛva bi de mena nsesa bɔɔd, na wɔmfa kokoam bɔɔd biara nto dwa da.",
+  "caldav-sync": "Kalenda a ɛne bɔɔd hyia (CalDAV)",
+  "caldav-sync-desc": "Fa bɔɔd yi kaad ahorow nna a ɛtwa toɔ hyɛ kalenda mu - Nextcloud Calendar anaa CalDAV kalenda biara. Sɛ wotu da a ɛtwa toɔ wɔ kalenda no mu a, ɛsan ba kaad no so. Fa app ahintasɛm di dwuma, ɛnyɛ wo ankasa deɛ.",
+  "caldav-url": "Kalenda adrɛse",
+  "caldav-app-password": "App ahintasɛm",
+  "caldav-enabled": "Ma nna a ɛtwa toɔ ne kalenda yi nhyia",
+  "caldav-sync-now": "Ma ne nyinaa nhyia seesei",
+  "caldav-invalid-url": "Ɛsɛ sɛ kalenda adrɛse no yɛ http:// anaa https:// adrɛse, a odwumayɛni din anaa ahintasɛm nni mu.",
+  "caldav-not-linked": "Di kan sie kalenda adrɛse na sɔ nhyia no.",
+  "webdav-storage": "WebDAV akorabea (Nextcloud Files)",
+  "webdav-storage-description": "Sie nneɛma a wɔde aka ho wɔ fomda bi mu wɔ WebDAV sɛɛva so - Nextcloud Files, ownCloud anaa foforo biara. Fa app ahintasɛm a wɔyɛ maa WeKan di dwuma. Wobetumi de sɛɛva a ɛwɔ WeKan ankasa ntam nkitahodi so adi dwuma ha, ɛfiri sɛ site sohwɛfo nko na ɔde adrɛse yi si hɔ.",
+  "webdav-endpoint": "WebDAV adrɛse",
+  "webdav-password": "App ahintasɛm",
+  "webdav-folder": "Fomda",
+  "move-storage-webdav": "WebDAV akorabea (Nextcloud Files)"
 }

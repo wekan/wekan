@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "WeKan sullissinerit uku ilaatigut nassiussisarpat, aallartiguk, sullissinermut webhook-ip najugaa una tunniuguk e-mailinut utertunut spam-imullu naammagittaalliutinut, aamma maani ikkuguk isissutissiaq atiliinissamut atortagaa, imaluunniit isissutissaq najugamut https://user:password@… imaluunniit ?secret=… ikkussimasat",
   "email-bounces-provider-key": "Webhook-ip atiliinissamut isissutissiaa",
   "email-bounces-provider-password": "Webhook-ip isissutissaa",
-  "email-bounce-provider-secret-required": "Sullissineq aallartinneqarsimasoq atiliinissamut isissutissiaminik isissutissaminilluunniit pisariaqartitsivoq."
+  "email-bounce-provider-secret-required": "Sullissineq aallartinneqarsimasoq atiliinissamut isissutissiaminik isissutissaminilluunniit pisariaqartitsivoq.",
+  "activity-pub-enabled": "Ilisarnaatit tamanut ammasut kortsinik suliaqarnertik fediversemi saqqummiuttarpaat (ActivityPub)",
+  "activity-pub-desc": "Nalinginnaasumik matoqqavoq. Ammatillugu ilisarnaat tamanut ammasoq tamarmi Mastodonimit fediversellu qarasaasiaqarfiinit allanit malinneqarsinnaavoq @board-<id>-tut WeKanip uuma najugaani, kortsinillu suliaqarneq nutaaq malinnittunut annguttarpoq. Atuarneqarsinnaannaavoq: fediversep qarasaasiaqarfiata nassiussaa sunaluunniit ilisarnaammik allanngortitsinngilaq, ilisarnaatillu namminerisat saqqummiunneqarneq ajorput.",
+  "caldav-sync": "Ullorsiutip naapertuutsinneqarnera (CalDAV)",
+  "caldav-sync-desc": "Ilisarnaatip uuma kortsiisa killiliussaq ulluisa ullorsiummut ikkukkit - Nextcloud Calendar imaluunniit CalDAV-ullorsiut sunaluunniit. Killiliussaq ulloq ullorsiummi nuunneqartoq kortsimut uterpoq. Atortorissaarutip isissutissaa atoruk, isissutissat nammineq pinnagu.",
+  "caldav-url": "Ullorsiutip najugaa",
+  "caldav-app-password": "Atortorissaarutip isissutissaa",
+  "caldav-enabled": "Killiliussaq ulluisa ullorsiummut matumunnga naapertuutsikkit",
+  "caldav-sync-now": "Tamaasa massakkut naapertuutsikkit",
+  "caldav-invalid-url": "Ullorsiutip najugaa http:// imaluunniit https://-najugaasariaqarpoq, atuisup aqqa isissutissaluunniit ilaatinnagu.",
+  "caldav-not-linked": "Siullermik ullorsiutip najugaa toqqoruk naapertuutsitsinerlu ammaruk.",
+  "webdav-storage": "WebDAV-toqqorsivik (Nextcloud Files)",
+  "webdav-storage-description": "Ilanngussat WebDAV-qarasaasiaqarfiup mappiani toqqorikkit - Nextcloud Files, ownCloud imaluunniit allat sunaluunniit. Atortorissaarutip isissutissaa WeKan-imut sanaaq atoruk. Qarasaasiaqarfik WeKanip nammineq attaveqaataaniittoq maani atorneqarsinnaavoq, najugaq una nittartakkap aqutsisuinnaata aalajangertarmagu.",
+  "webdav-endpoint": "WebDAV-najugaq",
+  "webdav-password": "Atortorissaarutip isissutissaa",
+  "webdav-folder": "Mappi",
+  "move-storage-webdav": "WebDAV-toqqorsivik (Nextcloud Files)"
 }

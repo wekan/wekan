@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "WeKan ha oosuwaappe issuwan kiittiyaaba gidikko, a dooya, oosuwaas simmido iimeeliyaa nne spamee zilppaa hanotaas ha webhook sohuwaa immaa, qassi a malaatiyo qulfiyaa, woy https://user:password@… woy ?secret=… gidi sohuwan wottido geeman qaalaa haan wottaa",
   "email-bounces-provider-key": "Webhook malaatiya qulfiyaa",
   "email-bounces-provider-password": "Webhook geeman qaalaa",
-  "email-bounce-provider-secret-required": "Doyettida oosuwaas ba malaatiya qulfiyaa woy geeman qaalaa koshshees."
+  "email-bounce-provider-secret-required": "Doyettida oosuwaas ba malaatiya qulfiyaa woy geeman qaalaa koshshees.",
+  "activity-pub-enabled": "Asa ubbaassi bookkiyay ba kaardiyaa oosuwaa fediverse bolli qonccissees (ActivityPub)",
+  "activity-pub-desc": "Koyro de'iyoogaadan tooqettidaagaa. Doyettiyo wode, asa ubbaassi bookkiyaa ubbaa Mastodon nne hara fediverse sarverepeppe @board-<id> giidi ha WeKan adraashan kaallana danddayettees, qassi ooratta kaardiyaa oosoy kaalliyaageeta gakkees. Nabbabanawu xalla: fediverse sarvereppe kiitettiyabay oonikka bookkiyaa laammenna, qassi huuphe bookkiyay mulekka qonccissettenna.",
+  "caldav-sync": "Wodiyaa qoodaa issippeessuwaa (CalDAV)",
+  "caldav-sync-desc": "Ha bookkiyaa kaardiyaa wurssetta gallassaa wodiyaa qoodaa giddo wotta - Nextcloud Calendar woykko CalDAV wodiyaa qoodaa ay gidinkka. Wodiyaa qoodaa giddon sirssettida wurssetta gallassay kaardiyaakko simmees. Ne geeman qaalaa gidennan, aappe geeman qaalaa go'etta.",
+  "caldav-url": "Wodiyaa qoodaa adraashaa",
+  "caldav-app-password": "Aappe geeman qaalaa",
+  "caldav-enabled": "Wurssetta gallassaa ha wodiyaa qoodaara issippeessa",
+  "caldav-sync-now": "Ubbaa ha'i issippeessa",
+  "caldav-invalid-url": "Wodiyaa qoodaa adraashay http:// woykko https:// adraasha gidanawu koshshees, giddon go'ettiyaagaa sunthay woykko geeman qaalay baynnaada.",
+  "caldav-not-linked": "Koyro wodiyaa qoodaa adraashaa naaga, qassi issippeessuwaa doya.",
+  "webdav-storage": "WebDAV naagiyoosaa (Nextcloud Files)",
+  "webdav-storage-description": "Gattidobata WebDAV sarvere bolli de'iya fooldariyaa giddo naaga - Nextcloud Files, ownCloud woykko hara ay gidinkka. WeKan-ssi oottida aappe geeman qaalaa go'etta. WeKan bau neetworke bolli de'iya sarvere hagan go'ettana danddayettees, ays giikko ha adraashaa saytiyaa alaafiyaa xalaali wottees.",
+  "webdav-endpoint": "WebDAV adraashaa",
+  "webdav-password": "Aappe geeman qaalaa",
+  "webdav-folder": "Fooldariyaa",
+  "move-storage-webdav": "WebDAV naagiyoosaa (Nextcloud Files)"
 }

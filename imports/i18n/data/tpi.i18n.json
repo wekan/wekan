@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Sapos WeKan i salim long wanpela long ol dispela sevis, onim em, givim sevis dispela webhook adres long ol samting i kamap bilong imel i kam bek na toktok kros long spam, na pestim hia ki em i save sainim ol long en, o paswot yu putim long adres olsem https://user:password@… o ?secret=…",
   "email-bounces-provider-key": "Ki bilong sainim webhook",
   "email-bounces-provider-password": "Paswot bilong webhook",
-  "email-bounce-provider-secret-required": "Sevis i on i mas gat ki bilong sainim o paswot bilong en."
+  "email-bounce-provider-secret-required": "Sevis i on i mas gat ki bilong sainim o paswot bilong en.",
+  "activity-pub-enabled": "Ol bot bilong olgeta i save putim wok bilong ol kat bilong ol long fediverse (ActivityPub)",
+  "activity-pub-desc": "Em i dai pastaim. Taim yu onim, olgeta bot bilong olgeta inap bihainim long Mastodon na ol narapela server bilong fediverse olsem @board-<id> long adres bilong dispela WeKan, na nupela wok bilong ol kat i go kamap long ol lain i bihainim em. Em i bilong ritim tasol: wanpela samting server bilong fediverse i salim i no inap senisim bot, na ol praivet bot i no save kamap ples klia.",
+  "caldav-sync": "Wanbel bilong kalenda (CalDAV)",
+  "caldav-sync-desc": "Putim ol de bilong pinisim bilong ol kat bilong dispela bot long kalenda - Nextcloud Calendar o wanpela kalenda CalDAV. Sapos yu muvim de bilong pinisim long kalenda, em i kam bek long kat. Yusim paswot bilong ap, i no paswot bilong yu yet.",
+  "caldav-url": "Adres bilong kalenda",
+  "caldav-app-password": "Paswot bilong ap",
+  "caldav-enabled": "Wanbelim ol de bilong pinisim wantaim dispela kalenda",
+  "caldav-sync-now": "Wanbelim olgeta nau",
+  "caldav-invalid-url": "Adres bilong kalenda i mas i stap adres http:// o https://, i no gat nem bilong yusa o paswot insait long en.",
+  "caldav-not-linked": "Pastaim seivim adres bilong kalenda na onim wanbel.",
+  "webdav-storage": "Ples bilong seivim WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Seivim ol samting i pas long wanpela folda long server WebDAV - Nextcloud Files, ownCloud o narapela. Yusim paswot bilong ap ol i mekim bilong WeKan. Yu ken yusim server long netwok bilong WeKan yet long hia, long wanem, bosman bilong sait tasol i save putim dispela adres.",
+  "webdav-endpoint": "Adres bilong WebDAV",
+  "webdav-password": "Paswot bilong ap",
+  "webdav-folder": "Folda",
+  "move-storage-webdav": "Ples bilong seivim WebDAV (Nextcloud Files)"
 }

@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "ᎢᏳᏃ WeKan ᏱᏅᏍᎦ ᎯᎠ ᏧᏂᎸᏫᏍᏓᏁᏗ ᏌᏉ ᎬᏗ, ᎯᏍᏚᎢᎦ, ᎯᏁᎦ ᎯᎠ webhook ᎦᏙᎬ ᏗᎦᎵᏦᏙᏗ ᎤᎷᏨ ᎠᎴ ᎤᏲ ᎪᏪᎵ ᎤᏬᏂᏍᎬ ᎤᎾᏓᏅᏘ, ᎠᎴ ᎠᏂ ᎯᏢᏓ ᏚᏙᎥ ᏗᏍᏚᎢᏍᏙᏗ ᏧᏬᏪᎳᏁᏗ, ᎠᎴ ᎦᎵᏍᎦᏂ ᎧᏁᏬᏍᏗ ᎦᏙᎬ ᎯᏝᎲ ᎾᏍᎩᏯ https://user:password@… ᎠᎴ ?secret=…",
   "email-bounces-provider-key": "Webhook ᏚᏙᎥ ᏗᏍᏚᎢᏍᏙᏗ",
   "email-bounces-provider-password": "Webhook ᎦᎵᏍᎦᏂ ᎧᏁᏬᏍᏗ",
-  "email-bounce-provider-secret-required": "ᏧᎸᏫᏍᏓᏁᏗ ᎠᏍᏚᎢᏛ ᎤᏚᎵ ᏚᏙᎥ ᏗᏍᏚᎢᏍᏙᏗ ᎠᎴ ᎦᎵᏍᎦᏂ ᎧᏁᏬᏍᏗ."
+  "email-bounce-provider-secret-required": "ᏧᎸᏫᏍᏓᏁᏗ ᎠᏍᏚᎢᏛ ᎤᏚᎵ ᏚᏙᎥ ᏗᏍᏚᎢᏍᏙᏗ ᎠᎴ ᎦᎵᏍᎦᏂ ᎧᏁᏬᏍᏗ.",
+  "activity-pub-enabled": "ᎾᏂᎥ ᎬᏩᎪᏩᏛᏗ ᏗᏟᎶᏍᏙᏗ ᏚᏃᏣᎳᏁᎰ ᎪᏪᎵ ᏚᎸᏫᏍᏓᏁᎸ ᏓᏓᏁᏟᏴᏍᏔᏅ ᎢᏳᏩᏂᏌᏛ (ActivityPub)",
+  "activity-pub-desc": "ᏂᎨᏒᎾ ᎠᏍᏆᏂᎪᏗ ᎤᏓᏁᏟᏴᏍᏗ. ᎢᏳ ᎠᏍᏚᎢᏛ, ᏂᎦᏛ ᎾᏂᎥ ᎬᏩᎪᏩᏛᏗ ᏗᏟᎶᏍᏙᏗ ᏰᎵ ᏗᏍᏓᏩᏛᏍᏗ Mastodon ᎠᎴ ᏅᏩᏓᎴ ᏗᏓᏁᏟᏴᏍᏔᏅ ᎠᏓᏁᎯ ᎬᏗ, @board-<id> ᏥᏚᏙᎥ ᎯᎠ WeKan ᏧᏓᏂᎸᎢ, ᎠᎴ ᎢᏤ ᎪᏪᎵ ᏚᎸᏫᏍᏓᏁᎸ ᏓᏰᎾᏏ ᏧᏍᏓᏩᏗᏙᎯ. ᎠᏂᎦᏔᏍᎩ ᎤᏩᏒ: ᎥᏝ ᏳᏁᏟᏴᏍᏗ ᏗᏟᎶᏍᏙᏗ ᏂᎦᎥ ᏅᏓᏳᏅᏍᏗ ᎠᏓᏁᎯ ᏧᏅᏍᏗ, ᎠᎴ ᎤᏩᏒ ᏧᏤᎵ ᏗᏟᎶᏍᏙᏗ ᎥᏝ ᎢᎸᎯᏳ ᏧᏃᏣᎳᏁᏗ ᏱᎩ.",
+  "caldav-sync": "ᎢᎦ ᏗᎪᏪᎵ ᏚᏓᏂᏴᏍᏗ (CalDAV)",
+  "caldav-sync-desc": "ᎯᎠ ᏗᏟᎶᏍᏙᏗ ᎪᏪᎵ ᎠᎵᏍᏆᏗᏍᎬ ᎢᎦ ᎢᎦ ᏗᎪᏪᎵ ᏫᏂᎦ - Nextcloud Calendar ᎠᎴ ᏂᎦᎥ CalDAV ᎢᎦ ᏗᎪᏪᎵ. ᎠᎵᏍᏆᏗᏍᎬ ᎢᎦ ᎢᎦ ᏗᎪᏪᎵ ᎦᏁᎵᏍᏔᏅ ᎪᏪᎵ ᏛᎦᎷᏥ. ᎠᏓᏁᎯ ᎦᎵᏍᎦᏂ ᎧᏁᏬᏍᏗ ᎯᏁᎢᏍᏓ, ᎥᏝ ᏂᎯ ᏣᏤᎵ.",
+  "caldav-url": "ᎢᎦ ᏗᎪᏪᎵ ᏧᏓᏂᎸᎢ",
+  "caldav-app-password": "ᎠᏓᏁᎯ ᎦᎵᏍᎦᏂ ᎧᏁᏬᏍᏗ",
+  "caldav-enabled": "ᎠᎵᏍᏆᏗᏍᎬ ᎢᎦ ᏚᏓᏂᏴᏍᏗ ᎯᎠ ᎢᎦ ᏗᎪᏪᎵ ᎢᏧᎳᎭ",
+  "caldav-sync-now": "ᏂᎦᏛ ᏚᏓᏂᏴᏍᏗ ᎪᎯ",
+  "caldav-invalid-url": "ᎢᎦ ᏗᎪᏪᎵ ᏧᏓᏂᎸᎢ http:// ᎠᎴ https:// ᏧᏓᏂᎸᎢ ᎨᏎᏍᏗ, ᎥᏝ ᎠᏂᏁᎯ ᏚᏙᎥ ᎠᎴ ᎦᎵᏍᎦᏂ ᎧᏁᏬᏍᏗ ᎠᏰᎵ ᏱᎨᏎᏍᏗ.",
+  "caldav-not-linked": "ᎢᎬᏱ ᎢᎦ ᏗᎪᏪᎵ ᏧᏓᏂᎸᎢ ᎯᏍᏆᏂᎪᏓ ᎠᎴ ᏚᏓᏂᏴᏍᏗ ᎯᏍᏚᎢᏒ.",
+  "webdav-storage": "WebDAV ᏗᏍᏆᏂᎪᏙᏗ (Nextcloud Files)",
+  "webdav-storage-description": "ᏗᏓᏁᏥ ᎯᏍᏆᏂᎪᏓ ᏗᏟᎶᏍᏙᏗ ᎤᏍᏆᏂᎩᏗ WebDAV ᎠᏓᏁᎯ ᎦᏚᎢ - Nextcloud Files, ownCloud ᎠᎴ ᏅᏩᏓᎴ. WeKan ᎤᏩᏒ ᎠᏓᏁᎯ ᎦᎵᏍᎦᏂ ᎧᏁᏬᏍᏗ ᎯᏁᎢᏍᏓ. WeKan ᎤᏩᏒ ᎤᏤᎵ ᏚᏓᏂᏴᏒ ᎠᏓᏁᎯ ᏰᎵ ᎠᏓᏁᎯ ᎠᏂ, ᏅᏗᎦᎵᏍᏙᏗᏍᎬ ᎠᏓᏘᏂᏙᎯ ᎤᏩᏒ ᎯᎠ ᏧᏓᏂᎸᎢ ᏓᏁᎶᏗ.",
+  "webdav-endpoint": "WebDAV ᏧᏓᏂᎸᎢ",
+  "webdav-password": "ᎠᏓᏁᎯ ᎦᎵᏍᎦᏂ ᎧᏁᏬᏍᏗ",
+  "webdav-folder": "ᎤᏍᏆᏂᎩᏗ",
+  "move-storage-webdav": "WebDAV ᏗᏍᏆᏂᎪᏙᏗ (Nextcloud Files)"
 }

@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Si WeKan manna pi menzu di unu di sti sirvizzi, attivatilu, dati ô sirvizzu st'nnirizzu webhook pî so eventi di missaggi turnati e laminteli di spam, e 'mpiccicati ccà la chiavi cu cui li firma, o la palora d'ordini ca mittìstivu nta l'nnirizzu comu https://user:password@… o ?secret=…",
   "email-bounces-provider-key": "Chiavi di firma dû webhook",
   "email-bounces-provider-password": "Palora d'ordini dû webhook",
-  "email-bounce-provider-secret-required": "Un sirvizzu attivatu havi bisognu dâ so chiavi di firma o dâ palora d'ordini."
+  "email-bounce-provider-secret-required": "Un sirvizzu attivatu havi bisognu dâ so chiavi di firma o dâ palora d'ordini.",
+  "activity-pub-enabled": "Li tavuli pùbblici pùbblicanu l'attività dî so carti ntô fediversu (ActivityPub)",
+  "activity-pub-desc": "Astutatu di default. Quannu è addumatu, ogni tavula pùbblica pò èssiri siguta di Mastodon e d'àutri server dû fediversu comu @board-<id> a l'indirizzu di stu WeKan, e la nova attività dî carti arriva ê so siguaci. È sulu pi lèggiri: nenti di chiddu ca manna un server dû fediversu cancia na tavula, e li tavuli privati nun sunnu mai pùbblicati.",
+  "caldav-sync": "Sincrunizzazzioni dû calannariu (CalDAV)",
+  "caldav-sync-desc": "Metti li dati di scadenza dî carti di sta tavula nta un calannariu - Nextcloud Calendar o qualsiasi calannariu CalDAV. Na data di scadenza spustata ntô calannariu torna â carta. Usa na palora d'ordini di l'applicazzioni, no la tò.",
+  "caldav-url": "Indirizzu dû calannariu",
+  "caldav-app-password": "Palora d'ordini di l'applicazzioni",
+  "caldav-enabled": "Sincrunizza li dati di scadenza cu stu calannariu",
+  "caldav-sync-now": "Sincrunizza tuttu ora",
+  "caldav-invalid-url": "L'indirizzu dû calannariu havi a èssiri un indirizzu http:// o https://, senza nomu d'utenti o palora d'ordini dintra.",
+  "caldav-not-linked": "Prima sarva un indirizzu dû calannariu e attiva la sincrunizzazzioni.",
+  "webdav-storage": "Archiviazzioni WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Sarva l'allegati nta na cartedda supra un server WebDAV - Nextcloud Files, ownCloud o qualsiasi àutru. Usa na palora d'ordini di l'applicazzioni fatta pi WeKan. Cà si pò usari un server dâ riti stissa di WeKan, pirchì sulu n'amministraturi dû situ metti st'indirizzu.",
+  "webdav-endpoint": "Indirizzu WebDAV",
+  "webdav-password": "Palora d'ordini di l'applicazzioni",
+  "webdav-folder": "Cartedda",
+  "move-storage-webdav": "Archiviazzioni WebDAV (Nextcloud Files)"
 }

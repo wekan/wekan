@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Kevaka e vakau imeli o WeKan mai na dua vei ira na veiqaravi oqo, vakayagataka, solia vua na veiqaravi na itikotiko ni webhook oqo me baleta na imeli lesu mai kei na veileti ni spam, ka vakacurumaka eke na kí e saini kina, se na vosa ni curu o a biuta ena itikotiko me vaka na https://user:password@… se ?secret=…",
   "email-bounces-provider-key": "Kí ni saini ni webhook",
   "email-bounces-provider-password": "Vosa ni curu ni webhook",
-  "email-bounce-provider-secret-required": "E dua na veiqaravi sa vakayagataki e gadreva na kena kí ni saini se vosa ni curu."
+  "email-bounce-provider-secret-required": "E dua na veiqaravi sa vakayagataki e gadreva na kena kí ni saini se vosa ni curu.",
+  "activity-pub-enabled": "Na vola vei ira kece era tabaka na nodra cakacaka ni kadi ena fediverse (ActivityPub)",
+  "activity-pub-desc": "Sogo ga ena ivakarau taumada. Ke dola, na vola yadua vei ira kece e rawa ni muri mai na Mastodon kei na so tale na seva ni fediverse me vaka na @board-<id> ena itikotiko ni WeKan oqo, ka na cakacaka vou ni kadi e yaco vei ira na dau muria. E wilika ga: e sega ni dua na ka e vakauta mai e dua na seva ni fediverse e na veisautaka e dua na vola, ka na vola vakataki koya e sega vakadua ni tabaki.",
+  "caldav-sync": "Vakaduavatataki ni kaleda (CalDAV)",
+  "caldav-sync-desc": "Biuta na siga ni iotioti ni kadi ni vola oqo ena dua na kaleda - Nextcloud Calendar se dua tale na kaleda CalDAV. Na siga ni iotioti e toso ena kaleda e lesu tale ki na kadi. Vakayagataka e dua na vosa ni curu ni porokaramu, sega ni nomu.",
+  "caldav-url": "Itikotiko ni kaleda",
+  "caldav-app-password": "Vosa ni curu ni porokaramu",
+  "caldav-enabled": "Vakaduavatataka na siga ni iotioti kei na kaleda oqo",
+  "caldav-sync-now": "Vakaduavatataka kece ena gauna oqo",
+  "caldav-invalid-url": "Na itikotiko ni kaleda me itikotiko http:// se https://, ka me kakua ni tiko kina e dua na yaca ni dau vakayagataka se vosa ni curu.",
+  "caldav-not-linked": "Maroroya taumada e dua na itikotiko ni kaleda ka dolava na vakaduavatataki.",
+  "webdav-storage": "Maroroi WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Maroroya na veika e semati ena dua na kato ni faile ena dua na seva WebDAV - Nextcloud Files, ownCloud se dua tale. Vakayagataka e dua na vosa ni curu ni porokaramu e caka me baleta na WeKan. E rawa ni vakayagataki eke e dua na seva ena nona network ga na WeKan, ni dau ni veiliutaki ni site duadua ga e vakarautaka na itikotiko oqo.",
+  "webdav-endpoint": "Itikotiko WebDAV",
+  "webdav-password": "Vosa ni curu ni porokaramu",
+  "webdav-folder": "Kato ni faile",
+  "move-storage-webdav": "Maroroi WebDAV (Nextcloud Files)"
 }

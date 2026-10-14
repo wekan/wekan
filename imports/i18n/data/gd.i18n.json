@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Ma chuireas WeKan tro aon de na seirbheisean seo, cuir air e, thoir an seòladh webhook seo dhan t-seirbheis airson tachartasan post-d air ais is gearan spama, agus cuir an-seo an iuchair leis an soidhnig i iad, no am facal-faire a chuir thu san t-seòladh mar https://user:password@… no ?secret=…",
   "email-bounces-provider-key": "Iuchair soidhnidh an webhook",
   "email-bounces-provider-password": "Facal-faire an webhook",
-  "email-bounce-provider-secret-required": "Feumaidh seirbheis a tha air a h-iuchair soidhnidh no a facal-faire."
+  "email-bounce-provider-secret-required": "Feumaidh seirbheis a tha air a h-iuchair soidhnidh no a facal-faire.",
+  "activity-pub-enabled": "Foillsichidh bùird phoblach gnìomhachd nan cairtean aca air an fhediverse (ActivityPub)",
+  "activity-pub-desc": "Dheth a ghnàth. Nuair a bhios e air, gabhaidh gach bòrd poblach leantainn o Mastodon is frithealaichean fediverse eile mar @board-<id> aig seòladh a' WeKan seo, agus ruigidh gnìomhachd ùr nan cairtean an luchd-leantainn aige. Chan eil ann ach leughadh: chan atharraich dad a chuireas frithealaiche fediverse bòrd, agus cha tèid bùird phrìobhaideach fhoillseachadh idir.",
+  "caldav-sync": "Sioncronachadh a' mhìosachain (CalDAV)",
+  "caldav-sync-desc": "Cuir cinn-là crìche cairtean a' bhùird seo ann am mìosachan - Nextcloud Calendar no mìosachan CalDAV sam bith. Thig ceann-là crìche a ghluaisear sa mhìosachan air ais dhan chairt. Cleachd facal-faire aplacaid, chan e am fear agad fhèin.",
+  "caldav-url": "Seòladh a' mhìosachain",
+  "caldav-app-password": "Facal-faire aplacaid",
+  "caldav-enabled": "Sioncronaich na cinn-là crìche leis a' mhìosachan seo",
+  "caldav-sync-now": "Sioncronaich na h-uile an-dràsta",
+  "caldav-invalid-url": "Feumaidh seòladh a' mhìosachain a bhith na sheòladh http:// no https://, gun ainm-cleachdaiche no facal-faire na bhroinn.",
+  "caldav-not-linked": "Sàbhail seòladh mìosachain is cuir an sioncronachadh air an toiseach.",
+  "webdav-storage": "Stòras WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Stòr na ceanglachain ann am pasgan air frithealaiche WebDAV - Nextcloud Files, ownCloud no fear sam bith eile. Cleachd facal-faire aplacaid a chaidh a dhèanamh airson WeKan. Gabhaidh frithealaiche air an lìonra aig WeKan fhèin cleachdadh an-seo, on nach suidhich ach rianaire na làraich an seòladh seo.",
+  "webdav-endpoint": "Seòladh WebDAV",
+  "webdav-password": "Facal-faire aplacaid",
+  "webdav-folder": "Pasgan",
+  "move-storage-webdav": "Stòras WebDAV (Nextcloud Files)"
 }

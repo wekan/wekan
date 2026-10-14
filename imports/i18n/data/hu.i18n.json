@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Ha a WeKan ezen szolgáltatások egyikén keresztül küld, kapcsolja be, adja meg a szolgáltatásnak ezt a webhook címet a visszapattanási és spampanasz eseményekhez, és illessze be ide a kulcsot, amellyel aláírja őket, vagy a jelszót, amelyet a címbe https://user:password@… vagy ?secret=… formában írt",
   "email-bounces-provider-key": "Webhook aláírókulcs",
   "email-bounces-provider-password": "Webhook jelszó",
-  "email-bounce-provider-secret-required": "A bekapcsolt szolgáltatásnak szüksége van az aláírókulcsára vagy a jelszavára."
+  "email-bounce-provider-secret-required": "A bekapcsolt szolgáltatásnak szüksége van az aláírókulcsára vagy a jelszavára.",
+  "activity-pub-enabled": "A nyilvános táblák közzéteszik kártyatevékenységüket a fediverzumban (ActivityPub)",
+  "activity-pub-desc": "Alapértelmezetten ki van kapcsolva. Bekapcsolva minden nyilvános tábla követhető a Mastodonról és más fediverzum-kiszolgálókról @board-<id> néven ennek a WeKannak a címén, és az új kártyatevékenység eljut a követőihez. Csak olvasható: semmi, amit egy fediverzum-kiszolgáló küld, nem változtat meg egy táblát, és a személyes táblák soha nem kerülnek közzétételre.",
+  "caldav-sync": "Naptár-szinkronizálás (CalDAV)",
+  "caldav-sync-desc": "A tábla kártyáinak határidői egy naptárba kerülnek - Nextcloud Calendar vagy bármely CalDAV-naptár. A naptárban áthelyezett határidő visszakerül a kártyára. Alkalmazásjelszót használjon, ne a sajátját.",
+  "caldav-url": "Naptár címe",
+  "caldav-app-password": "Alkalmazásjelszó",
+  "caldav-enabled": "Határidők szinkronizálása ezzel a naptárral",
+  "caldav-sync-now": "Összes szinkronizálása most",
+  "caldav-invalid-url": "A naptár címének http:// vagy https:// címnek kell lennie, felhasználónév és jelszó nélkül.",
+  "caldav-not-linked": "Előbb mentsen el egy naptárcímet, és kapcsolja be a szinkronizálást.",
+  "webdav-storage": "WebDAV-tárhely (Nextcloud Files)",
+  "webdav-storage-description": "Mellékletek tárolása egy WebDAV-kiszolgáló mappájában - Nextcloud Files, ownCloud vagy bármely más. A WeKanhoz létrehozott alkalmazásjelszót használjon. A WeKan saját hálózatán lévő kiszolgáló is használható itt, mivel ezt a címet csak a webhely adminisztrátora állíthatja be.",
+  "webdav-endpoint": "WebDAV-cím",
+  "webdav-password": "Alkalmazásjelszó",
+  "webdav-folder": "Mappa",
+  "move-storage-webdav": "WebDAV-tárhely (Nextcloud Files)"
 }

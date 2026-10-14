@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "WeKan이 이 서비스 중 하나를 통해 발송한다면 해당 서비스를 켜고, 반송 및 스팸 신고 이벤트용으로 이 Webhook 주소를 서비스에 등록한 뒤, 서비스가 서명에 사용하는 키 또는 주소에 https://user:password@… 또는 ?secret=… 형식으로 넣은 암호를 여기에 붙여 넣으세요",
   "email-bounces-provider-key": "Webhook 서명 키",
   "email-bounces-provider-password": "Webhook 암호",
-  "email-bounce-provider-secret-required": "켜져 있는 서비스에는 서명 키 또는 암호가 필요합니다."
+  "email-bounce-provider-secret-required": "켜져 있는 서비스에는 서명 키 또는 암호가 필요합니다.",
+  "activity-pub-enabled": "공개 보드가 카드 활동을 연합우주에 게시합니다 (ActivityPub)",
+  "activity-pub-desc": "기본값은 꺼짐입니다. 켜면 각 공개 보드를 Mastodon 및 다른 연합우주 서버에서 이 WeKan 주소의 @board-<id>로 팔로우할 수 있고, 새 카드 활동이 팔로워에게 전달됩니다. 읽기 전용입니다: 연합우주 서버가 보내는 어떤 것도 보드를 변경하지 않으며, 비공개 보드는 절대 게시되지 않습니다.",
+  "caldav-sync": "달력 동기화 (CalDAV)",
+  "caldav-sync-desc": "이 보드 카드의 마감기한을 달력에 넣습니다 - Nextcloud Calendar 또는 모든 CalDAV 달력. 달력에서 옮긴 마감기한은 카드에 다시 반영됩니다. 본인 암호가 아닌 앱 암호를 사용하세요.",
+  "caldav-url": "달력 주소",
+  "caldav-app-password": "앱 암호",
+  "caldav-enabled": "이 달력과 마감기한 동기화",
+  "caldav-sync-now": "지금 모두 동기화",
+  "caldav-invalid-url": "달력 주소는 사용자 이름이나 암호가 포함되지 않은 http:// 또는 https:// 주소여야 합니다.",
+  "caldav-not-linked": "먼저 달력 주소를 저장하고 동기화를 켜세요.",
+  "webdav-storage": "WebDAV 저장소 (Nextcloud Files)",
+  "webdav-storage-description": "첨부 파일을 WebDAV 서버의 폴더에 저장합니다 - Nextcloud Files, ownCloud 또는 기타 서버. WeKan용으로 만든 앱 암호를 사용하세요. 이 주소는 사이트 관리자만 설정하므로 WeKan 자체 네트워크에 있는 서버도 여기에 사용할 수 있습니다.",
+  "webdav-endpoint": "WebDAV 주소",
+  "webdav-password": "앱 암호",
+  "webdav-folder": "폴더",
+  "move-storage-webdav": "WebDAV 저장소 (Nextcloud Files)"
 }

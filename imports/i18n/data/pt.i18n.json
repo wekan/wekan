@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Se o WeKan enviar através de um destes serviços, ative-o, indique ao serviço este endereço de webhook para os seus eventos de devolução e de queixa de spam, e cole aqui a chave com que ele os assina, ou a palavra-passe que colocou no endereço como https://user:password@… ou ?secret=…",
   "email-bounces-provider-key": "Chave de assinatura do webhook",
   "email-bounces-provider-password": "Palavra-passe do webhook",
-  "email-bounce-provider-secret-required": "Um serviço ativado precisa da sua chave de assinatura ou palavra-passe."
+  "email-bounce-provider-secret-required": "Um serviço ativado precisa da sua chave de assinatura ou palavra-passe.",
+  "activity-pub-enabled": "Os quadros públicos publicam a atividade dos seus cartões no fediverso (ActivityPub)",
+  "activity-pub-desc": "Desligado por omissão. Quando ligado, cada quadro público pode ser seguido a partir do Mastodon e de outros servidores do fediverso como @board-<id> no endereço deste WeKan, e a nova atividade dos cartões chega aos seus seguidores. É só de leitura: nada do que um servidor do fediverso envia altera um quadro, e os quadros privados nunca são publicados.",
+  "caldav-sync": "Sincronização de calendário (CalDAV)",
+  "caldav-sync-desc": "Coloque as datas limite dos cartões deste quadro num calendário - Nextcloud Calendar ou qualquer calendário CalDAV. Uma data limite movida no calendário volta ao cartão. Use uma palavra-passe de aplicação, não a sua.",
+  "caldav-url": "Endereço do calendário",
+  "caldav-app-password": "Palavra-passe de aplicação",
+  "caldav-enabled": "Sincronizar as datas limite com este calendário",
+  "caldav-sync-now": "Sincronizar tudo agora",
+  "caldav-invalid-url": "O endereço do calendário tem de ser um endereço http:// ou https://, sem nome de utilizador nem palavra-passe.",
+  "caldav-not-linked": "Guarde primeiro um endereço de calendário e ligue a sincronização.",
+  "webdav-storage": "Armazenamento WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Guarde os anexos numa pasta de um servidor WebDAV - Nextcloud Files, ownCloud ou qualquer outro. Use uma palavra-passe de aplicação criada para o WeKan. Pode ser usado aqui um servidor da própria rede do WeKan, já que só um administrador do site define este endereço.",
+  "webdav-endpoint": "Endereço WebDAV",
+  "webdav-password": "Palavra-passe de aplicação",
+  "webdav-folder": "Pasta",
+  "move-storage-webdav": "Armazenamento WebDAV (Nextcloud Files)"
 }

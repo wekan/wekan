@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "WeKan がこれらのサービスのいずれかを使って送信する場合は、それをオンにし、バウンスと迷惑メール苦情のイベント用にこの Webhook アドレスをサービスに設定して、サービスが署名に使うキー、またはアドレスに https://user:password@… や ?secret=… として入れたパスワードをここに貼り付けてください",
   "email-bounces-provider-key": "Webhook 署名キー",
   "email-bounces-provider-password": "Webhook パスワード",
-  "email-bounce-provider-secret-required": "オンにしたサービスには署名キーまたはパスワードが必要です。"
+  "email-bounce-provider-secret-required": "オンにしたサービスには署名キーまたはパスワードが必要です。",
+  "activity-pub-enabled": "公開ボードはカードのアクティビティを Fediverse に公開します (ActivityPub)",
+  "activity-pub-desc": "既定ではオフです。オンにすると、各公開ボードを Mastodon やその他の Fediverse サーバーから、この WeKan のアドレス上の @board-<id> としてフォローでき、新しいカードのアクティビティがフォロワーに届きます。読み取り専用です。Fediverse サーバーから送られたものでボードが変更されることはなく、プライベートボードが公開されることもありません。",
+  "caldav-sync": "カレンダー同期 (CalDAV)",
+  "caldav-sync-desc": "このボードのカードの期限日をカレンダーに登録します - Nextcloud Calendar または任意の CalDAV カレンダー。カレンダー上で移動した期限日はカードに反映されます。ご自身のパスワードではなく、アプリパスワードを使用してください。",
+  "caldav-url": "カレンダーのアドレス",
+  "caldav-app-password": "アプリパスワード",
+  "caldav-enabled": "期限日をこのカレンダーと同期する",
+  "caldav-sync-now": "今すぐすべて同期",
+  "caldav-invalid-url": "カレンダーのアドレスは http:// または https:// のアドレスで、ユーザー名やパスワードを含めないでください。",
+  "caldav-not-linked": "先にカレンダーのアドレスを保存し、同期をオンにしてください。",
+  "webdav-storage": "WebDAV ストレージ (Nextcloud Files)",
+  "webdav-storage-description": "添付ファイルを WebDAV サーバー上のフォルダーに保存します - Nextcloud Files、ownCloud、その他任意のサーバー。WeKan 用に作成したアプリパスワードを使用してください。このアドレスを設定できるのはサイト管理者だけなので、WeKan 自身のネットワーク上のサーバーもここで使用できます。",
+  "webdav-endpoint": "WebDAV アドレス",
+  "webdav-password": "アプリパスワード",
+  "webdav-folder": "フォルダー",
+  "move-storage-webdav": "WebDAV ストレージ (Nextcloud Files)"
 }

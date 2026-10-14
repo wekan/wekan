@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Jika WeKan menghantar melalui salah satu perkhidmatan ini, hidupkannya, berikan perkhidmatan itu alamat webhook ini untuk peristiwa e-mel lantun dan aduan spamnya, dan tampal di sini kunci yang digunakannya untuk menandatanganinya, atau kata laluan yang anda letakkan dalam alamat sebagai https://user:password@… atau ?secret=…",
   "email-bounces-provider-key": "Kunci tandatangan webhook",
   "email-bounces-provider-password": "Kata laluan webhook",
-  "email-bounce-provider-secret-required": "Perkhidmatan yang dihidupkan memerlukan kunci tandatangan atau kata laluannya."
+  "email-bounce-provider-secret-required": "Perkhidmatan yang dihidupkan memerlukan kunci tandatangan atau kata laluannya.",
+  "activity-pub-enabled": "Papan awam menerbitkan aktiviti kad mereka di fediverse (ActivityPub)",
+  "activity-pub-desc": "Dimatikan secara lalai. Apabila dihidupkan, setiap papan awam boleh diikuti dari Mastodon dan pelayan fediverse lain sebagai @board-<id> di alamat WeKan ini, dan aktiviti kad baharu sampai kepada pengikutnya. Ia baca sahaja: tiada apa-apa yang dihantar oleh pelayan fediverse mengubah papan, dan papan peribadi tidak pernah diterbitkan.",
+  "caldav-sync": "Penyegerakan kalendar (CalDAV)",
+  "caldav-sync-desc": "Letakkan tarikh akhir kad papan ini dalam kalendar - Nextcloud Calendar atau mana-mana kalendar CalDAV. Tarikh akhir yang dialihkan dalam kalendar akan kembali ke kad. Gunakan kata laluan aplikasi, bukan kata laluan anda sendiri.",
+  "caldav-url": "Alamat kalendar",
+  "caldav-app-password": "Kata laluan aplikasi",
+  "caldav-enabled": "Segerakkan tarikh akhir dengan kalendar ini",
+  "caldav-sync-now": "Segerakkan semua sekarang",
+  "caldav-invalid-url": "Alamat kalendar mesti alamat http:// atau https://, tanpa nama pengguna atau kata laluan di dalamnya.",
+  "caldav-not-linked": "Simpan alamat kalendar dan hidupkan penyegerakan dahulu.",
+  "webdav-storage": "Storan WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Simpan lampiran dalam direktori pada pelayan WebDAV - Nextcloud Files, ownCloud atau mana-mana yang lain. Gunakan kata laluan aplikasi yang dibuat untuk WeKan. Pelayan pada rangkaian WeKan sendiri boleh digunakan di sini, kerana hanya pentadbir laman yang menetapkan alamat ini.",
+  "webdav-endpoint": "Alamat WebDAV",
+  "webdav-password": "Kata laluan aplikasi",
+  "webdav-folder": "Direktori",
+  "move-storage-webdav": "Storan WebDAV (Nextcloud Files)"
 }

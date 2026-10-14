@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "যদি WeKan-এ এই সেৱাসমূহৰ কোনো এটাৰ জৰিয়তে পঠায়, তেন্তে সেৱাটো অন কৰক, ঘূৰি অহা ইমেইল আৰু স্পাম অভিযোগৰ ঘটনাৰ বাবে সেৱাটোক এই webhook ঠিকনাটো দিয়ক, আৰু সেৱাটোৱে সেইবোৰ চহী কৰা চাবি, বা আপুনি ঠিকনাত https://user:password@… বা ?secret=… হিচাপে দিয়া পাছৱৰ্ড ইয়াত পেষ্ট কৰক",
   "email-bounces-provider-key": "Webhook চহী চাবি",
   "email-bounces-provider-password": "Webhook পাছৱৰ্ড",
-  "email-bounce-provider-secret-required": "অন কৰা সেৱা এটাৰ বাবে তাৰ চহী চাবি বা পাছৱৰ্ড লাগে।"
+  "email-bounce-provider-secret-required": "অন কৰা সেৱা এটাৰ বাবে তাৰ চহী চাবি বা পাছৱৰ্ড লাগে।",
+  "activity-pub-enabled": "ৰাজহুৱা ফলকসমূহে নিজৰ কাৰ্ডৰ কাৰ্যকলাপ ফেডিভাৰ্চত প্ৰকাশ কৰে (ActivityPub)",
+  "activity-pub-desc": "অবিকল্পিতভাৱে বন্ধ। অন কৰিলে প্ৰতিখন ৰাজহুৱা ফলক Mastodon আৰু আন ফেডিভাৰ্চ ছাৰ্ভাৰৰ পৰা এই WeKanৰ ঠিকনাত @board-<id> হিচাপে অনুসৰণ কৰিব পাৰি, আৰু নতুন কাৰ্ডৰ কাৰ্যকলাপ ইয়াৰ অনুসৰণকাৰীসকললৈ যায়। ই কেৱল পঢ়িবলৈহে: ফেডিভাৰ্চ ছাৰ্ভাৰে পঠোৱা কোনো কথাই ফলক সলনি নকৰে, আৰু ব্যক্তিগত ফলক কেতিয়াও প্ৰকাশ কৰা নহয়।",
+  "caldav-sync": "দিনপঞ্জী মিলন (CalDAV)",
+  "caldav-sync-desc": "এই ফলকৰ কাৰ্ডৰ শেষ তাৰিখসমূহ এখন দিনপঞ্জীত ৰাখক - Nextcloud Calendar বা যিকোনো CalDAV দিনপঞ্জী। দিনপঞ্জীত সলনি কৰা শেষ তাৰিখ কাৰ্ডলৈ ঘূৰি আহে। নিজৰ পাছৱৰ্ড নহয়, এটা এপ পাছৱৰ্ড ব্যৱহাৰ কৰক।",
+  "caldav-url": "দিনপঞ্জীৰ ঠিকনা",
+  "caldav-app-password": "এপ পাছৱৰ্ড",
+  "caldav-enabled": "শেষ তাৰিখসমূহ এই দিনপঞ্জীৰ সৈতে মিলাওক",
+  "caldav-sync-now": "সকলো এতিয়াই মিলাওক",
+  "caldav-invalid-url": "দিনপঞ্জীৰ ঠিকনা এটা http:// বা https:// ঠিকনা হ'ব লাগিব, ইয়াত ব্যৱহাৰকাৰীৰ নাম বা পাছৱৰ্ড থাকিব নোৱাৰিব।",
+  "caldav-not-linked": "প্ৰথমে এটা দিনপঞ্জীৰ ঠিকনা সংৰক্ষণ কৰক আৰু মিলন অন কৰক।",
+  "webdav-storage": "WebDAV সংৰক্ষণ (Nextcloud Files)",
+  "webdav-storage-description": "সংলগ্নসমূহ এটা WebDAV ছাৰ্ভাৰৰ ফোল্ডাৰত সংৰক্ষণ কৰক - Nextcloud Files, ownCloud বা আন যিকোনো। WeKanৰ বাবে বনোৱা এটা এপ পাছৱৰ্ড ব্যৱহাৰ কৰক। WeKanৰ নিজৰ নেটৱৰ্কৰ ছাৰ্ভাৰ ইয়াত ব্যৱহাৰ কৰিব পাৰি, কিয়নো এই ঠিকনা কেৱল ছাইট প্ৰশাসকেহে নিৰ্ধাৰণ কৰে।",
+  "webdav-endpoint": "WebDAV ঠিকনা",
+  "webdav-password": "এপ পাছৱৰ্ড",
+  "webdav-folder": "ফোল্ডাৰ",
+  "move-storage-webdav": "WebDAV সংৰক্ষণ (Nextcloud Files)"
 }

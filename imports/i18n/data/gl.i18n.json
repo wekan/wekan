@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Se WeKan envía a través dun destes servizos, actívao, dálle ao servizo este enderezo de webhook para os seus eventos de rebote e de queixa de spam, e pega aquí a chave coa que os asina, ou o contrasinal que puxeches no enderezo como https://user:password@… ou ?secret=…",
   "email-bounces-provider-key": "Chave de sinatura do webhook",
   "email-bounces-provider-password": "Contrasinal do webhook",
-  "email-bounce-provider-secret-required": "Un servizo activado necesita a súa chave de sinatura ou o seu contrasinal."
+  "email-bounce-provider-secret-required": "Un servizo activado necesita a súa chave de sinatura ou o seu contrasinal.",
+  "activity-pub-enabled": "Os taboleiros públicos publican a actividade das súas tarxetas no fediverso (ActivityPub)",
+  "activity-pub-desc": "Desactivado por defecto. Ao activalo, cada taboleiro público pódese seguir desde Mastodon e outros servidores do fediverso como @board-<id> no enderezo deste WeKan, e a nova actividade das tarxetas chega aos seus seguidores. É só de lectura: nada do que envíe un servidor do fediverso cambia un taboleiro, e os taboleiros privados nunca se publican.",
+  "caldav-sync": "Sincronización do calendario (CalDAV)",
+  "caldav-sync-desc": "Pon as datas de vencemento das tarxetas deste taboleiro nun calendario - Nextcloud Calendar ou calquera calendario CalDAV. Unha data de vencemento movida no calendario volve á tarxeta. Use un contrasinal de aplicación, non o seu.",
+  "caldav-url": "Enderezo do calendario",
+  "caldav-app-password": "Contrasinal de aplicación",
+  "caldav-enabled": "Sincronizar as datas de vencemento con este calendario",
+  "caldav-sync-now": "Sincronizar todo agora",
+  "caldav-invalid-url": "O enderezo do calendario debe ser un enderezo http:// ou https://, sen nome de usuario nin contrasinal.",
+  "caldav-not-linked": "Garde primeiro un enderezo de calendario e active a sincronización.",
+  "webdav-storage": "Almacenamento WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Garda os anexos nun cartafol dun servidor WebDAV - Nextcloud Files, ownCloud ou calquera outro. Use un contrasinal de aplicación creado para WeKan. Aquí pódese usar un servidor da propia rede de WeKan, xa que só un administrador do sitio define este enderezo.",
+  "webdav-endpoint": "Enderezo WebDAV",
+  "webdav-password": "Contrasinal de aplicación",
+  "webdav-folder": "Cartafol",
+  "move-storage-webdav": "Almacenamento WebDAV (Nextcloud Files)"
 }

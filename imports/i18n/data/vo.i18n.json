@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "If WeKan sedon me dünot bal pas dünotas at, nümätolös oni, givolös dünote ladeti webhook at pro jenots oka dö leäktroniks gekömöl e plons dö spam, e pladolös is kiki, me kel dispenon onis, u letavödi, keli epladol in ladet as https://user:password@… u ?secret=…",
   "email-bounces-provider-key": "Dispenakik webhooka",
   "email-bounces-provider-password": "Letavöd webhooka",
-  "email-bounce-provider-secret-required": "Dünot nümätöl neodon dispenakiki u letavödi oka."
+  "email-bounce-provider-secret-required": "Dünot nümätöl neodon dispenakiki u letavödi oka.",
+  "activity-pub-enabled": "Tabs notidik pübons dunis kadas onsik in fediversum (ActivityPub)",
+  "activity-pub-desc": "Nepemögükon as kösömik. Ven pemögükon, tab notidik alik kanon pafölön de Mastodon e dünanöms fediversuma votik as @board-<id> len ladet WeKan at, e duns nulik kadas rivons fölölanis oma. Binon te pro reidam: nos, kelosi dünanöm fediversuma sedon, votükon tabi, e tabs privatik neföro papübons.",
+  "caldav-sync": "Leigatimükam kaleda (CalDAV)",
+  "caldav-sync-desc": "Pladolös tüpis kadas taba at in kaled - Nextcloud Calendar u kaled CalDAV alik. Tüp pemufüköl in kaled geikömon lü kad. Gebolös letavödi programa, no letavödi lönik ola.",
+  "caldav-url": "Ladet kaleda",
+  "caldav-app-password": "Letavöd programa",
+  "caldav-enabled": "Leigatimükön tüpis ko kaled at",
+  "caldav-sync-now": "Leigatimükön valikosi anu",
+  "caldav-invalid-url": "Ladet kaleda muton binön ladet http:// u https://, nen gebananem u letavöd in on.",
+  "caldav-not-linked": "Büo dakipolös ladeti kaleda e mögükolös leigatimükami.",
+  "webdav-storage": "Tämban WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Dakipolös fimükotis in ragiv su dünanöm WebDAV - Nextcloud Files, ownCloud u votik alik. Gebolös letavödi programa pejaföl pro WeKan. Dünanöm in nät lönik WeKan kanon pagebön is, bi te guveran topäda leodükon ladeti at.",
+  "webdav-endpoint": "Ladet WebDAV",
+  "webdav-password": "Letavöd programa",
+  "webdav-folder": "Ragiv",
+  "move-storage-webdav": "Tämban WebDAV (Nextcloud Files)"
 }

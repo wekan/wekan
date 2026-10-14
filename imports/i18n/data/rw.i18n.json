@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Niba WeKan yohereza inyuze kuri imwe muri izi serivisi, yifungure, uhe iyo serivisi iyi aderesi ya webhook ku byabaye byayo bya meli zagarutse n'ibirego bya spam, hanyuma ushyire hano urufunguzo isinyisha, cyangwa ijambobanga washyize muri aderesi nka https://user:password@… cyangwa ?secret=…",
   "email-bounces-provider-key": "Urufunguzo rwo gusinya rwa webhook",
   "email-bounces-provider-password": "Ijambobanga rya webhook",
-  "email-bounce-provider-secret-required": "Serivisi ifunguye ikeneye urufunguzo rwayo rwo gusinya cyangwa ijambobanga."
+  "email-bounce-provider-secret-required": "Serivisi ifunguye ikeneye urufunguzo rwayo rwo gusinya cyangwa ijambobanga.",
+  "activity-pub-enabled": "Ibibaho rusange bitangaza ibikorwa by'amakarita yabyo kuri fediverse (ActivityPub)",
+  "activity-pub-desc": "Bisanzwe bifunze. Iyo bifunguye, buri kibaho rusange gishobora gukurikirwa kuva kuri Mastodon n'izindi seriveri za fediverse nka @board-<id> kuri aderesi y'iyi WeKan, kandi ibikorwa bishya by'amakarita bigera ku bagikurikira. Ni ibyo gusoma gusa: nta kintu seriveri ya fediverse yohereza gihindura ikibaho, kandi ibibaho bwite ntibitangazwa na rimwe.",
+  "caldav-sync": "Guhuza kalendari (CalDAV)",
+  "caldav-sync-desc": "Shyira amatariki ntarengwa y'amakarita y'iki kibaho muri kalendari - Nextcloud Calendar cyangwa kalendari iyo ari yo yose ya CalDAV. Itariki ntarengwa yimuriwe muri kalendari isubira ku ikarita. Koresha ijambobanga rya porogaramu, si iryawe bwite.",
+  "caldav-url": "Aderesi ya kalendari",
+  "caldav-app-password": "Ijambobanga rya porogaramu",
+  "caldav-enabled": "Huza amatariki ntarengwa n'iyi kalendari",
+  "caldav-sync-now": "Huza byose ubu",
+  "caldav-invalid-url": "Aderesi ya kalendari igomba kuba aderesi ya http:// cyangwa https://, nta zina ry'ukoresha cyangwa ijambobanga birimo.",
+  "caldav-not-linked": "Banza ubike aderesi ya kalendari kandi ufungure guhuza.",
+  "webdav-storage": "Ububiko bwa WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Bika imigereka mu bubiko bwa dosiye kuri seriveri ya WebDAV - Nextcloud Files, ownCloud cyangwa indi iyo ari yo yose. Koresha ijambobanga rya porogaramu ryakorewe WeKan. Seriveri iri ku muyoboro wa WeKan ubwayo ishobora gukoreshwa hano, kuko umuyobozi w'urubuga wenyine ari we ushyiraho iyi aderesi.",
+  "webdav-endpoint": "Aderesi ya WebDAV",
+  "webdav-password": "Ijambobanga rya porogaramu",
+  "webdav-folder": "Ububiko",
+  "move-storage-webdav": "Ububiko bwa WebDAV (Nextcloud Files)"
 }

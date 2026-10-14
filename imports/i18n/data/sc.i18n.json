@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Si WeKan imbiat pro mèdiu de unu de custos servìtzios, ativa-lu, dona a su servìtziu custu indiritzu de webhook pro sos eventos suos de messàgios torrados e de denùntzias de spam, e incolla inoghe sa crae cun sa cale los firmat, o sa crae chi as postu in s'indiritzu comente https://user:password@… o ?secret=…",
   "email-bounces-provider-key": "Crae de firma de su webhook",
   "email-bounces-provider-password": "Crae de su webhook",
-  "email-bounce-provider-secret-required": "Unu servìtziu ativu tenet bisòngiu de sa crae de firma o de sa crae sua."
+  "email-bounce-provider-secret-required": "Unu servìtziu ativu tenet bisòngiu de sa crae de firma o de sa crae sua.",
+  "activity-pub-enabled": "Is tàulas pùblicas pùblicant s'atividade de is cartas issoro in su fediversu (ActivityPub)",
+  "activity-pub-desc": "Disativadu de manera predefinida. Cando est ativadu, onni tàula pùblica si podet sighire dae Mastodon e dae àteros serbidores de su fediversu comente @board-<id> in s'indiritzu de custu WeKan, e s'atividade noa de is cartas lompet a is sighidores suos. Est isceti in letura: nudda de su chi mandat unu serbidore de su fediversu cambiat una tàula, e is tàulas privadas no benint mai publicadas.",
+  "caldav-sync": "Sincronizatzione de su calendàriu (CalDAV)",
+  "caldav-sync-desc": "Pone is datas de iscadèntzia de is cartas de custa tàula in unu calendàriu - Nextcloud Calendar o cale si siat calendàriu CalDAV. Una data de iscadèntzia mòvida in su calendàriu torrat a sa carta. Imprea una crae de aplicatzione, non sa tua.",
+  "caldav-url": "Indiritzu de su calendàriu",
+  "caldav-app-password": "Crae de aplicatzione",
+  "caldav-enabled": "Sincroniza is datas de iscadèntzia cun custu calendàriu",
+  "caldav-sync-now": "Sincroniza totu immoe",
+  "caldav-invalid-url": "S'indiritzu de su calendàriu depet èssere un'indiritzu http:// o https://, sena nùmene de utente nen crae a intro.",
+  "caldav-not-linked": "In antis sarva un'indiritzu de calendàriu e ativa sa sincronizatzione.",
+  "webdav-storage": "Archìviu WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Archìvia is alligados in una cartella de unu serbidore WebDAV - Nextcloud Files, ownCloud o cale si siat àteru. Imprea una crae de aplicatzione creada pro WeKan. Inoghe si podet impreare unu serbidore de sa rete pròpria de WeKan, ca isceti un'amministradore de su situ istabilit custu indiritzu.",
+  "webdav-endpoint": "Indiritzu WebDAV",
+  "webdav-password": "Crae de aplicatzione",
+  "webdav-folder": "Cartella",
+  "move-storage-webdav": "Archìviu WebDAV (Nextcloud Files)"
 }

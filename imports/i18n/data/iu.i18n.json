@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "WeKan ᐊᐅᓪᓚᑎᑦᑎᒍᓂ ᐅᑯᐊ ᐃᓚᖓᒍᑦ, ᐃᑯᐊᓪᓚᒃᑭᑦ, ᑐᓂᓗᒍ ᐅᓇ webhook ᑕᑎᒋᐊᖅ ᐅᑎᖅᑐᓄᑦ ᑎᑎᖅᑲᓄᑦ ᐱᔪᒪᙱᑦᑐᒧᑦ ᐅᖃᐅᔾᔪᐃᓂᕐᓄᓪᓗ, ᐃᓕᓗᒍᓗ ᒫᓂ ᐃᒪᖅᑕᖅ ᐊᑎᓕᐅᕈᑎᒋᔭᖓ, ᐅᕝᕙᓘᓐᓃᑦ ᐃᓯᕐᕕᒃᓴᖅ ᑕᑎᒋᐊᕐᒧᑦ ᐃᓕᓯᒪᔭᕐᓂ https://user:password@… ᐅᕝᕙᓘᓐᓃᑦ ?secret=…",
   "email-bounces-provider-key": "Webhook ᐊᑎᓕᐅᕈᑎ ᐃᒪᖅᑕᖅ",
   "email-bounces-provider-password": "Webhook ᐃᓯᕐᕕᒃᓴᖅ",
-  "email-bounce-provider-secret-required": "ᐃᑯᐊᓪᓚᒃᓯᒪᔪᖅ ᐱᔭᕆᐊᖃᖅᑐᖅ ᐊᑎᓕᐅᕈᑎᒥᓂᒃ ᐅᕝᕙᓘᓐᓃᑦ ᐃᓯᕐᕕᒃᓴᒥᓂᒃ."
+  "email-bounce-provider-secret-required": "ᐃᑯᐊᓪᓚᒃᓯᒪᔪᖅ ᐱᔭᕆᐊᖃᖅᑐᖅ ᐊᑎᓕᐅᕈᑎᒥᓂᒃ ᐅᕝᕙᓘᓐᓃᑦ ᐃᓯᕐᕕᒃᓴᒥᓂᒃ.",
+  "activity-pub-enabled": "ᐊᑐᐃᓐᓇᖅ ᐊᓪᓚᕖᑦ ᐊᓪᓚᖅᓯᒪᔪᑦ ᐃᖅᑲᓇᐃᔮᖏᓐᓂᒃ ᓴᖅᑭᑎᑦᑎᓲᑦ ᕗᐃᑎᕗᐃᔅᒥ (ActivityPub)",
+  "activity-pub-desc": "ᐱᓕᕆᐊᖃᖏᑦᑐᖅ ᐃᓗᐊᔾᔨᒐᔭᖏᑦᑐᒥ. ᐱᓕᕆᓕᖅᑎᑕᐅᒃᐸᑦ, ᐊᑐᐃᓐᓇᖅ ᐊᓪᓚᕕᒃ ᑕᒪᐃᑦ ᒪᓕᒃᑕᐅᔪᓐᓇᖅᑐᑦ Mastodon-ᒥᑦ ᐊᓯᖏᓐᓂᓪᓗ ᕗᐃᑎᕗᐃᔅ ᖃᕆᑕᐅᔭᐅᑉ ᐱᓕᕆᕝᕕᖏᓐᓂᑦ @board-<id> ᐅᕗᖓ WeKan-ᐅᑉ ᑐᕌᕝᕕᖓᓄᑦ, ᓄᑖᓪᓗ ᐊᓪᓚᖅᓯᒪᔪᑦ ᐃᖅᑲᓇᐃᔮᖏᑦ ᑎᑭᑦᑐᑦ ᒪᓕᒃᑐᖏᓐᓄᑦ. ᐊᑐᐊᒐᐅᔪᖅ ᐅᖃᓕᒫᕐᓂᕐᒧᑦ ᑭᓯᐊᓂ: ᕗᐃᑎᕗᐃᔅ ᐱᓕᕆᕝᕕᖓᑕ ᑐᓂᔭᖏᑦ ᐊᓪᓚᕕᖕᒥᒃ ᐊᓯᔾᔨᑎᑦᑎᓐᖏᑦᑐᑦ, ᓇᒻᒥᓂᖅ ᐊᓪᓚᕖᑦ ᓴᖅᑭᑎᑕᐅᓂᖃᕈᓐᓃᑦᑐᑦ.",
+  "caldav-sync": "ᐅᓪᓗᖅᓯᐅᑎᒥᒃ ᐋᕿᒃᓯᒪᑎᑦᑎᓂᖅ (CalDAV)",
+  "caldav-sync-desc": "ᐃᓕᓗᒋᑦ ᐅᓇ ᐊᓪᓚᕕᒃ, ᐊᓪᓚᕕᐅᑉ ᐊᓪᓚᖅᓯᒪᔪᖏᑕ ᐃᓱᓕᕝᕕᒃᓴᖏᑦ ᐅᓪᓗᖅᓯᐅᑎᒥ - Nextcloud Calendar ᐅᕝᕙᓗᓐᓃᑦ ᓇᓕᐊᖅᑕᐅᓐᓂᒃ CalDAV ᐅᓪᓗᖅᓯᐅᑎ. ᐃᓱᓕᕝᕕᒃᓴᖅ ᓅᑕᐅᒃᐸᑦ ᐅᓪᓗᖅᓯᐅᑎᒥ ᐅᑎᖅᐸᖅᑐᖅ ᐊᓪᓚᖅᓯᒪᔪᒧᑦ. ᐊᑐᕐᓗᑎᑦ ᐱᓕᕆᐊᕐᒧᑦ ᐃᓯᕐᕕᒃᓴᖅ, ᓇᒻᒥᓂᖅ ᐃᓯᕐᕕᒃᓴᕐᓂᒃ ᐊᑐᕈᓐᓇᖏᑦᑐᑎᑦ.",
+  "caldav-url": "ᐅᓪᓗᖅᓯᐅᑎᐅᑉ ᑐᕌᕝᕕᖓ",
+  "caldav-app-password": "ᐱᓕᕆᐊᕐᒧᑦ ᐃᓯᕐᕕᒃᓴᖅ",
+  "caldav-enabled": "ᐃᓱᓕᕝᕕᒃᓴᐃᑦ ᐋᕿᒃᓯᒪᑎᑦᑎᓗᒋᑦ ᐅᓇ ᐅᓪᓗᖅᓯᐅᑎ",
+  "caldav-sync-now": "ᑕᒪᐃᓐᓂᒃ ᐋᕿᒃᓯᒪᑎᑦᑎᓗᑎᑦ ᒫᓐᓇ",
+  "caldav-invalid-url": "ᐅᓪᓗᖅᓯᐅᑎᐅᑉ ᑐᕌᕝᕕᖓ ᐱᔭᕆᐊᖃᖅᑐᖅ http:// ᐅᕝᕙᓗᓐᓃᑦ https:// ᑐᕌᕝᕕᐅᓗᓂ, ᐊᑐᖅᑎᐅᑉ ᐊᑎᖓᓂᒃ ᐃᓯᕐᕕᒃᓴᕐᒥᓪᓘᓐᓃᑦ ᐃᓗᓕᖃᖏᑦᑐᖅ.",
+  "caldav-not-linked": "ᓯᕗᓪᓕᖅᐹᒥ ᑐᖅᑯᕐᓗᒍ ᐅᓪᓗᖅᓯᐅᑎᐅᑉ ᑐᕌᕝᕕᖓ ᐋᕿᒃᓯᒪᑎᑦᑎᓂᕐᓗ ᐱᓕᕆᓕᖅᑎᓪᓗᒍ.",
+  "webdav-storage": "WebDAV ᑐᖅᑯᖅᓯᕕᒃ (Nextcloud Files)",
+  "webdav-storage-description": "ᑐᖅᑯᕐᓗᒋᑦ ᐃᓚᓕᐅᑏᑦ ᓴᐳᒻᒥᕝᕕᖕᒥ WebDAV ᐱᓕᕆᕝᕕᖕᒥ - Nextcloud Files, ownCloud ᐅᕝᕙᓗᓐᓃᑦ ᐊᓯᖓᓂᒃ. ᐊᑐᕐᓗᒍ ᐱᓕᕆᐊᕐᒧᑦ ᐃᓯᕐᕕᒃᓴᖅ WeKan-ᒧᑦ ᓴᓇᔭᐅᓯᒪᔪᖅ. ᐱᓕᕆᕝᕕᒃ WeKan-ᐅᑉ ᓇᒻᒥᓂᖅ ᖃᕆᑕᐅᔭᒃᑯᑦ ᐊᑐᐊᒐᖓᓂ ᐊᑐᖅᑕᐅᔪᓐᓇᖅᑐᖅ ᐅᕙᓂ, ᐃᑭᐊᖅᑭᕐᕕᐅᑉ ᐊᐅᓚᑦᓯᔨᖓ ᑭᓯᐊᓂ ᐋᖅᑭᑦᓯᓲᖑᒻᒪᑦ ᐅᓇ ᑐᕌᕝᕕᒃ.",
+  "webdav-endpoint": "WebDAV ᑐᕌᕝᕕᖓ",
+  "webdav-password": "ᐱᓕᕆᐊᕐᒧᑦ ᐃᓯᕐᕕᒃᓴᖅ",
+  "webdav-folder": "ᓴᐳᒻᒥᕝᕕᒃ",
+  "move-storage-webdav": "WebDAV ᑐᖅᑯᖅᓯᕕᒃ (Nextcloud Files)"
 }

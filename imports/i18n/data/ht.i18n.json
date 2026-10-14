@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Si WeKan voye atravè youn nan sèvis sa yo, aktive li, bay sèvis la adrès webhook sa a pou evènman imèl ki retounen ak plent spam li yo, epi kole isit la kle li itilize pou siyen yo, oswa modpas ou te mete nan adrès la tankou https://user:password@… oswa ?secret=…",
   "email-bounces-provider-key": "Kle siyati webhook",
   "email-bounces-provider-password": "Modpas webhook",
-  "email-bounce-provider-secret-required": "Yon sèvis ki aktive bezwen kle siyati li oswa modpas li."
+  "email-bounce-provider-secret-required": "Yon sèvis ki aktive bezwen kle siyati li oswa modpas li.",
+  "activity-pub-enabled": "Tablo piblik yo pibliye aktivite kat yo sou fedivès la (ActivityPub)",
+  "activity-pub-desc": "Fèmen pa defo. Lè li louvri, nenpòt tablo piblik ka swiv soti nan Mastodon ak lòt sèvè fedivès kòm @board-<id> nan adrès WeKan sa a, epi nouvo aktivite kat yo rive jwenn moun k ap swiv li yo. Se lekti sèlman: anyen yon sèvè fedivès voye pa chanje yon tablo, epi tablo prive yo pa janm pibliye.",
+  "caldav-sync": "Senkwonizasyon kalandriye (CalDAV)",
+  "caldav-sync-desc": "Mete dat limit kat tablo sa a yo nan yon kalandriye - Nextcloud Calendar oswa nenpòt kalandriye CalDAV. Yon dat limit ou deplase nan kalandriye a tounen sou kat la. Sèvi ak yon modpas aplikasyon, pa pwòp modpas ou.",
+  "caldav-url": "Adrès kalandriye a",
+  "caldav-app-password": "Modpas aplikasyon",
+  "caldav-enabled": "Senkwonize dat limit yo ak kalandriye sa a",
+  "caldav-sync-now": "Senkwonize tout kounye a",
+  "caldav-invalid-url": "Adrès kalandriye a dwe yon adrès http:// oswa https://, san non itilizatè oswa modpas ladan l.",
+  "caldav-not-linked": "Anrejistre yon adrès kalandriye epi louvri senkwonizasyon an anvan.",
+  "webdav-storage": "Estokaj WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Estoke pyès atache yo nan yon dosye sou yon sèvè WebDAV - Nextcloud Files, ownCloud oswa nenpòt lòt. Sèvi ak yon modpas aplikasyon ki fèt pou WeKan. Ou ka sèvi ak yon sèvè sou pwòp rezo WeKan isit la, paske se sèlman yon administratè sit la ki mete adrès sa a.",
+  "webdav-endpoint": "Adrès WebDAV",
+  "webdav-password": "Modpas aplikasyon",
+  "webdav-folder": "Dosye",
+  "move-storage-webdav": "Estokaj WebDAV (Nextcloud Files)"
 }

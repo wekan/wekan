@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "אם WeKan שולח דרך אחד מהשירותים האלה, יש להפעיל אותו, למסור לשירות את כתובת ה־webhook הזאת לאירועי החזרות ותלונות ספאם, ולהדביק כאן את המפתח שבו הוא חותם עליהם, או את הססמה שהכנסת לכתובת בצורה https://user:password@… או ?secret=…",
   "email-bounces-provider-key": "מפתח חתימה של ה־webhook",
   "email-bounces-provider-password": "ססמת ה־webhook",
-  "email-bounce-provider-secret-required": "שירות מופעל צריך את מפתח החתימה או את הססמה שלו."
+  "email-bounce-provider-secret-required": "שירות מופעל צריך את מפתח החתימה או את הססמה שלו.",
+  "activity-pub-enabled": "לוחות ציבוריים מפרסמים את פעילות הכרטיסים שלהם בפדיברס (ActivityPub)",
+  "activity-pub-desc": "כבוי כברירת מחדל. כשהוא פעיל, אפשר לעקוב אחרי כל לוח ציבורי מ־Mastodon ומשרתי פדיברס אחרים בתור @board-<id> בכתובת של WeKan זה, ופעילות כרטיסים חדשה מגיעה לעוקבים שלו. זה לקריאה בלבד: שום דבר ששרת פדיברס שולח לא משנה לוח, ולוחות פרטיים לעולם אינם מתפרסמים.",
+  "caldav-sync": "סנכרון לוח שנה (CalDAV)",
+  "caldav-sync-desc": "הצבת מועדי הסיום של כרטיסי הלוח הזה בלוח שנה - Nextcloud Calendar או כל לוח שנה CalDAV. מועד סיום שהוזז בלוח השנה חוזר לכרטיס. יש להשתמש בססמת יישום, לא בססמה שלך.",
+  "caldav-url": "כתובת לוח השנה",
+  "caldav-app-password": "ססמת יישום",
+  "caldav-enabled": "סנכרון מועדי סיום עם לוח השנה הזה",
+  "caldav-sync-now": "לסנכרן הכול עכשיו",
+  "caldav-invalid-url": "כתובת לוח השנה חייבת להיות כתובת http:// או https://, בלי שם משתמש או ססמה בתוכה.",
+  "caldav-not-linked": "יש לשמור קודם כתובת לוח שנה ולהפעיל סנכרון.",
+  "webdav-storage": "אחסון WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "אחסון קבצים מצורפים בתיקייה בשרת WebDAV - Nextcloud Files, ownCloud או כל שרת אחר. יש להשתמש בססמת יישום שנוצרה עבור WeKan. אפשר להשתמש כאן בשרת ברשת של WeKan עצמו, כי רק מנהל האתר קובע את הכתובת הזאת.",
+  "webdav-endpoint": "כתובת WebDAV",
+  "webdav-password": "ססמת יישום",
+  "webdav-folder": "תיקייה",
+  "move-storage-webdav": "אחסון WebDAV (Nextcloud Files)"
 }

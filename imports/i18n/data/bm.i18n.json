@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Ni WeKan bɛ ci bila nin baarakɛyɔrɔ dɔ fɛ, a yeelen, webhook ladɛrɛsi nin di baarakɛyɔrɔ ma a ka imɛli segintaw ni spam kan ŋunuŋunu kow kama, ka kile min b'a bolonɔ bila u la, walima gundo daɲɛ min i ye bila ladɛrɛsi la i n'a fɔ https://user:password@… walima ?secret=…, o bila yan",
   "email-bounces-provider-key": "Webhook bolonɔbila kile",
   "email-bounces-provider-password": "Webhook gundo daɲɛ",
-  "email-bounce-provider-secret-required": "Baarakɛyɔrɔ yeelennen mago bɛ a ka bolonɔbila kile walima a ka gundo daɲɛ na."
+  "email-bounce-provider-secret-required": "Baarakɛyɔrɔ yeelennen mago bɛ a ka bolonɔbila kile walima a ka gundo daɲɛ na.",
+  "activity-pub-enabled": "Walan forobaw bɛ u ka karti baaraw jira fediverse kan (ActivityPub)",
+  "activity-pub-desc": "A datugulen don ka bɔ a daminɛ na. N'a dayɛlɛlen don, walan foroba bɛɛ bɛ se ka tugu ka bɔ Mastodon ni fediverse sɛrvɛri wɛrɛw la i n'a fɔ @board-<id> nin WeKan ka adrɛsi la, ani karti baara kuraw bɛ se a nɔfɛmɔgɔw ma. A ye kalan dɔrɔn ye: fediverse sɛrvɛri bɛ min ci, o si tɛ walan yɛlɛma, wa walan gundolenw tɛ jira abada.",
+  "caldav-sync": "Donw kalandiriye bɛnni (CalDAV)",
+  "caldav-sync-desc": "Nin walan karti waati labanw bila donw kalandiriye dɔ kɔnɔ - Nextcloud Calendar walima CalDAV kalandiriye o kalandiriye. Waati laban min yɛlɛmana kalandiriye kɔnɔ, o bɛ segin karti kan. Aplikasiyɔn gundo daɲɛ kɛ, i yɛrɛ ta tɛ.",
+  "caldav-url": "Kalandiriye adrɛsi",
+  "caldav-app-password": "Aplikasiyɔn gundo daɲɛ",
+  "caldav-enabled": "Waati labanw bɛn nin kalandiriye ma",
+  "caldav-sync-now": "A bɛɛ bɛn sisan",
+  "caldav-invalid-url": "Kalandiriye adrɛsi ka kan ka kɛ http:// walima https:// adrɛsi ye, baarakɛla tɔgɔ walima gundo daɲɛ tɛ min kɔnɔ.",
+  "caldav-not-linked": "Fɔlɔ, kalandiriye adrɛsi mara ani bɛnni dayɛlɛ.",
+  "webdav-storage": "WebDAV mara yɔrɔ (Nextcloud Files)",
+  "webdav-storage-description": "Nɔrɔlenw mara foroko dɔ kɔnɔ WebDAV sɛrvɛri kan - Nextcloud Files, ownCloud walima wɛrɛ o wɛrɛ. Aplikasiyɔn gundo daɲɛ min dabɔra WeKan kama, o kɛ. WeKan yɛrɛ ka jɛɲɔgɔnya sɛrvɛri bɛ se ka kɛ yan, katuguni siti ɲɛmɔgɔ dɔrɔn de bɛ nin adrɛsi sigi.",
+  "webdav-endpoint": "WebDAV adrɛsi",
+  "webdav-password": "Aplikasiyɔn gundo daɲɛ",
+  "webdav-folder": "Foroko",
+  "move-storage-webdav": "WebDAV mara yɔrɔ (Nextcloud Files)"
 }

@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Si WeKan envia a través d'un d'aquests serveis, activeu-lo, doneu al servei aquesta adreça de webhook per als seus esdeveniments de correus retornats i de queixes de correu brossa, i enganxeu aquí la clau amb què els signa, o la contrasenya que heu posat a l'adreça com a https://user:password@… o ?secret=…",
   "email-bounces-provider-key": "Clau de signatura del webhook",
   "email-bounces-provider-password": "Contrasenya del webhook",
-  "email-bounce-provider-secret-required": "Un servei activat necessita la seva clau de signatura o contrasenya."
+  "email-bounce-provider-secret-required": "Un servei activat necessita la seva clau de signatura o contrasenya.",
+  "activity-pub-enabled": "Els taulers públics publiquen l'activitat de les seves fitxes al fedivers (ActivityPub)",
+  "activity-pub-desc": "Desactivat per defecte. Si s'activa, cada tauler públic es pot seguir des de Mastodon i altres servidors del fedivers com a @board-<id> a l'adreça d'aquest WeKan, i la nova activitat de les fitxes arriba als seus seguidors. És només de lectura: res del que enviï un servidor del fedivers modifica un tauler, i els taulers privats no es publiquen mai.",
+  "caldav-sync": "Sincronització del calendari (CalDAV)",
+  "caldav-sync-desc": "Posa les dates de venciment de les fitxes d'aquest tauler en un calendari: Nextcloud Calendar o qualsevol calendari CalDAV. Una data de venciment moguda al calendari torna a la fitxa. Utilitza una contrasenya d'aplicació, no la teva.",
+  "caldav-url": "Adreça del calendari",
+  "caldav-app-password": "Contrasenya d'aplicació",
+  "caldav-enabled": "Sincronitza les dates de venciment amb aquest calendari",
+  "caldav-sync-now": "Sincronitza-ho tot ara",
+  "caldav-invalid-url": "L'adreça del calendari ha de ser una adreça http:// o https://, sense cap nom d'usuari ni contrasenya.",
+  "caldav-not-linked": "Primer desa una adreça de calendari i activa la sincronització.",
+  "webdav-storage": "Emmagatzematge WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Desa els adjunts en una carpeta d'un servidor WebDAV: Nextcloud Files, ownCloud o qualsevol altre. Utilitza una contrasenya d'aplicació creada per a WeKan. Aquí es pot fer servir un servidor de la mateixa xarxa de WeKan, ja que només un administrador del lloc defineix aquesta adreça.",
+  "webdav-endpoint": "Adreça WebDAV",
+  "webdav-password": "Contrasenya d'aplicació",
+  "webdav-folder": "Carpeta",
+  "move-storage-webdav": "Emmagatzematge WebDAV (Nextcloud Files)"
 }

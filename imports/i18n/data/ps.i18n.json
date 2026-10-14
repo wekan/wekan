@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "که WeKan د دې خدمتونو له یوه له لارې لېږي، هغه چالان کړئ، خدمت ته د بیرته راګرځېدلو برېښنالیکونو او د سپام د شکایتونو د پېښو لپاره دا webhook پته ورکړئ، او دلته هغه کیلي ونښلوئ چې پرې یې لاسلیک کوي، یا هغه پټنوم چې تاسو په پته کې د https://user:password@… یا ?secret=… په توګه ایښی",
   "email-bounces-provider-key": "د webhook د لاسلیک کیلي",
   "email-bounces-provider-password": "د webhook پټنوم",
-  "email-bounce-provider-secret-required": "چالان خدمت خپلې د لاسلیک کیلي یا پټنوم ته اړتیا لري."
+  "email-bounce-provider-secret-required": "چالان خدمت خپلې د لاسلیک کیلي یا پټنوم ته اړتیا لري.",
+  "activity-pub-enabled": "عامه تختې د خپلو کارتونو فعالیت په فېډیورس کې خپروي (ActivityPub)",
+  "activity-pub-desc": "په ډیفالټ ډول بند دی. کله چې چالان شي، هره عامه تخته د Mastodon او نورو فېډیورس سرورونو څخه د دې WeKan په پته کې د @board-<id> په توګه تعقیبېدای شي، او د کارتونو نوی فعالیت د هغې تعقیبوونکو ته رسېږي. دا یوازې د لوستلو لپاره دی: هېڅ شی چې د فېډیورس سرور یې لېږي تخته نه بدلوي، او شخصي تختې هېڅکله نه خپرېږي.",
+  "caldav-sync": "د جنتري همغږي (CalDAV)",
+  "caldav-sync-desc": "د دې تختې د کارتونو د پای نېټې په یوه جنتري کې ږدي - Nextcloud Calendar یا هره CalDAV جنتري. په جنتري کې بدله شوې د پای نېټه بېرته کارت ته راځي. د اپ پټنوم وکاروئ، نه خپل.",
+  "caldav-url": "د جنتري پته",
+  "caldav-app-password": "د اپ پټنوم",
+  "caldav-enabled": "د پای نېټې له دې جنتري سره همغږې کړئ",
+  "caldav-sync-now": "اوس ټول همغږي کړئ",
+  "caldav-invalid-url": "د جنتري پته باید http:// یا https:// پته وي، پرته له دې چې کارن نوم یا پټنوم پکې وي.",
+  "caldav-not-linked": "لومړی د جنتري پته خوندي کړئ او همغږي چالان کړئ.",
+  "webdav-storage": "WebDAV زېرمه (Nextcloud Files)",
+  "webdav-storage-description": "ضميمې د WebDAV سرور په یوه فولډر کې زېرمه کوي - Nextcloud Files، ownCloud یا بل هر یو. هغه د اپ پټنوم وکاروئ چې د WeKan لپاره جوړ شوی وي. دلته د WeKan په خپله شبکه کې سرور کارول کېدای شي، ځکه چې دا پته یوازې د سایټ مدیر ټاکي.",
+  "webdav-endpoint": "د WebDAV پته",
+  "webdav-password": "د اپ پټنوم",
+  "webdav-folder": "فولډر",
+  "move-storage-webdav": "WebDAV زېرمه (Nextcloud Files)"
 }

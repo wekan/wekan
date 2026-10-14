@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Jeśli WeKan wysyła przez jedną z tych usług, włącz ją, podaj usłudze ten adres webhooka dla jej zdarzeń zwrotów wiadomości i zgłoszeń spamu, i wklej tutaj klucz, którym je podpisuje, albo hasło umieszczone w adresie jako https://user:password@… lub ?secret=…",
   "email-bounces-provider-key": "Klucz podpisu webhooka",
   "email-bounces-provider-password": "Hasło webhooka",
-  "email-bounce-provider-secret-required": "Włączona usługa wymaga swojego klucza podpisu lub hasła."
+  "email-bounce-provider-secret-required": "Włączona usługa wymaga swojego klucza podpisu lub hasła.",
+  "activity-pub-enabled": "Publiczne tablice publikują aktywność swoich kart w fediwersum (ActivityPub)",
+  "activity-pub-desc": "Domyślnie wyłączone. Po włączeniu każdą publiczną tablicę można obserwować z Mastodona i innych serwerów fediwersum jako @board-<id> pod adresem tego WeKana, a nowa aktywność kart trafia do jej obserwujących. Działa tylko do odczytu: nic, co wyśle serwer fediwersum, nie zmienia tablicy, a prywatne tablice nigdy nie są publikowane.",
+  "caldav-sync": "Synchronizacja kalendarza (CalDAV)",
+  "caldav-sync-desc": "Umieść terminy kart z tej tablicy w kalendarzu – Nextcloud Calendar lub dowolnym kalendarzu CalDAV. Termin przesunięty w kalendarzu wraca do karty. Użyj hasła aplikacji, nie własnego.",
+  "caldav-url": "Adres kalendarza",
+  "caldav-app-password": "Hasło aplikacji",
+  "caldav-enabled": "Synchronizuj terminy z tym kalendarzem",
+  "caldav-sync-now": "Synchronizuj wszystko teraz",
+  "caldav-invalid-url": "Adres kalendarza musi być adresem http:// lub https://, bez nazwy użytkownika ani hasła.",
+  "caldav-not-linked": "Najpierw zapisz adres kalendarza i włącz synchronizację.",
+  "webdav-storage": "Magazyn WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Przechowuj załączniki w katalogu na serwerze WebDAV – Nextcloud Files, ownCloud lub dowolnym innym. Użyj hasła aplikacji utworzonego dla WeKan. Można tu użyć serwera we własnej sieci WeKan, ponieważ ten adres ustawia tylko administrator witryny.",
+  "webdav-endpoint": "Adres WebDAV",
+  "webdav-password": "Hasło aplikacji",
+  "webdav-folder": "Katalog",
+  "move-storage-webdav": "Magazyn WebDAV (Nextcloud Files)"
 }

@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Jak WeKan wysyłŏ bez jedna z tych usug, załōncz jōm, dej usudze ta adresa webhooka do jeji zdarzyń ô wrōcōnych mejlach i skargach na spam, i wraź sam klucz, kerym ôna je podpisuje, abo hasło, kere żeś wraziył do adresy jako https://user:password@… abo ?secret=…",
   "email-bounces-provider-key": "Klucz podpisu webhooka",
   "email-bounces-provider-password": "Hasło webhooka",
-  "email-bounce-provider-secret-required": "Załōnczōnŏ usuga potrzebuje swojigo klucza podpisu abo hasła."
+  "email-bounce-provider-secret-required": "Załōnczōnŏ usuga potrzebuje swojigo klucza podpisu abo hasła.",
+  "activity-pub-enabled": "Publiczne tabule publikujōm aktywność swojich kart we fediwersum (ActivityPub)",
+  "activity-pub-desc": "Bez wychodnie wyłōnczōne. Kej je załōnczōne, kożdo publicznŏ tabula idzie śledzić z Mastodona i inkszych serwerōw fediwersum jako @board-<id> pod adresym tego WeKana, a nowo aktywność kart dociyrŏ do jeji śledzōncych. To je ino do czytanio: nic, co pośle serwer fediwersum, niy zmiyniŏ tabule, a prywatne tabule niy sōm nigdy publikowane.",
+  "caldav-sync": "Synchrōnizacyjŏ kalyndŏrza (CalDAV)",
+  "caldav-sync-desc": "Wrażyj terminy kart z tyj tabule do kalyndŏrza – Nextcloud Calendar abo kożdego kalyndŏrza CalDAV. Termin przesuniynty we kalyndŏrzu wrŏcŏ do karty. Użyj hasła aplikacyje, niy swojigo.",
+  "caldav-url": "Adres kalyndŏrza",
+  "caldav-app-password": "Hasło aplikacyje",
+  "caldav-enabled": "Synchrōnizuj terminy z tym kalyndŏrzym",
+  "caldav-sync-now": "Synchrōnizuj wszyjsko teroz",
+  "caldav-invalid-url": "Adres kalyndŏrza musi być adresym http:// abo https://, bez miana używŏcza i hasła.",
+  "caldav-not-linked": "Nojprzōd spamiyntej adres kalyndŏrza i załōncz synchrōnizacyjŏ.",
+  "webdav-storage": "Magazyn WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Trzim przidŏwki we katalogu na serwerze WebDAV – Nextcloud Files, ownCloud abo kożdym inkszym. Użyj hasła aplikacyje zrobiōnego do WeKana. Idzie sam użyć serwera we włŏsnyj sieci WeKana, bo ino administrator strōny nasztelowuje tyn adres.",
+  "webdav-endpoint": "Adres WebDAV",
+  "webdav-password": "Hasło aplikacyje",
+  "webdav-folder": "Katalog",
+  "move-storage-webdav": "Magazyn WebDAV (Nextcloud Files)"
 }

@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Sce WeKan spediësc tres un de chisc servizs, l'ativëia, da al servize chësta adressa webhook por si events de mail tornades zeruch y reclams de spam, y taca ite chilò la tle cun chëra che al les firma, o la parola de acess che t'as metù te l'adressa sciöche https://user:password@… o ?secret=…",
   "email-bounces-provider-key": "Tle de firma dl webhook",
   "email-bounces-provider-password": "Parola de acess dl webhook",
-  "email-bounce-provider-secret-required": "N servize ativé à de besëgn de si tle de firma o de si parola de acess."
+  "email-bounce-provider-secret-required": "N servize ativé à de besëgn de si tle de firma o de si parola de acess.",
+  "activity-pub-enabled": "I tofli publics publichëia la ativité de si ciartes tl fediverse (ActivityPub)",
+  "activity-pub-desc": "Destudé de default. Canche al ie ativé, vigni tofl public possa unì perseguità da Mastodon y d'autri server dl fediverse coche @board-<id> pra l'adressa de chësc WeKan, y la neva ativité dla ciartes ruva a si perseguitadëures. Al ie mé da lieje: nia de chël che n server dl fediverse mana muda n tofl, y i tofli privac ne vën mai publicà.",
+  "caldav-sync": "Sincronisazion dl calendario (CalDAV)",
+  "caldav-sync-desc": "Met la dates de scadënza dla ciartes de chësc tofl te n calendario - Nextcloud Calendar o n calendario CalDAV kei che sibe. Na data de scadënza spustëda tl calendario toma zeruch tla ciarta. Adurëia na parola secreta dl'aplicazion, no la tia.",
+  "caldav-url": "Adressa dl calendario",
+  "caldav-app-password": "Parola secreta dl'aplicazion",
+  "caldav-enabled": "Sincronisé la dates de scadënza cun chësc calendario",
+  "caldav-sync-now": "Sincronisé dut subit",
+  "caldav-invalid-url": "L'adressa dl calendario muessa vester n'adressa http:// o https://, zënza inuem dl utënt o parola secreta ite.",
+  "caldav-not-linked": "Salvé dant n'adressa dl calendario y ativé la sincronisazion.",
+  "webdav-storage": "Memorisazion WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Salva la injuntes te na cartela sun n server WebDAV - Nextcloud Files, ownCloud o n auter. Adurëia na parola secreta dl'aplicazion fata per WeKan. N server sun la rë de WeKan nstës possa unì adurà chiò, ajache mé n aministradëur dl sit tol ju chësta adressa.",
+  "webdav-endpoint": "Adressa WebDAV",
+  "webdav-password": "Parola secreta dl'aplicazion",
+  "webdav-folder": "Cartela",
+  "move-storage-webdav": "Memorisazion WebDAV (Nextcloud Files)"
 }

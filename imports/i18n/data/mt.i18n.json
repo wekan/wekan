@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Jekk WeKan jibgħat permezz ta' wieħed minn dawn is-servizzi, ixgħlu, agħti lis-servizz dan l-indirizz tal-webhook għall-avvenimenti tiegħu ta' emails li rritornaw u lmenti ta' spam, u waħħal hawn iċ-ċavetta li biha jiffirmahom, jew il-kelma ta’ għassa li poġġejt fl-indirizz bħala https://user:password@… jew ?secret=…",
   "email-bounces-provider-key": "Ċavetta tal-firma tal-webhook",
   "email-bounces-provider-password": "Kelma ta’ għassa tal-webhook",
-  "email-bounce-provider-secret-required": "Servizz mixgħul jeħtieġ iċ-ċavetta tal-firma jew il-kelma ta’ għassa tiegħu."
+  "email-bounce-provider-secret-required": "Servizz mixgħul jeħtieġ iċ-ċavetta tal-firma jew il-kelma ta’ għassa tiegħu.",
+  "activity-pub-enabled": "Il-bordijiet pubbliċi jippubblikaw l-attività tal-karti tagħhom fil-fediverse (ActivityPub)",
+  "activity-pub-desc": "Mitfi b'mod awtomatiku. Meta jkun mixgħul, kull bord pubbliku jista' jiġi segwit minn Mastodon u servers oħra tal-fediverse bħala @board-<id> fl-indirizz ta' dan il-WeKan, u l-attività l-ġdida tal-karti tasal għand is-segwaċi tiegħu. Huwa għall-qari biss: xejn minn dak li jibgħat server tal-fediverse ma jibdel bord, u l-bordijiet privati qatt ma jiġu ppubblikati.",
+  "caldav-sync": "Sinkronizzazzjoni tal-kalendarju (CalDAV)",
+  "caldav-sync-desc": "Ipoġġi d-dati ta' skadenza tal-karti ta' dan il-bord f'kalendarju - Nextcloud Calendar jew kwalunkwe kalendarju CalDAV. Data ta' skadenza mċaqalqa fil-kalendarju terġa' lura fil-karta. Uża kelma ta' għassa tal-applikazzjoni, mhux tiegħek.",
+  "caldav-url": "Indirizz tal-kalendarju",
+  "caldav-app-password": "Kelma ta' għassa tal-applikazzjoni",
+  "caldav-enabled": "Issinkronizza d-dati ta' skadenza ma' dan il-kalendarju",
+  "caldav-sync-now": "Issinkronizza kollox issa",
+  "caldav-invalid-url": "L-indirizz tal-kalendarju għandu jkun indirizz http:// jew https://, mingħajr isem tal-utent jew kelma ta' għassa fih.",
+  "caldav-not-linked": "L-ewwel issejvja indirizz tal-kalendarju u ixgħel is-sinkronizzazzjoni.",
+  "webdav-storage": "Ħażna WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Jaħżen il-mehmużin f'kartella fuq server WebDAV - Nextcloud Files, ownCloud jew kwalunkwe ieħor. Uża kelma ta' għassa tal-applikazzjoni magħmula għal WeKan. Server fuq in-netwerk proprju ta' WeKan jista' jintuża hawn, peress li amministratur tas-sit biss jissettja dan l-indirizz.",
+  "webdav-endpoint": "Indirizz WebDAV",
+  "webdav-password": "Kelma ta' għassa tal-applikazzjoni",
+  "webdav-folder": "Kartella",
+  "move-storage-webdav": "Ħażna WebDAV (Nextcloud Files)"
 }

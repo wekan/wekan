@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "WeKan bw'eba eweereza ng'eyita mu emu ku mpeereza zino, gikoleeze, wa empeereza endagiriro eno eya webhook ku bintu byayo eby'imeyilo ezikomawo n'okwemulugunya ku spam, era wano teekamu ekisumuluzo ky'ekozesa okubiteekako omukono, oba ekigambo ekyekusifu ky'otadde mu ndagiriro nga https://user:password@… oba ?secret=…",
   "email-bounces-provider-key": "Ekisumuluzo ky'omukono gwa webhook",
   "email-bounces-provider-password": "Ekigambo ekyekusifu ekya webhook",
-  "email-bounce-provider-secret-required": "Empeereza ekoleezeddwa yeetaaga ekisumuluzo kyayo eky'omukono oba ekigambo ekyekusifu."
+  "email-bounce-provider-secret-required": "Empeereza ekoleezeddwa yeetaaga ekisumuluzo kyayo eky'omukono oba ekigambo ekyekusifu.",
+  "activity-pub-enabled": "Embaawo ez'olukale zifulumya emirimu gy'ekaadi zaazo ku fediverse (ActivityPub)",
+  "activity-pub-desc": "Kiggale okusookera ddala. Bw'okikoleeza, buli lubaawo lwa lukale lusobola okugobererwa okuva ku Mastodon ne seva endala eza fediverse nga @board-<id> ku ndagiriro ya WeKan eno, era emirimu emipya egy'ekaadi gituuka ku bagoberezi baalwo. Kya kusoma kyokka: tewali kintu seva ya fediverse ky'esindika kikyusa lubaawo, era embaawo ez'ekyama tezifulumizibwa n'akatono.",
+  "caldav-sync": "Okukwataganya kalenda (CalDAV)",
+  "caldav-sync-desc": "Teeka ennaku ezisembayo ez'ekaadi z'olubaawo luno mu kalenda - Nextcloud Calendar oba kalenda yonna eya CalDAV. Olunaku olusembayo olukyusibwa mu kalenda luddayo ku kaadi. Kozesa ekigambo ekyekusifu eky'apu, so si ekigambo kyo ekyekusifu.",
+  "caldav-url": "Endagiriro ya kalenda",
+  "caldav-app-password": "Ekigambo ekyekusifu eky'apu",
+  "caldav-enabled": "Kwataganya ennaku ezisembayo ne kalenda eno",
+  "caldav-sync-now": "Kwataganya byonna kati",
+  "caldav-invalid-url": "Endagiriro ya kalenda erina okuba endagiriro ya http:// oba https://, nga temuli linnya lya mukozesa oba kigambo kyekusifu.",
+  "caldav-not-linked": "Sooka otereke endagiriro ya kalenda era okoleeze okukwataganya.",
+  "webdav-storage": "Etterekero lya WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Tereka ebiyungiddwako mu folda ku seva ya WebDAV - Nextcloud Files, ownCloud oba endala yonna. Kozesa ekigambo ekyekusifu eky'apu ekyakolerwa WeKan. Seva eri ku mukutu gwa WeKan gwennyini esobola okukozesebwa wano, kubanga omuddukanya w'omukutu yekka y'ateeka endagiriro eno.",
+  "webdav-endpoint": "Endagiriro ya WebDAV",
+  "webdav-password": "Ekigambo ekyekusifu eky'apu",
+  "webdav-folder": "Folda",
+  "move-storage-webdav": "Etterekero lya WebDAV (Nextcloud Files)"
 }

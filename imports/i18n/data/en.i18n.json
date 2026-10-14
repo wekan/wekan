@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "If WeKan sends through one of these services, turn it on, give the service this webhook address for its bounce and spam complaint events, and paste here the key it signs them with, or the password you put in the address as https://user:password@… or ?secret=…",
   "email-bounces-provider-key": "Webhook signing key",
   "email-bounces-provider-password": "Webhook password",
-  "email-bounce-provider-secret-required": "A service that is turned on needs its signing key or password."
+  "email-bounce-provider-secret-required": "A service that is turned on needs its signing key or password.",
+  "activity-pub-enabled": "Public boards publish their card activity on the fediverse (ActivityPub)",
+  "activity-pub-desc": "Off by default. With it on, each public board can be followed from Mastodon and other fediverse servers as @board-<id> at this WeKan's address, and new card activity reaches its followers. It is read-only: nothing a fediverse server sends changes a board, and private boards are never published.",
+  "caldav-sync": "Calendar sync (CalDAV)",
+  "caldav-sync-desc": "Put this board's card due dates in a calendar - Nextcloud Calendar or any CalDAV calendar. A due date moved in the calendar comes back to the card. Use an app password, not your own.",
+  "caldav-url": "Calendar address",
+  "caldav-app-password": "App password",
+  "caldav-enabled": "Sync due dates with this calendar",
+  "caldav-sync-now": "Sync all now",
+  "caldav-invalid-url": "The calendar address must be an http:// or https:// address, without a user name or password in it.",
+  "caldav-not-linked": "Save a calendar address and turn sync on first.",
+  "webdav-storage": "WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Store attachments in a folder on a WebDAV server - Nextcloud Files, ownCloud or any other. Use an app password made for WeKan. A server on WeKan's own network can be used here, since only a site administrator sets this address.",
+  "webdav-endpoint": "WebDAV address",
+  "webdav-password": "App password",
+  "webdav-folder": "Folder",
+  "move-storage-webdav": "WebDAV (Nextcloud Files)"
 }

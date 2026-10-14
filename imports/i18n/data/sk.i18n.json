@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Ak WeKan odosiela cez jednu z týchto služieb, zapnite ju, zadajte službe túto webhookovú adresu pre jej udalosti vrátených e-mailov a sťažností na spam a vložte sem kľúč, ktorým ich podpisuje, alebo heslo, ktoré ste vložili do adresy ako https://user:password@… alebo ?secret=…",
   "email-bounces-provider-key": "Podpisový kľúč webhooku",
   "email-bounces-provider-password": "Heslo webhooku",
-  "email-bounce-provider-secret-required": "Zapnutá služba potrebuje svoj podpisový kľúč alebo heslo."
+  "email-bounce-provider-secret-required": "Zapnutá služba potrebuje svoj podpisový kľúč alebo heslo.",
+  "activity-pub-enabled": "Verejné nástenky zverejňujú aktivitu svojich kariet vo fediverze (ActivityPub)",
+  "activity-pub-desc": "Predvolene vypnuté. Po zapnutí možno každú verejnú nástenku sledovať z Mastodonu a iných serverov fediverza ako @board-<id> na adrese tohto WeKanu a nová aktivita kariet sa dostane k jej sledovateľom. Je len na čítanie: nič, čo pošle server fediverza, nástenku nezmení, a súkromné nástenky sa nikdy nezverejňujú.",
+  "caldav-sync": "Synchronizácia kalendára (CalDAV)",
+  "caldav-sync-desc": "Vložte termíny kariet z tejto nástenky do kalendára – Nextcloud Calendar alebo akéhokoľvek kalendára CalDAV. Termín presunutý v kalendári sa vráti na kartu. Použite heslo aplikácie, nie svoje vlastné.",
+  "caldav-url": "Adresa kalendára",
+  "caldav-app-password": "Heslo aplikácie",
+  "caldav-enabled": "Synchronizovať termíny s týmto kalendárom",
+  "caldav-sync-now": "Synchronizovať všetko teraz",
+  "caldav-invalid-url": "Adresa kalendára musí byť adresa http:// alebo https:// bez používateľského mena a hesla.",
+  "caldav-not-linked": "Najprv uložte adresu kalendára a zapnite synchronizáciu.",
+  "webdav-storage": "Úložisko WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Ukladajte prílohy do priečinka na serveri WebDAV – Nextcloud Files, ownCloud alebo akomkoľvek inom. Použite heslo aplikácie vytvorené pre WeKan. Môžete tu použiť server vo vlastnej sieti WeKanu, pretože túto adresu nastavuje iba správca stránky.",
+  "webdav-endpoint": "Adresa WebDAV",
+  "webdav-password": "Heslo aplikácie",
+  "webdav-folder": "Priečinok",
+  "move-storage-webdav": "Úložisko WebDAV (Nextcloud Files)"
 }

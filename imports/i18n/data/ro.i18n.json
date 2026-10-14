@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Dacă WeKan trimite printr-unul dintre aceste servicii, activați-l, dați serviciului această adresă de webhook pentru evenimentele sale de respingere și de plângere de spam și lipiți aici cheia cu care le semnează sau parola pe care ați pus-o în adresă ca https://user:password@… sau ?secret=…",
   "email-bounces-provider-key": "Cheia de semnare a webhook-ului",
   "email-bounces-provider-password": "Parola webhook-ului",
-  "email-bounce-provider-secret-required": "Un serviciu activat are nevoie de cheia de semnare sau de parolă."
+  "email-bounce-provider-secret-required": "Un serviciu activat are nevoie de cheia de semnare sau de parolă.",
+  "activity-pub-enabled": "Panourile publice își publică activitatea cardurilor în fediverse (ActivityPub)",
+  "activity-pub-desc": "Dezactivat implicit. Când este activat, fiecare panou public poate fi urmărit din Mastodon și alte servere din fediverse ca @board-<id> la adresa acestui WeKan, iar activitatea nouă a cardurilor ajunge la urmăritorii lui. Este doar pentru citire: nimic din ce trimite un server din fediverse nu modifică un panou, iar panourile private nu sunt niciodată publicate.",
+  "caldav-sync": "Sincronizare calendar (CalDAV)",
+  "caldav-sync-desc": "Pune termenele cardurilor acestui panou într-un calendar - Nextcloud Calendar sau orice calendar CalDAV. Un termen mutat în calendar se întoarce pe card. Folosește o parolă de aplicație, nu parola ta.",
+  "caldav-url": "Adresa calendarului",
+  "caldav-app-password": "Parolă de aplicație",
+  "caldav-enabled": "Sincronizează termenele cu acest calendar",
+  "caldav-sync-now": "Sincronizează tot acum",
+  "caldav-invalid-url": "Adresa calendarului trebuie să fie o adresă http:// sau https://, fără nume de utilizator sau parolă în ea.",
+  "caldav-not-linked": "Salvează mai întâi o adresă de calendar și activează sincronizarea.",
+  "webdav-storage": "Stocare WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Stochează atașamentele într-un dosar pe un server WebDAV - Nextcloud Files, ownCloud sau oricare altul. Folosește o parolă de aplicație creată pentru WeKan. Aici se poate folosi un server din rețeaua proprie a WeKan, deoarece doar un administrator al site-ului setează această adresă.",
+  "webdav-endpoint": "Adresă WebDAV",
+  "webdav-password": "Parolă de aplicație",
+  "webdav-folder": "Dosar",
+  "move-storage-webdav": "Stocare WebDAV (Nextcloud Files)"
 }

@@ -2511,6 +2511,70 @@
     {
       "key": "group-members-read-only",
       "since": "2026-10-14"
+    },
+    {
+      "key": "activity-pub-enabled",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "activity-pub-desc",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "caldav-sync",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "caldav-sync-desc",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "caldav-url",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "caldav-app-password",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "caldav-enabled",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "caldav-sync-now",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "caldav-invalid-url",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "caldav-not-linked",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "webdav-storage",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "webdav-storage-description",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "webdav-endpoint",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "webdav-password",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "webdav-folder",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "move-storage-webdav",
+      "since": "2026-10-14"
     }
   ]
 }

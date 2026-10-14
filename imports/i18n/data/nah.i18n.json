@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Intla WeKan tlatitlani ica centetl inin tequitl, xicpehualti, xicmaca tequitl inin cantlacatl webhook ic tlahcuilolli tlen mocuepa ihuan tlatelchihualiztli ica spam, ihuan nican xictlali tlatlapoloni ica quimachiyotia, noso ichtaca tlahtolli tlen otictlali ipan cantlacatl quen https://user:password@… noso ?secret=…",
   "email-bounces-provider-key": "Tlatlapoloni ic machiyotl webhook",
   "email-bounces-provider-password": "Ichtaca tlahtolli webhook",
-  "email-bounce-provider-secret-required": "Tequitl tlen pehualtilo quinequi itlatlapoloni machiyotl noso ichtaca tlahtolli."
+  "email-bounce-provider-secret-required": "Tequitl tlen pehualtilo quinequi itlatlapoloni machiyotl noso ichtaca tlahtolli.",
+  "activity-pub-enabled": "Tepan huapaltin quitemachiltiah intlatequipanol amatlapalli ipan fediverso (ActivityPub)",
+  "activity-pub-desc": "Achtopa tzauctoc. Ihcuac motlapoa, cecen tepan huapalli huelitiz motoquiliz ipan Mastodon ihuan occequintin fediverso tlatequipanohuaz-calli quemeh @board-<id> ipan inin WeKan ichan-tlahcuilol, ihuan yancuic amatlapalli tlatequipanoliztli ahci intech in quitoquilia. Zan mopohua: atle tlen quititlani ce fediverso tlatequipanohuaz-calli quipatla ce huapalli, ihuan ichtacayo huapaltin aic momachiltiah.",
+  "caldav-sync": "Tonalamatl nenepanoliztli (CalDAV)",
+  "caldav-sync-desc": "Xictlali in itlamiliztonal in amatlapalli ipan inin huapalli ipan ce tonalamatl - Nextcloud Calendar nozo zazo tlein CalDAV tonalamatl. Ce tlamiliztonalli tlen moolinia ipan tonalamatl mocuepa ipan amatlapalli. Xictequiuhti ce ichtaca tlahtolli ic tlatequipanoltilli, amo moichtaca tlahtol.",
+  "caldav-url": "Tonalamatl ichan-tlahcuilol",
+  "caldav-app-password": "Ichtaca tlahtolli ic tlatequipanoltilli",
+  "caldav-enabled": "Xicnenepano tlamiliztonalli ica inin tonalamatl",
+  "caldav-sync-now": "Axcan xicnenepano mochi",
+  "caldav-invalid-url": "In tonalamatl ichan-tlahcuilol monequi ma yez ce http:// nozo https:// ichan-tlahcuilol, amo ica itoca tlatequitiltiani nozo ichtaca tlahtolli itech.",
+  "caldav-not-linked": "Achtopa xicpiya ce tonalamatl ichan-tlahcuilol ihuan xictlapo nenepanoliztli.",
+  "webdav-storage": "WebDAV tlapiyalizcalli (Nextcloud Files)",
+  "webdav-storage-description": "Xicpiya tlanamictilli ipan ce amachiquihuitl ipan ce WebDAV tlatequipanohuaz-calli - Nextcloud Files, ownCloud nozo occe. Xictequiuhti ce ichtaca tlahtolli ic tlatequipanoltilli tlen mochiuh ic WeKan. Nican huelitiz motequiuhtiz ce tlatequipanohuaz-calli ipan WeKan iyoca tlahtlapitzalli, ipampa zan ce tepachoani quitlalia inin ichan-tlahcuilol.",
+  "webdav-endpoint": "WebDAV ichan-tlahcuilol",
+  "webdav-password": "Ichtaca tlahtolli ic tlatequipanoltilli",
+  "webdav-folder": "Amachiquihuitl",
+  "move-storage-webdav": "WebDAV tlapiyalizcalli (Nextcloud Files)"
 }

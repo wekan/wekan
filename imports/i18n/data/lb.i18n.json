@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Wann WeKan iwwer ee vun dësen Déngschter schéckt, schalt en an, gëff dem Déngscht dës Webhook-Adress fir seng Evenementer iwwer zréckgeschéckt Mailen a Spam-Plainten, a pecht hei de Schlëssel an, mat deem en se signéiert, oder d'Passwuert, dat s du an d'Adress als https://user:password@… oder ?secret=… gesat hues",
   "email-bounces-provider-key": "Webhook-Signaturschlëssel",
   "email-bounces-provider-password": "Webhook-Passwuert",
-  "email-bounce-provider-secret-required": "En ageschalten Déngscht brauch säi Signaturschlëssel oder säi Passwuert."
+  "email-bounce-provider-secret-required": "En ageschalten Déngscht brauch säi Signaturschlëssel oder säi Passwuert.",
+  "activity-pub-enabled": "Ëffentlech Tafele publizéieren d'Aktivitéit vun hire Kaarten am Fediverse (ActivityPub)",
+  "activity-pub-desc": "Standardméisseg aus. Wann et un ass, kann all ëffentlech Tafel vu Mastodon an anere Fediverse-Serveren als @board-<id> op der Adress vun dësem WeKan gefollegt ginn, an nei Kaartenaktivitéit erreecht hir Follower. Et ass nëmme fir ze liesen: näischt, wat e Fediverse-Server schéckt, ännert eng Tafel, a privat Tafele ginn ni publizéiert.",
+  "caldav-sync": "Kalender-Synchroniséierung (CalDAV)",
+  "caldav-sync-desc": "Setzt d'Fällegkeetsdatume vun de Kaarte vun dëser Tafel an e Kalender - Nextcloud Calendar oder all CalDAV-Kalender. E Fällegkeetsdatum, deen am Kalender verréckelt gëtt, kënnt op d'Kaart zréck. Benotzt en App-Passwuert, net Äert eegent.",
+  "caldav-url": "Kalender-Adress",
+  "caldav-app-password": "App-Passwuert",
+  "caldav-enabled": "Fällegkeetsdatume mat dësem Kalender synchroniséieren",
+  "caldav-sync-now": "Elo alles synchroniséieren",
+  "caldav-invalid-url": "D'Kalender-Adress muss eng http://- oder https://-Adress sinn, ouni Benotzernumm a Passwuert dran.",
+  "caldav-not-linked": "Späichert fir d'éischt eng Kalender-Adress a schalt d'Synchroniséierung un.",
+  "webdav-storage": "WebDAV-Späicher (Nextcloud Files)",
+  "webdav-storage-description": "Späichert Unhäng an engem Dossier op engem WebDAV-Server - Nextcloud Files, ownCloud oder all aneren. Benotzt en App-Passwuert, dat fir WeKan gemaach gouf. E Server am eegene Netz vu WeKan kann hei benotzt ginn, well nëmmen e Site-Administrateur dës Adress festleet.",
+  "webdav-endpoint": "WebDAV-Adress",
+  "webdav-password": "App-Passwuert",
+  "webdav-folder": "Dossier",
+  "move-storage-webdav": "WebDAV-Späicher (Nextcloud Files)"
 }

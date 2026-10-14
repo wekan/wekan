@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "So WeKan ina nelda e carwol gooto e ɗeen, huɓɓu ngol, rokku carwol ngol ñiiɓirde webhook nde ngam huunde iimeel ruttiiɗi e plent spam, ñooƴaa ɗoo coktirgal ngol fommbinirta ɗum, walla finnde suuraande nde ngaddu-ɗaa e ñiiɓirde nde no https://user:password@… walla ?secret=…",
   "email-bounces-provider-key": "Coktirgal fommbinirgal webhook",
   "email-bounces-provider-password": "Finnde suuraande webhook",
-  "email-bounce-provider-secret-required": "Carwol huɓɓaangol ina sokli coktirgal mum fommbinirgal walla finnde mum suuraande."
+  "email-bounce-provider-secret-required": "Carwol huɓɓaangol ina sokli coktirgal mum fommbinirgal walla finnde mum suuraande.",
+  "activity-pub-enabled": "Alluwe kala neɗɗo ina njaltina golle kartalle mum'en e fediverse (ActivityPub)",
+  "activity-pub-desc": "Ko ñifaa e tolno goodngo. So hubbii, kala alluwal kala neɗɗo ina waawi reweede gila Mastodon e sarworɗe fediverse goɗɗe no @board-<id> e ñiiɓirde WeKan oo, golle kesse kartalle ɗee kadi ina njottoo rewɓe mum. Ko e janngugol tan: hay huunde nde sarworde fediverse neldata waylataa alluwal, alluwe keeriiɗe kadi njaltintaake abadaa.",
+  "caldav-sync": "Yahdingol haatumeere (CalDAV)",
+  "caldav-sync-desc": "Waɗ ñalɗi sakket kartalle alluwal ngal e haatumeere - Nextcloud Calendar walla haatumeere CalDAV kala. Ñalnde sakket nde dirtinaa e haatumeere ina rutta e kartal ngal. Huutoro finnde suuraande jaaɓnirgal, wonaa maa.",
+  "caldav-url": "Ñiiɓirde haatumeere",
+  "caldav-app-password": "Finnde suuraande jaaɓnirgal",
+  "caldav-enabled": "Yahdin ñalɗi sakket e haatumeere nde",
+  "caldav-sync-now": "Yahdin fof jooni",
+  "caldav-invalid-url": "Ñiiɓirde haatumeere ndee ina foti wonde ñiiɓirde http:// walla https://, tawa alaa innde kuutoro walla finnde suuraande e nder mum.",
+  "caldav-not-linked": "Ko adii fof, mooftu ñiiɓirde haatumeere, hubbu yahdingol.",
+  "webdav-storage": "Mooftorde WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Mooftu ceŋaaɗi e nder doosiyee e sarworde WebDAV - Nextcloud Files, ownCloud walla goɗɗo kala. Huutoro finnde suuraande jaaɓnirgal sosaande WeKan. Sarworde e laylaytol WeKan e hoore mum ina waawi huutoreede ɗoo, ko fayde e ko jiiloowo lowre tan teelata ñiiɓirde ndee.",
+  "webdav-endpoint": "Ñiiɓirde WebDAV",
+  "webdav-password": "Finnde suuraande jaaɓnirgal",
+  "webdav-folder": "Doosiyee",
+  "move-storage-webdav": "Mooftorde WebDAV (Nextcloud Files)"
 }

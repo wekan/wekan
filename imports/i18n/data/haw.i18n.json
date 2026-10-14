@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Inā hoʻouna ʻo WeKan ma o kekahi o kēia mau lawelawe, e hoʻā iā ia, e hāʻawi i ka lawelawe i kēia helu wahi webhook no kāna mau hanana leka hoʻihoʻi ʻia a me ka hoʻopiʻi spam, a e kāpili ma ʻaneʻi i ke kī āna e kau inoa ai iā lākou, a i ʻole ka ʻōlelo huna āu i hoʻokomo ai i ka helu wahi e like me https://user:password@… a i ʻole ?secret=…",
   "email-bounces-provider-key": "Kī kau inoa webhook",
   "email-bounces-provider-password": "ʻŌlelo huna webhook",
-  "email-bounce-provider-secret-required": "Pono ka lawelawe i hoʻā ʻia i kāna kī kau inoa a i ʻole kāna ʻōlelo huna."
+  "email-bounce-provider-secret-required": "Pono ka lawelawe i hoʻā ʻia i kāna kī kau inoa a i ʻole kāna ʻōlelo huna.",
+  "activity-pub-enabled": "Hoʻolaha nā papa lehulehu i kā lākou hana kāleka ma ka fediverse (ActivityPub)",
+  "activity-pub-desc": "Pio ma ke ʻano maʻamau. Inā hoʻā ʻia, hiki ke hahai ʻia kēlā me kēia papa lehulehu mai Mastodon a me nā kikowaena fediverse ʻē aʻe ma ke ʻano he @board-<id> ma ka helu wahi o kēia WeKan, a hiki ka hana kāleka hou i kona poʻe hahai. Heluhelu wale nō: ʻaʻohe mea a ke kikowaena fediverse e hoʻouna mai ai e hoʻololi i kekahi papa, a ʻaʻole loa e hoʻolaha ʻia nā papa pilikino.",
+  "caldav-sync": "Hoʻolikelike ʻalemanaka (CalDAV)",
+  "caldav-sync-desc": "Kau i nā lā palena o nā kāleka o kēia papa i loko o kekahi ʻalemanaka - Nextcloud Calendar a i ʻole kekahi ʻalemanaka CalDAV. Hoʻi ka lā palena i hoʻoneʻe ʻia ma ka ʻalemanaka i ke kāleka. E hoʻohana i kekahi ʻōlelo huna polokalamu, ʻaʻole kāu iho.",
+  "caldav-url": "Helu wahi ʻalemanaka",
+  "caldav-app-password": "ʻŌlelo huna polokalamu",
+  "caldav-enabled": "Hoʻolikelike i nā lā palena me kēia ʻalemanaka",
+  "caldav-sync-now": "Hoʻolikelike i nā mea a pau i kēia manawa",
+  "caldav-invalid-url": "He helu wahi http:// a i ʻole https:// ka helu wahi ʻalemanaka, me ka ʻole o ka inoa mea hoʻohana a i ʻole ka ʻōlelo huna i loko.",
+  "caldav-not-linked": "E mālama mua i kekahi helu wahi ʻalemanaka a e hoʻā i ka hoʻolikelike.",
+  "webdav-storage": "Waihona WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Mālama i nā mea pili i loko o kekahi wahī ma kekahi kikowaena WebDAV - Nextcloud Files, ownCloud a i ʻole kekahi mea ʻē aʻe. E hoʻohana i kekahi ʻōlelo huna polokalamu i hana ʻia no WeKan. Hiki ke hoʻohana ʻia ma ʻaneʻi kekahi kikowaena ma ka pūnaewele ponoʻī o WeKan, no ka mea, ʻo ka luna pūnaewele wale nō ke hoʻonoho i kēia helu wahi.",
+  "webdav-endpoint": "Helu wahi WebDAV",
+  "webdav-password": "ʻŌlelo huna polokalamu",
+  "webdav-folder": "Wahī",
+  "move-storage-webdav": "Waihona WebDAV (Nextcloud Files)"
 }

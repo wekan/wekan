@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Su WeKan di yónnee jaare ci benn ci sarwiis yii, taal ko, jox sarwiis bi adrees webhook bii ngir xew-xewam yu e-mail yu dellusi ak tuuma spam, te taf fii caabi gi muy xaatime leen, walla baatu jall bi nga def ci adrees bi ni https://user:password@… walla ?secret=…",
   "email-bounces-provider-key": "Caabiy xaatim bu webhook",
   "email-bounces-provider-password": "Baatu jall bu webhook",
-  "email-bounce-provider-secret-required": "Sarwiis bu ñu taal soxla na caabiy xaatimam walla baatu jallam."
+  "email-bounce-provider-secret-required": "Sarwiis bu ñu taal soxla na caabiy xaatimam walla baatu jallam.",
+  "activity-pub-enabled": "Tablo yu ñépp di gis dañuy siiwal li ñu def ci seeni karta ci fediverse bi (ActivityPub)",
+  "activity-pub-desc": "Fey na ci jamono ju njëkk. Su ñu ko taalee, ku nekk ci Mastodon ak yeneen serwëër yu fediverse mën nga topp benn-benn tablo yu ñépp di gis ni @board-<id> ci adrees bu WeKan bii, te li bees ci karta yi dina àgg ci ñi ko topp. Dafa nekk ngir jàng rekk: dara lu serwëër bu fediverse yónne du soppi tablo, te tablo yu kenn rekk dees du leen mukk siiwal.",
+  "caldav-sync": "Yamale kalandriye (CalDAV)",
+  "caldav-sync-desc": "Def ci kalandriye bisi jeexital yu karta yi ci tablo bii - Nextcloud Calendar walla kalandriye CalDAV bu mu mën di doon. Bisu jeexital bu ñu toxal ci kalandriye bi dina dellu ci karta bi. Jëfandikoo baatu jall bu aplikaasioŋ, du sa bos.",
+  "caldav-url": "Adreesu kalandriye",
+  "caldav-app-password": "Baatu jallu aplikaasioŋ",
+  "caldav-enabled": "Yamale bisi jeexital yi ak kalandriye bii",
+  "caldav-sync-now": "Yamale lépp leegi",
+  "caldav-invalid-url": "Adreesu kalandriye bi war na doon adrees bu http:// walla https://, te amul ci biir turu jëfandikukat walla baatu jall.",
+  "caldav-not-linked": "Denc ba pare benn adreesu kalandriye te taal yamale bi.",
+  "webdav-storage": "Ndabalu WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Denc takkaay yi ci benn dosi ci serwëër bu WebDAV - Nextcloud Files, ownCloud walla bu mu mën di doon. Jëfandikoo baatu jallu aplikaasioŋ bu ñu defal WeKan. Serwëër bu nekk ci reso bu WeKan ci boppam mën nañu ko jëfandikoo fii, ndax saytukatu sit bi rekk mooy taxawal adrees bii.",
+  "webdav-endpoint": "Adreesu WebDAV",
+  "webdav-password": "Baatu jallu aplikaasioŋ",
+  "webdav-folder": "Dosi",
+  "move-storage-webdav": "Ndabalu WebDAV (Nextcloud Files)"
 }

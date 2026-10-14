@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Si WeKan per unum ex his ministeriis mittit, id accende, ministerio hanc inscriptionem webhook da pro eventibus epistularum reversarum et querelarum de spamo, et hic insere clavem qua eos signat, aut tesseram quam in inscriptione posuisti ut https://user:password@… aut ?secret=…",
   "email-bounces-provider-key": "Clavis signandi webhook",
   "email-bounces-provider-password": "Tessera webhook",
-  "email-bounce-provider-secret-required": "Ministerium accensum clavem signandi aut tesseram requirit."
+  "email-bounce-provider-secret-required": "Ministerium accensum clavem signandi aut tesseram requirit.",
+  "activity-pub-enabled": "Tabulae publicae actiones chartarum suarum in fediverso divulgant (ActivityPub)",
+  "activity-pub-desc": "Ex praefinito exstinctum. Cum accensum est, quaeque tabula publica ex Mastodon aliisque servitoribus fediversi ut @board-<id> apud inscriptionem huius WeKan sequi potest, et novae chartarum actiones ad sectatores eius perveniunt. Tantum legi potest: nihil quod servitor fediversi mittit tabulam mutat, neque tabulae privatae umquam divulgantur.",
+  "caldav-sync": "Synchronizatio calendarii (CalDAV)",
+  "caldav-sync-desc": "Dies praestitutos chartarum huius tabulae in calendarium pone - Nextcloud Calendar vel quodvis calendarium CalDAV. Dies praestitutus in calendario motus ad chartam redit. Tessera applicationis utere, non tua propria.",
+  "caldav-url": "Inscriptio calendarii",
+  "caldav-app-password": "Tessera applicationis",
+  "caldav-enabled": "Dies praestitutos cum hoc calendario synchronizare",
+  "caldav-sync-now": "Omnia nunc synchronizare",
+  "caldav-invalid-url": "Inscriptio calendarii debet esse inscriptio http:// vel https://, sine nomine usoris aut tessera in ea.",
+  "caldav-not-linked": "Primum inscriptionem calendarii serva et synchronizationem accende.",
+  "webdav-storage": "Repositorium WebDAV (Nextcloud Files)",
+  "webdav-storage-description": "Adiuncta in capsa servitoris WebDAV conde - Nextcloud Files, ownCloud vel alius quivis. Tessera applicationis pro WeKan facta utere. Servitor in ipsius WeKan rete hic adhiberi potest, quoniam solus administrator situs hanc inscriptionem statuit.",
+  "webdav-endpoint": "Inscriptio WebDAV",
+  "webdav-password": "Tessera applicationis",
+  "webdav-folder": "Capsa",
+  "move-storage-webdav": "Repositorium WebDAV (Nextcloud Files)"
 }

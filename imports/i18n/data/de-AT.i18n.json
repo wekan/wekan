@@ -4517,5 +4517,21 @@
   "email-bounces-providers-description": "Wenn WeKan über einen dieser Dienste sendet, schalten Sie ihn ein, geben Sie dem Dienst diese Webhook-Adresse für seine Ereignisse zu unzustellbaren E-Mails und Spam-Beschwerden, und fügen Sie hier den Schlüssel ein, mit dem er sie signiert, oder das Passwort, das Sie als https://user:password@… oder ?secret=… in die Adresse gesetzt haben",
   "email-bounces-provider-key": "Webhook-Signaturschlüssel",
   "email-bounces-provider-password": "Webhook-Passwort",
-  "email-bounce-provider-secret-required": "Ein eingeschalteter Dienst braucht seinen Signaturschlüssel oder sein Passwort."
+  "email-bounce-provider-secret-required": "Ein eingeschalteter Dienst braucht seinen Signaturschlüssel oder sein Passwort.",
+  "activity-pub-enabled": "Öffentliche Boards veröffentlichen ihre Kartenaktivität im Fediverse (ActivityPub)",
+  "activity-pub-desc": "Standardmäßig aus. Wenn eingeschaltet, kann jedem öffentlichen Board von Mastodon und anderen Fediverse-Servern als @board-<id> unter der Adresse dieses WeKan gefolgt werden, und neue Kartenaktivität erreicht seine Follower. Es ist nur lesend: Nichts, was ein Fediverse-Server sendet, ändert ein Board, und private Boards werden nie veröffentlicht.",
+  "caldav-sync": "Kalendersynchronisation (CalDAV)",
+  "caldav-sync-desc": "Die Fälligkeitsdaten der Karten dieses Boards in einen Kalender eintragen - Nextcloud Calendar oder jeden CalDAV-Kalender. Ein im Kalender verschobenes Fälligkeitsdatum kommt zur Karte zurück. Verwenden Sie ein App-Passwort, nicht Ihr eigenes.",
+  "caldav-url": "Kalenderadresse",
+  "caldav-app-password": "App-Passwort",
+  "caldav-enabled": "Fälligkeitsdaten mit diesem Kalender synchronisieren",
+  "caldav-sync-now": "Jetzt alles synchronisieren",
+  "caldav-invalid-url": "Die Kalenderadresse muss eine http://- oder https://-Adresse sein, ohne Benutzernamen oder Passwort darin.",
+  "caldav-not-linked": "Speichern Sie zuerst eine Kalenderadresse und schalten Sie die Synchronisation ein.",
+  "webdav-storage": "WebDAV-Speicher (Nextcloud Files)",
+  "webdav-storage-description": "Anhänge in einem Ordner auf einem WebDAV-Server speichern - Nextcloud Files, ownCloud oder jedem anderen. Verwenden Sie ein für WeKan erstelltes App-Passwort. Ein Server im eigenen Netzwerk von WeKan kann hier verwendet werden, da nur ein Site-Administrator diese Adresse festlegt.",
+  "webdav-endpoint": "WebDAV-Adresse",
+  "webdav-password": "App-Passwort",
+  "webdav-folder": "Ordner",
+  "move-storage-webdav": "WebDAV-Speicher (Nextcloud Files)"
 }
