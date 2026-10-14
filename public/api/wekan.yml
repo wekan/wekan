@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.42
+  version: v12.43
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -7955,6 +7955,12 @@ definitions:
       featureStates:
         type: object
         x-nullable: true
+      webhookInternalHosts:
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
       optionalApis:
         type: object
         x-nullable: true
@@ -8505,6 +8511,12 @@ definitions:
            per-user preference: in multi-line editors (card title/description and
            other inlined forms) submit on plain Enter (Shift+Enter for a newline)
            instead of the default Ctrl/Cmd+Enter. Off by default. See #4236/#6480.
+        type: boolean
+      keepTitleTags:
+        description: |
+           #1273: when a #label or @member is picked while typing a new card's
+           title, keep the "#label" / "@member" text in the title too. Off by
+           default: the text is replaced by the label or member, as before.
         type: boolean
       checklistDingSound:
         description: |
