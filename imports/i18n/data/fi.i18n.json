@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Peruuta",
   "twoFactorCode-invalid": "Virheellinen tunnistautumiskoodi. Yritä uudelleen.",
   "sort-by-votes": "Järjestä äänten mukaan",
+  "sort-by-label-order": "Nimilappujen järjestys",
   "wip-limit-groups": "Keskeneräisen työn ryhmärajat",
   "wip-limit-group-name-placeholder": "Ryhmän nimi (valinnainen)",
   "wip-limit-group-add": "Lisää keskeneräisen työn ryhmäraja",

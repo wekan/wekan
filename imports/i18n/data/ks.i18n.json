@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "منسوخ کریو",
   "twoFactorCode-invalid": "غلط تصدیقی کوڈ. مہربانی کرِتھ فیر کوشش کریو.",
   "sort-by-votes": "رایہِ مطابق ترتیب دِیو",
+  "sort-by-label-order": "لیبلن ہُند ترتیب",
   "wip-limit-groups": "WIP حد فعال کریو (فہرست)",
   "wip-limit-group-name-placeholder": "ناو (اختیاری)",
   "wip-limit-group-add": "شامل کریو WIP حد فعال کریو",

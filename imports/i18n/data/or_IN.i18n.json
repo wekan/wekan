@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "ବାତିଲ୍ କରନ୍ତୁ |",
   "twoFactorCode-invalid": "ଅବୈଧ ପ୍ରମାଣୀକରଣ କୋଡ। ଦୟାକରି ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ।",
   "sort-by-votes": "ଭୋଟ ଅନୁଯାୟୀ ସଜାନ୍ତୁ",
+  "sort-by-label-order": "ଲେବଲ୍ କ୍ରମ",
   "wip-limit-groups": "WIP ସୀମା ସକ୍ଷମ କରନ୍ତୁ | (ତାଲିକା |)",
   "wip-limit-group-name-placeholder": "ନାମ (ବ al କଳ୍ପିକ)",
   "wip-limit-group-add": "ଯୋଡନ୍ତୁ | WIP ସୀମା ସକ୍ଷମ କରନ୍ତୁ |",

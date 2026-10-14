@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Atcelt",
   "twoFactorCode-invalid": "Nederīgs autentifikācijas kods. Mēģiniet vēlreiz.",
   "sort-by-votes": "Kārtot pēc balsīm",
+  "sort-by-label-order": "Birku secība",
   "wip-limit-groups": "WIP limita grupas",
   "wip-limit-group-name-placeholder": "Grupas nosaukums (nav obligāts)",
   "wip-limit-group-add": "Pievienot WIP limita grupu",

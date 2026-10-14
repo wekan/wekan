@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "取消",
   "twoFactorCode-invalid": "验证代码无效，请重试。",
   "sort-by-votes": "按投票排序",
+  "sort-by-label-order": "標籤順序",
   "wip-limit-groups": "啟用 WIP 限制 (清單)",
   "wip-limit-group-name-placeholder": "姓名 (選修的)",
   "wip-limit-group-add": "添加 啟用 WIP 限制",

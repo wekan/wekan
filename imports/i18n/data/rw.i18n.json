@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Kureka",
   "twoFactorCode-invalid": "Kode yo kwemeza ntabwo ari nziza. Nyamuneka ongera ugerageze.",
   "sort-by-votes": "Tondeka ukurikije amajwi",
+  "sort-by-label-order": "Uko ibirango bikurikirana",
   "wip-limit-groups": "Amatsinda y'Urugero rwa WIP",
   "wip-limit-group-name-placeholder": "Izina ry'itsinda (si ngombwa)",
   "wip-limit-group-add": "Ongeraho itsinda ry'urugero rwa WIP",

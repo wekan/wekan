@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Anullar",
   "twoFactorCode-invalid": "Còdi d'autentificacion invalid. Ensajatz tornarmai.",
   "sort-by-votes": "Triar per vòtes",
+  "sort-by-label-order": "Òrdre de las etiquetas",
   "wip-limit-groups": "Activar la WIP limit (Liste)",
   "wip-limit-group-name-placeholder": "Nom (opcional)",
   "wip-limit-group-add": "Apondre Activar la WIP limit",

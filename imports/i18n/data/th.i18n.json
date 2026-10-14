@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "ยกเลิก",
   "twoFactorCode-invalid": "รหัสยืนยันตัวตนไม่ถูกต้อง โปรดลองอีกครั้ง",
   "sort-by-votes": "เรียงตามคะแนนโหวต",
+  "sort-by-label-order": "ลำดับป้ายกำกับ",
   "wip-limit-groups": "กลุ่มจำกัด WIP",
   "wip-limit-group-name-placeholder": "ชื่อกลุ่ม (ไม่บังคับ)",
   "wip-limit-group-add": "เพิ่มกลุ่มจำกัด WIP",

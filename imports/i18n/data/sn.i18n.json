@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Kanzura",
   "twoFactorCode-invalid": "Kodhi yekusimbisa haisi yechokwadi. Edza zvakare.",
   "sort-by-votes": "Rongedza zvichienderana nemavhoti",
+  "sort-by-label-order": "Kurongeka kwemareberu",
   "wip-limit-groups": "batidza WIP Limit (Rondedzero)",
   "wip-limit-group-name-placeholder": "Zita (kusarudza)",
   "wip-limit-group-add": "Wedzera batidza WIP Limit",

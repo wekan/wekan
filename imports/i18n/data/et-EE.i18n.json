@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Tühista",
   "twoFactorCode-invalid": "Vigane autentimiskood. Proovige uuesti.",
   "sort-by-votes": "Sordi häälte järgi",
+  "sort-by-label-order": "Märgiste järjekord",
   "wip-limit-groups": "WIP piirangugrupid",
   "wip-limit-group-name-placeholder": "Rühma nimi (valikuline)",
   "wip-limit-group-add": "Lisa WIP piirangugrupp",

@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "ኣትርፍ",
   "twoFactorCode-invalid": "ኮድ መረጋገጺ ቀለጥ ሀለ። ዐይብከ፡ ካልእ ዶል ፈትን።",
   "sort-by-votes": "ብድምጺ ስራዕ",
+  "sort-by-label-order": "ስርዓት እሻራት",
   "wip-limit-groups": "ደረት WIP ፍቐድ (ዝርዝር)",
   "wip-limit-group-name-placeholder": "ስሜት (ብድልየት)",
   "wip-limit-group-add": "ወስክ ደረት WIP ፍቐድ",

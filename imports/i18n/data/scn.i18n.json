@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Annulla",
   "twoFactorCode-invalid": "Còdici di autinticazzioni non vàlidu. Pruva arrè.",
   "sort-by-votes": "Òrdina pi voti",
+  "sort-by-label-order": "Òrdini dî etichetti",
   "wip-limit-groups": "Attiva limite Work In Progress (Lista)",
   "wip-limit-group-name-placeholder": "Nomu (facultativu)",
   "wip-limit-group-add": "Aggiunciri Attiva limite Work In Progress",

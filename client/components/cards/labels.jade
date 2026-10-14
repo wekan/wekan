@@ -23,6 +23,14 @@ template(name="createLabelPopup")
 template(name="editLabelPopup")
   form.edit-label
     +formLabel
+    //- #2040: the board's label order, which a list can be sorted by.
+    .label-order
+      button.js-move-label(type="button" data-direction="up" title="{{_ 'card-field-order-move-up'}}")
+        i.fa.fa-arrow-up
+        | &nbsp;{{_ 'card-field-order-move-up'}}
+      button.js-move-label(type="button" data-direction="down" title="{{_ 'card-field-order-move-down'}}")
+        i.fa.fa-arrow-down
+        | &nbsp;{{_ 'card-field-order-move-down'}}
     button.primary.wide.left(type="submit") {{_ 'save'}}
     button.js-delete-label.negate.wide.right {{_ 'delete'}}
 

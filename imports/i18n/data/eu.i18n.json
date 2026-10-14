@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Utzi",
   "twoFactorCode-invalid": "Autentifikazio-kode baliogabea. Saiatu berriro.",
   "sort-by-votes": "Botoen arabera ordenatu",
+  "sort-by-label-order": "Etiketen ordena",
   "wip-limit-groups": "WIP mugaren taldeak",
   "wip-limit-group-name-placeholder": "Taldearen izena (aukerakoa)",
   "wip-limit-group-add": "Gehitu WIP mugaren taldea",

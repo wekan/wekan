@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Цуцлах",
   "twoFactorCode-invalid": "Баталгаажуулах код буруу байна. Дахин оролдоно уу.",
   "sort-by-votes": "Санал хураалтаар эрэмбэлэх",
+  "sort-by-label-order": "Шошгын дараалал",
   "wip-limit-groups": "WIP хязгаарын бүлгүүд",
   "wip-limit-group-name-placeholder": "Бүлгийн нэр (заавал биш)",
   "wip-limit-group-add": "WIP хязгаарын бүлэг нэмэх",

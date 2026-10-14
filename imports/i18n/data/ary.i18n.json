@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "إلغاء",
   "twoFactorCode-invalid": "رمز مصادقة غير صالح. يرجى المحاولة مرة أخرى.",
   "sort-by-votes": "رتب حسب الأصوات",
+  "sort-by-label-order": "ترتيب العلامات",
   "wip-limit-groups": "مجموعات الحدّ ديال الخدمة الجارية (WIP)",
   "wip-limit-group-name-placeholder": "اسم (اختياري)",
   "wip-limit-group-add": "أضف تفعيل حد العمل الجاري (WIP)",

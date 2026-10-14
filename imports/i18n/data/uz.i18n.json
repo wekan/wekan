@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Bekor qilish",
   "twoFactorCode-invalid": "Autentifikatsiya kodi noto'g'ri. Qaytadan urinib ko'ring.",
   "sort-by-votes": "Ovozlarga ko'ra saralash",
+  "sort-by-label-order": "Yorliqlar tartibi",
   "wip-limit-groups": "WIP chegarasini yoqing (Roʻyxat)",
   "wip-limit-group-name-placeholder": "Ism (ixtiyoriy)",
   "wip-limit-group-add": "Qo'shish WIP chegarasini yoqing",

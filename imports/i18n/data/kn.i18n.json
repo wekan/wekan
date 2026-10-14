@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "ರದ್ದುಮಾಡಿ",
   "twoFactorCode-invalid": "ಅಮಾನ್ಯ ದೃಢೀಕರಣ ಕೋಡ್. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
   "sort-by-votes": "ಮತಗಳ ಪ್ರಕಾರ ವಿಂಗಡಿಸಿ",
+  "sort-by-label-order": "ಲೇಬಲ್ ಕ್ರಮ",
   "wip-limit-groups": "WIP ಮಿತಿ ಗುಂಪುಗಳು",
   "wip-limit-group-name-placeholder": "ಗುಂಪಿನ ಹೆಸರು (ಐಚ್ಛಿಕ)",
   "wip-limit-group-add": "WIP ಮಿತಿ ಗುಂಪು ಸೇರಿಸಿ",

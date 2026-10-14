@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Cancelar",
   "twoFactorCode-invalid": "Código de autenticación non válido. Ténteo de novo.",
   "sort-by-votes": "Ordenar por votos",
+  "sort-by-label-order": "Orde das etiquetas",
   "wip-limit-groups": "Grupos de límite WIP",
   "wip-limit-group-name-placeholder": "Nome do grupo (opcional)",
   "wip-limit-group-add": "Engadir grupo de límite WIP",

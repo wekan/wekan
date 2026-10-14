@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Sguir dheth",
   "twoFactorCode-invalid": "Còd dearbhaidh mì-dhligheach. Feuch ris a-rithist.",
   "sort-by-votes": "Seòrsaich a rèir bhòtaichean",
+  "sort-by-label-order": "Òrdugh nan leubailean",
   "wip-limit-groups": "Buidhnean Cuingealachaidh WIP",
   "wip-limit-group-name-placeholder": "Ainm a bhuidhinn (roghainneil)",
   "wip-limit-group-add": "Cuir buidheann cuingealachaidh WIP ris",

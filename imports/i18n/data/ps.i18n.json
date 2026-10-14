@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "لغوه کول",
   "twoFactorCode-invalid": "ناسم تصدیق کوډ. مهرباني وکړئ بیا هڅه وکړئ.",
   "sort-by-votes": "د رایو له مخې ترتیب کول",
+  "sort-by-label-order": "د نښو ترتیب",
   "wip-limit-groups": "د WIP حد چالان کړئ (لړليک)",
   "wip-limit-group-name-placeholder": "نوم (اختياري)",
   "wip-limit-group-add": "زياتول د WIP حد چالان کړئ",

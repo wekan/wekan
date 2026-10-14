@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Otkaži",
   "twoFactorCode-invalid": "Nevažeći kod za autentifikaciju. Pokušajte ponovo.",
   "sort-by-votes": "Poređaj po glasovima",
+  "sort-by-label-order": "Redoslijed oznaka",
   "wip-limit-groups": "Grupe WIP ograničenja",
   "wip-limit-group-name-placeholder": "Naziv grupe (opciono)",
   "wip-limit-group-add": "Dodaj grupu WIP ograničenja",

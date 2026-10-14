@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Откажи",
   "twoFactorCode-invalid": "Неважечки код за автентикација. Обидете се повторно.",
   "sort-by-votes": "Подреди според гласови",
+  "sort-by-label-order": "Редослед на етикети",
   "wip-limit-groups": "Групи со ограничување на WIP",
   "wip-limit-group-name-placeholder": "Име на групата (не е задолжително)",
   "wip-limit-group-add": "Додади група со ограничување на WIP",

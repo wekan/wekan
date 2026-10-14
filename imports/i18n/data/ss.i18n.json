@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Khansela",
   "twoFactorCode-invalid": "Likhodi lekucinisekisa alilungi. Sicela uzame futsi.",
   "sort-by-votes": "Hlela ngekulandzela emavoti",
+  "sort-by-label-order": "Kuhleleka kwemalebula",
   "wip-limit-groups": "Vumela Umkhawulo we-WIP (Luhla)",
   "wip-limit-group-name-placeholder": "Ligama (akuphocelelekile)",
   "wip-limit-group-add": "Ngeta Vumela Umkhawulo we-WIP",

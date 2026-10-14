@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Nuligi",
   "twoFactorCode-invalid": "Nevalida aŭtentiga kodo. Bonvolu reprovi.",
   "sort-by-votes": "Ordigi laŭ voĉoj",
+  "sort-by-label-order": "Ordo de etikedoj",
   "wip-limit-groups": "WIP-limaj grupoj",
   "wip-limit-group-name-placeholder": "Grupa nomo (malnepra)",
   "wip-limit-group-add": "Aldoni WIP-liman grupon",

@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "منسوخ کریں",
   "twoFactorCode-invalid": "غلط توثیقی کوڈ۔ دوبارہ کوشش کریں۔",
   "sort-by-votes": "ووٹوں کے مطابق ترتیب دیں",
+  "sort-by-label-order": "لیبل کی ترتیب",
   "wip-limit-groups": "WIP حد گروپس",
   "wip-limit-group-name-placeholder": "گروپ کا نام (اختیاری)",
   "wip-limit-group-add": "WIP حد گروپ شامل کریں",

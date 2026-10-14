@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Anule",
   "twoFactorCode-invalid": "Codiç di autenticazion no valit. Torne prove pardabon.",
   "sort-by-votes": "Ordene par vôts",
+  "sort-by-label-order": "Ordin des etichetis",
   "wip-limit-groups": "Attiva limite Work In Progress (Liste)",
   "wip-limit-group-name-placeholder": "Non (opzionâl)",
   "wip-limit-group-add": "Zonte Attiva limite Work In Progress",

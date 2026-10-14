@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Annuleren",
   "twoFactorCode-invalid": "Ongeldige verificatiecode. Probeer het opnieuw.",
   "sort-by-votes": "Sorteren op stemmen",
+  "sort-by-label-order": "Volgorde van aanduidingsmarkeringen",
   "wip-limit-groups": "WIP-limietgroepen",
   "wip-limit-group-name-placeholder": "Groepsnaam (optioneel)",
   "wip-limit-group-add": "WIP-limietgroep toevoegen",

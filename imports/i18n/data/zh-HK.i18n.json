@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "取消",
   "twoFactorCode-invalid": "驗證代碼無效，請再試一次。",
   "sort-by-votes": "依投票數排序",
+  "sort-by-label-order": "標籤順序",
   "wip-limit-groups": "最大任務數限制組",
   "wip-limit-group-name-placeholder": "組名（可選）",
   "wip-limit-group-add": "新增最大任務數限制組",

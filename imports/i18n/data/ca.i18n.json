@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Cancel·la",
   "twoFactorCode-invalid": "Codi d'autenticació no vàlid. Torneu-ho a provar.",
   "sort-by-votes": "Ordena per vots",
+  "sort-by-label-order": "Ordre de les etiquetes",
   "wip-limit-groups": "Grups de límit WIP",
   "wip-limit-group-name-placeholder": "Nom del grup (opcional)",
   "wip-limit-group-add": "Afegeix un grup de límit WIP",

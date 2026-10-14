@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Кире ҡағырға",
   "twoFactorCode-invalid": "Раҫлау коды дөрөҫ түгел. Тағы ла һынап ҡарағыҙ.",
   "sort-by-votes": "Тауыштар буйынса тәртипкә индереү",
+  "sort-by-label-order": "Билдәләр тәртибе",
   "wip-limit-groups": "WIP сикләүен ҡабыҙырға (Исемлек)",
   "wip-limit-group-name-placeholder": "Исем (мотлаҡ түгел)",
   "wip-limit-group-add": "Өҫтәү WIP сикләүен ҡабыҙырға",

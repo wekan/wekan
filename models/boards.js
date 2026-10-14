@@ -2878,6 +2878,15 @@ Boards.helpers({
     return await Boards.updateAsync(this._id, { $pull: { labels: { _id: labelId } } });
   },
 
+  // #2040: the board's label order, which a list can be sorted by. The same
+  // write - and so the same board-admin permission - as editing a label.
+  async moveLabel(labelId, direction) {
+    const { moveLabel } = require('./lib/labelOrder');
+    const labels = moveLabel(this.labels, labelId, direction);
+    if (labels.every((l, i) => (this.labels || [])[i] === l)) return null;
+    return await Boards.updateAsync(this._id, { $set: { labels } });
+  },
+
   async changeOwnership(fromId, toId) {
     const memberIndex = this.memberIndex(fromId);
     return await Boards.updateAsync(this._id, {

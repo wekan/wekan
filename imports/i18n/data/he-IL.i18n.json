@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "ביטול",
   "twoFactorCode-invalid": "קוד אימות שגוי. נסה שוב.",
   "sort-by-votes": "מיין לפי הצבעות",
+  "sort-by-label-order": "סדר התוויות",
   "wip-limit-groups": "קבוצות מגבלת עבודה בתהליך",
   "wip-limit-group-name-placeholder": "שם הקבוצה (אופציונלי)",
   "wip-limit-group-add": "הוספת קבוצת מגבלה",

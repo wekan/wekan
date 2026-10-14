@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Ofbriechen",
   "twoFactorCode-invalid": "Ongülege Authentifikatiounscode. Probéier w.e.g. nach eng Kéier.",
   "sort-by-votes": "No Stëmmen sortéieren",
+  "sort-by-label-order": "Etikettenuerdnung",
   "wip-limit-groups": "WIP-Limit einschalten (Lëscht)",
   "wip-limit-group-name-placeholder": "Numm (fakultativ)",
   "wip-limit-group-add": "Derbäisetzen WIP-Limit einschalten",

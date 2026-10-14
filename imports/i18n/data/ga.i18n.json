@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Cealaigh",
   "twoFactorCode-invalid": "Cód fíordheimhnithe neamhbhailí. Bain triail eile as.",
   "sort-by-votes": "Sórtáil de réir vótaí",
+  "sort-by-label-order": "Ord na lipéad",
   "wip-limit-groups": "Grúpaí Teorainn WIP",
   "wip-limit-group-name-placeholder": "Ainm an ghrúpa (roghnach)",
   "wip-limit-group-add": "Cuir grúpa teorann WIP leis",

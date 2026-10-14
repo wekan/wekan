@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Mégse",
   "twoFactorCode-invalid": "Érvénytelen hitelesítési kód. Próbálja újra.",
   "sort-by-votes": "Rendezés szavazatok szerint",
+  "sort-by-label-order": "Címkék sorrendje",
   "wip-limit-groups": "WIP-korlát csoportok",
   "wip-limit-group-name-placeholder": "Csoport neve (opcionális)",
   "wip-limit-group-add": "WIP-korlát csoport hozzáadása",

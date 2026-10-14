@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Khansela",
   "twoFactorCode-invalid": "Khodi ya ntiyiso a yi lulamanga. Ringeta nakambe.",
   "sort-by-votes": "Hlela hi ku ya hi mavhoti",
+  "sort-by-label-order": "Ku landzelelana ka swikombiso",
   "wip-limit-groups": "pfula mhaka mhaka (Nxaxamelo)",
   "wip-limit-group-name-placeholder": "Vito (swa ku tihlawulela)",
   "wip-limit-group-add": "Engetela pfula mhaka mhaka",

@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Hlakola",
   "twoFactorCode-invalid": "Khoutu ya netefatso ha e nepahala. Ka kopo leka hape.",
   "sort-by-votes": "Hlopha ho ya ka likhetho",
+  "sort-by-label-order": "Tatellano ya dileibole",
   "wip-limit-groups": "Dihlopha tsa moedi wa WIP",
   "wip-limit-group-name-placeholder": "Lebitso la sehlopha (boikhethelo)",
   "wip-limit-group-add": "Eketsa sehlopha sa moedi wa WIP",

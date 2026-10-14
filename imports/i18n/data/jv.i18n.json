@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Batal",
   "twoFactorCode-invalid": "Kode otentikasi ora sah. Coba maneh.",
   "sort-by-votes": "Urutake miturut swara",
+  "sort-by-label-order": "Urutan label",
   "wip-limit-groups": "Aktifake Wates WIP (Dhaptar)",
   "wip-limit-group-name-placeholder": "Jeneng (opsional)",
   "wip-limit-group-add": "Tambah Aktifake Wates WIP",

@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "انصراف",
   "twoFactorCode-invalid": "کد احراز هویت نامعتبر است. دوباره تلاش کنید.",
   "sort-by-votes": "مرتب‌سازی بر اساس رأی‌ها",
+  "sort-by-label-order": "ترتیب لیبل‌ها",
   "wip-limit-groups": "گروه‌های محدودیت کار در جریان",
   "wip-limit-group-name-placeholder": "نام گروه (اختیاری)",
   "wip-limit-group-add": "افزودن گروه محدودیت",

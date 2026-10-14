@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "取消",
   "twoFactorCode-invalid": "驗證碼無效，請再試一次。",
   "sort-by-votes": "依投票數排序",
+  "sort-by-label-order": "標籤順序",
   "wip-limit-groups": "WIP 限制群組",
   "wip-limit-group-name-placeholder": "群組名稱（選擇性）",
   "wip-limit-group-add": "新增 WIP 限制群組",

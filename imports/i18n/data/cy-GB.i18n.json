@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Canslo",
   "twoFactorCode-invalid": "Cod dilysu annilys. Rhowch gynnig arall arni.",
   "sort-by-votes": "Trefnu yn ôl pleidleisiau",
+  "sort-by-label-order": "Trefn y labeli",
   "wip-limit-groups": "Grwpiau Terfyn WIP",
   "wip-limit-group-name-placeholder": "Enw'r grŵp (dewisol)",
   "wip-limit-group-add": "Ychwanegu grŵp terfyn WIP",

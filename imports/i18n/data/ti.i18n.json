@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "ሰርዝ",
   "twoFactorCode-invalid": "ናይ ምርግጋጽ ኮድ ልክዕ ኣይኮነን። በጃኻ ደጊምካ ፈትን።",
   "sort-by-votes": "ብድምጺ ስራዕ",
+  "sort-by-label-order": "ቅደም ተኸተል ምልክታት",
   "wip-limit-groups": "ደረት WIP ኣኽእል (ዝርዝር)",
   "wip-limit-group-name-placeholder": "ስም (ኣማራጺ)",
   "wip-limit-group-add": "ወስኽ ደረት WIP ኣኽእል",

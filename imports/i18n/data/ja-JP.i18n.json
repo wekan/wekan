@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "キャンセル",
   "twoFactorCode-invalid": "認証コードが無効です。もう一度お試しください。",
   "sort-by-votes": "投票数で並べ替え",
+  "sort-by-label-order": "ラベル順",
   "wip-limit-groups": "WIP制限グループ",
   "wip-limit-group-name-placeholder": "グループ名(任意)",
   "wip-limit-group-add": "WIP制限グループを追加",

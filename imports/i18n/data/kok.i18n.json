@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "रद्द करात",
   "twoFactorCode-invalid": "अवैध प्रमाणीकरण कोड. उपरांत परतून यत्न करात.",
   "sort-by-votes": "मतां प्रमाण वर्गीकरण करचें",
+  "sort-by-label-order": "लेबलांचो क्रम",
   "wip-limit-groups": "WIP मर्यादा सक्षम करात (वळेरी)",
   "wip-limit-group-name-placeholder": "नांव (मर्जेन)",
   "wip-limit-group-add": "जोडचें WIP मर्यादा सक्षम करात",

@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Heitä",
   "twoFactorCode-invalid": "Autentifikacijan kod om vär. Ole hüvä, ladi völ kerdan.",
   "sort-by-votes": "Sortirui äniden mödhe",
+  "sort-by-label-order": "Znamoiden järgenduz",
   "wip-limit-groups": "WIP-röuniden joukud",
   "wip-limit-group-name-placeholder": "Joukun nimi (ei ole tarbhine)",
   "wip-limit-group-add": "Ližata WIP-röunan jouk",

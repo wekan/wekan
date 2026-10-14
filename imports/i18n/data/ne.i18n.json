@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "रद्द गर्नुहोस्",
   "twoFactorCode-invalid": "अमान्य प्रमाणीकरण कोड। कृपया फेरि प्रयास गर्नुहोस्।",
   "sort-by-votes": "मतको आधारमा क्रमबद्ध गर्नुहोस्",
+  "sort-by-label-order": "लेबलको क्रम",
   "wip-limit-groups": "WIP सीमा समूहहरू",
   "wip-limit-group-name-placeholder": "समूहको नाम (वैकल्पिक)",
   "wip-limit-group-add": "WIP सीमा समूह थप्नुहोस्",

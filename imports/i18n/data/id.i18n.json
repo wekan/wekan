@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Batal",
   "twoFactorCode-invalid": "Kode autentikasi tidak valid. Silakan coba lagi.",
   "sort-by-votes": "Urutkan berdasarkan suara",
+  "sort-by-label-order": "Urutan label",
   "wip-limit-groups": "Grup Batas WIP",
   "wip-limit-group-name-placeholder": "Nama grup (opsional)",
   "wip-limit-group-add": "Tambah grup batas WIP",

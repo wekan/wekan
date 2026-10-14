@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Пӑрахӑҫла",
   "twoFactorCode-invalid": "Ҫирӗплетӳ коди юрӑхсӑр. Тепӗр хут тӑрӑшса пӑхӑр.",
   "sort-by-votes": "Сасӑсем тӑрӑх йӗркелесси",
+  "sort-by-label-order": "Паллӑсен йӗрки",
   "wip-limit-groups": "WIP чиккине хутас (Список)",
   "wip-limit-group-name-placeholder": "Ят (кирлӗ мар)",
   "wip-limit-group-add": "Хушас WIP чиккине хутас",

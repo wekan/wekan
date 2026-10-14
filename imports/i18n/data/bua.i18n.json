@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Болюулха",
   "twoFactorCode-invalid": "Баталгаажуулгын код буруу. Дахин оролдогты.",
   "sort-by-votes": "Дуудалгаар эмхэтгэл",
+  "sort-by-label-order": "Тэмдэгүүдэй эрэмбэ",
   "wip-limit-groups": "WIP хизаар асааха (Жагсаалта)",
   "wip-limit-group-name-placeholder": "Нэрэ (һайн дураараа)",
   "wip-limit-group-add": "Нэмэхэ WIP хизаар асааха",

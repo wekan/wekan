@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Avlýs",
   "twoFactorCode-invalid": "Ógildig sanningarkota. Vinarliga royn aftur.",
   "sort-by-votes": "Raða eftir atkvøðum",
+  "sort-by-label-order": "Raðfylgja merkja",
   "wip-limit-groups": "Virkja WIP-mark (Listi)",
   "wip-limit-group-name-placeholder": "Navn (valfrítt)",
   "wip-limit-group-add": "Legg afturat Virkja WIP-mark",

@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Kanselem",
   "twoFactorCode-invalid": "Kod blong pruvum i no stret. Traem bakegen.",
   "sort-by-votes": "Sotem folem ol vot",
+  "sort-by-label-order": "Oda blong ol mak",
   "wip-limit-groups": "Ol Limit blong WIP (Lis)",
   "wip-limit-group-name-placeholder": "Nem (yu save jusum)",
   "wip-limit-group-add": "Adem Limit blong WIP",

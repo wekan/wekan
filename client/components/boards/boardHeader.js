@@ -898,6 +898,12 @@ Template.cardsSortPopup.events({
   // so this is a marker only - client.components.lists.listBody's
   // cardsWithLimit() recognizes it and re-sorts the rendered cards in JS
   // instead of passing it through as a Mongo sort spec.
+  // #2040: a display order like votes - the cards' `sort` is not changed.
+  'click .js-sort-label-order'() {
+    setCardsSortBy({ labelOrder: 1 });
+    sortCardsBy.set(TAPi18n.__('sort-by-label-order'));
+    Popup.back();
+  },
   'click .js-sort-votes'() {
     const sortBy = {
       votes: -1,

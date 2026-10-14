@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Atšaukti",
   "twoFactorCode-invalid": "Neteisingas autentifikavimo kodas. Bandykite dar kartą.",
   "sort-by-votes": "Rikiuoti pagal balsus",
+  "sort-by-label-order": "Etikečių tvarka",
   "wip-limit-groups": "WIP ribos grupės",
   "wip-limit-group-name-placeholder": "Grupės pavadinimas (neprivaloma)",
   "wip-limit-group-add": "Pridėti WIP ribos grupę",

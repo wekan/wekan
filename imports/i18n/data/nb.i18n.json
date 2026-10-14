@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Avbryt",
   "twoFactorCode-invalid": "Ugyldig autentiseringskode. Prøv igjen.",
   "sort-by-votes": "Sorter etter stemmer",
+  "sort-by-label-order": "Etikettrekkefølge",
   "wip-limit-groups": "WIP-grensegrupper",
   "wip-limit-group-name-placeholder": "Gruppenavn (valgfritt)",
   "wip-limit-group-add": "Legg til WIP-grensegruppe",

@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Бас тарту",
   "twoFactorCode-invalid": "Жарамсыз аутентификация коды. Қайталап көріңіз.",
   "sort-by-votes": "Дауыстар бойынша сұрыптау",
+  "sort-by-label-order": "Белгілер реті",
   "wip-limit-groups": "WIP шектеу топтары",
   "wip-limit-group-name-placeholder": "Топ атауы (міндетті емес)",
   "wip-limit-group-add": "WIP шектеу тобын қосу",

@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "રદ કરો",
   "twoFactorCode-invalid": "અમાન્ય પ્રમાણીકરણ કોડ. ફરી પ્રયાસ કરો.",
   "sort-by-votes": "મત મુજબ ગોઠવો",
+  "sort-by-label-order": "લેબલ ક્રમ",
   "wip-limit-groups": "WIP મર્યાદા જૂથો",
   "wip-limit-group-name-placeholder": "જૂથનું નામ (વૈકલ્પિક)",
   "wip-limit-group-add": "WIP મર્યાદા જૂથ ઉમેરો",

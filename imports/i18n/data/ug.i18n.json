@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "بىكار قىلىش",
   "twoFactorCode-invalid": "ئىناۋەتسىز دەلىللەش كودى. قايتا سىناڭ.",
   "sort-by-votes": "ئاۋاز بويىچە تەرتىپلەش",
+  "sort-by-label-order": "بەلگىلەر تەرتىپى",
   "wip-limit-groups": "WIP چەكلىمىسىنى قوزغىتىڭ (تىزىملىك)",
   "wip-limit-group-name-placeholder": "ئىسمى (ئىختىيارىي)",
   "wip-limit-group-add": "قوش WIP چەكلىمىسىنى قوزغىتىڭ",

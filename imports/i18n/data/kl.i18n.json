@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Unitsigit",
   "twoFactorCode-invalid": "Uppernarsaanermut kodeq eqqunngilaq. Uteqqiullugu misilikkit.",
   "sort-by-votes": "Naatsorsuutit atorlugu aaqqissuuk",
+  "sort-by-label-order": "Nalunaaqutsersuutit tulleriiaarnerat",
   "wip-limit-groups": "WIP-ip killissaa atulersiguk (Allattorsimaffik)",
   "wip-limit-group-name-placeholder": "Ateq (piumasaqaataanngitsoq)",
   "wip-limit-group-add": "Ilanngussuk WIP-ip killissaa atulersiguk",

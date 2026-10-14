@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Ikkanċella",
   "twoFactorCode-invalid": "Kodiċi ta' awtentikazzjoni invalidu. Erġa' pprova.",
   "sort-by-votes": "Issortja skont il-voti",
+  "sort-by-label-order": "Ordni tat-tikketti",
   "wip-limit-groups": "Gruppi tal-Limitu WIP",
   "wip-limit-group-name-placeholder": "Isem tal-grupp (mhux obbligatorju)",
   "wip-limit-group-add": "Żid grupp tal-limitu WIP",

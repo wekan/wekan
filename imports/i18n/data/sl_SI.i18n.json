@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Prekliči",
   "twoFactorCode-invalid": "Neveljavna avtentikacijska koda. Poskusite znova.",
   "sort-by-votes": "Razvrsti po glasovih",
+  "sort-by-label-order": "Vrstni red oznak",
   "wip-limit-groups": "Skupine omejitev WIP",
   "wip-limit-group-name-placeholder": "Ime skupine (neobvezno)",
   "wip-limit-group-add": "Dodaj skupino omejitev WIP",

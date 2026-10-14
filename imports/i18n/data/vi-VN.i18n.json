@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Hủy",
   "twoFactorCode-invalid": "Mã xác thực không hợp lệ. Vui lòng thử lại.",
   "sort-by-votes": "Sắp xếp theo số phiếu bầu",
+  "sort-by-label-order": "Thứ tự nhãn",
   "wip-limit-groups": "Nhóm giới hạn WIP",
   "wip-limit-group-name-placeholder": "Tên nhóm (tùy chọn)",
   "wip-limit-group-add": "Thêm nhóm giới hạn WIP",

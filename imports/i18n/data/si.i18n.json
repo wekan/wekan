@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "අවලංගු කරන්න",
   "twoFactorCode-invalid": "වැරදි සත්‍යාපන කේතයකි. කරුණාකර නැවත උත්සාහ කරන්න.",
   "sort-by-votes": "ඡන්ද අනුව අනුපිළිවෙළට සකසන්න",
+  "sort-by-label-order": "ලේබල අනුපිළිවෙළ",
   "wip-limit-groups": "WIP සීමා කණ්ඩායම්",
   "wip-limit-group-name-placeholder": "කණ්ඩායමේ නම (විකල්පයි)",
   "wip-limit-group-add": "WIP සීමා කණ්ඩායමක් එක් කරන්න",

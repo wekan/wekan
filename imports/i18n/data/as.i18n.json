@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "বাতিল কৰক",
   "twoFactorCode-invalid": "অবৈধ প্ৰমাণীকৰণ ক'ড। অনুগ্ৰহ কৰি পুনৰ চেষ্টা কৰক।",
   "sort-by-votes": "ভোটৰ দ্বাৰা সজাওক",
+  "sort-by-label-order": "লেবেলৰ ক্ৰম",
   "wip-limit-groups": "WIP সীমা সক্ষম কৰক (তালিকা)",
   "wip-limit-group-name-placeholder": "নাম (ঐচ্ছিক)",
   "wip-limit-group-add": "যোগ কৰক WIP সীমা সক্ষম কৰক",

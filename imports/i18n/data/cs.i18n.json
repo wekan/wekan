@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Zrušit",
   "twoFactorCode-invalid": "Neplatný ověřovací kód. Zkuste to znovu.",
   "sort-by-votes": "Řadit podle hlasů",
+  "sort-by-label-order": "Pořadí štítků",
   "wip-limit-groups": "Skupiny limitu WIP",
   "wip-limit-group-name-placeholder": "Název skupiny (volitelné)",
   "wip-limit-group-add": "Přidat skupinu limitu WIP",

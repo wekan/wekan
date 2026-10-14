@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "റദ്ദാക്കുക",
   "twoFactorCode-invalid": "അസാധുവായ ആധികാരികത കോഡ്. ദയവായി വീണ്ടും ശ്രമിക്കുക.",
   "sort-by-votes": "വോട്ടുകൾ അനുസരിച്ച് ക്രമീകരിക്കുക",
+  "sort-by-label-order": "ലേബൽ ക്രമം",
   "wip-limit-groups": "WIP പരിധി ഗ്രൂപ്പുകൾ",
   "wip-limit-group-name-placeholder": "ഗ്രൂപ്പിന്റെ പേര് (ഐച്ഛികം)",
   "wip-limit-group-add": "WIP പരിധി ഗ്രൂപ്പ് ചേർക്കുക",

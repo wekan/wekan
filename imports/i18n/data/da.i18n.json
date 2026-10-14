@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Annuller",
   "twoFactorCode-invalid": "Ugyldig godkendelseskode. Prøv igen.",
   "sort-by-votes": "Sortér efter stemmer",
+  "sort-by-label-order": "Etiketrækkefølge",
   "wip-limit-groups": "WIP-grænsegrupper",
   "wip-limit-group-name-placeholder": "Gruppenavn (valgfrit)",
   "wip-limit-group-add": "Tilføj WIP-grænsegruppe",

@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Kanselaha",
   "twoFactorCode-invalid": "Diri balido an kodigo han pagpamatuod han identidad. Alayon sulayi utro.",
   "sort-by-votes": "Ayosa sumala han mga boto",
+  "sort-by-label-order": "Han-sunod han mga label",
   "wip-limit-groups": "I-enable an WIP Limit (Lista)",
   "wip-limit-group-name-placeholder": "Ngaran (opsyonal)",
   "wip-limit-group-add": "Idugang I-enable an WIP Limit",

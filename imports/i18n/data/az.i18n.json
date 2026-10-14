@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Ləğv et",
   "twoFactorCode-invalid": "Yanlış doğrulama kodu. Zəhmət olmasa yenidən cəhd edin.",
   "sort-by-votes": "Səslərə görə sırala",
+  "sort-by-label-order": "Etiketlərin sırası",
   "wip-limit-groups": "WIP limit qrupları",
   "wip-limit-group-name-placeholder": "Qrup adı (isteğe bağlı)",
   "wip-limit-group-add": "WIP limit qrupu əlavə et",

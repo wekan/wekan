@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Annulla",
   "twoFactorCode-invalid": "Còdighe de autenticatzione non vàlidu. Torra a proare.",
   "sort-by-votes": "Ordinare pro votos",
+  "sort-by-label-order": "Òrdine de is etichetas",
   "wip-limit-groups": "Attiva limite Work In Progress (Lista)",
   "wip-limit-group-name-placeholder": "Nùmene (optzionale)",
   "wip-limit-group-add": "Annanghere Attiva limite Work In Progress",

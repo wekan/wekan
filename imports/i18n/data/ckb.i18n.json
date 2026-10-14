@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "هەڵوەشاندنەوە",
   "twoFactorCode-invalid": "کۆدی پشتڕاستکردنەوە نادروستە. تکایە دووبارە هەوڵبدەوە.",
   "sort-by-votes": "ڕیزکردن بەپێی دەنگەکان",
+  "sort-by-label-order": "ڕیزبەندی پێناسەکان",
   "wip-limit-groups": "سنووری WIP چالاک بکە (لیست)",
   "wip-limit-group-name-placeholder": "ناو (ئارەزوومەندانە)",
   "wip-limit-group-add": "زیادکردن سنووری WIP چالاک بکە",

@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Anuluj",
   "twoFactorCode-invalid": "Nieprawidłowy kod uwierzytelniający. Spróbuj ponownie.",
   "sort-by-votes": "Sortuj według głosów",
+  "sort-by-label-order": "Kolejność etykiet",
   "wip-limit-groups": "Grupy limitu WIP",
   "wip-limit-group-name-placeholder": "Nazwa grupy (opcjonalnie)",
   "wip-limit-group-add": "Dodaj grupę limitu WIP",

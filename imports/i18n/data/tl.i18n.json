@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Kanselahin",
   "twoFactorCode-invalid": "Hindi wasto ang authentication code. Pakisubukang muli.",
   "sort-by-votes": "Ayusin ayon sa mga boto",
+  "sort-by-label-order": "Pagkakasunod-sunod ng mga etiketa",
   "wip-limit-groups": "Mga Grupo ng Limitasyon ng WIP",
   "wip-limit-group-name-placeholder": "Pangalan ng grupo (opsyonal)",
   "wip-limit-group-add": "Magdagdag ng grupo ng limitasyon ng WIP",

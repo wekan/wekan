@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Hagarika",
   "twoFactorCode-invalid": "Kode yo kwemeza sivyo. Ongera ugerageze.",
   "sort-by-votes": "Tondagura ukurikije amajwi",
+  "sort-by-label-order": "Urutonde rw'ibimenyetso",
   "wip-limit-groups": "Fungura urugero rwa WIP (Urutonde)",
   "wip-limit-group-name-placeholder": "Izina (si ngombwa)",
   "wip-limit-group-add": "Ongerako Fungura urugero rwa WIP",

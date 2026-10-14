@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Баш тарту",
   "twoFactorCode-invalid": "Аутентификация коды дөрес түгел. Зинһар, тагын бер тапкыр карагыз.",
   "sort-by-votes": "Тавышлар буенча тәртипкә кертү",
+  "sort-by-label-order": "Билгеләр тәртибе",
   "wip-limit-groups": "Башкарылучы эш күләмен чикләү төркемнәре",
   "wip-limit-group-name-placeholder": "Төркем исеме (мәҗбүри түгел)",
   "wip-limit-group-add": "Башкарылучы эш күләмен чикләү төркемен өстәү",

@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "বাতিল",
   "twoFactorCode-invalid": "অবৈধ প্রমাণীকরণ কোড। আবার চেষ্টা করুন।",
   "sort-by-votes": "ভোট অনুযায়ী সাজান",
+  "sort-by-label-order": "লেবেলের ক্রম",
   "wip-limit-groups": "WIP সীমা গ্রুপ",
   "wip-limit-group-name-placeholder": "গ্রুপের নাম (ঐচ্ছিক)",
   "wip-limit-group-add": "WIP সীমা গ্রুপ যোগ করুন",

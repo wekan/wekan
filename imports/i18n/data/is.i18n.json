@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Hætta við",
   "twoFactorCode-invalid": "Ógildur auðkenningarkóði. Reyndu aftur.",
   "sort-by-votes": "Raða eftir atkvæðum",
+  "sort-by-label-order": "Röð merkja",
   "wip-limit-groups": "WIP-markahópar",
   "wip-limit-group-name-placeholder": "Nafn hóps (valfrjálst)",
   "wip-limit-group-add": "Bæta við WIP-markahópi",

@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "បោះបង់",
   "twoFactorCode-invalid": "កូដផ្ទៀងផ្ទាត់មិនត្រឹមត្រូវ។ សូមព្យាយាមម្តងទៀត។",
   "sort-by-votes": "តម្រៀបតាមការបោះឆ្នោត",
+  "sort-by-label-order": "លំដាប់ស្លាក",
   "wip-limit-groups": "ក្រុមកំណត់ WIP",
   "wip-limit-group-name-placeholder": "ឈ្មោះក្រុម (ស្រេចចិត្ត)",
   "wip-limit-group-add": "បន្ថែមក្រុមកំណត់ WIP",

@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Annulla",
   "twoFactorCode-invalid": "Codice 'e autenticazione nun è valido. Prova n'ata vota.",
   "sort-by-votes": "Ordena pe' vute",
+  "sort-by-label-order": "Ordine 'e etichette",
   "wip-limit-groups": "Attiva limite Work In Progress (Lista)",
   "wip-limit-group-name-placeholder": "Nomme (facultativo)",
   "wip-limit-group-add": "Azzeccà Attiva limite Work In Progress",

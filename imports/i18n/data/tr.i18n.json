@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "İptal",
   "twoFactorCode-invalid": "Geçersiz kimlik doğrulama kodu. Lütfen tekrar deneyin.",
   "sort-by-votes": "Oylara göre sırala",
+  "sort-by-label-order": "Etiket sırası",
   "wip-limit-groups": "WIP Limit Grupları",
   "wip-limit-group-name-placeholder": "Grup adı (isteğe bağlı)",
   "wip-limit-group-add": "WIP limit grubu ekle",

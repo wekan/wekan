@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Жокко чыгаруу",
   "twoFactorCode-invalid": "Аутентификация коду туура эмес. Кайра аракет кылыңыз.",
   "sort-by-votes": "Добуштар боюнча иреттөө",
+  "sort-by-label-order": "Белгилердин тартиби",
   "wip-limit-groups": "WIP чегин иштетүү (Тизме)",
   "wip-limit-group-name-placeholder": "Аты (милдеттүү эмес)",
   "wip-limit-group-add": "Кошуу WIP чегин иштетүү",

@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "취소",
   "twoFactorCode-invalid": "잘못된 인증 코드입니다. 다시 시도하세요.",
   "sort-by-votes": "투표순으로 정렬",
+  "sort-by-label-order": "라벨 순서",
   "wip-limit-groups": "WIP 제한 그룹",
   "wip-limit-group-name-placeholder": "그룹 이름(선택 사항)",
   "wip-limit-group-add": "WIP 제한 그룹 추가",

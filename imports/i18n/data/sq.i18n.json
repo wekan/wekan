@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Anulo",
   "twoFactorCode-invalid": "Kod vërtetimi i pavlefshëm. Provoni përsëri.",
   "sort-by-votes": "Rendit sipas votave",
+  "sort-by-label-order": "Renditja e etiketave",
   "wip-limit-groups": "Grupe kufiri WIP",
   "wip-limit-group-name-placeholder": "Emri i grupit (opsionale)",
   "wip-limit-group-add": "Shto grup kufiri WIP",

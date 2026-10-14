@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "გაუქმება",
   "twoFactorCode-invalid": "არასწორი ავთენტიფიკაციის კოდი. გთხოვთ, სცადოთ ხელახლა.",
   "sort-by-votes": "დალაგება ხმების მიხედვით",
+  "sort-by-label-order": "ნიშნების თანმიმდევრობა",
   "wip-limit-groups": "WIP ლიმიტის ჯგუფები",
   "wip-limit-group-name-placeholder": "ჯგუფის სახელი (არასავალდებულო)",
   "wip-limit-group-add": "WIP ლიმიტის ჯგუფის დამატება",

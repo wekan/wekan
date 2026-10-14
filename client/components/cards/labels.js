@@ -237,6 +237,11 @@ Template.createLabelPopup.events({
 });
 
 Template.editLabelPopup.events({
+  async 'click .js-move-label'(event) {
+    event.preventDefault();
+    const board = Utils.getCurrentBoard();
+    if (board) await board.moveLabel(this._id, event.currentTarget.dataset.direction);
+  },
   'click .js-delete-label': Popup.afterConfirm('deleteLabel', function () {
     const board = Utils.getCurrentBoard();
     board.removeLabel(this._id);

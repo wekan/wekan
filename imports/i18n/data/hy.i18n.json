@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Չեղարկել",
   "twoFactorCode-invalid": "Նույնականացման կոդն անվավեր է։ Խնդրում ենք կրկին փորձել։",
   "sort-by-votes": "Դասավորել ըստ ձայների",
+  "sort-by-label-order": "Պիտակների հերթականություն",
   "wip-limit-groups": "WIP սահմանի խմբեր",
   "wip-limit-group-name-placeholder": "Խմբի անունը (ընտրովի)",
   "wip-limit-group-add": "Ավելացնել WIP սահմանի խումբ",

@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "འདོར་བ།",
   "twoFactorCode-invalid": "ཁས་ལེན་ཨང་རྟགས་ནོར་འདུག འབད་བརྩོན་གཞན་ཞིག་སྐྱོན།",
   "sort-by-votes": "འོས་ཤོག་ལྟར་གོ་རིམ་སྒྲིག",
+  "sort-by-label-order": "ཁ་བྱང་གི་གོ་རིམ།",
   "wip-limit-groups": "WIP ཚད་སྤྱོད་ཐུབ་བཟོ། (ཐོ་གཞུང་།)",
   "wip-limit-group-name-placeholder": "མིང་། (གདམ་ཀ)",
   "wip-limit-group-add": "སྣོན་པ། WIP ཚད་སྤྱོད་ཐུབ་བཟོ།",

@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "రద్దు చేయి",
   "twoFactorCode-invalid": "చెల్లని ప్రమాణీకరణ కోడ్. దయచేసి మళ్లీ ప్రయత్నించండి.",
   "sort-by-votes": "ఓట్ల ప్రకారం క్రమబద్ధీకరించండి",
+  "sort-by-label-order": "లేబుల్స్ క్రమం",
   "wip-limit-groups": "WIP పరిమితి సమూహాలు",
   "wip-limit-group-name-placeholder": "సమూహం పేరు (ఐచ్ఛికం)",
   "wip-limit-group-add": "WIP పరిమితి సమూహాన్ని జోడించండి",

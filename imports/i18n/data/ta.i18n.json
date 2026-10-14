@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "ரத்துசெய்",
   "twoFactorCode-invalid": "தவறான அங்கீகார குறியீடு. மீண்டும் முயற்சிக்கவும்.",
   "sort-by-votes": "வாக்குகளின் படி வரிசைப்படுத்து",
+  "sort-by-label-order": "லேபிள் வரிசை",
   "wip-limit-groups": "WIP வரம்பு குழுக்கள்",
   "wip-limit-group-name-placeholder": "குழுவின் பெயர் (விருப்பத்தேர்வு)",
   "wip-limit-group-add": "WIP வரம்பு குழு சேர்க்க",

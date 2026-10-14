@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Abroga",
   "twoFactorCode-invalid": "Codex auctenticationis non validus. Iterum tempta.",
   "sort-by-votes": "Ordinare secundum suffragia",
+  "sort-by-label-order": "Ordo titellorum",
   "wip-limit-groups": "Greges limitum WIP",
   "wip-limit-group-name-placeholder": "Nomen (optativum)",
   "wip-limit-group-add": "Adde gregem limitis WIP",

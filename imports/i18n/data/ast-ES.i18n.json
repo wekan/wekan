@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Encaboxar",
   "twoFactorCode-invalid": "Códigu d'autenticación non válidu. Vuelvi tentalo.",
   "sort-by-votes": "Ordenar por votos",
+  "sort-by-label-order": "Orde d'etiquetes",
   "wip-limit-groups": "Habilitar el límite del trabajo en proceso (Lista)",
   "wip-limit-group-name-placeholder": "Nombre (opcional)",
   "wip-limit-group-add": "Añadir Habilitar el límite del trabajo en proceso",

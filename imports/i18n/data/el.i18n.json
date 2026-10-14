@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Ακύρωση",
   "twoFactorCode-invalid": "Μη έγκυρος κωδικός ελέγχου ταυτότητας. Δοκιμάστε ξανά.",
   "sort-by-votes": "Ταξινόμηση κατά ψήφους",
+  "sort-by-label-order": "Σειρά ετικετών",
   "wip-limit-groups": "Ομάδες ορίου WIP",
   "wip-limit-group-name-placeholder": "Όνομα ομάδας (προαιρετικό)",
   "wip-limit-group-add": "Προσθήκη ομάδας ορίου WIP",

@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Скасувати",
   "twoFactorCode-invalid": "Недійсний код автентифікації. Спробуйте ще раз.",
   "sort-by-votes": "Сортувати за голосами",
+  "sort-by-label-order": "Порядок міток",
   "wip-limit-groups": "Групи ліміту завдань",
   "wip-limit-group-name-placeholder": "Назва групи (необов'язково)",
   "wip-limit-group-add": "Додати групу ліміту завдань",

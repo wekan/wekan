@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Avbryt",
   "twoFactorCode-invalid": "Ogiltig autentiseringskod. Försök igen.",
   "sort-by-votes": "Sortera efter röster",
+  "sort-by-label-order": "Etikettordning",
   "wip-limit-groups": "WIP-gränsgrupper",
   "wip-limit-group-name-placeholder": "Gruppnamn (valfritt)",
   "wip-limit-group-add": "Lägg till WIP-gränsgrupp",

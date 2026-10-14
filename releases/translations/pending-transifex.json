@@ -2047,6 +2047,10 @@
     {
       "key": "search-step",
       "since": "2026-10-14"
+    },
+    {
+      "key": "sort-by-label-order",
+      "since": "2026-10-14"
     }
   ]
 }

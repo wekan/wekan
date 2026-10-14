@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Cancelar",
   "twoFactorCode-invalid": "Codigo d'autenticación invalido. Per favor torne a intentar-lo.",
   "sort-by-votes": "Ordenar por votos",
+  "sort-by-label-order": "Orden d'etiquetas",
   "wip-limit-groups": "Habilitar el límite d'o trabajo en proceso (Lista)",
   "wip-limit-group-name-placeholder": "Nombre (opcional)",
   "wip-limit-group-add": "Adhibir Habilitar el límite d'o trabajo en proceso",

@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Бекор кардан",
   "twoFactorCode-invalid": "Рамзи санҷиш нодуруст аст. Лутфан аз нав кӯшиш кунед.",
   "sort-by-votes": "Аз рӯи овозҳо мураттаб кардан",
+  "sort-by-label-order": "Тартиби нишонаҳо",
   "wip-limit-groups": "Фаъол кардани ҳадди WIP (Рӯйхат)",
   "wip-limit-group-name-placeholder": "Ном (ихтиёрӣ)",
   "wip-limit-group-add": "Илова кардан Фаъол кардани ҳадди WIP",

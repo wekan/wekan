@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "रद्द करा",
   "twoFactorCode-invalid": "अवैध प्रमाणीकरण कोड. कृपया पुन्हा प्रयत्न करा.",
   "sort-by-votes": "मतांनुसार क्रमवारी लावा",
+  "sort-by-label-order": "लेबल क्रम",
   "wip-limit-groups": "WIP मर्यादा गट",
   "wip-limit-group-name-placeholder": "गटाचे नाव (ऐच्छिक)",
   "wip-limit-group-add": "WIP मर्यादा गट जोडा",

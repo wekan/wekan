@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "ပယ်ဖျက်ရန်",
   "twoFactorCode-invalid": "အထောက်အထားစိစစ်ကုဒ် မမှန်ကန်ပါ။ ကျေးဇူးပြု၍ ထပ်စမ်းကြည့်ပါ။",
   "sort-by-votes": "မဲများအလိုက် စီစဉ်ပါ",
+  "sort-by-label-order": "အညွှန်း အစီအစဉ်",
   "wip-limit-groups": "WIP ကန့်သတ်အုပ်စုများ",
   "wip-limit-group-name-placeholder": "အုပ်စု အမည် (ရွေးချယ်နိုင်သည်)",
   "wip-limit-group-add": "WIP ကန့်သတ်အုပ်စု ထည့်ရန်",

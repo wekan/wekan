@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Отмена",
   "twoFactorCode-invalid": "Неверный код аутентификации. Попробуйте снова.",
   "sort-by-votes": "Сортировать по голосам",
+  "sort-by-label-order": "Порядок меток",
   "wip-limit-groups": "Группы лимита задач",
   "wip-limit-group-name-placeholder": "Название группы (необязательно)",
   "wip-limit-group-add": "Добавить группу лимита задач",

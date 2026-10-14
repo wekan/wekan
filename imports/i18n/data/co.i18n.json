@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Annullà",
   "twoFactorCode-invalid": "Codice d’autentificazione micca validu. Pruvate torna.",
   "sort-by-votes": "Urdinà per voti",
+  "sort-by-label-order": "Ordine di l'etichette",
   "wip-limit-groups": "Gruppi di limiti WIP",
   "wip-limit-group-name-placeholder": "Nome di u gruppu (facultativu)",
   "wip-limit-group-add": "Aghjunghje un gruppu di limiti WIP",

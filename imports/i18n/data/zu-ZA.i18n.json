@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Khansela",
   "twoFactorCode-invalid": "Ikhodi yokuqinisekisa ayilungile. Sicela uzame futhi.",
   "sort-by-votes": "Hlunga ngokwevoti",
+  "sort-by-label-order": "Ukulandelana kwamalebula",
   "wip-limit-groups": "Amaqembu Omkhawulo we-WIP",
   "wip-limit-group-name-placeholder": "Igama leqembu (okukhethwayo)",
   "wip-limit-group-add": "Engeza iqembu lomkhawulo we-WIP",

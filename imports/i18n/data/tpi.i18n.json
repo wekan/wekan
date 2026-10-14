@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Lusim",
   "twoFactorCode-invalid": "Namba bilong tokim tru i no stret. Traim gen.",
   "sort-by-votes": "Soim bihain long vot",
+  "sort-by-label-order": "Lain bilong ol mak",
   "wip-limit-groups": "Ol grup bilong mak bilong WIP",
   "wip-limit-group-name-placeholder": "Nem (yu ken makim)",
   "wip-limit-group-add": "Putim Larim i wok WIP Limit",

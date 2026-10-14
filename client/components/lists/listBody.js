@@ -574,7 +574,9 @@ Template.listBody.helpers({
     // resulting array client-side instead of passing `sortBy` through to
     // Mongo/minimongo.
     const sortByVotes = !!(sortBy && sortBy.votes);
-    if (sortByVotes) {
+    // #2040: by the board's label order - also a display order only.
+    const sortByLabelOrder = !!(sortBy && sortBy.labelOrder);
+    if (sortByVotes || sortByLabelOrder) {
       sortBy = defaultSort;
     }
     sortBy = sortWithIdTiebreaker(sortBy);
@@ -609,6 +611,11 @@ Template.listBody.helpers({
         list.boardId,
         mongoSelector,
       );
+    }
+    if (sortByLabelOrder) {
+      const cards = ReactiveCache.getCards(renderableCardsSelector(mongoSelector), { sort: sortBy, limit });
+      const board = ReactiveCache.getBoard(list.boardId);
+      return require('/models/lib/labelOrder').sortCardsByLabelOrder(cards, board ? board.labels : []);
     }
     if (sortByVotes) {
       // Fetch as a plain array (not a cursor) so it can be re-sorted by vote

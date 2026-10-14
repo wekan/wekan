@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "Скасаваць",
   "twoFactorCode-invalid": "Няправільны код аўтэнтыфікацыі. Паспрабуйце яшчэ раз.",
   "sort-by-votes": "Сартаваць паводле галасоў",
+  "sort-by-label-order": "Парадак метак",
   "wip-limit-groups": "Групы ліміту WIP",
   "wip-limit-group-name-placeholder": "Назва групы (неабавязкова)",
   "wip-limit-group-add": "Дадаць групу ліміту WIP",

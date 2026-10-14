@@ -3029,6 +3029,7 @@
   "twoFactorCode-cancel": "ሰርዝ",
   "twoFactorCode-invalid": "ልክ ያልሆነ ማረጋገጫ ኮድ። እባክዎ እንደገና ይሞክሩ።",
   "sort-by-votes": "በድምጽ መሠረት ደርድር",
+  "sort-by-label-order": "የመለያዎች ቅደም ተከተል",
   "wip-limit-groups": "የ WIP ገደብ ቡድኖች",
   "wip-limit-group-name-placeholder": "የቡድን ስም (አማራጭ)",
   "wip-limit-group-add": "የ WIP ገደብ ቡድን ጨምር",
