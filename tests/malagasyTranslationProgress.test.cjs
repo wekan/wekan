@@ -487,3 +487,18 @@ assert.match(malagasy['login-setting-env-only'], /mpizara ihany.*vakiana fotsiny
 const currentMalagasyCatalog = spawnSync(process.execPath, [fillScript, '--list', 'mg'], { cwd: root, encoding: 'utf8' });
 assert.equal(currentMalagasyCatalog.status, 0, currentMalagasyCatalog.stderr);
 assert.deepEqual(JSON.parse(currentMalagasyCatalog.stdout), {});
+
+for (const format of ['todoist', 'planner', 'csv', 'jira', 'excel']) {
+  const key = `import-board-instruction-${format}`;
+  assert.notEqual(malagasy[key], english[key], key);
+  assert.deepEqual(tokens(malagasy[key]), tokens(english[key]), key);
+}
+assert.match(malagasy['import-board-instruction-todoist'], /Ao amin’ny Todoist.*Manage data > Export as CSV.*@labels.*p1.*p3/);
+assert.doesNotMatch(malagasy['import-board-instruction-todoist'], /Export as a template|^In Todoist/);
+assert.match(malagasy['import-board-instruction-planner'], /Export as Excel.*Export plan to Excel.*Completed By/);
+assert.doesNotMatch(malagasy['import-board-instruction-planner'], /^In Microsoft/);
+assert.match(malagasy['import-board-instruction-csv'], /faingo.*CSV.*kiheba.*TSV/);
+assert.doesNotMatch(malagasy['import-board-instruction-csv'], /tsiahy/);
+for (const literal of ['GET /rest/api/3/search/jql?jql=project=KEY&fields=*all&expand=names,schema', 'nextPageToken', '{ "issues": [...] }', '"automationRules"']) assert.ok(malagasy['import-board-instruction-jira'].includes(literal));
+assert.match(malagasy['import-board-instruction-jira'], /pejy rehetra.*solaitra misaraka/);
+assert.match(malagasy['import-board-instruction-excel'], /karatra iray isaky ny andalana.*dingana manaraka.*takelaka tsirairay.*andalana lohateny/);

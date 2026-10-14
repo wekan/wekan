@@ -211202,5 +211202,40 @@
     "before": "Only the server environment sets these. They are shown here read-only.",
     "after": "Ny tontolon’ny mpizara ihany no mametraka ireo. Aseho eto ho vakiana fotsiny izy ireo.",
     "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-todoist",
+    "before": "In Todoist, open the project menu and choose Export as a template, then paste the CSV file. Sections become lists, tasks become cards, sub-tasks become a checklist, notes become comments, and @labels and priorities p1 to p3 become labels.",
+    "after": "Ao amin’ny Todoist, sokafy ny tetikasa, fidio ny menio ⋯ eo ambony havanana, avy eo Manage data > Export as CSV, ary apetaho ny rakitra CSV. Lasa lisitra ny fizarana, lasa karatra ny asa, lasa lisitra fanamarinana ny zana-asa, lasa fanehoan-kevitra ny naoty, ary lasa marika ny @labels sy ny laharam-pahamehana p1 hatramin’ny p3.",
+    "reason": "Replace stale English guides and restore current import instructions, pagination, worksheet behavior and delimiter terminology."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-planner",
+    "before": "In Microsoft Planner, open the plan's menu and choose Export plan to Excel, then choose that .xlsx file. Buckets become lists and tasks become cards, with their assignees, dates, labels, checklist and description; Progress, Priority and Completed By become custom fields.",
+    "after": "Ao amin’ny Microsoft Planner, sokafy ny drafitra, fidio ny menio ⋯ eo akaikin’ny anarany, avy eo Export as Excel (ao amin’ny Planner mahazatra: Export plan to Excel), ary fidio ilay rakitra .xlsx. Lasa lisitra ny vondrona ary lasa karatra ny asa, miaraka amin’ny olona voatendry, daty, marika, lisitra fanamarinana ary famaritana; lasa saha manokana ny Progress, Priority ary Completed By.",
+    "reason": "Replace stale English guides and restore current import instructions, pagination, worksheet behavior and delimiter terminology."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-csv",
+    "before": "Apetaho ny sanda sarahan-tsiahy (CSV) / sanda sarahan-kiheba (TSV).",
+    "after": "Apetaho ny sanda sarahana amin’ny faingo (CSV) / sanda sarahana amin’ny kiheba (TSV).",
+    "reason": "Replace stale English guides and restore current import instructions, pagination, worksheet behavior and delimiter terminology."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-jira",
+    "before": "Apetaho ny JSON avy amin'ny fikarohana olana Jira Cloud REST API (GET /rest/api/3/search/jql), na zavatra { \"issues\": [...] } mitovy aminy. Lasa lisitra ny satan'ny Jira ary lasa karatra ny olana. Azonao ampidirina koa ny filaharana \"automationRules\" hanafarana fitsipika.",
+    "after": "Apetaho ny JSON fikarohana olana Jira Cloud: GET /rest/api/3/search/jql?jql=project=KEY&fields=*all&expand=names,schema (raha tsy misy fields dia ny ID olana ihany no averina). Mizara ho pejy ny tetikasa lehibe, ary manana nextPageToken ho an’ny pejy manaraka ny tsirairay: atambaro ao amin’ny filaharana \"issues\" iray ny olana amin’ny pejy rehetra, na ampidiro ho solaitra misaraka ny pejy tsirairay amin’ny Ampidiro ny solaitra maromaro. Azo ampiasaina koa ny zavatra { \"issues\": [...] } mitovy aminy. Lasa lisitra ny sata Jira ary lasa karatra ny olana. Azonao ampidirina koa ny filaharana \"automationRules\" hanafarana fitsipika.",
+    "reason": "Replace stale English guides and restore current import instructions, pagination, worksheet behavior and delimiter terminology."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-excel",
+    "before": "Fidio ny takelaka .xlsx miendrika WeKan (tsanganana mitovy amin'ny fanondranana Excel: Title, Description, Status/List, Members, Labels, dates, custom fields). Lohateny ny laharana voalohany.",
+    "after": "Misafidiana boky .xlsx: tabilao misy karatra iray isaky ny andalana (tsanganana toy ny Lohateny, Famaritana, Sata/Lisitra, Mpikambana, Marika, daty ary saha manokana), na boky navoakan’ny WeKan, anisan’izany ny boky misy takelaka misaraka ho an’ny solaitra tsirairay. Asehon’ny dingana manaraka izay saha mifanaraka amin’ny tsanganana tsirairay. Lasa solaitra ny takelaka tsirairay manana andalana lohateny.",
+    "reason": "Replace stale English guides and restore current import instructions, pagination, worksheet behavior and delimiter terminology."
   }
 ]
