@@ -2868,7 +2868,7 @@
   "s3-endpoint": "Koncový bod S3",
   "s3-endpoint-description": "URL S3 endpointu (např. s3.amazonaws.com nebo minio.example.com)",
   "s3-minio-storage": "Úložiště S3/MinIO",
-  "s3-port": "S3 Port",
+  "s3-port": "Port S3",
   "s3-port-description": "Číslo portu S3 endpointu",
   "s3-region": "Oblast S3",
   "s3-region-description": "Region AWS S3 (např. us-east-1)",

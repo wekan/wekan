@@ -2859,7 +2859,7 @@
   "s3-access-key": "Chave de Acesso S3",
   "s3-access-key-description": "Chaves de acesso do AWS S3 para autenticação",
   "s3-access-key-placeholder": "Insira as chaves de acesso do S3",
-  "s3-bucket": "S3 Bucket",
+  "s3-bucket": "Bucket S3",
   "s3-bucket-description": "Nome do S3 Bucket para armazenar arquivos",
   "s3-connection-failed": "Falha ao conectar ao S3",
   "s3-connection-success": "S3 conectado com sucesso",
