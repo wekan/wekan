@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Hawrinaama immorde e %s: uddit e uddu ɗoon.",
   "vcs-synced-issue": "Ndee caɗeere hawrinaama: uddit e uddu nde e jokkorgal mayre.",
   "sync-issue-details": "Miijooji, maandeeji, ngonka e fiilaaji",
+  "sync-write-back": "Winndu waylooji ɗii e GitLab: tiitoonde, sifaa, miijooji, uddugol e udditgol kadi",
+  "sync-write-back-error": "Winndugol e GitLab roonii",
   "mailReportTitle": "Iimeel",
   "email-bounces": "Iimeel ruttiiɗi",
   "email-bounces-description": "Ko WeKan waɗata e iimeel ruttiiɗo: ñiiɓirde winndaande no feewaani, boyet heewɗo, jaabawol ko woodaani e golle, plent spam. Kala noone woodi golle mum, waɗeteeɗe so ruttike ko ɗuuɗi noon.",

@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "እምን %s ተሰነ: ህቴ ፍተሕ ወድበእ።",
   "vcs-synced-issue": "እሊ ጉዳይ ተሰነ: ዲብ ተኣላሊኡ ፍተሕ ወድበእ።",
   "sync-issue-details": "ርእይታት፡ እሻራት፡ ሓላት ወፋይላት",
+  "sync-write-back": "ቅያራት ለGitLab ገብእ ክታብ፡ ኣርእስት፡ ዋስፎ፡ ርእይታት፡ ድባእ ወክፍት ካልእ",
+  "sync-write-back-error": "ለGitLab ገብእ ክታብ ኢቀንዐ",
   "mailReportTitle": "ኢመይል",
   "email-bounces": "ኢመይል ለተመየጠ",
   "email-bounces-description": "WeKan ምን ኢመይል ለተመየጠ ሚ ለአምር: ኣድራሻ ገለጥ ለተጸሐፈ፡ ሳጹን ለመልአ፡ መልስ ‘እት ቤት ጽሕፈት ኢሀለኮ’፡ ኣክያስ ስፓም። ክል ዓይነት ግብራት ናይ ሕሳቡ ብኡ፡ ሐቆ ሊሐዜ እንቶ ተመየጠ ለትገብአ።",

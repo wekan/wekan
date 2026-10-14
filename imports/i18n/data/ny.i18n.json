@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Yagwirizanitsidwa kuchokera ku %s: tsegulani ndi kutseka pamenepo.",
   "vcs-synced-issue": "Vuto ili lagwirizanitsidwa: litsegulani ndi kulitseka mu tracker yake.",
   "sync-issue-details": "Ndemanga, zilembo, mkhalidwe ndi mafayilo",
+  "sync-write-back": "Lembani zosintha kubwerera ku GitLab: mutu, kufotokoza, ndemanga, kutseka ndi kutsegulanso",
+  "sync-write-back-error": "Kulemba kubwerera ku GitLab kwalephera",
   "mailReportTitle": "Imelo",
   "email-bounces": "Maimelo obwerera",
   "email-bounces-description": "Zomwe WeKan imachita ndi imelo yomwe ibwerera: adilesi yolembedwa molakwika, bokosi lodzaza, yankho losapezeka, dandaulo la spam. Mtundu uliwonse uli ndi zochita zake, zomwe zimachitika ikabwerera kangapo kotero.",

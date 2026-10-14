@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sincronizată din %s: deschide-o și închide-o acolo.",
   "vcs-synced-issue": "Această problemă este sincronizată: deschide-o și închide-o în sistemul ei de urmărire.",
   "sync-issue-details": "Comentarii, etichete, stare și fișiere",
+  "sync-write-back": "Scrie modificările înapoi în GitLab: titlu, descriere, comentarii, închidere și redeschidere",
+  "sync-write-back-error": "Scrierea înapoi în GitLab a eșuat",
   "mailReportTitle": "E-mail",
   "email-bounces": "Respingeri",
   "email-bounces-description": "Ce face WeKan cu e-mailurile care se întorc: o adresă scrisă greșit, o căsuță poștală plină, un răspuns de absență, o plângere de spam. Fiecare tip are propriile acțiuni, executate după ce a fost respins de atâtea ori.",

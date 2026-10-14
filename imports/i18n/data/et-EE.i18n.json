@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sünkroonitud allikast %s: ava ja sulge see seal.",
   "vcs-synced-issue": "See teema on sünkroonitud: ava ja sulge see selle jälgijas.",
   "sync-issue-details": "Kommentaarid, sildid, olek ja failid",
+  "sync-write-back": "Kirjuta muudatused tagasi GitLabi: pealkiri, kirjeldus, kommentaarid, sulgemine ja taasavamine",
+  "sync-write-back-error": "GitLabi tagasikirjutamine ebaõnnestus",
   "mailReportTitle": "E-post",
   "email-bounces": "Tagastused",
   "email-bounces-description": "Mida WeKan teeb tagasi tuleva e-kirjaga: valesti kirjutatud aadress, täis postkast, eemaloleku vastus, rämpsposti kaebus. Igal liigil on oma toimingud, mis tehakse, kui kiri on nii mitu korda tagasi tulnud.",

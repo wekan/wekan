@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Gesinkroniseer vanaf %s: maak dit daar oop en toe.",
   "vcs-synced-issue": "Hierdie kwessie is gesinkroniseer: maak dit in sy spoorder oop en toe.",
   "sync-issue-details": "Kommentaar, etikette, toestand en lêers",
+  "sync-write-back": "Skryf veranderinge terug na GitLab: titel, beskrywing, kommentaar, toemaak en heropen",
+  "sync-write-back-error": "Terugskryf na GitLab het misluk",
   "mailReportTitle": "E-pos",
   "email-bounces": "Teruggestuurde e-pos",
   "email-bounces-description": "Wat WeKan doen met e-pos wat terugkom: 'n verkeerd getikte adres, 'n vol posbus, 'n afwesigheidsantwoord, 'n strooiposklagte. Elke soort het sy eie aksies, wat uitgevoer word wanneer dit soveel keer teruggekom het.",

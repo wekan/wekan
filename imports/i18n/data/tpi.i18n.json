@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sync pinis long %s: opim na pasim long hap.",
   "vcs-synced-issue": "Dispela hevi i sync pinis: opim na pasim long tracker bilong en.",
   "sync-issue-details": "Ol tok, ol mak, kain pasin na ol fail",
+  "sync-write-back": "Raitim ol senis i go bek long GitLab: het tok, stori, ol tok, pasim na opim gen",
+  "sync-write-back-error": "Raitim i go bek long GitLab i no wok",
   "mailReportTitle": "Imel",
   "email-bounces": "Imel i kam bek",
   "email-bounces-description": "Wanem samting WeKan i save mekim long imel i kam bek: adres i rong long raitim, imel boks i pulap, bekim olsem man i no stap long opis, toktok kros long spam. Olgeta kain i gat wok bilong em yet, em i save mekim taim imel i kam bek planti taim olsem.",

@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Zsynchrōnizowane z %s: ôtwiyrej i zawiyrej je tam.",
   "vcs-synced-issue": "To zgłoszynie je synchrōnizowane: ôtwiyrej i zawiyrej je w jego systymie.",
   "sync-issue-details": "Kōmyntarze, etykiety, sztand i zbiory",
+  "sync-write-back": "Zapisuj zmiany nazŏd do GitLab: tytuł, ôpis, kōmyntarze, zawiyranie i ôtwiyranie zaś",
+  "sync-write-back-error": "Niy szło zapisać nazŏd do GitLab",
   "mailReportTitle": "Mejl",
   "email-bounces": "Wrōcōne mejle",
   "email-bounces-description": "Co WeKan robi z mejlami, kere wrŏcajōm: źle wpisanŏ adresa, połnŏ skrzinka, autōmatycznŏ ôdpowiydź ô niyobecności, skarga na spam. Kożdŏ zorta mŏ swoje akcyje, kere sie robi, jak mejl tela razy wrōciōł.",

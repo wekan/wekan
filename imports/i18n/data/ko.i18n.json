@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "%s에서 동기화됨: 그곳에서 열고 닫으세요.",
   "vcs-synced-issue": "이 이슈는 동기화되어 있습니다: 해당 트래커에서 열고 닫으세요.",
   "sync-issue-details": "댓글, 라벨, 상태 및 파일",
+  "sync-write-back": "변경 사항을 GitLab에 다시 쓰기: 제목, 설명, 댓글, 닫기 및 다시 열기",
+  "sync-write-back-error": "GitLab에 다시 쓰지 못했습니다",
   "mailReportTitle": "이메일",
   "email-bounces": "반송",
   "email-bounces-description": "되돌아온 이메일을 WeKan이 처리하는 방법: 잘못 입력된 주소, 가득 찬 메일함, 부재 중 자동 응답, 스팸 신고. 종류마다 고유한 작업이 있으며, 지정한 횟수만큼 반송되면 실행됩니다.",

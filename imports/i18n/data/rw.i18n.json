@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Byahujwe biturutse kuri %s: bifungure kandi ubifunge aho.",
   "vcs-synced-issue": "Iki kibazo kirahujwe: gifungure kandi ugifunge mu gikurikirana cyacyo.",
   "sync-issue-details": "Ibitekerezo, ibirango, imimerere n'amadosiye",
+  "sync-write-back": "Andika impinduka usubize kuri GitLab: umutwe, ibisobanuro, ibitekerezo, gufunga no kongera gufungura",
+  "sync-write-back-error": "Kwandika usubiza kuri GitLab byanze",
   "mailReportTitle": "Imeyili",
   "email-bounces": "Imeli zagarutse",
   "email-bounces-description": "Ibyo WeKan ikora ku meli zigaruka: aderesi yanditswe nabi, agasanduku kuzuye, igisubizo cy'uko umuntu adahari, ikirego cya spam. Ubwoko bwose bufite ibikorwa byabwo, bikorwa iyo bwagarutse inshuro nk'izo.",

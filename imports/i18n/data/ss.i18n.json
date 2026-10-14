@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Kuhlanganiswe kusuka ku-%s: kuvule futsi ukuvale lapho.",
   "vcs-synced-issue": "Lenkinga ihlanganisiwe: yivule futsi uyivale kulandzeleli wayo.",
   "sync-issue-details": "Imibono, emalebula, simo nemafayela",
+  "sync-write-back": "Bhala tingucuko ubuyisele ku-GitLab: sihloko, inchazelo, imibono, kuvala nekuvula futsi",
+  "sync-write-back-error": "Kubhala ubuyisele ku-GitLab kwehlulekile",
   "mailReportTitle": "I-imeyili",
   "email-bounces": "Ema-imeyili labuyile",
   "email-bounces-description": "Loko WeKan lekwenta nema-imeyili labuyako: likheli lelibhalwe kabi, libhokisi leligcwele, imphendvulo yekungabi bikhona, sikhalo se-spam. Luhlobo ngalunye lunetento talo, letentiwa nalubuye kangako.",

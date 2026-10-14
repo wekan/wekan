@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sincronizada dende %s: ábrila y zárrala ellí.",
   "vcs-synced-issue": "Esta incidencia ta sincronizada: ábrila y zárrala nel so xestor.",
   "sync-issue-details": "Comentarios, etiquetes, estáu y ficheros",
+  "sync-write-back": "Escribir los cambeos de vuelta en GitLab: títulu, descripción, comentarios, zarru y reapertura",
+  "sync-write-back-error": "Nun pudo escribise de vuelta en GitLab",
   "mailReportTitle": "Correo electrónico",
   "email-bounces": "Corréos tornaos",
   "email-bounces-description": "Lo que fai WeKan col corréu que vuelve: una direición mal escrita, un buzón llenu, una rempuesta de fuera de la oficina, una quexa de spam. Cada triba tien les sos aiciones, que se faen cuando vuelve eses veces.",

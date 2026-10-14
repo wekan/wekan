@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Senkronize soti nan %s: ouvè l epi fèmen l la.",
   "vcs-synced-issue": "Pwoblèm sa a senkronize: ouvè l epi fèmen l nan sistèm swivi li.",
   "sync-issue-details": "Kòmantè, etikèt, eta ak fichye",
+  "sync-write-back": "Ekri chanjman yo tounen nan GitLab: tit, deskripsyon, kòmantè, fèmen ak relouvri",
+  "sync-write-back-error": "Ekri tounen nan GitLab echwe",
   "mailReportTitle": "Imèl",
   "email-bounces": "Imèl ki retounen",
   "email-bounces-description": "Sa WeKan fè ak imèl ki retounen: yon adrès ki mal ekri, yon bwat lèt ki plen, yon repons absans, yon plent spam. Chak kalite gen pwòp aksyon pa li, ki fèt lè kantite retou yo rive nan papòt ki fikse a.",

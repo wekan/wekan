@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Naka-sync mula sa %s: buksan at isara ito roon.",
   "vcs-synced-issue": "Naka-sync ang isyung ito: buksan at isara ito sa tracker nito.",
   "sync-issue-details": "Mga komento, etiketa, estado at file",
+  "sync-write-back": "Isulat pabalik sa GitLab ang mga pagbabago: pamagat, paglalarawan, mga komento, pagsasara at muling pagbubukas",
+  "sync-write-back-error": "Nabigo ang pagsulat pabalik sa GitLab",
   "mailReportTitle": "E-liham",
   "email-bounces": "Mga tumalbog na email",
   "email-bounces-description": "Ano ang ginagawa ng WeKan sa email na bumabalik: maling naitipang address, punong mailbox, sagot na wala sa opisina, reklamo ng spam. Bawat uri ay may sariling mga aksyon, na ginagawa kapag tumalbog na ito nang ganoon karaming beses.",

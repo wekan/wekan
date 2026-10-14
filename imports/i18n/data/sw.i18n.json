@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Imesawazishwa kutoka %s: ifungue na uifunge huko.",
   "vcs-synced-issue": "Suala hili limesawazishwa: lifungue na ulifunge kwenye kifuatiliaji chake.",
   "sync-issue-details": "Maoni, lebo, hali na faili",
+  "sync-write-back": "Andika mabadiliko kurudi GitLab: kichwa, maelezo, maoni, kufunga na kufungua tena",
+  "sync-write-back-error": "Kuandika kurudi GitLab kumeshindwa",
   "mailReportTitle": "Barua pepe",
   "email-bounces": "Barua zilizorudi",
   "email-bounces-description": "WeKan hufanya nini na barua pepe inayorudi: anwani iliyoandikwa vibaya, sanduku la barua lililojaa, jibu la kutokuwepo ofisini, malalamiko ya barua taka. Kila aina ina vitendo vyake, vinavyofanywa inaporudi mara hizo.",

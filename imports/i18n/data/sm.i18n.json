@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Ua fa'atasi mai %s: tatala ma tapuni iina.",
   "vcs-synced-issue": "O lenei fa'afitauli ua fa'atasia: tatala ma tapuni i lona polokalame su'esu'e.",
   "sync-issue-details": "Fa'amatalaga, fa'ailoga, tulaga ma faila",
+  "sync-write-back": "Toe tusi suiga i GitLab: ulutala, fa'amatalaga, manatu, tapunia ma toe tatalaina",
+  "sync-write-back-error": "Na le manuia le toe tusi i GitLab",
   "mailReportTitle": "Imeli",
   "email-bounces": "Imeli na toe foʻi mai",
   "email-bounces-description": "O le mea e fai e WeKan i imeli e toe foʻi mai: o se tuatusi na sese le taina, o se pusa meli ua tumu, o se tali e le o iai i le ofisa, o se faitioga o le spam. O ituaiga taitasi e iai a latou lava gaioiga, e faia pe a toe foʻi mai i na taimi.",

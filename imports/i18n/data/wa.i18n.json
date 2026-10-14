@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sincronijhî a pårti d' %s : drovoz-l' et clôroz-l' la.",
   "vcs-synced-issue": "Ci problinme ci est sincronijhî : drovoz-l' et clôroz-l' dins s' shuveu.",
   "sync-issue-details": "Comintaires, etiketes, estat et fitchîs",
+  "sync-write-back": "Rescrire les candjmints dins GitLab: tite, discrijhaedje, comintaires, clôre eyet rdrovi",
+  "sync-write-back-error": "Li rescrijhaedje dins GitLab a fwait berwete",
   "mailReportTitle": "E-mail",
   "email-bounces": "Emails rintoirnés",
   "email-bounces-description": "Çou ki WeKan fwait avou les emails ki rivnèt: ene adresse mal tapêye, ene boesse plinne, ene responsse d' absince, ene plinte po spam. Tchaeke sôre a ses prôpès accions, fwaites cwand ça a rvnou ostant d' côps.",

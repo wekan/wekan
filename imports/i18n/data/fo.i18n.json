@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Samstillað frá %s: opna og lat tað aftur har.",
   "vcs-synced-issue": "Hetta málið er samstillað: opna og lat tað aftur í sínum sporara.",
   "sync-issue-details": "Viðmerkingar, merki, støða og fílur",
+  "sync-write-back": "Skriva broytingar aftur í GitLab: heiti, lýsing, viðmerkingar, lating og afturlating upp",
+  "sync-write-back-error": "Miseydnaðist at skriva aftur í GitLab",
   "mailReportTitle": "Teldupostur",
   "email-bounces": "Afturkomin teldubrøv",
   "email-bounces-description": "Hvat WeKan ger við teldupost, ið kemur aftur: ein skeivt skrivað adressa, ein fullur postkassi, eitt fráverusvar, eitt ruskpostklagu. Hvørt slag hevur sínar egnu gerðir, ið verða gjørdar, tá ið tað er komið aftur so ofta.",

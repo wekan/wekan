@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "E hokahantswe ho tswa ho %s: e bule le ho e kwala moo.",
   "vcs-synced-issue": "Bothata bona bo hokahantswe: bo bule le ho bo kwala sesebedisong sa bona sa ho latedisa.",
   "sync-issue-details": "Maikutlo, ditlhaku, boemo le difaele",
+  "sync-write-back": "Ngola diphetoho ho khutlela GitLab: sehlooho, tlhaloso, maikutlo, ho koala le ho bula hape",
+  "sync-write-back-error": "Ho ngola ho khutlela GitLab ho hlolehile",
   "mailReportTitle": "Imeile",
   "email-bounces": "Li-imeile tse khutlileng",
   "email-bounces-description": "Seo WeKan e se etsang ka li-imeile tse khutlang: aterese e ngotsoeng hampe, lebokose le tletseng, karabo ea ho se be teng, tletlebo ea spam. Mofuta o mong le o mong o na le liketso tsa oona, tse etsoang ha o khutlile makhetlo a kalo.",

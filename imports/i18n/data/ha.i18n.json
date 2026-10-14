@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "An daidaita daga %s: buɗe kuma rufe shi a can.",
   "vcs-synced-issue": "An daidaita wannan batu: buɗe kuma rufe shi a cikin mai bin diddigin sa.",
   "sync-issue-details": "Sharhi, lakabi, matsayi da fayiloli",
+  "sync-write-back": "Mayar da canje-canje zuwa GitLab: take, bayani, sharhi, rufewa da sake buɗewa",
+  "sync-write-back-error": "Mayar da canje-canje zuwa GitLab ya kasa",
   "mailReportTitle": "Imel",
   "email-bounces": "Dawowar imel",
   "email-bounces-description": "Abin da WeKan ke yi da imel da ya dawo: adireshi da aka rubuta ba daidai ba, akwatin saƙo da ya cika, amsa ta rashin zuwa ofis, ƙorafin spam. Kowane iri yana da nasa ayyuka, ana yin su idan ya dawo sau nawa aka saita.",

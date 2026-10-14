@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Đã đồng bộ từ %s: hãy mở và đóng nó ở đó.",
   "vcs-synced-issue": "Vấn đề này được đồng bộ: hãy mở và đóng nó trong trình theo dõi của nó.",
   "sync-issue-details": "Bình luận, nhãn, trạng thái và tệp",
+  "sync-write-back": "Ghi lại thay đổi về GitLab: tiêu đề, mô tả, bình luận, đóng và mở lại",
+  "sync-write-back-error": "Ghi lại về GitLab không thành công",
   "mailReportTitle": "Emel",
   "email-bounces": "Thư bị trả lại",
   "email-bounces-description": "WeKan xử lý thế nào với email bị gửi trả lại: địa chỉ gõ sai, hộp thư đầy, trả lời vắng mặt, khiếu nại thư rác. Mỗi loại có các hành động riêng, được thực hiện khi đã bị trả lại đủ số lần đó.",

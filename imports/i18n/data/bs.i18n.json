@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sinhronizovano iz %s: otvorite ga i zatvorite tamo.",
   "vcs-synced-issue": "Ovaj problem je sinhronizovan: otvorite ga i zatvorite u njegovom trackeru.",
   "sync-issue-details": "Komentari, oznake, stanje i datoteke",
+  "sync-write-back": "Upiši promjene nazad u GitLab: naslov, opis, komentari, zatvaranje i ponovno otvaranje",
+  "sync-write-back-error": "Upisivanje nazad u GitLab nije uspjelo",
   "mailReportTitle": "E-pošta",
   "email-bounces": "Vraćena e-pošta",
   "email-bounces-description": "Šta WeKan radi s e-poštom koja se vrati: pogrešno upisana adresa, puno poštansko sanduče, odgovor o odsutnosti, prijava neželjene pošte. Svaka vrsta ima svoje radnje, koje se izvrše kada se poruka vrati toliko puta.",

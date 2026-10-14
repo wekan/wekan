@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Syngronisearre fan %s: iepenje en slút it dêr.",
   "vcs-synced-issue": "Dizze issue wurdt syngronisearre: iepenje en slút it yn syn tracker.",
   "sync-issue-details": "Opmerkings, labels, status en triemmen",
+  "sync-write-back": "Wizigingen weromskriuwe nei GitLab: titel, beskriuwing, opmerkings, slute en opnij iepenje",
+  "sync-write-back-error": "Weromskriuwen nei GitLab mislearre",
   "mailReportTitle": "E-mail",
   "email-bounces": "Weromkearde e-mails",
   "email-bounces-description": "Wat WeKan docht mei e-mail dy't weromkomt: in ferkeard tikke adres, in folle postfak, in ôfwêzichheidsberjocht, in spamklacht. Elke soarte hat syn eigen aksjes, dy't útfierd wurde as it sa faak weromkaam is.",

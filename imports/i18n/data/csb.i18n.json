@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Synchronizowóné z %s: òtemkni ë zamkni to tam.",
   "vcs-synced-issue": "Ten problem je synchronizowóny: òtemkni ë zamkni gò w jegò trackerze.",
   "sync-issue-details": "Kòmentarze, etikétë, stón ë lopczi",
+  "sync-write-back": "Zapisëjë zmianë nazôd do GitLaba: titel, òpisënk, kòmentarze, zamkniãcé ë pònowné òtemkniãcé",
+  "sync-write-back-error": "Zapisanié nazôd do GitLaba nie darzëło sã",
   "mailReportTitle": "Elektroniczny lëst",
   "email-bounces": "Wrócone lëstë",
   "email-bounces-description": "Co WeKan robi z elektronicznyma lëstama, chtërne wrôcają: lëchò napisónô adresa, fùlô skrzinka, òdpòwiédz ò felënkù, skarga na spam. Kòżdi ôrt mô swòje dzejania, zrobioné, czej wrócył sã tëli razy.",

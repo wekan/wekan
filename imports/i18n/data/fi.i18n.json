@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Synkronoitu palvelusta %s: avaa ja sulje se siellä.",
   "vcs-synced-issue": "Tämä tiketti on synkronoitu: avaa ja sulje se sen omassa seurantajärjestelmässä.",
   "sync-issue-details": "Kommentit, tunnisteet, tila ja tiedostot",
+  "sync-write-back": "Kirjoita muutokset takaisin GitLabiin: otsikko, kuvaus, kommentit, sulkeminen ja uudelleenavaaminen",
+  "sync-write-back-error": "Kirjoittaminen takaisin GitLabiin epäonnistui",
   "mailReportTitle": "Sähköposti",
   "email-bounces": "Palautuvat viestit",
   "email-bounces-description": "Mitä WeKan tekee takaisin palautuvalle sähköpostille: väärin kirjoitettu osoite, täysi postilaatikko, poissaoloviesti, roskapostivalitus. Jokaisella lajilla on omat toimintonsa, jotka tehdään, kun viesti on palautunut niin monta kertaa.",

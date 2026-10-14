@@ -2659,6 +2659,14 @@
     {
       "key": "windows-sso-failed",
       "since": "2026-10-14"
+    },
+    {
+      "key": "sync-write-back",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "sync-write-back-error",
+      "since": "2026-10-14"
     }
   ]
 }

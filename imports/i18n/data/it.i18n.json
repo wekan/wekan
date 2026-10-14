@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sincronizzata da %s: aprila e chiudila lì.",
   "vcs-synced-issue": "Questa segnalazione è sincronizzata: aprila e chiudila nel suo tracker.",
   "sync-issue-details": "Commenti, etichette, stato e file",
+  "sync-write-back": "Riscrivi le modifiche su GitLab: titolo, descrizione, commenti, chiusura e riapertura",
+  "sync-write-back-error": "Impossibile riscrivere le modifiche su GitLab",
   "mailReportTitle": "Posta elettronica",
   "email-bounces": "Rimbalzi",
   "email-bounces-description": "Cosa fa WeKan con le email che tornano indietro: un indirizzo digitato male, una casella piena, una risposta di fuori sede, una segnalazione di spam. Ogni tipo ha le sue azioni, eseguite quando è rimbalzata quel numero di volte.",

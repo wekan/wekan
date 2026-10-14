@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Zvakaenzaniswa kubva ku%s: zvivhure uye zvivhare ikoko.",
   "vcs-synced-issue": "Nyaya iyi yakaenzaniswa: ivhure uye uivhare mutracker yayo.",
   "sync-issue-details": "Mhinduro, mareberu, mamiriro nemafaira",
+  "sync-write-back": "Nyora shanduko udzosere kuGitLab: musoro, tsanangudzo, mhinduro, kuvhara nekuvhurazve",
+  "sync-write-back-error": "Kunyora kudzosera kuGitLab kwakundikana",
   "mailReportTitle": "Tsamba yemagetsi",
   "email-bounces": "Maemail akadzoka",
   "email-bounces-description": "Zvinoitwa neWeKan nemaemail anodzoka: kero yakanyorwa zvisizvo, bhokisi retsamba rakazara, mhinduro yekusavapo, chichemo chespam. Rudzi rumwe nerumwe rune zviito zvarwo, zvinoitwa kana radzoka kakawanda kakadaro.",

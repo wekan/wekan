@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "%s irraa walsimsiifame: achitti bani fi cufi.",
   "vcs-synced-issue": "Rakkoon kun walsimsiifameera: hordofaa isaa keessatti bani fi cufi.",
   "sync-issue-details": "Yaadota, mallattoolee, haala fi faayilota",
+  "sync-write-back": "Jijjiirama gara GitLab-tti deebisii barreessi: mata-duree, ibsa, yaadota, cufuu fi irra deebi'anii banuu",
+  "sync-write-back-error": "Gara GitLab-tti deebisanii barreessuun hin milkoofne",
   "mailReportTitle": "Imeelii",
   "email-bounces": "Imeelii deebi'an",
   "email-bounces-description": "Waan WeKan imeelii deebi'u irratti hojjetu: teessoo dogoggoraan barreeffame, saanduqa guutame, deebii hin jiru jedhu, komii spam. Gosti tokkoon tokkoon gocha mataa isaa qaba, yeroo sana hammatti deebi'e raawwatama.",

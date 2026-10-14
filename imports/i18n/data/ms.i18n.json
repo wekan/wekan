@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Disegerakkan dari %s: buka dan tutupnya di sana.",
   "vcs-synced-issue": "Isu ini disegerakkan: buka dan tutupnya dalam penjejaknya.",
   "sync-issue-details": "Komen, label, keadaan dan fail",
+  "sync-write-back": "Tulis semula perubahan ke GitLab: tajuk, penerangan, komen, penutupan dan pembukaan semula",
+  "sync-write-back-error": "Gagal menulis semula ke GitLab",
   "mailReportTitle": "Emel",
   "email-bounces": "E-mel lantun",
   "email-bounces-description": "Apa yang WeKan lakukan dengan e-mel yang kembali: alamat yang salah taip, peti mel penuh, balasan di luar pejabat, aduan spam. Setiap jenis mempunyai tindakannya sendiri, dilakukan apabila ia telah melantun sebanyak itu.",

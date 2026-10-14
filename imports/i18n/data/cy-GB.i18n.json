@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Wedi'i gysoni o %s: agorwch a chaewch ef yno.",
   "vcs-synced-issue": "Mae'r mater hwn wedi'i gysoni: agorwch a chaewch ef yn ei draciwr.",
   "sync-issue-details": "Sylwadau, labeli, cyflwr a ffeiliau",
+  "sync-write-back": "Ysgrifennu newidiadau yn ôl i GitLab: teitl, disgrifiad, sylwadau, cau ac ailagor",
+  "sync-write-back-error": "Methodd ysgrifennu yn ôl i GitLab",
   "mailReportTitle": "Ebost",
   "email-bounces": "Negeseuon a adlamodd",
   "email-bounces-description": "Beth mae WeKan yn ei wneud ag e-bost sy'n dod yn ôl: cyfeiriad wedi'i gamdeipio, blwch post llawn, ateb allan o'r swyddfa, cwyn sbam. Mae gan bob math ei gamau ei hun, a wneir pan fydd wedi adlamu hyn o weithiau.",

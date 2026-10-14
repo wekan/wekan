@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sincronizsà da %s: verzilo e seralo là.",
   "vcs-synced-issue": "Sto problema el xe sincronizsà: verzilo e seralo inte'l so tracker.",
   "sync-issue-details": "Comenti, etichete, stato e file",
+  "sync-write-back": "Scrivi indrìo i canbiamenti su GitLab: titolo, descrision, comenti, sarar e verzar da novo",
+  "sync-write-back-error": "Scrivar indrìo su GitLab no xe riusìo",
   "mailReportTitle": "Posta eletrònica",
   "email-bounces": "Mail tornà indrio",
   "email-bounces-description": "Cossa che WeKan el fa co le mail che le torna indrio: un indirisso scrito mal, na casela piena, na risposta de fora ofisio, un reclamo de spam. Ogni tipo el ga le so asion, fate co el xe tornà indrio tante volte.",

@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "%s-dan sinhronlandy: ony şol ýerde açyň we ýapyň.",
   "vcs-synced-issue": "Bu mesele sinhronlandy: ony öz yzarlaýjysynda açyň we ýapyň.",
   "sync-issue-details": "Teswirler, bellikler, ýagdaý we faýllar",
+  "sync-write-back": "Üýtgeşmeleri GitLab-a yzyna ýaz: ady, düşündiriş, teswirler, ýapmak we täzeden açmak",
+  "sync-write-back-error": "GitLab-a yzyna ýazmak başa barmady",
   "mailReportTitle": "E-poçta iberiň",
   "email-bounces": "Yzyna gaýdan hatlar",
   "email-bounces-description": "WeKan yzyna gaýdýan e-poçta bilen näme edýär: ýalňyş ýazylan salgy, doly poçta gutusy, işde ýok jogaby, spam şikaýaty. Her görnüşiň öz hereketleri bar, ol şonça gezek yzyna gaýdanda ýerine ýetirilýär.",

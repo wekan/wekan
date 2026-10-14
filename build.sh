@@ -2916,6 +2916,7 @@ while [ -z "$opt" ]; do
 					"Floating-promises guard|Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" \
 					"Count tests by category|Count amount of tests by category" \
 					"Run all FerretDB tests - SEQUENTIAL|Run all FerretDB tests - SEQUENTIAL: unit, vet and the integration suite of the FerretDB subdirectory of this repo, one at a time, logs in log/<datetime>/" \
+					"Live tests|Run live tests against real services with your own accounts: GitLab write-back with the mirror's glab login (writes only to scratch items it creates and removes; a service with no login here is skipped), log in .tools/log/<datetime>/" \
 					"All databases (sequential)|Test all databases that have a Docker image for this CPU, SEQUENTIALLY: build newest FerretDB v1 from source, then run every FerretDB v1 query type against each database and compare that they all answer the same (results in log/<datetime>/)" ;;
 			"Tools")
 				choose "Tools" \
@@ -3329,6 +3330,14 @@ for _once in 1; do
 			# .eslintrc.json, and a test run must do neither.
 			floating_promises_checks
 		} 2>&1 | tee "$LOG"
+		break
+		;;
+
+    "Run live tests against real services with your own accounts: GitLab write-back with the mirror's glab login (writes only to scratch items it creates and removes; a service with no login here is skipped), log in .tools/log/<datetime>/")
+		# releases/live-tests/run.mjs: every live test there; each skips a
+		# service it has no login for. Human-run only - they write to the
+		# services (scratch items they remove), so no automatic run calls them.
+		node "$WEKAN_DIR/releases/live-tests/run.mjs"
 		break
 		;;
 

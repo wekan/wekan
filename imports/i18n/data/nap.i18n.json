@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sincronizzato 'a %s: arapelo e chiurelo llà.",
   "vcs-synced-issue": "Stu problema è sincronizzato: arapelo e chiurelo dint'ô tracker suojo.",
   "sync-issue-details": "Commente, etichette, stato e file",
+  "sync-write-back": "Scrive 'e cagnamiente arreto ncopp'a GitLab: titolo, descrizzione, commente, chiusura e riapertura",
+  "sync-write-back-error": "'A scrittura arreto ncopp'a GitLab nun è ghiuta bbuono",
   "mailReportTitle": "Posta elettronica",
   "email-bounces": "Mail turnate arreto",
   "email-bounces-description": "Che fa WeKan cu 'e mail ca tornano arreto: n'indirizzo scritto malamente, na casella chiena, na risposta 'e assenza, nu reclamo 'e spam. Ogne tipo tene 'e azzione soje, fatte quanno è turnata arreto tanta vote.",

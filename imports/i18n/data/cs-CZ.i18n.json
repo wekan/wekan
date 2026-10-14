@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Synchronizováno z %s: otevírejte a uzavírejte ho tam.",
   "vcs-synced-issue": "Tento úkol je synchronizován: otevírejte a uzavírejte ho v jeho systému.",
   "sync-issue-details": "Komentáře, štítky, stav a soubory",
+  "sync-write-back": "Zapisovat změny zpět do GitLabu: název, popis, komentáře, zavření a znovuotevření",
+  "sync-write-back-error": "Zápis zpět do GitLabu selhal",
   "mailReportTitle": "E-mail",
   "email-bounces": "Nedoručitelné e-maily",
   "email-bounces-description": "Co WeKan dělá s e-maily, které se vrátí: překlep v adrese, plná schránka, automatická odpověď o nepřítomnosti, stížnost na spam. Každý druh má vlastní akce, které se provedou, když se vrátil tolikrát.",

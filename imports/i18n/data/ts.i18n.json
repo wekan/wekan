@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Swi fambanisiwile ku suka eka %s: xi pfula u xi pfala kwalaho.",
   "vcs-synced-issue": "Xitlhontlho lexi xi fambanisiwile: xi pfula u xi pfala eka xilandzeleri xa xona.",
   "sync-issue-details": "Mimbulavulo, swikombiso, xiyimo na tifayela",
+  "sync-write-back": "Tsala ku cinca ku tlhelela eka GitLab: nhloko-mhaka, nhlamuselo, mimbulavulo, ku pfala na ku pfula nakambe",
+  "sync-write-back-error": "Ku tsala ku tlhelela eka GitLab ku tsandzekile",
   "mailReportTitle": "Imeyili",
   "email-bounces": "Ti-imeyili leti vuyeke",
   "email-bounces-description": "Leswi WeKan yi swi endlaka hi imeyili leyi vuyaka: adirese leyi tsariweke hi xihoxo, bokisi ra poso leri teleke, nhlamulo ya leswaku a ndzi kona ehofisini, xivilelo xa spam. Muxaka wun'wana na wun'wana wu na swiendlo swa wona, leswi endliwaka loko wu vuyile minkarhi yo tano.",

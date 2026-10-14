@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Ti muṣiṣẹpọ lati %s: ṣi i ki o si pa a níbẹ̀.",
   "vcs-synced-issue": "Ọrọ yii ti muṣiṣẹpọ: ṣi i ki o si pa a ninu olutọpa rẹ.",
   "sync-issue-details": "Awọn ọrọìwòye, akole, ipo ati faili",
+  "sync-write-back": "Kọ àwọn àyípadà padà sí GitLab: akọle, apejuwe, awọn ọrọìwòye, títìpa àti ṣíṣí lẹ́ẹ̀kan sí i",
+  "sync-write-back-error": "Kíkọ padà sí GitLab kùnà",
   "mailReportTitle": "Imeeli",
   "email-bounces": "Àwọn imeeli tó padà",
   "email-bounces-description": "Ohun tí WeKan ń ṣe pẹ̀lú imeeli tó padà wá: àdírẹ́sì tí a tẹ̀ ní àṣìṣe, àpótí ìfìwéránṣẹ́ tó kún, èsì pé ẹnìkan kò sí ní ọ́fíìsì, ẹ̀sùn spam. Irú kọ̀ọ̀kan ní àwọn ìgbésẹ̀ tirẹ̀, tí a ń ṣe nígbà tí ó bá ti padà ní iye ìgbà yẹn.",

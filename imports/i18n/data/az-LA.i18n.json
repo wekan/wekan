@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "%s-dən sinxronlaşdırılıb: onu orada açın və bağlayın.",
   "vcs-synced-issue": "Bu məsələ sinxronlaşdırılıb: onu öz izləyicisində açın və bağlayın.",
   "sync-issue-details": "Şərhlər, etiketlər, vəziyyət və fayllar",
+  "sync-write-back": "Dəyişiklikləri GitLab-a geri yaz: başlıq, təsvir, şərhlər, bağlama və yenidən açma",
+  "sync-write-back-error": "GitLab-a geri yazmaq alınmadı",
   "mailReportTitle": "E-poçt",
   "email-bounces": "Geri qayıdan məktublar",
   "email-bounces-description": "WeKan geri qayıdan e-poçtla nə edir: səhv yazılmış ünvan, dolu poçt qutusu, ofisdən kənar cavabı, spam şikayəti. Hər növün öz əməliyyatları var və məktub o qədər dəfə geri qayıtdıqda yerinə yetirilir.",

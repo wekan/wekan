@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Disinkronkan dari %s: buka dan tutup di sana.",
   "vcs-synced-issue": "Isu ini disinkronkan: buka dan tutup di pelacaknya.",
   "sync-issue-details": "Komentar, label, status, dan berkas",
+  "sync-write-back": "Tulis perubahan kembali ke GitLab: judul, deskripsi, komentar, penutupan dan pembukaan kembali",
+  "sync-write-back-error": "Gagal menulis kembali ke GitLab",
   "mailReportTitle": "Surel",
   "email-bounces": "Email terpental",
   "email-bounces-description": "Apa yang dilakukan WeKan dengan email yang kembali: alamat salah ketik, kotak surat penuh, balasan di luar kantor, keluhan spam. Setiap jenis memiliki tindakannya sendiri, yang dijalankan setelah terpental sebanyak itu.",

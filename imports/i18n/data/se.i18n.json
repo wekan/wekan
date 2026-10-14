@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Synkroniserejuvvon %s:s: raba ja gidde dan doppe.",
   "vcs-synced-issue": "Dát ášši lea synkroniserejuvvon: raba ja gidde dan iežas čuovvunvuogádagas.",
   "sync-issue-details": "Kommeanttat, gilkorat, dilli ja fiillat",
+  "sync-write-back": "Čále rievdadusaid ruovttoluotta GitLabii: namahus, válddahus, kommeanttat, gidden ja ođđasit rahpan",
+  "sync-write-back-error": "Ruovttoluotta čállin GitLabii ii lihkostuvvan",
   "mailReportTitle": "E-boasta",
   "email-bounces": "Máhccan e-boasttat",
   "email-bounces-description": "Maid WeKan dahká e-boasttaiguin mat máhccet: boasttot čállojuvvon čujuhus, dievva boastaboksa, eret-vástádus, spámmaváidda. Juohke šlájas leat iežas doaimmat, mat dahkkojuvvojit go dat lea máhccan nu máŋgii.",

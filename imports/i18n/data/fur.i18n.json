@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sincronizât di %s: vierzilu e sierilu li.",
   "vcs-synced-issue": "Chest probleme al è sincronizât: vierzilu e sierilu tal so sisteme di segnalazion.",
   "sync-issue-details": "Coments, etichetis, stât e files",
+  "sync-write-back": "Scrivi lis modifichis indaûr su GitLab: titul, descrizion, coments, sierade e tornade a vierzi",
+  "sync-write-back-error": "La scriture indaûr su GitLab e je falide",
   "mailReportTitle": "E-mail",
   "email-bounces": "Rimbalçs",
   "email-bounces-description": "Ce che WeKan al fâs cu lis e-mail che a tornin indaûr: une direzion scrite mâl, une casele plene, une rispueste di assence, un reclam di spam. Ogni gjenar al à lis sôs azions, fatis cuant che al è rimbalçât chel numar di voltis.",

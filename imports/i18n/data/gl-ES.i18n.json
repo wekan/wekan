@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sincronizada desde %s: ábrea e péchaa alí.",
   "vcs-synced-issue": "Esta incidencia está sincronizada: ábrea e péchaa no seu xestor.",
   "sync-issue-details": "Comentarios, etiquetas, estado e ficheiros",
+  "sync-write-back": "Escribir os cambios de volta en GitLab: título, descrición, comentarios, peche e reapertura",
+  "sync-write-back-error": "Fallou a escritura de volta en GitLab",
   "mailReportTitle": "Correo electrónico",
   "email-bounces": "Rebotes",
   "email-bounces-description": "O que fai WeKan co correo que volve: un enderezo mal escrito, unha caixa chea, unha resposta de ausencia, unha queixa de spam. Cada tipo ten as súas propias accións, feitas cando rebotou ese número de veces.",

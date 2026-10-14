@@ -406,6 +406,9 @@ Cards.attachSchema(
     'syncLabelIds.$': { type: String },
     syncIssueState: { type: String, optional: true, allowedValues: ['open', 'closed'] },
     syncLastSource: { type: Object, optional: true },
+    // #2698: WeKan closed this card's GitLab issue when the card was archived,
+    // so restoring the card reopens it (server/lib/listSyncWriteBack.js).
+    syncClosedByWeKan: { type: Boolean, optional: true },
     'syncLastSource.title': { type: String, optional: true },
     'syncLastSource.description': { type: String, optional: true },
     'syncLastSource.estimate': { type: Number, optional: true, min: 0, max: 1e12 },
@@ -1242,6 +1245,7 @@ Cards.helpers({
     delete cardData.syncSourceType;
     delete cardData.syncSourceKey;
     delete cardData.syncLastSource;
+    delete cardData.syncClosedByWeKan;
 
     // Normalize customFields to ensure it's always an array
     if (!Array.isArray(cardData.customFields)) {

@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "E tsamaisantswe go tswa go %s: e bule o bo o e tswale koo.",
   "vcs-synced-issue": "Bothata jono bo tsamaisantswe: bo bule o bo o bo tswale mo setshaloking sa jone.",
   "sync-issue-details": "Dikakgelo, ditshwao, maemo le difaele",
+  "sync-write-back": "Kwala diphetogo morago kwa GitLab: setlhogo, tlhaloso, dikakgelo, go tswala le go bula gape",
+  "sync-write-back-error": "Go kwala morago kwa GitLab go paletswe",
   "mailReportTitle": "Imeile",
   "email-bounces": "Di-imeile tse di boileng",
   "email-bounces-description": "Se WeKan e se dirang ka imeile e e boang: aterese e e kwadilweng phoso, lebokoso la poso le le tletseng, karabo ya go se nne kwa ofising, ngongorego ya spam. Mofuta mongwe le mongwe o na le ditiro tsa one, tse di dirwang fa o sena go boa makgetlo a le kalo.",

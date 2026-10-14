@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sincronizada de %s: abra e feche lá.",
   "vcs-synced-issue": "Esta issue está sincronizada: abra e feche no rastreador dela.",
   "sync-issue-details": "Comentários, etiquetas, estado e arquivos",
+  "sync-write-back": "Gravar alterações de volta no GitLab: título, descrição, comentários, fechamento e reabertura",
+  "sync-write-back-error": "Falha ao gravar de volta no GitLab",
   "mailReportTitle": "E-mail",
   "email-bounces": "Devoluções",
   "email-bounces-description": "O que o WeKan faz com e-mails que voltam: um endereço digitado errado, uma caixa de correio cheia, uma resposta de ausência, uma denúncia de spam. Cada tipo tem suas próprias ações, executadas quando ele foi devolvido esse número de vezes.",

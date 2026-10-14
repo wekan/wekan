@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sinkronizzata minn %s: iftaħha u agħlaqha hemmhekk.",
   "vcs-synced-issue": "Din il-kwistjoni hija sinkronizzata: iftaħha u agħlaqha fit-tracker tagħha.",
   "sync-issue-details": "Kummenti, tikketti, stat u fajls",
+  "sync-write-back": "Ikteb il-bidliet lura f'GitLab: titlu, deskrizzjoni, kummenti, għeluq u ftuħ mill-ġdid",
+  "sync-write-back-error": "Il-kitba lura f'GitLab falliet",
   "mailReportTitle": "Posta elettronika",
   "email-bounces": "Emails li rritornaw",
   "email-bounces-description": "X'jagħmel WeKan bl-email li terġa' lura: indirizz miktub ħażin, kaxxa tal-posta mimlija, tweġiba ta' assenza, ilment ta' spam. Kull tip għandu l-azzjonijiet tiegħu, magħmula meta jkun irritorna dawk id-drabi kollha.",

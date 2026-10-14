@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "%s から同期済み: そちらでオープン・クローズしてください。",
   "vcs-synced-issue": "この Issue は同期されています: トラッカー側でオープン・クローズしてください。",
   "sync-issue-details": "コメント、ラベル、状態、ファイル",
+  "sync-write-back": "変更を GitLab に書き戻す: タイトル、詳細、コメント、クローズと再オープン",
+  "sync-write-back-error": "GitLab への書き戻しに失敗しました",
   "mailReportTitle": "メールアドレス",
   "email-bounces": "バウンス",
   "email-bounces-description": "戻ってきたメールに対して WeKan が行う処理です: 入力ミスのアドレス、満杯のメールボックス、不在通知、迷惑メールの苦情。種類ごとに独自のアクションがあり、指定回数バウンスしたときに実行されます。",

@@ -27,6 +27,7 @@ import { syncOneList } from '/server/listSync';
 import { withListSyncLease } from '/server/lib/listSyncLease';
 const { normalizeSyncSource, syncSourceKey } = require('/models/lib/listSyncSourceIdentity');
 const { ISSUE_DETAIL_SOURCES } = require('/models/lib/listSyncIssueDetails');
+const { WRITE_BACK_SOURCES } = require('/models/lib/listSyncWriteBack');
 const { readSyncCredential, commitSyncConfiguration } = require('/server/lib/listSyncConfiguration');
 const { assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 
@@ -60,6 +61,8 @@ Meteor.methods({
       createCards: Match.Optional(Boolean),
       archiveCards: Match.Optional(Boolean),
       issueDetails: Match.Optional(Boolean),
+      // #2698: GitLab only - WeKan's changes written back to the issues.
+      writeBack: Match.Optional(Boolean),
       estimateCustomFieldId: Match.Optional(String),
       estimateSourceField: Match.Optional(Match.OneOf('weight', 'time_estimate')),
       // `sprint` and `releases`: Scrum planning (models/lib/listSyncPlanning.js).
@@ -135,6 +138,12 @@ Meteor.methods({
         archiveCards: config.archiveCards !== false,
         // Off unless chosen: it writes comments and files into the cards.
         ...(config.issueDetails === true && ISSUE_DETAIL_SOURCES.includes(source.type) ? { issueDetails: true } : {}),
+        // Off unless chosen: it changes the issues. Only what members do after
+        // it was switched on is written, so switching it on does not close
+        // every issue whose card was archived long ago.
+        ...(config.writeBack === true && WRITE_BACK_SOURCES.includes(source.type) ? { writeBack: true,
+          writeBackSince: list.syncSource?.writeBack === true && list.syncSource.writeBackSince && oldKey === sourceKey
+            ? list.syncSource.writeBackSince : new Date() } : {}),
         fields: config.fields || ['title', 'description'],
         ...(Object.keys(timeMappings).length ? { timeMappingIdentities: timeMappingIdentities(timeMappings) } : {}),
         ...(estimateMapping ? { estimateCustomFieldId: estimateMapping.localFieldId,

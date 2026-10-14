@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "%s vo' rapmoHlu'pu': pa' yIpoSmoH 'ej yISoQmoH.",
   "vcs-synced-issue": "Qaghvam rapmoHlu'pu': ghochwI'Daj Daq yIpoSmoH 'ej yISoQmoH.",
   "sync-issue-details": "ja'chuqmey, permey, Dotlh 'ej teywI'mey",
+  "sync-write-back": "GitLab Daq choHmey yIghItlh: pong, QIjmeH De', ja'chuqmey, SoQmoH 'ej poSmoHqa'",
+  "sync-write-back-error": "GitLab Daq ghItlhqa'laHbe'",
   "mailReportTitle": "jabbI'ID",
   "email-bounces": "QIn cheghlu'pu'bogh",
   "email-bounces-description": "chegh jabbI'ID; WeKan vay' ta': Daq ghItlhpu'bogh Qagh, QIn 'aplo' teb, yaHDaq ghobe' jang, spam bep. Hoch Segh ta'mey ghaj; pIj chegh, vaj ta'mey ta'lu'.",

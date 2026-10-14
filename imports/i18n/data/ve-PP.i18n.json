@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sinhroniziruidud %s-späi: avaida i saubata se sigä.",
   "vcs-synced-issue": "Nece problem om sinhroniziruidud: avaida i saubata se sen jäl'gitajas.",
   "sync-issue-details": "Sel'genzoitused, znamad, olend i failad",
+  "sync-write-back": "Kirjutada vajehtused tagaze GitLab-ha: nimi, kirjutuz, sel'genzoitused, saubatand i uz' avaitand",
+  "sync-write-back-error": "Ei voind kirjutada tagaze GitLab-ha",
   "mailReportTitle": "Email-počt",
   "email-bounces": "Tagaze tulnuded kirjad",
   "email-bounces-description": "Midä WeKan tegeb e-počtanke, kudamb tuleb tagaze: värin kirjutadud adres, täuz' počtlaukaine, vastuz «en ole radmal», kaivuz spamas. Kaikuččel erikal om ičeze tegendad, kudambad tehtas, konz se om tulnu tagaze nece kerdad.",

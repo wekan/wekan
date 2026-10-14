@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Kua tukutahitia mai i %s: whakatuwherahia, katia hoki ki reira.",
   "vcs-synced-issue": "Kua tukutahitia tēnei take: whakatuwherahia, katia hoki ki tōna pūaroturuki.",
   "sync-issue-details": "Ngā tākupu, ngā tapanga, te tūnga me ngā kōnae",
+  "sync-write-back": "Tuhia anō ngā panonitanga ki GitLab: taitara, whakaahuatanga, ngā tākupu, te kati me te whakatuwhera anō",
+  "sync-write-back-error": "I rahua te tuhi anō ki GitLab",
   "mailReportTitle": "Īmēra",
   "email-bounces": "Īmēra hoki mai",
   "email-bounces-description": "Ko tā WeKan mahi ki ngā īmēra ka hoki mai: he wāhitau i hē te patopato, he pouaka īmēra kī, he whakautu kāore i te tari, he amuamu pāme. He mahi motuhake tō ia momo, ka mahia ina hoki mai i te maha o ngā wā.",

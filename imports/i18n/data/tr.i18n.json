@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "%s üzerinden eşitlendi: orada açıp kapatın.",
   "vcs-synced-issue": "Bu sorun eşitlenmiş: kendi izleyicisinde açıp kapatın.",
   "sync-issue-details": "Yorumlar, etiketler, durum ve dosyalar",
+  "sync-write-back": "Değişiklikleri GitLab'e geri yaz: başlık, açıklama, yorumlar, kapatma ve yeniden açma",
+  "sync-write-back-error": "GitLab'e geri yazma başarısız oldu",
   "mailReportTitle": "E-posta",
   "email-bounces": "Geri dönen e-postalar",
   "email-bounces-description": "WeKan'ın geri dönen e-postalarla ne yaptığı: yanlış yazılmış bir adres, dolu bir posta kutusu, ofis dışı yanıtı, spam şikâyeti. Her türün kendi eylemleri vardır; bunlar o kadar kez geri döndüğünde uygulanır.",

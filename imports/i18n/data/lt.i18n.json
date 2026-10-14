@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sinchronizuota iš %s: atidarykite ir uždarykite ją ten.",
   "vcs-synced-issue": "Ši problema sinchronizuojama: atidarykite ir uždarykite ją jos sekimo sistemoje.",
   "sync-issue-details": "Komentarai, etiketės, būsena ir failai",
+  "sync-write-back": "Rašyti pakeitimus atgal į GitLab: pavadinimas, aprašymas, komentarai, uždarymas ir atidarymas iš naujo",
+  "sync-write-back-error": "Nepavyko įrašyti atgal į GitLab",
   "mailReportTitle": "El. paštas",
   "email-bounces": "Grąžinti laiškai",
   "email-bounces-description": "Ką WeKan daro su grįžtančiais el. laiškais: neteisingai įvestas adresas, pilna pašto dėžutė, automatinis nebuvimo atsakymas, skundas dėl šlamšto. Kiekviena rūšis turi savo veiksmus, atliekamus, kai laiškas grįžo tiek kartų.",

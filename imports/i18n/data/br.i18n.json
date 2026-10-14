@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Goubredet diwar %s: digorit ha serrit anezhañ eno.",
   "vcs-synced-issue": "Goubredet eo ar gudenn-mañ: digorit ha serrit anezhi en he heulier.",
   "sync-issue-details": "Evezhiadennoù, tikedennoù, stad ha restroù",
+  "sync-write-back": "Skrivañ ar c'hemmoù en-dro e GitLab: titl, deskrivadur, evezhiadennoù, serriñ hag addigeriñ",
+  "sync-write-back-error": "C'hwitet eo ar skrivañ en-dro e GitLab",
   "mailReportTitle": "E-mail",
   "email-bounces": "Postelloù distroet",
   "email-bounces-description": "Petra a ra WeKan gant ar postelloù a zistro: ur chomlec'h skrivet fall, ur boest-lizhiri leun, ur respont ezvezañs, ur c'hlemm a-zivout ar spam. Pep seurt en deus e oberoù dezhañ, graet pa'z eo distroet kement a wech-se.",

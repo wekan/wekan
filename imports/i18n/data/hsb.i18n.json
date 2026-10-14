@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Ze %s synchronizowany: wočińće a začińće jón tam.",
   "vcs-synced-issue": "Tutón problem je synchronizowany: wočińće a začińće jón w jeho systemje.",
   "sync-issue-details": "Komentary, etikety, staw a dataje",
+  "sync-write-back": "Změny wróćo do GitLab pisać: titul, wopisanje, komentary, začinjenje a znowawočinjenje",
+  "sync-write-back-error": "Pisanje wróćo do GitLab je so njeporadźiło",
   "mailReportTitle": "E-mejl",
   "email-bounces": "Wróćene e-mejle",
   "email-bounces-description": "Što WeKan z e-mejlemi čini, kotrež so wróćeja: wopak napisana adresa, połny postowy kašćik, wotmołwa wo njepřitomnosći, skóržba wo spamje. Kóžda družina ma swoje akcije, kotrež so wuwjedu, hdyž je so tak husto wróćiła.",

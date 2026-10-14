@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sincronisé da %s: daurí y stlü le ilò.",
   "vcs-synced-issue": "Chësc problem é sincronisé: daurí y stlü le te so sistem.",
   "sync-issue-details": "Coments, etihetes, stat y file",
+  "sync-write-back": "Scrì zeruch les mudazions a GitLab: titul, descrizion, coments, sarada y daurida danef",
+  "sync-write-back-error": "Scrì zeruch a GitLab ne n'é nia jit",
   "mailReportTitle": "E-mails",
   "email-bounces": "Mail tornades zeruch",
   "email-bounces-description": "Cie che WeKan fej cun i e-mails che torna zeruch: n’adressa scrita mel, na cassela plëina, na resposta de assënza, n reclam de spam. Uni sort à si azions, fates canche l ie turnà zeruch tan de iedes.",

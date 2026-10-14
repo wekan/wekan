@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sioncronaichte o %s: fosgail is dùin e an sin.",
   "vcs-synced-issue": "Tha a' chùis seo sioncronaichte: fosgail is dùin i san tracaiche aice.",
   "sync-issue-details": "Beachdan, leubailean, staid is faidhlichean",
+  "sync-write-back": "Sgrìobh atharraichean air ais gu GitLab: tiotal, tuairisgeul, beachdan, dùnadh is ath-fhosgladh",
+  "sync-write-back-error": "Dh'fhàillig an sgrìobhadh air ais gu GitLab",
   "mailReportTitle": "Post-d",
   "email-bounces": "Post-d air ais",
   "email-bounces-description": "Na nì WeKan le post-d a thig air ais: seòladh air a dhroch-sgrìobhadh, bogsa-puist làn, freagairt às an oifis, gearan spama. Tha na gnìomhan aige fhèin aig gach seòrsa, a thèid a dhèanamh nuair a thill e an uiread sin a thursan.",

@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sincrunizzatu di %s: apritilu e chiuitilu ddà.",
   "vcs-synced-issue": "Stu prubblema è sincrunizzatu: apritilu e chiuitilu ntô so tracker.",
   "sync-issue-details": "Cummenti, etichetti, statu e file",
+  "sync-write-back": "Scrivi li canciamenti arrè nta GitLab: titulu, discrizzioni, cummenti, chiujuta e riapertura",
+  "sync-write-back-error": "La scrittura arrè nta GitLab fallìu",
   "mailReportTitle": "Posta elettronica",
   "email-bounces": "Missaggi turnati",
   "email-bounces-description": "Chiddu ca fa WeKan cu la posta elettronica ca torna arreri: n'nnirizzu scrittu mali, na casella china, na risposta d'assenza, na lamintela di spam. Ogni tipu havi li so azzioni, fatti quannu turnò tanti voti.",

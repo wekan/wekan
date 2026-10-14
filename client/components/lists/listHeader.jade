@@ -513,6 +513,8 @@ template(name="listSyncPopup")
         span {{_ 'list-sync-last-synced'}}: {{ listSyncLastSyncedText }}
       if listSyncLastError
         p.list-sync-error {{_ 'list-sync-last-error'}}: {{ listSyncLastError }}
+      if listSyncWriteBackError
+        p.list-sync-error {{_ 'sync-write-back-error'}}: {{ listSyncWriteBackError }}
       p
         button.js-list-sync-save.primary(type="submit") {{_ 'save'}}
         button.js-list-sync-preview(type="button" disabled=syncBusy) {{_ 'sync-preview-button'}}

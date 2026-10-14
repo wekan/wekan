@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Synced from %s: open and close it there.",
   "vcs-synced-issue": "This issue is synced: open and close it in its tracker.",
   "sync-issue-details": "Comments, labels, state and files",
+  "sync-write-back": "Write changes back to GitLab: title, description, comments, closing and reopening",
+  "sync-write-back-error": "Writing back to GitLab failed",
   "mailReportTitle": "Email",
   "email-bounces": "Bounces",
   "email-bounces-description": "What WeKan does with email that comes back: a mistyped address, a full mailbox, an out-of-office reply, a spam complaint. Each kind has its own actions, done when it has bounced that many times.",

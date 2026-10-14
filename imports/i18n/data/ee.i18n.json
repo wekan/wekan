@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Wòsɔ kple %s: ʋui eye nàtui le afima.",
   "vcs-synced-issue": "Nya sia sɔ kple bubu: ʋui eye nàtui le eƒe nyawo dzikpɔla me.",
   "sync-issue-details": "Nyagblɔwo, dzesiwo, nɔnɔme kple faɛlwo",
+  "sync-write-back": "Ŋlɔ tɔtrɔwo ɖo ɖe GitLab: tanya, numeɖeɖe, nyagblɔwo, tutu kple ʋuʋu ake",
+  "sync-write-back-error": "Ŋɔŋlɔ ɖo ɖe GitLab gbɔ medze edzi o",
   "mailReportTitle": "E-mail",
   "email-bounces": "E-mail siwo gbugbɔ",
   "email-bounces-description": "Nusi WeKan wɔna kple e-mail siwo gbugbɔna: adrɛs si woŋlɔ gbegblẽ, e-mail ƒe aɖaka si yɔ, ŋuɖoɖo be ame mele dɔwɔƒe o, nyatoƒoe le spam ŋu. Ƒomevi ɖesiaɖe ƒe dɔwɔwɔwo le esi, eye wowɔa wo ne egbugbɔ zi nenema.",

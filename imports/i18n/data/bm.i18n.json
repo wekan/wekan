@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "A bɛnna ni %s ye: a dayɛlɛ ani a datugu yen.",
   "vcs-synced-issue": "Nin gɛlɛya bɛnna: a dayɛlɛ ani a datugu a ka tracker kɔnɔ.",
   "sync-issue-details": "Kumaw, tɔgɔw, cogo ani dosiyew",
+  "sync-write-back": "Yɛlɛmaw sɛbɛn ka segin GitLab ma: kunnafoni kuntigi, ɲɛfɔli, kumaw, datugu ani dayɛlɛ kokura",
+  "sync-write-back-error": "Sɛbɛnni segin GitLab ma ma se ka kɛ",
   "mailReportTitle": "Imɛli",
   "email-bounces": "Imɛli segintaw",
   "email-bounces-description": "WeKan bɛ min kɛ ni imɛli segintaw ye: ladɛrɛsi sɛbɛnnen jugu, imɛli bɔɔrɔ fanen, jaabi ko mɔgɔ tɛ biro la, spam kan ŋunuŋunu. Suguya kelen-kelen bɛɛ n'a ka baara bɛ, u bɛ kɛ ni a seginna o hakɛ ye.",

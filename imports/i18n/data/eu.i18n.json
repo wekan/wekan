@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "%s(e)tik sinkronizatua: ireki eta itxi bertan.",
   "vcs-synced-issue": "Arazo hau sinkronizatuta dago: ireki eta itxi bere jarraipen-sisteman.",
   "sync-issue-details": "Iruzkinak, etiketak, egoera eta fitxategiak",
+  "sync-write-back": "Idatzi aldaketak GitLab-era: izenburua, deskripzioa, iruzkinak, ixtea eta berriro irekitzea",
+  "sync-write-back-error": "Huts egin du GitLab-era idazteak",
   "mailReportTitle": "e-posta",
   "email-bounces": "Itzulerak",
   "email-bounces-description": "Zer egiten duen WeKanek itzultzen den posta elektronikoarekin: gaizki idatzitako helbidea, postontzi betea, bulegotik kanpoko erantzuna, spam kexa. Mota bakoitzak bere ekintzak ditu, hainbat aldiz itzuli denean egiten direnak.",

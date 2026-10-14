@@ -51,6 +51,7 @@ const { readSyncTarget, replaceSyncTarget, describeCreationConflict } = require(
 const { syncCoverage, prepareSyncWrites, describeSyncPreview } = require('/server/lib/listSyncPreview');
 const { describeSyncSourceCoverage } = require('/server/lib/listSyncSourceCoverage');
 import { syncIssueDetails } from '/server/lib/listSyncIssueDetails';
+import { writeBackToGitlab } from '/server/lib/listSyncWriteBack';
 // Empty/whitespace source text is a real comparison baseline. Keep schema
 // validation and hooks, but do not clean these values into missing/trimmed data.
 const SYNC_TEXT_WRITE_OPTIONS = { removeEmptyStrings: false, trimStrings: false };
@@ -92,7 +93,7 @@ export async function syncOneList(list, options = {}) {
 }
 
 async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, previewConflicts = false, dryRun = false,
-  assertConflictAccess, recordCoverage, scheduled = false } = {}, { assertCurrent }) {
+  assertConflictAccess, recordCoverage, scheduled = false, writeBackIo = {} } = {}, { assertCurrent }) {
   if (dryRun && resolution) return { error: 'Preview cannot resolve conflicts.' };
   const source = list.syncSource;
   if (!source || !source.type || (!dryRun && source.enabled === false)) return { skipped: true };
@@ -110,7 +111,7 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
     await assertCurrent();
     return withSyncRunReport(ListSyncRunReports.rawCollection(), list,
       recordCoverage => reconcileList(list, { fetchers, previewConflicts,
-        assertConflictAccess, recordCoverage, scheduled }, { assertCurrent }));
+        assertConflictAccess, recordCoverage, scheduled, writeBackIo }, { assertCurrent }));
   }
 
   const credential = await readSyncCredential(ListSyncCredentials, list);
@@ -140,6 +141,21 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
     timeMappings = await readTimeMappings();
     if (JSON.stringify(timeMappingIdentities(timeMappings)) !== JSON.stringify(source.timeMappingIdentities || {})) {
       throw new Error('Time estimate mapping changed. Save Sync settings again before syncing.');
+    }
+    // #2698: WeKan's changes go to GitLab first, so this run's fetch reads
+    // GitLab as it is after them. A failure is shown on the list and the read
+    // sync goes on; losing the reservation stops the run as everywhere.
+    if (recordCoverage && !dryRun && !resolution && !conflictScope && source.writeBack === true) {
+      try {
+        await writeBackToGitlab({ list, source, sourceKey, credential, assertCurrent, ...writeBackIo });
+        // Beside syncSource, not in it: this run's list writes match syncSource whole.
+        if (list.syncWriteBackError) await Lists.updateAsync(listSelector, { $unset: { syncWriteBackError: '' } });
+      } catch (writeError) {
+        if (writeError instanceof Meteor.Error) throw writeError;
+        await assertCurrent();
+        await Lists.updateAsync(listSelector, {
+          $set: { syncWriteBackError: String((writeError && writeError.message) || writeError).slice(0, 500) } });
+      }
     }
     const raw = await fetcher(estimateMapping ? { ...source, estimateFieldId: estimateMapping.estimateFieldId } : source, credential);
     validateImportSourceShape(source.type, raw);

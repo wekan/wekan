@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sincronizadu dae %s: aberi·lu e serra·lu inie.",
   "vcs-synced-issue": "Custu problema est sincronizadu: aberi·lu e serra·lu in su tracker suo.",
   "sync-issue-details": "Cummentos, etichetas, istadu e archìvios",
+  "sync-write-back": "Iscrie sas mudàntzias torra in GitLab: tìtulu, descritzione, cummentos, serrada e torrada a abèrrere",
+  "sync-write-back-error": "S'iscritura torra in GitLab est faddida",
   "mailReportTitle": "Posta eletrònica",
   "email-bounces": "Messàgios torrados",
   "email-bounces-description": "Ite faghet WeKan cun sa posta eletrònica chi torrat: un'indiritzu iscritu male, una casella prena, una risposta de assèntzia, una denùntzia de spam. Onni genia tenet sas atziones suas, fatas cando est torrada cussas bortas.",

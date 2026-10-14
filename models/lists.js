@@ -382,6 +382,10 @@ Lists.attachSchema(
     'syncSource.archiveCards': { type: Boolean, optional: true },
     // Comments, labels, state and files of GitHub / GitLab / Gitea / Forgejo issues.
     'syncSource.issueDetails': { type: Boolean, optional: true },
+    // #2698: WeKan's changes written back to GitLab, and since when
+    // (server/lib/listSyncWriteBack.js); nothing older than that is written.
+    'syncSource.writeBack': { type: Boolean, optional: true },
+    'syncSource.writeBackSince': { type: Date, optional: true },
     // `sprint` and `releases`: the card's Scrum planning (models/lib/listSyncPlanning.js).
     'syncSource.fields.$': { type: String, allowedValues: ['title', 'description', 'spentTime', 'estimate', 'originalEstimate', 'remainingEstimate', 'sprint', 'releases'] },
     'syncSource.enabled': {
@@ -398,6 +402,15 @@ Lists.attachSchema(
        * short message from the last failed sync attempt, cleared on success -
        * shown in the list's sync settings so a broken credential is visible
        * without needing Admin Panel -> Problems.
+       */
+      type: String,
+      optional: true,
+    },
+    syncWriteBackError: {
+      /**
+       * #2698: why the last write-back to GitLab failed, cleared when one
+       * succeeds. Beside syncSource, because a run's list writes match
+       * syncSource as a whole.
        */
       type: String,
       optional: true,

@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sincronizat dempuèi %s : dobrissètz-lo e tampatz-lo ailà.",
   "vcs-synced-issue": "Aqueste tiquet es sincronizat : dobrissètz-lo e tampatz-lo dins son traçador.",
   "sync-issue-details": "Comentaris, etiquetas, estat e fichièrs",
+  "sync-write-back": "Tornar escriure las modificacions dins GitLab: títol, descripcion, comentaris, tampadura e reobertura",
+  "sync-write-back-error": "L'escritura de retorn dins GitLab a fracassat",
   "mailReportTitle": "Corrièl",
   "email-bounces": "Corrièls tornats",
   "email-bounces-description": "Çò que fa WeKan amb los corrièls que tornan: una adreça mal picada, una bóstia plena, una responsa d'abséncia, una reclamacion d'espam. Cada mena a sas pròprias accions, fachas quand es tornat aquel nombre de còps.",

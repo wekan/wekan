@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Wɔasync no afi %s mu: bue na to mu wɔ hɔ.",
   "vcs-synced-issue": "Wɔasync asɛm yi: bue na to mu wɔ ne tracker mu.",
   "sync-issue-details": "Nsɛm a wɔka, labels, tebea ne fael",
+  "sync-write-back": "Kyerɛw nsakraeɛ san kɔ GitLab: asɛmti, nkyerɛkyerɛmu, nsɛm a wɔka, to mu ne bue bio",
+  "sync-write-back-error": "Kyerɛw a wɔsan kɔ GitLab no anyɛ yie",
   "mailReportTitle": "Ɛmɛl",
   "email-bounces": "Ɛmɛl a ɛsan ba",
   "email-bounces-description": "Deɛ WeKan yɛ wɔ ɛmɛl a ɛsan ba ho: adrɛs a wɔakyerɛw no mfomso, mailbox a ayɛ ma, mmuae a ɛka sɛ onipa no nni adwuma, spam ho anwiinwii. Ɔkwan biara wɔ ne nneyɛe, na wɔyɛ no bere a ɛsan aba mpɛn dodow no.",

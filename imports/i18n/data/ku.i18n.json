@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Ji %s hatiye hevdemkirin: li wir veke û bigire.",
   "vcs-synced-issue": "Ev pirsgirêk hevdem e: di şopînerê wê de veke û bigire.",
   "sync-issue-details": "Şîrove, etîket, rewş û pel",
+  "sync-write-back": "Guhertinan vegerîne GitLab binivîse: sernav, danasîn, şîrove, girtin û vekirina ji nû ve",
+  "sync-write-back-error": "Nivîsandina paşve li GitLab têk çû",
   "mailReportTitle": "E-name",
   "email-bounces": "E-nameyên vegeriyayî",
   "email-bounces-description": "WeKan bi e-nameyên ku vedigerin re çi dike: navnîşaneke çewt nivîsandî, sindoqeke tije, bersiveke derveyî ofîsê, giliyeke spamê. Her cure kiryarên xwe hene, ku dema ew ewqas caran vegeriya tên kirin.",

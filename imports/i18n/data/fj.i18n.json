@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Vakatautauvatataki mai na %s: dolava ka sogota mai kea.",
   "vcs-synced-issue": "Na leqa oqo e vakatautauvatataki: dolava ka sogota ena kena tracker.",
   "sync-issue-details": "Vakasama, ivakatakilakila, ituvaki kei na faile",
+  "sync-write-back": "Vakau lesu na veisau ki GitLab: ulutaga, vakamacala, vakasama, sogota kei na dolava tale",
+  "sync-write-back-error": "E sega ni rawa ni vakau lesu ki GitLab",
   "mailReportTitle": "Imeli",
   "email-bounces": "Imeli lesu mai",
   "email-bounces-description": "Na ka e cakava ko WeKan ena imeli e lesu mai: e dua na itikotiko cala na kena vola, e dua na kato ni imeli sa sinai, e dua na isau ni sega ni tiko e na cakacaka, e dua na veileti ni spam. E tiko na kena cakacaka yadua na mataqali, ka cakavi ni sa lesu mai vakavica oqori.",

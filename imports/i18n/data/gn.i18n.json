@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Oñembojoja %s guive: embojuruja ha emboty upépe.",
   "vcs-synced-issue": "Ko apañuãi oñembojoja: embojuruja ha emboty itrackerpe.",
   "sync-issue-details": "Je'ekuéra, techaukahakuéra, ñemoĩmbyre ha marandurendakuéra",
+  "sync-write-back": "Emondo jey ñemoambue GitLab-pe: myakãha, ñemombe'u, je'ekuéra, ñemboty ha ñembojuruja jey",
+  "sync-write-back-error": "Ndaikatúi oñemondo jey GitLab-pe",
   "mailReportTitle": "Ñanduti veve",
   "email-bounces": "Ñanduti veve ojevýva",
   "email-bounces-description": "Mba'e ojapo WeKan ñanduti veve ojevývape: kundaharape ojehai vaíva, kuatia ryru henyhẽva, mbohovái ndaipóriramo, ñembyasy spam rehegua. Peteĩteĩ mba'éichagua oguereko hembiapokuéra, ojejapóva ojevy rire upe papaha.",

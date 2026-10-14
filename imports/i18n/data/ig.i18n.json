@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Emekọrịtara ya site na %s: mepee ma mechie ya n'ebe ahụ.",
   "vcs-synced-issue": "Emekọrịtara okwu a: mepee ma mechie ya n'ihe nleba anya ya.",
   "sync-issue-details": "Nkọwa, akara, ọnọdụ na faịlụ",
+  "sync-write-back": "Dee mgbanwe azụ na GitLab: aha, nkọwa, okwu, imechi na imeghe ọzọ",
+  "sync-write-back-error": "Ide azụ na GitLab dara",
   "mailReportTitle": "Ozi-e",
   "email-bounces": "Ozi ịntanetị laghachiri",
   "email-bounces-description": "Ihe WeKan na-eme ozi ịntanetị laghachiri: adreesị e dere ezighi ezi, igbe ozi juru eju, nzaghachi na-anọghị n'ọfịs, mkpesa spam. Ụdị ọ bụla nwere omume nke ya, a na-eme ha mgbe ọ laghachiri ugboro ahụ.",

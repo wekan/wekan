@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "已从 %s 同步：请在那里打开和关闭。",
   "vcs-synced-issue": "此议题已同步：请在其跟踪器中打开和关闭。",
   "sync-issue-details": "评论、标签、状态和文件",
+  "sync-write-back": "将更改写回 GitLab：标题、描述、评论、关闭和重新打开",
+  "sync-write-back-error": "写回 GitLab 失败",
   "mailReportTitle": "邮箱",
   "email-bounces": "退信",
   "email-bounces-description": "WeKan 如何处理退回的邮件：地址拼写错误、邮箱已满、外出自动回复、垃圾邮件投诉。每种类型都有各自的操作，在退回达到设定次数时执行。",

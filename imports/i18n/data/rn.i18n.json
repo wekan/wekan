@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Vyahujwe bivuye kuri %s: uyugurure kandi uyugare ngaho.",
   "vcs-synced-issue": "Iyi ngorane irahujwe: uyugurure kandi uyugare mu bubiko bwayo.",
   "sync-issue-details": "Ivyiyumviro, ibiranga, uko bimeze n'amadosiye",
+  "sync-write-back": "Andika amahinduka usubize kuri GitLab: umutwe, insiguro, ivyiyumviro, ugufunga n'ugusubira kwugurura",
+  "sync-write-back-error": "Kwandika usubiza kuri GitLab vyanse",
   "mailReportTitle": "Imeyili",
   "email-bounces": "Imeyili zigarutse",
   "email-bounces-description": "Ivyo WeKan ikora ku meyili zigaruka: aderese yanditswe nabi, agasandugu kuzuye, inyishu y'uko umuntu adahari, ukwitotomba kuri spam. Ubwoko bwose bufise ibikorwa vyabwo, bikorwa iyo bwagarutse incuro nk'izo.",

@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Vun %s synchroniséiert: maacht et do op an zou.",
   "vcs-synced-issue": "Dëse Problem ass synchroniséiert: maacht en a sengem Tracker op an zou.",
   "sync-issue-details": "Kommentarer, Etiketten, Zoustand a Fichieren",
+  "sync-write-back": "Ännerungen op GitLab zréckschreiwen: Titel, Beschreiwung, Kommentarer, Zoumaachen an nees Opmaachen",
+  "sync-write-back-error": "Zréckschreiwen op GitLab ass feelgeschloen",
   "mailReportTitle": "E-Mail",
   "email-bounces": "Zréckgeschéckt Mailen",
   "email-bounces-description": "Wat WeKan mat E-Mailen mécht, déi zréckkommen: eng falsch geschriwwen Adress, eng voll Mailbox, eng Ofwiesenheetsäntwert, eng Spam-Plainte. All Zort huet seng eegen Aktiounen, déi gemaach ginn, wann se sou dacks zréckkoum.",

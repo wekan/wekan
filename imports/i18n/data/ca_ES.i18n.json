@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sincronitzada des de %s: obre-la i tanca-la allà.",
   "vcs-synced-issue": "Aquesta incidència està sincronitzada: obre-la i tanca-la al seu gestor.",
   "sync-issue-details": "Comentaris, etiquetes, estat i fitxers",
+  "sync-write-back": "Escriu els canvis de tornada a GitLab: títol, descripció, comentaris, tancament i reobertura",
+  "sync-write-back-error": "No s'ha pogut escriure de tornada a GitLab",
   "mailReportTitle": "Correu electrònic",
   "email-bounces": "Correus retornats",
   "email-bounces-description": "Què fa WeKan amb el correu que torna: una adreça mal escrita, una bústia plena, una resposta de fora de l'oficina, una queixa de correu brossa. Cada tipus té les seves accions, que es fan quan ha rebotat aquest nombre de vegades.",

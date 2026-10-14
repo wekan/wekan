@@ -99,7 +99,7 @@ function prepareRuleCopyCardCommand({ plan, activity, effectId, index, noop = fa
     // Card.copy's document.
     const doc = { ...copy(card) };
     for (const key of ['_id', '__id', 'scrum', 'scrumRevision', 'syncExternalId', 'syncSourceType', 'syncSourceKey',
-      'syncLastSource']) delete doc[key];
+      'syncLastSource', 'syncClosedByWeKan']) delete doc[key];
     Object.assign(doc, copy(scrum));
     doc.customFields = (Array.isArray(doc.customFields) ? doc.customFields : [])
       .filter(field => !customFieldIds || customFieldIds.includes(field._id));

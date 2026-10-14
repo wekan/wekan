@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sincronisà da %s: l'avrir e serrar là.",
   "vcs-synced-issue": "Quest problem è sincronisà: l'avrir e serrar en ses sistem.",
   "sync-issue-details": "Commentaris, etichettas, stadi e datotecas",
+  "sync-write-back": "Scriver las midadas enavos en GitLab: titel, descripziun, commentaris, serrar e reavrir",
+  "sync-write-back-error": "La scrittira enavos en GitLab n'ha betg funcziunà",
   "mailReportTitle": "E-mail",
   "email-bounces": "Returs d'e-mail",
   "email-bounces-description": "Tge che WeKan fa cun e-mails che vegnan enavos: ina adressa scritta fallà, ina chascha da brevs plaina, ina resposta d'absenza, ina reclamaziun da spam. Mintga gener ha sias atgnas acziuns, exequidas sch'el è turnà uschè savens.",

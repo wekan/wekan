@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sinhronizēts no %s: atveriet un slēdziet to tur.",
   "vcs-synced-issue": "Šī problēma ir sinhronizēta: atveriet un slēdziet to tās izsekotājā.",
   "sync-issue-details": "Komentāri, etiķetes, stāvoklis un faili",
+  "sync-write-back": "Rakstīt izmaiņas atpakaļ uz GitLab: nosaukums, apraksts, komentāri, aizvēršana un atkārtota atvēršana",
+  "sync-write-back-error": "Rakstīšana atpakaļ uz GitLab neizdevās",
   "mailReportTitle": "E-pasts",
   "email-bounces": "Atgrieztās vēstules",
   "email-bounces-description": "Ko WeKan dara ar e-pastu, kas atgriežas: kļūdaini ierakstīta adrese, pilna pastkaste, prombūtnes atbilde, sūdzība par mēstuli. Katram veidam ir savas darbības, ko veic, kad tas atgriezies tik reižu.",

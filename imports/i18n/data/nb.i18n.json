@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Synkronisert fra %s: åpne og lukk den der.",
   "vcs-synced-issue": "Denne saken er synkronisert: åpne og lukk den i sporingsverktøyet.",
   "sync-issue-details": "Kommentarer, etiketter, status og filer",
+  "sync-write-back": "Skriv endringer tilbake til GitLab: tittel, beskrivelse, kommentarer, lukking og gjenåpning",
+  "sync-write-back-error": "Tilbakeskriving til GitLab mislyktes",
   "mailReportTitle": "E-post",
   "email-bounces": "Returnerte e-poster",
   "email-bounces-description": "Hva WeKan gjør med e-post som kommer i retur: en feilskrevet adresse, en full postkasse, et fraværssvar, en spamklage. Hver type har sine egne handlinger, som utføres når den har kommet i retur så mange ganger.",

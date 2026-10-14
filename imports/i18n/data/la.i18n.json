@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Synchronizata ex %s: ibi aperi et claude.",
   "vcs-synced-issue": "Haec quaestio synchronizata est: in suo indice aperi et claude.",
   "sync-issue-details": "Commentarii, tituli, status et fasciculi",
+  "sync-write-back": "Mutationes in GitLab rescribere: titulus, descriptio, commentarii, clausio et reapertio",
+  "sync-write-back-error": "Rescriptio in GitLab defecit",
   "mailReportTitle": "Litterae electronicae",
   "email-bounces": "Epistulae reversae",
   "email-bounces-description": "Quid WeKan faciat cum epistulis electronicis quae redeunt: inscriptio perperam scripta, capsa plena, responsum absentiae, querela de spamo. Quodque genus suas actiones habet, quae fiunt cum totiens reversa est.",

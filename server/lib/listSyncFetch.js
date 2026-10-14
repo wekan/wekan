@@ -320,6 +320,35 @@ export async function fetchGitlabIssues(syncSource, credential) {
   return withNotes;
 }
 
+// #2698 write-back: one JSON request to a GitLab project's API, PUT or POST,
+// through the same address checks as the reads (no redirects, bounded in time
+// and size). Not from a Sandstorm grain: its egress bridge only reads.
+export async function gitlabWrite(syncSource, credential, method, path, body) {
+  if (inGrain()) throw new Error('Writing back to GitLab is not available in Sandstorm.');
+  if (!['PUT', 'POST'].includes(method) || !/^issues\/[1-9][0-9]{0,15}(?:\/notes)?$/.test(path)) throw new Error('Invalid write-back request');
+  const base = String(syncSource.url || 'https://gitlab.com').replace(/\/+$/, '');
+  const url = `${base}/api/v4/projects/${encodeURIComponent(syncSource.projectKey)}/${path}`;
+  const origin = new URL(url).origin;
+  const headers = { 'PRIVATE-TOKEN': credential.token, 'Content-Type': 'application/json', Accept: 'application/json' };
+  const payload = JSON.stringify(body);
+  let response;
+  try {
+    response = operatorAllowedHost(url)
+      ? await fetch(url, { method, headers, body: payload, redirect: 'error', signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) })
+      : await fetchSafe(url, { method, headers: { ...headers, 'Content-Length': String(Buffer.byteLength(payload)) }, body: payload,
+        timeoutMs: FETCH_TIMEOUT_MS, totalTimeoutMs: FETCH_TIMEOUT_MS, maxRedirects: 0, maxResponseBytes: MAX_RESPONSE_BYTES,
+        recordBlocked: false });
+  } catch (error) {
+    throw syncFetchError(error);
+  }
+  if (!response.ok) {
+    const error = new Error(`${origin} refused the write-back with HTTP ${response.status}`);
+    error.status = response.status;
+    throw error;
+  }
+  try { return await response.json(); } catch (error) { throw new Error(`${origin} did not answer with JSON`); }
+}
+
 export const LIST_SYNC_FETCHERS = {
   jira: fetchJiraIssues,
   github: fetchGithubIssues,

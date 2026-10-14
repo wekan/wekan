@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sinkronizuar nga %s: hapeni dhe mbylleni atje.",
   "vcs-synced-issue": "Kjo çështje është e sinkronizuar: hapeni dhe mbylleni në gjurmuesin e saj.",
   "sync-issue-details": "Komente, etiketa, gjendje dhe skedarë",
+  "sync-write-back": "Shkruaj ndryshimet përsëri në GitLab: titulli, përshkrimi, komente, mbyllja dhe rihapja",
+  "sync-write-back-error": "Shkrimi përsëri në GitLab dështoi",
   "mailReportTitle": "Postë elektronike",
   "email-bounces": "Kthimet e postës",
   "email-bounces-description": "Çfarë bën WeKan me email-et që kthehen: një adresë e shkruar gabim, një kuti postare e mbushur, një përgjigje mungese, një ankesë për spam. Çdo lloj ka veprimet e veta, që kryhen kur është kthyer aq herë.",

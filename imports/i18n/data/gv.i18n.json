@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Co-hraaghit veih %s: foshil as dooin eh ayns shen.",
   "vcs-synced-issue": "Ta'n doilleeid shoh co-hraaghit: foshil as dooin eh ayns e lorgeyder.",
   "sync-issue-details": "Barelyn, lipaidyn, staid as coadanyn",
+  "sync-write-back": "Scrieu caghlaaghyn reesht gys GitLab: ard-ennym, coontey, barelyn, dooney as fosley reesht",
+  "sync-write-back-error": "Cha dooar scrieu reesht gys GitLab",
   "mailReportTitle": "Post-l",
   "email-bounces": "Post-l er chyndaa",
   "email-bounces-description": "Cre ta WeKan jannoo rish post-l ta chyndaa: enmys er ny scrieu dy olk, kishtey-post lane, freggyrt jeh'n oik, plaiynt spam. Ta e obbraghyn hene ec dagh sorch, jeant tra t'eh er jyndaa wheesh shen dy keayrtyn.",

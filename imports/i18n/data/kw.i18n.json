@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Kessenys a %s: ygor ha degea ena.",
   "vcs-synced-issue": "An kudyn ma yw kessenys: ygor ha degea yn y holyer.",
   "sync-issue-details": "Kampollow, labelow, studh ha restrennow",
+  "sync-write-back": "Skrifa chanjyow arta dhe GitLab: titel, deskrifans, kampollow, degea hag ygeri arta",
+  "sync-write-back-error": "Fyllys o skrifa arta dhe GitLab",
   "mailReportTitle": "Ebost",
   "email-bounces": "Ebostow dehwelys",
   "email-bounces-description": "Pyth a wra WeKan gans ebost a dhehwel: trigva skrifys yn kamm, boks-lyther leun, gorthyp a-ves a'n sodhva, kroffal spam. Pub eghen a'n jeves hy gwriansow hy honan, gwrys pan dhehwelis kemmys treweythyow.",

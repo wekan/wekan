@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sioncrónaithe ó %s: oscail agus dún ansin í.",
   "vcs-synced-issue": "Tá an tsaincheist seo sioncrónaithe: oscail agus dún í ina rianaire.",
   "sync-issue-details": "Tráchtanna, lipéid, staid agus comhaid",
+  "sync-write-back": "Scríobh athruithe ar ais chuig GitLab: teideal, cur síos, tráchtanna, dúnadh agus athoscailt",
+  "sync-write-back-error": "Theip ar scríobh ar ais chuig GitLab",
   "mailReportTitle": "Ríomhphost",
   "email-bounces": "Preabanna",
   "email-bounces-description": "An rud a dhéanann WeKan le ríomhphost a thagann ar ais: seoladh mílitrithe, bosca poist lán, freagra as oifig, gearán turscair. Tá a ghníomhartha féin ag gach cineál, a dhéantar nuair a phreab sé an líon sin uaireanta.",

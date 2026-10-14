@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Samstillt frá %s: opnaðu og lokaðu henni þar.",
   "vcs-synced-issue": "Þessi verkbeiðni er samstillt: opnaðu og lokaðu henni í verkbeiðnakerfi hennar.",
   "sync-issue-details": "Athugasemdir, merki, staða og skrár",
+  "sync-write-back": "Skrifa breytingar aftur í GitLab: titill, lýsing, athugasemdir, lokun og enduropnun",
+  "sync-write-back-error": "Mistókst að skrifa aftur í GitLab",
   "mailReportTitle": "Netfang",
   "email-bounces": "Endursendur póstur",
   "email-bounces-description": "Hvað WeKan gerir við tölvupóst sem kemur til baka: rangt slegið netfang, fullt pósthólf, fjarverusvar, ruslpóstskvörtun. Hver tegund hefur sínar aðgerðir, sem eru framkvæmdar þegar hann hefur skoppað til baka svo oft.",

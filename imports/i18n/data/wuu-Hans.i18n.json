@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "已经从 %s 同步：请到伊面打开搭关脱。",
   "vcs-synced-issue": "搿只问题已经同步：请到伊个跟踪器里打开搭关脱。",
   "sync-issue-details": "评论、标签、状态搭文件",
+  "sync-write-back": "拿改动写回到 GitLab：标题、描述、评论、关闭搭重新打开",
+  "sync-write-back-error": "写回到 GitLab 失败",
   "mailReportTitle": "电子邮件",
   "email-bounces": "退回来个邮件",
   "email-bounces-description": "WeKan 拿退回来个电子邮件哪能处理：地址打错脱、邮箱满脱、勿辣办公室个自动回复、垃圾邮件投诉。每种侪有自家个操作，退回到格许多趟就做。",

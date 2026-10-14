@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sincrunizatu da %s: apritelu è chjudetelu culà.",
   "vcs-synced-issue": "Stu prublema hè sincrunizatu: apritelu è chjudetelu in u so tracker.",
   "sync-issue-details": "Cummenti, etichette, statu è schedarii",
+  "sync-write-back": "Scrive i cambiamenti torna in GitLab: titulu, descrizzione, cummenti, chjusura è riapertura",
+  "sync-write-back-error": "Ùn hè micca riesciutu à scrive torna in GitLab",
   "mailReportTitle": "Posta elettronica",
   "email-bounces": "Ritorni",
   "email-bounces-description": "Ciò chì WeKan face cù a posta elettronica chì volta: un indirizzu scrittu male, una casella piena, una risposta d'assenza, una lagnanza di spam. Ogni tipu hà e so azzioni, fatte quandu hè vultatu tante volte.",

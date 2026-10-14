@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Szinkronizálva innen: %s – ott nyissa meg és zárja le.",
   "vcs-synced-issue": "Ez a jegy szinkronizált: a saját jegykezelőjében nyissa meg és zárja le.",
   "sync-issue-details": "Megjegyzések, címkék, állapot és fájlok",
+  "sync-write-back": "Változások visszaírása a GitLabbe: cím, leírás, megjegyzések, lezárás és újranyitás",
+  "sync-write-back-error": "Nem sikerült visszaírni a GitLabbe",
   "mailReportTitle": "E-mail",
   "email-bounces": "Visszapattanások",
   "email-bounces-description": "Mit tesz a WeKan a visszaérkező e-mailekkel: elgépelt cím, megtelt postafiók, házon kívüli válasz, spampanasz. Minden fajtának saját műveletei vannak, amelyek akkor futnak le, ha ennyiszer pattant vissza.",

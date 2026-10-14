@@ -421,6 +421,23 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     }
   }
 
+  // Run by their CI workflows, inside the target environment (an Alpine
+  // container for musl, Termux-like Android builders, the Bun builders).
+  SKIP['musl/build-bundle.sh'] = 'musl bundle build run by musl.yml inside Alpine';
+  SKIP['android/build-bundle.sh'] = 'Android bundle build run by android.yml';
+  SKIP['single-file/bun/build-and-check.sh'] = 'Bun single-file build run by bun-single-file.yml';
+  SKIP['single-file/bun/build.mjs'] = 'Bun single-file builder run by bun-single-file.yml and releases/bun/build-target.sh';
+  SKIP['single-file/bun/launcher.mjs'] = 'runs INSIDE the Bun single-file executable, embedded by single-file/bun/build.mjs';
+  SKIP['single-file/bun/unzip.mjs'] = 'imported by single-file/bun/build.mjs and launcher.mjs';
+  SKIP['single-file/meteor-device-paths.mjs'] = 'imported by single-file/build.mjs (Windows device and UNC paths)';
+  SKIP['translations/audit-exempt-prose.mjs'] = 'read-only audit supplement to the fill inventory; run directly';
+
+  // Live tests against real services (Tests -> Live tests): both menus run
+  // releases/live-tests/run.mjs, which runs every test in that directory.
+  for (const test of fs.readdirSync(path.join(dir, 'live-tests')).filter(f => f !== 'run.mjs')) {
+    SKIP[`live-tests/${test}`] = 'a live test run by live-tests/run.mjs';
+  }
+
   const missing = { sh: [], bat: [] };
   for (const f of files) {
     if (SKIP[f]) continue;

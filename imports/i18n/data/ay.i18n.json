@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "%s ukat chikachatawa: ukan jist'arama, jist'antama.",
   "vcs-synced-issue": "Aka jan walt'äwix chikachatawa: arknaqiripan jist'arama, jist'antama.",
   "sync-issue-details": "Arsutanaka, chimpunaka, sarnaqawi, qillqatanaka",
+  "sync-write-back": "Mayjt'awinaka GitLab ukar kutt'ayaña: p'iqi suti, qhananchawi, arsutanaka, jist'antaña ukat wasitat jist'araña",
+  "sync-write-back-error": "GitLab ukar kutt'ayañax janiw walikiti",
   "mailReportTitle": "Aruskipäwi",
   "email-bounces": "Kutt'anir aruskipäwinaka",
   "email-bounces-description": "Kuns WeKan lurixa kutt'anir aruskipäwimpixa: pantjata qillqata chiqa, phuqhata buzón, janiw oficinankiti sasin jaysäwi, spam kexa. Sapa kastax pachpa luräwinakaniwa, ukch'a kuti kutt'aniwayxi ukhaxa lurasi.",

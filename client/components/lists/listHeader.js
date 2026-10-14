@@ -36,6 +36,7 @@ import {
 // a source the backend would reject.
 import { SYNC_CAPABLE_SOURCES } from '/models/lib/externalParsers';
 const { ISSUE_DETAIL_SOURCES } = require('/models/lib/listSyncIssueDetails');
+const { WRITE_BACK_SOURCES } = require('/models/lib/listSyncWriteBack');
 import { fromNow } from '/imports/lib/dateUtils';
 
 let listsColors;
@@ -922,6 +923,7 @@ Template.listSyncPopup.onCreated(function () {
     createCards: list?.syncSource?.createCards !== false,
     archiveCards: list?.syncSource?.archiveCards !== false,
     issueDetails: list?.syncSource?.issueDetails === true,
+    writeBack: list?.syncSource?.writeBack === true,
   });
   tpl.hasCredential = new ReactiveVar(false);
   tpl.syncNowResult = new ReactiveVar('');
@@ -1005,6 +1007,9 @@ Template.listSyncPopup.helpers({
       // state and files too (models/lib/listSyncIssueDetails.js).
       ...(ISSUE_DETAIL_SOURCES.includes(Template.instance().selectedSyncType.get())
         ? [{ operation: 'issueDetails', label: 'sync-issue-details', checked: selected.issueDetails }] : []),
+      // #2698: GitLab - WeKan's changes written back to the issues.
+      ...(WRITE_BACK_SOURCES.includes(Template.instance().selectedSyncType.get())
+        ? [{ operation: 'writeBack', label: 'sync-write-back', checked: selected.writeBack }] : []),
     ];
   },
   syncEstimateEnabled() {
@@ -1090,6 +1095,10 @@ Template.listSyncPopup.helpers({
   listSyncLastError() {
     const list = Template.currentData();
     return (list && list.syncSource && list.syncSource.lastSyncError) || '';
+  },
+  listSyncWriteBackError() {
+    const list = Template.currentData();
+    return (list && list.syncSource && list.syncSource.writeBack === true && list.syncWriteBackError) || '';
   },
   listSyncNowResult() {
     return Template.instance().syncNowResult.get();

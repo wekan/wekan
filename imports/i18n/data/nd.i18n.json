@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Kuvumelaniswe kusuka ku-%s: kuvule njalo ukuvale khona.",
   "vcs-synced-issue": "Udaba lolu luvumelanisiwe: luvule njalo uluvale kusilandeleli salo.",
   "sync-issue-details": "Imibono, amalebuli, isimo lamafayili",
+  "sync-write-back": "Bhala izinguquko ubuyisele ku-GitLab: isihloko, incazelo, imibono, ukuvala lokuvula futhi",
+  "sync-write-back-error": "Ukubhala ubuyisela ku-GitLab kwehlulekile",
   "mailReportTitle": "I-imeyili",
   "email-bounces": "Ama-imeyili abuyayo",
   "email-bounces-description": "Lokho okwenziwa nguWeKan nge-imeyili ebuyayo: ikheli elibhalwe kubi, ibhokisi le-imeyili eligcweleyo, impendulo yokungabi khona, isikhalazo se-spam. Uhlobo ngalunye lulezenzo zalo, ezenziwa nxa selubuyile izikhathi ezingako.",

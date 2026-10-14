@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Hoʻokahi ʻia mai %s: e wehe a e pani ma laila.",
   "vcs-synced-issue": "Ua hoʻokahi ʻia kēia pilikia: e wehe a e pani ma kona mea mālama.",
   "sync-issue-details": "Nā manaʻo, nā lepili, ke kūlana a me nā faila",
+  "sync-write-back": "Kākau hou i nā hoʻololi i GitLab: poʻo inoa, wehewehe, nā manaʻo, ka pani ʻana a me ka wehe hou ʻana",
+  "sync-write-back-error": "ʻAʻole i holo pono ke kākau hou ʻana i GitLab",
   "mailReportTitle": "Leka uila",
   "email-bounces": "Leka hoʻihoʻi ʻia",
   "email-bounces-description": "Ka mea a WeKan e hana ai me ka leka uila i hoʻi mai: he helu wahi i kikokiko hewa ʻia, he pahu leka piha, he pane no ka haʻalele ʻana i ke keʻena, he hoʻopiʻi spam. He mau hana ko kēlā me kēia ʻano, i hana ʻia ke hoʻi mai ia i kēlā helu manawa.",

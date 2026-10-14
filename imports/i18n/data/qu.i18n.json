@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "%s nisqamanta tupachisqa: chaypi kichay, wichqaypas.",
   "vcs-synced-issue": "Kay sasachakuyqa tupachisqam: qatipanampi kichay, wichqaypas.",
   "sync-issue-details": "Rimasqakuna, sutichakuna, kaynin, willañiqikunapas",
+  "sync-write-back": "Tikrasqakunata GitLabman kutichispa qillqay: uma suti, willakuy, rimasqakuna, wichqay kaqmanta kichaypas",
+  "sync-write-back-error": "GitLabman kutichispa qillqayqa mana atikurqanchu",
   "mailReportTitle": "Elektroniku chaski",
   "email-bounces": "Kutimuq correokuna",
   "email-bounces-description": "Imatataq WeKan ruran kutimuq correokunawan: pantasqa qillqasqa tiyana, hunt'asqa casilla, mana kanimanta kutichiy, spam nisqamanta willakuy. Sapa laya kikin ruranakunayuq, chay chhika kutita kutimuptinmi ruwakun.",

@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Kuo fakahoko mei he %s: fakaava mo tāpuni ia ʻi ai.",
   "vcs-synced-issue": "Kuo fakahoko ʻa e palopalema ni: fakaava mo tāpuni ia ʻi hono tracker.",
   "sync-issue-details": "Ngaahi fakamatala, ngaahi leipolo, tūkunga mo e ngaahi faile",
+  "sync-write-back": "Tohi'i 'o fakafoki ki GitLab 'a e ngaahi liliu: kaveinga, fakamatala, ngaahi fakamatala, tāpuni mo toe faka'ava",
+  "sync-write-back-error": "Na'e 'ikai lava 'o tohi'i fakafoki ki GitLab",
   "mailReportTitle": "ʻĪmeili",
   "email-bounces": "Ngaahi ʻīmeili kuo foki mai",
   "email-bounces-description": "Ko e meʻa ʻoku fai ʻe WeKan ki he ʻīmeili ʻoku foki mai: ko ha tuʻasila naʻe hala hono taipe, ko ha puha meili kuo fonu, ko ha tali ʻoku ʻikai ʻi he ʻōfisi, ko ha lāunga ki he spam. ʻOku ʻi ai ʻa e ngaahi ngāue ʻa e faʻahinga taki taha, ʻoku fai ia ʻi heʻene foki mai ʻo tuʻo lahi pehē.",

@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Synchronisé depuis %s : ouvrez-le et fermez-le là-bas.",
   "vcs-synced-issue": "Ce ticket est synchronisé : ouvrez-le et fermez-le dans son outil de suivi.",
   "sync-issue-details": "Commentaires, étiquettes, état et fichiers",
+  "sync-write-back": "Renvoyer les modifications vers GitLab : titre, texte descriptif, commentaires, fermeture et réouverture",
+  "sync-write-back-error": "Échec de l'envoi des modifications vers GitLab",
   "mailReportTitle": "Courriel",
   "email-bounces": "Rebonds",
   "email-bounces-description": "Ce que WeKan fait des e-mails qui reviennent : une adresse mal saisie, une boîte pleine, une réponse d'absence, une plainte pour spam. Chaque type a ses propres actions, effectuées après ce nombre de rebonds.",

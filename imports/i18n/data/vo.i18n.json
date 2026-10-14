@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Peleigüpon de %s: maifükolös e färmükolös oni us.",
   "vcs-synced-issue": "Säk at pileigüpon: maifükolös e färmükolös oni in suköm onik.",
   "sync-issue-details": "Küpets, penäts, stad e ragivs",
+  "sync-write-back": "Penön votükamis ge lü GitLab: tiäd, bepenam, küpets, färmükam e dönumaifükam",
+  "sync-write-back-error": "Gepenam lü GitLab no eplöpon",
   "mailReportTitle": "Ladet leäktronik",
   "email-bounces": "Geleäktroniks",
   "email-bounces-description": "Kis WeKan dunon me ladets leäktronik, kels gekömons: ladet pepenöl neverätiko, ladetabox fulik, gepük nenpöpa, plon dö spam. Sot alik labon dunis okik, kels padunons ven egekömon so mödikna.",

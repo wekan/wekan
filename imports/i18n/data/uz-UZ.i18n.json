@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "%s dan sinxronlangan: uni o'sha yerda oching va yoping.",
   "vcs-synced-issue": "Bu muammo sinxronlangan: uni o'z trekerida oching va yoping.",
   "sync-issue-details": "Izohlar, teglar, holat va fayllar",
+  "sync-write-back": "O‘zgarishlarni GitLab’ga qaytarib yozish: sarlavha, tavsif, izohlar, yopish va qayta ochish",
+  "sync-write-back-error": "GitLab’ga qaytarib yozib bo‘lmadi",
   "mailReportTitle": "Elektron pochta",
   "email-bounces": "Qaytgan xatlar",
   "email-bounces-description": "WeKan qaytib kelgan elektron pochta bilan nima qiladi: xato yozilgan manzil, to‘lib qolgan pochta qutisi, “ofisda emasman” javobi, spam haqida shikoyat. Har bir turning o‘z amallari bor, ular shuncha marta qaytganda bajariladi.",

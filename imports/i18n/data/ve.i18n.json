@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Yo elaniswa u bva kha %s: i vuleni na u i vala henefho.",
   "vcs-synced-issue": "Thaidzo iyi yo elaniswa: i vuleni na u i vala kha tshitoli tshayo.",
   "sync-issue-details": "Mihumbulo, maleibele, tshiimo na faela",
+  "sync-write-back": "Ṅwalani tshanduko murahu kha GitLab: ṱhoho, ṱhaluso, mihumbulo, u vala na u vula hafhu",
+  "sync-write-back-error": "U ṅwala murahu kha GitLab ho kundelwa",
   "mailReportTitle": "Imeiḽi",
   "email-bounces": "Dziimeili dzo vhuyaho",
   "email-bounces-description": "Zwine WeKan ya ita nga imeili i vhuyaho: ḓiresi yo ṅwalwaho nga vhukhakhi, bogisi ḽa poswo ḽo ḓalaho, phindulo ya u sa vha ofisini, mbilaelo ya spam. Lushaka luṅwe na luṅwe lu na zwiito zwaḽo, zwine zwa itwa musi yo vhuya lwonolwo.",

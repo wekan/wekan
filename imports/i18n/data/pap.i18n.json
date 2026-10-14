@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sinkronisá for di %s: habri i sera e einan.",
   "vcs-synced-issue": "E problema aki ta sinkronisá: habri i sera e den su tracker.",
   "sync-issue-details": "Komentarionan, etiketanan, estado i archivonan",
+  "sync-write-back": "Skirbi kambionan bek na GitLab: título, deskripshon, komentarionan, sera i habri atrobe",
+  "sync-write-back-error": "Skirbimentu bek na GitLab a faya",
   "mailReportTitle": "E-mail",
   "email-bounces": "E-mail bolbí",
   "email-bounces-description": "Kiko WeKan ta hasi ku e-mail ku ta bolbe: un adrès skirbí robes, un buzon yen, un kontesta di ousensia, un keho di spam. Kada tipo tin su mes akshonnan, hasí ora e a bolbe e kantidat di biaha ei.",

@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sincronizatã di la %s: dishcljidi-u și ncljidi-u aclo.",
   "vcs-synced-issue": "Aestã problemã easte sincronizatã: dishcljidi-u și ncljidi-u tu sistemlu a ljei.",
   "sync-issue-details": "Comentari, etichete, stare și fișieri",
+  "sync-write-back": "Scrie alãxirli năpoi tu GitLab: titlu, discriiri, comentari, ncljideari shi dishcljideari nãoarã",
+  "sync-write-back-error": "Scriarea năpoi tu GitLab nu s-featsi",
   "mailReportTitle": "Postã electronicã",
   "email-bounces": "Postã turnatã",
   "email-bounces-description": "Tsi fatsi WeKan cu posta electronicã tsi s-toarnã: ună adresã scriatã strãmbu, ună cutie plinã, ună apandisi di nifiinţã, ună plãngire di spam. Cathe soi ari faptili a lui, fãcuti cãndu s-turnã di ahãti ori.",

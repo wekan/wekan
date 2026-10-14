@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Ka disinkron dari %s: buka ngon tôp bak sinan.",
   "vcs-synced-issue": "Isu nyoe ka disinkron: buka ngon tôp bak pelacak jih.",
   "sync-issue-details": "Komentar, label, keadaan ngon berkah",
+  "sync-write-back": "Tuléh peubah keulayi u GitLab: judul, deskripsi, komen, tôp ngon peuhah lom",
+  "sync-write-back-error": "Gagai tuléh keulayi u GitLab",
   "mailReportTitle": "Emel",
   "email-bounces": "Emel nyang geuwoe",
   "email-bounces-description": "Peue nyang geupeubuet lé WeKan ngon emel nyang geuwoe: alamat nyang salah tuléh, kotak surat nyang peunoh, jaweueb hana di kantô, keuluhan spam. Tiep jeunèh na buet droe, nyang geupeubuet watée ka geuwoe meunan le go.",

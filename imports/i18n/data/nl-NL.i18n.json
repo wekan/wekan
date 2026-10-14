@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Gesynchroniseerd vanuit %s: open en sluit het daar.",
   "vcs-synced-issue": "Deze issue wordt gesynchroniseerd: open en sluit hem in zijn tracker.",
   "sync-issue-details": "Reacties, labels, status en bestanden",
+  "sync-write-back": "Wijzigingen terugschrijven naar GitLab: titel, beschrijving, reacties, sluiten en heropenen",
+  "sync-write-back-error": "Terugschrijven naar GitLab is mislukt",
   "mailReportTitle": "E-mail",
   "email-bounces": "Teruggestuurde e-mails",
   "email-bounces-description": "Wat WeKan doet met e-mail die terugkomt: een verkeerd getypt adres, een volle mailbox, een afwezigheidsbericht, een spamklacht. Elke soort heeft eigen acties, uitgevoerd wanneer die zo vaak is teruggekomen.",

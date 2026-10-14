@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Omonepano ihuan %s: oncan xictlapo ihuan xictzacua.",
   "vcs-synced-issue": "Inin tlaohuiliztli omonepano: xictlapo ihuan xictzacua ipan itlatemoliz.",
   "sync-issue-details": "Tlahtolpehualiztin, machiotl, quenin ca ihuan amatl",
+  "sync-write-back": "Xicmuchihuili tlapatlaliztli in GitLab: tzontecomatl, tlahtolli, tlahtolpehualiztin, tlatzacualiztli ihuan occeppa tlatlapoliztli",
+  "sync-write-back-error": "Ahmo huelitic in icuiloliztli in GitLab",
   "mailReportTitle": "Tlahcuilolli",
   "email-bounces": "Tlahcuilolli tlen mocuepa",
   "email-bounces-description": "Tlen quichihua WeKan ica tlahcuilolli tlen mocuepa: cantlacatl ahcualli tlahcuilolli, tlahcuilolcaxitl temitica, tenanquiliztli ahmo nican, tlatelchihualiztli ica spam. Cecentlamantli quipia itequiuh, mochihua ihcuac mocuep inon quezquipa.",

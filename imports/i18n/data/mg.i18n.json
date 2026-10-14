@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Nampifanarahina avy amin'ny %s: sokafy sy hidio any izy.",
   "vcs-synced-issue": "Nampifanarahina ity olana ity: sokafy sy hidio ao amin'ny mpanara-maso azy.",
   "sync-issue-details": "Fanehoan-kevitra, marika, toetra ary rakitra",
+  "sync-write-back": "Soraty miverina any amin'ny GitLab ny fanovana: lohateny, famaritana, fanehoan-kevitra, fanakatonana sy fanokafana indray",
+  "sync-write-back-error": "Tsy nahomby ny fanoratana miverina any amin'ny GitLab",
   "mailReportTitle": "Mailaka",
   "email-bounces": "Mailaka niverina",
   "email-bounces-description": "Izay ataon'i WeKan amin'ny mailaka miverina: adiresy diso soratra, boaty feno, valiny tsy fisiana, fitarainana momba ny spam. Samy manana ny asany ny karazany tsirairay, atao rehefa niverina imbetsaka toy izany.",

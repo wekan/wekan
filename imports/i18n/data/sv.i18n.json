@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Synkroniserat från %s: öppna och stäng det där.",
   "vcs-synced-issue": "Det här ärendet synkroniseras: öppna och stäng det i dess ärendesystem.",
   "sync-issue-details": "Kommentarer, etiketter, status och filer",
+  "sync-write-back": "Skriv tillbaka ändringar till GitLab: titel, beskrivning, kommentarer, stängning och återöppning",
+  "sync-write-back-error": "Det gick inte att skriva tillbaka till GitLab",
   "mailReportTitle": "E-post",
   "email-bounces": "Studsar",
   "email-bounces-description": "Vad WeKan gör med e-post som kommer tillbaka: en felskriven adress, en full brevlåda, ett frånvaromeddelande, ett spamklagomål. Varje typ har sina egna åtgärder, som utförs när den har studsat så många gånger.",

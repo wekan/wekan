@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Kwataganyiziddwa okuva ku %s: giggulire era ogiggalire eyo.",
   "vcs-synced-issue": "Ensonga eno ekwataganyiziddwa: giggulire era ogiggalire mu nkola yaayo egigoberera.",
   "sync-issue-details": "Endowooza, obubonero, embeera ne fayiro",
+  "sync-write-back": "Wandiika enkyukakyuka okudda ku GitLab: omutwe, ennyonyola, endowooza, okuggalawo n'okuddamu okuggulawo",
+  "sync-write-back-error": "Okuwandiika okudda ku GitLab kulemye",
   "mailReportTitle": "Imeyilo",
   "email-bounces": "Imeyilo ezikomawo",
   "email-bounces-description": "Ekyo WeKan ky'ekola ku imeyilo ezikomawo: endagiriro ewandiikiddwa obubi, ebbokisi ejjudde, okuddamu nti omuntu taliiwo, okwemulugunya ku spam. Buli kika kirina ebikolwa byakyo, ebikolebwa nga kikomyewo emirundi egyo.",

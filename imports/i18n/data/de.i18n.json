@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Von %s synchronisiert: dort öffnen und schließen.",
   "vcs-synced-issue": "Dieses Issue wird synchronisiert: Öffnen und schließen Sie es in seinem Tracker.",
   "sync-issue-details": "Kommentare, Labels, Status und Dateien",
+  "sync-write-back": "Änderungen zurück nach GitLab schreiben: Titel, Beschreibung, Kommentare, Schließen und Wiedereröffnen",
+  "sync-write-back-error": "Zurückschreiben nach GitLab fehlgeschlagen",
   "mailReportTitle": "E-Mail",
   "email-bounces": "Unzustellbare E-Mails",
   "email-bounces-description": "Was WeKan mit zurückkommenden E-Mails macht: eine falsch geschriebene Adresse, ein volles Postfach, eine Abwesenheitsnotiz, eine Spam-Beschwerde. Jede Art hat eigene Aktionen, die ausgeführt werden, wenn sie so oft zurückgekommen ist.",

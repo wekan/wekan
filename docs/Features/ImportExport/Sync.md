@@ -515,6 +515,43 @@ description sync is not undone. Everything is keyed by the tracker's own ids
 run writes only what changed upstream, and nothing written in WeKan is
 changed or removed.
 
+### Write changes back to GitLab
+
+[#2698](https://github.com/wekan/wekan/issues/2698). For a list synced from
+GitLab, a sync option of its own, off by default: **Write changes back to
+GitLab**. With it, what members change on the list's cards in WeKan goes to
+the issues at the start of every Sync run, before the run reads GitLab, so the
+read that follows finds both sides agreeing:
+
+- **Title and description** edited in WeKan, when the issue still has the
+  text both sides last agreed on. The `Source: ... <url>` line Sync adds to a
+  card's description is not sent. When both sides changed the same field,
+  nothing is written: it stays a [conflict to resolve](#resolve-field-conflicts).
+- **Archiving** a card closes its issue, if the issue is open. **Restoring**
+  a card WeKan closed this way reopens it. An issue closed in GitLab is not
+  reopened by WeKan.
+- **Comments** written on the card become notes on the issue, with the text
+  as written. The note is written by the account of the Sync token. With
+  **Comments, labels, state and files** on too, the note is recognised by its
+  id and not brought back as a second comment.
+
+Only what happens after write-back was switched on is written: an old
+archived card or an old comment is never sent. Text edits waiting on the
+cards are sent, because the text baseline says which side changed. At most
+100 writes go out in one run; the rest go in the next run.
+
+The Sync token needs the `api` scope. A refused write (an expired token, a
+missing permission) is shown in the Sync popup as "Writing back to GitLab
+failed", and the read sync still runs. Every write is checked against the
+list's Sync reservation right before it, like the run's other writes.
+Write-back is not available in Sandstorm, whose network bridge only reads.
+
+A live test against gitlab.com, with the GitLab login that
+`releases/mirror.sh` uses (`glab`), is in build.sh / build.bat → Tests →
+Live tests (`releases/live-tests/gitlab-write-back.mjs`). It writes only to
+one scratch issue in a private `wekan-live-test` project of that account,
+which it creates if needed, and deletes the issue at the end.
+
 ### Sprints and releases (Scrum planning)
 
 The Sync settings offer **Sprint (Scrum planning)** and **Releases (Scrum

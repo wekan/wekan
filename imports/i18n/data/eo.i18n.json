@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Sinkronigita el %s: malfermu kaj fermu ĝin tie.",
   "vcs-synced-issue": "Ĉi tiu problemo estas sinkronigita: malfermu kaj fermu ĝin en ĝia spurilo.",
   "sync-issue-details": "Komentoj, etikedoj, stato kaj dosieroj",
+  "sync-write-back": "Reskribi ŝanĝojn al GitLab: titolo, priskribo, komentoj, fermado kaj remalfermado",
+  "sync-write-back-error": "Reskribado al GitLab malsukcesis",
   "mailReportTitle": "Retpoŝtadreso",
   "email-bounces": "Resaltoj",
   "email-bounces-description": "Kion WeKan faras kun retpoŝto, kiu revenas: mistajpita adreso, plena poŝtkesto, aŭtomata respondo pri foresto, plendo pri trudmesaĝo. Ĉiu speco havas proprajn agojn, farotajn kiam ĝi resaltis tiom da fojoj.",

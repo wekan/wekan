@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "I sinkem long %s: openem mo satem long ples ia.",
   "vcs-synced-issue": "Problem ia i sinkem: openem mo satem long traka blong hem.",
   "sync-issue-details": "Ol koment, ol leibel, stret mo ol fael",
+  "sync-write-back": "Raetem bakegen ol jenis long GitLab: taetol, stori, ol koment, satem mo openem bakegen",
+  "sync-write-back-error": "Raetem bakegen long GitLab i no wok",
   "mailReportTitle": "Imel",
   "email-bounces": "Imel we i kambak",
   "email-bounces-description": "Wanem WeKan i mekem long imel we i kambak: adres we i raet rong, imel boks we i fulap, ansa se man i no stap long ofis, plen long spam. Evri kaen i gat ol aksen blong hem, we oli mekem taem imel i kambak hamas taem ia.",

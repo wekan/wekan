@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Waxaa laga isku-dubbariday %s: halkaas ka fur kana xir.",
   "vcs-synced-issue": "Arrintan waa la isku-dubbariday: ka fur kana xir raadiyaheeda.",
   "sync-issue-details": "Faallooyin, calaamado, xaalad iyo faylal",
+  "sync-write-back": "Dib ugu qor isbeddelada GitLab: cinwaan, sharaxaad, faallooyin, xiridda iyo dib u furidda",
+  "sync-write-back-error": "Dib ugu qoridda GitLab way fashilantay",
   "mailReportTitle": "Iimayl",
   "email-bounces": "Fariimaha soo noqday",
   "email-bounces-description": "Waxa WeKan ku sameeyo iimaylada soo noqda: ciwaan si khaldan loo qoray, sanduuq boostada oo buuxa, jawaab maqnaansho, cabasho spam. Nooc kastaa wuxuu leeyahay ficilladiisa, oo la sameeyo marka uu intaas jeer soo noqdo.",

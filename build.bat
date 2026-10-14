@@ -199,6 +199,8 @@ echo  14^) All databases ^(sequential^): build newest FerretDB v1, run every que
 echo       against every database with an image for this CPU, compare the answers
 echo  15^) Run all FerretDB tests - SEQUENTIAL ^(unit, vet, integration^)
 echo  16^) EVERYTHING source one by one ^(Dev server nobuild, all browsers^)
+echo  17^) Live tests with your own accounts: GitLab write-back with the mirror's
+echo       glab login ^(only scratch items it creates and removes^)
 set "choice="
 set /p "choice=Choose: "
 if "%choice%"=="1"  goto test_everything_two
@@ -217,6 +219,7 @@ if "%choice%"=="13" goto count_tests
 if "%choice%"=="14" goto test_all_databases
 if "%choice%"=="15" goto test_ferretdb
 if "%choice%"=="16" goto test_everything_source
+if "%choice%"=="17" goto test_live
 if "%choice%"=="0"  goto menu
 goto menu_tests
 
@@ -1600,6 +1603,13 @@ set "FORGE_INSTALL_STATUS=%errorlevel%"
 for /f "usebackq delims=" %%P in (`powershell.exe -NoProfile -Command "[Environment]::GetEnvironmentVariable('Path','Machine') + ';' + [Environment]::GetEnvironmentVariable('Path','User')"`) do set "PATH=%~dp0.tools\bin;%GOBIN%;%%P;%PATH%"
 if not "%FORGE_INSTALL_STATUS%"=="0" echo One or more mirror tools could not be installed. See MISSING entries above.
 exit /b %FORGE_INSTALL_STATUS%
+
+REM ===========================================================================
+:test_live
+REM releases/live-tests/run.mjs runs every live test there (the GitLab one is
+REM releases\live-tests\gitlab-write-back.mjs); each skips a service with no login.
+node "%REPO%\releases\live-tests\run.mjs"
+goto end
 
 REM ===========================================================================
 :mirror_forge

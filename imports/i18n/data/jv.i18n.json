@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Disinkronake saka %s: bukak lan tutup ing kana.",
   "vcs-synced-issue": "Masalah iki disinkronake: bukak lan tutup ing pelacak-e.",
   "sync-issue-details": "Komentar, label, status lan berkas",
+  "sync-write-back": "Tulis owah-owahan bali menyang GitLab: irah-irahan, katrangan, komentar, nutup lan mbukak maneh",
+  "sync-write-back-error": "Gagal nulis bali menyang GitLab",
   "mailReportTitle": "Layang elektronik",
   "email-bounces": "Email bali",
   "email-bounces-description": "Apa sing ditindakake WeKan marang email sing bali: alamat sing salah ketik, kothak layang kebak, wangsulan ora ing kantor, aduan spam. Saben jinis duwe tumindak dhewe, sing ditindakake yen wis bali kaping semono.",

@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "%sppe issuwaa oottido: yan dooya qassi gordda.",
   "vcs-synced-issue": "Ha metuwaa issuwaa oottido: ba kaalliyaa bolli dooya qassi gordda.",
   "sync-issue-details": "Qofaa, malaatata, hanotaa qassi fayiletaa",
+  "sync-write-back": "Laamettaa GitLab-iyo zaarettada xaafa: huuphe sunttaa, qonccissuwaa, qofaa, gorddanaw qassi zaarettada dooyanaw",
+  "sync-write-back-error": "GitLab-iyo zaarettada xaafiyoogee dagaamiis",
   "mailReportTitle": "Iimeeliyaa",
   "email-bounces": "Simmido iimeeliyaa",
   "email-bounces-description": "WeKan simmido iimeeliyaa ay oottiyaakko: balettidi xaafettida sohuwaa, kumida iimeeliyaa saaxiniyaa, bitta baynnaa zaaruwaa, spamee zilppaa. Ubba qaxxay ba oosuwaa de'ees, he taymaa simmido wode oosettees.",

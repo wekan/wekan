@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "由 %s 同步：喺嗰度開啟同關閉。",
   "vcs-synced-issue": "呢個問題係同步嘅：喺佢嘅追蹤器開啟同關閉。",
   "sync-issue-details": "留言、標籤、狀態同檔案",
+  "sync-write-back": "將改動寫返去 GitLab：標題、描述、留言、關閉同重新打開",
+  "sync-write-back-error": "寫返去 GitLab 失敗",
   "mailReportTitle": "電子郵件",
   "email-bounces": "彈返嘅郵件",
   "email-bounces-description": "WeKan 點樣處理彈返嚟嘅電子郵件：地址打錯、郵箱滿咗、唔喺辦公室自動回覆、垃圾郵件投訴。每種都有自己嘅動作，彈返夠咁多次就會做。",

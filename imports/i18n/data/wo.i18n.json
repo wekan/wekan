@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "Dañu ko yemale ci %s: ubbi ko te tëj ko fa.",
   "vcs-synced-issue": "Jafe-jafe bii dañu ko yemale: ubbi ko te tëj ko ci tracker bi mu bokk.",
   "sync-issue-details": "Xalaat yi, etiket yi, njaxlaay ak fisiye yi",
+  "sync-write-back": "Bind coppite yi ci GitLab: bopp, melokaan, xalaat yi, tëj ak ubbiwaat",
+  "sync-write-back-error": "Bindaat ci GitLab antuwul",
   "mailReportTitle": "E-mail",
   "email-bounces": "E-mail yu dellusi",
   "email-bounces-description": "Li WeKan di def ak e-mail yu dellusi: adrees bu ñu bind ci njuumte, bwat bu fees, tontu ndax kenn nekkul, tuuma spam. Bépp xeet am na ay jëfam, ñuy def bu dellusee loolu yoon.",

@@ -4479,6 +4479,8 @@
   "vcs-synced-from": "%s-mit ataqatigiissaarneqarpoq: tassani ammaruk matugulu.",
   "vcs-synced-issue": "Ajornartorsiut una ataqatigiissaarneqarpoq: malinnaavimmini ammaruk matugulu.",
   "sync-issue-details": "Oqaaseqaatit, ilisarnaatit, qanoq innera aamma fiilit",
+  "sync-write-back": "Allanngortitat GitLab-imut uterteqqikkit: qulequtaq, nassuiaat, oqaaseqaatit, matuineq aamma ammaqqinneq",
+  "sync-write-back-error": "GitLab-imut uterteqqiineq iluatsinngilaq",
   "mailReportTitle": "E-mail",
   "email-bounces": "E-mailit utertut",
   "email-bounces-description": "WeKanip e-mailinik uterlutik pisunik qanoq iliuuseqarnera: najugaq kukkusumik allanneqarsimasoq, allakkerivik ulikkaartoq, allaffimmiinngitsumik akissut, spam pillugu naammagittaalliut. Suussusia tamarmi nammineq iliuuseqarfeqarpoq, taamak amerlatigisunik uterpat pinneqartartunik.",
