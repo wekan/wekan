@@ -403,74 +403,79 @@ not have).
 </details>
 
 <details>
-<summary>Design questions waiting for the maintainer, 2026-10-14.</summary>
+<summary>Decided on 2026-10-14 (second round), waiting to be implemented.</summary>
 
-Everything decided on 2026-10-14 is built (see Upcoming). The open requests
-below need an answer first; each line is the question that decides it, with
-the choice the code would most easily take.
-[#802](https://github.com/wekan/wekan/issues/802) (per-organization and per-team tabs in All Boards where their admins
-manage members - and should WeKan ever write group changes back to LDAP, or
-only read them?),
-[#5141](https://github.com/wekan/wekan/issues/5141) (which organizations and teams may a board admin add: only those
-they belong to, or every one in the instance, which the picker would then
-list to every board admin?),
-[#4265](https://github.com/wekan/wekan/issues/4265) (leaving a board that came through a team: hide it in a per-user
-list that can be undone, or end that one board's team membership for that
-user?),
-[#2217](https://github.com/wekan/wekan/issues/2217) (a board setting that shows the Rules to members read-only?),
-[#5847](https://github.com/wekan/wekan/issues/5847) (which further logins, and a "log out everywhere" in Member
-Settings that ends every session?),
-[#1324](https://github.com/wekan/wekan/issues/1324) (Bitbucket through the generic OAuth2 settings with a how-to, or a
-provider of its own?),
-[#2805](https://github.com/wekan/wekan/issues/2805) (one shared header row for all swimlanes, as a board view setting?),
-[#2809](https://github.com/wekan/wekan/issues/2809) (a linked whole list: a live mirror of another list, editable like
-linked cards, or read-only?),
-[#2171](https://github.com/wekan/wekan/issues/2171) (should search scroll the board to the match and highlight it?),
-[#2110](https://github.com/wekan/wekan/issues/2110) (minicard avatars in the order people were added; a colour per
-avatar and a name tooltip?),
-[#2040](https://github.com/wekan/wekan/issues/2040) (a board-defined label order that lists can be sorted by?),
-[#2015](https://github.com/wekan/wekan/issues/2015) (a QR code of the card link in the card menu, drawn in the browser?),
-[#1953](https://github.com/wekan/wekan/issues/1953) (a Board Settings picker for the swimlane new subtasks go to?),
-[#1931](https://github.com/wekan/wekan/issues/1931) (an existing card from ANOTHER board as a subtask, for members of
-both?),
-[#1618](https://github.com/wekan/wekan/issues/1618) (a person responsible for a checklist item, and items in the
-calendar and Gantt?),
-[#864](https://github.com/wekan/wekan/issues/864) (drag-and-drop and adding cards in the Table view?),
-[#211](https://github.com/wekan/wekan/issues/211) (named column sets over the same cards, per board or per user?),
-[#140](https://github.com/wekan/wekan/issues/140) (real-time shared editing of descriptions: which editor and sync
-library?),
-[#1273](https://github.com/wekan/wekan/issues/1273) (keep the `#label`/`@member` text in the title: per user or per
-board?),
-[#1178](https://github.com/wekan/wekan/issues/1178) (sketching onto a card, saved as an image attachment?),
-[#4791](https://github.com/wekan/wekan/issues/4791) (grouping boards by first letter, board labels and organization
-subgroups: which of these?),
-[#2012](https://github.com/wekan/wekan/issues/2012) (story and task card types with fields of their own?),
-[#2111](https://github.com/wekan/wekan/issues/2111) and [#1604](https://github.com/wekan/wekan/issues/1604) (which other changes are marked unread on a card,
-and a per-user switch?),
-[#2026](https://github.com/wekan/wekan/issues/2026) and [#1377](https://github.com/wekan/wekan/issues/1377) (browser push notifications, a webhook activity
-picker and an all-boards activity feed: which first?),
-[#1297](https://github.com/wekan/wekan/issues/1297) (a Mattermost direct message to each member and assignee?),
-[#2290](https://github.com/wekan/wekan/issues/2290) (webhooks on login and registration, which carry personal data?),
-[#1100](https://github.com/wekan/wekan/issues/1100) (Matrix notifications through a webhook, or a bot?),
-[#2435](https://github.com/wekan/wekan/issues/2435) (a member picker for a rule email's To field?),
-[#4434](https://github.com/wekan/wekan/issues/4434) (the clear HTML layout as the default, and for account emails?),
-[#5148](https://github.com/wekan/wekan/issues/5148) (ntfy as a notification channel?),
-[#4198](https://github.com/wekan/wekan/issues/4198) (ActivityPub: what a board would publish, and to whom?),
-[#4930](https://github.com/wekan/wekan/issues/4930) (a Trellinator-compatible API, or a guide to the REST API?),
-[#6554](https://github.com/wekan/wekan/issues/6554) (Gogs beside WeKan in the Compose files, or a link only?),
-[#1126](https://github.com/wekan/wekan/issues/1126) (an RFID guide over the REST API?),
-[#1293](https://github.com/wekan/wekan/issues/1293) (an Android share target that makes a card on a chosen board?),
-[#1188](https://github.com/wekan/wekan/issues/1188) (on Sandstorm, copy a grain sharing link instead of the card URL?),
-[#2662](https://github.com/wekan/wekan/issues/2662) (a FreeBSD port and rc.d script, maintained here or by a ports
-maintainer?),
-[#687](https://github.com/wekan/wekan/issues/687) (publish the Nextcloud ExApp; WebDAV attachment storage and CalDAV
-sync?),
-[#632](https://github.com/wekan/wekan/issues/632) (update the Rancher doc, or remove it?),
-[#1040](https://github.com/wekan/wekan/issues/1040) (LibreJS license markers in the bundle?),
-outgoing webhooks to an internal address (a Node-RED or chat server on the
-same network is refused by the SSRF guard, which [#2017](https://github.com/wekan/wekan/issues/2017)'s how-to now
-says: should the Admin Panel accept a list of internal destinations that
-webhooks may reach?).
+The maintainer answered every open design question; each is built as decided.
+[#802](https://github.com/wekan/wekan/issues/802) (a tab per organization and team in All Boards, where their admins
+manage members; LDAP groups are only read, never written back),
+[#5141](https://github.com/wekan/wekan/issues/5141) (a board admin may add only the organizations and teams they belong
+to),
+[#4265](https://github.com/wekan/wekan/issues/4265) (leaving a board that came through a team hides it in a per-user
+list it can be restored from; the team membership stays),
+[#2217](https://github.com/wekan/wekan/issues/2217) (Admin Panel / Settings / Visibility gets an option, off by default,
+that lets a board show its Rules to members read-only),
+[#5847](https://github.com/wekan/wekan/issues/5847) (Log out everywhere in Member Settings, and passkey / WebAuthn
+login),
+[#1324](https://github.com/wekan/wekan/issues/1324) (Bitbucket through the generic OAuth2 settings, with a how-to),
+[#2805](https://github.com/wekan/wekan/issues/2805) (one shared, sticky list header row for all swimlanes, as a board
+view setting),
+[#2809](https://github.com/wekan/wekan/issues/2809) (a linked whole list: a live mirror of another board's list,
+editable by whoever may write the source board),
+[#2171](https://github.com/wekan/wekan/issues/2171) (search scrolls the board to the selected match and highlights it,
+with next and previous),
+[#2110](https://github.com/wekan/wekan/issues/2110) (minicard avatars in the order people were added, a name tooltip,
+and a lasting colour per person),
+[#2040](https://github.com/wekan/wekan/issues/2040) (a board-defined label order that a list can be sorted by),
+[#2015](https://github.com/wekan/wekan/issues/2015) (a QR code of the card link in the card menu, drawn in the
+browser),
+[#1953](https://github.com/wekan/wekan/issues/1953) (a Board Settings picker for the swimlane new subtasks go to),
+[#1931](https://github.com/wekan/wekan/issues/1931) (an existing card from another board as a subtask, for users who
+may write both boards),
+[#1618](https://github.com/wekan/wekan/issues/1618) (a person responsible for each checklist item, and dated items in
+the calendar and Gantt),
+[#864](https://github.com/wekan/wekan/issues/864) (drag-and-drop and adding cards in the Table view),
+[#211](https://github.com/wekan/wekan/issues/211) (named column sets over the same cards, per board),
+[#140](https://github.com/wekan/wekan/issues/140) (real-time shared editing of descriptions with Yjs and the current
+editor),
+[#1273](https://github.com/wekan/wekan/issues/1273) (a Member Settings switch to keep the `#label` / `@member` text in
+the title; default as now),
+[#1178](https://github.com/wekan/wekan/issues/1178) (drawing onto a card, saved as both PNG and SVG and editable later,
+reusing the drawing code of the "Red Strings" issue),
+[#4791](https://github.com/wekan/wekan/issues/4791) (All Boards grouped by first letter, by board labels and by
+organization subgroups),
+[#2012](https://github.com/wekan/wekan/issues/2012) (story and task card types with custom fields of their own),
+[#2111](https://github.com/wekan/wekan/issues/2111) and [#1604](https://github.com/wekan/wekan/issues/1604) (every change to any field of a card is marked unread
+- title, description, attachments, checklists, members, dates, labels - with
+a per-user switch),
+[#2026](https://github.com/wekan/wekan/issues/2026) and [#1377](https://github.com/wekan/wekan/issues/1377) (browser push notifications, a webhook activity picker
+in the UI, and an all-boards activity feed),
+[#1297](https://github.com/wekan/wekan/issues/1297) (a webhook option to also send a Mattermost direct message to each
+member and assignee),
+[#2290](https://github.com/wekan/wekan/issues/2290) (an instance webhook on login and registration in the Admin Panel,
+off by default, with the user name and time only unless more is chosen),
+[#1100](https://github.com/wekan/wekan/issues/1100) (Matrix notifications through the webhook, no bot),
+[#2435](https://github.com/wekan/wekan/issues/2435) (a member picker with autocomplete for a rule email's To field;
+free addresses still allowed),
+[#4434](https://github.com/wekan/wekan/issues/4434) (the clear HTML layout as the default for notifications and for
+account emails),
+[#5148](https://github.com/wekan/wekan/issues/5148) (ntfy as a notification channel, per user, through the SSRF
+guard),
+[#4198](https://github.com/wekan/wekan/issues/4198) (ActivityPub: a public board publishes its card activity to
+followers, read-only),
+[#4930](https://github.com/wekan/wekan/issues/4930) (a Trellinator-compatible API),
+[#1126](https://github.com/wekan/wekan/issues/1126) (an RFID how-to over the REST API),
+[#1293](https://github.com/wekan/wekan/issues/1293) (an Android share target that makes a card on a chosen board and
+list),
+[#1188](https://github.com/wekan/wekan/issues/1188) (on Sandstorm, Copy card URL copies a grain sharing link),
+[#2662](https://github.com/wekan/wekan/issues/2662) (an rc.d script in the FreeBSD bundle here, and a ports Makefile
+proposed to FreeBSD),
+[#687](https://github.com/wekan/wekan/issues/687) (publish the Nextcloud ExApp, WebDAV attachment storage and CalDAV
+sync),
+[#632](https://github.com/wekan/wekan/issues/632) (update the Rancher doc to current Rancher, Kubernetes and Helm),
+[#1040](https://github.com/wekan/wekan/issues/1040) (LibreJS license markers in the browser bundle),
+outgoing webhooks to internal addresses (an Admin Panel list of internal
+destinations webhooks may reach, empty by default - see [#2017](https://github.com/wekan/wekan/issues/2017)'s how-to).
+[#6554](https://github.com/wekan/wekan/issues/6554) (Gogs beside WeKan) is closed as WONTFIX.
 
 Not a question, but ongoing work:
 [#337](https://github.com/wekan/wekan/issues/337) (move buttons, focus trap, landmarks and many labels exist; many links
