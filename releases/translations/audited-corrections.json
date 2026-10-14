@@ -209991,5 +209991,250 @@
     "before": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
     "after": "Ao amin’ny Plane, sokafy ny Workspace Settings, fidio ny Exports, avoahy ho JSON, CSV na Excel ny tetikasa ary sintomy ny rakitra .zip, dia fidio ilay rakitra, na rakitra iray ao anatiny, na apetaho ny JSON na CSV. Lasa lisitra ny sata, lasa lalana ny tetikasa, ary lasa karatra ny olana miaraka amin’ny mari-panondroana, ray aman-dreny, olona voatendry, marika, daty, rohy ary fanehoan-kevitra; lasa saha manokana ny laharam-pahamehana, tombana, tsingerina ary môdily. Tsy misy famaritana na rakitra ampiarahina ao amin’ny fanondranana Plane, ka tsy ampidirina ireo.",
     "reason": "Translate project import guides into Malagasy, retaining field mappings, literal menus, file formats and explicit omissions."
+  },
+  {
+    "locale": "mg",
+    "key": "import-members-mode-heading",
+    "before": "People in the file:",
+    "after": "Olona ao amin’ny rakitra:",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "import-members-mode-map",
+    "before": "Choose an existing user for each of them",
+    "after": "Misafidiana mpampiasa efa misy ho an’ny tsirairay",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "import-members-mode-placeholder",
+    "before": "Keep them as placeholder users with their own names, to map to real users later",
+    "after": "Tazomy ho mpampiasa solon-toerana miaraka amin’ny anarany manokana izy ireo, mba hampifandraisina amin’ny mpampiasa tena izy any aoriana",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "import-members-mode-me",
+    "before": "Make them all me",
+    "after": "Ataovy izaho izy rehetra",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "csv-mapping-title",
+    "before": "Which column is which?",
+    "after": "Iza no saha mifanaraka amin’ny tsanganana tsirairay?",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "csv-mapping-description",
+    "before": "Choose the column of the file that holds each card field. The choices were made from the column names; change any that are wrong, and choose (not in the file) for a field the file does not have.",
+    "after": "Fidio ny tsanganana ao amin’ny rakitra misy ny saha tsirairay amin’ny karatra. Araka ny anaran’ny tsanganana no nanaovana ny safidy; ahitsio izay diso ary fidio ny (tsy ao amin’ny rakitra) raha tsy misy ao amin’ny rakitra ilay saha.",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "csv-mapping-not-in-file",
+    "before": "(not in the file)",
+    "after": "(tsy ao amin’ny rakitra)",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "csv-mapping-column-number",
+    "before": "Column __number__",
+    "after": "Tsanganana __number__",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "csv-mapping-list-missing",
+    "before": "The file has no column for the list. Choose one above, or type the name of the one list every card goes into.",
+    "after": "Tsy manana tsanganana ho an’ny lisitra ilay rakitra. Misafidiana iray etsy ambony, na soraty ny anaran’ilay lisitra tokana handraisana ny karatra rehetra.",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "csv-mapping-list-name",
+    "before": "List for every card",
+    "after": "Lisitra ho an’ny karatra rehetra",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "csv-mapping-custom-fields",
+    "before": "Other columns to import as text custom fields:",
+    "after": "Tsanganana hafa hampidirina ho saha manokana misy lahatsoratra:",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "csv-mapping-boards",
+    "before": "Each sheet becomes its own board:",
+    "after": "Lasa solaitra misaraka ny takelaka tsirairay:",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "csv-mapping-skipped-sheets",
+    "before": "Sheets that are not imported:",
+    "after": "Takelaka tsy ampidirina:",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "csv-mapping-title-required",
+    "before": "Choose the column that holds the card titles.",
+    "after": "Fidio ny tsanganana misy ny lohatenin’ny karatra.",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "csv-mapping-list-required",
+    "before": "Type the name of the list every card goes into, or choose the column that holds the list.",
+    "after": "Soraty ny anaran’ny lisitra handraisana ny karatra rehetra, na fidio ny tsanganana misy ny lisitra.",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "invalid-import-mapping",
+    "before": "The column mapping does not match the file.",
+    "after": "Tsy mifanaraka amin’ny rakitra ny fampifandraisana tsanganana.",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "import-many-boards",
+    "before": "Import many boards",
+    "after": "Ampidiro ny solaitra maromaro",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "import-many-boards-hint",
+    "before": "Choose several export files of this tool, or one .zip that holds them: each file becomes its own board, imported without member mapping. A .zip that is itself one export (Vikunja, Notion, Plane, or WeKan with attachments) is one board. When files are chosen here, Import imports them instead of the field above.",
+    "after": "Misafidiana rakitra fanondranana maromaro avy amin’ity fitaovana ity, na rakitra .zip iray misy azy ireo: lasa solaitra misaraka ny rakitra tsirairay, ampidirina tsy misy fampifandraisana mpikambana. Raha fanondranana tokana ilay .zip (Vikunja, Notion, Plane, na WeKan miaraka amin’ny rakitra ampiarahina), dia solaitra iray izany. Rehefa misy rakitra voafidy eto, ireo no ampidirin’ny Ampidiro fa tsy ny ao amin’ny saha etsy ambony.",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "import-one-board-per-project",
+    "before": "One board per project",
+    "after": "Solaitra iray isaky ny tetikasa",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "import-one-board-per-project-hint",
+    "before": "Each swimlane the import would make (a project, folder or list of the tool) becomes its own board. Parent cards and dependencies between those boards are listed in the import report.",
+    "after": "Lasa solaitra misaraka ny lalana tsirairay tokony ho noforonin’ny fanafarana (tetikasa, lahatahiry na lisitry ny fitaovana). Voatanisa ao amin’ny tatitra fanafarana ny karatra ray aman-dreny sy ny fiankinana eo amin’ireo solaitra ireo.",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "import-many-progress",
+    "before": "Importing __done__ of __total__: __name__",
+    "after": "Mampiditra __done__ amin’ny __total__: __name__",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "import-many-results-heading",
+    "before": "Imported files",
+    "after": "Rakitra nampidirina",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "import-many-imported",
+    "before": "imported",
+    "after": "tafiditra",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "export-all-boards",
+    "before": "Export all boards",
+    "after": "Avoahy ny solaitra rehetra",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "export-selected-boards",
+    "before": "Export selected boards",
+    "after": "Avoahy ny solaitra voafidy",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "export-all-boards-hint",
+    "before": "Every board you can export, in one download: Excel as one workbook with a sheet per board named after it, every other format as a .zip with a file per board.",
+    "after": "Ny solaitra rehetra azonao avoaka, ao anatin’ny fampidinana iray: ny Excel dia boky iray misy takelaka isaky ny solaitra mitondra ny anarany, ary ny endrika hafa rehetra dia .zip misy rakitra isaky ny solaitra.",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "exportAllBoardsPopup-title",
+    "before": "Export all boards",
+    "after": "Avoahy ny solaitra rehetra",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "exportToTrelloPopup-title",
+    "before": "Export to Trello",
+    "after": "Avoahy any amin’ny Trello",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "trello-export-desc",
+    "before": "Create a copy of this board in Trello through Trello's API, with your Trello API key and token. Swimlanes become labels named \"Swimlane: …\", which WeKan's Trello import turns back into swimlanes.",
+    "after": "Mamoròna dika mitovy amin’ity solaitra ity ao amin’ny Trello amin’ny alalan’ny API Trello, miaraka amin’ny lakile API sy ny token Trello anao. Lasa marika antsoina hoe \"Swimlane: …\" ny lalana, ary avadiky ny fanafarana Trello ao amin’ny WeKan ho lalana indray ireo.",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "trello-export-include-attachments",
+    "before": "Include attachments",
+    "after": "Ampidiro koa ny rakitra ampiarahina",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "trello-export-start",
+    "before": "Export to Trello",
+    "after": "Avoahy any amin’ny Trello",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "trello-export-open-board",
+    "before": "Open the board in Trello",
+    "after": "Sokafy ao amin’ny Trello ny solaitra",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "trello-export-warnings",
+    "before": "Not everything could be exported",
+    "after": "Tsy azo navoaka avokoa ny zavatra rehetra",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "sandstorm-trello-access-needed",
+    "before": "A Sandstorm grain has no Internet access of its own. Allow this grain to reach Trello first.",
+    "after": "Tsy manana fidirana amin’ny Internet ho azy ny grain Sandstorm. Omeo alalana hifandray amin’ny Trello aloha ity grain ity.",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "sandstorm-allow-trello-access",
+    "before": "Allow access to Trello",
+    "after": "Omeo alalana hiditra amin’ny Trello",
+    "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
   }
 ]

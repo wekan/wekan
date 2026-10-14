@@ -395,3 +395,19 @@ assert.match(malagasy['import-board-instruction-businessmap'], /teny anglisy.*te
 assert.match(malagasy['import-board-instruction-redmine'], /My account alohan’ny fanondranana/);
 for (const literal of ['--', '##', '>>', '.xlsx', 'Tasklist', 'Estimated time']) assert.ok(malagasy['import-board-instruction-teamwork'].includes(literal));
 assert.match(malagasy['import-board-instruction-tasksorg'], /daty nahavitana/);
+
+const bulkTransferKeys = ["import-members-mode-heading", "import-members-mode-map", "import-members-mode-placeholder", "import-members-mode-me", "csv-mapping-title", "csv-mapping-description", "csv-mapping-not-in-file", "csv-mapping-column-number", "csv-mapping-list-missing", "csv-mapping-list-name", "csv-mapping-custom-fields", "csv-mapping-boards", "csv-mapping-skipped-sheets", "csv-mapping-title-required", "csv-mapping-list-required", "invalid-import-mapping", "import-many-boards", "import-many-boards-hint", "import-one-board-per-project", "import-one-board-per-project-hint", "import-many-progress", "import-many-results-heading", "import-many-imported", "export-all-boards", "export-selected-boards", "export-all-boards-hint", "exportAllBoardsPopup-title", "exportToTrelloPopup-title", "trello-export-desc", "trello-export-include-attachments", "trello-export-start", "trello-export-open-board", "trello-export-warnings", "sandstorm-trello-access-needed", "sandstorm-allow-trello-access"];
+
+for (const key of bulkTransferKeys) {
+  assert.notEqual(malagasy[key], english[key], key);
+  assert.deepEqual(tokens(malagasy[key]), tokens(english[key]), key);
+}
+assert.match(malagasy['import-members-mode-placeholder'], /anarany manokana.*any aoriana/);
+assert.match(malagasy['csv-mapping-description'], /ahitsio izay diso.*tsy ao amin’ny rakitra/);
+assert.match(malagasy['import-many-boards-hint'], /tsy misy fampifandraisana mpikambana.*fanondranana tokana.*solaitra iray.*fa tsy/);
+assert.match(malagasy['import-one-board-per-project-hint'], /ray aman-dreny.*fiankinana/);
+assert.match(malagasy['export-all-boards-hint'], /azonao avoaka.*Excel.*takelaka isaky ny solaitra.*zip.*rakitra isaky ny solaitra/);
+assert.equal(malagasy['export-all-boards'], malagasy['exportAllBoardsPopup-title']);
+assert.ok(malagasy['trello-export-desc'].includes('"Swimlane: …"'));
+assert.match(malagasy['trello-export-warnings'], /^Tsy/);
+assert.match(malagasy['sandstorm-trello-access-needed'], /Tsy manana.*Internet.*alalana/);

@@ -106,3 +106,16 @@ test.describe('Import without mapping members', () => {
     });
   });
 });
+
+test('Malagasy import choices distinguish placeholders and bulk files', async ({ loggedInPage: page }) => {
+  const mg = require('../../../imports/i18n/data/mg.i18n.json');
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'mg'));
+  await navigateInApp(page, '/import/wekan');
+  const choices = page.locator('.import-members-mode');
+  for (const key of ['import-members-mode-heading', 'import-members-mode-map', 'import-members-mode-placeholder', 'import-members-mode-me']) {
+    await expect(choices).toContainText(mg[key]);
+  }
+  await expect(choices).not.toContainText('People in the file');
+  await expect(page.locator('.import-many .import-file-hint')).toHaveText(mg['import-many-boards-hint']);
+  await expect(page.locator('#import-many-files')).toBeEmpty();
+});
