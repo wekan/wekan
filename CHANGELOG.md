@@ -403,6 +403,28 @@ not have).
 </details>
 
 <details>
+<summary>Decided on 2026-10-14 (third round), waiting to be implemented.</summary>
+
+The maintainer answered the open design questions; each is built as decided.
+[#2698](https://github.com/wekan/wekan/issues/2698) (GitLab: write changes back
+to GitLab - issues, comments, state - with live tests in the build.sh and
+build.bat menus, run with the same git credentials mirror.sh uses),
+[#5758](https://github.com/wekan/wekan/issues/5758) (Windows SSO with
+Kerberos/NTLM through node-expose-sspi, built without a Windows/AD test
+environment), [#6549](https://github.com/wekan/wekan/issues/6549) (documented
+how the Rocket.Chat / G Suite SAML chain must be configured, then closed),
+[#2460](https://github.com/wekan/wekan/issues/2460) (SQRL's sqrlonly and
+hardlock options: an account a member locks to SQRL refuses other sign-ins,
+and a hardlocked one refuses password reset and e-mail change). Batch undo
+and redo of a large sprint is made faster now. Importers for Planka,
+Microsoft To Do, KanbanFlow, Basecamp, Google Tasks and Google Keep, through
+their APIs, with live tests in the build.sh and build.bat menus run with the
+maintainer's own credentials. Bosnian uses "Tabla" for board throughout;
+Tsonga gets a word for archive of its own, apart from storage.
+
+</details>
+
+<details>
 <summary>Ongoing accessibility work.</summary>
 
 [#337](https://github.com/wekan/wekan/issues/337) (move buttons, focus trap,
