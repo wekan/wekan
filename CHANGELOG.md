@@ -635,6 +635,25 @@ Upcoming as it is committed. Builds run on GitHub Actions only.
 
 </details>
 
+# Upcoming WeKan ® release
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/238354f6a54a234c9db1cf88a9436d15087c6ba0">Translate Igbo notification delivery and integration settings</a>. Thanks to xet7.</summary>
+
+Translate 42 notification and integration strings, preserving grouping,
+schedules, quiet hours, inherited webhook settings, identity omission and
+literal link-rule syntax. Direct technical wording needs fluent review.
+
+Both translation and guarded-correction suites pass with 30,943 corrections.
+All 21 human-preference checks pass; 38,430 existing Chinese values are
+unchanged.
+One notification browser case passes syntax and discovery; execution is pending.
+All-language translation and semantic verification remain unfinished.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.40 2026-10-14 WeKan ® release
 
 **In short:** **email to card** arrives on every platform, through provider

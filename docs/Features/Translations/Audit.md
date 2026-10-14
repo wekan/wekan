@@ -2,6 +2,18 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Igbo notification and integration settings — 2026-10-14
+
+Commit `238354f6a5` translates 42 strings covering notification content,
+grouping, schedules, quiet hours and webhook payload choices. Assertions retain
+literal link examples, placeholder variables, inherited settings and distinctions
+between board/card groups. Direct technical wording needs fluent review.
+
+The Igbo/Swedish and guarded-correction suites pass with 30,943 ledger entries;
+all 21 human-preference checks pass. Exact comparison preserves 38,430 existing
+Chinese values. One notification settings browser case passes syntax and
+discovery; runtime execution is pending. All-language verification is unfinished.
+
 ## Igbo Trello and Sandstorm transfers — 2026-10-14
 
 Commit `93ef17b326` translates 15 transfer strings, preserving the literal
