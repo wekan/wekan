@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.39
+  version: v12.40
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -5643,6 +5643,9 @@ definitions:
       notifyOverrideEmail:
         type: boolean
         x-nullable: true
+      emailToCard:
+        type: object
+        x-nullable: true
       notificationDelivery:
         type: object
         x-nullable: true
@@ -6622,6 +6625,16 @@ definitions:
         description: |
            Date the card was received
         type: string
+        x-nullable: true
+      email:
+        description: |
+           #794: the email this card came from or was sent as - { direction:
+           'in'|'out', from: { name, address }, to: [address], cc: [address],
+           subject, messageId, threadIds: [Message-ID], at }. threadIds holds
+           every Message-ID of the conversation, so a reply to it (In-Reply-To /
+           References) becomes a comment here rather than a new card
+           (server/emailToCard.js, server/emailView.js).
+        type: object
         x-nullable: true
       startAt:
         description: |
@@ -7825,6 +7838,12 @@ definitions:
       mailServer:
         $ref: "#/definitions/SettingsMailserver"
         x-nullable: true
+      inboundMail:
+        type: object
+        x-nullable: true
+      emailBounces:
+        type: object
+        x-nullable: true
       productName:
         type: string
         x-nullable: true
@@ -8357,6 +8376,18 @@ definitions:
            Member-level override of email notifications (see
            models/lib/notificationSettings.js).
         type: boolean
+      chatViewLayout:
+        description: |
+           Board View / Chat: { treeWidth, chatWidth, treeCollapsed,
+           cardCollapsed, chatCollapsed } - the member's pane widths and which
+           panes are folded (models/lib/chatView.js cleanChatLayout).
+        type: object
+      emailToCard:
+        description: |
+           Email to card (#794): { enabled, parts } - whether this member's
+           board addresses work, and which parts of an email they want on the
+           card (models/lib/emailToCard.js). Unset = on, the board's parts.
+        type: object
       notificationDelivery:
         type: object
       webhookHideIdentity:
@@ -8692,6 +8723,8 @@ definitions:
           - board-view-process-behavior
           - board-view-size-cycle-time
           - board-view-map
+          - board-view-email
+          - board-view-chat
       listSortBy:
         description: |
            default sort list for user
