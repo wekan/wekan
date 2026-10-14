@@ -63,7 +63,26 @@ buildSharpFromSource(${JSON.stringify(sharp)}, ${JSON.stringify(server)}, proces
   const rebuild = fs.readFileSync(path.join(root, 'releases/bun/rebuild.mjs'), 'utf8');
   assert.match(rebuild, /export const SHARP_SOURCE_PLATFORMS = \['android', 'freebsd'\];/);
   assert.match(rebuild, /name === 'sharp' && SHARP_SOURCE_PLATFORMS\.includes\(process\.platform\)/);
-  console.log('Sharp source build installs declared headers, clears stale output and preserves compiler failures.');
+  // FreeBSD packages libvips 8.18.6 while sharp 0.35.5's source asks for
+  // 8.18.7 (both FreeBSD Bun builds of v12.44 stopped at that #error). Only a
+  // patch-release gap is accepted; anything more still stops the build.
+  return import(pathToFileURL(path.join(root, 'releases/bun/rebuild.mjs')).href).then(({ acceptPackagedLibvips }) => {
+    const guard = `#if (VIPS_MAJOR_VERSION < 8) || \\
+  (VIPS_MAJOR_VERSION == 8 && VIPS_MINOR_VERSION < 18) || \\
+  (VIPS_MAJOR_VERSION == 8 && VIPS_MINOR_VERSION == 18 && VIPS_MICRO_VERSION < 7)
+#error "libvips version 8.18.7+ is required"
+#endif`;
+    const behind = acceptPackagedLibvips(guard, '8.18.6\n');
+    assert.match(behind.note, /asks for libvips 8\.18\.7; this system packages 8\.18\.6/);
+    assert.match(behind.source, /VIPS_MINOR_VERSION == 18 && VIPS_MICRO_VERSION < 6\)/);
+    assert.match(behind.source, /VIPS_MINOR_VERSION < 18\)/, 'the minor-version check is untouched');
+    assert.deepEqual(acceptPackagedLibvips(guard, '8.18.7'), { source: guard, note: '' }, 'new enough: nothing changes');
+    assert.deepEqual(acceptPackagedLibvips(guard, '8.17.9'), { source: guard, note: '' }, 'a minor release behind: the guard stays and stops the build');
+    assert.throws(() => acceptPackagedLibvips('#error nope', '8.18.6'), /not the one this was written for/);
+    assert.throws(() => acceptPackagedLibvips(guard, ''), /no libvips version/);
+    assert.match(rebuild, /if \(process\.platform === 'freebsd'\) \{[\s\S]{0,200}pkg-config', \['--modversion', 'vips-cpp'\]/);
+    console.log('Sharp source build installs declared headers, clears stale output and preserves compiler failures.');
+  });
 } finally {
   fs.rmSync(tmp, { recursive: true, force: true });
 }

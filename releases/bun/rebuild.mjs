@@ -69,8 +69,41 @@ export function probeAddon(bun, dir, cwd, timeout = 30000) {
 // the same wasm build works under Bun on Linux. A Worker that never finishes
 // matches Bun's open FreeBSD thread-suspend deadlock (oven-sh/bun#44595).
 export const SHARP_SOURCE_PLATFORMS = ['android', 'freebsd'];
+
+// sharp's source refuses a libvips older than the one it was released with
+// (src/common.h, to the patch release). FreeBSD packages libvips a patch
+// release behind at times - 8.18.6 against sharp 0.35.5's 8.18.7 stopped both
+// FreeBSD Bun builds - and a user's FreeBSD runs that packaged libvips through
+// the same libvips-cpp soname whatever was compiled against. So only a
+// patch-release gap is accepted, said so in the log; any larger one still
+// stops the build.
+const VIPS_GUARD = /\(VIPS_MAJOR_VERSION == (\d+) && VIPS_MINOR_VERSION == (\d+) && VIPS_MICRO_VERSION < (\d+)\)/;
+export function acceptPackagedLibvips(commonH, installed) {
+  const m = VIPS_GUARD.exec(commonH);
+  if (!m) throw new Error('sharp src/common.h: the libvips version check is not the one this was written for');
+  const [major, minor, micro] = m.slice(1).map(Number);
+  const v = /^(\d+)\.(\d+)\.(\d+)/.exec(String(installed || '').trim());
+  if (!v) throw new Error(`no libvips version from pkg-config: ${installed}`);
+  const [imajor, iminor, imicro] = v.slice(1).map(Number);
+  if (imajor !== major || iminor !== minor || imicro >= micro) return { source: commonH, note: '' };
+  return {
+    source: commonH.replace(m[0], `(VIPS_MAJOR_VERSION == ${major} && VIPS_MINOR_VERSION == ${minor} && VIPS_MICRO_VERSION < ${imicro})`),
+    note: `sharp asks for libvips ${major}.${minor}.${micro}; this system packages ${imajor}.${iminor}.${imicro}, which its users run - built against it.`,
+  };
+}
+
 export function buildSharpFromSource(dir, server, npm) {
   const pkg = JSON.parse(readFileSync(join(dir, 'package.json'), 'utf8'));
+  if (process.platform === 'freebsd') {
+    const commonH = join(dir, 'src', 'common.h');
+    const installed = spawnSync('pkg-config', ['--modversion', 'vips-cpp'], { encoding: 'utf8' }).stdout;
+    const { source, note } = acceptPackagedLibvips(readFileSync(commonH, 'utf8'), installed);
+    if (note) {
+      console.log(`::notice::${note}`);
+      makeWritable(commonH);
+      writeFileSync(commonH, source);
+    }
+  }
   const addonApi = pkg.devDependencies?.['node-addon-api'];
   if (!addonApi) throw new Error('Sharp does not declare node-addon-api build headers');
   run(npm, ['install', '--no-save', '--omit=dev', '--ignore-scripts', '--package-lock=false',

@@ -107,6 +107,9 @@ jobs:
             exit 0
           fi
           [ -f "$zip.sha256sum" ] || { echo "::error::$zip has no published .sha256sum; a single file is never built from an unverified bundle."; exit 1; }
+          # A .sha256sum written on Windows before releases/bun/assets.py wrote LF
+          # (v12.44 windows-arm64) ends in CRLF; the line is the same without it.
+          tr -d '\r' < "$zip.sha256sum" > "$zip.sha256sum.lf" && mv "$zip.sha256sum.lf" "$zip.sha256sum"
           if command -v sha256sum >/dev/null; then sha256sum -c "$zip.sha256sum"; else shasum -a 256 -c "$zip.sha256sum"; fi
           # Only the bundle's own Bun, to build with - the ZIP itself is
           # embedded as it is.

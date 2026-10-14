@@ -109,6 +109,31 @@ class BunReleaseTests(unittest.TestCase):
             finally:
                 os.chdir(previous)
 
+    def test_checksum_file_is_lf_on_every_platform(self):
+        # Windows text mode wrote CRLF, and `sha256sum -c` then looked for a
+        # file named "<zip>\\r" (bun-single-file windows-arm64, v12.44).
+        source = (ROOT / 'releases/bun/assets.py').read_text()
+        self.assertIn("write_text(f'{digest}  {name}\\n', newline='\\n')", source)
+
+    def test_download_retries_a_server_error_but_not_a_missing_asset(self):
+        import urllib.error
+        calls = []
+        def failing(code):
+            def urlopen(url, timeout):
+                calls.append(code)
+                raise urllib.error.HTTPError(url, code, 'x', {}, None)
+            return urlopen
+        with tempfile.TemporaryDirectory(dir=ROOT / '.tools/tmp') as tmp, patch.object(assets.time, 'sleep', lambda s: None):
+            with patch.object(assets.urllib.request, 'urlopen', failing(500)):
+                with self.assertRaises(urllib.error.HTTPError):
+                    assets.download('https://example.invalid/a', Path(tmp) / 'a')
+            self.assertEqual(len(calls), 5, 'a 500 is tried five times')
+            calls.clear()
+            with patch.object(assets.urllib.request, 'urlopen', failing(404)):
+                with self.assertRaises(urllib.error.HTTPError):
+                    assets.download('https://example.invalid/a', Path(tmp) / 'a')
+            self.assertEqual(len(calls), 1, 'a 404 is not retried')
+
 
 if __name__ == '__main__':
     unittest.main()

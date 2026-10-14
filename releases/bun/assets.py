@@ -6,6 +6,8 @@ import os
 from pathlib import Path
 import re
 import sys
+import time
+import urllib.error
 import urllib.request
 import zipfile
 
@@ -63,11 +65,23 @@ def plan(release, bun_release, only='', missing=False):
             'matrix': {'include': rows}, 'count': len(rows)}
 
 
-def download(url, destination):
-    # Do not send the repository token to release asset/CDN URLs.
-    with urllib.request.urlopen(url, timeout=120) as response, open(destination, 'wb') as output:
-        while chunk := response.read(1024 * 1024):
-            output.write(chunk)
+def download(url, destination, attempts=5):
+    # Do not send the repository token to release asset/CDN URLs. A server
+    # error is retried: one HTTP 500 from GitHub's CDN failed the windows-x64
+    # Bun bundle of v12.44. A 4xx is not - the asset is not there.
+    for attempt in range(1, attempts + 1):
+        try:
+            with urllib.request.urlopen(url, timeout=120) as response, open(destination, 'wb') as output:
+                while chunk := response.read(1024 * 1024):
+                    output.write(chunk)
+            return
+        except urllib.error.HTTPError as error:
+            if error.code < 500 or attempt == attempts:
+                raise
+        except (urllib.error.URLError, TimeoutError, ConnectionError):
+            if attempt == attempts:
+                raise
+        time.sleep(attempt * 10)
 
 
 def fetch_runtime(bun_tag, target):
@@ -120,7 +134,9 @@ def package(tag, target):
                 archive.write(Path(directory) / filename)
     with (output / name).open('rb') as source:
         digest = hashlib.file_digest(source, 'sha256').hexdigest()
-    (output / (name + '.sha256sum')).write_text(f'{digest}  {name}\n')
+    # LF on every platform: on Windows text mode wrote CRLF, and `sha256sum -c`
+    # then looked for a file named "<zip>\r" (bun-single-file windows-arm64).
+    (output / (name + '.sha256sum')).write_text(f'{digest}  {name}\n', newline='\n')
 
 
 if __name__ == '__main__':
