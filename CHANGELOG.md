@@ -416,7 +416,6 @@ list it can be restored from; the team membership stays),
 that lets a board show its Rules to members read-only),
 [#5847](https://github.com/wekan/wekan/issues/5847) (Log out everywhere in Member Settings, and passkey / WebAuthn
 login),
-[#1324](https://github.com/wekan/wekan/issues/1324) (Bitbucket through the generic OAuth2 settings, with a how-to),
 [#2805](https://github.com/wekan/wekan/issues/2805) (one shared, sticky list header row for all swimlanes, as a board
 view setting),
 [#2809](https://github.com/wekan/wekan/issues/2809) (a linked whole list: a live mirror of another board's list,
@@ -446,7 +445,6 @@ in the UI, and an all-boards activity feed),
 member and assignee),
 [#2290](https://github.com/wekan/wekan/issues/2290) (an instance webhook on login and registration in the Admin Panel,
 off by default, with the user name and time only unless more is chosen),
-[#1100](https://github.com/wekan/wekan/issues/1100) (Matrix notifications through the webhook, no bot),
 [#2435](https://github.com/wekan/wekan/issues/2435) (a member picker with autocomplete for a rule email's To field;
 free addresses still allowed),
 [#4434](https://github.com/wekan/wekan/issues/4434) (the clear HTML layout as the default for notifications and for
@@ -455,7 +453,6 @@ account emails),
 guard),
 [#4198](https://github.com/wekan/wekan/issues/4198) (ActivityPub: a public board publishes its card activity to
 followers, read-only),
-[#1126](https://github.com/wekan/wekan/issues/1126) (an RFID how-to over the REST API),
 [#1293](https://github.com/wekan/wekan/issues/1293) (an Android share target that makes a card on a chosen board and
 list),
 [#1188](https://github.com/wekan/wekan/issues/1188) (on Sandstorm, Copy card URL copies a grain sharing link),
@@ -463,10 +460,7 @@ list),
 proposed to FreeBSD),
 [#687](https://github.com/wekan/wekan/issues/687) (publish the Nextcloud ExApp, WebDAV attachment storage and CalDAV
 sync),
-[#632](https://github.com/wekan/wekan/issues/632) (update the Rancher doc to current Rancher, Kubernetes and Helm),
 [#1040](https://github.com/wekan/wekan/issues/1040) (LibreJS license markers in the browser bundle),
-outgoing webhooks to internal addresses (an Admin Panel list of internal
-destinations webhooks may reach, empty by default - see [#2017](https://github.com/wekan/wekan/issues/2017)'s how-to).
 [#6554](https://github.com/wekan/wekan/issues/6554) (Gogs beside WeKan) is closed as WONTFIX.
 
 Not a question, but ongoing work:
@@ -781,6 +775,29 @@ their own, readable at WCAG AA, and the tooltip names them.
 
 </details>
 
+**Webhooks** - where they may go.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b4d2604e61">Outgoing webhooks may reach the internal hosts a site admin lists</a>. Thanks to xet7.</summary>
+
+Admin Panel → Settings → Global Webhooks → **Internal destinations** lists
+hosts on WeKan's own network that outgoing webhooks may reach: a Node-RED, a
+chat server, a Matrix hookshot. Each entry is a name or an address, with a
+port to allow only that port. It is empty by default. Only site
+administrators read and change it, through methods, and it is never
+published, so a board member still cannot point a webhook inward. A listed
+host is called without following redirects; everything else stays behind
+the SSRF guard. `tests/internalWebhookHosts.test.cjs`.
+
+</details>
+
+**Documentation** - how-tos the decided issues asked for.
+
+- [Bitbucket login through the generic OAuth2 settings](https://github.com/wekan/wekan/commit/f715e95b40), checked against the OIDC code. Thanks to thuanpq and xet7.
+- [Matrix notifications through an outgoing webhook and matrix-hookshot, no bot](https://github.com/wekan/wekan/commit/dff0856585). Thanks to killua-eu and xet7.
+- [RFID tags moving cards through the REST API](https://github.com/wekan/wekan/commit/c47fe98ab0). Thanks to xet7.
+- [WeKan on current Rancher with the Helm chart](https://github.com/wekan/wekan/commit/28477b5a85). Thanks to Dreampie and xet7.
+
 **Cards** - opening a card on a phone.
 
 <details>
@@ -813,6 +830,33 @@ covers the build and the workflow. See [Android](docs/Platforms/FOSS/OS/Android.
 </details>
 
 and fixes the following bugs:
+
+**Notifications and background jobs** - large instances.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e0317a9ff3">The activity notification recovery list drains, and old entries expire</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+The recovery scan retried every pending notification each round. One that
+can never be delivered failed every time and stayed forever: its activity
+was deleted or changed, a recipient lost access, or its plan had nothing or
+too much to send. After a ten-minute grace such a notification is now
+cancelled through the administrator's own cancellation, as the system.
+Pending notifications older than `ACTIVITY_NOTIFICATION_MAX_AGE_DAYS` (7)
+expire. Admin Panel → Problems gets **Retry all** and **Cancel older…**.
+`tests/activityNotificationExpiry.test.cjs` and a runtime test.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e0317a9ff3">synced-cron's per-minute running-job lookup uses an index</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+`{ name, finishedAt: { $exists: false } }`, asked every minute per job and
+instance, scanned the whole `cronJobs` history: synced-cron indexes only
+`{ intendedAt, name }` and the TTL. `{ name, finishedAt }` is created at
+startup. `tests/syncedCronIndex.test.cjs` and a runtime test that checks the
+plan.
+
+</details>
 
 **Board keys** - how old boards get theirs.
 
