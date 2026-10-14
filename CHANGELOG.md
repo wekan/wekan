@@ -4419,6 +4419,20 @@ runtime remains pending. All-language semantic review remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/32ae43650c794c52709d8a55043eca26aef28164">Restore omitted Irish import and header help details</a>. Thanks to xet7.</summary>
+
+Correct three strings. Jira help now includes required fields and pagination;
+Excel help explains per-sheet boards and column mapping. Restore the header
+icon toggle's mobile/desktop and notification scope.
+
+The Irish catalog and guarded-correction suites pass with 30,520 audited
+corrections. All 21 human-preference checks pass; 38,430 existing Chinese values
+remain unchanged. Five browser cases pass syntax and discovery; runtime remains
+pending. All-language semantic review remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

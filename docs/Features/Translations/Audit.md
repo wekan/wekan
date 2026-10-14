@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Irish import and header help omissions — 2026-10-14
+
+Commit `32ae43650c` corrects three entries. Jira guidance restores the fields
+query, nextPageToken pagination and ways to import multiple pages. Excel
+restores per-sheet boards and the mapping step. Header help identifies its
+mobile/desktop scope through notifications. Current English source was used;
+external provider interfaces were not revalidated. The reviewed GCS and backup
+help retained its credential, permission and restore distinctions unchanged.
+
+The Irish catalog and guarded-correction suites pass with 30,520 correction
+ledger entries. All 21 human-preference checks pass; exact comparison preserves
+38,430 existing Chinese values. Five browser cases cover the two guides and
+header tooltip alongside existing action checks. Syntax and discovery pass;
+runtime remains pending.
+
+Irish and all-language semantic review remain unfinished.
+
 ## Irish date triggers and card actions — 2026-10-14
 
 Commit `301fd32e09` corrects seven labels. Four date triggers now include both
