@@ -208542,5 +208542,75 @@
     "before": "Responsab",
     "after": "Moun ki asiyen",
     "reason": "Replace French calendar labels with Haitian Creole; preserve calendar variants and correct roadmap, anonymization and snapshot meanings."
+  },
+  {
+    "locale": "ht",
+    "key": "close-board-pop",
+    "before": "Ou pral kapab retabli tablo a lè ou klike sou bouton “Achiv” nan antèt paj akèy la.",
+    "after": "Ou ka retabli tablo a nan \"Achiv\" sou paj Tout tablo yo.",
+    "reason": "Correct Haitian upload direction, archive destination and control terminology while preserving administrator permissions."
+  },
+  {
+    "locale": "ht",
+    "key": "custom-field-dropdownMultiSelect",
+    "before": "Lis anba (chwazi plizyè)",
+    "after": "Lis dewoulant (chwazi plizyè)",
+    "reason": "Correct Haitian upload direction, archive destination and control terminology while preserving administrator permissions."
+  },
+  {
+    "locale": "ht",
+    "key": "createTemplateContainerPopup-title",
+    "before": "Ajoute resipyan modèl",
+    "after": "Ajoute kontenè modèl",
+    "reason": "Correct Haitian upload direction, archive destination and control terminology while preserving administrator permissions."
+  },
+  {
+    "locale": "ht",
+    "key": "export-card-attachment-uploaded-by",
+    "before": "Telechaje pa",
+    "after": "Voye pa",
+    "reason": "Correct Haitian upload direction, archive destination and control terminology while preserving administrator permissions."
+  },
+  {
+    "locale": "ht",
+    "key": "export-card-attachment-uploaded-at",
+    "before": "Telechaje nan dat",
+    "after": "Voye nan dat",
+    "reason": "Correct Haitian upload direction, archive destination and control terminology while preserving administrator permissions."
+  },
+  {
+    "locale": "ht",
+    "key": "feature-views-map-desc",
+    "before": "Kat travay kòm makè sou yon imaj ki telechaje.",
+    "after": "Kat travay kòm makè sou yon imaj ki voye.",
+    "reason": "Correct Haitian upload direction, archive destination and control terminology while preserving administrator permissions."
+  },
+  {
+    "locale": "ht",
+    "key": "map-view-empty",
+    "before": "Tablo sa a poko gen imaj plan. Yon administratè tablo a ka telechaje youn — yon plan etaj, yon plan sit oswa yon desen — epi apre sa ou ka mete kat yo sou li.",
+    "after": "Tablo sa a poko gen imaj plan. Yon administratè tablo a ka voye youn — yon plan etaj, yon plan sit oswa yon desen — epi apre sa ou ka mete kat yo sou li.",
+    "reason": "Correct Haitian upload direction, archive destination and control terminology while preserving administrator permissions."
+  },
+  {
+    "locale": "ht",
+    "key": "map-view-upload",
+    "before": "Telechaje yon imaj plan",
+    "after": "Voye yon imaj plan",
+    "reason": "Correct Haitian upload direction, archive destination and control terminology while preserving administrator permissions."
+  },
+  {
+    "locale": "ht",
+    "key": "default-save-storage-description",
+    "before": "Chwazi sistèm depo kote nouvo pyès atache yo ap anrejistre.",
+    "after": "Chwazi sistèm depo kote nouvo pyès atache ki voye yo ap anrejistre.",
+    "reason": "Correct Haitian upload direction, archive destination and control terminology while preserving administrator permissions."
+  },
+  {
+    "locale": "ht",
+    "key": "filter-creator-label",
+    "before": "Filtre pa moun ki Kreyatè",
+    "after": "Filtre pa kreyatè",
+    "reason": "Correct Haitian upload direction, archive destination and control terminology while preserving administrator permissions."
   }
 ]

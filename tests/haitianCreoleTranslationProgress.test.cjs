@@ -391,3 +391,18 @@ assert.doesNotMatch(creole['bucket-example'], /Bokit/);
 assert.match(creole['userAnonymizePopup-title'], /kont.*anonim/);
 assert.doesNotMatch(creole['userAnonymizePopup-title'], /enpòte/);
 assert.doesNotMatch(creole['board-view-timeline-showing'], /apati/);
+
+const reviewedUploadControlKeys = ["close-board-pop", "custom-field-dropdownMultiSelect", "createTemplateContainerPopup-title", "export-card-attachment-uploaded-by", "export-card-attachment-uploaded-at", "feature-views-map-desc", "map-view-empty", "map-view-upload", "default-save-storage-description", "filter-creator-label"];
+for (const key of reviewedUploadControlKeys) {
+  assert.notEqual(creole[key], english[key], key);
+  assert.deepEqual(tokens(creole[key]), tokens(english[key]), key);
+}
+for (const key of ['export-card-attachment-uploaded-by', 'export-card-attachment-uploaded-at', 'feature-views-map-desc', 'map-view-empty', 'map-view-upload', 'default-save-storage-description']) {
+  assert.match(creole[key], /voye/i, key);
+  assert.doesNotMatch(creole[key], /telechaje/i, key);
+}
+assert.match(creole['map-view-empty'], /administratè tablo.*plan etaj.*plan sit.*desen/);
+assert.match(creole['close-board-pop'], /Achiv.*paj Tout tablo/);
+assert.doesNotMatch(creole['close-board-pop'], /antèt paj akèy/);
+assert.match(creole['custom-field-dropdownMultiSelect'], /Lis dewoulant.*chwazi plizyè/);
+assert.equal(creole['createTemplateContainerPopup-title'], creole['add-template-container']);
