@@ -206316,5 +206316,110 @@
     "before": "In Teamwork.com, fill in the Excel task import template (Tasklist, Task, Description, Assign to, Start date, Due date, Priority, Estimated time, Tags, Status) and save it as .xlsx, then choose that file. Task lists become lists and tasks become cards; a task starting with -, # or > becomes a subtask of the task above it (--, ## or >> one level deeper). Assignees, dates and tags keep their places; Priority, Estimated time and Complete become custom fields.",
     "after": "Nan Teamwork.com, ranpli modèl enpòtasyon travay Excel la (Tasklist, Task, Description, Assign to, Start date, Due date, Priority, Estimated time, Tags, Status) epi anrejistre li kòm .xlsx, apre sa chwazi fichye sa a. Lis travay yo vin lis epi travay yo vin kat; yon travay ki kòmanse ak -, # oswa > vin yon sou-travay travay ki anlè li a (--, ## oswa >> mete l yon nivo pi fon). Moun ki responsab, dat ak etikèt kenbe plas yo; Priority, Estimated time ak Complete vin chan pèsonalize.",
     "reason": "Translate project import guides, preserving attachment exclusions, archived state, hierarchy markers and custom-field mappings."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-businessmap",
+    "before": "In Businessmap (formerly Kanbanize), open Advanced Search, choose Configure results to pick the columns, download the Excel file, then choose that .xlsx file. Columns are read by their English names (Title, Column, Lane, Owner, Deadline ...): if your account uses another language, rename the header row to English first. Column becomes lists and Lane swimlanes; owners, tags, color, dates, comments and parent links keep their places, and Priority, Size, Type and other columns become custom fields.",
+    "after": "Nan Businessmap (ansyen Kanbanize), ouvri Advanced Search, chwazi Configure results pou chwazi kolòn yo, telechaje fichye Excel la, apre sa chwazi fichye .xlsx sa a. Kolòn yo li dapre non anglè yo (Title, Column, Lane, Owner, Deadline ...): si kont ou sèvi ak yon lòt lang, mete non kolòn yo an anglè nan premye liy la anvan. Column vin lis epi Lane vin kouloir; pwopriyetè, etikèt, koulè, dat, kòmantè ak lyen paran yo kenbe plas yo, epi Priority, Size, Type ak lòt kolòn yo vin chan pèsonalize.",
+    "reason": "Translate remaining advanced import guides and mapping controls, preserving English-header requirements, exclusions and user mapping alternatives."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-redmine",
+    "before": "In Redmine, open the project's Issues, choose Also available in: CSV at the bottom of the list, pick the columns (All columns, with Description) and export, then paste the CSV. Redmine names the columns in your language, so set your language to English in My account before exporting. Each status becomes a list and issues become cards, with the tracker as a label, assignee, author, dates, parent task and related issues; priority, category, target version, estimated time, % Done and custom fields become custom fields.",
+    "after": "Nan Redmine, ouvri Issues pwojè a, chwazi Also available in: CSV anba lis la, chwazi kolòn yo (All columns, ak Description) epi ekspòte, apre sa kole CSV a. Redmine bay kolòn yo non nan lang ou, kidonk mete lang ou an anglè nan My account anvan ou ekspòte. Chak estati vin yon lis epi pwoblèm yo vin kat, ak tracker la kòm yon etikèt, moun ki responsab, otè, dat, travay paran ak pwoblèm ki gen rapò; priyorite, kategori, vèsyon sib, tan estime, % Done ak chan pèsonalize yo vin chan pèsonalize.",
+    "reason": "Translate remaining advanced import guides and mapping controls, preserving English-header requirements, exclusions and user mapping alternatives."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-notion",
+    "before": "In Notion, open the database as a full page, choose ••• and Export, pick Markdown & CSV, and choose the .zip file it downloads, or one database CSV from it, or paste that CSV. A column named Status becomes the lists (without one, the first column that looks like a select does, and the import report says which); rows become cards with their title, tags as labels, people as members, dates, and the page text as the description; other columns become custom fields. Relations, images and attachments are not imported.",
+    "after": "Nan Notion, ouvri bazdone a kòm yon paj antye, chwazi ••• ak Export, chwazi Markdown & CSV, epi chwazi fichye .zip li telechaje a, oswa yon CSV bazdone ki ladan l, oswa kole CSV sa a. Yon kolòn ki rele Status vin lis yo (si pa gen youn, premye kolòn ki sanble ak yon chwa sèvi pou sa, epi rapò enpòtasyon an di kiyès); liy yo vin kat ak tit yo, tag kòm etikèt, moun kòm manm, dat, ak tèks paj la kòm deskripsyon; lòt kolòn yo vin chan pèsonalize. Relasyon, imaj ak pyès atache yo pa enpòte.",
+    "reason": "Translate remaining advanced import guides and mapping controls, preserving English-header requirements, exclusions and user mapping alternatives."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-plane",
+    "before": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
+    "after": "Nan Plane, ouvri Workspace Settings, chwazi Exports, ekspòte pwojè yo kòm JSON, CSV oswa Excel epi telechaje fichye .zip la, apre sa chwazi fichye sa a, oswa youn nan fichye ki ladan l, oswa kole JSON oswa CSV a. Eta yo vin lis, pwojè yo vin kouloir, epi pwoblèm yo vin kat ak idantifyan, paran, moun ki responsab, etikèt, dat, lyen ak kòmantè yo; priyorite, estimasyon, sik ak modil vin chan pèsonalize. Ekspòtasyon Plane la pa gen deskripsyon ni pyès atache, kidonk yo pa enpòte.",
+    "reason": "Translate remaining advanced import guides and mapping controls, preserving English-header requirements, exclusions and user mapping alternatives."
+  },
+  {
+    "locale": "ht",
+    "key": "import-members-mode-heading",
+    "before": "People in the file:",
+    "after": "Moun ki nan fichye a:",
+    "reason": "Translate remaining advanced import guides and mapping controls, preserving English-header requirements, exclusions and user mapping alternatives."
+  },
+  {
+    "locale": "ht",
+    "key": "import-members-mode-map",
+    "before": "Choose an existing user for each of them",
+    "after": "Chwazi yon itilizatè ki egziste pou chak moun",
+    "reason": "Translate remaining advanced import guides and mapping controls, preserving English-header requirements, exclusions and user mapping alternatives."
+  },
+  {
+    "locale": "ht",
+    "key": "import-members-mode-placeholder",
+    "before": "Keep them as placeholder users with their own names, to map to real users later",
+    "after": "Kenbe yo kòm itilizatè ranplasan ak non pa yo, pou asosye yo ak itilizatè reyèl pita",
+    "reason": "Translate remaining advanced import guides and mapping controls, preserving English-header requirements, exclusions and user mapping alternatives."
+  },
+  {
+    "locale": "ht",
+    "key": "import-members-mode-me",
+    "before": "Make them all me",
+    "after": "Ranplase yo tout pa mwen",
+    "reason": "Translate remaining advanced import guides and mapping controls, preserving English-header requirements, exclusions and user mapping alternatives."
+  },
+  {
+    "locale": "ht",
+    "key": "csv-mapping-title",
+    "before": "Which column is which?",
+    "after": "Ki kolòn ki koresponn ak ki chan?",
+    "reason": "Translate remaining advanced import guides and mapping controls, preserving English-header requirements, exclusions and user mapping alternatives."
+  },
+  {
+    "locale": "ht",
+    "key": "csv-mapping-description",
+    "before": "Choose the column of the file that holds each card field. The choices were made from the column names; change any that are wrong, and choose (not in the file) for a field the file does not have.",
+    "after": "Chwazi kolòn fichye a ki gen chak chan kat. Chwa yo te fèt dapre non kolòn yo; korije sa ki pa bon, epi chwazi (pa nan fichye a) pou yon chan fichye a pa genyen.",
+    "reason": "Translate remaining advanced import guides and mapping controls, preserving English-header requirements, exclusions and user mapping alternatives."
+  },
+  {
+    "locale": "ht",
+    "key": "csv-mapping-not-in-file",
+    "before": "(not in the file)",
+    "after": "(pa nan fichye a)",
+    "reason": "Translate remaining advanced import guides and mapping controls, preserving English-header requirements, exclusions and user mapping alternatives."
+  },
+  {
+    "locale": "ht",
+    "key": "csv-mapping-column-number",
+    "before": "Column __number__",
+    "after": "Kolòn __number__",
+    "reason": "Translate remaining advanced import guides and mapping controls, preserving English-header requirements, exclusions and user mapping alternatives."
+  },
+  {
+    "locale": "ht",
+    "key": "csv-mapping-list-missing",
+    "before": "The file has no column for the list. Choose one above, or type the name of the one list every card goes into.",
+    "after": "Fichye a pa gen kolòn pou lis la. Chwazi youn anlè a, oswa tape non sèl lis kote tout kat yo pral ale a.",
+    "reason": "Translate remaining advanced import guides and mapping controls, preserving English-header requirements, exclusions and user mapping alternatives."
+  },
+  {
+    "locale": "ht",
+    "key": "csv-mapping-list-name",
+    "before": "List for every card",
+    "after": "Lis pou tout kat yo",
+    "reason": "Translate remaining advanced import guides and mapping controls, preserving English-header requirements, exclusions and user mapping alternatives."
+  },
+  {
+    "locale": "ht",
+    "key": "csv-mapping-custom-fields",
+    "before": "Other columns to import as text custom fields:",
+    "after": "Lòt kolòn pou enpòte kòm chan tèks pèsonalize:",
+    "reason": "Translate remaining advanced import guides and mapping controls, preserving English-header requirements, exclusions and user mapping alternatives."
   }
 ]

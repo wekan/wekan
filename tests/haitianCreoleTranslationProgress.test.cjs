@@ -232,3 +232,19 @@ assert.match(creole['import-board-instruction-taiga'], /dekonprese.*\.json\.gz.*
 for (const marker of ['--', '##', '>>']) assert.ok(creole['import-board-instruction-teamwork'].includes(marker));
 assert.match(creole['import-board-instruction-teamwork'], /yon nivo pi fon/);
 assert.match(creole['import-board-instruction-wrike'], /Priority, Duration.*chan pèsonalize/);
+
+const reviewedImportMappingKeys = ["import-board-instruction-businessmap", "import-board-instruction-redmine", "import-board-instruction-notion", "import-board-instruction-plane", "import-members-mode-heading", "import-members-mode-map", "import-members-mode-placeholder", "import-members-mode-me", "csv-mapping-title", "csv-mapping-description", "csv-mapping-not-in-file", "csv-mapping-column-number", "csv-mapping-list-missing", "csv-mapping-list-name", "csv-mapping-custom-fields"];
+for (const key of reviewedImportMappingKeys) {
+  assert.notEqual(creole[key], english[key], key);
+  assert.deepEqual(tokens(creole[key]), tokens(english[key]), key);
+  assert.doesNotMatch(creole[key], /\b(?:then paste|become lists|People in the file|Choose an existing|not in the file)\b/, key);
+}
+assert.match(creole['import-board-instruction-businessmap'], /non kolòn yo an anglè.*anvan/);
+assert.match(creole['import-board-instruction-redmine'], /lang ou an anglè.*My account.*anvan/);
+assert.match(creole['import-board-instruction-notion'], /premye kolòn.*rapò enpòtasyon an di kiyès/);
+assert.match(creole['import-board-instruction-notion'], /Relasyon, imaj ak pyès atache yo pa enpòte/);
+assert.match(creole['import-board-instruction-plane'], /pa gen deskripsyon ni pyès atache/);
+assert.match(creole['import-members-mode-placeholder'], /non pa yo.*itilizatè reyèl pita/);
+assert.equal(new Set(['map', 'placeholder', 'me'].map(mode => creole[`import-members-mode-${mode}`])).size, 3);
+assert.match(creole['csv-mapping-list-missing'], /sèl lis kote tout kat yo/);
+assert.deepEqual(tokens(creole['csv-mapping-column-number']), ['__number__']);
