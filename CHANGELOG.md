@@ -4496,6 +4496,22 @@ remains pending. All-language translation and semantic review remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c5f86df1a3682185270864275074f5a567f46fd9">Translate twelve more Scottish Gaelic import guides</a>. Thanks to xet7.</summary>
+
+Translate Tasks.org, monday.com, Super Productivity, Taiga, Vikunja, Quire,
+Wrike, Teamwork, Businessmap, Redmine, Notion and Plane instructions. Retain
+English-column requirements, nested-task markers and omitted-content warnings.
+Technical prose is lower confidence and needs fluent review.
+
+The Scottish Gaelic catalog and guarded-correction suites pass with 30,615
+audited corrections. All 21 human-preference checks pass; 38,430 existing
+Chinese
+values remain unchanged. All 22 import-help browser cases for this locale pass
+syntax and discovery; runtime remains pending. All-language work is unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

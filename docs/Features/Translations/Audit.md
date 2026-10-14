@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Scottish Gaelic import guidance, second batch — 2026-10-14
+
+Commit `c5f86df1a3` translates twelve guides: Tasks.org, monday.com, Super
+Productivity, Taiga, Vikunja, Quire, Wrike, Teamwork, Businessmap, Redmine,
+Notion and Plane. English column-name requirements, nested-task markers and
+warnings about omitted attachments, comments, relations or descriptions remain
+explicit. Technical prose is lower confidence and needs fluent review. External
+provider interfaces were not revalidated.
+
+The Scottish Gaelic catalog and guarded-correction suites pass with 30,615
+correction ledger entries. All 21 human-preference checks pass; exact comparison
+preserves 38,430 existing Chinese values. All 22 import-help browser cases for
+this locale pass syntax and discovery; runtime remains pending.
+
+Scottish Gaelic and all-language translation and semantic review are unfinished.
+
 ## Scottish Gaelic import guidance, first batch — 2026-10-14
 
 Commit `7f86d9f396` translates ten guides: OPML, Org mode, MeisterTask,
