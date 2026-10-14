@@ -4171,6 +4171,19 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0e518992bb">Repair stale Malagasy import guidance</a>. Thanks to xet7.</summary>
+
+- Replace old English Todoist and Planner guides that escaped placeholder
+  detection. Restore Jira pagination and Excel worksheet mapping, and correct
+  CSV delimiter wording. Five guides now follow the current English source.
+- Translation suites and 21 human-preference checks pass. Existing Chinese
+  values remain unchanged. Five browser cases pass syntax and discovery;
+  runtime execution remains pending.
+- All-language semantic review and remaining translations continue.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

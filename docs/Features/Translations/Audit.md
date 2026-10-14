@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Malagasy stale import guidance — 2026-10-14
+
+Commit `0e518992bb` repairs five guides. Todoist and Planner retained old
+English passages despite the zero-placeholder result. Jira omitted pagination
+and query fields, Excel omitted worksheet mapping, and CSV used the wrong
+delimiter term. The repaired text follows the current English guidance;
+external provider interfaces were not revalidated.
+
+The Malagasy catalog and guarded-correction suites pass with 30,177 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. Five browser cases pass syntax and
+discovery; runtime remains pending.
+
+This finding reinforces that zero detected placeholders is not complete
+semantic verification. Malagasy and all-language review remain unfinished.
+
 ## Malagasy import and Scrum recovery — 2026-10-14
 
 Commit `ef2e446d98` translates 29 entries for interrupted imports, Scrum
