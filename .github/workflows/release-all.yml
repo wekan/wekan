@@ -4362,10 +4362,22 @@ jobs:
           # rebuilding every architecture. A Quay-wide read-only outage is
           # temporary and affects every user; keep the completed publications
           # on Docker Hub and GHCR. Any other refusal remains a real failure.
-          if output="$(docker buildx imagetools create \
-            -t "quay.io/wekan/wekan:v${VERSION}" \
-            -t "quay.io/wekan/wekan:latest" \
-            "ghcr.io/wekan/wekan:v${VERSION}" 2>&1)"; then
+          # A dropped connection on the way is retried: v12.44's copy failed on
+          # "stream error: ... PROTOCOL_ERROR; received from peer" - an HTTP/2
+          # stream reset, not a refusal. Anything else is not retried.
+          copied=false
+          for attempt in 1 2 3 4; do
+            if output="$(docker buildx imagetools create \
+              -t "quay.io/wekan/wekan:v${VERSION}" \
+              -t "quay.io/wekan/wekan:latest" \
+              "ghcr.io/wekan/wekan:v${VERSION}" 2>&1)"; then
+              copied=true; break
+            fi
+            printf '%s\n' "$output" | grep -qiE 'PROTOCOL_ERROR|stream error|connection reset|unexpected EOF|i/o timeout|TLS handshake timeout|502 Bad Gateway|503 Service Unavailable' || break
+            echo "::warning::Quay copy attempt $attempt: a transport error; retrying."
+            sleep $((attempt * 20))
+          done
+          if [ "$copied" = true ]; then
             printf '%s\n' "$output"
             echo "QUAY_PUBLISHED=true" >> "$GITHUB_ENV"
           else

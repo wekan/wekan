@@ -67,3 +67,47 @@ test('Quay manifest and public-pull checks run only when its copy succeeded', ()
   assert.match(workflow, /name: Verify Quay manifest platforms\n        if: env\.QUAY_PUBLISHED == 'true'/);
   assert.match(workflow, /if \[ "\$\{QUAY_PUBLISHED:-false\}" = true \]; then\n            anon_check "quay\.io\/wekan\/wekan:v\$\{VERSION\}"/);
 });
+
+// v12.44: "stream error: stream ID 117; PROTOCOL_ERROR; received from peer" -
+// an HTTP/2 reset on the way, not a refusal. It is retried; a refusal is not.
+function runFlakyCopy(failures, message) {
+  const root = fs.mkdtempSync(path.join(process.env.TMPDIR || os.tmpdir(), 'wekan-quay-retry-'));
+  try {
+    const count = path.join(root, 'count');
+    fs.writeFileSync(count, '0');
+    fs.writeFileSync(path.join(root, 'docker'), `#!/bin/sh
+n=$(($(cat "${count}") + 1)); echo "$n" > "${count}"
+if [ "$n" -le ${failures} ]; then printf "%s\\n" "$MOCK_DOCKER_MESSAGE"; exit 1; fi
+echo "manifest copied"; exit 0
+`, { mode: 0o755 });
+    fs.writeFileSync(path.join(root, 'sleep'), '#!/bin/sh\nexit 0\n', { mode: 0o755 });
+    const githubEnv = path.join(root, 'github-env');
+    const result = spawnSync('bash', ['-e', '-o', 'pipefail', '-c', shell], {
+      encoding: 'utf8',
+      env: { ...process.env, PATH: `${root}:${process.env.PATH}`, VERSION: '11.80', GITHUB_ENV: githubEnv, MOCK_DOCKER_MESSAGE: message },
+    });
+    return { status: result.status, output: result.stdout + result.stderr, calls: Number(fs.readFileSync(count, 'utf8')),
+      env: fs.existsSync(githubEnv) ? fs.readFileSync(githubEnv, 'utf8') : '' };
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+}
+
+test('a dropped connection on the way to Quay is retried, and then published', () => {
+  const result = runFlakyCopy(2, 'ERROR: failed to copy: stream error: stream ID 117; PROTOCOL_ERROR; received from peer');
+  assert.equal(result.status, 0, result.output);
+  assert.equal(result.calls, 3);
+  assert.match(result.output, /::warning::Quay copy attempt 1: a transport error; retrying\./);
+  assert.match(result.env, /QUAY_PUBLISHED=true/);
+});
+
+test('a refusal is not retried, and a transport error that never clears still fails (negative)', () => {
+  const refused = runFlakyCopy(9, 'unauthorized: access to the requested resource is not authorized');
+  assert.equal(refused.status, 1);
+  assert.equal(refused.calls, 1, 'one try only');
+  const never = runFlakyCopy(9, 'stream error: PROTOCOL_ERROR');
+  assert.equal(never.status, 1);
+  assert.equal(never.calls, 4);
+  assert.match(never.output, /::error::Could not copy/);
+  assert.doesNotMatch(never.env, /QUAY_PUBLISHED=true/);
+});
