@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Malagasy integrations and notification delivery — 2026-10-14
+
+Commit `519e99e4f3` translates 45 messages for Sandstorm access, external-link
+rules, webhook payloads and notification delivery. Literal matching syntax,
+inherited defaults, identity-hiding choices, grouping, schedules and quiet-hour
+behavior remain explicit.
+
+The Malagasy catalog and guarded-correction suites pass with 30,079 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. The notification-settings browser
+case covers layout, grouping, daily delivery and webhook identity. Syntax and
+discovery pass; runtime execution remains pending.
+
+Further Malagasy translations and all-language semantic review remain unfinished.
+
 ## Malagasy bulk transfer and mapping choices — 2026-10-14
 
 Commit `ef60786045` translates 35 messages. Member mapping distinguishes existing

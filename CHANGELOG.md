@@ -4106,6 +4106,19 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/519e99e4f3">Translate Malagasy integrations and notification delivery</a>. Thanks to xet7.</summary>
+
+- Translate 45 integration and delivery messages. Preserve link-rule syntax,
+  inherited webhook defaults, identity-hiding choices, notification grouping,
+  delivery schedules and waiting until quiet hours end.
+- Translation suites and 21 human-preference checks pass. Existing Chinese
+  values remain unchanged. The notification-settings browser case passes
+  syntax and discovery; runtime execution remains pending.
+- All-language semantic review and remaining translations continue.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
