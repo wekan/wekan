@@ -147,3 +147,16 @@ for (const key of ['stuck-sync-operation-truncated', 'interrupted-import-truncat
 const fullCatalog = spawnSync(process.execPath, [fillScript, '--list', 'ga'], { cwd: root, encoding: 'utf8' });
 assert.equal(fullCatalog.status, 0, fullCatalog.stderr);
 assert.deepEqual(JSON.parse(fullCatalog.stdout), {}, 'Full Irish placeholder inventory, including pending keys');
+
+assert.match(irish['import-board-instruction-todoist'], /Manage data > Export as CSV.*seicliosta.*p1 go p3/);
+assert.doesNotMatch(irish['import-board-instruction-todoist'], /Export as a template/);
+assert.match(irish['import-board-instruction-planner'], /Export as Excel.*clasaiceach.*Export plan to Excel/);
+assert.match(irish['move-reason'], /Cúis.*roghnach/);
+assert.match(irish['ask-move-reason'], /Iarr cúis/);
+for (const key of ['card-recurrence-interval', 'cardRecurrenceIntervalPopup-title']) {
+  assert.equal(irish[key], 'Atarlú cárta');
+  assert.doesNotMatch(irish[key], /Athshocrú/);
+}
+assert.match(irish['card-recurrence-interval-none'], /ní atarlaíonn an cárta/);
+assert.match(irish['anonymize-account-confirm-popup'], /go buan luachanna ionaid/);
+assert.doesNotMatch(irish['anonymize-account-confirm-popup'], /sealadacha/);

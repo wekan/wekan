@@ -213267,5 +213267,61 @@
     "before": "Only the server environment sets these. They are shown here read-only.",
     "after": "Ní shocraítear iad seo ach i dtimpeallacht an fhreastalaí. Taispeántar anseo iad mar shocruithe inléite amháin.",
     "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-todoist",
+    "before": "In Todoist, open the project menu and choose Export as a template, then paste the CSV file. Sections become lists, tasks become cards, sub-tasks become a checklist, notes become comments, and @labels and priorities p1 to p3 become labels.",
+    "after": "In Todoist, oscail an tionscadal, roghnaigh an roghchlár ⋯ ag a bharr ar dheis, ansin Manage data > Export as CSV, agus greamaigh an comhad CSV. Déantar liostaí de rannóga, cártaí de thascanna, seicliosta de fho-thascanna, nótaí tráchta de nótaí, agus lipéid de @labels agus tosaíochtaí p1 go p3.",
+    "reason": "Correct stale English guides and misleading recurrence, move-reason and anonymization wording against current source meanings."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-planner",
+    "before": "In Microsoft Planner, open the plan's menu and choose Export plan to Excel, then choose that .xlsx file. Buckets become lists and tasks become cards, with their assignees, dates, labels, checklist and description; Progress, Priority and Completed By become custom fields.",
+    "after": "In Microsoft Planner, oscail an plean, roghnaigh an roghchlár ⋯ in aice lena ainm, ansin Export as Excel (sa leagan clasaiceach de Planner: Export plan to Excel), agus roghnaigh an comhad .xlsx sin. Déantar liostaí de bhuicéid agus cártaí de thascanna, lena sannaithe, dátaí, lipéid, seicliosta agus cur síos; déantar réimsí saincheaptha de Progress, Priority agus Completed By.",
+    "reason": "Correct stale English guides and misleading recurrence, move-reason and anonymization wording against current source meanings."
+  },
+  {
+    "locale": "ga",
+    "key": "move-reason",
+    "before": "Bog an cárta — Cur síos",
+    "after": "Cúis leis an mbogadh (roghnach)",
+    "reason": "Correct stale English guides and misleading recurrence, move-reason and anonymization wording against current source meanings."
+  },
+  {
+    "locale": "ga",
+    "key": "ask-move-reason",
+    "before": "Bog an cárta → Cur síos?",
+    "after": "Iarr cúis agus cártaí á mbogadh",
+    "reason": "Correct stale English guides and misleading recurrence, move-reason and anonymization wording against current source meanings."
+  },
+  {
+    "locale": "ga",
+    "key": "card-recurrence-interval",
+    "before": "Athshocrú uathoibríoch",
+    "after": "Atarlú cárta",
+    "reason": "Correct stale English guides and misleading recurrence, move-reason and anonymization wording against current source meanings."
+  },
+  {
+    "locale": "ga",
+    "key": "cardRecurrenceIntervalPopup-title",
+    "before": "Athshocrú uathoibríoch",
+    "after": "Atarlú cárta",
+    "reason": "Correct stale English guides and misleading recurrence, move-reason and anonymization wording against current source meanings."
+  },
+  {
+    "locale": "ga",
+    "key": "card-recurrence-interval-none",
+    "before": "As (ní athshocraítear é go huathoibríoch)",
+    "after": "As (ní atarlaíonn an cárta go huathoibríoch)",
+    "reason": "Correct stale English guides and misleading recurrence, move-reason and anonymization wording against current source meanings."
+  },
+  {
+    "locale": "ga",
+    "key": "anonymize-account-confirm-popup",
+    "before": "An bhfuil tú cinnte gur mian leat an cuntas seo a ainm-cheilt? Cuireann sé seo go buan luachanna sealadacha ainm-cheilte in ionad an ainm úsáideora, an ainm iomláin agus an seoladh ríomhphoist, baintear an t-abhatár, agus díchumasaítear logáil isteach. Murab ionann agus scriosadh, coinníonn cláir, cártaí agus tuairimí a stair agus leanann siad ag taispeáint an chuntais seo, ach amháin gur ainm-cheilte é. Ní féidir an gníomh seo a chur ar ais.",
+    "after": "An bhfuil tú cinnte gur mian leat an cuntas seo a ainm-cheilt? Cuireann sé seo go buan luachanna ionaid ainm-cheilte in ionad an ainm úsáideora, an ainm iomláin agus an seoladh ríomhphoist, baintear an t-abhatár, agus díchumasaítear logáil isteach. Murab ionann agus scriosadh, coinníonn cláir, cártaí agus tuairimí a stair agus leanann siad ag taispeáint an chuntais seo, ach amháin gur ainm-cheilte é. Ní féidir an gníomh seo a chur ar ais.",
+    "reason": "Correct stale English guides and misleading recurrence, move-reason and anonymization wording against current source meanings."
   }
 ]
