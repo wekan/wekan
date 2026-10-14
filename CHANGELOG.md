@@ -854,7 +854,7 @@ and closes the following already-done feature request:
 
 and fixes the following bugs:
 
-**Archive** - what goes with a list.
+**Lists and swimlanes** - what goes with a list, and where it is shown.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0a3797dbf6">Archiving a list archives its cards, and restoring it brings them back</a>. Thanks to Raymond-Voogt and xet7.</summary>
@@ -868,6 +868,20 @@ archived on its own stays archived. Cards archived with the list get the
 list's own archive time, so a browser clock that differs from the server's
 cannot keep them from coming back. `tests/archiveListCards.test.cjs` and a
 runtime test cover it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ebf2a019a6">Lists missing their swimlane counts only lists that lost it, and Restore never hides cards</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+Admin Panel / Problems counted every board-wide list whose history recorded
+the swimlane it was created in, so lists made since the automatic
+un-binding stopped (#6515, in v10.31) were counted too, and Restore would
+have bound them there, hiding the cards they hold in other swimlanes. Now a
+list created after v10.31 is never offered, and a list with any card in
+another swimlane is never restored. A list that really lost its binding is
+still restored. `tests/listSwimlaneRestore.test.cjs` and a runtime test
+cover both rules.
 
 </details>
 
