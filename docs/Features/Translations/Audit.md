@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Irish import guidance, first batch — 2026-10-14
+
+Commit `6be0ca89dc` translates ten English guides: OPML, Org mode, MeisterTask,
+Obsidian, Linear, TickTick, ClickUp, Nullboard, Kanri and Pivotal Tracker. They
+retain hierarchy mapping, source menu labels, completion dates, Org keywords,
+all-column export and first-board-only restrictions. External provider
+interfaces were not revalidated.
+
+The Irish catalog and guarded-correction suites pass with 30,318 correction
+ledger entries. All 21 human-preference checks pass; exact comparison preserves
+38,430 existing Chinese values. Ten import-help browser cases pass syntax and
+discovery; runtime remains pending.
+
+Remaining Irish feature text and all-language semantic review are unfinished.
+
 ## Irish card links and legacy storage placeholders — 2026-10-14
 
 Commit `f71a482f02` translates 67 English placeholders. Card attachments and

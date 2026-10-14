@@ -4272,6 +4272,22 @@ pass syntax and discovery; runtime remains pending.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6be0ca89dc1f51a932ce2d47dcb4623dbbf82c22">Translate ten Irish import guides</a>. Thanks to xet7.</summary>
+
+Translate OPML, Org mode, MeisterTask, Obsidian, Linear, TickTick, ClickUp,
+Nullboard, Kanri and Pivotal Tracker import instructions. Preserve field
+mapping,
+completed items, format keywords and first-board-only limitations.
+
+The Irish catalog and guarded-correction suites pass with 30,318 audited
+corrections. All 21 human-preference checks pass; 38,430 existing Chinese values
+remain unchanged. Ten browser cases pass syntax and discovery; runtime remains
+pending. Irish and all-language translation and semantic review remain
+unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
