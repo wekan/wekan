@@ -206,3 +206,16 @@ assert.match(locales.ig['attached-card-unavailable'], /na-enweghị ike ịhụ/
 assert.match(locales.ig['attach-card-limit'], /ọnụ ọgụgụ.*kachasị/);
 assert.doesNotMatch(locales.ig['detach-card'], /Hichapụ/);
 assert.equal(locales.ig['s3-file-id'], 'Njirimara faịlụ S3');
+
+assert.equal(locales.ig['custom-fields'], 'Oghere ahaziri');
+assert.doesNotMatch(locales.ig['custom-fields'], /Omenala/);
+assert.match(locales.ig['custom-field-link-both'], /Ụzọ abụọ.*nke ọzọ/);
+assert.match(locales.ig['custom-field-link-send'], /Otu ụzọ.*kaadị bụ isi/);
+assert.match(locales.ig['custom-field-links-hint'], /otu aha na ụdị.*A naghị agbanwe.*naanị na otu kaadị/);
+assert.match(locales.ig['custom-field-link-inactive'], /enweghịzi ike idezi kaadị abụọ.*ebe nchekwa/);
+assert.match(locales.ig['field-link-not-allowed'], /Ị ga-enwe ike idezi kaadị abụọ/);
+assert.match(locales.ig['field-link-self'], /Enweghị ike.*onwe ya/);
+assert.match(locales.ig['field-link-archived'], /Enweghị ike.*ebe nchekwa/);
+assert.notEqual(locales.ig['custom-field-link-sends'], locales.ig['custom-field-link-receives']);
+assert.match(locales.ig['board-announcement-enabled'], /onye ọ bụla.*bọọdụ a/);
+assert.match(locales.ig['cards-use-list-color'], /na-enweghị agba nke ha/);

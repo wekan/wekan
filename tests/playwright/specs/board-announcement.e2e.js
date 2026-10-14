@@ -76,3 +76,18 @@ test('Scottish Gaelic announcement editor identifies its audience', async ({ boa
   await expect(popup).not.toContainText('Show it to everyone');
   await page.evaluate(() => Popup.close());
 });
+
+test('Igbo announcement editor identifies its audience', async ({ boardPage: page }) => {
+  await page.evaluate(async () => {
+    await Meteor.callAsync('setLanguage', 'ig');
+    Popup.close();
+    Popup.open('boardAnnouncement', { titleKey: 'board-announcement' })({
+      currentTarget: document.body, target: document.body, preventDefault() {},
+    });
+  });
+  const popup = page.locator('.js-pop-over');
+  await expect(popup.locator('.header-title')).toHaveText('Ọkwa bọọdụ');
+  await expect(popup).toContainText('Gosi ya onye ọ bụla nọ na bọọdụ a');
+  await expect(popup).not.toContainText('Show it to everyone');
+  await page.evaluate(() => Popup.close());
+});

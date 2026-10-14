@@ -215689,5 +215689,194 @@
     "before": "S3 File ID",
     "after": "Njirimara faịlụ S3",
     "reason": "Translate pending card attachment controls and storage identifier in Igbo; direct technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "custom-fields",
+    "before": "Omenala Omenala",
+    "after": "Oghere ahaziri",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "board-announcement",
+    "before": "Board announcement",
+    "after": "Ọkwa bọọdụ",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "board-announcement-enabled",
+    "before": "Show it to everyone on this board",
+    "after": "Gosi ya onye ọ bụla nọ na bọọdụ a",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "board-view-calendar-mode",
+    "before": "Calendar Mode",
+    "after": "Ụdị kalenda",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "custom-field-links",
+    "before": "Link fields to another card",
+    "after": "Jikọọ oghere na kaadị ọzọ",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "custom-field-links-hint",
+    "before": "Custom fields with the same name and type on both cards are linked: when a value changes on one card, it is copied to the other card. Fields that only one card has are left alone.",
+    "after": "A na-ejikọta oghere ahaziri nwere otu aha na ụdị na kaadị abụọ ahụ: mgbe uru gbanwere na otu kaadị, a na-edepụta ya na kaadị nke ọzọ. A naghị agbanwe oghere dị naanị na otu kaadị.",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "custom-field-links-none",
+    "before": "This card's custom fields are not linked to any card.",
+    "after": "Ejikọtaghị oghere ahaziri kaadị a na kaadị ọ bụla.",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "custom-field-link-unavailable",
+    "before": "A linked card you cannot see",
+    "after": "Kaadị ejikọtara nke ị na-enweghị ike ịhụ",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "custom-field-link-fields",
+    "before": "Linked fields:",
+    "after": "Oghere ejikọtara:",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "custom-field-link-no-fields",
+    "before": "No fields with the same name and type yet",
+    "after": "Enweghị oghere nwere otu aha na ụdị ugbu a",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "custom-field-link-inactive",
+    "before": "Paused: the person who made this link can no longer edit both cards, or a card is archived.",
+    "after": "A kwụsịtụrụ ya: onye mere njikọ a enweghịzi ike idezi kaadị abụọ ahụ, ma ọ bụ etinyela otu kaadị na ebe nchekwa.",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "custom-field-unlink",
+    "before": "Unlink",
+    "after": "Kewapụ njikọ",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "custom-field-link-target",
+    "before": "Card link (Copy card link), or search this board's cards",
+    "after": "Njikọ kaadị (Detuo njikọ kaadị), ma ọ bụ chọọ kaadị bọọdụ a",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "custom-field-link-direction",
+    "before": "Direction",
+    "after": "Ụzọ",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "custom-field-link-both",
+    "before": "Both ways: changes on either card go to the other",
+    "after": "Ụzọ abụọ: mgbanwe na kaadị ọ bụla na-aga na nke ọzọ",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "custom-field-link-send",
+    "before": "One way: changes on this card go to the main card",
+    "after": "Otu ụzọ: mgbanwe na kaadị a na-aga na kaadị bụ isi",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "custom-field-link-sends",
+    "before": "Changes on this card go to that card",
+    "after": "Mgbanwe na kaadị a na-aga na kaadị ahụ",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "custom-field-link-receives",
+    "before": "Changes on that card come to this card",
+    "after": "Mgbanwe na kaadị ahụ na-abịa na kaadị a",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "custom-field-link-add",
+    "before": "Link fields",
+    "after": "Jikọọ oghere",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "field-link-self",
+    "before": "A card cannot be linked to itself.",
+    "after": "Enweghị ike ijikọ kaadị na onwe ya.",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "field-link-limit",
+    "before": "This card, or that card, already has the most linked cards it can have.",
+    "after": "Kaadị a, ma ọ bụ kaadị ahụ, enweelarị ọnụ ọgụgụ kaadị ejikọtara kachasị ọ nwere ike inwe.",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "field-link-archived",
+    "before": "An archived card cannot be linked.",
+    "after": "Enweghị ike ijikọ kaadị etinyere na ebe nchekwa.",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "field-link-invalid",
+    "before": "That is not a card link.",
+    "after": "Nke ahụ abụghị njikọ kaadị.",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "field-link-not-found",
+    "before": "Card not found.",
+    "after": "Achọtaghị kaadị.",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "field-link-not-allowed",
+    "before": "You need to be able to edit both cards.",
+    "after": "Ị ga-enwe ike idezi kaadị abụọ ahụ.",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "cardCustomFieldLinksPopup-title",
+    "before": "Linked custom fields",
+    "after": "Oghere ahaziri ejikọtara",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "cards-use-list-color",
+    "before": "Cards without a colour of their own use this colour",
+    "after": "Kaadị ndị na-enweghị agba nke ha na-eji agba a",
+    "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
   }
 ]
