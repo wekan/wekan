@@ -160,3 +160,15 @@ for (const key of ['card-recurrence-interval', 'cardRecurrenceIntervalPopup-titl
 assert.match(irish['card-recurrence-interval-none'], /ní atarlaíonn an cárta/);
 assert.match(irish['anonymize-account-confirm-popup'], /go buan luachanna ionaid/);
 assert.doesNotMatch(irish['anonymize-account-confirm-popup'], /sealadacha/);
+
+assert.match(irish['board-view-monte-carlo'], /Réamhaisnéisí/);
+assert.doesNotMatch(irish['board-view-monte-carlo'], /Histeagram/);
+assert.match(irish['flow-error'], /tuairisc.*Seiceáil na luachanna.*triail eile/);
+assert.match(irish['flow-note-agingWip'], /85ú peircintíl.*cúig thréimhse fanachta ar a laghad.*anaithnid/);
+assert.match(irish['flow-note-blockerAnalysis'], /cártaí scriosta.*fhorluíonn.*ar leithligh/);
+assert.match(irish['flow-note-monteCarlo'], /2,000.*UTC.*gan aon tréchur.*ní ráthaíocht.*3,650.*níl aon réamhaisnéis/);
+assert.match(irish['flow-note-processBehavior'], /chruthaithe.*cartlannaithe.*dhá chríochnú bhailí ar a laghad/);
+assert.match(irish['flow-note-sizeCycleTime'], /Fágtar meastacháin ar iarraidh.*neamhbhailí ar lár.*chruthaithe.*cartlannaithe/);
+for (const suffix of ['agingWip', 'blockerAnalysis', 'monteCarlo', 'processBehavior', 'sizeCycleTime']) {
+  assert.doesNotMatch(irish[`flow-note-${suffix}`], /→|≥|≤|✓|MR̄/);
+}
