@@ -215311,5 +215311,54 @@
     "before": "In Microsoft Planner, open the plan's menu and choose Export plan to Excel, then choose that .xlsx file. Buckets become lists and tasks become cards, with their assignees, dates, labels, checklist and description; Progress, Priority and Completed By become custom fields.",
     "after": "Ann am Microsoft Planner, fosgail am plana, tagh an clàr-taice ⋯ ri taobh ainm, an uair sin Às-phortaich mar Excel (ann am Planner clasaigeach: Às-phortaich am plana gu Excel), agus tagh am faidhle .xlsx sin. Thèid bucaidean nan liostaichean agus gnìomhan nan cairtean, còmhla ris an luchd-obrach ainmichte, cinn-là, leubailean, liosta-dearbhaidh agus tuairisgeul aca; thèid Adhartas, Prìomhachas agus Crìochnaichte le nan raointean gnàthaichte.",
     "reason": "Correct stale English import guides and distinguish card recurrence and optional move reasons; direct Scottish Gaelic technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "r-when-a-due-date-changed",
+    "before": "Ri phàigheadh: ceann-latha air atharrachadh",
+    "after": "Nuair a thèid an ceann-là ri phàigheadh a shuidheachadh no atharrachadh",
+    "reason": "Restore date-setting triggers, Gregorian ISO-week meaning and card-to-board action directions; direct Scottish Gaelic wording needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "r-when-a-start-date-changed",
+    "before": "Tòisich: ceann-latha air atharrachadh",
+    "after": "Nuair a thèid an ceann-là tòiseachaidh a shuidheachadh no atharrachadh",
+    "reason": "Restore date-setting triggers, Gregorian ISO-week meaning and card-to-board action directions; direct Scottish Gaelic wording needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "r-when-a-end-date-changed",
+    "before": "Crìoch: ceann-latha air atharrachadh",
+    "after": "Nuair a thèid an ceann-là crìochnachaidh a shuidheachadh no atharrachadh",
+    "reason": "Restore date-setting triggers, Gregorian ISO-week meaning and card-to-board action directions; direct Scottish Gaelic wording needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "r-when-a-received-date-changed",
+    "before": "Air fhaighinn: ceann-latha air atharrachadh",
+    "after": "Nuair a thèid an ceann-là faighinn a shuidheachadh no atharrachadh",
+    "reason": "Restore date-setting triggers, Gregorian ISO-week meaning and card-to-board action directions; direct Scottish Gaelic wording needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "calendar-system-iso8601",
+    "before": "Mìosachan ISO-8601",
+    "after": "Mìosachan Griogarach (seachdainean ISO 8601)",
+    "reason": "Restore date-setting triggers, Gregorian ISO-week meaning and card-to-board action directions; direct Scottish Gaelic wording needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "linkCardToBoardPopup-title",
+    "before": "Ceangal ris a' bhòrd seo",
+    "after": "Ceangail ri bòrd",
+    "reason": "Restore date-setting triggers, Gregorian ISO-week meaning and card-to-board action directions; direct Scottish Gaelic wording needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "linkCardToNewBoard",
+    "before": "Cruthaich bòrd (Cairt)",
+    "after": "Cruthaich bòrd bhon chairt seo",
+    "reason": "Restore date-setting triggers, Gregorian ISO-week meaning and card-to-board action directions; direct Scottish Gaelic wording needs fluent review."
   }
 ]

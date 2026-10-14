@@ -29,18 +29,21 @@ for (const locale of ['co', 'la']) {
   });
 }
 
-test('Corsican date triggers include both initial setting and later changes', async ({ boardPage: page, board }) => {
-  const strings = require('../../../imports/i18n/data/co.i18n.json');
-  await page.evaluate(() => Meteor.callAsync('setLanguage', 'co'));
+for (const locale of ['co', 'gd']) {
+test(`${locale} date triggers include both initial setting and later changes`, async ({ boardPage: page, board }) => {
+  const strings = require(`../../../imports/i18n/data/${locale}.i18n.json`);
+  await page.evaluate(code => Meteor.callAsync('setLanguage', code), locale);
   await navigateInApp(page, `/b/${board.boardId}/${board.slug}/rules`);
   await page.locator('#ruleTitle').fill('Date changes');
   await page.locator('.js-goto-trigger').click();
   for (const kind of ['due', 'start', 'end', 'received']) {
     const row = page.locator('.trigger-item').filter({ has: page.locator(`.js-add-${kind}-date-changed-trigger`) });
     await expect(row).toContainText(strings[`r-when-a-${kind}-date-changed`]);
-    await expect(row).toContainText('hè definita o cambiata');
+    await expect(row).toContainText(locale === 'gd' ? 'a shuidheachadh no atharrachadh' : 'hè definita o cambiata');
   }
 });
+}
+
 
 
 test('Latin rule import dialog explains partial conversion and keeps format identifiers', async ({ boardPage: page }) => {

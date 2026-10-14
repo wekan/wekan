@@ -147,3 +147,12 @@ assert.match(gaelic['import-board-instruction-todoist'], /Stiùirich dàta > Às
 assert.match(gaelic['import-board-instruction-todoist'], /@leubailean.*p1 gu p3/);
 assert.match(gaelic['import-board-instruction-planner'], /Planner clasaigeach.*\.xlsx/);
 assert.match(gaelic['import-board-instruction-planner'], /Adhartas, Prìomhachas agus Crìochnaichte le.*raointean gnàthaichte/);
+
+for (const kind of ['due', 'start', 'end', 'received']) {
+  assert.match(gaelic[`r-when-a-${kind}-date-changed`], /^Nuair a thèid.*a shuidheachadh no atharrachadh$/);
+  assert.doesNotMatch(gaelic[`r-when-a-${kind}-date-changed`], /ceann-latha air atharrachadh$/);
+}
+assert.equal(gaelic['calendar-system-iso8601'], 'Mìosachan Griogarach (seachdainean ISO 8601)');
+assert.equal(gaelic['linkCardToBoardPopup-title'], 'Ceangail ri bòrd');
+assert.doesNotMatch(gaelic['linkCardToBoardPopup-title'], /seo/);
+assert.equal(gaelic['linkCardToNewBoard'], 'Cruthaich bòrd bhon chairt seo');
