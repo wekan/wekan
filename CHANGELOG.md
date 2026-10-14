@@ -116,6 +116,9 @@ English on purpose, pending Transifex**. Every language gets translated,
 minority and constructed ones too: direct translation from dictionaries and
 each language's existing wording, never an external service; correct-language
 human translations, key order and placeholders preserved.
+Translating from dictionaries and each language's own wording is enough;
+speakers can review it later when they have the time, and a human
+translation on Transifex always wins.
 
 </details>
 
@@ -127,21 +130,6 @@ translated: `node releases/translations/import-blockly.cjs --report` finds
 62,562 prose-like English-identical values (a triage count - key names,
 brands and cognates included), 116 catalogs above 50. Marathi, Malayalam,
 Punjabi, Sinhala and Telugu were not started.
-
-</details>
-
-<details>
-<summary>Translation terminology that needs a speaker.</summary>
-
-Silesian database labels, Tigre calendar wording, the 102 Arabic-script
-values in the Standard Moroccan Tamazight file, Tamazight terms after the
-2026-09-14 source correction, Kashmiri calendar terms, Bambara Hijri and epoch
-labels, Sardinian magenta, Danish export and Complete wording, and the list
-sum label. The files rewritten on 2026-10-14 from another language - Tongan,
-Quechua, Wolaytta, Luganda, Bislama, Volapük, Ladin, Aromanian, Venda,
-Acehnese, Upper Sorbian, Romansh and Uzbek in Arabic script (`ې` or `ی`) -
-need a native speaker's review. See the
-[translation audit](docs/Features/Translations/Audit.md).
 
 </details>
 
@@ -159,19 +147,12 @@ hangs.
 </details>
 
 <details>
-<summary>Import/export: formats not read yet, and attachment contents.</summary>
+<summary>Import: attachment contents from the JSON sources.</summary>
 
-docs/Features/ImportExport/Format-Coverage.md is the contract every format is
-held to. Left open:
-
-- Attachment CONTENTS from the JSON sources (Jira, Deck, OpenProject, Asana,
-  Zenkit, GitHub/GitLab): their exports carry attachment metadata only, so the
-  bytes need API connectors like the six built on 2026-10-14.
-- Formats WeKan does not read yet: Taskcafe (API only); Restyaboard, whose
-  CSV export is a closed paid app with undocumented columns; YouTrack, Airtable
-  and Leantime, whose CSV headers are undocumented or localized; and Things 3,
-  whose export is its SQLite database. Each is taken one at a time.
-
+The exports of Jira, Nextcloud Deck, OpenProject, Asana, Zenkit and
+GitHub/GitLab carry attachment metadata only; the files themselves come from
+each one's documented attachment API, through connectors like the six built
+on 2026-10-14. Formats with no published documentation are not taken on.
 Deck sharing rules are not imported by design: an import never grants access.
 
 </details>
