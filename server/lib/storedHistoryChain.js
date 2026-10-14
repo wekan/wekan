@@ -8,6 +8,7 @@ const { appendHistoryChain, historyChainId, validateHistoryChainHead } = require
 const { initializeHistoryChain } = require('./historyChainBootstrap');
 const { withHistoryWriter, recoverExpiredHistoryWriters, historyWriterLeasePolicy } = require('./historyWriterGate');
 const { hashHistoryRow } = require('../../models/lib/changeHistoryIntegrity');
+const { serializeHistoryAppend, historyChainTip } = require('../../models/lib/historyLegacyAppend');
 const { migrateHistoryChain } = require('./historyChainMigration');
 
 export const HistoryWriterGates = new Mongo.Collection('historyWriterGates');
@@ -110,24 +111,21 @@ ChangeHistory.appendSyncHistoryRow = async ({ row, mode, assertCurrent, fencedIn
   }
   // After the chain's TIP: from the newest hashed row, follow its successors.
   // A Sync batch's rows share one planned createdAt, so "newest" alone is a
-  // tie and would give an earlier batch row a second successor - a fork.
-  let previous = await ChangeHistory.findOneAsync(
-    { boardId: prepared.boardId, integrityHash: { $nin: [null, ''] } }, { sort: { createdAt: -1 }, transform: null });
-  for (let steps = 0; previous && steps < 10000; steps++) {
-    const next = await ChangeHistory.findOneAsync({ boardId: prepared.boardId, previousHash: previous.integrityHash },
-      { transform: null });
-    if (!next) break;
-    previous = next;
-  }
-  const saved = { ...prepared, previousHash: previous ? previous.integrityHash : null };
-  saved.integrityHash = hashHistoryRow(saved);
-  await assertCurrent();
-  try { await fencedInsert(prepared._id, () => ChangeHistory.insertAsync(saved, { removeEmptyStrings: false, trimStrings: false })); }
-  catch (error) {
-    const found = await ChangeHistory.findOneAsync(prepared._id, { transform: null });
-    if (!found || found.boardId !== prepared.boardId) throw error;
-  }
-  return prepared._id;
+  // tie and would give an earlier batch row a second successor - a fork. And
+  // one append at a time per board, like every legacy append
+  // (models/lib/historyLegacyAppend.js).
+  return serializeHistoryAppend(prepared.boardId, async () => {
+    const previous = await historyChainTip(ChangeHistory, prepared.boardId);
+    const saved = { ...prepared, previousHash: previous ? previous.integrityHash : null };
+    saved.integrityHash = hashHistoryRow(saved);
+    await assertCurrent();
+    try { await fencedInsert(prepared._id, () => ChangeHistory.insertAsync(saved, { removeEmptyStrings: false, trimStrings: false })); }
+    catch (error) {
+      const found = await ChangeHistory.findOneAsync(prepared._id, { transform: null });
+      if (!found || found.boardId !== prepared.boardId) throw error;
+    }
+    return prepared._id;
+  });
 };
 
 // No automatic rollout: callers must prove older server versions cannot write.

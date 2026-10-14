@@ -1,4 +1,5 @@
 const { sha256, canonical, hashHistoryRow, rowHashIsValid } = require('../../models/lib/changeHistoryIntegrity');
+const { appendLegacyHistoryRow } = require('../../models/lib/historyLegacyAppend');
 
 // Only restoration events: ordinary edits retain the model's best-effort writer
 // and redo invalidation. The caller retains its recovery journal until this
@@ -29,13 +30,8 @@ async function recordScrumRestoreOnce(history, options) {
   if (existing) return matches(existing);
   const row = { ...event, _id: id, createdAt: new Date(), undone: false,
     undoneAt: null, superseded: false };
-  const legacy = async document => {
-    const previous = await history.findOneAsync(
-      { boardId, integrityHash: { $nin: [null, ''] } }, { sort: { createdAt: -1 } });
-    const saved = { ...document, previousHash: previous?.integrityHash ?? null };
-    saved.integrityHash = hashHistoryRow(saved);
-    return history.insertAsync(saved);
-  };
+  // After the chain's tip, one append at a time per board (historyLegacyAppend.js).
+  const legacy = document => appendLegacyHistoryRow({ history, boardId, document, hash: hashHistoryRow });
   const write = async append => {
     let writeError;
     try { await append(row); } catch (error) { writeError = error; }

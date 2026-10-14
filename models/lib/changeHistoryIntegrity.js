@@ -104,6 +104,7 @@ function verifyHistoryRows(rows) {
   const list = Array.isArray(rows) ? rows.filter(row => row && row.integrityHash) : [];
   const hashes = new Map(list.map(row => [`${row.boardId}:${row.integrityHash}`, row]));
   const children = new Map();
+  const firstChild = new Map();
   const roots = new Map();
   const failures = [];
   for (const row of list) {
@@ -113,9 +114,11 @@ function verifyHistoryRows(rows) {
     }
     if (row.previousHash) {
       const key = `${row.boardId}:${row.previousHash}`;
+      const first = firstChild.get(key);
       const count = (children.get(key) || 0) + 1;
       children.set(key, count);
-      if (count > 1) failures.push({ row, reason: 'history-fork' });
+      if (!first) firstChild.set(key, row);
+      else failures.push({ row, reason: 'history-fork', sibling: first });
     } else {
       const count = (roots.get(row.boardId) || 0) + 1;
       roots.set(row.boardId, count);
@@ -125,6 +128,17 @@ function verifyHistoryRows(rows) {
   return failures;
 }
 
+// A fork whose two rows are both intact and were saved within moments of
+// each other is two changes written at once - the legacy append race
+// (models/lib/historyLegacyAppend.js) - not a row somebody put there later.
+const CONCURRENT_FORK_MS = 60 * 1000;
+function isConcurrentFork(failure, windowMs = CONCURRENT_FORK_MS) {
+  if (!failure || failure.reason !== 'history-fork' || !failure.sibling) return false;
+  const at = row => new Date(row.createdAt).getTime();
+  const gap = Math.abs(at(failure.row) - at(failure.sibling));
+  return rowHashIsValid(failure.row) && rowHashIsValid(failure.sibling) && Number.isFinite(gap) && gap <= windowMs;
+}
+
 module.exports = {
-  canonical, sha256, hashHistoryRow, rowHashIsValid, verifyHistoryRows, PROTECTED,
+  canonical, sha256, hashHistoryRow, rowHashIsValid, verifyHistoryRows, isConcurrentFork, CONCURRENT_FORK_MS, PROTECTED,
 };

@@ -167,6 +167,10 @@ const CATALOG = {
   'injection.nosql': { category: 'injection', bleed: 'SelectorBleed', severity: 'high', cwe: 'CWE-943' },
   'injection.sql':   { category: 'injection', bleed: 'EscapeBleed', severity: 'critical', cwe: 'CWE-89' },
   'integrity.history': { category: 'integrity', bleed: 'HistoryIntegrity', severity: 'critical', cwe: 'CWE-345' },
+  // Two intact History rows saved within moments of each other naming the
+  // same previous row: the legacy append race (models/lib/historyLegacyAppend.js),
+  // not tampering. Undo of those two rows is refused, so it is still shown.
+  'integrity.historyConcurrentFork': { category: 'integrity', bleed: 'HistoryIntegrity', severity: 'medium', cwe: 'CWE-362' },
   'integrity.file': { category: 'integrity', bleed: 'StorageBleed', severity: 'high', cwe: 'CWE-353' },
   // Reply-by-email (#2414): a mail provider, not a logged-in user, calls
   // /api/inbound-email, so the signed reply address is what authorizes a

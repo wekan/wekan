@@ -172,15 +172,13 @@ ChangeHistory.record = async function record(options) {
       createdAt,
       superseded: false,
     };
-    const legacy = async document => {
-      const previous = await ChangeHistory.findOneAsync(
-        { boardId, integrityHash: { $nin: [null, ''] } },
-        { sort: { createdAt: -1 } },
-      );
+    // One append at a time per board, after the chain's tip
+    // (models/lib/historyLegacyAppend.js): two at once used to fork it.
+    const legacy = document => {
       const { hashHistoryRow } = require('/models/lib/changeHistoryIntegrity');
-      const saved = { ...document, createdAt: new Date(), previousHash: previous ? previous.integrityHash : null };
-      saved.integrityHash = hashHistoryRow(saved);
-      return ChangeHistory.insertAsync(saved);
+      const { appendLegacyHistoryRow } = require('/models/lib/historyLegacyAppend');
+      return appendLegacyHistoryRow({ history: ChangeHistory, boardId, document, hash: hashHistoryRow,
+        prepare: doc => ({ ...doc, createdAt: new Date() }) });
     };
     const write = async append => {
       // A NEW change clears this user's redo stack on this board (History.md §7c):
