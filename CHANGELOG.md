@@ -401,21 +401,12 @@ not have).
 <summary>Decided on 2026-10-14, waiting to be implemented.</summary>
 
 Design decisions the maintainer made on 2026-10-14; each is built as decided.
-[#4178](https://github.com/wekan/wekan/issues/4178) (leaving a team or an organization removes the board memberships
-that came through it, and keeps any the user was given directly: each
-membership records where it came from. Joining already adds them),
 [#2761](https://github.com/wekan/wekan/issues/2761) and [#4698](https://github.com/wekan/wekan/issues/4698) (shared labels: an instance-wide catalog in the Admin
 Panel, plus catalogs per organization and team; a board uses shared labels
 beside its own),
 [#2449](https://github.com/wekan/wekan/issues/2449) and [#2450](https://github.com/wekan/wekan/issues/2450) (every board gets a key, suggested from its name and
 unique in the instance, and every card number shows as `KEY-7`; the atomic
 per-board numbers stay as they are),
-[#1455](https://github.com/wekan/wekan/issues/1455) (outgoing webhooks honour `HTTP_PROXY`, `HTTPS_PROXY` and `NO_PROXY`,
-and the destination's name and address are still checked against the SSRF
-rules before the request is handed to the proxy),
-[#3022](https://github.com/wekan/wekan/issues/3022) (custom roles: named roles built from a permission matrix in the
-Admin Panel; today's roles become ready-made presets whose behaviour does not
-change),
 [#4575](https://github.com/wekan/wekan/issues/4575) (a board setting lets every signed-in user edit, available only when
 the Admin Panel allows it; the first edit makes the user a Normal member, so
 changes stay attributed),
@@ -625,9 +616,10 @@ Actions only.
 
 # Upcoming WeKan ® release
 
-**In short:** eleven **GitHub CodeQL** alerts are fixed, among them email to
-card keeping the contents of a spliced script element. **Per-member
-notification frequency** (#2141) is confirmed already done and closed. Igbo
+**In short:** **custom board roles** are built in the Admin Panel from what a
+member may do; **team memberships** now leave with the team; outgoing
+**webhooks go through an HTTP proxy**. Eleven **GitHub CodeQL** alerts are
+fixed, and **per-member notification frequency** (#2141) is confirmed done. Igbo
 notification, integration, workflow and permission settings are translated,
 with regression checks and further language review in progress.
 
@@ -656,10 +648,67 @@ time, so no Admin Panel / Problems key is added.
 
 </details>
 
+and adds the following new features:
+
+**Board roles** - who may do what on a board, and where a membership comes from.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/50bb989eb8">Custom board roles, built in the Admin Panel from what a member may do</a>. Thanks to xet7.</summary>
+
+In Admin Panel / People / Roles a site admin builds named roles from five
+capabilities: sees all cards, comments, edits, moves cards, invites. A board
+admin then gives one to a member in the same popup as the built-in roles.
+Board admin stays a built-in role. Every check asks the capability table,
+which answers from the custom role. The member's built-in flags carry the
+strongest built-in role that grants nothing more, so code reading a flag
+never grants more, and a deleted role leaves exactly that. This holds for
+every combination, which `tests/customBoardRoles.test.cjs` checks.
+Invitations, REST reads, imports and member mapping follow it. The comment
+form, reactions and chat now ask the comment capability, so a No comments
+member is no longer offered reactions the server refuses. The new strings are
+translated in all 234 languages, and the Roles Status table gains a Move cards
+column. See [Board roles](docs/Features/Members/Roles.md#custom-roles).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/50bb989eb8">A membership that came through a team or organization leaves with it</a>. Thanks to mfnalex and xet7.</summary>
+
+Joining a team already added its boards; leaving it now takes away the
+memberships it gave, and only those. Each records where it came from
+(`grantedBy`), so a direct membership is never touched and a board admin is
+kept. A board admin's own add or removal is final. This covers user edits,
+LDAP, OIDC, the board sidebar, and organizations that propagate their
+members. `tests/groupBoardMembership.test.cjs` covers the decisions, and a
+runtime test joins, leaves and rejoins a team against a real database.
+
+</details>
+
+**Outgoing requests** - webhooks and downloads.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/78957e14cb">Outgoing webhooks go through an HTTP proxy, with the SSRF checks kept</a>. Thanks to gbarre and xet7.</summary>
+
+`HTTP_PROXY`, `HTTPS_PROXY` and `NO_PROXY` work for every outgoing request
+(on the snap: `http-proxy`, `https-proxy`, `no-proxy`). The destination is
+still resolved and checked first, and the proxy is given that checked
+address, never the name: an `http://` request goes in absolute form, an
+`https://` one through a `CONNECT` tunnel, with TLS still checked against the
+real name. A destination the guard refuses never reaches the proxy.
+`tests/outboundProxy.test.cjs` runs a real proxy on loopback. See
+[Proxy](docs/Features/Webhooks/Proxy.md).
+
+</details>
+
 and closes the following already-done feature request:
 
 - [Each member chooses how often email notifications come: never, periodically or instantly](https://github.com/wekan/wekan/commit/3f88fb39a5).
   Thanks to saurabharch and xet7.
+
+and fixes the following bugs:
+
+- [Five role helpers that answered the same for everybody: Import never offered, rule controls for every member, the last admin not protected, OIDC default-board roles](https://github.com/wekan/wekan/commit/548834c4ee).
+  Thanks to xet7.
 
 and fixes the following build bug:
 
