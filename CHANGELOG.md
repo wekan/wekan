@@ -637,6 +637,11 @@ Upcoming as it is committed. Builds run on GitHub Actions only.
 
 # Upcoming WeKan ® release
 
+**In short:** Igbo notification and integration settings are translated, with
+regression checks and further language review still in progress.
+
+This release updates the following translations:
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/238354f6a54a234c9db1cf88a9436d15087c6ba0">Translate Igbo notification delivery and integration settings</a>. Thanks to xet7.</summary>
 
