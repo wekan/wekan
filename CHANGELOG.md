@@ -398,23 +398,46 @@ not have).
 </details>
 
 <details>
+<summary>Decided on 2026-10-14, waiting to be implemented.</summary>
+
+Design decisions the maintainer made on 2026-10-14; each is built as decided.
+[#4178](https://github.com/wekan/wekan/issues/4178) (leaving a team or an organization removes the board memberships
+that came through it, and keeps any the user was given directly: each
+membership records where it came from. Joining already adds them),
+[#2761](https://github.com/wekan/wekan/issues/2761) and [#4698](https://github.com/wekan/wekan/issues/4698) (shared labels: an instance-wide catalog in the Admin
+Panel, plus catalogs per organization and team; a board uses shared labels
+beside its own),
+[#2449](https://github.com/wekan/wekan/issues/2449) and [#2450](https://github.com/wekan/wekan/issues/2450) (every board gets a key, suggested from its name and
+unique in the instance, and every card number shows as `KEY-7`; the atomic
+per-board numbers stay as they are),
+[#1455](https://github.com/wekan/wekan/issues/1455) (outgoing webhooks honour `HTTP_PROXY`, `HTTPS_PROXY` and `NO_PROXY`,
+and the destination's name and address are still checked against the SSRF
+rules before the request is handed to the proxy),
+[#3022](https://github.com/wekan/wekan/issues/3022) (custom roles: named roles built from a permission matrix in the
+Admin Panel; today's roles become ready-made presets whose behaviour does not
+change),
+[#4575](https://github.com/wekan/wekan/issues/4575) (a board setting lets every signed-in user edit, available only when
+the Admin Panel allows it; the first edit makes the user a Normal member, so
+changes stay attributed),
+[#4527](https://github.com/wekan/wekan/issues/4527) (per-list exceptions on top of the #3022 permission matrix: who may
+add, edit and comment in one list),
+[#916](https://github.com/wekan/wekan/issues/916) (optional HTTPS in WeKan's own server, from certificate and key
+environment variables; without them it serves HTTP as now, and a proxy stays
+the recommendation for production).
+
+</details>
+
+<details>
 <summary>Open requests checked on 2026-10-14: roles, permissions, organizations and teams.</summary>
 
 Each was read with its comments and checked against the code; what exists is
 noted, and what is missing is why it is still open.
-[#3022](https://github.com/wekan/wekan/issues/3022) (more fixed board roles and a per-role invite toggle exist; no
-custom roles or per-permission matrix),
 [#802](https://github.com/wekan/wekan/issues/802) (board orgs/teams, All Boards filters and LDAP group sync exist; no
 per-org/team tabs or member management there, no write-back to LDAP),
 [#5141](https://github.com/wekan/wekan/issues/5141) (board admins may add orgs/teams on the server, but the picker lists
 nothing for them: the org and team publications are admin-only),
-[#4178](https://github.com/wekan/wekan/issues/4178) (joining a team adds its boards; joining an org without the
-propagate flag does not, and removal deliberately removes nothing),
 [#4265](https://github.com/wekan/wekan/issues/4265) (leaving a board shared through a team keeps it visible; no hidden
 boards list or membership reorganizing),
-[#4575](https://github.com/wekan/wekan/issues/4575) (instance visibility grants reading only; writing still needs
-membership),
-[#4527](https://github.com/wekan/wekan/issues/4527) (no per-list permissions),
 [#2217](https://github.com/wekan/wekan/issues/2217) (Rules are board-admin only, with no setting to show them to others),
 [#5847](https://github.com/wekan/wekan/issues/5847) (2FA, SAML, CAS and OIDC redirect exist; the other listed logins and
 a log-out-everywhere are missing),
@@ -428,9 +451,6 @@ a log-out-everywhere are missing),
 [#2805](https://github.com/wekan/wekan/issues/2805) (sticky list headers exist; one shared header row for all
 swimlanes does not),
 [#2809](https://github.com/wekan/wekan/issues/2809) (linked cards and boards exist; a linked whole list does not),
-[#2761](https://github.com/wekan/wekan/issues/2761) and [#4698](https://github.com/wekan/wekan/issues/4698) (labels are per board; no shared label catalog),
-[#2450](https://github.com/wekan/wekan/issues/2450) (atomic per-board card numbers `#7` exist; no board-key prefix like
-`DEV-7`), [#2449](https://github.com/wekan/wekan/issues/2449) (no board key),
 [#2171](https://github.com/wekan/wekan/issues/2171) (`/` opens the sidebar search; nothing scrolls the board to a match),
 [#2110](https://github.com/wekan/wekan/issues/2110) (minicard avatars are still in reverse order; no per-card avatar
 colour or tooltip),
@@ -464,8 +484,6 @@ picker in the UI, no all-boards activity feed),
 [#1297](https://github.com/wekan/wekan/issues/1297) (the webhook payload names member and assignee; no per-recipient
 Mattermost direct message),
 [#2290](https://github.com/wekan/wekan/issues/2290) (no webhook on login or registration),
-[#1455](https://github.com/wekan/wekan/issues/1455) (outgoing webhooks are pinned to the resolved IP and do not use an
-HTTP proxy),
 [#1100](https://github.com/wekan/wekan/issues/1100) (no Matrix notifications or bot),
 [#2435](https://github.com/wekan/wekan/issues/2435) (rule emails can go to the card's creator, assignees and members; the
 To field has no autocomplete or member picker),
@@ -490,8 +508,6 @@ sharing link).
 
 [#2662](https://github.com/wekan/wekan/issues/2662) (FreeBSD Bun bundles ship and the Node.js bundle is in progress; no
 FreeBSD port or rc.d script),
-[#916](https://github.com/wekan/wekan/issues/916) (TLS through Caddy or a proxy is documented; WeKan's own Node.js server
-does not serve HTTPS),
 [#687](https://github.com/wekan/wekan/issues/687) (the Nextcloud ExApp, Nextcloud login and Deck import exist; the app
 is not published, and there is no WebDAV storage or CalDAV sync),
 [#632](https://github.com/wekan/wekan/issues/632) (the Rancher catalog entry is outside this repository and the Rancher
