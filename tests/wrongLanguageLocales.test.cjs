@@ -44,6 +44,10 @@ const WRONG = {
   rup: { lang: 'Italian', re: words(['Accedi', 'Predefinito', 'Impostazioni', 'Aggiungi']) },
   lld: { lang: 'Italian', re: words(['Ruoli', 'Impostazioni', 'Aggiungi', 'Accedi', 'Predefinito']) },
   vo: { lang: 'Esperanto', re: words(['Akcepti', 'Fermi', 'Redakti', 'Renomi', 'Forigi', 'Aldoni']) },
+  // Hong Kong writes Traditional: characters that exist only in Simplified.
+  'zh-HK': { lang: 'Simplified Chinese', re: /[让与统项键凭据设户从误这为对还应选择录码开关务认证显链导视图发计划删编辑动们个时间]/ },
+  // Flemish (languages.js "Vlaams"): Venda's letters do not occur in Dutch.
+  'vl-SS': { lang: 'Venda', re: /[ḓḽṅṋṱḒḼṄṊṰ]|(?<!\p{L})(Vhutanzi|zwino|Khii ya)(?!\p{L})/u },
   cmn: { lang: 'a wooden plank for a board', re: /木板|节省/ },
   yue_CN: { lang: 'a wooden plank for a board', re: /木板/ },
 };
