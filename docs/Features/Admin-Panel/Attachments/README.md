@@ -68,12 +68,14 @@ Which storage new files go to.
 Upload and download size limits, for attachments and for the API, each with a unit;
 and whether avatar uploads are blocked entirely.
 
-## MongoDB GridFS storage · Filesystem storage · S3 / MinIO storage · Azure Blob Storage · Google Cloud Storage
+## MongoDB GridFS storage · Filesystem storage · S3 / MinIO storage · Azure Blob Storage · Google Cloud Storage · WebDAV
 
 One pane per backend, each with its own read / write switches and its own settings —
 paths for the filesystem, bucket and credentials for S3 / MinIO, account and
-container for Azure, bucket and service-account permissions for GCS. Every pane says
-which environment variable or console path each field corresponds to.
+container for Azure, bucket and service-account permissions for GCS, and for WebDAV
+(Nextcloud Files, ownCloud or any WebDAV server) the folder address, a user and an
+app password made for WeKan. Every pane says which environment variable or console
+path each field corresponds to.
 
 ## Database migration
 
@@ -115,8 +117,9 @@ the address uses: `/admin/attachments/<slug>`.
 | Attachments / S3/MinIO Storage | `s3` | — |
 | Attachments / Azure Blob Storage | `azure` | — |
 | Attachments / Google Cloud Storage | `gcs` | — |
+| Attachments / WebDAV (Nextcloud Files) | `webdav` | — |
 | Attachments / Database migration | `database-migration` | — |
 
-9 of these 11 panes have no page of its own yet. A dash is a
+10 of these 12 panes have no page of its own yet. A dash is a
 gap to fill, not a pane that does nothing - what the pane shows is described in
 this README until somebody writes it up.

@@ -42,9 +42,18 @@ const CLOUD_FIELD_IDS = {
     keyFilename: '#gcs-key-filename',
     credentials: '#gcs-credentials',
   },
+  // #687: WebDAV - Nextcloud Files, ownCloud, any WebDAV server.
+  webdav: {
+    enabled: '#webdav-enabled',
+    read: '#webdav-read',
+    endpoint: '#webdav-endpoint',
+    username: '#webdav-username',
+    password: '#webdav-password',
+    bucket: '#webdav-folder',
+  },
 };
 
-const CLOUD_PROVIDERS = ['s3', 'azure', 'gcs'];
+const CLOUD_PROVIDERS = ['s3', 'azure', 'gcs', 'webdav'];
 
 function gatherCloudConfig(tpl, provider) {
   const ids = CLOUD_FIELD_IDS[provider] || {};
@@ -557,6 +566,7 @@ function attachmentsMenu(user) {
     { id: 's3', icon: 'fa-cloud', labelKey: 's3-minio-storage', emoji: true },
     { id: 'azure', icon: 'fa-cloud', labelKey: 'azure-blob-storage', emoji: true },
     { id: 'gcs', icon: 'fa-cloud', labelKey: 'gcs-storage', emoji: true },
+    { id: 'webdav', icon: 'fa-cloud', labelKey: 'webdav-storage', emoji: true },
     { id: 'database-migration', icon: 'fa-exchange', labelKey: 'database-migration', emoji: true },
     // Sandstorm - COMMENTED OUT ON PURPOSE, with its pane in attachments.jade and
     // its helpers, state and handler below. It only had content inside a grain: the
@@ -611,6 +621,9 @@ Template.attachments.helpers({
   },
   isGcsActive() {
     return Template.instance().activeSection.get() === 'gcs';
+  },
+  isWebdavActive() {
+    return Template.instance().activeSection.get() === 'webdav';
   },
   isDatabaseMigrationActive() {
     return Template.instance().activeSection.get() === 'database-migration';
@@ -782,6 +795,7 @@ Template.attachments.helpers({
     if (sc.s3?.enabled) options.push({ value: 's3', labelKey: 'move-storage-s3' });
     if (sc.azure?.enabled) options.push({ value: 'azure', labelKey: 'move-storage-azure' });
     if (sc.gcs?.enabled) options.push({ value: 'gcs', labelKey: 'move-storage-gcs' });
+    if (sc.webdav?.enabled) options.push({ value: 'webdav', labelKey: 'move-storage-webdav' });
     return options.map(option => ({
       ...option,
       selected: option.value === selected,
@@ -804,7 +818,9 @@ Template.attachments.helpers({
     const s3 = cloudConfigFromSettings(tpl, 's3');
     const azure = cloudConfigFromSettings(tpl, 'azure');
     const gcs = cloudConfigFromSettings(tpl, 'gcs');
+    const webdav = cloudConfigFromSettings(tpl, 'webdav');
     return {
+      webdav: { endpoint: webdav.endpoint || '', username: webdav.username || '', bucket: webdav.bucket || 'wekan' },
       s3: {
         endpoint: s3.endpoint || '',
         region: s3.region || '',
@@ -835,6 +851,7 @@ Template.attachments.helpers({
       s3: { secretAccessKey: ph(s3, 'secretAccessKey') },
       azure: { accountKey: ph(azure, 'accountKey'), connectionString: ph(azure, 'connectionString') },
       gcs: { credentials: ph(gcs, 'credentials') },
+      webdav: { password: ph(cloudConfigFromSettings(tpl, 'webdav'), 'password') },
     };
   },
   cloudTestResult() {

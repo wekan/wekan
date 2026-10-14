@@ -439,6 +439,42 @@ template(name="attachments")
                   if cloudTestError.gcs
                     p.form-text.text-danger {{_ 'cloud-connection-failed'}}: {{cloudTestError.gcs}}
 
+          else if isWebdavActive
+            //- #687: WebDAV attachment storage (server/lib/webdavAdapter.js).
+            ul#attachment-webdav-setting.setting-detail
+              li
+                .description {{_ 'webdav-storage-description'}}
+                .storage-rw-row
+                  .storage-rw-item
+                    a.flex.js-toggle-checkbox
+                      .materialCheckBox#webdav-enabled(class="{{#if cloudEnabled.webdav}}is-checked{{/if}}")
+                      span {{_ 'storage-enabled'}}
+                  .storage-rw-item
+                    a.flex.js-toggle-checkbox
+                      .materialCheckBox#webdav-read(class="{{#if cloudRead.webdav}}is-checked{{/if}}")
+                      span {{_ 'storage-read'}}
+                .form-group
+                  label {{_ 'webdav-endpoint'}}
+                  input.wekan-form-control#webdav-endpoint(type="text" value=cloudValue.webdav.endpoint)
+                  small.form-text.cloud-input-example https://cloud.example.com/remote.php/dav/files/USER
+                .form-group
+                  label {{_ 'username'}}
+                  input.wekan-form-control#webdav-username(type="text" value=cloudValue.webdav.username)
+                .form-group
+                  label {{_ 'webdav-password'}}
+                  input.wekan-form-control#webdav-password(type="password" placeholder=cloudSecretPlaceholder.webdav.password)
+                  small.form-text.cloud-input-desc {{_ 'cloud-secret-keep-blank'}}
+                .form-group
+                  label {{_ 'webdav-folder'}}
+                  input.wekan-form-control#webdav-folder(type="text" value=cloudValue.webdav.bucket)
+                .form-group
+                  button.js-test-cloud-connection.btn.btn-secondary(data-provider="webdav") {{_ 'test-cloud-connection'}}
+                  button.js-save-cloud-settings.btn.btn-primary(data-provider="webdav") {{_ 'save'}}
+                  if cloudTestResult.webdav
+                    p.form-text.text-success {{_ 'cloud-connection-success'}}
+                  if cloudTestError.webdav
+                    p.form-text.text-danger {{_ 'cloud-connection-failed'}}: {{cloudTestError.webdav}}
+
           else if isDatabaseMigrationActive
             ul#attachment-database-migration-setting.setting-detail
               li

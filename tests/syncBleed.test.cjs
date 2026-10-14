@@ -208,6 +208,9 @@ test('the platform fetch() is used only for fixed, WeKan-chosen hosts (negative)
     // destination (models/lib/internalWebhookHosts.js), without redirects;
     // every other webhook goes through fetchSafe on the next line.
     'server/sandstormEgress.js': 'only hosts in Admin Panel / Global Webhooks / Internal destinations',
+    // #687: WebDAV attachment storage, to the endpoint a SITE ADMIN set in
+    // Admin Panel / Attachments - like an S3 endpoint - without redirects.
+    'server/lib/webdavAdapter.js': 'only the WebDAV endpoint a site administrator configured',
   };
   const found = {};
   for (const file of sourceFiles()) {

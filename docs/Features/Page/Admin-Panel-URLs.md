@@ -114,6 +114,7 @@ and `performance`; `security-report` is the report, beside `impersonation`.
 | `/admin/attachments/s3` | S3/MinIO Storage | `s3` |
 | `/admin/attachments/azure` | Azure Blob Storage | `azure` |
 | `/admin/attachments/gcs` | Google Cloud Storage | `gcs` |
+| `/admin/attachments/webdav` | WebDAV (Nextcloud Files) | `webdav` |
 | `/admin/attachments/database-migration` | Database migration | `database-migration` |
 
 ## The slug is not derived from the pane id

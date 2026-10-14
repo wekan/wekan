@@ -146,6 +146,7 @@ const ADMIN_PAGES = {
       s3: 's3',
       azure: 'azure',
       gcs: 'gcs',
+      webdav: 'webdav',
       'database-migration': 'database-migration',
     },
   },
@@ -228,6 +229,7 @@ const ADMIN_PANE_TITLES = {
     s3: { titleKey: 's3-minio-storage' },
     azure: { titleKey: 'azure-blob-storage' },
     gcs: { titleKey: 'gcs-storage' },
+    webdav: { titleKey: 'webdav-storage' },
     'database-migration': { titleKey: 'database-migration' },
   },
 };

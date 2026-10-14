@@ -34,6 +34,7 @@ import {
   STORAGE_NAME_S3,
   STORAGE_NAME_AZURE,
   STORAGE_NAME_GCS,
+  STORAGE_NAME_WEBDAV,
   CLOUD_STORAGE_NAMES,
 } from './fileStoreConstants';
 
@@ -46,6 +47,7 @@ const ADAPTER_CLASS_NAME = {
   [STORAGE_NAME_S3]: 'AdapterAmazonS3',
   [STORAGE_NAME_AZURE]: 'AdapterAzureBlob',
   [STORAGE_NAME_GCS]: 'AdapterGoogleCloud',
+  [STORAGE_NAME_WEBDAV]: 'AdapterWebDav',
 };
 
 // Cache of loaded adapter classes (null = tried and unavailable).
@@ -73,6 +75,11 @@ function loadAdapterClass(provider) {
       case STORAGE_NAME_GCS:
         // eslint-disable-next-line global-require
         mod = require('@tweedegolf/sab-adapter-google-cloud');
+        break;
+      case STORAGE_NAME_WEBDAV:
+        // #687: WeKan's own adapter, no package needed.
+        // eslint-disable-next-line global-require
+        mod = require('/server/lib/webdavAdapter');
         break;
       default:
         mod = null;
@@ -142,6 +149,13 @@ function buildProviderConfig(provider, cfg) {
     return null;
   }
 
+  if (provider === STORAGE_NAME_WEBDAV) {
+    if (!cfg.endpoint || !cfg.bucket) {
+      return null;
+    }
+    return { type: 'webdav', endpoint: cfg.endpoint, username: cfg.username || '', password: cfg.password || '', bucketName: cfg.bucket };
+  }
+
   if (provider === STORAGE_NAME_GCS) {
     if (!cfg.bucket) {
       return null;
@@ -182,6 +196,9 @@ function buildProviderConfig(provider, cfg) {
 function validateCloudConfig(provider, cfg) {
   if (!cfg) {
     return 'Configuration is empty';
+  }
+  if (provider === STORAGE_NAME_WEBDAV) {
+    return require('./webdavStorage').validWebdavConfig(cfg);
   }
   if (provider === STORAGE_NAME_AZURE) {
     const connectionString = (cfg.connectionString || '').trim();

@@ -96,6 +96,7 @@ are not reachable from the current Admin Panel menu. Current storage panes use
 | S3/MinIO Storage (`s3`) | [cloudStorage.js](../../../models/lib/cloudStorage.js) | Real S3 adapter, connection test and secret-preserving settings; configured live storage not exercised here. |
 | Azure Blob Storage (`azure`) | [cloudStorage.js](../../../models/lib/cloudStorage.js) | Real Azure adapter and connection test; configured live storage not exercised here. |
 | Google Cloud Storage (`gcs`) | [cloudStorage.js](../../../models/lib/cloudStorage.js) | Real GCS adapter and connection test; configured live storage not exercised here. |
+| WebDAV (Nextcloud Files) (`webdav`) | [webdavAdapter.js](../../../server/lib/webdavAdapter.js) | WebDAV adapter (PUT, GET, DELETE, PROPFIND, MKCOL) and its address rules in [webdavStorage.test.cjs](../../../tests/webdavStorage.test.cjs); a live Nextcloud not exercised here. |
 | Database migration (`database-migration`) | [migrateTextDatabase.js](../../../server/methods/migrateTextDatabase.js) | Migration process/status and verification; needs source and destination databases for an end-to-end migration. |
 
 ## Problems

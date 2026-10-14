@@ -8,6 +8,7 @@ import {
   STORAGE_NAME_S3,
   STORAGE_NAME_AZURE,
   STORAGE_NAME_GCS,
+  STORAGE_NAME_WEBDAV,
   CLOUD_STORAGE_NAMES,
 } from '/models/lib/fileStoreConstants';
 import { check } from 'meteor/check';
@@ -25,6 +26,7 @@ const CLOUD_SECRET_FIELDS = {
   [STORAGE_NAME_S3]: ['secretAccessKey'],
   [STORAGE_NAME_AZURE]: ['accountKey', 'connectionString'],
   [STORAGE_NAME_GCS]: ['credentials'],
+  [STORAGE_NAME_WEBDAV]: ['password'],
 };
 
 // Mask secret fields in a settings document before returning it to the client,
@@ -250,6 +252,16 @@ Meteor.methods({
             keyFilename: '',
             credentials: '',
             bucket: '',
+          },
+          // #687: e.g. https://cloud.example.com/remote.php/dav/files/USER
+          webdav: {
+            enabled: false,
+            read: true,
+            write: true,
+            endpoint: '',
+            username: '',
+            password: '',
+            bucket: 'wekan',
           },
         },
         uploadSettings: {
@@ -636,6 +648,7 @@ Meteor.methods({
       STORAGE_NAME_S3,
       STORAGE_NAME_AZURE,
       STORAGE_NAME_GCS,
+      STORAGE_NAME_WEBDAV,
     ].includes(storageName)) {
       throw new Meteor.Error('invalid-storage', 'Invalid storage backend');
     }
@@ -689,6 +702,7 @@ const CLOUD_SECRET_PROJECTION = {
   'storageConfig.azure.accountKey': 0,
   'storageConfig.azure.connectionString': 0,
   'storageConfig.gcs.credentials': 0,
+  'storageConfig.webdav.password': 0,
 };
 
 Meteor.publish('attachmentStorageSettings', async function() {

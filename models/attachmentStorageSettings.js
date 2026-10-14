@@ -6,6 +6,7 @@ import {
   STORAGE_NAME_S3,
   STORAGE_NAME_AZURE,
   STORAGE_NAME_GCS,
+  STORAGE_NAME_WEBDAV,
 } from '/models/lib/fileStoreConstants';
 
 // Attachment Storage Settings Collection
@@ -23,6 +24,7 @@ AttachmentStorageSettings.attachSchema(
         STORAGE_NAME_S3,
         STORAGE_NAME_AZURE,
         STORAGE_NAME_GCS,
+        STORAGE_NAME_WEBDAV,
       ],
       defaultValue: STORAGE_NAME_FILESYSTEM,
       label: 'Default Storage Backend'
@@ -112,6 +114,14 @@ AttachmentStorageSettings.attachSchema(
       optional: true,
       blackbox: true,
       label: 'Google Cloud Storage Configuration'
+    },
+
+    // #687: WebDAV - Nextcloud Files, ownCloud, any WebDAV server.
+    'storageConfig.webdav': {
+      type: Object,
+      optional: true,
+      blackbox: true,
+      label: 'WebDAV Configuration'
     },
 
     // Upload settings
@@ -306,6 +316,8 @@ AttachmentStorageSettings.helpers({
         return this.storageConfig.azure?.enabled === true;
       case STORAGE_NAME_GCS:
         return this.storageConfig.gcs?.enabled === true;
+      case STORAGE_NAME_WEBDAV:
+        return this.storageConfig.webdav?.enabled === true;
       default:
         return false;
     }
@@ -339,6 +351,8 @@ AttachmentStorageSettings.helpers({
         return this.storageConfig.azure;
       case STORAGE_NAME_GCS:
         return this.storageConfig.gcs;
+      case STORAGE_NAME_WEBDAV:
+        return this.storageConfig.webdav;
       default:
         return null;
     }

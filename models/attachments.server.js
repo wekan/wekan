@@ -355,7 +355,7 @@ Meteor.methods({
     }
 
     // Allowlist storage destinations
-    const allowedDestinations = ['fs', 'gridfs', 's3', 'azure', 'gcs'];
+    const allowedDestinations = ['fs', 'gridfs', 's3', 'azure', 'gcs', 'webdav'];
     if (!allowedDestinations.includes(storageDestination)) {
       throw new Meteor.Error('invalid-storage-destination', 'Invalid storage destination');
     }
@@ -453,7 +453,7 @@ Meteor.methods({
     }
 
     // Allowlist storage destinations
-    const allowedDestinations = ['fs', 'gridfs', 's3', 'azure', 'gcs'];
+    const allowedDestinations = ['fs', 'gridfs', 's3', 'azure', 'gcs', 'webdav'];
     if (!allowedDestinations.includes(storageDestination)) {
       throw new Meteor.Error('invalid-storage-destination', 'Invalid storage destination');
     }
