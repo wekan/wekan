@@ -1084,6 +1084,7 @@
   "rules": "Arauak",
   "search-cards": "Bilatu arbel honetako txartel/zerrenden tituluetan, deskripzioetan eta eremu pertsonalizatuetan",
   "search-example": "Idatzi bilatzen duzun testua eta sakatu Sartu",
+  "search-step": "%s / %s - sakatu Enter hurrengorako",
   "select-color": "Aukeratu kolorea",
   "select-board": "Hautatu arbela",
   "set-wip-limit-value": "Zerrenda honetako atazen muga maximoa ezarri",

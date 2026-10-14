@@ -1084,6 +1084,7 @@
   "rules": "Rules",
   "search-cards": "Search from card/list titles, descriptions and custom fields on this board",
   "search-example": "Write text you search and press Enter",
+  "search-step": "%s of %s - press Enter for the next",
   "select-color": "Select Color",
   "select-board": "Select Board",
   "set-wip-limit-value": "Set a limit for the maximum number of tasks in this list",

@@ -1084,6 +1084,7 @@
   "rules": "Pravidla",
   "search-cards": "Hledání napříč názvy karet/seznamů, popisy a vlasními poli tohoto tabla",
   "search-example": "Napište hledaný text a stiskněte Enter",
+  "search-step": "%s z %s - stiskněte Enter pro další",
   "select-color": "Vybrat barvu",
   "select-board": "Vybrat tablo",
   "set-wip-limit-value": "Nastaví limit pro maximální počet úkolů ve sloupci.",

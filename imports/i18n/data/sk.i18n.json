@@ -1084,6 +1084,7 @@
   "rules": "Pravidlá",
   "search-cards": "Vyhľadávajte podľa názvu karty/zoznamu, popisov a vlastných polí na tejto nástenke",
   "search-example": "Napíšte text, ktorý hľadáte, a stlačte Enter",
+  "search-step": "%s z %s - stlačte Enter pre ďalšiu",
   "select-color": "Vybrať farbu",
   "select-board": "Zvoliť nástenku",
   "set-wip-limit-value": "Nastaviť limit maximálneho počtu úloh v tomto zozname",

@@ -1084,6 +1084,7 @@
   "rules": "규칙",
   "search-cards": "이 보드의 카드/리스트 제목, 설명, 사용자 지정 필드에서 검색",
   "search-example": "검색할 텍스트를 입력하고 Enter 를 누르세요.",
+  "search-step": "%s / %s - 다음으로 이동하려면 Enter를 누르세요",
   "select-color": "색 선택",
   "select-board": "보드 선택",
   "set-wip-limit-value": "이 리스트의 최대 작업 수 제한을 설정하세요",

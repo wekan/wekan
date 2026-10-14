@@ -1084,6 +1084,7 @@
   "rules": "Reglanan",
   "search-cards": "Buska entre e títulos, e descripshonnan di e karchinan/listas i e kamindanan personalisá den e tabla.",
   "search-example": "Escriba e teksto ku busca i pulse Intro",
+  "search-step": "%s di %s - pulse Intro pa e siguiente",
   "select-color": "Selektá e koló",
   "select-board": "Selektá tabla",
   "set-wip-limit-value": "Kambia e límite pa e número máximo di tareas den e lista.",

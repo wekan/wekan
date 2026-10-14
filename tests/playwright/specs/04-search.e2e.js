@@ -236,6 +236,24 @@ test.describe('Search', () => {
     expect(alphaFound).toBe(true);
   });
 
+  // #2171: a board search shows each card found ON the board - scrolled into
+  // view and highlighted - and Enter again steps to the next one.
+  test('board search reveals the card found on the board, and Enter steps on', async ({ boardPage }) => {
+    const sp = new SearchPage(boardPage);
+    await sp.openBoardSearch();
+    await sp.boardSearch('Card');
+    const counter = boardPage.locator('.board-sidebar .search-step');
+    await expect(counter).toContainText(/1\D+\d/, { timeout: 10000 });
+    const highlighted = boardPage.locator('.board-canvas .js-minicard.is-search-highlight');
+    await expect(highlighted).toHaveCount(1, { timeout: 10000 });
+    await expect(highlighted).toBeInViewport();
+    const first = await highlighted.getAttribute('data-card-id');
+    await boardPage.locator('form.js-search-term-form input[type=text]').first().press('Enter');
+    await expect(counter).toContainText(/2\D+\d/, { timeout: 10000 });
+    await expect.poll(() => boardPage.locator('.board-canvas .js-minicard.is-search-highlight').getAttribute('data-card-id'), { timeout: 10000 })
+      .not.toBe(first);
+  });
+
   test('filter sidebar filters cards by title fragment', async ({ boardPage, board }) => {
     const sp = new SearchPage(boardPage);
     await sp.openFilterSidebar();

@@ -1084,6 +1084,7 @@
   "rules": "Reglur",
   "search-cards": "Leita í heitum á kortum/listum, lýsingum og egnum økjum á hesi talvuni",
   "search-example": "Skriva tekstin, sum tú leitar eftir, og trýst á Enter",
+  "search-step": "%s av %s - trýst á Enter fyri næsta",
   "select-color": "Vel lit",
   "select-board": "Vel talvu",
   "set-wip-limit-value": "Áset eitt mark fyri mesta talið av uppgávum í hesum listanum",

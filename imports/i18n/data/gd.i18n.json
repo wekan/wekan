@@ -1084,6 +1084,7 @@
   "rules": "Riaghailtean",
   "search-cards": "Lorg ann an tiotalan chairtean/liostaichean, tuairisgeulan agus raointean gnàthaichte air a' bhòrd seo",
   "search-example": "Sgrìobh an teacsa a tha thu a' lorg agus brùth Enter",
+  "search-step": "%s à %s - brùth Enter airson an ath fhear",
   "select-color": "Tagh Dath",
   "select-board": "Tagh Bòrd",
   "set-wip-limit-value": "Suidhich crìoch air an àireamh as motha de ghnìomhan san liosta seo",

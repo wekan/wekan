@@ -1084,6 +1084,7 @@
   "rules": "Regles",
   "search-cards": "Cerca des de títols de fitxes/llista, descripcions i camps personalitzats en aquest tauler",
   "search-example": "Escriviu el text que cerqueu i premeu Intro",
+  "search-step": "%s de %s - premeu Intro per a la següent",
   "select-color": "Seleccioneu el color",
   "select-board": "Selecciona tauler",
   "set-wip-limit-value": "Limita el nombre màxim de tasques en aquesta llista",

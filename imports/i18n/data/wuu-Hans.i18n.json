@@ -1084,6 +1084,7 @@
   "rules": "规则",
   "search-cards": "搜索搿块看板浪卡片／列表个标题、描述搭自定义字段",
   "search-example": "输入侬要搜索个文本，再按 Enter 键",
+  "search-step": "第 %s 个，一共 %s 个 - 按 Enter 键看下一个",
   "select-color": "选择颜色",
   "select-board": "选择看板",
   "set-wip-limit-value": "设置搿只列表里向任务数量个上限",

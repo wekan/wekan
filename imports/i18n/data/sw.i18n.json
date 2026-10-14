@@ -1084,6 +1084,7 @@
   "rules": "Kanuni",
   "search-cards": "Tafuta kutoka kwa majina ya kadi/orodha, maelezo na sehemu maalum kwenye ubao huu",
   "search-example": "Andika maandishi unayotafuta na ubonyeze Enter",
+  "search-step": "%s kati ya %s - bonyeza Enter kwa inayofuata",
   "select-color": "Chagua Rangi",
   "select-board": "Chagua Bodi",
   "set-wip-limit-value": "Weka kikomo kwa idadi ya juu zaidi ya majukumu katika orodha hii",

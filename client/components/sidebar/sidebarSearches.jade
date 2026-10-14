@@ -1,16 +1,21 @@
 template(name="searchSidebar")
   form.js-search-term-form
     input(type="text" name="searchTerm" placeholder="{{_ 'search-example'}}" autofocus dir="auto")
+  //- #2171: Enter again steps to the next card found, and the board scrolls
+    to it and highlights it - as a browser's find does, on the board itself.
+  if matchCount
+    p.quiet.search-step
+      | {{_ 'search-step' stepNumber matchCount}}
   .list-body
     .minilists.clearfix.js-minilists
       hr
       | {{_ 'lists' }}
       each (lists)
-        a.minilist-wrapper.js-minilist(href=originRelativeUrl)
+        a.minilist-wrapper.js-minilist(href=originRelativeUrl data-list-id="{{_id}}")
           +minilist(this)
     .minicards.clearfix.js-minicards
       hr
       | {{_ 'cards' }}
       each (cards)
-        a.minicard-wrapper.js-minicard(href=originRelativeUrl)
+        a.minicard-wrapper.js-minicard(href=originRelativeUrl data-card-id="{{_id}}")
           +minicard(this)

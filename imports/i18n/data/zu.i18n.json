@@ -1084,6 +1084,7 @@
   "rules": "Imithetho",
   "search-cards": "Sesha ezihlokweni zekhadi/zohlu, izincazelo nezinkambu zangokwezifiso kuleli bhodi",
   "search-example": "Bhala umbhalo owucingayo bese ucindezela u-Enter",
+  "search-step": "%s kokungu-%s - cindezela u-Enter ukuze uthole okulandelayo",
   "select-color": "Khetha Umbala",
   "select-board": "Khetha Ibhodi",
   "set-wip-limit-value": "Setha umkhawulo wenombolo enkulu yemisebenzi kulolu hlu",

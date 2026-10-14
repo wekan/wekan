@@ -1084,6 +1084,7 @@
   "rules": "Reglas",
   "search-cards": "Tschertgar en ils titels da cartas/glistas, en las descripziuns ed en ils champs persunalisads da questa tabella",
   "search-example": "Scriva il text che ti tschertgas e smatga Enter",
+  "search-step": "%s da %s - smatga Enter per la proxima",
   "select-color": "Tscherner ina colur",
   "select-board": "Tscherner ina tabella",
   "set-wip-limit-value": "Definescha ina limita per il dumber maximal d'incumbensas en questa glista",

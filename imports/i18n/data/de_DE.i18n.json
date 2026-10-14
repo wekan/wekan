@@ -1084,6 +1084,7 @@
   "rules": "Regeln",
   "search-cards": "Suche nach Karten-/Listentiteln, Beschreibungen und personalisierten Feldern auf diesem Board",
   "search-example": "Suchtext eingeben und Enter drücken",
+  "search-step": "%s von %s - Enter drücken für den nächsten",
   "select-color": "Farbe auswählen",
   "select-board": "Board auswählen",
   "set-wip-limit-value": "Setzen Sie ein Limit für die maximale Anzahl von Aufgaben in dieser Liste",

@@ -1084,6 +1084,7 @@
   "rules": "Reglas",
   "search-cards": "Buscar entre los títulos, las descripciones de las tarjetas/listas y los campos personalizados en este tablero.",
   "search-example": "Escriba el texto que busca y pulse Intro",
+  "search-step": "%s de %s - pulse Intro para ir al siguiente",
   "select-color": "Seleccionar el color",
   "select-board": "Seleccionar tablero",
   "set-wip-limit-value": "Cambiar el límite para el número máximo de tareas en esta lista.",

@@ -1084,6 +1084,7 @@
   "rules": "Fitsipika",
   "search-cards": "Karohy amin'ny lohatenin'ny karatra/lisitra, famaritana ary saha namboarina ato amin'ity solaitra ity",
   "search-example": "Soraty ny soratra karohinao ary tsindrio Enter",
+  "search-step": "%s amin'ny %s - tsindrio Enter ho an'ny manaraka",
   "select-color": "Fidio ny loko",
   "select-board": "Fidio ny solaitra",
   "set-wip-limit-value": "Farito ny fetra ambony indrindra amin'ny isan'ny asa ato amin'ity lisitra ity",

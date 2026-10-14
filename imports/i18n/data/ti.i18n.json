@@ -1084,6 +1084,7 @@
   "rules": "ሕግታት",
   "search-cards": "ኣብዛ ሰሌዳ ካብ ኣርእስቲ ካርድ/ዝርዝር፣ መግለጺታትን ብሕታዊ ዓውድታትን ድለ",
   "search-example": "እትደልዮ ጽሑፍ ጽሓፍን Enter ጽቐጥን",
+  "search-step": "%s ካብ %s - ንዝቕጽል Enter ጽቐጥ",
   "select-color": "ሕብሪ ምረጽ",
   "select-board": "ሰሌዳ ምረጽ",
   "set-wip-limit-value": "ኣብዚ ዝርዝር ንዝለዓለ ብዝሒ ዕማማት ደረት ኣቐምጥ",

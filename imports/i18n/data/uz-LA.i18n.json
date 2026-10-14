@@ -1084,6 +1084,7 @@
   "rules": "Qoidalar",
   "search-cards": "Ushbu doskadagi karta/roʻyxat sarlavhalari, tavsiflari va maxsus maydonlaridan qidiring",
   "search-example": "Qidirayotgan matnni yozing va Enter tugmasini bosing",
+  "search-step": "%s / %s - keyingisi uchun Enter tugmasini bosing",
   "select-color": "Rangni tanlang",
   "select-board": "Taxtani tanlang",
   "set-wip-limit-value": "Ushbu ro'yxatdagi vazifalarning maksimal soniga chek qo'ying",

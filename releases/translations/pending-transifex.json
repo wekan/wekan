@@ -2043,6 +2043,10 @@
     {
       "key": "bot-reply-empty",
       "since": "2026-10-14"
+    },
+    {
+      "key": "search-step",
+      "since": "2026-10-14"
     }
   ]
 }

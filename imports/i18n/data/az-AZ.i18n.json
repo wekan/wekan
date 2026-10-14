@@ -1084,6 +1084,7 @@
   "rules": "Qaydalar",
   "search-cards": "Bu lövhədə kart/siyahı başlıqları, təsvirlər və fərdi sahələrdə axtarın",
   "search-example": "Axtardığınız mətni yazın və Enter düyməsini basın",
+  "search-step": "%s / %s - növbəti üçün Enter düyməsini basın",
   "select-color": "Rəng seçin",
   "select-board": "Lövhəni seçin",
   "set-wip-limit-value": "Bu siyahıda tapşırıqların maksimum sayı üçün limit təyin edin",

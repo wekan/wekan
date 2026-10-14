@@ -1084,6 +1084,7 @@
   "rules": "Seerota",
   "search-cards": "Gabatee kana irratti mata-duree kaardii/tarree, ibsa fi dirreewwan dhuunfaa keessaa barbaadi",
   "search-example": "Barruu barbaaddu barreessiitii Enter dhiibi",
+  "search-step": "%s keessaa %s - kan itti aanuuf Enter dhiibi",
   "select-color": "Halluu Fili",
   "select-board": "Gabatee Fili",
   "set-wip-limit-value": "Lakkoofsa hojiiwwan tarree kana keessa jiraachuu danda'an isa olaanaaf daangaa murteessi",

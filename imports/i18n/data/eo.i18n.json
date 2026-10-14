@@ -1084,6 +1084,7 @@
   "rules": "Reguloj",
   "search-cards": "Serĉi en titoloj de kartoj/listoj, priskriboj kaj propraj kampoj en ĉi tiu tabulo",
   "search-example": "Skribu la serĉatan tekston kaj premu la klavon Enter",
+  "search-step": "%s el %s - premu Enter por la sekva",
   "select-color": "Elekti koloron",
   "select-board": "Elekti tabulon",
   "set-wip-limit-value": "Agordi limon por la maksimuma nombro de taskoj en ĉi tiu listo",

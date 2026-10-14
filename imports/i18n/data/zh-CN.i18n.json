@@ -1084,6 +1084,7 @@
   "rules": "规则",
   "search-cards": "搜寻看板內的卡片/列表标题、描述、自定义字段",
   "search-example": "输入查询信息后按回车",
+  "search-step": "第 %s 个，共 %s 个 - 按 Enter 转到下一个",
   "select-color": "选择颜色",
   "select-board": "选择看板",
   "set-wip-limit-value": "设置此列表中的最大任务数",

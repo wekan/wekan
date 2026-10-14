@@ -1084,6 +1084,7 @@
   "rules": "Reëls",
   "search-cards": "Soek vanaf kaart-/lystitels, beskrywings en pasgemaakte velde op hierdie bord",
   "search-example": "Skryf teks wat jy soek en druk Enter",
+  "search-step": "%s van %s - druk Enter vir die volgende",
   "select-color": "Kies Kleur",
   "select-board": "Kies Raad",
   "set-wip-limit-value": "Stel 'n limiet vir die maksimum aantal take in hierdie lys",

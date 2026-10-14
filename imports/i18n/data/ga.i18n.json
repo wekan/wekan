@@ -1084,6 +1084,7 @@
   "rules": "Rialacha",
   "search-cards": "Cuardaigh i dteidil cártaí/liostaí, i gcur síos agus i réimsí saincheaptha ar an gclár seo",
   "search-example": "Scríobh an téacs atá á chuardach agat agus brúigh Enter",
+  "search-step": "%s as %s - brúigh Enter don chéad cheann eile",
   "select-color": "Roghnaigh Dath",
   "select-board": "Roghnaigh Clár",
   "set-wip-limit-value": "Socraigh teorainn ar uaslíon na dtascanna sa liosta seo",

@@ -1084,6 +1084,7 @@
   "rules": "Rregullat",
   "search-cards": "Kërko në titujt e kartave/listave, përshkrimet dhe fushat e personalizuara të kësaj tabele",
   "search-example": "Shkruaj tekstin që kërkon dhe shtyp Enter",
+  "search-step": "%s nga %s - shtypni Enter për tjetrën",
   "select-color": "Zgjidh ngjyrën",
   "select-board": "Zgjidh tabelën",
   "set-wip-limit-value": "Cakto kufirin për numrin maksimal të detyrave në këtë listë",

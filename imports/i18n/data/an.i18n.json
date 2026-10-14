@@ -1084,6 +1084,7 @@
   "rules": "Reglas",
   "search-cards": "Mirar entre os títulos, as descripciones de as tarchetas/listas y os campos personalizados en iste tablero.",
   "search-example": "Escribe o texto que buscas y preta Intro",
+  "search-step": "%s de %s - preta Intro pa la siguient",
   "select-color": "Seleccionar el color",
   "select-board": "Seleccionar tablero",
   "set-wip-limit-value": "Cambiar el límite ta el número máximo de tareas en ista lista.",

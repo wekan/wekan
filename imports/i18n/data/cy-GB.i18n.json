@@ -1084,6 +1084,7 @@
   "rules": "Rheolau",
   "search-cards": "Chwiliwch o deitlau cardiau/rhestrau, disgrifiadau a meysydd arfer ar y bwrdd hwn",
   "search-example": "Ysgrifennwch y testun rydych chi'n ei chwilio a gwasgwch Enter",
+  "search-step": "%s o %s - pwyswch Enter am yr un nesaf",
   "select-color": "Dewiswch Lliw",
   "select-board": "Bwrdd Dethol",
   "set-wip-limit-value": "Gosod terfyn ar gyfer y nifer uchaf o dasgau yn y rhestr hon",

@@ -1084,6 +1084,7 @@
   "rules": "Regulis",
   "search-cards": "Ricîr par titul, descrizion cjarte/lista e campi personalizzati su cheste taule",
   "search-example": "Scrivere il testo da ricîrre e premere Invio",
+  "search-step": "%s di %s - frache Invio pe prossime",
   "select-color": "Scegli un colôr",
   "select-board": "Selezione taule",
   "set-wip-limit-value": "Selezione un limite par il massimo numero di ativitât in cheste lista",

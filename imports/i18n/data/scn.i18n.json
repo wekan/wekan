@@ -1084,6 +1084,7 @@
   "rules": "Regole",
   "search-cards": "Ricerca pi tìtulu, discrizzzioni carta/lista e campi personalizzati su chista tàvula",
   "search-example": "Scrivere lu testo da ricercare e premere Invio",
+  "search-step": "%s di %s - premi Invio pi la successiva",
   "select-color": "Sceli nu culuri",
   "select-board": "Scegghi tàvula",
   "set-wip-limit-value": "Scegghi nu limite pi lu massimo numero di attivitati in chista lista",

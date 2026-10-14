@@ -1084,6 +1084,7 @@
   "rules": "Imitsetfo",
   "search-cards": "Sesha etihlokweni temakhadi/tinhlu, etinchazelweni nasetindzaweni letikhetsekile kulelibhodi",
   "search-example": "Bhala umbhalo lowufunako bese uchafata Enter",
+  "search-step": "%s ku-%s - chafata Enter kuze ufike kulokulandzelako",
   "select-color": "Khetsa Umbala",
   "select-board": "Khetsa Libhodi",
   "set-wip-limit-value": "Setha umkhawulo wenombolo lenkhulu yemisebenti kuloluhlu",

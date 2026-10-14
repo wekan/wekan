@@ -1084,6 +1084,7 @@
   "rules": "Regules",
   "search-cards": "Crì ti tituli de ciartes/listes, descrizions y ciamps persunalisei sun chësta tofl",
   "search-example": "Scrij l test che te ciaries y struca Enter",
+  "search-step": "%s de %s - struca Enter per la proscima",
   "select-color": "Cernì n culëur",
   "select-board": "Cernì na tofl",
   "set-wip-limit-value": "Stabilì n limit per l numer majer de lëures te chësta lista",

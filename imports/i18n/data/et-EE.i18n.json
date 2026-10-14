@@ -1084,6 +1084,7 @@
   "rules": "Reeglid",
   "search-cards": "Otsi kaardide/loendi pealkirjadest, kirjeldustest ja kohandatud väljadest sellel tahvlil.",
   "search-example": "Kirjutage otsitav tekst ja vajutage Enter",
+  "search-step": "%s/%s - järgmise jaoks vajutage Enter",
   "select-color": "Valige värv",
   "select-board": "Valige juhatus",
   "set-wip-limit-value": "Määrake selles nimekirjas olevate ülesannete maksimaalne arv.",

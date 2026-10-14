@@ -1084,6 +1084,7 @@
   "rules": "Amategeko",
   "search-cards": "Shakisha mu mitwe y'amakarita/intonde, ibisobanuro n'imirima yihariye kuri iki kibaho",
   "search-example": "Andika inyandiko ushakisha maze ukande Enter",
+  "search-step": "%s kuri %s - kanda Enter ujye ku gikurikira",
   "select-color": "Hitamo Ibara",
   "select-board": "Hitamo Ikibaho",
   "set-wip-limit-value": "Gena urugero rw'umubare ntarengwa w'ibikorwa muri uru rutonde",

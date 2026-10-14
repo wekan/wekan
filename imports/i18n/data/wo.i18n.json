@@ -1084,6 +1084,7 @@
   "rules": "Dagaatu",
   "search-cards": "Seet ci tur yi, melokaan yi ak wàll yu dugal yu ñu def ci soxla ci karta yi ak limu yi ci tablo bii",
   "search-example": "Bindal mbind mi ngay seet te bës Enter",
+  "search-step": "%s ci %s - bësal Enter ngir bi di ñëw",
   "select-color": "Tànn melo",
   "select-board": "Tànn tablo",
   "set-wip-limit-value": "Jekkal kemu limu liggéey yi ci limu bii",

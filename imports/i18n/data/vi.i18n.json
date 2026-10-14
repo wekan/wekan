@@ -1084,6 +1084,7 @@
   "rules": "Quy tắc",
   "search-cards": "Tìm kiếm từ Tiêu đề Thẻ/Danh sách, Mô tả và các trường tùy chỉnh trên bảng này",
   "search-example": "Nhập từ khoá tìm kiếm và ấn Enter",
+  "search-step": "%s trên %s - nhấn Enter để đến kết quả tiếp theo",
   "select-color": "Chọn màu",
   "select-board": "Chọn Bảng",
   "set-wip-limit-value": "Đặt giới hạn cho số lượng nhiệm vụ tối đa trong danh sách này",

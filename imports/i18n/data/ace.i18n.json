@@ -1084,6 +1084,7 @@
   "rules": "Aturan",
   "search-cards": "Mita nibak judul kad/senarai, deskripsi ngon ruang khusus bak papan nyoe",
   "search-example": "Tuleh teks nyang droeneueh mita ngon teugon Enter",
+  "search-step": "%s dari %s - teugon Enter keu nyang laen",
   "select-color": "Pileh Wareuna",
   "select-board": "Pileh Papan",
   "set-wip-limit-value": "Atô bataih jeumeulah tugas nyang paleng le bak senarai nyoe",

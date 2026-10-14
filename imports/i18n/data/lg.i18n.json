@@ -1084,6 +1084,7 @@
   "rules": "Mateeka",
   "search-cards": "Noonya okuva kaadi/lukalala titles, descriptions ne ennimiro ez'enjawulo ku kino lubaawo",
   "search-example": "Write bigambo ggwe noonya ne press Yingiza",
+  "search-step": "%s ku %s - nyiga Enter okugenda ku kiddako",
   "select-color": "Londa Langi",
   "select-board": "Londa Lubaawo",
   "set-wip-limit-value": "Teeka limit ku lwa maximum namba lya mirimu mu kino lukalala",

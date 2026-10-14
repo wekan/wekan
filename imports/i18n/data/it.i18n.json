@@ -1084,6 +1084,7 @@
   "rules": "Regole",
   "search-cards": "Ricerca per titolo, descrizione scheda/lista e campi personalizzati su questa bacheca",
   "search-example": "Scrivere il testo da ricercare e premere Invio",
+  "search-step": "%s di %s - premi Invio per la successiva",
   "select-color": "Scegli un colore",
   "select-board": "Seleziona bacheca",
   "set-wip-limit-value": "Seleziona un limite per il massimo numero di attività in questa lista",

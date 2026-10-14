@@ -1084,6 +1084,7 @@
   "rules": "Ol rul",
   "search-cards": "Painim long nem bilong kat/lis, toksave na ol kastam fil long dispela bot",
   "search-example": "Raitim tok yu laik painim na presim Enter",
+  "search-step": "%s bilong %s - presim Enter long go long nekis",
   "select-color": "Makim kala",
   "select-board": "Makim bot",
   "set-wip-limit-value": "Makim bikpela tru namba bilong ol wok i ken stap long dispela lis",

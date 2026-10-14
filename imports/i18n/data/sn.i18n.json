@@ -1084,6 +1084,7 @@
   "rules": "Mitemo",
   "search-cards": "tsvaga kubva kadhi/rondedzero titles, descriptions uye custom ndima pa bhodhi iri",
   "search-example": "Write mashoko you tsvaga uye press Enter",
+  "search-step": "%s ye %s - dzvanya Enter kuti uende kune inotevera",
   "select-color": "sarudza ruvara",
   "select-board": "sarudza bhodhi",
   "set-wip-limit-value": "Set a limit for the maximum number ye tasks mu this rondedzero",

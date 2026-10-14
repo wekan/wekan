@@ -1084,6 +1084,7 @@
   "rules": "Reguli",
   "search-cards": "Caută în titlurile cardurilor/listelor, descrierile și câmpurile personalizate din acest panou",
   "search-example": "Scrieți textul căutat și apăsați Enter",
+  "search-step": "%s din %s - apăsați Enter pentru următorul",
   "select-color": "Selectează culoarea",
   "select-board": "Selectează panoul",
   "set-wip-limit-value": "Stabilește o limită pentru numărul maxim de sarcini din această listă",

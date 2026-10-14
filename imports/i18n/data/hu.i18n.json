@@ -1084,6 +1084,7 @@
   "rules": "Szabályok",
   "search-cards": "Keresés Kártya/Lista címekben, Leírásokban, és Egyedi mezőkben ezen Táblán belül",
   "search-example": "Gépeld be a keresendő szöveget és nyomj Enter billentyűt",
+  "search-step": "%s / %s - a következőhöz nyomja meg az Entert",
   "select-color": "Szín kiválasztása",
   "select-board": "Válassz Táblát",
   "set-wip-limit-value": "Korlát beállítása a listán lévő feladatok legnagyobb számához",

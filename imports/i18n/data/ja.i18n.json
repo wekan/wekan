@@ -1084,6 +1084,7 @@
   "rules": "ルール",
   "search-cards": "このボード上のカード/リストタイトル、詳細、カスタムフィールドから検索",
   "search-example": "検索文字列を入力してエンターを押してください",
+  "search-step": "%s / %s 件 - 次へはエンターを押してください",
   "select-color": "色を選択",
   "select-board": "ボードを選択",
   "set-wip-limit-value": "このリスト中のタスクの最大数を設定",

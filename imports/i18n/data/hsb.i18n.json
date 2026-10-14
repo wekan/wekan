@@ -1084,6 +1084,7 @@
   "rules": "Prawidła",
   "search-cards": "Pytanje w titulach kartow/lisćin, wopisanjach a swójskich polach na tutej tafli",
   "search-example": "Napisajće tekst, kotryž pytaće, a tłóčće Enter",
+  "search-step": "%s z %s - tłóčće Enter za přichodnu",
   "select-color": "Barbu wubrać",
   "select-board": "Taflu wubrać",
   "set-wip-limit-value": "Limit za maksimalnu ličbu nadawkow w tutej lisćinje nastajić",

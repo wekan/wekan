@@ -1084,6 +1084,7 @@
   "rules": "Malittarisassat",
   "search-cards": "Ilisarnaammi matumani kortsit/allattorsimaffiit qulequtaat, nassuiaatit immikkoortullu nammineq ilusilikkat ujarfigikkit",
   "search-example": "Allagaq ujakkat allaguk Enter-ilu toorlugu",
+  "search-step": "%s %s-nit - tulliuttumut Enter toorlugu",
   "select-color": "Qalipaat toqqaruk",
   "select-board": "Ilisarnaat toqqaruk",
   "set-wip-limit-value": "Allattorsimaffimmi matumani suliassat amerlanerpaaffissaat inissiguk",

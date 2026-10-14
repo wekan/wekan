@@ -1,3 +1,27 @@
 input {
   max-width: 100%;
 }
+
+/* #2171: the card or list a search found, highlighted on the board for a
+   moment after it is scrolled into view (client/lib/revealOnBoard.js). */
+.js-minicard.is-search-highlight .minicard,
+.js-list.is-search-highlight {
+  outline: 3px solid var(--theme-accent, #01628c);
+  outline-offset: 2px;
+  animation: search-highlight-pulse 1s ease-in-out 3;
+}
+
+@keyframes search-highlight-pulse {
+  50% { outline-color: transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-minicard.is-search-highlight .minicard,
+  .js-list.is-search-highlight {
+    animation: none;
+  }
+}
+
+.search-step {
+  margin: 4px 0;
+}

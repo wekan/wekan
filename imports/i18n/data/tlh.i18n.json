@@ -1084,6 +1084,7 @@
   "rules": "chutmey",
   "search-cards": "raSvamDaq 'echletHom/tetlh pongmey, DelmeH De', De' le' je nej",
   "search-example": "nejmeH ghItlh yIghItlh 'ej Enter yI'uy",
+  "search-step": "%s / %s - veb DaneHchugh Enter yI'uy",
   "select-color": "nguv wIv",
   "select-board": "raS wIv",
   "set-wip-limit-value": "tetlhvam Qu'mey mI' 'aqroS yIcher",

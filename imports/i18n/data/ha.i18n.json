@@ -1084,6 +1084,7 @@
   "rules": "Dokoki",
   "search-cards": "Nema daga taken kati/jeri, bayani da filaye na musamman a wannan allo",
   "search-example": "Rubuta abin da kake nema ka danna Enter",
+  "search-step": "%s cikin %s - danna Enter don na gaba",
   "select-color": "Zaɓi launi",
   "select-board": "Zaɓi allo",
   "set-wip-limit-value": "Saita iyakar mafi yawan ayyuka a wannan jeri",

@@ -1084,6 +1084,7 @@
   "rules": "नियम",
   "search-cards": "इस बोर्ड पर कार्ड / सूची शीर्षक, विवरण और आदत  क्षेत्र से खोजें",
   "search-example": "जो खोजना है वह लिखें और Enter दबाएँ",
+  "search-step": "%s / %s - अगले के लिए Enter दबाएँ",
   "select-color": "रंग चुनें",
   "select-board": "बोर्ड चुनें",
   "set-wip-limit-value": "Set एक limit for the maximum number of tasks अंदर में  यह list",

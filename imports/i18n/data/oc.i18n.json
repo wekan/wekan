@@ -1084,6 +1084,7 @@
   "rules": "Règlas",
   "search-cards": "Cercar dins los títols, las descripcions e los camps personalizats de las cartas/listas d’aqueste tablèu",
   "search-example": "Escrivètz lo tèxt de cercar e quichatz sus Entrada",
+  "search-step": "%s sus %s - quichatz Entrada per lo seguent",
   "select-color": "Color causida",
   "select-board": "Seleccionar un tablèu",
   "set-wip-limit-value": "Definir una limita pel nombre maximal de prètzfaches dins aquesta lista",

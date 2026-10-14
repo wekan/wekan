@@ -1084,6 +1084,7 @@
   "rules": "Säännöt",
   "search-cards": "Etsi kortin/listan otsikoista, kuvauksista ja mukautetuista kentistä tällä taululla",
   "search-example": "Kirjoita teksti jota etsit ja paina Enter",
+  "search-step": "%s / %s - paina Enter siirtyäksesi seuraavaan",
   "select-color": "Valitse väri",
   "select-board": "Valitse taulu",
   "set-wip-limit-value": "Aseta tämän listan tehtävien enimmäismäärä",

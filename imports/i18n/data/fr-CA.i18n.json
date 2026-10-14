@@ -1084,6 +1084,7 @@
   "rules": "Règles",
   "search-cards": "Rechercher parmi les titres, descriptions et champs personnalisés des cartes/listes de ce tableau",
   "search-example": "Écrivez le texte que vous recherchez et appuyez sur Entrée",
+  "search-step": "%s sur %s - appuyez sur Entrée pour le suivant",
   "select-color": "Sélectionner une couleur",
   "select-board": "Sélectionner le tableau",
   "set-wip-limit-value": "Définit une limite maximale au nombre de cartes de cette liste",

@@ -1084,6 +1084,7 @@
   "rules": "Regras",
   "search-cards": "Procurar nos títulos, descricións e campos personalizados de tarxetas/listas neste taboleiro",
   "search-example": "Escribe o texto que procuras e preme Intro",
+  "search-step": "%s de %s - preme Intro para a seguinte",
   "select-color": "Seleccionar cor",
   "select-board": "Seleccionar taboleiro",
   "set-wip-limit-value": "Establecer un límite para o número máximo de tarefas nesta lista",

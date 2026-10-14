@@ -1084,6 +1084,7 @@
   "rules": "Seerata",
   "search-cards": "Ha bookkiya bolla kaardiyaa/mazgabaa huuphe sunttatun, qonccissuwan qassi dumma saaxinetun koyya",
   "search-example": "Koyiyo xaafuwaa xaafadanne Enter qoxxa",
+  "search-step": "%s / %s - kaalliyoogaa be'anaw Enter qoxxa",
   "select-color": "Meraa doora",
   "select-board": "Bookkiya doora",
   "set-wip-limit-value": "Ha mazgabaa giddon de'ana danddayiya oosotu ubbaappe daro qoodaas gaxaa wotta",

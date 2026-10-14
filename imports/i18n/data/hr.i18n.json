@@ -1084,6 +1084,7 @@
   "rules": "Pravila",
   "search-cards": "Pretraži naslove kartica i popisa, opise i prilagođena polja na ovoj ploči",
   "search-example": "Upišite tekst koji tražite i pritisnite Enter",
+  "search-step": "%s od %s - pritisnite Enter za sljedeći",
   "select-color": "Odaberi boju",
   "select-board": "Odaberi ploču",
   "set-wip-limit-value": "Postavite ograničenje najvećeg broja zadataka u ovom popisu",

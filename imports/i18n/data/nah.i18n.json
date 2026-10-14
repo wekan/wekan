@@ -1084,6 +1084,7 @@
   "rules": "Nahuatiltin",
   "search-cards": "Xiquintemo ipan amatlapalli/tocatlahtolli intocayo, intlahtol ihuan monemac tlaltin ipan inin huapalli",
   "search-example": "Xictlahcuilo tlahtolli tlen tictemoa ihuan xictoca Enter",
+  "search-step": "%s ipan %s - xictlatzitzquili Enter ic niman",
   "select-color": "Xicpehpena tlapalli",
   "select-board": "Xicpehpena huapalli",
   "set-wip-limit-value": "Xiclalili nepantlaliztli para tequitl miaquiliztli máximo ipan inin tocatlahtolli",

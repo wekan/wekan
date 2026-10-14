@@ -1084,6 +1084,7 @@
   "rules": "Aturan",
   "search-cards": "Goleki saka judhul kertu/dhaptar, katrangan lan kolom kustom ing papan iki",
   "search-example": "Tulis teks sing digoleki banjur pencet Enter",
+  "search-step": "%s saka %s - pencet Enter kanggo sabanjuré",
   "select-color": "Pilih Werna",
   "select-board": "Pilih Papan",
   "set-wip-limit-value": "Setel wates cacah tugas paling akeh ing dhaptar iki",

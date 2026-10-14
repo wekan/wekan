@@ -1084,6 +1084,7 @@
   "rules": "Regler",
   "search-cards": "Søg ud fra titler i kort/lister, beskrivelser og brugerdefinerede felter på denne tavle.",
   "search-example": "Skriv den tekst, som du søger efter og tryk på Enter",
+  "search-step": "%s af %s - tryk Enter for den næste",
   "select-color": "Vælg farve",
   "select-board": "Vælg tavle",
   "set-wip-limit-value": "Angiv en grænse for det maksimale antal opgaver i denne liste",

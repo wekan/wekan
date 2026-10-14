@@ -1084,6 +1084,7 @@
   "rules": "Taisyklės",
   "search-cards": "Šioje lentoje ieškokite kortelių / sąrašų pavadinimų, aprašymų ir pasirinktinių laukų",
   "search-example": "Parašykite ieškomą tekstą ir paspauskite Enter",
+  "search-step": "%s iš %s - paspauskite Enter, kad pereitumėte prie kitos",
   "select-color": "Pasirinkite Spalva",
   "select-board": "Pasirinkite lentą",
   "set-wip-limit-value": "Nustatykite maksimalaus užduočių skaičiaus šiame sąraše limitą",

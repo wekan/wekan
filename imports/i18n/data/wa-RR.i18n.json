@@ -1084,6 +1084,7 @@
   "rules": "Mga Surundon",
   "search-cards": "Bumiling tikang ha mga titulo han card/lista, deskripsyon ngan custom field dinhi nga board",
   "search-example": "Isurat an teksto nga imo bibilngon ngan iduot an Enter",
+  "search-step": "%s han %s - iduot an Enter para han sunod",
   "select-color": "Pili-a an Kolor",
   "select-board": "Pili-a an Board",
   "set-wip-limit-value": "Igtakda an limit para ha pinakadamu nga ihap han task dinhi nga lista",

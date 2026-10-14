@@ -1084,6 +1084,7 @@
   "rules": "Rêbaz",
   "search-cards": "Di sernav û danasînên kart/lîsteyan û qadên taybet ên vê depoyê de bigere",
   "search-example": "Nivîsa ku digerî binivîse û Enter pêl bike",
+  "search-step": "%s ji %s - ji bo ya pêşve Enter pêl bike",
   "select-color": "Reng hilbijêre",
   "select-board": "Depo hilbijêre",
   "set-wip-limit-value": "Ji bo hejmara herî zêde ya erkan di vê lîsteyê de sînorek saz bike",

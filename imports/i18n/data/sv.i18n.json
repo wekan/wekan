@@ -1084,6 +1084,7 @@
   "rules": "Regler",
   "search-cards": "Sök i kort- och listtitlar, beskrivningar och anpassade fält på denna tavla",
   "search-example": "Text att söka efter?",
+  "search-step": "%s av %s - tryck Enter för nästa",
   "select-color": "Välj färg",
   "select-board": "Välj tavla",
   "set-wip-limit-value": "Ange en gräns för det maximala antalet uppgifter i den här listan",

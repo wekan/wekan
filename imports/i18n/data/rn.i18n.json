@@ -1084,6 +1084,7 @@
   "rules": "Amategeko",
   "search-cards": "Rondera mu mitwe y'amakarata/intonde, insiguro n'imirima yihariye kuri iki capa",
   "search-example": "Andika inyandiko urondera hanyuma ukande Enter",
+  "search-step": "%s muri %s - kanda Enter ku gikurikira",
   "select-color": "Hitamwo ibara",
   "select-board": "Hitamwo icapa",
   "set-wip-limit-value": "Gena urugero rw'igitigiri kinini c'ibikorwa muri uru rutonde",

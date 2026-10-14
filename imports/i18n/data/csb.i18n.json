@@ -1084,6 +1084,7 @@
   "rules": "Regle",
   "search-cards": "Szëkôj w tytułach kôrtòw/lëstòw oraz opisach i niestandardowych polach na tej tôblëcë",
   "search-example": "Wpiszë szëkóny tekst i nacësni Enter",
+  "search-step": "%s z %s - nacësni Enter, żebë przeńc do nastãpny",
   "select-color": "Wëbierzë farwã",
   "select-board": "Wëbierzë tôflã",
   "set-wip-limit-value": "Ùstôwi nôwiãkszą lëczbã zadaniów na ti lësce",

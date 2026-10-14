@@ -1084,6 +1084,7 @@
   "rules": "Regels",
   "search-cards": "Zoek in kaart/lijst, titels, beschrijvingen en maatwerkvelden op dit bord",
   "search-example": "Schijf je zoektekst en toets Enter",
+  "search-step": "%s van %s - druk op Enter voor de volgende",
   "select-color": "Selecteer kleur",
   "select-board": "Selecteer Bord",
   "set-wip-limit-value": "Stel een limiet voor het maximaal aantal taken in deze lijst in",

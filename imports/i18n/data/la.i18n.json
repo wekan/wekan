@@ -1084,6 +1084,7 @@
   "rules": "Regulae",
   "search-cards": "Quaere in titulis chartarum et indicum, descriptionibus et campis propriis huius tabulae",
   "search-example": "Scribe textum quem quaeris et preme Enter",
+  "search-step": "%s ex %s - preme Enter ad sequentem",
   "select-color": "Elige colorem",
   "select-board": "Elige tabulam",
   "set-wip-limit-value": "Constitue limitem maximi numeri munerum in hoc indice",

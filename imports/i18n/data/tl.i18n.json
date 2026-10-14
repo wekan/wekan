@@ -1084,6 +1084,7 @@
   "rules": "Mga tuntunin",
   "search-cards": "Maghanap mula sa kard/listahan titles, descriptions at pasadyang patlangs dito sa pisara",
   "search-example": "Sumulat teksto ikaw maghanap at press Ilagay",
+  "search-step": "%s sa %s - pindutin ang Enter para sa susunod",
   "select-color": "Piliin Kulay",
   "select-board": "Piliin pisara",
   "set-wip-limit-value": "Itakda a limitasyon para sa the pinakamataas bilang of tasks sa ito listahan",

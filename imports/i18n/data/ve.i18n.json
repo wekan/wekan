@@ -1084,6 +1084,7 @@
   "rules": "Milayo",
   "search-cards": "Ṱoḓa kha madzina a makhadi/mitevhe, ṱhaluso na fhethu ha data ho dzudzanywaho kha bodo iyi ya Kanban",
   "search-example": "Ṅwalani maipfi ane na ṱoḓa ni puṱedze Enter",
+  "search-step": "%s ya %s - kwamani Enter u ya kha i tevhelaho",
   "select-color": "Nanga muvhala",
   "select-board": "Nanga bodo",
   "set-wip-limit-value": "Vhea mukano wa tshivhalo tshihulwanesa tsha mishumo kha mutevhe uyu",

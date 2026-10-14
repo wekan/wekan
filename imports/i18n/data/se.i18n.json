@@ -1084,6 +1084,7 @@
   "rules": "Njuolggadusat",
   "search-cards": "Oza goarttaid ja listtuid namahusain, válddahusain ja iešmearriduvvon giettuid siste dán távvalis",
   "search-example": "Čális teavstta maid ozat ja deaddil Enter",
+  "search-step": "%s / %s - deaddil Enter boahtte várás",
   "select-color": "Vállje ivnni",
   "select-board": "Vállje távvala",
   "set-wip-limit-value": "Mearrit dán listtu bargguid eanemuslogu",

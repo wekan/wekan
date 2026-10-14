@@ -1084,6 +1084,7 @@
   "rules": "Regras",
   "search-cards": "Buscar por título, descrição e campos customizados de cartão/lista neste quadro",
   "search-example": "Digite o que você procura e pressione Enter",
+  "search-step": "%s de %s - pressione Enter para o próximo",
   "select-color": "Selecionar Cor",
   "select-board": "Selecionar Quadro",
   "set-wip-limit-value": "Defina um limite máximo para o número de tarefas nesta lista",

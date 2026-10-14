@@ -1084,6 +1084,7 @@
   "rules": "Melao",
   "search-cards": "Batla ditlotleng tsa karete/lenane, ditlhalosong le dibakeng tse ikgethileng botong ena",
   "search-example": "Ngola mongolo oo o o batlang mme o tobetse Enter",
+  "search-step": "%s ho %s - tobetsa Enter bakeng sa e latelang",
   "select-color": "Kgetha mmala",
   "select-board": "Kgetha boto",
   "set-wip-limit-value": "Beha moedi wa palo e phahameng ya mesebetsi lenaneng lena",

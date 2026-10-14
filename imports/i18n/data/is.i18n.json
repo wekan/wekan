@@ -1084,6 +1084,7 @@
   "rules": "Reglur",
   "search-cards": "Leita í heitum spjalda/lista, lýsingum og sérsniðnum reitum á þessari töflu",
   "search-example": "Skrifaðu leitartexta og ýttu á Enter",
+  "search-step": "%s af %s - ýttu á Enter fyrir næsta",
   "select-color": "Velja lit",
   "select-board": "Velja töflu",
   "set-wip-limit-value": "Stilla hámarksfjölda verka á þessum lista",

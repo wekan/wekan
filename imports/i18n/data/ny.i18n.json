@@ -1084,6 +1084,7 @@
   "rules": "Malamulo",
   "search-cards": "Sakani m'mitu ya makhadi/mindandanda, mafotokozedwe ndi malo apadera pa bolodi ili",
   "search-example": "Lembani mawu omwe mukusaka ndipo dinani Enter",
+  "search-step": "%s mwa %s - dinani Enter kuti mupite kotsatira",
   "select-color": "Sankhani mtundu",
   "select-board": "Sankhani bolodi",
   "set-wip-limit-value": "Khazikitsani malire a chiwerengero chapamwamba cha ntchito mu mndandandawu",

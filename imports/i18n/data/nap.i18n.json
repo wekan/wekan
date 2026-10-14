@@ -1084,6 +1084,7 @@
   "rules": "Regole",
   "search-cards": "Ricerca pe tìtulo, descrizzione carta/lista e campi personalizzati su chesta tavula",
   "search-example": "Scrive 'o testo ca vuó cercà e premme Invio",
+  "search-step": "%s 'e %s - premme Invio p' 'o prossimo",
   "select-color": "Scegli un colore",
   "select-board": "Sceglie tavula",
   "set-wip-limit-value": "Sceglie un limite pe il massimo numero di attività in chesta lista",

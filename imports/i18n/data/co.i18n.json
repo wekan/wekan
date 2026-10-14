@@ -1084,6 +1084,7 @@
   "rules": "Regule",
   "search-cards": "Circà in i tituli è e discrizzioni di carte/liste è in i campi persunalizati di sta tavula",
   "search-example": "Scrivite u testu da circà è appughjate Enter",
+  "search-step": "%s di %s - pressa Entrata per u prossimu",
   "select-color": "Sceglie un culore",
   "select-board": "Selezziunà tavula",
   "set-wip-limit-value": "Definisce una limita per u numeru massimu di compiti in sta lista",

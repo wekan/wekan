@@ -1084,6 +1084,7 @@
   "rules": "Reguły",
   "search-cards": "Szukaj w tytułach kart/list oraz opisach i niestandardowych polach na tej tablicy",
   "search-example": "Wpisz tekst do wyszukania i wciśnij Enter",
+  "search-step": "%s z %s - naciśnij Enter, aby przejść do następnego",
   "select-color": "Wybierz kolor",
   "select-board": "Wybierz tablicę",
   "set-wip-limit-value": "Ustaw maksymalny limit kart na tej liście",

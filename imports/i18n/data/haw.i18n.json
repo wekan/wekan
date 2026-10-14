@@ -1084,6 +1084,7 @@
   "rules": "luleka",
   "search-cards": "ʻimi mai kāleka/papa inoa kikaleka, kekakalipakionaka a naā kahua hoʻopilikino ma kēia papa",
   "search-example": "walike kikokikona ʻoe ʻimi a palekaka enakela",
+  "search-step": "%s o %s - kaomi i ke pihi Enter no ka mea aʻe",
   "select-color": "koho waihoʻoluʻu",
   "select-board": "koho papa",
   "set-wip-limit-value": "keka he limika pola ka makimuma numapela o kakakaka i kēia papa inoa",

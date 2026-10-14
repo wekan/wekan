@@ -1084,6 +1084,7 @@
   "rules": "Sändod",
   "search-cards": "Eci necen laudan kartoiden/lugetižiden nimid, kirjutusid da kävutajan märitud pöudoid",
   "search-example": "Kirjuta tekst, midä sinä ecid, da paina Enter",
+  "search-step": "%s %s:späi - paina Enter, miše ozutada järgmäine",
   "select-color": "Valiče muju",
   "select-board": "Valiče laud",
   "set-wip-limit-value": "Pane röun, ku äi tegendoid voib olda neciš lugetišes.",

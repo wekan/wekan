@@ -1084,6 +1084,7 @@
   "rules": "ደንብታት",
   "search-cards": "ካብ ኣርእስት ወረቀት ካርድ/ዝርዝር፣ መግለጽን ብሕታዊ ሜዳታትን ኣብዚ ምዱድ ድለ",
   "search-example": "እትደልዮ ጽሑፍ ጽሓፍን Enter ጠውቕን",
+  "search-step": "%s እም %s - ለላትተለ Enter ጠውቅ",
   "select-color": "ሕሬ ሕብር",
   "select-board": "ምዱድ ሕረ",
   "set-wip-limit-value": "ኣብዚ ዝርዝር ንዝለዓለ ብዝሒ ዕዮታት ደረት ኣዳሉ",

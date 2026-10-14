@@ -1084,6 +1084,7 @@
   "rules": "Xeerarka",
   "search-cards": "Ka raadi cinwaannada kaarka/liiska, sharraxaadaha iyo goobaha gaarka ah ee sabuuraddan",
   "search-example": "Qor qoraalka aad raadinayso oo riix Enter",
+  "search-step": "%s ka mid ah %s - riix Enter si aad u aaddo kan xiga",
   "select-color": "Dooro Midabka",
   "select-board": "Dooro Sabuuradda",
   "set-wip-limit-value": "U deji xad tirada ugu badan ee hawlaha liiskan",
