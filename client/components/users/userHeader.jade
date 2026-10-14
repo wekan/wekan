@@ -370,6 +370,13 @@ template(name="changeSettingsPopup")
         | {{_ 'show-desktop-drag-handles'}}
         if isShowDesktopDragHandles
           i.fa.fa-check
+    //- #2111 / #1604: mark cards changed since I last opened them.
+    li
+      a.js-toggle-unread-changes(title="{{_ 'show-unread-changes-desc'}}")
+        i.fa.fa-circle
+        | {{_ 'show-unread-changes'}}
+        if isUnreadChanges
+          i.fa.fa-check
     //- #1273: keep the #label / @member text in a new card's title.
     li
       a.js-toggle-keep-title-tags(title="{{_ 'keep-title-tags-description'}}")

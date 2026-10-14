@@ -476,6 +476,10 @@ Template.changeLanguagePopup.events({
 });
 
 Template.changeSettingsPopup.helpers({
+  isUnreadChanges() {
+    const currentUser = ReactiveCache.getCurrentUser();
+    return !!(currentUser && currentUser.unreadChangesSince && currentUser.unreadChangesSince());
+  },
   isKeepTitleTags() {
     const currentUser = ReactiveCache.getCurrentUser();
     return currentUser ? currentUser.hasKeepTitleTags() : false;
@@ -534,6 +538,9 @@ Template.changeSettingsPopup.events({
     } else {
       window.localStorage.setItem('showDesktopDragHandles', show ? 'true' : 'false');
     }
+  },
+  'click .js-toggle-unread-changes'() {
+    if (ReactiveCache.getCurrentUser()) Meteor.call('toggleUnreadChanges');
   },
   'click .js-toggle-keep-title-tags'() {
     if (ReactiveCache.getCurrentUser()) Meteor.call('toggleKeepTitleTags');

@@ -471,6 +471,15 @@ Users.attachSchema(
       type: Boolean,
       optional: true,
     },
+    'profile.unreadChangesSince': {
+      /**
+       * #2111 / #1604: when set, the time the member turned on "Mark cards
+       * changed since I last opened them"; unset is off
+       * (models/lib/unreadChanges.js).
+       */
+      type: Date,
+      optional: true,
+    },
     'profile.keepTitleTags': {
       /**
        * #1273: when a #label or @member is picked while typing a new card's
@@ -2146,6 +2155,11 @@ Users.helpers({
   hasSubmitOnEnter() {
     const profile = this.profile || {};
     return profile.submitOnEnter || false;
+  },
+
+  // #2111 / #1604: when the member turned on unread changes, or null.
+  unreadChangesSince() {
+    return (this.profile || {}).unreadChangesSince || null;
   },
 
   // #1273: keep the #label / @member text in a new card's title.

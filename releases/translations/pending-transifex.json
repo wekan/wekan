@@ -2355,6 +2355,18 @@
     {
       "key": "custom-field-card-kinds",
       "since": "2026-10-14"
+    },
+    {
+      "key": "show-unread-changes",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "show-unread-changes-desc",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "card-has-unread-changes",
+      "since": "2026-10-14"
     }
   ]
 }

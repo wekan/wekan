@@ -963,6 +963,19 @@ Meteor.methods({
     return true;
   },
 
+  // #2111 / #1604: mark cards changed since the member last opened them.
+  // Turning it on records when, so cards never opened are not all marked.
+  async toggleUnreadChanges() {
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    const user = await Users.findOneAsync(this.userId);
+    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
+    if ((user.profile || {}).unreadChangesSince) {
+      await Users.updateAsync(this.userId, { $unset: { 'profile.unreadChangesSince': '' } });
+    } else {
+      await Users.updateAsync(this.userId, { $set: { 'profile.unreadChangesSince': new Date() } });
+    }
+  },
+
   // #1273: keep the #label / @member text in a new card's title (Member
   // Settings; off by default).
   async toggleKeepTitleTags() {

@@ -16,7 +16,8 @@ template(name="minicard")
     class="{{#if showCardColorOnMinicard}}{{#if colorClass}}minicard-{{colorClass}}{{/if}}{{/if}}"
     class="{{#if minicardCollapsed}}minicard-collapsed{{/if}}"
     class="{{#if hasUnreadComments}}minicard-unread-comments{{/if}}"
-    title="{{#if hasUnreadComments}}{{_ 'card-has-unread-comments'}}{{/if}}"
+    class="{{#if hasUnreadChanges}}minicard-unread-changes{{/if}}"
+    title="{{#if hasUnreadComments}}{{_ 'card-has-unread-comments'}}{{else}}{{#if hasUnreadChanges}}{{_ 'card-has-unread-changes'}}{{/if}}{{/if}}"
     style="{{#if showCardColorOnMinicard}}{{colorStyle}}{{/if}}")
     if canMoveCard
       if isTouchScreenOrShowDesktopDragHandles

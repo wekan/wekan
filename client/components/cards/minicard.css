@@ -1204,3 +1204,8 @@
   padding: 1px 6px;
   margin: 0;
 }
+
+/* #2111 / #1604: changed since this member last opened it (Member Settings). */
+.minicard.minicard-unread-changes {
+  box-shadow: inset 4px 0 0 #2b6cb0;
+}
