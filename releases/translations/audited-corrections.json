@@ -213001,5 +213001,271 @@
     "before": "You cannot change whether this subtask is done",
     "after": "Ní féidir leat a athrú an bhfuil an fo-thasc seo déanta",
     "reason": "Translate Irish workflow and permission controls while retaining authorization limits, status mapping and environment variable names."
+  },
+  {
+    "locale": "ga",
+    "key": "stuck-sync-operation-heading",
+    "before": "List Sync operations that cannot be replayed",
+    "after": "Oibríochtaí sioncrónaithe liostaí nach féidir a athsheinm",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "stuck-sync-operation-description",
+    "before": "Each of these saved List Sync operations stopped part way and can no longer be finished, because its list was removed, recreated or reconfigured, or the user who started it lost write access. While one is pending, that list cannot Sync. Discard it to let the list Sync again: changes already applied stay, the remaining saved changes are never written, and the next Sync compares the list with its source again.",
+    "after": "Stop gach ceann de na hoibríochtaí sioncrónaithe liostaí sábháilte seo leath bealaigh agus ní féidir é a chríochnú a thuilleadh, toisc gur baineadh a liosta, gur athchruthaíodh é nó gur athchumraíodh é, nó gur chaill an t-úsáideoir a thosaigh é rochtain scríofa. Fad atá ceann ar feitheamh, ní féidir an liosta sin a shioncrónú. Caith amach é chun an liosta a shioncrónú arís: fanann athruithe a cuireadh i bhfeidhm cheana, ní scríobhtar na hathruithe sábháilte eile riamh, agus cuireann an chéad sioncrónú eile an liosta i gcomparáid lena fhoinse arís.",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "stuck-sync-operation-list",
+    "before": "Board / list",
+    "after": "Clár / liosta",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "stuck-sync-operation-applied",
+    "before": "__applied__ of __total__ changes applied",
+    "after": "__applied__ as __total__ athrú curtha i bhfeidhm",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "stuck-sync-operation-reason-scope-changed",
+    "before": "The list was removed, recreated or its Sync settings changed",
+    "after": "Baineadh an liosta, athchruthaíodh é nó athraíodh a shocruithe sioncrónaithe",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "stuck-sync-operation-reason-access-denied",
+    "before": "The user who started it no longer has write access to the whole list",
+    "after": "Níl rochtain scríofa ar an liosta iomlán ag an úsáideoir a thosaigh é a thuilleadh",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "stuck-sync-operation-reason-trigger-unknown",
+    "before": "Saved by an earlier WeKan version without what started it",
+    "after": "Sábháladh é le leagan níos luaithe de WeKan gan an rud a thosaigh é a thaifeadadh",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "stuck-sync-operation-reason-intent-missing",
+    "before": "The record of who started it is missing",
+    "after": "Tá an taifead ar cé a thosaigh é ar iarraidh",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "stuck-sync-operation-reason-unknown",
+    "before": "Could not be checked now",
+    "after": "Níorbh fhéidir é a sheiceáil anois",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "stuck-sync-operation-replayable-now",
+    "before": "It can be replayed again now and will finish by itself, so it cannot be discarded.",
+    "after": "Is féidir é a athsheinm anois agus críochnóidh sé leis féin, mar sin ní féidir é a chaitheamh amach.",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "stuck-sync-operation-discard-confirm",
+    "before": "Discard this saved List Sync operation? Changes it already applied stay; the rest are never written. The list can then Sync again.",
+    "after": "An bhfuil fonn ort an oibríocht sioncrónaithe liosta sábháilte seo a chaitheamh amach? Fanann na hathruithe a chuir sí i bhfeidhm cheana; ní scríobhtar an chuid eile riamh. Is féidir an liosta a shioncrónú arís ansin.",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "stuck-sync-operation-empty",
+    "before": "No List Sync operations are waiting for review.",
+    "after": "Níl aon oibríochtaí sioncrónaithe liostaí ag fanacht le hathbhreithniú.",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "stuck-sync-operation-truncated",
+    "before": "Only the oldest 50 are shown. Discard some and refresh to see more.",
+    "after": "Ní thaispeántar ach an 50 ceann is sine. Caith cuid acu amach agus athnuaigh chun tuilleadh a fheiceáil.",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "stuck-sync-operation-unavailable",
+    "before": "Could not load the List Sync operations. Refresh to try again.",
+    "after": "Níorbh fhéidir na hoibríochtaí sioncrónaithe liostaí a lódáil. Athnuaigh chun triail eile a bhaint as.",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "stuck-sync-operation-missing",
+    "before": "This operation is no longer pending.",
+    "after": "Níl an oibríocht seo ar feitheamh a thuilleadh.",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "stuck-sync-operation-not-stuck",
+    "before": "This operation has not been found stuck, so it cannot be discarded.",
+    "after": "Níor aimsíodh go raibh an oibríocht seo sáinnithe, mar sin ní féidir í a chaitheamh amach.",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "stuck-sync-operation-replayable",
+    "before": "This operation can be replayed again now and will finish by itself, so it was not discarded.",
+    "after": "Is féidir an oibríocht seo a athsheinm anois agus críochnóidh sí léi féin, mar sin níor caitheadh amach í.",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "stuck-sync-operation-busy",
+    "before": "This list is syncing right now. Try again in a moment.",
+    "after": "Tá an liosta seo á shioncrónú anois. Bain triail eile as i gceann tamaill.",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "interrupted-import-heading",
+    "before": "Board imports that stopped before finishing",
+    "after": "Iompórtálacha clár a stop sular críochnaíodh iad",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "interrupted-import-description",
+    "before": "Each of these board imports stopped part way - the server restarted, or the import failed - and left a partial board. An import cannot be continued, because its source file is not kept. Keep the board as it is, or discard it and import the file again. Discarding removes the board this import created and everything on it, including anything added to it since.",
+    "after": "Stop gach ceann de na hiompórtálacha clár seo leath bealaigh — atosaíodh an freastalaí nó theip ar an iompórtáil — agus fágadh clár páirteach. Ní féidir leanúint d’iompórtáil, toisc nach gcoinnítear a comhad foinse. Coinnigh an clár mar atá sé, nó caith amach é agus iompórtáil an comhad arís. Má chaitear amach é, baintear an clár a chruthaigh an iompórtáil seo agus gach rud air, lena n-áirítear aon rud a cuireadh leis ó shin.",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "interrupted-import-progress",
+    "before": "Where it stopped",
+    "after": "An áit ar stop sé",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "interrupted-import-created",
+    "before": "Created so far",
+    "after": "Cruthaithe go dtí seo",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "interrupted-import-source",
+    "before": "Imported from __source__",
+    "after": "Iompórtáilte ó __source__",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "interrupted-import-state-stopped",
+    "before": "Stopped without finishing, at __stage__",
+    "after": "Stop gan chríochnú, ag __stage__",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "interrupted-import-state-failed",
+    "before": "Failed with __error__, at __stage__",
+    "after": "Theip le __error__, ag __stage__",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "interrupted-import-state-discarding",
+    "before": "Being discarded; discard again to finish",
+    "after": "Á chaitheamh amach; caith amach arís é chun críochnú",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "interrupted-import-counts",
+    "before": "__swimlanes__ swimlanes, __lists__ lists, __cards__ cards, __checklists__ checklists, __comments__ comments, __attachments__ attachments",
+    "after": "__swimlanes__ lána, __lists__ liosta, __cards__ cárta, __checklists__ seicliosta, __comments__ nóta tráchta, __attachments__ ceangaltán",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "interrupted-import-no-board",
+    "before": "No board was created",
+    "after": "Níor cruthaíodh aon chlár",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "interrupted-import-keep",
+    "before": "Keep",
+    "after": "Coinnigh",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "interrupted-import-keep-confirm",
+    "before": "Keep this partial board as it is? Nothing is removed, and the import is no longer listed here.",
+    "after": "An bhfuil fonn ort an clár páirteach seo a choinneáil mar atá sé? Ní bhaintear aon rud, agus ní bheidh an iompórtáil liostaithe anseo a thuilleadh.",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "interrupted-import-discard-confirm",
+    "before": "Discard this import? The board it created and everything on it are removed permanently.",
+    "after": "An bhfuil fonn ort an iompórtáil seo a chaitheamh amach? Baintear an clár a chruthaigh sí agus gach rud air go buan.",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "interrupted-import-empty",
+    "before": "No interrupted board imports are waiting for review.",
+    "after": "Níl aon iompórtálacha clár ar cuireadh isteach orthu ag fanacht le hathbhreithniú.",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "interrupted-import-truncated",
+    "before": "Only the oldest 50 are shown. Keep or discard some and refresh to see more.",
+    "after": "Ní thaispeántar ach an 50 ceann is sine. Coinnigh nó caith amach cuid acu agus athnuaigh chun tuilleadh a fheiceáil.",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "interrupted-import-unavailable",
+    "before": "Could not load the interrupted board imports. Refresh to try again.",
+    "after": "Níorbh fhéidir na hiompórtálacha clár ar cuireadh isteach orthu a lódáil. Athnuaigh chun triail eile a bhaint as.",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "interrupted-import-missing",
+    "before": "This import is no longer recorded.",
+    "after": "Níl an iompórtáil seo taifeadta a thuilleadh.",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "interrupted-import-not-interrupted",
+    "before": "This import is not waiting for a decision any more.",
+    "after": "Níl an iompórtáil seo ag fanacht le cinneadh a thuilleadh.",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "interrupted-import-foreign-board",
+    "before": "The board with this id was not created by this import, so it was not touched.",
+    "after": "Níor chruthaigh an iompórtáil seo an clár leis an aitheantas seo, mar sin níor athraíodh é.",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
+  },
+  {
+    "locale": "ga",
+    "key": "login-setting-env-only",
+    "before": "Only the server environment sets these. They are shown here read-only.",
+    "after": "Ní shocraítear iad seo ach i dtimpeallacht an fhreastalaí. Taispeántar anseo iad mar shocruithe inléite amháin.",
+    "reason": "Translate Irish recovery and server-only setting messages with permanent effects, retained changes and recovery restrictions explicit."
   }
 ]
