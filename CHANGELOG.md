@@ -562,7 +562,7 @@ there.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.43 2026-10-14 WeKan ® release
 
 **In short:** **Bots** hand cards to external runners such as an AI agent, a
 CI job or a script, as kanbots does, with no rights of their own. Board search
