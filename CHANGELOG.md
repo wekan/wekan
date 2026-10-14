@@ -4739,6 +4739,22 @@ All-language translation and semantic verification remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/93ef17b326fe51de9d8689e7a8454009147fd1b8">Translate Igbo Trello and Sandstorm transfer help</a>. Thanks to xet7.</summary>
+
+Translate 15 transfer messages, retaining literal swimlane labels, access
+requirements, partial-export warnings and selected-board export distinctions.
+Direct technical wording needs fluent review.
+
+Both translation and guarded-correction suites pass with 30,901 corrections.
+All 21 human-preference checks pass; 38,430 existing Chinese values are
+unchanged.
+The Trello dialog browser case passes syntax and discovery; execution is
+pending.
+All-language translation and semantic verification remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

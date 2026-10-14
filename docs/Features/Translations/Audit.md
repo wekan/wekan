@@ -2,6 +2,18 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Igbo Trello and Sandstorm transfers — 2026-10-14
+
+Commit `93ef17b326` translates 15 transfer strings, preserving the literal
+`Swimlane: …` label and distinguishing absent versus granted Sandstorm access,
+partial exports, selected-board exports and file-versus-text import input.
+Direct technical wording needs fluent review.
+
+The Igbo/Swedish and guarded-correction suites pass with 30,901 ledger entries;
+all 21 human-preference checks pass. Exact comparison preserves 38,430 existing
+Chinese values. The Trello export-dialog browser case passes syntax and discovery;
+execution is pending. Full all-language semantic verification remains unfinished.
+
 ## Igbo import mapping and bulk operations — 2026-10-14
 
 Commit `1cea7b89f1` translates 24 member choices, column-mapping controls and
