@@ -196,6 +196,17 @@ grain here.
 
 </details>
 
+and fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/230badf48e">Chat view opens a card from any board in the middle, and folded panes keep their carets</a>. Thanks to xet7.</summary>
+
+A card clicked in the channel tree took the member to its board; it opens in
+the middle pane now, with its conversation, from any board the member may
+read. Folding Channels or Comments left only an icon; the double caret stays.
+
+</details>
+
 and tidies the backlog:
 
 - [Close the built issues and keep only unbuilt work in TODO Later](https://github.com/wekan/wekan/commit/707021fee2):
