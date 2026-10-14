@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Irish recovery messages and full placeholder gate — 2026-10-14
+
+Commit `ee99da3ddf` translates 38 strings for stopped list syncs, interrupted
+imports and server-only login settings. Discarding saved sync work retains
+applied changes; discarding an interrupted import permanently removes its
+partial board, including subsequent additions. Missing source files, untouched
+foreign boards, busy operations and oldest-50 limits remain explicit.
+
+The Irish catalog and guarded-correction suites pass with 30,467 correction
+ledger entries. The full Irish placeholder check now returns no entries,
+including keys marked pending Transifex. All 21 human-preference checks pass;
+exact comparison preserves 38,430 existing Chinese values. Two recovery browser
+cases pass syntax and discovery; runtime remains pending.
+
+Zero detected placeholders does not establish correct meaning or identify every
+stale English passage. Irish semantic review and the all-language objective
+remain unfinished.
+
 ## Irish workflows and permission messages — 2026-10-14
 
 Commit `9ccf484c6d` translates 19 strings for read-only fields, Wrike workflow

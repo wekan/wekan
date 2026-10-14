@@ -4347,6 +4347,21 @@ pending. All-language translation and semantic review remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ee99da3ddf342077ba4ed126e853cea443fadcdb">Translate Irish recovery messages and close the placeholder gap</a>. Thanks to xet7.</summary>
+
+Translate 38 messages for stopped list syncs, interrupted board imports and
+server-only login settings. Keep retained changes, permanent partial-board
+deletion, missing source files and recovery restrictions explicit.
+
+The Irish catalog and guarded-correction suites pass with 30,467 audited
+corrections. The full Irish placeholder check now finds no entries, including
+pending keys; semantic review remains unfinished. All 21 human-preference checks
+pass, and 38,430 existing Chinese values remain unchanged. Two browser cases
+pass syntax and discovery; runtime remains pending. All-language work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
