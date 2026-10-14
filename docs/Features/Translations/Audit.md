@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Haitian Creole administration and precedence — 2026-10-14
+
+Commit `54c2af0993` corrects 14 entries. Organization hostnames and administrator
+status no longer use literal army/flag meanings. Notification settings describe
+board and member overrides instead of cancellations. Assignee, resizing and
+notification-panel labels are consistent, and the header-toggle description
+retains the full range of affected icons. Tenant domains keep their examples,
+MULTITENANCY=true prerequisite and empty-field instruction; organization admins
+still cannot grant or manage site-wide administrator access.
+
+The Haitian catalog and guarded-correction suites pass with 29,830 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. The notification browser case checks
+the corrected precedence help and rejects the old cancellation term. Syntax
+and discovery pass; runtime remains pending.
+
+Haitian semantic review and the all-language objective remain unfinished.
+
 ## Haitian Creole visibility and email settings — 2026-10-14
 
 Commit `a7346d6a58` corrects 14 settings strings. SMTP host no longer uses the
