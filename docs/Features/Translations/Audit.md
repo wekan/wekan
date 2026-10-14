@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Irish report explanations — 2026-10-14
+
+Commit `7676469d0e` corrects eleven analytics strings. Five report titles now
+identify their reports rather than loosely related metrics. Methodology notes
+restore missing-history handling, retained history for deleted cards, overlapping
+blockers, zero-throughput days, forecast uncertainty, minimum valid completions
+and date fallbacks. The report-loading error now explains the retry action.
+
+The Irish catalog and guarded-correction suites pass with 30,486 correction
+ledger entries. All 21 human-preference checks pass; exact comparison preserves
+38,430 existing Chinese values. Five browser cases check report menu names and
+methodology notes. Syntax and discovery pass; runtime remains pending.
+
+Other report labels and the rest of the Irish catalog still require semantic
+review. The all-language objective remains unfinished.
+
 ## Irish semantic review: actions and stale guides — 2026-10-14
 
 Commit `e4d4b2125c` corrects eight entries. Todoist and Planner retained old

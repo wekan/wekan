@@ -4377,6 +4377,20 @@ complete translation. Irish and all-language semantic review remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7676469d0e4ed9c8c6c97bf70918889d61276f2e">Restore complete Irish analytics explanations</a>. Thanks to xet7.</summary>
+
+Correct eleven report strings. Replace shorthand with full explanations of
+missing history, overlapping blockers, forecast uncertainty, minimum samples
+and date fallbacks. Correct five report titles and the report-loading error.
+
+The Irish catalog and guarded-correction suites pass with 30,486 audited
+corrections. All 21 human-preference checks pass; 38,430 existing Chinese values
+remain unchanged. Five browser cases pass syntax and discovery; runtime remains
+pending. Irish and all-language semantic review remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
