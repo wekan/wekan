@@ -496,10 +496,10 @@ there.
 # Upcoming WeKan ® release
 
 **In short:** **Sync and rule notifications** are delivered again with the clear
-e-mail layout. The **Latvian** translation, which was largely **Lithuanian**, is
-Latvian now, and the same wrong words are gone from **Macedonian**, **Persian**,
-**Cantonese** and **Occitan**. The attachment viewer's picture gets **alt
-text**.
+e-mail layout. **Latvian**, **Tsonga** and **Bosnian** are translated where they
+were Lithuanian, filler or Serbian, and the same wrong words are gone from
+**Macedonian**, **Persian**, **Cantonese** and **Occitan**. The attachment
+viewer's picture gets **alt text**.
 
 This release fixes the following bugs:
 
@@ -521,7 +521,8 @@ takes what the e-mail outbox takes, checked the same way, and
 
 and fixes the following translations:
 
-**Languages updated:** Latvian, Macedonian, Persian, Cantonese, Occitan.
+**Languages updated:** Latvian, Tsonga, Bosnian, Macedonian, Persian, Cantonese,
+Occitan, Aromanian.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e0649b0cfb">Latvian is Latvian, and wrong words are gone wherever they were</a>. Thanks to xet7.</summary>
@@ -534,6 +535,17 @@ every key - Macedonian Настройки, the Persian settings typo, Cantonese 
 the attachment search operator and Occitan "mot de Santa-Clara" for password.
 `tests/wrongLanguageCorrections20261014.test.cjs` fails on any Lithuanian left
 in the Latvian file and checks its placeholders.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ac2410fead">Tsonga, Bosnian and Aromanian are translated where they were filler or Serbian</a>. Thanks to xet7.</summary>
+
+Tsonga had 618 values of the filler "Hi Xitsonga: mhaka" and 831 more padded
+with a repeated "mhaka" wherever its generator had no word; all are translated
+now. The Bosnian values that were Serbian are ijekavian Bosnian, with the
+file's own words for board, card and list, and Aromanian's "Calendario" is
+"Calendar". The test fails on any filler, padding or ekavian form left.
 
 </details>
 
