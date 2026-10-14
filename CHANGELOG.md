@@ -413,6 +413,20 @@ flows, which needs the running app and a screen reader).
 </details>
 
 <details>
+<summary>The 10,500-card Scrum test runs past its 15 minutes.</summary>
+
+`server/lib/tests/scrumSnapshotRows.tests.js` "starts, closes, undoes and
+redoes a sprint past the old 10,000-card limit" times out in every full Meteor
+run, and did before 2026-10-14 too (run at 8fd04f9984^). Measured at 3,000
+cards: start 0.4 s, close 0.2 s, then 10.2 s reading the Scrum board data
+while the background rollover runs, and 4.5 s for the rollover itself. It
+cannot be run smaller: below about 10,000 cards its assertions about batches
+of more than 1,000 no longer hold. What remains is profiling the board data
+read and the rollover at full size, which needs the running test server.
+
+</details>
+
+<details>
 <summary>Attachment-board upgrade report needs affected data or runtime logs.</summary>
 
 An upgrade report by email: after a 6.09 to 10.85 dump-and-restore,
