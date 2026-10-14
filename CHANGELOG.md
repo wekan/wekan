@@ -779,6 +779,9 @@ FreeBSD x64 builds now. OpenBSD amd64/arm64 and NetBSD amd64 build
 automatically once node-patches publishes their Node.js, which it now builds
 from the OS packagers' own patch sets. Where each BSD stands, and which patches
 exist for it, is in [BSD](docs/Platforms/FOSS/OS/BSD.md).
+`tests/bsdBundles.test.cjs` covers the targets, the skip when a BSD has no
+Node.js yet, the checksum checks, and runs the start test itself both against a
+launcher that dies and one that answers.
 
 </details>
 
@@ -902,6 +905,8 @@ image operation never returned, while the same build works under Bun on Linux.
 Sharp is now compiled against the system libvips, as on Android, and the
 FreeBSD VM installs `vips`. FreeBSD ships libvips 8.18.6 and Sharp asks for
 8.18.7, so the next FreeBSD run shows whether it compiles.
+`tests/bunSharpSourceBuild.test.cjs` covers which targets build Sharp from
+source, and that the FreeBSD VM installs `vips`.
 
 </details>
 
