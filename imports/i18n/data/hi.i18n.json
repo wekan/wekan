@@ -1237,7 +1237,7 @@
   "wipLimitErrorPopup-title": "अमान्य WIP सीमा",
   "wipLimitErrorPopup-dialog-pt1": "The number of tasks अंदर में  यह सूची is higher than the WIP limit you've defined.",
   "wipLimitErrorPopup-dialog-pt2": "Please स्थानांतरित some tasks out of  यह list, or set एक higher WIP limit.",
-  "admin-panel": "व्यवस्थापक Panel",
+  "admin-panel": "व्यवस्थापक पैनल",
   "settings": "सेटिंग्स",
   "attachment-transfer-limits-title": "संलग्नक और API फ़ाइल आकार सीमाएं",
   "attachment-limits": "सीमाएं",

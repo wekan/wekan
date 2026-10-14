@@ -1238,7 +1238,7 @@
   "wipLimitErrorPopup-dialog-pt1": "تعداد وظایف در این لیست بیشتر از محدودیت WIP تعریف‌شده شماست.",
   "wipLimitErrorPopup-dialog-pt2": "لطفاً برخی وظایف را از این لیست خارج کنید یا محدودیت WIP بالاتری تنظیم کنید.",
   "admin-panel": "پیشخوان مدیریتی",
-  "settings": "تنظمات",
+  "settings": "تنظیمات",
   "attachment-transfer-limits-title": "محدودیت‌های اندازه فایل ضمیمه و API",
   "attachment-limits": "محدودیت‌ها",
   "attachment-transfer-limits-description": "حداکثر محدودیت اندازه فایل برای بارگذاری و دانلود را پیکربندی کنید. بافر انتقال API سقف‌های ایمنی جداگانه‌ای در سمت سرور دارد.",

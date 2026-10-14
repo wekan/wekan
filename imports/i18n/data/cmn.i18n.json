@@ -1098,7 +1098,7 @@
   "instance-editing-desc": "非成员的已登录用户可以添加、编辑、移动和评论卡片，并在这样做时成为普通成员。",
   "board-instance-info": "此看板将对<strong>所有已登录的用户</strong>可见。",
   "profile": "轮廓",
-  "public": "民众",
+  "public": "公开",
   "public-desc": "该委员会是公开的。任何知道该链接的人都可以看到它，并且会显示在 Google 等搜索引擎中。只有添加到论坛的人员才能编辑。",
   "custom-private-desc": "自定义 私人的 描述",
   "custom-private-desc-placeholder": "留空以使用默认 私人的 看板描述",

@@ -1120,7 +1120,7 @@
   "restore": "Restaurar",
   "rescue-card-description": "Mostrar el diálogo de emergencia antes de cerrar las descripciones de las tarjetas no guardada",
   "rescue-card-description-dialogue": "¿Sobreescribir la descripción actual de la tarjeta con sus cambios?",
-  "save": "Añadir",
+  "save": "Guardar",
   "search": "Buscar",
   "rules": "Reglas",
   "search-cards": "Buscar entre los títulos, las descripciones de las tarjetas/listas y los campos personalizados en este tablero.",

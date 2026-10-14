@@ -7,4 +7,4 @@
 .column-sets-column { min-width: 14em; max-width: 18em; background: rgba(0, 0, 0, 0.05); border-radius: 4px; padding: 0.4em; }
 .column-sets-column-header { font-weight: bold; margin-bottom: 0.4em; display: flex; gap: 0.4em; align-items: center; }
 .column-sets-card { background: #fff; border-radius: 3px; padding: 0.35em 0.5em; margin-bottom: 0.35em; box-shadow: 0 1px 0 rgba(0, 0, 0, 0.15); cursor: grab; }
-.column-sets-card .card-label { font-size: 0.75em; margin-right: 0.2em; }
+.column-sets-card .card-label { font-size: 0.75em; margin-inline-end: 0.2em; }
