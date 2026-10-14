@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.41
+  version: v12.42
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -6437,6 +6437,12 @@ definitions:
         type: string
       modifiedAt:
         type: string
+      syncCommentId:
+        description: |
+           List sync: the tracker's own id of the comment this one mirrors
+           (models/lib/listSyncIssueDetails.js). Unset on comments written in WeKan.
+        type: string
+        x-nullable: true
       userId:
         description: |
            the author ID of the comment
@@ -6597,6 +6603,18 @@ definitions:
         x-nullable: true
       syncSourceKey:
         type: string
+        x-nullable: true
+      syncLabelIds:
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
+      syncIssueState:
+        type: string
+        enum:
+          - open
+          - closed
         x-nullable: true
       syncLastSource:
         $ref: "#/definitions/CardsSynclastsource"
@@ -7453,6 +7471,12 @@ definitions:
         description: |
            user ID who created the interation
         type: string
+      bot:
+        description: |
+           Board Settings / Bots (models/lib/botRuns.js): this outgoing webhook
+           is a bot's runner. It is sent dispatches only, never board activity.
+        type: boolean
+        x-nullable: true
     required:
       - enabled
       - type
@@ -7617,6 +7641,8 @@ definitions:
       createCards:
         type: boolean
       archiveCards:
+        type: boolean
+      issueDetails:
         type: boolean
       enabled:
         type: boolean
@@ -7802,6 +7828,12 @@ definitions:
       buttonLabel:
         type: string
         x-nullable: true
+      description:
+        description: |
+           What the rule is for, in Markdown. An imported GitHub Actions
+           workflow keeps its YAML here (models/lib/githubActionsRules.js).
+        type: string
+        x-nullable: true
       enabled:
         type: boolean
         x-nullable: true
@@ -7921,6 +7953,9 @@ definitions:
         type: boolean
         x-nullable: true
       featureStates:
+        type: object
+        x-nullable: true
+      optionalApis:
         type: object
         x-nullable: true
       featureApprovalRequired:
@@ -8766,6 +8801,7 @@ definitions:
           - board-view-map
           - board-view-email
           - board-view-chat
+          - board-view-version-control
       listSortBy:
         description: |
            default sort list for user
