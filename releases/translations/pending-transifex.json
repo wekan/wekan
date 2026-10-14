@@ -2795,6 +2795,26 @@
     {
       "key": "sandstorm-sync-jira-hint",
       "since": "2026-10-14"
+    },
+    {
+      "key": "import-attachment-auth",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "import-attachment-auth-hint",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "import-attachment-auth-url",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "import-attachment-auth-token",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "board-load-failed",
+      "since": "2026-10-14"
     }
   ]
 }
