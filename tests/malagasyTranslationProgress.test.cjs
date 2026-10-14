@@ -502,3 +502,18 @@ assert.doesNotMatch(malagasy['import-board-instruction-csv'], /tsiahy/);
 for (const literal of ['GET /rest/api/3/search/jql?jql=project=KEY&fields=*all&expand=names,schema', 'nextPageToken', '{ "issues": [...] }', '"automationRules"']) assert.ok(malagasy['import-board-instruction-jira'].includes(literal));
 assert.match(malagasy['import-board-instruction-jira'], /pejy rehetra.*solaitra misaraka/);
 assert.match(malagasy['import-board-instruction-excel'], /karatra iray isaky ny andalana.*dingana manaraka.*takelaka tsirairay.*andalana lohateny/);
+
+const reportAccountKeys = ["anonymize-account", "userAnonymizePopup-title", "anonymize-account-confirm-popup", "flow-note-agingWip", "flow-note-blockerAnalysis", "flow-note-monteCarlo", "flow-note-processBehavior", "flow-note-sizeCycleTime"];
+
+for (const key of reportAccountKeys) assert.deepEqual(tokens(malagasy[key]), tokens(english[key]), key);
+assert.equal(malagasy['anonymize-account'], malagasy['userAnonymizePopup-title']);
+const anonymizeWarning = malagasy['anonymize-account-confirm-popup'];
+assert.match(anonymizeWarning, /solonanarana.*anarana feno.*adiresy mailaka.*esorina ny avatar.*sakanana ny fidirana/);
+assert.match(anonymizeWarning, /Maharitra.*mitazona ny tantarany.*mbola mampiseho.*Tsy azo foanana/);
+assert.doesNotMatch(anonymizeWarning, /fanondranana|rakitra aondrana|mpampiasa1/);
+assert.match(malagasy['flow-note-agingWip'], /85%.*dimy farafahakeliny.*tsy misy.*tsy fantatra/);
+assert.match(malagasy['flow-note-blockerAnalysis'], /rohy tranainy.*karatra voafafa.*misaraka.*mifanindry/);
+assert.match(malagasy['flow-note-monteCarlo'], /2,000.*UTC.*tsy nahavitana.*ambony.*ambany.*tsy antoka.*3,650.*tsy misy vinavina/);
+assert.match(malagasy['flow-note-processBehavior'], /Fanombohana.*namoronana.*Fiafarana.*arisiva.*roa farafahakeliny/);
+assert.match(malagasy['flow-note-sizeCycleTime'], /Tsy ampidirina.*daty tsy manan-kery.*Fanombohana.*namoronana.*Fiafarana.*arisiva/);
+for (const key of reportAccountKeys.filter(key => key.startsWith('flow-note-'))) assert.doesNotMatch(malagasy[key], /→|≥|≤|✓|MR̄/);

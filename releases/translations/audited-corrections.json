@@ -211237,5 +211237,61 @@
     "before": "Fidio ny takelaka .xlsx miendrika WeKan (tsanganana mitovy amin'ny fanondranana Excel: Title, Description, Status/List, Members, Labels, dates, custom fields). Lohateny ny laharana voalohany.",
     "after": "Misafidiana boky .xlsx: tabilao misy karatra iray isaky ny andalana (tsanganana toy ny Lohateny, Famaritana, Sata/Lisitra, Mpikambana, Marika, daty ary saha manokana), na boky navoakan’ny WeKan, anisan’izany ny boky misy takelaka misaraka ho an’ny solaitra tsirairay. Asehon’ny dingana manaraka izay saha mifanaraka amin’ny tsanganana tsirairay. Lasa solaitra ny takelaka tsirairay manana andalana lohateny.",
     "reason": "Replace stale English guides and restore current import instructions, pagination, worksheet behavior and delimiter terminology."
+  },
+  {
+    "locale": "mg",
+    "key": "anonymize-account",
+    "before": "Afeno anarana ireo mpampiasa hafarana",
+    "after": "Afeno ny mombamomba ny kaonty",
+    "reason": "Restore account anonymization consequences and full report methodology instead of unrelated export text and shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "userAnonymizePopup-title",
+    "before": "Afeno anarana ireo mpampiasa hafarana",
+    "after": "Afeno ny mombamomba ny kaonty",
+    "reason": "Restore account anonymization consequences and full report methodology instead of unrelated export text and shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "anonymize-account-confirm-popup",
+    "before": "Rehefa alefa, ny fanondranana solaitra dia manolo ny solonanarana, anarana feno ary fanafohezan'ny mpampiasa aondrana rehetra amin'ny solon-toerana voaisa (mpampiasa1, mpampiasa2, ...), manaisotra ny sariny, ary manoratra indray ny fanononana @solonanarana (sy ireo saha nangatahin'i / notendren'i) ao anatin'ny votoatin'ny karatra sy fanamarihana. Tsy mitondra tena mombamomba ny mpampiasa ilay rakitra aondrana. Ny teny hoe \"mpampiasa\" dia manaraka ny fitenin'ilay olona manondrana. Tsy alefa amin'ny voalohany.",
+    "after": "Tena te hanafina ny mombamomba ity kaonty ity ve ianao? Hosoloina solon-toerana tsy ahafantarana ny olona ny solonanarana, anarana feno ary adiresy mailaka, esorina ny avatar ary sakanana ny fidirana. Maharitra izany fanoloana izany. Tsy toy ny famafana, mitazona ny tantarany ny solaitra, karatra ary fanehoan-kevitra ary mbola mampiseho ity kaonty ity, saingy miafina ny mombamomba azy. Tsy azo foanana ity asa ity.",
+    "reason": "Restore account anonymization consequences and full report methodology instead of unrelated export text and shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-note-agingWip",
+    "before": "Lisitra: Hanomboka → Faharetana. P85: n ≥ 5. (tsy fantatra): —.",
+    "after": "Karatra mbola misokatra: isan’ny andro hatramin’ny nidirana tamin’ny dingana ankehitriny. Mihoatra ny sanda mandrakotra ny 85% amin’ny faharetana voarakitra tamin’io dingana io ny bara mena (fijanonana dimy farafahakeliny). Raha tsy misy ny tantaran’ny fidirana dia tsy fantatra ny faharetana.",
+    "reason": "Restore account anonymization consequences and full report methodology instead of unrelated export text and shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-note-blockerAnalysis",
+    "before": "Fiankinana: Tantara → Hanomboka / Fiafarana. Hanomboka (tsy fantatra): —.",
+    "after": "Ny tantaran’ny fiankinana dia manome ny fotoana nanombohana sy nifaranan’ny sakana isaky ny dingana. Mety tsy ho fantatra ny fiandohan’ny rohy tranainy. Mila sarin’ny tantara voatahiry ny karatra voafafa. Isaina misaraka ny antony mifanindry.",
+    "reason": "Restore account anonymization consequences and full report methodology instead of unrelated export text and shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-note-monteCarlo",
+    "before": "Monte Carlo: 2000 × Tantara. andro: UTC; 0 ✓. 50%, 70%, 85%, 95%. Karatra ≥; Faharetana ≤. Fetra: 3650 andro.",
+    "after": "Fitsapana 2,000 no maka santionany amin’ny andro kalandrie UTC feno, anisan’izany ny andro tsy nahavitana karatra. Ny daty dia vinavina amin’ny faritra ambony amin’ny fizarana; ny isa kosa dia fanoloran-tena amin’ny faritra ambany. Heverina fa hitovy ny vokatra amin’ny hoavy; tsy antoka izany. Fe-potoana ambony indrindra: 3,650 andro. Raha tsy misy asa vita dia tsy misy vinavina.",
+    "reason": "Restore account anonymization consequences and full report methodology instead of unrelated export text and shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-note-processBehavior",
+    "before": "XmR: Fotoam-potoana; Hanomboka → Vita. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
+    "after": "Ny faharetan’ny tsingerina dia mampiasa ny Fanombohana, na ny daty namoronana raha tsy misy izany, ary ny Fiafarana, na ny daty nampidirana tao amin’ny arisiva raha tsy misy izany. Ny XmR dia mampiseho ny sanda tsirairay sy ny fahasamihafana mifanesy, miaraka amin’ny salanisa sy ny fetra voajanaharin’ny fizotrany; asa vita roa farafahakeliny misy angona manan-kery no ilaina.",
+    "reason": "Restore account anonymization consequences and full report methodology instead of unrelated export text and shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-note-sizeCycleTime",
+    "before": "X: Planning Poker / Isa. Y: Fotoam-potoana (andro). (tsy fantatra): —.",
+    "after": "Ny tombana Planning Poker ankehitriny na saha manokana isa iray ampitahaina amin’ny faharetan’ny tsingerina vita, amin’ny andro. Tsy ampidirina ny tombana tsy misy sy ny daty tsy manan-kery. Raha tsy misy ny Fanombohana dia ny daty namoronana no ampiasaina; raha tsy misy ny Fiafarana dia ny daty nampidirana tao amin’ny arisiva.",
+    "reason": "Restore account anonymization consequences and full report methodology instead of unrelated export text and shorthand."
   }
 ]
