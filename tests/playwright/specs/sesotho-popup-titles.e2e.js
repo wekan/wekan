@@ -124,3 +124,23 @@ test('Southern Sotho card recurrence uses repetition rather than checklist reset
   await expect(off).not.toContainText('setwe botjha');
   await page.evaluate(() => Popup.close());
 });
+
+
+test('Haitian account anonymization warns about permanent changes and retained history', async ({ boardPage: page }) => {
+  await page.evaluate(async () => {
+    await Meteor.callAsync('setLanguage', 'ht');
+    Popup.close();
+    Popup.open('userAnonymize')({ currentTarget: document.body, target: document.body, preventDefault() {} });
+  });
+  const popup = page.locator('.js-pop-over');
+  await expect(popup.locator('.header-title')).toHaveText('Rann kont lan anonim');
+  await expect(popup).toContainText('non itilizatè a, non konplè li ak adrès imèl li pou tout tan');
+  await expect(popup).toContainText('retire avatar la epi dezaktive koneksyon');
+  await expect(popup).toContainText('tablo, kat ak kòmantè yo konsève istorik yo');
+  await expect(popup).toContainText('toujou montre kont sa a, men li anonim');
+  await expect(popup).toContainText('Aksyon sa a pa ka defèt.');
+  await expect(popup).not.toContainText('Fichye ekspòte');
+  await expect(popup).not.toContainText('Li dezaktive pa defo.');
+  // Inspect the warning without confirming an account mutation.
+  await page.evaluate(() => Popup.close());
+});

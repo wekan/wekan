@@ -208927,5 +208927,19 @@
     "before": "Paramèt pou itilizatè ki konnen (non itilizatè kòrèk, move modpas)",
     "after": "Paramèt pou itilizatè sistèm nan rekonèt (non itilizatè kòrèk, move modpas)",
     "reason": "Distinguish Haitian card recurrence from checklist reset, clarify checking items and identify known accounts correctly."
+  },
+  {
+    "locale": "ht",
+    "key": "anonymize-account",
+    "before": "Anonimize itilizatè enpòte yo",
+    "after": "Rann kont lan anonim",
+    "reason": "Replace the incorrectly duplicated export warning with the actual Haitian account-anonymization consequences: permanent identity replacement, no login and preserved history."
+  },
+  {
+    "locale": "ht",
+    "key": "anonymize-account-confirm-popup",
+    "before": "Lè li aktive, ekspòtasyon yon tablo ranplase non itilizatè, non konplè ak inisyal chak itilizatè ekspòte avèk espas rezève konte (itilizatè1, itilizatè2, ...), retire avatar yo epi re-ekri mansyon @non-itilizatè (ak chan mande-pa / asiyen-pa) anndan kontni kat ak kòmantè. Fichye ekspòte a pa pote okenn idantite reyèl itilizatè. Mo \"itilizatè\" a swiv lang moun k ap ekspòte a. Li dezaktive pa defo.",
+    "after": "Èske ou sèten ou vle rann kont sa a anonim? Sa ranplase non itilizatè a, non konplè li ak adrès imèl li pou tout tan ak valè ranplasman anonim, retire avatar la epi dezaktive koneksyon. Kontrèman ak efasman, tablo, kat ak kòmantè yo konsève istorik yo epi yo toujou montre kont sa a, men li anonim. Aksyon sa a pa ka defèt.",
+    "reason": "Replace the incorrectly duplicated export warning with the actual Haitian account-anonymization consequences: permanent identity replacement, no login and preserved history."
   }
 ]

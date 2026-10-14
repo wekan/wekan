@@ -487,3 +487,13 @@ assert.equal(creole['checklist-reset-interval'], creole['checklistResetIntervalP
 assert.match(creole['card-recurrence-interval-none'], /pa repete kat/);
 assert.match(creole['checklist-reset-interval-none'], /pa retire mak/);
 assert.match(creole['accounts-lockout-known-users'], /sistèm nan rekonèt.*non itilizatè kòrèk, move modpas/);
+
+assert.equal(creole['anonymize-account'], creole['userAnonymizePopup-title']);
+const accountWarning = creole['anonymize-account-confirm-popup'];
+assert.match(accountWarning, /non itilizatè.*non konplè.*adrès imèl.*pou tout tan/);
+assert.match(accountWarning, /retire avatar.*dezaktive koneksyon/);
+assert.match(accountWarning, /tablo, kat ak kòmantè.*konsève istorik.*toujou montre kont.*anonim/);
+assert.match(accountWarning, /pa ka defèt/);
+assert.doesNotMatch(accountWarning, /ekspòtasyon|Fichye ekspòte|pa defo/);
+assert.notEqual(accountWarning, creole['anonymize-export-users-description']);
+assert.deepEqual(tokens(accountWarning), tokens(english['anonymize-account-confirm-popup']));
