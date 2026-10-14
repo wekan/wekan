@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Scottish Gaelic import guidance, first batch — 2026-10-14
+
+Commit `7f86d9f396` translates ten guides: OPML, Org mode, MeisterTask,
+Obsidian, Linear, TickTick, ClickUp, Nullboard, Kanri and Pivotal Tracker.
+Hierarchy mapping, source menu labels, completion dates, Org keywords,
+all-column export and first-board-only limits are retained. Technical prose is
+lower confidence and needs fluent review. External provider interfaces were
+not revalidated.
+
+The Scottish Gaelic catalog and guarded-correction suites pass with 30,603
+correction ledger entries. All 21 human-preference checks pass; exact comparison
+preserves 38,430 existing Chinese values. Ten browser cases pass syntax and
+discovery; runtime remains pending.
+
+Scottish Gaelic and all-language translation and semantic review are unfinished.
+
 ## Scottish Gaelic field links and announcements — 2026-10-14
 
 Commit `4f35ee5751` translates 26 English strings for field links, board
