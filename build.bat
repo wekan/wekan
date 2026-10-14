@@ -200,7 +200,8 @@ echo       against every database with an image for this CPU, compare the answer
 echo  15^) Run all FerretDB tests - SEQUENTIAL ^(unit, vet, integration^)
 echo  16^) EVERYTHING source one by one ^(Dev server nobuild, all browsers^)
 echo  17^) Live tests with your own accounts: GitLab write-back with the mirror's
-echo       glab login ^(only scratch items it creates and removes^)
+echo       glab login ^(only scratch items it creates and removes^) and the API
+echo       imports, read only ^(releases\live-tests\README.md^)
 set "choice="
 set /p "choice=Choose: "
 if "%choice%"=="1"  goto test_everything_two

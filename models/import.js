@@ -433,6 +433,22 @@ Meteor.methods({
         importedBoard = sanitizeImported(importedBoard, 'planner', this);
         creator = new KanboardCreator(data, 'planner');
         break;
+      case 'planka':
+      case 'mstodo':
+      case 'kanbanflow':
+      case 'basecamp':
+      case 'googletasks':
+      case 'googlekeep':
+        // What server/apiImport.js fetched from the service's API (or that JSON
+        // pasted) - see models/lib/<key>ApiFormat.js.
+        check(board, Object);
+        try {
+          importedBoard = EXTERNAL_PARSERS[importSource](importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        creator = new KanboardCreator(data, importSource);
+        break;
       case 'kanri':
         // Kanri's JSON export, one board or all data - see models/lib/kanriFormat.js.
         check(board, Object);

@@ -18,6 +18,12 @@ export function validateImportSourceShape(source, value) {
     case 'csv': valid = Array.isArray(value) && value.length > 0 && value.every(Array.isArray); break;
     case 'taiga': valid = arrayAt(value, 'user_stories'); break;
     case 'kanri': valid = arrayAt(value, 'columns') || arrayAt(value, 'boards'); break;
+    // What server/apiImport.js fetches (models/lib/apiImport/<key>.js).
+    case 'planka': valid = Boolean(value?.planka?.item) && typeof value.planka.included === 'object'; break;
+    case 'mstodo': case 'googletasks': valid = arrayAt(value, 'lists'); break;
+    case 'kanbanflow': valid = Boolean(value?.board) && arrayAt(value, 'tasks'); break;
+    case 'basecamp': valid = Boolean(value?.project) && (arrayAt(value, 'cardTables') || arrayAt(value, 'todolists')); break;
+    case 'googlekeep': valid = arrayAt(value, 'notes'); break;
     // Vikunja: the export .zip as { zipBase64 }, or the text of its data.json.
     // Notion: the Markdown & CSV export .zip as { zipBase64 }, or one database CSV.
     case 'notion':

@@ -87,6 +87,12 @@ page or a format in the export menu has no page here.
 | [Org mode](./Org-mode/Org-mode.md) | yes | yes |
 | [OPML](./OPML/OPML.md) | yes | yes |
 | [Leo](./Leo/Leo.md) | yes | yes |
+| [Planka](./Planka/Planka.md) | yes | — |
+| [Microsoft To Do](./Microsoft-To-Do/Microsoft-To-Do.md) | yes | — |
+| [KanbanFlow](./KanbanFlow/KanbanFlow.md) | yes | — |
+| [Basecamp](./Basecamp/Basecamp.md) | yes | — |
+| [Google Tasks](./Google-Tasks/Google-Tasks.md) | yes | — |
+| [Google Keep](./Google-Keep/Google-Keep.md) | yes | — |
 
 The [overview](./External-Tools.md) groups them by kind.
 

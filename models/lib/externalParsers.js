@@ -25,6 +25,12 @@ import { parseQuireCsv } from './quireCsvFormat.js';
 import { parseNotionExport } from './notionFormat.js';
 import { parsePlaneExport } from './planeFormat.js';
 import { parseOrgMode } from './orgModeFormat.js';
+import { parsePlankaApi } from './plankaApiFormat.js';
+import { parseMicrosoftTodoApi } from './mstodoApiFormat.js';
+import { parseKanbanflowApi } from './kanbanflowApiFormat.js';
+import { parseBasecampApi } from './basecampApiFormat.js';
+import { parseGoogleTasksApi } from './googletasksApiFormat.js';
+import { parseGoogleKeepApi } from './googlekeepApiFormat.js';
 import { issueAttachments } from './issueAttachments.js';
 import {
   gitlabScrumPlanning, openProjectScrumPlanning, asanaScrumPlanning, STORY_POINTS_FIELD,
@@ -1197,6 +1203,13 @@ export const EXTERNAL_PARSERS = {
   plane: parsePlaneExport,
   orgmode: parseOrgMode,
   jira: parseJira,
+  // Fetched from the service's API (server/apiImport.js, models/lib/apiImport/).
+  planka: parsePlankaApi,
+  mstodo: parseMicrosoftTodoApi,
+  kanbanflow: parseKanbanflowApi,
+  basecamp: parseBasecampApi,
+  googletasks: parseGoogleTasksApi,
+  googlekeep: parseGoogleKeepApi,
 };
 
 // Sync-capable sources: sources whose normalized tasks carry `externalId`, so

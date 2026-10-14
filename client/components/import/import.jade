@@ -74,6 +74,11 @@ template(name="importTextarea")
         if isTrelloImport
           span.quiet.import-file-hint {{_ 'import-trello-json-file-hint'}}
         input.js-import-file(id='import-file' type="file" accept="{{importAccept}}")
+    //- Fetch it from the service's API with the member's credentials
+      (models/lib/apiImportServices.js, server/apiImport.js): the fetched
+      JSON fills the text box, and the import goes on from there.
+    if apiImport
+      +apiImportFetch(service=apiImport)
     if importPaste
       textarea.js-import-json(id='import-textarea' placeholder="{{_ importPlaceHolder}}" autofocus)
         | {{jsonText}}
@@ -333,3 +338,26 @@ template(name="importMapMembersAddPopup")
       if noResults.get
         .manage-member-section
           p.quiet {{_ 'no-results'}}
+
+template(name="apiImportFetch")
+  .api-import-fetch
+    p.quiet {{_ 'api-import-desc'}}
+    each fields
+      p
+        label(for="api-import-{{name}}") {{_ label}}
+        if secret
+          input.js-api-import-field(id="api-import-{{name}}" data-name="{{name}}" type="password" autocomplete="off" required=required)
+        else
+          input.js-api-import-field(id="api-import-{{name}}" data-name="{{name}}" type="text" autocomplete="off" required=required)
+    p
+      button.js-api-import-list(type="button" disabled=busy) {{_ 'api-import-list'}}
+    if items.length
+      p
+        label(for="api-import-item") {{_ 'api-import-choose'}}
+        select.js-api-import-item(id="api-import-item")
+          each items
+            option(value=id) {{name}}
+      p
+        button.primary.js-api-import-fetch(type="button" disabled=busy) {{_ 'api-import-fetch'}}
+    if message
+      p.quiet.js-api-import-message= message

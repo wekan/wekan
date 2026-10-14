@@ -73,6 +73,15 @@ export const IMPORT_SOURCES = [
   { key: 'quire', name: 'Quire', ...TEXT, files: ['.csv'] },
   { key: 'notion', name: 'Notion', ...TEXT, files: ['.zip', '.csv'], zipSend: 'zip' },
   { key: 'plane', name: 'Plane', ...TEXT, files: ['.zip', '.json', '.csv', '.xlsx'], zipSend: 'zip' },
+  // Fetched from the service's API with the member's credentials
+  // (models/lib/apiImportServices.js, server/apiImport.js), or pasted as the
+  // JSON such a fetch returns.
+  { key: 'planka', name: 'Planka', ...JSON_SOURCE, api: true },
+  { key: 'mstodo', name: 'Microsoft To Do', ...JSON_SOURCE, api: true },
+  { key: 'kanbanflow', name: 'KanbanFlow', ...JSON_SOURCE, api: true },
+  { key: 'basecamp', name: 'Basecamp', ...JSON_SOURCE, api: true },
+  { key: 'googletasks', name: 'Google Tasks', ...JSON_SOURCE, api: true },
+  { key: 'googlekeep', name: 'Google Keep', ...JSON_SOURCE, api: true },
 ];
 
 export const importSource = key => IMPORT_SOURCES.find(source => source.key === key) || null;
@@ -82,3 +91,5 @@ export const acceptFor = key => ((importSource(key) || {}).files || []).join(','
 // A .zip that is one export of the tool, not a container of many files.
 export const zipIsOneExport = key => Boolean((importSource(key) || {}).zipSend);
 export const instructionKey = key => `import-board-instruction-${key}`;
+// Whether the import page offers to fetch it from the service's API.
+export const isApiImport = key => Boolean((importSource(key) || {}).api);

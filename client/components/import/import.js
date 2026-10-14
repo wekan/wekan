@@ -17,7 +17,7 @@ import {
 import { pruneImportDocument } from '/models/lib/importParts';
 import { slimTaigaDump } from '/models/lib/taigaFormat';
 import { expandFiles, documentForFile, isGeneralizedSource } from '/models/lib/importManyFiles';
-import { IMPORT_SOURCES, importSource as importSourceSpec, acceptFor } from '/models/lib/importSources';
+import { IMPORT_SOURCES, importSource as importSourceSpec, acceptFor, isApiImport } from '/models/lib/importSources';
 import { TAPi18n } from '/imports/i18n';
 import TrelloImportJobs from '/models/trelloImportJobs';
 import GithubImportJobs from '/models/githubImportJobs';
@@ -705,6 +705,8 @@ Template.importTextarea.helpers({
   importAccept() { return acceptFor(Session.get('importSource')); },
   importPaste() { return Boolean((importSourceSpec(Session.get('importSource')) || {}).paste); },
   isJiraImport() { return Session.get('importSource') === 'jira'; },
+  // A service the page can fetch from (models/lib/apiImportServices.js).
+  apiImport() { const key = Session.get('importSource'); return isApiImport(key) ? key : null; },
   // The numeric fields the pasted Jira export declares, to pick the estimate.
   jiraEstimateCandidates() { return Template.instance().jiraCandidates.get(); },
 });
@@ -1387,5 +1389,69 @@ Template.importGithubOrg.events({
   'click .js-github-org-clear'() {
     const job = currentOrgJob();
     if (job) Meteor.call('githubOrgClearImport', job._id);
+  },
+});
+
+// --- Fetch from a service's API (server/apiImport.js) -----------------------
+// The credentials go to the server with each call and are not kept here
+// either: secret fields are cleared once a fetch has used them.
+const { apiImportService } = require('/models/lib/apiImportServices');
+
+Template.apiImportFetch.onCreated(function () {
+  this.items = new ReactiveVar([]);
+  this.busy = new ReactiveVar(false);
+  this.message = new ReactiveVar('');
+});
+
+Template.apiImportFetch.helpers({
+  fields() { return (apiImportService(Template.currentData().service) || { fields: [] }).fields; },
+  items() { return Template.instance().items.get(); },
+  busy() { return Template.instance().busy.get(); },
+  message() { return Template.instance().message.get(); },
+});
+
+function apiImportCredentials(tpl) {
+  const credentials = {};
+  tpl.$('.js-api-import-field').each((index, element) => {
+    if (element.value) credentials[element.dataset.name] = element.value;
+  });
+  return credentials;
+}
+
+function apiImportFailed(tpl, error) {
+  tpl.busy.set(false);
+  tpl.message.set(`${TAPi18n.__('api-import-failed')}: ${(error && (error.reason || error.error)) || error}`);
+}
+
+Template.apiImportFetch.events({
+  'click .js-api-import-list'(event, tpl) {
+    event.preventDefault();
+    tpl.busy.set(true);
+    tpl.message.set('');
+    Meteor.call('apiImportList', Template.currentData().service, apiImportCredentials(tpl), (error, items) => {
+      if (error) return apiImportFailed(tpl, error);
+      tpl.busy.set(false);
+      tpl.items.set(items || []);
+      if (!(items || []).length) tpl.message.set(TAPi18n.__('api-import-nothing'));
+      return undefined;
+    });
+  },
+  'click .js-api-import-fetch'(event, tpl) {
+    event.preventDefault();
+    const id = String(tpl.$('.js-api-import-item').val() || '');
+    tpl.busy.set(true);
+    tpl.message.set('');
+    Meteor.call('apiImportFetch', Template.currentData().service, apiImportCredentials(tpl), id, (error, data) => {
+      if (error) return apiImportFailed(tpl, error);
+      tpl.busy.set(false);
+      tpl.$('.js-api-import-field[type="password"]').val('');
+      const textarea = document.getElementById('import-textarea');
+      if (textarea) {
+        textarea.value = JSON.stringify(data);
+        textarea.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+      tpl.message.set(TAPi18n.__('api-import-fetched'));
+      return undefined;
+    });
   },
 });

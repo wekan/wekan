@@ -211,7 +211,20 @@ test('the platform fetch() is used only for fixed, WeKan-chosen hosts (negative)
     // #687: WebDAV attachment storage, to the endpoint a SITE ADMIN set in
     // Admin Panel / Attachments - like an S3 endpoint - without redirects.
     'server/lib/webdavAdapter.js': 'only the WebDAV endpoint a site administrator configured',
+    // Import from a service's API: a host a SITE ADMIN listed in
+    // API_IMPORT_ALLOWED_PRIVATE_HOSTS, without redirects; every other
+    // request goes through fetchSafe on the next line.
+    'server/lib/apiImportRequest.js': 'only a host in API_IMPORT_ALLOWED_PRIVATE_HOSTS, set by the administrator',
+    // The services' clients DEFINE fetch(credentials, id, request) - the
+    // contract of models/lib/apiImportServices.js - and send every request
+    // through the `request` they are given (checked below), never the platform's.
+    ...Object.fromEntries(['planka', 'mstodo', 'kanbanflow', 'basecamp', 'googletasks', 'googlekeep']
+      .map(key => [`models/lib/apiImport/${key}.js`, 'defines fetch(); requests only through the request it is given'])),
   };
+  for (const key of ['planka', 'mstodo', 'kanbanflow', 'basecamp', 'googletasks', 'googlekeep']) {
+    const client = fs.readFileSync(path.join(ROOT, `models/lib/apiImport/${key}.js`), 'utf8').replace(/^\s*(\/\/|\*).*$/gm, '');
+    assert.doesNotMatch(client, /(?:await|return|=)\s*fetch\(|globalThis\.fetch/, `${key}: the platform fetch is not called`);
+  }
   const found = {};
   for (const file of sourceFiles()) {
     const text = fs.readFileSync(file, 'utf8').replace(/^\s*(\/\/|\*).*$/gm, '');
@@ -226,8 +239,13 @@ test('the platform fetch() is used only for fixed, WeKan-chosen hosts (negative)
   assert.match(bounces, /if \(!msg \|\| !msg\.Signature \|\| !snsUrlAllowed\(msg\.SigningCertURL\)/);
   assert.match(bounces, /if \(!snsUrlAllowed\(msg\.SubscribeURL\)\) \{ refuse\(/);
   // One call each - the SNS file has two, the certificate and the subscribe
-  // URL, both behind snsUrlAllowed (pinned above).
-  for (const [file, count] of Object.entries(found)) assert.equal(count, file === 'server/emailBounces.js' ? 2 : 1, file);
+  // URL, both behind snsUrlAllowed (pinned above), and List Sync two, its read
+  // and its GitLab write-back (#2698), both behind operatorAllowedHost.
+  const TWO = new Set(['server/emailBounces.js', 'server/lib/listSyncFetch.js']);
+  for (const [file, count] of Object.entries(found)) assert.equal(count, TWO.has(file) ? 2 : 1, file);
+  const listSync = fs.readFileSync(path.join(ROOT, 'server/lib/listSyncFetch.js'), 'utf8');
+  assert.equal((listSync.match(/operatorAllowedHost\(url\)\s*\n?\s*\?\s*await fetch\(|operatorAllowedHost\(url\) \? await fetchOperatorHost/g) || []).length, 2,
+    'both behind the administrator\'s allow-list');
 });
 
 test('no response text from a user-chosen server reaches an error message (negative)', () => {

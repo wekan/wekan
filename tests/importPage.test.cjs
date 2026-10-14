@@ -42,7 +42,8 @@ console.log('importPage:');
 test('the page lists every source it can read', () => {
   // The one description of every source, which the page reads.
   const list = fs.readFileSync(path.join(__dirname, '..', 'models/lib/importSources.js'), 'utf8');
-  assert.ok(/import \{ IMPORT_SOURCES, importSource as importSourceSpec, acceptFor \} from '\/models\/lib\/importSources';/.test(importJs), 'the page reads it');
+  // isApiImport: whether the page offers to fetch the source from its API.
+  assert.ok(/import \{ IMPORT_SOURCES, importSource as importSourceSpec, acceptFor, isApiImport \} from '\/models\/lib\/importSources';/.test(importJs), 'the page reads it');
   for (const source of ['wekan', 'trello', 'csv', 'excel', 'jira', 'kanboard',
     'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit']) {
     assert.ok(new RegExp(`key: '${source}'`).test(list), `${source} is offered`);

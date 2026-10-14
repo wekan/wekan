@@ -2667,6 +2667,78 @@
     {
       "key": "sync-write-back-error",
       "since": "2026-10-14"
+    },
+    {
+      "key": "api-import-desc",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "api-import-url",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "api-import-username",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "api-import-password",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "api-import-token",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "api-import-account",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "api-import-list",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "api-import-choose",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "api-import-fetch",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "api-import-fetched",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "api-import-failed",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "api-import-nothing",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "import-board-instruction-planka",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "import-board-instruction-mstodo",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "import-board-instruction-kanbanflow",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "import-board-instruction-basecamp",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "import-board-instruction-googletasks",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "import-board-instruction-googlekeep",
+      "since": "2026-10-14"
     }
   ]
 }

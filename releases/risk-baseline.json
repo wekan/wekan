@@ -152,6 +152,30 @@
     ],
     "models/lib/sqrl.js": [
       "https://www\\.grc\\.com/sqrl/sqrl\\.htm"
+    ],
+    "models/lib/apiImport/basecamp.js": [
+      "https://3\\.basecampapi\\.com(/.*)?",
+      "https://github\\.com/basecamp/.*"
+    ],
+    "models/lib/apiImport/googlekeep.js": [
+      "https://keep\\.googleapis\\.com/.*",
+      "https://www\\.googleapis\\.com/auth/keep\\.readonly"
+    ],
+    "models/lib/apiImport/googletasks.js": [
+      "https://tasks\\.googleapis\\.com/.*",
+      "https://www\\.googleapis\\.com/auth/tasks\\.readonly"
+    ],
+    "models/lib/apiImport/kanbanflow.js": [
+      "https://kanbanflow\\.com/.*"
+    ],
+    "models/lib/apiImport/mstodo.js": [
+      "https://graph\\.microsoft\\.com/.*"
+    ],
+    "models/lib/apiImport/planka.js": [
+      "https://github\\.com/plankanban/.*"
+    ],
+    "models/lib/kanbanflowApiFormat.js": [
+      "https://kanbanflow\\.com/.*"
     ]
   },
   "files": {
@@ -3004,7 +3028,7 @@
     "server/lib/localizeAvatar.js": {
       "sha256": "6a25dd56449f39b08e7f452c95da9ae1a4b8805c39fb8a3feaa20b1fcf71a246",
       "urls": [
-        "http://127.0.0.1/\u2026"
+        "http://127.0.0.1/…"
       ],
       "keywords": {}
     },

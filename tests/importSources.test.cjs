@@ -20,7 +20,8 @@ async function main() {
   test('every source is described once, with what its file is sent as', () => {
     const keys = reg.IMPORT_SOURCES.map(s => s.key);
     assert.equal(new Set(keys).size, keys.length, 'no source twice');
-    assert.equal(keys.length, 43, "every source the import page offers");
+    // 43, and the six fetched from a service's API (models/lib/apiImportServices.js).
+    assert.equal(keys.length, 49, "every source the import page offers");
     for (const source of reg.IMPORT_SOURCES) {
       assert.ok(source.product || source.name, source.key);
       assert.ok(['text', 'json', 'excel', 'rows'].includes(source.send), `${source.key} send`);
@@ -57,7 +58,7 @@ async function main() {
 
   test('the page reads every source through one path, with one file chooser', () => {
     const page = read('client/components/import/import.js');
-    assert.match(page, /import \{ IMPORT_SOURCES, importSource as importSourceSpec, acceptFor \} from '\/models\/lib\/importSources';/);
+    assert.match(page, /import \{ IMPORT_SOURCES, importSource as importSourceSpec, acceptFor, isApiImport \} from '\/models\/lib\/importSources';/);
     assert.match(page, /doc = documentForFile\(dataSource, file\.name \|\| '', new Uint8Array\(await file\.arrayBuffer\(\)\)\);/);
     // Negative: no source has a file-reading branch of its own any more.
     for (const key of ['vikunja', 'notion', 'plane', 'planner', 'monday', 'wrike', 'markdown']) {

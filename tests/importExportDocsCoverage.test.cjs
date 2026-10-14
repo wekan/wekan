@@ -57,6 +57,8 @@ const DIRECTORY = {
   nullboard: 'Nullboard', kanri: 'Kanri', pivotal: 'Pivotal-Tracker', redmine: 'Redmine', tasksorg: 'Tasks-org',
   monday: 'monday-com', superproductivity: 'Super-Productivity', taiga: 'Taiga', vikunja: 'Vikunja', wrike: 'Wrike',
   wrikeworkflow: 'Wrike', teamwork: 'Teamwork', businessmap: 'Businessmap', quire: 'Quire', notion: 'Notion', plane: 'Plane',
+  planka: 'Planka', mstodo: 'Microsoft-To-Do', kanbanflow: 'KanbanFlow', basecamp: 'Basecamp', googletasks: 'Google-Tasks',
+  googlekeep: 'Google-Keep',
 };
 const HEADINGS = ['How to import', 'How to import many boards at once', 'How to export', 'How to export all boards at once',
   'Format details', 'What is kept', 'What is not kept', 'REST API', 'How it is built and tested', 'Sources'];

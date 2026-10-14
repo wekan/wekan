@@ -54,6 +54,12 @@ sources of the format.
 | [Nullboard](./Nullboard/Nullboard.md) | `.nbx` board file | Nullboard `.nbx` |
 | [Obsidian Kanban](./Obsidian-Kanban/Obsidian-Kanban.md) | The plugin's board Markdown file | Obsidian Kanban `.md` |
 | [OpenProject](./OpenProject/OpenProject.md) | Work packages (`GET /api/v3/work_packages`) | OpenProject work packages JSON, with versions |
+| [Planka](./Planka/Planka.md) | Fetched from its API with your address, username and password | — |
+| [Microsoft To Do](./Microsoft-To-Do/Microsoft-To-Do.md) | Fetched from Microsoft Graph with your access token | — |
+| [KanbanFlow](./KanbanFlow/KanbanFlow.md) | Fetched from its API with the board's API token | — |
+| [Basecamp](./Basecamp/Basecamp.md) | Fetched from its API with your account ID and access token: card tables and to-do lists | — |
+| [Google Tasks](./Google-Tasks/Google-Tasks.md) | Fetched from its API with your access token | — |
+| [Google Keep](./Google-Keep/Google-Keep.md) | Fetched from its API with your access token (Google Workspace) | — |
 
 ## Issue trackers and source code hosting
 
