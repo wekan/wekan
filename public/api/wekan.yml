@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.43
+  version: v12.44
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -5175,6 +5175,7 @@ definitions:
           - s3
           - azure
           - gcs
+          - webdav
       storageConfig:
         $ref: "#/definitions/AttachmentStorageSettingsStorageconfig"
         x-nullable: true
@@ -5250,6 +5251,8 @@ definitions:
       azure:
         type: object
       gcs:
+        type: object
+      webdav:
         type: object
   AttachmentStorageSettingsStorageconfigFilesystem:
     type: object
@@ -5513,6 +5516,20 @@ definitions:
       subtasksDefaultListId:
         description: |
            The default List ID assigned to subtasks.
+        type: string
+        x-nullable: true
+      rulesVisibleToMembers:
+        description: |
+           #2217: board members may read this board's Rules, when Admin Panel /
+           Settings / Visibility allows it (models/lib/rulesReadOnly.js). Set by
+           a board admin; grants no right to change a rule.
+        type: boolean
+        x-nullable: true
+      subtasksDefaultSwimlaneId:
+        description: |
+           #1953: the swimlane new subtasks land in on the deposit board
+           (models/lib/subtaskLandingSwimlane.js). Unset: the swimlane with the
+           parent card's swimlane title, else the default swimlane.
         type: string
         x-nullable: true
       dateSettingsDefaultBoardId:
@@ -5932,6 +5949,22 @@ definitions:
            navigating cannot accidentally drag a list to a strange width.
            Toggled from the top header's lock icon, beside the drag-handles
            toggle. Independent of swimlaneHeightResizeLocked.
+        type: boolean
+        x-nullable: true
+      columnSets:
+        description: |
+           #211: named column sets over the same cards (models/lib/columnSets.js):
+           [{ _id, name, columns: [{ _id, title, color }] }].
+        type: array
+        items:
+          $ref: "#/definitions/BoardsColumnsets"
+        x-nullable: true
+      sharedListHeaders:
+        description: |
+           #2805: one shared list header row for all swimlanes - the first
+           swimlane's, sticky at the top while the board scrolls - instead of the
+           same headers repeated in every swimlane. A board view setting (Board
+           Settings / Swimlane), off by default.
         type: boolean
         x-nullable: true
       swimlaneHeightResizeLocked:
@@ -6403,6 +6436,8 @@ definitions:
       - enabled
   BoardsDuereminderdays:
     type: object
+  BoardsColumnsets:
+    type: object
   CardComments:
     type: object
     description:  A comment on a card
@@ -6528,6 +6563,29 @@ definitions:
         description: |
            Cover ID of the card
         type: string
+        x-nullable: true
+      drawings:
+        description: |
+           #1178: drawings on this card, editable later (models/lib/cardDrawing.js):
+           [{ _id, strokes, width, height, pngAttachmentId, updatedAt }].
+        type: array
+        items:
+          $ref: "#/definitions/CardsDrawings"
+        x-nullable: true
+      columnSetValues:
+        description: |
+           #211: which column this card is in for each of its board's column
+           sets, { setId: columnId } (models/lib/columnSets.js).
+        type: object
+        x-nullable: true
+      cardKind:
+        description: |
+           #2012: 'story' or 'task'; unset is an ordinary card
+           (models/lib/cardKinds.js).
+        type: string
+        enum:
+          - story
+          - task
         x-nullable: true
       color:
         type: string
@@ -7052,6 +7110,8 @@ definitions:
       - question
       - public
       - allowNonBoardMembers
+  CardsDrawings:
+    type: object
   CardsCustomfields:
     type: object
   CardsCustomfieldlinks:
@@ -7081,6 +7141,12 @@ definitions:
       dueAt:
         description: |
            Date the checklist item is due
+        type: string
+        x-nullable: true
+      assigneeId:
+        description: |
+           #1618: the board member responsible for this item (models/lib/
+           checklistItemSchedule.js); unset is nobody.
         type: string
         x-nullable: true
       checklistId:
@@ -7254,6 +7320,15 @@ definitions:
         description: |
            should the label of the custom field be shown on minicards?
         type: boolean
+      cardKinds:
+        description: |
+           #2012: the card kinds this field belongs to ('story', 'task'); empty
+           is every card (models/lib/cardKinds.js).
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
       showSumAtTopOfList:
         description: |
            should the sum of the custom fields be shown at top of list?
@@ -7471,6 +7546,12 @@ definitions:
         description: |
            user ID who created the interation
         type: string
+      mattermostDirectMessages:
+        description: |
+           #1297: also send each message to the card's members and assignees as
+           Mattermost direct messages (models/lib/mattermostDirectMessages.js).
+        type: boolean
+        x-nullable: true
       bot:
         description: |
            Board Settings / Bots (models/lib/botRuns.js): this outgoing webhook
@@ -7569,6 +7650,15 @@ definitions:
         description: |
            The type of list
         type: string
+      linkedBoardId:
+        description: |
+           #2809: a linked whole list mirrors a list of this other board
+           (models/lib/linkedList.js).
+        type: string
+        x-nullable: true
+      linkedListId:
+        type: string
+        x-nullable: true
       width:
         description: |
            The width of the list in pixels (100-1000).
@@ -7961,6 +8051,18 @@ definitions:
           type: string
           x-nullable: true
         x-nullable: true
+      accountWebhook:
+        type: object
+        x-nullable: true
+      sqrlEnabled:
+        type: boolean
+        x-nullable: true
+      activityPubEnabled:
+        type: boolean
+        x-nullable: true
+      rulesReadOnlyForMembers:
+        type: boolean
+        x-nullable: true
       optionalApis:
         type: object
         x-nullable: true
@@ -8349,6 +8451,38 @@ definitions:
            profile settings
         $ref: "#/definitions/UsersProfile"
         x-nullable: true
+      passkeys:
+        description: |
+           #5847: this account's passkeys (server/passkeys.js): [{ id, publicKey,
+           counter, transports, name, createdAt, lastUsedAt }]. Never published,
+           and not writable from the client.
+        type: array
+        items:
+          $ref: "#/definitions/UsersPasskeys"
+        x-nullable: true
+      sqrl:
+        description: |
+           #2460: this account's SQRL identity (server/sqrl.js): { idk, suk, vuk,
+           disabled, addedAt } - public keys only. Never published, and not
+           writable from the client.
+        type: object
+        x-nullable: true
+      webPushSubscriptions:
+        description: |
+           #2026 / #1377: this member's browsers' push subscriptions
+           (models/lib/webPush.js). Never published, not client-writable.
+        type: array
+        items:
+          $ref: "#/definitions/UsersWebpushsubscriptions"
+        x-nullable: true
+      ntfy:
+        description: |
+           #5148: the member's own ntfy topic (models/lib/ntfy.js):
+           { enabled, url, token }. Outside `profile` and never published - the
+           token is a secret - read and saved only through the member's own
+           methods (server/notifications/ntfy.js).
+        type: object
+        x-nullable: true
       services:
         description: |
            services field of the user
@@ -8512,6 +8646,12 @@ definitions:
            other inlined forms) submit on plain Enter (Shift+Enter for a newline)
            instead of the default Ctrl/Cmd+Enter. Off by default. See #4236/#6480.
         type: boolean
+      unreadChangesSince:
+        description: |
+           #2111 / #1604: when set, the time the member turned on "Mark cards
+           changed since I last opened them"; unset is off
+           (models/lib/unreadChanges.js).
+        type: string
       keepTitleTags:
         description: |
            #1273: when a #label or @member is picked while typing a new card's
@@ -8653,6 +8793,20 @@ definitions:
       invitedBoards:
         description: |
            board IDs the user has been invited to
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      boardLabels:
+        description: |
+           #4791: the member's own board labels, { label: [boardId] }, for the
+           All Boards facet bar (models/lib/allBoardsFacets.js).
+        type: object
+      hiddenBoards:
+        description: |
+           #4265: boards this user left that they still reach through a team,
+           organization or e-mail domain; All Boards leaves them out, and Member
+           Settings / Hidden boards brings them back. The team is not touched.
         type: array
         items:
           type: string
@@ -9083,6 +9237,11 @@ definitions:
         description: |
            The display name of the team
         type: string
+      isAdmin:
+        description: |
+           #802: this member administers this team's members in All Boards, as
+           orgs.$.isAdmin does for an organization (models/lib/groupMembers.js).
+        type: boolean
     required:
       - teamId
       - teamDisplayName
@@ -9100,6 +9259,10 @@ definitions:
     required:
       - address
       - verified
+  UsersPasskeys:
+    type: object
+  UsersWebpushsubscriptions:
+    type: object
   UsersProfileBoardworkspacestree:
     type: object
   UsersProfileNotifications:
