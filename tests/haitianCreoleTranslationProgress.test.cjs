@@ -310,3 +310,27 @@ assert.match(creole['interrupted-import-description'], /tout sa ki sou li.*bagay
 assert.match(creole['interrupted-import-keep-confirm'], /Pa gen anyen ki retire/);
 assert.match(creole['interrupted-import-discard-confirm'], /tout sa ki sou li.*efase nèt/);
 assert.match(creole['interrupted-import-foreign-board'], /Se pa enpòtasyon sa a.*pa t modifye/);
+
+const reviewedHistoryRecoveryKeys = ["scrum-history-checkpoint-stuck", "scrum-history-checkpoint-counts", "scrum-history-checkpoint-hint", "scrum-history-checkpoint-rollback", "scrum-history-checkpoint-discard", "scrum-history-checkpoint-discard-confirm", "scrum-history-checkpoint-ask-admin", "login-setting-env-only"];
+for (const key of reviewedHistoryRecoveryKeys) {
+  assert.notEqual(creole[key], english[key], key);
+  assert.deepEqual(tokens(creole[key]), tokens(english[key]), key);
+}
+assert.match(creole['scrum-history-checkpoint-stuck'], /defè, refè oswa retabli.*bloke.*rezoud/);
+assert.match(creole['scrum-history-checkpoint-hint'], /sèlman si pa gen lòt moun.*san li pa chanje okenn dosye/);
+assert.match(creole['scrum-history-checkpoint-discard-confirm'], /ansanm ak chanjman.*deja ekri/);
+assert.match(creole['scrum-history-checkpoint-ask-admin'], /administratè tablo/);
+assert.match(creole['login-setting-env-only'], /sèlman anviwònman sèvè.*lekti sèlman/);
+
+for (const key of ['import-board-instruction-todoist', 'import-board-instruction-planner']) {
+  assert.ok(creole[key].startsWith('Nan '), key);
+  assert.doesNotMatch(creole[key], /In Todoist|In Microsoft Planner|become lists|choose Export/);
+  assert.deepEqual(tokens(creole[key]), tokens(english[key]), key);
+}
+assert.ok(creole['import-board-instruction-todoist'].includes('Manage data > Export as CSV'));
+assert.match(creole['import-board-instruction-todoist'], /@labels.*p1 rive p3/);
+assert.ok(creole['import-board-instruction-planner'].includes('Export as Excel (nan Planner klasik: Export plan to Excel)'));
+assert.match(creole['import-board-instruction-planner'], /Progress, Priority ak Completed By.*chan pèsonalize/);
+const currentCatalog = spawnSync(process.execPath, [fillScript, '--list', 'ht'], { cwd: root, encoding: 'utf8' });
+assert.equal(currentCatalog.status, 0, currentCatalog.stderr);
+assert.deepEqual(JSON.parse(currentCatalog.stdout), {}, 'No current Haitian English placeholders remain; semantic review is separate');

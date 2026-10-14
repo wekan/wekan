@@ -207555,5 +207555,75 @@
     "before": "Its Scrum stage is still being written or recovered. Try again in a few minutes.",
     "after": "Etap Scrum li a toujou ap ekri oswa ap rekipere. Eseye ankò nan kèk minit.",
     "reason": "Translate Haitian planning sync and interrupted-operation recovery; preserve retained data, deletion consequences, resume restrictions and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "scrum-history-checkpoint-stuck",
+    "before": "An undo, redo or restore of Scrum changes stopped on a conflict. Scrum edits on this board are blocked until it is resolved.",
+    "after": "Yon operasyon pou defè, refè oswa retabli chanjman Scrum te kanpe sou yon konfli. Modifikasyon Scrum sou tablo sa a bloke jiskaske konfli a rezoud.",
+    "reason": "Translate Haitian Scrum history recovery and environment-only settings; preserve conflict handling, unchanged records and administrator authority."
+  },
+  {
+    "locale": "ht",
+    "key": "scrum-history-checkpoint-counts",
+    "before": "__applied__ of __total__ changes were written, __pending__ were not, and __conflicted__ were changed by someone else since.",
+    "after": "__applied__ sou __total__ chanjman te ekri, __pending__ pa t ekri, epi yon lòt moun modifye __conflicted__ ladan yo depi lè sa a.",
+    "reason": "Translate Haitian Scrum history recovery and environment-only settings; preserve conflict handling, unchanged records and administrator authority."
+  },
+  {
+    "locale": "ht",
+    "key": "scrum-history-checkpoint-hint",
+    "before": "Rolling back puts every changed record back as it was before; it is offered only when nobody else has changed those records since. Keeping the board as it is removes the stopped operation and changes no records. Either way, it is recorded in Admin Panel, Problems, Recovery.",
+    "after": "Retounen dèyè remete chak dosye ki chanje jan li te ye anvan; opsyon sa a disponib sèlman si pa gen lòt moun ki modifye dosye sa yo depi lè sa a. Kenbe tablo a jan li ye a retire operasyon ki kanpe a san li pa chanje okenn dosye. Nan toude ka yo, desizyon an anrejistre nan Panno administrasyon, Pwoblèm, Rekiperasyon.",
+    "reason": "Translate Haitian Scrum history recovery and environment-only settings; preserve conflict handling, unchanged records and administrator authority."
+  },
+  {
+    "locale": "ht",
+    "key": "scrum-history-checkpoint-rollback",
+    "before": "Roll back",
+    "after": "Retounen dèyè",
+    "reason": "Translate Haitian Scrum history recovery and environment-only settings; preserve conflict handling, unchanged records and administrator authority."
+  },
+  {
+    "locale": "ht",
+    "key": "scrum-history-checkpoint-discard",
+    "before": "Keep the board as it is",
+    "after": "Kenbe tablo a jan li ye a",
+    "reason": "Translate Haitian Scrum history recovery and environment-only settings; preserve conflict handling, unchanged records and administrator authority."
+  },
+  {
+    "locale": "ht",
+    "key": "scrum-history-checkpoint-discard-confirm",
+    "before": "Keep every record as it is now, including the changes the stopped operation already wrote?",
+    "after": "Kenbe chak dosye jan li ye kounye a, ansanm ak chanjman operasyon ki kanpe a deja ekri yo?",
+    "reason": "Translate Haitian Scrum history recovery and environment-only settings; preserve conflict handling, unchanged records and administrator authority."
+  },
+  {
+    "locale": "ht",
+    "key": "scrum-history-checkpoint-ask-admin",
+    "before": "A board administrator can roll it back or keep the board as it is.",
+    "after": "Yon administratè tablo a ka retounen dèyè oswa kenbe tablo a jan li ye a.",
+    "reason": "Translate Haitian Scrum history recovery and environment-only settings; preserve conflict handling, unchanged records and administrator authority."
+  },
+  {
+    "locale": "ht",
+    "key": "login-setting-env-only",
+    "before": "Only the server environment sets these. They are shown here read-only.",
+    "after": "Se sèlman anviwònman sèvè a ki fikse paramèt sa yo. Yo parèt isit la pou lekti sèlman.",
+    "reason": "Translate Haitian Scrum history recovery and environment-only settings; preserve conflict handling, unchanged records and administrator authority."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-todoist",
+    "before": "In Todoist, open the project menu and choose Export as a template, then paste the CSV file. Sections become lists, tasks become cards, sub-tasks become a checklist, notes become comments, and @labels and priorities p1 to p3 become labels.",
+    "after": "Nan Todoist, ouvri pwojè a, chwazi meni ⋯ anlè adwat la, apre sa Manage data > Export as CSV, epi kole fichye CSV a. Seksyon yo vin lis, travay yo vin kat, sou-travay yo vin yon lis verifikasyon, nòt yo vin kòmantè, epi @labels ak priyorite p1 rive p3 yo vin etikèt.",
+    "reason": "Replace stale English import guidance with Haitian Creole following the current source, retaining literal menu names and mappings."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-planner",
+    "before": "In Microsoft Planner, open the plan's menu and choose Export plan to Excel, then choose that .xlsx file. Buckets become lists and tasks become cards, with their assignees, dates, labels, checklist and description; Progress, Priority and Completed By become custom fields.",
+    "after": "Nan Microsoft Planner, ouvri plan an, chwazi meni ⋯ bò kote non li a, apre sa Export as Excel (nan Planner klasik: Export plan to Excel), epi chwazi fichye .xlsx sa a. Gwoup yo vin lis epi travay yo vin kat, ak moun ki asiyen yo, dat, etikèt, lis verifikasyon ak deskripsyon yo; Progress, Priority ak Completed By vin chan pèsonalize.",
+    "reason": "Replace stale English import guidance with Haitian Creole following the current source, retaining literal menu names and mappings."
   }
 ]
