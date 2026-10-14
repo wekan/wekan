@@ -3947,6 +3947,20 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7c5571248e">Correct Haitian due-card scope and attachment search terms</a>. Thanks to xet7.</summary>
+
+- Correct nine labels: Due Cards includes future deadlines, My Attachments is
+  not narrowed to cards, and attachment search tokens use the corrected term.
+  Table-view swimlane labels now use consistent terminology.
+- Translation suites and production-parser checks pass, including attachment
+  presence, absence and invalid predicates. All 21 human-preference checks pass;
+  existing Chinese values remain unchanged. Browser syntax and discovery pass,
+  runtime remains pending. All-language translation and semantic review
+  continue.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

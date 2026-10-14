@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Haitian Creole due-card scope and search — 2026-10-14
+
+Commit `7c5571248e` corrects nine entries. Due Cards labels now include cards
+with future deadlines rather than implying they are already due. My Attachments
+no longer adds an unsupported card restriction. Two hyphenated search tokens
+retained the old attachment mistranslation and now use “pyès-atache”; table-view
+swimlane labels use the established term.
+
+The Haitian catalog and guarded-correction suites pass with 29,839 correction
+ledger entries. The production Query parser accepts the corrected attachment
+predicate with and without negation and rejects an unknown field. All 21
+human-preference checks pass, and exact comparison preserves 38,430 existing
+Chinese values. The browser case checks search help and matching results;
+syntax and discovery pass, runtime remains pending.
+
+Haitian semantic review and the all-language objective remain unfinished.
+
 ## Haitian Creole administration and precedence — 2026-10-14
 
 Commit `54c2af0993` corrects 14 entries. Organization hostnames and administrator
