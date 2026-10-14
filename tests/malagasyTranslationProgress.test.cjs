@@ -534,3 +534,19 @@ assert.match(malagasy['flow-active'], /mbola misokatra/);
 assert.match(malagasy['flow-capacity'], /farafahakeliny/);
 assert.match(malagasy['flow-confidence'], /fahatokisana/);
 assert.match(malagasy['flow-error'], /tatitra.*Hamarino ny sanda.*andramo indray/);
+
+
+// Scheduling must retain both trigger paths and distinguish recurrence from reset.
+for (const key of ['r-when-a-due-date-changed', 'r-when-a-start-date-changed',
+  'r-when-a-end-date-changed', 'r-when-a-received-date-changed']) {
+  assert.match(malagasy[key], /^Rehefa faritana na ovaina/);
+  assert.deepEqual(tokens(malagasy[key]), tokens(english[key]), key);
+}
+assert.equal(malagasy['card-recurrence-interval'], malagasy['cardRecurrenceIntervalPopup-title']);
+assert.match(malagasy['card-recurrence-interval'], /Fiverimberenan’ny karatra/);
+assert.doesNotMatch(malagasy['card-recurrence-interval'], /voalohany/);
+assert.match(malagasy['card-recurrence-interval-none'], /tsy miverimberina ho azy ny karatra/);
+assert.match(malagasy['calendar-system-iso8601'], /gregoriana.*herinandro ISO 8601/);
+assert.match(malagasy['due-reminder-invalid'], /isa manontolo.*folo.*-14.*14/);
+assert.match(malagasy['time-adjustment-note'], /olona nanova ny fitambarany.*Tsy fotoam-piasana tsirairay.*Fanitsiana ny sanda miiba.*tsy voarakitra/);
+assert.doesNotMatch(malagasy['time-adjustment-note'], /Δ|≠/);

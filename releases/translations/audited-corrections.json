@@ -211538,5 +211538,103 @@
     "before": "Antsipiriany — Tantara",
     "after": "Tantara iorenan’ny tatitra",
     "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "Kalandrie gregoriana (herinandro ISO 8601)",
+    "reason": "Restore scheduling and time-report meaning from the English source and recurrence implementation; distinguish new recurring cards from resets."
+  },
+  {
+    "locale": "mg",
+    "key": "due-today",
+    "before": "Fara-fetoana androany",
+    "after": "Voatondro anio",
+    "reason": "Restore scheduling and time-report meaning from the English source and recurrence implementation; distinguish new recurring cards from resets."
+  },
+  {
+    "locale": "mg",
+    "key": "card-recurrence-interval",
+    "before": "Famerenana ho amin'ny voalohany ho azy",
+    "after": "Fiverimberenan’ny karatra",
+    "reason": "Restore scheduling and time-report meaning from the English source and recurrence implementation; distinguish new recurring cards from resets."
+  },
+  {
+    "locale": "mg",
+    "key": "cardRecurrenceIntervalPopup-title",
+    "before": "Famerenana ho amin'ny voalohany ho azy",
+    "after": "Fiverimberenan’ny karatra",
+    "reason": "Restore scheduling and time-report meaning from the English source and recurrence implementation; distinguish new recurring cards from resets."
+  },
+  {
+    "locale": "mg",
+    "key": "card-recurrence-interval-none",
+    "before": "Maty (tsy averina ho azy)",
+    "after": "Tsy mandeha (tsy miverimberina ho azy ny karatra)",
+    "reason": "Restore scheduling and time-report meaning from the English source and recurrence implementation; distinguish new recurring cards from resets."
+  },
+  {
+    "locale": "mg",
+    "key": "r-when-a-due-date-changed",
+    "before": "Daty voatondro: niova ny daty",
+    "after": "Rehefa faritana na ovaina ny daty voatondro",
+    "reason": "Restore scheduling and time-report meaning from the English source and recurrence implementation; distinguish new recurring cards from resets."
+  },
+  {
+    "locale": "mg",
+    "key": "r-when-a-start-date-changed",
+    "before": "Hanomboka: niova ny daty",
+    "after": "Rehefa faritana na ovaina ny daty fanombohana",
+    "reason": "Restore scheduling and time-report meaning from the English source and recurrence implementation; distinguish new recurring cards from resets."
+  },
+  {
+    "locale": "mg",
+    "key": "r-when-a-end-date-changed",
+    "before": "Fiafarana: niova ny daty",
+    "after": "Rehefa faritana na ovaina ny daty fiafarana",
+    "reason": "Restore scheduling and time-report meaning from the English source and recurrence implementation; distinguish new recurring cards from resets."
+  },
+  {
+    "locale": "mg",
+    "key": "r-when-a-received-date-changed",
+    "before": "Voaray: niova ny daty",
+    "after": "Rehefa faritana na ovaina ny daty nahatongavana",
+    "reason": "Restore scheduling and time-report meaning from the English source and recurrence implementation; distinguish new recurring cards from resets."
+  },
+  {
+    "locale": "mg",
+    "key": "board-view-cycle-time",
+    "before": "Fotoam-potoana",
+    "after": "Faharetan’ny tsingerina",
+    "reason": "Restore scheduling and time-report meaning from the English source and recurrence implementation; distinguish new recurring cards from resets."
+  },
+  {
+    "locale": "mg",
+    "key": "board-view-timeline-showing",
+    "before": "Mampiseho ny toe-javatra hatramin'ny:",
+    "after": "Mampiseho ny toe-javatra tamin’ny:",
+    "reason": "Restore scheduling and time-report meaning from the English source and recurrence implementation; distinguish new recurring cards from resets."
+  },
+  {
+    "locale": "mg",
+    "key": "due-reminder-invalid",
+    "before": "Mampiasà andro feno hatramin'ny folo, eo anelanelan'ny -14 sy 14.",
+    "after": "Mampiasà isa manontolo hatramin’ny folo ho an’ny andro, samy eo anelanelan’ny -14 sy 14.",
+    "reason": "Restore scheduling and time-report meaning from the English source and recurrence implementation; distinguish new recurring cards from resets."
+  },
+  {
+    "locale": "mg",
+    "key": "time-adjustments",
+    "before": "ora — Δ — Anaram-pikambana",
+    "after": "Fanitsiana ny fotoana araka ny mpanao azy",
+    "reason": "Restore scheduling and time-report meaning from the English source and recurrence implementation; distinguish new recurring cards from resets."
+  },
+  {
+    "locale": "mg",
+    "key": "time-adjustment-note",
+    "before": "Tantara: Δ ora; Anaram-pikambana ≠ Voatendry.",
+    "after": "Fanovana ny ora voarakitra, navondrona araka ny olona nanova ny fitambarany. Tsy fotoam-piasana tsirairay ireo. Fanitsiana ny sanda miiba. Tsy azo ampifandraisina amin’olona ny fotoana taloha tsy voarakitra.",
+    "reason": "Restore scheduling and time-report meaning from the English source and recurrence implementation; distinguish new recurring cards from resets."
   }
 ]
