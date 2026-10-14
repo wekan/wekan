@@ -362,6 +362,8 @@ import '/server/jsWebLabels';
 import '/server/shareTarget';
 // #5847: passkey (WebAuthn) login.
 import '/server/passkeys';
+// #864: adding a card from the Table view.
+import '/server/tableViewCards';
 
 // ----------------------------------------------------------------------------
 // 14. Server — routes (REST API, file serving)

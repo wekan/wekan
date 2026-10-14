@@ -163,6 +163,20 @@ Template.tableView.helpers({
     return Utils.getCurrentBoard();
   },
 
+  // #864: dragging rows and adding cards need the right to write.
+  canWrite() {
+    const board = Utils.getCurrentBoard();
+    return !!board && Utils.currentUserCan('write', board);
+  },
+  boardLists() {
+    const board = Utils.getCurrentBoard();
+    return board ? ReactiveCache.getLists({ boardId: board._id, archived: false }, { sort: { sort: 1 } }) : [];
+  },
+  boardSwimlanes() {
+    const board = Utils.getCurrentBoard();
+    return board ? ReactiveCache.getSwimlanes({ boardId: board._id, archived: false }, { sort: { sort: 1 } }) : [];
+  },
+
   rows() {
     const tpl = Template.instance();
     const all = tpl.filteredRows.get();
@@ -228,6 +242,53 @@ Template.tableView.helpers({
 });
 
 Template.tableView.events({
+  // #864: drag a row onto another: its card goes just before that card, in
+  // that card's list and swimlane (models/lib/tableViewDrop.js), through
+  // the same card.move the board uses.
+  'dragstart .js-table-view-row'(event) {
+    const dt = event.originalEvent && event.originalEvent.dataTransfer;
+    if (dt) {
+      dt.setData('text/plain', event.currentTarget.dataset.cardId);
+      dt.effectAllowed = 'move';
+    }
+  },
+  'dragover .js-table-view-row'(event) {
+    event.preventDefault();
+  },
+  async 'drop .js-table-view-row'(event) {
+    event.preventDefault();
+    const dt = event.originalEvent && event.originalEvent.dataTransfer;
+    const draggedId = dt && dt.getData('text/plain');
+    const dragged = draggedId && ReactiveCache.getCard(draggedId);
+    const target = ReactiveCache.getCard(event.currentTarget.dataset.cardId);
+    if (!dragged || !target) return;
+    const { tableViewDropTarget } = require('/models/lib/tableViewDrop');
+    const to = tableViewDropTarget(dragged, target, ReactiveCache.getCards({ listId: target.listId,
+      swimlaneId: target.swimlaneId, archived: false }));
+    if (!to) return;
+    try {
+      await dragged.move(to.boardId, to.swimlaneId, to.listId, to.sort);
+    } catch (error) {
+      console.error('Table view move failed:', error);
+    }
+  },
+
+  async 'submit .js-table-view-add-card'(event, tpl) {
+    event.preventDefault();
+    const board = Utils.getCurrentBoard();
+    const input = tpl.$('.js-table-view-add-card-title');
+    const title = String(input.val() || '').trim();
+    if (!board || !title) return;
+    try {
+      await Meteor.callAsync('tableViewAddCard', { boardId: board._id, title,
+        listId: String(tpl.$('.js-table-view-add-card-list').val() || ''),
+        swimlaneId: String(tpl.$('.js-table-view-add-card-swimlane').val() || '') });
+      input.val('');
+    } catch (error) {
+      alert(error?.reason || error?.message || 'Could not add the card.');
+    }
+  },
+
   'click .js-table-view-search-button'(event, tpl) {
     event.preventDefault();
     tpl.searchQuery.set(tpl.$('.js-table-view-search').val() || '');

@@ -61,7 +61,8 @@ template(name="tableView")
                   +viewer
                     = row.swimlaneTitle
             else
-              tr
+              //- #864: a row is dragged onto another to move its card there.
+              tr.js-table-view-row(draggable="{{#if canWrite}}true{{/if}}" data-card-id=row.card._id)
                 td.table-view-cell-edit
                   a.edit-card.js-table-view-edit-card(href=row.card.originRelativeUrl data-card-id=row.card._id title="{{_ 'edit'}}")
                     i.fa.fa-pencil-square-o
@@ -131,3 +132,14 @@ template(name="tableView")
                           if canModifyCard
                             a.card-label.add-label.js-end-date(title="{{_ 'card-end'}}")
                               i.fa.fa-plus
+      //- #864: add a card from the table: its title, list and swimlane.
+      if canWrite
+        form.table-view-add-card.js-table-view-add-card
+          input.js-table-view-add-card-title(type="text" placeholder="{{_ 'add-card'}}" aria-label="{{_ 'add-card'}}" required)
+          select.js-table-view-add-card-list(aria-label="{{_ 'list'}}")
+            each boardLists
+              option(value=_id) {{title}}
+          select.js-table-view-add-card-swimlane(aria-label="{{_ 'swimlane'}}")
+            each boardSwimlanes
+              option(value=_id) {{title}}
+          button.primary.js-table-view-add-card-button(type="submit") {{_ 'add-card'}}
