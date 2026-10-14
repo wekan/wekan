@@ -7,7 +7,9 @@ const {translationTokens}=require('../releases/translations/placeholder-tokens.m
 const keys=Object.keys(english).filter(k=>/^(r-blocks-|email-failure-|activity-recovery-)/.test(k)||k==='rule-email-recovery-unavailable');
 
 test('Māori rule and recovery messages preserve tokens and editor constraints',()=>{
- assert.equal(keys.length,46);
+ // 50 since #6768 added the four activity-recovery- bulk actions (retry all,
+// cancel older, its prompt and result), translated here too.
+ assert.equal(keys.length,50);
  for(const key of keys){
   assert.ok(data[key].trim(),key);
   assert.notEqual(data[key],english[key],key);
