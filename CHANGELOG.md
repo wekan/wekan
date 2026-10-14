@@ -3791,6 +3791,19 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a79388c894">Translate Haitian Creole import mapping controls</a>. Thanks to xet7.</summary>
+
+- Translate 15 import-guide and mapping entries. Preserve English-header
+  requirements, data exclusions, fallback columns and user-mapping alternatives.
+- Haitian catalog and guarded-correction suites pass, along with 21
+  human-preference checks. Existing Chinese values remain unchanged. Four new
+  import browser cases pass syntax and discovery; execution remains pending.
+- Correct Businessmap's spreadsheet input assertion. Further translations and
+  all-language semantic review remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

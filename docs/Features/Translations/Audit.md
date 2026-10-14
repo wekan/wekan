@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Haitian Creole import mapping — 2026-10-14
+
+Commit `a79388c894` translates 15 entries covering Businessmap, Redmine, Notion,
+Plane, imported-user choices and CSV column mapping. Checks retain English-header
+requirements, omitted data, Notion's fallback column, deferred user mapping and
+the shared-list fallback. The column-number placeholder remains exact.
+
+The Haitian catalog and guarded-correction suites pass with 29,489 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. Four new import browser cases pass
+syntax and discovery; runtime remains pending. Businessmap checks the file input
+because its source definition is spreadsheet-only.
+
+Further Haitian strings and other languages still require translation and
+semantic review. The all-language objective remains unfinished.
+
 ## Haitian Creole project imports — 2026-10-14
 
 Commit `e26b9f041b` translates guides for Pivotal Tracker, Tasks.org, monday.com,
