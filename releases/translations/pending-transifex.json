@@ -2315,6 +2315,26 @@
     {
       "key": "shared-list-headers-desc",
       "since": "2026-10-14"
+    },
+    {
+      "key": "board-label-name",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "board-label-name-includes",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "board-label-apply",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "board-label-remove",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "board-facet-clear",
+      "since": "2026-10-14"
     }
   ]
 }

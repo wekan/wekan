@@ -2258,3 +2258,43 @@ body.has-theme-board-tiles .board-list > li.js-board .board-list-card-count {
   white-space: normal;
   word-break: break-word;
 }
+
+/* #4791: the All Boards facet bar. */
+.board-facets {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+  margin: 0.4em 0 0.6em;
+}
+.board-facet-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3em;
+}
+.board-facet {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  padding: 0.15em 0.6em;
+  border-radius: 1em;
+  background: rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+}
+.board-facet.is-active {
+  background: #2b6cb0;
+  color: #fff;
+}
+.board-facet-count {
+  font-size: 0.8em;
+  opacity: 0.75;
+}
+.board-label-apply {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.3em;
+}
+.board-label-apply input {
+  width: auto;
+  margin: 0;
+}

@@ -709,6 +709,15 @@ Users.attachSchema(
     'profile.invitedBoards.$': {
       type: String,
     },
+    'profile.boardLabels': {
+      /**
+       * #4791: the member's own board labels, { label: [boardId] }, for the
+       * All Boards facet bar (models/lib/allBoardsFacets.js).
+       */
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
     'profile.hiddenBoards': {
       /**
        * #4265: boards this user left that they still reach through a team,

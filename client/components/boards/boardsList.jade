@@ -138,6 +138,46 @@ template(name="boardList")
               span.boards-page-info {{boardsCurrentPage}} / {{boardsTotalPages}}
               button.js-boards-next-page(class="{{#if hasBoardsNextPage}}{{else}}disabled{{/if}}")
                 | &gt;
+          //- #4791: All Boards organized automatically - by first character,
+            organization, team and the member's own board labels, each with
+            its count; a click shows that group only.
+          .board-facets
+            if hasBoardFacets
+              .board-facet-row
+                each boardFacets.chars
+                  a.board-facet.js-board-facet(data-type="char" data-value=key class="{{#if isFacet 'char'}}is-active{{/if}}")
+                    | {{key}}
+                    span.board-facet-count {{count}}
+              if boardFacets.orgs.length
+                .board-facet-row
+                  i.fa.fa-sitemap
+                  each boardFacets.orgs
+                    a.board-facet.js-board-facet(data-type="org" data-value=key class="{{#if isFacet 'org'}}is-active{{/if}}")
+                      | {{name}}
+                      span.board-facet-count {{count}}
+              if boardFacets.teams.length
+                .board-facet-row
+                  i.fa.fa-users
+                  each boardFacets.teams
+                    a.board-facet.js-board-facet(data-type="team" data-value=key class="{{#if isFacet 'team'}}is-active{{/if}}")
+                      | {{name}}
+                      span.board-facet-count {{count}}
+            .board-facet-row
+              i.fa.fa-tag
+              each boardFacets.labels
+                a.board-facet.js-board-facet(data-type="label" data-value=key class="{{#if isFacet 'label'}}is-active{{/if}}")
+                  | {{key}}
+                  span.board-facet-count {{count}}
+                  span.js-remove-board-label(data-value=key title="{{_ 'board-label-remove'}}")
+                    i.fa.fa-times
+              form.board-label-apply.js-apply-board-label
+                input.js-board-label-name(type="text" maxlength="40" placeholder="{{_ 'board-label-name'}}" aria-label="{{_ 'board-label-name'}}")
+                input.js-board-label-text(type="text" placeholder="{{_ 'board-label-name-includes'}}" aria-label="{{_ 'board-label-name-includes'}}")
+                button.js-apply-board-label-button(type="submit") {{_ 'board-label-apply'}}
+            if hasBoardFacet
+              a.js-board-facet-clear
+                i.fa.fa-times
+                |  {{_ 'board-facet-clear'}}
           ul.board-list.clearfix.js-boards.dragscroll(class="{{#if isMiniScreen}}mobile-view{{/if}} {{#if BoardMultiSelection.isActive}}is-multiselection-active{{/if}}")
             //- The Remove bar, drawn only while a board from Home is actually
               being dragged - the launcher's, which appears at the top of the

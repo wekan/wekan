@@ -571,6 +571,10 @@ function boardsForView(tpl) {
     // #4265: boards this user hid by leaving them stay out of All Boards.
     const hidden = currUser?.profile?.hiddenBoards;
     if (Array.isArray(hidden) && hidden.length) query.$and.push({ _id: { $nin: hidden } });
+    // #4791: only the chosen facet's boards (the drag-ordered view).
+    const { facetSelector } = require('/models/lib/allBoardsFacets');
+    const facetPart = facetSelector(tpl.boardFacet && tpl.boardFacet.get(), currUser?.profile?.boardLabels);
+    if (facetPart) query.$and.push(facetPart);
   } else if (
     allowPrivateVisibilityOnly !== undefined &&
     !allowPrivateVisibilityOnly.booleanValue
@@ -792,6 +796,14 @@ Template.boardList.onCreated(function () {
   // #5799: server-side pagination state for the sorted (non-custom) modes.
   this.boardsPageVar = new ReactiveVar(1);
   this.pagedBoardsVar = new ReactiveVar({ ids: [], total: 0 });
+  // #4791: the facet bar - first characters, organizations, teams and the
+  // member's own board labels with their counts - and the chosen group.
+  this.boardFacet = new ReactiveVar(null);
+  this.boardFacets = new ReactiveVar({ chars: [], orgs: [], teams: [], labels: [] });
+  this.loadBoardFacets = () => Meteor.call('allBoardsFacets', (error, facets) => {
+    if (!error && facets) this.boardFacets.set(facets);
+  });
+  this.loadBoardFacets();
   // #5850: the user's orgs/teams that have the per-org/team Shared Templates
   // flag set (plus email domains), fetched via a non-admin server method since
   // the org/team publications are admin-only. Gates the drag-to-share targets.
@@ -896,9 +908,10 @@ Template.boardList.onCreated(function () {
     const search = (this.boardSearchVar.get() || '').trim();
     const menu = this.selectedMenu.get();
     const page = this.boardsPageVar.get();
+    const facet = this.boardFacet.get();
     Meteor.call(
       'getAllBoardsPage',
-      { search, sortBy, menu, page, perPage: BOARDS_PER_PAGE },
+      { search, sortBy, menu, page, perPage: BOARDS_PER_PAGE, ...(facet ? { facet } : {}) },
       (err, res) => {
         if (err) {
           console.error('getAllBoardsPage failed:', err);
@@ -970,6 +983,17 @@ Template.boardList.onRendered(function () {
 });
 
 Template.boardList.helpers({
+  // #4791: the facet bar.
+  boardFacets() { return Template.instance().boardFacets.get(); },
+  hasBoardFacets() {
+    const f = Template.instance().boardFacets.get();
+    return f.chars.length + f.orgs.length + f.teams.length + f.labels.length > 1;
+  },
+  isFacet(type) {
+    const f = Template.instance().boardFacet.get();
+    return !!(f && f.type === type && f.value === (this.key || ''));
+  },
+  hasBoardFacet() { return !!Template.instance().boardFacet.get(); },
   userHasTeams() {
     if (ReactiveCache.getCurrentUser()?.teams?.length > 0) return true;
     else return false;
@@ -1523,6 +1547,39 @@ function persistBoardOrderFromDom(evt, tpl) {
 }
 
 Template.boardList.events({
+  // #4791: pick a group of the facet bar, again to clear it.
+  'click .js-board-facet'(evt, tpl) {
+    evt.preventDefault();
+    const { type, value } = evt.currentTarget.dataset;
+    const current = tpl.boardFacet.get();
+    tpl.boardFacet.set(current && current.type === type && current.value === value ? null : { type, value });
+    tpl.boardsPageVar.set(1);
+  },
+  'click .js-board-facet-clear'(evt, tpl) {
+    evt.preventDefault();
+    tpl.boardFacet.set(null);
+    tpl.boardsPageVar.set(1);
+  },
+  async 'click .js-apply-board-label-button, submit .js-apply-board-label'(evt, tpl) {
+    evt.preventDefault();
+    const label = String(tpl.$('.js-board-label-name').val() || '');
+    const text = String(tpl.$('.js-board-label-text').val() || '');
+    try {
+      await Meteor.callAsync('applyBoardLabel', label, text);
+      tpl.$('.js-board-label-name').val('');
+      tpl.$('.js-board-label-text').val('');
+      tpl.loadBoardFacets();
+    } catch (error) {
+      alert(error?.reason || error?.message || 'Could not label the boards.');
+    }
+  },
+  async 'click .js-remove-board-label'(evt, tpl) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    await Meteor.callAsync('removeBoardLabel', evt.currentTarget.dataset.value);
+    if (tpl.boardFacet.get()?.type === 'label') tpl.boardFacet.set(null);
+    tpl.loadBoardFacets();
+  },
   // Boards in Archive no longer NAVIGATES anywhere. It is a section of this
   // page, drawn beside the left menu by the generic `js-select-menu` click
   // below - selecting it from a menu row and then losing the menu is a menu

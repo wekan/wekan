@@ -366,6 +366,8 @@ import '/server/passkeys';
 import '/server/crossBoardSubtasks';
 // #864: adding a card from the Table view.
 import '/server/tableViewCards';
+// #4791: All Boards facets and the member's board labels.
+import '/server/allBoardsFacets';
 
 // ----------------------------------------------------------------------------
 // 14. Server — routes (REST API, file serving)
