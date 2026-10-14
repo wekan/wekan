@@ -295,3 +295,18 @@ assert.notEqual(creole['subtask-mark-done'], creole['subtask-mark-not-done']);
 assert.match(creole['subtask-done-no-permission'], /pa ka chanje/);
 assert.match(creole['scrum-import-into-board-hint'], /pa janm double.*ID.*nimewo ak tit.*san chanjman/);
 assert.match(creole['scrum-releases-select-help'], /Ctrl.*Cmd.*tout seleksyon.*tout vèsyon/);
+
+const reviewedPlanningRecoveryKeys = ["scrum-import-card-ambiguous", "scrum-import-card-on-another-board", "scrum-import-record-ambiguous", "scrum-import-record-not-imported", "scrum-import-sprint-finished", "sync-planning-sprint", "sync-planning-releases", "sync-planning-fields", "sync-planning-hint", "stuck-sync-operation-heading", "stuck-sync-operation-description", "stuck-sync-operation-list", "stuck-sync-operation-applied", "stuck-sync-operation-reason-scope-changed", "stuck-sync-operation-reason-access-denied", "stuck-sync-operation-reason-trigger-unknown", "stuck-sync-operation-reason-intent-missing", "stuck-sync-operation-reason-unknown", "stuck-sync-operation-replayable-now", "stuck-sync-operation-discard-confirm", "stuck-sync-operation-empty", "stuck-sync-operation-truncated", "stuck-sync-operation-unavailable", "stuck-sync-operation-missing", "stuck-sync-operation-not-stuck", "stuck-sync-operation-replayable", "stuck-sync-operation-busy", "interrupted-import-heading", "interrupted-import-description", "interrupted-import-progress", "interrupted-import-created", "interrupted-import-source", "interrupted-import-state-stopped", "interrupted-import-state-failed", "interrupted-import-state-discarding", "interrupted-import-scrum", "interrupted-import-counts", "interrupted-import-no-board", "interrupted-import-keep", "interrupted-import-keep-confirm", "interrupted-import-discard-confirm", "interrupted-import-empty", "interrupted-import-truncated", "interrupted-import-unavailable", "interrupted-import-missing", "interrupted-import-not-interrupted", "interrupted-import-foreign-board", "interrupted-import-scrum-busy"];
+for (const key of reviewedPlanningRecoveryKeys) {
+  assert.notEqual(creole[key], english[key], key);
+  assert.deepEqual(tokens(creole[key]), tokens(english[key]), key);
+}
+assert.match(creole['sync-planning-hint'], /sèlman pandan Scrum aktive.*ID sous li anvan.*dapre non/);
+assert.match(creole['sync-planning-hint'], /chanjman planifikasyon lokal rete.*premye senkronizasyon.*pa janm retire/);
+assert.match(creole['stuck-sync-operation-description'], /chanjman ki deja aplike yo rete.*pa janm ekri.*konpare lis la ak sous li ankò/);
+assert.match(creole['stuck-sync-operation-replayable-now'], /fini poukont li.*pa ka abandone/);
+assert.match(creole['interrupted-import-description'], /pa ka kontinye.*fichye sous li a pa konsève/);
+assert.match(creole['interrupted-import-description'], /tout sa ki sou li.*bagay ki te ajoute/);
+assert.match(creole['interrupted-import-keep-confirm'], /Pa gen anyen ki retire/);
+assert.match(creole['interrupted-import-discard-confirm'], /tout sa ki sou li.*efase nèt/);
+assert.match(creole['interrupted-import-foreign-board'], /Se pa enpòtasyon sa a.*pa t modifye/);
