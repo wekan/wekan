@@ -1,11 +1,16 @@
 template(name="searchSidebar")
   form.js-search-term-form
     input(type="text" name="searchTerm" placeholder="{{_ 'search-example'}}" autofocus dir="auto")
-  //- #2171: Enter again steps to the next card found, and the board scrolls
-    to it and highlights it - as a browser's find does, on the board itself.
+  //- #2171: Enter again steps to the next card found (Shift+Enter or the
+    arrow to the previous), and the board scrolls to it and highlights it -
+    as a browser's find does, on the board itself.
   if matchCount
     p.quiet.search-step
-      | {{_ 'search-step' stepNumber matchCount}}
+      a.js-search-step(href="#" data-direction="-1" title="{{_ 'previous'}}" aria-label="{{_ 'previous'}}")
+        i.fa.fa-chevron-left
+      | &nbsp;{{_ 'search-step' stepNumber matchCount}}&nbsp;
+      a.js-search-step(href="#" data-direction="1" title="{{_ 'next'}}" aria-label="{{_ 'next'}}")
+        i.fa.fa-chevron-right
   .list-body
     .minilists.clearfix.js-minilists
       hr

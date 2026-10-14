@@ -29,6 +29,19 @@ Template.searchSidebar.helpers({
   stepNumber() { return Template.instance().step.get(); },
 });
 
+// One card further (1) or back (-1), wrapping round; the first step from
+// none goes to the first card, or back to the last.
+function step(tpl, direction) {
+  const cards = foundCards(tpl);
+  if (!cards.length) return;
+  const current = tpl.step.get();
+  const next = current === 0
+    ? (direction > 0 ? 1 : cards.length)
+    : ((current - 1 + direction + cards.length) % cards.length) + 1;
+  tpl.step.set(next);
+  revealOnBoard({ cardId: cards[next - 1]._id });
+}
+
 Template.searchSidebar.events({
   'click .js-minicard'(evt) {
     if (Utils.isMiniScreen()) {
@@ -46,18 +59,24 @@ Template.searchSidebar.events({
     revealOnBoard({ listId: evt.currentTarget.dataset.listId });
   },
   // #2171: a new term searches; Enter on the same term steps to the next card
-  // found, wrapping round, and reveals it on the board.
+  // found and Shift+Enter to the previous one, wrapping round, and reveals it
+  // on the board. The arrows beside the count do the same.
+  'keydown .js-search-term-form input'(evt, tpl) {
+    if (evt.key === 'Enter') tpl.backwards = evt.shiftKey;
+  },
   'submit .js-search-term-form'(evt, tpl) {
     evt.preventDefault();
     const term = evt.target.searchTerm.value;
+    const direction = tpl.backwards ? -1 : 1;
+    tpl.backwards = false;
     if (term !== tpl.term.get()) {
       tpl.term.set(term);
       tpl.step.set(0);
     }
-    const cards = foundCards(tpl);
-    if (!cards.length) return;
-    const next = (tpl.step.get() % cards.length) + 1;
-    tpl.step.set(next);
-    revealOnBoard({ cardId: cards[next - 1]._id });
+    step(tpl, direction);
+  },
+  'click .js-search-step'(evt, tpl) {
+    evt.preventDefault();
+    step(tpl, Number(evt.currentTarget.dataset.direction) < 0 ? -1 : 1);
   },
 });

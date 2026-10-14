@@ -69,7 +69,15 @@ function board() {
     assert.match(read('client/components/sidebar/sidebarSearches.css'), /\.is-search-highlight/);
     // Enter on the same term steps on, wrapping round; a new term starts over.
     assert.match(js, /if \(term !== tpl\.term\.get\(\)\) \{\s*tpl\.term\.set\(term\);\s*tpl\.step\.set\(0\);/);
-    assert.match(js, /const next = \(tpl\.step\.get\(\) % cards\.length\) \+ 1;/);
+    assert.match(js, /if \(evt\.key === 'Enter'\) tpl\.backwards = evt\.shiftKey;/);
+    assert.match(js, /\(\(current - 1 \+ direction \+ cards\.length\) % cards\.length\) \+ 1/);
+    // the step itself, run on its own: forward wraps to 1, back wraps to the last
+    const stepSrc = js.slice(js.indexOf('function step(tpl, direction)'), js.indexOf('Template.searchSidebar.events'));
+    const revealed = [];
+    const run = new Function('foundCards', 'revealOnBoard', `${stepSrc}; return step;`)(() => [{ _id: 'a' }, { _id: 'b' }, { _id: 'c' }], x => revealed.push(x.cardId));
+    let n = 0; const tpl = { step: { get: () => n, set: v => { n = v; } } };
+    run(tpl, -1); run(tpl, 1); run(tpl, 1); run(tpl, -1);
+    assert.deepStrictEqual(revealed, ['c', 'a', 'b', 'a'], 'back from none is the last, then it wraps both ways');
     assert.match(read('client/components/sidebar/sidebarSearches.css'), /prefers-reduced-motion: reduce/);
     passed += 1; console.log('ok - the board search sidebar reveals what it found');
   }
