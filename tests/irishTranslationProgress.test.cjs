@@ -106,3 +106,17 @@ assert.match(irish['import-many-boards-hint'], /gan baill a mheaitseáil.*Is cl�
 assert.match(irish['export-all-boards-hint'], /leabhar oibre amháin.*bileog do gach clár.*\.zip.*comhad do gach clár/);
 assert.match(irish['trello-export-desc'], /Swimlane: …/);
 assert.match(irish['sandstorm-trello-access-needed'], /Níl rochtain Idirlín.*ar dtús/);
+
+const notificationKeys = ["external-link-rules", "external-link-rules-description", "external-link-identifier-aliases", "webhook-payload-heading", "webhook-payload-description", "webhook-payload-text", "webhook-payload-fields", "webhook-payload-field-standard", "webhook-payload-field-ids", "webhook-payload-field-names", "webhook-payload-field-links", "webhook-payload-field-actor", "webhook-payload-field-people", "webhook-payload-field-details", "webhook-hide-identity", "webhook-someone", "notification-delivery-layout-classic", "notification-delivery-layout-clear", "notification-delivery-parts", "notification-delivery-part-board", "notification-delivery-part-actor", "notification-delivery-part-card", "notification-delivery-part-details", "notification-delivery-part-dates", "notification-delivery-part-link", "notification-delivery-grouping", "notification-delivery-grouping-all", "notification-delivery-grouping-board", "notification-delivery-grouping-card", "notification-delivery-grouping-none", "notification-delivery-schedule", "notification-delivery-schedule-immediate", "notification-delivery-schedule-interval", "notification-delivery-schedule-daily", "notification-delivery-interval", "notification-delivery-minutes", "notification-delivery-quiet", "notification-delivery-quiet-clear", "notification-delivery-timezone", "notification-delivery-invalid", "notification-group-card", "notification-group-board"];
+for (const key of notificationKeys) {
+  assert.notEqual(irish[key], english[key], key);
+  assert.deepEqual(tokens(irish[key]), tokens(english[key]), key);
+}
+for (const key of ['external-link-rules-description', 'external-link-identifier-aliases']) {
+  assert.deepEqual(irish[key].match(/\{(?:number|identifier)\}/g), english[key].match(/\{(?:number|identifier)\}/g));
+}
+assert.match(irish['external-link-rules-description'], /https:\/\/tracker.example.com\/\{identifier\}\/\{number\}/);
+assert.match(irish['webhook-payload-description'], /socrú oidhreachta.*mura bhfuil aon rud socraithe/);
+assert.match(irish['notification-delivery-quiet'], /fan go dtí go mbeidh siad thart/);
+assert.match(irish['notification-delivery-grouping-all'], /aon teachtaireacht amháin/);
+assert.notEqual(irish['notification-delivery-grouping-board'], irish['notification-delivery-grouping-card']);

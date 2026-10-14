@@ -212574,5 +212574,299 @@
     "before": "Trello, for importing and exporting boards",
     "after": "Trello, chun cláir a iompórtáil agus a easpórtáil",
     "reason": "Translate Irish import/export controls, preserving column requirements, user mapping options and Sandstorm access conditions."
+  },
+  {
+    "locale": "ga",
+    "key": "external-link-rules",
+    "before": "More link rules",
+    "after": "Tuilleadh rialacha nasc",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "external-link-rules-description",
+    "before": "One rule per line: the text to find, \" = \", and the address. Use {number} for digits and {identifier} for a word, in both, for example [{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}.",
+    "after": "Riail amháin in aghaidh na líne: an téacs le haimsiú, \" = \", agus an seoladh. Úsáid {number} le haghaidh digití agus {identifier} le haghaidh focal, sa dá chuid, mar shampla [{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}.",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "external-link-identifier-aliases",
+    "before": "Abbreviations for {identifier}, for example TK=Task, IN=Incident",
+    "after": "Giorrúcháin do {identifier}, mar shampla TK=Task, IN=Incident",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "webhook-payload-heading",
+    "before": "Webhook data",
+    "after": "Sonraí webhook",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "webhook-payload-description",
+    "before": "What outgoing webhooks (Rocket.Chat, Slack, ...) send. Default keeps the inherited setting; with nothing set, webhooks send what they always have.",
+    "after": "An méid a sheolann webhooks amach (Rocket.Chat, Slack, ...). Coinníonn Réamhshocrú an socrú oidhreachta; mura bhfuil aon rud socraithe, seolann webhooks an méid a sheol siad riamh.",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "webhook-payload-text",
+    "before": "Send the message text",
+    "after": "Seol téacs na teachtaireachta",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "webhook-payload-fields",
+    "before": "Send these fields",
+    "after": "Seol na réimsí seo",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "webhook-payload-field-standard",
+    "before": "Standard fields (WEBHOOKS_ATTRIBUTES)",
+    "after": "Réimsí caighdeánacha (WEBHOOKS_ATTRIBUTES)",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "webhook-payload-field-ids",
+    "before": "IDs",
+    "after": "Aitheantais",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "webhook-payload-field-names",
+    "before": "Names and titles",
+    "after": "Ainmneacha agus teidil",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "webhook-payload-field-links",
+    "before": "Links to the card and board",
+    "after": "Naisc chuig an gcárta agus an clár",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "webhook-payload-field-actor",
+    "before": "Who did it",
+    "after": "Cé a rinne é",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "webhook-payload-field-people",
+    "before": "The member or assignee it is about",
+    "after": "An ball nó an sannaí lena mbaineann sé",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "webhook-payload-field-details",
+    "before": "Details: comment, description, values and dates",
+    "after": "Sonraí: nóta tráchta, cur síos, luachanna agus dátaí",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "webhook-hide-identity",
+    "before": "Leave my name out of outgoing webhooks",
+    "after": "Fág m’ainm as webhooks amach",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "webhook-someone",
+    "before": "A member",
+    "after": "Ball",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-delivery-layout-classic",
+    "before": "One sentence (classic)",
+    "after": "Abairt amháin (clasaiceach)",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-delivery-layout-clear",
+    "before": "Clearly arranged: board, who, card in bold",
+    "after": "Leagtha amach go soiléir: clár, cé, cárta i gcló trom",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-delivery-parts",
+    "before": "Show",
+    "after": "Taispeáin",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-delivery-part-board",
+    "before": "Board name and link",
+    "after": "Ainm agus nasc an chláir",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-delivery-part-actor",
+    "before": "Who did it",
+    "after": "Cé a rinne é",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-delivery-part-card",
+    "before": "Card title and link",
+    "after": "Teideal agus nasc an chárta",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-delivery-part-details",
+    "before": "Comment or changed value",
+    "after": "Nóta tráchta nó luach athraithe",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-delivery-part-dates",
+    "before": "Dates",
+    "after": "Dátaí",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-delivery-part-link",
+    "before": "Link on its own line",
+    "after": "Nasc ar líne ar leith",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-delivery-grouping",
+    "before": "Grouping",
+    "after": "Grúpáil",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-delivery-grouping-all",
+    "before": "Everything due in one message",
+    "after": "Gach rud atá le seoladh in aon teachtaireacht amháin",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-delivery-grouping-board",
+    "before": "One per board",
+    "after": "Ceann amháin in aghaidh an chláir",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-delivery-grouping-card",
+    "before": "One per card",
+    "after": "Ceann amháin in aghaidh an chárta",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-delivery-grouping-none",
+    "before": "Each on its own",
+    "after": "Gach ceann ar leith",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-delivery-schedule",
+    "before": "When to send",
+    "after": "Cathain a sheolfar",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-delivery-schedule-immediate",
+    "before": "Immediately",
+    "after": "Láithreach",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-delivery-schedule-interval",
+    "before": "Every few minutes or hours",
+    "after": "Gach cúpla nóiméad nó uair an chloig",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-delivery-schedule-daily",
+    "before": "Once a day",
+    "after": "Uair amháin sa lá",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-delivery-interval",
+    "before": "Every",
+    "after": "Gach",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-delivery-minutes",
+    "before": "__count__ minutes",
+    "after": "__count__ nóiméad",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-delivery-quiet",
+    "before": "Quiet hours (wait until they end)",
+    "after": "Uaireanta ciúine (fan go dtí go mbeidh siad thart)",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-delivery-quiet-clear",
+    "before": "No quiet hours",
+    "after": "Gan uaireanta ciúine",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-delivery-timezone",
+    "before": "Time zone:",
+    "after": "Crios ama:",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-delivery-invalid",
+    "before": "The setting could not be saved.",
+    "after": "Níorbh fhéidir an socrú a shábháil.",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-group-card",
+    "before": "__count__ notifications on card __card__",
+    "after": "__count__ fógra ar chárta __card__",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
+  },
+  {
+    "locale": "ga",
+    "key": "notification-group-board",
+    "before": "__count__ notifications on board __board__",
+    "after": "__count__ fógra ar chlár __board__",
+    "reason": "Translate Irish integration and notification controls while preserving template tokens and delivery semantics."
   }
 ]
