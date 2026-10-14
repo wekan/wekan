@@ -41,3 +41,15 @@ assert.match(gaelic['s3-access-key'], /inntrigidh/);
 assert.match(gaelic['s3-secret-key'], /dhìomhair/);
 assert.notEqual(gaelic['s3-access-key'], gaelic['s3-secret-key']);
 assert.match(gaelic['s3-endpoint-description'], /s3.amazonaws.com.*minio.example.com/);
+
+const fieldLinkKeys = ["board-announcement", "board-announcement-enabled", "board-view-calendar-mode", "custom-field-links", "custom-field-links-hint", "custom-field-links-none", "custom-field-link-unavailable", "custom-field-link-fields", "custom-field-link-no-fields", "custom-field-link-inactive", "custom-field-unlink", "custom-field-link-target", "custom-field-link-direction", "custom-field-link-both", "custom-field-link-send", "custom-field-link-sends", "custom-field-link-receives", "custom-field-link-add", "field-link-self", "field-link-limit", "field-link-archived", "field-link-invalid", "field-link-not-found", "field-link-not-allowed", "cardCustomFieldLinksPopup-title", "cards-use-list-color"];
+for (const key of fieldLinkKeys) {
+  assert.notEqual(gaelic[key], english[key], key);
+  assert.deepEqual(tokens(gaelic[key]), tokens(english[key]), key);
+}
+assert.match(gaelic['custom-field-link-both'], /An dà threo.*chairt eile/);
+assert.match(gaelic['custom-field-link-send'], /Aon treo.*phrìomh chairt/);
+assert.match(gaelic['custom-field-link-inactive'], /an dà chairt a dheasachadh tuilleadh.*san tasglann/);
+assert.match(gaelic['field-link-not-allowed'], /an dà chairt a dheasachadh/);
+assert.match(gaelic['custom-field-links-hint'], /Chan atharraichear.*aon chairt/);
+assert.match(gaelic['field-link-self'], /Chan urrainn.*rithe fhèin/);

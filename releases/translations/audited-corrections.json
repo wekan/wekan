@@ -213967,5 +213967,187 @@
     "before": "S3 Size",
     "after": "Meud S3",
     "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "board-announcement",
+    "before": "Board announcement",
+    "after": "Brath a’ bhùird",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "board-announcement-enabled",
+    "before": "Show it to everyone on this board",
+    "after": "Seall e dhan a h-uile duine air a’ bhòrd seo",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "board-view-calendar-mode",
+    "before": "Calendar Mode",
+    "after": "Modh mìosachain",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "custom-field-links",
+    "before": "Link fields to another card",
+    "after": "Ceangail raointean ri cairt eile",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "custom-field-links-hint",
+    "before": "Custom fields with the same name and type on both cards are linked: when a value changes on one card, it is copied to the other card. Fields that only one card has are left alone.",
+    "after": "Tha raointean gnàthaichte aig a bheil an aon ainm agus seòrsa air an dà chairt ceangailte: nuair a dh’atharraicheas luach air aon chairt, thèid a lethbhreac a chur dhan chairt eile. Chan atharraichear raointean nach eil ach air aon chairt.",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "custom-field-links-none",
+    "before": "This card's custom fields are not linked to any card.",
+    "after": "Chan eil raointean gnàthaichte na cairte seo ceangailte ri cairt sam bith.",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "custom-field-link-unavailable",
+    "before": "A linked card you cannot see",
+    "after": "Cairt cheangailte nach urrainn dhut fhaicinn",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "custom-field-link-fields",
+    "before": "Linked fields:",
+    "after": "Raointean ceangailte:",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "custom-field-link-no-fields",
+    "before": "No fields with the same name and type yet",
+    "after": "Chan eil raointean leis an aon ainm agus seòrsa ann fhathast",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "custom-field-link-inactive",
+    "before": "Paused: the person who made this link can no longer edit both cards, or a card is archived.",
+    "after": "Air a stad: chan urrainn dhan neach a rinn an ceangal seo an dà chairt a dheasachadh tuilleadh, no tha cairt san tasglann.",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "custom-field-unlink",
+    "before": "Unlink",
+    "after": "Dì-cheangail",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "custom-field-link-target",
+    "before": "Card link (Copy card link), or search this board's cards",
+    "after": "Ceangal cairt (Dèan lethbhreac de cheangal na cairte), no lorg cairtean a’ bhùird seo",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "custom-field-link-direction",
+    "before": "Direction",
+    "after": "Treo",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "custom-field-link-both",
+    "before": "Both ways: changes on either card go to the other",
+    "after": "An dà threo: thèid atharrachaidhean air aon seach aon chairt dhan chairt eile",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "custom-field-link-send",
+    "before": "One way: changes on this card go to the main card",
+    "after": "Aon treo: thèid atharrachaidhean air a’ chairt seo dhan phrìomh chairt",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "custom-field-link-sends",
+    "before": "Changes on this card go to that card",
+    "after": "Thèid atharrachaidhean air a’ chairt seo dhan chairt sin",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "custom-field-link-receives",
+    "before": "Changes on that card come to this card",
+    "after": "Thig atharrachaidhean air a’ chairt sin dhan chairt seo",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "custom-field-link-add",
+    "before": "Link fields",
+    "after": "Ceangail raointean",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "field-link-self",
+    "before": "A card cannot be linked to itself.",
+    "after": "Chan urrainn dhut cairt a cheangal rithe fhèin.",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "field-link-limit",
+    "before": "This card, or that card, already has the most linked cards it can have.",
+    "after": "Tha an àireamh as motha de chairtean ceangailte ris a’ chairt seo no ris a’ chairt sin mu thràth.",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "field-link-archived",
+    "before": "An archived card cannot be linked.",
+    "after": "Chan urrainn dhut cairt san tasglann a cheangal.",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "field-link-invalid",
+    "before": "That is not a card link.",
+    "after": "Chan e ceangal cairt a tha sin.",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "field-link-not-found",
+    "before": "Card not found.",
+    "after": "Cha deach a’ chairt a lorg.",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "field-link-not-allowed",
+    "before": "You need to be able to edit both cards.",
+    "after": "Feumaidh tu a bhith comasach air an dà chairt a dheasachadh.",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "cardCustomFieldLinksPopup-title",
+    "before": "Linked custom fields",
+    "after": "Raointean gnàthaichte ceangailte",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "cards-use-list-color",
+    "before": "Cards without a colour of their own use this colour",
+    "after": "Cleachdaidh cairtean aig nach eil dath dhaibh fhèin an dath seo",
+    "reason": "Translate Scottish Gaelic field-link controls, retaining direction, visibility and authorization constraints; fluent review remains needed."
   }
 ]
