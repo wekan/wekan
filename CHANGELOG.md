@@ -4707,6 +4707,22 @@ All-language translation and semantic verification remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7e8ebcd458266da9de3fdb95a75fd0d25e8eb2f4">Translate twelve more Igbo import guides</a>. Thanks to xet7.</summary>
+
+Translate Tasks.org, monday.com, Super Productivity, Taiga, Vikunja, Quire,
+Wrike, Teamwork, Businessmap, Redmine, Notion and Plane guides. Preserve import
+exclusions, English-header requirements, subtask syntax and fallback mapping.
+Technical prose is lower confidence and needs fluent review.
+
+Both translation and guarded-correction suites pass with 30,862 corrections.
+All 21 human-preference checks pass; 38,430 existing Chinese values are
+unchanged.
+The expanded 22-case Igbo import suite passes syntax and discovery; execution
+remains pending. All-language translation and semantic review are unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

@@ -2,6 +2,19 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Igbo import guides, second batch — 2026-10-14
+
+Commit `7e8ebcd458` translates twelve further import guides: Tasks.org,
+monday.com, Super Productivity, Taiga, Vikunja, Quire, Wrike, Teamwork,
+Businessmap, Redmine, Notion and Plane. Assertions retain import exclusions,
+English-header requirements, subtask markers and Notion's fallback mapping.
+Technical prose is lower confidence and requires fluent review.
+
+The Igbo/Swedish and guarded-correction suites pass with 30,862 ledger entries;
+all 21 human-preference checks pass. Exact comparison preserves 38,430 existing
+Chinese values. All 22 Igbo import browser cases pass syntax and discovery;
+runtime execution is pending. All-language semantic verification is unfinished.
+
 ## Igbo import guides, first batch — 2026-10-14
 
 Commit `29282c6ddf` translates ten guides: OPML, Org mode, MeisterTask,
