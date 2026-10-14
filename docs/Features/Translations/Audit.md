@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Haitian Creole visibility and email settings — 2026-10-14
+
+Commit `a7346d6a58` corrects 14 settings strings. SMTP host no longer uses the
+word for an army; URL schemes become clickable links rather than being clicked
+automatically. Starred swimlanes use the established board term. Visibility
+labels and email-template subjects/bodies now have clear Haitian grammar,
+retaining default descriptions and the distinction between invitations and
+activity notifications. Either empty external-link field still disables linking.
+
+The Haitian catalog and guarded-correction suites pass with 29,816 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. A browser case checks SMTP and template
+labels and rejects their old wording; syntax and discovery pass, runtime remains
+pending.
+
+Haitian semantic review and the all-language objective remain unfinished.
+
 ## Haitian Creole uploads and archive guidance — 2026-10-14
 
 Commit `08b5bbf36f` corrects ten entries. Attachment-export metadata and map

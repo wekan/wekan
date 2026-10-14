@@ -3921,6 +3921,19 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a7346d6a58">Correct Haitian visibility and email settings wording</a>. Thanks to xet7.</summary>
+
+- Repair 14 settings strings: SMTP host, clickable URL schemes, starred
+  swimlanes, visibility-description defaults and invitation/activity templates.
+  Preserve empty-field fallback and external-link disabling behavior.
+- Haitian catalog and guarded-correction suites pass, with 21 human-preference
+  checks. Existing Chinese values remain unchanged. The email-settings browser
+  case passes syntax and discovery; runtime execution remains pending.
+- All-language semantic review and remaining translations continue.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
