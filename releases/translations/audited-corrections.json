@@ -215437,5 +215437,173 @@
     "before": "X: Planning Poker / Àireamh. Y: Ùine cuairt (làithean). (neo-aithnichte): —.",
     "after": "An tuairmse Planning Poker làithreach no aon raon àireamhach gnàthaichte an coimeas ri ùine cuairte chrìochnaichte ann an làithean. Thèid tuairmsean a tha a dhìth agus cinn-là neo-dhligheach fhàgail às. Thèid ceann-là cruthachaidh a chleachdadh mura h-eil ceann-là tòiseachaidh ann; thèid ceann-là tasglannaidh a chleachdadh mura h-eil ceann-là crìochnachaidh ann.",
     "reason": "Replace report shorthand with methodology, fallback and uncertainty details; direct Scottish Gaelic statistical terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-age-days",
+    "before": "Liosta — Faid (làithean)",
+    "after": "Aois san ìre (làithean)",
+    "reason": "Replace symbolic report controls with distinct Scottish Gaelic metrics, targets and statistical labels; specialist terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-p85",
+    "before": "Liosta — P85 (làithean)",
+    "after": "85mh ceudail na h-ìre (làithean)",
+    "reason": "Replace symbolic report controls with distinct Scottish Gaelic metrics, targets and statistical labels; specialist terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-samples",
+    "before": "Eachdraidh — n",
+    "after": "Amannan san ìre san eachdraidh",
+    "reason": "Replace symbolic report controls with distinct Scottish Gaelic metrics, targets and statistical labels; specialist terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-signal",
+    "before": "Crìochan",
+    "after": "Comharra",
+    "reason": "Replace symbolic report controls with distinct Scottish Gaelic metrics, targets and statistical labels; specialist terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-unusual",
+    "before": "Crìochan ⚠",
+    "after": "Taobh a-muigh na crìche",
+    "reason": "Replace symbolic report controls with distinct Scottish Gaelic metrics, targets and statistical labels; specialist terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-blocker",
+    "before": "A' bacadh",
+    "after": "Cairt a tha a’ bacadh",
+    "reason": "Replace symbolic report controls with distinct Scottish Gaelic metrics, targets and statistical labels; specialist terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-episodes",
+    "before": "Eisimeileachdan — Eachdraidh",
+    "after": "Tachartasan",
+    "reason": "Replace symbolic report controls with distinct Scottish Gaelic metrics, targets and statistical labels; specialist terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-active",
+    "before": "Eisimeileachdan — Crìoch —",
+    "after": "Tachartasan fosgailte",
+    "reason": "Replace symbolic report controls with distinct Scottish Gaelic metrics, targets and statistical labels; specialist terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-blocked-days",
+    "before": "Air a bhacadh le (Cairtean × làithean)",
+    "after": "Làithean chairtean fo bhacadh",
+    "reason": "Replace symbolic report controls with distinct Scottish Gaelic metrics, targets and statistical labels; specialist terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-unknown-start",
+    "before": "Tòisich — (neo-aithnichte)",
+    "after": "Toisichean neo-aithnichte",
+    "reason": "Replace symbolic report controls with distinct Scottish Gaelic metrics, targets and statistical labels; specialist terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-confidence",
+    "before": "Staitistig (%)",
+    "after": "Ìre misneachd",
+    "reason": "Replace symbolic report controls with distinct Scottish Gaelic metrics, targets and statistical labels; specialist terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-target-count",
+    "before": "Cairtean — Àireamh",
+    "after": "Àireamh chairtean mar amas",
+    "reason": "Replace symbolic report controls with distinct Scottish Gaelic metrics, targets and statistical labels; specialist terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-finish-days",
+    "before": "Deiseil (làithean)",
+    "after": "Làithean gus crìochnachadh",
+    "reason": "Replace symbolic report controls with distinct Scottish Gaelic metrics, targets and statistical labels; specialist terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-finish-date",
+    "before": "Deiseil — Ceann-là",
+    "after": "Ceann-là crìochnachaidh",
+    "reason": "Replace symbolic report controls with distinct Scottish Gaelic metrics, targets and statistical labels; specialist terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-target-date",
+    "before": "Ri phàigheadh",
+    "after": "Ceann-là mar amas",
+    "reason": "Replace symbolic report controls with distinct Scottish Gaelic metrics, targets and statistical labels; specialist terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-capacity",
+    "before": "Cairtean ≥",
+    "after": "Co-dhiù an àireamh seo de chairtean",
+    "reason": "Replace symbolic report controls with distinct Scottish Gaelic metrics, targets and statistical labels; specialist terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-history-days",
+    "before": "Eachdraidh (làithean)",
+    "after": "Làithean eachdraidh",
+    "reason": "Replace symbolic report controls with distinct Scottish Gaelic metrics, targets and statistical labels; specialist terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-beyond-horizon",
+    "before": "> 3650 làithean",
+    "after": "Seachad air ùine an atharrais",
+    "reason": "Replace symbolic report controls with distinct Scottish Gaelic metrics, targets and statistical labels; specialist terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-mean",
+    "before": "Ùine cuairt — x̄",
+    "after": "Cuibheas",
+    "reason": "Replace symbolic report controls with distinct Scottish Gaelic metrics, targets and statistical labels; specialist terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-moving-range",
+    "before": "|Δ Ùine cuairt|",
+    "after": "Raon gluasadach",
+    "reason": "Replace symbolic report controls with distinct Scottish Gaelic metrics, targets and statistical labels; specialist terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-mr-mean",
+    "before": "MR̄",
+    "after": "Cuibheas an raoin ghluasadaich",
+    "reason": "Replace symbolic report controls with distinct Scottish Gaelic metrics, targets and statistical labels; specialist terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-size-source",
+    "before": "Meud — Raointean gnàthaichte",
+    "after": "Raon meud",
+    "reason": "Replace symbolic report controls with distinct Scottish Gaelic metrics, targets and statistical labels; specialist terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-size",
+    "before": "Meud",
+    "after": "Tuairmse",
+    "reason": "Replace symbolic report controls with distinct Scottish Gaelic metrics, targets and statistical labels; specialist terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-details",
+    "before": "Mion-fhiosrachadh — Eachdraidh",
+    "after": "An eachdraidh air a bheil seo stèidhichte",
+    "reason": "Replace symbolic report controls with distinct Scottish Gaelic metrics, targets and statistical labels; specialist terminology is lower confidence and needs fluent review."
   }
 ]

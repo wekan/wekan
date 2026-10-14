@@ -171,3 +171,16 @@ assert.match(gaelic['flow-note-sizeCycleTime'], /aon raon àireamhach.*neo-dhlig
 assert.match(gaelic['flow-error'], /aithisg.*luachan.*feuch ris a-rithist/);
 assert.equal(gaelic['board-view-monte-carlo'], 'Ro-mheasaidhean Monte Carlo');
 assert.doesNotMatch(gaelic['board-view-monte-carlo'], /Histogram/);
+
+assert.match(gaelic['flow-age-days'], /Aois san ìre/);
+assert.match(gaelic['flow-p85'], /85mh ceudail/);
+assert.match(gaelic['flow-active'], /fosgailte/);
+assert.match(gaelic['flow-capacity'], /Co-dhiù.*chairtean/);
+assert.match(gaelic['flow-target-count'], /Àireamh chairtean mar amas/);
+assert.match(gaelic['flow-target-date'], /Ceann-là mar amas/);
+assert.notEqual(gaelic['flow-target-date'], gaelic['flow-finish-date']);
+assert.notEqual(gaelic['flow-mean'], gaelic['flow-mr-mean']);
+assert.equal(gaelic['flow-size'], 'Tuairmse');
+for (const key of ['flow-capacity', 'flow-moving-range', 'flow-mr-mean', 'flow-mean', 'flow-beyond-horizon']) {
+  assert.doesNotMatch(gaelic[key], /≥|Δ|MR̄|x̄|3650/);
+}

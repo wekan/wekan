@@ -15,6 +15,13 @@ for (const [slug, key, essential] of [
     const entry = page.locator(`.pop-over .js-open-${slug}-view`);
     await expect(entry).toContainText(strings[`board-view-${slug}`]);
     await entry.click();
+    if (slug === 'monte-carlo') {
+      await expect(page.locator('.js-flow-options')).toContainText(strings['flow-target-count']);
+      await expect(page.locator('.js-flow-options')).not.toContainText('Cairtean — Àireamh');
+    }
+    if (slug === 'size-cycle-time') {
+      await expect(page.locator('.js-flow-options')).toContainText(strings['flow-size-source']);
+    }
     const note = page.locator('.chart-view-content .chart-method-note');
     await expect(note).toHaveText(strings[`flow-note-${key}`]);
     await expect(note).toContainText(essential);
