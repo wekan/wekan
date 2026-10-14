@@ -131,6 +131,10 @@
     ],
     "client/components/settings/notificationSettingsPopup.jade": [
       "https://ntfy\\.sh/my-topic"
+    ],
+    "models/lib/sandstormShare.js": [
+      "http://grain\\.invalid",
+      "https://docs\\.sandstorm\\.io/en/latest/developing/path/(#[a-z-]+)?"
     ]
   },
   "files": {
