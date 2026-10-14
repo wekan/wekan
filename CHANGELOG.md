@@ -421,11 +421,6 @@ login),
 view setting),
 [#2809](https://github.com/wekan/wekan/issues/2809) (a linked whole list: a live mirror of another board's list,
 editable by whoever may write the source board),
-[#2171](https://github.com/wekan/wekan/issues/2171) (search scrolls the board to the selected match and highlights it,
-with next and previous),
-[#2110](https://github.com/wekan/wekan/issues/2110) (minicard avatars in the order people were added, a name tooltip,
-and a lasting colour per person),
-[#2040](https://github.com/wekan/wekan/issues/2040) (a board-defined label order that a list can be sorted by),
 [#1953](https://github.com/wekan/wekan/issues/1953) (a Board Settings picker for the swimlane new subtasks go to),
 [#1931](https://github.com/wekan/wekan/issues/1931) (an existing card from another board as a subtask, for users who
 may write both boards),
@@ -580,12 +575,12 @@ there.
 # v12.42 2026-10-14 WeKan ® release
 
 **In short:** a new **Version Control** board view shows a board as a
-**GitHub** or **Gitea** issue tracker, with releases, a **wiki** and history
-with undo, and a whole **GitHub organization** imports into it, its **GitHub
-Actions** as Rules. Optional **Trello**, **Jira**, **GitHub** and **Gitea**
-compatible APIs let their clients use WeKan as a backend. Old boards get their
-keys in one pass, list sync keeps issue details current, any board view can be
-a **read-only public view**, and WeKan has **Android** bundles.
+**GitHub** or **Gitea** issue tracker, and a whole **GitHub organization**
+imports into it, its **GitHub Actions** as Rules. **Bots** hand cards to
+external runners as kanbots does, and optional **Trello**, **Jira**,
+**GitHub** and **Gitea** compatible APIs let their clients use WeKan as a
+backend - none with rights of its own. Board search reveals what it finds on
+the board, and lists sort by label order.
 
 This release adds the following new features:
 
@@ -723,6 +718,66 @@ a card an issue, open or closed as in Version Control. Deleting archives. See
 [Optional APIs](docs/API/Optional-APIs.md). `tests/optionalApis.test.cjs`
 fails if any of them writes past WeKan's REST API.
 `server/lib/tests/compatApi.tests.js` runs them over real HTTP.
+
+</details>
+
+**Bots** - external runners a board hands cards to.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aa48a2b71d">Board Settings / Bots: hand cards to an AI agent, CI job or script, as kanbots does</a>. Thanks to xet7.</summary>
+
+Board Settings → **Bots**, below Workflow view, is the Rules page's view for
+bots, laid out like kanbots in the board's theme. The rail lists the bots,
+the live runs and their activity. The board's lists are the columns, each
+card showing its run's state, its current step and the answers to the bot's
+question. The drawer shows the card's thread, **Hand to bot**, **Stop** and a
+reply box. A bot has no rights of its own. WeKan only sends to it: a dispatch
+goes through the outgoing-webhook queue, behind the SSRF guard and signed,
+and a bot receives no board activity. The runner works on the board through
+WeKan's REST API with its own user's role, and reports at one route that
+needs write access. Board admins only: in the view, or with the new Rule
+action **Hand the card to bot**. See [Bots](docs/Features/Automation/Bots.md).
+Tests: `tests/botRuns.test.cjs` and `server/lib/tests/bots.tests.js`.
+
+</details>
+
+**Search** - finding a card on the board.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c239177cd8">Board search shows each card found on the board, and Enter steps to the next</a>. Thanks to rlach and xet7.</summary>
+
+A result opened from the board search is also scrolled into the middle of
+the board and highlighted for a moment. Enter again in the search box steps
+to the next card found, wrapping round, with "2 of 7" under the box, as
+finding on a page works. Shift+Enter or the arrows beside the count step back
+([previous](https://github.com/wekan/wekan/commit/7dd484f8c2)). A list found is
+revealed the same way. Tests:
+`tests/revealOnBoard.test.cjs` (jsdom), and a Playwright spec in
+`tests/playwright/specs/04-search.e2e.js`.
+
+</details>
+
+**Labels and avatars** - order and recognition at a glance.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cba618e2f9">Sort a list by the board's label order</a>. Thanks to mnantel and xet7.</summary>
+
+Board admins move a label up or down when editing it, and Sort cards has
+**Label order**: a card comes where its first label comes, and cards without
+labels come last. It is a display order only, like Sort by votes: it never
+changes the dragged order. `tests/labelOrder.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c56c03d202">Minicard avatars in the order people were added, each with its own colour</a>. Thanks to HolgerGH and xet7.</summary>
+
+The minicard floated each avatar to the end of its row, which drew them
+reversed: the first person added, whom a team treats as responsible, came
+last. They are a wrapping row in added order now, still right-aligned, as
+issue \#5081 asked. Each person's initials avatar has a lasting colour of
+their own, readable at WCAG AA, and the tooltip names them.
+`tests/avatarColor.test.cjs`.
 
 </details>
 
