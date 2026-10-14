@@ -148,4 +148,24 @@ test('import links are the existing GitHub / GitLab / Gitea / Forgejo importers'
   assert.match(jade, /pathFor 'import' source=key/);
 });
 
+test('Attachments tab: the controls of an opened card\'s attachments', () => {
+  const files = jade.slice(jade.indexOf("if isTab 'files'"), jade.indexOf("if isTab 'history'"));
+  // A click views it in the card's viewer, walking the tab's files.
+  assert.match(files, /button\.vcs-file-view\.js-vcs-file-view/);
+  assert.match(js, /openAttachmentSlideshow\(event\.currentTarget\.dataset\.attachmentId, ids\)/);
+  assert.match(js, /canPreview: !!\(kind\.isImage \|\| kind\.isPDF/);
+  // Download, rename, delete and the cover / background menu, through the card's popups.
+  for (const cls of ['js-download', 'js-vcs-file-rename', 'js-vcs-file-delete', 'js-vcs-file-menu']) assert.ok(files.includes(cls), cls);
+  assert.match(js, /Popup\.open\('attachmentRename'\)\.call\(file, event, tpl\)/);
+  assert.match(js, /Popup\.open\('attachmentActions'\)\.call\(file, event, tpl\)/);
+  assert.match(js, /Popup\.afterConfirm\('attachmentDelete'[\s\S]{0,160}attachments\.softDelete/);
+  // Negative: the writes only for the members the card's gallery lets write,
+  // and no hard delete.
+  const rename = files.indexOf('js-vcs-file-rename');
+  assert.match(files.slice(files.lastIndexOf('if currentUser.isBoardMember', rename), rename),
+    /unless currentUser\.isCommentOnly\n\s+unless currentUser\.isWorker/);
+  assert.ok(files.indexOf('js-vcs-file-view') < files.indexOf('if currentUser.isBoardMember'), 'viewing is for every reader');
+  assert.doesNotMatch(js, /Attachments\.remove|attachments\.remove/i);
+});
+
 console.log(`# ${passed} passed`);

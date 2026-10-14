@@ -212,12 +212,40 @@ template(name="versionControlView")
         table.vcs-files
           tbody
             each files
-              tr
-                td
-                  i.fa.fa-file-o
-                  | &nbsp;
-                  a(href="{{link}}" target="_blank" rel="noopener noreferrer") {{name}}
+              //- The controls of an opened card's attachments
+                (cards/attachments.jade attachmentGallery): a click on the
+                thumbnail or the name views it in the same viewer, walking the
+                tab's files; then download, rename, delete and the cover /
+                background menu, for the same members.
+              tr.vcs-file(data-attachment-id="{{_id}}")
+                td.vcs-file-name
+                  if canPreview
+                    button.vcs-file-view.js-vcs-file-view(type="button" data-attachment-id="{{_id}}" title="{{_ 'preview'}}" aria-label="{{_ 'preview'}}: {{cleanFilename name}}")
+                      if isImage
+                        img.vcs-file-thumbnail(src="{{attachmentPreviewUrl attachment}}" alt="" loading="lazy")
+                      else
+                        i.fa.fa-file-o
+                      | &nbsp;{{cleanFilename name}}
+                  else
+                    i.fa.fa-file-o
+                    | &nbsp;
+                    a(href="{{link}}" target="_blank" rel="noopener noreferrer") {{name}}
                 td.quiet {{size}}
+                td.vcs-file-actions
+                  if canPreview
+                    a.js-vcs-file-view(data-attachment-id="{{_id}}" title="{{_ 'preview'}}")
+                      i.fa.fa-search-plus
+                  a.js-download(href="{{link}}?download=true" download="{{downloadFilename name}}" title="{{_ 'download'}}")
+                    i.fa.fa-arrow-down
+                  if currentUser.isBoardMember
+                    unless currentUser.isCommentOnly
+                      unless currentUser.isWorker
+                        a.js-vcs-file-rename(data-attachment-id="{{_id}}" title="{{_ 'rename'}}")
+                          i.fa.fa-pencil-square-o
+                        a.js-vcs-file-delete(data-attachment-id="{{_id}}" title="{{_ 'delete'}}")
+                          i.fa.fa-trash
+                        a.js-vcs-file-menu(data-attachment-id="{{_id}}" title="{{_ 'attachmentActionsPopup-title'}}")
+                          i.fa.fa-bars
                 td
                   span.js-vcs-open-issue(role="link" tabindex="0" data-card-id="{{cardId}}")
                     if number

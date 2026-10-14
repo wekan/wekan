@@ -477,3 +477,39 @@
   outline: 2px solid currentColor;
   outline-offset: 2px;
 }
+
+/* Attachments: the controls of an opened card's attachments. */
+.vcs-file-view {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.vcs-file-view:hover,
+.vcs-file-view:focus-visible {
+  text-decoration: underline;
+}
+
+.vcs-file-thumbnail {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.vcs-file-actions {
+  white-space: nowrap;
+}
+
+.vcs-file-actions a {
+  margin-inline-end: 8px;
+  color: inherit;
+  cursor: pointer;
+}

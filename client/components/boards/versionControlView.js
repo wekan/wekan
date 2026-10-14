@@ -5,6 +5,8 @@ import CardComments from '/models/cardComments';
 import { Utils } from '/client/lib/utils';
 import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 import { IMPORT_SOURCES } from '/models/lib/importSources';
+import { attachmentKind } from '/models/lib/attachmentKind';
+import { openAttachmentSlideshow } from '/client/components/cards/attachments';
 
 const vcs = require('/models/lib/versionControlView');
 
@@ -250,7 +252,14 @@ Template.versionControlView.helpers({
     const issues = new Map(boardIssues().map(i => [i._id, i]));
     return filesOf([...issues.keys()]).map((file) => {
       const issue = issues.get(file.meta && file.meta.cardId) || {};
+      const kind = attachmentKind(file);
       return {
+        _id: file._id,
+        attachment: file,
+        isImage: !!kind.isImage,
+        // What the attachment viewer opens (cards/attachments.js attachmentCanBeOpened).
+        canPreview: !!(kind.isImage || kind.isPDF || kind.isText || kind.isJSON
+          || kind.isOffice || kind.isZIP || kind.isVideo || kind.isAudio),
         name: file.name,
         link: typeof file.link === 'function' ? file.link() : '',
         size: humanSize(file.size),
@@ -270,7 +279,35 @@ function setQuery(tpl, value) {
   tab.set('issues');
 }
 
+// The popups of an opened card's attachment work on the attachment itself.
+const fileOf = event => ReactiveCache.getAttachment(event.currentTarget.dataset.attachmentId);
+const deleteFile = Popup.afterConfirm('attachmentDelete', function () {
+  // A soft delete, as the card's gallery does (History.md §12.1).
+  if (this._id) Meteor.call('attachments.softDelete', this._id);
+  Popup.back();
+});
+
 Template.versionControlView.events({
+  // Viewed in the card's viewer; next and previous walk this tab's files.
+  'click .js-vcs-file-view'(event, tpl) {
+    event.preventDefault();
+    const ids = tpl.findAll('.vcs-file[data-attachment-id]').map(row => row.dataset.attachmentId);
+    openAttachmentSlideshow(event.currentTarget.dataset.attachmentId, ids);
+  },
+  // Not bubbled to FlowRouter, which would empty the page (#101).
+  'click .vcs-file-actions .js-download'(event) { event.stopPropagation(); },
+  'click .js-vcs-file-rename'(event, tpl) {
+    const file = fileOf(event);
+    if (file) Popup.open('attachmentRename').call(file, event, tpl);
+  },
+  'click .js-vcs-file-delete'(event, tpl) {
+    const file = fileOf(event);
+    if (file) deleteFile.call(file, event, tpl);
+  },
+  'click .js-vcs-file-menu'(event, tpl) {
+    const file = fileOf(event);
+    if (file) Popup.open('attachmentActions').call(file, event, tpl);
+  },
   'click .js-vcs-tab'(event) {
     event.preventDefault();
     tab.set(event.currentTarget.dataset.tab);
