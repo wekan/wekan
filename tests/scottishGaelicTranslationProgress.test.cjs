@@ -64,3 +64,15 @@ assert.match(gaelic['import-board-instruction-meistertask'], /gnìomhan crìochn
 assert.match(gaelic['import-board-instruction-nullboard'], /leubail raw.*a’ chiad bhòrd/);
 assert.match(gaelic['import-board-instruction-kanri'], /a’ chiad bhòrd/);
 assert.match(gaelic['import-board-instruction-clickup'], /a h-uile colbh/);
+
+const moreImportGuideKeys = ["import-board-instruction-tasksorg", "import-board-instruction-monday", "import-board-instruction-superproductivity", "import-board-instruction-taiga", "import-board-instruction-vikunja", "import-board-instruction-quire", "import-board-instruction-wrike", "import-board-instruction-teamwork", "import-board-instruction-businessmap", "import-board-instruction-redmine", "import-board-instruction-notion", "import-board-instruction-plane"];
+for (const key of moreImportGuideKeys) {
+  assert.notEqual(gaelic[key], english[key], key);
+  assert.deepEqual(tokens(gaelic[key]), tokens(english[key]), key);
+}
+for (const format of ['taiga', 'vikunja']) assert.match(gaelic[`import-board-instruction-${format}`], /Cha tèid ceanglachain ion-phortadh/);
+assert.match(gaelic['import-board-instruction-quire'], /Chan eil beachdan no ceanglachain/);
+assert.match(gaelic['import-board-instruction-businessmap'], /gu Beurla an toiseach/);
+assert.match(gaelic['import-board-instruction-redmine'], /gu Beurla.*My account mus/);
+assert.match(gaelic['import-board-instruction-notion'], /Cha tèid dàimhean, dealbhan no ceanglachain/);
+assert.match(gaelic['import-board-instruction-plane'], /Chan eil tuairisgeulan no ceanglachain.*cha tèid an ion-phortadh/);
