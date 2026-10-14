@@ -105,12 +105,36 @@ export async function scrumHistorySnapshot(row) {
   return { records: await Promise.all(records.map(async entry => ({ type: entry.type, id: entry.id,
     document: historyDocument(entry.type, await collections[entry.type].findOneAsync(entry.id)) }))) };
 }
+// Every target of a row read at once, in the targets' order: one query per
+// record type, not one per record. A sprint close carries up to a thousand
+// records a row, and their one-by-one reads were most of an undo's time.
+async function readTargets(targets) {
+  const byType = new Map();
+  for (const entry of targets) {
+    if (!byType.has(entry.type)) byType.set(entry.type, new Set());
+    byType.get(entry.type).add(entry.id);
+  }
+  const found = new Map();
+  for (const [type, ids] of byType) {
+    for (const doc of await collections[type].find({ _id: { $in: [...ids] } }).fetchAsync()) found.set(`${type}:${doc._id}`, doc);
+  }
+  return targets.map(entry => found.get(`${entry.type}:${entry.id}`));
+}
 async function validateTargets(board, userId, records, current) {
   const final = new Map(records.map(entry => [`${entry.type}:${entry.id}`, entry.document]));
+  // A sprint or release that thousands of cards name is read once, not once
+  // a card. Like the rest of this preflight it is not an atomic snapshot; the
+  // writes are guarded one by one.
+  const looked = new Map();
   async function reference(type, id) {
     if (!id) return;
     const key = `${type}:${id}`;
-    const doc = final.has(key) ? final.get(key) : await collections[type].findOneAsync(id);
+    let doc;
+    if (final.has(key)) doc = final.get(key);
+    else {
+      if (!looked.has(key)) looked.set(key, await collections[type].findOneAsync(id));
+      doc = looked.get(key);
+    }
     if (!doc || doc.boardId !== board._id) throw new Meteor.Error('invalid-scrum-reference', 'A referenced Scrum record is no longer on this board.');
   }
   for (let index = 0; index < records.length; index += 1) {
@@ -217,7 +241,7 @@ export async function applyScrumHistory(row, content, direction, request) {
     try {
       if (!journal) {
         if (await ScrumSprints.findOneAsync({ boardId: row.boardId, ...ROLLOVER_PENDING })) conflict();
-        const current = await Promise.all(targets.map(entry => collections[entry.type].findOneAsync(entry.id)));
+        const current = await readTargets(targets);
         await validateTargets(board, userId, targets, current);
         await assertNoPendingScrumImport(row.boardId);
         const live = { records: targets.map((entry, index) => ({ type: entry.type, id: entry.id, document: historyDocument(entry.type, current[index]) })) };
@@ -230,7 +254,7 @@ export async function applyScrumHistory(row, content, direction, request) {
           incarnations: plannedIncarnations({ targets, current, newId: () => Random.id() }) };
         await ScrumHistoryPending.insertAsync(journal);
       } else {
-        const current = await Promise.all(targets.map(entry => collections[entry.type].findOneAsync(entry.id)));
+        const current = await readTargets(targets);
         await validateTargets(board, userId, targets, current);
         await assertNoPendingScrumImport(row.boardId);
       }
@@ -245,7 +269,7 @@ export async function applyScrumHistory(row, content, direction, request) {
       const verifyWrites = async (entries = targets, before = journal.before.records, revisions = journal.revisions,
         incarnations = journal.incarnations) => {
         try { await verifyScrumHistoryWrites({ targets: entries, before, revisions, incarnations, assertCurrent,
-          read: entry => collections[entry.type].findOneAsync(entry.id) }); }
+          read: entry => collections[entry.type].findOneAsync(entry.id), readMany: readTargets }); }
         catch (error) { conflict(); }
       };
       // Refuse already-visible conflicts anywhere in the saved batch before
@@ -253,11 +277,12 @@ export async function applyScrumHistory(row, content, direction, request) {
       // because this read-only preflight is not an atomic database snapshot.
       try { await inspectScrumHistoryWrites({ targets, before: journal.before.records,
         revisions: journal.revisions, incarnations: journal.incarnations, assertCurrent,
-        read: entry => collections[entry.type].findOneAsync(entry.id) }); }
+        read: entry => collections[entry.type].findOneAsync(entry.id), readMany: readTargets }); }
       catch (error) { conflict(); }
       await withoutRecording(async () => {
+        // Each write is fenced by the ownership check right before it; the
+        // read it is computed from comes first, so the check also covers it.
         for (let index = 0; index < targets.length; index += 1) {
-          await assertCurrent();
           const entry = targets[index]; const collection = collections[entry.type];
           const current = await collection.findOneAsync(entry.id);
           const before = journal.before.records[index];
@@ -288,7 +313,13 @@ export async function applyScrumHistory(row, content, direction, request) {
             if (Object.keys(unset).length) modifier.$unset = unset;
             if (!await collection.updateAsync(selector, modifier)) conflict();
           }
-          await verifyWrites([entry], [before], [originalRevision], journal.incarnations ? [incarnation] : undefined);
+          // The write landed as planned. Ownership is not asked again here:
+          // the next write's fence and the whole batch's readback below ask it.
+          try {
+            const written = await collection.findOneAsync(entry.id);
+            if (scrumHistoryWriteState({ type: entry.type, current: written, before: before.document, after: entry.document,
+              revision: originalRevision, incarnation }) !== 'applied') conflict();
+          } catch (error) { conflict(); }
         }
       });
       // Keep recovery durable until BOTH the timeline and the undo-stack flag

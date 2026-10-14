@@ -36,18 +36,39 @@ function scrumHistoryWriteState({ type, current, before, after, revision, incarn
   if (incarnation && current && incarnationOf(current) !== incarnation.before) fail();
   return 'pending';
 }
-async function inspectScrumHistoryWrites({ targets, before, revisions, incarnations, read, assertCurrent }) {
+// `readMany` (optional) reads every target at once - one query per type
+// instead of one per record, which a sprint of ten thousand cards needs. Its
+// reads are bracketed by ownership checks like the one-by-one reads are: the
+// worker's claim and the source row only ever go from current to displaced,
+// never back, so current before and after the whole read means current
+// throughout it.
+async function inspectScrumHistoryWrites({ targets, before, revisions, incarnations, read, readMany, assertCurrent }) {
   if (!Array.isArray(targets) || !Array.isArray(before) || !Array.isArray(revisions) ||
       targets.length !== before.length || targets.length !== revisions.length ||
       (incarnations !== undefined && (!Array.isArray(incarnations) || incarnations.length !== targets.length)) ||
-      typeof read !== 'function' || typeof assertCurrent !== 'function') fail();
-  const states = [];
+      typeof read !== 'function' || typeof assertCurrent !== 'function' ||
+      (readMany !== undefined && typeof readMany !== 'function')) fail();
   for (let index = 0; index < targets.length; index++) {
     const target = targets[index], previous = before[index];
     if (!target || !previous || target.type !== previous.type || target.id !== previous.id) fail();
+  }
+  let docs = null;
+  if (readMany) {
     await assertCurrent();
-    const current = await read(target);
+    docs = await readMany(targets);
     await assertCurrent();
+    if (!Array.isArray(docs) || docs.length !== targets.length) fail();
+  }
+  const states = [];
+  for (let index = 0; index < targets.length; index++) {
+    const target = targets[index], previous = before[index];
+    let current;
+    if (docs) current = docs[index];
+    else {
+      await assertCurrent();
+      current = await read(target);
+      await assertCurrent();
+    }
     states.push(scrumHistoryWriteState({ type: target.type, current, before: previous.document,
       after: target.document, revision: revisions[index], incarnation: incarnations?.[index] }));
   }

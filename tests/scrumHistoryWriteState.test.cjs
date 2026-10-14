@@ -135,3 +135,51 @@ test('every place a Scrum record is created gives it a fresh incarnation', () =>
   assert.match(history, /\['_id','revision','updatedAt','updatedBy','incarnation'\]\.includes\(key\)/);
   assert.doesNotMatch(read('models/lib/scrum.js'), /incarnation/, 'a client can not supply one');
 });
+
+// Batch undo/redo speed (maintainer decision of 2026-10-14, "optimoi nyt"): a
+// row's targets are read in one query per type (readMany), bracketed by the
+// ownership checks, instead of one read and two checks per record.
+test('readMany: one bracketed read gives the same states, and ownership is still checked after it', async () => {
+  const { inspectScrumHistoryWrites: inspect } = require('../server/lib/scrumHistoryWriteState');
+  const f = verification();
+  f.rows[0].scrum = {}; f.rows[0].scrumRevision = 1;
+  let reads = 0, checks = 0;
+  f.options.read = async () => { throw Error('per-record read used'); };
+  f.options.readMany = async targets => { reads++; return targets.map(t => f.rows.find(row => row._id === t.id)); };
+  f.options.assertCurrent = async () => { checks++; };
+  assert.deepEqual(await inspect(f.options), ['pending', 'applied']);
+  assert.equal(reads, 1, 'one read for the whole row');
+  assert.equal(checks, 3, 'before, after, and at the end - not two a record');
+  // Negative: ownership lost during the read is caught after it.
+  const g = verification(); let read = false;
+  g.options.readMany = async targets => { read = true; return targets.map(t => g.rows.find(row => row._id === t.id)); };
+  g.options.assertCurrent = async () => { if (read) throw Error('ownership lost'); };
+  await assert.rejects(verify(g.options), /ownership lost/);
+  // Negative: a short answer, a missing record, a wrong-identity target.
+  const h = verification(); h.options.readMany = async () => [h.rows[0]];
+  await assert.rejects(inspect(h.options), /conflict/);
+  const i = verification(); i.options.readMany = async targets => targets.map(() => undefined);
+  await assert.rejects(verify(i.options), /conflict/);
+  const j = verification(); j.options.readMany = async () => { throw Error('never read'); }; j.options.before[1].id = 'other';
+  await assert.rejects(inspect(j.options), /conflict/, 'identity is checked before any read');
+  const k = verification(); k.options.readMany = 'yes';
+  await assert.rejects(inspect(k.options), /conflict/);
+});
+
+test('the Scrum History write path reads in bulk and fences every write', () => {
+  const history = require('node:fs').readFileSync(require('node:path').join(__dirname, '../server/lib/scrumHistory.js'), 'utf8');
+  assert.match(history, /async function readTargets\(targets\) \{[\s\S]{0,500}find\(\{ _id: \{ \$in: \[\.\.\.ids\] \} \}\)/);
+  assert.equal((history.match(/const current = await readTargets\(targets\);/g) || []).length, 2);
+  assert.equal((history.match(/readMany: readTargets/g) || []).length, 2, 'preflight and whole-batch readback');
+  // Negative: no per-record read of the whole row is left.
+  assert.doesNotMatch(history, /Promise\.all\(targets\.map\(entry => collections\[entry\.type\]\.findOneAsync/);
+  // Every write still has the ownership check right before it.
+  const loop = history.slice(history.indexOf('for (let index = 0; index < targets.length; index += 1) {'), history.indexOf('Keep recovery durable'));
+  for (const write of ['removeAsync(selector)', 'updateAsync(selector, { $set: { scrum:', 'insertAsync({ ...EJSON.clone(entry.document)', 'updateAsync(selector, modifier)']) {
+    const at = loop.indexOf(write);
+    assert.ok(at > 0, write);
+    assert.ok(loop.lastIndexOf('await assertCurrent();', at) > loop.indexOf('scrumHistoryWriteState({ type: entry.type, current,'), `${write}: fenced after its read`);
+  }
+  // A shared sprint is read once, not once a card.
+  assert.match(history, /if \(!looked\.has\(key\)\) looked\.set\(key, await collections\[type\]\.findOneAsync\(id\)\);/);
+});

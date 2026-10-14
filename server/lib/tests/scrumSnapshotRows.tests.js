@@ -141,8 +141,12 @@ describe('Scrum snapshot rows', function () {
     // Measured at 10,500 cards (2026-10-14): start and close 2 s, the rollover
     // 36 s, the undo batch 282 s and the redo after it 578 s - 15 min 25 s in
     // all, past the 15 minutes this had, so every full run timed out here and
-    // the next test met its unfinished writes. Batch undo/redo is ~27 ms a
-    // card; making it faster is in CHANGELOG.md's TODO Later.
+    // the next test met its unfinished writes. Batch undo/redo was ~27 ms a
+    // card, about thirty database round trips each. Reading a row's records
+    // in one query per type and checking ownership once around that read
+    // (server/lib/scrumHistoryWriteState.js readMany) brought the whole test
+    // to 6 min 7 s on the same machine (2026-10-14); the timeout keeps room
+    // for slower CI hosts.
     this.timeout(1800000);
     const actor = Random.id(), boardId = Random.id(), listId = Random.id(), laneId = Random.id();
     const next = Random.id();
