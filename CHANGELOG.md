@@ -560,19 +560,16 @@ used.
 </details>
 
 <details>
-<summary>Planned: Android bundles, once their Node.js exists.</summary>
+<summary>Not possible from a Sandstorm grain, recorded so it is not asked again.</summary>
 
-Requested on 2026-10-13; everything else of it is done (see Upcoming): Bun
-single files, musl bundles and AppImages, outgoing webhooks, list sync and
-the REST API through Sandstorm. Builds run on GitHub Actions only.
-
-- Android on the WeKan platforms: `android-*` bundles for all four Android
-  CPUs, once wekan/node-patches has published its `node-android-*` binaries.
-  The single-file workflow builds them as soon as those bundles exist.
-- Not possible, recorded so it is not asked again: Jira list sync from a
-  Sandstorm grain ([#2208](https://github.com/wekan/wekan/issues/2208),
-  [#2167](https://github.com/wekan/wekan/issues/2167)). Jira signs in only with an `Authorization` header, and the
-  bridge proxy puts its own grant there.
+Everything requested on 2026-10-13 is done (see Upcoming): Bun single files,
+musl and Android bundles, and outgoing webhooks, list sync and the REST API
+through Sandstorm. Builds run on GitHub Actions only. What cannot work:
+Jira list sync from a grain
+([#2208](https://github.com/wekan/wekan/issues/2208),
+[#2167](https://github.com/wekan/wekan/issues/2167)) - Jira signs in only
+with an `Authorization` header, and the bridge proxy puts its own grant
+there.
 
 </details>
 
@@ -582,12 +579,11 @@ the REST API through Sandstorm. Builds run on GitHub Actions only.
 
 **In short:** **custom board roles**, **per-list permissions** and boards
 **every signed-in user may edit**; board **keys** (`DEV-7`) and **shared
-labels**; WeKan serves **HTTPS** itself; **Bun single files** and **musl
-bundles and AppImages** for Alpine; on **Sandstorm**, webhooks and list sync
-leave through the Powerbox and the REST API takes a grain API key. Seventeen
-locale files that held **another
-language**, and six full of machine-fill prefixes, are rewritten in their
-own, and fourteen **GitHub CodeQL** alerts are fixed.
+labels**; **HTTPS** in WeKan itself; **Bun single files**, **musl** bundles
+for Alpine and **Android** bundles for Termux; on **Sandstorm**, webhooks,
+list sync and the REST API work. Twenty-three locale files that held
+**another language** or machine-fill prefixes are rewritten in their own,
+and fourteen **GitHub CodeQL** alerts are fixed.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
@@ -808,6 +804,21 @@ compiled against musl. Before it is published, each addon's architecture is
 checked, sharp must load, and the bundle must start and answer HTTP 200; the
 AppImages are started inside Alpine too. `tests/muslBundles.test.cjs`
 covers the build and the workflows. See [Alpine](docs/Platforms/FOSS/OS/Alpine.md).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b8d9cb2565">Android bundles for Termux, for all four Android CPUs</a>. Thanks to xet7.</summary>
+
+Every release that has wekan/node-patches' Android Node.js also has
+`wekan-<version>-android-arm64.zip`, `-x64`, `-armv7` and `-x86`, with
+FerretDB. Each is the release's Linux bundle rebuilt inside Termux's own
+image with that Node.js, checked against its SHA256: every native addon is
+built for it, and sharp against Termux's libvips. Before it is published,
+each addon's architecture is checked, sharp must load, and the bundle must
+start and answer HTTP 200. A CPU whose Android Node.js is not published yet
+is skipped and builds by itself once it is. `tests/androidBundles.test.cjs`
+covers the build and the workflow. See [Android](docs/Platforms/FOSS/OS/Android.md).
 
 </details>
 
