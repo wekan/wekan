@@ -56,6 +56,20 @@ for (const file of jadeFiles('client')) {
 assert.deepEqual(offenders, [], 'give each a title="{{_ \'...\'}}"');
 console.log('  ok - every icon-only link and button in the templates has a name');
 
+// Every image in the templates has alt text; the attachment viewer's is the
+// file's name once a picture is shown.
+const imgOffenders = [];
+for (const file of jadeFiles('client')) {
+  fs.readFileSync(path.join(ROOT, file), 'utf8').split('\n').forEach((line, i) => {
+    const t = line.trim();
+    if (/^img([.#(]|$)/.test(t) && !/\balt=/.test(t)) imgOffenders.push(`${file}:${i + 1}`);
+  });
+}
+assert.deepEqual(imgOffenders, [], 'every img has alt text');
+assert.match(fs.readFileSync(path.join(ROOT, 'client/components/cards/attachments.js'), 'utf8'),
+  /if \(attachment\.name\) \$\("#image-viewer"\)\.attr\("alt", attachment\.name\);/);
+console.log('  ok - every image has alt text');
+
 // And the title still becomes the accessible name.
 const a11y = fs.readFileSync(path.join(ROOT, 'client/lib/accessibility.js'), 'utf8');
 assert.match(a11y, /HTML\.A = \(attributes, \.\.\.others\) => \{\s*return superA\(copyTitleInAriaLabel\(enforceHref\(attributes\)\), \.\.\.others\);/);

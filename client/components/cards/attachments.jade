@@ -59,7 +59,7 @@ template(name="attachmentViewer")
     #viewer-container
       button.fa.fa-caret-left#prev-attachment(type="button" aria-label="{{_ 'previous'}}")
       #viewer-content
-        img#image-viewer.hidden
+        img#image-viewer.hidden(alt="{{_ 'preview'}}")
         video#video-viewer.hidden(controls="true")
         audio#audio-viewer.hidden(controls="true")
         object#pdf-viewer.hidden(type="application/pdf")

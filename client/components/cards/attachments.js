@@ -159,6 +159,8 @@ function openAttachmentViewer(attachmentId) {
   switch(true){
     case (kind.isImage):
       $("#image-viewer").attr("src", getAttachmentUrl(attachment));
+      // #337: the picture is named by its file for a screen reader.
+      if (attachment.name) $("#image-viewer").attr("alt", attachment.name);
       $("#image-viewer").removeClass("hidden");
       break;
     case (kind.isPDF):
