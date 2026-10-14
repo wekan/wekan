@@ -483,6 +483,8 @@ export async function activityWebhookIntegrations(board, description, options = 
   if (board && board.dueReminderWebhook === true && isDueReminderDescription(description)) {
     return ReactiveCache.getIntegrations({
       enabled: true,
+      // A bot is sent dispatches only (models/lib/botRuns.js), not reminders.
+      bot: { $ne: true },
       $or: [
         { boardId: board._id },
         { boardId: Integrations.Const.GLOBAL_WEBHOOK_ID, activities: { $in: webhookActivitySelection(description) } },
@@ -492,6 +494,7 @@ export async function activityWebhookIntegrations(board, description, options = 
   return ReactiveCache.getIntegrations({
     boardId: { $in: integrationBoardIds },
     enabled: true,
+    bot: { $ne: true },
     // #4912: an edit also selects webhooks that opted into `act-editCard`.
     activities: { $in: webhookActivitySelection(description) },
   }, options);

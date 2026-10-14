@@ -577,7 +577,7 @@ there.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.42 2026-10-14 WeKan ® release
 
 **In short:** a new **Version Control** board view shows a board as a
 **GitHub** or **Gitea** issue tracker, with releases, a **wiki** and history

@@ -145,6 +145,14 @@ Integrations.attachSchema(
        */
       type: String,
     },
+    bot: {
+      /**
+       * Board Settings / Bots (models/lib/botRuns.js): this outgoing webhook
+       * is a bot's runner. It is sent dispatches only, never board activity.
+       */
+      type: Boolean,
+      optional: true,
+    },
   }),
 );
 Integrations.Const = {
