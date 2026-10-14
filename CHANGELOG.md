@@ -3974,6 +3974,19 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cdcbe1e430">Repair Haitian account anonymization warning</a>. Thanks to xet7.</summary>
+
+- Replace export-anonymization text incorrectly used for account anonymization.
+  Explain permanent identity replacement, avatar removal, disabled login and
+  retained board/card/comment history; correct the action label too.
+- Translation suites and 21 human-preference checks pass. Existing Chinese
+  values remain unchanged. The confirmation browser case checks consequences
+  without confirming the action; syntax and discovery pass, runtime is pending.
+- All-language semantic review and remaining translations continue.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

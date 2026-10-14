@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Haitian Creole account anonymization warning — 2026-10-14
+
+Commit `cdcbe1e430` fixes the account-anonymization action label and confirmation.
+The confirmation incorrectly duplicated export-anonymization help, omitting the
+actual consequences. It now explains permanent username/name/email replacement,
+avatar removal, disabled login, retained history and continued anonymous account
+references. The wording matches the current English source and the behavior in
+`server/models/users.js`.
+
+The Haitian catalog and guarded-correction suites pass with 29,849 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. A browser case checks each consequence
+and rejects export-only wording without confirming the account action. Syntax
+and discovery pass; runtime remains pending.
+
+Haitian semantic review and the all-language objective remain unfinished.
+
 ## Haitian Creole recurrence and checklist reset — 2026-10-14
 
 Commit `95f0938b36` corrects eight labels. Card recurrence and checklist reset
