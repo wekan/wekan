@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Grain bii man na agsi ci adrees bii",
   "sandstorm-sync-grant": "May grain bii mu agsi ci tracker bii",
   "sandstorm-sync-granted": "Grain bii man na agsi ci tracker bii",
+  "sandstorm-sync-jira-hint": "Ci Powerbox bi, tànnal nga lënkalé ak bépp adrees te dugal sa adreesu Jira ak sa imeel ak sa token API ci biir: https://EMAIL:API-TOKEN@your-site.atlassian.net, bind @ bu imeel bi ni %40. Sandstorm dafa leen denc ci ndigal li te di leen xaatim bépp laaj; WeKan du leen gis mukk.",
   "global-webhook": "Webhooks global",
   "new-outgoing-webhook": "Webhook boppam bi",
   "no-name": "(xameesul)",

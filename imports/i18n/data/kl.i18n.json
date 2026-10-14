@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Grain-ip uunga najugaqarfimmut anguniarsinnaavoq",
   "sandstorm-sync-grant": "Grain-ip uunga malittarinnittumut anguniarnissaa akuerijuk",
   "sandstorm-sync-granted": "Grain-ip uunga malittarinnittumut anguniarsinnaavoq",
+  "sandstorm-sync-jira-hint": "Powerbox-imi qinnuteqarit sumulluunniit attaveqarnissamut, Jira-mullu najugaqarfitit allaguk e-mailit API token-illu ilanngullugit: https://EMAIL:API-TOKEN@your-site.atlassian.net, e-mailip @ %40-tut allallugu. Sandstorm-ip akuersissummi toqqortarai qinnutillu tamaasa atsiorfigisarlugit; WeKan-ip takusarneq ajorai.",
   "global-webhook": "Webhooks nunarsuaq tamakkerlugu atuuttut",
   "new-outgoing-webhook": "Webhook anisoq nutaaq",
   "no-name": "(Ilisimaneqanngilaq)",

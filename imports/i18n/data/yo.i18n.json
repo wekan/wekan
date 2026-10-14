@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Grain yìí lè dé àdírẹ́sì yìí",
   "sandstorm-sync-grant": "Gba grain yìí láàyè láti dé atọ́nà yìí",
   "sandstorm-sync-granted": "Grain yìí lè dé atọ́nà yìí",
+  "sandstorm-sync-jira-hint": "Nínú Powerbox, yan láti sopọ̀ mọ́ àdírẹ́sì èyíkéyìí kí o sì tẹ àdírẹ́sì Jira rẹ pẹ̀lú ímeèlì rẹ àti àmì API rẹ nínú rẹ̀: https://EMAIL:API-TOKEN@your-site.atlassian.net, kí o kọ @ ti ímeèlì gẹ́gẹ́ bí %40. Sandstorm ń pa wọ́n mọ́ nínú àṣẹ náà ó sì ń fi wọ́n buwọ́lu gbogbo ìbéèrè; WeKan kò rí wọn rárá.",
   "global-webhook": "Agbaye Webhooks",
   "new-outgoing-webhook": "Titun ti njade Webhook",
   "no-name": "(Aimọ)",

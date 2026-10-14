@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "此 grain 已獲准存取此位址",
   "sandstorm-sync-grant": "允許此 grain 存取此追蹤系統",
   "sandstorm-sync-granted": "此 grain 已獲准存取此追蹤系統",
+  "sandstorm-sync-jira-hint": "在 Powerbox 中，選擇連線到任意位址，並輸入包含您的電子郵件和 API 權杖的 Jira 位址：https://EMAIL:API-TOKEN@your-site.atlassian.net，並將電子郵件中的 @ 寫成 %40。Sandstorm 會將它們保存在授權中，並用它們為每個請求簽名；WeKan 永遠看不到它們。",
   "global-webhook": "全域訂閱 (Webhooks)",
   "new-outgoing-webhook": "新增連外訂閱 (Webhooks)",
   "no-name": "（未知）",

@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Grain iyi i nga swika kha ḓiresi iyi",
   "sandstorm-sync-grant": "Tendelani grain iyi uri i swike kha tshiṱaraka itshi",
   "sandstorm-sync-granted": "Grain iyi i nga swika kha tshiṱaraka itshi",
+  "sandstorm-sync-jira-hint": "Kha Powerbox, khethani u ṱumanya kha aṱirese iṅwe na iṅwe nahone ni dzhenise aṱirese yaṋu ya Jira i re na imeili yaṋu na thokheni ya API ngomu: https://EMAIL:API-TOKEN@your-site.atlassian.net, ni tshi ṅwala @ ya imeili sa %40. Sandstorm i a zwi vhulunga kha thendelo nahone i saina khumbelo iṅwe na iṅwe nga zwone; WeKan a i zwi vhoni na luthihi.",
   "global-webhook": "Webhook dza sisiteme yoṱhe",
   "new-outgoing-webhook": "Webhook ntswa ya u bva",
   "no-name": "(A zwi ḓivhei)",

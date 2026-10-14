@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Bu grain bu salga ýetip biler",
   "sandstorm-sync-grant": "Bu grain-e bu yzarlaýja ýetmäge rugsat ber",
   "sandstorm-sync-granted": "Bu grain bu yzarlaýja ýetip biler",
+  "sandstorm-sync-jira-hint": "Powerbox-da islendik salgy bilen birikmegi saýlaň we içinde e-poçtaňyz we API tokeniňiz bolan Jira salgyňyzy giriziň: https://EMAIL:API-TOKEN@your-site.atlassian.net, e-poçtanyň @ belgisini %40 görnüşinde ýazyp. Sandstorm olary rugsatda saklaýar we her bir haýyşa olar bilen gol çekýär; WeKan olary hiç haçan görmeýär.",
   "global-webhook": "Global webhooks",
   "new-outgoing-webhook": "Täze çykýan webhook",
   "no-name": "(Näbelli)",

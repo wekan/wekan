@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "یہ grain ہیٚکہِ یتھ پَتس تام واتِتھ",
   "sandstorm-sync-grant": "یتھ grain یَس یتھ ٹریکرس تام واتنٕچ اِجازت دِیِو",
   "sandstorm-sync-granted": "یہ grain ہیٚکہِ یتھ ٹریکرس تام واتِتھ",
+  "sandstorm-sync-jira-hint": "Powerbox منٛز ژارِو کٲنٛسہِ تہِ پتس سٟتۍ جُڑُن تہٕ دِیِو پنُن Jira پتہٕ یتھ منٛز تُہنٛز ای میل تہٕ API ٹوکن آسہِ: https://EMAIL:API-TOKEN@your-site.atlassian.net، ای میلُک @ لیٖکھِو %40 ہِیُو۔ Sandstorm تھاوان یِم اِجازتس منٛز تہٕ کران یِمن سٟتۍ پرٛتھ گُزارشس دستخط؛ WeKan چھُ نہٕ یِم زانٛہہ وُچھان۔",
   "global-webhook": "گلوبل ویب ہُک",
   "new-outgoing-webhook": "نوٚو نؠبر سوزنہٕ یِنہٕ وول ویب ہُک",
   "no-name": "(نامعلوم)",

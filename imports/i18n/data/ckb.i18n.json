@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "ئەم grainە دەتوانێت بگاتە ئەم ناونیشانە",
   "sandstorm-sync-grant": "ڕێگە بدە بەم grainە بگاتە ئەم شوێنپێگرە",
   "sandstorm-sync-granted": "ئەم grainە دەتوانێت بگاتە ئەم شوێنپێگرە",
+  "sandstorm-sync-jira-hint": "لە Powerbox دا، پەیوەندیکردن بە هەر ناونیشانێک هەڵبژێرە و ناونیشانی Jiraـکەت بنووسە کە ئیمەیڵ و تۆکنی APIـت تێدایە: https://EMAIL:API-TOKEN@your-site.atlassian.net، و @ی ئیمەیڵەکە وەک %40 بنووسە. Sandstorm ئەوانە لە ڕێپێدانەکەدا هەڵدەگرێت و هەموو داواکارییەک پێیان واژۆ دەکات؛ WeKan هەرگیز نایانبینێت.",
   "global-webhook": "Webhookە گشتییەکان",
   "new-outgoing-webhook": "Webhookی دەرچووی نوێ",
   "no-name": "(نەناسراو)",

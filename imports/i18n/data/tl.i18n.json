@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Maaaring maabot ng grain na ito ang address na ito",
   "sandstorm-sync-grant": "Payagan ang grain na ito na maabot ang tracker na ito",
   "sandstorm-sync-granted": "Maaaring maabot ng grain na ito ang tracker na ito",
+  "sandstorm-sync-jira-hint": "Sa Powerbox, piliing kumonekta sa anumang address at ilagay ang iyong Jira address na may email at API token mo sa loob: https://EMAIL:API-TOKEN@your-site.atlassian.net, isinusulat ang @ ng email bilang %40. Iniingatan ito ng Sandstorm sa pahintulot at nilalagdaan ang bawat kahilingan gamit ang mga ito; hindi kailanman nakikita ng WeKan ang mga ito.",
   "global-webhook": "Global Mga webhook",
   "new-outgoing-webhook": "Bago Papalabas Webhook",
   "no-name": "(Hindi alam)",

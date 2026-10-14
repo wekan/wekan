@@ -2791,6 +2791,10 @@
     {
       "key": "chat-view-message-cards",
       "since": "2026-10-14"
+    },
+    {
+      "key": "sandstorm-sync-jira-hint",
+      "since": "2026-10-14"
     }
   ]
 }

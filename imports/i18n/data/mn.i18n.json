@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Энэ grain энэ хаяг руу хандаж болно",
   "sandstorm-sync-grant": "Энэ grain-д энэ хяналтын систем рүү хандахыг зөвшөөрөх",
   "sandstorm-sync-granted": "Энэ grain энэ хяналтын систем рүү хандаж болно",
+  "sandstorm-sync-jira-hint": "Powerbox дотор дурын хаягт холбогдохыг сонгоод, имэйл болон API токеноо агуулсан Jira хаягаа оруулна уу: https://EMAIL:API-TOKEN@your-site.atlassian.net, имэйлийн @ тэмдгийг %40 гэж бичнэ. Sandstorm тэдгээрийг зөвшөөрөлд хадгалж, хүсэлт бүрт тэдгээрээр гарын үсэг зурна; WeKan тэдгээрийг хэзээ ч хардаггүй.",
   "global-webhook": "Глобал webhook-ууд",
   "new-outgoing-webhook": "Шинэ гарах webhook",
   "no-name": "(Тодорхойгүй)",

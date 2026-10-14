@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Foddee yn grain shoh roshtyn er yn enmys shoh",
   "sandstorm-sync-grant": "Lhig da'n grain shoh roshtyn er y tracker shoh",
   "sandstorm-sync-granted": "Foddee yn grain shoh roshtyn er y tracker shoh",
+  "sandstorm-sync-jira-hint": "Ayns y Powerbox, reih dy chochiangley rish enmys erbee as cur stiagh dty enmys Jira lesh dty phost-l as dty chowrey API ayn: https://EMAIL:API-TOKEN@your-site.atlassian.net, screeu @ y phost-l myr %40. Ta Sandstorm freayll ad ayns y kied as sinal dagh aghin lhieu; cha vel WeKan dy bragh fakin ad.",
   "global-webhook": "Webhookyn cadjin",
   "new-outgoing-webhook": "Webhook noa goll magh",
   "no-name": "(Neu-enney)",

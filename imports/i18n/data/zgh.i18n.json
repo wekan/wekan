@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "ⵉⵣⵎⵔ grain ⴰⴷ ⴰⴷ ⵢⴰⵡⴹ ⵖⵔ ⵓⵏⵙⴰ ⴰⴷ",
   "sandstorm-sync-grant": "ⴰⵊⵊ ⴰⴷ ⵢⴰⵡⴹ grain ⴰⴷ ⵖⵔ ⵓⵎⴹⴼⴰⵕ ⴰⴷ",
   "sandstorm-sync-granted": "ⵉⵣⵎⵔ grain ⴰⴷ ⴰⴷ ⵢⴰⵡⴹ ⵖⵔ ⵓⵎⴹⴼⴰⵕ ⴰⴷ",
+  "sandstorm-sync-jira-hint": "ⴳ Powerbox, ⵙⵜⵉ ⴰⴷ ⵜⵇⵇⵏⴷ ⵖⵔ ⴽⵔⴰ ⵏ ⵜⴰⵏⵙⴰ ⵜⵙⴽⵛⵎⴷ ⵜⴰⵏⵙⴰ ⵏⵏⴽ ⵏ Jira ⵙ ⵓⵎⴰⵢⵍ ⵏⵏⴽ ⴷ ⵓⵜⵓⴽⵏ ⵏ API ⴳⵉⵙ: https://EMAIL:API-TOKEN@your-site.atlassian.net, ⵙ ⵜⵉⵔⴰ ⵏ @ ⵏ ⵓⵎⴰⵢⵍ ⵙ %40. Sandstorm ⵉⵃⴹⴰ ⵜⵏ ⴳ ⵜⵓⵔⴰⴳⵜ ⵉⵙⵎⴰⵜⵜⴰ ⵙⵔⵙⵏ ⴽⵓ ⵜⵓⵜⵔⴰ; WeKan ⵓⵔ ⵜⵏ ⵉⵜⵜⵥⵕⴰ ⴰⵇⵇⴰ.",
   "global-webhook": "Webhooks ⵏ ⵎⴰⵕⵕⴰ",
   "new-outgoing-webhook": "ويبهوك جديدة",
   "no-name": "(ⴰⵔⵓⵙⵙⵉⵏ)",

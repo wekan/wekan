@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Ko grain ikatu oho ko rendápe",
   "sandstorm-sync-grant": "Emoneĩ ko grain oho hag̃ua ko marandu rógape",
   "sandstorm-sync-granted": "Ko grain ikatu oho ko marandu rógape",
+  "sandstorm-sync-jira-hint": "Powerbox-pe, eiporavo ejoaju oimeraẽva direcciónre ha emoinge ne Jira direcciónre ne e-mail ha API token reheve: https://EMAIL:API-TOKEN@your-site.atlassian.net, ehaívo e-mail @ ha'eháicha %40. Sandstorm oñongatu chupekuéra ñemoneĩme ha ohai hérava opaite mba'ejerure ndive; WeKan ndohechái araka'eve.",
   "global-webhook": "Webhook opavavegua",
   "new-outgoing-webhook": "Webhook osẽva pyahu",
   "no-name": "(Ojekuaa'ỹva)",

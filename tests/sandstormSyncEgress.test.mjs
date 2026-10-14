@@ -30,15 +30,32 @@ async function fakeProxy(handler) {
 }
 
 test('each tracker is granted as the API root its requests are built under', () => {
-  assert.deepEqual(egress.syncApiRoot('github', ''), { root: 'https://api.github.com', reason: null });
-  assert.deepEqual(egress.syncApiRoot('gitlab', ''), { root: 'https://gitlab.com/api/v4', reason: null });
-  assert.deepEqual(egress.syncApiRoot('gitlab', 'https://git.example.org/'), { root: 'https://git.example.org/api/v4', reason: null });
-  assert.deepEqual(egress.syncApiRoot('gitea', 'https://gitea.example.org'), { root: 'https://gitea.example.org/api/v1', reason: null });
-  assert.deepEqual(egress.syncApiRoot('forgejo', 'https://codeberg.org'), { root: 'https://codeberg.org/api/v1', reason: null });
+  assert.deepEqual(egress.syncApiRoot('github', ''), { root: 'https://api.github.com', reason: null, authentication: null });
+  assert.deepEqual(egress.syncApiRoot('gitlab', ''), { root: 'https://gitlab.com/api/v4', reason: null, authentication: null });
+  assert.deepEqual(egress.syncApiRoot('gitlab', 'https://git.example.org/'), { root: 'https://git.example.org/api/v4', reason: null, authentication: null });
+  assert.deepEqual(egress.syncApiRoot('gitea', 'https://gitea.example.org'), { root: 'https://gitea.example.org/api/v1', reason: null, authentication: null });
+  assert.deepEqual(egress.syncApiRoot('forgejo', 'https://codeberg.org'), { root: 'https://codeberg.org/api/v1', reason: null, authentication: null });
 });
 
-test('negative: Jira, and what cannot be granted, are refused with a reason', () => {
-  assert.deepEqual(egress.syncApiRoot('jira', 'https://org.atlassian.net'), { root: null, reason: 'jira-basic-auth' });
+// Jira signs in only with an Authorization header, which the bridge proxy
+// takes for the grant: so its grant asks for Basic authentication, and
+// Sandstorm's HTTP driver keeps the e-mail and API token the member enters in
+// the Powerbox and adds them to every request (2026-10-15).
+test('Jira is granted at its own address, asking the Powerbox for Basic authentication', async () => {
+  assert.deepEqual(egress.syncApiRoot('jira', 'https://org.atlassian.net/'),
+    { root: 'https://org.atlassian.net', reason: null, authentication: 'basic' });
+  assert.deepEqual(egress.syncApiRoot('jira', 'https://jira.example.org/jira'),
+    { root: 'https://jira.example.org/jira', reason: null, authentication: 'basic' });
+  const bridge = await import('../imports/sandstorm/bridgeClient.mjs');
+  const asked = bridge.parseApiSessionDescriptor(bridge.apiSessionDescriptor('https://org.atlassian.net', { authentication: 'basic' }));
+  assert.deepEqual([asked.canonicalUrl, asked.authentication], ['https://org.atlassian.net', 'basic']);
+  // Negative: the other trackers ask for no Basic sign-in.
+  assert.equal(bridge.parseApiSessionDescriptor(bridge.apiSessionDescriptor('https://api.github.com')).authentication, null);
+});
+
+test('negative: what cannot be granted is refused with a reason', () => {
+  // The credentials go into the Powerbox, never into the saved address.
+  assert.equal(egress.syncApiRoot('jira', 'https://me:token@org.atlassian.net').root, null);
   assert.equal(egress.syncApiRoot('trello', '').reason, 'unknown-type');
   for (const url of ['ftp://git.example.org', 'https://user:pw@git.example.org', 'not a url']) {
     assert.equal(egress.syncApiRoot('gitlab', url).root, null, url);

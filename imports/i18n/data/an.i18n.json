@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Iste grain puede plegar a ista adreza",
   "sandstorm-sync-grant": "Permitir que iste grain plegue a iste rastrejador",
   "sandstorm-sync-granted": "Iste grain puede plegar a iste rastrejador",
+  "sandstorm-sync-jira-hint": "En o Powerbox, triga connectar-te a qualsiquier adreza y escribe a tuya adreza de Jira con o tuyo correu electronico y o token d'API dentro: https://EMAIL:API-TOKEN@your-site.atlassian.net, escribindo a @ d'o correu como %40. Sandstorm los alza en o permiso y firma con ells cada petición; WeKan no los veye nunca.",
   "global-webhook": "Webhooks globales",
   "new-outgoing-webhook": "Nuevo webhook saliente",
   "no-name": "(Desconocido)",

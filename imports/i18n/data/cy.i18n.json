@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Caiff y grawn hwn gyrraedd y cyfeiriad hwn",
   "sandstorm-sync-grant": "Caniatáu i'r grawn hwn gyrraedd y system olrhain hon",
   "sandstorm-sync-granted": "Caiff y grawn hwn gyrraedd y system olrhain hon",
+  "sandstorm-sync-jira-hint": "Yn y Powerbox, dewiswch gysylltu ag unrhyw gyfeiriad a rhowch eich cyfeiriad Jira gyda'ch e-bost a'ch tocyn API ynddo: https://EMAIL:API-TOKEN@your-site.atlassian.net, gan ysgrifennu @ yr e-bost fel %40. Mae Sandstorm yn eu cadw yn y caniatâd ac yn llofnodi pob cais gyda nhw; nid yw WeKan byth yn eu gweld.",
   "global-webhook": "Bachau Gwe Byd-eang",
   "new-outgoing-webhook": "Llyfr Gwe Allan Newydd",
   "no-name": "(Anhysbys)",

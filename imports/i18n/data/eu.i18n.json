@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Grain hau helbide honetara irits daiteke",
   "sandstorm-sync-grant": "Baimendu grain honi jarraipen-sistema honetara iristea",
   "sandstorm-sync-granted": "Grain hau jarraipen-sistema honetara irits daiteke",
+  "sandstorm-sync-jira-hint": "Powerbox-en, aukeratu edozein helbidetara konektatzea eta idatzi zure Jira helbidea zure posta elektronikoarekin eta API tokenarekin barruan: https://EMAIL:API-TOKEN@your-site.atlassian.net, posta elektronikoaren @ %40 gisa idatziz. Sandstormek baimenean gordetzen ditu eta eskaera bakoitza haiekin sinatzen du; WeKanek ez ditu inoiz ikusten.",
   "global-webhook": "Webhook globalak",
   "new-outgoing-webhook": "Irteera-webhook berria",
   "no-name": "(Ezezaguna)",

@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Grain a nwere ike iru adreesị a",
   "sandstorm-sync-grant": "Kwe ka grain a ruo ngwa nlekọta a",
   "sandstorm-sync-granted": "Grain a nwere ike iru ngwa nlekọta a",
+  "sandstorm-sync-jira-hint": "N'ime Powerbox, họrọ ijikọ na adreesị ọ bụla wee tinye adreesị Jira gị nwere e-mail gị na token API gị n'ime ya: https://EMAIL:API-TOKEN@your-site.atlassian.net, na-ede @ nke e-mail ahụ dị ka %40. Sandstorm na-edebe ha n'ikike ahụ ma were ha bịanye aka n'arịrịọ ọ bụla; WeKan anaghị ahụ ha mgbe ọ bụla.",
   "global-webhook": "Webhook zuru ụwa ọnụ",
   "new-outgoing-webhook": "Webhook ọhụrụ na-apụ apụ",
   "no-name": "(Amaghị)",

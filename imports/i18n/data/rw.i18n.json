@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Iyi grain ishobora kugera kuri iyi aderesi",
   "sandstorm-sync-grant": "Emerera iyi grain kugera kuri iki gikoresho gikurikirana ibibazo",
   "sandstorm-sync-granted": "Iyi grain ishobora kugera kuri iki gikoresho gikurikirana ibibazo",
+  "sandstorm-sync-jira-hint": "Muri Powerbox, hitamo guhuza na aderesi iyo ari yo yose hanyuma winjize aderesi yawe ya Jira irimo imeyili yawe na token ya API: https://EMAIL:API-TOKEN@your-site.atlassian.net, wandika @ ya imeyili nka %40. Sandstorm ibibika mu ruhushya kandi igasinya buri busabe ibikoresheje; WeKan ntijya ibibona.",
   "global-webhook": "Webhooks za Hose",
   "new-outgoing-webhook": "Webhook Nshya Isohoka",
   "no-name": "(Ntibizwi)",

@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "हो grain ह्या पत्त्यार पावूं येता",
   "sandstorm-sync-grant": "ह्या grain क ह्या ट्रॅकराक पावपाक परवानगी दियात",
   "sandstorm-sync-granted": "हो grain ह्या ट्रॅकराक पावूं येता",
+  "sandstorm-sync-jira-hint": "Powerbox त खंयच्याय पत्त्याक जोडपाचें वेंचात आनी तुमचो ई-मेल आनी API टोकन आशिल्लो तुमचो Jira पत्तो घालात: https://EMAIL:API-TOKEN@your-site.atlassian.net, ई-मेलाचो @ %40 अशें बरयात. Sandstorm तांकां परवानगेंत दवरता आनी दर एका विनंतीचेर तांचे वरवीं सही करता; WeKan तांकां केन्नाच पळयना.",
   "global-webhook": "जागतिक वेबहूक",
   "new-outgoing-webhook": "नवो भायर वचपी वेबहूक",
   "no-name": "(अज्ञात)",

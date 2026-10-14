@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Grain iyi ikhoza kufika pa adilesi iyi",
   "sandstorm-sync-grant": "Lolani grain iyi kufika pa chowunikira ichi",
   "sandstorm-sync-granted": "Grain iyi ikhoza kufika pa chowunikira ichi",
+  "sandstorm-sync-jira-hint": "Mu Powerbox, sankhani kulumikiza ku adilesi iliyonse ndipo lowetsani adilesi yanu ya Jira yokhala ndi imelo yanu ndi chizindikiro cha API mkati: https://EMAIL:API-TOKEN@your-site.atlassian.net, polemba @ ya imelo ngati %40. Sandstorm imazisunga mu chilolezo ndipo imasaina pempho lililonse nazo; WeKan siziona konse.",
   "global-webhook": "Ma webhook a padziko lonse",
   "new-outgoing-webhook": "Webhook yatsopano yotuluka",
   "no-name": "(Sakudziwika)",

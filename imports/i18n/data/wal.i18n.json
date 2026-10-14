@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Ha grain ha teesuwaa gakkana danda'ees",
   "sandstorm-sync-grant": "Ha grain ha tracker-ppe gakkanaadan maata imma",
   "sandstorm-sync-granted": "Ha grain ha tracker-ppe gakkana danda'ees",
+  "sandstorm-sync-jira-hint": "Powerbox giddon, ay adiraashaakka gidikkokka gattanaw dooraa, nena e-meeyiliyaanne API tookiniyaa giddon de'iya Jira adiraashaa gelissa: https://EMAIL:API-TOKEN@your-site.atlassian.net, e-meeyiliya @ %40 giishin xaafiishin. Sandstorm eta maata giddon naagees, qassi oychaa ubbaa etan malaatees; WeKan eta muleka beˈenna.",
   "global-webhook": "Ubbaas de'iya Webhookata",
   "new-outgoing-webhook": "Ooratha kare kiittiya Webhookiyaa",
   "no-name": "(Erettibeenna)",

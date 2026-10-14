@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Grain leyi yi nga fika eka adirese leyi",
   "sandstorm-sync-grant": "Pfumelela grain leyi ku fika eka xilandzeleri lexi",
   "sandstorm-sync-granted": "Grain leyi yi nga fika eka xilandzeleri lexi",
+  "sandstorm-sync-jira-hint": "Eka Powerbox, hlawula ku hlanganisa na adirese yihi na yihi kutani u nghenisa adirese ya wena ya Jira leyi nga na imeyili ya wena na thokeni ya API endzeni: https://EMAIL:API-TOKEN@your-site.atlassian.net, u tsala @ ya imeyili tanihi %40. Sandstorm yi swi hlayisa eka mpfumelelo naswona yi sayina xikombelo xin'wana na xin'wana hi swona; WeKan a yi swi voni nikatsongo.",
   "global-webhook": "Ti-webhook ta sisiteme hinkwayo",
   "new-outgoing-webhook": "Webhook Leyintshwa ya le Handle",
   "no-name": "(A ku na vito)",

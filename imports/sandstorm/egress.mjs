@@ -77,9 +77,12 @@ export function webhookGrantFor(rawUrl) {
 
 // List sync from a grain: the API root a board member approves in the
 // Powerbox for one list's tracker - the part of every request URL that
-// listSyncFetch.js builds below it. Jira authenticates only with a Basic
-// Authorization header, which the bridge proxy replaces with the grant, so it
-// cannot be reached from a grain: null, with the reason.
+// listSyncFetch.js builds below it. Jira signs in only with an Authorization
+// header, which the bridge proxy takes for the grant; so its grant carries the
+// credentials itself: the request asks for Basic authentication, the member
+// enters the address with the e-mail and API token in it, and Sandstorm's HTTP
+// driver keeps them and adds them to every request (2026-10-15, from the
+// Sandstorm source: shell/imports/server/drivers/external-ui-view.js).
 export function syncApiRoot(type, rawUrl) {
   const base = String(rawUrl || '').replace(/\/+$/, '');
   const root = {
@@ -87,8 +90,9 @@ export function syncApiRoot(type, rawUrl) {
     gitlab: () => `${base || 'https://gitlab.com'}/api/v4`,
     gitea: () => `${base}/api/v1`,
     forgejo: () => `${base}/api/v1`,
+    jira: () => base,
   }[type];
-  if (!root) return { root: null, reason: type === 'jira' ? 'jira-basic-auth' : 'unknown-type' };
+  if (!root) return { root: null, reason: 'unknown-type' };
   const value = root();
   try {
     const url = new URL(value);
@@ -98,7 +102,7 @@ export function syncApiRoot(type, rawUrl) {
   } catch (e) {
     return { root: null, reason: 'bad-url' };
   }
-  return { root: value, reason: null };
+  return { root: value, reason: null, authentication: type === 'jira' ? 'basic' : null };
 }
 
 // The roots a URL could have been granted under, longest first: its path

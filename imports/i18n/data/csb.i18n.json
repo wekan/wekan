@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Nen grain mòże dosëgnąc tegò adresë",
   "sandstorm-sync-grant": "Pòzwôlôj temù grainowi dosëgnąc tegò tracëra",
   "sandstorm-sync-granted": "Nen grain mòże dosëgnąc tegò tracëra",
+  "sandstorm-sync-jira-hint": "W Powerboxu wëbierzë pòdłączenié do dowòlnégò adresë ë wpiszë swòjã adresã Jira z e-mailã ë tokenã API we wnetrzu: https://EMAIL:API-TOKEN@your-site.atlassian.net, piszącë @ z e-maila jakno %40. Sandstorm trzimô je w pòzwòlenim ë pòdpisywô nima kòżdé żądanié; WeKan nigdë jich nie widzy.",
   "global-webhook": "Globalné webhooki",
   "new-outgoing-webhook": "Nowi wychodzący webhook",
   "no-name": "(Nieznóné)",

@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "此 grain 已获准访问此地址",
   "sandstorm-sync-grant": "允许此 grain 访问此跟踪系统",
   "sandstorm-sync-granted": "此 grain 已获准访问此跟踪系统",
+  "sandstorm-sync-jira-hint": "在 Powerbox 中，选择连接到任意地址，并输入包含您的电子邮件和 API 令牌的 Jira 地址：https://EMAIL:API-TOKEN@your-site.atlassian.net，并将电子邮件中的 @ 写作 %40。Sandstorm 将它们保存在授权中，并用它们为每个请求签名；WeKan 永远看不到它们。",
   "global-webhook": "全局 Webhooks",
   "new-outgoing-webhook": "新的传出 Webhook",
   "no-name": "（未知）",

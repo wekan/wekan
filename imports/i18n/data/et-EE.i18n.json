@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "See grain võib sellele aadressile ühenduda",
   "sandstorm-sync-grant": "Luba sellel grainil selle jälgimissüsteemiga ühenduda",
   "sandstorm-sync-granted": "See grain võib selle jälgimissüsteemiga ühenduda",
+  "sandstorm-sync-jira-hint": "Vali Powerboxis ühendus suvalise aadressiga ja sisesta oma Jira aadress, milles on sinu e-post ja API-tõend: https://EMAIL:API-TOKEN@your-site.atlassian.net, kirjutades e-posti @ kujul %40. Sandstorm hoiab neid loas ja allkirjastab nendega iga päringu; WeKan ei näe neid kunagi.",
   "global-webhook": "Globaalsed veebikonksud",
   "new-outgoing-webhook": "Uus väljaminev veebikonks",
   "no-name": "(Tundmatu)",

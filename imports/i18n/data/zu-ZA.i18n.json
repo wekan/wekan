@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Le-grain ingafinyelela kuleli kheli",
   "sandstorm-sync-grant": "Vumela le-grain ukuthi ifinyelele kulesi silandeleli",
   "sandstorm-sync-granted": "Le-grain ingafinyelela kulesi silandeleli",
+  "sandstorm-sync-jira-hint": "Ku-Powerbox, khetha ukuxhuma kunoma yiliphi ikheli bese ufaka ikheli lakho le-Jira elinemeyili yakho nethokheni ye-API ngaphakathi: https://EMAIL:API-TOKEN@your-site.atlassian.net, ubhala u-@ we-imeyili njengo-%40. ISandstorm iyakugcina emvumweni futhi isayine sonke isicelo ngakho; iWeKan ayikuboni neze.",
   "global-webhook": "Global Webhook",
   "new-outgoing-webhook": "I-Webhook Entsha Ephumayo",
   "no-name": "(Akwaziwa)",

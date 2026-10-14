@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Grain at dalon rivön ladeti at",
   "sandstorm-sync-grant": "Dälön grain at ad rivön sukaparati at",
   "sandstorm-sync-granted": "Grain at dalon rivön sukaparati at",
+  "sandstorm-sync-jira-hint": "In Powerbox, välolös yümön ko ladet alik e penolös ladeti Jira olik ko ladet leäktronik olik e mal API ninü: https://EMAIL:API-TOKEN@your-site.atlassian.net, penölo @ ladeta leäktronik as %40. Sandstorm kipom onis in dälod e dispenom begi alik me ons; WeKan neai logom onis.",
   "global-webhook": "Webhooks valöpo",
   "new-outgoing-webhook": "Webhook seimik nulik",
   "no-name": "(Nonik)",

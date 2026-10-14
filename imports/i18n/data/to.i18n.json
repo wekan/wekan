@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "ʻE lava ke aʻu ʻa e grain ni ki he tuʻasila ko ʻeni",
   "sandstorm-sync-grant": "Tuku ke aʻu ʻa e grain ni ki he founga muimuiʻi ko ʻeni",
   "sandstorm-sync-granted": "ʻE lava ke aʻu ʻa e grain ni ki he founga muimuiʻi ko ʻeni",
+  "sandstorm-sync-jira-hint": "ʻI he Powerbox, fili ke fakahoko ki ha tuʻasila pē pea fakahū hoʻo tuʻasila Jira mo hoʻo ʻimeili mo e API token ʻi loto: https://EMAIL:API-TOKEN@your-site.atlassian.net, ʻo tohi ʻa e @ ʻo e ʻimeili ko e %40. ʻOku tauhi ʻe Sandstorm ʻi he ngofua pea fakamoʻoni ki he kole kotoa pē ʻaki kinautolu; ʻoku ʻikai ʻaupito ke sio ʻa WeKan ki ai.",
   "global-webhook": "Ngaahi Webhook Fakalūkufua",
   "new-outgoing-webhook": "Webhook Foʻou ʻOku ʻAve ki Tuʻa",
   "no-name": "(ʻIkai ʻiloʻi)",

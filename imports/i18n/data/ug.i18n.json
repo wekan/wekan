@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "بۇ grain بۇ ئادرېسقا يېتەلەيدۇ",
   "sandstorm-sync-grant": "بۇ grain نىڭ بۇ ئىز قوغلىغۇچقا يېتىشىگە يول قويۇش",
   "sandstorm-sync-granted": "بۇ grain بۇ ئىز قوغلىغۇچقا يېتەلەيدۇ",
+  "sandstorm-sync-jira-hint": "Powerbox دا خالىغان ئادرېسقا ئۇلىنىشنى تاللاڭ ۋە ئىچىدە ئېلخېتىڭىز ۋە API بەلگىڭىز بار Jira ئادرېسىڭىزنى كىرگۈزۈڭ: https://EMAIL:API-TOKEN@your-site.atlassian.net، ئېلخەتتىكى @ نى %40 قىلىپ يېزىڭ. Sandstorm ئۇلارنى ئىجازەتتە ساقلايدۇ ۋە ھەر بىر تەلەپكە ئۇلار بىلەن ئىمزا قويىدۇ؛ WeKan ئۇلارنى ھەرگىز كۆرمەيدۇ.",
   "global-webhook": "ئومۇمىي Webhook لار",
   "new-outgoing-webhook": "يېڭى چىققان Webhook",
   "no-name": "(نامەلۇم)",

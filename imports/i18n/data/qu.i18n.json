@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Kay grain kay tiyanaman chayanman",
   "sandstorm-sync-grant": "Kay grain-ta kay qhaway-machinaman chayananpaq saqiy",
   "sandstorm-sync-granted": "Kay grain kay qhaway-machinaman chayanman",
+  "sandstorm-sync-jira-hint": "Powerbox-pi, akllay mayqin direcciónman tinkiyta, hinaspa Jira direcciónniykita churay e-mail-niykiwan API token-niykiwan ukhupi: https://EMAIL:API-TOKEN@your-site.atlassian.net, e-mail-pa @-ninta %40 hina qillqaspa. Sandstorm-qa chaykunata saqiypi waqaychan, sapa mañakuytataq chaykunawan suticharin; WeKan-qa manapuni rikunchu.",
   "global-webhook": "Tukuypaq Webhook-kuna",
   "new-outgoing-webhook": "Musuq lluqsiq Webhook",
   "no-name": "(Mana riqsisqa)",

@@ -226,7 +226,9 @@ export async function fetchJiraIssues(syncSource, credential) {
   const jql = encodeURIComponent(query);
   const url = `${base}/rest/api/2/search?jql=${jql}&maxResults=200`;
   const auth = Buffer.from(`${credential.username || ''}:${credential.token}`).toString('base64');
-  const headers = { Authorization: `Basic ${auth}`, Accept: 'application/json' };
+  // In a grain the Powerbox grant carries the Jira sign-in (egress.mjs
+  // syncApiRoot): the bridge proxy owns Authorization, so none is sent.
+  const headers = inGrain() ? { Accept: 'application/json' } : { Authorization: `Basic ${auth}`, Accept: 'application/json' };
   const fields = Array.isArray(syncSource.fields) ? syncSource.fields : [];
   const planning = { releases: fields.includes('releases'),
     sprintField: fields.includes('sprint') ? await fetchJiraSprintField(base, headers) : null };

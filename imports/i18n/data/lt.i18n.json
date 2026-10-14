@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Šis grain gali pasiekti šį adresą",
   "sandstorm-sync-grant": "Leisti šiam grain pasiekti šią stebėjimo sistemą",
   "sandstorm-sync-granted": "Šis grain gali pasiekti šią stebėjimo sistemą",
+  "sandstorm-sync-jira-hint": "Powerbox lange pasirinkite prisijungti prie bet kokio adreso ir įveskite savo Jira adresą su el. paštu ir API raktu jame: https://EMAIL:API-TOKEN@your-site.atlassian.net, el. pašto @ rašydami kaip %40. Sandstorm laiko juos leidime ir jais pasirašo kiekvieną užklausą; WeKan jų niekada nemato.",
   "global-webhook": "Globalūs žiniatinklio kabliukai (Webhooks)",
   "new-outgoing-webhook": "Naujas siunčiamas žiniatinklio kabliukas",
   "no-name": "(Nežinoma)",

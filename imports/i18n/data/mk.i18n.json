@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Ова зрно (grain) може да пристапува до оваа адреса",
   "sandstorm-sync-grant": "Дозволи ова зрно (grain) да пристапува до овој систем за следење",
   "sandstorm-sync-granted": "Ова зрно (grain) може да пристапува до овој систем за следење",
+  "sandstorm-sync-jira-hint": "Во Powerbox изберете поврзување со која било адреса и внесете ја вашата Jira адреса со вашата е-пошта и API токен во неа: https://EMAIL:API-TOKEN@your-site.atlassian.net, пишувајќи го @ од е-поштата како %40. Sandstorm ги чува во дозволата и со нив го потпишува секое барање; WeKan никогаш не ги гледа.",
   "global-webhook": "Глобални веб-куки",
   "new-outgoing-webhook": "Нова излезна веб-кука",
   "no-name": "(Непознат)",

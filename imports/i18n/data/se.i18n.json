@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Dát grain oažžu olahit dán čujuhussii",
   "sandstorm-sync-grant": "Divtte dán grain olahit dán čuovvunsystemii",
   "sandstorm-sync-granted": "Dát grain oažžu olahit dán čuovvunsystemii",
+  "sandstorm-sync-jira-hint": "Powerboxas vállje čatnot makkár bákkui ihkinassii ja čále iežat Jira-čujuhusa iežat e-poasttain ja API-tokenain das: https://EMAIL:API-TOKEN@your-site.atlassian.net, nu ahte e-poastta @ čálát %40. Sandstorm vurke daid lobis ja vuolláičállá juohke jearaldaga daiguin; WeKan ii goassege oainne daid.",
   "global-webhook": "Globála webhookat",
   "new-outgoing-webhook": "Ođđa olggos manni webhook",
   "no-name": "(Amas)",

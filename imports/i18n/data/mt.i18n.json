@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Dan il-grain jista' jilħaq dan l-indirizz",
   "sandstorm-sync-grant": "Ħalli dan il-grain jilħaq dan it-tracker",
   "sandstorm-sync-granted": "Dan il-grain jista' jilħaq dan it-tracker",
+  "sandstorm-sync-jira-hint": "Fil-Powerbox, agħżel li tikkonnettja ma' kwalunkwe indirizz u daħħal l-indirizz Jira tiegħek bl-email u t-token API tiegħek fih: https://EMAIL:API-TOKEN@your-site.atlassian.net, billi tikteb il-@ tal-email bħala %40. Sandstorm iżommhom fil-permess u jiffirma kull talba bihom; WeKan qatt ma jarahom.",
   "global-webhook": "Webhooks globali",
   "new-outgoing-webhook": "Ġdid Outgoing Webhook",
   "no-name": "(Mhux magħruf)",

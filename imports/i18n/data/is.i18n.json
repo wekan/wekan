@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Þetta grain má ná í þetta vistfang",
   "sandstorm-sync-grant": "Leyfa þessu graini að ná í þetta verkbeiðnakerfi",
   "sandstorm-sync-granted": "Þetta grain má ná í þetta verkbeiðnakerfi",
+  "sandstorm-sync-jira-hint": "Í Powerbox skaltu velja að tengjast hvaða vistfangi sem er og slá inn Jira-vistfangið þitt með netfanginu þínu og API-tóka í því: https://EMAIL:API-TOKEN@your-site.atlassian.net, þar sem @ netfangsins er skrifað sem %40. Sandstorm geymir þau í heimildinni og undirritar hverja beiðni með þeim; WeKan sér þau aldrei.",
   "global-webhook": "Altækar vefkrækjur",
   "new-outgoing-webhook": "Ný útfarandi vefkrækja",
   "no-name": "(Óþekkt)",

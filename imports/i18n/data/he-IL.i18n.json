@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "ה־grain הזה רשאי לגשת לכתובת הזו",
   "sandstorm-sync-grant": "לאפשר ל־grain הזה לגשת למערכת המעקב הזו",
   "sandstorm-sync-granted": "ה־grain הזה רשאי לגשת למערכת המעקב הזו",
+  "sandstorm-sync-jira-hint": "ב־Powerbox, בחרו להתחבר לכל כתובת והזינו את כתובת ה־Jira שלכם עם הדוא\"ל ואסימון ה־API שלכם בתוכה: https://EMAIL:API-TOKEN@your-site.atlassian.net, כשה־@ של הדוא\"ל נכתב כ־%40. Sandstorm שומר אותם בהרשאה וחותם בהם על כל בקשה; WeKan לעולם אינו רואה אותם.",
   "global-webhook": "התליות גלובליות",
   "new-outgoing-webhook": "קרסי רשת יוצאים חדשים",
   "no-name": "(לא ידוע)",

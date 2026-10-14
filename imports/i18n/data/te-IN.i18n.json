@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "ఈ grain ఈ చిరునామాను చేరుకోవచ్చు",
   "sandstorm-sync-grant": "ఈ grain ఈ ట్రాకర్‌ను చేరుకోవడానికి అనుమతించండి",
   "sandstorm-sync-granted": "ఈ grain ఈ ట్రాకర్‌ను చేరుకోవచ్చు",
+  "sandstorm-sync-jira-hint": "Powerbox లో ఏ చిరునామాకైనా కనెక్ట్ అవ్వడాన్ని ఎంచుకుని, మీ ఇ-మెయిల్ మరియు API టోకెన్ ఉన్న మీ Jira చిరునామాను నమోదు చేయండి: https://EMAIL:API-TOKEN@your-site.atlassian.net, ఇ-మెయిల్‌లోని @ ను %40 గా రాస్తూ. Sandstorm వాటిని అనుమతిలో ఉంచి ప్రతి అభ్యర్థనకు వాటితో సంతకం చేస్తుంది; WeKan వాటిని ఎప్పుడూ చూడదు.",
   "global-webhook": "గ్లోబల్ వెబ్‌హుక్స్",
   "new-outgoing-webhook": "కొత్త అవుట్‌గోయింగ్ వెబ్‌హుక్",
   "no-name": "(తెలియదు)",

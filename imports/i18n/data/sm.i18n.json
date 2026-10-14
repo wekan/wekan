@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "E mafai e lenei grain ona oo atu i lenei tuatusi",
   "sandstorm-sync-grant": "Faataga lenei grain e oo atu i lenei mea suʻesuʻe",
   "sandstorm-sync-granted": "E mafai e lenei grain ona oo atu i lenei mea suʻesuʻe",
+  "sandstorm-sync-jira-hint": "I le Powerbox, filifili e faʻafeso'ota'i i so'o se tuatusi ma tusi i ai lau tuatusi Jira ma lau imeli ma lau API token i totonu: https://EMAIL:API-TOKEN@your-site.atlassian.net, ma tusi le @ o le imeli e pei o le %40. E teuina e Sandstorm i le faatagaga ma sainia ai talosaga uma; e le vaai lava WeKan ia i latou.",
   "global-webhook": "Webhooks Aoao",
   "new-outgoing-webhook": "Webhook Fou e Auina Atu",
   "no-name": "(Lē iloa)",

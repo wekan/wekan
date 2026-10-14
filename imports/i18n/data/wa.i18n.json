@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Ci grain chal pout ariver a cisse adresse ci",
   "sandstorm-sync-grant": "Leyî ci grain chal ariver a cist ecråjeu chal",
   "sandstorm-sync-granted": "Ci grain chal pout ariver a cist ecråjeu chal",
+  "sandstorm-sync-jira-hint": "Dins l' Powerbox, tchoezixhoz di vs raloyî a nole adresse et tapez vosse adresse Jira avou vosse emile et vosse marke API dvins: https://EMAIL:API-TOKEN@your-site.atlassian.net, en scrijhant l' @ di l' emile come %40. Sandstorm les wåde dins l' permission et siene tchaeke dimande avou; WeKan nes voet måy.",
   "global-webhook": "Webhooks global",
   "new-outgoing-webhook": "Novea webhook ki rexhowe",
   "no-name": "(Nén cnoxhou)",

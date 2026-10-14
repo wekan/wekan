@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Ĉi tiu grajno rajtas atingi ĉi tiun adreson",
   "sandstorm-sync-grant": "Permesi al ĉi tiu grajno atingi ĉi tiun spurilon",
   "sandstorm-sync-granted": "Ĉi tiu grajno rajtas atingi ĉi tiun spurilon",
+  "sandstorm-sync-jira-hint": "En la Powerbox, elektu konekti al ajna adreso kaj enigu vian Jira-adreson kun via retpoŝto kaj API-ĵetono en ĝi: https://EMAIL:API-TOKEN@your-site.atlassian.net, skribante la @ de la retpoŝto kiel %40. Sandstorm konservas ilin en la permeso kaj subskribas ĉiun peton per ili; WeKan neniam vidas ilin.",
   "global-webhook": "Ĝeneralaj Webhook-oj",
   "new-outgoing-webhook": "Nova eliranta Webhook",
   "no-name": "(Nekonata)",

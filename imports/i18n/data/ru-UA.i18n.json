@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Этот грейн может обращаться к этому адресу",
   "sandstorm-sync-grant": "Разрешить этому грейну обращаться к этому трекеру",
   "sandstorm-sync-granted": "Этот грейн может обращаться к этому трекеру",
+  "sandstorm-sync-jira-hint": "В Powerbox выберите подключение к любому адресу и введите адрес Jira с вашей электронной почтой и API-токеном в нём: https://EMAIL:API-TOKEN@your-site.atlassian.net, записав @ электронной почты как %40. Sandstorm хранит их в разрешении и подписывает ими каждый запрос; WeKan никогда их не видит.",
   "global-webhook": "Глобальные Веб-Хуки",
   "new-outgoing-webhook": "Новый исходящий Веб-Хук",
   "no-name": "(Неизвестный)",

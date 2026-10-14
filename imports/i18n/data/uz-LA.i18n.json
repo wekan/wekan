@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Ushbu grain bu manzilga ulana oladi",
   "sandstorm-sync-grant": "Ushbu grainga bu kuzatuv tizimiga ulanishga ruxsat berish",
   "sandstorm-sync-granted": "Ushbu grain bu kuzatuv tizimiga ulana oladi",
+  "sandstorm-sync-jira-hint": "Powerbox'da istalgan manzilga ulanishni tanlang va ichida elektron pochtangiz va API tokeningiz bo'lgan Jira manzilingizni kiriting: https://EMAIL:API-TOKEN@your-site.atlassian.net, elektron pochtaning @ belgisini %40 deb yozib. Sandstorm ularni ruxsatda saqlaydi va har bir so'rovni ular bilan imzolaydi; WeKan ularni hech qachon ko'rmaydi.",
   "global-webhook": "Global Webhooklar",
   "new-outgoing-webhook": "Yangi chiquvchi vebhuk",
   "no-name": "(Noma'lum)",

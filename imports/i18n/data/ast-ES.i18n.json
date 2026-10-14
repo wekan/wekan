@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Esti grain pue llegar a esta direición",
   "sandstorm-sync-grant": "Permitir qu'esti grain llegue a esti rastrexador",
   "sandstorm-sync-granted": "Esti grain pue llegar a esti rastrexador",
+  "sandstorm-sync-jira-hint": "Nel Powerbox, escueyi coneutar con cualquier direición y introduz la to direición de Jira col to corréu electrónicu y el token d'API dientro: https://EMAIL:API-TOKEN@your-site.atlassian.net, escribiendo la @ del corréu como %40. Sandstorm guárdalos nel permisu y robla con ellos cada solicitú; WeKan enxamás los ve.",
   "global-webhook": "Webhooks globales",
   "new-outgoing-webhook": "Nuevo webhook saliente",
   "no-name": "(Desconocido)",

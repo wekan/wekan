@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "ಈ grain ಈ ವಿಳಾಸವನ್ನು ತಲುಪಬಹುದು",
   "sandstorm-sync-grant": "ಈ grain ಈ ಟ್ರ್ಯಾಕರ್ ಅನ್ನು ತಲುಪಲು ಅನುಮತಿಸಿ",
   "sandstorm-sync-granted": "ಈ grain ಈ ಟ್ರ್ಯಾಕರ್ ಅನ್ನು ತಲುಪಬಹುದು",
+  "sandstorm-sync-jira-hint": "Powerbox ನಲ್ಲಿ ಯಾವುದೇ ವಿಳಾಸಕ್ಕೆ ಸಂಪರ್ಕಿಸುವುದನ್ನು ಆಯ್ಕೆಮಾಡಿ ಮತ್ತು ನಿಮ್ಮ ಇ-ಮೇಲ್ ಮತ್ತು API ಟೋಕನ್ ಇರುವ ನಿಮ್ಮ Jira ವಿಳಾಸವನ್ನು ನಮೂದಿಸಿ: https://EMAIL:API-TOKEN@your-site.atlassian.net, ಇ-ಮೇಲ್‌ನ @ ಅನ್ನು %40 ಎಂದು ಬರೆಯಿರಿ. Sandstorm ಅವುಗಳನ್ನು ಅನುಮತಿಯಲ್ಲಿ ಇಡುತ್ತದೆ ಮತ್ತು ಪ್ರತಿಯೊಂದು ವಿನಂತಿಗೆ ಅವುಗಳಿಂದ ಸಹಿ ಮಾಡುತ್ತದೆ; WeKan ಅವುಗಳನ್ನು ಎಂದಿಗೂ ನೋಡುವುದಿಲ್ಲ.",
   "global-webhook": "ಜಾಗತಿಕ ವೆಬ್‌ಹುಕ್‌ಗಳು",
   "new-outgoing-webhook": "ಹೊಸ ಹೊರಹೋಗುವ ವೆಬ್‌ಹುಕ್",
   "no-name": "(ತಿಳಿದಿಲ್ಲ)",

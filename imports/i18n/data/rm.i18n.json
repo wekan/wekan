@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Quest grain dastga acceder a questa adressa",
   "sandstorm-sync-grant": "Permetter a quest grain d'acceder a quest sistem da persecuziun",
   "sandstorm-sync-granted": "Quest grain dastga acceder a quest sistem da persecuziun",
+  "sandstorm-sync-jira-hint": "En il Powerbox, tscherna da colliar cun ina adressa tge che ti vuls ed endatescha tia adressa da Jira cun tia e-mail e tes token API en ella: https://EMAIL:API-TOKEN@your-site.atlassian.net, scrivend il @ da l'e-mail sco %40. Sandstorm als tegna en la permissiun e suttascriva cun els mintga dumonda; WeKan na als vesa mai.",
   "global-webhook": "Webhooks globals",
   "new-outgoing-webhook": "Nov webhook sortint",
   "no-name": "(Nunenconuschent)",

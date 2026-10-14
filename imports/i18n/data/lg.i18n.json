@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Grain eno esobola okutuuka ku ndagiriro eno",
   "sandstorm-sync-grant": "Kkiriza grain eno okutuuka ku nkola eno ey'okulondoola",
   "sandstorm-sync-granted": "Grain eno esobola okutuuka ku nkola eno ey'okulondoola",
+  "sandstorm-sync-jira-hint": "Mu Powerbox, londa okuyunga ku ndagiriro yonna era oyingize endagiriro yo eya Jira nga mulimu e-mail yo ne API token yo: https://EMAIL:API-TOKEN@your-site.atlassian.net, ng'owandiika @ eya e-mail nga %40. Sandstorm bibikuuma mu lukusa era essa omukono ku buli kusaba nabyo; WeKan tebiraba n'akatono.",
   "global-webhook": "Webhooks za wonna",
   "new-outgoing-webhook": "Kipya Outgoing Webhook",
   "no-name": "(Tekimanyiddwa)",

@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Grain ena e ka fihlella aterese ena",
   "sandstorm-sync-grant": "Dumella grain ena ho fihlella tsamaiso ena ya ho latela",
   "sandstorm-sync-granted": "Grain ena e ka fihlella tsamaiso ena ya ho latela",
+  "sandstorm-sync-jira-hint": "Ho Powerbox, kgetha ho hokahana le aterese efe kapa efe mme o kenye aterese ya hao ya Jira e nang le imeile ya hao le tokene ya API ka hare: https://EMAIL:API-TOKEN@your-site.atlassian.net, o ngola @ ya imeile e le %40. Sandstorm e di boloka tumellong mme e saena kopo e nngwe le e nngwe ka tsona; WeKan ha e di bone le ka mohla.",
   "global-webhook": "Di-webhook tsa lefatshe",
   "new-outgoing-webhook": "Webhook e ntjha e tswang",
   "no-name": "(Ha e tsejwe)",

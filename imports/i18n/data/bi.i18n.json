@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Grain ya i save go kasem adres ya",
   "sandstorm-sync-grant": "Letem grain ya i go kasem trakem samting ya",
   "sandstorm-sync-granted": "Grain ya i save go kasem trakem samting ya",
+  "sandstorm-sync-jira-hint": "Long Powerbox, jusum blong konek long eni adres mo putum adres blong Jira blong yu wetem imel mo API token blong yu insaed: https://EMAIL:API-TOKEN@your-site.atlassian.net, mo raetem @ blong imel olsem %40. Sandstorm i kipim olgeta long pemisen mo i sainem evri rikwes wetem olgeta; WeKan i no save luk olgeta nating.",
   "global-webhook": "Ol webhook blong ful sistem",
   "new-outgoing-webhook": "Niu Webhook we i Go Aot",
   "no-name": "(Oli no save)",

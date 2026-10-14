@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Grain ini boleh menjangkau alamat ini",
   "sandstorm-sync-grant": "Izinkan grain ini menjangkau pelacak ini",
   "sandstorm-sync-granted": "Grain ini boleh menjangkau pelacak ini",
+  "sandstorm-sync-jira-hint": "Di Powerbox, pilih untuk terhubung ke alamat apa pun dan masukkan alamat Jira Anda dengan e-mail dan token API Anda di dalamnya: https://EMAIL:API-TOKEN@your-site.atlassian.net, dengan menulis @ dari e-mail sebagai %40. Sandstorm menyimpannya dalam izin dan menandatangani setiap permintaan dengannya; WeKan tidak pernah melihatnya.",
   "global-webhook": "Webhook Global",
   "new-outgoing-webhook": "Webhook Keluar Baru",
   "no-name": "(Tidak Diketahui)",

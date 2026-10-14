@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "E rawa ni yaco na grain oqo ki na itikotiko oqo",
   "sandstorm-sync-grant": "Vakatara me yaco rawa na grain oqo ki na iVola vakayasa oqo",
   "sandstorm-sync-granted": "E rawa ni yaco na grain oqo ki na iVola vakayasa oqo",
+  "sandstorm-sync-jira-hint": "E na Powerbox, digitaka mo semati ki na dua na itikotiko, ka vakacuruma na nomu itikotiko ni Jira vata kei na nomu imeli kei na API token e loma: https://EMAIL:API-TOKEN@your-site.atlassian.net, ka volai na @ ni imeli me %40. E maroroya o Sandstorm ena veivakadonui ka saini kina na veikerekere kece; e sega ni raici ira rawa na WeKan.",
   "global-webhook": "Webhook Raraba",
   "new-outgoing-webhook": "Webhook Vou e Lako Tani",
   "no-name": "(Sega ni kilai)",

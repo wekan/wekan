@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Grain nyoe jeuet jak u alamat nyoe",
   "sandstorm-sync-grant": "Bri izin grain nyoe jak u tracker nyoe",
   "sandstorm-sync-granted": "Grain nyoe jeuet jak u tracker nyoe",
+  "sandstorm-sync-jira-hint": "Lam Powerbox, piléh meuhubông u alamat peue mantong, lheuh nyan tamong alamat Jira gata ngon e-mail dan token API gata di dalam: https://EMAIL:API-TOKEN@your-site.atlassian.net, dan tuléh @ bak e-mail sibagoe %40. Sandstorm geukeubah ureuta nyan lam izin dan geuteken tiep permintaan ngon ureuta nyan; WeKan hana geukalon.",
   "global-webhook": "Webhook Global",
   "new-outgoing-webhook": "Webhook Teubiet Barô",
   "no-name": "(Hana geuteupeue)",

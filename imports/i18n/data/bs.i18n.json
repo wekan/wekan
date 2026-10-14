@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Ovaj grain smije pristupiti ovoj adresi",
   "sandstorm-sync-grant": "Dozvoli ovom grainu da pristupi ovom sistemu praćenja",
   "sandstorm-sync-granted": "Ovaj grain smije pristupiti ovom sistemu praćenja",
+  "sandstorm-sync-jira-hint": "U Powerboxu odaberite povezivanje s bilo kojom adresom i unesite svoju Jira adresu s e-mailom i API tokenom u njoj: https://EMAIL:API-TOKEN@your-site.atlassian.net, pišući @ iz e-maila kao %40. Sandstorm ih čuva u dozvoli i njima potpisuje svaki zahtjev; WeKan ih nikada ne vidi.",
   "global-webhook": "Globalni webhookovi",
   "new-outgoing-webhook": "Novi odlazni webhook",
   "no-name": "(Nepoznato)",

@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Grain hii inaweza kufikia anwani hii",
   "sandstorm-sync-grant": "Ruhusu grain hii kufikia kifuatiliaji hiki",
   "sandstorm-sync-granted": "Grain hii inaweza kufikia kifuatiliaji hiki",
+  "sandstorm-sync-jira-hint": "Katika Powerbox, chagua kuunganisha kwa anwani yoyote na uweke anwani yako ya Jira yenye barua pepe yako na tokeni ya API ndani yake: https://EMAIL:API-TOKEN@your-site.atlassian.net, ukiandika @ ya barua pepe kama %40. Sandstorm huzihifadhi katika ruhusa na kutia sahihi kila ombi kwazo; WeKan haizioni kamwe.",
   "global-webhook": "Mtandao wa Kimataifa",
   "new-outgoing-webhook": "Mtandao Mpya Unaotoka",
   "no-name": "(Haijulikani)",

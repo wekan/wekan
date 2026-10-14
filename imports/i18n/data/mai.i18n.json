@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "ई ग्रेन एहि पता धरि पहुँचि सकैत अछि",
   "sandstorm-sync-grant": "एहि ग्रेनकेँ एहि ट्रैकर धरि पहुँचबाक अनुमति दिअ",
   "sandstorm-sync-granted": "ई ग्रेन एहि ट्रैकर धरि पहुँचि सकैत अछि",
+  "sandstorm-sync-jira-hint": "Powerbox मे कोनो पता सँ जुड़बाक चुनू आ अपन ई-मेल आ API टोकन बला अपन Jira पता दर्ज करू: https://EMAIL:API-TOKEN@your-site.atlassian.net, ई-मेलक @ केँ %40 लिखि कऽ। Sandstorm एकरा सभकेँ अनुमतिमे रखैत अछि आ प्रत्येक अनुरोध पर एकरा सभसँ हस्ताक्षर करैत अछि; WeKan एकरा सभकेँ कहियो नहि देखैत अछि।",
   "global-webhook": "वैश्विक वेबहुक",
   "new-outgoing-webhook": "नव बाहर जाएवला वेबहुक",
   "no-name": "(अज्ञात)",

@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Grain iki oleh tekan alamat iki",
   "sandstorm-sync-grant": "Idini grain iki tekan pelacak iki",
   "sandstorm-sync-granted": "Grain iki oleh tekan pelacak iki",
+  "sandstorm-sync-jira-hint": "Ing Powerbox, pilih nyambung menyang alamat apa wae lan lebokna alamat Jira sampeyan kanthi e-mail lan token API sampeyan ing njero: https://EMAIL:API-TOKEN@your-site.atlassian.net, nulis @ saka e-mail minangka %40. Sandstorm nyimpen kuwi ing idin lan nandatangani saben panjaluk nganggo kuwi; WeKan ora tau weruh.",
   "global-webhook": "Webhook Global",
   "new-outgoing-webhook": "Webhook Metu Anyar",
   "no-name": "(Ora dingerteni)",

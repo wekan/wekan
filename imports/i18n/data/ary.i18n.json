@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "هاد grain يقدر يوصل لهاد العنوان",
   "sandstorm-sync-grant": "سمح لهاد grain يوصل لهاد المتتبع",
   "sandstorm-sync-granted": "هاد grain يقدر يوصل لهاد المتتبع",
+  "sandstorm-sync-jira-hint": "فـ Powerbox، ختار تتكونيكطا مع أي عنوان ودخّل العنوان ديال Jira ديالك وفيه الإيميل ديالك والـ token ديال API: https://EMAIL:API-TOKEN@your-site.atlassian.net، وكتب @ ديال الإيميل بحال %40. Sandstorm كيخليهم فالإذن وكيسيني بيهم كل طلب؛ WeKan عمرو ما كيشوفهم.",
   "global-webhook": "وب‌هوک‌های سراسری",
   "new-outgoing-webhook": "ويبهوك جديدة",
   "no-name": "(غير معروف)",

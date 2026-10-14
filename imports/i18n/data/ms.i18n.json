@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Grain ini boleh mencapai alamat ini",
   "sandstorm-sync-grant": "Benarkan grain ini mencapai penjejak ini",
   "sandstorm-sync-granted": "Grain ini boleh mencapai penjejak ini",
+  "sandstorm-sync-jira-hint": "Dalam Powerbox, pilih untuk menyambung ke mana-mana alamat dan masukkan alamat Jira anda dengan e-mel dan token API anda di dalamnya: https://EMAIL:API-TOKEN@your-site.atlassian.net, dengan menulis @ e-mel sebagai %40. Sandstorm menyimpannya dalam kebenaran dan menandatangani setiap permintaan dengannya; WeKan tidak pernah melihatnya.",
   "global-webhook": "Cangkuk Web Global",
   "new-outgoing-webhook": "Cangkuk Web Keluar Baru",
   "no-name": "(Tidak Diketahui)",

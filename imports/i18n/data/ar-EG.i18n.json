@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "يمكن لهذه الحاوية الوصول إلى هذا العنوان",
   "sandstorm-sync-grant": "السماح لهذه الحاوية بالوصول إلى هذا المتتبع",
   "sandstorm-sync-granted": "يمكن لهذه الحاوية الوصول إلى هذا المتتبع",
+  "sandstorm-sync-jira-hint": "في Powerbox، اختر الاتصال بأي عنوان وأدخل عنوان Jira الخاص بك متضمناً بريدك الإلكتروني ورمز API: https://EMAIL:API-TOKEN@your-site.atlassian.net، مع كتابة @ الخاصة بالبريد الإلكتروني على شكل %40. يحتفظ Sandstorm بهما في التصريح ويوقّع بهما كل طلب؛ ولا يراهما WeKan أبداً.",
   "global-webhook": "خطافات الويب العامة",
   "new-outgoing-webhook": "ويبهوك جديدة",
   "no-name": "(غير معروف)",

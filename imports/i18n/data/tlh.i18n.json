@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Daq vam SIchlaH grain vam",
   "sandstorm-sync-grant": "tracker vam SIchmeH grain vam 'e' chaw'",
   "sandstorm-sync-granted": "tracker vam SIchlaH grain vam",
+  "sandstorm-sync-jira-hint": "Powerbox Daq, Duh vay' SuvmeH mI' DawIv 'ej Jira Duh DaghItlh, e-mail 'ej API token tlhej: https://EMAIL:API-TOKEN@your-site.atlassian.net; e-mail @ yIghItlh %40 rur. chaw'Daq chaH pol Sandstorm 'ej Hoch tlhobmeH chaH lo'; not chaH legh WeKan.",
   "global-webhook": "HochvaD QIn rarmeH mIwmey",
   "new-outgoing-webhook": "ngeHmeH webhook chu'",
   "no-name": "(Sovlu'be')",

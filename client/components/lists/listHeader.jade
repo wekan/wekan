@@ -460,6 +460,10 @@ template(name="listSyncPopup")
               i.fa.fa-check
               | {{_ 'sandstorm-sync-granted'}}
           else
+            //- Jira signs in with a header the bridge proxy owns: the grant
+              keeps the sign-in instead (imports/sandstorm/egress.mjs).
+            if isCurrentSyncType 'jira'
+              p.quiet {{_ 'sandstorm-sync-jira-hint'}}
             p
               a.button.js-sandstorm-sync-grant
                 i.fa.fa-plug

@@ -136,7 +136,11 @@ export function parseIdentityRequestPermissions(descriptorBase64) {
 // '/' and '+' replaced as for the identity descriptor in /sandstorm.js. The
 // client embeds the result as a constant; tests/sandstormApiEgress.test.cjs
 // rebuilds it here so the two cannot drift.
-export function apiSessionDescriptor(canonicalUrl) {
+// `authentication: 'basic'` asks the HTTP driver for an endpoint that signs in
+// with HTTP Basic: the user gives the credentials in the Powerbox, they are
+// kept in the grant, and the driver adds them to every request
+// (sandstorm shell/imports/server/drivers/external-ui-view.js).
+export function apiSessionDescriptor(canonicalUrl, { authentication } = {}) {
   if (!/^https?:\/\/[^/]+(\/.*[^/])?$/.test(canonicalUrl)) {
     throw new Error('canonicalUrl must be an http(s) URL without a trailing slash');
   }
@@ -146,6 +150,7 @@ export function apiSessionDescriptor(canonicalUrl) {
   tag.id = ApiSession$Client.interfaceId;
   const value = new Message().initRoot(ApiSession_PowerboxTag);
   value.canonicalUrl = canonicalUrl;
+  if (authentication === 'basic') value.authentication = 'basic';
   tag.value = value;
   return Buffer.from(message.toPackedArrayBuffer()).toString('base64')
     .replace(/\//g, '_').replace(/\+/g, '-');
@@ -156,9 +161,11 @@ export function parseApiSessionDescriptor(descriptorBase64) {
   const bytes = Buffer.from(descriptorBase64.replace(/_/g, '/').replace(/-/g, '+'), 'base64');
   const descriptor = new Message(toArrayBuffer(bytes), true).getRoot(PowerboxDescriptor);
   const tag = descriptor.tags.get(0);
+  const value = utils.getAs(ApiSession_PowerboxTag, tag.value);
   return {
     tagId: tag.id,
-    canonicalUrl: utils.getAs(ApiSession_PowerboxTag, tag.value).canonicalUrl,
+    canonicalUrl: value.canonicalUrl,
+    authentication: value.authentication || null,
   };
 }
 

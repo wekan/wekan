@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Энэ grain энэ хаягта хүрэжэ болоно",
   "sandstorm-sync-grant": "Энэ grain-да энэ трекертэ хүрэхые зүбшөөхэ",
   "sandstorm-sync-granted": "Энэ grain энэ трекертэ хүрэжэ болоно",
+  "sandstorm-sync-jira-hint": "Powerbox соо ямар бэ даа хаягта холбогдохые шэлээд, электрон почта болон API токен оруулһан Jira хаягаа бэшэгты: https://EMAIL:API-TOKEN@your-site.atlassian.net, электрон почтын @ тэмдэгые %40 гэжэ бэшэжэ. Sandstorm тэдэниие зүбшөөлдэ хадагалжа, эрилтэ бүхэниие тэдээгээр гарлан батална; WeKan тэдэниие хэзээшье харадаггүй.",
   "global-webhook": "Юрэнхы вебхукүүд",
   "new-outgoing-webhook": "Шэнэ гараха вебхук",
   "no-name": "(Мэдэгдээгүй)",

@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Гэты грэйн можа звяртацца да гэтага адраса",
   "sandstorm-sync-grant": "Дазволіць гэтаму грэйну звяртацца да гэтага трэкера",
   "sandstorm-sync-granted": "Гэты грэйн можа звяртацца да гэтага трэкера",
+  "sandstorm-sync-jira-hint": "У Powerbox выберыце падключэнне да любога адраса і ўвядзіце адрас Jira з вашай электроннай поштай і API-токенам у ім: https://EMAIL:API-TOKEN@your-site.atlassian.net, запісваючы @ электроннай пошты як %40. Sandstorm захоўвае іх у дазволе і падпісвае імі кожны запыт; WeKan ніколі іх не бачыць.",
   "global-webhook": "Глабальныя вэб-хукі",
   "new-outgoing-webhook": "Новы выходны вэб-хук",
   "no-name": "(Невядома)",

@@ -157,19 +157,6 @@ Deck sharing rules are not imported by design: an import never grants access.
 
 </details>
 
-<details>
-<summary>Not possible from a Sandstorm grain, recorded so it is not asked again.</summary>
-
-Jira list sync from a grain cannot work
-([#2208](https://github.com/wekan/wekan/issues/2208),
-[#2167](https://github.com/wekan/wekan/issues/2167)): Jira signs in only
-with an `Authorization` header, and the bridge proxy puts its own grant
-there. Everything else asked there is built (Bun single files, musl and
-Android bundles, outgoing webhooks, list sync and the REST API through
-Sandstorm).
-
-</details>
-
 </details>
 
 # v12.46 2026-10-14 WeKan ® release

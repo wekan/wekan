@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Hoc granum ad hanc inscriptionem accedere potest",
   "sandstorm-sync-grant": "Permitte huic grano ad hunc tractatorem accedere",
   "sandstorm-sync-granted": "Hoc granum ad hunc tractatorem accedere potest",
+  "sandstorm-sync-jira-hint": "In Powerbox, elige conexionem ad quamlibet inscriptionem et insere inscriptionem tuam Jira cum epistula electronica tua et signo API intus: https://EMAIL:API-TOKEN@your-site.atlassian.net, scribens @ epistulae electronicae ut %40. Sandstorm ea in permissione servat et omnem petitionem eis signat; WeKan ea numquam videt.",
   "global-webhook": "Hami interretiales globales",
   "new-outgoing-webhook": "Novus hamus interretialis exiens",
   "no-name": "(Ignotum)",

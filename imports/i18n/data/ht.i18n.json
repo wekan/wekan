@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Grain sa a ka rive nan adrès sa a",
   "sandstorm-sync-grant": "Pèmèt grain sa a rive nan sistèm swivi sa a",
   "sandstorm-sync-granted": "Grain sa a ka rive nan sistèm swivi sa a",
+  "sandstorm-sync-jira-hint": "Nan Powerbox la, chwazi pou konekte ak nenpòt adrès epi antre adrès Jira ou a ak imèl ou ak token API ou ladan l: https://EMAIL:API-TOKEN@your-site.atlassian.net, ekri @ imèl la kòm %40. Sandstorm kenbe yo nan otorizasyon an epi siyen chak demann ak yo; WeKan pa janm wè yo.",
   "global-webhook": "Webhook global",
   "new-outgoing-webhook": "Nouvo webhook k ap soti",
   "no-name": "(Enkoni)",

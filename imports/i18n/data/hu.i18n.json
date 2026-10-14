@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Ez a grain elérheti ezt a címet",
   "sandstorm-sync-grant": "Engedélyezés, hogy ez a grain elérje ezt a nyomkövetőt",
   "sandstorm-sync-granted": "Ez a grain elérheti ezt a nyomkövetőt",
+  "sandstorm-sync-jira-hint": "A Powerboxban válassza a tetszőleges címhez való csatlakozást, és adja meg a Jira-címét az e-mail-címével és API-tokenjével együtt: https://EMAIL:API-TOKEN@your-site.atlassian.net, az e-mail-cím @ jelét %40 formában írva. A Sandstorm ezeket az engedélyben tárolja, és minden kérést ezekkel ír alá; a WeKan soha nem látja őket.",
   "global-webhook": "Globális webhurkok",
   "new-outgoing-webhook": "Új kimenő webhurok",
   "no-name": "(Ismeretlen)",

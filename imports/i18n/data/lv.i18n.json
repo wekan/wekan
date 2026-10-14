@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Šis grain drīkst sasniegt šo adresi",
   "sandstorm-sync-grant": "Atļaut šim grain sasniegt šo izsekošanas sistēmu",
   "sandstorm-sync-granted": "Šis grain drīkst sasniegt šo izsekošanas sistēmu",
+  "sandstorm-sync-jira-hint": "Powerbox izvēlieties savienoties ar jebkuru adresi un ievadiet savu Jira adresi ar e-pastu un API pilnvaru tajā: https://EMAIL:API-TOKEN@your-site.atlassian.net, e-pasta @ rakstot kā %40. Sandstorm glabā tos atļaujā un ar tiem paraksta katru pieprasījumu; WeKan tos nekad neredz.",
   "global-webhook": "Globālie Webhook",
   "new-outgoing-webhook": "Jauns izejošais Webhook",
   "no-name": "(Nezināms)",

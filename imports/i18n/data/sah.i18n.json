@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Бу grain бу аадырыска тиийиэн сөп",
   "sandstorm-sync-grant": "Бу grain бу трекергэ тиийэрин көҥүллээ",
   "sandstorm-sync-granted": "Бу grain бу трекергэ тиийиэн сөп",
+  "sandstorm-sync-jira-hint": "Powerbox иһигэр ханнык баҕарар аадырыска холбонору талан, иһигэр электроннай почтаҕыт уонна API токеҥҥыт баар Jira аадырыскытын киллэриҥ: https://EMAIL:API-TOKEN@your-site.atlassian.net, электроннай почта @ бэлиэтин %40 диэн суруйан. Sandstorm кинилэри көҥүлгэ харайар уонна хас биирдии көрдөһүүнү кинилэринэн илии баттыыр; WeKan кинилэри хаһан да көрбөт.",
   "global-webhook": "Систиэмэ барытыгар Webhook-тар",
   "new-outgoing-webhook": "Саҥа тахсар Webhook",
   "no-name": "(Биллибэт)",

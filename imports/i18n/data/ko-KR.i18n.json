@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "이 grain은 이 주소에 접근할 수 있습니다",
   "sandstorm-sync-grant": "이 grain이 이 트래커에 접근하도록 허용",
   "sandstorm-sync-granted": "이 grain은 이 트래커에 접근할 수 있습니다",
+  "sandstorm-sync-jira-hint": "Powerbox에서 임의의 주소에 연결하도록 선택하고 이메일과 API 토큰이 포함된 Jira 주소를 입력하세요: https://EMAIL:API-TOKEN@your-site.atlassian.net. 이메일의 @는 %40으로 적습니다. Sandstorm은 이를 권한 안에 보관하고 모든 요청에 이것으로 서명하며, WeKan은 이를 절대 보지 못합니다.",
   "global-webhook": "전역 웹훅",
   "new-outgoing-webhook": "새 발신 웹훅",
   "no-name": "(알 수 없음)",

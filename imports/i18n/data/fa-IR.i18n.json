@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "این grain می‌تواند به این نشانی دسترسی داشته باشد",
   "sandstorm-sync-grant": "اجازه دهید این grain به این ردیاب دسترسی داشته باشد",
   "sandstorm-sync-granted": "این grain می‌تواند به این ردیاب دسترسی داشته باشد",
+  "sandstorm-sync-jira-hint": "در Powerbox، اتصال به هر نشانی را انتخاب کنید و نشانی Jira خود را همراه با ایمیل و توکن API خود در آن وارد کنید: https://EMAIL:API-TOKEN@your-site.atlassian.net، و @ ایمیل را به‌صورت %40 بنویسید. Sandstorm آن‌ها را در مجوز نگه می‌دارد و هر درخواست را با آن‌ها امضا می‌کند؛ WeKan هرگز آن‌ها را نمی‌بیند.",
   "global-webhook": "وب‌هوک‌های سراسری",
   "new-outgoing-webhook": "وب‌هوک خروجی جدید",
   "no-name": "(ناشناخته)",

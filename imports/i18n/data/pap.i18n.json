@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "E grain aki por yega na e adrès aki",
   "sandstorm-sync-grant": "Permití e grain aki yega na e tracker aki",
   "sandstorm-sync-granted": "E grain aki por yega na e tracker aki",
+  "sandstorm-sync-jira-hint": "Den e Powerbox, skohe pa konektá ku kualke adrès i drenta bo adrès di Jira ku bo e-mail i bo token di API aden: https://EMAIL:API-TOKEN@your-site.atlassian.net, skibiendo e @ di e e-mail komo %40. Sandstorm ta warda nan den e pèrmit i ta firma kada petishon ku nan; WeKan nunka ta mira nan.",
   "global-webhook": "Webhooks globales",
   "new-outgoing-webhook": "Nobo webhook saliente",
   "no-name": "(Desconosido)",

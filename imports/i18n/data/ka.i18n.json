@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "ამ grain-ს შეუძლია ამ მისამართთან წვდომა",
   "sandstorm-sync-grant": "ამ grain-ისთვის ამ ტრეკერთან წვდომის დაშვება",
   "sandstorm-sync-granted": "ამ grain-ს შეუძლია ამ ტრეკერთან წვდომა",
+  "sandstorm-sync-jira-hint": "Powerbox-ში აირჩიეთ ნებისმიერ მისამართთან დაკავშირება და შეიყვანეთ თქვენი Jira-ს მისამართი თქვენი ელფოსტითა და API ტოკენით: https://EMAIL:API-TOKEN@your-site.atlassian.net, ელფოსტის @ ჩაწერეთ როგორც %40. Sandstorm მათ ინახავს ნებართვაში და მათით ხელს აწერს ყველა მოთხოვნას; WeKan მათ არასოდეს ხედავს.",
   "global-webhook": "გლობალური webhook-ები",
   "new-outgoing-webhook": "ახალი გამავალი webhook",
   "no-name": "(უცნობი)",

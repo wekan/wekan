@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Овај grain сме да приступа овој адреси",
   "sandstorm-sync-grant": "Дозволи овом grain-у приступ овом систему праћења",
   "sandstorm-sync-granted": "Овај grain сме да приступа овом систему праћења",
+  "sandstorm-sync-jira-hint": "У Powerbox-у изаберите повезивање са било којом адресом и унесите своју Jira адресу са е-поштом и API токеном у њој: https://EMAIL:API-TOKEN@your-site.atlassian.net, пишући @ из е-поште као %40. Sandstorm их чува у дозволи и њима потписује сваки захтев; WeKan их никада не види.",
   "global-webhook": "Дојава догађаја",
   "new-outgoing-webhook": "Нова дојава догађаја",
   "no-name": "(непознато)",

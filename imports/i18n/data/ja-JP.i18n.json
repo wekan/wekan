@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "このグレインはこのアドレスにアクセスできます",
   "sandstorm-sync-grant": "このグレインにこのトラッカーへのアクセスを許可",
   "sandstorm-sync-granted": "このグレインはこのトラッカーにアクセスできます",
+  "sandstorm-sync-jira-hint": "Powerbox で任意のアドレスへの接続を選び、メールアドレスと API トークンを含めた Jira のアドレスを入力してください: https://EMAIL:API-TOKEN@your-site.atlassian.net。メールアドレスの @ は %40 と書きます。Sandstorm はそれらを許可の中に保管し、すべてのリクエストにそれらで署名します。WeKan がそれらを見ることはありません。",
   "global-webhook": "グローバルWebフック",
   "new-outgoing-webhook": "発信Webフックの作成",
   "no-name": "(名前なし)",

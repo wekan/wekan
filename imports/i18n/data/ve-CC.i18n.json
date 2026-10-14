@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Sto grain el pol rivar a sto indirizo",
   "sandstorm-sync-grant": "Parmeti a sto grain de rivar a sto tracker",
   "sandstorm-sync-granted": "Sto grain el pol rivar a sto tracker",
+  "sandstorm-sync-jira-hint": "Inte'l Powerbox, sielzi de conetarte a calsiasi indiriso e meti el to indiriso de Jira co la to e-mail e el to token API drento: https://EMAIL:API-TOKEN@your-site.atlassian.net, scrivendo la @ de l'e-mail come %40. Sandstorm i tien inte'l parmeso e el firma ogni richiesta co lori; WeKan no i vede mai.",
   "global-webhook": "Webhook globałi",
   "new-outgoing-webhook": "Webhook novo in uscita",
   "no-name": "(Sconosùo)",

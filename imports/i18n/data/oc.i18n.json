@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Aqueste grain pòt jónher aquesta adreça",
   "sandstorm-sync-grant": "Autorizar aqueste grain a jónher aqueste gestionari",
   "sandstorm-sync-granted": "Aqueste grain pòt jónher aqueste gestionari",
+  "sandstorm-sync-jira-hint": "Dins lo Powerbox, causissètz de vos connectar a una adreça quina que siá e picatz vòstra adreça Jira amb vòstra adreça electronica e vòstre geton d'API dedins: https://EMAIL:API-TOKEN@your-site.atlassian.net, en escrivent l'@ de l'adreça electronica coma %40. Sandstorm los garda dins l'autorizacion e signa cada requèsta amb eles; WeKan los vei pas jamai.",
   "global-webhook": "Webhooks globals",
   "new-outgoing-webhook": "Novèl webhook sortant",
   "no-name": "(Desconegut)",

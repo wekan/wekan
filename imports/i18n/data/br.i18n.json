@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Gallout a ra ar grain-mañ tizhout ar chomlec'h-mañ",
   "sandstorm-sync-grant": "Aotren ar grain-mañ da dizhout an heuliad-mañ",
   "sandstorm-sync-granted": "Gallout a ra ar grain-mañ tizhout an heuliad-mañ",
+  "sandstorm-sync-jira-hint": "En Powerbox, dibabit kevreañ ouzh ur chomlec'h ebet ha merkit ho chomlec'h Jira gant ho postel hag ho token API ennañ: https://EMAIL:API-TOKEN@your-site.atlassian.net, en ur skrivañ @ ar postel evel %40. Sandstorm a vir anezho en aotre hag a sin pep goulenn ganto; WeKan n'o gwel biken.",
   "global-webhook": "Bougevadurien diga-digant hollek",
   "new-outgoing-webhook": "New Bougevadurien diga-digant",
   "no-name": "(Dinamet)",

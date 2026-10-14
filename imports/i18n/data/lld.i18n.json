@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Chest grain possa ruvé a chest indirizo",
   "sandstorm-sync-grant": "Lascé che chest grain ruve a chest tracker",
   "sandstorm-sync-granted": "Chest grain possa ruvé a chest tracker",
+  "sandstorm-sync-jira-hint": "Tl Powerbox, chernì de te coleghé a una direzion che se vuel y metede ite tua direzion de Jira con tua e-mail y tuo token API ite: https://EMAIL:API-TOKEN@your-site.atlassian.net, scrian la @ dla e-mail sciche %40. Sandstorm i tegn tl permes y sotscrij uni dumanda cun ei; WeKan ne i ved mai.",
   "global-webhook": "Webhooks globai",
   "new-outgoing-webhook": "Webhook nuef che va ora",
   "no-name": "(Nia cunesciù)",

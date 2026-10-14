@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "بو grain شو منزلگه اولنیشی ممکن",
   "sandstorm-sync-grant": "بو grain گه شو کوزتوو تیزیمیگه اولنیشگه رخصت بیریش",
   "sandstorm-sync-granted": "بو grain شو کوزتوو تیزیمیگه اولنیشی ممکن",
+  "sandstorm-sync-jira-hint": "Powerbox دە ایستەلگن منزیلگە اولنیشنی تنلنگ وە ایچیدە الیکترون پوچتنگیز وە API توکنینگیز بار Jira منزیلینگیزنی کیریتینگ: https://EMAIL:API-TOKEN@your-site.atlassian.net، الیکترون پوچتەنینگ @ بەلگیسینی %40 دیب یازیب. Sandstorm اولەرنی رخصتدە سقلەیدی وە هر بیر سوراونی اولەر بیلن ایمزالەیدی؛ WeKan اولەرنی هیچ قچان کورمەیدی.",
   "global-webhook": "گلابال Webhooks",
   "new-outgoing-webhook": "ینگی چیقووچی ویب‌هوک",
   "no-name": "(نامعلوم)",

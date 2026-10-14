@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Este grain pot accedir a esta adreça",
   "sandstorm-sync-grant": "Permet que este grain accedisca a este rastrejador",
   "sandstorm-sync-granted": "Este grain pot accedir a este rastrejador",
+  "sandstorm-sync-jira-hint": "En el Powerbox, trieu connectar a qualsevol adreça i introduïu la vostra adreça de Jira amb el vostre correu electrònic i el testimoni d'API: https://EMAIL:API-TOKEN@your-site.atlassian.net, escrivint l'@ del correu com a %40. Sandstorm els guarda en el permís i signa cada petició amb ells; WeKan no els veu mai.",
   "global-webhook": "Webhooks globals",
   "new-outgoing-webhook": "Nou Webbook sortt",
   "no-name": "Importa tauler des de Wekan",

@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Tutón grain smě na tutu adresu přistupować",
   "sandstorm-sync-grant": "Tutomu grainej přistup k tutomu trackerej dowolić",
   "sandstorm-sync-granted": "Tutón grain smě k tutomu trackerej přistupować",
+  "sandstorm-sync-jira-hint": "W Powerboxu wubjerće zwisk z někajkej adresu a zapodajće swoju adresu Jira ze swojej e-mejlku a API-tokenom w njej: https://EMAIL:API-TOKEN@your-site.atlassian.net, při čimž so @ e-mejlki jako %40 pisa. Sandstorm je w dowolnosći chowa a podpisuje z nimi kóždy naprašowanje; WeKan je ženje njewidźi.",
   "global-webhook": "Globalne webhooki",
   "new-outgoing-webhook": "Nowy wuchadźacy webhook",
   "no-name": "(Njeznaty)",

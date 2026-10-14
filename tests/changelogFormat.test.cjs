@@ -180,11 +180,10 @@ test('TODO Later says what is NOT done, and thanks nobody for it', () => {
   // translations, backups, an e-mailed report. So the rule is now the thing
   // itself: the issue triage categories exist, and no category names an issue
   // without linking it.
-  // On 2026-10-14 the built issues left it too (#5758, #2698, #337, #2208
-  // closed, also those built but not yet tested live), leaving two categories
-  // that link an issue: the count only says the triage is still linked.
-  const withIssues = inSection.filter(b => /\/issues\//.test(b.body)).length;
-  assert.ok(withIssues >= 1, 'the issue triage categories link the issues they are about');
+  // On 2026-10-14 and 2026-10-15 the built issues left it too (#5758, #2698,
+  // #337, #2208, #4790 closed), and with Jira sync from a Sandstorm grain
+  // working the last category naming an issue went: what is left is work no
+  // single issue tracks. The rule that stays is the one below.
   for (const b of inSection) {
     const bare = /(^|[^\[\/\w])#\d{3,5}\b/.exec(b.body.replace(/\[#\d+\]\([^)]*\)/g, ''));
     assert.ok(!bare, `line ${b.line}: an issue named without its link: ${bare && bare[0]}`);

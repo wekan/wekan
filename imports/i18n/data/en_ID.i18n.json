@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "This grain may reach this address",
   "sandstorm-sync-grant": "Allow this grain to reach this tracker",
   "sandstorm-sync-granted": "This grain may reach this tracker",
+  "sandstorm-sync-jira-hint": "In the Powerbox, choose to connect to any address and enter your Jira address with your e-mail and API token in it: https://EMAIL:API-TOKEN@your-site.atlassian.net, writing the @ of the e-mail as %40. Sandstorm keeps them in the grant and signs every request in with them; WeKan never sees them.",
   "global-webhook": "Global Webhooks",
   "new-outgoing-webhook": "New Outgoing Webhook",
   "no-name": "(Unknown)",

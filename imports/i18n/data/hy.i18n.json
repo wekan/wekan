@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Այս grain-ը կարող է հասնել այս հասցեին",
   "sandstorm-sync-grant": "Թույլատրել այս grain-ին հասնել այս համակարգին",
   "sandstorm-sync-granted": "Այս grain-ը կարող է հասնել այս համակարգին",
+  "sandstorm-sync-jira-hint": "Powerbox-ում ընտրեք միանալ ցանկացած հասցեի և մուտքագրեք ձեր Jira հասցեն՝ ներառելով ձեր էլ. փոստը և API թոքենը. https://EMAIL:API-TOKEN@your-site.atlassian.net, էլ. փոստի @-ը գրելով %40։ Sandstorm-ը պահում է դրանք թույլտվության մեջ և դրանցով ստորագրում է յուրաքանչյուր հարցում. WeKan-ը երբեք չի տեսնում դրանք։",
   "global-webhook": "Համաշխարհային վեբ-կեռիկներ",
   "new-outgoing-webhook": "Նոր ելքային Webhook",
   "no-name": "(Անհայտ)",

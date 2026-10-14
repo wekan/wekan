@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Puydi umabot ini nga grain hini nga adres",
   "sandstorm-sync-grant": "Tuguti ini nga grain nga umabot hini nga sistema han pagsubay",
   "sandstorm-sync-granted": "Puydi umabot ini nga grain hini nga sistema han pagsubay",
+  "sandstorm-sync-jira-hint": "Ha Powerbox, pilia an pagkonekta ha bisan ano nga address ngan ibutang an imo Jira address upod an imo email ngan API token ha sulod: https://EMAIL:API-TOKEN@your-site.atlassian.net, ginsusurat an @ han email sugad han %40. Ginkakarawat han Sandstorm ini ha pagtugot ngan ginpipirmahan an kada hangyo gamit ini; diri gud makikita han WeKan ini.",
   "global-webhook": "Global nga mga Webhook",
   "new-outgoing-webhook": "Bag-o nga Papagawas nga Webhook",
   "no-name": "(Diri kilala)",

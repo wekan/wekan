@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Hetta grain kann røkka hesa adressuna",
   "sandstorm-sync-grant": "Loyv hesum grain at røkka hendan rakaran",
   "sandstorm-sync-granted": "Hetta grain kann røkka hendan rakaran",
+  "sandstorm-sync-jira-hint": "Í Powerbox, vel at sambinda við hvørja adressu sum helst og skriva Jira-adressuna við teldupostinum og API-tekninum í: https://EMAIL:API-TOKEN@your-site.atlassian.net, har @ í teldupostinum verður skrivað sum %40. Sandstorm goymir tey í loyvinum og undirskrivar hvørja fyrispurning við teimum; WeKan sær tey ongantíð.",
   "global-webhook": "Altøk webhooks",
   "new-outgoing-webhook": "Nýtt útrættað webhook",
   "no-name": "(Ókent)",

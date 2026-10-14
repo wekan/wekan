@@ -119,7 +119,8 @@ bridge says who is calling instead, and WeKan acts as that user
 A list that syncs from an issue tracker (List menu → List Sync) reaches it
 from a grain the same way: save the source, then **Allow this grain to reach
 this tracker** opens the Powerbox for the tracker's API -
-`https://api.github.com`, `<GitLab>/api/v4` or `<Gitea/Forgejo>/api/v1`. The
+`https://api.github.com`, `<GitLab>/api/v4`, `<Gitea/Forgejo>/api/v1` or the
+Jira address. The
 grant belongs to that tracker, so every list syncing from it uses it, and the
 periodic sync job needs no signed-in user.
 
@@ -128,7 +129,22 @@ periodic sync job needs no signed-in user.
 | GitHub | public repositories (GitHub reads its token only from the `Authorization` header, which the bridge replaces) |
 | GitLab | public and private: the token is sent as the `private_token` query parameter, because the bridge drops `PRIVATE-TOKEN` |
 | Gitea, Forgejo | public repositories (their token headers are dropped, and query-string tokens are off by default) |
-| Jira | not possible: Jira signs in only with a Basic `Authorization` header |
+| Jira | Cloud and Server: the grant keeps the sign-in (below) |
+
+Jira signs in only with an `Authorization` header, and the bridge proxy uses
+that header for the grant. Sandstorm's HTTP driver can keep the sign-in in the
+grant instead (`shell/imports/server/drivers/external-ui-view.js` in the
+Sandstorm source): in the Powerbox, choose to connect to **any address** and
+enter the Jira address with the credentials in it -
+`https://EMAIL:API-TOKEN@your-site.atlassian.net`, the `@` of the e-mail
+written as `%40`, or `https://jira.example.org#PERSONAL-TOKEN` for a Jira
+Server / Data Center token. Sandstorm moves them out of the address into the
+grant and adds `Authorization: Basic ...` (or `Bearer ...`) to every request
+the grain sends through it; WeKan never sees them, and its own Jira token field
+can stay empty in a grain. The Powerbox request for a Jira list asks for Basic
+authentication (`ApiSession.PowerboxTag.authentication`). The same `#token`
+form would let a private GitHub, Gitea or Forgejo repository through, as a
+Bearer token; that is not tried yet.
 
 `imports/sandstorm/egress.mjs` (`syncApiRoot`, `grantRootCandidates`) decides
 what is approved; `server/sandstormEgress.js` (`syncFetch`) fetches, and

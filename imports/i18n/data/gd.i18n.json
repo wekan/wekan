@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Faodaidh an grain seo an seòladh seo a ruigsinn",
   "sandstorm-sync-grant": "Leig leis a’ grain seo an lorgaire seo a ruigsinn",
   "sandstorm-sync-granted": "Faodaidh an grain seo an lorgaire seo a ruigsinn",
+  "sandstorm-sync-jira-hint": "Sa Powerbox, tagh ceangal ri seòladh sam bith agus cuir a-steach an seòladh Jira agad le do phost-d agus do thòcan API ann: https://EMAIL:API-TOKEN@your-site.atlassian.net, a’ sgrìobhadh @ a’ phuist-d mar %40. Cumaidh Sandstorm iad sa chead agus soidhnichidh e gach iarrtas leotha; chan fhaic WeKan iad gu bràth.",
   "global-webhook": "Webhooks Cruinneil",
   "new-outgoing-webhook": "Webhook Ùr a-mach",
   "no-name": "(Neo-aithnichte)",

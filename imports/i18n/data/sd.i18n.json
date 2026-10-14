@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "هي grain هن پتي تائين پهچي سگهي ٿو",
   "sandstorm-sync-grant": "هن grain کي هن ٽريڪر تائين پهچڻ جي اجازت ڏيو",
   "sandstorm-sync-granted": "هي grain هن ٽريڪر تائين پهچي سگهي ٿو",
+  "sandstorm-sync-jira-hint": "Powerbox ۾ ڪنهن به پتي سان ڳنڍڻ چونڊيو ۽ پنهنجو Jira پتو داخل ڪريو جنهن ۾ توهان جي اي ميل ۽ API ٽوڪن هجي: https://EMAIL:API-TOKEN@your-site.atlassian.net، اي ميل جي @ کي %40 طور لکندي. Sandstorm انهن کي اجازت ۾ رکي ٿو ۽ هر درخواست تي انهن سان صحيح ڪري ٿو؛ WeKan انهن کي ڪڏهن به نٿو ڏسي.",
   "global-webhook": "عالمي ويب هُڪ",
   "new-outgoing-webhook": "نئون ٻاهر ويندڙ ويب هُڪ",
   "no-name": "(اڻڄاتل)",

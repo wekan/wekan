@@ -28,6 +28,9 @@ import { withListSyncLease } from '/server/lib/listSyncLease';
 const { normalizeSyncSource, syncSourceKey } = require('/models/lib/listSyncSourceIdentity');
 const { ISSUE_DETAIL_SOURCES } = require('/models/lib/listSyncIssueDetails');
 const { WRITE_BACK_SOURCES } = require('/models/lib/listSyncWriteBack');
+// The credential of a Jira source in a Sandstorm grain: the sign-in is in the
+// Powerbox grant, and this marker only says so; it is never sent anywhere.
+const SANDSTORM_GRANT_HOLDS_SIGN_IN = 'sandstorm-powerbox-grant';
 const { readSyncCredential, commitSyncConfiguration } = require('/server/lib/listSyncConfiguration');
 const { assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 
@@ -130,6 +133,10 @@ Meteor.methods({
       } else if (source && previousCredential && oldKey === sourceKey &&
         (!previousCredential.sourceKey || previousCredential.sourceKey === sourceKey)) {
         credential = { ...previousCredential, sourceKey };
+      } else if (source && source.type === 'jira' && Meteor.settings?.public?.sandstorm) {
+        // In a grain Jira's sign-in is kept in the Powerbox grant, not here
+        // (imports/sandstorm/egress.mjs syncApiRoot); the fetcher sends none.
+        credential = { token: SANDSTORM_GRANT_HOLDS_SIGN_IN, username: '', sourceKey };
       }
       const publicSource = source ? {
         type: source.type, url: source.url, projectKey: source.projectKey,

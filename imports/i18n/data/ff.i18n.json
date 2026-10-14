@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Grain ngal no waawi yottaade ñiiɓirde nde",
   "sandstorm-sync-grant": "Yamir grain ngal yottaade njoftaari ndi",
   "sandstorm-sync-granted": "Grain ngal no waawi yottaade njoftaari ndi",
+  "sandstorm-sync-jira-hint": "Nder Powerbox, suɓo jokkondirde e ñiiɓirde fof, naatnaa ñiiɓirde Jira maa e iimeel maa e token API maa e nder mayre: https://EMAIL:API-TOKEN@your-site.atlassian.net, winndaa @ iimeel ngel wano %40. Sandstorm resataa ɗum en nder yamiroore nde, siifta ɗaɓɓitannde kala e maɓɓe; WeKan yiyataa ɗum en abada.",
   "global-webhook": "Webhooks kuuɓɗe",
   "new-outgoing-webhook": "Webhook yaltuɗo keso",
   "no-name": "(Anndaaka)",

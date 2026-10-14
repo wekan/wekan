@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "An grain ma a yll drehedhes an trigva ma",
   "sandstorm-sync-grant": "Gasa an grain ma dhe dhrehedhes an trakyer ma",
   "sandstorm-sync-granted": "An grain ma a yll drehedhes an trakyer ma",
+  "sandstorm-sync-jira-hint": "Y'n Powerbox, dewis junya dhe neb trigva ha gorra agas trigva Jira gans agas ebost ha'gas tokyn API ynno: https://EMAIL:API-TOKEN@your-site.atlassian.net, ow skrifa @ an ebost avel %40. Sandstorm a's syns y'n kummyas hag a sin pub govyn gansa; ny wel WeKan bynitha anedha.",
   "global-webhook": "Webhookow ollvysel",
   "new-outgoing-webhook": "Webhook nowydh ow mos dhe-ves",
   "no-name": "(Anaswonnys)",

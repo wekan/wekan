@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Inin grain huelis ahsi inin tlacan",
   "sandstorm-sync-grant": "Xiquincahua inin grain ma ahsi inin tlachiani",
   "sandstorm-sync-granted": "Inin grain huelis ahsi inin tlachiani",
+  "sandstorm-sync-jira-hint": "Ipan Powerbox, xicpepena ticsalos ica zazo tlen chantli huan xictlali mochanyo Jira ica mo e-mail huan mo API token itic: https://EMAIL:API-TOKEN@your-site.atlassian.net, xictlahcuilo @ itech e-mail queme %40. Sandstorm quinpia ipan tlanahuatilli huan quinmachiyotia nochi tlatlaniliztli ica yehuan; WeKan amo quemah quinitta.",
   "global-webhook": "Hueyi webhooks",
   "new-outgoing-webhook": "Yancuic webhook tlen quisa",
   "no-name": "(amo mixmati)",

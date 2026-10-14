@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Deze grain mag dit adres bereiken",
   "sandstorm-sync-grant": "Laat deze grain deze tracker bereiken",
   "sandstorm-sync-granted": "Deze grain mag deze tracker bereiken",
+  "sandstorm-sync-jira-hint": "Kies in de Powerbox om te verbinden met eender welk adres en geef uw Jira-adres in met uw e-mail en API-token erin: https://EMAIL:API-TOKEN@your-site.atlassian.net, waarbij ge de @ van het e-mailadres als %40 schrijft. Sandstorm bewaart ze in de toelating en ondertekent elk verzoek ermee; WeKan ziet ze nooit.",
   "global-webhook": "Globale Webhooks",
   "new-outgoing-webhook": "Nieuwe uitgaande webhook",
   "no-name": "(Onbekend)",

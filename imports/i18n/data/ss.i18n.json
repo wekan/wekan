@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Le-grain ingafika kulelikheli",
   "sandstorm-sync-grant": "Vumela le-grain kutsi ifike kulesilandzeli",
   "sandstorm-sync-granted": "Le-grain ingafika kulesilandzeli",
+  "sandstorm-sync-jira-hint": "Ku-Powerbox, khetsa kuchumana nalikheli lelinye nalelinye bese ufaka likheli lakho le-Jira lelinemeyili yakho nethokheni ye-API ngekhatsi: https://EMAIL:API-TOKEN@your-site.atlassian.net, ubhala @ yeimeyili njenge-%40. Sandstorm iyakugcina emvumweni futsi isayina sicelo ngasinye ngako; WeKan ayikuboni nanini.",
   "global-webhook": "Ema-Webhook Omhlaba Wonkhe",
   "new-outgoing-webhook": "I-Webhook Lensha Lephumako",
   "no-name": "(Akwatiwa)",

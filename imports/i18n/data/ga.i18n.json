@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Tá cead ag an grain seo an seoladh seo a bhaint amach",
   "sandstorm-sync-grant": "Ceadaigh don grain seo an rianaire seo a bhaint amach",
   "sandstorm-sync-granted": "Tá cead ag an grain seo an rianaire seo a bhaint amach",
+  "sandstorm-sync-jira-hint": "Sa Powerbox, roghnaigh ceangal le haon seoladh agus cuir isteach do sheoladh Jira le do ríomhphost agus do chomhartha API ann: https://EMAIL:API-TOKEN@your-site.atlassian.net, ag scríobh @ an ríomhphoist mar %40. Coinníonn Sandstorm iad sa chead agus síníonn sé gach iarratas leo; ní fheiceann WeKan riamh iad.",
   "global-webhook": "Webhooks Domhanda",
   "new-outgoing-webhook": "Webhook Amach Nua",
   "no-name": "(Anaithnid)",

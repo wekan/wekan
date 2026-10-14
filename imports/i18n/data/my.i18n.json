@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "ဤ grain သည် ဤလိပ်စာသို့ ရောက်ရှိနိုင်သည်",
   "sandstorm-sync-grant": "ဤ grain ကို ဤခြေရာခံစနစ်သို့ ရောက်ရှိခွင့်ပြုရန်",
   "sandstorm-sync-granted": "ဤ grain သည် ဤခြေရာခံစနစ်သို့ ရောက်ရှိနိုင်သည်",
+  "sandstorm-sync-jira-hint": "Powerbox တွင် မည်သည့်လိပ်စာနှင့်မဆို ချိတ်ဆက်ရန် ရွေးချယ်ပြီး သင့်အီးမေးလ်နှင့် API တိုကင်ပါဝင်သော သင့် Jira လိပ်စာကို ထည့်ပါ- https://EMAIL:API-TOKEN@your-site.atlassian.net၊ အီးမေးလ်၏ @ ကို %40 အဖြစ် ရေးပါ။ Sandstorm သည် ၎င်းတို့ကို ခွင့်ပြုချက်ထဲတွင် သိမ်းထားပြီး တောင်းဆိုမှုတိုင်းကို ၎င်းတို့ဖြင့် လက်မှတ်ထိုးသည်။ WeKan သည် ၎င်းတို့ကို ဘယ်တော့မှ မမြင်ရပါ။",
   "global-webhook": "ကမ္ဘာလုံးဆိုင်ရာ Webhooks",
   "new-outgoing-webhook": "အထွက် Webhook အသစ်",
   "no-name": "(မသိ)",

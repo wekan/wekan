@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "یہ grain اس پتے تک پہنچ سکتا ہے",
   "sandstorm-sync-grant": "اس grain کو اس ٹریکر تک پہنچنے کی اجازت دیں",
   "sandstorm-sync-granted": "یہ grain اس ٹریکر تک پہنچ سکتا ہے",
+  "sandstorm-sync-jira-hint": "Powerbox میں کسی بھی پتے سے جڑنے کا انتخاب کریں اور اپنا Jira پتہ درج کریں جس میں آپ کی ای میل اور API ٹوکن ہو: https://EMAIL:API-TOKEN@your-site.atlassian.net، ای میل کے @ کو %40 لکھتے ہوئے۔ Sandstorm انہیں اجازت میں رکھتا ہے اور ہر درخواست پر ان سے دستخط کرتا ہے؛ WeKan انہیں کبھی نہیں دیکھتا۔",
   "global-webhook": "گلوبال وےبہووکس",
   "new-outgoing-webhook": "نیا ووتگوینگ وےبہووک",
   "no-name": "(ونکنوون)",

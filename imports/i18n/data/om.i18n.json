@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Grain kun teessoo kana gahuu danda'a",
   "sandstorm-sync-grant": "Grain kun meeshaa hordoffii kana akka gahu hayyami",
   "sandstorm-sync-granted": "Grain kun meeshaa hordoffii kana gahuu danda'a",
+  "sandstorm-sync-jira-hint": "Powerbox keessatti, teessoo kamiin iyyuu walqunnamuu filadhuutii teessoo Jira kee kan imeelii fi mallattoo API kee qabu galchi: https://EMAIL:API-TOKEN@your-site.atlassian.net, @ imeelichaa akka %40 barreessuun. Sandstorm hayyama keessatti isaan qabata, gaaffii hunda isaaniin mallatteessa; WeKan gonkumaa isaan hin argu.",
   "global-webhook": "Webhook Waliigalaa",
   "new-outgoing-webhook": "Webhook Bahaa Haaraa",
   "no-name": "(Hin beekamne)",

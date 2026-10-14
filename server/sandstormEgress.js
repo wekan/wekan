@@ -162,13 +162,9 @@ async function syncTarget(userId, listId) {
   if (!board || !allowIsBoardMemberWithWriteAccess(userId, board)) throw new Meteor.Error('error-notAuthorized');
   const source = list.syncSource || {};
   const api = await egress();
-  const { root, reason } = api.syncApiRoot(source.type, source.url);
-  if (!root) {
-    throw new Meteor.Error('sandstorm-sync-unsupported', reason === 'jira-basic-auth'
-      ? 'Jira signs in with an Authorization header, which a Sandstorm grain cannot send.'
-      : 'This tracker address cannot be granted.');
-  }
-  return { api, root };
+  const { root, authentication } = api.syncApiRoot(source.type, source.url);
+  if (!root) throw new Meteor.Error('sandstorm-sync-unsupported', 'This tracker address cannot be granted.');
+  return { api, root, authentication };
 }
 
 if (isSandstorm) {
@@ -219,9 +215,9 @@ if (isSandstorm) {
     async sandstormSyncDescriptor(listId) {
       check(listId, String);
       if (!this.userId) throw new Meteor.Error('error-notAuthorized');
-      const { root } = await syncTarget(this.userId, listId);
+      const { root, authentication } = await syncTarget(this.userId, listId);
       const { apiSessionDescriptor } = await import('/imports/sandstorm/bridgeClient.mjs');
-      return { descriptor: apiSessionDescriptor(root), canonicalUrl: root };
+      return { descriptor: apiSessionDescriptor(root, { authentication }), canonicalUrl: root, authentication };
     },
 
     async sandstormClaimSyncGrant(listId, requestToken) {

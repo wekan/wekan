@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Este grain pode acceder a este enderezo",
   "sandstorm-sync-grant": "Permitir que este grain acceda a este rastrexador",
   "sandstorm-sync-granted": "Este grain pode acceder a este rastrexador",
+  "sandstorm-sync-jira-hint": "No Powerbox, escolle conectar con calquera enderezo e introduce o teu enderezo de Jira co teu correo electrónico e o token de API dentro: https://EMAIL:API-TOKEN@your-site.atlassian.net, escribindo a @ do correo como %40. Sandstorm gárdaos no permiso e asina con eles cada solicitude; WeKan nunca os ve.",
   "global-webhook": "Webhooks globais",
   "new-outgoing-webhook": "Novo webhook de saída",
   "no-name": "(Descoñecido)",

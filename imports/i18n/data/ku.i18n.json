@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Ev grain dikare bigihîje vê navnîşanê",
   "sandstorm-sync-grant": "Destûrê bide vê grainê ku bigihîje vê şopandinê",
   "sandstorm-sync-granted": "Ev grain dikare bigihîje vê şopandinê",
+  "sandstorm-sync-jira-hint": "Di Powerboxê de, girêdana bi her navnîşanekê re hilbijêre û navnîşana xwe ya Jira bi e-name û tokena xwe ya API tê de binivîse: https://EMAIL:API-TOKEN@your-site.atlassian.net, @ya e-nameyê wekî %40 binivîse. Sandstorm wan di destûrê de diparêze û her daxwazê bi wan îmze dike; WeKan qet wan nabîne.",
   "global-webhook": "Webhookên giştî",
   "new-outgoing-webhook": "Webhooka derketî ya nû",
   "no-name": "(Nenas)",

@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "grain འདི་ས་གནས་འདིར་འབྱོར་ཆོག",
   "sandstorm-sync-grant": "grain འདི་རྗེས་འདེད་པ་འདིར་འབྱོར་བར་ཆོག་མཆན་སྤྲོད།",
   "sandstorm-sync-granted": "grain འདི་རྗེས་འདེད་པ་འདིར་འབྱོར་ཆོག",
+  "sandstorm-sync-jira-hint": "Powerbox ནང་ཁ་བྱང་གང་རུང་ལ་མཐུད་རྒྱུ་འདེམས་ནས་ཁྱེད་ཀྱི་གློག་འཕྲིན་དང་ API token ཚུད་པའི་ Jira ཁ་བྱང་འཇུག་རོགས། https://EMAIL:API-TOKEN@your-site.atlassian.net། གློག་འཕྲིན་གྱི་ @ དེ་ %40 ལྟར་འབྲི་དགོས། Sandstorm གྱིས་དེ་དག་ཆོག་མཆན་ནང་ཉར་ཞིང་རེ་ཞུ་རེ་རེར་དེ་དག་གིས་མིང་རྟགས་འགོད། WeKan གྱིས་ནམ་ཡང་མཐོང་གི་མེད།",
   "global-webhook": "སྤྱི་ཁྱབ་ Webhooks",
   "new-outgoing-webhook": "ཕྱིར་གཏོང་ Webhook གསར་པ།",
   "no-name": "(མི་ཤེས)",

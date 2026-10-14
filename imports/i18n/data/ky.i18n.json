@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Бул grain ушул дарекке жете алат",
   "sandstorm-sync-grant": "Бул grain'ге ушул трекерге жетүүгө уруксат берүү",
   "sandstorm-sync-granted": "Бул grain ушул трекерге жете алат",
+  "sandstorm-sync-jira-hint": "Powerbox'то каалаган дарекке туташууну тандап, ичинде электрондук почтаңыз жана API токениңиз бар Jira дарегиңизди киргизиңиз: https://EMAIL:API-TOKEN@your-site.atlassian.net, электрондук почтанын @ белгисин %40 деп жазып. Sandstorm аларды уруксатта сактайт жана ар бир сурамга алар менен кол коёт; WeKan аларды эч качан көрбөйт.",
   "global-webhook": "Глобалдык Webhook'тор",
   "new-outgoing-webhook": "Жаңы чыгуучу Webhook",
   "no-name": "(Белгисиз)",

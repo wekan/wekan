@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Nece grain voib tulda necile adresale",
   "sandstorm-sync-grant": "Laske nece grain tulda necile trekerale",
   "sandstorm-sync-granted": "Nece grain voib tulda necile trekerale",
+  "sandstorm-sync-jira-hint": "Powerbox-ikkunas valiče ühtenzoitta ühtehe-ki adresale i kirjutagat teiden Jira-adres teiden e-počtanke i API-tokenanke sen südäimes: https://EMAIL:API-TOKEN@your-site.atlassian.net, kirjutagat e-počtan @ muga: %40. Sandstorm pidab niid lubas i kirjutab niidenke kaiken pakičusen alle; WeKan ei nägišti niid nikonz.",
   "global-webhook": "Üleižed Webhookad",
   "new-outgoing-webhook": "Uz’ oigendamižen Webhook",
   "no-name": "(Tundmatoi)",

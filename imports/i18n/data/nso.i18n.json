@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Grain ye e ka fihlelela atrese ye",
   "sandstorm-sync-grant": "Dumelela grain ye go fihlelela motlhomi yo",
   "sandstorm-sync-granted": "Grain ye e ka fihlelela motlhomi yo",
+  "sandstorm-sync-jira-hint": "Ka go Powerbox, kgetha go kgokagana le aterese efe goba efe gomme o tsenye aterese ya gago ya Jira ye e nago le imeile ya gago le tokene ya API ka gare: https://EMAIL:API-TOKEN@your-site.atlassian.net, o ngwala @ ya imeile bjalo ka %40. Sandstorm e di boloka ka tumelelong gomme e saena kgopelo ye nngwe le ye nngwe ka tšona; WeKan ga e di bone le ka mohla.",
   "global-webhook": "Di-Webhook tša Lefase ka Bophara",
   "new-outgoing-webhook": "Webhook ye Mpsha ye e Tšwago",
   "no-name": "(Ga e Tsebjwe)",

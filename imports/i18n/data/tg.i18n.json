@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Ин grain метавонад ба ин суроға дастрасӣ ёбад",
   "sandstorm-sync-grant": "Ба ин grain иҷозат диҳед, ки ба ин пайгир дастрасӣ ёбад",
   "sandstorm-sync-granted": "Ин grain метавонад ба ин пайгир дастрасӣ ёбад",
+  "sandstorm-sync-jira-hint": "Дар Powerbox пайвастшавӣ ба ҳар суроғаро интихоб кунед ва суроғаи Jira-и худро бо почтаи электронӣ ва токени API дар он ворид кунед: https://EMAIL:API-TOKEN@your-site.atlassian.net, @-и почтаи электрониро ҳамчун %40 навишта. Sandstorm онҳоро дар иҷозат нигоҳ медорад ва ҳар дархостро бо онҳо имзо мекунад; WeKan онҳоро ҳеҷ гоҳ намебинад.",
   "global-webhook": "Вебҳукҳои умумӣ",
   "new-outgoing-webhook": "Вебҳуки нави содиротӣ",
   "no-name": "(Номаълум)",

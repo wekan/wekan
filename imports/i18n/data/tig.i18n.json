@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "እሊ grain እሊ ዕንዋን ለአብጽሕ ፍቁድ ሉ",
   "sandstorm-sync-grant": "ለእሊ grain እሊ ትራከር ለአብጽሕ ፍቀድ",
   "sandstorm-sync-granted": "እሊ grain እሊ ትራከር ለአብጽሕ ፍቁድ ሉ",
+  "sandstorm-sync-jira-hint": "ውስጥ Powerbox ምስ ኣየ ኣድራሻ ክትትራከብ ሐሬ፡ ወ ኣድራሻ Jira ምስ ኢመይልካ ወ API ቶከንካ ውስጡ ኣተ፦ https://EMAIL:API-TOKEN@your-site.atlassian.net፣ @ ናይ ኢመይል ከም %40 ክትክትብ። Sandstorm ውስጥ ፍቃድ ልቀብጦም ወ ኩሉ ሐተታ ብሞም ልፈርም፤ WeKan ኢልርኦም።",
   "global-webhook": "ዓለማዊ Webhooks",
   "new-outgoing-webhook": "ሐዲስ ወጻኢ Webhook",
   "no-name": "(ለይትኣመራ)",

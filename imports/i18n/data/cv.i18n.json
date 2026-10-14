@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Ҫак grain ҫак адреса ҫитме пултарать",
   "sandstorm-sync-grant": "Ҫак grain-а ҫак трекера ҫитме ирӗк пар",
   "sandstorm-sync-granted": "Ҫак grain ҫак трекера ҫитме пултарать",
+  "sandstorm-sync-jira-hint": "Powerbox-ра кирекле адреса ҫыхӑнма суйлӑр тата ӑшӗнче электронлӑ почтӑ тата API токенӗ пур Jira адресне кӗртӗр: https://EMAIL:API-TOKEN@your-site.atlassian.net, электронлӑ почтӑн @ паллине %40 тесе ҫырса. Sandstorm вӗсене ирӗкре упрать тата кашни ыйтӑва вӗсемпе алӑ пусать; WeKan вӗсене нихҫан та курмасть.",
   "global-webhook": "Тӗп webhookсем",
   "new-outgoing-webhook": "Ҫӗнӗ тухакан webhook",
   "no-name": "(Паллӑ мар)",

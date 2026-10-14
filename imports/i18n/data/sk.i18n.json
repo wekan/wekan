@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Tento grain môže pristupovať na túto adresu",
   "sandstorm-sync-grant": "Povoliť tomuto grainu prístup k tomuto trackeru",
   "sandstorm-sync-granted": "Tento grain môže pristupovať k tomuto trackeru",
+  "sandstorm-sync-jira-hint": "V Powerboxe zvoľte pripojenie k ľubovoľnej adrese a zadajte svoju adresu Jira s e-mailom a API tokenom: https://EMAIL:API-TOKEN@your-site.atlassian.net, pričom @ v e-maile zapíšte ako %40. Sandstorm ich uchováva v povolení a podpisuje nimi každú požiadavku; WeKan ich nikdy nevidí.",
   "global-webhook": "Globálne webhooky",
   "new-outgoing-webhook": "Nový odchádzajúci webhook",
   "no-name": "(Neznáme)",

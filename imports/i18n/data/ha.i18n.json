@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Wannan grain zai iya isa wannan adireshi",
   "sandstorm-sync-grant": "Bari wannan grain ya isa wannan na'urar bibiya",
   "sandstorm-sync-granted": "Wannan grain zai iya isa wannan na'urar bibiya",
+  "sandstorm-sync-jira-hint": "A cikin Powerbox, zaɓi haɗawa da kowane adireshi kuma shigar da adireshin Jira naka tare da imel ɗinka da alamar API a ciki: https://EMAIL:API-TOKEN@your-site.atlassian.net, kana rubuta @ na imel a matsayin %40. Sandstorm yana adana su a cikin izinin kuma yana sa hannu kowace buƙata da su; WeKan ba ya ganin su har abada.",
   "global-webhook": "Webhooks na duniya",
   "new-outgoing-webhook": "Sabon webhook mai fita",
   "no-name": "(Ba a sani ba)",

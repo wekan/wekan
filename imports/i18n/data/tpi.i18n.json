@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Dispela grain inap go long dispela adres",
   "sandstorm-sync-grant": "Larim dispela grain i go long dispela tracker",
   "sandstorm-sync-granted": "Dispela grain inap go long dispela tracker",
+  "sandstorm-sync-jira-hint": "Long Powerbox, makim long joinim wanpela adres na putim adres bilong Jira bilong yu wantaim imel na API token bilong yu insait: https://EMAIL:API-TOKEN@your-site.atlassian.net, na raitim @ bilong imel olsem %40. Sandstorm i holim ol long tok orait na i sainim olgeta askim wantaim ol; WeKan i no save lukim ol.",
   "global-webhook": "Bilong olgeta Webhooks",
   "new-outgoing-webhook": "Nupela Outgoing webhuk",
   "no-name": "(I no save)",

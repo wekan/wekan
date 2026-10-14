@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Ka āhei tēnei grain ki te tae ki tēnei wāhitau",
   "sandstorm-sync-grant": "Tukua tēnei grain kia tae ki tēnei kaiwhāi",
   "sandstorm-sync-granted": "Ka āhei tēnei grain ki te tae ki tēnei kaiwhāi",
+  "sandstorm-sync-jira-hint": "I te Powerbox, kōwhiria kia hono ki tētahi wāhitau, ā, tāurua tō wāhitau Jira me tō īmēra me tō tohu API kei roto: https://EMAIL:API-TOKEN@your-site.atlassian.net, me te tuhi i te @ o te īmēra hei %40. Ka puritia e Sandstorm ki roto i te whakaaetanga, ā, ka hainatia e ia ia tono ki a rātou; kāore rawa a WeKan e kite i a rātou.",
   "global-webhook": "Ngā Webhook Ao",
   "new-outgoing-webhook": "Webhook Puta Hou",
   "no-name": "(Tē Mōhiotia)",

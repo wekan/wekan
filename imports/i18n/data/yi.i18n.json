@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "דער grain מעג דערגרייכן דעם אַדרעס",
   "sandstorm-sync-grant": "דערלויבן דעם grain צו דערגרייכן דעם טרעקער",
   "sandstorm-sync-granted": "דער grain מעג דערגרייכן דעם טרעקער",
+  "sandstorm-sync-jira-hint": "אין Powerbox, קלײַבט זיך צו פֿאַרבינדן מיט סײַ וועלכן אַדרעס און שרײַבט אַרײַן אײַער Jira־אַדרעס מיט אײַער בליצפּאָסט און API־טאָקען אין אים: https://EMAIL:API-TOKEN@your-site.atlassian.net, שרײַבנדיק דעם @ פֿון דער בליצפּאָסט ווי %40. Sandstorm היט זיי אין דער דערלויבעניש און אונטערשרײַבט מיט זיי יעדע בקשה; WeKan זעט זיי קיינמאָל נישט.",
   "global-webhook": "גלאבאלע וועבהאָאָקס",
   "new-outgoing-webhook": "ניו אַוטגאָוינג וועבהאָאָק",
   "no-name": "(אומבאַקאַנט)",

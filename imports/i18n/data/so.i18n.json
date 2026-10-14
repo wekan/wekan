@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Grain-kan wuu gaari karaa cinwaankan",
   "sandstorm-sync-grant": "U oggolow grain-kan inuu gaaro raad-raacahan",
   "sandstorm-sync-granted": "Grain-kan wuu gaari karaa raad-raacahan",
+  "sandstorm-sync-jira-hint": "Gudaha Powerbox, dooro inaad ku xidhid cinwaan kasta oo geli cinwaankaaga Jira oo ay ku jiraan iimaylkaaga iyo calaamadda API-gaaga: https://EMAIL:API-TOKEN@your-site.atlassian.net, adigoo u qoraya @ iimaylka sida %40. Sandstorm wuxuu ku hayaa ogolaanshaha wuxuuna ku saxiixaa codsi kasta; WeKan marnaba ma arko.",
   "global-webhook": "Webhooks Caalami ah",
   "new-outgoing-webhook": "Webhook Baxaya oo Cusub",
   "no-name": "(Aan la aqoon)",

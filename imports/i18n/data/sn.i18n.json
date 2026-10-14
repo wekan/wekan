@@ -1376,6 +1376,7 @@
   "sandstorm-webhook-granted": "Grain iyi inogona kusvika pakero iyi",
   "sandstorm-sync-grant": "Bvumira grain iyi kusvika pachinocherechedza ichi",
   "sandstorm-sync-granted": "Grain iyi inogona kusvika pachinocherechedza ichi",
+  "sandstorm-sync-jira-hint": "MuPowerbox, sarudza kubatana nekero ipi neipi uye isa kero yako yeJira ine email yako netokeni yeAPI mukati: https://EMAIL:API-TOKEN@your-site.atlassian.net, uchinyora @ yeemail se%40. Sandstorm inozvichengeta mumvumo uye inosaina chikumbiro chese nazvo; WeKan haimbozvione.",
   "global-webhook": "Mawebhook ehurongwa hwese",
   "new-outgoing-webhook": "itsva Outgoing Webhook",
   "no-name": "(Hazvizivikanwi)",
