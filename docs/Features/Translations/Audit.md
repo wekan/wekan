@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Malagasy Scrum planning transfers — 2026-10-14
+
+Commit `36647667e6` translates 21 entries for release selection, Scrum import
+matching and previews, and planning synchronization. Unmatched cards remain
+unchanged, existing planning is linked rather than duplicated, and local
+changes and first-sync safeguards remain explicit.
+
+The Malagasy catalog and guarded-correction suites pass with 30,125 correction
+ledger entries. An initial catalog assertion used the uninflected form of a
+word; its corrected pattern passes. All 21 human-preference checks pass, and
+exact comparison preserves 38,430 existing Chinese values. Scrum import and
+planning-sync browser cases pass syntax and discovery; runtime remains pending.
+
+Further Malagasy translations and all-language semantic review remain unfinished.
+
 ## Malagasy workflows and administration — 2026-10-14
 
 Commit `9c09c273d4` translates 25 messages for Wrike workflows, LDAP sync,

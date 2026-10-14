@@ -4132,6 +4132,19 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/36647667e6">Translate Malagasy Scrum planning transfer messages</a>. Thanks to xet7.</summary>
+
+- Translate 21 messages for release selection, Scrum imports and planning sync.
+  Preserve matching order, preview counts, unchanged unmatched cards and the
+  safeguards for local planning changes and first synchronization.
+- Translation suites and 21 human-preference checks pass. Existing Chinese
+  values remain unchanged. Scrum import and planning-sync browser cases pass
+  syntax and discovery; runtime execution remains pending.
+- All-language semantic review and remaining translations continue.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
