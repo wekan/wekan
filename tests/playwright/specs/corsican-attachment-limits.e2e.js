@@ -68,3 +68,18 @@ test('Corsican cloud help retains credential alternatives and provider menu labe
   await expect(permissions).toContainText('client_email');
   await expect(permissions).toContainText('Storage Object Admin');
 });
+
+
+test('Haitian cloud credentials preserve optional authentication choices and permission labels', async ({ page, adminUser }) => {
+  const ht = require('../../../imports/i18n/data/ht.i18n.json');
+  await loginWithToken(page, adminUser.id, adminUser.token);
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'ht'));
+  await navigateInApp(page, '/admin/attachments/gcs');
+  for (const key of ['gcs-credentials', 'gcs-credentials-description', 'gcs-permissions-note', 'gcs-key-filename-menu-path']) {
+    await expect(page.getByText(ht[key], { exact: true })).toBeVisible();
+  }
+  const hint = page.getByText(ht['gcs-credentials-description'], { exact: true });
+  await expect(hint).toContainText('Kite vid pou itilize fichye kle a');
+  await expect(hint).toContainText('enfòmasyon otantifikasyon pa defo');
+  await expect(hint).not.toContainText('kalifikasyon');
+});

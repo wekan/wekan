@@ -208941,5 +208941,61 @@
     "before": "Lè li aktive, ekspòtasyon yon tablo ranplase non itilizatè, non konplè ak inisyal chak itilizatè ekspòte avèk espas rezève konte (itilizatè1, itilizatè2, ...), retire avatar yo epi re-ekri mansyon @non-itilizatè (ak chan mande-pa / asiyen-pa) anndan kontni kat ak kòmantè. Fichye ekspòte a pa pote okenn idantite reyèl itilizatè. Mo \"itilizatè\" a swiv lang moun k ap ekspòte a. Li dezaktive pa defo.",
     "after": "Èske ou sèten ou vle rann kont sa a anonim? Sa ranplase non itilizatè a, non konplè li ak adrès imèl li pou tout tan ak valè ranplasman anonim, retire avatar la epi dezaktive koneksyon. Kontrèman ak efasman, tablo, kat ak kòmantè yo konsève istorik yo epi yo toujou montre kont sa a, men li anonim. Aksyon sa a pa ka defèt.",
     "reason": "Replace the incorrectly duplicated export warning with the actual Haitian account-anonymization consequences: permanent identity replacement, no login and preserved history."
+  },
+  {
+    "locale": "ht",
+    "key": "backup-description",
+    "before": "Fè sovgad Pyès atache, Avatar ak/oswa Done (tout koleksyon ki baze sou tèks ki pa pyès atache oswa avatar). .zip la pase dirèkteman nan depo chwazi a — san fichye tanporè — kòm backup/YYYY/MM/DD/HH_MM_SS/backup.zip, epi li gen YYYY_MM_DD-HH_MM_SS/attachments, /avatars ak /data. Depo nwaj (S3/MinIO, Azure, GCS) itilize kalifikasyon ki konfigire nan onglè depo yo.",
+    "after": "Fè sovgad Pyès atache, Avatar ak/oswa Done (tout koleksyon ki baze sou tèks ki pa pyès atache oswa avatar). .zip la pase dirèkteman nan depo chwazi a — san fichye tanporè — kòm backup/YYYY/MM/DD/HH_MM_SS/backup.zip, epi li gen YYYY_MM_DD-HH_MM_SS/attachments, /avatars ak /data. Depo nwaj (S3/MinIO, Azure, GCS) itilize enfòmasyon otantifikasyon ki konfigire nan onglè depo yo.",
+    "reason": "Correct Haitian authentication-credential, backup-setting and directory terminology while preserving paths, key requirements and cloud permission labels."
+  },
+  {
+    "locale": "ht",
+    "key": "continuous-backup-key-file",
+    "before": "Fichye kle chifreman an (chemen absoli, deyò dosye destinasyon an; 64 karaktè ekzadesimal oswa yon fraz sekrè ki gen omwen 16 karaktè). Kenbe yon kopi: san li, ou pa ka retabli sovgad la.",
+    "after": "Fichye kle chifreman an (chemen absoli, deyò repètwa destinasyon an; 64 karaktè ekzadesimal oswa yon fraz sekrè ki gen omwen 16 karaktè). Kenbe yon kopi: san li, ou pa ka retabli sovgad la.",
+    "reason": "Correct Haitian authentication-credential, backup-setting and directory terminology while preserving paths, key requirements and cloud permission labels."
+  },
+  {
+    "locale": "ht",
+    "key": "continuous-backup-upload-none",
+    "before": "Okenn kote (dosye destinasyon an sèlman)",
+    "after": "Okenn kote (repètwa destinasyon an sèlman)",
+    "reason": "Correct Haitian authentication-credential, backup-setting and directory terminology while preserving paths, key requirements and cloud permission labels."
+  },
+  {
+    "locale": "ht",
+    "key": "continuous-backup-saved",
+    "before": "Anviwònman sovgad kontinyèl yo anrejistre",
+    "after": "Paramèt sovgad kontinyèl yo anrejistre",
+    "reason": "Correct Haitian authentication-credential, backup-setting and directory terminology while preserving paths, key requirements and cloud permission labels."
+  },
+  {
+    "locale": "ht",
+    "key": "gcs-credentials",
+    "before": "Kalifikasyon kont sèvis (JSON)",
+    "after": "Enfòmasyon otantifikasyon kont sèvis (JSON)",
+    "reason": "Correct Haitian authentication-credential, backup-setting and directory terminology while preserving paths, key requirements and cloud permission labels."
+  },
+  {
+    "locale": "ht",
+    "key": "gcs-credentials-description",
+    "before": "Opsyonèl: kole kle JSON kont sèvis la. Kite vid pou itilize fichye kle a oswa kalifikasyon pa defo yo.",
+    "after": "Opsyonèl: kole kle JSON kont sèvis la. Kite vid pou itilize fichye kle a oswa enfòmasyon otantifikasyon pa defo yo.",
+    "reason": "Correct Haitian authentication-credential, backup-setting and directory terminology while preserving paths, key requirements and cloud permission labels."
+  },
+  {
+    "locale": "ht",
+    "key": "gcs-permissions-note",
+    "before": "Bay kont sèvis WeKan nan aksè lekti/ekriti nan bucket la: Google Cloud Console → Cloud Storage → Buckets → bucket ou → Permissions → Grant access. Nan \"New principals\", kole imèl kont sèvis la — valè \"client_email\" ki nan kle JSON ou — apre sa chwazi wòl \"Storage Object Admin\" epi anrejistre.",
+    "after": "Bay kont sèvis WeKan an aksè lekti/ekriti nan bucket la: Google Cloud Console → Cloud Storage → Buckets → bucket ou → Permissions → Grant access. Nan \"New principals\", kole imèl kont sèvis la — valè \"client_email\" ki nan kle JSON ou — apre sa chwazi wòl \"Storage Object Admin\" epi anrejistre.",
+    "reason": "Correct Haitian authentication-credential, backup-setting and directory terminology while preserving paths, key requirements and cloud permission labels."
+  },
+  {
+    "locale": "ht",
+    "key": "gcs-key-filename-menu-path",
+    "before": "Chemen sou sèvè WeKan nan pou fichye kle JSON kont sèvis ki telechaje a (kreye anba a). Itilize sa OSWA kole JSON nan chan anba a.",
+    "after": "Chemen sou sèvè WeKan an pou fichye kle JSON kont sèvis ki telechaje a (kreye anba a). Itilize sa OSWA kole JSON nan chan anba a.",
+    "reason": "Correct Haitian authentication-credential, backup-setting and directory terminology while preserving paths, key requirements and cloud permission labels."
   }
 ]

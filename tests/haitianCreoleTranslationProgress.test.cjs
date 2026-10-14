@@ -497,3 +497,18 @@ assert.match(accountWarning, /pa ka defèt/);
 assert.doesNotMatch(accountWarning, /ekspòtasyon|Fichye ekspòte|pa defo/);
 assert.notEqual(accountWarning, creole['anonymize-export-users-description']);
 assert.deepEqual(tokens(accountWarning), tokens(english['anonymize-account-confirm-popup']));
+
+const reviewedStorageCredentialKeys = ["backup-description", "continuous-backup-key-file", "continuous-backup-upload-none", "continuous-backup-saved", "gcs-credentials", "gcs-credentials-description", "gcs-permissions-note", "gcs-key-filename-menu-path"];
+for (const key of reviewedStorageCredentialKeys) {
+  assert.notEqual(creole[key], english[key], key);
+  assert.deepEqual(tokens(creole[key]), tokens(english[key]), key);
+}
+for (const key of ['backup-description', 'gcs-credentials', 'gcs-credentials-description']) {
+  assert.match(creole[key], /enfòmasyon otantifikasyon/i);
+  assert.doesNotMatch(creole[key], /kalifikasyon/i);
+}
+assert.match(creole['gcs-credentials-description'], /Opsyonèl.*Kite vid.*fichye kle.*pa defo/);
+assert.match(creole['continuous-backup-key-file'], /deyò repètwa destinasyon.*64.*16.*san li.*pa ka retabli/);
+assert.match(creole['continuous-backup-saved'], /^Paramèt/);
+for (const literal of ['client_email', 'Storage Object Admin', 'New principals']) assert.ok(creole['gcs-permissions-note'].includes(literal));
+for (const literal of ['backup/YYYY/MM/DD/HH_MM_SS/backup.zip', 'YYYY_MM_DD-HH_MM_SS/attachments', '/avatars', '/data']) assert.ok(creole['backup-description'].includes(literal));
