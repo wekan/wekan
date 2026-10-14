@@ -805,6 +805,40 @@ Lists.after.update(async (userId, doc, fieldNames) => {
   }
 });
 
+// #6765: archiving a list archives its cards, and restoring it restores the
+// cards archived WITH it - the rule #2292 gave swimlanes
+// (models/lib/swimlaneArchive.js). Done here, on the server, because every way
+// a list is archived ends in this update: the list menu, the Archive sidebar,
+// the REST API and the methods. A client cascade would only reach the
+// archived cards the browser was sent, which is a capped page of them.
+//
+// Cards already archived on their own keep their own archivedAt and stay
+// archived on restore. The cards archived with the list are given the LIST's
+// archivedAt, which is how restore tells the two apart - the list's time may
+// come from the browser's clock, so the server's own clock is not compared
+// with it.
+Lists.after.update(async (userId, doc, fieldNames) => {
+  if (!fieldNames.includes('archived')) return;
+  const { cardsToArchiveWithSwimlane: toArchive, cardsToRestoreWithSwimlane: toRestore } =
+    require('/models/lib/swimlaneArchive');
+  const cards = await ReactiveCache.getCards({ listId: doc._id, boardId: doc.boardId });
+  if (doc.archived) {
+    let archivedAt = doc.archivedAt;
+    if (!archivedAt) {
+      archivedAt = new Date();
+      await Lists.direct.updateAsync(doc._id, { $set: { archivedAt } });
+    }
+    const archived = toArchive(cards);
+    for (const card of archived) await card.archive();
+    if (archived.length) {
+      await Cards.direct.updateAsync({ _id: { $in: archived.map(card => card._id) } },
+        { $set: { archivedAt } }, { multi: true });
+    }
+  } else {
+    for (const card of toRestore(cards, doc.archivedAt)) await card.restore();
+  }
+});
+
 WebApp.handlers.get('/api/boards/:boardId/lists', async function(req, res) {
   try {
     const paramBoardId = req.params.boardId;

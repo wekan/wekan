@@ -118,6 +118,7 @@ import './instanceEditing.tests';
 import './boardKeys.tests';
 import './sharedLabels.tests';
 import './listPermissions.tests';
+import './archiveListCards.tests';
 import './activityIncarnation.tests';
 import './listSyncDurable.tests';
 import './storedRuleChecklist.tests';
