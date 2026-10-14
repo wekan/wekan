@@ -98,22 +98,12 @@ Which databases WeKan supports
 <details>
 <summary>Carried to a future release.</summary>
 
-What is not done yet, and why, checked against the code on 2026-10-08.
-Finished work is in Upcoming and old-CHANGELOG/; the dated development logs
-that used to sit here are in git history.
+What is not built yet, checked against the code on 2026-10-14. Finished
+work - also what is built but not yet tested against a live service - is in
+the releases and old-CHANGELOG/.
 
-**Needs infrastructure or credentials:** Jira closed sprints and their
-commitment snapshots (the Jira Software sprint report API); live SMTP
-interoperability with external mail providers (rule email was tested against
-local SMTP only); the full matrix of Firefox on macOS, WebKit, mobile, full
-FerretDB and live identity providers.
-
-**Properties of the backends, not steps left undone:** cards, History,
-activities and effects are coordinated by the write-ahead journal and replay,
-not by a transaction - FerretDB v1 has no multi-document transactions, so a
-snapshot is a sequence of reads and a card write already in flight cannot be
-fenced. SMTP delivery is at least once. History dates already flattened to
-strings, and legacy notifications already dismissed, cannot be reconstructed.
+**Needs a live service to build against:** Jira closed sprints and their
+commitment snapshots (the Jira Software sprint report API).
 
 **Waiting on the maintainer:** filing the
 [#4790](https://github.com/wekan/wekan/issues/4790) split prepared in
@@ -123,292 +113,40 @@ a publishing step.
 </details>
 
 <details>
-<summary>Translation work in progress: remaining new strings in all languages.</summary>
+<summary>Translation work in progress: remaining strings in all languages.</summary>
 
-Status checked on 2026-10-14. Translation work has resumed, including keys
-previously held for Transifex. Completed work is recorded in Upcoming and
-releases.
-
-- The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **30,116 untranslated locale/string values in 87 languages**.
-  It excludes **379 source keys tracked separately as pending Transifex**.
-  The earlier 2026-10-13 inventory, with newer email/chat strings and full
-  `--list`
-  reports including pending keys, counted **53,224 remaining values across
-  113 non-English locale files**. This fuller inventory remains the scope
-  of the translation work.
-  A separate short-prose audit flags 1,649 candidates across 180 locales.
-  The two notification At/To labels now have translations in all non-English
-  locales;
-  shared native words may equal English, so these require individual review.
-  Exact Blockly OS brands and compact math/code symbols no longer inflate
-  the prose backlog. Counts are a snapshot; they do not establish the quality
-  or language of other values.
-  Earlier Xhosa completion checks predate the newer pending strings. The
-  current broad run still exposes English placeholders in several catalogs;
-  see the dated audit results. Empty reports do not establish fluency.
-- Earlier empty fill reports below describe their recorded batches. The
-  new email strings now have no filtered English fill candidates. Nine Chinese
-  catalogs passed review of all 441 new values; their 37,287 earlier values
-  remain unchanged. Empty reports alone do not establish fluent translation.
-- The shared time-history audit covers 142 repaired explanations, including
-  five English regional catalogs. Editor grouping, individual-session
-  exclusion, negative corrections and missing historical attribution are
-  explicit. Three suites and 21 human-preference checks pass; 143 language
-  browser cases register including English, with RTL checks where applicable.
-  Further catalogs and browser execution remain under review.
-- Latin Uzbek now has no current fill candidates after 223 feature fills,
-  the Bytes label and fourteen Blockly key descriptions in each of `uz`,
-  `uz-UZ` and `uz-LA`. Four focused suites and 21 human-preference checks
-  pass; 27 browser cases register. A later review repairs 39 assignee labels
-  and time-history explanations, with two suites and six additional browser
-  cases registered. Other wording, composed rule grammar, Arabic-script
-  Uzbek and browser execution remain open.
-- Azerbaijani has 114 recorded terminology repairs across `az`, `az-AZ`
-  and `az-LA`: Kanban boards, assigned people, creation commands, invitations
-  and visibility wording. Two suites and 21 human-preference checks pass;
-  three terminology browser cases register. A subsequent batch fills 223
-  feature strings and seven exempt labels per catalog, 690 values total.
-  Four focused suites pass and 30 additional browser cases register. Full
-  fill reports are empty; browser execution and broader wording review remain
-  open, including older storage descriptions and composed rule grammar.
-- Malayalam now has no current fill candidates after 223 feature fills and
-  thirteen exempt labels. Scrum matching, preservation and conflict warnings
-  are covered, and rule rows omit a redundant linking verb. Six focused
-  suites and 21 human-preference checks pass; nine Malayalam browser cases
-  register. Execution and broader wording review remain open.
-- Urdu now has no current fill candidates after 193 feature fills. Existing
-  non-English values are unchanged. Three focused suites, seven static RTL
-  checks and 21 human-preference checks pass. Ten Urdu browser cases register,
-  covering feature flows and page direction; execution and broader wording
-  review remain open.
-- Kannada now has no current fill candidates after 193 feature fills and
-  nine exempt labels. Rule rows omit a redundant linking verb, and progress
-  counts use numerator/denominator notation. Five relevant suites and 21
-  human-preference checks pass; six Kannada browser cases register.
-  Browser execution and broader language-quality review remain open.
-- Thai now has no current fill candidates after 193 feature fills, plus the
-  exempt Bytes label. Existing non-English values are unchanged. Three
-  focused suites and 21 human-preference checks pass; five Thai browser
-  cases register. Execution and whole-catalog wording review remain open.
-- Tamil now has no current fill candidates after 193 feature fills. The
-  exempt Bytes label is translated too, and four misspelled calendar labels
-  are corrected. Four relevant suites and 21 human-preference checks pass.
-  Six Tamil browser cases register; execution and broader wording review
-  remain open. Existing verified Chinese values are unchanged.
-- Nepali now has no current fill candidates after 193 feature fills, including
-  eleven newly added Trello/Sandstorm strings. Nine Chinese catalog paths get
-  only those eleven new strings; all earlier Chinese values are unchanged.
-  Marathi also gets the eleven new strings. Eight focused suites and 21
-  human-preference checks pass. Thirteen Trello browser cases and four Nepali
-  feature cases register; execution and whole-catalog wording review remain
-  open.
-- Nepali, Kannada, Malayalam, Javanese, Kazakh, Kyrgyz, Tajik and Somali now
-  have 200 translated MongoDB/S3 settings values that the fill report had
-  excluded. Their existing translations remain unchanged. Thirteen suites
-  pass and the storage-settings browser spec registers 14 locales; execution
-  and broader native wording review remain open.
-- Bengali, Icelandic, Tagalog and Albanian now have translated MongoDB and
-  S3 settings prose that the fill report exempted. Fifteen mixed-language
-  Tagalog instructions are repaired. This removes 100 supplemental candidates;
-  intentional keyboard names and shared spellings remain for review.
-- Marathi now has no current fill candidates after 212 feature fills. Another
-  55 English settings, rule and keyboard labels were hidden by the fill tool's
-  technical-name and short-word exemptions; those are now translated too.
-  `node releases/translations/audit-exempt-prose.mjs` exposes 3,755 review
-  candidates across 226 locales. They include intentional names and shared
-  spellings, so they are not a confirmed untranslated count. Preserve existing
-  human-verified `zh` wording; add only confirmed missing strings there.
-  Broader language review and browser execution remain open.
-- Bengali now has no remaining current fill candidates, including pending
-  keys, after translating 182 feature strings. Existing Bengali wording was
-  preserved. Linked-field, notification and recovery browser cases register;
-  execution needs a running app. Whole-catalog language review remains open.
-- The [2026-10-13 shared-label review](docs/Features/Translations/Shared-Labels-2026-10-13.md)
-  fills 3,129 English values and repairs 167 seeded values across 130 locale
-  paths. All 46 reviewed labels render through i18next; 15 completed keys leave
-  the pending queue. Human-verified `zh` Chinese catalogs remain unchanged.
-  Provisional native terminology and broader wrong-language review remain open.
-- Placeholder inventories match English across all 246 locale paths. Fill now
-  rejects damaged token batches before writing. Both card-field visibility
-  keys are translated in 181 non-English paths; 53 paths still need them.
-  Catalog key order and 21 human-preference checks pass. Browser execution
-  and the remaining translation work are open.
-- The 13 activity-notification preference keys have no empty or exact
-  English-placeholder values in all 234 non-English locale paths and have left
-  the pending queue. Provisional wording still needs language review.
-- Automatic-archiving and date-filter messages now have non-English values in
-  all 234 non-English locale paths. Continue the remaining feature families and
-  the language-quality audit; coverage does not establish fluent wording.
-- Hawaiian's current fill list is now empty, including pending keys. The work
-  fills 936 English values and repairs eight malformed custom-field strings.
-  Seventeen physical key legends are retained as exact-value exceptions.
-  Whole-Blockly coverage includes short prose omitted from the report. This
-  establishes placeholder coverage, not fluency: specialist wording and the
-  older malformed-seed audit still need review. Five selected Hawaiian browser
-  flows are registered and syntax-checked; execution remains unverified.
-- Lithuanian and Yiddish each fill 112 current English values, including short
-  delivery labels. Their full current fill lists are empty. Twelve malformed
-  Lithuanian labels/activity messages and 40 Yiddish customization
-  mistranslations
-  are corrected separately. Four linked-field and notification UI cases are
-  registered and syntax-checked; execution and broader language review remain
-  open.
-- Wu and Xhosa each fill 112 current English values, including short delivery
-  labels; both full current fill lists are empty. Four Xhosa field/lane labels
-  are corrected. Broader semantic review remains open, and the four selected
-  browser cases are discovered and syntax-checked but not executed.
-- Both Zulu catalogs fill 112 English values each, including short delivery
-  labels. Their current fill lists are empty; specialist wording and broader
-  semantic review remain open. Four localized browser cases are registered
-  and syntax-checked, with execution still unverified.
-- Papiamento fills 112 current English values, including short delivery labels.
-  Its full current fill list is empty; five mixed-Spanish permission and search
-  descriptions are also corrected. All 303 selected translation/Blockly suites
-  pass, while technical wording and the wider semantic audit remain open.
-  Three localized browser cases are discovered and
-  syntax-checked; execution remains unverified.
-- The short daily-send-time and quiet-hours-end labels are now translated in
-  151 more locale paths (149 JSON files and two existing aliases). All other
-  translations are preserved. The same two labels remain English in 75
-  non-English paths, which still need direct translation. Eight representative
-  browser cases are registered; execution and regional wording review remain
-  open.
-- Fill English placeholders in every language, including minority and
-  constructed languages. Audit mixed-language and wrong-language seed text, and
-  review provisional wording with speakers when available. Preserve
-  correct-language human translations, source key order, exact placeholders,
-  technical identifiers and query examples. Use direct translation and
-  dictionary research, not an external translation service.
-- Keep regression and human-preference checks passing. Passing tests does not
-  establish translation completeness or fluency; rerun relevant checks for each
-  batch and the broad suite before declaring all-language work complete.
-- The three Admin Panel login-setting keys added on 2026-10-05 now have
-  translations in all 234 non-English locale paths. English variants retain
-  English. They have left the pending queue; full key-order and placeholder
-  checks pass. All 237 translation suites pass. Minority-language compounds
-  remain provisional, with terminology sources and mixed-language findings in
-  [the audit notes](docs/Features/Translations/Audit.md).
-  Browser scenarios for Finnish, Arabic and Japanese are syntax-checked but
-  await Playwright and a running application. Continue the other pending keys
-  and larger catalogs; this batch does not complete the all-language work.
+`node releases/translations/fill-translations.mjs --missing` counts **30,110
+untranslated values in 82 languages** on 2026-10-14, besides **698 keys kept
+English on purpose, pending Transifex**. Every language gets translated,
+minority and constructed ones too: direct translation from dictionaries and
+each language's existing wording, never an external service; correct-language
+human translations, key order and placeholders preserved.
 
 </details>
 
 <details>
-<summary>Blockly translation work resumed; remaining languages and review.</summary>
+<summary>Blockly translation: remaining catalogs.</summary>
 
-Previously paused for release on 2026-09-27 and 2026-10-08; resumed on
-2026-10-10 at the maintainer's request to translate all remaining strings.
-Hawaiian now has no untranslated Blockly prose under its whole-catalog gate;
-physical key legends, notation, URLs and platform names remain literal.
-Specialist wording and other incomplete catalogs are still open.
-Gujarati Blockly prose and Blocks-editor messages now have placeholder coverage;
-the remaining catalogs and terminology review are now in progress.
-The editable Blocks view
-remains available. All 696 Blockly messages have WeKan message-key coverage,
-but translation into every WeKan language is unfinished.
-
-The latest completed batch covers hi, hi-IN, ta, kn, bn, ne and ur; the prior
-batch covers fur, lld, rm and rup. Earlier completed batches are recorded in
-Upcoming. Gujarati (gu-IN) has completed prose filling after resumption, with
-specialist terminology still pending native review. Marathi
-(mr), Malayalam (ml), Punjabi (pa), Sinhala (si) and Telugu (te-IN) were not
-started in the interrupted assignment.
-Additional language catalogs remain incomplete, including minority and
-constructed languages. Completed low-confidence terminology still needs
-native-speaker review; structural validation does not establish fluency.
-
-Pause checkpoint: 246 locale files pass Blockly message coverage, source key
-order and placeholder checks. The refreshed read-only report finds 62,562
-prose-like English-identical values, with 116 catalogs above 50. Gujarati has
-27 report matches; explicit regression exceptions cover retained notation,
-platform brands and printed key names. Seven catalog checks, 21 preservation
-checks and the Gujarati Chromium drag/edit/save/menu scenario last passed.
-These are triage counts, not exact missing-translation counts: keycap names,
-brands, mathematical terms, cognates and regional copies are included.
-Run `node releases/translations/import-blockly.cjs --report` to refresh them.
-Preserve correct human translations and all source placeholders on resumption.
-No external translation service or remote translation upload was used.
+All 696 Blockly messages have WeKan message keys, but not every language is
+translated: `node releases/translations/import-blockly.cjs --report` finds
+62,562 prose-like English-identical values (a triage count - key names,
+brands and cognates included), 116 catalogs above 50. Marathi, Malayalam,
+Punjabi, Sinhala and Telugu were not started.
 
 </details>
 
 <details>
-<summary>Local translation repairs: wrong-language and low-confidence review remains.</summary>
+<summary>Translation terminology that needs a speaker.</summary>
 
-All 20,081 originally flagged findings were classified by 2026-09-16: 15,880
-corrected and 4,201 reviewed and retained. The correction inventory records
-22,302 exact before/after values. See the
-[translation audit status](docs/Features/Translations/Audit.md), the
-[detailed evidence](docs/Features/Translations/Audit-Evidence.md) and the
-[2026-09-27 download review](docs/Features/Translations/Transifex-2026-09-27.md).
-Still open:
-
-- wrong-language and wrong-meaning review beyond that queue, low-confidence
-  wording, and browser rendering;
-- terminology still pending per language: Silesian database labels, Tigre
-  calendar wording, the 102 Arabic-script values in the Standard Moroccan
-  Tamazight file, Tamazight terms after the 2026-09-14 source correction (MC£
-  is Tuareg), Kashmiri calendar terms, Bambara Hijri and epoch labels,
-  Sardinian magenta, Danish export and Complete wording, and the list sum
-  label;
-- Chromium readiness of the board-export popup in the EVERYTHING run;
-- live identity-provider validation and fluent-speaker review;
-- the locale files rewritten on 2026-10-14 from another language (see
-  Upcoming) need a native speaker: Tongan, Quechua, Wolaytta, Luganda,
-  Bislama, Volapük, Ladin, Aromanian, Venda, Acehnese, Upper Sorbian,
-  Romansh and Uzbek in Arabic script, where whether Afghan Uzbek writes `ې`
-  is for a speaker to settle (the file now mostly writes `ی`).
-
-</details>
-
-<details>
-<summary>Need specific infrastructure / a running server stack we cannot reproduce here (left for environment owners).</summary>
-
-[#6549](https://github.com/wekan/wekan/issues/6549) (OAuth2 through
-Rocket.Chat's G Suite SAML app: WeKan logs in only when the Rocket.Chat session
-already exists — the behaviour is on the identity-provider side, and reproducing
-it needs that whole chain),
-[#5758](https://github.com/wekan/wekan/issues/5758) (Windows SSO via Kerberos/
-NTLM through `node-expose-sspi`: a Windows-only native Node addon exposing the
-Win32 SSPI API — needs a Windows host, node-gyp/MSVC build tools, an Active
-Directory domain, and a real SSPI handshake to build or verify at all; it also
-sits directly in the authentication path, where a wrong implementation done
-without that environment is a security risk rather than a convenience. The
-maintainer's own comment on the issue already flags Node 20 compatibility
-doubts and asks for a Windows/AD-experienced contributor).
-UCS (Univention App Center) and the Nextcloud ExApp take their settings from
-their own repositories,
-not this one: whether the login variables added on 2026-10-05 (the 14 missing
-ones, `LDAP_GROUP_FILTER_NESTED` and the `*_FILE` secrets) are offered there is
-not checked; with the Admin Panel overrides, those installs can set them in
-People either way.
-
-</details>
-
-<details>
-<summary>Feature requests / behaviour-by-design rather than bugs.</summary>
-
-The [#4790](https://github.com/wekan/wekan/issues/4790) split is prepared and waits for the maintainer to file it (see
-"Waiting on the maintainer" above).
-
-[#2698](https://github.com/wekan/wekan/issues/2698) (GitLab integration: one-way
-List Sync from GitLab issues existed, and on 2026-09-30 the GitLab importer and
-Sync source reached the format contract - assignees, dates, milestone,
-iteration, weight, time, comments, links and the issue link (see Upcoming).
-Writing changes back to GitLab, `#number` linking and embedding need a GitLab
-server and API credentials to build and verify, which this environment does
-not have).
-
-</details>
-
-<details>
-<summary>Ongoing accessibility work.</summary>
-
-[#337](https://github.com/wekan/wekan/issues/337) (move buttons, focus trap,
-landmarks and labels exist, and every icon-only control is named and guarded;
-what is left is a screen-reader pass through the board, card and drag-and-drop
-flows, which needs the running app and a screen reader).
+Silesian database labels, Tigre calendar wording, the 102 Arabic-script
+values in the Standard Moroccan Tamazight file, Tamazight terms after the
+2026-09-14 source correction, Kashmiri calendar terms, Bambara Hijri and epoch
+labels, Sardinian magenta, Danish export and Complete wording, and the list
+sum label. The files rewritten on 2026-10-14 from another language - Tongan,
+Quechua, Wolaytta, Luganda, Bislama, Volapük, Ladin, Aromanian, Venda,
+Acehnese, Upper Sorbian, Romansh and Uzbek in Arabic script (`ې` or `ی`) -
+need a native speaker's review. See the
+[translation audit](docs/Features/Translations/Audit.md).
 
 </details>
 
@@ -426,33 +164,15 @@ hangs.
 </details>
 
 <details>
-<summary>Needs a maintainer decision on the intended contract (partly already works).</summary>
-
-The coordinated History chain (server/lib/storedHistoryChain.js) is switched
-on per board only by the offline releases/recover-history-writer.cjs, with
-every writer stopped. Decided on 2026-10-08: that stays the only switch. An
-online switch would need proof that no older server still writes History the
-legacy way, and a server older than the writer heartbeat cannot be seen at
-all, so it is not offered.
-
-</details>
-
-<details>
-<summary>Import/export: attachment contents, Zenkit, and formats not read yet.</summary>
+<summary>Import/export: formats not read yet, and attachment contents.</summary>
 
 docs/Features/ImportExport/Format-Coverage.md is the contract every format is
-held to, and every importer and exporter now meets it, with a loss report in
-Problems → Recovery and on the import page. Left open:
+held to. Left open:
 
 - Attachment CONTENTS from the JSON sources (Jira, Deck, OpenProject, Asana,
   Zenkit, GitHub/GitLab): their exports carry attachment metadata only, so the
-  bytes need live API connectors with credentials.
-- Zenkit's native single-file export is unverified: Zenkit publishes no schema.
-- Formats WeKan does not read or write yet. On 2026-10-08 twenty-one tools were
-  added (see Upcoming) and the export formats of about forty were researched.
-  Left: tools with no export file, only an API - Planka (its JSON export was
-  never merged), Microsoft To Do, KanbanFlow, Basecamp, Taskcafe - which need
-  live credentials to build and verify an importer against; Restyaboard, whose
+  bytes need API connectors like the six built on 2026-10-14.
+- Formats WeKan does not read yet: Taskcafe (API only); Restyaboard, whose
   CSV export is a closed paid app with undocumented columns; YouTrack, Airtable
   and Leantime, whose CSV headers are undocumented or localized; and Things 3,
   whose export is its SQLite database. Each is taken one at a time.
@@ -462,32 +182,15 @@ Deck sharing rules are not imported by design: an import never grants access.
 </details>
 
 <details>
-<summary>Continuous backup: what it leaves to the administrator, and why.</summary>
-
-Admin Panel / Attachments / Continuous backup (see Upcoming,
-docs/Backup/Continuous-Backup.md) encrypts at rest, uploads to S3/MinIO, Azure
-or GCS, and applies a restored SQLite file on the next restart (built on
-2026-10-03). Still open: the upload was tested against a directory-backed
-remote and an adapter stand-in, not a live S3, Azure or GCS account, which
-this environment does not have. The Docker Compose files run
-FerretDB with an oplog since 2026-10-03; FerretDB releases up to v1.86.0 do not
-record a dropped collection, which WeKan never does while it runs. The browser
-tests ran in Chromium and WebKit; Firefox cannot launch on the macOS machine
-used.
-
-</details>
-
-<details>
 <summary>Not possible from a Sandstorm grain, recorded so it is not asked again.</summary>
 
-Everything requested on 2026-10-13 is done (see Upcoming): Bun single files,
-musl and Android bundles, and outgoing webhooks, list sync and the REST API
-through Sandstorm. Builds run on GitHub Actions only. What cannot work:
-Jira list sync from a grain
+Jira list sync from a grain cannot work
 ([#2208](https://github.com/wekan/wekan/issues/2208),
-[#2167](https://github.com/wekan/wekan/issues/2167)) - Jira signs in only
+[#2167](https://github.com/wekan/wekan/issues/2167)): Jira signs in only
 with an `Authorization` header, and the bridge proxy puts its own grant
-there.
+there. Everything else asked there is built (Bun single files, musl and
+Android bundles, outgoing webhooks, list sync and the REST API through
+Sandstorm).
 
 </details>
 
