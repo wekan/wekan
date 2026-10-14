@@ -196,3 +196,9 @@ assert.match(irish['linkCardToNewBoard'], /ón gcárta seo/);
 assert.match(irish['import-board-instruction-jira'], /fields=\*all&expand=names,schema.*nextPageToken.*gach leathanaigh.*"automationRules"/);
 assert.match(irish['import-board-instruction-excel'], /chéim eile.*gach réimse.*gach bileog.*ró ceanntásca/);
 assert.match(irish['toggle-header-icons-collapsed'], /fhón póca\/ríomhaire.*fógraí/);
+
+assert.equal(irish['r-assignee'], 'sannaí');
+assert.equal(irish['r-w-assignee-added'], 'Cuirtear sannaí leis');
+assert.equal(irish['r-w-assignee-removed'], 'Baintear sannaí');
+for (const key of ['r-when-a-card', 'r-when-a-assignee', 'r-when-the-assignee']) assert.match(irish[key], /^Nuair a bhíonn/);
+assert.match(irish['r-when-a-card'], /cárta/);

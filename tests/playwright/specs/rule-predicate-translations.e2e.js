@@ -3,10 +3,10 @@ const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { navigateInApp } = require('../helpers/auth');
 
-for (const language of ['kn', 'ml', 'la']) {
+for (const language of ['kn', 'ml', 'la', 'ga']) {
 test(`Rule rows and saved descriptions omit the redundant linking verb in ${language}`, async ({ boardPage: page, board }) => {
   const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
-  const name = language === 'kn' ? 'ಪರೀಕ್ಷೆ' : language === 'la' ? 'Probatio' : 'പരീക്ഷണം';
+  const name = language === 'ga' ? 'Sampla' : language === 'kn' ? 'ಪರೀಕ್ಷೆ' : language === 'la' ? 'Probatio' : 'പരീക്ഷണം';
   await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
   await navigateInApp(page, `/b/${board.boardId}/${board.slug}/rules`);
   await page.locator('#ruleTitle').fill(`${language} predicate`);

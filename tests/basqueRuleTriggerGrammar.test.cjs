@@ -186,3 +186,14 @@ for (const [key, noun] of [
     /^\[Demo\] .+ hau (?:Markatzen|Desmarkatzen|Osatzen) denean$/);
   assert.doesNotMatch(eu[key], /Cuando|When/);
 }
+
+// Irish temporal subjects contain their verb; adding tá duplicates it.
+for (const locale of ['ga', 'ga-IE', 'ga_IE', 'GA']) assert.equal(ruleTriggerCopula(locale, 'tá'), '');
+assert.equal(ruleTriggerCopula('gag', 'is'), 'is', 'do not affect another language sharing the prefix');
+activeLanguage = 'ga';
+assert.equal(helpers.ruleTriggerCopula(), '');
+for (const noun of ['label', 'member', 'assignee', 'checklist', 'item']) {
+  const sentence = assemble('ga', `r-when-the-${noun}`, 'r-added-to', 'Sampla');
+  assert.match(sentence, /^Nuair a bhíonn/);
+  assert.equal(sentence.split(/\s+/).includes('tá'), false);
+}

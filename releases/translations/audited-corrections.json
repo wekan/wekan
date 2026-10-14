@@ -213638,5 +213638,47 @@
     "before": "Laghdaigh/leathnaigh deilbhíní an cheanntásc",
     "after": "Laghdaigh/leathnaigh deilbhíní an cheanntásca (ar fhón póca/ríomhaire, go dtí na fógraí)",
     "reason": "Restore omitted Jira pagination, Excel sheet mapping and header toggle scope in Irish."
+  },
+  {
+    "locale": "ga",
+    "key": "r-when-a-card",
+    "before": "Nuair a",
+    "after": "Nuair a bhíonn cárta",
+    "reason": "Correct Irish assignee and card trigger meanings; temporal clauses contain their own verb."
+  },
+  {
+    "locale": "ga",
+    "key": "r-when-a-assignee",
+    "before": "Sannaí ball",
+    "after": "Nuair a bhíonn sannaí",
+    "reason": "Correct Irish assignee and card trigger meanings; temporal clauses contain their own verb."
+  },
+  {
+    "locale": "ga",
+    "key": "r-when-the-assignee",
+    "before": "Sannaí an ball",
+    "after": "Nuair a bhíonn an sannaí",
+    "reason": "Correct Irish assignee and card trigger meanings; temporal clauses contain their own verb."
+  },
+  {
+    "locale": "ga",
+    "key": "r-w-assignee-added",
+    "before": "Cuir Sannaí leis",
+    "after": "Cuirtear sannaí leis",
+    "reason": "Correct Irish assignee and card trigger meanings; temporal clauses contain their own verb."
+  },
+  {
+    "locale": "ga",
+    "key": "r-w-assignee-removed",
+    "before": "Bain Sannaí",
+    "after": "Baintear sannaí",
+    "reason": "Correct Irish assignee and card trigger meanings; temporal clauses contain their own verb."
+  },
+  {
+    "locale": "ga",
+    "key": "r-assignee",
+    "before": "sannaitheoir",
+    "after": "sannaí",
+    "reason": "Correct Irish assignee and card trigger meanings; temporal clauses contain their own verb."
   }
 ]
