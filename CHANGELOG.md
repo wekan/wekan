@@ -505,7 +505,7 @@ there.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.45 2026-10-14 WeKan ® release
 
 **In short:** **Sync and rule notifications** are delivered again with the clear
 e-mail layout, and the **musl**, **Android**, **FreeBSD**, **Windows
