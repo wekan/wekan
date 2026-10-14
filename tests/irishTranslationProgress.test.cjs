@@ -172,3 +172,13 @@ assert.match(irish['flow-note-sizeCycleTime'], /Fágtar meastacháin ar iarraidh
 for (const suffix of ['agingWip', 'blockerAnalysis', 'monteCarlo', 'processBehavior', 'sizeCycleTime']) {
   assert.doesNotMatch(irish[`flow-note-${suffix}`], /→|≥|≤|✓|MR̄/);
 }
+
+assert.match(irish['flow-confidence'], /muiníne/);
+assert.match(irish['flow-capacity'], /ar a laghad/);
+assert.match(irish['flow-active'], /oscailte/);
+assert.match(irish['flow-p85'], /85ú peircintíl/);
+assert.match(irish['flow-moving-range'], /absalóideach.*comhleanúnacha/);
+assert.match(irish['flow-mr-mean'], /Meán.*absalóideacha/);
+assert.equal(irish['flow-size'], 'Meastachán');
+assert.match(irish['sum-of-number-fields'], /Suim luachanna.*marcáilte.*barr an liosta/);
+assert.match(irish['wip-limit-group-apply-swimlane'], /ar an lána/);

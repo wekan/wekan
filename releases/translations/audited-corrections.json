@@ -213400,5 +213400,173 @@
     "before": "X: Planning Poker / Uimhir. Y: Am timthrialla (laethanta). (anaithnid): —.",
     "after": "Meastachán reatha Planning Poker nó réimse saincheaptha uimhriúil amháin i gcomparáid le ham timthrialla críochnaithe i laethanta. Fágtar meastacháin ar iarraidh agus dátaí neamhbhailí ar lár. Úsáidtear am an chruthaithe mura bhfuil Tús ann; úsáidtear am na cartlannaithe mura bhfuil Deireadh ann.",
     "reason": "Replace misleading analytics shorthand with full Irish report meanings, methodology, fallbacks and limitations."
+  },
+  {
+    "locale": "ga",
+    "key": "flow-age-days",
+    "before": "Liosta — Fad (laethanta)",
+    "after": "Aois sa chéim (laethanta)",
+    "reason": "Replace Irish metric shorthand with explicit quantities and clarify summed values and swimlane targeting."
+  },
+  {
+    "locale": "ga",
+    "key": "flow-p85",
+    "before": "Liosta — P85 (laethanta)",
+    "after": "85ú peircintíl na céime (laethanta)",
+    "reason": "Replace Irish metric shorthand with explicit quantities and clarify summed values and swimlane targeting."
+  },
+  {
+    "locale": "ga",
+    "key": "flow-samples",
+    "before": "Stair — n",
+    "after": "Tréimhsí fanachta stairiúla",
+    "reason": "Replace Irish metric shorthand with explicit quantities and clarify summed values and swimlane targeting."
+  },
+  {
+    "locale": "ga",
+    "key": "flow-signal",
+    "before": "Teorainneacha",
+    "after": "Comhartha",
+    "reason": "Replace Irish metric shorthand with explicit quantities and clarify summed values and swimlane targeting."
+  },
+  {
+    "locale": "ga",
+    "key": "flow-unusual",
+    "before": "Teorainneacha ⚠",
+    "after": "Lasmuigh den teorainn",
+    "reason": "Replace Irish metric shorthand with explicit quantities and clarify summed values and swimlane targeting."
+  },
+  {
+    "locale": "ga",
+    "key": "flow-blocker",
+    "before": "Cuireann bac ar",
+    "after": "Cárta atá ag cur bac",
+    "reason": "Replace Irish metric shorthand with explicit quantities and clarify summed values and swimlane targeting."
+  },
+  {
+    "locale": "ga",
+    "key": "flow-episodes",
+    "before": "Spleáchais — Stair",
+    "after": "Tréimhsí",
+    "reason": "Replace Irish metric shorthand with explicit quantities and clarify summed values and swimlane targeting."
+  },
+  {
+    "locale": "ga",
+    "key": "flow-active",
+    "before": "Spleáchais — Deireadh —",
+    "after": "Tréimhsí oscailte",
+    "reason": "Replace Irish metric shorthand with explicit quantities and clarify summed values and swimlane targeting."
+  },
+  {
+    "locale": "ga",
+    "key": "flow-blocked-days",
+    "before": "Tá bac curtha air ag (Cártaí × laethanta)",
+    "after": "Laethanta cártaí faoi bhac",
+    "reason": "Replace Irish metric shorthand with explicit quantities and clarify summed values and swimlane targeting."
+  },
+  {
+    "locale": "ga",
+    "key": "flow-unknown-start",
+    "before": "Tosaigh — (anaithnid)",
+    "after": "Amanna tosaithe anaithnide",
+    "reason": "Replace Irish metric shorthand with explicit quantities and clarify summed values and swimlane targeting."
+  },
+  {
+    "locale": "ga",
+    "key": "flow-confidence",
+    "before": "Staitisticí (%)",
+    "after": "Leibhéal muiníne",
+    "reason": "Replace Irish metric shorthand with explicit quantities and clarify summed values and swimlane targeting."
+  },
+  {
+    "locale": "ga",
+    "key": "flow-target-count",
+    "before": "Cártaí — Uimhir",
+    "after": "Sprioclíon cártaí",
+    "reason": "Replace Irish metric shorthand with explicit quantities and clarify summed values and swimlane targeting."
+  },
+  {
+    "locale": "ga",
+    "key": "flow-finish-days",
+    "before": "Críochnaithe (laethanta)",
+    "after": "Laethanta go dtí críochnú",
+    "reason": "Replace Irish metric shorthand with explicit quantities and clarify summed values and swimlane targeting."
+  },
+  {
+    "locale": "ga",
+    "key": "flow-finish-date",
+    "before": "Críochnaithe — Dáta",
+    "after": "Dáta críochnaithe",
+    "reason": "Replace Irish metric shorthand with explicit quantities and clarify summed values and swimlane targeting."
+  },
+  {
+    "locale": "ga",
+    "key": "flow-capacity",
+    "before": "Cártaí ≥",
+    "after": "An líon cártaí seo ar a laghad",
+    "reason": "Replace Irish metric shorthand with explicit quantities and clarify summed values and swimlane targeting."
+  },
+  {
+    "locale": "ga",
+    "key": "flow-beyond-horizon",
+    "before": "> 3650 laethanta",
+    "after": "Thar thréimhse na hinsamhalta",
+    "reason": "Replace Irish metric shorthand with explicit quantities and clarify summed values and swimlane targeting."
+  },
+  {
+    "locale": "ga",
+    "key": "flow-mean",
+    "before": "Am timthrialla — x̄",
+    "after": "Meán",
+    "reason": "Replace Irish metric shorthand with explicit quantities and clarify summed values and swimlane targeting."
+  },
+  {
+    "locale": "ga",
+    "key": "flow-moving-range",
+    "before": "|Δ Am timthrialla|",
+    "after": "Difríocht absalóideach idir luachanna comhleanúnacha",
+    "reason": "Replace Irish metric shorthand with explicit quantities and clarify summed values and swimlane targeting."
+  },
+  {
+    "locale": "ga",
+    "key": "flow-mr-mean",
+    "before": "MR̄",
+    "after": "Meán na ndifríochtaí absalóideacha idir luachanna comhleanúnacha",
+    "reason": "Replace Irish metric shorthand with explicit quantities and clarify summed values and swimlane targeting."
+  },
+  {
+    "locale": "ga",
+    "key": "flow-size-source",
+    "before": "Méid — Réimsí saincheaptha",
+    "after": "Réimse méide",
+    "reason": "Replace Irish metric shorthand with explicit quantities and clarify summed values and swimlane targeting."
+  },
+  {
+    "locale": "ga",
+    "key": "flow-size",
+    "before": "Méid",
+    "after": "Meastachán",
+    "reason": "Replace Irish metric shorthand with explicit quantities and clarify summed values and swimlane targeting."
+  },
+  {
+    "locale": "ga",
+    "key": "flow-details",
+    "before": "Sonraí — Stair",
+    "after": "Stair bhunúsach",
+    "reason": "Replace Irish metric shorthand with explicit quantities and clarify summed values and swimlane targeting."
+  },
+  {
+    "locale": "ga",
+    "key": "wip-limit-group-apply-swimlane",
+    "before": "Cuir i bhFeidhm Lána",
+    "after": "Cuir i bhfeidhm ar an lána",
+    "reason": "Replace Irish metric shorthand with explicit quantities and clarify summed values and swimlane targeting."
+  },
+  {
+    "locale": "ga",
+    "key": "sum-of-number-fields",
+    "before": "Suim na réimsí uimhriúla saincheaptha a thaispeántar ag barr an liosta",
+    "after": "Suim luachanna na réimsí uimhriúla saincheaptha atá marcáilte le taispeáint ag barr an liosta",
+    "reason": "Replace Irish metric shorthand with explicit quantities and clarify summed values and swimlane targeting."
   }
 ]
