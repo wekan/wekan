@@ -159,6 +159,56 @@ Deck sharing rules are not imported by design: an import never grants access.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **Jira List Sync works from a Sandstorm grain**: the Powerbox
+grant keeps the Jira sign-in. A **CodeQL** alert in the live tests is fixed
+across all of them, and the backlog is down to translations and two connectors:
+every open issue that is built is closed.
+
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/de95789e45">No live test logs anything from a login</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+CodeQL alert #586 (clear-text logging): the Basecamp live test logged the
+account id read from its environment. Planka's address and the GitLab test's
+address and project path went into the log the same way. Every live test now
+logs fixed words, and `tests/liveTestsNoSecretLogs.test.cjs` fails on any log
+line of any live test that interpolates a value from a login. These are
+human-run scripts, not the server, so there is no attempt to record in Admin
+Panel → Problems.
+
+</details>
+
+and adds the following new feature:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1dc5b82369">Jira List Sync works from a Sandstorm grain</a>. Thanks to xet7.</summary>
+
+It was recorded as impossible, because the bridge proxy takes the
+Authorization header Jira needs. Sandstorm's HTTP driver keeps the sign-in in
+the grant instead: in the Powerbox, connect to any address and enter
+`https://EMAIL:API-TOKEN@your-site.atlassian.net`, and Sandstorm adds it to
+every request; WeKan never sees it. The Powerbox request asks for Basic
+authentication, and the List Sync popup says what to enter. Not run in a real
+grain here.
+
+</details>
+
+and tidies the backlog:
+
+- [Close the built issues and keep only unbuilt work in TODO Later](https://github.com/wekan/wekan/commit/707021fee2):
+  #5758, #2698, #337 and #2208 are closed, also where they are not yet
+  tested live. Thanks to nikalasmd, ndarilek and xet7.
+- [Close #4790: User Filter is covered by what WeKan has](https://github.com/wekan/wekan/commit/0d68c3536b):
+  organizations and teams, LDAP group sync, board sharing and custom roles.
+  Thanks to xet7.
+- [No speaker review and no undocumented formats in TODO Later](https://github.com/wekan/wekan/commit/aad7e1414a).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.46 2026-10-14 WeKan ® release
 
 **In short:** Accounts can be locked to **SQRL**, Windows domains can sign in
