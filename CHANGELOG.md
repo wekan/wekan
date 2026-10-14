@@ -635,7 +635,7 @@ Upcoming as it is committed. Builds run on GitHub Actions only.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.40 2026-10-14 WeKan ® release
 
 **In short:** **email to card** arrives on every platform, through provider
 webhooks, **IMAP** mailboxes or a **Sandstorm** grain's own address, which
