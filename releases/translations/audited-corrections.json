@@ -210873,5 +210873,131 @@
     "before": "Sprint and releases are synced only while Scrum is enabled on this board. A sprint or release that is missing is created on this board, with the dates the source gives; an existing one is matched by its source ID first, then by name. A local planning change stays until the source changes that issue's planning, and a first Sync never removes planning.",
     "after": "Ampifanarahana ny tsingerin’asa sy famoahana raha mandeha eto amin’ity solaitra ity ny Scrum ihany. Foronina eto amin’ity solaitra ity ny tsingerin’asa na famoahana tsy misy, miaraka amin’ny daty omen’ny loharano; izay efa misy dia ampifanarahina araka ny ID ao amin’ny loharano aloha, avy eo araka ny anarany. Mijanona ny fanovana drafitra eto an-toerana mandra-panovan’ny loharano ny drafitr’io olana io, ary tsy manaisotra drafitra mihitsy ny fampifanarahana voalohany.",
     "reason": "Translate Scrum transfer matching, preview outcomes and planning synchronization safeguards into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "stuck-sync-operation-heading",
+    "before": "List Sync operations that cannot be replayed",
+    "after": "Fampifanarahana lisitra tsy azo tohizana indray",
+    "reason": "Translate stuck synchronization recovery into Malagasy, preserving retained writes and discard restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "stuck-sync-operation-description",
+    "before": "Each of these saved List Sync operations stopped part way and can no longer be finished, because its list was removed, recreated or reconfigured, or the user who started it lost write access. While one is pending, that list cannot Sync. Discard it to let the list Sync again: changes already applied stay, the remaining saved changes are never written, and the next Sync compares the list with its source again.",
+    "after": "Nijanona teny antenatenany ny tsirairay amin’ireto fampifanarahana lisitra voatahiry ireto ary tsy azo vitaina intsony, satria nesorina, noforonina indray na novana ny fikirakiran’ilay lisitra, na very zo hanoratra ilay mpampiasa nanomboka azy. Raha mbola misy iray miandry, tsy afaka mampifanaraka ilay lisitra. Ario ilay asa mba hahafahan’ny lisitra mampifanaraka indray: mijanona ny fanovana efa nampiharina, tsy hosoratana mihitsy ny fanovana voatahiry sisa, ary hampitaha indray ny lisitra amin’ny loharanony ny fampifanarahana manaraka.",
+    "reason": "Translate stuck synchronization recovery into Malagasy, preserving retained writes and discard restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "stuck-sync-operation-list",
+    "before": "Board / list",
+    "after": "Solaitra / lisitra",
+    "reason": "Translate stuck synchronization recovery into Malagasy, preserving retained writes and discard restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "stuck-sync-operation-applied",
+    "before": "__applied__ of __total__ changes applied",
+    "after": "Fanovana __applied__ amin’ny __total__ nampiharina",
+    "reason": "Translate stuck synchronization recovery into Malagasy, preserving retained writes and discard restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "stuck-sync-operation-reason-scope-changed",
+    "before": "The list was removed, recreated or its Sync settings changed",
+    "after": "Nesorina, noforonina indray na novana ny fikirakirana fampifanarahana ny lisitra",
+    "reason": "Translate stuck synchronization recovery into Malagasy, preserving retained writes and discard restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "stuck-sync-operation-reason-access-denied",
+    "before": "The user who started it no longer has write access to the whole list",
+    "after": "Tsy manana zo hanoratra amin’ny lisitra manontolo intsony ilay mpampiasa nanomboka azy",
+    "reason": "Translate stuck synchronization recovery into Malagasy, preserving retained writes and discard restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "stuck-sync-operation-reason-trigger-unknown",
+    "before": "Saved by an earlier WeKan version without what started it",
+    "after": "Notehirizin’ny kinova WeKan taloha nefa tsy voarakitra izay nanomboka azy",
+    "reason": "Translate stuck synchronization recovery into Malagasy, preserving retained writes and discard restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "stuck-sync-operation-reason-intent-missing",
+    "before": "The record of who started it is missing",
+    "after": "Tsy hita ny firaketana milaza izay nanomboka azy",
+    "reason": "Translate stuck synchronization recovery into Malagasy, preserving retained writes and discard restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "stuck-sync-operation-reason-unknown",
+    "before": "Could not be checked now",
+    "after": "Tsy azo nohamarinina izao",
+    "reason": "Translate stuck synchronization recovery into Malagasy, preserving retained writes and discard restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "stuck-sync-operation-replayable-now",
+    "before": "It can be replayed again now and will finish by itself, so it cannot be discarded.",
+    "after": "Azo tohizana indray izy izao ary ho vita ho azy, ka tsy azo ariana.",
+    "reason": "Translate stuck synchronization recovery into Malagasy, preserving retained writes and discard restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "stuck-sync-operation-discard-confirm",
+    "before": "Discard this saved List Sync operation? Changes it already applied stay; the rest are never written. The list can then Sync again.",
+    "after": "Hariana ve ity fampifanarahana lisitra voatahiry ity? Mijanona ny fanovana efa nampihariny; tsy hosoratana mihitsy ny ambiny. Afaka mampifanaraka indray ilay lisitra avy eo.",
+    "reason": "Translate stuck synchronization recovery into Malagasy, preserving retained writes and discard restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "stuck-sync-operation-empty",
+    "before": "No List Sync operations are waiting for review.",
+    "after": "Tsy misy fampifanarahana lisitra miandry fandinihana.",
+    "reason": "Translate stuck synchronization recovery into Malagasy, preserving retained writes and discard restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "stuck-sync-operation-truncated",
+    "before": "Only the oldest 50 are shown. Discard some and refresh to see more.",
+    "after": "Ny 50 tranainy indrindra ihany no aseho. Ario ny sasany ary havaozy hahitana bebe kokoa.",
+    "reason": "Translate stuck synchronization recovery into Malagasy, preserving retained writes and discard restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "stuck-sync-operation-unavailable",
+    "before": "Could not load the List Sync operations. Refresh to try again.",
+    "after": "Tsy azo nampidirina ny fampifanarahana lisitra. Havaozy hanandrana indray.",
+    "reason": "Translate stuck synchronization recovery into Malagasy, preserving retained writes and discard restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "stuck-sync-operation-missing",
+    "before": "This operation is no longer pending.",
+    "after": "Tsy miandry intsony ity asa ity.",
+    "reason": "Translate stuck synchronization recovery into Malagasy, preserving retained writes and discard restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "stuck-sync-operation-not-stuck",
+    "before": "This operation has not been found stuck, so it cannot be discarded.",
+    "after": "Tsy hita hoe nihitsoka ity asa ity, ka tsy azo ariana.",
+    "reason": "Translate stuck synchronization recovery into Malagasy, preserving retained writes and discard restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "stuck-sync-operation-replayable",
+    "before": "This operation can be replayed again now and will finish by itself, so it was not discarded.",
+    "after": "Azo tohizana indray ity asa ity izao ary ho vita ho azy, ka tsy nariana.",
+    "reason": "Translate stuck synchronization recovery into Malagasy, preserving retained writes and discard restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "stuck-sync-operation-busy",
+    "before": "This list is syncing right now. Try again in a moment.",
+    "after": "Eo am-pampifanarahana ity lisitra ity izao. Andramo indray afaka fotoana fohy.",
+    "reason": "Translate stuck synchronization recovery into Malagasy, preserving retained writes and discard restrictions."
   }
 ]

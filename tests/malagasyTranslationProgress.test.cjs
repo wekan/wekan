@@ -457,3 +457,17 @@ assert.match(malagasy['scrum-import-card-on-another-board'], /solaitra hafa.*tsy
 assert.match(malagasy['scrum-import-sprint-finished'], /Tsy nafindra.*efa vita/);
 assert.match(malagasy['scrum-import-into-board-done'], /voarakitra.*Tantara/);
 assert.match(malagasy['sync-planning-hint'], /Scrum ihany.*ID.*aloha.*anarany.*Mijanona.*eto an-toerana.*tsy manaisotra.*voalohany/);
+
+const syncRecoveryKeys = ["stuck-sync-operation-heading", "stuck-sync-operation-description", "stuck-sync-operation-list", "stuck-sync-operation-applied", "stuck-sync-operation-reason-scope-changed", "stuck-sync-operation-reason-access-denied", "stuck-sync-operation-reason-trigger-unknown", "stuck-sync-operation-reason-intent-missing", "stuck-sync-operation-reason-unknown", "stuck-sync-operation-replayable-now", "stuck-sync-operation-discard-confirm", "stuck-sync-operation-empty", "stuck-sync-operation-truncated", "stuck-sync-operation-unavailable", "stuck-sync-operation-missing", "stuck-sync-operation-not-stuck", "stuck-sync-operation-replayable", "stuck-sync-operation-busy"];
+
+for (const key of syncRecoveryKeys) {
+  assert.notEqual(malagasy[key], english[key], key);
+  assert.deepEqual(tokens(malagasy[key]), tokens(english[key]), key);
+}
+assert.match(malagasy['stuck-sync-operation-description'], /very zo hanoratra.*tsy afaka mampifanaraka.*mijanona ny fanovana efa nampiharina.*tsy hosoratana mihitsy.*loharanony/);
+assert.match(malagasy['stuck-sync-operation-discard-confirm'], /Mijanona.*tsy hosoratana mihitsy.*indray/);
+assert.match(malagasy['stuck-sync-operation-reason-access-denied'], /lisitra manontolo/);
+assert.match(malagasy['stuck-sync-operation-replayable-now'], /ho vita ho azy.*tsy azo ariana/);
+assert.match(malagasy['stuck-sync-operation-replayable'], /ho vita ho azy.*tsy nariana/);
+assert.match(malagasy['stuck-sync-operation-not-stuck'], /Tsy hita.*tsy azo ariana/);
+assert.match(malagasy['stuck-sync-operation-truncated'], /50 tranainy indrindra.*havaozy/);
