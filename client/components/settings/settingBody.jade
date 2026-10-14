@@ -440,21 +440,14 @@ template(name='tableVisibilityModeSettings')
         button.js-visibility-features-save.primary {{_ 'save'}}
         span.js-visibility-features-status
 
-      li.admin-pane-group-separator
-        hr
-      //- #2460: SQRL sign-in. Off by default.
-      li
-        h2.admin-pane-group-title SQRL
+      //- #2460: SQRL sign-in, and #4198: public boards on the fediverse
+        (ActivityPub) - optional features this WeKan offers, each off by
+        default and saved as soon as it is switched.
       li.tableVisibilityMode-form
         a.flex.js-toggle-sqrl
           .materialCheckBox#sqrl-enabled(class="{{#if currentSetting.sqrlEnabled}}is-checked{{/if}}")
           span {{_ 'sqrl-enabled'}}
         .feature-desc {{_ 'sqrl-desc'}}
-      li.admin-pane-group-separator
-        hr
-      //- #4198: public boards on the fediverse (ActivityPub). Off by default.
-      li
-        h2.admin-pane-group-title ActivityPub
       li.tableVisibilityMode-form
         a.flex.js-toggle-activity-pub
           .materialCheckBox#activity-pub-enabled(class="{{#if currentSetting.activityPubEnabled}}is-checked{{/if}}")

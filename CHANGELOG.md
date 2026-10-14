@@ -561,11 +561,11 @@ and is never published. `tests/accountWebhook.test.cjs`.
 <summary><a href="https://github.com/wekan/wekan/commit/c940b3e301">Sign in with SQRL, from a phone or a computer</a>. Thanks to xet7.</summary>
 
 [SQRL](https://www.grc.com/sqrl/sqrl.htm) signs in with a SQRL app or client
-instead of a password, after a site admin turns it on (Admin Panel → Settings,
-off by default). A member adds their identity once in Member Settings → SQRL;
-the sign-in page then shows a `sqrl://` link and its QR code and signs in by
-itself when the client has answered. WeKan keeps only the identity's public
-keys, never published and not writable from the client.
+instead of a password, after a site admin turns it on (Admin Panel → Settings →
+Visibility → Features, off by default). A member adds their identity once in
+Member Settings → SQRL; the sign-in page then shows a `sqrl://` link and its QR
+code and signs in by itself when the client has answered. WeKan keeps only the
+identity's public keys, never published and not writable from the client.
 
 Every nut is random and used once, each request must carry the server's
 previous reply unchanged, and every request is checked with Ed25519 (Node.js's
@@ -878,11 +878,11 @@ built by `.github/workflows/nextcloud.yml`. `tests/webdavStorage.test.cjs`.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bf633b9c72">ActivityPub: a public board can be followed from Mastodon</a>. Thanks to ASLLR and xet7.</summary>
 
-Admin Panel → Settings → ActivityPub, off by default: each public board is an
-actor, `@board-<id>` at this WeKan, and its new card activity reaches its
-followers as signed Notes. It is read-only - only signed Follow and Undo Follow
-are acted on - and a private board is never an actor. Outgoing requests go
-through the SSRF guard. `tests/activityPub.test.cjs`.
+Admin Panel → Settings → Visibility → Features → ActivityPub, off by default:
+each public board is an actor, `@board-<id>` at this WeKan, and its new card
+activity reaches its followers as signed Notes. It is read-only - only signed
+Follow and Undo Follow are acted on - and a private board is never an actor.
+Outgoing requests go through the SSRF guard. `tests/activityPub.test.cjs`.
 
 </details>
 

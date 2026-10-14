@@ -10,9 +10,10 @@ is nothing at WeKan that would let anybody sign in as you.
 
 ## Turning it on
 
-Admin Panel → Settings → **SQRL** → **Sign in with SQRL**. It is off by
-default. WeKan must be at an `https://` address (`ROOT_URL`): SQRL's identity
-is per site, and over plain http the challenge could be read on the way.
+Admin Panel → Settings → Visibility → Features → **Sign in with SQRL**. It is
+off by default. WeKan must be at an `https://` address (`ROOT_URL`): SQRL's
+identity is per site, and over plain http the challenge could be read on the
+way.
 
 SQRL is not offered on Sandstorm, where Sandstorm signs you in.
 
