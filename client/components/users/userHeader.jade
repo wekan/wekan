@@ -312,6 +312,13 @@ template(name="changeSettingsPopup")
         | {{_ 'show-desktop-drag-handles'}}
         if isShowDesktopDragHandles
           i.fa.fa-check
+    //- #1273: keep the #label / @member text in a new card's title.
+    li
+      a.js-toggle-keep-title-tags(title="{{_ 'keep-title-tags-description'}}")
+        i.fa.fa-hashtag
+        | {{_ 'keep-title-tags'}}
+        if isKeepTitleTags
+          i.fa.fa-check
     li
       a.js-toggle-submit-on-enter(title="{{_ 'submit-on-enter-description'}}")
         i.fa.fa-level-down

@@ -1,5 +1,6 @@
 import { isSubmitKey } from '/models/lib/editorSubmitKey';
 import { titleSortIndexes } from '/models/lib/multilineTitles';
+import { titleTagText } from '/models/lib/titleTags';
 import { titlesFromComposer } from '/client/components/forms/multilineTitleChoice';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
@@ -996,6 +997,12 @@ Template.addCardForm.onRendered(function () {
 
   autosize($textarea);
 
+  // #1273: a per-user choice, off by default.
+  const keepTitleTags = () => {
+    const user = ReactiveCache.getCurrentUser();
+    return !!(user && typeof user.hasKeepTitleTags === 'function' && user.hasKeepTitleTags());
+  };
+
   $textarea.escapeableTextComplete(
     [
       // User mentions
@@ -1022,7 +1029,8 @@ Template.addCardForm.onRendered(function () {
         },
         replace(user) {
           toggleValueInReactiveArray(tpl.members, user._id);
-          return '';
+          // #1273: Member Settings can keep the "@member" text in the title.
+          return titleTagText('member', user, keepTitleTags());
         },
         index: 1,
       },
@@ -1056,7 +1064,7 @@ Template.addCardForm.onRendered(function () {
         },
         replace(label) {
           toggleValueInReactiveArray(tpl.labels, label._id);
-          return '';
+          return titleTagText('label', label, keepTitleTags());
         },
         index: 1,
       },

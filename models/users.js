@@ -447,6 +447,15 @@ Users.attachSchema(
       type: Boolean,
       optional: true,
     },
+    'profile.keepTitleTags': {
+      /**
+       * #1273: when a #label or @member is picked while typing a new card's
+       * title, keep the "#label" / "@member" text in the title too. Off by
+       * default: the text is replaced by the label or member, as before.
+       */
+      type: Boolean,
+      optional: true,
+    },
     'profile.checklistDingSound': {
       /**
        * #5427: per-user preference - play a short synthesized "ding" when a
@@ -2092,6 +2101,11 @@ Users.helpers({
   hasSubmitOnEnter() {
     const profile = this.profile || {};
     return profile.submitOnEnter || false;
+  },
+
+  // #1273: keep the #label / @member text in a new card's title.
+  hasKeepTitleTags() {
+    return !!((this.profile || {}).keepTitleTags);
   },
 
   // #5427: does this user want a short "ding" sound when a checklist item is

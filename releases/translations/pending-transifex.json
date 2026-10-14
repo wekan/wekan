@@ -2079,6 +2079,14 @@
     {
       "key": "activity-recovery-bulk-result",
       "since": "2026-10-14"
+    },
+    {
+      "key": "keep-title-tags",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "keep-title-tags-description",
+      "since": "2026-10-14"
     }
   ]
 }

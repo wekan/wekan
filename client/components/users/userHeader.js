@@ -462,6 +462,10 @@ Template.changeLanguagePopup.events({
 });
 
 Template.changeSettingsPopup.helpers({
+  isKeepTitleTags() {
+    const currentUser = ReactiveCache.getCurrentUser();
+    return currentUser ? currentUser.hasKeepTitleTags() : false;
+  },
   isSubmitOnEnter() {
     const currentUser = ReactiveCache.getCurrentUser();
     return currentUser ? currentUser.hasSubmitOnEnter() : false;
@@ -516,6 +520,9 @@ Template.changeSettingsPopup.events({
     } else {
       window.localStorage.setItem('showDesktopDragHandles', show ? 'true' : 'false');
     }
+  },
+  'click .js-toggle-keep-title-tags'() {
+    if (ReactiveCache.getCurrentUser()) Meteor.call('toggleKeepTitleTags');
   },
   'click .js-toggle-submit-on-enter'() {
     // Saved to the user profile (Member Settings only; requires a logged-in user).

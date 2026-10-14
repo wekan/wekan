@@ -954,6 +954,15 @@ Meteor.methods({
 
   // Per-user "submit editors on plain Enter" preference (Member Settings).
   // Off by default; when on, plain Enter submits and Shift+Enter is a newline.
+  // #1273: keep the #label / @member text in a new card's title (Member
+  // Settings; off by default).
+  async toggleKeepTitleTags() {
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    const user = await Users.findOneAsync(this.userId);
+    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
+    await Users.updateAsync(this.userId, { $set: { 'profile.keepTitleTags': !((user.profile || {}).keepTitleTags) } });
+  },
+
   async toggleSubmitOnEnter() {
     if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
     const user = await Users.findOneAsync(this.userId);
