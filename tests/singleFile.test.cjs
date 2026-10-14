@@ -504,6 +504,7 @@ function fakeBundle(dir) {
   fs.writeFileSync(path.join(dir, 'star.json'), JSON.stringify({ meteorRelease: 'METEOR@3.6-test' }));
   fs.writeFileSync(path.join(server, 'program.json'), JSON.stringify({ format: 'stand-in' }));
   fs.writeFileSync(path.join(server, 'runtime.js'), 'module.exports = function enable() {};\n');
+  fs.writeFileSync(path.join(server, 'mini-files.js'), meteorMiniFiles());
   fs.writeFileSync(path.join(server, 'boot.js'), `
 const fs = require('fs'); const path = require('path'); const http = require('http');
 const program = JSON.parse(fs.readFileSync('program.json', 'utf8'));
@@ -661,4 +662,96 @@ test('the docs say what is extracted, where wekan-files is, and what each menu e
   }
   const { MENU } = require(path.join(SF, 'lib', 'cli.cjs'));
   for (const [, label] of MENU) assert.ok(doc.includes(label), `the docs describe "${label}"`);
+});
+
+// --- The Windows single files (v12.41-v12.44): what stopped them ---------------
+
+// Meteor's mini-files.js path conversion, as Meteor 3 ships it (bundle/programs/
+// server/mini-files.js). Run on Windows path semantics.
+function meteorMiniFiles() {
+  return `function toPosixPath(p) {
+  let partialPath = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  // Sometimes, you can have a path like \\Users\\IEUser on windows, and this
+  // actually means you want C:\\Users\\IEUser
+  if (p[0] === "\\\\" && !partialPath) {
+    p = process.env.SystemDrive + p;
+  }
+  p = p.replace(/\\\\/g, '/');
+  if (p[1] === ':' && !partialPath) {
+    // transform "C:/bla/bla" to "/c/bla/bla"
+    p = '/' + p[0] + p.slice(2);
+  }
+  return p;
+}
+function toDosPath(p) {
+  let partialPath = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  if (p[0] === '/' && !partialPath) {
+    if (!/^\\/[A-Za-z](\\/|$)/.test(p)) throw new Error("Surprising path: " + p);
+    // transform a previously windows path back
+    // "/C/something" to "c:/something"
+    p = p[1] + ":" + p.slice(2);
+  }
+  p = p.replace(/\\//g, '\\\\');
+  return p;
+}
+function pathResolve() {
+  const result = path.resolve.apply(path, Array.prototype.map.call(arguments, p => toDosPath(p)));
+  return toPosixPath(result);
+}`;
+}
+
+function windowsMiniFiles(source) {
+  const sandbox = { process: { env: { SystemDrive: 'C:' } }, path: path.win32, Array };
+  require('node:vm').runInNewContext(`${source}\nthis.f = { toPosixPath, toDosPath, pathResolve };`, sandbox);
+  return sandbox.f;
+}
+
+test('Windows: Meteor finds a package inside the single file\'s archive (\\\\.\\NUL\\vfs), and drive paths are unchanged', async () => {
+  const { patchMiniFiles, MINI_FILES } = await import(path.join(SF, 'meteor-device-paths.mjs'));
+  const mount = '\\\\.\\NUL\\vfs\\1\\bundle\\programs\\server\\npm\\node_modules\\meteor\\meteor\\node_modules';
+  // Negative: as Meteor ships it, the device path loses its prefix - the
+  // "Cannot find module 'denque'" of the win64 and win-arm64 single files.
+  const before = windowsMiniFiles(meteorMiniFiles());
+  assert.equal(before.toPosixPath(mount), '/C//./NUL/vfs/1/bundle/programs/server/npm/node_modules/meteor/meteor/node_modules');
+  const patched = patchMiniFiles(meteorMiniFiles());
+  assert.equal(patchMiniFiles(patched), patched, 'applying it twice changes nothing');
+  const f = windowsMiniFiles(patched);
+  const standard = f.toPosixPath(mount);
+  assert.equal(standard, '//./NUL/vfs/1/bundle/programs/server/npm/node_modules/meteor/meteor/node_modules');
+  assert.equal(f.toDosPath(f.pathResolve(standard, 'denque')), `${mount}\\denque`, 'the package is looked for where it is');
+  assert.equal(f.toDosPath(f.toPosixPath('\\\\server\\share\\wekan')), '\\\\server\\share\\wekan', 'a UNC share too');
+  assert.equal(f.toPosixPath('C:\\wekan\\bundle'), '/C/wekan/bundle', 'a drive path as before');
+  assert.equal(f.toDosPath('/C/wekan/bundle'), 'C:\\wekan\\bundle');
+  assert.equal(f.toPosixPath('\\Users\\me'), '/C/Users/me', 'a rooted path still gets the system drive');
+  // Negative: Meteor's code changed - the build stops rather than ship it unpatched.
+  assert.throws(() => patchMiniFiles('function toPosixPath(p) { return p; }'), /not the code this patch was written for/);
+  assert.equal(MINI_FILES, 'bundle/programs/server/mini-files.js');
+  const build = read('releases/single-file/build.mjs');
+  assert.match(build, /miniFiles\.data = patchMiniFiles\(fs\.readFileSync\(miniFiles\.file, 'utf8'\)\);/, 'every single file gets it');
+});
+
+test('a 32-bit target is built only by a 32-bit Node.js (negative: win32 from x64 is refused)', async () => {
+  const { build, targetBits, archBits } = await import(path.join(SF, 'build.mjs'));
+  for (const t of ['win32', 'i386', 'armv7', 'armhf', 'armv6']) assert.equal(targetBits(t), 32, t);
+  for (const t of ['win64', 'win-arm64', 'amd64', 'arm64', 'mac-arm64', 'freebsd-x64']) assert.equal(targetBits(t), 64, t);
+  assert.equal(archBits('ia32'), 32);
+  assert.equal(archBits('x64'), 64);
+  const dir = tmp('sf-bits-');
+  try {
+    const bundle = path.join(dir, 'bundle');
+    fs.mkdirSync(path.join(bundle, 'programs/server'), { recursive: true });
+    for (const f of ['main.js', 'programs/server/boot.js', 'programs/server/program.json']) fs.writeFileSync(path.join(bundle, f), '{}');
+    fs.writeFileSync(path.join(bundle, 'node.exe'), `nodejs.org/download/release/${process.version}/`);
+    fs.writeFileSync(path.join(bundle, 'ferretdb.exe'), 'x');
+    if (archBits(process.arch) === 64) {
+      assert.throws(() => build({ bundle, target: 'win32', version: '1.0', out: path.join(dir, 'out.exe') }),
+        /win32 is a 32-bit target, but the Node\.js building it is x64/);
+    }
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+  const wf = read('.github/workflows/single-file.yml');
+  assert.match(wf, /contains\(fromJSON\('\["win32","i386","armv7","armhf","armv6"\]'\), matrix\.target\)/);
+  assert.match(wf, /wekan-\$\{VERSION\}-i386\.zip[\s\S]*?sha256sum -c "\$zip\.sha256sum"/, 'the i386 Node.js is checked before it builds anything');
+  assert.match(wf, /\$\{HOST_NODE:\+--host-node "\$HOST_NODE"\}/);
 });

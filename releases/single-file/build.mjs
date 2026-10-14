@@ -28,6 +28,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { listFiles, writeZip } from './zip.mjs';
+import { MINI_FILES, patchMiniFiles } from './meteor-device-paths.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repo = path.resolve(here, '..', '..');
@@ -96,6 +97,13 @@ export function archiveEntries({ bundle, target, version, ferretdb, nodeVersion,
   const entries = listFiles(bundle, 'bundle/', {
     exclude: rel => excludedFromBundle(rel),
   });
+  // Meteor's path conversion, taught the device path the archive is mounted at
+  // on Windows (meteor-device-paths.mjs). Harmless elsewhere: it is used only
+  // when process.platform is win32.
+  const miniFiles = entries.find(e => e.name === MINI_FILES);
+  if (!miniFiles) throw new Error(`${bundle} has no ${MINI_FILES.slice('bundle/'.length)}: not a WeKan bundle.`);
+  miniFiles.data = patchMiniFiles(fs.readFileSync(miniFiles.file, 'utf8'));
+  delete miniFiles.file;
   for (const rel of LAUNCHER_FILES) entries.push({ name: rel, file: path.join(repo, rel) });
   for (const rel of fs.readdirSync(path.join(here, 'lib')).filter(f => f.endsWith('.cjs')).sort()) {
     entries.push({ name: `releases/single-file/lib/${rel}`, file: path.join(here, 'lib', rel) });
@@ -121,6 +129,14 @@ export function archiveEntries({ bundle, target, version, ferretdb, nodeVersion,
   return { entries, manifest };
 }
 
+const TARGETS_32_BIT = new Set(['win32', 'i386', 'armv7', 'armhf', 'armv6']);
+export function targetBits(target) {
+  return TARGETS_32_BIT.has(target) ? 32 : 64;
+}
+export function archBits(arch) {
+  return ['ia32', 'arm', 'mipsel', 'ppc'].includes(arch) ? 32 : 64;
+}
+
 export function build(opts) {
   const bundle = path.resolve(opts.bundle);
   const exe = isWindowsTarget(opts.target) ? '.exe' : '';
@@ -135,8 +151,22 @@ export function build(opts) {
     if (!fs.existsSync(file)) throw new Error(`No ${what} at ${file}.`);
   }
   const nodeVersion = nodeVersionOf(node);
-  const hostNode = opts.hostNode || process.execPath;
-  const hostVersion = opts.hostNode
+  const explicitHost = opts.hostNode || opts['host-node'];
+  const hostNode = explicitHost || process.execPath;
+  // The SEA blob writes its lengths as size_t, so it is read only by a Node.js
+  // of the builder's pointer width: a 32-bit target built by a 64-bit Node.js
+  // found no archive and stopped at once (win32, v12.41-v12.44 - and i386 and
+  // 32-bit ARM, which no runner starts). Any 32-bit little-endian Node.js of
+  // the same version writes it for every 32-bit target (single-file.yml uses
+  // the i386 bundle's).
+  const hostArch = explicitHost
+    ? execFileSync(hostNode, ['-p', 'process.arch'], { encoding: 'utf8' }).trim()
+    : process.arch;
+  if (targetBits(opts.target) !== archBits(hostArch)) {
+    throw new Error(`${opts.target} is a ${targetBits(opts.target)}-bit target, but the Node.js building it is ${hostArch}: `
+      + 'build it with a Node.js of the same pointer width (--host-node).');
+  }
+  const hostVersion = explicitHost
     ? execFileSync(hostNode, ['-p', 'process.version'], { encoding: 'utf8' }).trim()
     : process.version;
   if (nodeVersion && nodeVersion !== hostVersion) {

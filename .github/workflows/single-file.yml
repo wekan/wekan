@@ -149,15 +149,45 @@ jobs:
         with:
           node-version: ${{ steps.fetch.outputs.node_version }}
 
+      # A 32-bit target's SEA blob must be written by a 32-bit Node.js: the blob
+      # stores its lengths as size_t (build.mjs refuses otherwise). The i386
+      # bundle's Node.js, of the same version, writes it for every 32-bit
+      # target - win32, i386 and 32-bit ARM read the same little-endian format.
+      - name: A 32-bit Node.js to build a 32-bit target
+        id: host32
+        if: steps.fetch.outputs.skip != 'true' && contains(fromJSON('["win32","i386","armv7","armhf","armv6"]'), matrix.target)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.fetch.outputs.version }}
+        run: |
+          set -euo pipefail
+          zip="wekan-${VERSION}-i386.zip"
+          mkdir -p host32
+          gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --pattern "$zip" --pattern "$zip.sha256sum" --dir host32 \
+            || { echo "::error::$TARGET needs the i386 bundle's Node.js to build, and $TAG has no $zip."; exit 1; }
+          (cd host32 && sha256sum -c "$zip.sha256sum" && unzip -q "$zip" 'bundle/node' 'bundle/node-runtime/*' && rm -f "$zip")
+          sudo dpkg --add-architecture i386
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libc6:i386 libstdc++6:i386 >/dev/null
+          host="$PWD/host32/bundle/node"
+          [ -d host32/bundle/node-runtime ] && echo "libs=$PWD/host32/bundle/node-runtime" >> "$GITHUB_OUTPUT"
+          echo "node=$host" >> "$GITHUB_OUTPUT"
+
       - name: Build the single file
         if: steps.fetch.outputs.skip != 'true'
         env:
           VERSION: ${{ steps.fetch.outputs.version }}
+          HOST_NODE: ${{ steps.host32.outputs.node }}
+          HOST_LIBS: ${{ steps.host32.outputs.libs }}
         run: |
           set -euo pipefail
           case "$TARGET" in win*) ext=.exe ;; *) ext= ;; esac
           out="wekan-${VERSION}-${TARGET}-single-file${ext}"
-          node releases/single-file/build.mjs --bundle bundle --target "$TARGET" --version "$VERSION" --out "$out"
+          # The i386 Node.js finds its own libraries; the libraries are ignored by
+          # the x64 Node.js that runs build.mjs (another architecture).
+          LD_LIBRARY_PATH="${HOST_LIBS:-${LD_LIBRARY_PATH:-}}" \
+            node releases/single-file/build.mjs --bundle bundle --target "$TARGET" --version "$VERSION" --out "$out" \
+            ${HOST_NODE:+--host-node "$HOST_NODE"}
           ls -la "$out" "$out.sha256sum"
           rm -rf bundle
 
