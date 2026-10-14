@@ -457,3 +457,19 @@ test.describe('Search', () => {
       .toHaveAttribute('aria-pressed', 'true');
   });
 });
+
+
+test('Haitian attachment search accepts the corrected predicate and negation', async ({ boardPage: page }) => {
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'ht'));
+  const sp = new SearchPage(page);
+  await sp.navigateToGlobalSearch();
+  const help = page.locator('.global-search-instructions');
+  await expect(help).toContainText('pyès-atache');
+  await expect(help).not.toContainText('pyès-jwenn');
+  await sp.globalSearch('gen:-pyès-atache');
+  await expect.poll(() => sp.globalSearchResultTitles(), { timeout: 20000 }).toContain('Alpha Card');
+  await expect(page.locator('.global-search-error-messages')).toHaveCount(0);
+  await sp.globalSearch('gen:pyès-atache');
+  await expect.poll(() => sp.globalSearchResultTitles(), { timeout: 20000 }).not.toContain('Alpha Card');
+  await expect(page.locator('.global-search-error-messages')).toHaveCount(0);
+});

@@ -208808,5 +208808,68 @@
     "before": "Twè notifikasyon",
     "after": "Panno notifikasyon",
     "reason": "Correct Haitian administration and notification semantics: hostnames, administrator status, setting overrides and assignee terminology."
+  },
+  {
+    "locale": "ht",
+    "key": "my-attachments",
+    "before": "Pyès atache kat mwen yo",
+    "after": "Pyès atache mwen yo",
+    "reason": "Correct Haitian due-card scope and attachment search terminology; preserve token syntax and consistent swimlane naming."
+  },
+  {
+    "locale": "ht",
+    "key": "board-table-group-by-swimlane-on",
+    "before": "Kat yo gwoupe pa koulwa. Klike pou montre yo kòm yon lis plat olye de sa.",
+    "after": "Kat yo gwoupe pa kouloir. Klike pou montre yo kòm yon lis plat olye de sa.",
+    "reason": "Correct Haitian due-card scope and attachment search terminology; preserve token syntax and consistent swimlane naming."
+  },
+  {
+    "locale": "ht",
+    "key": "board-table-group-by-swimlane-off",
+    "before": "Kat yo montre kòm yon lis plat. Klike pou gwoupe yo pa koulwa olye de sa.",
+    "after": "Kat yo montre kòm yon lis plat. Klike pou gwoupe yo pa kouloir olye de sa.",
+    "reason": "Correct Haitian due-card scope and attachment search terminology; preserve token syntax and consistent swimlane naming."
+  },
+  {
+    "locale": "ht",
+    "key": "dueCards-title",
+    "before": "Kat ki rive nan limit",
+    "after": "Kat ki gen dat limit",
+    "reason": "Correct Haitian due-card scope and attachment search terminology; preserve token syntax and consistent swimlane naming."
+  },
+  {
+    "locale": "ht",
+    "key": "dueCardsViewChange-title",
+    "before": "Afichaj kat ki rive nan limit",
+    "after": "Afichaj kat ki gen dat limit",
+    "reason": "Correct Haitian due-card scope and attachment search terminology; preserve token syntax and consistent swimlane naming."
+  },
+  {
+    "locale": "ht",
+    "key": "dueCardsViewChangePopup-title",
+    "before": "Afichaj kat ki rive nan limit",
+    "after": "Afichaj kat ki gen dat limit",
+    "reason": "Correct Haitian due-card scope and attachment search terminology; preserve token syntax and consistent swimlane naming."
+  },
+  {
+    "locale": "ht",
+    "key": "dueCards-noResults-title",
+    "before": "Pa jwenn kat ki rive nan limit",
+    "after": "Pa jwenn kat ki gen dat limit",
+    "reason": "Correct Haitian due-card scope and attachment search terminology; preserve token syntax and consistent swimlane naming."
+  },
+  {
+    "locale": "ht",
+    "key": "operator-attachment-text",
+    "before": "pyès-jwenn",
+    "after": "pyès-atache",
+    "reason": "Correct Haitian due-card scope and attachment search terminology; preserve token syntax and consistent swimlane naming."
+  },
+  {
+    "locale": "ht",
+    "key": "predicate-attachment",
+    "before": "pyès-jwenn",
+    "after": "pyès-atache",
+    "reason": "Correct Haitian due-card scope and attachment search terminology; preserve token syntax and consistent swimlane naming."
   }
 ]

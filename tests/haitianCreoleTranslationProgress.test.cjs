@@ -441,3 +441,34 @@ assert.match(creole['notification-settings-popup-description'], /Panno administr
 assert.doesNotMatch(creole['notification-settings-popup-description'], /Anilasyon/);
 assert.equal(creole['cardAssigneesPopup-title'], creole['cardAssigneePopup-title']);
 assert.match(creole['toggle-header-icons-collapsed'], /mobil ak òdinatè.*notifikasyon/);
+
+const reviewedDueSearchKeys = ["my-attachments", "board-table-group-by-swimlane-on", "board-table-group-by-swimlane-off", "dueCards-title", "dueCardsViewChange-title", "dueCardsViewChangePopup-title", "dueCards-noResults-title", "operator-attachment-text", "predicate-attachment"];
+for (const key of reviewedDueSearchKeys) {
+  assert.notEqual(creole[key], english[key], key);
+  assert.deepEqual(tokens(creole[key]), tokens(english[key]), key);
+}
+for (const key of ['dueCards-title', 'dueCardsViewChange-title', 'dueCardsViewChangePopup-title', 'dueCards-noResults-title']) {
+  assert.match(creole[key], /gen dat limit/);
+  assert.doesNotMatch(creole[key], /rive nan limit|anreta/);
+}
+assert.equal(creole['my-attachments'], 'Pyès atache mwen yo');
+assert.equal(creole['predicate-attachment'], 'pyès-atache');
+assert.equal(creole['operator-attachment-text'], creole['predicate-attachment']);
+assert.doesNotMatch(creole['predicate-attachment'], /\s/);
+for (const [key, value] of Object.entries(creole)) assert.doesNotMatch(value, /pyès[ -]jwenn/i, key);
+
+// Exercise the production parser with real locale values, including negation.
+const searchVm = require('node:vm');
+const searchContext = { TAPi18n: { __: key => creole[key] || key }, Boards: { colorMap: () => ({}) }, console };
+searchVm.createContext(searchContext);
+searchVm.runInContext(fs.readFileSync(path.join(root, 'config/search-const.js'), 'utf8').replace(/export /g, '') + '\n' +
+  fs.readFileSync(path.join(root, 'config/query-classes.js'), 'utf8').replace(/import[\s\S]*?from ['"][^'"]+['"];\s*/g, '').replace(/export /g, '') + '\nthis.Query = Query;', searchContext);
+for (const absent of [false, true]) {
+  const query = new searchContext.Query();
+  query.buildParams(`${creole['operator-has']}:${absent ? '-' : ''}${creole['predicate-attachment']}`);
+  assert.equal(query.hasErrors(), false);
+  assert.deepEqual(JSON.parse(JSON.stringify(query.getQueryParams().getPredicate('has'))), { field: 'attachment', exists: !absent });
+}
+const invalidAttachmentQuery = new searchContext.Query();
+invalidAttachmentQuery.buildParams(`${creole['operator-has']}:nonexistent-field`);
+assert.equal(invalidAttachmentQuery.hasErrors(), true);
