@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Scottish Gaelic workflows and permission messages — 2026-10-14
+
+Commit `73bdd4061b` translates 19 strings for read-only fields, Wrike workflows,
+rule actions, LDAP sync, provider domain restrictions and subtask completion.
+Status groups, automation export limits, environment names, empty-domain
+behavior and edit restrictions remain explicit. Technical prose needs fluent
+review; external provider interfaces were not revalidated.
+
+The Scottish Gaelic catalog and guarded-correction suites pass with 30,714
+correction ledger entries. All 21 human-preference checks pass; exact comparison
+preserves 38,430 existing Chinese values. Three browser cases cover LDAP access
+and subtask completion, including a comment-only member. Syntax and discovery
+pass; runtime remains pending.
+
+Scottish Gaelic and all-language translation and semantic review are unfinished.
+
 ## Scottish Gaelic integrations and notification delivery — 2026-10-14
 
 Commit `9724c40077` translates 53 strings for Trello export, Sandstorm access,

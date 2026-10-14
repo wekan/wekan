@@ -4543,6 +4543,22 @@ discovery; runtime remains pending. All-language review remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/73bdd4061b32668bfcb5a103b63e948a1471ed9c">Translate Scottish Gaelic workflow and permission messages</a>. Thanks to xet7.</summary>
+
+Translate 19 strings for read-only fields, Wrike workflows, rule actions, LDAP,
+provider domain restrictions and subtask completion. Preserve status
+transitions,
+setting names and authorization limits. Technical prose needs fluent review.
+
+The Scottish Gaelic catalog and guarded-correction suites pass with 30,714
+audited corrections. All 21 human-preference checks pass; 38,430 existing
+Chinese
+values remain unchanged. Three browser cases pass syntax and discovery; runtime
+remains pending. All-language translation and semantic review remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
