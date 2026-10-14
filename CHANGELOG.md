@@ -4405,6 +4405,20 @@ pending. Irish and all-language semantic review remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/301fd32e09242dcfccd19eb5270e9f5c34763fe7">Correct Irish date triggers and card-link actions</a>. Thanks to xet7.</summary>
+
+Correct seven labels. Date triggers retain setting as well as changing dates,
+the ISO calendar names ISO weeks, and card-link actions distinguish the
+destination board from creating a board from the current card.
+
+The Irish catalog and guarded-correction suites pass with 30,517 audited
+corrections. All 21 human-preference checks pass; 38,430 existing Chinese values
+remain unchanged. The card-action browser case passes syntax and discovery;
+runtime remains pending. All-language semantic review remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

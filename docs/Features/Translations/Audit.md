@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Irish date triggers and card actions — 2026-10-14
+
+Commit `301fd32e09` corrects seven labels. Four date triggers now include both
+setting and changing the date. The ISO calendar label identifies Gregorian
+weeks under ISO 8601 rather than a year-first date format. Linking to a board
+no longer incorrectly specifies this board, and creating a board identifies
+the source card.
+
+The Irish catalog and guarded-correction suites pass with 30,517 correction
+ledger entries. All 21 human-preference checks pass; exact comparison preserves
+38,430 existing Chinese values. The card-action browser case passes syntax and
+discovery; runtime remains pending.
+
+Other Irish rule fragments and the wider catalog still need semantic review.
+The all-language objective remains unfinished.
+
 ## Irish report metric labels — 2026-10-14
 
 Commit `36579f0e7c` corrects 24 labels. Report metrics now identify age in stage,
