@@ -60,8 +60,8 @@ export function grantCovers(grant, url) {
 // Sandstorm/Powerbox-External-APIs.md): the API a board admin is asked to
 // approve, for the webhook's URL. The bridge proxy joins canonicalUrl and the
 // request path with a '/', so the grant is the URL's PARENT path and the
-// request carries its last segment: https://hooks.example.com/services/T/B/X
-// is granted as .../services/T/B and requested as /X, which arrives exactly
+// request carries its last segment: a webhook at <origin>/services/T/B/X is
+// granted as <origin>/services/T/B and requested as /X, which arrives exactly
 // as written, without a trailing slash. Only http(s), no user name or
 // password in it (the proxy owns Authorization), no fragment.
 export function webhookGrantFor(rawUrl) {
