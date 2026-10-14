@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Malagasy import and Scrum recovery — 2026-10-14
+
+Commit `ef2e446d98` translates 29 entries for interrupted imports, Scrum
+conflicts and server-only login settings. Permanent partial-board deletion,
+retained records, other users' edits and rollback restrictions remain explicit.
+
+The Malagasy catalog and guarded-correction suites pass with 30,172 correction
+ledger entries. The full catalog placeholder check now returns no entries,
+including keys marked pending Transifex. This does not prove complete semantic
+correctness or detect every stale English passage. All 21 human-preference
+checks pass, and exact comparison preserves 38,430 existing Chinese values.
+Four recovery browser cases pass syntax and discovery; runtime remains pending.
+
+Malagasy semantic review and the all-language objective remain unfinished.
+
 ## Malagasy stopped synchronization recovery — 2026-10-14
 
 Commit `8422cc349c` translates 18 recovery messages. They retain the distinction
