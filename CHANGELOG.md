@@ -403,16 +403,6 @@ not have).
 </details>
 
 <details>
-<summary>Decided on 2026-10-14 (third round), waiting to be implemented.</summary>
-
-The maintainer answered the open design questions; each is built as decided.
-Importers for Planka, Microsoft To Do, KanbanFlow, Basecamp, Google Tasks and
-Google Keep, through their APIs, with live tests in the build.sh and build.bat
-menus run with the maintainer's own credentials.
-
-</details>
-
-<details>
 <summary>Ongoing accessibility work.</summary>
 
 [#337](https://github.com/wekan/wekan/issues/337) (move buttons, focus trap,
@@ -505,11 +495,13 @@ there.
 
 # Upcoming WeKan ® release
 
-**In short:** Members can lock their account to **SQRL** with their SQRL
-client's *sqrlonly* and *hardlock* options, a WeKan on Windows can sign domain
-members in with **Windows single sign-on** (Kerberos / NTLM), and **List Sync
-writes changes back to GitLab**. Batch **undo and redo of a large sprint** is
-2.6 times faster. **Bosnian** says Tabla
+**In short:** Accounts can be locked to **SQRL**, Windows domains can sign in
+with **Windows single sign-on**, **List Sync writes back to GitLab**, and boards
+import straight from **Planka, Microsoft To Do, KanbanFlow, Basecamp, Google
+Tasks and Google Keep**. The **Chat view** lists every conversation with unread
+counts, and titles render as **Markdown** in more views. Two changes at once
+no longer fork a board's **History**, and large sprint undo is faster.
+**Bosnian** says Tabla
 for board throughout, and **Tsonga** has its own word for the Archive.
 
 This release adds the following new features:
@@ -563,6 +555,37 @@ Live tests runs it against gitlab.com with the mirror's glab login.
 
 </details>
 
+**Import** - boards fetched from other services' APIs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/46e30f01e4">Planka, Microsoft To Do, KanbanFlow, Basecamp, Google Tasks and Google Keep import from their APIs</a>. Thanks to xet7.</summary>
+
+On the import page each asks for what its service needs, lists what that
+account can import and fetches it; the credentials are used for that call
+only and never stored. The fetched JSON imports like a pasted export,
+through the service's parser and the members step. Every request goes
+through the SSRF guard (an administrator can allow a private host with
+`API_IMPORT_ALLOWED_PRIVATE_HOSTS`). Each service has its tests, a docs
+page, and a read-only live test in build.sh / build.bat → Tests → Live
+tests, not run here.
+
+</details>
+
+**Chat view** - every conversation, folded by workspace, board, swimlane and
+list.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2ee3e83793">Channels are the cards with a conversation on every board, with unread counts</a>. Thanks to xet7.</summary>
+
+The tree holds workspaces, boards, swimlanes, lists and the cards that have
+messages; boards without any are under Other boards until their first
+message. Each level has a caret before its icon (mirrored right to left)
+and slides open; a board folds instead of leaving the view. Every level
+shows what this member has not read, every name renders as Markdown, and
+only what the member may read is sent.
+
+</details>
+
 and makes the following faster:
 
 <details>
@@ -574,6 +597,55 @@ one query per type, with one ownership check before and one after the read,
 and every write is still fenced right before it. The 10,500-card test went
 from 14 min 27 s to 6 min 7 s; `tests/scrumHistoryWriteState.test.cjs` pins
 the bracketed read and that every write stays fenced.
+
+</details>
+
+and fixes the following bugs:
+
+**History** - one board, two changes at once.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/66dd9b0938">Two changes saved at the same moment no longer fork a board's History chain</a>. Thanks to xet7.</summary>
+
+The legacy append read the newest row and inserted after it in two steps,
+so two changes at once named the same previous row: Admin Panel → Problems
+called it critical HistoryIntegrity tampering, 89,062 times, and undo was
+refused for both rows. A board's appends now take turns and link after the
+chain's tip. The hourly audit reports each finding once, board by board,
+and a fork of two intact rows saved within a minute is reported as a
+writer race, not tampering. Existing forks stay as they are.
+
+</details>
+
+**Board views** - titles and activity that showed raw text.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5481268558">The email view renders its subjects and previews as Markdown</a>. Thanks to xet7.</summary>
+
+"# Demo card :thumbsup:" and "**Markdown**" showed as text. Subject and
+preview go through the viewer like every card title, the preview cut at a
+line end instead of inside a link, and two lines of it shown.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2cc6b93ed9">Version Control, the activity feed and the email list render titles as Markdown</a>. Thanks to xet7.</summary>
+
+Issues, labels, milestones, wiki pages, the feed's cards and boards, and
+the email folders render through inlineViewer, with the Admin Panel's
+security settings; clickable titles are spans with role=link, since a
+rendered link cannot sit inside a link.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f12b718d81">The activity feed names the checklist, item, lists and people it is about</a>. Thanks to xet7.</summary>
+
+It filled only the card, list and board, so it showed `__checklistItem__`,
+`__oldList__` and the like, and raw names for ten kinds of activity that had
+no sentence at all. Every name is filled now - never a field's value, a
+comment only for a member who may read comments - and those ten have
+sentences, translated, in the notifications too.
 
 </details>
 
@@ -590,6 +662,9 @@ and has the following developer-tooling fix:
 - [oauthProviders follows the translated login-error list](https://github.com/wekan/wekan/commit/b38532ed72):
   the SQRL refusals joined the conflict in one list of translated codes.
   Thanks to xet7.
+- [Three guards follow the History fork and GitLab write-back fixes](https://github.com/wekan/wekan/commit/5fee137f01):
+  Sync admission pins the tip walk, the write-back's read is not named
+  fetch, and the new card field is in the e-mail inventory. Thanks to xet7.
 
 and fixes the following translations:
 
