@@ -31,6 +31,20 @@ assert.equal(titleTagText('label', null, true), '');
 assert.equal(titleTagText('other', { name: 'x' }, true), '');
 console.log('  ok - off, or with nothing to name, nothing is left in the title');
 
+// The issue's own example, typed and picked the way the composer replaces the
+// term being completed: "fix menu for #PROJECT by @member" became "fix menu
+// for by" - it stays whole with the switch on.
+function typeAndPick(keep) {
+  let title = 'fix menu for #PRO';
+  title = title.replace(/#PRO$/, titleTagText('label', { name: 'PROJECT' }, keep));
+  title += 'by @mem';
+  title = title.replace(/@mem$/, titleTagText('member', { username: 'member' }, keep));
+  return title.trim().replace(/\s+/g, ' ');
+}
+assert.equal(typeAndPick(true), 'fix menu for #PROJECT by @member');
+assert.equal(typeAndPick(false), 'fix menu for by', 'the reported behaviour, still the default');
+console.log('  ok - the reporter\'s example');
+
 // Wiring: both composer strategies use it, with the user's setting.
 const body = read('client/components/lists/listBody.js');
 assert.match(body, /toggleValueInReactiveArray\(tpl\.members, user\._id\);[\s\S]{0,200}return titleTagText\('member', user, keepTitleTags\(\)\);/);
