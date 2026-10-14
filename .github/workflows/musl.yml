@@ -1,0 +1,184 @@
+name: musl bundles
+
+# WeKan for Alpine and the other musl systems: the published Linux bundle of
+# each CPU, rebuilt inside Alpine by releases/musl/build-bundle.sh with the
+# musl Node.js of the same version and every native addon compiled against
+# musl, then started and required to answer HTTP 200. The same pattern as
+# the BSD bundles (bsd.yml). A target whose Linux bundle or musl Node.js the
+# release does not have is SKIPPED, not failed.
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing WeKan release tag (empty = latest published release)'
+        type: string
+        required: false
+      publish:
+        description: 'Attach the musl bundles and checksums to that release'
+        type: boolean
+        default: true
+      only:
+        description: 'JSON target list, e.g. ["linux-x64-musl"] (empty = all)'
+        type: string
+        default: ''
+  workflow_call:
+    inputs:
+      tag:
+        type: string
+        required: true
+      publish:
+        type: boolean
+        default: true
+      only:
+        type: string
+        default: ''
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wekan-musl-${{ inputs.tag || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      tag: ${{ steps.plan.outputs.tag }}
+      matrix: ${{ steps.plan.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - id: plan
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
+          ONLY: ${{ inputs.only }}
+        run: |
+          set -euo pipefail
+          tag="${TAG:-$(gh release view --repo "$GITHUB_REPOSITORY" --json tagName -q .tagName)}"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          matrix="$(python3 -c '
+          import json, os
+          targets = json.load(open("releases/musl/targets.json"))
+          only = json.loads(os.environ.get("ONLY") or "[]")
+          if only:
+              targets = [t for t in targets if t["target"] in only]
+          print(json.dumps({"include": targets}))')"
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+          echo "Release $tag; targets: $matrix"
+
+  build:
+    needs: plan
+    name: musl ${{ matrix.target }}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    env:
+      TAG: ${{ needs.plan.outputs.tag }}
+      TARGET: ${{ matrix.target }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Fetch and verify the Linux bundle and the musl Node.js
+        id: fetch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BASE: ${{ matrix.base }}
+          NODE_PLATFORM: ${{ matrix.node }}
+        run: |
+          set -euo pipefail
+          version="${TAG#v}"
+          zip="wekan-${version}-${BASE}.zip"
+          if ! gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --pattern "$zip" --pattern "$zip.sha256sum" || [ ! -f "$zip" ]; then
+            echo "::notice::$TARGET: $TAG has no $zip; skipped."
+            echo "skip=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          [ -f "$zip.sha256sum" ] || { echo "::error::$zip has no published .sha256sum; a bundle is never rebuilt from an unverified one."; exit 1; }
+          sha256sum -c "$zip.sha256sum"
+          unzip -q "$zip"
+          rm -f "$zip" "$zip.sha256sum"
+          # The musl Node.js of exactly the bundle's version.
+          node_version="$(grep -aoE 'nodejs\.org/download/release/v[0-9]+\.[0-9]+\.[0-9]+/' bundle/node | head -n1 | sed -E 's#.*/(v[0-9.]+)/#\1#')"
+          [ -n "$node_version" ] || { echo "::error::Could not read the Node.js version of bundle/node."; exit 1; }
+          rc=0; out="$(bash releases/resolve-node-source.sh "$NODE_PLATFORM" "$node_version")" || rc=$?
+          if [ "$rc" = 3 ] || ! printf '%s\n' "$out" | grep -q '^node_found=true'; then
+            echo "::notice::$TARGET: no musl Node.js $node_version is published yet; skipped."
+            echo "skip=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          eval "$(printf '%s\n' "$out" | grep -E '^node_(url|sha256|kind)=')"
+          [ "$node_kind" = tar.xz ] || { echo "::error::expected a tar.xz musl Node.js, got $node_kind"; exit 1; }
+          bash releases/fetch.sh -o node-musl.tar.xz "$node_url"
+          [ -n "$node_sha256" ] || { echo "::error::$node_url has no published SHA256."; exit 1; }
+          echo "$node_sha256  node-musl.tar.xz" | sha256sum -c -
+          mkdir -p musl-tools
+          tar -xJf node-musl.tar.xz --strip-components=1 -C musl-tools
+          rm -f node-musl.tar.xz
+          file musl-tools/bin/node bundle/ferretdb
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Rebuild and start it in Alpine
+        if: steps.fetch.outputs.skip != 'true'
+        env:
+          ARCH: ${{ matrix.arch }}
+        run: |
+          docker run --rm -v "$PWD:/work" -w /work -e ARCH \
+            alpine:3.23 sh -ec '
+              apk add --no-cache bash coreutils curl file python3 make g++ linux-headers libstdc++ libgcc
+              bash releases/musl/build-bundle.sh "$ARCH"'
+
+      - name: Package
+        if: steps.fetch.outputs.skip != 'true'
+        env:
+          VERSION: ${{ steps.fetch.outputs.version }}
+        run: |
+          set -euo pipefail
+          sudo chown -R "$(id -u):$(id -g)" bundle
+          out="wekan-${VERSION}-${TARGET}.zip"
+          zip -qry "$out" bundle
+          sha256sum "$out" > "$out.sha256sum"
+          ls -la "$out" "$out.sha256sum"
+
+      - uses: actions/upload-artifact@v7
+        if: steps.fetch.outputs.skip != 'true'
+        with:
+          name: musl-${{ matrix.target }}
+          path: wekan-*-${{ matrix.target }}.zip*
+          retention-days: 3
+          compression-level: 0
+
+  publish:
+    needs: [plan, build]
+    if: ${{ !cancelled() && inputs.publish }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v7
+        with:
+          pattern: musl-*
+          path: artifacts
+      - name: Attach every musl bundle that was built and started
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ needs.plan.outputs.tag }}
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          published=0
+          for f in artifacts/musl-*/wekan-*.zip; do
+            (cd "$(dirname "$f")" && sha256sum -c "$(basename "$f").sha256sum")
+            bash releases/github-release-upload.sh "$GITHUB_REPOSITORY" "$TAG" "$f" "$f.sha256sum"
+            published=$((published + 1))
+          done
+          echo "Published $published musl bundles to $TAG."

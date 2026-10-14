@@ -24,7 +24,7 @@ AppImage, Helm chart and zip bundles: YunoHost (state "working", level 8), CapRo
 | openSUSE Build Service | GPL | one project that builds .deb and .rpm and their repositories for Debian, Ubuntu, Fedora and openSUSE | medium |
 | Fedora COPR | GPL | an rpm of the zip bundle | medium |
 | FreeBSD ports | BSD | wekan/node-patches has `node-freebsd-x64` and wekan/FerretDB has `ferretdb-freebsd-amd64`; the native modules still need rebuilding on FreeBSD, because the bundle's are Linux binaries | large |
-| Alpine | open source (not checked) | musl: the bundle's glibc Node.js does not run, so native modules need rebuilding | medium–large |
+| Alpine | open source (not checked) | an aports package can now wrap the musl bundle every release has ([Alpine](FOSS/OS/Alpine.md)); before, the native modules needed rebuilding | small–medium |
 
 **Hard, but possible:** Debian's own archive, and with it FreedomBox (every npm
 dependency must be its own Debian package - OBS or an own APT repository is the

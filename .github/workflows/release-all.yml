@@ -1301,6 +1301,32 @@ jobs:
       tag: v${{ needs.prepare.outputs.version }}
       publish: true
 
+  # Alpine and the other musl systems: the amd64 and arm64 bundles rebuilt
+  # inside Alpine with the musl Node.js (releases/musl/build-bundle.sh).
+  musl:
+    name: musl bundles
+    needs: [prepare, release, build-amd64, build-arm64]
+    if: ${{ !cancelled() && needs.release.result == 'success' }}
+    uses: ./.github/workflows/musl.yml
+    permissions:
+      contents: write
+    with:
+      tag: v${{ needs.prepare.outputs.version }}
+      publish: true
+
+  # The musl AppImages wrap the musl bundles, so they wait for them.
+  appimage-musl:
+    name: musl AppImages
+    needs: [prepare, release, musl]
+    if: ${{ !cancelled() && needs.release.result == 'success' }}
+    uses: ./.github/workflows/AppImage.yml
+    permissions:
+      contents: write
+    with:
+      tag: v${{ needs.prepare.outputs.version }}
+      publish: true
+      only: '["x86_64-musl","aarch64-musl"]'
+
   # One executable per platform, repackaged from that platform's bundle, so it
   # waits for every bundle job (docs/Platforms/Single-File.md). A platform
   # whose bundle failed is skipped there, not here.

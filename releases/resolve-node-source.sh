@@ -28,7 +28,8 @@
 #   resolve-node-source.sh <platform> <major|version>
 #
 #   platform   what WeKan calls the CPU: amd64/x64, arm64, i386, armhf, armv7,
-#              armv6, ppc64le, s390x, riscv64, loong64, win64, win32, win-arm64,
+#              armv6, ppc64le, s390x, riscv64, loong64, x64-musl, arm64-musl,
+#              win64, win32, win-arm64,
 #              mac-x64,
 #              mac-arm64, freebsd-x64, freebsd-arm64, openbsd-x64,
 #              openbsd-arm64, netbsd-x64. A node-patches asset name (node-x64, node-win64.exe)
@@ -117,6 +118,10 @@ case "$platform" in
   s390x)     nodename="linux-s390x"   ; asset="node-s390x"        ; ext="tar.xz" ;;
   riscv64)   nodename="linux-riscv64" ; asset="node-riscv64"      ; ext="tar.xz" ;;
   loong64)   nodename="linux-loong64" ; asset="node-loong64"      ; ext="tar.xz" ;;
+  # musl (Alpine and the other musl systems): unofficial-builds publishes
+  # these; releases/musl/build-bundle.sh rebuilds a bundle with them.
+  x64-musl)   nodename="linux-x64-musl"   ; asset="node-x64-musl"   ; ext="tar.xz" ;;
+  arm64-musl) nodename="linux-arm64-musl" ; asset="node-arm64-musl" ; ext="tar.xz" ;;
   win64)     nodename="win-x64"       ; asset="node-win64.exe"    ; ext="zip"    ;;
   win32)     nodename="win-x86"       ; asset="node-win32.exe"    ; ext="zip"    ;;
   # Windows on ARM. nodejs.org publishes node-<version>-win-arm64.zip itself, so

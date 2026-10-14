@@ -1,0 +1,4 @@
+[
+  {"target": "linux-x64-musl", "base": "amd64", "node": "x64-musl", "arch": "x64", "runner": "ubuntu-24.04"},
+  {"target": "linux-arm64-musl", "base": "arm64", "node": "arm64-musl", "arch": "arm64", "runner": "ubuntu-24.04-arm"}
+]

@@ -161,6 +161,20 @@ jobs:
             bundle_arch: armhf
             runs_on: ubuntu-24.04-arm
             tolerate_failure: true
+          # Alpine and the other musl systems: the musl bundles musl.yml builds
+          # (releases/musl/build-bundle.sh). The same AppImage runtime - it is
+          # static, so it runs on musl - around a musl Node.js, named apart from
+          # the glibc AppImage and started inside Alpine to be checked.
+          - appimage_arch: x86_64
+            name_arch: x86_64-musl
+            bundle_arch: linux-x64-musl
+            runs_on: ubuntu-24.04
+            musl: true
+          - appimage_arch: aarch64
+            name_arch: aarch64-musl
+            bundle_arch: linux-arm64-musl
+            runs_on: ubuntu-24.04-arm
+            musl: true
     # WHICH entries this run wants, decided here because it cannot be decided
     # where it belongs. A job-level `if:` cannot see `matrix` - GitHub exposes
     # that context to runs-on, env, name, steps and a few others, but not to a
@@ -170,7 +184,9 @@ jobs:
     # A job-level env CAN see matrix, so the answer is computed once here and
     # every step below asks for it.
     env:
-      BUILD_THIS: ${{ inputs.only == '' || contains(fromJSON(inputs.only), matrix.appimage_arch) }}
+      BUILD_THIS: ${{ inputs.only == '' || contains(fromJSON(inputs.only), matrix.name_arch || matrix.appimage_arch) }}
+      # The file's name: the CPU, plus -musl for a musl AppImage.
+      NAME_ARCH: ${{ matrix.name_arch || matrix.appimage_arch }}
 
     steps:
       - uses: actions/checkout@v7
@@ -214,7 +230,10 @@ jobs:
           unzip -q "$zip"
           # A zip that exists is not a bundle that runs; these are the two files
           # the AppImage is built around.
-          for f in bundle/main.js bundle/node bundle/node-runtime/libatomic.so.1 bundle/ferretdb bundle/start-wekan.sh; do
+          # A musl bundle has no node-runtime: its Node.js needs no glibc libraries.
+          required="bundle/main.js bundle/node bundle/ferretdb bundle/start-wekan.sh"
+          [ '${{ matrix.musl }}' = true ] || required="$required bundle/node-runtime/libatomic.so.1"
+          for f in $required; do
             if [ ! -e "$f" ]; then
               echo "::error::$zip has no $f - it is not a runnable WeKan bundle."
               exit 1
@@ -354,7 +373,7 @@ jobs:
           set -euo pipefail
           version='${{ needs.release.outputs.version }}'
           arch='${{ matrix.appimage_arch }}'
-          name="WeKan-${version}-${arch}"
+          name="WeKan-${version}-${NAME_ARCH}"
 
           curl -fSL --retry 5 --retry-delay 10 -o appimagetool \
             "https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-${arch}.AppImage"
@@ -383,11 +402,31 @@ jobs:
         run: |
           set -euo pipefail
           version='${{ needs.release.outputs.version }}'
-          app="dist/WeKan-${version}-${{ matrix.appimage_arch }}.AppImage"
+          app="dist/WeKan-${version}-${NAME_ARCH}.AppImage"
           # An AppImage that packs is not an AppImage that runs. Start it, wait
           # for WeKan to answer on its port, then stop it - so a broken bundle
           # is caught here rather than by whoever downloads it.
           export WRITABLE_PATH="$PWD/smoke-data" PORT=8080
+
+          # A musl AppImage runs its musl Node.js, which an Ubuntu runner cannot,
+          # so it is started where it is meant to run: inside Alpine.
+          if [ '${{ matrix.musl }}' = true ]; then
+            docker run --rm --network host -v "$PWD:/work" -w /work -e APP="$app" alpine:3.23 sh -ec '
+              apk add --no-cache curl >/dev/null
+              export WRITABLE_PATH=/work/smoke-data PORT=8080
+              APPIMAGE_EXTRACT_AND_RUN=1 "./$APP" > smoke.log 2>&1 &
+              pid=$!
+              for _ in $(seq 1 90); do
+                if curl -fsS -o /dev/null "http://127.0.0.1:8080/sign-in"; then echo "WeKan answered on port 8080 in Alpine."; kill $pid; exit 0; fi
+                kill -0 $pid 2>/dev/null || break
+                sleep 2
+              done
+              kill $pid 2>/dev/null || true
+              echo "::error::the musl AppImage did not answer on port 8080 in Alpine; its log follows"
+              tail -n 100 smoke.log
+              exit 1'
+            exit 0
+          fi
 
           # A CHECK THAT CANNOT RUN IS NOT A FAILED CHECK. Probe the INNER Node,
           # not the AppImage runtime: on the arm64 runner the armhf AppImage
@@ -421,7 +460,7 @@ jobs:
       - uses: actions/upload-artifact@v7
         if: ${{ env.BUILD_THIS == 'true' }}
         with:
-          name: appimage-${{ matrix.appimage_arch }}
+          name: appimage-${{ matrix.name_arch || matrix.appimage_arch }}
           path: dist/
           if-no-files-found: error
 
@@ -473,7 +512,7 @@ jobs:
             # than fails: the 32-bit pair is allowed not to build, and an
             # architecture whose base bundle was never published has nothing to
             # wrap. What must not happen silently is one going missing unnoticed.
-            for want in x86_64 aarch64 i686 armhf; do
+            for want in x86_64 aarch64 i686 armhf x86_64-musl aarch64-musl; do
               for f in "WeKan-${version}-${want}.AppImage" "WeKan-${version}-${want}.AppImage.sha256sum"; do
                 grep -qxF "$f" published.txt || \
                   echo "::warning::$f is not on ${{ needs.release.outputs.tag }} - see the AppImage $want build job's log"
