@@ -353,7 +353,15 @@ Still open:
   Sardinian magenta, Danish export and Complete wording, and the list sum
   label;
 - Chromium readiness of the board-export popup in the EVERYTHING run;
-- live identity-provider validation and fluent-speaker review.
+- live identity-provider validation and fluent-speaker review;
+- locale files found on 2026-10-14 to be in another language, to be
+  rewritten in their own: `ro`, `ro-RO`, `rup`, `lld` and `ve-CC` (Italian),
+  `gl` and `gl-ES` (Portuguese), `ace` (Malay/Indonesian), `ve` (Zulu), `sk`
+  (Czech), `vo` (Esperanto-like); `uz-AR` mixes scripts; `to` holds about
+  2,265 "Faka-Tonga:" placeholders, `qu` "Kay willaymi:" ones, and `an`,
+  `fur`, `wal` and `lg` leftover prefixes or notes; `cmn` and `yue_CN` call a
+  board a wooden plank (木板); List actions reads as "list the actions" in
+  `pa`, `pt`, `pt-BR`, `ru_RU`, `vi-VN`, `hu`, `ko` and `gl-ES`.
 
 </details>
 
@@ -398,116 +406,78 @@ not have).
 </details>
 
 <details>
-<summary>Decided on 2026-10-14, waiting to be implemented.</summary>
+<summary>Design questions waiting for the maintainer, 2026-10-14.</summary>
 
-Design decisions the maintainer made on 2026-10-14; each is built as decided.
-[#2761](https://github.com/wekan/wekan/issues/2761) and [#4698](https://github.com/wekan/wekan/issues/4698) (shared labels: an instance-wide catalog in the Admin
-Panel, plus catalogs per organization and team; a board uses shared labels
-beside its own),
-[#2449](https://github.com/wekan/wekan/issues/2449) and [#2450](https://github.com/wekan/wekan/issues/2450) (every board gets a key, suggested from its name and
-unique in the instance, and every card number shows as `KEY-7`; the atomic
-per-board numbers stay as they are),
-[#4575](https://github.com/wekan/wekan/issues/4575) (a board setting lets every signed-in user edit, available only when
-the Admin Panel allows it; the first edit makes the user a Normal member, so
-changes stay attributed),
-[#4527](https://github.com/wekan/wekan/issues/4527) (per-list exceptions on top of the #3022 permission matrix: who may
-add, edit and comment in one list),
-[#916](https://github.com/wekan/wekan/issues/916) (optional HTTPS in WeKan's own server, from certificate and key
-environment variables; without them it serves HTTP as now, and a proxy stays
-the recommendation for production).
+Everything decided on 2026-10-14 is built (see Upcoming). The open requests
+below need an answer first; each line is the question that decides it, with
+the choice the code would most easily take.
+[#802](https://github.com/wekan/wekan/issues/802) (per-organization and per-team tabs in All Boards where their admins
+manage members - and should WeKan ever write group changes back to LDAP, or
+only read them?),
+[#5141](https://github.com/wekan/wekan/issues/5141) (which organizations and teams may a board admin add: only those
+they belong to, or every one in the instance, which the picker would then
+list to every board admin?),
+[#4265](https://github.com/wekan/wekan/issues/4265) (leaving a board that came through a team: hide it in a per-user
+list that can be undone, or end that one board's team membership for that
+user?),
+[#2217](https://github.com/wekan/wekan/issues/2217) (a board setting that shows the Rules to members read-only?),
+[#5847](https://github.com/wekan/wekan/issues/5847) (which further logins, and a "log out everywhere" in Member
+Settings that ends every session?),
+[#1324](https://github.com/wekan/wekan/issues/1324) (Bitbucket through the generic OAuth2 settings with a how-to, or a
+provider of its own?),
+[#2805](https://github.com/wekan/wekan/issues/2805) (one shared header row for all swimlanes, as a board view setting?),
+[#2809](https://github.com/wekan/wekan/issues/2809) (a linked whole list: a live mirror of another list, editable like
+linked cards, or read-only?),
+[#2171](https://github.com/wekan/wekan/issues/2171) (should search scroll the board to the match and highlight it?),
+[#2110](https://github.com/wekan/wekan/issues/2110) (minicard avatars in the order people were added; a colour per
+avatar and a name tooltip?),
+[#2040](https://github.com/wekan/wekan/issues/2040) (a board-defined label order that lists can be sorted by?),
+[#2015](https://github.com/wekan/wekan/issues/2015) (a QR code of the card link in the card menu, drawn in the browser?),
+[#1953](https://github.com/wekan/wekan/issues/1953) (a Board Settings picker for the swimlane new subtasks go to?),
+[#1931](https://github.com/wekan/wekan/issues/1931) (an existing card from ANOTHER board as a subtask, for members of
+both?),
+[#1618](https://github.com/wekan/wekan/issues/1618) (a person responsible for a checklist item, and items in the
+calendar and Gantt?),
+[#864](https://github.com/wekan/wekan/issues/864) (drag-and-drop and adding cards in the Table view?),
+[#211](https://github.com/wekan/wekan/issues/211) (named column sets over the same cards, per board or per user?),
+[#140](https://github.com/wekan/wekan/issues/140) (real-time shared editing of descriptions: which editor and sync
+library?),
+[#1273](https://github.com/wekan/wekan/issues/1273) (keep the `#label`/`@member` text in the title: per user or per
+board?),
+[#1178](https://github.com/wekan/wekan/issues/1178) (sketching onto a card, saved as an image attachment?),
+[#4791](https://github.com/wekan/wekan/issues/4791) (grouping boards by first letter, board labels and organization
+subgroups: which of these?),
+[#2012](https://github.com/wekan/wekan/issues/2012) (story and task card types with fields of their own?),
+[#2111](https://github.com/wekan/wekan/issues/2111) and [#1604](https://github.com/wekan/wekan/issues/1604) (which other changes are marked unread on a card,
+and a per-user switch?),
+[#2026](https://github.com/wekan/wekan/issues/2026) and [#1377](https://github.com/wekan/wekan/issues/1377) (browser push notifications, a webhook activity
+picker and an all-boards activity feed: which first?),
+[#1297](https://github.com/wekan/wekan/issues/1297) (a Mattermost direct message to each member and assignee?),
+[#2290](https://github.com/wekan/wekan/issues/2290) (webhooks on login and registration, which carry personal data?),
+[#1100](https://github.com/wekan/wekan/issues/1100) (Matrix notifications through a webhook, or a bot?),
+[#2435](https://github.com/wekan/wekan/issues/2435) (a member picker for a rule email's To field?),
+[#4434](https://github.com/wekan/wekan/issues/4434) (the clear HTML layout as the default, and for account emails?),
+[#5148](https://github.com/wekan/wekan/issues/5148) (ntfy as a notification channel?),
+[#4198](https://github.com/wekan/wekan/issues/4198) (ActivityPub: what a board would publish, and to whom?),
+[#4930](https://github.com/wekan/wekan/issues/4930) (a Trellinator-compatible API, or a guide to the REST API?),
+[#6554](https://github.com/wekan/wekan/issues/6554) (Gogs beside WeKan in the Compose files, or a link only?),
+[#1126](https://github.com/wekan/wekan/issues/1126) (an RFID guide over the REST API?),
+[#1293](https://github.com/wekan/wekan/issues/1293) (an Android share target that makes a card on a chosen board?),
+[#1188](https://github.com/wekan/wekan/issues/1188) (on Sandstorm, copy a grain sharing link instead of the card URL?),
+[#2662](https://github.com/wekan/wekan/issues/2662) (a FreeBSD port and rc.d script, maintained here or by a ports
+maintainer?),
+[#687](https://github.com/wekan/wekan/issues/687) (publish the Nextcloud ExApp; WebDAV attachment storage and CalDAV
+sync?),
+[#632](https://github.com/wekan/wekan/issues/632) (update the Rancher doc, or remove it?),
+[#1040](https://github.com/wekan/wekan/issues/1040) (LibreJS license markers in the bundle?),
+outgoing webhooks to an internal address (a Node-RED or chat server on the
+same network is refused by the SSRF guard, which [#2017](https://github.com/wekan/wekan/issues/2017)'s how-to now
+says: should the Admin Panel accept a list of internal destinations that
+webhooks may reach?).
 
-</details>
-
-<details>
-<summary>Open requests checked on 2026-10-14: roles, permissions, organizations and teams.</summary>
-
-Each was read with its comments and checked against the code; what exists is
-noted, and what is missing is why it is still open.
-[#802](https://github.com/wekan/wekan/issues/802) (board orgs/teams, All Boards filters and LDAP group sync exist; no
-per-org/team tabs or member management there, no write-back to LDAP),
-[#5141](https://github.com/wekan/wekan/issues/5141) (board admins may add orgs/teams on the server, but the picker lists
-nothing for them: the org and team publications are admin-only),
-[#4265](https://github.com/wekan/wekan/issues/4265) (leaving a board shared through a team keeps it visible; no hidden
-boards list or membership reorganizing),
-[#2217](https://github.com/wekan/wekan/issues/2217) (Rules are board-admin only, with no setting to show them to others),
-[#5847](https://github.com/wekan/wekan/issues/5847) (2FA, SAML, CAS and OIDC redirect exist; the other listed logins and
-a log-out-everywhere are missing),
-[#1324](https://github.com/wekan/wekan/issues/1324) (no Bitbucket login).
-
-</details>
-
-<details>
-<summary>Open requests checked on 2026-10-14: boards, lists and cards.</summary>
-
-[#2805](https://github.com/wekan/wekan/issues/2805) (sticky list headers exist; one shared header row for all
-swimlanes does not),
-[#2809](https://github.com/wekan/wekan/issues/2809) (linked cards and boards exist; a linked whole list does not),
-[#2171](https://github.com/wekan/wekan/issues/2171) (`/` opens the sidebar search; nothing scrolls the board to a match),
-[#2110](https://github.com/wekan/wekan/issues/2110) (minicard avatars are still in reverse order; no per-card avatar
-colour or tooltip),
-[#2040](https://github.com/wekan/wekan/issues/2040) (no sort by an ordered list of labels),
-[#2015](https://github.com/wekan/wekan/issues/2015) (no QR code for a card link),
-[#1953](https://github.com/wekan/wekan/issues/1953) (subtasks land in the parent's swimlane by default; no Board
-Settings picker for it),
-[#1931](https://github.com/wekan/wekan/issues/1931) (an existing card can be a subtask, but only from the same board),
-[#1618](https://github.com/wekan/wekan/issues/1618) (checklist items have due dates, but no leader, and are not in the
-calendar or Gantt),
-[#864](https://github.com/wekan/wekan/issues/864) (the Table view lists every card; no drag-and-drop or adding cards
-there),
-[#211](https://github.com/wekan/wekan/issues/211) (no user-defined column sets over the same cards),
-[#140](https://github.com/wekan/wekan/issues/140) (no real-time collaborative text editing),
-[#1273](https://github.com/wekan/wekan/issues/1273) (no option to keep the `#label`/`@member` text in the title),
-[#1178](https://github.com/wekan/wekan/issues/1178) (no sketching onto a card),
-[#4791](https://github.com/wekan/wekan/issues/4791) (Workspaces exist; grouping by first letter, board labels and org
-subgroups do not),
-[#2012](https://github.com/wekan/wekan/issues/2012) (the hour picker is done; story/task card types are not).
-
-</details>
-
-<details>
-<summary>Open requests checked on 2026-10-14: notifications, webhooks and integrations.</summary>
-
-[#2111](https://github.com/wekan/wekan/issues/2111) and [#1604](https://github.com/wekan/wekan/issues/1604) (unread comments are marked on cards; other kinds of
-change are not, and there is no per-user switch),
-[#2026](https://github.com/wekan/wekan/issues/2026) and [#1377](https://github.com/wekan/wekan/issues/1377) (delivery settings, muting, reminders and the
-notification drawer exist; no browser push notifications, no webhook activity
-picker in the UI, no all-boards activity feed),
-[#1297](https://github.com/wekan/wekan/issues/1297) (the webhook payload names member and assignee; no per-recipient
-Mattermost direct message),
-[#2290](https://github.com/wekan/wekan/issues/2290) (no webhook on login or registration),
-[#1100](https://github.com/wekan/wekan/issues/1100) (no Matrix notifications or bot),
-[#2435](https://github.com/wekan/wekan/issues/2435) (rule emails can go to the card's creator, assignees and members; the
-To field has no autocomplete or member picker),
-[#4434](https://github.com/wekan/wekan/issues/4434) (an optional clear HTML layout exists for notifications; account
-emails are still plain and the default layout is classic),
-[#2017](https://github.com/wekan/wekan/issues/2017) (no Node-RED how-to, nor how to reach the host from Docker),
-[#5148](https://github.com/wekan/wekan/issues/5148) (no smartwatch client or ntfy integration),
-[#4198](https://github.com/wekan/wekan/issues/4198) (no ActivityPub),
-[#4930](https://github.com/wekan/wekan/issues/4930) (no Trellinator-compatible API),
-[#6554](https://github.com/wekan/wekan/issues/6554) (Gogs is a separate project, not shipped with the snap or Compose
-files),
-[#1126](https://github.com/wekan/wekan/issues/1126) (no RFID integration or guide),
-[#1293](https://github.com/wekan/wekan/issues/1293) (email to card exists; no Android share target in the web app
-manifest),
-[#1188](https://github.com/wekan/wekan/issues/1188) (Copy card URL on Sandstorm copies the sandboxed address, not a grain
-sharing link).
-
-</details>
-
-<details>
-<summary>Open requests checked on 2026-10-14: platforms, accessibility and documentation.</summary>
-
-[#2662](https://github.com/wekan/wekan/issues/2662) (FreeBSD Bun bundles ship and the Node.js bundle is in progress; no
-FreeBSD port or rc.d script),
-[#687](https://github.com/wekan/wekan/issues/687) (the Nextcloud ExApp, Nextcloud login and Deck import exist; the app
-is not published, and there is no WebDAV storage or CalDAV sync),
-[#632](https://github.com/wekan/wekan/issues/632) (the Rancher catalog entry is outside this repository and the Rancher
-doc is outdated),
-[#2009](https://github.com/wekan/wekan/issues/2009) (the Uberspace page links the U7 guide but not its update and
-MAIL_URL steps),
+Not a question, but ongoing work:
 [#337](https://github.com/wekan/wekan/issues/337) (move buttons, focus trap, landmarks and many labels exist; many links
-still lack `href` and many icons lack labels),
-[#1040](https://github.com/wekan/wekan/issues/1040) (no LibreJS license markers in the Meteor bundle).
+still lack `href` and many icons lack labels).
 
 </details>
 
@@ -616,12 +586,11 @@ Actions only.
 
 # Upcoming WeKan ® release
 
-**In short:** **custom board roles** are built in the Admin Panel from what a
-member may do; **team memberships** now leave with the team; outgoing
-**webhooks go through an HTTP proxy**. Eleven **GitHub CodeQL** alerts are
-fixed, and **per-member notification frequency** (#2141) is confirmed done. Igbo
-notification, integration, workflow and permission settings are translated,
-with regression checks and further language review in progress.
+**In short:** **custom board roles** are built in the Admin Panel, and **lists
+can allow or refuse editing per role**; a board can let **every signed-in user
+edit**; boards get **keys** (`DEV-7`) and **shared labels**; WeKan can serve
+**HTTPS** itself; outgoing **webhooks go through a proxy**; **archiving a list
+archives its cards**. Thirteen **GitHub CodeQL** alerts are fixed.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
@@ -645,6 +614,24 @@ spelling it missed, which also found the search-index text of Office
 documents: never rendered, so recorded as such. `tests/emailToCard.test.cjs`
 fails on the old code. Nothing here is an attempt the server refuses at run
 time, so no Admin Panel / Problems key is added.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/167ccf9e2d">An email's HTML becomes text in one pass, with no pattern to take apart</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+CodeQL alerts #581 and #582 were raised on the fix above: email to card
+still removed `<script>` elements and tags with regular expressions, looped
+to a fixed point through a helper that CodeQL does not follow. `htmlToText`
+in `models/lib/emailToCard.js` now walks the characters once. A tag is
+dropped whole, a script, style or head element goes with what is in it (also
+unclosed), an unfinished tag is not kept as text, and a `<` that does not
+start a tag stays text - except right before another `<`, where it would
+read as a tag once the next one is gone. `tests/emailToCard.test.cjs` covers
+those cases, and `tests/tagStrippingFixedPoint.test.cjs` no longer accepts a
+fixed-point helper and now also catches a whole element removed by pattern,
+in every file. Nearly every HTML email has a `<style>`, so a removed element
+is ordinary use, not an attempt: no Admin Panel / Problems key is added.
 
 </details>
 
@@ -700,12 +687,112 @@ real name. A destination the guard refuses never reaches the proxy.
 
 </details>
 
+**Who may edit where** - boards open to every signed-in user, and lists with
+rules of their own.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7595727917">A board can let every signed-in user edit it, when the Admin Panel allows it</a>. Thanks to Meeques and xet7.</summary>
+
+Admin Panel / Settings / Visibility gains "Allow boards that every signed-in
+user may edit", off by default. With it on, a board admin of a public board
+or one open to every signed-in user can turn it on for that board in the
+visibility popup. A signed-in non-member may then comment, edit and move
+cards like a Normal member - never change the board - and their first edit
+makes them a Normal member, so every change stays attributed. A member keeps
+their own role, a member a board admin removed stays removed, and rules,
+webhooks, inbound email and list sync never act with a non-member's rights.
+Board-wide settings such as list width and sticky headers stay members-only.
+`tests/instanceEditing.test.cjs` and a runtime test cover it. See
+[Visibility](docs/Features/Admin-Panel/Settings/Visibility.md).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7595727917">Lists can allow or refuse editing and commenting per role</a>. Thanks to Meeques and xet7.</summary>
+
+The list menu gains List permissions, for board admins: for each role -
+built-in, custom, and on an open board everyone signed in - Edit and Comment
+are as on the board, allowed, or not allowed in this list. The issue's
+example works: a read-only board with one list where everybody may add cards
+and comment. A board admin is never restricted, and a removed member stays
+removed. The server applies it to every card, checklist, attachment and
+comment write and to moves into the list, and the REST API honours a list's
+refusal on every per-list card route. Only the board admin method writes the
+setting; a direct write is refused and shown in Admin Panel / Problems.
+`tests/listPermissions.test.cjs` and a runtime test cover it. See
+[List permissions](docs/Features/Board/List-Permissions.md).
+
+</details>
+
+**Boards and cards** - keys, card numbers and labels shared between boards.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7595727917">Every board has a key, and card numbers show as KEY-7</a>. Thanks to justinr1234 and xet7.</summary>
+
+A key is 2-10 capital letters and digits, unique in the instance, suggested
+from the board's title (Development Team: DT) and set for every existing
+board at startup. A board admin can change it in the rename popup. Cards show
+`DEV-7` instead of `#7`, and searching for `DEV-7` finds that card. The
+per-board numbers themselves are unchanged, so nothing is renumbered.
+`tests/boardKey.test.cjs` and a runtime test cover it. See
+[Board key](docs/Features/Board/Boards/Board-Key.md).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7595727917">Shared labels for every board, an organization's boards or a team's</a>. Thanks to tiFabGrinch, ejlkemper and xet7.</summary>
+
+Admin Panel / Labels keeps labels shared by every board, or by the boards of
+one organization or team. A board offers them in its labels popup beside its
+own, and using one copies it to the board linked to the shared label, so
+renaming it or changing its colour in the Admin Panel changes it everywhere
+it is used. Deleting a shared label leaves it on those boards as their own.
+Only labels a member's own organizations and teams share are sent to them.
+`tests/sharedLabels.test.cjs` and a runtime test cover it. See
+[Shared labels](docs/Features/Board/Shared-Labels.md).
+
+</details>
+
+**Servers** - running WeKan without a proxy in front of it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1bf7a62cab">WeKan serves HTTPS itself, when a certificate is configured</a>. Thanks to 68040 and xet7.</summary>
+
+With `HTTPS_PORT`, `HTTPS_CERT_FILE` and `HTTPS_KEY_FILE` set (a path or
+the PEM itself), WeKan also listens for HTTPS, on the same app, and
+`HTTPS_REDIRECT=true` sends plain-HTTP requests there. Without them nothing
+changes, and a proxy such as Caddy stays the recommendation for production.
+The snap has `https-port`, `https-cert-file`, `https-key-file` and
+`https-redirect`. `tests/httpsServer.test.cjs` makes a real TLS connection.
+See [HTTPS without a proxy](docs/Platforms/Webserver/HTTPS-without-proxy.md).
+
+</details>
+
 and closes the following already-done feature request:
 
 - [Each member chooses how often email notifications come: never, periodically or instantly](https://github.com/wekan/wekan/commit/3f88fb39a5).
   Thanks to saurabharch and xet7.
 
 and fixes the following bugs:
+
+**Archive** - what goes with a list.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0a3797dbf6">Archiving a list archives its cards, and restoring it brings them back</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+Only template lists archived their cards, so archiving any other list left
+its cards visible in the Lists, Table and Calendar views. The server now
+archives the cards of every list with it, whichever way it is archived - the
+list menu, the Archive sidebar, the REST API - and restoring the list
+restores exactly those cards, the rule #2292 gave swimlanes. A card that was
+archived on its own stays archived. Cards archived with the list get the
+list's own archive time, so a browser clock that differs from the server's
+cannot keep them from coming back. `tests/archiveListCards.test.cjs` and a
+runtime test cover it.
+
+</details>
+
+**Board roles** - helpers that read a role.
 
 - [Five role helpers that answered the same for everybody: Import never offered, rule controls for every member, the last admin not protected, OIDC default-board roles](https://github.com/wekan/wekan/commit/548834c4ee).
   Thanks to xet7.
@@ -714,6 +801,13 @@ and fixes the following build bug:
 
 - [The OpenBSD bundles are built on OpenBSD 7.8, where Node.js 26 now builds](https://github.com/wekan/wekan/commit/209e3b0c47).
   Thanks to xet7.
+
+and updates the following documentation:
+
+- [Outgoing webhooks to Node-RED, and why an internal address is refused](https://github.com/wekan/wekan/commit/a0de507143).
+  Thanks to yeurplc and xet7.
+- [Uberspace 7: install, the update script, and email on one environment line](https://github.com/wekan/wekan/commit/a0de507143).
+  Thanks to jeyca and xet7.
 
 and updates the following translations:
 
