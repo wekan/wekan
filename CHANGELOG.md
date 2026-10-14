@@ -667,6 +667,20 @@ All-language translation and semantic verification remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8c25ce78b94d65d3a7fd4540bdb065443a6c6dbd">Translate Igbo interrupted import recovery messages</a>. Thanks to xet7.</summary>
+
+Translate 21 messages, preserving permanent deletion, retained partial boards,
+source-file limitations, untouched foreign boards and recovery limits.
+Direct recovery prose needs fluent review.
+
+Both translation and guarded-correction suites pass with 31,001 corrections.
+All 21 human-preference checks pass; existing Chinese values are unchanged
+(38,430 checked). One browser case passes syntax and discovery; execution is
+pending. All-language translation and semantic verification remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.40 2026-10-14 WeKan ® release
